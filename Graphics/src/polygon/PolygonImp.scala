@@ -86,7 +86,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
     res
   }
 
-  def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](_ * distRatio)
+  def distScale(distRatio: Dist): PolygonDist = pMap[Dist2, PolygonDist](p => p.scaleToDist(distRatio))
 
   override def foldLeft[B](initial: B)(f: (B, Pt2) => B): B = super.foldLeft(initial)(f)
 
@@ -103,7 +103,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   /** Uniform scaling aginst both X and Y axes transformation on a [[PolygonImp]] returning a [[PolygonImp]]. Use the xyScale method for differential
    *  scaling. */
-  override def scale(operand: Double): PolygonImp = polygonMap(_ * operand)
+  override def scale(operand: Double): PolygonImp = polygonMap(_.scale(operand))
 
   /** Mirror, reflection transformation of a PolygonGen across the X axis, returns a PolygonGen. */
   override def negY: PolygonImp = polygonMap(_.negY)

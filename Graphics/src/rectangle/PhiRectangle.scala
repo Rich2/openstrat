@@ -18,7 +18,7 @@ trait PhiRectangle extends Rectangle
   override def slate(xOffset: Double, yOffset: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen.addXY(xOffset, yOffset), s3Cen.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation on a PhiRectangle returns a PhiRectangle. */
-  override def scale(operand: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen * operand, s3Cen * operand)
+  override def scale(operand: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen.scale(operand), s3Cen.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a PhiRectangle, returns a PhiRectangle. */
   override def negY: PhiRectangle = PhiRectangle.s1s3(s1Cen.negY, s3Cen.negY)
@@ -86,7 +86,7 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
   override def slate(xOffset: Double, yOffset: Double): PhiRect = PhiRect(height, xCen + xOffset, yCen + yOffset)
 
   /** Uniform scaling transformation on a PhiRect returns a PhiRect. */
-  override def scale(operand: Double): PhiRect = PhiRect(height * operand, cen * operand)
+  override def scale(operand: Double): PhiRect = PhiRect(height * operand, cen.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a PhiRect, returns a PhiRect. */
   override def negY: PhiRect = PhiRect(height, cen.negY)
@@ -118,7 +118,7 @@ case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with
   override def slate(xOffset: Double, yOffset: Double): PhiRectY = PhiRectY(width, xCen + xOffset, yCen + yOffset)
 
   /** Uniform scaling transformation on a PhiRectY returns a PhiRectY. */
-  override def scale(operand: Double): PhiRectY = PhiRectY(width * operand, cen * operand)
+  override def scale(operand: Double): PhiRectY = PhiRectY(width * operand, cen.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a PhiRectY, returns a PhiRectY. */
   override def negY: PhiRectY = PhiRectY(width, cen.negY)

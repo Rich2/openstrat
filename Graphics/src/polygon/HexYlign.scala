@@ -46,7 +46,7 @@ final class HexYlign(val dMin: Double, val xCen: Double, val yCen: Double) exten
 
   /** Uniform scaling against both X and Y axes transformation on a HexYlign returning a HexYlign. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */
-  override def scale(operand: Double): HexYlign = HexYlign(dMin * operand, cen * operand)
+  override def scale(operand: Double): HexYlign = HexYlign(dMin * operand, cen.scale(operand))
 
   /** Mirror, reflection transformation of a HexYlign across the X axis, returns a HexYlign. */
   override def negY: HexYlign = HexYlign(dMin, cen.negY)

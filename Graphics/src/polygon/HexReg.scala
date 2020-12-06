@@ -73,7 +73,7 @@ trait HexReg extends Polygon6Plus
 
   /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */
-  override def scale(operand: Double): HexReg = HexReg.s4s1(s4Cen * operand, s1Cen * operand)
+  override def scale(operand: Double): HexReg = HexReg.s4s1(s4Cen.scale(operand), s1Cen.scale(operand))
 
   /** Mirror, reflection transformation of a HexReg across the X axis, returns a HexReg. */
   override def negY: HexReg = HexReg.s4s1(s4Cen.negY, s1Cen.negY)

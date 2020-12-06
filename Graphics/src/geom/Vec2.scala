@@ -26,6 +26,7 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   def unary_- : Vec2 = Vec2(-x, -y)
   @inline def *(factor: Double): Vec2 = Vec2(x * factor, y * factor)
+  @inline override def scale(factor: Double): Vec2 = Vec2(x * factor, y * factor)
   @inline def /(divisor: Double): Vec2 = Vec2(x / divisor, y / divisor)
 
   def yScale(factor: Double): Vec2 = Vec2(x, y * factor)

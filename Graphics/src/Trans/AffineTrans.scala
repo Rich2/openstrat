@@ -7,7 +7,7 @@ import reflect.ClassTag
 trait AffineTrans[T] extends TransSim[T]
 { def trans(obj: T, f: Pt2 => Pt2):  T
   override def slate(obj: T, offset: Vec2Like): T = trans(obj, _.slate(offset))
-  override def scale(obj: T, operand: Double): T = trans(obj, _ * operand)
+  override def scale(obj: T, operand: Double): T = trans(obj, _.scale(operand))
   def shear(obj: T, xScale: Double, yScale: Double): T = trans(obj, v => Pt2(v.x * yScale, v.y * xScale))
   override def rotate(obj: T, angle: Angle): T = trans(obj, _.rotate(angle))
 

@@ -13,7 +13,7 @@ trait Square extends Rectangle
   override def slate(xOffset: Double, yOffset: Double): Square = Square.s2s4(s2Cen.addXY(xOffset, yOffset), s4Cen.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation on a Square returns a Square. */
-  override def scale(operand: Double): Square = Square.s2s4(s2Cen * operand, s4Cen * operand)
+  override def scale(operand: Double): Square = Square.s2s4(s2Cen.scale(operand), s4Cen.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
   override def negY: Square = Square.s2s4(s2Cen.negY, s4Cen.negY)

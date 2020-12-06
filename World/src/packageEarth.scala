@@ -20,7 +20,7 @@ package object pEarth
    def fVec2ToLatLongReg(refLong: Longitude, scale: Dist, xOffset: Int, yOffset: Int = 0): Pt2 => LatLong = inp =>
       {
          val vOffset = HexGridOld.coodToVec2(xOffset, yOffset)
-         val d2: Dist2 = (inp - vOffset) * scale
+         val d2: Dist2 = (inp - vOffset).scaleToDist(scale)
          val lat: Double = d2.y / EarthPolarRadius         
          val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
          LatLong.radians(lat, refLong.radians + longDelta)
@@ -29,7 +29,7 @@ package object pEarth
    def vec2ToLatLongReg(inp: Pt2, refLong: Longitude, scale: Dist, xOffset: Int, yOffset: Int = 0): LatLong =
       {
          val vOffset = HexGridOld.coodToVec2(xOffset, yOffset)
-         val d2: Dist2 = (inp - vOffset) * scale
+         val d2: Dist2 = (inp - vOffset).scaleToDist(scale)
          val lat: Double = d2.y / EarthPolarRadius         
          val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
          LatLong.radians(lat, refLong.radians + longDelta)
@@ -39,7 +39,7 @@ package object pEarth
    def vec2ToLatLong0(inp: Pt2, refLong: Longitude, scale: Dist, yOffset: Int = 0): LatLong =
    {
       val vOffset = HexGridOld.coodToVec2(0, yOffset)
-      val d2: Dist2 = (inp - vOffset) * scale
+      val d2: Dist2 = (inp - vOffset).scaleToDist(scale)
       val lat: Double = d2.y / EarthPolarRadius         
       val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
       LatLong.radians(lat, refLong.radians + longDelta)
@@ -49,7 +49,7 @@ package object pEarth
    def  coodToLatLong0(inp: Cood, scale: Dist, yOffset: Int = 0): LatLong =
    {
       val adj: Pt2 = HexGridOld.coodToVec2(inp.subY(yOffset))
-      val d2: Dist2 = adj * scale
+      val d2: Dist2 = adj.scaleToDist(scale)
       val lat = d2.y / EarthPolarRadius         
       val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
       LatLong.radians(lat, longDelta)

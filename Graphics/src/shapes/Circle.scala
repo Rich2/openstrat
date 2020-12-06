@@ -42,7 +42,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def slate(xOffset: Double, yOffset: Double): Circle = Circle(diameter, cen.addXY(xOffset, yOffset))
 
   /** uniform scaling transformation on a Circle returns a circle. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): Circle = Circle(diameter * operand, cen * operand)
+  override def scale(operand: Double): Circle = Circle(diameter * operand, cen.scale(operand))
 
   override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
 

@@ -12,10 +12,10 @@ class AffineExtensions[T](value: T, ev: AffineTrans[T])
   def trans(f: Pt2 => Pt2):  T = ev.trans(value, f)
 
   /** Applies scale transformation and adds x on 2 dimensional vectors. */
-  def scaleSlateX(factor: Double, xDelta: Double): T = trans(v => (v * factor).addX(xDelta))
+  def scaleSlateX(factor: Double, xDelta: Double): T = trans(v => v.scale(factor).addX(xDelta))
 
   /** The scale transformation on 2 dimensional vectors. */
-  def scaleSlateY(factor: Double, yDelta: Double): T = trans(v => (v * factor).addY(yDelta))
+  def scaleSlateY(factor: Double, yDelta: Double): T = trans(v => v.scale(factor).addY(yDelta))
 
   def scaleY(factor: Double): T = trans(_.yScale(factor))
   def scaleX(factor: Double): T = trans(_.xScale(factor))

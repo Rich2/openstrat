@@ -32,7 +32,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   override def slate(xOffset: Double, yOffset: Double): Rect = Rect(width, height, xCen + xOffset, yCen + yOffset)
 
   /** Uniform scaling transformation on a Rect returns a Rect. */
-  override def scale(operand: Double): Rect = Rect(width * operand, height * operand, cen * operand)
+  override def scale(operand: Double): Rect = Rect(width * operand, height * operand, cen.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negY: Rect = Rect(width, height, cen.negY)
@@ -112,7 +112,7 @@ object Rect
     override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen.slate(offset))
 
     /** Uniform scaling transformation on a RectImp returns a RectImp. */
-    override def scale(operand: Double): RectImp = RectImp(width * operand, height * operand, cen * operand)
+    override def scale(operand: Double): RectImp = RectImp(width * operand, height * operand, cen.scale(operand))
     
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
     override def negY: RectImp = RectImp(width, height, cen.negY)

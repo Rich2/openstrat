@@ -22,7 +22,7 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
-  override def scale(operand: Double): CArc = CArc(pStart * operand, cen * operand, pEnd * operand, counter)
+  override def scale(operand: Double): CArc = CArc(pStart.scale(operand), cen.scale(operand), pEnd.scale(operand), counter)
 
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y on this CArc returns a CArc. */
   override def negY: CArc = CArc(pStart.negY, cen.negY, pEnd.negY, -counter)

@@ -37,7 +37,7 @@ trait Triangle extends Polygon3Plus
 
 	/** Uniform scaling 2D geometric transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
 	 *  Circles and Squares. Use the xyScale method for differential scaling. */
-	override def scale(operand: Double): Triangle = fTrans(_ * operand)
+	override def scale(operand: Double): Triangle = fTrans(_.scale(operand))
 
 	/** Mirror, reflection transformation across the Y axis on a triangle returns a triangle.The return type is narrowed in sub classes. */
 	override def negY: Triangle = fTrans(_.negY)

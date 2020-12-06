@@ -59,7 +59,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def addXY (otherX: Double, otherY: Double): Pt2 = Pt2(x + otherX, y + otherY)
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)
 
-  @inline def *(factor: Double): Pt2 = Pt2(x * factor, y * factor)
+  @inline def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
+  @inline def scaleToDist(factor: Dist): Dist2 = Dist2(x * factor, y * factor)
   @inline def /(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 
   def addX(adj: Double): Pt2 = Pt2(x + adj, y)

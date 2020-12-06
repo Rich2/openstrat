@@ -70,7 +70,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
     Rectangle.s2s4(s2Cen.addXY(xOffset, yOffset), s4Cen.addXY(xOffset, yOffset), width2)
 
   /** Uniform scaling transformation on a Rectangle returns a Rectangle. */
-  override def scale(operand: Double): Rectangle = Rectangle.s2s4(s2Cen * operand, s4Cen * operand, width2 * operand)
+  override def scale(operand: Double): Rectangle = Rectangle.s2s4(s2Cen.scale(operand), s4Cen.scale(operand), width2 * operand)
 
   /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negY: Rectangle = Rectangle.s2s4(s2Cen.negY, s4Cen.negY, width2)

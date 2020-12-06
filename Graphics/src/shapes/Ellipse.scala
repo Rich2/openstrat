@@ -104,7 +104,7 @@ trait Ellipse extends ShapeCentred
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
-  override def scale(operand: Double): Ellipse = fTrans(_ * operand)
+  override def scale(operand: Double): Ellipse = fTrans(_.scale(operand))
 
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
   override def xyScale(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))

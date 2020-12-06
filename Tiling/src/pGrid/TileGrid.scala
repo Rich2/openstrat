@@ -214,7 +214,7 @@ trait TileGrid
   @inline def arrIndex(y: Int, c: Int): Int
 
   /** This gives the Vec2 of the Roord relative to a position on the grid and then scaled. (roordToVec2Abs(roord) - gridPosn -cen) * scale */
-  def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Pt2 = Pt2Z): Pt2 = (roordToPt2(roord).originTo(gridPosn) - cenVec) * scale
+  def roordToVec2Rel(roord: Roord, scale: Double = 1.0, gridPosn: Pt2 = Pt2Z): Pt2 = (roordToPt2(roord).originTo(gridPosn) - cenVec).scale(scale)
 
   def roordToPolygon(roord: Roord): Polygon = tileVertRoords(roord).map(c => roordToPt2(c)).toPolygon
 

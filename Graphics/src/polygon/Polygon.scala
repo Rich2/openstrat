@@ -119,7 +119,7 @@ trait Polygon extends Shape with BoundedElem
 
   /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
    *  return type of this method will be narrowed further in descendant traits / classes. */
-  override def scale(operand: Double): Polygon = polygonMap(_ * operand)
+  override def scale(operand: Double): Polygon = polygonMap(_.scale(operand))
 
   /** Mirror, reflection transformation of a Polygon across the X axis, returns a Polygon. */
   override def negY: Polygon = polygonMap(_.negY)
