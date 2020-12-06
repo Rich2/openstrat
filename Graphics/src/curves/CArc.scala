@@ -6,7 +6,7 @@ package geom
 class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val yCen: Double, val xEnd: Double, val yEnd: Double,
   val counter: Int) extends EArc
 {
-  override def cen: Pt2 = ???
+  override def cen: Pt2 = Pt2(xCen, yCen)
 
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
   override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = CArcDraw(this, lineColour, lineWidth)

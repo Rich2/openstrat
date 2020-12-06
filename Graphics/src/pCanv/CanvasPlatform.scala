@@ -65,6 +65,9 @@ trait CanvasPlatform extends RectCenlign
   /** To be removed. Draws a circular arc on the canvas. */
   def cArcDraw3(cad: CArcDraw3): Unit
 
+  /** Draws a circular arc on the canvas. */
+  def cArcDraw(cad: CArcDraw): Unit
+
   def bezierDraw(bd: BezierDraw): Unit
 
   def lineSegsDraw(lsd: LinesDraw): Unit
