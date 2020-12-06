@@ -12,22 +12,17 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   @inline override def _2: Double = y
   override def productPrefix: String = "Pt2"
 
-  /** Adds this Vec2Like, returns a new point. */
+  /** Add the operand [[Vec2]] 2D vector to this Pt2, returns a new Pt2. */
   def +(operand: Vec2): Pt2 = Pt2(x + operand.x, y + operand.y)
 
-  def slate(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
-
-  /** Subtracts the operand [[Vec2]] 2D vector from this 2D point. Returns a [[Pt2]]. */
+  /** Subtracts the operand [[Vec2]] 2D vector from this 2D point. Returns a new [[Pt2]]. */
   def -(operand: Vec2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
+  /** Returns the [[Vec2]] 2D vector from the origin to this Pt2. */
   def toVec: Vec2 = Vec2(x, y)
-
-  /** Changes the origin of the point to the new point. Subtractsing the X and Y components of the operand point from this point. */
-  def originTo(operand: Pt2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
   /** Subtracts the operand 2D point from this 2D point to get the relative Vector. Returns a [[Vec2]]. */
   def <<(startPt: Pt2): Vec2 = Vec2(x - startPt.x, y - startPt.y)
-  //private def vecFromPrivate(operand: Pt2): Vec2 = Vec2(x - operand.x, y - operand.y)
 
   /** Subtracts this 2D point from the operand 2D point to get the relative Vector. Returns a [[Vec2]]. */
   def >>(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
@@ -54,6 +49,12 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   { case Pt2(px, py) => (x =~ px) && (y =~ py)
     case _ => false
   }
+
+  /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
+  def slate(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
+
+  /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
+  def originTo(operand: Pt2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
   def addXY (otherX: Double, otherY: Double): Pt2 = Pt2(x + otherX, y + otherY)
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)
