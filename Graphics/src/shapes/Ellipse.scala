@@ -97,7 +97,7 @@ trait Ellipse extends ShapeCentred
   def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cs1s0(f(cen), f(s1), f(s0))
 
   /** Translate geometric transformation on a Ellipse returns a Ellipse. */
-  def slate(offset: Vec2Like): Ellipse = fTrans(_ + offset)
+  def slate(offset: Vec2Like): Ellipse = fTrans(_.slate(offset))
 
   /** Translate geometric transformation. */
   override def slate(xOffset: Double, yOffset: Double): Ellipse = fTrans(_.addXY(xOffset, yOffset))

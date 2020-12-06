@@ -26,7 +26,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   final override def s4Cen: Pt2 = Pt2(xCen - width / 2, yCen)
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slate(offset: Vec2Like): Rect = Rect(width, height, cen + offset)
+  override def slate(offset: Vec2Like): Rect = Rect(width, height, cen.slate(offset))
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(xOffset: Double, yOffset: Double): Rect = Rect(width, height, xCen + xOffset, yCen + yOffset)
@@ -53,28 +53,28 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
 object Rect
 {
-  def apply(width: Double, height: Double, cen: Pt2 = Vec2Z): Rect = new RectImp(width, height, cen.x, cen.y)
+  def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): Rect = new RectImp(width, height, cen.x, cen.y)
   def apply(width: Double, height: Double, xCen: Double, yCen: Double): Rect = new RectImp(width, height, xCen, yCen)
 
   /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top
    *  right vertex of the Rect at the origin. */
-  def tr(width: Double, height: Double, topRight: Pt2 = Vec2Z): Rect = new RectImp(width, height, topRight.x - width / 2, topRight.y - height / 2)
+  def tr(width: Double, height: Double, topRight: Pt2 = Pt2Z): Rect = new RectImp(width, height, topRight.x - width / 2, topRight.y - height / 2)
 
   /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the topLeft parameter places the top
    *  left vertex of the Rect at the origin. */
-  def tl(width: Double, height: Double, topLeft: Pt2 = Vec2Z): Rect = new RectImp(width, height, topLeft.x + width / 2, topLeft.y - height / 2)
+  def tl(width: Double, height: Double, topLeft: Pt2 = Pt2Z): Rect = new RectImp(width, height, topLeft.x + width / 2, topLeft.y - height / 2)
 
   /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the bottomRight parameter places the
    * bottom right vertex of the Rect at the origin. */
-  def br(width: Double, height: Double, bottomRight: Pt2 = Vec2Z): Rect = new RectImp(width, height, bottomRight.x - width / 2, bottomRight.y + height / 2)
+  def br(width: Double, height: Double, bottomRight: Pt2 = Pt2Z): Rect = new RectImp(width, height, bottomRight.x - width / 2, bottomRight.y + height / 2)
 
   /** Factory method for Rect from width, height and the bottomLeft position parameters. The default position for the bottomLeft parameter places the
    * bottom left vertex of the Rect at the origin. */
-  def bl(width: Double, height: Double, bottomLeft: Pt2 = Vec2Z): Rect = new RectImp(width, height, bottomLeft.x + width / 2, bottomLeft.y + height / 2)
+  def bl(width: Double, height: Double, bottomLeft: Pt2 = Pt2Z): Rect = new RectImp(width, height, bottomLeft.x + width / 2, bottomLeft.y + height / 2)
 
   /** Factory method for Rect from width, height and the bottomCentre position parameters. The default position for the bottomCentre parameter places
    *  the bottom centre of the Rect at the origin. */
-  def bCen(width: Double, height: Double, bottomCentre: Pt2 = Vec2Z): Rect = new RectImp(width, height, bottomCentre.x, bottomCentre.y + height / 2)
+  def bCen(width: Double, height: Double, bottomCentre: Pt2 = Pt2Z): Rect = new RectImp(width, height, bottomCentre.x, bottomCentre.y + height / 2)
 
   def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
 
@@ -109,7 +109,7 @@ object Rect
     override def slate(xOffset: Double, yOffset: Double): RectImp = RectImp(width, height, xCen + xOffset, yCen + yOffset)
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen + offset)
+    override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen.slate(offset))
 
     /** Uniform scaling transformation on a RectImp returns a RectImp. */
     override def scale(operand: Double): RectImp = RectImp(width * operand, height * operand, cen * operand)
@@ -128,7 +128,7 @@ object Rect
   /** Companion object for the [[Rect.RectImp]] class */
   object RectImp
   { /** Factory method for Rect.RectImp class. */
-    def apply(width: Double, height: Double, cen: Pt2 = Vec2Z): RectImp = new RectImp(width, height, cen.x, cen.y)
+    def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectImp = new RectImp(width, height, cen.x, cen.y)
 
     /** Factory method to create a RectImp from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
      * rectangle, but any of the 4 corner vertices will give the correct constructor values. */

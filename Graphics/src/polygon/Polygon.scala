@@ -65,7 +65,7 @@ trait Polygon extends Shape with BoundedElem
   }
 
   override def attribs: Arr[XANumeric] = ???
-  override def cen: Pt2 = vertsFoldLeft(Vec2Z)(_ + _) / vertsNum
+  override def cen: Pt2 = vertsFoldLeft(Pt2Z)(_.slate(_)) / vertsNum
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def fillHex(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
@@ -111,7 +111,7 @@ trait Polygon extends Shape with BoundedElem
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  def slate(offset: Vec2Like): Polygon = polygonMap(_ + offset)
+  def slate(offset: Vec2Like): Polygon = polygonMap(_.slate(offset))
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */

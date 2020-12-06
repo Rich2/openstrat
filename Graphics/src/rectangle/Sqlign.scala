@@ -11,7 +11,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def width2: Double = width
 
   override def height: Double = width
-  override def slate(offset: Vec2Like): Sqlign = Sqlign(width, cen + offset)
+  override def slate(offset: Vec2Like): Sqlign = Sqlign(width, cen.slate(offset))
 
   override def slate(xOffset: Double, yOffset: Double): Sqlign = Sqlign(width, xCen + xOffset, yCen + yOffset)
   override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen * operand)
@@ -30,6 +30,6 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 
 /** Factory object for Sqlign class. A square aligned to the X and Y axes. */
 object Sqlign
-{ def apply(width: Double, cen: Pt2 = Vec2Z): Sqlign = new Sqlign(width, cen.x, cen.y)
+{ def apply(width: Double, cen: Pt2 = Pt2Z): Sqlign = new Sqlign(width, cen.x, cen.y)
   def apply(width: Double, xCen: Double, yCen: Double): Sqlign = new Sqlign(width, xCen, yCen)
 }

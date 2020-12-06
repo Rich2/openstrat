@@ -43,8 +43,8 @@ trait PhiRectangle extends Rectangle
 object PhiRectangle
 {
   def apply(height: Double, rotation: Angle, cen: Pt2): PhiRectangle =
-  { val s1Cen: Pt2 = cen + Pt2(0, height / 2).rotate(rotation)
-    val s3Cen: Pt2 = cen + Pt2(0, -height / 2).rotate(rotation)
+  { val s1Cen: Pt2 = cen + yVec2(height / 2).rotate(rotation)
+    val s3Cen: Pt2 = cen + yVec2(-height / 2).rotate(rotation)
     PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
   }
 
@@ -58,16 +58,16 @@ object PhiRectangle
     override def s3Cen: Pt2 = Pt2(xS3Cen, yS3Cen)
     override def width2: Double = s1Cen.distTo(s3Cen)
     override def alignAngle: Angle = s1Cen.angleFrom(s3Cen) - Deg90
-    override def v1: Pt2 = s1Cen + Pt2(width2 / 2, 0).rotate(alignAngle)
+    override def v1: Pt2 = s1Cen + xVec2(width2 / 2).rotate(alignAngle)
     override def x1: Double = v1.x
     override def y1: Double = v1.y
-    override def v2: Pt2 = s3Cen + Pt2(width2 / 2, 0).rotate(alignAngle)
+    override def v2: Pt2 = s3Cen + xVec2(width2 / 2).rotate(alignAngle)
     override def x2: Double = v2.x
     override def y2: Double = v2.y
-    override def v3: Pt2 = s3Cen + Pt2(-width2 / 2, 0).rotate(alignAngle)
+    override def v3: Pt2 = s3Cen + xVec2(-width2 / 2).rotate(alignAngle)
     override def x3: Double = v2.x
     override def y3: Double = v2.y
-    override def v4: Pt2 = s1Cen + Pt2(-width2 / 2, 0).rotate(alignAngle)
+    override def v4: Pt2 = s1Cen + xVec2(-width2 / 2).rotate(alignAngle)
     override def x4: Double = v2.x
     override def y4: Double = v2.y
     override def s2Cen: Pt2 = s1Cen mid s2Cen
@@ -104,7 +104,7 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
 
 object PhiRect
 {
-  def apply(height: Double, cen: Pt2 = Vec2Z): PhiRect = PhiRect(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Pt2Z): PhiRect = PhiRect(height, cen.x, cen.y)
 }
 
 case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with PhiRectangle
@@ -136,5 +136,5 @@ case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with
 
 object PhiRectY
 {
-  def apply(width: Double, cen: Pt2 = Vec2Z): PhiRectY = PhiRectY(width, cen.x, cen.y)
+  def apply(width: Double, cen: Pt2 = Pt2Z): PhiRectY = PhiRectY(width, cen.x, cen.y)
 }

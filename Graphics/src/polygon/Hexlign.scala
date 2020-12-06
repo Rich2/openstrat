@@ -60,7 +60,7 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
 
 object Hexlign
 {
-  def apply(height: Double, cen: Pt2 = Vec2Z): Hexlign = new Hexlign(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Pt2Z): Hexlign = new Hexlign(height, cen.x, cen.y)
 
   implicit val slateImplicit: Slate[Hexlign] = (obj: Hexlign, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Hexlign] = (obj: Hexlign, operand: Double) => obj.scale(operand)

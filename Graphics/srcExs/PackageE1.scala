@@ -14,7 +14,7 @@ package e1
       case Move(toPosn) =>
       { val len = posn.distTo(toPosn)
         val max = 150
-        val newPosn = ife(len > max, posn + toPosn * max / len, toPosn)
+        val newPosn = ife(len > max, posn.slate(toPosn * max / len), toPosn)
         GameState(turnNum + 1, newPosn, rainbowCycle)
       }   
       case CycleColour => GameState(turnNum + 1, posn, rainbowCycle.next)

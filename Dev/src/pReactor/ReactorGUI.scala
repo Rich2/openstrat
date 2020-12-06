@@ -74,11 +74,11 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   def drawBalls(loc:Pt2, color:Colour, cellIndex:Int) : Unit =
   { val count = aDefaultGame.cellCounts(cellIndex)
     canv.polygonFill(Rect.bl(size-1, size-1, loc).fill(Black))
-    if (count >= 1) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 0)).fill(color))
-    if (count >= 2) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 1)).fill(color))
-    if (count >= 3) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 2)).fill(color))
-    if (count >= 4) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 3)).fill(color))
-    if (count >= 5) canv.circleFill(Circle(size/ballScale, loc+getLocFromCellSite(cellIndex, 4)).fill(color))
+    if (count >= 1) canv.circleFill(Circle(size/ballScale, loc.slate(getLocFromCellSite(cellIndex, 0))).fill(color))
+    if (count >= 2) canv.circleFill(Circle(size/ballScale, loc.slate(getLocFromCellSite(cellIndex, 1))).fill(color))
+    if (count >= 3) canv.circleFill(Circle(size/ballScale, loc.slate(getLocFromCellSite(cellIndex, 2))).fill(color))
+    if (count >= 4) canv.circleFill(Circle(size/ballScale, loc.slate(getLocFromCellSite(cellIndex, 3))).fill(color))
+    if (count >= 5) canv.circleFill(Circle(size/ballScale, loc.slate(getLocFromCellSite(cellIndex, 4))).fill(color))
     if (count >= 6) canv.polygonFill(Rect.bl(size-1, size-1, loc).fill(Pink))
   }
   def doAnimation() : Unit =
@@ -91,21 +91,21 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
         if (animationStep == 0.1) drawBalls(loc, aDefaultGame.currentPlayer, i)
         for (b <- 1 to aDefaultGame.addBallQueue(i))
         { val whichBall = aDefaultGame.cellCounts(i)+b-1
-          canv.circleFill(Circle(size/(ballScale/animationStep), loc+getLocFromCellSite(i, whichBall)).fill(aDefaultGame.currentPlayer))
+          canv.circleFill(Circle(size/(ballScale/animationStep), loc.slate(getLocFromCellSite(i, whichBall))).fill(aDefaultGame.currentPlayer))
         }
       }
     }
     // popBall animation
     for (i <- 0 to aDefaultGame.popBallQueue.length - 1)
     { val loc = size*(i % cols) pp size*(i / cols)
-      var locy = 0 pp 0
+      var locy = Pt2Z
       if (aDefaultGame.isReadyToPop(i) == true)
       { aDefaultGame.cellCounts(i) -= aDefaultGame.cellNeighbours(i).length  //fudge start//
         drawBalls(loc, aDefaultGame.currentPlayer, i)
         for (b <- aDefaultGame.cellSites(i))
         { b match
           { case "N" =>
-            { if (animationStep > 0.55) locy = loc + (0 pp 0.5*size*(animationStep-0.5))
+            { if (animationStep > 0.55) locy = loc.addY(0.5*size*(animationStep-0.5))
               else locy = loc - (0 vv 0.25*size*(animationStep))
             }
             case "E" =>
@@ -121,7 +121,8 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
               else locy = loc + (0.25*size*(animationStep) vv 0)
             }
           }
-          canv.circleFill(Circle(size*(1 - animationStep)/ballScale, locy+getLocFromCellSite(i, 0, b)).fill(aDefaultGame.currentPlayer))
+          canv.circleFill(Circle(size*(1 - animationStep)/ballScale, locy.slate(getLocFromCellSite(i, 0, b))).
+            fill(aDefaultGame.currentPlayer))
         }
         aDefaultGame.cellCounts(i) += aDefaultGame.cellNeighbours(i).length  //fudge end//
       }

@@ -71,7 +71,7 @@ final class HexYlign(val dMin: Double, val xCen: Double, val yCen: Double) exten
 
 object HexYlign
 {
-  def apply(height: Double, cen: Pt2 = Vec2Z): HexYlign = new HexYlign(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Pt2Z): HexYlign = new HexYlign(height, cen.x, cen.y)
   def apply(height: Double, xCen: Double, yCen: Double): HexYlign = new HexYlign(height, xCen, yCen)
 
   implicit val slateImplicit: Slate[HexYlign] = (obj: HexYlign, dx: Double, dy: Double) => obj.slate(dx, dy)

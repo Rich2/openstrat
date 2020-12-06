@@ -63,7 +63,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
-  override def slate(offset: Vec2Like): Rectangle = Rectangle.s2s4(s2Cen + offset, s4Cen + offset, width2)
+  override def slate(offset: Vec2Like): Rectangle = Rectangle.s2s4(s2Cen.slate(offset), s4Cen.slate(offset), width2)
 
   /** Translate geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(xOffset: Double, yOffset: Double): Rectangle =
@@ -92,7 +92,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
  *  contains various factory methods that delegate to the [[Rectangle.RectangleImp]] class. */
 object Rectangle
 {
-  def apply(width: Double, height: Double, rotation: Angle, cen: Pt2 = Vec2Z): Rectangle =
+  def apply(width: Double, height: Double, rotation: Angle, cen: Pt2 = Pt2Z): Rectangle =
   { val s2Cen: Pt2 = cen.addX(width / 2).rotate(rotation)
     val s4Cen: Pt2 = cen.subX(width / 2).rotate(rotation)
     new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
@@ -101,7 +101,7 @@ object Rectangle
   def s2s4(s2Cen: Pt2, s4Cen: Pt2, height: Double): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
   def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
 
-  def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Vec2Z): ShapeGen =
+  def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Pt2Z): ShapeGen =
   { val w = width / 2
     val h = height / 2
     val s1 = ShapeGen(
@@ -112,11 +112,11 @@ object Rectangle
      s1.slate(cen)
   }
 
-  def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Pt2 = Vec2Z): PolyCurveCentred =
+  def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Pt2 = Pt2Z): PolyCurveCentred =
     PolyCurveCentred(posn, curvedCorners(width, height, radius).slate(posn))
-  def curvedGoldenRatio(height: Double, radius: Double, posn: Pt2 = Vec2Z): ShapeGen =
+  def curvedGoldenRatio(height: Double, radius: Double, posn: Pt2 = Pt2Z): ShapeGen =
     curvedCorners(height * Phi, height, radius, posn)
-  def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Vec2Z): PolyCurveCentred =
+  def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Pt2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
 
   def fromAxis(centreLine: LineSeg, height: Double): PolygonImp =

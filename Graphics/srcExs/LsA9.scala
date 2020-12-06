@@ -4,11 +4,11 @@ import ostrat._, geom._, pCanv._, Colour._
 
 case class LsA9(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A9")
 {
-  def bd(c1: Pt2, c2: Pt2, colour: Colour) = Bezier(Vec2Z, c1, c2, 500 pp 350).draw(colour, 3)
+  def bd(c1: Pt2, c2: Pt2, colour: Colour) = Bezier(Pt2Z, c1, c2, 500 pp 350).draw(colour, 3)
   //This can be more elegantly expressed in dotty
   def fun(a: Int, b: String, c: Double, d: Boolean): Int = a + b.length + c.toInt + (if (d) 1 else 0)
   val pt1 = 500 pp - 400
-  val sh1 = ShapeGen(LineTail(Vec2Z), LineTail(200 pp 0), BezierTail(300 pp 300, 350 pp 100, pt1), LineTail(100 pp -200))
+  val sh1 = ShapeGen(LineTail(Pt2Z), LineTail(200 pp 0), BezierTail(300 pp 300, 350 pp 100, pt1), LineTail(100 pp -200))
   
   def stuff = Arr(
          bd(-100 pp 200, 300 pp 400, Green),

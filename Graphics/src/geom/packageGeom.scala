@@ -8,6 +8,13 @@ package ostrat
 package object geom
 { import math._, Colour.Black
   val Phi: Double = 1.6180339887498948482
+
+  /** A [[Vec2]] along the X Axis, whose Y component = 0. */
+  def xVec2(x: Double): Vec2 = Vec2(x, 0)
+
+  /** A [[Vec2]] along the Y Axis, whose X component = 0. */
+  def yVec2(y: Double): Vec2 = Vec2(0, y)
+
   implicit def affineToExtensions[T](value: T)(implicit ev: AffineTrans[T]): AffineExtensions[T] = new AffineExtensions[T](value, ev)
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
   
@@ -47,11 +54,11 @@ package object geom
   val MilliSecsInRadian: Double = MilliSecsInDeg * 180.0 / Pi
   
   /** The origin, the intersection of the axes for 2 dimensional vectors. */
-  val Vec2Z = Pt2(0, 0)
-  
+  val Pt2Z = Pt2(0, 0)
+
   /** Dist2(0.km, 0.km) constant */
   val Dist2Z = Dist2(0.km, 0.km)
-  
+
   val LongD = 2.0 / Cos30
   val cos30: Double = cos(Pi / 6)
   val LatLong0 = LatLong.degs(0, 0)
@@ -61,9 +68,9 @@ package object geom
   val EarthAvRadius: Dist = EarthAvDiameter / 2
   type GraphicElems = Arr[GraphicElem]
 
-  implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)           
+  implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)
   implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)
- 
+
   implicit class StringImplictGeom(thisString: String)
   { import pParse.{ stringToStatements => stss}
     def findVec2: EMon[Pt2] = stss(thisString).flatMap(_.findType[Pt2])
@@ -71,7 +78,7 @@ package object geom
     def findVec2Sett(setting: String): EMon[Pt2] = stss(thisString).flatMap(_.findSett[Pt2](setting))
     def findVec2SettElse(setting: String, elseValue: Pt2): Pt2 = findVec2Sett(setting).getElse(elseValue)
 
-    def graphic(fontSize: Int = 24, posn: Pt2 = Vec2Z, colour: Colour = Black, align: TextAlign = CenAlign,
+    def graphic(fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
                 baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, posn, fontSize, colour, align, baseLine)
   }
 

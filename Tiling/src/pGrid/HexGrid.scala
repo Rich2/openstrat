@@ -216,9 +216,9 @@ object HexGrid
   val v5 = Pt2(x5, y5)
 
   val verts: Seq[Pt2] = Seq(v0, v1, v2, v3, v4,  v5)
-  val cenVerts: Seq[Pt2] = Seq(Vec2Z, v0, v1, v2, v3, v4, v5)
+  val cenVerts: Seq[Pt2] = Seq(Pt2Z, v0, v1, v2, v3, v4, v5)
 
-  val triangleFan = Seq(Vec2Z, v0, v5, v4, v3, v2, v1)
+  val triangleFan = Seq(Pt2Z, v0, v5, v4, v3, v2, v1)
 
   def latLong(pt: Pt2, latLongOffset: LatLong, xyOffset: Dist2, gridScale: Dist): LatLong =
   { val lat = (pt.y * gridScale + xyOffset.y) / EarthPolarRadius + latLongOffset.latRadians

@@ -30,7 +30,7 @@ trait Triangle extends Polygon3Plus
 	override def fTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v1), f(v2), f(v3))
 
 	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
-	override def slate(offset: Vec2Like): Triangle = fTrans(_ + offset)
+	override def slate(offset: Vec2Like): Triangle = fTrans(_.slate(offset))
 
 	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
 	override def slate(xOffset: Double, yOffset: Double): Triangle = fTrans(_.addXY(xOffset, yOffset))

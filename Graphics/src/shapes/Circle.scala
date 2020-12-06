@@ -36,7 +36,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def h: Double = 0
 
   /** Translate geometric transformation on a Circle returns a Circle. */
-  override def slate(offset: Vec2Like): Circle = Circle(diameter, cen + offset)
+  override def slate(offset: Vec2Like): Circle = Circle(diameter, cen.slate(offset))
 
   /** Translate geometric transformation on a Circle returns a Circle. */
   override def slate(xOffset: Double, yOffset: Double): Circle = Circle(diameter, cen.addXY(xOffset, yOffset))
@@ -86,10 +86,10 @@ object Circle extends ShapeIcon
 {
   override type ShapeT = Circle
   /** Standard factory method for creating a circle from its diameter and the position of its centre. */
-  def apply(diameter: Double, cen: Pt2 = Vec2Z) = new Circle(diameter, cen.x, cen.y)
+  def apply(diameter: Double, cen: Pt2 = Pt2Z) = new Circle(diameter, cen.x, cen.y)
 
   /** Factory method for creating a circle from its radius and the position of its centre. */
-  def fromRadius(radius: Double, cen: Pt2 = Vec2Z) = new Circle(radius * 2, cen.x, cen.y)
+  def fromRadius(radius: Double, cen: Pt2 = Pt2Z) = new Circle(radius * 2, cen.x, cen.y)
 
   /** Factory method for creating a circle from its radius and the position of its centre. */
   def fromRadius(radius: Double, xCen: Double, yCen: Double) = new Circle(radius * 2, xCen, yCen)

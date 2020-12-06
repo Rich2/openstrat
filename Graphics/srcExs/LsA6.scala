@@ -19,7 +19,7 @@ case class LsA6(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
     Bezier(ptStart, 0 pp 350, 100 pp 270, ptEnd).draw(DarkRed, 2),
 
     //Vec2Z is a predefined value for Vec2 where x is 0 and y is 0.
-    TextOutline("Text in outline at centre screen", 40, Vec2Z, Orange, 1),
+    TextOutline("Text in outline at centre screen", 40, Pt2Z, Orange, 1),
     TextOutline("More outline text, at x is 0, y is - 200", 60, 0 pp -200, Red, 2),
     TextOutline("Text with its baseline = top", 40, 100 pp 50, Blue, 1, LeftAlign, BaseLine.Top),
 
