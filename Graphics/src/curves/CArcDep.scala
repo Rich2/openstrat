@@ -9,7 +9,7 @@ final case class CArcDep(xStart: Double, yStart: Double, xCen: Double, yCen: Dou
   def cen: Pt2 = xCen pp yCen
 
   def startAngleRadians: Double = pStart.angleFrom(cen).radians
-  def startAngleRadiansPos: Double = pStart.-(cen).angleRadiansPos
+  def startAngleRadiansPos: Double = pStart.<<(cen).angleRadiansPos
   def startAngle: Angle = pStart.angleFrom(cen)
   def endAngleRadians: Double = startAngleRadians + deltaRadians
   def endAngleRadiansPos: Double = startAngleRadiansPos + deltaRadians

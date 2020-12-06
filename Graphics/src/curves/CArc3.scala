@@ -40,7 +40,7 @@ class CArc3 private(val xStart: Double, val yStart: Double, val xApex: Double, v
 
   @inline def radius: Double = diameter / 2
 
-  def cen: Pt2 = apex + apex.vecTo(chordCen) * radius / height
+  def cen: Pt2 = apex + (apex >> chordCen) * radius / height
 
  // def startAngle: Angle = cen.angleTo(pStart)
 //  def endAngle: Angle = cen.angleTo(pEnd)

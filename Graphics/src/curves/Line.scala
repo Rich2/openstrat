@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** An infinite length 2 dimensional straight line trait. Note this is the mathematical definition of a line. In SVg and other APIs the name line is
+/** An infinite length 2 dimensional straight line trait. Note this is the mathematical definition of a line. In SVG and other APIs the name line is
  * used for a line segment, which in openstrat is called a [[LineSeg]] */
 sealed trait Line extends LineLike
 { /** Reflects, mirrors a point across this line. */
@@ -58,9 +58,9 @@ sealed case class YLine(xFactor: Double, offset: Double) extends Line
   override def reflectPt(pt: Pt2): Pt2 =
   {
     val v2: Pt2 = Pt2(1, xFactor + offset)
-    val lineDelta: Vec2 = yIntersection.vecTo(v2)
+    val lineDelta: Vec2 = yIntersection >> v2
     val lineUnitVector: Vec2 = lineDelta / lineDelta.magnitude
-    val r1: Vec2 = pt.vecTo(yIntersection) - 2 * pt.vecTo(yIntersection).dot(lineUnitVector) * lineUnitVector
+    val r1: Vec2 = (pt >> yIntersection) - 2 * (pt >> yIntersection).dot(lineUnitVector) * lineUnitVector
     yIntersection + r1
   }
 
@@ -82,9 +82,9 @@ sealed case class XLine(yFactor: Double, offset: Double) extends Line
 
   override def reflectPt(pt: Pt2): Pt2 =
   { val v2: Pt2 = Pt2(yFactor + offset, 1)
-    val lineDelta =  xIntersection.vecTo(v2)
+    val lineDelta =  xIntersection >> v2
     val lineUnitVector = lineDelta / lineDelta.magnitude
-    val r1 = pt.vecTo(xIntersection) - 2 * pt.vecTo(xIntersection).dot(lineUnitVector) * lineUnitVector
+    val r1 = (pt >> xIntersection) - 2 * (pt >> xIntersection).dot(lineUnitVector) * lineUnitVector
     xIntersection + r1
   }
 

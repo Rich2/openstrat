@@ -3,8 +3,9 @@ package ostrat
 package geom
 import scala.math.{Pi, atan}
 
-/** A 2 dimensional vector, can be used with 2 dimensional points and translations of 2 dimensional points. Thanks to Rene Descarte for this great
- *  idea. */
+/** A 2 dimensional vector. This is similar data to [[Pt2]]. The purpose of this seperate type is to encode the relative nature of the Vec2 as opposed
+ * to the absolute nature of a Pt. So usually you will want and need to add the vector to an absolute point to return to the absolute realm of points.
+ * Thanks to Rene Descarte for this great idea. */
 class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 {
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
