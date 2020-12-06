@@ -65,7 +65,7 @@ trait Polygon extends Shape with BoundedElem
   }
 
   override def attribs: Arr[XANumeric] = ???
-  override def cen: Pt2 = vertsFoldLeft(Pt2Z)(_.slate(_)) / vertsNum
+  override def cen: Pt2 = vertsFoldLeft(Pt2Z)(_.slate(_)).invScale(vertsNum)
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def fillHex(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
@@ -109,13 +109,13 @@ trait Polygon extends Shape with BoundedElem
 
   @inline def polygonMap(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
-  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
-   *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  def slate(offset: Vec2Like): Polygon = polygonMap(_.slate(offset))
-
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slate(xOffset: Double, yOffset: Double): Polygon = polygonMap(_.addXY(xOffset, yOffset))
+
+  /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
+   *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  def slate(offset: Vec2Like): Polygon = polygonMap(_.slate(offset))
 
   /** Uniform scaling against both X and Y axes transformation on a polygon returning a Polygon. Use the xyScale method for differential scaling. The
    *  return type of this method will be narrowed further in descendant traits / classes. */
@@ -146,11 +146,9 @@ trait Polygon extends Shape with BoundedElem
    *  classes and traits. */
   override def xShear(operand: Double): Polygon = polygonMap(_.xShear(operand))
 
-  /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in sub classes and traits.
-   *  */
+  /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in sub classes and
+   *  traits. */
   override def yShear(operand: Double): Polygon = polygonMap(_.xShear(operand))
-
-  //override def slateTo(newCen: Pt2): Polygon = polygonMap(_ + cen.vecTo(newCen))
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: LineSegs = if (vertsNum > 1)

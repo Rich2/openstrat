@@ -37,7 +37,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def angleFrom(operand: Pt2): Angle = (this << operand).angle
 
   /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
-  def mid(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y) / 2
+  def mid(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y).invScale(2)
 
   def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
   def str0: String = strMod(_.str0)
@@ -54,14 +54,15 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def slate(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
 
   /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
-  def originTo(operand: Pt2): Pt2 = Pt2(x - operand.x, y - operand.y)
+  def invSlate(operand: Pt2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
   def addXY (otherX: Double, otherY: Double): Pt2 = Pt2(x + otherX, y + otherY)
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)
 
   @inline def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
-  @inline def scaleToDist(factor: Dist): Dist2 = Dist2(x * factor, y * factor)
-  @inline def /(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
+  @inline def toDist2(factor: Dist): Dist2 = Dist2(x * factor, y * factor)
+
+  @inline def invScale(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 
   def addX(adj: Double): Pt2 = Pt2(x + adj, y)
   def addY(adj: Double): Pt2 = Pt2(x, y + adj)

@@ -8,7 +8,7 @@ import geom._
 case class RoordOff(yV: Int, cV: Int, dirn: HVOffDirn, tenths: Int)
 { def rVert: Roord = yV rr cV
   def r2: Roord = rVert + dirn.r
-  def toVec2(f: Roord => Pt2): Pt2 = f(rVert).slate(f((r2 - rVert) * tenths) / 10)
+  def toVec2(f: Roord => Pt2): Pt2 = f(rVert).slate(f((r2 - rVert) * tenths).invScale(10))
 }
 
 object RoordOff
