@@ -2,6 +2,8 @@
 package ostrat
 package geom
 
+/** 2D graphic that draws an arc of an ellipse. The trait has 2 implementations, [[CArcdraw]], a cirular arc draw and the general case is implemented
+ * with [[EArcDraw.EArcDrawImp]]. */
 trait EArcDraw extends CurveSegDraw with CanvElem
 {
   override def curveSeg: EArc
@@ -53,6 +55,8 @@ trait EArcDraw extends CurveSegDraw with CanvElem
   override def canEqual(that: Any): Boolean = ???
 }
 
+/** Companion object ofr the EArcDraw trait, contins the general implementation class [[EArcDrawImp]] and an apply factor method that delegates to
+ * [[EArcDrawImp]]. */
 object EArcDraw
 {
   def apply(arc: EArc, colour: Colour, lineWidth: Double): EArcDraw = EArcDrawImp(arc, colour, lineWidth)
