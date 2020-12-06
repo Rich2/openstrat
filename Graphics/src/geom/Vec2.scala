@@ -68,11 +68,11 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
     x match
     { case _ if x == 0 & y == 0 => 0
-    case _ if x == 0 & y > 0 => Pi / 2
-    case _ if x == 0 => -Pi / 2
-    case _ if x > 0 => at
-    case _ if y > 0 => Pi + at
-    case _ => at - Pi
+      case _ if x == 0 & y > 0 => Pi / 2
+      case _ if x == 0 => -Pi / 2
+      case _ if x > 0 => at
+      case _ if y > 0 => Pi + at
+      case _ => at - Pi
     }
   }
 
