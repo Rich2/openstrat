@@ -28,15 +28,14 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating Xon this CArc returns a CArc. */
   override def negX: CArc = CArc(pStart.negX, cen.negX, pEnd.negX, -counter)
 
-  /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
+  /** 2D Transformation using a [[ProlignMatrix]]. */
   override def prolign(matrix: ProlignMatrix): CArc = ???
 
-  /** Rotation 2D geometric transformation on a CArc. The return type will be narrowed in sub classes and traits. */
-  override def rotate(angle: Angle): CArc = ???
+  /** Rotation 2D geometric transformation on a CArc returns a CArc. */
+  override def rotate(angle: Angle): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), pEnd.rotate(angle), counter)
 
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a CArc. The return type will be narrowed in sub classes and
-   * traits. */
-  override def reflect(lineLike: LineLike): CArc = ???
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a CArc returns a CArc. */
+  override def reflect(lineLike: LineLike): CArc = CArc(pStart.reflect(lineLike), cen.reflect(lineLike), pEnd.reflect(lineLike), counter)
 
   override def productArity: Int = ???
 
