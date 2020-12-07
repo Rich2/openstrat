@@ -66,7 +66,7 @@ lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
 )
 
 lazy val Util = exsJvmProj("Util").dependsOn(UtilCore).settings(Compile/mainClass:= Some("ostrat.WebPage1"))
-lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilCore).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "14")
+lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilCore).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "15")
 lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(Compile/mainClass:= Some("learn.LessonE1App"))
 lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicsCore)
 lazy val Tiling = exsJvmProj("Tiling").dependsOn(TilingCore)
@@ -100,7 +100,7 @@ lazy val StratLib = Project("StratLib", file("Dev/SbtDir/StratLib")).dependsOn(U
   Test/unmanagedSourceDirectories := List(),
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
   assemblyJarName in assembly := "stratlib_2.13-" + version.value + ".jar",
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15",
 )
 
 lazy val StratExs = Project("StratExs", file("Dev/SbtDir/StratExs")).dependsOn(StratLib).settings(commonSett).settings(
