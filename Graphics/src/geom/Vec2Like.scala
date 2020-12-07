@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** A common trait for [[Vec2]] and [[Pt2]] it would be good if the methods on this trait could be reduced.  */
 trait Vec2Like extends Any
 {
   def x: Double
@@ -11,7 +12,6 @@ trait Vec2Like extends Any
   def xyScale(xOperand: Double, yOperand: Double): Vec2Like
   
   @inline def scale(factor: Double): Vec2Like
-  //@inline def /(divisor: Double): Vec2Like
 
   /** rotates the vector 90 degrees or Pi/2 radians, anticlockwise. */
   @inline def rotate90: Vec2Like
