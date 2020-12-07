@@ -1,10 +1,8 @@
 package learn
-import ostrat._, geom._, pCanv._, Colour._
-import scala.math.{Pi}
+import ostrat._, geom._, pCanv._, Colour._, scala.math.{Pi}
 
-/* This is a tempory lesson: whilst Arcs get fixed*/ 
-
-case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
+/** This is a temporary lesson: whilst Arcs get fixed. */
+case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
 {
   var x = -650.0 // x coordinate
   var y = 325.0 // y coordinate
