@@ -5,9 +5,10 @@ package geom
 /** Circular arc. Has a rotation counter to allow rotation deltas greater than 360 degrees and less than - 360 degrees. */
 class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val yCen: Double, val xEnd: Double, val yEnd: Double,
   val counter: Int) extends EArc
-{
+{ /** The centre of this circular arc. */
   override def cen: Pt2 = Pt2(xCen, yCen)
 
+  /** Radius of the this circular arc. */
   def radius: Double = cen.distTo(pStart)
 
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */

@@ -5,6 +5,9 @@ import Colour._
 
 case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 2) extends EArcDraw
 {
+  /** Radius of the the circular arc. */
+  def radius: Double = curveSeg.radius
+
   /** Translate 2D geometric transformation on this CArcDraw, returns a CArcDraw. */
   override def slate(xOffset: Double, yOffset: Double): CArcDraw = CArcDraw(curveSeg.slate(xOffset, yOffset), colour, lineWidth)
 

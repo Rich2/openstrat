@@ -4,6 +4,13 @@ package geom
 
 trait EArc extends CurveSeg
 {
+  /** The X component of the centre of the Elliptical arc. */
+  def xCen: Double
+
+  /** The Y component of the centre of the Elliptical arc. */
+  def yCen: Double
+
+  /** The centre of the Elliptical arc. */
   def cen: Pt2
 
   /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */

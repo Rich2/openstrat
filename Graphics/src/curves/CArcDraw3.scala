@@ -9,4 +9,7 @@ case class CArcDraw3(curveSeg: CArc3, colour: Colour = Black, lineWidth: Double 
 
   override def fTrans(f: Pt2 => Pt2): CArcDraw3 = CArcDraw3(curveSeg.fTrans(f), colour, lineWidth)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.cArcDraw3(this)
+
+  /** Radius of the the circular arc. */
+  def radius: Double = curveSeg.radius
 }

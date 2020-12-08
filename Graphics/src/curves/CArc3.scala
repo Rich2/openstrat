@@ -38,9 +38,17 @@ class CArc3 private(val xStart: Double, val yStart: Double, val xApex: Double, v
 
   def diameter: Double = hWidth.squared / height + height
 
+  /** Radius of the this circular arc. */
   @inline def radius: Double = diameter / 2
 
-  def cen: Pt2 = apex + (apex >> chordCen) * radius / height
+  /** The centre of this circular arc. */
+  @inline override def cen: Pt2 = apex + (apex >> chordCen) * radius / height
+
+  /** The X component of the centre of this circular arc. */
+  @inline override def xCen: Double = cen.x
+
+  /** The Y component of the centre of this circular arc. */
+  @inline override def yCen: Double = cen.y
 
  // def startAngle: Angle = cen.angleTo(pStart)
 //  def endAngle: Angle = cen.angleTo(pEnd)
