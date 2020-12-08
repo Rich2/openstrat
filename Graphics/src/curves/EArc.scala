@@ -13,6 +13,15 @@ trait EArc extends CurveSeg
   /** The centre of the Elliptical arc. */
   def cen: Pt2
 
+  /** The vector [Vec2] from the centre of the arc to the start point of the arc. */
+  def cenStart: Vec2 = cen >> pStart
+
+  /** The angle of the start point of the arc, relative to its centre. */
+  def StartAngle: Angle = pStart.angleFrom(cen)
+
+  /** The line segment [LineSeg] from the centre of the arc to the start point of the arc. */
+  def lsCenStart: LineSeg = cen.lineTo(pStart)
+
   /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */
   override def slate(offset: Vec2Like): EArc
 
