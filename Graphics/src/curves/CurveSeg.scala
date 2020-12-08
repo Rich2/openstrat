@@ -10,15 +10,15 @@ trait CurveSeg extends Drawable
   /** the y component of the start point often called y1 */
   def yStart: Double
 
-  /** Start point often called p1 */
+  /** Start point of this curve segment, often called p1 */
   final def pStart: Pt2 = xStart pp yStart
 
-  /** the x component of the end point */
+  /** the x component of the end point of this curve segment. */
   def xEnd: Double
 
-  /** the y component of the end point */
+  /** the y component of the end point of this curve segment. */
   def yEnd: Double
 
-  /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
+  /** The end point of this curve segment. Often called p2 on a line or p4 on a cubic bezier. */
   final def pEnd: Pt2 = xEnd pp yEnd
 }

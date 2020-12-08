@@ -63,10 +63,10 @@ class CArc3 private(val xStart: Double, val yStart: Double, val xApex: Double, v
     theta
   }
 
-  /** The value of the start angle in degrees. From the absoloute angle of the start point relative to the arc centre. */
-  def startDegs: Double = atan2Deg(yStart-cen.y, xStart-cen.x)
+  /** The value of the start angle in degrees. From the absolute angle of the start point relative to the arc centre. */
+  override def startDegs: Double = atan2Deg(yStart-cen.y, xStart-cen.x)
 
-  def endDegs: Double = atan2Deg(yEnd-cen.y, xEnd-cen.x)
+  override def endDegs: Double = atan2Deg(yEnd-cen.y, xEnd-cen.x)
   // def startAngle: Double = atan2Deg(yStart-cen.y, xStart-cen.x)
   // def endAngle: Double = atan2Deg(yEnd-cen.y, xEnd-cen.x)
   // def startAngle: Double = Angle(atan2Deg(yStart-cen.y, xStart-cen.x)).degs

@@ -17,10 +17,25 @@ trait EArc extends CurveSeg
   def cenStart: Vec2 = cen >> pStart
 
   /** The angle of the start point of the arc, relative to its centre. */
-  def StartAngle: Angle = pStart.angleFrom(cen)
+  def startAngle: Angle = pStart.angleFrom(cen)
+
+  /** The value of the angle of the start point of the arc, relative to its centre in degrees. */
+  def startDegs: Double = startAngle.degs
 
   /** The line segment [LineSeg] from the centre of the arc to the start point of the arc. */
   def lsCenStart: LineSeg = cen.lineTo(pStart)
+
+  /** The vector [Vec2] from the centre of the arc to the end point of the arc. */
+  def cenEnd: Vec2 = cen >> pEnd
+
+  /** The angle of the end point of the arc, relative to its centre. */
+  def endAngle: Angle = pEnd.angleFrom(cen)
+
+  /** The value of the angle of the end point of the arc, relative to its centre in degrees. */
+  def endDegs: Double = endAngle.degs
+
+  /** The line segment [LineSeg] from the centre of the arc to the end point of the arc. */
+  def lsCenEnd: LineSeg = cen.lineTo(pEnd)
 
   /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */
   override def slate(offset: Vec2Like): EArc
