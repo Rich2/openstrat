@@ -41,7 +41,7 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def prolign(matrix: ProlignMatrix): PolygonCompound = PolygonCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
-  override def rotate(angle: Angle): PolygonCompound = PolygonCompound(shape.rotate(angle), facets, children.rotate(angle))
+  override def rotate(angle: AngleVec): PolygonCompound = PolygonCompound(shape.rotate(angle), facets, children.rotate(angle))
 
   override def reflect(lineLike: LineLike): PolygonCompound = PolygonCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
@@ -62,7 +62,7 @@ object PolygonCompound
   
   implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, angle: Angle) => obj.rotate(angle)
+  implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[PolygonCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[PolygonCompound] = (obj: PolygonCompound, lineLike: LineLike) => obj.reflect(lineLike)
@@ -115,7 +115,7 @@ object PolygonCompound
 
     override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = PolygonCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
 
-    override def rotate(angle: Angle): PolygonCompoundImp = PolygonCompoundImp(shape.rotate(angle), facets, children.rotate(angle))
+    override def rotate(angle: AngleVec): PolygonCompoundImp = PolygonCompoundImp(shape.rotate(angle), facets, children.rotate(angle))
 
     override def reflect(lineLike: LineLike): PolygonCompoundImp = PolygonCompoundImp(shape.reflect(lineLike), facets, children.reflect(lineLike))
 

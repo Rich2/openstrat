@@ -51,7 +51,7 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   @inline def rotate270: Vec2 = Vec2(y, -x)
 
   /** Rotates this vector through the given angle around the origin. */
-  def rotate(a: Angle): Vec2 = a match
+  def rotate(a: AngleVec): Vec2 = a match
   { case Deg0 => this
     case Deg90 => rotate90
     case Deg180 => rotate180

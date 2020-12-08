@@ -30,7 +30,7 @@ trait CanvShapeFill extends ShapeFill with CanvElem
 
   /** Rotation 2D geometric transformation on a CanvShapeFill taking the rotation as a scalar measured in radians, returns a CanvShapeFill. The Return
    * type will be narrowed in sub traits / classes. */
-  override def rotate(angle: Angle): CanvShapeFill
+  override def rotate(angle: AngleVec): CanvShapeFill
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed
    * in sub traits / classes. */

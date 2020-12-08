@@ -25,7 +25,7 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 
   override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), fill)
 
-  override def rotate(angle: Angle): RectangleFill = RectangleFill(shape.rotate(angle), fill)
+  override def rotate(angle: AngleVec): RectangleFill = RectangleFill(shape.rotate(angle), fill)
 
   override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fill)
 
@@ -42,7 +42,7 @@ object RectangleFill
 
   implicit val slateImplicit: Slate[RectangleFill] = (obj: RectangleFill, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[RectangleFill] = (obj: RectangleFill, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[RectangleFill] = (obj: RectangleFill, angle: Angle) => obj.rotate(angle)
+  implicit val rotateImplicit: Rotate[RectangleFill] = (obj: RectangleFill, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[RectangleFill] = (obj, matrix) => obj.prolign(matrix)
 
   implicit val reflectAxesImplicit: ReflectAxes[RectangleFill] = new ReflectAxes[RectangleFill]

@@ -31,7 +31,7 @@ case class ShapeGenDraw(shape: ShapeGen, lineColour: Colour = Black, lineWidth: 
 
   /** Rotation 2D geometric transformation on a ShapeGenDraw taking the rotation as a scalar measured in radians, returns a ShapeGenDraw. The Return
    * type will be narrowed in sub traits / classes. */
-  override def rotate(angle: Angle): ShapeGenDraw = ShapeGenDraw(shape.rotate(angle), lineColour, lineWidth)
+  override def rotate(angle: AngleVec): ShapeGenDraw = ShapeGenDraw(shape.rotate(angle), lineColour, lineWidth)
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed
    * in sub traits / classes. */

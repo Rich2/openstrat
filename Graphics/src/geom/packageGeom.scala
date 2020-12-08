@@ -95,40 +95,44 @@ package object geom
   }
    
   /** 0 degrees or 0 radians */
-  val Deg0: Angle = Angle(0)
+  val Deg0: AngleVec = AngleVec(0)
+
+  /** 0 degrees or 0 radians */
+  val Ang0: Angle = Angle(0)
+
   /** 15 degrees anti-clockwise or + Pi/12 radians */
-  val Deg15: Angle = Angle(15)
+  val Deg15: AngleVec = AngleVec(15)
   /** 30 degrees anti-clockwise or + Pi/6 radians */
-  val Deg30: Angle = Angle(30)
+  val Deg30: AngleVec = AngleVec(30)
   /** 36 degrees anti-clockwise or + Pi/5 radians */
-  val Deg36: Angle = Angle(36)
+  val Deg36: AngleVec = AngleVec(36)
   /** 45 degrees anti-clockwise or + Pi/4 radians */
-  val Deg45: Angle = Angle(45)
+  val Deg45: AngleVec = AngleVec(45)
   /** 60 degrees anti-clockwise or + Pi/3 radians */
-  val Deg60: Angle  = Angle(60)
+  val Deg60: AngleVec  = AngleVec(60)
   /** 72 degrees anti-clockwise or + Pi2/5 radians */
-  val Deg72: Angle = Angle(72)
+  val Deg72: AngleVec = AngleVec(72)
 
   /** 90 degrees anti-clockwise or + Pi/2 radians */
-  val Deg90: Angle = Angle(90)
+  val Deg90: AngleVec = AngleVec(90)
 
   /** 90 degrees anti-clockwise or + Pi/2 radians */
-  val vDeg90: AngleVec = AngleVec(90)
+  val Ang90: Angle = Angle(90)
 
   /** 120 degrees anti-clockwise or + 2 * Pi/3 radians */
-  val Deg120: Angle = Angle(120)
+  val Deg120: AngleVec = AngleVec(120)
   /** 135 degrees anti-clockwise or + 3 * Pi/4 radians */
-  val Deg135: Angle = Angle(135)
+  val Deg135: AngleVec = AngleVec(135)
   /** 150 degrees anti-clockwise or + 5 * Pi/6 radians */
-  val Deg150: Angle = Angle(150)
+  val Deg150: AngleVec = AngleVec(150)
   /** 180 degrees or Pi radians */
-  val Deg180: Angle = Angle(180)
+  val Deg180: AngleVec = AngleVec(180)
   /** 240 degrees or Pi radians */
-  val Deg240: Angle = Angle(240)
+  val Deg240: AngleVec = AngleVec(240)
   /** 270 degrees or Pi radians */
-  val Deg270: Angle = Angle(270)
+  val Deg270: AngleVec = AngleVec(270)
   /** 300 degrees or Pi radians */
-  val Deg300: Angle = Angle(300)
+  val Deg300: AngleVec = AngleVec(300)
 
   def displayRowGraphics(leftPt: Pt2, actives: Arr[BoundedGraphic], margin: Double = 10): Arr[BoundedGraphic] =
     actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.xSlate(x + head.boundingWidth / 2), x + head.boundingWidth + margin))

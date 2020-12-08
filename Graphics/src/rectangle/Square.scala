@@ -25,7 +25,7 @@ trait Square extends Rectangle
 
   override def reflect(lineLike: LineLike): Square = Square.s2s4(s2Cen.reflect(lineLike), s4Cen.reflect(lineLike))
 
-  override def rotate(angle: Angle): Square = Square.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle))
+  override def rotate(angle: AngleVec): Square = Square.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle))
 
   /*override def slateTo(newCen: Pt2): Square =
   { val v = cen.vecTo(newCen)
@@ -39,13 +39,13 @@ object Square extends ShapeIcon
   override type ShapeT = Sqlign
   def s2s4(s2Cen: Pt2, s4Cen: Pt2): Square = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
 
-  def apply(width: Double, rotation: Angle, cen: Pt2 = Pt2Z): Square =
+  def apply(width: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Square =
   { val s2 = cen + xVec2(width / 2).rotate(rotation)
     val s4 = cen + xVec2(-width / 2).rotate(rotation)
     s2s4(s2, s4)
   }
   
-  def apply(width: Double, rotation: Angle, xCen: Double, yCen: Double): Square =
+  def apply(width: Double, rotation: AngleVec, xCen: Double, yCen: Double): Square =
   { val s2 = Pt2(width / 2, 0).rotate(rotation).addXY(xCen, yCen)
     val s4 = Pt2(-width / 2, 0).rotate(rotation).addXY(xCen, yCen)
     s2s4(s2, s4)

@@ -143,7 +143,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def lineAlong(angle: Angle, magnitude: Double): LineSeg = LineSeg(this, this + angle.toVec2(magnitude))
 
   /** Rotates this vector through the given angle around the origin. */
-  def rotate(a: Angle): Pt2 = a match
+  def rotate(a: AngleVec): Pt2 = a match
   { case Deg0 => this
     case Deg90 => rotate90
     case Deg180 => rotate180
@@ -158,7 +158,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     })
 
   /** Rotates this vector through the given angle around the centre of rotation passed as the first parameter. */
-  def rotateAbout(centre: Pt2, a: Angle): Pt2 =
+  def rotateAbout(centre: Pt2, a: AngleVec): Pt2 =
   {
     val rel: Vec2 = this << centre
     val rel2: Vec2 = a match {

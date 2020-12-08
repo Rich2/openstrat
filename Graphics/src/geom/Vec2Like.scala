@@ -23,7 +23,7 @@ trait Vec2Like extends Any
   @inline def rotate270: Vec2Like
 
   /** Rotates this vector through the given angle around the origin. */
-  def rotate(a: Angle): Vec2Like
+  def rotate(a: AngleVec): Vec2Like
 
   /** The dot product of this and the operand vector. */
   @inline def dot(operand: Vec2Like): Double = x * operand.x + y * operand.y

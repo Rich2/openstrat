@@ -35,7 +35,7 @@ trait GraphicElem extends GeomElem
 
   /** Rotation 2D geometric transformation on a GraphicElem taking the rotation as a scalar measured in radians, returns a GraphicElem. The Return
    *  type will be narrowed in sub traits / classes. */
-  override def rotate(angle: Angle): GraphicElem
+  override def rotate(angle: AngleVec): GraphicElem
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a GraphicElem, returns a GraphicElem. The Return type will be narrowed
    *  in sub traits / classes. */
@@ -59,7 +59,7 @@ object GraphicElem
 {
   implicit val slateImplicit: Slate[GraphicElem] = (obj: GraphicElem, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[GraphicElem] = (obj: GraphicElem, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[GraphicElem] = (obj: GraphicElem, angle: Angle) => obj.rotate(angle)
+  implicit val rotateImplicit: Rotate[GraphicElem] = (obj: GraphicElem, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[GraphicElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
   implicit val ReflectImplicit: Reflect[GraphicElem] = (obj, lineLike) => obj.reflect(lineLike)

@@ -9,7 +9,7 @@ trait SimilarPreserve extends ProlignPreserve
   override def negX: ThisT = fTrans(_.negX)
 
   override def reflect(lineLike: LineLike): ThisT = fTrans(_.reflect(lineLike))
-  override def rotate(angle: Angle): ThisT = fTrans(_.rotate(angle))
+  override def rotate(angle: AngleVec): ThisT = fTrans(_.rotate(angle))
 }
 
 /** A trait that preserves one type through all the similar 2D geometrical transformations and preserves a second type ThisT2 through the other

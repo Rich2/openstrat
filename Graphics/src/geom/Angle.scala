@@ -20,6 +20,9 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   def +(other: AngleVec): Angle = Angle.milliSecs(milliSecs + other.milliSecs)
   def -(other: AngleVec): Angle = Angle.milliSecs(milliSecs - other.milliSecs)
 
+  def rotationFrom0: AngleVec = AngleVec.milliSecs(milliSecs)
+  def rotationFrom90: AngleVec = AngleVec.milliSecs(milliSecs - MilliSecsIn90Degs)
+
   /** Plus 90, add 90 degrees to this Angle, rotate this angle by 90 degrees in an anti-clockwise direction. */
   def p90: Angle = Angle.milliSecs(milliSecs + MilliSecsIn90Degs)
 

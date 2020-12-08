@@ -19,7 +19,7 @@ final case class TriangleIsosGen(x1: Double, y1: Double, x3: Double, y3: Double,
   override def v2: Pt2 = ???
   override def attribs: Arr[XANumeric] = ???
 
-  override def rotate(angle: Angle): TriangleIsosGen = ???
+  override def rotate(angle: AngleVec): TriangleIsosGen = ???
 
   override def negY: ThisT = fTrans(_.negY)
   override def negX: ThisT = fTrans(_.negX)

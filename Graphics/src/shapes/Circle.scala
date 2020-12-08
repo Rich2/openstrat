@@ -46,7 +46,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
 
   override def prolign(matrix: ProlignMatrix): Circle = fTrans(_.prolign(matrix))
 
-  override def rotate(angle: Angle): Circle = Circle(diameter, cen.rotate(angle))
+  override def rotate(angle: AngleVec): Circle = Circle(diameter, cen.rotate(angle))
 
   override def reflect(lineLike: LineLike): Circle = Circle(diameter, cen.reflect(lineLike))
 
@@ -99,7 +99,7 @@ object Circle extends ShapeIcon
   
   implicit val slateImplicit: Slate[Circle] = (obj, dx, dy) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Circle] = (obj: Circle, angle: Angle) => obj.rotate(angle)
+  implicit val rotateImplicit: Rotate[Circle] = (obj: Circle, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)
 
   implicit val reflectAxesImplicit: ReflectAxes[Circle] = new ReflectAxes[Circle]

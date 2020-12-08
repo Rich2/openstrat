@@ -44,7 +44,7 @@ trait Shape extends Fillable with BoundedElem
 
   /** Rotation 2D geometric transformation on a Shape taking the rotation as a scalar measured in radians, returns a Shape. The Return type will be
    *  narrowed in sub traits / classes. */
-  override def rotate(angle: Angle): Shape
+  override def rotate(angle: AngleVec): Shape
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a Shape, returns a Shape. The Return type will be narrowed in sub
    *  traits / classes. */
@@ -66,7 +66,7 @@ object Shape
 {
   implicit val slateImplicit: Slate[Shape] = (obj: Shape, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Shape] = (obj: Shape, angle: Angle) => obj.rotate(angle)
+  implicit val rotateImplicit: Rotate[Shape] = (obj: Shape, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: XYScale[Shape] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 

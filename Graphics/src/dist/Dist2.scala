@@ -26,7 +26,7 @@ final class Dist2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: Dist2): Area = x * operand.x + y * operand.y
 
-  def rotate(a: Angle): Dist2 =  Dist2.metres(x.metres * a.cos - y.metres * a.sin, x.metres * a.sin + y.metres * a.cos)
+  def rotate(a: AngleVec): Dist2 =  Dist2.metres(x.metres * a.cos - y.metres * a.sin, x.metres * a.sin + y.metres * a.cos)
 
   def rotateRadians(r: Double): Dist2 =
   { val newX = xMetres * cos(r) - yMetres * sin(r)

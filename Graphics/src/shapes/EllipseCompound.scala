@@ -24,7 +24,7 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
 
   override def prolign(matrix: ProlignMatrix): EllipseCompound
 
-  override def rotate(angle: Angle): EllipseCompound
+  override def rotate(angle: AngleVec): EllipseCompound
 
   override def reflect(lineLike: LineLike): EllipseCompound
 
@@ -86,7 +86,7 @@ object EllipseCompound
 
     override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
 
-    override def rotate(angle: Angle): EllipseCompoundImplement = EllipseCompoundImplement(shape.rotate(angle), facets, children.rotate(angle))
+    override def rotate(angle: AngleVec): EllipseCompoundImplement = EllipseCompoundImplement(shape.rotate(angle), facets, children.rotate(angle))
 
     override def reflect(lineLike: LineLike): EllipseCompoundImplement = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
 

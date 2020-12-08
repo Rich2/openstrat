@@ -15,7 +15,7 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
 
   def prolign(matrix: ProlignMatrix): BoundedGraphic
 
-  def rotate(angle: Angle): BoundedGraphic
+  def rotate(angle: AngleVec): BoundedGraphic
   override def reflect(lineLike: LineLike): BoundedGraphic
   override def xyScale(xOperand: Double, yOperand: Double): BoundedGraphic
 
@@ -28,7 +28,7 @@ object BoundedGraphic
 {
   implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[BoundedGraphic] = (obj: BoundedGraphic, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, angle: Angle) => obj.rotate(angle)
+  implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[BoundedGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
   implicit val transAxesImplicit: ReflectAxes[BoundedGraphic] = new ReflectAxes[BoundedGraphic]

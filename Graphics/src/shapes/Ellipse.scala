@@ -108,7 +108,7 @@ trait Ellipse extends ShapeCentred
 
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
   override def xyScale(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
-  override def rotate(angle: Angle): Ellipse = fTrans(_.rotate(angle))
+  override def rotate(angle: AngleVec): Ellipse = fTrans(_.rotate(angle))
 
   override def negY: Ellipse = fTrans(_.negY)
 
@@ -140,7 +140,7 @@ object Ellipse
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
 
   implicit val rotateImplicit: Rotate[Ellipse] =
-    (ell: Ellipse, angle: Angle) => Ellipse.cs1s0(ell.cen.rotate(angle), ell.s1.rotate(angle), ell.s0.rotate(angle))
+    (ell: Ellipse, angle: AngleVec) => Ellipse.cs1s0(ell.cen.rotate(angle), ell.s1.rotate(angle), ell.s0.rotate(angle))
 
   implicit val prolignImplicit: Prolign[Ellipse] = (obj, matrix) => obj.prolign(matrix)
 

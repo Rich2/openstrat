@@ -40,7 +40,7 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
 
   override def prolign(matrix: ProlignMatrix): ShapeGraphicSimple
 
-  override def rotate(angle: Angle): ShapeGraphicSimple
+  override def rotate(angle: AngleVec): ShapeGraphicSimple
 
   override def reflect(lineLike: LineLike): ShapeGraphicSimple
 

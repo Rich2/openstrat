@@ -29,8 +29,8 @@ object Star7
   val classicRatio = 0.692
 
   def apply(ratio: Double = classicRatio): Polygon =
-  { val l2: Pt2s = Pt2s(Pt2(0, 1), Pt2(0, ratio).rotate(-Angle(180 / 7)))
-    iToFlatMap(0, 6)(i => l2.rotate(Angle(-360 / 7) * i)).toPolygon
+  { val l2: Pt2s = Pt2s(Pt2(0, 1), Pt2(0, ratio).rotate(-AngleVec(180 / 7)))
+    iToFlatMap(0, 6)(i => l2.rotate(AngleVec(-360 / 7) * i)).toPolygon
   }
   
   def fill(colour: Colour, ratio: Double = classicRatio): PolygonFill = apply(ratio).fill(colour)

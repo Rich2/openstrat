@@ -35,7 +35,7 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   override def prolign(matrix: ProlignMatrix): CArc = ???
 
   /** Rotation 2D geometric transformation on a CArc returns a CArc. */
-  override def rotate(angle: Angle): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), pEnd.rotate(angle), counter)
+  override def rotate(angle: AngleVec): CArc = CArc(pStart.rotate(angle), cen.rotate(angle), pEnd.rotate(angle), counter)
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a CArc returns a CArc. */
   override def reflect(lineLike: LineLike): CArc = CArc(pStart.reflect(lineLike), cen.reflect(lineLike), pEnd.reflect(lineLike), counter)

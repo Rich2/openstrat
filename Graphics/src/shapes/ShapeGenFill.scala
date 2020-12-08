@@ -30,7 +30,7 @@ case class ShapeGenFill(shape: ShapeGen, colour: Colour) extends CanvElem
 
   /** Rotation 2D geometric transformation on a ShapeGenFill taking the rotation as a scalar measured in radians, returns a ShapeGenFill. The Return
    * type will be narrowed in sub traits / classes. */
-  override def rotate(angle: Angle): ShapeGenFill = ShapeGenFill(shape.rotate(angle), colour)
+  override def rotate(angle: AngleVec): ShapeGenFill = ShapeGenFill(shape.rotate(angle), colour)
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed
    * in sub traits / classes. */

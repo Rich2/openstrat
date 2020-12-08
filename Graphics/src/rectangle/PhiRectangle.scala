@@ -30,7 +30,7 @@ trait PhiRectangle extends Rectangle
 
   override def reflect(lineLike: LineLike): PhiRectangle = PhiRectangle.s1s3(s1Cen.reflect(lineLike), s3Cen.reflect(lineLike))
 
-  override def rotate(angle: Angle): PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate(angle), s3Cen.rotate(angle))
+  override def rotate(angle: AngleVec): PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate(angle), s3Cen.rotate(angle))
 
   /*override def slateTo(newCen: Pt2): PhiRectangle =
   { val v = newCen.vecFrom(cen)
@@ -42,7 +42,7 @@ trait PhiRectangle extends Rectangle
  *  delegates to it. */
 object PhiRectangle
 {
-  def apply(height: Double, rotation: Angle, cen: Pt2): PhiRectangle =
+  def apply(height: Double, rotation: AngleVec, cen: Pt2): PhiRectangle =
   { val s1Cen: Pt2 = cen + yVec2(height / 2).rotate(rotation)
     val s3Cen: Pt2 = cen + yVec2(-height / 2).rotate(rotation)
     PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
@@ -57,7 +57,7 @@ object PhiRectangle
     override def s1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
     override def s3Cen: Pt2 = Pt2(xS3Cen, yS3Cen)
     override def width2: Double = s1Cen.distTo(s3Cen)
-    override def alignAngle: Angle = s1Cen.angleFrom(s3Cen).m90
+    override def alignAngle: AngleVec = s1Cen.angleFrom(s3Cen).rotationFrom90
     override def v1: Pt2 = s1Cen + xVec2(width2 / 2).rotate(alignAngle)
     override def x1: Double = v1.x
     override def y1: Double = v1.y

@@ -59,7 +59,7 @@ trait EArc extends CurveSeg
   override def prolign(matrix: ProlignMatrix): EArc
 
   /** Rotation 2D geometric transformation on a EArc. The return type will be narrowed in sub classes and traits. */
-  override def rotate(angle: Angle): EArc
+  override def rotate(angle: AngleVec): EArc
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a EArc. The return type will be narrowed in sub classes and
    * traits. */
@@ -88,7 +88,7 @@ object EArc
 
     override def slate(offset: Vec2Like): EArcImp = ???
 
-    override def rotate(angle: Angle): EArcImp = ???
+    override def rotate(angle: AngleVec): EArcImp = ???
 
     override def scale(operand: Double): EArcImp = ???
 

@@ -37,7 +37,7 @@ trait EArcDraw extends CurveSegDraw with CanvElem
 
   /** Rotation 2D geometric transformation on a EArcDraw taking the rotation as a scalar measured in radians, returns a EArcDraw. The Return
    * type will be narrowed in sub traits / classes. */
-  override def rotate(angle: Angle): EArcDraw = ???
+  override def rotate(angle: AngleVec): EArcDraw = ???
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a EArcDraw, returns a EArcDraw. The Return type will be narrowed
    * in sub traits / classes. */

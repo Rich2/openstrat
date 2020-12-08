@@ -29,7 +29,7 @@ sealed trait Line extends LineLike
   /** Transforms this Line using a [[ProlignMatrix]]. */
   override def prolign(matrix: ProlignMatrix): Line = ???
 
-  override def rotate(angle: Angle): Line = ???
+  override def rotate(angle: AngleVec): Line = ???
 
   override def reflect(lineLike: LineLike): Line = ???
 

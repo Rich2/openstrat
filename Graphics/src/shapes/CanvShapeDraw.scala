@@ -29,7 +29,7 @@ trait CanvShapeDraw extends ShapeDraw with CanvElem
 
   /** Rotation 2D geometric transformation on a CanvShapeDraw taking the rotation as a scalar measured in radians, returns a CanvShapeDraw. The Return
    * type will be narrowed in sub traits / classes. */
-  override def rotate(angle: Angle): CanvShapeDraw
+  override def rotate(angle: AngleVec): CanvShapeDraw
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a CanvShapeDraw, returns a CanvShapeDraw. The Return type will be narrowed
    * in sub traits / classes. */

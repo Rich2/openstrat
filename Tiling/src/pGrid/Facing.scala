@@ -3,15 +3,15 @@ package ostrat
 package pGrid
 import geom._
 
-sealed class SqFace(val ordNum: Int, val angle: Angle, val xTile: Int, val yTile: Int)
-object SFaceUp extends SqFace(0, 0.degs, 0, 2)
-object SFaceUR extends SqFace(1, -45.degs, 1, 1)
-object SFaceRt extends SqFace(2, -90.degs, 2, 0)
-object SFaceDR extends SqFace(3, -135.degs, 1, -1)
-object SFaceDn extends SqFace(4, 180.degs, 0, -2)
-object SFaceDL extends SqFace(5, 135.degs, -1, -1)
-object SFaceLt extends SqFace(6, 90.degs, -2, 0)
-object SFaceUL extends SqFace(7, 45.degs, -1, 1)
+sealed class SqFace(val ordNum: Int, val angle: AngleVec, val xTile: Int, val yTile: Int)
+object SFaceUp extends SqFace(0, 0.vDegs, 0, 2)
+object SFaceUR extends SqFace(1, -45.vDegs, 1, 1)
+object SFaceRt extends SqFace(2, -90.vDegs, 2, 0)
+object SFaceDR extends SqFace(3, -135.vDegs, 1, -1)
+object SFaceDn extends SqFace(4, 180.vDegs, 0, -2)
+object SFaceDL extends SqFace(5, 135.vDegs, -1, -1)
+object SFaceLt extends SqFace(6, 90.vDegs, -2, 0)
+object SFaceUL extends SqFace(7, 45.vDegs, -1, 1)
 
 object SqFace
 {

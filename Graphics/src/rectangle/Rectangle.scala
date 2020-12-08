@@ -21,7 +21,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
 
   override def ptsArray: Array[Double] = Array(xCen, yCen, x1, y1, x2, y2, x3, y3, x4, y4)
 
-  def alignAngle: Angle
+  def alignAngle: AngleVec
   def widthAttrib: WidthAtt = WidthAtt(width1)
   def heightAttrib: HeightAtt = HeightAtt(width2)
   def xAttrib: XAttrib = XAttrib(x4)
@@ -82,7 +82,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
 
   override def reflect(lineLike: LineLike): Rectangle = Rectangle.s2s4(s2Cen.reflect(lineLike), s4Cen.reflect(lineLike), width2)
 
-  override def rotate(angle: Angle): Rectangle = Rectangle.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle), width2)
+  override def rotate(angle: AngleVec): Rectangle = Rectangle.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle), width2)
 
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
     Rectangle.s2s4v1(s2Cen.xyScale(xOperand, yOperand), s4Cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
@@ -92,7 +92,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
  *  contains various factory methods that delegate to the [[Rectangle.RectangleImp]] class. */
 object Rectangle
 {
-  def apply(width: Double, height: Double, rotation: Angle, cen: Pt2 = Pt2Z): Rectangle =
+  def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Rectangle =
   { val s2Cen: Pt2 = cen.addX(width / 2).rotate(rotation)
     val s4Cen: Pt2 = cen.subX(width / 2).rotate(rotation)
     new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
@@ -127,7 +127,7 @@ object Rectangle
 
   implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: Angle) => obj.rotate(angle)
+  implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)
   implicit val reflectImplicit: Reflect[Rectangle] = (obj: Rectangle, lineLike: LineLike) => obj.reflect(lineLike)
 

@@ -8,12 +8,19 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
 {
   override def toString: String = degs.toString
 
+  def +(other: AngleVec): AngleVec = AngleVec.milliSecs(milliSecs + other.milliSecs)
+  def -(other: AngleVec): AngleVec = AngleVec.milliSecs(milliSecs - other.milliSecs)
+  def * (factor: Double): AngleVec = AngleVec.milliSecs(milliSecs * factor)
+  def / (factor: Double): AngleVec = AngleVec.milliSecs(milliSecs / factor)
+
   /** The reverse rotation. */
   def reverse: AngleVec = milliSecs match {
     case ms if ms > 0 => AngleVec.milliSecs(ms - MilliSecsIn360Degs)
     case 0 => this
     case ms => AngleVec.milliSecs(MilliSecsIn360Degs + ms)
   }
+
+  @inline def unary_- : AngleVec = AngleVec.radians(- radians)
 }
 
 object AngleVec

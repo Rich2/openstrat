@@ -30,7 +30,7 @@ trait ShapeCompound extends ShapeGraphic
 
   override def prolign(matrix: ProlignMatrix): ShapeCompound
 
-  override def rotate(angle: Angle): ShapeCompound
+  override def rotate(angle: AngleVec): ShapeCompound
 
   override def reflect(lineLike: LineLike): ShapeCompound
 
@@ -46,7 +46,7 @@ object ShapeCompound
 {
   implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: Angle) => obj.rotate(angle)
+  implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: AngleVec) => obj.rotate(angle)
 
   implicit val reflectAxesImplicit: ReflectAxes[ShapeCompound] = new ReflectAxes[ShapeCompound]
   { override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY

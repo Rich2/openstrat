@@ -36,7 +36,7 @@ trait ShapeGraphic extends BoundedGraphic
 
   def prolign(matrix: ProlignMatrix): ShapeGraphic
 
-  def rotate(angle: Angle): ShapeGraphic
+  def rotate(angle: AngleVec): ShapeGraphic
 
   def reflect(lineLike: LineLike): ShapeGraphic
 
@@ -60,7 +60,7 @@ object ShapeGraphic
   
   implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, dx: Double, dy: Double) => obj.slate(dx, dy)
   implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, angle: Angle) => obj.rotate(angle)
+  implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[ShapeGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[ShapeGraphic] = (obj, matrix) => obj.prolign(matrix)
 

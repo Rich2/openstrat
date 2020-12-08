@@ -5,7 +5,7 @@ import reflect.ClassTag
 
 /** Type class for 2D geometric rotation transformations of objects of type T. */
 trait Rotate[T]
-{ def rotateT(obj: T, angle: Angle): T
+{ def rotateT(obj: T, angle: AngleVec): T
 }
 
 /** Companion object for the Rotate[T] type class, contains implicit instances for collections and other container classes. */
@@ -27,8 +27,8 @@ object Rotate
 
 /** Extension class for instances of the Rotate type class. */
 class RotateExtensions[T](value: T, ev: Rotate[T]) extends RotateGenExtensions [T]
-{ override def rotateRadians(radians: Double): T = ev.rotateT(value, Angle.radians(radians))
-  def rotate(angle: Angle): T = ev.rotateT(value, angle)
+{ override def rotateRadians(radians: Double): T = ev.rotateT(value, AngleVec.radians(radians))
+  def rotate(angle: AngleVec): T = ev.rotateT(value, angle)
 
   def rotateQuadrants(implicit ct: ClassTag[T]): Arr[T] = Arr(value, rotate270, rotate180, rotate90)
 }
@@ -36,7 +36,7 @@ class RotateExtensions[T](value: T, ev: Rotate[T]) extends RotateGenExtensions [
 trait RotateGenExtensions[T]
 {
   def rotateRadians(radians: Double): T
-  def rotate(angle: Angle): T 
+  def rotate(angle: AngleVec): T
 
   /** Rotates 15 degrees anti-clockwise or + Pi/12 */
   def rotate15: T = rotate(Deg15)

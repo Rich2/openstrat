@@ -25,7 +25,7 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   override def prolign(matrix: ProlignMatrix): RectangleDraw = RectangleDraw(shape.prolign(matrix), lineWidth, lineColour)
 
   /** Mirror, rotate(radians) transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
-  override def rotate(angle: Angle): RectangleDraw = RectangleDraw(shape.rotate(angle), lineWidth, lineColour)
+  override def rotate(angle: AngleVec): RectangleDraw = RectangleDraw(shape.rotate(angle), lineWidth, lineColour)
 
   /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def reflect(lineLike: LineLike): RectangleDraw = RectangleDraw(shape.reflect(lineLike), lineWidth, lineColour)

@@ -30,7 +30,7 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
   override def prolign(matrix: ProlignMatrix): GeomElem = ???
 
   /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and traits. */
-  override def rotate(angle: Angle): GeomElem = ???
+  override def rotate(angle: AngleVec): GeomElem = ???
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a GeomElem. The return type will be narrowed in sub classes and
    * traits. */
