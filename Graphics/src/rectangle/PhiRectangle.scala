@@ -12,10 +12,10 @@ trait PhiRectangle extends Rectangle
   def width1: Double = width2 * Phi
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
-  //override def slate(offset: Vec2Like): PhiRectangle = PhiRectangle.s1s3(s1Cen + offset, s3Cen + offset)
+  override def slate(xOffset: Double, yOffset: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen.addXY(xOffset, yOffset), s3Cen.addXY(xOffset, yOffset))
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
-  override def slate(xOffset: Double, yOffset: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen.addXY(xOffset, yOffset), s3Cen.addXY(xOffset, yOffset))
+  override def slate(offset: Vec2Like): PhiRectangle = PhiRectangle.s1s3(s1Cen.slate(offset), s3Cen.slate(offset))
 
   /** Uniform scaling transformation on a PhiRectangle returns a PhiRectangle. */
   override def scale(operand: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen.scale(operand), s3Cen.scale(operand))
@@ -57,7 +57,7 @@ object PhiRectangle
     override def s1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
     override def s3Cen: Pt2 = Pt2(xS3Cen, yS3Cen)
     override def width2: Double = s1Cen.distTo(s3Cen)
-    override def alignAngle: Angle = s1Cen.angleFrom(s3Cen) - Deg90
+    override def alignAngle: Angle = s1Cen.angleFrom(s3Cen).m90
     override def v1: Pt2 = s1Cen + xVec2(width2 / 2).rotate(alignAngle)
     override def x1: Double = v1.x
     override def y1: Double = v1.y
@@ -79,11 +79,12 @@ case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with
 {
   override def width: Double = width1
   override def width2: Double = height
-  /** Translate geometric transformation on a PhiRect returns a PhiRect. */
-  //override def slate(offset: Vec2Like): PhiRect = PhiRect(height, cen + offset)
 
   /** Translate geometric transformation on a PhiRect returns a PhiRect. */
   override def slate(xOffset: Double, yOffset: Double): PhiRect = PhiRect(height, xCen + xOffset, yCen + yOffset)
+
+  /** Translate geometric transformation on a PhiRect returns a PhiRect. */
+  override def slate(offset: Vec2Like): PhiRect = PhiRect(height, cen.slate(offset))
 
   /** Uniform scaling transformation on a PhiRect returns a PhiRect. */
   override def scale(operand: Double): PhiRect = PhiRect(height * operand, cen.scale(operand))
@@ -111,11 +112,12 @@ case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with
 {
   override def height: Double = width1
   override def width2: Double = width
-  /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
-  //override def slate(offset: Vec2Like): PhiRectY = PhiRectY(width, cen + offset)
 
   /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
   override def slate(xOffset: Double, yOffset: Double): PhiRectY = PhiRectY(width, xCen + xOffset, yCen + yOffset)
+
+  /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
+  override def slate(offset: Vec2Like): PhiRectY = PhiRectY(width, cen.slate(offset))
 
   /** Uniform scaling transformation on a PhiRectY returns a PhiRectY. */
   override def scale(operand: Double): PhiRectY = PhiRectY(width * operand, cen.scale(operand))

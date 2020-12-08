@@ -44,10 +44,10 @@ final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, va
   def angle: Angle = vec.angle
 
   /** The angle 90 degrees anti-clock wise from the angle of this directed line segment. The angle one gets by turning left from this Sline. */
-  def left90: Angle = angle + 90.degs
+  def left90: Angle = angle.p90
 
   /** The angle 90 degrees clock wise from the angle of this line segment. The angle one gets by turning from from this Sline. */
-  def right90: Angle = angle - 90.degs
+  def right90: Angle = angle.m90
 
   /** The relative vector [[Vec2]] of the end point from the start point. */
   def vec: Vec2 = Vec2(xEnd - xStart, yEnd - yStart)
@@ -82,7 +82,7 @@ final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, va
   def midPtToLeft(distFromMidPt: Double): Pt2 = midPt + left90.toVec2(distFromMidPt)
 
   def draw(colour: Colour = Black, lineWidth: Double = 2): LineSegDraw = LineSegDraw(this, colour, lineWidth)
-  def drawArrow(colour: Colour = Black, lineWidth: Double = 2): LinesDraw = Arrow.draw(startPt, endPt, 30.degs, 20, lineWidth, colour)
+  def drawArrow(colour: Colour = Black, lineWidth: Double = 2): LinesDraw = Arrow.draw(startPt, endPt, 30.vDegs, 20, lineWidth, colour)
 
   def mirrorPt(pt: Pt2): Pt2 = pt.reflect(this)
 

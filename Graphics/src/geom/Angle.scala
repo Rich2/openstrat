@@ -17,9 +17,18 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
 
-  def +(other: Angle): Angle = Angle.milliSecs(milliSecs + other.milliSecs)
-  def -(other: Angle): Angle = Angle.milliSecs(milliSecs - other.milliSecs)
-  
+  def +(other: AngleVec): Angle = Angle.milliSecs(milliSecs + other.milliSecs)
+  def -(other: AngleVec): Angle = Angle.milliSecs(milliSecs - other.milliSecs)
+
+  /** Plus 90, add 90 degrees to this Angle, rotate this angle by 90 degrees in an anti-clockwise direction. */
+  def p90: Angle = Angle.milliSecs(milliSecs + MilliSecsIn90Degs)
+
+  /** Minus 90, subtract 90 degrees from this Angle, rotate this angle by 90 degrees in a clockwise direction. */
+  def m90: Angle = Angle.milliSecs(milliSecs - MilliSecsIn90Degs)
+
+  /** plus 180, add / subtract 180 degrees from this Angle. */
+  def p180: Angle = Angle.milliSecs(milliSecs + MilliSecsIn180Degs)
+
   /** returns an angle between -Pi and Pi */
   def angleTo(other: Angle): Angle = other.radians -radians match
   { case r if r > Pi1 => Angle.radians(r - Pi2)

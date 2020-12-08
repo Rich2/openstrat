@@ -37,6 +37,8 @@ trait EArc extends CurveSeg
   /** The line segment [LineSeg] from the centre of the arc to the end point of the arc. */
   def lsCenEnd: LineSeg = cen.lineTo(pEnd)
 
+  def angleDelta: AngleVec = ???
+
   /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */
   override def slate(offset: Vec2Like): EArc
 

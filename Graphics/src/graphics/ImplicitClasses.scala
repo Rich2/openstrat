@@ -13,8 +13,13 @@ class IntGeomImplicit(thisInt: Int)
   @inline def miles: Dist = Dist(thisInt * 1609.344)
   @inline def millionMiles: Dist = thisInt.miles * 1000000
   def * (operator: Dist): Dist = Dist(thisInt * operator.metres)
+
+  /** Converts this Int into an absolute angle of the given degrees from 0 until 360 degrees. */
   def degs: Angle = Angle(thisInt)
-  def degsVec: AngleVec = AngleVec(thisInt)
+
+  /** Converts this Int into an [[AngleVec]] an angle of rotation for any positive or negative value of Int. */
+  def vDegs: AngleVec = AngleVec(thisInt)
+
   def ll (longDegs: Double): LatLong = LatLong.degs(thisInt, longDegs)
   def east: Longitude = Longitude.degs(thisInt)
   def west: Longitude = Longitude.degs(-thisInt)
@@ -33,8 +38,13 @@ class DoubleImplicitGeom(thisDouble: Double)
   @inline def miles: Dist = Dist(thisDouble * 1609.344)
   @inline def millionMiles: Dist = thisDouble.miles * 1000000
   def radians: Angle = Angle.radians(thisDouble)
+
+  /** Converts this Double into an absolute angle of the given degrees from 0 until 360 degrees. */
   def degs: Angle = Angle(thisDouble)
-  def degsVec: AngleVec = AngleVec(thisDouble)
+
+  /** Converts this Double into an [[AngleVec]] an angle of rotation from - infinity to + infinity. */
+  def vDegs: AngleVec = AngleVec(thisDouble)
+
   def ll (longDegs: Double): LatLong = LatLong.degs(thisDouble, longDegs)
   def east: Longitude = Longitude.degs(thisDouble)
   def west: Longitude = Longitude.degs(-thisDouble)

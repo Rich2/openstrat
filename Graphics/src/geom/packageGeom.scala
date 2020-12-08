@@ -108,8 +108,13 @@ package object geom
   val Deg60: Angle  = Angle(60)
   /** 72 degrees anti-clockwise or + Pi2/5 radians */
   val Deg72: Angle = Angle(72)
+
   /** 90 degrees anti-clockwise or + Pi/2 radians */
-  val Deg90: Angle = Angle(90)  
+  val Deg90: Angle = Angle(90)
+
+  /** 90 degrees anti-clockwise or + Pi/2 radians */
+  val vDeg90: AngleVec = AngleVec(90)
+
   /** 120 degrees anti-clockwise or + 2 * Pi/3 radians */
   val Deg120: Angle = Angle(120)
   /** 135 degrees anti-clockwise or + 3 * Pi/4 radians */
