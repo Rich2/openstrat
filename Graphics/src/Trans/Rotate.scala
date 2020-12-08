@@ -28,7 +28,15 @@ object Rotate
 /** Extension class for instances of the Rotate type class. */
 class RotateExtensions[T](value: T, ev: Rotate[T]) extends RotateGenExtensions [T]
 { override def rotateRadians(radians: Double): T = ev.rotateT(value, AngleVec.radians(radians))
+
+  /** Rotate (2D geometric transformation) the object by the [[AngleVec]] parameter. */
   def rotate(angle: AngleVec): T = ev.rotateT(value, angle)
+
+  /** Rotate (2D geometric transformation) the object by the value of the parameter in degrees. */
+  def rotateDegs(degrees: Double): T = ev.rotateT(value, AngleVec(degrees))
+
+  /** Rotate (2D geometric transformation) the object in a clockwise direction by the value of the parameter in degrees. */
+  def rotateClkDegs(degrees: Double): T = ev.rotateT(value, AngleVec(-degrees))
 
   def rotateQuadrants(implicit ct: ClassTag[T]): Arr[T] = Arr(value, rotate270, rotate180, rotate90)
 }

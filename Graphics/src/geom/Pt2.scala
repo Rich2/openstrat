@@ -51,6 +51,9 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   }
 
   /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
+  def slate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
+
+  /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
   def slate(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
 
   /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
@@ -224,4 +227,21 @@ object Pt2
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(inp)
   }
+  implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
+  implicit val prolignImplicit: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleImplicit: XYScale[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val reflectImplicit: Reflect[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.reflect(lineLike)
+
+  implicit val reflectAxesImplicit: ReflectAxes[Pt2] = new ReflectAxes[Pt2]
+  { override def negYT(obj: Pt2): Pt2 = obj.negY
+    override def negXT(obj: Pt2): Pt2 = obj.negX
+  }
+
+  implicit val shearImplicit: Shear[Pt2] = new Shear[Pt2]
+  { override def xShearT(obj: Pt2, yFactor: Double): Pt2 = obj.xShear(yFactor)
+    override def yShearT(obj: Pt2, xFactor: Double): Pt2 = obj.yShear(xFactor)
+  }
+  //implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
 }

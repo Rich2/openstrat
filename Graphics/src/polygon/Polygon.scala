@@ -212,12 +212,12 @@ trait Polygon extends Shape with BoundedElem
     res
   }
 
-  /** Insert vertices */
+  /** Insert vertices before the specified insertion vertex. */
   def insVerts(insertionPoint: Int, newVecs: Pt2 *): Polygon =
   { val res = PolygonImp.factory(vertsNum + newVecs.length)
-    (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, vert(i)))
-    newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
-    (insertionPoint until vertsNum).foreach(i => res.unsafeSetElem(i + newVecs.length, vert(i)))
+    (1 until insertionPoint).foreach(i => res.unsafeSetElem(i - 1, vert(i)))
+    newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i -1, elem))
+    (insertionPoint until vertsNum + 1).foreach(i => res.unsafeSetElem(i + newVecs.length -1, vert(i)))
     res
   }
 }

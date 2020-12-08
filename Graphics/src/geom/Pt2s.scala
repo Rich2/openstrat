@@ -50,6 +50,23 @@ object Pt2s extends ProdDbl2sCompanion[Pt2, Pt2s]
   }
 
   implicit val arrArrayImplicit: ArrFlatBuild[Pt2s] = Pt2.vec2sBuildImplicit
+
+  implicit val slateImplicit: Slate[Pt2s] = (obj: Pt2s, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val scaleImplicit: Scale[Pt2s] = (obj: Pt2s, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[Pt2s] = (obj: Pt2s, angle: AngleVec) => obj.map(_.rotate(angle))
+  implicit val prolignImplicit: Prolign[Pt2s] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleImplicit: XYScale[Pt2s] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val reflectImplicit: Reflect[Pt2s] = (obj: Pt2s, lineLike: LineLike) => obj.reflect(lineLike)
+
+  implicit val reflectAxesImplicit: ReflectAxes[Pt2s] = new ReflectAxes[Pt2s]
+  { override def negYT(obj: Pt2s): Pt2s = obj.negY
+    override def negXT(obj: Pt2s): Pt2s = obj.negX
+  }
+
+  implicit val shearImplicit: Shear[Pt2s] = new Shear[Pt2s]
+  { override def xShearT(obj: Pt2s, yFactor: Double): Pt2s = obj.xShear(yFactor)
+    override def yShearT(obj: Pt2s, xFactor: Double): Pt2s = obj.yShear(xFactor)
+  }
 }
 
 class Vec2Buff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl2[Pt2]
