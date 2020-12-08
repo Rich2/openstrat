@@ -4,7 +4,7 @@ package geom
 
 object Arrow
 {
-  def draw(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = 30.vDegs, hypLength: Double = 20, lineWidth: Double = 2, lineColour: Colour = Colour.Black):
+  def draw(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = 30.degs, hypLength: Double = 20, lineWidth: Double = 2, lineColour: Colour = Colour.Black):
     LinesDraw =
   {
     val mainLine = LineSeg(startPt, endPt)
@@ -15,18 +15,18 @@ object Arrow
     LinesDraw(segs, lineWidth, lineColour)
   }
   
-  def headVerts(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = 30.vDegs, hypLength: Double = 20): (Pt2, Pt2) =
+  def headVerts(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = 30.degs, hypLength: Double = 20): (Pt2, Pt2) =
   {
     val mainLine = LineSeg(startPt, endPt)
     val ang: Angle = mainLine.angle
-    val leftAng: Angle = ang + 180.vDegs - headAngle
+    val leftAng: Angle = ang + 180.degs - headAngle
     val leftVert: Pt2 = endPt + leftAng.toVec2(hypLength)
-    val rightAng: Angle = ang + 180.vDegs + headAngle
+    val rightAng: Angle = ang + 180.degs + headAngle
     val rightVert: Pt2 = endPt + rightAng.toVec2(hypLength)
     (leftVert, rightVert)
   }
   
-  def apply(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = 20.vDegs, hypLength: Double = 25, lineWidth: Double = 2,
+  def apply(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = 20.degs, hypLength: Double = 25, lineWidth: Double = 2,
             lineColour: Colour = Colour.Black): Arr[GraphicElem] =
   {    
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)

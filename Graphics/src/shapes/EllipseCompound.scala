@@ -53,7 +53,7 @@ object EllipseCompound
     { //val bounds = shape.boundingRect
       val newEllipse = shape.negY.slate(0, bounds.minY + bounds.maxY)
       val newAtts = newEllipse.attribs
-      val atts2 = if (shape.alignAngle == 0.degs) newAtts else newAtts +- SvgRotate(- shape.alignAngle.degs, shape.xCen, shape.yCen)
+      val atts2 = if (shape.alignAngle == 0.degsAng) newAtts else newAtts +- SvgRotate(- shape.alignAngle.degs, shape.xCen, shape.yCen)
       SvgEllipse(atts2 ++ facets.flatMap(_.attribs))
     }
 

@@ -82,7 +82,7 @@ final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, va
   def midPtToLeft(distFromMidPt: Double): Pt2 = midPt + left90.toVec2(distFromMidPt)
 
   def draw(colour: Colour = Black, lineWidth: Double = 2): LineSegDraw = LineSegDraw(this, colour, lineWidth)
-  def drawArrow(colour: Colour = Black, lineWidth: Double = 2): LinesDraw = Arrow.draw(startPt, endPt, 30.vDegs, 20, lineWidth, colour)
+  def drawArrow(colour: Colour = Black, lineWidth: Double = 2): LinesDraw = Arrow.draw(startPt, endPt, 30.degs, 20, lineWidth, colour)
 
   def mirrorPt(pt: Pt2): Pt2 = pt.reflect(this)
 

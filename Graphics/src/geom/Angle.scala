@@ -87,8 +87,8 @@ object Angles
   }
 
   /** Sequence of the four cardinal angles, 0, -90, 180, 90 degrees in clockwise order. */
-  val cross: Angles = Angles(0.degs, 270.degs, 180.degs, 90.degs)
+  val cross: Angles = Angles(0.degsAng, 270.degsAng, 180.degsAng, 90.degsAng)
 
   /** Sequence of the four cardinal angles rotated by 45 degrees, 45, -45, -135, 135 degrees in clockwise order. */
-  val cross45: Angles = Angles(45.degs, 315.degs, 225.degs, 135.degs)
+  val cross45: Angles = Angles(45.degsAng, 315.degsAng, 225.degsAng, 135.degsAng)
 }

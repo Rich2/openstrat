@@ -185,6 +185,6 @@ object Ellipse
     }
 
     override def alignAngle: Angle = cen.angleTo(s1)
-    def s0Angle = alignAngle + 90.vDegs
+    def s0Angle = alignAngle + 90.degs
   }
 }

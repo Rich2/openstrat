@@ -15,10 +15,10 @@ class IntGeomImplicit(thisInt: Int)
   def * (operator: Dist): Dist = Dist(thisInt * operator.metres)
 
   /** Converts this Int into an absolute angle of the given degrees from 0 until 360 degrees. */
-  def degs: Angle = Angle(thisInt)
+  def degsAng: Angle = Angle(thisInt)
 
   /** Converts this Int into an [[AngleVec]] an angle of rotation for any positive or negative value of Int. */
-  def vDegs: AngleVec = AngleVec(thisInt)
+  def degs: AngleVec = AngleVec(thisInt)
 
   def ll (longDegs: Double): LatLong = LatLong.degs(thisInt, longDegs)
   def east: Longitude = Longitude.degs(thisInt)
@@ -40,10 +40,10 @@ class DoubleImplicitGeom(thisDouble: Double)
   def radians: Angle = Angle.radians(thisDouble)
 
   /** Converts this Double into an absolute angle of the given degrees from 0 until 360 degrees. */
-  def degs: Angle = Angle(thisDouble)
+  def degsAng: Angle = Angle(thisDouble)
 
   /** Converts this Double into an [[AngleVec]] an angle of rotation from - infinity to + infinity. */
-  def vDegs: AngleVec = AngleVec(thisDouble)
+  def degs: AngleVec = AngleVec(thisDouble)
 
   def ll (longDegs: Double): LatLong = LatLong.degs(thisDouble, longDegs)
   def east: Longitude = Longitude.degs(thisDouble)
