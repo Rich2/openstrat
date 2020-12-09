@@ -53,8 +53,11 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
 
   def / (factor: Double): Angle = Angle.radians(radians / factor)
 
-  /** This is gives the smaller of the bisection angles  */
-  def bisect(operand: Angle): Angle = Angle.radians(radians + angleTo(operand).radians / 2)
+  /** bisects the positive or anti-clockwise arc between this Angle and the operand Angle. */
+  def bisectPos(operand: Angle): Angle = this + deltaPosTo(operand) / 2
+
+  /** bisects the negative or clockwise arc between this Angle and the operand Angle. */
+  def bisectNeg(operand: Angle): Angle = this + deltaNegTo(operand) / 2
 }
 
 /** Angle Companion object. */

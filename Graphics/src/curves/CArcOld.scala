@@ -10,11 +10,11 @@ trait ArcLikeOld extends CurveSeg
   def radius: Double = pEnd.distTo(pCen)
   def startAngle: Angle = pCen.angleTo(pStart)
   def endAngle: Angle = pCen.angleTo(pEnd)
-  def deltaAngle: Angle = startAngle.angleTo(endAngle)
+  def deltaAngle: AngleVec = startAngle.deltaNegTo(endAngle)
 
   def controlPt: Pt2 =
   { val sAng: Angle = startAngle
-    val resultAngle = sAng.bisect(endAngle)
+    val resultAngle = sAng + deltaAngle / 2
     val alphaAngle =  sAng.angleTo(endAngle) / 2
     pCen + resultAngle.toVec2(radius / alphaAngle.cos)
   }
