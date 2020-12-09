@@ -3,7 +3,9 @@ package ostrat
 package geom
 
 /** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range 0 <= a < 360
- *  degrees, while Latitudes have a normal range +- 90 degrees. */
+ *  degrees, while Latitudes have a normal range +- 90 degrees. Unlike [[AngleVec]] this class has no multiply or divide, * or / methods. It has add
+ *  and subtract, + and - methods, but these take [[AngleVec]]s as operands not other Angles. To Add,subtract or scale angles of inclination would
+ *  make no sense. */
 final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  with ProdDbl1
 {
   @inline override def dblValue: Double = secs
@@ -26,15 +28,9 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   /** Minus 90, subtract 90 degrees from this Angle, rotate this angle by 90 degrees in a clockwise direction. */
   def m90: Angle = Angle.milliSecs(milliSecs - MilliSecsIn90Degs)
 
-  /** plus 180, add / subtract 180 degrees from this Angle. */
+  /** plus 180, adds / subtracts 180 degrees from this Angle. As an Angle's range is 360 > a >= 0, adding or subtracting 180 degrees gives the same
+   *  result. */
   def p180: Angle = Angle.milliSecs(milliSecs + MilliSecsIn180Degs)
-
-  /** returns an angle between -Pi and Pi */
-  def angleTo(other: Angle): Angle = other.radians -radians match
-  { case r if r > Pi1 => Angle.radians(r - Pi2)
-    case r if r < -Pi1 => Angle.radians(Pi2 + r)
-    case r => Angle.radians(r)
-  }
 
   /** Returns the positive [[AngleVec]] from this Angle to the operand Angle. A value from 0 until 360 degrees.  */
   def deltaPosTo(other: Angle): AngleVec = other.milliSecs - milliSecs match
@@ -50,8 +46,6 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   
   def addRadians(other: Double): Angle = Angle.radians(radians + other)
   def subRadians(other: Double): Angle = Angle.radians(radians - other)
-
-  def / (factor: Double): Angle = Angle.radians(radians / factor)
 
   /** bisects the positive or anti-clockwise arc between this Angle and the operand Angle. */
   def bisectPos(operand: Angle): Angle = this + deltaPosTo(operand) / 2

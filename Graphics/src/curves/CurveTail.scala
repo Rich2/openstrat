@@ -84,7 +84,7 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
   def arcControlPt(startPt: Pt2): Pt2 =
   { val sAng: Angle = arcStartAngle(startPt)
     val resultAngle = sAng.bisectNeg(arcEndAngle)
-    val alphaAngle =  sAng.angleTo(arcEndAngle) / 2
+    val alphaAngle =  sAng.deltaNegTo(arcEndAngle) / 2
     arcCen + resultAngle.toVec2(arcRadius) / alphaAngle.cos
   }
   

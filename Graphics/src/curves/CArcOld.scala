@@ -15,7 +15,7 @@ trait ArcLikeOld extends CurveSeg
   def controlPt: Pt2 =
   { val sAng: Angle = startAngle
     val resultAngle = sAng + deltaAngle / 2
-    val alphaAngle =  sAng.angleTo(endAngle) / 2
+    val alphaAngle =  sAng.deltaNegTo(endAngle) / 2
     pCen + resultAngle.toVec2(radius / alphaAngle.cos)
   }
 
