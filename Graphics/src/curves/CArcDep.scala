@@ -36,9 +36,9 @@ final case class CArcDep(xStart: Double, yStart: Double, xCen: Double, yCen: Dou
 
   def xEnd: Double = pEnd.x
   def yEnd: Double = pEnd.y
-  //override def slate(offset: Vec2Like): CArc = CArc(pStart + offset, cen + offset, deltaRadians)
-  override def scale(operand: Double): CArcDep = CArcDep(pStart.scale(operand), cen.scale(operand), deltaRadians)
 
+  override def scale(operand: Double): CArcDep = CArcDep(pStart.scale(operand), cen.scale(operand), deltaRadians)
+  override def slate(offset: Vec2Like): CArcDep = CArcDep(pStart.slate(offset), cen.slate(offset), deltaRadians)
   override def rotate(angle: AngleVec): CArcDep = CArcDep(pStart.rotate(angle), cen.rotate(angle), deltaRadians)
 
   override def reflect(lineLike: LineLike): CArcDep = ???

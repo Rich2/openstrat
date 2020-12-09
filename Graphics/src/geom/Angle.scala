@@ -40,7 +40,6 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   def subRadians(other: Double): Angle = Angle.radians(radians - other)
 
   def / (factor: Double): Angle = Angle.radians(radians / factor)
-  @ inline def unary_- : Angle = Angle.radians(- radians)
 
   /** This is gives the smaller of the bisection angles  */
   def bisect(operand: Angle): Angle = Angle.radians(radians + angleTo(operand).radians / 2)
