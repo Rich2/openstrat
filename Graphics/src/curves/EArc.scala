@@ -2,6 +2,7 @@
 package ostrat
 package geom
 
+/** Elliptical Arc. the trait has 2 implementations [[CArc]] and [[EArc.EArcImp]]. */
 trait EArc extends CurveSeg
 {
   /** The X component of the centre of the Elliptical arc. */
@@ -37,13 +38,15 @@ trait EArc extends CurveSeg
   /** The line segment [LineSeg] from the centre of the arc to the end point of the arc. */
   def lsCenEnd: LineSeg = cen.lineTo(pEnd)
 
-  def angleDelta: AngleVec = ???
+  def counter: Int
 
-  /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */
-  override def slate(offset: Vec2Like): EArc
+  def angleDelta: AngleVec = ???
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
   override def slate(xOffset: Double, yOffset: Double): EArc
+
+  /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */
+  override def slate(offset: Vec2Like): EArc
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
@@ -78,10 +81,14 @@ trait EArc extends CurveSeg
 
 object EArc
 {
-  /** Elliptical Arc. I think its important not to encode unnecessary data, not because of space concerns but because this may allow contradictory data.
-   *  I've replaced  3 scalars and 2 booleans in the JavaFx encoding with 4 scalars. */
-  final case class EArcImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, x1: Double, y1: Double, xEnd: Double, yEnd: Double) extends
-    EArc {
+
+
+  /** implementation class fpr Elliptical Arc. This calss stores the start point, the centre point, axis vertex 1, by convention the vertex on the
+   *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greter than
+   *  360 degrees and less than -360 degrees. */
+  final case class EArcImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xAxis1: Double, yAxis1: Double, xAxis4: Double,
+    yAxis4: Double, xEnd: Double, yEnd: Double, counter: Int) extends EArc
+  {
     //override def fTrans(f: Vec2 => Vec2): EArc = ???
 
     override def cen: Pt2 = ???
