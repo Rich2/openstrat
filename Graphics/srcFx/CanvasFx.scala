@@ -3,7 +3,8 @@ package ostrat
 package pFx
 import geom._, pCanv._, javafx._, scene._
 
-/** An alternative version of CanvasFx to experiment with removing the ScalaFx dependency and just use JavaFx directly. */
+/** A JavaFx implementation of [[CanvasPlatform]]. <a href="https://openjfx.io/index.html">JavaFx 15 documentation</a><br>
+ * <a href="https://openjfx.io/javadoc/15/javafx.graphics/javafx/scene/canvas/GraphicsContext.html">GraphicContext</a>*/
 case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLeft// with CanvSaver
 {
   val gc: canvas.GraphicsContext = canvFx.getGraphicsContext2D
@@ -95,6 +96,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override protected[this] def tlCArcDraw(ad: CArcDraw): Unit =
   { gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
+    gc.arc(ad.xCen, ad.yCen, ad.radius, ad.radius, ad.curveSeg.startDegs, ??? )//ad.curveSeg.deltaDegs)
     gc.setStroke(toFxColor(ad.colour))
     gc.stroke()
   }
@@ -140,16 +142,6 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.setLineDashes()
   }
 
-  /*override protected[this] def tlCArcDrawDep(cad: CArcDrawDep): Unit =
-  { val ca = cad.arc
-    gc.beginPath
-    gc.moveTo(ca.xStart, ca.yStart)
-    gc.arcTo(ca.xCtrl, ca.yCtrl, ca.xEnd, ca.yEnd, ca.radius)
-    //gc.arc(ca.xCen, ca.yCen, ca.radius, ca.radius, ca.startAngleRadians.radiansToDegrees, ca.detltaDegs)
-    gc.setLineWidth(cad.lineWidth)
-    gc.setStroke(toFxColor(cad.lineColour))
-    gc.stroke()
-  }*/
   def fxAlign(align: TextAlign) =
   { import text._
     align match

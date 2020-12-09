@@ -62,7 +62,8 @@ def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
 
 lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
   assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
-  assemblyJarName in assembly := "rutil" + jarVersion
+  assemblyJarName in assembly := "rutil" + jarVersion,
+  idePackagePrefix := Some("ostrat"),
 )
 
 lazy val Util = exsJvmProj("Util").dependsOn(UtilCore).settings(Compile/mainClass:= Some("ostrat.WebPage1"))
