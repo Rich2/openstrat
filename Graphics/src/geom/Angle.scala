@@ -35,6 +35,18 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
     case r if r < -Pi1 => Angle.radians(Pi2 + r)
     case r => Angle.radians(r)
   }
+
+  /** Returns the positive [[AngleVec]] from this Angle to the operand Angle. A value from 0 until 360 degrees.  */
+  def deltaPosTo(other: Angle): AngleVec = other.milliSecs - milliSecs match
+  { case ms if ms < 0 => AngleVec.milliSecs(ms + MilliSecsIn360Degs)
+    case ms => AngleVec.milliSecs(ms)
+  }
+
+  /** Returns the negative [[AngleVec]] from this Angle to the operand Angle. A value from 0 until -360 degrees.  */
+  def deltaNegTo(other: Angle): AngleVec = other.milliSecs - milliSecs match
+  { case ms if ms > 0 => AngleVec.milliSecs(ms - MilliSecsIn360Degs)
+    case ms => AngleVec.milliSecs(ms)
+  }
   
   def addRadians(other: Double): Angle = Angle.radians(radians + other)
   def subRadians(other: Double): Angle = Angle.radians(radians - other)

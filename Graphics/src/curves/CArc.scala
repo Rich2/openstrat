@@ -2,7 +2,10 @@
 package ostrat
 package geom
 
-/** Circular arc. Has a rotation counter to allow rotation deltas greater than 360 degrees and less than - 360 degrees. */
+/** Circular arc. Has a rotation counter to allow rotation deltas greater than 360 degrees and less than - 360 degrees. The CArc is intended to
+ *  function as closely as possible to the functioning of CArcTails in a curve path. Hence the decision to store the three points as fields rather
+ *  using the [[AngleVec]] of the arc which would allow less data. This is to avoid calculation /rounding errors in the start and end points, which
+ *  will be used by other [[CurveSeg]]s in curve paths. */
 class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val yCen: Double, val xEnd: Double, val yEnd: Double,
   val counter: Int) extends EArc
 { /** The centre of this circular arc. */
@@ -48,6 +51,12 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
 }
 
 object CArc
-{
+{ /** Factory method for creating circular arcs. */
   def apply(pStart: Pt2, cen: Pt2, pEnd: Pt2, counter: Int): CArc = new CArc(pStart.x, pStart.y, cen.x, cen.y, pEnd.x, pEnd.y, counter)
+
+  /** Creates a positive direction or anti clockwise circular arc, with an [[AngleVec]] from 0 until 360 degrees. */
+  def pos(pStart: Pt2, cen: Pt2, pEnd: Pt2): CArc = new CArc(pStart.x, pStart.y, cen.x, cen.y, pEnd.x, pEnd.y, ife(pStart == pEnd, 0, 1))
+
+  /** Creates a negative direction or clockwise circular arc, with an [[AngleVec]] from 0 until -360 degrees. */
+  def neg(pStart: Pt2, cen: Pt2, pEnd: Pt2): CArc = new CArc(pStart.x, pStart.y, cen.x, cen.y, pEnd.x, pEnd.y, ife(pStart == pEnd, 0, -1))
 }
