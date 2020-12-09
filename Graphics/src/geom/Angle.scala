@@ -11,9 +11,6 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
   def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
 
-  /** Gives the length of the circumference of the arc. */
-  def arcLength(radius: Double): Double = radians * radius
-
   override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
 
@@ -41,7 +38,7 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
   
   def addRadians(other: Double): Angle = Angle.radians(radians + other)
   def subRadians(other: Double): Angle = Angle.radians(radians - other)
-  def * (factor: Double): Angle = Angle.radians(radians * factor)
+
   def / (factor: Double): Angle = Angle.radians(radians / factor)
   @ inline def unary_- : Angle = Angle.radians(- radians)
 

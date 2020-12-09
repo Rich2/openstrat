@@ -13,6 +13,9 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
   def * (factor: Double): AngleVec = AngleVec.milliSecs(milliSecs * factor)
   def / (factor: Double): AngleVec = AngleVec.milliSecs(milliSecs / factor)
 
+  /** Gives the length of the circumference of the arc. */
+  def arcLength(radius: Double): Double = radians * radius
+
   /** The reverse rotation. */
   def reverse: AngleVec = milliSecs match {
     case ms if ms > 0 => AngleVec.milliSecs(ms - MilliSecsIn360Degs)
