@@ -123,6 +123,13 @@ lazy val StratExs = Project("StratExs", file("Dev/SbtDir/StratExs")).dependsOn(S
 
 val docDirs: List[String] = List("Util", "Graphics", "Tiling", "World", "Dev")
 
+lazy val custDoc = taskKey[Unit]("Aims to be a task to aid buiding ScalaDocs")
+custDoc :=
+{  val t1 = (doc in (DocMain, Compile)).value
+   val t2 = (doc in (DocJs, Compile)).value
+   println("Main docs and Js docs built")
+}
+
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).dependsOn(UtilMacros).settings(commonSett).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcExs")).map(s => baseDir.value / s),
@@ -130,7 +137,7 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).dependsOn(UtilMacros)
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
   scalacOptions in (Compile, doc) ++= Seq("-groups"),
-
+  
 )
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).dependsOn(UtilMacrosJs).settings(commonSett).settings(
