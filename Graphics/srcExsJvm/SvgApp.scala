@@ -4,6 +4,7 @@ package geom
 package pExs
 import Colour._
 
+/** An example app using the Graphics module to produce SVG. */
 object SvgApp extends App 
 { val cof1 = Circle(80).fill(Orange).svgInline  
   val cof2 = Circle(120).fill(Red).svgInline
