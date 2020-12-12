@@ -9,6 +9,9 @@ trait Vec3Like
   def z: Double
 }
 
+/** A 3 dimensional vector. This is similar data to [[Pt3]]. The purpose of this separate type is to encode the relative nature of the Vec3 as opposed
+ * to the absolute nature of a point. So usually you will want and need to add the vector to an absolute point to return to the absolute realm of
+ * points. Thanks to Rene Descarte for this great idea. */
 final class Vec3(val x: Double, val y: Double, val z: Double) extends Vec3Like
 {
 

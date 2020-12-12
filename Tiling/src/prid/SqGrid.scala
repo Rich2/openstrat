@@ -3,6 +3,10 @@ package ostrat
 package prid
 import geom._, reflect.ClassTag
 
+/** A grid of Squares. A regular rectangle of squares.
+ *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
+ *  @groupname SidesGroup Side Members
+ *  @groupprio SidesGroup 1010 */
 final class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TGrid
 {
   /** Number of rows of tiles. */

@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** An immutable flat efficient Array backed sequence collection class of 3 dimensional scalar vectors. */
+/** An immutable flat efficient Array backed sequence collection class of 3 dimensional points. */
 class Pt3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Pt3]
 { type ThisT = Pt3s
   override def typeStr: String = "Vec3s"

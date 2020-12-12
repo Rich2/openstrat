@@ -1,10 +1,9 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import math._
 
-/** A 3 dimensional vector, can be used to represent 3 dimensional points and translations of 3 dimensional points. Right-handed coordinate
- *  system is the default */
+/** A 3 dimensional point. Right-handed coordinate system is the default. */
 final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like with ProdDbl3
 {
   override def toString: String = Pt3.PersistImplicit.show(this, 10)
