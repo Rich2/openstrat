@@ -37,5 +37,5 @@ case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 
    * in sub traits / classes. */
   override def reflect(lineLike: LineLike): CArcDraw = CArcDraw(curveSeg.reflect(lineLike), colour, lineWidth)
 
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = ??? //cp.cArcDraw3(this)
+  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.cArcDraw(this)
 }

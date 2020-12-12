@@ -14,6 +14,8 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   /** Radius of the this circular arc. */
   def radius: Double = cen.distTo(pStart)
 
+  def angleDeltaLimited: AngleVec = ife(counter > 0, startAngle.deltaPosTo(endAngle), startAngle.deltaNegTo(endAngle))
+
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
   override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = CArcDraw(this, lineColour, lineWidth)
 
@@ -58,5 +60,13 @@ object CArc
   def pos(pStart: Pt2, cen: Pt2, pEnd: Pt2): CArc = new CArc(pStart.x, pStart.y, cen.x, cen.y, pEnd.x, pEnd.y, ife(pStart == pEnd, 0, 1))
 
   /** Creates a negative direction or clockwise circular arc, with an [[AngleVec]] from 0 until -360 degrees. */
+  def pos(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CArc =
+    new CArc(xStart, yStart, xCen, yCen, xEnd, yEnd, ife(xStart == xEnd & yStart == yEnd, 0, 1))
+
+  /** Creates a negative direction or clockwise circular arc, with an [[AngleVec]] from 0 until -360 degrees. */
   def neg(pStart: Pt2, cen: Pt2, pEnd: Pt2): CArc = new CArc(pStart.x, pStart.y, cen.x, cen.y, pEnd.x, pEnd.y, ife(pStart == pEnd, 0, -1))
+
+  /** Creates a negative direction or clockwise circular arc, with an [[AngleVec]] from 0 until -360 degrees. */
+  def neg(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xEnd: Double, yEnd: Double): CArc =
+    new CArc(xStart, yStart, xCen, yCen, xEnd, yEnd, ife(xStart == xEnd & yStart == yEnd, 0, -1))
 }

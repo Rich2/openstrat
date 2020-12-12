@@ -12,6 +12,9 @@ import ostrat._, geom._, pCanv._, Colour._
  
 case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 {
+  val c1 = CArc.neg(100, 200, 100, 100, 200, 100)
+  val c2 = CArc.pos(100, 200, 100, 100, 200, 100)
+
   val c3 = CArc3(-100 pp 0, -71 pp 71, 0 pp 100)
   val r1 = 0.1
   val r2 = 0.2
@@ -29,6 +32,8 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
     c3.draw(Crimson),
 
     Bezier(200 pp -350, -500 pp -300, -600 pp -300, -450 pp -200).draw(Green, 2),
+    c1.draw(Blue),
+    c2.draw(DarkRed),
   )
   repaint(stuff)
 }

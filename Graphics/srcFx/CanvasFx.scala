@@ -55,8 +55,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
   override def tlPolyFill(pf: PolygonFill): Unit =
-  { //gc.setFill(toFxColor(pf.fillFacet))
-    setFill(pf.fill)
+  { setFill(pf.fill)
     gc.fillPolygon(pf.xVertsArray, pf.yVertsArray, pf.vertsNum)
   }
 
@@ -93,10 +92,12 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.stroke()
   }
 
+
+  /** So to implement this correctly the start angle and the delta anlges have to be reversed. */
   override protected[this] def tlCArcDraw(ad: CArcDraw): Unit =
   { gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)
-    gc.arc(ad.xCen, ad.yCen, ad.radius, ad.radius, ad.curveSeg.startDegs, ??? )//ad.curveSeg.deltaDegs)
+    gc.arc(ad.xCen, ad.yCen, ad.radius, ad.radius, ad.curveSeg.startAngle.p180.degs, -ad.curveSeg.angleDeltaLimited.degs)
     gc.setStroke(toFxColor(ad.colour))
     gc.stroke()
   }
