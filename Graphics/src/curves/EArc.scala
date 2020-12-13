@@ -47,6 +47,8 @@ trait EArc extends CurveSeg
   /** The line segment [LineSeg] from the centre of the arc to the end point of the arc. */
   def lsCenEnd: LineSeg = cen.lineTo(pEnd)
 
+  def addRotations(delta: Int): EArc
+
   def counter: Int
 
   def angleDelta: AngleVec = counter match
@@ -56,6 +58,10 @@ trait EArc extends CurveSeg
   }
 
   def angleDeltaYDown: AngleVec = -angleDelta
+
+  def angleDeltaLimited: AngleVec = ife(counter > 0, startAngle.deltaPosTo(endAngle), startAngle.deltaNegTo(endAngle))
+
+  def angleDeltaLimitedYDown: AngleVec = -angleDeltaLimited
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
   override def slate(xOffset: Double, yOffset: Double): EArc
@@ -107,6 +113,8 @@ object EArc
     //override def fTrans(f: Vec2 => Vec2): EArc = ???
 
     override def cen: Pt2 = ???
+
+    def addRotations(delta: Int): EArcImp = new EArcImp(xStart, yStart, xCen, yCen, xAxis1, yAxis1, xAxis4, yAxis4, xEnd, yEnd, counter + delta)
 
     override def slate(offset: Vec2Like): EArcImp = ???
 

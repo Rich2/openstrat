@@ -17,6 +17,8 @@ class CArc3 private(val xStart: Double, val yStart: Double, val xApex: Double, v
 
   override def counter: Int = 1
 
+  override def addRotations(delta: Int): EArc = ???
+
   /** The mid or half way point (of the circumference) of the arc */
   def apex: Pt2 = xApex pp yApex
 

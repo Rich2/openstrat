@@ -5,7 +5,7 @@ package geom
 /** Base trait for [[Angle]], [[AngleVec]], [[Latitude]] and [[Longitude]]. */
 trait AngleLike extends Any
 { /** The value of this angle expressed in degrees. */
-  @inline def degs: Double = secs / SecsInDeg
+  @inline def degs: Double = milliSecs / MilliSecsInDeg
 
   /** The value of this angle expressed in arc seconds of a degree. */
   @inline final def secs: Double = milliSecs / 1000

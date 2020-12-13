@@ -14,15 +14,15 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   /** Radius of the this circular arc. */
   def radius: Double = cen.distTo(pStart)
 
-  def angleDeltaLimited: AngleVec = ife(counter > 0, startAngle.deltaPosTo(endAngle), startAngle.deltaNegTo(endAngle))
 
-  def angleDeltaLimitedYDown: AngleVec = -angleDeltaLimited
 
   /** The chord of this Arc */
   def chord: LineSeg = pStart.lineTo(pEnd)
 
   /** The mid point of the chord of this arc. */
   def chordCen: Pt2 = pStart.midPtTo(pEnd)
+
+  def addRotations(delta: Int): CArc = new CArc(xStart, yStart, xCen, yCen, xEnd, yEnd, counter + delta)
 
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
   override def draw(lineColour: Colour, lineWidth: Double): CArcDraw = CArcDraw(this, lineColour, lineWidth)

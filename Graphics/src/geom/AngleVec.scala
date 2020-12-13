@@ -26,6 +26,7 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
   /** Subtracts this AngleVec from the parameter [[Angle]] returns an [[Angle]]. This is equivalent to: {{{angle - thisAngleVec}}} */
   def subFrom(angle: Angle): Angle = Angle.milliSecs(milliSecs - angle.milliSecs)
 
+  /** Add the operand in degrees to this AngleVec, returns an AngleVec. */
   def addDegs(operand: Double): AngleVec = AngleVec(degs + operand)
 
   /** Gives the length of the circumference of the arc. */
@@ -43,7 +44,7 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
 
 object AngleVec
 { /** Creates an angle vector, or an angle of rotation from the value in number of degrees. */
-  def apply(degs: Double): AngleVec = new AngleVec(degs * 360000)
+  def apply(degs: Double): AngleVec = new AngleVec(degs * MilliSecsInDeg)
 
   /** Creates an angle vector, or an angle of rotation from the value in number of degrees. */
   def radians(radians: Double): AngleVec = new AngleVec(radians.radiansToMilliSecs)
