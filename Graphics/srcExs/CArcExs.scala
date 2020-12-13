@@ -2,21 +2,19 @@ package learn
 import ostrat._, geom._, pCanv._, Colour._, scala.math.{Pi}
 
 /** This is a temporary lesson: whilst Arcs get fixed. */
-case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
+case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
 {
-
-  //var arcOrigin = Pt(0,0)
   val longArcOffset = 0.025
   val myStuff: GraphicElems = iToFlatMap(0, 374) { index =>
     val radius = 20.0
     val x = -600 + (index % 25) * 50
     val y = 325 - (index / 25) * 45
-    val theta = Pi1/180*index+longArcOffset; // angle of arc
-    val startPoint = x+radius * math.cos(longArcOffset) pp y + radius * math.sin(longArcOffset)
+    val theta = Pi1/180 * index + longArcOffset; // angle of arc
+    val startPoint = x + radius * math.cos(longArcOffset) pp y + radius * math.sin(longArcOffset)
     val apex = x + radius * math.cos(theta/2+longArcOffset) pp y + radius * math.sin(theta/2+longArcOffset)
     val endPoint = x + radius * math.cos(theta+longArcOffset) pp y + radius * math.sin(theta+longArcOffset)
-    val myArc = CArc3(startPoint, apex, endPoint)
-    deb(index.toString+" s="+myArc.startDegs.toString+" a="+myArc.deltaDegs.toString)
+    val myArc = CArc.pos(startPoint, x pp y, endPoint)
+    //deb(index.toString+" s="+myArc.startDegs.toString+" a="+myArc.deltaDegs.toString)
     //deb(index.toString+" theta =" + theta + " startAngle="+myArc.startAngle)
     //deb(index.toString+" theta =" + theta + " angle="+myArc.angle)
     /** myStuff = myStuff ++ */ Arr(myArc.draw(DeepSkyBlue), TextGraphic(index.toString, x pp y, 12, Black))
@@ -30,12 +28,12 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
     val x = -600 + (index % 25) * 50
     val y = 325 - (index / 25) * 45
     val radius = 15.0
-    val theta = shortArcOffset+Pi1/180*index; // angle of arc
+    val theta = shortArcOffset + Pi1/180 * index // angle of arc
     val startPoint = x + radius * math.cos(theta) pp y + radius * math.sin(theta)
     val apex = x + radius * math.cos(theta+delta) pp y + radius * math.sin(theta+delta)
-    val endPoint = x+radius*math.cos(theta+delta+delta) pp y+radius*math.sin(theta+delta+delta)
-    val myArc = CArc3(startPoint, apex, endPoint)
-    deb(index.toString+" s="+myArc.startDegs.toString+" a="+myArc.deltaDegs.toString)
+    val endPoint = x + radius*math.cos(theta+delta+delta) pp y+radius*math.sin(theta+delta+delta)
+    val myArc = CArc.neg(startPoint, x pp y, endPoint)
+    //deb(index.toString+" s="+myArc.startDegs.toString+" a="+myArc.deltaDegs.toString)
     myArc.draw(Orange)
   }
   repaint(myStuff ++ myStuff2)

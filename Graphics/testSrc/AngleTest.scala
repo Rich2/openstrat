@@ -3,7 +3,7 @@ package ostrat
 package geom
 import utest._
 
-object AngleTesturveTest extends TestSuite
+object AngleTest extends TestSuite
 {
   val tests = Tests
   {
