@@ -9,8 +9,7 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
   var radius = 20.0
   //var arcOrigin = Pt(0,0)
   val longArcOffset = 0.025
-  var myStuff:GraphicElems = Arr()
-  for (index <- 0 to 374) {
+  val myStuff: GraphicElems = iToFlatMap(0, 374) { index =>
     x += 50;
     if (x>=650) {x = -600; y -= 45}
     val theta = Pi1/180*index+longArcOffset; // angle of arc
@@ -21,13 +20,15 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
     deb(index.toString+" s="+myArc.startDegs.toString+" a="+myArc.deltaDegs.toString)
     //deb(index.toString+" theta =" + theta + " startAngle="+myArc.startAngle)
     //deb(index.toString+" theta =" + theta + " angle="+myArc.angle)
-    myStuff = myStuff ++ Arr(myArc.draw(DeepSkyBlue), TextGraphic(index.toString, x pp y, 12, Black))
+    /** myStuff = myStuff ++ */ Arr(myArc.draw(DeepSkyBlue), TextGraphic(index.toString, x pp y, 12, Black))
   }
   val delta = Pi1/8
   x = -650.0 // x coordinate
   y = 325.0 // y coordinate
   radius = 15.0
   val shortArcOffset = Pi1/360
+  var myStuff2: GraphicElems = Arr()
+
   for (index <- 0 to 374) {
     x += 50;
     if (x>=650) {x = -600; y -= 45}
@@ -37,9 +38,9 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
     val endPoint = x+radius*math.cos(theta+delta+delta) pp y+radius*math.sin(theta+delta+delta)
     val myArc = CArc3(startPoint, apex, endPoint)
     deb(index.toString+" s="+myArc.startDegs.toString+" a="+myArc.deltaDegs.toString)
-    myStuff = myStuff ++ Arr(myArc.draw(Orange))
+    myStuff2 ++= Arr(myArc.draw(Orange))
   }
-  repaint(myStuff)
+  repaint(myStuff ++ myStuff2)
 }
 
 //def getPointOnCircle(origin: pt2, radius: Angle)
