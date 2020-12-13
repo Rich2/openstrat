@@ -21,7 +21,7 @@ class CArc3 private(val xStart: Double, val yStart: Double, val xApex: Double, v
   def apex: Pt2 = xApex pp yApex
 
   /** The mid point of the chord of the arc. */
-  def chordCen: Pt2 = pStart mid pEnd
+  def chordCen: Pt2 = pStart midPtTo pEnd
 
   /** Line segment that bisects the segment of this arc. */
   def median: LineSeg = chordCen.lineTo(apex)

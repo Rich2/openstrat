@@ -70,8 +70,8 @@ object PhiRectangle
     override def v4: Pt2 = s1Cen + xVec2(-width2 / 2).rotate(alignAngle)
     override def x4: Double = v2.x
     override def y4: Double = v2.y
-    override def s2Cen: Pt2 = s1Cen mid s2Cen
-    override def s4Cen: Pt2 = s3Cen mid s4Cen
+    override def s2Cen: Pt2 = s1Cen midPtTo s2Cen
+    override def s4Cen: Pt2 = s3Cen midPtTo s4Cen
   }
 }
 

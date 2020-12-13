@@ -93,7 +93,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   }
 
 
-  /** So to implement this correctly the start angle and the delta anlges have to be reversed. */
+  /** So to implement this correctly the start angle and the delta angles have to be reversed. */
   override protected[this] def tlCArcDraw(ad: CArcDraw): Unit =
   { gc.beginPath
     gc.moveTo(ad.xStart, ad.yStart)

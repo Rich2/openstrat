@@ -7,9 +7,9 @@ trait Triangle extends Polygon3Plus
 {	override def vertsNum: Int = 3
 	override def v1: Pt2 = x1 pp y1
 	override def v3: Pt2 = x3 pp y3
-	override def s1Cen: Pt2 = v3 mid v1
-	override def s2Cen: Pt2 = v1 mid v2
-	override def s3Cen: Pt2 = v2 mid v3
+	override def s1Cen: Pt2 = v3 midPtTo v1
+	override def s2Cen: Pt2 = v1 midPtTo v2
+	override def s3Cen: Pt2 = v2 midPtTo v3
 
 	override def vert(index: Int): Pt2 = index match
 	{	case 1 => v1

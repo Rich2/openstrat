@@ -6,7 +6,7 @@ package geom
  *  for implementation. It does not have value as a library user interface type. */
 trait RectS2S4 extends Rectangle
 {
-  final override def cen: Pt2 = s3Cen mid s1Cen
+  final override def cen: Pt2 = s3Cen midPtTo s1Cen
   final override def xCen: Double = cen.x
   final override def yCen: Double = cen.y
   final override def width1: Double = s4Cen.distTo(s2Cen)
@@ -25,8 +25,8 @@ trait RectS2S4 extends Rectangle
   @inline final def x4: Double = v4.x
   @inline final def y4: Double = v4.y
 
-  final override def s1Cen: Pt2 = v4 mid v1
-  final override def s3Cen: Pt2 = v2 mid v3
+  final override def s1Cen: Pt2 = v4 midPtTo v1
+  final override def s3Cen: Pt2 = v2 midPtTo v3
   def xS2Cen: Double
   def yS2Cen: Double
   final override  def s2Cen: Pt2 = Pt2(xS2Cen, yS2Cen)

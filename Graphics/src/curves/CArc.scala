@@ -16,6 +16,12 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
 
   def angleDeltaLimited: AngleVec = ife(counter > 0, startAngle.deltaPosTo(endAngle), startAngle.deltaNegTo(endAngle))
 
+  /** The chord of this Arc */
+  def chord: LineSeg = pStart.lineTo(pEnd)
+
+  /** The mid point of the chord of this arc. */
+  def chordCen: Pt2 = pStart.midPtTo(pEnd)
+
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
   override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = CArcDraw(this, lineColour, lineWidth)
 
