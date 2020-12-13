@@ -48,7 +48,7 @@ object UtilJs extends CommonJs
 
 object Graphics extends CommonJvm
 { def moduleDeps = Seq(Util)
-  def ivyDeps = Agg(ivy"org.openjfx:javafx:15")
+  //def ivyDeps = Agg(ivy"org.openjfx:javafx:15")
   object test extends InnerTests  
 }
 
