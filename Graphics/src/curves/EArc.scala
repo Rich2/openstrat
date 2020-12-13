@@ -20,8 +20,14 @@ trait EArc extends CurveSeg
   /** The angle of the start point of the arc, relative to its centre. */
   def startAngle: Angle = pStart.angleFrom(cen)
 
+  /** The angle of the start point of the arc, relative to its centre for graphical systems where the Y axis points down. */
+  def startAngleYDown: Angle = pStart.angleFromYDown(cen)
+
   /** The value of the angle of the start point of the arc, relative to its centre in degrees. */
   def startDegs: Double = startAngle.degs
+
+  /** The value of the angle of the start point of the arc, relative to its centre in degrees. */
+  def startDegsYDown: Double = startAngleYDown.degs
 
   /** The line segment [LineSeg] from the centre of the arc to the start point of the arc. */
   def lsCenStart: LineSeg = cen.lineTo(pStart)
@@ -32,6 +38,9 @@ trait EArc extends CurveSeg
   /** The angle of the end point of the arc, relative to its centre. */
   def endAngle: Angle = pEnd.angleFrom(cen)
 
+  /** The angle of the end point of the arc, relative to its centre. */
+  def endAngleYDown: Angle = pEnd.angleFromYDown(cen)
+
   /** The value of the angle of the end point of the arc, relative to its centre in degrees. */
   def endDegs: Double = endAngle.degs
 
@@ -40,7 +49,13 @@ trait EArc extends CurveSeg
 
   def counter: Int
 
-  def angleDelta: AngleVec = ???
+  def angleDelta: AngleVec = counter match
+  { case 0 => 0.degs
+    case c if c > 0  => startAngle.deltaPosTo(endAngle).addDegs((c - 1) * 360)
+    case c => startAngle.deltaNegTo(endAngle).addDegs((c + 1) * 360)
+  }
+
+  def angleDeltaYDown: AngleVec = -angleDelta
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
   override def slate(xOffset: Double, yOffset: Double): EArc

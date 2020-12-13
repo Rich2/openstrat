@@ -16,6 +16,8 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
 
   def angleDeltaLimited: AngleVec = ife(counter > 0, startAngle.deltaPosTo(endAngle), startAngle.deltaNegTo(endAngle))
 
+  def angleDeltaLimitedYDown: AngleVec = -angleDeltaLimited
+
   /** The chord of this Arc */
   def chord: LineSeg = pStart.lineTo(pEnd)
 
@@ -23,7 +25,7 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   def chordCen: Pt2 = pStart.midPtTo(pEnd)
 
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
-  override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = CArcDraw(this, lineColour, lineWidth)
+  override def draw(lineColour: Colour, lineWidth: Double): CArcDraw = CArcDraw(this, lineColour, lineWidth)
 
   /** Translate 2D geometric transformation on this CArc returns a CArc. */
   override def slate(xOffset: Double, yOffset: Double): CArc = CArc(pStart.addXY(xOffset, yOffset), cen.addXY(xOffset, yOffset),

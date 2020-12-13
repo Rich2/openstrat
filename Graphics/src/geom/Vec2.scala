@@ -62,21 +62,17 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def vv(z: Double): Vec3 = Vec3(x, y, z)
 
   /** Gives the angle of the vector with respect of the origin. */
-  def angle: Angle = Angle.radians(angleRadians)
+  def angle: Angle = Angle.radians(angleRadiansPlusMinus)
 
-  /** Gives the angle of the vector with respect of the origin in radians. */
-  def angleRadians: Double =
-  { def at = atan(y / x)
+  /** Gives the angle of the vector with respect of the origin for a graphical system where the Y Axis points down. */
+  def angleYDown: Angle = Angle.radians(angleRadiansYDownPlusMinus)
 
-    x match
-    { case _ if x == 0 & y == 0 => 0
-      case _ if x == 0 & y > 0 => Pi / 2
-      case _ if x == 0 => -Pi / 2
-      case _ if x > 0 => at
-      case _ if y > 0 => Pi + at
-      case _ => at - Pi
-    }
-  }
+  /** Gives the angle of the vector with respect of the origin in radians, between -Pi and Pi. */
+  def angleRadiansPlusMinus: Double = math.atan2(y, x)
+
+  /** Gives the angle of the vector with respect of the origin for a graphical system where the Y Axis points down in radians, between -Pi and Pi. */
+  def angleRadiansYDownPlusMinus: Double = math.atan2(-y, x)
+
 
   /** Gives the angle of this vector in radians. */
   def angleRadiansPos: Double =

@@ -36,6 +36,9 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** Gives the anlge from the operand point to this point. */
   def angleFrom(operand: Pt2): Angle = (this << operand).angle
 
+  /** Gives the anlge from the operand point to this point. */
+  def angleFromYDown(operand: Pt2): Angle = (this << operand).angleYDown
+
   /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
   def midPtTo(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y).invScale(2)
 

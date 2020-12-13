@@ -9,17 +9,13 @@ import ostrat._, geom._, pCanv._, Colour._
 // This is also a comment. Everything after two forward-slashes to the end of line. You can add and remove //s from the beginning of the commands,
 // Assuming you are running the "mill -w name.runBackground" when you do a save mill will automatically rebuild and you can see the result of your changes.
 // The associated commands will appear / disappear from the screen.
- 
+
+/** Lesson A4. */
 case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 {
-  val c1 = CArc.neg(100, 200, 100, 100, 200, 100)
-  val c2 = CArc.pos(100, 200, 100, 100, 200, 100)
-
-  val c3 = CArc.neg(-100 pp 0, 0 pp 0, 0 pp 100)
-  val r1 = 0.1
-  val r2 = 0.2
-  val rot = AngleVec(r1 + r2)
-  deb(rot.toString)
+  val c1 = CArc.neg(100, 200, 100, 100, 200, 100).draw(Blue)
+  val c2 = CArc.pos(100, 200, 100, 100, 200, 100).draw(DarkRed)
+  val c3: CArcDraw = CArc.neg(-100, 0, 0, 0, 0, 100).draw(Violet)
 
   val stuff = Arr(
     LineSegDraw(0 pp 0, 160 pp 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
@@ -28,11 +24,9 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 
     LinePath(0 pp -50, 50 pp -100, -25 pp -75, 200 pp -60).draw(2, Orange),
 
-    c3.draw(Violet),
-
     Bezier(200 pp -350, -500 pp -300, -600 pp -300, -450 pp -200).draw(Green, 2),
-    c1.draw(Blue),
-    c2.draw(DarkRed),
+    c1, c2,
+    c3,
   )
   repaint(stuff)
 }
