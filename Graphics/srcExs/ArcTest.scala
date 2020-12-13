@@ -27,9 +27,8 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
   y = 325.0 // y coordinate
   radius = 15.0
   val shortArcOffset = Pi1/360
-  var myStuff2: GraphicElems = Arr()
 
-  for (index <- 0 to 374) {
+  var myStuff2: GraphicElems = iToMap(0, 374) { index =>
     x += 50;
     if (x>=650) {x = -600; y -= 45}
     val theta = shortArcOffset+Pi1/180*index; // angle of arc
@@ -38,7 +37,7 @@ case class ArcTest(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
     val endPoint = x+radius*math.cos(theta+delta+delta) pp y+radius*math.sin(theta+delta+delta)
     val myArc = CArc3(startPoint, apex, endPoint)
     deb(index.toString+" s="+myArc.startDegs.toString+" a="+myArc.deltaDegs.toString)
-    myStuff2 ++= Arr(myArc.draw(Orange))
+    myArc.draw(Orange)
   }
   repaint(myStuff ++ myStuff2)
 }
