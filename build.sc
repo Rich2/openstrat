@@ -9,7 +9,7 @@ def scalaVersion = "2.13.3"
 
 trait CommonJvm extends Common
 { 
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm, millSourcePath / 'srcExs, millSourcePath / 'srcExsJvm)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm, millSourcePath / 'srcExs, millSourcePath / 'srcExsJvm)//, millSourcePath / 'srcFx)
 
   trait InnerTests extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.5")
@@ -48,7 +48,7 @@ object UtilJs extends CommonJs
 
 object Graphics extends CommonJvm
 { def moduleDeps = Seq(Util)
-  //def ivyDeps = Agg(ivy"org.openjfx:javafx:14")
+  def ivyDeps = Agg(ivy"org.openjfx:javafx:15")
   object test extends InnerTests  
 }
 
