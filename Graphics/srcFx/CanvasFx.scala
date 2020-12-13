@@ -84,14 +84,6 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.stroke()
   }
 
-  override protected[this] def tlCArcDraw3(ad: CArcDraw3): Unit =
-  { gc.beginPath
-    gc.moveTo(ad.xStart, ad.yStart)
-    gc.arc(ad.xCen, ad.yCen, ad.radius, ad.radius, ad.curveSeg.startDegs, ad.curveSeg.deltaDegs)
-    gc.setStroke(toFxColor(ad.colour))
-    gc.stroke()
-  }
-
   /** So to implement this correctly the start angle and the delta angles have to be reversed. */
   override protected[this] def tlCArcDraw(ad: CArcDraw): Unit =
   { gc.beginPath

@@ -17,7 +17,7 @@ case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
     //deb(index.toString+" s="+myArc.startDegs.toString+" a="+myArc.deltaDegs.toString)
     //deb(index.toString+" theta =" + theta + " startAngle="+myArc.startAngle)
     //deb(index.toString+" theta =" + theta + " angle="+myArc.angle)
-    /** myStuff = myStuff ++ */ Arr(myArc.draw(DeepSkyBlue), TextGraphic(index.toString, x pp y, 12, Black))
+    Arr(myArc.draw(DeepSkyBlue), TextGraphic(index.toString, x pp y, 12, Black))
   }
   val delta = Pi1/8
 

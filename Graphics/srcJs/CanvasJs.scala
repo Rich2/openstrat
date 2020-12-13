@@ -145,14 +145,14 @@ object CanvasJs extends CanvasTopLeft
   }*/
 
   /** Web canvases view of anti clockwise is itself mirrored. */
-  override protected[this] def tlCArcDraw3(cad: CArcDraw3): Unit =
+  /*override protected[this] def tlCArcDraw3(cad: CArcDraw3): Unit =
   { /*val ca = cad.arc
     gc.beginPath()
     gc.arc(ca.xCen, ca.yCen, ca.radius, ca.startAngleRadians, ca.endAngleRadians, ca.clock)
     gc.lineWidth = cad.lineWidth
     gc.strokeStyle = cad.lineColour.webStr
     gc.stroke()*/
-  }
+  }*/
 
   /** Web canvases view of anti clockwise is itself mirrored. */
   override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
