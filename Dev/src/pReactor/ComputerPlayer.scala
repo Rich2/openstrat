@@ -8,6 +8,7 @@ case class ComputerPlayer(aGameData: ReactorGame)
 { var forThisColor = Black
   val gameData = aGameData
 
+  //** chooseTurnIndex uses a combination of rudermentary strategies to produce a valid turn for a compter player 
   def chooseTurnIndex(aForThisColor:Colour):Int = 
   { forThisColor = aForThisColor
     var validTurnIndexes = Array[Int]()
