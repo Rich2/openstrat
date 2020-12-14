@@ -30,7 +30,7 @@ case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
       CArc.neg(startPoint, x pp y, endPoint).draw(Orange)
     }
 
-    Arr(arcPos, arcNeg, TextGraphic(index.toString, x pp y, 12, Black))
+    Arr(arcPos, arcNeg, index.xyTextGraphic(x, y, 12, Black))
   }
 
   repaint(myStuff)
