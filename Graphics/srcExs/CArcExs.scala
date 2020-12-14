@@ -18,28 +18,23 @@ case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
       CArc.pos(startPoint, x pp y, endPoint).draw(DeepSkyBlue)
     }
 
-    Arr(arcPos, TextGraphic(index.toString, x pp y, 12, Black))
-  }
-
-
-  var myStuff2: GraphicElems = iToMap(0, 374) { index =>
-    val x = -600 + (index % 25) * 50
-    val y = 325 - (index / 25) * 45
     val arcNeg =
     {
       val radius = 15.0
       val delta = Pi1/8
       val shortArcOffset = Pi1/360
-      val theta = shortArcOffset + Pi1 / 180 * index // angle of arc
+      /** Angle of arc */
+      val theta = shortArcOffset + Pi1 / 180 * index
       val startPoint = x + radius * math.cos(theta) pp y + radius * math.sin(theta)
       val apex = x + radius * math.cos(theta + delta) pp y + radius * math.sin(theta + delta)
       val endPoint = x + radius * math.cos(theta + delta + delta) pp y + radius * math.sin(theta + delta + delta)
       CArc.neg(startPoint, x pp y, endPoint).draw(Orange)
     }
 
-    arcNeg
+    Arr(arcPos, arcNeg, TextGraphic(index.toString, x pp y, 12, Black))
   }
-  repaint(myStuff ++ myStuff2)
+
+  repaint(myStuff)
 }
 
 //def getPointOnCircle(origin: pt2, radius: Angle)
