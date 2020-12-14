@@ -175,10 +175,10 @@ trait TileGrid
   /** New immutable Arr of Side Boolean data. */
   final def newTileBooleans: TileBooleans = new TileBooleans(new Array[Boolean](numOfTiles))
 
-  def cenRoordTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] = map(r => TextGraphic(r.ycStr, roordToPt2(r), textSize, colour))
+  def cenRoordTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] = map(r => TextGraphic(r.ycStr, textSize, roordToPt2(r), colour))
 
   final def cenRoordIndexTexts(textSize: Int = 26, colour: Colour = Black): Arr[TextGraphic] =
-    iMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, roordToPt2(r), textSize))
+    iMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToPt2(r)))
 
   /** Quick method to give the Tile, Side and Vertex Roord Text Grahics. */
   final def cenSideVertRoordText: Arr[GraphicAffineElem] = cenRoordTexts() ++ sideRoordTexts() ++ vertRoordTexts()
@@ -299,10 +299,10 @@ trait TileGrid
 
   def sideRoordsOfTile(tileRoord: Roord): Roords
 
-  def sideRoordTexts(textSize: Int = 22, colour: Colour = Blue): Arr[TextGraphic] = sidesMap{ r => TextGraphic(r.ycStr, roordToPt2(r), textSize, colour) }
+  def sideRoordTexts(textSize: Int = 22, colour: Colour = Blue): Arr[TextGraphic] = sidesMap{ r => TextGraphic(r.ycStr, textSize, roordToPt2(r), colour) }
 
   def sideRoordIndexTexts(textSize: Int = 26, colour: Colour = Blue): Arr[TextGraphic] =
-    sidesIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, roordToPt2(r), textSize, colour))
+    sidesIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToPt2(r), colour))
 
   /** The index from a Side Roord into an Arr of Side data. */
   def sideArrIndex(y: Int, c: Int): Int
@@ -341,10 +341,10 @@ trait TileGrid
 
   def vertRoords: Roords = vertsMap(r => r)
 
-  def vertRoordTexts(fontSize: Int = 20, colour: Colour = Red) = vertsMap{ r => TextGraphic(r.ycStr, roordToPt2(r), fontSize, colour) }
+  def vertRoordTexts(fontSize: Int = 20, colour: Colour = Red) = vertsMap{ r => TextGraphic(r.ycStr, fontSize, roordToPt2(r), colour) }
 
   def vertRoordIndexTexts(textSize: Int = 20, colour: Colour = Red): Arr[TextGraphic] =
-    vertsIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, roordToPt2(r), textSize, colour))
+    vertsIMap((r, i) => TextGraphic(i.str + ": " + r.ycStr, textSize, roordToPt2(r), colour))
 
   /** New immutable Arr of Side Boolean data. */
   def newSideBooleans: SideBooleans = new SideBooleans(new Array[Boolean](numOfSides))

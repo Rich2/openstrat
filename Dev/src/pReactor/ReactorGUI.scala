@@ -157,7 +157,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   }
   def declareWinner() : Unit =
   { if (aDefaultGame.turn >= aDefaultGame.players.length) aDefaultGame.players = aDefaultGame.players.filter(aDefaultGame.cellColors.indexOf(_) != -1)
-    if (aDefaultGame.players.length < 2) canv.textGraphic(TextGraphic(" Wins!", 10 pp (-3*size/4), 16, aDefaultGame.currentPlayer))
+    if (aDefaultGame.players.length < 2) canv.textGraphic(TextGraphic(" Wins!", 16, 10 pp (-3*size/4), aDefaultGame.currentPlayer))
   }
 
   //** If the current player is a computer then play its hand here
@@ -176,7 +176,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     checkForComputerTurn()
   }
   def getCurrentPlayerIndicator():GraphicElems =
-  { Arr(Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer), TextGraphic(aDefaultGame.turn.toString, -3*size/4 pp -3*size/4, 11, Black))
+  { Arr(Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer), TextGraphic(aDefaultGame.turn.toString, 11, -3*size/4 pp -3*size/4, Black))
   }
 
   mouseUp =

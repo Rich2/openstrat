@@ -13,7 +13,7 @@ case class LsC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
   var colour = Red
   def gArr = rArr.map(r => r.fillActive(colour, r.polyCentre))
   val textPosn = 0 pp 0
-  val startText = TextGraphic("Click on the rectangles to cycle the colour.", textPosn, 28)
+  val startText = TextGraphic("Click on the rectangles to cycle the colour.", 28, textPosn)
   deb((gArr +- startText).elemsLen.toString)
   repaint(gArr +- startText)
   

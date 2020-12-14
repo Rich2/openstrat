@@ -6,7 +6,7 @@ import geom._, pCanv._, Colour.Black
 case class BlackJackGui(canv: CanvasPlatform) extends CanvasNoPanels("BlackJack")
 {      
    val (hand, deck) = Card.newShuffled.takeCards(5)
-   hand.iMap((c, i) => TextGraphic(c.unicode.mkString, 50 + 100 * i pp 100, 100, c.suitColour))
+   hand.iMap((c, i) => TextGraphic(c.unicode.mkString, 100, 50 + 100 * i pp 100, c.suitColour))
    
    def clubFill(): GraphicElems =
    {

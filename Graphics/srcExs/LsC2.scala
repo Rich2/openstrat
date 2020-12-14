@@ -4,6 +4,6 @@ import ostrat._, geom._, pCanv._, Colour._
 
 case class LsC2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C2")
 {
-  repaints(TextGraphic("Please click on the screen in different places.", 0 pp 200, 28, Green))
-  setMouseSimple(v => repaints(TextGraphic("You clicked the screen at " + v.strCommaNames, v, 28, Red)))
+  repaints(TextGraphic("Please click on the screen in different places.", 28, 0 pp 200, Green))
+  setMouseSimple(v => repaints(TextGraphic("You clicked the screen at " + v.strCommaNames, 28, v, Red)))
 }

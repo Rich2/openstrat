@@ -74,12 +74,14 @@ package object geom
   implicit class AnyGeomImplicit(thisAny: Any)
   {
     /** Creates a [[TextGraphic]] at the given [[Pt2], default x = 0, y = 0, using the toString method on this object. */
-    def toTextGraphic(posn: Pt2 = Pt2Z, fontSize: Int = 24, colour: Colour = Black, align: TextAlign = CenAlign,
-      baseLine: BaseLine = BaseLine.Middle): TextGraphic = TextGraphic(thisAny.toString, posn, fontSize, colour, align, baseLine)
+    def toTextGraphic(fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
+      baseLine: BaseLine = BaseLine.Middle): TextGraphic =
+      TextGraphic(thisAny.toString, fontSize, posn, colour, align, baseLine)
 
     /** Creates a [[TextGraphic]] at the given X and Y positions, using the toString method on this object. */
-    def xyTextGraphic(xPosn: Double, yPosn: Double, fontSize: Int = 24, colour: Colour = Black, align: TextAlign = CenAlign,
-      baseLine: BaseLine = BaseLine.Middle): TextGraphic = TextGraphic.xy(thisAny.toString, xPosn, yPosn, fontSize, colour, align, baseLine)
+    def xyTextGraphic(fontSize: Int = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
+      baseLine: BaseLine = BaseLine.Middle): TextGraphic =
+      TextGraphic.xy(thisAny.toString, fontSize, xPosn, yPosn, colour, align, baseLine)
   }
 
   implicit class StringImplictGeom(thisString: String)
@@ -90,7 +92,7 @@ package object geom
     def findVec2SettElse(setting: String, elseValue: Pt2): Pt2 = findVec2Sett(setting).getElse(elseValue)
 
     def graphic(fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-                baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, posn, fontSize, colour, align, baseLine)
+                baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, fontSize, posn, colour, align, baseLine)
   }
 
   implicit class DistImplicit(thisDist: Dist)

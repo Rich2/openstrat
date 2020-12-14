@@ -15,7 +15,7 @@ case class RadioOption(aIsSelected:Boolean = false, labelText:String = "", loc:P
     parent = aParent
 
     val ink = if (isEnabled) White else Grey
-    var ret:GraphicElems = Arr(TextGraphic(labelText, loc.addX(defaultSize), defaultSize, ink, LeftAlign))
+    var ret:GraphicElems = Arr(TextGraphic(labelText, defaultSize, loc.addX(defaultSize), ink, LeftAlign))
     if (isSelected) ret = ret ++ Arr(Circle(defaultSize - 4, loc).fill(ink))
 
     //drawActive with lineWidth 0.01 FUDGE :( todo: flesh out   circle.active(activeId) and circle.drawActive(activeId)

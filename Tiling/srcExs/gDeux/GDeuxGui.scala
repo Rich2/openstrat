@@ -15,7 +15,7 @@ case class GDeuxGui(canv: CanvasPlatform, scenStart: DeuxScen) extends CmdBarGui
   def lunits = players.cMapSomes{ (p, sc) =>
     Rect(0.9, 0.6, sc.toPt2).fillDrawTextActive(p.colour, p, p.toString + "\n" + sc.rcStr, 24, 2.0)  }
 
-  def css = players.cMapNones(hc => TextGraphic(hc.rcStr, hc.toPt2, 20))
+  def css = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2))
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {

@@ -27,11 +27,11 @@ case class LsA6(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A6")
     Polygon(-300 pp 200, -300 pp 300, -250 pp 300).fill(Orange),
     Polygon(-250 pp 300, -200 pp 325, -150 pp 300, -275 pp 200).draw(Blue, 2),
 
-    TextGraphic("default baseline", 0 pp 150, 18, Black, RightAlign),
-    TextGraphic("top baseline", 0 pp 150, 18, Black, LeftAlign, Top),
-    TextGraphic("middle", 100 pp 150, 18, Black, LeftAlign, Middle),
-    TextGraphic("bottom", 150 pp 150, 18, Black, LeftAlign, Bottom),
-    TextGraphic("alphabetic = ", -230 pp 150, 18, Black, LeftAlign, Alphabetic),
+    TextGraphic("default baseline", 18, 0 pp 150, Black, RightAlign),
+    TextGraphic("top baseline", 18, 0 pp 150, Black, LeftAlign, Top),
+    TextGraphic("middle", 18, 100 pp 150, Black, LeftAlign, Middle),
+    TextGraphic("bottom", 18, 150 pp 150, Black, LeftAlign, Bottom),
+    TextGraphic("alphabetic = ", 18, -230 pp 150, Black, LeftAlign, Alphabetic),
   )
 
   //So lets use those values above

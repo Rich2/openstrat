@@ -182,8 +182,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     PolygonImp(-r pp r, r pp r, r pp -r, -r pp -r).slate(x, y)
   }
 
-  def textAt(str: String, fontSize: Int, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str, this, fontSize, fontColour)
-  def toText(fontSize: Int = 10, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str1, this, fontSize, fontColour)
+  def textAt(str: String, fontSize: Int, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str, fontSize, this, fontColour)
+  def toText(fontSize: Int = 10, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str1, fontSize, this, fontColour)
 
   /*def arcControlPoint(pt2: Pt2, arcCentre: Pt2): Pt2 =
   { val angle1 = (this - arcCentre).angle

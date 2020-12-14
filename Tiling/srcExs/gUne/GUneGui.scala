@@ -25,7 +25,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   def lunits = players.cMapSomes{ (p, hc) =>
     Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.rcStr, 24, 2.0) }
 
-  def css = players.cMapNones(hc => TextGraphic(hc.rcStr, hc.toPt2, 20))
+  def css = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles = grid.activeTiles
