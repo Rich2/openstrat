@@ -64,19 +64,17 @@
   as deep as they wish to go, at the pace they wish to. I want to break down the wall between modding and coding. So if you're new to programming and
   want to get involved, drop into the gitter channel and say hi. If you are not experienced with Scala, you have found this site and want to
   experiment, you will need to install Java JDK8 and sbt. more complete documentation for getting started on Linux / Windows / Mac will come later.
-  The basic build has been tested on Linux and Windows 7. Jdk 11 preferred.
-</p>
+  The basic build has been tested on Linux and Windows 7. Jdk 11 preferred.</p>
 
 <p>However at the other end, I would welcome input from developers with greater experience and knowledge than my own. One of the goals of the project
   is to explore, where it is best to compose with trait / class inheritance and where to use functions. When to use mutation and when to use
   immutability. When to use smart, garbage collected heap based objects and when to use dumb data values. Balancing the competing priorities of
   elegance, succinctness, readability, run-time performance, compile time performance and accessibility for inexperienced programmers. I feel Scala
-  is, and in particular Scala 3 will be the ideal language to explore these questions.
-</p>
+  is, and in particular Scala 3 will be the ideal language to explore these questions.</p>
 
-<p>Scala currently set to 2.13.3. Scala.Js set to 1.3.1. Sbt currently set to 1.4.4 (uses the build.sbt file). Update your Mill to 0.9.3.
-  (uses the build.sc file).
-</p>
+<p>Scala currently set to 2.13.3. Jdk 11+, 11 prefered. Scala.Js set to 1.3.1. Sbt currently set to 1.4.4 (uses the build.sbt file). Note (probably
+  due to the JavaFx dependency). Sbt will not work running on Windows in Git Bash. Update your Mill to 0.9.3. Mill can not run JavaFx as it can't load
+  platform dependant depependencies. (uses the build.sc file).</p>
 
 <p>Run <code>sbt</code> in bash from project's root folder</p>
 

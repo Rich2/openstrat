@@ -6,9 +6,34 @@ trait EArclign extends EArc
 {
   def xRadius: Double
   def yRadius: Double
+
+  override def addRotations(delta: Int): EArclign
+
+
+  /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
+  override def slate(xOffset: Double, yOffset: Double): EArclign
+
+  /** Translate 2D geometric transformation on this EArclign. The Return type will be narrowed in sub traits and  classes. */
+  override def slate(offset: Vec2Like): EArclign
+
+  /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
+   * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
+  override def scale(operand: Double): EArclign
+
+  /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
+  override def negY: EArclign
+
+  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
+  override def negX: EArclign
+
+  /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
+  override def prolign(matrix: ProlignMatrix): EArclign
+
+  /** Draws this geometric element to produce a [[GraphElem]] graphical element, that can be displayed or printed. */
+  //override def draw(lineColour: Colour, lineWidth: Double): EArclign
 }
 
-object EArclign
+object EArclignlign
 {
   /** Creates an Elliptical arc. */
   def alignPos(pStart: Pt2, cen: Pt2, xRadius: Double, yRadius: Double, pEnd: Pt2): EArclign = EArclignImp(pStart.x, pStart.y, cen.x, cen.y,
@@ -57,8 +82,5 @@ object EArclign
     override def xShear(operand: Double): EArclignImp = ???
 
     override def yShear(operand: Double): EArclignImp = ???
-
-    /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed. */
-    override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = ???
   }
 }

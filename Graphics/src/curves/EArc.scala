@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import Colour.Black
 
 /** Elliptical Arc. the trait has 2 implementations [[CArc]] and [[EArc.EArcImp]]. */
 trait EArc extends CurveSeg
@@ -98,6 +99,8 @@ trait EArc extends CurveSeg
 
   /** Shear 2D geometric transformation along the Y Axis on a EArc. The return type will be narrowed in sub classes and traits. */
   override def yShear(operand: Double): EArc = ???
+
+  override def draw(lineColour: Colour = Black, lineWidth: Double = 2): EArcDraw = EArcDraw(this, lineColour, lineWidth)
 }
 
 object EArc
@@ -145,9 +148,6 @@ object EArc
     override def xShear(operand: Double): EArcImp = ???
 
     override def yShear(operand: Double): EArcImp = ???
-
-    /** Draws this geometric element to produce a [[GraphElem]] graphical element, tht can be displayed or printed. */
-    override def draw(lineColour: Colour, lineWidth: Double): GraphicElem = ???
   }
 
   object EArcImp {
