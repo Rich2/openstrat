@@ -31,8 +31,8 @@ object BaseLine
 
 /** A Graphical display of Text.
  * @param posn The point to orient from. By default this Vec2 defines the centre but from right or left depending  on alignment. */
-case class TextGraphic(str: String, posn: Pt2 = Pt2Z, fontSize: Int = 24, colour: Colour = Black, align: TextAlign = CenAlign,
-                       baseLine: BaseLine = BaseLine.Middle) extends GraphicAffineElem with CanvElem
+case class TextGraphic(str: String, posn: Pt2, fontSize: Int = 24, colour: Colour = Black, align: TextAlign = CenAlign,
+  baseLine: BaseLine = BaseLine.Middle) extends GraphicAffineElem with CanvElem
 { type ThisT = TextGraphic
   override def fTrans(f: Pt2 => Pt2) = TextGraphic(str, f(posn), fontSize, colour, align, baseLine)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textGraphic(this)
@@ -40,7 +40,7 @@ case class TextGraphic(str: String, posn: Pt2 = Pt2Z, fontSize: Int = 24, colour
 
 /** Not sure if this is a good object to have. */
 object TextGraphicCen
-{ def apply(str: String, fontSize: Int, posn : Pt2 = Pt2Z, colour: Colour = Black, zOrder: Int = 0): TextGraphic =
+{ def apply(str: String, fontSize: Int, posn : Pt2 = Pt2Z, colour: Colour = Black): TextGraphic =
     new TextGraphic(str, posn, fontSize, colour, CenAlign, BaseLine.Alphabetic)
 }
 
@@ -52,13 +52,4 @@ object TextGraphic
     if(len == 0) Arr()
       else strs.iMap((str, i) => TextGraphic(str, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontSize, fontColour, align, baseLine))
   }
-}
-
-case class TextOutline(str: String, fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, lineWidth: Double = 1.0,
-                       align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic, zOrder: Int = 0) extends GraphicAffineElem
-{ override type ThisT = TextOutline
-  override def fTrans(f: Pt2 => Pt2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textOutline(this)
-
-  override def negY: TextOutline = ???
 }

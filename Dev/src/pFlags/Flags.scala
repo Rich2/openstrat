@@ -48,7 +48,7 @@ object TextFlagMaker
   def apply(str: String, colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
   { override def name: String = str + " Flag"
     override def ratio: Double = ratioIn
-    override def apply(): GraphicElems = Arr(rect.fill(colour), TextGraphic(str, fontSize = 40))
+    override def apply(): GraphicElems = Arr(rect.fill(colour), TextGraphic(str, Pt2Z, 40))
   }
 }
 

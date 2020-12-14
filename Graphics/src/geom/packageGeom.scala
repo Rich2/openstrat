@@ -71,6 +71,11 @@ package object geom
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)
   implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)
 
+  implicit class AnyGeomImplicit(thisAny: Any)
+  {
+    def toTextGraphic: TextGraphic = ???
+  }
+
   implicit class StringImplictGeom(thisString: String)
   { import pParse.{ stringToStatements => stss}
     def findVec2: EMon[Pt2] = stss(thisString).flatMap(_.findType[Pt2])

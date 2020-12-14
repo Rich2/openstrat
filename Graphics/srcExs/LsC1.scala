@@ -7,7 +7,7 @@ case class LsC1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C1")
 {  
   repaints(TextGraphic("Please click on the screen a few times.", 0 pp 200, 28, Green))
   var counter = 0
-  def newText = TextGraphic("You have clicked the screen " + counter.toString + " times.", fontSize = 28)
+  def newText = TextGraphic("You have clicked the screen " + counter.toString + " times.", Pt2Z, 28)
   setMouseSimplest{
     counter += 1
     repaints(newText)
