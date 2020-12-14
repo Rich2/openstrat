@@ -62,6 +62,9 @@ trait CanvasPlatform extends RectCenlign
   /** Draws a circular arc on the canvas. */
   def cArcDraw(cad: CArcDraw): Unit
 
+  /** Draws an elliptical arc on the canvas. */
+  def eArcDraw(ead: EArcDraw): Unit
+
   def bezierDraw(bd: BezierDraw): Unit
 
   def lineSegsDraw(lsd: LinesDraw): Unit

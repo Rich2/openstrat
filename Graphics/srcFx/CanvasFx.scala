@@ -84,12 +84,21 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.stroke()
   }
 
-  /** So to implement this correctly the start angle and the delta angles have to be reversed. */
-  override protected[this] def tlCArcDraw(ad: CArcDraw): Unit =
+  /** The javaFx documentation. */
+  override protected[this] def tlCArcDraw(cad: CArcDraw): Unit =
   { gc.beginPath
-    gc.moveTo(ad.xStart, ad.yStart)
-    gc.arc(ad.xCen, ad.yCen, ad.radius, ad.radius, ad.curveSeg.startDegsYDown, ad.curveSeg.angleDeltaYDown.degs)
-    gc.setStroke(toFxColor(ad.colour))
+    gc.moveTo(cad.xStart, cad.yStart)
+    gc.arc(cad.xCen, cad.yCen, cad.radius, cad.radius, cad.curveSeg.startDegsYDown, cad.curveSeg.angleDeltaYDown.degs)
+    gc.setStroke(toFxColor(cad.colour))
+    gc.stroke()
+  }
+
+  /** The javaFx documentation. */
+  override protected[this] def tlEArcDraw(ead: EArcDraw): Unit =
+  { gc.beginPath
+    gc.moveTo(ead.xStart, ead.yStart)
+    //gc.arc(ead.xCen, ead.yCen, ead. cad.radius, cad.radius, cad.curveSeg.startDegsYDown, cad.curveSeg.angleDeltaYDown.degs)
+    gc.setStroke(toFxColor(ead.colour))
     gc.stroke()
   }
 

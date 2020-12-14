@@ -14,6 +14,7 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def pLinePathDraw(pod: LinePathDraw): Unit = tlLinePathDraw(pod.fTrans(tlCen))
   final override def lineSegDraw(ld: LineSegDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
   final override def cArcDraw(cad: CArcDraw): Unit = tlCArcDraw(cad.negY.slate(width / 2, height / 2))
+  final override def eArcDraw(ead: EArcDraw): Unit = tlEArcDraw(ead.negY.slate(width / 2, height / 2))
 
   final override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.fTrans(tlCen))
   final override def lineSegsDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.fTrans(tlCen)): Unit
@@ -45,7 +46,8 @@ trait CanvasTopLeft extends CanvasPlatform
 
   protected[this] def tlLineDraw(ld: LineSegDraw): Unit
 
-  protected[this] def tlCArcDraw(tld: CArcDraw): Unit
+  protected[this] def tlCArcDraw(cad: CArcDraw): Unit
+  protected[this] def tlEArcDraw(ead: EArcDraw): Unit
 
   protected[this] def tlLinesDraw(lsd: LinesDraw): Unit
   protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit
