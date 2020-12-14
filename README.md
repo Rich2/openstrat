@@ -22,7 +22,7 @@
 
 <h3> Heapless Compound Value type collections library</h3>
 
-<p>Scala currently set to 2.13.3. Jdk 11+, 11 prefered. Scala.Js set to 1.3.1. Sbt currently set to 1.4.4. Note (probably due to the JavaFx
+<p>Scala currently set to 2.13.3. Jdk 11+, 11 prefered. Scala.Js set to 1.3.1. Sbt currently set to 1.4.5. Note (probably due to the JavaFx
  dependency) Sbt will not work running on Windows in Git Bash. Update your Mill to 0.9.3. Mill can not run JavaFx as it can't load platform
  dependant depependencies.</p>
 
