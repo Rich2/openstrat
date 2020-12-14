@@ -7,14 +7,15 @@ package geom
  *  using the [[AngleVec]] of the arc which would allow less data. This is to avoid calculation /rounding errors in the start and end points, which
  *  will be used by other [[CurveSeg]]s in curve paths. */
 class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val yCen: Double, val xEnd: Double, val yEnd: Double,
-  val counter: Int) extends EArc
+  val counter: Int) extends EArclign
 { /** The centre of this circular arc. */
   override def cen: Pt2 = Pt2(xCen, yCen)
 
   /** Radius of the this circular arc. */
   def radius: Double = cen.distTo(pStart)
 
-
+  override def xRadius: Double = cen.distTo(pStart)
+  override def yRadius: Double = cen.distTo(pStart)
 
   /** The chord of this Arc */
   def chord: LineSeg = pStart.lineTo(pEnd)

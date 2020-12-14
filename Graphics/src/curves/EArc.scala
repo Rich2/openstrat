@@ -103,7 +103,6 @@ trait EArc extends CurveSeg
 object EArc
 {
 
-
   /** implementation class fpr Elliptical Arc. This calss stores the start point, the centre point, axis vertex 1, by convention the vertex on the
    *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greter than
    *  360 degrees and less than -360 degrees. */
