@@ -2,6 +2,7 @@
 package ostrat
 package pReactor
 import geom._, pCanv._, Colour._
+import scala.collection.mutable.Map
 
 /** A clone of the classic Atoms game */
 case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
@@ -21,7 +22,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5, -100 pp -100).parentAll(MouseButtonCmd(cmd), White, 3, Black, 25, str)
 
   var aDefaultGame = new ReactorGame(rows, cols, Array(Red, Green, Yellow, Blue))
-  var computerPlayers = Array(Green, Yellow, Blue)
+  var computerPlayers = Array(Red, Green, Yellow, Blue)
   val computerPlayer = new ComputerPlayer(aDefaultGame)
 
   val player1Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 220, true), RadioOption(true, "COMPUTER", -180 pp 200, true)), 1)
@@ -36,6 +37,8 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 
   val checkboxes = Array(player1, player2, player3, player4)
   val radioGroups = Array(player1Options, player2Options, player3Options, player4Options)
+
+  // val playerIndicators:GraphicElems = ???
 
   newGame()
 
@@ -132,14 +135,14 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     { animationStep = 0.0
       if (aDefaultGame.gameState == "popBall")
       { if (aDefaultGame.processPopBall() == true)
-      { if (aDefaultGame.isGameOver() == true) declareWinner()
-      else turnComplete()
-      } else canv.timeOut(() => doAnimation(), animationDuration)
+        { if (aDefaultGame.isGameOver() == true) declareWinner()
+          else turnComplete()
+        } else canv.timeOut(() => doAnimation(), animationDuration)
       } else if (aDefaultGame.gameState == "addBall")
       { if (aDefaultGame.processAddBall() == true)
-      { if (aDefaultGame.isGameOver() == true) declareWinner()
-      else turnComplete()
-      } else canv.timeOut(() => doAnimation(), animationDuration)
+        { if (aDefaultGame.isGameOver() == true) declareWinner()
+          else turnComplete()
+        } else {canv.timeOut(() => doAnimation(), animationDuration); composeGUI()}
       } else deb("***-- not pop or add: "+aDefaultGame.gameState+" --***")
     } else canv.timeOut(() => doAnimation(), animationDuration)
   }
@@ -176,7 +179,14 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     checkForComputerTurn()
   }
   def getCurrentPlayerIndicator():GraphicElems =
-  { Arr(Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer), TextGraphic(aDefaultGame.turn.toString, 11, -3*size/4 pp -3*size/4, Black))
+  { var totals = Map("Red"->0, "Yellow"->0, "Green"->0, "Blue"->0, "Black"->0)
+    for(i <-0 to aDefaultGame.cellColors.length-1) totals(aDefaultGame.cellColors(i).toString) = totals(aDefaultGame.cellColors(i).toString) + aDefaultGame.cellCounts(i)
+    // Array(Red,Yellow,Green,Blue).
+    Arr(Rect.bl(size/4, totals("Red"), -size/4 pp size).fill(Red), TextGraphic(totals("Red").toString, 7, -1*size/8 pp 7*size/8, White),
+        Rect.bl(size/4, totals("Green"), -2*size/4 pp size).fill(Green), TextGraphic(totals("Green").toString, 7, -3*size/8 pp 7*size/8, White),
+        Rect.bl(size/4, totals("Yellow"), -3*size/4 pp size).fill(Yellow), TextGraphic(totals("Yellow").toString, 7, -5*size/8 pp 7*size/8, White),
+        Rect.bl(size/4, totals("Blue"), -4*size/4 pp size).fill(Blue), TextGraphic(totals("Blue").toString, 7, -7*size/8 pp 7*size/8, White),
+        Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer), TextGraphic(aDefaultGame.turn.toString, -3*size/4 pp -3*size/4, 11, Black))
   }
 
   mouseUp =
