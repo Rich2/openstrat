@@ -48,7 +48,10 @@ object EArclignlign
     //override def fTrans(f: Vec2 => Vec2): EArclign = ???
     //def xCen: Double = xAxis4
     //def yCen: Double = yAxis1
-    override def cen: Pt2 = ???
+    override def cen: Pt2 = Pt2(xCen, yCen)
+
+    /** the end of axis 1. By default this is the right vertex of the Ellipse. */
+    override def axisV1: Pt2 = ???
 
     def addRotations(delta: Int): EArclignImp = EArclignImp(xStart, yStart, xCen, yCen, xRadius, yRadius, xEnd, yEnd, counter + delta)
 

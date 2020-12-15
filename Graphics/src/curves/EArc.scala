@@ -12,8 +12,11 @@ trait EArc extends CurveSeg
   /** The Y component of the centre of the Elliptical arc. */
   def yCen: Double
 
-  /** The centre of the Elliptical arc. */
+  /** The centre of this elliptical arc. this method has been left abstract to allow the comment to be overridden in CArc. */
   def cen: Pt2
+
+  /** the end of axis 1. By default this is the right vertex of the Ellipse. */
+  def axisV1: Pt2
 
   /** The vector [Vec2] from the centre of the arc to the start point of the arc. */
   def cenStart: Vec2 = cen >> pStart
@@ -109,14 +112,14 @@ object EArc
   /** implementation class fpr Elliptical Arc. This calss stores the start point, the centre point, axis vertex 1, by convention the vertex on the
    *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greter than
    *  360 degrees and less than -360 degrees. */
-  final case class EArcImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xAxis1: Double, yAxis1: Double, xAxis4: Double,
-    yAxis4: Double, xEnd: Double, yEnd: Double, counter: Int) extends EArc
+  final case class EArcImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xAxisV1: Double, yAxisV1: Double, xAxis4: Double,
+                           yAxis4: Double, xEnd: Double, yEnd: Double, counter: Int) extends EArc
   {
-    //override def fTrans(f: Vec2 => Vec2): EArc = ???
+    override def cen: Pt2 = Pt2(xCen, yCen)
 
-    override def cen: Pt2 = ???
+    override def axisV1: Pt2 = Pt2(xAxisV1, yAxisV1)
 
-    def addRotations(delta: Int): EArcImp = new EArcImp(xStart, yStart, xCen, yCen, xAxis1, yAxis1, xAxis4, yAxis4, xEnd, yEnd, counter + delta)
+    def addRotations(delta: Int): EArcImp = new EArcImp(xStart, yStart, xCen, yCen, xAxisV1, yAxisV1, xAxis4, yAxis4, xEnd, yEnd, counter + delta)
 
     override def slate(offset: Vec2Like): EArcImp = ???
 
