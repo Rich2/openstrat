@@ -186,7 +186,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
         Rect.bl(size/4, totals("Green"), -2*size/4 pp size).fill(Green), TextGraphic(totals("Green").toString, 7, -3*size/8 pp 7*size/8, White),
         Rect.bl(size/4, totals("Yellow"), -3*size/4 pp size).fill(Yellow), TextGraphic(totals("Yellow").toString, 7, -5*size/8 pp 7*size/8, White),
         Rect.bl(size/4, totals("Blue"), -4*size/4 pp size).fill(Blue), TextGraphic(totals("Blue").toString, 7, -7*size/8 pp 7*size/8, White),
-        Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer), TextGraphic(aDefaultGame.turn.toString, -3*size/4 pp -3*size/4, 11, Black))
+        Rect.bl(size/2, size/2, -size pp -size).fill(aDefaultGame.currentPlayer), TextGraphic(aDefaultGame.turn.toString, 11, -3*size/4 pp -3*size/4, Black))
   }
 
   mouseUp =
