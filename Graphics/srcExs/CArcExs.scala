@@ -1,5 +1,5 @@
 package learn
-import ostrat._, geom._, pCanv._, Colour._, scala.math.{Pi}
+import ostrat._, geom._, pCanv._, Colour._
 
 /** This is a temporary lesson: whilst Arcs get fixed. */
 case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
@@ -23,7 +23,7 @@ case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
       val radius = 15.0
       val delta = Pi1/8
       val shortArcOffset = Pi1/360
-      /** Angle of arc */
+      /** Angle of arc. */
       val theta = shortArcOffset + Pi1 / 180 * index
       val startPoint = x + radius * math.cos(theta) pp y + radius * math.sin(theta)
       val endPoint = x + radius * math.cos(theta + delta + delta) pp y + radius * math.sin(theta + delta + delta)

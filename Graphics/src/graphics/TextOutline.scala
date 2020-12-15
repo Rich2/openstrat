@@ -3,8 +3,8 @@ package ostrat
 package geom
 import Colour.Black
 
-class TextOutline(val str: String, val fontSize: Int, val x: Double, val y: Double, val colour: Colour, val lineWidth: Double, val align: TextAlign,
-  val baseLine: BaseLine) extends GraphicAffineElem
+class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: Double, val colour: Colour, val lineWidth: Double,
+  val align: TextAlign, val baseLine: BaseLine) extends GraphicAffineElem
 { override type ThisT = TextOutline
   def posn: Pt2 = Pt2(x, y)
   override def fTrans(f: Pt2 => Pt2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
@@ -21,11 +21,11 @@ class TextOutline(val str: String, val fontSize: Int, val x: Double, val y: Doub
 
 object TextOutline
 {
-  def apply(str: String, fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, lineWidth: Double = 1.0,
-    align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): TextOutline =
+  def apply(str: String, fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, lineWidth: Double = 1.0, align: TextAlign = CenAlign,
+    baseLine: BaseLine = BaseLine.Alphabetic): TextOutline =
     new TextOutline(str, fontSize, posn.x, posn.y, colour, lineWidth, align, baseLine)
 
-  def xy(str: String, fontSize: Int = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, lineWidth: Double = 1.0,
-         align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): TextOutline =
+  def xy(str: String, fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, lineWidth: Double = 1.0,
+    align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): TextOutline =
     new TextOutline(str, fontSize, xPosn, yPosn, colour, lineWidth, align, baseLine)
 }

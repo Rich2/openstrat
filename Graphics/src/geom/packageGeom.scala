@@ -74,14 +74,12 @@ package object geom
   implicit class AnyGeomImplicit(thisAny: Any)
   {
     /** Creates a [[TextGraphic]] at the given [[Pt2], default x = 0, y = 0, using the toString method on this object. */
-    def toTextGraphic(fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
-      baseLine: BaseLine = BaseLine.Middle): TextGraphic =
-      TextGraphic(thisAny.toString, fontSize, posn, colour, align, baseLine)
+    def toTextGraphic(fontSize: Double = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
+     baseLine: BaseLine = BaseLine.Middle): TextGraphic = TextGraphic(thisAny.toString, fontSize, posn, colour, align, baseLine)
 
     /** Creates a [[TextGraphic]] at the given X and Y positions, using the toString method on this object. */
-    def xyTextGraphic(fontSize: Int = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
-      baseLine: BaseLine = BaseLine.Middle): TextGraphic =
-      TextGraphic.xy(thisAny.toString, fontSize, xPosn, yPosn, colour, align, baseLine)
+    def xyTextGraphic(fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
+      baseLine: BaseLine = BaseLine.Middle): TextGraphic = TextGraphic.xy(thisAny.toString, fontSize, xPosn, yPosn, colour, align, baseLine)
   }
 
   implicit class StringImplictGeom(thisString: String)
