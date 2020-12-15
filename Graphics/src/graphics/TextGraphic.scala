@@ -54,10 +54,3 @@ object TextGraphic
     else strs.iMap((str, i) => TextGraphic(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
   }
 }
-
-/** Not sure if this is a good object to have. */
-object TextGraphicCen
-{ def apply(str: String, fontSize: Int, posn : Pt2 = Pt2Z, colour: Colour = Black): TextGraphic =
-    TextGraphic(str, fontSize, posn, colour, CenAlign, BaseLine.Alphabetic)
-}
-
