@@ -11,8 +11,13 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
 { /** The centre of this circular arc. */
   override def cen: Pt2 = Pt2(xCen, yCen)
 
-  /** the end of axis 1. By default this is the right vertex of the Ellipse. */
-  override def axisV1: Pt2 = ???
+  /** The end of elliptical axis 1. By default this is the right vertex of the Ellipse, so this point on the circle is given although there is no
+   * actual vertex there on this circle, which is a special case of an ellipse. */
+  override def axisV1: Pt2 = cen.addX(radius)
+
+  /** The start of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no
+   *  actual vertex there on this circle, which is a special case of an ellipse. */
+  override def axisV2: Pt2 = cen.subY(radius)
 
   /** Radius of the this circular arc. */
   def radius: Double = cen.distTo(pStart)

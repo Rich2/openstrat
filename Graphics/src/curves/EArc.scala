@@ -18,6 +18,9 @@ trait EArc extends CurveSeg
   /** the end of axis 1. By default this is the right vertex of the Ellipse. */
   def axisV1: Pt2
 
+  /** the start of axis 2. By default this is the bottom vertex of the Ellipse. */
+  def axisV2: Pt2
+
   /** The vector [Vec2] from the centre of the arc to the start point of the arc. */
   def cenStart: Vec2 = cen >> pStart
 
@@ -116,8 +119,9 @@ object EArc
                            yAxis4: Double, xEnd: Double, yEnd: Double, counter: Int) extends EArc
   {
     override def cen: Pt2 = Pt2(xCen, yCen)
-
     override def axisV1: Pt2 = Pt2(xAxisV1, yAxisV1)
+    override def axisV2: Pt2 =  ??? //Pt2(xAxisV1, yAxisV1)
+
 
     def addRotations(delta: Int): EArcImp = new EArcImp(xStart, yStart, xCen, yCen, xAxisV1, yAxisV1, xAxis4, yAxis4, xEnd, yEnd, counter + delta)
 
