@@ -15,6 +15,10 @@ trait EArc extends CurveSeg
   /** The centre of this elliptical arc. this method has been left abstract to allow the comment to be overridden in CArc. */
   def cen: Pt2
 
+  def radius1: Double
+
+  def radius2: Double
+
   /** the end of axis 1. By default this is the right vertex of the Ellipse. */
   def axisV1: Pt2
 
@@ -130,6 +134,10 @@ object EArc
                            yAxis4: Double, xEnd: Double, yEnd: Double, counter: Int) extends EArc
   {
     override def cen: Pt2 = Pt2(xCen, yCen)
+
+    override def radius1: Double = cen.distTo(axisV1)
+
+    override def radius2: Double = cen.distTo(axisV4)
 
     override def axisV1: Pt2 = xAxisV1 pp yAxisV1
     override def axisV2: Pt2 = cen + cenAxisV2

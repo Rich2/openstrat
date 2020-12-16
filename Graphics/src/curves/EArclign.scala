@@ -33,11 +33,15 @@ trait EArclign extends EArc
   //override def draw(lineColour: Colour, lineWidth: Double): EArclign
 }
 
-object EArclignlign
+object EArclign
 {
   /** Creates an Elliptical arc. */
-  def alignPos(pStart: Pt2, cen: Pt2, xRadius: Double, yRadius: Double, pEnd: Pt2): EArclign = EArclignImp(pStart.x, pStart.y, cen.x, cen.y,
+  def pos(pStart: Pt2, cen: Pt2, xRadius: Double, yRadius: Double, pEnd: Pt2): EArclign = EArclignImp(pStart.x, pStart.y, cen.x, cen.y,
     xRadius, yRadius, pEnd.x, pEnd.y, ife(pStart.x == pEnd.x & pStart.y == pEnd.y, 0, 1))
+
+  /** Creates an Elliptical arc. */
+  def pos(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xRadius: Double, yRadius: Double, xEnd: Double, yEnd: Double): EArclign =
+    EArclignImp(xStart, yStart, xCen, yCen, xRadius, yRadius, xEnd, yEnd, ife(xStart == xEnd & yStart == yEnd, 0, 1))
 
   /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the
    *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greter than
@@ -48,6 +52,11 @@ object EArclignlign
     //override def fTrans(f: Vec2 => Vec2): EArclign = ???
 
     override def cen: Pt2 = Pt2(xCen, yCen)
+
+    override def radius1: Double = xRadius
+
+    override def radius2: Double = yRadius
+
     override def axisV1: Pt2 = cen.addX(xRadius)
     override def axisV2: Pt2 = cen.subY(yRadius)
     override def axisV3: Pt2 = cen.subX(xRadius)

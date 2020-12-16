@@ -38,6 +38,10 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   override def xRadius: Double = cen.distTo(pStart)
   override def yRadius: Double = cen.distTo(pStart)
 
+  override def radius1: Double = cen.distTo(pStart)
+
+  override def radius2: Double = cen.distTo(pStart)
+
   /** The chord of this Arc */
   def chord: LineSeg = pStart.lineTo(pEnd)
 
