@@ -50,6 +50,13 @@ object EArclignlign
     override def cen: Pt2 = Pt2(xCen, yCen)
     override def axisV1: Pt2 = cen.addX(xRadius)
     override def axisV2: Pt2 = cen.subY(yRadius)
+    override def axisV3: Pt2 = cen.subX(xRadius)
+    override def axisV4: Pt2 = cen.addY(yRadius)
+    override def cenAxisV1: Vec2 = xRadius vv 0
+    override def cenAxisV2: Vec2 = 0 vv - yRadius
+    override def cenAxisV3: Vec2 = -xRadius vv 0
+    override def cenAxisV4: Vec2 = 0 vv yRadius
+
     def addRotations(delta: Int): EArclignImp = EArclignImp(xStart, yStart, xCen, yCen, xRadius, yRadius, xEnd, yEnd, counter + delta)
 
     override def slate(offset: Vec2Like): EArclignImp = ???

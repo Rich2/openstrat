@@ -21,6 +21,17 @@ trait EArc extends CurveSeg
   /** the start of axis 2. By default this is the bottom vertex of the Ellipse. */
   def axisV2: Pt2
 
+  /** the start point of axis 1. By default this is the left vertex of the Ellipse. */
+  def axisV3: Pt2
+
+  /** the end of axis 2. By default this is the top vertex of the Ellipse. */
+  def axisV4: Pt2
+
+  def cenAxisV1: Vec2
+  def cenAxisV2: Vec2
+  def cenAxisV3: Vec2
+  def cenAxisV4: Vec2
+
   /** The vector [Vec2] from the centre of the arc to the start point of the arc. */
   def cenStart: Vec2 = cen >> pStart
 
@@ -112,16 +123,22 @@ trait EArc extends CurveSeg
 object EArc
 {
 
-  /** implementation class fpr Elliptical Arc. This calss stores the start point, the centre point, axis vertex 1, by convention the vertex on the
-   *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greter than
+  /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the
+   *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greater than
    *  360 degrees and less than -360 degrees. */
   final case class EArcImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xAxisV1: Double, yAxisV1: Double, xAxis4: Double,
                            yAxis4: Double, xEnd: Double, yEnd: Double, counter: Int) extends EArc
   {
     override def cen: Pt2 = Pt2(xCen, yCen)
-    override def axisV1: Pt2 = Pt2(xAxisV1, yAxisV1)
-    override def axisV2: Pt2 =  ??? //Pt2(xAxisV1, yAxisV1)
 
+    override def axisV1: Pt2 = xAxisV1 pp yAxisV1
+    override def axisV2: Pt2 = cen + cenAxisV2
+    override def axisV3: Pt2 = cen + cenAxisV3
+    override def axisV4: Pt2 = xAxis4 pp yAxis4
+    override def cenAxisV1: Vec2 = cen >> axisV1
+    override def cenAxisV2: Vec2 = -cenAxisV4
+    override def cenAxisV3: Vec2 = -cenAxisV1
+    override def cenAxisV4: Vec2 = cen >> axisV4
 
     def addRotations(delta: Int): EArcImp = new EArcImp(xStart, yStart, xCen, yCen, xAxisV1, yAxisV1, xAxis4, yAxis4, xEnd, yEnd, counter + delta)
 
