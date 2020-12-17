@@ -11,7 +11,7 @@ trait EArclign extends EArc
 
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  override def slate(xOffset: Double, yOffset: Double): EArclign
+  override def slate(xOffset: Double, yOffset: Double): EArclign = ???
 
   /** Translate 2D geometric transformation on this EArclign. The Return type will be narrowed in sub traits and  classes. */
   override def slate(offset: Vec2Like): EArclign
@@ -57,14 +57,14 @@ object EArclign
 
     override def radius2: Double = yRadius
 
-    override def axisV1: Pt2 = cen.addX(xRadius)
-    override def axisV2: Pt2 = cen.subY(yRadius)
-    override def axisV3: Pt2 = cen.subX(xRadius)
-    override def axisV4: Pt2 = cen.addY(yRadius)
-    override def cenAxisV1: Vec2 = xRadius vv 0
-    override def cenAxisV2: Vec2 = 0 vv - yRadius
-    override def cenAxisV3: Vec2 = -xRadius vv 0
-    override def cenAxisV4: Vec2 = 0 vv yRadius
+    override def pAxes1: Pt2 = cen.addX(xRadius)
+    override def pAxes2: Pt2 = cen.subY(yRadius)
+    override def pAxes3: Pt2 = cen.subX(xRadius)
+    override def pAxes4: Pt2 = cen.addY(yRadius)
+    override def cenP1: Vec2 = xRadius vv 0
+    override def cenP2: Vec2 = 0 vv - yRadius
+    override def cenP3: Vec2 = -xRadius vv 0
+    override def cenP4: Vec2 = 0 vv yRadius
 
     def addRotations(delta: Int): EArclignImp = EArclignImp(xStart, yStart, xCen, yCen, xRadius, yRadius, xEnd, yEnd, counter + delta)
 

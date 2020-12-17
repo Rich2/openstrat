@@ -13,24 +13,24 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
 
   /** The end of elliptical axis 1. By default this is the right vertex of the Ellipse, so this point on the circle is given although there is no
    * actual vertex there on this circle, which is a special case of an ellipse. */
-  override def axisV1: Pt2 = cen.addX(radius)
+  override def pAxes1: Pt2 = cen.addX(radius)
 
   /** The start of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no
    *  actual vertex there on this circle, which is a special case of an ellipse. */
-  override def axisV2: Pt2 = cen.subY(radius)
+  override def pAxes2: Pt2 = cen.subY(radius)
 
   /** The start of elliptical axis 1. By default this is the left vertex of the Ellipse, so this point on the circle is given although there is no
    * actual vertex there on this circle, which is a special case of an ellipse. */
-  override def axisV3: Pt2 = cen.subX(radius)
+  override def pAxes3: Pt2 = cen.subX(radius)
 
   /** The end of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no
    *  actual vertex there on this circle, which is a special case of an ellipse. */
-  override def axisV4: Pt2 = cen.addY(radius)
+  override def pAxes4: Pt2 = cen.addY(radius)
 
-  override def cenAxisV1: Vec2 = cen >> axisV1
-  override def cenAxisV2: Vec2 = cen >> axisV2
-  override def cenAxisV3: Vec2 = cen >> axisV3
-  override def cenAxisV4: Vec2 = cen >> axisV4
+  override def cenP1: Vec2 = cen >> pAxes1
+  override def cenP2: Vec2 = cen >> pAxes2
+  override def cenP3: Vec2 = cen >> pAxes3
+  override def cenP4: Vec2 = cen >> pAxes4
 
   /** Radius of the this circular arc. */
   def radius: Double = cen.distTo(pStart)

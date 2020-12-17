@@ -19,22 +19,36 @@ trait EArc extends CurveSeg
 
   def radius2: Double
 
-  /** the end of axis 1. By default this is the right vertex of the Ellipse. */
-  def axisV1: Pt2
+  /** The end point of axis 1. By default this is on the right of the Ellipse. Mathematically this can be referred to as a vertex for the major axis
+   *  or a co-vertex for the minor axis. */
+  def pAxes1: Pt2
 
-  /** the start of axis 2. By default this is the bottom vertex of the Ellipse. */
-  def axisV2: Pt2
+  /** The start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the major
+   *  axis or a co-vertex for the minor axis. */
+  def pAxes2: Pt2
 
-  /** the start point of axis 1. By default this is the left vertex of the Ellipse. */
-  def axisV3: Pt2
+  /** The start point of axis 1. By default this is on the left of the Ellipse. Mathematically this can be referred to as a vertex for the major axis
+   *  or a co-vertex for the minor axis. */
+  def pAxes3: Pt2
 
-  /** the end of axis 2. By default this is the top vertex of the Ellipse. */
-  def axisV4: Pt2
+  /** The end point of axis 2. By default this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or
+   *  a co-vertex for the minor axis. */
+  def pAxes4: Pt2
 
-  def cenAxisV1: Vec2
-  def cenAxisV2: Vec2
-  def cenAxisV3: Vec2
-  def cenAxisV4: Vec2
+  /** The 2D vector [[Vec2]] from the centre point to pAxes1, the end point of axis 1 , by default on the right of the Ellipse this arc is based
+   *  on. */
+  def cenP1: Vec2
+
+  /** The 2D vector [[Vec2]] from the centre point to pAxes2, the start point of axis 2, by default at the bottom of the Ellipse this arc is based
+   *  on. */
+  def cenP2: Vec2
+
+  /** The 2D vector [[Vec2]] from the centre point to pAxes3, the start point of axis 1 , by default on the left of the Ellipse this arc is based
+   *  on. */
+  def cenP3: Vec2
+
+  /** The 2D vector [[Vec2]] from the centre point to pAxes4, the end point of axis 2, by default at the top of the Ellipse this arc is based on. */
+  def cenP4: Vec2
 
   /** The vector [Vec2] from the centre of the arc to the start point of the arc. */
   def cenStart: Vec2 = cen >> pStart
@@ -86,7 +100,9 @@ trait EArc extends CurveSeg
   def angleDeltaLimitedYDown: AngleVec = -angleDeltaLimited
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  override def slate(xOffset: Double, yOffset: Double): EArc
+  override def slate(xOffset: Double, yOffset: Double): EArc =
+    EArc(pStart.slate(xOffset, yOffset), cen.slate(xOffset, yOffset), pAxes1.slate(xOffset, yOffset), pAxes4.slate(xOffset, yOffset),
+    pEnd.slate(xOffset, yOffset), counter)
 
   /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */
   override def slate(offset: Vec2Like): EArc
@@ -126,6 +142,8 @@ trait EArc extends CurveSeg
 
 object EArc
 {
+  def apply(pStart: Pt2, cen: Pt2, axisV1: Pt2, axisV4: Pt2, pEnd: Pt2, counter: Int): EArc =
+    new EArcImp(pStart.x, pStart.y, cen.x, cen.y, axisV1.x, axisV1.y, axisV4.x, axisV4.y, pEnd.x, pEnd.y, counter)
 
   /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the
    *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greater than
@@ -135,18 +153,18 @@ object EArc
   {
     override def cen: Pt2 = Pt2(xCen, yCen)
 
-    override def radius1: Double = cen.distTo(axisV1)
+    override def radius1: Double = cen.distTo(pAxes1)
 
-    override def radius2: Double = cen.distTo(axisV4)
+    override def radius2: Double = cen.distTo(pAxes4)
 
-    override def axisV1: Pt2 = xAxisV1 pp yAxisV1
-    override def axisV2: Pt2 = cen + cenAxisV2
-    override def axisV3: Pt2 = cen + cenAxisV3
-    override def axisV4: Pt2 = xAxis4 pp yAxis4
-    override def cenAxisV1: Vec2 = cen >> axisV1
-    override def cenAxisV2: Vec2 = -cenAxisV4
-    override def cenAxisV3: Vec2 = -cenAxisV1
-    override def cenAxisV4: Vec2 = cen >> axisV4
+    override def pAxes1: Pt2 = xAxisV1 pp yAxisV1
+    override def pAxes2: Pt2 = cen + cenP2
+    override def pAxes3: Pt2 = cen + cenP3
+    override def pAxes4: Pt2 = xAxis4 pp yAxis4
+    override def cenP1: Vec2 = cen >> pAxes1
+    override def cenP2: Vec2 = -cenP4
+    override def cenP3: Vec2 = -cenP1
+    override def cenP4: Vec2 = cen >> pAxes4
 
     def addRotations(delta: Int): EArcImp = new EArcImp(xStart, yStart, xCen, yCen, xAxisV1, yAxisV1, xAxis4, yAxis4, xEnd, yEnd, counter + delta)
 
