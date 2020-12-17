@@ -203,6 +203,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     x, y - armLength, x, y + armLength).draw(lineWidth, lineColour)
 
   //def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
+
+  def textArrow(str: String, angle: Angle = 45.degsAng): GraphicElems = Arr(TextGraphic(str, 14, this.xySlate(20, 20)))
 }
 
 /** Companion object for Pt2. contains Apply factory method. */
