@@ -146,7 +146,10 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def lineFrom(pt2: Pt2): LineSeg = LineSeg(pt2, this)
 
   /** Line segment from this point to along the given angle for the given magnitude to point 2. */
-  def lineAlong(angle: Angle, magnitude: Double): LineSeg = LineSeg(this, this + angle.toVec2(magnitude))
+  def angleToLine(angle: Angle, magnitude: Double): LineSeg = LineSeg(this, this + angle.toVec2(magnitude))
+
+  /** Line segment from this point to along the given angle for the given magnitude to point 2. */
+  def angleFromLine(angle: Angle, magnitude: Double): LineSeg = LineSeg(this + angle.toVec2(magnitude), this)
 
   /** Rotates this vector through the given angle around the origin. */
   def rotate(a: AngleVec): Pt2 = a match
@@ -204,7 +207,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   //def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
 
-  def textArrow(str: String, angle: Angle = 45.degsAng): GraphicElems = Arr(TextGraphic(str, 14, this.xySlate(20, 20)))
+  def textArrow(str: String, angle: Angle = 45.degsAng): GraphicElems = Arr(this.angleFromLine(angle, 20).drawArrow(),
+    TextGraphic(str, 14, this.xySlate(20, 20)))
 }
 
 /** Companion object for Pt2. contains Apply factory method. */
