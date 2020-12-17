@@ -11,7 +11,7 @@ trait ShapeCompound extends ShapeGraphic
   def children: Arr[GraphicElem]
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): ShapeCompound
+  override def xySlate(xOffset: Double, yOffset: Double): ShapeCompound
 
   /** Translate geometric transformation. */
   override def slate(offset: Vec2Like): ShapeCompound
@@ -44,7 +44,7 @@ trait ShapeCompound extends ShapeGraphic
  *  and other containner classes. */
 object ShapeCompound
 {
-  implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: AngleVec) => obj.rotate(angle)
 

@@ -179,7 +179,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   def centreSquare(length: Double): PolygonImp =
   { val r = length / 2.0
-    PolygonImp(-r pp r, r pp r, r pp -r, -r pp -r).slate(x, y)
+    PolygonImp(-r pp r, r pp r, r pp -r, -r pp -r).xySlate(x, y)
   }
 
   def textAt(str: String, fontSize: Int, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str, fontSize, this, fontColour)

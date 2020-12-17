@@ -42,7 +42,7 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
 
   /** Translate geometric transformation on a Hexlign returns a Hexlign. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slate(xOffset: Double, yOffset: Double): Hexlign = Hexlign(dMin, cen.addXY(xOffset, yOffset))
+  override def xySlate(xOffset: Double, yOffset: Double): Hexlign = Hexlign(dMin, cen.addXY(xOffset, yOffset))
 
   /** Uniform scaling against both X and Y axes transformation on a Hexlign returning a Hexlign. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */
@@ -62,7 +62,7 @@ object Hexlign
 {
   def apply(height: Double, cen: Pt2 = Pt2Z): Hexlign = new Hexlign(height, cen.x, cen.y)
 
-  implicit val slateImplicit: Slate[Hexlign] = (obj: Hexlign, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slateImplicit: Slate[Hexlign] = (obj: Hexlign, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[Hexlign] = (obj: Hexlign, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[Hexlign] = (obj, matrix) => obj.prolign(matrix)
 }

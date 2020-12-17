@@ -9,7 +9,7 @@ case class ShapeGenDraw(shape: ShapeGen, lineColour: Colour = Black, lineWidth: 
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
 
   /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. */
-  override def slate(xOffset: Double, yOffset: Double): ShapeGenDraw = ShapeGenDraw(shape.slate(xOffset, yOffset), lineColour, lineWidth)
+  override def xySlate(xOffset: Double, yOffset: Double): ShapeGenDraw = ShapeGenDraw(shape.xySlate(xOffset, yOffset), lineColour, lineWidth)
 
   /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. This
    * overload might be removable in Scala 3, but is necessary for the time being die to type inference problems. */

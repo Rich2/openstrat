@@ -51,7 +51,7 @@ object Pt2s extends ProdDbl2sCompanion[Pt2, Pt2s]
 
   implicit val arrArrayImplicit: ArrFlatBuild[Pt2s] = Pt2.vec2sBuildImplicit
 
-  implicit val slateImplicit: Slate[Pt2s] = (obj: Pt2s, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slateImplicit: Slate[Pt2s] = (obj: Pt2s, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2s] = (obj: Pt2s, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2s] = (obj: Pt2s, angle: AngleVec) => obj.map(_.rotate(angle))
   implicit val prolignImplicit: Prolign[Pt2s] = (obj, matrix) => obj.prolign(matrix)

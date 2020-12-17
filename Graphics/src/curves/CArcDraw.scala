@@ -9,7 +9,7 @@ case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 
   def radius: Double = curveSeg.radius
 
   /** Translate 2D geometric transformation on this CArcDraw, returns a CArcDraw. */
-  override def slate(xOffset: Double, yOffset: Double): CArcDraw = CArcDraw(curveSeg.slate(xOffset, yOffset), colour, lineWidth)
+  override def xySlate(xOffset: Double, yOffset: Double): CArcDraw = CArcDraw(curveSeg.xySlate(xOffset, yOffset), colour, lineWidth)
 
   /** Translate 2D geometric transformation on this CArcDraw, returns a CArcDraw. This overload might be removeable in Scala 3, but is necessary for the
    *  time being due to type inference problems. */

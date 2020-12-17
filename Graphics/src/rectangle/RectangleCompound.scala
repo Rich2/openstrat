@@ -10,12 +10,12 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
 
   override def svgStr: String = ???
 
-  override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.slate(0, bounds.minY + bounds.maxY).
+  override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.xySlate(0, bounds.minY + bounds.maxY).
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): RectangleCompound =
-    RectangleCompound(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
+  override def xySlate(xOffset: Double, yOffset: Double): RectangleCompound =
+    RectangleCompound(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
 
   /** Translate geometric transformation. */
   override def slate(offset: Vec2Like): RectangleCompound = RectangleCompound(shape.slate(offset), facets, children.slate(offset))
@@ -56,12 +56,12 @@ object RectangleCompound
 
     override def svgStr: String = ???
 
-    override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.slate(0, bounds.minY + bounds.maxY).
+    override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.xySlate(0, bounds.minY + bounds.maxY).
       attribs ++ facets.flatMap(_.attribs))
 
     /** Translate geometric transformation. */
-    override def slate(xOffset: Double, yOffset: Double): RectangleCompoundImp =
-      RectangleCompoundImp(shape.slate(xOffset, yOffset), facets, children.slate(xOffset, yOffset))
+    override def xySlate(xOffset: Double, yOffset: Double): RectangleCompoundImp =
+      RectangleCompoundImp(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
 
     /** Translate geometric transformation. */
     override def slate(offset: Vec2Like): RectangleCompoundImp = RectangleCompoundImp(shape.slate(offset), facets, children.slate(offset))

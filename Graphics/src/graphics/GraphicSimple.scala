@@ -10,7 +10,7 @@ trait GraphicSimple extends GraphicElem
   //override def slate(offset: Vec2Like): GraphicSimple
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): GraphicSimple
+  override def xySlate(xOffset: Double, yOffset: Double): GraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -48,7 +48,7 @@ trait GraphicSimple extends GraphicElem
 /** Companion object for the [[GraphicSimple]] trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object GraphicSimple
 {
-  implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[GraphicSimple] = (obj: GraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[GraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

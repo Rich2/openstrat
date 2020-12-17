@@ -9,7 +9,7 @@ trait CanvShapeFill extends ShapeFill with CanvElem
   override def slate(offset: Vec2Like): CanvShapeFill
 
   /** Translate 2D geometric transformation on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed in sub traits / classes. */
-  override def slate(xOffset: Double, yOffset: Double): CanvShapeFill
+  override def xySlate(xOffset: Double, yOffset: Double): CanvShapeFill
 
   /** Uniform scaling 2D geometric transformation on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale

@@ -22,7 +22,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   override def slate(offset: Vec2Like): PolygonGraphicSimple
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonGraphicSimple
+  override def xySlate(xOffset: Double, yOffset: Double): PolygonGraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -46,7 +46,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 /** Companion object for the PolygonGraphicSimple trait, contains implicit instances for the 2D geometric transformation classes. */
 object PolygonGraphicSimple
 {
-  implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonGraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

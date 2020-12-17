@@ -9,7 +9,7 @@ case class ShapeGenFill(shape: ShapeGen, colour: Colour) extends CanvElem
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
 
   /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. */
-  override def slate(xOffset: Double, yOffset: Double): ShapeGenFill = ShapeGenFill(shape.slate(xOffset, yOffset), colour)
+  override def xySlate(xOffset: Double, yOffset: Double): ShapeGenFill = ShapeGenFill(shape.xySlate(xOffset, yOffset), colour)
 
   /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. This
    * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */

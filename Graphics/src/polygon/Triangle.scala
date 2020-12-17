@@ -33,7 +33,7 @@ trait Triangle extends Polygon3Plus
 	override def slate(offset: Vec2Like): Triangle = fTrans(_.slate(offset))
 
 	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
-	override def slate(xOffset: Double, yOffset: Double): Triangle = fTrans(_.addXY(xOffset, yOffset))
+	override def xySlate(xOffset: Double, yOffset: Double): Triangle = fTrans(_.addXY(xOffset, yOffset))
 
 	/** Uniform scaling 2D geometric transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
 	 *  Circles and Squares. Use the xyScale method for differential scaling. */

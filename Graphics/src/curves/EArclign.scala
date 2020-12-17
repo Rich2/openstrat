@@ -11,7 +11,7 @@ trait EArclign extends EArc
 
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  override def slate(xOffset: Double, yOffset: Double): EArclign = ???
+  override def xySlate(xOffset: Double, yOffset: Double): EArclign = ???
 
   /** Translate 2D geometric transformation on this EArclign. The Return type will be narrowed in sub traits and  classes. */
   override def slate(offset: Vec2Like): EArclign
@@ -81,7 +81,7 @@ object EArclign
     override def reflect(lineLike: LineLike): EArclignImp = ???
 
     /** Translate geometric transformation. */
-    override def slate(xOffset: Double, yOffset: Double): EArclignImp = ???
+    override def xySlate(xOffset: Double, yOffset: Double): EArclignImp = ???
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArclignNew to allow the return type to be narrowed
      * in sub classes. */

@@ -17,7 +17,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   val c2 = CArc.pos(100, 200, 100, 100, 200, 100).draw(DarkRed)
   val c3: CArc = CArc.neg(-100, 0, 0, 0, 0, 100)
   val c3d = c3.draw(Violet)
-  val c4 = c3.slate(-25, 0).addRotations(-1)
+  val c4 = c3.xySlate(-25, 0).addRotations(-1)
   val c4d = c4.draw(Turquoise)
   val e1 = EArclign.pos(400, 0, 200, 0, 200, 100, 200, 100)
 

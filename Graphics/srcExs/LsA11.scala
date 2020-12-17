@@ -35,10 +35,10 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
   val cn1 = cn.slate(20 pp 50)
   val na = Arr(cl2, cn)
 
-  val na1 = na.slate(20, 20)
+  val na1 = na.xySlate(20, 20)
 
   val ca: Arr[GeomElem] = Arr(sq, cn)
-  val ca2 = ca.slate(20, 20)
+  val ca2 = ca.xySlate(20, 20)
   
   val la = List(sq, cn)
 
@@ -46,7 +46,7 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
   
   val cab = cn
   val cc = Arr(cn, cab)
-  val cc1 = cc.slate(2, 3)
+  val cc1 = cc.xySlate(2, 3)
 
   val a1 = Arr(r2, cl2)
   

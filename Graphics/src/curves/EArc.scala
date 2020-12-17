@@ -15,8 +15,10 @@ trait EArc extends CurveSeg
   /** The centre of this elliptical arc. this method has been left abstract to allow the comment to be overridden in CArc. */
   def cen: Pt2
 
+  /** Radius 1 of the ellipse this arc is based upon. By default this is the horisontal axis of the ellipse. */
   def radius1: Double
 
+  /** Radius 1 of the ellipse this arc is based upon. By default this is the vertical axis of the ellipse. */
   def radius2: Double
 
   /** The end point of axis 1. By default this is on the right of the Ellipse. Mathematically this can be referred to as a vertex for the major axis
@@ -100,7 +102,7 @@ trait EArc extends CurveSeg
   def angleDeltaLimitedYDown: AngleVec = -angleDeltaLimited
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  override def slate(xOffset: Double, yOffset: Double): EArc =
+  override def xySlate(xOffset: Double, yOffset: Double): EArc =
     EArc(pStart.slate(xOffset, yOffset), cen.slate(xOffset, yOffset), pAxes1.slate(xOffset, yOffset), pAxes4.slate(xOffset, yOffset),
     pEnd.slate(xOffset, yOffset), counter)
 
@@ -181,7 +183,7 @@ object EArc
     override def reflect(lineLike: LineLike): EArcImp = ???
 
     /** Translate geometric transformation. */
-    override def slate(xOffset: Double, yOffset: Double): EArcImp = ???
+    override def xySlate(xOffset: Double, yOffset: Double): EArcImp = ???
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArcNew to allow the return type to be narrowed
      * in sub classes. */

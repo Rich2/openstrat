@@ -54,7 +54,7 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   override def draw(lineColour: Colour, lineWidth: Double): CArcDraw = CArcDraw(this, lineColour, lineWidth)
 
   /** Translate 2D geometric transformation on this CArc returns a CArc. */
-  override def slate(xOffset: Double, yOffset: Double): CArc = CArc(pStart.addXY(xOffset, yOffset), cen.addXY(xOffset, yOffset),
+  override def xySlate(xOffset: Double, yOffset: Double): CArc = CArc(pStart.addXY(xOffset, yOffset), cen.addXY(xOffset, yOffset),
     pEnd.addXY(xOffset, yOffset), counter)
 
   /** Translate 2D geometric transformation on this CArc. The Return type will be narrowed in sub traits and  classes. */

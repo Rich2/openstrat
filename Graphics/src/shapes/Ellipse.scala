@@ -100,7 +100,7 @@ trait Ellipse extends ShapeCentred
   def slate(offset: Vec2Like): Ellipse = fTrans(_.slate(offset))
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): Ellipse = fTrans(_.addXY(xOffset, yOffset))
+  override def xySlate(xOffset: Double, yOffset: Double): Ellipse = fTrans(_.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

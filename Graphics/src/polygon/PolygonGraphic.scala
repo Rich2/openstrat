@@ -29,7 +29,7 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   override def slate(offset: Vec2Like): PolygonGraphic
 
   /** Translate geometric transformation. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonGraphic
+  override def xySlate(xOffset: Double, yOffset: Double): PolygonGraphic
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -59,7 +59,7 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
 /** Companion object for Polygon Graphic, contains implicit instances for the 2D geometric transformations. */
 object PolygonGraphic
 {
-  implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[PolygonGraphic] = (obj: PolygonGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphic] = (obj: PolygonGraphic, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

@@ -6,7 +6,7 @@ package geom
  *  and [[Curve]] graphics. */
 trait BoundedGraphic extends GraphicElem with BoundedElem
 {
-  def slate(xOffset: Double, yOffset: Double): BoundedGraphic
+  def xySlate(xOffset: Double, yOffset: Double): BoundedGraphic
   def slate(offset: Vec2Like): BoundedGraphic
   def scale(operand: Double): BoundedGraphic
 
@@ -26,7 +26,7 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
 /** Companion object for the BoundedGraphic trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
 object BoundedGraphic
 {
-  implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slateImplicit: Slate[BoundedGraphic] = (obj: BoundedGraphic, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[BoundedGraphic] = (obj: BoundedGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[BoundedGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

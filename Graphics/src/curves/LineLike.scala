@@ -14,7 +14,7 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
   override def slate(offset: Vec2Like): GeomElem = Ray.v0Secs(p0.slate(offset), angleSecs)
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  override def slate(xOffset: Double, yOffset: Double): GeomElem = Ray.v0Secs(p0.addXY(xOffset, yOffset), angleSecs)
+  override def xySlate(xOffset: Double, yOffset: Double): GeomElem = Ray.v0Secs(p0.addXY(xOffset, yOffset), angleSecs)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */

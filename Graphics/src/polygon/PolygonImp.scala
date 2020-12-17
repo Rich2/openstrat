@@ -96,7 +96,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   @inline override def polygonMap(f: Pt2 => Pt2): PolygonImp = vertsMap(f).toPolygon
 
   /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
-  override def slate(xOffset: Double, yOffset: Double): PolygonImp = polygonMap(_.addXY(xOffset, yOffset))
+  override def xySlate(xOffset: Double, yOffset: Double): PolygonImp = polygonMap(_.addXY(xOffset, yOffset))
 
   /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
   override def slate(offset: Vec2Like): PolygonImp = polygonMap(_.slate(offset))

@@ -40,8 +40,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val firstFlagsPosition = (-(viewport("width") - viewport("cellWidth")) / 2 pp (viewport("height") - viewport("cellHeight")) / 2)
   val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 pp scrollport("scrollYpos"))).fill(Black)
   val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
-  val btnMore = clickButtonOld(">", (mb: MouseButton) => { scrollMore() }).slate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
-  val btnLess = clickButtonOld("<", (mb: MouseButton) => { scrollLess() }).slate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
+  val btnMore = clickButtonOld(">", (mb: MouseButton) => { scrollMore() }).xySlate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
+  val btnLess = clickButtonOld("<", (mb: MouseButton) => { scrollLess() }).xySlate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
   val scrollBar: Arr[GraphicSimElem] = Arr(btnMore, btnLess, barBackground)
 
   if (scrollport("isScrollHorizontal") == 1) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
@@ -75,7 +75,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     for(j <- 0 to itemsPerCol - 1; i <- 0 to itemsPerRow - 1 if firstIndex + i * iScrollStep + j * jScrollStep < itemCount)
     { val thisIndex = firstIndex + i * iScrollStep + j * jScrollStep
       val thisFlag = listOfFlags(thisIndex).compound(thisIndex.toString).scale(viewport("commonScale") / Math.sqrt(listOfFlags(thisIndex).ratio))
-      viewableItems = viewableItems +- thisFlag.slate(i * viewport("cellWidth"), -j * viewport("cellHeight")).slate(firstFlagsPosition)
+      viewableItems = viewableItems +- thisFlag.xySlate(i * viewport("cellWidth"), -j * viewport("cellHeight")).slate(firstFlagsPosition)
     }
     viewIndex = firstIndex
     if (selectedIndex == -1) positionBar() else showSelected()
