@@ -102,9 +102,8 @@ trait EArc extends CurveSeg
   def angleDeltaLimitedYDown: AngleVec = -angleDeltaLimited
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  override def xySlate(xOffset: Double, yOffset: Double): EArc =
-    EArc(pStart.slate(xOffset, yOffset), cen.slate(xOffset, yOffset), pAxes1.slate(xOffset, yOffset), pAxes4.slate(xOffset, yOffset),
-    pEnd.slate(xOffset, yOffset), counter)
+  override def xySlate(xOffset: Double, yOffset: Double): EArc = EArc(pStart.xySlate(xOffset, yOffset), cen.xySlate(xOffset, yOffset),
+    pAxes1.xySlate(xOffset, yOffset), pAxes4.xySlate(xOffset, yOffset), pEnd.xySlate(xOffset, yOffset), counter)
 
   /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */
   override def slate(offset: Vec2Like): EArc

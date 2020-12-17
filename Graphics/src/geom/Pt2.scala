@@ -54,7 +54,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   }
 
   /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
-  def slate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
+  def xySlate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
 
   /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
   def slate(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
@@ -230,7 +230,7 @@ object Pt2
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(inp)
   }
-  implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.slate(dx, dy)
+  implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)
