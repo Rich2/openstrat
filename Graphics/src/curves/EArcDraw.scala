@@ -13,7 +13,7 @@ trait EArcDraw extends CurveSegDraw with CanvElem
   def cen: Pt2 = curveSeg.cen
 
   /** Translate 2D geometric transformation on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits / classes. */
-  override def xySlate(xOffset: Double, yOffset: Double): EArcDraw = ???
+  override def xySlate(xOffset: Double, yOffset: Double): EArcDraw = EArcDraw(curveSeg.xySlate(xOffset, yOffset), colour, lineWidth)
 
   /** Translate 2D geometric transformation on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits / classes. This
    * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */
@@ -26,7 +26,7 @@ trait EArcDraw extends CurveSegDraw with CanvElem
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negY: EArcDraw = ???
+  override def negY: EArcDraw = EArcDraw(curveSeg.negY, colour, lineWidth)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in
    * sub traits / classes. */
@@ -68,6 +68,6 @@ object EArcDraw
   case class EArcDrawImp(curveSeg: EArc, colour: Colour, lineWidth: Double) extends EArcDraw
   {
     /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
-    override def rendToCanvas(cp: CanvasPlatform): Unit =  { deb("Not implemented.")} //cp.eArcDraw(this)
+    override def rendToCanvas(cp: CanvasPlatform): Unit =  cp.eArcDraw(this)
   }
 }

@@ -29,6 +29,9 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
   /** Add the operand in degrees to this AngleVec, returns an AngleVec. */
   def addDegs(operand: Double): AngleVec = AngleVec(degs + operand)
 
+  /** Add the operand in rotation to this AngleVec, returns an AngleVec. */
+  def addRotations(operand: Double): AngleVec = AngleVec.milliSecs(milliSecs + operand * MilliSecsIn360Degs)
+
   /** Gives the length of the circumference of the arc. */
   def arcLength(radius: Double): Double = radians * radius
 

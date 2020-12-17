@@ -106,17 +106,19 @@ trait EArc extends CurveSeg
     pAxes1.xySlate(xOffset, yOffset), pAxes4.xySlate(xOffset, yOffset), pEnd.xySlate(xOffset, yOffset), counter)
 
   /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */
-  override def slate(offset: Vec2Like): EArc
+  override def slate(offset: Vec2Like): EArc =
+    EArc(pStart.slate(offset), cen.slate(offset), pAxes1.slate(offset), pAxes4.slate(offset), pEnd.slate(offset), counter)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
-  override def scale(operand: Double): EArc
+  override def scale(operand: Double): EArc =
+    EArc(pStart.scale(operand), cen.scale(operand), pAxes1.scale(operand), pAxes4.scale(operand), pEnd.scale(operand), counter)
 
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
-  override def negY: EArc
+  override def negY: EArc = EArc(pStart.negY, cen.negY, pAxes1.negY, pAxes4.negY, pEnd.negY, counter)
 
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
-  override def negX: EArc
+  override def negX: EArc = EArc(pStart.negX, cen.negX, pAxes1.negX, pAxes4.negX, pEnd.negX, counter)
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
   override def prolign(matrix: ProlignMatrix): EArc
@@ -182,7 +184,7 @@ object EArc
     override def reflect(lineLike: LineLike): EArcImp = ???
 
     /** Translate geometric transformation. */
-    override def xySlate(xOffset: Double, yOffset: Double): EArcImp = ???
+   // override def xySlate(xOffset: Double, yOffset: Double): EArcImp = ???
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArcNew to allow the return type to be narrowed
      * in sub classes. */

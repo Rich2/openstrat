@@ -14,17 +14,17 @@ trait EArclign extends EArc
   override def xySlate(xOffset: Double, yOffset: Double): EArclign = ???
 
   /** Translate 2D geometric transformation on this EArclign. The Return type will be narrowed in sub traits and  classes. */
-  override def slate(offset: Vec2Like): EArclign
+  //override def slate(offset: Vec2Like): EArclign
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
-  override def scale(operand: Double): EArclign
+  //override def scale(operand: Double): EArclign
 
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
-  override def negY: EArclign
+  //override def negY: EArclign
 
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
-  override def negX: EArclign
+  //override def negX: EArclign
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
   override def prolign(matrix: ProlignMatrix): EArclign
@@ -42,6 +42,14 @@ object EArclign
   /** Creates an Elliptical arc. */
   def pos(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xRadius: Double, yRadius: Double, xEnd: Double, yEnd: Double): EArclign =
     EArclignImp(xStart, yStart, xCen, yCen, xRadius, yRadius, xEnd, yEnd, ife(xStart == xEnd & yStart == yEnd, 0, 1))
+
+  /** Creates an Elliptical arc. */
+  def neg(pStart: Pt2, cen: Pt2, xRadius: Double, yRadius: Double, pEnd: Pt2): EArclign = EArclignImp(pStart.x, pStart.y, cen.x, cen.y,
+    xRadius, yRadius, pEnd.x, pEnd.y, ife(pStart.x == pEnd.x & pStart.y == pEnd.y, 0, -1))
+
+  /** Creates an Elliptical arc. */
+  def neg(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xRadius: Double, yRadius: Double, xEnd: Double, yEnd: Double): EArclign =
+    EArclignImp(xStart, yStart, xCen, yCen, xRadius, yRadius, xEnd, yEnd, ife(xStart == xEnd & yStart == yEnd, 0, -1))
 
   /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the
    *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greter than
@@ -85,7 +93,7 @@ object EArclign
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArclignNew to allow the return type to be narrowed
      * in sub classes. */
-    override def negY: EArclignImp = ???
+    //override def negY: EArclignImp = ???
 
     /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArclignNew to allow the return type to be narrowed
      * in sub classes. */

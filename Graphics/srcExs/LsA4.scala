@@ -20,6 +20,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   val c4 = c3.xySlate(-25, 0).addRotations(-1)
   val c4d = c4.draw(Turquoise)
   val e1 = EArclign.pos(400, 0, 200, 0, 200, 100, 200, 100)
+  val e2 = EArclign.neg(400, 0, 200, 0, 200, 100, 200, 100)
 
   val stuff = Arr(
     LineSegDraw(0 pp 0, 160 pp 100),//This line starts at the centre of the screen and goes to point 160 right of centre and 100 up form centre.
@@ -30,7 +31,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 
     Bezier(200 pp -350, -500 pp -300, -600 pp -300, -450 pp -200).draw(Green, 2),
     c1, c2,
-    c3d, c4d, e1.draw(),
+    c3d, c4d, e1.draw(Red), e2.draw(Green)
   )
   repaint(stuff)
 }
