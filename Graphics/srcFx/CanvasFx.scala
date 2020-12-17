@@ -97,6 +97,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override protected[this] def tlEArcDraw(ead: EArcDraw): Unit =
   { gc.beginPath
     gc.moveTo(ead.xStart, ead.yStart)
+    debvar(ead.curveSeg.startDegsYDown)
     gc.arc(ead.xCen, ead.yCen, ead.curveSeg.radius1, ead.curveSeg.radius2, ead.curveSeg.startDegsYDown, ead.curveSeg.angleDeltaYDown.degs)
     gc.setStroke(toFxColor(ead.colour))
     gc.stroke()

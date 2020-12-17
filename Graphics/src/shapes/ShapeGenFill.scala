@@ -1,9 +1,13 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pCanv._
 
 case class ShapeGenFill(shape: ShapeGen, colour: Colour) extends CanvElem
 {
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+  override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
+
   /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. */
   override def slate(xOffset: Double, yOffset: Double): ShapeGenFill = ShapeGenFill(shape.slate(xOffset, yOffset), colour)
 

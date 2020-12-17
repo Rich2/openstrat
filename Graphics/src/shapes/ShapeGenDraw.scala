@@ -1,10 +1,13 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import  Colour.Black
+import pCanv._, Colour.Black
 
 case class ShapeGenDraw(shape: ShapeGen, lineColour: Colour = Black, lineWidth: Double = 2) extends CanvElem
 {
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+  override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
+
   /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. */
   override def slate(xOffset: Double, yOffset: Double): ShapeGenDraw = ShapeGenDraw(shape.slate(xOffset, yOffset), lineColour, lineWidth)
 

@@ -30,7 +30,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
 
     Bezier(200 pp -350, -500 pp -300, -600 pp -300, -450 pp -200).draw(Green, 2),
     c1, c2,
-    c3d, c4d, e1.draw()
+    c3d, c4d, e1.draw(),
   )
   repaint(stuff)
 }

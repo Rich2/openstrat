@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import pWeb._
+import pCanv._, pWeb._
 
 /** This trait may be removed. */
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
@@ -63,7 +63,8 @@ case class PolygonActive(shape: Polygon, pointerId: Any) extends GraphicAffineEl
 { override type ThisT = PolygonActive
   override def fTrans(f: Pt2 => Pt2): PolygonActive = PolygonActive(shape.fTrans(f), pointerId)
   override def boundingRect = shape.boundingRect
-
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+  override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
   //override def slateTo(newCen: Pt2): PolygonActive = ???
   override def ptInside(pt: Pt2): Boolean = shape.ptInside(pt)
 

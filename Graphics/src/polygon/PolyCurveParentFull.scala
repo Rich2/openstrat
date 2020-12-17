@@ -1,5 +1,6 @@
 package ostrat
 package geom
+import pCanv._
 
 case class PolyCurveParentFull(cen: Pt2, shape: ShapeGen, pointerId: Any, children: Arr[GraphicAffineElem]) extends GraphicParentFull with
   PolyCurveActive
@@ -7,6 +8,9 @@ case class PolyCurveParentFull(cen: Pt2, shape: ShapeGen, pointerId: Any, childr
   def fTrans(f: Pt2 => Pt2): PolyCurveParentFull = PolyCurveParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
   override def addElems(newElems: Arr[GraphicAffineElem]): PolyCurveParentFull = PolyCurveParentFull(cen, shape, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolyCurveParentFull = PolyCurveParentFull(cen, shape, newObj, children)
+
+  /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+  override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
 }
 
 object PolyCurveParentFull

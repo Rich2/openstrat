@@ -1,6 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import pCanv._
 
 /** 2D graphic that draws an arc of an ellipse. The trait has 2 implementations, [[CArcdraw]], a cirular arc draw and the general case is implemented
  * with [[EArcDraw.EArcDrawImp]]. */
@@ -65,4 +66,8 @@ object EArcDraw
   def apply(arc: EArc, colour: Colour, lineWidth: Double): EArcDraw = EArcDrawImp(arc, colour, lineWidth)
 
   case class EArcDrawImp(curveSeg: EArc, colour: Colour, lineWidth: Double) extends EArcDraw
+  {
+    /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
+    override def rendToCanvas(cp: CanvasPlatform): Unit =  { deb("Not implemented.")} //cp.eArcDraw(this)
+  }
 }
