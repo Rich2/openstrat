@@ -207,7 +207,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   //def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
 
-  def textArrow(str: String, angle: Angle = 45.angle, fontSize: Double = 14, colour: Colour = Black): GraphicElems =
+  def textArrow(str: String, angle: Angle = 45.angle, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): GraphicElems =
   { val align: TextAlign = angle match {
     case a if a <= Ang60 => LeftAlign
     case a if a > Ang60 & a < Ang120 => CenAlign
@@ -215,8 +215,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     case a if a > Ang240 & a < Ang300 => CenAlign
     case _ => LeftAlign
   }
-    val tg = TextGraphic(str, fontSize, this.xySlate(20, 20), colour, align)
-    Arr(this.angleFromLine(angle, 20).drawArrow(colour), tg)
+    val tg = TextGraphic(str, fontSize, this.slateAngle(angle, arrowLength + 4), colour, align)
+    Arr(this.angleFromLine(angle, arrowLength).drawArrow(colour), tg)
   }
 }
 
