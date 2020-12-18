@@ -67,7 +67,7 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
        case (_, _, h) => deb("Other; " + h.toString)
     }
   thisTop()
-  def moveGraphics2 = moveGraphics.gridScale(scale).map(_.arrow)//  .toLine2.drawArrow(players(rs.hc1).colour)
+  def moveGraphics2 = moveGraphics.gridScale(scale).flatMap(_.arrow)//  .toLine2.drawArrow(players(rs.hc1).colour)
   def frame: GraphicElems = (tiles +- sidesDraw ++ lunits ++ css).gridScale(scale) ++ moveGraphics2
   //(tiles +- sidesDraw ++ roardTexts ++ lunits ).gridScale(scale)
   def repaint() = mainRepaint(frame)

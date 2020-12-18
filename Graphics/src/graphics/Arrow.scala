@@ -1,21 +1,23 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
+import Colour.Black
 
 object Arrow
 {
-  def draw(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = 30.degs, hypLength: Double = 20, lineWidth: Double = 2, lineColour: Colour = Colour.Black):
-    LinesDraw =
+  def draw(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = Deg25, hypLength: Double = 20, colour: Colour = Black, lineWidth: Double = 2):
+    GraphicElems =
   {
     val mainLine = LineSeg(startPt, endPt)
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)    
-    val leftLine: LineSeg = LineSeg(endPt, leftVert)
-    val rightLine: LineSeg = LineSeg(endPt, rightVert)
-    val segs: LineSegs = LineSegs(mainLine, leftLine, rightLine)
-    LinesDraw(segs, lineWidth, lineColour)
+//    val leftLine: LineSeg = LineSeg(endPt, leftVert)
+//    val rightLine: LineSeg = LineSeg(endPt, rightVert)
+//    val segs: LineSegs = LineSegs(mainLine, leftLine, rightLine)
+//    LinesDraw(segs, lineWidth, lineColour)
+    Arr(mainLine.draw(colour, lineWidth), Triangle(leftVert, endPt, rightVert).fill(colour))
   }
   
-  def headVerts(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = 30.degs, hypLength: Double = 20): (Pt2, Pt2) =
+  def headVerts(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = Deg25, hypLength: Double = 20): (Pt2, Pt2) =
   {
     val mainLine = LineSeg(startPt, endPt)
     val hl2 = hypLength.min(mainLine.length / 2)
@@ -27,7 +29,7 @@ object Arrow
     (leftVert, rightVert)
   }
   
-  def apply(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = 20.degs, hypLength: Double = 25, lineWidth: Double = 2,
+  def apply(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = Deg25, hypLength: Double = 25, lineWidth: Double = 2,
             lineColour: Colour = Colour.Black): Arr[GraphicElem] =
   {    
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)

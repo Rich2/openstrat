@@ -16,9 +16,9 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   val c1St = 100 pp 200
   val c1Cen = 100 pp 100
   val c1End = 200 pp 100
-  val c1StText = c1St.textArrow("C1 Start", Ang30, 20, Blue)
+  val c1StText = c1St.textArrow("C1 Start, negative or clockwise arc", Ang30, 20, Blue)
   val c1 = CArc.neg(c1St, c1Cen, c1End).draw(Blue)
-  val c2StText = c1St.textArrow("C2 Start", Ang150, 20, DarkRed)
+  val c2StText = c1St.textArrow("C2 Start, positive or anti clockwise arc", Ang150, 20, DarkRed)
   val c2 = CArc.pos(c1St, c1Cen, c1End).draw(DarkRed)
   val c3: CArc = CArc.neg(-100, 0, 0, 0, 0, 100)
   val c3d = c3.draw(Violet)
@@ -26,9 +26,10 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   val c4d = c4.draw(Turquoise)
   val c4Text = c4.cen.textArrow("C4 Centre", 135.angle, 150, Turquoise)
   val e1St = 400 pp 0
-  val e1StArrow = e1St.textArrow("E1 and E2 Start", 0.angle)
+  val e1StArrow = e1St.textArrow("E1 Start, positive or anti clockwise arc", Ang30, 25, Red)
   val e1Cen = 200 pp 0
   val e1 = EArclign.pos(e1St, e1Cen, 200, 100, c1End).draw(Red)
+  val e2StArrow = e1St.textArrow("E2 Start, negative or clockwise arc", Ang330, 25, Green)
   val e2 = EArclign.neg(e1St, e1Cen, 200, 100, c1End).draw(Green)
 
   val stuff = Arr(
@@ -42,7 +43,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
     c1, c2,
     c3d, c4d, e1, e2
   )
-  repaint(stuff ++ c1StText ++ c2StText ++ e1StArrow ++ c4Text)
+  repaint(stuff ++ c1StText ++ c2StText ++ e1StArrow ++ e2StArrow ++ c4Text)
 }
 
 /** There are three types of values above. Numbers, text and Colours. Try changing the numbers, save the file and you should things move around the

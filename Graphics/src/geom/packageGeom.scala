@@ -132,8 +132,19 @@ package object geom
   /** An absolute angle of 300 degrees or 5 Pi/3 radians. */
   val Ang300: Angle = Angle(300)
 
+  /** An absolute angle of 315 degrees or 7 Pi/4 radians. */
+  val Ang315: Angle = Angle(315)
+
+  /** An absolute angle of 330 degrees or 11 Pi/6 radians. */
+  val Ang330: Angle = Angle(330)
+
   /** 15 degrees anti-clockwise or + Pi/12 radians */
   val Deg15: AngleVec = AngleVec(15)
+
+  /** 25 degrees anti-clockwise or +25 degrees. */
+  val Deg25: AngleVec = AngleVec(25)
+
+
   /** 30 degrees anti-clockwise or + Pi/6 radians */
   val Deg30: AngleVec = AngleVec(30)
   /** 36 degrees anti-clockwise or + Pi/5 radians */
