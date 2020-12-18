@@ -27,7 +27,7 @@ trait EArclign extends EArc
   //override def negX: EArclign
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
-  override def prolign(matrix: ProlignMatrix): EArclign
+  //override def prolign(matrix: ProlignMatrix): EArclign
 
   /** Draws this geometric element to produce a [[GraphElem]] graphical element, that can be displayed or printed. */
   //override def draw(lineColour: Colour, lineWidth: Double): EArclign

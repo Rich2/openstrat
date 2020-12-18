@@ -101,34 +101,36 @@ trait EArc extends CurveSeg
 
   def angleDeltaLimitedYDown: AngleVec = -angleDeltaLimited
 
-  /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
+  /** Translate 2D geometric transformation on this EArc, returns an EArc. */
   override def xySlate(xOffset: Double, yOffset: Double): EArc = EArc(pStart.xySlate(xOffset, yOffset), cen.xySlate(xOffset, yOffset),
     pAxes1.xySlate(xOffset, yOffset), pAxes4.xySlate(xOffset, yOffset), pEnd.xySlate(xOffset, yOffset), counter)
 
-  /** Translate 2D geometric transformation on this EArc. The Return type will be narrowed in sub traits and  classes. */
+  /** Translate 2D geometric transformation on this EArc, returns an EArc. */
   override def slate(offset: Vec2Like): EArc =
     EArc(pStart.slate(offset), cen.slate(offset), pAxes1.slate(offset), pAxes4.slate(offset), pEnd.slate(offset), counter)
 
-  /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
-   * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
+  /** Uniform 2D geometric scaling transformation, returns an EArc. */
   override def scale(operand: Double): EArc =
     EArc(pStart.scale(operand), cen.scale(operand), pAxes1.scale(operand), pAxes4.scale(operand), pEnd.scale(operand), counter)
 
-  /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
+  /** Mirror, reflection 2D geometric transformation across the X axis by negating y, on this EArc retruns an EARc. */
   override def negY: EArc = EArc(pStart.negY, cen.negY, pAxes1.negY, pAxes4.negY, pEnd.negY, counter)
 
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
   override def negX: EArc = EArc(pStart.negX, cen.negX, pAxes1.negX, pAxes4.negX, pEnd.negX, counter)
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
-  override def prolign(matrix: ProlignMatrix): EArc
+  override def prolign(matrix: ProlignMatrix): EArc =
+    EArc(pStart.prolign(matrix), cen.prolign(matrix), pAxes1.prolign(matrix), pAxes4.prolign(matrix), pEnd.prolign(matrix), counter)
 
   /** Rotation 2D geometric transformation on a EArc. The return type will be narrowed in sub classes and traits. */
-  override def rotate(angle: AngleVec): EArc
+  override def rotate(angle: AngleVec): EArc =
+    EArc(pStart.rotate(angle), cen.rotate(angle), pAxes1.rotate(angle), pAxes4.rotate(angle), pEnd.rotate(angle), counter)
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a EArc. The return type will be narrowed in sub classes and
    * traits. */
-  override def reflect(lineLike: LineLike): EArc
+  override def reflect(lineLike: LineLike): EArc =
+    EArc(pStart.reflect(lineLike), cen.reflect(lineLike), pAxes1.reflect(lineLike), pAxes4.reflect(lineLike), pEnd.reflect(lineLike), counter)
 
   /** XY scaling 2D geometric transformation on a EArc. This allows different scaling factors across X and Y dimensions. The return type will be
    * narrowed in sub classes and traits. */
@@ -170,37 +172,6 @@ object EArc
     override def cenP4: Vec2 = cen >> pAxes4
 
     def addRotations(delta: Int): EArcImp = new EArcImp(xStart, yStart, xCen, yCen, xAxisV1, yAxisV1, xAxis4, yAxis4, xEnd, yEnd, counter + delta)
-
-    override def slate(offset: Vec2Like): EArcImp = ???
-
-    override def rotate(angle: AngleVec): EArcImp = ???
-
-    override def scale(operand: Double): EArcImp = ???
-
-    //override def rotate(angle: Angle): EArc = ???
-
-    //override def shear(xScale: Double, yScale: Double): EArc = ???
-
-    override def reflect(lineLike: LineLike): EArcImp = ???
-
-    /** Translate geometric transformation. */
-   // override def xySlate(xOffset: Double, yOffset: Double): EArcImp = ???
-
-    /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArcNew to allow the return type to be narrowed
-     * in sub classes. */
-    override def negY: EArcImp = ???
-
-    /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArcNew to allow the return type to be narrowed
-     * in sub classes. */
-    override def negX: EArcImp = ???
-
-    override def prolign(matrix: ProlignMatrix): EArcImp = ???
-
-    override def xyScale(xOperand: Double, yOperand: Double): EArcImp = ???
-
-    override def xShear(operand: Double): EArcImp = ???
-
-    override def yShear(operand: Double): EArcImp = ???
   }
 
   object EArcImp {
