@@ -1,7 +1,7 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import math._, collection.mutable.ArrayBuffer
+import math._, collection.mutable.ArrayBuffer, Colour.Black
 
 /** A 2 dimensional point. It can be used to for translations of 2 dimensional points. Thanks to Rene Descarte for this. */
 final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
@@ -207,8 +207,17 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   //def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
 
-  def textArrow(str: String, angle: Angle = 45.degsAng): GraphicElems = Arr(this.angleFromLine(angle, 20).drawArrow(),
-    TextGraphic(str, 14, this.xySlate(20, 20)))
+  def textArrow(str: String, angle: Angle = 45.angle, fontSize: Double = 14, colour: Colour = Black): GraphicElems =
+  { val align: TextAlign = angle match {
+    case a if a <= Ang60 => LeftAlign
+    case a if a > Ang60 & a < Ang120 => CenAlign
+    case a if a >= Ang120 & a <= Ang240 => RightAlign
+    case a if a > Ang240 & a < Ang300 => CenAlign
+    case _ => LeftAlign
+  }
+    val tg = TextGraphic(str, fontSize, this.xySlate(20, 20), colour, align)
+    Arr(this.angleFromLine(angle, 20).drawArrow(colour), tg)
+  }
 }
 
 /** Companion object for Pt2. contains Apply factory method. */

@@ -70,7 +70,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   
   def rAttrib: XANumeric = XANumeric("r", radius)
   override def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
-  override def alignAngle: Angle = 0.degsAng
+  override def alignAngle: Angle = 0.angle
 
   private[this] def rr2: Double = diameter * 2.sqrt
   override def topRight: Pt2 = Pt2(rr2, rr2)

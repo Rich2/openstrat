@@ -6,7 +6,7 @@ package geom
  *  degrees, while Latitudes have a normal range +- 90 degrees. Unlike [[AngleVec]] this class has no multiply or divide, * or / methods. It has add
  *  and subtract, + and - methods, but these take [[AngleVec]]s as operands not other Angles. To Add,subtract or scale angles of inclination would
  *  make no sense. */
-final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  with ProdDbl1
+final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike with Ordered[Angle] with ProdDbl1
 {
   @inline override def dblValue: Double = secs
 
@@ -18,6 +18,13 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike  
 
   def +(other: AngleVec): Angle = Angle.milliSecs(milliSecs + other.milliSecs)
   def -(other: AngleVec): Angle = Angle.milliSecs(milliSecs - other.milliSecs)
+
+
+  override def compare(that: Angle): Int = milliSecs - that.milliSecs match {
+    case r if r < 0 => -1
+    case 0 => 0
+    case r => 1
+  }
 
   def rotationFrom0: AngleVec = AngleVec.milliSecs(milliSecs)
   def rotationFrom90: AngleVec = AngleVec.milliSecs(milliSecs - MilliSecsIn90Degs)

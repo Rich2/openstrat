@@ -21,7 +21,7 @@ class IntGeomImplicit(thisInt: Int)
   def * (operator: Dist): Dist = Dist(thisInt * operator.metres)
 
   /** Converts this Int into an absolute angle of the given degrees from 0 until 360 degrees. */
-  def degsAng: Angle = Angle(thisInt)
+  def angle: Angle = Angle(thisInt)
 
   /** Converts this Int into an [[AngleVec]] an angle of rotation for any positive or negative value of Int. */
   def degs: AngleVec = AngleVec(thisInt)
@@ -52,7 +52,7 @@ class DoubleImplicitGeom(thisDouble: Double)
   def radians: Angle = Angle.radians(thisDouble)
 
   /** Converts this Double into an absolute angle of the given degrees from 0 until 360 degrees. */
-  def degsAng: Angle = Angle(thisDouble)
+  def angle: Angle = Angle(thisDouble)
 
   /** Converts this Double into an [[AngleVec]] an angle of rotation from - infinity to + infinity. */
   def degs: AngleVec = AngleVec(thisDouble)

@@ -24,7 +24,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   val c4 = c3.xySlate(-25, 0).addRotations(-1)
   val c4d = c4.draw(Turquoise)
   val e1St = 400 pp 0
-  val e1StArrow = e1St.textArrow("E1 and E2 Start")
+  val e1StArrow = e1St.textArrow("E1 and E2 Start", 0.angle)
   val e1Cen = 200 pp 0
   val e1 = EArclign.pos(e1St, e1Cen, 200, 100, c1End).draw(Red)
   val e2 = EArclign.neg(e1St, e1Cen, 200, 100, c1End).draw(Green)
