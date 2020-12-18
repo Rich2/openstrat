@@ -127,20 +127,22 @@ trait EArc extends CurveSeg
   override def rotate(angle: AngleVec): EArc =
     EArc(pStart.rotate(angle), cen.rotate(angle), pAxes1.rotate(angle), pAxes4.rotate(angle), pEnd.rotate(angle), counter)
 
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a EArc. The return type will be narrowed in sub classes and
-   * traits. */
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a EArc returns an EArc. */
   override def reflect(lineLike: LineLike): EArc =
     EArc(pStart.reflect(lineLike), cen.reflect(lineLike), pAxes1.reflect(lineLike), pAxes4.reflect(lineLike), pEnd.reflect(lineLike), counter)
 
-  /** XY scaling 2D geometric transformation on a EArc. This allows different scaling factors across X and Y dimensions. The return type will be
-   * narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): EArc = ???
+  /** XY scaling 2D geometric transformation on this EArc returns an EArc.This allows different
+   *  scaling factors across X and Y dimensions. */
+  override def xyScale(xOperand: Double, yOperand: Double): EArc = EArc(pStart.xyScale(xOperand, yOperand), cen.xyScale(xOperand, yOperand),
+    pAxes1.xyScale(xOperand, yOperand), pAxes4.xyScale(xOperand, yOperand), pEnd.xyScale(xOperand, yOperand), counter)
 
-  /** Shear 2D geometric transformation along the X Axis on a EArc. The return type will be narrowed in sub classes and traits. */
-  override def xShear(operand: Double): EArc = ???
+  /** Shear 2D geometric transformation along the X Axis on this EArc returns an EArc. */
+  override def xShear(operand: Double): EArc =
+    EArc(pStart.xShear(operand), cen.xShear(operand), pAxes1.xShear(operand), pAxes4.xShear(operand), pEnd.xShear(operand), counter)
 
-  /** Shear 2D geometric transformation along the Y Axis on a EArc. The return type will be narrowed in sub classes and traits. */
-  override def yShear(operand: Double): EArc = ???
+  /** Shear 2D geometric transformation along the Y Axis on this EArc, returns an EArc. */
+  override def yShear(operand: Double): EArc =
+    EArc(pStart.xShear(operand), cen.yShear(operand), pAxes1.yShear(operand), pAxes4.yShear(operand), pEnd.yShear(operand), counter)
 
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): EArcDraw = EArcDraw(this, lineColour, lineWidth)
 }

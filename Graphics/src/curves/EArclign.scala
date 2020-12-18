@@ -9,9 +9,9 @@ trait EArclign extends EArc
 
   override def addRotations(delta: Int): EArclign
 
-
-  /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  override def xySlate(xOffset: Double, yOffset: Double): EArclign = ???
+  /** Translate 2D geometric transformation on this EArclign returns an EArclign. */
+  override def xySlate(xOffset: Double, yOffset: Double): EArclign =
+    EArclign(pStart.xySlate(xOffset, yOffset), cen.xySlate(xOffset, yOffset), xRadius, yRadius, pEnd.xySlate(xOffset, yOffset), counter)
 
   /** Translate 2D geometric transformation on this EArclign. The Return type will be narrowed in sub traits and  classes. */
   //override def slate(offset: Vec2Like): EArclign
@@ -35,6 +35,9 @@ trait EArclign extends EArc
 
 object EArclign
 {
+  def apply(pStart: Pt2, cen: Pt2, xRadius: Double, yRadius: Double, pEnd: Pt2, counter: Int): EArclign =
+    new EArclignImp(pStart.x, pStart.y, cen.x, cen.y, xRadius, yRadius, pEnd.x, pEnd.y, counter)
+
   /** Creates an Elliptical arc. */
   def pos(pStart: Pt2, cen: Pt2, xRadius: Double, yRadius: Double, pEnd: Pt2): EArclign = EArclignImp(pStart.x, pStart.y, cen.x, cen.y,
     xRadius, yRadius, pEnd.x, pEnd.y, ife(pStart.x == pEnd.x & pStart.y == pEnd.y, 0, 1))
