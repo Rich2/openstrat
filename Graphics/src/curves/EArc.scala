@@ -114,10 +114,10 @@ trait EArc extends CurveSeg
     EArc(pStart.scale(operand), cen.scale(operand), pAxes1.scale(operand), pAxes4.scale(operand), pEnd.scale(operand), counter)
 
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y, on this EArc retruns an EARc. */
-  override def negY: EArc = EArc(pStart.negY, cen.negY, pAxes1.negY, pAxes4.negY, pEnd.negY, counter)
+  override def negY: EArc = EArc(pStart.negY, cen.negY, pAxes1.negY, pAxes4.negY, pEnd.negY, -counter)
 
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
-  override def negX: EArc = EArc(pStart.negX, cen.negX, pAxes1.negX, pAxes4.negX, pEnd.negX, counter)
+  override def negX: EArc = EArc(pStart.negX, cen.negX, pAxes1.negX, pAxes4.negX, pEnd.negX, -counter)
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
   override def prolign(matrix: ProlignMatrix): EArc =

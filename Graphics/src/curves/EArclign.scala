@@ -14,23 +14,22 @@ trait EArclign extends EArc
     EArclign(pStart.xySlate(xOffset, yOffset), cen.xySlate(xOffset, yOffset), xRadius, yRadius, pEnd.xySlate(xOffset, yOffset), counter)
 
   /** Translate 2D geometric transformation on this EArclign. The Return type will be narrowed in sub traits and  classes. */
-  //override def slate(offset: Vec2Like): EArclign
+  override def slate(offset: Vec2Like): EArclign = EArclign(pStart.slate(offset), cen.slate(offset), xRadius, yRadius, pEnd.slate(offset), counter)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
-  //override def scale(operand: Double): EArclign
+  override def scale(operand: Double): EArclign =
+    EArclign(pStart.scale(operand), cen.scale(operand), xRadius * operand, yRadius * operand, pEnd.scale(operand), counter)
 
   /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
-  //override def negY: EArclign
+  override def negY: EArclign = EArclign(pStart.negY, cen.negY, xRadius, yRadius, pEnd.negY, -counter)
 
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
-  //override def negX: EArclign
+  override def negX: EArclign = EArclign(pStart.negX, cen.negX, xRadius, yRadius, pEnd.negX, -counter)
 
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
-  //override def prolign(matrix: ProlignMatrix): EArclign
-
-  /** Draws this geometric element to produce a [[GraphElem]] graphical element, that can be displayed or printed. */
-  //override def draw(lineColour: Colour, lineWidth: Double): EArclign
+  override def prolign(matrix: ProlignMatrix): EArclign =
+    EArclign(pStart.prolign(matrix), cen.prolign(matrix), xRadius, yRadius, pEnd.prolign(matrix), counter)
 }
 
 object EArclign
@@ -78,36 +77,5 @@ object EArclign
     override def cenP4: Vec2 = 0 vv yRadius
 
     def addRotations(delta: Int): EArclignImp = EArclignImp(xStart, yStart, xCen, yCen, xRadius, yRadius, xEnd, yEnd, counter + delta)
-
-    override def slate(offset: Vec2Like): EArclignImp = ???
-
-    override def rotate(angle: AngleVec): EArclignImp = ???
-
-    override def scale(operand: Double): EArclignImp = ???
-
-    //override def rotate(angle: Angle): EArclign = ???
-
-    //override def shear(xScale: Double, yScale: Double): EArclign = ???
-
-    override def reflect(lineLike: LineLike): EArclignImp = ???
-
-    /** Translate geometric transformation. */
-    override def xySlate(xOffset: Double, yOffset: Double): EArclignImp = ???
-
-    /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArclignNew to allow the return type to be narrowed
-     * in sub classes. */
-    //override def negY: EArclignImp = ???
-
-    /** Mirror, reflection transformation across the X axis. This method has been left abstract in EArclignNew to allow the return type to be narrowed
-     * in sub classes. */
-    override def negX: EArclignImp = ???
-
-    override def prolign(matrix: ProlignMatrix): EArclignImp = ???
-
-    override def xyScale(xOperand: Double, yOperand: Double): EArclignImp = ???
-
-    override def xShear(operand: Double): EArclignImp = ???
-
-    override def yShear(operand: Double): EArclignImp = ???
   }
 }
