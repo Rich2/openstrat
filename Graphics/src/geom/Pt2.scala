@@ -207,7 +207,9 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 
   //def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
 
-  /** Creates an arrow graphic from the [[TextGraphic]] pointing to this point. */
+  /** Creates a [[TextGraphic]] and a line segment with an arrow head at the end. The arrow pointing from the [[TextGraphic]] to this point. The
+   * alignment of the text is determined by the angle parameter. The method is not meant to cover all possible configurations for text arrows. These
+   * can easily be constructed from OpenStrat primitives, but to provide a quick default for rapid development. */
   def textArrow(str: String, angle: Angle = Ang45, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): GraphicElems =
   {
     val align: TextAlign = angle match
