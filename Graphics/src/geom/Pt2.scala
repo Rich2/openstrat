@@ -220,7 +220,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
       case _ => LeftAlign
     }
     val tg = TextGraphic(str, fontSize, this.slateAngle(angle, arrowLength + 4), colour, align)
-    this.angleFromLine(angle, arrowLength).drawArrow(colour) +- tg
+    this.angleFromLine(angle, arrowLength).withArrow(colour) +- tg
   }
 }
 

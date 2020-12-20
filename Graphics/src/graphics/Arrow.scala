@@ -5,15 +5,12 @@ import Colour.Black
 
 object Arrow
 {
-  def draw(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = Deg25, hypLength: Double = 20, colour: Colour = Black, lineWidth: Double = 2):
+  /** Draws a line from the start to the  end point parameters and adds a triangle fill to the end point to create an arrow head. */
+  def paint(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = Deg25, hypLength: Double = 20, colour: Colour = Black, lineWidth: Double = 2):
     GraphicElems =
   {
     val mainLine = LineSeg(startPt, endPt)
-    val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)    
-//    val leftLine: LineSeg = LineSeg(endPt, leftVert)
-//    val rightLine: LineSeg = LineSeg(endPt, rightVert)
-//    val segs: LineSegs = LineSegs(mainLine, leftLine, rightLine)
-//    LinesDraw(segs, lineWidth, lineColour)
+    val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)
     Arr(mainLine.draw(colour, lineWidth), Triangle(leftVert, endPt, rightVert).fill(colour))
   }
   

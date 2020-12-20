@@ -11,7 +11,7 @@ case class LsE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   var statusText = "Right click to set action to Move. Left to set action to CycleColour. Press Turn button or middle click for next turn."
   
   def cmdDisp = cmd match
-  { case Move(v) => Arrow.draw(state.posn, v)
+  { case Move(v) => Arrow.paint(state.posn, v)
     case CycleColour => Arr(state.drawNextColour)
     case _ => Arr()
   }
