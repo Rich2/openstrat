@@ -58,7 +58,7 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
     pEnd.addXY(xOffset, yOffset), counter)
 
   /** Translate 2D geometric transformation on this CArc. The Return type will be narrowed in sub traits and  classes. */
-  override def slate(offset: Vec2Like): CArc = CArc(pStart.slate(offset), cen.slate(offset), pEnd.slate(offset), counter)
+  //override def slate(offset: Vec2Like): CArc = CArc(pStart.slate(offset), cen.slate(offset), pEnd.slate(offset), counter)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */

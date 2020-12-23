@@ -10,7 +10,7 @@ trait CanvElem extends GraphicElem
 
   /** Translate 2D geometric transformation on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits / classes. This
    * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */
-  override def slate(offset: Vec2Like): CanvElem
+  //override def slate(offset: Vec2Like): CanvElem
 
   /** Translate 2D geometric transformation on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits / classes. */
   override def xySlate(xOffset: Double, yOffset: Double): CanvElem

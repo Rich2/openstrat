@@ -9,7 +9,7 @@ sealed trait Line extends LineLike
   def reflectPt(pt: Pt2): Pt2
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def slate(offset: Vec2Like): Line
+  //override def slate(offset: Vec2Like): Line
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
   override def xySlate(xOffset: Double, yOffset: Double): Line
@@ -65,7 +65,7 @@ sealed case class YLine(xFactor: Double, offset: Double) extends Line
   }
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def slate(offset: Vec2Like): Line = ???
+  //override def slate(offset: Vec2Like): Line = ???
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
   override def xySlate(xOffset: Double, yOffset: Double): Line = ???
@@ -89,7 +89,7 @@ sealed case class XLine(yFactor: Double, offset: Double) extends Line
   }
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def slate(offset: Vec2Like): Line = ???
+  //override def slate(offset: Vec2Like): Line = ???
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
   override def xySlate(xOffset: Double, yOffset: Double): Line = ???
@@ -99,7 +99,7 @@ sealed case class XLine(yFactor: Double, offset: Double) extends Line
 sealed class YParallel(offset: Double) extends YLine(0, offset )
 {
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def slate(offset: Vec2Like): YLine = ???
+  //override def slate(offset: Vec2Like): YLine = ???
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
   override def xySlate(xOffset: Double, yOffset: Double): YLine = ???
@@ -109,7 +109,7 @@ sealed class YParallel(offset: Double) extends YLine(0, offset )
 sealed class XParallel(offset: Double) extends XLine(0, offset )
 {
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def slate(offset: Vec2Like): XLine = ???
+  //override def slate(offset: Vec2Like): XLine = ???
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
   override def xySlate(xOffset: Double, yOffset: Double): XLine = ???

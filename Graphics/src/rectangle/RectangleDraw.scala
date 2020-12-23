@@ -9,9 +9,6 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   /** Translate geometric transformation on a RectangleDraw, returns a RectangleDraw. */
   override def xySlate(xOffset: Double, yOffset: Double): RectangleDraw = RectangleDraw(shape.xySlate(xOffset, yOffset), lineWidth, lineColour)
 
-  /** Translate geometric transformation on a RectangleDraw, returns a RectangleDraw. */
-  override def slate(offset: Vec2Like): RectangleDraw = RectangleDraw(shape.slate(offset), lineWidth, lineColour)
-
   /** Uniform scaling transformation a RectangleDraw, returns a RectangleDraw. */
   override def scale(operand: Double): RectangleDraw = RectangleDraw(shape.scale(operand), lineWidth, lineColour)
 

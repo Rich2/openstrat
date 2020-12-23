@@ -106,8 +106,8 @@ trait EArc extends CurveSeg
     pAxes1.xySlate(xOffset, yOffset), pAxes4.xySlate(xOffset, yOffset), pEnd.xySlate(xOffset, yOffset), counter)
 
   /** Translate 2D geometric transformation on this EArc, returns an EArc. */
-  override def slate(offset: Vec2Like): EArc =
-    EArc(pStart.slate(offset), cen.slate(offset), pAxes1.slate(offset), pAxes4.slate(offset), pEnd.slate(offset), counter)
+//  override def slate(offset: Vec2Like): EArc =
+//    EArc(pStart.slate(offset), cen.slate(offset), pAxes1.slate(offset), pAxes4.slate(offset), pEnd.slate(offset), counter)
 
   /** Uniform 2D geometric scaling transformation, returns an EArc. */
   override def scale(operand: Double): EArc =

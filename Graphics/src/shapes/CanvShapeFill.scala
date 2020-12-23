@@ -6,7 +6,7 @@ trait CanvShapeFill extends ShapeFill with CanvElem
 {
   /** Translate 2D geometric transformation on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed in sub traits / classes. This
    * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */
-  override def slate(offset: Vec2Like): CanvShapeFill
+  //override def slate(offset: Vec2Like): CanvShapeFill
 
   /** Translate 2D geometric transformation on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed in sub traits / classes. */
   override def xySlate(xOffset: Double, yOffset: Double): CanvShapeFill

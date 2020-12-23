@@ -13,7 +13,7 @@ case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 
 
   /** Translate 2D geometric transformation on this CArcDraw, returns a CArcDraw. This overload might be removeable in Scala 3, but is necessary for the
    *  time being due to type inference problems. */
-  override def slate(offset: Vec2Like): CArcDraw = CArcDraw(curveSeg.slate(offset), colour, lineWidth)
+  //override def slate(offset: Vec2Like): CArcDraw = CArcDraw(curveSeg.slate(offset), colour, lineWidth)
 
   /** Uniform scaling 2D geometric transformation on this CArcDraw, returns a CArcDraw. Use the xyScale method for differential scaling on the X and Y
    *  axes. */

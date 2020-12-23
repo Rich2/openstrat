@@ -4,10 +4,7 @@ package geom
 import pWeb._
 
 trait EllipseCompound extends ShapeCompound with EllipseGraphic
-{ /** Translate geometric transformation. Translates this Ellipse Graphic into a modified EllipseGraphic. */
-  override def slate(offset: Vec2Like): EllipseCompound
-
-  /** Translate geometric transformation. */
+{ /** Translate geometric transformation. */
   override def xySlate(xOffset: Double, yOffset: Double): EllipseCompound
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
@@ -64,9 +61,6 @@ object EllipseCompound
       //case fr: FillRadial => cp.circleFillRadial(shape, fr)*/
       case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
     }
-
-    /** Translate geometric transformation. Translates this Ellipse Graphic into a modified EllipseGraphic. */
-    override def slate(offset: Vec2Like): EllipseCompoundImplement = EllipseCompoundImplement(shape.slate(offset), facets, children.slate(offset))
 
     /** Translate geometric transformation. */
     override def xySlate(xOffset: Double, yOffset: Double): EllipseCompoundImplement =

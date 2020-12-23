@@ -18,7 +18,7 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
     RectangleCompound(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
 
   /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): RectangleCompound = RectangleCompound(shape.slate(offset), facets, children.slate(offset))
+  //override def slate(offset: Vec2Like): RectangleCompound = RectangleCompound(shape.slate(offset), facets, children.slate(offset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -62,9 +62,6 @@ object RectangleCompound
     /** Translate geometric transformation. */
     override def xySlate(xOffset: Double, yOffset: Double): RectangleCompoundImp =
       RectangleCompoundImp(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
-
-    /** Translate geometric transformation. */
-    override def slate(offset: Vec2Like): RectangleCompoundImp = RectangleCompoundImp(shape.slate(offset), facets, children.slate(offset))
 
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */

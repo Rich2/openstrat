@@ -7,7 +7,7 @@ package geom
 trait BoundedGraphic extends GraphicElem with BoundedElem
 {
   def xySlate(xOffset: Double, yOffset: Double): BoundedGraphic
-  def slate(offset: Vec2Like): BoundedGraphic
+  //def slate(offset: Vec2Like): BoundedGraphic
   def scale(operand: Double): BoundedGraphic
 
   def negY: BoundedGraphic

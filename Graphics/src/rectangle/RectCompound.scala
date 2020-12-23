@@ -16,9 +16,6 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
   override def xySlate(xOffset: Double, yOffset: Double): RectCompound =
     RectCompound(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
 
-  /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): RectCompound = RectCompound(shape.slate(offset), facets, children.slate(offset))
-
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): RectCompound = RectCompound(shape.scale(operand), facets, children.scale(operand))

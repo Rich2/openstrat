@@ -14,9 +14,6 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   /** Translate geometric transformation. */
   override def xySlate(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.xySlate(xOffset, yOffset), fill)
 
-  /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): PolygonFill = PolygonFill(shape.slate(offset), fill)
-
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): PolygonFill = PolygonFill(shape.scale(operand), fill)

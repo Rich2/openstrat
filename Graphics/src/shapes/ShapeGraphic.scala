@@ -20,7 +20,7 @@ trait ShapeGraphic extends BoundedGraphic
   def xySlate(xOffset: Double, yOffset: Double): ShapeGraphic
 
   /** Translate geometric transformation. */
-  def slate(offset: Vec2Like): ShapeGraphic
+  //def slate(offset: Vec2Like): ShapeGraphic
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

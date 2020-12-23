@@ -5,7 +5,7 @@ package geom
 trait CanvShapeDraw extends ShapeDraw with CanvElem
 { /** Translate 2D geometric transformation on a CanvShapeDraw, returns a CanvShapeDraw. The Return type will be narrowed in sub traits / classes. This
    * overload might be removable in Scala 3, but is necessary for the time being die to type inference problems. */
-  override def slate(offset: Vec2Like): CanvShapeDraw
+  //override def slate(offset: Vec2Like): CanvShapeDraw
 
   /** Translate 2D geometric transformation on a CanvShapeDraw, returns a CanvShapeDraw. The Return type will be narrowed in sub traits / classes. */
   override def xySlate(xOffset: Double, yOffset: Double): CanvShapeDraw

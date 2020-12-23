@@ -8,9 +8,6 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
   /** Translate geometric transformation. */
   override def xySlate(xOffset: Double, yOffset: Double): RectangleFill = RectangleFill(shape.xySlate(xOffset, yOffset), fill)
 
-  /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): RectangleFill = RectangleFill(shape.slate(offset), fill)
-
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): RectangleFill = RectangleFill(shape.scale(operand), fill)
@@ -30,8 +27,6 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
   override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fill)
 
   override def xyScale(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.xyScale(xOperand, yOperand), fill)
-
-  //override def slateTo(newCen: Pt2): RectangleFill = ???
 }
 
 /** Companion object for RectangleFill, contains an Implementation class [[RectangleFill.RectangleFillImp]] and an apply factor method that delegates

@@ -13,9 +13,6 @@ trait ShapeCompound extends ShapeGraphic
   /** Translate geometric transformation. */
   override def xySlate(xOffset: Double, yOffset: Double): ShapeCompound
 
-  /** Translate geometric transformation. */
-  override def slate(offset: Vec2Like): ShapeCompound
-
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): ShapeCompound  

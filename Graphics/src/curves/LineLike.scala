@@ -11,7 +11,7 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
   def p0: Pt2 = Pt2(x0, y0)
 
   /** Translate 2D geometric transformation on this GeomElem. The Return type will be narrowed in sub traits and  classes. */
-  override def slate(offset: Vec2Like): GeomElem = Ray.v0Secs(p0.slate(offset), angleSecs)
+  //override def slate(offset: Vec2Like): GeomElem = Ray.v0Secs(p0.slate(offset), angleSecs)
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
   override def xySlate(xOffset: Double, yOffset: Double): GeomElem = Ray.v0Secs(p0.addXY(xOffset, yOffset), angleSecs)

@@ -13,7 +13,7 @@ case class ShapeGenFill(shape: ShapeGen, colour: Colour) extends CanvElem
 
   /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. This
    * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */
-  override def slate(offset: Vec2Like): ShapeGenFill = ShapeGenFill(shape.slate(offset), colour)
+  //override def slate(offset: Vec2Like): ShapeGenFill = ShapeGenFill(shape.slate(offset), colour)
 
   /** Uniform scaling 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale

@@ -9,7 +9,7 @@ trait ProlignPreserve extends GeomElem
   type ThisT <: ProlignPreserve
   
   def fTrans(f: Pt2 => Pt2): ThisT
-  override def slate(offset: Vec2Like): ThisT = fTrans(_.slate(offset))
+  //override def slate(offset: Vec2Like): ThisT = fTrans(_.slate(offset))
   override def xySlate(xOffset: Double, yOffset: Double): ThisT = fTrans(_.addXY(xOffset, yOffset))
   override def scale(operand: Double): ThisT = fTrans(_.scale(operand))
   override def negX: ThisT = fTrans(_.negX)
