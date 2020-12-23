@@ -3,7 +3,7 @@ package ostrat
 package geom
 import math._, collection.mutable.ArrayBuffer, Colour.Black
 
-/** A 2 dimensional point. It can be used to for translations of 2 dimensional points. Thanks to Rene Descarte for this. */
+/** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. Thanks to René Descartes for this. */
 final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 {
   override def toString: String = Pt2.persistImplicit.show(this, 0)
@@ -56,7 +56,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
   def xySlate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
 
-  /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
+  /** 2D geometric translation transformation on this Pt2 returns a Pt2. */
   def slate(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
 
   /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */

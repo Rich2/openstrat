@@ -16,9 +16,6 @@ class ShapeGenNew(val unsafeArray: Array[CurveSeg]) extends Shape
   override def attribs: Arr[XANumeric] = ???
 
   /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
-  override def slate(offset: Vec2Like): Shape = ???
-
-  /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def xySlate(xOffset: Double, yOffset: Double): Shape = ???
 
   /** Uniform scaling 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. Use the

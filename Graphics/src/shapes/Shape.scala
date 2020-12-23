@@ -17,9 +17,6 @@ trait Shape extends Fillable with BoundedElem
   { case t: Shape => true
     case _ => false
   }
-  
-  /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
-  def slate(offset: Vec2Like): Shape
 
   /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def xySlate(xOffset: Double, yOffset: Double): Shape

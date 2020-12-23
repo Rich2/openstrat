@@ -90,7 +90,6 @@ object Rect
   implicit val slateImplicit: Slate[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
-  //implicit val slateToImplicit: SlateTo[Rect] = (obj: Rect, newCen: Pt2) => obj.slateTo(newCen)
 
   implicit val reflectAxesImplicit: ReflectAxes[Rect] = new ReflectAxes[Rect]
   { override def negYT(obj: Rect): Rect = obj.negY
