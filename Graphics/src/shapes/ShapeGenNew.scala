@@ -15,9 +15,6 @@ class ShapeGenNew(val unsafeArray: Array[CurveSeg]) extends Shape
 
   override def attribs: Arr[XANumeric] = ???
 
-  /** The centre of this Shape. */
-  override def cen: Pt2 = ???
-
   /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def slate(offset: Vec2Like): Shape = ???
 

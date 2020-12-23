@@ -3,11 +3,12 @@ package ostrat
 package geom
 
 /** Regular Hexagon */
-trait HexReg extends Polygon6Plus
-{
-  /** The maximum, longer diameter. */
+trait HexReg extends ShapeCentred with Polygon6Plus
+{ /** The maximum, longer diameter. */
   def dMin: Double
+
   @inline def rMin: Double = dMin / 2
+
   /** The maximum radius length. Also the length of the Hexagon side. */
   @inline final def rMax: Double = dMin / Sqrt3
 

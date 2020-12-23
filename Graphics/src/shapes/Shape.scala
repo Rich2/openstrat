@@ -17,9 +17,6 @@ trait Shape extends Fillable with BoundedElem
   { case t: Shape => true
     case _ => false
   }
-
-  /** The centre of this Shape. */
-  def cen: Pt2
   
   /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
   def slate(offset: Vec2Like): Shape

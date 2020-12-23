@@ -65,7 +65,6 @@ trait Polygon extends Shape with BoundedElem
   }
 
   override def attribs: Arr[XANumeric] = ???
-  override def cen: Pt2 = vertsFoldLeft(Pt2Z)(_.slate(_)).invScale(vertsNum)
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def fillHex(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
@@ -188,20 +187,20 @@ trait Polygon extends Shape with BoundedElem
     PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)), Arr(PolygonActive(this, pointerID)))
 
   def fillDrawText(fillColour: Colour, str: String, fontSize: Int = 24, lineColour: Colour = Black, lineWidth: Double = 2.0): PolygonCompound =
-    PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)), Arr(TextGraphic(str, fontSize, cen)))
+    PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)), Arr(TextGraphic(str, fontSize, cenDefault)))
 
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
   PolygonCompound = PolygonCompound(this, Arr(fillColour, TextFacet(str, textColour)), Arr())
 
   def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
     align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)),
-    Arr(TextGraphic(str, fontSize, cen, Black, align), PolygonActive(this, pointerID)))
+    Arr(TextGraphic(str, fontSize, cenDefault, Black, align), PolygonActive(this, pointerID)))
 
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonCompound =
-    PolygonCompound(this, Arr(fillColour), Arr(TextGraphic(str, fontSize, cen, textColour)))
+    PolygonCompound(this, Arr(fillColour), Arr(TextGraphic(str, fontSize, cenDefault, textColour)))
 
   def fillTextActive(fillColour: Colour, pointerEv: Any, str: String, fontSize: Int = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
-    PolygonCompound = PolygonCompound(this, Arr(fillColour), Arr(PolygonActive(this, pointerEv), TextGraphic(str, fontSize, cen, fontColour, align)))
+    PolygonCompound = PolygonCompound(this, Arr(fillColour), Arr(PolygonActive(this, pointerEv), TextGraphic(str, fontSize, cenDefault, fontColour, align)))
 
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =

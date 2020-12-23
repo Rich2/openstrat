@@ -31,11 +31,6 @@ trait PhiRectangle extends Rectangle
   override def reflect(lineLike: LineLike): PhiRectangle = PhiRectangle.s1s3(s1Cen.reflect(lineLike), s3Cen.reflect(lineLike))
 
   override def rotate(angle: AngleVec): PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate(angle), s3Cen.rotate(angle))
-
-  /*override def slateTo(newCen: Pt2): PhiRectangle =
-  { val v = newCen.vecFrom(cen)
-    slate(v.x, v.y)
-  }*/
 }
 
 /** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleImp]] implementation class an apply factory method that
@@ -51,7 +46,7 @@ object PhiRectangle
   def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
   case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, xS3Cen: Double, yS3Cen: Double) extends PhiRectangle
-  {
+  { override def cen: Pt2 = xCen pp yCen
     override def xCen: Double = (xS1Cen + xS1Cen) / 2
     override def yCen: Double = (yS1Cen + yS1Cen) / 2
     override def s1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
