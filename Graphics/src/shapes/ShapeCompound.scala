@@ -10,15 +10,15 @@ trait ShapeCompound extends ShapeGraphic
   /** The [[ShapeCompound]] type will be widened at a later point. */
   def children: Arr[GraphicElem]
 
-  /** Translate geometric transformation. */
+  /** 2D geometric translation transformation on this ShapeCompound, returns a ShapeCompound. Return type may be narrowed in sub class /traits. */
   override def xySlate(xOffset: Double, yOffset: Double): ShapeCompound
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): ShapeCompound  
   
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
+  /** 2D geometric mirror, reflection transformation across the X axis on this ShapeCompound , returns a ShapeCompound. The return type may be
+   *  narrowed in sub trait / classes. */
   override def negY: ShapeCompound
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed

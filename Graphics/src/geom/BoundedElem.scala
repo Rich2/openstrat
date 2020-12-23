@@ -16,5 +16,17 @@ trait BoundedElem extends GeomElem
   def brBounding: Pt2 = boundingRect.bottomRight
   def tlBounding: Pt2 = boundingRect.topLeft
   def blBounding: Pt2 = boundingRect.bottomLeft
+  @inline final def boundingCen: Pt2 = boundingRect.cen
   def cenDefault: Pt2 = boundingRect.cen
+}
+
+class BoundedExtensions[T <: BoundedElem](val thisT: T) extends AnyVal //, ev: Slate[T])
+{
+  /** 2D geometric translation transformation on this type T, returning an object of type T with the centre of its bounding rectangle at the parameter
+   * point. */
+  def slateBoundingCenTo(newCen: Pt2)(implicit ev: Slate[T]): T = ev.slateT(thisT, thisT.boundingCen >> newCen)
+
+  /** 2D geometric translation transformation on this type T, returning an object of type T with the bottom right of its bounding rectangle at the
+   *  parameter point. */
+  def trSlateBoundingTo(newTopRight: Pt2)(implicit ev: Slate[T]): T = ev.slateT(thisT, thisT.trBounding >> newTopRight)
 }
