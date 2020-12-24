@@ -2,7 +2,7 @@ package ostrat
 package geom
 import pCanv._
 
-case class PolyCurveParentFull(cen: Pt2, shape: ShapeGen, pointerId: Any, children: Arr[GraphicAffineElem]) extends GraphicParentFull with
+case class PolyCurveParentFull(cen: Pt2, shape: ShapeGenOld, pointerId: Any, children: Arr[GraphicAffineElem]) extends GraphicParentFull with
   PolyCurveActive
 { override type ThisT = PolyCurveParentFull
   def fTrans(f: Pt2 => Pt2): PolyCurveParentFull = PolyCurveParentFull(f(cen), shape.fTrans(f), pointerId, children.trans(f))
@@ -15,11 +15,11 @@ case class PolyCurveParentFull(cen: Pt2, shape: ShapeGen, pointerId: Any, childr
 
 object PolyCurveParentFull
 {
-  def fill(cen: Pt2, shape: ShapeGen, evObj: Any, colour: Colour) = PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveFill(shape, colour)))
+  def fill(cen: Pt2, shape: ShapeGenOld, evObj: Any, colour: Colour) = PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveFill(shape, colour)))
 
-  def fillDraw(cen: Pt2, shape: ShapeGen, evObj: Any, fillColour: Colour, lineWidth: Int, lineColour: Colour) =
+  def fillDraw(cen: Pt2, shape: ShapeGenOld, evObj: Any, fillColour: Colour, lineWidth: Int, lineColour: Colour) =
     PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveFillDraw(shape, fillColour, lineColour, lineWidth)))
 
-  def draw(cen: Pt2, shape: ShapeGen, evObj: Any, lineWidth: Double, lineColour: Colour = Colour.Black) =
+  def draw(cen: Pt2, shape: ShapeGenOld, evObj: Any, lineWidth: Double, lineColour: Colour = Colour.Black) =
     PolyCurveParentFull(cen, shape, evObj, Arr(PolyCurveDraw(shape, lineColour, lineWidth)))
 }

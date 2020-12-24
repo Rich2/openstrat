@@ -203,7 +203,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.strokeText(to.str, to.posn.x, to.posn.y)
   }
    
-  private[this] def segsPath(segs: ShapeGen): Unit =
+  private[this] def segsPath(segs: ShapeGenOld): Unit =
   { gc.beginPath
     var startPt = segs.last.pEnd
     gc.moveTo(startPt.x, startPt.y)

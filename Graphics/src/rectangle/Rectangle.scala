@@ -101,10 +101,10 @@ object Rectangle
   def s2s4(s2Cen: Pt2, s4Cen: Pt2, height: Double): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
   def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
 
-  def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Pt2Z): ShapeGen =
+  def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Pt2Z): ShapeGenOld =
   { val w = width / 2
     val h = height / 2
-    val s1 = ShapeGen(
+    val s1 = ShapeGenOld(
         LineTail(w - radius,          h), ArcTail(w - radius pp h - radius, w pp h -radius),
         LineTail(w,          radius - h), ArcTail(w - radius pp radius - h, w - radius pp -h),
         LineTail(radius - w,         -h), ArcTail(radius - w pp radius - h, -w pp radius -h),
@@ -114,7 +114,7 @@ object Rectangle
 
   def curvedCornersCentred(width: Double, height: Double, radius: Double, posn: Pt2 = Pt2Z): PolyCurveCentred =
     PolyCurveCentred(posn, curvedCorners(width, height, radius).slate(posn))
-  def curvedGoldenRatio(height: Double, radius: Double, posn: Pt2 = Pt2Z): ShapeGen =
+  def curvedGoldenRatio(height: Double, radius: Double, posn: Pt2 = Pt2Z): ShapeGenOld =
     curvedCorners(height * Phi, height, radius, posn)
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Pt2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)

@@ -1,110 +1,64 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
-import Colour.Black
+import Colour.Black, pWeb._
 
-/** The generalised implementation of a [[Shape]]. A closed sequence of curve segments. An Array[Double] based collection for a sequence of CurveSegs,
- *  similar to a Polygon which is an Array[Double based collection of just LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each
- *  curveSeg is set to Negative Infinity for a LineSeg positive infinity for an ArcSeg, but represents the x component of the first control point for
- *  a BezierSeg. */
-class ShapeGen(val arrayUnsafe: Array[Double]) extends /* Shape with */ ArrProdDbl7[CurveTail] with AffinePreserve
-{ type ThisT = ShapeGen
-  def unsafeFromArray(array: Array[Double]): ShapeGen = new ShapeGen(array)
-  override def typeStr = "Shape"
-  override def fElemStr: CurveTail => String = _.toString
-  override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
-    new CurveTail(iMatch, d1, d2, d3, d4, d5, d6)
+/** The new version of ShapeGen. Will prioritise easy and simplicity of functionality over efficiency. A generalised implementation of a [[Shape]]. A
+ *  closed sequence of curve segments. */
+class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape
+{
+  override def fill(fillColour: Colour): ShapeFill = ???
 
-  override def canEqual(that: Any): Boolean = ???
+  override def fillHex(intValue: Int): ShapeFill = ???
+
+  override def draw(lineColour: Colour = Black, lineWidth: Double = 2): ShapeDraw = ???
+
+  override def attribs: Arr[XANumeric] = ???
+
+  /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
+  override def xySlate(xOffset: Double, yOffset: Double): Shape = new ShapeGen(unsafeArray.map(_.xySlate(xOffset, yOffset)))
+
+  /** Uniform scaling 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. Use the
+   * xyScale method for differential scaling on the X and Y axes. */
+  override def scale(operand: Double): Shape = new ShapeGen(unsafeArray.map(_.scale(operand)))
+
+  /** Mirror, reflection 2D geometric transformation across the X axis on a Shape returns a Shape. The Return type will be narrowed in sub traits /
+   * classes. */
+  override def negY: Shape = ???
+
+  /** Mirror, reflection 2D geometric transformation across the X axis on a Shape returns a Shape. The Return type will be narrowed in sub traits /
+   * classes. */
+  override def negX: Shape = ???
+
+  /** 2D Transformation using a [[ProlignMatrix]] on a Shape, returns a Shape. The Return type will be narrowed in sub traits / classes. */
+  override def prolign(matrix: ProlignMatrix): Shape = ???
+
+  /** Rotation 2D geometric transformation on a Shape taking the rotation as a scalar measured in radians, returns a Shape. The Return type will be
+   * narrowed in sub traits / classes. */
+  override def rotate(angle: AngleVec): Shape = ???
+
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a Shape, returns a Shape. The Return type will be narrowed in sub
+   * traits / classes. */
+  override def reflect(lineLike: LineLike): Shape = ???
+
+  /** XY scaling 2D geometric transformation on a Shape returns a Shape. This allows different scaling factors across X and Y dimensions. The return
+   * type will be narrowed in sub classes and traits. */
+  override def xyScale(xOperand: Double, yOperand: Double): Shape = ???
+
+  /** Shear 2D geometric transformation along the X Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
+  override def xShear(operand: Double): Shape = ???
+
+  /** Shear 2D geometric transformation along the Y Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
+  override def yShear(operand: Double): Shape = ???
+
+  /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
+  override def boundingRect: BoundingRect = ???
+
+  override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): GraphicElem = ???
 
   override def productArity: Int = ???
 
   override def productElement(n: Int): Any = ???
-  def fTrans(f: Pt2 => Pt2): ShapeGen =
-  { val newArray = new Array[Double](elemsLen * 7)
-    def setMiddle(offset: Int): Unit =
-    { val newMiddle: Pt2 = f(arrayUnsafe(offset + 3) pp arrayUnsafe(offset + 4))
-      newArray(offset + 3) = newMiddle.x
-      newArray(offset + 4) = newMiddle.y
-    }
-
-    def setEnd(offset: Int): Unit =
-    { val newEnd: Pt2 = f(arrayUnsafe(offset + 5) pp arrayUnsafe(offset + 6))
-      newArray(offset + 5) = newEnd.x
-      newArray(offset + 6) = newEnd.y
-    }
-
-    (0 until elemsLen).foreach{ index =>
-      val offset = index * 7
-      arrayUnsafe(offset) match
-      {
-        case 10 =>
-        { newArray(offset) = 10
-          setEnd(offset)
-        }
-
-        case 11 =>
-        { newArray(offset) = 11
-          setMiddle(offset)
-          setEnd(offset)
-        }
-
-        case 12 =>
-        { newArray(offset) = 12
-          val newControl1: Pt2 = f(arrayUnsafe(offset + 1) pp arrayUnsafe(offset + 2))
-          newArray(offset + 1) = newControl1.x
-          newArray(offset + 2) = newControl1.y
-          setMiddle(offset)
-          setEnd(offset)
-        }
-
-        case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
-      }
-    }
-    new ShapeGen(newArray)
-  }
-
-  def fill(colour: Colour): PolyCurveFill = PolyCurveFill(this, colour)
-  def draw(lineColour: Colour = Black, lineWidth: Double = 2.0): PolyCurveDraw = PolyCurveDraw(this, lineColour, lineWidth)
-
-  def shapeAll(shape: ShapeGen, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black):
-    PolyCurveAll = PolyCurveAll(shape, evObj, str, fillColour, fontSize, lineColour, lineWidth)
-
- // def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): UnScaledShape = UnScaledShape(posn, this, evObj, Arr(PolyCurveFill(this, colour)))
-  def fillScale(colour: Colour, factor: Double): PolyCurveFill = PolyCurveFill(this.scale(factor), colour)
-  def fillScaleSlate(colour: Colour, factor: Double, offset: Pt2): PolyCurveFill = PolyCurveFill(this.scale(factor).slate(offset), colour)
-
-  /** Not sure if this method should be a member of Transable */
-  def boundingRect =
-  { //val t = Arc()
-    var minX, maxX, minY, maxY = 0.0
-    var i = 0
-    this.foreach {ss =>
-      val v = ss.pEnd
-      if (i == 0)
-      { minX = v.x
-        maxX = v.x
-        minY = v.y
-        maxY = v.y
-      }
-      else
-      { minX = minX.min(v.x)
-        maxX = maxX.max(v.x)
-        minY = minY.min(v.y)
-        maxY = maxY.max(v.y)
-      }
-      i += 1
-    }
-    if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
-    BoundingRect(minX, maxX, minY, maxY)
-  }
-  def ptInShape: Pt2 => Boolean = pt =>  pMap[Pt2, PolygonImp](_.pEnd).ptInside(pt)
-
-  /** Not sure if this is useful */
-  def tailForeach(fLineSeg: CurveTail => Unit, fArcSeg: CurveTail => Unit, fBezierSeg: CurveTail => Unit): Unit =
-    foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
 }
 
-object ShapeGen extends ProdDbl7sCompanion[CurveTail, ShapeGen]
-{ implicit val factory: Int => ShapeGen = i => new ShapeGen(new Array[Double](i * 7))
-}
+object ShapeGen

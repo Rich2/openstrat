@@ -3,7 +3,7 @@ package ostrat
 package geom
 import pCanv._
 
-case class ShapeGenFill(shape: ShapeGen, colour: Colour) extends CanvElem
+case class ShapeGenFill(shape: ShapeGenOld, colour: Colour) extends CanvElem
 {
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}

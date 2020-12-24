@@ -190,7 +190,7 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
    
-  private[this] def segsPath(segs: ShapeGen): Unit =
+  private[this] def segsPath(segs: ShapeGenOld): Unit =
   { gc.beginPath()
     var startPt = segs.last.pEnd
     gc.moveTo(startPt.x, startPt.y)

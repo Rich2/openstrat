@@ -22,7 +22,7 @@ package e1
     }
     def colour: Colour = rainbowCycle()
     def nextColour: Colour = rainbowCycle.nextValue
-    def rect: ShapeGen = Rectangle.curvedCorners(80, 50, 15, posn)
+    def rect: ShapeGenOld = Rectangle.curvedCorners(80, 50, 15, posn)
     def drawNextColour = rect.draw(nextColour, 8)
     def fillRect = rect.fill(colour)
   }

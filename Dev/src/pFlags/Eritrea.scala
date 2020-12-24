@@ -13,7 +13,7 @@ object Eritrea extends Flag
     val greenRectangle = Rect(2, 0.5, 0 pp -0.25).fillHex(0xFF12ad2b)
     val redTriangle: TriangleFill = Triangle(-1 pp 0.5, -1 pp -0.5, 1 pp 0).fillHex(0xFFea0437)
     
-    val olive = ShapeGen(LineTail(-0.5395 pp -0.2383), BezierTail(-0.5611 pp -0.2443, -0.5735 pp -0.2611, -0.5732 pp -0.2769),
+    val olive = ShapeGenOld(LineTail(-0.5395 pp -0.2383), BezierTail(-0.5611 pp -0.2443, -0.5735 pp -0.2611, -0.5732 pp -0.2769),
       LineTail(-0.4668 pp -0.2765), BezierTail(-0.4658 pp -0.2595, -0.4798 pp -0.2437, -0.5011 pp -0.2375),
       BezierTail(-0.3969 pp -0.2354, -0.3064 pp -0.1964, -0.2899 pp -0.1713), BezierTail(-0.3062 pp -0.1642, -0.325 pp -0.1756, -0.3385 pp -0.173),
       BezierTail(-0.3066 pp -0.1583, -0.2112 pp -0.09651, -0.2267 pp -0.03028),

@@ -146,12 +146,12 @@ object CCCP extends Flag
     //background
     Rect(ratio, 1).fill(Colour(0xFFCC0000)),
     //hammer
-    ShapeGen(LineTail(-0.7709 pp 0.2138), LineTail(-0.7395 pp 0.1822), LineTail(-0.7099 pp 0.2116),
+    ShapeGenOld(LineTail(-0.7709 pp 0.2138), LineTail(-0.7395 pp 0.1822), LineTail(-0.7099 pp 0.2116),
       BezierTail(-0.6648 pp 0.1633, -0.6175 pp 0.1166, -0.5727 pp 0.06808), BezierTail(-0.566 pp 0.06131, -0.555 pp 0.06128, -0.5483 pp 0.068),
       BezierTail(-0.5415 pp 0.07472, -0.5415 pp 0.08566, -0.5482 pp 0.09243), BezierTail(-0.5962 pp 0.1378, -0.6444 pp 0.1834, -0.6924 pp 0.2289),
       LineTail(-0.6525 pp 0.2686), LineTail(-0.7081 pp 0.2763), LineTail(-0.7709 pp 0.2138)).fill(Colour(0xFFFFD700)),
     //sickle
-    ShapeGen(LineTail(-0.6695 pp 0.3163), BezierTail(-0.6437 pp 0.3018, -0.624 pp 0.2809, -0.6124 pp 0.259),
+    ShapeGenOld(LineTail(-0.6695 pp 0.3163), BezierTail(-0.6437 pp 0.3018, -0.624 pp 0.2809, -0.6124 pp 0.259),
       BezierTail(-0.6007 pp 0.2369, -0.5955 pp 0.2137, -0.5954 pp 0.1953), BezierTail(-0.5952 pp 0.1574, -0.6262 pp 0.1266, -0.6641 pp 0.1266),
       BezierTail(-0.6843 pp 0.1266, -0.7025 pp 0.1354, -0.715 pp 0.1493), LineTail(-0.722 pp 0.1434),
       BezierTail(-0.7232 pp 0.1439, -0.7244 pp 0.1441, -0.7257 pp 0.1441), BezierTail(-0.7287 pp 0.1441, -0.7316 pp 0.1428, -0.7336 pp 0.1405),

@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** So there is a lack of clarity over whether the segs are relative to the cen, and if the cen is needed at all. */
-case class PolyCurveCentred(cen: Pt2, segs: ShapeGen) extends AffinePreserve
+case class PolyCurveCentred(cen: Pt2, segs: ShapeGenOld) extends AffinePreserve
 { override type ThisT = PolyCurveCentred
    /** This may need clarification */
    override def fTrans(f: Pt2 => Pt2): PolyCurveCentred = PolyCurveCentred(f(cen), segs)//.fTrans(f))
