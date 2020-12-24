@@ -20,8 +20,8 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def xAxis4: Double = xCen
   override def yAxis4: Double = yCen + radius
   override def pAxes4: Pt2 = Pt2(xCen, yAxis4)
-  override def xs1: Double = xCen + radius
-  override def ys1: Double = yCen
+  override def xAxes1: Double = xCen + radius
+  override def yAxes1: Double = yCen
   override def xs2: Double = xCen
   override def ys2: Double = yCen - yAxis4
   override def xs3: Double = xCen - radius

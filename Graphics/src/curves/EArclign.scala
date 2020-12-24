@@ -62,12 +62,11 @@ object EArclign
     //override def fTrans(f: Vec2 => Vec2): EArclign = ???
 
     override def cen: Pt2 = Pt2(xCen, yCen)
-
     override def radius1: Double = xRadius
-
     override def radius2: Double = yRadius
-
     override def pAxes1: Pt2 = cen.addX(xRadius)
+    override def xAxes1: Double = xCen + xRadius
+    override def yAxes1: Double = yCen
     override def pAxes2: Pt2 = cen.subY(yRadius)
     override def pAxes3: Pt2 = cen.subX(xRadius)
     override def pAxes4: Pt2 = cen.addY(yRadius)

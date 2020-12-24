@@ -23,15 +23,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   /** The centre of the ellipse. */
   final def cen: Pt2 = xCen pp yCen
 
-
-
-  /** The x component of curve's still point 1. By default this will be the curve's still at the right of the Ellipse. */
-  def xs1: Double
-
-  /** The y component of curve's still point 1. By default this will be the curvestill at the right of the Ellipse. */
-  def ys1: Double
-
-  final def pAxes1: Pt2 = xs1 pp ys1
+  final def pAxes1: Pt2 = xAxes1 pp yAxes1
 
   /** The x component of curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
   def xs2: Double
@@ -136,15 +128,15 @@ object Ellipse
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  case class EllipseImp(xCen: Double, yCen: Double, xs1: Double, ys1: Double, radius2: Double) extends Ellipse
+  case class EllipseImp(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double) extends Ellipse
   { override def pAxes4: Pt2 = cen + s0Angle.toVec2(radius2)
     override def xAxis4: Double = pAxes4.x
     override def yAxis4: Double = pAxes1.y
     override def xs2: Double = 2 * xCen - xAxis4
     override def ys2: Double = 2 * yCen - yAxis4
 
-    def xs3: Double = 2 * xCen - xs1
-    def ys3: Double = 2 * yCen - ys1
+    def xs3: Double = 2 * xCen - xAxes1
+    def ys3: Double = 2 * yCen - yAxes1
 
     override def radius1: Double = cen.distTo(pAxes1)
 

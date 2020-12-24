@@ -15,6 +15,15 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
    * actual vertex there on this circle, which is a special case of an ellipse. */
   override def pAxes1: Pt2 = cen.addX(radius)
 
+
+  /** The X component of the end point of axis 1. By default this is on the right of the Ellipse. Mathematically this can be referred to as a vertex
+   * for the major axis or a co-vertex for the minor axis. */
+  override def xAxes1: Double = ???
+
+  /** The Y component of the end point of axis 1. By default this is on the right of the Ellipse. Mathematically this can be referred to as a vertex
+   * for the major axis or a co-vertex for the minor axis. */
+  override def yAxes1: Double = ???
+
   /** The start of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no
    *  actual vertex there on this circle, which is a special case of an ellipse. */
   override def pAxes2: Pt2 = cen.subY(radius)

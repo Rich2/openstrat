@@ -22,7 +22,13 @@ trait EllipseBased extends GeomElem
    *  or a co-vertex for the minor axis. */
   def pAxes1: Pt2
 
+  /** The X component of the end point of axis 1. By default this is on the right of the Ellipse. Mathematically this can be referred to as a vertex
+   *  for the major axis or a co-vertex for the minor axis. */
+  def xAxes1: Double
 
+  /** The Y component of the end point of axis 1. By default this is on the right of the Ellipse. Mathematically this can be referred to as a vertex
+   *  for the major axis or a co-vertex for the minor axis. */
+  def yAxes1: Double
 
   /** The start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the major
    *  axis or a co-vertex for the minor axis. */
