@@ -139,7 +139,11 @@ object EArc
     override def radius2: Double = cen.distTo(pAxes4)
     override def pAxes1: Pt2 = xAxes1 pp yAxes1
     override def pAxes2: Pt2 = cen + cenP2
+    override def xAxes2: Double = pAxes2.x
+    override def yAxes2: Double = pAxes2.y
     override def pAxes3: Pt2 = cen + cenP3
+    override def xAxes3: Double = pAxes3.x
+    override def yAxes3: Double = pAxes3.y
     override def pAxes4: Pt2 = xAxis4 pp yAxis4
     override def cenP1: Vec2 = cen >> pAxes1
     override def cenP2: Vec2 = -cenP4

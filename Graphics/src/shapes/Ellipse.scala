@@ -24,22 +24,8 @@ trait Ellipse extends EllipseBased with ShapeCentred
   final def cen: Pt2 = xCen pp yCen
 
   final def pAxes1: Pt2 = xAxes1 pp yAxes1
-
-  /** The x component of curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
-  def xs2: Double
-
-  /** The y component of curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
-  def ys2: Double
-
-  final def pAxes2: Pt2 = Pt2(xs2, ys2)
-
-  /** The x component of curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
-  def xs3: Double
-
-  /** The y component of curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
-  def ys3: Double
-
-  override def pAxes3: Pt2 = xs3 pp ys3
+  final def pAxes2: Pt2 = Pt2(xAxes2, yAxes2)
+  override def pAxes3: Pt2 = xAxes3 pp yAxes3
 
   /** The major radius of this ellipse. */
   def a: Double
@@ -66,9 +52,6 @@ trait Ellipse extends EllipseBased with ShapeCentred
 
   def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cs1s0(f(cen), f(pAxes1), f(pAxes4))
 
-  /** Translate geometric transformation on a Ellipse returns a Ellipse. */
-  def slate(offset: Vec2Like): Ellipse = fTrans(_.slate(offset))
-
   /** Translate geometric transformation. */
   override def xySlate(xOffset: Double, yOffset: Double): Ellipse = fTrans(_.addXY(xOffset, yOffset))
 
@@ -89,11 +72,10 @@ trait Ellipse extends EllipseBased with ShapeCentred
   override def xShear(operand: Double): Ellipse = fTrans(_.xShear(operand))
 
   override def yShear(operand: Double): Ellipse = fTrans(_.yShear(operand))
-
- // override def slateTo(newCen: Pt2): Ellipse = ???
 }
 
-/** Companion object for the Ellipse trait caontains the EllipseImp implementation class and factory methods for Ellipse that delegate to EllipseImp.. */
+/** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to
+ * EllipseImp. */
 object Ellipse
 { /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseImp]] class. */
   def apply(radius1: Double, radius0: Double): Ellipse = new EllipseImp(0, 0, radius1, 0,  radius0)
@@ -132,11 +114,11 @@ object Ellipse
   { override def pAxes4: Pt2 = cen + s0Angle.toVec2(radius2)
     override def xAxis4: Double = pAxes4.x
     override def yAxis4: Double = pAxes1.y
-    override def xs2: Double = 2 * xCen - xAxis4
-    override def ys2: Double = 2 * yCen - yAxis4
+    override def xAxes2: Double = 2 * xCen - xAxis4
+    override def yAxes2: Double = 2 * yCen - yAxis4
 
-    def xs3: Double = 2 * xCen - xAxes1
-    def ys3: Double = 2 * yCen - yAxes1
+    def xAxes3: Double = 2 * xCen - xAxes1
+    def yAxes3: Double = 2 * yCen - yAxes1
 
     override def radius1: Double = cen.distTo(pAxes1)
 

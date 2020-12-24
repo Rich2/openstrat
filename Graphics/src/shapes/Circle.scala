@@ -3,7 +3,10 @@ package ostrat
 package geom
 import pWeb._, math.Pi
 
-/** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse. */
+/** Circle class is defined by its centre and radius. It fulfills the interface for an Ellipse.
+ *  @groupdesc EllipticalGroup Class members that treat this circle as a special case of an ellipse.
+ *  @groupname EllipticalGroup Elliptical Members
+ *  @groupprio EllipticalGroup 1010 */
 final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends Ellipse with OrdinaledElem
 {  
   override def fTrans(f: Pt2 => Pt2): Circle =
@@ -17,26 +20,9 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   @inline def radius: Double = diameter / 2
 
-  override def xAxis4: Double = xCen
-  override def yAxis4: Double = yCen + radius
-  override def pAxes4: Pt2 = Pt2(xCen, yAxis4)
-  override def xAxes1: Double = xCen + radius
-  override def yAxes1: Double = yCen
-  override def xs2: Double = xCen
-  override def ys2: Double = yCen - yAxis4
-  override def xs3: Double = xCen - radius
-  override def ys3: Double = yCen
-  
-  @inline override def radius1: Double = radius
-  @inline override def radius2: Double = radius
-  @inline override def a: Double = radius
-  @inline override def b: Double = radius
   override def area: Double = Pi * radius * radius
   override def e: Double = 0
   override def h: Double = 0
-
-  /** Translate geometric transformation on a Circle returns a Circle. */
-  override def slate(offset: Vec2Like): Circle = Circle(diameter, cen.slate(offset))
 
   /** Translate geometric transformation on a Circle returns a Circle. */
   override def xySlate(xOffset: Double, yOffset: Double): Circle = Circle(diameter, cen.addXY(xOffset, yOffset))
@@ -54,8 +40,6 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
 
   override def negX: Circle = Circle(diameter, cen.negX)
 
-  //override def slateTo(newCen: Pt2): Circle = Circle(diameter, newCen)
-  
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   
   override def fill(fillColour: Colour): CircleFill = CircleFill(this, fillColour)
@@ -79,6 +63,23 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def topLeft: Pt2 = Pt2(-rr2, rr2)
 
   //override def topCen: Vec2 = ???
+
+  /* EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc. */
+
+  @inline override def radius1: Double = radius
+  @inline override def radius2: Double = radius
+  @inline override def a: Double = radius
+  @inline override def b: Double = radius
+
+  override def xAxes1: Double = xCen + radius
+  override def yAxes1: Double = yCen
+  override def xAxes2: Double = xCen
+  override def yAxes2: Double = yCen - yAxis4
+  override def xAxes3: Double = xCen - radius
+  override def yAxes3: Double = yCen
+  override def xAxis4: Double = xCen
+  override def yAxis4: Double = yCen + radius
+  override def pAxes4: Pt2 = Pt2(xCen, yAxis4)
 }
 
 /** This is the companion object for the Circle case class. It provides factory methods for creating [[Circle]]s. */

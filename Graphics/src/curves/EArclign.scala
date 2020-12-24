@@ -68,7 +68,23 @@ object EArclign
     override def xAxes1: Double = xCen + xRadius
     override def yAxes1: Double = yCen
     override def pAxes2: Pt2 = cen.subY(yRadius)
+
+    /** The X component of the start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the major
+     * axis or a co-vertex for the minor axis.. */
+    override def xAxes2: Double = ???
+
+
+    /** The y component of the start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a
+     * vertex for the major axis or a co-vertex for the minor axis. */
+    override def yAxes2: Double = ???
+
     override def pAxes3: Pt2 = cen.subX(xRadius)
+
+
+    override def xAxes3: Double = ???
+
+    override def yAxes3: Double = ???
+
     override def pAxes4: Pt2 = cen.addY(yRadius)
     override def xAxis4: Double = xCen
     override def yAxis4: Double = yCen + radius2
