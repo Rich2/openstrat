@@ -71,6 +71,9 @@ object EArclign
     override def pAxes2: Pt2 = cen.subY(yRadius)
     override def pAxes3: Pt2 = cen.subX(xRadius)
     override def pAxes4: Pt2 = cen.addY(yRadius)
+    override def xAxis4: Double = xCen
+    override def yAxis4: Double = yCen + radius2
+
     override def cenP1: Vec2 = xRadius vv 0
     override def cenP2: Vec2 = 0 vv - yRadius
     override def cenP3: Vec2 = -xRadius vv 0

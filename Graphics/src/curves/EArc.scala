@@ -15,11 +15,7 @@ trait EArc extends EllipseBased with CurveSeg
   /** The centre of this elliptical arc. this method has been left abstract to allow the comment to be overridden in CArc. */
   def cen: Pt2
 
-  /** Radius 1 of the ellipse this arc is based upon. By default this is the horisontal axis of the ellipse. */
-  def radius1: Double
 
-  /** Radius 1 of the ellipse this arc is based upon. By default this is the vertical axis of the ellipse. */
-  def radius2: Double
 
   /** The 2D vector [[Vec2]] from the centre point to pAxes1, the end point of axis 1 , by default on the right of the Ellipse this arc is based
    *  on. */

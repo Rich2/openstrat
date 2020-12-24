@@ -17,18 +17,18 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   /** Diameter of the circle. This has the same value as width, a property that hasn't been created yet. */
   @inline def radius: Double = diameter / 2
 
-  override def xs0: Double = xCen
-  override def ys0: Double = yCen + radius
-  override def pAxes4: Pt2 = Pt2(xCen, ys0)
+  override def xAxis4: Double = xCen
+  override def yAxis4: Double = yCen + radius
+  override def pAxes4: Pt2 = Pt2(xCen, yAxis4)
   override def xs1: Double = xCen + radius
   override def ys1: Double = yCen
   override def xs2: Double = xCen
-  override def ys2: Double = yCen - ys0
+  override def ys2: Double = yCen - yAxis4
   override def xs3: Double = xCen - radius
   override def ys3: Double = yCen
   
   @inline override def radius1: Double = radius
-  @inline override def radius0: Double = radius
+  @inline override def radius2: Double = radius
   @inline override def a: Double = radius
   @inline override def b: Double = radius
   override def area: Double = Pi * radius * radius

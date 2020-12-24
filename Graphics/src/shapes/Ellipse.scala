@@ -22,12 +22,8 @@ trait Ellipse extends EllipseBased with ShapeCentred
   
   /** The centre of the ellipse. */
   final def cen: Pt2 = xCen pp yCen
-  
-  /** The x component of curve's still point 0. By default this will be the curve's still at the top of the Ellipse. */
-  def xs0: Double
 
-  /** The y component of curve still point 0. By default this will be the curve's still at the top of the Ellipse. */
-  def ys0: Double
+
 
   /** The x component of curve's still point 1. By default this will be the curve's still at the right of the Ellipse. */
   def xs1: Double
@@ -51,20 +47,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   /** The y component of curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
   def ys3: Double
 
-  /** Curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
-  def pAxes3: Pt2 = xs3 pp ys3
-
-  /** radius 0. By default this will be the up radius to cs0. By convention and defualt This will normally be the value of b, the minor ellipse
-   *  radius, but even if it starts as b in certain transformations it may become a, the major ellipse radius. */
-  def radius0: Double
-
-  final def diameter0: Double = radius0 * 2
-
-  /** radius 1. This will normally be the value of a, the major ellipse radius, but even if it starts as a in certain transformations it may become b,
-   *  the minor ellipse radius. */
-  def radius1: Double
-
-  final def diameter1: Double = radius1 * 2
+  override def pAxes3: Pt2 = xs3 pp ys3
 
   /** The major radius of this ellipse. */
   def a: Double
@@ -85,7 +68,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   def cyAttrib: XANumeric = XANumeric("cy", yCen)
  // override def rotateRadians(radians: Double): Ellipse
   def rxAttrib: XANumeric = XANumeric("rx", radius1)
-  def ryAttrib: XANumeric = XANumeric("ry", radius0)
+  def ryAttrib: XANumeric = XANumeric("ry", radius2)
   def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
 
@@ -153,28 +136,28 @@ object Ellipse
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  case class EllipseImp(xCen: Double, yCen: Double, xs1: Double, ys1: Double, radius0: Double) extends Ellipse
-  { override def pAxes4: Pt2 = cen + s0Angle.toVec2(radius0)
-    override def xs0: Double = pAxes4.x
-    override def ys0: Double = pAxes1.y
-    override def xs2: Double = 2 * xCen - xs0
-    override def ys2: Double = 2 * yCen - ys0
+  case class EllipseImp(xCen: Double, yCen: Double, xs1: Double, ys1: Double, radius2: Double) extends Ellipse
+  { override def pAxes4: Pt2 = cen + s0Angle.toVec2(radius2)
+    override def xAxis4: Double = pAxes4.x
+    override def yAxis4: Double = pAxes1.y
+    override def xs2: Double = 2 * xCen - xAxis4
+    override def ys2: Double = 2 * yCen - yAxis4
 
     def xs3: Double = 2 * xCen - xs1
     def ys3: Double = 2 * yCen - ys1
 
     override def radius1: Double = cen.distTo(pAxes1)
 
-    def a: Double = radius1.max(radius0)
-    def b: Double = radius1.min(radius0)
-    override def area: Double = Pi * radius1 * radius0
+    def a: Double = radius1.max(radius2)
+    def b: Double = radius1.min(radius2)
+    override def area: Double = Pi * radius1 * radius2
     override def e: Double = sqrt(a.squared - b.squared) / a
     override def h: Double = (a - b).squared / (a + b).squared
 
     def boundingRect: BoundingRect =
-    { val xd0: Double = radius1.squared * (alignAngle.cos).squared + radius0.squared * (alignAngle.sin).squared
+    { val xd0: Double = radius1.squared * (alignAngle.cos).squared + radius2.squared * (alignAngle.sin).squared
       val xd = xd0.sqrt
-      val yd0: Double = radius1.squared * (alignAngle.sin).squared + radius0.squared * (alignAngle.cos).squared
+      val yd0: Double = radius1.squared * (alignAngle.sin).squared + radius2.squared * (alignAngle.cos).squared
       val yd = yd0.sqrt
       BoundingRect(xCen - xd, xCen + xd, yCen - yd, yCen + yd)
     }
