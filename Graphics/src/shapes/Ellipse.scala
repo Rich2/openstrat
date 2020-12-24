@@ -5,7 +5,7 @@ import pWeb._, Colour.Black, math.{Pi, sqrt}
 
 /** The Ellipse trait can either be implemented as an [[Ellipse]] class or as a [[Circle]]. Which also fulfills the Ellipse interface. The factory
  *  methods in the Ellipse companion object return [Ellipse]]. */
-trait Ellipse extends ShapeCentred
+trait Ellipse extends EllipseBased with ShapeCentred
 {
   override def fill(fillColour: Colour): EllipseFill = EllipseFill(this, fillColour)
   override def fillHex(intValue: Int): EllipseFill = EllipseFill(this, Colour(intValue))
@@ -23,23 +23,19 @@ trait Ellipse extends ShapeCentred
   /** The centre of the ellipse. */
   final def cen: Pt2 = xCen pp yCen
   
-  /** The x component of curvestill point 0. By default this will be the curvestill at the top of the Ellipse. */
+  /** The x component of curve's still point 0. By default this will be the curve's still at the top of the Ellipse. */
   def xs0: Double
 
-  /** The y component of curvestill point 0. By default this will be the curvestill at the top of the Ellipse. */
+  /** The y component of curve still point 0. By default this will be the curve's still at the top of the Ellipse. */
   def ys0: Double
-  
-  /** Curvestill point 0. By default this will be the curvestill at the top of the Ellipse. */
-  def s0: Pt2
 
-  /** The x component of curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
+  /** The x component of curve's still point 1. By default this will be the curve's still at the right of the Ellipse. */
   def xs1: Double
 
-  /** The y component of curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
+  /** The y component of curve's still point 1. By default this will be the curvestill at the right of the Ellipse. */
   def ys1: Double
 
-  /** Curvestill point 1. By default this will be the curvestill at the right of the Ellipse. */
-  final def s1: Pt2 = xs1 pp ys1
+  final def pAxes1: Pt2 = xs1 pp ys1
 
   /** The x component of curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
   def xs2: Double
@@ -47,8 +43,7 @@ trait Ellipse extends ShapeCentred
   /** The y component of curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
   def ys2: Double
 
-  /** Curvestill point 2. By default this will be the curvestill at the bottom of the Ellipse. */
-  final def s2: Pt2 = Pt2(xs2, ys2)
+  final def pAxes2: Pt2 = Pt2(xs2, ys2)
 
   /** The x component of curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
   def xs3: Double
@@ -57,7 +52,7 @@ trait Ellipse extends ShapeCentred
   def ys3: Double
 
   /** Curvestill point 3. By default this will be the curvestill at the right of the Ellipse. */
-  def s3: Pt2 = xs3 pp ys3
+  def pAxes3: Pt2 = xs3 pp ys3
 
   /** radius 0. By default this will be the up radius to cs0. By convention and defualt This will normally be the value of b, the minor ellipse
    *  radius, but even if it starts as b in certain transformations it may become a, the major ellipse radius. */
@@ -94,7 +89,7 @@ trait Ellipse extends ShapeCentred
   def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
 
-  def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cs1s0(f(cen), f(s1), f(s0))
+  def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cs1s0(f(cen), f(pAxes1), f(pAxes4))
 
   /** Translate geometric transformation on a Ellipse returns a Ellipse. */
   def slate(offset: Vec2Like): Ellipse = fTrans(_.slate(offset))
@@ -136,11 +131,11 @@ object Ellipse
     new EllipseImp(cen.x, cen.y, v1.x, v1.y, radius0)
   }
 
-  implicit val slateImplicit: Slate[Ellipse] = (ell, dx, dy) => cs1s0(ell.cen.addXY(dx, dy), ell.s1.addXY(dx, dy), ell.s0.addXY(dx, dy))
+  implicit val slateImplicit: Slate[Ellipse] = (ell, dx, dy) => cs1s0(ell.cen.addXY(dx, dy), ell.pAxes1.addXY(dx, dy), ell.pAxes4.addXY(dx, dy))
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
 
   implicit val rotateImplicit: Rotate[Ellipse] =
-    (ell: Ellipse, angle: AngleVec) => Ellipse.cs1s0(ell.cen.rotate(angle), ell.s1.rotate(angle), ell.s0.rotate(angle))
+    (ell: Ellipse, angle: AngleVec) => Ellipse.cs1s0(ell.cen.rotate(angle), ell.pAxes1.rotate(angle), ell.pAxes4.rotate(angle))
 
   implicit val prolignImplicit: Prolign[Ellipse] = (obj, matrix) => obj.prolign(matrix)
 
@@ -159,16 +154,16 @@ object Ellipse
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
   case class EllipseImp(xCen: Double, yCen: Double, xs1: Double, ys1: Double, radius0: Double) extends Ellipse
-  { override def s0: Pt2 = cen + s0Angle.toVec2(radius0)
-    override def xs0: Double = s0.x
-    override def ys0: Double = s1.y
+  { override def pAxes4: Pt2 = cen + s0Angle.toVec2(radius0)
+    override def xs0: Double = pAxes4.x
+    override def ys0: Double = pAxes1.y
     override def xs2: Double = 2 * xCen - xs0
     override def ys2: Double = 2 * yCen - ys0
 
     def xs3: Double = 2 * xCen - xs1
     def ys3: Double = 2 * yCen - ys1
 
-    override def radius1: Double = cen.distTo(s1)
+    override def radius1: Double = cen.distTo(pAxes1)
 
     def a: Double = radius1.max(radius0)
     def b: Double = radius1.min(radius0)
@@ -184,7 +179,7 @@ object Ellipse
       BoundingRect(xCen - xd, xCen + xd, yCen - yd, yCen + yd)
     }
 
-    override def alignAngle: Angle = cen.angleTo(s1)
+    override def alignAngle: Angle = cen.angleTo(pAxes1)
     def s0Angle = alignAngle.p90
   }
 }

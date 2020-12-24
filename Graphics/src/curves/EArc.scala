@@ -4,7 +4,7 @@ package geom
 import Colour.Black
 
 /** Elliptical Arc. the trait has 2 implementations [[CArc]] and [[EArc.EArcImp]]. */
-trait EArc extends CurveSeg
+trait EArc extends EllipseBased with CurveSeg
 {
   /** The X component of the centre of the Elliptical arc. */
   def xCen: Double
@@ -20,22 +20,6 @@ trait EArc extends CurveSeg
 
   /** Radius 1 of the ellipse this arc is based upon. By default this is the vertical axis of the ellipse. */
   def radius2: Double
-
-  /** The end point of axis 1. By default this is on the right of the Ellipse. Mathematically this can be referred to as a vertex for the major axis
-   *  or a co-vertex for the minor axis. */
-  def pAxes1: Pt2
-
-  /** The start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the major
-   *  axis or a co-vertex for the minor axis. */
-  def pAxes2: Pt2
-
-  /** The start point of axis 1. By default this is on the left of the Ellipse. Mathematically this can be referred to as a vertex for the major axis
-   *  or a co-vertex for the minor axis. */
-  def pAxes3: Pt2
-
-  /** The end point of axis 2. By default this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or
-   *  a co-vertex for the minor axis. */
-  def pAxes4: Pt2
 
   /** The 2D vector [[Vec2]] from the centre point to pAxes1, the end point of axis 1 , by default on the right of the Ellipse this arc is based
    *  on. */
@@ -105,10 +89,6 @@ trait EArc extends CurveSeg
   override def xySlate(xOffset: Double, yOffset: Double): EArc = EArc(pStart.xySlate(xOffset, yOffset), cen.xySlate(xOffset, yOffset),
     pAxes1.xySlate(xOffset, yOffset), pAxes4.xySlate(xOffset, yOffset), pEnd.xySlate(xOffset, yOffset), counter)
 
-  /** Translate 2D geometric transformation on this EArc, returns an EArc. */
-//  override def slate(offset: Vec2Like): EArc =
-//    EArc(pStart.slate(offset), cen.slate(offset), pAxes1.slate(offset), pAxes4.slate(offset), pEnd.slate(offset), counter)
-
   /** Uniform 2D geometric scaling transformation, returns an EArc. */
   override def scale(operand: Double): EArc =
     EArc(pStart.scale(operand), cen.scale(operand), pAxes1.scale(operand), pAxes4.scale(operand), pEnd.scale(operand), counter)
@@ -155,7 +135,7 @@ object EArc
   /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the
    *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greater than
    *  360 degrees and less than -360 degrees. */
-  final case class EArcImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xAxisV1: Double, yAxisV1: Double, xAxis4: Double,
+  final case class EArcImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xAxes1: Double, yAxisV1: Double, xAxis4: Double,
                            yAxis4: Double, xEnd: Double, yEnd: Double, counter: Int) extends EArc
   {
     override def cen: Pt2 = Pt2(xCen, yCen)
@@ -164,7 +144,7 @@ object EArc
 
     override def radius2: Double = cen.distTo(pAxes4)
 
-    override def pAxes1: Pt2 = xAxisV1 pp yAxisV1
+    override def pAxes1: Pt2 = xAxes1 pp yAxisV1
     override def pAxes2: Pt2 = cen + cenP2
     override def pAxes3: Pt2 = cen + cenP3
     override def pAxes4: Pt2 = xAxis4 pp yAxis4
@@ -173,7 +153,7 @@ object EArc
     override def cenP3: Vec2 = -cenP1
     override def cenP4: Vec2 = cen >> pAxes4
 
-    def addRotations(delta: Int): EArcImp = new EArcImp(xStart, yStart, xCen, yCen, xAxisV1, yAxisV1, xAxis4, yAxis4, xEnd, yEnd, counter + delta)
+    def addRotations(delta: Int): EArcImp = new EArcImp(xStart, yStart, xCen, yCen, xAxes1, yAxisV1, xAxis4, yAxis4, xEnd, yEnd, counter + delta)
   }
 
   object EArcImp {
