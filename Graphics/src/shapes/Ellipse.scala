@@ -13,15 +13,8 @@ trait Ellipse extends EllipseBased with ShapeCentred
 
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): GraphicElem =
     EllipseCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)))
-  
-  /** The x component of centre of the ellipse. */
-  def xCen: Double
 
-  /** The y component of centre of the ellipse. */
-  def yCen: Double
-  
-  /** The centre of the ellipse. */
-  final def cen: Pt2 = xCen pp yCen
+  final override def cen: Pt2 = xCen pp yCen
 
   final def pAxes1: Pt2 = xAxes1 pp yAxes1
   final def pAxes2: Pt2 = Pt2(xAxes2, yAxes2)
@@ -111,17 +104,18 @@ object Ellipse
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
   case class EllipseImp(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double) extends Ellipse
-  { override def pAxes4: Pt2 = cen + s0Angle.toVec2(radius2)
+  { override def xAxes2: Double = 2 * xCen - xAxis4
+    override def yAxes2: Double = 2 * yCen - yAxis4
+    override def xAxes3: Double = 2 * xCen - xAxes1
+    override def yAxes3: Double = 2 * yCen - yAxes1
+    override def pAxes4: Pt2 = cen + s0Angle.toVec2(radius2)
     override def xAxis4: Double = pAxes4.x
     override def yAxis4: Double = pAxes1.y
-    override def xAxes2: Double = 2 * xCen - xAxis4
-    override def yAxes2: Double = 2 * yCen - yAxis4
-
-    def xAxes3: Double = 2 * xCen - xAxes1
-    def yAxes3: Double = 2 * yCen - yAxes1
-
     override def radius1: Double = cen.distTo(pAxes1)
-
+    override def cenP1: Vec2 = cen >> pAxes1
+    override def cenP2: Vec2 = cen >> pAxes2
+    override def cenP3: Vec2 = cen >> pAxes3
+    override def cenP4: Vec2 = cen >> pAxes4
     def a: Double = radius1.max(radius2)
     def b: Double = radius1.min(radius2)
     override def area: Double = Pi * radius1 * radius2

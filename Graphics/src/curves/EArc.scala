@@ -5,34 +5,7 @@ import Colour.Black
 
 /** Elliptical Arc. the trait has 2 implementations [[CArc]] and [[EArc.EArcImp]]. */
 trait EArc extends EllipseBased with CurveSeg
-{
-  /** The X component of the centre of the Elliptical arc. */
-  def xCen: Double
-
-  /** The Y component of the centre of the Elliptical arc. */
-  def yCen: Double
-
-  /** The centre of this elliptical arc. this method has been left abstract to allow the comment to be overridden in CArc. */
-  def cen: Pt2
-
-
-
-  /** The 2D vector [[Vec2]] from the centre point to pAxes1, the end point of axis 1 , by default on the right of the Ellipse this arc is based
-   *  on. */
-  def cenP1: Vec2
-
-  /** The 2D vector [[Vec2]] from the centre point to pAxes2, the start point of axis 2, by default at the bottom of the Ellipse this arc is based
-   *  on. */
-  def cenP2: Vec2
-
-  /** The 2D vector [[Vec2]] from the centre point to pAxes3, the start point of axis 1 , by default on the left of the Ellipse this arc is based
-   *  on. */
-  def cenP3: Vec2
-
-  /** The 2D vector [[Vec2]] from the centre point to pAxes4, the end point of axis 2, by default at the top of the Ellipse this arc is based on. */
-  def cenP4: Vec2
-
-  /** The vector [Vec2] from the centre of the arc to the start point of the arc. */
+{ /** The vector [Vec2] from the centre of the arc to the start point of the arc. */
   def cenStart: Vec2 = cen >> pStart
 
   /** The angle of the start point of the arc, relative to its centre. */

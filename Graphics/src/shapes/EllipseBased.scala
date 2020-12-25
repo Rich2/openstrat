@@ -18,6 +18,15 @@ trait EllipseBased extends GeomElem
   /** Diameter 2 of this ellipse. By default this is the vertical axis of the ellipse. This can be the major or minor axis. */
   final def diameter2: Double = radius2 * 2
 
+  /** The X component of the centre of the Ellipse. */
+  def xCen: Double
+
+  /** The Y component of the centre of the Ellipse. */
+  def yCen: Double
+
+  /** The centre of the ellipse. */
+  def cen: Pt2
+
   /** The end point of axis 1. By default this is on the right of the Ellipse. Mathematically this can be referred to as a vertex for the major axis
    *  or a co-vertex for the minor axis. */
   def pAxes1: Pt2
@@ -62,4 +71,19 @@ trait EllipseBased extends GeomElem
   /** The Y component of the end point of axis 2. By default this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or
    *  a co-vertex for the minor axis. */
   def yAxis4: Double
+
+  /** The 2D vector [[Vec2]] from the centre point to pAxes1, the end point of axis 1 , by default on the right of the Ellipse this arc is based
+   *  on. */
+  def cenP1: Vec2
+
+  /** The 2D vector [[Vec2]] from the centre point to pAxes2, the start point of axis 2, by default at the bottom of the Ellipse this arc is based
+   *  on. */
+  def cenP2: Vec2
+
+  /** The 2D vector [[Vec2]] from the centre point to pAxes3, the start point of axis 1 , by default on the left of the Ellipse this arc is based
+   *  on. */
+  def cenP3: Vec2
+
+  /** The 2D vector [[Vec2]] from the centre point to pAxes4, the end point of axis 2, by default at the top of the Ellipse this arc is based on. */
+  def cenP4: Vec2
 }
