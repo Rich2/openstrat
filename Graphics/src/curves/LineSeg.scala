@@ -97,6 +97,12 @@ object LineSeg
 
   @inline def apply(xStart: Double, yStart: Double, xEnd: Double, yEnd: Double): LineSeg = new LineSeg(xStart, yStart, xEnd, yEnd)
 
+  /** Creates a horizontal LineSeg. */
+  def horr(y: Double, xStart: Double, yEnd: Double): LineSeg = new LineSeg(xStart, y, xStart, y)
+
+  /** Creates a vertical LineSeg. */
+  @inline def vert(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
+
   implicit val persistImplicit: Persist[LineSeg] with Eq[LineSeg] =
     new Persist2[Pt2, Pt2, LineSeg]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, LineSeg(_, _))
 
@@ -107,13 +113,4 @@ object LineSeg
   }
 
   implicit def transimplicit: AffineTrans[LineSeg] = (obj: LineSeg, f: Pt2 => Pt2) => LineSeg(f(obj.pStart), f(obj.pEnd))
-}
-
-object HorrizontalLine
-{ /** Creates a horizontal Line2 */
-  @inline def apply(y: Double, xStart: Double, yEnd: Double): LineSeg = new LineSeg(xStart, y, xStart, y)
-}
-object VerticalLine
-{ /** Creates a vertical Line2 */
-  @inline def apply(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
 }
