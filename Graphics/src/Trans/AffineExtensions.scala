@@ -10,25 +10,4 @@ class AffineExtensions[T](value: T, ev: AffineTrans[T])
 {
   /** General Vec2 to Vec2 transformation. */
   def trans(f: Pt2 => Pt2):  T = ev.trans(value, f)
-
-  /** Applies scale transformation and adds x on 2 dimensional vectors. */
-  def scaleSlateX(factor: Double, xDelta: Double): T = trans(v => v.scale(factor).addX(xDelta))
-
-  /** The scale transformation on 2 dimensional vectors. */
-  def scaleSlateY(factor: Double, yDelta: Double): T = trans(v => v.scale(factor).addY(yDelta))
-
-  def scaleY(factor: Double): T = trans(_.yScale(factor))
-  def scaleX(factor: Double): T = trans(_.xScale(factor))
-
-  /** Mirrors along the Y axis by negating X. */
-  def negX: T = trans(_.negX)
-
-  /** Mirrors along the X axis by negating Y. */
-  def negY: T = trans(_.negY)
-
-  /** Vec2 transformation that negates x and y values */
-  def negXY: T = trans(p => Pt2(-p.x, -p.y))
 }
-
-
-
