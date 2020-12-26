@@ -67,12 +67,14 @@ class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Do
   @inline override def _7 = yEndMetres
 }
 
-object LineSegDist
+/** To be removed. */
+object LineSegDistTail
 { def apply(endPt: Dist2): DistCurveTail = new DistCurveTail(10, 0, 0, 0, 0, endPt.xMetres, endPt.yMetres)
 //   override def toVec2s(f: Dist2 => Vec2): CurveSeg = LineSeg(f(endPt))   
 }
 
-object ArcSegDist
+/** To be removed. */
+object ArcSegDistTail
 {
    def apply(cenPt: Dist2, endPt: Dist2): DistCurveTail =
       new DistCurveTail(11, 0, 0, cenPt.xMetres, cenPt.yMetres, endPt.xMetres, endPt.yMetres)
