@@ -2,9 +2,14 @@
 package ostrat
 package geom
 
+/** An arc based on an ellipse whose axes are aligned to the X and Y axes. This is a trait as the [[EArclign.EArclignImp]] and [[CArc]] classes both
+ * fulfill this interface. */
 trait EArclign extends EArc
 {
+  /** The radius of the axis of the ellipse aligned to the X axis. */
   def xRadius: Double
+
+  /** The radius of the axis of the ellipse aligned to the Y axis. */
   def yRadius: Double
 
   override def addRotations(delta: Int): EArclign
@@ -12,9 +17,6 @@ trait EArclign extends EArc
   /** Translate 2D geometric transformation on this EArclign returns an EArclign. */
   override def xySlate(xOffset: Double, yOffset: Double): EArclign =
     EArclign(pStart.xySlate(xOffset, yOffset), cen.xySlate(xOffset, yOffset), xRadius, yRadius, pEnd.xySlate(xOffset, yOffset), counter)
-
-  /** Translate 2D geometric transformation on this EArclign. The Return type will be narrowed in sub traits and  classes. */
-  //override def slate(offset: Vec2Like): EArclign = EArclign(pStart.slate(offset), cen.slate(offset), xRadius, yRadius, pEnd.slate(offset), counter)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
@@ -32,6 +34,7 @@ trait EArclign extends EArc
     EArclign(pStart.prolign(matrix), cen.prolign(matrix), xRadius, yRadius, pEnd.prolign(matrix), counter)
 }
 
+/** Companion object for [[EArclign]] trait, an arc that is based on Ellipse aligned to the X and Y axes. */
 object EArclign
 {
   def apply(pStart: Pt2, cen: Pt2, xRadius: Double, yRadius: Double, pEnd: Pt2, counter: Int): EArclign =

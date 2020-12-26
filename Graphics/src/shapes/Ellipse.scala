@@ -20,11 +20,11 @@ trait Ellipse extends EllipseBased with ShapeCentred
   final def pAxes2: Pt2 = Pt2(xAxes2, yAxes2)
   override def pAxes3: Pt2 = xAxes3 pp yAxes3
 
-  /** The major radius of this ellipse. */
-  def a: Double
+  /** The major radius of this ellipse, often referred to as a in maths. */
+  def rMajor: Double
 
-  /** The major radius of this ellipse. */
-  def b: Double
+  /** The major radius of this ellipse,often refered to as b in maths. */
+  def rMinor: Double
 
   /** The h value of this ellipse. */
   def h: Double
@@ -43,7 +43,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
 
-  def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cs1s0(f(cen), f(pAxes1), f(pAxes4))
+  def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.axes1axes4(f(cen), f(pAxes1), f(pAxes4))
 
   /** Translate geometric transformation. */
   override def xySlate(xOffset: Double, yOffset: Double): Ellipse = fTrans(_.addXY(xOffset, yOffset))
@@ -76,16 +76,17 @@ object Ellipse
   /** Factory method for an Ellipse. The apply factory methods in this Ellipse companion object default to an [[EllipseImp]] class. */
   def apply(radius1: Double, radius0: Double, cen: Pt2): Ellipse = new EllipseImp(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
 
-  def cs1s0(cen: Pt2, v1: Pt2, v0: Pt2): EllipseImp =
-  { val radius0: Double = cen.distTo(v0)
-    new EllipseImp(cen.x, cen.y, v1.x, v1.y, radius0)
+  /** Factory method that creates an ellipse from the centre point, axes point 1 and axes point 4. */
+  def axes1axes4(cen: Pt2, axes1: Pt2, axes4: Pt2): EllipseImp =
+  { val radius0: Double = cen.distTo(axes4)
+    new EllipseImp(cen.x, cen.y, axes1.x, axes1.y, radius0)
   }
 
-  implicit val slateImplicit: Slate[Ellipse] = (ell, dx, dy) => cs1s0(ell.cen.addXY(dx, dy), ell.pAxes1.addXY(dx, dy), ell.pAxes4.addXY(dx, dy))
+  implicit val slateImplicit: Slate[Ellipse] = (ell, dx, dy) => axes1axes4(ell.cen.addXY(dx, dy), ell.pAxes1.addXY(dx, dy), ell.pAxes4.addXY(dx, dy))
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
 
   implicit val rotateImplicit: Rotate[Ellipse] =
-    (ell: Ellipse, angle: AngleVec) => Ellipse.cs1s0(ell.cen.rotate(angle), ell.pAxes1.rotate(angle), ell.pAxes4.rotate(angle))
+    (ell: Ellipse, angle: AngleVec) => Ellipse.axes1axes4(ell.cen.rotate(angle), ell.pAxes1.rotate(angle), ell.pAxes4.rotate(angle))
 
   implicit val prolignImplicit: Prolign[Ellipse] = (obj, matrix) => obj.prolign(matrix)
 
@@ -116,11 +117,11 @@ object Ellipse
     override def cenP2: Vec2 = cen >> pAxes2
     override def cenP3: Vec2 = cen >> pAxes3
     override def cenP4: Vec2 = cen >> pAxes4
-    def a: Double = radius1.max(radius2)
-    def b: Double = radius1.min(radius2)
+    override def rMajor: Double = radius1.max(radius2)
+    override def rMinor: Double = radius1.min(radius2)
     override def area: Double = Pi * radius1 * radius2
-    override def e: Double = sqrt(a.squared - b.squared) / a
-    override def h: Double = (a - b).squared / (a + b).squared
+    override def e: Double = sqrt(rMajor.squared - rMinor.squared) / rMajor
+    override def h: Double = (rMajor - rMinor).squared / (rMajor + rMinor).squared
 
     def boundingRect: BoundingRect =
     { val xd0: Double = radius1.squared * (alignAngle.cos).squared + radius2.squared * (alignAngle.sin).squared
