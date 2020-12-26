@@ -1,7 +1,8 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
+/** This class needs replacing. */
 class CurveSegDists(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl7[DistCurveTail]
 { type ThisT = CurveSegDists
   override def unsafeFromArray(array: Array[Double]): CurveSegDists = new CurveSegDists(array)

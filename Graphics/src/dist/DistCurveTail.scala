@@ -2,7 +2,8 @@
 package ostrat
 package geom
 
-/** A base trait for DistCurveSeg and DistCurveTail and their associated GraphicElemsDist (these haven't been implemented or precisely named yet). */
+/** Needs removing. A base trait for DistCurveSeg and DistCurveTail and their associated GraphicElemsDist (these haven't been implemented or precisely
+ *  named yet). */
 trait DistCurveSegLike
 { /** Set to Double.NaN if LineSegment. Set to Double.Positive Infinity of ArcSegment, otherwise the x component of the the first bezier control
     *  point. */
@@ -31,8 +32,8 @@ trait DistCurveSegLike
   final def pEnd: Dist2 = Dist2(xEnd, yEnd)
 }
 
-/** A curve segment tail described in distance units rather than scalars. A DistCurveSeg without its starting point which will normally be supplied
- * by the preceding DistCurveTail. */
+/** Needs removing. A curve segment tail described in distance units rather than scalars. A DistCurveSeg without its starting point which will
+ *  normally be supplied by the preceding DistCurveTail. */
 class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double,
                     val xEndMetres: Double, val yEndMetres: Double) extends ProdDbl7 with DistCurveSegLike
 { 

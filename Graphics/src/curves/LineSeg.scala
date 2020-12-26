@@ -109,11 +109,11 @@ object LineSeg
   implicit def transimplicit: AffineTrans[LineSeg] = (obj: LineSeg, f: Pt2 => Pt2) => LineSeg(f(obj.pStart), f(obj.pEnd))
 }
 
-object HLine
+object HorrizontalLine
 { /** Creates a horizontal Line2 */
   @inline def apply(y: Double, xStart: Double, yEnd: Double): LineSeg = new LineSeg(xStart, y, xStart, y)
 }
-object VLine
+object VerticalLine
 { /** Creates a vertical Line2 */
   @inline def apply(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
 }
