@@ -22,6 +22,10 @@ package object geom
   implicit def boundedToExtensions[T <: BoundedElem](value: T): BoundedExtensions[T] = new BoundedExtensions[T](value)
   implicit def scaleToExtensions[T](value: T)(implicit ev: Scale[T]): ScaleExtensions[T] = new ScaleExtensions[T](value, ev)
   implicit def reflectAxesToExtension[T](value: T)(implicit ev: ReflectAxes[T]): ReflectAxesExtension[T] = new ReflectAxesExtension[T](value)(ev)
+
+  implicit def reflectAxesSlateToExtension[T](value: T)(implicit evR: ReflectAxes[T], evS: Slate[T]): ReflectAxesSlateExtension[T] =
+    new ReflectAxesSlateExtension[T](value)(evR, evS)
+
   implicit def rotateToExtensions[T, T1 <: T](value: T1)(implicit ev: Rotate[T]): RotateExtensions[T] = new RotateExtensions[T](value, ev)
   implicit def reflectToExtension[T](value: T)(implicit ev: Reflect[T]): ReflectExtensions[T] = new ReflectExtensions[T](value, ev)
 

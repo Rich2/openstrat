@@ -49,7 +49,7 @@ object ReflectAxes
   }
 }
 
-/** Class to provide extension methods for TransAxes typeclass. */
+/** Class to provide extension methods for TransAxes type class. */
 class ReflectAxesExtension[T](thisT: T)(implicit ev: ReflectAxes[T])
 {
   /** Reflect, mirror across the X axis by negating Y. */
@@ -60,4 +60,20 @@ class ReflectAxesExtension[T](thisT: T)(implicit ev: ReflectAxes[T])
   
   /** Negates X and Y, functionally the same as rotate180. */
   @inline def negXY: T = ev.negYT(ev.negXT(thisT))
+}
+
+/** Extension class for types that fulfill the type class interface for [[ReflectAxes]] and [[Slate]]. */
+class ReflectAxesSlateExtension[T](thisT: T)(implicit evR: ReflectAxes[T], evS: Slate[T])
+{
+  /** Reflect across a line parallel to the X axis. */
+  def reflectXParallel(yValue: Double): T =
+  { val res1 = evR.negYT(thisT)
+    evS.ySlateT(res1, 2 * yValue)
+  }
+
+  /** Reflect across a line parallel to the Y axis. */
+  def reflectYParallel(xValue: Double): T =
+  { val res1 = evR.negXT(thisT)
+    evS.xSlateT(res1, 2 * xValue)
+  }
 }
