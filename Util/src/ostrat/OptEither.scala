@@ -11,4 +11,4 @@ case class SomeA[+A, +B](value: A) extends OptEither[A, B]
 case class SomeB[+A, +B](value: B) extends OptEither[A, B]
 
 /** An OptEither with a none value it has neither a value of type A or typeB,  */
-case object NoOptEither
+case object NoOptEither extends OptEither[Nothing, Nothing]
