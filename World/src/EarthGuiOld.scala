@@ -25,7 +25,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def saveNamePrefix: String = "EarthGui"
   def saveName = saveNamePrefix + ".save"
   def loadView(): Unit = canv.fromFileFindForeach(saveName, newView => setView(newView))   
-  @inline def polyToGlobedArea(latLongs: LatLongs): GlobedArea = focus.polyToGlobedArea(latLongs)
+  @inline def polyToGlobedArea(latLongs: LatLongs): GlobeViewShape = focus.polyToGlobedArea(latLongs)
   def latLongToDist2(ll: LatLong): Dist2 = focus.fromFocusDist2(ll)
   @inline def polyToDist2s(latLongs: LatLongs): Dist2s =  latLongs.pMap(focus.fromFocusDist2)//focus.polyToDist2s(latLongs) 
   val trans: Dist2 => Pt2 = _ / ifInvScale

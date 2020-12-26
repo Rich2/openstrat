@@ -55,15 +55,16 @@ class Dist3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Dis
   override def typeStr: String = "Dist3s"
   override def fElemStr: Dist3 => String = _.str
   override def newElem(d1: Double, d2: Double, d3: Double): Dist3 = new Dist3(d1, d2, d3)
+
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
    *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative
    *  points are moved to the horizon. */
-  def earthZPositive: GlobedArea =
+  def earthZPositive: GlobeViewShape =
   {
     existsCount(_.z.pos) match
-    { case 0 => GlobedNone
-    case n if n == elemsLen => GlobedAll(pMap(_.xy))
-    case n => GlobedNone
+    { case 0 => GlobeViewHidden
+    case n if n == elemsLen => GlobeViewAll(pMap(_.xy))
+    case n => GlobeViewHidden
       //      {
       //        var els: List[Either[Dist2, Dist2]] = lMap {
       //          case el if el.z.pos => Right(el.xy)

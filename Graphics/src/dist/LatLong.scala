@@ -68,7 +68,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   /** Note this method does not check which side of the earth relative to viewer the polygon verts are */
   def polyToDist2s(inp: LatLongs): Dist2s = inp.pMap(fromFocusDist2)
 
-  def polyToGlobedArea(inp: LatLongs): GlobedArea =
+  def polyToGlobedArea(inp: LatLongs): GlobeViewShape =
   { val d3s: Dist3s = inp.pMap(el => fromFocusDist3(el))
     d3s.earthZPositive
   }

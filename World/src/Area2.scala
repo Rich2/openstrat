@@ -15,7 +15,7 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
    {  
       eg.polyToGlobedArea(latLongs) match
       {
-         case GlobedAll(d2s) =>
+         case GlobeViewAll(d2s) =>
          { 
             val v2s: PolygonImp = d2s.pMap(eg.trans)
             val cenXY: Pt2 = eg.latLongToXY(cen)
@@ -26,13 +26,13 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
               else Arr()
             (vis1 ++ vis2 ++ vis3)
          }
-         case GlobedSome(curveSegDists) =>
+         case GlobeViewSome(curveSegDists) =>
          {
             val cenXY: Pt2 = eg.latLongToXY(cen)
             val curveSegs: ShapeGenOld = curveSegDists.pMap(_.toCurveSeg(eg.trans))
             Arr(PolyCurveParentFull.fill(cenXY, curveSegs, this, terr.colour))
          }
-         case GlobedNone => Arr()
+         case GlobeViewHidden => Arr()
       }
    }   
 }
