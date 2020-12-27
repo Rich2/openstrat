@@ -2,8 +2,8 @@
 package ostrat
 package geom
 
-/* A polygon using distances meaasured in metres rather than scalars. */
-class PolygonDist(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
+/* A polygon using distances measured in metres rather than scalars. */
+final class PolygonDist(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
 { type ThisT = PolygonDist
   def unsafeFromArray(array: Array[Double]): PolygonDist = new PolygonDist(array)
   override def typeStr: String = "DPolygon"
@@ -11,7 +11,7 @@ class PolygonDist(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl
   override def fElemStr: Dist2 => String = _.str
 }
 
-/** The companion object for DPolygon. Provides an implicit builder. */
+/** The companion object for PolygonDist. Provides an implicit builder. */
 object PolygonDist extends ProdDbl2sCompanion[Dist2, PolygonDist]
 {
   implicit val persistImplicit: ArrProdDbl2Persist[Dist2, PolygonDist] = new ArrProdDbl2Persist[Dist2, PolygonDist]("DPolygon")

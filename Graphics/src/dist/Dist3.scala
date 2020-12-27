@@ -10,9 +10,9 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
   def _1 = xMetres
   def _2 = yMetres
   def _3 = zMetres
-  def x: Dist = Dist(xMetres)
-  def y: Dist = Dist(yMetres)
-  def z: Dist = Dist(zMetres)
+  def x: Metres = Metres(xMetres)
+  def y: Metres = Metres(yMetres)
+  def z: Metres = Metres(zMetres)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: Dist3): Area = x * operand.x + y * operand.y + z * operand.z
@@ -24,10 +24,10 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
   def zPos: Boolean = z.pos
   def zNeg: Boolean = z.neg
   def ifZPos[A](vPos: => A, vNeg: => A): A = ife(zPos, vPos, vNeg)
-  def / (operator: Dist): Pt3 = Pt3(x / operator, y / operator, z / operator)
+  def / (operator: Metres): Pt3 = Pt3(x / operator, y / operator, z / operator)
   def toXYIfZPositive: Option[Dist2] = ifZPos(Some(Dist2(x, y)), None)
   def xRotation(rotation: Double): Dist3 =
-  { val scalar: Dist = Dist(sqrt(y.metres * y.metres + z.metres * z.metres))
+  { val scalar: Metres = Metres(sqrt(y.metres * y.metres + z.metres * z.metres))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
     val ang0 = ife2(//As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
@@ -44,8 +44,8 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
 object Dist3
 { 
   def metres(xMetres: Double, yMetres: Double, zMetres: Double): Dist3 = new Dist3(xMetres, yMetres, zMetres)
-  def apply(x: Dist, y: Dist, z: Dist): Dist3 = new Dist3(x.metres, y.metres, z.metres)
-  implicit object Dist3Persist extends Persist3[Dist, Dist, Dist, Dist3]("Dist3", "x", _.x, "y", _.y, "z", _.z, apply)
+  def apply(x: Metres, y: Metres, z: Metres): Dist3 = new Dist3(x.metres, y.metres, z.metres)
+  implicit object Dist3Persist extends Persist3[Metres, Metres, Metres, Dist3]("Dist3", "x", _.x, "y", _.y, "z", _.z, apply)
   var counter = 0
 }
 /** Collection class for Dist3s. Not clear if this a Polygon equivalent or a Vec3s equivalent */

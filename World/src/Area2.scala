@@ -8,7 +8,7 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
 {
    override def toString = name.appendCommas(terr.toString)
    def aStrs: Arr[String] = Arr(name)
-   def textScale: Dist = 15.km   
+   def textScale: Metres = 15.km
    def latLongs: LatLongs   
    
    def display(eg: EarthGuiOld, fill: Boolean = true): GraphicElems =

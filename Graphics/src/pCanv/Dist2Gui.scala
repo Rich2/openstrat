@@ -7,18 +7,18 @@ import geom._
 trait Dist2Gui extends MapGui
 {
   /** The Distance represented by one pixel width / height on the screen */
-  var scale: Dist
+  var scale: Metres
   val margin = 35
    
   //(canv.width.subMin(margin, 20) / mapWidth).min(canv.height.subMin(margin, 20) / mapHeight)
-  def scaleMax: Dist
-  def scaleMin: Dist //= scaleAlignedMin.min(10.millionMiles)
+  def scaleMax: Metres
+  def scaleMin: Metres //= scaleAlignedMin.min(10.millionMiles)
 
   var mapFocus: Dist2 = Dist2(0.km, 0.km)
   //@inline def setFocus(x: Distouble, y: Double): Unit = mapFocus = Vec2(x, y)
   
-  def scaleAlignedMin: Dist = ??? //mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
-  def scaleRotatedMin: Dist = ??? //(mapWidth.squared + mapHeight.squared) / mapWidth.max(mapHeight).max(0.000001)
+  def scaleAlignedMin: Metres = ??? //mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
+  def scaleRotatedMin: Metres = ??? //(mapWidth.squared + mapHeight.squared) / mapWidth.max(mapHeight).max(0.000001)
    
   val bZoomIn = clickButtonOld("+", zoomInCmd)
   val bZoomOut = clickButtonOld("-", zoomOutCmd)

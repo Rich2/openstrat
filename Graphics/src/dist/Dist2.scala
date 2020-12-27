@@ -7,21 +7,21 @@ import math._
 final class Dist2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
 { override def toString: String = Dist2.PersistImplicit.show(this, 0)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist2]
-  def x: Dist = Dist(xMetres)
-  def y: Dist = Dist(yMetres)
+  def x: Metres = Metres(xMetres)
+  def y: Metres = Metres(yMetres)
   override def _1: Double = xMetres
   override def _2: Double = yMetres
   def + (op: Dist2): Dist2 = Dist2(x + op.x, y + op.y)
   def - (op: Dist2): Dist2 = Dist2(x - op.x, y - op.y)
-  def addXY (otherX: Dist, otherY: Dist): Dist2 = Dist2(x + otherX, y + otherY)
-  def subXY (otherX: Dist, otherY: Dist): Dist2 = Dist2(x - otherX, y - otherY)
-  def addX(adj: Dist): Dist2 = Dist2(x + adj, y)
-  def addY(adj: Dist): Dist2 = Dist2(x, y + adj)
-  def subX(adj: Dist): Dist2 = Dist2(x - adj, y)
-  def subY(adj: Dist): Dist2 = Dist2(x, y - adj)
+  def addXY (otherX: Metres, otherY: Metres): Dist2 = Dist2(x + otherX, y + otherY)
+  def subXY (otherX: Metres, otherY: Metres): Dist2 = Dist2(x - otherX, y - otherY)
+  def addX(adj: Metres): Dist2 = Dist2(x + adj, y)
+  def addY(adj: Metres): Dist2 = Dist2(x, y + adj)
+  def subX(adj: Metres): Dist2 = Dist2(x - adj, y)
+  def subY(adj: Metres): Dist2 = Dist2(x, y - adj)
   def * (operator: Double): Dist2 = Dist2(x * operator, y * operator)
   def / (operator: Double): Dist2 = Dist2(x / operator, y / operator)
-  def magnitude: Dist = Dist(math.sqrt(xMetres.squared + yMetres.squared))
+  def magnitude: Metres = Metres(math.sqrt(xMetres.squared + yMetres.squared))
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: Dist2): Area = x * operand.x + y * operand.y
@@ -49,10 +49,10 @@ final class Dist2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
 
 object Dist2
 { def metres(xMetres: Double, yMetres: Double): Dist2 = new Dist2(xMetres, yMetres)
-  def apply(x: Dist, y: Dist): Dist2 = new Dist2(x.metres, y.metres)
+  def apply(x: Metres, y: Metres): Dist2 = new Dist2(x.metres, y.metres)
   
   implicit class Dist2Implicit(thisDist2: Dist2)
-  { def / (operator: Dist): Pt2 = Pt2(thisDist2.x/ operator, thisDist2.y / operator)
+  { def / (operator: Metres): Pt2 = Pt2(thisDist2.x/ operator, thisDist2.y / operator)
   }
 
   implicit val PersistImplicit: Persist[Dist2] = new PersistD2[Dist2]("Dist2", "x", _.xMetres, "y", _.yMetres, new Dist2(_, _))

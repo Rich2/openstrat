@@ -6,8 +6,8 @@ package geom
 trait LatLongBase
 { def latSecs: Double
   def longSecs: Double
-  def equatorialRadius: Dist
-  def polarRadius: Dist
+  def equatorialRadius: Metres
+  def polarRadius: Metres
   @inline final def lat: Latitude = Latitude.secs(latSecs)
   @inline final def long: Longitude = Longitude.secs(longSecs)
   @inline final def latDegs: Double = latSecs.secsToDegs

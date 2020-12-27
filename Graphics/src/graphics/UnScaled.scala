@@ -7,7 +7,7 @@ trait UnScaledPolygon //extends  UnScaled
 { type ThisT = PolygonImp
   def apply(): PolygonImp
   def fTrans(f: Pt2 => Pt2): ThisT = apply().fTrans(f)
-  def dist(width: Dist, cen: Dist2 = Dist2Z): PolygonDist  = apply().distScale(width)
+  def dist(width: Metres, cen: Dist2 = Dist2Z): PolygonDist  = apply().distScale(width)
   def minX: Double = apply().minX
   def maxX: Double = apply().maxX
   def minY: Double = apply().minY

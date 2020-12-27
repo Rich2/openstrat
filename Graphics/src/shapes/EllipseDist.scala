@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-case class EllipseDist(xCen: Dist, yCen: Dist, x1: Dist, y1: Dist, x3: Dist, y3: Dist)
+case class EllipseDist(xCen: Metres, yCen: Metres, x1: Metres, y1: Metres, x3: Metres, y3: Metres)
 {
 
 }

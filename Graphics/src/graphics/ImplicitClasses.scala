@@ -14,11 +14,11 @@ class IntGeomImplicit(thisInt: Int)
   @inline def vv(y: Double): Vec2 = Vec2(thisInt, y)
 
   def ° : Angle = Angle(thisInt)
-  def km: Dist = Dist(thisInt * 1000)
-  def metre: Dist = Dist(thisInt)
-  @inline def miles: Dist = Dist(thisInt * 1609.344)
-  @inline def millionMiles: Dist = thisInt.miles * 1000000
-  def * (operator: Dist): Dist = Dist(thisInt * operator.metres)
+  def km: Metres = Metres(thisInt * 1000)
+  def metre: Metres = Metres(thisInt)
+  @inline def miles: Metres = Metres(thisInt * 1609.344)
+  @inline def millionMiles: Metres = thisInt.miles * 1000000
+  def * (operator: Metres): Metres = Metres(thisInt * operator.metres)
 
   /** Converts this Int into an absolute angle of the given degrees from 0 until 360 degrees. */
   def angle: Angle = Angle(thisInt)
@@ -44,11 +44,11 @@ class DoubleImplicitGeom(thisDouble: Double)
    *  operators. A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [Pt3]. */
   @inline def vv(y: Double): Vec2 = Vec2(thisDouble, y)
 
-  def km: Dist = Dist(thisDouble * 1000)
-  def metre: Dist = Dist(thisDouble)
-  def * (operator: Dist): Dist = Dist(thisDouble * operator.metres)
-  @inline def miles: Dist = Dist(thisDouble * 1609.344)
-  @inline def millionMiles: Dist = thisDouble.miles * 1000000
+  def km: Metres = Metres(thisDouble * 1000)
+  def metre: Metres = Metres(thisDouble)
+  def * (operator: Metres): Metres = Metres(thisDouble * operator.metres)
+  @inline def miles: Metres = Metres(thisDouble * 1609.344)
+  @inline def millionMiles: Metres = thisDouble.miles * 1000000
   def radians: Angle = Angle.radians(thisDouble)
 
   /** Converts this Double into an absolute angle of the given degrees from 0 until 360 degrees. */
@@ -66,5 +66,5 @@ class DoubleImplicitGeom(thisDouble: Double)
   def south: Latitude = Latitude.apply(-thisDouble)
   def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
   def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
-  def metres: Dist = new Dist(thisDouble)
+  def metres: Metres = new Metres(thisDouble)
 }

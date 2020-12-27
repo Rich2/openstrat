@@ -65,10 +65,10 @@ package object geom
   val LongD = 2.0 / Cos30
   val cos30: Double = cos(Pi / 6)
   val LatLong0 = LatLong.degs(0, 0)
-  val EarthPolarRadius: Dist = 6356.7523.km
-  val EarthEquatorialRadius: Dist = 6378.137.km
-  val EarthAvDiameter: Dist = 12742.km
-  val EarthAvRadius: Dist = EarthAvDiameter / 2
+  val EarthPolarRadius: Metres = 6356.7523.km
+  val EarthEquatorialRadius: Metres = 6378.137.km
+  val EarthAvDiameter: Metres = 12742.km
+  val EarthAvRadius: Metres = EarthAvDiameter / 2
   type GraphicElems = Arr[GraphicElem]
 
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)
@@ -96,8 +96,8 @@ package object geom
                 baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, fontSize, posn, colour, align, baseLine)
   }
 
-  implicit class DistImplicit(thisDist: Dist)
-  {  def / (operand: Dist): Double = thisDist.metres / operand.metres
+  implicit class DistImplicit(thisDist: Metres)
+  {  def / (operand: Metres): Double = thisDist.metres / operand.metres
   }
    
   implicit class OptionGeomImplicit[A](thisOption: Option[A])

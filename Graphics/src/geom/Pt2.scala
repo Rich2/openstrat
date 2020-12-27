@@ -66,7 +66,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)
 
   @inline def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
-  @inline def toDist2(factor: Dist): Dist2 = Dist2(x * factor, y * factor)
+  @inline def toDist2(factor: Metres): Dist2 = Dist2(x * factor, y * factor)
 
   @inline def invScale(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 
@@ -231,7 +231,7 @@ object Pt2
   //def fromAngle(angle: Angle, scalar: Double = 1.0): Pt2 = angle.toVec2(scalar)
 
   implicit class Pt2Implicit(thisPt: Pt2)
-  { def * (operand: Dist): Dist2 = Dist2(thisPt.x * operand, thisPt.y * operand)
+  { def * (operand: Metres): Dist2 = Dist2(thisPt.x * operand, thisPt.y * operand)
 
   }
 
