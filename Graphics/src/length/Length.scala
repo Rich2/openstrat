@@ -7,6 +7,10 @@ trait Length extends Any
 { /** The value of this length expressed metres. */
   def metres: Double
   def +(operand: Length): Length
+  def -(operand: Length): Length
+  def unary_- : Length
+  def *(operand: Double): Length
+  def /(operand: Double): Length
   def kMetres: Double = metres / 1000
 }
 
@@ -14,6 +18,10 @@ final class KMetres(override val kMetres: Double) extends AnyVal with Length
 {
   override def metres: Double = kMetres * 1000
   override def + (operand: Length): KMetres = KMetres(kMetres + operand.metres)
+  override def - (operand: Length): KMetres = KMetres(kMetres - operand.metres)
+  override def unary_- : KMetres = KMetres(-kMetres)
+  override def *(operand: Double): KMetres = KMetres(kMetres * operand)
+  override def /(operand: Double) : KMetres = KMetres(kMetres / operand)
 }
 
 object KMetres

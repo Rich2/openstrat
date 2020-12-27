@@ -8,10 +8,10 @@ final class Metres(val metres: Double) extends AnyVal with Length with Ordered[M
 { def typeStr: String = "Dist"
   //def str = persistD1(metres)
   override def +(operand: Length): Metres = Metres(metres + operand.metres)
-  def -(operand: Metres): Metres = Metres(metres - operand.metres)
-  def unary_- : Metres = Metres(-metres)
-  def *(operand: Double): Metres = Metres(metres * operand)
-  def /(operand: Double): Metres = Metres(metres / operand)
+  override def -(operand: Length): Metres = Metres(metres - operand.metres)
+  override def unary_- : Metres = Metres(-metres)
+  override def *(operand: Double): Metres = Metres(metres * operand)
+  override def /(operand: Double): Metres = Metres(metres / operand)
   def max(operand: Metres): Metres = ife(metres > operand.metres, this, operand)
   def min(operand: Metres): Metres = ife(metres < operand.metres, this, operand)
   def kmStr2 = (metres / 1000).str2 + "km"
