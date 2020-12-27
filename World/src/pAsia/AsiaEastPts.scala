@@ -30,7 +30,7 @@ object AsiaEastPts
     
    val chittagong = degs(22.74, 91.54)
    val seAsiaNE = AsiaWestPts.mianiLat * neVietnamLong   
-   val seAsia = Area2("SEAsia", degs(20.0, 104.0), plain,
+   val seAsia = WldArea2("SEAsia", degs(20.0, 104.0), plain,
          binhai, rongcheng, haitzhou, putuo, longhai, hongKong, xuwen, yingzaiMouth,
                neVietnam, dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth, pathein,
                chittagong, AsiaWestPts.magdhara, AsiaWestPts.indiaNE,  AsiaWestPts.cAsiaSE) 
@@ -42,7 +42,7 @@ object AsiaEastPts
    val jindo = degs(34.39, 126.14)
    val ryongyon = degs(38.12, 124.78)
    val jinzhou = degs(40.93, 121.22)
-   val ceAsia = Area2("CEAsia", degs(47, 115), plain,
+   val ceAsia = WldArea2("CEAsia", degs(47, 115), plain,
          khabarovsk, chongpyong, busan, jindo, ryongyon, jinzhou, binhai, AsiaWestPts.cAsiaSE,  RusNorth.cAsiaNE)      
    
    val krasnoyarsk = degs(77.43, 103.99)
@@ -50,7 +50,7 @@ object AsiaEastPts
    val bukhta = degs(70.70, 131.07)
    val ustYansky = 72.81.north * farAsiaW
    val okhotsky = 58.73.north * farAsiaW   
-   val neAsia = Area2("NEAsia", degs(64, 113), taiga,
+   val neAsia = WldArea2("NEAsia", degs(64, 113), taiga,
          krasnoyarsk, bukhta, ustYansky, okhotsky, khabarovsk, RusNorth.cAsiaNE/*, AsiaWestPts.kazakNE*/, RusNorth.nRusNE)
    
    val sakha = degs(69.82, 159.7)
@@ -61,7 +61,7 @@ object AsiaEastPts
    val wKamchatka = degs(55.97, 155.67)
    val penzhinsky = degs(62.76, 164.60)
    val okhotsky2 = degs(59.42, 142.17)
-   val feAsia = Area2("FEAsia", degs(66.22,159.68), taiga,
+   val feAsia = WldArea2("FEAsia", degs(66.22,159.68), taiga,
          ustYansky, sakha, iultinsky, eSiberia, seProvidensky, sKamchatka, wKamchatka, penzhinsky, okhotsky2, okhotsky)      
   
    val sKyshu = degs(31.08, 130.75)
@@ -70,5 +70,5 @@ object AsiaEastPts
    val nHokaido = degs(45.5, 141.93)
    val eHokaido = degs(43.36, 145.74)
    val choshi = degs(35.71, 140.85)
-   val japan = Area2("Japan", degs(36.28, 138.71), plain, sKyshu, neKyushu, kashiwazaki, nHokaido, eHokaido, choshi)
+   val japan = WldArea2("Japan", degs(36.28, 138.71), plain, sKyshu, neKyushu, kashiwazaki, nHokaido, eHokaido, choshi)
 }

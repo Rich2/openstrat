@@ -4,7 +4,7 @@ package pEarth
 package pPts
 import geom._, LatLong._, WTile._
 
-object AmericasNorth extends Area1("AmericasNorth", 49 ll -100)
+object AmericasNorth extends WldArea1("AmericasNorth", 49 ll -100)
 {  
    val w49th = degs(49, -125.66)
    val yakut = degs(59.93, -141.03)
@@ -14,7 +14,7 @@ object AmericasNorth extends Area1("AmericasNorth", 49 ll -100)
    val wCanadaEN = 72.97.north * wCanadaE   
    val wCanadaES = 49.north * wCanadaE
    
-   val wCanada = Area2("WCanada", degs(64.051, -129.98), taiga, w49th, yakut, swAlaska, nwAlaska, wCanadaEN, wCanadaES)
+   val wCanada = WldArea2("WCanada", degs(64.051, -129.98), taiga, w49th, yakut, swAlaska, nwAlaska, wCanadaEN, wCanadaES)
 
    val nwPass = degs(69.5, -82.82)
    val eggIsland = degs(59.91, -94.85)
@@ -36,7 +36,7 @@ object AmericasNorth extends Area1("AmericasNorth", 49 ll -100)
    
    val eCanadaCoast = List(ungavaE, labradorE, newFoundlandE, eNovaScotia)
    
-   val eCanada = new Area2("ECanada", degs(53.71, -94), taiga)
+   val eCanada = new WldArea2("ECanada", degs(53.71, -94), taiga)
    {
       override val latLongs: LatLongs = (List(wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) :::
             eCanadaCoast ::: List(maineE, h49th80, wCanadaES)).toArrProdHomo
@@ -56,14 +56,14 @@ object AmericasNorth extends Area1("AmericasNorth", 49 ll -100)
    val montague = 31.70 ll -114.71
    
    
-   lazy val usa = Area2("UnitedStates", degs(39.8, -98.6), plain,
+   lazy val usa = WldArea2("UnitedStates", degs(39.8, -98.6), plain,
          /*cAmericaNW, */ sanDiego, humboldt, w49th, wCanadaES, h49th80, maineE,
          NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
    
    val cabotPulmo = 23.37 ll -109.44
    val sanLucas = 22.87 ll -109.91
    val wBaja = 27.84 ll -115.07
-   val baja = Area2("Baja", 27.80 ll -113.31, plain, sanDiego, montague, cabotPulmo, sanLucas, wBaja)      
+   val baja = WldArea2("Baja", 27.80 ll -113.31, plain, sanDiego, montague, cabotPulmo, sanLucas, wBaja)
    
    val mariato = degs(7.22, -80.88)
    val quebrada = degs(8.04, -82.88)
@@ -85,7 +85,7 @@ object AmericasNorth extends Area1("AmericasNorth", 49 ll -100)
    val stIsabel = degs(9.53, -79.25)
    val stIgnacio = degs(9.26, -78.12)
    val nePanama = degs(8.43, -77.26)
-   val cAmerica = Area2("CAmerica", degs(17.31, -94.16), jungle,
+   val cAmerica = WldArea2("CAmerica", degs(17.31, -94.16), jungle,
          sePanama, mariato, quebrada, swGuatemala, pochutala, manzanillo, cAmericaNW, rockyPoint, galveston, brownsville,
           coatz, champeton, nwYucatan, neYucatan, seBelize, eHonduras, kusapin, stIsabel, stIgnacio, nePanama)
    
@@ -95,9 +95,9 @@ object AmericasNorth extends Area1("AmericasNorth", 49 ll -100)
    val cabotCruz = 19.84 ll -77.73
    val yara = 20.45 ll -77.07
    val surgidero = 22.68 ll -82.29
-   val cuba = Area2("Cuba", 21.97 ll -78.96, jungle, wCuba, havana, eCuba, cabotCruz, yara, surgidero)
+   val cuba = WldArea2("Cuba", 21.97 ll -78.96, jungle, wCuba, havana, eCuba, cabotCruz, yara, surgidero)
          
-   type A2Type = Area2   
+   type A2Type = WldArea2
    
    override val a2Arr = Arr(usa, wCanada, eCanada, baja, cAmerica, cuba)
    

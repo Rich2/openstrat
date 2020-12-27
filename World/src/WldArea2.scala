@@ -1,22 +1,22 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pEarth
 import geom._
 
-/** A second level area */
-abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
+/** A second level area of the world, still not usre about the name. */
+abstract class WldArea2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
    override def toString = name.appendCommas(terr.toString)
    def aStrs: Arr[String] = Arr(name)
    def textScale: Metres = 15.km
-   def latLongs: LatLongs   
-   
+   def latLongs: LatLongs
+
    def display(eg: EarthGuiOld, fill: Boolean = true): GraphicElems =
-   {  
+   {
       eg.polyToGlobedArea(latLongs) match
       {
          case SomeA(d2s) =>
-         { 
+         {
             val v2s: PolygonImp = d2s.pMap(eg.trans)
             val cenXY: Pt2 = eg.latLongToXY(cen)
             val vis1: GraphicElems = ife(fill, Arr(v2s.fillActive(terr.colour, this)), Arr())
@@ -34,12 +34,12 @@ abstract class Area2(val symName: String, val cen: LatLong, val terr: WTile) ext
          }
          case NoOptEither => Arr()
       }
-   }   
+   }
 }
 
-object Area2
+object WldArea2
 {
-   def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new Area2(symName, cen, terr)
+   def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new WldArea2(symName, cen, terr)
    {      
       val latLongs = LatLongs(latLongArgs: _*)
    }  

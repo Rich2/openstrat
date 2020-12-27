@@ -4,7 +4,7 @@ package pEarth
 package pEurope
 import geom._, WTile._
 
-object Polandia extends Area2("Polandia", 50.07 ll 20.13, plain)
+object Polandia extends WldArea2("Polandia", 50.07 ll 20.13, plain)
 {
    val mielno = 54.26 ll 16.06
    val jaroslawiec = 54.54 ll 16.53
@@ -18,7 +18,7 @@ object Polandia extends Area2("Polandia", 50.07 ll 20.13, plain)
          Alpsland.zagreb, Alpsland.vienna)
 }
 
-object Baltland extends Area2("BaltLand", 56.46 ll 27.83, plain)
+object Baltland extends WldArea2("BaltLand", 56.46 ll 27.83, plain)
 {
    val klaipeda = 55.73 ll 21.08
    val ziemupe = 56.83 ll 21.06
@@ -65,7 +65,7 @@ object Baltland extends Area2("BaltLand", 56.46 ll 27.83, plain)
          southEast, Polandia.cenEast)   
 }
 
-object Gotland extends Area2("Gotland", 57.46 ll 18.47, plain)
+object Gotland extends WldArea2("Gotland", 57.46 ll 18.47, plain)
 {
    val southWest = 56.90 ll 18.12
    val west = 57.26 ll 18.09
@@ -77,7 +77,7 @@ object Gotland extends Area2("Gotland", 57.46 ll 18.47, plain)
 }
 
 
-object Saaremaa extends Area2("Saaremaa", 58.43 ll 22.52, plain)
+object Saaremaa extends WldArea2("Saaremaa", 58.43 ll 22.52, plain)
 {
    val south = 57.91 ll 22.03
    val uudibe = 58.15 ll 22.21
@@ -91,7 +91,7 @@ object Saaremaa extends Area2("Saaremaa", 58.43 ll 22.52, plain)
    val latLongs = LatLongs(south, uudibe, west, northWest, nommkula, loetsa, east, tehumardi)
 }
 
-object Hiiumaa extends Area2("Hiiumaa", 58.90 ll 22.63, plain)
+object Hiiumaa extends WldArea2("Hiiumaa", 58.90 ll 22.63, plain)
 {
    val west = 58.92 ll 22.04
    val north = 59.08 ll 22.65
@@ -101,7 +101,7 @@ object Hiiumaa extends Area2("Hiiumaa", 58.90 ll 22.63, plain)
    val latLongs = LatLongs(west, north, sarve, southEast, southWest)
 }
 
-object Finlandia extends Area2("Scandanavia", 65.56 ll 29.95, taiga)
+object Finlandia extends WldArea2("Scandanavia", 65.56 ll 29.95, taiga)
 {
    val lisyNos = 60.01 ll 29.96
    val laskovyy = 60.15 ll 29.92

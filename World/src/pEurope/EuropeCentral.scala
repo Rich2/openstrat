@@ -4,7 +4,7 @@ package pEarth
 package pEurope
 import geom._, WTile._
 
-object Germania extends Area2("Germania", 50.50 ll 11.11, plain)
+object Germania extends WldArea2("Germania", 50.50 ll 11.11, plain)
 {
    val eBelgianCoast = 51.36 ll 3.37
    val wMiddleburg = 51.53 ll 3.43
@@ -18,7 +18,7 @@ object Germania extends Area2("Germania", 50.50 ll 11.11, plain)
          Jutland.swJutland, Jutland.lubeck, swinoujscie, Alpsland.vienna, Alpsland.steyr, Frankia.basel)
 }
 
-object Alpsland extends Area2("Alpsland", 45.93 ll 10.49, mtain)
+object Alpsland extends WldArea2("Alpsland", 45.93 ll 10.49, mtain)
 {
    val steyr = 48.04 ll 14.14
    val vienna = 48.22 ll 16.41
@@ -35,7 +35,7 @@ object Alpsland extends Area2("Alpsland", 45.93 ll 10.49, mtain)
    )
 }
 
-object Italy extends Area2("Italy", 42.25 ll 13.39, plain)
+object Italy extends WldArea2("Italy", 42.25 ll 13.39, plain)
 {  
    val venice = 45.42 ll 12.21
    val ven1 = 44.96 ll 12.55
@@ -78,7 +78,7 @@ object Italy extends Area2("Italy", 42.25 ll 13.39, plain)
                livorno, forteDeiMarmi, palmaria, recco, genoa, voltri)   
 }
 
-object Corsica extends Area2("Corsica", 42.18 ll 9.17, hills)
+object Corsica extends WldArea2("Corsica", 42.18 ll 9.17, hills)
 {   
    val nCorsica = 43.00 ll 9.42
    val bastia = 42.70 ll 9.45
@@ -93,7 +93,7 @@ object Corsica extends Area2("Corsica", 42.18 ll 9.17, hills)
    val latLongs = LatLongs(nCorsica, bastia, olmuccia, sCorsica, swCorsica, scandola, nwCalvi, pointeMignola, fromontica)   
 }
 
-object Sardina extends Area2("Sardina", 40.12 ll 9.07, hills)
+object Sardina extends WldArea2("Sardina", 40.12 ll 9.07, hills)
 {
    val calaCaterina = 39.10 ll 9.51
    val perdaLonga = 38.87 ll 8.84

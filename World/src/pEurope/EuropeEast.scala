@@ -4,10 +4,10 @@ package pEarth
 package pEurope
 import geom._, pGrid._, WTile._, reflect.ClassTag
 
-object EuropeEast extends Area1("EuropeEast", 60 ll 60)
+object EuropeEast extends WldArea1("EuropeEast", 60 ll 60)
 {
   override def fill = false
-  override val a2Arr: Arr[Area2] = Arr(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
+  override val a2Arr: Arr[WldArea2] = Arr(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
 }
 
 @deprecated object EuropeNEGridOld extends EGridMaker

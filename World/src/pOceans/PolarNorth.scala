@@ -4,7 +4,7 @@ package pEarth
 package pPts
 import geom._, geom.LatLong._, WTile._
 
-object PolarNorth extends Area1("NPole", 89.5 ll 0)
+object PolarNorth extends WldArea1("NPole", 89.5 ll 0)
 {   
    override def fill: Boolean = false
    val sGreenland = degs(59.87, -43.95)
@@ -17,16 +17,16 @@ object PolarNorth extends Area1("NPole", 89.5 ll 0)
    val semersooq = degs(70.03, -23.07)
    val kulusuk = 65.53 ll -37.05
    
-   val greenland = Area2("Greenland", degs(75, -42), ice,
+   val greenland = WldArea2("Greenland", degs(75, -42), ice,
          sGreenland, swGreenland, pt1, wGreenland, nwGreenland, nGreenland, neGreenland, semersooq, kulusuk)   
    
-   val artic = Area2("Artic", degs(89.9, 0), ice, AmericasNorth.nwAlaska, AsiaEastPts.iultinsky, AsiaEastPts.krasnoyarsk, degs(81.21, 15.83),
+   val artic = WldArea2("Artic", degs(89.9, 0), ice, AmericasNorth.nwAlaska, AsiaEastPts.iultinsky, AsiaEastPts.krasnoyarsk, degs(81.21, 15.83),
         semersooq, neGreenland, nGreenland, nwGreenland)        
   
    override val a2Arr = Arr(greenland, artic, Svalbard, Nordauslandet)
 }
 
-object Svalbard extends Area2("Svalbard", 78.94 ll 17.78, ice)
+object Svalbard extends WldArea2("Svalbard", 78.94 ll 17.78, ice)
 {
    val south = 76.59 ll 16.70
    val wSpitsbergen = 79.54 ll 10.64
@@ -39,7 +39,7 @@ object Svalbard extends Area2("Svalbard", 78.94 ll 17.78, ice)
    val latLongs = LatLongs(south, wSpitsbergen, nSpitzbergen, north, east, sEdgeoya, pt1)
 }      
 
-object Nordauslandet extends Area2("Nordauslandet", 79.85 ll 23.71, ice)
+object Nordauslandet extends WldArea2("Nordauslandet", 79.85 ll 23.71, ice)
 {
    val south = 79.22 ll 23.61
    val southWest = 79.36 ll 20.76

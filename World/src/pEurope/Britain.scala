@@ -4,7 +4,7 @@ package pEarth
 package pEurope
 import geom._, WTile._
 
-object Scotland extends Area2("Scotland", 56.82 ll -4.07, hills)
+object Scotland extends WldArea2("Scotland", 56.82 ll -4.07, hills)
 {
    val eggerness = 54.79 ll -4.34
    val sWhithorn = 54.67 ll -4.39
@@ -44,7 +44,7 @@ object Scotland extends Area2("Scotland", 56.82 ll -4.07, hills)
          inverness, lossieMouth, aberdeenshire, firthForth, archerfield, tantallion, stAbbs, bamburgh, England.tyneMouth)
 }
 
-object England extends Area2("England",  52.73 ll -1.26, plain)
+object England extends WldArea2("England",  52.73 ll -1.26, plain)
 {
    val penzance = 50.06 ll -5.68
    val trevoseHead = 50.55 ll -5.03

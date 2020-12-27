@@ -4,7 +4,7 @@ package pEarth
 package pPts
 import geom._, LatLong._, WTile._, pEurope.{Anatolia, Baltland, Caucasus, Ukraine}
 
-object RusNorth extends Area2("NRus", 61 ll 54, taiga)
+object RusNorth extends WldArea2("NRus", 61 ll 54, taiga)
 {
    val wAsiaE = 66.52.east 
    val indiaE = 91.5.east
@@ -51,13 +51,13 @@ object AsiaWestPts
    val sharmas = degs(28.03, 35.23)
    val alFaw = degs(29.93, 48.47)
       
-   val arabia = Area2("Arabia", degs(25, 45.0), desert,
+   val arabia = WldArea2("Arabia", degs(25, 45.0), desert,
          Anatolia.damascus, alFaw, salwa, nQatar, doha, alGharbia, icad, kumzar, alKhaburah, eOman,
                mirbat, dhahawnMouth, haswayn, sYemen, sharmas, Anatolia.eilat)     
    
    val mahshahr = 30.22.north * Caucasus.asiaMinorE
    
-   val iraq = Area2("Iraq", 34.0 ll 44.5, desert, Anatolia.damascus, Anatolia.cizre, Caucasus.caspianSW, mahshahr, alFaw)
+   val iraq = WldArea2("Iraq", 34.0 ll 44.5, desert, Anatolia.damascus, Anatolia.cizre, Caucasus.caspianSW, mahshahr, alFaw)
    
    val mianiLat: Latitude = 25.39.north
    
@@ -71,7 +71,7 @@ object AsiaWestPts
    val nHormuz = 27.17 ll 56.47
    val nwHormuz = 26.49 ll 54.79
    val zeydan = 27.88 ll 51.50
-   val persia = Area2("Persia", degs(32.4, 60), hills,
+   val persia = WldArea2("Persia", degs(32.4, 60), hills,
          mahshahr, Caucasus.caspianSW, caspianSE, persiaCaspianN, persiaNE, mianiHor, seIran, kuhmobarak, nHormuz, nwHormuz, zeydan)   
  
    
@@ -81,11 +81,11 @@ object AsiaWestPts
    val kendirliBay = degs(42.73, 52.74)
    val mangystau = degs(45.48, 52.78)
    val volodarsky = degs(46.39, 49.03)
-   val kazak = Area2("Kazak", degs(47, 60), plain,
+   val kazak = WldArea2("Kazak", degs(47, 60), plain,
          RusNorth.kazakNE, persiaNE, persiaCaspianN, kendirliBay, bautino, mangystau, caspianNE, caspianN, volodarsky, Ukraine.caspianW, Baltland.southEast)         
          
   
-   val caspianSea = Area2("CaspianSea", degs(42.10, 50.64), sea, caspianN, caspianNE, persiaCaspianN, caspianSE, Caucasus.caspianSW)
+   val caspianSea = WldArea2("CaspianSea", degs(42.10, 50.64), sea, caspianN, caspianNE, persiaCaspianN, caspianSE, Caucasus.caspianSW)
     
    val magdhara = 22.41.north * RusNorth.indiaE
        
@@ -108,7 +108,7 @@ object AsiaWestPts
    val kutchMouth = 22.92 ll 70.37
    val bhada = 22.83 ll 69.19
    val karachi = degs(25.38, 66.70)
-   val india = Area2("India", degs(20.85, 78.68), jungle,
+   val india = WldArea2("India", degs(20.85, 78.68), jungle,
          mianiHor, indiaNE, indiaNE, magdhara, balasore, ongale, kattupali, manapad, sIndia,
                kovalam, karnataka1, karnataka2, tarapur, khambat, girSomnath, varvala, kutchMouth, bhada, karachi) 
                
@@ -118,18 +118,18 @@ object AsiaWestPts
    val neSrilanka = 9.83 ll 80.24
    val oiluvil = 7.29 ll 81.86
    val dondra = 5.92 ll 80.59
-   val sriLanka = Area2("SriLanka", 7.47 ll 80.78, jungle, dodanduwa, wSriLanka, nwSrilanka, neSrilanka, oiluvil, dondra)
+   val sriLanka = WldArea2("SriLanka", 7.47 ll 80.78, jungle, dodanduwa, wSriLanka, nwSrilanka, neSrilanka, oiluvil, dondra)
    
    val cAsiaSE = AsiaWestPts.persiaN * RusNorth.indiaE            
-   val himalayas = Area2("Himalayas", degs(32, 75), mtain,
+   val himalayas = WldArea2("Himalayas", degs(32, 75), mtain,
          cAsiaSE, AsiaWestPts.persiaNE, AsiaWestPts.mianiHor, AsiaWestPts.indiaNE)   
        
-    val centralAsia = Area2("CAsia", degs(47, 76), plain, RusNorth.cAsiaNE, RusNorth.kazakNE, persiaNE, cAsiaSE)
+    val centralAsia = WldArea2("CAsia", degs(47, 76), plain, RusNorth.cAsiaNE, RusNorth.kazakNE, persiaNE, cAsiaSE)
         
     val wSeverny = 71.81 ll 51.49
     val severny1 = 75.37 ll 57.03
     val severnyN = 76.99 ll 67.91
     val severny2 = 72.28 ll 55.36
     val eSeverny = 70.71 ll 57.59
-    val severny = Area2("Severny", 74.38 ll 57.29, ice, wSeverny, severny1, severnyN, severny2, eSeverny)
+    val severny = WldArea2("Severny", 74.38 ll 57.29, ice, wSeverny, severny1, severnyN, severny2, eSeverny)
 }

@@ -3,13 +3,13 @@ package ostrat
 package pEarth
 import geom._, WTile._
 
-object AtlanticNorth extends Area1("NAtlantic", 60 ll -30)
+object AtlanticNorth extends WldArea1("NAtlantic", 60 ll -30)
 { 
   // override val gridMaker = E80Empty   
-   override val a2Arr: Arr[Area2] = Arr(Iceland)
+   override val a2Arr: Arr[WldArea2] = Arr(Iceland)
 }
 
-object Iceland extends Area2("Iceland", 64.78 ll -18.07, taiga)
+object Iceland extends WldArea2("Iceland", 64.78 ll -18.07, taiga)
 {   
    val reykjavik = 64.17 ll -21.75
    val w1 = 64.75 ll -22.30

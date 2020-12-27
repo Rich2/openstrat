@@ -3,7 +3,7 @@ package pEarth
 package pEurope
 import geom._, WTile._
 
-object Frankia extends Area2("Frankia", 47.28 ll 1.93, plain)
+object Frankia extends WldArea2("Frankia", 47.28 ll 1.93, plain)
 {
   val southWest = divN45 ll -1.29
   val southEast = divN45 ll 5.53

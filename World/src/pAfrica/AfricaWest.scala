@@ -3,11 +3,11 @@ package ostrat
 package pEarth
 import geom._, pGrid._, reflect.ClassTag
 
-object AfricaWest extends Area1("WAfrica", 20 ll 40)
+object AfricaWest extends WldArea1("WAfrica", 20 ll 40)
 {
-  type A2Type = Area2
+  type A2Type = WldArea2
   override def fill = false   
-  override val a2Arr: Arr[Area2] = Arr(Canarias, Sicily, Majorca, SaharaWest, AfricaMidWest)
+  override val a2Arr: Arr[WldArea2] = Arr(Canarias, Sicily, Majorca, SaharaWest, AfricaMidWest)
 }
 
 object AfricaWestGrid extends EGridMaker

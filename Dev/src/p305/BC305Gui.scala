@@ -14,7 +14,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
   val minLat = 0.north
   //def focus: LatLong = lat * long
 
-  val tops: Arr[Area1] = EarthAreas.oldWorld
+  val tops: Arr[WldArea1] = EarthAreas.oldWorld
 //   override def eTop(): Unit = reTop(Seq(bIn, bOut, bLeft, bRight,
 //         bDown, bUp, bInv, status))
 //   /** 4 methods below are incorrect */

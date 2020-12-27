@@ -5,9 +5,9 @@ package pEurope
 import geom._, pGrid._, WTile._
 
 /** 20North, 0 East */
-object EuropeNW extends Area1("EuropeNW", 20 ll 0)
+object EuropeNW extends WldArea1("EuropeNW", 20 ll 0)
 {
-  override val a2Arr: Arr[Area2] = Arr(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
+  override val a2Arr: Arr[WldArea2] = Arr(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
      Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth)
 }
 
