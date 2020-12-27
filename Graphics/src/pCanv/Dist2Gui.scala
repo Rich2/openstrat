@@ -14,7 +14,7 @@ trait Dist2Gui extends MapGui
   def scaleMax: Metres
   def scaleMin: Metres //= scaleAlignedMin.min(10.millionMiles)
 
-  var mapFocus: Dist2 = Dist2(0.km, 0.km)
+  var mapFocus: Metres2 = Metres2(0.km, 0.km)
   //@inline def setFocus(x: Distouble, y: Double): Unit = mapFocus = Vec2(x, y)
   
   def scaleAlignedMin: Metres = ??? //mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
@@ -32,25 +32,25 @@ trait Dist2Gui extends MapGui
   def zoomOutCmd: MouseButton => Unit = mb => { scale = (scale * 1.5).min(scaleMax); repaintMap() }
 
   /** Translates a point from map position to Canvas Display position */
-  def toCanv(mapPoint: Dist2): Pt2 = (mapPoint - mapFocus).rotate(rotation) / scale
+  def toCanv(mapPoint: Metres2): Pt2 = (mapPoint - mapFocus).rotate(rotation) / scale
    
   /** Translates a point from Canvas Display position back to Map position */
   def invCanv(canvPoint: Pt2): Pt2 = ??? //(canvPoint / scale).rotate(-rotation) + mapFocus
 
   /** Translates an array of map points to an array of Canvas Display positions */
-  def arrCanv(inp: Dist2s): PolygonImp = inp.pMap(toCanv(_))
+  def arrCanv(inp: Metres2s): PolygonImp = inp.pMap(toCanv(_))
 
   final def repaintMap(): Unit =
   { val o2 = mapObjs
     mapPanel.repaint(o2)
   }
    
-  def reFocus(newFocus: Dist2): Unit =
+  def reFocus(newFocus: Metres2): Unit =
   { mapFocus = newFocus
     repaintMap()
   }
 
-  def adjFocus(adj: Dist2): Unit = reFocus(mapFocus + adj)
+  def adjFocus(adj: Metres2): Unit = reFocus(mapFocus + adj)
   var rotation: AngleVec = Deg0
 
   implicit class ImpVec2InCanvasMap(thisVec2: Pt2)

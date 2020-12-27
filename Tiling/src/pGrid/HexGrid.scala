@@ -220,21 +220,21 @@ object HexGrid
 
   val triangleFan = Seq(Pt2Z, v0, v5, v4, v3, v2, v1)
 
-  def latLong(pt: Pt2, latLongOffset: LatLong, xyOffset: Dist2, gridScale: Metres): LatLong =
+  def latLong(pt: Pt2, latLongOffset: LatLong, xyOffset: Metres2, gridScale: Metres): LatLong =
   { val lat = (pt.y * gridScale + xyOffset.y) / EarthPolarRadius + latLongOffset.latRadians
     val long = (pt.x * gridScale + xyOffset.x) / (EarthEquatorialRadius * math.cos(lat)) + latLongOffset.longRadians
     LatLong.radians(lat, long)
   }
 
-  def latLongToRoord(latLong: LatLong, latLongOffset: LatLong, xyOffset: Dist2, gridScale: Metres): Pt2 =
+  def latLongToRoord(latLong: LatLong, latLongOffset: LatLong, xyOffset: Metres2, gridScale: Metres): Pt2 =
   { val y: Double = ((latLong.latRadians - latLongOffset.latRadians) * EarthPolarRadius - xyOffset.y) / gridScale
     val x: Double = ((latLong.longRadians - latLongOffset.longRadians) * EarthEquatorialRadius * math.cos(latLong.latRadians) - xyOffset.x) / gridScale
     Pt2(x / Sqrt3, y)
   }
 
-  def latLongU(pt: Pt2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Metres(gridU))
-  def latLongV(pt: Pt2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Metres(gridV))
-  def latLongW(pt: Pt2, latLongOffset: LatLong, xyOffset: Dist2): LatLong = latLong(pt, latLongOffset, xyOffset, Metres(gridW))
+  def latLongU(pt: Pt2, latLongOffset: LatLong, xyOffset: Metres2): LatLong = latLong(pt, latLongOffset, xyOffset, Metres(gridU))
+  def latLongV(pt: Pt2, latLongOffset: LatLong, xyOffset: Metres2): LatLong = latLong(pt, latLongOffset, xyOffset, Metres(gridV))
+  def latLongW(pt: Pt2, latLongOffset: LatLong, xyOffset: Metres2): LatLong = latLong(pt, latLongOffset, xyOffset, Metres(gridW))
 
   val gridA: Int = 1//3.125cm
   val gridB: Int = 2//6.25cm

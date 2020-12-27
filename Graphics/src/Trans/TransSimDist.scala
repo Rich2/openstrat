@@ -12,7 +12,7 @@ trait TransSimDisterUser extends TransSimDister
   type MemT <: TransSimDister
   def geomMem: MemT
   def newThis(transer: MemT): ThisT
-  override def slate(offset: Dist2): ThisT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
+  override def slate(offset: Metres2): ThisT = newThis(geomMem.slate(offset).asInstanceOf[MemT])
   override def rotateRadians(radians: Double): ThisT = newThis(geomMem.rotateRadians(radians).asInstanceOf[MemT])
   override def mirrorYOffset(xOffset: Metres): ThisT = newThis(geomMem.mirrorYOffset(xOffset).asInstanceOf[MemT])
   override def mirrorXOffset(yOffset: Metres): ThisT = newThis(geomMem.mirrorXOffset(yOffset).asInstanceOf[MemT])
@@ -30,13 +30,13 @@ object TransSimDist
   { override def mirrorXOffset(obj: T, yOffset: Metres): T = obj.mirrorXOffset(yOffset).asInstanceOf[T]
     override def mirrorYOffset(obj: T, xOffset: Metres): T = obj.mirrorYOffset(xOffset).asInstanceOf[T]
     override def rotateRadians(obj: T, radians: Double): T = obj.rotateRadians(radians).asInstanceOf[T]
-    override def slate(obj: T, offset: Dist2): T = obj.slate(offset).asInstanceOf[T]
+    override def slate(obj: T, offset: Metres2): T = obj.slate(offset).asInstanceOf[T]
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
   }
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransSimDist[A]): TransSimDist[AA] = new TransSimDist[AA]
   { override def scale(obj: AA, operand: Double): AA = obj.map{ts => ev.scale(ts, operand)}
-    override def slate(obj: AA, offset: Dist2): AA = obj.map{ts => ev.slate(ts, offset)}
+    override def slate(obj: AA, offset: Metres2): AA = obj.map{ ts => ev.slate(ts, offset)}
     override def rotateRadians(obj: AA, radians: Double): AA = obj.map{ts => ev.rotateRadians(ts, radians) }
     override def mirrorYOffset(obj: AA, xOffset: Metres): AA = obj.map{ ts => ev.mirrorYOffset(ts, xOffset) }
     override def mirrorXOffset(obj: AA, yOffset: Metres): AA = obj.map{ ts => ev.mirrorXOffset(ts, yOffset) }

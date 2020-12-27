@@ -66,27 +66,27 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def xyLat0: Pt2 = Pt2(longRadians.sin * latRadians.sin, latRadians.sin)
 
   /** Note this method does not check which side of the earth relative to viewer the polygon verts are */
-  def polyToDist2s(inp: LatLongs): Dist2s = inp.pMap(fromFocusDist2)
+  def polyToDist2s(inp: LatLongs): Metres2s = inp.pMap(fromFocusDist2)
 
-  def polyToGlobedArea(inp: LatLongs): OptEither[Dist2s, CurveSegDists] =
-  { val d3s: Dist3s = inp.pMap(el => fromFocusDist3(el))
+  def polyToGlobedArea(inp: LatLongs): OptEither[Metres2s, CurveSegDists] =
+  { val d3s: Metre3s = inp.pMap(el => fromFocusDist3(el))
     d3s.earthZPositive
   }
   def latLongFacing(ll: LatLong): Boolean = fromFocusDist3(ll).z.pos
 
-  def fromFocusDist3(ll: LatLong): Dist3 = ll.subLongRadians(longRadians).toDist3.xRotation(-latRadians)
+  def fromFocusDist3(ll: LatLong): Metres3 = ll.subLongRadians(longRadians).toDist3.xRotation(-latRadians)
   def fromFocusLineDist3(inp: LLLineSeg): LineDist3 = LineDist3(
     inp.llStart.subLongRadians(longRadians).toDist3.xRotation(-latRadians),
     inp.latLong2.subLongRadians(longRadians).toDist3.xRotation(-latRadians))
 
-  def fromFocusDist2(ll: LatLong): Dist2 = fromFocusDist3(ll).xy
-  def optFromFocusDist2(ll: LatLong): Option[Dist2] =
+  def fromFocusDist2(ll: LatLong): Metres2 = fromFocusDist3(ll).xy
+  def optFromFocusDist2(ll: LatLong): Option[Metres2] =
   { val v3 = fromFocusDist3(ll)
     v3.z.pos.toOption(v3.xy)
   }
 
-  def toOptDist2(inp: LatLong): Option[Dist2] =
-  { val r1: Dist3 = inp.subLongRadians(longRadians).toDist3.xRotation(-latRadians)
+  def toOptDist2(inp: LatLong): Option[Metres2] =
+  { val r1: Metres3 = inp.subLongRadians(longRadians).toDist3.xRotation(-latRadians)
     r1.toXYIfZPositive
   }
 

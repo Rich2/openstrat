@@ -4,7 +4,7 @@ package geom
 
 /** Trait for objects that can be transformed in 2 dimensional distance space. */
 trait TransDister extends Any
-{ def fTrans(f: Dist2 => Dist2): AffinePreserve
+{ def fTrans(f: Metres2 => Metres2): AffinePreserve
 }
 
 /** The companion object for Transer. */
@@ -20,7 +20,7 @@ object TransDister
 /** The typeclass trait for transforming an object in 2d geometry. */
 trait TransAllDist[T]
 {
-  def trans(obj: T, f: Dist2 => Dist2):  T
+  def trans(obj: T, f: Metres2 => Metres2):  T
 }
 
 /** The companion object for the TransDist typeclass, containing instances for common classes. */
@@ -40,11 +40,11 @@ object TransAllDist
  *   trait TranExtension  does the same for trans(f: Vec2 => Vec2): T. */
 trait TransAllDistExtension[T] extends Any
 {
-  def trans(f: Dist2 => Dist2):  T  
+  def trans(f: Metres2 => Metres2):  T
 
   def scale(factor: Double): T = trans(_ * factor)
   
   /** this.asInstanceOf[T] */  
   def identity: T = this.asInstanceOf[T]   
-  def inverseY: T = trans(v => Dist2(v.x, -v.y))  
+  def inverseY: T = trans(v => Metres2(v.x, -v.y))
 }

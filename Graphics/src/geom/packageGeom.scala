@@ -60,7 +60,7 @@ package object geom
   val Pt2Z = Pt2(0, 0)
 
   /** Dist2(0.km, 0.km) constant */
-  val Dist2Z = Dist2(0.km, 0.km)
+  val Dist2Z = Metres2(0.km, 0.km)
 
   val LongD = 2.0 / Cos30
   val cos30: Double = cos(Pi / 6)

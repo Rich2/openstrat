@@ -3,18 +3,18 @@ package ostrat
 package geom
 
 /* A polygon using distances measured in metres rather than scalars. */
-final class PolygonDist(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[Dist2]
+final class PolygonDist(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[Metres2]
 { type ThisT = PolygonDist
   def unsafeFromArray(array: Array[Double]): PolygonDist = new PolygonDist(array)
   override def typeStr: String = "DPolygon"
-  override def elemBuilder(d1: Double, d2: Double): Dist2 = new Dist2(d1, d2)
-  override def fElemStr: Dist2 => String = _.str
+  override def elemBuilder(d1: Double, d2: Double): Metres2 = new Metres2(d1, d2)
+  override def fElemStr: Metres2 => String = _.str
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
-object PolygonDist extends ProdDbl2sCompanion[Dist2, PolygonDist]
+object PolygonDist extends ProdDbl2sCompanion[Metres2, PolygonDist]
 {
-  implicit val persistImplicit: ArrProdDbl2Persist[Dist2, PolygonDist] = new ArrProdDbl2Persist[Dist2, PolygonDist]("DPolygon")
+  implicit val persistImplicit: ArrProdDbl2Persist[Metres2, PolygonDist] = new ArrProdDbl2Persist[Metres2, PolygonDist]("DPolygon")
   { override def fromArray(value: Array[Double]): PolygonDist = new PolygonDist(value)
   }
 }

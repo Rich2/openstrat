@@ -38,8 +38,8 @@ trait LatLongBase
   def degMinStr: String = latDegMinStr.appendCommas(longDegMinStr)
   def degMinStrs: (String, String) = (latDegMinStr, longDegMinStr)   
   
-  def toDist3: Dist3 =
+  def toDist3: Metres3 =
   { val clat = latRadians.cos.abs
-    Dist3(longRadians.sin * equatorialRadius * clat, latRadians.sin * polarRadius, longRadians.cos * equatorialRadius * clat)
+    Metres3(longRadians.sin * equatorialRadius * clat, latRadians.sin * polarRadius, longRadians.cos * equatorialRadius * clat)
   }
 }

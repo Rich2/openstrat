@@ -7,8 +7,8 @@ class LineDist3(xStartMetres: Double, yStartMetres: Double, zStartMetres: Double
     xEndMetres: Double, yEndMetres: Double, zEndMetres: Double) extends ProdDbl6 //with Stringer
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
-  def pStart: Dist3 = new Dist3(xStartMetres, yStartMetres, zStartMetres)
-  def pEnd: Dist3 = new Dist3(xEndMetres, yEndMetres, zEndMetres)
+  def pStart: Metres3 = new Metres3(xStartMetres, yStartMetres, zStartMetres)
+  def pEnd: Metres3 = new Metres3(xEndMetres, yEndMetres, zEndMetres)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LineDist3]
   override def _1 = xStartMetres
   override def _2 = yStartMetres
@@ -28,6 +28,6 @@ class LineDist3(xStartMetres: Double, yStartMetres: Double, zStartMetres: Double
 
 object LineDist3
 {
-   def apply(pStart: Dist3, pEnd: Dist3): LineDist3 = new LineDist3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
+   def apply(pStart: Metres3, pEnd: Metres3): LineDist3 = new LineDist3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
        pEnd.xMetres, pEnd.yMetres, pEnd.zMetres)
 }

@@ -22,7 +22,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
   canv.onScroll = b => { scale = ife(b, (scale * 1.2).min(scaleMax), (scale / 1.2).max(scaleMin)) }
   case class Planet(dist: Metres, colour: Colour, name: String)
   {
-    var posn: Dist2 = Dist2(dist, 0.metre)
+    var posn: Metres2 = Metres2(dist, 0.metre)
     //Gets the angle and the multiplies by the scala. (* dist) at end
     
     def move(elapsed: Integer): Unit =

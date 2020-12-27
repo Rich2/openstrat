@@ -4,9 +4,9 @@ package geom
 import math._
 
 /** 3 dimensional vector using metres as units rather than pure numbers. */
-final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ProdDbl3
-{ def typeStr: String = "Dist3"
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[Dist3]
+final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ProdDbl3
+{ def typeStr: String = "Metres3"
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
   def _1 = xMetres
   def _2 = yMetres
   def _3 = zMetres
@@ -15,8 +15,8 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
   def z: Metres = Metres(zMetres)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
-  @inline def dot(operand: Dist3): Area = x * operand.x + y * operand.y + z * operand.z
-  def xy: Dist2 = new Dist2(xMetres, yMetres)
+  @inline def dot(operand: Metres3): Area = x * operand.x + y * operand.y + z * operand.z
+  def xy: Metres2 = new Metres2(xMetres, yMetres)
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg
   def yPos: Boolean = y.pos
@@ -25,8 +25,8 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
   def zNeg: Boolean = z.neg
   def ifZPos[A](vPos: => A, vNeg: => A): A = ife(zPos, vPos, vNeg)
   def / (operator: Metres): Pt3 = Pt3(x / operator, y / operator, z / operator)
-  def toXYIfZPositive: Option[Dist2] = ifZPos(Some(Dist2(x, y)), None)
-  def xRotation(rotation: Double): Dist3 =
+  def toXYIfZPositive: Option[Metres2] = ifZPos(Some(Metres2(x, y)), None)
+  def xRotation(rotation: Double): Metres3 =
   { val scalar: Metres = Metres(sqrt(y.metres * y.metres + z.metres * z.metres))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
@@ -36,30 +36,31 @@ final class Dist3(val xMetres: Double, val yMetres: Double, val zMetres: Double)
                       atan(y / z))//This operates on the standard atan range -Pi/2 to pi/2
 
     val ang1 = ang0 + rotation
-    Dist3(x, sin(ang1) * scalar, cos(ang1) * scalar)
+    Metres3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }
 }
 
-/** Companion object for the Dist3 class. */
-object Dist3
-{ 
-  def metres(xMetres: Double, yMetres: Double, zMetres: Double): Dist3 = new Dist3(xMetres, yMetres, zMetres)
-  def apply(x: Metres, y: Metres, z: Metres): Dist3 = new Dist3(x.metres, y.metres, z.metres)
-  implicit object Dist3Persist extends Persist3[Metres, Metres, Metres, Dist3]("Dist3", "x", _.x, "y", _.y, "z", _.z, apply)
+/** Companion object for the Metres3 class. */
+object Metres3
+{
+  def metres(xMetres: Double, yMetres: Double, zMetres: Double): Metres3 = new Metres3(xMetres, yMetres, zMetres)
+  def apply(x: Metres, y: Metres, z: Metres): Metres3 = new Metres3(x.metres, y.metres, z.metres)
+  implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
   var counter = 0
 }
-/** Collection class for Dist3s. Not clear if this a Polygon equivalent or a Vec3s equivalent */
-class Dist3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Dist3]
-{ type ThisT = Dist3s
-  def unsafeFromArray(array: Array[Double]): ThisT = new Dist3s(array)
-  override def typeStr: String = "Dist3s"
-  override def fElemStr: Dist3 => String = _.str
-  override def newElem(d1: Double, d2: Double, d3: Double): Dist3 = new Dist3(d1, d2, d3)
+
+/** Collection class for Metres3s. Not clear if this a Polygon equivalent or a Vec3s equivalent */
+class Metre3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Metres3]
+{ type ThisT = Metre3s
+  def unsafeFromArray(array: Array[Double]): ThisT = new Metre3s(array)
+  override def typeStr: String = "Metres3s"
+  override def fElemStr: Metres3 => String = _.str
+  override def newElem(d1: Double, d2: Double, d3: Double): Metres3 = new Metres3(d1, d2, d3)
 
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
    *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative
    *  points are moved to the horizon. */
-  def earthZPositive: OptEither[Dist2s, CurveSegDists] =
+  def earthZPositive: OptEither[Metres2s, CurveSegDists] =
   {
     existsCount(_.z.pos) match
     { case 0 => NoOptEither
@@ -98,6 +99,6 @@ class Dist3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Dis
   }
 }
 
-object Dist3s
-{ implicit val factory: Int => Dist3s = i => new Dist3s(new Array[Double](i * 3))
+object Metre3s
+{ implicit val factory: Int => Metre3s = i => new Metre3s(new Array[Double](i * 3))
 }
