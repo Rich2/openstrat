@@ -86,7 +86,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
     res
   }
 
-  def distScale(distRatio: Metres): PolygonDist = pMap[Metres2, PolygonDist](p => p.toDist2(distRatio))
+  def distScale(distRatio: Metres): PolygonMs = pMap[Metres2, PolygonMs](p => p.toDist2(distRatio))
 
   override def foldLeft[B](initial: B)(f: (B, Pt2) => B): B = super.foldLeft(initial)(f)
 

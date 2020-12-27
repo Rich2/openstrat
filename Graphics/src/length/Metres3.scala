@@ -4,7 +4,7 @@ package geom
 import math._
 
 /** 3 dimensional vector using metres as units rather than pure numbers. */
-final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ProdDbl3
+final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends Length3 with ProdDbl3
 { def typeStr: String = "Metres3"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
   def _1 = xMetres
