@@ -108,7 +108,10 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   { val sx: Int = (radiansToDegs * 60).toInt
     ((sx / 60), sx % 60)
   }
-  
-  @inline def sin: Double = math.sin(thisDouble)
+
+  /** The sine of this Double expressed in radians. */
+  @inline def sine: Double = math.sin(thisDouble)
+
+  /** The cosine of this Double expressed in radians. */
   @inline def cos: Double = math.cos(thisDouble)
 }
