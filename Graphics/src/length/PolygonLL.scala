@@ -6,6 +6,6 @@ package geom
  *  than 90 degrees.  */
 final class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal
 {
-  //def to
+  def toKMs3: PolygonKMs3 = ???
   def toPolygonKms: PolygonKMs = ???
 }

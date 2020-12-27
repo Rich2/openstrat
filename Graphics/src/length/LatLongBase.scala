@@ -37,8 +37,9 @@ trait LatLongBase
    
   def degMinStr: String = latDegMinStr.appendCommas(longDegMinStr)
   def degMinStrs: (String, String) = (latDegMinStr, longDegMinStr)   
-  
-  def toDist3: Metres3 =
+
+  /** Converts to Metres3 where 0N 0E is the max Z value 90N is the max Y value, 90E is the max X value. */
+  def toMetres3: Metres3 =
   { val clat = latRadians.cos.abs
     Metres3(longRadians.sin * equatorialRadius * clat, latRadians.sin * polarRadius, longRadians.cos * equatorialRadius * clat)
   }

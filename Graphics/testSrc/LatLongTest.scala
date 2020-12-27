@@ -27,5 +27,9 @@ object LatLongTest   extends TestSuite
       assert(ll2.subLongRadians(224.degsToRadians).longDegs =~ -179)
       assert(ll3.longDegs =~ 179)
     }
+
+    val ll4 = 0 ll 0
+    val m4 = ll4.toMetres3
+    debvar(m4)
   }
 }

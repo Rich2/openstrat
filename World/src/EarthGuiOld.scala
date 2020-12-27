@@ -34,7 +34,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def latLongToXY(ll: LatLong): Pt2 = trans(focus.fromFocusDist2(ll))
   def optLatLongToXY(ll: LatLong): Option[Pt2] = focus.optFromFocusDist2(ll).map(trans)
   def optFromFocusDist2(ll: LatLong): Option[Metres2] = focus.optFromFocusDist2(ll)
-  def latLongToDist3(ll: LatLong): Metres3 = focus.fromFocusDist3(ll)
+  def latLongToDist3(ll: LatLong): Metres3 = focus.fromFocusMetres(ll)
   def latLongLineToDist3(inp: LLLineSeg): LineDist3 = focus.fromFocusLineDist3(inp)   
     
   def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0) * ifInvScale / 400.km             

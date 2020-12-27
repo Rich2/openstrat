@@ -14,7 +14,6 @@ object PersistGeomTest  extends TestSuite
     val vec2bSemi = "-0.01; 0.02"
     val vec2bComma = "-0.01, 0.02"
     val vec2bStd: String = "Vec2" + vec2bSemi.enParenth
-    deb(Pt3(3.1, -4, 5).str)
 
     "Vec2Test" -
     { /*assert(vec2a.toString == vec2aStd)
