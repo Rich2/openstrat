@@ -3,7 +3,7 @@ package ostrat
 package geom
 import collection.mutable.ArrayBuffer
 
-/** Compact immutable Array[Double] based collection class for [[LineSeg]]s. Sline is the library's term for a mathematical straight line segment, but what in
+/** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
 class LineSegs(val arrayUnsafe: Array[Double]) extends ArrProdDbl4[LineSeg] with AffinePreserve
 { type ThisT = LineSegs
