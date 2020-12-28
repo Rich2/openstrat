@@ -51,7 +51,7 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
   /** Mirror, reflection transformation of Hexlign across the Y axis, returns a Hexlign. */
   override def negX: Hexlign = Hexlign(dMin, cen.negX)
 
-  override def rotate90: Hexlign = ???
+  override def rotate90: HexYlign = HexYlign(dMin, cen.rotate90)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Hexlign = Hexlign(dMin, cen.prolign(matrix))

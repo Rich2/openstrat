@@ -18,7 +18,7 @@ trait EArcDraw extends CurveSegDraw with CanvElem
   /** Uniform scaling 2D geometric transformation on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale
    * method for differential scaling on the X and Y axes. */
-  override def scale(operand: Double): EArcDraw = ???
+  override def scale(operand: Double): EArcDraw = EArcDraw(curveSeg.scale(operand), colour, lineWidth)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in
    * sub traits / classes. */
@@ -26,21 +26,21 @@ trait EArcDraw extends CurveSegDraw with CanvElem
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in
    * sub traits / classes. */
-  override def negX: EArcDraw = ???
+  override def negX: EArcDraw = EArcDraw(curveSeg.negX, colour, lineWidth)
 
   /** 2D geometric transformation using a [[ProlignMatrix]] on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits /
    * classes. */
-  override def prolign(matrix: ProlignMatrix): EArcDraw = ???
+  override def prolign(matrix: ProlignMatrix): EArcDraw = EArcDraw(curveSeg.prolign(matrix), colour, lineWidth)
 
-  override def rotate90: EArcDraw = ???
+  override def rotate90: EArcDraw = EArcDraw(curveSeg.rotate90, colour, lineWidth)
 
   /** Rotation 2D geometric transformation on a EArcDraw taking the rotation as a scalar measured in radians, returns a EArcDraw. The Return
    * type will be narrowed in sub traits / classes. */
-  override def rotate(angle: AngleVec): EArcDraw = ???
+  override def rotate(angle: AngleVec): EArcDraw = EArcDraw(curveSeg.rotate(angle), colour, lineWidth)
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a EArcDraw, returns a EArcDraw. The Return type will be narrowed
    * in sub traits / classes. */
-  override def reflect(lineLike: LineLike): EArcDraw = ???
+  override def reflect(lineLike: LineLike): EArcDraw = EArcDraw(curveSeg.reflect(lineLike), colour, lineWidth)
 
   /** XY scaling 2D geometric transformation on a EArcDraw, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    * The return type will be narrowed in sub classes and traits. */

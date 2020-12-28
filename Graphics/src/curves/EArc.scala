@@ -76,7 +76,7 @@ trait EArc extends EllipseBased with CurveSeg
   override def rotate(angle: AngleVec): EArc =
     EArc(pStart.rotate(angle), cen.rotate(angle), pAxes1.rotate(angle), pAxes4.rotate(angle), pEnd.rotate(angle), counter)
 
-  override def rotate90: EArc = ???
+  override def rotate90: EArc = EArc(pStart.rotate90, cen.rotate90, pAxes1.rotate90, pAxes4.rotate90, pEnd.rotate90, counter)
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a EArc returns an EArc. */
   override def reflect(lineLike: LineLike): EArc =

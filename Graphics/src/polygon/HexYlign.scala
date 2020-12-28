@@ -36,10 +36,6 @@ final class HexYlign(val dMin: Double, val xCen: Double, val yCen: Double) exten
 
   override def productElement(n: Int): Any = ???
 
-  /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
-   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  //override def slate(offset: Vec2Like): HexYlign = HexYlign(dMin, cen + offset)
-
   /** Translate geometric transformation on a HexYlign returns a HexYlign. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def xySlate(xOffset: Double, yOffset: Double): HexYlign = HexYlign(dMin, cen.addXY(xOffset, yOffset))
@@ -56,7 +52,7 @@ final class HexYlign(val dMin: Double, val xCen: Double, val yCen: Double) exten
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate90: HexYlign = HexYlign(dMin, cen.rotate90)
+  override def rotate90: Hexlign = Hexlign(dMin, cen.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a HexYlign, returns a HexYlign. The return type will be narrowed in sub traits / classes. */
   /*override def rotate180: HexYlign = HexYlign(dMin, cen.rotate180)
