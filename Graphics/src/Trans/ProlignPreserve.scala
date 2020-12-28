@@ -2,14 +2,15 @@
 package ostrat
 package geom
 
-/** A class that preserves its type through all the Prolign, proportionate XY axes aligned transformations. These are translate [[Slate]], [[Scale]]
- *  and negX and negY the [[ReflectAxes]], transformations.
+/** A class that can preserve its type through all the Prolign, proportionate XY axes aligned transformations, using a [[Pt2]] => [[Pt2]] function.
+ *  These are translate [[Slate]], [[Scale]] and negX and negY, the [[ReflectAxes]], transformations.
  *  */
 trait ProlignPreserve extends GeomElem
 {
   /** The most narrow type preserved in some 2d geometric transformations. */
   type ThisT <: ProlignPreserve
-  
+
+  /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   def fTrans(f: Pt2 => Pt2): ThisT
   override def xySlate(xOffset: Double, yOffset: Double): ThisT = fTrans(_.addXY(xOffset, yOffset))
   override def scale(operand: Double): ThisT = fTrans(_.scale(operand))

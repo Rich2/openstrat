@@ -43,13 +43,12 @@ trait Ellipse extends EllipseBased with ShapeCentred
   def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
 
-  def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.axes1axes4(f(cen), f(pAxes1), f(pAxes4))
+  def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cenAxes1axes4(f(cen), f(pAxes1), f(pAxes4))
 
-  /** Translate geometric transformation. */
-  override def xySlate(xOffset: Double, yOffset: Double): Ellipse = fTrans(_.addXY(xOffset, yOffset))
+  /** Translate 2D geometric transformation, on an Ellipse, returns an Ellipse. The return type may be narrowed in sub traits / classes. */
+  override def xySlate(xOffset: Double, yOffset: Double): Ellipse
 
-  /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
-   * Squares. Use the xyScale method for differential scaling. */
+  /** Uniform scaling transformation, on an Ellipse, returns an Ellipse. The return type may be narrowed in sub traits / classes. */
   override def scale(operand: Double): Ellipse = fTrans(_.scale(operand))
 
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
@@ -77,18 +76,18 @@ object Ellipse
   def apply(radius1: Double, radius0: Double, cen: Pt2): Ellipse = new EllipseImp(cen.x, cen.y, cen.x + radius1, cen.y, radius0)
 
   /** Factory method that creates an ellipse from the centre point, axes point 1 and axes point 4. */
-  def axes1axes4(cen: Pt2, axes1: Pt2, axes4: Pt2): EllipseImp =
+  def cenAxes1axes4(cen: Pt2, axes1: Pt2, axes4: Pt2): EllipseImp =
   { val radius0: Double = cen.distTo(axes4)
     new EllipseImp(cen.x, cen.y, axes1.x, axes1.y, radius0)
   }
 
   def cenAxes1Radius2(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double): Ellipse = new EllipseImp(xCen, yCen, xAxes1, yAxes1, radius2)
 
-  implicit val slateImplicit: Slate[Ellipse] = (ell, dx, dy) => axes1axes4(ell.cen.addXY(dx, dy), ell.pAxes1.addXY(dx, dy), ell.pAxes4.addXY(dx, dy))
+  implicit val slateImplicit: Slate[Ellipse] = (ell, dx, dy) => cenAxes1axes4(ell.cen.addXY(dx, dy), ell.pAxes1.addXY(dx, dy), ell.pAxes4.addXY(dx, dy))
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
 
   implicit val rotateImplicit: Rotate[Ellipse] =
-    (ell: Ellipse, angle: AngleVec) => Ellipse.axes1axes4(ell.cen.rotate(angle), ell.pAxes1.rotate(angle), ell.pAxes4.rotate(angle))
+    (ell: Ellipse, angle: AngleVec) => Ellipse.cenAxes1axes4(ell.cen.rotate(angle), ell.pAxes1.rotate(angle), ell.pAxes4.rotate(angle))
 
   implicit val prolignImplicit: Prolign[Ellipse] = (obj, matrix) => obj.prolign(matrix)
 
@@ -106,7 +105,7 @@ object Ellipse
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  case class EllipseImp(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double) extends Ellipse
+  final case class EllipseImp(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double) extends Ellipse
   { override def xAxes2: Double = 2 * xCen - xAxis4
     override def yAxes2: Double = 2 * yCen - yAxis4
     override def xAxes3: Double = 2 * xCen - xAxes1
@@ -135,5 +134,15 @@ object Ellipse
 
     override def alignAngle: Angle = cen.angleTo(pAxes1)
     def s0Angle = alignAngle.p90
+
+    /** Translate 2D geometric transformation, on an EllipseImp, returns an EllipseImp. */
+    override def xySlate(xOffset: Double, yOffset: Double): EllipseImp =
+      EllipseImp(xCen + xOffset, yCen + yOffset, xAxes1 + xOffset, yAxes1 + yOffset, radius2)
+
+  }
+  
+  object EllipseImp
+  {
+    def apply(cen: Pt2, pAxes1: Pt2, radius2: Double): EllipseImp = new EllipseImp(cen.x, cen.y, pAxes1.x, pAxes1.y, radius2)
   }
 }

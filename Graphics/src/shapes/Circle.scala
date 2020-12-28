@@ -7,8 +7,10 @@ import pWeb._, math.Pi
  *  @groupdesc EllipticalGroup Class members that treat this circle as a special case of an ellipse.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends Ellipselign with OrdinaledElem
-{  
+final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends Ellipselign with OrdinaledElem with AxisFree
+{
+  type ThisT = Circle
+
   override def fTrans(f: Pt2 => Pt2): Circle =
   { val v1: Pt2 = cen.addX(radius)
     val newV1: Pt2 = f(v1)
@@ -36,9 +38,9 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
 
   override def reflect(lineLike: LineLike): Circle = Circle(diameter, cen.reflect(lineLike))
 
-  override def negY: Circle = Circle(diameter, cen.negY)
+  //override def negY: Circle = Circle(diameter, cen.negY)
 
-  override def negX: Circle = Circle(diameter, cen.negX)
+  //override def negX: Circle = Circle(diameter, cen.negX)
 
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   
