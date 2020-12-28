@@ -256,7 +256,7 @@ object Pt2
   implicit val XYScaleImplicit: XYScale[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.reflect(lineLike)
 
-  implicit val reflectAxesImplicit: ReflectAxes[Pt2] = new ReflectAxes[Pt2]
+  implicit val reflectAxesImplicit: TransAxes[Pt2] = new TransAxes[Pt2]
   { override def negYT(obj: Pt2): Pt2 = obj.negY
     override def negXT(obj: Pt2): Pt2 = obj.negX
     override def rotate90(obj: Pt2): Pt2 = obj.rotate90

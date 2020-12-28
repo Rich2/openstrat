@@ -93,7 +93,7 @@ object Rect
   implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[Rect] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: ReflectAxes[Rect] = new ReflectAxes[Rect]
+  implicit val reflectAxesImplicit: TransAxes[Rect] = new TransAxes[Rect]
   { override def negYT(obj: Rect): Rect = obj.negY
     override def negXT(obj: Rect): Rect = obj.negX
     override def rotate90(obj: Rect): Rect = obj.rotate90

@@ -56,7 +56,7 @@ object Drawable
   implicit val XYScaleImplicit: XYScale[Drawable] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[Drawable] = (obj, lineLike) => obj.reflect(lineLike)
 
-  implicit val transAxesImplicit: ReflectAxes[Drawable] = new ReflectAxes[Drawable]
+  implicit val transAxesImplicit: TransAxes[Drawable] = new TransAxes[Drawable]
   { override def negYT(obj: Drawable): Drawable = obj.negY
     override def negXT(obj: Drawable): Drawable = obj.negX
     override def rotate90(obj: Drawable): Drawable = obj.rotate90

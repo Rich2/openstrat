@@ -70,7 +70,7 @@ object CurveSeg
   implicit val XYScaleImplicit: XYScale[CurveSeg] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[CurveSeg] = (obj, lineLike) => obj.reflect(lineLike)
 
-  implicit val transAxesImplicit: ReflectAxes[CurveSeg] = new ReflectAxes[CurveSeg]
+  implicit val transAxesImplicit: TransAxes[CurveSeg] = new TransAxes[CurveSeg]
   { override def negYT(obj: CurveSeg): CurveSeg = obj.negY
     override def negXT(obj: CurveSeg): CurveSeg = obj.negX
     override def rotate90(obj: CurveSeg): CurveSeg = obj.rotate90

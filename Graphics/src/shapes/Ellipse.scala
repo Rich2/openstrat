@@ -94,7 +94,7 @@ object Ellipse
 
   implicit val xyScaleImplicit: XYScale[Ellipse] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-  implicit val reflectAxesImplicit: ReflectAxes[Ellipse] = new ReflectAxes[Ellipse]
+  implicit val reflectAxesImplicit: TransAxes[Ellipse] = new TransAxes[Ellipse]
   { override def negYT(obj: Ellipse): Ellipse = obj.negY
     override def negXT(obj: Ellipse): Ellipse = obj.negX
     override def rotate90(obj: Ellipse): Ellipse = obj.rotate90

@@ -31,7 +31,7 @@ object BoundedGraphic
   implicit val rotateImplicit: Rotate[BoundedGraphic] = (obj: BoundedGraphic, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[BoundedGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
 
-  implicit val transAxesImplicit: ReflectAxes[BoundedGraphic] = new ReflectAxes[BoundedGraphic]
+  implicit val transAxesImplicit: TransAxes[BoundedGraphic] = new TransAxes[BoundedGraphic]
   { override def negYT(obj: BoundedGraphic): BoundedGraphic = obj.negY
     override def negXT(obj: BoundedGraphic): BoundedGraphic = obj.negX
     override def rotate90(obj: BoundedGraphic): BoundedGraphic = obj.rotate90

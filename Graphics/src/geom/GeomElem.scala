@@ -25,7 +25,7 @@ trait GeomElem extends Product with Serializable
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
   def prolign(matrix: ProlignMatrix): GeomElem
 
-  /** Rotation postive or anit clockwise 90 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
+  /** Rotation positive or anti clockwise 90 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
    *  traits. */
   def rotate90: GeomElem
 
@@ -57,7 +57,7 @@ object GeomElem
   implicit val XYScaleImplicit: XYScale[GeomElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[GeomElem] = (obj, lineLike) => obj.reflect(lineLike)
 
-  implicit val transAxesImplicit: ReflectAxes[GeomElem] = new ReflectAxes[GeomElem]
+  implicit val transAxesImplicit: TransAxes[GeomElem] = new TransAxes[GeomElem]
   { override def negYT(obj: GeomElem): GeomElem = obj.negY
     override def negXT(obj: GeomElem): GeomElem = obj.negX
     override def rotate90(obj: GeomElem): GeomElem = obj.rotate90

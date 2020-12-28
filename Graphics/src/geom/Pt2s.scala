@@ -58,7 +58,7 @@ object Pt2s extends ProdDbl2sCompanion[Pt2, Pt2s]
   implicit val XYScaleImplicit: XYScale[Pt2s] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[Pt2s] = (obj: Pt2s, lineLike: LineLike) => obj.reflect(lineLike)
 
-  implicit val reflectAxesImplicit: ReflectAxes[Pt2s] = new ReflectAxes[Pt2s]
+  implicit val reflectAxesImplicit: TransAxes[Pt2s] = new TransAxes[Pt2s]
   { override def negYT(obj: Pt2s): Pt2s = obj.negY
     override def negXT(obj: Pt2s): Pt2s = obj.negX
     override def rotate90(obj: Pt2s): Pt2s = obj.rotate90

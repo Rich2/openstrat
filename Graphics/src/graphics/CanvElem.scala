@@ -61,7 +61,7 @@ object CanvElem
   implicit val prolignImplicit: Prolign[CanvElem] = (obj, matrix) => obj.prolign(matrix)
   implicit val ReflectImplicit: Reflect[CanvElem] = (obj, lineLike) => obj.reflect(lineLike)
 
-  implicit val reflectAxisImplicit: ReflectAxes[CanvElem] = new ReflectAxes[CanvElem]
+  implicit val reflectAxisImplicit: TransAxes[CanvElem] = new TransAxes[CanvElem]
   { override def negYT(obj: CanvElem): CanvElem = obj.negY
     override def negXT(obj: CanvElem): CanvElem = obj.negX
     override def rotate90(obj: CanvElem): CanvElem = obj.rotate90

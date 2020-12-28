@@ -53,7 +53,7 @@ object ShapeFill
   implicit val XYScaleImplicit: XYScale[ShapeFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[ShapeFill] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: ReflectAxes[ShapeFill] = new ReflectAxes[ShapeFill]
+  implicit val reflectAxesImplicit: TransAxes[ShapeFill] = new TransAxes[ShapeFill]
   { override def negYT(obj: ShapeFill): ShapeFill = obj.negY
     override def negXT(obj: ShapeFill): ShapeFill = obj.negX
     override def rotate90(obj: ShapeFill): ShapeFill = obj.rotate90

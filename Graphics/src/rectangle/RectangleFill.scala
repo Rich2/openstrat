@@ -42,7 +42,7 @@ object RectangleFill
   implicit val rotateImplicit: Rotate[RectangleFill] = (obj: RectangleFill, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[RectangleFill] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: ReflectAxes[RectangleFill] = new ReflectAxes[RectangleFill]
+  implicit val reflectAxesImplicit: TransAxes[RectangleFill] = new TransAxes[RectangleFill]
   { override def negYT(obj: RectangleFill): RectangleFill = obj.negY
     override def negXT(obj: RectangleFill): RectangleFill = obj.negX
     override def rotate90(obj: RectangleFill): RectangleFill = obj.rotate90

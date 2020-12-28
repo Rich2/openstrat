@@ -243,7 +243,7 @@ object Polygon
   implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[Polygon] = (obj: Polygon, lineLike: LineLike) => obj.reflect(lineLike)
 
-  implicit val reflectAxesImplicit: ReflectAxes[Polygon] = new ReflectAxes[Polygon]
+  implicit val reflectAxesImplicit: TransAxes[Polygon] = new TransAxes[Polygon]
   { override def negYT(obj: Polygon): Polygon = obj.negY
     override def negXT(obj: Polygon): Polygon = obj.negX
     override def rotate90(obj: Polygon): Polygon = obj.rotate90

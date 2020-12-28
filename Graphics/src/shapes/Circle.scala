@@ -107,7 +107,7 @@ object Circle extends ShapeIcon
   implicit val rotateImplicit: Rotate[Circle] = (obj: Circle, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val reflectAxesImplicit: ReflectAxes[Circle] = new ReflectAxes[Circle]
+  implicit val reflectAxesImplicit: TransAxes[Circle] = new TransAxes[Circle]
   { override def negYT(obj: Circle): Circle = obj.negY
     override def negXT(obj: Circle): Circle = obj.negX
     override def rotate90(obj: Circle): Circle = obj.rotate90

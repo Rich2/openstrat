@@ -63,7 +63,7 @@ object ShapeGen
   implicit val XYScaleImplicit: XYScale[ShapeGen ] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[ShapeGen ] = (obj, lineLike) => obj.reflect(lineLike)
 
-  implicit val transAxesImplicit: ReflectAxes[ShapeGen ] = new ReflectAxes[ShapeGen ]
+  implicit val transAxesImplicit: TransAxes[ShapeGen ] = new TransAxes[ShapeGen ]
   { override def negYT(obj: ShapeGen ): ShapeGen  = obj.negY
     override def negXT(obj: ShapeGen ): ShapeGen  = obj.negX
     override def rotate90(obj: ShapeGen): ShapeGen = obj.rotate90
