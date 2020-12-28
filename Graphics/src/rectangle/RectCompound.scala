@@ -50,5 +50,6 @@ object RectCompound
   implicit val reflectAxesImplicit: ReflectAxes[RectCompound] = new ReflectAxes[RectCompound]
   { override def negYT(obj: RectCompound): RectCompound = obj.negY
     override def negXT(obj: RectCompound): RectCompound = obj.negX
+    override def rotate90(obj: RectCompound): RectCompound = obj.rotate90
   }
 }

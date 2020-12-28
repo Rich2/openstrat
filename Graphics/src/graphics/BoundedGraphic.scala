@@ -7,7 +7,6 @@ package geom
 trait BoundedGraphic extends GraphicElem with BoundedElem
 {
   def xySlate(xOffset: Double, yOffset: Double): BoundedGraphic
-  //def slate(offset: Vec2Like): BoundedGraphic
   def scale(operand: Double): BoundedGraphic
 
   def negY: BoundedGraphic
@@ -15,6 +14,7 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
 
   def prolign(matrix: ProlignMatrix): BoundedGraphic
 
+  override def rotate90: BoundedGraphic
   def rotate(angle: AngleVec): BoundedGraphic
   override def reflect(lineLike: LineLike): BoundedGraphic
   override def xyScale(xOperand: Double, yOperand: Double): BoundedGraphic
@@ -34,6 +34,7 @@ object BoundedGraphic
   implicit val transAxesImplicit: ReflectAxes[BoundedGraphic] = new ReflectAxes[BoundedGraphic]
   { override def negYT(obj: BoundedGraphic): BoundedGraphic = obj.negY
     override def negXT(obj: BoundedGraphic): BoundedGraphic = obj.negX
+    override def rotate90(obj: BoundedGraphic): BoundedGraphic = obj.rotate90
   }
 
   implicit val shearImplicit: Shear[BoundedGraphic] = new Shear[BoundedGraphic]

@@ -41,6 +41,8 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def prolign(matrix: ProlignMatrix): PolygonCompound = PolygonCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
+  override def rotate90: PolygonCompound = ???
+
   override def rotate(angle: AngleVec): PolygonCompound = PolygonCompound(shape.rotate(angle), facets, children.rotate(angle))
 
   override def reflect(lineLike: LineLike): PolygonCompound = PolygonCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
@@ -70,6 +72,7 @@ object PolygonCompound
   implicit val reflectAxesImplicit: ReflectAxes[PolygonCompound] = new ReflectAxes[PolygonCompound]
   { override def negYT(obj: PolygonCompound): PolygonCompound = obj.negY
     override def negXT(obj: PolygonCompound): PolygonCompound = obj.negX
+    override def rotate90(obj: PolygonCompound): PolygonCompound = obj.rotate90
   }
 
   implicit val shearImplicit: Shear[PolygonCompound] = new Shear[PolygonCompound]

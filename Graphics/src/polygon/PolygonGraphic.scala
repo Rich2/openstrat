@@ -25,9 +25,6 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   @inline def foreachVert(f: Pt2 => Unit): Unit = shape.foreachVert(f)
   @inline def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT = shape.vertsMap(f)
 
-  /** Translate 2D geometric transformation on a PolygonGraphic returns a PolygonGraphic. The return type will be narrowed in sub trait / classes. */
-  //override def slate(offset: Vec2Like): PolygonGraphic
-
   /** Translate geometric transformation. */
   override def xySlate(xOffset: Double, yOffset: Double): PolygonGraphic
 
@@ -44,6 +41,8 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   override def negX: PolygonGraphic
 
   override def prolign(matrix: ProlignMatrix): PolygonGraphic
+
+  override def rotate90: PolygonGraphic
   
   override def rotate(angle: AngleVec): PolygonGraphic
 
@@ -68,5 +67,6 @@ object PolygonGraphic
   implicit val reflectAxesImplicit: ReflectAxes[PolygonGraphic] = new ReflectAxes[PolygonGraphic]
   { override def negYT(obj: PolygonGraphic): PolygonGraphic = obj.negY
     override def negXT(obj: PolygonGraphic): PolygonGraphic = obj.negX
+    override def rotate90(obj: PolygonGraphic): PolygonGraphic = obj.rotate90
   }
 }

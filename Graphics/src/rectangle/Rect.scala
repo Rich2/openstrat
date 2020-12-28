@@ -40,6 +40,8 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negX: Rect = Rect(width, height, cen.negX)
 
+  override def rotate90: Rect = ???
+
   override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v1.prolign(matrix))
 
   override def xyScale(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
@@ -94,6 +96,7 @@ object Rect
   implicit val reflectAxesImplicit: ReflectAxes[Rect] = new ReflectAxes[Rect]
   { override def negYT(obj: Rect): Rect = obj.negY
     override def negXT(obj: Rect): Rect = obj.negX
+    override def rotate90(obj: Rect): Rect = obj.rotate90
   }
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */

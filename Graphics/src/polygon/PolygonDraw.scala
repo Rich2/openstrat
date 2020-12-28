@@ -39,8 +39,6 @@ trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw
   
   /** Shear along the Y axis upon a PolygonDraw returns a PolygonDraw. */
   override def yShear(operand: Double): PolygonDraw = PolygonDraw(shape.yShear(operand), lineWidth, lineColour)
-
-  //override def slateTo(newCen: Pt2): PolygonDraw = ???
 }
 
 object PolygonDraw
@@ -56,6 +54,7 @@ object PolygonDraw
   implicit val reflectAxesImplicit: ReflectAxes[PolygonDraw] = new ReflectAxes[PolygonDraw]
   { override def negYT(obj: PolygonDraw): PolygonDraw = obj.negY
     override def negXT(obj: PolygonDraw): PolygonDraw = obj.negX
+    override def rotate90(obj: PolygonDraw): PolygonDraw = obj.rotate90
   }
   
   /*implicit val persistImplicit: Persist3[Polygon, Double, Colour, PolygonDraw] =

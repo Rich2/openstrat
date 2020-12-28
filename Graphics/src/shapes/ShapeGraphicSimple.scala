@@ -9,9 +9,6 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
   final override def attribs: Arr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
 
   /** Translate geometric transformation. */
-  //override def slate(offset: Vec2Like): ShapeGraphicSimple
-
-  /** Translate geometric transformation. */
   override def xySlate(xOffset: Double, yOffset: Double): ShapeGraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
@@ -28,11 +25,11 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
 
   /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a ShapeGraphicSimple, returns a ShapeGraphicSimple. The
    * return type will be narrowed in sub traits / classes. */
-  /*override def rotate90: ShapeGraphicSimple
+  override def rotate90: ShapeGraphicSimple
 
   /** Rotate 180 degrees 2D geometric transformation on a ShapeGraphicSimple, returns a ShapeGraphicSimple. The return type will be narrowed in sub traits /
    * classes. */
-  override def rotate180: ShapeGraphicSimple
+  /*override def rotate180: ShapeGraphicSimple
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a ShapeGraphicSimple, returns a ShapeGraphicSimple. The
    * return type will be narrowed in sub traits / classes. */

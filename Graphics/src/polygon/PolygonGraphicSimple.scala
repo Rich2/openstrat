@@ -19,9 +19,6 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   override def nonShapeAttribs: Arr[XmlAtt] = ???
 
   /** Translate geometric transformation. */
-  //override def slate(offset: Vec2Like): PolygonGraphicSimple
-
-  /** Translate geometric transformation. */
   override def xySlate(xOffset: Double, yOffset: Double): PolygonGraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
@@ -37,6 +34,8 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   override def negX: PolygonGraphicSimple
 
   override def prolign(matrix: ProlignMatrix): PolygonGraphicSimple
+
+  override def rotate90: PolygonGraphicSimple
 
   override def rotate(angle: AngleVec): PolygonGraphicSimple
 
@@ -55,6 +54,7 @@ object PolygonGraphicSimple
   implicit val reflectAxesImplicit: ReflectAxes[PolygonGraphicSimple] = new ReflectAxes[PolygonGraphicSimple]
   { override def negYT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negY
     override def negXT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negX
+    override def rotate90(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.rotate90
   }
 }
 

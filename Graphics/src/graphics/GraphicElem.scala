@@ -29,6 +29,8 @@ trait GraphicElem extends GeomElem
    *  classes. */
   override def prolign(matrix: ProlignMatrix): GraphicElem
 
+  override def rotate90: GraphicElem
+
   /** Rotation 2D geometric transformation on a GraphicElem taking the rotation as a scalar measured in radians, returns a GraphicElem. The Return
    *  type will be narrowed in sub traits / classes. */
   override def rotate(angle: AngleVec): GraphicElem
@@ -63,5 +65,6 @@ object GraphicElem
   implicit val reflectAxisImplicit: ReflectAxes[GraphicElem] = new ReflectAxes[GraphicElem]
   { override def negYT(obj: GraphicElem): GraphicElem = obj.negY
     override def negXT(obj: GraphicElem): GraphicElem = obj.negX
+    override def rotate90(obj: GraphicElem): GraphicElem = obj.rotate90
   }
 }

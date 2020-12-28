@@ -103,6 +103,7 @@ object HexReg
   implicit val reflectAxesImplicit: ReflectAxes[HexReg] = new ReflectAxes[HexReg]
   { override def negYT(obj: HexReg): HexReg = obj.negY
     override def negXT(obj: HexReg): HexReg = obj.negX
+    override def rotate90(obj: HexReg): HexReg = obj.rotate90
   }
 
   /** Implementation class for the [[HexReg]] trait. */

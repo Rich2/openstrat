@@ -52,6 +52,8 @@ trait Ellipse extends EllipseBased with ShapeCentred
 
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
   override def xyScale(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
+
+  override def rotate90: Ellipse = fTrans(_.rotate90)
   override def rotate(angle: AngleVec): Ellipse = fTrans(_.rotate(angle))
 
   override def negY: Ellipse
@@ -95,6 +97,7 @@ object Ellipse
   implicit val reflectAxesImplicit: ReflectAxes[Ellipse] = new ReflectAxes[Ellipse]
   { override def negYT(obj: Ellipse): Ellipse = obj.negY
     override def negXT(obj: Ellipse): Ellipse = obj.negX
+    override def rotate90(obj: Ellipse): Ellipse = obj.rotate90
   }
 
   implicit val shearImplicit: Shear[Ellipse] = new Shear[Ellipse]

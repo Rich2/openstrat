@@ -32,6 +32,8 @@ trait ShapeFill extends ShapeGraphicSimple
 
   override def prolign(matrix: ProlignMatrix): ShapeFill
 
+  override def rotate90: ShapeFill
+
   override def rotate(angle: AngleVec): ShapeFill
 
   override def reflect(lineLike: LineLike): ShapeFill
@@ -54,5 +56,6 @@ object ShapeFill
   implicit val reflectAxesImplicit: ReflectAxes[ShapeFill] = new ReflectAxes[ShapeFill]
   { override def negYT(obj: ShapeFill): ShapeFill = obj.negY
     override def negXT(obj: ShapeFill): ShapeFill = obj.negX
+    override def rotate90(obj: ShapeFill): ShapeFill = obj.rotate90
   }
 }

@@ -259,6 +259,7 @@ object Pt2
   implicit val reflectAxesImplicit: ReflectAxes[Pt2] = new ReflectAxes[Pt2]
   { override def negYT(obj: Pt2): Pt2 = obj.negY
     override def negXT(obj: Pt2): Pt2 = obj.negX
+    override def rotate90(obj: Pt2): Pt2 = obj.rotate90
   }
 
   implicit val shearImplicit: Shear[Pt2] = new Shear[Pt2]

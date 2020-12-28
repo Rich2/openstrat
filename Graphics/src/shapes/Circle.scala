@@ -38,10 +38,6 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
 
   override def reflect(lineLike: LineLike): Circle = Circle(diameter, cen.reflect(lineLike))
 
-  //override def negY: Circle = Circle(diameter, cen.negY)
-
-  //override def negX: Circle = Circle(diameter, cen.negX)
-
   def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
   
   override def fill(fillColour: Colour): CircleFill = CircleFill(this, fillColour)
@@ -114,6 +110,7 @@ object Circle extends ShapeIcon
   implicit val reflectAxesImplicit: ReflectAxes[Circle] = new ReflectAxes[Circle]
   { override def negYT(obj: Circle): Circle = obj.negY
     override def negXT(obj: Circle): Circle = obj.negX
+    override def rotate90(obj: Circle): Circle = obj.rotate90
   }
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)

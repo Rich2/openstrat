@@ -4,10 +4,6 @@ package geom
 
 trait CanvShapeFill extends ShapeFill with CanvElem
 {
-  /** Translate 2D geometric transformation on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed in sub traits / classes. This
-   * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */
-  //override def slate(offset: Vec2Like): CanvShapeFill
-
   /** Translate 2D geometric transformation on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed in sub traits / classes. */
   override def xySlate(xOffset: Double, yOffset: Double): CanvShapeFill
 
@@ -27,6 +23,8 @@ trait CanvShapeFill extends ShapeFill with CanvElem
   /** 2D geometric transformation using a [[ProlignMatrix]] on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed in sub traits /
    * classes. */
   override def prolign(matrix: ProlignMatrix): CanvShapeFill
+
+  override def rotate90: CanvShapeFill
 
   /** Rotation 2D geometric transformation on a CanvShapeFill taking the rotation as a scalar measured in radians, returns a CanvShapeFill. The Return
    * type will be narrowed in sub traits / classes. */

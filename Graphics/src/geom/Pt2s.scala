@@ -61,6 +61,7 @@ object Pt2s extends ProdDbl2sCompanion[Pt2, Pt2s]
   implicit val reflectAxesImplicit: ReflectAxes[Pt2s] = new ReflectAxes[Pt2s]
   { override def negYT(obj: Pt2s): Pt2s = obj.negY
     override def negXT(obj: Pt2s): Pt2s = obj.negX
+    override def rotate90(obj: Pt2s): Pt2s = obj.rotate90
   }
 
   implicit val shearImplicit: Shear[Pt2s] = new Shear[Pt2s]

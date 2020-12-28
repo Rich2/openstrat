@@ -11,6 +11,9 @@ trait ReflectAxes[T]
 
   /** Reflect, mirror an object of type T across the Y axis by negating X. */
   def negXT(obj: T): T
+
+  /** Rotate an object of type T by positive 90 degrees or in an anti clockwise direction. */
+  def rotate90(obj: T): T
 }
 
 /** Companion object for the [[ReflectAxes]] typeclass trait, contains instances for common container objects including Functor instances. */
@@ -22,6 +25,9 @@ object ReflectAxes
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def negXT(obj: T): T = obj.negX.asInstanceOf[T]
+
+    /** Rotate an object of type T by positive 90 degrees or in an anti clockwise direction. */
+    override def rotate90(obj: T): T = obj.rotate90.asInstanceOf[T]
   }
 
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], evA: ReflectAxes[A]): ReflectAxes[AA] = new ReflectAxes[AA]
@@ -30,6 +36,9 @@ object ReflectAxes
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def negXT(obj: AA): AA = obj.map(evA.negXT(_))
+
+    /** Rotate an object of type T by positive 90 degrees or in an anti clockwise direction. */
+    override def rotate90(obj: AA): AA = obj.map(evA.rotate90)
   }
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: ReflectAxes[A]): ReflectAxes[F[A]] = new ReflectAxes[F[A]]
@@ -38,6 +47,8 @@ object ReflectAxes
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def negXT(obj: F[A]): F[A] = evF.mapT(obj, evA.negXT(_))
+
+    override def rotate90(obj: F[A]): F[A] = evF.mapT(obj, evA.rotate90)
   }
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: ReflectAxes[A]): ReflectAxes[Array[A]] = new ReflectAxes[Array[A]]
@@ -46,6 +57,8 @@ object ReflectAxes
 
     /** Reflect, mirror across a line parallel to the Y axis. */
     override def negXT(obj: Array[A]): Array[A] = obj.map(ev.negXT(_))
+
+    override def rotate90(obj: Array[A]): Array[A] = obj.map(ev.rotate90)
   }
 }
 

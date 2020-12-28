@@ -136,6 +136,7 @@ object Rectangle
   implicit val reflectAxesImplicit: ReflectAxes[Rectangle] = new ReflectAxes[Rectangle]
   { override def negYT(obj: Rectangle): Rectangle = obj.negY
     override def negXT(obj: Rectangle): Rectangle = obj.negX
+    override def rotate90(obj: Rectangle): Rectangle = obj.rotate90
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */

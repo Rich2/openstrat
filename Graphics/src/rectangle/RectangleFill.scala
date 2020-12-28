@@ -45,8 +45,9 @@ object RectangleFill
   implicit val reflectAxesImplicit: ReflectAxes[RectangleFill] = new ReflectAxes[RectangleFill]
   { override def negYT(obj: RectangleFill): RectangleFill = obj.negY
     override def negXT(obj: RectangleFill): RectangleFill = obj.negX
+    override def rotate90(obj: RectangleFill): RectangleFill = obj.rotate90
   }
 
-  /** Implementatin class for the general case of a [[RectangleFill]]. */
+  /** Implementation class for the general case of a [[RectangleFill]]. */
   case class RectangleFillImp(shape: Rectangle, fill: FillFacet) extends RectangleFill
 }

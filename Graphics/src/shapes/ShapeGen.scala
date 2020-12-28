@@ -66,6 +66,7 @@ object ShapeGen
   implicit val transAxesImplicit: ReflectAxes[ShapeGen ] = new ReflectAxes[ShapeGen ]
   { override def negYT(obj: ShapeGen ): ShapeGen  = obj.negY
     override def negXT(obj: ShapeGen ): ShapeGen  = obj.negX
+    override def rotate90(obj: ShapeGen): ShapeGen = obj.rotate90
   }
 
   implicit val shearImplicit: Shear[ShapeGen ] = new Shear[ShapeGen ]

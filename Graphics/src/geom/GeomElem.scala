@@ -60,6 +60,7 @@ object GeomElem
   implicit val transAxesImplicit: ReflectAxes[GeomElem] = new ReflectAxes[GeomElem]
   { override def negYT(obj: GeomElem): GeomElem = obj.negY
     override def negXT(obj: GeomElem): GeomElem = obj.negX
+    override def rotate90(obj: GeomElem): GeomElem = obj.rotate90
   }
 
   implicit val shearImplicit: Shear[GeomElem] = new Shear[GeomElem]

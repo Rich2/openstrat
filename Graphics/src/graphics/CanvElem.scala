@@ -8,10 +8,6 @@ trait CanvElem extends GraphicElem
   /** Renders this functional immutable CanvElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
   //def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = {}
 
-  /** Translate 2D geometric transformation on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits / classes. This
-   * overload might be removeable in Scala 3, but is necessary for the time being die to type inference problems. */
-  //override def slate(offset: Vec2Like): CanvElem
-
   /** Translate 2D geometric transformation on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits / classes. */
   override def xySlate(xOffset: Double, yOffset: Double): CanvElem
 
@@ -31,6 +27,8 @@ trait CanvElem extends GraphicElem
   /** 2D geometric transformation using a [[ProlignMatrix]] on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits /
    *  classes. */
   override def prolign(matrix: ProlignMatrix): CanvElem
+
+  override def rotate90: CanvElem
 
   /** Rotation 2D geometric transformation on a CanvElem taking the rotation as a scalar measured in radians, returns a CanvElem. The Return
    *  type will be narrowed in sub traits / classes. */
@@ -66,5 +64,6 @@ object CanvElem
   implicit val reflectAxisImplicit: ReflectAxes[CanvElem] = new ReflectAxes[CanvElem]
   { override def negYT(obj: CanvElem): CanvElem = obj.negY
     override def negXT(obj: CanvElem): CanvElem = obj.negX
+    override def rotate90(obj: CanvElem): CanvElem = obj.rotate90
   }
 }

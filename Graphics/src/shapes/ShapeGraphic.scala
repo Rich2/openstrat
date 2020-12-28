@@ -34,6 +34,8 @@ trait ShapeGraphic extends BoundedGraphic
    * in sub classes. */
   def negX: ShapeGraphic
 
+  override def rotate90: ShapeGraphic
+
   def prolign(matrix: ProlignMatrix): ShapeGraphic
 
   def rotate(angle: AngleVec): ShapeGraphic
@@ -67,5 +69,6 @@ object ShapeGraphic
   implicit val reflectAxesImplicit: ReflectAxes[ShapeGraphic] = new ReflectAxes[ShapeGraphic]
   { override def negYT(obj: ShapeGraphic): ShapeGraphic = obj.negY
     override def negXT(obj: ShapeGraphic): ShapeGraphic = obj.negX
+    override def rotate90(obj: ShapeGraphic): ShapeGraphic = obj.rotate90
   }
 }
