@@ -24,36 +24,57 @@ trait CurveSeg extends Drawable
   /** The end point [[Pt2]] of this curve segment. Often called p2 on a line or p4 on a cubic bezier in other APIs. */
   final def pEnd: Pt2 = xEnd pp yEnd
 
-  /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
+  /** Translate 2D geometric transformation, on this CurveSeg, returns a CurveSeg. The Return type will be narrowed in sub traits. */
   override def xySlate(xOffset: Double, yOffset: Double): CurveSeg
 
-  /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
-   * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
+  /** Uniform 2D geometric scaling transformation, on this CurveSeg, returns a CurveSeg. The Return type will be narrowed in sub traits / classes. */
   override def scale(operand: Double): CurveSeg
 
-  /** Mirror, reflection 2D geometric transformation across the X axis by negating y. The return type will be narrowed in sub traits / classes. */
+  /** Mirror, reflection 2D geometric transformation across the X axis by negating Y, on this CurveSeg, returns a CurveSeg. The return type will be
+   *  narrowed in sub traits / classes. */
   override def negY: CurveSeg
 
-  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
+  /** Mirror, reflection 2D geometric transformation across the Y axis by negating X, on this CurveSeg, returns a CurveSeg. The return type will be
+   *  narrowed in sub traits / classes. */
   override def negX: CurveSeg
 
-  /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
+  /** 2D Transformation using a [[ProlignMatrix]], on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes / traits. */
   override def prolign(matrix: ProlignMatrix): CurveSeg
 
-  /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and traits. */
+  /** Rotation 2D geometric transformation on a GeomElem, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and traits. */
   override def rotate(angle: AngleVec): CurveSeg
 
-  /** Reflect 2D geometric transformation across a line, line segment or ray on a GeomElem. The return type will be narrowed in sub classes and
-   * traits. */
+  /** Reflect 2D geometric transformation across a line, line segment or ray, on this CurveSeg, returns a CurveSeg. The return type will be narrowed
+   *  in sub classes and traits. */
   override def reflect(lineLike: LineLike): CurveSeg
 
-  /** XY scaling 2D geometric transformation on a GeomElem. This allows different scaling factors across X and Y dimensions. The return type will be
-   * narrowed in sub classes and traits. */
+  /** XY scaling 2D geometric transformation, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and traits. */
   override def xyScale(xOperand: Double, yOperand: Double): CurveSeg
 
-  /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
+  /** Shear 2D geometric transformation along the X Axis, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and
+   *  traits. */
   override def xShear(operand: Double): CurveSeg
 
-  /** Shear 2D geometric transformation along the Y Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
+  /** Shear 2D geometric transformation along the Y Axis, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and
+   *  traits. */
   override def yShear(operand: Double): CurveSeg
+}
+
+object CurveSeg
+{ implicit val slateImplicit: Slate[CurveSeg] = (obj: CurveSeg, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val scaleImplicit: Scale[CurveSeg] = (obj: CurveSeg, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[CurveSeg] = (obj: CurveSeg, angle: AngleVec) => obj.rotate(angle)
+  implicit val prolignImplicit: Prolign[CurveSeg] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleImplicit: XYScale[CurveSeg] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val ReflectImplicit: Reflect[CurveSeg] = (obj, lineLike) => obj.reflect(lineLike)
+
+  implicit val transAxesImplicit: ReflectAxes[CurveSeg] = new ReflectAxes[CurveSeg]
+  { override def negYT(obj: CurveSeg): CurveSeg = obj.negY
+    override def negXT(obj: CurveSeg): CurveSeg = obj.negX
+  }
+
+  implicit val shearImplicit: Shear[CurveSeg] = new Shear[CurveSeg]
+  { override def xShearT(obj: CurveSeg, yFactor: Double): CurveSeg = obj.xShear(yFactor)
+    override def yShearT(obj: CurveSeg, xFactor: Double): CurveSeg = obj.yShear(xFactor)
+  }
 }
