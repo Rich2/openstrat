@@ -37,7 +37,6 @@ trait Ellipse extends EllipseBased with ShapeCentred
   def area: Double
   def cxAttrib: XANumeric = XANumeric("cx", xCen)
   def cyAttrib: XANumeric = XANumeric("cy", yCen)
- // override def rotateRadians(radians: Double): Ellipse
   def rxAttrib: XANumeric = XANumeric("rx", radius1)
   def ryAttrib: XANumeric = XANumeric("ry", radius2)
   def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)

@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** An ellipse whose axes are aligned to the X and Y axes. This is a trait as both [[Circle]] and [[Ellipelign.ElllipselignImp]] classes implement
+/** An ellipse whose axes are aligned to the X and Y axes. This is a trait as both [[Circle]] and [[Ellipselign.EllipselignImp]] classes implement
  *  this interface. */
 trait Ellipselign extends Ellipse
 {

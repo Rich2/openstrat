@@ -62,20 +62,20 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   def diag2: LineSeg = LineSeg(v4, v2)
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
-  /** Translate geometric transformation on a Rectangle returns a Rectangle. */
+  /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(offset: Vec2Like): Rectangle = Rectangle.s2s4(s2Cen.slate(offset), s4Cen.slate(offset), width2)
 
-  /** Translate geometric transformation on a Rectangle returns a Rectangle. */
+  /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def xySlate(xOffset: Double, yOffset: Double): Rectangle =
     Rectangle.s2s4(s2Cen.addXY(xOffset, yOffset), s4Cen.addXY(xOffset, yOffset), width2)
 
-  /** Uniform scaling transformation on a Rectangle returns a Rectangle. */
+  /** Uniform scaling 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def scale(operand: Double): Rectangle = Rectangle.s2s4(s2Cen.scale(operand), s4Cen.scale(operand), width2 * operand)
 
-  /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
+  /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negY: Rectangle = Rectangle.s2s4(s2Cen.negY, s4Cen.negY, width2)
 
-  /** Mirror, reflection transformation across the X axis on a Rectangle, returns a Rectangle. */
+  /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negX: Rectangle = Rectangle.s2s4(s2Cen.negX, s4Cen.negX, width2)
 
   override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(s2Cen.prolign(matrix), s4Cen.prolign(matrix), v1.prolign(matrix))
@@ -142,7 +142,6 @@ object Rectangle
     override def fTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(s2Cen), f(s4Cen), f(v1))
 
     override def productArity: Int = 5
-
     override def productElement(n: Int): Any = ???
   }
 

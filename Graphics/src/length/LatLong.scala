@@ -93,8 +93,8 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   }
 
   def toVec3(polarRadius: Double, equatorialRadius: Double): Pt3 =
-  { val clat = latRadians.cos.abs
-    Pt3(longRadians.sine * equatorialRadius * clat, latRadians.cos * polarRadius, longRadians.cos * equatorialRadius * clat)
+  { val clat = latCos.abs
+    Pt3(longSine * equatorialRadius * clat, latCos * polarRadius, longCos * equatorialRadius * clat)
   }
 }
 
@@ -113,7 +113,7 @@ object LatLong
   @inline def radians(latRadians: Double, longRadians: Double): LatLong =
   { val lat = ((latRadians + PiOn2) %% Pi1) - PiOn2
     val long = ((longRadians + Pi1) %% Pi2) - Pi1
-    LatLong.secs(lat.radiansToSecs, long.radiansToSecs)
+    LatLong.milliSecs(lat.radiansToMilliSecs, long.radiansToMilliSecs)
   }
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in arc seconds of a degree, where

@@ -94,25 +94,6 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
   @inline override def polygonMap(f: Pt2 => Pt2): PolygonImp = vertsMap(f).toPolygon
-
-  /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
-  override def xySlate(xOffset: Double, yOffset: Double): PolygonImp = polygonMap(_.addXY(xOffset, yOffset))
-
-  /** Translate geometric transformation on a [[PolygonImp]] returns a [[PolygonImp]]. */
-  override def slate(offset: Vec2Like): PolygonImp = polygonMap(_.slate(offset))
-
-  /** Uniform scaling aginst both X and Y axes transformation on a [[PolygonImp]] returning a [[PolygonImp]]. Use the xyScale method for differential
-   *  scaling. */
-  override def scale(operand: Double): PolygonImp = polygonMap(_.scale(operand))
-
-  /** Mirror, reflection transformation of a PolygonGen across the X axis, returns a PolygonGen. */
-  override def negY: PolygonImp = polygonMap(_.negY)
-
-  /** Mirror, reflection transformation of PolygonGen across the Y axis, returns a PolygonGen. */
-  override def negX: PolygonImp = polygonMap(_.negX)
-
-  /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): PolygonImp = polygonMap(_.prolign(matrix))
 }
 
 /** Companion object for [[PolygonImp]]. */
