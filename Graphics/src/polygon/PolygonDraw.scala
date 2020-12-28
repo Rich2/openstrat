@@ -25,6 +25,8 @@ trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw
   
   /** Mirror, rotate(radians) transformation across the X axis upon a PolygonDraw returns a PolygonDraw. */
   override def rotate(angle: AngleVec): PolygonDraw = PolygonDraw(shape.rotate(angle), lineWidth, lineColour)
+
+  override def rotate90: PolygonDraw = ???
   
   /** Mirror, reflection transformation across the X axis upon a PolygonDraw returns a PolygonDraw. */
   override def reflect(lineLike: LineLike): PolygonDraw = PolygonDraw(shape.reflect(lineLike), lineWidth, lineColour)

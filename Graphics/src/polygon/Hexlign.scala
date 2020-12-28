@@ -37,10 +37,6 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
 
   override def productElement(n: Int): Any = ???
 
-  /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
-   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  //override def slate(offset: Vec2Like): Hexlign = Hexlign(dMin, cen + offset)
-
   /** Translate geometric transformation on a Hexlign returns a Hexlign. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def xySlate(xOffset: Double, yOffset: Double): Hexlign = Hexlign(dMin, cen.addXY(xOffset, yOffset))
@@ -54,6 +50,8 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
 
   /** Mirror, reflection transformation of Hexlign across the Y axis, returns a Hexlign. */
   override def negX: Hexlign = Hexlign(dMin, cen.negX)
+
+  override def rotate90: Hexlign = ???
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Hexlign = Hexlign(dMin, cen.prolign(matrix))

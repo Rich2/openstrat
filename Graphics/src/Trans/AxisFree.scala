@@ -6,9 +6,9 @@ package geom
 trait AxisFree extends GeomElem
 { type ThisT <: AxisFree
 
-  //override def rotate(angle: AngleVec): ThisT
+  override def rotate(angle: AngleVec): ThisT
+  override def rotate90: ThisT = rotate(Deg90)
   override def reflect(lineLike: LineLike): ThisT
-
   override def negX: ThisT = reflect(YAxis)
   override def negY: ThisT = reflect(XAxis)
 

@@ -49,11 +49,13 @@ trait Triangle extends Polygon3Plus
 
 	override def reflect(lineLike: LineLike): Triangle = fTrans(_.reflect(lineLike))
 
+	override def rotate90: Triangle = ???
+
 	override def xyScale(xOperand: Double, yOperand: Double): Triangle = fTrans(_.xyScale(xOperand, yOperand))
 
 	override def xShear(operand: Double): Triangle = fTrans(_.xShear(operand))
 	override def yShear(operand: Double): Triangle = fTrans(_.yShear(operand))
-	//override def slateTo(newCen: Pt2): Triangle = fTrans(_ + cen.vecTo(newCen))
+
 
 	override def xVert(index: Int): Double = index match
 	{	case 1 => x1

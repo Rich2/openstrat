@@ -146,6 +146,8 @@ object Ellipse
     override def reflect(lineLike: LineLike): EllipseImp =
       EllipseImp.cenAxes1Axes4(cen.reflect(lineLike), pAxes1.reflect(lineLike), pAxes4.reflect(lineLike))
 
+    override def rotate(angle: AngleVec): EllipseImp = ???
+
     override def xShear(operand: Double): EllipseImp =
       EllipseImp.cenAxes1Axes4(cen.xShear(operand), pAxes1.xShear(operand), pAxes4.xShear(operand))
 

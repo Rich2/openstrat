@@ -29,6 +29,8 @@ trait EArclign extends EArc
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating X. The return type will be narrowed in sub traits / classes. */
   override def negX: EArclign = EArclign(pStart.negX, cen.negX, xRadius, yRadius, pEnd.negX, -counter)
 
+  override def rotate90: EArclign = ???
+
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
   override def prolign(matrix: ProlignMatrix): EArclign =
     EArclign(pStart.prolign(matrix), cen.prolign(matrix), xRadius, yRadius, pEnd.prolign(matrix), counter)

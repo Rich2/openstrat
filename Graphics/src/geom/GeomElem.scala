@@ -25,6 +25,10 @@ trait GeomElem extends Product with Serializable
   /** 2D Transformation using a [[ProlignMatrix]]. The return type will be narrowed in sub classes / traits. */
   def prolign(matrix: ProlignMatrix): GeomElem
 
+  /** Rotation postive or anit clockwise 90 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
+   *  traits. */
+  def rotate90: GeomElem
+
   /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and traits. */
   def rotate(angle: AngleVec): GeomElem
 

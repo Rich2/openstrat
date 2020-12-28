@@ -98,7 +98,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   }
 
   /** Reflects, mirrors this Vec2 across an XLine. */
-  def reflectXLine(line: XLine): Pt2 = ???
+  def reflectXLine(line: XLine): Pt2 = Pt2(x, -y)
 
   /** Reflects, mirrors this Vec2 across a YLine. */
   def reflectYLine(line: YLine): Pt2 = ???

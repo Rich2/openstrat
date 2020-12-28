@@ -30,6 +30,8 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
 
   override def rotate(angle: AngleVec): PolygonFill = PolygonFill(shape.rotate(angle), fill)
 
+  override def rotate90: PolygonFill = ???
+
   override def xShear(operand: Double): PolygonFill = ???
 
   override def yShear(operand: Double): PolygonFill = ???

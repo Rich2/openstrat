@@ -4,8 +4,10 @@ package geom
 import pWeb._
 
 /** Compound Circle Graphic class. */
-case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends EllipseCompound with CircleGraphic
+case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends EllipseCompound with
+  CircleGraphic with AxisFree
 {
+  override type ThisT = CircleCompound
   override def attribs: Arr[XmlAtt] = ???
 
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
@@ -25,14 +27,6 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): CircleCompound = CircleCompound(shape.scale(operand), facets, children.scale(operand))
-
-  /** Mirror, reflection 2D geometric transformation across the Y axis on a CircleCompound returns a CircleCompound. This transformation negates the X
-   *  values.*/
-  override def negX: CircleCompound = CircleCompound(shape.negX, facets, children.negX)
-
-  /** Mirror, reflection 2D geometric transformation across the X axis on a CircleCompound returns a CircleCompound. This transformation negates the Y
-   *  values. */
-  override def negY: CircleCompound = CircleCompound(shape.negY, facets, children.negY)
 
   override def prolign(matrix: ProlignMatrix): CircleCompound = CircleCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 

@@ -19,6 +19,8 @@ trait Ellipselign extends Ellipse
   override def negX: Ellipselign = Ellipselign(xRadius, yRadius, -xCen, yCen)
 
   override def negY: Ellipselign = Ellipselign(xRadius, yRadius, xCen, -yCen)
+
+  override def rotate90: Ellipselign = ???
 }
 
 object Ellipselign

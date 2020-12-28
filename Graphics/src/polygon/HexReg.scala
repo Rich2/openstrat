@@ -82,6 +82,8 @@ trait HexReg extends ShapeCentred with Polygon6Plus
   /** Mirror, reflection transformation of HexReg across the Y axis, returns a HexReg. */
   override def negX: HexReg = HexReg.s4s1(s4Cen.negX, s1Cen.negX)
 
+  override def rotate90: HexReg = ???
+
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): HexReg = HexReg.s4s1(s4Cen.prolign(matrix), s1Cen.prolign(matrix))
 

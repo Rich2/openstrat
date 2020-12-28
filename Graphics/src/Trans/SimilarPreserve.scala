@@ -7,6 +7,7 @@ trait SimilarPreserve extends ProlignPreserve
 { type ThisT <: SimilarPreserve
   override def negY: ThisT = fTrans(_.negY)
   override def negX: ThisT = fTrans(_.negX)
+  override def rotate90: ThisT = fTrans(_.rotate90)
 
   override def reflect(lineLike: LineLike): ThisT = fTrans(_.reflect(lineLike))
   override def rotate(angle: AngleVec): ThisT = fTrans(_.rotate(angle))

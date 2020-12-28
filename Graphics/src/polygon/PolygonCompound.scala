@@ -78,8 +78,10 @@ object PolygonCompound
   }
 
   /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
-  case class PolygonCompoundImp(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends PolygonCompound
+  case class PolygonCompoundImp(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends PolygonCompound with
+    AxisFree
   {
+    override type ThisT = PolygonCompoundImp
     override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach
     { case c: Colour => cp.polygonFill(shape.fill(c))
       case DrawFacet(c, w) => cp.polygonDraw(shape.draw(c, w))
@@ -101,14 +103,6 @@ object PolygonCompound
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */
     override def scale(operand: Double): PolygonCompoundImp = PolygonCompoundImp(shape.scale(operand), facets, children.scale(operand))
-
-    /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-     * in sub classes. */
-    override def negY: PolygonCompoundImp = PolygonCompoundImp(shape.negY, facets, children.negY)
-
-    /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-     * in sub classes. */
-    override def negX: PolygonCompoundImp = PolygonCompoundImp(shape.negX, facets, children.negX)
 
     override def prolign(matrix: ProlignMatrix): PolygonCompoundImp = PolygonCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
 

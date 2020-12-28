@@ -18,6 +18,8 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def negX: RectangleDraw = RectangleDraw(shape.negX, lineWidth, lineColour)
 
+  override def rotate90: RectangleDraw = ???
+
   /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def prolign(matrix: ProlignMatrix): RectangleDraw = RectangleDraw(shape.prolign(matrix), lineWidth, lineColour)
 
@@ -29,11 +31,6 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
 
   /** Independent X and Y dimension scaling upon a RectangleDraw returns a RectangleDraw. */
   override def xyScale(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.xyScale(xOperand, yOperand), lineWidth, lineColour)
-
-  /*override def slateTo(newCen: Pt2): RectangleDraw =
-  { val v = cen.vecTo(newCen)
-    slate(v.x, v.y)
-  }*/
 }
 
 /** Companion object for RectangleDraw contains factory method and implementation class. */

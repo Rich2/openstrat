@@ -3,8 +3,10 @@ package ostrat
 package geom
 
 /** This is a compound graphic based on a Rect shape. A rectangle aligned to the X and Y axes.  */
-case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends RectGraphic with RectangleCompound
+case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends RectGraphic with RectangleCompound with
+  AxisFree
 {
+  override type ThisT = RectCompound
   //override def attribs: Arr[XmlAtt] = ???
 
   override def svgStr: String = ???
@@ -20,13 +22,17 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): RectCompound = RectCompound(shape.scale(operand), facets, children.scale(operand))
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  override def negY: RectCompound = RectCompound(shape.negY, facets, children.negY)
+  override def rotate(angle: AngleVec): RectCompound = ???
+
+  override def reflect(lineLike: LineLike): RectCompound = ???
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  override def negX: RectCompound = RectCompound(shape.negX, facets, children.negX)
+  //override def negY: RectCompound = RectCompound(shape.negY, facets, children.negY)
+
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  //override def negX: RectCompound = RectCompound(shape.negX, facets, children.negX)
 
   override def prolign(matrix: ProlignMatrix): RectCompound = RectCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 

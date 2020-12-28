@@ -50,8 +50,10 @@ object RectangleCompound
   def apply(shape: Rectangle, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) : RectangleCompound =
     new RectangleCompoundImp(shape, facets, children)
 
-  case class RectangleCompoundImp(shape: Rectangle, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends RectangleCompound
+  case class RectangleCompoundImp(shape: Rectangle, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends RectangleCompound with
+    AxisFree
   {
+    override type ThisT = RectangleCompoundImp
     override def attribs: Arr[XmlAtt] = ???
 
     override def svgStr: String = ???
@@ -67,13 +69,6 @@ object RectangleCompound
      * Squares. Use the xyScale method for differential scaling. */
     override def scale(operand: Double): RectangleCompoundImp = RectangleCompoundImp(shape.scale(operand), facets, children.scale(operand))
 
-    /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-     * in sub classes. */
-    override def negY: RectangleCompoundImp = RectangleCompoundImp(shape.negY, facets, children.negY)
-
-    /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-     * in sub classes. */
-    override def negX: RectangleCompoundImp = RectangleCompoundImp(shape.negX, facets, children.negX)
 
     override def prolign(matrix: ProlignMatrix): RectangleCompoundImp = RectangleCompoundImp(shape.prolign(matrix), facets, children.prolign(matrix))
 

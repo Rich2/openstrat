@@ -39,8 +39,10 @@ object EllipseCompound
 
   /** The implementation class for a general ellipse that is not defined as a circle. Most users will not need to interact with this class. It been
    * created non anonymously because the type might be useful for certain specialised performance usecases. */
-  case class EllipseCompoundImplement(shape: Ellipse, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends EllipseCompound
+  final case class EllipseCompoundImplement(shape: Ellipse, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends
+    EllipseCompound with AxisFree
   {
+    override type ThisT = EllipseCompoundImplement
     override def attribs: Arr[XmlAtt] = ???
 
     override def svgStr: String = ???
@@ -69,14 +71,6 @@ object EllipseCompound
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */
     override def scale(operand: Double): EllipseCompoundImplement = EllipseCompoundImplement(shape.scale(operand), facets, children.scale(operand))
-
-    /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-     * in sub classes. */
-    override def negY: EllipseCompoundImplement = EllipseCompoundImplement(shape.negY, facets, children.negY)
-
-    /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-     * in sub classes. */
-    override def negX: EllipseCompoundImplement = EllipseCompoundImplement(shape.negX, facets, children.negX)
 
     override def prolign(matrix: ProlignMatrix): EllipseCompoundImplement = EllipseCompoundImplement(shape.prolign(matrix), facets, children.prolign(matrix))
 
