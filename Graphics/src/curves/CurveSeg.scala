@@ -2,24 +2,26 @@
 package ostrat
 package geom
 
-/** Sub traits include Line, LineDraw, Arc, ArcDraw, Bezier, BezierDraw */
+/** A segment of a curve that could be used in a closed shape or curve path. The names start and end are used in CurveSeg and its sub classes to
+ *  provide consistent naming across line segments [[LineSeg]]s, circular arcs [[CArc]]s, elliptical arcs [[EArc]]s and Square and cubic beziers
+ *  [[Bezier]]s, which require different numbers of points in their specification. */
 trait CurveSeg extends Drawable
-{ /** the x component of the start point often called x1 */
+{ /** The X component of the start point of this curve segment often called x1 in other APIs. */
   def xStart: Double
 
-  /** the y component of the start point often called y1 */
+  /** The Y component of the start point of this curve segment, often called y1 in other APIs. */
   def yStart: Double
 
   /** Start point of this curve segment, often called p1 */
   final def pStart: Pt2 = xStart pp yStart
 
-  /** the x component of the end point of this curve segment. */
+  /** The X component of the end point of this curve segment. Often called x2 on a line or x4 on a cubic bezier in other APIs.*/
   def xEnd: Double
 
-  /** the y component of the end point of this curve segment. */
+  /** The Y component of the end point of this curve segment. Often called y2 on a line or y4 on a cubic bezier in other APIs. */
   def yEnd: Double
 
-  /** The end point of this curve segment. Often called p2 on a line or p4 on a cubic bezier. */
+  /** The end point [[Pt2]] of this curve segment. Often called p2 on a line or p4 on a cubic bezier in other APIs. */
   final def pEnd: Pt2 = xEnd pp yEnd
 
   /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
