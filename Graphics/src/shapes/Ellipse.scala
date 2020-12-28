@@ -49,15 +49,15 @@ trait Ellipse extends EllipseBased with ShapeCentred
   override def xySlate(xOffset: Double, yOffset: Double): Ellipse
 
   /** Uniform scaling transformation, on an Ellipse, returns an Ellipse. The return type may be narrowed in sub traits / classes. */
-  override def scale(operand: Double): Ellipse = fTrans(_.scale(operand))
+  override def scale(operand: Double): Ellipse
 
   override def prolign(matrix: ProlignMatrix): Ellipse = fTrans(_.prolign(matrix))
   override def xyScale(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
   override def rotate(angle: AngleVec): Ellipse = fTrans(_.rotate(angle))
 
-  override def negY: Ellipse = fTrans(_.negY)
+  override def negY: Ellipse
 
-  override def negX: Ellipse = fTrans(_.negX)
+  override def negX: Ellipse
 
   override def reflect(lineLike: LineLike): Ellipse = fTrans(_.reflect(lineLike))
 
@@ -105,8 +105,9 @@ object Ellipse
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  final case class EllipseImp(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double) extends Ellipse
-  { override def xAxes2: Double = 2 * xCen - xAxis4
+  final case class EllipseImp(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double) extends Ellipse with AxisFree
+  { override type ThisT = EllipseImp
+    override def xAxes2: Double = 2 * xCen - xAxis4
     override def yAxes2: Double = 2 * yCen - yAxis4
     override def xAxes3: Double = 2 * xCen - xAxes1
     override def yAxes3: Double = 2 * yCen - yAxes1
@@ -139,6 +140,11 @@ object Ellipse
     override def xySlate(xOffset: Double, yOffset: Double): EllipseImp =
       EllipseImp(xCen + xOffset, yCen + yOffset, xAxes1 + xOffset, yAxes1 + yOffset, radius2)
 
+    /** Uniform scaling 2D geometric transformation, on an EllipseImp, returns an EllipseImp. */
+    override def scale(operand: Double): EllipseImp =
+      EllipseImp(xCen * operand, yCen * operand, xAxes1 * operand, yAxes1 * operand, radius2 * operand)
+
+    override def reflect(lineLike: LineLike): EllipseImp = ??? //super.reflect(lineLike)
   }
   
   object EllipseImp
