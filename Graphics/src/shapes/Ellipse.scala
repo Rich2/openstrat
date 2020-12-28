@@ -144,11 +144,20 @@ object Ellipse
     override def scale(operand: Double): EllipseImp =
       EllipseImp(xCen * operand, yCen * operand, xAxes1 * operand, yAxes1 * operand, radius2 * operand)
 
-    override def reflect(lineLike: LineLike): EllipseImp = ??? //super.reflect(lineLike)
+    override def reflect(lineLike: LineLike): EllipseImp =
+      EllipseImp.cenAxes1Axes4(cen.reflect(lineLike), pAxes1.reflect(lineLike), pAxes4.reflect(lineLike))
+
+    override def xShear(operand: Double): EllipseImp =
+      EllipseImp.cenAxes1Axes4(cen.xShear(operand), pAxes1.xShear(operand), pAxes4.xShear(operand))
+
+    override def yShear(operand: Double): EllipseImp =
+      EllipseImp.cenAxes1Axes4(cen.yShear(operand), pAxes1.yShear(operand), pAxes4.yShear(operand))
   }
-  
+
+  /** Companion object for the EllipseImp class, contains factory methods. */
   object EllipseImp
   {
     def apply(cen: Pt2, pAxes1: Pt2, radius2: Double): EllipseImp = new EllipseImp(cen.x, cen.y, pAxes1.x, pAxes1.y, radius2)
+    def cenAxes1Axes4(cen: Pt2, pAxes1: Pt2, pAxes4: Pt2): EllipseImp = new EllipseImp(cen.x, cen.y, pAxes1.x, pAxes1.y, cen.distTo(pAxes4))
   }
 }
