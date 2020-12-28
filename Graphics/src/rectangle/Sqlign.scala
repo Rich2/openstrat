@@ -20,6 +20,10 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
 
   override def negX: Sqlign = Sqlign(width, -xCen, yCen)
 
+  override def rotate90: Sqlign = Sqlign(width, cen.rotate90)
+  override def rotate180: Sqlign = Sqlign(width, cen.rotate180)
+  override def rotate270: Sqlign = Sqlign(width, cen.rotate270)
+
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
 
   /*@inline override def slateTo(newCen: Pt2): Sqlign =

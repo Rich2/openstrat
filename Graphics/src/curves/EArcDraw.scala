@@ -33,6 +33,8 @@ trait EArcDraw extends CurveSegDraw with CanvElem
   override def prolign(matrix: ProlignMatrix): EArcDraw = EArcDraw(curveSeg.prolign(matrix), colour, lineWidth)
 
   override def rotate90: EArcDraw = EArcDraw(curveSeg.rotate90, colour, lineWidth)
+  override def rotate180: EArcDraw = EArcDraw(curveSeg.rotate180, colour, lineWidth)
+  override def rotate270: EArcDraw = EArcDraw(curveSeg.rotate270, colour, lineWidth)
 
   /** Rotation 2D geometric transformation on a EArcDraw taking the rotation as a scalar measured in radians, returns a EArcDraw. The Return
    * type will be narrowed in sub traits / classes. */

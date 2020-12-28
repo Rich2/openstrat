@@ -27,6 +27,8 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
   override def prolign(matrix: ProlignMatrix): Ray = ???
 
   override def rotate90: Ray = ???
+  override def rotate180: Ray = ???
+  override def rotate270: Ray = ???
 
   /** Rotation 2D geometric transformation on a Ray. The return type will be narrowed in sub classes and traits. */
   override def rotate(angle: AngleVec): Ray = ???

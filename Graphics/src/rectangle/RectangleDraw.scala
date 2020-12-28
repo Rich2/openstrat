@@ -19,6 +19,8 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   override def negX: RectangleDraw = RectangleDraw(shape.negX, lineWidth, lineColour)
 
   override def rotate90: RectangleDraw = ???
+  override def rotate180: RectangleDraw = ???
+  override def rotate270: RectangleDraw = ???
 
   /** Mirror, reflection transformation across the X axis upon a RectangleDraw returns a RectangleDraw. */
   override def prolign(matrix: ProlignMatrix): RectangleDraw = RectangleDraw(shape.prolign(matrix), lineWidth, lineColour)

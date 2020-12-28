@@ -4,21 +4,14 @@ package geom
 import pWeb._
 
 /** Equilateral triangle. will become a trait. */
-final case class TriangleEqui(x1: Double, y1: Double, x3: Double, y3: Double) extends TriangleIsos
+final case class TriangleEqui(x1: Double, y1: Double, x3: Double, y3: Double) extends TriangleIsos with AxisFree
 {
   type ThisT = TriangleEqui
   override def height: Double = ???
   override def attribs: Arr[XANumeric] = ???
   override def fTrans(f: Pt2 => Pt2): ThisT = ???
 
-  override def rotate(angle: AngleVec): Triangle = ???
-  override def negY: ThisT = fTrans(_.negY)
-  override def negX: ThisT = fTrans(_.negX)
+  override def rotate(angle: AngleVec): TriangleEqui = ???
 
-  override def reflect(lineLike: LineLike): Triangle = ???
-
-  override def xyScale(xOperand: Double, yOperand: Double): Triangle = ???
-
-  //override def slateTo(newCen: Pt2): TriangleEqui = ???
-
+  override def reflect(lineLike: LineLike): TriangleEqui = ???
 }

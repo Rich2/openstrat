@@ -21,6 +21,10 @@ trait Square extends Rectangle
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
   override def negX: Square = Square.s2s4(s2Cen.negX, s4Cen.negX)
 
+  override def rotate90: Square = ???
+  override def rotate180: Square = ???
+  override def rotate270: Square = ???
+
   override def prolign(matrix: ProlignMatrix): Square = Square.s2s4(s2Cen.prolign(matrix), s4Cen.prolign(matrix))
 
   override def reflect(lineLike: LineLike): Square = Square.s2s4(s2Cen.reflect(lineLike), s4Cen.reflect(lineLike))

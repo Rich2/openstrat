@@ -29,6 +29,14 @@ trait GeomElem extends Product with Serializable
    *  traits. */
   def rotate90: GeomElem
 
+  /** Rotation of 180 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
+   *  traits. */
+  def rotate180: GeomElem
+
+  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
+   *  traits. */
+  def rotate270: GeomElem
+
   /** Rotation 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and traits. */
   def rotate(angle: AngleVec): GeomElem
 

@@ -3,27 +3,19 @@ package ostrat
 package geom
 import Colour._
 
-case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 2) extends EArcDraw
+case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 2) extends EArcDraw with AxisFree
 {
+  override type ThisT = CArcDraw
+
   /** Radius of the the circular arc. */
   def radius: Double = curveSeg.radius
 
   /** Translate 2D geometric transformation on this CArcDraw, returns a CArcDraw. */
   override def xySlate(xOffset: Double, yOffset: Double): CArcDraw = CArcDraw(curveSeg.xySlate(xOffset, yOffset), colour, lineWidth)
 
-  /** Translate 2D geometric transformation on this CArcDraw, returns a CArcDraw. This overload might be removeable in Scala 3, but is necessary for the
-   *  time being due to type inference problems. */
-  //override def slate(offset: Vec2Like): CArcDraw = CArcDraw(curveSeg.slate(offset), colour, lineWidth)
-
   /** Uniform scaling 2D geometric transformation on this CArcDraw, returns a CArcDraw. Use the xyScale method for differential scaling on the X and Y
    *  axes. */
   override def scale(operand: Double): CArcDraw = CArcDraw(curveSeg.scale(operand), colour, lineWidth)
-
-  /** Mirror, reflection 2D geometric transformation across the X axis on this CArcDraw, returns a CArcDraw. */
-  override def negY: CArcDraw = CArcDraw(curveSeg.negY, colour, lineWidth)
-
-  /** Mirror, reflection 2D geometric transformation across the X axis on this CArcDraw, returns a CArcDraw. */
-  override def negX: CArcDraw = CArcDraw(curveSeg.negX, colour, lineWidth)
 
   /** 2D geometric transformation using a [[ProlignMatrix]] on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits /
    * classes. */

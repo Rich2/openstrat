@@ -41,6 +41,18 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   /** Mirror, reflection 2D geometric transformation across the Y axis by negating Xon this CArc returns a CArc. */
   override def negX: CArc = CArc(pStart.negX, cen.negX, pEnd.negX, -counter)
 
+  /** Rotation of 90 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
+   * traits. */
+  override def rotate90: CArc = ???
+
+  /** Rotation of 180 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
+   * traits. */
+  override def rotate180: CArc = ???
+
+  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a GeomElem. The return type will be narrowed in sub classes and
+   * traits. */
+  override def rotate270: CArc = ???
+
   /** 2D Transformation using a [[ProlignMatrix]]. */
   override def prolign(matrix: ProlignMatrix): CArc = ???
 
