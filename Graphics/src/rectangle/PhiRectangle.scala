@@ -66,12 +66,16 @@ object PhiRectangle
     override def x4: Double = v2.x
     override def y4: Double = v2.y
 
-
     override def xSd2Cen: Double = ???
 
     override def ySd2Cen: Double = ???
 
     override def sd2Cen: Pt2 = sd1Cen midPt sd2Cen
+
+    override def xSd4Cen: Double = ???
+
+    override def ySd4Cen: Double = ???
+
     override def sd4Cen: Pt2 = sd3Cen midPt sd4Cen
   }
 }

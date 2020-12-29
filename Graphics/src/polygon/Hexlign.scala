@@ -29,7 +29,12 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
   override def x6: Double = xCen - rMax / 2
   override def y6: Double = yCen + rMin
   @inline override def v6: Pt2 = Pt2(x6, y6)
-  
+
+
+  override def xSd4Cen: Double = ???
+
+  override def ySd4Cen: Double = ???
+
   override def sd4Cen: Pt2 = Pt2(0, -rMin)
   override def sd1Cen: Pt2 = Pt2(0, rMin)
 

@@ -29,7 +29,6 @@ trait RectS2S4 extends Rectangle
   final override def sd3Cen: Pt2 = v2 midPt v3
 
   final override  def sd2Cen: Pt2 = Pt2(xSd2Cen, ySd2Cen)
-  def xS4Cen: Double
-  def yS4Cen: Double
-  final override def sd4Cen: Pt2 = Pt2(xS4Cen, yS4Cen)
+
+  final override def sd4Cen: Pt2 = Pt2(xSd4Cen, ySd4Cen)
 }

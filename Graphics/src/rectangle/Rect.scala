@@ -28,6 +28,11 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   final override def ySd2Cen: Double = ???
 
+
+  override def xSd4Cen: Double = ???
+
+  override def ySd4Cen: Double = ???
+
   final override def sd4Cen: Pt2 = Pt2(xCen - width / 2, yCen)
 
   /** Translate geometric transformation on a Rect returns a Rect. */

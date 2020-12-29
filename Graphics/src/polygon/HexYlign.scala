@@ -28,7 +28,12 @@ final class HexYlign(val dMin: Double, val xCen: Double, val yCen: Double) exten
   override def x6: Double = xCen
   override def y6: Double = yCen + rMax
   @inline override def v6: Pt2 = Pt2(x6, y6)
-  
+
+
+  override def xSd4Cen: Double = ???
+
+  override def ySd4Cen: Double = ???
+
   override def sd4Cen: Pt2 = Pt2(-rMin, 0)
   override def sd1Cen: Pt2 = Pt2(rMin, 0)
 

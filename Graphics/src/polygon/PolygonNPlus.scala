@@ -62,6 +62,10 @@ trait Polygon3Plus extends Polygon
    *  vertex 0.5. */
   def sd1Cen: Pt2
 
+  /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as
+   * vertex 1.5 */
+  def sd2Cen: Pt2
+
   /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
    *  be thought of as vertex 0.5. */
   def xSd2Cen: Double
@@ -70,9 +74,6 @@ trait Polygon3Plus extends Polygon
    *  be thought of as vertex 0.5. */
   def ySd2Cen: Double
 
-  /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as
-   * vertex 1.5 */
-  def sd2Cen: Pt2
 
   /** The centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be thought of as
    *  vertex 2.5. */
@@ -95,6 +96,14 @@ trait Polygon4Plus extends Polygon3Plus
   /** The centre or half way point of side 4 of this polygon. Side 4 starts at the v3 vertex and ends at the v4 vertex. This can be thought of as
    * vertex 3.5. */
   def sd4Cen: Pt2
+
+  /** The X component of the centre or half way point of side 4 of this polygon. Side 4 starts at the v3 vertex and ends at the v4 vertex. This can be
+   *  thought of as vertex 3.5. */
+  def xSd4Cen: Double
+
+  /** The Y component of the centre or half way point of side 4 of this polygon. Side 4 starts at the v3 vertex and ends at the v4 vertex. This can be
+   *  thought of as vertex 3.5. */
+  def ySd4Cen: Double
 }
 
 /** A [[Polygon]] with at least 5 vertices. */
