@@ -7,6 +7,15 @@ trait Triangle extends Polygon3Plus
 {	override def vertsNum: Int = 3
 	override def v1: Pt2 = x1 pp y1
 	override def v3: Pt2 = x3 pp y3
+
+	/** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
+	 * be thought of as vertex 0.5. */
+	override def xSd1Cen: Double = ???
+
+	/** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
+	 * be thought of as vertex 0.5. */
+	override def ySd1Cen: Double = ???
+
 	override def sd1Cen: Pt2 = v3 midPt v1
 
 	override def xSd2Cen: Double = ???

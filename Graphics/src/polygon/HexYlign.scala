@@ -29,16 +29,13 @@ final class HexYlign(val dMin: Double, val xCen: Double, val yCen: Double) exten
   override def y6: Double = yCen + rMax
   @inline override def v6: Pt2 = Pt2(x6, y6)
 
-
-  override def xSd4Cen: Double = ???
-
-  override def ySd4Cen: Double = ???
-
-  override def sd4Cen: Pt2 = Pt2(-rMin, 0)
+  override def xSd1Cen: Double = rMin
+  override def ySd1Cen: Double = 0
   override def sd1Cen: Pt2 = Pt2(rMin, 0)
-
-  override def productArity: Int = ???
-
+  override def xSd4Cen: Double = -rMin
+  override def ySd4Cen: Double = 0
+  override def sd4Cen: Pt2 = Pt2(-rMin, 0)
+  override def productArity: Int = 3
   override def productElement(n: Int): Any = ???
 
   /** Translate geometric transformation on a HexYlign returns a HexYlign. The return type of this method will be narrowed  further in most descendant
@@ -60,11 +57,11 @@ final class HexYlign(val dMin: Double, val xCen: Double, val yCen: Double) exten
   override def rotate90: Hexlign = Hexlign(dMin, cen.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a HexYlign, returns a HexYlign. The return type will be narrowed in sub traits / classes. */
-  /*override def rotate180: HexYlign = HexYlign(dMin, cen.rotate180)
+  override def rotate180: HexYlign = HexYlign(dMin, cen.rotate180)
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. The return type
    * will be narrowed in sub traits / classes. */
-  override def rotate270: HexYlign = HexYlign(dMin, cen.rotate270)*/
+  override def rotate270: HexYlign = HexYlign(dMin, cen.rotate270)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): HexYlign = HexYlign(dMin, cen.prolign(matrix))

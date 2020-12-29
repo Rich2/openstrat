@@ -36,6 +36,16 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
   override def ySd4Cen: Double = ???
 
   override def sd4Cen: Pt2 = Pt2(0, -rMin)
+
+
+  /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
+   * be thought of as vertex 0.5. */
+  override def xSd1Cen: Double = ???
+
+  /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
+   * be thought of as vertex 0.5. */
+  override def ySd1Cen: Double = ???
+
   override def sd1Cen: Pt2 = Pt2(0, rMin)
 
   override def productArity: Int = ???

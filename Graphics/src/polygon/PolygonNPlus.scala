@@ -62,6 +62,14 @@ trait Polygon3Plus extends Polygon
    *  vertex 0.5. */
   def sd1Cen: Pt2
 
+  /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
+   *  be thought of as vertex 0.5. */
+  def xSd1Cen: Double
+
+  /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
+   *  be thought of as vertex 0.5. */
+  def ySd1Cen: Double
+
   /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as
    * vertex 1.5 */
   def sd2Cen: Pt2

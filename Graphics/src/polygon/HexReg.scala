@@ -115,13 +115,13 @@ object HexReg
   }
 
   /** Implementation class for the [[HexReg]] trait. */
-  final case class HexRegImp(xSd4Cen: Double, ySd4Cen: Double, xs1Cen: Double, ys1Cen: Double) extends HexReg
+  final case class HexRegImp(xSd4Cen: Double, ySd4Cen: Double, xSd1Cen: Double, ySd1Cen: Double) extends HexReg
   {
     override def vert(index: Int): Pt2 = ???
     def sd4Cen: Pt2 = Pt2(xSd4Cen, ySd4Cen)
-    def sd1Cen: Pt2 = Pt2(xs1Cen, ys1Cen)
-    def xCen: Double = (xs1Cen + xSd4Cen) / 2
-    def yCen: Double = (ys1Cen + ySd4Cen) / 2
+    def sd1Cen: Pt2 = Pt2(xSd1Cen, ySd1Cen)
+    def xCen: Double = (xSd1Cen + xSd4Cen) / 2
+    def yCen: Double = (ySd1Cen + ySd4Cen) / 2
     def s1CenRMax: Pt2 = cen + (cen >> sd4Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(xCen, yCen)
     @inline override def dMin: Double = sd1Cen.distTo(sd4Cen)

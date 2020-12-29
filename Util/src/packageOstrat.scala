@@ -44,6 +44,9 @@ package object ostrat
   /** Gives the scalar hypotenuse length for a right angled triangle form the paramter lengths of the other 2 sides. */
   def hypotenuse(side1: Double, side2: Double): Double = (side1.squared + side2.squared).sqrt
 
+  /** Gives the average of the supplied values. */
+  def average(d1: Double, tail: Double *): Double = (d1 + tail.sum) / (tail.length + 1)
+
   def NoRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
 
   /** onlyIf-do. Only if the condition is true, perform the effect. */

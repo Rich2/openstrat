@@ -25,6 +25,15 @@ trait RectS2S4 extends Rectangle
   @inline final def x4: Double = v4.x
   @inline final def y4: Double = v4.y
 
+
+  /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
+   * be thought of as vertex 0.5. */
+  override def xSd1Cen: Double = ???
+
+  /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
+   * be thought of as vertex 0.5. */
+  override def ySd1Cen: Double = ???
+
   final override def sd1Cen: Pt2 = v4 midPt v1
   final override def sd3Cen: Pt2 = v2 midPt v3
 

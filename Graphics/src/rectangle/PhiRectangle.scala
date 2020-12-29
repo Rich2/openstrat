@@ -47,8 +47,17 @@ object PhiRectangle
 
   case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, xS3Cen: Double, yS3Cen: Double) extends PhiRectangle
   { override def cen: Pt2 = xCen pp yCen
-    override def xCen: Double = (xS1Cen + xS1Cen) / 2
-    override def yCen: Double = (yS1Cen + yS1Cen) / 2
+    override def xCen: Double = average(xS1Cen, xS1Cen)
+    override def yCen: Double = average(yS1Cen, yS1Cen)
+
+    /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
+     * be thought of as vertex 0.5. */
+    override def xSd1Cen: Double = ???
+
+    /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
+     * be thought of as vertex 0.5. */
+    override def ySd1Cen: Double = ???
+
     override def sd1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
     override def sd3Cen: Pt2 = Pt2(xS3Cen, yS3Cen)
     override def width2: Double = sd1Cen.distTo(sd3Cen)
@@ -66,7 +75,7 @@ object PhiRectangle
     override def x4: Double = v2.x
     override def y4: Double = v2.y
 
-    override def xSd2Cen: Double = ???
+    override def xSd2Cen: Double = ??? //average(xSd1Cen midPt sd2Cen
 
     override def ySd2Cen: Double = ???
 
