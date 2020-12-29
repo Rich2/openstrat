@@ -139,6 +139,8 @@ object Rectangle
   { override def negYT(obj: Rectangle): Rectangle = obj.negY
     override def negXT(obj: Rectangle): Rectangle = obj.negX
     override def rotate90(obj: Rectangle): Rectangle = obj.rotate90
+    override def rotate180(obj: Rectangle): Rectangle = obj.rotate180
+    override def rotate270(obj: Rectangle): Rectangle = obj.rotate270
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */

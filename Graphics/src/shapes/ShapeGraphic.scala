@@ -35,6 +35,8 @@ trait ShapeGraphic extends BoundedGraphic
   def negX: ShapeGraphic
 
   override def rotate90: ShapeGraphic
+  override def rotate180: ShapeGraphic
+  override def rotate270: ShapeGraphic
 
   def prolign(matrix: ProlignMatrix): ShapeGraphic
 
@@ -43,8 +45,6 @@ trait ShapeGraphic extends BoundedGraphic
   def reflect(lineLike: LineLike): ShapeGraphic
 
   override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphic
-
-
 }
 
 /** Companion object for the ShapeGraphic class. */
@@ -70,5 +70,7 @@ object ShapeGraphic
   { override def negYT(obj: ShapeGraphic): ShapeGraphic = obj.negY
     override def negXT(obj: ShapeGraphic): ShapeGraphic = obj.negX
     override def rotate90(obj: ShapeGraphic): ShapeGraphic = obj.rotate90
+    override def rotate180(obj: ShapeGraphic): ShapeGraphic = obj.rotate180
+    override def rotate270(obj: ShapeGraphic): ShapeGraphic = obj.rotate270
   }
 }

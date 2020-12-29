@@ -130,6 +130,8 @@ trait Polygon extends Shape with BoundedElem
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
   override def rotate90: Polygon = ???
+  override def rotate180: Polygon = ???
+  override def rotate270: Polygon = ???
 
   /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will
    *  be narrowed in some but not all sub traits / classes. */
@@ -247,6 +249,8 @@ object Polygon
   { override def negYT(obj: Polygon): Polygon = obj.negY
     override def negXT(obj: Polygon): Polygon = obj.negX
     override def rotate90(obj: Polygon): Polygon = obj.rotate90
+    override def rotate180(obj: Polygon): Polygon = obj.rotate180
+    override def rotate270(obj: Polygon): Polygon = obj.rotate270
   }
   
   implicit val shearImplicit: Shear[Polygon] = new Shear[Polygon]

@@ -15,6 +15,8 @@ trait BoundedGraphic extends GraphicElem with BoundedElem
   def prolign(matrix: ProlignMatrix): BoundedGraphic
 
   override def rotate90: BoundedGraphic
+  override def rotate180: BoundedGraphic
+  override def rotate270: BoundedGraphic
   def rotate(angle: AngleVec): BoundedGraphic
   override def reflect(lineLike: LineLike): BoundedGraphic
   override def xyScale(xOperand: Double, yOperand: Double): BoundedGraphic
@@ -35,6 +37,8 @@ object BoundedGraphic
   { override def negYT(obj: BoundedGraphic): BoundedGraphic = obj.negY
     override def negXT(obj: BoundedGraphic): BoundedGraphic = obj.negX
     override def rotate90(obj: BoundedGraphic): BoundedGraphic = obj.rotate90
+    override def rotate180(obj: BoundedGraphic): BoundedGraphic = obj.rotate180
+    override def rotate270(obj: BoundedGraphic): BoundedGraphic = obj.rotate270
   }
 
   implicit val shearImplicit: Shear[BoundedGraphic] = new Shear[BoundedGraphic]

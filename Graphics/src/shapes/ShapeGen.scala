@@ -67,6 +67,8 @@ object ShapeGen
   { override def negYT(obj: ShapeGen ): ShapeGen  = obj.negY
     override def negXT(obj: ShapeGen ): ShapeGen  = obj.negX
     override def rotate90(obj: ShapeGen): ShapeGen = obj.rotate90
+    override def rotate180(obj: ShapeGen): ShapeGen = obj.rotate180
+    override def rotate270(obj: ShapeGen): ShapeGen = obj.rotate270
   }
 
   implicit val shearImplicit: Shear[ShapeGen ] = new Shear[ShapeGen ]

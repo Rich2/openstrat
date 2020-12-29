@@ -54,6 +54,9 @@ trait Ellipse extends EllipseBased with ShapeCentred
   override def xyScale(xOperand: Double, yOperand: Double): Ellipse = fTrans(_.xyScale(xOperand, yOperand))
 
   override def rotate90: Ellipse = fTrans(_.rotate90)
+  override def rotate180: Ellipse = fTrans(_.rotate180)
+  override def rotate270: Ellipse = fTrans(_.rotate270)
+
   override def rotate(angle: AngleVec): Ellipse = fTrans(_.rotate(angle))
 
   override def negY: Ellipse
@@ -98,6 +101,8 @@ object Ellipse
   { override def negYT(obj: Ellipse): Ellipse = obj.negY
     override def negXT(obj: Ellipse): Ellipse = obj.negX
     override def rotate90(obj: Ellipse): Ellipse = obj.rotate90
+    override def rotate180(obj: Ellipse): Ellipse = obj.rotate180
+    override def rotate270(obj: Ellipse): Ellipse = obj.rotate270
   }
 
   implicit val shearImplicit: Shear[Ellipse] = new Shear[Ellipse]

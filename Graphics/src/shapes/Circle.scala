@@ -111,6 +111,8 @@ object Circle extends ShapeIcon
   { override def negYT(obj: Circle): Circle = obj.negY
     override def negXT(obj: Circle): Circle = obj.negX
     override def rotate90(obj: Circle): Circle = obj.rotate90
+    override def rotate180(obj: Circle): Circle = obj.rotate180
+    override def rotate270(obj: Circle): Circle = obj.rotate270
   }
 
   override def fill(colour: Colour): CircleFillIcon = CircleFillIcon(colour)

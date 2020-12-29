@@ -33,6 +33,8 @@ trait ShapeFill extends ShapeGraphicSimple
   override def prolign(matrix: ProlignMatrix): ShapeFill
 
   override def rotate90: ShapeFill
+  override def rotate180: ShapeFill
+  override def rotate270: ShapeFill
 
   override def rotate(angle: AngleVec): ShapeFill
 
@@ -57,5 +59,7 @@ object ShapeFill
   { override def negYT(obj: ShapeFill): ShapeFill = obj.negY
     override def negXT(obj: ShapeFill): ShapeFill = obj.negX
     override def rotate90(obj: ShapeFill): ShapeFill = obj.rotate90
+    override def rotate180(obj: ShapeFill): ShapeFill = obj.rotate180
+    override def rotate270(obj: ShapeFill): ShapeFill = obj.rotate270
   }
 }

@@ -30,6 +30,8 @@ trait GraphicElem extends GeomElem
   override def prolign(matrix: ProlignMatrix): GraphicElem
 
   override def rotate90: GraphicElem
+  override def rotate180: GraphicElem
+  override def rotate270: GraphicElem
 
   /** Rotation 2D geometric transformation on a GraphicElem taking the rotation as a scalar measured in radians, returns a GraphicElem. The Return
    *  type will be narrowed in sub traits / classes. */
@@ -66,5 +68,7 @@ object GraphicElem
   { override def negYT(obj: GraphicElem): GraphicElem = obj.negY
     override def negXT(obj: GraphicElem): GraphicElem = obj.negX
     override def rotate90(obj: GraphicElem): GraphicElem = obj.rotate90
+    override def rotate180(obj: GraphicElem): GraphicElem = obj.rotate180
+    override def rotate270(obj: GraphicElem): GraphicElem = obj.rotate270
   }
 }

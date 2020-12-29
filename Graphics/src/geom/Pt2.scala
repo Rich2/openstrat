@@ -260,6 +260,8 @@ object Pt2
   { override def negYT(obj: Pt2): Pt2 = obj.negY
     override def negXT(obj: Pt2): Pt2 = obj.negX
     override def rotate90(obj: Pt2): Pt2 = obj.rotate90
+    override def rotate180(obj: Pt2): Pt2 = obj.rotate180
+    override def rotate270(obj: Pt2): Pt2 = obj.rotate270
   }
 
   implicit val shearImplicit: Shear[Pt2] = new Shear[Pt2]

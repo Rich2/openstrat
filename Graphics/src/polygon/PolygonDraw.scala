@@ -57,6 +57,8 @@ object PolygonDraw
   { override def negYT(obj: PolygonDraw): PolygonDraw = obj.negY
     override def negXT(obj: PolygonDraw): PolygonDraw = obj.negX
     override def rotate90(obj: PolygonDraw): PolygonDraw = obj.rotate90
+    override def rotate180(obj: PolygonDraw): PolygonDraw = obj.rotate180
+    override def rotate270(obj: PolygonDraw): PolygonDraw = obj.rotate270
   }
   
   /*implicit val persistImplicit: Persist3[Polygon, Double, Colour, PolygonDraw] =

@@ -29,6 +29,8 @@ trait CanvElem extends GraphicElem
   override def prolign(matrix: ProlignMatrix): CanvElem
 
   override def rotate90: CanvElem
+  override def rotate180: CanvElem
+  override def rotate270: CanvElem
 
   /** Rotation 2D geometric transformation on a CanvElem taking the rotation as a scalar measured in radians, returns a CanvElem. The Return
    *  type will be narrowed in sub traits / classes. */
@@ -65,5 +67,7 @@ object CanvElem
   { override def negYT(obj: CanvElem): CanvElem = obj.negY
     override def negXT(obj: CanvElem): CanvElem = obj.negX
     override def rotate90(obj: CanvElem): CanvElem = obj.rotate90
+    override def rotate180(obj: CanvElem): CanvElem = obj.rotate180
+    override def rotate270(obj: CanvElem): CanvElem = obj.rotate270
   }
 }

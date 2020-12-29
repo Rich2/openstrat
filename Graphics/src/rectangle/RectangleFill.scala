@@ -48,6 +48,8 @@ object RectangleFill
   { override def negYT(obj: RectangleFill): RectangleFill = obj.negY
     override def negXT(obj: RectangleFill): RectangleFill = obj.negX
     override def rotate90(obj: RectangleFill): RectangleFill = obj.rotate90
+    override def rotate180(obj: RectangleFill): RectangleFill = obj.rotate180
+    override def rotate270(obj: RectangleFill): RectangleFill = obj.rotate270
   }
 
   /** Implementation class for the general case of a [[RectangleFill]]. */

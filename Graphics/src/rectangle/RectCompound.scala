@@ -3,10 +3,8 @@ package ostrat
 package geom
 
 /** This is a compound graphic based on a Rect shape. A rectangle aligned to the X and Y axes.  */
-case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends RectGraphic with RectangleCompound with
-  AxisFree
+case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends RectGraphic with RectangleCompound
 {
-  override type ThisT = RectCompound
   //override def attribs: Arr[XmlAtt] = ???
 
   override def svgStr: String = ???
@@ -22,17 +20,17 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): RectCompound = RectCompound(shape.scale(operand), facets, children.scale(operand))
 
-  override def rotate(angle: AngleVec): RectCompound = ???
-
-  override def reflect(lineLike: LineLike): RectCompound = ???
+  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
+   * in sub classes. */
+  override def negY: RectCompound = RectCompound(shape.negY, facets, children.negY)
 
   /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
    * in sub classes. */
-  //override def negY: RectCompound = RectCompound(shape.negY, facets, children.negY)
+  override def negX: RectCompound = RectCompound(shape.negX, facets, children.negX)
 
-  /** Mirror, reflection transformation across the X axis. This method has been left abstract in GeomElemNew to allow the return type to be narrowed
-   * in sub classes. */
-  //override def negX: RectCompound = RectCompound(shape.negX, facets, children.negX)
+  override def rotate90: RectCompound = RectCompound(shape.rotate90, facets, children.rotate90)
+  override def rotate180: RectCompound = RectCompound(shape.rotate180, facets, children.rotate180)
+  override def rotate270: RectCompound = RectCompound(shape.rotate270, facets, children.rotate270)
 
   override def prolign(matrix: ProlignMatrix): RectCompound = RectCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
@@ -51,5 +49,7 @@ object RectCompound
   { override def negYT(obj: RectCompound): RectCompound = obj.negY
     override def negXT(obj: RectCompound): RectCompound = obj.negX
     override def rotate90(obj: RectCompound): RectCompound = obj.rotate90
+    override def rotate180(obj: RectCompound): RectCompound = obj.rotate180
+    override def rotate270(obj: RectCompound): RectCompound = obj.rotate270
   }
 }

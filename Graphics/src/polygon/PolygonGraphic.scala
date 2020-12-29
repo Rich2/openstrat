@@ -43,6 +43,8 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   override def prolign(matrix: ProlignMatrix): PolygonGraphic
 
   override def rotate90: PolygonGraphic
+  override def rotate180: PolygonGraphic
+  override def rotate270: PolygonGraphic
   
   override def rotate(angle: AngleVec): PolygonGraphic
 
@@ -68,5 +70,7 @@ object PolygonGraphic
   { override def negYT(obj: PolygonGraphic): PolygonGraphic = obj.negY
     override def negXT(obj: PolygonGraphic): PolygonGraphic = obj.negX
     override def rotate90(obj: PolygonGraphic): PolygonGraphic = obj.rotate90
+    override def rotate180(obj: PolygonGraphic): PolygonGraphic = obj.rotate180
+    override def rotate270(obj: PolygonGraphic): PolygonGraphic = obj.rotate270
   }
 }

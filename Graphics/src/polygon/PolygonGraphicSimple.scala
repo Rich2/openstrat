@@ -36,6 +36,8 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   override def prolign(matrix: ProlignMatrix): PolygonGraphicSimple
 
   override def rotate90: PolygonGraphicSimple
+  override def rotate180: PolygonGraphicSimple
+  override def rotate270: PolygonGraphicSimple
 
   override def rotate(angle: AngleVec): PolygonGraphicSimple
 
@@ -55,6 +57,8 @@ object PolygonGraphicSimple
   { override def negYT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negY
     override def negXT(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.negX
     override def rotate90(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.rotate90
+    override def rotate180(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.rotate180
+    override def rotate270(obj: PolygonGraphicSimple): PolygonGraphicSimple = obj.rotate270
   }
 }
 

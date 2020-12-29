@@ -28,6 +28,8 @@ trait ShapeCompound extends ShapeGraphic
   override def prolign(matrix: ProlignMatrix): ShapeCompound
 
   override def rotate90: ShapeCompound
+  override def rotate180: ShapeCompound
+  override def rotate270: ShapeCompound
 
   override def rotate(angle: AngleVec): ShapeCompound
 
@@ -51,6 +53,8 @@ object ShapeCompound
   { override def negYT(obj: ShapeCompound): ShapeCompound = obj.negY
     override def negXT(obj: ShapeCompound): ShapeCompound = obj.negX
     override def rotate90(obj: ShapeCompound): ShapeCompound = obj.rotate90
+    override def rotate180(obj: ShapeCompound): ShapeCompound = obj.rotate180
+    override def rotate270(obj: ShapeCompound): ShapeCompound = obj.rotate270
   }
 
   implicit val prolignImplicit: Prolign[ShapeCompound] = (obj, matrix) => obj.prolign(matrix)  

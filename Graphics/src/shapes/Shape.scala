@@ -37,6 +37,8 @@ trait Shape extends Fillable with BoundedElem
   override def prolign(matrix: ProlignMatrix): Shape
 
   override def rotate90: Shape
+  override def rotate180: Shape
+  override def rotate270: Shape
 
   /** Rotation 2D geometric transformation on a Shape taking the rotation as a scalar measured in radians, returns a Shape. The Return type will be
    *  narrowed in sub traits / classes. */
@@ -70,6 +72,8 @@ object Shape
   { override def negYT(obj: Shape): Shape = obj.negY
     override def negXT(obj: Shape): Shape = obj.negX
     override def rotate90(obj: Shape): Shape = obj.rotate90
+    override def rotate180(obj: Shape): Shape = obj.rotate180
+    override def rotate270(obj: Shape): Shape = obj.rotate270
   }
 
   implicit val shearImplicit: Shear[Shape] = new Shear[Shape]

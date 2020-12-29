@@ -41,6 +41,8 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   override def negX: Rect = Rect(width, height, cen.negX)
 
   override def rotate90: Rect = ???
+  override def rotate180: Rect = ???
+  override def rotate270: Rect = ???
 
   override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v1.prolign(matrix))
 
@@ -97,6 +99,8 @@ object Rect
   { override def negYT(obj: Rect): Rect = obj.negY
     override def negXT(obj: Rect): Rect = obj.negX
     override def rotate90(obj: Rect): Rect = obj.rotate90
+    override def rotate180(obj: Rect): Rect = obj.rotate180
+    override def rotate270(obj: Rect): Rect = obj.rotate270
   }
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */

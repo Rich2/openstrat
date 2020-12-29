@@ -28,6 +28,8 @@ trait CanvShapeDraw extends ShapeDraw with CanvElem
   override def prolign(matrix: ProlignMatrix): CanvShapeDraw
 
   override def rotate90: CanvShapeDraw
+  override def rotate180: CanvShapeDraw
+  override def rotate270: CanvShapeDraw
 
   /** Rotation 2D geometric transformation on a CanvShapeDraw taking the rotation as a scalar measured in radians, returns a CanvShapeDraw. The Return
    * type will be narrowed in sub traits / classes. */

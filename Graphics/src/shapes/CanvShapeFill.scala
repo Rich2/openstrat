@@ -25,6 +25,8 @@ trait CanvShapeFill extends ShapeFill with CanvElem
   override def prolign(matrix: ProlignMatrix): CanvShapeFill
 
   override def rotate90: CanvShapeFill
+  override def rotate180: CanvShapeFill
+  override def rotate270: CanvShapeFill
 
   /** Rotation 2D geometric transformation on a CanvShapeFill taking the rotation as a scalar measured in radians, returns a CanvShapeFill. The Return
    * type will be narrowed in sub traits / classes. */

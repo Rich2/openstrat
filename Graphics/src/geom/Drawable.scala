@@ -27,6 +27,8 @@ trait Drawable extends GeomElem
   override def prolign(matrix: ProlignMatrix): Drawable
 
   override def rotate90: Drawable
+  override def rotate180: Drawable
+  override def rotate270: Drawable
 
   /** Rotation 2D geometric transformation, on this Drawable returns a Drawable. The return type will be narrowed in sub classes and traits. */
   override def rotate(angle: AngleVec): Drawable
@@ -60,6 +62,8 @@ object Drawable
   { override def negYT(obj: Drawable): Drawable = obj.negY
     override def negXT(obj: Drawable): Drawable = obj.negX
     override def rotate90(obj: Drawable): Drawable = obj.rotate90
+    override def rotate180(obj: Drawable): Drawable = obj.rotate90
+    override def rotate270(obj: Drawable): Drawable = obj.rotate90
   }
 
   implicit val shearImplicit: Shear[Drawable] = new Shear[Drawable]

@@ -30,11 +30,11 @@ trait GraphicSimple extends GraphicElem
 
   /** Rotate 180 degrees 2D geometric transformation on a GraphicSimple, returns a GraphicSimple. The return type will be narrowed in sub traits /
    * classes. */
-  /*override def rotate180: GraphicSimple
+  override def rotate180: GraphicSimple
 
   /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a GraphicSimple, returns a GraphicSimple. The
    *  return type will be narrowed in sub traits / classes. */
-  override def rotate270: GraphicSimple*/
+  override def rotate270: GraphicSimple
 
   override def prolign(matrix: ProlignMatrix): GraphicSimple
 
@@ -58,5 +58,7 @@ object GraphicSimple
   { override def negYT(obj: GraphicSimple): GraphicSimple = obj.negY
     override def negXT(obj: GraphicSimple): GraphicSimple = obj.negX
     override def rotate90(obj: GraphicSimple): GraphicSimple = obj.rotate90
+    override def rotate180(obj: GraphicSimple): GraphicSimple = obj.rotate90
+    override def rotate270(obj: GraphicSimple): GraphicSimple = obj.rotate90
   }  
 }

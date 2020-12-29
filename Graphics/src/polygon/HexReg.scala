@@ -106,6 +106,8 @@ object HexReg
   { override def negYT(obj: HexReg): HexReg = obj.negY
     override def negXT(obj: HexReg): HexReg = obj.negX
     override def rotate90(obj: HexReg): HexReg = obj.rotate90
+    override def rotate180(obj: HexReg): HexReg = obj.rotate180
+    override def rotate270(obj: HexReg): HexReg = obj.rotate180
   }
 
   /** Implementation class for the [[HexReg]] trait. */

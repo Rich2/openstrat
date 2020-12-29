@@ -45,6 +45,8 @@ trait CurveSeg extends Drawable
   override def rotate(angle: AngleVec): CurveSeg
 
   override def rotate90: CurveSeg
+  override def rotate180: CurveSeg
+  override def rotate270: CurveSeg
 
   /** Reflect 2D geometric transformation across a line, line segment or ray, on this CurveSeg, returns a CurveSeg. The return type will be narrowed
    *  in sub classes and traits. */
@@ -74,6 +76,8 @@ object CurveSeg
   { override def negYT(obj: CurveSeg): CurveSeg = obj.negY
     override def negXT(obj: CurveSeg): CurveSeg = obj.negX
     override def rotate90(obj: CurveSeg): CurveSeg = obj.rotate90
+    override def rotate180(obj: CurveSeg): CurveSeg = obj.rotate180
+    override def rotate270(obj: CurveSeg): CurveSeg = obj.rotate270
   }
 
   implicit val shearImplicit: Shear[CurveSeg] = new Shear[CurveSeg]
