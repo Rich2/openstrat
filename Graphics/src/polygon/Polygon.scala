@@ -27,6 +27,18 @@ trait Polygon extends Shape with BoundedElem
     build.buffToArr(acc)
   }
 
+  /** flatMap with index to an immutable Arr. */
+  def vertsIFlatMap[BB <: ArrBase[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: ArrFlatBuild[BB]): BB =
+  { val buff: build.BuffT = build.newBuff()
+    var count: Int = iInit
+    foreachVert { v =>
+     val newElems = f(v, count)
+      build.buffGrowArr(buff, newElems)
+      count += 1
+    }
+    build.buffToArr(buff)
+  }
+
   def vertsFoldLeft[B](initial: B)(f: (B, Pt2) => B): B =
   { var acc: B = initial
     foreachVert{ v => acc = f(acc, v) }

@@ -18,17 +18,10 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
 
   def vertArrows(hr: HexReg): GraphicElems =
   {
-    Pt2s(hr.v1, hr.v2, hr.v3, hr.v4, hr.v5, hr.v6).iFlatMap(1){(pt, i) => pt.textArrowToward(hr.cen, "V" + i.str)} ++
-      Pt2s(hr.sd1Cen, hr.sd2Cen, hr.sd3Cen/*, hr.sd4Cen, hr.sd5Cen, hr.sdCen68*/).iFlatMap(1){(pt, i) =>
-        pt.textArrowToward(hr.cen, "Side" + i.str)}
-    /*val v1 = hr.v1.
-    val v2 = hr.v2.textArrowToward(hr.cen, "V2")
-    val v3 = hr.v3.textArrowToward(hr.cen, "V3")
-    val v4 = hr.v4.textArrowToward(hr.cen, "V4")
-    val v5 = hr.v5.textArrowToward(hr.cen, "V5")
-    val v6 = hr.v6.textArrowToward(hr.cen, "V6")*/
-    //val sd1 = hr.sd1Cen.textArrowToward(hr.cen, "sd1")
-
+    val verts = hr.vertsIFlatMap(1){(pt, i) => pt.textArrowToward(hr.cen, "V" + i.str)}
+    val sides = Pt2s(hr.sd1Cen, hr.sd2Cen, hr.sd3Cen/*, hr.sd4Cen, hr.sd5Cen, hr.sdCen68*/).iFlatMap(1){(pt, i) =>
+      pt.textArrowToward(hr.cen, "Side" + i.str)}
+    verts ++ sides
   }
 
   val h4 = HexXlign(250, 200, 290)
