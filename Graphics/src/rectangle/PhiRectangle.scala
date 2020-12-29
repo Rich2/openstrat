@@ -12,25 +12,25 @@ trait PhiRectangle extends Rectangle
   def width1: Double = width2 * Phi
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
-  override def xySlate(xOffset: Double, yOffset: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen.addXY(xOffset, yOffset), s3Cen.addXY(xOffset, yOffset))
+  override def xySlate(xOffset: Double, yOffset: Double): PhiRectangle = PhiRectangle.s1s3(sd1Cen.addXY(xOffset, yOffset), sd3Cen.addXY(xOffset, yOffset))
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
-  override def slate(offset: Vec2Like): PhiRectangle = PhiRectangle.s1s3(s1Cen.slate(offset), s3Cen.slate(offset))
+  override def slate(offset: Vec2Like): PhiRectangle = PhiRectangle.s1s3(sd1Cen.slate(offset), sd3Cen.slate(offset))
 
   /** Uniform scaling transformation on a PhiRectangle returns a PhiRectangle. */
-  override def scale(operand: Double): PhiRectangle = PhiRectangle.s1s3(s1Cen.scale(operand), s3Cen.scale(operand))
+  override def scale(operand: Double): PhiRectangle = PhiRectangle.s1s3(sd1Cen.scale(operand), sd3Cen.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a PhiRectangle, returns a PhiRectangle. */
-  override def negY: PhiRectangle = PhiRectangle.s1s3(s1Cen.negY, s3Cen.negY)
+  override def negY: PhiRectangle = PhiRectangle.s1s3(sd1Cen.negY, sd3Cen.negY)
 
   /** Mirror, reflection transformation across the X axis on a PhiRectangle, returns a PhiRectangle. */
-  override def negX: PhiRectangle = PhiRectangle.s1s3(s1Cen.negX, s3Cen.negX)
+  override def negX: PhiRectangle = PhiRectangle.s1s3(sd1Cen.negX, sd3Cen.negX)
 
-  override def prolign(matrix: ProlignMatrix): PhiRectangle = PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): PhiRectangle = PhiRectangle.s1s3(sd1Cen.prolign(matrix), sd3Cen.prolign(matrix))
 
-  override def reflect(lineLike: LineLike): PhiRectangle = PhiRectangle.s1s3(s1Cen.reflect(lineLike), s3Cen.reflect(lineLike))
+  override def reflect(lineLike: LineLike): PhiRectangle = PhiRectangle.s1s3(sd1Cen.reflect(lineLike), sd3Cen.reflect(lineLike))
 
-  override def rotate(angle: AngleVec): PhiRectangle = PhiRectangle.s1s3(s1Cen.rotate(angle), s3Cen.rotate(angle))
+  override def rotate(angle: AngleVec): PhiRectangle = PhiRectangle.s1s3(sd1Cen.rotate(angle), sd3Cen.rotate(angle))
 }
 
 /** Companion object for the PhiRectangle trait. It contains the [[PhiRectangle.PhiRectangleImp]] implementation class an apply factory method that
@@ -49,24 +49,30 @@ object PhiRectangle
   { override def cen: Pt2 = xCen pp yCen
     override def xCen: Double = (xS1Cen + xS1Cen) / 2
     override def yCen: Double = (yS1Cen + yS1Cen) / 2
-    override def s1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
-    override def s3Cen: Pt2 = Pt2(xS3Cen, yS3Cen)
-    override def width2: Double = s1Cen.distTo(s3Cen)
-    override def alignAngle: AngleVec = s1Cen.angleFrom(s3Cen).rotationFrom90
-    override def v1: Pt2 = s1Cen + xVec2(width2 / 2).rotate(alignAngle)
+    override def sd1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
+    override def sd3Cen: Pt2 = Pt2(xS3Cen, yS3Cen)
+    override def width2: Double = sd1Cen.distTo(sd3Cen)
+    override def alignAngle: AngleVec = sd1Cen.angleFrom(sd3Cen).rotationFrom90
+    override def v1: Pt2 = sd1Cen + xVec2(width2 / 2).rotate(alignAngle)
     override def x1: Double = v1.x
     override def y1: Double = v1.y
-    override def v2: Pt2 = s3Cen + xVec2(width2 / 2).rotate(alignAngle)
+    override def v2: Pt2 = sd3Cen + xVec2(width2 / 2).rotate(alignAngle)
     override def x2: Double = v2.x
     override def y2: Double = v2.y
-    override def v3: Pt2 = s3Cen + xVec2(-width2 / 2).rotate(alignAngle)
+    override def v3: Pt2 = sd3Cen + xVec2(-width2 / 2).rotate(alignAngle)
     override def x3: Double = v2.x
     override def y3: Double = v2.y
-    override def v4: Pt2 = s1Cen + xVec2(-width2 / 2).rotate(alignAngle)
+    override def v4: Pt2 = sd1Cen + xVec2(-width2 / 2).rotate(alignAngle)
     override def x4: Double = v2.x
     override def y4: Double = v2.y
-    override def s2Cen: Pt2 = s1Cen midPtTo s2Cen
-    override def s4Cen: Pt2 = s3Cen midPtTo s4Cen
+
+
+    override def xSd2Cen: Double = ???
+
+    override def ySd2Cen: Double = ???
+
+    override def sd2Cen: Pt2 = sd1Cen midPt sd2Cen
+    override def sd4Cen: Pt2 = sd3Cen midPt sd4Cen
   }
 }
 

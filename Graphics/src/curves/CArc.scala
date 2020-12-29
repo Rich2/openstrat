@@ -21,7 +21,7 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   def chord: LineSeg = pStart.lineTo(pEnd)
 
   /** The mid point of the chord of this arc. */
-  def chordCen: Pt2 = pStart.midPtTo(pEnd)
+  def chordCen: Pt2 = pStart.midPt(pEnd)
 
   def addRotations(delta: Int): CArc = new CArc(xStart, yStart, xCen, yCen, xEnd, yEnd, counter + delta)
 

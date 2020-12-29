@@ -14,11 +14,15 @@ trait HexReg extends ShapeCentred with Polygon6Plus
 
   @inline final def dMax: Double = dMin * 2 / Sqrt3
 
-  def s1Cen: Pt2
+  def sd1Cen: Pt2
 
-  override def s2Cen: Pt2 = ???
-  override def s3Cen: Pt2 = ???
-  def s4Cen: Pt2
+  override def xSd2Cen: Double = ???
+
+  override def ySd2Cen: Double = ???
+
+  override def sd2Cen: Pt2 = ???
+  override def sd3Cen: Pt2 = ???
+  def sd4Cen: Pt2
   override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
   override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6); () }
@@ -70,26 +74,26 @@ trait HexReg extends ShapeCentred with Polygon6Plus
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def xySlate(xOffset: Double, yOffset: Double): HexReg = HexReg.s4s1(s4Cen.addXY(xOffset, yOffset), s1Cen.addXY(xOffset, yOffset))
+  override def xySlate(xOffset: Double, yOffset: Double): HexReg = HexReg.s4s1(sd4Cen.addXY(xOffset, yOffset), sd1Cen.addXY(xOffset, yOffset))
 
   /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */
-  override def scale(operand: Double): HexReg = HexReg.s4s1(s4Cen.scale(operand), s1Cen.scale(operand))
+  override def scale(operand: Double): HexReg = HexReg.s4s1(sd4Cen.scale(operand), sd1Cen.scale(operand))
 
   /** Mirror, reflection transformation of a HexReg across the X axis, returns a HexReg. */
-  override def negY: HexReg = HexReg.s4s1(s4Cen.negY, s1Cen.negY)
+  override def negY: HexReg = HexReg.s4s1(sd4Cen.negY, sd1Cen.negY)
 
   /** Mirror, reflection transformation of HexReg across the Y axis, returns a HexReg. */
-  override def negX: HexReg = HexReg.s4s1(s4Cen.negX, s1Cen.negX)
+  override def negX: HexReg = HexReg.s4s1(sd4Cen.negX, sd1Cen.negX)
 
-  override def rotate90: HexReg = HexReg.s4s1(s4Cen.rotate90, s1Cen.rotate90)
-  override def rotate180: HexReg = HexReg.s4s1(s4Cen.rotate180, s1Cen.rotate180)
-  override def rotate270: HexReg = HexReg.s4s1(s4Cen.rotate270, s1Cen.rotate270)
+  override def rotate90: HexReg = HexReg.s4s1(sd4Cen.rotate90, sd1Cen.rotate90)
+  override def rotate180: HexReg = HexReg.s4s1(sd4Cen.rotate180, sd1Cen.rotate180)
+  override def rotate270: HexReg = HexReg.s4s1(sd4Cen.rotate270, sd1Cen.rotate270)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): HexReg = HexReg.s4s1(s4Cen.prolign(matrix), s1Cen.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): HexReg = HexReg.s4s1(sd4Cen.prolign(matrix), sd1Cen.prolign(matrix))
 
-  override def rotate(angle: AngleVec): HexReg = HexReg.s4s1(s4Cen.rotate(angle), s1Cen.rotate(angle))
+  override def rotate(angle: AngleVec): HexReg = HexReg.s4s1(sd4Cen.rotate(angle), sd1Cen.rotate(angle))
 }
 
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
@@ -114,13 +118,13 @@ object HexReg
   final case class HexRegImp(xs4Cen: Double, ys4Cen: Double, xs1Cen: Double, ys1Cen: Double) extends HexReg
   {
     override def vert(index: Int): Pt2 = ???
-    def s4Cen: Pt2 = Pt2(xs4Cen, ys4Cen)
-    def s1Cen: Pt2 = Pt2(xs1Cen, ys1Cen)
+    def sd4Cen: Pt2 = Pt2(xs4Cen, ys4Cen)
+    def sd1Cen: Pt2 = Pt2(xs1Cen, ys1Cen)
     def xCen: Double = (xs1Cen + xs4Cen) / 2
     def yCen: Double = (ys1Cen + ys4Cen) / 2
-    def s1CenRMax: Pt2 = cen + (cen >> s4Cen) * 2 / Sqrt3
+    def s1CenRMax: Pt2 = cen + (cen >> sd4Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(xCen, yCen)
-    @inline override def dMin: Double = s1Cen.distTo(s4Cen)
+    @inline override def dMin: Double = sd1Cen.distTo(sd4Cen)
     override def v1: Pt2 = s1CenRMax.rotateAbout(cen,  - Deg30)
     override def x1: Double = v1.x
     override def y1: Double = v1.y

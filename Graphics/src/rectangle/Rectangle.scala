@@ -63,33 +63,33 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def slate(offset: Vec2Like): Rectangle = Rectangle.s2s4(s2Cen.slate(offset), s4Cen.slate(offset), width2)
+  override def slate(offset: Vec2Like): Rectangle = Rectangle.sd2sd4(sd2Cen.slate(offset), sd4Cen.slate(offset), width2)
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def xySlate(xOffset: Double, yOffset: Double): Rectangle =
-    Rectangle.s2s4(s2Cen.addXY(xOffset, yOffset), s4Cen.addXY(xOffset, yOffset), width2)
+    Rectangle.sd2sd4(sd2Cen.addXY(xOffset, yOffset), sd4Cen.addXY(xOffset, yOffset), width2)
 
   /** Uniform scaling 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def scale(operand: Double): Rectangle = Rectangle.s2s4(s2Cen.scale(operand), s4Cen.scale(operand), width2 * operand)
+  override def scale(operand: Double): Rectangle = Rectangle.sd2sd4(sd2Cen.scale(operand), sd4Cen.scale(operand), width2 * operand)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negY: Rectangle = Rectangle.s2s4(s2Cen.negY, s4Cen.negY, width2)
+  override def negY: Rectangle = Rectangle.sd2sd4(sd2Cen.negY, sd4Cen.negY, width2)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negX: Rectangle = Rectangle.s2s4(s2Cen.negX, s4Cen.negX, width2)
+  override def negX: Rectangle = Rectangle.sd2sd4(sd2Cen.negX, sd4Cen.negX, width2)
 
-  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(s2Cen.prolign(matrix), s4Cen.prolign(matrix), v1.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(sd2Cen.prolign(matrix), sd4Cen.prolign(matrix), v1.prolign(matrix))
 
-  override def rotate90: Rectangle = Rectangle.s2s4(s2Cen.rotate90, s4Cen.rotate90, width2)
-  override def rotate180: Rectangle = Rectangle.s2s4(s2Cen.rotate180, s4Cen.rotate180, width2)
-  override def rotate270: Rectangle = Rectangle.s2s4(s2Cen.rotate270, s4Cen.rotate270, width2)
+  override def rotate90: Rectangle = Rectangle.sd2sd4(sd2Cen.rotate90, sd4Cen.rotate90, width2)
+  override def rotate180: Rectangle = Rectangle.sd2sd4(sd2Cen.rotate180, sd4Cen.rotate180, width2)
+  override def rotate270: Rectangle = Rectangle.sd2sd4(sd2Cen.rotate270, sd4Cen.rotate270, width2)
 
-  override def reflect(lineLike: LineLike): Rectangle = Rectangle.s2s4(s2Cen.reflect(lineLike), s4Cen.reflect(lineLike), width2)
+  override def reflect(lineLike: LineLike): Rectangle = Rectangle.sd2sd4(sd2Cen.reflect(lineLike), sd4Cen.reflect(lineLike), width2)
 
-  override def rotate(angle: AngleVec): Rectangle = Rectangle.s2s4(s2Cen.rotate(angle), s4Cen.rotate(angle), width2)
+  override def rotate(angle: AngleVec): Rectangle = Rectangle.sd2sd4(sd2Cen.rotate(angle), sd4Cen.rotate(angle), width2)
 
   override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
-    Rectangle.s2s4v1(s2Cen.xyScale(xOperand, yOperand), s4Cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
+    Rectangle.s2s4v1(sd2Cen.xyScale(xOperand, yOperand), sd4Cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
 }
 
 /** Companion object fot the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also
@@ -102,7 +102,7 @@ object Rectangle
     new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
   }
 
-  def s2s4(s2Cen: Pt2, s4Cen: Pt2, height: Double): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
+  def sd2sd4(sd2Cen: Pt2, sd4Cen: Pt2, height: Double): Rectangle = new RectangleImp(sd2Cen.x, sd2Cen.y, sd4Cen.x, sd4Cen.y, height)
   def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
 
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Pt2Z): ShapeGenOld =
@@ -144,9 +144,9 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleImp(val xS2Cen: Double, val yS2Cen: Double, val xS4Cen: Double, val yS4Cen: Double, val width2: Double) extends RectS2S4
+  final class RectangleImp(val xSd2Cen: Double, val ySd2Cen: Double, val xS4Cen: Double, val yS4Cen: Double, val width2: Double) extends RectS2S4
   {
-    override def fTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(s2Cen), f(s4Cen), f(v1))
+    override def fTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd2Cen), f(sd4Cen), f(v1))
 
     override def productArity: Int = 5
     override def productElement(n: Int): Any = ???

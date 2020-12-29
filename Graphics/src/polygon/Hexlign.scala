@@ -30,8 +30,8 @@ final class Hexlign(val dMin: Double, val xCen: Double, val yCen: Double) extend
   override def y6: Double = yCen + rMin
   @inline override def v6: Pt2 = Pt2(x6, y6)
   
-  override def s4Cen: Pt2 = Pt2(0, -rMin)
-  override def s1Cen: Pt2 = Pt2(0, rMin)
+  override def sd4Cen: Pt2 = Pt2(0, -rMin)
+  override def sd1Cen: Pt2 = Pt2(0, rMin)
 
   override def productArity: Int = ???
 

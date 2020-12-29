@@ -4,7 +4,9 @@ package geom
 import Colour.Black, pWeb._
 
 /** A mathematical closed polygon. The general case can be instantiated with [[PolygonImp]], but it provides the interface for particular sub sets of
- *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. */
+ *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the
+ *  vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
+ *  with then end point of side n sdn at vertex n. */
 trait Polygon extends Shape with BoundedElem
 {
   def fTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon

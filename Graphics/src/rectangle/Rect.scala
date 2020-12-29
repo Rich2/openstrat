@@ -20,10 +20,15 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   @inline final def y4: Double = yTopLeft
   @inline final def v4: Pt2 = topLeft
 
-  final override def s1Cen: Pt2 = Pt2(xCen, yCen + height / 2)
-  final override def s2Cen: Pt2 = Pt2(xCen + width / 2, yCen)
-  final override def s3Cen: Pt2 = Pt2(xCen, yCen -height / 2)
-  final override def s4Cen: Pt2 = Pt2(xCen - width / 2, yCen)
+  final override def sd1Cen: Pt2 = Pt2(xCen, yCen + height / 2)
+  final override def sd2Cen: Pt2 = Pt2(xCen + width / 2, yCen)
+  final override def sd3Cen: Pt2 = Pt2(xCen, yCen -height / 2)
+
+  final override def xSd2Cen: Double = ???
+
+  final override def ySd2Cen: Double = ???
+
+  final override def sd4Cen: Pt2 = Pt2(xCen - width / 2, yCen)
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(offset: Vec2Like): Rect = Rect(width, height, cen.slate(offset))

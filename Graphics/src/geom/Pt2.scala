@@ -40,7 +40,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
   def angleFromYDown(operand: Pt2): Angle = (this << operand).angleYDown
 
   /** The average of this and the operand Pt2. The mid point between this point and the operand second point. */
-  def midPtTo(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y).invScale(2)
+  def midPt(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y).invScale(2)
 
   def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
   def str0: String = strMod(_.str0)
