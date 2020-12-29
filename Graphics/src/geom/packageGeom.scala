@@ -6,7 +6,7 @@ package ostrat
  * A number of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They
  * are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
-{ import math._, Colour.Black
+{ import math.Pi, Colour.Black
   val Phi: Double = 1.6180339887498948482
 
   /** A [[Vec2]] along the X Axis, whose Y component = 0. */
@@ -62,8 +62,10 @@ package object geom
   /** Dist2(0.km, 0.km) constant */
   val Dist2Z = Metres2(0.km, 0.km)
 
-  val LongD = 2.0 / Cos30
-  val cos30: Double = cos(Pi / 6)
+  val Sin30: Double = 0.5
+  val Sin60: Double = math.sin(Pi / 6)
+  val Cos30: Double = math.cos(Pi / 6)
+  val Cos60: Double = 0.5
   val LatLong0 = LatLong.degs(0, 0)
   val EarthPolarRadius: Metres = 6356.7523.km
   val EarthEquatorialRadius: Metres = 6378.137.km

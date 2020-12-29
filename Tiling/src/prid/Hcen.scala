@@ -13,7 +13,7 @@ class Hcen(val r: Int, val c: Int) extends HCoordReg
   def v5: HVert = HVert(1, -2)
   def v6: HVert = HVert(1, 0)
   def verts: HVerts = Hcen.vertsOfHex00.map(hv => hv + this)
-  def polygon: HexXlign = HexXlign(2, toPt2)
+  def polygon: HexYlign = HexYlign(2, toPt2)
   def fill(colour: Colour): PolygonFill = polygon.fill(colour)
   def active(id: Any = this): PolygonActive = polygon.active(id)
   override def typeStr: String = "HCen"

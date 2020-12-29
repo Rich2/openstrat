@@ -222,9 +222,14 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
     val tg = TextGraphic(str, fontSize, this.slateAngle(angle, arrowLength + 4), colour, align)
     this.angleFromLine(angle, arrowLength).withArrow(colour) +- tg
   }
+
+  /** Creates a [[TextGraphic]] and a line segment with an arrow head at the end. The arrow pointing from the [[TextGraphic]] to this point. The arrow
+   * points towards the dirnPt parameter point. The alignment of the text is determined by the angle parameter. */
+  def textArrowToward(dirnPt: Pt2, str: String = toString, arrowLength: Double = 20, colour: Colour = Black, fontSize: Double = 14): GraphicElems =
+    textArrow(str, angleFrom(dirnPt), arrowLength, colour, fontSize)
 }
 
-/** Companion object for Pt2. contains Apply factory method. */
+/** Companion object for Pt2. contains Apply factantiPory method. */
 object Pt2
 { def apply(x: Double, y: Double): Pt2 = new Pt2(x, y)
   def unapply(orig: Pt2): Option[(Double, Double)] = Some((orig.x, orig.y))
