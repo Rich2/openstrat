@@ -32,14 +32,30 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   // listOfFlags = Arr[Flag](); for(i <- 0 to itemCount - 1) { val thisColor = Colour.fromInts(scala.util.Random.nextInt(200) + 55, scala.util.Random.nextInt(200) + 55, scala.util.Random.nextInt(200) + 55);
   // listOfFlags = listOfFlags ++ Arr(TextFlagMaker(i.toString, thisColor)) }
 
-  val viewport = Map("width"->750, "height"->310, "headerSize"->50, "cellWidth"->150, "cellHeight"->100, "commonScale"->100)
+  /** viewport width */
+  val vWidth = 750
 
-  val scrollport = Map("maxBarWidth"->(viewport("width")  - 80), "minBarWidth"->20,
-    "isScrollHorizontal"-> 1, "scrollYpos"-> (viewport("height") / 2 + viewport("headerSize") / 2))
+  /** viewport height */
+  val vHeight = 310
+
+  /** viewport Header size */
+  val vHeaderSize = 50
+
+  /** viewport cell width */
+  val vCellWidth = 150
+
+  /** viewport cell height */
+  val vCellHeight = 100
+
+  /** viewport common scale */
+  val vCommonScale = 100
+
+  val scrollport = Map("maxBarWidth"->(vWidth  - 80), "minBarWidth"->20,
+    "isScrollHorizontal"-> 1, "scrollYpos"-> (vHeight / 2 + vHeaderSize / 2))
   
-  val firstFlagsPosition = (-(viewport("width") - viewport("cellWidth")) / 2 pp (viewport("height") - viewport("cellHeight")) / 2)
+  val firstFlagsPosition = (-(vWidth - vCellWidth) / 2 pp (vHeight - vCellHeight) / 2)
   val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 pp scrollport("scrollYpos"))).fill(Black)
-  val background = Rectangle.curvedCorners(viewport("width"), viewport("height"), 10).fill(Gray)
+  val background = Rectangle.curvedCorners(vWidth, vHeight, 10).fill(Gray)
   val btnMore = clickButtonOld(">", (mb: MouseButton) => { scrollMore() }).xySlate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
   val btnLess = clickButtonOld("<", (mb: MouseButton) => { scrollLess() }).xySlate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
   val scrollBar: Arr[GraphicSimElem] = Arr(btnMore, btnLess, barBackground)
@@ -74,8 +90,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     viewableItems = Arr()
     for(j <- 0 to itemsPerCol - 1; i <- 0 to itemsPerRow - 1 if firstIndex + i * iScrollStep + j * jScrollStep < itemCount)
     { val thisIndex = firstIndex + i * iScrollStep + j * jScrollStep
-      val thisFlag = listOfFlags(thisIndex).compound(thisIndex.toString).scale(viewport("commonScale") / Math.sqrt(listOfFlags(thisIndex).ratio))
-      viewableItems = viewableItems +- thisFlag.xySlate(i * viewport("cellWidth"), -j * viewport("cellHeight")).slate(firstFlagsPosition)
+      val thisFlag = listOfFlags(thisIndex).compound(thisIndex.toString).scale(vCommonScale / Math.sqrt(listOfFlags(thisIndex).ratio))
+      viewableItems = viewableItems +- thisFlag.xySlate(i * vCellWidth, -j * vCellHeight).slate(firstFlagsPosition)
     }
     viewIndex = firstIndex
     if (selectedIndex == -1) positionBar() else showSelected()
@@ -90,7 +106,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   def showSelected(): Unit =
   {
     val item = listOfFlags(selectedIndex).compound(selectedIndex.toString)
-    val item2 = item.scale(3 * viewport("commonScale") / Math.sqrt(listOfFlags(selectedIndex).ratio))
+    val item2 = item.scale(3 * vCommonScale / Math.sqrt(listOfFlags(selectedIndex).ratio))
     viewableItems = Arr(item2)
     positionBar()
   }
