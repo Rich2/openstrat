@@ -4,7 +4,8 @@ package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
 final class HexXlign(val dInner: Double, val xCen: Double, val yCen: Double) extends HexReg
-{ override def cen: Pt2 = xCen pp yCen
+{ override def toString: String = "HexXlign".appendParenthSemis(xCen.str, yCen.str)
+  override def cen: Pt2 = xCen pp yCen
 
   override def x1: Double = xCen + rOuter / 2
   override def y1: Double = yCen + rInner
@@ -42,9 +43,16 @@ final class HexXlign(val dInner: Double, val xCen: Double, val yCen: Double) ext
   override def ySd3Cen: Double = yCen - rInner * Sin30
   override def sd3Cen: Pt2 = xSd3Cen pp ySd3Cen
 
-  override def xSd4Cen: Double = xCen - rInner * Sin30
-  override def ySd4Cen: Double = yCen - rInner * Cos30
+  override def xSd4Cen: Double = xCen
+  override def ySd4Cen: Double = yCen - rInner
   override def sd4Cen: Pt2 = xSd4Cen pp ySd4Cen
+
+  override def xSd5Cen: Double = xCen - rInner * Cos30
+  override def ySd5Cen: Double = yCen - rInner * Sin30
+  override def sd5Cen: Pt2 = xSd5Cen pp ySd5Cen
+  override def xSd6Cen: Double = xCen - rInner * Cos30
+  override def ySd6Cen: Double = yCen + rInner * Sin30
+  override def sd6Cen: Pt2 = xSd6Cen pp ySd6Cen
 
   override def productArity: Int = 3
   override def productElement(n: Int): Any = ???

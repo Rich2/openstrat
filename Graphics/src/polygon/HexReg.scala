@@ -160,6 +160,22 @@ object HexReg
      * vertex 2.5. */
     override def sd3Cen: Pt2 = ???
 
+    /** The centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be thought of as
+     * vertex 4.5. */
+    override def sd5Cen: Pt2 = ???
+
+    /** The X component of the centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be
+     * thought of as vertex 4.5. */
+    override def xSd5Cen: Double = ???
+
+    /** The Y component of the centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be
+     * thought of as vertex 4.5. */
+    override def ySd5Cen: Double = ???
+
+    override def xSd6Cen: Double = ???
+    override def ySd6Cen: Double = ???
+    override def sd6Cen: Pt2 = ???
+
     /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
      * traits / classes. */
     override def reflect(lineLike: LineLike): HexReg = ???
