@@ -50,24 +50,27 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   /** viewport common scale */
   val vCommonScale = 100
 
-  val scrollport = Map("maxBarWidth"->(vWidth  - 80), "minBarWidth"->20,
-    "isScrollHorizontal"-> 1, "scrollYpos"-> (vHeight / 2 + vHeaderSize / 2))
+  //val scrollport = Map(
+  val maxBarWidth = vWidth  - 80
+  val minBarWidth =  20
+  val isScrollHorizontal = true
+  val scrollYpos = vHeight / 2 + vHeaderSize / 2
   
   val firstFlagsPosition = (-(vWidth - vCellWidth) / 2 pp (vHeight - vCellHeight) / 2)
-  val barBackground =  Rectangle.curvedCorners(scrollport("maxBarWidth") + 2, 32, 10, (0 pp scrollport("scrollYpos"))).fill(Black)
+  val barBackground =  Rectangle.curvedCorners(maxBarWidth + 2, 32, 10, (0 pp scrollYpos)).fill(Black)
   val background = Rectangle.curvedCorners(vWidth, vHeight, 10).fill(Gray)
-  val btnMore = clickButtonOld(">", (mb: MouseButton) => { scrollMore() }).xySlate(+20 + scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
-  val btnLess = clickButtonOld("<", (mb: MouseButton) => { scrollLess() }).xySlate(-20 - scrollport("maxBarWidth") / 2, scrollport("scrollYpos"))
+  val btnMore = clickButtonOld(">", (mb: MouseButton) => { scrollMore() }).xySlate(+20 + maxBarWidth / 2, scrollYpos)
+  val btnLess = clickButtonOld("<", (mb: MouseButton) => { scrollLess() }).xySlate(-20 - maxBarWidth / 2, scrollYpos)
   val scrollBar: Arr[GraphicSimElem] = Arr(btnMore, btnLess, barBackground)
 
-  if (scrollport("isScrollHorizontal") == 1) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
+  if (isScrollHorizontal) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
   else                                     { itemsPerUnitScroll = itemsPerRow; iScrollStep = 1; jScrollStep = itemsPerRow }
 // set itemsPerUnitScroll = itemsPerPage >>> scroll by page rather than by line
 
   val scrollStep = Math.max(iScrollStep, jScrollStep)
-  val barMaxAvailable = scrollport("maxBarWidth") - scrollport("minBarWidth")
-  val barWidth = (scrollport("minBarWidth") + Math.min(barMaxAvailable, 1.0 * barMaxAvailable * itemsPerPage / itemCount))
-  val barAvailable = scrollport("maxBarWidth") - barWidth
+  val barMaxAvailable = maxBarWidth - minBarWidth
+  val barWidth = (minBarWidth + Math.min(barMaxAvailable, 1.0 * barMaxAvailable * itemsPerPage / itemCount))
+  val barAvailable = maxBarWidth - barWidth
   val barStartX = -barAvailable / 2
   val maxIndexOfFirstItemInView = scrollStep * ((Math.max(0, itemCount - itemsPerPage + scrollStep - 1)) / scrollStep)
   def scrollMore(): Unit = { showGridView(viewIndex + itemsPerUnitScroll) }
@@ -99,7 +102,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
 
   def positionBar(): Unit = 
   { barOffsetX = if (maxIndexOfFirstItemInView != 0) barAvailable * viewIndex * 1.0 / maxIndexOfFirstItemInView else 0
-    bar = Rectangle.curvedCorners(barWidth, 30, 10, barStartX + barOffsetX pp scrollport("scrollYpos")).fill(Pink)
+    bar = Rectangle.curvedCorners(barWidth, 30, 10, barStartX + barOffsetX pp scrollYpos).fill(Pink)
     repaint(Arr(background) ++ scrollBar ++ viewableItems ++ Arr(bar))
   }
 
