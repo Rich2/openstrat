@@ -20,11 +20,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus
 
   def sd1Cen: Pt2
 
-  override def xSd2Cen: Double = ???
 
-  override def ySd2Cen: Double = ???
-
-  override def sd2Cen: Pt2 = ???
   override def sd3Cen: Pt2 = ???
   def sd4Cen: Pt2
   override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
@@ -146,6 +142,12 @@ object HexReg
     def v6: Pt2 = s1CenRMax.rotateAbout(cen, Deg30)
     override def x6: Double = v6.x
     override def y6: Double = v6.y
+
+    override def xSd2Cen: Double = ???
+
+    override def ySd2Cen: Double = ???
+
+    override def sd2Cen: Pt2 = ???
 
     /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
      * traits / classes. */
