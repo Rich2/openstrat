@@ -4,15 +4,19 @@ package geom
 
 /** Regular Hexagon */
 trait HexReg extends ShapeCentred with Polygon6Plus
-{ /** The maximum, longer diameter. */
-  def dMin: Double
+{ /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
+  def dInner: Double
 
-  @inline def rMin: Double = dMin / 2
+  /** The radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a side. */
+  @inline def rInner: Double = dInner / 2
 
-  /** The maximum radius length. Also the length of the Hexagon side. */
-  @inline final def rMax: Double = dMin / Sqrt3
+  /** The radius of the outer circle of this regular hexagon. The longer radius length from the centre of the Hexagon to a vertex. Also the length of
+   *  the hexagon side. */
+  @inline final def rOuter: Double = dInner / Sqrt3
 
-  @inline final def dMax: Double = dMin * 2 / Sqrt3
+  /** The diameter of the outer circle of this regular hexagon. The longer diameter length from a vertex to the opposite vertex. This lenght is twice
+   * the length of the hexagon side. */
+  @inline final def dOuter: Double = dInner * 2 / Sqrt3
 
   def sd1Cen: Pt2
 
@@ -68,38 +72,36 @@ trait HexReg extends ShapeCentred with Polygon6Plus
   /** A Hexagon has 6 vertices. */
   final override def vertsNum: Int = 6
 
-  /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed further in most descendant
-   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
- // override def slate(offset: Vec2Like): HexReg = HexReg.s4s1(s4Cen + offset, s1Cen + offset)
-
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def xySlate(xOffset: Double, yOffset: Double): HexReg = HexReg.s4s1(sd4Cen.addXY(xOffset, yOffset), sd1Cen.addXY(xOffset, yOffset))
+  override def xySlate(xOffset: Double, yOffset: Double): HexReg = HexReg.sd4Sd1(sd4Cen.addXY(xOffset, yOffset), sd1Cen.addXY(xOffset, yOffset))
 
   /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */
-  override def scale(operand: Double): HexReg = HexReg.s4s1(sd4Cen.scale(operand), sd1Cen.scale(operand))
+  override def scale(operand: Double): HexReg = HexReg.sd4Sd1(sd4Cen.scale(operand), sd1Cen.scale(operand))
 
   /** Mirror, reflection transformation of a HexReg across the X axis, returns a HexReg. */
-  override def negY: HexReg = HexReg.s4s1(sd4Cen.negY, sd1Cen.negY)
+  override def negY: HexReg = HexReg.sd4Sd1(sd4Cen.negY, sd1Cen.negY)
 
   /** Mirror, reflection transformation of HexReg across the Y axis, returns a HexReg. */
-  override def negX: HexReg = HexReg.s4s1(sd4Cen.negX, sd1Cen.negX)
+  override def negX: HexReg = HexReg.sd4Sd1(sd4Cen.negX, sd1Cen.negX)
 
-  override def rotate90: HexReg = HexReg.s4s1(sd4Cen.rotate90, sd1Cen.rotate90)
-  override def rotate180: HexReg = HexReg.s4s1(sd4Cen.rotate180, sd1Cen.rotate180)
-  override def rotate270: HexReg = HexReg.s4s1(sd4Cen.rotate270, sd1Cen.rotate270)
+  override def rotate90: HexReg = HexReg.sd4Sd1(sd4Cen.rotate90, sd1Cen.rotate90)
+  override def rotate180: HexReg = HexReg.sd4Sd1(sd4Cen.rotate180, sd1Cen.rotate180)
+  override def rotate270: HexReg = HexReg.sd4Sd1(sd4Cen.rotate270, sd1Cen.rotate270)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): HexReg = HexReg.s4s1(sd4Cen.prolign(matrix), sd1Cen.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): HexReg = HexReg.sd4Sd1(sd4Cen.prolign(matrix), sd1Cen.prolign(matrix))
 
-  override def rotate(angle: AngleVec): HexReg = HexReg.s4s1(sd4Cen.rotate(angle), sd1Cen.rotate(angle))
+  override def rotate(angle: AngleVec): HexReg = HexReg.sd4Sd1(sd4Cen.rotate(angle), sd1Cen.rotate(angle))
 }
 
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
 object HexReg
 {
-  def s4s1(s4Cen: Pt2, s1Cen: Pt2): HexReg = HexRegImp(s4Cen.x, s4Cen.y, s1Cen.x, s1Cen.y)
+  /** Factory method for HexReg, taking 2 points as parameters, the centre of side 4, followed by the centre of side 1. In the default alignment for
+   * a regular hexagon both Y values will be 0. */
+  def sd4Sd1(sd4Cen: Pt2, sd1Cen: Pt2): HexReg = HexRegImp(sd4Cen.x, sd4Cen.y, sd1Cen.x, sd1Cen.y)
 
   implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[HexReg] = (obj: HexReg, operand: Double) => obj.scale(operand)
@@ -124,7 +126,7 @@ object HexReg
     def yCen: Double = (ySd1Cen + ySd4Cen) / 2
     def s1CenRMax: Pt2 = cen + (cen >> sd4Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(xCen, yCen)
-    @inline override def dMin: Double = sd1Cen.distTo(sd4Cen)
+    @inline override def dInner: Double = sd1Cen.distTo(sd4Cen)
     override def v1: Pt2 = s1CenRMax.rotateAbout(cen,  - Deg30)
     override def x1: Double = v1.x
     override def y1: Double = v1.y
