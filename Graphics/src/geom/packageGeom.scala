@@ -62,9 +62,10 @@ package object geom
   /** Dist2(0.km, 0.km) constant */
   val Dist2Z = Metres2(0.km, 0.km)
 
+  val Sin15: Double = math.sin(Pi/12)
   val Sin30: Double = 0.5
-  val Sin60: Double = math.sin(Pi / 6)
-  val Cos30: Double = math.cos(Pi / 6)
+  val Sin60: Double = math.sin(Pi/3)
+  val Cos30: Double = math.cos(Pi/6)
   val Cos60: Double = 0.5
   val LatLong0 = LatLong.degs(0, 0)
   val EarthPolarRadius: Metres = 6356.7523.km

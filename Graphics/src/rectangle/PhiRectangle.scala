@@ -45,7 +45,7 @@ object PhiRectangle
 
   def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
-  case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, xS3Cen: Double, yS3Cen: Double) extends PhiRectangle
+  case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, xSd3Cen: Double, ySd3Cen: Double) extends PhiRectangle
   { override def cen: Pt2 = xCen pp yCen
     override def xCen: Double = average(xS1Cen, xS1Cen)
     override def yCen: Double = average(yS1Cen, yS1Cen)
@@ -59,7 +59,7 @@ object PhiRectangle
     override def ySd1Cen: Double = ???
 
     override def sd1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
-    override def sd3Cen: Pt2 = Pt2(xS3Cen, yS3Cen)
+    override def sd3Cen: Pt2 = Pt2(xSd3Cen, ySd3Cen)
     override def width2: Double = sd1Cen.distTo(sd3Cen)
     override def alignAngle: AngleVec = sd1Cen.angleFrom(sd3Cen).rotationFrom90
     override def v1: Pt2 = sd1Cen + xVec2(width2 / 2).rotate(alignAngle)

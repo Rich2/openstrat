@@ -20,8 +20,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus
 
   def sd1Cen: Pt2
 
-
-  override def sd3Cen: Pt2 = ???
+  //override def sd3Cen: Pt2
   def sd4Cen: Pt2
   override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
@@ -148,6 +147,18 @@ object HexReg
     override def ySd2Cen: Double = ???
 
     override def sd2Cen: Pt2 = ???
+
+    /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
+     * thought of as vertex 2.5. */
+    override def xSd3Cen: Double = ???
+
+    /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
+     * thought of as vertex 2.5. */
+    override def ySd3Cen: Double = ???
+
+    /** The centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be thought of as
+     * vertex 2.5. */
+    override def sd3Cen: Pt2 = ???
 
     /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
      * traits / classes. */

@@ -71,6 +71,14 @@ object Square extends ShapeIcon
 
     override def attribs: Arr[XANumeric] = ???
 
+    /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
+     * thought of as vertex 2.5. */
+    override def xSd3Cen: Double = ???
+
+    /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
+     * thought of as vertex 2.5. */
+    override def ySd3Cen: Double = ???
+
     override def productArity: Int = 3
     override def productElement(n: Int): Any = 4
     override def toString: String = s"SquareClass($x1, $y1; $x2, $y2)"

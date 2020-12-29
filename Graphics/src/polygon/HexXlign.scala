@@ -30,13 +30,17 @@ final class HexXlign(val dInner: Double, val xCen: Double, val yCen: Double) ext
   override def y6: Double = yCen + rInner
   @inline override def v6: Pt2 = Pt2(x6, y6)
 
-  override def xSd1Cen: Double = xCen + rInner * Sin30
-  override def ySd1Cen: Double = yCen + rInner * Cos30
+  override def xSd1Cen: Double = xCen
+  override def ySd1Cen: Double = yCen + rInner
   override def sd1Cen: Pt2 = xSd1Cen pp ySd1Cen
 
-  override def xSd2Cen: Double = xCen + rInner
-  override def ySd2Cen: Double = yCen
-  override def sd2Cen: Pt2 = xSd2Cen pp yCen
+  override def xSd2Cen: Double = xCen + rInner * Cos30
+  override def ySd2Cen: Double = yCen + rInner * Sin30
+  override def sd2Cen: Pt2 = xSd2Cen pp ySd2Cen
+
+  override def xSd3Cen: Double = xCen + rInner * Cos30
+  override def ySd3Cen: Double = yCen - rInner * Sin30
+  override def sd3Cen: Pt2 = xSd3Cen pp ySd3Cen
 
   override def xSd4Cen: Double = xCen - rInner * Sin30
   override def ySd4Cen: Double = yCen - rInner * Cos30

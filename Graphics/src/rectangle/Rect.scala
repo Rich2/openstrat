@@ -33,6 +33,14 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   final override def sd2Cen: Pt2 = Pt2(xCen + width / 2, yCen)
   final override def sd3Cen: Pt2 = Pt2(xCen, yCen -height / 2)
 
+  /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
+   * thought of as vertex 2.5. */
+  final override def xSd3Cen: Double = ???
+
+  /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
+   * thought of as vertex 2.5. */
+  final override def ySd3Cen: Double = ???
+
   final override def xSd2Cen: Double = ???
 
   final override def ySd2Cen: Double = ???

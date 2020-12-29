@@ -37,6 +37,14 @@ trait RectS2S4 extends Rectangle
   final override def sd1Cen: Pt2 = v4 midPt v1
   final override def sd3Cen: Pt2 = v2 midPt v3
 
+  /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
+   * thought of as vertex 2.5. */
+  override def xSd3Cen: Double = ???
+
+  /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
+   * thought of as vertex 2.5. */
+  override def ySd3Cen: Double = ???
+
   final override  def sd2Cen: Pt2 = Pt2(xSd2Cen, ySd2Cen)
 
   final override def sd4Cen: Pt2 = Pt2(xSd4Cen, ySd4Cen)

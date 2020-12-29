@@ -48,12 +48,8 @@ trait Polygon3Plus extends Polygon
   /** Polygon side 1 from the last vertex to Vertex 1. */
   def sd1: LineSeg = LineSeg(vLast, v1)
 
-
-
   /** Polygon side 2 from vertex 1 to vertex 2. */
   def sd2: LineSeg = LineSeg(v1, v2)
-
-
 
   /** Polygon side 3 from v2 to v3. */
   def sd3: LineSeg = LineSeg(v2, v3)
@@ -74,18 +70,25 @@ trait Polygon3Plus extends Polygon
    * vertex 1.5 */
   def sd2Cen: Pt2
 
-  /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
-   *  be thought of as vertex 0.5. */
+  /** The X component of the centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v1 vertex. This can be
+   *  thought of as vertex 1.5. */
   def xSd2Cen: Double
 
-  /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
-   *  be thought of as vertex 0.5. */
+  /** The Y component of the centre or half way point of side 3 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be
+   *  thought of as vertex 1.5. */
   def ySd2Cen: Double
-
 
   /** The centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be thought of as
    *  vertex 2.5. */
   def sd3Cen: Pt2
+
+  /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
+   *  thought of as vertex 2.5. */
+  def xSd3Cen: Double
+
+  /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
+   *  thought of as vertex 2.5. */
+  def ySd3Cen: Double
 }
 
 /** A [[Polygon]] with at least 4 vertices. */

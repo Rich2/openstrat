@@ -81,7 +81,11 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def iFlatMap[BB <: ArrBase[_]](iInit: Int = 0)(f: (A, Int) => BB)(implicit build: ArrFlatBuild[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
-    while (count < elemsLen) { f(apply(count), count + iInit); count += 1 }
+    while (count < elemsLen)
+    { val newElems = f(apply(count), count + iInit)
+      build.buffGrowArr(buff, newElems)
+      count += 1
+    }
     build.buffToArr(buff)
   }
 
