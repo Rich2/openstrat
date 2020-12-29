@@ -71,6 +71,10 @@ class TransAxesExtensions[T](thisT: T)(implicit ev: TransAxes[T])
   @inline def negXY: T = ev.negYT(ev.negXT(thisT))
 
   @inline def rotate90: T = ev.rotate90(thisT)
+  @inline def rotate180: T = ev.rotate180(thisT)
+  @inline def rotate270: T = ev.rotate270(thisT)
+
+  def rotateQuadrants(implicit ct: ClassTag[T]): Arr[T] = Arr(thisT, rotate270, rotate180, rotate90)
 }
 
 /** Extension class for types that fulfill the type class interface for [[TransAxes]] and [[Slate]]. */

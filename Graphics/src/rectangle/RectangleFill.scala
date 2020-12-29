@@ -20,9 +20,9 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
    * in sub classes. */
   override def negX: RectangleFill = RectangleFill(shape.negX, fill)
 
-  override def rotate90: RectangleFill = ???
-  override def rotate180: RectangleFill = ???
-  override def rotate270: RectangleFill = ???
+  override def rotate90: RectangleFill = RectangleFill(shape.rotate90, fill)
+  override def rotate180: RectangleFill = RectangleFill(shape.rotate180, fill)
+  override def rotate270: RectangleFill = RectangleFill(shape.rotate270, fill)
 
   override def prolign(matrix: ProlignMatrix): RectangleFill = RectangleFill(shape.prolign(matrix), fill)
 

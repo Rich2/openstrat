@@ -34,8 +34,6 @@ class RotateExtensions[T](value: T, ev: Rotate[T]) extends RotateGenExtensions [
 
   /** Rotate (2D geometric transformation) the object in a clockwise direction by the value of the parameter in degrees. */
   def rotateClkDegs(degrees: Double): T = ev.rotateT(value, AngleVec(-degrees))
-
-  def rotateQuadrants(implicit ct: ClassTag[T]): Arr[T] = ??? //Arr(value, rotate270, rotate180, rotate90)
 }
 
 trait RotateGenExtensions[T]
@@ -81,15 +79,6 @@ trait RotateGenExtensions[T]
   
   /** Rotates 150 degrees clockwise or - 5 * Pi/ 6 */
   def clk150: T = rotate(-Deg150)
-
-  /** Rotates 60 degrees anti-clockwise or + Pi/3 */
-  //def rotate90: T  = rotate(Deg90)
-
-  /** Rotates 60 degrees anti-clockwise or + Pi/3 */
-  def rotate180: T  = rotate(Deg180)
-
-  /** Rotates 60 degrees anti-clockwise or + Pi/3 */
-  def rotate270: T  = rotate(Deg270)
 
   def clk90: T  = rotate(Deg270)
 

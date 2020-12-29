@@ -80,9 +80,9 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
 
   override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(s2Cen.prolign(matrix), s4Cen.prolign(matrix), v1.prolign(matrix))
 
-  override def rotate90: Rectangle = ???
-  override def rotate180: Rectangle = ???
-  override def rotate270: Rectangle = ???
+  override def rotate90: Rectangle = Rectangle.s2s4(s2Cen.rotate90, s4Cen.rotate90, width2)
+  override def rotate180: Rectangle = Rectangle.s2s4(s2Cen.rotate180, s4Cen.rotate180, width2)
+  override def rotate270: Rectangle = Rectangle.s2s4(s2Cen.rotate270, s4Cen.rotate270, width2)
 
   override def reflect(lineLike: LineLike): Rectangle = Rectangle.s2s4(s2Cen.reflect(lineLike), s4Cen.reflect(lineLike), width2)
 
