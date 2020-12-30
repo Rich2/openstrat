@@ -50,10 +50,19 @@ trait Polygon extends Shape with BoundedElem
 
   @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
 
-  /** foreaches over the sides or edges of the Polygon These are of type [[LineSeg]]. */
+  /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sideForeach(f: LineSeg => Unit): Unit =
   { var count = 1
-    while (count < vertsNum) { f(side(count)); count += 1 }
+    while (count <= vertsNum) { f(side(count)); count += 1 }
+  }
+
+  /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
+  def sideIForeach(initCount: Int = 0)(f: (LineSeg, Int) => Unit): Unit =
+  { var count = 1
+    while (count <= vertsNum)
+    { f(side(count), count + initCount)
+      count += 1
+    }
   }
 
   /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
@@ -68,7 +77,7 @@ trait Polygon extends Shape with BoundedElem
   }
 
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIMap[A, AA <: ArrBase[A]](f: (LineSeg, Int) => A, initCount: Int = 0)(implicit build: ArrBuild[A, AA]): AA =
+  def sidesIMap[A, AA <: ArrBase[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: ArrBuild[A, AA]): AA =
   { var count = 0
     val res = build.newArr(vertsNum)
     while (count < vertsNum)
@@ -76,6 +85,18 @@ trait Polygon extends Shape with BoundedElem
       count += 1
     }
     res
+  }
+
+  /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
+  def sidesIFlatMap[AA <: ArrBase[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: ArrFlatBuild[AA]): AA =
+  { var count = initCount
+    val buff = build.newBuff()
+    sideForeach { side =>
+      val newElems = f(side, count)
+      build.buffGrowArr(buff, newElems)
+      count += 1
+    }
+    build.buffToArr(buff)
   }
 
   override def attribs: Arr[XANumeric] = ???

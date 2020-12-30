@@ -12,14 +12,13 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val htv = h1.vertsMap(v => Circle(25, v).fill(Pink))
   val hts = h1.vertsMap(v => TextGraphic(v.str0, 15, v))
   val h2: HexXlign = h1.xSlate(-400)
-  val hc = h2.sidesIMap((s, i) => s.draw(Colour.rainbow.cycleGet(i), 2))
+  val hc = h2.sidesIMap(){ (s, i) => s.draw(Colour.rainbow.cycleGet(i), 2) }
   val h3d = HexYlign(231, 231, 0).draw(DarkBlue)
 
-
   def vertArrows(hr: HexReg, colour: Colour): GraphicElems =
-  {
-    val verts = hr.vertsIFlatMap(1){(pt, i) => pt.textArrowToward(hr.cen, "V" + i.str)}
-    val sides = Pt2s(hr.sd1Cen, hr.sd2Cen, hr.sd3Cen, hr.sd4Cen, hr.sd5Cen, hr.sd6Cen).iFlatMap(1){(pt, i) =>
+  { val verts = hr.vertsIFlatMap(1){(pt, i) => pt.textArrowToward(hr.cen, "V" + i.str)}
+    val sides = hr.sidesIFlatMap(1){ (side, i) =>
+      val pt = side.midPt
       pt.textArrowToward(hr.cen, "Side" + i.str)}
     verts ++ sides +- hr.draw(colour) +- TextGraphic(hr.toString, 10, hr.cen, colour)
   }
