@@ -15,19 +15,17 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val hc = h2.sidesIMap(){ (s, i) => s.draw(Colour.rainbow.cycleGet(i), 2) }
   val h3d = HexYlign(231, 231, 0).draw(DarkBlue)
 
-  def vertArrows(hr: HexReg, colour: Colour): GraphicElems =
+  def hexGraphics(hr: HexReg, colour: Colour): GraphicElems =
   { val verts = hr.vertsIFlatMap(1){(pt, i) => pt.textArrowToward(hr.cen, "V" + i.str)}
-    val sides = hr.sidesIFlatMap(1){ (side, i) =>
-      val pt = side.midPt
-      pt.textArrowToward(hr.cen, "Side" + i.str)}
-    verts ++ sides +- hr.draw(colour) +- TextGraphic(hr.toString, 10, hr.cen, colour)
+    val sides = hr.sidesIFlatMap(1){ (side, i) => side.midPt.textArrowAwayFrom(hr.cen, "Side" + i.str) }
+    verts ++ sides +- hr.draw(colour) +- TextGraphic(hr.toString, 12, hr.cen, colour)
   }
 
   val h4 = HexXlign(250, 200, 290)
-  val h4d = vertArrows(h4, Green)
+  val h4d = hexGraphics(h4, Green)
 
   val h5 = HexYlign(250, -200, 290)
-  val h5d = vertArrows(h5, DarkMagenta)
+  val h5d = hexGraphics(h5, DarkMagenta)
 
   repaint(htv ++ hts +- hd +- c1 +- c2 ++ hc +- h3d ++ h4d ++  h5d)
 }
