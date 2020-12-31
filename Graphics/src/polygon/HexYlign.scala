@@ -57,35 +57,35 @@ final class HexYlign(val dInner: Double, val xCen: Double, val yCen: Double) ext
   override def productArity: Int = 3
   override def productElement(n: Int): Any = ???
 
-  /** Translate geometric transformation on a HexYlign returns a HexYlign. The return type of this method will be narrowed  further in most descendant
-   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
   override def xySlate(xOffset: Double, yOffset: Double): HexYlign = HexYlign(dInner, cen.addXY(xOffset, yOffset))
 
-  /** Uniform scaling against both X and Y axes transformation on a HexYlign returning a HexYlign. Use the xyScale method for differential scaling. The
-   * return type of this method will be narrowed further in descendant traits / classes. */
+  /** Uniform scaling against both X and Y axes 2D geometric transformation on this HexYlign returns a HexYlign. */
   override def scale(operand: Double): HexYlign = HexYlign(dInner * operand, cen.scale(operand))
 
-  /** Mirror, reflection transformation of a HexYlign across the X axis, returns a HexYlign. */
+  /** Mirror, reflection 2D geometric transformation of this HexYlign across the X axis, negates Y, returns a HexYlign. */
   override def negY: HexYlign = HexYlign(dInner, cen.negY)
 
-  /** Mirror, reflection transformation of HexYlign across the Y axis, returns a HexYlign. */
+  /** Mirror, reflection 2D geometric transformation of this HexYlign across the Y axis, negates X, returns a HexYlign. */
   override def negX: HexYlign = HexYlign(dInner, cen.negX)
 
-  /** Rotate 90 degrees anti clockwise or rotate 270 degrees clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. The return type
-   * will be narrowed in sub traits / classes. */
+  /** Rotate 90 degrees positively or anti clockwise  2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 270 degrees
+   *  clockwise. */
   override def rotate90: HexXlign = HexXlign(dInner, cen.rotate90)
 
-  /** Rotate 180 degrees 2D geometric transformation on a HexYlign, returns a HexYlign. The return type will be narrowed in sub traits / classes. */
+  /** Rotate 180 degrees 2D geometric transformation on a HexYlign, returns a HexYlign. */
   override def rotate180: HexYlign = HexYlign(dInner, cen.rotate180)
 
-  /** Rotate 270 degrees anti clockwise or rotate 90 degrees clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. The return type
-   * will be narrowed in sub traits / classes. */
+  /** Rotate 270 degrees positively or anti clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 90 degrees
+   *  clockwise. */
   override def rotate270: HexYlign = HexYlign(dInner, cen.rotate270)
 
-  /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
+  /** Prolign 2d transformations, similar transformations that retain alignment with the axes on this HexTlign returns a HexYlign. */
   override def prolign(matrix: ProlignMatrix): HexYlign = HexYlign(dInner, cen.prolign(matrix))
 }
 
+/** Companion object for the regular hexagon aligned to the Y Axis class. It has a limited set of 2D geometric transformation type class instances as
+ * the type can not be maintained through all affine transformations. */
 object HexYlign
 {
   def apply(height: Double, cen: Pt2 = Pt2Z): HexYlign = new HexYlign(height, cen.x, cen.y)
