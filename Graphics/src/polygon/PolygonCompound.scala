@@ -13,6 +13,8 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
     // case fr: FillRadial => cp.circleFillRadial(shape, fr)
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
+
+  override def canvElems: Arr[CanvElem] = ???
   
   override def attribs: Arr[XmlAtt] = ???
 
