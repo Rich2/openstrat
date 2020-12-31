@@ -24,9 +24,6 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def xySlate(xOffset: Double, yOffset: Double): PolygonCompound =
     PolygonCompound(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
 
-  /** Translate geometric transformation. */
-  //override def slate(offset: Vec2Like): PolygonCompound = PolygonCompound(shape.slate(offset), facets, children.slate(offset))
-
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): PolygonCompound = PolygonCompound(shape.scale(operand), facets, children.scale(operand))

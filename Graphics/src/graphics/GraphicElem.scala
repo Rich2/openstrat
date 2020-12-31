@@ -2,8 +2,8 @@
 package ostrat
 package geom
 
-/** A GraphicElem, graphic element is either an element that can be rendered to a display (or printed) or is an active element in a display or
- *  both. */
+/** This will be sealde in due course. A graphic element is either an element that can be rendered to a display (or printed) or is an active element
+ * in a display or both. */
 trait GraphicElem extends GeomElem
 {
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
@@ -71,4 +71,79 @@ object GraphicElem
     override def rotate180(obj: GraphicElem): GraphicElem = obj.rotate180
     override def rotate270(obj: GraphicElem): GraphicElem = obj.rotate270
   }
+}
+
+/** A canvas element that can be rendered by the [[pCanv.CanvasPlatform]] API. This trait is not sealed, but should not be extended outside of the
+ * library. */
+trait CanvElem extends GraphicElem
+{
+  /** Translate 2D geometric transformation on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits / classes. */
+  override def xySlate(xOffset: Double, yOffset: Double): CanvElem
+
+  /** Uniform scaling 2D geometric transformation on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits / classes.
+   * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale
+   *  method for differential scaling on the X and Y axes. */
+  override def scale(operand: Double): CanvElem
+
+  /** Mirror, reflection 2D geometric transformation across the X axis on a CanvElem, returns a CanvElem. The Return type will be narrowed in
+   *  sub traits / classes. */
+  override def negY: CanvElem
+
+  /** Mirror, reflection 2D geometric transformation across the X axis on a CanvElem, returns a CanvElem. The Return type will be narrowed in
+   *  sub traits / classes. */
+  override def negX: CanvElem
+
+  /** 2D geometric transformation using a [[ProlignMatrix]] on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits /
+   *  classes. */
+  override def prolign(matrix: ProlignMatrix): CanvElem
+
+  override def rotate90: CanvElem
+  override def rotate180: CanvElem
+  override def rotate270: CanvElem
+
+  /** Rotation 2D geometric transformation on a CanvElem taking the rotation as a scalar measured in radians, returns a CanvElem. The Return
+   *  type will be narrowed in sub traits / classes. */
+  override def rotate(angle: AngleVec): CanvElem
+
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a CanvElem, returns a CanvElem. The Return type will be narrowed
+   *  in sub traits / classes. */
+  override def reflect(lineLike: LineLike): CanvElem
+
+  /** XY scaling 2D geometric transformation on a CanvElem, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
+   *  The return type will be narrowed in sub classes and traits.*/
+  override def xyScale(xOperand: Double, yOperand: Double): CanvElem
+
+  /** Shear 2D geometric transformation along the X Axis on a CanvElem, returns a CanvElem. The return type will be narrowed in sub classes and
+   * traits. */
+  override def xShear(operand: Double): CanvElem
+
+  /** Shear 2D geometric transformation along the Y Axis on a CanvElem, returns a CanvElem. The return type will be narrowed in sub classes and
+   *  traits. */
+  override def yShear(operand: Double): CanvElem
+}
+
+/** Companion object for the DisplayElem trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
+object CanvElem
+{
+  implicit val slateImplicit: Slate[CanvElem] = (obj: CanvElem, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val scaleImplicit: Scale[CanvElem] = (obj: CanvElem, operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[CanvElem] = (obj: CanvElem, angle: AngleVec) => obj.rotate(angle)
+  implicit val XYScaleImplicit: XYScale[CanvElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val prolignImplicit: Prolign[CanvElem] = (obj, matrix) => obj.prolign(matrix)
+  implicit val ReflectImplicit: Reflect[CanvElem] = (obj, lineLike) => obj.reflect(lineLike)
+
+  implicit val reflectAxisImplicit: TransAxes[CanvElem] = new TransAxes[CanvElem]
+  { override def negYT(obj: CanvElem): CanvElem = obj.negY
+    override def negXT(obj: CanvElem): CanvElem = obj.negX
+    override def rotate90(obj: CanvElem): CanvElem = obj.rotate90
+    override def rotate180(obj: CanvElem): CanvElem = obj.rotate180
+    override def rotate270(obj: CanvElem): CanvElem = obj.rotate270
+  }
+}
+
+/** A graphic element [[GraphicElem]] that is not one of the standard canvas elements [[CanvElem]], it must provide a conversion into those standard
+ * elements. */
+trait CanvNoElem extends GraphicElem
+{
+  def canvElems: Arr[CanvElem]
 }
