@@ -89,6 +89,10 @@ trait HexReg extends ShapeCentred with Polygon6Plus
   override def prolign(matrix: ProlignMatrix): HexReg = HexReg.sd4Sd1(sd4Cen.prolign(matrix), sd1Cen.prolign(matrix))
 
   override def rotate(angle: AngleVec): HexReg = HexReg.sd4Sd1(sd4Cen.rotate(angle), sd1Cen.rotate(angle))
+
+  /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
+   * traits / classes. */
+  override def reflect(lineLike: LineLike): HexReg = HexReg.sd4Sd1(sd4Cen.reflect(lineLike), sd1Cen.reflect(lineLike))
 }
 
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
@@ -137,47 +141,21 @@ object HexReg
     override def v5: Pt2 = s1CenRMax.rotateAbout(cen, Deg90)
     override def x5: Double = v5.x
     override def y5: Double = v5.y
-
     def v6: Pt2 = s1CenRMax.rotateAbout(cen, Deg30)
     override def x6: Double = v6.x
     override def y6: Double = v6.y
 
-    override def xSd2Cen: Double = ???
-
-    override def ySd2Cen: Double = ???
-
-    override def sd2Cen: Pt2 = ???
-
-    /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
-     * thought of as vertex 2.5. */
-    override def xSd3Cen: Double = ???
-
-    /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
-     * thought of as vertex 2.5. */
-    override def ySd3Cen: Double = ???
-
-    /** The centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be thought of as
-     * vertex 2.5. */
-    override def sd3Cen: Pt2 = ???
-
-    /** The centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be thought of as
-     * vertex 4.5. */
-    override def sd5Cen: Pt2 = ???
-
-    /** The X component of the centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be
-     * thought of as vertex 4.5. */
-    override def xSd5Cen: Double = ???
-
-    /** The Y component of the centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be
-     * thought of as vertex 4.5. */
-    override def ySd5Cen: Double = ???
-
-    override def xSd6Cen: Double = ???
-    override def ySd6Cen: Double = ???
-    override def sd6Cen: Pt2 = ???
-
-    /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
-     * traits / classes. */
-    override def reflect(lineLike: LineLike): HexReg = ???
+    override def xSd2Cen: Double = average(x1, x2)
+    override def ySd2Cen: Double = average(y1, y2)
+    override def sd2Cen: Pt2 = v1 midPt v2
+    override def xSd3Cen: Double = average(x2, x3)
+    override def ySd3Cen: Double = average(y2, y3)
+    override def sd3Cen: Pt2 = v2 midPt v3
+    override def xSd5Cen: Double = average(x4, x5)
+    override def ySd5Cen: Double = average(y4, y5)
+    override def sd5Cen: Pt2 = v4 midPt v5
+    override def xSd6Cen: Double = average(x5, x6)
+    override def ySd6Cen: Double = average(y5, y6)
+    override def sd6Cen: Pt2 = v5 midPt v6
   }
 }
