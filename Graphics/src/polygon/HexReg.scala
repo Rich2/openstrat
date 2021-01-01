@@ -149,7 +149,7 @@ object HexReg
     override def v2: Pt2 = s1CenRMax.rotateAbout(cen, - Deg90)
     override def x2: Double = v2.x
     override def y2: Double = v2.y
-    override def v3: Pt2 = s1CenRMax.rotateAbout(cen, Deg150)
+    override def v3: Pt2 = s1CenRMax.rotateAbout(cen, -Deg150)
     override def x3: Double = v3.x
     override def y3: Double = v3.y
     override def v4: Pt2 = s1CenRMax.rotateAbout(cen, Deg150)

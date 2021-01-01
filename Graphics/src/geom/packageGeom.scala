@@ -174,12 +174,19 @@ package object geom
   val Deg135: AngleVec = AngleVec(135)
   /** 150 degrees anti-clockwise or + 5 * Pi/6 radians */
   val Deg150: AngleVec = AngleVec(150)
+
   /** 180 degrees or Pi radians */
   val Deg180: AngleVec = AngleVec(180)
+
+  /** 210 degrees or Pi radians */
+  val Deg210: AngleVec = AngleVec(210)
+
   /** 240 degrees or Pi radians */
   val Deg240: AngleVec = AngleVec(240)
+
   /** 270 degrees or Pi radians */
   val Deg270: AngleVec = AngleVec(270)
+
   /** 300 degrees or Pi radians */
   val Deg300: AngleVec = AngleVec(300)
 
