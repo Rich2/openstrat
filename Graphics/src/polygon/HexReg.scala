@@ -18,10 +18,6 @@ trait HexReg extends ShapeCentred with Polygon6Plus
    * the length of the hexagon side. */
   @inline final def dOuter: Double = dInner * 2 / Sqrt3
 
-  def sd1Cen: Pt2
-
-  //override def sd3Cen: Pt2
-  def sd4Cen: Pt2
   override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
   override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6); () }
@@ -98,6 +94,19 @@ trait HexReg extends ShapeCentred with Polygon6Plus
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
 object HexReg
 {
+  /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side
+   * 4 at the bottom parallel to the X axis and side1 at the top. */
+  def apply(dInner: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): HexReg =
+  { val v4 = (Ang90 + rotation).toVec2(dInner /2)
+    val sd4Cen = cen + v4//.subY(dInner / 2).rotate(rotation)
+    val sd1Cen = cen - v4 //.addY(dInner / 2).rotate(rotation)
+    HexRegImp(sd4Cen.x, sd4Cen.y, sd1Cen.x, sd1Cen.y)
+  }
+
+  /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side
+   * 4 at the bottom parallel to the X axis and side1 at the top. */
+  def apply(dInner: Double, rotation: AngleVec, xCen: Double, yCen: Double): HexReg = apply(dInner, rotation, xCen pp yCen)
+
   /** Factory method for HexReg, taking 2 points as parameters, the centre of side 4, followed by the centre of side 1. In the default alignment for
    * a regular hexagon both Y values will be 0. */
   def sd4Sd1(sd4Cen: Pt2, sd1Cen: Pt2): HexReg = HexRegImp(sd4Cen.x, sd4Cen.y, sd1Cen.x, sd1Cen.y)
@@ -118,7 +127,15 @@ object HexReg
   /** Implementation class for the [[HexReg]] trait. */
   final case class HexRegImp(xSd4Cen: Double, ySd4Cen: Double, xSd1Cen: Double, ySd1Cen: Double) extends HexReg
   {
-    override def vert(index: Int): Pt2 = ???
+    override def vert(index: Int): Pt2 = index match {
+      case 1 => v1
+      case 2 => v2
+      case 3 => v3
+      case 4 => v4
+      case 5 => v5
+      case 6 => v6
+      case n => excep(s"There is no vertex $n on a Hexagon.")
+    }
     def sd4Cen: Pt2 = Pt2(xSd4Cen, ySd4Cen)
     def sd1Cen: Pt2 = Pt2(xSd1Cen, ySd1Cen)
     def xCen: Double = (xSd1Cen + xSd4Cen) / 2

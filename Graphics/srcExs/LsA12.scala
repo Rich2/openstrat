@@ -27,5 +27,8 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val h5 = HexYlign(250, -200, 290)
   val h5d = hexGraphics(h5, DarkMagenta)
 
-  repaint(htv ++ hts +- hd +- c1 +- c2 ++ hc +- h3d ++ h4d ++  h5d)
+  val h6 = HexReg(250, 105.degs, -150, -250)
+  val h6d = hexGraphics(h6, IndianRed)
+
+  repaint(htv ++ hts +- hd +- c1 +- c2 ++ hc +- h3d ++ h4d ++ h5d ++ h6d)
 }
