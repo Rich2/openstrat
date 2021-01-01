@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
-trait ShowCompound[R] extends Show[R]
+trait ShowCompound[R] extends ShowT[R]
 { final override def showT(obj: R, decimalPlaces: Int): String = typeStr + showSemi(obj).enParenth
   @inline override def showTyped(obj: R): String = showT(obj, 10)
 }
@@ -21,7 +21,7 @@ trait PersistCompound[R] extends ShowCompound[R] with Persist[R]
 
 trait ShowSeqLike[A, R] extends ShowCompound[R]
 {
-  def evA: Show[A]
+  def evA: ShowT[A]
   override def typeStr = "Seq" + evA.typeStr.enSquare
   override def syntaxDepth = evA.syntaxDepth + 1
 }

@@ -67,7 +67,7 @@ object EMon
     def findSomeSettingElse[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
   }
 
-  implicit def showImplicit[A](implicit ev: Show[A]): Show[EMon[A]] =
+  implicit def showImplicit[A](implicit ev: ShowT[A]): ShowT[EMon[A]] =
     ShowSum2("EMon", Good.GoodShowImplicit(ev),
       Bad.BadShowImplicit(ev))
 }
@@ -103,7 +103,7 @@ final case class Good[+A](val value: A) extends EMon[A] //with GoodBase[A]
 
 object Good
 {
-  implicit def GoodShowImplicit[A](implicit ev: Show[A]): Show[Good[A]] = new Show[Good[A]] with ShowCompound[Good[A]]
+  implicit def GoodShowImplicit[A](implicit ev: ShowT[A]): ShowT[Good[A]] = new ShowT[Good[A]] with ShowCompound[Good[A]]
   { override def syntaxDepth: Int = ev.syntaxDepth + 1
     override def typeStr: String = "Good" + ev.typeStr.enSquare
     override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
@@ -143,7 +143,7 @@ case class Bad[+A](errs: Strings) extends EMon[A] //with BadBase[A]
 
 object Bad
 {
-  implicit def BadShowImplicit[A](implicit ev: Show[A]): Show[Bad[A]] = new Show[Bad[A]] with ShowCompound[Bad[A]]
+  implicit def BadShowImplicit[A](implicit ev: ShowT[A]): ShowT[Bad[A]] = new ShowT[Bad[A]] with ShowCompound[Bad[A]]
   {
     override def syntaxDepth: Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare

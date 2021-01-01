@@ -104,7 +104,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 /** Companion object for the Arr class. */
 object Arr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
-  implicit def showImplicit[A <: AnyRef](implicit evA: Show[A]): Show[Arr[A]] = ArrayLikeShow[A, Arr[A]](evA)
+  implicit def showImplicit[A <: AnyRef](implicit evA: ShowT[A]): ShowT[Arr[A]] = ArrayLikeShow[A, Arr[A]](evA)
 
   implicit class ArrExtension[A <: AnyRef](thisArr: Arr[A])
   {

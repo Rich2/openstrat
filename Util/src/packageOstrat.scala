@@ -9,7 +9,7 @@ package object ostrat
   type ERefs[A <: AnyRef] = EMon[Arr[A]]
   type RefsMulti[A <: AnyRef] = Arr[Multiple[A]]
   type PersistEq[A] = Persist[A] with Eq[A]
-  type ShowEq[A] = Show[A] with Eq[A]
+  type ShowEq[A] = ShowT[A] with Eq[A]
   type AnyRefs = Arr[AnyRef]
   type Strings = Arr[String]
   type Not[T] = { type L[U] = U NotSubTypeOf T }
@@ -302,7 +302,7 @@ package object ostrat
   implicit def optionToExtension[A](thisOption: Option[A]): OptionExtensions[A] = new OptionExtensions(thisOption)
 
   implicit def seqToExtensions[A](thisSeq: Seq[A]): SeqExtensions[A] = new SeqExtensions(thisSeq)
-  implicit def showTypeToExtensions[A](thisVal: A)(implicit ev: Show[A]): ShowerTypeExtensions[A] = new ShowerTypeExtensions[A](ev, thisVal)
+  implicit def showTypeToExtensions[A](thisVal: A)(implicit ev: ShowT[A]): ShowerTypeExtensions[A] = new ShowerTypeExtensions[A](ev, thisVal)
   implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2[A1, A2, T]): Show2erTypeExtensions[A1, A2, T] =
     new Show2erTypeExtensions[A1, A2, T](ev, thisVal)
 

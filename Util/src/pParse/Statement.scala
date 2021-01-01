@@ -55,18 +55,18 @@ object Statement
         else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
 
-    def findInt: EMon[Int] = Show.intPersistImplicit.findUniqueFromStatements(statementList.toArr)
-    def findDouble: EMon[Double] = Show.doublePersistImplicit.findUniqueFromStatements(statementList.toArr)
-    def findBoolean: EMon[Boolean] = Show.BooleanPersistImplicit.findUniqueFromStatements(statementList.toArr)
-    def findLong: EMon[Long] = Show.longPersistImplicit.findUniqueFromStatements(statementList.toArr)
-    def findIntArray: EMon[Array[Int]] = Show.ArrayIntPersistImplicit.findUniqueFromStatements(statementList.toArr)
+    def findInt: EMon[Int] = ShowT.intPersistImplicit.findUniqueFromStatements(statementList.toArr)
+    def findDouble: EMon[Double] = ShowT.doublePersistImplicit.findUniqueFromStatements(statementList.toArr)
+    def findBoolean: EMon[Boolean] = ShowT.BooleanPersistImplicit.findUniqueFromStatements(statementList.toArr)
+    def findLong: EMon[Long] = ShowT.longPersistImplicit.findUniqueFromStatements(statementList.toArr)
+    def findIntArray: EMon[Array[Int]] = ShowT.ArrayIntPersistImplicit.findUniqueFromStatements(statementList.toArr)
 
     /** Find setting from RSON statement */
     def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementList.toArr, settingStr)
     def findSettElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSetting[A](settingStr).getElse(elseValue)
-    def findIntSett(settingStr: String): EMon[Int] = Show.intPersistImplicit.settingFromStatementList(statementList.toArr, settingStr)
-    def findDoubleSett(settingStr: String): EMon[Double] = Show.doublePersistImplicit.settingFromStatementList(statementList.toArr, settingStr)
-    def findBooleanSett(settingStr: String): EMon[Boolean] = Show.BooleanPersistImplicit.settingFromStatementList(statementList.toArr, settingStr)
+    def findIntSett(settingStr: String): EMon[Int] = ShowT.intPersistImplicit.settingFromStatementList(statementList.toArr, settingStr)
+    def findDoubleSett(settingStr: String): EMon[Double] = ShowT.doublePersistImplicit.settingFromStatementList(statementList.toArr, settingStr)
+    def findBooleanSett(settingStr: String): EMon[Boolean] = ShowT.BooleanPersistImplicit.settingFromStatementList(statementList.toArr, settingStr)
   }
 
   implicit class RefsImplicit(statementRefs: Arr[Statement]) extends TextSpan
@@ -88,18 +88,18 @@ object Statement
       else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
 
-    def findInt: EMon[Int] = Show.intPersistImplicit.findUniqueTFromStatements(statementRefs)
-    def findDouble: EMon[Double] = Show.doublePersistImplicit.findUniqueTFromStatements(statementRefs)
-    def findBoolean: EMon[Boolean] = Show.BooleanPersistImplicit.findUniqueTFromStatements(statementRefs)
-    def findLong: EMon[Long] = Show.longPersistImplicit.findUniqueTFromStatements(statementRefs)
-    def findIntArray: EMon[Array[Int]] = Show.ArrayIntPersistImplicit.findUniqueFromStatements(statementRefs)
+    def findInt: EMon[Int] = ShowT.intPersistImplicit.findUniqueTFromStatements(statementRefs)
+    def findDouble: EMon[Double] = ShowT.doublePersistImplicit.findUniqueTFromStatements(statementRefs)
+    def findBoolean: EMon[Boolean] = ShowT.BooleanPersistImplicit.findUniqueTFromStatements(statementRefs)
+    def findLong: EMon[Long] = ShowT.longPersistImplicit.findUniqueTFromStatements(statementRefs)
+    def findIntArray: EMon[Array[Int]] = ShowT.ArrayIntPersistImplicit.findUniqueFromStatements(statementRefs)
 
     /** Find setting from RSON statement */
     def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingFromStatementList(statementRefs, settingStr)
 
-    def findIntSett(settingStr: String): EMon[Int] = Show.intPersistImplicit.settingFromStatementList(statementRefs, settingStr)
-    def findDoubleSett(settingStr: String): EMon[Double] = Show.doublePersistImplicit.settingFromStatementList(statementRefs, settingStr)
-    def findBooleanSett(settingStr: String): EMon[Boolean] = Show.BooleanPersistImplicit.settingFromStatementList(statementRefs, settingStr)
+    def findIntSett(settingStr: String): EMon[Int] = ShowT.intPersistImplicit.settingFromStatementList(statementRefs, settingStr)
+    def findDoubleSett(settingStr: String): EMon[Double] = ShowT.doublePersistImplicit.settingFromStatementList(statementRefs, settingStr)
+    def findBooleanSett(settingStr: String): EMon[Boolean] = ShowT.BooleanPersistImplicit.settingFromStatementList(statementRefs, settingStr)
 
     def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementRefs match
     { case Arr1(h1) => h1.errGet[A1].map(f1)

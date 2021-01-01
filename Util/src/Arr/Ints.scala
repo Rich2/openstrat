@@ -47,7 +47,7 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrBase[Int]
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
 
-  implicit val showImplicit: Show[Ints] = ArrayLikeShow[Int, Ints](Show.intPersistImplicit)
+  implicit val showImplicit: ShowT[Ints] = ArrayLikeShow[Int, Ints](ShowT.intPersistImplicit)
 
   implicit val EqImplicit: Eq[Ints] = (a1, a2) =>
     if(a1.elemsLen != a2.elemsLen) false
