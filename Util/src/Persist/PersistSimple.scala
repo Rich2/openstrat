@@ -1,7 +1,7 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** A Persist class described by a single value. Its not clear whether this means a single token or not. */
+/** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
 abstract class PersistSimple[A](typeStr: String) extends ShowSimple[A](typeStr) with Persist[A]
 {  
   /** A PersistSimple can be parsed from the expression within a Clause, but it can't be parsed from a ClausedStatement */

@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._, collection.immutable.ArraySeq
 
@@ -24,11 +24,13 @@ trait Show[-T]
    *  happen if the syntax depth is less than 4. if it is 4 or greater return the full typed data. This method is not commonly needed but is useful
    *  for case classes with a single member. This method will rarely be used, as it is only applicable when the object is being shown stand alone and
    *  not as part of a containing object. So generally the full show method string will be desired. It may have uses for on the fly aggregation of
-   *  strings. */
+   *  strings.
+   *
+   *  This class may cease to be abstract. */
   def showSemi(obj: T): String
 
   /** For most objects showTyped will return the same value as show(obj: T), for Persist values the value will be type enclosed. 4.showTyped
-   * will return Int(4) */
+   * will return Int(4). This class may cease to be abstract. */
   def showTyped(obj: T): String
 
   /*def show0(obj: T): String = show(obj, 0)
