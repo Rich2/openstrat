@@ -22,9 +22,9 @@ abstract class PersistSimple[A](typeStr: String) extends ShowSimple[A](typeStr) 
 abstract class ShowSimple[-A](val typeStr: String) extends Show[A]
 {
   final override def syntaxDepth: Int = 1
-  override def showComma(obj: A): String = show(obj, 0)
-  override def showSemi(obj: A): String = show(obj, 0)
-  override def showTyped(obj: A): String = typeStr + show(obj, 0).enParenth
+  override def showComma(obj: A): String = showT(obj, 0)
+  override def showSemi(obj: A): String = showT(obj, 0)
+  override def showTyped(obj: A): String = typeStr + showT(obj, 0).enParenth
 }
 
 

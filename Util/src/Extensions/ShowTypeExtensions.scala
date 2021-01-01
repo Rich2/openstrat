@@ -3,7 +3,7 @@ package ostrat
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
 class ShowerTypeExtensions[-A](ev: Show[A], thisVal: A)
 { /** Provides the standard string representation for the object. */
-  @inline def str: String = ev.show(thisVal, 10)
+  @inline def str: String = ev.showT(thisVal, 10)
 
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
@@ -18,10 +18,10 @@ class ShowerTypeExtensions[-A](ev: Show[A], thisVal: A)
    * will return Int(4) */
   @inline def strTyped: String = ev.showTyped(thisVal)
 
-  def str0: String = ev.show(thisVal, 0)
-  def str1: String = ev.show(thisVal , 1)
-  def str2: String = ev.show(thisVal, 2)
-  def str3: String = ev.show(thisVal, 3)
+  def str0: String = ev.showT(thisVal, 0)
+  def str1: String = ev.showT(thisVal , 1)
+  def str2: String = ev.showT(thisVal, 2)
+  def str3: String = ev.showT(thisVal, 3)
 }
 
 class Show2erTypeExtensions[A1, A2, -T](ev: Show2[A1, A2, T], thisVal: T)

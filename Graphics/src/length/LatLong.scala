@@ -6,7 +6,7 @@ package geom
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
 final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with ProdDbl2
 {
-  override def toString: String = LatLong.persistImplict.show(this, 0)
+  override def toString: String = LatLong.persistImplict.showT(this, 0)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
   def _1 = latSecs
   def _2 = longSecs

@@ -57,13 +57,13 @@ object TileRow {
   implicit def eqImplicit[T <: AnyRef](implicit ev: Eq[T]): Eq[TileRow[T]] = ??? //EqCase3(_.yRow, _.xStart, _.values)
 
   implicit def persistImplicit[T <: AnyRef](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]] {
-    def show(obj: TileRow[T], decimalPlaces: Int): String = (deb.str -:- "This is a placeholder for TileRow").enquote
+    def showT(obj: TileRow[T], decimalPlaces: Int): String = (deb.str -:- "This is a placeholder for TileRow").enquote
 
-    def showComma(obj: TileRow[T]): String = show(obj, 0)
+    def showComma(obj: TileRow[T]): String = showT(obj, 0)
 
-    def showSemi(obj: TileRow[T]): String = show(obj, 0)
+    def showSemi(obj: TileRow[T]): String = showT(obj, 0)
 
-    def showTyped(obj: TileRow[T]): String = show(obj, 0)
+    def showTyped(obj: TileRow[T]): String = showT(obj, 0)
 
     def syntaxDepth: Int = ev.syntaxDepth + 2
 

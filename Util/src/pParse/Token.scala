@@ -22,7 +22,7 @@ trait Token extends TextSpan
 object Token
 {
   implicit val showImplicit: Show[Token] = new ShowSimple[Token]("Token")
-  { def show(obj: Token, decimalPlaces: Int): String = obj.str
+  { def showT(obj: Token, decimalPlaces: Int): String = obj.str
   }
 }
 

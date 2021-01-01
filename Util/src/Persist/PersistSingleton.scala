@@ -4,7 +4,7 @@ import pParse._
 
 abstract class PersistSingletons[A <: PersistSingleton](typeStr: String) extends PersistSimple[A](typeStr)
 { def singletonList: List[A]
-  @inline override def show(obj: A, decimalPlaces: Int): String = obj.str
+  @inline override def showT(obj: A, decimalPlaces: Int): String = obj.str
   def fromExpr(expr: ParseExpr): EMon[A] = expr match
   { case IdentifierLowerOnlyToken(_, str) => singletonList.find(el => el.str == str).toEMon1(expr, typeStr -- "not parsed from this Expression")
     case e => bad1(e, typeStr -- "not parsed from this Expression")

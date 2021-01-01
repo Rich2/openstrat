@@ -6,7 +6,7 @@ import math._
 /** A 3 dimensional point. Right-handed coordinate system is the default. */
 final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like with ProdDbl3
 {
-  override def toString: String = Pt3.PersistImplicit.show(this, 10)
+  override def toString: String = Pt3.PersistImplicit.showT(this, 10)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt3]
 
   def _1 = x
