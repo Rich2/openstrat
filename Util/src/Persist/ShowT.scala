@@ -2,9 +2,9 @@
 package ostrat
 import pParse._, collection.immutable.ArraySeq
 
-/** Starting as the classic Show type class, a functional version of toString. This trait has mor demanding ambitins Mostly you will want to use
- *  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the type T. However
- *  it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
+/** A type class for string, text and visual represention of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
+ *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
+ *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
 trait ShowT[-T]
 { /** The RSON type of T. */
   def typeStr: String
@@ -13,11 +13,13 @@ trait ShowT[-T]
    * rather than a method on the object being shown. */
   def showT(obj: T, decimalPlaces: Int = 10): String
 
-  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2 */
+  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
+   * should always be determined at compile time or if sometimes it should be determined at runtime. */
   def syntaxDepth: Int
 
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
-   *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
+   *  happen if the syntax depth is 2. if it is 3 or greater return the standard Show compound Show string of the type name followed by a
+   *  parenthesis block. */
   def showComma(obj: T): String
 
   /** Return the defining member values of the type as a series of semicolon separated values without enclosing type information, note this will only
