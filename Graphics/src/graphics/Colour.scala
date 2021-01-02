@@ -6,7 +6,7 @@ import pWeb._, collection.mutable.ArrayBuffer
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
 class Colour(val argbValue: Int) extends AnyVal with FillFacet with ProdInt1
 { 
-  override def toString: String = Colour.persistImplicit.showT(this, 0)
+  override def toString: String = Colour.persistImplicit.strT(this)
 
   /** The fill attribute for SVG. */
   def fillAttrib: FillAttrib = FillAttrib(this)
@@ -108,7 +108,7 @@ object Colour
       }
       case _ => expr.exprParseErr[Colour](this)
     }
-    def showT(obj: Colour, decimalPlaces: Int): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
+    def strT(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
   }
 
   implicit val arrBuildImplicit: ArrBuild[Colour, Colours] = ColoursBuild

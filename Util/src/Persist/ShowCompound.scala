@@ -4,8 +4,8 @@ import pParse._
 
 /** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
 trait ShowCompound[R] extends ShowT[R]
-{ final override def showT(obj: R, decimalPlaces: Int): String = typeStr + showSemi(obj).enParenth
-  @inline override def showTyped(obj: R): String = showT(obj, 10)
+{ final override def strT(obj: R): String = typeStr + showSemi(obj).enParenth
+  @inline override def showTyped(obj: R): String = strT(obj)
 }
 
 /** Persistence base trait for PersistCase and PersistSeqLike. Some methods probably need to be moved down into sub classes. */

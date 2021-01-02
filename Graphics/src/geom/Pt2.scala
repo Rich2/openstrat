@@ -6,7 +6,7 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. Thanks to René Descartes for this. */
 final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 {
-  override def toString: String = Pt2.persistImplicit.showT(this, 0)
+  override def toString: String = Pt2.persistImplicit.strT(this)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
   @inline override def _1: Double = x
   @inline override def _2: Double = y

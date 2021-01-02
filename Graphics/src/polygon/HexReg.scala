@@ -129,7 +129,7 @@ object HexReg
   /** Implementation class for the [[HexReg]] trait. */
   final case class HexRegImp(xSd4Cen: Double, ySd4Cen: Double, xSd1Cen: Double, ySd1Cen: Double) extends HexReg
   {
-    override def str: String = ???
+    override def str: String = "HexReg".appendParenthSemis(sd4Cen.strComma, sd1Cen.strComma)
     override def vert(index: Int): Pt2 = index match {
       case 1 => v1
       case 2 => v2

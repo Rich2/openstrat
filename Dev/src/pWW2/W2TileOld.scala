@@ -8,7 +8,7 @@ class W2TileOld(val x: Int, val y: Int, val terr: WTile) extends ETileOld
   type FromT = WTile
   def fromT: WTile = terr
   var lunits: Arr[Army] = Arr()
-  override def toString: String = W2TileOld.persistImplicit.showT(this, 0)
+  override def toString: String = W2TileOld.persistImplicit.strT(this)
 }
 
 object W2TileOld

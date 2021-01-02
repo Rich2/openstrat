@@ -7,9 +7,9 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: Cl
   def ev1: ShowT[A1]
   def ev2: ShowT[A2]
 
-  override def showT(obj: ST, decimalPlaces: Int): String = obj match
-  { case a1: A1 => ev1.showT(a1, 0)
-    case a2: A2 => ev2.showT(a2, 0)
+  override def strT(obj: ST): String = obj match
+  { case a1: A1 => ev1.strT(a1)
+    case a2: A2 => ev2.strT(a2)
   }
   
   override def syntaxDepth: Int = ev1.syntaxDepth.max(ev2.syntaxDepth)

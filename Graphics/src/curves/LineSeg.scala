@@ -8,7 +8,7 @@ import collection.mutable.ArrayBuffer, Colour.Black
 final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with LineLike with CurveSeg with
   AffinePreserve
 { override type ThisT = LineSeg
-  override def toString: String = LineSeg.persistImplicit.showT(this)
+  override def toString: String = LineSeg.persistImplicit.strT(this)
   override def _1: Double = xStart
   override def _2: Double = yStart
   override def _3: Double = xEnd

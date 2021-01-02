@@ -35,11 +35,11 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   def sqrt: Double = math.sqrt(thisDouble)
 
   /** String representation for Double that drops the decimal point and zero for integer values. */
-  def str: String = thisDouble.toLong match
+  /*def str: String = thisDouble.toLong match
   { case l if l == thisDouble => l.toString
     case _ => thisDouble.toString
   }
-
+*/
   def str0: String = f"$thisDouble%1.0f"
   def str1: String = f"$thisDouble%1.1f"
   def str2: String = f"$thisDouble%1.2f"

@@ -4,5 +4,5 @@ package ostrat
 trait Show extends Any
 { def typeStr: String
   def str: String
-  def strr(decimalPlaces: Int): String = str
+  def show(decimalPlaces: Int): String = str
 }
