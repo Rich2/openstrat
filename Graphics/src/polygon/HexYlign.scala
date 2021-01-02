@@ -4,7 +4,8 @@ package geom
 
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module, */
 final class HexYlign(val dInner: Double, val xCen: Double, val yCen: Double) extends HexReg
-{ override def toString: String = "HexYlign".appendParenthSemis(xCen.str, yCen.str)
+{ override def str: String = ???
+  override def toString: String = "HexYlign".appendParenthSemis(xCen.str, yCen.str)
   override def cen: Pt2 = xCen pp yCen
   override def x1: Double = xCen + rInner
   override def y1: Double = yCen + rOuter / 2

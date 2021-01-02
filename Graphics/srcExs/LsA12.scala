@@ -20,6 +20,8 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
     val sides = hr.sidesIFlatMap(1){ (side, i) => side.midPt.textArrowAwayFrom(hr.cen, "Side" + i.str) }
     verts ++ sides +- hr.draw(colour) +- TextGraphic(hr.toString, 12, hr.cen, colour)
   }
+  val a  = Pt2Z.str
+
 
   val h4 = HexXlign(250, 200, 290)
   val h4d = hexGraphics(h4, Green)

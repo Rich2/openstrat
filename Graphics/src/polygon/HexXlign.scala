@@ -4,7 +4,9 @@ package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
 final class HexXlign(val dInner: Double, val xCen: Double, val yCen: Double) extends HexReg
-{ override def toString: String = "HexXlign".appendParenthSemis(xCen.str, yCen.str)
+{
+  override def str: String = ???
+  override def toString: String = "HexXlign".appendParenthSemis(xCen.str, yCen.str)
   override def cen: Pt2 = xCen pp yCen
 
   override def x1: Double = xCen + rOuter / 2

@@ -3,8 +3,10 @@ package ostrat
 package geom
 
 /** Regular Hexagon */
-trait HexReg extends ShapeCentred with Polygon6Plus
-{ /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
+trait HexReg extends ShapeCentred with Polygon6Plus with Show
+{  override def typeStr = "HexReg"
+
+  /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
   def dInner: Double
 
   /** The radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a side. */
@@ -127,6 +129,7 @@ object HexReg
   /** Implementation class for the [[HexReg]] trait. */
   final case class HexRegImp(xSd4Cen: Double, ySd4Cen: Double, xSd1Cen: Double, ySd1Cen: Double) extends HexReg
   {
+    override def str: String = ???
     override def vert(index: Int): Pt2 = index match {
       case 1 => v1
       case 2 => v2
