@@ -13,7 +13,7 @@ trait ShowT[-T]
    * rather than a method on the object being shown. */
   def strT(obj: T): String
 
-  def showT(obj: T, decimalPlaces: Int): String = strT(obj)
+  def showT(obj: T, way: Show.Way, decimalPlaces: Int): String = strT(obj)
 
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
@@ -61,16 +61,22 @@ object ShowT //extends ShowInstancesPriority2
     }
   }
 
-  implicit val doublePersistImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
+  implicit val doublePersistImplicit: Persist[Double] = new PersistPrecisionSimple[Double]("DFloat")
   {
     def strT(obj: Double): String = obj.toString
 
-    override def showT(obj: Double, decimalPlaces: Int): String =  decimalPlaces match
-    { case 0 => f"$obj%1.0f"
+    override def showT(obj: Double, way: Show.Way, decimalPlaces: Int): String = {
+      val inner = decimalPlaces match {
+      case 0 => f"$obj%1.0f"
       case 1 => f"$obj%1.1f"
       case 2 => f"$obj%1.2f"
       case 3 => f"$obj%1.3f"
       case _ => obj.toString
+    }
+      way match {
+        case Show.Typed => typeStr + inner.enParenth
+        case _ => inner
+      }
     }
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match

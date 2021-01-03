@@ -7,6 +7,23 @@ abstract class PersistSimple[A](typeStr: String) extends ShowSimpleT[A](typeStr)
 abstract class ShowSimpleT[-A](val typeStr: String) extends ShowT[A]
 {
   final override def syntaxDepth: Int = 1
+
+  override def showT(obj: A, way: Show.Way, decimalPlaces: Int): String = way match {
+    case Show.Typed => typeStr + strT(obj).enParenth
+    case _ => strT(obj)
+  }
+
+  override def showComma(obj: A): String = strT(obj)
+  override def showSemi(obj: A): String = strT(obj)
+  override def showTyped(obj: A): String = typeStr + strT(obj).enParenth
+}
+
+abstract class PersistPrecisionSimple[A](typeStr: String) extends ShowPrecisionSimpleT[A](typeStr) with Persist[A]
+
+abstract class ShowPrecisionSimpleT[-A](val typeStr: String) extends ShowT[A]
+{
+  final override def syntaxDepth: Int = 1
+
   override def showComma(obj: A): String = strT(obj)
   override def showSemi(obj: A): String = strT(obj)
   override def showTyped(obj: A): String = typeStr + strT(obj).enParenth

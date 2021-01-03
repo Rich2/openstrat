@@ -18,10 +18,10 @@ class ShowerTypeExtensions[-A](ev: ShowT[A], thisVal: A)
    * will return Int(4) */
   @inline def strTyped: String = ev.showTyped(thisVal)
 
-  def str0: String = ev.showT(thisVal, 0)
-  def str1: String = ev.showT(thisVal , 1)
-  def str2: String = ev.showT(thisVal, 2)
-  def str3: String = ev.showT(thisVal, 3)
+  def str0: String = ev.showT(thisVal, Show.Standard, 0)
+  def str1: String = ev.showT(thisVal, Show.Standard, 1)
+  def str2: String = ev.showT(thisVal, Show.Standard, 2)
+  def str3: String = ev.showT(thisVal, Show.Standard, 3)
 }
 
 class Show2erTypeExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
