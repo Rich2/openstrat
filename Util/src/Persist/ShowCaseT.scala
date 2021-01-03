@@ -14,6 +14,11 @@ abstract class Show1T[A1, R](val typeStr: String, name1: String, fArg1: R => A1,
   extends EqCase1[A1, R](fArg1) with ShowCaseT[R]
 {
   final override def showMems(): Arr[ShowT[_]] = Arr(ev1)
+
+  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = way match {
+    case Show.Semis => ev1.showComma(fArg1(obj))
+    case _ => ev1.strT(fArg1(obj))
+  }
   def showSemi(obj: R): String = ev1.showComma(fArg1(obj))
   def showComma(obj: R): String = ev1.strT(fArg1(obj))
   override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj))
