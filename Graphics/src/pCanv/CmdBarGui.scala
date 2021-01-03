@@ -44,5 +44,6 @@ object StdButton
 }
 
 object Turn extends PersistSingleton
-{ def str: String = "Turn"
+{ override def typeStr: String = "Turn.type"
+  def str: String = "Turn"
 }

@@ -4,7 +4,7 @@ package pDung
 import geom._, Colour._, pGrid._
 
 sealed class Faction(val str: String, val colour: Colour) extends PersistSingleton
-{// def typeSym = 'Faction
+{ override def typeStr: String = "Faction"
 }
 
 object Fac1 extends Faction("Fac1", Orange)

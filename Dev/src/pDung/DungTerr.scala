@@ -4,7 +4,8 @@ package pDung
 import geom._, Colour._
 
 sealed trait DungTerr extends AnyRef with PersistSingleton
-{ def colour: Colour
+{ override def typeStr: String = "DungTerr"
+  def colour: Colour
 }
 
 object Open extends DungTerr

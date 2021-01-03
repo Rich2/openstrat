@@ -14,8 +14,8 @@ abstract class PersistSingletons[A <: PersistSingleton](typeStr: String) extends
 
 /** all the leafs of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of
   * the object, but sometimes, it may be a lengthened or shortened version of the singleton object name. */
-trait PersistSingleton
-{ /** The string for the leaf object. This will normally be different from the typeStr in the instance of the PersistSingletons. */  
+trait PersistSingleton extends Show
+{ /** The string for the leaf object. This will normally be different from the typeStr in the instance of the PersistSingletons. */
   def str: String
   override def toString: String = str
 }

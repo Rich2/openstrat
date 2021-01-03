@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pZug
 import geom._, pGrid._
@@ -23,7 +23,8 @@ object Squad
 }
 
 trait Polity extends PersistSingleton
-{ def colour: Colour
+{ override def typeStr: String = "Polity"
+  def colour: Colour
 }
 
 object Germany extends Polity
