@@ -13,6 +13,7 @@ trait Show extends Any
   def show(way: Show.Way = Show.Standard, decimalPlaces: Int = -1): String// = str
 }
 
+/** Companion object of the Show trait contains the Way trait, used by the show method on Show and the showT method on [[ShowT]] */
 object Show
 { /** Currently can't think of a better name for this trait */
   sealed trait Way
