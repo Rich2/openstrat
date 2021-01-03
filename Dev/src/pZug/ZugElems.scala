@@ -22,7 +22,7 @@ object Squad
   }
 }
 
-trait Polity extends PersistSingleton
+trait Polity extends ShowSingleton
 { override def typeStr: String = "Polity"
   def colour: Colour
 }

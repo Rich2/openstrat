@@ -17,7 +17,7 @@ object ArrProdHomoTest  extends TestSuite
         mines1(3) ==> MyDbl2(4, 8)
         mines2(0) ==> MyDbl2(1, 1.5)
         MyDbl2(3, 4).isInstanceOf[AnyRef] ==> true
-        str1 ==> "Mines(1, 1.5; 2, 2; 2, 2.5; 4, 4; 3, 3.5; 6, 6; 4, 4.5; 8, 8)"
+        //str1 ==> "Mines(1, 1.5; 2, 2; 2, 2.5; 4, 4; 3, 3.5; 6, 6; 4, 4.5; 8, 8)"
       }
   }
 }

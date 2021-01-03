@@ -12,3 +12,11 @@ trait Show extends Any
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def show(decimalPlaces: Int): String = str
 }
+
+/** All the leafs of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
+ *  but sometimes, it may be a lengthened or shortened version of the singleton object name. */
+trait ShowSingleton extends Show
+{ /** The string for the leaf object. This will normally be different from the typeStr in the instance of the PersistSingletons. */
+  def str: String
+  override def toString: String = str
+}

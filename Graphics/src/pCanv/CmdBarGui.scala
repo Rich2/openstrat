@@ -43,7 +43,7 @@ object StdButton
   def turn(num: Int) = apply("Turn" -- num.toString, Turn)    
 }
 
-object Turn extends PersistSingleton
+object Turn extends ShowSingleton
 { override def typeStr: String = "Turn.type"
   def str: String = "Turn"
 }

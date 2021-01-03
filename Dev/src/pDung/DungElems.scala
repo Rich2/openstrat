@@ -3,7 +3,7 @@ package ostrat
 package pDung
 import geom._, Colour._, pGrid._
 
-sealed class Faction(val str: String, val colour: Colour) extends PersistSingleton
+sealed class Faction(val str: String, val colour: Colour) extends ShowSingleton
 { override def typeStr: String = "Faction"
 }
 

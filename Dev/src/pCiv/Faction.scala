@@ -3,7 +3,7 @@ package ostrat
 package pCiv
 import geom._, Colour._
 
-trait Faction extends PersistSingleton
+trait Faction extends ShowSingleton
 { override def typeStr: String = "Faction"
   def colour: Colour
 }

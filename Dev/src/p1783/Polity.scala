@@ -3,7 +3,7 @@ package ostrat
 package p1783
 import geom._, Colour._
 
-trait Polity extends PersistSingleton
+trait Polity extends ShowSingleton
 { override def typeStr: String = "Polity"
   def colour: Colour
 }

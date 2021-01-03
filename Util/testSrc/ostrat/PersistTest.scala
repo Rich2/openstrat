@@ -4,11 +4,12 @@ import utest._
 
 object PersistTest extends TestSuite
 {
-  class TestClass(val str: String) extends PersistSingleton
+  class TestClass(val str: String) extends ShowSingleton
+  { override def typeStr: String = "TestClass"
+  }
 
   object TestClass
-  {
-    implicit object TestClassPersistImplicit extends PersistSingletons[TestClass]("TestClass")
+  { implicit object TestClassPersistImplicit extends PersistSingletons[TestClass]("TestClass")
     { override val singletonList = List(TestObjA, TestObjB)    
     }
   }
