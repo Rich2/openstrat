@@ -1,9 +1,10 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import math._, collection.mutable.ArrayBuffer, Colour.Black
 
-/** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. Thanks to René Descartes for this. */
+/** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
+ *  [[Vec2]] instead. Thanks to René Descartes for this. */
 final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 {
   override def toString: String = Pt2.persistImplicit.strT(this)

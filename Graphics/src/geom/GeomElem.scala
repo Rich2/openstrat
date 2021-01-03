@@ -1,8 +1,8 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
-/** A geometric element to which 2D geometric transformations can be applied. Not all elements preserve their full properties under all
+/** A 2D geometric element to which 2D geometric transformations can be applied. Not all elements preserve their full properties under all
  *  transformations. So for example a [[Circle]] is no longer a [[Circle]] after a Shear transformation, but remains an [[Ellipse]]. [[GraphicElem]]
  *  inherits from GeomElem. A [[Circle]] is not a [[GraphicElem]] but if we add a fill colour to make a [[CircleFill]], or a line width and line
  *  colour to it, we have a [[GraphicElem]] a graphical element that can be displayed on a canvas or output to SVG. It is expected that all elements

@@ -144,6 +144,6 @@ object CanvElem
 /** A graphic element [[GraphicElem]] that is not one of the standard canvas elements [[CanvElem]], it must provide a conversion into those standard
  * elements. */
 trait CanvNoElem extends GraphicElem
-{
+{ /** This method converts this non standard graphic element into [[CanvElem]]s that can be processed by the [[pCanv.CanvasPlatform]]. */
   def canvElems: Arr[CanvElem]
 }
