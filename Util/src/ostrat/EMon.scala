@@ -103,7 +103,7 @@ final case class Good[+A](val value: A) extends EMon[A] //with GoodBase[A]
 
 object Good
 {
-  implicit def GoodShowImplicit[A](implicit ev: ShowT[A]): ShowT[Good[A]] = new ShowT[Good[A]] with ShowCompound[Good[A]]
+  implicit def GoodShowImplicit[A](implicit ev: ShowT[A]): ShowT[Good[A]] = new ShowT[Good[A]] with ShowCompoundT[Good[A]]
   { override def syntaxDepth: Int = ev.syntaxDepth + 1
     override def typeStr: String = "Good" + ev.typeStr.enSquare
     override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
@@ -143,7 +143,7 @@ case class Bad[+A](errs: Strings) extends EMon[A] //with BadBase[A]
 
 object Bad
 {
-  implicit def BadShowImplicit[A](implicit ev: ShowT[A]): ShowT[Bad[A]] = new ShowT[Bad[A]] with ShowCompound[Bad[A]]
+  implicit def BadShowImplicit[A](implicit ev: ShowT[A]): ShowT[Bad[A]] = new ShowT[Bad[A]] with ShowCompoundT[Bad[A]]
   {
     override def syntaxDepth: Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare

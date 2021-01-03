@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** The base trait for the persistence of Case classes, aka Product types */
-trait PersistCase[R] extends ShowCase[R] with PersistCompound[R]
+trait PersistCase[R] extends ShowCaseT[R] with PersistCompound[R]
 {
   override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
   {
@@ -15,7 +15,7 @@ trait PersistCase[R] extends ShowCase[R] with PersistCompound[R]
 
 /** Persistence class for single parameter case classes. 2 Methods not implemented. not sure about this class or its sub class PersistD1. */
 class Persist1[A1, R](typeStr: String, name1: String, fArg1: R => A1, val newT: A1 => R)(implicit ev1: Persist[A1], eq1: Eq[A1]) extends
-  Show1(typeStr, name1,fArg1: R => A1) with PersistCase[R]
+  Show1T(typeStr, name1,fArg1: R => A1) with PersistCase[R]
 {
   def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses1(newT, clauses)
 
@@ -36,7 +36,7 @@ class PersistInt1[R](typeStr: String, name1: String, fArg1: R => Int, newT: Int 
 /** Persistence class for 2 parameter case classes. */ 
 class Persist2[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, val newT: (A1, A2) => R,
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: Eq[A1], eq2: Eq[A2]) extends
-  Show2[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1) with PersistCase[R]
+  Show2T[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1) with PersistCase[R]
 {
   //override def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses2(newT, clauses)
  /* override def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1, opt2) match
@@ -66,7 +66,7 @@ class PersistD2[R](typeStr: String, name1: String, fArg1: R => Double, name2: St
 class Persist3[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2],
   ev3: Persist[A3], eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3]) extends
-  Show3[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3, opt2, opt1) with PersistCase[R]
+  Show3T[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3, opt2, opt1) with PersistCase[R]
 {
   //override def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses3(newT, clauses)
   /*override def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1, opt2, opt3) match
@@ -95,7 +95,7 @@ abstract class PersistD3[R](typeStr: String, name1: String, fArg1: R => Double, 
 class Persist4[A1, A2, A3, A4, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   name4: String, fArg4: R => A4, val newT: (A1, A2, A3, A4) => R, opt4: Option[A4], opt3: Option[A3] = None, opt2: Option[A2] = None,
   opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4], eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3],
-  eq4: Eq[A4]) extends Show4(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, opt4, opt3, opt2, opt1) with PersistCase[R]
+  eq4: Eq[A4]) extends Show4T(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, opt4, opt3, opt2, opt1) with PersistCase[R]
 {
  // override def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses4(newT, clauses)
   /*override def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1, opt2, opt3, opt4) match
@@ -126,7 +126,7 @@ class Persist5[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R =
   name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, val newT: (A1, A2, A3, A4, A5) => R, opt5: Option[A5], opt4: Option[A4] = None,
   opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
   ev4: Persist[A4], ev5: Persist[A5], eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5]) extends
-  Show5(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1) with PersistCase[R]
+  Show5T(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1) with PersistCase[R]
 {
  // override def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses5(newT, clauses)
   /*override def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1, opt2, opt3, opt4, opt5) match
@@ -167,7 +167,7 @@ class Persist6[A1, A2, A3, A4, A5, A6, R](typeStr: String, name1: String, fArg1:
   val newT: (A1, A2, A3, A4, A5, A6) => R, opt6: Option[A6], opt5: Option[A5], opt4: Option[A4] = None, opt3: Option[A3] = None,
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4], ev5: Persist[A5],
   ev6: Persist[A6], eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5], eq6: Eq[A6]) extends
-  Show6(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6, opt6, opt5, opt4, opt3, opt2, opt1) with
+  Show6T(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6, opt6, opt5, opt4, opt3, opt2, opt1) with
   PersistCase[R]
 {
   //override def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses6(newT, clauses)
