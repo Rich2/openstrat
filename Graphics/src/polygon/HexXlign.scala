@@ -6,6 +6,10 @@ package geom
 final class HexXlign(val dInner: Double, val xCen: Double, val yCen: Double) extends HexReg
 {
   override def str: String = ???
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+  override def show(way: Show.Way, decimalPlaces: Int): String = ???
+
   override def toString: String = "HexXlign".appendParenthSemis(xCen.str, yCen.str)
   override def cen: Pt2 = xCen pp yCen
 

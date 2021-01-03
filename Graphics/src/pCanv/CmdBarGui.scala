@@ -45,5 +45,6 @@ object StdButton
 
 object Turn extends ShowSingleton
 { override def typeStr: String = "Turn.type"
+
   def str: String = "Turn"
 }

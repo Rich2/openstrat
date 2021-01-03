@@ -130,6 +130,11 @@ object HexReg
   final case class HexRegImp(xSd4Cen: Double, ySd4Cen: Double, xSd1Cen: Double, ySd1Cen: Double) extends HexReg
   {
     override def str: String = "HexReg".appendParenthSemis(sd4Cen.strComma, sd1Cen.strComma)
+
+
+    /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+    override def show(way: Show.Way, decimalPlaces: Int): String = ???
+
     override def vert(index: Int): Pt2 = index match {
       case 1 => v1
       case 2 => v2

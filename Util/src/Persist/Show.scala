@@ -1,8 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** A trait for providing an alternative to toString. USing this trait can be conveient, but at some level the type must provide a ShowT type class
- *  instance. */
+/** A trait for providing an alternative to toString. USing this trait can be convenient, but at some level of the inheritance the type must provide a
+ *  ShowT type class instance. */
 trait Show extends Any
 { def typeStr: String
 
@@ -10,7 +10,24 @@ trait Show extends Any
   def str: String
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  def show(decimalPlaces: Int): String = str
+  def show(way: Show.Way = Show.Standard, decimalPlaces: Int = -1): String// = str
+}
+
+object Show
+{ /** Currently can't think of a better name for this trait */
+  sealed trait Way
+
+  /** Show the object just as its comma separated constituent values. */
+  object Commas extends Way
+
+  /** Show the object as semicolon separated constituent values. */
+  object Semis extends Way
+
+  /** Show the object in the standard default manner. */
+  object Standard extends Way
+
+  /** Show the object with the type of the object even if the string representation does not normally states its type. Eg Int(7). */
+  object Typed extends Way
 }
 
 /** All the leafs of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
@@ -18,5 +35,11 @@ trait Show extends Any
 trait ShowSingleton extends Show
 { /** The string for the leaf object. This will normally be different from the typeStr in the instance of the PersistSingletons. */
   def str: String
-  override def toString: String = str
+  final override def toString: String = str
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+  final override def show(way: Show.Way, decimalPlaces: Int): String = way match
+  { case Show.Typed => typeStr.appendParenth(str)
+    case _ => str
+  }
 }
