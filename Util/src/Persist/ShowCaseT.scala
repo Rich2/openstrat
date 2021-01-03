@@ -16,8 +16,8 @@ abstract class Show1T[A1, R](val typeStr: String, name1: String, fArg1: R => A1,
   final override def showMems(): Arr[ShowT[_]] = Arr(ev1)
 
   override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = way match {
-    case Show.Semis => ev1.showComma(fArg1(obj))
-    case _ => ev1.strT(fArg1(obj))
+    case Show.Semis => ev1.showT(fArg1(obj), Show.Commas, decimalPlaces)
+    case _ => ev1.showT(fArg1(obj), Show.Standard, decimalPlaces)
   }
   def showSemi(obj: R): String = ev1.showComma(fArg1(obj))
   def showComma(obj: R): String = ev1.strT(fArg1(obj))
@@ -32,6 +32,16 @@ class Show2T[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2)
+
+  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String =
+  { def semisStr = ev1.showT(fArg1(obj), Show.Commas, decimalPlaces) + "; " + ev2.showT(fArg2(obj), Show.Commas, decimalPlaces)
+    way match
+    { case Show.Semis => semisStr
+      case Show.Commas => ev1.showT(fArg1(obj), Show.Standard, decimalPlaces) + "; " + ev2.showT(fArg2(obj), Show.Standard, decimalPlaces)
+      case _ => typeStr.appendParenth(semisStr)
+    }
+  }
+
   override def showSemi(obj: R): String = ev1.showComma(fArg1(obj)) + "; " + ev2.showComma(fArg2(obj))
   override def showComma(obj: R): String = ev1.strT(fArg1(obj)) + ", " + ev2.strT(fArg2(obj))
   override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj))

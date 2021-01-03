@@ -32,13 +32,14 @@ object PersistCaseTest extends TestSuite
   */
   val tests = Tests
   {    
-   /* 'Persist2 -
+    "Persist2" -
     {
       Ma2(4, "a").str ==> """Ma2(4; "a")"""
-      """Ma2(2; "er")""".findType[Ma2] ==> Good(Ma2(2, "er"))
+   //   """Ma2(2; "er")""".findType[Ma2] ==> Good(Ma2(2, "er"))
       Mb2(4, (5, 6)).str ==> """Mb2(4; 5, 6)"""
+      //Mb2(4, (5, 6)).show(str ==> """Mb2(4; 5, 6)"""
     }
-
+   /*
     val p3r1 = "Mb3(2; 3)"
     val p3r2 = "Mb3(2)"
     val p3r3 = "Mb3()"
