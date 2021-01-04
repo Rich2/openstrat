@@ -32,5 +32,5 @@ object Metres
   { def * (operand: Metres): Area = new Area(thisDist.metres * operand.metres)
   }
 
-  implicit object DistPersist extends PersistDbl1[Metres]("Dist", "metres",_.metres, new Metres(_))
+  //implicit object DistPersist extends PersistDbl1[Metres]("Dist", "metres",_.metres, new Metres(_))
 }

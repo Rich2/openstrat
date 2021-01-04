@@ -9,22 +9,6 @@ trait ShowCaseT[R] extends ShowCompoundT[R]
   def showCommaNames(obj: R): String
 }
 
-/** Show type class for 1 parameter case classes. */
-abstract class Show1T[A1, R](val typeStr: String, name1: String, fArg1: R => A1, val opt1: Option[A1] = None)(implicit ev1: ShowT[A1], eq1: Eq[A1])
-  extends EqCase1[A1, R](fArg1) with ShowCaseT[R]
-{
-  final override def showMems(): Arr[ShowT[_]] = Arr(ev1)
-
-  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = way match {
-    case Show.Semis => ev1.showT(fArg1(obj), Show.Commas, decimalPlaces)
-    case _ => ev1.showT(fArg1(obj), Show.Standard, decimalPlaces)
-  }
-  def showSemi(obj: R): String = ev1.showComma(fArg1(obj))
-  def showComma(obj: R): String = ev1.strT(fArg1(obj))
-  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj))
-  override def showCommaNames(obj: R): String = name1 -:- ev1.strT(fArg1(obj))
-}
-
 /** Show type class for 2 parameter case classes. */
 class Show2T[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, val opt2: Option[A2] = None,
   opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], eq1: Eq[A1], eq2: Eq[A2]) extends EqCase2[A1, A2, R](fArg1, fArg2) with
@@ -32,6 +16,8 @@ class Show2T[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2)
+  def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
+    Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))
 
   override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String =
   { def strs(way: Show.Way): Strings = Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))

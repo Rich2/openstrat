@@ -13,26 +13,6 @@ trait PersistCase[R] extends ShowCaseT[R] with PersistCompound[R]
   }
 }
 
-/** Persistence class for single parameter case classes. 2 Methods not implemented. not sure about this class or its sub class PersistD1. */
-class Persist1[A1, R](typeStr: String, name1: String, fArg1: R => A1, val newT: A1 => R)(implicit ev1: Persist[A1], eq1: Eq[A1]) extends
-  Show1T(typeStr, name1,fArg1: R => A1) with PersistCase[R]
-{
-  def fromClauses(clauses: Arr[Clause]): EMon[R] = fromClauses1(newT, clauses)
-
-  def fromParameterStatements(sts: Arr[Statement]): EMon[R] = (sts, opt1) match
-  {
-    case (Arr1(s1), _) => s1.errGet[A1].map(g1 => newT(g1))
-    case (Arr0(), Some(d1)) => Good(newT(d1))
-    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 1.")
-  }
-}
-
-/** Persistence class for case classes taking a single Double parameter. Not sure about this class. It is currently being used for Double based value
- *  classes. I think this is wrong and that they need their own trait class. */
-class PersistDbl1[R](typeStr: String, name1: String, fArg1: R => Double, newT: Double => R) extends Persist1[Double, R](typeStr, name1, fArg1, newT)
-
-class PersistInt1[R](typeStr: String, name1: String, fArg1: R => Int, newT: Int => R) extends Persist1[Int, R](typeStr, name1, fArg1, newT)
-
 /** Persistence class for 2 parameter case classes. */ 
 class Persist2[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, val newT: (A1, A2) => R,
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: Eq[A1], eq2: Eq[A2]) extends

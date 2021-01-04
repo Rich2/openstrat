@@ -46,7 +46,7 @@ object Metres3
 {
   def metres(xMetres: Double, yMetres: Double, zMetres: Double): Metres3 = new Metres3(xMetres, yMetres, zMetres)
   def apply(x: Metres, y: Metres, z: Metres): Metres3 = new Metres3(x.metres, y.metres, z.metres)
-  implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
+  //implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
   var counter = 0
 }
 
@@ -55,7 +55,7 @@ class Metre3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Me
 { type ThisT = Metre3s
   def unsafeFromArray(array: Array[Double]): ThisT = new Metre3s(array)
   override def typeStr: String = "Metres3s"
-  override def fElemStr: Metres3 => String = _.str
+  override def fElemStr: Metres3 => String = _ => "Undefined" //_.str
   override def newElem(d1: Double, d2: Double, d3: Double): Metres3 = new Metres3(d1, d2, d3)
 
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
