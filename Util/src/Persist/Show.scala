@@ -27,11 +27,14 @@ object Show
   /** Show the object in the standard default manner. */
   object Standard extends Way
 
+  /** Show the object in the standard default manner, with field names. */
+  object StdFields extends Way
+
   /** Show the object with the type of the object even if the string representation does not normally states its type. Eg Int(7). */
   object Typed extends Way
 }
 
-/** All the leafs of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
+/** All the leaves of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
  *  but sometimes, it may be a lengthened or shortened version of the singleton object name. */
 trait ShowSingleton extends Show
 { /** The string for the leaf object. This will normally be different from the typeStr in the instance of the PersistSingletons. */

@@ -113,6 +113,16 @@ object HexReg
    * a regular hexagon both Y values will be 0. */
   def sd4Sd1(sd4Cen: Pt2, sd1Cen: Pt2): HexReg = HexRegImp(sd4Cen.x, sd4Cen.y, sd1Cen.x, sd1Cen.y)
 
+  implicit val showImplicit: ShowT[HexReg] = new ShowT[HexReg]
+  { override def typeStr: String = "HexReg"
+    override def strT(obj: HexReg): String = obj.str
+    override def showT(obj: HexReg, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
+    override def syntaxDepth: Int = ???
+    override def showComma(obj: HexReg): String = ???
+    override def showSemi(obj: HexReg): String = ???
+    override def showTyped(obj: HexReg): String = ???
+  }
+
   implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[HexReg] = (obj: HexReg, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[HexReg] = (obj: HexReg, angle: AngleVec) => obj.rotate(angle)
