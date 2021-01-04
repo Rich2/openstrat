@@ -34,10 +34,11 @@ class Show2T[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name
   final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2)
 
   override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String =
-  { def semisStr = ev1.showT(fArg1(obj), Show.Commas, decimalPlaces) + "; " + ev2.showT(fArg2(obj), Show.Commas, decimalPlaces)
+  { def strs(way: Show.Way): Strings = Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))
+    def semisStr = strs(Show.Commas).mkStr("; ")
     way match
     { case Show.Semis => semisStr
-      case Show.Commas => ev1.showT(fArg1(obj), Show.Standard, decimalPlaces) + "; " + ev2.showT(fArg2(obj), Show.Standard, decimalPlaces)
+      case Show.Commas => strs(Show.Standard).mkStr(", ")
       case _ => typeStr.appendParenth(semisStr)
     }
   }
