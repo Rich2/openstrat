@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
 import geom._
@@ -85,6 +85,8 @@ object HVerts extends ProductI2sCompanion[HVert, HVerts]
 
   implicit object PersistImplicit extends ProdInt2sBuilder[HVert, HVerts]("HVerts")
   { override def fromArray(value: Array[Int]): HVerts = new HVerts(value)
+
+    override def showT(obj: HVerts, way: Show.Way, decimalPlaces: Int): String = ???
   }
 
   implicit val arrArrayImplicit: ArrFlatBuild[HVerts] = HVert.HVertsBuildImplicit

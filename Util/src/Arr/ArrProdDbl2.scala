@@ -100,7 +100,7 @@ trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsC
 }
 
 /** Both Persists and Builds ProductD2s collection classes. */
-abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: String) extends ArrProdDblNPersist[A, M](typeStr)
+abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: String) extends ArrProdDblNPersist[A, M](typeStr) //with Show2T[M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value._1
@@ -114,6 +114,7 @@ abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: S
   //override def show(thisColl: R): String = typeStr - showSemi(thisColl).enParenth
  // override def fromParameterStatements(sts: Refs[Statement]): EMon[M] = ???
  // override def fromClauses(clauses: Refs[Clause]): EMon[M] = ???
+  override def showT(obj: M, way: Show.Way, decimalPlaces: Int): String = ???
 }
 
 trait BuffProdDbl2[A <: ProdDbl2] extends Any with BuffProdDblN[A]

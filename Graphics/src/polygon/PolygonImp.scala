@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black, pWeb._
@@ -112,6 +112,8 @@ object PolygonImp
 
   implicit val persistImplicit: ArrProdDbl2Persist[Pt2, PolygonImp] = new ArrProdDbl2Persist[Pt2, PolygonImp]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonImp = new PolygonImp(value)
+
+    override def showT(obj: PolygonImp, way: Show.Way, decimalPlaces: Int): String = ???
   }
 
   /*implicit val polygonsBuildImplicit: ArrBuild[PolygonGen, Polygons] = new ArrArrayDblBuild[PolygonGen, Polygons]

@@ -13,7 +13,7 @@ trait ShowT[-T]
    * rather than a method on the object being shown. */
   def strT(obj: T): String
 
-  def showT(obj: T, way: Show.Way, decimalPlaces: Int): String = strT(obj)
+  def showT(obj: T, way: Show.Way, decimalPlaces: Int): String
 
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
@@ -207,7 +207,10 @@ object ShowT //extends ShowInstancesPriority2
     override def strT(obj: Some[A]): String = ev.strT(obj.value)
     override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
     override def showComma(obj: Some[A]) = ev.showComma(obj.value)
-    override def showTyped(obj: Some[A]) =ev.showTyped(obj.value)
+    override def showTyped(obj: Some[A]) = ev.showTyped(obj.value)
+
+
+    override def showT(obj: Some[A], way: Show.Way, decimalPlaces: Int): String = ???
 
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
     { case AlphaBracketExpr(IdentifierUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))

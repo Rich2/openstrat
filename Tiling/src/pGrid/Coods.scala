@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pGrid
 
@@ -47,6 +47,8 @@ object Coods extends ProductI2sCompanion[Cood, Coods]
 
   implicit object PersistImplicit extends ProdInt2sBuilder[Cood, Coods]("Coods")
   { override def fromArray(value: Array[Int]): Coods = new Coods(value)
+
+    override def showT(obj: Coods, way: Show.Way, decimalPlaces: Int): String = ???
   }
 
   implicit val arrArrayImplicit: ArrFlatBuild[Coods] = Cood.coodsBuildImplicit

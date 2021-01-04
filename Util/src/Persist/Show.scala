@@ -10,7 +10,7 @@ trait Show extends Any
   def str: String
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  def show(way: Show.Way = Show.Standard, decimalPlaces: Int = -1): String// = str
+  def show(way: Show.Way = Show.Standard, decimalPlaces: Int = -1): String
 }
 
 /** Companion object of the Show trait contains the Way trait, used by the show method on Show and the showT method on [[ShowT]] */

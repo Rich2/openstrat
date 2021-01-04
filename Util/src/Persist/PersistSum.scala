@@ -27,7 +27,9 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: Cl
   override def showTyped(obj: ST): String = obj match
   { case a1: A1 => ev1.showTyped(a1)
     case a2: A2 => ev2.showTyped(a2)
-  }  
+  }
+
+  override def showT(obj: ST, way: Show.Way, decimalPlaces: Int): String = ???
 }
 
 object ShowSum2

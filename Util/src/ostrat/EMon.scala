@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import scala.annotation.unchecked.uncheckedVariance
 
@@ -108,6 +108,8 @@ object Good
     override def typeStr: String = "Good" + ev.typeStr.enSquare
     override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
     override def showComma(obj: Good[A]): String = ev.showComma(obj.value)
+
+    override def showT(obj: Good[A], way: Show.Way, decimalPlaces: Int): String = ???
   }
 }
 
@@ -149,5 +151,6 @@ object Bad
     override def typeStr: String = "Bad" + ev.typeStr.enSquare
     override def showSemi(obj: Bad[A]): String = obj.errs.mkString("; ")
     override def showComma(obj: Bad[A]): String = ??? // obj.errs.semiFold
+    override def showT(obj: Bad[A], way: Show.Way, decimalPlaces: Int): String = ???
   }
 }

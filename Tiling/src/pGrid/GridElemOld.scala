@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pGrid
 import geom._
@@ -69,6 +69,8 @@ object TileRow {
 
     // def fromClauses(clauses: Refs[ostrat.pParse.Clause]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def fromExpr(expr: pParse.Expr): ostrat.EMon[TileRow[T]] = ???
+
+    override def showT(obj: TileRow[T], way: Show.Way, decimalPlaces: Int): String = ???
 
     //  def fromStatements(sts: Refs[ostrat.pParse.Statement]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def typeStr: String = ???

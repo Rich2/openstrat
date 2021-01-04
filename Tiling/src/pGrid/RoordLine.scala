@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pGrid
 import geom._
@@ -44,5 +44,7 @@ object RoordLines extends ProdInt4sCompanion[RoordLine, RoordLines]
 
   implicit val PersistImplicit = new ProductI4sBuilder[RoordLine, RoordLines]("RoordLines")
   { override def fromArray(value: Array[Int]): RoordLines = new RoordLines(value)
+
+    override def showT(obj: RoordLines, way: Show.Way, decimalPlaces: Int): String = ???
   }
 }

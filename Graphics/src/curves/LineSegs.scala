@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import collection.mutable.ArrayBuffer
@@ -35,6 +35,8 @@ object LineSegs extends ProdDbl4sCompanion[LineSeg, LineSegs]
 
   implicit val persistImplicit: ArrProdDbl4Persist[LineSeg, LineSegs] = new ArrProdDbl4Persist[LineSeg, LineSegs]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegs = new LineSegs(value)
+
+    override def showT(obj: LineSegs, way: Show.Way, decimalPlaces: Int): String = ???
   }
 
   implicit val arrArrBuildImplicit: ArrFlatBuild[LineSegs] = LineSeg.line2sBuildImplicit
