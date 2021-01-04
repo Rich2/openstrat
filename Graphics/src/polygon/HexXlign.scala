@@ -3,12 +3,12 @@ package ostrat
 package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
-final class HexXlign(val dInner: Double, val xCen: Double, val yCen: Double) extends HexReg
-{
-  override def str: String = ???
-
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  override def show(way: Show.Way, decimalPlaces: Int): String = ???
+final class HexXlign(val dInner: Double, val xCen: Double, val yCen: Double) extends HexReg with Show2[Double, Pt2]
+{ override def typeStr = "HexXlign"
+  override def arg1: Double = dInner
+  override def arg2: Pt2 = cen
+  override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
+  override implicit def ev2: ShowT[Pt2] = Pt2.persistImplicit
 
   override def toString: String = "HexXlign".appendParenthSemis(xCen.str, yCen.str)
   override def cen: Pt2 = xCen pp yCen

@@ -4,7 +4,7 @@ package geom
 
 /** Regular Hexagon */
 trait HexReg extends ShapeCentred with Polygon6Plus with Show
-{  override def typeStr = "HexReg"
+{ override def typeStr = "HexReg"
 
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
   def dInner: Double
@@ -127,13 +127,12 @@ object HexReg
   }
 
   /** Implementation class for the [[HexReg]] trait. */
-  final case class HexRegImp(xSd4Cen: Double, ySd4Cen: Double, xSd1Cen: Double, ySd1Cen: Double) extends HexReg
+  final case class HexRegImp(xSd4Cen: Double, ySd4Cen: Double, xSd1Cen: Double, ySd1Cen: Double) extends HexReg with Show2[Pt2, Pt2]
   {
-    override def str: String = "HexReg".appendParenthSemis(sd4Cen.strComma, sd1Cen.strComma)
-
-
-    /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-    override def show(way: Show.Way, decimalPlaces: Int): String = ???
+    override def arg1: Pt2 = sd4Cen
+    override def arg2: Pt2 = sd1Cen
+    override implicit def ev1: ShowT[Pt2] = Pt2.persistImplicit
+    override implicit def ev2: ShowT[Pt2] = Pt2.persistImplicit
 
     override def vert(index: Int): Pt2 = index match {
       case 1 => v1
