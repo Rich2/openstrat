@@ -164,6 +164,8 @@ object ShowT //extends ShowInstancesPriority2
       //sts.eMap[Int](_.errGet[Int](evA)).map(_.array)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
+
+    override def showT(obj: Array[Int], way: Show.Way, decimalPlaces: Int): String = ???
   }
 
   class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
@@ -176,6 +178,8 @@ object ShowT //extends ShowInstancesPriority2
       case AlphaBracketExpr(IdentifierUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
+
+    override def showT(obj: ArraySeq[A], way: Show.Way, decimalPlaces: Int): String = ???
   }
 
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
@@ -191,6 +195,8 @@ object ShowT //extends ShowInstancesPriority2
       case AlphaBracketExpr(IdentifierLowerToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
+
+    override def showT(obj: Array[A], way: Show.Way, decimalPlaces: Int): String = ???
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
@@ -198,6 +204,10 @@ object ShowT //extends ShowInstancesPriority2
   { override def evA: ShowT[A] = ev
     override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
     override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.strT(obj)).commaFold
+
+    /** Not fully correct yet. */
+    override def showT(obj: ArraySeq[A], way: Show.Way, decimalPlaces: Int): String =
+      obj.map(el => ev.showT(el, Show.Standard, decimalPlaces)).semiFold
   }
 
   implicit def somePersistImplicit[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]

@@ -38,7 +38,8 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowSeqLike[A, R]
   def showSemi(thisIter: R): String = thisIter.map(evA.showComma(_)).semiFold
   override def showComma(thisIter: R): String = ife (thisIter.size == 1, evA.strT(thisIter.head) + ",", thisIter.map((obj: A) => evA.strT(obj)).commaFold)
 
-
+  final override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String =
+    typeStr + obj.map(el => evA.showT(el, Show.Standard, decimalPlaces)).semiFold.enParenth
 }
 
 /*class PersistConsImplicit[A](ev: Persist[A]) extends PersistIterable[A, ::[A]](ev)

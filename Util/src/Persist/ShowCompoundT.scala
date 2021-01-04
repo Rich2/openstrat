@@ -20,10 +20,7 @@ trait PersistCompound[R] extends ShowCompoundT[R] with Persist[R]
 }
 
 trait ShowSeqLike[A, R] extends ShowCompoundT[R]
-{
-  def evA: ShowT[A]
+{ def evA: ShowT[A]
   override def typeStr = "Seq" + evA.typeStr.enSquare
   override def syntaxDepth = evA.syntaxDepth + 1
-
-  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = ???
 }
