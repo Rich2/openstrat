@@ -1,23 +1,18 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import collection.mutable.ArrayBuffer
 
-import scala.collection.mutable.ArrayBuffer
-
+/** Immutable Array based class for Strings. */
 class Strings(val arrayUnsafe: Array[String]) extends AnyVal with ArrBase[String]
 { override type ThisT = Strings
   override def typeStr: String = "Strings"
   override def unsafeNew(length: Int): Strings = new Strings(new Array[String](length))
   override def unsafeSetElem(i: Int, value: String): Unit = arrayUnsafe(i) = value
-
   override def fElemStr: String => String = s => s
-
   override def apply(index: Int): String = arrayUnsafe(index)
-
-  /** The number of elements in the collection. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying
-   * Array maybe longer by a multiple of this number. */
   override def elemsLen: Int = arrayUnsafe.length
 
-  /** Make string with separator. */
+  /** Make 1 string with separator from this collection of strings. */
   def mkStr(separator: String): String = if(empty) ""
   else {
     var acc = head

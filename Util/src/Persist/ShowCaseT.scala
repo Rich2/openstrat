@@ -7,6 +7,17 @@ trait ShowCaseT[R] extends ShowCompoundT[R]
   final override def syntaxDepth: Int = showMems().fMax(_.syntaxDepth) + 1
   def showSemiNames(obj: R): String
   def showCommaNames(obj: R): String
+  def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings
+
+  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String =
+  { def semisStr = strs(obj, Show.Commas, decimalPlaces).mkStr("; ")
+
+    way match
+    { case Show.Semis => semisStr
+      case Show.Commas => strs(obj, Show.Standard, decimalPlaces).mkStr(", ")
+      case _ => typeStr.appendParenth(semisStr)
+    }
+  }
 }
 
 /** Show type class for 2 parameter case classes. */
@@ -16,18 +27,9 @@ class Show2T[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2)
-  def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
-    Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))
 
-  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String =
-  { def strs(way: Show.Way): Strings = Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))
-    def semisStr = strs(Show.Commas).mkStr("; ")
-    way match
-    { case Show.Semis => semisStr
-      case Show.Commas => strs(Show.Standard).mkStr(", ")
-      case _ => typeStr.appendParenth(semisStr)
-    }
-  }
+  override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
+    Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))
 
   override def showSemi(obj: R): String = ev1.showComma(fArg1(obj)) + "; " + ev2.showComma(fArg2(obj))
   override def showComma(obj: R): String = ev1.strT(fArg1(obj)) + ", " + ev2.strT(fArg2(obj))
@@ -44,6 +46,9 @@ class Show3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, 
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
   override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2, ev3)
+
+  override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
+    Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces), ev3.showT(fArg3(obj), way, decimalPlaces))
 
   final override def showSemi(obj: R): String =
   { val p1 = fArg1(obj)
@@ -89,6 +94,9 @@ abstract class Show4T[A1, A2, A3, A4, R](val typeStr: String, name1: String, fAr
 
   final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2, ev3, ev4)
 
+  override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings = Strings(ev1.showT(fArg1(obj), way, decimalPlaces),
+    ev2.showT(fArg2(obj), way, decimalPlaces), ev3.showT(fArg3(obj), way, decimalPlaces), ev4.showT(fArg4(obj), way, decimalPlaces))
+
   override def showSemi(obj: R): String =
   { val p1 = fArg1(obj)
     val p2 = fArg2(obj)
@@ -125,6 +133,9 @@ class Show5T[A1, A2, A3, A4, A5, R](val typeStr: String, name1: String, fArg1: R
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
   final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2, ev3, ev4, ev5)
+  override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
+    Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces), ev3.showT(fArg3(obj), way, decimalPlaces),
+    ev4.showT(fArg4(obj), way, decimalPlaces), ev5.showT(fArg5(obj), way, decimalPlaces))
 
   override def showSemi(obj: R): String =
   { val p1 = fArg1(obj)
@@ -175,6 +186,9 @@ class Show6T[A1, A2, A3, A4, A5, A6, R](val typeStr: String, name1: String, fArg
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
   final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2, ev3, ev4, ev5, ev6)
+  override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
+    Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces), ev3.showT(fArg3(obj), way, decimalPlaces),
+    ev4.showT(fArg4(obj), way, decimalPlaces), ev5.showT(fArg5(obj), way, decimalPlaces), ev6.showT(fArg6(obj), way, decimalPlaces))
 
   override def showSemi(obj: R): String =
   { val p1 = fArg1(obj)
