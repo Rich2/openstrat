@@ -1,22 +1,22 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Efficient immutable Array based collection for Chars. */
-final class Chars(val array: Array[Char]) extends AnyVal with ArrBase[Char]
+final class Chars(val arrayUnsafe: Array[Char]) extends AnyVal with ArrBase[Char]
 { type ThisT = Chars
   override def typeStr: String = "Chars"
   override def unsafeNew(length: Int): Chars = new Chars(new Array[Char](length))
-  override def elemsLen: Int = array.length
-  override def apply(index: Int): Char = array(index)
-  override def unsafeSetElem(i: Int, value: Char): Unit = array(i) = value
-  override def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
+  override def elemsLen: Int = arrayUnsafe.length
+  override def apply(index: Int): Char = arrayUnsafe(index)
+  override def unsafeSetElem(i: Int, value: Char): Unit = arrayUnsafe(i) = value
+  override def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Char => String = _.toString
 
   /** Append another Chars collection. */
   def ++ (op: Chars): Chars =
   { val newArray = new Array[Char](elemsLen + op.elemsLen)
-    array.copyToArray(newArray)
-    op.array.copyToArray(newArray, elemsLen)
+    arrayUnsafe.copyToArray(newArray)
+    op.arrayUnsafe.copyToArray(newArray, elemsLen)
     new Chars(newArray)
   }
 
@@ -25,7 +25,7 @@ final class Chars(val array: Array[Char]) extends AnyVal with ArrBase[Char]
   @inline def offsetter1: CharsOff = new CharsOff(1)
   @inline def offsetter2: CharsOff = new CharsOff(2)
   @inline def offsetter3: CharsOff = new CharsOff(3)
-  @inline def mkString: String = array.mkString
+  @inline def mkString: String = arrayUnsafe.mkString
 }
 
 /** Companion object of Chars class contains repeat parameter apply factor method. */

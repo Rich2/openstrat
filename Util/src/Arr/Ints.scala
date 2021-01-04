@@ -1,24 +1,24 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be widened. */
-final class Ints(val array: Array[Int]) extends AnyVal with ArrBase[Int]
+final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with ArrBase[Int]
 { type ThisT = Ints
   override def typeStr: String = "Ints"
   override def unsafeNew(length: Int): Ints = new Ints(new Array[Int](length))
-  override def elemsLen: Int = array.length
-  override def apply(index: Int): Int = array(index)
-  override def unsafeSetElem(i: Int, value: Int): Unit = array(i) = value
-  override def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
+  override def elemsLen: Int = arrayUnsafe.length
+  override def apply(index: Int): Int = arrayUnsafe(index)
+  override def unsafeSetElem(i: Int, value: Int): Unit = arrayUnsafe(i) = value
+  override def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
   /** Alias for appendInts. Functionally appends the operand Ints. */
   @inline def ++ (op: Ints): Ints = appendInts(op)
   /** Functionally appends the operand Ints. Aliased by the ++ operator. */
   def appendInts(op: Ints): Ints =
   { val newArray = new Array[Int](elemsLen + op.elemsLen)
-    array.copyToArray(newArray)
-    op.array.copyToArray(newArray, elemsLen)
+    arrayUnsafe.copyToArray(newArray)
+    op.arrayUnsafe.copyToArray(newArray, elemsLen)
     new Ints(newArray)
   }
 
@@ -28,7 +28,7 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrBase[Int]
    *  confusion with arithmetic operations. */
   def append(op: Int): Ints =
   { val newArray = new Array[Int](elemsLen + 1)
-    array.copyToArray(newArray)
+    arrayUnsafe.copyToArray(newArray)
     newArray(elemsLen) = op
     new Ints(newArray)
   }
@@ -39,7 +39,7 @@ final class Ints(val array: Array[Int]) extends AnyVal with ArrBase[Int]
   def prepend(op: Int): Ints =
   { val newArray = new Array[Int](elemsLen + 1)
     newArray(0) = op
-    array.copyToArray(newArray, 1)
+    arrayUnsafe.copyToArray(newArray, 1)
     new Ints(newArray)
   }
 }
@@ -67,10 +67,10 @@ object Ints
 object IntsBuild extends ArrBuild[Int, Ints] with ArrFlatBuild[Ints]
 { type BuffT = IntBuff
   override def newArr(length: Int): Ints = new Ints(new Array[Int](length))
-  override def arrSet(arr: Ints, index: Int, value: Int): Unit = arr.array(index) = value
+  override def arrSet(arr: Ints, index: Int, value: Int): Unit = arr.arrayUnsafe(index) = value
   override def newBuff(length: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](length))
   override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: IntBuff, arr: Ints): Unit = buff.unsafeBuff.addAll(arr.array)
+  override def buffGrowArr(buff: IntBuff, arr: Ints): Unit = buff.unsafeBuff.addAll(arr.arrayUnsafe)
   override def buffToArr(buff: IntBuff): Ints = new Ints(buff.unsafeBuff.toArray)
 }
 
