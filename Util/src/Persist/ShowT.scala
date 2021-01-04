@@ -208,7 +208,6 @@ object ShowT //extends ShowInstancesPriority2
     override def strT(obj: Some[A]): String = ev.strT(obj.value)
     override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
     override def showComma(obj: Some[A]) = ev.showComma(obj.value)
-    //override def showTyped(obj: Some[A]) = ev.showTyped(obj.value)
 
     override def showT(obj: Some[A], way: Show.Way, decimalPlaces: Int): String = ???
 

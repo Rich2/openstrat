@@ -100,6 +100,9 @@ object HexYlign
   def apply(height: Double, cen: Pt2 = Pt2Z): HexYlign = new HexYlign(height, cen.x, cen.y)
   def apply(height: Double, xCen: Double, yCen: Double): HexYlign = new HexYlign(height, xCen, yCen)
 
+  implicit val persistImplicit: Persist[HexYlign] =
+    new Persist2[Double, Pt2, HexYlign]("HexYlign", "dInner", _.dInner,"cen", _.cen, apply)
+
   implicit val slateImplicit: Slate[HexYlign] = (obj: HexYlign, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[HexYlign] = (obj: HexYlign, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexYlign] = (obj, matrix) => obj.prolign(matrix)

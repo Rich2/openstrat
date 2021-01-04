@@ -5,7 +5,6 @@ import pParse._
 /** Show trait for Compound types contain elements, requiring the Show class or classes for the type or types of the constituent elements. */
 trait ShowCompoundT[R] extends ShowT[R]
 { final override def strT(obj: R): String = typeStr + showSemi(obj).enParenth
-  //@inline override def showTyped(obj: R): String = strT(obj)
 }
 
 /** Persistence base trait for PersistCase and PersistSeqLike. Some methods probably need to be moved down into sub classes. */

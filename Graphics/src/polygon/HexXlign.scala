@@ -101,6 +101,9 @@ object HexXlign
   /** Apply factory method for [[HexXlign]], Creates a regular hexagon with 2 of its side aligned to the Y axis. */
   def apply(height: Double, xCen: Double, yCen: Double): HexXlign = new HexXlign(height, xCen, yCen)
 
+  implicit val persistImplicit: Persist[HexXlign] =
+    new Persist2[Double, Pt2, HexXlign]("HexXlign", "dInner", _.dInner,"cen", _.cen, apply)
+
   implicit val slateImplicit: Slate[HexXlign] = (obj: HexXlign, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[HexXlign] = (obj: HexXlign, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexXlign] = (obj, matrix) => obj.prolign(matrix)

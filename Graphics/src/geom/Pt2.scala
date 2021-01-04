@@ -239,7 +239,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ProdDbl2
 object Pt2
 { def apply(x: Double, y: Double): Pt2 = new Pt2(x, y)
   def unapply(orig: Pt2): Option[(Double, Double)] = Some((orig.x, orig.y))
-  //def fromAngle(angle: Angle, scalar: Double = 1.0): Pt2 = angle.toVec2(scalar)
 
   implicit class Pt2Implicit(thisPt: Pt2)
   { def * (operand: Metres): Metres2 = Metres2(thisPt.x * operand, thisPt.y * operand)
@@ -278,5 +277,4 @@ object Pt2
   { override def xShearT(obj: Pt2, yFactor: Double): Pt2 = obj.xShear(yFactor)
     override def yShearT(obj: Pt2, xFactor: Double): Pt2 = obj.yShear(xFactor)
   }
-  //implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
 }
