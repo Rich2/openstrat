@@ -105,7 +105,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   { val acc = ev.newBuff()
     var continue = true
     var count = 0
-    var errs: Arr[String] = Arr()
+    var errs: Strings = Strings()
     while(count < elemsLen & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToArr(acc)), Bad(errs))
@@ -115,7 +115,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   { var acc: List[B] = Nil
     var continue = true
     var count = 0
-    var errs: Arr[String] = Arr()
+    var errs: Strings = Strings()
     while(count < elemsLen & continue == true)
       f(apply(count)).foldErrs { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(acc.reverse), Bad(errs))
@@ -207,9 +207,9 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def foldHeadTail[B](initial: B)(fHead: (B, A) => B)(fTail: (B, A) => B) =
   { var acc: B = initial
     var start: Boolean = true
-    foreach{a => if(start == true)
-    {acc = fHead(acc, a); start = false}
-    else acc = fTail(acc, a)
+    foreach { a =>
+      if(start == true) { acc = fHead(acc, a); start = false }
+      else acc = fTail(acc, a)
     }
     acc
   }

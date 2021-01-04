@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pCanv._
 
@@ -16,7 +16,7 @@ case class LsD1(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D1")
   val l1 = LineSeg(v1, v2)
   val t5 = l1.str//So note how there is a semicolon between the two points but a comma between the x and y values of each point. 
   
-  val topStrs = Arr(t1, t2, t3, t4, t5)
+  val topStrs = Strings(t1, t2, t3, t4, t5)
   val topBlock = MText(200, topStrs)//So note we've created a couple of useful Function objects below for use in this lesson series.  
   
   repaint(topBlock)
@@ -27,5 +27,5 @@ object SText
 }
 
 object MText
-{ def apply(y: Double, strs: Arr[String]): Arr[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 pp y, align = LeftAlign)
+{ def apply(y: Double, strs: Strings): Arr[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 pp y, align = LeftAlign)
 }

@@ -92,7 +92,7 @@ final case class Good[+A](val value: A) extends EMon[A] //with GoodBase[A]
   override def get: A = value
   override def getElse(elseValue: A @uncheckedVariance): A = value
   //def value: A
-  override def errs: Strings = Arr()
+  override def errs: Strings = Strings()
   override def toEither: Either[Strings, A] = Right(value)
   override def isGood: Boolean = true
   override def isBad: Boolean = false

@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pEarth
 import geom._
@@ -7,7 +7,7 @@ import geom._
 abstract class WldArea2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
    override def toString = name.appendCommas(terr.toString)
-   def aStrs: Arr[String] = Arr(name)
+   def aStrs: Strings = Strings(name)
    def textScale: Metres = 15.km
    def latLongs: LatLongs
 

@@ -17,7 +17,7 @@ object fileWrite
 
     catch { case e: Throwable => eStr = e.toString }
     finally{ opw.foreach(_.close()) }
-    if (eStr == "") Good("Successfully written file to " + path -/- fileName) else Bad(Arr(eStr))
+    if (eStr == "") Good("Successfully written file to " + path -/- fileName) else Bad(Strings(eStr))
   }
 }
 

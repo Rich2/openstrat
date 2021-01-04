@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package p305
 import geom._, pCanv._, pEarth._
@@ -33,7 +33,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
       val poly = vertDispVecs.fillActive(colour, tile)
       
       val tileText: GraphicElems = ifScaleCObjs(110,
-        { val strs: Arr[String] = Arr(yxStr, cenLL.degStr)
+        { val strs: Strings = Strings(yxStr, cenLL.degStr)
           TextGraphic.lines(strs, 10, cen, colour.contrastBW)//.toArraySeq
         })
       poly +: tileText

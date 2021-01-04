@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
@@ -25,8 +25,5 @@ case class LsD4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D4")
   val c5 = s3.findType[Colour]
   val tl1 = Rval(t1) - t2 - c1
   
-  repaint(SText(200, tl1.str) +: MText(0, Arr(c1.toString, c3.toString, c4.toString, c5.toString)))
+  repaint(SText(200, tl1.str) +: MText(0, Strings(c1.toString, c3.toString, c4.toString, c5.toString)))
 }
-
-
-

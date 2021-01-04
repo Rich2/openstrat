@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag, scala.annotation.unused
 
@@ -52,6 +52,7 @@ object ArrBuild extends ArrBuildLowPriority
   implicit val doublesImplicit: ArrBuild[Double, Dbls] = DblsBuild
   implicit val longImplicit: ArrBuild[Long, Longs] = LongsBuild
   implicit val floatImplicit: ArrBuild[Float, Floats] = FloatsBuild
+  implicit val stringImplicit: ArrBuild[String, Strings] = StringsBuild
   implicit val booleansImplicit: ArrBuild[Boolean, Booleans] = BooleansBuild
 }
 
