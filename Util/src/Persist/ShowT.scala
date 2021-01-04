@@ -32,15 +32,6 @@ trait ShowT[-T]
    *
    *  This class may cease to be abstract. */
   def showSemi(obj: T): String
-
-  /** For most objects showTyped will return the same value as show(obj: T), for Persist values the value will be type enclosed. 4.showTyped
-   * will return Int(4). This class may cease to be abstract. */
-  def showTyped(obj: T): String
-
-  /*def show0(obj: T): String = show(obj, 0)
-  def show1(obj: T): String = show(obj, 0)
-  def show2(obj: T): String = show(obj, 0)
-  def show3(obj: T): String = show(obj, 0)*/
  }
 
 /* The companion object for the Show type class. Persist extends Show with UnShow. As its very unlikley that anyone would want to create an UnShow
@@ -217,8 +208,7 @@ object ShowT //extends ShowInstancesPriority2
     override def strT(obj: Some[A]): String = ev.strT(obj.value)
     override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
     override def showComma(obj: Some[A]) = ev.showComma(obj.value)
-    override def showTyped(obj: Some[A]) = ev.showTyped(obj.value)
-
+    //override def showTyped(obj: Some[A]) = ev.showTyped(obj.value)
 
     override def showT(obj: Some[A], way: Show.Way, decimalPlaces: Int): String = ???
 

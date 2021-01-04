@@ -111,9 +111,6 @@ abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: S
   /** Not sure about this implementation. */
   override def showSemi(thisColl: M): String = thisColl.map(el => el._1.str + ", " + el._2.str).mkString("; ")
   override def showComma(thisColl: M): String = strT(thisColl)
-  //override def show(thisColl: R): String = typeStr - showSemi(thisColl).enParenth
- // override def fromParameterStatements(sts: Refs[Statement]): EMon[M] = ???
- // override def fromClauses(clauses: Refs[Clause]): EMon[M] = ???
   override def showT(obj: M, way: Show.Way, decimalPlaces: Int): String = ???
 }
 

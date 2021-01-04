@@ -243,7 +243,6 @@ object Pt2
 
   implicit class Pt2Implicit(thisPt: Pt2)
   { def * (operand: Metres): Metres2 = Metres2(thisPt.x * operand, thisPt.y * operand)
-
   }
 
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))

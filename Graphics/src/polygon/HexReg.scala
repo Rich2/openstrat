@@ -120,7 +120,6 @@ object HexReg
     override def syntaxDepth: Int = ???
     override def showComma(obj: HexReg): String = ???
     override def showSemi(obj: HexReg): String = ???
-    override def showTyped(obj: HexReg): String = ???
   }
 
   implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, dx: Double, dy: Double) => obj.xySlate(dx, dy)

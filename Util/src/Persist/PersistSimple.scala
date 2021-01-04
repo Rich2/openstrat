@@ -15,7 +15,6 @@ abstract class ShowSimpleT[-A](val typeStr: String) extends ShowT[A]
 
   override def showComma(obj: A): String = strT(obj)
   override def showSemi(obj: A): String = strT(obj)
-  override def showTyped(obj: A): String = typeStr + strT(obj).enParenth
 }
 
 abstract class PersistPrecisionSimple[A](typeStr: String) extends ShowPrecisionSimpleT[A](typeStr) with Persist[A]
@@ -26,5 +25,4 @@ abstract class ShowPrecisionSimpleT[-A](val typeStr: String) extends ShowT[A]
 
   override def showComma(obj: A): String = strT(obj)
   override def showSemi(obj: A): String = strT(obj)
-  override def showTyped(obj: A): String = typeStr + strT(obj).enParenth
 }
