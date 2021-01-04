@@ -5,6 +5,8 @@ package geom
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
 final class HexXlign(val dInner: Double, val xCen: Double, val yCen: Double) extends HexReg with Show2[Double, Pt2]
 { override def typeStr = "HexXlign"
+  override def name1: String = "dInner"
+  override def name2: String = "cen"
   override def arg1: Double = dInner
   override def arg2: Pt2 = cen
   override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit

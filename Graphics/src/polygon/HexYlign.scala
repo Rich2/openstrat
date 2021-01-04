@@ -5,6 +5,9 @@ package geom
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module, */
 final class HexYlign(val dInner: Double, val xCen: Double, val yCen: Double) extends HexReg with Show2[Double, Pt2]
 { override def typeStr = "HexYlign"
+  override def name1: String = "dInner"
+  override def name2: String = "cen"
+
   override def arg1: Double = dInner
   override def arg2: Pt2 = cen
   override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit

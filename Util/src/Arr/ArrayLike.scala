@@ -58,6 +58,19 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     ev.buffToArr(buff)
   }
 
+  /** Specialised map to an immutable ArrBase of B. */
+  def zipMap[B, C, CC <: ArrBase[C]](operator: ArrayLike[B])(f: (A, B) => C)(implicit ev: ArrBuild[C, CC]): CC =
+  { val newLen = elemsLen.min(operator.elemsLen)
+    val res = ev.newArr(newLen)
+    var count = 0
+    while(count < newLen)
+    { val newElem = f(apply(count), operator.apply(count))
+      ev.arrSet(res, count, newElem)
+      count += 1
+    }
+    res
+  }
+
   /** Specialised map with index to an immutable ArrBase of B. This method should be overridden in sub classes. */
   def iMap[B, BB <: ArrBase[B]](f: (A, Int) => B)(implicit ev: ArrBuild[B, BB]): BB =
   { val res = ev.newArr(elemsLen)

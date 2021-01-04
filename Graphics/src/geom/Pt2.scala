@@ -253,7 +253,7 @@ object Pt2
   { def toPolygon: PolygonImp = thisIter.toArrProdHomo
   }
 
-  implicit val persistImplicit: PersistD2[Pt2] = new PersistD2[Pt2]("Vec2", "x", _.x, "y", _.y, apply)
+  implicit val persistImplicit: PersistD2[Pt2] = new PersistD2[Pt2]("Pt2", "x", _.x, "y", _.y, apply)
 
   implicit val vec2sBuildImplicit: ArrProdDbl2Build[Pt2, Pt2s] = new ArrProdDbl2Build[Pt2, Pt2s]
   { type BuffT = Vec2Buff

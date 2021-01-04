@@ -51,6 +51,7 @@ trait ShowSingleton extends Show
 trait ShowCase extends Show
 {
   def strs(way: Show.Way, decimalPlaces: Int): Strings
+  def names: Strings
 
   override def show(way: Show.Way, decimalPlaces: Int): String =
   { def semisStr = strs(Show.Commas, decimalPlaces).mkStr("; ")
@@ -58,6 +59,7 @@ trait ShowCase extends Show
     way match
     { case Show.Semis => semisStr
       case Show.Commas => strs(Show.Standard, decimalPlaces).mkStr(", ")
+      case Show.StdFields => names.zipMap(strs(Show.Standard, decimalPlaces))((n, s) => n + " = " + s).mkStr(", ")
       case _ => typeStr.appendParenth(semisStr)
     }
   }
@@ -66,7 +68,10 @@ trait ShowCase extends Show
 }
 
 trait Show2[A1, A2] extends ShowCase
-{ def arg1: A1
+{ def name1: String
+  def name2: String
+  def names: Strings = Strings(name1, name2)
+  def arg1: A1
   def arg2: A2
   implicit def ev1: ShowT[A1]
   implicit def ev2: ShowT[A2]

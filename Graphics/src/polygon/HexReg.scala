@@ -139,6 +139,9 @@ object HexReg
   /** Implementation class for the [[HexReg]] trait. */
   final case class HexRegImp(xSd4Cen: Double, ySd4Cen: Double, xSd1Cen: Double, ySd1Cen: Double) extends HexReg with Show2[Pt2, Pt2]
   {
+    override def name1: String = "sd4Cen"
+    override def name2: String = "sd1Cen"
+
     override def arg1: Pt2 = sd4Cen
     override def arg2: Pt2 = sd1Cen
     override implicit def ev1: ShowT[Pt2] = Pt2.persistImplicit
