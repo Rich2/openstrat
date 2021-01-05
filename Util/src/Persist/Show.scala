@@ -59,7 +59,10 @@ trait ShowCase extends Show
     way match
     { case Show.Semis => semisStr
       case Show.Commas => strs(Show.Standard, decimalPlaces).mkStr(", ")
-      case Show.StdFields => names.zipMap(strs(Show.Standard, decimalPlaces))((n, s) => n + " = " + s).mkStr(", ")
+      case Show.StdFields =>
+      { val inner = names.zipMap(strs(Show.Standard, decimalPlaces))((n, s) => n + " = " + s).mkStr(", ")
+        typeStr + inner.enParenth
+      }
       case _ => typeStr.appendParenth(semisStr)
     }
   }

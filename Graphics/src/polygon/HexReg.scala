@@ -7,18 +7,18 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
 { override def typeStr = "HexReg"
 
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
-  def dInner: Double
+  def diameterIn: Double
 
   /** The radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a side. */
-  @inline def rInner: Double = dInner / 2
+  @inline def radiusIn: Double = diameterIn / 2
 
   /** The radius of the outer circle of this regular hexagon. The longer radius length from the centre of the Hexagon to a vertex. Also the length of
    *  the hexagon side. */
-  @inline final def rOuter: Double = dInner / Sqrt3
+  @inline final def radiusOut: Double = diameterIn / Sqrt3
 
   /** The diameter of the outer circle of this regular hexagon. The longer diameter length from a vertex to the opposite vertex. This lenght is twice
    * the length of the hexagon side. */
-  @inline final def dOuter: Double = dInner * 2 / Sqrt3
+  @inline final def diameterOut: Double = diameterIn * 2 / Sqrt3
 
   override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
@@ -161,7 +161,7 @@ object HexReg
     def yCen: Double = (ySd1Cen + ySd4Cen) / 2
     def s1CenRMax: Pt2 = cen + (cen >> sd4Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(xCen, yCen)
-    @inline override def dInner: Double = sd1Cen.distTo(sd4Cen)
+    @inline override def diameterIn: Double = sd1Cen.distTo(sd4Cen)
     override def v1: Pt2 = s1CenRMax.rotateAbout(cen,  - Deg30)
     override def x1: Double = v1.x
     override def y1: Double = v1.y
