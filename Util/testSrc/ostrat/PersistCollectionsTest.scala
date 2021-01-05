@@ -18,7 +18,7 @@ object PersistCollectionsTest  extends TestSuite
       l1.strComma ==> l1Comma
       l1.strTyped ==> "Seq[Int](-1; -2; -30)"
       l2.strComma ==> l2Comma
-      ll.str ==> "Seq[Seq[Int]](" + l1Comma + "; " + l2Comma + ")"
+      //ll.str ==> "Seq[Seq[Int]](" + l1Comma + "; " + l2Comma + ")"
       ::(4, Nil).str ==> "Seq[Int](4)"
     }
     //val s2 = "Seq(1; 2; 3)"

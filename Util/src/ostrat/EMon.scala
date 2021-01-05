@@ -106,8 +106,8 @@ object Good
   implicit def GoodShowImplicit[A](implicit ev: ShowT[A]): ShowT[Good[A]] = new ShowT[Good[A]] with ShowCompoundT[Good[A]]
   { override def syntaxDepthT(obj: Good[A]): Int = ev.syntaxDepthT(obj.value) + 1
     override def typeStr: String = "Good" + ev.typeStr.enSquare
-    override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
-    override def showComma(obj: Good[A]): String = ev.showComma(obj.value)
+    //override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
+    //override def showComma(obj: Good[A]): String = ev.showComma(obj.value)
 
     override def showT(obj: Good[A], way: Show.Way, decimalPlaces: Int): String = ???
   }
@@ -147,8 +147,8 @@ object Bad
   {
     override def syntaxDepthT(obj: Bad[A]): Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare
-    override def showSemi(obj: Bad[A]): String = obj.errs.mkString("; ")
-    override def showComma(obj: Bad[A]): String = ??? // obj.errs.semiFold
+    //override def showSemi(obj: Bad[A]): String = obj.errs.mkString("; ")
+    //override def showComma(obj: Bad[A]): String = ??? // obj.errs.semiFold
     override def showT(obj: Bad[A], way: Show.Way, decimalPlaces: Int): String = ???
   }
 }

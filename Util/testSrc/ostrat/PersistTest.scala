@@ -44,7 +44,7 @@ object PersistTest extends TestSuite
       str1.strTyped ==> "Str(" + str1Std + ")"
       mc.str ==> "My2(7, 8, 9; \"hi\")"
       abSeq.str ==> sStr
-      abRefs.str ==> sStr
+     // abRefs.str ==> sStr
     }
 
     "Persist Other" -

@@ -22,7 +22,7 @@ trait ShowT[-T]
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
    *  happen if the syntax depth is 2. if it is 3 or greater return the standard Show compound Show string of the type name followed by a
    *  parenthesis block. */
-  def showComma(obj: T): String
+  //def showComma(obj: T): String
 
   /** Return the defining member values of the type as a series of semicolon separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 4. if it is 4 or greater return the full typed data. This method is not commonly needed but is useful
@@ -31,7 +31,7 @@ trait ShowT[-T]
    *  strings.
    *
    *  This class may cease to be abstract. */
-  def showSemi(obj: T): String
+ // def showSemi(obj: T): String
  }
 
 /* The companion object for the Show type class. Persist extends Show with UnShow. As its very unlikley that anyone would want to create an UnShow
@@ -147,8 +147,8 @@ object ShowT //extends ShowInstancesPriority2
   implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](ShowT.intPersistImplicit)
   {
     override def syntaxDepthT(obj: Array[Int]): Int = ???
-    override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
-    override def showComma(thisArray: Array[Int]): String = thisArray.map((obj: Int) => evA.strT(obj)).commaFold
+    //override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
+    //override def showComma(thisArray: Array[Int]): String = thisArray.map((obj: Int) => evA.strT(obj)).commaFold
 
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
@@ -163,8 +163,8 @@ object ShowT //extends ShowInstancesPriority2
   class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
-    override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
-    override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.strT(obj)).commaFold
+    //override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
+    //override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.strT(obj)).commaFold
 
     override def fromExpr(expr: ParseExpr): EMon[ArraySeq[A]] =  expr match
     { case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
@@ -180,8 +180,8 @@ object ShowT //extends ShowInstancesPriority2
   class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]](ev)
   {
     override def syntaxDepthT(obj: Array[A]): Int = ???
-    override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
-    override def showComma(thisArray: Array[A]): String = thisArray.map((obj: A) => ev.strT(obj)).commaFold
+    //override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
+    //override def showComma(thisArray: Array[A]): String = thisArray.map((obj: A) => ev.strT(obj)).commaFold
 
     override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
     {
@@ -198,8 +198,8 @@ object ShowT //extends ShowInstancesPriority2
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
     override def evA: ShowT[A] = ev
-    override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
-    override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.strT(obj)).commaFold
+    //override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
+    //override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.strT(obj)).commaFold
 
     /** Not fully correct yet. */
     override def showT(obj: ArraySeq[A], way: Show.Way, decimalPlaces: Int): String =
@@ -211,8 +211,8 @@ object ShowT //extends ShowInstancesPriority2
     override def typeStr: String = "Some" + ev.typeStr.enSquare
     override def syntaxDepthT(obj: Some[A]): Int = ev.syntaxDepthT(obj.value)
     override def strT(obj: Some[A]): String = ev.strT(obj.value)
-    override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
-    override def showComma(obj: Some[A]) = ev.showComma(obj.value)
+   // override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
+    //override def showComma(obj: Some[A]) = ev.showComma(obj.value)
 
     override def showT(obj: Some[A], way: Show.Way, decimalPlaces: Int): String = ???
 

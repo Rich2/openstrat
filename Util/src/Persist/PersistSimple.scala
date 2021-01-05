@@ -12,9 +12,6 @@ abstract class ShowSimpleT[-A](val typeStr: String) extends ShowT[A]
     case Show.Typed => typeStr + strT(obj).enParenth
     case _ => strT(obj)
   }
-
-  override def showComma(obj: A): String = strT(obj)
-  override def showSemi(obj: A): String = strT(obj)
 }
 
 abstract class PersistPrecisionSimple[A](typeStr: String) extends ShowPrecisionSimpleT[A](typeStr) with Persist[A]
@@ -22,7 +19,4 @@ abstract class PersistPrecisionSimple[A](typeStr: String) extends ShowPrecisionS
 abstract class ShowPrecisionSimpleT[-A](val typeStr: String) extends ShowT[A]
 {
   final override def syntaxDepthT(obj: A): Int = 1
-
-  override def showComma(obj: A): String = strT(obj)
-  override def showSemi(obj: A): String = strT(obj)
 }

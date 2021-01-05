@@ -109,9 +109,9 @@ abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: S
 
   override def syntaxDepthT(obj: M): Int = 3
   /** Not sure about this implementation. */
-  override def showSemi(thisColl: M): String = thisColl.map(el => el._1.str + ", " + el._2.str).mkString("; ")
-  override def showComma(thisColl: M): String = strT(thisColl)
-  override def showT(obj: M, way: Show.Way, decimalPlaces: Int): String = ???
+ // override def showSemi(thisColl: M): String = thisColl.map(el => el._1.str + ", " + el._2.str).mkString("; ")
+  //override def showComma(thisColl: M): String = strT(thisColl)
+  override def showT(obj: M, way: Show.Way, decimalPlaces: Int): String = ""
 }
 
 trait BuffProdDbl2[A <: ProdDbl2] extends Any with BuffProdDblN[A]

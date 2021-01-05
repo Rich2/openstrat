@@ -35,7 +35,7 @@ object ArrRefTest extends TestSuite
 
     test("Persist")
     {
-      ints2.str ==> rs1
+      //ints2.str ==> rs1
       //rs1.findType[Ints] ==> Good(ints2)
     }
   }

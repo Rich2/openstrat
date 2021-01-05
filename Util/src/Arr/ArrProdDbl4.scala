@@ -109,8 +109,8 @@ abstract class ArrProdDbl4Persist[A <: ProdDbl4, M <: ArrProdDbl4[A]](typeStr: S
 
   override def syntaxDepthT(obj: M): Int = 3
   /** Not sure about this implementation. */
-  override def showSemi(thisColl: M): String = ??? // thisColl.mapBy2(_ + ", " + _ ).mkString("; ")
-  override def showComma(thisColl: M): String = strT(thisColl)
+  //override def showSemi(thisColl: M): String = ??? // thisColl.mapBy2(_ + ", " + _ ).mkString("; ")
+  //override def showComma(thisColl: M): String = strT(thisColl)
   //override def fromParameterStatements(sts: Refs[Statement]): EMon[M] = ???
  // override def fromClauses(clauses: Refs[Clause]): EMon[M] = ???
 }

@@ -28,6 +28,6 @@ class ShowerTypeExtensions[-A](ev: ShowT[A], thisVal: A)
 
 class Show2erTypeExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 {
-  @inline def strCommaNames: String = ev.showCommaNames(thisVal)
-  @inline def strSemiNames: String = ev.showSemiNames(thisVal)
+  /*@inline def strCommaNames: String = ev.showCommaNames(thisVal)
+  @inline def strSemiNames: String = ev.showSemiNames(thisVal)*/
 }
