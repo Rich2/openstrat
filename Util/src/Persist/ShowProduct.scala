@@ -2,7 +2,7 @@
 package ostrat
 
 /** Trait for Show for product types. */
-trait ShowProduct extends Show
+trait ShowProduct extends Any with Show
 {
   def strs(way: Show.Way, decimalPlaces: Int): Strings
   def names: Strings
@@ -25,7 +25,7 @@ trait ShowProduct extends Show
 }
 
 /** Trait for Show for product of 2 elements. */
-trait Show2[A1, A2] extends ShowProduct
+trait Show2[A1, A2] extends Any with ShowProduct
 { def name1: String
   def name2: String
   def names: Strings = Strings(name1, name2)

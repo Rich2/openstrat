@@ -11,6 +11,8 @@ trait Show extends Any
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def show(way: Show.Way = Show.Standard, decimalPlaces: Int = -1): String
+
+  final override def toString: String = str
 }
 
 /** Companion object of the Show trait contains the Way trait, used by the show method on Show and the showT method on [[ShowT]] */
@@ -39,7 +41,6 @@ object Show
 trait ShowSingleton extends Show
 { /** The string for the leaf object. This will normally be different from the typeStr in the instance of the PersistSingletons. */
   def str: String
-  final override def toString: String = str
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   final override def show(way: Show.Way, decimalPlaces: Int): String = way match

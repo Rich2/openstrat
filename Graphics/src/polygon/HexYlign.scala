@@ -2,7 +2,7 @@
 package ostrat
 package geom
 
-/** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module, */
+/** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module. */
 final class HexYlign(val width: Double, val xCen: Double, val yCen: Double) extends Hexlign with Show2[Double, Pt2]
 { override def typeStr = "HexYlign"
   override def name1: String = "width"
@@ -14,7 +14,6 @@ final class HexYlign(val width: Double, val xCen: Double, val yCen: Double) exte
   override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
   override implicit def ev2: ShowT[Pt2] = Pt2.persistImplicit
 
-  override def toString: String = "HexYlign".appendParenthSemis(xCen.str, yCen.str)
   override def cen: Pt2 = xCen pp yCen
   override def x1: Double = xCen + radiusIn
   override def y1: Double = yCen + radiusOut / 2

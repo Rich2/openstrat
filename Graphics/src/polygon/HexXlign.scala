@@ -14,7 +14,6 @@ final class HexXlign(val height: Double, val xCen: Double, val yCen: Double) ext
   override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
   override implicit def ev2: ShowT[Pt2] = Pt2.persistImplicit
 
-  override def toString: String = "HexXlign".appendParenthSemis(xCen.str, yCen.str)
   override def cen: Pt2 = xCen pp yCen
 
   override def x1: Double = xCen + radiusOut / 2
