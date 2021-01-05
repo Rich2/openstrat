@@ -1,3 +1,4 @@
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.immutable._
 
@@ -58,7 +59,8 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     ev.buffToArr(buff)
   }
 
-  /** Specialised map to an immutable ArrBase of B. */
+  /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies theSpecialised map
+   * function from type A and type B to type C. */
   def zipMap[B, C, CC <: ArrBase[C]](operator: ArrayLike[B])(f: (A, B) => C)(implicit ev: ArrBuild[C, CC]): CC =
   { val newLen = elemsLen.min(operator.elemsLen)
     val res = ev.newArr(newLen)
@@ -338,13 +340,17 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     acc
   }
 
-  def fMax[B](f: (A) => B)(implicit cmp: math.Ordering[B]): B =
+  /** Gives the maximum value of type B, produced by applying the function from A to B on each element of this collection, or the default value if the
+   *  collection is empty. */
+  def fMax[B](defaultValue: B)(f: (A) => B)(implicit cmp: math.Ordering[B]): B = if (empty) defaultValue else
   { var acc = f(head)
     foreachTail{ el => acc = cmp.max(acc, f(el)) }
     acc
   }
 
-  def fMin[B](f: (A) => B)(implicit cmp: math.Ordering[B]): B =
+  /** Gives the minimum value of type B, produced by applying the function from A to B on each element of this collection, or the default value if the
+   *  collection is empty. */
+  def fMin[B](defaultValue: B)(f: (A) => B)(implicit cmp: math.Ordering[B]): B =
   { var acc = f(head)
     foreachTail{el => acc = cmp.min(acc, f(el)) }
     acc
@@ -358,7 +364,9 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 }
 
 case class ArrayLikeShow[A, R <: ArrayLike[A]](evA: ShowT[A]) extends ShowSeqLike[A, R]
-{ def showComma(obj: R): String = obj.toStrsCommaFold((obj: A) => evA.strT(obj))
+{
+  override def syntaxDepthT(obj: R): Int = obj.fMax(1)(evA.syntaxDepthT(_))
+  def showComma(obj: R): String = obj.toStrsCommaFold((obj: A) => evA.strT(obj))
   def showSemi(obj: R): String = obj.toStrsSemiFold(evA.showComma(_))
 
   override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = ???

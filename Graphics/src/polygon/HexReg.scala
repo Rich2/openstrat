@@ -117,7 +117,7 @@ object HexReg
   { override def typeStr: String = "HexReg"
     override def strT(obj: HexReg): String = obj.str
     override def showT(obj: HexReg, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
-    override def syntaxDepth: Int = ???
+    override def syntaxDepthT(obj: HexReg): Int = ???
     override def showComma(obj: HexReg): String = ???
     override def showSemi(obj: HexReg): String = ???
   }

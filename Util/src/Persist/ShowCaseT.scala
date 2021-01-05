@@ -4,7 +4,7 @@ package ostrat
 /** The base trait for the persistence of Case classes, aka Product types */
 trait ShowCaseT[R] extends ShowCompoundT[R]
 { def showMems(): Arr[ShowT[_]]
-  final override def syntaxDepth: Int = showMems().fMax(_.syntaxDepth) + 1
+  final override def syntaxDepthT(obj: R): Int = ??? // showMems().fMax(_.syntaxDepth()) + 1
   def showSemiNames(obj: R): String
   def showCommaNames(obj: R): String
   def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings

@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -107,7 +107,7 @@ abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: S
     buf += value._2
   }
 
-  override def syntaxDepth = 3
+  override def syntaxDepthT(obj: M): Int = 3
   /** Not sure about this implementation. */
   override def showSemi(thisColl: M): String = thisColl.map(el => el._1.str + ", " + el._2.str).mkString("; ")
   override def showComma(thisColl: M): String = strT(thisColl)

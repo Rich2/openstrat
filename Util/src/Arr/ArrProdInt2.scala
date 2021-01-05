@@ -62,7 +62,7 @@ abstract class ProdInt2sBuilder[A <: ProdInt2, M <: ArrProdInt2[A]](typeStr: Str
     buf += value._2
   }
 
-  override def syntaxDepth = 3
+  override def syntaxDepthT(obj: M): Int = 3
   /** Not sure about this implementation. */
   override def showSemi(thisColl: M): String = thisColl.map2To1(_.toString + ", " + _.toString).mkString("; ")
   override def showComma(thisColl: M): String = strT(thisColl)

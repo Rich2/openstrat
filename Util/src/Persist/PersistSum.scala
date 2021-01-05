@@ -2,6 +2,7 @@
 package ostrat
 import reflect.ClassTag, pParse._
 
+/** Class needs to be removed and Show sum types ahndled by inheritance. */
 abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: ClassTag[A1], val ct2: ClassTag[A2]) extends ShowT[ST]
 {
   def ev1: ShowT[A1]
@@ -12,7 +13,7 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: Cl
     case a2: A2 => ev2.strT(a2)
   }
   
-  override def syntaxDepth: Int = ev1.syntaxDepth.max(ev2.syntaxDepth)
+  override def syntaxDepthT(obj: ST): Int = ??? // ev1.syntaxDepth(obj.).max(ev2.syntaxDepth())
   
   override def showComma(obj: ST): String = obj match
   { case a1: A1 => ev1.showComma(a1)

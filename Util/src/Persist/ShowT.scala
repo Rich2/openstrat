@@ -17,7 +17,7 @@ trait ShowT[-T]
 
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
-  def syntaxDepth: Int
+  def syntaxDepthT(obj: T): Int
 
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
    *  happen if the syntax depth is 2. if it is 3 or greater return the standard Show compound Show string of the type name followed by a
@@ -146,6 +146,7 @@ object ShowT //extends ShowInstancesPriority2
 
   implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](ShowT.intPersistImplicit)
   {
+    override def syntaxDepthT(obj: Array[Int]): Int = ???
     override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
     override def showComma(thisArray: Array[Int]): String = thisArray.map((obj: Int) => evA.strT(obj)).commaFold
 
@@ -161,6 +162,7 @@ object ShowT //extends ShowInstancesPriority2
 
   class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
   {
+    override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
     override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
     override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.strT(obj)).commaFold
 
@@ -177,6 +179,7 @@ object ShowT //extends ShowInstancesPriority2
   implicit def arrayRefToPersist[A <: AnyRef](implicit ev: Persist[A]): Persist[Array[A]] = new ArrayRefPersist[A](ev)
   class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]](ev)
   {
+    override def syntaxDepthT(obj: Array[A]): Int = ???
     override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
     override def showComma(thisArray: Array[A]): String = thisArray.map((obj: A) => ev.strT(obj)).commaFold
 
@@ -192,7 +195,9 @@ object ShowT //extends ShowInstancesPriority2
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
   implicit def arraySeqImplicit[A](implicit ev: ShowT[A]): ShowT[collection.immutable.ArraySeq[A]] = new ShowSeqLike[A, ArraySeq[A]]
-  { override def evA: ShowT[A] = ev
+  {
+    override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
+    override def evA: ShowT[A] = ev
     override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
     override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.strT(obj)).commaFold
 
@@ -204,7 +209,7 @@ object ShowT //extends ShowInstancesPriority2
   implicit def somePersistImplicit[A](implicit ev: Persist[A]): Persist[Some[A]] = new Persist[Some[A]]
   {
     override def typeStr: String = "Some" + ev.typeStr.enSquare
-    override def syntaxDepth: Int = ev.syntaxDepth
+    override def syntaxDepthT(obj: Some[A]): Int = ev.syntaxDepthT(obj.value)
     override def strT(obj: Some[A]): String = ev.strT(obj.value)
     override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
     override def showComma(obj: Some[A]) = ev.showComma(obj.value)
@@ -231,7 +236,7 @@ object ShowT //extends ShowInstancesPriority2
   implicit def optionPersistImplicit[A](implicit evA: Persist[A]): Persist[Option[A]] =
     new PersistSum2[Option[A], Some[A], None.type](somePersistImplicit[A](evA), nonePersistImplicit)
   { override def typeStr: String = "Option" + evA.typeStr.enSquare
-      override def syntaxDepth: Int = evA.syntaxDepth
+      override def syntaxDepthT(obj: Option[A]): Int = obj.fld(1, evA.syntaxDepthT(_))
   }
 }
 

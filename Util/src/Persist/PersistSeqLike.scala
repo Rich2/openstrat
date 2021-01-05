@@ -35,13 +35,14 @@ abstract class PersistIterable[A, R <: Iterable[A]](ev: Persist[A]) extends Pers
 
 trait ShowIterable[A, R <: Iterable[A]] extends ShowSeqLike[A, R]
 {
+  override def syntaxDepthT(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepthT(el)))
   def showSemi(thisIter: R): String = thisIter.map(evA.showComma(_)).semiFold
   override def showComma(thisIter: R): String = ife (thisIter.size == 1, evA.strT(thisIter.head) + ",", thisIter.map((obj: A) => evA.strT(obj)).commaFold)
 
   final override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = way match
   {
-    case Show.Commas if evA.syntaxDepth == 1 => obj.map(el => evA.showT(el, Show.Standard, decimalPlaces)).commaFold
-    case Show.Semis if evA.syntaxDepth <= 2 => obj.map(el => evA.showT(el, Show.Commas, decimalPlaces)).semiFold
+    case Show.Commas if obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepthT(el))) == 1 => obj.map(el => evA.showT(el, Show.Standard, decimalPlaces)).commaFold
+    case Show.Semis if obj.foldLeft(1)((acc, el) => acc.max(evA.syntaxDepthT(el))) <= 2 => obj.map(el => evA.showT(el, Show.Commas, decimalPlaces)).semiFold
     case _ => typeStr + obj.map(el => evA.showT(el, Show.Semis, decimalPlaces)).semiFold.enParenth
 
   }

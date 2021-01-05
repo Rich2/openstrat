@@ -104,7 +104,7 @@ final case class Good[+A](val value: A) extends EMon[A] //with GoodBase[A]
 object Good
 {
   implicit def GoodShowImplicit[A](implicit ev: ShowT[A]): ShowT[Good[A]] = new ShowT[Good[A]] with ShowCompoundT[Good[A]]
-  { override def syntaxDepth: Int = ev.syntaxDepth + 1
+  { override def syntaxDepthT(obj: Good[A]): Int = ev.syntaxDepthT(obj.value) + 1
     override def typeStr: String = "Good" + ev.typeStr.enSquare
     override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
     override def showComma(obj: Good[A]): String = ev.showComma(obj.value)
@@ -116,8 +116,6 @@ object Good
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
 case class Bad[+A](errs: Strings) extends EMon[A] //with BadBase[A]
 { override def map[B](f: A => B): EMon[B] = Bad[B](errs)
- // override def baseMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
-  //override def baseFlatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = build.newBad(errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
   override def fld[B](noneValue: => B, fGood: A => B): B = noneValue
@@ -147,7 +145,7 @@ object Bad
 {
   implicit def BadShowImplicit[A](implicit ev: ShowT[A]): ShowT[Bad[A]] = new ShowT[Bad[A]] with ShowCompoundT[Bad[A]]
   {
-    override def syntaxDepth: Int = 2
+    override def syntaxDepthT(obj: Bad[A]): Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare
     override def showSemi(obj: Bad[A]): String = obj.errs.mkString("; ")
     override def showComma(obj: Bad[A]): String = ??? // obj.errs.semiFold

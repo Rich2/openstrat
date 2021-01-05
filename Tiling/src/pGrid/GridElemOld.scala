@@ -65,7 +65,7 @@ object TileRow {
 
     def showTyped(obj: TileRow[T]): String = strT(obj)
 
-    def syntaxDepth: Int = ev.syntaxDepth + 2
+    def syntaxDepthT(obj: TileRow[T]): Int = 3 //ev.syntaxDepth() + 2
 
     // def fromClauses(clauses: Refs[ostrat.pParse.Clause]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def fromExpr(expr: pParse.Expr): ostrat.EMon[TileRow[T]] = ???
