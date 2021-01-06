@@ -2,10 +2,12 @@
 package ostrat
 import pParse._
 
-/** The base trait for the persistence of algebraic product types, including case classes. */
+/** The base trait for the persistence of algebraic product types, including case classes. Note the arity of the product, its size is based on the
+ *  number of logical parameters. For example, a LineSeg is a product 2, it has a start point and an end point, although its is stored as 4 parameters
+ *  xStart, yStart, xEnd, yEnd. */
 trait PersistProduct[R] extends ShowProductT[R] with PersistCompound[R]
 {
-  override def fromExpr(expr: ParseExpr): EMon[R] =  expr match
+  override def fromExpr(expr: ParseExpr): EMon[R] = expr match
   {
     case AlphaBracketExpr(IdentifierUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
     case AlphaBracketExpr(IdentifierUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
@@ -13,7 +15,7 @@ trait PersistProduct[R] extends ShowProductT[R] with PersistCompound[R]
   }
 }
 
-/** Persistence class for 2 parameter case classes. */
+/** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
 class Persist2[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, val newT: (A1, A2) => R,
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: Eq[A1], eq2: Eq[A2]) extends
   Show2T[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1) with PersistProduct[R]
@@ -28,10 +30,11 @@ class Persist2[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2:
   }*/
 }
 
+/** Factory object for Persist product 2 type class */
 object Persist2
 { def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: Eq[A1], eq2: Eq[A2]): Persist2[A1, A2, R] =
-  new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2, eq1, eq2)
+    new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2, eq1, eq2)
 }
 
 /** Persistence class for case classes consisting of 2 Int parameters. */
@@ -42,7 +45,7 @@ class PersistInt2[R](typeStr: String, name1: String, fArg1: R => Int, name2: Str
 class PersistD2[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, newT: (Double, Double) => R) extends
    Persist2[Double, Double, R](typeStr, name1, fArg1, name2, fArg2, newT)
 
-/** Persistence class for 3 parameter case classes. */
+/** Persistence class for 3 logical parameter product types. */
 class Persist3[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2],
   ev3: Persist[A3], eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3]) extends
