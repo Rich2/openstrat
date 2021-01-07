@@ -22,7 +22,7 @@ object CommentTest extends TestSuite
     { assertMatch(s1){ case Good(Arr0()) => }
       assertMatch(s2){ case Good(Arr3(_, _, _)) => }
       assertMatch(s3){ case Good(Arr3(_, _, _)) => }
-      assertMatch(s4){ case Good(Arr3(IdentifierLowerToken(_, "x"), AsignToken(_), DecimalToken(_, _))) => }
+      assertMatch(s4){ case Good(Arr3(IdentifierLowerToken(_, "x"), AsignToken(_), DeciIntToken(_, _))) => }
       assertMatch(a4){ case Good(Arr1(_)) => }
       assertMatch(a5){ case Good(Arr4(_, _, _, _)) => }
     }

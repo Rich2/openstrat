@@ -1,3 +1,4 @@
+/** Parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first.*/
 package ostrat
 package pParse
 

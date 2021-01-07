@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pParse
 
@@ -47,7 +47,6 @@ case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with Statement
 /** A Token that can be a member of a Clause. */
 trait ClauseMemberToken extends BlockMemberToken with ClauseMember
 
-
 /** The Dot or Stop Token. */
 case class DotToken(startPosn: TextPosn) extends ClauseMemberToken
 { def srcStr = "."
@@ -65,7 +64,6 @@ case class Dot3Token(startPosn: TextPosn) extends ClauseMemberToken
 { def srcStr = "..."
   override def tokenTypeStr: String = "DotToken"
 }
-
 
 case class CharToken(startPosn: TextPosn, char: Char) extends ExprToken
 { def srcStr = char.toString.enquote1

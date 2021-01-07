@@ -1,9 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
-abstract class PersistSimple[A](typeStr: String) extends ShowSimpleT[A](typeStr) with Persist[A]
-
 abstract class ShowSimpleT[-A](val typeStr: String) extends ShowT[A]
 {
   final override def syntaxDepthT(obj: A): Int = 1
@@ -13,3 +10,6 @@ abstract class ShowSimpleT[-A](val typeStr: String) extends ShowT[A]
     case _ => strT(obj)
   }
 }
+
+/** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
+abstract class PersistSimple[A](typeStr: String) extends ShowSimpleT[A](typeStr) with Persist[A]

@@ -1,6 +1,6 @@
+/** Parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first.*/
 package ostrat
 package pParse
-
 
 /** Function object to parse a raw Statement of statement members, where sub blocks have already been parsed into Statement Blocks. */
 object statementParse

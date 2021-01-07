@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pParse
 /** Statements in RCON can be unclaused or multi comma separated. The empty Clause just contains a comma. The comma at the end of the last Clause of a
