@@ -2,8 +2,8 @@
 package ostrat
 package pParse
 
-/** Token for Trigdual type. All DecimalTokens are also legal Trigdual Tokens. Base 32, '0' .. '9', followed by 'a' .. 'v' with letter 'o' replaced
- * with 'w'. */
+/** Token for TrigdualInt type. All DecimalTokens are also legal TrigdualInt Tokens. Base 32, '0' .. '9', followed by 'a' .. 'v' with letter 'o'
+ *  replaced with 'w'. */
 case class TrigdualIntToken(startPosn: TextPosn, srcStr: String) extends IntToken
 { override def subTypeStr: String = "TrigDual"
   override def getInt: Int = ???

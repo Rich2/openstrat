@@ -2,6 +2,7 @@
 package ostrat
 package pParse
 
+/** Function object to parse operator token. */
 object parseOperatorToken
 {
   /** Not sure if this is fully fixed. Parses an operator. Operators can have multiple charachters in RSON. */
