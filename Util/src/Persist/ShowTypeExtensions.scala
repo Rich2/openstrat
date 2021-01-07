@@ -24,6 +24,7 @@ class ShowerTypeExtensions[-A](ev: ShowT[A], thisVal: A)
   def str2: String = ev.showT(thisVal, Show.Standard, 2)
   def str3: String = ev.showT(thisVal, Show.Standard, 3)
   def showFields: String = ev.showT(thisVal, Show.StdFields, 1)
+  def showTypedFields: String = ev.showT(thisVal, Show.StdTypedFields, 1)
 }
 
 class Show2erTypeExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)

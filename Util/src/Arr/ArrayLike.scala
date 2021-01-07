@@ -59,7 +59,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     ev.buffToArr(buff)
   }
 
-  /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies theSpecialised map
+  /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
    * function from type A and type B to type C. */
   def zipMap[B, C, CC <: ArrBase[C]](operator: ArrayLike[B])(f: (A, B) => C)(implicit ev: ArrBuild[C, CC]): CC =
   { val newLen = elemsLen.min(operator.elemsLen)
@@ -67,6 +67,20 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     var count = 0
     while(count < newLen)
     { val newElem = f(apply(count), operator.apply(count))
+      ev.arrSet(res, count, newElem)
+      count += 1
+    }
+    res
+  }
+
+  /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
+   *  the specialised map function from type A and type B and type C to type D. */
+  def zipMap2[B, C, D, DD <: ArrBase[D]](operator1: ArrayLike[B], operator2: ArrayLike[C])(f: (A, B, C) => D)(implicit ev: ArrBuild[D, DD]): DD =
+  { val newLen = elemsLen.min(operator1.elemsLen).min(operator2.elemsLen)
+    val res = ev.newArr(newLen)
+    var count = 0
+    while(count < newLen)
+    { val newElem = f(apply(count), operator1.apply(count), operator2.apply(count))
       ev.arrSet(res, count, newElem)
       count += 1
     }

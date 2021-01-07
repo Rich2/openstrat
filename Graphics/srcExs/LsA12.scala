@@ -2,6 +2,7 @@
 package learn
 import ostrat._, geom._, pCanv._, Colour._
 
+/** Lesson A12. */
 case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
 {
   val c1 = Circle(200).draw()
@@ -18,7 +19,7 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   def hexGraphics(hr: HexReg, colour: Colour): GraphicElems =
   { val verts = hr.vertsIFlatMap(1){(pt, i) => pt.textArrowToward(hr.cen, "V" + i.str)}
     val sides = hr.sidesIFlatMap(1){ (side, i) => side.midPt.textArrowAwayFrom(hr.cen, "Side" + i.str) }
-    verts ++ sides +- hr.draw(colour) +- TextGraphic(hr.showFields, 12, hr.cen, colour)
+    verts ++ sides +- hr.draw(colour) +- TextGraphic(hr.str, 12, hr.cen, colour)
   }
 
   val h4 = HexXlign(250, 200, 290)
@@ -27,13 +28,15 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val h5 = HexYlign(250, -200, 290)
   val h5d = hexGraphics(h5, DarkMagenta)
 
-  val h6 = HexReg(220, Deg0, -270, -270)
+  val gap = 290
+
+  val h6 = HexReg(220, Deg0, -gap, -270)
   val h6d = hexGraphics(h6, IndianRed)
 
   val h7 = HexReg(220, Deg45, 0, -270)
   val h7d = hexGraphics(h7, Turquoise)
 
-  val h8 = HexReg(220, Deg90, 270, -270)
+  val h8 = HexReg(220, Deg90, gap, -270)
   val h8d = hexGraphics(h8, Colour.GoldenRod)
 
   repaint(htv ++ hts +- hd +- c1 +- c2 ++ hc +- h3d ++ h4d ++ h5d ++ h6d ++ h7d ++ h8d)

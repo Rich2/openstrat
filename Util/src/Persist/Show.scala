@@ -32,6 +32,9 @@ object Show
   /** Show the object in the standard default manner, with field names. */
   object StdFields extends Way
 
+  /** Show the object in the standard default manner, with field names and their types. */
+  object StdTypedFields extends Way
+
   /** Show the object with the type of the object even if the string representation does not normally states its type. Eg Int(7). */
   object Typed extends Way
 }

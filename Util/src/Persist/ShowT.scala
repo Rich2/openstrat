@@ -18,27 +18,13 @@ trait ShowT[-T]
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
   def syntaxDepthT(obj: T): Int
-
-  /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
-   *  happen if the syntax depth is 2. if it is 3 or greater return the standard Show compound Show string of the type name followed by a
-   *  parenthesis block. */
-  //def showComma(obj: T): String
-
-  /** Return the defining member values of the type as a series of semicolon separated values without enclosing type information, note this will only
-   *  happen if the syntax depth is less than 4. if it is 4 or greater return the full typed data. This method is not commonly needed but is useful
-   *  for case classes with a single member. This method will rarely be used, as it is only applicable when the object is being shown stand alone and
-   *  not as part of a containing object. So generally the full show method string will be desired. It may have uses for on the fly aggregation of
-   *  strings.
-   *
-   *  This class may cease to be abstract. */
- // def showSemi(obj: T): String
  }
 
-/* The companion object for the Show type class. Persist extends Show with UnShow. As its very unlikley that anyone would want to create an UnShow
-   instance without a Show instance. Many Persist instances are placed inside the Show companion object. However type instances that themselves
+/* The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikly that anyone would want to create an UnShow
+   instance without a ShowT instance. Many Persist instances are placed inside the Show companion object. However type instances that themselves
    one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
    Persist type instances, and these will be placed in the Persist companion object. */
-object ShowT //extends ShowInstancesPriority2
+object ShowT
 {
   implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int")
   {
