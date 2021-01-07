@@ -13,10 +13,3 @@ abstract class ShowSimpleT[-A](val typeStr: String) extends ShowT[A]
     case _ => strT(obj)
   }
 }
-
-abstract class PersistPrecisionSimple[A](typeStr: String) extends ShowPrecisionSimpleT[A](typeStr) with Persist[A]
-
-abstract class ShowPrecisionSimpleT[-A](val typeStr: String) extends ShowT[A]
-{
-  final override def syntaxDepthT(obj: A): Int = 1
-}

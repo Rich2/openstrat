@@ -52,7 +52,7 @@ object ShowT //extends ShowInstancesPriority2
     }
   }
 
-  implicit val doublePersistImplicit: Persist[Double] = new PersistPrecisionSimple[Double]("DFloat")
+  implicit val doublePersistImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
   {
     def strT(obj: Double): String = obj.toString
 
