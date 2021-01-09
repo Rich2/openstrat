@@ -10,23 +10,14 @@ trait IdentToken extends ExprToken
 trait IdentUpperToken extends ExprToken
 
 object IdentUpperToken
-{ def unapply(inp: AnyRef): Option[(TextPosn, String)] = ???
-}
-
-/** An Identifier Token beginning with a lowercase letter or an underscore character. This is a trait not a final class, because some
- *  IdentifierLowerTokens are valid raw Trigdual ond hexadecimal tokens and some are not. */
-trait IdentLowerToken extends ExprToken
-
-object IdentLowerToken
-{
-  def unapply(inp: AnyRef): Option[(TextPosn, String)] = inp match
+{ def unapply(inp: AnyRef): Option[(TextPosn, String)] = inp match
   { case ilt: IdentLowerToken => Some((ilt.startPosn, ilt.srcStr))
     case _ => None
   }
 }
 
 /** A valid identifier beginning with a lowercase letter or an underscore character. */
-case class IdentLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken
+case class IdentLowerToken(startPosn: TextPosn, srcStr: String) extends ExprToken
 { override def subTypeStr: String = "IdentifierLowerOnly"
 }
 
@@ -45,9 +36,9 @@ case class IdentUpperOnlyToken(startPosn: TextPosn, srcStr: String) extends Iden
 }
 
 /** A valid IdentifierLowerToken that is also a valid TrigdualToken. */
-case class IdentLowerTrigToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken
+/*case class IdentLowerTrigToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken
 {  override def subTypeStr: String = "IdentLowerTrig"
-}
+}*/
 
 /** The purpose of this token is for use at the beginning of a file, to make the the rest of the Statements, sub-statements. As if they were the
  *  statements inside parenthesis. */

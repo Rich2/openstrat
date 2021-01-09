@@ -100,7 +100,7 @@ object Colour
   {
     import pParse._
     def fromExpr(expr: ParseExpr): EMon[Colour] = expr match
-    { case IdentLowerOnlyToken(_, typeName) if Colour.strToValue.contains(typeName) => Good(Colour.strToValue(typeName))
+    { case IdentLowerToken(_, typeName) if Colour.strToValue.contains(typeName) => Good(Colour.strToValue(typeName))
       case Hexa0xToken(_, _) => ??? //Good(Colour(v.toInt))
       case AlphaBracketExpr(IdentUpperToken(_, "Colour"), Arr1(BracketedStatements(Arr1(st), Parenthesis, _, _))) => st.expr match
       { case Hexa0xToken(_, v) => ??? //Good(Colour(v.toInt))

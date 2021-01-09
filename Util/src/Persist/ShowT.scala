@@ -93,8 +93,8 @@ object ShowT
   implicit val BooleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
   { override def strT(obj: Boolean): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
-    { case IdentLowerOnlyToken(_, str) if str == "true" => Good(true)
-      case IdentLowerOnlyToken(_, str) if str == "false" => Good(false)
+    { case IdentLowerToken(_, str) if str == "true" => Good(true)
+      case IdentLowerToken(_, str) if str == "false" => Good(false)
       case _ => expr.exprParseErr[Boolean]
     }
   }
@@ -133,8 +133,6 @@ object ShowT
   implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](ShowT.intPersistImplicit)
   {
     override def syntaxDepthT(obj: Array[Int]): Int = ???
-    //override def showSemi(thisArray: Array[Int]): String = thisArray.map(evA.showComma(_)).semiFold
-    //override def showComma(thisArray: Array[Int]): String = thisArray.map((obj: Int) => evA.strT(obj)).commaFold
 
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
@@ -149,8 +147,6 @@ object ShowT
   class ArrRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
-    //override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
-    //override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.strT(obj)).commaFold
 
     override def fromExpr(expr: ParseExpr): EMon[ArraySeq[A]] =  expr match
     { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
@@ -166,8 +162,6 @@ object ShowT
   class ArrayRefPersist[A <: AnyRef](ev: Persist[A]) extends PersistSeqLike[A, Array[A]](ev)
   {
     override def syntaxDepthT(obj: Array[A]): Int = ???
-    //override def showSemi(thisArray: Array[A]): String = thisArray.map(ev.showComma(_)).semiFold
-    //override def showComma(thisArray: Array[A]): String = thisArray.map((obj: A) => ev.strT(obj)).commaFold
 
     override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
     {
@@ -184,8 +178,6 @@ object ShowT
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
     override def evA: ShowT[A] = ev
-    //override def showSemi(thisArr: ArraySeq[A]): String = thisArr.map(ev.showComma(_)).semiFold
-    //override def showComma(thisArr: ArraySeq[A]): String = thisArr.map((obj: A) => ev.strT(obj)).commaFold
 
     /** Not fully correct yet. */
     override def showT(obj: ArraySeq[A], way: Show.Way, decimalPlaces: Int): String =
@@ -197,8 +189,6 @@ object ShowT
     override def typeStr: String = "Some" + ev.typeStr.enSquare
     override def syntaxDepthT(obj: Some[A]): Int = ev.syntaxDepthT(obj.value)
     override def strT(obj: Some[A]): String = ev.strT(obj.value)
-   // override def showSemi(obj: Some[A]) = ev.showSemi(obj.value)
-    //override def showComma(obj: Some[A]) = ev.showComma(obj.value)
 
     override def showT(obj: Some[A], way: Show.Way, decimalPlaces: Int): String = ???
 
@@ -213,7 +203,7 @@ object ShowT
     override def strT(obj: None.type): String = ""
 
     def fromExpr(expr: Expr): EMon[None.type] = expr match
-    { case IdentLowerOnlyToken(_, "None") => Good(None)
+    { case IdentLowerToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
       case e => bad1(e, "None not found")
     }

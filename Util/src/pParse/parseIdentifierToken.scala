@@ -9,29 +9,29 @@ object parseIdentifierToken
     val acc: StringBuffer = new StringBuffer()
 
     def maybeTrigLoop(remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
-    { case CharsOff0() => Good3(remOff, tp, IdentLowerTrigToken(tpStart, acc.toString))
+    { case CharsOff0() => Good3(remOff, tp, IdentLowerToken(tpStart, acc.toString))
       case CharsOffHead2('_', LetterOrDigitChar(_))  => { acc.append('_'); lowerLoop(remOff.drop1, tp.right1) }
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(TrigdualChar(c), tail) => { acc.append(c); maybeTrigLoop(tail, tp.right1) }
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => { acc.append(c); lowerLoop(tail, tp.right1) }
-      case CharsOffHead(_) => Good3(remOff, tp, IdentLowerTrigToken(tpStart, acc.toString))
+      case CharsOffHead(_) => Good3(remOff, tp, IdentLowerToken(tpStart, acc.toString))
     }
 
-    def maybeHexaLoop(remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
+    /*def maybeHexaLoop(remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Good3(remOff, tp, IdentifierMaybeHexaToken(tpStart, acc.toString))
       case CharsOffHead2('_', LetterOrDigitChar(_))  => { acc.append('_'); upperLoop(remOff.drop1, tp.right1) }
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(HexaLetterChar(c), tail) => { acc.append(c); maybeHexaLoop(tail, tp.right1) }
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => { acc.append(c); upperLoop(tail, tp.right1) }
       case CharsOffHead(_) => Good3(remOff, tp, IdentifierMaybeHexaToken(tpStart, acc.toString))
-    }
+    }*/
 
     def lowerLoop(remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
-    { case CharsOff0() => Good3(remOff, tp, IdentLowerOnlyToken(tpStart, acc.toString))
+    { case CharsOff0() => Good3(remOff, tp, IdentLowerToken(tpStart, acc.toString))
       case CharsOffHead2('_', LetterOrDigitChar(_))  => { acc.append('_'); lowerLoop(remOff.drop1, tp.right1) }
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => { acc.append(c); lowerLoop(tail, tp.right1) }
-      case CharsOffHead(_) => Good3(remOff, tp, IdentLowerOnlyToken(tpStart, acc.toString))
+      case CharsOffHead(_) => Good3(remOff, tp, IdentLowerToken(tpStart, acc.toString))
     }
 
     def upperLoop(remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
@@ -54,7 +54,7 @@ object parseIdentifierToken
       case CharsOff1Tail(TrigdualChar(c1), tail) => { acc.append(c1); maybeTrigLoop(tail, tpStart.right1) }
       case CharsOff1Tail(LetterLower(c1), tail) => { acc.append(c1); lowerLoop(tail, tpStart.right1) }
 
-      case CharsOff1Tail(HexaLetterChar(c1), tail) => { acc.append(c1); maybeHexaLoop(tail, tpStart.right1) }
+      //case CharsOff1Tail(HexaLetterChar(c1), tail) => { acc.append(c1); maybeHexaLoop(tail, tpStart.right1) }
       case CharsOff1Tail(LetterUpper(c1), tail)  => { acc.append(c1); upperLoop(tail, tpStart.right1) }
 
       case CharsOffHead(c) => tpStart.bad3(c.toString + " is not a valid start to an identifer.")
