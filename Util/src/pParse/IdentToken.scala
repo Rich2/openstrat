@@ -7,20 +7,12 @@ trait IdentToken extends ExprToken
 
 /** An alpha-numeric token beginning with an uppercase letter that represents a name of something, that identifies something. */
 case class IdentUpperToken(startPosn: TextPosn, srcStr: String) extends IdentToken
-{
-  override def subTypeStr: String = "IdentifierUpperOnly"
+{ override def subTypeStr: String = "IdentifierUpper"
 }
-
-/*object IdentUpperToken
-{ def unapply(inp: AnyRef): Option[(TextPosn, String)] = inp match
-  { case ilt: IdentLowerToken => Some((ilt.startPosn, ilt.srcStr))
-    case _ => None
-  }
-}*/
 
 /** A valid identifier beginning with a lowercase letter or an underscore character. */
 case class IdentLowerToken(startPosn: TextPosn, srcStr: String) extends IdentToken
-{ override def subTypeStr: String = "IdentifierLowerOnly"
+{ override def subTypeStr: String = "IdentifierLower"
 }
 
 /** The purpose of this token is for use at the beginning of a file, to make the the rest of the Statements, sub-statements. As if they were the

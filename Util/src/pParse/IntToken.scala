@@ -53,7 +53,6 @@ trait MaybeHexaToken extends IntToken
   }
 }
 
-
 /** A 64 bit integer token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit Ints and
  *  64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract
  *  Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming languages. */
