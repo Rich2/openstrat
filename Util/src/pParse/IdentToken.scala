@@ -3,35 +3,35 @@ package ostrat
 package pParse
 
 /** An alpha-numeric token beginning with an alphabetic character that represents a name of something, that identifies something. */
-trait IdentifierToken extends ExprToken
+trait IdentToken extends ExprToken
 
 /** An alpha-numeric token beginning with an uppercase letter that represents a name of something, that identifies something. This is a trait not a
  *  final class, because some IdentiferUpperTokens are valid raw Hexadecimal and trigdual tokens and some are not. */
-trait IdentifierUpperToken extends ExprToken
+trait IdentUpperToken extends ExprToken
 
-object IdentifierUpperToken
+object IdentUpperToken
 { def unapply(inp: AnyRef): Option[(TextPosn, String)] = ???
 }
 
 /** An Identifier Token beginning with a lowercase letter or an underscore character. This is a trait not a final class, because some
  *  IdentifierLowerTokens are valid raw Trigdual ond hexadecimal tokens and some are not. */
-trait IdentifierLowerToken extends ExprToken
+trait IdentLowerToken extends ExprToken
 
-object IdentifierLowerToken
+object IdentLowerToken
 {
   def unapply(inp: AnyRef): Option[(TextPosn, String)] = inp match
-  { case ilt: IdentifierLowerToken => Some((ilt.startPosn, ilt.srcStr))
+  { case ilt: IdentLowerToken => Some((ilt.startPosn, ilt.srcStr))
     case _ => None
   }
 }
 
 /** A valid identifier beginning with a lowercase letter or an underscore character. */
-case class IdentifierLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentifierLowerToken
+case class IdentLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken
 { override def subTypeStr: String = "IdentifierLowerOnly"
 }
 
 /* A valid IdentiferUpperToken that is also a valid HexaDecimalToken. */
-case class IdentifierMaybeHexaToken(startPosn: TextPosn, srcStr: String) extends IdentifierUpperToken with MaybeHexaToken
+case class IdentifierMaybeHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpperToken with MaybeHexaToken
 { override def subTypeStr: String = "IdentifierMaybeHexa"
   @inline override def digitsStr: String = srcStr
   override def getInt: Int = asHexaInt
@@ -39,13 +39,13 @@ case class IdentifierMaybeHexaToken(startPosn: TextPosn, srcStr: String) extends
 
 /** An alpha-numeric token beginning with an uppercase letter that represents a name of something, that identifies something. This is not a valid
  *  integer token of any kind. */
-case class IdentifierUpperOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentifierUpperToken
+case class IdentUpperOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentUpperToken
 {
   override def subTypeStr: String = "IdentifierUpperOnly"
 }
 
 /** A valid IdentifierLowerToken that is also a valid TrigdualToken. */
-case class IdentifierMaybeTrigToken(startPosn: TextPosn, srcStr: String) extends IdentifierLowerToken
+case class IdentLowerTrigToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken
 {  override def subTypeStr: String = "IdentLowerTrig"
 }
 
