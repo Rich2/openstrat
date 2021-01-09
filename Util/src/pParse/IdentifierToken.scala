@@ -2,19 +2,19 @@
 package ostrat
 package pParse
 
+/** An alpha-numeric token beginning with an alphabetic character that represents a name of something, that identifies something. */
 trait IdentifierToken extends ExprToken
 
-/** An Identifier Token beginning with an uppercase letter. This is a trait not a final class, because some IdentiferUpperTokens are valid raw
- * Hexadecimal Tokens and some are not. */
+/** An alpha-numeric token beginning with an uppercase letter that represents a name of something, that identifies something. This is a trait not a
+ *  final class, because some IdentiferUpperTokens are valid raw Hexadecimal and trigdual tokens and some are not. */
 trait IdentifierUpperToken extends ExprToken
 
 object IdentifierUpperToken
-{
-  def unapply(inp: AnyRef): Option[(TextPosn, String)] = ???
+{ def unapply(inp: AnyRef): Option[(TextPosn, String)] = ???
 }
 
 /** An Identifier Token beginning with a lowercase letter or an underscore character. This is a trait not a final class, because some
- *  IdentifierLowerTokens are valid raw Trigdual Tokens and some are not. */
+ *  IdentifierLowerTokens are valid raw Trigdual ond hexadecimal tokens and some are not. */
 trait IdentifierLowerToken extends ExprToken
 
 object IdentifierLowerToken
@@ -25,7 +25,7 @@ object IdentifierLowerToken
   }
 }
 
-/** A valid Identifier begining with a lowercase letter or an underscore character. */
+/** A valid identifier beginning with a lowercase letter or an underscore character. */
 case class IdentifierLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentifierLowerToken
 { override def subTypeStr: String = "IdentifierLowerOnly"
 }
@@ -37,6 +37,8 @@ case class IdentifierMaybeHexaToken(startPosn: TextPosn, srcStr: String) extends
   override def getInt: Int = asHexaInt
 }
 
+/** An alpha-numeric token beginning with an uppercase letter that represents a name of something, that identifies something. This is not a valid
+ *  integer token of any kind. */
 case class IdentifierUpperOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentifierUpperToken
 {
   override def subTypeStr: String = "IdentifierUpperOnly"
