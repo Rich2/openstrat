@@ -35,11 +35,11 @@ object parseIdentifierToken
     }
 
     def upperLoop(remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
-    { case CharsOff0() => Good3(remOff, tp, IdentUpperOnlyToken(tpStart, acc.toString))
+    { case CharsOff0() => Good3(remOff, tp, IdentUpperToken(tpStart, acc.toString))
       case CharsOffHead2('_', LetterOrDigitChar(_))  => { acc.append('_'); upperLoop(remOff.drop1, tp.right1) }
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => { acc.append(c); upperLoop(tail, tp.right1) }
-      case CharsOffHead(_) => Good3(remOff, tp, IdentUpperOnlyToken(tpStart, acc.toString))
+      case CharsOffHead(_) => Good3(remOff, tp, IdentUpperToken(tpStart, acc.toString))
     }
 
     remOff match
