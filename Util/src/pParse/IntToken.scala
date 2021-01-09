@@ -2,8 +2,8 @@
 package ostrat
 package pParse
 
-/** Function object for parsing expected Hexadecimal number. */
-object parseIntToken
+/** Function object for parsing a raw Int number, could be a normal decimal, hexadecimal or trigdual number. */
+object parseRawIntToken
 {
   def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
   {

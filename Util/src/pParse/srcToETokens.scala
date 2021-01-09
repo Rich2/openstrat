@@ -63,7 +63,7 @@ object srcToETokens
       case CharsOffHead(LetterOrUnderscoreChar(_)) => parseIdentifierToken(rem, tp).appendLoop
 
       case CharsOffHead2('0', 'x') => parseHexa0xToken(rem, tp).appendLoop
-      case CharsOffHead(DigitChar(d, _)) => parseIntToken(rem, tp).appendLoop
+      case CharsOffHead(DigitChar(d, _)) => parseRawIntToken(rem, tp).appendLoop
 
       case CharsOffHead(c) if isOperator(c) => parseOperatorToken(rem, tp).appendLoop
       case CharsOffHead(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
