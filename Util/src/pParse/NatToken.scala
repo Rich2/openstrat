@@ -2,8 +2,9 @@
 package ostrat
 package pParse
 
-/** Function object for parsing a raw Int number, could be a normal decimal, hexadecimal or trigdual number. */
-object parseRawIntToken
+/** Function object for parsing a raw natural integer number, could be a normal decimal, hexadecimal or trigdual number. Not all natural numbers are
+ * parsed with this function object. Raw hex and trigdual numbers can be encoded as alpha numeric identity tokens. */
+object parseRawNatToken
 {
   def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
   {
@@ -17,6 +18,8 @@ object parseRawIntToken
       case _ => Good3(rem, tp.addStr(str), HexaOnlyIntToken(tp, str))
     }
 
+    def trigLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = ???
+
     rem match
     { case CharsOff1Tail(DigitChar(i, _), tail) => deciLoop(tail, i.toString)
       case CharsOff1Tail(HexaDigitChar(i, _), tail) => hexaLoop(tail, i.toString)
@@ -24,23 +27,22 @@ object parseRawIntToken
   }
 }
 
-/** A Natural (non negative) number Token. */
-trait IntToken extends ExprToken
-{ def getInt: Int
+/** The base trait for all integer tokens. A Natural (non negative) number Token. It contains a single property, the digitStr. The digitStr depending
+ * on the class may be interpreted in 1 to 3 ways, as a normal decimal number, a hexadecimal number, or a trigdual (base 32) number. */
+trait NatToken extends ExprToken
+{ def digitsStr: String
 }
 
-object IntToken
+object NatToken
 {
   def unapply(token: Token): Option[(TextPosn, String)] = token match
-  { case it: IntToken => Some((it.startPosn, it.srcStr))
+  { case it: NatToken => Some((it.startPosn, it.srcStr))
     case _ => None
   }
 }
 
-trait MaybeHexaToken extends IntToken
+trait IntHexaToken extends NatToken
 {
-  def digitsStr: String
-
   def asHexaInt: Int =
   { var acc = 0
     implicit val chars: Chars = digitsStr.toChars
@@ -56,11 +58,11 @@ trait MaybeHexaToken extends IntToken
 /** A 64 bit integer token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit Ints and
  *  64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract
  *  Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming languages. */
-case class DeciIntToken(startPosn: TextPosn, srcStr: String) extends MaybeHexaToken
+case class DeciIntToken(startPosn: TextPosn, srcStr: String) extends IntHexaToken
 { override def subTypeStr: String = "Decimal"
   override def digitsStr: String = srcStr
 
-  override def getInt: Int =
+  def getInt: Int =
   { var acc = 0
     implicit val chars: Chars = srcStr.toChars
     def loop(rem: CharsOff): Int = rem match
@@ -73,8 +75,8 @@ case class DeciIntToken(startPosn: TextPosn, srcStr: String) extends MaybeHexaTo
 }
 
 /** Raw hexadecimal integer starting with a digit that includes one or more 'A' .. 'F' digits */
-case class HexaOnlyIntToken(startPosn: TextPosn, srcStr: String) extends MaybeHexaToken
+case class HexaOnlyIntToken(startPosn: TextPosn, srcStr: String) extends IntHexaToken
 { override def subTypeStr: String = "HexaRaw"
   override def digitsStr = srcStr
-  override def getInt: Int = asHexaInt
+  def getInt: Int = asHexaInt
 }

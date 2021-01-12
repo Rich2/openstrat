@@ -21,9 +21,9 @@ object IntTokenTest extends TestSuite
       it2.getInt ==> 2147483647
     }
 
-    val ht1 = Hexa0xToken(Sp1, "A")
-    val ht2 = Hexa0xToken(Sp44, "1A")
-    val ht3 = Hexa0xToken(Sp2, "7FFFFFFF")
+    val ht1 = Nat0xToken(Sp1, "A")
+    val ht2 = Nat0xToken(Sp44, "1A")
+    val ht3 = Nat0xToken(Sp2, "7FFFFFFF")
 
     "IntDeciToken" -
     { ht1.getInt ==> 10
@@ -33,13 +33,13 @@ object IntTokenTest extends TestSuite
 
     "General" -
     {
-      assertMatch("4".parseTokens){ case Good(Arr1(IntToken(Sp1, "4"))) => }
+      assertMatch("4".parseTokens){ case Good(Arr1(NatToken(Sp1, "4"))) => }
       assertMatch("45".parseTokens){ case Good(Arr1(DeciIntToken(Sp1, "45"))) => }
-      assertMatch("45".parseTokens){ case Good(Arr1(IntToken(Sp1, "45"))) => }
+      assertMatch("45".parseTokens){ case Good(Arr1(NatToken(Sp1, "45"))) => }
       assertMatch("4.5".parseTokens){ case Good(Arr3(DeciIntToken(Sp1, "4"), DotToken(Sp2), DeciIntToken(Sp3, "5"))) => }
       assertMatch("\"45\"".parseTokens){ case Good(Arr1(StringToken(Sp1, "45"))) => }
-      assertMatch("0x11".parseTokens){ case Good(Arr1(Hexa0xToken(Sp1, "11"))) => }
-      assertMatch("0x11".parseTokens){ case Good(Arr1(IntToken(Sp1, "0x11"))) => }
+      assertMatch("0x11".parseTokens){ case Good(Arr1(Nat0xToken(Sp1, "11"))) => }
+      assertMatch("0x11".parseTokens){ case Good(Arr1(NatToken(Sp1, "0x11"))) => }
     }
   }
 }
