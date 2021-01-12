@@ -10,12 +10,12 @@ object parseRawNatToken
   {
     def deciLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
     { case CharsOff1Tail(d, tail) if d.isDigit => deciLoop(tail, str + d.toString)
-      case _ => Good3(rem, tp.addStr(str), DeciIntToken(tp, str))
+      case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
     }
 
     def hexaLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
     { case CharsOff1Tail(d, tail) if d.isDigit => hexaLoop(tail, str + d.toString)
-      case _ => Good3(rem, tp.addStr(str), HexaOnlyIntToken(tp, str))
+      case _ => Good3(rem, tp.addStr(str), NatRawHexaToken(tp, str))
     }
 
     def trigLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = ???
@@ -58,7 +58,7 @@ trait IntHexaToken extends NatToken
 /** A 64 bit integer token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit Ints and
  *  64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract
  *  Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming languages. */
-case class DeciIntToken(startPosn: TextPosn, srcStr: String) extends IntHexaToken
+case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends IntHexaToken
 { override def subTypeStr: String = "Decimal"
   override def digitsStr: String = srcStr
 
@@ -75,7 +75,7 @@ case class DeciIntToken(startPosn: TextPosn, srcStr: String) extends IntHexaToke
 }
 
 /** Raw hexadecimal integer starting with a digit that includes one or more 'A' .. 'F' digits */
-case class HexaOnlyIntToken(startPosn: TextPosn, srcStr: String) extends IntHexaToken
+case class NatRawHexaToken(startPosn: TextPosn, srcStr: String) extends IntHexaToken
 { override def subTypeStr: String = "HexaRaw"
   override def digitsStr = srcStr
   def getInt: Int = asHexaInt

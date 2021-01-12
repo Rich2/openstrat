@@ -31,9 +31,9 @@ object ShowT
     def strT(obj: Int): String = obj.toString
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match {
-      case DeciIntToken(_, i) => Good(i.toInt)
-      case PreOpExpr(op, DeciIntToken(_, i)) if op.srcStr == "+" => Good(i.toInt)
-      case PreOpExpr(op, DeciIntToken(_, i)) if op.srcStr == "-" => Good(-i.toInt)
+      case NatDeciToken(_, i) => Good(i.toInt)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toInt)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toInt)
       case _ => expr.exprParseErr[Int]
     }
   }
@@ -57,9 +57,9 @@ object ShowT
     }
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match
-    { case DeciIntToken(_, i) => Good(i.toDouble)
-      case PreOpExpr(op, DeciIntToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
-      case PreOpExpr(op, DeciIntToken(_, i)) if op.srcStr == "-" => Good(-(i.toDouble))
+    { case NatDeciToken(_, i) => Good(i.toDouble)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toDouble))
       /* case FloatToken(_, _, d) => Good(d)
        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d)
        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d)
@@ -70,9 +70,9 @@ object ShowT
   implicit val longPersistImplicit: Persist[Long] = new PersistSimple[Long]("Long")
   { def strT(obj: Long): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Long] = expr match
-    { case DeciIntToken(_, i) => Good(i.toLong)
-      case PreOpExpr(op, DeciIntToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
-      case PreOpExpr(op, DeciIntToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
+    { case NatDeciToken(_, i) => Good(i.toLong)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
       case  _ => expr.exprParseErr[Long]
     }
   }
@@ -80,9 +80,9 @@ object ShowT
   implicit val floatPersistImplicit: Persist[Float] = new PersistSimple[Float]("SFloat")
   { def strT(obj: Float): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Float] = expr match
-    { case DeciIntToken(_, i) => Good(i.toFloat)
-      case PreOpExpr(op, DeciIntToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
-      case PreOpExpr(op, DeciIntToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
+    { case NatDeciToken(_, i) => Good(i.toFloat)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
       /*  case FloatToken(_, _, d) => Good(d.toFloat)
         case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d.toFloat)
         case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d.toFloat)

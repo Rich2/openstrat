@@ -62,7 +62,7 @@ object srcToETokens
       case CharsOffHead('\"') => parseStringToken(rem, tp).appendLoop
       case CharsOffHead(LetterOrUnderscoreChar(_)) => parseIdentifierToken(rem, tp).appendLoop
 
-      case CharsOffHead2('0', 'x') => parseHexa0xToken(rem, tp).appendLoop
+      case CharsOffHead2('0', 'x') => Nat0xToken.parse(rem, tp).appendLoop
       case CharsOffHead(DigitChar(d, _)) => parseRawNatToken(rem, tp).appendLoop
 
       case CharsOffHead(c) if isOperator(c) => parseOperatorToken(rem, tp).appendLoop
