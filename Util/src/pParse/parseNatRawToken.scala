@@ -23,7 +23,8 @@ object parseNatRawToken
 
     rem match
     { case CharsOff1Tail(DigitChar(i, _), tail) => deciLoop(tail, i.toString)
-    case CharsOff1Tail(HexaDigitChar(i, _), tail) => hexaLoop(tail, i.toString)
+      case CharsOff1Tail(l, tail)if l <= 'F' && l >= 'A' => hexaLoop(tail, l.toString)
+      case CharsOff1Tail(l, tail)if l <= 'O' && l >= 'G' => base32Loop(tail, l.toString)
     }
   }
 }
