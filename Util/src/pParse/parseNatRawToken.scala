@@ -10,6 +10,7 @@ object parseNatRawToken
   {
     def deciLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
     { case CharsOff1Tail(d, tail) if d.isDigit => deciLoop(tail, str + d.toString)
+
       case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
     }
 
@@ -18,7 +19,7 @@ object parseNatRawToken
       case _ => Good3(rem, tp.addStr(str), NatRawHexaToken(tp, str))
     }
 
-    def trigLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = ???
+    def base32Loop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = ???
 
     rem match
     { case CharsOff1Tail(DigitChar(i, _), tail) => deciLoop(tail, i.toString)
