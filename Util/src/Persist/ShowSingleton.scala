@@ -7,7 +7,7 @@ abstract class PersistSingletons[A <: ShowSingleton](typeStr: String) extends Pe
 { def singletonList: List[A]
   @inline override def strT(obj: A): String = obj.str
   def fromExpr(expr: ParseExpr): EMon[A] = expr match
-  { case IdentLowerToken(_, str) => singletonList.find(el => el.str == str).toEMon1(expr, typeStr -- "not parsed from this Expression")
+  { case IdentifierLwToken(_, str) => singletonList.find(el => el.str == str).toEMon1(expr, typeStr -- "not parsed from this Expression")
     case e => bad1(e, typeStr -- "not parsed from this Expression")
   }
 }

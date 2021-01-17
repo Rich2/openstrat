@@ -93,8 +93,8 @@ object ShowT
   implicit val BooleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
   { override def strT(obj: Boolean): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
-    { case IdentLowerToken(_, str) if str == "true" => Good(true)
-      case IdentLowerToken(_, str) if str == "false" => Good(false)
+    { case IdentifierLwToken(_, str) if str == "true" => Good(true)
+      case IdentifierLwToken(_, str) if str == "false" => Good(false)
       case _ => expr.exprParseErr[Boolean]
     }
   }
@@ -136,7 +136,7 @@ object ShowT
 
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
-      case AlphaBracketExpr(IdentUpperToken(_, "Seq"), Arr2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
+      case AlphaBracketExpr(IdentifierUpToken(_, "Seq"), Arr2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
       //sts.eMap[Int](_.errGet[Int](evA)).map(_.array)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
@@ -149,8 +149,8 @@ object ShowT
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
 
     override def fromExpr(expr: ParseExpr): EMon[ArraySeq[A]] =  expr match
-    { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
-      case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+    { case AlphaBracketExpr(IdentifierUpToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+      case AlphaBracketExpr(IdentifierUpToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
 
@@ -165,8 +165,8 @@ object ShowT
 
     override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
     {
-      case AlphaBracketExpr(IdentLowerToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
-      case AlphaBracketExpr(IdentLowerToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+      case AlphaBracketExpr(IdentifierLwToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+      case AlphaBracketExpr(IdentifierLwToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
 
@@ -193,7 +193,7 @@ object ShowT
     override def showT(obj: Some[A], way: Show.Way, decimalPlaces: Int): String = ???
 
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
-    { case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
+    { case AlphaBracketExpr(IdentifierUpToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
       case expr => ev.fromExpr(expr).map(Some(_))
     }
   }
@@ -203,7 +203,7 @@ object ShowT
     override def strT(obj: None.type): String = ""
 
     def fromExpr(expr: Expr): EMon[None.type] = expr match
-    { case IdentLowerToken(_, "None") => Good(None)
+    { case IdentifierLwToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
       case e => bad1(e, "None not found")
     }
