@@ -8,6 +8,7 @@ object Hexa0xTokenTest extends TestSuite
   val o1 = c1.offsetter0
   val p1 = StrPosn(1, 1)
   val r1: EMon3[CharsOff, TextPosn, Token] = parseNatRawToken(o1, p1)(c1)
+  println(r1)
   val Ht1 = Nat0xToken(p1, "1234")
   val rr1 = 0x1234
 

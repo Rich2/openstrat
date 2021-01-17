@@ -76,6 +76,19 @@ object HexaDigitChar
   }
 }
 
+object Base32Char
+{
+  def unapply(input: Char): Option[(Char, Int)] = input match
+  {
+    case n if n.isDigit => Some((n, n - '0'))
+    case l if l <= 'N' && l >= 'A' => Some((l, l - 'A' + 10))
+    case l if l <= 'n' && l >= 'a' => Some((l, l - 'a' + 10))
+    case l if l <= 'W' && l >= 'P' => Some((l, l - 'A' + 10))
+    case l if l <= 'w' && l >= 'p' => Some((l, l - 'a' + 10))
+    case c => None
+  }
+}
+
 object HexaLetterChar
 {
   def unapply(input: Char): Option[Char] = input match
