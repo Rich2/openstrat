@@ -5,7 +5,7 @@ package pParse
 /** An alphanumeric token beginning with an alphabetic character that normally represents a name of something, that identifies something. */
 trait IdentifierToken extends ExprToken
 
-/** An alphanumeric token beginning with an alphabetic character */
+/** An alphanumeric token beginning with an alphabetic character. */
 trait IdentifierUpToken extends IdentifierToken
 
 object IdentifierUpToken
@@ -24,7 +24,9 @@ object IdentifierUpToken
   }
 }
 
-trait IdentifierBase32Token extends IdentifierUpToken
+/** An alphanumeric token beginning with an alphabetic character that most commonly represents a name of something, but is also a valid raw Base32
+ *  Token. */
+trait IdentifierBase32Token extends IdentifierUpToken with NatBase32Token
 
 object IdentifierBase32Token
 {
@@ -33,24 +35,12 @@ object IdentifierBase32Token
   }
 }
 
-case class IdentifierHexaToken(startPosn: TextPosn, srcStr: String) extends IdentifierBase32Token{
-  override def subTypeStr: String = "IdentifierHexa"
+case class IdentifierHexaToken(startPosn: TextPosn, srcStr: String) extends IdentifierBase32Token with NatHexaToken
+{ override def subTypeStr: String = "IdentifierHexa"
+  override def digitsStr: String = srcStr
 }
-
 
 /** A valid identifier beginning with a lowercase letter or an underscore character. */
 case class IdentifierLwToken(startPosn: TextPosn, srcStr: String) extends IdentifierToken
 { override def subTypeStr: String = "IdentifierLower"
-}
-
-/** The purpose of this token is for use at the beginning of a file, to make the the rest of the Statements, sub-statements. As if they were the
- *  statements inside parenthesis. */
-case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ExprToken
-{ override def subTypeStr: String = "HashAlpha"
-}
-
-case class UnderscoreToken(startPosn: TextPosn) extends EmptyExprToken with StatementMember
-{ def srcStr = "_"
-  override def exprName: String = "EmptyClauseExpr"
-  override def subTypeStr: String = "Underscore"
 }

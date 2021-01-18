@@ -11,7 +11,7 @@ ThisBuild/autoAPIMappings := true
 
 def commonSett = List(
   scalacOptions ++=
-    Seq("-feature", "-language:implicitConversions", "UTF-8", "-deprecation"),//, "-Ywarn-value-discard", "-encoding", "-Xlint"),
+    Seq("-feature", "-language:implicitConversions", "UTF-8", "-deprecation", "-explaintypes"),//, "-Ywarn-value-discard", "-Xlint"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 

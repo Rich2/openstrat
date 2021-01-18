@@ -2,9 +2,9 @@
 package ostrat
 package pParse
 
-/** Sorts tokens in to brace hierarchy. */
+/** Function object to sort tokens in to brace hierarchy. */
 object bracesParse
-{
+{ /** Sorts tokens in to brace hierarchy. */
   def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: Arr[Token]): EMon2[BracketedStatements, ArrOff[Token]] =
   {
     val acc: Buff[BlockMember] = Buff()

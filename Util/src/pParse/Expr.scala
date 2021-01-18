@@ -25,8 +25,6 @@ trait ExprSeqNonEmpty extends ExprCompound with ExprSeq
 { def exprs: Arr[Expr]
 }
 
-
-
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
 trait ExprToken extends Expr with ClauseMemberToken
 { def subTypeStr: String
