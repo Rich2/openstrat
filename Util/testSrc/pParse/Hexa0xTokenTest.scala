@@ -7,7 +7,7 @@ object Hexa0xTokenTest extends TestSuite
   val c1 = "0x1234".toChars
   val o1 = c1.offsetter0
   val p1 = StrPosn(1, 1)
-  val r1: EMon3[CharsOff, TextPosn, Token] = parseNatRawToken(o1, p1)(c1)
+  val r1 = srcToETokens.str("0x1234")
   println(r1)
   val Ht1 = Nat0xToken(p1, "1234")
   val rr1 = 0x1234
@@ -22,7 +22,7 @@ object Hexa0xTokenTest extends TestSuite
   {
     "Parse" -
     {
-      //assertMatch(r1){ case Good3(CharsOff(6), StrPosn(1, 7), Ht1) => }
+      assertMatch(r1){ case GoodArr1(Nat0xToken(p1, "1234")) => }
       //assertMatch(r2){ case Good3(CharsOff(9), StrPosn(1, 10), Ht2 ) => }
     }
     "Values" -

@@ -5,7 +5,10 @@ package pParse
 /** Function object for creating an [[EMon]] of Refs of Token from a source. This internally uses a mutable ArrayBuffer, but the mutability is fully
  *  encapsulated. */
 object srcToETokens
-{ /** Max numbers for long and hexadecimal formats needs to be implemented. */
+{
+  def str(inp: String): ERefs[Token] = apply(inp.toArray, "String")
+
+  /** Max numbers for long and hexadecimal formats needs to be implemented. */
   def apply(charsIn: Array[Char], fileName: String): ERefs[Token] =
   { implicit val charArr: Chars = new Chars(charsIn)
     val acc: Buff[Token] = Buff[Token]()
