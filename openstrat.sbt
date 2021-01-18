@@ -3,7 +3,7 @@ ThisBuild/version := versionStr
 ThisBuild/test in assembly := {}
 name := "OpenStrat"
 val scalaMajor = "2.13"
-val scalaMinor = "3"
+val scalaMinor = "4"
 lazy val jarVersion = "_" + scalaMajor + "-" + versionStr + ".jar"
 ThisBuild/scalaVersion := scalaMajor + "." + scalaMinor
 ThisBuild/organization := "com.richstrat"
@@ -11,7 +11,7 @@ ThisBuild/autoAPIMappings := true
 
 def commonSett = List(
   scalacOptions ++=
-    Seq("-feature", "-language:implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint"),
+    Seq("-feature", "-language:implicitConversions", "UTF-8", "-deprecation"),//, "-Ywarn-value-discard", "-encoding", "-Xlint"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 

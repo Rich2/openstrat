@@ -14,7 +14,7 @@ object IdentifierUpToken
 
   def unapply(inp: Any): Option[(TextPosn, String)] = inp match
   {
-    case iup: IdentifierUpToken => Some(iup.startPosn, iup.srcStr)
+    case iup: IdentifierUpToken => Some((iup.startPosn, iup.srcStr))
     case _ => None
   }
 

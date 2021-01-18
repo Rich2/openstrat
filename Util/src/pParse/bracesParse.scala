@@ -26,6 +26,7 @@ object bracesParse
         else bc.startPosn.bad2("Unexpected Closing Parenthesis")
 
       case ArrOff1Tail(nbt: BlockMember, tail) => { acc.append(nbt);  loop(tail) }
+      case _ => excep("Case not implemented")
     }
 
     loop(rem)

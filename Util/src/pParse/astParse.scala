@@ -22,6 +22,7 @@ object astParse
 
       case ArrOffHead(bc: BracketCloseToken) => bc.startPosn.bad("Unexpected Closing Brace at top syntax level")
       case ArrOff1Tail(bm: BlockMember, tail) => { acc.append(bm); loop(tail) }
+      case _ => excep("Case not implemented")
     }
 
     loop(tokens.offset0)

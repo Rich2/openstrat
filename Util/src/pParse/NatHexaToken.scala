@@ -11,6 +11,7 @@ trait NatHexaToken extends NatToken
     def loop(rem: CharsOff): Int = rem match
     { case CharsOff0() => acc
       case CharsOff1Tail(HexaDigitChar(_, i), tail)  => { acc = acc * 16 + i; loop(tail) }
+      case _ => excep("Case not implemented")
     }
     loop(chars.offsetter0)
   }
