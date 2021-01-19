@@ -215,3 +215,23 @@ lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).de
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphics/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
+
+lazy val UtilMacrosNat = Project("UtilMacrosNat", file("Dev/SbtDir/UtilMacrosNat")).enablePlugins(ScalaNativePlugin).settings(  
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
+)
+
+lazy val UtilNat = Project("UtilNat", file("Dev/SbtDir/UtilNat")).dependsOn(UtilMacrosNat).enablePlugins(ScalaNativePlugin).settings(  
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+ )
+
+lazy val DevNat = Project("DevNat", file("Dev/SbtDir/DevNat")).dependsOn(UtilNat).enablePlugins(ScalaNativePlugin).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Dev/srcNat",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/srcNat",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+)
+  
