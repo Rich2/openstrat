@@ -121,8 +121,6 @@ case class Bad[+A](errs: Strings) extends EMon[A] //with BadBase[A]
   override def fld[B](noneValue: => B, fGood: A => B): B = noneValue
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
 
-  //@inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fBad(errs)
-
   override def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
   override def getElse(elseValue: A @uncheckedVariance): A = elseValue
@@ -138,17 +136,13 @@ case class Bad[+A](errs: Strings) extends EMon[A] //with BadBase[A]
   override def mapToEither[D](f: A => D): Either[Strings, D] = Left(errs)
   override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = (Left(errs))
   override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Left(fLeft(errs))
-
 }
 
 object Bad
 {
   implicit def BadShowImplicit[A](implicit ev: ShowT[A]): ShowT[Bad[A]] = new ShowT[Bad[A]] with ShowCompoundT[Bad[A]]
-  {
-    override def syntaxDepthT(obj: Bad[A]): Int = 2
+  { override def syntaxDepthT(obj: Bad[A]): Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare
-    //override def showSemi(obj: Bad[A]): String = obj.errs.mkString("; ")
-    //override def showComma(obj: Bad[A]): String = ??? // obj.errs.semiFold
     override def showT(obj: Bad[A], way: Show.Way, decimalPlaces: Int): String = ???
   }
 }

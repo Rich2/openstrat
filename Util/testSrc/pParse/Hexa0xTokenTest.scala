@@ -17,6 +17,9 @@ object Hexa0xTokenTest extends TestSuite
   val Ht2 = Nat0xToken(p1, "C32AB34")
   val rr2 = 0xC32AB34
 
+  val r3 = srcToETokens.str("0xCG3")
+  deb(r3.toString +" This is short")
+
   val tests = Tests
   {
     "Parse" -
@@ -27,6 +30,7 @@ object Hexa0xTokenTest extends TestSuite
       Ht1.asHexaInt ==> rr1
       assertMatch(r2){ case GoodArr1(Ht2) => }
       Ht2.getInt ==> rr2
+      assertMatch(r3) { case Bad(_) => }
     }
   }
 }
