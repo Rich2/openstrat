@@ -1,10 +1,11 @@
  package ostrat
+import geom._
 
  object Main
  {
    def main(args: Array[String]): Unit =
    {
-   	 val x = Pi2
-     deb("Hello, native world!, x = " + x.toString)
+   	 val p1 = Pt2(5.6, 7)
+     deb("Hello, native world!, p1 = " + p1.toString)
    }
 }
