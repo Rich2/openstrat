@@ -188,12 +188,12 @@ lazy val DevJs = jsProj("Dev").dependsOn(WorldJs).settings(
 
 def dottySettings = List(
 	scalaVersion := "3.0.0-M3",
-  resolvers += Resolver.url("typesafe", url("http://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
+  resolvers += Resolver.url("typesafe", url("https://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked"),
 )
 
 lazy val UtilMacrosDot = Project("UtilMacrosDot", file("Dev/SbtDir/UtilMacrosDot")).settings(dottySettings).settings(  
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
+  scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacrosDot",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/test/srcDot",
