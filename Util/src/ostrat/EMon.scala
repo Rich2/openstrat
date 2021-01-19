@@ -114,7 +114,7 @@ object Good
 }
 
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
-case class Bad[+A](errs: Strings) extends EMon[A] //with BadBase[A]
+class Bad[+A](val errs: Strings) extends EMon[A]
 { override def map[B](f: A => B): EMon[B] = Bad[B](errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
@@ -140,6 +140,12 @@ case class Bad[+A](errs: Strings) extends EMon[A] //with BadBase[A]
 
 object Bad
 {
+  def apply[A](errs: Strings): Bad[A] = new Bad[A](errs)
+  def unapplySeq(inp: Any): Option[Seq[String]] = inp match
+  { case b: Bad[_] => Some(b.errs.toList)
+    case _ => None
+  }
+
   implicit def BadShowImplicit[A](implicit ev: ShowT[A]): ShowT[Bad[A]] = new ShowT[Bad[A]] with ShowCompoundT[Bad[A]]
   { override def syntaxDepthT(obj: Bad[A]): Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare
