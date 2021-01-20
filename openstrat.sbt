@@ -238,6 +238,9 @@ lazy val GraphicsNat = Project("GraphicsNat", file("Dev/SbtDir/GraphicsNat")).de
 lazy val DevNat = Project("DevNat", file("Dev/SbtDir/DevNat")).dependsOn(GraphicsNat).enablePlugins(ScalaNativePlugin).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Dev/srcNat",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/srcNat",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  Compile/unmanagedSourceDirectories := List((Compile/scalaSource).value),
+  resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
+  Compile/resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
+  Compile/unmanagedResourceDirectories := List(resourceDirectory.value),
 )
   
