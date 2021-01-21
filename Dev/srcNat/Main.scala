@@ -11,10 +11,11 @@ import geom._, scalanative._, unsafe._, unsigned._
   def XBlackPixel(disp: Display, scren_number: CInt): CUnsignedLong = extern
   def XWhitePixel(disp: Display, scren_number: CInt): CUnsignedLong = extern
   def XCreateSimpleWindow(disp: Display, parent: Window, x: CInt, y: CInt, width: CUnsignedInt, height: CUnsignedInt, border_width: CUnsignedLong,
-    border: CUnsignedLong, background: CUnsignedLong): Window = extern
+                          border: CUnsignedLong, background: CUnsignedLong): Window = extern
   def XSelectInput(disp: Display, window: Window, event_mask: CLong): Unit = extern
   def XMapWindow(disp: Display, window: Window): Unit = extern
-  //XFillRectangle(d, w, DefaultGC(d, s), 20, 20, 10, 10)
+  def XDefaultGC(disp: Display, screen_number: CInt): GC = extern
+  def XFillRectangle(disp: Display, drawable: Window, gc: GC, x: CInt, y: CInt, width: CUnsignedInt, height: CUnsignedInt): Unit = extern
   // def XNextEvent(d, &e)
 }
 
@@ -42,7 +43,9 @@ import geom._, scalanative._, unsafe._, unsigned._
        val window = XCreateSimpleWindow(disp, rootWin, 10, 10, 100.toUInt, 100.toUInt, 1.toUInt, bp, wp)
        XSelectInput(disp, window, ExposureMask | KeyPressMask)
        XMapWindow(disp, window)
-       //XFillRectangle(d, w, DefaultGC(d, s), 20, 20, 10, 10)
+       val gc = XDefaultGC(disp, defualtScn)
+       XFillRectangle(disp, window, gc, 20, 20, 10.toUInt, 10.toUInt)
+       while(true){}
        XCloseDisplay(disp)
        println("Display closed")
      }
