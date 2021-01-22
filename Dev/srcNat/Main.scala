@@ -38,18 +38,29 @@ import geom._, scalanative._, unsafe._, unsigned._
        println("Display opened")
        val defualtScn = XDefaultScreen(disp)
        val rootWin = XRootWindow(disp, defualtScn)
+       val wn = rootWin.toInt
+       println(s"root window = $wn")
        val bp = XBlackPixel(disp, defualtScn)
        val wp = XWhitePixel(disp, defualtScn)
-       val window = XCreateSimpleWindow(disp, rootWin, 10, 10, 100.toUInt, 100.toUInt, 1.toUInt, bp, wp)
+       val window = XCreateSimpleWindow(disp, rootWin, 10, 10, 200.toUInt, 100.toUInt, 1.toUInt, bp, wp)
        XSelectInput(disp, window, ExposureMask | KeyPressMask)
        XMapWindow(disp, window)
        val event = stackalloc[Event]
        var continue = true
        while(continue) {
          XNextEvent(disp, event.toPtr)
-         val gc = XDefaultGC(disp, defualtScn)
-         XFillRectangle(disp, window, gc, 20, 20, 10.toUInt, 10.toUInt)
-         //continue = false
+         event._1 match {
+           case 12 =>
+           { println("Expose")
+             val gc = XDefaultGC(disp, defualtScn)
+             XFillRectangle(disp, window, gc, 20, 20, 40.toUInt, 10.toUInt)
+           }
+           case 2 => {
+             println("Key pressed")
+             continue = false
+           }
+           case et => println(et.toString + " Unrecognised event.")
+         }
        }
        XCloseDisplay(disp)
        println("Display closed")
