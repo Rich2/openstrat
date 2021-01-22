@@ -2,7 +2,7 @@
 package ostrat
 import scalanative.unsafe._
 
-package object pX11
+package object x11
 {
   type Display = Ptr[CStruct2[CInt, CInt]]
   type Dummy = Ptr[Byte]
