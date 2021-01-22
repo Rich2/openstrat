@@ -16,7 +16,7 @@ import geom._, scalanative._, unsafe._, unsigned._
   def XMapWindow(disp: Display, window: Window): Unit = extern
   def XDefaultGC(disp: Display, screen_number: CInt): GC = extern
   def XFillRectangle(disp: Display, drawable: Window, gc: GC, x: CInt, y: CInt, width: CUnsignedInt, height: CUnsignedInt): Unit = extern
-  // def XNextEvent(d, &e)
+  def XNextEvent(disp: Display, eventPtr: EventPtr): Unit = extern
 }
 
 @extern object myapi {
@@ -43,9 +43,14 @@ import geom._, scalanative._, unsafe._, unsigned._
        val window = XCreateSimpleWindow(disp, rootWin, 10, 10, 100.toUInt, 100.toUInt, 1.toUInt, bp, wp)
        XSelectInput(disp, window, ExposureMask | KeyPressMask)
        XMapWindow(disp, window)
-       val gc = XDefaultGC(disp, defualtScn)
-       XFillRectangle(disp, window, gc, 20, 20, 10.toUInt, 10.toUInt)
-       while(true){}
+       val event = stackalloc[Event]
+       var continue = true
+       while(continue) {
+         XNextEvent(disp, event.toPtr)
+         val gc = XDefaultGC(disp, defualtScn)
+         XFillRectangle(disp, window, gc, 20, 20, 10.toUInt, 10.toUInt)
+         //continue = false
+       }
        XCloseDisplay(disp)
        println("Display closed")
      }

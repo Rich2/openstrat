@@ -11,5 +11,8 @@ package object pX11
   type Drawable = Ptr[Byte]
   val ExposureMask: Long = 32768
   val KeyPressMask: Long = 1
-  type Event = CStruct2[CInt, CInt]
+  type C64 = CStruct8[CLong, CLong, CLong, CLong, CLong, CLong, CLong, CLong]
+  type C512 = CStruct8[C64, C64, C64, C64, C64, C64, C64, C64]
+  type Event = CStruct2[CInt, C512]
+  type EventPtr = Ptr[Event]
 }
