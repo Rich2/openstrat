@@ -3,7 +3,6 @@ package ostrat
 package pX11
 import geom._, x11._, XLib._, scalanative._, unsafe._, unsigned._
 
-
 @extern object myapi {
   def add3(in: CLong): CLong = extern
 }
@@ -20,12 +19,11 @@ import geom._, x11._, XLib._, scalanative._, unsafe._, unsigned._
      if(disp == null) println("Cannot open display")
      else {
        println("Display opened")
-       val defualtScn = XDefaultScreen(disp)
-       val rootWin = XRootWindow(disp, defualtScn)
-       val wn = rootWin.toInt
-       println(s"root window = $wn")
-       val bp = XBlackPixel(disp, defualtScn)
-       val wp = XWhitePixel(disp, defualtScn)
+       val defaultScn = XDefaultScreen(disp)
+       println(s"default screen = $defaultScn")
+       val rootWin = XRootWindow(disp, defaultScn)
+       val bp = XBlackPixel(disp, defaultScn)
+       val wp = XWhitePixel(disp, defaultScn)
        val window = XCreateSimpleWindow(disp, rootWin, 10, 10, 200.toUInt, 100.toUInt, 1.toUInt, bp, wp)
        XSelectInput(disp, window, ExposureMask | KeyPressMask)
        XMapWindow(disp, window)
@@ -36,7 +34,7 @@ import geom._, x11._, XLib._, scalanative._, unsafe._, unsigned._
          event._1 match {
            case 12 =>
            { println("Expose")
-             val gc = XDefaultGC(disp, defualtScn)
+             val gc = XDefaultGC(disp, defaultScn)
              XFillRectangle(disp, window, gc, 20, 20, 40.toUInt, 10.toUInt)
            }
            case 2 => {
