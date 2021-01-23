@@ -57,11 +57,11 @@ trait CurveSeg extends Drawable
 
   /** Shear 2D geometric transformation along the X Axis, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and
    *  traits. */
-  override def xShear(operand: Double): CurveSeg
+  override def shearX(operand: Double): CurveSeg
 
   /** Shear 2D geometric transformation along the Y Axis, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and
    *  traits. */
-  override def yShear(operand: Double): CurveSeg
+  override def shearY(operand: Double): CurveSeg
 }
 
 object CurveSeg
@@ -69,7 +69,7 @@ object CurveSeg
   implicit val scaleImplicit: Scale[CurveSeg] = (obj: CurveSeg, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[CurveSeg] = (obj: CurveSeg, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[CurveSeg] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXYT[CurveSeg] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[CurveSeg] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[CurveSeg] = (obj, lineLike) => obj.reflect(lineLike)
 
   implicit val transAxesImplicit: TransAxes[CurveSeg] = new TransAxes[CurveSeg]
@@ -81,7 +81,7 @@ object CurveSeg
   }
 
   implicit val shearImplicit: Shear[CurveSeg] = new Shear[CurveSeg]
-  { override def xShearT(obj: CurveSeg, yFactor: Double): CurveSeg = obj.xShear(yFactor)
-    override def yShearT(obj: CurveSeg, xFactor: Double): CurveSeg = obj.yShear(xFactor)
+  { override def shearXT(obj: CurveSeg, yFactor: Double): CurveSeg = obj.shearX(yFactor)
+    override def shearYT(obj: CurveSeg, xFactor: Double): CurveSeg = obj.shearY(xFactor)
   }
 }

@@ -42,9 +42,9 @@ trait CanvShapeFill extends ShapeFill with CanvElem
 
   /** Shear 2D geometric transformation along the X Axis on a CanvShapeFill, returns a CanvShapeFill. The return type will be narrowed in sub classes and
    * traits. */
-  override def xShear(operand: Double): CanvShapeFill
+  override def shearX(operand: Double): CanvShapeFill
 
   /** Shear 2D geometric transformation along the Y Axis on a CanvShapeFill, returns a CanvShapeFill. The return type will be narrowed in sub classes and
    * traits. */
-  override def yShear(operand: Double): CanvShapeFill
+  override def shearY(operand: Double): CanvShapeFill
 }

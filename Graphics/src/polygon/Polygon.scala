@@ -182,11 +182,11 @@ trait Polygon extends Shape with BoundedElem
 
   /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all sub
    *  classes and traits. */
-  override def xShear(operand: Double): Polygon = polygonMap(_.xShear(operand))
+  override def shearX(operand: Double): Polygon = polygonMap(_.xShear(operand))
 
   /** Shear 2D geometric transformation along the Y Axis on a Polygon, returns a Polygon. The return type will be narrowed in sub classes and
    *  traits. */
-  override def yShear(operand: Double): Polygon = polygonMap(_.xShear(operand))
+  override def shearY(operand: Double): Polygon = polygonMap(_.xShear(operand))
 
   /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
   def toLineSegs: LineSegs = if (vertsNum > 1)
@@ -277,7 +277,7 @@ object Polygon
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Polygon] = (obj: Polygon, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXYT[Polygon] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[Polygon] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[Polygon] = (obj: Polygon, lineLike: LineLike) => obj.reflect(lineLike)
 
   implicit val reflectAxesImplicit: TransAxes[Polygon] = new TransAxes[Polygon]
@@ -289,7 +289,7 @@ object Polygon
   }
   
   implicit val shearImplicit: Shear[Polygon] = new Shear[Polygon]
-  { override def xShearT(obj: Polygon, yFactor: Double): Polygon = obj.xShear(yFactor)
-    override def yShearT(obj: Polygon, xFactor: Double): Polygon = obj.yShear(xFactor)
+  { override def shearXT(obj: Polygon, yFactor: Double): Polygon = obj.shearX(yFactor)
+    override def shearYT(obj: Polygon, xFactor: Double): Polygon = obj.shearY(xFactor)
   }
 }

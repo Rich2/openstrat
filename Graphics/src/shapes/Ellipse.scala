@@ -65,9 +65,9 @@ trait Ellipse extends EllipseBased with ShapeCentred
 
   override def reflect(lineLike: LineLike): Ellipse = fTrans(_.reflect(lineLike))
 
-  override def xShear(operand: Double): Ellipse = fTrans(_.xShear(operand))
+  override def shearX(operand: Double): Ellipse = fTrans(_.xShear(operand))
 
-  override def yShear(operand: Double): Ellipse = fTrans(_.yShear(operand))
+  override def shearY(operand: Double): Ellipse = fTrans(_.yShear(operand))
 }
 
 /** Companion object for the Ellipse trait contains the EllipseImp implementation class and factory methods for Ellipse that delegate to
@@ -95,7 +95,7 @@ object Ellipse
 
   implicit val prolignImplicit: Prolign[Ellipse] = (obj, matrix) => obj.prolign(matrix)
 
-  implicit val xyScaleImplicit: ScaleXYT[Ellipse] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val xyScaleImplicit: ScaleXY[Ellipse] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   implicit val reflectAxesImplicit: TransAxes[Ellipse] = new TransAxes[Ellipse]
   { override def negYT(obj: Ellipse): Ellipse = obj.negY
@@ -106,8 +106,8 @@ object Ellipse
   }
 
   implicit val shearImplicit: Shear[Ellipse] = new Shear[Ellipse]
-  { override def xShearT(obj: Ellipse, yFactor: Double): Ellipse = obj.xShear(yFactor)
-    override def yShearT(obj: Ellipse, xFactor: Double): Ellipse = obj.yShear(xFactor)
+  { override def shearXT(obj: Ellipse, yFactor: Double): Ellipse = obj.shearX(yFactor)
+    override def shearYT(obj: Ellipse, xFactor: Double): Ellipse = obj.shearY(xFactor)
   }
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
@@ -156,10 +156,10 @@ object Ellipse
 
     override def rotate(angle: AngleVec): EllipseImp = ???
 
-    override def xShear(operand: Double): EllipseImp =
+    override def shearX(operand: Double): EllipseImp =
       EllipseImp.cenAxes1Axes4(cen.xShear(operand), pAxes1.xShear(operand), pAxes4.xShear(operand))
 
-    override def yShear(operand: Double): EllipseImp =
+    override def shearY(operand: Double): EllipseImp =
       EllipseImp.cenAxes1Axes4(cen.yShear(operand), pAxes1.yShear(operand), pAxes4.yShear(operand))
   }
 

@@ -53,10 +53,10 @@ trait Shape extends Fillable with BoundedElem
   override def scaleXY(xOperand: Double, yOperand: Double): Shape
 
   /** Shear 2D geometric transformation along the X Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
-  override def xShear(operand: Double): Shape
+  override def shearX(operand: Double): Shape
 
   /** Shear 2D geometric transformation along the Y Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
-  override def yShear(operand: Double): Shape
+  override def shearY(operand: Double): Shape
 }
 
 /** Companion object for the [[Shape]] trait. Contains implicit instances of type TransElem for all the 2d geometric transformation type classes. */
@@ -66,7 +66,7 @@ object Shape
   implicit val scaleImplicit: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Shape] = (obj: Shape, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXYT[Shape] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[Shape] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   implicit val reflectAxesImplicit: TransAxes[Shape] = new TransAxes[Shape]
   { override def negYT(obj: Shape): Shape = obj.negY
@@ -77,7 +77,7 @@ object Shape
   }
 
   implicit val shearImplicit: Shear[Shape] = new Shear[Shape]
-  { override def xShearT(obj: Shape, yFactor: Double): Shape = obj.xShear(yFactor)
-    override def yShearT(obj: Shape, xFactor: Double): Shape = obj.yShear(xFactor)
+  { override def shearXT(obj: Shape, yFactor: Double): Shape = obj.shearX(yFactor)
+    override def shearYT(obj: Shape, xFactor: Double): Shape = obj.shearY(xFactor)
   }
 }

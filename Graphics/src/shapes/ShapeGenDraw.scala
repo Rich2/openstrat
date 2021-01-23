@@ -36,9 +36,9 @@ case class ShapeGenDraw(shape: ShapeGenOld, lineColour: Colour = Black, lineWidt
 
   /** Shear 2D geometric transformation along the X Axis on a ShapeGenDraw, returns a ShapeGenDraw. The return type will be narrowed in sub classes and
    * traits. */
-  override def xShear(operand: Double): ShapeGenDraw = ShapeGenDraw(shape.xShear(operand), lineColour, lineWidth)
+  override def shearX(operand: Double): ShapeGenDraw = ShapeGenDraw(shape.shearX(operand), lineColour, lineWidth)
 
   /** Shear 2D geometric transformation along the Y Axis on a ShapeGenDraw, returns a ShapeGenDraw. The return type will be narrowed in sub classes and
    * traits. */
-  override def yShear(operand: Double): ShapeGenDraw = ShapeGenDraw(shape.yShear(operand), lineColour, lineWidth)
+  override def shearY(operand: Double): ShapeGenDraw = ShapeGenDraw(shape.shearY(operand), lineColour, lineWidth)
 }

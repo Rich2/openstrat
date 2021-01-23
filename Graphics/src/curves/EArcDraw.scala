@@ -50,11 +50,11 @@ trait EArcDraw extends CurveSegDraw with CanvElem
 
   /** Shear 2D geometric transformation along the X Axis on a EArcDraw, returns a EArcDraw. The return type will be narrowed in sub classes and
    * traits. */
-  override def xShear(operand: Double): EArcDraw = ???
+  override def shearX(operand: Double): EArcDraw = ???
 
   /** Shear 2D geometric transformation along the Y Axis on a EArcDraw, returns a EArcDraw. The return type will be narrowed in sub classes and
    * traits. */
-  override def yShear(operand: Double): EArcDraw = ???
+  override def shearY(operand: Double): EArcDraw = ???
 
   override def canEqual(that: Any): Boolean = ???
 }

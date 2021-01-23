@@ -10,9 +10,9 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
   def svgStr: String = tagVoidStr("rect", attribs)
   override def svgElem(bounds: BoundingRect): SvgElem = ???  
 
-  override def xShear(operand: Double): PolygonGraphicSimple
+  override def shearX(operand: Double): PolygonGraphicSimple
 
-  override def yShear(operand: Double): PolygonGraphicSimple
+  override def shearY(operand: Double): PolygonGraphicSimple
 
   override def reflect(lineLike: LineLike): PolygonGraphicSimple
 
@@ -50,7 +50,7 @@ object PolygonGraphicSimple
   implicit val slateImplicit: Slate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphicSimple] = (obj: PolygonGraphicSimple, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: ScaleXYT[PolygonGraphicSimple] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[PolygonGraphicSimple] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonGraphicSimple] = (obj, matrix) => obj.prolign(matrix)
 
   implicit val reflectAxesImplicit: TransAxes[PolygonGraphicSimple] = new TransAxes[PolygonGraphicSimple]

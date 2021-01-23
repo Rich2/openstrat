@@ -42,9 +42,9 @@ trait ShapeFill extends ShapeGraphicSimple
 
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeFill
 
-  override def xShear(operand: Double): ShapeFill
+  override def shearX(operand: Double): ShapeFill
 
-  override def yShear(operand: Double): ShapeFill  
+  override def shearY(operand: Double): ShapeFill
 }
 
 object ShapeFill
@@ -52,7 +52,7 @@ object ShapeFill
   implicit val slateImplicit: Slate[ShapeFill] = (obj: ShapeFill, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[ShapeFill] = (obj: ShapeFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeFill] = (obj: ShapeFill, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: ScaleXYT[ShapeFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[ShapeFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[ShapeFill] = (obj, matrix) => obj.prolign(matrix)
 
   implicit val reflectAxesImplicit: TransAxes[ShapeFill] = new TransAxes[ShapeFill]

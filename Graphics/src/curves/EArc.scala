@@ -90,11 +90,11 @@ trait EArc extends EllipseBased with CurveSeg
     pAxes1.xyScale(xOperand, yOperand), pAxes4.xyScale(xOperand, yOperand), pEnd.xyScale(xOperand, yOperand), counter)
 
   /** Shear 2D geometric transformation along the X Axis on this EArc returns an EArc. */
-  override def xShear(operand: Double): EArc =
+  override def shearX(operand: Double): EArc =
     EArc(pStart.xShear(operand), cen.xShear(operand), pAxes1.xShear(operand), pAxes4.xShear(operand), pEnd.xShear(operand), counter)
 
   /** Shear 2D geometric transformation along the Y Axis on this EArc, returns an EArc. */
-  override def yShear(operand: Double): EArc =
+  override def shearY(operand: Double): EArc =
     EArc(pStart.xShear(operand), cen.yShear(operand), pAxes1.yShear(operand), pAxes4.yShear(operand), pEnd.yShear(operand), counter)
 
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): EArcDraw = EArcDraw(this, lineColour, lineWidth)

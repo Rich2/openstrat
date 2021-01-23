@@ -43,11 +43,11 @@ trait Drawable extends GeomElem
 
   /** Shear 2D geometric transformation along the X Axis, on this Drawable returns a Drawable. The return type will be narrowed in sub classes and
    *  traits. */
-  override def xShear(operand: Double): Drawable
+  override def shearX(operand: Double): Drawable
 
   /** Shear 2D geometric transformation along the Y Axis, on this Drawable returns a Drawable. The return type will be narrowed in sub classes and
    *  traits. */
-  override def yShear(operand: Double): Drawable
+  override def shearY(operand: Double): Drawable
 }
 
 object Drawable
@@ -55,7 +55,7 @@ object Drawable
   implicit val scaleImplicit: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Drawable] = (obj: Drawable, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Drawable] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXYT[Drawable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[Drawable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[Drawable] = (obj, lineLike) => obj.reflect(lineLike)
 
   implicit val transAxesImplicit: TransAxes[Drawable] = new TransAxes[Drawable]
@@ -67,8 +67,8 @@ object Drawable
   }
 
   implicit val shearImplicit: Shear[Drawable] = new Shear[Drawable]
-  { override def xShearT(obj: Drawable, yFactor: Double): Drawable = obj.xShear(yFactor)
-    override def yShearT(obj: Drawable, xFactor: Double): Drawable = obj.yShear(xFactor)
+  { override def shearXT(obj: Drawable, yFactor: Double): Drawable = obj.shearX(yFactor)
+    override def shearYT(obj: Drawable, xFactor: Double): Drawable = obj.shearY(xFactor)
   }
 }
 

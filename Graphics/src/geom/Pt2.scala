@@ -261,7 +261,7 @@ object Pt2
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXYT[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.reflect(lineLike)
 
   implicit val reflectAxesImplicit: TransAxes[Pt2] = new TransAxes[Pt2]
@@ -273,7 +273,7 @@ object Pt2
   }
 
   implicit val shearImplicit: Shear[Pt2] = new Shear[Pt2]
-  { override def xShearT(obj: Pt2, yFactor: Double): Pt2 = obj.xShear(yFactor)
-    override def yShearT(obj: Pt2, xFactor: Double): Pt2 = obj.yShear(xFactor)
+  { override def shearXT(obj: Pt2, yFactor: Double): Pt2 = obj.xShear(yFactor)
+    override def shearYT(obj: Pt2, xFactor: Double): Pt2 = obj.yShear(xFactor)
   }
 }

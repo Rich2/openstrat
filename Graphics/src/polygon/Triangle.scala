@@ -79,8 +79,8 @@ trait Triangle extends Polygon3Plus
 
 	override def scaleXY(xOperand: Double, yOperand: Double): Triangle = fTrans(_.xyScale(xOperand, yOperand))
 
-	override def xShear(operand: Double): Triangle = fTrans(_.xShear(operand))
-	override def yShear(operand: Double): Triangle = fTrans(_.yShear(operand))
+	override def shearX(operand: Double): Triangle = fTrans(_.xShear(operand))
+	override def shearY(operand: Double): Triangle = fTrans(_.yShear(operand))
 
 
 	override def xVert(index: Int): Double = index match

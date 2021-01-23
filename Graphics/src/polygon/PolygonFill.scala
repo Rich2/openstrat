@@ -34,9 +34,9 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def rotate180: PolygonFill = ???
   override def rotate270: PolygonFill = ???
 
-  override def xShear(operand: Double): PolygonFill = ???
+  override def shearX(operand: Double): PolygonFill = ???
 
-  override def yShear(operand: Double): PolygonFill = ???
+  override def shearY(operand: Double): PolygonFill = ???
 
   override def reflect(lineLike: LineLike): PolygonFill = ???
 
@@ -57,7 +57,7 @@ object PolygonFill
   implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, xDelta: Double, yDelta: Double) => obj.slateXY(xDelta, yDelta)
   implicit val scaleImplicit: Scale[PolygonFill] = (obj: PolygonFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: ScaleXYT[PolygonFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[PolygonFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonFill] = (obj, matrix) => obj.prolign(matrix)
 
   implicit val reflectAxesImplicit: TransAxes[PolygonFill] = new TransAxes[PolygonFill]

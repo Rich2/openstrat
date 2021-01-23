@@ -45,9 +45,9 @@ trait CanvShapeDraw extends ShapeDraw with CanvElem
 
   /** Shear 2D geometric transformation along the X Axis on a CanvShapeDraw, returns a CanvShapeDraw. The return type will be narrowed in sub classes and
    * traits. */
-  override def xShear(operand: Double): CanvShapeDraw
+  override def shearX(operand: Double): CanvShapeDraw
 
   /** Shear 2D geometric transformation along the Y Axis on a CanvShapeDraw, returns a CanvShapeDraw. The return type will be narrowed in sub classes and
    * traits. */
-  override def yShear(operand: Double): CanvShapeDraw
+  override def shearY(operand: Double): CanvShapeDraw
 }

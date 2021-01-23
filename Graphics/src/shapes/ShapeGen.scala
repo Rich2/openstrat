@@ -39,10 +39,10 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
   override def scaleXY(xOperand: Double, yOperand: Double): ShapeGen = ???
 
   /** Shear 2D geometric transformation along the X Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
-  override def xShear(operand: Double): ShapeGen = ???
+  override def shearX(operand: Double): ShapeGen = ???
 
   /** Shear 2D geometric transformation along the Y Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
-  override def yShear(operand: Double): ShapeGen = ???
+  override def shearY(operand: Double): ShapeGen = ???
 
   /** The bounding Rectangle provides an initial exclusion test as to whether the pointer is inside the polygon / shape */
   override def boundingRect: BoundingRect = ???
@@ -60,7 +60,7 @@ object ShapeGen
   implicit val scaleImplicit: Scale[ShapeGen ] = (obj: ShapeGen , operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGen ] = (obj: ShapeGen , angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[ShapeGen ] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXYT[ShapeGen ] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[ShapeGen ] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[ShapeGen ] = (obj, lineLike) => obj.reflect(lineLike)
 
   implicit val transAxesImplicit: TransAxes[ShapeGen ] = new TransAxes[ShapeGen ]
@@ -72,7 +72,7 @@ object ShapeGen
   }
 
   implicit val shearImplicit: Shear[ShapeGen ] = new Shear[ShapeGen ]
-  { override def xShearT(obj: ShapeGen , yFactor: Double): ShapeGen  = obj.xShear(yFactor)
-    override def yShearT(obj: ShapeGen , xFactor: Double): ShapeGen  = obj.yShear(xFactor)
+  { override def shearXT(obj: ShapeGen, yFactor: Double): ShapeGen  = obj.shearX(yFactor)
+    override def shearYT(obj: ShapeGen, xFactor: Double): ShapeGen  = obj.shearY(xFactor)
   }
 }

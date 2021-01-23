@@ -51,11 +51,13 @@ trait GeomElem extends Product with Serializable
    *  transformation. */
   def scaleXY(xOperand: Double, yOperand: Double): GeomElem
 
-  /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
-  def xShear(operand: Double): GeomElem
+  /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. This is an affine
+   *  transformation but it is not a similar transformation. */
+  def shearX(operand: Double): GeomElem
 
-  /** Shear 2D geometric transformation along the Y Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
-  def yShear(operand: Double): GeomElem
+  /** Shear 2D geometric transformation along the Y Axis on a GeomElem. The return type will be narrowed in sub classes and traits. This is an affine
+   *  transformation but it is not a similar transformation. */
+  def shearY(operand: Double): GeomElem
 }
 
 /** Companion object for the [[GeomElem]] trait. Contains implicit instances of type GeomElem for all the 2d geometric transformation type
@@ -65,7 +67,7 @@ object GeomElem
   implicit val scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GeomElem] = (obj: GeomElem, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[GeomElem] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXYT[GeomElem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[GeomElem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[GeomElem] = (obj, lineLike) => obj.reflect(lineLike)
 
   implicit val transAxesImplicit: TransAxes[GeomElem] = new TransAxes[GeomElem]
@@ -77,7 +79,7 @@ object GeomElem
   }
 
   implicit val shearImplicit: Shear[GeomElem] = new Shear[GeomElem]
-  { override def xShearT(obj: GeomElem, yFactor: Double): GeomElem = obj.xShear(yFactor)
-    override def yShearT(obj: GeomElem, xFactor: Double): GeomElem = obj.yShear(xFactor)
+  { override def shearXT(obj: GeomElem, yFactor: Double): GeomElem = obj.shearX(yFactor)
+    override def shearYT(obj: GeomElem, xFactor: Double): GeomElem = obj.shearY(xFactor)
   }
 }

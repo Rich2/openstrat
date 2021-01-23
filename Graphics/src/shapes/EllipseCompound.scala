@@ -27,9 +27,9 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
 
   override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound
 
-  override def xShear(operand: Double): EllipseCompound
+  override def shearX(operand: Double): EllipseCompound
 
-  override def yShear(operand: Double): EllipseCompound
+  override def shearY(operand: Double): EllipseCompound
 }
 
 object EllipseCompound
@@ -79,9 +79,9 @@ object EllipseCompound
 
     override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompoundImplement = ???
 
-    override def xShear(operand: Double): EllipseCompoundImplement = ???
+    override def shearX(operand: Double): EllipseCompoundImplement = ???
 
-    override def yShear(operand: Double): EllipseCompoundImplement = ???
+    override def shearY(operand: Double): EllipseCompoundImplement = ???
     //override def slateTo(newCen: Pt2): EllipseCompoundImplement = ???
   }
 }

@@ -35,9 +35,9 @@ final case class ShapeGenFill(shape: ShapeGenOld, colour: Colour) extends CanvEl
 
   /** Shear 2D geometric transformation along the X Axis on a ShapeGenFill, returns a ShapeGenFill. The return type will be narrowed in sub classes and
    * traits. */
-  override def xShear(operand: Double): ShapeGenFill = ???
+  override def shearX(operand: Double): ShapeGenFill = ???
 
   /** Shear 2D geometric transformation along the Y Axis on a ShapeGenFill, returns a ShapeGenFill. The return type will be narrowed in sub classes and
    * traits. */
-  override def yShear(operand: Double): ShapeGenFill = ???
+  override def shearY(operand: Double): ShapeGenFill = ???
 }

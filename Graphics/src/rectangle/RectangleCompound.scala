@@ -77,8 +77,8 @@ object RectangleCompound
 
     override def scaleXY(xOperand: Double, yOperand: Double): RectangleCompoundImp = ???
 
-    override def xShear(operand: Double): PolygonCompound = ???
+    override def shearX(operand: Double): PolygonCompound = ???
 
-    override def yShear(operand: Double): PolygonCompound = ???
+    override def shearY(operand: Double): PolygonCompound = ???
   }
 }

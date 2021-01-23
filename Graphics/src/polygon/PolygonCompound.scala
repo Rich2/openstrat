@@ -51,9 +51,9 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonCompound =
     PolygonCompound(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand))
 
-  override def xShear(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.xShear(operand))
+  override def shearX(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.xShear(operand))
 
-  override def yShear(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.yShear(operand))
+  override def shearY(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.yShear(operand))
 
   def addChildren(newChildren: Arr[GraphicElem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
 }
@@ -67,7 +67,7 @@ object PolygonCompound
   implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXYT[PolygonCompound] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[PolygonCompound] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[PolygonCompound] = (obj: PolygonCompound, lineLike: LineLike) => obj.reflect(lineLike)
 
   implicit val reflectAxesImplicit: TransAxes[PolygonCompound] = new TransAxes[PolygonCompound]
@@ -79,8 +79,8 @@ object PolygonCompound
   }
 
   implicit val shearImplicit: Shear[PolygonCompound] = new Shear[PolygonCompound]
-  { override def xShearT(obj: PolygonCompound, yFactor: Double): PolygonCompound = obj.xShear(yFactor)
-    override def yShearT(obj: PolygonCompound, xFactor: Double): PolygonCompound = obj.yShear(xFactor)
+  { override def shearXT(obj: PolygonCompound, yFactor: Double): PolygonCompound = obj.shearX(yFactor)
+    override def shearYT(obj: PolygonCompound, xFactor: Double): PolygonCompound = obj.shearY(xFactor)
   }
 
   /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
@@ -118,8 +118,8 @@ object PolygonCompound
 
     override def scaleXY(xOperand: Double, yOperand: Double): PolygonCompoundImp = ???
 
-    override def xShear(operand: Double): PolygonCompoundImp = ???
+    override def shearX(operand: Double): PolygonCompoundImp = ???
 
-    override def yShear(operand: Double): PolygonCompoundImp = ???
+    override def shearY(operand: Double): PolygonCompoundImp = ???
   }  
 }

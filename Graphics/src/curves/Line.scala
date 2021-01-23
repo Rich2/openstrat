@@ -36,9 +36,9 @@ sealed trait Line extends LineLike
 
   override def scaleXY(xOperand: Double, yOperand: Double): Line = ???
 
-  override def xShear(operand: Double): Line = ???
+  override def shearX(operand: Double): Line = ???
 
-  override def yShear(operand: Double): Line = ???
+  override def shearY(operand: Double): Line = ???
 
   override def productArity: Int = ???
 

@@ -21,8 +21,8 @@ trait GraphicBounded extends GraphicElem with BoundedElem
   override def reflect(lineLike: LineLike): GraphicBounded
   override def scaleXY(xOperand: Double, yOperand: Double): GraphicBounded
 
-  override def xShear(operand: Double): GraphicBounded
-  override def yShear(operand: Double): GraphicBounded
+  override def shearX(operand: Double): GraphicBounded
+  override def shearY(operand: Double): GraphicBounded
 }
 
 /** Companion object for the BoundedGraphic trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
@@ -31,7 +31,7 @@ object GraphicBounded
   implicit val slateImplicit: Slate[GraphicBounded] = (obj: GraphicBounded, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[GraphicBounded] = (obj: GraphicBounded, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicBounded] = (obj: GraphicBounded, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: ScaleXYT[GraphicBounded] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXY[GraphicBounded] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   implicit val transAxesImplicit: TransAxes[GraphicBounded] = new TransAxes[GraphicBounded]
   { override def negYT(obj: GraphicBounded): GraphicBounded = obj.negY
@@ -42,8 +42,8 @@ object GraphicBounded
   }
 
   implicit val shearImplicit: Shear[GraphicBounded] = new Shear[GraphicBounded]
-  { override def xShearT(obj: GraphicBounded, yFactor: Double): GraphicBounded = obj.xShear(yFactor)
-    override def yShearT(obj: GraphicBounded, xFactor: Double): GraphicBounded = obj.yShear(xFactor)
+  { override def shearXT(obj: GraphicBounded, yFactor: Double): GraphicBounded = obj.shearX(yFactor)
+    override def shearYT(obj: GraphicBounded, xFactor: Double): GraphicBounded = obj.shearY(xFactor)
   }
 
   implicit val prolignImplicit: Prolign[GraphicBounded] = (obj, matrix) => obj.prolign(matrix)

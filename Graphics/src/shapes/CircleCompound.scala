@@ -36,9 +36,9 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
 
   override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound = ???
 
-  override def xShear(operand: Double): EllipseCompound = ???
+  override def shearX(operand: Double): EllipseCompound = ???
 
-  override def yShear(operand: Double): EllipseCompound = ???
+  override def shearY(operand: Double): EllipseCompound = ???
 
  // override def slateTo(newCen: Pt2): EllipseCompound = ???
 }

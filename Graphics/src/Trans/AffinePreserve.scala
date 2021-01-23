@@ -8,6 +8,6 @@ package geom
 trait AffinePreserve extends SimilarPreserve
 { type ThisT <: AffinePreserve
   override def scaleXY(xOperand: Double, yOperand: Double): ThisT = fTrans(_.xyScale(xOperand, yOperand))
-  override def xShear(operand: Double): ThisT = fTrans(_.xShear(operand))
-  override def yShear(operand: Double): ThisT = fTrans(_.yShear(operand))
+  override def shearX(operand: Double): ThisT = fTrans(_.xShear(operand))
+  override def shearY(operand: Double): ThisT = fTrans(_.yShear(operand))
 }
