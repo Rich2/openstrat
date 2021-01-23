@@ -53,8 +53,6 @@ object BoundedGraphic
  *  graphics. */
 trait GraphicBoundedSimer extends GraphicSimElem with BoundedGraphic
 { type ThisT <: GraphicBoundedSimer
-
-  override def xyScale(xOperand: Double, yOperand: Double): ThisT
 }
 
 /** This trait is for layout. For placing Display elements in rows and columns. It includes polygon and shape graphics but not line and curve

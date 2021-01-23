@@ -24,13 +24,8 @@ trait GraphicActiveSim extends GraphicBoundedSimer with GraphicActiveOld
 { type ThisT <: GraphicActiveSim
 }
 
-/** The base trait for all objects that can have mouse / touch pad interaction. */
-trait GraphicActiveAffine extends GraphicActiveSim with GraphicBoundedAffine
-{ type ThisT <: GraphicActiveAffine
-}
-
 /** A pointable shape */
-trait PolyCurveActive extends GraphicActiveAffine
+trait PolyCurveActive extends GraphicActiveSim with GraphicBoundedAffine
 { type ThisT <: PolyCurveActive
   def shape: ShapeGenOld
   def innerPoly: PolygonImp = shape.pMap(_.pEnd)

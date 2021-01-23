@@ -14,5 +14,4 @@ trait GraphicSimElem extends SimilarPreserve with GraphicElem
  * instances associated with it. */
 trait GraphicAffineElem extends GraphicSimElem with AffinePreserve
 { type ThisT <: GraphicAffineElem
-  override def xyScale(xOperand: Double, yOperand: Double): ThisT
 }

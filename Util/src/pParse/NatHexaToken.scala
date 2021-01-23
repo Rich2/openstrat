@@ -20,17 +20,15 @@ trait NatHexaToken extends NatToken
 
 trait NatRawHexaToken extends NatRawToken
 
-object NatRawHexaToken {
-
+object NatRawHexaToken
+{
   /** Raw hexadecimal integer starting with a digit that includes one or more 'A' .. 'F' digits */
   def apply(startPosnIn: TextPosn, srcStrIn: String): NatRawHexaToken = new NatRawHexaToken with NatHexaToken
   { val startPosn: TextPosn = startPosnIn
     val srcStr: String = srcStrIn
     override def subTypeStr: String = "HexaRaw"
     override def digitsStr = srcStr
-
   }
-
 }
 
 /** A 64 bit integer token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit Ints and

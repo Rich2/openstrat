@@ -22,7 +22,7 @@ trait Dist2Gui extends MapGui
    
   val bZoomIn = clickButtonOld("+", zoomInCmd)
   val bZoomOut = clickButtonOld("-", zoomOutCmd)
-  val zoomable: Arr[GraphicActiveAffine] = Arr(bZoomIn, bZoomOut)
+  val zoomable: Arr[GraphicActive] = Arr(bZoomIn, bZoomOut)
 
   val bMapRotateClockwise = clickButtonOld("\u21BB", MouseButton => { rotation -= AngleVec(20); repaintMap() } )
   val bMapRotateAntiClockwise = clickButtonOld("\u21BA", Mousebutton => { rotation += AngleVec(20); repaintMap() } )
