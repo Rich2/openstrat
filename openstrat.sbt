@@ -242,5 +242,4 @@ lazy val DevNat = Project("DevNat", file("Dev/SbtDir/DevNat")).dependsOn(Graphic
   resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
   Compile/resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value),
-)
-  
+)  
