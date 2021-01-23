@@ -5,8 +5,6 @@ package ostrat
 trait ShowProductT[R] extends ShowCompoundT[R]
 { def showMems(): Arr[ShowT[_]]
 
-  //def showSemiNames(obj: R): String
-  //def showCommaNames(obj: R): String
   def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings
 
   override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String =
@@ -30,12 +28,9 @@ class Show2T[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))
-
-//  override def showSemi(obj: R): String = ev1.showComma(fArg1(obj)) + "; " + ev2.showComma(fArg2(obj))
-//  override def showComma(obj: R): String = ev1.strT(fArg1(obj)) + ", " + ev2.strT(fArg2(obj))
-//  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj))
-//  override def showCommaNames(obj: R): String = name1 -:- ev1.strT(fArg1(obj)) + ", " + name2 -:- ev2.strT(fArg2(obj))
 }
+
+//class Show2IntsT[R <: Show2[Int, Int]] extends Show2T[Int, Int, R]
 
 /** Show type class for 3 parameter case classes. */
 class Show3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
@@ -49,37 +44,6 @@ class Show3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, 
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces), ev3.showT(fArg3(obj), way, decimalPlaces))
-
-  /*final override def showSemi(obj: R): String =
-  { val p1 = fArg1(obj)
-    val p2 = fArg2(obj)
-    val p3 = fArg3(obj)
-    (opt1, opt2, opt3) match
-    {
-      case (Some(v1), Some(v2), Some(v3)) if v1 == p1 & v2 == p2 & v3 == p3 => ""
-      case (_, Some(v2), Some(v3)) if v2 == p2 & v3 == p3 => ev1.showComma(p1)
-      case (_, _, Some(v3)) if v3 == p3 => ev1.showComma(p1).appendSemicolons(ev2.showComma(p2))
-      case _ => ev1.showComma(p1).appendSemicolons(ev2.showComma(p2), ev3.showComma(p3))
-    }
-  }
-
-  final override def showComma(obj: R): String =
-  { val p1 = fArg1(obj)
-    val p2 = fArg2(obj)
-    val p3 = fArg3(obj)
-
-    (opt1, opt2, opt3) match
-    { case (Some(v1), Some(v2), Some(v3)) if v1 == p1 & v2 == p2 & v3 == p3 => ""
-      case (_, Some(v2), Some(v3)) if v2 == p2 & v3 == p3 => ev1.strT(p1) + ","
-      case (_, _, Some(v3)) if v3 == p3 => ev1.showComma(p1).appendCommas(ev2.showComma(p2))
-      case _ => ev1.showComma(p1).appendCommas(ev2.showComma(p2), ev3.showComma(p3))
-    }
-  }
-  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj)) + "; " +
-    name3 -:- ev3.showComma(fArg3(obj))
-
-  override def showCommaNames(obj: R): String = name1 -:- ev1.strT(fArg1(obj)) + ", " + name2 -:- ev2.strT(fArg2(obj)) + name3 -:-
-    ev3.strT(fArg3(obj))*/
 }
 
 /** Show type class for 4 parameter case classes. */
@@ -99,28 +63,6 @@ abstract class Show4T[A1, A2, A3, A4, R](val typeStr: String, name1: String, fAr
 
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings = Strings(ev1.showT(fArg1(obj), way, decimalPlaces),
     ev2.showT(fArg2(obj), way, decimalPlaces), ev3.showT(fArg3(obj), way, decimalPlaces), ev4.showT(fArg4(obj), way, decimalPlaces))
-
-  /*override def showSemi(obj: R): String =
-  { val p1 = fArg1(obj)
-    val p2 = fArg2(obj)
-    val p3 = fArg3(obj)
-    val p4 = fArg4(obj)
-    ev1.showComma(p1).appendSemicolons(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4))
-  }
-
-  final override def showComma(obj: R): String =
-  { val p1 = fArg1(obj)
-    val p2 = fArg2(obj)
-    val p3 = fArg3(obj)
-    val p4 = fArg4(obj)
-    ev1.strT(p1).appendCommas(ev2.strT(p2), ev3.strT(p3), ev4.strT(p4))
-  }
-
-  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj)) + "; " +
-    name3 -:- ev3.showComma(fArg3(obj)) + "; " + name4 -:- ev4.showComma(fArg4(obj))
-
-  override def showCommaNames(obj: R): String = name1 -:- ev1.strT(fArg1(obj)) + ", " + name2 -:- ev2.strT(fArg2(obj)) + name3 -:- ev3.strT(fArg3(obj)) +
-    name4 -:- ev4.strT(fArg4(obj))*/
 }
 
 /** Show type class for 5 parameter case classes. */
@@ -142,30 +84,6 @@ class Show5T[A1, A2, A3, A4, A5, R](val typeStr: String, name1: String, fArg1: R
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces), ev3.showT(fArg3(obj), way, decimalPlaces),
     ev4.showT(fArg4(obj), way, decimalPlaces), ev5.showT(fArg5(obj), way, decimalPlaces))
-
-  /*override def showSemi(obj: R): String =
-  { val p1 = fArg1(obj)
-    val p2 = fArg2(obj)
-    val p3 = fArg3(obj)
-    val p4 = fArg4(obj)
-    val p5 = fArg5(obj)
-    ev1.showComma(p1).appendSemicolons(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4), ev5.showComma(p5))
-  }
-
-  final override def showComma(obj: R): String =
-  { val p1 = fArg1(obj)
-    val p2 = fArg2(obj)
-    val p3 = fArg3(obj)
-    val p4 = fArg4(obj)
-    val p5 = fArg5(obj)
-    ev1.strT(p1).appendCommas(ev2.strT(p2), ev3.strT(p3), ev4.strT(p4), ev5.strT(p5))
-  }
-
-  override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj)) + "; " +
-    name3 -:- ev3.showComma(fArg3(obj)) + "; " + name4 -:- ev4.showComma(fArg4(obj))+ name5 -:- ev5.showComma(fArg5(obj))
-
-  override def showCommaNames(obj: R): String = name1 -:- ev1.strT(fArg1(obj)) + ", " + name2 -:- ev2.strT(fArg2(obj)) + name3 -:- ev3.strT(fArg3(obj)) +
-    name4 -:- ev4.strT(fArg4(obj))+ name5 -:- ev5.strT(fArg5(obj))*/
 }
 
 object Show5T
@@ -199,33 +117,6 @@ class Show6T[A1, A2, A3, A4, A5, A6, R](val typeStr: String, name1: String, fArg
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces), ev3.showT(fArg3(obj), way, decimalPlaces),
     ev4.showT(fArg4(obj), way, decimalPlaces), ev5.showT(fArg5(obj), way, decimalPlaces), ev6.showT(fArg6(obj), way, decimalPlaces))
-
-  /*override def showSemi(obj: R): String =
-  { val p1 = fArg1(obj)
-    val p2 = fArg2(obj)
-    val p3 = fArg3(obj)
-    val p4 = fArg4(obj)
-    val p5 = fArg5(obj)
-    val p6 = fArg6(obj)
-    ev1.showComma(p1).appendSemicolons(ev2.showComma(p2), ev3.showComma(p3), ev4.showComma(p4), ev5.showComma(p5), ev6.showComma(p6))
-  }*/
-
-  /*final override def showComma(obj: R): String =
-  { val p1 = fArg1(obj)
-    val p2 = fArg2(obj)
-    val p3 = fArg3(obj)
-    val p4 = fArg4(obj)
-    val p5 = fArg5(obj)
-    val p6 = fArg6(obj)
-    ev1.strT(p1).appendCommas(ev2.strT(p2), ev3.strT(p3), ev4.strT(p4), ev5.strT(p5), ev6.strT(p6))
-  }*/
-
-  /*override def showSemiNames(obj: R): String = name1 -:- ev1.showComma(fArg1(obj)) + "; " + name2 -:- ev2.showComma(fArg2(obj)) + "; " +
-    name3 -:- ev3.showComma(fArg3(obj)) + "; " + name4 -:- ev4.showComma(fArg4(obj)) + name5 -:- ev5.showComma(fArg5(obj)) +
-    name6 -:- ev6.showComma(fArg6(obj))
-
-  override def showCommaNames(obj: R): String = name1 -:- ev1.strT(fArg1(obj)) + ", " + name2 -:- ev2.strT(fArg2(obj)) + name3 -:- ev3.strT(fArg3(obj)) +
-    name4 -:- ev4.strT(fArg4(obj)) + name5 -:- ev5.strT(fArg5(obj)) + name6 -:- ev6.strT(fArg6(obj))*/
 }
 
 object Show6T

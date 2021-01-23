@@ -52,7 +52,7 @@ object Cood
 { def apply(x: Int, y: Int): Cood = new Cood(x, y)
   def unapply(tc: Cood): Option[(Int, Int)] = Some((tc.xi, tc.yi))
   def list(inp: (Int, Int)*): List[Cood] = inp.toList.map(p => Cood(p._1, p._2))
-  implicit object CoodPersist extends PersistInt2[Cood]("Cood", "x", _.xi, "y", _.yi, apply)
+  implicit object CoodPersist extends Persist2Ints[Cood]("Cood", "x", _.xi, "y", _.yi, apply)
 
   implicit val coodsBuildImplicit = new ArrProdInt2Build[Cood, Coods]
   { type BuffT = CoodBuff

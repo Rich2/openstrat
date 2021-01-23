@@ -55,7 +55,7 @@ object Metres2
   { def / (operator: Metres): Pt2 = Pt2(thisMetres2.x/ operator, thisMetres2.y / operator)
   }
 
-  implicit val PersistImplicit: Persist[Metres2] = new PersistD2[Metres2]("Metres2", "x", _.xMetres, "y", _.yMetres, new Metres2(_, _))
+  implicit val PersistImplicit: Persist[Metres2] = new Persist2Dbls[Metres2]("Metres2", "x", _.xMetres, "y", _.yMetres, new Metres2(_, _))
 }
 
 /** Specialised immutable Array based collection class for Metres2. */

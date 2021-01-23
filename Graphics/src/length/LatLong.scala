@@ -125,5 +125,5 @@ object LatLong
   def milliSecs(lat: Double, long: Double): LatLong = new LatLong(lat, long)
 
   implicit val persistImplict: PersistEq[LatLong] =
-    new PersistD2[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
+    new Persist2Dbls[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
 }

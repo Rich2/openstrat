@@ -38,11 +38,11 @@ object Persist2
 }
 
 /** Persistence class for case classes consisting of 2 Int parameters. */
-class PersistInt2[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, newT: (Int, Int) => R) extends
+class Persist2Ints[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, newT: (Int, Int) => R) extends
   Persist2[Int, Int, R](typeStr, name1, fArg1, name2, fArg2, newT)
 
 /** Persistence class for case classes consisting of 2 Double parameters. */
-class PersistD2[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, newT: (Double, Double) => R) extends
+class Persist2Dbls[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, newT: (Double, Double) => R) extends
    Persist2[Double, Double, R](typeStr, name1, fArg1, name2, fArg2, newT)
 
 /** Persistence class for 3 logical parameter product types. */

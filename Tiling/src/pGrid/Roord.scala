@@ -47,7 +47,7 @@ object Roord
 { def apply(y: Int, c: Int): Roord = new Roord(y.toLong.<<(32) | (c & 0xFFFFFFFFL))
   def fromLong(value: Long): Roord = new Roord(value)
   def unapply(rd: Roord): Option[(Int, Int)] = Some((rd.y, rd.c))
-  implicit object persistImplicit extends PersistInt2[Roord]("Rood", "y", _.y, "c", _.c, apply)
+  implicit object persistImplicit extends Persist2Ints[Roord]("Rood", "y", _.y, "c", _.c, apply)
 
   implicit val roordsBuildImplicit = new ArrProdInt2Build[Roord, Roords]
   { type BuffT = RoordBuff
