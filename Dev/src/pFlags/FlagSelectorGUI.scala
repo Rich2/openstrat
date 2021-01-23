@@ -59,8 +59,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   val firstFlagsPosition = (-(vWidth - vCellWidth) / 2 pp (vHeight - vCellHeight) / 2)
   val barBackground =  Rectangle.curvedCorners(maxBarWidth + 2, 32, 10, (0 pp scrollYpos)).fill(Black)
   val background = Rectangle.curvedCorners(vWidth, vHeight, 10).fill(Gray)
-  val btnMore = clickButtonOld(">", (mb: MouseButton) => { scrollMore() }).xySlate(+20 + maxBarWidth / 2, scrollYpos)
-  val btnLess = clickButtonOld("<", (mb: MouseButton) => { scrollLess() }).xySlate(-20 - maxBarWidth / 2, scrollYpos)
+  val btnMore = clickButtonOld(">", (mb: MouseButton) => { scrollMore() }).slateXY(+20 + maxBarWidth / 2, scrollYpos)
+  val btnLess = clickButtonOld("<", (mb: MouseButton) => { scrollLess() }).slateXY(-20 - maxBarWidth / 2, scrollYpos)
   val scrollBar: Arr[GraphicSimElem] = Arr(btnMore, btnLess, barBackground)
 
   if (isScrollHorizontal) { itemsPerUnitScroll = itemsPerCol; iScrollStep = itemsPerCol; jScrollStep = 1 }
@@ -94,7 +94,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     for(j <- 0 to itemsPerCol - 1; i <- 0 to itemsPerRow - 1 if firstIndex + i * iScrollStep + j * jScrollStep < itemCount)
     { val thisIndex = firstIndex + i * iScrollStep + j * jScrollStep
       val thisFlag = listOfFlags(thisIndex).compound(thisIndex.toString).scale(vCommonScale / Math.sqrt(listOfFlags(thisIndex).ratio))
-      viewableItems = viewableItems +- thisFlag.xySlate(i * vCellWidth, -j * vCellHeight).slate(firstFlagsPosition)
+      viewableItems = viewableItems +- thisFlag.SlateXY(i * vCellWidth, -j * vCellHeight).slate(firstFlagsPosition)
     }
     viewIndex = firstIndex
     if (selectedIndex == -1) positionBar() else showSelected()

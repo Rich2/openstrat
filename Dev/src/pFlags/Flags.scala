@@ -19,17 +19,17 @@ trait Flag
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
   def leftToRight(colours: Colour*): GraphicElems = colours.iMap((colour, i) => Rect.tl(ratio / colours.length, 1,
-    -ratio / 2 pp + 0.5).xySlate(i * ratio / colours.length, 0).fill(colour))
+    -ratio / 2 pp + 0.5).slateXY(i * ratio / colours.length, 0).fill(colour))
          
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
   def topToBottom(colours: Colour*): GraphicElems = colours.iMap((colour, i) => Rect.tl(ratio,
-     1.0 / colours.length, -ratio / 2 pp + 0.5).xySlate(0,
+     1.0 / colours.length, -ratio / 2 pp + 0.5).slateXY(0,
        - i.toDouble / colours.length).fill(colour))
 
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
   def topToBottomRepeat(numBands: Int, colours: Colour*): GraphicElems = iUntilMap(0, numBands){ i =>
     val r1 = Rect.tl(ratio, 1.0 / numBands, -ratio / 2 pp + 0.5)
-    val r2 = r1.xySlate(0, - i.toDouble / numBands)
+    val r2 = r1.slateXY(0, - i.toDouble / numBands)
     r2.fill(colours(i %% colours.length))
   }
 }
@@ -175,7 +175,7 @@ object India extends Flag
   { 
     val spoke = ShapeGenOld(LineTail(-0.75 pp 0.3833), LineTail(-0.746 pp 0.4533), BezierTail(-0.746 pp 0.4533, -0.75 pp 0.4867, -0.75 pp 0.4867),
     BezierTail(-0.75 pp 0.4867, -0.754 pp 0.4533, -0.754 pp 0.4533), LineTail(-0.75 pp 0.3833),
-    LineTail(-0.75 pp 0.3833)).xySlate(0.75, -0.5).fill(Colour(0xFF000080))
+    LineTail(-0.75 pp 0.3833)).slateXY(0.75, -0.5).fill(Colour(0xFF000080))
     
     val spokes = iToMap(0,23){i => spoke.rotate(Deg30/2*i)}
     val rimNotch = Circle(0.875/75, 0, -17.5/150).rotate(Deg30/4).fill(Colour(0xFF000080))

@@ -5,7 +5,7 @@ import pWeb._
 
 trait EllipseCompound extends ShapeCompound with EllipseGraphic
 { /** Translate geometric transformation. */
-  override def xySlate(xOffset: Double, yOffset: Double): EllipseCompound
+  override def slateXY(xOffset: Double, yOffset: Double): EllipseCompound
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -50,7 +50,7 @@ object EllipseCompound
     /** Return type narrowed to [[SvgEllipse]] from [[SvgElem]] */
     override def svgElem(bounds: BoundingRect): SvgEllipse =
     { //val bounds = shape.boundingRect
-      val newEllipse = shape.negY.xySlate(0, bounds.minY + bounds.maxY)
+      val newEllipse = shape.negY.slateXY(0, bounds.minY + bounds.maxY)
       val newAtts = newEllipse.attribs
       val atts2 = if (shape.alignAngle == 0.angle) newAtts else newAtts +- SvgRotate(- shape.alignAngle.degs, shape.xCen, shape.yCen)
       SvgEllipse(atts2 ++ facets.flatMap(_.attribs))
@@ -64,8 +64,8 @@ object EllipseCompound
     }
 
     /** Translate geometric transformation. */
-    override def xySlate(xOffset: Double, yOffset: Double): EllipseCompoundImplement =
-      EllipseCompoundImplement(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
+    override def slateXY(xOffset: Double, yOffset: Double): EllipseCompoundImplement =
+      EllipseCompoundImplement(shape.slateXY(xOffset, yOffset), facets, children.SlateXY(xOffset, yOffset))
 
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */

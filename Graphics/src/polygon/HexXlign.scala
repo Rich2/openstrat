@@ -67,7 +67,7 @@ final class HexXlign(val height: Double, val xCen: Double, val yCen: Double) ext
   override def productElement(n: Int): Any = ???
 
   /** Translate 2D geometric transformation on this HexXlign returns a HexXlign. */
-  override def xySlate(xOffset: Double, yOffset: Double): HexXlign = HexXlign(diameterIn, cen.addXY(xOffset, yOffset))
+  override def slateXY(xOffset: Double, yOffset: Double): HexXlign = HexXlign(diameterIn, cen.addXY(xOffset, yOffset))
 
   /** Uniform scaling against both X and Y axes 2D geometric transformation on this HexXlign returning a HexXlign. */
   override def scale(operand: Double): HexXlign = HexXlign(diameterIn * operand, cen.scale(operand))
@@ -107,7 +107,7 @@ object HexXlign
   implicit val persistImplicit: Persist[HexXlign] =
     new Persist2[Double, Pt2, HexXlign]("HexXlign", "height", _.height,"cen", _.cen, apply)
 
-  implicit val slateImplicit: Slate[HexXlign] = (obj: HexXlign, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[HexXlign] = (obj: HexXlign, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexXlign] = (obj: HexXlign, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexXlign] = (obj, matrix) => obj.prolign(matrix)
 }

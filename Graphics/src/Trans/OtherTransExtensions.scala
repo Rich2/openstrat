@@ -6,8 +6,8 @@ package geom
 class SlateTransAxesExtensions[A](thisReflector: A)(implicit evS: Slate[A], evR: TransAxes[A])
 {
   /** Reflect, mirror across a line parallel to the X axis. */
-  def reflectXOffset(yOffset: Double): A = evS.ySlateT(evR.negYT(thisReflector), 2 * yOffset) 
+  def reflectXOffset(yOffset: Double): A = evS.SlateYT(evR.negYT(thisReflector), 2 * yOffset)
 
   /** Reflect, mirror across a line parallel to the Y axis. */
-  def reflectYOffset(xOffset: Double): A = evS.xSlateT(evR.negXT(thisReflector), 2 * xOffset)
+  def reflectYOffset(xOffset: Double): A = evS.SlateXT(evR.negXT(thisReflector), 2 * xOffset)
 }

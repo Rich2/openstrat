@@ -28,7 +28,7 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
   override def draw(lineColour: Colour, lineWidth: Double): CArcDraw = CArcDraw(this, lineColour, lineWidth)
   /** Translate 2D geometric transformation on this CArc returns a CArc. */
-  override def xySlate(xOffset: Double, yOffset: Double): CArc = CArc(pStart.addXY(xOffset, yOffset), cen.addXY(xOffset, yOffset),
+  override def slateXY(xOffset: Double, yOffset: Double): CArc = CArc(pStart.addXY(xOffset, yOffset), cen.addXY(xOffset, yOffset),
     pEnd.addXY(xOffset, yOffset), counter)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves

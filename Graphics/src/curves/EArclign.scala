@@ -15,7 +15,7 @@ trait EArclign extends EArc
   override def addRotations(delta: Int): EArclign
 
   /** Translate 2D geometric transformation on this EArclign returns an EArclign. */
-  override def xySlate(xOffset: Double, yOffset: Double): EArclign =
+  override def slateXY(xOffset: Double, yOffset: Double): EArclign =
     EArclign(pStart.xySlate(xOffset, yOffset), cen.xySlate(xOffset, yOffset), xRadius, yRadius, pEnd.xySlate(xOffset, yOffset), counter)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves

@@ -23,8 +23,8 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 
   /** Translate geometric transformation. */
-  override def xySlate(xOffset: Double, yOffset: Double): PolygonCompound =
-    PolygonCompound(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
+  override def slateXY(xOffset: Double, yOffset: Double): PolygonCompound =
+    PolygonCompound(shape.slateXY(xOffset, yOffset), facets, children.SlateXY(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -63,7 +63,7 @@ object PolygonCompound
   def apply(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()): PolygonCompound =
     new PolygonCompoundImp(shape, facets, children)
   
-  implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
@@ -103,8 +103,8 @@ object PolygonCompound
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 
     /** Translate geometric transformation. */
-    override def xySlate(xOffset: Double, yOffset: Double): PolygonCompoundImp =
-      PolygonCompoundImp(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
+    override def slateXY(xOffset: Double, yOffset: Double): PolygonCompoundImp =
+      PolygonCompoundImp(shape.slateXY(xOffset, yOffset), facets, children.SlateXY(xOffset, yOffset))
 
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */

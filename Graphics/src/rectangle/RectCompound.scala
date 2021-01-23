@@ -9,12 +9,12 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
   override def svgStr: String = ???
 
-  override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.xySlate(0, bounds.minY + bounds.maxY).
+  override def svgElem(bounds: BoundingRect): SvgRect = SvgRect(shape.negY.slateXY(0, bounds.minY + bounds.maxY).
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
-  override def xySlate(xOffset: Double, yOffset: Double): RectCompound =
-    RectCompound(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
+  override def slateXY(xOffset: Double, yOffset: Double): RectCompound =
+    RectCompound(shape.slateXY(xOffset, yOffset), facets, children.SlateXY(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -40,7 +40,7 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
 object RectCompound
 {
-  implicit val slateImplicit: Slate[RectCompound] = (obj: RectCompound, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[RectCompound] = (obj: RectCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
   implicit val XYScaleImplicit: XYScale[RectCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)

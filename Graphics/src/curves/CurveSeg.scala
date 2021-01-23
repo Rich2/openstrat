@@ -25,7 +25,7 @@ trait CurveSeg extends Drawable
   final def pEnd: Pt2 = xEnd pp yEnd
 
   /** Translate 2D geometric transformation, on this CurveSeg, returns a CurveSeg. The Return type will be narrowed in sub traits. */
-  override def xySlate(xOffset: Double, yOffset: Double): CurveSeg
+  override def slateXY(xOffset: Double, yOffset: Double): CurveSeg
 
   /** Uniform 2D geometric scaling transformation, on this CurveSeg, returns a CurveSeg. The Return type will be narrowed in sub traits / classes. */
   override def scale(operand: Double): CurveSeg
@@ -65,7 +65,7 @@ trait CurveSeg extends Drawable
 }
 
 object CurveSeg
-{ implicit val slateImplicit: Slate[CurveSeg] = (obj: CurveSeg, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+{ implicit val slateImplicit: Slate[CurveSeg] = (obj: CurveSeg, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[CurveSeg] = (obj: CurveSeg, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[CurveSeg] = (obj: CurveSeg, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[CurveSeg] = (obj, matrix) => obj.prolign(matrix)

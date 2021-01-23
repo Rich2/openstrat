@@ -8,7 +8,7 @@ trait CanvShapeDraw extends ShapeDraw with CanvElem
   //override def slate(offset: Vec2Like): CanvShapeDraw
 
   /** Translate 2D geometric transformation on a CanvShapeDraw, returns a CanvShapeDraw. The Return type will be narrowed in sub traits / classes. */
-  override def xySlate(xOffset: Double, yOffset: Double): CanvShapeDraw
+  override def slateXY(xOffset: Double, yOffset: Double): CanvShapeDraw
 
   /** Uniform scaling 2D geometric transformation on a CanvShapeDraw, returns a CanvShapeDraw. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale

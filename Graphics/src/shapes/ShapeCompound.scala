@@ -13,7 +13,7 @@ trait ShapeCompound extends ShapeGraphic with CanvNoElem
   def children: Arr[GraphicElem]
 
   /** 2D geometric translation transformation on this ShapeCompound, returns a ShapeCompound. Return type may be narrowed in sub class /traits. */
-  override def xySlate(xOffset: Double, yOffset: Double): ShapeCompound
+  override def slateXY(xOffset: Double, yOffset: Double): ShapeCompound
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -47,7 +47,7 @@ trait ShapeCompound extends ShapeGraphic with CanvNoElem
  *  and other containner classes. */
 object ShapeCompound
 {
-  implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[ShapeCompound] = (obj: ShapeCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[ShapeCompound] = (obj: ShapeCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeCompound] = (obj: ShapeCompound, angle: AngleVec) => obj.rotate(angle)
 

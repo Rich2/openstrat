@@ -9,8 +9,10 @@ package geom
  *  that inherit from GeomElem that are not [[GraphicElem]]s will be [[Drawable]] elements, but this has not been finalised. */
 trait GeomElem extends Product with Serializable
 {
-  /** Translate 2D geometric transformation. The Return type will be narrowed in sub traits. */
-  def xySlate(xOffset: Double, yOffset: Double): GeomElem
+  /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will
+   *  be narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the
+   *  slateY methods. These methods will be offered as extension methods using this method for their implementations. */
+  def slateXY(xOffset: Double, yOffset: Double): GeomElem
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    *  [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */
@@ -58,7 +60,7 @@ trait GeomElem extends Product with Serializable
 /** Companion object for the [[GeomElem]] trait. Contains implicit instances of type GeomElem for all the 2d geometric transformation type
  *  classes. */
 object GeomElem
-{ implicit val slateImplicit: Slate[GeomElem] = (obj: GeomElem, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+{ implicit val slateImplicit: Slate[GeomElem] = (obj: GeomElem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GeomElem] = (obj: GeomElem, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[GeomElem] = (obj, matrix) => obj.prolign(matrix)

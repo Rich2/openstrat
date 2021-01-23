@@ -66,7 +66,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   override def slate(offset: Vec2Like): Rectangle = Rectangle.sd2sd4(sd2Cen.slate(offset), sd4Cen.slate(offset), width2)
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def xySlate(xOffset: Double, yOffset: Double): Rectangle =
+  override def slateXY(xOffset: Double, yOffset: Double): Rectangle =
     Rectangle.sd2sd4(sd2Cen.addXY(xOffset, yOffset), sd4Cen.addXY(xOffset, yOffset), width2)
 
   /** Uniform scaling 2D geometric transformation on a Rectangle returns a Rectangle. */
@@ -129,7 +129,7 @@ object Rectangle
     PolygonImp(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 
-  implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Rectangle] = (obj: Rectangle, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Rectangle] = (obj: Rectangle, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Rectangle] = (obj, matrix) => obj.prolign(matrix)

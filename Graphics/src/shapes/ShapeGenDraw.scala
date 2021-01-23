@@ -11,7 +11,7 @@ case class ShapeGenDraw(shape: ShapeGenOld, lineColour: Colour = Black, lineWidt
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
 
   /** Translate 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes. */
-  override def xySlate(xOffset: Double, yOffset: Double): ShapeGenDraw = ShapeGenDraw(shape.xySlate(xOffset, yOffset), lineColour, lineWidth)
+  override def slateXY(xOffset: Double, yOffset: Double): ShapeGenDraw = ShapeGenDraw(shape.slateXY(xOffset, yOffset), lineColour, lineWidth)
 
   /** Uniform scaling 2D geometric transformation on a ShapeGenDraw, returns a ShapeGenDraw. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale

@@ -17,7 +17,7 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
   override def attribs: Arr[XANumeric] = ???
 
   /** Translate 2D geometric transformation on a ShapeGen returns a Shape. The Return type will be narrowed in sub traits / classes. */
-  override def xySlate(xOffset: Double, yOffset: Double): ShapeGen = new ShapeGen(unsafeArray.xySlate(xOffset, yOffset))
+  override def slateXY(xOffset: Double, yOffset: Double): ShapeGen = new ShapeGen(unsafeArray.SlateXY(xOffset, yOffset))
 
   /** Uniform scaling 2D geometric transformation on a ShapeGen returns a Shape. The Return type will be narrowed in sub traits / classes. Use the
    * xyScale method for differential scaling on the X and Y axes. */
@@ -56,7 +56,7 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
 
 object ShapeGen
 {
-  implicit val slateImplicit: Slate[ShapeGen ] = (obj: ShapeGen , dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[ShapeGen ] = (obj: ShapeGen , dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[ShapeGen ] = (obj: ShapeGen , operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGen ] = (obj: ShapeGen , angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[ShapeGen ] = (obj, matrix) => obj.prolign(matrix)

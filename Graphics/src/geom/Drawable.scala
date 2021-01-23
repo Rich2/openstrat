@@ -10,7 +10,7 @@ trait Drawable extends GeomElem
   def draw(lineColour: Colour = Black, lineWidth: Double = 2): GraphicElem
 
   /** Translate 2D geometric transformation on this Drawable returns a Drawable. The Return type will be narrowed in sub traits. */
-  override def xySlate(xOffset: Double, yOffset: Double): Drawable
+  override def slateXY(xOffset: Double, yOffset: Double): Drawable
 
   /** Uniform 2D geometric scaling transformation on this Drawable returns a Drawable. The Return type will be narrowed in sub traits / classes. */
   override def scale(operand: Double): Drawable
@@ -51,7 +51,7 @@ trait Drawable extends GeomElem
 }
 
 object Drawable
-{ implicit val slateImplicit: Slate[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+{ implicit val slateImplicit: Slate[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Drawable] = (obj: Drawable, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Drawable] = (obj, matrix) => obj.prolign(matrix)

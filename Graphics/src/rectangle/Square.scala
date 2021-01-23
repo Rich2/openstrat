@@ -10,7 +10,7 @@ trait Square extends Rectangle
   override def slate(offset: Vec2Like): Square = Square.s2s4(sd2Cen.slate(offset), sd4Cen.slate(offset))
 
   /** Translate geometric transformation on a Square returns a Square. */
-  override def xySlate(xOffset: Double, yOffset: Double): Square = Square.s2s4(sd2Cen.addXY(xOffset, yOffset), sd4Cen.addXY(xOffset, yOffset))
+  override def slateXY(xOffset: Double, yOffset: Double): Square = Square.s2s4(sd2Cen.addXY(xOffset, yOffset), sd4Cen.addXY(xOffset, yOffset))
 
   /** Uniform scaling transformation on a Square returns a Square. */
   override def scale(operand: Double): Square = Square.s2s4(sd2Cen.scale(operand), sd4Cen.scale(operand))

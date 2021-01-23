@@ -22,7 +22,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   val c2 = CArc.pos(c1St, c1Cen, c1End).draw(DarkRed)
   val c3: CArc = CArc.neg(-100, 0, 0, 0, 0, 100)
   val c3d = c3.draw(Violet)
-  val c4 = c3.xySlate(-25, 0).addRotations(-1)
+  val c4 = c3.slateXY(-25, 0).addRotations(-1)
   val c4d = c4.draw(Turquoise)
   val c4Text = c4.cen.textArrow("C4 Centre", 135.angle, 150, Turquoise)
   val e1St = 400 pp 0

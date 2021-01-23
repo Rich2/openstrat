@@ -56,7 +56,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
   def fBut(planet: Planet) = clickButtonOld(planet.name, mb => {planetFocus = planet; repaintMap()}, planet.colour)
   def pause = clickButtonStdOld(pausedStr, mb => { deb(pausedStr -- "not implemented yet."); paused = !paused; reTop(cmds)})
    
-  def cmds: Arr[BoundedGraphic] = zoomable +- pause ++ pls.map(fBut)
+  def cmds: Arr[GraphicBounded] = zoomable +- pause ++ pls.map(fBut)
   reTop(cmds)
   
   canv.startFrame((el, st) => out(el, st))

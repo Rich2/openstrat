@@ -67,7 +67,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def xySlate(xOffset: Double, yOffset: Double): HexReg = HexReg.sd4Sd1(sd4Cen.addXY(xOffset, yOffset), sd1Cen.addXY(xOffset, yOffset))
+  override def slateXY(xOffset: Double, yOffset: Double): HexReg = HexReg.sd4Sd1(sd4Cen.addXY(xOffset, yOffset), sd1Cen.addXY(xOffset, yOffset))
 
   /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */
@@ -120,7 +120,7 @@ object HexReg
     override def syntaxDepthT(obj: HexReg): Int = ???
   }
 
-  implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[HexReg] = (obj: HexReg, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexReg] = (obj: HexReg, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[HexReg] = (obj: HexReg, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[HexReg] = (obj, matrix) => obj.prolign(matrix)

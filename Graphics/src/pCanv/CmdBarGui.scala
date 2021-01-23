@@ -20,7 +20,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
   def mainHeight = mainPanel.height
 
   /**  repaints the top command bar */
-  def reTop(commands: Arr[BoundedGraphic]): Unit =
+  def reTop(commands: Arr[GraphicBounded]): Unit =
   {
     val a = displayRowGraphics(topBar.cenLeft, commands)
     val sp = ife(a.empty, topBar.cenLeft,a.last.boundingRect.cen.addX(80))

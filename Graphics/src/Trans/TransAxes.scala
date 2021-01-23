@@ -83,12 +83,12 @@ class TransAxesSlateExtensions[T](thisT: T)(implicit evR: TransAxes[T], evS: Sla
   /** Reflect across a line parallel to the X axis. */
   def reflectXParallel(yValue: Double): T =
   { val res1 = evR.negYT(thisT)
-    evS.ySlateT(res1, 2 * yValue)
+    evS.SlateYT(res1, 2 * yValue)
   }
 
   /** Reflect across a line parallel to the Y axis. */
   def reflectYParallel(xValue: Double): T =
   { val res1 = evR.negXT(thisT)
-    evS.xSlateT(res1, 2 * xValue)
+    evS.SlateXT(res1, 2 * xValue)
   }
 }

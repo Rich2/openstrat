@@ -190,8 +190,8 @@ package object geom
   /** 300 degrees or Pi radians */
   val Deg300: AngleVec = AngleVec(300)
 
-  def displayRowGraphics(leftPt: Pt2, actives: Arr[BoundedGraphic], margin: Double = 10): Arr[BoundedGraphic] =
-    actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.xSlate(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
+  def displayRowGraphics(leftPt: Pt2, actives: Arr[GraphicBounded], margin: Double = 10): Arr[GraphicBounded] =
+    actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.slateX(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
     
   def displayRowTexts(leftPt: Pt2, textCells: Arr[TextCell], fontSize: Double = 18, margin: Double = 10): Arr[BoundedElem] =
   {

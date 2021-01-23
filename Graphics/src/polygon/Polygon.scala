@@ -145,7 +145,7 @@ trait Polygon extends Shape with BoundedElem
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed  further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def xySlate(xOffset: Double, yOffset: Double): Polygon = polygonMap(_.addXY(xOffset, yOffset))
+  override def slateXY(xOffset: Double, yOffset: Double): Polygon = polygonMap(_.addXY(xOffset, yOffset))
 
   /** Translate geometric transformation on a Polygon returns a Polygon. The return type of this method will be narrowed further in most descendant
    *  traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
@@ -273,7 +273,7 @@ object Polygon
   { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
   }*/
 
-  implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Polygon] = (obj: Polygon, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)

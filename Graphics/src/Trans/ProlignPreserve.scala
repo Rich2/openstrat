@@ -12,7 +12,7 @@ trait ProlignPreserve extends GeomElem
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   def fTrans(f: Pt2 => Pt2): ThisT
-  override def xySlate(xOffset: Double, yOffset: Double): ThisT = fTrans(_.addXY(xOffset, yOffset))
+  override def slateXY(xOffset: Double, yOffset: Double): ThisT = fTrans(_.addXY(xOffset, yOffset))
   override def scale(operand: Double): ThisT = fTrans(_.scale(operand))
   override def negX: ThisT = fTrans(_.negX)
   override def negY: ThisT = fTrans(_.negY)

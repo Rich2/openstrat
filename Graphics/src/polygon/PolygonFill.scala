@@ -12,7 +12,7 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def toDraw(lineWidth: Double = 2, newColour: Colour ): PolygonDraw = shape.draw(newColour, lineWidth)
 
   /** Translate geometric transformation. */
-  override def xySlate(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.xySlate(xOffset, yOffset), fill)
+  override def slateXY(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.slateXY(xOffset, yOffset), fill)
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -54,7 +54,7 @@ object PolygonFill
   def apply(shape: Polygon, fillFacet: FillFacet): PolygonFill = new PolygonFillImp(shape, fillFacet)
   /*implicit val persistImplicit: Persist2[Polygon, Colour, PolygonFill] = Persist2("PolyFill", "poly", _.shape, "colour", _.colour, apply)*/
 
-  implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, xDelta: Double, yDelta: Double) => obj.xySlate(xDelta, yDelta)
+  implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, xDelta: Double, yDelta: Double) => obj.slateXY(xDelta, yDelta)
   implicit val scaleImplicit: Scale[PolygonFill] = (obj: PolygonFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

@@ -11,7 +11,7 @@ case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 
   def radius: Double = curveSeg.radius
 
   /** Translate 2D geometric transformation on this CArcDraw, returns a CArcDraw. */
-  override def xySlate(xOffset: Double, yOffset: Double): CArcDraw = CArcDraw(curveSeg.xySlate(xOffset, yOffset), colour, lineWidth)
+  override def slateXY(xOffset: Double, yOffset: Double): CArcDraw = CArcDraw(curveSeg.slateXY(xOffset, yOffset), colour, lineWidth)
 
   /** Uniform scaling 2D geometric transformation on this CArcDraw, returns a CArcDraw. Use the xyScale method for differential scaling on the X and Y
    *  axes. */

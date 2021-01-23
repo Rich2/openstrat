@@ -27,7 +27,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   override def h: Double = 0
 
   /** Translate geometric transformation on a Circle returns a Circle. */
-  override def xySlate(xOffset: Double, yOffset: Double): Circle = Circle(diameter, cen.addXY(xOffset, yOffset))
+  override def slateXY(xOffset: Double, yOffset: Double): Circle = Circle(diameter, cen.addXY(xOffset, yOffset))
 
   /** uniform scaling transformation on a Circle returns a circle. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Circle = Circle(diameter * operand, cen.scale(operand))
@@ -102,7 +102,7 @@ object Circle extends ShapeIcon
   override def reify(scale: Double, cen: Pt2): Circle = Circle(scale, cen)
   override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
   
-  implicit val slateImplicit: Slate[Circle] = (obj, dx, dy) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[Circle] = (obj, dx, dy) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Circle] = (obj, operand) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Circle] = (obj: Circle, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Circle] = (obj, matrix) => obj.prolign(matrix)

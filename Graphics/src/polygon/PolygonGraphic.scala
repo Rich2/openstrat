@@ -4,7 +4,7 @@ package geom
 
 /** A Polygon based graphic. If you just want a general polygon as opposed to specifically specified Polygons such as Rectangle, Square or Triangle
  *  use the implementation class [[PolygonCompound]]. */
-trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
+trait PolygonGraphic extends ShapeGraphic with GraphicBounded
 {
   override def shape: Polygon
   def x1: Double = shape.x1
@@ -26,7 +26,7 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
   @inline def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrBuild[A, ArrT]): ArrT = shape.vertsMap(f)
 
   /** Translate geometric transformation. */
-  override def xySlate(xOffset: Double, yOffset: Double): PolygonGraphic
+  override def slateXY(xOffset: Double, yOffset: Double): PolygonGraphic
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -60,7 +60,7 @@ trait PolygonGraphic extends ShapeGraphic with BoundedGraphic
 /** Companion object for Polygon Graphic, contains implicit instances for the 2D geometric transformations. */
 object PolygonGraphic
 {
-  implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[PolygonGraphic] = (obj: PolygonGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphic] = (obj: PolygonGraphic, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[PolygonGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

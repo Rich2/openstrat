@@ -9,7 +9,7 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
   final override def attribs: Arr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
 
   /** Translate geometric transformation. */
-  override def xySlate(xOffset: Double, yOffset: Double): ShapeGraphicSimple
+  override def slateXY(xOffset: Double, yOffset: Double): ShapeGraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

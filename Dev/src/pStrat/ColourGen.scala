@@ -18,14 +18,14 @@ case class ColourGen(canv: CanvasPlatform) extends CanvasNoPanels("Colour Genera
     val g1 = intMaker(g)
     val b1 = intMaker(b)
     def c1 = Colour.fromInts(r1, g1, b1)
-    val c2 = Rect.colouredBordered(25, c1, 2).xySlate(left + 30, top - 20)
+    val c2 = Rect.colouredBordered(25, c1, 2).slateXY(left + 30, top - 20)
     def c3 = TextGraphic(commaedInts(r1, g1, b1), 15, left + 120 pp top - 20)
     (c2, c3)
   }
    
   val cols2 = cols.iFlatMap{ (pair, i) =>
     val offset = - 35 * i
-    Arr(pair._1.ySlate(offset), pair._2.ySlate(offset))
+    Arr(pair._1.slateY(offset), pair._2.slateY(offset))
   }
   repaint(cols2)
 }

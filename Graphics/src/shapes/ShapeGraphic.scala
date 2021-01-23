@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** A shape based graphic. */
-trait ShapeGraphic extends BoundedGraphic
+trait ShapeGraphic extends GraphicBounded
 { def shape: Shape
   override def boundingRect: BoundingRect = shape.boundingRect
   def attribs: Arr[XmlAtt]
@@ -17,7 +17,7 @@ trait ShapeGraphic extends BoundedGraphic
   def svgElem(bounds: BoundingRect): SvgElem
 
   /** Translate geometric transformation. */
-  def xySlate(xOffset: Double, yOffset: Double): ShapeGraphic
+  def slateXY(xOffset: Double, yOffset: Double): ShapeGraphic
 
   /** Translate geometric transformation. */
   //def slate(offset: Vec2Like): ShapeGraphic
@@ -60,7 +60,7 @@ object ShapeGraphic
     }
   }
   
-  implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[ShapeGraphic] = (obj: ShapeGraphic, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[ShapeGraphic] = (obj: ShapeGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGraphic] = (obj: ShapeGraphic, angle: AngleVec) => obj.rotate(angle)
   implicit val XYScaleImplicit: XYScale[ShapeGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)

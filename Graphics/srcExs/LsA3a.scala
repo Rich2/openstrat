@@ -6,7 +6,7 @@ object LsA3a
 {
   val r1: Rectangle = Rect(200, 150)
   val r1f: PolygonFill = r1.fill(Colour.Khaki)
-  val r2 = r1.xySlate(-200, 150)
+  val r2 = r1.slateXY(-200, 150)
   
   val rf2 = r2.fill(Colour.Gray)
   val c1 = Circle(100).fill(Green)

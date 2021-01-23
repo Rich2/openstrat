@@ -17,12 +17,12 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
 
-  override def svgElem(bounds: BoundingRect): SvgCircle = SvgCircle(shape.negY.xySlate(0, bounds.minY + bounds.maxY).
+  override def svgElem(bounds: BoundingRect): SvgCircle = SvgCircle(shape.negY.slateXY(0, bounds.minY + bounds.maxY).
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
-  override def xySlate(xOffset: Double, yOffset: Double): CircleCompound =
-    CircleCompound(shape.xySlate(xOffset, yOffset), facets, children.xySlate(xOffset, yOffset))
+  override def slateXY(xOffset: Double, yOffset: Double): CircleCompound =
+    CircleCompound(shape.slateXY(xOffset, yOffset), facets, children.SlateXY(xOffset, yOffset))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

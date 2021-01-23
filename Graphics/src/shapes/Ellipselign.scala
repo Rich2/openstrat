@@ -12,7 +12,7 @@ trait Ellipselign extends Ellipse
   /** The radius of the axis of the ellipse aligned to the Y axis. */
   def yRadius: Double
 
-  override def xySlate(xOffset: Double, yOffset: Double): Ellipselign = Ellipselign(xRadius, yRadius, xCen + xOffset, yCen + yOffset)
+  override def slateXY(xOffset: Double, yOffset: Double): Ellipselign = Ellipselign(xRadius, yRadius, xCen + xOffset, yCen + yOffset)
 
   override def scale(operand: Double): Ellipselign = Ellipselign(xRadius * operand, yRadius * operand, xCen * operand, yCen * operand)
 

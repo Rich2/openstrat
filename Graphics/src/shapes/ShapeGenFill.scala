@@ -10,7 +10,7 @@ final case class ShapeGenFill(shape: ShapeGenOld, colour: Colour) extends CanvEl
   override def rendToCanvas(cp: CanvasPlatform): Unit = { deb("Not implemented.")}
 
   /** Translate 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes. */
-  override def xySlate(xOffset: Double, yOffset: Double): ShapeGenFill = ShapeGenFill(shape.xySlate(xOffset, yOffset), colour)
+  override def slateXY(xOffset: Double, yOffset: Double): ShapeGenFill = ShapeGenFill(shape.slateXY(xOffset, yOffset), colour)
 
   /** Uniform scaling 2D geometric transformation on a ShapeGenFill, returns a ShapeGenFill. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale

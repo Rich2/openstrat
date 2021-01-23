@@ -11,9 +11,9 @@ object CurveTest extends TestSuite
     val as1 = ArcTail(4 pp 4, 6 pp 4)
     val as2 = as1.scale(2)
     val as3 = ArcTail(8 pp 8, 12 pp 8)
-    val as4 = as3.xySlate(5, 10)
+    val as4 = as3.slateXY(5, 10)
     val ls2 = LineTail(-5 pp -8)
-    val ls3 = ls2.xySlate(50, -50)
+    val ls3 = ls2.slateXY(50, -50)
     val css = ShapeGenOld(ls1, ls2, ls3)
 
     "Test1" -

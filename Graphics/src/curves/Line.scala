@@ -9,7 +9,7 @@ sealed trait Line extends LineLike
   def reflectPt(pt: Pt2): Pt2
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def xySlate(xOffset: Double, yOffset: Double): Line
+  override def slateXY(xOffset: Double, yOffset: Double): Line
 
   /** Uniform 2D scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles
    * and Squares. Use the xyScale method for differential scaling. */
@@ -69,7 +69,7 @@ sealed case class YLine(xFactor: Double, offset: Double) extends Line
   //override def slate(offset: Vec2Like): Line = ???
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def xySlate(xOffset: Double, yOffset: Double): Line = ???
+  override def slateXY(xOffset: Double, yOffset: Double): Line = ???
 }
 
 /** An infinite length 2 dimensional straight line defined in terms of its Y value and and an offset. It is defined for all values of X, but not
@@ -90,21 +90,21 @@ sealed case class XLine(yFactor: Double, offset: Double) extends Line
   }
 
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def xySlate(xOffset: Double, yOffset: Double): Line = ???
+  override def slateXY(xOffset: Double, yOffset: Double): Line = ???
 }
 
 /** An infinite length 2 dimensional straight line that is parallel to the X Axis. It is defined for all values of Y, but for only 1 value of X. */
 sealed class YParallel(offset: Double) extends YLine(0, offset )
 {
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def xySlate(xOffset: Double, yOffset: Double): YLine = ???
+  override def slateXY(xOffset: Double, yOffset: Double): YLine = ???
 }
 
 /** An infinite length 2 dimensional straight line that is parrael to the X Axis. It is defined for all values of X, but for only 1 value of Y. */
 sealed class XParallel(offset: Double) extends XLine(0, offset )
 {
   /** Translate 2D geometric transformation. This abstract method returns a [[Line]]. The Return type will be narrowed in sub traits. */
-  override def xySlate(xOffset: Double, yOffset: Double): XLine = ???
+  override def slateXY(xOffset: Double, yOffset: Double): XLine = ???
 }
 
 sealed trait XorYAxis extends Line

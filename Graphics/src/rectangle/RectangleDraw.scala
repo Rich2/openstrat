@@ -7,7 +7,7 @@ import Colour._, pCanv._
 trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple 
 {
   /** Translate geometric transformation on a RectangleDraw, returns a RectangleDraw. */
-  override def xySlate(xOffset: Double, yOffset: Double): RectangleDraw = RectangleDraw(shape.xySlate(xOffset, yOffset), lineWidth, lineColour)
+  override def slateXY(xOffset: Double, yOffset: Double): RectangleDraw = RectangleDraw(shape.slateXY(xOffset, yOffset), lineWidth, lineColour)
 
   /** Uniform scaling transformation a RectangleDraw, returns a RectangleDraw. */
   override def scale(operand: Double): RectangleDraw = RectangleDraw(shape.scale(operand), lineWidth, lineColour)

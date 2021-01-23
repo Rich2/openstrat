@@ -6,7 +6,7 @@ package geom
 trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 {
   /** Translate geometric transformation. */
-  override def xySlate(xOffset: Double, yOffset: Double): RectangleFill = RectangleFill(shape.xySlate(xOffset, yOffset), fill)
+  override def slateXY(xOffset: Double, yOffset: Double): RectangleFill = RectangleFill(shape.slateXY(xOffset, yOffset), fill)
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -39,7 +39,7 @@ object RectangleFill
 {
   def apply(shape: Rectangle, fillFacet: FillFacet): RectangleFill = RectangleFillImp(shape, fillFacet)
 
-  implicit val slateImplicit: Slate[RectangleFill] = (obj: RectangleFill, dx: Double, dy: Double) => obj.xySlate(dx, dy)
+  implicit val slateImplicit: Slate[RectangleFill] = (obj: RectangleFill, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[RectangleFill] = (obj: RectangleFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[RectangleFill] = (obj: RectangleFill, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[RectangleFill] = (obj, matrix) => obj.prolign(matrix)
