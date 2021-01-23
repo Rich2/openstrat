@@ -12,6 +12,7 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like
   @inline override def _1: Double = x
   @inline override def _2: Double = y
   override def productPrefix: String = "Vec2"
+  override def syntaxdepth: Int = 2
 
   override def equals(other: Any): Boolean = other match
   { case Vec2(px, py) => (x =~ px) && (y =~ py)

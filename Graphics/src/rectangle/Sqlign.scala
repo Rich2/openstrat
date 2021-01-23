@@ -13,6 +13,7 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def arg2: Pt2 = cen
   override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
   override implicit def ev2: ShowT[Pt2] = Pt2.persistImplicit
+  override def syntaxdepth: Int = 3
   override def attribs: Arr[XANumeric] = ???
   override def width1 = width
   override def width2: Double = width
@@ -43,6 +44,6 @@ object Sqlign
   { override def typeStr: String = "Sqlign"
     override def strT(obj: Sqlign): String = obj.str
     override def showT(obj: Sqlign, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
-    override def syntaxDepthT(obj: Sqlign): Int = 2
+    override def syntaxDepthT(obj: Sqlign): Int = 3
   }
 }

@@ -13,6 +13,7 @@ final class HexXlign(val height: Double, val xCen: Double, val yCen: Double) ext
   override def arg2: Pt2 = cen
   override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
   override implicit def ev2: ShowT[Pt2] = Pt2.persistImplicit
+  override def syntaxdepth: Int = 3
 
   override def cen: Pt2 = xCen pp yCen
 

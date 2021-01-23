@@ -18,6 +18,7 @@ trait TCoord extends Any with Show2[Int, Int]
   override def name2: String = "c"
   override implicit def ev1: ShowT[Int] = ShowT.intPersistImplicit
   override implicit def ev2: ShowT[Int] = ShowT.intPersistImplicit
+  override def syntaxdepth: Int = 2
 
   def toPt2: Pt2
   def toVec: Vec2
