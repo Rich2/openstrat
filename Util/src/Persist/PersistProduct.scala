@@ -19,16 +19,6 @@ trait PersistProduct[R] extends ShowProductT[R] with PersistCompound[R]
 class Persist2[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, val newT: (A1, A2) => R,
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: Eq[A1], eq2: Eq[A2]) extends
   Show2T[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1) with PersistProduct[R]
-{
-  //override def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses2(newT, clauses)
- /* override def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1, opt2) match
-  {
-    case (Refs2(s1, s2), _, _) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield newT(g1, g2)
-    case (Refs1(s1), _, Some(d2)) => s1.errGet[A1].map(g1 => newT(g1, d2))
-    case (Refs0(), Some(d1), Some(d2)) => Good(newT(d1, d2))
-    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 2.")
-  }*/
-}
 
 /** Factory object for Persist product 2 type class */
 object Persist2
@@ -50,18 +40,6 @@ class Persist3[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, na
   val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2],
   ev3: Persist[A3], eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3]) extends
   Show3T[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3, opt2, opt1) with PersistProduct[R]
-{
-  //override def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses3(newT, clauses)
-  /*override def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1, opt2, opt3) match
-  {
-    case (Refs3(s1, s2, s3), _, _, _) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3) } yield newT(g1, g2, g3)
-    case (Refs2(s1, s2), _, _, Some(d3)) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield newT(g1, g2, d3)
-    case (Refs1(s1), _, Some(d2), Some(d3)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3))
-    case (Refs0(), Some(d1), Some(d2), Some(d3)) => Good(newT(d1, d2, d3))
-    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 3.")
-  }*/
-   // sts.errGet3(ev1, ev2, ev3).map{case (a, b, c) => newT(a, b, c)} // sts.errFun3(newT)(ev1, ev2, ev3)
-}
 
 object Persist3
 { def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
@@ -79,20 +57,6 @@ class Persist4[A1, A2, A3, A4, R](typeStr: String, name1: String, fArg1: R => A1
   name4: String, fArg4: R => A4, val newT: (A1, A2, A3, A4) => R, opt4: Option[A4], opt3: Option[A3] = None, opt2: Option[A2] = None,
   opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4], eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3],
   eq4: Eq[A4]) extends Show4T(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, opt4, opt3, opt2, opt1) with PersistProduct[R]
-{
- // override def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses4(newT, clauses)
-  /*override def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1, opt2, opt3, opt4) match
-  {
-    case (Refs4(s1, s2, s3, s4), _, _, _, _) =>
-      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3); g4 <- s4.errGet[A4] } yield newT(g1, g2, g3, g4)
-    case (Refs3(s1, s2, s3), _, _, _, Some(d4)) =>
-      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3) } yield newT(g1, g2, g3, d4)
-    case (Refs2(s1, s2), _, _, Some(d3), Some(d4)) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield newT(g1, g2, d3, d4)
-    case (Refs1(s1), _, Some(d2), Some(d3), Some(d4)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3, d4))
-    case (Refs0(), Some(d1), Some(d2), Some(d3), Some(d4)) => Good(newT(d1, d2, d3, d4))
-    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 4.")
-  }*/
-}
 
 object Persist4
 {
@@ -108,40 +72,17 @@ object Persist4
 class Persist5[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, val newT: (A1, A2, A3, A4, A5) => R, opt5: Option[A5], opt4: Option[A4] = None,
   opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
-  ev4: Persist[A4], ev5: Persist[A5], eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5]) extends
+  ev4: Persist[A4], ev5: Persist[A5]) extends
   Show5T(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1) with PersistProduct[R]
-{
- // override def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses5(newT, clauses)
-  /*override def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1, opt2, opt3, opt4, opt5) match
-  {
-    case (Refs5(s1, s2, s3, s4, s5), _, _, _, _, _) =>
-      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3); g4 <- s4.errGet[A4]; g5 <- s5.errGet[A5] } yield
-        newT(g1, g2, g3, g4, g5)
-
-    case (Refs4(s1, s2, s3, s4), _, _, _, _, Some(d5)) =>
-      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3); g4 <- s4.errGet[A4] } yield newT(g1, g2, g3, g4, d5)
-
-    case (Refs3(s1, s2, s3), _, _, _, Some(d4), Some(d5)) =>
-      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3) } yield newT(g1, g2, g3, d4, d5)
-
-    case (Refs2(s1, s2), _, _, Some(d3), Some(d4), Some(d5)) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield
-      newT(g1, g2, d3, d4, d5)
-
-    case (Refs1(s1), _, Some(d2), Some(d3), Some(d4), Some(d5)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3, d4, d5))
-    case (Refs0(), Some(d1), Some(d2), Some(d3), Some(d4), Some(d5)) => Good(newT(d1, d2, d3, d4, d5))
-    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 4.")
-  }*/
-}
 
 object Persist5
 {
   def apply[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, newT: (A1, A2, A3, A4, A5) => R, opt5: Option[A5] = None, opt4: Option[A4] = None,
     opt3: Option[A3] = None,  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
-    ev4: Persist[A4], ev5: Persist[A5], eq1: Eq[A1],  eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5]):
-  Persist5[A1, A2, A3, A4, A5, R] =
+    ev4: Persist[A4], ev5: Persist[A5], eq1: Eq[A1],  eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5]): Persist5[A1, A2, A3, A4, A5, R] =
     new Persist5(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, newT, opt5, opt4, opt3, opt2, opt1)(
-    ev1, ev2, ev3, ev4, ev5, eq1, eq2, eq3, eq4, eq5)
+    ev1, ev2, ev3, ev4, ev5)
 }
 
 /** Persistence class for 6 parameter case classes. */
@@ -152,33 +93,6 @@ class Persist6[A1, A2, A3, A4, A5, A6, R](typeStr: String, name1: String, fArg1:
   ev6: Persist[A6], eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5], eq6: Eq[A6]) extends
   Show6T(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6, opt6, opt5, opt4, opt3, opt2, opt1) with
   PersistProduct[R]
-{
-  //override def fromClauses(clauses: Refs[Clause]): EMon[R] = fromClauses6(newT, clauses)
-  /*override def fromParameterStatements(sts: Refs[Statement]): EMon[R] = (sts, opt1, opt2, opt3, opt4, opt5, opt6) match
-  {
-    case (Refs6(s1, s2, s3, s4, s5, s6), _, _, _, _, _, _) =>
-      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3); g4 <- s4.errGet[A4]; g5 <- s5.errGet[A5];
-            g6 <- s6.errGet[A6]} yield
-        newT(g1, g2, g3, g4, g5, g6)
-
-    case (Refs5(s1, s2, s3, s4, s5), _, _, _, _, _, Some(d6)) =>
-      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3); g4 <- s4.errGet[A4]; g5 <- s5.errGet[A5] } yield
-        newT(g1, g2, g3, g4, g5, d6)
-
-    case (Refs4(s1, s2, s3, s4), _, _, _, _, Some(d5), Some(d6)) =>
-      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3); g4 <- s4.errGet[A4] } yield newT(g1, g2, g3, g4, d5, d6)
-
-    case (Refs3(s1, s2, s3), _, _, _, Some(d4), Some(d5), Some(d6)) =>
-      for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2); g3 <- s3.errGet[A3](ev3) } yield newT(g1, g2, g3, d4, d5, d6)
-
-    case (Refs2(s1, s2), _, _, Some(d3), Some(d4), Some(d5), Some(d6)) => for { g1 <- s1.errGet[A1](ev1); g2 <- s2.errGet[A2](ev2) } yield
-      newT(g1, g2, d3, d4, d5, d6)
-
-    case (Refs1(s1), _, Some(d2), Some(d3), Some(d4), Some(d5), Some(d6)) => s1.errGet[A1](ev1).map(g1 => newT(g1, d2, d3, d4, d5, d6))
-    case (Refs0(), Some(d1), Some(d2), Some(d3), Some(d4), Some(d5), Some(d6)) => Good(newT(d1, d2, d3, d4, d5, d6))
-    case _ => sts.startPosn.bad(sts.lenStr -- "parameters, should be 4.")
-  }*/
-}
 
 object Persist6
 {

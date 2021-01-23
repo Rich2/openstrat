@@ -68,9 +68,8 @@ abstract class Show4T[A1, A2, A3, A4, R](val typeStr: String, name1: String, fAr
 /** Show type class for 5 parameter case classes. */
 class Show5T[A1, A2, A3, A4, A5, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, val opt5: Option[A5], opt4In: Option[A4] = None, opt3In: Option[A3] = None,
-  opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5],
-  eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5]) extends EqCase5[A1, A2, A3, A4, A5, R](fArg1, fArg2, fArg3, fArg4, fArg5) with
-  ShowProductT[R]
+  opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4],
+  ev5: ShowT[A5]) extends ShowProductT[R]
 {
   val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
   val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
@@ -90,10 +89,9 @@ object Show5T
 {
   def apply[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, opt5: Option[A5] = None, opt4: Option[A4] = None, opt3: Option[A3] = None,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], eq1: Eq[A1],
-                                                      eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5]) =
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5]) =
     new Show5T[A1, A2, A3, A4, A5, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1)(
-    ev1, ev2, ev3, ev4, ev5, eq1, eq2, eq3, eq4: Eq[A4], eq5)
+    ev1, ev2, ev3, ev4, ev5)
 }
 
 /** Show type class for 5 parameter case classes. */
