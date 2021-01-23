@@ -33,5 +33,4 @@ trait PolyCurveActive extends GraphicActiveSim with GraphicBoundedAffine
 
   /** This method needs improving. */
   override def ptInside(pt: Pt2): Boolean = innerPoly.ptInside(pt)
-  //override def fTrans(f: Vec2 => Vec2): ShapeActive
 }
