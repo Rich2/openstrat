@@ -4,7 +4,7 @@ package prid
 import geom._
 
 /** A Hex tile centre HexGrid coordinate. */
-class Hcen(val r: Int, val c: Int) extends HCoordReg// with Show2[Int, Int]
+class Hcen(val r: Int, val c: Int) extends HCoordReg
 {
   def v1: HVert = HVert(1, 2)
   def v2: HVert = HVert(-1, 2)
