@@ -48,3 +48,21 @@ trait Show2[A1, A2] extends Any with ShowProduct
   def elemTypeNames: Strings = Strings(ev1.typeStr, ev2.typeStr)
   def strs(way: Show.Way, decimalPlaces: Int): Strings = Strings(ev1.showT(arg1, way, decimalPlaces), ev2.showT(arg2, way, decimalPlaces))
 }
+
+/** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[Show2IntsT]]
+ *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
+ *  over [[Show2T]]. */
+trait Show2Ints extends Any with Show2[Int, Int]
+{ final override implicit def ev1: ShowT[Int] = ShowT.intPersistImplicit
+  final override implicit def ev2: ShowT[Int] = ShowT.intPersistImplicit
+  final override def syntaxdepth: Int = 2
+}
+
+/** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[Show2DblsT]]
+ *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
+ *  over [[Show2T]]. */
+trait Show2Dbls extends Any with Show2[Double, Double]
+{ final override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
+  final override implicit def ev2: ShowT[Double] = ShowT.doublePersistImplicit
+  final override def syntaxdepth: Int = 2
+}

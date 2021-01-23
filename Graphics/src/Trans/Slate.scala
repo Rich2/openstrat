@@ -21,7 +21,7 @@ trait Slate[T]
   def SlateYT(obj: T @uncheckedVariance, yOffset: Double): T = SlateXYT(obj, 0, yOffset)
 }
 
-/** Companion object for the Slate type class. Contains instances for collections and other container classes. */
+/** Companion object for the Slate type class. Contains implicit instances for collections and other container classes. */
 object Slate
 {
   implicit def transSimerImplicit[T <: SimilarPreserve]: Slate[T] = (obj: T, dx: Double, dy: Double) => obj.slateXY(dx, dy).asInstanceOf[T]

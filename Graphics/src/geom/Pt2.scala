@@ -11,7 +11,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
   @inline override def _1: Double = x
   @inline override def _2: Double = y
   override def productPrefix: String = "Pt2"
-  override def syntaxdepth: Int = 2
 
   /** Add the operand [[Vec2]] 2D vector to this Pt2, returns a new Pt2. */
   def +(operand: Vec2): Pt2 = Pt2(x + operand.x, y + operand.y)

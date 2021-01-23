@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A common trait for [[Vec2]] and [[Pt2]] it would be good if the methods on this trait could be reduced.  */
-trait Vec2Like extends Any with ProdDbl2 with Show2[Double, Double]
+trait Vec2Like extends Any with ProdDbl2 with Show2Dbls
 {
   def x: Double
   def y: Double
@@ -14,9 +14,6 @@ trait Vec2Like extends Any with ProdDbl2 with Show2[Double, Double]
   override def arg1: Double = x
 
   override def arg2: Double = y
-
-  override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
-  override implicit def ev2: ShowT[Double] = ShowT.doublePersistImplicit
 
   def yScale(factor: Double): Vec2Like
   def xScale(factor: Double): Vec2Like

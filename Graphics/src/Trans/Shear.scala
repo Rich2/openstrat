@@ -12,7 +12,7 @@ trait Shear[T]
   def shearYT(obj: T, xFactor: Double): T
 }
 
-/** Companion object for the Shear type class. Contains omplicit instances for Shear. */
+/** Companion object for the Shear type class. Contains implicit instances for common types. */
 object Shear
 {
   implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Shear[A]): Shear[AA] = new Shear[AA]

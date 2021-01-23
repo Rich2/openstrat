@@ -4,7 +4,7 @@ package prid
 import geom._
 
 /** A coordinate in a TileGrid. The row is the first field, the column is the second. */
-trait TCoord extends Any with Show2[Int, Int]
+trait TCoord extends Any with Show2Ints
 {
   /** Row number for the coordinate of a tile grid. */
   def r: Int
@@ -16,9 +16,6 @@ trait TCoord extends Any with Show2[Int, Int]
   @inline override def arg2: Int = c
   override def name1: String = "r"
   override def name2: String = "c"
-  override implicit def ev1: ShowT[Int] = ShowT.intPersistImplicit
-  override implicit def ev2: ShowT[Int] = ShowT.intPersistImplicit
-  override def syntaxdepth: Int = 2
 
   def toPt2: Pt2
   def toVec: Vec2
