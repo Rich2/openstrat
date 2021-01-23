@@ -49,6 +49,13 @@ object Hcen
   val h00v5: HVert = HVert(1, -2)
   val h00v6: HVert = HVert(1, 0)
   val vertsOfHex00: HVerts = HVerts(h00v1, h00v2, h00v3, h00v4, h00v5, h00v6)
+
+  implicit val showImplicit: ShowT[Hcen] = new ShowT[Hcen]
+  { override def typeStr: String = "HCen"
+    override def strT(obj: Hcen): String = obj.str
+    override def showT(obj: Hcen, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
+    override def syntaxDepthT(obj: Hcen): Int = 2
+  }
 }
 
 trait HexMem[A]
