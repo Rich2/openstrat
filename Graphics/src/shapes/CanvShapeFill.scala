@@ -38,7 +38,7 @@ trait CanvShapeFill extends ShapeFill with CanvElem
 
   /** XY scaling 2D geometric transformation on a CanvShapeFill, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    * The return type will be narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): CanvShapeFill
+  override def scaleXY(xOperand: Double, yOperand: Double): CanvShapeFill
 
   /** Shear 2D geometric transformation along the X Axis on a CanvShapeFill, returns a CanvShapeFill. The return type will be narrowed in sub classes and
    * traits. */

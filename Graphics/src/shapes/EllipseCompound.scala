@@ -25,7 +25,7 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
 
   override def reflect(lineLike: LineLike): EllipseCompound
 
-  override def xyScale(xOperand: Double, yOperand: Double): EllipseCompound
+  override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound
 
   override def xShear(operand: Double): EllipseCompound
 
@@ -77,7 +77,7 @@ object EllipseCompound
 
     override def reflect(lineLike: LineLike): EllipseCompoundImplement = ??? //EllipseGenGraphic(shape.reflect(line), facets, children.reflect(line))
 
-    override def xyScale(xOperand: Double, yOperand: Double): EllipseCompoundImplement = ???
+    override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompoundImplement = ???
 
     override def xShear(operand: Double): EllipseCompoundImplement = ???
 

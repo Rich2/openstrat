@@ -37,7 +37,7 @@ trait ShapeCompound extends ShapeGraphic with CanvNoElem
 
   override def reflect(lineLike: LineLike): ShapeCompound
 
-  override def xyScale(xOperand: Double, yOperand: Double): ShapeCompound
+  override def scaleXY(xOperand: Double, yOperand: Double): ShapeCompound
   override def xShear(operand: Double): ShapeCompound
 
   override def yShear(operand: Double): ShapeCompound

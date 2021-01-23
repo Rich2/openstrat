@@ -73,7 +73,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v1.prolign(matrix))
 
-  override def xyScale(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
+  override def scaleXY(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
 
   override def activeChildren(id: Any, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) +: children)
 
@@ -155,7 +155,7 @@ object Rect
 
     override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v1.prolign(matrix))
 
-    override def xyScale(xOperand: Double, yOperand: Double): RectImp = RectImp.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
+    override def scaleXY(xOperand: Double, yOperand: Double): RectImp = RectImp.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
   }
 
   /** Companion object for the [[Rect.RectImp]] class */

@@ -41,5 +41,5 @@ trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
 
   override def reflect(lineLike: LineLike): ShapeGraphicSimple
 
-  override def xyScale(xOperand: Double, yOperand: Double): ShapeGraphicSimple
+  override def scaleXY(xOperand: Double, yOperand: Double): ShapeGraphicSimple
 }

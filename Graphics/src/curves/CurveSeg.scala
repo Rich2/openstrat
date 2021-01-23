@@ -53,7 +53,7 @@ trait CurveSeg extends Drawable
   override def reflect(lineLike: LineLike): CurveSeg
 
   /** XY scaling 2D geometric transformation, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): CurveSeg
+  override def scaleXY(xOperand: Double, yOperand: Double): CurveSeg
 
   /** Shear 2D geometric transformation along the X Axis, on this CurveSeg, returns a CurveSeg. The return type will be narrowed in sub classes and
    *  traits. */
@@ -69,7 +69,7 @@ object CurveSeg
   implicit val scaleImplicit: Scale[CurveSeg] = (obj: CurveSeg, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[CurveSeg] = (obj: CurveSeg, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[CurveSeg] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: XYScale[CurveSeg] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[CurveSeg] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[CurveSeg] = (obj, lineLike) => obj.reflect(lineLike)
 
   implicit val transAxesImplicit: TransAxes[CurveSeg] = new TransAxes[CurveSeg]

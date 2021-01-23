@@ -50,7 +50,7 @@ trait Shape extends Fillable with BoundedElem
 
   /** XY scaling 2D geometric transformation on a Shape returns a Shape. This allows different scaling factors across X and Y dimensions. The return
    *  type will be narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): Shape
+  override def scaleXY(xOperand: Double, yOperand: Double): Shape
 
   /** Shear 2D geometric transformation along the X Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
   override def xShear(operand: Double): Shape
@@ -66,7 +66,7 @@ object Shape
   implicit val scaleImplicit: Scale[Shape] = (obj: Shape, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Shape] = (obj: Shape, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Shape] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: XYScale[Shape] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[Shape] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   implicit val reflectAxesImplicit: TransAxes[Shape] = new TransAxes[Shape]
   { override def negYT(obj: Shape): Shape = obj.negY

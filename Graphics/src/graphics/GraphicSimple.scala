@@ -42,7 +42,7 @@ trait GraphicSimple extends GraphicElem
 
   override def reflect(lineLike: LineLike): GraphicSimple
 
-  override def xyScale(xOperand: Double, yOperand: Double): GraphicSimple
+  override def scaleXY(xOperand: Double, yOperand: Double): GraphicSimple
 }
 
 /** Companion object for the [[GraphicSimple]] trait. Contains Implicit instances for 2d geometrical transformation type-classes. */
@@ -51,7 +51,7 @@ object GraphicSimple
   implicit val slateImplicit: Slate[GraphicSimple] = (obj: GraphicSimple, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[GraphicSimple] = (obj: GraphicSimple, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicSimple] = (obj: GraphicSimple, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: XYScale[GraphicSimple] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[GraphicSimple] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[GraphicSimple] = (obj, matrix) => obj.prolign(matrix)
   
   implicit val reflectAxesImplicit: TransAxes[GraphicSimple] = new TransAxes[GraphicSimple]

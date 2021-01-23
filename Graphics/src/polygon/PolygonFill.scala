@@ -40,7 +40,7 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
 
   override def reflect(lineLike: LineLike): PolygonFill = ???
 
-  override def xyScale(xOperand: Double, yOperand: Double): PolygonFill = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): PolygonFill = ???
 
   override def productElement(n: Int): Any = ???
 
@@ -57,7 +57,7 @@ object PolygonFill
   implicit val slateImplicit: Slate[PolygonFill] = (obj: PolygonFill, xDelta: Double, yDelta: Double) => obj.slateXY(xDelta, yDelta)
   implicit val scaleImplicit: Scale[PolygonFill] = (obj: PolygonFill, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonFill] = (obj: PolygonFill, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: XYScale[PolygonFill] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[PolygonFill] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonFill] = (obj, matrix) => obj.prolign(matrix)
 
   implicit val reflectAxesImplicit: TransAxes[PolygonFill] = new TransAxes[PolygonFill]

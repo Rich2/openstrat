@@ -9,8 +9,8 @@ case class LsA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
   val y1 = 200
   val c0: Ellipse = Circle(60)
   val d0 = c0.slateX(50)
-  val e0: Ellipse = c0.xyScale(2, 3)
-  val a1 = List(c0, d0).xyScale(2, 3)
+  val e0: Ellipse = c0.scaleXY(2, 3)
+  val a1 = List(c0, d0).scaleXY(2, 3)
   
   val c1 = Circle(200).fill(Green)
 

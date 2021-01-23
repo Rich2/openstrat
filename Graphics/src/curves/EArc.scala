@@ -86,7 +86,7 @@ trait EArc extends EllipseBased with CurveSeg
 
   /** XY scaling 2D geometric transformation on this EArc returns an EArc.This allows different
    *  scaling factors across X and Y dimensions. */
-  override def xyScale(xOperand: Double, yOperand: Double): EArc = EArc(pStart.xyScale(xOperand, yOperand), cen.xyScale(xOperand, yOperand),
+  override def scaleXY(xOperand: Double, yOperand: Double): EArc = EArc(pStart.xyScale(xOperand, yOperand), cen.xyScale(xOperand, yOperand),
     pAxes1.xyScale(xOperand, yOperand), pAxes4.xyScale(xOperand, yOperand), pEnd.xyScale(xOperand, yOperand), counter)
 
   /** Shear 2D geometric transformation along the X Axis on this EArc returns an EArc. */

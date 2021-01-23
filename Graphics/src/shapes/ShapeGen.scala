@@ -36,7 +36,7 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
 
   /** XY scaling 2D geometric transformation on a ShapeGen returns a Shape. This allows different scaling factors across X and Y dimensions. The return
    * type will be narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): ShapeGen = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): ShapeGen = ???
 
   /** Shear 2D geometric transformation along the X Axis on a Shape, returns a Shape. The return type will be narrowed in sub classes and traits. */
   override def xShear(operand: Double): ShapeGen = ???
@@ -60,7 +60,7 @@ object ShapeGen
   implicit val scaleImplicit: Scale[ShapeGen ] = (obj: ShapeGen , operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGen ] = (obj: ShapeGen , angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[ShapeGen ] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: XYScale[ShapeGen ] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[ShapeGen ] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[ShapeGen ] = (obj, lineLike) => obj.reflect(lineLike)
 
   implicit val transAxesImplicit: TransAxes[ShapeGen ] = new TransAxes[ShapeGen ]

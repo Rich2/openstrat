@@ -30,7 +30,7 @@ trait RectangleFill extends PolygonFill with RectangleGraphicSimple
 
   override def reflect(lineLike: LineLike): RectangleFill = RectangleFill(shape.reflect(lineLike), fill)
 
-  override def xyScale(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.xyScale(xOperand, yOperand), fill)
+  override def scaleXY(xOperand: Double, yOperand: Double): RectangleFill = RectangleFill(shape.scaleXY(xOperand, yOperand), fill)
 }
 
 /** Companion object for RectangleFill, contains an Implementation class [[RectangleFill.RectangleFillImp]] and an apply factor method that delegates

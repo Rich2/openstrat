@@ -32,7 +32,7 @@ trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple
   override def reflect(lineLike: LineLike): RectangleDraw = RectangleDraw(shape.reflect(lineLike), lineWidth, lineColour)
 
   /** Independent X and Y dimension scaling upon a RectangleDraw returns a RectangleDraw. */
-  override def xyScale(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.xyScale(xOperand, yOperand), lineWidth, lineColour)
+  override def scaleXY(xOperand: Double, yOperand: Double): RectangleDraw = RectangleDraw(shape.scaleXY(xOperand, yOperand), lineWidth, lineColour)
 }
 
 /** Companion object for RectangleDraw contains factory method and implementation class. */

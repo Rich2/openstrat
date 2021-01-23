@@ -32,7 +32,7 @@ case class ShapeGenDraw(shape: ShapeGenOld, lineColour: Colour = Black, lineWidt
 
   /** XY scaling 2D geometric transformation on a ShapeGenDraw, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    * The return type will be narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): ShapeGenDraw = ShapeGenDraw(shape.xyScale(xOperand, yOperand), lineColour, lineWidth)
+  override def scaleXY(xOperand: Double, yOperand: Double): ShapeGenDraw = ShapeGenDraw(shape.scaleXY(xOperand, yOperand), lineColour, lineWidth)
 
   /** Shear 2D geometric transformation along the X Axis on a ShapeGenDraw, returns a ShapeGenDraw. The return type will be narrowed in sub classes and
    * traits. */

@@ -55,7 +55,7 @@ object Pt2s extends ProdDbl2sCompanion[Pt2, Pt2s]
   implicit val scaleImplicit: Scale[Pt2s] = (obj: Pt2s, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2s] = (obj: Pt2s, angle: AngleVec) => obj.map(_.rotate(angle))
   implicit val prolignImplicit: Prolign[Pt2s] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: XYScale[Pt2s] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[Pt2s] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[Pt2s] = (obj: Pt2s, lineLike: LineLike) => obj.reflect(lineLike)
 
   implicit val reflectAxesImplicit: TransAxes[Pt2s] = new TransAxes[Pt2s]

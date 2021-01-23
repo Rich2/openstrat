@@ -48,8 +48,8 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def reflect(lineLike: LineLike): PolygonCompound = PolygonCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
-  override def xyScale(xOperand: Double, yOperand: Double): PolygonCompound =
-    PolygonCompound(shape.xyScale(xOperand, yOperand), facets, children.xyScale(xOperand, yOperand))
+  override def scaleXY(xOperand: Double, yOperand: Double): PolygonCompound =
+    PolygonCompound(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand))
 
   override def xShear(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.xShear(operand))
 
@@ -67,7 +67,7 @@ object PolygonCompound
   implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonCompound] = (obj: PolygonCompound, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[PolygonCompound] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: XYScale[PolygonCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[PolygonCompound] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[PolygonCompound] = (obj: PolygonCompound, lineLike: LineLike) => obj.reflect(lineLike)
 
   implicit val reflectAxesImplicit: TransAxes[PolygonCompound] = new TransAxes[PolygonCompound]
@@ -116,7 +116,7 @@ object PolygonCompound
 
     override def reflect(lineLike: LineLike): PolygonCompoundImp = PolygonCompoundImp(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
-    override def xyScale(xOperand: Double, yOperand: Double): PolygonCompoundImp = ???
+    override def scaleXY(xOperand: Double, yOperand: Double): PolygonCompoundImp = ???
 
     override def xShear(operand: Double): PolygonCompoundImp = ???
 

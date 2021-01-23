@@ -46,7 +46,7 @@ trait EArcDraw extends CurveSegDraw with CanvElem
 
   /** XY scaling 2D geometric transformation on a EArcDraw, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    * The return type will be narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): EArcDraw = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): EArcDraw = ???
 
   /** Shear 2D geometric transformation along the X Axis on a EArcDraw, returns a EArcDraw. The return type will be narrowed in sub classes and
    * traits. */

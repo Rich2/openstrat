@@ -43,7 +43,7 @@ trait GraphicElem extends GeomElem
 
   /** XY scaling 2D geometric transformation on a GraphicElem, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    *  The return type will be narrowed in sub classes and traits.*/
-  override def xyScale(xOperand: Double, yOperand: Double): GraphicElem
+  override def scaleXY(xOperand: Double, yOperand: Double): GraphicElem
 
   /** Shear 2D geometric transformation along the X Axis on a GraphicElem, returns a GraphicElem. The return type will be narrowed in sub classes and
    * traits. */
@@ -60,7 +60,7 @@ object GraphicElem
   implicit val slateImplicit: Slate[GraphicElem] = (obj: GraphicElem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[GraphicElem] = (obj: GraphicElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicElem] = (obj: GraphicElem, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: XYScale[GraphicElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[GraphicElem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[GraphicElem] = (obj, matrix) => obj.prolign(matrix)
   implicit val ReflectImplicit: Reflect[GraphicElem] = (obj, lineLike) => obj.reflect(lineLike)
 
@@ -111,7 +111,7 @@ trait CanvElem extends GraphicElem
 
   /** XY scaling 2D geometric transformation on a CanvElem, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    *  The return type will be narrowed in sub classes and traits.*/
-  override def xyScale(xOperand: Double, yOperand: Double): CanvElem
+  override def scaleXY(xOperand: Double, yOperand: Double): CanvElem
 
   /** Shear 2D geometric transformation along the X Axis on a CanvElem, returns a CanvElem. The return type will be narrowed in sub classes and
    * traits. */
@@ -128,7 +128,7 @@ object CanvElem
   implicit val slateImplicit: Slate[CanvElem] = (obj: CanvElem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[CanvElem] = (obj: CanvElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[CanvElem] = (obj: CanvElem, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: XYScale[CanvElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[CanvElem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[CanvElem] = (obj, matrix) => obj.prolign(matrix)
   implicit val ReflectImplicit: Reflect[CanvElem] = (obj, lineLike) => obj.reflect(lineLike)
 

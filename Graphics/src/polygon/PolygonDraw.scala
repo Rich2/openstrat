@@ -34,7 +34,7 @@ trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw
   override def reflect(lineLike: LineLike): PolygonDraw = PolygonDraw(shape.reflect(lineLike), lineWidth, lineColour)
 
   /** Independent X and Y dimension scaling upon a PolygonDraw returns a PolygonDraw. */
-  override def xyScale(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.xyScale(xOperand, yOperand), lineWidth, lineColour)
+  override def scaleXY(xOperand: Double, yOperand: Double): PolygonDraw = PolygonDraw(shape.scaleXY(xOperand, yOperand), lineWidth, lineColour)
   
   /** Shear along the X axis upon a PolygonDraw returns a PolygonDraw. */
   override def xShear(operand: Double): PolygonDraw = PolygonDraw(shape.xShear(operand), lineWidth, lineColour)
@@ -50,7 +50,7 @@ object PolygonDraw
   implicit val slateImplicit: Slate[PolygonDraw] = (obj: PolygonDraw, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[PolygonDraw] = (obj: PolygonDraw, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonDraw] = (obj: PolygonDraw, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: XYScale[PolygonDraw] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[PolygonDraw] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonDraw] = (obj, matrix) => obj.prolign(matrix)
 
   implicit val reflectAxesImplicit: TransAxes[PolygonDraw] = new TransAxes[PolygonDraw]

@@ -261,7 +261,7 @@ object Pt2
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Pt2] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: XYScale[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[Pt2] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[Pt2] = (obj: Pt2, lineLike: LineLike) => obj.reflect(lineLike)
 
   implicit val reflectAxesImplicit: TransAxes[Pt2] = new TransAxes[Pt2]

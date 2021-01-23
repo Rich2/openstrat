@@ -46,9 +46,10 @@ trait GeomElem extends Product with Serializable
    *  traits. */
   def reflect(lineLike: LineLike): GeomElem
 
-  /** XY scaling 2D geometric transformation on a GeomElem. This allows different scaling factors across X and Y dimensions. The return type will be
-   *  narrowed in sub classes and traits. */
-  def xyScale(xOperand: Double, yOperand: Double): GeomElem
+  /** XY scaling 2D geometric transformation on this GeomElem, returns a new [[GeomElem]]. This allows different scaling factors across X and Y
+   *  dimensions. The return type will be narrowed in sub classes and traits. This is an affine transformation but it is not a similar
+   *  transformation. */
+  def scaleXY(xOperand: Double, yOperand: Double): GeomElem
 
   /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. */
   def xShear(operand: Double): GeomElem
@@ -64,7 +65,7 @@ object GeomElem
   implicit val scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GeomElem] = (obj: GeomElem, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[GeomElem] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: XYScale[GeomElem] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[GeomElem] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[GeomElem] = (obj, lineLike) => obj.reflect(lineLike)
 
   implicit val transAxesImplicit: TransAxes[GeomElem] = new TransAxes[GeomElem]

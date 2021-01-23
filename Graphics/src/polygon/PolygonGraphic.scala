@@ -50,7 +50,7 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
 
   override def reflect(lineLike: LineLike): PolygonGraphic
 
-  override def xyScale(xOperand: Double, yOperand: Double): PolygonGraphic
+  override def scaleXY(xOperand: Double, yOperand: Double): PolygonGraphic
 
   override def xShear(operand: Double): PolygonGraphic
 
@@ -63,7 +63,7 @@ object PolygonGraphic
   implicit val slateImplicit: Slate[PolygonGraphic] = (obj: PolygonGraphic, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[PolygonGraphic] = (obj: PolygonGraphic, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[PolygonGraphic] = (obj: PolygonGraphic, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: XYScale[PolygonGraphic] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[PolygonGraphic] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[PolygonGraphic] = (obj, matrix) => obj.prolign(matrix)
 
   implicit val reflectAxesImplicit: TransAxes[PolygonGraphic] = new TransAxes[PolygonGraphic]

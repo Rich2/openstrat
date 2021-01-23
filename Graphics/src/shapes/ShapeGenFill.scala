@@ -31,7 +31,7 @@ final case class ShapeGenFill(shape: ShapeGenOld, colour: Colour) extends CanvEl
 
   /** XY scaling 2D geometric transformation on a ShapeGenFill, returns a GrpahicElem. This allows different scaling factors across X and Y dimensions.
    * The return type will be narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): ShapeGenFill = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): ShapeGenFill = ???
 
   /** Shear 2D geometric transformation along the X Axis on a ShapeGenFill, returns a ShapeGenFill. The return type will be narrowed in sub classes and
    * traits. */

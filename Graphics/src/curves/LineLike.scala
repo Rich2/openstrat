@@ -39,7 +39,7 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
 
   /** XY scaling 2D geometric transformation on a Ray. This allows different scaling factors across X and Y dimensions. The return type will be
    * narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): Ray = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): Ray = ???
 
   /** Shear 2D geometric transformation along the X Axis on a Ray. The return type will be narrowed in sub classes and traits. */
   override def xShear(operand: Double): Ray = ???

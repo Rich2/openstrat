@@ -34,7 +34,7 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
 
   override def reflect(lineLike: LineLike): CircleCompound = ??? //CircleCompound(shape.reflect(lineLike), facets, children.reflect(lineLike))
 
-  override def xyScale(xOperand: Double, yOperand: Double): EllipseCompound = ???
+  override def scaleXY(xOperand: Double, yOperand: Double): EllipseCompound = ???
 
   override def xShear(operand: Double): EllipseCompound = ???
 

@@ -39,7 +39,7 @@ trait Drawable extends GeomElem
 
   /** XY scaling 2D geometric transformation, on this Drawable returns a Drawable. This allows different scaling factors across X and Y dimensions.
    *  The return type will be narrowed in sub classes and traits. */
-  override def xyScale(xOperand: Double, yOperand: Double): Drawable
+  override def scaleXY(xOperand: Double, yOperand: Double): Drawable
 
   /** Shear 2D geometric transformation along the X Axis, on this Drawable returns a Drawable. The return type will be narrowed in sub classes and
    *  traits. */
@@ -55,7 +55,7 @@ object Drawable
   implicit val scaleImplicit: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Drawable] = (obj: Drawable, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Drawable] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: XYScale[Drawable] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[Drawable] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val ReflectImplicit: Reflect[Drawable] = (obj, lineLike) => obj.reflect(lineLike)
 
   implicit val transAxesImplicit: TransAxes[Drawable] = new TransAxes[Drawable]

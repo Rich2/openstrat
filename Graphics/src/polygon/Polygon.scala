@@ -178,7 +178,7 @@ trait Polygon extends Shape with BoundedElem
 
   /** XY scaling 2D geometric transformation on a Polygon returns a Polygon. This allows different scaling factors across X and Y dimensions. The
    *  return type will be narrowed in some, but not all descendant Polygon types. */
-  override def xyScale(xOperand: Double, yOperand: Double): Polygon = polygonMap(_.xyScale(xOperand, yOperand))
+  override def scaleXY(xOperand: Double, yOperand: Double): Polygon = polygonMap(_.xyScale(xOperand, yOperand))
 
   /** Shear 2D geometric transformation along the X Axis on a Polygon, returns a Polygon. The return type will be narrowed in some but not all sub
    *  classes and traits. */
@@ -277,7 +277,7 @@ object Polygon
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Polygon] = (obj: Polygon, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Polygon] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: XYScale[Polygon] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[Polygon] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[Polygon] = (obj: Polygon, lineLike: LineLike) => obj.reflect(lineLike)
 
   implicit val reflectAxesImplicit: TransAxes[Polygon] = new TransAxes[Polygon]

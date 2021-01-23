@@ -19,7 +19,7 @@ trait GraphicBounded extends GraphicElem with BoundedElem
   override def rotate270: GraphicBounded
   def rotate(angle: AngleVec): GraphicBounded
   override def reflect(lineLike: LineLike): GraphicBounded
-  override def xyScale(xOperand: Double, yOperand: Double): GraphicBounded
+  override def scaleXY(xOperand: Double, yOperand: Double): GraphicBounded
 
   override def xShear(operand: Double): GraphicBounded
   override def yShear(operand: Double): GraphicBounded
@@ -31,7 +31,7 @@ object GraphicBounded
   implicit val slateImplicit: Slate[GraphicBounded] = (obj: GraphicBounded, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[GraphicBounded] = (obj: GraphicBounded, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[GraphicBounded] = (obj: GraphicBounded, angle: AngleVec) => obj.rotate(angle)
-  implicit val XYScaleImplicit: XYScale[GraphicBounded] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[GraphicBounded] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
 
   implicit val transAxesImplicit: TransAxes[GraphicBounded] = new TransAxes[GraphicBounded]
   { override def negYT(obj: GraphicBounded): GraphicBounded = obj.negY

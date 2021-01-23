@@ -34,15 +34,15 @@ case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[Gr
 
   override def prolign(matrix: ProlignMatrix): RectCompound = RectCompound(shape.prolign(matrix), facets, children.prolign(matrix))
 
-  override def xyScale(xOperand: Double, yOperand: Double): RectCompound =
-    RectCompound(shape.xyScale(xOperand, yOperand), facets, children.xyScale(xOperand, yOperand) )
+  override def scaleXY(xOperand: Double, yOperand: Double): RectCompound =
+    RectCompound(shape.scaleXY(xOperand, yOperand), facets, children.scaleXY(xOperand, yOperand) )
 }
 
 object RectCompound
 {
   implicit val slateImplicit: Slate[RectCompound] = (obj: RectCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[RectCompound] = (obj: RectCompound, operand: Double) => obj.scale(operand)
-  implicit val XYScaleImplicit: XYScale[RectCompound] = (obj, xOperand, yOperand) => obj.xyScale(xOperand, yOperand)
+  implicit val XYScaleImplicit: ScaleXYT[RectCompound] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val prolignImplicit: Prolign[RectCompound] = (obj, matrix) => obj.prolign(matrix)
 
   implicit val reflectAxesImplicit: TransAxes[RectCompound] = new TransAxes[RectCompound]

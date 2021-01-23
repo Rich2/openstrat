@@ -88,7 +88,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
 
   override def rotate(angle: AngleVec): Rectangle = Rectangle.sd2sd4(sd2Cen.rotate(angle), sd4Cen.rotate(angle), width2)
 
-  override def xyScale(xOperand: Double, yOperand: Double): Rectangle =
+  override def scaleXY(xOperand: Double, yOperand: Double): Rectangle =
     Rectangle.s2s4v1(sd2Cen.xyScale(xOperand, yOperand), sd4Cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
 }
 
