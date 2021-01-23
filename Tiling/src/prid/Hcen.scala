@@ -1,10 +1,10 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
 import geom._
 
 /** A Hex tile centre HexGrid coordinate. */
-class Hcen(val r: Int, val c: Int) extends HCoordReg
+class Hcen(val r: Int, val c: Int) extends HCoordReg// with Show2[Int, Int]
 {
   def v1: HVert = HVert(1, 2)
   def v2: HVert = HVert(-1, 2)

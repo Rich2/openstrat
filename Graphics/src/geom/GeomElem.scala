@@ -46,9 +46,9 @@ trait GeomElem extends Product with Serializable
    *  traits. */
   def reflect(lineLike: LineLike): GeomElem
 
-  /** XY scaling 2D geometric transformation on this GeomElem, returns a new [[GeomElem]]. This allows different scaling factors across X and Y
-   *  dimensions. The return type will be narrowed in sub classes and traits. This is an affine transformation but it is not a similar
-   *  transformation. */
+  /** Scaling X and Y axes independently, 2D geometric transformation on this [[GeomElem]], returns a new [[GeomElem]]. This allows different scaling
+   *  factors across X and Y dimensions. The return type will be narrowed in sub classes and traits. This is an affine transformation but it is not a
+   *  similar transformation. */
   def scaleXY(xOperand: Double, yOperand: Double): GeomElem
 
   /** Shear 2D geometric transformation along the X Axis on a GeomElem. The return type will be narrowed in sub classes and traits. This is an affine
@@ -60,8 +60,7 @@ trait GeomElem extends Product with Serializable
   def shearY(operand: Double): GeomElem
 }
 
-/** Companion object for the [[GeomElem]] trait. Contains implicit instances of type GeomElem for all the 2d geometric transformation type
- *  classes. */
+/** Companion object for the [[GeomElem]] trait. Contains implicit instances of type GeomElem for all the 2d geometric transformation type classes. */
 object GeomElem
 { implicit val slateImplicit: Slate[GeomElem] = (obj: GeomElem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj.scale(operand)
