@@ -12,7 +12,13 @@ object EqT
 {
   implicit val intImplicit: EqT[Int] = (a1, a2) => a1 == a2
 
-  implicit val doubleImplicit: EqT[Double] = (d1, d2) => d1 == d2
+  implicit val doubleImplicit: ApproxT[Double, Double] = new ApproxT[Double, Double] {
+    override def defaultDelta: Double = 1e-12
+    override def approxT(op1: Double, op2: Double, delta: Double): Boolean = ((op1 - op2) <= delta) & ((op1 - op2) >= -delta)
+    override def eqv(a1: Double, a2: Double): Boolean = a1 == a2
+  }
+
+  //implicit val doubleImplicit: EqT[Double] = (d1, d2) => d1 == d2
   /*{ val precision = 1e12
   ((d1 - d2).abs/(d1.abs.max(d2.abs).max(1))) * precision  < 1
   }*/

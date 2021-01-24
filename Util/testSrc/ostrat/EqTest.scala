@@ -16,6 +16,14 @@ object EqTest extends TestSuite
       assert(Array(-2, -68, 45) equ (Array(-2, -68, 45)))
 
     }
+
+    "ApproxTest" -
+    {
+      4.567.approx(4.56, 0.001) ==> false
+      4.567.approx(4.56, 0.01) ==> true
+      4.567.approx(4.56) ==> false
+    }
+
     val o1: Option[Int] = Some(-56)
     val o2: Option[Int] = Some(-56)
 

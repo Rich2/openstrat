@@ -258,6 +258,15 @@ package object ostrat
     def nequ(operand: T): Boolean = !equ(operand)
   }
 
+  /** Extension methods for approximation type class. */
+  implicit class ApproxImplicitClass[D, T](thisT: T)(implicit ev: ApproxT[D, T])
+  { /** tests if operand is approximately equal. */
+    def approx(operand: T, delta: D = ev.defaultDelta): Boolean = ev.approxT(thisT, operand, delta)
+
+    /** tests if operand is approximately not equal. */
+    def napprox(operand: T, delta: D = ev.defaultDelta): Boolean = !ev.approxT(thisT, operand, delta)
+  }
+
   /** Needs Changing. */
   implicit class RefBufferExtensions[A <: AnyRef](thisBuff: Buff[A])
   { @inline def toArr(implicit ct: ClassTag[A]): Arr[A] = new Arr[A](thisBuff.toArray[A])
