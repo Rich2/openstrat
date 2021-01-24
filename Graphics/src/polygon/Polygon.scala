@@ -265,7 +265,7 @@ object Polygon
 {
   def apply(v1: Pt2, v2: Pt2, v3: Pt2, tail: Pt2 *): Polygon = PolygonImp(v1, v2, v3, tail: _*)
 
-  implicit val eqImplicit: Eq[Polygon] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.ptsArray, p2.ptsArray)
+  implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqv(p1.ptsArray, p2.ptsArray)
 
   //  ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
  // implicit val persistImplicit: Persist[Polygon] = ???

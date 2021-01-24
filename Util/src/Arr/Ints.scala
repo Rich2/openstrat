@@ -49,7 +49,7 @@ object Ints
 
   implicit val showImplicit: ShowT[Ints] = ArrayLikeShow[Int, Ints](ShowT.intPersistImplicit)
 
-  implicit val EqImplicit: Eq[Ints] = (a1, a2) =>
+  implicit val EqImplicit: EqT[Ints] = (a1, a2) =>
     if(a1.elemsLen != a2.elemsLen) false
     else
     { var count = 0

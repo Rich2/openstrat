@@ -54,7 +54,7 @@ object SideOldBare
 case class TileRow[T <: AnyRef](yRow: Int, xStart: Int, yStart: Int, values: Arr[Multiple[T]])
 
 object TileRow {
-  implicit def eqImplicit[T <: AnyRef](implicit ev: Eq[T]): Eq[TileRow[T]] = ??? //EqCase3(_.yRow, _.xStart, _.values)
+  implicit def eqImplicit[T <: AnyRef](implicit ev: EqT[T]): EqT[TileRow[T]] = ??? //EqCase3(_.yRow, _.xStart, _.values)
 
   implicit def persistImplicit[T <: AnyRef](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]] {
     def strT(obj: TileRow[T]): String = (deb.str -:- "This is a placeholder for TileRow").enquote

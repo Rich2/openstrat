@@ -8,8 +8,8 @@ package object ostrat
   type Buff[A] = ArrayBuffer[A]
   type ERefs[A <: AnyRef] = EMon[Arr[A]]
   type RefsMulti[A <: AnyRef] = Arr[Multiple[A]]
-  type PersistEq[A] = Persist[A] with Eq[A]
-  type ShowEq[A] = ShowT[A] with Eq[A]
+  type PersistEq[A] = Persist[A] with EqT[A]
+  type ShowEq[A] = ShowT[A] with EqT[A]
   type AnyRefs = Arr[AnyRef]
   //type Strings = Arr[String]
   type Not[T] = { type L[U] = U NotSubTypeOf T }
@@ -253,7 +253,7 @@ package object ostrat
     def f2[B](f: (A1, A2) => B): B = f(thisTuple._1, thisTuple._2)
   }
 
-  implicit class EqerImplicit[T](thisT: T)(implicit ev: Eq[T])
+  implicit class EqerImplicit[T](thisT: T)(implicit ev: EqT[T])
   { def equ(operand: T): Boolean = ev.eqv(thisT, operand)
     def nequ(operand: T): Boolean = !equ(operand)
   }

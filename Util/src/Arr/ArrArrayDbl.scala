@@ -21,7 +21,7 @@ trait ArrArrayDblBuild[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends ArrBu
   override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuff.addAll(arr.array); () }
 }
 
-class ArrArrayDblEq[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends Eq[ArrT]
+class ArrArrayDblEq[A <: ArrayDblBased, ArrT <: ArrArrayDbl[A]] extends EqT[ArrT]
 {
   override def eqv(a1: ArrT, a2: ArrT): Boolean = if (a1.elemsLen != a2.elemsLen) false
     else a1.iForAll((el1, i) =>  el1.arrayUnsafe equ a2(i).arrayUnsafe)

@@ -15,7 +15,7 @@ object WTile
   }
 
   /** This is not correct, but put in as temporary measure. */
-  implicit val eqImplicit: Eq[WTile] = (a1, a2) => a1 == a2
+  implicit val eqImplicit: EqT[WTile] = (a1, a2) => a1 == a2
 
   implicit val persistImplicit: Persist[WTile] = new PersistSimple[WTile]("Terrain")
   {

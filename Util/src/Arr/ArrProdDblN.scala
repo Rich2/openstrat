@@ -59,7 +59,7 @@ trait ProdDblNsCompanion[T,  ST <: ArrProdDblN[T]]
 }
 
 /** Persists and assists in building ArrProdDblN */
-abstract class ArrProdDblNPersist[A, M <: ArrProdDblN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr) with Eq[M]
+abstract class ArrProdDblNPersist[A, M <: ArrProdDblN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

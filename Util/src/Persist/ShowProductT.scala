@@ -20,7 +20,7 @@ trait ShowProductT[R] extends ShowCompoundT[R]
 
 /** Show type class for 2 parameter case classes. */
 class Show2T[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, val opt2: Option[A2] = None,
-  opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], eq1: Eq[A1], eq2: Eq[A2]) extends EqCase2[A1, A2, R](fArg1, fArg2) with
+  opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], eq1: EqT[A1], eq2: EqT[A2]) extends Eq2T[A1, A2, R](fArg1, fArg2) with
   ShowProductT[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -35,7 +35,7 @@ class Show2T[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name
 /** Show type class for 3 parameter case classes. */
 class Show3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3],
-  eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3]) extends EqCase3[A1, A2, A3, R](fArg1, fArg2, fArg3) with ShowProductT[R]
+                                                                                     eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends Eq3T[A1, A2, A3, R](fArg1, fArg2, fArg3) with ShowProductT[R]
 {
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -121,7 +121,7 @@ object Show6T
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, name6: String, fArg6: R => A6, opt6: Option[A6] = None, opt5: Option[A5] = None,
     opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
                                                                                                         ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6],
-                                                                                                        eq1: Eq[A1], eq2: Eq[A2], eq3: Eq[A3], eq4: Eq[A4], eq5: Eq[A5], eq6: Eq[A6]) =
+                                                                                                        eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3], eq4: EqT[A4], eq5: EqT[A5], eq6: EqT[A6]) =
     new Show6T[A1, A2, A3, A4, A5, A6, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6,
     opt6, opt5, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4, ev5, ev6)
 }

@@ -108,7 +108,7 @@ object PolygonImp
     res
   }
 
-  implicit val eqImplicit: Eq[PolygonImp] = (p1, p2) => Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
+  implicit val eqImplicit: EqT[PolygonImp] = (p1, p2) => EqT.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
 
   implicit val persistImplicit: ArrProdDbl2Persist[Pt2, PolygonImp] = new ArrProdDbl2Persist[Pt2, PolygonImp]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonImp = new PolygonImp(value)

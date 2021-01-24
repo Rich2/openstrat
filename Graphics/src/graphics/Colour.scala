@@ -94,7 +94,7 @@ trait WithColour extends AnyRef
 
 object Colour
 {
-  implicit val eqImplicit: Eq[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
+  implicit val eqImplicit: EqT[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
 
   implicit val persistImplicit: Persist[Colour] = new PersistSimple[Colour]("Colour")
   {
