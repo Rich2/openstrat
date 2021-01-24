@@ -124,6 +124,6 @@ object LatLong
    *  degree, where southern and western values are negative. */
   def milliSecs(lat: Double, long: Double): LatLong = new LatLong(lat, long)
 
-  implicit val persistImplict: PersistEq[LatLong] =
-    new Persist2Dbls[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
+  implicit val persistImplict: Persist[LatLong] = new Persist2Dbls[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
+  implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_._1, _._2)
 }

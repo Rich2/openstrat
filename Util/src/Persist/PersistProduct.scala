@@ -17,14 +17,14 @@ trait PersistProduct[R] extends ShowProductT[R] with PersistCompound[R]
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
 class Persist2[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, val newT: (A1, A2) => R,
-  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]) extends
-  Show2T[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1) with PersistProduct[R]
+  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2T[A1, A2, R](typeStr, name1, fArg1,
+  name2, fArg2, opt2, opt1) with PersistProduct[R]
 
 /** Factory object for Persist product 2 type class */
 object Persist2
 { def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist2[A1, A2, R] =
-    new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2, eq1, eq2)
+    new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
 }
 
 /** Persistence class for case classes consisting of 2 Int parameters. */

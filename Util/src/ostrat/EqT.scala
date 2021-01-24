@@ -64,12 +64,27 @@ class Eq1T[A1, R](val fArg1: R => A1)(implicit eq1: EqT[A1]) extends EqT[R]
 }
 
 /** Equality type class trait for Product 2. */
-class Eq2T[A1, A2, R](val fArg1: R => A1, val fArg2: R => A2)(implicit eq1: EqT[A1], eq2: EqT[A2]) extends EqT[R]
-{ override def eqv(r1: R, r2: R): Boolean = eq1.eqv(fArg1(r1), fArg1(r2)) & eq2.eqv(fArg2(r1), fArg2(r2))
+trait Eq2T[A1, A2, R] extends EqT[R]
+{ def fArg1: R => A1
+  def fArg2: R => A2
+  implicit def eq1: EqT[A1]
+  implicit def eq2: EqT[A2]
+  override def eqv(r1: R, r2: R): Boolean = eq1.eqv(fArg1(r1), fArg1(r2)) & eq2.eqv(fArg2(r1), fArg2(r2))
 }
 
 object Eq2T
-{ def apply[A1, A2, R](fArg1: R => A1, fArg2: R => A2)(implicit eq1: EqT[A1], eq2: EqT[A2]): Eq2T[A1, A2, R] = new Eq2T(fArg1, fArg2)
+{
+  def apply[A1, A2, R](fArg1In: R => A1, fArg2In: R => A2)(implicit eq1In: EqT[A1], eq2In: EqT[A2]): Eq2T[A1, A2, R] = new Eq2T[A1, A2, R]
+  { override def fArg1: R => A1 = fArg1In
+    override def fArg2: R => A2 = fArg2In
+    override implicit def eq1: EqT[A1] = eq1In
+    override implicit def eq2: EqT[A2] = eq2In
+  }
+}
+
+case class Eq2DblsT[R](fArg1: R => Double, fArg2: R => Double) extends Eq2T[Double, Double, R]
+{ override implicit def eq1: EqT[Double] = EqT.doubleImplicit
+  override implicit def eq2: EqT[Double] = EqT.doubleImplicit
 }
 
 /** Equality type class trait for Product 3. */
