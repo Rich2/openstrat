@@ -4,7 +4,7 @@ package geom
 import Colour._, collection.mutable.ArrayBuffer
 
 /** Specialist Array[Int] based class for [[Colour]]s. */
-final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with Int1Arr[Colour]
+final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with Int1sArr[Colour]
 { type ThisT = Colours
   override def unsafeFromArray(array: Array[Int]): Colours = new Colours(array)
   override def typeStr: String = "Colours"

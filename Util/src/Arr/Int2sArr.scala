@@ -1,15 +1,14 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 2 [[Int]]s. These are used in [[Int2Arr]] Array[Int] based collections. */
+/** An object that can be constructed from 2 [[Int]]s. These are used in [[Int2sArr]] Array[Int] based collections. */
 trait Int2Elem extends Any with ValueNElem
 { def int1: Int
   def int2: Int
 }
 
-/** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
-trait Int2Arr[A <: Int2Elem] extends Any with IntNArr[A]
+/** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */
+trait Int2sArr[A <: Int2Elem] extends Any with IntNArr[A]
 {
   override def productSize: Int = 2
   def newElem(i1: Int, i2: Int): A
@@ -22,7 +21,7 @@ trait Int2Arr[A <: Int2Elem] extends Any with IntNArr[A]
 }
 
 /** A builder class for specialised collections of [[Int2Elem]]s. */
-trait Int2sBuilder[A <: Int2Elem, ArrT <: Int2Arr[A]] extends IntNBuilder[A, ArrT]
+trait Int2sBuilder[A <: Int2Elem, ArrT <: Int2sArr[A]] extends IntNBuilder[A, ArrT]
 { type BuffT <: Int2sBuff[A, ArrT]
 
   final override def elemSize: Int = 2
@@ -35,15 +34,16 @@ trait Int2sBuilder[A <: Int2Elem, ArrT <: Int2Arr[A]] extends IntNBuilder[A, Arr
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
-trait Int2sBuff[A <: Int2Elem, M <: Int2Arr[A]] extends Any with BuffProdIntN[A]
-{ type ArrT <: Int2Arr[A]
+trait Int2sBuff[A <: Int2Elem, M <: Int2sArr[A]] extends Any with BuffProdIntN[A]
+{ type ArrT <: Int2sArr[A]
   override def elemSize: Int = 2
   override def grow(newElem: A): Unit = { buffer.append(newElem.int1).append(newElem.int2); () }
   def intsToT(i1: Int, i2: Int): A
   def apply(index: Int): A = intsToT(buffer(index * 2), buffer(index * 2 + 1))
 }
 
-abstract class ProductI2sCompanion[A <: Int2Elem, M <: Int2Arr[A]] extends ProductIntsCompanion[M]
+/** Helper class for companion objects of final Int2sArr classes. */
+abstract class Int2sArrCompanion[A <: Int2Elem, M <: Int2sArr[A]] extends IntNArrCompanion[M]
 {
   implicit val factory: Int => M = i => fromArray(new Array[Int](i * 2))
   def buff(initialSize: Int): Int2sBuff[A, M]
@@ -52,24 +52,13 @@ abstract class ProductI2sCompanion[A <: Int2Elem, M <: Int2Arr[A]] extends Produ
   { val arrLen: Int = elems.length * 2
     val res = factory(elems.length)
     var count: Int = 0
+
     while (count < arrLen)
-    {
-      res.arrayUnsafe(count) = elems(count / 2).int1
+    { res.arrayUnsafe(count) = elems(count / 2).int1
       count += 1
       res.arrayUnsafe(count) = elems(count / 2).int2
       count += 1
     }
     res
   }
-}
-
-/**  Class to persist specialised flat Array[Int] based collections of [[Int2Elem]]s. */
-abstract class Int2sArrPersist[A <: Int2Elem, M <: Int2Arr[A]](typeStr: String) extends IntNArrPersist[A, M](typeStr)
-{
-  override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
-  { buf += value.int1
-    buf += value.int2
-  }
-
-  override def syntaxDepthT(obj: M): Int = 3
 }

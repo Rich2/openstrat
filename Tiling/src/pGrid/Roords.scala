@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 
 /** An array[Int] based collection for Roord. */
-class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with Int2Arr[Roord]
+class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[Roord]
 { type ThisT = Roords
   override def fElemStr: Roord => String = _.str
   override def unsafeFromArray(array: Array[Int]): Roords = new Roords(array)
@@ -40,7 +40,7 @@ class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with Int2Arr[Roord]
   }*/
 }
 
-object Roords extends ProductI2sCompanion[Roord, Roords]
+object Roords extends Int2sArrCompanion[Roord, Roords]
 {
   override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Roords = new Roords(array)

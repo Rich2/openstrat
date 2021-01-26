@@ -1,14 +1,14 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from a single [[Int]]. These are used in [[Int1Arr]] Array[Int] based collections. */
+/** An object that can be constructed from a single [[Int]]. These are used in [[Int1sArr]] Array[Int] based collections. */
 trait Int1Elem extends Any
 { def intValue: Int
   @inline def int1 : Int = intValue
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
-trait Int1Arr[A <: Int1Elem] extends Any with IntNArr[A]
+trait Int1sArr[A <: Int1Elem] extends Any with IntNArr[A]
 {
   final override def productSize: Int = 1
   def newElem(intValue: Int): A
@@ -42,7 +42,7 @@ trait Int1Arr[A <: Int1Elem] extends Any with IntNArr[A]
 }
 
 /** A builder class for specialised collections of [[Int1Elem]]s. */
-trait Int1sBuilder[A <: Int1Elem, ArrT <: Int1Arr[A]] extends IntNBuilder[A, ArrT]
+trait Int1sBuilder[A <: Int1Elem, ArrT <: Int1sArr[A]] extends IntNBuilder[A, ArrT]
 { type BuffT <: Int1sBuff[A, ArrT]
 
   final override def elemSize: Int = 1
@@ -52,8 +52,8 @@ trait Int1sBuilder[A <: Int1Elem, ArrT <: Int1Arr[A]] extends IntNBuilder[A, Arr
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
-trait Int1sBuff[A <: Int1Elem, M <: Int1Arr[A]] extends Any with BuffProdIntN[A]
-{ type ArrT <: Int1Arr[A]
+trait Int1sBuff[A <: Int1Elem, M <: Int1sArr[A]] extends Any with BuffProdIntN[A]
+{ type ArrT <: Int1sArr[A]
   def intToT(value: Int): A
   def apply(i1: Int): A = intToT(buffer(i1))
   override def elemSize: Int = 1

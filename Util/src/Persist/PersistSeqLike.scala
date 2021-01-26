@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse._, collection.mutable.ArrayBuffer
 
 object AlphaSquareParenth
 {
@@ -36,15 +36,16 @@ abstract class PersistIterable[A, R <: Iterable[A]](ev: Persist[A]) extends Pers
 trait ShowIterable[A, R <: Iterable[A]] extends ShowSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepthT(el)))
-  /*def showSemi(thisIter: R): String = thisIter.map(evA.showComma(_)).semiFold
-  override def showComma(thisIter: R): String = ife (thisIter.size == 1, evA.strT(thisIter.head) + ",", thisIter.map((obj: A) => evA.strT(obj)).commaFold)*/
 
   final override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = way match
   {
-    case Show.Commas if obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepthT(el))) == 1 => obj.map(el => evA.showT(el, Show.Standard, decimalPlaces)).commaFold
-    case Show.Semis if obj.foldLeft(1)((acc, el) => acc.max(evA.syntaxDepthT(el))) <= 2 => obj.map(el => evA.showT(el, Show.Commas, decimalPlaces)).semiFold
-    case _ => typeStr + obj.map(el => evA.showT(el, Show.Semis, decimalPlaces)).semiFold.enParenth
+    case Show.Commas if obj.foldLeft[Int](1)((acc: Int, el: A) =>
+      acc.max(evA.syntaxDepthT(el))) == 1 => obj.map(el => evA.showT(el, Show.Standard, decimalPlaces)).commaFold
 
+    case Show.Semis if obj.foldLeft(1)((acc, el) =>
+      acc.max(evA.syntaxDepthT(el))) <= 2 => obj.map(el => evA.showT(el, Show.Commas, decimalPlaces)).semiFold
+
+    case _ => typeStr + obj.map(el => evA.showT(el, Show.Semis, decimalPlaces)).semiFold.enParenth
   }
 }
 
@@ -55,26 +56,29 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowSeqLike[A, R]
     case h :: tail => Good[::[A]](::(h, tail))
     case Nil => bad1(TextSpan.empty, "Empty List can not be parsed into Cons.")
   }
- // override def fromParameterStatements(sts: Refs[Statement]): EMon[::[A]] = ???
- // override def fromClauses(clauses: Refs[Clause]): EMon[::[A]] = ???
 }*/
  
 /*class PersistNilImplicit[A](ev: Persist[A]) extends PersistSeqLike[A, Nil.type](ev)
 {
-  override def showSemi(thisSeq: Nil.type): String = ""
-  override def showComma(thisSeq: Nil.type): String = ""
- 
   override def fromExpr(expr: Expr): EMon[Nil.type] = fromExprLike(expr).flatMap[Nil.type]
   { case h :: tail => bad1[Nil.type](TextSpan.empty, "Non empty List can not be parsed into Nil.")
     case Nil => Good[Nil.type](Nil) 
   }
- // override def fromParameterStatements(sts: Refs[Statement]): EMon[Nil.type] = ???
- // override def fromClauses(clauses: Refs[Clause]): EMon[Nil.type] = ???
 }*/
 
 class PersistSeqImplicit[A](ev: Persist[A]) extends PersistIterable[A, Seq[A]](ev)
 {
   override def fromExpr(expr: Expr): EMon[Seq[A]] = fromExprLike(expr)
- // override def fromParameterStatements(sts: Refs[Statement]): EMon[Seq[A]] = ???
-  //override def fromClauses(clauses: Refs[Clause]): EMon[Seq[A]] = ???
+}
+
+
+/**  Class to persist specialised flat Array[Int] based collections of [[Int2Elem]]s. */
+abstract class Int2sArrPersist[A <: Int2Elem, M <: Int2sArr[A]](typeStr: String) extends IntNArrPersist[A, M](typeStr)
+{
+  override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
+  { buf += value.int1
+    buf += value.int2
+  }
+
+  override def syntaxDepthT(obj: M): Int = 3
 }

@@ -56,8 +56,8 @@ trait ValueNArr[A] extends Any with ArrImut[A]
 }
 
 /** ArrProdHomoBuild[B, BB] is a type class for the building of efficient compact Immutable Arrays of homogeneous Product elements. Instances for
- *  this typeclass for classes / traits you control should go in the companion object of B not the companion object of not BB. This is different from
- *  the related ArrProdHomoBinder[BB] typeclass where instance should go into the BB companion object.The Implicit instances that inherit from this
+ *  this type class for classes / traits you control should go in the companion object of B not the companion object of not BB. This is different from
+ *  the related ArrProdHomoBinder[BB] type class where instance should go into the BB companion object.The Implicit instances that inherit from this
  *  trait will normally go in the companion object of type B, not the companion object of ArrT. */
 trait ArrProdValueNBuild[B, ArrT <: ValueNArr[B]] extends ArrTBuilder[B, ArrT] with ArrTFlatBuilder[ArrT]
 { def elemSize: Int
@@ -71,7 +71,7 @@ trait BuffProdValueN[A] extends Any with ArrayLike[A]
   def toArr(implicit build: ArrTBuilder[A, ArrT]): ArrT = ???
 }
 
-/** Class to Persist specialised flat Array[]Value type based collections. */
+/** Class to Persist specialised flat Array[Value] type based collections. */
 abstract class ArrProdHomoPersist[A, M](val typeStr: String) extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT

@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -35,7 +35,7 @@ trait DistCurveSegLike
 /** Needs removing. A curve segment tail described in distance units rather than scalars. A DistCurveSeg without its starting point which will
  *  normally be supplied by the preceding DistCurveTail. */
 class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double,
-                    val xEndMetres: Double, val yEndMetres: Double) extends ProdDbl7 with DistCurveSegLike
+                    val xEndMetres: Double, val yEndMetres: Double) extends Dbl7Elem with DistCurveSegLike
 { 
   def toCurveSeg(f: Metres2 => Pt2): CurveTail = xC1Metres match
   {
@@ -57,14 +57,14 @@ class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Do
       new CurveTail(12, c1Vec.x, c1Vec.y, cenVec.x, cenVec.y, endVec.x, endVec.y)
     }
   }
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveTail]
-  @inline override def _1 = iMatch
-  @inline override def _2 = xC1Metres
-  @inline override def _3 = yC1Metres
-  @inline override def _4 = xUsesMetres
-  @inline override def _5 = yUsesMetres
-  @inline override def _6 = xEndMetres
-  @inline override def _7 = yEndMetres
+  //override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveTail]
+  @inline override def dbl1 = iMatch
+  @inline override def dbl2 = xC1Metres
+  @inline override def dbl3 = yC1Metres
+  @inline override def dbl4 = xUsesMetres
+  @inline override def dbl5 = yUsesMetres
+  @inline override def dbl6 = xEndMetres
+  @inline override def dbl7 = yEndMetres
 }
 
 /** To be removed. */

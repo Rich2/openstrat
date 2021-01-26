@@ -22,7 +22,7 @@ object CoodLine
 }
 
 /** An Array[Int] based collection for CoodLines. */
-class CoodLines(val arrayUnsafe: Array[Int]) extends AnyVal with Int4Arr[CoodLine]
+class CoodLines(val arrayUnsafe: Array[Int]) extends AnyVal with Int4sArr[CoodLine]
 { type ThisT = CoodLines
   override def fElemStr: CoodLine => String = _.toString
   override def unsafeFromArray(array: Array[Int]): CoodLines = new CoodLines(array)
@@ -37,7 +37,7 @@ class CoodLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int4s
   override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = new CoodLine(i1, i2, i3, i4)
 }
 
-object CoodLines extends Int4sCompanion[CoodLine, CoodLines]
+object CoodLines extends Int4sArrCompanion[CoodLine, CoodLines]
 { implicit val factory: Int => CoodLines = i => new CoodLines(new Array[Int](i * 4))
   override def buff(initialSize: Int): CoodLinesBuff = new CoodLinesBuff(buffInt(initialSize * 4))
 

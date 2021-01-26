@@ -46,7 +46,8 @@ abstract class IntNArrPersist[A, M <: IntNArr[A]](typeStr: String) extends ArrPr
   override def newBuffer: Buff[Int] = Buff[Int](0)
 }
 
-trait ProductIntsCompanion[M]
+/** Helper trait for Companion objects of IntNArr classes. */
+trait IntNArrCompanion[M]
 { def fromBuffer(buff: Buff[Int]): M = fromArray(buff.toArray[Int])
   val factory: Int => M
   def fromArray(array: Array[Int]): M

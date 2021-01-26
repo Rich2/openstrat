@@ -23,7 +23,7 @@ object RoordLine
 }
 
 /** An Array[Int] based collection for RoordLines. */
-class RoordLines(val arrayUnsafe: Array[Int]) extends AnyVal with Int4Arr[RoordLine]
+class RoordLines(val arrayUnsafe: Array[Int]) extends AnyVal with Int4sArr[RoordLine]
 { type ThisT = RoordLines
   override def fElemStr: RoordLine => String = _.toString
   override def unsafeFromArray(array: Array[Int]): RoordLines = new RoordLines(array)
@@ -38,7 +38,7 @@ class RoordLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int4
   override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): RoordLine = new RoordLine(i1, i2, i3, i4)
 }
 
-object RoordLines extends Int4sCompanion[RoordLine, RoordLines]
+object RoordLines extends Int4sArrCompanion[RoordLine, RoordLines]
 { implicit val factory: Int => RoordLines = i => new RoordLines(new Array[Int](i * 4))
   override def buff(initialSize: Int): RoordLinesBuff = new RoordLinesBuff(buffInt(initialSize * 4))
 

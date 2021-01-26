@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 
 /** An array[Int] based collection for Cood. To be replaced by [[Roords]]. */
-class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with Int2Arr[Cood]
+class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[Cood]
 { type ThisT = Coods
   override def fElemStr: Cood => String = _.str
   override def unsafeFromArray(array: Array[Int]): Coods = new Coods(array)
@@ -40,7 +40,7 @@ class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with Int2Arr[Cood]
   }
 }
 
-object Coods extends ProductI2sCompanion[Cood, Coods]
+object Coods extends Int2sArrCompanion[Cood, Coods]
 {
   override def buff(initialSize: Int): CoodBuff = new CoodBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Coods = new Coods(array)

@@ -41,7 +41,7 @@ object HVert
 }
 
 /** An array[Int] based collection for HVert. */
-class HVerts(val arrayUnsafe: Array[Int]) extends AnyVal with Int2Arr[HVert]
+class HVerts(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[HVert]
 { type ThisT = HVerts
   override def fElemStr: HVert => String = _.str
   override def unsafeFromArray(array: Array[Int]): HVerts = new HVerts(array)
@@ -78,7 +78,7 @@ class HVerts(val arrayUnsafe: Array[Int]) extends AnyVal with Int2Arr[HVert]
   }*/
 }
 
-object HVerts extends ProductI2sCompanion[HVert, HVerts]
+object HVerts extends Int2sArrCompanion[HVert, HVerts]
 {
   override def buff(initialSize: Int): HVertBuff = new HVertBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): HVerts = new HVerts(array)

@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 4 [[Int]]s. These are used in [[Int4Arr]] Array[Int] based collections. */
+/** An object that can be constructed from 4 [[Int]]s. These are used in [[Int4sArr]] Array[Int] based collections. */
 trait Int4Elem extends Any with ValueNElem
 { def int1: Int
   def int2: Int
@@ -11,7 +11,7 @@ trait Int4Elem extends Any with ValueNElem
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
-trait Int4Arr[A <: Int4Elem] extends Any with IntNArr[A]
+trait Int4sArr[A <: Int4Elem] extends Any with IntNArr[A]
 {
   override def productSize: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
@@ -30,15 +30,15 @@ trait Int4Arr[A <: Int4Elem] extends Any with IntNArr[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */
-trait Int4sBuff[A <: Int4Elem, M <: Int4Arr[A]] extends Any with BuffProdIntN[A]
+trait Int4sBuff[A <: Int4Elem, M <: Int4sArr[A]] extends Any with BuffProdIntN[A]
 { override def elemSize: Int = 4
   override def grow(newElem: A): Unit = { buffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
   def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
   def apply(index: Int): A = intsToT(buffer(index * 4), buffer(index * 4 + 1), buffer(index * 4 + 2), buffer(index * 4 + 3))
 }
 
-/** Class for the companion objects of [[Int4Arr]] final classes to extend. */
-abstract class Int4sCompanion[A <: Int4Elem, M <: Int4Arr[A]]
+/** Class for the companion objects of [[Int4sArr]] final classes to extend. */
+abstract class Int4sArrCompanion[A <: Int4Elem, M <: Int4sArr[A]]
 { val factory: Int => M
   def buff(initialSize: Int): Int4sBuff[A, M]
 
@@ -62,7 +62,7 @@ abstract class Int4sCompanion[A <: Int4Elem, M <: Int4Arr[A]]
 }
 
 /** A builder class for specialised collections of [[Int4Elem]]s. */
-abstract class Int4sBuilder[A <: Int4Elem, M <: Int4Arr[A]](typeStr: String) extends IntNArrPersist[A, M](typeStr)
+abstract class Int4sBuilder[A <: Int4Elem, M <: Int4sArr[A]](typeStr: String) extends IntNArrPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value.int1

@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -6,16 +6,16 @@ package geom
  *  It takes its start point from the pEnd of the previous segment. There is no CurveSeg companion object as the LineSeg, ArcSeg and BezierSeg all
  *  have their own factory object apply methods. */
 case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val xUses: Double, val yUses: Double, val xEnd: Double,
-                     val yEnd: Double) extends ProdDbl7 /*with CurveTailLike*/ with AffinePreserve
+                     val yEnd: Double) extends Dbl7Elem /*with CurveTailLike*/ with AffinePreserve
 { override type ThisT = CurveTail
   override def canEqual(other: Any): Boolean = other.isInstanceOf[CurveTail]
-  @inline override def _1 = iMatch
-  @inline override def _2 = xC1
-  @inline override def _3 = yC1
-  @inline override def _4 = xUses
-  @inline override def _5 = yUses
-  @inline override def _6 = xEnd
-  @inline override def _7 = yEnd
+  @inline override def dbl1 = iMatch
+  @inline override def dbl2 = xC1
+  @inline override def dbl3 = yC1
+  @inline override def dbl4 = xUses
+  @inline override def dbl5 = yUses
+  @inline override def dbl6 = xEnd
+  @inline override def dbl7 = yEnd
 
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
   def pEnd: Pt2 = xEnd pp yEnd
