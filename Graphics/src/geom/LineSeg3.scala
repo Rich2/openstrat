@@ -3,9 +3,10 @@ package ostrat
 package geom
 
 /** A 3 dimensional line segment. A straight line between two points in a 3d space. */
-case class LineSeg3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double) extends Dbl6Elem
+final class LineSeg3(val xStart: Double, val yStart: Double, val zStart: Double, val xEnd: Double, val yEnd: Double, val zEnd: Double) extends
+  Dbl6Elem //with Product2[Pt3]
 { def typeStr: String = "Line3" 
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[LineSeg3]
+  //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineSeg3]
   override def dbl1: Double = xStart
   override def dbl2 = yStart
   override def dbl3 = zStart
@@ -21,8 +22,11 @@ case class LineSeg3(xStart: Double, yStart: Double, zStart: Double, xEnd: Double
    //def toLatLongLine(f: Vec2 => LatLong): LatLongLine = LatLongLine(f(pt1), f(pt2))
 }
 
-/** Companion object for LineSeg3 contains factory apply method. */
+/** Companion object for LineSeg3 contains factory apply methods. */
 object LineSeg3
 {
-   def apply(pStart: Pt3, pEnd: Pt3): LineSeg3 = new LineSeg3(pStart.x, pStart.y, pStart.z, pEnd.x, pEnd.y, pEnd.z)
+  def apply(pStart: Pt3, pEnd: Pt3): LineSeg3 = new LineSeg3(pStart.x, pStart.y, pStart.z, pEnd.x, pEnd.y, pEnd.z)
+
+  def apply(xStart: Double, yStart: Double, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double): LineSeg3 =
+    new LineSeg3(xStart, yStart, zStart: Double, xEnd: Double, yEnd: Double, zEnd: Double)
 }

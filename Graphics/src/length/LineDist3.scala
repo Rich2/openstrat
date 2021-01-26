@@ -1,10 +1,10 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
 /** 3 dimensional line segment measured in metres. A straight line between two points in 3d. */
-class LineDist3(xStartMetres: Double, yStartMetres: Double, zStartMetres: Double,
-    xEndMetres: Double, yEndMetres: Double, zEndMetres: Double) extends Dbl6Elem //with Stringer
+class LineDist3(xStartMetres: Double, yStartMetres: Double, zStartMetres: Double, xEndMetres: Double, yEndMetres: Double, zEndMetres: Double) extends
+  Dbl6Elem
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
   def pStart: Metres3 = new Metres3(xStartMetres, yStartMetres, zStartMetres)
@@ -26,6 +26,7 @@ class LineDist3(xStartMetres: Double, yStartMetres: Double, zStartMetres: Double
   def toXY: LineSegDist = new LineSegDist(xStartMetres, yStartMetres, xEndMetres, yEndMetres)
 }
 
+/** Com[anion object for LineDist3 contains apply factory method. */
 object LineDist3
 {
    def apply(pStart: Metres3, pEnd: Metres3): LineDist3 = new LineDist3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
