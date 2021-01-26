@@ -21,14 +21,14 @@ trait Polygon extends Shape with BoundedElem
   /** Foreach vertex excluding vertex 1, perform the side effecting function on the Tuple2 of the x and y values of the vertex. */
   def foreachPairTail[U](f: (Double, Double) => U): Unit
 
-  def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
+  def vertsMap[A, ArrT <: ArrImut[A]](f: Pt2 => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
   { val acc = build.newBuff()
     foreachVert{ v => build.buffGrow(acc, f(v)) }
     build.buffToArr(acc)
   }
 
   /** flatMap with index to an immutable Arr. */
-  def vertsIFlatMap[BB <: ArrBase[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: ArrTFlatBuilder[BB]): BB =
+  def vertsIFlatMap[BB <: ArrImut[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: ArrTFlatBuilder[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = iInit
     foreachVert { v =>
@@ -66,7 +66,7 @@ trait Polygon extends Shape with BoundedElem
   }
 
   /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesMap[A, AA <: ArrBase[A]](f: LineSeg => A)(implicit build: ArrTBuilder[A, AA]): AA =
+  def sidesMap[A, AA <: ArrImut[A]](f: LineSeg => A)(implicit build: ArrTBuilder[A, AA]): AA =
   { var count = 0
     val res = build.newArr(vertsNum)
     while (count < vertsNum)
@@ -77,7 +77,7 @@ trait Polygon extends Shape with BoundedElem
   }
 
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIMap[A, AA <: ArrBase[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: ArrTBuilder[A, AA]): AA =
+  def sidesIMap[A, AA <: ArrImut[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: ArrTBuilder[A, AA]): AA =
   { var count = 0
     val res = build.newArr(vertsNum)
     while (count < vertsNum)
@@ -88,7 +88,7 @@ trait Polygon extends Shape with BoundedElem
   }
 
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIFlatMap[AA <: ArrBase[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: ArrTFlatBuilder[AA]): AA =
+  def sidesIFlatMap[AA <: ArrImut[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: ArrTFlatBuilder[AA]): AA =
   { var count = initCount
     val buff = build.newBuff()
     sideForeach { side =>

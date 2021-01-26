@@ -3,7 +3,7 @@ package ostrat
 import scala.collection.mutable.ArrayBuffer
 
 /** An immutable Array based class for [[Boolean]]s. */
-class Booleans(val array: Array[Boolean]) extends AnyVal with ArrBase[Boolean]
+class Booleans(val array: Array[Boolean]) extends AnyVal with ArrImut[Boolean]
 { type ThisT = Booleans
   override def typeStr: String = "Booleans"
   override def unsafeNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))

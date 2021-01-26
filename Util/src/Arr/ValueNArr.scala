@@ -7,7 +7,7 @@ trait ValueNElem extends Any with SpecialT
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ValueNArr[A] extends Any with ArrBase[A]
+trait ValueNArr[A] extends Any with ArrImut[A]
 { type ThisT <: ValueNArr[A]
 
   def productSize: Int

@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Long]]s. */
-class Longs(val arrayUnsafe: Array[Long]) extends AnyVal with ArrBase[Long]
+class Longs(val arrayUnsafe: Array[Long]) extends AnyVal with ArrImut[Long]
 { type ThisT = Longs
   override def typeStr: String = "Longs"
   override def unsafeNew(length: Int): Longs = new Longs(new Array[Long](length))

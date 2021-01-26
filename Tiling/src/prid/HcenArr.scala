@@ -20,7 +20,7 @@ class HcenArr[A <: AnyRef](val unsafeArr: Array[A])
 
   /** Each element in the underlying array is mapped by the parameter function to an element of type B. This method treat the HcenArr class like a
    *  standard Arr or Array. It does not utilise the grid HGrid from which this HcenArr was created. */
-  def map[B, BB <: ArrBase[B]](f: A => B)(implicit build: ArrTBuilder[B, BB]): BB =
+  def map[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrTBuilder[B, BB]): BB =
   { val res = build.newArr(length)
     var count = 0
     foreach{a => res.unsafeSetElem(count, f(a)); count += 1 }
@@ -29,7 +29,7 @@ class HcenArr[A <: AnyRef](val unsafeArr: Array[A])
 
   /** Short for coordinate-map. Each element in the underlying array, with its corresponding [[Hcen]] coordinate is mapped by the parameter function
    *  to an element of type B. */
-  def cMap[B, BB <: ArrBase[B]](f: (A, Hcen) => B)(implicit grid: HGrid, build: ArrTBuilder[B, BB]): BB =
+  def cMap[B, BB <: ArrImut[B]](f: (A, Hcen) => B)(implicit grid: HGrid, build: ArrTBuilder[B, BB]): BB =
   { val res = build.newArr(length)
     grid.iForeach{ (hc, i) =>
       val newElem = f(apply(hc), hc)

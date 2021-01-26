@@ -1,6 +1,6 @@
 package ostrat
 
-trait ArrBaseOff[A, ArrT <: ArrBase[A]] extends Any
+trait ArrBaseOff[A, ArrT <: ArrImut[A]] extends Any
 { def offset0: Int
   @inline def apply(index: Int)(implicit arr: ArrT): A
   def lenStr(implicit arr: ArrT): String = length.toString

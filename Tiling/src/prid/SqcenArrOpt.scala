@@ -17,7 +17,7 @@ class SqcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 
   /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
    *  an immutable Array based collection of type ArrT, the second type parameter. */
-  def cMapSomes[B, ArrT <: ArrBase[B]](f: (A, Sqcen) => B)(implicit grid: SqGrid, build: ArrTBuilder[B, ArrT]): ArrT =
+  def cMapSomes[B, ArrT <: ArrImut[B]](f: (A, Sqcen) => B)(implicit grid: SqGrid, build: ArrTBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { (sc: Sqcen) =>
@@ -32,7 +32,7 @@ class SqcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 
   /** Coordinate map Nones. Map the None values respective [[Sqcen]] coordinates of this [[SqcenArrOpt]] to type B, the first type parameter. Returns
    *  an immutable Array based collection of type ArrT, the second type parameter. */
-  def cMapNones[B, ArrT <: ArrBase[B]](f: Sqcen => B)(implicit grid: SqGrid, build: ArrTBuilder[B, ArrT]): ArrT =
+  def cMapNones[B, ArrT <: ArrImut[B]](f: Sqcen => B)(implicit grid: SqGrid, build: ArrTBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>

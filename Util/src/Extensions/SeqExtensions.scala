@@ -64,8 +64,8 @@ class SeqExtensions[A](thisSeq: Seq[A])
     acc
   }
 
-  /** Specialised map to an immutable ArrBase of B. */
-  def mapSpec[B, BB <: ArrBase[B]](f: A => B)(implicit ev: ArrTBuilder[B, BB]): BB =
+  /** Specialised map to an immutable ArrImut for type B. */
+  def mapSpec[B, BB <: ArrImut[B]](f: A => B)(implicit ev: ArrTBuilder[B, BB]): BB =
   { val res = ev.newArr(thisSeq.length)
     var count: Int = 0
     thisSeq.foreach { orig =>
@@ -75,13 +75,13 @@ class SeqExtensions[A](thisSeq: Seq[A])
     }
     res
   }
-  
-  def valueProducts[B <: ValueNArr[A]](implicit factory: Int => B): B =
-  { val length = thisSeq.length
-    val valProds = factory(length)
-    var count = 0
-    while (count < length){ valProds.unsafeSetElem(count, thisSeq(count)); count += 1 }
-    valProds
+
+  /** Converts this sequence to a specialised ArrImut for the type. */
+  def valueProducts[AA <: ArrImut[A]](implicit ev: ArrTBuilder[A, AA]): AA =
+  { val res = ev.newArr(thisSeq.length)
+    var count: Int = 0
+    thisSeq.foreach { orig => res.unsafeSetElem(count, orig); count += 1 }
+    res
   }
   
   def mapFirstGood[B](f: A => EMon[B], errs: => Bad[B]): EMon[B] =

@@ -1,11 +1,11 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
 /** Base trait for specialised immutable Arrays. The final classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage.
  *  A lot of the time this is a compile time wrapper with no boxing run cost. */
-trait ArrBase[+A] extends Any with ArrayLike[A]
-{ type ThisT <: ArrBase[A]
+trait ArrImut[+A] extends Any with ArrayLike[A]
+{ type ThisT <: ArrImut[A]
   def typeStr: String
   //def unsafeNew(length: Int): ThisT
   def unsafeNew(length: Int): ThisT
