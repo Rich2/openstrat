@@ -34,7 +34,7 @@ object TransSimDist
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
   }
 
-  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransSimDist[A]): TransSimDist[AA] = new TransSimDist[AA]
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrTBuilder[A, AA], ev: TransSimDist[A]): TransSimDist[AA] = new TransSimDist[AA]
   { override def scale(obj: AA, operand: Double): AA = obj.map{ts => ev.scale(ts, operand)}
     override def slate(obj: AA, offset: Metres2): AA = obj.map{ ts => ev.slate(ts, offset)}
     override def rotateRadians(obj: AA, radians: Double): AA = obj.map{ts => ev.rotateRadians(ts, radians) }

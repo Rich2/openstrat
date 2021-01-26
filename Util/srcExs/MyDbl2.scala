@@ -32,7 +32,7 @@ class MyDbl2s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[My
 
 object MyDbl2s extends ProdDbl2sCompanion[MyDbl2, MyDbl2s]
 {
-  implicit val flatImplicit: ArrFlatBuild[MyDbl2s] = MyDbl2.arrBuilderImplicit
+  implicit val flatImplicit: ArrTFlatBuilder[MyDbl2s] = MyDbl2.arrBuilderImplicit
 
   implicit val persistImplicit: ArrProdDbl2Persist[MyDbl2, MyDbl2s] = new ArrProdDbl2Persist[MyDbl2, MyDbl2s]("Mines")
   { override def fromArray(value: Array[Double]): MyDbl2s = new MyDbl2s(value)

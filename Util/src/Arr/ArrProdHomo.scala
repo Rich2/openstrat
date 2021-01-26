@@ -58,7 +58,7 @@ trait ArrProdHomo[A] extends Any with ArrBase[A]
  *  this typeclass for classes / traits you control should go in the companion object of B not the companion object of not BB. This is different from
  *  the related ArrProdHomoBinder[BB] typeclass where instance should go into the BB companion object.The Implicit instances that inherit from this
  *  trait will normally go in the companion object of type B, not the companion object of ArrT. */
-trait ArrProdValueNBuild[B, ArrT <: ArrProdHomo[B]] extends ArrBuild[B, ArrT] with ArrFlatBuild[ArrT]
+trait ArrProdValueNBuild[B, ArrT <: ArrProdHomo[B]] extends ArrTBuilder[B, ArrT] with ArrTFlatBuilder[ArrT]
 { def elemSize: Int
 }
 
@@ -67,9 +67,10 @@ trait BuffProdValueN[A] extends Any with ArrayLike[A]
   def elemSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit
-  def toArr(implicit build: ArrBuild[A, ArrT]): ArrT = ???
+  def toArr(implicit build: ArrTBuilder[A, ArrT]): ArrT = ???
 }
 
+/** Class to Persist specialised flat Array[]Value type based collections. */
 abstract class ArrProdHomoPersist[A, M](val typeStr: String) extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT

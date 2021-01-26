@@ -62,7 +62,7 @@ abstract class Int4sCompanion[A <: Int4Elem, M <: Int4Arr[A]]
 }
 
 /** A builder class for specialised collections of [[Int4Elem]]s. */
-abstract class Int4sBuilder[A <: Int4Elem, M <: Int4Arr[A]](typeStr: String) extends ProductIntsBuilder[A, M](typeStr)
+abstract class Int4sBuilder[A <: Int4Elem, M <: Int4Arr[A]](typeStr: String) extends IntNArrPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value.int1

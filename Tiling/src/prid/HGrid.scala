@@ -33,7 +33,7 @@ trait HGrid extends TGrid
     foreachRow{r => count = rowIForeach(r, count)(f) }
   }
 
-  final def map[B, BB <: ArrBase[B]](f: Hcen => B)(implicit build: ArrBuild[B, BB]): BB =
+  final def map[B, BB <: ArrBase[B]](f: Hcen => B)(implicit build: ArrTBuilder[B, BB]): BB =
   { val res = build.newArr(numOfTiles)
     iForeach((hCen, i) => res.unsafeSetElem(i, f(hCen)))
     res
@@ -41,7 +41,7 @@ trait HGrid extends TGrid
 
   /** flatMaps from all hex tile cntre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */
-  final def flatMap[ArrT <: ArrBase[_]](f: Hcen => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
+  final def flatMap[ArrT <: ArrBase[_]](f: Hcen => ArrT)(implicit build: ArrTFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numOfTiles)
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
     build.buffToArr(buff)
@@ -92,7 +92,7 @@ trait HGrid extends TGrid
 
   /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
    *  @group SidesGroup */
-  final def sidesMap[B, ArrT <: ArrBase[B]](f: HSide => B)(implicit build: ArrBuild[B, ArrT]): ArrT =
+  final def sidesMap[B, ArrT <: ArrBase[B]](f: HSide => B)(implicit build: ArrTBuilder[B, ArrT]): ArrT =
   {
     val res: ArrT = build.newArr(numSides)
     var count = 0

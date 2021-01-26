@@ -96,7 +96,7 @@ trait TileGrid
   def rowForeachTile(y: Int)(f: Roord => Unit): Unit
 
   /** Maps from all tile Roords to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
-  final def map[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  final def map[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
   { val res = build.newArr(numOfTiles)
     foreach{ roord =>
       build.arrSet(res, arrIndex(roord), f(roord))
@@ -105,7 +105,7 @@ trait TileGrid
   }
 
   /** Maps from all tile Roords with index to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
-  final def iMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  final def iMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
   { val res = build.newArr(numOfTiles)
     var i = 0
     foreach{ roord =>
@@ -117,14 +117,14 @@ trait TileGrid
 
   /** flatMaps from all tile Roords to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
    *  structure is lost in the flatMap operation. */
-  final def flatMap[ArrT <: ArrBase[_]](f: Roord => ArrT)(implicit build: ArrFlatBuild[ArrT]): ArrT =
+  final def flatMap[ArrT <: ArrBase[_]](f: Roord => ArrT)(implicit build: ArrTFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numOfTiles)
     foreach{ roord => build.buffGrowArr(buff, f(roord))}
     build.buffToArr(buff)
   }
 
   /** flatmaps from all tile Roords to an Arr of type ArrT, removing all duplicate elements. */
-  final def flatMapNoDupicates[A, ArrT <: ArrBase[A]](f: Roord => ArrT)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  final def flatMapNoDupicates[A, ArrT <: ArrBase[A]](f: Roord => ArrT)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
   { val buff = build.newBuff(numOfTiles)
     foreach { roord =>
       val newVals = f(roord)
@@ -138,7 +138,7 @@ trait TileGrid
   final def foreachRVec(f: (Roord, Pt2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
 
   /** maps over each tile's Roord and its Polygon. */
-  final def mapRPolygons[A, ArrT <: ArrBase[A]](f: (Roord, PolygonImp) => A)(implicit build: ArrBuild[A, ArrT]): ArrT =
+  final def mapRPolygons[A, ArrT <: ArrBase[A]](f: (Roord, PolygonImp) => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
     map { roord =>
       val vcs = tileVertRoords(roord)
       val vvs = vcs.map(c => roordToPt2(c))
@@ -242,7 +242,7 @@ trait TileGrid
   final def sidesForeach(f: Roord => Unit): Unit = sideRowForeach(y => rowForeachSide(y)(f))
 
   /** Maps from each sides Roord to an ArrBase of A. */
-  def sidesMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
+  def sidesMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrTBuilder[A, ArrT]) =
   { val res = build.newArr(numOfSides)
     var count = 0
     sidesForeach{r => build.arrSet(res, count, f(r)); count += 1 }
@@ -250,7 +250,7 @@ trait TileGrid
   }
 
   /** Maps from each sides Roord to an ArrBase of A. */
-  def sidesIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuild[A, ArrT]) =
+  def sidesIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrTBuilder[A, ArrT]) =
   { val res = build.newArr(numOfSides)
     var count = 0
     sidesForeach{r => build.arrSet(res, count, f(r, count)); count += 1 }
@@ -324,7 +324,7 @@ trait TileGrid
   def rowForeachVert(y: Int)(f: Roord => Unit): Unit
 
   /** maps from each Vertex's Roord to a value of type A. Returns a specialiased immutable Arr. */
-  def vertsMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuild[A, ArrT]) =
+  def vertsMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrTBuilder[A, ArrT]) =
   { val res = build.newArr(numOfVerts)
     var count = 0
     vertsForeach{r => build.arrSet(res, count, f(r)); count += 1 }
@@ -332,7 +332,7 @@ trait TileGrid
   }
 
   /** Maps from each vertex's Roord with index, to a specialised Arr of type A. */
-  def vertsIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuild[A, ArrT]) =
+  def vertsIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrTBuilder[A, ArrT]) =
   { val res = build.newArr(numOfVerts)
     var count = 0
     vertsForeach{r => build.arrSet(res, count, f(r, count)); count += 1 }

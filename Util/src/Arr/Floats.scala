@@ -26,7 +26,7 @@ object Floats
 { def apply(input: Float*): Floats = new Floats(input.toArray)
 }
 
-object FloatsBuild extends ArrBuild[Float, Floats] with ArrFlatBuild[Floats]
+object FloatsBuild extends ArrTBuilder[Float, Floats] with ArrTFlatBuilder[Floats]
 { type BuffT = FloatsBuff
   override def newArr(length: Int): Floats = new Floats(new Array[Float](length))
   override def arrSet(arr: Floats, index: Int, value: Float): Unit = arr.arrayUnsafe(index) = value

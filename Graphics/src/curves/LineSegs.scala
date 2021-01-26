@@ -39,7 +39,7 @@ object LineSegs extends ProdDbl4sCompanion[LineSeg, LineSegs]
     override def showT(obj: LineSegs, way: Show.Way, decimalPlaces: Int): String = ???
   }
 
-  implicit val arrArrBuildImplicit: ArrFlatBuild[LineSegs] = LineSeg.line2sBuildImplicit
+  implicit val arrArrBuildImplicit: ArrTFlatBuilder[LineSegs] = LineSeg.line2sBuildImplicit
 
   implicit val transImplicit: AffineTrans[LineSegs] = (obj, f) => obj.map(_.fTrans(f))
 }

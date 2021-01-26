@@ -21,7 +21,8 @@ trait Int2Arr[A <: Int2Elem] extends Any with ArrProdIntN[A]
   def head2: Int = arrayUnsafe(1)
 }
 
-trait ArrProdInt2Build[A <: Int2Elem, ArrT <: Int2Arr[A]] extends ArrProdIntNBuild[A, ArrT]
+/** A builder class for specialised collections of [[Int2Elem]]s. */
+trait Int2sBuilder[A <: Int2Elem, ArrT <: Int2Arr[A]] extends IntNBuilder[A, ArrT]
 { type BuffT <: Int2sBuff[A, ArrT]
 
   final override def elemSize: Int = 2
@@ -62,8 +63,8 @@ abstract class ProductI2sCompanion[A <: Int2Elem, M <: Int2Arr[A]] extends Produ
   }
 }
 
-/** A builder class for specialised collections of [[Int2Elem]]s. */
-abstract class Int2sBuilder[A <: Int2Elem, M <: Int2Arr[A]](typeStr: String) extends ProductIntsBuilder[A, M](typeStr)
+/**  Class to persist specialised flat Array[Int] based collections of [[Int2Elem]]s. */
+abstract class Int2sArrPersist[A <: Int2Elem, M <: Int2Arr[A]](typeStr: String) extends IntNArrPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value.int1

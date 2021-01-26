@@ -13,7 +13,7 @@ object Rotate
 {
   implicit def transSimerImplicit[T <: SimilarPreserve]: Rotate[T] = (obj, angle) => obj.rotate(angle).asInstanceOf[T]
 
-  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: Rotate[A]): Rotate[AA] =
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrTBuilder[A, AA], ev: Rotate[A]): Rotate[AA] =
     (obj, angle) => obj.map(ev.rotateT(_, angle))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Rotate[A]): Rotate[F[A]] =

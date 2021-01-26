@@ -4,7 +4,7 @@ package geom
 import Colour._, collection.mutable.ArrayBuffer
 
 /** Specialist Array[Int] based class for [[Colour]]s. */
-final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with ArrProdInt1[Colour]
+final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with Int1Arr[Colour]
 { type ThisT = Colours
   override def unsafeFromArray(array: Array[Int]): Colours = new Colours(array)
   override def typeStr: String = "Colours"
@@ -33,7 +33,7 @@ object Colours
 }
 
 /** ArrayBuffer based buffer class for Colours. */
-class ColourBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with BuffProdInt1[Colour, Colours]
+class ColourBuff(val buffer: ArrayBuffer[Int]) extends AnyVal with Int1sBuff[Colour, Colours]
 { def intToT(i1: Int): Colour = new Colour(i1)
 }
 

@@ -27,7 +27,7 @@ object Strings
   def apply(input: String*): Strings = new Strings(input.toArray)
 }
 
-object StringsBuild extends ArrBuild[String, Strings] with ArrFlatBuild[Strings]
+object StringsBuild extends ArrTBuilder[String, Strings] with ArrTFlatBuilder[Strings]
 { type BuffT = StringsBuff
   override def newArr(length: Int): Strings = new Strings(new Array[String](length))
   override def arrSet(arr: Strings, index: Int, value: String): Unit = arr.arrayUnsafe(index) = value

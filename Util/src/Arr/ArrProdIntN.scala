@@ -11,12 +11,11 @@ trait ArrProdIntN[A] extends Any with ArrProdHomo[A]
   def arrLen = arrayUnsafe.length
 }
 
-/** ArrProdIntlNBuild[B, BB] is a type class for the building of efficient compact Immutable Arrays of Dbl Product elements. ArrT uses a compile time
- *  wrapped underlying Array[Int]. Instances for this typeclass for classes / traits you control should go in the companion object of B not the
- *  companion object of not BB. This is different from the related ArrProdIntNFlatBuild[BB] typeclass where instance should go into the BB companion
- *  object.The Implicit instances that inherit from this trait will normally go in the companion object of type B, not the companion object of ArrT.
- *  */
-trait ArrProdIntNBuild[B, ArrT <: ArrProdIntN[B]] extends ArrProdValueNBuild[B, ArrT]
+/** A type class for the building of efficient compact Immutable Arrays of [[IntNElem]]s. ArrT uses a compile time wrapped underlying Array[Int].
+ *  Instances for this type class for classes / traits you control should go in the companion object of B not the companion object of not BB. This is
+ *  different from the related ArrProdIntNFlatBuild[BB] type class where instance should go into the BB companion object. The Implicit instances that
+ *  inherit from this trait will normally go in the companion object of type B, not the companion object of ArrT. */
+trait IntNBuilder[B, ArrT <: ArrProdIntN[B]] extends ArrProdValueNBuild[B, ArrT]
 { type BuffT <:  BuffProdIntN[B]
   def fromIntArray(inp: Array[Int]): ArrT
 
@@ -39,7 +38,8 @@ trait BuffProdIntN[A] extends Any with BuffProdValueN[A]
   override def elemsLen = buffer.length / elemSize
 }
 
-abstract class ProductIntsBuilder[A, M <: ArrProdIntN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr)
+/**  Class to persist specialised flat Array[Int] based collections. */
+abstract class IntNArrPersist[A, M <: ArrProdIntN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr)
 { type VT = Int
   override def fromBuffer(buf: Buff[Int]): M = fromArray(buf.toArray)
   override def newBuffer: Buff[Int] = Buff[Int](0)

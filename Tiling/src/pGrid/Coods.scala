@@ -45,13 +45,13 @@ object Coods extends ProductI2sCompanion[Cood, Coods]
   override def buff(initialSize: Int): CoodBuff = new CoodBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Coods = new Coods(array)
 
-  implicit object PersistImplicit extends Int2sBuilder[Cood, Coods]("Coods")
+  implicit object PersistImplicit extends Int2sArrPersist[Cood, Coods]("Coods")
   { override def fromArray(value: Array[Int]): Coods = new Coods(value)
 
     override def showT(obj: Coods, way: Show.Way, decimalPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: ArrFlatBuild[Coods] = Cood.coodsBuildImplicit
+  implicit val arrArrayImplicit: ArrTFlatBuilder[Coods] = Cood.coodsBuildImplicit
 }
 
 class CoodBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuff[Cood, Coods]

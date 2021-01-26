@@ -118,7 +118,7 @@ object Arr
 }
 
 /** The default Immutable Array based collection builder for the Arr[A] class. */
-class AnyBuild[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A] ) extends ArrBuild[A, Arr[A]] with ArrFlatBuild[Arr[A]]
+class AnyBuild[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A] ) extends ArrTBuilder[A, Arr[A]] with ArrTFlatBuilder[Arr[A]]
 { type BuffT = AnyBuff[A]
   override def newArr(length: Int): Arr[A] = new Arr(new Array[A](length))
   override def arrSet(arr: Arr[A], index: Int, value: A): Unit = arr.unsafeArr(index) = value

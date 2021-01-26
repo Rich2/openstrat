@@ -23,7 +23,7 @@ object TransAffDist
     override def scale(obj: T, operand: Double): T = obj.scale(operand).asInstanceOf[T]
   }
 
-  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuild[A, AA], ev: TransAffDist[A]): TransAffDist[AA] = new TransAffDist[AA]
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrTBuilder[A, AA], ev: TransAffDist[A]): TransAffDist[AA] = new TransAffDist[AA]
   {
     override def shear(obj: AA, xScale: Double, yScale: Double): AA = obj.map{ ta => ev.shear(ta, xScale, yScale) }
     override def scale(obj: AA, operand: Double): AA = obj.map{ts => ev.scale(ts, operand)}

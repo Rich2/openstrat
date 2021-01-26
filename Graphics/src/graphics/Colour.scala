@@ -4,7 +4,7 @@ package geom
 import pWeb._, collection.mutable.ArrayBuffer
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
-class Colour(val argbValue: Int) extends AnyVal with FillFacet with ProdInt1
+class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
 { 
   override def toString: String = Colour.persistImplicit.strT(this)
 
@@ -111,10 +111,10 @@ object Colour
     def strT(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
   }
 
-  implicit val arrBuildImplicit: ArrBuild[Colour, Colours] = ColoursBuild
-  implicit val arrFlatBuildImplicit: ArrFlatBuild[Colours] = ColoursBuild
+  implicit val arrBuildImplicit: ArrTBuilder[Colour, Colours] = ColoursBuild
+  implicit val arrFlatBuildImplicit: ArrTFlatBuilder[Colours] = ColoursBuild
   
-  object ColoursBuild extends ArrProdInt1sBuild[Colour, Colours]
+  object ColoursBuild extends Int1sBuilder[Colour, Colours]
   { type BuffT = ColourBuff
     override def fromIntArray(inp: Array[Int]): Colours = new Colours(inp)
 

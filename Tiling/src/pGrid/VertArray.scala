@@ -5,7 +5,7 @@ import geom._
 
 class VertInts(val unsafeArr: Array[Int]) extends AnyVal
 {
-  def gridMap[A, AA <: ArrBase[A]](f: (Roord, Int) => A)(implicit grid: TileGrid, build: ArrBuild[A, AA]): AA =
+  def gridMap[A, AA <: ArrBase[A]](f: (Roord, Int) => A)(implicit grid: TileGrid, build: ArrTBuilder[A, AA]): AA =
     grid.sidesMap(r => f(r, unsafeArr(grid.sideArrIndex(r))))
 
   def meth1(vertNum: Int): Pt2s = ???

@@ -49,7 +49,7 @@ object Roord
   def unapply(rd: Roord): Option[(Int, Int)] = Some((rd.y, rd.c))
   implicit object persistImplicit extends Persist2Ints[Roord]("Rood", "y", _.y, "c", _.c, apply)
 
-  implicit val roordsBuildImplicit = new ArrProdInt2Build[Roord, Roords]
+  implicit val roordsBuildImplicit = new Int2sBuilder[Roord, Roords]
   { type BuffT = RoordBuff
     override def fromIntArray(array: Array[Int]): Roords = new Roords(array)
     override def fromIntBuffer(inp: Buff[Int]): RoordBuff = new RoordBuff(inp)

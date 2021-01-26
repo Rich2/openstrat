@@ -33,7 +33,7 @@ object HVert
 
   implicit object persistImplicit extends Persist2Ints[HVert]("Rood", "r", _.r, "c", _.c, apply)
 
-  implicit val HVertsBuildImplicit = new ArrProdInt2Build[HVert, HVerts]
+  implicit val HVertsBuildImplicit = new Int2sBuilder[HVert, HVerts]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVerts = new HVerts(array)
     override def fromIntBuffer(inp: Buff[Int]): HVertBuff = new HVertBuff(inp)
@@ -83,13 +83,13 @@ object HVerts extends ProductI2sCompanion[HVert, HVerts]
   override def buff(initialSize: Int): HVertBuff = new HVertBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): HVerts = new HVerts(array)
 
-  implicit object PersistImplicit extends Int2sBuilder[HVert, HVerts]("HVerts")
+  implicit object PersistImplicit extends Int2sArrPersist[HVert, HVerts]("HVerts")
   { override def fromArray(value: Array[Int]): HVerts = new HVerts(value)
 
     override def showT(obj: HVerts, way: Show.Way, decimalPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: ArrFlatBuild[HVerts] = HVert.HVertsBuildImplicit
+  implicit val arrArrayImplicit: ArrTFlatBuilder[HVerts] = HVert.HVertsBuildImplicit
 }
 
 class HVertBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuff[HVert, HVerts]

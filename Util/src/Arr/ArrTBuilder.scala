@@ -2,7 +2,8 @@
 package ostrat
 import reflect.ClassTag, scala.annotation.unused
 
-trait ArrBuildBase[ArrT <: ArrBase[_]]
+/** A common trait inherited by [[ArrTBuilder]] and [[ArrTFlatBuider]]. */
+trait ArrTBuilderCommon[ArrT <: ArrBase[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
@@ -13,12 +14,12 @@ trait ArrBuildBase[ArrT <: ArrBase[_]]
   def buffGrowArr(buff: BuffT, arr: ArrT): Unit
 }
 
-/** ArrBuilder[B, BB] is a type class for the building of efficient compact Immutable Arrays. Instances for this typeclass for classes / traits you
- *  control should go in the companion object of B not the companion object of not BB. This is different from the related ArrBinder[BB] typeclass
- *  where instance should go into the BB companion object. The type parameter is named B rather than A, because normally this will be found by an
- *  implicit in the context of a function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever
- *  possible they should not be used directly by end users. */
-trait ArrBuild[B, ArrT <: ArrBase[B]] extends ArrBuildBase[ArrT]
+/** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
+ * the companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into
+ * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
+ * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
+ * used directly by end users. */
+trait ArrTBuilder[B, ArrT <: ArrBase[B]] extends ArrTBuilderCommon[ArrT]
 { type BuffT <: ArrayLike[B]
   def newArr(length: Int): ArrT
   def arrSet(arr: ArrT, index: Int, value: B): Unit
@@ -47,13 +48,13 @@ trait ArrBuild[B, ArrT <: ArrBase[B]] extends ArrBuildBase[ArrT]
 }
 
 /** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */
-object ArrBuild extends ArrBuildLowPriority
-{ implicit val intsImplicit: ArrBuild[Int, Ints] = IntsBuild
-  implicit val doublesImplicit: ArrBuild[Double, Dbls] = DblsBuild
-  implicit val longImplicit: ArrBuild[Long, Longs] = LongsBuild
-  implicit val floatImplicit: ArrBuild[Float, Floats] = FloatsBuild
-  implicit val stringImplicit: ArrBuild[String, Strings] = StringsBuild
-  implicit val booleansImplicit: ArrBuild[Boolean, Booleans] = BooleansBuild
+object ArrTBuilder extends ArrBuildLowPriority
+{ implicit val intsImplicit: ArrTBuilder[Int, Ints] = IntsBuild
+  implicit val doublesImplicit: ArrTBuilder[Double, Dbls] = DblsBuild
+  implicit val longImplicit: ArrTBuilder[Long, Longs] = LongsBuild
+  implicit val floatImplicit: ArrTBuilder[Float, Floats] = FloatsBuild
+  implicit val stringImplicit: ArrTBuilder[String, Strings] = StringsBuild
+  implicit val booleansImplicit: ArrTBuilder[Boolean, Booleans] = BooleansBuild
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from
@@ -65,5 +66,5 @@ trait ArrBuildLowPriority
   /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
    * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
    * specialist Arr classes. */
-  implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A]): ArrBuild[A, Arr[A]] = new AnyBuild[A]
+  implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A]): ArrTBuilder[A, Arr[A]] = new AnyBuild[A]
 }

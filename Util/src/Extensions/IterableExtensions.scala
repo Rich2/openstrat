@@ -22,7 +22,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def headToStringElse(elseString: => String): String = headOnly(elseString, _.toString)
   
   /** Converts to ArrImut of A. Most commonly a Refs. Prefer the mapArr method where appropriate which combines the converson with a map operation. */
-  def toImut[AA <: ArrBase[A]](implicit bu: ArrBuild[A, AA]): AA =
+  def toImut[AA <: ArrBase[A]](implicit bu: ArrTBuilder[A, AA]): AA =
   { val len = thisIter.size
     val res = bu.newArr(len)
     iForeach((a, i) => res.unsafeSetElem(i, a))
@@ -36,7 +36,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** Maps over and  */
-  def iMap[B, BB <: ArrBase[B]](f: (A, Int) => B, count: Int = 0)(implicit build: ArrBuild[B, BB]): BB =
+  def iMap[B, BB <: ArrBase[B]](f: (A, Int) => B, count: Int = 0)(implicit build: ArrTBuilder[B, BB]): BB =
   { var i = count
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{el => build.buffGrow(buff, f(el, i)); i += 1 }
@@ -44,7 +44,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** flatMaps over a traversable (collection / sequence) with a counter */
-  def iFlatMap[B, BB <: ArrBase[B]](f: (A, Int) => BB, count: Int = 0)(implicit build: ArrBuild[B, BB]): BB =
+  def iFlatMap[B, BB <: ArrBase[B]](f: (A, Int) => BB, count: Int = 0)(implicit build: ArrTBuilder[B, BB]): BB =
   { var i = count
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{el => build.buffGrowArr(buff, f(el, i)); i += 1 }
@@ -91,7 +91,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** Maps to a ArrImut an immutable Array of B. */
-  def mapArr[B, BB <: ArrBase[B]](f: A => B)(implicit ev: ArrBuild[B, BB]): BB = ev.iterMap[A](thisIter, f)
+  def mapArr[B, BB <: ArrBase[B]](f: A => B)(implicit ev: ArrTBuilder[B, BB]): BB = ev.iterMap[A](thisIter, f)
 
   /** product map method maps from a Traversable to an Array based ProductValues class. */
   def pMap[B , M <: ArrProdHomo[B]](f: A => B)(implicit factory: Int => M): M =

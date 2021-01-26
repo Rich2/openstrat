@@ -107,7 +107,7 @@ object TilesArr
     def prependAt(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.unsafeArr(grid.arrIndex(roord)) ::= value
     def prependAts(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
 
-    def gridHeadsMap[B, BB <: ArrBase[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrBuild[B, BB]): BB =
+    def gridHeadsMap[B, BB <: ArrBase[B]](f: (Roord, A) => B)(implicit grid: TileGrid, build: ArrTBuilder[B, BB]): BB =
     {
       val buff = build.newBuff()
       grid.foreach { r => thisRefs(r) match
@@ -119,7 +119,7 @@ object TilesArr
       build.buffToArr(buff)
     }
 
-    def gridHeadsFlatMap[BB <: ArrBase[_]](f: (Roord, A) => BB)(implicit grid: TileGrid, build: ArrFlatBuild[BB]): BB =
+    def gridHeadsFlatMap[BB <: ArrBase[_]](f: (Roord, A) => BB)(implicit grid: TileGrid, build: ArrTFlatBuilder[BB]): BB =
     {
       val buff = build.newBuff()
       grid.foreach { r => thisRefs(r) match
@@ -140,6 +140,6 @@ class TileBooleans(val unsafeArr: Array[Boolean]) extends AnyVal
   def gridSetTrues(roords: Roords)(implicit grid: TileGrid): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
   def gridSetTrues(roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
 
-  def gridMap[A, AA <: ArrBase[A]](f: (Roord, Boolean) => A)(implicit grid: TileGrid, build: ArrBuild[A, AA]): AA =
+  def gridMap[A, AA <: ArrBase[A]](f: (Roord, Boolean) => A)(implicit grid: TileGrid, build: ArrTBuilder[A, AA]): AA =
     grid.map(r => f(r, unsafeArr(grid.sideArrIndex(r))))
 }

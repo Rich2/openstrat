@@ -45,13 +45,13 @@ object Roords extends ProductI2sCompanion[Roord, Roords]
   override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Roords = new Roords(array)
 
-  implicit object PersistImplicit extends Int2sBuilder[Roord, Roords]("Roords")
+  implicit object PersistImplicit extends Int2sArrPersist[Roord, Roords]("Roords")
   { override def fromArray(value: Array[Int]): Roords = new Roords(value)
 
     override def showT(obj: Roords, way: Show.Way, decimalPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: ArrFlatBuild[Roords] = Roord.roordsBuildImplicit
+  implicit val arrArrayImplicit: ArrTFlatBuilder[Roords] = Roord.roordsBuildImplicit
 }
 
 class RoordBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuff[Roord, Roords]
