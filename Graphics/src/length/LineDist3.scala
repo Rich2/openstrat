@@ -4,18 +4,18 @@ package geom
 
 /** 3 dimensional line segment measured in metres. A straight line between two points in 3d. */
 class LineDist3(xStartMetres: Double, yStartMetres: Double, zStartMetres: Double,
-    xEndMetres: Double, yEndMetres: Double, zEndMetres: Double) extends ProdDbl6 //with Stringer
+    xEndMetres: Double, yEndMetres: Double, zEndMetres: Double) extends Dbl6Elem //with Stringer
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
   def pStart: Metres3 = new Metres3(xStartMetres, yStartMetres, zStartMetres)
   def pEnd: Metres3 = new Metres3(xEndMetres, yEndMetres, zEndMetres)
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[LineDist3]
-  override def _1 = xStartMetres
-  override def _2 = yStartMetres
-  override def _3 = zStartMetres
-  override def _4 = xEndMetres
-  override def _5 = yEndMetres
-  override def _6 = zEndMetres
+  //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineDist3]
+  override def dbl1 = xStartMetres
+  override def dbl2 = yStartMetres
+  override def dbl3 = zStartMetres
+  override def dbl4 = xEndMetres
+  override def dbl5 = yEndMetres
+  override def dbl6 = zEndMetres
   def xStart: Metres = Metres(xStartMetres)
   def yStart: Metres = Metres(yStartMetres)
   def zStart: Metres = Metres(zStartMetres)

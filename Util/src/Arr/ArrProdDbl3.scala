@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Homogeneous Product3[Double, Double, Double]. These are used in ArrHomoDbl3 Array[Double] based collections. */

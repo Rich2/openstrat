@@ -7,6 +7,7 @@ import reflect.ClassTag, scala.annotation.unused
  *  should go into the B companion object. */
 trait ArrTFlatBuilder[ArrT <: ArrImut[_]] extends ArrTBuilderCommon[ArrT]
 
+/** Companion object for ArrTFlatBuilder, contains implicit instances for atomic value classes. */
 object ArrTFlatBuilder extends ArrFlatBuildLowPriority
 { implicit val intsImplicit: ArrTFlatBuilder[Ints] = IntsBuild
   implicit val dblsImplicit: ArrTFlatBuilder[Dbls] = DblsBuild
