@@ -32,12 +32,12 @@ class CoodLines(val arrayUnsafe: Array[Int]) extends AnyVal with Int4Arr[CoodLin
   //override def toString: String = CoodLines.PersistImplicit.show(this)
 }
 
-class CoodLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with ProdInt4Buff[CoodLine, CoodLines]
+class CoodLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int4sBuff[CoodLine, CoodLines]
 {// override def unBuff: CoodLines = new CoodLines(toArray)
   override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = new CoodLine(i1, i2, i3, i4)
 }
 
-object CoodLines extends ProdInt4sCompanion[CoodLine, CoodLines]
+object CoodLines extends Int4sCompanion[CoodLine, CoodLines]
 { implicit val factory: Int => CoodLines = i => new CoodLines(new Array[Int](i * 4))
   override def buff(initialSize: Int): CoodLinesBuff = new CoodLinesBuff(buffInt(initialSize * 4))
 

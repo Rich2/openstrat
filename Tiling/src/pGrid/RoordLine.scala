@@ -33,12 +33,12 @@ class RoordLines(val arrayUnsafe: Array[Int]) extends AnyVal with Int4Arr[RoordL
   //override def toString: String = RoordLines.PersistImplicit.show(this)
 }
 
-class RoordLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with ProdInt4Buff[RoordLine, RoordLines]
+class RoordLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int4sBuff[RoordLine, RoordLines]
 {// override def unBuff: RoordLines = new RoordLines(toArray)
   override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): RoordLine = new RoordLine(i1, i2, i3, i4)
 }
 
-object RoordLines extends ProdInt4sCompanion[RoordLine, RoordLines]
+object RoordLines extends Int4sCompanion[RoordLine, RoordLines]
 { implicit val factory: Int => RoordLines = i => new RoordLines(new Array[Int](i * 4))
   override def buff(initialSize: Int): RoordLinesBuff = new RoordLinesBuff(buffInt(initialSize * 4))
 

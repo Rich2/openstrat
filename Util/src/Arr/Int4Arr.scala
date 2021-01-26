@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 4 [[Int]s. These are used in [[Int4Arr]] Array[Int] based collections. */
+/** An object that can be constructed from 4 [[Int]]s. These are used in [[Int4Arr]] Array[Int] based collections. */
 trait Int4Elem extends Any with ProdHomo
 { def int1: Int
   def int2: Int
@@ -10,7 +10,7 @@ trait Int4Elem extends Any with ProdHomo
   def int4: Int
 }
 
-/** A specialised flat immutable flat Array[Int] based collection of a type of [[Int4Elem]]s. */
+/** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
 trait Int4Arr[A <: Int4Elem] extends Any with ArrProdIntN[A]
 {
   override def productSize: Int = 4
@@ -29,16 +29,18 @@ trait Int4Arr[A <: Int4Elem] extends Any with ArrProdIntN[A]
   def head4: Int = arrayUnsafe(3)
 }
 
-trait ProdInt4Buff[A <: Int4Elem, M <: Int4Arr[A]] extends Any with BuffProdIntN[A]
+/** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */
+trait Int4sBuff[A <: Int4Elem, M <: Int4Arr[A]] extends Any with BuffProdIntN[A]
 { override def elemSize: Int = 4
   override def grow(newElem: A): Unit = { buffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
   def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
   def apply(index: Int): A = intsToT(buffer(index * 4), buffer(index * 4 + 1), buffer(index * 4 + 2), buffer(index * 4 + 3))
 }
 
-abstract class ProdInt4sCompanion[A <: Int4Elem, M <: Int4Arr[A]]
+/** Class for the companion objects of [[Int4Arr]] final classes to extend. */
+abstract class Int4sCompanion[A <: Int4Elem, M <: Int4Arr[A]]
 { val factory: Int => M
-  def buff(initialSize: Int): ProdInt4Buff[A, M]
+  def buff(initialSize: Int): Int4sBuff[A, M]
 
   def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4

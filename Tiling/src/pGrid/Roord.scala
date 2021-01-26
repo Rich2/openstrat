@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pGrid
 import geom._
@@ -9,11 +9,11 @@ import geom._
  * that not all values are legal Cood values on a HexGrid. This system allows river and naval units to move along the tile sides. The axis are named
  * y and c to distinguish them from the x and y of a Vec2. On a Hex grid there is not a simple 1 to 1 mapping between the Cood components and the
  * Vec2 components. */
-final class Roord private(val bLong: Long) extends AnyVal with ProdInt2
+final class Roord private(val bLong: Long) extends AnyVal with Int2Elem
 { @inline def y: Int = bLong.>>(32).toInt
   @inline def c: Int = bLong.toInt
-  @inline def _1 = y
-  @inline def _2 = c
+  @inline def int1 = y
+  @inline def int2 = c
   def canEqual(a: Any) = a.isInstanceOf[Roord]
   @inline def yStr: String = y.toString
   @inline def cStr: String = c.toString

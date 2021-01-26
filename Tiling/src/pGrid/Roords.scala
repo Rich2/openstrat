@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 
 /** An array[Int] based collection for Roord. */
-class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with ArrProdInt2[Roord]
+class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with Int2Arr[Roord]
 { type ThisT = Roords
   override def fElemStr: Roord => String = _.str
   override def unsafeFromArray(array: Array[Int]): Roords = new Roords(array)
@@ -45,7 +45,7 @@ object Roords extends ProductI2sCompanion[Roord, Roords]
   override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Roords = new Roords(array)
 
-  implicit object PersistImplicit extends ProdInt2sBuilder[Roord, Roords]("Roords")
+  implicit object PersistImplicit extends Int2sBuilder[Roord, Roords]("Roords")
   { override def fromArray(value: Array[Int]): Roords = new Roords(value)
 
     override def showT(obj: Roords, way: Show.Way, decimalPlaces: Int): String = ???
@@ -54,7 +54,7 @@ object Roords extends ProductI2sCompanion[Roord, Roords]
   implicit val arrArrayImplicit: ArrFlatBuild[Roords] = Roord.roordsBuildImplicit
 }
 
-class RoordBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with BuffProdInt2[Roord, Roords]
+class RoordBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuff[Roord, Roords]
 { type ArrT = Roords
   override def intsToT(i1: Int, i2: Int): Roord = Roord(i1, i2)
 }

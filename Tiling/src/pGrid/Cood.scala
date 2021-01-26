@@ -8,10 +8,10 @@ import geom._
  *  for a Hex Grid except that not all values are legal Cood values on a HexGrid. This system allows river and naval units to move along the tile
  *  sides. The axis are named xi and yi to distinguish them from the x and y of a Vec2. On a Hex grid there is not a simple 1 to 1 mapping between the
  *  Cood components and the Vec2 components. */
-final class Cood(val xi: Int, val yi: Int) extends ProdInt2
+final class Cood(val xi: Int, val yi: Int) extends Int2Elem
 { //def typeSym = 'Cood
-  def _1 = xi
-  def _2 = yi
+  override def int1 = xi
+  override def int2 = yi
   override def toString: String = yxStr
   def xyStr: String = xi.toString + ", " + yi.toString
   def yxStr: String = yi.toString + ", " + xi.toString

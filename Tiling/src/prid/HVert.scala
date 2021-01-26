@@ -3,12 +3,12 @@ package ostrat
 package prid
 import geom._
 
-class HVert private(val bLong: Long) extends AnyVal with HCoord with ProdInt2
+class HVert private(val bLong: Long) extends AnyVal with HCoord with Int2Elem
 {
   @inline def r: Int = bLong.>>(32).toInt
   @inline def c: Int = bLong.toInt
-  override def _1: Int = r
-  override def _2: Int = c
+  override def int1: Int = r
+  override def int2: Int = c
   override def typeStr: String = "HVert"
   override def canEqual(that: Any): Boolean = ???
 
@@ -41,7 +41,7 @@ object HVert
 }
 
 /** An array[Int] based collection for HVert. */
-class HVerts(val arrayUnsafe: Array[Int]) extends AnyVal with ArrProdInt2[HVert]
+class HVerts(val arrayUnsafe: Array[Int]) extends AnyVal with Int2Arr[HVert]
 { type ThisT = HVerts
   override def fElemStr: HVert => String = _.str
   override def unsafeFromArray(array: Array[Int]): HVerts = new HVerts(array)
@@ -83,7 +83,7 @@ object HVerts extends ProductI2sCompanion[HVert, HVerts]
   override def buff(initialSize: Int): HVertBuff = new HVertBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): HVerts = new HVerts(array)
 
-  implicit object PersistImplicit extends ProdInt2sBuilder[HVert, HVerts]("HVerts")
+  implicit object PersistImplicit extends Int2sBuilder[HVert, HVerts]("HVerts")
   { override def fromArray(value: Array[Int]): HVerts = new HVerts(value)
 
     override def showT(obj: HVerts, way: Show.Way, decimalPlaces: Int): String = ???
@@ -92,7 +92,7 @@ object HVerts extends ProductI2sCompanion[HVert, HVerts]
   implicit val arrArrayImplicit: ArrFlatBuild[HVerts] = HVert.HVertsBuildImplicit
 }
 
-class HVertBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with BuffProdInt2[HVert, HVerts]
+class HVertBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuff[HVert, HVerts]
 { type ArrT = HVerts
   override def intsToT(i1: Int, i2: Int): HVert = HVert(i1, i2)
 }
