@@ -4,12 +4,12 @@ package pGrid
 import geom._
 
 /** A 2d line defined by its start and end TileGrid Roord. */
-case class RoordLine(y1: Int, c1: Int, y2: Int, c2: Int) extends ProdInt4
+case class RoordLine(y1: Int, c1: Int, y2: Int, c2: Int) extends Int4Elem
 {
-  def _1 = y1
-  def _2 = c1
-  def _3 = y2
-  def _4 = c2
+  def int1 = y1
+  def int2 = c1
+  def int3 = y2
+  def int4 = c2
   def toLine2(f: Roord => Pt2): LineSeg =
   { val v1 = f(Roord(y1, c1))
     val v2 = f(Roord(y2, c2))
@@ -23,7 +23,7 @@ object RoordLine
 }
 
 /** An Array[Int] based collection for RoordLines. */
-class RoordLines(val arrayUnsafe: Array[Int]) extends AnyVal with ArrProdInt4[RoordLine]
+class RoordLines(val arrayUnsafe: Array[Int]) extends AnyVal with Int4Arr[RoordLine]
 { type ThisT = RoordLines
   override def fElemStr: RoordLine => String = _.toString
   override def unsafeFromArray(array: Array[Int]): RoordLines = new RoordLines(array)
@@ -42,7 +42,7 @@ object RoordLines extends ProdInt4sCompanion[RoordLine, RoordLines]
 { implicit val factory: Int => RoordLines = i => new RoordLines(new Array[Int](i * 4))
   override def buff(initialSize: Int): RoordLinesBuff = new RoordLinesBuff(buffInt(initialSize * 4))
 
-  implicit val PersistImplicit = new ProductI4sBuilder[RoordLine, RoordLines]("RoordLines")
+  implicit val PersistImplicit = new Int4sBuilder[RoordLine, RoordLines]("RoordLines")
   { override def fromArray(value: Array[Int]): RoordLines = new RoordLines(value)
 
     override def showT(obj: RoordLines, way: Show.Way, decimalPlaces: Int): String = ???

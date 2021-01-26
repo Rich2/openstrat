@@ -56,7 +56,8 @@ object ArrBuild extends ArrBuildLowPriority
   implicit val booleansImplicit: ArrBuild[Boolean, Booleans] = BooleansBuild
 }
 
-/** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. */
+/** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from
+ * the implicit instance for [[Arr]]. */
 trait SpecialT extends Any
 
 trait ArrBuildLowPriority

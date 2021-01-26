@@ -1,8 +1,8 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** A homogeneous Product. The final class can be stored as an Array of primitive values. */
-trait ProdHomo extends Any with Product with SpecialT
+trait ProdHomo extends Any with SpecialT
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
