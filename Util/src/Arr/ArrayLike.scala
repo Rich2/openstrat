@@ -2,9 +2,9 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.immutable._
 
-/** This the base trait for all Array based collections that compile time platform Array classes. So currently there are just two classes for each
- * type A, An ArrImut that wraps a standard immutable Array to produce an immutable array, and a ArrBuff that wrappes an ArrayBuffer. Currently this
- * just in a standard ArrayBuffer. Where A is a compound value types or an AnyVal type. */
+/** This the base trait for all collections based on Array like classes, Arrays, ArrayBuffers etc. that compile time platform Array classes. So
+ *  currently there are just two classes for each type A, An ArrImut that wraps a standard immutable Array to produce an immutable array, and a
+ *  ArrBuff that wraps an ArrayBuffer. Currently this just in a standard ArrayBuffer. Where A is a compound value types or an AnyVal type. */
 trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 { type ThisT <: ArrayLike[A]
   def returnThis: ThisT = ???
