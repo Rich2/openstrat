@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 4 [[Int]]s. These are used in [[Int4Arr]] Array[Int] based collections. */
-trait Int4Elem extends Any with ProdHomo
+trait Int4Elem extends Any with ValueNElem
 { def int1: Int
   def int2: Int
   def int3: Int
@@ -11,7 +11,7 @@ trait Int4Elem extends Any with ProdHomo
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
-trait Int4Arr[A <: Int4Elem] extends Any with ArrProdIntN[A]
+trait Int4Arr[A <: Int4Elem] extends Any with IntNArr[A]
 {
   override def productSize: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A

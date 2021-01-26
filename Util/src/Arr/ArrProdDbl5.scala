@@ -3,10 +3,10 @@ package ostrat
 import scala.collection.mutable.ArrayBuffer
 
 /** Homogeneous Product5[Double, Double, Double, Double, Double]. These are used in ArrHmoDbl5 Array[Double] based collections. */
-trait ProdDbl5 extends Any with Product5[Double, Double, Double, Double, Double] with ProdHomo
+trait ProdDbl5 extends Any with Product5[Double, Double, Double, Double, Double] with ValueNElem
 
 /** Base trait for Array[Double] base collections of Products of 4 Doubles. */
-trait ArrProdDbl5[A <: ProdDbl5] extends Any with ArrProdDblN[A]
+trait ArrProdDbl5[A <: ProdDbl5] extends Any with DblNArr[A]
 {
   def productSize: Int = 5
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A

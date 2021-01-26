@@ -3,10 +3,10 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Homogeneous Product4[Double, Double, Double, Double]. These are used in ArrHomoDbl4 Array[Double] based collections. */
-trait ProdDbl4 extends Any with Product4[Double, Double, Double, Double] with ProdHomo
+trait ProdDbl4 extends Any with Product4[Double, Double, Double, Double] with ValueNElem
 
 /** Base trait for Array[Double] base collections of Products of 4 Doubles. */
-trait ArrProdDbl4[A <: ProdDbl4] extends Any with ArrProdDblN[A]
+trait ArrProdDbl4[A <: ProdDbl4] extends Any with DblNArr[A]
 {
   def productSize: Int = 4
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A

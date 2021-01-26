@@ -6,7 +6,7 @@ trait ProdDbl1 extends Any
   @inline def _1 : Double = dblValue
 }
 
-trait ArrProdDbl1[A <: ProdDbl1] extends Any with ArrProdDblN[A]
+trait ArrProdDbl1[A <: ProdDbl1] extends Any with DblNArr[A]
 {
   final override def productSize: Int = 1
   def newElem(dblValue: Double): A

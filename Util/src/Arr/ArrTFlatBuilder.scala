@@ -22,5 +22,5 @@ trait ArrFlatBuildLowPriority
 { /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBuildBase classes. It is placed in this low priority trait
    * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
    * specialist Arr classes. */
- implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ProdHomo]#L[A]): ArrTFlatBuilder[Arr[A]] = new AnyBuild[A]
+ implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ValueNElem]#L[A]): ArrTFlatBuilder[Arr[A]] = new AnyBuild[A]
 }

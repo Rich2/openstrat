@@ -8,7 +8,7 @@ trait Int1Elem extends Any
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
-trait Int1Arr[A <: Int1Elem] extends Any with ArrProdIntN[A]
+trait Int1Arr[A <: Int1Elem] extends Any with IntNArr[A]
 {
   final override def productSize: Int = 1
   def newElem(intValue: Int): A

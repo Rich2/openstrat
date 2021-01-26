@@ -63,10 +63,10 @@ class SeqExtensions[A](thisSeq: Seq[A])
     }
     acc
   }
-  
-  /** product map method maps from a sequence to an Array[Double] based ProductValues class. */
-  def pMap[B , C <: ArrProdHomo[B]](f: A => B)(implicit factory: Int => C): C =
-  { val res = factory(thisSeq.length)
+
+  /** Specialised map to an immutable ArrBase of B. */
+  def mapSpec[B, BB <: ArrBase[B]](f: A => B)(implicit ev: ArrTBuilder[B, BB]): BB =
+  { val res = ev.newArr(thisSeq.length)
     var count: Int = 0
     thisSeq.foreach { orig =>
       val newValue: B = f(orig)
@@ -76,7 +76,7 @@ class SeqExtensions[A](thisSeq: Seq[A])
     res
   }
   
-  def valueProducts[B <: ArrProdHomo[A]](implicit factory: Int => B): B =
+  def valueProducts[B <: ValueNArr[A]](implicit factory: Int => B): B =
   { val length = thisSeq.length
     val valProds = factory(length)
     var count = 0

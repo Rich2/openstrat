@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0.s */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -7,8 +7,8 @@ trait ArrayDblBased extends Any
 }
 
 /** Base trait for Array[Double] based collections of Products of Doubles. */
-trait ArrProdDblN[A] extends Any with ArrProdHomo[A] with ArrayDblBased
-{ type ThisT <: ArrProdDblN[A]
+trait DblNArr[A] extends Any with ValueNArr[A] with ArrayDblBased
+{ type ThisT <: DblNArr[A]
 
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * productSize))
@@ -31,7 +31,7 @@ trait ArrProdDblN[A] extends Any with ArrProdHomo[A] with ArrayDblBased
  *  companion object of not BB. This is different from the related ArrProdDblNBinder[BB] typeclass where instance should go into the BB companion
  *  object.The Implicit instances that inherit from this trait will normally go in the companion object of type B, not the companion object of ArrT.
  *  */
-trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdValueNBuild[B, ArrT]
+trait ArrProdDblNBuild[B, ArrT <: DblNArr[B]] extends ArrProdValueNBuild[B, ArrT]
 { type BuffT <: BuffProdDblN[B]
   def fromDblArray(array: Array[Double]): ArrT
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -43,7 +43,7 @@ trait ArrProdDblNBuild[B, ArrT <: ArrProdDblN[B]] extends ArrProdValueNBuild[B, 
 
 /** A mutable and resizable Array Buffer for collections of elements that are products of Double sub-elements. */
 trait BuffProdDblN[A] extends Any with BuffProdValueN[A]
-{ type ArrT <: ArrProdDblN[A]
+{ type ArrT <: DblNArr[A]
   def buffer: ArrayBuffer[Double]
 
   def elemsLen: Int = buffer.length / elemSize
@@ -52,14 +52,14 @@ trait BuffProdDblN[A] extends Any with BuffProdValueN[A]
   override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.arrayUnsafe); () }
 }
 
-trait ProdDblNsCompanion[T,  ST <: ArrProdDblN[T]]
+trait ProdDblNsCompanion[T,  ST <: DblNArr[T]]
 { def prodLen: Int
   implicit val persistImplicit: ArrProdDblNPersist[T, ST]
   implicit val factory: Int => ST = len => persistImplicit.fromArray(new Array[Double](len * prodLen))
 }
 
 /** Persists and assists in building ArrProdDblN */
-abstract class ArrProdDblNPersist[A, M <: ArrProdDblN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr) with EqT[M]
+abstract class ArrProdDblNPersist[A, M <: DblNArr[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

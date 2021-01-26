@@ -2,10 +2,10 @@
 package ostrat
 
 /** Homogeneous Product3[Double, Double, Double]. These are used in ArrHomoDbl3 Array[Double] based collections. */
-trait ProdDbl3 extends Any with Product3[Double, Double, Double] with ProdHomo
+trait ProdDbl3 extends Any with Product3[Double, Double, Double] with ValueNElem
 
 /** Base trait for Array[Double] base collections of Products of 3 Doubles. */
-trait ArrProdDbl3[A <: ProdDbl3] extends Any with ArrProdDblN[A]
+trait ArrProdDbl3[A <: ProdDbl3] extends Any with DblNArr[A]
 { def productSize = 3
   def newElem(d1: Double, d2: Double, d3: Double): A
   def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))

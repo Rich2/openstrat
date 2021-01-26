@@ -2,10 +2,10 @@
 package ostrat
 
 /** Homogeneous Product6[Double, Double, Double, Double, Double, Double]. These are used in ArrHomoDbl6 Array[Double] based collections. */
-trait ProdDbl6 extends Any with Product6[Double, Double, Double, Double, Double, Double] with ProdHomo
+trait ProdDbl6 extends Any with Product6[Double, Double, Double, Double, Double, Double] with ValueNElem
 
 /** Base trait for Array[Double] base collections of Products of 6 Doubles. */
-trait ArrProdDbl6[A <: ProdDbl6] extends Any with ArrProdDblN[A]
+trait ArrProdDbl6[A <: ProdDbl6] extends Any with DblNArr[A]
 { def productSize: Int = 6
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 

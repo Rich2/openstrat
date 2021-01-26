@@ -3,13 +3,13 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 2 [[Int]]s. These are used in [[Int2Arr]] Array[Int] based collections. */
-trait Int2Elem extends Any with ProdHomo
+trait Int2Elem extends Any with ValueNElem
 { def int1: Int
   def int2: Int
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
-trait Int2Arr[A <: Int2Elem] extends Any with ArrProdIntN[A]
+trait Int2Arr[A <: Int2Elem] extends Any with IntNArr[A]
 {
   override def productSize: Int = 2
   def newElem(i1: Int, i2: Int): A

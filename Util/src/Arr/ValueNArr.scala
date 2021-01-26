@@ -1,13 +1,14 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** A homogeneous Product. The final class can be stored as an Array of primitive values. */
-trait ProdHomo extends Any with SpecialT
+/** A class that can be construct from a fixed number of homogeneous primitive values such as Ints, Doubles or Longs. The final class can be stored as
+ *  an Array of primitive values. */
+trait ValueNElem extends Any with SpecialT
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ArrProdHomo[A] extends Any with ArrBase[A]
-{ type ThisT <: ArrProdHomo[A]
+trait ValueNArr[A] extends Any with ArrBase[A]
+{ type ThisT <: ValueNArr[A]
 
   def productSize: Int
   def arrLen: Int
@@ -15,7 +16,7 @@ trait ArrProdHomo[A] extends Any with ArrBase[A]
 
   final def elemsLen: Int = arrLen / productSize
 
-  def pMap[B, N <: ArrProdHomo[B]](f: A => B)(implicit factory: Int => N): N =
+  def pMap[B, N <: ValueNArr[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(elemsLen)
     var count: Int = 0
     while (count < elemsLen) {
@@ -28,7 +29,7 @@ trait ArrProdHomo[A] extends Any with ArrBase[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++[N <: ArrProdHomo[A]](operand: N)(implicit factory: Int => N): N =
+  def ++[N <: ValueNArr[A]](operand: N)(implicit factory: Int => N): N =
   { val res = factory(elemsLen + operand.elemsLen)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     operand.iForeach((elem, i) => res.unsafeSetElem(i + elemsLen, elem))
@@ -36,7 +37,7 @@ trait ArrProdHomo[A] extends Any with ArrBase[A]
   }
 
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
-  def :+[N <: ArrProdHomo[A]](operand: A)(implicit factory: Int => N): N =
+  def :+[N <: ValueNArr[A]](operand: A)(implicit factory: Int => N): N =
   { val res = factory(elemsLen + 1)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     res.unsafeSetElem(elemsLen, operand)
@@ -58,12 +59,12 @@ trait ArrProdHomo[A] extends Any with ArrBase[A]
  *  this typeclass for classes / traits you control should go in the companion object of B not the companion object of not BB. This is different from
  *  the related ArrProdHomoBinder[BB] typeclass where instance should go into the BB companion object.The Implicit instances that inherit from this
  *  trait will normally go in the companion object of type B, not the companion object of ArrT. */
-trait ArrProdValueNBuild[B, ArrT <: ArrProdHomo[B]] extends ArrTBuilder[B, ArrT] with ArrTFlatBuilder[ArrT]
+trait ArrProdValueNBuild[B, ArrT <: ValueNArr[B]] extends ArrTBuilder[B, ArrT] with ArrTFlatBuilder[ArrT]
 { def elemSize: Int
 }
 
 trait BuffProdValueN[A] extends Any with ArrayLike[A]
-{ type ArrT <: ArrProdHomo[A]
+{ type ArrT <: ValueNArr[A]
   def elemSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit
