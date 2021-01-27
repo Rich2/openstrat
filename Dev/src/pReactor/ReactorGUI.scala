@@ -1,8 +1,7 @@
-/* Copyright 2018-20 w0d. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 w0d, Rich Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pReactor
-import geom._, pCanv._, Colour._
-import scala.collection.mutable.Map
+import geom._, pCanv._, Colour._, collection.mutable.Map
 
 /** A clone of the classic Atoms game */
 case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
@@ -190,12 +189,14 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   }
 
   mouseUp =
-  { case (LeftButton, cl, v) if (isTurnComplete && v._1 >= 0  &&  v._1 < (size*cols)  &&  v._2 >= 0  &&  v._2 < (size*rows) && computerPlayers.indexOf(aDefaultGame.currentPlayer) == -1) =>
-    { val clickedCellIndex = (v._1/size).toInt+cols*((v._2/size).toInt)
-      if (aDefaultGame.currentPlayer == aDefaultGame.cellColors(clickedCellIndex) || Black  == aDefaultGame.cellColors(clickedCellIndex))
-      { aDefaultGame.newTurn(aDefaultGame.currentPlayer, clickedCellIndex)
-        isTurnComplete = false
-        canv.timeOut(() => doAnimation(), animationDuration)
+  {
+    case (LeftButton, cl, v) if (isTurnComplete && v.x >= 0  &&  v.x < (size * cols)  &&  v.y >= 0  &&  v.y < (size * rows) &&
+      computerPlayers.indexOf(aDefaultGame.currentPlayer) == -1) =>
+      { val clickedCellIndex = (v.x/size).toInt+cols * ((v.y/size).toInt)
+        if (aDefaultGame.currentPlayer == aDefaultGame.cellColors(clickedCellIndex) || Black  == aDefaultGame.cellColors(clickedCellIndex))
+        { aDefaultGame.newTurn(aDefaultGame.currentPlayer, clickedCellIndex)
+          isTurnComplete = false
+          canv.timeOut(() => doAnimation(), animationDuration)
       }
     }
     case (LeftButton, cl, v) if (cl.length > 0) =>

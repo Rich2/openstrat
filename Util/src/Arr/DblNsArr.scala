@@ -50,13 +50,13 @@ trait DblNsBuffer[A] extends Any with ValueNsBuffer[A]
   override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.arrayUnsafe); () }
 }
 
-trait ProdDblNsCompanion[T,  ST <: DblNsArr[T]]
+trait DblNsArrCompanion[T,  ST <: DblNsArr[T]]
 { def prodLen: Int
   implicit val persistImplicit: DblNsArrPersist[T, ST]
   implicit val factory: Int => ST = len => persistImplicit.fromArray(new Array[Double](len * prodLen))
 }
 
-/** Persists and assists in building ArrProdDblN */
+/** Persists and assists in building [[DblNsArr]]s. */
 abstract class DblNsArrPersist[A, M <: DblNsArr[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)

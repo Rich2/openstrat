@@ -1,15 +1,15 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with ProdDbl2
+final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with Dbl2Elem
 {
   override def toString: String = LatLong.persistImplict.strT(this)
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
-  def _1 = latSecs
-  def _2 = longSecs
+  //override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
+  def dbl1 = latSecs
+  def dbl2 = longSecs
   def latSecs: Double = latMilliSecs / 1000
   def longSecs: Double = longMilliSecs / 1000
 
@@ -125,5 +125,5 @@ object LatLong
   def milliSecs(lat: Double, long: Double): LatLong = new LatLong(lat, long)
 
   implicit val persistImplict: Persist[LatLong] = new Persist2Dbls[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
-  implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_._1, _._2)
+  implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 }

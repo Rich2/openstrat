@@ -46,9 +46,10 @@ abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sArr[A]]
   { val length = elems.length
     val res = factory(length)
     var count: Int = 0
+
     while (count < length)
-    {
-      res.arrayUnsafe(count * 3) = elems(count).dbl1;  res.arrayUnsafe(count * 3 + 1) = elems(count).dbl2; res.arrayUnsafe(count * 3 + 2) = elems(count).dbl3
+    { res.arrayUnsafe(count * 3) = elems(count).dbl1;  res.arrayUnsafe(count * 3 + 1) = elems(count).dbl2;
+      res.arrayUnsafe(count * 3 + 2) = elems(count).dbl3
       count += 1
     }
     res

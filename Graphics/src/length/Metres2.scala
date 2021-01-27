@@ -1,16 +1,16 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import math._
 
 /** 2 dimensional vector using metres as units rather than pure scalar numbers. */
-final class Metres2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
+final class Metres2(val xMetres: Double, val yMetres: Double) extends Dbl2Elem
 { override def toString: String = Metres2.PersistImplicit.strT(this)
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres2]
+  //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres2]
   def x: Metres = Metres(xMetres)
   def y: Metres = Metres(yMetres)
-  override def _1: Double = xMetres
-  override def _2: Double = yMetres
+  override def dbl1: Double = xMetres
+  override def dbl2: Double = yMetres
   def + (op: Metres2): Metres2 = Metres2(x + op.x, y + op.y)
   def - (op: Metres2): Metres2 = Metres2(x - op.x, y - op.y)
   def addXY (otherX: Metres, otherY: Metres): Metres2 = Metres2(x + otherX, y + otherY)
@@ -47,6 +47,7 @@ final class Metres2(val xMetres: Double, val yMetres: Double) extends ProdDbl2
   def yNeg: Boolean = y.neg
 }
 
+/** Companion object for Metres2 class contains factory methods. */
 object Metres2
 { def metres(xMetres: Double, yMetres: Double): Metres2 = new Metres2(xMetres, yMetres)
   def apply(x: Metres, y: Metres): Metres2 = new Metres2(x.metres, y.metres)
@@ -59,7 +60,7 @@ object Metres2
 }
 
 /** Specialised immutable Array based collection class for Metres2. */
-class Metres2s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[Metres2]
+class Metres2s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sArr[Metres2]
 { type ThisT = Metres2s
   override def unsafeFromArray(array: Array[Double]): Metres2s = new Metres2s(array)
   override def typeStr: String = "Metres2s"
@@ -67,9 +68,10 @@ class Metres2s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl2[M
   override def fElemStr: Metres2 => String = _.str
 }
 
-object Metres2s extends ProdDbl2sCompanion[Metres2, Metres2s]
+/** Companion object for the [[Metres2s]] class not to be confused with the [[Metres2]] class. Contains implicit nstance for Persist type class. */
+object Metres2s extends Dbl2sArrCompanion[Metres2, Metres2s]
 {
-  implicit val persistImplicit: ArrProdDbl2Persist[Metres2, Metres2s] = new ArrProdDbl2Persist[Metres2, Metres2s]("Metres2s")
+  implicit val persistImplicit: Dbl2sArrPersist[Metres2, Metres2s] = new Dbl2sArrPersist[Metres2, Metres2s]("Metres2s")
   { override def fromArray(value: Array[Double]): Metres2s = new Metres2s(value)
   }
 }

@@ -6,11 +6,12 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
  *  [[Vec2]] instead. Thanks to René Descartes for this. */
 final class Pt2(val x: Double, val y: Double) extends Vec2Like
-{ override def typeStr: String = "Pt2"
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
-  @inline override def _1: Double = x
-  @inline override def _2: Double = y
-  override def productPrefix: String = "Pt2"
+{
+  override def typeStr: String = "Pt2"
+  //override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
+  @inline override def dbl1: Double = x
+  @inline override def dbl2: Double = y
+  //override def productPrefix: String = "Pt2"
 
   /** Add the operand [[Vec2]] 2D vector to this Pt2, returns a new Pt2. */
   def +(operand: Vec2): Pt2 = Pt2(x + operand.x, y + operand.y)
@@ -234,7 +235,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
     textArrow(str, angleTo(dirnPt), arrowLength, colour, fontSize)
 }
 
-/** Companion object for Pt2. contains Apply factantiPory method. */
+/** Companion object for Pt2. Contains apply factory and unapply methods. Persist and EqT implicit type classes instances and instances for all the
+ * 2D geometric transformation type classes. */
 object Pt2
 { def apply(x: Double, y: Double): Pt2 = new Pt2(x, y)
   def unapply(orig: Pt2): Option[(Double, Double)] = Some((orig.x, orig.y))
@@ -253,7 +255,7 @@ object Pt2
   implicit val persistImplicit: Persist2Dbls[Pt2] = new Persist2Dbls[Pt2]("Pt2", "x", _.x, "y", _.y, apply)
   implicit val approxTImplicit: EqT[Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
-  implicit val vec2sBuildImplicit: ArrProdDbl2Build[Pt2, Pt2s] = new ArrProdDbl2Build[Pt2, Pt2s]
+  implicit val vec2sBuildImplicit: Dbl2sArrBuilders[Pt2, Pt2s] = new Dbl2sArrBuilders[Pt2, Pt2s]
   { type BuffT = Vec2Buff
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(inp)

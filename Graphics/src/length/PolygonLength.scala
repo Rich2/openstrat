@@ -5,7 +5,7 @@ package geom
 trait PolygonLength extends Any
 
 /* A polygon using distances measured in metres rather than scalars. */
-final class PolygonMs(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength with ArrProdDbl2[Metres2]
+final class PolygonMs(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength with Dbl2sArr[Metres2]
 { type ThisT = PolygonMs
   def unsafeFromArray(array: Array[Double]): PolygonMs = new PolygonMs(array)
   override def typeStr: String = "PolygonMs"
@@ -14,9 +14,9 @@ final class PolygonMs(val arrayUnsafe: Array[Double]) extends AnyVal with Polygo
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
-object PolygonMs extends ProdDbl2sCompanion[Metres2, PolygonMs]
+object PolygonMs extends Dbl2sArrCompanion[Metres2, PolygonMs]
 {
-  implicit val persistImplicit: ArrProdDbl2Persist[Metres2, PolygonMs] = new ArrProdDbl2Persist[Metres2, PolygonMs]("PolygonMs")
+  implicit val persistImplicit: Dbl2sArrPersist[Metres2, PolygonMs] = new Dbl2sArrPersist[Metres2, PolygonMs]("PolygonMs")
   { override def fromArray(value: Array[Double]): PolygonMs = new PolygonMs(value)
   }
 }

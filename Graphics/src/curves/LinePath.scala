@@ -4,7 +4,7 @@ package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
-class LinePath(val arrayUnsafe: Array[Double]) extends ArrProdDbl2[Pt2] with AffinePreserve with Vec2sLikeProdDbl2
+class LinePath(val arrayUnsafe: Array[Double]) extends Dbl2sArr[Pt2] with AffinePreserve with Vec2sLikeProdDbl2
 { type ThisT = LinePath
   //type ThisT = LinePath
   def unsafeFromArray(array: Array[Double]): LinePath = new LinePath(array)
@@ -36,9 +36,9 @@ class LinePath(val arrayUnsafe: Array[Double]) extends ArrProdDbl2[Pt2] with Aff
   def draw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this, lineWidth, colour)
 }
 
-object LinePath extends ProdDbl2sCompanion[Pt2, LinePath]
+object LinePath extends Dbl2sArrCompanion[Pt2, LinePath]
 {
-  implicit val persistImplicit: ArrProdDbl2Persist[Pt2, LinePath] = new ArrProdDbl2Persist[Pt2, LinePath]("LinePath")
+  implicit val persistImplicit: Dbl2sArrPersist[Pt2, LinePath] = new Dbl2sArrPersist[Pt2, LinePath]("LinePath")
   { override def fromArray(value: Array[Double]): LinePath = new LinePath(value)
   }
 

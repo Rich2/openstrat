@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
 /** This is the root package for the Openstrat project. The top of this package contains, 32 bit Int based Colours, the Multiple type class, a
  *  show and persistence library using RCON (Name may change), Rich Compact Object Notation, array based compound value collections of same length
@@ -239,7 +239,7 @@ package object ostrat
   }
 
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
-  { def app2(prod: ProdDbl2): Unit = {thisBuff.append(prod._1); thisBuff.append(prod._2)}
+  { def app2(prod: Dbl2Elem): Unit = { thisBuff.append(prod.dbl1); thisBuff.append(prod.dbl2) }
   }
 
   /* This needs to be removed. */

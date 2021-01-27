@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 
 /** Array[Double] based collection class for Vec2s. Use Polygon or LinePath to represent those structures. Conversion to and from Polygon class and
  *  LinePath class should not entail a runtime cost. */
-class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Vec2sLikeProdDbl2 with ArrProdDbl2[Pt2]
+class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Vec2sLikeProdDbl2 with Dbl2sArr[Pt2]
 { type ThisT = Pt2s
   def unsafeFromArray(array: Array[Double]): Pt2s = new Pt2s(array)
   override def typeStr: String = "P2s"
@@ -43,9 +43,9 @@ class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Vec2sLike
   def toPathDraw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this.toLinePath, lineWidth, colour)
 }
 
-object Pt2s extends ProdDbl2sCompanion[Pt2, Pt2s]
+object Pt2s extends Dbl2sArrCompanion[Pt2, Pt2s]
 {
-  implicit val persistImplicit: ArrProdDbl2Persist[Pt2, Pt2s] = new ArrProdDbl2Persist[Pt2, Pt2s]("Pt2s")
+  implicit val persistImplicit: Dbl2sArrPersist[Pt2, Pt2s] = new Dbl2sArrPersist[Pt2, Pt2s]("Pt2s")
   { override def fromArray(value: Array[Double]): Pt2s = new Pt2s(value)
   }
 
@@ -72,7 +72,7 @@ object Pt2s extends ProdDbl2sCompanion[Pt2, Pt2s]
   }
 }
 
-class Vec2Buff(val buffer: ArrayBuffer[Double]) extends AnyVal with BuffProdDbl2[Pt2]
+class Vec2Buff(val buffer: ArrayBuffer[Double]) extends AnyVal with Dbl2sBuffer[Pt2]
 { def dblsToT(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }
 
