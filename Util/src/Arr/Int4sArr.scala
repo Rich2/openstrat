@@ -30,17 +30,17 @@ trait Int4sArr[A <: Int4Elem] extends Any with IntNArr[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */
-trait Int4sBuff[A <: Int4Elem, M <: Int4sArr[A]] extends Any with BuffProdIntN[A]
+trait Int4sBuffer[A <: Int4Elem, M <: Int4sArr[A]] extends Any with IntNsBuffer[A]
 { override def elemSize: Int = 4
   override def grow(newElem: A): Unit = { buffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
   def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
   def apply(index: Int): A = intsToT(buffer(index * 4), buffer(index * 4 + 1), buffer(index * 4 + 2), buffer(index * 4 + 3))
 }
 
-/** Class for the companion objects of [[Int4sArr]] final classes to extend. */
+/** Class for the singleton companion objects of [[Int4sArr]] final classes to extend. */
 abstract class Int4sArrCompanion[A <: Int4Elem, M <: Int4sArr[A]]
 { val factory: Int => M
-  def buff(initialSize: Int): Int4sBuff[A, M]
+  def buff(initialSize: Int): Int4sBuffer[A, M]
 
   def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4
@@ -61,15 +61,15 @@ abstract class Int4sArrCompanion[A <: Int4Elem, M <: Int4sArr[A]]
   }
 }
 
-/** A builder class for specialised collections of [[Int4Elem]]s. */
-abstract class Int4sBuilder[A <: Int4Elem, M <: Int4sArr[A]](typeStr: String) extends IntNArrPersist[A, M](typeStr)
+/**  Class to persist specialised flat Array[Int] based [[Int4sArr]] collection classes. */
+abstract class Int4sArrPersist[B <: Int4Elem, ArrB <: Int4sArr[B]](typeStr: String) extends IntNsArrPersist[B, ArrB](typeStr)
 {
-  override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
+  override def appendtoBuffer(buf: ArrayBuffer[Int], value: B): Unit =
   { buf += value.int1
     buf += value.int2
     buf += value.int3
     buf += value.int4
   }
 
-  override def syntaxDepthT(obj: M): Int = 3
+  override def syntaxDepthT(obj: ArrB): Int = 3
 }

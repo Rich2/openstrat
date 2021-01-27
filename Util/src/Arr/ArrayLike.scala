@@ -18,7 +18,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(elemsLen >= 1, ifHead(head), noHead)
   def headToStringElse(ifEmptyString: String): String = ife(elemsLen >= 1, head.toString, ifEmptyString)
 
-  /** Applys an index to this ArrayLike collection which cycles back to element 0, when it reaches the end of the collection. Accepts even negative
+  /** Applies an index to this ArrayLike collection which cycles back to element 0, when it reaches the end of the collection. Accepts even negative
    * integers as an index value without throwing an exception. */
   @inline def cycleGet(index: Int): A = apply(index %% elemsLen)
 
@@ -42,14 +42,14 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   }
 
   /** Specialised map to an immutable ArrBase of B. */
-  def map[B, BB <: ArrImut[B]](f: A => B)(implicit ev: ArrTBuilder[B, BB]): BB =
+  def map[B, ArrB <: ArrImut[B]](f: A => B)(implicit ev: ArrTBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsLen)
     iForeach((a, i) => ev.arrSet(res, i, f(a)))
     res
   }
 
   /** Specialised flatMap to an immutable Arr. */
-  def flatMap[BB <: ArrImut[_]](f: A => BB)(implicit ev: ArrTFlatBuilder[BB]): BB =
+  def flatMap[ArrB <: ArrImut[_]](f: A => ArrB)(implicit ev: ArrTFlatBuilder[ArrB]): ArrB =
   {
     val buff: ev.BuffT = ev.newBuff()
     foreach{ a =>
@@ -61,7 +61,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
    * function from type A and type B to type C. */
-  def zipMap[B, C, CC <: ArrImut[C]](operator: ArrayLike[B])(f: (A, B) => C)(implicit ev: ArrTBuilder[C, CC]): CC =
+  def zipMap[B, C, ArrC <: ArrImut[C]](operator: ArrayLike[B])(f: (A, B) => C)(implicit ev: ArrTBuilder[C, ArrC]): ArrC =
   { val newLen = elemsLen.min(operator.elemsLen)
     val res = ev.newArr(newLen)
     var count = 0
@@ -75,7 +75,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 
   /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
    *  the specialised map function from type A and type B and type C to type D. */
-  def zipMap2[B, C, D, DD <: ArrImut[D]](operator1: ArrayLike[B], operator2: ArrayLike[C])(f: (A, B, C) => D)(implicit ev: ArrTBuilder[D, DD]): DD =
+  def zipMap2[B, C, D, ArrD <: ArrImut[D]](operator1: ArrayLike[B], operator2: ArrayLike[C])(f: (A, B, C) => D)(implicit ev: ArrTBuilder[D, ArrD]): ArrD =
   { val newLen = elemsLen.min(operator1.elemsLen).min(operator2.elemsLen)
     val res = ev.newArr(newLen)
     var count = 0
@@ -88,14 +88,14 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   }
 
   /** Specialised map with index to an immutable ArrBase of B. This method should be overridden in sub classes. */
-  def iMap[B, BB <: ArrImut[B]](f: (A, Int) => B)(implicit ev: ArrTBuilder[B, BB]): BB =
+  def iMap[B, ArrB <: ArrImut[B]](f: (A, Int) => B)(implicit ev: ArrTBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsLen)
     iForeach((a, i) => ev.arrSet(res, i, f(a, i)))
     res
   }
 
   /** Specialised flatMap with index to an immutable Arr. */
-  def iFlatMap[BB <: ArrImut[_]](f: (A, Int) => BB)(implicit build: ArrTFlatBuilder[BB]): BB =
+  def iFlatMap[ArrB <: ArrImut[_]](f: (A, Int) => ArrB)(implicit build: ArrTFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
     while (i < elemsLen)
@@ -107,7 +107,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   }
 
   /** Specialised flatMap with index to an immutable Arr. */
-  def iFlatMap[BB <: ArrImut[_]](iInit: Int = 0)(f: (A, Int) => BB)(implicit build: ArrTFlatBuilder[BB]): BB =
+  def iFlatMap[ArrB <: ArrImut[_]](iInit: Int = 0)(f: (A, Int) => ArrB)(implicit build: ArrTFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
     while (count < elemsLen)
@@ -119,7 +119,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   }
 
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
-  def mapWithAcc[B, BB <: ArrImut[B], C](initC: C)(f: (A, C) => (B, C))(implicit ev: ArrTBuilder[B, BB]): BB =
+  def mapWithAcc[B, ArrB <: ArrImut[B], C](initC: C)(f: (A, C) => (B, C))(implicit ev: ArrTBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsLen)
     var accC: C = initC
     iForeach { (a, i) =>
@@ -130,7 +130,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     res
   }
 
-  def eMap[B, BB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrTBuilder[B, BB]): EMon[BB] =
+  def eMap[B, ArrB <: ArrImut[B]](f: A => EMon[B])(implicit ev: ArrTBuilder[B, ArrB]): EMon[ArrB] =
   { val acc = ev.newBuff()
     var continue = true
     var count = 0
@@ -151,7 +151,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   }
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
-  def map2To1[B, BB <: ArrImut[B]](f: (A, A) => B)(implicit ev: ArrTBuilder[B, BB]): BB =
+  def map2To1[B, ArrB <: ArrImut[B]](f: (A, A) => B)(implicit ev: ArrTBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsLen)
     var count = 0
     while (count + 1  < elemsLen)
@@ -161,13 +161,13 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     res
   }
 
-  def filter[AA <: ArrImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrTBuilder[A, AA] @uncheckedVariance): AA =
+  def filter[ArrA <: ArrImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrTBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => oif(f(a), ev.buffGrow(buff, a)))
     ev.buffToArr(buff)
   }
 
-  def filterNot[AA <: ArrImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrTBuilder[A, AA] @uncheckedVariance): AA =
+  def filterNot[ArrA <: ArrImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrTBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => oif(!f(a), ev.buffGrow(buff, a)))
     ev.buffToArr(buff)
@@ -181,7 +181,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   }
 
   /** FlatMaps over a function from A to any Iterable. */
-  def iterFlatMap[B, BB <: ArrImut[B]](f: A => Iterable[B])(implicit ev: ArrTBuilder[B, BB]): BB =
+  def iterFlatMap[B, ArrB <: ArrImut[B]](f: A => Iterable[B])(implicit ev: ArrTBuilder[B, ArrB]): ArrB =
   { val buff = ev.newBuff(elemsLen)
     foreach(a => ev.buffGrowIter(buff, f(a)))
     ev.buffToArr(buff)

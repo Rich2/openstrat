@@ -39,12 +39,12 @@ trait Dbl5sArr[A <: Dbl5Elem] extends Any with DblNArr[A]
 }
 
 /** Helper class for companion objects of final [[Dbl5sArr]] classes. */
-abstract class Dbl5sArrCompanion[A <: Dbl5Elem, M <: Dbl5sArr[A]] //extends ProductDsBuilder[A, M]
+abstract class Dbl5sArrCompanion[A <: Dbl5Elem, ArrA <: Dbl5sArr[A]]
 {
-  val factory: Int => M
-  def apply(length: Int): M = factory(length)
+  val factory: Int => ArrA
+  def apply(length: Int): ArrA = factory(length)
 
-  def apply(elems: A*): M =
+  def apply(elems: A*): ArrA =
   { val length = elems.length
     val res = factory(length)
     var count: Int = 0
@@ -60,7 +60,7 @@ abstract class Dbl5sArrCompanion[A <: Dbl5Elem, M <: Dbl5sArr[A]] //extends Prod
     res
   }
 
-  def doubles(elems: Double*): M =
+  def doubles(elems: Double*): ArrA =
   { val arrLen: Int = elems.length
     val res = factory(elems.length / 5)
     var count: Int = 0
@@ -72,7 +72,7 @@ abstract class Dbl5sArrCompanion[A <: Dbl5Elem, M <: Dbl5sArr[A]] //extends Prod
     res
   }
 
-  def fromList(list: List[A]): M =
+  def fromList(list: List[A]): ArrA =
   { val arrLen: Int = list.length * 5
     val res = factory(list.length)
     var count: Int = 0
@@ -96,7 +96,7 @@ abstract class Dbl5sArrCompanion[A <: Dbl5Elem, M <: Dbl5sArr[A]] //extends Prod
 }
 
 /** Both Persists and Builds [[Dbl5sArr]] Collection classes. */
-abstract class Dbl5sArrPersist[A <: Dbl5Elem, M <: Dbl5sArr[A]](typeStr: String) extends DblNsArrPersist[A, M](typeStr)
+abstract class Dbl5sArrPersist[A <: Dbl5Elem, ArrA <: Dbl5sArr[A]](typeStr: String) extends DblNsArrPersist[A, ArrA](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1
@@ -106,5 +106,5 @@ abstract class Dbl5sArrPersist[A <: Dbl5Elem, M <: Dbl5sArr[A]](typeStr: String)
     buf += value.dbl5
   }
 
-  override def syntaxDepthT(obj: M): Int = 3
+  override def syntaxDepthT(obj: ArrA): Int = 3
 }

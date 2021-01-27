@@ -38,14 +38,14 @@ trait Dbl7sArr[A <: Dbl7Elem] extends Any with DblNArr[A]
 }
 
 /** Helper class for companion objects of final [[Dbl7sArr]] classes. */
-abstract class Dbl7sArrCompanion[A <: Dbl7Elem, M <: Dbl7sArr[A]]
-{ val factory: Int => M
-  def apply(length: Int): M = factory(length)
-  def apply(elems: A*): M =
+abstract class Dbl7sArrCompanion[A <: Dbl7Elem, ArrA <: Dbl7sArr[A]]
+{ val factory: Int => ArrA
+  def apply(length: Int): ArrA = factory(length)
+  def apply(elems: A*): ArrA =
   { val length = elems.length
     val res = factory(length)
     var count: Int = 0
-      
+
     while (count < length)
     { val offset = count * 7
       res.arrayUnsafe(offset) = elems(count).dbl1; res.arrayUnsafe(offset + 1) = elems(count).dbl2; res.arrayUnsafe(offset + 2) = elems(count).dbl3
@@ -55,16 +55,16 @@ abstract class Dbl7sArrCompanion[A <: Dbl7Elem, M <: Dbl7sArr[A]]
     }
     res
   }
-   
-  def doubles(elems: Double*): M =
+
+  def doubles(elems: Double*): ArrA =
   { val arrLen: Int = elems.length
     val res = factory(elems.length / 7)
     var count: Int = 0
     while (count < arrLen) { res.arrayUnsafe(count) = elems(count); count += 1 }
     res
   }
-   
-   def fromList(list: List[A]): M = 
+
+   def fromList(list: List[A]): ArrA =
    { val res = factory(list.length)
      var count: Int = 0
      var rem = list

@@ -54,7 +54,7 @@ object Coods extends Int2sArrCompanion[Cood, Coods]
   implicit val arrArrayImplicit: ArrTFlatBuilder[Coods] = Cood.coodsBuildImplicit
 }
 
-class CoodBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuff[Cood, Coods]
+class CoodBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuffer[Cood, Coods]
 { type ArrT = Coods
   override def intsToT(i1: Int, i2: Int): Cood = Cood(i1, i2)
 }

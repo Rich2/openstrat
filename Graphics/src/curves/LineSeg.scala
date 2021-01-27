@@ -1,20 +1,23 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import collection.mutable.ArrayBuffer, Colour.Black
 
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
-final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends ProdDbl4 with LineLike with CurveSeg with
+final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends Dbl4Elem with LineLike with CurveSeg with
   AffinePreserve
 { override type ThisT = LineSeg
   override def toString: String = LineSeg.persistImplicit.strT(this)
-  override def _1: Double = xStart
-  override def _2: Double = yStart
-  override def _3: Double = xEnd
-  override def _4: Double = yEnd
+  override def dbl1: Double = xStart
+  override def dbl2: Double = yStart
+  override def dbl3: Double = xEnd
+  override def dbl4: Double = yEnd
   def startPt: Pt2 = xStart pp yStart
   def endPt: Pt2 = xEnd pp yEnd
+
+  override def productArity: Int = ???
+  override def productElement(n: Int): Any = ???
 
   override def canEqual(that: Any): Boolean = that match
   { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }
@@ -108,7 +111,7 @@ object LineSeg
 
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 
-  implicit val line2sBuildImplicit: ArrProdDbl4Build[LineSeg, LineSegs] = new ArrProdDbl4Build[LineSeg, LineSegs]
+  implicit val line2sBuildImplicit: Dbl4sArrBuilders[LineSeg, LineSegs] = new Dbl4sArrBuilders[LineSeg, LineSegs]
   { type BuffT = Line2sBuff
     override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)

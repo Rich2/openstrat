@@ -41,9 +41,11 @@ trait Int1sArr[A <: Int1Elem] extends Any with IntNArr[A]
   }
 }
 
-/** A builder class for specialised collections of [[Int1Elem]]s. */
-trait Int1sBuilder[A <: Int1Elem, ArrT <: Int1sArr[A]] extends IntNBuilder[A, ArrT]
-{ type BuffT <: Int1sBuff[A, ArrT]
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrTBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
+ *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait Int1sArrBuilders[A <: Int1Elem, ArrT <: Int1sArr[A]] extends IntNsArrBuilders[A, ArrT]
+{ type BuffT <: Int1sBuffer[A, ArrT]
 
   final override def elemSize: Int = 1
   def newArray(length: Int): Array[Int] = new Array[Int](length)
@@ -52,7 +54,7 @@ trait Int1sBuilder[A <: Int1Elem, ArrT <: Int1sArr[A]] extends IntNBuilder[A, Ar
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
-trait Int1sBuff[A <: Int1Elem, M <: Int1sArr[A]] extends Any with BuffProdIntN[A]
+trait Int1sBuffer[A <: Int1Elem, M <: Int1sArr[A]] extends Any with IntNsBuffer[A]
 { type ArrT <: Int1sArr[A]
   def intToT(value: Int): A
   def apply(i1: Int): A = intToT(buffer(i1))

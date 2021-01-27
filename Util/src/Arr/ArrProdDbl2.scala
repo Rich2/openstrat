@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 trait ProdDbl2 extends Any with Product2[Double, Double] with ValueNElem
 
 /** A Builder trait for companion objects to construct collection classes of Products2[Double, Double]. */
-trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends ArrProdDblNBuild[A, ArrT]
+trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends DblNsArrBuilders[A, ArrT]
 { type BuffT <: BuffProdDbl2[A]
   final override def elemSize = 2
   override def arrSet(arr: ArrT, index: Int, value: A): Unit = { arr.arrayUnsafe(index * 2) = value._1; arr.arrayUnsafe(index * 2 + 1) = value._2}
@@ -114,7 +114,7 @@ abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: S
   override def showT(obj: M, way: Show.Way, decimalPlaces: Int): String = ""
 }
 
-trait BuffProdDbl2[A <: ProdDbl2] extends Any with BuffProdDblN[A]
+trait BuffProdDbl2[A <: ProdDbl2] extends Any with DblNsBuffer[A]
 { type ArrT <: ArrProdDbl2[A]
   override def elemSize: Int = 2
   override def grow(newElem: A): Unit = { buffer.append(newElem._1).append(newElem._2); () }

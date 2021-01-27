@@ -54,7 +54,7 @@ object Roords extends Int2sArrCompanion[Roord, Roords]
   implicit val arrArrayImplicit: ArrTFlatBuilder[Roords] = Roord.roordsBuildImplicit
 }
 
-class RoordBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuff[Roord, Roords]
+class RoordBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuffer[Roord, Roords]
 { type ArrT = Roords
   override def intsToT(i1: Int, i2: Int): Roord = Roord(i1, i2)
 }

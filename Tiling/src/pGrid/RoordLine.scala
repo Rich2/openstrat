@@ -33,7 +33,7 @@ class RoordLines(val arrayUnsafe: Array[Int]) extends AnyVal with Int4sArr[Roord
   //override def toString: String = RoordLines.PersistImplicit.show(this)
 }
 
-class RoordLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int4sBuff[RoordLine, RoordLines]
+class RoordLinesBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int4sBuffer[RoordLine, RoordLines]
 {// override def unBuff: RoordLines = new RoordLines(toArray)
   override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): RoordLine = new RoordLine(i1, i2, i3, i4)
 }
@@ -42,7 +42,7 @@ object RoordLines extends Int4sArrCompanion[RoordLine, RoordLines]
 { implicit val factory: Int => RoordLines = i => new RoordLines(new Array[Int](i * 4))
   override def buff(initialSize: Int): RoordLinesBuff = new RoordLinesBuff(buffInt(initialSize * 4))
 
-  implicit val PersistImplicit = new Int4sBuilder[RoordLine, RoordLines]("RoordLines")
+  implicit val PersistImplicit = new Int4sArrPersist[RoordLine, RoordLines]("RoordLines")
   { override def fromArray(value: Array[Int]): RoordLines = new RoordLines(value)
 
     override def showT(obj: RoordLines, way: Show.Way, decimalPlaces: Int): String = ???

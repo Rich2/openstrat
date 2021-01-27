@@ -3,15 +3,15 @@ package ostrat
 import reflect.ClassTag, scala.annotation.unused
 
 /** A common trait inherited by [[ArrTBuilder]] and [[ArrTFlatBuider]]. */
-trait ArrTBuilderCommon[ArrT <: ArrImut[_]]
+trait ArrTBuilderCommon[ArrB <: ArrImut[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
   type BuffT <: ArrayLike[_]
   def newBuff(length: Int = 4): BuffT
-  def buffToArr(buff: BuffT): ArrT
+  def buffToArr(buff: BuffT): ArrB
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: ArrT): Unit
+  def buffGrowArr(buff: BuffT, arr: ArrB): Unit
 }
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
@@ -19,10 +19,10 @@ trait ArrTBuilderCommon[ArrT <: ArrImut[_]]
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait ArrTBuilder[B, ArrT <: ArrImut[B]] extends ArrTBuilderCommon[ArrT]
+trait ArrTBuilder[B, ArrB <: ArrImut[B]] extends ArrTBuilderCommon[ArrB]
 { type BuffT <: ArrayLike[B]
-  def newArr(length: Int): ArrT
-  def arrSet(arr: ArrT, index: Int, value: B): Unit
+  def newArr(length: Int): ArrB
+  def arrSet(arr: ArrB, index: Int, value: B): Unit
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
@@ -35,12 +35,12 @@ trait ArrTBuilder[B, ArrT <: ArrImut[B]] extends ArrTBuilderCommon[ArrT]
   }
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: ArrT): Unit// = arr.foreach(buffGrow(buff, _))
+  def buffGrowArr(buff: BuffT, arr: ArrB): Unit// = arr.foreach(buffGrow(buff, _))
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
 
-  def iterMap[A](inp: Iterable[A], f: A => B): ArrT =
+  def iterMap[A](inp: Iterable[A], f: A => B): ArrB =
   { val buff = newBuff()
     inp.foreach(a => buffGrow(buff, f(a)))
     buffToArr(buff)
@@ -66,5 +66,5 @@ trait ArrBuildLowPriority
   /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
    * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
    * specialist Arr classes. */
-  implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[SpecialT]#L[A]): ArrTBuilder[A, Arr[A]] = new AnyBuild[A]
+  implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrTBuilder[B, Arr[B]] = new AnyBuild[B]
 }

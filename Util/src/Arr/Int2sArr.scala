@@ -20,21 +20,24 @@ trait Int2sArr[A <: Int2Elem] extends Any with IntNArr[A]
   def head2: Int = arrayUnsafe(1)
 }
 
-/** A builder class for specialised collections of [[Int2Elem]]s. */
-trait Int2sBuilder[A <: Int2Elem, ArrT <: Int2sArr[A]] extends IntNBuilder[A, ArrT]
-{ type BuffT <: Int2sBuff[A, ArrT]
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrTBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
+ *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
+ *  ```map(f: A => B): ArrB``` function. */
+trait Int2sArrBuilders[B <: Int2Elem, ArrB <: Int2sArr[B]] extends IntNsArrBuilders[B, ArrB]
+{ type BuffT <: Int2sBuffer[B, ArrB]
 
   final override def elemSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
 
-  final override def arrSet(arr: ArrT, index: Int, value: A): Unit =
+  final override def arrSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.arrayUnsafe(index * 2) = value.int1; arr.arrayUnsafe(index * 2 + 1) = value.int2
   }
-  override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value.int1); buff.buffer.append(value.int2); () }
+  override def buffGrow(buff: BuffT, value: B): Unit = { buff.buffer.append(value.int1); buff.buffer.append(value.int2); () }
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
-trait Int2sBuff[A <: Int2Elem, M <: Int2sArr[A]] extends Any with BuffProdIntN[A]
+trait Int2sBuffer[A <: Int2Elem, M <: Int2sArr[A]] extends Any with IntNsBuffer[A]
 { type ArrT <: Int2sArr[A]
   override def elemSize: Int = 2
   override def grow(newElem: A): Unit = { buffer.append(newElem.int1).append(newElem.int2); () }
@@ -46,7 +49,7 @@ trait Int2sBuff[A <: Int2Elem, M <: Int2sArr[A]] extends Any with BuffProdIntN[A
 abstract class Int2sArrCompanion[A <: Int2Elem, M <: Int2sArr[A]] extends IntNArrCompanion[M]
 {
   implicit val factory: Int => M = i => fromArray(new Array[Int](i * 2))
-  def buff(initialSize: Int): Int2sBuff[A, M]
+  def buff(initialSize: Int): Int2sBuffer[A, M]
 
   def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 2

@@ -16,7 +16,7 @@ trait ArrProdDbl3[A <: ProdDbl3] extends Any with DblNArr[A]
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el._1, el._2, el._3)))
 }
 
-trait ArrProdDbl3Build[A <: ProdDbl3, ArrT <: ArrProdDbl3[A]] extends ArrProdDblNBuild[A, ArrT]
+trait ArrProdDbl3Build[A <: ProdDbl3, ArrT <: ArrProdDbl3[A]] extends DblNsArrBuilders[A, ArrT]
 { type BuffT <: BuffProdDbl3[A]
 
   final override def elemSize = 3
@@ -46,7 +46,7 @@ abstract class ProdDbl3sCompanion[A <: ProdDbl3, M <: ArrProdDbl3[A]]
   }
 }
 
-trait BuffProdDbl3[A <: ProdDbl3] extends Any with BuffProdDblN[A]
+trait BuffProdDbl3[A <: ProdDbl3] extends Any with DblNsBuffer[A]
 { type ArrT <: ArrProdDbl3[A]
   override def elemSize: Int = 3
 

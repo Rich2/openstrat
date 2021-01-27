@@ -26,23 +26,21 @@ trait DblNArr[A] extends Any with ValueNArr[A] with ArrayDblBased
   }
 }
 
-/** ArrProdDblNBuild[B, BB] is a type class for the building of efficient compact Immutable Arrays of Dbl Product elements. ArrT uses a compile time
- *  wrapped underlying Array[Double]. Instances for this typeclass for classes / traits you control should go in the companion object of B not the
- *  companion object of not BB. This is different from the related ArrProdDblNBinder[BB] typeclass where instance should go into the BB companion
- *  object.The Implicit instances that inherit from this trait will normally go in the companion object of type B, not the companion object of ArrT.
- *  */
-trait ArrProdDblNBuild[B, ArrT <: DblNArr[B]] extends ArrProdValueNBuild[B, ArrT]
-{ type BuffT <: BuffProdDblN[B]
-  def fromDblArray(array: Array[Double]): ArrT
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNArr]] final classes. Instances for the [[ArrTBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
+ *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait DblNsArrBuilders[B, ArrB <: DblNArr[B]] extends ValueNsArrBuilders[B, ArrB]
+{ type BuffT <: DblNsBuffer[B]
+  def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
-  final override def newArr(length: Int): ArrT = fromDblArray(new Array[Double](length * elemSize))
-  final override def buffToArr(buff: BuffT): ArrT = fromDblArray(buff.buffer.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
+  final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemSize))
+  final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.buffer.toArray)
+  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
 }
 
-/** A mutable and resizable Array Buffer for collections of elements that are products of Double sub-elements. */
-trait BuffProdDblN[A] extends Any with BuffProdValueN[A]
+/** Specialised flat ArrayBuffer[Double] based collection class. */
+trait DblNsBuffer[A] extends Any with ValueNsBuffer[A]
 { type ArrT <: DblNArr[A]
   def buffer: ArrayBuffer[Double]
 
