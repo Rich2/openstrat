@@ -37,16 +37,16 @@ trait ShowProduct extends Any with Show
 /** Trait for Show for product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding [[Show2T]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show2T]]. */
-trait Show2[A1, A2] extends Any with ShowProduct
+trait Show2[A1, A2] extends Any with ShowProduct with Product2[A1, A2]
 { def name1: String
   def name2: String
   def elemNames: Strings = Strings(name1, name2)
-  def arg1: A1
-  def arg2: A2
+  //def arg1: A1
+  //def arg2: A2
   implicit def ev1: ShowT[A1]
   implicit def ev2: ShowT[A2]
   def elemTypeNames: Strings = Strings(ev1.typeStr, ev2.typeStr)
-  def strs(way: Show.Way, decimalPlaces: Int): Strings = Strings(ev1.showT(arg1, way, decimalPlaces), ev2.showT(arg2, way, decimalPlaces))
+  def strs(way: Show.Way, decimalPlaces: Int): Strings = Strings(ev1.showT(_1, way, decimalPlaces), ev2.showT(_2, way, decimalPlaces))
 }
 
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[Show2IntsT]]

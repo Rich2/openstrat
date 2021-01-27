@@ -8,10 +8,12 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black
 final class Pt2(val x: Double, val y: Double) extends Vec2Like
 {
   override def typeStr: String = "Pt2"
-  //override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
+  @inline override def _1: Double = x
+  @inline override def _2: Double = y
   @inline override def dbl1: Double = x
   @inline override def dbl2: Double = y
-  //override def productPrefix: String = "Pt2"
+  override def productPrefix: String = "Pt2"
 
   /** Add the operand [[Vec2]] 2D vector to this Pt2, returns a new Pt2. */
   def +(operand: Vec2): Pt2 = Pt2(x + operand.x, y + operand.y)

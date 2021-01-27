@@ -8,10 +8,12 @@ import scala.math.{Pi, atan}
  * Thanks to René Descartes for this great idea. */
 class Vec2(val x: Double, val y: Double) extends Vec2Like
 { override def typeStr: String = "Vec2"
-  //override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
+  @inline override def _1: Double = x
+  @inline override def _2: Double = y
   @inline override def dbl1: Double = x
   @inline override def dbl2: Double = y
-  //override def productPrefix: String = "Vec2"
+  override def productPrefix: String = "Vec2"
 
   override def equals(other: Any): Boolean = other match
   { case Vec2(px, py) => (x =~ px) && (y =~ py)
