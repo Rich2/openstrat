@@ -94,7 +94,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit ev: ArrTBuilder[B, BB]): BB = ev.iterMap[A](thisIter, f)
 
   /** product map method maps from a Traversable to an Array based ProductValues class. */
-  def pMap[B , M <: ValueNArr[B]](f: A => B)(implicit factory: Int => M): M =
+  def pMap[B , M <: ValueNsArr[B]](f: A => B)(implicit factory: Int => M): M =
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>
@@ -107,7 +107,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   
   /** Copies from a Traversable to an Array based ProductValues class. Not sure about this method or the implicit builder that underlies. It perhaps
    *  duplicates. */
-  def toArrProdHomo[B <: ValueNArr[A]](implicit factory: Int => B): B =
+  def toArrProdHomo[B <: ValueNsArr[A]](implicit factory: Int => B): B =
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>      

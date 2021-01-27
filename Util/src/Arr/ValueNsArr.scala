@@ -7,8 +7,8 @@ trait ValueNElem extends Any with SpecialT
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ValueNArr[A] extends Any with ArrImut[A]
-{ type ThisT <: ValueNArr[A]
+trait ValueNsArr[A] extends Any with ArrImut[A]
+{ type ThisT <: ValueNsArr[A]
 
   def productSize: Int
   def arrLen: Int
@@ -16,7 +16,7 @@ trait ValueNArr[A] extends Any with ArrImut[A]
 
   final def elemsLen: Int = arrLen / productSize
 
-  def pMap[B, N <: ValueNArr[B]](f: A => B)(implicit factory: Int => N): N =
+  def pMap[B, N <: ValueNsArr[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(elemsLen)
     var count: Int = 0
     while (count < elemsLen) {
@@ -29,7 +29,7 @@ trait ValueNArr[A] extends Any with ArrImut[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++[N <: ValueNArr[A]](operand: N)(implicit factory: Int => N): N =
+  def ++[N <: ValueNsArr[A]](operand: N)(implicit factory: Int => N): N =
   { val res = factory(elemsLen + operand.elemsLen)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     operand.iForeach((elem, i) => res.unsafeSetElem(i + elemsLen, elem))
@@ -37,7 +37,7 @@ trait ValueNArr[A] extends Any with ArrImut[A]
   }
 
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
-  def :+[N <: ValueNArr[A]](operand: A)(implicit factory: Int => N): N =
+  def :+[N <: ValueNsArr[A]](operand: A)(implicit factory: Int => N): N =
   { val res = factory(elemsLen + 1)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     res.unsafeSetElem(elemsLen, operand)
@@ -55,17 +55,17 @@ trait ValueNArr[A] extends Any with ArrImut[A]
   }
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ValueNArr]] final classes. Instances for the [[ArrTBuilder]] type
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ValueNsArr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNsArrBuilders[B, ArrB <: ValueNArr[B]] extends ArrTBuilder[B, ArrB] with ArrTFlatBuilder[ArrB]
+trait ValueNsArrBuilders[B, ArrB <: ValueNsArr[B]] extends ArrTBuilder[B, ArrB] with ArrTFlatBuilder[ArrB]
 { def elemSize: Int
 }
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
 trait ValueNsBuffer[A] extends Any with ArrayLike[A]
-{ type ArrT <: ValueNArr[A]
+{ type ArrT <: ValueNsArr[A]
   def elemSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit

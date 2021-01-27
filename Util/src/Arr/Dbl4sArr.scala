@@ -11,7 +11,7 @@ trait Dbl4Elem extends Any with ValueNElem
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
-trait Dbl4sArr[A <: Dbl4Elem] extends Any with DblNArr[A]
+trait Dbl4sArr[A <: Dbl4Elem] extends Any with DblNsArr[A]
 {
   def productSize: Int = 4
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A

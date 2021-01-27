@@ -14,7 +14,7 @@ trait ArrProdDbl2Build[A <: ProdDbl2, ArrT <: ArrProdDbl2[A]] extends DblNsArrBu
 }
 
 /** Base trait for Array[Double] base collections of Products of 2 Doubles. */
-trait ArrProdDbl2[A <: ProdDbl2] extends Any with DblNArr[A]
+trait ArrProdDbl2[A <: ProdDbl2] extends Any with DblNsArr[A]
 { type ThisT <: ArrProdDbl2[A]
 
   override def productSize: Int = 2

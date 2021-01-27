@@ -7,8 +7,8 @@ trait ArrayDblBased extends Any
 }
 
 /** Base trait for Array[Double] based collections of Products of Doubles. */
-trait DblNArr[A] extends Any with ValueNArr[A] with ArrayDblBased
-{ type ThisT <: DblNArr[A]
+trait DblNsArr[A] extends Any with ValueNsArr[A] with ArrayDblBased
+{ type ThisT <: DblNsArr[A]
 
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * productSize))
@@ -26,10 +26,10 @@ trait DblNArr[A] extends Any with ValueNArr[A] with ArrayDblBased
   }
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNArr]] final classes. Instances for the [[ArrTBuilder]] type
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsArr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNsArrBuilders[B, ArrB <: DblNArr[B]] extends ValueNsArrBuilders[B, ArrB]
+trait DblNsArrBuilders[B, ArrB <: DblNsArr[B]] extends ValueNsArrBuilders[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -41,7 +41,7 @@ trait DblNsArrBuilders[B, ArrB <: DblNArr[B]] extends ValueNsArrBuilders[B, ArrB
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
 trait DblNsBuffer[A] extends Any with ValueNsBuffer[A]
-{ type ArrT <: DblNArr[A]
+{ type ArrT <: DblNsArr[A]
   def buffer: ArrayBuffer[Double]
 
   def elemsLen: Int = buffer.length / elemSize
@@ -50,14 +50,14 @@ trait DblNsBuffer[A] extends Any with ValueNsBuffer[A]
   override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.arrayUnsafe); () }
 }
 
-trait ProdDblNsCompanion[T,  ST <: DblNArr[T]]
+trait ProdDblNsCompanion[T,  ST <: DblNsArr[T]]
 { def prodLen: Int
   implicit val persistImplicit: DblNsArrPersist[T, ST]
   implicit val factory: Int => ST = len => persistImplicit.fromArray(new Array[Double](len * prodLen))
 }
 
 /** Persists and assists in building ArrProdDblN */
-abstract class DblNsArrPersist[A, M <: DblNArr[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr) with EqT[M]
+abstract class DblNsArrPersist[A, M <: DblNsArr[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

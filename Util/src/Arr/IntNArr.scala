@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait IntNArr[A] extends Any with ValueNArr[A]
+trait IntNArr[A] extends Any with ValueNsArr[A]
 { type ThisT <: IntNArr[A]
   def arrayUnsafe: Array[Int]
   def unsafeFromArray(array: Array[Int]): ThisT

@@ -1,17 +1,17 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import math._
 
 /** A 3 dimensional point. Right-handed coordinate system is the default. */
-final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like with ProdDbl3
+final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like with Dbl3Elem
 {
   override def toString: String = Pt3.PersistImplicit.strT(this)
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt3]
+  //override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt3]
 
-  def _1 = x
-  def _2 = y
-  def _3 = z
+  def dbl1 = x
+  def dbl2 = y
+  def dbl3 = z
 
   override def equals(other: Any): Boolean = other match {
     case Pt3(px, py, pz) => (x =~ px) && (y =~ py) && (z =~ pz)
@@ -49,6 +49,7 @@ final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like wi
   }
 }
 
+/** Companion object for Pt3 contains apply factory method, unapply an type class instances. */
 object Pt3
 { def apply(x: Double, y: Double, z: Double): Pt3 = new Pt3(x, y, z)
   def unapply(orig: Pt3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))

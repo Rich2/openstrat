@@ -1,16 +1,16 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import math._
 
 /** 3 dimensional vector using metres as units rather than pure numbers. */
-final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends Length3 with ProdDbl3
+final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends Length3 with Dbl3Elem
 { def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetres.toString, yMetres.toString, zMetres.toString)
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
-  def _1 = xMetres
-  def _2 = yMetres
-  def _3 = zMetres
+  //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
+  def dbl1 = xMetres
+  def dbl2 = yMetres
+  def dbl3 = zMetres
   def x: Metres = Metres(xMetres)
   def y: Metres = Metres(yMetres)
   def z: Metres = Metres(zMetres)
@@ -51,7 +51,7 @@ object Metres3
 }
 
 /** Collection class for Metres3s. Not clear if this a Polygon equivalent or a Vec3s equivalent */
-class Metre3s(val arrayUnsafe: Array[Double]) extends AnyVal with ArrProdDbl3[Metres3]
+class Metre3s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sArr[Metres3]
 { type ThisT = Metre3s
   def unsafeFromArray(array: Array[Double]): ThisT = new Metre3s(array)
   override def typeStr: String = "Metres3s"
