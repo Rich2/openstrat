@@ -1,12 +1,14 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-trait ProdLong1 extends Any
+/** An object that can be constructed from a single [[Long]]. These are used in [[Long1Arr]] Array[Int] based collections. */
+trait Long1Elem extends Any
 { def intValue: Long
   @inline def _1 : Long = intValue
 }
 
-trait ArrProdLong1[A <: ProdLong1] extends Any with ArrProdLongN[A]
+/** A specialised immutable, flat Array[Long] based collection of a type of [[Long1Elem]]s. */
+trait Long1sArr[A <: Long1Elem] extends Any with LongNsArr[A]
 {
   final override def elemvaluesNum: Int = 1
   def newElem(intValue: Long): A
@@ -31,6 +33,7 @@ trait ArrProdLong1[A <: ProdLong1] extends Any with ArrProdLongN[A]
   }
 }
 
-trait ProductL1sBuff[A <: ProdLong1, M <: ArrProdLong1[A]] extends Any with ProductLongsBuff[A]
+/** A specialised flat ArrayBuffer[long] based trait for [[Long1Elem]]s collections. */
+trait Long1sBuffer[A <: Long1Elem, ArrA <: Long1sArr[A]] extends Any with LongNsBuffer[A]
 { override def grow(newElem: A): Unit = { buffer.append(newElem._1); () }
 }
