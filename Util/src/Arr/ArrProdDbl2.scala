@@ -100,7 +100,7 @@ trait ProdDbl2sCompanion[T <: ProdDbl2, ST <: ArrProdDbl2[T]] extends ProdDblNsC
 }
 
 /** Both Persists and Builds ProductD2s collection classes. */
-abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: String) extends ArrProdDblNPersist[A, M](typeStr) //with Show2T[M]
+abstract class ArrProdDbl2Persist[A <: ProdDbl2, M <: ArrProdDbl2[A]](typeStr: String) extends DblNsArrPersist[A, M](typeStr) //with Show2T[M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value._1

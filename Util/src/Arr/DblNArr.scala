@@ -54,12 +54,12 @@ trait BuffProdDblN[A] extends Any with BuffProdValueN[A]
 
 trait ProdDblNsCompanion[T,  ST <: DblNArr[T]]
 { def prodLen: Int
-  implicit val persistImplicit: ArrProdDblNPersist[T, ST]
+  implicit val persistImplicit: DblNsArrPersist[T, ST]
   implicit val factory: Int => ST = len => persistImplicit.fromArray(new Array[Double](len * prodLen))
 }
 
 /** Persists and assists in building ArrProdDblN */
-abstract class ArrProdDblNPersist[A, M <: DblNArr[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr) with EqT[M]
+abstract class DblNsArrPersist[A, M <: DblNArr[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

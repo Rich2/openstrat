@@ -29,7 +29,7 @@ trait ProductLongsBuff[A] extends Any with BuffProdValueN[A]
 //  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
-abstract class ProductLongsBuilder[A, M <: ArrProdLongN[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr)
+abstract class ProductLongsBuilder[A, M <: ArrProdLongN[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr)
 { type VT = Long
   override def fromBuffer(buf: Buff[Long]): M = fromArray(buf.toArray)
   override def newBuffer: Buff[Long] = Buff[Long](0)

@@ -72,7 +72,7 @@ trait BuffProdValueN[A] extends Any with ArrayLike[A]
 }
 
 /** Class to Persist specialised flat Array[Value] type based collections. */
-abstract class ArrProdHomoPersist[A, M](val typeStr: String) extends PersistCompound[M]
+abstract class ValueNsArrPersist[A, M](val typeStr: String) extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT
   def appendtoBuffer(buf: Buff[VT], value: A): Unit

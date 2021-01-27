@@ -40,7 +40,7 @@ trait BuffProdIntN[A] extends Any with BuffProdValueN[A]
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */
-abstract class IntNArrPersist[A, M <: IntNArr[A]](typeStr: String) extends ArrProdHomoPersist[A, M](typeStr)
+abstract class IntNArrPersist[A, M <: IntNArr[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr)
 { type VT = Int
   override def fromBuffer(buf: Buff[Int]): M = fromArray(buf.toArray)
   override def newBuffer: Buff[Int] = Buff[Int](0)

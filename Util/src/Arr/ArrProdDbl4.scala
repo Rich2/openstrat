@@ -98,7 +98,7 @@ abstract class ProdDbl4sCompanion[A <: ProdDbl4, M <: ArrProdDbl4[A]] //extends 
 }
 
 /** Both Persists and Builds ProductD4s Collection classes. */
-abstract class ArrProdDbl4Persist[A <: ProdDbl4, M <: ArrProdDbl4[A]](typeStr: String) extends ArrProdDblNPersist[A, M](typeStr)
+abstract class ArrProdDbl4Persist[A <: ProdDbl4, M <: ArrProdDbl4[A]](typeStr: String) extends DblNsArrPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value._1
