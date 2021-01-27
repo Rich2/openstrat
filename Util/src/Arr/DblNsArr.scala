@@ -11,8 +11,8 @@ trait DblNsArr[A] extends Any with ValueNsArr[A] with ArrayDblBased
 { type ThisT <: DblNsArr[A]
 
   def unsafeFromArray(array: Array[Double]): ThisT
-  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * productSize))
-  def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * productSize); () }
+  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemvaluesNum))
+  def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemvaluesNum); () }
   def arrLen = arrayUnsafe.length
 
   def foreachArr(f: Dbls => Unit): Unit
@@ -20,10 +20,13 @@ trait DblNsArr[A] extends Any with ValueNsArr[A] with ArrayDblBased
   /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
   def appendArray(appendProductsLength: Int): Array[Double] =
   {
-    val acc = new Array[Double](arrLen + appendProductsLength * productSize)
+    val acc = new Array[Double](arrLen + appendProductsLength * elemvaluesNum)
     arrayUnsafe.copyToArray(acc)
     acc
   }
+
+  /** The number of Doubles, that specify / construct an element of this immutable flat Array based collection class. */
+  def elemvaluesNum: Int
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsArr]] final classes. Instances for the [[ArrTBuilder]] type

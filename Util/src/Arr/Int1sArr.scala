@@ -10,7 +10,7 @@ trait Int1Elem extends Any
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
 trait Int1sArr[A <: Int1Elem] extends Any with IntNArr[A]
 {
-  final override def productSize: Int = 1
+  final override def elemvaluesNum: Int = 1
   def newElem(intValue: Int): A
   final override def apply(index: Int): A = newElem(arrayUnsafe(index))
   final override def unsafeSetElem(index: Int, elem: A): Unit = arrayUnsafe(index) = elem.intValue

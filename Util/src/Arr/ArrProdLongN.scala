@@ -7,16 +7,8 @@ trait ArrProdLongN[A] extends Any with ValueNsArr[A]
 { def array: Array[Long]
   def arrLen = array.length
 
-  //override def toString: String =
-  /*{ var body = ""
-    var start = true
-    foreachArr { arr =>
-      val el = arr.toStrsCommaNoSpaceFold(_.toString)
-      if(start == true) {body = el; start = false}
-      else  body = body + ";  " + el
-    }
-    typeStr + body.enParenth
-  }*/
+  /** The number of Longs, that specify / construct an element of this immutable flat Array based collection class. */
+  def elemvaluesNum: Int
 }
 
 /** A mutable collection of Elements that inherit from a Product of an Atomic value: Double, Long, Long or Float. They are stored with a backing

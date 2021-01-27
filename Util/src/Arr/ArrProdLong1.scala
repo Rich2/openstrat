@@ -8,7 +8,7 @@ trait ProdLong1 extends Any
 
 trait ArrProdLong1[A <: ProdLong1] extends Any with ArrProdLongN[A]
 {
-  final override def productSize: Int = 1
+  final override def elemvaluesNum: Int = 1
   def newElem(intValue: Long): A
   final override def apply(index: Int): A = newElem(array(index))
   final override def unsafeSetElem(index: Int, elem: A): Unit = array(index) = elem.intValue

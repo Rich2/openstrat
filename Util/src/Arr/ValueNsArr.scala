@@ -10,11 +10,15 @@ trait ValueNElem extends Any with SpecialT
 trait ValueNsArr[A] extends Any with ArrImut[A]
 { type ThisT <: ValueNsArr[A]
 
-  def productSize: Int
+  /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
+   *  class. */
+  def elemvaluesNum: Int
+
+  /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
   def arrLen: Int
 
 
-  final def elemsLen: Int = arrLen / productSize
+  final def elemsLen: Int = arrLen / elemvaluesNum
 
   def pMap[B, N <: ValueNsArr[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(elemsLen)

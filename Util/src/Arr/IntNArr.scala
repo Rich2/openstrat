@@ -8,8 +8,11 @@ trait IntNArr[A] extends Any with ValueNsArr[A]
 { type ThisT <: IntNArr[A]
   def arrayUnsafe: Array[Int]
   def unsafeFromArray(array: Array[Int]): ThisT
-  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Int](length * productSize))
+  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemvaluesNum))
   def arrLen = arrayUnsafe.length
+
+  /** The number of Ints, that specify / construct an element of this immutable flat Array based collection class. */
+  def elemvaluesNum: Int
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[IntNArr]] final classes. Instances for the [[ArrTBuilder]] type
@@ -35,6 +38,7 @@ trait IntNsBuffer[A] extends Any with ValueNsBuffer[A]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.arrayUnsafe); () }
   override def elemsLen = buffer.length / elemSize
+
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */

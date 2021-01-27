@@ -14,7 +14,7 @@ trait Dbl5Elem extends Any with ValueNElem
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
 trait Dbl5sArr[A <: Dbl5Elem] extends Any with DblNsArr[A]
 {
-  def productSize: Int = 5
+  def elemvaluesNum: Int = 5
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
   def apply(index: Int): A = newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),

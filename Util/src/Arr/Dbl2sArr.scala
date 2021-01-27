@@ -12,7 +12,7 @@ trait Dbl2Elem extends Any with ValueNElem
 trait Dbl2sArr[A <: Dbl2Elem] extends Any with DblNsArr[A]
 { type ThisT <: Dbl2sArr[A]
 
-  override def productSize: Int = 2
+  override def elemvaluesNum: Int = 2
   /** Method for creating new elements from 2 Doubles. */
   def elemBuilder(d1: Double, d2: Double): A
   def apply(index: Int): A = elemBuilder(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
@@ -46,7 +46,7 @@ trait Dbl2sArr[A <: Dbl2Elem] extends Any with DblNsArr[A]
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
-  { val newArray = new Array[Double](elemsLen + productSize)
+  { val newArray = new Array[Double](elemsLen + elemvaluesNum)
     arrayUnsafe.copyToArray(newArray)
     newArray(elemsLen) = op.dbl1
     newArray(elemsLen + 1) = op.dbl2
