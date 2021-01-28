@@ -16,9 +16,14 @@ trait PersistProduct[R] extends ShowProductT[R] with PersistCompound[R]
 }
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
-class Persist2[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, val newT: (A1, A2) => R,
-  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2]) extends Show2T[A1, A2, R](typeStr, name1, fArg1,
-  name2, fArg2, opt2, opt1) with PersistProduct[R]
+class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,
+  val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends Show2T[A1, A2, R] with
+  PersistProduct[R]
+{
+  val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  override implicit def ev1: ShowT[A1] = ev1In
+  override implicit def ev2: ShowT[A2] = ev2In
+}
 
 /** Factory object for Persist product 2 type class */
 object Persist2
