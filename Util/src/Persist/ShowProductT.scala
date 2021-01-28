@@ -11,70 +11,14 @@ trait ShowProductT[R] extends ShowCompoundT[R]
   { def semisStr = strs(obj, Show.Commas, decimalPlaces).mkStr("; ")
 
     way match
-    { case Show.Semis => semisStr
+    { case Show.UnderScore => "_"
+      case Show.Semis => semisStr
       case Show.Commas => strs(obj, Show.Standard, decimalPlaces).mkStr(", ")
       case _ => typeStr.appendParenth(semisStr)
     }
   }
 }
 
-/** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowProductT[R]
-{
-  def typeStr: String
-  def name1: String
-  def fArg1: R => A1
-  def name2: String
-  def fArg2: R => A2
-  def opt2: Option[A2]
-  def opt1: Option[A1]
-  implicit def ev1: ShowT[A1]
-  implicit def ev2: ShowT[A2]
-  final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2)
-  final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
-  override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
-    Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))
-}
-
-object Show2T
-{
-  def apply [A1, A2, R](typeStrIn: String, name1In: String, fArg1In: R => A1, name2In: String, fArg2In: R => A2, opt2In: Option[A2] = None,
-  opt1In: Option[A1] = None)(implicit ev1In: ShowT[A1], ev2In: ShowT[A2]): Show2T[A1, A2, R] = new Show2T[A1, A2, R]
-  {
-    override def typeStr: String = typeStrIn
-    override def name1: String = name1In
-    override def fArg1: R => A1 = fArg1In
-    override def name2: String = name2In
-    override def fArg2: R => A2 = fArg2In
-    override implicit def ev1: ShowT[A1] = ev1In
-    override implicit def ev2: ShowT[A2] = ev2In
-    val opt2: Option[A2] = opt2In
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-
-    //final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
-
-    /*override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
-      Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))*/
-  }
-}
-
-/*class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
-{
-  /*@inline def strCommaNames: String = ev.showCommaNames(thisVal)
-  @inline def strSemiNames: String = ev.showSemiNames(thisVal)*/
-}*/
-
-class Show2DblsT[R <: Show2Dbls](val typeStr: String, val name1: String, val name2: String, val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends
-  Show2T[Double, Double, R]
-{
-  //, opt2, opt1
-  override def fArg1: R => Double = _.dbl1
-  override def fArg2: R => Double = _.dbl2
-  override def opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
-  override implicit def ev2: ShowT[Double] = ShowT.doublePersistImplicit
-}
-//class Show2IntsT[R <: Show2[Int, Int]] extends Show2T[Int, Int, R]
 
 /** Show type class for 3 parameter case classes. */
 class Show3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,

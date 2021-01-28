@@ -39,6 +39,9 @@ object Show
 
   /** Show the object with the type of the object even if the string representation does not normally states its type. Eg Int(7). */
   object Typed extends Way
+
+  /** Represents the object with an underscore. */
+  object UnderScore extends Way
 }
 
 /** All the leaves of this trait must be Singleton objects. They just need to implement the str method. This will normally be the name of the object,
@@ -50,6 +53,7 @@ trait ShowSingleton extends Show
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   final override def show(way: Show.Way, decimalPlaces: Int): String = way match
   { case Show.Typed => typeStr.appendParenth(str)
+    case Show.UnderScore => "_"
     case _ => str
   }
 

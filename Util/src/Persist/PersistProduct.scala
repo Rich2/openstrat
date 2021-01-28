@@ -15,31 +15,6 @@ trait PersistProduct[R] extends ShowProductT[R] with PersistCompound[R]
   }
 }
 
-/** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
-class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,
-  val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends Show2T[A1, A2, R] with
-  PersistProduct[R]
-{
-  val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  override implicit def ev1: ShowT[A1] = ev1In
-  override implicit def ev2: ShowT[A2] = ev2In
-}
-
-/** Factory object for Persist product 2 type class */
-object Persist2
-{ def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist2[A1, A2, R] =
-    new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
-}
-
-/** Persistence class for case classes consisting of 2 Int parameters. */
-class Persist2Ints[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, newT: (Int, Int) => R) extends
-  Persist2[Int, Int, R](typeStr, name1, fArg1, name2, fArg2, newT)
-
-/** Persistence class for case classes consisting of 2 Double parameters. */
-class Persist2Dbls[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, newT: (Double, Double) => R) extends
-   Persist2[Double, Double, R](typeStr, name1, fArg1, name2, fArg2, newT)
-
 /** Persistence class for 3 logical parameter product types. */
 class Persist3[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2],

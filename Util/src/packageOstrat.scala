@@ -312,8 +312,8 @@ package object ostrat
 
   implicit def seqToExtensions[A](thisSeq: Seq[A]): SeqExtensions[A] = new SeqExtensions(thisSeq)
   implicit def showTypeToExtensions[A](thisVal: A)(implicit ev: ShowT[A]): ShowTExtensions[A] = new ShowTExtensions[A](ev, thisVal)
-  /*implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2T[A1, A2, T]): Show2TExtensions[A1, A2, T] =
-    new Show2TExtensions[A1, A2, T](ev, thisVal)*/
+  implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2T[A1, A2, T]): Show2TExtensions[A1, A2, T] =
+    new Show2TExtensions[A1, A2, T](ev, thisVal)
 
   implicit def stringToExtensions(s: String): StringImplicit = new StringImplicit(s)
   implicit def stringIterableToExtensions(strIter: Iterable[String]): StringIterableExtensions = StringIterableExtensions(strIter)
