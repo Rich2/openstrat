@@ -15,12 +15,12 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like
   @inline override def dbl2: Double = y
 
   override def equals(that: Any): Boolean = that match
-  { case that: Vec2 => elemsEqual(that)
+  { case that: Vec2 => dblsEqual(that)
     case _ => false
   }
 
   override def approx(that: Any, delta: Double = defaultDelta): Boolean = that match {
-    case that: Vec2 => elemsApprox(that, delta)
+    case that: Vec2 => dblsApprox(that, delta)
     case _ => false
   }
 
@@ -98,7 +98,7 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like
 
 /** Companion object for Vec2 contains apply factory method and unapply method. */
 object Vec2
-{
-  def apply(x: Double, y: Double): Vec2 = new Vec2(x, y)
+{ def apply(x: Double, y: Double): Vec2 = new Vec2(x, y)
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
+  //implicit val showImplicit: ShowT[Vec2] = ??? // Show2T
 }

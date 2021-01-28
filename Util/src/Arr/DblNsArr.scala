@@ -6,9 +6,6 @@ trait ArrayDblBased extends Any
 { def arrayUnsafe: Array[Double]
 }
 
-trait DblNElem extends Any with ValueNElem
-{ def defaultDelta: Double = 1e-12
-}
 
 /** Base trait for Array[Double] based collections of Products of Doubles. */
 trait DblNsArr[A] extends Any with ValueNsArr[A] with ArrayDblBased

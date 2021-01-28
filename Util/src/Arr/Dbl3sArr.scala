@@ -1,13 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from 3 [[Double]]s. These are used in [[Dbl3sArr]] Array[Double] based collections. */
-trait Dbl3Elem extends Any with ValueNElem
-{ def dbl1: Double
-  def dbl2: Double
-  def dbl3: Double
-}
-
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl3Elem]]s. */
 trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsArr[A]
 { def elemvaluesNum = 3

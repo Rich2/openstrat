@@ -1,9 +1,9 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
 /** A common trait for [[Vec2]] and [[Pt2]] it would be good if the methods on this trait could be reduced.  */
-trait Vec2Like extends Any with Dbl2Elem with Show2Dbls  with Approx[Double]//with Equals
+trait Vec2Like extends Any with Dbl2Elem with Show2Dbls
 {
   def x: Double
   def y: Double

@@ -29,12 +29,14 @@ class Show2T[A1, A2, R](val typeStr: String, val name1: String, fArg1: R => A1, 
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))
 }
 
+class Show2DblsT[R <: Show2Dbls](typeStr: String, name1: String, name2: String, opt2: Option[Double] = None, opt1: Option[Double] = None) extends
+  Show2T[Double, Double, R](typeStr, name1, _.dbl1, name2, _.dbl2, opt2, opt1)
 //class Show2IntsT[R <: Show2[Int, Int]] extends Show2T[Int, Int, R]
 
 /** Show type class for 3 parameter case classes. */
 class Show3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3],
-                                                                                     eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends Eq3T[A1, A2, A3, R](fArg1, fArg2, fArg3) with ShowProductT[R]
+    eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends Eq3T[A1, A2, A3, R](fArg1, fArg2, fArg3) with ShowProductT[R]
 {
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)

@@ -2,14 +2,6 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 4 [[Double]]s. These are used in [[Dbl4sArr]] Array[Double] based collections. */
-trait Dbl4Elem extends Any with ValueNElem
-{ def dbl1: Double
-  def dbl2: Double
-  def dbl3: Double
-  def dbl4: Double
-}
-
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
 trait Dbl4sArr[A <: Dbl4Elem] extends Any with DblNsArr[A]
 {

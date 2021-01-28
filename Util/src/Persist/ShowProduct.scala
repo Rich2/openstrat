@@ -61,7 +61,7 @@ trait Show2Ints extends Any with Show2[Int, Int]
 /** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[Show2DblsT]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show2T]]. */
-trait Show2Dbls extends Any with Show2[Double, Double]
+trait Show2Dbls extends Any with Show2[Double, Double] with Dbl2Elem with Approx[Double]
 { final override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
   final override implicit def ev2: ShowT[Double] = ShowT.doublePersistImplicit
   final override def syntaxdepth: Int = 2

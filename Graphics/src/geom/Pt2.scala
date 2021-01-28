@@ -16,12 +16,12 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
 
 
   override def approx(that: Any, delta: Double): Boolean = that match {
-    case other: Pt2 => elemsApprox(other, delta)
+    case other: Pt2 => dblsApprox(other, delta)
     case _ => false
   }
 
   override def equals(that: Any): Boolean = that match
-  { case that: Pt2 => elemsEqual(that)
+  { case that: Pt2 => dblsEqual(that)
     case _ => false
   }
 

@@ -1,17 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from 7 [[Double]]s. These are used in [[Dbl7sArr]] Array[Double] based collections. */
-trait Dbl7Elem extends Any with ValueNElem
-{ def dbl1: Double
-  def dbl2: Double
-  def dbl3: Double
-  def dbl4: Double
-  def dbl5: Double
-  def dbl6: Double
-  def dbl7: Double
-}
-
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl7Elem]]s. */
 trait Dbl7sArr[A <: Dbl7Elem] extends Any with DblNsArr[A]
 { def elemvaluesNum: Int = 7
