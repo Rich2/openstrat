@@ -19,8 +19,8 @@ trait ShowProductT[R] extends ShowCompoundT[R]
 }
 
 /** Show type class for 2 parameter case classes. */
-class Show2T[A1, A2, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, val opt2: Option[A2] = None,
-  opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2]) extends/* Eq2T[A1, A2, R](fArg1, fArg2) with */ ShowProductT[R]
+class Show2T[A1, A2, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
+  opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2]) extends ShowProductT[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2)

@@ -3,16 +3,15 @@ package ostrat
 package geom
 
 /** A common trait for [[Vec2]] and [[Pt2]] it would be good if the methods on this trait could be reduced.  */
-trait Vec2Like extends Any with Dbl2Elem with Show2Dbls
+trait Vec2Like extends Any with Dbl2Elem with Show2Dbls  with Approx[Double]//with Equals
 {
   def x: Double
   def y: Double
   override def name1: String = "x"
-
   override def name2: String = "y"
 
-  @inline override def _1: Double = x
-  @inline override def _2: Double = y
+  @inline override def el1: Double = x
+  @inline override def el2: Double = y
 
   def yScale(factor: Double): Vec2Like
   def xScale(factor: Double): Vec2Like

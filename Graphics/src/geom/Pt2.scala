@@ -9,11 +9,21 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
 {
   override def typeStr: String = "Pt2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
-  @inline override def _1: Double = x
-  @inline override def _2: Double = y
+  @inline override def el1: Double = x
+  @inline override def el2: Double = y
   @inline override def dbl1: Double = x
   @inline override def dbl2: Double = y
-  override def productPrefix: String = "Pt2"
+
+
+  override def approx(that: Any, delta: Double): Boolean = that match {
+    case other: Pt2 => elemsApprox(other, delta)
+    case _ => false
+  }
+
+  override def equals(that: Any): Boolean = that match
+  { case that: Pt2 => elemsEqual(that)
+    case _ => false
+  }
 
   /** Add the operand [[Vec2]] 2D vector to this Pt2, returns a new Pt2. */
   def +(operand: Vec2): Pt2 = Pt2(x + operand.x, y + operand.y)
@@ -51,10 +61,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
   def str2: String = strMod(_.str2)
   def str3: String = strMod(_.str3)
 
-  override def equals(other: Any): Boolean = other match
-  { case Pt2(px, py) => (x =~ px) && (y =~ py)
-    case _ => false
-  }
+
 
   /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
   def xySlate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)

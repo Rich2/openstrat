@@ -1,6 +1,11 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+trait Approx[D] extends Any with Equals
+{ def defaultDelta: D
+  def approx(that: Any, delta: D): Boolean
+}
+
 trait ApproxT[D, T] extends EqT[T]
 {
   def defaultDelta: D

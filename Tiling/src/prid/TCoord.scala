@@ -12,8 +12,8 @@ trait TCoord extends Any with Show2Ints
   /** Column number for the coordinate of a tile grid. */
   def c: Int
 
-  @inline override def _1: Int = r
-  @inline override def _2: Int = c
+  @inline override def el1: Int = r
+  @inline override def el2: Int = c
   override def name1: String = "r"
   override def name2: String = "c"
 
@@ -29,7 +29,7 @@ trait SqCoord extends Any with TCoord
 {
   override def toVec: Vec2 = Vec2(c, r)
   override def toPt2: Pt2 = Pt2(c, r)
-  override def canEqual(that: Any): Boolean = ???
+  //override def canEqual(that: Any): Boolean = ???
 }
 
 /** A Square tile centre square grid [[SqGrid]] coordinate. */
