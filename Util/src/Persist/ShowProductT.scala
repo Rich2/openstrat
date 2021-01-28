@@ -29,6 +29,12 @@ class Show2T[A1, A2, R](val typeStr: String, val name1: String, fArg1: R => A1, 
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))
 }
 
+class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
+{
+  /*@inline def strCommaNames: String = ev.showCommaNames(thisVal)
+  @inline def strSemiNames: String = ev.showSemiNames(thisVal)*/
+}
+
 class Show2DblsT[R <: Show2Dbls](typeStr: String, name1: String, name2: String, opt2: Option[Double] = None, opt1: Option[Double] = None) extends
   Show2T[Double, Double, R](typeStr, name1, _.dbl1, name2, _.dbl2, opt2, opt1)
 //class Show2IntsT[R <: Show2[Int, Int]] extends Show2T[Int, Int, R]
