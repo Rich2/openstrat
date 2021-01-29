@@ -3,8 +3,7 @@ package ostrat
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
 trait ShowProductT[R] extends ShowCompoundT[R]
-{ def showMems(): Arr[ShowT[_]]
-
+{
   def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings
 
   override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String =
@@ -28,7 +27,6 @@ class Show3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, 
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
-  override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2, ev3)
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces), ev3.showT(fArg3(obj), way, decimalPlaces))
@@ -42,8 +40,6 @@ abstract class Show4T[A1, A2, A3, A4, R](val typeStr: String, name1: String, fAr
   val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-
-  final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2, ev3, ev4)
 
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))).
     max(ev4.syntaxDepthT(fArg4(obj))) + 1
@@ -66,7 +62,6 @@ class Show5T[A1, A2, A3, A4, A5, R](val typeStr: String, name1: String, fArg1: R
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))).
     max(ev4.syntaxDepthT(fArg4(obj))).max(ev5.syntaxDepthT(fArg5(obj))) + 1
 
-  final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2, ev3, ev4, ev5)
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces), ev3.showT(fArg3(obj), way, decimalPlaces),
     ev4.showT(fArg4(obj), way, decimalPlaces), ev5.showT(fArg5(obj), way, decimalPlaces))
@@ -92,8 +87,6 @@ class Show6T[A1, A2, A3, A4, A5, A6, R](val typeStr: String, name1: String, fArg
   val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-
-  final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2, ev3, ev4, ev5, ev6)
 
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))).
     max(ev4.syntaxDepthT(fArg4(obj))).max(ev5.syntaxDepthT(fArg5(obj))).max(ev6.syntaxDepthT(fArg6(obj))) + 1

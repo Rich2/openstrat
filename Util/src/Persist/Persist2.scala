@@ -8,8 +8,6 @@ trait Show2[A1, A2] extends Any with ShowProduct with Prod2[A1, A2]
 { def name1: String
   def name2: String
   def elemNames: Strings = Strings(name1, name2)
-  //def arg1: A1
-  //def arg2: A2
   implicit def ev1: ShowT[A1]
   implicit def ev2: ShowT[A2]
   def elemTypeNames: Strings = Strings(ev1.typeStr, ev2.typeStr)
@@ -67,7 +65,6 @@ trait Show2T[A1, A2, R] extends ShowProductT[R]
   def opt1: Option[A1]
   implicit def ev1: ShowT[A1]
   implicit def ev2: ShowT[A2]
-  final override def showMems(): Arr[ShowT[_]] = Arr(ev1, ev2)
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
 
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
@@ -88,11 +85,6 @@ object Show2T
     override implicit def ev2: ShowT[A2] = ev2In
     val opt2: Option[A2] = opt2In
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-
-    //final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
-
-    /*override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
-      Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))*/
   }
 }
 
