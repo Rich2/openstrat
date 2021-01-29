@@ -5,7 +5,7 @@ package pGrid
 /** An array[Int] based collection for Roord. */
 class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[Roord]
 { type ThisT = Roords
-  override def fElemStr: Roord => String = _.str
+  override def fElemStr: Roord => String = _.toString
   override def unsafeFromArray(array: Array[Int]): Roords = new Roords(array)
   override def typeStr: String = "Roords" + foldLeft("")(_ + "; " + _.ycStr)
   override def newElem(i1: Int, i2: Int): Roord = Roord.apply(i1, i2)
