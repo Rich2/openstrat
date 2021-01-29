@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pGrid
 import geom._
@@ -8,11 +8,14 @@ import geom._
  *  for a Hex Grid except that not all values are legal Cood values on a HexGrid. This system allows river and naval units to move along the tile
  *  sides. The axis are named xi and yi to distinguish them from the x and y of a Vec2. On a Hex grid there is not a simple 1 to 1 mapping between the
  *  Cood components and the Vec2 components. */
-final class Cood(val xi: Int, val yi: Int) extends Int2Elem
-{ //def typeSym = 'Cood
-  override def int1 = xi
-  override def int2 = yi
-  override def toString: String = yxStr
+final class Cood(val xi: Int, val yi: Int) extends Show2Ints
+{
+  override def typeStr: String = "Cood"
+  override def name1: String = "xi"
+  override def name2: String = "yi"
+  override def el1: Int = xi
+  override def el2: Int = yi
+
   def xyStr: String = xi.toString + ", " + yi.toString
   def yxStr: String = yi.toString + ", " + xi.toString
   def fXY[A](f: (Int, Int) => A): A = f(xi, yi)
