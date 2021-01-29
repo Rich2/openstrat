@@ -95,7 +95,7 @@ class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 }
 
 /** A trait for making quick ShowT instances for products of 2 Doubles. */
-trait Show2DblsT[R <: Show2Dbls]extends Show2erT[Double, Double, R]
+trait Show2DblsT[R <: Show2Dbls] extends Show2erT[Double, Double, R]
 
 object Show2Dbls
 { /** Factory apply method for creating quick ShowT instances for products of 2 Doubles. */
