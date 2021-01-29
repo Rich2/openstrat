@@ -133,9 +133,9 @@ object Persist2
   new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
 }
 
-class Persist2er[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,
-   val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends Show2erT[A1, A2, R] with
-  PersistProduct[R]
+class Persist2er[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String,
+  val newT: (A1, A2) => R, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends
+  Show2erT[A1, A2, R] with PersistProduct[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   implicit def ev1: ShowT[A1] = ev1In
@@ -143,8 +143,8 @@ class Persist2er[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: Str
 }
 
 /** Persistence class for case classes consisting of 2 Int parameters. */
-class Persist2Ints[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, newT: (Int, Int) => R) extends
-  Persist2[Int, Int, R](typeStr, name1, fArg1, name2, fArg2, newT)
+class Persist2Ints[R <: Show2Ints](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R) extends Persist2er[Int, Int, R](typeStr,
+  name1, name2, newT)
 
 /** Persistence class for case classes consisting of 2 Double parameters. */
 class Persist2Dbls[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, newT: (Double, Double) => R) extends

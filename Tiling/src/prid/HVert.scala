@@ -31,7 +31,7 @@ object HVert
     new HVert(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
     else excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
 
-  implicit object persistImplicit extends Persist2Ints[HVert]("Rood", "r", _.r, "c", _.c, apply)
+  implicit object persistImplicit extends Persist2Ints[HVert]("Rood", "r", "c", apply)
 
   implicit val HVertsBuildImplicit = new Int2sArrBuilders[HVert, HVerts]
   { type BuffT = HVertBuff
