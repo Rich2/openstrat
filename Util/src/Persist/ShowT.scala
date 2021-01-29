@@ -6,7 +6,9 @@ import pParse._, collection.immutable.ArraySeq
  *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
  *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
 trait ShowT[-T]
-{ /** The RSON type of T. */
+{
+  /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+   * Show. */
   def typeStr: String
 
   /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
@@ -20,7 +22,7 @@ trait ShowT[-T]
   def syntaxDepthT(obj: T): Int
  }
 
-/* The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikly that anyone would want to create an UnShow
+/* The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikely that anyone would want to create an UnShow
    instance without a ShowT instance. Many Persist instances are placed inside the Show companion object. However type instances that themselves
    one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
    Persist type instances, and these will be placed in the Persist companion object. */

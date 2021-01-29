@@ -49,3 +49,8 @@ class Sqvert(val r: Int, val c: Int) extends SqCoord
 {
   override def typeStr: String = "Sqvert"
 }
+
+object Sqvert
+{
+  val showTImplicit: ShowT[Sqvert] = Show2IntsT("Sqvert")
+}

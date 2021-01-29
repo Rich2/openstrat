@@ -102,18 +102,25 @@ class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
   def show2(way: Show.Way = Show.Standard, way1: Show.Way = Show.Standard, places1: Int = -1, way2: Show.Way = Show.Standard, places2: Int = -1): String = ???
 }
 
-class Show2DblsT[R <: Show2Dbls](val typeStr: String, val name1: String, val name2: String, val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends
-  Show2T[Double, Double, R]
-{
-  //, opt2, opt1
-  override def fArg1: R => Double = _.dbl1
-  override def fArg2: R => Double = _.dbl2
-  override def opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
-  override implicit def ev2: ShowT[Double] = ShowT.doublePersistImplicit
-}
-//class Show2IntsT[R <: Show2[Int, Int]] extends Show2T[Int, Int, R]
+/** A trait for making quick ShowT instances for products of 2 Doubles. */
+trait Show2DblsT[R <: Show2Dbls]extends Show2erT[Double, Double, R]
 
+object Show2Dbls
+{ /** Factory apply method for creating quick ShowT instances for products of 2 Doubles. */
+  def apply[R <: Show2Dbls](typeStrIn: String): Show2DblsT[R] = new Show2DblsT[R]()
+  { val typeStr: String = typeStrIn
+  }
+}
+
+/** A trait for making quick ShowT instances for products of 2 Ints. */
+trait Show2IntsT[R <: Show2Ints]extends Show2erT[Int, Int, R]
+
+object Show2IntsT
+{ /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
+  def apply[R <: Show2Ints](typeStrIn: String): Show2IntsT[R] = new Show2IntsT[R]()
+  { val typeStr: String = typeStrIn
+  }
+}
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
 class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,

@@ -4,7 +4,8 @@ package ostrat
 /** A trait for providing an alternative to toString. USing this trait can be convenient, but at some level of the inheritance the type must provide a
  *  ShowT type class instance. */
 trait Show extends Any
-{ def typeStr: String
+{ /** the name of the type of this object. */
+  def typeStr: String
 
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   def str: String
