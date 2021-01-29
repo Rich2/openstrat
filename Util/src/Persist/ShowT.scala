@@ -2,7 +2,7 @@
 package ostrat
 import pParse._, collection.immutable.ArraySeq
 
-/** A type class for string, text and visual represention of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
+/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
  *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
  *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
 trait ShowT[-T]
@@ -250,4 +250,17 @@ class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
   def str3: String = ev.showT(thisVal, Show.Standard, 3)
   def showFields: String = ev.showT(thisVal, Show.StdFields, 1)
   def showTypedFields: String = ev.showT(thisVal, Show.StdTypedFields, 1)
+}
+
+case class ShowerT[R <: Show](typeStr: String) extends ShowT[R]
+{
+  /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
+   * rather than a method on the object being shown. */
+  override def strT(obj: R): String = obj.str
+
+  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
+
+  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
+   * should always be determined at compile time or if sometimes it should be determined at runtime. */
+  override def syntaxDepthT(obj: R): Int = obj.syntaxdepth
 }

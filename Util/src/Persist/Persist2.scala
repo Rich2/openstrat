@@ -34,6 +34,26 @@ trait Show2Dbls extends Any with Show2[Double, Double] with Dbl2Elem with Approx
   final override def syntaxdepth: Int = 2
 }
 
+trait Show2erT[A1, A2, R <: Show2[A1, A2]] extends ShowT[R]
+{
+  /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
+   * rather than a method on the object being shown. */
+  override def strT(obj: R): String = obj.str
+
+  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
+
+  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
+   * should always be determined at compile time or if sometimes it should be determined at runtime. */
+  override def syntaxDepthT(obj: R): Int = obj.syntaxdepth
+}
+
+object Show2erT
+{
+  def apply[A1, A2, R<: Show2[A1, A2]](typeStrIn: String): Show2erT[A1, A2, R] = new Show2erT[A1, A2, R]
+  { override def typeStr: String = typeStrIn
+    override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
+  }
+}
 
 /** Show type class for 2 parameter case classes. */
 trait Show2T[A1, A2, R] extends ShowProductT[R]
@@ -97,7 +117,7 @@ class Show2DblsT[R <: Show2Dbls](val typeStr: String, val name1: String, val nam
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
 class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,
-                          val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends Show2T[A1, A2, R] with
+  val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends Show2T[A1, A2, R] with
   PersistProduct[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -111,6 +131,15 @@ object Persist2
                        opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist2[A1, A2, R] =
   new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
 }
+
+/*class Persist2er[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,
+   val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends Show2erT[A1, A2, R] with
+  PersistProduct[R]
+{
+  val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  implicit def ev1: ShowT[A1] = ev1In
+  implicit def ev2: ShowT[A2] = ev2In
+}*/
 
 /** Persistence class for case classes consisting of 2 Int parameters. */
 class Persist2Ints[R](typeStr: String, name1: String, fArg1: R => Int, name2: String, fArg2: R => Int, newT: (Int, Int) => R) extends
