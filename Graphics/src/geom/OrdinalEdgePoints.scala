@@ -1,14 +1,11 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
 /** This is an object where the boundary points for top left, top right, bottom right and bottom left are defined. This trait is used by some
  *  geometric elements as well as [[pCanv.CanvasPlatform]] and [[pCanv.Panel]]. */
-trait OrdinalEdgePoints //extends Centred
+trait OrdinalEdgePoints extends WithCentre
 {
-  def xCen: Double
-  def yCen: Double
-  def cen: Pt2
   def topRight: Pt2
 
   /** Top right offset from centre. */

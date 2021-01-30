@@ -19,7 +19,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   override def fillHex(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineColour: Colour, lineWidth: Double): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
-  override def ptsArray: Array[Double] = Array(xCen, yCen, x1, y1, x2, y2, x3, y3, x4, y4)
+  override def ptsArray: Array[Double] = Array(cenX, cenY, x1, y1, x2, y2, x3, y3, x4, y4)
 
   def alignAngle: AngleVec
   def widthAttrib: WidthAtt = WidthAtt(width1)

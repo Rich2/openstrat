@@ -7,7 +7,7 @@ import pWeb._, math.Pi
  *  @groupdesc EllipticalGroup Class members that treat this circle as a special case of an ellipse.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends Ellipselign with OrdinaledElem with AxisFree
+final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends Ellipselign with OrdinaledElem with AxisFree
 {
   type ThisT = Circle
 
@@ -38,7 +38,7 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
 
   override def reflect(lineLike: LineLike): Circle = Circle(diameter, cen.reflect(lineLike))
 
-  def boundingRect: BoundingRect = BoundingRect(xCen - radius, xCen + radius, yCen - radius, yCen + radius)
+  def boundingRect: BoundingRect = BoundingRect(cenX - radius, cenX + radius, cenY - radius, cenY + radius)
   
   override def fill(fillColour: Colour): CircleFill = CircleFill(this, fillColour)
   override def fillHex(intValue: Int): CircleFill = CircleFill(this, Colour(intValue))
@@ -71,15 +71,15 @@ final case class Circle(diameter: Double, xCen: Double, yCen: Double) extends El
   @inline override def xRadius: Double = radius
   @inline override def yRadius: Double = radius
 
-  override def xAxes1: Double = xCen + radius
-  override def yAxes1: Double = yCen
-  override def xAxes2: Double = xCen
-  override def yAxes2: Double = yCen - yAxis4
-  override def xAxes3: Double = xCen - radius
-  override def yAxes3: Double = yCen
-  override def xAxis4: Double = xCen
-  override def yAxis4: Double = yCen + radius
-  override def pAxes4: Pt2 = Pt2(xCen, yAxis4)
+  override def xAxes1: Double = cenX + radius
+  override def yAxes1: Double = cenY
+  override def xAxes2: Double = cenX
+  override def yAxes2: Double = cenY - yAxis4
+  override def xAxes3: Double = cenX - radius
+  override def yAxes3: Double = cenY
+  override def xAxis4: Double = cenX
+  override def yAxis4: Double = cenY + radius
+  override def pAxes4: Pt2 = Pt2(cenX, yAxis4)
   override def cenP1: Vec2 = Vec2(radius, 0)
   override def cenP2: Vec2 = Vec2(0, -radius)
   override def cenP3: Vec2 = Vec2(-radius, 0)

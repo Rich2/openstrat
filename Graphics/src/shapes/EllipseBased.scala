@@ -4,7 +4,7 @@ package geom
 
 /** Common trait for [[Ellipse]] and EArc. The main purpose of this trait is not to share code, but to establish naming conventions for elliptical
  * properties. */
-trait EllipseBased extends GeomElem
+trait EllipseBased extends GeomElem with WithCentre
 {
   /** Radius 1 of the ellipse. By default this is the horizontal axis of the ellipse. This can be the major or minor axis. */
   def radius1: Double
@@ -17,15 +17,6 @@ trait EllipseBased extends GeomElem
 
   /** Diameter 2 of this ellipse. By default this is the vertical axis of the ellipse. This can be the major or minor axis. */
   final def diameter2: Double = radius2 * 2
-
-  /** The X component of the centre of the Ellipse. */
-  def xCen: Double
-
-  /** The Y component of the centre of the Ellipse. */
-  def yCen: Double
-
-  /** The centre of the ellipse. */
-  def cen: Pt2
 
   /** The end point of axis 1. By default this is on the right of the Ellipse. Mathematically this can be referred to as a vertex for the major axis
    *  or a co-vertex for the minor axis. */

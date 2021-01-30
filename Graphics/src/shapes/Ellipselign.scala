@@ -12,13 +12,13 @@ trait Ellipselign extends Ellipse
   /** The radius of the axis of the ellipse aligned to the Y axis. */
   def yRadius: Double
 
-  override def slateXY(xOffset: Double, yOffset: Double): Ellipselign = Ellipselign(xRadius, yRadius, xCen + xOffset, yCen + yOffset)
+  override def slateXY(xOffset: Double, yOffset: Double): Ellipselign = Ellipselign(xRadius, yRadius, cenX + xOffset, cenY + yOffset)
 
-  override def scale(operand: Double): Ellipselign = Ellipselign(xRadius * operand, yRadius * operand, xCen * operand, yCen * operand)
+  override def scale(operand: Double): Ellipselign = Ellipselign(xRadius * operand, yRadius * operand, cenX * operand, cenY * operand)
 
-  override def negX: Ellipselign = Ellipselign(xRadius, yRadius, -xCen, yCen)
+  override def negX: Ellipselign = Ellipselign(xRadius, yRadius, -cenX, cenY)
 
-  override def negY: Ellipselign = Ellipselign(xRadius, yRadius, xCen, -yCen)
+  override def negY: Ellipselign = Ellipselign(xRadius, yRadius, cenX, -cenY)
 
   override def rotate90: Ellipselign = ???
   override def rotate180: Ellipselign = ???
@@ -30,7 +30,7 @@ object Ellipselign
   def apply(xRadius: Double, yRadius: Double, cen: Pt2 = Pt2Z): Ellipselign = new EllipselignImp(xRadius, yRadius, cen.x, cen.y)
   def apply(xRadius: Double, yRadius: Double, xCen: Double, yCen: Double): Ellipselign = new EllipselignImp(xRadius, yRadius, xCen, yCen)
 
-  class EllipselignImp(val xRadius: Double, val yRadius: Double, val xCen: Double, val yCen: Double) extends Ellipselign
+  class EllipselignImp(val xRadius: Double, val yRadius: Double, val cenX: Double, val cenY: Double) extends Ellipselign
   {
     override def rMajor: Double = ???
     override def rMinor: Double = ???

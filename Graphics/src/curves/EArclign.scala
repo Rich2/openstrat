@@ -61,17 +61,17 @@ object EArclign
   /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the
    *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greter than
    *  360 degrees and less than -360 degrees. */
-  final case class EArclignImp(xStart: Double, yStart: Double, xCen: Double, yCen: Double, xRadius: Double, yRadius: Double,
-    xEnd: Double, yEnd: Double, counter: Int) extends EArclign
+  final case class EArclignImp(xStart: Double, yStart: Double, cenX: Double, cenY: Double, xRadius: Double, yRadius: Double,
+                               xEnd: Double, yEnd: Double, counter: Int) extends EArclign
   {
     //override def fTrans(f: Vec2 => Vec2): EArclign = ???
 
-    override def cen: Pt2 = Pt2(xCen, yCen)
+    override def cen: Pt2 = Pt2(cenX, cenY)
     override def radius1: Double = xRadius
     override def radius2: Double = yRadius
     override def pAxes1: Pt2 = cen.addX(xRadius)
-    override def xAxes1: Double = xCen + xRadius
-    override def yAxes1: Double = yCen
+    override def xAxes1: Double = cenX + xRadius
+    override def yAxes1: Double = cenY
     override def pAxes2: Pt2 = cen.subY(yRadius)
 
     /** The X component of the start point of axis 2. By default this is at the bottom of the Ellipse. Mathematically this can be referred to as a vertex for the major
@@ -91,14 +91,14 @@ object EArclign
     override def yAxes3: Double = ???
 
     override def pAxes4: Pt2 = cen.addY(yRadius)
-    override def xAxis4: Double = xCen
-    override def yAxis4: Double = yCen + radius2
+    override def xAxis4: Double = cenX
+    override def yAxis4: Double = cenY + radius2
 
     override def cenP1: Vec2 = xRadius vv 0
     override def cenP2: Vec2 = 0 vv - yRadius
     override def cenP3: Vec2 = -xRadius vv 0
     override def cenP4: Vec2 = 0 vv yRadius
 
-    def addRotations(delta: Int): EArclignImp = EArclignImp(xStart, yStart, xCen, yCen, xRadius, yRadius, xEnd, yEnd, counter + delta)
+    def addRotations(delta: Int): EArclignImp = EArclignImp(xStart, yStart, cenX, cenY, xRadius, yRadius, xEnd, yEnd, counter + delta)
   }
 }

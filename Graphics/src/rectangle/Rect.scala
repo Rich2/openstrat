@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import pWeb._
@@ -11,7 +11,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   @inline final override def x2: Double = xBottomRight
   @inline final override def y2: Double = yBottomRight
   @inline final override def v2: Pt2 = x2 pp y2
-  @inline final override def cen: Pt2 = xCen pp yCen
+  @inline final override def cen: Pt2 = cenX pp cenY
   override def alignAngle: AngleVec = Deg0
   @inline final def x3: Double = xBottomLeft
   @inline final def y3: Double = yBottomLeft
@@ -19,7 +19,6 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   @inline final def x4: Double = xTopLeft
   @inline final def y4: Double = yTopLeft
   @inline final def v4: Pt2 = topLeft
-
 
   /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
    * be thought of as vertex 0.5. */
@@ -29,9 +28,9 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
    * be thought of as vertex 0.5. */
   override def ySd1Cen: Double = ???
 
-  final override def sd1Cen: Pt2 = Pt2(xCen, yCen + height / 2)
-  final override def sd2Cen: Pt2 = Pt2(xCen + width / 2, yCen)
-  final override def sd3Cen: Pt2 = Pt2(xCen, yCen -height / 2)
+  final override def sd1Cen: Pt2 = Pt2(cenX, cenY + height / 2)
+  final override def sd2Cen: Pt2 = Pt2(cenX + width / 2, cenY)
+  final override def sd3Cen: Pt2 = Pt2(cenX, cenY -height / 2)
 
   /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
    * thought of as vertex 2.5. */
@@ -50,13 +49,13 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   override def ySd4Cen: Double = ???
 
-  final override def sd4Cen: Pt2 = Pt2(xCen - width / 2, yCen)
+  final override def sd4Cen: Pt2 = Pt2(cenX - width / 2, cenY)
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(offset: Vec2Like): Rect = Rect(width, height, cen.slate(offset))
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slateXY(xOffset: Double, yOffset: Double): Rect = Rect(width, height, xCen + xOffset, yCen + yOffset)
+  override def slateXY(xOffset: Double, yOffset: Double): Rect = Rect(width, height, cenX + xOffset, cenY + yOffset)
 
   /** Uniform scaling transformation on a Rect returns a Rect. */
   override def scale(operand: Double): Rect = Rect(width * operand, height * operand, cen.scale(operand))
@@ -85,7 +84,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 object Rect
 {
   def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): Rect = new RectImp(width, height, cen.x, cen.y)
-  def apply(width: Double, height: Double, xCen: Double, yCen: Double): Rect = new RectImp(width, height, xCen, yCen)
+  def apply(width: Double, height: Double, xCen: Double, cenY: Double): Rect = new RectImp(width, height, xCen, cenY)
 
   /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top
    *  right vertex of the Rect at the origin. */
@@ -131,7 +130,7 @@ object Rect
   }
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
-  final case class RectImp(width: Double, height: Double, xCen: Double, yCen: Double) extends Rect
+  final case class RectImp(width: Double, height: Double, cenX: Double, cenY: Double) extends Rect
   { override def fTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV0(f(cen), f(v1))
     override def width1: Double = width
     override def width2: Double = height
@@ -139,7 +138,7 @@ object Rect
     override def attribs: Arr[XANumeric] = ???
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    override def slateXY(xOffset: Double, yOffset: Double): RectImp = RectImp(width, height, xCen + xOffset, yCen + yOffset)
+    override def slateXY(xOffset: Double, yOffset: Double): RectImp = RectImp(width, height, cenX + xOffset, cenY + yOffset)
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen.slate(offset))

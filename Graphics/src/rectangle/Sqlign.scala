@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** A square aligned to the X and Y axes. */
-final case class Sqlign private(width: Double, xCen: Double, yCen: Double) extends Square with Rect with Show2[Double, Pt2]
+final case class Sqlign private(width: Double, cenX: Double, cenY: Double) extends Square with Rect with Show2[Double, Pt2]
 {
   override def typeStr: String = "Sqlign"
   override def name1: String = "width"
@@ -21,12 +21,12 @@ final case class Sqlign private(width: Double, xCen: Double, yCen: Double) exten
   override def height: Double = width
   override def slate(offset: Vec2Like): Sqlign = Sqlign(width, cen.slate(offset))
 
-  override def slateXY(xOffset: Double, yOffset: Double): Sqlign = Sqlign(width, xCen + xOffset, yCen + yOffset)
+  override def slateXY(xOffset: Double, yOffset: Double): Sqlign = Sqlign(width, cenX + xOffset, cenY + yOffset)
   override def scale(operand: Double): Sqlign = Sqlign(width * operand, cen.scale(operand))
 
-  override def negY: Sqlign = Sqlign(width, xCen, -yCen)
+  override def negY: Sqlign = Sqlign(width, cenX, -cenY)
 
-  override def negX: Sqlign = Sqlign(width, -xCen, yCen)
+  override def negX: Sqlign = Sqlign(width, -cenX, cenY)
 
   override def rotate90: Sqlign = Sqlign(width, cen.rotate90)
   override def rotate180: Sqlign = Sqlign(width, cen.rotate180)

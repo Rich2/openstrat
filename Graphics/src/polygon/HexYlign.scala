@@ -3,10 +3,13 @@ package ostrat
 package geom
 
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module. */
-final class HexYlign(val width: Double, val xCen: Double, val yCen: Double) extends Hexlign with Show2[Double, Pt2]// with Eq2[Double, Pt2]
+final class HexYlign(val width: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2] with Dbl3Elem// with Eq2[Double, Pt2]
 { override def typeStr = "HexYlign"
   override def name1: String = "width"
   override def name2: String = "cen"
+  override def dbl1: Double = width
+  override def dbl2: Double = cenX
+  override def dbl3: Double = cenY
   override def diameterIn: Double = width
   override def height: Double = diameterOut
   override def el1: Double = width
@@ -15,53 +18,53 @@ final class HexYlign(val width: Double, val xCen: Double, val yCen: Double) exte
   override implicit def ev2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxdepth: Int = 3
 
-  override def cen: Pt2 = xCen pp yCen
-  override def x1: Double = xCen + radiusIn
-  override def y1: Double = yCen + radiusOut / 2
+  override def cen: Pt2 = cenX pp cenY
+  override def x1: Double = cenX + radiusIn
+  override def y1: Double = cenY + radiusOut / 2
   @inline override def v1: Pt2 = Pt2(x1, y1)
 
-  override def x2: Double = xCen + radiusIn
-  override def y2: Double = yCen - radiusOut / 2
+  override def x2: Double = cenX + radiusIn
+  override def y2: Double = cenY - radiusOut / 2
   @inline override def v2: Pt2 = Pt2(x2, y2)
 
-  override def x3: Double = xCen
-  override def y3: Double = yCen - radiusOut
+  override def x3: Double = cenX
+  override def y3: Double = cenY - radiusOut
   @inline override def v3: Pt2 = Pt2(x3, y3)
 
-  override def x4: Double = xCen - radiusIn
-  override def y4: Double = yCen - radiusOut / 2
+  override def x4: Double = cenX - radiusIn
+  override def y4: Double = cenY - radiusOut / 2
   @inline override def v4: Pt2 = Pt2(x4, y4)
 
-  override def x5: Double = xCen - radiusIn
-  override def y5: Double = yCen + radiusOut / 2
+  override def x5: Double = cenX - radiusIn
+  override def y5: Double = cenY + radiusOut / 2
   @inline override def v5: Pt2 = Pt2(x5, y5)
 
-  override def x6: Double = xCen
-  override def y6: Double = yCen + radiusOut
+  override def x6: Double = cenX
+  override def y6: Double = cenY + radiusOut
   @inline override def v6: Pt2 = Pt2(x6, y6)
 
-  override def xSd1Cen: Double = xCen + radiusIn * Cos60
-  override def ySd1Cen: Double = yCen + radiusIn * Sin60
+  override def xSd1Cen: Double = cenX + radiusIn * Cos60
+  override def ySd1Cen: Double = cenY + radiusIn * Sin60
   override def sd1Cen: Pt2 = xSd1Cen pp ySd1Cen
 
-  override def xSd2Cen: Double = xCen + radiusIn
-  override def ySd2Cen: Double = yCen
+  override def xSd2Cen: Double = cenX + radiusIn
+  override def ySd2Cen: Double = cenY
   override def sd2Cen: Pt2 = xSd2Cen pp ySd2Cen
 
-  override def xSd3Cen: Double = xCen + radiusIn * Cos60
-  override def ySd3Cen: Double = yCen - radiusIn * Sin60
+  override def xSd3Cen: Double = cenX + radiusIn * Cos60
+  override def ySd3Cen: Double = cenY - radiusIn * Sin60
   override def sd3Cen: Pt2 = xSd3Cen pp ySd3Cen
 
-  override def xSd4Cen: Double = xCen - radiusIn * Cos60
-  override def ySd4Cen: Double = yCen - radiusIn * Sin60
+  override def xSd4Cen: Double = cenX - radiusIn * Cos60
+  override def ySd4Cen: Double = cenY - radiusIn * Sin60
   override def sd4Cen: Pt2 = xSd4Cen pp ySd4Cen
 
-  override def xSd5Cen: Double = xCen - radiusIn
-  override def ySd5Cen: Double = yCen
+  override def xSd5Cen: Double = cenX - radiusIn
+  override def ySd5Cen: Double = cenY
   override def sd5Cen: Pt2 = xSd5Cen pp ySd5Cen
 
-  override def xSd6Cen: Double = xCen - radiusIn * Cos60
-  override def ySd6Cen: Double = yCen + radiusIn * Sin60
+  override def xSd6Cen: Double = cenX - radiusIn * Cos60
+  override def ySd6Cen: Double = cenY + radiusIn * Sin60
   override def sd6Cen: Pt2 = xSd6Cen pp ySd6Cen
 
   override def productArity: Int = 3

@@ -9,10 +9,10 @@ package geom
  *  @groupdesc EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val yCen: Double, val xEnd: Double, val yEnd: Double,
-  val counter: Int) extends EArclign
+class CArc private(val xStart: Double, val yStart: Double, val cenX: Double, val cenY: Double, val xEnd: Double, val yEnd: Double,
+                   val counter: Int) extends EArclign
 { /** The centre of this circular arc. */
-  override def cen: Pt2 = Pt2(xCen, yCen)
+  override def cen: Pt2 = Pt2(cenX, cenY)
 
   /** Radius of the this circular arc. */
   def radius: Double = cen.distTo(pStart)
@@ -23,7 +23,7 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
   /** The mid point of the chord of this arc. */
   def chordCen: Pt2 = pStart.midPt(pEnd)
 
-  def addRotations(delta: Int): CArc = new CArc(xStart, yStart, xCen, yCen, xEnd, yEnd, counter + delta)
+  def addRotations(delta: Int): CArc = new CArc(xStart, yStart, cenX, cenY, xEnd, yEnd, counter + delta)
 
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
   override def draw(lineColour: Colour, lineWidth: Double): CArcDraw = CArcDraw(this, lineColour, lineWidth)
@@ -76,11 +76,11 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
 
   /** The Y component of the end point of axis 1, treating this circular arc as an elliptical arc. Axis1 is specified as horizontal and point 1 is
    *  specified as the right of the circle this CArc is based on. */
-  override def xAxes1: Double = xCen + radius
+  override def xAxes1: Double = cenX + radius
 
   /** The Y component of the end point of axis 1, treating this circular arc as an elliptical arc. Axis1 is specified as horizontal and point 1 is
    *  specified as the right of the circle this CArc is based on. */
-  override def yAxes1: Double = yCen
+  override def yAxes1: Double = cenY
 
   /** The start of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no
    *  actual vertex there on this circle, which is a special case of an ellipse. */
@@ -100,9 +100,9 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
 
   /** The X component of the start point of elliptical axis 1. By default this is the left vertex of the Ellipse, so this point on the circle is given
    *  although there is no actual vertex there on this circle, which is a special case of an ellipse. */
-  override def xAxes3: Double = xCen - radius
+  override def xAxes3: Double = cenX - radius
 
-  override def yAxes3: Double = xCen
+  override def yAxes3: Double = cenX
 
   /** The end of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given although there is no
    *  actual vertex there on this circle, which is a special case of an ellipse. */
@@ -111,11 +111,11 @@ class CArc private(val xStart: Double, val yStart: Double, val xCen: Double, val
 
   /** The X component of the end of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given
    *  although there is no actual vertex there on this circle, which is a special case of an ellipse. */
-  override def xAxis4: Double = xCen
+  override def xAxis4: Double = cenX
 
   /** The Y component of the end of elliptical axis 2. By default this is the bottom vertex of the Ellipse, so this point on the circle is given
    *  although there is no actual vertex there on this circle, which is a special case of an ellipse. */
-  override def yAxis4: Double = yCen + radius
+  override def yAxis4: Double = cenY + radius
 
   override def cenP1: Vec2 = cen >> pAxes1
   override def cenP2: Vec2 = cen >> pAxes2

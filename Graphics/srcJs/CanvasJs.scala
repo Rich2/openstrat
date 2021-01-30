@@ -149,16 +149,16 @@ object CanvasJs extends CanvasTopLeft
   override def tlCircleFill(cf: CircleFill): Unit =
   { gc.beginPath()
     setFill(cf.fill)
-    gc.arc(cf.xCen, cf.yCen, cf.radius, 0, Pi * 2)
+    gc.arc(cf.cenX, cf.cenY, cf.radius, 0, Pi * 2)
     gc.fill()
   }
 
   override def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit =
-  { val rg = gc.createRadialGradient(circle.xCen, circle.yCen, 0, circle.xCen, circle.yCen, circle.radius)
+  { val rg = gc.createRadialGradient(circle.cenX, circle.cenY, 0, circle.cenX, circle.cenY, circle.radius)
     rg.addColorStop(0, fill.cenColour.webStr);
     rg.addColorStop(1, fill.outerColour.webStr)
     gc.fillStyle = rg
-    gc.arc(circle.xCen, circle.yCen, circle.radius, 0, Pi * 2)
+    gc.arc(circle.cenX, circle.cenY, circle.radius, 0, Pi * 2)
     gc.fill()
   }
 
@@ -166,7 +166,7 @@ object CanvasJs extends CanvasTopLeft
   { gc.beginPath()
     gc.strokeStyle = cd.lineColour.webStr
     gc.lineWidth = cd.lineWidth
-    gc.arc(cd.xCen, cd.yCen, cd.radius, 0, Pi * 2)
+    gc.arc(cd.cenX, cd.cenY, cd.radius, 0, Pi * 2)
     gc.stroke()
   }
   

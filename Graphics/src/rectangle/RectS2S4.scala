@@ -7,8 +7,8 @@ package geom
 trait RectS2S4 extends Rectangle
 {
   final override def cen: Pt2 = sd3Cen midPt sd1Cen
-  final override def xCen: Double = cen.x
-  final override def yCen: Double = cen.y
+  final override def cenX: Double = cen.x
+  final override def cenY: Double = cen.y
   final override def width1: Double = sd4Cen.distTo(sd2Cen)
   final def rotationRadians: Double = alignAngle.radians
   @inline final override def alignAngle: AngleVec = sd4Cen.angleTo(sd2Cen).rotationFrom0

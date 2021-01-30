@@ -156,10 +156,10 @@ object HexReg
     }
     def sd4Cen: Pt2 = Pt2(xSd4Cen, ySd4Cen)
     def sd1Cen: Pt2 = Pt2(xSd1Cen, ySd1Cen)
-    def xCen: Double = (xSd1Cen + xSd4Cen) / 2
-    def yCen: Double = (ySd1Cen + ySd4Cen) / 2
+    def cenX: Double = (xSd1Cen + xSd4Cen) / 2
+    def cenY: Double = (ySd1Cen + ySd4Cen) / 2
     def s1CenRMax: Pt2 = cen + (cen >> sd4Cen) * 2 / Sqrt3
-    @inline override def cen: Pt2 = Pt2(xCen, yCen)
+    @inline override def cen: Pt2 = Pt2(cenX, cenY)
     @inline override def diameterIn: Double = sd1Cen.distTo(sd4Cen)
     override def v1: Pt2 = s1CenRMax.rotateAbout(cen,  - Deg30)
     override def x1: Double = v1.x

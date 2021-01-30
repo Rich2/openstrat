@@ -8,8 +8,8 @@ import pCanv._
 trait EArcDraw extends CurveSegDraw with CanvElem
 {
   override def curveSeg: EArc
-  def xCen: Double = curveSeg.xCen
-  def yCen: Double = curveSeg.yCen
+  def xCen: Double = curveSeg.cenX
+  def yCen: Double = curveSeg.cenY
   def cen: Pt2 = curveSeg.cen
 
   /** Translate 2D geometric transformation on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits / classes. */

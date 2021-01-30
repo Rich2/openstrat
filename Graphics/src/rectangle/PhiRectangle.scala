@@ -46,9 +46,9 @@ object PhiRectangle
   def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
   case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, xSd3Cen: Double, ySd3Cen: Double) extends PhiRectangle
-  { override def cen: Pt2 = xCen pp yCen
-    override def xCen: Double = average(xS1Cen, xS1Cen)
-    override def yCen: Double = average(yS1Cen, yS1Cen)
+  { override def cen: Pt2 = cenX pp cenY
+    override def cenX: Double = average(xS1Cen, xS1Cen)
+    override def cenY: Double = average(yS1Cen, yS1Cen)
 
     /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
      * be thought of as vertex 0.5. */
@@ -89,13 +89,13 @@ object PhiRectangle
   }
 }
 
-case class PhiRect(height: Double, xCen: Double, yCen: Double) extends Rect with PhiRectangle
+case class PhiRect(height: Double, cenX: Double, cenY: Double) extends Rect with PhiRectangle
 {
   override def width: Double = width1
   override def width2: Double = height
 
   /** Translate geometric transformation on a PhiRect returns a PhiRect. */
-  override def slateXY(xOffset: Double, yOffset: Double): PhiRect = PhiRect(height, xCen + xOffset, yCen + yOffset)
+  override def slateXY(xOffset: Double, yOffset: Double): PhiRect = PhiRect(height, cenX + xOffset, cenY + yOffset)
 
   /** Translate geometric transformation on a PhiRect returns a PhiRect. */
   override def slate(offset: Vec2Like): PhiRect = PhiRect(height, cen.slate(offset))
@@ -122,13 +122,13 @@ object PhiRect
   def apply(height: Double, cen: Pt2 = Pt2Z): PhiRect = PhiRect(height, cen.x, cen.y)
 }
 
-case class PhiRectY(width: Double, xCen: Double, yCen: Double) extends Rect with PhiRectangle
+case class PhiRectY(width: Double, cenX: Double, cenY: Double) extends Rect with PhiRectangle
 {
   override def height: Double = width1
   override def width2: Double = width
 
   /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
-  override def slateXY(xOffset: Double, yOffset: Double): PhiRectY = PhiRectY(width, xCen + xOffset, yCen + yOffset)
+  override def slateXY(xOffset: Double, yOffset: Double): PhiRectY = PhiRectY(width, cenX + xOffset, cenY + yOffset)
 
   /** Translate geometric transformation on a PhiRectY returns a PhiRectY. */
   override def slate(offset: Vec2Like): PhiRectY = PhiRectY(width, cen.slate(offset))

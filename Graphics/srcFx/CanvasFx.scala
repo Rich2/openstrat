@@ -106,7 +106,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
 
   override def tlCircleFill(cf: CircleFill): Unit =
   { setFill(cf.fill)
-    gc.fillOval(cf.xCen - cf.radius, cf.yCen - cf.radius, cf.diameter, cf.diameter)
+    gc.fillOval(cf.cenX - cf.radius, cf.cenY - cf.radius, cf.diameter, cf.diameter)
   }
 
   override def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit =
@@ -115,23 +115,23 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     val stop2 = new Stop(1, toFxColor(fill.outerColour))
     val lg1 = new RadialGradient(0, 0, 0.5, 0.5, 0.8, true, CycleMethod.NO_CYCLE, stop1, stop2)
     gc.setFill(lg1)
-    gc.fillOval(circle.xCen - circle.radius, circle.yCen - circle.radius, circle.diameter, circle.diameter)
+    gc.fillOval(circle.cenX - circle.radius, circle.cenY - circle.radius, circle.diameter, circle.diameter)
   }
   override def tlCircleDraw(cd: CircleDraw): Unit =
   { gc.setLineWidth(cd.lineWidth)
     gc.setStroke(toFxColor(cd.lineColour))
-    gc.strokeOval(cd.xCen - cd.radius, cd.yCen - cd.radius, cd.diameter, cd.diameter)
+    gc.strokeOval(cd.cenX - cd.radius, cd.cenY - cd.radius, cd.diameter, cd.diameter)
   }
 
   override def tlEllipseFill(ef: EllipseFill): Unit =
   { setFill(ef.fill)
-    gc.fillOval(ef.xCen - ef.shape.radius1, ef.yCen - ef.shape.radius2 , ef.shape.diameter1, ef.shape.diameter2)
+    gc.fillOval(ef.cenX - ef.shape.radius1, ef.cenY - ef.shape.radius2 , ef.shape.diameter1, ef.shape.diameter2)
   }
 
   override def tlEllipseDraw(ed: EllipseDraw): Unit =
   { gc.setLineWidth(ed.lineWidth)
     gc.setStroke(toFxColor(ed.lineColour))
-    gc.strokeOval(ed.xCen - ed.shape.radius1, ed.yCen - ed.shape.radius2, ed.shape.diameter1, ed.shape.diameter2)
+    gc.strokeOval(ed.cenX - ed.shape.radius1, ed.cenY - ed.shape.radius2, ed.shape.diameter1, ed.shape.diameter2)
   }    
     
   override protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit =

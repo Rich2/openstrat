@@ -5,8 +5,8 @@ import Colour.Black
 
 /** A rectangular object aligned with the X and Y axes and centred on x = 0, y = 0. Sub traits include [[Rectangle]] and [[pCanv.Panel]]. */
 trait RectCenlign extends Rectangularlign
-{ def xCen: Double = 0
-  def yCen: Double = 0
+{ def cenX: Double = 0
+  def cenY: Double = 0
   override def cen: Pt2 = Pt2Z
   def left = - width / 2
   def right = width / 2

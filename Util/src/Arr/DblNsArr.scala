@@ -6,7 +6,6 @@ trait ArrayDblBased extends Any
 { def arrayUnsafe: Array[Double]
 }
 
-
 /** Base trait for Array[Double] based collections of Products of Doubles. */
 trait DblNsArr[A] extends Any with ValueNsArr[A] with ArrayDblBased
 { type ThisT <: DblNsArr[A]

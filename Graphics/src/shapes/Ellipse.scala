@@ -14,7 +14,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): GraphicElem =
     EllipseCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)))
 
-  final override def cen: Pt2 = xCen pp yCen
+  final override def cen: Pt2 = cenX pp cenY
 
   final def pAxes1: Pt2 = xAxes1 pp yAxes1
   final def pAxes2: Pt2 = Pt2(xAxes2, yAxes2)
@@ -35,8 +35,8 @@ trait Ellipse extends EllipseBased with ShapeCentred
   def e: Double
 
   def area: Double
-  def cxAttrib: XANumeric = XANumeric("cx", xCen)
-  def cyAttrib: XANumeric = XANumeric("cy", yCen)
+  def cxAttrib: XANumeric = XANumeric("cx", cenX)
+  def cyAttrib: XANumeric = XANumeric("cy", cenY)
   def rxAttrib: XANumeric = XANumeric("rx", radius1)
   def ryAttrib: XANumeric = XANumeric("ry", radius2)
   def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
@@ -112,12 +112,12 @@ object Ellipse
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  final case class EllipseImp(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double) extends Ellipse with AxisFree
+  final case class EllipseImp(cenX: Double, cenY: Double, xAxes1: Double, yAxes1: Double, radius2: Double) extends Ellipse with AxisFree
   { override type ThisT = EllipseImp
-    override def xAxes2: Double = 2 * xCen - xAxis4
-    override def yAxes2: Double = 2 * yCen - yAxis4
-    override def xAxes3: Double = 2 * xCen - xAxes1
-    override def yAxes3: Double = 2 * yCen - yAxes1
+    override def xAxes2: Double = 2 * cenX - xAxis4
+    override def yAxes2: Double = 2 * cenY - yAxis4
+    override def xAxes3: Double = 2 * cenX - xAxes1
+    override def yAxes3: Double = 2 * cenY - yAxes1
     override def pAxes4: Pt2 = cen + s0Angle.toVec2(radius2)
     override def xAxis4: Double = pAxes4.x
     override def yAxis4: Double = pAxes1.y
@@ -137,7 +137,7 @@ object Ellipse
       val xd = xd0.sqrt
       val yd0: Double = radius1.squared * (alignAngle.sin).squared + radius2.squared * (alignAngle.cos).squared
       val yd = yd0.sqrt
-      BoundingRect(xCen - xd, xCen + xd, yCen - yd, yCen + yd)
+      BoundingRect(cenX - xd, cenX + xd, cenY - yd, cenY + yd)
     }
 
     override def alignAngle: Angle = cen.angleTo(pAxes1)
@@ -145,11 +145,11 @@ object Ellipse
 
     /** Translate 2D geometric transformation, on an EllipseImp, returns an EllipseImp. */
     override def slateXY(xOffset: Double, yOffset: Double): EllipseImp =
-      EllipseImp(xCen + xOffset, yCen + yOffset, xAxes1 + xOffset, yAxes1 + yOffset, radius2)
+      EllipseImp(cenX + xOffset, cenY + yOffset, xAxes1 + xOffset, yAxes1 + yOffset, radius2)
 
     /** Uniform scaling 2D geometric transformation, on an EllipseImp, returns an EllipseImp. */
     override def scale(operand: Double): EllipseImp =
-      EllipseImp(xCen * operand, yCen * operand, xAxes1 * operand, yAxes1 * operand, radius2 * operand)
+      EllipseImp(cenX * operand, cenY * operand, xAxes1 * operand, yAxes1 * operand, radius2 * operand)
 
     override def reflect(lineLike: LineLike): EllipseImp =
       EllipseImp.cenAxes1Axes4(cen.reflect(lineLike), pAxes1.reflect(lineLike), pAxes4.reflect(lineLike))
