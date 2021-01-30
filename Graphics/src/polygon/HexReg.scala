@@ -23,9 +23,9 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
   override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
   override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6); () }
-  override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v1x, v1y);  f(v2x, v2y); f(v3x, v3y);  f(v4x, v4y); f(v5x, v5y); f(x6, y6); () }
+  override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v1x, v1y);  f(v2x, v2y); f(v3x, v3y);  f(v4x, v4y); f(v5x, v5y); f(v6x, y6); () }
 
-  override def vertsArrayX: Array[Double] = Array(v1x, v2x, v3x, v4x, v5x, x6)
+  override def vertsArrayX: Array[Double] = Array(v1x, v2x, v3x, v4x, v5x, v6x)
 
   override def vertsArrayY: Array[Double] = Array(v1y, v2y, v3y, v4y, v5y, y6)
   override def vertsArray: Array[Double] = ???
@@ -47,7 +47,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
     case 3 => v3x
     case 4 => v4x
     case 5 => v5x
-    case 6 => x6
+    case 6 => v6x
     case n => excep(s"$n is out of range for a Hexagon vertex")
   }
 
@@ -177,7 +177,7 @@ object HexReg
     override def v5x: Double = v5.x
     override def v5y: Double = v5.y
     def v6: Pt2 = s1CenRMax.rotateAbout(cen, Deg30)
-    override def x6: Double = v6.x
+    override def v6x: Double = v6.x
     override def y6: Double = v6.y
 
     override def sd2CenX: Double = average(v1x, v2x)
@@ -186,11 +186,11 @@ object HexReg
     override def sd3CenX: Double = average(v2x, v3x)
     override def sd3CenY: Double = average(v2y, v3y)
     override def sd3Cen: Pt2 = v2 midPt v3
-    override def xSd5Cen: Double = average(v4x, v5x)
-    override def ySd5Cen: Double = average(v4y, v5y)
+    override def sd5CenX: Double = average(v4x, v5x)
+    override def sd5CenY: Double = average(v4y, v5y)
     override def sd5Cen: Pt2 = v4 midPt v5
-    override def xSd6Cen: Double = average(v5x, x6)
-    override def ySd6Cen: Double = average(v5y, y6)
+    override def sd6CenX: Double = average(v5x, v6x)
+    override def sd6CenY: Double = average(v5y, y6)
     override def sd6Cen: Pt2 = v5 midPt v6
   }
 }

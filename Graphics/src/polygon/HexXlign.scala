@@ -37,9 +37,9 @@ final class HexXlign(val height: Double, val cenX: Double, val cenY: Double) ext
   override def v5y: Double = cenY
   @inline override def v5: Pt2 = Pt2(v5x, v5y)
 
-  override def x6: Double = cenX - radiusOut / 2
+  override def v6x: Double = cenX - radiusOut / 2
   override def y6: Double = cenY + radiusIn
-  @inline override def v6: Pt2 = Pt2(x6, y6)
+  @inline override def v6: Pt2 = Pt2(v6x, y6)
 
   override def sd1CenX: Double = cenX
   override def sd1CenY: Double = cenY + radiusIn
@@ -57,12 +57,12 @@ final class HexXlign(val height: Double, val cenX: Double, val cenY: Double) ext
   override def sd4CenY: Double = cenY - radiusIn
   override def sd4Cen: Pt2 = sd4CenX pp sd4CenY
 
-  override def xSd5Cen: Double = cenX - radiusIn * Cos30
-  override def ySd5Cen: Double = cenY - radiusIn * Sin30
-  override def sd5Cen: Pt2 = xSd5Cen pp ySd5Cen
-  override def xSd6Cen: Double = cenX - radiusIn * Cos30
-  override def ySd6Cen: Double = cenY + radiusIn * Sin30
-  override def sd6Cen: Pt2 = xSd6Cen pp ySd6Cen
+  override def sd5CenX: Double = cenX - radiusIn * Cos30
+  override def sd5CenY: Double = cenY - radiusIn * Sin30
+  override def sd5Cen: Pt2 = sd5CenX pp sd5CenY
+  override def sd6CenX: Double = cenX - radiusIn * Cos30
+  override def sd6CenY: Double = cenY + radiusIn * Sin30
+  override def sd6Cen: Pt2 = sd6CenX pp sd6CenY
 
   override def productArity: Int = 3
   override def productElement(n: Int): Any = ???
