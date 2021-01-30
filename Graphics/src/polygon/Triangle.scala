@@ -5,7 +5,7 @@ package geom
 /** A mathematical triangle. The Triangle trait is implemented for its general case by [[Triangle.TriangleImp]]. */
 trait Triangle extends Polygon3Plus
 {	override def vertsNum: Int = 3
-	override def v1: Pt2 = x1 pp y1
+	override def v1: Pt2 = v1x pp v1y
 	override def v3: Pt2 = x3 pp y3
 
 	/** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
@@ -42,10 +42,10 @@ trait Triangle extends Polygon3Plus
 		case n => excep("index: " + n.toString + "out of range. There are only 3 vertices in a triangle.")
 	}
 
-	override def ptsArray: Array[Double] = Array(xCen, yCen, x1, y1, x2, y2, x3, y3)
+	override def vertsArray: Array[Double] = Array(xCen, yCen, v1x, v1y, x2, y2, x3, y3)
 
-	override def xVertsArray: Array[Double] = Array(x1, x2, x3)
-	override def yVertsArray: Array[Double] = Array(y1, y2, y3)
+	override def vertsArrayX: Array[Double] = Array(v1x, x2, x3)
+	override def vertsArrayY: Array[Double] = Array(v1y, y2, y3)
 	override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); () }
 	override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); () }
 	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); () }
@@ -84,21 +84,21 @@ trait Triangle extends Polygon3Plus
 
 
 	override def xVert(index: Int): Double = index match
-	{	case 1 => x1
+	{	case 1 => v1x
 		case 2 => x2
 		case 3 => x3
 		case n => excep(n.str + " is out of range for a triangle.")
 	}
 
 	override def yVert(index: Int): Double = index match
-	{	case 1 => y1
+	{	case 1 => v1y
 		case 2 => y2
 		case 3 => y3
 		case n => excep(n.str + " is out of range for a triangle.")
 	}
 
-	def xCen: Double = (x1 + x2 + x3) / 3
-	def yCen: Double = (y1 + y2 + y3) / 3
+	def xCen: Double = (v1x + x2 + x3) / 3
+	def yCen: Double = (v1y + y2 + y3) / 3
 
 	override def fill(colour: Colour): TriangleFill = TriangleFill(this, colour)
 	override def fillHex(intValue: Int): TriangleFill = TriangleFill(this, Colour(intValue))
@@ -108,7 +108,7 @@ object Triangle
 { def apply(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Triangle = TriangleImp(x1, y1, x2, y2, x3, y3)
 	def apply(v1: Pt2, v2: Pt2, v3: Pt2): Triangle = TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 
-	final case class TriangleImp(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double) extends Triangle with AffinePreserve
+	final case class TriangleImp(v1x: Double, v1y: Double, x2: Double, y2: Double, x3: Double, y3: Double) extends Triangle with AffinePreserve
 	{ type ThisT = TriangleImp
 		override def v2: Pt2 = Pt2(x2, y2)
 

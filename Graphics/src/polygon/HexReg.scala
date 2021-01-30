@@ -23,12 +23,12 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
   override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
   override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6); () }
-  override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x1, y1);  f(x2, y2); f(x3, y3);  f(x4, y4); f(x5, y5); f(x6, y6); () }
+  override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(v1x, v1y);  f(x2, y2); f(x3, y3);  f(x4, y4); f(x5, y5); f(x6, y6); () }
 
-  override def xVertsArray: Array[Double] = Array(x1, x2, x3, x4, x5, x6)
+  override def vertsArrayX: Array[Double] = Array(v1x, x2, x3, x4, x5, x6)
 
-  override def yVertsArray: Array[Double] = Array(y1, y2, y3, y4, y5, y6)
-  override def ptsArray: Array[Double] = ???
+  override def vertsArrayY: Array[Double] = Array(v1y, y2, y3, y4, y5, y6)
+  override def vertsArray: Array[Double] = ???
 
   override def vert(index: Int): Pt2 = index match
   { case 1 => v1
@@ -42,7 +42,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
 
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   override def xVert(index: Int): Double = index match
-  { case 1 => x1
+  { case 1 => v1x
     case 2 => x2
     case 3 => x3
     case 4 => x4
@@ -53,7 +53,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   override def yVert(index: Int): Double = index match
-  { case 1 => y1
+  { case 1 => v1y
     case 2 => y2
     case 3 => y3
     case 4 => y4
@@ -162,8 +162,8 @@ object HexReg
     @inline override def cen: Pt2 = Pt2(cenX, cenY)
     @inline override def diameterIn: Double = sd1Cen.distTo(sd4Cen)
     override def v1: Pt2 = s1CenRMax.rotateAbout(cen,  - Deg30)
-    override def x1: Double = v1.x
-    override def y1: Double = v1.y
+    override def v1x: Double = v1.x
+    override def v1y: Double = v1.y
     override def v2: Pt2 = s1CenRMax.rotateAbout(cen, - Deg90)
     override def x2: Double = v2.x
     override def y2: Double = v2.y
@@ -180,8 +180,8 @@ object HexReg
     override def x6: Double = v6.x
     override def y6: Double = v6.y
 
-    override def xSd2Cen: Double = average(x1, x2)
-    override def ySd2Cen: Double = average(y1, y2)
+    override def xSd2Cen: Double = average(v1x, x2)
+    override def ySd2Cen: Double = average(v1y, y2)
     override def sd2Cen: Pt2 = v1 midPt v2
     override def xSd3Cen: Double = average(x2, x3)
     override def ySd3Cen: Double = average(y2, y3)

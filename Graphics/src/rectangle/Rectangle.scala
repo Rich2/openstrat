@@ -19,7 +19,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   override def fillHex(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineColour: Colour, lineWidth: Double): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
-  override def ptsArray: Array[Double] = Array(cenX, cenY, x1, y1, x2, y2, x3, y3, x4, y4)
+  override def vertsArray: Array[Double] = Array(cenX, cenY, v1x, v1y, x2, y2, x3, y3, x4, y4)
 
   def alignAngle: AngleVec
   def widthAttrib: WidthAtt = WidthAtt(width1)
@@ -37,7 +37,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   }
 
   override def xVert(index: Int): Double = index match
-  { case 1 => x1
+  { case 1 => v1x
     case 2 => x2
     case 3 => x3
     case 4 => x4
@@ -45,15 +45,15 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   }
 
   override def yVert(index: Int): Double = index match
-  { case 1 => y1
+  { case 1 => v1y
     case 2 => y2
     case 3 => y3
     case 4 => y4
     case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
   }
 
-  final override def xVertsArray: Array[Double] = Array(x1, x2, x3, x4)
-  final override def yVertsArray: Array[Double] = Array(y1, y2, y3, y4)
+  final override def vertsArrayX: Array[Double] = Array(v1x, x2, x3, x4)
+  final override def vertsArrayY: Array[Double] = Array(v1y, y2, y3, y4)
   final override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); ()}
   final override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); () }
   override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); f(x4, y4); () }

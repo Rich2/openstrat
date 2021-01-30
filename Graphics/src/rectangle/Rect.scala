@@ -5,9 +5,9 @@ import pWeb._
 
 /** A Rectangle aligned to the X and Y axes. */
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
-{ @inline final override def x1: Double = xTopRight
-  @inline final override def y1: Double = yTopRight
-  @inline final override def v1: Pt2 = x1 pp y1
+{ @inline final override def v1x: Double = xTopRight
+  @inline final override def v1y: Double = yTopRight
+  @inline final override def v1: Pt2 = v1x pp v1y
   @inline final override def x2: Double = xBottomRight
   @inline final override def y2: Double = yBottomRight
   @inline final override def v2: Pt2 = x2 pp y2

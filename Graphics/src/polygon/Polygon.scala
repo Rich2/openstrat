@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black, pWeb._
@@ -13,10 +13,10 @@ trait Polygon extends Shape with BoundedElem
 
   def foreachVert[U](f: Pt2 => U): Unit
   def foreachVertTail[U](f: Pt2 => U): Unit
-  def ptsArray: Array[Double]
-  
-  def xVertsArray: Array[Double]
-  def yVertsArray: Array[Double]
+  def vertsArray: Array[Double]
+
+  def vertsArrayX: Array[Double]
+  def vertsArrayY: Array[Double]
 
   /** Foreach vertex excluding vertex 1, perform the side effecting function on the Tuple2 of the x and y values of the vertex. */
   def foreachPairTail[U](f: (Double, Double) => U): Unit
@@ -117,21 +117,21 @@ trait Polygon extends Shape with BoundedElem
   def yVert(index: Int): Double
 
   /** The X component of the 1st vertex, will throw on a 0 vertices polygon. */
-  def x1: Double
+  def v1x: Double
 
   /** The Y component of the 1st vertex, will throw on a 0 vertices polygon. */
-  def y1: Double
+  def v1y: Double
 
   /** The 1st vertex, will throw on a 0 vertices polygon. */
   def v1: Pt2
 
-  /** The last vertex will thow an exception on a 0 vertices polygon. */
+  /** The last vertex will throw an exception on a 0 vertices polygon. */
   def vLast: Pt2 = vert(vertsNum)
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
   override def boundingRect: BoundingRect =
-  { var minX, maxX = x1
-    var minY, maxY = y1
+  { var minX, maxX = v1x
+    var minY, maxY = v1y
     foreachVertTail{v =>
       minX = minX.min(v.x)
       maxX = maxX.max(v.x)
@@ -265,7 +265,7 @@ object Polygon
 {
   def apply(v1: Pt2, v2: Pt2, v3: Pt2, tail: Pt2 *): Polygon = PolygonImp(v1, v2, v3, tail: _*)
 
-  implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqv(p1.ptsArray, p2.ptsArray)
+  implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqv(p1.vertsArray, p2.vertsArray)
 
   //  ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
  // implicit val persistImplicit: Persist[Polygon] = ???

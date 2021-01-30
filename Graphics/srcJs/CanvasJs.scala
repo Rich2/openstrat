@@ -239,7 +239,7 @@ object CanvasJs extends CanvasTopLeft
 
   override protected[this] def tlClip(poly: Polygon): Unit =
   { gc.beginPath()
-    gc.moveTo(poly.x1, poly.y1)
+    gc.moveTo(poly.v1x, poly.v1y)
     poly.foreachPairTail(gc.lineTo)
     gc.closePath()
     gc.clip()

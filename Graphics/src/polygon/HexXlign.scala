@@ -17,9 +17,9 @@ final class HexXlign(val height: Double, val cenX: Double, val cenY: Double) ext
 
   override def cen: Pt2 = cenX pp cenY
 
-  override def x1: Double = cenX + radiusOut / 2
-  override def y1: Double = cenY + radiusIn
-  @inline override def v1: Pt2 = Pt2(x1, y1)
+  override def v1x: Double = cenX + radiusOut / 2
+  override def v1y: Double = cenY + radiusIn
+  @inline override def v1: Pt2 = Pt2(v1x, v1y)
 
   override def x2: Double = cenX + radiusOut
   override def y2: Double = cenY

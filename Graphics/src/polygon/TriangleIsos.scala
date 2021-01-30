@@ -12,7 +12,7 @@ trait TriangleIsos extends Triangle
 }
 
 /** The general case of an isosceles triangle. */
-final case class TriangleIsosGen(x1: Double, y1: Double, x3: Double, y3: Double, height: Double) extends TriangleIsos with AxisFree
+final case class TriangleIsosGen(v1x: Double, v1y: Double, x3: Double, y3: Double, height: Double) extends TriangleIsos with AxisFree
 {	type ThisT = TriangleIsosGen
 
   override def fTrans(f: Pt2 => Pt2): TriangleIsosGen = ???

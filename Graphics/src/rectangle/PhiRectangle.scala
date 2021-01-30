@@ -63,8 +63,8 @@ object PhiRectangle
     override def width2: Double = sd1Cen.distTo(sd3Cen)
     override def alignAngle: AngleVec = sd1Cen.angleFrom(sd3Cen).rotationFrom90
     override def v1: Pt2 = sd1Cen + xVec2(width2 / 2).rotate(alignAngle)
-    override def x1: Double = v1.x
-    override def y1: Double = v1.y
+    override def v1x: Double = v1.x
+    override def v1y: Double = v1.y
     override def v2: Pt2 = sd3Cen + xVec2(width2 / 2).rotate(alignAngle)
     override def x2: Double = v2.x
     override def y2: Double = v2.y

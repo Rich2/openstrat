@@ -13,8 +13,8 @@ trait RectS2S4 extends Rectangle
   final def rotationRadians: Double = alignAngle.radians
   @inline final override def alignAngle: AngleVec = sd4Cen.angleTo(sd2Cen).rotationFrom0
   final override def v1: Pt2 = sd2Cen + yVec2(width2 / 2).rotate(alignAngle)
-  final override def x1: Double = v1.x
-  final override def y1: Double = v1.y
+  final override def v1x: Double = v1.x
+  final override def v1y: Double = v1.y
   final override def v2: Pt2 = sd2Cen + yVec2(-width2 / 2).rotate(alignAngle)
   final override def x2: Double = v2.x
   final override def y2: Double = v2.y

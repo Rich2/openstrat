@@ -4,7 +4,7 @@ package geom
 import pWeb._
 
 /** Equilateral triangle. will become a trait. */
-final case class TriangleEqui(x1: Double, y1: Double, x3: Double, y3: Double) extends TriangleIsos with AxisFree
+final case class TriangleEqui(v1x: Double, v1y: Double, x3: Double, y3: Double) extends TriangleIsos with AxisFree
 {
   type ThisT = TriangleEqui
   override def height: Double = ???

@@ -27,7 +27,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   def unsafeFromArray(array: Array[Double]): PolygonImp = new PolygonImp(array)
 
-  @inline override def ptsArray: Array[Double] = arrayUnsafe
+  @inline override def vertsArray: Array[Double] = arrayUnsafe
   override def typeStr: String = "Polygon"
 
   override def attribs: Arr[XANumeric] = ???
@@ -44,9 +44,9 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   override def xVert(index: Int): Double = arrayUnsafe(index * 2 + dblsNumOffset)
   override def yVert(index: Int): Double = arrayUnsafe(index * 2 + 1 + dblsNumOffset)
-  @inline def x1: Double = arrayUnsafe(0 + dblsNumOffset)
-  @inline def y1: Double = arrayUnsafe(1 + dblsNumOffset)
-  @inline def v1: Pt2 = x1 pp y1
+  @inline def v1x: Double = arrayUnsafe(0 + dblsNumOffset)
+  @inline def v1y: Double = arrayUnsafe(1 + dblsNumOffset)
+  @inline def v1: Pt2 = v1x pp v1y
   override def fTrans(f: Pt2 => Pt2): PolygonImp = new PolygonImp(arrTrans(f))
   def eq(obj: PolygonImp): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
   def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))
@@ -56,13 +56,13 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   def width: Double = maxX - minX
   def height: Double = maxY - minY
 
-  override def xVertsArray: Array[Double] =
+  override def vertsArrayX: Array[Double] =
   { val newArray = new Array[Double](vertsNum)
     iUntilForeach(0, vertsNum){i => newArray(i) = xVert(i)}
     newArray
   }
 
-  override def yVertsArray: Array[Double] =
+  override def vertsArrayY: Array[Double] =
   { val newArray = new Array[Double](vertsNum)
     iUntilForeach(0, vertsNum){i => newArray(i) = yVert(i)}
     newArray

@@ -19,9 +19,9 @@ final class HexYlign(val width: Double, val cenX: Double, val cenY: Double) exte
   override def syntaxdepth: Int = 3
 
   override def cen: Pt2 = cenX pp cenY
-  override def x1: Double = cenX + radiusIn
-  override def y1: Double = cenY + radiusOut / 2
-  @inline override def v1: Pt2 = Pt2(x1, y1)
+  override def v1x: Double = cenX + radiusIn
+  override def v1y: Double = cenY + radiusOut / 2
+  @inline override def v1: Pt2 = Pt2(v1x, v1y)
 
   override def x2: Double = cenX + radiusIn
   override def y2: Double = cenY - radiusOut / 2

@@ -5,20 +5,7 @@ package geom
 /** A [[Polygon]] with at least 3 vertices. The PolygonNPlus traits include values for the vertices and the x and y components of the vertices. The X
  * and Y components are included because Graphics implementation APIs use them. */
 trait Polygon3Plus extends Polygon
-{
-  /** The X component of the 1st Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
-  def x1: Double
-
-  /** The Y component of the 1st Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
-  def y1: Double
-
-  /** The 1st Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
-   *  from 12 o'clock. */
-  def v1: Pt2
-
-  /** The X component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
+{ /** The X component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
   def x2: Double
 

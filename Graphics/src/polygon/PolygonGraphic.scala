@@ -7,8 +7,8 @@ package geom
 trait PolygonGraphic extends ShapeGraphic with GraphicBounded
 {
   override def shape: Polygon
-  def x1: Double = shape.x1
-  def y1: Double = shape.y1
+  def x1: Double = shape.v1x
+  def y1: Double = shape.v1y
 
   /** The number of vertices. */
   def vertsNum: Int = shape.vertsNum
@@ -18,8 +18,8 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
 
   /** Checks for 3 or more vertices */
   def ifv3: Boolean = shape.vertsNum >= 3
-  def xVertsArray: Array[Double] = shape.xVertsArray
-  def yVertsArray: Array[Double] = shape.yVertsArray
+  def xVertsArray: Array[Double] = shape.vertsArrayX
+  def yVertsArray: Array[Double] = shape.vertsArrayY
   override def boundingRect: BoundingRect = shape.boundingRect
   override def svgElem(bounds: BoundingRect): SvgElem = ???
   @inline def foreachVert(f: Pt2 => Unit): Unit = shape.foreachVert(f)

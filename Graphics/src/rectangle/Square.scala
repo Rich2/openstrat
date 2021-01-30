@@ -81,7 +81,7 @@ object Square extends ShapeIcon
 
     override def productArity: Int = 3
     override def productElement(n: Int): Any = 4
-    override def toString: String = s"SquareClass($x1, $y1; $x2, $y2)"
+    override def toString: String = s"SquareClass($v1x, $v1y; $x2, $y2)"
   }
 
   /** Factory object for squares. */
