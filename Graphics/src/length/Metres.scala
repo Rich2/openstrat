@@ -15,10 +15,7 @@ final class Metres(val metres: Double) extends AnyVal with Length with Ordered[M
   def max(operand: Metres): Metres = ife(metres > operand.metres, this, operand)
   def min(operand: Metres): Metres = ife(metres < operand.metres, this, operand)
   def kmStr2 = (metres / 1000).str2 + "km"
-  override def compare(that: Metres): Int = metres.match3(
-    _ == that.metres, 0,
-    _ > that.metres, 1,
-    -1)
+  override def compare(that: Metres): Int = metres.match3(_ == that.metres, 0, _ > that.metres, 1,-1)
 
   def pos: Boolean = metres >= 0
   def neg: Boolean = metres < 0
