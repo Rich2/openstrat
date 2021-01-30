@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -46,8 +46,12 @@ trait EllipseBased extends GeomElem with WithCentre
    *  or a co-vertex for the minor axis. */
   def axesPt3: Pt2
 
+  /** The X component of the start point of axis 1. By default this is on the left of the Ellipse. Mathematically this can be referred to as a vertex
+   *  for the major axis or a co-vertex for the minor axis. */
   def axesPt3x: Double
 
+  /** The Y component of the start point of axis 1. By default this is on the left of the Ellipse. Mathematically this can be referred to as a vertex
+   *  for the major axis or a co-vertex for the minor axis. */
   def axesPt3y: Double
 
   /** The end point of axis 2. By default this is at the top of the Ellipse. Mathematically this can be referred to as a vertex for the major axis or
