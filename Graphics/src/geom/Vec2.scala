@@ -6,7 +6,7 @@ import scala.math.{Pi, atan}
 /** A 2 dimensional vector. This is similar data to [[Pt2]]. The purpose of this separate type is to encode the relative nature of the Vec2 as opposed
  * to the absolute nature of a Pt. So usually you will want and need to add the vector to an absolute point to return to the absolute realm of points.
  * Thanks to René Descartes for this great idea. */
-class Vec2(val x: Double, val y: Double) extends Vec2Like
+class Vec2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
 { override def typeStr: String = "Vec2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Vec2]
   @inline override def el1: Double = x
@@ -19,7 +19,7 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like
     case _ => false
   }
 
-  override def approx(that: Any, delta: Double = defaultDelta): Boolean = that match {
+  override def approx(that: Any, delta: Double = 1e-12): Boolean = that match {
     case that: Vec2 => dblsApprox(that, delta)
     case _ => false
   }

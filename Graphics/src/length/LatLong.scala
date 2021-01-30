@@ -9,9 +9,9 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   override def name1: String = "lat"
   override def name2: String = "long"
   override def typeStr: String = "LatLong"
-  override def approx(that: Any, delta: Double): Boolean = ???
+  //override def approx(that: Any, delta: Double): Boolean = ???
   //override def toString: String = LatLong.persistImplict.strT(this)
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
+ // override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
   def el1 = latSecs
   def el2 = longSecs
   def latSecs: Double = latMilliSecs / 1000

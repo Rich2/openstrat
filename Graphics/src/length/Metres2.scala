@@ -7,10 +7,10 @@ import math._
 final class Metres2(val xMetres: Double, val yMetres: Double) extends Show2Dbls
 { //override def toString: String = Metres2.PersistImplicit.strT(this)
   override def typeStr: String = "Metres2"
-  override def approx(that: Any, delta: Double): Boolean = ???
+ // override def approx(that: Any, delta: Double): Boolean = ???
   override def name1: String = "x"
   override def name2: String = "y"
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres2]
+  //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres2]
   def x: Metres = Metres(xMetres)
   def y: Metres = Metres(yMetres)
   override def el1: Double = xMetres

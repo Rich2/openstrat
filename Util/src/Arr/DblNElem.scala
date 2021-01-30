@@ -3,7 +3,7 @@ package ostrat
 
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[DblNsArr]] Array[Double] based collections. */
 trait DblNElem extends Any with ValueNElem
-{ def defaultDelta: Double = 1e-12
+{ //def defaultDelta: Double = 1e-12
 }
 
 /** An object that can be constructed from a single [[Double]]. These are used in [[Dbl1sArr]] Array[Int] based collections. */
@@ -17,7 +17,7 @@ trait Dbl2Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
   def dblsEqual(that: Dbl2Elem): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2
-  def dblsApprox(that: Dbl2Elem, delta: Double = defaultDelta): Boolean = dbl1.approx(that.dbl1, delta) & dbl2.approx(that.dbl2, delta)
+  def dblsApprox(that: Dbl2Elem, delta: Double = 1e-12): Boolean = dbl1.approx(that.dbl1, delta) & dbl2.approx(that.dbl2, delta)
 }
 
 /** An object that can be constructed from 3 [[Double]]s. These are used in [[Dbl3sArr]] Array[Double] based collections. */
@@ -27,7 +27,7 @@ trait Dbl3Elem extends Any with DblNElem
   def dbl3: Double
   def dblsEqual(that: Dbl3Elem): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2 & dbl3 == that.dbl3
 
-  def dblsApprox(that: Dbl3Elem, delta: Double = defaultDelta): Boolean =
+  def dblsApprox(that: Dbl3Elem, delta: Double = 1e-12): Boolean =
     dbl1.approx(that.dbl1, delta) & dbl2.approx(that.dbl2, delta) & dbl3.approx(that.dbl3, delta)
 }
 

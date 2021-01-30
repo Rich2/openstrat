@@ -7,7 +7,7 @@ import Colour.Black, pWeb._
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the
  *  vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
  *  with then end point of side n sdn at vertex n. */
-trait Polygon extends Shape with BoundedElem
+trait Polygon extends Shape with BoundedElem with Approx[Double]
 {
   /** The vertices of this Polygon in an Array of [[Double]]s. */
   def vertsArray: Array[Double]
@@ -268,6 +268,10 @@ trait Polygon extends Shape with BoundedElem
     (insertionPoint until vertsNum + 1).foreach(i => res.unsafeSetElem(i + newVecs.length -1, vert(i)))
     res
   }
+
+  def defaultDelta: Double = ???
+
+  override def approx(that: Any, delta: Double): Boolean = ???
 }
 
 /** Companion object for the Polygon trait. */
