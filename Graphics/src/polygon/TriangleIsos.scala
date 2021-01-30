@@ -6,13 +6,13 @@ import pWeb._
 /** An isosceles triangle. This trait is implemented by the equilateral triangle, [[TriangleEqui]] and the general case [[TriangleIsos]]. */
 trait TriangleIsos extends Triangle
 {	def height: Double
-  def x2: Double = ???
-  def y2: Double = ???
+  def v2x: Double = ???
+  def v2y: Double = ???
   override def v2: Pt2 = ???
 }
 
 /** The general case of an isosceles triangle. */
-final case class TriangleIsosGen(v1x: Double, v1y: Double, x3: Double, y3: Double, height: Double) extends TriangleIsos with AxisFree
+final case class TriangleIsosGen(v1x: Double, v1y: Double, v3x: Double, v3y: Double, height: Double) extends TriangleIsos with AxisFree
 {	type ThisT = TriangleIsosGen
 
   override def vertsTrans(f: Pt2 => Pt2): TriangleIsosGen = ???

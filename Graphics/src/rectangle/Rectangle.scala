@@ -19,13 +19,13 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   override def fillHex(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineColour: Colour, lineWidth: Double): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
-  override def vertsArray: Array[Double] = Array(cenX, cenY, v1x, v1y, x2, y2, x3, y3, x4, y4)
+  override def vertsArray: Array[Double] = Array(cenX, cenY, v1x, v1y, v2x, v2y, v3x, v3y, v4x, v4y)
 
   def alignAngle: AngleVec
   def widthAttrib: WidthAtt = WidthAtt(width1)
   def heightAttrib: HeightAtt = HeightAtt(width2)
-  def xAttrib: XAttrib = XAttrib(x4)
-  def yAttrib: YAttrib = YAttrib(y4)
+  def xAttrib: XAttrib = XAttrib(v4x)
+  def yAttrib: YAttrib = YAttrib(v4y)
   override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
 
   @inline final override def vert(index: Int): Pt2 = index match
@@ -38,25 +38,25 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
 
   override def xVert(index: Int): Double = index match
   { case 1 => v1x
-    case 2 => x2
-    case 3 => x3
-    case 4 => x4
+    case 2 => v2x
+    case 3 => v3x
+    case 4 => v4x
     case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
   }
 
   override def yVert(index: Int): Double = index match
   { case 1 => v1y
-    case 2 => y2
-    case 3 => y3
-    case 4 => y4
+    case 2 => v2y
+    case 3 => v3y
+    case 4 => v4y
     case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
   }
 
-  final override def vertsArrayX: Array[Double] = Array(v1x, x2, x3, x4)
-  final override def vertsArrayY: Array[Double] = Array(v1y, y2, y3, y4)
+  final override def vertsArrayX: Array[Double] = Array(v1x, v2x, v3x, v4x)
+  final override def vertsArrayY: Array[Double] = Array(v1y, v2y, v3y, v4y)
   final override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); ()}
   final override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); () }
-  override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); f(x4, y4); () }
+  override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v2x, v2y); f(v3x, v3y); f(v4x, v4y); () }
 
   def diag1: LineSeg = LineSeg(v3, v1)
   def diag2: LineSeg = LineSeg(v4, v2)
@@ -144,7 +144,7 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleImp(val xSd2Cen: Double, val ySd2Cen: Double, val xSd4Cen: Double, val ySd4Cen: Double, val width2: Double) extends RectS2S4
+  final class RectangleImp(val sd2CenX: Double, val sd2CenY: Double, val sd4CenX: Double, val sd4CenY: Double, val width2: Double) extends RectS2S4
   {
     override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd2Cen), f(sd4Cen), f(v1))
 

@@ -65,7 +65,7 @@ object Square extends ShapeIcon
 
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
-  final class SquareImp(val xSd2Cen: Double, val ySd2Cen: Double, val xSd4Cen: Double, val ySd4Cen: Double) extends Square with RectS2S4
+  final class SquareImp(val sd2CenX: Double, val sd2CenY: Double, val sd4CenX: Double, val sd4CenY: Double) extends Square with RectS2S4
   {
     @inline override def width2: Double = width1
 
@@ -73,15 +73,15 @@ object Square extends ShapeIcon
 
     /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
      * thought of as vertex 2.5. */
-    override def xSd3Cen: Double = ???
+    override def sd3CenX: Double = ???
 
     /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
      * thought of as vertex 2.5. */
-    override def ySd3Cen: Double = ???
+    override def sd3CenY: Double = ???
 
     override def productArity: Int = 3
     override def productElement(n: Int): Any = 4
-    override def toString: String = s"SquareClass($v1x, $v1y; $x2, $y2)"
+    override def toString: String = s"SquareClass($v1x, $v1y; $v2x, $v2y)"
   }
 
   /** Factory object for squares. */

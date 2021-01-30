@@ -23,11 +23,11 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
   override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
   override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6); () }
-  override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v1x, v1y);  f(x2, y2); f(x3, y3);  f(x4, y4); f(x5, y5); f(x6, y6); () }
+  override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v1x, v1y);  f(v2x, v2y); f(v3x, v3y);  f(v4x, v4y); f(v5x, v5y); f(x6, y6); () }
 
-  override def vertsArrayX: Array[Double] = Array(v1x, x2, x3, x4, x5, x6)
+  override def vertsArrayX: Array[Double] = Array(v1x, v2x, v3x, v4x, v5x, x6)
 
-  override def vertsArrayY: Array[Double] = Array(v1y, y2, y3, y4, y5, y6)
+  override def vertsArrayY: Array[Double] = Array(v1y, v2y, v3y, v4y, v5y, y6)
   override def vertsArray: Array[Double] = ???
 
   override def vert(index: Int): Pt2 = index match
@@ -43,10 +43,10 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   override def xVert(index: Int): Double = index match
   { case 1 => v1x
-    case 2 => x2
-    case 3 => x3
-    case 4 => x4
-    case 5 => x5
+    case 2 => v2x
+    case 3 => v3x
+    case 4 => v4x
+    case 5 => v5x
     case 6 => x6
     case n => excep(s"$n is out of range for a Hexagon vertex")
   }
@@ -54,10 +54,10 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   override def yVert(index: Int): Double = index match
   { case 1 => v1y
-    case 2 => y2
-    case 3 => y3
-    case 4 => y4
-    case 5 => y5
+    case 2 => v2y
+    case 3 => v3y
+    case 4 => v4y
+    case 5 => v5y
     case 6 => y6
     case n => excep(s"$n is out of range for a Hexagon vertex")
   }
@@ -134,7 +134,7 @@ object HexReg
   }
 
   /** Implementation class for the [[HexReg]] trait. */
-  final case class HexRegImp(xSd4Cen: Double, ySd4Cen: Double, xSd1Cen: Double, ySd1Cen: Double) extends HexReg with Show2[Pt2, Pt2]
+  final case class HexRegImp(sd4CenX: Double, sd4CenY: Double, sd1CenX: Double, sd1CenY: Double) extends HexReg with Show2[Pt2, Pt2]
   {
     override def name1: String = "sd4Cen"
     override def name2: String = "sd1Cen"
@@ -154,10 +154,10 @@ object HexReg
       case 6 => v6
       case n => excep(s"There is no vertex $n on a Hexagon.")
     }
-    def sd4Cen: Pt2 = Pt2(xSd4Cen, ySd4Cen)
-    def sd1Cen: Pt2 = Pt2(xSd1Cen, ySd1Cen)
-    def cenX: Double = (xSd1Cen + xSd4Cen) / 2
-    def cenY: Double = (ySd1Cen + ySd4Cen) / 2
+    def sd4Cen: Pt2 = Pt2(sd4CenX, sd4CenY)
+    def sd1Cen: Pt2 = Pt2(sd1CenX, sd1CenY)
+    def cenX: Double = (sd1CenX + sd4CenX) / 2
+    def cenY: Double = (sd1CenY + sd4CenY) / 2
     def s1CenRMax: Pt2 = cen + (cen >> sd4Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(cenX, cenY)
     @inline override def diameterIn: Double = sd1Cen.distTo(sd4Cen)
@@ -165,32 +165,32 @@ object HexReg
     override def v1x: Double = v1.x
     override def v1y: Double = v1.y
     override def v2: Pt2 = s1CenRMax.rotateAbout(cen, - Deg90)
-    override def x2: Double = v2.x
-    override def y2: Double = v2.y
+    override def v2x: Double = v2.x
+    override def v2y: Double = v2.y
     override def v3: Pt2 = s1CenRMax.rotateAbout(cen, -Deg150)
-    override def x3: Double = v3.x
-    override def y3: Double = v3.y
+    override def v3x: Double = v3.x
+    override def v3y: Double = v3.y
     override def v4: Pt2 = s1CenRMax.rotateAbout(cen, Deg150)
-    override def x4: Double = v4.x
-    override def y4: Double = v4.y
+    override def v4x: Double = v4.x
+    override def v4y: Double = v4.y
     override def v5: Pt2 = s1CenRMax.rotateAbout(cen, Deg90)
-    override def x5: Double = v5.x
-    override def y5: Double = v5.y
+    override def v5x: Double = v5.x
+    override def v5y: Double = v5.y
     def v6: Pt2 = s1CenRMax.rotateAbout(cen, Deg30)
     override def x6: Double = v6.x
     override def y6: Double = v6.y
 
-    override def xSd2Cen: Double = average(v1x, x2)
-    override def ySd2Cen: Double = average(v1y, y2)
+    override def sd2CenX: Double = average(v1x, v2x)
+    override def sd2CenY: Double = average(v1y, v2y)
     override def sd2Cen: Pt2 = v1 midPt v2
-    override def xSd3Cen: Double = average(x2, x3)
-    override def ySd3Cen: Double = average(y2, y3)
+    override def sd3CenX: Double = average(v2x, v3x)
+    override def sd3CenY: Double = average(v2y, v3y)
     override def sd3Cen: Pt2 = v2 midPt v3
-    override def xSd5Cen: Double = average(x4, x5)
-    override def ySd5Cen: Double = average(y4, y5)
+    override def xSd5Cen: Double = average(v4x, v5x)
+    override def ySd5Cen: Double = average(v4y, v5y)
     override def sd5Cen: Pt2 = v4 midPt v5
-    override def xSd6Cen: Double = average(x5, x6)
-    override def ySd6Cen: Double = average(y5, y6)
+    override def xSd6Cen: Double = average(v5x, x6)
+    override def ySd6Cen: Double = average(v5y, y6)
     override def sd6Cen: Pt2 = v5 midPt v6
   }
 }

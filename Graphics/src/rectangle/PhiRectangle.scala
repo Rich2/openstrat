@@ -45,45 +45,45 @@ object PhiRectangle
 
   def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
-  case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, xSd3Cen: Double, ySd3Cen: Double) extends PhiRectangle
+  case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, sd3CenX: Double, sd3CenY: Double) extends PhiRectangle
   { override def cen: Pt2 = cenX pp cenY
     override def cenX: Double = average(xS1Cen, xS1Cen)
     override def cenY: Double = average(yS1Cen, yS1Cen)
 
     /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
      * be thought of as vertex 0.5. */
-    override def xSd1Cen: Double = ???
+    override def sd1CenX: Double = ???
 
     /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
      * be thought of as vertex 0.5. */
-    override def ySd1Cen: Double = ???
+    override def sd1CenY: Double = ???
 
     override def sd1Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
-    override def sd3Cen: Pt2 = Pt2(xSd3Cen, ySd3Cen)
+    override def sd3Cen: Pt2 = Pt2(sd3CenX, sd3CenY)
     override def width2: Double = sd1Cen.distTo(sd3Cen)
     override def alignAngle: AngleVec = sd1Cen.angleFrom(sd3Cen).rotationFrom90
     override def v1: Pt2 = sd1Cen + xVec2(width2 / 2).rotate(alignAngle)
     override def v1x: Double = v1.x
     override def v1y: Double = v1.y
     override def v2: Pt2 = sd3Cen + xVec2(width2 / 2).rotate(alignAngle)
-    override def x2: Double = v2.x
-    override def y2: Double = v2.y
+    override def v2x: Double = v2.x
+    override def v2y: Double = v2.y
     override def v3: Pt2 = sd3Cen + xVec2(-width2 / 2).rotate(alignAngle)
-    override def x3: Double = v2.x
-    override def y3: Double = v2.y
+    override def v3x: Double = v2.x
+    override def v3y: Double = v2.y
     override def v4: Pt2 = sd1Cen + xVec2(-width2 / 2).rotate(alignAngle)
-    override def x4: Double = v2.x
-    override def y4: Double = v2.y
+    override def v4x: Double = v2.x
+    override def v4y: Double = v2.y
 
-    override def xSd2Cen: Double = ??? //average(xSd1Cen midPt sd2Cen
+    override def sd2CenX: Double = ??? //average(xSd1Cen midPt sd2Cen
 
-    override def ySd2Cen: Double = ???
+    override def sd2CenY: Double = ???
 
     override def sd2Cen: Pt2 = sd1Cen midPt sd2Cen
 
-    override def xSd4Cen: Double = ???
+    override def sd4CenX: Double = ???
 
-    override def ySd4Cen: Double = ???
+    override def sd4CenY: Double = ???
 
     override def sd4Cen: Pt2 = sd3Cen midPt sd4Cen
   }

@@ -8,25 +8,25 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 { @inline final override def v1x: Double = xTopRight
   @inline final override def v1y: Double = yTopRight
   @inline final override def v1: Pt2 = v1x pp v1y
-  @inline final override def x2: Double = xBottomRight
-  @inline final override def y2: Double = yBottomRight
-  @inline final override def v2: Pt2 = x2 pp y2
+  @inline final override def v2x: Double = xBottomRight
+  @inline final override def v2y: Double = yBottomRight
+  @inline final override def v2: Pt2 = v2x pp v2y
   @inline final override def cen: Pt2 = cenX pp cenY
   override def alignAngle: AngleVec = Deg0
-  @inline final def x3: Double = xBottomLeft
-  @inline final def y3: Double = yBottomLeft
+  @inline final def v3x: Double = xBottomLeft
+  @inline final def v3y: Double = yBottomLeft
   @inline final def v3: Pt2 = bottomLeft
-  @inline final def x4: Double = xTopLeft
-  @inline final def y4: Double = yTopLeft
+  @inline final def v4x: Double = xTopLeft
+  @inline final def v4y: Double = yTopLeft
   @inline final def v4: Pt2 = topLeft
 
   /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
    * be thought of as vertex 0.5. */
-  override def xSd1Cen: Double = ???
+  override def sd1CenX: Double = ???
 
   /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
    * be thought of as vertex 0.5. */
-  override def ySd1Cen: Double = ???
+  override def sd1CenY: Double = ???
 
   final override def sd1Cen: Pt2 = Pt2(cenX, cenY + height / 2)
   final override def sd2Cen: Pt2 = Pt2(cenX + width / 2, cenY)
@@ -34,20 +34,20 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
    * thought of as vertex 2.5. */
-  final override def xSd3Cen: Double = ???
+  final override def sd3CenX: Double = ???
 
   /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
    * thought of as vertex 2.5. */
-  final override def ySd3Cen: Double = ???
+  final override def sd3CenY: Double = ???
 
-  final override def xSd2Cen: Double = ???
+  final override def sd2CenX: Double = ???
 
-  final override def ySd2Cen: Double = ???
+  final override def sd2CenY: Double = ???
 
 
-  override def xSd4Cen: Double = ???
+  override def sd4CenX: Double = ???
 
-  override def ySd4Cen: Double = ???
+  override def sd4CenY: Double = ???
 
   final override def sd4Cen: Pt2 = Pt2(cenX - width / 2, cenY)
 

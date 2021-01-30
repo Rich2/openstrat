@@ -21,41 +21,41 @@ final class HexXlign(val height: Double, val cenX: Double, val cenY: Double) ext
   override def v1y: Double = cenY + radiusIn
   @inline override def v1: Pt2 = Pt2(v1x, v1y)
 
-  override def x2: Double = cenX + radiusOut
-  override def y2: Double = cenY
-  @inline override def v2: Pt2 = Pt2(x2, y2)
+  override def v2x: Double = cenX + radiusOut
+  override def v2y: Double = cenY
+  @inline override def v2: Pt2 = Pt2(v2x, v2y)
 
-  override def x3: Double = cenX + radiusOut / 2
-  override def y3: Double = cenY - radiusIn
-  @inline override def v3: Pt2 = Pt2(x3, y3)
+  override def v3x: Double = cenX + radiusOut / 2
+  override def v3y: Double = cenY - radiusIn
+  @inline override def v3: Pt2 = Pt2(v3x, v3y)
 
-  override def x4: Double = cenX - radiusOut / 2
-  override def y4: Double = cenY - radiusIn
-  @inline override def v4: Pt2 = Pt2(x4, y4)
+  override def v4x: Double = cenX - radiusOut / 2
+  override def v4y: Double = cenY - radiusIn
+  @inline override def v4: Pt2 = Pt2(v4x, v4y)
 
-  override def x5: Double = cenX - radiusOut
-  override def y5: Double = cenY
-  @inline override def v5: Pt2 = Pt2(x5, y5)
+  override def v5x: Double = cenX - radiusOut
+  override def v5y: Double = cenY
+  @inline override def v5: Pt2 = Pt2(v5x, v5y)
 
   override def x6: Double = cenX - radiusOut / 2
   override def y6: Double = cenY + radiusIn
   @inline override def v6: Pt2 = Pt2(x6, y6)
 
-  override def xSd1Cen: Double = cenX
-  override def ySd1Cen: Double = cenY + radiusIn
-  override def sd1Cen: Pt2 = xSd1Cen pp ySd1Cen
+  override def sd1CenX: Double = cenX
+  override def sd1CenY: Double = cenY + radiusIn
+  override def sd1Cen: Pt2 = sd1CenX pp sd1CenY
 
-  override def xSd2Cen: Double = cenX + radiusIn * Cos30
-  override def ySd2Cen: Double = cenY + radiusIn * Sin30
-  override def sd2Cen: Pt2 = xSd2Cen pp ySd2Cen
+  override def sd2CenX: Double = cenX + radiusIn * Cos30
+  override def sd2CenY: Double = cenY + radiusIn * Sin30
+  override def sd2Cen: Pt2 = sd2CenX pp sd2CenY
 
-  override def xSd3Cen: Double = cenX + radiusIn * Cos30
-  override def ySd3Cen: Double = cenY - radiusIn * Sin30
-  override def sd3Cen: Pt2 = xSd3Cen pp ySd3Cen
+  override def sd3CenX: Double = cenX + radiusIn * Cos30
+  override def sd3CenY: Double = cenY - radiusIn * Sin30
+  override def sd3Cen: Pt2 = sd3CenX pp sd3CenY
 
-  override def xSd4Cen: Double = cenX
-  override def ySd4Cen: Double = cenY - radiusIn
-  override def sd4Cen: Pt2 = xSd4Cen pp ySd4Cen
+  override def sd4CenX: Double = cenX
+  override def sd4CenY: Double = cenY - radiusIn
+  override def sd4Cen: Pt2 = sd4CenX pp sd4CenY
 
   override def xSd5Cen: Double = cenX - radiusIn * Cos30
   override def ySd5Cen: Double = cenY - radiusIn * Sin30
