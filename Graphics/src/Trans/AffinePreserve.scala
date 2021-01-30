@@ -7,7 +7,7 @@ package geom
  *  TransDistable  does the same for fTrans(f: Dist2 => Dist2):  T.  */
 trait AffinePreserve extends SimilarPreserve
 { type ThisT <: AffinePreserve
-  override def scaleXY(xOperand: Double, yOperand: Double): ThisT = fTrans(_.xyScale(xOperand, yOperand))
-  override def shearX(operand: Double): ThisT = fTrans(_.xShear(operand))
-  override def shearY(operand: Double): ThisT = fTrans(_.yShear(operand))
+  override def scaleXY(xOperand: Double, yOperand: Double): ThisT = ptsTrans(_.xyScale(xOperand, yOperand))
+  override def shearX(operand: Double): ThisT = ptsTrans(_.xShear(operand))
+  override def shearY(operand: Double): ThisT = ptsTrans(_.yShear(operand))
 }

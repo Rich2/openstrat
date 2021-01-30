@@ -20,7 +20,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends /* Shape with */ Dbl7s
   override def productArity: Int = ???
 
   override def productElement(n: Int): Any = ???
-  def fTrans(f: Pt2 => Pt2): ShapeGenOld =
+  def ptsTrans(f: Pt2 => Pt2): ShapeGenOld =
   { val newArray = new Array[Double](elemsLen * 7)
     def setMiddle(offset: Int): Unit =
     { val newMiddle: Pt2 = f(arrayUnsafe(offset + 3) pp arrayUnsafe(offset + 4))

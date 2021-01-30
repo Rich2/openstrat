@@ -131,7 +131,7 @@ object Rect
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final case class RectImp(width: Double, height: Double, cenX: Double, cenY: Double) extends Rect
-  { override def fTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV0(f(cen), f(v1))
+  { override def vertsTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV0(f(cen), f(v1))
     override def width1: Double = width
     override def width2: Double = height
 

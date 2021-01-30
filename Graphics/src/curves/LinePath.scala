@@ -23,7 +23,7 @@ class LinePath(val arrayUnsafe: Array[Double]) extends Dbl2sArr[Pt2] with Affine
   @inline def yStart: Double = arrayUnsafe(1)
   @inline def pStart: Pt2 = Pt2(xStart, yStart)
  
-  def fTrans(f: Pt2 => Pt2): LinePath =  new LinePath(arrTrans(f))
+  def ptsTrans(f: Pt2 => Pt2): LinePath =  new LinePath(arrTrans(f))
   
   def foreachEnd(f: (Double, Double) => Unit): Unit =
   { var count = 1

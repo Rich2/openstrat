@@ -146,7 +146,7 @@ object Rectangle
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectangleImp(val xSd2Cen: Double, val ySd2Cen: Double, val xSd4Cen: Double, val ySd4Cen: Double, val width2: Double) extends RectS2S4
   {
-    override def fTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd2Cen), f(sd4Cen), f(v1))
+    override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd2Cen), f(sd4Cen), f(v1))
 
     override def productArity: Int = 5
     override def productElement(n: Int): Any = ???

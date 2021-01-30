@@ -9,7 +9,7 @@ final case class TriangleEqui(v1x: Double, v1y: Double, x3: Double, y3: Double) 
   type ThisT = TriangleEqui
   override def height: Double = ???
   override def attribs: Arr[XANumeric] = ???
-  override def fTrans(f: Pt2 => Pt2): ThisT = ???
+  override def vertsTrans(f: Pt2 => Pt2): ThisT = ???
 
   override def rotate(angle: AngleVec): TriangleEqui = ???
 

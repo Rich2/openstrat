@@ -8,7 +8,7 @@ class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: 
       val xEnd: Double, val yEnd: Double) extends CurveSeg with AffinePreserve
 { override type ThisT = Bezier
   def typeStr: String = "Bezier"
-  def fTrans(f: Pt2 => Pt2): Bezier = Bezier(f(pStart), f(pC1), f(pC2), f(pEnd))
+  def ptsTrans(f: Pt2 => Pt2): Bezier = Bezier(f(pStart), f(pC1), f(pC2), f(pEnd))
   final def pC1: Pt2 = Pt2(xC1, yC1)
   final def pC2: Pt2 = Pt2(xC2, yC2)
   override def canEqual(that: Any): Boolean = ???
@@ -29,7 +29,7 @@ case class BezierDraw (curveSeg: Bezier, colour: Colour, lineWidth: Double) exte
 { override type ThisT = BezierDraw
   def typeStr: String = "BezierDraw"
   //def str = persist6(pStart, pC1, pC2, pEnd, lineWidth, colour) 
-  override def fTrans(f: Pt2 => Pt2): BezierDraw = BezierDraw(curveSeg.fTrans(f), colour, lineWidth)
+  override def ptsTrans(f: Pt2 => Pt2): BezierDraw = BezierDraw(curveSeg.ptsTrans(f), colour, lineWidth)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.bezierDraw(this)
   def xC1: Double = curveSeg.xC1
   def yC1: Double = curveSeg.yC1

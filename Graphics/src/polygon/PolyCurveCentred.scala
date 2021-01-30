@@ -6,7 +6,7 @@ package geom
 case class PolyCurveCentred(cen: Pt2, segs: ShapeGenOld) extends AffinePreserve
 { override type ThisT = PolyCurveCentred
    /** This may need clarification */
-   override def fTrans(f: Pt2 => Pt2): PolyCurveCentred = PolyCurveCentred(f(cen), segs)//.fTrans(f))
+   override def ptsTrans(f: Pt2 => Pt2): PolyCurveCentred = PolyCurveCentred(f(cen), segs)//.fTrans(f))
   
   def parentAll(evObj: Any, fillColour: Colour, lineWidth: Double, lineColour: Colour, textSize: Int, str: String,
                    textAlign: TextAlign = CenAlign): PolyCurveParentFull =

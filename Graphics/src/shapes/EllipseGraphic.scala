@@ -33,7 +33,7 @@ object EllipseFill
   final case class EllipseFillImp(shape: Ellipse, fill: FillFacet) extends EllipseFill
   { type ThisT = EllipseFill
 
-    override def fTrans(f: Pt2 => Pt2): ThisT = EllipseFill(shape.fTrans(f), fill)
+    override def ptsTrans(f: Pt2 => Pt2): ThisT = EllipseFill(shape.fTrans(f), fill)
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseFill(this)
     override def svgElem(bounds: BoundingRect): SvgElem = ???
     override def svgStr: String = ???
@@ -56,7 +56,7 @@ object EllipseDraw
   final case class EllipseDrawImp(shape: Ellipse, lineColour: Colour = Black, lineWidth: Double = 2.0) extends EllipseDraw
   { type ThisT = EllipseDraw
 
-    override def fTrans(f: Pt2 => Pt2): EllipseDraw = EllipseDrawImp(shape.fTrans(f), lineColour, lineWidth)
+    override def ptsTrans(f: Pt2 => Pt2): EllipseDraw = EllipseDrawImp(shape.fTrans(f), lineColour, lineWidth)
 
     override def rendToCanvas(cp: CanvasPlatform): Unit = cp.ellipseDraw(this)
 

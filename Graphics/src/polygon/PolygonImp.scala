@@ -31,7 +31,10 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   @inline def v1x: Double = arrayUnsafe(0 + dblsNumOffset)
   @inline def v1y: Double = arrayUnsafe(1 + dblsNumOffset)
   @inline def v1: Pt2 = v1x pp v1y
-  override def fTrans(f: Pt2 => Pt2): PolygonImp = new PolygonImp(arrTrans(f))
+  override def vertsTrans(f: Pt2 => Pt2): PolygonImp = new PolygonImp(arrTrans(f))
+
+  /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
+  @inline override def ptsTrans(f: Pt2 => Pt2): PolygonImp = vertsTrans(f)
 
   override def foreachVert[U](f: Pt2 => U): Unit =iUntilForeach(dblsNumOffset, arrayUnsafe.length, 2){ i =>
     f(Pt2(arrayUnsafe(i), arrayUnsafe(i + 1))); ()

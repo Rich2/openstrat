@@ -11,10 +11,10 @@ trait ProlignPreserve extends GeomElem
   type ThisT <: ProlignPreserve
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
-  def fTrans(f: Pt2 => Pt2): ThisT
-  override def slateXY(xOffset: Double, yOffset: Double): ThisT = fTrans(_.addXY(xOffset, yOffset))
-  override def scale(operand: Double): ThisT = fTrans(_.scale(operand))
-  override def negX: ThisT = fTrans(_.negX)
-  override def negY: ThisT = fTrans(_.negY)
-  override def prolign(matrix: ProlignMatrix): ThisT = fTrans(_.prolign(matrix))
+  def ptsTrans(f: Pt2 => Pt2): ThisT
+  override def slateXY(xOffset: Double, yOffset: Double): ThisT = ptsTrans(_.addXY(xOffset, yOffset))
+  override def scale(operand: Double): ThisT = ptsTrans(_.scale(operand))
+  override def negX: ThisT = ptsTrans(_.negX)
+  override def negY: ThisT = ptsTrans(_.negY)
+  override def prolign(matrix: ProlignMatrix): ThisT = ptsTrans(_.prolign(matrix))
 }

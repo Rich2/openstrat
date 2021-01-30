@@ -20,7 +20,7 @@ object AffineTrans
     (obj, f) => obj.map(el => ev.trans(el, f))
 
   implicit def fromTranserAllImplicit[T <: AffinePreserve]: AffineTrans[T] =
-    (obj, f) => obj.fTrans(f).asInstanceOf[T]
+    (obj, f) => obj.ptsTrans(f).asInstanceOf[T]
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: AffineTrans[A]): AffineTrans[F[A]] =
     (obj, f) => evF.mapT(obj, el => evA.trans(el, f))

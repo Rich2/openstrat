@@ -9,17 +9,27 @@ import Colour.Black, pWeb._
  *  with then end point of side n sdn at vertex n. */
 trait Polygon extends Shape with BoundedElem
 {
-  def fTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
-
-  def foreachVert[U](f: Pt2 => U): Unit
-  def foreachVertTail[U](f: Pt2 => U): Unit
+  /** The vertices of this Polygon in an Array of [[Double]]s. */
   def vertsArray: Array[Double]
 
+  /** The X component of the vertices of this Polygon in an Array of [[Double]]s. */
   def vertsArrayX: Array[Double]
+
+  /** The Y component of the vertices of this Polygon in an Array of [[Double]]s. */
   def vertsArrayY: Array[Double]
+
+  /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
+  def foreachVert[U](f: Pt2 => U): Unit
+
+  /** Performs the side effecting function on the [[Pt2]] value of each vertex, excluding vertex v1. */
+  def foreachVertTail[U](f: Pt2 => U): Unit
 
   /** Foreach vertex excluding vertex 1, perform the side effecting function on the Tuple2 of the x and y values of the vertex. */
   def foreachVertPairTail[U](f: (Double, Double) => U): Unit
+
+  /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a
+   * new transformed Polygon */
+  def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
   def vertsMap[A, ArrT <: ArrImut[A]](f: Pt2 => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
   { val acc = build.newBuff()

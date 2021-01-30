@@ -6,8 +6,8 @@ import pCanv._
 case class PolyCurveParentFull(cen: Pt2, shape: ShapeGenOld, pointerId: Any, children: Arr[GraphicAffineElem]) extends GraphicParentFull with
   PolyCurveActive
 { override type ThisT = PolyCurveParentFull
-  def fTrans(f: Pt2 => Pt2): PolyCurveParentFull = PolyCurveParentFull(f(cen), shape.fTrans(f), pointerId,
-    children.map[GraphicAffineElem, Arr[GraphicAffineElem]](el => el.fTrans(f)))
+  def ptsTrans(f: Pt2 => Pt2): PolyCurveParentFull = PolyCurveParentFull(f(cen), shape.ptsTrans(f), pointerId,
+    children.map[GraphicAffineElem, Arr[GraphicAffineElem]](el => el.ptsTrans(f)))
   override def addElems(newElems: Arr[GraphicAffineElem]): PolyCurveParentFull = PolyCurveParentFull(cen, shape, pointerId, children ++ newElems)
   override def mutObj(newObj: Any): PolyCurveParentFull = PolyCurveParentFull(cen, shape, newObj, children)
 

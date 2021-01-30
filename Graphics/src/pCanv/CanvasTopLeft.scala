@@ -11,14 +11,14 @@ trait CanvasTopLeft extends CanvasPlatform
  
   final override def pPolyFill(pf: PolygonFill): Unit = tlPolyFill(pf.negY.slateXY(width / 2, height / 2))
   final override def pPolyDraw(pd: PolygonDraw): Unit = tlPolyDraw(pd.negY.slateXY(width / 2, height / 2))
-  final override def pLinePathDraw(pod: LinePathDraw): Unit = tlLinePathDraw(pod.fTrans(tlCen))
-  final override def lineSegDraw(ld: LineSegDraw): Unit = tlLineDraw(ld.fTrans(tlCen))
+  final override def pLinePathDraw(pod: LinePathDraw): Unit = tlLinePathDraw(pod.ptsTrans(tlCen))
+  final override def lineSegDraw(ld: LineSegDraw): Unit = tlLineDraw(ld.ptsTrans(tlCen))
   final override def cArcDraw(cad: CArcDraw): Unit = tlCArcDraw(cad.negY.slateXY(width / 2, height / 2))
   final override def eArcDraw(ead: EArcDraw): Unit = tlEArcDraw(ead.negY.slateXY(width / 2, height / 2))
 
-  final override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.fTrans(tlCen))
-  final override def lineSegsDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.fTrans(tlCen)): Unit
-  final override def dashedLineDraw(dld: DashedLineDraw): Unit = tlDashedLineDraw(dld.fTrans(tlCen))
+  final override def bezierDraw(bd: BezierDraw): Unit = tlBezierDraw(bd.ptsTrans(tlCen))
+  final override def lineSegsDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.ptsTrans(tlCen)): Unit
+  final override def dashedLineDraw(dld: DashedLineDraw): Unit = tlDashedLineDraw(dld.ptsTrans(tlCen))
 
   final override def pShapeGenFill(sgf: ShapeGenFill): Unit = tlShapeFill(sgf.negY.slateXY(width / 2, height / 2))
 
@@ -35,10 +35,10 @@ trait CanvasTopLeft extends CanvasPlatform
 
   final override def ellipseDraw(ed: EllipseDraw): Unit = tlEllipseDraw(ed.negY.slateXY(width / 2, height / 2))
 
-  final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.fTrans(tlCen))
-  final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.fTrans(tlCen))
+  final override def textGraphic(tg: TextGraphic): Unit = tlTextGraphic(tg.ptsTrans(tlCen))
+  final override def textOutline(tl: TextOutline): Unit = tlTextOutline(tl.ptsTrans(tlCen))
 
-  final override def clip(pts: Polygon): Unit = tlClip(pts.fTrans(tlCen))
+  final override def clip(pts: Polygon): Unit = tlClip(pts.vertsTrans(tlCen))
 
   protected[this] def tlPolyFill(pf: PolygonFill): Unit
   protected[this] def tlPolyDraw(pd: PolygonDraw): Unit

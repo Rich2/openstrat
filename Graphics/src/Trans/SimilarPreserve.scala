@@ -5,14 +5,14 @@ package geom
 /** All leaf classes of this type that will preserve their types for all the Similar 2D geometrical transformations. */
 trait SimilarPreserve extends ProlignPreserve
 { type ThisT <: SimilarPreserve
-  override def negY: ThisT = fTrans(_.negY)
-  override def negX: ThisT = fTrans(_.negX)
-  override def rotate90: ThisT = fTrans(_.rotate90)
-  override def rotate180: ThisT = fTrans(_.rotate180)
-  override def rotate270: ThisT = fTrans(_.rotate270)
+  override def negY: ThisT = ptsTrans(_.negY)
+  override def negX: ThisT = ptsTrans(_.negX)
+  override def rotate90: ThisT = ptsTrans(_.rotate90)
+  override def rotate180: ThisT = ptsTrans(_.rotate180)
+  override def rotate270: ThisT = ptsTrans(_.rotate270)
 
-  override def reflect(lineLike: LineLike): ThisT = fTrans(_.reflect(lineLike))
-  override def rotate(angle: AngleVec): ThisT = fTrans(_.rotate(angle))
+  override def reflect(lineLike: LineLike): ThisT = ptsTrans(_.reflect(lineLike))
+  override def rotate(angle: AngleVec): ThisT = ptsTrans(_.rotate(angle))
 }
 
 /** A trait that preserves one type through all the similar 2D geometrical transformations and preserves a second type ThisT2 through the other

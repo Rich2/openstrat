@@ -7,7 +7,7 @@ import pCanv._, Colour.Black
 case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends CurveSegGraphic with AffinePreserve with CanvElem
 { override type ThisT = LineSegDraw
   def typeStr: String = "LineDraw"
-  override def fTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.fTrans(f), colour, width)
+  override def ptsTrans(f: Pt2 => Pt2): LineSegDraw = LineSegDraw(curveSeg.ptsTrans(f), colour, width)
   def dashed(dashLength: Double, gapLength: Double): DashedLineDraw = DashedLineDraw(curveSeg, width, dashLength, gapLength, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegDraw(this)
   def startPt: Pt2 = xStart pp yStart
@@ -27,7 +27,7 @@ object LineSegDraw
 /** I think its to better to use the mame lineWidth consistently. */
 case class LinesDraw(lines: LineSegs, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem with CanvElem
 { override type ThisT = LinesDraw
-  override def fTrans(f: Pt2 => Pt2): LinesDraw = LinesDraw(lines.fTrans(f), lineWidth, colour)
+  override def ptsTrans(f: Pt2 => Pt2): LinesDraw = LinesDraw(lines.ptsTrans(f), lineWidth, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegsDraw(this)
 }
 
@@ -42,7 +42,7 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
   def length = path.elemsLen - 1
   def xStart = path.xStart
   def yStart = path.yStart
-  override def fTrans(f: Pt2 => Pt2): LinePathDraw = LinePathDraw(path.fTrans(f), lineWidth, colour)
+  override def ptsTrans(f: Pt2 => Pt2): LinePathDraw = LinePathDraw(path.ptsTrans(f), lineWidth, colour)
   @inline def foreachEnd(f: (Double, Double) => Unit): Unit = path.foreachEnd(f)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linePathDraw(this)
 }
@@ -54,7 +54,7 @@ case class DashedLineDraw(curveSeg: LineSeg, lineWidth: Double, colour: Colour, 
 
   //override def curveSeg: CurveSeg = ???
   def typeStr: String = "DashedLineDraw"
-  override def fTrans(f: Pt2 => Pt2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
+  override def ptsTrans(f: Pt2 => Pt2): DashedLineDraw = DashedLineDraw.array(f(pStart), f(pEnd), lineWidth, dashArr, colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.dashedLineDraw(this)
 }
 

@@ -48,7 +48,7 @@ case class CurveTail(val iMatch: Double, val xC1: Double, val yC1: Double, val x
     case n => excep("iMatch in LineSeg has value: " + n.toString + " Must be 10, 11 0r 12.")
   }
    
-  override def fTrans(f: Pt2 => Pt2): CurveTail = iMatch match
+  override def ptsTrans(f: Pt2 => Pt2): CurveTail = iMatch match
   {
     case 10 => { val newPEnd: Pt2 = f(pEnd); new CurveTail(10, 0, 0, 0, 0, newPEnd.x, newPEnd.y) }
     

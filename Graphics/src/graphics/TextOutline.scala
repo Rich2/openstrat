@@ -7,7 +7,7 @@ class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: D
   val align: TextAlign, val baseLine: BaseLine) extends GraphicAffineElem
 { override type ThisT = TextOutline
   def posn: Pt2 = Pt2(x, y)
-  override def fTrans(f: Pt2 => Pt2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
+  override def ptsTrans(f: Pt2 => Pt2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
   override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textOutline(this)
 
   override def negY: TextOutline = ???

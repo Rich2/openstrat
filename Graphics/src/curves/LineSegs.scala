@@ -12,7 +12,7 @@ class LineSegs(val arrayUnsafe: Array[Double]) extends Dbl4sArr[LineSeg] with Af
   override def fElemStr: LineSeg => String = _.str
   //override def toString: String = Line2s.PersistImplict.show(this)
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
-  override def fTrans(f: Pt2 => Pt2): LineSegs = pMap(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
+  override def ptsTrans(f: Pt2 => Pt2): LineSegs = pMap(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
 
   override def canEqual(that: Any): Boolean = ???
 
@@ -41,7 +41,7 @@ object LineSegs extends Dbl4sArrCompanion[LineSeg, LineSegs]
 
   implicit val arrArrBuildImplicit: ArrTFlatBuilder[LineSegs] = LineSeg.line2sBuildImplicit
 
-  implicit val transImplicit: AffineTrans[LineSegs] = (obj, f) => obj.map(_.fTrans(f))
+  implicit val transImplicit: AffineTrans[LineSegs] = (obj, f) => obj.map(_.ptsTrans(f))
 }
 
 /** Efficient expandable buffer for Line2s. */
