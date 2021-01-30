@@ -48,7 +48,7 @@ trait Triangle extends Polygon3Plus
 	override def vertsArrayY: Array[Double] = Array(v1y, y2, y3)
 	override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); () }
 	override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); () }
-	override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); () }
+	override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(x2, y2); f(x3, y3); () }
 
 	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Pt2]] 2D Vector or point to a [[Pt2]]. */
 	override def fTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v1), f(v2), f(v3))

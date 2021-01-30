@@ -19,7 +19,7 @@ trait Polygon extends Shape with BoundedElem
   def vertsArrayY: Array[Double]
 
   /** Foreach vertex excluding vertex 1, perform the side effecting function on the Tuple2 of the x and y values of the vertex. */
-  def foreachPairTail[U](f: (Double, Double) => U): Unit
+  def foreachVertPairTail[U](f: (Double, Double) => U): Unit
 
   def vertsMap[A, ArrT <: ArrImut[A]](f: Pt2 => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
   { val acc = build.newBuff()

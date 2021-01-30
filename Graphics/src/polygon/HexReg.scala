@@ -23,7 +23,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
   override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
   override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6); () }
-  override def foreachPairTail[U](f: (Double, Double) => U): Unit = { f(v1x, v1y);  f(x2, y2); f(x3, y3);  f(x4, y4); f(x5, y5); f(x6, y6); () }
+  override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v1x, v1y);  f(x2, y2); f(x3, y3);  f(x4, y4); f(x5, y5); f(x6, y6); () }
 
   override def vertsArrayX: Array[Double] = Array(v1x, x2, x3, x4, x5, x6)
 
