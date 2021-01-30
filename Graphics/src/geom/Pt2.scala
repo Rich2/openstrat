@@ -261,7 +261,7 @@ object Pt2
   { def toPolygon: PolygonImp = thisIter.toArrProdHomo
   }
 
-  implicit val persistImplicit: Persist2Dbls[Pt2] = new Persist2Dbls[Pt2]("Pt2", "x", _.x, "y", _.y, apply)
+  implicit val persistImplicit: Persist2Dbls[Pt2] = new Persist2Dbls[Pt2]("Pt2", "x", "y", apply)
   implicit val approxTImplicit: EqT[Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
   implicit val vec2sBuildImplicit: Dbl2sArrBuilders[Pt2, Pt2s] = new Dbl2sArrBuilders[Pt2, Pt2s]

@@ -32,6 +32,8 @@ trait Show2Dbls extends Any with Show2[Double, Double] with Dbl2Elem with Approx
 { final override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
   final override implicit def ev2: ShowT[Double] = ShowT.doublePersistImplicit
   final override def syntaxdepth: Int = 2
+  override def dbl1: Double = el1
+  override def dbl2: Double = el2
 }
 
 trait Show2erT[A1, A2, R <: Show2[A1, A2]] extends ShowT[R]
@@ -93,13 +95,14 @@ object Show2T
 class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 {
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  def show2(way: Show.Way = Show.Standard, way1: Show.Way = Show.Standard, places1: Int = -1, way2: Show.Way = Show.Standard, places2: Int = -1): String = ???
+  def show2(way: Show.Way = Show.Standard, way1: Show.Way = Show.Standard, places1: Int = -1, way2: Show.Way = Show.Standard, places2: Int = -1):
+    String = ???
 }
 
 /** A trait for making quick ShowT instances for products of 2 Doubles. */
 trait Show2DblsT[R <: Show2Dbls] extends Show2erT[Double, Double, R]
 
-object Show2Dbls
+object Show2DblsT
 { /** Factory apply method for creating quick ShowT instances for products of 2 Doubles. */
   def apply[R <: Show2Dbls](typeStrIn: String): Show2DblsT[R] = new Show2DblsT[R]()
   { val typeStr: String = typeStrIn
@@ -128,9 +131,10 @@ class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R =
 
 /** Factory object for Persist product 2 type class */
 object Persist2
-{ def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
-                       opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist2[A1, A2, R] =
-  new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
+{
+  def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist2[A1, A2, R] =
+    new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
 }
 
 class Persist2er[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String,
@@ -147,5 +151,5 @@ class Persist2Ints[R <: Show2Ints](typeStr: String, name1: String, name2: String
   name1, name2, newT)
 
 /** Persistence class for case classes consisting of 2 Double parameters. */
-class Persist2Dbls[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, newT: (Double, Double) => R) extends
-  Persist2[Double, Double, R](typeStr, name1, fArg1, name2, fArg2, newT)
+class Persist2Dbls[R <: Show2Dbls](typeStr: String, name1: String, name2: String, newT: (Double, Double) => R) extends Persist2er[Double, Double, R](
+  typeStr, name1,  name2, newT)

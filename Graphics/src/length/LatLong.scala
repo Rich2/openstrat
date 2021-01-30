@@ -4,12 +4,16 @@ package geom
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with Dbl2Elem
+final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with Show2Dbls
 {
-  override def toString: String = LatLong.persistImplict.strT(this)
-  //override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
-  def dbl1 = latSecs
-  def dbl2 = longSecs
+  override def name1: String = "lat"
+  override def name2: String = "long"
+  override def typeStr: String = "LatLong"
+  override def approx(that: Any, delta: Double): Boolean = ???
+  //override def toString: String = LatLong.persistImplict.strT(this)
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
+  def el1 = latSecs
+  def el2 = longSecs
   def latSecs: Double = latMilliSecs / 1000
   def longSecs: Double = longMilliSecs / 1000
 
@@ -124,6 +128,6 @@ object LatLong
    *  degree, where southern and western values are negative. */
   def milliSecs(lat: Double, long: Double): LatLong = new LatLong(lat, long)
 
-  implicit val persistImplict: Persist[LatLong] = new Persist2Dbls[LatLong]("LatLong", "lat", _.latRadians, "long", _.longRadians, this.radians)
+  implicit val persistImplict: Persist[LatLong] = new Persist2Dbls[LatLong]("LatLong", "lat", "long",this.radians)
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 }

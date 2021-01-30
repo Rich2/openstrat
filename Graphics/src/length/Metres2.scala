@@ -4,13 +4,17 @@ package geom
 import math._
 
 /** 2 dimensional vector using metres as units rather than pure scalar numbers. */
-final class Metres2(val xMetres: Double, val yMetres: Double) extends Dbl2Elem
-{ override def toString: String = Metres2.PersistImplicit.strT(this)
-  //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres2]
+final class Metres2(val xMetres: Double, val yMetres: Double) extends Show2Dbls
+{ //override def toString: String = Metres2.PersistImplicit.strT(this)
+  override def typeStr: String = "Metres2"
+  override def approx(that: Any, delta: Double): Boolean = ???
+  override def name1: String = "x"
+  override def name2: String = "y"
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres2]
   def x: Metres = Metres(xMetres)
   def y: Metres = Metres(yMetres)
-  override def dbl1: Double = xMetres
-  override def dbl2: Double = yMetres
+  override def el1: Double = xMetres
+  override def el2: Double = yMetres
   def + (op: Metres2): Metres2 = Metres2(x + op.x, y + op.y)
   def - (op: Metres2): Metres2 = Metres2(x - op.x, y - op.y)
   def addXY (otherX: Metres, otherY: Metres): Metres2 = Metres2(x + otherX, y + otherY)
@@ -56,7 +60,7 @@ object Metres2
   { def / (operator: Metres): Pt2 = Pt2(thisMetres2.x/ operator, thisMetres2.y / operator)
   }
 
-  implicit val PersistImplicit: Persist[Metres2] = new Persist2Dbls[Metres2]("Metres2", "x", _.xMetres, "y", _.yMetres, new Metres2(_, _))
+  implicit val PersistImplicit: Persist[Metres2] = new Persist2Dbls[Metres2]("Metres2", "x", "y", new Metres2(_, _))
 }
 
 /** Specialised immutable Array based collection class for Metres2. */
