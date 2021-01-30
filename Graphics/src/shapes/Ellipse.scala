@@ -16,9 +16,9 @@ trait Ellipse extends EllipseBased with ShapeCentred
 
   final override def cen: Pt2 = cenX pp cenY
 
-  final def pAxes1: Pt2 = xAxes1 pp yAxes1
-  final def pAxes2: Pt2 = Pt2(xAxes2, yAxes2)
-  override def pAxes3: Pt2 = xAxes3 pp yAxes3
+  final def axesPt1: Pt2 = axesPt1x pp axesPt1y
+  final def axesPt2: Pt2 = Pt2(axesPt2x, axesPt2y)
+  override def axesPt3: Pt2 = axesPt3x pp axesPt3y
 
   /** The major radius of this ellipse, often referred to as a in maths. */
   def rMajor: Double
@@ -42,7 +42,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
 
-  def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cenAxes1axes4(f(cen), f(pAxes1), f(pAxes4))
+  def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cenAxes1axes4(f(cen), f(axesPt1), f(axesPt4))
 
   /** Translate 2D geometric transformation, on an Ellipse, returns an Ellipse. The return type may be narrowed in sub traits / classes. */
   override def slateXY(xOffset: Double, yOffset: Double): Ellipse
@@ -87,11 +87,11 @@ object Ellipse
 
   def cenAxes1Radius2(xCen: Double, yCen: Double, xAxes1: Double, yAxes1: Double, radius2: Double): Ellipse = new EllipseImp(xCen, yCen, xAxes1, yAxes1, radius2)
 
-  implicit val slateImplicit: Slate[Ellipse] = (ell, dx, dy) => cenAxes1axes4(ell.cen.addXY(dx, dy), ell.pAxes1.addXY(dx, dy), ell.pAxes4.addXY(dx, dy))
+  implicit val slateImplicit: Slate[Ellipse] = (ell, dx, dy) => cenAxes1axes4(ell.cen.addXY(dx, dy), ell.axesPt1.addXY(dx, dy), ell.axesPt4.addXY(dx, dy))
   implicit val scaleImplicit: Scale[Ellipse] = (obj: Ellipse, operand: Double) => obj.scale(operand)
 
   implicit val rotateImplicit: Rotate[Ellipse] =
-    (ell: Ellipse, angle: AngleVec) => Ellipse.cenAxes1axes4(ell.cen.rotate(angle), ell.pAxes1.rotate(angle), ell.pAxes4.rotate(angle))
+    (ell: Ellipse, angle: AngleVec) => Ellipse.cenAxes1axes4(ell.cen.rotate(angle), ell.axesPt1.rotate(angle), ell.axesPt4.rotate(angle))
 
   implicit val prolignImplicit: Prolign[Ellipse] = (obj, matrix) => obj.prolign(matrix)
 
@@ -112,20 +112,20 @@ object Ellipse
 
   /** The implementation class for Ellipses that are not Circles. The Ellipse is encoded as 3 Vec2s or 6 scalars although it is possible to encode an
    * ellipse with 5 scalars. Encoding the Ellipse this way greatly helps human visualisation of transformations upon an ellipse. */
-  final case class EllipseImp(cenX: Double, cenY: Double, xAxes1: Double, yAxes1: Double, radius2: Double) extends Ellipse with AxisFree
+  final case class EllipseImp(cenX: Double, cenY: Double, axesPt1x: Double, axesPt1y: Double, radius2: Double) extends Ellipse with AxisFree
   { override type ThisT = EllipseImp
-    override def xAxes2: Double = 2 * cenX - xAxis4
-    override def yAxes2: Double = 2 * cenY - yAxis4
-    override def xAxes3: Double = 2 * cenX - xAxes1
-    override def yAxes3: Double = 2 * cenY - yAxes1
-    override def pAxes4: Pt2 = cen + s0Angle.toVec2(radius2)
-    override def xAxis4: Double = pAxes4.x
-    override def yAxis4: Double = pAxes1.y
-    override def radius1: Double = cen.distTo(pAxes1)
-    override def cenP1: Vec2 = cen >> pAxes1
-    override def cenP2: Vec2 = cen >> pAxes2
-    override def cenP3: Vec2 = cen >> pAxes3
-    override def cenP4: Vec2 = cen >> pAxes4
+    override def axesPt2x: Double = 2 * cenX - axesPt4x
+    override def axesPt2y: Double = 2 * cenY - axesPt4y
+    override def axesPt3x: Double = 2 * cenX - axesPt1x
+    override def axesPt3y: Double = 2 * cenY - axesPt1y
+    override def axesPt4: Pt2 = cen + s0Angle.toVec2(radius2)
+    override def axesPt4x: Double = axesPt4.x
+    override def axesPt4y: Double = axesPt1.y
+    override def radius1: Double = cen.distTo(axesPt1)
+    override def cenP1: Vec2 = cen >> axesPt1
+    override def cenP2: Vec2 = cen >> axesPt2
+    override def cenP3: Vec2 = cen >> axesPt3
+    override def cenP4: Vec2 = cen >> axesPt4
     override def rMajor: Double = radius1.max(radius2)
     override def rMinor: Double = radius1.min(radius2)
     override def area: Double = Pi * radius1 * radius2
@@ -140,27 +140,27 @@ object Ellipse
       BoundingRect(cenX - xd, cenX + xd, cenY - yd, cenY + yd)
     }
 
-    override def alignAngle: Angle = cen.angleTo(pAxes1)
+    override def alignAngle: Angle = cen.angleTo(axesPt1)
     def s0Angle = alignAngle.p90
 
     /** Translate 2D geometric transformation, on an EllipseImp, returns an EllipseImp. */
     override def slateXY(xOffset: Double, yOffset: Double): EllipseImp =
-      EllipseImp(cenX + xOffset, cenY + yOffset, xAxes1 + xOffset, yAxes1 + yOffset, radius2)
+      EllipseImp(cenX + xOffset, cenY + yOffset, axesPt1x + xOffset, axesPt1y + yOffset, radius2)
 
     /** Uniform scaling 2D geometric transformation, on an EllipseImp, returns an EllipseImp. */
     override def scale(operand: Double): EllipseImp =
-      EllipseImp(cenX * operand, cenY * operand, xAxes1 * operand, yAxes1 * operand, radius2 * operand)
+      EllipseImp(cenX * operand, cenY * operand, axesPt1x * operand, axesPt1y * operand, radius2 * operand)
 
     override def reflect(lineLike: LineLike): EllipseImp =
-      EllipseImp.cenAxes1Axes4(cen.reflect(lineLike), pAxes1.reflect(lineLike), pAxes4.reflect(lineLike))
+      EllipseImp.cenAxes1Axes4(cen.reflect(lineLike), axesPt1.reflect(lineLike), axesPt4.reflect(lineLike))
 
     override def rotate(angle: AngleVec): EllipseImp = ???
 
     override def shearX(operand: Double): EllipseImp =
-      EllipseImp.cenAxes1Axes4(cen.xShear(operand), pAxes1.xShear(operand), pAxes4.xShear(operand))
+      EllipseImp.cenAxes1Axes4(cen.xShear(operand), axesPt1.xShear(operand), axesPt4.xShear(operand))
 
     override def shearY(operand: Double): EllipseImp =
-      EllipseImp.cenAxes1Axes4(cen.yShear(operand), pAxes1.yShear(operand), pAxes4.yShear(operand))
+      EllipseImp.cenAxes1Axes4(cen.yShear(operand), axesPt1.yShear(operand), axesPt4.yShear(operand))
   }
 
   /** Companion object for the EllipseImp class, contains factory methods. */

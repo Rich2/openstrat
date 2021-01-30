@@ -71,15 +71,15 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   @inline override def xRadius: Double = radius
   @inline override def yRadius: Double = radius
 
-  override def xAxes1: Double = cenX + radius
-  override def yAxes1: Double = cenY
-  override def xAxes2: Double = cenX
-  override def yAxes2: Double = cenY - yAxis4
-  override def xAxes3: Double = cenX - radius
-  override def yAxes3: Double = cenY
-  override def xAxis4: Double = cenX
-  override def yAxis4: Double = cenY + radius
-  override def pAxes4: Pt2 = Pt2(cenX, yAxis4)
+  override def axesPt1x: Double = cenX + radius
+  override def axesPt1y: Double = cenY
+  override def axesPt2x: Double = cenX
+  override def axesPt2y: Double = cenY - axesPt4y
+  override def axesPt3x: Double = cenX - radius
+  override def axesPt3y: Double = cenY
+  override def axesPt4x: Double = cenX
+  override def axesPt4y: Double = cenY + radius
+  override def axesPt4: Pt2 = Pt2(cenX, axesPt4y)
   override def cenP1: Vec2 = Vec2(radius, 0)
   override def cenP2: Vec2 = Vec2(0, -radius)
   override def cenP3: Vec2 = Vec2(-radius, 0)
