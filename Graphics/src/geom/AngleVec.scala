@@ -20,6 +20,12 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
   /** Divides this AngleVec by the scalar factor, returns an AngleVec. */
   def / (factor: Double): AngleVec = AngleVec.milliSecs(milliSecs / factor)
 
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[AngleVec]
+
+  override def approx(that: Any, precision: AngleVec = precisionDefault): Boolean = that match
+  { case th: AngleVec => milliSecs =~(th.milliSecs, precision.milliSecs)
+    case _ => false
+  }
   /** Adds this AngleVec to the parameter [[Angle]] returns an [[Angle]]. */
   def addTo(angle: Angle): Angle = Angle.milliSecs(milliSecs + angle.milliSecs)
 

@@ -6,6 +6,13 @@ package geom
  * specified in the old Degrees, Minutes and Seconds system. Decimals of a degree can also be stored precisely. */
 final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLike
 {
+
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[Longitude]
+
+  override def approx(that: Any, precision: AngleVec = precisionDefault): Boolean = that match {
+  case th: Longitude => milliSecs =~(th.milliSecs, precision.milliSecs)
+  case _ => false
+  }
 }
 
 /** Companion object of the [[Longitude]] class. */

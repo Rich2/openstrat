@@ -7,6 +7,13 @@ final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLik
 {
   def * (long: Longitude): LatLong = LatLong.milliSecs(milliSecs, long.milliSecs)
   def ll (longDegs: Double): LatLong = LatLong.milliSecs(milliSecs, longDegs.degsToMilliSecs)
+
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[Latitude]
+
+  override def approx(that: Any, precision: AngleVec = precisionDefault): Boolean = that match {
+    case th: Latitude => milliSecs =~(th.milliSecs, precision.milliSecs)
+    case _ => false
+  }
 }
 
 /** Companion object for the [[Latitude]] class. */

@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** Base trait for [[Angle]], [[AngleVec]], [[Latitude]] and [[Longitude]]. */
-trait AngleLike extends Any
+trait AngleLike extends Any with ApproxAngle
 { /** The value of this angle expressed in degrees. */
   @inline def degs: Double = milliSecs / MilliSecsInDeg
 
