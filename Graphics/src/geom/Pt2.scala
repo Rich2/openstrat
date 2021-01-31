@@ -261,13 +261,15 @@ object Pt2
   }
 
   implicit val persistImplicit: Persist2Dbls[Pt2] = new Persist2Dbls[Pt2]("Pt2", "x", "y", apply)
-  implicit val approxTImplicit: EqT[Pt2] = Approx2DblsT[Pt2](_.x, _.y)
+  implicit val eqTImplicit: EqT[Pt2] = (pt1, pt2) => pt1.x == pt2.x & pt1.y == pt2.y
+  implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
   implicit val vec2sBuildImplicit: Dbl2sArrBuilders[Pt2, Pt2s] = new Dbl2sArrBuilders[Pt2, Pt2s]
   { type BuffT = Vec2Buff
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(inp)
   }
+
   implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)

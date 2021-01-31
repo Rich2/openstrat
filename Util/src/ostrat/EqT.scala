@@ -1,28 +1,17 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Equals type class trait */
+/** Equals type class trait. */
 trait EqT[A]
 { def eqv(a1: A, a2: A): Boolean
 }
 
-/** The campanion object for the Eq type class, containing instances for common types. This does not currently use a functor instance for a number of
+/** The campanion object for the EqT type class, containing instances for common types. This does not currently use a functor instance for a number of
  * reasons. */
 object EqT
 {
   implicit val intImplicit: EqT[Int] = (a1, a2) => a1 == a2
-
-  implicit val doubleImplicit: ApproxT[Double, Double] = new ApproxT[Double, Double] {
-    override def precisionDefault: Double = 1e-12
-    override def approxT(op1: Double, op2: Double, precision: Double): Boolean = ((op1 - op2) <= precision) & ((op1 - op2) >= -precision)
-    override def eqv(a1: Double, a2: Double): Boolean = a1 == a2
-  }
-
-  //implicit val doubleImplicit: EqT[Double] = (d1, d2) => d1 == d2
-  /*{ val precision = 1e12
-  ((d1 - d2).abs/(d1.abs.max(d2.abs).max(1))) * precision  < 1
-  }*/
-
+  implicit val doubleImplicit: EqT[Double] =  (a1, a2) => a1 == a2
   implicit val booleanImplicit: EqT[Boolean] = (a1, a2) => a1 == a2
   implicit val stringImplicit: EqT[String] = (a1, a2) => a1 == a2
   implicit val charImplicit: EqT[Char] = (a1, a2) => a1 == a2
