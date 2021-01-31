@@ -26,3 +26,7 @@ trait AngleLike extends Any with ApproxAngle
 trait ApproxAngle extends Any with Approx[AngleVec]
 { override def precisionDefault: AngleVec = 1e-10.degs
 }
+
+trait ApproxAngleT[T] extends ApproxT[AngleVec, T]
+{ override def precisionDefault: AngleVec = 1e-10.degs
+}

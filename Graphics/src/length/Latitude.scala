@@ -35,4 +35,7 @@ object Latitude
     case i if i < -MilliSecsIn90Degs => new Latitude((-MilliSecsIn180Degs + i))
     case i => new Latitude(i)
   }
+
+  implicit val eqTImplicit: EqT[Latitude] = (a1, a2) => a1.milliSecs == a2.milliSecs
+  implicit val approxTImplicit: ApproxAngleT[Latitude] = (a1, a2, precsion) => a1 =~ (a2, precsion)
 }
