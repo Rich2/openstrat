@@ -174,9 +174,9 @@ trait Polygon extends Shape with BoundedElem with Approx[Double]
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
   override def prolign(matrix: ProlignMatrix): Polygon = polygonMap(_.prolign(matrix))
 
-  override def rotate90: Polygon = ???
-  override def rotate180: Polygon = ???
-  override def rotate270: Polygon = ???
+  override def rotate90: Polygon = polygonMap(_.rotate90)
+  override def rotate180: Polygon = polygonMap(_.rotate180)
+  override def rotate270: Polygon = polygonMap(_.rotate270)
 
   /** Rotation 2D geometric transformation on a Polygon, taking the rotation as a scalar measured in radians, returns a Polygon. The Return type will
    *  be narrowed in some but not all sub traits / classes. */
@@ -271,7 +271,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double]
 
   def precisionDefault: Double = ???
 
-  override def approx(that: Any, delta: Double): Boolean = ???
+  override def approx(that: Any, precision: Double): Boolean = ???
 }
 
 /** Companion object for the Polygon trait. */

@@ -19,8 +19,8 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike w
   def +(other: AngleVec): Angle = Angle.milliSecs(milliSecs + other.milliSecs)
   def -(other: AngleVec): Angle = Angle.milliSecs(milliSecs - other.milliSecs)
 
-  override def approx(that: Any, delta: AngleVec = precisionDefault): Boolean = that match {
-    case th: Angle => ???
+  override def approx(that: Any, precision: AngleVec = precisionDefault): Boolean = that match {
+    case th: Angle => milliSecs =~(th.milliSecs, precision.milliSecs)
     case _ => false
   }
 

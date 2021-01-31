@@ -14,8 +14,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
   @inline override def dbl1: Double = x
   @inline override def dbl2: Double = y
 
-  override def approx(that: Any, delta: Double): Boolean = that match
-  { case other: Pt2 => dblsApprox(other, delta)
+  override def approx(that: Any, precision: Double): Boolean = that match
+  { case other: Pt2 => dblsApprox(other, precision)
     case _ => false
   }
 

@@ -3,7 +3,7 @@ package ostrat
 
 trait Approx[D] extends Any with Equals
 { def precisionDefault: D
-  def approx(that: Any, delta: D): Boolean
+  def approx(that: Any, precision: D): Boolean
 }
 
 trait ApproxDbl extends Approx[Double]

@@ -19,8 +19,8 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
     case _ => false
   }
 
-  override def approx(that: Any, delta: Double = 1e-12): Boolean = that match {
-    case that: Vec2 => dblsApprox(that, delta)
+  override def approx(that: Any, precision: Double = 1e-12): Boolean = that match {
+    case that: Vec2 => dblsApprox(that, precision)
     case _ => false
   }
 
