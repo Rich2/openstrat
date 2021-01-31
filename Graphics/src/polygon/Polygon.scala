@@ -269,7 +269,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double]
     res
   }
 
-  def defaultDelta: Double = ???
+  def precisionDefault: Double = ???
 
   override def approx(that: Any, delta: Double): Boolean = ???
 }

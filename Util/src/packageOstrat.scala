@@ -261,10 +261,10 @@ package object ostrat
   /** Extension methods for approximation type class. */
   implicit class ApproxImplicitClass[D, T](thisT: T)(implicit ev: ApproxT[D, T])
   { /** tests if operand is approximately equal. */
-    def approx(operand: T, delta: D = ev.defaultDelta): Boolean = ev.approxT(thisT, operand, delta)
+    def =~(operand: T, precision: D = ev.precisionDefault): Boolean = ev.approxT(thisT, operand, precision)
 
     /** tests if operand is approximately not equal. */
-    def napprox(operand: T, delta: D = ev.defaultDelta): Boolean = !ev.approxT(thisT, operand, delta)
+    def !=~(operand: T, precision: D = ev.precisionDefault): Boolean = !ev.approxT(thisT, operand, precision)
   }
 
   /** Needs Changing. */

@@ -22,8 +22,9 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
     }
   }
 
-  def precision = 1e12
-  def =~ (other: Double): Boolean =  ((thisDouble - other).abs/(thisDouble.abs.max(other.abs).max(1))) * precision  < 1
+  def precisionDefault = 1e-12
+  def =~(that: Double, precision: Double = 1e-12): Boolean = (thisDouble - that).abs <= precision
+  def !=~(that: Double, precision: Double = 1e-12): Boolean = (thisDouble - that).abs > precision
 
   /** Returns the square of this Double, raises it to the power 2. */
   def squared: Double = thisDouble * thisDouble

@@ -19,9 +19,9 @@ object EqTest extends TestSuite
 
     "ApproxTest" -
     {
-      4.567.approx(4.56, 0.001) ==> false
-      4.567.approx(4.56, 0.01) ==> true
-      4.567.approx(4.56) ==> false
+      4.567 =~(4.56, 0.001) ==> false
+      4.567 =~(4.56, 0.01) ==> true
+      4.567 =~(4.56) ==> false
     }
 
     val o1: Option[Int] = Some(-56)

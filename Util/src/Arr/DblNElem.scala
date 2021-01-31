@@ -17,7 +17,7 @@ trait Dbl2Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
   def dblsEqual(that: Dbl2Elem): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2
-  def dblsApprox(that: Dbl2Elem, delta: Double = 1e-12): Boolean = dbl1.approx(that.dbl1, delta) & dbl2.approx(that.dbl2, delta)
+  def dblsApprox(that: Dbl2Elem, delta: Double = 1e-12): Boolean = dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta)
 }
 
 /** An object that can be constructed from 3 [[Double]]s. These are used in [[Dbl3sArr]] Array[Double] based collections. */
@@ -28,7 +28,7 @@ trait Dbl3Elem extends Any with DblNElem
   def dblsEqual(that: Dbl3Elem): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2 & dbl3 == that.dbl3
 
   def dblsApprox(that: Dbl3Elem, delta: Double = 1e-12): Boolean =
-    dbl1.approx(that.dbl1, delta) & dbl2.approx(that.dbl2, delta) & dbl3.approx(that.dbl3, delta)
+    dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta) & dbl3.=~(that.dbl3, delta)
 }
 
 /** An object that can be constructed from 4 [[Double]]s. These are used in [[Dbl4sArr]] Array[Double] based collections. */
