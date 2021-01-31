@@ -5,10 +5,17 @@ import collection.mutable.ArrayBuffer, Colour.Black
 
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
-final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends Dbl4Elem with LineLike with CurveSeg with
-  AffinePreserve
+final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends LineLike with CurveSeg with
+  Show2[Pt2, Pt2] with Dbl4Elem with AffinePreserve
 { override type ThisT = LineSeg
-  override def toString: String = LineSeg.persistImplicit.strT(this)
+  override def typeStr: String = "LineSeg"
+  override def name1: String = "startPt"
+  override def name2: String = "endPt"
+  override implicit def ev1: ShowT[Pt2] = Pt2.persistImplicit
+  override implicit def ev2: ShowT[Pt2] = Pt2.persistImplicit
+  override def syntaxdepth: Int = 2
+  override def el1: Pt2 = startPt
+  override def el2: Pt2 = endPt
   override def dbl1: Double = xStart
   override def dbl2: Double = yStart
   override def dbl3: Double = xEnd
@@ -106,9 +113,7 @@ object LineSeg
   /** Creates a vertical LineSeg. */
   @inline def vert(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
 
-  implicit val persistImplicit: Persist[LineSeg] =
-    new Persist2[Pt2, Pt2, LineSeg]("Line2", "pStart", _.pStart, "pEnd", _.pEnd, LineSeg(_, _))
-
+  implicit val persistImplicit: Persist[LineSeg] =  new Persist2er[Pt2, Pt2, LineSeg]("Line2", "pStart", "pEnd", apply)
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 
   implicit val line2sBuildImplicit: Dbl4sArrBuilders[LineSeg, LineSegs] = new Dbl4sArrBuilders[LineSeg, LineSegs]
