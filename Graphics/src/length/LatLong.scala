@@ -12,8 +12,8 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   //override def approx(that: Any, delta: Double): Boolean = ???
   //override def toString: String = LatLong.persistImplict.strT(this)
  // override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
-  def el1 = latSecs
-  def el2 = longSecs
+  def show1 = latSecs
+  def show2 = longSecs
   def latSecs: Double = latMilliSecs / 1000
   def longSecs: Double = longMilliSecs / 1000
 

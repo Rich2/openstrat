@@ -9,8 +9,8 @@ final case class Sqlign private(width: Double, cenX: Double, cenY: Double) exten
   override def typeStr: String = "Sqlign"
   override def name1: String = "width"
   override def name2: String = "cen"
-  override def el1: Double = width
-  override def el2: Pt2 = cen
+  override def show1: Double = width
+  override def show2: Pt2 = cen
   override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
   override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxdepth: Int = 3

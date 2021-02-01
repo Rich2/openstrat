@@ -12,8 +12,8 @@ trait TCoord extends Any with Show2Ints
   /** Column number for the coordinate of a tile grid. */
   def c: Int
 
-  @inline override def el1: Int = r
-  @inline override def el2: Int = c
+  @inline override def show1: Int = r
+  @inline override def show2: Int = c
   override def name1: String = "r"
   override def name2: String = "c"
 

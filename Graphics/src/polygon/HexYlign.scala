@@ -12,8 +12,8 @@ final class HexYlign(val width: Double, val cenX: Double, val cenY: Double) exte
   override def dbl3: Double = cenY
   override def diameterIn: Double = width
   override def height: Double = diameterOut
-  override def el1: Double = width
-  override def el2: Pt2 = cen
+  override def show1: Double = width
+  override def show2: Pt2 = cen
   override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
   override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxdepth: Int = 3

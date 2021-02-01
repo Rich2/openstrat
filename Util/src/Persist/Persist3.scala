@@ -6,7 +6,7 @@ package ostrat
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
  *  toString override to a [[Show3T]] instance. */
-trait Show3[A1, A2, A3] extends ShowProduct with Prod3[A1, A2, A3]
+trait Show3[A1, A2, A3] extends Any with ShowProduct
 { /** the name of the 1st element of this 3 element Show product. */
   def name1: String
 
@@ -15,6 +15,15 @@ trait Show3[A1, A2, A3] extends ShowProduct with Prod3[A1, A2, A3]
 
   /** the name of the 3rd element of this 3 element Show product. */
   def name3: String
+
+  /** Element 1 of this 3 element Show product. */
+  def show1: A1
+
+  /** Element 2 of this 3 element Show product. */
+  def show2: A2
+
+  /** Element 3 of this 3 element Show product. */
+  def show3: A3
 
   /** The ShowT type class instance for the 1st element of this 3 element Show product. */
   def showT1: ShowT[A1]
@@ -27,8 +36,21 @@ trait Show3[A1, A2, A3] extends ShowProduct with Prod3[A1, A2, A3]
 
   def elemNames: Strings = Strings(name1, name2, name3)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr, showT3.typeStr)
-  def shows(way: Show.Way, decimalPlaces: Int): Strings = Strings(showT1.showT(el1, way, decimalPlaces), showT2.showT(el2, way, decimalPlaces),
-    showT3.showT(el3, way, decimalPlaces))
+  def shows(way: Show.Way, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces), showT2.showT(show2, way, decimalPlaces),
+    showT3.showT(show3, way, decimalPlaces))
+}
+
+/** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[Show2DblsT]]
+ *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
+ *  over [[Show2T]]. */
+trait Show3Dbls extends Any with Show3[Double, Double, Double] with Dbl3Elem
+{ final override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
+  final override implicit def showT2: ShowT[Double] = ShowT.doublePersistImplicit
+  final override implicit def showT3: ShowT[Double] = ShowT.doublePersistImplicit
+  final override def syntaxdepth: Int = 2
+  override def dbl1: Double = show1
+  override def dbl2: Double = show2
+  override def dbl3: Double = show2
 }
 
 /** Show type class for 3 parameter case classes. */

@@ -13,8 +13,8 @@ final class Cood(val xi: Int, val yi: Int) extends Show2Ints
   override def typeStr: String = "Cood"
   override def name1: String = "xi"
   override def name2: String = "yi"
-  override def el1: Int = xi
-  override def el2: Int = yi
+  override def show1: Int = xi
+  override def show2: Int = yi
 
   def xyStr: String = xi.toString + ", " + yi.toString
   def yxStr: String = yi.toString + ", " + xi.toString

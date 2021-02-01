@@ -4,14 +4,13 @@ package geom
 import math._
 
 /** A 3 dimensional point. Right-handed coordinate system is the default. */
-final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like with Dbl3Elem
+final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like
 {
-  override def toString: String = Pt3.PersistImplicit.strT(this)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt3]
 
-  def dbl1 = x
-  def dbl2 = y
-  def dbl3 = z
+
+  /** the name of the type of this object. */
+  override def typeStr: String = "Pt3"
 
   override def equals(other: Any): Boolean = other match {
     case Pt3(px, py, pz) => (x =~ px) && (y =~ py) && (z =~ pz)

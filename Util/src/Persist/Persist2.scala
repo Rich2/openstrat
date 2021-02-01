@@ -6,12 +6,18 @@ package ostrat
  *  inherit from Show2 and then use [[Show2ElemT]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[Show2ElemT]] or
  *  [[Persist2Elem]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
  *  toString override to a [[Show2T]] instance. */
-trait Show2[A1, A2] extends Any with ShowProduct with Prod2[A1, A2]
+trait Show2[A1, A2] extends Any with ShowProduct// with Prod2[A1, A2]
 { /** the name of the 1st element of this 2 element product. */
   def name1: String
 
   /** the name of the 2nd element of this 2 element product. */
   def name2: String
+
+  /** Element 1 of this Show 2 element product. */
+  def show1: A1
+
+  /** Element 2 of this Show 2 element product. */
+  def show2: A2
 
   /** The ShowT type class instance for the 1st element of this 2 element product. */
   def showT1: ShowT[A1]
@@ -21,7 +27,7 @@ trait Show2[A1, A2] extends Any with ShowProduct with Prod2[A1, A2]
 
   def elemNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
-  def shows(way: Show.Way, decimalPlaces: Int): Strings = Strings(showT1.showT(el1, way, decimalPlaces), showT2.showT(el2, way, decimalPlaces))
+  def shows(way: Show.Way, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces), showT2.showT(show2, way, decimalPlaces))
 }
 
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[Show2IntsT]]
@@ -31,8 +37,8 @@ trait Show2Ints extends Any with Show2[Int, Int] with Int2Elem
 { final override implicit def showT1: ShowT[Int] = ShowT.intPersistImplicit
   final override implicit def showT2: ShowT[Int] = ShowT.intPersistImplicit
   final override def syntaxdepth: Int = 2
-  override def int1: Int = el1
-  override def int2: Int = el2
+  override def int1: Int = show1
+  override def int2: Int = show2
 }
 
 /** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[Show2DblsT]]
@@ -42,8 +48,8 @@ trait Show2Dbls extends Any with Show2[Double, Double] with Dbl2Elem
 { final override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
   final override implicit def showT2: ShowT[Double] = ShowT.doublePersistImplicit
   final override def syntaxdepth: Int = 2
-  override def dbl1: Double = el1
-  override def dbl2: Double = el2
+  override def dbl1: Double = show1
+  override def dbl2: Double = show2
 }
 
 trait Show2ElemT[A1, A2, R <: Show2[A1, A2]] extends ShowElemT[R]

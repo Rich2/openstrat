@@ -10,8 +10,8 @@ trait Vec2Like extends Any with Dbl2Elem with Show2Dbls
   override def name1: String = "x"
   override def name2: String = "y"
 
-  @inline override def el1: Double = x
-  @inline override def el2: Double = y
+  @inline override def show1: Double = x
+  @inline override def show2: Double = y
 
   def yScale(factor: Double): Vec2Like
   def xScale(factor: Double): Vec2Like

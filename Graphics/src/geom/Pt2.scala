@@ -9,8 +9,8 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
 {
   override def typeStr: String = "Pt2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
-  @inline override def el1: Double = x
-  @inline override def el2: Double = y
+  @inline override def show1: Double = x
+  @inline override def show2: Double = y
   @inline override def dbl1: Double = x
   @inline override def dbl2: Double = y
 

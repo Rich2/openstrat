@@ -13,8 +13,8 @@ final class Metres2(val xMetres: Double, val yMetres: Double) extends Show2Dbls
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres2]
   def x: Metres = Metres(xMetres)
   def y: Metres = Metres(yMetres)
-  override def el1: Double = xMetres
-  override def el2: Double = yMetres
+  override def show1: Double = xMetres
+  override def show2: Double = yMetres
   def + (op: Metres2): Metres2 = Metres2(x + op.x, y + op.y)
   def - (op: Metres2): Metres2 = Metres2(x - op.x, y - op.y)
   def addXY (otherX: Metres, otherY: Metres): Metres2 = Metres2(x + otherX, y + otherY)

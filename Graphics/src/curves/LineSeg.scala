@@ -14,8 +14,8 @@ final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, va
   override implicit def showT1: ShowT[Pt2] = Pt2.persistImplicit
   override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxdepth: Int = 2
-  override def el1: Pt2 = startPt
-  override def el2: Pt2 = endPt
+  override def show1: Pt2 = startPt
+  override def show2: Pt2 = endPt
   override def dbl1: Double = xStart
   override def dbl2: Double = yStart
   override def dbl3: Double = xEnd
