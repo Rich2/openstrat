@@ -6,14 +6,16 @@ package geom
  * specified in the old Degrees, Minutes and Seconds system. Decimals of a degree can also be stored precisely. */
 final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLike
 { override def typeStr: String = "Longitude"
+  /** True if eastern longitude or Greenwich meridian. */
+  def eastern: Boolean = milliSecs >= 0
 
-  /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
-  override def str: String = ???
+  /** True if western longitude. */
+  def western: Boolean = milliSecs < 0
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  override def show(way: Show.Way, decimalPlaces: Int): String = ???
-
-  override def syntaxdepth: Int = 1
+  override def show(way: Show.Way, decimalPlaces: Int): String = way match {
+    case Show.Typed => typeStr + degs.show(Show.Standard, decimalPlaces).enParenth
+    case _ => degs.abs.show(Show.Standard, decimalPlaces) + ife(eastern, "E", "W")
+  }
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Longitude]
 

@@ -8,12 +8,12 @@ package geom
  *  make no sense. */
 final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike with Ordered[Angle] with Dbl1Elem
 { override def typeStr: String = "Angle"
-  override def str: String = ???
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  override def show(way: Show.Way, decimalPlaces: Int): String = ???
-
-  override def syntaxdepth: Int = 1
+  override def show(way: Show.Way, decimalPlaces: Int): String = way match {
+    case Show.Typed => typeStr + degs.str.enParenth
+    case _ =>  degs.str.enParenth
+  }
 
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
   def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
