@@ -4,7 +4,23 @@ package geom
 
 /** A compile time wrapper class for Latitude. The value is stored in arc seconds. */
 final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLike
-{ def * (long: Longitude): LatLong = LatLong.milliSecs(milliSecs, long.milliSecs)
+{ override def typeStr: String = "Latitude"
+  override def str: String = show(Show.Standard, 2)
+
+  override def show(way: Show.Way, decimalPlaces: Int): String = way match {
+    case Show.Typed => typeStr + degs.str.enParenth
+    case _ => degs.abs.str + ife(northern, "N", "S")
+  }
+
+  override def syntaxdepth: Int = 1
+
+  /** True if northern latitude or the equator. */
+  def northern: Boolean = milliSecs >= 0
+
+  /** True if southern latitude. */
+  def southern: Boolean = milliSecs >= 0
+
+  def * (long: Longitude): LatLong = LatLong.milliSecs(milliSecs, long.milliSecs)
   def ll (longDegs: Double): LatLong = LatLong.milliSecs(milliSecs, longDegs.degsToMilliSecs)
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Latitude]

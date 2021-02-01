@@ -7,11 +7,17 @@ package geom
  *  and subtract, + and - methods, but these take [[AngleVec]]s as operands not other Angles. To Add,subtract or scale angles of inclination would
  *  make no sense. */
 final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike with Ordered[Angle] with Dbl1Elem
-{
+{ override def typeStr: String = "Angle"
+  override def str: String = ???
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+  override def show(way: Show.Way, decimalPlaces: Int): String = ???
+
+  override def syntaxdepth: Int = 1
+
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
   def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
 
-  override def toString = degStr2
   def degStr2: String = degs.str2 + "\u00B0"
 
   def +(other: AngleVec): Angle = Angle.milliSecs(milliSecs + other.milliSecs)

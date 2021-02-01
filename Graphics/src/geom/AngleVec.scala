@@ -5,8 +5,13 @@ package geom
 /** Angle vector, an angle of rotation. Values may be greater than 360 degrees and less than -360 degrees. Negative values represent clockwise
  *  rotation. So +720 degrees represents to complete anti-clockwise rotations. */
 class AngleVec private(val milliSecs: Double) extends AngleLike
-{
-  override def toString: String = degs.toString
+{ override def typeStr: String = "AngleVec"
+  override def str: String = ???
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+  override def show(way: Show.Way, decimalPlaces: Int): String = ???
+
+  override def syntaxdepth: Int = 1
 
   /** Adds the operand AngleVec to this AngleVec. If you want to add an [[Angle]] to this AngleVec use addTo. */
   def +(operand: AngleVec): AngleVec = AngleVec.milliSecs(milliSecs + operand.milliSecs)
