@@ -6,6 +6,6 @@ trait Approx[D] extends Any with Equals
   def approx(that: Any, precision: D): Boolean
 }
 
-trait ApproxDbl extends Approx[Double]
+trait ApproxDbl extends Any with Approx[Double]
 { override def precisionDefault: Double = 1e-12
 }

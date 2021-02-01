@@ -5,15 +5,16 @@ import math._
 
 /** A 3 dimensional point. Right-handed coordinate system is the default. */
 final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like
-{
-  //override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt3]
+{ override def typeStr: String = "Pt3"
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt3]
 
+  override def approx(that: Any, precision: Double): Boolean = that match
+  { case other: Pt3 => dblsApprox(other, precision)
+    case _ => false
+  }
 
-  /** the name of the type of this object. */
-  override def typeStr: String = "Pt3"
-
-  override def equals(other: Any): Boolean = other match {
-    case Pt3(px, py, pz) => (x =~ px) && (y =~ py) && (z =~ pz)
+  override def equals(that: Any): Boolean = that match
+  { case that: Pt3 => dblsEqual(that)
     case _ => false
   }
 
