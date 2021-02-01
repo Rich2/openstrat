@@ -8,8 +8,6 @@ package geom
  *  make no sense. */
 final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike with Ordered[Angle] with Dbl1Elem
 {
-  @inline override def dbl1: Double = milliSecs
-
   /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
   def toVec2(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
 

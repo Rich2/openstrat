@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -6,7 +6,6 @@ package geom
  * specified in the old Degrees, Minutes and Seconds system. Decimals of a degree can also be stored precisely. */
 final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLike
 {
-
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Longitude]
 
   override def approx(that: Any, precision: AngleVec = precisionDefault): Boolean = that match {

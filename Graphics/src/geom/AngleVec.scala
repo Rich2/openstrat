@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -51,6 +51,7 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
   @inline def unary_- : AngleVec = AngleVec.radians(- radians)
 }
 
+/** Companion object for AngleVec trait contains factory methods. */
 object AngleVec
 { /** Creates an angle vector, or an angle of rotation from the value in number of degrees. */
   def apply(degs: Double): AngleVec = new AngleVec(degs * MilliSecsInDeg)

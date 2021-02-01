@@ -3,15 +3,16 @@ package ostrat
 package geom
 
 /** Base trait for [[Angle]], [[AngleVec]], [[Latitude]] and [[Longitude]]. */
-trait AngleLike extends Any with ApproxAngle
-{ /** The value of this angle expressed in degrees. */
+trait AngleLike extends Any with ApproxAngle with Dbl1Elem
+{ /** The angle expressed in thousandths of an arc second of a degree. */
+  def milliSecs: Double
+
+  @inline final override def dbl1: Double = milliSecs
+  /** The value of this angle expressed in degrees. */
   @inline def degs: Double = milliSecs / MilliSecsInDeg
 
   /** The value of this angle expressed in arc seconds of a degree. */
   @inline final def secs: Double = milliSecs / 1000
-
-  /** The angle expressed in thousandths of an arc second of a degree. */
-  def milliSecs: Double
 
   /** The value of the angle expressed in radians. */
   @inline final def radians: Double = milliSecs.milliSecsToRadians
