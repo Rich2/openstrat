@@ -19,9 +19,9 @@ object PrefixPlus
   }
 }
 
-/** Needs Testing. */
+/** Funtion object that seeks to get a valid expression from a Mono Statement or clause. */
 object getExpr
-{
+{ /** Seeks to get a valid expression from a Mono Statement or clause. */
   def apply (implicit seg: Arr[ClauseMember]): EMon[Expr] = fromOffset(seg.offset0)
 
   def fromOffset(inp: ArrOff[ClauseMember])(implicit seg: Arr[ClauseMember]): EMon[Expr] =
