@@ -2,8 +2,8 @@
 package ostrat
 
 /** A trait for providing an alternative to toString. USing this trait can be convenient, but at some level of the inheritance the type must provide a
- *  ShowT type class instance. it is better for the [[ShowT]] type class instance to delegate to this trait than have the toString method delegate to
- *  the [[ShowT]] type class instance in the companion object. Potentially that can create initialisation order problems,, but at the very least it
+ *  ShowT type class instance. It is better for the [[ShowT]] type class instance to delegate to this trait than have the toString method delegate to
+ *  the [[ShowT]] type class instance in the companion object. Potentially that can create initialisation order problems, but at the very least it
  *  can increase compile times. */
 trait Show extends Any
 { /** the name of the type of this object. */

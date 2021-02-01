@@ -110,7 +110,7 @@ object LineSeg
   /** Creates a vertical LineSeg. */
   @inline def vert(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
 
-  implicit val persistImplicit: Persist[LineSeg] =  new Persist2er[Pt2, Pt2, LineSeg]("Line2", "pStart", "pEnd", apply)
+  implicit val persistImplicit: Persist[LineSeg] =  new Persist2Elem[Pt2, Pt2, LineSeg]("Line2", "pStart", "pEnd", apply)
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 
   implicit val line2sBuildImplicit: Dbl4sArrBuilders[LineSeg, LineSegs] = new Dbl4sArrBuilders[LineSeg, LineSegs]

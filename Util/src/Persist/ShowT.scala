@@ -253,16 +253,3 @@ class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
   def showFields: String = ev.showT(thisVal, Show.StdFields, 1)
   def showTypedFields: String = ev.showT(thisVal, Show.StdTypedFields, 1)
 }
-
-case class ShowerT[R <: Show](typeStr: String) extends ShowT[R]
-{
-  /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
-   * rather than a method on the object being shown. */
-  override def strT(obj: R): String = obj.str
-
-  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
-
-  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
-   * should always be determined at compile time or if sometimes it should be determined at runtime. */
-  override def syntaxDepthT(obj: R): Int = obj.syntaxdepth
-}

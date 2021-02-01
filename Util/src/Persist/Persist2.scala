@@ -28,7 +28,7 @@ trait Show2Ints extends Any with Show2[Int, Int] with Int2Elem
 /** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[Show2DblsT]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show2T]]. */
-trait Show2Dbls extends Any with Show2[Double, Double] with Dbl2Elem// with Approx[Double]
+trait Show2Dbls extends Any with Show2[Double, Double] with Dbl2Elem
 { final override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
   final override implicit def ev2: ShowT[Double] = ShowT.doublePersistImplicit
   final override def syntaxdepth: Int = 2
@@ -36,22 +36,11 @@ trait Show2Dbls extends Any with Show2[Double, Double] with Dbl2Elem// with Appr
   override def dbl2: Double = el2
 }
 
-trait Show2erT[A1, A2, R <: Show2[A1, A2]] extends ShowT[R]
+trait Show2ElemT[A1, A2, R <: Show2[A1, A2]] extends ShowElemT[R]
+
+object Show2ElemT
 {
-  /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
-   * rather than a method on the object being shown. */
-  override def strT(obj: R): String = obj.str
-
-  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
-
-  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
-   * should always be determined at compile time or if sometimes it should be determined at runtime. */
-  override def syntaxDepthT(obj: R): Int = obj.syntaxdepth
-}
-
-object Show2erT
-{
-  def apply[A1, A2, R<: Show2[A1, A2]](typeStrIn: String): Show2erT[A1, A2, R] = new Show2erT[A1, A2, R]
+  def apply[A1, A2, R<: Show2[A1, A2]](typeStrIn: String): Show2ElemT[A1, A2, R] = new Show2ElemT[A1, A2, R]
   { override def typeStr: String = typeStrIn
     override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
   }
@@ -100,7 +89,7 @@ class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 }
 
 /** A trait for making quick ShowT instances for products of 2 Doubles. */
-trait Show2DblsT[R <: Show2Dbls] extends Show2erT[Double, Double, R]
+trait Show2DblsT[R <: Show2Dbls] extends Show2ElemT[Double, Double, R]
 
 object Show2DblsT
 { /** Factory apply method for creating quick ShowT instances for products of 2 Doubles. */
@@ -110,7 +99,7 @@ object Show2DblsT
 }
 
 /** A trait for making quick ShowT instances for products of 2 Ints. */
-trait Show2IntsT[R <: Show2Ints] extends Show2erT[Int, Int, R]
+trait Show2IntsT[R <: Show2Ints] extends Show2ElemT[Int, Int, R]
 
 object Show2IntsT
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
@@ -137,19 +126,20 @@ object Persist2
     new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
 }
 
-class Persist2er[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String,
-  val newT: (A1, A2) => R, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends
-  Show2erT[A1, A2, R] with PersistProduct[R]
+/** Persist type class for types that extends Show2. */
+class Persist2Elem[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String,
+                                               val newT: (A1, A2) => R, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends
+  Show2ElemT[A1, A2, R] with PersistProduct[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   implicit def ev1: ShowT[A1] = ev1In
   implicit def ev2: ShowT[A2] = ev2In
 }
 
-/** Persistence class for case classes consisting of 2 Int parameters. */
-class Persist2Ints[R <: Show2Ints](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R) extends Persist2er[Int, Int, R](typeStr,
+/** Persistence type class for types that extend [[Show2Ints]]. */
+class Persist2Ints[R <: Show2Ints](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R) extends Persist2Elem[Int, Int, R](typeStr,
   name1, name2, newT)
 
-/** Persistence class for case classes consisting of 2 Double parameters. */
-class Persist2Dbls[R <: Show2Dbls](typeStr: String, name1: String, name2: String, newT: (Double, Double) => R) extends Persist2er[Double, Double, R](
+/** Persistence class for types that extends [[Show2Dl]]. */
+class Persist2Dbls[R <: Show2Dbls](typeStr: String, name1: String, name2: String, newT: (Double, Double) => R) extends Persist2Elem[Double, Double, R](
   typeStr, name1,  name2, newT)
