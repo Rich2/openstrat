@@ -1,25 +1,35 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Trait for Show for product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding [[Show2T]]
- *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
- *  over [[Show2T]]. */
+/** Trait for [[Show]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+ *  [[Show2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
+ *  inherit from Show2 and then use [[Show2ElemT]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[Show2ElemT]] or
+ *  [[Persist2Elem]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
+ *  toString override to a [[Show2T]] instance. */
 trait Show2[A1, A2] extends Any with ShowProduct with Prod2[A1, A2]
-{ def name1: String
+{ /** the name of the 1st element of this 2 element product. */
+  def name1: String
+
+  /** the name of the 2nd element of this 2 element product. */
   def name2: String
+
+  /** The ShowT type class instance for the 1st element of this 2 element product. */
+  def showT1: ShowT[A1]
+
+  /** The ShowT type class instance for the 2nd element of this 2 element product. */
+  def showT2: ShowT[A2]
+
   def elemNames: Strings = Strings(name1, name2)
-  implicit def ev1: ShowT[A1]
-  implicit def ev2: ShowT[A2]
-  def elemTypeNames: Strings = Strings(ev1.typeStr, ev2.typeStr)
-  def strs(way: Show.Way, decimalPlaces: Int): Strings = Strings(ev1.showT(el1, way, decimalPlaces), ev2.showT(el2, way, decimalPlaces))
+  def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
+  def shows(way: Show.Way, decimalPlaces: Int): Strings = Strings(showT1.showT(el1, way, decimalPlaces), showT2.showT(el2, way, decimalPlaces))
 }
 
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[Show2IntsT]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show2T]]. */
 trait Show2Ints extends Any with Show2[Int, Int] with Int2Elem
-{ final override implicit def ev1: ShowT[Int] = ShowT.intPersistImplicit
-  final override implicit def ev2: ShowT[Int] = ShowT.intPersistImplicit
+{ final override implicit def showT1: ShowT[Int] = ShowT.intPersistImplicit
+  final override implicit def showT2: ShowT[Int] = ShowT.intPersistImplicit
   final override def syntaxdepth: Int = 2
   override def int1: Int = el1
   override def int2: Int = el2
@@ -29,8 +39,8 @@ trait Show2Ints extends Any with Show2[Int, Int] with Int2Elem
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show2T]]. */
 trait Show2Dbls extends Any with Show2[Double, Double] with Dbl2Elem
-{ final override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
-  final override implicit def ev2: ShowT[Double] = ShowT.doublePersistImplicit
+{ final override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
+  final override implicit def showT2: ShowT[Double] = ShowT.doublePersistImplicit
   final override def syntaxdepth: Int = 2
   override def dbl1: Double = el1
   override def dbl2: Double = el2
@@ -67,7 +77,7 @@ trait Show2T[A1, A2, R] extends ShowProductT[R]
 object Show2T
 {
   def apply [A1, A2, R](typeStrIn: String, name1In: String, fArg1In: R => A1, name2In: String, fArg2In: R => A2, opt2In: Option[A2] = None,
-                        opt1In: Option[A1] = None)(implicit ev1In: ShowT[A1], ev2In: ShowT[A2]): Show2T[A1, A2, R] = new Show2T[A1, A2, R]
+    opt1In: Option[A1] = None)(implicit ev1In: ShowT[A1], ev2In: ShowT[A2]): Show2T[A1, A2, R] = new Show2T[A1, A2, R]
   {
     override def typeStr: String = typeStrIn
     override def name1: String = name1In

@@ -6,24 +6,29 @@ package ostrat
  * [[ShowProductT]]. */
 trait ShowProduct extends Any with Show
 {
-  def strs(way: Show.Way, decimalPlaces: Int): Strings
+  /** A [[Strings]] Arr collection  of the show methods return values of the elements of this Show Product class. */
+  def shows(way: Show.Way, decimalPlaces: Int): Strings
+
+  /** A [[Strings]] Arr of the element names of this Show Product class. */
   def elemNames: Strings
+
+  /** A [[Strings]] Arr of the element type names of this Show Product class. */
   def elemTypeNames: Strings
 
   override def show(way: Show.Way, decimalPlaces: Int): String =
-  { def semisStr = strs(Show.Commas, decimalPlaces).mkStr("; ")
+  { def semisStr = shows(Show.Commas, decimalPlaces).mkStr("; ")
 
     way match
     { case Show.Semis => semisStr
-      case Show.Commas => strs(Show.Standard, decimalPlaces).mkStr(", ")
+      case Show.Commas => shows(Show.Standard, decimalPlaces).mkStr(", ")
 
       case Show.StdFields =>
-      { val inner = elemNames.zipMap(strs(Show.Standard, decimalPlaces))((n, s) => n + " = " + s).mkStr(", ")
+      { val inner = elemNames.zipMap(shows(Show.Standard, decimalPlaces))((n, s) => n + " = " + s).mkStr(", ")
         typeStr + inner.enParenth
       }
 
       case Show.StdTypedFields =>
-      { val inner = elemNames.zipMap2(elemTypeNames,strs(Show.Standard, decimalPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr(", ")
+      { val inner = elemNames.zipMap2(elemTypeNames,shows(Show.Standard, decimalPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr(", ")
         typeStr + inner.enParenth
       }
 
