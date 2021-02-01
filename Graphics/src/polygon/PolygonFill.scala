@@ -42,9 +42,9 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
 
   override def scaleXY(xOperand: Double, yOperand: Double): PolygonFill = ???
 
-  override def productElement(n: Int): Any = ???
+  //override def productElement(n: Int): Any = ???
 
-  override def canEqual(that: Any): Boolean = ???
+  //override def canEqual(that: Any): Boolean = ???
 }
 
 /** Companion object for PolygonFill trait. Contains an implementation class [[PolygonFillImp]], a factory method returning the PolygonFill type and

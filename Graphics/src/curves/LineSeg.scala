@@ -23,11 +23,8 @@ final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, va
   def startPt: Pt2 = xStart pp yStart
   def endPt: Pt2 = xEnd pp yEnd
 
-  override def productArity: Int = ???
-  override def productElement(n: Int): Any = ???
-
-  override def canEqual(that: Any): Boolean = that match
-  { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }
+  /*override def canEqual(that: Any): Boolean = that match
+  { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }*/
 
   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(xStart, yStart, xEnd, yEnd)
   def ptsTrans(f: Pt2 => Pt2): LineSeg = LineSeg(f(pStart), f(pEnd))

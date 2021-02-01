@@ -79,8 +79,8 @@ object Square extends ShapeIcon
      * thought of as vertex 2.5. */
     override def sd3CenY: Double = ???
 
-    override def productArity: Int = 3
-    override def productElement(n: Int): Any = 4
+   // override def productArity: Int = 3
+    //override def productElement(n: Int): Any = 4
     override def toString: String = s"SquareClass($v1x, $v1y; $v2x, $v2y)"
   }
 

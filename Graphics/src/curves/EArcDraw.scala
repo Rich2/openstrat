@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import pCanv._
@@ -55,8 +55,6 @@ trait EArcDraw extends CurveSegDraw with CanvElem
   /** Shear 2D geometric transformation along the Y Axis on a EArcDraw, returns a EArcDraw. The return type will be narrowed in sub classes and
    * traits. */
   override def shearY(operand: Double): EArcDraw = ???
-
-  override def canEqual(that: Any): Boolean = ???
 }
 
 /** Companion object ofr the EArcDraw trait, contins the general implementation class [[EArcDrawImp]] and an apply factor method that delegates to

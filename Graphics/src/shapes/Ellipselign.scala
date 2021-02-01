@@ -100,8 +100,8 @@ object Ellipselign
     /** The 2D vector [[Vec2]] from the centre point to pAxes4, the end point of axis 2, by default at the top of the Ellipse this arc is based on. */
     override def cenP4: Vec2 = ???
 
-    override def productArity: Int = ???
+    //override def productArity: Int = ???
 
-    override def productElement(n: Int): Any = ???
+    //override def productElement(n: Int): Any = ???
   }
 }

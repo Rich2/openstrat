@@ -14,12 +14,6 @@ class LineSegs(val arrayUnsafe: Array[Double]) extends Dbl4sArr[LineSeg] with Af
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
   override def ptsTrans(f: Pt2 => Pt2): LineSegs = pMap(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
 
-  override def canEqual(that: Any): Boolean = ???
-
-  override def productArity: Int = ???
-
-  override def productElement(n: Int): Any = ???
-
   def ptInPolygon(pt: Pt2): Boolean =
   { val num = foldLeft(0)((acc, line) => acc + ife(line.rayIntersection(pt), 1, 0))
     num.isOdd

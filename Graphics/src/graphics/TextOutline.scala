@@ -12,11 +12,11 @@ class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: D
 
   override def negY: TextOutline = ???
 
-  override def productArity: Int = 8
+  /*override def productArity: Int = 8
 
   override def productElement(n: Int): Any = ???
 
-  override def canEqual(that: Any): Boolean = ???
+  override def canEqual(that: Any): Boolean = ???*/
 }
 
 object TextOutline

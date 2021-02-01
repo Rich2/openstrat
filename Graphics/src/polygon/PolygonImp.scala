@@ -20,8 +20,8 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   @inline override def vertsArray: Array[Double] = arrayUnsafe
   override def typeStr: String = "Polygon"
   override def vertsNum: Int = arrayUnsafe.length / 2 - dblsNumOffset
-  override def productArity: Int = 1
-  override def productElement(n: Int): Any = arrayUnsafe
+  //override def productArity: Int = 1
+  //override def productElement(n: Int): Any = arrayUnsafe
   override def foldLeft[B](initial: B)(f: (B, Pt2) => B): B = super.foldLeft(initial)(f)
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)

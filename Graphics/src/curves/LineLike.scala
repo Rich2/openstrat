@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -46,12 +46,6 @@ class Ray private(x0: Double, y0: Double, angleSecs: Double) extends LineLike
 
   /** Shear 2D geometric transformation along the Y Axis on a Ray. The return type will be narrowed in sub classes and traits. */
   override def shearY(operand: Double): Ray = ???
-
-  override def productArity: Int = ???
-
-  override def productElement(n: Int): Any = ???
-
-  override def canEqual(that: Any): Boolean = ???
 }
 
 /** Companion object for the Ray class, contains apply factory methods. */

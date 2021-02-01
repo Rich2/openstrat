@@ -10,11 +10,11 @@ class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Vec2sLike
   def unsafeFromArray(array: Array[Double]): Pt2s = new Pt2s(array)
   override def typeStr: String = "P2s"
 
-  override def canEqual(that: Any): Boolean = ???
+  /*override def canEqual(that: Any): Boolean = ???
 
   override def productArity: Int = ???
 
-  override def productElement(n: Int): Any = ???
+  override def productElement(n: Int): Any = ???*/
 
   @inline def lengthFull: Int = arrayUnsafe.length / 2
   @inline def xStart: Double = arrayUnsafe(0)

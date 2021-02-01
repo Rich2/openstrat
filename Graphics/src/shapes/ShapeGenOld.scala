@@ -15,11 +15,11 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends /* Shape with */ Dbl7s
   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
     new CurveTail(iMatch, d1, d2, d3, d4, d5, d6)
 
-  override def canEqual(that: Any): Boolean = ???
+  //override def canEqual(that: Any): Boolean = ???
 
-  override def productArity: Int = ???
+  //override def productArity: Int = ???
 
-  override def productElement(n: Int): Any = ???
+  //override def productElement(n: Int): Any = ???
   def ptsTrans(f: Pt2 => Pt2): ShapeGenOld =
   { val newArray = new Array[Double](elemsLen * 7)
     def setMiddle(offset: Int): Unit =

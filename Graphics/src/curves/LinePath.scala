@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -6,17 +6,11 @@ package geom
  *  cost. */
 class LinePath(val arrayUnsafe: Array[Double]) extends Dbl2sArr[Pt2] with AffinePreserve with Vec2sLikeProdDbl2
 { type ThisT = LinePath
-  //type ThisT = LinePath
   def unsafeFromArray(array: Array[Double]): LinePath = new LinePath(array)
   override def typeStr: String = "LinePath"
 
   //override def toString: String = LinePath.LinePathPersist.show(this)
   // override def elemBuilder(d1: Double, d2: Double): Vec2 = Vec2.apply(d1, d2)
-  override def canEqual(that: Any): Boolean = ???
-
-  override def productArity: Int = ???
-
-  override def productElement(n: Int): Any = ???
   
   @inline def lengthFull: Int = arrayUnsafe.length / 2
   @inline def xStart: Double = arrayUnsafe(0)
@@ -36,12 +30,9 @@ class LinePath(val arrayUnsafe: Array[Double]) extends Dbl2sArr[Pt2] with Affine
   def draw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this, lineWidth, colour)
 }
 
+/** Companion object for LinePath contains apply factory object and Persist type class instance. */
 object LinePath extends Dbl2sArrCompanion[Pt2, LinePath]
 {
-  implicit val persistImplicit: Dbl2sArrPersist[Pt2, LinePath] = new Dbl2sArrPersist[Pt2, LinePath]("LinePath")
-  { override def fromArray(value: Array[Double]): LinePath = new LinePath(value)
-  }
-
   def apply(pStart: Pt2, pEnds: Pt2 *): LinePath =
   { val array = new Array[Double](pEnds.length * 2 + 2)
     array(0) = pStart.x
@@ -54,11 +45,8 @@ object LinePath extends Dbl2sArrCompanion[Pt2, LinePath]
     }
     new LinePath(array)
   }
-  
-}
 
-/** Companion object for the Vec2s collection class. */
-//object LineSegs
-//{
-//  
-//}
+  implicit val persistImplicit: Dbl2sArrPersist[Pt2, LinePath] = new Dbl2sArrPersist[Pt2, LinePath]("LinePath")
+  { override def fromArray(value: Array[Double]): LinePath = new LinePath(value)
+  }
+}

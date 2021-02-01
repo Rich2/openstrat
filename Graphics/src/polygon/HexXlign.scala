@@ -64,9 +64,6 @@ final class HexXlign(val height: Double, val cenX: Double, val cenY: Double) ext
   override def sd6CenY: Double = cenY + radiusIn * Sin30
   override def sd6Cen: Pt2 = sd6CenX pp sd6CenY
 
-  override def productArity: Int = 3
-  override def productElement(n: Int): Any = ???
-
   /** Translate 2D geometric transformation on this HexXlign returns a HexXlign. */
   override def slateXY(xOffset: Double, yOffset: Double): HexXlign = HexXlign(diameterIn, cen.addXY(xOffset, yOffset))
 

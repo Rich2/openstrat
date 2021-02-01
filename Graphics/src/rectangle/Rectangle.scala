@@ -148,8 +148,8 @@ object Rectangle
   {
     override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd2Cen), f(sd4Cen), f(v1))
 
-    override def productArity: Int = 5
-    override def productElement(n: Int): Any = ???
+   // override def productArity: Int = 5
+   // override def productElement(n: Int): Any = ???
   }
 
   object RectangleImp

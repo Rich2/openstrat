@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -39,12 +39,6 @@ sealed trait Line extends LineLike
   override def shearX(operand: Double): Line = ???
 
   override def shearY(operand: Double): Line = ???
-
-  override def productArity: Int = ???
-
-  override def productElement(n: Int): Any = ???
-
-  override def canEqual(that: Any): Boolean = ???
 }
 
 /** An infinite length 2 dimensional straight line defined in terms of its X value and and an offset. It is defined for all values of Y, but not

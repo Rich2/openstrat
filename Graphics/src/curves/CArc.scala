@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
@@ -61,12 +61,6 @@ class CArc private(val xStart: Double, val yStart: Double, val cenX: Double, val
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a CArc returns a CArc. */
   override def reflect(lineLike: LineLike): CArc = CArc(pStart.reflect(lineLike), cen.reflect(lineLike), pEnd.reflect(lineLike), counter)
-
-  override def productArity: Int = ???
-
-  override def productElement(n: Int): Any = ???
-
-  override def canEqual(that: Any): Boolean = ???
 
   /* EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc. */
 
