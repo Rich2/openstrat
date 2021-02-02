@@ -8,6 +8,20 @@
 <body>
 <h1>Util Module</h1>
 <div class ="main">
+	<h2>Contents</h2>
+	The Util module contains
+	<ol>
+		<li>Functional error system.
+		<li>Parser for tokens and AST.</li>
+		<li>Show and persistence frame work</li>
+		<li>Immutable Array based collection system inlcuding flat Array[Int] and Array[double] based compound value collections of same length elements.
+		</li>
+	</ol>
+
+</div>
+
+<div class ="main">
+	<h2>Tokeniser</h2>
   <table>
     <tr><td>LetterChar</td>                  <td>= unicode_letter | '_'</td></tr>
     <tr><td>NonZeroDigit</td>                <td>= '1' ... '9'</td></tr>
@@ -25,6 +39,9 @@
     <tr><td>IdentifierToken</td>             <td>= letter | UnderscoreThenLetterOrDigit, { LetterOrDigitChar | UnderscoreThenLetterOrDigit }</td></tr>
     <tr><td>DeciLitToken</td>                <td>= '0' | (NonZeroDigit { DigitChar })</td></tr>
   </table>
+</div>
+<div class="main">
+	<h2>Abstract Syntax Tree</h2>
   <p>AST Precedence From lowest to highest after brace block parsing.
   	<ul>
   	  <li>SemicolonToken Delimits the end of a Statement. The last Statement of a block /file may have, but does not need a need a trailing Semicolon. A statement without commas is considered Unclaused.</li>
