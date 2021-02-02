@@ -33,8 +33,9 @@ object IntTokenTest extends TestSuite
 
     "General" -
     {
-      //assertMatch("4".parseTokens){ case Good(Arr1(NatBase32Token(Sp1, "4"))) => }
+      assertMatch("4".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "4"))) => }
       assertMatch("45".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "45"))) => }
+      //assertMatch("4A".parseTokens){ case Good(Arr1(NatRawHexaToken(Sp1, "4A"))) => }
       //assertMatch("45".parseTokens){ case Good(Arr1(NatBase32Token(Sp1, "45"))) => }
       assertMatch("4.5".parseTokens){ case Good(Arr3(NatDeciToken(Sp1, "4"), DotToken(Sp2), NatDeciToken(Sp3, "5"))) => }
       assertMatch("\"45\"".parseTokens){ case Good(Arr1(StringToken(Sp1, "45"))) => }

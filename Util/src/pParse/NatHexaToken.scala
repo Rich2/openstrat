@@ -29,6 +29,11 @@ object NatRawHexaToken
     override def subTypeStr: String = "HexaRaw"
     override def digitsStr = srcStr
   }
+
+  def unapply(input: Any): Option[(TextPosn, String)] = input match {
+    case nrht: NatRawHexaToken => Some((nrht.startPosn, nrht.digitsStr))
+    case _ => None
+  }
 }
 
 /** A 64 bit integer token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit Ints and
