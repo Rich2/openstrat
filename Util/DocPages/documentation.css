@@ -8,7 +8,16 @@ h1
   font-size: 44px;
 }
 
-ol li {	margin: 1em; }
+ol {
+    padding-left: 0;
+}​
+
+ol li {	
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom 2em;
+  margin-top 2em;
+}
 
 ul li {	margin: 0.25em; }
 
