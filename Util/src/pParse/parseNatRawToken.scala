@@ -10,6 +10,7 @@ object parseNatRawToken
   {
     def deciLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
     { case CharsOff1Tail(d, tail) if d.isDigit => deciLoop(tail, str + d.toString)
+      case CharsOff1Tail(HexaUpperChar(l), tail) => hexaLoop(tail, str + l.toString)
 
       case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
     }

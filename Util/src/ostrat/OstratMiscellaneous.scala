@@ -76,6 +76,27 @@ object HexaDigitChar
   }
 }
 
+/** An upper case Hexadecimal letter, 'A' .. 'F'. */
+object HexaUpperChar
+{
+  def unapply(input: Char): Option[Char] = input match
+  { case l if l <= 'F' && l >= 'A' => Some(l)
+    case c => None
+  }
+}
+
+/** An upper case Hexadecimal letter, 'A' .. 'F'. */
+object Base32UpperChar
+{
+  def unapply(input: Char): Option[(Char, Int)] = input match
+  { case l if l <= 'H' && l >= 'A' => Some((l, l - 'A' + 10))
+    case l if l <= 'N' && l >= 'J' => Some((l, l - 'A' + 10))
+    case c => None
+  }
+}
+
+
+
 object Base32Char
 {
   def unapply(input: Char): Option[(Char, Int)] = input match

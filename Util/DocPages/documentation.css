@@ -9,21 +9,19 @@ h1
 }
 
 ol {
-    padding-left: 0;
+    padding-left: 1em;
 }​
 
-ol li {	
-  margin-left: 0;
-  margin-right: 0;
+ol li {  
   margin-bottom 2em;
   margin-top 2em;
 }
 
 ul li {	margin: 0.25em; }
 
-ol ul{
-  margin-left:0.8em;
-  padding-left: 0.8em;
+ol > li
+{ margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 
