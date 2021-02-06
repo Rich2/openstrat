@@ -31,6 +31,8 @@ ol > li
   margin-right: auto;  
 }
 
+.lexical { color: DarkBlue; }
+
 code { color: DarkRed; }
 .sbt {color: DarkGreen;}
 

@@ -17,24 +17,35 @@
 		<li>Immutable Array based collection system inlcuding flat Array[Int] and Array[double] based compound value collections of same length elements.
 		</li>
 	</ol>
-
 </div>
 
 <div class ="main">
 	<h2>Tokeniser</h2>
 	<p>The Tokeniser will create the following tokens
 		<ul>
-			<li>Keytokens _ ? ?? ???</li>
-			<li>Identifiers alphanumeric tokens starting with a letter that can contain, alphabetic, numerical and underscore characters. Includes values such as if, IF true and TRUE.</li>
+			<li>Keytokens <span class=lexical>_ ? ?? ???</span></li>
+			<li>Identifiers alphanumeric tokens starting with a letter that can contain, alphabetic, numerical and underscore characters.</li>
 			<li>Operators</li>
-			<li>numeric literals 7, 7f 7.01, 7.01d, 6.02e23, 6.02e-23, 6.02e-23d, 724F, 724W, 3.0.0, 3.0.1rc, 192.168.1.1</li>
+			<li>numeric literals <span class=lexical>7, 7f 7.01, 7.01d, 6.02e23, 6.02e-23, 6.02e-23d, 724F, 724W, 3.0.0, 3.0.1rc, 192.168.1.1</span></li>
 			<li>Seperators , . .. ... { } etc.</li>
 			<li>String literals</li>
-			<li>Character literals</li>
-			
+			<li>Character literals</li>			
 			<li>Comments</li>
 		</ul>
 	</p>
+
+	<p>KeyTokens, Identifiers, and literals are all expressions. Operators, seperators and comments are not. Identifers includes lexemes such as
+	 <span class=lexical>if, IF true and TRUE</span>. There are no alphabetic keywords in RSON syntax. Consumers of RSON syntax can of course treat	what
+	  ever identifers they want as keywords appropriate to their use case. Identifers are categorised into 3 types.
+	  <ul>
+	  	<li>IdentUnder An identifer beginning with an undrscore character</li>
+			<li>IdentLow And identifer beginning with a lower case alphabetic character.</li>
+			<li>IdentUp An identifer beginning with an upper case alphabetic character. Some of these tokens will also be consider valid raw Base32 tokens,
+			 and a subset of these will also be considered valid raw Hexadecimals, however all the alphabetic characters must be lower case.
+			</li>
+		</ul>
+	</p>
+
   <table>
     <tr><td>LetterChar</td>                  <td>= unicode_letter | '_'</td></tr>
     <tr><td>NonZeroDigit</td>                <td>= '1' ... '9'</td></tr>
