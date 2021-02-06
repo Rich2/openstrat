@@ -22,6 +22,19 @@
 
 <div class ="main">
 	<h2>Tokeniser</h2>
+	<p>The Tokeniser will create the following tokens
+		<ul>
+			<li>Keytokens _ ? ?? ???</li>
+			<li>Identifiers alphanumeric tokens starting with a letter that can contain, alphabetic, numerical and underscore characters. Includes values such as if, IF true and TRUE.</li>
+			<li>Operators</li>
+			<li>numeric literals 7, 7f 7.01, 7.01d, 6.02e23, 6.02e-23, 6.02e-23d, 724F, 724W, 3.0.0, 3.0.1rc, 192.168.1.1</li>
+			<li>Seperators , . .. ... { } etc.</li>
+			<li>String literals</li>
+			<li>Character literals</li>
+			
+			<li>Comments</li>
+		</ul>
+	</p>
   <table>
     <tr><td>LetterChar</td>                  <td>= unicode_letter | '_'</td></tr>
     <tr><td>NonZeroDigit</td>                <td>= '1' ... '9'</td></tr>
