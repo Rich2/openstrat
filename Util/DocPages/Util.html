@@ -26,7 +26,7 @@
 			<li>Keytokens <span class=lexical>_ ? ?? ???</span></li>
 			<li>Identifiers alphanumeric tokens starting with a letter that can contain, alphabetic, numerical and underscore characters.</li>
 			<li>Operators</li>
-			<li>numeric literals <span class=lexical>7, 7f 7.01, 7.01d, 6.02e23, 6.02e-23, 6.02e-23d, 724F, 724W, 3.0.0, 3.0.1rc, 192.168.1.1</span></li>
+			<li>numeric literals <span class=lexical>7, 7f 7.01, 7.01d, , 724F, 724W, 3.0.0, 3.0.1rc, 192.168.1.1</span></li>
 			<li>Seperators , . .. ... { } etc.</li>
 			<li>String literals</li>
 			<li>Character literals</li>			
@@ -43,6 +43,13 @@
 			<li>IdentUp An identifer beginning with an upper case alphabetic character. Some of these tokens will also be consider valid raw Base32 tokens,
 			 and a subset of these will also be considered valid raw Hexadecimals, however all the alphabetic characters must be lower case.
 			</li>
+		</ul>
+		Numerical literals come in 4 types. All 4 types can have optional trailing lower case alphabetic characters at the end of the token.
+		<ul>
+			<li>Floating point numbers <span class=lexical>6.02e23, 6.02e-23, 6.02e-23d</span> .Note this is the only case where a negative or dash
+			 character is included as part of a token.
+			</li>
+			<li>Explicit hexadecimals 0x433A 0x2222
 		</ul>
 	</p>
 
