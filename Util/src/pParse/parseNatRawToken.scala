@@ -17,7 +17,7 @@ object parseNatRawToken
 
     def hexaLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
     { case CharsOff1Tail(d, tail) if d.isDigit => hexaLoop(tail, str + d.toString)
-      case _ => Good3(rem, tp.addStr(str), NatRawHexaToken(tp, str))
+      case _ => Good3(rem, tp.addStr(str), NatRawHexaLetterToken(tp, str))
     }
 
     def base32Loop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = ???

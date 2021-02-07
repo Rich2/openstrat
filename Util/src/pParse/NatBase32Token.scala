@@ -10,19 +10,15 @@ trait NatBase32Token extends NatToken
   def asbase32: Int = ???
 }
 
+trait NatBase32RawToken extends NatToken
+
 /** A raw base 32 natural number token includes valid standard decimal natural number and raw hexadecimal tokens. */
 trait NatRawToken extends NatBase32Token
 
-object NatBase32Token
-{
-  /** A raw natural integer token for base32 that is not a valid hexadecimal or decimal number */
-  def apply(startPosnIn: TextPosn, srcStrIn: String): NatRawToken = new NatRawToken
-  {
-    val startPosn: TextPosn = startPosnIn
-    val srcStr: String = srcStrIn
-    override def subTypeStr: String = "Base32Raw"
-    override def digitsStr: String = srcStr
-  }
+/** A raw natural Base32 integer token starting with a digit that is not a valid hexadecimal or decimal number. */
+case class Nat32OnlyToken(startPosn: TextPosn, srcStr: String) extends NatRawToken
+{ override def subTypeStr: String = "Base32Raw"
+  override def digitsStr: String = srcStr
 }
 
 /** An unambiguous base32 natural number token, starts with the 0z characters. */

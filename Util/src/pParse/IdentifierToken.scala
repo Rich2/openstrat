@@ -41,6 +41,19 @@ case class IdentifierHexaToken(startPosn: TextPosn, srcStr: String) extends Iden
 }
 
 /** A valid identifier beginning with a lowercase letter or an underscore character. */
-case class IdentifierLwToken(startPosn: TextPosn, srcStr: String) extends IdentifierToken
+trait IdentifierLwToken extends IdentifierToken
+{ override def subTypeStr: String = "IdentifierLower"
+}
+
+object IdentifierLwToken
+{
+  def unapply(input: Any): Option[(TextPosn, String)] = input match {
+    case il: IdentifierLwToken => Some((il.startPosn, il.srcStr))
+    case _ => None
+  }
+}
+
+/** A valid identifier beginning with a lowercase letter or an underscore character. */
+case class IdentifierLwNo32Token(startPosn: TextPosn, srcStr: String) extends IdentifierLwToken
 { override def subTypeStr: String = "IdentifierLower"
 }

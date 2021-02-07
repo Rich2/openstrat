@@ -22,19 +22,18 @@ trait NatRawHexaToken extends NatRawToken
 
 object NatRawHexaToken
 {
-  /** Raw hexadecimal integer starting with a digit that includes one or more 'A' .. 'F' digits */
-  def apply(startPosnIn: TextPosn, srcStrIn: String): NatRawHexaToken = new NatRawHexaToken with NatHexaToken
-  { val startPosn: TextPosn = startPosnIn
-    val srcStr: String = srcStrIn
-    override def subTypeStr: String = "HexaRaw"
-    override def digitsStr = srcStr
-  }
-
   def unapply(input: Any): Option[(TextPosn, String)] = input match {
     case nrht: NatRawHexaToken => Some((nrht.startPosn, nrht.digitsStr))
     case _ => None
   }
 }
+
+/** Raw hexadecimal integer starting with a digit that includes one or more 'A' .. 'F' digits */
+case class NatRawHexaLetterToken(startPosn: TextPosn, srcStr: String) extends NatRawHexaToken //= new NatRawHexaToken with NatHexaToken
+{ override def subTypeStr: String = "HexaRaw"
+ override def digitsStr = srcStr
+}
+
 
 /** A 64 bit integer token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit Ints and
  *  64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract
