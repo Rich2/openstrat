@@ -18,7 +18,7 @@ object IdentifierTokenTest extends TestSuite
   {
     "Parse" -
     {
-      assertMatch(r1){ case Good3(CharsOff(3), StrPosn(1, 4), IdentifierUpToken(_, _)) => }
+      assertMatch(r1){ case Good3(CharsOff(3), StrPosn(1, 4), IdentUpToken(_, _)) => }
       assertMatch(r2){ case Good3(CharsOff(3), StrPosn(1, 4), IdentifierLwToken(_, _)) => }
       assertMatch(r3){ case Good3(CharsOff(3), StrPosn(1, 4), IdentifierLwToken( _, _)) => }
     }

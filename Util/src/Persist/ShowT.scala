@@ -138,7 +138,7 @@ object ShowT
 
     override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
     { case SemicolonToken(_) => Good(Array[Int]())
-      case AlphaBracketExpr(IdentifierUpToken(_, "Seq"), Arr2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
+      case AlphaBracketExpr(IdentUpToken(_, "Seq"), Arr2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
       //sts.eMap[Int](_.errGet[Int](evA)).map(_.array)
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
@@ -151,8 +151,8 @@ object ShowT
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
 
     override def fromExpr(expr: ParseExpr): EMon[ArraySeq[A]] =  expr match
-    { case AlphaBracketExpr(IdentifierUpToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
-      case AlphaBracketExpr(IdentifierUpToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+    { case AlphaBracketExpr(IdentUpToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
+      case AlphaBracketExpr(IdentUpToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
     }
 
@@ -195,7 +195,7 @@ object ShowT
     override def showT(obj: Some[A], way: Show.Way, decimalPlaces: Int): String = ???
 
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
-    { case AlphaBracketExpr(IdentifierUpToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
+    { case AlphaBracketExpr(IdentUpToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
       case expr => ev.fromExpr(expr).map(Some(_))
     }
   }

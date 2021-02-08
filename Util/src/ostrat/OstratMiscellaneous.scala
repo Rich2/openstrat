@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 trait IsType[A <: AnyRef]
@@ -110,19 +110,18 @@ object Base32Char
   }
 }
 
-object HexaLetterChar
-{
+/** Extractor object for hexadecimal alphabetic upper case characters. */
+object HexaUpChar
+{ /** Extractor method for hexadecimal alphabetic upper case characters. */
   def unapply(input: Char): Option[Char] = input match
-  {
-    case l if l <= 'F' && l >= 'A' => Some(l)
+  { case l if l <= 'F' && l >= 'A' => Some(l)
     case _ => None
   }
 }
 
-
-
-object TrigdualChar
-{
+/** Extractor object for Base 32 digits or alphabetic lower case characters. */
+object Base32LowChar
+{ /** Extractor method for Base 32 alphabetic lower case characters. */
   def unapply(input: Char): Option[Char] = input match
   {
     case n if n.isDigit => Some(n)
@@ -132,18 +131,31 @@ object TrigdualChar
   }
 }
 
+/** Extractor object for Base 32 alphabetic upper case characters. */
+object Base32UpChar
+{ /** Extractor method for Base 32 digits and alphabetic upper case characters. */
+  def unapply(input: Char): Option[Char] = input match
+  { case n if n.isDigit => Some(n)
+    case c if 'N' >= c & c >= 'A' => Some(c)
+    case c if 'W' >= c & c >= 'N' => Some(c)
+    case _ => None
+  }
+}
+
+/** Extractor object for whitespace characters. */
 object WhitespaceChar
-{
+{ /** Extractor method for whitespace characters. */
   def unapply(input: Char): Option[Char] = input match
   { case c if c.isWhitespace => Some(c)
     case _ => None
   }
 }
 
+/** Extractor object for operator characters. */
 object OperatorChar
-{
+{ /** Extractor method for operator characters. */
   def unapply(input: Char): Option[Char] = input match
-{ case c if pParse.isOperator(c) => Some(c)
-  case _ => None
-}
+  { case c if pParse.isOperator(c) => Some(c)
+    case _ => None
+  }
 }

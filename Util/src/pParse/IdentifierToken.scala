@@ -5,37 +5,46 @@ package pParse
 /** An alphanumeric token beginning with an alphabetic character that normally represents a name of something, that identifies something. */
 trait IdentifierToken extends ExprToken
 
-/** An alphanumeric token beginning with an alphabetic character. */
-trait IdentifierUpToken extends IdentifierToken
-
-object IdentifierUpToken
+/** An identifier token beginning with an underscore character. */
+case class IdentUnderToken(startPosn: TextPosn, srcStr: String) extends IdentifierToken
 {
-  def apply(startPosn: TextPosn, srcStr: String): IdentifierUpToken = IdentifierUpTokenImp(startPosn, srcStr)
+  override def subTypeStr: String = "IndentUnder"
+}
 
+/** An alphanumeric identifier token beginning with an upper case alphabetic character. */
+trait IdentUpToken extends IdentifierToken
+
+object IdentUpToken
+{
+  def apply(startPosn: TextPosn, srcStr: String): IdentUpToken = IdentifierUpTokenImp(startPosn, srcStr)
+
+  /** Extractor method for [[identUp]] type. */
   def unapply(inp: Any): Option[(TextPosn, String)] = inp match
-  {
-    case iup: IdentifierUpToken => Some((iup.startPosn, iup.srcStr))
+  { case iup: IdentUpToken => Some((iup.startPosn, iup.srcStr))
     case _ => None
   }
 
   /** An alpha-numeric token beginning with an uppercase letter that represents a name of something, that identifies something. */
-  case class IdentifierUpTokenImp(startPosn: TextPosn, srcStr: String) extends IdentifierUpToken {
+  case class IdentifierUpTokenImp(startPosn: TextPosn, srcStr: String) extends IdentUpToken {
     override def subTypeStr: String = "IdentifierUpper"
   }
 }
 
 /** An alphanumeric token beginning with an alphabetic character that most commonly represents a name of something, but is also a valid raw Base32
  *  Token. */
-trait IdentifierBase32Token extends IdentifierUpToken with NatBase32Token
+trait IdentUpBase32Token extends IdentUpToken with NatBase32Token
 
-object IdentifierBase32Token
-{
-  case class IdentifierBase32TokenImp(startPosn: TextPosn, srcStr: String) extends IdentifierUpToken {
-    override def subTypeStr: String = "IdentifierBase32"
-  }
+//trait IdentUpBase32Token extends
+
+case class IdentUpBase32NoHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpToken
+{ override def subTypeStr: String = "IdentifierBase32"
 }
 
-case class IdentifierHexaToken(startPosn: TextPosn, srcStr: String) extends IdentifierBase32Token with NatHexaToken
+/** An identifier Token that is also a valid raw hexadecimal raw Base32 token. */
+trait IdentHexaToken extends NatHexaToken
+
+/** An identifier that is also a valid raw hexadecimal token. */
+case class IdentUpHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpBase32Token with IdentHexaToken
 { override def subTypeStr: String = "IdentifierHexa"
   override def digitsStr: String = srcStr
 }
@@ -53,7 +62,12 @@ object IdentifierLwToken
   }
 }
 
-/** A valid identifier beginning with a lowercase letter or an underscore character. */
-case class IdentifierLwNo32Token(startPosn: TextPosn, srcStr: String) extends IdentifierLwToken
+/** An identifier beginning with a lowercase that is not a valid raw Base32 or hexadecimal token. */
+case class IdentLowHexaToken(startPosn: TextPosn, srcStr: String) extends IdentifierLwToken
+{ override def subTypeStr: String = "IdentifierLower"
+}
+
+/** An identifier beginning with a lowercase that is not a valid raw Base32 or hexadecimal token. */
+case class IdentLowOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentifierLwToken
 { override def subTypeStr: String = "IdentifierLower"
 }

@@ -15,9 +15,9 @@ object srcToETokensTest extends TestSuite
     { Sp1 ==> StrPosn(1, 1)
 
       assertMatch("\'a\'".parseTokens){ case Good(Arr1(CharToken(_, 'a'))) => }
-      assertMatch("MyId".parseTokens){ case Good(Arr1(IdentifierUpToken(Sp1, "MyId"))) => }
-      assertMatch("My3".parseTokens){ case Good(Arr1(IdentifierUpToken(Sp1, "My3"))) => }
-      assertMatch("My3Id".parseTokens){ case Good(Arr1(IdentifierUpToken(Sp1, "My3Id"))) => }
+      assertMatch("MyId".parseTokens){ case Good(Arr1(IdentUpToken(Sp1, "MyId"))) => }
+      assertMatch("My3".parseTokens){ case Good(Arr1(IdentUpToken(Sp1, "My3"))) => }
+      assertMatch("My3Id".parseTokens){ case Good(Arr1(IdentUpToken(Sp1, "My3Id"))) => }
       assertMatch("ab3_5fG".parseTokens){ case Good(Arr1(IdentifierLwToken(Sp1, "ab3_5fG"))) => }
 
       assertMatch(",".parseTokens){ case Good(Arr1(CommaToken(Sp1))) => }
@@ -34,7 +34,7 @@ object srcToETokensTest extends TestSuite
       "#".parseTokens.isBad ==> true
     }
 
-    val C1 = IdentifierUpToken(Sp1, "Colour")
+    val C1 = IdentUpToken(Sp1, "Colour")
     val st1 = """appStr = "20";
     displayX = 0;
     displayY = 0;"""
