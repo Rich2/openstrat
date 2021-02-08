@@ -15,10 +15,12 @@ object srcToETokensTest extends TestSuite
     { Sp1 ==> StrPosn(1, 1)
 
       assertMatch("\'a\'".parseTokens){ case Good(Arr1(CharToken(_, 'a'))) => }
-      assertMatch("MyId".parseTokens){ case Good(Arr1(IdentUpToken(Sp1, "MyId"))) => }
-      assertMatch("My3".parseTokens){ case Good(Arr1(IdentUpToken(Sp1, "My3"))) => }
-      assertMatch("My3Id".parseTokens){ case Good(Arr1(IdentUpToken(Sp1, "My3Id"))) => }
-      assertMatch("ab3_5fG".parseTokens){ case Good(Arr1(IdentifierLwToken(Sp1, "ab3_5fG"))) => }
+      assertMatch("ZyId".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "ZyId"))) => }
+      //assertMatch("MyId".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "MyId"))) => }
+      //assertMatch("MyId".parseTokens){ case Good(Arr1(IdentUpperOnlyToken(_, "MyId"))) => }
+      //assertMatch("My3".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "My3"))) => }
+     // assertMatch("My3Id".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "My3Id"))) => }
+      assertMatch("ab3_5fG".parseTokens){ case Good(Arr1(IdentLowerToken(Sp1, "ab3_5fG"))) => }
 
       assertMatch(",".parseTokens){ case Good(Arr1(CommaToken(Sp1))) => }
       assertMatch("{".parseTokens){ case Good(Arr1(CurlyOpenToken(Sp1))) => }
@@ -34,7 +36,7 @@ object srcToETokensTest extends TestSuite
       "#".parseTokens.isBad ==> true
     }
 
-    val C1 = IdentUpToken(Sp1, "Colour")
+    val C1 = IdentUpperOnlyToken(Sp1, "Colour")
     val st1 = """appStr = "20";
     displayX = 0;
     displayY = 0;"""
@@ -49,7 +51,7 @@ object srcToETokensTest extends TestSuite
       assertMatch("Colour(0xFF000000)".parseTokens){ case Good(Arr4(C1, ParenthOpenToken(_), Nat0xToken(_, "FF000000"), ParenthCloseToken(_))) => }
       assertMatch(et1){case Good(_) => }
       r1.elemsLen ==> 12
-      assertMatch(r1){ case ArrHead4(IdentifierLwToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
+      assertMatch(r1){ case ArrHead4(IdentLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
     }
 
     val st2 = """/* This is a comment."""
@@ -69,7 +71,7 @@ object srcToETokensTest extends TestSuite
       assertMatch(et5){case Good(_) => }
       r5.elemsLen ==> 12
       ro6.length ==> 8
-      assertMatch(r5(4)){ case IdentifierLwToken(_, "displayX") => }
+     // assertMatch(r5(4)){ case IdentLowerToken(_, "displayX") => }
     }
 
     "Neg" -

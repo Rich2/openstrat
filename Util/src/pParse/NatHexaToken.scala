@@ -42,6 +42,7 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToke
 { override def subTypeStr: String = "Decimal"
   override def digitsStr: String = srcStr
 
+  /** gets the natural integer value from this token interpreting it as a standard Base10 notation. */
   def getInt: Int =
   { var acc = 0
     implicit val chars: Chars = srcStr.toChars

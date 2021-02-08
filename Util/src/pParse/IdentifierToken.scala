@@ -12,62 +12,65 @@ case class IdentUnderToken(startPosn: TextPosn, srcStr: String) extends Identifi
 }
 
 /** An alphanumeric identifier token beginning with an upper case alphabetic character. */
-trait IdentUpToken extends IdentifierToken
+trait IdentUpperToken extends IdentifierToken
 
-object IdentUpToken
+object IdentUpperToken
 {
-  def apply(startPosn: TextPosn, srcStr: String): IdentUpToken = IdentifierUpTokenImp(startPosn, srcStr)
-
   /** Extractor method for [[identUp]] type. */
   def unapply(inp: Any): Option[(TextPosn, String)] = inp match
-  { case iup: IdentUpToken => Some((iup.startPosn, iup.srcStr))
+  { case iup: IdentUpperToken => Some((iup.startPosn, iup.srcStr))
     case _ => None
-  }
-
-  /** An alpha-numeric token beginning with an uppercase letter that represents a name of something, that identifies something. */
-  case class IdentifierUpTokenImp(startPosn: TextPosn, srcStr: String) extends IdentUpToken {
-    override def subTypeStr: String = "IdentifierUpper"
   }
 }
 
 /** An alphanumeric token beginning with an alphabetic character that most commonly represents a name of something, but is also a valid raw Base32
  *  Token. */
-trait IdentUpBase32Token extends IdentUpToken with NatBase32Token
+trait IdentUpperBase32Token extends IdentUpperToken with NatBase32Token
 
-//trait IdentUpBase32Token extends
-
-case class IdentUpBase32NoHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpToken
-{ override def subTypeStr: String = "IdentifierBase32"
+case class IdentUpperBase32OnlyToken(startPosn: TextPosn, srcStr: String) extends IdentUpperToken
+{ override def subTypeStr: String = "IdentifierUpperBase32"
 }
 
 /** An identifier Token that is also a valid raw hexadecimal raw Base32 token. */
 trait IdentHexaToken extends NatHexaToken
 
-/** An identifier that is also a valid raw hexadecimal token. */
-case class IdentUpHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpBase32Token with IdentHexaToken
-{ override def subTypeStr: String = "IdentifierHexa"
+/** An identifier beigning with an upper case letter that is also a valid raw hexadecimal token. */
+case class IdentUpperHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpperBase32Token with IdentHexaToken
+{ override def subTypeStr: String = "IdentifierUpperHexa"
   override def digitsStr: String = srcStr
 }
 
 /** A valid identifier beginning with a lowercase letter or an underscore character. */
-trait IdentifierLwToken extends IdentifierToken
+trait IdentLowerToken extends IdentifierToken
 { override def subTypeStr: String = "IdentifierLower"
 }
 
-object IdentifierLwToken
+object IdentLowerToken
 {
   def unapply(input: Any): Option[(TextPosn, String)] = input match {
-    case il: IdentifierLwToken => Some((il.startPosn, il.srcStr))
+    case il: IdentLowerToken => Some((il.startPosn, il.srcStr))
     case _ => None
   }
 }
 
-/** An identifier beginning with a lowercase that is not a valid raw Base32 or hexadecimal token. */
-case class IdentLowHexaToken(startPosn: TextPosn, srcStr: String) extends IdentifierLwToken
+/** An identifier beginning with a lowercase that is a valid raw hexadecimal and raw Base32 token. */
+case class IdentLowerHexaToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken
 { override def subTypeStr: String = "IdentifierLower"
 }
 
 /** An identifier beginning with a lowercase that is not a valid raw Base32 or hexadecimal token. */
-case class IdentLowOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentifierLwToken
+case class IdentLowerBase32OnlyToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken with NatBase32Token
 { override def subTypeStr: String = "IdentifierLower"
+
+  override def digitsStr: String = ???
+}
+
+/** An identifier beginning with a lowercase that is not a valid raw Base32 or hexadecimal token. */
+case class IdentLowerOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken
+{ override def subTypeStr: String = "IdentLowerOnly"
+}
+
+/** An identifier beginning with a upper case that is not a valid raw Base32 or hexadecimal token. */
+case class IdentUpperOnlyToken(startPosn: TextPosn, srcStr: String) extends IdentUpperToken
+{ override def subTypeStr: String = "IdentUpperOnly"
 }

@@ -15,40 +15,45 @@ object IsType
   }
 }
 
+/** Extractor function object for upper case letter character. */
 object LetterUpper
-{
+{ /** Extractor unapply method for upper case letter character. */
   def unapply(input: Char): Option[Char] = input match
   { case c if c.isUpper => Some(c)
     case _ => None
   }
 }
 
+/** Extractor function object for lower case letter character. */
 object LetterLower
-{
+{ /** Extractor unapply method for upper case letter character. */
   def unapply(input: Char): Option[Char] = input match
   { case c if c.isLower => Some(c)
     case _ => None
   }
 }
 
+/** Extractor function object for letter character. */
 object LetterChar
-{
+{ /** Extractor unapply method for letter character. */
   def unapply(input: Char): Option[Char] = input match
   { case c if c.isLetter => Some(c)
     case _ => None
   }
 }
 
+/** Extractor function object for digit character. */
 object DigitChar
-{
+{ /** Extractor unapply method for digit character. */
   def unapply(input: Char): Option[(Char, Int)] = input match
   { case c if c.isDigit => Some((c, c - '0'))
     case _ => None
   }
 }
 
+/** Extractor function object for letter or digit character. */
 object LetterOrDigitChar
-{
+{ /** Extractor unapply method for letter or digit character. */
   def unapply(input: Char): Option[Char] = input match
   { case c if c.isLetter => Some(c)
     case c if c.isDigit => Some(c)
@@ -65,6 +70,7 @@ object LetterOrUnderscoreChar
   }
 }
 
+/** To be removed. */
 object HexaDigitChar
 {
   def unapply(input: Char): Option[(Char, Int)] = input match
@@ -85,18 +91,27 @@ object HexaUpperChar
   }
 }
 
+/** An upper case Hexadecimal letter, 'a' .. 'f'. */
+object HexaLowerChar
+{
+  def unapply(input: Char): Option[Char] = input match
+  { case l if l <= 'f' && l >= 'a' => Some(l)
+    case c => None
+  }
+}
+
 /** An upper case Hexadecimal letter, 'A' .. 'F'. */
 object Base32UpperChar
 {
   def unapply(input: Char): Option[(Char, Int)] = input match
   { case l if l <= 'H' && l >= 'A' => Some((l, l - 'A' + 10))
     case l if l <= 'N' && l >= 'J' => Some((l, l - 'A' + 10))
+    case l if l <= 'W' && l >= 'P' => Some((l, l - 'A' + 10))
     case c => None
   }
 }
 
-
-
+/** To be removed. */
 object Base32Char
 {
   def unapply(input: Char): Option[(Char, Int)] = input match
@@ -120,7 +135,7 @@ object HexaUpChar
 }
 
 /** Extractor object for Base 32 digits or alphabetic lower case characters. */
-object Base32LowChar
+object Base32LowerChar
 { /** Extractor method for Base 32 alphabetic lower case characters. */
   def unapply(input: Char): Option[Char] = input match
   {
@@ -132,7 +147,7 @@ object Base32LowChar
 }
 
 /** Extractor object for Base 32 alphabetic upper case characters. */
-object Base32UpChar
+/*object Base32UpChar
 { /** Extractor method for Base 32 digits and alphabetic upper case characters. */
   def unapply(input: Char): Option[Char] = input match
   { case n if n.isDigit => Some(n)
@@ -140,7 +155,7 @@ object Base32UpChar
     case c if 'W' >= c & c >= 'N' => Some(c)
     case _ => None
   }
-}
+}*/
 
 /** Extractor object for whitespace characters. */
 object WhitespaceChar
