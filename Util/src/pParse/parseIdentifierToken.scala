@@ -44,6 +44,14 @@ object parseIdentifierToken
       case CharsOffHead(_) => Good3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
     }
 
+    def underLoop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
+    { case CharsOff0() => Good3(remOff, tp, IdentUnderToken(tpStart, acc))
+      case CharsOffHead2('_', LetterOrDigitChar(_))  => underLoop(acc + '_', remOff.drop1, tp.right1)
+      case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
+      case CharsOff1Tail(LetterOrDigitChar(c), tail) => underLoop(acc + c, tail, tp.right1)
+      case CharsOffHead(_) => Good3(remOff, tp, IdentUnderToken(tpStart, acc))
+    }
+
     def lowerLoop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Good3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
       case CharsOffHead2('_', LetterOrDigitChar(_))  => lowerLoop(acc + '_', remOff.drop1, tp.right1)
@@ -51,6 +59,7 @@ object parseIdentifierToken
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => lowerLoop(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Good3(remOff, tp, IdentLowerOnlyToken(tpStart, acc))
     }
+
 
     def upperLoop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Good3(remOff, tp, IdentUpperOnlyToken(tpStart, acc))
@@ -64,7 +73,7 @@ object parseIdentifierToken
     {
       case CharsOff0() => tpStart.bad3("Can not return Token from empty Char Array.")
       case CharsOffHead2('_', '_') => tpStart.right1.bad3("Consecutive underscores in Identifier not allowed.")
-      case CharsOffHead2('_', LetterOrDigitChar(_)) => lowerLoop("_", remOff.drop1, tpStart.right1)//needs changing
+      case CharsOffHead2('_', LetterOrDigitChar(_)) => underLoop("_", remOff.drop1, tpStart.right1)
       case CharsOff1Tail('_', tail)  => Good3(tail, tpStart.right1, UnderscoreToken(tpStart))
 
       case CharsOff1Tail(HexaUpperChar(c1), tail) => upperHexaLoop(c1.toString, tail, tpStart.right1)

@@ -7,16 +7,16 @@ trait IdentifierToken extends ExprToken
 
 /** An identifier token beginning with an underscore character. */
 case class IdentUnderToken(startPosn: TextPosn, srcStr: String) extends IdentifierToken
-{
-  override def subTypeStr: String = "IndentUnder"
+{ override def subTypeStr: String = "IndentUnder"
 }
 
 /** An alphanumeric identifier token beginning with an upper case alphabetic character. */
 trait IdentUpperToken extends IdentifierToken
 
+/** Extractor function object for [[IdentUpperToken]] type. */
 object IdentUpperToken
 {
-  /** Extractor method for [[identUp]] type. */
+  /** Extractor method for [[IdentUpperToken]] type. */
   def unapply(inp: Any): Option[(TextPosn, String)] = inp match
   { case iup: IdentUpperToken => Some((iup.startPosn, iup.srcStr))
     case _ => None
@@ -42,11 +42,10 @@ case class IdentUpperHexaToken(startPosn: TextPosn, srcStr: String) extends Iden
 
 /** A valid identifier beginning with a lowercase letter or an underscore character. */
 trait IdentLowerToken extends IdentifierToken
-{ override def subTypeStr: String = "IdentifierLower"
-}
 
+/** Extractor function object for [[IdentLowerToken]] type. */
 object IdentLowerToken
-{
+{ /** Extractor method for [[IdentLowerToken]] type. */
   def unapply(input: Any): Option[(TextPosn, String)] = input match {
     case il: IdentLowerToken => Some((il.startPosn, il.srcStr))
     case _ => None
@@ -61,8 +60,7 @@ case class IdentLowerHexaToken(startPosn: TextPosn, srcStr: String) extends Iden
 /** An identifier beginning with a lowercase that is not a valid raw Base32 or hexadecimal token. */
 case class IdentLowerBase32OnlyToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken with NatBase32Token
 { override def subTypeStr: String = "IdentifierLower"
-
-  override def digitsStr: String = ???
+  override def digitsStr: String = srcStr
 }
 
 /** An identifier beginning with a lowercase that is not a valid raw Base32 or hexadecimal token. */
