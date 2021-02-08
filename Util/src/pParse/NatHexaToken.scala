@@ -28,29 +28,7 @@ object NatRawHexaToken
   }
 }
 
-/** Raw hexadecimal integer starting with a digit that includes one or more 'A' .. 'F' digits */
-case class NatRawHexaLetterToken(startPosn: TextPosn, srcStr: String) extends NatRawHexaToken //= new NatRawHexaToken with NatHexaToken
+/** Raw hexadecimal natural number token, starting with a digit that includes one or more 'A' .. 'F' digits. */
+case class RawHexaToken(startPosn: TextPosn, srcStr: String) extends NatRawHexaToken
 { override def subTypeStr: String = "HexaRaw"
- override def digitsStr = srcStr
-}
-
-
-/** A 64 bit integer token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit Ints and
- *  64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract
- *  Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming languages. */
-case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToken
-{ override def subTypeStr: String = "Decimal"
-  override def digitsStr: String = srcStr
-
-  /** gets the natural integer value from this token interpreting it as a standard Base10 notation. */
-  def getInt: Int =
-  { var acc = 0
-    implicit val chars: Chars = srcStr.toChars
-    def loop(rem: CharsOff): Int = rem match
-    {
-      case CharsOff0() => acc
-      case CharsOff1Tail(DigitChar(_, i), tail)  => { acc = acc * 10 + i; loop(tail) }
-    }
-    loop(chars.offsetter0)
-  }
 }

@@ -26,18 +26,19 @@ object IdentUpperToken
 /** An alphanumeric token beginning with an alphabetic character that most commonly represents a name of something, but is also a valid raw Base32
  *  Token. */
 trait IdentUpperBase32Token extends IdentUpperToken with NatBase32Token
+{ override def digitsStr: String = srcStr
+}
 
-case class IdentUpperBase32OnlyToken(startPosn: TextPosn, srcStr: String) extends IdentUpperToken
+case class IdentUpperBase32OnlyToken(startPosn: TextPosn, srcStr: String) extends IdentUpperBase32Token
 { override def subTypeStr: String = "IdentifierUpperBase32"
 }
 
 /** An identifier Token that is also a valid raw hexadecimal raw Base32 token. */
-trait IdentHexaToken extends NatHexaToken
+trait IdentHexaToken extends NatRawHexaToken
 
 /** An identifier beigning with an upper case letter that is also a valid raw hexadecimal token. */
 case class IdentUpperHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpperBase32Token with IdentHexaToken
 { override def subTypeStr: String = "IdentifierUpperHexa"
-  override def digitsStr: String = srcStr
 }
 
 /** A valid identifier beginning with a lowercase letter or an underscore character. */
