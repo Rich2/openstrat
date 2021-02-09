@@ -103,10 +103,10 @@ object HexaLowerChar
 /** An upper case Hexadecimal letter, 'A' .. 'F'. */
 object Base32UpperChar
 {
-  def unapply(input: Char): Option[(Char, Int)] = input match
-  { case l if l <= 'H' && l >= 'A' => Some((l, l - 'A' + 10))
-    case l if l <= 'N' && l >= 'J' => Some((l, l - 'A' + 10))
-    case l if l <= 'W' && l >= 'P' => Some((l, l - 'A' + 10))
+  def unapply(input: Char): Option[Char] = input match
+  { case l if l <= 'H' && l >= 'A' => Some(l)
+    case l if l <= 'N' && l >= 'J' => Some(l)
+    case l if l <= 'W' && l >= 'P' => Some(l)
     case c => None
   }
 }

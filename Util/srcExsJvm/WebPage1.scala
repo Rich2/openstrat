@@ -14,4 +14,5 @@ object WebPage1 extends App
   
   val r = opensettHtmlWrite("Web1", bodyStr)
   deb(r.toString)
+  println("MyId".parseTokens.get.head.srcStr)
 }

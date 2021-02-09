@@ -16,10 +16,9 @@ object srcToETokensTest extends TestSuite
 
       assertMatch("\'a\'".parseTokens){ case Good(Arr1(CharToken(_, 'a'))) => }
       assertMatch("ZyId".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "ZyId"))) => }
-      //assertMatch("MyId".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "MyId"))) => }
-      //assertMatch("MyId".parseTokens){ case Good(Arr1(IdentUpperOnlyToken(_, "MyId"))) => }
-      //assertMatch("My3".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "My3"))) => }
-     // assertMatch("My3Id".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "My3Id"))) => }
+      assertMatch("MyId".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "MyId"))) => }
+      assertMatch("My3".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "My3"))) => }
+      assertMatch("My3Id".parseTokens){ case Good(Arr1(IdentUpperToken(Sp1, "My3Id"))) => }
       assertMatch("ab3_5fG".parseTokens){ case Good(Arr1(IdentLowerToken(Sp1, "ab3_5fG"))) => }
 
       assertMatch(",".parseTokens){ case Good(Arr1(CommaToken(Sp1))) => }

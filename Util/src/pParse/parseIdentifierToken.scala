@@ -26,14 +26,15 @@ object parseIdentifierToken
       case CharsOffHead(_) => Good3(remOff, tp, IdentLowerHexaToken(tpStart, acc))
     }
 
-    def upperBase32Loop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
-    { case CharsOff0() => Good3(remOff, tp, IdentUpperBase32OnlyToken(tpStart, acc))
-      case CharsOffHead2('_', LetterOrDigitChar(_))  => upperLoop(acc + "_", remOff.drop1, tp.right1)
+    def upperBase32Loop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match {
+      case CharsOff0() => Good3(remOff, tp, IdentUpperBase32OnlyToken(tpStart, acc))
+      case CharsOffHead2('_', LetterOrDigitChar(_)) => upperLoop(acc + "_", remOff.drop1, tp.right1)
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(Base32UpperChar(c), tail) => upperBase32Loop(acc + c, tail, tp.right1)
       case CharsOff1Tail(LetterOrDigitChar(c), tail) => upperLoop(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Good3(remOff, tp, IdentUpperBase32OnlyToken(tpStart, acc))
     }
+
 
     def lowerBase32Loop(acc: String, remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match
     { case CharsOff0() => Good3(remOff, tp, IdentLowerBase32OnlyToken(tpStart, acc))

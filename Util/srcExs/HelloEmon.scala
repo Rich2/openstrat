@@ -17,4 +17,5 @@ object HelloEmon extends App
   println("Counter value is now: " + counter.str)
   mi2.foldDo { counter += _ } { errs => println("The counter was not changed.") }
   println("Counter value is now: " + counter.str)
+  println("MyId".parseTokens)
 }
