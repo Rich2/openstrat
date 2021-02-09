@@ -146,17 +146,6 @@ object Base32LowerChar
   }
 }
 
-/** Extractor object for Base 32 alphabetic upper case characters. */
-/*object Base32UpChar
-{ /** Extractor method for Base 32 digits and alphabetic upper case characters. */
-  def unapply(input: Char): Option[Char] = input match
-  { case n if n.isDigit => Some(n)
-    case c if 'N' >= c & c >= 'A' => Some(c)
-    case c if 'W' >= c & c >= 'N' => Some(c)
-    case _ => None
-  }
-}*/
-
 /** Extractor object for whitespace characters. */
 object WhitespaceChar
 { /** Extractor method for whitespace characters. */
