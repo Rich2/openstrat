@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 object WebPage1 extends App
@@ -14,5 +14,4 @@ object WebPage1 extends App
   
   val r = opensettHtmlWrite("Web1", bodyStr)
   deb(r.toString)
-  println("MyId".parseTokens.get.head.srcStr)
 }
