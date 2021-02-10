@@ -73,7 +73,10 @@
     <tr><td>LetterChar</td>                  <td>= unicode_letter | '_'</td></tr>
     <tr><td>NonZeroDigit</td>                <td>= '1' ... '9'</td></tr>
     <tr><td>DigitChar</td>                   <td>= '0' | NonZeroDigit</td></tr>
-    <tr><td>HexaDigitChar</td>               <td>= DigitChar | 'A' ... 'F' | 'a' ... 'f'</td></tr>
+    <tr><td>HexaLowerChar</td>               <td>= 'a' ... 'f'</td></tr>
+    <tr><td>HexaUpperChar</td>               <td>= 'A' ... 'F'</td></tr>
+    <tr><td>HexaLetterChar</td>              <td>= HexaLowerChar | 'a' ... 'f'</td></tr>
+    <tr><td>HexaChar</td>                    <td>= DigitChar | HexLetterChar</td></tr>
     <tr><td>LetterOrDigitChar</td>           <td>= LetterChar | DigitChar</td></tr>
     <tr><td>LetterOrUnderscoreChar</td>      <td>= LetterChar | '_'</td></tr>   
     <tr><td>UnderscoreThenLetterOrDigit</td> <td>= '_', LetterOrDigitChar</td></tr>
