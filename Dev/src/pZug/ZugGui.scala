@@ -1,9 +1,9 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pZug
 import pCanv._, pGrid._, geom._, Colour._, pStrat._
 
-/** Uses the new simpler Gui for Grids. */
+/** Uses the old Roards from pGrid, but with the new simpler Gui. */
 case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuhrer Gui")
 {
   implicit val grid = scen.grid
