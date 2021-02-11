@@ -1,12 +1,13 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pEarth
 import geom._, pGrid._, collection.mutable.ArrayBuffer
 
 trait EGrid80Km extends EGrid
-{
-}
 
+/** Under new numbering system Greenwich longitude will be row 512 0G0 in Base32, Longitude 30 East passing through St Petersburg Russia will be 1536
+ * Base32 1G0. Longitude 90 West passing through Memphis and New Orleans will be 9728 Base32 9G0. 30 West passing through Greenland will be 11776
+ * Base32 BG0. */
 object EGrid80Km
 {
   val scale = 20.km * math.sqrt(3)

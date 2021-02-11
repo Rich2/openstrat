@@ -99,6 +99,27 @@ class IntExtensions(val thisInt: Int) extends AnyVal
    
   @inline def hexStr: String = thisInt.toHexString.toUpperCase
   @inline def hexStr2: String = ife(hexStr.length == 1, "0" + hexStr, hexStr)
+
+  def base32Str: String =
+  {
+    def loop(rem: Int, acc: String): String =
+    {
+      val newDigit = rem % 32
+
+      val newChar: Char = newDigit match
+      { case i if i < 10 => ('0' + i).toChar
+        case i if i < 24 => ('A' + i - 10).toChar
+        case i => ('A' + i - 9).toChar
+      }
+      val newStr = newChar.toString + acc
+      val newRem = rem / 32
+      ife(newRem == 0, newStr, loop(newRem, newStr))
+    }
+
+    val startStr = ife(thisInt < 0, "-", "")
+    startStr + loop(thisInt.abs, "")
+  }
+
   def isDivBy3: Boolean = thisInt % 3 == 0
 
   /** Dividing by 4 gives remainder of 0. */
