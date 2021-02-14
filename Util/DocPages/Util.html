@@ -93,10 +93,18 @@
 <div class="main">
 	<h2>Abstract Syntax Tree</h2>
   <p>So after the source has been tokenised it is parsed into an Abtract Syntax tree. the basic idea is that an RSON file can be three things.
-  <ol>
-  	<li>The empty file. It may contain comments but no expressions. I think this may be a special case of a Statemented file.</li>
+  <ol>  	
   	<li>An unStatemented file. It just contains an expression, without a semi colon at the end for example could just an Int or String.</li>
   	<li>A Statemented file</li>
+  	<li>The empty file. It may contain comments but no expressions. The empty statement is a thing in itself but also a special case of a claused
+  	statement with with zero Clauses.</li>
+  </ol>
+
+  <ol>  	
+  	<li>An unClaused Statement. It just contains an expression, without a comma at the end for example could just an Int or String.</li>
+  	<li>A Cluased Statement</li>
+  	<li>The empty Statement It may contain comments but no expressions. The empty file is a thing in itslef but also a special case of a Statemented
+  	 file with zero statements.</li>
   </ol>
   	So there is currently some confusion as to where it is parsed	into a series of statements or into an expression. Currently Statements and Clauses
   	contain an expression but are not themsleves an expression.	This is causing a block to me coding at the moment.
