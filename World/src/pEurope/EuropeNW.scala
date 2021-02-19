@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pEarth
 package pEurope
@@ -60,5 +60,4 @@ object EuropeNWTerr extends E80Data
   gs(450, 194, plain * 7, hills, mtain * 8)
   gs(448, 196, plain * 4, hills * 2, plain, mtain * 9)
   gs(446, 198, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
-
 }
