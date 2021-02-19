@@ -10,8 +10,7 @@ ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
 def commonSett = List(
-  scalacOptions ++=
-    Seq("-feature", "-language:implicitConversions", "UTF-8", "-deprecation", "-explaintypes"),//, "-Ywarn-value-discard", "-Xlint"),
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "UTF-8", "-deprecation", "-explaintypes"),//, "-Ywarn-value-discard", "-Xlint"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 
@@ -125,9 +124,9 @@ val docDirs: List[String] = List("Util", "Graphics", "Tiling", "World", "Dev")
 
 lazy val custDoc = taskKey[Unit]("Aims to be a task to aid buiding ScalaDocs")
 custDoc :=
-{  val t1 = (doc in (DocMain, Compile)).value
-   val t2 = (doc in (DocJs, Compile)).value
-   println("Main docs and Js docs built")
+{ val t1 = (doc in (DocMain, Compile)).value
+  val t2 = (doc in (DocJs, Compile)).value
+  println("Main docs and Js docs built")
 }
 
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).dependsOn(UtilMacros).settings(commonSett).settings(
@@ -187,9 +186,9 @@ lazy val DevJs = jsProj("Dev").dependsOn(WorldJs).settings(
 )
 
 def dottySettings = List(
-	scalaVersion := "3.0.0-M3",
-  resolvers += Resolver.url("typesafe", url("https://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked"),
+	scalaVersion := "3.0.0-RC1",
+	resolvers += Resolver.url("typesafe", url("https://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
+	scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked"),
 )
 
 lazy val UtilMacrosDot = Project("UtilMacrosDot", file("Dev/SbtDir/UtilMacrosDot")).settings(dottySettings).settings(  
