@@ -97,7 +97,7 @@ final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, va
   //def toLine: Line = ???
 }
 
-/** Companion object for the LineSeg class. */
+/** Companion object for the LineSeg class. Contains factory apply methods and implicit instances for [[LineSeg]]s. */
 object LineSeg
 { /** Factory apply method for LineSeg. */
   @inline def apply(pStart: Pt2, pEnd: Pt2): LineSeg = new LineSeg(pStart.x, pStart.y, pEnd.x, pEnd.y)
