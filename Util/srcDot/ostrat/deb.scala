@@ -10,4 +10,4 @@ def debb(): Unit = println("src code postion.")
 
 /** An expression debug macro. Prints out source code position followed by expression name, followed by expression value. */
 inline def debvar(expr: Any): Unit = ${ debvarImpl('expr) }
-def debvarImpl(expr: Expr[Any])(using Quotes) = '{ println("Value of " + ${Expr(expr.show)} + " is " + $expr) }
+def debvarImpl(expr: Expr[Any])(using Quotes) = '{ println(${Expr(expr.show)} + " = " + $expr) }
