@@ -4,4 +4,5 @@ package ostrat
 object DotMain extends App
 { val myPair = (5, "A String")
   debvar(myPair)
+  deb("Janet")
 }
