@@ -205,6 +205,7 @@ lazy val UtilDot = Project("UtilDot", file("Dev/SbtDir/UtilDot")).dependsOn(Util
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+  Compile/mainClass	:= Some("ostrat.DotMain"),
 )
 
 lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).dependsOn(UtilDot).settings(dottySettings).settings(

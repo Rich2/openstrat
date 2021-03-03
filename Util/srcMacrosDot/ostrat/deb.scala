@@ -1,5 +1,6 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import scala.quoted._
 
 /** Macro function object, prints out string preceded by source code position. */
 object deb
@@ -19,5 +20,7 @@ object debb
 object debvar
 {
   /** An expression debug macro. Prints out source code position followed by expression name, followed by expression value. */
-  def apply(inputExpr: Any): Unit = println(inputExpr.toString)
+  inline def apply(expr: Any): Unit = ${ debvarImpl('expr) }//println(expr.toString)
+
+  def debvarImpl(expr: Expr[Any])(using Quotes) = '{ println("Value of " + ${Expr(expr.show)} + " is " + $expr) }
 }
