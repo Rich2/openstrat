@@ -188,7 +188,7 @@ lazy val DevJs = jsProj("Dev").dependsOn(WorldJs).settings(
 def dottySettings = List(
 	scalaVersion := "3.0.0-RC1",
 	resolvers += Resolver.url("typesafe", url("https://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
-	scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked"),
+	scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
 lazy val UtilDot = Project("UtilDot", file("Dev/SbtDir/UtilDot")).settings(dottySettings).settings(
