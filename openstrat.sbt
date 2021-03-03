@@ -191,18 +191,10 @@ def dottySettings = List(
 	scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked"),
 )
 
-lazy val UtilMacrosDot = Project("UtilMacrosDot", file("Dev/SbtDir/UtilMacrosDot")).settings(dottySettings).settings(  
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacrosDot",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/Macros/srcDot",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),
-  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/Macros/test/srcDot",
-  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),  
-)
-
-lazy val UtilDot = Project("UtilDot", file("Dev/SbtDir/UtilDot")).dependsOn(UtilMacrosDot).settings(dottySettings).settings(
+lazy val UtilDot = Project("UtilDot", file("Dev/SbtDir/UtilDot")).settings(dottySettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Util/srcDot"),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Compile/mainClass	:= Some("ostrat.DotMain"),
