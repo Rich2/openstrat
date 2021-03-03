@@ -2,6 +2,6 @@
 package ostrat
 
 object DotMain extends App
-{ val x = 5
-  debvar(x)
+{ val myPair = (5, "A String")
+  debvar(myPair)
 }
