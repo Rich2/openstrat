@@ -27,7 +27,7 @@ abstract class CanvasUser(val title: String)
       case cpf: GraphicParentFull => canv.rendElems(cpf.children)
       case ce: GraphicElem => ce.rendToCanvas(canv)
       //s case nss: UnScaledShape => canv.rendElems(nss.elems.slate(nss.referenceVec))
-      case v =>
+      //case v =>
     }
     activeBuff.toReverseRefs
   }
