@@ -43,9 +43,9 @@ case class GUneGui(canv: CanvasPlatform, scenStart: UneScen) extends CmdBarGui("
   def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
 //    val getOrders = moves.mapSomeOnlys(rs => rs)
 //    scen = scen.turn(getOrders)
-//    moves = NoMoves
-//    repaint()
-//    thisTop()
+    moves = NoMoves
+    repaint()
+    thisTop()
   })
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */

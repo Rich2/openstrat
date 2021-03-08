@@ -4,7 +4,6 @@ package gUne
 import prid._
 
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
-
 trait UneScen
 { val turn: Int
   implicit val grid: HGridReg
@@ -15,10 +14,10 @@ trait UneScen
     val resolve: HcenArrBuff[HCAndStep] = grid.newTileBuffArr
     hts.foreach{hts => resolve.appendAt(hts.hc2, hts) }
     val resValue: HcenArrOpt[Player] = oPlayers.clone
-//    resolve.foreach{ (r, l) => l match
-//    { case List(hst) => resValue.mutMove(hst.r1, r)
-//      case _ =>
-//    }}
+    resolve.foreach{ (r, b) => b match
+    { case _ if b.length == 1 => resValue.mutMove(hts.head.hc1, r)
+      case _ =>
+    }}
     UneScen(turn + 1, grid, resValue)
   }
 }
