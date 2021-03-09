@@ -1,39 +1,43 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package gOne
-import pCanv._, geom._, pGrid._
+import pCanv._, geom._, prid._
 
 /** Graphical user interface for GOne example game. */
-case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("Game One Gui")
-{ var scen = scenStart
-  var statusText = "Let click on Player to select. Right click on adjacent Hex to set move."
+case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("Game Une Gui")
+{
+  var statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
+  var scen = scenStart
+
   implicit def grid = scen.grid
-  def players: TilesArrOpt[Player] = scen.oPlayers
-
-  /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  val NoMoves: TilesArrOpt[HTileAndStep] = grid.newTileArrOpt[HTileAndStep]
-
-  /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
-   *  those moves. This data is state for the Gui. */
-  var moves: TilesArrOpt[HTileAndStep] = NoMoves
+  def players: HcenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  def lunits = players.mapSomeWithRoords{ (r, p) => Rect(0.9, 0.6, r.gridPt2).fillDrawTextActive(p.colour, RPlayer(p, r),
-    p.toString + "\n" + r.ycStr, 24, 2.0) }
+  /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
+  def NoMoves: HcenArrOpt[HCAndStep] = grid.newTileArrOpt[HCAndStep]
+
+  /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
+   *  those moves. This data is state for the Gui. */
+  var moves: HcenArrOpt[HCAndStep] = NoMoves
+
+  def lunits = players.cMapSomes{ (p, hc) =>
+    Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.rcStr, 24, 2.0) }
+
+  def css = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles = grid.activeTiles
 
   /** Gives the tiles Roord. Its Row based integer coordinate. */
-  val roardTexts = grid.cenRoordIndexTexts() ++ grid.sideRoordIndexTexts() ++ grid.vertRoordIndexTexts()
+ // val roardTexts = grid.cenRoordIndexTexts() ++ grid.sideRoordIndexTexts() ++ grid.vertRoordIndexTexts()
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw = grid.sidesDraw(2.0)
+  val sidesDraw = grid.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineSegDraw] = moves.mapSomes{ rs => RoordLine(rs.r1, rs.r2).gridLine2.draw(players(rs.r1).colour, 2) }
+  def moveGraphics: Arr[LineSegDraw] = moves.mapSomes{ rs => HCoordLineSeg(rs.hc1, rs.hc2).toLine2.draw(players(rs.hc1).colour) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
@@ -47,23 +51,25 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(bTurn))
 
-  mainMouseUp = (b, cl, _) => (b, cl, selected) match
-    { case (LeftButton, cl, _) =>
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+    { case (LeftButton, _, cl) =>
       { selected = cl
         statusText = selected.headToStringElse("Nothing Selected")
         thisTop()
       }
 
-      case (RightButton, (t : HexTile) :: _, List(RPlayer(p, r), HexTile(y, c))) =>
+      case (RightButton, List(HPlayer(p, hc1), Hcen(y, c)), (hc2 : Hcen) :: _) =>
       {
-        val newM: OptRef[HTStep] = t.adjOf(r)
-        newM.foreach(m => moves = moves.setSome(r, r.andStep(m)))//grid.index(r), m))
+        val newM: OptRef[HcenStep] = hc1.optStep(hc2)
+        newM.foreach(m => moves = moves.setSomeNew(hc1, hc1.andStep(m)))
         repaint()
       }
-       case (_, h, _) => deb("Other; " + h.toString)
+       case (_, _, h) => deb("Other; " + h.toString)
     }
   thisTop()
-  def frame = (tiles +- sidesDraw ++ roardTexts ++ lunits ++ moveGraphics).gridScale(scale)
+  def moveGraphics2 = moveGraphics.gridScale(scale).flatMap(_.arrow)//  .toLine2.drawArrow(players(rs.hc1).colour)
+  def frame: GraphicElems = (tiles +- sidesDraw ++ lunits ++ css).gridScale(scale) ++ moveGraphics2
+  //(tiles +- sidesDraw ++ roardTexts ++ lunits ).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

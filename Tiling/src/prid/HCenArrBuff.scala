@@ -11,6 +11,7 @@ class HCenArrBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
   def foreach(f: (Hcen, Buff[A]) => Unit)(implicit grid: HGrid): Unit = grid.foreach{ r => f(r, unsafeArr(grid.arrIndex(r))) }
 }
 
+/** Companion object for the Hex (centres) grid Array of ArrayBuffer classes. */
 object HCenArrBuff
 { /** Apply factory method, creates a Hex Grid Array of ArrayBuffers, all of length 0. */
   def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenArrBuff[A] =
