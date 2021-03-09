@@ -11,7 +11,7 @@ trait UneScen
 
   def turn(hts: Arr[HCAndStep]): UneScen =
   {
-    val resolve: HcenArrBuff[HCAndStep] = grid.newTileBuffArr
+    val resolve: HCenArrBuff[HCAndStep] = grid.newTileBuffArr
     hts.foreach{hts => resolve.appendAt(hts.hc2, hts) }
     val resValue: HcenArrOpt[Player] = oPlayers.clone
     resolve.foreach{ (r, b) => b match
