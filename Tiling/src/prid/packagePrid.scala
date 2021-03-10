@@ -29,5 +29,5 @@ package object prid
     }
   }
   val hcStepSomes: Arr[HcenStep] = Arr(HCStepUR, HCStepRt, HCStepDR, HCStepDL, HCStepLt, HCStepUL)
-  val hcSteps: Arr[HcenStepOpt] = HcenStepNone +: hcStepSomes
+  val hcSteps: Arr[HCenStepOpt] = HcenStepNone +: hcStepSomes
 }

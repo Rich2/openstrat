@@ -58,7 +58,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
         thisTop()
       }
 
-      case (RightButton, List(HPlayer(p, hc1), Hcen(y, c)), (hc2 : Hcen) :: _) =>
+      case (RightButton, List(HPlayer(p, hc1), HCen(y, c)), (hc2 : HCen) :: _) =>
       {
         val newM: OptRef[HcenStep] = hc1.optStep(hc2)
         newM.foreach(m => moves = moves.setSomeNew(hc1, hc1.andStep(m)))

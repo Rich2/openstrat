@@ -66,22 +66,22 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
 
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
-  override def rowForeach(r: Int)(f: Hcen => Unit): Unit =
-    if(r %% 4 == 2) iToForeach(cRow2sMin, cRow2sMax, 4)(c => f(Hcen(r, c)))
-    else iToForeach(cRow0sMin, cRow0sMax, 4)(c => f(Hcen(r, c)))
+  override def rowForeach(r: Int)(f: HCen => Unit): Unit =
+    if(r %% 4 == 2) iToForeach(cRow2sMin, cRow2sMax, 4)(c => f(HCen(r, c)))
+    else iToForeach(cRow0sMin, cRow0sMax, 4)(c => f(HCen(r, c)))
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
-  override def rowIForeach(r: Int, startCount: Int)(f: (Hcen, Int) => Unit): Int =
+  override def rowIForeach(r: Int, startCount: Int)(f: (HCen, Int) => Unit): Int =
   {
     var count: Int = startCount
     if (r %% 4 == 2)
       iToForeach(cRow2sMin, cRow2sMax, 4) { c =>
-        f(Hcen(r, c), count)
+        f(HCen(r, c), count)
         count += 1
       }
     else
       iToForeach(cRow0sMin, cRow0sMax, 4){c =>
-        f(Hcen(r, c), count)
+        f(HCen(r, c), count)
         count += 1
       }
     count

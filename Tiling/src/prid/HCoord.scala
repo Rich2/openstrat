@@ -1,9 +1,9 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
 import geom._
 
-/** A coordinate with in a Hex grid. It may be a Hex tile centre [[Hcen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
+/** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends Any with TCoord
 { def toPt2: Pt2
   def toVec: Vec2
@@ -24,11 +24,12 @@ trait HCoord extends Any with TCoord
   }
 }
 
+/** Companion object for Hex coordinate trait, contains apply factory object. */
 object HCoord
 {
   def apply(r: Int, c: Int): HCoord = r %% 4 match
-  { case 0 if c.div4Rem0 => new Hcen(r, c)
-    case 2 if c.div4Rem2 => new Hcen(r, c)
+  { case 0 if c.div4Rem0 => new HCen(r, c)
+    case 2 if c.div4Rem2 => new HCen(r, c)
     case 0 if c.div4Rem0 => new HSide(r, c)
     case 1 | 3 if c.isOdd => new HSide(r, c)
     case 2 if c.div4Rem2 => new HSide(r, c)
@@ -37,7 +38,8 @@ object HCoord
   }
 }
 
-trait HCoordReg extends HCoord
+/** Common trait for hex centre and hex side coordinate. The position of these coordinates is proportional, unlike the Hex vertices positions. */
+trait HCenOrSide extends HCoord
 { override def toVec: Vec2 = Vec2(c / Sqrt3, r)
   override def toPt2: Pt2 = Pt2(c / Sqrt3, r)
 }
