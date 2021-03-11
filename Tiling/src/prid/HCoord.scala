@@ -12,15 +12,14 @@ trait HCoord extends Any with TCoord
     case hc: HCoord if r == hc.r & c == hc.c => true
     case _ => false
   }
+
   def canEqual(a: Any) = a.isInstanceOf[HCoord]
 
-  // Step 8 - implement a corresponding hashCode c=method
-  override def hashCode: Int = {
-    val prime = 31
-    var result = 1
-    result = prime * result + r;
-    result = prime * result + c * 17
-    result
+  override def hashCode: Int =
+  { val prime = 31
+    val f = 1
+    val result1 = (prime * f) + r
+    prime * result1 + c * 17
   }
 }
 
