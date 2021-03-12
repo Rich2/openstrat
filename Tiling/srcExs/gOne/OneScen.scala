@@ -9,9 +9,9 @@ trait OneScen
   implicit val grid: HGridReg
   def oPlayers: HcenArrOpt[Player]
 
-  def turn(hts: Arr[HCAndStep]): OneScen =
+  def turn(hts: Arr[HexAndStep]): OneScen =
   {
-    val resolve: HCenArrBuff[HCAndStep] = grid.newTileBuffArr
+    val resolve: HCenArrBuff[HexAndStep] = grid.newTileBuffArr
     hts.foreach{hts => resolve.appendAt(hts.hc2, hts) }
     val resValue: HcenArrOpt[Player] = oPlayers.clone
     resolve.foreach{ (r, b) => b match

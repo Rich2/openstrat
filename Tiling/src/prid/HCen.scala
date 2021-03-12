@@ -19,13 +19,13 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
   override def typeStr: String = "HCen"
 
   /** Step to adjacent hex tile. */
-  def step(st: HcenStep): HCen = HCen(r + st.r, c + st.c)
+  def step(st: HexStep): HCen = HCen(r + st.r, c + st.c)
 
   /** Returns a co0rdinate for this hex along with a step to an adjacent hex. */
-  def andStep(hcs: HcenStep): HCAndStep = HCAndStep(r, c, hcs)
+  def andStep(hcs: HexStep): HexAndStep = HexAndStep(r, c, hcs)
 
   /** Optionally returns the Step value of the HCen if it is an adjacent HCen. */
-  def optStep(operand: HCen): OptRef[HcenStep] = hcStepSomes.optFind(_.hcen == operand - this)
+  def optStep(operand: HCen): OptRef[HexStep] = hcStepSomes.optFind(_.hCen == operand - this)
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 }
 

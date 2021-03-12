@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
 import geom._, math.sqrt, reflect.ClassTag
@@ -106,8 +106,4 @@ trait HGrid extends TGrid
   /** The Hex Sides of the Hex Grid defined in integer constructed [[HCoordLineSeg.]].
    *  @group SidesGroup */
   def sideCoordLines: Arr[HCoordLineSeg] = sidesMap[HCoordLineSeg, Arr[HCoordLineSeg]](_.coordLine)
-}
-
-object HGrid
-{
 }
