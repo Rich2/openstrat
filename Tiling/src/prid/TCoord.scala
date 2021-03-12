@@ -1,9 +1,9 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
 import geom._
 
-/** A coordinate in a TileGrid. The row is the first field, the column is the second. */
+/** A coordinate in a tile grid [[TGrid]]. The row is the first field, the column is the second. */
 trait TCoord extends Any with Show2Ints
 {
   /** Row number for the coordinate of a tile grid. */
@@ -33,24 +33,20 @@ trait SqCoord extends Any with TCoord
 }
 
 /** A Square tile centre square grid [[SqGrid]] coordinate. */
-case class Sqcen(val r: Int, val c: Int) extends SqCoord
-{
-  override def typeStr: String = "Sqcen"
+case class SqCen(val r: Int, val c: Int) extends SqCoord
+{ override def typeStr: String = "Sqcen"
 }
 
 /** A Square tile side square grid [[SqGrid]] coordinate. */
-class Sqside(val r: Int, val c: Int) extends SqCoord
-{
-  override def typeStr: String = "Sqside"
+class SqSide(val r: Int, val c: Int) extends SqCoord
+{ override def typeStr: String = "Sqside"
 }
 
 /** A Square tile vertex square grid [[SqGrid]] coordinate. */
-class Sqvert(val r: Int, val c: Int) extends SqCoord
-{
-  override def typeStr: String = "Sqvert"
+class SqVert(val r: Int, val c: Int) extends SqCoord
+{ override def typeStr: String = "Sqvert"
 }
 
-object Sqvert
-{
-  val showTImplicit: ShowT[Sqvert] = Show2IntsT("Sqvert")
+object SqVert
+{ val showTImplicit: ShowT[SqVert] = Show2IntsT("Sqvert")
 }

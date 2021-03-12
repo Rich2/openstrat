@@ -68,7 +68,7 @@ trait HGrid extends TGrid
   final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrBuff[A] = HCenArrBuff(numOfTiles)
 
   /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HcenArrOpt[A] = new HcenArrOpt(new Array[A](numOfTiles))
+  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numOfTiles))
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 

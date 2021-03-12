@@ -1,13 +1,13 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
 
 /** An immutable Arr of Opt Tile data for a specific hex tile grid [[HGrid]]. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]]
  * coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[HGrid]] hex grid parameter. */
-class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
+class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
   def length: Int = unsafeArr.length
-  def clone: HcenArrOpt[A] = new HcenArrOpt[A](unsafeArr.clone)
+  def clone: HCenArrOpt[A] = new HCenArrOpt[A](unsafeArr.clone)
 
   /** Sets the Some value of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def setSome(y: Int, c: Int, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(y, c)) = value
@@ -22,10 +22,10 @@ class HcenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 
   def setAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
 
-  def setSomeNew(hc: HCen, value: A)(implicit grid: HGrid): HcenArrOpt[A] =
+  def setSomeNew(hc: HCen, value: A)(implicit grid: HGrid): HCenArrOpt[A] =
   { val newArr = unsafeArr.clone()
     newArr(grid.arrIndex(hc)) = value
-    new HcenArrOpt[A](newArr)
+    new HCenArrOpt[A](newArr)
   }
 
   /** Moves the object in the array location given by HCen1 to HCen2, by setting H2 to the value of h1 and setting H1 to null. */
@@ -51,7 +51,7 @@ def cMap[B, ArrT <: ArrImut[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(impl
 }
 
 
-/** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HcenArrOpt]] class like
+/** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
  *  a standard Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HcenArr]] was created. */
 def map[B, ArrT <: ArrImut[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
 {
@@ -69,7 +69,7 @@ def map[B, ArrT <: ArrImut[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid,
 def apply(hc: HCen)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(hc))
 
 /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HcenArr]] class like a standard
- *  Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HcenArrOpt]] was created. */
+ *  Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArrOpt]] was created. */
 def mapSomes[B, ArrT <: ArrImut[B]](f: A => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
 {
   val buff = build.newBuff()
@@ -98,7 +98,7 @@ def cMapSomes[B, ArrT <: ArrImut[B]](f: (A, HCen) => B)(implicit grid: HGrid, bu
   build.buffToArr(buff)
 }
 
-/** Coordinate map Nones. Map the None values respective [[HCen]] coordinates of this [[HcenArrOpt]] to type B, the first type parameter. Returns an
+/** Coordinate map Nones. Map the None values respective [[HCen]] coordinates of this [[HCenArrOpt]] to type B, the first type parameter. Returns an
  * immutable Array based collection of type ArrT, the second type parameter. */
 def cMapNones[B, ArrT <: ArrImut[B]](f: HCen => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
 {

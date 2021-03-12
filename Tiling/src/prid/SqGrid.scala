@@ -35,7 +35,7 @@ final class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val 
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
-  @inline final def arrIndex(sc: Sqcen): Int = arrIndex(sc.r, sc.c)
+  @inline final def arrIndex(sc: SqCen): Int = arrIndex(sc.r, sc.c)
 
   @inline def arrIndex(r: Int, c: Int): Int = (r - rTileMin) / 2 * tileRowLen + (c - cTileMin) / 2
   /** New immutable Arr of Tile data. */
@@ -47,30 +47,30 @@ final class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val 
   }*/
 
   /** New immutable Arr of Tile data. */
-  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqcenArr[A] =
-  { val res = SqcenArr[A](numOfTiles)
+  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenArr[A] =
+  { val res = SqCenArr[A](numOfTiles)
     //res.mutSetAll(value)
     //res
     res
   }
 
   /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqcenArrOpt[A] = new SqcenArrOpt(new Array[A](numOfTiles))
+  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrOpt[A] = new SqCenArrOpt(new Array[A](numOfTiles))
 
-  def rowForeach(r: Int)(f: Sqcen => Unit): Unit = iToForeach(cTileMin, cTileMax, 2)(c => f(Sqcen(r, c)))
+  def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(cTileMin, cTileMax, 2)(c => f(SqCen(r, c)))
 
-  def foreach(f: Sqcen => Unit): Unit = foreachRow(rowForeach(_)(f))
+  def foreach(f: SqCen => Unit): Unit = foreachRow(rowForeach(_)(f))
 
-  final def iForeach(f: (Sqcen, Int) => Unit, startCount: Int = 0): Unit =
+  final def iForeach(f: (SqCen, Int) => Unit, startCount: Int = 0): Unit =
   { var count: Int = startCount
     foreachRow{r => count = rowIForeach(r, count)(f) }
   }
 
-  def rowIForeach(r: Int, startCount: Int)(f: (Sqcen, Int) => Unit): Int =
+  def rowIForeach(r: Int, startCount: Int)(f: (SqCen, Int) => Unit): Int =
   {
     var count = startCount
     iToForeach(0, tileRowLen) { i =>
-      f(Sqcen(r, cTileMin + i * 2), i)
+      f(SqCen(r, cTileMin + i * 2), i)
       count += 1
     }
     count

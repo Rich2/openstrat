@@ -22,10 +22,10 @@ sealed trait SqStepNearOpt extends SqStepOpt
 /** A non-diagonal square tile Step can take 4 values. */
 sealed trait SqStepNear extends SqStepNearOpt with SqStep
 
-case object SqStepUp extends SqStepNear { def r: Int = 0; def c: Int = 2 }
-case object SqStepRight extends SqStepNear { def r: Int = 2; def c: Int = 0 }
-case object SqStepDown extends SqStepNear { def r: Int = 0; def c: Int = -2 }
-case object SqStepLeft extends SqStepNear { def r: Int = -2; def c: Int = 0 }
+case object SqStepUp extends SqStepNear { def r: Int = 2; def c: Int = 0 }
+case object SqStepRight extends SqStepNear { def r: Int = 0; def c: Int = 2 }
+case object SqStepDown extends SqStepNear { def r: Int = -2; def c: Int = 0 }
+case object SqStepLeft extends SqStepNear { def r: Int = 0; def c: Int = -2 }
 
 /** An diagonal optional square tile step. Can take 5 values. Represents the relative move from a square tile to one of its diagonal 4 neighbours or
  *  the non move [[SqStepNone]] value. */
@@ -38,8 +38,8 @@ case object SqStepUR extends SqStepDiag { def r: Int = 2; def c: Int = 2 }
 case object SqStepDR extends SqStepDiag { def r: Int = 2; def c: Int = -2 }
 case object SqStepDL extends SqStepDiag{ def r: Int = -2; def c: Int = -2 }
 case object SqStepUL extends SqStepDiag{ def r: Int = 2; def c: Int = 2 }
-//
-//case class HCAndStep(r1: Int, c1: Int, step: HcenStep)
-//{ def hc1: Hcen = Hcen(r1, c1)
-//  def hc2: Hcen = Hcen(r1 + step.r, c1 + step.c)
-//}
+
+case class SqAndStep(r1: Int, c1: Int, step: SqStep)
+{ def sc1: SqCen = SqCen(r1, c1)
+  def sc2: SqCen = SqCen(r1 + step.r, c1 + step.c)
+}

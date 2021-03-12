@@ -3,10 +3,11 @@ package ostrat
 package gTwo
 import prid._
 
+/** Scenario trait for Game Two. */
 trait TwoScen
 { val turn: Int
   def grid: SqGrid
-  def oPlayers: SqcenArrOpt[Player]
+  def oPlayers: SqCenArrOpt[Player]
 }
 
 /** This trait just puts the value 0 in for the turn. */
@@ -17,7 +18,7 @@ trait TwoScenStart extends TwoScen
 object TwoScen1 extends TwoScenStart
 {
   implicit val grid = new SqGrid(2, 8, 2, 10)
-  val oPlayers: SqcenArrOpt[Player] = grid.newTileArrOpt
+  val oPlayers: SqCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.setSome(4, 4, PlayerA)
   oPlayers.setSomes((4, 6, PlayerB), (6, 8, PlayerC))
 }

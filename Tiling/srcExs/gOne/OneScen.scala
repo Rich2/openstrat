@@ -7,13 +7,13 @@ import prid._
 trait OneScen
 { val turn: Int
   implicit val grid: HGridReg
-  def oPlayers: HcenArrOpt[Player]
+  def oPlayers: HCenArrOpt[Player]
 
   def turn(hts: Arr[HexAndStep]): OneScen =
   {
     val resolve: HCenArrBuff[HexAndStep] = grid.newTileBuffArr
     hts.foreach{hts => resolve.appendAt(hts.hc2, hts) }
-    val resValue: HcenArrOpt[Player] = oPlayers.clone
+    val resValue: HCenArrOpt[Player] = oPlayers.clone
     resolve.foreach{ (r, b) => b match
     { case _ if b.length == 1 => resValue.mutMove(hts.head.hc1, r)
       case _ =>
@@ -29,22 +29,22 @@ trait UneScenStart extends OneScen
 
 object OneScen
 {
-  def apply(turnIn: Int, gridIn: HGridReg, opIn: HcenArrOpt[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HGridReg, opIn: HCenArrOpt[Player]): OneScen = new OneScen
   { override val turn = turnIn
     override implicit val grid: HGridReg = gridIn
-    override def oPlayers: HcenArrOpt[Player] = opIn
+    override def oPlayers: HCenArrOpt[Player] = opIn
   }
 }
 
 object OneScen1 extends UneScenStart
 { implicit val grid = new HGridReg(2, 6, 2, 10)
-  val oPlayers: HcenArrOpt[Player] = grid.newTileArrOpt
+  val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.setSome(4, 4, PlayerA)
   oPlayers.setSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
 
 object OneScen2 extends UneScenStart
 { implicit val grid = new HGridReg(2, 10, 4, 8)
-  val oPlayers: HcenArrOpt[Player] = grid.newTileArrOpt
+  val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.setSome(4, 4, PlayerA)
 }
