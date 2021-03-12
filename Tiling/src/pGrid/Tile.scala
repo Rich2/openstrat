@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pGrid
 
@@ -8,19 +8,11 @@ trait Tile
 }
 
 case class HexTile(y: Int, c: Int) extends Tile
-{
-  def roord: Roord = Roord(y, c)
-  override def toString: String = "Tile".appendParenthSemis(y.toString, c.toString)
-  def adjORCenOf(operand: Roord): OptRef[HTStepOpt] = htSteps.optFind(_.roord == roord - operand)
-  def adjOf(operand: Roord): OptRef[HTStep] = htStepSomes.optFind(_.roord == roord - operand)
+{ def roord: Roord = Roord(y, c)
 }
 
 case class SqTile(y: Int, c: Int) extends Tile
-{
-  //def roord: Roord = Roord(y, c)
-  override def toString: String = "Tile".appendParenthSemis(y.toString, c.toString)
-  //def adjORCenOf(operand: Roord): OptRef[HTStepLike] = htSteps.optFind(_.roord == roord - operand)
-  //def adjOf(operand: Roord): OptRef[HTStep] = htStepSomes.optFind(_.roord == roord - operand)
+{ override def toString: String = "Tile".appendParenthSemis(y.toString, c.toString)
 }
 
 case class HTileAndStep(y1: Int, c1: Int, step: HTStep)
@@ -37,13 +29,6 @@ case object HTStepNone extends HTStepOpt(0, 0)
 
 /** A Hex tile Step can take 6 values */
 class HTStep(yIn: Int, cIn: Int) extends HTStepOpt(yIn, cIn)
-
-case object HTStepUR extends HTStep(2, 2)
-case object HTStepRt extends HTStep(0, 4)
-case object HTStepDR extends HTStep(-2, 2)
-case object HTStepDL extends HTStep(-2, -2)
-case object HTStepLt extends HTStep(0, -4)
-case object HTStepUL extends HTStep(2, -2)
 
 trait TileMem[A]
 { val rd: Roord
