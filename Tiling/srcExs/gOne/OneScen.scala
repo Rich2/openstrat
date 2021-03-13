@@ -6,7 +6,7 @@ import prid._
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
 trait OneScen
 { val turn: Int
-  implicit val grid: HGridReg
+  implicit val grid: HGrid
   def oPlayers: HCenArrOpt[Player]
 
   def turn(hts: Arr[HexAndStep]): OneScen =
@@ -14,10 +14,12 @@ trait OneScen
     val resolve: HCenArrBuff[HexAndStep] = grid.newTileBuffArr
     hts.foreach{hts => resolve.appendAt(hts.hc2, hts) }
     val resValue: HCenArrOpt[Player] = oPlayers.clone
-    resolve.foreach{ (r, b) => b match
-    { case _ if b.length == 1 => resValue.mutMove(hts.head.hc1, r)
-      case _ =>
-    }}
+
+    resolve.foreach { (r, b) => b match
+      { case _ if b.length == 1 => resValue.mutMove(hts.head.hc1, r)
+        case _ =>
+      }
+    }
     OneScen(turn + 1, grid, resValue)
   }
 }
@@ -29,9 +31,9 @@ trait UneScenStart extends OneScen
 
 object OneScen
 {
-  def apply(turnIn: Int, gridIn: HGridReg, opIn: HCenArrOpt[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HGrid, opIn: HCenArrOpt[Player]): OneScen = new OneScen
   { override val turn = turnIn
-    override implicit val grid: HGridReg = gridIn
+    override implicit val grid: HGrid = gridIn
     override def oPlayers: HCenArrOpt[Player] = opIn
   }
 }
