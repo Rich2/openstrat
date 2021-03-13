@@ -52,7 +52,7 @@ def cMap[B, ArrT <: ArrImut[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(impl
 
 
 /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
- *  a standard Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HcenArr]] was created. */
+ *  a standard Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArr]] was created. */
 def map[B, ArrT <: ArrImut[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
 {
   val buff = build.newBuff()
@@ -68,7 +68,7 @@ def map[B, ArrT <: ArrImut[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid,
 /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
 def apply(hc: HCen)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(hc))
 
-/** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HcenArr]] class like a standard
+/** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
  *  Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArrOpt]] was created. */
 def mapSomes[B, ArrT <: ArrImut[B]](f: A => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
 {

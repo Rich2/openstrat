@@ -59,8 +59,8 @@ trait HGrid extends TGrid
   def arrIndex(r: Int, c: Int): Int
 
   /** New immutable Arr of Tile data. */
-  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HcenArr[A] =
-  { val res = HcenArr[A](numOfTiles)
+  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenArr[A] =
+  { val res = HCenArr[A](numOfTiles)
     res.mutSetAll(value)
     res
   }
