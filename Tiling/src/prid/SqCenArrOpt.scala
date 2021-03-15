@@ -54,6 +54,20 @@ class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     unsafeArr(grid.arrIndex(s1)) = null.asInstanceOf[A]
   }
 
+  /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[SqCenArr]] class like a standard
+   *  Arr or Array. It does not utilise the grid [[SqGrid]] from which this [[SqCenArrOpt]] was created. */
+  def mapSomes[B, ArrT <: ArrImut[B]](f: A => B)(implicit build: ArrTBuilder[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    unsafeArr.foreach { a =>
+      if(a != null)
+      { val newVal = f(a)
+        build.buffGrow(buff, newVal)
+      }
+    }
+    build.buffToArr(buff)
+  }
+
   /** map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns an immutable Array
    * based collection of type ArrT, the second type parameter. */
   /*def mapSqcenSomes[B, ArrT <: ArrBase[B]](f: (Sqcen, A) => B)(implicit grid: SqGrid, build: ArrBuild[B, ArrT]): ArrT =

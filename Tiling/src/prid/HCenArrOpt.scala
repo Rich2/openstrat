@@ -70,11 +70,10 @@ def apply(hc: HCen)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(hc))
 
 /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
  *  Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArrOpt]] was created. */
-def mapSomes[B, ArrT <: ArrImut[B]](f: A => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
+def mapSomes[B, ArrT <: ArrImut[B]](f: A => B)(implicit build: ArrTBuilder[B, ArrT]): ArrT =
 {
   val buff = build.newBuff()
-  grid.foreach { r =>
-    val a = unsafeArr(grid.arrIndex(r))
+  unsafeArr.foreach { a =>
     if(a != null)
     { val newVal = f(a)
       build.buffGrow(buff, newVal)

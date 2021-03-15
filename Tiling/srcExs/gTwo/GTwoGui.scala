@@ -1,3 +1,4 @@
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package gTwo
 import pCanv._, prid._, geom._
@@ -17,20 +18,40 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends CmdBarGui("
 
   def css = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2))
 
+  /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
+   *  those moves. This data is state for the Gui. */
+  var moves: SqCenArrOpt[SqAndStep] = NoMoves
+
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
-    //    val getOrders = moves.mapSomeOnlys(rs => rs)
-    //    scen = scen.turn(getOrders)
-    //    moves = NoMoves
-    //    repaint()
-    //    thisTop()
+        val getOrders = moves.mapSomes(rs => rs)
+        scen = scen.turn(getOrders)
+        moves = NoMoves
+        repaint()
+        thisTop()
   })
 
   /** Draws the tiles sides (or edges). */
   val sidesDraw = grid.sidesDraw()
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  //def NoMoves: HcenArrOpt[HCAndStep] = grid.newTileArrOpt[HCAndStep]
+  def NoMoves: SqCenArrOpt[SqAndStep] = grid.newTileArrOpt[SqAndStep]
+
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  { case (LeftButton, _, cl) =>
+    { selected = cl
+      statusText = selected.headToStringElse("Nothing Selected")
+      thisTop()
+    }
+
+    case (RightButton, List(SPlayer(p, sc1), SqCen(y, c)), (sc2 : SqCen) :: _) =>
+    {
+      val newM: OptRef[SqStep] = sc1.optStep(sc2)
+      //newM.foreach(m => moves = moves.setSomeNew(hc1, hc1.andStep(m)))
+      repaint()
+    }
+    case (_, _, h) => deb("Other; " + h.toString)
+  }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(bTurn))

@@ -35,6 +35,9 @@ trait SqCoord extends Any with TCoord
 /** A Square tile centre square grid [[SqGrid]] coordinate. */
 case class SqCen(val r: Int, val c: Int) extends SqCoord
 { override def typeStr: String = "Sqcen"
+
+  /** Optionally returns the Step value of the SqCen if it is an adjacent SqCen. */
+  def optStep(operand: SqCen): OptRef[SqStep] = ??? // hcStepSomes.optFind(_.hCen == operand - this)
 }
 
 /** A Square tile side square grid [[SqGrid]] coordinate. */
@@ -49,4 +52,10 @@ class SqVert(val r: Int, val c: Int) extends SqCoord
 
 object SqVert
 { val showTImplicit: ShowT[SqVert] = Show2IntsT("Sqvert")
+}
+
+
+trait SqMem[A]
+{ val sc: SqCen
+  val value: A
 }

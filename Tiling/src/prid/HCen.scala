@@ -26,6 +26,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
 
   /** Optionally returns the Step value of the HCen if it is an adjacent HCen. */
   def optStep(operand: HCen): OptRef[HexStep] = hcStepSomes.optFind(_.hCen == operand - this)
+
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 }
 
