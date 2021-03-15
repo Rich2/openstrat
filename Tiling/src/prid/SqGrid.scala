@@ -75,6 +75,8 @@ final class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val 
     }
     count
   }
+
+  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrBuff[A] = SqCenArrBuff(numOfTiles)
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

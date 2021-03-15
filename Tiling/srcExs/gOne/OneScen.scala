@@ -24,11 +24,6 @@ trait OneScen
   }
 }
 
-/** This trait just puts the value 0 in for the turn. */
-trait UneScenStart extends OneScen
-{ override val turn: Int = 0
-}
-
 object OneScen
 {
   def apply(turnIn: Int, gridIn: HGrid, opIn: HCenArrOpt[Player]): OneScen = new OneScen
@@ -36,6 +31,11 @@ object OneScen
     override implicit val grid: HGrid = gridIn
     override def oPlayers: HCenArrOpt[Player] = opIn
   }
+}
+
+/** This trait just puts the value 0 in for the turn. */
+trait UneScenStart extends OneScen
+{ override val turn: Int = 0
 }
 
 object OneScen1 extends UneScenStart

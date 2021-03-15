@@ -6,8 +6,31 @@ import prid._
 /** Scenario trait for Game Two. */
 trait TwoScen
 { val turn: Int
-  def grid: SqGrid
+  implicit def grid: SqGrid
   def oPlayers: SqCenArrOpt[Player]
+
+  def turn(sat: Arr[SqAndStep]): TwoScen =
+  {
+    val resolve: SqCenArrBuff[SqAndStep] = grid.newTileBuffArr
+    sat.foreach{sat => resolve.appendAt(sat.sc2, sat) }
+    val resValue: SqCenArrOpt[Player] = oPlayers.clone
+
+    resolve.foreach { (r, b) => b match
+    { case _ if b.length == 1 => resValue.mutMove(sat.head.sc1, r)
+      case _ =>
+    } }
+    TwoScen(turn + 1, grid, resValue)
+  }
+}
+
+/** Companion object for TwoScen trait, contains factory apply method. */
+object TwoScen
+{ /** Apply factory method for TwoScen game. */
+  def apply(turnIn: Int, gridIn: SqGrid, opIn: SqCenArrOpt[Player]): TwoScen = new TwoScen
+  { override val turn = turnIn
+    override implicit val grid: SqGrid = gridIn
+    override def oPlayers: SqCenArrOpt[Player] = opIn
+  }
 }
 
 /** This trait just puts the value 0 in for the turn. */
@@ -16,8 +39,7 @@ trait TwoScenStart extends TwoScen
 }
 
 object TwoScen1 extends TwoScenStart
-{
-  implicit val grid = new SqGrid(2, 8, 2, 10)
+{ implicit val grid = new SqGrid(2, 8, 2, 10)
   val oPlayers: SqCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.setSome(4, 4, PlayerA)
   oPlayers.setSomes((4, 6, PlayerB), (6, 8, PlayerC))

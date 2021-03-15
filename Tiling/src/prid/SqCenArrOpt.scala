@@ -7,6 +7,7 @@ package prid
 class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 {
   def length: Int = unsafeArr.length
+  def clone: SqCenArrOpt[A] = new SqCenArrOpt[A](unsafeArr.clone)
 
   /** Sets the Some value of the square tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def setSome(y: Int, c: Int, value: A)(implicit grid: SqGrid): Unit = unsafeArr(grid.arrIndex(y, c)) = value
@@ -45,6 +46,12 @@ class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
       }
     }
     build.buffToArr(buff)
+  }
+
+  /** Moves the object in the array location given by HCen1 to HCen2, by setting H2 to the value of h1 and setting H1 to null. */
+  def mutMove(s1: SqCen, s2: SqCen)(implicit grid: SqGrid): Unit =
+  { unsafeArr(grid.arrIndex(s2)) = unsafeArr(grid.arrIndex(s1))
+    unsafeArr(grid.arrIndex(s1)) = null.asInstanceOf[A]
   }
 
   /** map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns an immutable Array
