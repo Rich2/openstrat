@@ -4,10 +4,8 @@ package prid
 
 /** An optional hex tile step. Can take 7 values. Represents the relative move from a hex tile to one of its six neighbours or the non move value. It
  *  can be one of the 6 [[HexStep]] values or the [[HexStepNone]] value. */
-sealed trait HexStepOpt
-{ def r: Int
-  def c: Int
-  def hCen: HCen = HCen(r, c)
+sealed trait HexStepOpt extends TileStepOpt
+{ def hCen: HCen = HCen(r, c)
 }
 
 /** An optional hex tile step of None. */

@@ -2,34 +2,47 @@
 package ostrat
 package prid
 
-/** An optional square tile step. Can take 9 values. Represents the relative move from a square tile to one of its eight neighbours or the non move value. It
- *  can be one of the 6 [[HexStep]] values or the [[HexStepNone]] value. */
-sealed trait SqStepLike
-{ def r: Int
+/** A tile step, move or addition, or no move. */
+trait TileStepOpt
+{/** Row coordinate delta. */
+  def r: Int
+
+  /** Column coordinate delta */
   def c: Int
 }
 
+/** An optional square tile step. Can take 9 values. Represents the relative move from a square tile to one of its eight neighbours or the non move value. It
+ *  can be one of the 6 [[HexStep]] values or the [[HexStepNone]] value. */
+sealed trait SqStepOpt extends TileStepOpt
+
 /** An optional square tile step of None. */
-case object SqStepNone extends SqStepNearLike { def r: Int = 0; def c: Int = 0 }
+case object SqStepNone extends SqStepNearOpt { def r: Int = 0; def c: Int = 0 }
 
 /** A square tile step can take 8 values */
-sealed trait SqStep extends SqStepLike
+sealed trait SqStep extends SqStepOpt
 
 /** An non-diagonal optional square tile step. Can take 5 values. Represents the relative move from a square tile to one of its non-diagonal 4
  *  neighbours or the non move [[SqStepNone]] value. */
-sealed trait SqStepNearLike extends SqStepLike
+sealed trait SqStepNearOpt extends SqStepOpt
 
 /** A non-diagonal square tile Step can take 4 values. */
-sealed trait SqStepNear extends SqStepNearLike with SqStep
+sealed trait SqStepNear extends SqStepNearOpt with SqStep
 
+/** An upward step / move addition of one square tile in a square tile grid. Increases the row coordinate by 2. */
 case object SqStepUp extends SqStepNear { def r: Int = 2; def c: Int = 0 }
+
+/** An rightward step / move / addition of one square tile in a square tile grid. Increases the column coordinate by 2 */
 case object SqStepRight extends SqStepNear { def r: Int = 0; def c: Int = 2 }
+
+/** An dwonward step / move / addition of one square tile in a square tile grid. */
 case object SqStepDown extends SqStepNear { def r: Int = -2; def c: Int = 0 }
+
+/** An upward of one square tile in a square tile grid. */
 case object SqStepLeft extends SqStepNear { def r: Int = 0; def c: Int = -2 }
 
 /** An diagonal optional square tile step. Can take 5 values. Represents the relative move from a square tile to one of its diagonal 4 neighbours or
  *  the non move [[SqStepNone]] value. */
-sealed trait SqStepDiagOpt extends SqStepLike
+sealed trait SqStepDiagOpt extends SqStepOpt
 
 /** A non-diagonal square tile Step can take 4 values. */
 sealed trait SqStepDiag extends SqStepDiagOpt with SqStep

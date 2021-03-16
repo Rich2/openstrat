@@ -34,5 +34,5 @@ package object prid
   val hcSteps: Arr[HexStepOpt] = HexStepNone +: hcStepSomes
 
   val scStepSomes: Arr[SqStep] = Arr()//HexStepUR, HexStepRt, HexStepDR, HexStepDL, HexStepLt, HexStepUL)
-  val scSteps: Arr[SqStepLike] = SqStepNone +: scStepSomes
+  val scSteps: Arr[SqStepOpt] = SqStepNone +: scStepSomes
 }
