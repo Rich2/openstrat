@@ -10,7 +10,7 @@ trait GraphicSimple extends GraphicElem
   //override def slate(offset: Vec2Like): GraphicSimple
 
   /** Translate geometric transformation. */
-  override def slateXY(xOffset: Double, yOffset: Double): GraphicSimple
+  override def slateXY(xDelta: Double, yDelta: Double): GraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

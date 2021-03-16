@@ -11,29 +11,32 @@ sealed trait HexStepOpt extends TileStepOpt
 /** An optional hex tile step of None. */
 case object HexStepNone extends HexStepOpt { def r: Int = 0; def c: Int = 0 }
 
-/** A hex tile Step can take 6 values */
+/** A hex tile step can take 6 values. */
 sealed trait HexStep extends HexStepOpt
 
 /** hex Step up right. */
-case object HexStepUR extends HexStep{ def r: Int = 2; def c: Int = 2 }
+case object HexStepUR extends HexStep { def r: Int = 2; def c: Int = 2 }
 
 /** hex Step right. */
-case object HexStepRt extends HexStep{ def r: Int = 0; def c: Int = 4 }
+case object HexStepRt extends HexStep { def r: Int = 0; def c: Int = 4 }
 
 /** hex Step down right. */
-case object HexStepDR extends HexStep{ def r: Int = -2; def c: Int = 2 }
+case object HexStepDR extends HexStep { def r: Int = -2; def c: Int = 2 }
 
 /** hex Step down left. */
-case object HexStepDL extends HexStep{ def r: Int = -2; def c: Int = -2 }
+case object HexStepDL extends HexStep { def r: Int = -2; def c: Int = -2 }
 
 /** Hex step left. */
-case object HexStepLt extends HexStep{ def r: Int = 0; def c: Int = -4 }
+case object HexStepLt extends HexStep { def r: Int = 0; def c: Int = -4 }
 
 /** Hex step up left. */
-case object HexStepUL extends HexStep{ def r: Int = 2; def c: Int = -2 }
+case object HexStepUL extends HexStep { def r: Int = 2; def c: Int = -2 }
 
 /** Hex centre coordinate and hex step. */
 case class HexAndStep(r1: Int, c1: Int, step: HexStep)
-{ def hc1: HCen = HCen(r1, c1)
+{ /** The Starting hex centre. */
+  def hc1: HCen = HCen(r1, c1)
+
+  /** The destination hex centre. */
   def hc2: HCen = HCen(r1 + step.r, c1 + step.c)
 }

@@ -10,7 +10,7 @@ trait GraphicElem extends GeomElem
    def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
 
   /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
-  override def slateXY(xOffset: Double, yOffset: Double): GraphicElem
+  override def slateXY(xDelta: Double, yDelta: Double): GraphicElem
 
   /** Uniform scaling 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale
@@ -78,7 +78,7 @@ object GraphicElem
 trait CanvElem extends GraphicElem
 {
   /** Translate 2D geometric transformation on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits / classes. */
-  override def slateXY(xOffset: Double, yOffset: Double): CanvElem
+  override def slateXY(xDelta: Double, yDelta: Double): CanvElem
 
   /** Uniform scaling 2D geometric transformation on a CanvElem, returns a CanvElem. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale

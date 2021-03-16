@@ -13,7 +13,7 @@ trait ShapeCompound extends ShapeGraphic with CanvNoElem
   def children: Arr[GraphicElem]
 
   /** 2D geometric translation transformation on this ShapeCompound, returns a ShapeCompound. Return type may be narrowed in sub class /traits. */
-  override def slateXY(xOffset: Double, yOffset: Double): ShapeCompound
+  override def slateXY(xDelta: Double, yDelta: Double): ShapeCompound
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

@@ -10,7 +10,7 @@ trait Drawable extends GeomElem
   def draw(lineColour: Colour = Black, lineWidth: Double = 2): GraphicElem
 
   /** Translate 2D geometric transformation on this Drawable returns a Drawable. The Return type will be narrowed in sub traits. */
-  override def slateXY(xOffset: Double, yOffset: Double): Drawable
+  override def slateXY(xDelta: Double, yDelta: Double): Drawable
 
   /** Uniform 2D geometric scaling transformation on this Drawable returns a Drawable. The Return type will be narrowed in sub traits / classes. */
   override def scale(operand: Double): Drawable

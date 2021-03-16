@@ -65,7 +65,7 @@ final class HexXlign(val height: Double, val cenX: Double, val cenY: Double) ext
   override def sd6Cen: Pt2 = sd6CenX pp sd6CenY
 
   /** Translate 2D geometric transformation on this HexXlign returns a HexXlign. */
-  override def slateXY(xOffset: Double, yOffset: Double): HexXlign = HexXlign(diameterIn, cen.addXY(xOffset, yOffset))
+  override def slateXY(xDelta: Double, yDelta: Double): HexXlign = HexXlign(diameterIn, cen.addXY(xDelta, yDelta))
 
   /** Uniform scaling against both X and Y axes 2D geometric transformation on this HexXlign returning a HexXlign. */
   override def scale(operand: Double): HexXlign = HexXlign(diameterIn * operand, cen.scale(operand))

@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black, pWeb._
@@ -17,7 +17,7 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
   override def attribs: Arr[XANumeric] = ???
 
   /** Translate 2D geometric transformation on a ShapeGen returns a Shape. The Return type will be narrowed in sub traits / classes. */
-  override def slateXY(xOffset: Double, yOffset: Double): ShapeGen = new ShapeGen(unsafeArray.SlateXY(xOffset, yOffset))
+  override def slateXY(xDelta: Double, yDelta: Double): ShapeGen = new ShapeGen(unsafeArray.SlateXY(xDelta, yDelta))
 
   /** Uniform scaling 2D geometric transformation on a ShapeGen returns a Shape. The Return type will be narrowed in sub traits / classes. Use the
    * xyScale method for differential scaling on the X and Y axes. */
@@ -48,24 +48,20 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
   override def boundingRect: BoundingRect = ???
 
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): GraphicElem = ???
-
-  //override def productArity: Int = ???
-
-  //override def productElement(n: Int): Any = ???
 }
 
 object ShapeGen
 {
-  implicit val slateImplicit: Slate[ShapeGen ] = (obj: ShapeGen , dx: Double, dy: Double) => obj.slateXY(dx, dy)
-  implicit val scaleImplicit: Scale[ShapeGen ] = (obj: ShapeGen , operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[ShapeGen ] = (obj: ShapeGen , angle: AngleVec) => obj.rotate(angle)
-  implicit val prolignImplicit: Prolign[ShapeGen ] = (obj, matrix) => obj.prolign(matrix)
-  implicit val XYScaleImplicit: ScaleXY[ShapeGen ] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
-  implicit val ReflectImplicit: Reflect[ShapeGen ] = (obj, lineLike) => obj.reflect(lineLike)
+  implicit val slateImplicit: Slate[ShapeGen] = (obj: ShapeGen , dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val scaleImplicit: Scale[ShapeGen] = (obj: ShapeGen , operand: Double) => obj.scale(operand)
+  implicit val rotateImplicit: Rotate[ShapeGen] = (obj: ShapeGen , angle: AngleVec) => obj.rotate(angle)
+  implicit val prolignImplicit: Prolign[ShapeGen] = (obj, matrix) => obj.prolign(matrix)
+  implicit val XYScaleImplicit: ScaleXY[ShapeGen] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
+  implicit val ReflectImplicit: Reflect[ShapeGen] = (obj, lineLike) => obj.reflect(lineLike)
 
-  implicit val transAxesImplicit: TransAxes[ShapeGen ] = new TransAxes[ShapeGen ]
-  { override def negYT(obj: ShapeGen ): ShapeGen  = obj.negY
-    override def negXT(obj: ShapeGen ): ShapeGen  = obj.negX
+  implicit val transAxesImplicit: TransAxes[ShapeGen] = new TransAxes[ShapeGen ]
+  { override def negYT(obj: ShapeGen): ShapeGen  = obj.negY
+    override def negXT(obj: ShapeGen): ShapeGen  = obj.negX
     override def rotate90(obj: ShapeGen): ShapeGen = obj.rotate90
     override def rotate180(obj: ShapeGen): ShapeGen = obj.rotate180
     override def rotate270(obj: ShapeGen): ShapeGen = obj.rotate270

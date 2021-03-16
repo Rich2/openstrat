@@ -66,8 +66,8 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   override def slate(offset: Vec2Like): Rectangle = Rectangle.sd2sd4(sd2Cen.slate(offset), sd4Cen.slate(offset), width2)
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def slateXY(xOffset: Double, yOffset: Double): Rectangle =
-    Rectangle.sd2sd4(sd2Cen.addXY(xOffset, yOffset), sd4Cen.addXY(xOffset, yOffset), width2)
+  override def slateXY(xDelta: Double, yDelta: Double): Rectangle =
+    Rectangle.sd2sd4(sd2Cen.addXY(xDelta, yDelta), sd4Cen.addXY(xDelta, yDelta), width2)
 
   /** Uniform scaling 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def scale(operand: Double): Rectangle = Rectangle.sd2sd4(sd2Cen.scale(operand), sd4Cen.scale(operand), width2 * operand)

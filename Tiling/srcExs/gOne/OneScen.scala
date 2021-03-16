@@ -9,14 +9,15 @@ trait OneScen
   implicit val grid: HGrid
   def oPlayers: HCenArrOpt[Player]
 
-  def turn(hts: Arr[HexAndStep]): OneScen =
-  {
+  /** Resolves turn. Takes a set of commands / orders, resolves them and returns the new game state scenario. */
+  def turn(has: Arr[HexAndStep]): OneScen =
+  { /** A mutable grid of data. The tile data is an Array buffer of [[HexAndStep]]s. */
     val resolve: HCenArrBuff[HexAndStep] = grid.newTileBuffArr
-    hts.foreach{hts => resolve.appendAt(hts.hc2, hts) }
+    has.foreach{ hts => resolve.appendAt(hts.hc2, hts) }
     val resValue: HCenArrOpt[Player] = oPlayers.clone
 
     resolve.foreach { (r, b) => b match
-      { case _ if b.length == 1 => resValue.mutMove(hts.head.hc1, r)
+      { case _ if b.length == 1 => resValue.mutMove(has.head.hc1, r)
         case _ =>
       }
     }

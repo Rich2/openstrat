@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black
@@ -17,7 +17,6 @@ case class PolyCurveFill(shape: ShapeGenOld, colour: Colour) extends PolyCurveEl
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  //override def slateTo(newCen: Pt2): PolyCurveFill = ???
 }
 
 case class PolyCurveDraw(shape: ShapeGenOld, colour: Colour = Black, lineWidth: Double = 2.0) extends PolyCurveElem
@@ -27,7 +26,6 @@ case class PolyCurveDraw(shape: ShapeGenOld, colour: Colour = Black, lineWidth: 
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
- // override def slateTo(newCen: Pt2): PolyCurveDraw = ???
 }
 
 case class PolyCurveFillDraw(shape: ShapeGenOld, fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2.0) extends PolyCurveElem
@@ -41,7 +39,6 @@ case class PolyCurveFillDraw(shape: ShapeGenOld, fillColour: Colour, lineColour:
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  //override def slateTo(newCen: Pt2): PolyCurveFillDraw = ???
 }
 
 case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: String, fontSize: Int = 24, lineColour: Colour = Black,
@@ -59,7 +56,6 @@ case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: St
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
-  //override def slateTo(newCen: Pt2): PolyCurveFillDrawText = ???
 }
 
 case class PolyCurveAll(shape: ShapeGenOld, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineColour: Colour = Black,

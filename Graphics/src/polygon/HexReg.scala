@@ -67,7 +67,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slateXY(xOffset: Double, yOffset: Double): HexReg = HexReg.sd4Sd1(sd4Cen.addXY(xOffset, yOffset), sd1Cen.addXY(xOffset, yOffset))
+  override def slateXY(xDelta: Double, yDelta: Double): HexReg = HexReg.sd4Sd1(sd4Cen.addXY(xDelta, yDelta), sd1Cen.addXY(xDelta, yDelta))
 
   /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */

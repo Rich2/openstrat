@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black
@@ -13,13 +13,8 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends /* Shape with */ Dbl7s
   override def typeStr = "Shape"
   override def fElemStr: CurveTail => String = _.toString
   override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
-    new CurveTail(iMatch, d1, d2, d3, d4, d5, d6)
+    CurveTail(iMatch, d1, d2, d3, d4, d5, d6)
 
-  //override def canEqual(that: Any): Boolean = ???
-
-  //override def productArity: Int = ???
-
-  //override def productElement(n: Int): Any = ???
   def ptsTrans(f: Pt2 => Pt2): ShapeGenOld =
   { val newArray = new Array[Double](elemsLen * 7)
     def setMiddle(offset: Int): Unit =
@@ -70,7 +65,6 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends /* Shape with */ Dbl7s
   def shapeAll(shape: ShapeGenOld, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black):
     PolyCurveAll = PolyCurveAll(shape, evObj, str, fillColour, fontSize, lineColour, lineWidth)
 
- // def fillSlateable(colour: Colour, evObj: AnyRef, posn: Vec2 = Vec2Z): UnScaledShape = UnScaledShape(posn, this, evObj, Arr(PolyCurveFill(this, colour)))
   def fillScale(colour: Colour, factor: Double): PolyCurveFill = PolyCurveFill(this.scale(factor), colour)
   def fillScaleSlate(colour: Colour, factor: Double, offset: Pt2): PolyCurveFill = PolyCurveFill(this.scale(factor).slate(offset), colour)
 

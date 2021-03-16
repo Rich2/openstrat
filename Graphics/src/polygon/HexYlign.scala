@@ -71,7 +71,7 @@ final class HexYlign(val width: Double, val cenX: Double, val cenY: Double) exte
   //override def productElement(n: Int): Any = ???
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
-  override def slateXY(xOffset: Double, yOffset: Double): HexYlign = HexYlign(diameterIn, cen.addXY(xOffset, yOffset))
+  override def slateXY(xDelta: Double, yDelta: Double): HexYlign = HexYlign(diameterIn, cen.addXY(xDelta, yDelta))
 
   /** Uniform scaling against both X and Y axes 2D geometric transformation on this HexYlign returns a HexYlign. */
   override def scale(operand: Double): HexYlign = HexYlign(diameterIn * operand, cen.scale(operand))

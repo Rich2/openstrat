@@ -25,7 +25,7 @@ trait CurveSeg extends Drawable
   final def pEnd: Pt2 = xEnd pp yEnd
 
   /** Translate 2D geometric transformation, on this CurveSeg, returns a CurveSeg. The Return type will be narrowed in sub traits. */
-  override def slateXY(xOffset: Double, yOffset: Double): CurveSeg
+  override def slateXY(xDelta: Double, yDelta: Double): CurveSeg
 
   /** Uniform 2D geometric scaling transformation, on this CurveSeg, returns a CurveSeg. The Return type will be narrowed in sub traits / classes. */
   override def scale(operand: Double): CurveSeg

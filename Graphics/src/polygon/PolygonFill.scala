@@ -12,7 +12,7 @@ trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
   override def toDraw(lineWidth: Double = 2, newColour: Colour ): PolygonDraw = shape.draw(newColour, lineWidth)
 
   /** Translate geometric transformation. */
-  override def slateXY(xOffset: Double, yOffset: Double): PolygonFill = PolygonFill(shape.slateXY(xOffset, yOffset), fill)
+  override def slateXY(xDelta: Double, yDelta: Double): PolygonFill = PolygonFill(shape.slateXY(xDelta, yDelta), fill)
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

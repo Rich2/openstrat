@@ -5,7 +5,7 @@ import pWeb._
 
 trait EllipseCompound extends ShapeCompound with EllipseGraphic
 { /** Translate geometric transformation. */
-  override def slateXY(xOffset: Double, yOffset: Double): EllipseCompound
+  override def slateXY(xDelta: Double, yDelta: Double): EllipseCompound
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -64,8 +64,8 @@ object EllipseCompound
     }
 
     /** Translate geometric transformation. */
-    override def slateXY(xOffset: Double, yOffset: Double): EllipseCompoundImplement =
-      EllipseCompoundImplement(shape.slateXY(xOffset, yOffset), facets, children.SlateXY(xOffset, yOffset))
+    override def slateXY(xDelta: Double, yDelta: Double): EllipseCompoundImplement =
+      EllipseCompoundImplement(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
 
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */

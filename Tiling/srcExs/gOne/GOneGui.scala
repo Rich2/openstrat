@@ -8,6 +8,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
 {
   var statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
+  var history: Arr[OneScen] = Arr(scen)
 
   implicit def grid = scen.grid
   def players: HCenArrOpt[Player] = scen.oPlayers

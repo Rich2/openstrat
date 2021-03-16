@@ -21,8 +21,8 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
     attribs ++ facets.flatMap(_.attribs))
 
   /** Translate geometric transformation. */
-  override def slateXY(xOffset: Double, yOffset: Double): CircleCompound =
-    CircleCompound(shape.slateXY(xOffset, yOffset), facets, children.SlateXY(xOffset, yOffset))
+  override def slateXY(xDelta: Double, yDelta: Double): CircleCompound =
+    CircleCompound(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

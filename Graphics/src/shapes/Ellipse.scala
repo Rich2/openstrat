@@ -45,7 +45,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cenAxes1axes4(f(cen), f(axesPt1), f(axesPt4))
 
   /** Translate 2D geometric transformation, on an Ellipse, returns an Ellipse. The return type may be narrowed in sub traits / classes. */
-  override def slateXY(xOffset: Double, yOffset: Double): Ellipse
+  override def slateXY(xDelta: Double, yDelta: Double): Ellipse
 
   /** Uniform scaling transformation, on an Ellipse, returns an Ellipse. The return type may be narrowed in sub traits / classes. */
   override def scale(operand: Double): Ellipse
@@ -144,8 +144,8 @@ object Ellipse
     def s0Angle = alignAngle.p90
 
     /** Translate 2D geometric transformation, on an EllipseImp, returns an EllipseImp. */
-    override def slateXY(xOffset: Double, yOffset: Double): EllipseImp =
-      EllipseImp(cenX + xOffset, cenY + yOffset, axesPt1x + xOffset, axesPt1y + yOffset, radius2)
+    override def slateXY(xDelta: Double, yDelta: Double): EllipseImp =
+      EllipseImp(cenX + xDelta, cenY + yDelta, axesPt1x + xDelta, axesPt1y + yDelta, radius2)
 
     /** Uniform scaling 2D geometric transformation, on an EllipseImp, returns an EllipseImp. */
     override def scale(operand: Double): EllipseImp =

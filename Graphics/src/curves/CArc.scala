@@ -28,8 +28,8 @@ class CArc private(val xStart: Double, val yStart: Double, val cenX: Double, val
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
   override def draw(lineColour: Colour, lineWidth: Double): CArcDraw = CArcDraw(this, lineColour, lineWidth)
   /** Translate 2D geometric transformation on this CArc returns a CArc. */
-  override def slateXY(xOffset: Double, yOffset: Double): CArc = CArc(pStart.addXY(xOffset, yOffset), cen.addXY(xOffset, yOffset),
-    pEnd.addXY(xOffset, yOffset), counter)
+  override def slateXY(xDelta: Double, yDelta: Double): CArc = CArc(pStart.addXY(xDelta, yDelta), cen.addXY(xDelta, yDelta),
+    pEnd.addXY(xDelta, yDelta), counter)
 
   /** Uniform 2D geometric scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves
    * [[Circle]]s and [[Square]]s. Use the xyScale method for differential scaling. The Return type will be narrowed in sub traits / classes. */

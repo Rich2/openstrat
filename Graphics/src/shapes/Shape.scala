@@ -19,7 +19,7 @@ trait Shape extends Fillable with BoundedElem
   }
 
   /** Translate 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. */
-  override def slateXY(xOffset: Double, yOffset: Double): Shape
+  override def slateXY(xDelta: Double, yDelta: Double): Shape
 
   /** Uniform scaling 2D geometric transformation on a Shape returns a Shape. The Return type will be narrowed in sub traits / classes. Use the
    *  xyScale method for differential scaling on the X and Y axes. */

@@ -26,7 +26,7 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   @inline def vertsMap[A, ArrT <: ArrImut[A]](f: Pt2 => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT = shape.vertsMap(f)
 
   /** Translate geometric transformation. */
-  override def slateXY(xOffset: Double, yOffset: Double): PolygonGraphic
+  override def slateXY(xDelta: Double, yDelta: Double): PolygonGraphic
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */

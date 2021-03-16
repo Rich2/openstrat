@@ -55,7 +55,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   override def slate(offset: Vec2Like): Rect = Rect(width, height, cen.slate(offset))
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slateXY(xOffset: Double, yOffset: Double): Rect = Rect(width, height, cenX + xOffset, cenY + yOffset)
+  override def slateXY(xDelta: Double, yDelta: Double): Rect = Rect(width, height, cenX + xDelta, cenY + yDelta)
 
   /** Uniform scaling transformation on a Rect returns a Rect. */
   override def scale(operand: Double): Rect = Rect(width * operand, height * operand, cen.scale(operand))
@@ -138,7 +138,7 @@ object Rect
     override def attribs: Arr[XANumeric] = ???
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    override def slateXY(xOffset: Double, yOffset: Double): RectImp = RectImp(width, height, cenX + xOffset, cenY + yOffset)
+    override def slateXY(xDelta: Double, yDelta: Double): RectImp = RectImp(width, height, cenX + xDelta, cenY + yDelta)
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen.slate(offset))

@@ -6,7 +6,7 @@ package geom
  *  and [[Curve]] graphics. */
 trait GraphicBounded extends GraphicElem with BoundedElem
 {
-  def slateXY(xOffset: Double, yOffset: Double): GraphicBounded
+  def slateXY(xDelta: Double, yDelta: Double): GraphicBounded
   def scale(operand: Double): GraphicBounded
 
   def negY: GraphicBounded

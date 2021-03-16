@@ -13,7 +13,7 @@ trait EArcDraw extends CurveSegDraw with CanvElem
   def cen: Pt2 = curveSeg.cen
 
   /** Translate 2D geometric transformation on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits / classes. */
-  override def slateXY(xOffset: Double, yOffset: Double): EArcDraw = EArcDraw(curveSeg.slateXY(xOffset, yOffset), colour, lineWidth)
+  override def slateXY(xDelta: Double, yDelta: Double): EArcDraw = EArcDraw(curveSeg.slateXY(xDelta, yDelta), colour, lineWidth)
 
   /** Uniform scaling 2D geometric transformation on a EArcDraw, returns a EArcDraw. The Return type will be narrowed in sub traits / classes.
    * The scale name was chosen for this operation as it is normally the desired operation and preserves [[Circle]]s and [[Square]]s. Use the xyScale

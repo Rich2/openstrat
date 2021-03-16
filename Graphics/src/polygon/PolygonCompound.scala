@@ -23,8 +23,8 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   override def svgElem(bounds: BoundingRect): SvgElem = ???
 
   /** Translate geometric transformation. */
-  override def slateXY(xOffset: Double, yOffset: Double): PolygonCompound =
-    PolygonCompound(shape.slateXY(xOffset, yOffset), facets, children.SlateXY(xOffset, yOffset))
+  override def slateXY(xDelta: Double, yDelta: Double): PolygonCompound =
+    PolygonCompound(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
    * Squares. Use the xyScale method for differential scaling. */
@@ -103,8 +103,8 @@ object PolygonCompound
     override def svgElem(bounds: BoundingRect): SvgElem = ???
 
     /** Translate geometric transformation. */
-    override def slateXY(xOffset: Double, yOffset: Double): PolygonCompoundImp =
-      PolygonCompoundImp(shape.slateXY(xOffset, yOffset), facets, children.SlateXY(xOffset, yOffset))
+    override def slateXY(xDelta: Double, yDelta: Double): PolygonCompoundImp =
+      PolygonCompoundImp(shape.slateXY(xDelta, yDelta), facets, children.SlateXY(xDelta, yDelta))
 
     /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and
      * Squares. Use the xyScale method for differential scaling. */

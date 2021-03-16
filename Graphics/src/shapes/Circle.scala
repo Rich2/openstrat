@@ -27,7 +27,7 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   override def h: Double = 0
 
   /** Translate geometric transformation on a Circle returns a Circle. */
-  override def slateXY(xOffset: Double, yOffset: Double): Circle = Circle(diameter, cen.addXY(xOffset, yOffset))
+  override def slateXY(xDelta: Double, yDelta: Double): Circle = Circle(diameter, cen.addXY(xDelta, yDelta))
 
   /** uniform scaling transformation on a Circle returns a circle. Use the xyScale method for differential scaling. */
   override def scale(operand: Double): Circle = Circle(diameter * operand, cen.scale(operand))

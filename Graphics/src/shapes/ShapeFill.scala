@@ -13,7 +13,7 @@ trait ShapeFill extends ShapeGraphicSimple
   def toDraw(lineWidth: Double = 2, newColour: Colour): ShapeDraw
 
   /** Translate geometric transformation. */
-  override def slateXY(xOffset: Double, yOffset: Double): ShapeFill
+  override def slateXY(xDelta: Double, yDelta: Double): ShapeFill
 
   /** Translate geometric transformation. */
   //override def slate(offset: Vec2Like): ShapeFill
