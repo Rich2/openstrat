@@ -1,7 +1,8 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
+/** ShapeFill element that is a [[CanvElem]] */
 trait CanvShapeFill extends ShapeFill with CanvElem
 {
   /** Translate 2D geometric transformation on a CanvShapeFill, returns a CanvShapeFill. The Return type will be narrowed in sub traits / classes. */

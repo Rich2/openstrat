@@ -16,7 +16,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   def width2: Double
 
   override def fill(fillColour: Colour): RectangleFill = RectangleFill(this, fillColour)
-  override def fillHex(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
+  override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineColour: Colour, lineWidth: Double): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
   override def vertsArray: Array[Double] = Array(cenX, cenY, v1x, v1y, v2x, v2y, v3x, v3y, v4x, v4y)

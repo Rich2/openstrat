@@ -77,7 +77,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   override def activeChildren(id: Any, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) +: children)
 
   override def fill(fillColour: Colour): RectangleFill = RectFill(this, fillColour)
-  override def fillHex(intValue: Int): RectFill = RectFill(this, Colour(intValue))
+  override def fillInt(intValue: Int): RectFill = RectFill(this, Colour(intValue))
 }
 
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */

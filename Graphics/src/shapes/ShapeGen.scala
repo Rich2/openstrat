@@ -10,7 +10,7 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
   override type ThisT = ShapeGen
   override def fill(fillColour: Colour): ShapeFill = ???
 
-  override def fillHex(intValue: Int): ShapeFill = ???
+  override def fillInt(intValue: Int): ShapeFill = ???
 
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): ShapeDraw = ???
 
@@ -50,8 +50,20 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): GraphicElem = ???
 }
 
+/** Companion object of the ShapeGen class contains implicit instances for 2D geometric transformations.  */
 object ShapeGen
-{
+{ /** Throws on 0 length var args. */
+  def apply(curveTails: CurveTail*): ShapeGen =
+  {
+    val array: Array[CurveSeg] = new Array[CurveSeg](curveTails.length)
+    curveTails.iForeach{ (ct, i) => ct match {
+      //case lt: LineTail =>
+      case _ =>
+    } }
+    new ShapeGen(array)
+
+  }
+
   implicit val slateImplicit: Slate[ShapeGen] = (obj: ShapeGen , dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[ShapeGen] = (obj: ShapeGen , operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[ShapeGen] = (obj: ShapeGen , angle: AngleVec) => obj.rotate(angle)

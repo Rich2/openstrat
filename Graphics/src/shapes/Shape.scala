@@ -8,7 +8,7 @@ import pWeb._, Colour.Black
 trait Shape extends Fillable with BoundedElem
 {
   override def fill(fillColour: Colour): ShapeFill
-  override def fillHex(intValue: Int): ShapeFill
+  override def fillInt(intValue: Int): ShapeFill
   def draw(lineColour: Colour = Black, lineWidth: Double = 2): ShapeDraw
   def attribs: Arr[XANumeric]
   

@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A shape based compound graphic. */
-trait ShapeCompound extends ShapeGraphic with CanvNoElem
+trait ShapeCompound extends ShapeGraphic with NoCanvElem
 { 
   def facets: Arr[GraphicFacet]
 

@@ -29,8 +29,16 @@ trait GraphicElem extends GeomElem
    *  classes. */
   override def prolign(matrix: ProlignMatrix): GraphicElem
 
+  /** Rotation positive or anti clockwise 90 degrees, 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be
+   *  narrowed in sub classes and traits. */
   override def rotate90: GraphicElem
+
+  /** Rotation positive or anti clockwise 180 degrees, 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be
+   *  narrowed in sub classes and traits. */
   override def rotate180: GraphicElem
+
+  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a GraphicElem, returns a GraphicElem. The return type will be
+   *  narrowed in sub classes and traits. */
   override def rotate270: GraphicElem
 
   /** Rotation 2D geometric transformation on a GraphicElem taking the rotation as a scalar measured in radians, returns a GraphicElem. The Return
@@ -143,7 +151,7 @@ object CanvElem
 
 /** A graphic element [[GraphicElem]] that is not one of the standard canvas elements [[CanvElem]], it must provide a conversion into those standard
  * elements. */
-trait CanvNoElem extends GraphicElem
+trait NoCanvElem extends GraphicElem
 { /** This method converts this non standard graphic element into [[CanvElem]]s that can be processed by the [[pCanv.CanvasPlatform]]. */
   def canvElems: Arr[CanvElem]
 }

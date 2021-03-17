@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 import Colour.Black
@@ -26,8 +26,16 @@ trait Drawable extends GeomElem
   /** 2D Transformation using a [[ProlignMatrix]] on this Drawable returns a Drawable. The return type will be narrowed in sub classes / traits. */
   override def prolign(matrix: ProlignMatrix): Drawable
 
+  /** Rotation positive or anti clockwise 90 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed
+   *  in sub classes and traits. */
   override def rotate90: Drawable
+
+  /** Rotation of 180 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed in sub classes and
+   *  traits. */
   override def rotate180: Drawable
+
+  /** Rotation positive or anti clockwise 270 degrees, 2D geometric transformation on a Drawable, returns a Drawable. The return type will be narrowed
+   *  in sub classes and traits. */
   override def rotate270: Drawable
 
   /** Rotation 2D geometric transformation, on this Drawable returns a Drawable. The return type will be narrowed in sub classes and traits. */
@@ -74,8 +82,12 @@ object Drawable
 
 /** A 2D geometric element that can be drawn and filled producing [[GraphicElem]]s. */
 trait Fillable extends Drawable
-{
+{ /** Returns a fill graphic of this geometric object. */
   def fill(fillColour: Colour): GraphicElem
-  def fillHex(intValue: Int): GraphicElem
+
+  /** Returns a fill graphic of this geometric object from the Int RGBA value. */
+  def fillInt(intValue: Int): GraphicElem
+
+  /** Returns a fill and draw graphic of this geometric object. */
   def fillDraw(fillColour: Colour, lineColour: Colour = Black, lineWidth: Double = 2): GraphicElem
 }

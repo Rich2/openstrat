@@ -9,9 +9,9 @@ object Eritrea extends Flag
   
   val apply: GraphicElems =
   { 
-    val blueRectangle = Rect(2, 0.5, 0 pp 0.25).fillHex(0xFF4189dd)
-    val greenRectangle = Rect(2, 0.5, 0 pp -0.25).fillHex(0xFF12ad2b)
-    val redTriangle: TriangleFill = Triangle(-1 pp 0.5, -1 pp -0.5, 1 pp 0).fillHex(0xFFea0437)
+    val blueRectangle = Rect(2, 0.5, 0 pp 0.25).fillInt(0xFF4189dd)
+    val greenRectangle = Rect(2, 0.5, 0 pp -0.25).fillInt(0xFF12ad2b)
+    val redTriangle: TriangleFill = Triangle(-1 pp 0.5, -1 pp -0.5, 1 pp 0).fillInt(0xFFea0437)
     
     val olive = ShapeGenOld(LineTail(-0.5395 pp -0.2383), BezierTail(-0.5611 pp -0.2443, -0.5735 pp -0.2611, -0.5732 pp -0.2769),
       LineTail(-0.4668 pp -0.2765), BezierTail(-0.4658 pp -0.2595, -0.4798 pp -0.2437, -0.5011 pp -0.2375),
