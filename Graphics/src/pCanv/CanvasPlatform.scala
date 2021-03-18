@@ -69,11 +69,11 @@ trait CanvasPlatform extends RectCenlign
 
   def lineSegsDraw(lsd: LinesDraw): Unit
    
-  final def shapeGenFill(sgf: ShapeGenFill): Unit = oif(sgf.shape.elemsLen > 0, pShapeGenFill(sgf))
-  protected def pShapeGenFill(sgf: ShapeGenFill): Unit
+  final def shapeGenFill(sgf: ShapeGenFillOld): Unit = oif(sgf.shape.elemsLen > 0, pShapeGenFill(sgf))
+  protected def pShapeGenFill(sgf: ShapeGenFillOld): Unit
    
-  final def shapeGenDraw(sgd: ShapeGenDraw): Unit = oif(sgd.shape.elemsLen > 0, pShapeGenDraw(sgd))
-  protected def pShapeGenDraw(sgd: ShapeGenDraw): Unit
+  final def shapeGenDraw(sgd: ShapeGenDrawOld): Unit = oif(sgd.shape.elemsLen > 0, pShapeGenDraw(sgd))
+  protected def pShapeGenDraw(sgd: ShapeGenDrawOld): Unit
   
   def circleFill(cf: CircleFill): Unit
   def circleFillRadial(circle: Circle, fill: FillRadial): Unit

@@ -20,9 +20,9 @@ trait CanvasTopLeft extends CanvasPlatform
   final override def lineSegsDraw(lsd: LinesDraw): Unit = tlLinesDraw(lsd.ptsTrans(tlCen)): Unit
   final override def dashedLineDraw(dld: DashedLineDraw): Unit = tlDashedLineDraw(dld.ptsTrans(tlCen))
 
-  final override def pShapeGenFill(sgf: ShapeGenFill): Unit = tlShapeFill(sgf.negY.slateXY(width / 2, height / 2))
+  final override def pShapeGenFill(sgf: ShapeGenFillOld): Unit = tlShapeFill(sgf.negY.slateXY(width / 2, height / 2))
 
-  final override def pShapeGenDraw(sgd: ShapeGenDraw): Unit = tlShapeDraw(sgd.negY.slateXY(width / 2, height / 2))
+  final override def pShapeGenDraw(sgd: ShapeGenDrawOld): Unit = tlShapeDraw(sgd.negY.slateXY(width / 2, height / 2))
 
   final override def circleFill(cf: CircleFill): Unit = tlCircleFill(cf.negY.slateXY(width / 2, height / 2))
 
@@ -52,9 +52,9 @@ trait CanvasTopLeft extends CanvasPlatform
   protected[this] def tlLinesDraw(lsd: LinesDraw): Unit
   protected[this] def tlDashedLineDraw(dld: DashedLineDraw): Unit
 
-  protected[this] def tlShapeFill(sgf: ShapeGenFill): Unit
+  protected[this] def tlShapeFill(sgf: ShapeGenFillOld): Unit
 
-  protected[this] def tlShapeDraw(sgd: ShapeGenDraw): Unit
+  protected[this] def tlShapeDraw(sgd: ShapeGenDrawOld): Unit
 
   protected[this] def tlCircleFill(cf: CircleFill): Unit
   protected[this] def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit
