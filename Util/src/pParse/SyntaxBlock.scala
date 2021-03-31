@@ -8,23 +8,25 @@ package pParse
  *  StatementMember and SemiToken. So a sequence of TokenOrBlocks is simply a series of tokens which has been parsed into Blocks. */
 trait BlockMember extends TextSpan
 
-/** A statement member is ant Token except the semi colon, which is the statement delimiter and the braces, plus it includes blocks, As blocks
- * contain a sequence of Statements but can themselves be part of a statement. */
+/** A statement member is a Token except the semi colon, which is the statement delimiter and the braces, plus it includes blocks, As blocks contain a
+ *  sequence of Statements but can themselves be part of a statement. */
 trait StatementMember extends BlockMember
 
-/** I think its helpful to have an expression member trait for syntax that is not expressions. So I don't think it would be helpful if say an opening brace was an
- *  expression. All Expressions are Expression members. */
+/** I think its helpful to have an expression member trait for syntax that is not expressions. So I don't think it would be helpful if say an opening
+ *  brace was an expression. All Expressions are Expression members. */
 trait ClauseMember extends StatementMember
 
 sealed trait BracketToken extends Token
 { def braces: Braces
 }
+
+/** An opening Brace, '{', '[' or '('.  */
 sealed trait BracketOpen extends BracketToken
 { final override def tokenTypeStr = "Open" + braces.name + "BraceToken"
   final override def srcStr: String = braces.openChar.toString
 }
 
-/** A closing bracket Token. */
+/** A closing bracket Token, The ']', ']' or ')' characters are BracketCloseTokens. */
 sealed trait BracketCloseToken extends BracketToken
 { final override def tokenTypeStr = "Close" + braces.name + "BraceToken"
   final override def srcStr: String = braces.closeChar.toString
