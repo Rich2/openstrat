@@ -1,6 +1,5 @@
 val versionStr = "0.2.2snap"
 ThisBuild/version := versionStr
-ThisBuild/test in assembly := {}
 name := "OpenStrat"
 val scalaMajor = "2.13"
 val scalaMinor = "5"
@@ -60,8 +59,6 @@ def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
 )
 
 lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
-  assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
-  assemblyJarName in assembly := "rutil" + jarVersion,
   idePackagePrefix := Some("ostrat"),
 )
 
@@ -98,8 +95,6 @@ lazy val StratLib = Project("StratLib", file("Dev/SbtDir/StratLib")).dependsOn(U
   Compile/unmanagedResourceDirectories := libModules.map(str => (ThisBuild/baseDirectory).value / str / "res"), 
   Test/scalaSource := baseDir.value / "Util/testSrc",
   Test/unmanagedSourceDirectories := List(),
-  assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
-  assemblyJarName in assembly := "stratlib_2.13-" + version.value + ".jar",
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15",
 )
 
@@ -113,19 +108,14 @@ lazy val StratExs = Project("StratExs", file("Dev/SbtDir/StratExs")).dependsOn(S
   Compile/unmanagedResourceDirectories := libModules.map(str => baseDir.value / str / "resExs"), 
   Test/scalaSource := baseDir.value / "Util/testSrcExs",
   Test/unmanagedSourceDirectories := List(),
-  assemblyOption in assembly := (assemblyOption in assembly).value.copy(includeScala = false, includeDependency = false),
-  //artifactName := { (sv: ScalaVersion, moduleDir: ModuleID, artifact: Artifact) =>
-  // artifact.name + "-" + moduleDir.revision + artifact.classifier + "." + artifact.extension },
-  assemblyJarName in assembly := "stratexs_2.13-" + version.value + ".jar",
-  //libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
 )
 
 val docDirs: List[String] = List("Util", "Graphics", "Tiling", "World", "Dev")
 
 lazy val custDoc = taskKey[Unit]("Aims to be a task to aid buiding ScalaDocs")
 custDoc :=
-{ val t1 = (doc in (DocMain, Compile)).value
-  val t2 = (doc in (DocJs, Compile)).value
+{ val t1 = (DocMain/Compile/doc).value
+  val t2 = (DocJs/Compile/doc).value
   println("Main docs and Js docs built")
 }
 
@@ -135,8 +125,7 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).dependsOn(UtilMacros)
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
-  scalacOptions in (Compile, doc) ++= Seq("-groups"),
-  
+  Compile/doc/scalacOptions ++= Seq("-groups"),
 )
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).dependsOn(UtilMacrosJs).settings(commonSett).settings(
@@ -144,7 +133,7 @@ lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).dependsOn(UtilMacrosJs).s
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExs")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
-  scalacOptions in (Compile, doc) ++= Seq("-groups"),
+  Compile/doc/scalacOptions ++= Seq("-groups"),
 )
 
 def jsProj(name: String) = Project(name + "Js", file("Dev/SbtDir/" + name + "Js")).enablePlugins(ScalaJSPlugin).settings(commonSett).settings(
