@@ -42,7 +42,7 @@ object RoordLines extends Int4sArrCompanion[RoordLine, RoordLines]
 { implicit val factory: Int => RoordLines = i => new RoordLines(new Array[Int](i * 4))
   override def buff(initialSize: Int): RoordLinesBuff = new RoordLinesBuff(buffInt(initialSize * 4))
 
-  implicit val PersistImplicit = new Int4sArrPersist[RoordLine, RoordLines]("RoordLines")
+  implicit val PersistImplicit: Int4sArrPersist[RoordLine, RoordLines] = new Int4sArrPersist[RoordLine, RoordLines]("RoordLines")
   { override def fromArray(value: Array[Int]): RoordLines = new RoordLines(value)
 
     override def showT(obj: RoordLines, way: Show.Way, decimalPlaces: Int): String = ???

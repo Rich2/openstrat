@@ -86,11 +86,11 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
     var curr = startRoord
     import SquareGrid._
 
-    dirns.foreach
-    { case Multiple(Rt, i) => curr = setRow(curr, value * i)
-    case Multiple(Lt, i) => curr = setRowBack(curr, value * i)
-    case Multiple(Up, i) => curr = setColumn(curr, value * i)
-    case Multiple(Dn, i) => curr = setColumnDown(curr, value * i)
+    dirns.foreach {
+      case Multiple(Rt, i) => curr = setRow(curr, value * i)
+      case Multiple(Lt, i) => curr = setRowBack(curr, value * i)
+      case Multiple(Up, i) => curr = setColumn(curr, value * i)
+      case Multiple(Dn, i) => curr = setColumnDown(curr, value * i)
     }
     curr
   }

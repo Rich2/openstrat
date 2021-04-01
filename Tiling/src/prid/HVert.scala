@@ -33,7 +33,7 @@ object HVert
 
   implicit object persistImplicit extends Persist2Ints[HVert]("Rood", "r", "c", apply)
 
-  implicit val HVertsBuildImplicit = new Int2sArrBuilders[HVert, HVerts]
+  implicit val hVertsBuildImplicit: Int2sArrBuilders[HVert, HVerts] = new Int2sArrBuilders[HVert, HVerts]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVerts = new HVerts(array)
     override def fromIntBuffer(inp: Buff[Int]): HVertBuff = new HVertBuff(inp)
@@ -89,7 +89,7 @@ object HVerts extends Int2sArrCompanion[HVert, HVerts]
     override def showT(obj: HVerts, way: Show.Way, decimalPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: ArrTFlatBuilder[HVerts] = HVert.HVertsBuildImplicit
+  implicit val arrArrayImplicit: ArrTFlatBuilder[HVerts] = HVert.hVertsBuildImplicit
 }
 
 class HVertBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuffer[HVert, HVerts]

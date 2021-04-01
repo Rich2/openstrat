@@ -208,6 +208,14 @@ lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).de
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
+lazy val TilingDot = Project("TilingDot", file("Dev/SbtDir/TilingDot")).dependsOn(GraphicsDot).settings(dottySettings).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Tiling/src",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Tiling/src",
+  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Tiling/testSrc",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+)
+
 lazy val UtilMacrosNat = Project("UtilMacrosNat", file("Dev/SbtDir/UtilMacrosNat")).enablePlugins(ScalaNativePlugin).settings(  
   scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",

@@ -41,7 +41,7 @@ object CoodLines extends Int4sArrCompanion[CoodLine, CoodLines]
 { implicit val factory: Int => CoodLines = i => new CoodLines(new Array[Int](i * 4))
   override def buff(initialSize: Int): CoodLinesBuff = new CoodLinesBuff(buffInt(initialSize * 4))
 
-  implicit val PersistImplicit = new Int4sArrPersist[CoodLine, CoodLines]("CoodLines")
+  implicit val PersistImplicit: Int4sArrPersist[CoodLine, CoodLines] = new Int4sArrPersist[CoodLine, CoodLines]("CoodLines")
   { override def fromArray(value: Array[Int]): CoodLines = new CoodLines(value)
 
     override def showT(obj: CoodLines, way: Show.Way, decimalPlaces: Int): String = ???
