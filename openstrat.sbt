@@ -183,7 +183,8 @@ def dottySettings = List(
 lazy val UtilDot = Project("UtilDot", file("Dev/SbtDir/UtilDot")).settings(dottySettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Util/srcDot"),
+  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Util/srcExs",
+    (ThisBuild/baseDirectory).value / "Util/srcDot"),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Compile/mainClass	:= Some("ostrat.DotMain"),

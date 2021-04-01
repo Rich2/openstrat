@@ -24,12 +24,15 @@ object deb
     val column: String = posn.column.toString
     fileName + "." + lineNum + "." + column
   }
+}
 
-  def str: String = macro strImpl
+object posnStr
+{
+  def apply(): String = macro strImpl
 
-  def strImpl(c: Context): c.Expr[String] =
+  def strImpl(c: Context)(): c.Expr[String] =
   { import c.universe._
-    val s1 = macroPosn(c)
+    val s1 = deb.macroPosn(c)
     c.Expr(q"""$s1""")
   }
 }
