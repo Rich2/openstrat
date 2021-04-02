@@ -1,9 +1,9 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pEarth
 import pGrid._, reflect.ClassTag
 
-/** An all world map, parametised by Tile and Tile side types. */
+/** An all world map, parametrised by Tile and Tile side types. */
 class EarthAllMap[TileT <: TileOld, SideT <: TileSideOld](fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
   (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
 { override val tops: Arr[WldArea1] = EarthAreas.allTops
@@ -28,8 +28,7 @@ class OldWorldMap[TileT <: TileOld, SideT <: TileSideOld](val fTile: (Int, Int, 
 }
 
 object EarthAreas
-{
-  import pPts._, pEurope._
+{ import pPts._, pEurope._
   val oldWorld: Arr[WldArea1] = Arr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)
   val newWorld: Arr[WldArea1] = Arr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
   val grids: Arr[EGridMaker] = Arr(EuropeNWGridOld, EuropeNEGridOld)
