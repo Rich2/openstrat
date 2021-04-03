@@ -10,7 +10,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   var scen = scenStart
   var history: Arr[OneScen] = Arr(scen)
 
-  implicit def grid = scen.grid
+  implicit def grid: HGrid = scen.grid
   def players: HCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */

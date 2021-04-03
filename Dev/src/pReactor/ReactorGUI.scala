@@ -52,17 +52,15 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       drawBalls(size*c pp size*r, aDefaultGame.cellColors(index), index)
     }
   }
-  def getPlayers():Array[Colour]  =
+
+  def getPlayers():Array[Colour] =
   { var playerSelection:Array[Colour]  = Array()
-   computerPlayers = Array()
-   iUntilForeach(0, checkboxes.length)
-   { i =>
-     { if (checkboxes(i).isSelected == true)
-       { playerSelection = playerSelection :+ checkboxes(i).color
+    computerPlayers = Array()
+    iUntilForeach(0, checkboxes.length){ i => if (checkboxes(i).isSelected == true)
+      { playerSelection = playerSelection :+ checkboxes(i).color
          if (radioGroups(i).selected.labelText == "COMPUTER") computerPlayers = computerPlayers :+ checkboxes(i).color
-       }
+      }
      }
-   }
     debvar(playerSelection.length)
     playerSelection
   }

@@ -193,7 +193,7 @@ lazy val UtilDot = Project("UtilDot", file("Dev/SbtDir/UtilDot")).settings(dotty
 lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).dependsOn(UtilDot).settings(dottySettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Graphics/srcExs"),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphics/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
@@ -201,7 +201,7 @@ lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).de
 lazy val TilingDot = Project("TilingDot", file("Dev/SbtDir/TilingDot")).dependsOn(GraphicsDot).settings(dottySettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Tiling/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Tiling/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Tiling/srcExs"),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Tiling/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )

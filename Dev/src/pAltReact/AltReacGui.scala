@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pAltReact
 import pCanv._, prid._, geom._
@@ -8,7 +8,7 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends Cmd
   var statusText = "To be changed."
 
   var scen = AltScen.start(rows, columns)
-  implicit def grid = scen.grid
+  implicit def grid: SqGrid = scen.grid
   def balls = scen.balls
 
   /** The number of pixels / 2 displayed per row height. */

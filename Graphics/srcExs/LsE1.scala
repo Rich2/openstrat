@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pCanv._
 
@@ -10,8 +10,8 @@ case class LsE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   var cmd: TurnCmd = NoMove
   var statusText = "Right click to set action to Move. Left to set action to CycleColour. Press Turn button or middle click for next turn."
   
-  def cmdDisp = cmd match
-  { case Move(v) => Arrow.paint(state.posn, v)
+  def cmdDisp: Arr[GraphicElem] = cmd match
+  { case Move(v) => Arrow.paint(state.posn, v)//Returns Arr[GraphicElem]
     case CycleColour => Arr(state.drawNextColour)
     case _ => Arr()
   }

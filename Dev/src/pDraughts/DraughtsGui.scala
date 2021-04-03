@@ -1,11 +1,11 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pDraughts
 import geom._, pCanv._, Colour._, pGrid._
 
 case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarGui("Draughts")
 {
-  implicit def grid = scen.grid
+  implicit def grid: SquareGridSimple = scen.grid
   var statusText: String = "Welcome to Draughts Gui"
   val darkSquareColour = Brown
   val lightSquareColour = Pink

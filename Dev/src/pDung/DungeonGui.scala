@@ -7,7 +7,7 @@ import pCanv._, pGrid._, geom._
 case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui("Dungeon Gui")
 {
   var statusText: String = "Welcome to Dungeon Gui"
-  implicit def grid = scen.grid
+  implicit def grid: TileGrid = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
