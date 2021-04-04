@@ -1,8 +1,9 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pCiv
 import geom._, pGrid._, pCanv._
 
+/** Gui for civilisation  game. */
 case class CivGui(canv: CanvasPlatform, scen: CivScen) extends CmdBarGui("Civ Rise Game Gui")
 {
   var statusText = "Welcome to Civ Rise."

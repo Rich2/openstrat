@@ -65,12 +65,13 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     playerSelection
   }
 
-  def newGame() : Unit =
+  def newGame(): Unit =
   { animationStep = 0.0
     aDefaultGame.startGame(aPlayers = getPlayers(), aCurrentPlayer = (getPlayers())(0))
     checkForComputerTurn()
     composeGUI()
   }
+
   def drawBalls(loc:Pt2, color:Colour, cellIndex:Int) : Unit =
   { val count = aDefaultGame.cellCounts(cellIndex)
     canv.polygonFill(Rect.bl(size-1, size-1, loc).fill(Black))
@@ -81,6 +82,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     if (count >= 5) canv.circleFill(Circle(size/ballScale, loc.slate(getLocFromCellSite(cellIndex, 4))).fill(color))
     if (count >= 6) canv.polygonFill(Rect.bl(size-1, size-1, loc).fill(Pink))
   }
+
   def doAnimation() : Unit =
   { animationStep += 0.1
     // add ball animation
@@ -143,6 +145,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       } else deb("***-- not pop or add: "+aDefaultGame.gameState+" --***")
     } else canv.timeOut(() => doAnimation(), animationDuration)
   }
+
   def getLocFromCellSite(whichCell: Int, whichOne: Int, whichPos: String = "") : Pt2 =
   { var pos = ""
     if (whichPos != "") pos = whichPos
@@ -155,12 +158,13 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     case _ => size/2 pp size/2
     }
   }
+
   def declareWinner() : Unit =
   { if (aDefaultGame.turn >= aDefaultGame.players.length) aDefaultGame.players = aDefaultGame.players.filter(aDefaultGame.cellColors.indexOf(_) != -1)
     if (aDefaultGame.players.length < 2) canv.textGraphic(TextGraphic(" Wins!", 16, 10 pp (-3*size/4), aDefaultGame.currentPlayer))
   }
 
-  //** If the current player is a computer then play its hand here
+  /** If the current player is a computer then play its hand here */
   def checkForComputerTurn(): Unit =
   { if (computerPlayers.indexOf(aDefaultGame.currentPlayer) != -1)
     { aDefaultGame.newTurn(aDefaultGame.currentPlayer, computerPlayer.chooseTurnIndex(aDefaultGame.currentPlayer))
@@ -175,6 +179,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     isTurnComplete = true
     checkForComputerTurn()
   }
+
   def getCurrentPlayerIndicator():GraphicElems =
   { var totals = Map("Red"->0, "Yellow"->0, "Green"->0, "Blue"->0, "Black"->0)
     for(i <-0 to aDefaultGame.cellColors.length-1) totals(aDefaultGame.cellColors(i).toString) = totals(aDefaultGame.cellColors(i).toString) + aDefaultGame.cellCounts(i)
@@ -211,6 +216,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     case (RightButton, cl, v) if (cl.length > 0) => saveGame()
     case (_, _, _) => deb("uncaptured clicky")
   }
+
   def saveGame() : Unit =
   { if (aDefaultGame.gameState == "turn")
     { var saveData = Sett("rows", aDefaultGame.rows).ap("cols", aDefaultGame.cols).ap("turn", aDefaultGame.turn).ap("gameState",
@@ -222,6 +228,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       gameData = saveData
     }
   }
+
   def loadGame() : Unit =
   { //val loadData = canv.loadFile("test")//**BUG "Reactor.data")
     //deb(loadData.toString)
@@ -238,7 +245,6 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     //canv.textGraphic(turn.toString, 11, -3*size/4 vv -3*size/4, Black)
   }
 }
-
 
 //   def saveGame() : Unit =
 //   { var saveData = "\n"

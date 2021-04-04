@@ -26,4 +26,3 @@ object Dungeon1 extends DungeonScen
   posn(CharacY, 24, 22, SFaceUR)
   posn(CharacZ, 12, 18, SFaceLt)
 }
-
