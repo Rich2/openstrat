@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pFlags
 import geom._, Colour._
@@ -6,7 +6,7 @@ import geom._, Colour._
 object PapuaNewGuinea extends Flag
 { val name = "Papua New Guinea"
   val ratio = 4.0/3
-  val apply: GraphicElems =
+  def apply(): GraphicElems =
   { val base = Rect(ratio, 1).fill(Black)
     val topRightTriangle = Triangle(-2.0/3 pp 0.5, 2.0/3 pp 0.5, 2.0/3 pp -0.5).fill(Colour(0xFFce1126))
 

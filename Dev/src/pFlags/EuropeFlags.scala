@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pFlags
 import geom._, Colour._
@@ -6,7 +6,7 @@ import geom._, Colour._
 object Austria extends Flag
 { def name = "Austria"
   val ratio = 1.5
-  val apply: GraphicElems = topToBottom(Black, Yellow)
+  def apply(): GraphicElems = topToBottom(Black, Yellow)
 }
 
 object Belgium extends Flag
@@ -24,13 +24,13 @@ trait EnglandLike extends Flag
 
 object England extends EnglandLike
 { val name = "England"
-  val apply: GraphicElems = common
+  def apply(): GraphicElems = common
 }
 
 object UnitedKingdom extends EnglandLike
 { val name = "United Kingdom"
 
-  val apply: GraphicElems =
+  def apply(): GraphicElems =
   { val xd = hypotenuse(2,1) / 30.0
     val yd = hypotenuse(1,0.5) / 30.0
 
@@ -75,43 +75,43 @@ object UnitedKingdom extends EnglandLike
 object France extends Flag
 { val name = "France"
   val ratio = 1.5
-  val apply: GraphicElems = leftToRight(Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
+  def apply(): GraphicElems = leftToRight(Colour(0xFF0055A4) , White, Colour(0xFFEF4135))
 }
 
 object Germany extends Flag
 { val name = "Germany"
   val ratio = 5 / 3.0
-  val apply: GraphicElems = topToBottom(Black, Red, Gold)
+  def apply(): GraphicElems = topToBottom(Black, Red, Gold)
 }
 
 object Germany1871 extends Flag
 { val name = "Germany (1871)"
   val ratio = 1.5
-  val apply: GraphicElems = topToBottom(Black, White, Red)
+  def apply(): GraphicElems = topToBottom(Black, White, Red)
 }
 
 object Italy extends Flag
 { val name = "Italy"
   val ratio = 1.5
-  val apply: GraphicElems = topToBottom(Green, White, Red)
+  def apply(): GraphicElems = topToBottom(Green, White, Red)
 }
 
 object Ireland extends Flag
 { val name = "Ireland"
   val ratio = 2
-  val apply: GraphicElems = topToBottom(Green, White, Orange)
+  def apply(): GraphicElems = topToBottom(Green, White, Orange)
 }
 
 object Russia extends Flag
 { val ratio = 1.5
   val name = "Russia"
-  val apply: GraphicElems = topToBottom(White, Blue, Red)
+  def apply(): GraphicElems = topToBottom(White, Blue, Red)
 }
 
 object USSR extends Flag
 { val name = "USSR"
   val ratio = 1.5
-  val apply: GraphicElems = Arr(
+  def apply(): GraphicElems = Arr(
     Rect(ratio, 1).fill(Red),
     Star5().scale(0.4).fill(Gold)
   )
@@ -120,7 +120,7 @@ object USSR extends Flag
 object Swastika extends Flag
 { val name = "Swastika"
   val ratio = 5 / 3.0
-  val apply: GraphicElems =
+  def apply(): GraphicElems =
   { val poly = Rect(ratio, 1)
     val bar = Rect.bCen(0.1, 0.2).fill(Black)
     val arm = Rect.tl(6.0 / 20, 0.1, -1.0 / 20 pp 0.25).fill(Black)
@@ -132,7 +132,7 @@ object Swastika extends Flag
 object CzechRepublic extends Flag
 { val name = "Czech Republic"
   val ratio = 1.5
-  val apply: GraphicElems = Arr(
+  def apply(): GraphicElems = Arr(
     Rect(ratio, 1).fill(White),
     Rect(ratio, 0.5).slate(0 pp -0.25).fill(Colour(0xFFD7141A)),
     Triangle(-ratio / 2 pp 0.5, -ratio / 2 pp -0.5, 0 pp 0).fill(Colour(0xFF11457E))
@@ -142,7 +142,7 @@ object CzechRepublic extends Flag
 object CCCP extends Flag
 { val name = "CCCP"
   val ratio = 2.0
-  val apply: GraphicElems = Arr(
+  def apply(): GraphicElems = Arr(
     //background
     Rect(ratio, 1).fill(Colour(0xFFCC0000)),
     //hammer

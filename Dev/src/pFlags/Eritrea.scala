@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pFlags
 import geom._
@@ -7,7 +7,7 @@ object Eritrea extends Flag
 { val name = "Eritrea"
   val ratio = 2.0
   
-  val apply: GraphicElems =
+  def apply(): GraphicElems =
   { 
     val blueRectangle = Rect(2, 0.5, 0 pp 0.25).fillInt(0xFF4189dd)
     val greenRectangle = Rect(2, 0.5, 0 pp -0.25).fillInt(0xFF12ad2b)

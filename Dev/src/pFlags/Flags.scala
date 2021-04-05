@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pFlags
 import geom._, Colour._
@@ -55,7 +55,7 @@ object TextFlagMaker
 object Armenia extends Flag
 { val name = "Armenia"
   val ratio = 2
-  val apply: GraphicElems = leftToRight(Red, Blue, Gold)
+  def apply(): GraphicElems = leftToRight(Red, Blue, Gold)
 }
 
 object Chad extends Flag
@@ -67,14 +67,14 @@ object Chad extends Flag
 object China extends Flag
 { val name = "China"
   val ratio = 1.5
-  val apply: GraphicElems = Arr(Rect(1.5, 1).fill(Red),
+  def apply(): GraphicElems = Arr(Rect(1.5, 1).fill(Red),
     Rect.tl(0.75, 0.5, - 0.75 pp 0.5).fill(DarkBlue))
 }
 
 object Japan extends Flag
 { val name = "Japan"
   val ratio = 1.5
-  val apply: GraphicElems =
+  def apply(): GraphicElems =
   { val rw = rect.fill(White)
     val circ = Circle(0.6).fill(Colour.fromInts(188, 0,45))
     Arr(rw, circ)
@@ -84,14 +84,14 @@ object Japan extends Flag
 object WhiteFlag extends Flag
 { val name = "White"
   val ratio = 1.5
-  val apply: GraphicElems = Arr(Rect(1.5, 1).fill(White))
+  def apply(): GraphicElems = Arr(Rect(1.5, 1).fill(White))
 }
   
 object CommonShapesInFlags extends Flag
 { val name = "CommonShapesInFlags"
   val ratio = 1.5
 
-  val apply: GraphicElems = Arr(
+  def apply(): GraphicElems = Arr(
     Rect(1.5, 1).fill(White),
 
     //off centre cross
@@ -123,7 +123,7 @@ object CommonShapesInFlags extends Flag
 object Iraq extends Flag
 { val name = "Iraq"
   val ratio = 1.5
-  val apply: GraphicElems =
+  def apply(): GraphicElems =
   { topToBottom(Colour(0xFFce1126), White, Black) ++ Arr(
       ShapeGenOld(LineTail(-0.34 pp 0.2997), BezierTail(-0.3409 pp 0.3002, -0.3419 pp 0.301, -0.3423 pp 0.3015),
         BezierTail(-0.3428 pp 0.3022, -0.3425 pp 0.3022, -0.3403 pp 0.3016), BezierTail(-0.3365 pp 0.3006, -0.334 pp 0.301, -0.3315 pp 0.3031),
@@ -171,7 +171,7 @@ object Iraq extends Flag
 object India extends Flag
 { val name = "India"
   val ratio = 1.5
-  val apply: GraphicElems =
+  def apply(): GraphicElems =
   { 
     val spoke = ShapeGenOld(LineTail(-0.75 pp 0.3833), LineTail(-0.746 pp 0.4533), BezierTail(-0.746 pp 0.4533, -0.75 pp 0.4867, -0.75 pp 0.4867),
     BezierTail(-0.75 pp 0.4867, -0.754 pp 0.4533, -0.754 pp 0.4533), LineTail(-0.75 pp 0.3833),

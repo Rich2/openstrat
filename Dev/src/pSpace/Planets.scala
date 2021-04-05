@@ -11,7 +11,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
   var years: Double = 0
   var paused: Boolean = false
   def pausedStr: String = paused.fold("Restart", "Pause")  
-  override var scale = 0.5.millionMiles   
+  var scale = 0.5.millionMiles
   override val scaleMax: Metres = 10.millionMiles
   override val scaleMin: Metres = 100000.miles
   val earthDist = 93.millionMiles
@@ -27,7 +27,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
     
     def move(elapsed: Integer): Unit =
     { val auRatio = dist / earthDist        
-      posn = Pt2.circlePtClockwise(elapsed * 0.001 / math.sqrt(auRatio.cubed)).toDist2(dist)
+      posn = Pt2.circlePtClockwise(0.001 * elapsed / math.sqrt(auRatio.cubed)).toDist2(dist)
     }
 
     def size = 10

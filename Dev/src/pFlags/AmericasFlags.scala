@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pFlags
 import geom._, Colour._
@@ -23,7 +23,7 @@ object UnitedStates extends Flag
   val star0 = Star5().scale(starScale).fill(White)
   val star = star0.slateXY(-0.95, 0.5)
 
-  val apply: GraphicElems =
+  def apply(): GraphicElems =
   { val blueFieldOld = Rect.tl(0.76, 7.0/ 13, -0.95 pp 0.5).fill(usBlue)
     val stars = ijToMap(0, 10, 2)(1, 9, 2) { (x, y) => star.slateXY(starX + x * starX, -y * starY) }
     val starsInner = ijToMap(2, 10, 2)(2, 8, 2) { (x, y) => star.slateXY(x * starX, -y * starY) }
@@ -35,13 +35,13 @@ object UnitedStates extends Flag
 object Colombia extends Flag
 { val name = "Colombia"
   val ratio = 1.5
-  val apply: GraphicElems = topToBottom(Colour(0xFFFCD116), Colour(0xFFFCD116), Colour(0xFF003893), Colour(0xFFCE1126))
+  def apply(): GraphicElems = topToBottom(Colour(0xFFFCD116), Colour(0xFFFCD116), Colour(0xFF003893), Colour(0xFFCE1126))
 }
 
 object Chile extends Flag
 { val name = "Chile"
   val ratio = 1.5
-  val apply: GraphicElems = Arr(
+  def apply(): GraphicElems = Arr(
     Rect(ratio, 1).fill(White),
     Rect(ratio, 0.5, 0 pp -0.25).fill(Colour(0xFFD52B1E)),
     Rect(0.5, 0.5, -0.5 pp 0.25).fill(Colour(0xFF0039A6)),

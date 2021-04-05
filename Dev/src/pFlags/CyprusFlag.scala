@@ -1,4 +1,4 @@
-/* Copyright 2018-20 w0d, Rich Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 w0d, Rich Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pFlags
 import geom._, Colour._
@@ -7,7 +7,7 @@ object Cyprus extends Flag
 { val name = "Cyprus"
   val ratio = 1.5
 
-  val apply =
+  def apply() =
   {
     val background = Rect(1.5, 1).fill(White)
     
