@@ -63,7 +63,8 @@ lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
 )
 
 lazy val Util = exsJvmProj("Util").dependsOn(UtilCore).settings(Compile/mainClass:= Some("ostrat.WebPage1"))
-lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilCore).settings(libraryDependencies += "org.openjfx" % "javafx-controls" % "15")
+lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilCore).settings(
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15")
 lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(Compile/mainClass:= Some("learn.LessonE1App"))
 lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicsCore)
 lazy val Tiling = exsJvmProj("Tiling").dependsOn(TilingCore)
@@ -193,9 +194,11 @@ lazy val UtilDot = Project("UtilDot", file("Dev/SbtDir/UtilDot")).settings(dotty
 lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).dependsOn(UtilDot).settings(dottySettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Graphics/srcExs"),
+  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Graphics/srcExs",
+    (ThisBuild/baseDirectory).value / "Graphics/srcFx"),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphics/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15",
 )
 
 lazy val TilingDot = Project("TilingDot", file("Dev/SbtDir/TilingDot")).dependsOn(GraphicsDot).settings(dottySettings).settings(
@@ -217,9 +220,11 @@ lazy val WorldDot = Project("WorldDot", file("Dev/SbtDir/WorldDot")).dependsOn(T
 lazy val DevDot = Project("DevDot", file("Dev/SbtDir/DevDot")).dependsOn(WorldDot).settings(dottySettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),
+  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Dev/srcFx"),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Dev/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+  Compile/unmanagedResourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/User"),
+  Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
 lazy val UtilMacrosNat = Project("UtilMacrosNat", file("Dev/SbtDir/UtilMacrosNat")).enablePlugins(ScalaNativePlugin).settings(  
