@@ -1,3 +1,4 @@
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 val versionStr = "0.2.2snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"

@@ -2,7 +2,6 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl2Elem]]s. */
 trait Dbl2sArr[A <: Dbl2Elem] extends Any with DblNsArr[A]
 { type ThisT <: Dbl2sArr[A]

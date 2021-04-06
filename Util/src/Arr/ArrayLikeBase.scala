@@ -1,3 +1,4 @@
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Not sure how useful this trait is. It has been created for the OptRefs trait because the Scala2 compiler has problems extending ArrayLike.  */
