@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
+/** An object with a 2 dimensional scar centre. The centre is a [[Pt2]]. It has the [[Double]] properties cenX and CenY */
 trait WithCentre
 { /** The X component of the centre. */
   def cenX: Double

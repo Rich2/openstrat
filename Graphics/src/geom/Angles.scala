@@ -1,6 +1,5 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
 /** Efficient Immutable Array[Double] based collection class, with the Angle values stored as arc seconds. */
 final class Angles(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl1sArr[Angle]

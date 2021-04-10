@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
 /** A 2D geometric element to which 2D geometric transformations can be applied. Not all elements preserve their full properties under all
  *  transformations. So for example a [[Circle]] is no longer a [[Circle]] after a Shear transformation, but remains an [[Ellipse]]. [[GraphicElem]]
@@ -60,7 +59,7 @@ trait GeomElem
   def shearY(operand: Double): GeomElem
 }
 
-/** Companion object for the [[GeomElem]] trait. Contains implicit instances of type GeomElem for all the 2d geometric transformation type classes. */
+/** Companion object for the [[GeomElem]] trait. Contains implicit instances of type GeomElem for all the 2D geometric transformation type classes. */
 object GeomElem
 { implicit val slateImplicit: Slate[GeomElem] = (obj: GeomElem, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[GeomElem] = (obj: GeomElem, operand: Double) => obj.scale(operand)

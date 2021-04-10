@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import Colour.Black
 
 /** A 2D geometric element that can be drawn producing a [[GraphicElem]]. */
@@ -58,6 +57,7 @@ trait Drawable extends GeomElem
   override def shearY(operand: Double): Drawable
 }
 
+/** Companion object for the Drawable trait contains implicit instances for various 2D geometric transformation type classes. */
 object Drawable
 { implicit val slateImplicit: Slate[Drawable] = (obj: Drawable, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Drawable] = (obj: Drawable, operand: Double) => obj.scale(operand)

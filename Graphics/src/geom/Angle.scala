@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
 /** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range 0 <= a < 360
  *  degrees, while Latitudes have a normal range +- 90 degrees. Unlike [[AngleVec]] this class has no multiply or divide, * or / methods. It has add

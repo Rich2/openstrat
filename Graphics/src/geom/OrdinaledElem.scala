@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
 /** A 2D geometric element where the Ordinal edge points, the cardinal edge points and the centre are defined. */
 trait OrdinaledElem extends CentredElem with OrdinalEdgePoints

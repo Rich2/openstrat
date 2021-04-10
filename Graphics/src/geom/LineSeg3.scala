@@ -1,10 +1,9 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
 /** A 3 dimensional line segment. A straight line between two points in a 3d space. */
 final class LineSeg3(val xStart: Double, val yStart: Double, val zStart: Double, val xEnd: Double, val yEnd: Double, val zEnd: Double) extends
-  Dbl6Elem //with Product2[Pt3]
+  Dbl6Elem
 { def typeStr: String = "Line3" 
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineSeg3]
   override def dbl1: Double = xStart

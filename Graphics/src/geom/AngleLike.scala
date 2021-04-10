@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
 /** Base trait for [[Angle]], [[AngleVec]], [[Latitude]] and [[Longitude]]. */
 trait AngleLike extends Any with Show with ApproxAngle with Dbl1Elem

@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** Array[Double] based collection class for Vec2s. Use Polygon or LinePath to represent those structures. Conversion to and from Polygon class and
@@ -10,11 +9,7 @@ class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Vec2sLike
   def unsafeFromArray(array: Array[Double]): Pt2s = new Pt2s(array)
   override def typeStr: String = "P2s"
 
-  /*override def canEqual(that: Any): Boolean = ???
-
-  override def productArity: Int = ???
-
-  override def productElement(n: Int): Any = ???*/
+  //override def canEqual(that: Any): Boolean = ???
 
   @inline def lengthFull: Int = arrayUnsafe.length / 2
   @inline def xStart: Double = arrayUnsafe(0)
@@ -72,7 +67,7 @@ object Pt2s extends Dbl2sArrCompanion[Pt2, Pt2s]
   }
 }
 
-class Vec2Buff(val buffer: ArrayBuffer[Double]) extends AnyVal with Dbl2sBuffer[Pt2]
+/** A specialised flat ArrayBuffer[Double] based class for [[Pt2]]s collections. */
+final class Pt2Buff(val buffer: ArrayBuffer[Double]) extends AnyVal with Dbl2sBuffer[Pt2]
 { def dblsToT(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }
-

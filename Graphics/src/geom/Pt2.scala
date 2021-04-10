@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, Colour.Black
 
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
@@ -265,9 +264,9 @@ object Pt2
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
   implicit val vec2sBuildImplicit: Dbl2sArrBuilders[Pt2, Pt2s] = new Dbl2sArrBuilders[Pt2, Pt2s]
-  { type BuffT = Vec2Buff
+  { type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
-    def fromDblBuffer(inp: ArrayBuffer[Double]): Vec2Buff = new Vec2Buff(inp)
+    def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
   implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
