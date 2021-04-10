@@ -1,8 +1,8 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import Colour.Black
 
+/** Object for producing arrow graphics to point at objects in diagrams. */
 object Arrow
 {
   /** Draws a line from the start to the  end point parameters and adds a triangle fill to the end point to create an arrow head. */

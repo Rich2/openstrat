@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
 /** The purpose of this trait is to provide the helper method for Vec2 transformations. */
 trait Vec2sLikeProdDbl2 extends Dbl2sArr[Pt2]
