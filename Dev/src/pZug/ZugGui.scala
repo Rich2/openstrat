@@ -59,7 +59,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
       mainRepaint(frame)
     }
 
-    case (RightButton, List(squad : Squad), List(newTile: HexTile)) => deb("No Move" -- squad.toString -- newTile.roord.toString)
+    //case (RightButton, List(squad : Squad), List(newTile: HexTile)) => deb("No Move" -- squad.toString -- newTile.roord.toString)//unreachable
     case (RightButton, ll, _) => debvar(ll)
     case _ => deb("Other" -- clickList.toString)
   }

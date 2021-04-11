@@ -14,13 +14,13 @@ def commonSett = List(
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 
-lazy val root = (project in file(".")).aggregate(Util, Graphics, Tiling, World, Dev, DevJs)
+lazy val root = (project in file(".")).aggregate(Graphics, Tiling, World, Dev, DevJs)
 lazy val moduleDir = SettingKey[File]("moduleDir")
 lazy val baseDir = SettingKey[File]("baseDir")
 ThisBuild/baseDir := (ThisBuild/baseDirectory).value
 
 lazy val UtilMacros = Project("UtilMacros", file("Dev/SbtDir/UtilMacros")).settings(commonSett).settings(
-  moduleDir := baseDir.value / "Util",
+  moduleDir := baseDir.value / "Graphics",
   scalaSource := moduleDir.value / "srcMacros",
   Compile/scalaSource := moduleDir.value / "srcMacros",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
@@ -59,14 +59,18 @@ def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
 
-lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(
-  idePackagePrefix := Some("ostrat"),
+//lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(idePackagePrefix := Some("ostrat"),)
+
+//lazy val Util = exsJvmProj("Util").dependsOn(UtilCore).settings(Compile/mainClass:= Some("ostrat.WebPage1"))
+
+lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilMacros).settings(
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15",
 )
 
-lazy val Util = exsJvmProj("Util").dependsOn(UtilCore).settings(Compile/mainClass:= Some("ostrat.WebPage1"))
-lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilCore).settings(
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15")
-lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(Compile/mainClass:= Some("learn.LessonE1App"))
+lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(
+  Compile/mainClass:= Some("learn.LessonE1App"),
+)
+
 lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicsCore)
 lazy val Tiling = exsJvmProj("Tiling").dependsOn(TilingCore)
 lazy val WorldCore = coreJvmProj("World").dependsOn(TilingCore)
@@ -123,7 +127,7 @@ custDoc :=
 
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).dependsOn(UtilMacros).settings(commonSett).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcExs")).map(s => baseDir.value / s),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcExs", el + "srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
@@ -149,17 +153,17 @@ def jsProj(name: String) = Project(name + "Js", file("Dev/SbtDir/" + name + "Js"
 )
 
 lazy val UtilMacrosJs = jsProj("UtilMacros").settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
+  scalaSource := (ThisBuild/baseDirectory).value / "Graphics/srcMacros",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-lazy val UtilJs = jsProj("Util").dependsOn(UtilMacrosJs).settings(  
+/*lazy val UtilJs = jsProj("Util").dependsOn(UtilMacrosJs).settings(
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
-)
+)*/
 
-lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilJs).settings(
+lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilMacrosJs).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs").map(s => baseDir.value / "Graphics" / s)
 )
 
@@ -182,24 +186,26 @@ def dottySettings = List(
 	scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
-lazy val UtilDot = Project("UtilDot", file("Dev/SbtDir/UtilDot")).settings(dottySettings).settings(
+/*lazy val UtilDot = Project("UtilDot", file("Dev/SbtDir/UtilDot")).settings(dottySettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Util/srcExs",
     (ThisBuild/baseDirectory).value / "Util/srcDot"),
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/testSrc",
-  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
-  Compile/mainClass	:= Some("ostrat.DotMain"),
-)
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),  
+)*/
 
-lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).dependsOn(UtilDot).settings(dottySettings).settings(
+lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).settings(dottySettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
+
   Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Graphics/srcExs",
-    (ThisBuild/baseDirectory).value / "Graphics/srcFx"),
+    (ThisBuild/baseDirectory).value / "Graphics/srcDot", (ThisBuild/baseDirectory).value / "Graphics/srcFx"),
+
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphics/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15",
+  Compile/mainClass := Some("ostrat.DotMain"),
 )
 
 lazy val TilingDot = Project("TilingDot", file("Dev/SbtDir/TilingDot")).dependsOn(GraphicsDot).settings(dottySettings).settings(
