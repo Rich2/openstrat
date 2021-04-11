@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver, W0d. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver, W0d. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
 object Star5
 {

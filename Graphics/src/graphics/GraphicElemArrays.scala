@@ -1,6 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
 /** Not sure how useful these classes are in the immediate as when used in a collection they will box, undermining the benefits of using an Array */
 trait ValsVec2s extends Any

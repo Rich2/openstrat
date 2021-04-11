@@ -1,8 +1,8 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
-/** A quantity or measurement of length. */
+/** A quantity or measurement of length. The final classes include [[Metres]], [[KMetres]]. The purpose of the separate classes is for displaying
+ *  values. 100M and 0.1KMetres have the same value but will be displayed differently. */
 trait Length extends Any
 { /** The value of this length expressed metres. */
   def metres: Double

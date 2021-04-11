@@ -1,15 +1,11 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package geom
 
 /** GraphicSimple is a non compound graphic element that can be rendered to a display (or printed) or is an active element in a display, but can't be
  *  both that require a [[GraphicCompound]]. */
 trait GraphicSimple extends GraphicElem
-{
-  /** Translate geometric transformation. */
-  //override def slate(offset: Vec2Like): GraphicSimple
-
-  /** Translate geometric transformation. */
+{ /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): GraphicSimple
 
   /** Uniform scaling transformation. The scale name was chosen for this operation as it is normally the desired operation and preserves Circles and

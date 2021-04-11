@@ -1,9 +1,8 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
 trait GraphicActive extends GraphicBounded
-{ /** The Pointer Identity is returned to the GUI applicaton if the user mouse (or other pointing device, clicks within the polygon or shape It is
+{ /** The Pointer Identity is returned to the GUI application if the user mouse (or other pointing device, clicks within the polygon or shape It is
       purely up to the application to encode, its response if any to this object. */
   def pointerId: Any
 
