@@ -1,7 +1,7 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="https://richstrat.com/Documentation/documentation.css">
-<title>RichStrat.com Home Page</title>
+  <link rel="stylesheet" type="text/css" href="https://richstrat.com/Documentation/documentation.css">
+  <title>RichStrat.com Home Page</title>
 </head>
 
 <body>
@@ -40,7 +40,7 @@
 </svg></a><br />
 <b>This project has 2 main focuses:
 <ul>
-  <li>A functional Geometry and Vector Graphics library</li>
+  <li>A functional Geometry and Vector Graphics library with various supporting utilities</li>
   <li>A functional strategy game and historical education library, particularly focused on simultaneous-turn, tile-based games.</li>
 </ul>
 </b></p>
@@ -120,13 +120,13 @@
   <li>Project-Pane => Options -> "Flatten packages"</li>
 </ul></p>
 
-<p><b>The Code is currently organised into 5 modules.</b> Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and
+<p><b>The Code is currently organised into 4 modules.</b> Each module can be build artifacts for Jvm and JavaFx and for the JavaScript platform and
   the Web. Modules can be built for Scala-Native, but code, notably hanging commas may break the Scala-Native build as ScalaNative is still on Scala
   2.11.
 </p>
 
 <ol>
-  <li><a href="Documentation/Util.html"><b>Util Module</b></a> Organised into the following folders and packages:
+  <li><a href="Documentation/Graphics.html"><b>Graphics Module</b></a> Depends on UtilMacros, organised into the following packages:Util.html">Organised into the following folders and packages:
     <ul>
       
       <li>ostrat The root package. All other packages depend on this.
@@ -155,13 +155,7 @@
           <li>CSS</li>
           <li>Simple JavaScript</li>
         </ul>
-      </li>
-
-    </ul>
-  </li>
-
-  <li><a href="Documentation/Graphics.html"><b>Graphics Module</b></a> Depends on UtilMacros and Util, organised into the following packages:
-    <ul>
+      </li>    
 
       <li>ostrat.geom A pure or near pure functional package.
         <ul>
@@ -203,7 +197,7 @@
     </ul>
   </li>
 
-  <li><a href="Documentation/World.html"><b>World Module</b></a> <b>World Module</b> This package and module is for Earth maps. In particular the tiling of the whole world in Hex grids, defining the changes
+  <li><a href="Documentation/World.html"><b>World Module</b></a> This package and module is for Earth maps. In particular the tiling of the whole world in Hex grids, defining the changes
    over the course of history. This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined for
    local maps and higher scales right up to 0.5 metres per tile However it won't generally include the data for these. The data for the real world
    will be organised according to a number of levels, which are likely to change over increasingly shorter historical time frames.
@@ -221,7 +215,7 @@
     </ul>
   </li>
 
-<li><b>Dev Module</b> The Module as a whole Depends on all the other modules, although its constiurent parts may not. This module is for the use of
+<li><a href="Documentation/Dev.html"><b>Dev Module</b></a> The Module as a whole Depends on all the other modules, although its constiurent parts may not. This module is for the use of
  developer tools and settings and for end-user applications, that may eventually end up in their own repositaries. Unlike the other modules this
  module has no examples sub modules. The eaxmples in the other modules, should be just that example codes to explain, illustrate provide tutorials, 
  and to some extent test the modules core code. The examples should not include apps that have nay use in and of themsleves. Those apps belong in the

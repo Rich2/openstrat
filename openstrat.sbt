@@ -1,4 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+
 val versionStr = "0.2.2snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
@@ -58,10 +59,6 @@ def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
   Test/resourceDirectory :=  moduleDir.value / "testResExs",
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
-
-//lazy val UtilCore = coreJvmProj("Util").dependsOn(UtilMacros).settings(idePackagePrefix := Some("ostrat"),)
-
-//lazy val Util = exsJvmProj("Util").dependsOn(UtilCore).settings(Compile/mainClass:= Some("ostrat.WebPage1"))
 
 lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilMacros).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15",
@@ -158,11 +155,6 @@ lazy val UtilMacrosJs = jsProj("UtilMacros").settings(
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-/*lazy val UtilJs = jsProj("Util").dependsOn(UtilMacrosJs).settings(
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),
-  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
-)*/
-
 lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilMacrosJs).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs").map(s => baseDir.value / "Graphics" / s)
 )
@@ -185,15 +177,6 @@ def dottySettings = List(
 	resolvers += Resolver.url("typesafe", url("https://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
 	scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
-
-/*lazy val UtilDot = Project("UtilDot", file("Dev/SbtDir/UtilDot")).settings(dottySettings).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Util/srcExs",
-    (ThisBuild/baseDirectory).value / "Util/srcDot"),
-  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Util/testSrc",
-  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),  
-)*/
 
 lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).settings(dottySettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
