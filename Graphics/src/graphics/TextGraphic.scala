@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import Colour.Black
 
 /* The alignment of text can be left right or centre. This may want to extend from a more general alignment trait. If such is useful. */
@@ -12,10 +11,12 @@ case object CenAlign extends TextAlign { def jsStr = "center" }
 case object LeftAlign extends TextAlign { def jsStr = "left" }
 case object RightAlign extends TextAlign { def jsStr = "right" }
 
+/** Baseline style for text. */
 sealed trait BaseLine
 { def jsStr: String
 }
 
+/** Companion object for [[BaseLine]] trait, contains the object value instances of the trait. */
 object BaseLine
 { case object Top extends BaseLine { def jsStr = "top" }
   case object Middle extends BaseLine { def jsStr = "middle" }
