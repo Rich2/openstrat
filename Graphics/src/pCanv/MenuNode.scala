@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pCanv
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pCanv
 
 object MenuSeq
 {  def apply(nodes: MenuNode*): MenuSeq = Seq(nodes:_ *)

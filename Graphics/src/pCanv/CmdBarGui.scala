@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pCanv
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pCanv
 import geom._, Colour._
 
 /** A simple 2 panel display, a man panel and a command bar. */
@@ -40,11 +39,11 @@ object StdButton
 {
   def apply(str: String, cmd: AnyRef) =
       Rectangle.curvedCornersCentred(str.length.max(2) * 17, 25, 5).parentAll(cmd, White, 3, Black, 25, str)
+
   def turn(num: Int) = apply("Turn" -- num.toString, Turn)    
 }
 
 object Turn extends ShowSingleton
 { override def typeStr: String = "Turn.type"
-
   def str: String = "Turn"
 }

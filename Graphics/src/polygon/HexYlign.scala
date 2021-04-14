@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module. */
 final class HexYlign(val width: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2] with Dbl3Elem
@@ -66,9 +65,6 @@ final class HexYlign(val width: Double, val cenX: Double, val cenY: Double) exte
   override def sd6CenX: Double = cenX - radiusIn * Cos60
   override def sd6CenY: Double = cenY + radiusIn * Sin60
   override def sd6Cen: Pt2 = sd6CenX pp sd6CenY
-
-  //override def productArity: Int = 3
-  //override def productElement(n: Int): Any = ???
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
   override def slateXY(xDelta: Double, yDelta: Double): HexYlign = HexYlign(diameterIn, cen.addXY(xDelta, yDelta))

@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pCanv
+package ostrat; package pCanv
 import geom._
 
 /** Why is the called a Dist2LikeGui not a Dist2 Gui */

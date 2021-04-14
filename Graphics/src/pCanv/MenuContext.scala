@@ -1,6 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pCanv
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pCanv
 
 /** Not sure aboout this class */
 abstract class MenuContextGraphic(seq: MenuSeq, x: Double, y: Double)// extends GraphicMethods

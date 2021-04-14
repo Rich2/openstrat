@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
 final class HexXlign(val height: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2]

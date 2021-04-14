@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pCanv
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pCanv
 import geom._, Colour._
 
 /** An abstract Canvas interface implemented and to be implemented on various platforms. A concrete implementation will utilise canvas like an HTML
