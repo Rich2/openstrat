@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pParse
+package ostrat; package pParse
 
 /** Function object to parse a sequence of Statement members into a  sequence of Statements. Statement members are either nonBracketTokens
  *  or parsed BracketBlocks. Parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first. */

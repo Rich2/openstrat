@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pParse
+package ostrat; package pParse
 
 /** Parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first. Function object to parse a raw
  *  Statement of statement members, where sub blocks have already been parsed into Statement Blocks. */
