@@ -18,12 +18,23 @@ object parseNatRawToken
       case _ => Good3(rem, tp.addStr(str), RawHexaToken(tp, str))
     }
 
-    def base32Loop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = ???
+    def base32Loop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match {
+      case CharsOff1Tail(l, tail)if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, l.toString)
+      case _ => Good3(rem, tp.addStr(str), Nat32OnlyToken(tp, str))
+    }
 
     rem match
     { case CharsOff1Tail(DigitChar(i, _), tail) => deciLoop(tail, i.toString)
       case CharsOff1Tail(l, tail)if l <= 'F' && l >= 'A' => hexaLoop(tail, l.toString)
       case CharsOff1Tail(l, tail)if (l <= 'N' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, l.toString)
     }
+  }
+}
+
+object parseNatNegToken
+{
+  def apply(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
+  {
+    case _ => ???
   }
 }
