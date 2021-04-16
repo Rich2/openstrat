@@ -34,3 +34,9 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToke
     loop(chars.offsetter0)
   }
 }
+
+/** Negative natural number token. There must be no space between the '-' character and the digits. */
+case class NatNegToken(startPosn: TextPosn, digitsStr: String) extends ExprToken
+{ override def subTypeStr: String = "NatNeg"
+  override def srcStr: String = "-" + digitsStr
+}
