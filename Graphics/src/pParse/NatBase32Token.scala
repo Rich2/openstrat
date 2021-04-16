@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pParse
+package ostrat; package pParse
 
 /** Token for base 32 natural number. All DecimalTokens are also legal base32 tokens, as well as all raw hexadecimal tokens. Base32 , '0' .. '9',
  *  followed by 'a' .. 'v' with letter 'o' replaced with 'w'. Some Alpha numeric terms are valid TrigDualInts. */

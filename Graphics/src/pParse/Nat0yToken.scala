@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pParse
+package ostrat; package pParse
 
 /** A hexadecimal token with a leading "0y", that can be used for standard 32 bit Ints, 64 bit Longs, as well as less used integer
  *  formats such as BigInteger and Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,

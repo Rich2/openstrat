@@ -1,9 +1,9 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pParse
+package ostrat; package pParse
 
+/** Function object to parse identifier token. If successful it passes back, the remaining chars pointer, the test position and the token. */
 object parseIdentifierToken
-{
+{ /** Function apply method to parse identifier token. If successful it passes back, the remaining chars pointer, the test position and the token. */
   def apply(remOff: CharsOff, tpStart: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
   {
     //val acc: StringBuffer = new StringBuffer()
