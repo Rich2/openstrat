@@ -23,6 +23,8 @@ object parseNatRawToken
     rem match
     { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString)
       case CharsOff1Tail(HexaUpperChar(l), tail) => hexaLoop(tail, tp, str + l.toString)
+      case CharsOff1Tail(l, tail) if (l <= 'G' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, tp, l.toString)
+      case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed number token.")
       case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
     }
   }
@@ -30,8 +32,9 @@ object parseNatRawToken
 
 object parseNatNegToken
 {
-  def apply(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
-  {
-    case _ => ???
+  def apply(rem: CharsOff, tp: TextPosn, str: String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] = rem match
+  { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString)
+    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed negative number token.")
+    case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
   }
 }
