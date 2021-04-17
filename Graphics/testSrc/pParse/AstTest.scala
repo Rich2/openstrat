@@ -6,11 +6,11 @@ import utest._
 object AstTest extends TestSuite
 {
   val Sp1 = StrPosn(1, 1)
-  //val s1 = "x = y;"
-  //val t1 = srcToETokens(s1, "String")
- // val w1 = stringToStatements(s1)
-  val t3= Arr(IdentLowerOnlyToken(Sp1, "appStr"), AsignToken(Sp1), StringToken(Sp1, "20"), SemicolonToken(Sp1))
-  val a1 = astParse(t3)
+  val s1 = "x = y;"
+  val t1 = srcToETokens.str(s1)
+  val w1 = stringToStatements(s1)
+  val t3= Arr(IdentLowerOnlyToken(Sp1, "x"), AsignToken(StrPosn(1, 3)), IdentLowerOnlyToken(StrPosn(1, 5), "y"), SemicolonToken(StrPosn(1, 6)))
+  val a1: ERefs[Statement] = astParse(t3)
   deb(a1.get.lenStr)
  // deb(w1.toString)
 
@@ -18,6 +18,8 @@ object AstTest extends TestSuite
   {
     "Test1" -
     {
+      //t1 ==> Good(t3)
+      //Good(Arr(4)).eq(Good(Arr(4))
       assertMatch(a1){case Good(Arr1(_)) => }
     }
   }
