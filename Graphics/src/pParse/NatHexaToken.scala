@@ -30,4 +30,5 @@ object NatRawHexaToken
 /** Raw hexadecimal natural number token, starting with a digit that includes one or more 'A' .. 'F' digits. */
 case class RawHexaToken(startPosn: TextPosn, srcStr: String) extends NatRawHexaToken
 { override def subTypeStr: String = "HexaRaw"
+  override def digitsStr: String = srcStr
 }

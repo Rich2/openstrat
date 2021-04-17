@@ -7,25 +7,19 @@ trait NatToken extends ExprToken
 { def digitsStr: String
 }
 
-/** A raw valid natural number Token. All of these tokens are valid raw Base 32 tokens. */
+/** A raw valid natural number Token. All of these tokens are valid raw Base 32 tokens. A subset will be valid hexadecimal natural numbers and a
+ * subset of them will be valid decimal numbers. */
 trait NatRawToken extends NatBase32Token
-{ override def digitsStr: String = srcStr
-}
 
 /** A raw natural number token. */
 trait DigitsRawToken extends NatRawToken
 
-/** A 64 bit integer token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit Ints and
- *  64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST (Abstract
- *  Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming languages. */
-case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToken with DigitsRawToken
-{ override def subTypeStr: String = "Decimal"
-  override def digitsStr: String = srcStr
-
+trait IntDeciToken extends DigitsRawToken
+{
   /** gets the natural integer value from this token interpreting it as a standard Base10 notation. */
   def getInt: Int =
   { var acc = 0
-    implicit val chars: Chars = srcStr.toChars
+    implicit val chars: Chars = digitsStr.toChars
 
     def loop(rem: CharsOff): Int = rem match
     { case CharsOff0() => acc
@@ -36,8 +30,18 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToke
   }
 }
 
+/** A 64 bit natural number token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit
+ *  Ints and 64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST
+ *  (Abstract Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming
+ *  languages. */
+case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToken with IntDeciToken
+{ override def subTypeStr: String = "Decimal"
+  override def digitsStr: String = srcStr
+}
+
 /** Negative natural number token. There must be no space between the '-' character and the digits. */
-case class NatNegToken(startPosn: TextPosn, digitsStr: String) extends ExprToken
+case class IntNegToken(startPosn: TextPosn, digitsStr: String) extends IntDeciToken
 { override def subTypeStr: String = "NatNeg"
   override def srcStr: String = "-" + digitsStr
+  override def getInt: Int = - super.getInt
 }
