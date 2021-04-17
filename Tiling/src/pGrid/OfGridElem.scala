@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pGrid
 import geom._, reflect.ClassTag
 
 /** To be removed. Although including the cood could be considered to break the principle of encapsulation, A tile should not need to know where it is

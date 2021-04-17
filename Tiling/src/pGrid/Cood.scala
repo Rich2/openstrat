@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+package ostrat; package pGrid
 import geom._
 
 /** A Cood represents a 2 dimensional integer coordinate within a tile grid system. This has current been implemented for Hexs and Squares, while
@@ -18,6 +17,7 @@ final class Cood(val xi: Int, val yi: Int) extends Show2Ints
 
   def xyStr: String = xi.toString + ", " + yi.toString
   def yxStr: String = yi.toString + ", " + xi.toString
+  def base32: String = yi.base32 + ", " + xi.base32
   def fXY[A](f: (Int, Int) => A): A = f(xi, yi)
 
   override def equals(that: Any): Boolean = that match

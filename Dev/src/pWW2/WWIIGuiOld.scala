@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pWW2
+package ostrat; package pWW2
 import geom._, pEarth._, pCanv._, pStrat._
 
 case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiOld("World War II")
@@ -18,7 +17,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiO
       val textOrUnit: GraphicElems = ifScaleCObjs(110, tile.lunits match
         { case s if tScale > 68 & s.nonEmpty => Arr(UnitCounters.infantry(30, s.head, s.head.colour,tile.colour).slate(cen))
           case _ =>
-          { val strs: Strings = Strings(yxStr, cenLL.degStr)
+          { val strs: Strings = Strings(cood.base32, cenLL.degStr)
             TextGraphic.lines(strs, 10, cen, colour.contrastBW)//.toArraySeq
           }
         }
