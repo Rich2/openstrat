@@ -2,7 +2,7 @@
 package ostrat; package pParse
 
 /** Token for base 32 natural number. All DecimalTokens are also legal base32 tokens, as well as all raw hexadecimal tokens. Base32 , '0' .. '9',
- *  followed by 'a' .. 'v' with letter 'o' replaced with 'w'. Some Alpha numeric terms are valid TrigDualInts. */
+ *  followed by 'A' .. 'W' with letter 'O' unused. Some Alpha numeric terms are valid TrigDualInts. */
 trait NatBase32Token extends NatToken
 { /** Uses the digitStr to calculate the natural number from the digitStr. */
   def asbase32: Int = ???

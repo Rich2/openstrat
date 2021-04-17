@@ -100,7 +100,8 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   @inline def hexStr: String = thisInt.toHexString.toUpperCase
   @inline def hexStr2: String = ife(hexStr.length == 1, "0" + hexStr, hexStr)
 
-  def base32Str: String =
+  /** Base32 string representation of this Int. */
+  def base32: String =
   {
     def loop(rem: Int, acc: String): String =
     {
