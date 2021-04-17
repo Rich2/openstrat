@@ -5,29 +5,24 @@ package ostrat; package pParse
  * parsed with this function object. Raw hex and trigdual numbers can be encoded as alpha numeric identity tokens. */
 object parseNatRawToken
 {
-  def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
+  def apply(rem: CharsOff, tp: TextPosn, str:String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
   {
-    def deciLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
-    { case CharsOff1Tail(d, tail) if d.isDigit => deciLoop(tail, str + d.toString)
-      case CharsOff1Tail(HexaUpperChar(l), tail) => hexaLoop(tail, str + l.toString)
-      case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
-    }
-
-    def hexaLoop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
-    { case CharsOff1Tail(d, tail) if d.isDigit => hexaLoop(tail, str + d.toString)
+    def hexaLoop(rem: CharsOff, tp: TextPosn, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
+    { case CharsOff1Tail(d, tail) if d.isDigit | (d <= 'F' && d >= 'A') => hexaLoop(tail, tp, str + d.toString)
+      case CharsOff1Tail(l, tail) if (l <= 'G' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, tp, l.toString)
       case _ => Good3(rem, tp.addStr(str), RawHexaToken(tp, str))
     }
 
-    def base32Loop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match {
-      case CharsOff1Tail(l, tail) if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, l.toString)
+    def base32Loop(rem: CharsOff, tp: TextPosn, str: String): EMon3[CharsOff, TextPosn, Token] = rem match {
+      case CharsOff1Tail(l, tail) if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, tp, l.toString)
       case CharsOff1Tail(l, tail) => tp.bad3("Badly formed raw Base 32 token")
       case _ => Good3(rem, tp.addStr(str), Nat32OnlyToken(tp, str))
     }
 
     rem match
-    { case CharsOff1Tail(DigitChar(i), tail) => deciLoop(tail, i.toString)
-      case CharsOff1Tail(l, tail)if l <= 'F' && l >= 'A' => hexaLoop(tail, l.toString)
-      case CharsOff1Tail(l, tail)if (l <= 'N' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, l.toString)
+    { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString)
+      case CharsOff1Tail(HexaUpperChar(l), tail) => hexaLoop(tail, tp, str + l.toString)
+      case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
     }
   }
 }
