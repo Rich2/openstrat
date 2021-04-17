@@ -1,4 +1,4 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 
 /** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. */

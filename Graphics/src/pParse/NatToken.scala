@@ -26,11 +26,12 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToke
   def getInt: Int =
   { var acc = 0
     implicit val chars: Chars = srcStr.toChars
+
     def loop(rem: CharsOff): Int = rem match
-    {
-      case CharsOff0() => acc
-      case CharsOff1Tail(DigitChar(_, i), tail)  => { acc = acc * 10 + i; loop(tail) }
+    { case CharsOff0() => acc
+      case CharsOff1Tail(DigitCharNum(i), tail)  => { acc = acc * 10 + i; loop(tail) }
     }
+
     loop(chars.offsetter0)
   }
 }

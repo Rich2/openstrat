@@ -19,12 +19,13 @@ object parseNatRawToken
     }
 
     def base32Loop(rem: CharsOff, str: String): EMon3[CharsOff, TextPosn, Token] = rem match {
-      case CharsOff1Tail(l, tail)if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, l.toString)
+      case CharsOff1Tail(l, tail) if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, l.toString)
+      case CharsOff1Tail(l, tail) => tp.bad3("Badly formed raw Base 32 token")
       case _ => Good3(rem, tp.addStr(str), Nat32OnlyToken(tp, str))
     }
 
     rem match
-    { case CharsOff1Tail(DigitChar(i, _), tail) => deciLoop(tail, i.toString)
+    { case CharsOff1Tail(DigitChar(i), tail) => deciLoop(tail, i.toString)
       case CharsOff1Tail(l, tail)if l <= 'F' && l >= 'A' => hexaLoop(tail, l.toString)
       case CharsOff1Tail(l, tail)if (l <= 'N' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, l.toString)
     }

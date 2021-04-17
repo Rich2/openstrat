@@ -29,10 +29,19 @@ object LetterChar
 }
 
 /** Extractor function object for digit character. */
+object DigitCharNum
+{ /** Extractor unapply method for digit character. */
+  def unapply(input: Char): Option[Int] = input match
+  { case c if c.isDigit => Some(c - '0')
+    case _ => None
+  }
+}
+
+/** Extractor function object for digit character. */
 object DigitChar
 { /** Extractor unapply method for digit character. */
-  def unapply(input: Char): Option[(Char, Int)] = input match
-  { case c if c.isDigit => Some((c, c - '0'))
+  def unapply(input: Char): Option[Char] = input match
+  { case c if c.isDigit => Some(c)
     case _ => None
   }
 }
