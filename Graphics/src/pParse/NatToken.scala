@@ -30,6 +30,14 @@ trait IntDeciToken extends DigitsRawToken
   }
 }
 
+object IntDeciToken
+{
+  def unapply(inp: Token): Option[Int] = inp match {
+    case idt: IntDeciToken => Some(idt.getInt)
+    case _ => None
+  }
+}
+
 /** A 64 bit natural number token in standard decimal format, but which can be inferred to be a raw Hexadecimal. It can be used for standard 32 bit
  *  Ints and 64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST
  *  (Abstract Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming
@@ -43,5 +51,5 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToke
 case class IntNegToken(startPosn: TextPosn, digitsStr: String) extends IntDeciToken
 { override def subTypeStr: String = "NatNeg"
   override def srcStr: String = "-" + digitsStr
-  override def getInt: Int = - super.getInt
+  override def getInt: Int = -super.getInt
 }

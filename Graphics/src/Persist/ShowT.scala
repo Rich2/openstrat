@@ -33,7 +33,7 @@ object ShowT
     def strT(obj: Int): String = obj.toString
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match {
-      case NatDeciToken(_, i) => Good(i.toInt)
+      case IntDeciToken(i) => Good(i)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toInt)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toInt)
       case _ => expr.exprParseErr[Int]
