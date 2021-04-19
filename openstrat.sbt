@@ -65,7 +65,7 @@ lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilMacros).settings(
 )
 
 lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(
-  Compile/mainClass:= Some("learn.LessonE1App"),
+  Compile/mainClass:= Some("learn.LsE1App"),
 )
 
 lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicsCore)
