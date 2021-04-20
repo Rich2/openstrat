@@ -68,6 +68,18 @@ lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
+lazy val GraphicsCoreLinux = baseJvmProj("Graphics", "GraphicsCoreLinux").dependsOn(UtilMacros).settings(
+  scalaSource := moduleDir.value / "src",
+  Compile/scalaSource := moduleDir.value / "src",
+  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
+  resourceDirectory := moduleDir.value / "res",
+  Test/scalaSource := moduleDir.value / "testSrc",
+  Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
+  Test/resourceDirectory :=  moduleDir.value / "testRes",
+  Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15" % "linux",
+)
+
 lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicsCore)
 lazy val Tiling = exsJvmProj("Tiling").dependsOn(TilingCore)
 lazy val WorldCore = coreJvmProj("World").dependsOn(TilingCore)
@@ -173,7 +185,7 @@ lazy val DevJs = jsProj("Dev").dependsOn(WorldJs).settings(
 )
 
 def dottySettings = List(
-	scalaVersion := "3.0.0-RC2",
+	scalaVersion := "3.0.0-RC3",
 	resolvers += Resolver.url("typesafe", url("https://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
 	scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
