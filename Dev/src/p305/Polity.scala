@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package p305
+package ostrat; package p305
 import geom._, Colour._
 
 trait Polity extends ShowSingleton

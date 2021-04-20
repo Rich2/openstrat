@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package prid
+package ostrat; package prid
 import geom._
 
 /** A 2d line upon a HexGrid defined by its start and end [[HGrid]] [[HCoord]]s. */

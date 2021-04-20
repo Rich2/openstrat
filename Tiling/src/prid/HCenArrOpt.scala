@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package prid
+package ostrat; package prid
 
 /** An immutable Arr of Opt Tile data for a specific hex tile grid [[HGrid]]. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]]
  * coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[HGrid]] hex grid parameter. */
@@ -34,95 +33,93 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     unsafeArr(grid.arrIndex(h1)) = null.asInstanceOf[A]
   }
 
-/** coordinate-foreach-Some. Foreach Some element and its associated [[HCen]] coordinate applies the side effecting parameter function. It ignores
- *  the None values. */
-def cForeachSome(f: (A, HCen) => Unit)(implicit grid: HGrid): Unit = grid.foreach { hc => f(unsafeArr(grid.arrIndex(hc)), hc) }
+  /** coordinate-foreach-Some. Foreach Some element and its associated [[HCen]] coordinate applies the side effecting parameter function. It ignores
+   *  the None values. */
+  def cForeachSome(f: (A, HCen) => Unit)(implicit grid: HGrid): Unit = grid.foreach { hc => f(unsafeArr(grid.arrIndex(hc)), hc) }
 
-/** Coordinate-map. Maps the this Arr of Opt values, with their respective [[HCen]] coordinates to an Arr of type B. */
-def cMap[B, ArrT <: ArrImut[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
-{
-  val buff = build.newBuff()
-  grid.foreach { hc =>
-    val a = unsafeArr(grid.arrIndex(hc))
-    if (a != null) build.buffGrow(buff, fSome(a, hc))
-    else { val newVal = fNone(hc); build.buffGrow(buff, newVal) }
-  }
-  build.buffToArr(buff)
-}
-
-
-/** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
- *  a standard Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArr]] was created. */
-def map[B, ArrT <: ArrImut[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
-{
-  val buff = build.newBuff()
-  grid.foreach { r =>
-    val a = unsafeArr(grid.arrIndex(r))
-    if (a != null) build.buffGrow(buff, noneValue)
-    else { val newVal = f(a); build.buffGrow(buff, newVal) }
-  }
-  build.buffToArr(buff)
-}
-
-
-/** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
-def apply(hc: HCen)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(hc))
-
-/** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
- *  Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArrOpt]] was created. */
-def mapSomes[B, ArrT <: ArrImut[B]](f: A => B)(implicit build: ArrTBuilder[B, ArrT]): ArrT =
-{
-  val buff = build.newBuff()
-  unsafeArr.foreach { a =>
-    if(a != null)
-    { val newVal = f(a)
-      build.buffGrow(buff, newVal)
+  /** Coordinate-map. Maps the this Arr of Opt values, with their respective [[HCen]] coordinates to an Arr of type B. */
+  def cMap[B, ArrT <: ArrImut[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { hc =>
+      val a = unsafeArr(grid.arrIndex(hc))
+      if (a != null) build.buffGrow(buff, fSome(a, hc))
+      else { val newVal = fNone(hc); build.buffGrow(buff, newVal) }
     }
- }
- build.buffToArr(buff)
-}
-
-/** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
- *  an immutable Array based collection of type ArrT, the second type parameter. */
-def cMapSomes[B, ArrT <: ArrImut[B]](f: (A, HCen) => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
-{
-  val buff = build.newBuff()
-  grid.foreach { r =>
-    val a: A = unsafeArr(grid.arrIndex(r))
-    if(a != null)
-    { val newVal = f(a, r)
-      build.buffGrow(buff, newVal)
-    }
+    build.buffToArr(buff)
   }
-  build.buffToArr(buff)
-}
 
-/** Coordinate map Nones. Map the None values respective [[HCen]] coordinates of this [[HCenArrOpt]] to type B, the first type parameter. Returns an
- * immutable Array based collection of type ArrT, the second type parameter. */
-def cMapNones[B, ArrT <: ArrImut[B]](f: HCen => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
-{
-  val buff = build.newBuff()
-  grid.foreach { r =>
-    val a: A = unsafeArr(grid.arrIndex(r))
-    if(a == null)
-    { val newVal = f(r)
-      build.buffGrow(buff, newVal)
+  /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
+   *  a standard Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArr]] was created. */
+  def map[B, ArrT <: ArrImut[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { r =>
+      val a = unsafeArr(grid.arrIndex(r))
+      if (a != null) build.buffGrow(buff, noneValue)
+      else { val newVal = f(a); build.buffGrow(buff, newVal) }
     }
+    build.buffToArr(buff)
   }
-  build.buffToArr(buff)
-}
 
-/** Coordinate flatMap Somes. Maps and flattens each Some element with its associated [[HCen]] coordinate. It ignores the None values. */
-def cFlatMapSomes[ArrT <: ArrImut[_]](f: (A, HCen) => ArrT)(implicit grid: HGrid, build: ArrTFlatBuilder[ArrT]): ArrT =
-{
-  val buff = build.newBuff()
-  grid.foreach { hc =>
-    val a = unsafeArr(grid.arrIndex(hc))
-    if(a != null)
-    { val newVal = f(a, hc)
-      build.buffGrowArr(buff, newVal)
-    }
+  /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
+  def apply(hc: HCen)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(hc))
+
+  /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
+   *  Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArrOpt]] was created. */
+  def mapSomes[B, ArrT <: ArrImut[B]](f: A => B)(implicit build: ArrTBuilder[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    unsafeArr.foreach { a =>
+      if(a != null)
+      { val newVal = f(a)
+        build.buffGrow(buff, newVal)
+      }
+   }
+   build.buffToArr(buff)
   }
-  build.buffToArr(buff)
-}
+
+  /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
+   *  an immutable Array based collection of type ArrT, the second type parameter. */
+  def cMapSomes[B, ArrT <: ArrImut[B]](f: (A, HCen) => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { r =>
+      val a: A = unsafeArr(grid.arrIndex(r))
+      if(a != null)
+      { val newVal = f(a, r)
+        build.buffGrow(buff, newVal)
+      }
+    }
+    build.buffToArr(buff)
+  }
+
+  /** Coordinate map Nones. Map the None values respective [[HCen]] coordinates of this [[HCenArrOpt]] to type B, the first type parameter. Returns an
+   * immutable Array based collection of type ArrT, the second type parameter. */
+  def cMapNones[B, ArrT <: ArrImut[B]](f: HCen => B)(implicit grid: HGrid, build: ArrTBuilder[B, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { r =>
+      val a: A = unsafeArr(grid.arrIndex(r))
+      if(a == null)
+      { val newVal = f(r)
+        build.buffGrow(buff, newVal)
+      }
+    }
+    build.buffToArr(buff)
+  }
+
+  /** Coordinate flatMap Somes. Maps and flattens each Some element with its associated [[HCen]] coordinate. It ignores the None values. */
+  def cFlatMapSomes[ArrT <: ArrImut[_]](f: (A, HCen) => ArrT)(implicit grid: HGrid, build: ArrTFlatBuilder[ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { hc =>
+      val a = unsafeArr(grid.arrIndex(hc))
+      if(a != null)
+      { val newVal = f(a, hc)
+        build.buffGrowArr(buff, newVal)
+      }
+    }
+    build.buffToArr(buff)
+  }
 }

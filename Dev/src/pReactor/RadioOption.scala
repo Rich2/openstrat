@@ -1,5 +1,5 @@
-package ostrat
-package pReactor
+/* Copyright 2018-20 w0d. Licensed under Apache Licence version 2.0. */
+package ostrat; package pReactor
 import geom._, Colour._
 
 /** Simple Radio button with label **/
@@ -25,4 +25,3 @@ case class RadioOption(aIsSelected:Boolean = false, labelText:String = "", loc:P
 
   def clicked(): Unit = parent.clicked(this)
 }
-

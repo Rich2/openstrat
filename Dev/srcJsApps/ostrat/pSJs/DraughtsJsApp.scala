@@ -1,10 +1,9 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package pSJs
 import scalajs.js.annotation._
 
 @JSExportTopLevel("DraughtsJsApp")
 object DraughtsJsApp
-{  
-   @JSExport def main(args: Array[String]): Unit = new pGames.pChess.DraughtsGui(CanvasJs)   
+{ @JSExport def main(args: Array[String]): Unit = new pGames.pChess.DraughtsGui(CanvasJs)
 } 

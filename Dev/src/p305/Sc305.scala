@@ -1,6 +1,5 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package p305
+package ostrat; package p305
 import pEarth._
 
 class BcScen extends OldWorldMap[BcTileOld, ESideOldOnly](BcTileOld.apply, ESideOldOnly.apply)

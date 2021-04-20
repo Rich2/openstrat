@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pSpace
+package ostrat; package pSpace
 import geom._, pCanv._, Colour._
 
 /** Simple Solar system model application. */

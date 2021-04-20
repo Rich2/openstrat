@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pZug
+package ostrat; package pZug
 import geom._, pGrid._
 
 case class Squad(val polity: Polity, val roord: Roord, var action: Action = NoAction)
