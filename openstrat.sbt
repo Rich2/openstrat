@@ -61,7 +61,7 @@ def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
 )
 
 lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(UtilMacros).settings(
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
 )
 
 lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(
@@ -77,7 +77,7 @@ lazy val GraphicsCoreLinux = baseJvmProj("Graphics", "GraphicsCoreLinux").depend
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/resourceDirectory :=  moduleDir.value / "testRes",
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15" % "linux",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" classifier "linux",
 )
 
 lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicsCore)
