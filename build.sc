@@ -27,33 +27,23 @@ trait CommonJs extends ScalaJSModule with Common
 
 object UtilMacros extends CommonJvm// with PublishModule
 { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(Util.millSourcePath / 'srcMacros)
+  def sources = T.sources(Graphics.millSourcePath / 'srcMacros)
 }
 
 object UtilMacrosJs extends CommonJs
 { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(Util.millSourcePath / 'srcMacros)
-}
-
-object Util extends CommonJvm
-{ def moduleDeps = Seq(UtilMacros)
-  def mainClass = Some("ostrat.WebPage1")
-  object test extends InnerTests  
-}
-
-object UtilJs extends CommonJs
-{ def moduleDeps = Seq(UtilMacrosJs)
-  def sources = T.sources(Util.millSourcePath / 'src, Util.millSourcePath / 'srcExs)
+  def sources = T.sources(Graphics.millSourcePath / 'srcMacros)
 }
 
 object Graphics extends CommonJvm
-{ def moduleDeps = Seq(Util)
-  //def ivyDeps = Agg(ivy"org.openjfx:javafx:15")
+{ def moduleDeps = Seq(UtilMacros)
+  def mainClass = Some("ostrat.WebPage1")
+  //def ivyDeps = Agg(ivy"org.openjfx:javafx-controls:15.0.1:classifier linux")
   object test extends InnerTests  
 }
 
 object GraphicsJs extends CommonJs
-{ def moduleDeps = Seq(UtilJs)
+{ def moduleDeps = Seq(UtilMacrosJs)
   def sources = T.sources(Graphics.millSourcePath / 'src, Graphics.millSourcePath / 'srcJs, Graphics.millSourcePath / 'srcExs)
 }
 
@@ -91,6 +81,6 @@ object DevJs extends CommonJs
   def sources = T.sources(Dev.millSourcePath / 'src, Dev.millSourcePath / 'srcJs)
 } 
 //def run() = Dev.runBackground()
-def test = Util.test
+def test = Graphics.test
 def jsfast = DevJs.fastOpt
 def jsfull = DevJs.fullOpt
