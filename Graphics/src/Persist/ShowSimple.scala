@@ -3,7 +3,7 @@ package ostrat
 
 /** Shows a simple object like a Singleton object or a Double. For your own objects that you control it is better to use Show and its helper sub
  * rather than the sub traits of ShowT to implement your Show functionality.S */
-abstract class ShowSimpleT[-A](val typeStr: String) extends ShowT[A]
+trait ShowSimpleT[-A] extends ShowT[A]
 {
   final override def syntaxDepthT(obj: A): Int = 1
 
@@ -14,4 +14,4 @@ abstract class ShowSimpleT[-A](val typeStr: String) extends ShowT[A]
 }
 
 /** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
-abstract class PersistSimple[A](typeStr: String) extends ShowSimpleT[A](typeStr) with Persist[A]
+abstract class PersistSimple[A](val typeStr: String) extends ShowSimpleT[A] with Persist[A]

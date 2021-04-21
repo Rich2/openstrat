@@ -20,8 +20,9 @@ trait Token extends TextSpan
 
 object Token
 {
-  implicit val showImplicit: ShowT[Token] = new ShowSimpleT[Token]("Token")
-  { def strT(obj: Token): String = obj.str
+  implicit val showImplicit: ShowT[Token] = new ShowSimpleT[Token]
+  { override def typeStr: String = "Token"
+    def strT(obj: Token): String = obj.str
   }
 }
 

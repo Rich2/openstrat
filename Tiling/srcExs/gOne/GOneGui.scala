@@ -23,19 +23,19 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
    *  those moves. This data is state for the Gui. */
   var moves: HCenArrOpt[HexAndStep] = NoMoves
 
-  def lunits = players.cMapSomes{ (p, hc) =>
-    Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.rcStr, 24, 2.0) }
+  def lunits: Arr[PolygonCompound] = players.cMapSomes{ (p, hc) =>
+    Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.strComma, 24, 2.0) }
 
-  def css = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2))
+  def css: Arr[TextGraphic] = players.cMapNones(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val tiles = grid.activeTiles
+  val tiles: Arr[PolygonActive] = grid.activeTiles
 
   /** Gives the tiles Roord. Its Row based integer coordinate. */
  // val roardTexts = grid.cenRoordIndexTexts() ++ grid.sideRoordIndexTexts() ++ grid.vertRoordIndexTexts()
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw = grid.sidesDraw()
+  val sidesDraw: LinesDraw = grid.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.mapSomes{ rs => HCoordLineSeg(rs.hc1, rs.hc2).toLine2.draw(players(rs.hc1).colour) }

@@ -20,10 +20,10 @@ trait Show2[A1, A2] extends Any with ShowProduct// with Prod2[A1, A2]
   def show2: A2
 
   /** The ShowT type class instance for the 1st element of this 2 element product. */
-  def showT1: ShowT[A1]
+  implicit def showT1: ShowT[A1]
 
   /** The ShowT type class instance for the 2nd element of this 2 element product. */
-  def showT2: ShowT[A2]
+  implicit def showT2: ShowT[A2]
 
   def elemNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)

@@ -40,6 +40,16 @@ object ShowT
     }
   }
 
+  val hexadecimal: ShowT[Int] = new ShowSimpleT[Int]
+  { override def typeStr: String = "Int"
+    override def strT(obj: Int): String = obj.hexStr
+  }
+
+  val base32: ShowT[Int] = new ShowSimpleT[Int]
+  { override def typeStr: String = "Int"
+    override def strT(obj: Int): String = obj.base32
+  }
+
   implicit val doublePersistImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
   {
     def strT(obj: Double): String = obj.toString
