@@ -38,6 +38,7 @@ object UtilMacrosJs extends CommonJs
 object Graphics extends CommonJvm
 { def moduleDeps = Seq(UtilMacros)
   def mainClass = Some("ostrat.WebPage1")
+  //def ivyDeps = Agg(ivy"org.openjfx:javafx-controls:15.0.1")
   //def ivyDeps = Agg(ivy"org.openjfx:javafx-controls:15.0.1:classifier linux")
   object test extends InnerTests  
 }
@@ -54,12 +55,12 @@ object Tiling extends CommonJvm
 }
 
 object TilingJs extends CommonJs
- {  def moduleDeps = Seq(GraphicsJs)
-def sources = T.sources(Tiling.millSourcePath / 'src, Tiling.millSourcePath / 'srcJs, Tiling.millSourcePath / 'srcExs)
- }
+{ def moduleDeps = Seq(GraphicsJs)
+  def sources = T.sources(Tiling.millSourcePath / 'src, Tiling.millSourcePath / 'srcJs, Tiling.millSourcePath / 'srcExs)
+}
 
 object World extends CommonJvm
-{ def moduleDeps = Seq(Tiling)  
+{ def moduleDeps = Seq(Tiling) 
 
   object test extends InnerTests
 }
