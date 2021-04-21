@@ -1,15 +1,16 @@
 // build.sc
 import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
-
 trait Common extends ScalaModule
 { def version = "0.2.1snap"
 def scalaVersion = "2.13.3"
-  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8", "-unchecked", "-Xlint")
+  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8",
+   "-unchecked", "-Xlint")
 }
 
 trait CommonJvm extends Common
 { 
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm, millSourcePath / 'srcExs, millSourcePath / 'srcExsJvm)//, millSourcePath / 'srcFx)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcJvm, millSourcePath / 'srcExs, millSourcePath / 'srcExsJvm,
+    millSourcePath / 'srcFx)
 
   trait InnerTests extends Tests
   { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.5")
@@ -38,8 +39,22 @@ object UtilMacrosJs extends CommonJs
 object Graphics extends CommonJvm
 { def moduleDeps = Seq(UtilMacros)
   def mainClass = Some("ostrat.WebPage1")
-  //def ivyDeps = Agg(ivy"org.openjfx:javafx-controls:15.0.1")
-  //def ivyDeps = Agg(ivy"org.openjfx:javafx-controls:15.0.1:classifier linux")
+
+  def unmanagedClasspath = T{
+    import coursier._, parse.DependencyParser
+    val fxMod = Dependency(Module(org"org.openjfx", ModuleName("javafx-controls")), "15.0.1")
+    val files = Fetch().addDependencies(fxMod).run()
+    val pathRefs = files.map(f => PathRef(os.Path(f)))
+    Agg(pathRefs : _*)
+  }
+
+  def forkArgs = Seq(
+    "--module-path", sys.env("JAVAFX_HOME") + ":" +
+      "/Users/ajr/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/openjfx/javafx-controls/15.0.1",
+
+    "--add-modules", "javafx.controls"
+  )
+  
   object test extends InnerTests  
 }
 
