@@ -1,8 +1,9 @@
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 appStr = "1";
 displayX = 0;
-displayY = 0;
-/* displayWidth = 1920 */
-/* displayHeight = 1080 */
+displayY = 0;//Some operating systems will not allow a positive y value that pushes the window bottom below the bottom of the display viewport.
+// displayWidth = 1920;
+// displayHeight = 1080;
 
 /* Change the  number to change the app on next run.
     ("1", (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II") ),
