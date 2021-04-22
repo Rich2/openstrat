@@ -4,7 +4,7 @@ package prid
 import geom._
 
 /** A coordinate in a tile grid [[TGrid]]. The row is the first field, the column is the second. */
-trait TCoord extends Any with Show2Ints
+trait TCoord extends Any with Show2Base32s
 {
   /** Row number for the coordinate of a tile grid. */
   def r: Int
@@ -51,7 +51,7 @@ class SqVert(val r: Int, val c: Int) extends SqCoord
 }
 
 object SqVert
-{ val showTImplicit: ShowT[SqVert] = Show2IntsT("Sqvert")
+{ val showTImplicit: ShowT[SqVert] = Show2Base32sT("Sqvert")
 }
 
 

@@ -41,6 +41,17 @@ trait Show2Ints extends Any with Show2[Int, Int] with Int2Elem
   override def int2: Int = show2
 }
 
+/** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[Show2IntsT]]
+ *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
+ *  over [[Show2T]]. */
+trait Show2Base32s extends Any with Show2[Int, Int] with Int2Elem
+{ final override implicit def showT1: ShowT[Int] = ShowT.base32
+  final override implicit def showT2: ShowT[Int] = ShowT.base32
+  final override def syntaxdepth: Int = 2
+  override def int1: Int = show1
+  override def int2: Int = show2
+}
+
 /** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[Show2DblsT]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show2T]]. */
@@ -120,6 +131,16 @@ trait Show2IntsT[R <: Show2Ints] extends Show2ElemT[Int, Int, R]
 object Show2IntsT
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
   def apply[R <: Show2Ints](typeStrIn: String): Show2IntsT[R] = new Show2IntsT[R]()
+  { val typeStr: String = typeStrIn
+  }
+}
+
+/** A trait for making quick ShowT instances for products of 2 Ints persisted in Base32. */
+trait Show2Base32sT[R <: Show2Base32s] extends Show2ElemT[Int, Int, R]
+
+object Show2Base32sT
+{ /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s persisted in Base32. */
+  def apply[R <: Show2Base32s](typeStrIn: String): Show2Base32sT[R] = new Show2Base32sT[R]()
   { val typeStr: String = typeStrIn
   }
 }
