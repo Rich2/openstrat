@@ -1,7 +1,9 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package prid
+package ostrat; package prid
 
+/** A Regular hex grid where the rows have the same length, except div4rem2 rows may differ in length by 1 from div4rem0 rows. A div4rem2 row is
+ * where the y coordinate divided by 4 has a remainder of 2. This class replaces the old [[HexGridReg]], which used [[Roord]]s rather than
+*  [[HCen]]s etc. */
 class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HGrid
 {
   override def width: Double = xRight - xLeft
