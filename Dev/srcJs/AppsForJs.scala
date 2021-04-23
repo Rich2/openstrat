@@ -32,9 +32,9 @@ object AppsForJs
     ("G1i", (gOne.GOneGui(_, gOne.OneScen2), "Js irregular Grid Game One")),
     ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "Js Square Grid Game Two")),
 
-    ("Z1", (pZug.ZugGui(_, pZug.Zug1), "Js Zugfuhrer Z1 Britain")),
-    ("Z2", (pZug.ZugGui(_, pZug.Zug2), "Js Zugfuhrer Z2 Britain")),
-    ("Z3", (pZug.ZugGui(_, pZug.Zug3), "Js Zugfuhrer Z3 France")),
+    ("Z1", (pZug.ZugGui(_, pZug.Zug1Old), "Js Zugfuhrer Z1 Britain")),
+    ("Z2", (pZug.ZugGui(_, pZug.Zug2Old), "Js Zugfuhrer Z2 Britain")),
+    ("Z3", (pZug.ZugGui(_, pZug.Zug3Old), "Js Zugfuhrer Z3 France")),
 
     ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
     ("A1", (learn.LsA1a(_), "Js Demonstration Canvas 1")), //Static Graphics

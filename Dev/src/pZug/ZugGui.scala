@@ -3,7 +3,7 @@ package ostrat; package pZug
 import pCanv._, pGrid._, geom._, Colour._, pStrat._
 
 /** Uses the old Roards from pGrid, but with the new simpler Gui. */
-case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuhrer Gui")
+case class ZugGui(canv: CanvasPlatform, scen: ZugScenOld) extends CmdBarGui("ZugFuhrer Gui")
 {
   implicit val grid: HexGridReg = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)

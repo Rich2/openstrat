@@ -25,8 +25,9 @@ trait OneScen
   }
 }
 
+/** Companion object for OneScen trait, cantains factory apply method. */
 object OneScen
-{
+{ /** Factory apply method for OneScen trait. */
   def apply(turnIn: Int, gridIn: HGrid, opIn: HCenArrOpt[Player]): OneScen = new OneScen
   { override val turn = turnIn
     override implicit val grid: HGrid = gridIn
@@ -35,18 +36,20 @@ object OneScen
 }
 
 /** This trait just puts the value 0 in for the turn. */
-trait UneScenStart extends OneScen
+trait OneScenStart extends OneScen
 { override val turn: Int = 0
 }
 
-object OneScen1 extends UneScenStart
+/** 1st example Turn 0 scenario state for Game One. */
+object OneScen1 extends OneScenStart
 { implicit val grid: HGridReg = new HGridReg(2, 6, 2, 10)
   val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.setSome(4, 4, PlayerA)
   oPlayers.setSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
 
-object OneScen2 extends UneScenStart
+/** 2nd example Turn 0 scenario state for Game One. */
+object OneScen2 extends OneScenStart
 { implicit val grid: HGridReg = new HGridReg(2, 10, 4, 8)
   val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.setSome(4, 4, PlayerA)
