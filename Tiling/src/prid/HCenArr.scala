@@ -36,6 +36,17 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
     }
     res
   }
+
+  /** Note set Row starts with the r (row) parameter. */
+  final def setRow(row: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: HGrid): HCen =
+  {
+    val tiles: List[A] = tileValues.toSingles
+    tiles.iForeach { (e, i) =>
+      val c = cStart + i * 4//grid.cStep
+      unsafeArr(grid.arrIndex(row, c)) = e
+    }
+    HCen(row, cStart + (tiles.length - 1) * 4)//grid.cStep)
+  }
 }
 
 /** Companion object for [[HCenArr]], contains an apply factory method. */
