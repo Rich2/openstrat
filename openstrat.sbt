@@ -15,7 +15,7 @@ def commonSett = List(
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 
-lazy val root = (project in file(".")).aggregate(Graphics, Tiling, World, Dev, DevJs)
+lazy val root = (project in file(".")).aggregate(Graphics, Tiling, Earth, Dev, DevJs)
 lazy val moduleDir = SettingKey[File]("moduleDir")
 lazy val baseDir = SettingKey[File]("baseDir")
 ThisBuild/baseDir := (ThisBuild/baseDirectory).value
@@ -82,10 +82,10 @@ lazy val GraphicsCoreLinux = baseJvmProj("Graphics", "GraphicsCoreLinux").depend
 
 lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicsCore)
 lazy val Tiling = exsJvmProj("Tiling").dependsOn(TilingCore)
-lazy val WorldCore = coreJvmProj("World").dependsOn(TilingCore)
-lazy val World = exsJvmProj("World").dependsOn(WorldCore)
+lazy val EarthCore = coreJvmProj("Earth").dependsOn(TilingCore)
+lazy val Earth = exsJvmProj("Earth").dependsOn(EarthCore)
 
-lazy val Dev = baseJvmProj("Dev", "Dev").dependsOn(Graphics, Tiling, World).settings(
+lazy val Dev = baseJvmProj("Dev", "Dev").dependsOn(Graphics, Tiling, Earth).settings(
   scalaSource := moduleDir.value / "src",
   Compile/scalaSource := moduleDir.value / "src",
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
@@ -98,7 +98,7 @@ lazy val Dev = baseJvmProj("Dev", "Dev").dependsOn(Graphics, Tiling, World).sett
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-val libModules =  List("Util", "Graphics", "Tiling", "World")
+val libModules =  List("Util", "Graphics", "Tiling", "Earth")
 
 lazy val StratLib = Project("StratLib", file("Dev/SbtDir/StratLib")).dependsOn(UtilMacros).settings(commonSett).settings(
   scalaSource := baseDir.value / "Util/src",
@@ -125,7 +125,7 @@ lazy val StratExs = Project("StratExs", file("Dev/SbtDir/StratExs")).dependsOn(S
   Test/unmanagedSourceDirectories := List(),
 )
 
-val docDirs: List[String] = List("Util", "Graphics", "Tiling", "World", "Dev")
+val docDirs: List[String] = List("Util", "Graphics", "Tiling", "Earth", "Dev")
 
 lazy val custDoc = taskKey[Unit]("Aims to be a task to aid buiding ScalaDocs")
 custDoc :=
@@ -175,12 +175,12 @@ lazy val TilingJs = jsProj("Tiling").dependsOn(GraphicsJs).settings(
   Compile/unmanagedSourceDirectories := List("Tiling/src", "Tiling/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val WorldJs = jsProj("World").dependsOn(TilingJs).settings(  
-  Compile/unmanagedSourceDirectories := List("World/src", "World/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
+lazy val EarthJs = jsProj("Earth").dependsOn(TilingJs).settings(  
+  Compile/unmanagedSourceDirectories := List("Earth/src", "Earth/srcJs").map(s => (ThisBuild/baseDirectory).value / s)
 )
 
-lazy val DevJs = jsProj("Dev").dependsOn(WorldJs).settings(
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Util/srcExs", "Graphics/srcExs", "Tiling/srcExs", "World/srcExs").
+lazy val DevJs = jsProj("Dev").dependsOn(EarthJs).settings(
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs", "Util/srcExs", "Graphics/srcExs", "Tiling/srcExs", "Earth/srcExs").
     map(s => (ThisBuild/baseDirectory).value / s),
 )
 
@@ -211,15 +211,15 @@ lazy val TilingDot = Project("TilingDot", file("Dev/SbtDir/TilingDot")).dependsO
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-lazy val WorldDot = Project("WorldDot", file("Dev/SbtDir/WorldDot")).dependsOn(TilingDot).settings(dottySettings).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "World/src",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "World/src",
+lazy val EarthDot = Project("EarthDot", file("Dev/SbtDir/EarthDot")).dependsOn(TilingDot).settings(dottySettings).settings(
+  scalaSource := (ThisBuild/baseDirectory).value / "Earth/src",
+  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Earth/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
-  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "World/testSrc",
+  Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Earth/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
 )
 
-lazy val DevDot = Project("DevDot", file("Dev/SbtDir/DevDot")).dependsOn(WorldDot).settings(dottySettings).settings(
+lazy val DevDot = Project("DevDot", file("Dev/SbtDir/DevDot")).dependsOn(EarthDot).settings(dottySettings).settings(
   scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/src",
   Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Dev/srcFx"),
