@@ -1,8 +1,6 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pEarth
-package pEurope
-import ostrat.geom._, WTile._
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package pEurope
+import geom._, WTile._
 
 object Balkans extends WldArea2("Balkans", 43.9 ll 22.1, plain)
 {

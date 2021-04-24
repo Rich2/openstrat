@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pEurope
 import pGrid._, WTile._
 
-object EuropeNETerr extends E80Data
+object EuropeNETerrOld extends E80Data
 {
   implicit val grid: HexGridIrr = EuropeNEGrid
   val terrs: TilesArr[WTile] = grid.newTileArr[WTile](Ocean)
@@ -51,7 +51,4 @@ def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = {terrs.setR
     gs(450, 346, hills, plain * 5, hills * 3, mtain *2, hills * 3, plain * 7, sea, plain * 6)
     gs(448, 348, hills, plain, hills, plain * 3, hills * 3, mtain, hills, plain * 3, sea * 2, plain * 2, sea * 3, plain * 7)
     gs(446, 346, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 3, sea, plain * 8)
-
-//    grid
-//  }
 }

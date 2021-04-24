@@ -1,7 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pEarth
-package pEurope
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package pEurope
 import geom._, WTile._
 
 object Scotland extends WldArea2("Scotland", 56.82 ll -4.07, hills)

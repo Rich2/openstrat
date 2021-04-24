@@ -1,7 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pEarth
-package pEurope
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package pEurope
 import geom._, WTile._
 
 object Germania extends WldArea2("Germania", 50.50 ll 11.11, plain)

@@ -1,7 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pEarth
-package pEurope
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package pEurope
 import geom._, WTile._
 
 object OuterHebrides extends WldArea2("OuterHebrides", 57.83 ll -6.09, plain)
