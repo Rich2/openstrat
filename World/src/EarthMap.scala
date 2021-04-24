@@ -3,13 +3,13 @@ package ostrat; package pEarth
 import pGrid._, reflect.ClassTag
 
 /** An all world map, parametrised by Tile and Tile side types. */
-class EarthAllMap[TileT <: TileOld, SideT <: TileSideOld](fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
-  (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
+class EarthAllMap[TileT <: TileAncient, SideT <: TileSideAncient](fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
+                                                                 (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
 { override val tops: Arr[WldArea1] = EarthAreas.allTops
 }
 
-class OldWorldMap[TileT <: TileOld, SideT <: TileSideOld](val fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
-  (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT])
+class OldWorldMap[TileT <: TileAncient, SideT <: TileSideAncient](val fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
+                                                                 (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT])
 {
   def tile(x: Int, y: Int): TileT = grids(0).getTile(x, y)
   def tile(cood: Cood): TileT = tile(cood.xi, cood.yi)

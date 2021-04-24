@@ -4,8 +4,8 @@ package pEarth
 import geom._, pGrid._, reflect.ClassTag
 
 /** 80km hexs. deltaX in HexCood 1 = 20km */   
-class EGrid80KmAncient[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
-                                                               xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
+class EGrid80KmAncient[TileT <: TileAncient, SideT <: TileSideAncient](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
+                                                                       xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
    EGridAncient[TileT, SideT](bounds, name, cenLong, EGrid80KmAncient.scale, xOffset, EGrid80KmAncient.yOffset, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
 {
    foreachTileRowAll{y =>
@@ -122,16 +122,16 @@ object EGrid80KmAncient
 
 object E80Empty extends EGridMaker
 {
-  def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
-                                                    evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
+  def apply[TileT <: TileAncient, SideT <: TileSideAncient](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
+                                                            evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
   EGrid80KmAncient[TileT, SideT] =
       new EGrid80KmAncient[TileT, SideT](new Array[Int](0), "Empty", 0.east, xOffset = 0, xTileMin = 4, xTileMax = 0, yTileMin = 4, yTileMax = 0, turnNum = 0)
 
   //def rowDelta(y: Int): Double = ???
 }
 
-class EGFarNorth[TileT <: TileOld, SideT <: TileSideOld](name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
-  (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
+class EGFarNorth[TileT <: TileAncient, SideT <: TileSideAncient](name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
+                                                                (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
   EGrid80KmAncient[TileT, SideT](EGFarNorth.getBounds(xOffset), name, cenLong, xOffset: Int, xTileMin: Int, xTileMax: Int,
     yTileMin = 446, yTileMax = 540, turnNum = 0)
 {
@@ -141,7 +141,7 @@ object EGFarNorth
 { def getBounds(xOffset: Int): Array[Int] = EGrid80KmAncient.getBounds(xOffset, 446, 540)
 }
 
-class EGNorth[TileT <: TileOld, SideT <: TileSideOld]
+class EGNorth[TileT <: TileAncient, SideT <: TileSideAncient]
   (bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
   (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
   EGrid80KmAncient[TileT, SideT](bounds, name, cenLong, xOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin = 340, yTileMax = 444, turnNum = 0)

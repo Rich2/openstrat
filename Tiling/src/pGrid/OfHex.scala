@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 import geom._
 
-trait OfHex[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridAncient[TileT, SideT]] extends OfTile[TileT, SideT, GridT]
+trait OfHex[TileT <: TileAncient, SideT <: TileSideAncient, GridT <: HexGridAncient[TileT, SideT]] extends OfTile[TileT, SideT, GridT]
 {
    def sideURLine: LineSeg = CoodLine(cood.addXY(0, 1), cood.addXY(2, 1)).toLine2(cood => coodToDispVec2(cood))
    def sideRightLine: LineSeg = CoodLine(cood.addXY(2, 1), cood.addXY(2, - 1)).toLine2(cood => coodToDispVec2(cood))

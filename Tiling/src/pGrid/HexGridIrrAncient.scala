@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 import reflect.ClassTag
 
-abstract class HexGridIrrAncient[TileT <: TileOld, SideT <: TileSideOld]
+abstract class HexGridIrrAncient[TileT <: TileAncient, SideT <: TileSideAncient]
   (val rowBounds: Array[Int], xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)
   (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends HexGridAncient[TileT, SideT](xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
 { 

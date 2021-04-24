@@ -10,7 +10,7 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
   scale = 0.99.km   
   focus = 53.17 ll 0.0
 
-  val fHex: OfETile[NTileOld, ESideOldOnly] => GraphicElems = etog =>
+  val fHex: OfETile[NTileAncient, ESideOnyAncient] => GraphicElems = etog =>
     {
       import etog._         
       val colour: Colour = tile.colour
@@ -26,7 +26,7 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
         Arr(poly) ++ textU
      }
    
-   def fSide: OfESide[NTileOld, ESideOldOnly] => GraphicElems = ofs =>
+   def fSide: OfESide[NTileAncient, ESideOnyAncient] => GraphicElems = ofs =>
      { import ofs._
        val line = ifScaleCObjs(60, side.terr match
          { case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(t1.colour.contrastBW, 1))
@@ -46,7 +46,7 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
     case LeftButton => selected = clickList //.fHead(Arr(), Arr(_))
         
     case RightButton => (selected, clickList) match
-    { case (List(c: Corps), List(newTile: NTileOld)) =>
+    { case (List(c: Corps), List(newTile: NTileAncient)) =>
       {
        c.tile.lunits = c.tile.lunits.removeFirst (_ == c)
        val newCorps = c.copy (newTile)

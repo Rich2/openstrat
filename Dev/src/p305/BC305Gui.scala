@@ -26,7 +26,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
 //   def upCmd: MouseButton => Unit = (mb: MouseButton) =>
 //      { lat = Latitude((lat.radians + distDelta(mb)).max(0)); updateView() } 
          
-  val fHex: OfETile[BcTileOld, ESideOldOnly] => GraphicElems = etog =>
+  val fHex: OfETile[BcTileAncient, ESideOnyAncient] => GraphicElems = etog =>
     { import etog._         
       val colour: Colour = tile.colour
       val poly = vertDispVecs.fillActive(colour, tile)
@@ -37,7 +37,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
         })
       poly +: tileText
       }
-   def fSide: OfESide[BcTileOld, ESideOldOnly] => GraphicElems = ofs => {
+   def fSide: OfESide[BcTileAncient, ESideOnyAncient] => GraphicElems = ofs => {
       import ofs._
       ifScaleCObjs(60, side.terr match
         {

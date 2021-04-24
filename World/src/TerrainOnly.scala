@@ -3,7 +3,7 @@ package ostrat
 package pEarth
 import geom._, pGrid._
 
-case class TerrOnly(x: Int, y: Int, terr: WTile) extends ETileOld
+case class TerrOnly(x: Int, y: Int, terr: WTile) extends ETileAncient
 {
   type FromT = WTile
   def fromT = terr
@@ -18,18 +18,18 @@ object TerrOnly
    }
 }
 
-case class SideOldOnly(x: Int, y: Int) extends TileSideOld
+case class SideOnlyAncient(x: Int, y: Int) extends TileSideAncient
 
-object SideOldOnly
+object SideOnlyAncient
 {
-   implicit object TerrOnlyIsType extends IsType[SideOldOnly]
+   implicit object TerrOnlyIsType extends IsType[SideOnlyAncient]
    {
-      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[SideOldOnly]
-      override def asType(obj: AnyRef): SideOldOnly = obj.asInstanceOf[SideOldOnly]
+      override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[SideOnlyAncient]
+      override def asType(obj: AnyRef): SideOnlyAncient = obj.asInstanceOf[SideOnlyAncient]
    }
 }
 
 class EGridAncientOnly(name: String, cenLong: Longitude, scale: Metres, xOffset: Int, yOffset: Int, xTileMin: Int, xTileMax: Int,
-                       yTileMin: Int, yTileMax: Int, turnNum: Int) extends EGridAncient[TerrOnly, SideOldOnly](new Array[Int](0), name, cenLong, scale, xOffset, yOffset,
+                       yTileMin: Int, yTileMax: Int, turnNum: Int) extends EGridAncient[TerrOnly, SideOnlyAncient](new Array[Int](0), name, cenLong, scale, xOffset, yOffset,
     xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
           

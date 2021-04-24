@@ -3,8 +3,8 @@ package ostrat; package pGrid
 import reflect.ClassTag,geom._, math.sqrt
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
-abstract class HexGridAncient[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)
-                                                                     (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridAncient[TileT, SideT]
+abstract class HexGridAncient[TileT <: TileAncient, SideT <: TileSideAncient](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)
+                                                                             (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridAncient[TileT, SideT]
 {
   //override val yRatio: Double = HexGrid.yRatio
   override val xRatio: Double = HexGridAncient.xRatio

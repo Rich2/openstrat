@@ -1,53 +1,51 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+package ostrat; package pGrid
 import geom._
 
 /** In a simple Grid the only GridElems are Tiles. In a complex grid, there are values for tiles and tile sides. For programmatic purposes it is
  *  vital that GridElem contains its grid coordinates, although at a logical level a tile does not need to know its position within the tile grid.
  *  It needs this information so it can communicate with its grid. */
-@deprecated trait GridElemOld
-{
-   def x: Int
-   def y: Int
-   def cood: Cood = Cood(x, y)
+trait GridElemAncient
+{ def x: Int
+  def y: Int
+  def cood: Cood = Cood(x, y)
 }
 
-@deprecated trait TileOld extends GridElemOld
+trait TileAncient extends GridElemAncient
 {
   type FromT
   def fromT: FromT
-  def canEqual(a: Any) = a.isInstanceOf[TileOld]
+  def canEqual(a: Any) = a.isInstanceOf[TileAncient]
   override def hashCode: Int = (x, y).##
-  override def equals(that: Any): Boolean = that match
-  { case that: TileOld => that.canEqual(this) & cood == that.cood
-    case _ => false
-  }
 
-}
-
-@deprecated trait TileSideOld extends GridElemOld
-{ def canEqual(a: Any) = a.isInstanceOf[TileSideOld]
-  override def hashCode: Int = (x, y).##
   override def equals(that: Any): Boolean = that match
-  { case that: TileSideOld => that.canEqual(this) & cood == that.cood
+  { case that: TileAncient => that.canEqual(this) & cood == that.cood
     case _ => false
   }
 }
 
-trait ColouredTileOld extends TileOld with WithColour
+trait TileSideAncient extends GridElemAncient
+{ def canEqual(a: Any) = a.isInstanceOf[TileSideAncient]
+  override def hashCode: Int = (x, y).##
+  override def equals(that: Any): Boolean = that match
+  { case that: TileSideAncient => that.canEqual(this) & cood == that.cood
+    case _ => false
+  }
+}
 
-case class TileOldBare(x: Int, y: Int) extends TileOld
+trait ColouredTileAncient extends TileAncient with WithColour
+
+case class TileBareAncient(x: Int, y: Int) extends TileAncient
 { type FromT = Unit
   def fromT = ()
 }
 
-case class SideOldBare(x: Int, y: Int) extends TileSideOld
+case class SideBareAncient(x: Int, y: Int) extends TileSideAncient
 
-object SideOldBare
-{ implicit object SideBareIsType extends IsType[SideOldBare]
-  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[SideOldBare]
-    override def asType(obj: AnyRef): SideOldBare = obj.asInstanceOf[SideOldBare]
+object SideBareAncient
+{ implicit object SideBareIsType extends IsType[SideBareAncient]
+  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[SideBareAncient]
+    override def asType(obj: AnyRef): SideBareAncient = obj.asInstanceOf[SideBareAncient]
   }
 }
 
