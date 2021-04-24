@@ -123,7 +123,7 @@ object SwedenNorth extends WldArea2("SwedenNorth", 62.75 ll 14.30, taiga)
     holick, SwedenSouth.gavie,
     /* South Coast */SwedenSouth.oslo, hvasser, nevlunghavn, flekkeroy, lindesnes, borhag,
     /* West Coast */bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, svelllingen, uthaug, bodo, nordskot, baroya,
-    /*North Coast */sorvagen, andenes, gapoyholman, sandsvika, torsvag, nordkapp, lakselv)
+    /* North Coast */sorvagen, andenes, gapoyholman, sandsvika, torsvag, nordkapp, lakselv)
 }
 
 object Faroe extends WldArea2("Faroe", 62.14 ll -6.91, taiga)
