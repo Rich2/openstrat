@@ -79,34 +79,36 @@ object Australasia extends EarthLevel1("Australasia", -23 ll 130)
 
   val borneo: EarthLevel2 = EarthLevel2("Borneo", 0.63 ll 114.132, jungle, nBorneo,seBorneo, swBorneo, nwSarawak)
    
-   val seSulawesi = -5.41 ll 119.38
-   val nwSulawesi = 0.72 ll 120.06
-   val neSulawesi = 1.67 ll 125.15
-   val ambesia = 0.52 ll 120.62
-   val poso = -1.42 ll 120.68
-   val teku = -0.76 ll 123.45
-   val swSulawesi = -5.66 ll 122.78
-   val nGulfBoni = -2.61 ll 120.81
-   val sulawesi = EarthLevel2("Sulawesi", -2.16 ll 120.58, jungle,
-         seSulawesi, nwSulawesi, neSulawesi,ambesia, poso, teku, swSulawesi, nGulfBoni)
+  val seSulawesi = -5.41 ll 119.38
+  val nwSulawesi = 0.72 ll 120.06
+  val neSulawesi = 1.67 ll 125.15
+  val ambesia = 0.52 ll 120.62
+  val poso = -1.42 ll 120.68
+  val teku = -0.76 ll 123.45
+  val swSulawesi = -5.66 ll 122.78
+  val nGulfBoni = -2.61 ll 120.81
+
+  val sulawesi: EarthLevel2 = EarthLevel2("Sulawesi", -2.16 ll 120.58, jungle, seSulawesi, nwSulawesi, neSulawesi,ambesia, poso, teku, swSulawesi,
+    nGulfBoni)
    
-   val swJava = -6.83 ll 105.24
-   val nwJava = -5.88 ll 106.04
-   val ePulauMadura = -6.96 ll 114.11
-   val seJava = -8.75 ll 114.58
-   val javaIsland = EarthLevel2("Java", -7.39 ll 110.03, jungle, swJava, nwJava, ePulauMadura, seJava)
+  val swJava = -6.83 ll 105.24
+  val nwJava = -5.88 ll 106.04
+  val ePulauMadura = -6.96 ll 114.11
+  val seJava = -8.75 ll 114.58
+  val javaIsland = EarthLevel2("Java", -7.39 ll 110.03, jungle, swJava, nwJava, ePulauMadura, seJava)
    
-   val wNewGuinea = -0.82 ll 130.45
-   val manokwari = -0.73 ll 133.98
-   val sCenderawasih = -3.39 ll 135.33      
-   val tebe = -1.46 ll 137.93
-   val madang = -4.85 ll 145.78
-   val eNewGuinea = -10.23 ll 150.87
-   val morigo = -7.83 ll 143.98
-   val saibai = -9.32 ll 142.63
-   val aindua = -4.46 ll 135.21
-   val newGuinea = EarthLevel2("NewGuinea", -5.19 ll 141.03, jungle,
-         wNewGuinea, manokwari, sCenderawasih, tebe, madang, eNewGuinea, morigo, saibai, aindua)  
+  val wNewGuinea = -0.82 ll 130.45
+  val manokwari = -0.73 ll 133.98
+  val sCenderawasih = -3.39 ll 135.33
+  val tebe = -1.46 ll 137.93
+  val madang = -4.85 ll 145.78
+  val eNewGuinea = -10.23 ll 150.87
+  val morigo = -7.83 ll 143.98
+  val saibai = -9.32 ll 142.63
+  val aindua = -4.46 ll 135.21
+
+  val newGuinea: EarthLevel2 = EarthLevel2("NewGuinea", -5.19 ll 141.03, jungle, wNewGuinea, manokwari, sCenderawasih, tebe, madang, eNewGuinea,
+    morigo, saibai, aindua)
    
 //   import HexE._
 //   val hexsa: Seq[HexE] =
@@ -137,6 +139,5 @@ object Australasia extends EarthLevel1("Australasia", -23 ll 130)
   // override val grids = Seq()//AustraliaGrid) 
   // override val gridMaker = E80Empty
    
-   override val a2Arr = Arr(sumatra, borneo, sulawesi, javaIsland, newGuinea, australia, newZealandNIsland, newZealandSIsland)
-  
+  override val a2Arr: Arr[EarthLevel2] = Arr(sumatra, borneo, sulawesi, javaIsland, newGuinea, australia, newZealandNIsland, newZealandSIsland)
 }
