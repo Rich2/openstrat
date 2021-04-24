@@ -1,6 +1,5 @@
-package ostrat
-package pEarth
-package pEurope
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package pEurope
 import geom._, WTile._
 
 object Frankia extends WldArea2("Frankia", 47.28 ll 1.93, plain)

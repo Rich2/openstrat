@@ -1,7 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pEarth
-package pEurope
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package pEurope
 import geom._, WTile._
 
 object Jutland extends WldArea2("Jutland", 56.29 ll 9.33, plain)
@@ -80,7 +78,7 @@ object SwedenNorth extends WldArea2("SwedenNorth", 62.75 ll 14.30, taiga)
   val haparanda = 65.77 ll 24.17
   val ranea = 65.86 ll 22.36
    
-  //West Baltic Coast
+  /** Start of West Baltic Coast. */
   val hertsonEast = 65.53 ll 22.39
   val ostanbackSouth = 64.82 ll 21.15
   val eLappviken = 64.44 ll 21.60
@@ -91,14 +89,14 @@ object SwedenNorth extends WldArea2("SwedenNorth", 62.75 ll 14.30, taiga)
   val junibosand = 62.23 ll 17.65
   val holick = 61.62 ll 17.48
    
-  //South Coast
+  /** Start of South Coast. */
   val hvasser = 59.07 ll 10.47
   val nevlunghavn = 58.96 ll 9.85
   val lindesnes = 57.98 ll 7.05
   val flekkeroy = 58.06 ll 8.00
   val borhag = 58.11 ll 6.55
    
-  //West Coast
+  /** Start of West Coast. */
   val bryne = 58.75 ll 5.49
   val rennesoy = 59.12 ll 5.56
   val swKarmoy = 59.14 ll 5.19
@@ -112,7 +110,7 @@ object SwedenNorth extends WldArea2("SwedenNorth", 62.75 ll 14.30, taiga)
   val nordskot = 67.82 ll 14.70
   val baroya = 68.33 ll 16.03
    
-  //North Coast
+  /** Start of North Coast */
   val sorvagen = 67.83 ll 12.82
   val andenes = 69.32 ll 16.11
   val gapoyholman = 68.88 ll 16.06
@@ -121,12 +119,11 @@ object SwedenNorth extends WldArea2("SwedenNorth", 62.75 ll 14.30, taiga)
   val nordkapp = 71.16 ll 25.78
   val lakselv = 70.05 ll 25.00
    
-  val latLongs = LatLongs(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth,
-         spikarna, bredsand, junibosand, holick,
-         SwedenSouth.gavie,
-         /* South Coast */SwedenSouth.oslo, hvasser, nevlunghavn, flekkeroy, lindesnes, borhag,
-         /* West Coast */bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, svelllingen, uthaug, bodo, nordskot, baroya,
-         /*North Coast */sorvagen, andenes, gapoyholman, sandsvika, torsvag, nordkapp, lakselv)
+  val latLongs = LatLongs(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand, junibosand,
+    holick, SwedenSouth.gavie,
+    /* South Coast */SwedenSouth.oslo, hvasser, nevlunghavn, flekkeroy, lindesnes, borhag,
+    /* West Coast */bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, svelllingen, uthaug, bodo, nordskot, baroya,
+    /*North Coast */sorvagen, andenes, gapoyholman, sandsvika, torsvag, nordkapp, lakselv)
 }
 
 object Faroe extends WldArea2("Faroe", 62.14 ll -6.91, taiga)
