@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+package ostrat; package pGrid
 
 /** This grid is irregular in the length of the Hex rows. The (0) value gives yTileMin. There are 2 more values for row. Each row from lowest
  *  to highest has two values the xMin for the row and the index into a data array for the first tile of the grid row. *
@@ -101,4 +100,3 @@ class HexGridIrr(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) e
     case y => iToForeach(cRowStart(y - 1).min(cRowStart(y + 1)) - 2, cRowEnd(y - 1).max(cRowEnd(y + 1)) + 2, 2){ c => f(Roord(y, c)) }
   }
 }
-

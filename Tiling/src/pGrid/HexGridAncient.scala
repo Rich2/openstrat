@@ -1,19 +1,18 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pGrid
 import reflect.ClassTag,geom._, math.sqrt
 
 /** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
-abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)
-  (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridOld[TileT, SideT]
+abstract class HexGridAncient[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)
+                                                                     (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridAncient[TileT, SideT]
 {
   //override val yRatio: Double = HexGrid.yRatio
-  override val xRatio: Double = HexGridOld.xRatio
+  override val xRatio: Double = HexGridAncient.xRatio
   override def xArrLen: Int = (xTileMax - xTileMin) / 4 + 1 //+1 for zeroth tile
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[TileT] = new Array[TileT](arrLen)
-  override def vertCoodsOfTile(tileCood: Cood): Coods = HexGridOld.vertCoodsOfTile(tileCood)
-  override def sideCoodsOfTile(tileCood: Cood): Coods = HexGridOld.sideCoodsOfTile(tileCood)
+  override def vertCoodsOfTile(tileCood: Cood): Coods = HexGridAncient.vertCoodsOfTile(tileCood)
+  override def sideCoodsOfTile(tileCood: Cood): Coods = HexGridAncient.sideCoodsOfTile(tileCood)
   override def xStep: Int = 4
   override def xSideMin: Int = xTileMin - 2
   override def xSideMax: Int = xTileMax + 2
@@ -29,7 +28,7 @@ abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: 
 
   def isTile(x: Int, y: Int): Boolean = getTile(x, y) != null
 
-  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGridOld.sideCoodToCoodLine(x, y)
+  override def vertCoodLineOfSide(x: Int, y: Int): CoodLine = HexGridAncient.sideCoodToCoodLine(x, y)
 
   override def coodIsTile(x: Int, y: Int): Unit = ifNotExcep(
     x %% 4 == 0 & y %% 4 == 0 | x %% 4 == 2 & y %% 4 == 2,
@@ -53,7 +52,7 @@ abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: 
   }
 
   /** Warning needs modification. */
-  override def adjTileCoodsOfTile(tileCood: Cood): Coods = HexGridOld.adjTileCoodsOfTile(tileCood)
+  override def adjTileCoodsOfTile(tileCood: Cood): Coods = HexGridAncient.adjTileCoodsOfTile(tileCood)
 
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
    *  departure and the tile of arrival. */
@@ -71,7 +70,7 @@ abstract class HexGridOld[TileT <: TileOld, SideT <: TileSideOld](val xTileMin: 
   }
 }
 
-object HexGridOld
+object HexGridAncient
 { /* converts Grid c to x. */
   val xRatio = 1.0 / sqrt(3)
   /** Verts start at Up and follow clockwise */

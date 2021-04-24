@@ -29,7 +29,7 @@ object SideOldOnly
    }
 }
 
-class EGridOldOnly(name: String, cenLong: Longitude, scale: Metres, xOffset: Int, yOffset: Int, xTileMin: Int, xTileMax: Int,
-                   yTileMin: Int, yTileMax: Int, turnNum: Int) extends EGridOld[TerrOnly, SideOldOnly](new Array[Int](0), name, cenLong, scale, xOffset, yOffset,
+class EGridAncientOnly(name: String, cenLong: Longitude, scale: Metres, xOffset: Int, yOffset: Int, xTileMin: Int, xTileMax: Int,
+                       yTileMin: Int, yTileMax: Int, turnNum: Int) extends EGridAncient[TerrOnly, SideOldOnly](new Array[Int](0), name, cenLong, scale, xOffset, yOffset,
     xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
           

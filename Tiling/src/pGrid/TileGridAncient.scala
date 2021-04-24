@@ -1,6 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pGrid
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0 */
+package ostrat; package pGrid
 import geom._, reflect.ClassTag, collection.mutable.ArrayBuffer, Colour._
 
 class RowMulti[TileT <: AnyRef](val y: Int, val xStart: Int, val multis: RefsMulti[TileT])
@@ -26,7 +25,7 @@ object RowMulti
  *  There are no breaks between the first tile of the row and the last tile of the row although a row can consist of a single tile. Every
  *  row shares at least one tile side with the row above and below. The grid includes all the sides of the tiles including the sides on
  *  the outer edges of the grid. This means to link two grids requires a Grid Bridge class. */
-trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
+trait TileGridAncient[TileT <: TileOld, SideT <: TileSideOld]
 {
   def turnNum: Int
   def xTileMin: Int
@@ -79,7 +78,7 @@ trait TileGridOld[TileT <: TileOld, SideT <: TileSideOld]
 
   def setTile(x: Int, y: Int, value: TileT): Unit = { coodIsTile(x, y); arr(xyToInd(x, y)) = value  }
   def setTile(cood: Cood, value: TileT): Unit = setTile(cood.xi, cood.yi, value)
-  def copyTile(oldGrid: TileGridOld[TileT, _], cood: Cood): Unit = setTile(cood, oldGrid.getTile(cood))
+  def copyTile(oldGrid: TileGridAncient[TileT, _], cood: Cood): Unit = setTile(cood, oldGrid.getTile(cood))
 
   def fSetTile[A](cood: Cood, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit = fSetTile[A](cood.xi, cood.yi, value)(fTile)
   def fSetTile[A](x: Int, y: Int, value: A)(implicit fTile: (Int, Int, A) => TileT): Unit =

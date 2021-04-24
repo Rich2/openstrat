@@ -3,11 +3,11 @@ package ostrat
 package pEarth
 import geom._, pGrid._
 
-trait OfEElem[TileT <: TileOld, SideT <: TileSideOld] extends OfGridElem[TileT, SideT, EGridOld[TileT, SideT]]
+trait OfEElem[TileT <: TileOld, SideT <: TileSideOld] extends OfGridElem[TileT, SideT, EGridAncient[TileT, SideT]]
 {
    val eg: EarthGuiOld
-   val eGrid: EGridOld[TileT, SideT]
-   override def grid: EGridOld[TileT, SideT]= eGrid
+   val eGrid: EGridAncient[TileT, SideT]
+   override def grid: EGridAncient[TileT, SideT]= eGrid
    def gridScale: Metres = eGrid.scale
    def focus: LatLong = eg.focus   
    override def coodToDispVec2(inp: Cood): Pt2 = eg.trans(eg.latLongToDist2(eGrid.getLL(inp)))
@@ -16,8 +16,8 @@ trait OfEElem[TileT <: TileOld, SideT <: TileSideOld] extends OfGridElem[TileT, 
 }
 
 /** A stand OfTile maps from Grid Coordinates to map Vec2 and then to display Vec2. This maps from Grid Coordinate to Dist2 to Vec2 */
-class OfETile[TileT <: TileOld, SideT <: TileSideOld](val eg: EarthGuiOld, val eGrid: EGridOld[TileT, SideT], val tile: TileT) extends
-OfHex[TileT, SideT, EGridOld[TileT, SideT]] with OfEElem[TileT, SideT]
+class OfETile[TileT <: TileOld, SideT <: TileSideOld](val eg: EarthGuiOld, val eGrid: EGridAncient[TileT, SideT], val tile: TileT) extends
+OfHex[TileT, SideT, EGridAncient[TileT, SideT]] with OfEElem[TileT, SideT]
 {
    def cenLL: LatLong = eGrid.getLL(cood)
    def cen: Pt2 = eg.latLongToXY(cenLL)
@@ -27,8 +27,8 @@ OfHex[TileT, SideT, EGridOld[TileT, SideT]] with OfEElem[TileT, SideT]
    override def vertDispVecs: PolygonImp = vertDist2s.pMap(eg.trans)
 }
 
-class OfESide[TileT <: TileOld, SideT <: TileSideOld](val eg: EarthGuiOld, val eGrid: EGridOld[TileT, SideT], val side: SideT) extends
-OfHexSide[TileT, SideT, EGridOld[TileT, SideT]] with OfEElem[TileT, SideT]
+class OfESide[TileT <: TileOld, SideT <: TileSideOld](val eg: EarthGuiOld, val eGrid: EGridAncient[TileT, SideT], val side: SideT) extends
+OfHexSide[TileT, SideT, EGridAncient[TileT, SideT]] with OfEElem[TileT, SideT]
 {
    def sideCenFacing: Boolean = focus.latLongFacing(sideCenLL)
    def sideCenLL: LatLong = eGrid.getLL(cood)   

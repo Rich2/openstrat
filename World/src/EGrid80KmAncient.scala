@@ -4,12 +4,12 @@ package pEarth
 import geom._, pGrid._, reflect.ClassTag
 
 /** 80km hexs. deltaX in HexCood 1 = 20km */   
-class EGrid80KmOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
-   xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
-   EGridOld[TileT, SideT](bounds, name, cenLong, EGrid80KmOld.scale, xOffset, EGrid80KmOld.yOffset, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
+class EGrid80KmAncient[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
+                                                               xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
+   EGridAncient[TileT, SideT](bounds, name, cenLong, EGrid80KmAncient.scale, xOffset, EGrid80KmAncient.yOffset, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
 {
    foreachTileRowAll{y =>
-      val pair = EGrid80KmOld.tileRowMaxX(y, xOffset)
+      val pair = EGrid80KmAncient.tileRowMaxX(y, xOffset)
       setRowStart(y, pair._1)
       setRowEnd(y, pair._2)
    }
@@ -63,7 +63,7 @@ class EGrid80KmOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], n
    )
 }
 
-object EGrid80KmOld
+object EGrid80KmAncient
 { val scale: Metres = 20.km * math.sqrt(3)
   val yOffset = 300
 
@@ -71,7 +71,7 @@ object EGrid80KmOld
 
   /** The key method to get the longitude delta for x based from 0 degs longitude. */
   def coodToLatLong0(inp: Cood): LatLong =
-  { val adj: Pt2 = HexGridOld.coodToVec2(inp.subXY(0, 300))
+  { val adj: Pt2 = HexGridAncient.coodToVec2(inp.subXY(0, 300))
      val d2: Metres2 = adj.toDist2(scale)
      val lat: Double = d2.y / EarthPolarRadius
      val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
@@ -112,7 +112,7 @@ object EGrid80KmOld
       val bounds = new Array[Int]((yTileMax - yTileMin + 1) * 2)
       (yTileMin to yTileMax by 2).foreach{ y =>
          val p = (y - 446) * 2
-         val pair = EGrid80KmOld.tileRowMaxX(y, xOffset)
+         val pair = EGrid80KmAncient.tileRowMaxX(y, xOffset)
          bounds(p) = pair._1
          bounds(p + 1) = pair._2
       }
@@ -124,29 +124,29 @@ object E80Empty extends EGridMaker
 {
   def apply[TileT <: TileOld, SideT <: TileSideOld](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
                                                     evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
-  EGrid80KmOld[TileT, SideT] =
-      new EGrid80KmOld[TileT, SideT](new Array[Int](0), "Empty", 0.east, xOffset = 0, xTileMin = 4, xTileMax = 0, yTileMin = 4, yTileMax = 0, turnNum = 0)
+  EGrid80KmAncient[TileT, SideT] =
+      new EGrid80KmAncient[TileT, SideT](new Array[Int](0), "Empty", 0.east, xOffset = 0, xTileMin = 4, xTileMax = 0, yTileMin = 4, yTileMax = 0, turnNum = 0)
 
   //def rowDelta(y: Int): Double = ???
 }
 
 class EGFarNorth[TileT <: TileOld, SideT <: TileSideOld](name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
   (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
-  EGrid80KmOld[TileT, SideT](EGFarNorth.getBounds(xOffset), name, cenLong, xOffset: Int, xTileMin: Int, xTileMax: Int,
+  EGrid80KmAncient[TileT, SideT](EGFarNorth.getBounds(xOffset), name, cenLong, xOffset: Int, xTileMin: Int, xTileMax: Int,
     yTileMin = 446, yTileMax = 540, turnNum = 0)
 {
 }
 
 object EGFarNorth
-{ def getBounds(xOffset: Int): Array[Int] = EGrid80KmOld.getBounds(xOffset, 446, 540)
+{ def getBounds(xOffset: Int): Array[Int] = EGrid80KmAncient.getBounds(xOffset, 446, 540)
 }
 
 class EGNorth[TileT <: TileOld, SideT <: TileSideOld]
   (bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int, xTileMin: Int, xTileMax: Int)
   (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
-  EGrid80KmOld[TileT, SideT](bounds, name, cenLong, xOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin = 340, yTileMax = 444, turnNum = 0)
+  EGrid80KmAncient[TileT, SideT](bounds, name, cenLong, xOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin = 340, yTileMax = 444, turnNum = 0)
 
 object EGNearNorth
 {
-  def getBounds(xOffset: Int): Array[Int] = EGrid80KmOld.getBounds(xOffset, 300, 444)
+  def getBounds(xOffset: Int): Array[Int] = EGrid80KmAncient.getBounds(xOffset, 300, 444)
 }

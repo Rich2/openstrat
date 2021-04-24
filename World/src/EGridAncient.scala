@@ -8,17 +8,17 @@ trait EGridMaker
 {
   def apply[TileT <: TileOld, SideT <: TileSideOld]
     (implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT, evTile: ClassTag[TileT], evSide: ClassTag[SideT]):
-    EGridOld[TileT, SideT]
+    EGridAncient[TileT, SideT]
 }
 
 /** A Hex Grid for an area of the earth. It is irregular because as you move towards the poles the row length decreases. The x dirn 
  *  follows lines of longitude. The y Axis at the cenLong moves along a line of longitude. */
-class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Metres, val xOffset: Int,
-                                                       val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT],
-  evSide: ClassTag[SideT]) extends HexGridOldIrr[TileT, SideT](bounds, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
+class EGridAncient[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Metres, val xOffset: Int,
+                                                           val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT],
+  evSide: ClassTag[SideT]) extends HexGridIrrAncient[TileT, SideT](bounds, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
 {
   thisEGrid =>
-  type GridT <: EGridOld[TileT, SideT]
+  type GridT <: EGridAncient[TileT, SideT]
   val vec2ToLL: Pt2 => LatLong = fVec2ToLatLongReg(cenLong, scale, xOffset, yOffset)
   def vToLL(vIn: Pt2) : LatLong = vec2ToLL(vIn)
 
@@ -54,9 +54,9 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
   def coodToLL(x: Int, y: Int): LatLong = getLL(x, y)//vec2ToLL(coodToVec2(cood))
 
   foreachTilesCoodAll{cood =>
-    setLL(cood, vec2ToLL(HexGridOld.coodToVec2(cood)))
-    sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridOld.coodToVec2(vc))))
-    vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridOld.coodToVec2(vc))))
+    setLL(cood, vec2ToLL(HexGridAncient.coodToVec2(cood)))
+    sideCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridAncient.coodToVec2(vc))))
+    vertCoodsOfTile(cood).foreach(vc => setLL(vc, vec2ToLL(HexGridAncient.coodToVec2(vc))))
   }
 
   def ofETilesFold[R](eg: EarthGuiOld, f: OfETile[TileT, SideT] => R, fSum: (R, R) => R)(emptyVal: R) =
@@ -88,5 +88,5 @@ class EGridOld[TileT <: TileOld, SideT <: TileSideOld](bounds: Array[Int], val n
     (acc ++ sideAcc).toArr
   }
 
-  var rightGrid: Option[EGridOld[TileT, SideT]] = None
+  var rightGrid: Option[EGridAncient[TileT, SideT]] = None
 }

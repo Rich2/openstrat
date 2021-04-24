@@ -2,5 +2,5 @@
 package ostrat
 package pGrid
 
-trait OfHexSide[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridOld[TileT, SideT]] extends OfSide[TileT, SideT, GridT]
+trait OfHexSide[TileT <: TileOld, SideT <: TileSideOld, GridT <: HexGridAncient[TileT, SideT]] extends OfSide[TileT, SideT, GridT]
 
