@@ -3,7 +3,7 @@ package ostrat
 package pGrid
 import geom._
 
-trait EGrid extends HexGridIrr
+trait EGridOld extends HexGridIrrOld
 {
   def roodToLL(roord: Roord): LatLong
 }

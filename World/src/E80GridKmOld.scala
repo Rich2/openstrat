@@ -1,14 +1,13 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pEarth
+package ostrat; package pEarth
 import geom._, pGrid._, collection.mutable.ArrayBuffer
 
-trait EGrid80Km extends EGrid
+trait EGrid80KmOld extends EGridOld
 
 /** Under new numbering system Greenwich longitude will be row 512 0G0 in Base32, Longitude 30 East passing through St Petersburg Russia will be 1536
  * Base32 1G0. Longitude 90 West passing through Memphis and New Orleans will be 9728 Base32 9G0. 30 West passing through Greenland will be 11776
  * Base32 BG0. */
-object EGrid80Km
+object EGrid80KmOld
 {
   val scale = 20.km * math.sqrt(3)
   val yFarNorthTileMinMax = (446, 540)
@@ -53,7 +52,7 @@ object EGrid80Km
   { val bounds: Array[Int] = new Array[Int]((yTileMax - yTileMin + 2).atMost0)
     (yTileMin to yTileMax by 2).foreach{ y =>
       val p = (y - yTileMin)// * 2
-      val pair = EGrid80Km.tileRowMaxC(y, xOffset)
+      val pair = EGrid80KmOld.tileRowMaxC(y, xOffset)
       bounds(p) = pair._1
       bounds(p + 1) = pair._2
     }

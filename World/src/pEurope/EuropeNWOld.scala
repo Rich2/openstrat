@@ -11,7 +11,7 @@ object EuropeNW extends WldArea1("EuropeNW", 20 ll 0)
 
 object EuropeNWTerrOld extends E80Data
 {
-  implicit val grid: HexGridIrr = EuropeNWGrid
+  implicit val grid: HexGridIrrOld = EuropeNWGrid
   val terrs: TilesArr[WTile] = grid.newTileArr[WTile](Ocean)
   val sTerrs: SideBooleans = grid.newSideBooleans
   val vTerrs: VertInts = grid.newVertInts

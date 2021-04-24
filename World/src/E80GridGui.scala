@@ -6,7 +6,7 @@ import geom._, pCanv._, pGrid._
 /** Gui to display E80Data objects in isolation. */
 case class E80GridGui(canv: CanvasPlatform, scen: E80Data, cenRoord: Roord) extends CmdBarGui("North West Europe Gui")
 {
-  implicit val grid: HexGridIrr = scen.grid
+  implicit val grid: HexGridIrrOld = scen.grid
   val scale = 40
   val terrs = scen.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }

@@ -4,7 +4,7 @@ import pGrid._, WTile._
 
 object EuropeNETerrOld extends E80Data
 {
-  implicit val grid: HexGridIrr = EuropeNEGrid
+  implicit val grid: HexGridIrrOld = EuropeNEGrid
   val terrs: TilesArr[WTile] = grid.newTileArr[WTile](Ocean)
   val sTerrs: SideBooleans = grid.newSideBooleans
   val vTerrs: VertInts = grid.newVertInts
