@@ -1,16 +1,14 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package gOne
+package ostrat; package gOne
 import prid._
 
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
-trait OneScen
-{ val turn: Int
-  implicit val grid: HGrid
+trait OneScen extends HexGridScen
+{ /** An optional player can occupy each tile. This is the only tile data in the game. */
   def oPlayers: HCenArrOpt[Player]
 
   /** Resolves turn. Takes a set of commands / orders, resolves them and returns the new game state scenario. */
-  def turn(has: Arr[HexAndStep]): OneScen =
+  def doTurn(has: Arr[HexAndStep]): OneScen =
   { /** A mutable grid of data. The tile data is an Array buffer of [[HexAndStep]]s. */
     val resolve: HCenArrBuff[HexAndStep] = grid.newTileBuffArr
     has.foreach{ hts => resolve.appendAt(hts.hc2, hts) }

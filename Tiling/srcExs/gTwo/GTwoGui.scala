@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package gTwo
+package ostrat; package gTwo
 import pCanv._, prid._, geom._
 
 case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends CmdBarGui("Game Dexu Gui")
@@ -25,7 +24,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends CmdBarGui("
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
         val getOrders = moves.mapSomes(rs => rs)
-        scen = scen.turn(getOrders)
+        scen = scen.doTurn(getOrders)
         moves = NoMoves
         repaint()
         thisTop()

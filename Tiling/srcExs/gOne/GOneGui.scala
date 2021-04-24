@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package gOne
+package ostrat; package gOne
 import pCanv._, geom._, prid._
 
 /** Graphical user interface for GOne example game. */
@@ -43,7 +42,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
     val getOrders = moves.mapSomes(rs => rs)
-    scen = scen.turn(getOrders)
+    scen = scen.doTurn(getOrders)
     moves = NoMoves
     repaint()
     thisTop()

@@ -2,9 +2,8 @@
 package ostrat; package pZug
 import prid._
 
-trait ZugScen
-{ def turn: Int
-  implicit val grid: HGrid
+trait ZugScen extends HexGridScen
+{ /** tile terrain. */
   def terrs: HCenArr[ZugTerr]
 }
 

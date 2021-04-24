@@ -34,9 +34,10 @@ object Apps
     ("G12", (gOne.GOneGui(_, gOne.OneScen2), "JavaFx irregular Grid Game One")),
     ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "JavaFx Game Two")),
 
-    ("Z1", (pZug.ZugGui(_, pZug.Zug1Old), "JavaFx Zugfuhrer Z1 Britain")),
-    ("Z2", (pZug.ZugGui(_, pZug.Zug2Old), "JavaFx Zugfuhrer Z2 Britain")),
-    ("Z3", (pZug.ZugGui(_, pZug.Zug3Old), "JavaFx Zugfuhrer Z3 France")),
+    ("Z1", (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
+    ("Z4", (pZug.ZugGuiOld(_, pZug.Zug1Old), "JavaFx Zugfuhrer Z1 Britain")),
+    ("Z2", (pZug.ZugGuiOld(_, pZug.Zug2Old), "JavaFx Zugfuhrer Z2 Britain")),
+    ("Z3", (pZug.ZugGuiOld(_, pZug.Zug3Old), "JavaFx Zugfuhrer Z3 France")),
 
     ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics

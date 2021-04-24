@@ -1,15 +1,13 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package gTwo
+package ostrat; package gTwo
 import prid._
 
 /** Scenario trait for Game Two. */
-trait TwoScen
-{ val turn: Int
-  implicit def grid: SqGrid
+trait TwoScen extends SqGridScen
+{ /** An optional player can occupy each tile. This is the only tile data in the game. this is the same as Game one. */
   def oPlayers: SqCenArrOpt[Player]
 
-  def turn(sat: Arr[SqAndStep]): TwoScen =
+  def doTurn(sat: Arr[SqAndStep]): TwoScen =
   {
     val resolve: SqCenArrBuff[SqAndStep] = grid.newTileBuffArr
     sat.foreach{sat => resolve.appendAt(sat.sc2, sat) }

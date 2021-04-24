@@ -15,3 +15,10 @@ trait HexGridScen extends GridTurnScen
    *  on flat arrays of data. */
   implicit val grid: HGrid
 }
+
+trait SqGridScen extends GridTurnScen
+{
+  /** This gives the structure of the square grid. It contains no data about the elements of the grid. But it allows the scenario to create and
+   *  operate on flat arrays of data. */
+  implicit val grid: SqGrid
+}
