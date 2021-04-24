@@ -1,6 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pEarth
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth
 import geom._, pGrid._
 
 case class TerrOnly(x: Int, y: Int, terr: WTile) extends ETileAncient
@@ -32,4 +31,3 @@ object SideOnlyAncient
 class EGridAncientOnly(name: String, cenLong: Longitude, scale: Metres, xOffset: Int, yOffset: Int, xTileMin: Int, xTileMax: Int,
                        yTileMin: Int, yTileMax: Int, turnNum: Int) extends EGridAncient[TerrOnly, SideOnlyAncient](new Array[Int](0), name, cenLong, scale, xOffset, yOffset,
     xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
-          

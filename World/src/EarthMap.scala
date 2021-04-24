@@ -9,7 +9,7 @@ class EarthAllMap[TileT <: TileAncient, SideT <: TileSideAncient](fTile: (Int, I
 }
 
 class OldWorldMap[TileT <: TileAncient, SideT <: TileSideAncient](val fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
-                                                                 (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT])
+  (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT])
 {
   def tile(x: Int, y: Int): TileT = grids(0).getTile(x, y)
   def tile(cood: Cood): TileT = tile(cood.xi, cood.yi)

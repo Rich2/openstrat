@@ -26,8 +26,8 @@ object AppsForJs
 
     ("18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
 
-    ("EG1", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerrOld, 472 rr 204), "Js NW Wurope Grid")),
-    ("EG2", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNETerrOld, 456 rr 388), "Js NE Wurope Grid")),
+    ("EG1", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNWTerrOld, 472 rr 204), "Js NW Wurope Grid")),
+    ("EG2", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNETerrOld, 456 rr 388), "Js NE Wurope Grid")),
 
     ("G1", (gOne.GOneGui(_, gOne.OneScen1), "Js Game One")),
     ("G1i", (gOne.GOneGui(_, gOne.OneScen2), "Js irregular Grid Game One")),

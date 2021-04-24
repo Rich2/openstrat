@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pEarth
+package ostrat; package pEarth
 import geom._, Colour._
 
 trait WTile extends WithColour
@@ -47,14 +46,11 @@ object TerrainNone extends WTile
   override def colour = Gray
 }
 
-
 class Land(val terr: Terrain, val biome: Biome) extends WTile
-{
-  override def toString: String = "Land" + str.enParenth
+{ override def toString: String = "Land" + str.enParenth
 
   override def str = terr match
-  {
-    case Plains => biome.toString //-- str
+  { case Plains => biome.toString //-- str
     case t => t.str
   }
 
