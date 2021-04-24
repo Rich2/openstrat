@@ -40,7 +40,7 @@ trait OneScenStart extends OneScen
 
 /** 1st example Turn 0 scenario state for Game One. */
 object OneScen1 extends OneScenStart
-{ implicit val grid: HGridReg = new HGridReg(2, 6, 2, 10)
+{ implicit val grid: HGridReg = HGridReg(2, 6, 2, 10)
   val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.setSome(4, 4, PlayerA)
   oPlayers.setSomes((4, 8, PlayerB), (6, 10, PlayerC))
@@ -48,7 +48,7 @@ object OneScen1 extends OneScenStart
 
 /** 2nd example Turn 0 scenario state for Game One. */
 object OneScen2 extends OneScenStart
-{ implicit val grid: HGridReg = new HGridReg(2, 10, 4, 8)
+{ implicit val grid: HGridReg = HGridReg(2, 10, 4, 8)
   val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.setSome(4, 4, PlayerA)
 }

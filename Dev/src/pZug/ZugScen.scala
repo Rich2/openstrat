@@ -12,7 +12,7 @@ trait ZugScenStart extends ZugScen
 }
 
 object Zug1 extends ZugScenStart
-{ override implicit val grid: HGrid = new HGridReg(2, 14, 4, 48)
+{ override implicit val grid: HGrid = HGridReg(2, 14, 4, 48)
 
   val terrs: HCenArr[ZugTerr] = grid.newTileArr[ZugTerr](Plain)
   def tr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRow(yRow, cStart, tileValues :_*)(grid)
