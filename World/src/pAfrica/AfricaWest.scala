@@ -1,6 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pEarth
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth
 import geom._, pGrid._, reflect.ClassTag
 
 object AfricaWest extends WldArea1("WAfrica", 20 ll 40)
@@ -33,4 +32,3 @@ object AfricaWestGrid extends EGridMaker
     grid
   }
 }
-

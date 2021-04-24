@@ -1,6 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pEarth
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth
 import geom._, LatLong._, WTile._
 
 object AfricaSouthern extends WldArea1("AfricaSouthern", -16.14 ll 24.36)
@@ -13,8 +12,7 @@ object AfricaSouthern extends WldArea1("AfricaSouthern", -16.14 ll 24.36)
 }
 
 object AfricaSouthernPts
-{
-  val cAfricaN = 4.42.north
+{ val cAfricaN = 4.42.north
   val sAfricaNW = - 17 ll 11.76
   val baiaFarta = -12.81 ll 13.01
   val luanda = -8.35 ll 13.15
@@ -24,7 +22,8 @@ object AfricaSouthernPts
   val lakeVictoriaSW = -2.64 ll 31.76
   val sAfricaN = 17.south
   val cAfricaSE = sAfricaN * 31.east
-  val cAfrica =  WldArea2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba, AfricaMidWest.cAfricaNW,
+
+  val cAfrica: WldArea2 =  WldArea2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba, AfricaMidWest.cAfricaNW,
     AfricaMidWest.southEast, AfricaNorthEast.cAfricaNE, katongaMouth, lakeVictoriaSW, cAfricaSE)
    
   val lakeVictoriaSE = -2.23 ll 33.84
@@ -34,8 +33,8 @@ object AfricaSouthernPts
   val mombassa = -4.03 ll 39.28
   val seNacala = -14.4 ll 40.3
   val sAfricaNE = -17 ll 39.06
-  val sEAfrica = WldArea2("SEAfrica", -2.17 ll 36.64, plain, cAfricaSE, lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN, katongaMouth,
-    AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa, seNacala, sAfricaNE)
+  val sEAfrica: WldArea2 = WldArea2("SEAfrica", -2.17 ll 36.64, plain, cAfricaSE, lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN,
+    katongaMouth, AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa, seNacala, sAfricaNE)
    
   val agulhas = degs(-34.83, 20.00)
   val capeTown = degs(-34, 19)
@@ -46,8 +45,8 @@ object AfricaSouthernPts
   val richardsBay = degs(-29, 32)
   val portLiz = degs(-34, 26)
          
-  val sAfrica = WldArea2("SAfrica", -25 ll 24, plain, agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane, maputo,
-    richardsBay, portLiz)
+  val sAfrica: WldArea2 = WldArea2("SAfrica", -25 ll 24, plain, agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane,
+    maputo, richardsBay, portLiz)
          
   val madagascarN = degs(-11.95, 49.26)
   val madagascarE = degs(-15.33, 50.48)
