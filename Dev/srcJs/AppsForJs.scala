@@ -23,7 +23,7 @@ object AppsForJs
     ("14", (pReactor.ReactorGUI(_), "reactor")),
     ("15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
     ("16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
-    ("17", (pEarth.pFlat.FlatEarthGui(_), "Flat Earth")),
+
 
     ("EG1", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerrOld, 472 rr 204), "Js NW Wurope Grid")),
     ("EG2", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNETerrOld, 456 rr 388), "Js NE Wurope Grid")),

@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pEurope
 import geom._
 
-object EuropeEast extends WldArea1("EuropeEast", 60 ll 60)
+object EuropeEast extends EarthLevel1("EuropeEast", 60 ll 60)
 { override def fill = false
-  override val a2Arr: Arr[WldArea2] = Arr(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
+  override val a2Arr: Arr[EarthLevel2] = Arr(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
 }

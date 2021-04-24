@@ -1,10 +1,9 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pEarth
+package ostrat; package pEarth
 import geom._
 
-/** A second level area of the world, still not usre about the name. */
-abstract class WldArea2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
+/** A second level area of the Earth. */
+abstract class EarthLevel2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
    override def toString = name.appendCommas(terr.toString)
    def aStrs: Strings = Strings(name)
@@ -37,9 +36,9 @@ abstract class WldArea2(val symName: String, val cen: LatLong, val terr: WTile) 
    }
 }
 
-object WldArea2
+object EarthLevel2
 {
-   def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new WldArea2(symName, cen, terr)
+   def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EarthLevel2(symName, cen, terr)
    {      
       val latLongs = LatLongs(latLongArgs: _*)
    }  
