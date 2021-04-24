@@ -6,7 +6,7 @@ package ostrat; package pGrid
  *  @constructor creates a new HexGridIrr with a defined grid.
  *  @param yTileMin The y value for the bottom tile row of the TileGrid
  *  @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-class HexGridIrrOld(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) extends HexGrid
+class HexGridIrrOld(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]) extends HexGridOld
 {
   /** Number of rows of tiles. This will be different to the number of rows of sides and the number of rows of vertices. */
   override def numOfTileRows: Int = tileRowsStartEnd.length / 2

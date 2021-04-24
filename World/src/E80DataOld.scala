@@ -2,13 +2,13 @@
 package ostrat; package pEarth
 import pGrid._
 
-trait E80Data
+trait E80DataOld
 { implicit val grid: HexGridIrrOld
   def terrs: TilesArr[WTile]
   def sTerrs: SideBooleans
   def vTerrs: VertInts
 }
 
-object EuropeNWGrid extends HexGridIrrOld(446, EGrid80KmOld.getBounds(200, 446, 540))
+object EuropeNWGridOld extends HexGridIrrOld(446, EGrid80KmOld.getBounds(200, 446, 540))
 
-object EuropeNEGrid extends HexGridIrrOld(446, EGrid80KmOld.getBounds(400, 446, 540))
+object EuropeNEGridOld extends HexGridIrrOld(446, EGrid80KmOld.getBounds(400, 446, 540))

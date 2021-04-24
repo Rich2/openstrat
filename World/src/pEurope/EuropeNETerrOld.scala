@@ -2,9 +2,9 @@
 package ostrat; package pEarth; package pEurope
 import pGrid._, WTile._
 
-object EuropeNETerrOld extends E80Data
+object EuropeNETerrOld extends E80DataOld
 {
-  implicit val grid: HexGridIrrOld = EuropeNEGrid
+  implicit val grid: HexGridIrrOld = EuropeNEGridOld
   val terrs: TilesArr[WTile] = grid.newTileArr[WTile](Ocean)
   val sTerrs: SideBooleans = grid.newSideBooleans
   val vTerrs: VertInts = grid.newVertInts

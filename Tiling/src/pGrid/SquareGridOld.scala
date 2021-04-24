@@ -3,15 +3,15 @@ package ostrat
 package pGrid
 
 /** Currently all SquareGrids are regular. */
-class SquareGrid(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) extends SquareGridSimple(yTileMin, yTileMax, cTileMin, cTileMax) with
-  TileGrid
+class SquareGridOld(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int) extends SquareGridSimpleOld(yTileMin, yTileMax, cTileMin, cTileMax) with
+  TileGridOld
 {
 
 }
 
-object SquareGrid
+object SquareGridOld
 {
-  def apply(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int): SquareGrid = new SquareGrid(yTileMin, yTileMax, cTileMin, cTileMax)
+  def apply(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int): SquareGridOld = new SquareGridOld(yTileMin, yTileMax, cTileMin, cTileMax)
   val vertRoordsOfTile00: Roords = Roords(1 rr 1,  -1 rr 1,  -1 rr -1, 1 rr -1)
   def vertRoordsOfTile(y: Int, c: Int): Roords = vertRoordsOfTile(y rr c)
   def vertRoordsOfTile(inp: Roord): Roords = vertRoordsOfTile00.pMap(inp + _)

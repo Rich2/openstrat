@@ -4,7 +4,7 @@ package pCiv
 import pEarth._, pGrid._
 
 trait CivScen
-{ implicit def grid: TileGrid
+{ implicit def grid: TileGridOld
   def terrs: TilesArr[Terrain]
   /** Not sure about this collection type. */
   def lunits: TilesArr[List[Warrior]]
@@ -12,7 +12,7 @@ trait CivScen
 
 object Civ1 extends CivScen
 {
-  implicit val grid = HexGridReg(4, 16, 4, 40)
+  implicit val grid = HexGridRegOld(4, 16, 4, 40)
   val terrs = grid.newTileArr[Terrain](Plains)
   terrs.setRow(12, 20, Hilly, Mountains * 2)
   terrs.setRow(4, 4, Hilly * 3)

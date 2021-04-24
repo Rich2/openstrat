@@ -4,24 +4,24 @@ package pGrid
 import geom._
 
 /** Currently all SquareGrids are regular. */
-class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TileGrid
+class SquareGridSimpleOld(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends TileGridOld
 {
   final override def xCen: Double = (cTileMin + cTileMax) / 2.0
   override def roordToPt2(roord: Roord): Pt2 = Pt2(roord.c, roord.y)
-  override def sideRoordToRoordLine(sideRoord: Roord): RoordLine = SquareGrid.sideRoordToRoordLine(sideRoord)
+  override def sideRoordToRoordLine(sideRoord: Roord): RoordLine = SquareGridOld.sideRoordToRoordLine(sideRoord)
   def tileRowLen: Int = ((cTileMax.roundDownToEven - cTileMin.roundUpToEven + 2) / 2).atMost0
   def numOfTileRows: Int = ((yTileMax.roundDownToEven - yTileMin + 2) / 2).atMost0
   def numOfTiles: Int = numOfTileRows * tileRowLen
   def cStep: Int = 2
   @inline override def arrIndex(y: Int, c: Int): Int = (y - yTileMin) / 2 * tileRowLen + (c - cTileMin) / 2
 
-  @inline override def sideRoordsOfTile(tileRoord: Roord): Roords = SquareGrid.sideRoordsOfTile(tileRoord)
+  @inline override def sideRoordsOfTile(tileRoord: Roord): Roords = SquareGridOld.sideRoordsOfTile(tileRoord)
 
   override def xLeft: Double = cTileMin - 1
   override def xRight: Double = cTileMax + 1
   override def top: Double = yTileMax + 1
   override def bottom: Double = yTileMin - 1
-  override def tileVertRoords(roord : Roord): Roords = SquareGrid.vertRoordsOfTile(roord)
+  override def tileVertRoords(roord : Roord): Roords = SquareGridOld.vertRoordsOfTile(roord)
   override def isTileRoord(r: Roord): Boolean = r.y.isEven & r.c.isEven
 
   /** The active tiles without any PaintElems. */
@@ -50,8 +50,8 @@ class SquareGridSimple(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, 
 
 }
 
-object SquareGridSimple
+object SquareGridSimpleOld
 {
-  def apply(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int): SquareGridSimple =
-    new SquareGridSimple(yTileMin, yTileMax, cTileMin, cTileMax)
+  def apply(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int): SquareGridSimpleOld =
+    new SquareGridSimpleOld(yTileMin, yTileMax, cTileMin, cTileMax)
 }

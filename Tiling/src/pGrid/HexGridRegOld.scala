@@ -3,7 +3,7 @@ package ostrat; package pGrid
 
 /* A Regular hex grid where the rows have the same length, except div4rem2 rows may differ in length by 1 from div4rem0 rows. A div4rem2 row is
 * where the y coordinate divided by 4 has a remainder of 2. */
-class HexGridReg(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HexGrid
+class HexGridRegOld(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HexGridOld
 {
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   override def sideRowIndexArray: Array[Int] =
@@ -105,6 +105,6 @@ class HexGridReg(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val cT
 
 }
 
-object HexGridReg
-{ def apply(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int): HexGridReg = new HexGridReg(yTileMin, yTileMax, cTileMin, cTileMax)
+object HexGridRegOld
+{ def apply(yTileMin: Int, yTileMax: Int, cTileMin: Int, cTileMax: Int): HexGridRegOld = new HexGridRegOld(yTileMin, yTileMax, cTileMin, cTileMax)
 }

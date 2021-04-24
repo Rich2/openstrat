@@ -6,15 +6,15 @@ import pGrid._
 case class CharacPosn(charac: Character, y: Int, c: Int, facing: SqFace)
 
 trait DungeonScen
-{ implicit def grid: TileGrid
+{ implicit def grid: TileGridOld
   def terrs: TilesArr[DungTerr]
   def characs: TilesArrOpt[CharacPosn]
   def posn(charac: Character, y: Int, c: Int, face: SqFace): Unit = characs.mutSetSome(y, c, CharacPosn(charac, y, c, face))
 }
 
 object Dungeon1 extends DungeonScen
-{ import SquareGrid._
-  implicit val grid: SquareGrid = SquareGrid(4, 26, 2, 46)
+{ import SquareGridOld._
+  implicit val grid: SquareGridOld = SquareGridOld(4, 26, 2, 46)
   val terrs = grid.newTileArr[DungTerr](Wall)
   terrs.setColumn(22, 8,  Open * 2)
   terrs.setTerrPath(6 rr 4, Open, Rt * 11, Up * 4, Lt * 5, Up * 3, Rt * 7, Dn * 7)

@@ -5,7 +5,7 @@ import pCanv._, pGrid._, geom._, Colour._, pStrat._
 /** Uses the old Roards from pGrid, but with the new simpler Gui. */
 case class ZugGui(canv: CanvasPlatform, scen: ZugScenOld) extends CmdBarGui("ZugFuhrer Gui")
 {
-  implicit val grid: HexGridReg = scen.grid
+  implicit val grid: HexGridRegOld = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }

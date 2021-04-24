@@ -4,7 +4,7 @@ import pGrid._
 
 /** Old ZugScen using pGrid. */
 trait ZugScenOld
-{ implicit def grid: HexGridReg
+{ implicit def grid: HexGridRegOld
   def terrs: TilesArr[ZugTerr]
   def sTerrs: SideBooleans
   def lunits: TilesArr[List[Squad]]
@@ -15,7 +15,7 @@ trait ZugScenOld
 
 object Zug1Old extends ZugScenOld
 {
-  implicit val grid = HexGridReg(2, 14, 4, 48)
+  implicit val grid = HexGridRegOld(2, 14, 4, 48)
 
   val terrs = grid.newTileArr[ZugTerr](Plain)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRow(yRow, cStart, tileValues :_*)(grid)
@@ -44,7 +44,7 @@ object Zug1Old extends ZugScenOld
 
 object Zug2Old extends ZugScenOld
 {
-  override implicit def grid: HexGridReg = HexGridReg(2, 10, 4, 38)
+  override implicit def grid: HexGridRegOld = HexGridRegOld(2, 10, 4, 38)
   val terrs = grid.newTileArr[ZugTerr](Lake)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.setRow(yRow, cStart, tileValues :_*)(grid)
   gs(10, 6, Plain * 3, Lake * 3, Plain * 3)
@@ -58,7 +58,7 @@ object Zug2Old extends ZugScenOld
 
 object Zug3Old  extends ZugScenOld
 {
-  override implicit def grid: HexGridReg = HexGridReg(2, 10, 4, 38)
+  override implicit def grid: HexGridRegOld = HexGridRegOld(2, 10, 4, 38)
   val terrs = grid.newTileArr[ZugTerr](Plain)
   val sTerrs: SideBooleans = grid.newSideBooleans
   sTerrs.gridSetTrues(grid.SidesHorr(7, 5, 37))

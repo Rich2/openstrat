@@ -4,7 +4,7 @@ package pChess
 import geom._, pCanv._, Colour._, pGrid._
 
 case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui("Chess")
-{ implicit val grid: SquareGridSimple = scen.grid
+{ implicit val grid: SquareGridSimpleOld = scen.grid
   var statusText: String = "Welcome to Chess Gui"
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val darkSquareColour = DarkGreen

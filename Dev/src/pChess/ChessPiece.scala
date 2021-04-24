@@ -42,6 +42,6 @@ case class PPiece(player: Player, piece: Piece)
 
 trait ChessLikeScen
 { def turnSeg: Int
-  implicit val grid: SquareGridSimple = SquareGridSimple(2, 16, 2, 16)
+  implicit val grid: SquareGridSimpleOld = SquareGridSimpleOld(2, 16, 2, 16)
   def playerSeg: Player = ife(turnSeg.isOdd, PWhite, PBlack)
 }

@@ -13,7 +13,7 @@ import geom._, reflect.ClassTag, Colour._
  *  A TileGrid is for use cases where the proportions of the Grid predetermine the proportions of the visual representation, as opposed to a use case
  *  where the proportions of the enclosing space are a factor in determining the proportions of the grid. For example the various grid layouts of the
  *  Stars on the American flag. */
-trait TileGrid
+trait TileGridOld
 {
   /** Number of rows of tiles. This will be different to the number of rows of sides and and will be different to the number of rows of vertices for
    * HexGrids. */

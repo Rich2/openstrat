@@ -4,9 +4,9 @@ package pGrid
 
 class SideBooleans(val unsafeArr: Array[Boolean]) extends AnyVal
 {
-  def gridSetTrues(roords: Roords)(implicit grid: TileGrid): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
-  def gridSetTrues(roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
+  def gridSetTrues(roords: Roords)(implicit grid: TileGridOld): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
+  def gridSetTrues(roords: Roord*)(implicit grid: TileGridOld): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
 
-  def gridMap[A, AA <: ArrImut[A]](f: (Roord, Boolean) => A)(implicit grid: TileGrid, build: ArrTBuilder[A, AA]): AA =
+  def gridMap[A, AA <: ArrImut[A]](f: (Roord, Boolean) => A)(implicit grid: TileGridOld, build: ArrTBuilder[A, AA]): AA =
     grid.sidesMap(r => f(r, unsafeArr(grid.sideArrIndex(r))))
 }

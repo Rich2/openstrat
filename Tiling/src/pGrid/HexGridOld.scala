@@ -3,7 +3,7 @@ package ostrat; package pGrid
 import geom._
 
 /** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows. */
-trait HexGrid extends TileGrid
+trait HexGridOld extends TileGridOld
 {/** Return the Side Row start for the given Row y value. */
   def cSideRowMin(y: Int): Int
 
@@ -13,19 +13,19 @@ trait HexGrid extends TileGrid
   /** The c delta between tiles. */
   def cStep: Int = 4
 
-  override def roordToPt2(roord: Roord): Pt2 = HexGrid.roordToVec2(roord)
+  override def roordToPt2(roord: Roord): Pt2 = HexGridOld.roordToVec2(roord)
   def cCen: Double = (cTileMin + cTileMax) / 2.0
   def roordCen = Pt2(cCen, yCen)
   //def xRatio: Double = HexGrid.xRatio
   override def xCen: Double = (cTileMin + cTileMax) / (2.0 * Sqrt3)
   //override def sideRoordToLineRel(sideRoord: Roord, scale: Double, relPosn: Vec2): Line2 = HexGrid.sideRoordToLineRel(sideRoord, scale, relPosn)
-  override def sideRoordsOfTile(tileRoord: Roord): Roords = HexGrid.sideRoordsOfTile(tileRoord)
+  override def sideRoordsOfTile(tileRoord: Roord): Roords = HexGridOld.sideRoordsOfTile(tileRoord)
   override def xLeft: Double = (cTileMin - 2) / Sqrt3
   override def xRight: Double = (cTileMax + 2) / Sqrt3
-  def top: Double = yTileMax + HexGrid.yDist2
-  def bottom: Double = yTileMin - HexGrid.yDist2
-  override def sideRoordToRoordLine(sideRoord: Roord): RoordLine = HexGrid.sideRoordToRoordLine(sideRoord)
-  override def tileVertRoords(roord: Roord): Roords = HexGrid.vertRoordsOfTile(roord)
+  def top: Double = yTileMax + HexGridOld.yDist2
+  def bottom: Double = yTileMin - HexGridOld.yDist2
+  override def sideRoordToRoordLine(sideRoord: Roord): RoordLine = HexGridOld.sideRoordToRoordLine(sideRoord)
+  override def tileVertRoords(roord: Roord): Roords = HexGridOld.vertRoordsOfTile(roord)
   def isTileRoord(r: Roord): Boolean = r.y.div4Rem2 & r.c.div4Rem2 | r.y.div4Rem0 & r.c.div4Rem0
 
   /* Override methods */
@@ -57,7 +57,7 @@ trait HexGrid extends TileGrid
       //if (curr.tile.Roord == endRoord) found = true
       open = open.filterNot(_ == curr)
       closed ::= curr
-      val neighbs: Roords = HexGrid.adjTilesOfTile(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+      val neighbs: Roords = HexGridOld.adjTilesOfTile(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
       neighbs.foreach { tile =>
         fTerrCost(curr.tile, tile) match {
           case NoInt =>
@@ -102,7 +102,7 @@ trait HexGrid extends TileGrid
   { //val (topEnd, bottomEnd) = HexGrid.sideRoordToLineEndRoords(sr)
     //val vTop: Vec2 = roordToVec2(topEnd)
     //val vBottom: Vec2 = roordToVec2(bottomEnd)
-    val (o1, o2, o3, o4) = HexGrid.sideRoordToRoordOffs(sr)
+    val (o1, o2, o3, o4) = HexGridOld.sideRoordToRoordOffs(sr)
     Arr(o1, o2, o4, o3).map(_.toVec2(roordToPt2)).toPolygon
   }
 }
@@ -111,7 +111,7 @@ case class Node(val tile: Roord, var gCost: Int, var hCost: Int, var parent: Opt
 { def fCost = gCost + hCost
 }
 
-object HexGrid
+object HexGridOld
 { /** Verts start at Up and follow clockwise */
   val vertRoordsOfTile00: Roords = Roords(1 rr 0, 1 rr 2, -1 rr 2, -1 rr 0,  -1 rr -2, 1 rr -2)
 

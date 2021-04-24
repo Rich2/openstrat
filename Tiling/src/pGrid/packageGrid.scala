@@ -44,10 +44,10 @@ package object pGrid
   }
 
   implicit class ArrayImplicit[A](thisArray: Array[A])
-  { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGrid): Unit = grid.foreach{ r => f(r, thisArray(grid.arrIndex(r)))}
+  { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGridOld): Unit = grid.foreach{ r => f(r, thisArray(grid.arrIndex(r)))}
   }
   
-  implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TileGrid, evSlate: Slate[T], evScale: Scale[T]) {
+  implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TileGridOld, evSlate: Slate[T], evScale: Scale[T]) {
     /** Translates Vec2s relative to Grid centre and then scales. */
     def gridScale(scale: Double): T =
     { val v = - grid.cenVec
@@ -62,7 +62,7 @@ package object pGrid
     }
   }
 
-  implicit class GridTransSimExtension[T](value: T)(implicit grid: TileGrid, ev: TransSim[T])
+  implicit class GridTransSimExtension[T](value: T)(implicit grid: TileGridOld, ev: TransSim[T])
   {
     def gridTrans(offset: Vec2, scale: Double): T =
     { val a = ev.slate(value, -offset - grid.cenVec)
@@ -72,8 +72,8 @@ package object pGrid
 
   /** Not sure about the use of List in this class. */
   implicit class TilesListImplicit[A](thisRefs: TilesArr[List[A]])
-  { def prepend(y: Int, c: Int, value: A)(implicit grid: TileGrid): Unit = prepend(Roord(y, c), value)
-    def prepend(roord: Roord, value: A)(implicit grid: TileGrid): Unit = thisRefs.unsafeArr(grid.arrIndex(roord)) ::= value
-    def prepends(value : A, roords: Roord*)(implicit grid: TileGrid): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
+  { def prepend(y: Int, c: Int, value: A)(implicit grid: TileGridOld): Unit = prepend(Roord(y, c), value)
+    def prepend(roord: Roord, value: A)(implicit grid: TileGridOld): Unit = thisRefs.unsafeArr(grid.arrIndex(roord)) ::= value
+    def prepends(value : A, roords: Roord*)(implicit grid: TileGridOld): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
   }
 }
