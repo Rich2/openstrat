@@ -76,8 +76,8 @@ trait TGrid
   /** The number of Rows of vertices. */
   @inline final def numOfVertRows: Int = ife(numOfTileRows > 1, numOfTileRows + 1, 0)
 
-  /** The active tiles without any PaintElems. */
-  def rcTexts = mapCenCoords(tc => tc.toTextGraphic(16, tc.toPt2))
+  /** Gives the text graphics for the row and column of each tile centre. */
+  def rcTexts = mapCenCoords(tc => tc.rcStr.toTextGraphic(16, tc.toPt2))
 
   /* SideGroup Methods that operate on tile sides. **********************************************************/
 

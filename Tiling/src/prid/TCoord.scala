@@ -5,8 +5,7 @@ import geom._, Colour._
 
 /** A coordinate in a tile grid [[TGrid]]. The row is the first field, the column is the second. */
 trait TCoord extends Any with Show2Base32s
-{
-  /** Row number for the coordinate of a tile grid. */
+{ /** Row number for the coordinate of a tile grid. */
   def r: Int
 
   /** Column number for the coordinate of a tile grid. */
@@ -17,13 +16,17 @@ trait TCoord extends Any with Show2Base32s
   override def name1: String = "r"
   override def name2: String = "c"
 
-
   def toPt2: Pt2
   def toVec: Vec2
   def typeStr: String
   def rcStr: String = s"$r, $c"
   def parenthStr: String = rcStr.enParenth
   def rcText(fontSize: Double = 12, colour: Colour = Black) = rcStr.toTextGraphic(fontSize, toPt2, colour)
+}
+
+object TCoord
+{
+  //implicit val showTImplicit: Show2Base32sT[TCoord] = Show2Base32sT[TCoord]("TCoord")
 }
 
 trait SqCoord extends Any with TCoord
