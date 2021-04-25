@@ -25,7 +25,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def lunits: Arr[PolygonCompound] = players.cMapSomes{ (p, hc) =>
     Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.strComma, 24, 2.0) }
 
-  def css: Arr[TextGraphic] = players.cMapNones(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
+  def hexStrs: Arr[TextGraphic] = players.cMapNones(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles: Arr[PolygonActive] = grid.activeTiles
@@ -65,8 +65,8 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
     }
   thisTop()
   def moveGraphics2 = moveGraphics.gridScale(scale).flatMap(_.arrow)//  .toLine2.drawArrow(players(rs.hc1).colour)
-  def frame: GraphicElems = (tiles +- sidesDraw ++ lunits ++ css).gridScale(scale) ++ moveGraphics2
-  //(tiles +- sidesDraw ++ roardTexts ++ lunits ).gridScale(scale)
+  def frame: GraphicElems = (tiles +- sidesDraw ++ lunits ++ hexStrs).gridScale(scale) ++ moveGraphics2
+
   def repaint() = mainRepaint(frame)
   repaint()
 }

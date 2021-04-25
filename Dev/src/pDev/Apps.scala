@@ -33,6 +33,7 @@ object Apps
     ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx irregular Grid Game One")),
     ("G12", (gOne.GOneGui(_, gOne.OneScen2), "JavaFx irregular Grid Game One")),
     ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "JavaFx Game Two")),
+    ("G3", (gThree.GThreeGui(_, gThree.ThreeScen1), "JavaFx Game Three")),
 
     ("Z1", (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
     ("Z4", (pZug.ZugGuiOld(_, pZug.Zug1Old), "JavaFx Zugfuhrer Z1 Britain")),

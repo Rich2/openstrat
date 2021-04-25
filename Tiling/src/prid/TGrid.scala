@@ -50,6 +50,9 @@ trait TGrid
   /** Foreach grid Row y coordinate. */
   final def foreachRow(f: Int => Unit): Unit = iToForeach(rTileMin, rTileMax, 2)(f)
 
+  /** Foreach tile centre coordinate. A less strongly typed method than the foreach's in the sub traits. */
+  def foreachCenCoord(f: TCoord => Unit): Unit = ???
+
   def fullDisplayScale(dispWidth: Double, dispHeight: Double, padding: Double = 20): Double =
   {
     def adj(inp : Double): Double =inp match
@@ -63,6 +66,9 @@ trait TGrid
 
   /** The number of Rows of vertices. */
   @inline final def numOfVertRows: Int = ife(numOfTileRows > 1, numOfTileRows + 1, 0)
+
+  /** The active tiles without any PaintElems. */
+  //def rcTexts = map(_.)
 
   /* SideGroup Methods that operate on tile sides. **********************************************************/
 

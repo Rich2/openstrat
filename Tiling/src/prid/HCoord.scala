@@ -4,9 +4,7 @@ import geom._
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends Any with TCoord
-{ def toPt2: Pt2
-  def toVec: Vec2
-
+{
   override def equals(obj: Any): Boolean = obj match {
     case hc: HCoord if r == hc.r & c == hc.c => true
     case _ => false

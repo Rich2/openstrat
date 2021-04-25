@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 package prid
-import geom._
+import geom._, Colour._
 
 /** A coordinate in a tile grid [[TGrid]]. The row is the first field, the column is the second. */
 trait TCoord extends Any with Show2Base32s
@@ -23,6 +23,7 @@ trait TCoord extends Any with Show2Base32s
   def typeStr: String
   def rcStr: String = s"$r, $c"
   def parenthStr: String = rcStr.enParenth
+  def rcText(fontSize: Double = 12, colour: Colour = Black) = rcStr.toTextGraphic(fontSize, toPt2, colour)
 }
 
 trait SqCoord extends Any with TCoord
