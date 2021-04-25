@@ -76,6 +76,8 @@ final class SqGrid(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val 
     count
   }
 
+  override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
+
   final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrBuff[A] = SqCenArrBuff(numOfTiles)
 }
 

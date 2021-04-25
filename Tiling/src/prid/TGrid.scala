@@ -51,7 +51,16 @@ trait TGrid
   final def foreachRow(f: Int => Unit): Unit = iToForeach(rTileMin, rTileMax, 2)(f)
 
   /** Foreach tile centre coordinate. A less strongly typed method than the foreach's in the sub traits. */
-  def foreachCenCoord(f: TCoord => Unit): Unit = ???
+  def foreachCenCoord(f: TCoord => Unit): Unit
+
+  def mapCenCoords[B, BB <: ArrImut[B]](f: TCoord => B)(implicit build: ArrTBuilder[B, BB]): BB =
+  { val res = build.newArr(numOfTiles)
+    var count = 0
+    foreachCenCoord { tc => res.unsafeSetElem(count, f(tc))
+      count += 1
+    }
+    res
+  }
 
   def fullDisplayScale(dispWidth: Double, dispHeight: Double, padding: Double = 20): Double =
   {
@@ -68,7 +77,7 @@ trait TGrid
   @inline final def numOfVertRows: Int = ife(numOfTileRows > 1, numOfTileRows + 1, 0)
 
   /** The active tiles without any PaintElems. */
-  //def rcTexts = map(_.)
+  def rcTexts = mapCenCoords(tc => tc.toTextGraphic(16, tc.toPt2))
 
   /* SideGroup Methods that operate on tile sides. **********************************************************/
 

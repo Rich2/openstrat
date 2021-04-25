@@ -9,7 +9,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
   implicit def grid: HGrid = scen.grid
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
-  def hexStrs: Arr[TextGraphic] = Arr()//grid.xyTextGraphic()
+  def hexStrs: Arr[TextGraphic] = grid.rcTexts
 
   def frame: GraphicElems = (grid.sidesDraw() +: hexStrs).gridScale(scale)
   def repaint() = mainRepaint(frame)

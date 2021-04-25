@@ -47,6 +47,8 @@ trait HGrid extends TGrid
     build.buffToArr(buff)
   }
 
+  override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
+
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())
 
