@@ -3,7 +3,7 @@ package ostrat; package gOne
 import pCanv._, geom._, prid._
 
 /** Graphical user interface for GOne example game. */
-case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("Game Une Gui")
+case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("Game One Gui")
 {
   var statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
@@ -29,9 +29,6 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles: Arr[PolygonActive] = grid.activeTiles
-
-  /** Gives the tiles Roord. Its Row based integer coordinate. */
- // val roardTexts = grid.cenRoordIndexTexts() ++ grid.sideRoordIndexTexts() ++ grid.vertRoordIndexTexts()
 
   /** Draws the tiles sides (or edges). */
   val sidesDraw: LinesDraw = grid.sidesDraw()
