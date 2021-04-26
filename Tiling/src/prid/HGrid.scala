@@ -16,7 +16,7 @@ trait HGrid extends TGrid
    * so it can take the specific narrow [[HCen]] parameter to the foreach function. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit
 
-  def rowIForeach(r: Int, count: Int)(f: (HCen, Int) => Unit): Int
+  def rowIForeach(r: Int, count: Int = 0)(f: (HCen, Int) => Unit): Int
 
   override def numOfTileRows: Int = numOfRow2s + numOfRow0s
 
@@ -71,6 +71,31 @@ trait HGrid extends TGrid
 
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numOfTiles))
+
+  def combinedPolygons[A <: AnyRef](implicit arr: HCenArr[A]): Arr[(HVertsPolygon, A)] =
+  {
+    import collection.mutable.ArrayBuffer
+    implicit def grid: HGrid = this
+    if (numOfTileRows > 0)
+    {
+      val incomplete: ArrayBuffer[(HVertsPolygon, A)] = Buff()
+      val complete: ArrayBuffer[(HVertsPolygon, A)] = Buff()
+
+      foreachRow { r =>
+        var curr: Option[(HVertsPolygon, A)] = None
+        rowIForeach(r) { (hc, i) =>
+          val newValue: A = arr(hc)(this)
+          curr match {
+            case None => curr = Some((hc.hVertsPolygon, newValue))
+            case Some((p, a)) if a == newValue =>
+            case Some(pair) => incomplete.append(pair)
+          }
+        }
+      }
+      ???
+    }
+    else Arr()
+  }
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 

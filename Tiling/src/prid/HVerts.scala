@@ -4,15 +4,16 @@ package ostrat; package prid
 /** Common trait for [[Hverts]] and [[HVertPolygon]] */
 trait HVertsLike extends Any with Int2sArr[HVert]
 { override def newElem(i1: Int, i2: Int): HVert = HVert.apply(i1, i2)
+  override def fElemStr: HVert => String = _.str
 }
 
 /** An array[Int] based collection for HVert. */
 class HVerts(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
 { type ThisT = HVerts
-  override def fElemStr: HVert => String = _.str
   override def unsafeFromArray(array: Array[Int]): HVerts = new HVerts(array)
   override def typeStr: String = "HVerts" + foldLeft("")(_ + "; " + _.rcStr)
 
+  def toPolygon: HVertsPolygon = new HVertsPolygon(arrayUnsafe)
   /*def filter(f: HVert => Boolean): HVerts =
   { val tempArr = new Array[Int](array.length)
     var count = 0
@@ -66,5 +67,5 @@ class HVertsPolygon(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
 { override type ThisT = HVertsPolygon
   override def typeStr: String = "HVertsPolygon"
   override def unsafeFromArray(array: Array[Int]): HVertsPolygon = new HVertsPolygon(array)
-  override def fElemStr: HVert => String = ???
+
 }

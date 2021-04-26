@@ -47,8 +47,6 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
     }
     HCen(row, cStart + (tiles.length - 1) * 4)
   }
-
-  def combinedPolygons()(implicit grid: HGrid): Arr[(Polygon, A)] = ???
 }
 
 /** Companion object for [[HCenArr]], contains an apply factory method. */
