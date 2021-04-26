@@ -15,7 +15,7 @@ case class E80GridGuiOld(canv: CanvasPlatform, scen: E80DataOld, cenRoord: Roord
     else grid.sideRoordToLine2(r).draw()
   }
 
-  var statusText = "Tile Grid for North West Europe"
+  statusText = "Tile Grid for North West Europe"
   def thisTop(): Unit = reTop(Arr())
   thisTop()
   def frame = (tiles ++ sides).gridRoordScale(cenRoord, scale)

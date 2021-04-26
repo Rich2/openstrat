@@ -5,7 +5,7 @@ import pCanv._, prid._, geom._
 
 case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends CmdBarGui("Alternative Reactor")
 {
-  var statusText = "To be changed."
+  statusText = "Welcome to alternative ReactorGui."
 
   var scen = AltScen.start(rows, columns)
   implicit def grid: SqGrid = scen.grid
@@ -37,5 +37,4 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends Cmd
   //(tiles +- sidesDraw ++ roardTexts ++ lunits ).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
-
 }

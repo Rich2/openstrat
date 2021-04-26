@@ -5,8 +5,7 @@ import geom._, pGrid._, pCanv._
 
 /** Gui for civilisation  game. */
 case class CivGui(canv: CanvasPlatform, scen: CivScen) extends CmdBarGui("Civ Rise Game Gui")
-{
-  var statusText = "Welcome to Civ Rise."
+{ statusText = "Welcome to Civ Rise."
   implicit val grid: TileGridOld = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val sls = grid.sidesDraw(2.0)

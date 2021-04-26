@@ -4,7 +4,7 @@ import pCanv._, prid._, geom._
 
 case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends CmdBarGui("Game Two Gui")
 {
-  var statusText = "Let click on Player to select. Right click on adjacent square to set move."
+  statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
   implicit def grid: SqGrid = scen.grid
   def players: SqCenArrOpt[Player] = scen.oPlayers

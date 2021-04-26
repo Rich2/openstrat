@@ -6,7 +6,7 @@ import pCanv._, pGrid._, geom._
 /** This uses the new Gui. */
 case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui("Dungeon Gui")
 {
-  var statusText: String = "Welcome to Dungeon Gui"
+  statusText = "Welcome to Dungeon Gui"
   implicit def grid: TileGridOld = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs

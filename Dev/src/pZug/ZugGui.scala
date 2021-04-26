@@ -10,7 +10,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   val terrs = scen.terrs
   //val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
 
-  override var statusText: String = "Welcome to ZugFuher"
+  statusText = "Welcome to ZugFuher"
   def thisTop(): Unit = reTop(Arr())
   thisTop()
 }

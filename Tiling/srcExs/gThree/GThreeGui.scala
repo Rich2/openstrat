@@ -3,7 +3,7 @@ package ostrat; package gThree
 import pCanv._, prid._, geom._
 
 case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarGui("Game Three Gui")
-{ override var statusText: String = "Welcome to Game Three."
+{ statusText = "Welcome to Game Three."
   val scen = scenStart
   var history: Arr[ThreeScen] = Arr(scen)
   implicit def grid: HGrid = scen.grid

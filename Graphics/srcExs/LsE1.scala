@@ -8,7 +8,7 @@ case class LsE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
   import e1._
   var state: GameState = GameState.start
   var cmd: TurnCmd = NoMove
-  var statusText = "Right click to set action to Move. Left to set action to CycleColour. Press Turn button or middle click for next turn."
+  statusText = "Right click to set action to Move. Left to set action to CycleColour. Press Turn button or middle click for next turn."
   
   def cmdDisp: Arr[GraphicElem] = cmd match
   { case Move(v) => Arrow.paint(state.posn, v)//Returns Arr[GraphicElem]
