@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package prid
+package ostrat; package prid
 import geom._, Colour._
 
 /** A coordinate in a tile grid [[TGrid]]. The row is the first field, the column is the second. */
@@ -24,16 +23,16 @@ trait TCoord extends Any with Show2Base32s
   def rcText(fontSize: Double = 12, colour: Colour = Black) = rcStr.toTextGraphic(fontSize, toPt2, colour)
 }
 
+/** Companion object for TCoord trait will contain a Show[TCoord] implicit instance in Scala 3, but this produces an error in 2.13.5. */
 object TCoord
 {
   //implicit val showTImplicit: Show2Base32sT[TCoord] = Show2Base32sT[TCoord]("TCoord")
 }
 
+/** A square grid integer tile coordinate. */
 trait SqCoord extends Any with TCoord
-{
-  override def toVec: Vec2 = Vec2(c, r)
+{ override def toVec: Vec2 = Vec2(c, r)
   override def toPt2: Pt2 = Pt2(c, r)
-  //override def canEqual(that: Any): Boolean = ???
 }
 
 /** A Square tile centre square grid [[SqGrid]] coordinate. */
@@ -57,7 +56,6 @@ class SqVert(val r: Int, val c: Int) extends SqCoord
 object SqVert
 { val showTImplicit: ShowT[SqVert] = Show2Base32sT("Sqvert")
 }
-
 
 trait SqMem[A]
 { val sc: SqCen
