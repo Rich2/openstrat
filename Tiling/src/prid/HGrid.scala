@@ -72,17 +72,17 @@ trait HGrid extends TGrid
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numOfTiles))
 
-  def combinedPolygons[A <: AnyRef](implicit arr: HCenArr[A]): Arr[(HVertsPolygon, A)] =
+  def combinedPolygons[A <: AnyRef](implicit arr: HCenArr[A]): Arr[(HVertPolygon, A)] =
   {
     import collection.mutable.ArrayBuffer
     implicit def grid: HGrid = this
     if (numOfTileRows > 0)
     {
-      val incomplete: ArrayBuffer[(HVertsPolygon, A)] = Buff()
-      val complete: ArrayBuffer[(HVertsPolygon, A)] = Buff()
+      val incomplete: ArrayBuffer[(HVertPolygon, A)] = Buff()
+      val complete: ArrayBuffer[(HVertPolygon, A)] = Buff()
 
       foreachRow { r =>
-        var curr: Option[(HVertsPolygon, A)] = None
+        var curr: Option[(HVertPolygon, A)] = None
         rowIForeach(r) { (hc, i) =>
           val newValue: A = arr(hc)(this)
           curr match {

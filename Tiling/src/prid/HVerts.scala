@@ -5,6 +5,7 @@ package ostrat; package prid
 trait HVertsLike extends Any with Int2sArr[HVert]
 { override def newElem(i1: Int, i2: Int): HVert = HVert.apply(i1, i2)
   override def fElemStr: HVert => String = _.str
+  def vertNum: Int = arrayUnsafe.length / 2
 }
 
 /** An array[Int] based collection for HVert. */
@@ -13,7 +14,7 @@ class HVerts(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
   override def unsafeFromArray(array: Array[Int]): HVerts = new HVerts(array)
   override def typeStr: String = "HVerts" + foldLeft("")(_ + "; " + _.rcStr)
 
-  def toPolygon: HVertsPolygon = new HVertsPolygon(arrayUnsafe)
+  def toPolygon: HVertPolygon = new HVertPolygon(arrayUnsafe)
   /*def filter(f: HVert => Boolean): HVerts =
   { val tempArr = new Array[Int](array.length)
     var count = 0
@@ -46,7 +47,7 @@ class HVerts(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
 
 object HVerts extends Int2sArrCompanion[HVert, HVerts]
 {
-  override def buff(initialSize: Int): HVertBuff = new HVertBuff(buffInt(initialSize * 2))
+  //override def buff(initialSize: Int): HVertBuff = new HVertBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): HVerts = new HVerts(array)
 
   implicit object PersistImplicit extends Int2sArrPersist[HVert, HVerts]("HVerts")
@@ -61,11 +62,4 @@ object HVerts extends Int2sArrCompanion[HVert, HVerts]
 class HVertBuff(val buffer: Buff[Int] = buffInt()) extends AnyVal with Int2sBuffer[HVert, HVerts]
 { type ArrT = HVerts
   override def intsToT(i1: Int, i2: Int): HVert = HVert(i1, i2)
-}
-
-class HVertsPolygon(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
-{ override type ThisT = HVertsPolygon
-  override def typeStr: String = "HVertsPolygon"
-  override def unsafeFromArray(array: Array[Int]): HVertsPolygon = new HVertsPolygon(array)
-
 }

@@ -67,11 +67,11 @@ trait Dbl2sArrCompanion[A <: Dbl2Elem, ArrA <: Dbl2sArr[A]] extends DblNsArrComp
   implicit val persistImplicit: Dbl2sArrPersist[A, ArrA]
   def prodLen: Int = 2
   //implicit val factory: Int => ST = len => persistImplicit.fromArray(new Array[Double](len * 2))
-  def apply(length: Int): ArrA = factory(length)
+  def apply(length: Int): ArrA = uninitialised(length)
   def apply(elems: A*): ArrA =
   {
     val length = elems.length
-    val res = factory(length)
+    val res = uninitialised(length)
     var count: Int = 0
 
     while (count < length)
@@ -85,7 +85,7 @@ trait Dbl2sArrCompanion[A <: Dbl2Elem, ArrA <: Dbl2sArr[A]] extends DblNsArrComp
   def fromList(list: List[A]): ArrA =
   {
     val arrLen: Int = list.length * 2
-    val res = factory(list.length)
+    val res = uninitialised(list.length)
     var count: Int = 0
     var rem = list
 

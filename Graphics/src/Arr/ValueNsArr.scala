@@ -85,3 +85,12 @@ abstract class ValueNsArrPersist[A, M](val typeStr: String) extends PersistCompo
   def fromBuffer(buf: Buff[VT]): M
   def newBuffer: Buff[VT]
 }
+
+/** Helper trait for companion objects of [[ValueNsArr]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
+trait ValueNArrCompanion[A, ArrA <: ValueNsArr[A]]
+{ /** The final type of this Array[Int] backed collection class. */
+  type ThisT <: ValueNsArr[A]
+
+  /** This function produces a collection class of type ArrA, whose backing Array is uninitalised. */
+  implicit val uninitialised: Int => ArrA
+}

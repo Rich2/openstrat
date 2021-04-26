@@ -42,7 +42,7 @@ class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[Cood]
 
 object Coods extends Int2sArrCompanion[Cood, Coods]
 {
-  override def buff(initialSize: Int): CoodBuff = new CoodBuff(buffInt(initialSize * 2))
+  //override def buff(initialSize: Int): CoodBuff = new CoodBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Coods = new Coods(array)
 
   implicit object PersistImplicit extends Int2sArrPersist[Cood, Coods]("Coods")

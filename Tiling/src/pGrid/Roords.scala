@@ -42,7 +42,7 @@ class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[Roord]
 
 object Roords extends Int2sArrCompanion[Roord, Roords]
 {
-  override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
+  //override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Roords = new Roords(array)
 
   implicit object PersistImplicit extends Int2sArrPersist[Roord, Roords]("Roords")

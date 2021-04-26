@@ -8,7 +8,7 @@ trait Int2Elem extends Any with ValueNElem
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */
-trait Int2sArr[A <: Int2Elem] extends Any with IntNArr[A]
+trait Int2sArr[A <: Int2Elem] extends Any with IntNsArr[A]
 {
   override def elemvaluesNum: Int = 2
   def newElem(i1: Int, i2: Int): A
@@ -46,14 +46,18 @@ trait Int2sBuffer[A <: Int2Elem, M <: Int2sArr[A]] extends Any with IntNsBuffer[
 }
 
 /** Helper class for companion objects of final Int2sArr classes. */
-abstract class Int2sArrCompanion[A <: Int2Elem, M <: Int2sArr[A]] extends IntNArrCompanion[M]
+abstract class Int2sArrCompanion[A <: Int2Elem, ArrA <: Int2sArr[A]] extends IntNArrCompanion[A, ArrA]
 {
-  implicit val factory: Int => M = i => fromArray(new Array[Int](i * 2))
-  def buff(initialSize: Int): Int2sBuffer[A, M]
+  /** This factory method allows the companion object to produce a class of type M, of the given length, with uninitialised Int values in the backing
+   *  unsafe Array[Int]. */
+  implicit val uninitialised: Int => ArrA = i => fromArray(new Array[Int](i * 2))
 
-  def apply(elems: A*): M =
+  //def buff(initialSize: Int): Int2sBuffer[A, M]
+
+  /** Apply factory method */
+  def apply(elems: A*): ArrA =
   { val arrLen: Int = elems.length * 2
-    val res = factory(elems.length)
+    val res = uninitialised(elems.length)
     var count: Int = 0
 
     while (count < arrLen)

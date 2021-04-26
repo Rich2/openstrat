@@ -54,10 +54,10 @@ trait DblNsBuffer[A] extends Any with ValueNsBuffer[A]
 }
 
 /** Helper trait for Companion objects of [[DblNsArr]] classes. */
-trait DblNsArrCompanion[A, ArrA <: DblNsArr[A]]
+trait DblNsArrCompanion[A, ArrA <: DblNsArr[A]] extends ValueNArrCompanion[A, ArrA]
 { def prodLen: Int
   implicit val persistImplicit: DblNsArrPersist[A, ArrA]
-  implicit val factory: Int => ArrA = len => persistImplicit.fromArray(new Array[Double](len * prodLen))
+  implicit val uninitialised: Int => ArrA = len => persistImplicit.fromArray(new Array[Double](len * prodLen))
 }
 
 /** Persists and assists in building [[DblNsArr]]s. */

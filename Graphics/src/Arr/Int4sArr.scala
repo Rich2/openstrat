@@ -11,7 +11,7 @@ trait Int4Elem extends Any with ValueNElem
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
-trait Int4sArr[A <: Int4Elem] extends Any with IntNArr[A]
+trait Int4sArr[A <: Int4Elem] extends Any with IntNsArr[A]
 {
   override def elemvaluesNum: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
