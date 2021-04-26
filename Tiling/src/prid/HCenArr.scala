@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import reflect.ClassTag
+import reflect.ClassTag, geom._
 
 /** An array of hex tile or hex centre data. */
 class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
@@ -13,12 +13,12 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
    *  Array. It does not utilise the grid [[HGrid]] from which this [[HCenArr]] was created. */
   def foreach[U](f: A => U): Unit = unsafeArr.foreach(f)
 
-  /** Short for coordinate-foreach. For each element in the underlying array, with its respective Hcen coordinate performs the side effecting
+  /** Short for coordinate-foreach. For each element in the underlying array, with its respective [[HCen]] coordinate performs the side effecting
    *  function. */
   def cForeach[U](f: (A, HCen) => U)(implicit grid: HGrid): Unit = grid.iForeach{ (hc, i) => f(unsafeArr(i), hc); () }
 
   /** Each element in the underlying array is mapped by the parameter function to an element of type B. This method treat the HcenArr class like a
-   *  standard Arr or Array. It does not utilise the grid HGrid from which this HcenArr was created. */
+   *  standard Arr or Array. It does not utilise the grid HGrid from which this HCenArr was created. */
   def map[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrTBuilder[B, BB]): BB =
   { val res = build.newArr(length)
     var count = 0
@@ -45,8 +45,10 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
       val c = cStart + i * 4//grid.cStep
       unsafeArr(grid.arrIndex(row, c)) = e
     }
-    HCen(row, cStart + (tiles.length - 1) * 4)//grid.cStep)
+    HCen(row, cStart + (tiles.length - 1) * 4)
   }
+
+  def combinedPolygons()(implicit grid: HGrid): Arr[(Polygon, A)] = ???
 }
 
 /** Companion object for [[HCenArr]], contains an apply factory method. */

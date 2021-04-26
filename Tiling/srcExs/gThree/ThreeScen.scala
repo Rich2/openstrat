@@ -3,7 +3,7 @@ package ostrat; package gThree
 import geom._, prid._, Colour._
 
 sealed trait Terr extends WithColour
-object Water extends Terr { def colour = Blue }
+object Water extends Terr { def colour = DarkBlue }
 object Woods extends Terr { def colour = Green }
 object Plain extends Terr { def colour = GoldenRod }
 
@@ -20,5 +20,6 @@ object ThreeScen1 extends ThreeScenStart
 { override implicit val grid: HGrid = HGridReg(2, 6, 2, 10)
   override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
   import terrs.{setRow => sr}
-  //def tr(yRow: Int, cStart: Int, tileValues: Multiple[Terr]*) = terrs.setRow(yRow, cStart, tileValues :_*)(grid)
+  sr(6,2, Water * 2)
+  sr(4, 4, Woods * 2)
 }
