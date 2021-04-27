@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package prid
+package ostrat; package prid
 import geom._, math.sqrt, reflect.ClassTag
 
 /** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
@@ -47,17 +46,20 @@ trait HGrid extends TGrid
     build.buffToArr(buff)
   }
 
+  def tileRowLen(row: Int): Int
+  final def tileRowEmpty(row: Int): Boolean = tileRowLen(row) == 0
+
   override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
 
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())
 
-  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
 
-  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
-   *  data. */
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
+   *  Array data. */
   def arrIndex(r: Int, c: Int): Int
 
   /** New immutable Arr of Tile data. */

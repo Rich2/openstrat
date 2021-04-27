@@ -50,6 +50,21 @@ trait TGrid
   /** Foreach grid Row y coordinate. */
   final def foreachRow(f: Int => Unit): Unit = iToForeach(rTileMin, rTileMax, 2)(f)
 
+  /** maps over each row number. */
+  final def mapRows[B, BB <: ArrImut[B]](f: Int => B)(implicit build: ArrTBuilder[B, BB]): BB =
+  { val res = build.newArr(numOfTileRows)
+    var index = 0
+    foreachRow{r => res.unsafeSetElem(index, f(r)); index += 1 }
+    res
+  }
+
+  /** flatMaps over each row number. */
+  final def flatMapRows[ArrT <: ArrImut[_]](f: Int => ArrT)(implicit build: ArrTFlatBuilder[ArrT]): ArrT =
+  { val buff = build.newBuff(numOfTiles)
+    foreachRow{ r => build.buffGrowArr(buff, f(r)) }
+    build.buffToArr(buff)
+  }
+
   /** Foreach tile centre coordinate. A less strongly typed method than the foreach's in the sub traits. */
   def foreachCenCoord(f: TCoord => Unit): Unit
 

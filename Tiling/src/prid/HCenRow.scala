@@ -3,7 +3,7 @@ package ostrat; package prid
 import geom._
 
 /** A row or a segment a row of Hex tiles in a grid. The start / left centre HexGrid coordinate and the number of tiles in the row.. */
-class HCenRow(val r: Int, val c: Int, val num: Int)
+case class HCenRow(r: Int, c: Int, num: Int)
 {
   def verts: HVerts = new HVerts(setHVertArray)
 
@@ -20,16 +20,16 @@ class HCenRow(val r: Int, val c: Int, val num: Int)
     }
     iToForeach(num, 2, - 1) { i =>
       res.set2Elems(num * 4 - i * 2 - 1, r - 1, c + i * 4 - 2)
-      res.set2Elems(num * 4 - i * 2, r - 1, c + i * 4 - 4)
+      res.set2Elems(num * 4 - i * 2,     r - 1, c + i * 4 - 4)
     }
     res.set2Elems(num * 4 - 3, r - 1, c + 2)
-    res.set2Elems(num * 4 - 2 , r - 1, c)
+    res.set2Elems(num * 4 - 2, r - 1, c)
     res.set2Elems(num * 4 - 1, r - 1, c - 2)
-    res.set2Elems(num * 4, r + 1, c - 2)
+    res.set2Elems(num * 4,     r + 1, c - 2)
     res.set2Elems(num * 4 + 1, r + 1, c)
     res
   }
 
   /** The polygon of this HCenRow of tiles if it is part of a regular grid. */
-  def polygonReg: Polygon = hVertPolygon.toPolygon(_.toPt2)// verts.map(_.toPt2).toPolygon
+  def polygonReg: Polygon = hVertPolygon.toPolygon(_.toPt2)
 }

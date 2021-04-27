@@ -7,6 +7,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
 {
   def length: Int = unsafeArr.length
   def apply(hc: HCen)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(hc))
+  def rc(r: Int, c: Int)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(r, c))
   def mutSetAll(value: A): Unit = iUntilForeach(0, length){i => unsafeArr(i) = value }
 
   /** For each element in the underlying array performs the side effecting function. This method treats the [[HCenArr]] class like a standard Arr or
@@ -42,10 +43,36 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
   {
     val tiles: List[A] = tileValues.toSingles
     tiles.iForeach { (e, i) =>
-      val c = cStart + i * 4//grid.cStep
+      val c = cStart + i * 4
+
       unsafeArr(grid.arrIndex(row, c)) = e
     }
     HCen(row, cStart + (tiles.length - 1) * 4)
+  }
+
+  def rowCombine(implicit grid: HGrid): Arr[(HCenRow, A)] =
+  {
+    grid.flatMapRows[Arr[(HCenRow, A)]]{ r => if (grid.tileRowEmpty(r)) Arr()
+      else
+      { var currStart: Int = grid.cTileMin
+        var currC: Int = currStart
+        var currVal: A = rc(r, currStart)
+        var list: List[(HCenRow, A)] = Nil
+        grid.rowForeach(r){hc =>
+          currC = hc.c
+          if (apply(hc) != currVal) {
+            val newHCenRow = HCenRow(r, currStart, (currC - currStart + 4) / 4)
+            list :+= (newHCenRow, currVal)
+            currVal = apply(hc)
+            currStart = hc.c
+          }
+
+        }
+        val newHCenRow = HCenRow(r, currStart, (currC - currStart + 4) / 4)
+        list :+= ((newHCenRow, currVal))
+        list.toArr
+      }
+    }
   }
 }
 

@@ -45,5 +45,7 @@ object HGridIrr
     override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = ???
 
     override def arrIndex(r: Int, c: Int): Int = ???
+
+    override def tileRowLen(row: Int): Int = ???
   }
 }

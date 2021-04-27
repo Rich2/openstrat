@@ -101,6 +101,12 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
     case y if y == rSideMin => iToForeach(cRow0sMin - 1, cRow0sMax + 1, 2){ c => f(HSide(y, c)) }
     case y => iToForeach(cTileMin - 1, cTileMax + 1, 2){ c => f(HSide(y, c)) }
   }
+
+  override def tileRowLen(row: Int): Int = row %% 4 match {
+    case 0 => row0sTileLen
+    case 2 => row2sTileLen
+    case _ => excep("Invalid row number")
+  }
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

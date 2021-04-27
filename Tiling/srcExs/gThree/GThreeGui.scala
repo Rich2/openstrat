@@ -14,9 +14,10 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
   val hr = new HCenRow(4, 4, 3).polygonReg.fill(Colour.Red)
   val hr2 = new HCenRow(2, 6, 2).polygonReg.fill(Colour.YellowGreen)
   val tiles: Arr[PolygonCompound] = grid.map{ r => r.polygonReg.fillTextActive(terrs(r).colour, r, r.toString, 16) }
-  val row = new HCenRow(6, 2, 4)
 
-  def frame: GraphicElems = (tiles +- grid.sidesDraw() /*+- hr +- hr2*/).gridScale(scale)
+  val rows: Arr[PolygonDraw] = terrs.rowCombine.map{case (hcr, t) => hcr.polygonReg.draw(Colour.Red)}
+  debvar(rows.elemsLen)
+  def frame: GraphicElems = (tiles /*+- grid.sidesDraw() */++ rows).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

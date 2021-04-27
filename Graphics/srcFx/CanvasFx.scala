@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pFx
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pFx
 import geom._, pCanv._, javafx._, scene._
 
 /** A JavaFx implementation of [[CanvasPlatform]]. <a href="https://openjfx.io/index.html">JavaFx 15 documentation</a><br>
@@ -61,7 +60,8 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
 
   /** Needs mod */
   override protected[this] def tlPolyDraw(pd: PolygonDraw): Unit =
-  { gc.setStroke(toFxColor(pd.lineColour))
+  { //gc.beginPath
+    gc.setStroke(toFxColor(pd.lineColour))
     gc.setLineWidth(pd.lineWidth)
     gc.strokePolygon(pd.xVertsArray, pd.yVertsArray, pd.vertsNum)
   }
