@@ -5,7 +5,7 @@ import geom._, prid._, Colour._
 sealed trait Terr extends WithColour
 object Water extends Terr { def colour = DarkBlue }
 object Woods extends Terr { def colour = Green }
-object Plain extends Terr { def colour = MintCream }
+object Plain extends Terr { def colour = Wheat }
 
 trait ThreeScen extends HexGridScen
 { /** tile terrain. */
