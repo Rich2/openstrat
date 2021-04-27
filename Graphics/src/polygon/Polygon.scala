@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import Colour.Black, pWeb._
 
 /** A mathematical closed polygon. The general case can be instantiated with [[PolygonImp]], but it provides the interface for particular sub sets of
@@ -282,12 +281,6 @@ object Polygon
   def uninitialised(length: Int): Polygon = new PolygonImp(new Array[Double](length * 2))
 
   implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqv(p1.vertsArray, p2.vertsArray)
-
-  //  ??? // Eq.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
- // implicit val persistImplicit: Persist[Polygon] = ???
-   /* new ArrProdDbl2Persist[Vec2, PolygonGen]("Polygon")
-  { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
-  }*/
 
   implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)

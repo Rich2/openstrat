@@ -5,14 +5,7 @@ import Colour.Black, pWeb._
 /** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
 final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
-{
-  /** Temporary value to transition from the current data to one where the centre pt included at the start of the underlying Array. */
-  //val ptNumOffset: Int = 0
-
-  /** Temporary value to transition from the current data to one where the centre pt included at the start of the underlying Array. */
-  //def dblsNumOffset: Int = ptNumOffset * 2
-
-  override type ThisT = PolygonImp
+{ override type ThisT = PolygonImp
   override def vert(index: Int): Pt2 = apply(index - 1)
   @inline override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = foreachPairTail(f)
   override def unsafeFromArray(array: Array[Double]): PolygonImp = new PolygonImp(array)
@@ -89,8 +82,6 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   }
 
   def distScale(distRatio: Metres): PolygonMs = pMap[Metres2, PolygonMs](p => p.toDist2(distRatio))
-
-
 }
 
 /** Companion object for [[PolygonImp]]. */

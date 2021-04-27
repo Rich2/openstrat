@@ -15,14 +15,6 @@ class HVertPolygon(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
     ???
   }
 
-  /** Returns the index of the first instance of the HVert value in a [[Some]] otherwise returns [[None]]. */
-  /*def indexOf(value: HVert): Option[Int] =
-  { var res: Option[Int] = None
-    var count = 0
-    while(count < vertNum & res == None) { if (apply(count) == value) res = Some(count) }
-    res
-  }*/
-
   def combine(operand: HVertPolygon): Option[HVertPolygon] =
   {
     var starts: Option[(Int, Int)] = None
