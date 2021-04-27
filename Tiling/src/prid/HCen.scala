@@ -11,7 +11,10 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
   def v4: HVert = HVert(-1, -2)
   def v5: HVert = HVert(1, -2)
   def v6: HVert = HVert(1, 0)
+
+  /** The vertex sequence in [[HVert]] coordinates. This starts with the upper right vertex and proceeds clockwise to the upper vertex. */
   def verts: HVerts = HCen.vertsOfHex00.map(hv => hv + this)
+  
   def hVertsPolygon: HVertPolygon = verts.toPolygon
   def polygon: Polygon = verts.map(_.toPt2).toPolygon
   def fill(colour: Colour): PolygonFill = polygon.fill(colour)
