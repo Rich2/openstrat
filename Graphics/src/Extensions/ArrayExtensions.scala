@@ -1,22 +1,14 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
 package ostrat
 import collection.immutable.ArraySeq
+
 /** Extension methods for Array[A] class */
 class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
 { /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the
    * tail value */
   def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
 
-  def valueProducts[B <: ValueNsArr[A]](implicit factory: Int => B): B = {
-    val length = thisArray.length
-    val valProds = factory(length)
-    var count = 0
-    while (count < length) {
-      valProds.unsafeSetElem(count, thisArray(count))
-      count += 1
-    }
-    valProds
-  }
+
 
   /** foreach loop with counter */
   def iForeach(f: (A, Int) => Unit, count: Int = 0): Unit = {
@@ -37,4 +29,19 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   def toStrsSemiParenth(fToStr: A => String = _.toString): String = toStrsSemiFold(fToStr).enParenth
   def toStr: String = "Arr" + toStrsSemiParenth()
   def toArraySeq: ArraySeq[A] = ArraySeq.unsafeWrapArray(thisArray)
+}
+
+/** Extension methods for Array[A] class */
+class ArrayValueNElemExtensions[A <: ValueNElem](val thisArray: Array[A]) extends AnyVal
+{
+  def valueProducts[B <: ValueNsArr[A]](implicit factory: Int => B): B = {
+    val length = thisArray.length
+    val valProds = factory(length)
+    var count = 0
+    while (count < length) {
+      valProds.unsafeSetElem(count, thisArray(count))
+      count += 1
+    }
+    valProds
+  }
 }

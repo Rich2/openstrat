@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 4 [[Int]]s. These are used in [[Int4sArr]] Array[Int] based collections. */
-trait Int4Elem extends Any with ValueNElem
+trait Int4Elem extends Any with IntNElem
 { def int1: Int
   def int2: Int
   def int3: Int

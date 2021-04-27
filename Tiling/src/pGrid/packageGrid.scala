@@ -16,7 +16,7 @@ package object pGrid
 
   /** Gives a Coods Seq of Cood along a horizontal line */
   def hexSidesHorr(y: Int, cStart: Int, cEnd : Int): Roords =
-  { val cs = if (cStart > cEnd) cStart.roundDownToOdd to cEnd.roundUpToOdd by -2 else cStart.roundUpToOdd to cEnd.roundDownToOdd by 2
+  { val cs: Range = if (cStart > cEnd) cStart.roundDownToOdd to cEnd.roundUpToOdd by -2 else cStart.roundUpToOdd to cEnd.roundDownToOdd by 2
     cs.pMap(c => Roord(y, c))
   }
 

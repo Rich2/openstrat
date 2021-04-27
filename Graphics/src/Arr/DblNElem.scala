@@ -32,7 +32,7 @@ trait Dbl3Elem extends Any with DblNElem
 }
 
 /** An object that can be constructed from 4 [[Double]]s. These are used in [[Dbl4sArr]] Array[Double] based collections. */
-trait Dbl4Elem extends Any with ValueNElem
+trait Dbl4Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
   def dbl3: Double
@@ -40,7 +40,7 @@ trait Dbl4Elem extends Any with ValueNElem
 }
 
 /** An object that can be constructed from 5 [[Double]]s. These are used in [[Dbl5sArr]] Array[Double] based collections. */
-trait Dbl5Elem extends Any with ValueNElem
+trait Dbl5Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
   def dbl3: Double
@@ -49,7 +49,7 @@ trait Dbl5Elem extends Any with ValueNElem
 }
 
 /** An object that can be constructed from 6 [[Double]]s. These are used in [[Dbl6sArr]] Array[Double] based collections. */
-trait Dbl6Elem extends Any with ValueNElem
+trait Dbl6Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
   def dbl3: Double
@@ -59,7 +59,7 @@ trait Dbl6Elem extends Any with ValueNElem
 }
 
 /** An object that can be constructed from 7 [[Double]]s. These are used in [[Dbl7sArr]] Array[Double] based collections. */
-trait Dbl7Elem extends Any with ValueNElem
+trait Dbl7Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
   def dbl3: Double

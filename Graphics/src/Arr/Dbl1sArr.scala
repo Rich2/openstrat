@@ -1,6 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+//trait Dbl1Elem extends DblsNElem
+
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl1Elem]]s. */
 trait Dbl1sArr[A <: Dbl1Elem] extends Any with DblNsArr[A]
 { final override def elemProductNum: Int = 1

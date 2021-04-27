@@ -2,12 +2,14 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
+//trait DblsNElem extends ValueNElem
+
 trait ArrayDblBased extends Any
 { def arrayUnsafe: Array[Double]
 }
 
 /** Base trait for Array[Double] based collections of Products of Doubles. */
-trait DblNsArr[A] extends Any with ValueNsArr[A] with ArrayDblBased
+trait DblNsArr[A <: DblNElem] extends Any with ValueNsArr[A] with ArrayDblBased
 { type ThisT <: DblNsArr[A]
 
   def unsafeFromArray(array: Array[Double]): ThisT
@@ -32,7 +34,7 @@ trait DblNsArr[A] extends Any with ValueNsArr[A] with ArrayDblBased
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsArr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNsArrBuilders[B, ArrB <: DblNsArr[B]] extends ValueNsArrBuilders[B, ArrB]
+trait DblNsArrBuilders[B <: DblNElem, ArrB <: DblNsArr[B]] extends ValueNsArrBuilders[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -43,7 +45,7 @@ trait DblNsArrBuilders[B, ArrB <: DblNsArr[B]] extends ValueNsArrBuilders[B, Arr
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait DblNsBuffer[A] extends Any with ValueNsBuffer[A]
+trait DblNsBuffer[A <: DblNElem] extends Any with ValueNsBuffer[A]
 { type ArrT <: DblNsArr[A]
   def buffer: ArrayBuffer[Double]
 
@@ -54,14 +56,14 @@ trait DblNsBuffer[A] extends Any with ValueNsBuffer[A]
 }
 
 /** Helper trait for Companion objects of [[DblNsArr]] classes. */
-trait DblNsArrCompanion[A, ArrA <: DblNsArr[A]] extends ValueNArrCompanion[A, ArrA]
-{ def prodLen: Int
+trait DblNsArrCompanion[A <: DblNElem, ArrA <: DblNsArr[A]] extends ValueNArrCompanion[A, ArrA]
+{
   implicit val persistImplicit: DblNsArrPersist[A, ArrA]
-  implicit val uninitialised: Int => ArrA = len => persistImplicit.fromArray(new Array[Double](len * prodLen))
+  override implicit def uninitialised(length: Int): ArrA = persistImplicit.fromArray(new Array[Double](length * elemSize))
 }
 
 /** Persists and assists in building [[DblNsArr]]s. */
-abstract class DblNsArrPersist[A, M <: DblNsArr[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr) with EqT[M]
+abstract class DblNsArrPersist[A <: DblNElem, M <: DblNsArr[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

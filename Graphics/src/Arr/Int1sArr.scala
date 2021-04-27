@@ -2,7 +2,7 @@
 package ostrat
 
 /** An object that can be constructed from a single [[Int]]. These are used in [[Int1sArr]] Array[Int] based collections. */
-trait Int1Elem extends Any
+trait Int1Elem extends Any with IntNElem
 { def intValue: Int
   @inline def int1 : Int = intValue
 }

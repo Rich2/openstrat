@@ -2,7 +2,7 @@
 package ostrat
 
 /** An object that can be constructed from a single [[Long]]. These are used in [[Long1Arr]] Array[Int] based collections. */
-trait Long1Elem extends Any
+trait Long1Elem extends Any with LongNElem
 { def intValue: Long
   @inline def _1 : Long = intValue
 }

@@ -2,7 +2,7 @@
 package ostrat
 
 /** An object that can be constructed from 2 [[Int]]s. These are used in [[Int2sArr]] Array[Int] based collections. */
-trait Int2Elem extends Any with ValueNElem
+trait Int2Elem extends Any with IntNElem//ValueNElem
 { def int1: Int
   def int2: Int
 }
@@ -48,11 +48,7 @@ trait Int2sBuffer[A <: Int2Elem, M <: Int2sArr[A]] extends Any with IntNsBuffer[
 /** Helper class for companion objects of final Int2sArr classes. */
 abstract class Int2sArrCompanion[A <: Int2Elem, ArrA <: Int2sArr[A]] extends IntNArrCompanion[A, ArrA]
 {
-  /** This factory method allows the companion object to produce a class of type M, of the given length, with uninitialised Int values in the backing
-   *  unsafe Array[Int]. */
-  implicit val uninitialised: Int => ArrA = i => fromArray(new Array[Int](i * 2))
-
-  //def buff(initialSize: Int): Int2sBuffer[A, M]
+  override def elemSize: Int = 2
 
   /** Apply factory method */
   def apply(elems: A*): ArrA =

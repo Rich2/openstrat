@@ -298,12 +298,29 @@ package object ostrat
   { def toArr: Arr[A] = new Arr(thisBuff.toArray[A])
   }
 
+  implicit class RangeExtensions(range: Range)
+  {
+    /** product map method maps from a Range to an Array based ProductValues class. */
+    def pMap[B <: ValueNElem , M <: ValueNsArr[B]](f: Int => B)(implicit factory: Int => M): M =
+    { val res = factory(range.size)
+      var count: Int = 0
+      range.foreach { orig =>
+        val newValue: B = f(orig)
+        res.unsafeSetElem(count, newValue)
+        count += 1
+      }
+      res
+    }
+  }
+
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
   implicit def arrayToExtensions[A](arr: Array[A]): ArrayExtensions[A] = new ArrayExtensions[A](arr)
+  implicit def arrayValueNElemToExtensions[A <: ValueNElem](arr: Array[A]): ArrayValueNElemExtensions[A] = new ArrayValueNElemExtensions[A](arr)
   implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)
   implicit def doubleToExtensions(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def intToExtensions(i: Int): IntExtensions = new IntExtensions(i)
   implicit def iterableToExtensions[A](iter: Iterable[A]): IterableExtensions[A] = new IterableExtensions[A](iter)
+  implicit def iterableValueNElemToExtensions[A <: ValueNElem](iter: Iterable[A]): IterableValueNElemExtensions[A] = new IterableValueNElemExtensions[A](iter)
   implicit def listToExtensions[A](thisList: List[A]): ListExtensions[A] = new ListExtensions[A](thisList)
 
   implicit def charToExtensions(thisChar: Char): CharExtensions = new CharExtensions(thisChar)
