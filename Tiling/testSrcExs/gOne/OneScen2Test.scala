@@ -8,8 +8,8 @@ object OneScen2Test  extends TestSuite
   val tests = Tests
   {
     "test1" -
-    { g.rTileMin ==> 2
-      g.rTileMax ==> 10
+    { g.rCenMin ==> 2
+      g.rCenMax ==> 10
       g.cTileMin ==> 4
       g.cTileMax ==> 8
       g.numOfRow0s ==> 2

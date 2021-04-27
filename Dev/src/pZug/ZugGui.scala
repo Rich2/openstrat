@@ -9,8 +9,10 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   //val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
-
+  val rows = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   statusText = "Welcome to ZugFuher"
   def thisTop(): Unit = reTop(Arr())
   thisTop()
+  def frame = (rows).gridScale(scale)
+  mainRepaint(frame)
 }

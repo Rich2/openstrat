@@ -46,8 +46,14 @@ trait HGrid extends TGrid
     build.buffToArr(buff)
   }
 
-  def tileRowLen(row: Int): Int
-  final def tileRowEmpty(row: Int): Boolean = tileRowLen(row) == 0
+  /** The length of the tile centres row. */
+  def cenRowLen(row: Int): Int
+
+  /** Is the specified tile centre row empty? */
+  final def cenRowEmpty(row: Int): Boolean = cenRowLen(row) == 0
+
+  /** The minimum or starting column of this tile centre row. */
+  def cenRowMin(row: Int): Int
 
   override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
 

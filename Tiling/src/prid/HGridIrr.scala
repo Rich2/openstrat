@@ -17,9 +17,9 @@ object HGridIrr
    * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
   case class HGridIrrImp(unsafeArray: Array[Int]) extends HGrid
   {
-    override def rTileMin: Int = ???
+    override def rCenMin: Int = ???
 
-    override def rTileMax: Int = ???
+    override def rCenMax: Int = ???
 
     /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
     override def cTileMin: Int = ???
@@ -46,6 +46,8 @@ object HGridIrr
 
     override def arrIndex(r: Int, c: Int): Int = ???
 
-    override def tileRowLen(row: Int): Int = ???
+    override def cenRowLen(row: Int): Int = ???
+
+    override def cenRowMin(row: Int): Int = ???
   }
 }

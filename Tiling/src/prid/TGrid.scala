@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package prid
+package ostrat; package prid
 import geom._, Colour.Black
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
@@ -24,8 +23,11 @@ trait TGrid
    * HexGrids. */
   def numOfTileRows: Int
 
-  def rTileMin: Int
-  def rTileMax: Int
+  /** The minimum row or r number of tile centres. */
+  def rCenMin: Int
+
+  /** The maximum row or r number of tile centres. */
+  def rCenMax: Int
 
   /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
   def cTileMin: Int
@@ -42,13 +44,13 @@ trait TGrid
   def xRatio: Double
 
   def xCen: Double
-  def yCen: Double = (rTileMin + rTileMax) / 2
+  def yCen: Double = (rCenMin + rCenMax) / 2
 
   //def cenPt: Pt2 = Pt2(xCen, yCen)
   def cenVec: Vec2 = Vec2(xCen, yCen)
 
   /** Foreach grid Row y coordinate. */
-  final def foreachRow(f: Int => Unit): Unit = iToForeach(rTileMin, rTileMax, 2)(f)
+  final def foreachRow(f: Int => Unit): Unit = iToForeach(rCenMin, rCenMax, 2)(f)
 
   /** maps over each row number. */
   final def mapRows[B, BB <: ArrImut[B]](f: Int => B)(implicit build: ArrTBuilder[B, BB]): BB =
@@ -102,15 +104,15 @@ trait TGrid
 
   /** The bottom Side Row of this TileGrid. The r value, the row number value.
    *  @group SidesGroup */
-  @inline final def rSideMin: Int = rTileMin - 1
+  @inline final def rSideMin: Int = rCenMin - 1
 
   /** The top Side Row of this TileGrid. The r value, the row number.
    *  @group SidesGroup*/
-  @inline final def rSideMax: Int = rTileMax + 1
+  @inline final def rSideMax: Int = rCenMax + 1
 
   /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
-  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(rTileMin - 1, rTileMax + 1)(f)
+  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(rCenMin - 1, rCenMax + 1)(f)
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */

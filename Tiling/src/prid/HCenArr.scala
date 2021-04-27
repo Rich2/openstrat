@@ -18,7 +18,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
    *  function. */
   def cForeach[U](f: (A, HCen) => U)(implicit grid: HGrid): Unit = grid.iForeach{ (hc, i) => f(unsafeArr(i), hc); () }
 
-  /** Each element in the underlying array is mapped by the parameter function to an element of type B. This method treat the HcenArr class like a
+  /** Each element in the underlying array is mapped by the parameter function to an element of type B. This method treat the [[HCenArr]] class like a
    *  standard Arr or Array. It does not utilise the grid HGrid from which this HCenArr was created. */
   def map[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrTBuilder[B, BB]): BB =
   { val res = build.newArr(length)
@@ -50,26 +50,26 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
     HCen(row, cStart + (tiles.length - 1) * 4)
   }
 
-  def rowCombine(implicit grid: HGrid): Arr[(HCenRow, A)] =
+  def rowCombine(implicit grid: HGrid): Arr[HCenRowValue[A]] =
   {
-    grid.flatMapRows[Arr[(HCenRow, A)]]{ r => if (grid.tileRowEmpty(r)) Arr()
+    grid.flatMapRows[Arr[HCenRowValue[A]]]{ r => if (grid.cenRowEmpty(r)) Arr()
       else
-      { var currStart: Int = grid.cTileMin
+      { var currStart: Int = grid.cenRowMin(r)
         var currC: Int = currStart
         var currVal: A = rc(r, currStart)
-        var list: List[(HCenRow, A)] = Nil
+        var list: List[HCenRowValue[A]] = Nil
         grid.rowForeach(r){hc =>
           currC = hc.c
           if (apply(hc) != currVal) {
-            val newHCenRow = HCenRow(r, currStart, (currC - currStart + 4) / 4)
-            list :+= (newHCenRow, currVal)
+            val newHCenRowValue = HCenRowValue(r, currStart, (currC - currStart + 4) / 4, currVal)
+            list :+= newHCenRowValue
             currVal = apply(hc)
             currStart = hc.c
           }
 
         }
-        val newHCenRow = HCenRow(r, currStart, (currC - currStart + 4) / 4)
-        list :+= ((newHCenRow, currVal))
+        val newHCenRowValue = HCenRowValue(r, currStart, (currC - currStart + 4) / 4, currVal)
+        list :+= newHCenRowValue
         list.toArr
       }
     }

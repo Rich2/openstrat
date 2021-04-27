@@ -2,9 +2,11 @@
 package ostrat; package prid
 import geom._
 
-/** A row or a segment a row of Hex tiles in a grid. The start / left centre HexGrid coordinate and the number of tiles in the row.. */
-case class HCenRow(r: Int, c: Int, num: Int)
+trait HCenRowLike
 {
+  def r: Int
+  def c: Int
+  def num: Int
   def verts: HVerts = new HVerts(setHVertArray)
 
   /** The polygon of this tile, specified in [[HVert]] coordinates. */
@@ -33,3 +35,8 @@ case class HCenRow(r: Int, c: Int, num: Int)
   /** The polygon of this HCenRow of tiles if it is part of a regular grid. */
   def polygonReg: Polygon = hVertPolygon.toPolygon(_.toPt2)
 }
+
+/** A row or a segment a row of Hex tiles in a grid. The start / left centre HexGrid coordinate and the number of tiles in the row.. */
+case class HCenRow(r: Int, c: Int, num: Int) extends HCenRowLike
+
+case class HCenRowValue[A](r: Int, c: Int, num: Int, value: A) extends HCenRowLike

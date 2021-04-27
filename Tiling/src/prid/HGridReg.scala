@@ -4,20 +4,19 @@ package ostrat; package prid
 /** A Regular hex grid where the rows have the same length, except div4rem2 rows may differ in length by 1 from div4rem0 rows. A div4rem2 row is
  * where the y coordinate divided by 4 has a remainder of 2. This class replaces the old [[HexGridReg]], which used [[Roord]]s rather than
 *  [[HCen]]s etc. */
-class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTileMax: Int) extends HGrid
+class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileMax: Int) extends HGrid
 {
   override def width: Double = xRight - xLeft
   override def height: Double =xTop - xBottom
   def xLeft: Double = (cTileMin - 2) * xRatio
   def xRight: Double = (cTileMax + 2) * xRatio
-  def xTop: Double = rTileMax + 4.0 / 3
-  def xBottom: Double = rTileMin - 4.0 / 3
+  def xTop: Double = rCenMax + 4.0 / 3
+  def xBottom: Double = rCenMin - 4.0 / 3
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline def arrIndex(r: Int, c: Int): Int =
-  {
-    val thisRow: Int = r %% 4 match
+  { val thisRow: Int = r %% 4 match
     { case 2 => (c - cRow2sMin) / 4
       case 0 => (c - cRow0sMin) / 4
     }
@@ -26,46 +25,55 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
     r0s + r2s + thisRow
   }
 
-  /** Minimum c for Rows where r.Div4Rem2. */
+  /** Minimum column or c value for tile centre rows where r.Div4Rem2. */
   def cRow2sMin: Int = cTileMin.roundUpTo(_.div4Rem2)
 
-  /** Maximum c for Rows where r.Div4Rem2. */
+  /** Maximum column or c value for tile centre rows where r.Div4Rem2. */
   def cRow2sMax: Int = cTileMax.roundDownTo(_.div4Rem2)
 
+  /** Length or number of tiles for tile centre rows where r.Div4Rem2. */
   def row2sTileLen = ((cRow2sMax - cRow2sMin + 4) / 4).atLeast0
 
-  /** Minimum c for Rows where r.Div4Rem0. */
+  /** Minimum c or column vlaue for tile centre rows where r.Div4Rem0. */
   def cRow0sMin: Int = cTileMin.roundUpTo(_.div4Rem0)
 
-  /** Maximum x for Rows where r.Div4Rem0. */
+  /** Maximum column or c value for tile centre rows where r.Div4Rem0. */
   def cRow0sMax: Int = cTileMax.roundDownTo(_.div4Rem0)
 
+  /** Length or number of tiles for tile centre rows where r.Div4Rem0. */
   def row0sTileLen = ((cRow0sMax - cRow0sMin + 4) / 4).max(0)
-  def rRow2sMin: Int = rTileMin.roundUpTo(_.div4Rem2)
-  def rRow2sMax: Int = rTileMax.roundDownTo(_.div4Rem2)
+
+  /** The lowest row or value, i.e the bottom row, where r.Div4Rem2. */
+  def rRow2sMin: Int = rCenMin.roundUpTo(_.div4Rem2)
+
+  /** The maximum row or value, i.e the top row, where r.Div4Rem2. */
+  def rRow2sMax: Int = rCenMax.roundDownTo(_.div4Rem2)
+
   /** Number of Rows where r.Div4Rem2. */
   def numOfRow2s: Int = ((rRow2sMax - rRow2sMin + 4) / 4).max(0)
 
-  def rRow0sMin: Int = rTileMin.roundUpTo(_.div4Rem0)
-  def rRow0sMax: Int = rTileMax.roundDownTo(_.div4Rem0)
+  /** The minimum row or value, ie the bottom row where r.Div4Rem0. */
+  def rRow0sMin: Int = rCenMin.roundUpTo(_.div4Rem0)
+
+  /** The maximum row or value, ie the top row where r.Div4Rem0. */
+  def rRow0sMax: Int = rCenMax.roundDownTo(_.div4Rem0)
+
   /** The r coordinate of the bottom row of this grid divided by 4 leaves remainder of 2. */
-  def bottomRowIs2: Boolean = rTileMin.div4Rem2
+  def bottomRowIs2: Boolean = rCenMin.div4Rem2
 
   /** The r coordinate of the bottom row of this grid divided br 4 leaves remainder of 0. */
-  def bottomRowIs0: Boolean = rTileMin.div4Rem0
+  def bottomRowIs0: Boolean = rCenMin.div4Rem0
 
   /** The r coordinate of the top row of this grid divided br 4 leaves remainder of 2. */
-  def topRowIs2: Boolean = rTileMin.div4Rem2
+  def topRowIs2: Boolean = rCenMin.div4Rem2
 
   /** The r coordinate of the top row of this grid divided by 4 leaves remainder of 0. */
-  def topRowIs0: Boolean = rTileMin.div4Rem0
+  def topRowIs0: Boolean = rCenMin.div4Rem0
 
   /** Number of Rows where r.Div4Rem0. */
   def numOfRow0s: Int = ((rRow0sMax - rRow0sMin + 4) / 4).max(0)
 
   override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
-
-
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
   override def rowForeach(r: Int)(f: HCen => Unit): Unit =
@@ -102,11 +110,18 @@ class HGridReg(val rTileMin: Int, val rTileMax: Int, val cTileMin: Int, val cTil
     case y => iToForeach(cTileMin - 1, cTileMax + 1, 2){ c => f(HSide(y, c)) }
   }
 
-  override def tileRowLen(row: Int): Int = row %% 4 match {
+  override def cenRowLen(row: Int): Int = row %% 4 match {
     case 0 => row0sTileLen
     case 2 => row2sTileLen
     case _ => excep("Invalid row number")
   }
+
+  override def cenRowMin(row: Int): Int = row %% 4 match {
+    case 0 => cRow0sMin
+    case 2 => cRow2sMin
+    case _ => excep("Invalid row number")
+  }
+
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */
