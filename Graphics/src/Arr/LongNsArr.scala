@@ -2,6 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
+/** A class that can be constructed from a fixed number of [[Long]]s. It can be stored as an Array[Long] of primitive values. */
 trait LongNElem extends Any with ValueNElem
 
 /** Base trait for Array[Long] based collections of Products of Longs. */

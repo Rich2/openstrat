@@ -2,6 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
+/** A class that can be construct from a fixed number of [[Int]]s can be stored as an Array[Int] of primitive values. */
 trait IntNElem extends Any with ValueNElem
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
@@ -55,7 +56,8 @@ abstract class IntNsArrPersist[A <: IntNElem, M <: IntNsArr[A]](typeStr: String)
   override def newBuffer: Buff[Int] = Buff[Int](0)
 }
 
-/** Helper trait for Companion objects of IntNArr collection classes, where the type parameter M is they type of the of the collection class. */
+/** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the of the
+ *  collection class. */
 trait IntNArrCompanion[A <: IntNElem, ArrA <: IntNsArr[A]] extends ValueNArrCompanion[A, ArrA]
 { /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an ArrayBuffer[Int]. */
   def fromBuffer(buff: Buff[Int]): ArrA = fromArray(buff.toArray[Int])
