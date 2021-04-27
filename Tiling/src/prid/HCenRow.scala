@@ -5,30 +5,37 @@ import geom._
 /** A row or a segment a row of Hex tiles in a grid. The start / left centre HexGrid coordinate and the number of tiles in the row.. */
 class HCenRow(val r: Int, val c: Int, val num: Int)
 {
-  def verts: HVerts =
-  {
-    val res = HVerts.uninitialised(num * 4 + 2)
-    res
-  }
+  def verts: HVerts = new HVerts(setHVertArray)
 
   /** The polygon of this tile, specified in [[HVert]] coordinates. */
-  def hVertPolygon: HVertPolygon =
+  def hVertPolygon: HVertPolygon = new HVertPolygon(setHVertArray)
+
+  def setHVertArray: Array[Int] =
   {
-    val res = HVertPolygon.uninitialised(num * 4 + 2)
-    res.unsafeSetElemInts(0, r + 1, c + 1)
-    iToForeach(1, num - 1){ i =>
-      res.unsafeSetElemInts(i * 2 - 1, r + 1, c + i * 2)
-      res.unsafeSetElemInts(i * 2, r + 1, c + i * 2 + 1)
+    val res = new Array[Int]((num * 4 + 2) * 2)
+    res.set2Elems(0, r + 1, c + 2)
+    var index = 1
+    iToForeach(2, num ){ i =>
+      res.set2Elems(index, r + 1, c + i * 4 - 4)
+      index += 1
+      res.set2Elems(index, r + 1, c + i * 4 - 2)
+      index += 1
     }
-    iToForeach(num - 1, 1, - 1) { i =>
-      res.unsafeSetElemInts(num * 3 - i + 1, r - 1, c + i * 2 + 1)
-      res.unsafeSetElemInts(num * 3 - i + 2, r - 1, c + i * 2)
+    iToForeach(num, 2, - 1) { i =>
+      res.set2Elems(index, r - 1, c + i * 4 - 2)
+      index += 1
+      res.set2Elems(index, r - 1, c + i * 4 - 4)
+      index += 1
     }
-    res.unsafeSetElemInts(num * 4 + 1, r - 1, c + 1)
-    res.unsafeSetElemInts(num * 4 + 2, r - 1, c)
-    res.unsafeSetElemInts(num * 4 + 3, r - 1, c - 1)
-    res.unsafeSetElemInts(num * 4 + 4, r + 1, c - 1)
-    res.unsafeSetElemInts(num * 4 + 5, r + 1, c)
+    res.set2Elems(index, r - 1, c + 2)
+    index += 1
+    res.set2Elems(index, r - 1, c)
+    index += 1
+    res.set2Elems(index, r - 1, c - 2)
+    index += 1
+    res.set2Elems(index, r + 1, c - 2)
+    index += 1
+    res.set2Elems(index, r + 1, c)
     res
   }
 

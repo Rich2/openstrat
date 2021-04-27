@@ -135,8 +135,8 @@ package object ostrat
   /** foreachs over a range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iTo == iFrom & iStep == 0) throw excep("Loop step can not be 0.")
-    if (iTo > iFrom & iStep <= 0) throw excep("Loop step must be greater then 0. if to-value greater then from-value.")
-    if (iTo < iFrom & iStep >= 0) throw excep("Loop step must be less then 0. if to-value less then from-value.")
+   // if (iTo > iFrom & iStep <= 0) throw excep("Loop step must be greater then 0. if to-value greater then from-value.")
+   // if (iTo < iFrom & iStep >= 0) throw excep("Loop step must be less then 0. if to-value less then from-value.")
     var i: Int = iFrom
     while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
   }
@@ -311,6 +311,11 @@ package object ostrat
       }
       res
     }
+  }
+
+  implicit class ArrayIntExtension(array: Array[Int])
+  {
+    def set2Elems(index: Int, i1: Int, i2: Int): Unit = { array(index * 2) = i1; array(index * 2 + 1) = i2 }
   }
 
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)

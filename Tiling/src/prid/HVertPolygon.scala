@@ -12,7 +12,9 @@ class HVertPolygon(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
 
   def toPolygon(f: HVert => Pt2): Polygon =
   {
-    ???
+    val res = PolygonImp.uninitialised(elemsLen)
+    iForeach((hv, i) => res.unsafeSetElem(i, f(hv)))
+    res
   }
 
   def combine(operand: HVertPolygon): Option[HVertPolygon] =
