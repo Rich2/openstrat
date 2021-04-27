@@ -63,5 +63,6 @@ trait IntNArrCompanion[A <: IntNElem, ArrA <: IntNsArr[A]] extends ValueNArrComp
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an Array[Int]. */
   def fromArray(array: Array[Int]): ArrA
 
+  /** returns a collection class of type ArrA, whose backing Array[Int] is uninitialised. */
   override implicit def uninitialised(length: Int): ArrA = fromArray(new Array[Int](length * elemSize))
 }

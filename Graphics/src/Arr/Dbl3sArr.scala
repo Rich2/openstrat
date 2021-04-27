@@ -1,6 +1,17 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+/** An object that can be constructed from 3 [[Double]]s. These are used in [[Dbl3sArr]] Array[Double] based collections. */
+trait Dbl3Elem extends Any with DblNElem
+{ def dbl1: Double
+  def dbl2: Double
+  def dbl3: Double
+  def dblsEqual(that: Dbl3Elem): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2 & dbl3 == that.dbl3
+
+  def dblsApprox(that: Dbl3Elem, delta: Double = 1e-12): Boolean =
+    dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta) & dbl3.=~(that.dbl3, delta)
+}
+
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl3Elem]]s. */
 trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsArr[A]
 { def elemProductNum = 3
@@ -17,17 +28,17 @@ trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsArr[A]
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. Instances for
  *  [[ArrTFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl3sArrBuilders[A <: Dbl3Elem, ArrA <: Dbl3sArr[A]] extends DblNsArrBuilders[A, ArrA]
-{ type BuffT <: Dbl3sBuffer[A]
+trait Dbl3sArrBuilders[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrBuilders[B, ArrB]
+{ type BuffT <: Dbl3sBuffer[B]
 
   final override def elemSize = 3
   //def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
 
-  override def arrSet(arr: ArrA, index: Int, value: A): Unit =
+  override def arrSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl2; arr.arrayUnsafe(index * 3 + 2) = value.dbl3
   }
 
-  override def buffGrow(buff: BuffT, value: A): Unit = ??? //{ buff.append(value.dbl1,) ??? //buff.buffer.append(value)
+  override def buffGrow(buff: BuffT, value: B): Unit = ??? //{ buff.append(value.dbl1,) ??? //buff.buffer.append(value)
 }
 
 /** Class for the singleton companion objects of [[Dbl3sArr]] final classes to extend. */

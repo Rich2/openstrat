@@ -25,9 +25,9 @@ trait LongNsBuffer[A <: LongNElem] extends Any with ValueNsBuffer[A]
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[LongNsArr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-abstract class LongNsArrBuilders[A <: LongNElem, M <: LongNsArr[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr)
+abstract class LongNsArrBuilders[B <: LongNElem, ArrB <: LongNsArr[B]](typeStr: String) extends ValueNsArrPersist[B, ArrB](typeStr)
 { type VT = Long
-  override def fromBuffer(buf: Buff[Long]): M = fromArray(buf.toArray)
+  override def fromBuffer(buf: Buff[Long]): ArrB = fromArray(buf.toArray)
   override def newBuffer: Buff[Long] = Buff[Long](0)
 }
 

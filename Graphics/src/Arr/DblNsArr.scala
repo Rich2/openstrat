@@ -2,7 +2,10 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-//trait DblsNElem extends ValueNElem
+/** An object that can be constructed from N [[Double]]s. These are used as elements in [[DblNsArr]] Array[Double] based collections. */
+trait DblNElem extends Any with ValueNElem
+{ //def defaultDelta: Double = 1e-12
+}
 
 trait ArrayDblBased extends Any
 { def arrayUnsafe: Array[Double]
@@ -59,6 +62,8 @@ trait DblNsBuffer[A <: DblNElem] extends Any with ValueNsBuffer[A]
 trait DblNsArrCompanion[A <: DblNElem, ArrA <: DblNsArr[A]] extends ValueNArrCompanion[A, ArrA]
 {
   implicit val persistImplicit: DblNsArrPersist[A, ArrA]
+
+  /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   override implicit def uninitialised(length: Int): ArrA = persistImplicit.fromArray(new Array[Double](length * elemSize))
 }
 

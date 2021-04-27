@@ -2,6 +2,14 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
+/** An object that can be constructed from 2 [[Double]]s. These are used as elements in [[Dbl2sArr]] Array[Double] based collections. */
+trait Dbl2Elem extends Any with DblNElem
+{ def dbl1: Double
+  def dbl2: Double
+  def dblsEqual(that: Dbl2Elem): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2
+  def dblsApprox(that: Dbl2Elem, delta: Double = 1e-12): Boolean = dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta)
+}
+
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl2Elem]]s. */
 trait Dbl2sArr[A <: Dbl2Elem] extends Any with DblNsArr[A]
 { type ThisT <: Dbl2sArr[A]

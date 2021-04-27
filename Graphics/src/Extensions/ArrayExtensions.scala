@@ -31,7 +31,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
   def toArraySeq: ArraySeq[A] = ArraySeq.unsafeWrapArray(thisArray)
 }
 
-/** Extension methods for Array[A] class */
+/** Extension methods for Array[A <: ValueNElem] class */
 class ArrayValueNElemExtensions[A <: ValueNElem](val thisArray: Array[A]) extends AnyVal
 {
   def valueProducts[B <: ValueNsArr[A]](implicit factory: Int => B): B = {

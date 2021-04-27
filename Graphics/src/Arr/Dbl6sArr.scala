@@ -1,6 +1,16 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+/** An object that can be constructed from 6 [[Double]]s. These are used in [[Dbl6sArr]] Array[Double] based collections. */
+trait Dbl6Elem extends Any with DblNElem
+{ def dbl1: Double
+  def dbl2: Double
+  def dbl3: Double
+  def dbl4: Double
+  def dbl5: Double
+  def dbl6: Double
+}
+
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl6Elem]]s. */
 trait Dbl6sArr[A <: Dbl6Elem] extends Any with DblNsArr[A]
 { def elemProductNum: Int = 6
@@ -20,7 +30,6 @@ trait Dbl6sArr[A <: Dbl6Elem] extends Any with DblNsArr[A]
   def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2); def head4: Double = arrayUnsafe(3); def head5: Double = arrayUnsafe(4)
   def head6: Double = arrayUnsafe(5)
 
-  //def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6))
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6)))
 }
 

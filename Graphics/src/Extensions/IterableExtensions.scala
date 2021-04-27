@@ -94,7 +94,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit ev: ArrTBuilder[B, BB]): BB = ev.iterMap[A](thisIter, f)
 }
 
-/** Extension methods for [[Iterable]][A]. */
+/** Extension methods for [[Iterable]][A <: ValueNElem]. */
 class IterableValueNElemExtensions[A <: ValueNElem](val thisIter: Iterable[A]) extends AnyVal
 {
   /** product map method maps from a Traversable to an Array based ProductValues class. */

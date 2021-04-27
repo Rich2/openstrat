@@ -91,7 +91,7 @@ trait ValueNArrCompanion[A <: ValueNElem, ArrA <: ValueNsArr[A]]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: ValueNsArr[A]
 
-  /** This function produces a collection class of type ArrA, whose backing Array is uninitalised. */
+  /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   implicit def uninitialised(length: Int): ArrA
 
   /** the product size of the ValueNsArr type's elements. */
