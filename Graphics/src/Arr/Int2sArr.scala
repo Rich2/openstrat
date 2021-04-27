@@ -16,6 +16,8 @@ trait Int2sArr[A <: Int2Elem] extends Any with IntNsArr[A]
 
   final override def unsafeSetElem(index: Int, elem: A): Unit = { arrayUnsafe(2 * index) = elem.int1; arrayUnsafe(2 * index + 1) = elem.int2 }
 
+  def unsafeSetElemInts(index: Int, int1: Int, int2: Int): Unit = { arrayUnsafe(2 * index) = int1; arrayUnsafe(2 * index + 1) = int2 }
+
   def head1: Int = arrayUnsafe(0)
   def head2: Int = arrayUnsafe(1)
 }
