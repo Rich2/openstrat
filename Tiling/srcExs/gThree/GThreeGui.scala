@@ -12,7 +12,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   def hexStrs: Arr[TextGraphic] = grid.rcTexts
 
-  val tiles: Arr[PolygonCompound] = grid.map{ r => r.polygon.fillTextActive(terrs(r).colour, r, r.toString, 16) }
+  val tiles: Arr[PolygonCompound] = grid.map{ r => r.polygonReg.fillTextActive(terrs(r).colour, r, r.toString, 16) }
 
   def frame: GraphicElems = (tiles +- grid.sidesDraw()).gridScale(scale)
   def repaint() = mainRepaint(frame)

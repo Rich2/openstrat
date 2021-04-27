@@ -12,13 +12,13 @@ trait ValueNsArr[A] extends Any with ArrImut[A]
 
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
    *  class. */
-  def elemvaluesNum: Int
+  def elemProductNum: Int
 
   /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
   def arrLen: Int
 
-
-  final def elemsLen: Int = arrLen / elemvaluesNum
+  /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
+  final def elemsLen: Int = arrLen / elemProductNum
 
   def pMap[B, N <: ValueNsArr[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(elemsLen)

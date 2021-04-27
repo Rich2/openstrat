@@ -1,5 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
+import geom._
 
 class HVertPolygon(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
 { override type ThisT = HVertPolygon
@@ -8,6 +9,11 @@ class HVertPolygon(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
 
   /** This applies the index value in a circular manner. So the 6th index of a Hexagon is applied at vertex 0, 7 at 1 and -1 at 5. */
   def circularIndex(inp: Int): Int = inp %% vertNum
+
+  def toPolygon(f: HVert => Pt2): Polygon =
+  {
+    ???
+  }
 
   /** Returns the index of the first instance of the HVert value in a [[Some]] otherwise returns [[None]]. */
   /*def indexOf(value: HVert): Option[Int] =

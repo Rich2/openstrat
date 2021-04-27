@@ -13,7 +13,7 @@ trait Int4Elem extends Any with ValueNElem
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int4Elem]]s. */
 trait Int4sArr[A <: Int4Elem] extends Any with IntNsArr[A]
 {
-  override def elemvaluesNum: Int = 4
+  override def elemProductNum: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
   def apply(index: Int): A = newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   override def unsafeSetElem(index: Int, elem: A): Unit =

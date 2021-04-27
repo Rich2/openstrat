@@ -3,7 +3,7 @@ package ostrat
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl7Elem]]s. */
 trait Dbl7sArr[A <: Dbl7Elem] extends Any with DblNsArr[A]
-{ def elemvaluesNum: Int = 7
+{ def elemProductNum: Int = 7
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
   def apply(index: Int): A =

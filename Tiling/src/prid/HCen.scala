@@ -14,11 +14,15 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
 
   /** The vertex sequence in [[HVert]] coordinates. This starts with the upper right vertex and proceeds clockwise to the upper vertex. */
   def verts: HVerts = HCen.vertsOfHex00.map(hv => hv + this)
-  
-  def hVertsPolygon: HVertPolygon = verts.toPolygon
-  def polygon: Polygon = verts.map(_.toPt2).toPolygon
-  def fill(colour: Colour): PolygonFill = polygon.fill(colour)
-  def active(id: Any = this): PolygonActive = polygon.active(id)
+
+  /** The polygon of this tile, specified in [[HVert]] coordinates. */
+  def hVertPolygon: HVertPolygon = verts.toPolygon
+
+  /** The polygon of this hex tile if it is part of a regular grid. */
+  def polygonReg: Polygon = verts.map(_.toPt2).toPolygon
+
+  def fill(colour: Colour): PolygonFill = polygonReg.fill(colour)
+  def active(id: Any = this): PolygonActive = polygonReg.active(id)
   override def typeStr: String = "HCen"
 
   /** Step to adjacent hex tile. */

@@ -10,7 +10,7 @@ trait Long1Elem extends Any
 /** A specialised immutable, flat Array[Long] based collection of a type of [[Long1Elem]]s. */
 trait Long1sArr[A <: Long1Elem] extends Any with LongNsArr[A]
 {
-  final override def elemvaluesNum: Int = 1
+  final override def elemProductNum: Int = 1
   def newElem(intValue: Long): A
   final override def apply(index: Int): A = newElem(array(index))
   final override def unsafeSetElem(index: Int, elem: A): Unit = array(index) = elem.intValue

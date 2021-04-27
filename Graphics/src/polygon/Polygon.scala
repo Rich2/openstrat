@@ -253,7 +253,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double]
 
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =
-  { val res = PolygonImp.factory(vertsNum + 1)
+  { val res = PolygonImp.uninitialised(vertsNum + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, vert(i)))
     res.unsafeSetElem(insertionPoint, newVec)
     (insertionPoint until vertsNum).foreach(i => res.unsafeSetElem(i + 1, vert(i)))
@@ -262,7 +262,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double]
 
   /** Insert vertices before the specified insertion vertex. */
   def insVerts(insertionPoint: Int, newVecs: Pt2 *): Polygon =
-  { val res = PolygonImp.factory(vertsNum + newVecs.length)
+  { val res = PolygonImp.uninitialised(vertsNum + newVecs.length)
     (1 until insertionPoint).foreach(i => res.unsafeSetElem(i - 1, vert(i)))
     newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i -1, elem))
     (insertionPoint until vertsNum + 1).foreach(i => res.unsafeSetElem(i + newVecs.length -1, vert(i)))
@@ -278,6 +278,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double]
 object Polygon
 {
   def apply(v1: Pt2, v2: Pt2, v3: Pt2, tail: Pt2 *): Polygon = PolygonImp(v1, v2, v3, tail: _*)
+
+  def uninitialised(length: Int): Polygon = new PolygonImp(new Array[Double](length * 2))
 
   implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqv(p1.vertsArray, p2.vertsArray)
 

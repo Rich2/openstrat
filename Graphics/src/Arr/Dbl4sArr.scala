@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
 trait Dbl4sArr[A <: Dbl4Elem] extends Any with DblNsArr[A]
 {
-  def elemvaluesNum: Int = 4
+  def elemProductNum: Int = 4
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
   def apply(index: Int): A = newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
 

@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import Colour.Black, pWeb._
 
 /** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a
@@ -8,10 +7,10 @@ import Colour.Black, pWeb._
 final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
 {
   /** Temporary value to transition from the current data to one where the centre pt included at the start of the underlying Array. */
-  val ptNumOffset: Int = 0
+  //val ptNumOffset: Int = 0
 
   /** Temporary value to transition from the current data to one where the centre pt included at the start of the underlying Array. */
-  def dblsNumOffset: Int = ptNumOffset * 2
+  //def dblsNumOffset: Int = ptNumOffset * 2
 
   override type ThisT = PolygonImp
   override def vert(index: Int): Pt2 = apply(index - 1)
@@ -19,28 +18,28 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
   override def unsafeFromArray(array: Array[Double]): PolygonImp = new PolygonImp(array)
   @inline override def vertsArray: Array[Double] = arrayUnsafe
   override def typeStr: String = "Polygon"
-  override def vertsNum: Int = arrayUnsafe.length / 2 - dblsNumOffset
+  override def vertsNum: Int = arrayUnsafe.length / 2 //- dblsNumOffset
   //override def productArity: Int = 1
   //override def productElement(n: Int): Any = arrayUnsafe
   override def foldLeft[B](initial: B)(f: (B, Pt2) => B): B = super.foldLeft(initial)(f)
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   @inline override def polygonMap(f: Pt2 => Pt2): PolygonImp = vertsMap(f).toPolygon
-  override def xVert(index: Int): Double = arrayUnsafe(index * 2 + dblsNumOffset)
-  override def yVert(index: Int): Double = arrayUnsafe(index * 2 + 1 + dblsNumOffset)
-  @inline def v1x: Double = arrayUnsafe(0 + dblsNumOffset)
-  @inline def v1y: Double = arrayUnsafe(1 + dblsNumOffset)
+  override def xVert(index: Int): Double = arrayUnsafe(index * 2)// + dblsNumOffset)
+  override def yVert(index: Int): Double = arrayUnsafe(index * 2 + 1)// + dblsNumOffset)
+  @inline def v1x: Double = arrayUnsafe(0)// + dblsNumOffset)
+  @inline def v1y: Double = arrayUnsafe(1)// + dblsNumOffset)
   @inline def v1: Pt2 = v1x pp v1y
   override def vertsTrans(f: Pt2 => Pt2): PolygonImp = new PolygonImp(arrTrans(f))
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   @inline override def ptsTrans(f: Pt2 => Pt2): PolygonImp = vertsTrans(f)
 
-  override def foreachVert[U](f: Pt2 => U): Unit =iUntilForeach(dblsNumOffset, arrayUnsafe.length, 2){ i =>
+  override def foreachVert[U](f: Pt2 => U): Unit =iUntilForeach(0, arrayUnsafe.length, 2){ i =>
     f(Pt2(arrayUnsafe(i), arrayUnsafe(i + 1))); ()
   }
 
-  override def foreachVertTail[U](f: Pt2 => U): Unit = iUntilForeach(dblsNumOffset + 2, arrayUnsafe.length, 2){ i =>
+  override def foreachVertTail[U](f: Pt2 => U): Unit = iUntilForeach(2, arrayUnsafe.length, 2){ i =>
     f(Pt2(arrayUnsafe(i), arrayUnsafe(i + 1))); ()
   }
 
@@ -73,7 +72,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   /** Insert vertex. */
   override def insVert(insertionPoint: Int, newVec: Pt2): PolygonImp =
-  { val res = PolygonImp.factory(elemsLen + 1)
+  { val res = PolygonImp.uninitialised(elemsLen + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     res.unsafeSetElem(insertionPoint, newVec)
     (insertionPoint until elemsLen).foreach(i => res.unsafeSetElem(i + 1, apply(i)))
@@ -82,7 +81,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
   /** Insert vertices */
   override def insVerts(insertionPoint: Int, newVecs: Pt2 *): PolygonImp =
-  { val res = PolygonImp.factory(elemsLen + newVecs.length)
+  { val res = PolygonImp.uninitialised(elemsLen + newVecs.length)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
     (insertionPoint until elemsLen).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
@@ -96,11 +95,11 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 
 /** Companion object for [[PolygonImp]]. */
 object PolygonImp
-{ implicit val factory: Int => PolygonImp = i => new PolygonImp(new Array[Double](i * 2))
+{ implicit val uninitialised: Int => PolygonImp = i => new PolygonImp(new Array[Double](i * 2))
 
   def apply(v1: Pt2, v2: Pt2, v3: Pt2, tail: Pt2 *): PolygonImp =
   { val len = (3 + tail.length)
-    val res = factory(len)
+    val res = uninitialised(len)
     res.unsafeSetElems(0, v1, v2, v3)
     res.unsafeSetElemSeq(3, tail)
     res
@@ -113,12 +112,4 @@ object PolygonImp
 
     override def showT(obj: PolygonImp, way: Show.Way, decimalPlaces: Int): String = ???
   }
-
-  /*implicit val polygonsBuildImplicit: ArrBuild[PolygonGen, Polygons] = new ArrArrayDblBuild[PolygonGen, Polygons]
-  {
-    override type BuffT = PolygonBuff
-    def fromArray(array: Array[Array[Double]]): Polygons = new Polygons(array)
-
-    override def newBuff(length: Int):  BuffT = ???
-  }*/
 }

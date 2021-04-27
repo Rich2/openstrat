@@ -10,7 +10,7 @@ trait Int2Elem extends Any with ValueNElem
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */
 trait Int2sArr[A <: Int2Elem] extends Any with IntNsArr[A]
 {
-  override def elemvaluesNum: Int = 2
+  override def elemProductNum: Int = 2
   def newElem(i1: Int, i2: Int): A
   final override def apply(index: Int): A = newElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 

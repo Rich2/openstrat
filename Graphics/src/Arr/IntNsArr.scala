@@ -14,13 +14,10 @@ trait IntNsArr[A] extends Any with ValueNsArr[A]
   def unsafeFromArray(array: Array[Int]): ThisT
 
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
-  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemvaluesNum))
+  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemProductNum))
 
   /** The length of the Array[Int] backing array. */
   def arrLen = arrayUnsafe.length
-
-  /** The number of Ints, that specify / construct an element of this immutable flat Array based collection class. */
-  def elemvaluesNum: Int
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[IntNsArr]] final classes. Instances for the [[ArrTBuilder]] type

@@ -86,7 +86,7 @@ trait HGrid extends TGrid
         rowIForeach(r) { (hc, i) =>
           val newValue: A = arr(hc)(this)
           curr match {
-            case None => curr = Some((hc.hVertsPolygon, newValue))
+            case None => curr = Some((hc.hVertPolygon, newValue))
             case Some((p, a)) if a == newValue =>
             case Some(pair) => incomplete.append(pair)
           }
