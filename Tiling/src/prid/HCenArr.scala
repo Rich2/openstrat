@@ -74,6 +74,19 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
       }
     }
   }
+
+  def sideMap[B, BB <: ArrImut[B]](f1: (HSide, A) => B)(f2: (HSide, A, A) => B)(implicit  grid: HGrid, build: ArrTBuilder[B, BB]): BB =
+  {
+    val res = build.newArr(grid.numSides)
+    grid.sidesMap{ hs => hs.tiles match {
+        case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) => f2(hs, apply(c1), apply(c2))
+        case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
+        case (_, c2) => f1(hs, apply(c2))
+        case _ => excep(s"$hs hex side should not exist, without at least one of adjacent tile locations existing.")
+      }
+    }
+    res
+  }
 }
 
 /** Companion object for [[HCenArr]], contains an apply factory method. */

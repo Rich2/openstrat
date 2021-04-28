@@ -11,10 +11,11 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val lines = grid.sidesDraw()
+  //val lines: Arr[LineSegDraw] = terrs.sideMap{ (hs, _) => hs.coordLine.toLine2.draw() }{ (hs, _, _ ) => hs.coordLine.toLine2.draw() }
+  //debvar(lines.elemsLen)
   def text = terrs.mapHC((t, hc) => hc.decText(14, t.contrastBW))
 
   val rows = terrs.rowCombine
-  debvar(rows.elemsLen)
   val areas = rows.map{ hv => hv.polygonReg.fill(hv.value.colour) }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
