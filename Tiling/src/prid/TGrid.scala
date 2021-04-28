@@ -35,7 +35,10 @@ trait TGrid
   /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
   def cTileMax: Int
 
+  /** Width of the tile Grid from furthest tile edge to furthest tile edge. */
   def width: Double
+
+  /** Height of the tile grid from furthest tile edge or vertex to furthest tile edge or vertex. */
   def height: Double
 
   /** The total number of Tiles in the tile Grid. */
@@ -116,12 +119,7 @@ trait TGrid
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
-  def sideLines: LineSegs //= ???
-  /*flatMap { roord =>
-    val c1: Roords = sideRoordsOfTile(roord)
-    val c2s: LineSegs = c1.map(orig => sideRoordToLine2(orig))
-    c2s
-  }*/
+  def sideLines: LineSegs
 
   /** This gives the all tile grid lines in a single colour and line width.
    *  @group SidesGroup  */
