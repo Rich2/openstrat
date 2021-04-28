@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import geom._
+import geom._, Colour.Black
 
 /** A Hex tile centre HexGrid coordinate. */
 class HCen(val r: Int, val c: Int) extends HCenOrSide
@@ -35,6 +35,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
   def optStep(operand: HCen): OptRef[HexStep] = hcStepSomes.optFind(_.hCen == operand - this)
 
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
+
+  def rcText(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2, colour)
 }
 
 object HCen

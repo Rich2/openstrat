@@ -20,7 +20,6 @@ trait TCoord extends Any with Show2Base32s
   def typeStr: String
   def rcStr: String = s"$r, $c"
   def parenthStr: String = rcStr.enParenth
-  def rcText(fontSize: Double = 12, colour: Colour = Black) = rcStr.toTextGraphic(fontSize, toPt2, colour)
 }
 
 /** Companion object for TCoord trait will contain a Show[TCoord] implicit instance in Scala 3, but this produces an error in 2.13.5. */

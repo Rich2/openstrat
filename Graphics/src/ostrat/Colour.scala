@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package geom
-import pWeb._, collection.mutable.ArrayBuffer
+package ostrat
+import geom._, pWeb._, collection.mutable.ArrayBuffer
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
 class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
@@ -21,7 +21,6 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
   def blue: Int = (argbValue >> 0) & 0xFF //(argbValue % 256) % 256
 
   def rgbHexStr = red.hexStr2 + green.hexStr2 + blue.hexStr2
-  //def hexStrBare =
   def hexStr = "0x" + alpha.hexStr2 + rgbHexStr
   def redGl: Float = (red / 256.toFloat)
   def greenGl:Float = (green / 256.toFloat)
