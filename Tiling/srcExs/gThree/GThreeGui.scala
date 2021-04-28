@@ -10,14 +10,12 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
   implicit def grid: HGrid = scen.grid
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
-  def hexStrs: Arr[TextGraphic] = grid.rcTexts
-  val hr = new HCenRow(4, 4, 3).polygonReg.fill(Colour.Red)
-  val hr2 = new HCenRow(2, 6, 2).polygonReg.fill(Colour.YellowGreen)
-  val tiles: Arr[PolygonCompound] = grid.map{ r => r.polygonReg.fillTextActive(terrs(r).colour, r, r.toString, 16) }
+  val lines = grid.sidesDraw()
+  def text = grid.map{ hc => hc.rcText() }
 
   val rows = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
 
-  def frame: GraphicElems = (rows).gridScale(scale)
+  def frame: GraphicElems = (rows +- lines ++ text).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

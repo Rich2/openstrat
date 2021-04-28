@@ -23,3 +23,8 @@ object ThreeScen1 extends ThreeScenStart
   sr(6,2, Water * 2)
   sr(4, 4, Woods * 2)
 }
+
+object ThreeScen2 extends ThreeScenStart {
+  override implicit val grid: HGrid = HGridReg(2, 20, 4, 40)
+  override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
+}
