@@ -9,7 +9,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val active = grid.map{ hc =>hc.polygonReg.active(hc) }
-  val text = grid.map{ hc => hc.rcText() }
+  val text = terrs.mapHC((t, hc) => hc.rcText(14, t.contrastBW))//grid.map{ hc => hc.rcText() }
   val rows = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   val lines = grid.sidesDraw()
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match

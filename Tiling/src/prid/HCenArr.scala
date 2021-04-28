@@ -27,9 +27,9 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
     res
   }
 
-  /** Short for coordinate-map. Each element in the underlying array, with its corresponding [[HCen]] coordinate is mapped by the parameter function
-   *  to an element of type B. */
-  def cMap[B, BB <: ArrImut[B]](f: (A, HCen) => B)(implicit grid: HGrid, build: ArrTBuilder[B, BB]): BB =
+  /** Short for map with hex centre coordinate-map. Each element in the underlying array, with its corresponding [[HCen]] coordinate is mapped by the
+   *  parameter function to an element of type B. */
+  def mapHC[B, BB <: ArrImut[B]](f: (A, HCen) => B)(implicit grid: HGrid, build: ArrTBuilder[B, BB]): BB =
   { val res = build.newArr(length)
     grid.iForeach{ (hc, i) =>
       val newElem = f(apply(hc), hc)

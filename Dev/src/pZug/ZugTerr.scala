@@ -3,7 +3,7 @@ package ostrat; package pZug
 import geom._, Colour._
 
 /** ZugFuhrer hex terrain. Currently a simple form of terrain. */
-trait ZugTerr extends ShowSingleton
+trait ZugTerr extends ShowSingleton with WithColour
 {
   override def typeStr: String = "ZugTerr"
   def colour: Colour
