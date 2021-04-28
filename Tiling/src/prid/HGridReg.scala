@@ -97,6 +97,20 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
     count
   }
 
+  def hCenExists(r: Int, c:Int): Boolean = (r, c) match
+  {
+    case (r, c) if r < rCenMin | r > rCenMax => false
+    case (r, c) if r.isOdd => false
+
+    case (r, c) if r.div4Rem0 & (c < cRow0sMin | c > cRow0sMax) => false
+    case (r, c) if r.div4Rem0 & c.div4Rem0 => true
+    case (r, c) if r.div4Rem0 => false
+
+    case (r, c) if r.div4Rem2 & (c < cRow2sMin | c > cRow2sMax) => false
+    case (r, c) if r.div4Rem2 & c.div4Rem2 => true
+    case _ => false
+  }
+
   /* Methods that operate on Hex tile sides. ******************************************************/
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match

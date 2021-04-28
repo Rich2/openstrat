@@ -13,14 +13,16 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
   val lines = grid.sidesDraw()
   def text = terrs.mapHC((t, hc) => hc.decText(14, t.contrastBW))
 
-  val rows = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
+  val rows = terrs.rowCombine
+  debvar(rows.elemsLen)
+  val areas = rows.map{ hv => hv.polygonReg.fill(hv.value.colour) }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr())//bTurn))
   statusText = s"Game Three. Scenario has ${grid.numOfTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = (rows +- lines ++ text).gridScale(scale)
+  def frame: GraphicElems = (areas +- lines ++ text).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

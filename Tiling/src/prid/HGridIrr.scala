@@ -49,5 +49,7 @@ object HGridIrr
     override def cenRowLen(row: Int): Int = ???
 
     override def cenRowMin(row: Int): Int = ???
+
+    override def hCenExists(r: Int, c: Int): Boolean = ???
   }
 }

@@ -105,6 +105,8 @@ trait HGrid extends TGrid
     else Arr()
   }
 
+  final def hCenExists(hc: HCen): Boolean = hCenExists(hc.r, hc.c)
+  def hCenExists(r: Int, c:Int): Boolean
   /* Methods that operate on Hex tile sides. ******************************************************/
 
   /** The number of Sides in the TileGrid. Needs reimplementing.
