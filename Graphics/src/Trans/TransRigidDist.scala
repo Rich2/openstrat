@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
 trait TransRigidDister extends Any
 { type ThisT <: TransRigidDister
@@ -40,14 +39,11 @@ object TransRigidDist
     override def rotateRadians(obj: AA, radians: Double): AA = obj.map{ts => ev.rotateRadians(ts, radians) }
     override def mirrorYOffset(obj: AA, xOffset: Metres): AA = obj.map{ ts => ev.mirrorYOffset(ts, xOffset) }
     override def mirrorXOffset(obj: AA, yOffset: Metres): AA = obj.map{ ts => ev.mirrorXOffset(ts, yOffset) }
-    //override def mirror(obj: AA, line: Line2): AA = obj.map(ev.mirror(_, line))
   }
 }
 
 class TransAlignDistExtension[T](value: T, ev: TransRigidDist[T])
-{
-
-  /** Translate 2 dimensional vectors along the X axis */
+{ /** Translate 2 dimensional vectors along the X axis */
   def slateX(xOffset: Metres): T = ev.slate(value, Metres2(xOffset, 0.metres))
 
   /** Translate 2 dimensional vectors along the Y axis */

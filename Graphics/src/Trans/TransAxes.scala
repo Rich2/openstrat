@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import reflect.ClassTag
 
 /** Reflect Axis type class. It has two methods to reflect across the X and the Y axes. This has been created as a separate typeclass to
@@ -60,16 +59,9 @@ object TransAxes
 
 /** Class to provide extension methods for TransAxes type class. */
 class TransAxesExtensions[T](thisT: T)(implicit ev: TransAxes[T])
-{
-  /** Reflect, mirror across the X axis by negating Y. */
-  @inline def negY: T = ev.negYT(thisT)
-
-  /** Reflect, mirror across the Y axis by negating X. */
+{  @inline def negY: T = ev.negYT(thisT)
   @inline def negX: T = ev.negXT(thisT)
-
-  /** Negates X and Y, functionally the same as rotate180. */
   @inline def negXY: T = ev.negYT(ev.negXT(thisT))
-
   @inline def rotate90: T = ev.rotate90(thisT)
   @inline def rotate180: T = ev.rotate180(thisT)
   @inline def rotate270: T = ev.rotate270(thisT)
