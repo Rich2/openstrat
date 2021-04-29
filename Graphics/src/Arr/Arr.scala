@@ -18,8 +18,9 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   def eqs(other: Any): Boolean = other match {
     case a: Arr[A] => unsafeArr.sameElements(a.unsafeArr)
     case _ => false
-}
+  }
 
+  /** Not sure why this is called smap. */
   def smap(f: A => A @uncheckedVariance): Arr[A] =
   { val newArray: Array[A] = unsafeArr.clone()
     iForeach{(el, i) => newArray(i) = f(el) }

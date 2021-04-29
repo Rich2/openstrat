@@ -34,3 +34,12 @@ object ThreeScen2 extends ThreeScenStart
   sr(10,6, Water * 4)
   sr(16,4, Water * 4)
 }
+
+/** 3rd Scenario of Game Three. Has a larger number of hexs. */
+object ThreeScen3 extends ThreeScenStart {
+  override implicit val grid: HGrid = HGridReg(2, 6, 2, 10)
+  override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
+
+  import terrs.{setRow => sr}
+
+}

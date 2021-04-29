@@ -33,8 +33,6 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   /** Draws the tiles sides (or edges). */
   val sidesDraw: LinesDraw = grid.sidesDraw()
 
-  //val lines: Arr[LineSegDraw] = terrs.sideMap{ (hs, _) => hs.coordLine.toLine2.draw() }{ (hs, _, _ ) => hs.coordLine.toLine2.draw() }
-
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.mapSomes{ rs => HCoordLineSeg(rs.hc1, rs.hc2).toLine2.draw(players(rs.hc1).colour) }
 
