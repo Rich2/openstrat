@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import reflect.ClassTag
 
 /** Type class for shear transformations. just starting with the basic shears, rather than a generalised shear transformation. */

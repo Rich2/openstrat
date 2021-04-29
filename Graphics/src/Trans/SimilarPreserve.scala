@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
 /** All leaf classes of this type that will preserve their types for all the Similar 2D geometrical transformations. */
 trait SimilarPreserve extends ProlignPreserve

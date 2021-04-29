@@ -1,6 +1,5 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import reflect.ClassTag
 
 /** The type class trait for transforming an object in 2d geometry. Note overrides necessary to preserve type. */

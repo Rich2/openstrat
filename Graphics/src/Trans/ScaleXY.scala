@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
 /** Type class trait for scale transformation where the X and Y components can be scaled independently. */

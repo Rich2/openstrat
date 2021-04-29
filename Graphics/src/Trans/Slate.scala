@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import reflect.ClassTag, annotation.unchecked.uncheckedVariance
 
 /** Type class for translate 2 dimensional vector transformations. Each transformation method has been given its own Type class and associated
