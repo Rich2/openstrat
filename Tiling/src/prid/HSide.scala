@@ -1,5 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
+import geom._, Colour.Black
 
 /** A Hex side coordinate in a Hex Grid.
  * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
@@ -24,6 +25,12 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide
     case 3 if c %% 4 == 3 => (HCen(r - 1, c - 1), HCen(r + 1, c + 1))
     case _ => excep("Invalid hex side.")
   }
+
+  /** Returns a [[LineSeg]] for a regular Hex tile grid. */
+  def lineSeg: LineSeg = coordLine.toLine2
+
+  /** Draws a [[LineSeg]], returning a [[LineSegDraw]] for a regular Hex tile grid. */
+  def draw(colour: Colour= Black, lineWidth: Double = 2) : LineSegDraw = lineSeg.draw(colour, lineWidth)
 }
 
 /** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */

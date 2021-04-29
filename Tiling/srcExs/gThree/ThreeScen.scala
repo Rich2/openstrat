@@ -33,6 +33,9 @@ object ThreeScen2 extends ThreeScenStart
   sr(8,4, Water * 5)
   sr(10,6, Water * 4)
   sr(16,4, Water * 4)
+  sr(14, 42, Woods * 3)
+  sr(16, 44, Woods * 3)
+  sr(18, 42, Woods * 3)
 }
 
 /** 3rd Scenario of Game Three. Has a larger number of hexs. */

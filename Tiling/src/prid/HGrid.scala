@@ -140,6 +140,15 @@ trait HGrid extends TGrid
     res
   }
 
+  /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
+   *  @group SidesGroup */
+  final def sidesFlatMap[ArrT <: ArrImut[_]](f: HSide => ArrT)(implicit build: ArrTFlatBuilder[ArrT]): ArrT =
+  {
+    val buff = build.newBuff()// newArr(numSides)
+    sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
+    build.buffToArr(buff)
+  }
+
   /** The Hex Sides of the Hex Grid defined in integer constructed [[HCoordLineSeg.]].
    *  @group SidesGroup */
   def sideCoordLines: Arr[HCoordLineSeg] = sidesMap[HCoordLineSeg, Arr[HCoordLineSeg]](_.coordLine)

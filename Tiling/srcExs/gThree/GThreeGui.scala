@@ -11,8 +11,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
   /** The number of pixels / 2 displayed per row height. */
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  val lines = terrs.sideMap( (hs, _) => hs.coordLine.toLine2.draw(),
-    (hs, t1, t2 ) => ife(t1 == t2, hs.coordLine.toLine2.draw(t1.contrastBW), GraphicNone))
+  val lines = terrs.sideFlatMap( (hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
   def text = terrs.mapHC((t, hc) => hc.decText(14, t.contrastBW))
 
