@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package prid
+package ostrat; package prid
 
 /** An irregular hex grid. This grid is irregular in the length of the hex rows. */
 trait HGridIrr extends HGrid
