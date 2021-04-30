@@ -13,7 +13,6 @@ import geom._
  * The package name prid, short for package grid, was chosen to allow you to use the name "grid" in your code. */
 package object prid
 {
-  def holding = "Holding methos.Silly"
   implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TGrid, evSlate: Slate[T], evScale: Scale[T])
   {
     /** Translates Vec2s relative to Grid centre and then scales. */

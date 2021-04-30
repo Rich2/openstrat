@@ -1,13 +1,15 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pZug
-import geom._, pGrid._
+import pGrid._
 
-case class Squad(val polity: Polity, val roord: Roord, var action: Action = NoAction)
+case class Squad(val polity: Polity, var action: Action = NoAction)
+
+case class SquadOld(val polity: Polity, val roord: Roord, var action: ActionOld = NoActionOld)
 { def colour = polity.colour
   override def toString = "Squad" + (roord.ycStr + ", " + action.toString).enParenth
 }
 
-object Squad
+object SquadOld
 {
   def canMove(tile: ZugTerr): Boolean = tile != Lake
 
@@ -45,13 +47,18 @@ object France extends Polity
 
 sealed trait Action
 
-case class Move(roords: Roords) extends Action
-object Move
-{ def apply(roords: Roord*): Action = new Move(Roords(roords:_*))
+object NoAction extends Action
+
+sealed trait ActionOld
+
+case class MoveOld(roords: Roords) extends ActionOld
+
+object MoveOld
+{ def apply(roords: Roord*): ActionOld = new MoveOld(Roords(roords:_*))
 }
 
-case class Fire(roord: Roord) extends Action
-{
-  override def toString: String = "Fire" + roord.ycStr.enParenth
+case class FireOld(roord: Roord) extends ActionOld
+{ override def toString: String = "Fire" + roord.ycStr.enParenth
 }
-object NoAction extends Action
+
+object NoActionOld extends ActionOld

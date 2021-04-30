@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import reflect.ClassTag, geom._
+import reflect.ClassTag
 
 /** An array of hex tile or hex centre data. */
 class HCenArr[A <: AnyRef](val unsafeArr: Array[A])

@@ -18,7 +18,7 @@ case class ZugGuiOld(canv: CanvasPlatform, scen: ZugScenOld) extends CmdBarGui("
     val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(roord).colour).slate(roord.gridPt2)
     val action: GraphicElems = squad.action match
     {
-      case Move(rs) =>
+      case MoveOld(rs) =>
       { rs.foldWithPrevious[GraphicElems](roord, Arr()){ (acc, prevCood, nextCood) =>
           val sideCood = (prevCood + nextCood) / 2
           val l1 = RoordLine(prevCood, sideCood).gridLine2.draw(Black, 2)
@@ -26,13 +26,13 @@ case class ZugGuiOld(canv: CanvasPlatform, scen: ZugScenOld) extends CmdBarGui("
           acc +- l1 +- l2
         }
       }
-      case Fire(target) => Arr(RoordLine(roord, target).gridLine2.draw(Red, 2).dashed(20, 20))
+      case FireOld(target) => Arr(RoordLine(roord, target).gridLine2.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }
     action +- uc
   }
 
-  def moveFunc: (Roord, Roord) => OptInt = (r1, r2) =>  Squad.terrCost(terrs(r1)) |+| Squad.terrCost(terrs(r2))
+  def moveFunc: (Roord, Roord) => OptInt = (r1, r2) =>  SquadOld.terrCost(terrs(r1)) |+| SquadOld.terrCost(terrs(r2))
 
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
   {
@@ -42,19 +42,19 @@ case class ZugGuiOld(canv: CanvasPlatform, scen: ZugScenOld) extends CmdBarGui("
       thisTop()
     }
 
-    case (RightButton, List(squad: Squad), List(newTile: HexTile)) =>
+    case (RightButton, List(squad: SquadOld), List(newTile: HexTile)) =>
       grid.findPath(squad.roord, newTile.roord)(moveFunc).fold[Unit]{
         statusText = "Squad can not move to " + newTile.roord.ycStr
         thisTop()
       } { l =>
-        squad.action = Move(l: _*)
+        squad.action = MoveOld(l: _*)
         mainRepaint(frame)
-        statusText = Squad.toString()
+        statusText = SquadOld.toString()
         thisTop()
       }
 
-    case (MiddleButton, List(squad : Squad), List(newTile: Roord)) =>
-    { squad.action = Fire(newTile)
+    case (MiddleButton, List(squad : SquadOld), List(newTile: Roord)) =>
+    { squad.action = FireOld(newTile)
       mainRepaint(frame)
     }
 
