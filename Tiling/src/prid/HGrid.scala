@@ -77,9 +77,10 @@ trait HGrid extends TGrid
 
   /** New immutable Arr of Tile data. */
   final def newTileArrArr[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrArr[A] =
-  { val res = new HCenArrArr[A](new Array[Array[A]](numOfTiles))
-    //res.mutSetAll(value)
-    res
+  { val newArray = new Array[Array[A]](numOfTiles)
+    val init: Array[A] = Array()
+    iUntilForeach(0, numOfTiles)(newArray(_) = init)
+    new HCenArrArr[A](newArray)
   }
 
   final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrBuff[A] = HCenArrBuff(numOfTiles)

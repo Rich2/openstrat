@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+package ostrat; package pGrid
 
 /** An array[Int] based collection for Roord. */
 class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[Roord]

@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pZug
-import pGrid._
+import prid._, pGrid._
 
 case class Squad(val polity: Polity, var action: Action = NoAction)
 
@@ -47,6 +47,10 @@ object France extends Polity
 
 sealed trait Action
 
+case class Move(hCens: HCens) extends Action
+object Move
+{ def apply(hCens: HCen*): Action = new Move(HCens(hCens:_*))
+}
 object NoAction extends Action
 
 sealed trait ActionOld
