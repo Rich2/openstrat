@@ -11,7 +11,7 @@ class HCens(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[HCen] {
 
   override def typeStr: String = "HCens"
 
-  override def fElemStr: HCen => String = ???
+  override def fElemStr: HCen => String = _ => "Not implemented"
 }
 object HCens extends Int2sArrCompanion[HCen, HCens]
 {

@@ -24,8 +24,9 @@ object Zug1 extends ZugScenStart
   tr(2, 6, WheatField)
   //val sTerrs: HSideBooleans = ??? //grid.newSideBooleans
   val lunits: HCenArrArr[Squad] = grid.newTileArrArr[Squad]
-  deb(lunits(4, 4).toString)
-  lunits.prepend(2, 30, Squad(Britain, Move(HCen(2, 26), HCen(2, 22))))
+
+  lunits.set(2, 30, Squad(Britain, Move(HCen(2, 26), HCen(2, 22))))
+  deb(lunits(2, 30).toString)
 }
 
 /** ZugFuhrer scenario 2. */
