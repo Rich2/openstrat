@@ -159,6 +159,14 @@ trait HGrid extends TGrid
     build.buffToArr(buff)
   }
 
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   *  data. */
+  @inline final def sideArrIndex(hc: HSide): Int = sideArrIndex(hc.r, hc.c)
+
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
+   *  Array data. */
+  def sideArrIndex(r: Int, c: Int): Int
+
   /** The Hex Sides of the Hex Grid defined in integer constructed [[HCoordLineSeg.]].
    *  @group SidesGroup */
   def sideCoordLines: Arr[HCoordLineSeg] = sidesMap[HCoordLineSeg, Arr[HCoordLineSeg]](_.coordLine)

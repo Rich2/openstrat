@@ -136,6 +136,9 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
     case _ => excep("Invalid row number")
   }
 
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
+   * Array data. */
+  override def sideArrIndex(r: Int, c: Int): Int = ???
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

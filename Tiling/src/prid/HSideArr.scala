@@ -7,3 +7,6 @@ class HSideArr[A <: AnyRef](val unsafeArr: Array[A])
 }
 
 class HSideBooleans(val unsafeArr: Array[Boolean]) extends AnyVal
+{
+  def setTrues(hSides: HSide*)(implicit grid: HGrid): Unit = hSides.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
+}

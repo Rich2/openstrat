@@ -27,7 +27,7 @@ object Zug1Old extends ZugScenOld
   gs(2, 6, WheatField)
 
   val sTerrs: SideBooleans = grid.newSideBooleans
-  val wall1 = Roords(14 rr 36, 13 rr 35, 12 rr 34, 11 rr 35, 10 rr 36) ++ grid.SidesHorr(9, 37, 47)
+  val wall1: Roords = Roords(14 rr 36, 13 rr 35, 12 rr 34, 11 rr 35, 10 rr 36) ++ grid.SidesHorr(9, 37, 47)
   sTerrs.gridSetTrues(wall1)
 
   val lunits: TilesArr[List[SquadOld]] = grid.newTileArr[List[SquadOld]](Nil)

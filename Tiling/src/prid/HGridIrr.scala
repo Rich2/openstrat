@@ -50,5 +50,9 @@ object HGridIrr
     override def cenRowMin(row: Int): Int = ???
 
     override def hCenExists(r: Int, c: Int): Boolean = ???
+
+    /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
+     * Array data. */
+    override def sideArrIndex(r: Int, c: Int): Int = ???
   }
 }
