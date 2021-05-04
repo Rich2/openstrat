@@ -177,10 +177,23 @@ package object ostrat
     acc
   }
 
-  /** Folds over a range of Ints to an Int. From the start value until (while index is less than) the end value in integer steps. Default step value
-   *  is 1. */
+  /** Folds over a range of Ints to an Int, adding the return [[Int]] value to the accumulator. From the start value to (while index is less than or
+   *  equal to) the end value in integer steps. Default step value is 1. Throws on non termination. */
+  def iToFoldSumInt(iFrom: Int, iTo: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
+  { var acc = accInit
+    iToForeach(iFrom, iTo, iStep){ i => acc += f(i) }
+    acc
+  }
+
+  /** Folds over a range of Ints to an Int. From the start value until (while index is less than)
+   *  the end value in integer steps. Default step value is 1. */
   def iUntilFoldInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
     iToFoldInt(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep, accInit)(f)
+
+  /** Folds over a range of Ints to an Int adding the return [[Int]] value to the accumulator. From the start value until (while index is less than)
+   *  the end value in integer steps. Default step value is 1. */
+  def iUntilFoldSumInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
+    iToFoldSumInt(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep, accInit)(f)
 
   /** 2 dimensional from-to-step foreach loop. Throws on non terminaton. */
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =

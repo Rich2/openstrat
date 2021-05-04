@@ -19,14 +19,14 @@ import geom._, Colour.Black
  *  @groupprio SidesGroup 1010 */
 trait TGrid
 {
-  /** Number of rows of tiles. This will be different to the number of rows of sides and and will be different to the number of rows of vertices for
-   * HexGrids. */
-  def numOfTileRows: Int
+  /** Number of rows of tile centres. This will be different to the number of rows of sides and and will be different to the number of rows of
+   *  vertices for HexGrids. */
+  def numCenRows: Int
 
-  /** The minimum row or r number of tile centres. */
+  /** The minimum row coordinate of tile centres. */
   def rCenMin: Int
 
-  /** The maximum row or r number of tile centres. */
+  /** The maximum row coordinate of tile centres. */
   def rCenMax: Int
 
   /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
@@ -57,7 +57,7 @@ trait TGrid
 
   /** maps over each row number. */
   final def mapRows[B, BB <: ArrImut[B]](f: Int => B)(implicit build: ArrTBuilder[B, BB]): BB =
-  { val res = build.newArr(numOfTileRows)
+  { val res = build.newArr(numCenRows)
     var index = 0
     foreachRow{r => res.unsafeSetElem(index, f(r)); index += 1 }
     res
@@ -94,7 +94,7 @@ trait TGrid
   }
 
   /** The number of Rows of vertices. */
-  @inline final def numOfVertRows: Int = ife(numOfTileRows > 1, numOfTileRows + 1, 0)
+  @inline final def numOfVertRows: Int = ife(numCenRows > 1, numCenRows + 1, 0)
 
   /** Gives the text graphics for the row and column of each tile centre. */
   def rcTexts = mapCenCoords(tc => tc.rcStr.toTextGraphic(16, tc.toPt2))
@@ -103,7 +103,7 @@ trait TGrid
 
   /** The number of Rows of Sides.
    *  @group SidesGroup */
-  @inline final def numOfSideRows: Int = ife(numOfTileRows > 1, numOfTileRows * 2 + 1, 0)
+  @inline final def numOfSideRows: Int = ife(numCenRows > 1, numCenRows * 2 + 1, 0)
 
   /** The bottom Side Row of this TileGrid. The r value, the row number value.
    *  @group SidesGroup */

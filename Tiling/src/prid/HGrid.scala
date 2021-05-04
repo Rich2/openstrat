@@ -17,7 +17,7 @@ trait HGrid extends TGrid
 
   def rowIForeach(r: Int, count: Int = 0)(f: (HCen, Int) => Unit): Int
 
-  override def numOfTileRows: Int = numOfRow2s + numOfRow0s
+  override def numCenRows: Int = numOfRow2s + numOfRow0s
 
   override def xRatio: Double = 1.0 / sqrt(3)
   def cCen: Double = (cTileMin + cTileMax) / 2.0
@@ -94,7 +94,7 @@ trait HGrid extends TGrid
   {
     import collection.mutable.ArrayBuffer
     implicit def grid: HGrid = this
-    if (numOfTileRows > 0)
+    if (numCenRows > 0)
     {
       val incomplete: ArrayBuffer[(HVertPolygon, A)] = Buff()
       val complete: ArrayBuffer[(HVertPolygon, A)] = Buff()
