@@ -5,6 +5,7 @@ import prid._
 trait ZugScen extends HexGridScen
 { /** tile terrain. */
   def terrs: HCenArr[ZugTerr]
+  def sTerrs: HSideBooleans
 }
 
 trait ZugScenStart extends ZugScen
@@ -22,7 +23,7 @@ object Zug1 extends ZugScenStart
   tr(6, 6, WheatField, Plain * 2, StoneBuilding, Plain, Lake)
   tr(4, 4, WheatField * 2)
   tr(2, 6, WheatField)
-  //val sTerrs: HSideBooleans = ??? //grid.newSideBooleans
+  val sTerrs: HSideBooleans = grid.newSideBooleans
   val lunits: HCenArrArr[Squad] = grid.newTileArrArr[Squad]
 
   lunits.set(2, 30, Squad(Britain, Move(HCen(2, 26), HCen(2, 22))))
@@ -40,7 +41,7 @@ object Zug2 extends ZugScenStart
   gs(6, 6 , Plain * 4, Lake, Plain * 4)
   gs(4, 4, Plain * 4, Lake, Hill, Plain * 3)
   gs(2, 6, Plain * 2, Lake * 2, Hill, Plain)
-  //val sTerrs: SideBooleans = grid.newSideBooleans
+  val sTerrs: HSideBooleans = grid.newSideBooleans
   val lunits: HCenArr[List[SquadOld]] = grid.newTileArr[List[SquadOld]](Nil)
 }
 
@@ -49,7 +50,7 @@ object Zug3  extends ZugScenStart
 {
   override implicit val grid: HGrid = HGridReg(2, 10, 4, 38)
   val terrs = grid.newTileArr[ZugTerr](Plain)
-  //val sTerrs: SideBooleans = grid.newSideBooleans
+  val sTerrs: HSideBooleans = grid.newSideBooleans
   //sTerrs.gridSetTrues(grid.SidesHorr(7, 5, 37))
 
   val lunits = grid.newTileArr[List[SquadOld]](Nil)

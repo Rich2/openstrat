@@ -88,6 +88,8 @@ trait HGrid extends TGrid
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numOfTiles))
 
+
+
   def combinedPolygons[A <: AnyRef](implicit arr: HCenArr[A]): Arr[(HVertPolygon, A)] =
   {
     import collection.mutable.ArrayBuffer
@@ -160,4 +162,6 @@ trait HGrid extends TGrid
   /** The Hex Sides of the Hex Grid defined in integer constructed [[HCoordLineSeg.]].
    *  @group SidesGroup */
   def sideCoordLines: Arr[HCoordLineSeg] = sidesMap[HCoordLineSeg, Arr[HCoordLineSeg]](_.coordLine)
+
+  def newSideBooleans: HSideBooleans = new HSideBooleans(new Array[Boolean](numSides))
 }

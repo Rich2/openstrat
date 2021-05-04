@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
-/** An array[Int] based collection for Roord. */
+/** An efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates. */
 class HCens(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[HCen] {
   type ThisT = HCens
 
@@ -13,6 +13,8 @@ class HCens(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[HCen] {
 
   override def fElemStr: HCen => String = _ => "Not implemented"
 }
+
+/** Companion object for [[HCens]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
 object HCens extends Int2sArrCompanion[HCen, HCens]
 {
   //override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
