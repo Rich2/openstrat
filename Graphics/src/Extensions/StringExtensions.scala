@@ -9,7 +9,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
-  def findType[A: Persist]: EMon[A] = thisString.parseStatements.flatMap(_.findType[A])
+  def findType[A: Persist]: EMon[A] = thisString.parseStatements.flatMap(_.findUniqueT[A])
 
   /** Finds Statement of type A. */
   def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)

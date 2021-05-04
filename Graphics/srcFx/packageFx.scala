@@ -1,17 +1,20 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
+
 /** This package is for JavaFx code.*/
 package object pFx
 { val userHomeDir: String = System.getProperty("user.home")
   val yourDir: String = userHomeDir -/- "AppData/Local/OpenStratData"
 
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-  lazy val generalDevSettings: EMon[Statements] =
-    eTry(io.Source.fromResource("DevSettings.rson").toArray).flatMap(srcToEStatements(_, "DevSettings.rson"))
+  lazy val devSettingsStatements: EMon[Statements] = statementsFromResource("DevSettings.rson")
 
-  def findDevSetting[A: Persist](settingStr: String): EMon[A] = generalDevSettings.flatMap(_.findSetting(settingStr))
-  def findDevSettingElse[A: Persist](settingStr: String, elseValue: => A): A = generalDevSettings.flatMap(_.findSetting(settingStr)).getElse(elseValue)
+  /** Find a setting of the given name and type from the file DevSettings.rson. */
+  def findDevSetting[A: Persist](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSettingT(settingStr))
+
+  /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
+  def findDevSettingElse[A: Persist](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSettingT(settingStr)).getElse(elseValue)
 
   def saveRsonFile(path: String, fileName: String, output: String): Unit =
   { import java.io._

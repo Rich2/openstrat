@@ -52,7 +52,7 @@ sealed trait EMon[+A]
 object EMon
 {
   implicit class EMonStringImplicit(thisEMon: EMon[String])
-  { def findType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findType[A]))
+  { def findType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findUniqueT[A]))
     def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
     def findTypeForeach[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
     def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] =

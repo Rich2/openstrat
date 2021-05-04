@@ -63,20 +63,22 @@ trait UnShow[+T]
     case s3 => sts.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
   }
 
-  /** Finds value of UnShow type, returns error if more than one match. */
+  /** Finds value of this UnShow type, returns error if more than one match. */
   def findUniqueTFromStatements[ArrT <: ArrImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrTBuilder[T, ArrT] @uncheckedVariance): EMon[T] =
     valuesFromStatements(sts) match
   { case s if s.elemsLen == 0 => TextPosn.emptyError("No values of type found")
     case s if s.elemsLen == 1 => Good(s.head)
     case s3 => sts.startPosn.bad(s3.elemsLen.toString -- "values of" -- typeStr -- "found.")
   }
-  
+
+  /** Finds a setting of the type of this UnShow instance from a [Statement]. */
   def settingFromStatement(settingStr: String, st: Statement): EMon[T] = st match
   { case MonoStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
   }
-  
-  def settingFromStatementList(sts: Arr[Statement], settingStr: String): EMon[T] = sts match
+
+  /** Finds a setting of the type of this UnShow instance from an Arr[Statement]. */
+  def settingFromStatements(sts: Arr[Statement], settingStr: String): EMon[T] = sts match
   { case Arr0() => TextPosn.emptyError("No Statements")
     case Arr1(e1) => settingFromStatement(settingStr, e1)
     case s2 => sts.map(settingFromStatement(settingStr, _)).collect{ case g @ Good(_) => g } match
