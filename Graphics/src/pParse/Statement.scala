@@ -5,13 +5,29 @@ package ostrat; package pParse
   * clauses containing a single expression. An empty statement is a special case of the UnClausedStatement where the semicolon character is the
   * expression. */
 sealed trait Statement extends TextSpan
-{ def optSemi: OptRef[SemicolonToken]
+{ /** The opt semicolon token. */
+  def optSemi: OptRef[SemicolonToken]
+
+  /** The statement has semicolon as end */
   def hasSemi: Boolean = optSemi.nonEmpty
+
+  /** The statement has no semicolon at end. */
   def noSemi: Boolean = optSemi.empty
+
+  /** Not sure what this is meant to be doing, or whether it can be removed. */
   final def errGet[A](implicit ev: Persist[A]): EMon[A] = ???
+
+  /** The expression value of this Statement. */
   def expr: Expr
+
+  /** Returns the right expression if this Statment is a setting of the given name. */
+  def settingExpr(settingName: String): EMon[Expr] = this match {
+    case MonoStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
+    case _ => startPosn.bad(settingName -- "not found.")
+  }
 }
 
+/** Companion object for the [[Statement]] trait, contains implicit extension class for List[Statement]. */
 object Statement
 {
   implicit class StatementListImplicit(statementList: List[Statement]) extends TextSpan
@@ -19,10 +35,10 @@ object Statement
     def startPosn = statementList.ifEmpty(ifEmptyTextPosn, statementList.head.startPosn)
     def endPosn = statementList.ifEmpty(ifEmptyTextPosn, statementList.last.endPosn)
 
-    def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementList match
+    /*def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementList match
     { case Seq(h1) => h1.errGet[A1].map(f1)
       case s => bad1(s, s.length.toString -- "statements not 1")
-    }
+    }*/
 
     /*def errFun2[A1, A2, B](f2: (A1, A2) => B)(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = statementList match
     { case Seq(h1, h2) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2) } yield f2(g1, g2)
@@ -149,8 +165,7 @@ sealed trait UnClausedStatement extends Statement
 
 /** An un-claused Statement that is not the empty statement. */
 case class MonoStatement(expr: Expr, optSemi: OptRef[SemicolonToken]) extends UnClausedStatement with TextSpanCompound
-{
-  def startMem: TextSpan = expr
+{ def startMem: TextSpan = expr
   def endMem: TextSpan = optSemi.fld(expr, sc => sc)
 }
 

@@ -72,7 +72,7 @@ trait UnShow[+T]
   }
 
   /** Finds a setting of the type of this UnShow instance from a [Statement]. */
-  def settingFromStatement(settingStr: String, st: Statement): EMon[T] = st match
+  def settingTFromStatement(settingStr: String, st: Statement): EMon[T] = st match
   { case MonoStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
   }
@@ -80,8 +80,8 @@ trait UnShow[+T]
   /** Finds a setting of the type of this UnShow instance from an Arr[Statement]. */
   def settingFromStatements(sts: Arr[Statement], settingStr: String): EMon[T] = sts match
   { case Arr0() => TextPosn.emptyError("No Statements")
-    case Arr1(e1) => settingFromStatement(settingStr, e1)
-    case s2 => sts.map(settingFromStatement(settingStr, _)).collect{ case g @ Good(_) => g } match
+    case Arr1(st1) => settingTFromStatement(settingStr, st1)
+    case s2 => sts.map(settingTFromStatement(settingStr, _)).collect{ case g @ Good(_) => g } match
     { case Arr1(t) => t
       case Arr0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
       case s3 => sts.startPosn.bad(s3.elemsLen.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
