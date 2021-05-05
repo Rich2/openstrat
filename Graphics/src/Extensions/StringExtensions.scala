@@ -14,8 +14,8 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   /** Finds Statement of type A. */
   def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
   def findInt: EMon[Int] = thisString.parseStatements.flatMap(_.findInt)
-  def findDouble: EMon[Double] = thisString.parseStatements.flatMap(_.findDouble)
-  def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBoolean)
+  def findDouble: EMon[Double] = thisString.parseStatements.flatMap(_.findDbl)
+  def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBool)
   def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
 

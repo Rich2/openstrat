@@ -69,7 +69,8 @@ object Statement
     def findSettingBool(settingStr: String): EMon[Boolean] = ShowT.BooleanPersistImplicit.settingFromStatements(statementList.toArr, settingStr)
   }
 
-  implicit class RefsImplicit(statementRefs: Arr[Statement]) extends TextSpan
+  /** Extension class for Arr[Statement]. */
+  implicit class arrImplicit(statementRefs: Arr[Statement]) extends TextSpan
   { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
     def startPosn = statementRefs.ifEmpty(ifEmptyTextPosn, statementRefs.head.startPosn)
     def endPosn = statementRefs.ifEmpty(ifEmptyTextPosn, statementRefs.last.endPosn)
@@ -93,10 +94,22 @@ object Statement
       else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
     }
 
+    /** Find the sole [[Int]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
+     * Expr[Int]. */
     def findInt: EMon[Int] = ShowT.intPersistImplicit.findUniqueTFromStatements(statementRefs)
-    def findDouble: EMon[Double] = ShowT.doublePersistImplicit.findUniqueTFromStatements(statementRefs)
-    def findBoolean: EMon[Boolean] = ShowT.BooleanPersistImplicit.findUniqueTFromStatements(statementRefs)
+
+    /** Find the sole [[Double]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
+     * Expr[Double]. */
+    def findDbl: EMon[Double] = ShowT.doublePersistImplicit.findUniqueTFromStatements(statementRefs)
+
+    /** Find the sole [[Boolean]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
+     * Expr[Boolean]. */
+    def findBool: EMon[Boolean] = ShowT.BooleanPersistImplicit.findUniqueTFromStatements(statementRefs)
+
+    /** Find the sole [[Long]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
+     * Expr[Long]. */
     def findLong: EMon[Long] = ShowT.longPersistImplicit.findUniqueTFromStatements(statementRefs)
+
     def findIntArray: EMon[Array[Int]] = ShowT.ArrayIntPersistImplicit.findUniqueFromStatements(statementRefs)
 
     /** Find setting from RSON statement */
