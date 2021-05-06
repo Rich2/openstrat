@@ -35,11 +35,12 @@ object Statement
     def startPosn = statementList.ifEmpty(ifEmptyTextPosn, statementList.head.startPosn)
     def endPosn = statementList.ifEmpty(ifEmptyTextPosn, statementList.last.endPosn)
 
+    /** Find the only Statement resolving to an expression of type T. */
+    def findUniqueT[A](implicit ev: Persist[A]): EMon[A] = ev.findUniqueFromStatements(statementList.toArr)
 
-    def findType[A](implicit ev: Persist[A]): EMon[A] = ev.findUniqueFromStatements(statementList.toArr)
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findType[A].getElse(elseValue)
+    def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findUniqueT[A].getElse(elseValue)
 
     def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
     { val list = ev.valueListFromStatements(statementList.toArr)
