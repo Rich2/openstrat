@@ -38,5 +38,8 @@ package object prid
   implicit class IntGridImplicit(thisInt: Int)
   { /** Syntax for succinct [[HCen]] notation. */
     def hc (c: Int): HCen = HCen(thisInt, c)
+
+    /** Syntax for succinct [[HCen]] notation. */
+    def hs (c: Int): HSide = HSide(thisInt, c)
   }
 }
