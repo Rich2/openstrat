@@ -34,4 +34,9 @@ package object prid
 
   val scStepSomes: Arr[SqStep] = Arr()//HexStepUR, HexStepRt, HexStepDR, HexStepDL, HexStepLt, HexStepUL)
   val scSteps: Arr[SqStepOpt] = SqStepNone +: scStepSomes
+
+  implicit class IntGridImplicit(thisInt: Int)
+  { /** Syntax for succinct [[HCen]] notation. */
+    def hc (c: Int): HCen = HCen(thisInt, c)
+  }
 }

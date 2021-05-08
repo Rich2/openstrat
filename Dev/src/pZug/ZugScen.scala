@@ -28,8 +28,8 @@ object Zug1 extends ZugScenStart
   val sTerrs: HSideBooleans = grid.newSideBooleans
   val lunits: HCenArrArr[Squad] = grid.newTileArrArr[Squad]
 
-  lunits.set(2, 30, Squad(Britain, Move(HCen(2, 26), HCen(2, 22))))
-  lunits.set(10, 38, Squad(Britain, Fire(HCen(6, 18))))
+  lunits.set(2, 30, Squad(Britain, Move(2 hc 26, 2 hc 22)))
+  lunits.set(10, 38, Squad(Britain, Fire(6 hc 18)))
 }
 
 /** ZugFuhrer scenario 2. */
@@ -56,6 +56,6 @@ object Zug3 extends ZugScenStart
   //sTerrs.gridSetTrues(grid.SidesHorr(7, 5, 37))
 
   val lunits = grid.newTileArrArr[Squad]
-  lunits.setSame(Squad( Germany), HCen(6, 18), HCen(6, 30))
-  lunits.setSame(Squad(France), HCen(10, 14), HCen(10, 22), HCen(10, 30))
+  lunits.setSame(Squad( Germany), 6 hc 18, 6 hc 30)
+  lunits.setSame(Squad(France), 10 hc 14, 10 hc 22, 10 hc 30)
 }
