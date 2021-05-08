@@ -26,10 +26,17 @@ object Zug1 extends ZugScenStart
   tr(4, 4, WheatField * 2)
   tr(2, 6, WheatField)
   val sTerrs: HSideBooleans = grid.newSideBooleans
-  val lunits: HCenArrArr[Squad] = grid.newTileArrArr[Squad]
 
+  val lunits: HCenArrArr[Squad] = grid.newTileArrArr[Squad]
   lunits.set(2, 30, Squad(Britain, Move(2 hc 26, 2 hc 22)))
   lunits.set(10, 38, Squad(Britain, Fire(6 hc 18)))
+  lunits.set(4, 32, Squad(Britain, Move(4 hc 28, 4 hc 24, 4 hc 20)))
+  lunits.set(6, 46, Squad(Britain, Move(6 hc 42)))
+  lunits.set(14, 46, Squad(Britain, Move(14 hc 42, 14 hc 38, 12 hc 36)))
+  lunits.set(10, 46, Squad(Britain))
+  lunits.set(6, 18, Squad(Germany, Fire(4 hc 32)))
+  lunits.set(10, 18, Squad(Germany, Fire(4 hc 32)))
+  lunits.set(6, 10, Squad(Germany, Move(8 hc 8, 8 hc 12, 8 hc 16)))
 }
 
 /** ZugFuhrer scenario 2. */
