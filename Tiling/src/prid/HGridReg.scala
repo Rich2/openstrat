@@ -20,8 +20,8 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
     { case 2 => (c - cRow2sMin) / 4
       case 0 => (c - cRow0sMin) / 4
     }
-    val r2s: Int = ((r - rRow2sMin).divRoundUp(4) * row2sTileLen).atMost0
-    val r0s: Int = ((r - rRow0sMin).divRoundUp(4) * row0sTileLen).atMost0
+    val r2s: Int = ((r - rRow2sMin).divRoundUp(4) * row2sNumCen).atMost0
+    val r0s: Int = ((r - rRow0sMin).divRoundUp(4) * row0sNumCen).atMost0
     r0s + r2s + thisRow
   }
 
@@ -32,7 +32,7 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
   def cRow2sMax: Int = cTileMax.roundDownTo(_.div4Rem2)
 
   /** Length or number of tiles for tile centre rows where r.Div4Rem2. */
-  def row2sTileLen = ((cRow2sMax - cRow2sMin + 4) / 4).atLeast0
+  def row2sNumCen = ((cRow2sMax - cRow2sMin + 4) / 4).atLeast0
 
   /** Minimum c or column vlaue for tile centre rows where r.Div4Rem0. */
   def cRow0sMin: Int = cTileMin.roundUpTo(_.div4Rem0)
@@ -41,7 +41,7 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
   def cRow0sMax: Int = cTileMax.roundDownTo(_.div4Rem0)
 
   /** Length or number of tiles for tile centre rows where r.Div4Rem0. */
-  def row0sTileLen = ((cRow0sMax - cRow0sMin + 4) / 4).max(0)
+  def row0sNumCen = ((cRow0sMax - cRow0sMin + 4) / 4).max(0)
 
   /** The lowest row or value, i.e the bottom row, where r.Div4Rem2. */
   def rRow2sMin: Int = rCenMin.roundUpTo(_.div4Rem2)
@@ -73,7 +73,7 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
   /** Number of Rows where r.Div4Rem0. */
   def numOfRow0s: Int = ((rRow0sMax - rRow0sMin + 4) / 4).max(0)
 
-  override def numOfTiles: Int = numOfRow2s * row2sTileLen + numOfRow0s * row0sTileLen
+  override def numOfTiles: Int = numOfRow2s * row2sNumCen + numOfRow0s * row0sNumCen
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
   override def rowForeach(r: Int)(f: HCen => Unit): Unit =
@@ -125,8 +125,8 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
   }
 
   override def cenRowLen(row: Int): Int = row %% 4 match {
-    case 0 => row0sTileLen
-    case 2 => row2sTileLen
+    case 0 => row0sNumCen
+    case 2 => row2sNumCen
     case _ => excep("Invalid row number")
   }
 
@@ -139,6 +139,8 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */
   override def sideArrIndex(r: Int, c: Int): Int = ???
+
+  def bottomSideRowLength: Int = ife(bottomRowIs0, row0sNumCen, row2sNumCen) * 2
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */
