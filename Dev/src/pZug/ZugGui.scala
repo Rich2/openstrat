@@ -9,27 +9,27 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val active = grid.map{ hc =>hc.polygonReg.active(hc) }
-  val text = terrs.mapHC((t, hc) => hc.rcText(14, t.contrastBW))//grid.map{ hc => hc.rcText() }
+  val text = terrs.mapHC((t, hc) => hc.rcText(14, t.contrastBW))
   val rows = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   val lines = terrs.sideFlatMap( (hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
-  /*def lunits = scen.lunits.gridHeadsFlatMap{ (roord, squad) =>
-    val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(roord).colour).slate(roord.gridPt2)
+  def lunits = scen.lunits.gridHeadsFlatMap{ (roord, squad) =>
+    val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(roord).colour).slate(roord.toPt2)// gridPt2)
     val action: GraphicElems = squad.action match
     {
-      case MoveOld(rs) =>
+      /*case Move(rs) =>
       { rs.foldWithPrevious[GraphicElems](roord, Arr()){ (acc, prevCood, nextCood) =>
         val sideCood = (prevCood + nextCood) / 2
         val l1 = RoordLine(prevCood, sideCood).gridLine2.draw(Black, 2)
         val l2 = RoordLine(sideCood, nextCood).gridLine2.draw(Black, 2)
         acc +- l1 +- l2
       }
-      }
-      case FireOld(target) => Arr(RoordLine(roord, target).gridLine2.draw(Red, 2).dashed(20, 20))
+      }*/
+      //case FireOld(target) => Arr(RoordLine(roord, target).gridLine2.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }
     action +- uc
-  }*/
+  }
 
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
   {
@@ -64,6 +64,6 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   statusText = "Welcome to ZugFuher"
   def thisTop(): Unit = reTop(Arr())
   thisTop()
-  def frame: GraphicElems = (rows ++ lines ++ active ++ text).gridScale(scale)
+  def frame: GraphicElems = (rows ++ lines ++ active ++ text ++ lunits).gridScale(scale)
   mainRepaint(frame)
 }

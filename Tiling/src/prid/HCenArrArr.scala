@@ -28,4 +28,14 @@ class HCenArrArr[A](val unsafeArray: Array[Array[A]])
     unsafeArray(grid.arrIndex(hc)) = newElem
   }
   //    def prepends(value : A, roords: Roord*)(implicit grid: TileGridOld): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
+
+  def gridHeadsFlatMap[BB <: ArrImut[_]](f: (HCen, A) => BB)(implicit grid: HGrid, build: ArrTFlatBuilder[BB]): BB =
+  {
+    val buff = build.newBuff()
+    grid.foreach { r =>
+      val el:Arr[A] = apply(r)
+      if (el.elemsLen >= 1) build.buffGrowArr(buff, f(r, el(0)))
+    }
+    build.buffToArr(buff)
+  }
 }

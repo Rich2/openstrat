@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+package ostrat; package pGrid
 import scala.reflect.ClassTag
 
 /** An immutable Arr of Tile data for a specific TileGrid. This is specialised for AnyRef types The tileGrid can map the Roord of the Tile to the

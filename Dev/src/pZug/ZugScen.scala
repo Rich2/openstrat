@@ -29,7 +29,7 @@ object Zug1 extends ZugScenStart
   val lunits: HCenArrArr[Squad] = grid.newTileArrArr[Squad]
 
   lunits.set(2, 30, Squad(Britain, Move(HCen(2, 26), HCen(2, 22))))
-  deb(lunits(2, 30).toString)
+  lunits.set(10, 38, Squad(Britain, Fire(HCen(6, 18))))
 }
 
 /** ZugFuhrer scenario 2. */

@@ -2,7 +2,10 @@
 package ostrat; package pZug
 import prid._, pGrid._
 
-case class Squad(val polity: Polity, var action: Action = NoAction)
+case class Squad(val polity: Polity, var action: Action = NoAction) extends WithColour
+{
+  def colour = polity.colour
+}
 
 case class SquadOld(val polity: Polity, val roord: Roord, var action: ActionOld = NoActionOld)
 { def colour = polity.colour
@@ -51,6 +54,11 @@ case class Move(hCens: HCens) extends Action
 object Move
 { def apply(hCens: HCen*): Action = new Move(HCens(hCens:_*))
 }
+
+case class Fire(hCen: HCen) extends Action
+{ override def toString: String = "Fire" + hCen.rcStr
+}
+
 object NoAction extends Action
 
 sealed trait ActionOld
