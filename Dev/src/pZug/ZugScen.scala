@@ -48,7 +48,7 @@ object Zug2 extends ZugScenStart
 }
 
 /** ZugFuhrer scenario 3. */
-object Zug3  extends ZugScenStart
+object Zug3 extends ZugScenStart
 {
   override implicit val grid: HGrid = HGridReg(2, 10, 4, 38)
   val terrs = grid.newTileArr[ZugTerr](Plain)
@@ -56,6 +56,6 @@ object Zug3  extends ZugScenStart
   //sTerrs.gridSetTrues(grid.SidesHorr(7, 5, 37))
 
   val lunits = grid.newTileArrArr[Squad]
-  //lunits.set(Germany, 6 rr 18, 6 rr 30)
-  //addUnits(France, 10 rr 14, 10 rr 22, 10 rr 30)
+  lunits.setSame(Squad( Germany), HCen(6, 18), HCen(6, 30))
+  lunits.setSame(Squad(France), HCen(10, 14), HCen(10, 22), HCen(10, 30))
 }

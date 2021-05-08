@@ -16,6 +16,8 @@ class HCenArrArr[A](val unsafeArray: Array[Array[A]])
     unsafeArray(grid.arrIndex(hc)) = newElem
   }
 
+  def setSame(value: A, hcs: HCen*)(implicit grid: HGrid, ct: ClassTag[A]): Unit = hcs.foreach{ hc => set(hc, value) }
+
   def prepend(r: Int, c: Int, value: A)(implicit grid: HGrid, ct: ClassTag[A]): Unit = prepend(HCen(r, c), value)
 
   def prepend(hc: HCen, value: A)(implicit grid: HGrid, ct: ClassTag[A]): Unit =
