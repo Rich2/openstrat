@@ -19,7 +19,7 @@ object OneScen1Test  extends TestSuite
         g1.rCenMax ==> 6
         g1.cTileMin ==> 2
         g1.cTileMax ==> 10
-        g1.numOfTiles ==> 8
+        g1.numCens ==> 8
       }
 
     "os2" -
@@ -28,12 +28,12 @@ object OneScen1Test  extends TestSuite
         g2.rCenMax ==> 6
         g2.cTileMin ==> 2
         g2.cTileMax ==> 10
-        g2.numOfTiles ==> 8
+        g2.numCens ==> 8
       }
 
     "os3" -
     {
-      g3.numOfTiles ==> 8
+      g3.numCens ==> 8
 //      g1.cSideRowMin(1) ==> 1
 //      g1.cSideRowMin(2) ==> 0
 //      g1.cSideRowMin(5) ==> 1

@@ -34,7 +34,7 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
   /** Length or number of tiles for tile centre rows where r.Div4Rem2. */
   def row2sNumCen = ((cRow2sMax - cRow2sMin + 4) / 4).atLeast0
 
-  /** Minimum c or column vlaue for tile centre rows where r.Div4Rem0. */
+  /** Minimum c or column value for tile centre rows where r.Div4Rem0. */
   def cRow0sMin: Int = cTileMin.roundUpTo(_.div4Rem0)
 
   /** Maximum column or c value for tile centre rows where r.Div4Rem0. */
@@ -49,31 +49,16 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
   /** The maximum row or value, i.e the top row, where r.Div4Rem2. */
   def rRow2sMax: Int = rCenMax.roundDownTo(_.div4Rem2)
 
-  /** Number of Rows where r.Div4Rem2. */
-  def numOfRow2s: Int = ((rRow2sMax - rRow2sMin + 4) / 4).max(0)
-
   /** The minimum row or value, ie the bottom row where r.Div4Rem0. */
   def rRow0sMin: Int = rCenMin.roundUpTo(_.div4Rem0)
 
   /** The maximum row or value, ie the top row where r.Div4Rem0. */
   def rRow0sMax: Int = rCenMax.roundDownTo(_.div4Rem0)
 
-  /** The r coordinate of the bottom row of this grid divided by 4 leaves remainder of 2. */
-  def bottomRowIs2: Boolean = rCenMin.div4Rem2
-
-  /** The r coordinate of the bottom row of this grid divided br 4 leaves remainder of 0. */
-  def bottomRowIs0: Boolean = rCenMin.div4Rem0
-
-  /** The r coordinate of the top row of this grid divided br 4 leaves remainder of 2. */
-  def topRowIs2: Boolean = rCenMin.div4Rem2
-
-  /** The r coordinate of the top row of this grid divided by 4 leaves remainder of 0. */
-  def topRowIs0: Boolean = rCenMin.div4Rem0
-
-  /** Number of Rows where r.Div4Rem0. */
-  def numOfRow0s: Int = ((rRow0sMax - rRow0sMin + 4) / 4).max(0)
-
-  override def numOfTiles: Int = numOfRow2s * row2sNumCen + numOfRow0s * row0sNumCen
+  override def numRow0s: Int = ((rRow0sMax - rRow0sMin + 4) / 4).max(0)
+  override def numRow2s: Int = ((rRow2sMax - rRow2sMin + 4) / 4).max(0)
+  override def numCens: Int = numRow2s * row2sNumCen + numRow0s * row0sNumCen
+  override def numCenRows: Int = numRow2s + numRow0s
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
   override def rowForeach(r: Int)(f: HCen => Unit): Unit =
@@ -124,13 +109,13 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
     case y => iToForeach(cTileMin - 1, cTileMax + 1, 2){ c => f(HSide(y, c)) }
   }
 
-  override def cenRowLen(row: Int): Int = row %% 4 match {
+  override def rowNumCens(row: Int): Int = row %% 4 match {
     case 0 => row0sNumCen
     case 2 => row2sNumCen
     case _ => excep("Invalid row number")
   }
 
-  override def cenRowMin(row: Int): Int = row %% 4 match {
+  override def cRowCenMin(row: Int): Int = row %% 4 match {
     case 0 => cRow0sMin
     case 2 => cRow2sMin
     case _ => excep("Invalid row number")
@@ -140,8 +125,8 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
    * Array data. */
   override def sideArrIndex(r: Int, c: Int): Int = ???
 
-  def topSideRowLength: Int = ife(topRowIs0, row0sNumCen, row2sNumCen) * 2
-  def bottomSideRowLength: Int = ife(bottomRowIs0, row0sNumCen, row2sNumCen) * 2
+  def topSideRowLength: Int = ife(rTopRow0, row0sNumCen, row2sNumCen) * 2
+  def bottomSideRowLength: Int = ife(rBottomRow0, row0sNumCen, row2sNumCen) * 2
 
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   override def sideRowIndexArray: Array[Int] =

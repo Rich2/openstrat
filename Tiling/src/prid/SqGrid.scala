@@ -16,7 +16,7 @@ final class SqGrid(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cT
   def tileRowLen: Int = (cTileMax - cTileMin + 2).atLeast0 / 2
 
   /** The total number of Tiles in the tile Grid. */
-  override def numOfTiles: Int = numCenRows * tileRowLen
+  override def numCens: Int = numCenRows * tileRowLen
 
   def rGridMin: Int = rCenMin - 1
   def rGridMax: Int = rCenMax + 1
@@ -48,14 +48,14 @@ final class SqGrid(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cT
 
   /** New immutable Arr of Tile data. */
   final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenArr[A] =
-  { val res = SqCenArr[A](numOfTiles)
+  { val res = SqCenArr[A](numCens)
     //res.mutSetAll(value)
     //res
     res
   }
 
   /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrOpt[A] = new SqCenArrOpt(new Array[A](numOfTiles))
+  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrOpt[A] = new SqCenArrOpt(new Array[A](numCens))
 
   def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(cTileMin, cTileMax, 2)(c => f(SqCen(r, c)))
 
@@ -78,7 +78,7 @@ final class SqGrid(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cT
 
   override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
 
-  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrBuff[A] = SqCenArrBuff(numOfTiles)
+  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrBuff[A] = SqCenArrBuff(numCens)
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

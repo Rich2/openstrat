@@ -31,13 +31,11 @@ case class HGridIrrRowLengths(unsafeArray: Array[Int]) extends HGrid
   override def cTileMax: Int = ???
 
   override def numCenRows: Int = unsafeArray(0)
-
-  override def numOfRow2s: Int = ???
-
-  override def numOfRow0s: Int = ???
+  override def numRow0s: Int = ???
+  override def numRow2s: Int = ???
 
   /** The total number of Tiles in the tile Grid. */
-  override def numOfTiles: Int = ???
+  override def numCens: Int = ???
 
   def rowForeach(r: Int)(f: HCen => Unit): Unit = ???
 
@@ -51,9 +49,9 @@ case class HGridIrrRowLengths(unsafeArray: Array[Int]) extends HGrid
 
   override def arrIndex(r: Int, c: Int): Int = ???
 
-  override def cenRowLen(row: Int): Int = ???
+  override def rowNumCens(row: Int): Int = ???
 
-  override def cenRowMin(row: Int): Int = ???
+  override def cRowCenMin(row: Int): Int = ???
 
   override def hCenExists(r: Int, c: Int): Boolean = ???
 

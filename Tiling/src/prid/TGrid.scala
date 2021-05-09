@@ -41,8 +41,8 @@ trait TGrid
   /** Height of the tile grid from furthest tile edge or vertex to furthest tile edge or vertex. */
   def height: Double
 
-  /** The total number of Tiles in the tile Grid. */
-  def numOfTiles: Int
+  /** The total number of tile centres in this tile Grid. */
+  def numCens: Int
 
   def xRatio: Double
 
@@ -65,7 +65,7 @@ trait TGrid
 
   /** flatMaps over each row number. */
   final def flatMapRows[ArrT <: ArrImut[_]](f: Int => ArrT)(implicit build: ArrTFlatBuilder[ArrT]): ArrT =
-  { val buff = build.newBuff(numOfTiles)
+  { val buff = build.newBuff(numCens)
     foreachRow{ r => build.buffGrowArr(buff, f(r)) }
     build.buffToArr(buff)
   }
@@ -74,7 +74,7 @@ trait TGrid
   def foreachCenCoord(f: TCoord => Unit): Unit
 
   def mapCenCoords[B, BB <: ArrImut[B]](f: TCoord => B)(implicit build: ArrTBuilder[B, BB]): BB =
-  { val res = build.newArr(numOfTiles)
+  { val res = build.newArr(numCens)
     var count = 0
     foreachCenCoord { tc => res.unsafeSetElem(count, f(tc))
       count += 1

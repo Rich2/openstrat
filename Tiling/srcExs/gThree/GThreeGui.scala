@@ -20,7 +20,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr())//bTurn))
-  statusText = s"Game Three. Scenario has ${grid.numOfTiles} tiles."
+  statusText = s"Game Three. Scenario has ${grid.numCens} tiles."
   thisTop()
 
   def frame: GraphicElems = (areas ++ lines ++ text).gridScale(scale)
