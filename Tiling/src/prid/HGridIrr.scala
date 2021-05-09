@@ -57,7 +57,28 @@ case class HGridIrrRowLengths(unsafeArray: Array[Int]) extends HGrid
 
   override def hCenExists(r: Int, c: Int): Boolean = ???
 
+  def cSideRowMin(r: Int): Int = ???
+
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */
-  override def sideArrIndex(r: Int, c: Int): Int = ???
+  override def sideArrIndex(r: Int, c: Int): Int = sideRowIndexArray(r - rSideMin) + (c - cSideRowMin(r)) / r.ifEvenElse(4, 2)
+
+  /** An Array of index values into an Array of Side data. 1 Int value for the start index of each Row. */
+  val sideRowIndexArray: Array[Int] = ???
+  /*{
+    val res = new Array[Int](rSideMax - rSideMin + 1)
+    var count = 0
+    iUntilForeach(0, numOfSideRows){ i =>
+      res(i) = count
+      val y = rSideMin + i
+      val rowLen: Int = y match {
+        case y if y == rSideMax => (cRowEnd(y - 1) - cRowStart(y - 1)) / 2 + 2
+        case y if y == ySideMin => (cRowEnd(y + 1) - cRowStart(y + 1)) / 2 + 2
+        case y if y.isEven => (cRowEnd(y) - cRowStart(y)) / 4 + 2
+        case y => (cRowEnd(y - 1).max(cRowEnd(y + 1)) - cRowStart(y - 1).min(cRowStart(y + 1))) / 2 + 2
+      }
+      count += rowLen.atMost0
+    }
+    res
+  }*/
 }

@@ -140,7 +140,21 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
    * Array data. */
   override def sideArrIndex(r: Int, c: Int): Int = ???
 
+  def topSideRowLength: Int = ife(topRowIs0, row0sNumCen, row2sNumCen) * 2
   def bottomSideRowLength: Int = ife(bottomRowIs0, row0sNumCen, row2sNumCen) * 2
+
+  /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
+  override def sideRowIndexArray: Array[Int] =
+  {
+    val array = new Array[Int](numOfSideRows)
+    var count = 0
+    sideRowForeach{y =>
+      array(y - rSideMin) = count
+      rowForeachSide(y)(_ => count += 1)
+    }
+    array
+  }
+
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

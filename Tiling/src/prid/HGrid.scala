@@ -167,6 +167,9 @@ trait HGrid extends TGrid
    *  Array data. */
   def sideArrIndex(r: Int, c: Int): Int
 
+  /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
+  def sideRowIndexArray: Array[Int]
+
   /** The Hex Sides of the Hex Grid defined in integer constructed [[HCoordLineSeg.]].
    *  @group SidesGroup */
   def sideCoordLines: Arr[HCoordLineSeg] = sidesMap[HCoordLineSeg, Arr[HCoordLineSeg]](_.coordLine)
