@@ -10,8 +10,11 @@ package object pFx
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
   lazy val devSettingsStatements: EMon[Statements] = statementsFromResource("DevSettings.rson")
 
+  /** Find a setting of the given name and and return its Expr from the file DevSettings.rson. */
+  def findDevSettingExpr(settingStr: String): EMon[Expr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
+
   /** Find a setting of the given name and type from the file DevSettings.rson. */
-  def findDevSetting[A: Persist](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSettingT(settingStr))
+  def findDevSettingT[A: Persist](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSettingT(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
   def findDevSettingElse[A: Persist](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSettingT(settingStr)).getElse(elseValue)

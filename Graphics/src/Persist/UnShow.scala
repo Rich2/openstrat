@@ -78,7 +78,7 @@ trait UnShow[+T]
   }
 
   /** Finds a setting of the type of this UnShow instance from an Arr[Statement]. */
-  def settingFromStatements(sts: Arr[Statement], settingStr: String): EMon[T] = sts match
+  def settingTFromStatements(sts: Arr[Statement], settingStr: String): EMon[T] = sts match
   { case Arr0() => TextPosn.emptyError("No Statements")
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect{ case g @ Good(_) => g } match

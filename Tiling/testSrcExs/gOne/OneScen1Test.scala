@@ -6,9 +6,9 @@ object OneScen1Test  extends TestSuite
 {
   val os1 = OneScen1
   val g1 = os1.grid
-  val os2 = os1.doTurn(Arr())
+  val os2 = os1.endTurn(Arr())
   val g2 = os2.grid
-  val os3 = os1.doTurn(Arr(HexAndStep(4, 4, HexStepUL), HexAndStep(4, 8, HexStepUL), HexAndStep(6, 10, HexStepLt)))
+  val os3 = os1.endTurn(Arr(HexAndStep(4, 4, HexStepUL), HexAndStep(4, 8, HexStepUL), HexAndStep(6, 10, HexStepLt)))
   val g3 = os3.grid
 
   val tests = Tests

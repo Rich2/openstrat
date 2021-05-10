@@ -8,7 +8,7 @@ trait OneScen extends HexGridScen
   def oPlayers: HCenArrOpt[Player]
 
   /** Resolves turn. Takes a set of commands / orders, resolves them and returns the new game state scenario. */
-  def doTurn(orderList: Arr[HexAndStep]): OneScen =
+  def endTurn(orderList: Arr[HexAndStep]): OneScen =
   { /** A mutable grid of data. The tile data is an Array buffer of [[HexAndStep]]s. */
     val resolve: HCenArrBuff[HexAndStep] = grid.newHCenArrBuff
     orderList.foreach{ hts => resolve.appendAt(hts.hc2, hts) }
@@ -18,7 +18,7 @@ trait OneScen extends HexGridScen
   }
 }
 
-/** Companion object for OneScen trait, cantains factory apply method. */
+/** Companion object for OneScen trait, contains factory apply method. */
 object OneScen
 { /** Factory apply method for OneScen trait. */
   def apply(turnIn: Int, gridIn: HGrid, opIn: HCenArrOpt[Player]): OneScen = new OneScen
