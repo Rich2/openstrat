@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import geom._, math.sqrt, reflect.ClassTag
+import geom._, math.sqrt, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
@@ -22,10 +22,10 @@ trait HGrid extends TGrid
   /** The r coordinate of the bottom row of this grid divided by 4 leaves remainder of 2. */
   def rBottomRow2: Boolean = rCenMin.div4Rem2
 
-  /** The r coordinate of the top row of this grid divided by 4 leaves remainder of 0. */
-  final def rTopRow0: Boolean = rCenMin.div4Rem0
+  /** Boolean, true if for top hex tile centre row of this hex grid r %% 4 == 0. */
+  final def rTopCenRow0: Boolean = rCenMin.div4Rem0
 
-  /** The r coordinate of the top row of this grid divided by 4 leaves remainder of 2. */
+  /** Boolean, true if for top hex tile centre row of this hex grid r %% 4 == 2. */
   final def rTopRow2: Boolean = rCenMin.div4Rem2
 
   /** Carries out the procedure function on each [[HCen]] hex tile centre coordinate in the given tile row. This method is defined here rather than on
@@ -42,6 +42,7 @@ trait HGrid extends TGrid
   /** The centre of the hex grid in terms of c column coordinates. */
   def cCen: Double = (cTileMin + cTileMax) / 2.0
 
+  /** The centre of the hex grid along the X axis after the XRatio has been applied to c column value. */
   final override def xCen: Double = cCen * xRatio
 
   /** foreachs over each Hex tile's centre HCen. */
@@ -107,11 +108,9 @@ trait HGrid extends TGrid
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numCens))
 
-
-
-  def combinedPolygons[A <: AnyRef](implicit arr: HCenArr[A]): Arr[(HVertPolygon, A)] =
+  /** Combine adjacent tiles of the same value. */
+  /*def combinedPolygons[A <: AnyRef](implicit arr: HCenArr[A]): Arr[(HVertPolygon, A)] =
   {
-    import collection.mutable.ArrayBuffer
     implicit def grid: HGrid = this
     if (numCenRows > 0)
     {
@@ -132,10 +131,14 @@ trait HGrid extends TGrid
       ???
     }
     else Arr()
-  }
+  }*/
 
+  /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
   final def hCenExists(hc: HCen): Boolean = hCenExists(hc.r, hc.c)
+
+  /** Boolean. True if the specified hex centre exists in this hex grid. */
   def hCenExists(r: Int, c:Int): Boolean
+
   /* Methods that operate on Hex tile sides. ******************************************************/
 
   /** The number of Sides in the TileGrid. Needs reimplementing.

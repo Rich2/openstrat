@@ -125,7 +125,7 @@ class HGridReg(val rCenMin: Int, val rCenMax: Int, val cTileMin: Int, val cTileM
    * Array data. */
   override def sideArrIndex(r: Int, c: Int): Int = ???
 
-  def topSideRowLength: Int = ife(rTopRow0, row0sNumCen, row2sNumCen) * 2
+  def topSideRowLength: Int = ife(rTopCenRow0, row0sNumCen, row2sNumCen) * 2
   def bottomSideRowLength: Int = ife(rBottomRow0, row0sNumCen, row2sNumCen) * 2
 
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
