@@ -102,7 +102,6 @@ class HexGridRegOld(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val
 
   /** The index from a Side Roord into an Arr of Side data. */
   override def sideArrIndex(y: Int, c: Int): Int = sideRowIndexArray(y - ySideMin) + (c - cSideRowMin(y)) / y.ifEvenElse(4, 2)
-
 }
 
 object HexGridRegOld
