@@ -36,10 +36,13 @@ trait HGrid extends TGrid
    *  defined here rather than on TileGrid so it can take the specific narrow [[HCen]] parameter to the foreach function. */
   def rowIForeach(r: Int, count: Int = 0)(f: (HCen, Int) => Unit): Int
 
+  /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
   override def xRatio: Double = 1.0 / sqrt(3)
+
+  /** The centre of the hex grid in terms of c column coordinates. */
   def cCen: Double = (cTileMin + cTileMax) / 2.0
 
-  def xCen: Double = cCen * xRatio
+  final override def xCen: Double = cCen * xRatio
 
   /** foreachs over each Hex tile's centre HCen. */
   final def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeach(r)(f))
@@ -49,7 +52,9 @@ trait HGrid extends TGrid
     foreachRow{r => count = rowIForeach(r, count)(f) }
   }
 
-  final def map[B, BB <: ArrImut[B]](f: HCen => B)(implicit build: ArrTBuilder[B, BB]): BB =
+  /** Maps over the [[HCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
+   *  corresponding to the standard Scala map function of A => B. */
+  final def map[B, ArrB <: ArrImut[B]](f: HCen => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB =
   { val res = build.newArr(numCens)
     iForeach((hCen, i) => res.unsafeSetElem(i, f(hCen)))
     res
