@@ -9,7 +9,7 @@ object composeBlocks
     val acc: Buff[BlockMember] = Buff()
 
     def sortBlocks(rem: ArrOff[ClauseMember]): ERefs[BlockMember] = rem match
-    { case ArrOff0() => PrefixPlus(acc.toArr)
+    { case ArrOff0() => prefixPlus(acc.toArr)
       /*case (at: IdentifierLowerToken) :: (bb: BracketedStatements) :: t2 =>
       { //typedSpan needs removal
         val (blocks, tail) = t2.typedSpan[BracketedStatements](_.isInstanceOf[BracketedStatements])

@@ -1,11 +1,12 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
-/** Not entirely sure what this does. */
-object PrefixPlus
+/** Function object. Not entirely sure what this does. */
+object prefixPlus
 {
   def apply(implicit refs: Arr[BlockMember]): ERefs[BlockMember] =
   {
+    deb("prefixPlus")
     val acc: Buff[BlockMember] = Buff()
 
     def loop(rem: ArrOff[BlockMember]): ERefs[BlockMember] = rem match
@@ -18,7 +19,7 @@ object PrefixPlus
   }
 }
 
-/** Funtion object that seeks to get a valid expression from a Mono Statement or clause. */
+/** Function object that seeks to get a valid expression from a Mono Statement or clause. */
 object getExpr
 { /** Seeks to get a valid expression from a Mono Statement or clause. */
   def apply (implicit seg: Arr[ClauseMember]): EMon[Expr] = fromOffset(seg.offset0)

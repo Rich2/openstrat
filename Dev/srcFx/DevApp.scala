@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
-import javafx._, stage._, scene._, canvas._
+import javafx._, stage._, scene._, canvas._, pParse._
 
 /** Name should possibly be DevAppFx. */
 object DevApp
@@ -22,9 +22,14 @@ class AppStart extends application.Application
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
     val sett: EMon[String] = findDevSettingT[String]("appStr")
-    val expr = findDevSettingExpr("appStr")
-    debvar(expr)
-    val pair = pDev.Apps.curr(sett.getElse(""))
+    val eExpr: EMon[pParse.Expr] = findDevSettingExpr("appStr")
+    debvar(eExpr)
+    val dPair: (pCanv.CanvasPlatform => Any, String) = (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II")
+    val pair = eExpr.fold{ debvar(eExpr); dPair }{expr => expr match {
+      case StringToken(_, str) => pDev.Apps.theMap.getOrElse(str, dPair)
+      case it: IdentifierToken if it.srcStr == "G" => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
+      case _ => {debvar(expr); dPair }
+    }}
     val newAlt = CanvasFx(canvasCanvas, jScene)
     pair._1(newAlt)
     primaryStage.setTitle(pair._2)

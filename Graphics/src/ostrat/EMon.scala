@@ -110,7 +110,8 @@ object Good
 
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
 class Bad[+A](val errs: Strings) extends EMon[A]
-{ override def map[B](f: A => B): EMon[B] = Bad[B](errs)
+{ override def toString: String =  "Bad" + errs.foldLeft("")(_ + _.enquote).enParenth
+  override def map[B](f: A => B): EMon[B] = Bad[B](errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
   override def fld[B](noneValue: => B, fGood: A => B): B = noneValue

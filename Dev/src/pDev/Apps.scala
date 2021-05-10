@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import pCanv._, pStrat._, pGrid._
 
@@ -86,4 +86,16 @@ object Apps
 
   /** Change appNum to change the default loaded application. */
   def curr(str: String): (CanvasPlatform => Any, String) = theMap.getOrElse(str, theMap("1"))
+  import pParse._
+  def gen(expr: Expr): (CanvasPlatform => Any, String) = expr match {
+    case StringToken(_, str) => theMap.getOrElse(str, theMap("1"))
+    case it: IdentifierToken if it.srcStr == "G" => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
+    case _ => {debvar(expr); theMap("1") }
+  }
+  def eGen(eExpr: EMon[Expr]): (CanvasPlatform => Any, String) = eExpr.fold{ debvar(eExpr); theMap("1") }(gen(_))
+  /*match {
+    case Good(StringToken(_, str)) => theMap.getOrElse(str, theMap("1"))
+    case Good(expr) => {debvar(expr); theMap("1") }
+    case _ => { debvar(eExpr); theMap("1") }
+  }*/
 }
