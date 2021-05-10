@@ -27,10 +27,11 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     new HCenArrOpt[A](newArr)
   }
 
-  /** Moves the object in the array location given by HCen1 to HCen2, by setting H2 to the value of h1 and setting H1 to null. */
-  def mutMove(h1: HCen, h2: HCen)(implicit grid: HGrid): Unit =
-  { unsafeArr(grid.arrIndex(h2)) = unsafeArr(grid.arrIndex(h1))
-    unsafeArr(grid.arrIndex(h1)) = null.asInstanceOf[A]
+  /** Moves the object in the array location given by the 1st [[HCen]] to the 2nd [[HCen]], by setting hc2 to the value of hc1 and setting hc1 to
+   *  None. */
+  def mutMove(hc1: HCen, hc2: HCen)(implicit grid: HGrid): Unit =
+  { unsafeArr(grid.arrIndex(hc2)) = unsafeArr(grid.arrIndex(hc1))
+    unsafeArr(grid.arrIndex(hc1)) = null.asInstanceOf[A]
   }
 
   /** coordinate-foreach-Some. Foreach Some element and its associated [[HCen]] coordinate applies the side effecting parameter function. It ignores

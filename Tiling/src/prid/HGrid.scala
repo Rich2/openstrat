@@ -45,9 +45,10 @@ trait HGrid extends TGrid
   /** The centre of the hex grid along the X axis after the XRatio has been applied to c column value. */
   final override def xCen: Double = cCen * xRatio
 
-  /** foreachs over each Hex tile's centre HCen. */
+  /** foreachs over each [[HCen]] hex tile centre, apply the side effecting function. */
   final def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeach(r)(f))
 
+  /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
   final def iForeach(f: (HCen, Int) => Unit) =
   { var count: Int = 0
     foreachRow{r => count = rowIForeach(r, count)(f) }

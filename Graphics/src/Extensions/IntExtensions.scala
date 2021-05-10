@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import math.Pi
 
@@ -175,5 +175,4 @@ class IntExtensions(val thisInt: Int) extends AnyVal
 
   /** Takes this Int as a value in arc deconds and converts it to a value of arc degrees. */
   @inline def secsToDegs = thisInt / 3600.0
-} 
-   
+}
