@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pParse
+package ostrat; package pParse
 import utest._
 
 object Base32Test extends TestSuite
@@ -27,6 +26,5 @@ object Base32Test extends TestSuite
       666.base32 ==> "KR"
       1024.base32 ==> "100"
     }
-
   }
 }
