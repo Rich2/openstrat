@@ -24,13 +24,13 @@ class AppStart extends application.Application
     val sett: EMon[String] = findDevSettingT[String]("appStr")
     val eExpr: EMon[pParse.Expr] = findDevSettingExpr("appStr")
     val dPair: (pCanv.CanvasPlatform => Any, String) = (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II")
-    val pair = eExpr.fold{ debvar(eExpr); dPair }{expr => expr match {
-      case StringToken(_, str) => Apps.theMap.getOrElse(str, dPair)
-      case it: IdentifierToken if it.srcStr == "Z" => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
-      case SpacedExpr(Arr2(it: IdentifierToken, nd: NatDeciToken)) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr).launch(nd.getInt, "")
-      case SpacedExpr(Arr2(it: IdentifierToken, _)) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr).launch(2, "")
-      case SpacedExpr(exprs) => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
-      case _ => {debvar(expr); dPair }
+
+    val pair = eExpr.fold{ debvar(eExpr); dPair }{expr => expr match
+    { case SpacedExpr(Arr3Tail(it: IdentifierToken, nd: NatDeciToken, it2: IdentifierToken, _)) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr).launch(nd.getInt, it2.srcStr)
+      case SpacedExpr(Arr2Tail(it: IdentifierToken, nd: NatDeciToken, _)) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr).launch(nd.getInt, "")
+      case SpacedExpr(Arr1Tail(it: IdentifierToken, _)) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr).launch(2, "")
+      case SpacedExpr(Arr1Tail(it: IdentifierToken, _)) => Apps.theMap.getOrElse(it.srcStr, dPair)
+      case _ => dPair
     }}
     val newAlt = CanvasFx(canvasCanvas, jScene)
     pair._1(newAlt)

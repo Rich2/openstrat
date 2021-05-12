@@ -12,24 +12,24 @@ object Apps
   )
 
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
-    ("1", (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II") ),
-    ("2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
-    ("3", (pFlags.FlagsGui(_), "JavaFx Flags")),
-    ("4", (pSpace.Planets(_), "JavaFx Planets")),
+    ("Y1", (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II") ),
+    ("Y2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
+    ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
+    ("Y4", (pSpace.Planets(_), "JavaFx Planets")),
 
-    ("6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
-    ("7", (pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
-    ("8", (ColourGen(_), "JavaFx Some Colours")),
-    ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
-    ("10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
-    ("11", (pDraughts.DraughtsGui(_, pDraughts.DraughtsStart), "Draughts")),
+    ("Y6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
+    ("Y7", (pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
+    ("Y8", (ColourGen(_), "JavaFx Some Colours")),
+    ("Y9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
+    ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
+    ("Y11", (pDraughts.DraughtsGui(_, pDraughts.DraughtsStart), "Draughts")),
 
-    ("13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
-    ("14", (pReactor.ReactorGUI(_), "reactor")),
-    ("15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
-    ("16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
+    ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
+    ("Y14", (pReactor.ReactorGUI(_), "reactor")),
+    ("Y15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
+    ("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
     
-    ("18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
+    ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
 
     ("EG1", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNWTerrOld, 472 rr 204), "JavaFx NW Wurope Grid")),
     ("EG2", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNETerrOld, 456 rr 388), "JavaFx NE Wurope Grid")),

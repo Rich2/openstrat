@@ -28,7 +28,16 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 
   override def fElemStr: A @uncheckedVariance => String = _.toString
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArr(i) = value
+
+  /** Returns a new shorter Arr with the head element removed. */
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] = drop(1)
+
+  /** Returns a new shorter Arr with the first 2 head elements removed. */
+  @inline def drop2(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] = drop(2)
+
+  /** Returns a new shorter Arr with the first 3 head elements removed. */
+  @inline def drop3(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] = drop(3)
+
   def offset(value: Int): ArrOff[A] @uncheckedVariance = new ArrOff[A](value)
   def offset0: ArrOff[A @uncheckedVariance] = offset(0)
 
@@ -36,6 +45,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
   { unsafeArr.copyToArray(unsafeArr, offset, copyLength); () }
 
+  /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
   { val newArray = new Array[A]((elemsLen - 1).atLeast0)
     iUntilForeach(1, elemsLen)(i => newArray(i - 1) = unsafeArr(i))
