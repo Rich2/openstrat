@@ -48,28 +48,6 @@ object Apps
 
     ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
-
-    ("B1", (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1")), //Moving Graphics
-    ("B2", (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")),
-    ("B3", (learn.LsB3(_), "JavaFx Demonstration Animated Canvas 3")),
-
-    ("C1", (learn.LsC1(_), "JavaFx Demonstration Interactive Canvas 1")), //User interactive graphics
-    ("C2", (learn.LsC2(_), "JavaFx Demonstration Interactive Canvas 2")),
-    ("C3", (learn.LsC3(_), "JavaFx Demonstration Interactive Canvas 3")),
-    ("C4", (learn.LsC4(_), "JavaFx Demonstration Interactive Canvas 4")),
-    ("C5", (learn.LsC5(_), "JavaFx Demonstration Interactive Canvas 5")),
-    ("C6", (learn.LsC6(_), "JavaFx Demonstration Interactive Canvas 6")),
-    ("C7", (learn.LsC7(_), "JavaFx Demonstration Interactive Canvas 7: Exploring Beziers")),
-    ("C8", (learn.LsC8(_), "JavaFx Demonstration Interactive Canvas 8: More Dragging")),
-    
-    ("D1", (learn.LsD1(_), "JavaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
-    ("D2", (learn.LsD2(_), "JavaFx Demonstration Persistence 2")),
-    ("D3", (learn.LsD3(_), "JavaFx Demonstration Persistence 3")),
-    ("D4", (learn.LsD4(_), "JavaFx Demonstration Persistence 4")),
-    ("D5", (learn.LsD5(_), "JavaFx Demonstration Persistence 5")),
-
-    ("E1", (learn.LsE1(_), "JavaFx Demonstration Games 1")), //Building turn based games.
-    ("E2", (learn.LsE2(_), "JavaFx Demonstration Games 2")),
   )
 
   /** Change appNum to change the default loaded application. */
