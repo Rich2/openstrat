@@ -24,6 +24,7 @@ object composeBlocks
 
     sortBlocks(seg.offset0).flatMap {
       case Arr1(e: Expr) => Good(e)
+      case arr if arr.forAll(_.isInstanceOf[Expr]) => Good(SpacedExpr(arr.map(_.asInstanceOf[Expr])))
       case s => bad1(s.head, "Unknown Expression sequence in getBlocks:" -- s.toString)
     }
   }

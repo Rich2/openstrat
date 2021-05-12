@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
-import javafx._, stage._, scene._, canvas._, pParse._
+import javafx._, stage._, scene._, canvas._, pParse._, pDev._
 
 /** Name should possibly be DevAppFx. */
 object DevApp
@@ -23,11 +23,13 @@ class AppStart extends application.Application
     val jScene = new Scene(root, canvWidth, canvHeight)
     val sett: EMon[String] = findDevSettingT[String]("appStr")
     val eExpr: EMon[pParse.Expr] = findDevSettingExpr("appStr")
-    debvar(eExpr)
     val dPair: (pCanv.CanvasPlatform => Any, String) = (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II")
     val pair = eExpr.fold{ debvar(eExpr); dPair }{expr => expr match {
-      case StringToken(_, str) => pDev.Apps.theMap.getOrElse(str, dPair)
-      case it: IdentifierToken if it.srcStr == "G" => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
+      case StringToken(_, str) => Apps.theMap.getOrElse(str, dPair)
+      case it: IdentifierToken if it.srcStr == "Z" => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
+      case SpacedExpr(Arr2(it: IdentifierToken, nd: NatDeciToken)) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr).launch(nd.getInt, "")
+      case SpacedExpr(Arr2(it: IdentifierToken, _)) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr).launch(2, "")
+      case SpacedExpr(exprs) => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
       case _ => {debvar(expr); dPair }
     }}
     val newAlt = CanvasFx(canvasCanvas, jScene)

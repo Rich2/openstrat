@@ -88,3 +88,9 @@ case class AsignExpr(left: Expr, asToken: AsignToken, right : Expr) extends Expr
   override def endMem = right
   override def exprName: String = "AsignExpr"  
 }
+
+case class SpacedExpr(exprs: Arr[Expr]) extends ExprCompound
+{ override def startMem = exprs(0)
+  override def endMem = exprs.last
+  override def exprName: String = "SpacedExprs"
+}

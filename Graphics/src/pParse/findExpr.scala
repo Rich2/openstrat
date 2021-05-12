@@ -6,7 +6,6 @@ object prefixPlus
 {
   def apply(implicit refs: Arr[BlockMember]): ERefs[BlockMember] =
   {
-    deb("prefixPlus")
     val acc: Buff[BlockMember] = Buff()
 
     def loop(rem: ArrOff[BlockMember]): ERefs[BlockMember] = rem match

@@ -2,9 +2,15 @@
 package ostrat; package pDev
 import pCanv._, pStrat._, pGrid._
 
+
 /** Object for selecting various JavaFx apps /examples at run time. */
 object Apps
 {
+  val idMap: Map[String, GuiLaunch] = Map(
+    ("G1", gOne.OneLaunch),
+    ("Z", pZug.ZugLaunch)
+  )
+
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
     ("1", (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II") ),
     ("2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),

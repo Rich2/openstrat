@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
-import prid._
+import prid._, pCanv._
 
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
 trait OneScen extends HexGridScen
@@ -31,6 +31,15 @@ object OneScen
 /** This trait just puts the value 0 in for the turn. */
 trait OneScenStart extends OneScen
 { override val turn: Int = 0
+}
+
+object OneLaunch extends GuiLaunch
+{
+  override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match {
+    case 1 => (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")
+    case 2 => (gOne.GOneGui(_, gOne.OneScen2), "JavaFx Game One")
+    case _ => (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")
+  }
 }
 
 /** 1st example Turn 0 scenario state for Game One. */

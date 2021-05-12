@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pZug
-import prid._
+import prid._, pCanv._
 
 trait ZugScen extends HexGridScen
 { /** tile terrain. */
@@ -12,6 +12,16 @@ trait ZugScen extends HexGridScen
 
 trait ZugScenStart extends ZugScen
 { override def turn: Int = 0
+}
+
+object ZugLaunch extends GuiLaunch
+{
+  override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match
+  { case 1 => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
+    case 2 => (pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")
+    case 3 => (pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 Britain")
+    case _ => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
+  }
 }
 
 /** ZugFuhrer scenario 1. */
