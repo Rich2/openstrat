@@ -21,6 +21,7 @@ trait ArrImut[+A] extends Any with ArrayLike[A]
   final def elemsStr: String = map(fElemStr).mkString("; ").enParenth
 
   final override def toString: String = typeStr + elemsStr
+
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
   { case -1 => returnThis
     case n =>

@@ -14,7 +14,7 @@ case class TextPosn(fileName: String, lineNum :Int, linePosn: Int)
 }
 
 object StrPosn
-{ def apply(lineNum: Int = 1, linePosn: Int = 1): TextPosn = new TextPosn("String", lineNum, linePosn)
+{ def apply(lineNum: Int = 1, linePosn: Int = 1): TextPosn = TextPosn("String", lineNum, linePosn)
   def unapply(inp: TextPosn): Option[(Int, Int)] = inp match
   { case TextPosn("String", ln, lp) => Some((ln, lp))
     case _ => None

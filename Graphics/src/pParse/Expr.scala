@@ -29,7 +29,7 @@ trait ExprToken extends Expr with ClauseMemberToken
 { def subTypeStr: String
   def exprName: String = subTypeStr + "Expr"
   final override def tokenTypeStr: String = subTypeStr + "Token"
-  final override def toString: String = tokenTypeStr.appendParenthSemis(srcStr.toString, startPosn.lineNum.toString, startPosn.linePosn.toString)
+  override def toString: String = tokenTypeStr.appendParenthSemis(srcStr, startPosn.lineNum.toString, startPosn.linePosn.toString)
 }
 
 trait BlockRaw

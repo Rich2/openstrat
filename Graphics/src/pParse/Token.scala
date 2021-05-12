@@ -36,6 +36,7 @@ case class SemicolonToken(startPosn: TextPosn) extends EmptyExprToken
 { def srcStr = ";"
   override def exprName: String = "EmptyStatementExpr"
   override def subTypeStr: String = "SemicolonToken"
+  override def toString: String = tokenTypeStr.appendParenthSemis(startPosn.lineNum.toString, startPosn.linePosn.toString)
 }
 
 case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with StatementMember

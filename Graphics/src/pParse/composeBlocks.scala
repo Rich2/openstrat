@@ -10,8 +10,12 @@ object composeBlocks
 
     def sortBlocks(rem: ArrOff[ClauseMember]): ERefs[BlockMember] = rem match
     { case ArrOff0() => prefixPlus(acc.toArr)
-      /*case (at: IdentifierLowerToken) :: (bb: BracketedStatements) :: t2 =>
-      { //typedSpan needs removal
+      case ArrOff2Tail(at: IdentifierToken, bb: BracketedStatements, t2) => {
+        val abe = AlphaBracketExpr(at, Arr(bb))
+        acc.append(abe)
+        sortBlocks(t2)
+      }
+      /*{ //typedSpan needs removal
         val (blocks, tail) = t2.typedSpan[BracketedStatements](_.isInstanceOf[BracketedStatements])
         sortBlocks(tail, acc :+ AlphaBracketExpr(at, blocks.toImut.asInstanceOf[Refs[BracketedStatements]]))
       }*/
