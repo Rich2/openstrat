@@ -1,86 +1,87 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-appStr = "1";
+appSet = Y1 1 B;
 displayX = 0;
 displayY = 0;//Some operating systems will not allow a positive y value that pushes the window bottom below the bottom of the display viewport.
 // displayWidth = 1920;
 // displayHeight = 1080;
 
 /* Change the  number to change the app on next run.
-    ("1", (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II") ),
-    ("2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
-    ("3", (pFlags.FlagsGui(_), "JavaFx Flags")),
-    ("4", (pSpace.Planets(_), "JavaFx Planets")),
+  ("G1", gOne.OneLaunch),
+  ("Z", pZug.ZugLaunch),
+*/
 
-    ("6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
-    ("7", (pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
-    ("8", (ColourGen(_), "JavaFx Some Colours")),
-    ("9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
-    ("10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
-    ("11", (pDraughts.DraughtsGui(_, pDraughts.DraughtsStart), "Draughts")),
+/*
+ ("Y1", (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II") ),
+ ("Y2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
+ ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
+ ("Y4", (pSpace.Planets(_), "JavaFx Planets")),
 
-    ("13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
-    ("14", (pReactor.ReactorGUI(_), "reactor")),
-    ("15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
-    ("16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
+ ("Y6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
+ ("Y7", (pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
+ ("Y8", (ColourGen(_), "JavaFx Some Colours")),
+ ("Y9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
+ ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
+ ("Y11", (pDraughts.DraughtsGui(_, pDraughts.DraughtsStart), "Draughts")),
 
-    ("18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
+ ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
+ ("Y14", (pReactor.ReactorGUI(_), "reactor")),
+ ("Y15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
+ ("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
 
-    ("EG1", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNWTerr, 472 rr 204), "JavaFx NW Wurope Grid")),
-    ("EG2", (pEarth.E80GridGui(_, pEarth.pEurope.EuropeNETerr, 456 rr 388), "JavaFx NE Wurope Grid")),
+ ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
 
-    ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")),
-    ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx irregular Grid Game One")),
-    ("G12", (gOne.GOneGui(_, gOne.OneScen2), "JavaFx irregular Grid Game One")),
-    ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "JavaFx Game Two")),
-    ("G3", (gThree.GThreeGui(_, gThree.ThreeScen2), "JavaFx Game Three")),
-    ("G31", (gThree.GThreeGui(_, gThree.ThreeScen1), "JavaFx Game Three")),
-    ("G33", (gThree.GThreeGui(_, gThree.ThreeScen3), "JavaFx Game Three")),
+ ("EG1", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNWTerrOld, 472 rr 204), "JavaFx NW Wurope Grid")),
+ ("EG2", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNETerrOld, 456 rr 388), "JavaFx NE Wurope Grid")),
 
+ ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "JavaFx Game Two")),
+ ("G3", (gThree.GThreeGui(_, gThree.ThreeScen2), "JavaFx Game Three")),
+ ("G31", (gThree.GThreeGui(_, gThree.ThreeScen1), "JavaFx Game Three")),
+ ("G33", (gThree.GThreeGui(_, gThree.ThreeScen3), "JavaFx Game Three")),
 
-    ("Z1", (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
-    ("X1", (pZug.ZugGuiOld(_, pZug.Zug1Old), "Old JavaFx Zugfuhrer Z1 Britain")),
-    ("Z2", (pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),
-    ("X2", (pZug.ZugGuiOld(_, pZug.Zug2Old), "Old JavaFx Zugfuhrer Z2 Britain")),
-    ("Z3", (pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
-    ("X3", (pZug.ZugGuiOld(_, pZug.Zug3Old), "Old JavaFx Zugfuhrer Z3 France")),
+ ("Z1", (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
+ ("X1", (pZug.ZugGuiOld(_, pZug.Zug1Old), "Old JavaFx Zugfuhrer Z1 Britain")),
+ ("Z2", (pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),
+ ("X2", (pZug.ZugGuiOld(_, pZug.Zug2Old), "Old JavaFx Zugfuhrer Z2 Britain")),
+ ("Z3", (pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
+ ("X3", (pZug.ZugGuiOld(_, pZug.Zug3Old), "Old JavaFx Zugfuhrer Z3 France")),
 
-    ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
-    ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
-    ("A1a", (learn.LsA1a(_), "JavaFx Demonstration Canvas A1")),
-    ("A1b", (learn.LsA1b(_), "JavaFx Demonstration Canvas 1b")),
-    ("A1", (learn.LsA1(_), "JavaFx Demonstration Canvas A1 Summary")),
-    ("A2", (learn.LsA2(_), "JavaFx Demonstration Canvas 2")),
-    ("A3a", (learn.LsA3a(_), "JavaFx Demonstration Canvas 3a")),
-    ("A3", (learn.LsA3(_), "JavaFx Demonstration Canvas 3")),
-    ("A4", (learn.LsA4(_), "JavaFx Demonstration Canvas 4")),
-    ("A5", (learn.LsA5(_), "JavaFx Demonstration Canvas 5")),
-    ("A6", (learn.LsA6(_), "JavaFx Demonstration Canvas 6")),
-    ("A7", (learn.LsA7(_), "JavaFx Demonstration Canvas 7")),
-    ("A8", (learn.LsA8(_), "JavaFx Demonstration Canvas 8")),
-    ("A9", (learn.LsA9(_), "JavaFx Demonstration Canvas 9")),
-    ("A10", (learn.LsA10(_), "JavaFx Demonstration Canvas 10")),
-    ("A11", (learn.LsA11(_), "Reflecting a point across a Line")),
-    ("A12", (learn.LsA12(_), "Hexagons")),
-    
-    ("B1", (learn.LessonB1(_), "JavaFx Demonstration Animated Canvas 1")), //Moving Graphics
-    ("B2", (learn.LessonB2(_), "JavaFx Demonstration Animated Canvas 2")),
-    ("B3", (learn.LessonB3(_), "JavaFx Demonstration Animated Canvas 3")),
+ ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
+ ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
+ ("A1a", (learn.LsA1a(_), "JavaFx Demonstration Canvas A1")),
+ ("A1b", (learn.LsA1b(_), "JavaFx Demonstration Canvas 1b")),
+ ("A1", (learn.LsA1(_), "JavaFx Demonstration Canvas A1 Summary")),
+ ("A2", (learn.LsA2(_), "JavaFx Demonstration Canvas 2")),
+ ("A3a", (learn.LsA3a(_), "JavaFx Demonstration Canvas 3a")),
+ ("A3", (learn.LsA3(_), "JavaFx Demonstration Canvas 3")),
+ ("A4", (learn.LsA4(_), "JavaFx Demonstration Canvas 4")),
+ ("A5", (learn.LsA5(_), "JavaFx Demonstration Canvas 5")),
+ ("A6", (learn.LsA6(_), "JavaFx Demonstration Canvas 6")),
+ ("A7", (learn.LsA7(_), "JavaFx Demonstration Canvas 7")),
+ ("A8", (learn.LsA8(_), "JavaFx Demonstration Canvas 8")),
+ ("A9", (learn.LsA9(_), "JavaFx Demonstration Canvas 9")),
+ ("A10", (learn.LsA10(_), "JavaFx Demonstration Canvas 10")),
+ ("A11", (learn.LsA11(_), "Reflecting a point across a Line")),
+ ("A12", (learn.LsA12(_), "Hexagons")),
 
-    ("C1", (learn.LessonC1(_), "JavaFx Demonstration Interactive Canvas 1")), //User interactive graphics
-    ("C2", (learn.LessonC2(_), "JavaFx Demonstration Interactive Canvas 2")),
-    ("C3", (learn.LessonC3(_), "JavaFx Demonstration Interactive Canvas 3")),
-    ("C4", (learn.LessonC4(_), "JavaFx Demonstration Interactive Canvas 4")),
-    ("C5", (learn.LessonC5(_), "JavaFx Demonstration Interactive Canvas 5")),
-    ("C6", (learn.LessonC6(_), "JavaFx Demonstration Interactive Canvas 6")),
-    ("C7", (learn.LessonC7(_), "JavaFx Demonstration Interactive Canvas 7: Exploring Beziers")),
-    ("C8", (learn.LessonC8(_), "JavaFx Demonstration Interactive Canvas 8: More Dragging")),
+ ("B1", (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1")), //Moving Graphics
+ ("B2", (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")),
+ ("B3", (learn.LsB3(_), "JavaFx Demonstration Animated Canvas 3")),
 
-    ("D1", (learn.LessonD1(_), "JavaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
-    ("D2", (learn.LessonD2(_), "JavaFx Demonstration Persistence 2")),
-    ("D3", (learn.LessonD3(_), "JavaFx Demonstration Persistence 3")),
-    ("D4", (learn.LessonD4(_), "JavaFx Demonstration Persistence 4")),
-    ("D5", (learn.LessonD5(_), "JavaFx Demonstration Persistence 5")),
+ ("C1", (learn.LsC1(_), "JavaFx Demonstration Interactive Canvas 1")), //User interactive graphics
+ ("C2", (learn.LsC2(_), "JavaFx Demonstration Interactive Canvas 2")),
+ ("C3", (learn.LsC3(_), "JavaFx Demonstration Interactive Canvas 3")),
+ ("C4", (learn.LsC4(_), "JavaFx Demonstration Interactive Canvas 4")),
+ ("C5", (learn.LsC5(_), "JavaFx Demonstration Interactive Canvas 5")),
+ ("C6", (learn.LsC6(_), "JavaFx Demonstration Interactive Canvas 6")),
+ ("C7", (learn.LsC7(_), "JavaFx Demonstration Interactive Canvas 7: Exploring Beziers")),
+ ("C8", (learn.LsC8(_), "JavaFx Demonstration Interactive Canvas 8: More Dragging")),
 
-    ("E1", (learn.LessonE1(_), "JavaFx Demonstration Games 1")), //Building turn based games.
-    ("E2", (learn.LessonE2(_), "JavaFx Demonstration Games 2")),
+ ("D1", (learn.LsD1(_), "JavaFx Demonstration Persistence 1")), //Persistence, saving and retrieving data outside of code
+ ("D2", (learn.LsD2(_), "JavaFx Demonstration Persistence 2")),
+ ("D3", (learn.LsD3(_), "JavaFx Demonstration Persistence 3")),
+ ("D4", (learn.LsD4(_), "JavaFx Demonstration Persistence 4")),
+ ("D5", (learn.LsD5(_), "JavaFx Demonstration Persistence 5")),
+
+ ("E1", (learn.LsE1(_), "JavaFx Demonstration Games 1")), //Building turn based games.
+ ("E2", (learn.LsE2(_), "JavaFx Demonstration Games 2")),
 */

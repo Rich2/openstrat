@@ -2,13 +2,12 @@
 package ostrat; package pDev
 import pCanv._, pStrat._, pGrid._
 
-
 /** Object for selecting various JavaFx apps /examples at run time. */
 object Apps
 {
   val idMap: Map[String, GuiLaunch] = Map(
     ("G1", gOne.OneLaunch),
-    ("Z", pZug.ZugLaunch)
+    ("Z", pZug.ZugLaunch),
   )
 
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
@@ -34,9 +33,6 @@ object Apps
     ("EG1", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNWTerrOld, 472 rr 204), "JavaFx NW Wurope Grid")),
     ("EG2", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNETerrOld, 456 rr 388), "JavaFx NE Wurope Grid")),
 
-    ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")),
-    ("G1", (gOne.GOneGui(_, gOne.OneScen1), "JavaFx irregular Grid Game One")),
-    ("G12", (gOne.GOneGui(_, gOne.OneScen2), "JavaFx irregular Grid Game One")),
     ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "JavaFx Game Two")),
     ("G3", (gThree.GThreeGui(_, gThree.ThreeScen2), "JavaFx Game Three")),
     ("G31", (gThree.GThreeGui(_, gThree.ThreeScen1), "JavaFx Game Three")),

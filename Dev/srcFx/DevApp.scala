@@ -21,11 +21,12 @@ class AppStart extends application.Application
     primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
-    val sett: EMon[String] = findDevSettingT[String]("appStr")
-    val eExpr: EMon[pParse.Expr] = findDevSettingExpr("appStr")
+    val eExpr: EMon[pParse.Expr] = findDevSettingExpr("appSet")
+
+    /** The default App setting. */
     val dPair: (pCanv.CanvasPlatform => Any, String) = (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II")
 
-    val pair = eExpr.fold{ debvar(eExpr); dPair }{expr => expr match
+    val pair = eExpr.fold{ dPair }{ expr => expr match
     { case SpacedExpr(Arr3Tail(it: IdentifierToken, nd: NatDeciToken, it2: IdentifierToken, _)) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr).launch(nd.getInt, it2.srcStr)
       case SpacedExpr(Arr2Tail(it: IdentifierToken, nd: NatDeciToken, _)) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr).launch(nd.getInt, "")
       case SpacedExpr(Arr1Tail(it: IdentifierToken, _)) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr).launch(2, "")
