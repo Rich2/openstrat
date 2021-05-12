@@ -2,10 +2,14 @@
 package ostrat; package pWW2
 import geom._, pEarth._, pCanv._, pStrat._
 
-case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiOld("World War II")
+case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[Metres] = None, startFocus: Option[LatLong] = None) extends
+  EarthAllGuiOld("World War II")
 {
   statusText --= "Left click on unit to select, right click to move."
   focusUp = true
+  focus = startFocus.getOrElse(50 ll 10)
+  startScale.foreach{scale = _ }
+
   override def saveNamePrefix = "WW2"
 
   val fHex: OfETile[W2TileAncient, W2SideAncient] => GraphicElems = etog =>
@@ -65,7 +69,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen) extends EarthAllGuiO
 
       case mb => deb(mb.toString)
     }
-  scale = 1.08.km
+
   eTop()
   loadView()
   repaintMap()

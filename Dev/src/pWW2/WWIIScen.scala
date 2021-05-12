@@ -1,10 +1,26 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWW2
-import pEarth._
+import pEarth._, pCanv._, pParse._, geom._
 
 class WWIIScen extends EarthAllMap[W2TileAncient, W2SideAncient](W2TileAncient.apply, W2SideAncient.apply)
 {
   val fArmy: (W2TileAncient, Polity) => Unit = (tile, p: Polity) => tile.lunits = Army(tile, p) +: tile.lunits
+}
+
+object WW2Launch extends GuiLaunchMore
+{
+  override def settingStr: String = "ww2"
+
+  override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
+  { val oScale = sts.findSettingT[Int]("scale")
+    val scale: Option[Metres] = oScale.mapToOption(1.km * _)
+    val oLat: EMon[Int] = sts.findSettingT[Int]("latitude")
+    val oLong = sts.findSettingT[Int]("longitude")
+    debvar(oLat)
+    debvar(oLong)
+    val oll = oLat.flatMap2ToOption[Int, LatLong](oLong, (la, lo) => LatLong.degs(la, lo))
+    (cv => pWW2.WWIIGuiOld(cv, pWW2.WW1940, scale, oll), "World War II")
+  }
 }
 
 object WW1940 extends WWIIScen

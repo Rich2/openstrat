@@ -6,13 +6,13 @@ import pCanv._, pStrat._, pGrid._
 object Apps
 {
   val idMap: Map[String, GuiLaunch] = Map(
+    ("L", learn.Lessons),
+    ("W2", pWW2.WW2Launch),
     ("G1", gOne.OneLaunch),
     ("Z", pZug.ZugLaunch),
-    ("L", learn.Lessons),
   )
 
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
-    ("Y1", (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II") ),
     ("Y2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
     ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
     ("Y4", (pSpace.Planets(_), "JavaFx Planets")),

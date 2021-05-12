@@ -8,6 +8,16 @@ trait GuiLaunch
   def apply(expr: Expr): (CanvasPlatform => Any, String)
 }
 
+trait GuiLaunchMore extends GuiLaunch
+{
+  override def apply(expr: ParseExpr): (CanvasPlatform => Any, String) = expr match {
+    case BracketedStatements(sts, _, _, _) => fromStatments(sts)
+    case _ => {debvar(expr); fromStatments(Arr()) }
+  }
+
+  def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String)
+}
+
 /** A convenience trait for launching Apps that takes an [[Int]] and an Identifier as its settings. */
 trait GuiLaunchStd extends GuiLaunch
 {

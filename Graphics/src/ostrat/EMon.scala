@@ -11,6 +11,7 @@ sealed trait EMon[+A]
 { def map[B](f: A => B): EMon[B]
   def flatMap[B](f: A => EMon[B]): EMon[B]
   def flatMap2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
+
   /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid
    * unnecessary boxing of primitive values. */
   def getElse(elseValue: A @uncheckedVariance): A
@@ -47,6 +48,9 @@ sealed trait EMon[+A]
 
   /** These are implemented in the base traits GoodBase[+A] and BadBase[+A] as Either[+A, +B] boxes all value classes. */
   def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2]
+
+  def mapToOption[B](f: A => B): Option[B]
+  def flatMap2ToOption[A2, B](o2: EMon[A2], f: (A, A2) => B): Option[B]
 }
 
 object EMon
@@ -72,8 +76,6 @@ object EMon
 final case class Good[+A](val value: A) extends EMon[A] //with GoodBase[A]
 {
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))
-  //override def baseMap[B, BB <: EMonBase[B]](f: A => B)(implicit build: EMonBuild[B, BB]): BB = build(f(value))
-  //override def baseFlatMap[B, BB <: EMonBase[B]](f: A => BB)(implicit build: EMonBuild[B, BB]): BB = f(value)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fGood(value)
 
@@ -94,6 +96,8 @@ final case class Good[+A](val value: A) extends EMon[A] //with GoodBase[A]
   override def mapToEither[D](f: A => D): Either[Strings, D] = Right(f(value))
   override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = f(value)
   override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Right(fRight(value))
+  override def mapToOption[B](f: A => B): Option[B] = Some[B](f(value))
+  override def flatMap2ToOption[A2, B](e2: EMon[A2], f: (A, A2) => B): Option[B] = e2.fld(None, a2 => Some(f(value, a2)))
 }
 
 object Good
@@ -132,6 +136,8 @@ class Bad[+A](val errs: Strings) extends EMon[A]
   override def mapToEither[D](f: A => D): Either[Strings, D] = Left(errs)
   override def flatMapToEither[D](f: A => Either[Strings, D]): Either[Strings, D] = (Left(errs))
   override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Left(fLeft(errs))
+  override def mapToOption[B](f: A => B): Option[B] = None
+  override def flatMap2ToOption[A2, B](e2: EMon[A2], f: (A, A2) => B): Option[B] = None
 }
 
 object Bad

@@ -5,17 +5,18 @@ displayY = 0;//Some operating systems will not allow a positive y value that pus
 // displayWidth = 1920;
 // displayHeight = 1080;
 lessons = A1;
+ww2 = { scale = 1; latitude = 50; longitude = 10; };
 gOne = 1;
 zugFuhrer = 1;
 
 /* Change the  number to change the app on next run.
   ("L", learn.Lessons),
+  ("W2", pWW2.WW2Launch),
   ("G1", gOne.OneLaunch),
   ("Z", pZug.ZugLaunch),
 */
 
 /*
- ("Y1", (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II") ),
  ("Y2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
  ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
  ("Y4", (pSpace.Planets(_), "JavaFx Planets")),
