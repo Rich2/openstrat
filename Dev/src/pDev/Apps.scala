@@ -8,6 +8,7 @@ object Apps
   val idMap: Map[String, GuiLaunch] = Map(
     ("G1", gOne.OneLaunch),
     ("Z", pZug.ZugLaunch),
+    ("LA", learn.LessonsA),
   )
 
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
@@ -47,21 +48,6 @@ object Apps
 
     ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
-    ("A1a", (learn.LsA1a(_), "JavaFx Demonstration Canvas A1")),
-    ("A1b", (learn.LsA1b(_), "JavaFx Demonstration Canvas 1b")),
-    ("A1", (learn.LsA1(_), "JavaFx Demonstration Canvas A1 Summary")),
-    ("A2", (learn.LsA2(_), "JavaFx Demonstration Canvas 2")),
-    ("A3a", (learn.LsA3a(_), "JavaFx Demonstration Canvas 3a")),
-    ("A3", (learn.LsA3(_), "JavaFx Demonstration Canvas 3")),
-    ("A4", (learn.LsA4(_), "JavaFx Demonstration Canvas 4")),
-    ("A5", (learn.LsA5(_), "JavaFx Demonstration Canvas 5")),
-    ("A6", (learn.LsA6(_), "JavaFx Demonstration Canvas 6")),
-    ("A7", (learn.LsA7(_), "JavaFx Demonstration Canvas 7")),
-    ("A8", (learn.LsA8(_), "JavaFx Demonstration Canvas 8")),
-    ("A9", (learn.LsA9(_), "JavaFx Demonstration Canvas 9")),
-    ("A10", (learn.LsA10(_), "JavaFx Demonstration Canvas 10")),
-    ("A11", (learn.LsA11(_), "Reflecting a point across a Line")),
-    ("A12", (learn.LsA12(_), "Hexagons")),
 
     ("B1", (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1")), //Moving Graphics
     ("B2", (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")),
