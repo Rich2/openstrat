@@ -14,8 +14,10 @@ trait ZugScenStart extends ZugScen
 { override def turn: Int = 0
 }
 
-object ZugLaunch extends GuiLaunch
+object ZugLaunch extends GuiLaunchStd
 {
+  override def settingStr: String = "zugFuhrer"
+
   override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match
   { case 1 => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
     case 2 => (pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")

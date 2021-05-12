@@ -33,8 +33,9 @@ trait OneScenStart extends OneScen
 { override val turn: Int = 0
 }
 
-object OneLaunch extends GuiLaunch
+object OneLaunch extends GuiLaunchStd
 {
+  override def settingStr: String = "gOne"
   override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match {
     case 1 => (gOne.GOneGui(_, gOne.OneScen1), "JavaFx Game One")
     case 2 => (gOne.GOneGui(_, gOne.OneScen2), "JavaFx Game One")

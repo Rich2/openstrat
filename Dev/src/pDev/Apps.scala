@@ -8,7 +8,7 @@ object Apps
   val idMap: Map[String, GuiLaunch] = Map(
     ("G1", gOne.OneLaunch),
     ("Z", pZug.ZugLaunch),
-    ("LA", learn.LessonsA),
+    ("L", learn.Lessons),
   )
 
   val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
