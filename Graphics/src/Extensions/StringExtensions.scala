@@ -50,8 +50,13 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
    * RSON Statements. */
   def findSettingDblElse(settingStr: String, elseValue: Double): Double = findSettingDbl(settingStr).getElse(elseValue)
 
-  def findBooleanSett(settingStr: String): EMon[Boolean] = thisString.parseStatements.flatMap(_.findSettingBool(settingStr))
-  def findBooleanSettElse(settingStr: String, elseValue: Boolean): Boolean = findBooleanSett(settingStr).getElse(elseValue)
+  /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
+   *  RSON Statements. */
+  def findSettingBool(settingStr: String): EMon[Boolean] = thisString.parseStatements.flatMap(_.findSettingBool(settingStr))
+
+  /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
+   * RSON Statements. */
+  def findSettingBoolElse(settingStr: String, elseValue: Boolean): Boolean = findSettingBool(settingStr).getElse(elseValue)
   
   /** Concatenates a space and then the other String. */
   def -- (other: String): String = thisString + " " + other

@@ -13,11 +13,11 @@ case class LsD3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D3")
   
   val c0 = s2.findBoolean
   val c1 = s2.findSettingT[Boolean]("Open")
-  val c2 = s2.findBooleanSett("Guilty")//Just a convenince method for the general one above
+  val c2 = s2.findSettingBool("Guilty")//Just a convenince method for the general one above
   val c3 = s2.findSettingInt("Posn")
-  val c4 = s2.findVec2Sett("Posn")//Again as Vec2 is such a commonly used type, special methods have been created for your convenience
-  val c5 = s2.findVec2SettElse("MyPosn", 45 pp 1.2)
-  val c6 = s2.findVec2SettElse("Posn", 45 pp 1.2)//Gives the result from the string, but has guard if setting not found.
+  val c4 = s2.findSettingPt2("Posn")//Again as Vec2 is such a commonly used type, special methods have been created for your convenience
+  val c5 = s2.findSettingPt2Else("MyPosn", 45 pp 1.2)
+  val c6 = s2.findSettingPt2Else("Posn", 45 pp 1.2)//Gives the result from the string, but has guard if setting not found.
   
   val bottomBlock = TextGraphic.lines(Arr(c0, c1, c2, c3, c4, c5, c6).map(_.toString), lineSpacing = 1.5, posn = -250 pp -150, align = LeftAlign)
    

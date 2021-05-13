@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and
@@ -89,11 +89,21 @@ package object geom
   }
 
   implicit class StringImplictGeom(thisString: String)
-  { import pParse.{ stringToStatements => stss}
-    def findVec2: EMon[Pt2] = stss(thisString).flatMap(_.findUniqueT[Pt2])
-    def findVec2Else(elseValue: => Pt2) = findVec2.getElse(elseValue)
-    def findVec2Sett(setting: String): EMon[Pt2] = stss(thisString).flatMap(_.findSettingT[Pt2](setting))
-    def findVec2SettElse(setting: String, elseValue: Pt2): Pt2 = findVec2Sett(setting).getElse(elseValue)
+  {
+    import pParse.{ stringToStatements => stss}
+
+    /** Find unique [[Pt2]] expression from this String parsing it as an Sequence of RSON statements. */
+    def findPt2: EMon[Pt2] = stss(thisString).flatMap(_.findUniqueT[Pt2])
+
+    /** Find unique [[Pt2]] expression from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON statements. */
+    def findPt2Else(elseValue: => Pt2) = findPt2.getElse(elseValue)
+
+    /** Find unique [[Pt2]] setting of the given name from this String, parsing it as an Sequence of RSON statements. */
+    def findSettingPt2(setting: String): EMon[Pt2] = stss(thisString).flatMap(_.findSettingT[Pt2](setting))
+
+    /** Find unique [[Pt2]] setting of the given name from this String, or return default [[Pt2]] value, parsing it as an Sequence of RSON
+     *  statements. */
+    def findSettingPt2Else(setting: String, elseValue: Pt2): Pt2 = findSettingPt2(setting).getElse(elseValue)
 
     def graphic(fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,
                 baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, fontSize, posn, colour, align, baseLine)

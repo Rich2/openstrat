@@ -2,6 +2,7 @@
 package ostrat; package pWW2
 import pEarth._, pCanv._, pParse._, geom._
 
+/** Primitive WWII scenario using ancient deprecated tile grid system. */
 class WWIIScen extends EarthAllMap[W2TileAncient, W2SideAncient](W2TileAncient.apply, W2SideAncient.apply)
 {
   val fArmy: (W2TileAncient, Polity) => Unit = (tile, p: Polity) => tile.lunits = Army(tile, p) +: tile.lunits
