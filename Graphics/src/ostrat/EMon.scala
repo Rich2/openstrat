@@ -53,6 +53,7 @@ sealed trait EMon[+A]
   def flatMap2ToOption[A2, B](o2: EMon[A2], f: (A, A2) => B): Option[B]
 }
 
+/** Companion object for EMon triat contains implict class for EMon returning extension methods on [[String]] and Show implicit instance. */
 object EMon
 {
   implicit class EMonStringImplicit(thisEMon: EMon[String])

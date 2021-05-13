@@ -17,7 +17,8 @@ final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLik
       val d = degs.abs.show(Show.Standard, decimalPlaces)
       val i = d.indexOf('.')
       val endStr = d.drop(i + 1)
-      d.takeWhile(_ != '.') + ife(northern, "N", "S") + endStr
+      //d.takeWhile(_ != '.') + ife(northern, "N", "S") + endStr
+      d + ife(northern, "N", "S")
     }
   }
 

@@ -58,10 +58,6 @@ object Apps
     case it: IdentifierToken if it.srcStr == "G" => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
     case _ => {debvar(expr); theMap("1") }
   }
+  
   def eGen(eExpr: EMon[Expr]): (CanvasPlatform => Any, String) = eExpr.fold{ debvar(eExpr); theMap("1") }(gen(_))
-  /*match {
-    case Good(StringToken(_, str)) => theMap.getOrElse(str, theMap("1"))
-    case Good(expr) => {debvar(expr); theMap("1") }
-    case _ => { debvar(eExpr); theMap("1") }
-  }*/
 }

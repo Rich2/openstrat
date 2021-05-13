@@ -22,7 +22,7 @@ object PersistNumsTest  extends TestSuite
     "Doubles" -
      {
        23.4.str ==> "23.4"
-       val d: Double = 8
+       8.0.str ==> "8.0"
        //d.strTyped ==> "DFloat(8)"
       // (-6.00).str ==> "-6"
      }

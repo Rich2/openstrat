@@ -32,7 +32,8 @@ object LatLongTest   extends TestSuite
     //debvar(m4)
     "Persist" -
     {
-      44.north.str ==> "44N0"
+      44.north.str ==> "44.0N"
+      77.52.south.str ==> "77.52S"
     }
 
   }
