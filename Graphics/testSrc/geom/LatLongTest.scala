@@ -1,6 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import utest._
 
 object LatLongTest   extends TestSuite
@@ -28,8 +27,13 @@ object LatLongTest   extends TestSuite
       assert(ll3.longDegs =~ 179)
     }
 
-    val ll4 = 0 ll 0
-    val m4 = ll4.toMetres3
-    debvar(m4)
+    //val ll4 = 0 ll 0
+    //val m4 = ll4.toMetres3
+    //debvar(m4)
+    "Persist" -
+    {
+      44.north.str ==> "44N0"
+    }
+
   }
 }

@@ -13,7 +13,12 @@ final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLik
 
   override def show(way: Show.Way, decimalPlaces: Int): String = way match {
     case Show.Typed => typeStr + degs.show(Show.Standard, decimalPlaces).enParenth
-    case _ => degs.abs.show(Show.Standard, decimalPlaces) + ife(northern, "N", "S")
+    case _ => {
+      val d = degs.abs.show(Show.Standard, decimalPlaces)
+      val i = d.indexOf('.')
+      val endStr = d.drop(i + 1)
+      d.takeWhile(_ != '.') + ife(northern, "N", "S") + endStr
+    }
   }
 
   def * (long: Longitude): LatLong = LatLong.milliSecs(milliSecs, long.milliSecs)
