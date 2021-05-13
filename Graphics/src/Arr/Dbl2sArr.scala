@@ -117,7 +117,7 @@ abstract class Dbl2sArrPersist[A <: Dbl2Elem, M <: Dbl2sArr[A]](typeStr: String)
   }
 
   override def syntaxDepthT(obj: M): Int = 3
-  override def showT(obj: M, way: Show.Way, decimalPlaces: Int): String = ""
+  override def showT(obj: M, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ""
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl2Elem]]s collections. */

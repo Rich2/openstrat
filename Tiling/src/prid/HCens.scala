@@ -23,7 +23,7 @@ object HCens extends Int2sArrCompanion[HCen, HCens]
   implicit object PersistImplicit extends Int2sArrPersist[HCen, HCens]("HCens")
   { override def fromArray(value: Array[Int]): HCens = new HCens(value)
 
-    override def showT(obj: HCens, way: Show.Way, decimalPlaces: Int): String = ???
+    override def showT(obj: HCens, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   //implicit val arrArrayImplicit: ArrTFlatBuilder[HCens] = HCen.roordsBuildImplicit

@@ -380,5 +380,5 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 case class ArrayLikeShow[A, R <: ArrayLike[A]](evA: ShowT[A]) extends ShowSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.fMax(1)(evA.syntaxDepthT(_))
-  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = ""
+  override def showT(obj: R, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ""
 }

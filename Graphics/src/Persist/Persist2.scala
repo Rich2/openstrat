@@ -27,7 +27,7 @@ trait Show2[A1, A2] extends Any with ShowProduct// with Prod2[A1, A2]
 
   def elemNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
-  def shows(way: Show.Way, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces), showT2.showT(show2, way, decimalPlaces))
+  def shows(way: Show.Way, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces, 0), showT2.showT(show2, way, decimalPlaces, 0))
 }
 
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[Show2IntsT]]
@@ -69,7 +69,7 @@ object Show2ElemT
 {
   def apply[A1, A2, R<: Show2[A1, A2]](typeStrIn: String): Show2ElemT[A1, A2, R] = new Show2ElemT[A1, A2, R]
   { override def typeStr: String = typeStrIn
-    override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces, 0)
+    override def showT(obj: R, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
   }
 }
 
@@ -88,7 +88,7 @@ trait Show2T[A1, A2, R] extends ShowProductT[R]
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
 
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
-    Strings(ev1.showT(fArg1(obj), way, decimalPlaces), ev2.showT(fArg2(obj), way, decimalPlaces))
+    Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0))
 }
 
 object Show2T

@@ -7,7 +7,7 @@ trait ShowSimpleT[-A] extends ShowT[A]
 {
   final override def syntaxDepthT(obj: A): Int = 1
 
-  override def showT(obj: A, way: Show.Way, decimalPlaces: Int): String = way match {
+  override def showT(obj: A, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = way match {
     case Show.Typed => typeStr + strT(obj).enParenth
     case _ => strT(obj)
   }

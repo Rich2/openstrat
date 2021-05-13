@@ -55,7 +55,7 @@ object TileRow {
   implicit def eqImplicit[T <: AnyRef](implicit ev: EqT[T]): EqT[TileRow[T]] = ??? //EqCase3(_.yRow, _.xStart, _.values)
 
   implicit def persistImplicit[T <: AnyRef](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]] {
-    def strT(obj: TileRow[T]): String = (posnStr + ": This is a placeholder for TileRow").enquote
+    def strT(obj: TileRow[T]): String = (posnStr() + ": This is a placeholder for TileRow").enquote
 
     def showComma(obj: TileRow[T]): String = strT(obj)
 
@@ -68,7 +68,7 @@ object TileRow {
     // def fromClauses(clauses: Refs[ostrat.pParse.Clause]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def fromExpr(expr: pParse.Expr): ostrat.EMon[TileRow[T]] = ???
 
-    override def showT(obj: TileRow[T], way: Show.Way, decimalPlaces: Int): String = ???
+    override def showT(obj: TileRow[T], way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
 
     //  def fromStatements(sts: Refs[ostrat.pParse.Statement]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def typeStr: String = ???

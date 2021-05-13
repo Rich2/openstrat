@@ -30,7 +30,7 @@ object LineSegs extends Dbl4sArrCompanion[LineSeg, LineSegs]
   implicit val persistImplicit: ArrProdDbl4Persist[LineSeg, LineSegs] = new ArrProdDbl4Persist[LineSeg, LineSegs]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegs = new LineSegs(value)
 
-    override def showT(obj: LineSegs, way: Show.Way, decimalPlaces: Int): String = ???
+    override def showT(obj: LineSegs, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   implicit val arrArrBuildImplicit: ArrTFlatBuilder[LineSegs] = LineSeg.line2sBuildImplicit

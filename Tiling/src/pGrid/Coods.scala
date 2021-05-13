@@ -48,7 +48,7 @@ object Coods extends Int2sArrCompanion[Cood, Coods]
   implicit object PersistImplicit extends Int2sArrPersist[Cood, Coods]("Coods")
   { override def fromArray(value: Array[Int]): Coods = new Coods(value)
 
-    override def showT(obj: Coods, way: Show.Way, decimalPlaces: Int): String = ???
+    override def showT(obj: Coods, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   implicit val arrArrayImplicit: ArrTFlatBuilder[Coods] = Cood.coodsBuildImplicit

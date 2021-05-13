@@ -101,6 +101,6 @@ object PolygonImp
   implicit val persistImplicit: Dbl2sArrPersist[Pt2, PolygonImp] = new Dbl2sArrPersist[Pt2, PolygonImp]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonImp = new PolygonImp(value)
 
-    override def showT(obj: PolygonImp, way: Show.Way, decimalPlaces: Int): String = ???
+    override def showT(obj: PolygonImp, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }

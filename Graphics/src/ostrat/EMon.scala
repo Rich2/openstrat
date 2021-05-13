@@ -109,7 +109,7 @@ object Good
     //override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
     //override def showComma(obj: Good[A]): String = ev.showComma(obj.value)
 
-    override def showT(obj: Good[A], way: Show.Way, decimalPlaces: Int): String = ???
+    override def showT(obj: Good[A], way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }
 
@@ -152,6 +152,6 @@ object Bad
   implicit def BadShowImplicit[A](implicit ev: ShowT[A]): ShowT[Bad[A]] = new ShowT[Bad[A]] with ShowCompoundT[Bad[A]]
   { override def syntaxDepthT(obj: Bad[A]): Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare
-    override def showT(obj: Bad[A], way: Show.Way, decimalPlaces: Int): String = ???
+    override def showT(obj: Bad[A], way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }
