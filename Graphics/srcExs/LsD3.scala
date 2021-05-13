@@ -12,9 +12,9 @@ case class LsD3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D3")
   val middleBlock = SText(100, s2)
   
   val c0 = s2.findBoolean
-  val c1 = s2.findSett[Boolean]("Open")
+  val c1 = s2.findSettingT[Boolean]("Open")
   val c2 = s2.findBooleanSett("Guilty")//Just a convenince method for the general one above
-  val c3 = s2.findIntSett("Posn")
+  val c3 = s2.findSettingInt("Posn")
   val c4 = s2.findVec2Sett("Posn")//Again as Vec2 is such a commonly used type, special methods have been created for your convenience
   val c5 = s2.findVec2SettElse("MyPosn", 45 pp 1.2)
   val c6 = s2.findVec2SettElse("Posn", 45 pp 1.2)//Gives the result from the string, but has guard if setting not found.

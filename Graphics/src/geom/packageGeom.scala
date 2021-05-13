@@ -92,7 +92,7 @@ package object geom
   { import pParse.{ stringToStatements => stss}
     def findVec2: EMon[Pt2] = stss(thisString).flatMap(_.findUniqueT[Pt2])
     def findVec2Else(elseValue: => Pt2) = findVec2.getElse(elseValue)
-    def findVec2Sett(setting: String): EMon[Pt2] = stss(thisString).flatMap(_.findSett[Pt2](setting))
+    def findVec2Sett(setting: String): EMon[Pt2] = stss(thisString).flatMap(_.findSettingT[Pt2](setting))
     def findVec2SettElse(setting: String, elseValue: Pt2): Pt2 = findVec2Sett(setting).getElse(elseValue)
 
     def graphic(fontSize: Int = 24, posn: Pt2 = Pt2Z, colour: Colour = Black, align: TextAlign = CenAlign,

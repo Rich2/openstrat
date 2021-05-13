@@ -91,7 +91,7 @@ object Statement
     def findSettingT[T](settingStr: String)(implicit ev: Persist[T]): EMon[T] = ev.settingTFromStatements(statementRefs, settingStr)
 
     /** Find Setting of type T from this Arr[Statement] or return the default value parameter. Extension method */
-    def findSettingTElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSett[A](settingStr).getElse(elseValue)
+    def findSettingTElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSettingT[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if its unique from this Arr[Statement] and return value. */
     def findUniqueT[A](implicit ev: Persist[A]): EMon[A] = ev.findUniqueFromStatements(statementRefs)
@@ -124,12 +124,12 @@ object Statement
 
     def findIntArray: EMon[Array[Int]] = ShowT.ArrayIntPersistImplicit.findUniqueFromStatements(statementRefs)
 
-    /** Find setting from RSON statement */
-    def findSett[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] = ev.settingTFromStatements(statementRefs, settingStr)
+    def findSettingInt(settingStr: String): EMon[Int] = ShowT.intPersistImplicit.settingTFromStatements(statementRefs, settingStr)
+    def findSettingDbl(settingStr: String): EMon[Double] = ShowT.doublePersistImplicit.settingTFromStatements(statementRefs, settingStr)
 
-    def findIntSett(settingStr: String): EMon[Int] = ShowT.intPersistImplicit.settingTFromStatements(statementRefs, settingStr)
-    def findDoubleSett(settingStr: String): EMon[Double] = ShowT.doublePersistImplicit.settingTFromStatements(statementRefs, settingStr)
-    def findBooleanSett(settingStr: String): EMon[Boolean] = ShowT.BooleanPersistImplicit.settingTFromStatements(statementRefs, settingStr)
+    /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
+     *  resolve to Expr[Boolean]. */
+    def findSettingBool(settingStr: String): EMon[Boolean] = ShowT.BooleanPersistImplicit.settingTFromStatements(statementRefs, settingStr)
 
     /*def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementRefs match
     { case Arr1(h1) => h1.errGet[A1].map(f1)

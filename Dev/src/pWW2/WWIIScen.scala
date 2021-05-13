@@ -14,11 +14,11 @@ object WW2Launch extends GuiLaunchMore
   override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
   { val oScale = sts.findSettingT[Int]("scale")
     val scale: Option[Metres] = oScale.mapToOption(1.km * _)
-    val oLat: EMon[Int] = sts.findSettingT[Int]("latitude")
-    val oLong = sts.findSettingT[Int]("longitude")
+    val oLat: EMon[Double] = sts.findSettingDbl("latitude")
+    val oLong = sts.findSettingT[Double]("longitude")
     debvar(oLat)
     debvar(oLong)
-    val oll = oLat.flatMap2ToOption[Int, LatLong](oLong, (la, lo) => LatLong.degs(la, lo))
+    val oll = oLat.flatMap2ToOption[Double, LatLong](oLong, (la, lo) => LatLong.degs(la, lo))
     (cv => pWW2.WWIIGuiOld(cv, pWW2.WW1940, scale, oll), "World War II")
   }
 }
