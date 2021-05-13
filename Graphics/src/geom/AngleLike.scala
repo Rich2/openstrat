@@ -23,7 +23,7 @@ trait AngleLike extends Any with Show with ApproxAngle with Dbl1Elem
   @inline def cos: Double = math.cos(radians)
 
   final override def syntaxdepth: Int = 1
-  final override def str: String = show(Show.Standard)
+  final override def str: String = show(Show.Standard, minPlaces = 0)
 }
 
 trait ApproxAngle extends Any with Approx[AngleVec]

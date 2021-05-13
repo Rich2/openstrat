@@ -12,9 +12,9 @@ final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLi
   /** True if western longitude. */
   def western: Boolean = milliSecs < 0
 
-  override def show(way: Show.Way, decimalPlaces: Int): String = way match {
-    case Show.Typed => typeStr + degs.show(Show.Standard, decimalPlaces).enParenth
-    case _ => degs.abs.show(Show.Standard, decimalPlaces) + ife(eastern, "E", "W")
+  override def show(way: Show.Way, maxPlaces: Int, minPlaces: Int): String = way match {
+    case Show.Typed => typeStr + degs.show(Show.Standard, maxPlaces).enParenth
+    case _ => degs.abs.show(Show.Standard, maxPlaces) + ife(eastern, "E", "W")
   }
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Longitude]

@@ -2,6 +2,7 @@
 package ostrat; package pWW2
 import geom._, pEarth._, pCanv._, pStrat._
 
+/** Gui for World War 2 scenarios, uses the deprecated ancient tile system. */
 case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[Metres] = None, startFocus: Option[LatLong] = None) extends
   EarthAllGuiOld("World War II")
 {

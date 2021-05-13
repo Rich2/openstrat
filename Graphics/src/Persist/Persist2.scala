@@ -69,7 +69,7 @@ object Show2ElemT
 {
   def apply[A1, A2, R<: Show2[A1, A2]](typeStrIn: String): Show2ElemT[A1, A2, R] = new Show2ElemT[A1, A2, R]
   { override def typeStr: String = typeStrIn
-    override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
+    override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces, 0)
   }
 }
 

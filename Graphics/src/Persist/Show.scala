@@ -13,7 +13,7 @@ trait Show extends Any
   def str: String
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  def show(way: Show.Way = Show.Standard, decimalPlaces: Int = -1): String
+  def show(way: Show.Way = Show.Standard, maxPlaces: Int = -1, minPlaces: Int = 0): String
 
   def syntaxdepth: Int
 
@@ -54,7 +54,7 @@ trait ShowSingleton extends Show
   def str: String
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  final override def show(way: Show.Way, decimalPlaces: Int): String = way match
+  final override def show(way: Show.Way, maxPlaces: Int, minPlaces: Int): String = way match
   { case Show.Typed => typeStr.appendParenth(str)
     case Show.UnderScore => "_"
     case _ => str

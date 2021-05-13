@@ -64,7 +64,7 @@ object HCen
   implicit val showImplicit: ShowT[HCen] = new Show2T[Int, Int, HCen]
   { override def typeStr: String = "HCen"
     //override def strT(obj: HCen): String = obj.str
-    override def showT(obj: HCen, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
+    override def showT(obj: HCen, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces, 0)
     //override def syntaxDepthT(obj: HCen): Int = 2
 
     override def name1: String = "r"

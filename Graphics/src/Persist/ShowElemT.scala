@@ -11,7 +11,7 @@ trait ShowElemT[R <: Show] extends ShowT[R]
    * rather than a method on the object being shown. */
   override def strT(obj: R): String = obj.str
 
-  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces)
+  override def showT(obj: R, way: Show.Way, decimalPlaces: Int): String = obj.show(way, decimalPlaces, 0)
 
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
