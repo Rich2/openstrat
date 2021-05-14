@@ -52,7 +52,10 @@ object ShowT
 
   implicit val doublePersistImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
   {
-    def strT(obj: Double): String = obj.toString
+    def strT(obj: Double): String = {
+      val s1 = obj.toString
+      ife(s1.last == '0', s1.dropRight(2), s1)
+    }
 
     override def showT(obj: Double, way: Show.Way, maxPlaces: Int, minPlaces: Int): String =
     { val inner = maxPlaces match {
