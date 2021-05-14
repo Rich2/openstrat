@@ -58,13 +58,26 @@ object ShowT
     }
 
     override def showT(obj: Double, way: Show.Way, maxPlaces: Int, minPlaces: Int): String =
-    { val inner = maxPlaces match {
+    {
+      val s1 = obj.toString
+      val len = s1.length
+      val i = s1.indexOf('.')
+
+      val inner = i match {
+        case i if maxPlaces < 0 => s1
+        case i if maxPlaces == 0 => s1.dropRight(len  - i - maxPlaces)
+        case i if len > maxPlaces + i + 1 => s1.dropRight(len  - i - 1 - maxPlaces)
+        case i if len - i - 1 < minPlaces => s1 + (minPlaces + i + i - len).repeatChar('0')
+        case _ => s1
+      }
+
+      /*val inner = maxPlaces match {
       case 0 => f"$obj%1.0f"
       case 1 => f"$obj%1.1f"
       case 2 => f"$obj%1.2f"
       case 3 => f"$obj%1.3f"
-      case _ => obj.toString
-    }
+      case _ => obj.toString*/
+    //}
 
     way match {
       case Show.Typed => typeStr + inner.enParenth

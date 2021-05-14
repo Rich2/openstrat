@@ -40,6 +40,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
   def decText(fontSize: Double = 12, colour: Colour = Black) = this.rcStr.toTextGraphic(fontSize, toPt2, colour)
 }
 
+/** Companion object of HCen trait, contains HVert values for hex tile 0, 0. As well as apply method and Show implicit. */
 object HCen
 {
   def apply(r: Int, c: Int): HCen = r %% 4 match

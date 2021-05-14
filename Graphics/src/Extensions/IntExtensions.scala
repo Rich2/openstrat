@@ -44,6 +44,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def trillion: Long = thisInt.toLong *    1000000000000L
   def quadrillion: Long = thisInt.toLong * 1000000000000000L
   def spaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
+  def repeatChar(c: Char): String = (1 to thisInt).foldLeft("")((a, b) => a + c)
   def commaInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + ", " + _.toString)
   def semicolonInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + "; " + _.toString)
 
