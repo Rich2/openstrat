@@ -104,11 +104,9 @@ object ShowT
     }
   }
 
-  implicit val floatPersistImplicit: ShowT[Float] = new ShowSimpleT[Float]
-  {
-    override def typeStr: String = "SFloat"
+  implicit val floatImplicit: ShowT[Float] = new ShowSimpleT[Float]
+  { override def typeStr: String = "SFloat"
     def strT(obj: Float): String = obj.toString
-
   }
 
   implicit val booleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
@@ -128,12 +126,9 @@ object ShowT
     }
   }
 
-  implicit val charPersistImplicit: Persist[Char] = new PersistSimple[Char]("Char")
-  { def strT(obj: Char): String = obj.toString.enquote1
-    override def fromExpr(expr: Expr): EMon[Char] = expr match
-    { case CharToken(_, char) => Good(char)
-      case  _ => expr.exprParseErr[Char]
-    }
+  implicit val charImplicit: ShowT[Char] = new ShowSimpleT[Char]
+  { override def typeStr: String = "Char"
+    def strT(obj: Char): String = obj.toString.enquote1
   }
 
   class ShowIterableClass[A, R <: Iterable[A]](val evA: ShowT[A]) extends ShowIterable[A, R]{}

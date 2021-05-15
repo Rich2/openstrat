@@ -169,4 +169,14 @@ object UnShow
        */ case  _ => expr.exprParseErr[Float]
     }
   }
+
+  implicit val charImplicit: UnShow[Char] = new UnShow[Char]
+  {
+    override def typeStr: String = "Char"
+
+    override def fromExpr(expr: Expr): EMon[Char] = expr match
+    { case CharToken(_, char) => Good(char)
+      case  _ => expr.exprParseErr[Char]
+    }
+  }
 }

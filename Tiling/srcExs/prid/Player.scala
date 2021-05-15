@@ -20,7 +20,7 @@ case class Player(val char: Char, val colour: Colour) extends Show//2[Char, Colo
 /** Companion object for Player case class contains implicit instance for Persist. */
 object Player
 {
-  implicit val persistPlayer: Persist[Player] = Persist2[Char, Colour, Player]("Player", "char", _.char, "colour", _.colour, apply)
+  implicit val showPlayer: ShowT[Player] = Show2T[Char, Colour, Player]("Player", "char", _.char, "colour", _.colour)
 }
 object PlayerA extends Player('A', Red)
 object PlayerB extends Player('B', Orange)
