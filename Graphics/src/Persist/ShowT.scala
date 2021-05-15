@@ -104,20 +104,14 @@ object ShowT
     }
   }
 
-  implicit val floatPersistImplicit: Persist[Float] = new PersistSimple[Float]("SFloat")
-  { def strT(obj: Float): String = obj.toString
-    override def fromExpr(expr: Expr): EMon[Float] = expr match
-    { case NatDeciToken(_, i) => Good(i.toFloat)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
-      /*  case FloatToken(_, _, d) => Good(d.toFloat)
-        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d.toFloat)
-        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d.toFloat)
-       */ case  _ => expr.exprParseErr[Float]
-    }
+  implicit val floatPersistImplicit: ShowT[Float] = new ShowSimpleT[Float]
+  {
+    override def typeStr: String = "SFloat"
+    def strT(obj: Float): String = obj.toString
+
   }
 
-  implicit val BooleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
+  implicit val booleanPersistImplicit: Persist[Boolean] = new PersistSimple[Boolean]("Bool")
   { override def strT(obj: Boolean): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
     { case IdentLowerToken(_, str) if str == "true" => Good(true)

@@ -6,7 +6,7 @@ import pParse._
 /** The base trait for the persistence of algebraic product types, including case classes. Note the arity of the product, its size is based on the
  *  number of logical parameters. For example, a LineSeg is a product 2, it has a start point and an end point, although its is stored as 4 parameters
  *  xStart, yStart, xEnd, yEnd. */
-trait PersistProduct[R] extends /*ShowProductT[R] with */PersistCompound[R]
+trait PersistProduct[R] extends /*ShowProductT[R] with */Persist[R]
 {
   override def fromExpr(expr: ParseExpr): EMon[R] = expr match
   {
@@ -53,13 +53,6 @@ object Persist4
     new Persist4(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, newT, opt4, opt3, opt2, opt1)(
     ev1, ev2, ev3, ev4, eq1, eq2, eq3, eq4)
 }
-
-/** Persistence class for 5 parameter case classes. */
-class Persist5[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-  name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, val newT: (A1, A2, A3, A4, A5) => R, opt5: Option[A5], opt4: Option[A4] = None,
-  opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3],
-  ev4: Persist[A4], ev5: Persist[A5]) extends
-  Show5T(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1) with PersistShowProductT[R]
 
 object Persist5
 {

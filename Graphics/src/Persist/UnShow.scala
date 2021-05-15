@@ -106,6 +106,22 @@ object UnShow
     }
   }
 
+  implicit val doubleImplicit: UnShow[Double] = new UnShow[Double]
+  {
+    override def typeStr: String = "DFloat"
+    //override def syntaxDepthT(obj: Double): Int = 1
+
+    override def fromExpr(expr: Expr): EMon[Double] = expr match
+    { case NatDeciToken(_, i) => Good(i.toDouble)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toDouble))
+      /* case FloatToken(_, _, d) => Good(d)
+       case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d)
+       case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d)
+     */  case  _ => expr.exprParseErr[Double]
+    }
+    }
+
   implicit val longImplicit: UnShow[Long] = new UnShow[Long]
   {
     override def typeStr = "Long"
@@ -115,6 +131,42 @@ object UnShow
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
       case  _ => expr.exprParseErr[Long]
+    }
+  }
+
+  implicit val booleanImplicit: UnShow[Boolean] = new UnShow[Boolean]
+  {
+    override def typeStr: String = "Bool"
+
+    override def fromExpr(expr: Expr): EMon[Boolean] = expr match
+    { case IdentLowerToken(_, str) if str == "true" => Good(true)
+      case IdentLowerToken(_, str) if str == "false" => Good(false)
+      case _ => expr.exprParseErr[Boolean]
+    }
+  }
+
+  implicit val stringImplicit: UnShow[String] = new UnShow[String]
+  {
+    override def typeStr: String = "Str"
+    def strT(obj: String): String = obj.enquote
+    override def fromExpr(expr: Expr): EMon[String] = expr match
+    { case StringToken(_, stringStr) => Good(stringStr)
+      case  _ => expr.exprParseErr[String]
+    }
+  }
+
+  implicit val floatImplicit: UnShow[Float] = new UnShow[Float]
+  {
+    override def typeStr: String = "SFloat"
+
+    override def fromExpr(expr: Expr): EMon[Float] = expr match
+    { case NatDeciToken(_, i) => Good(i.toFloat)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
+      /*  case FloatToken(_, _, d) => Good(d.toFloat)
+        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d.toFloat)
+        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d.toFloat)
+       */ case  _ => expr.exprParseErr[Float]
     }
   }
 }

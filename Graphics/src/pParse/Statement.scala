@@ -72,15 +72,15 @@ object Statement
 
     /** Find the sole [[Double]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Double]. */
-    def findDbl: EMon[Double] = ShowT.doublePersistImplicit.findUniqueTFromStatements(statementRefs)
+    def findDbl: EMon[Double] = UnShow.doubleImplicit.findUniqueTFromStatements(statementRefs)
 
     /** Find the sole [[Boolean]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Boolean]. */
-    def findBool: EMon[Boolean] = ShowT.BooleanPersistImplicit.findUniqueTFromStatements(statementRefs)
+    def findBool: EMon[Boolean] = UnShow.booleanImplicit.findUniqueTFromStatements(statementRefs)
 
     /** Find the sole [[Long]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Long]. */
-    def findLong: EMon[Long] = ShowT.longPersistImplicit.findUniqueTFromStatements(statementRefs)
+    def findLong: EMon[Long] = UnShow.longImplicit.findUniqueTFromStatements(statementRefs)
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */
@@ -94,7 +94,7 @@ object Statement
 
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      *  resolve to Expr[Boolean]. */
-    def findSettingBool(settingStr: String): EMon[Boolean] = ShowT.BooleanPersistImplicit.settingTFromStatements(statementRefs, settingStr)
+    def findSettingBool(settingStr: String): EMon[Boolean] = ShowT.booleanPersistImplicit.settingTFromStatements(statementRefs, settingStr)
 
     /*def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementRefs match
     { case Arr1(h1) => h1.errGet[A1].map(f1)
