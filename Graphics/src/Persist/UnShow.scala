@@ -93,4 +93,16 @@ object UnShow
 {
   //implicit def tuple2Implicit[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist[Tuple2[A1, A2]] =
   // Persist2[A1, A2, (A1, A2)]("Tuple2", "_1", _._1, "_2", _._2, (a1, a2) => (a1, a2))
+
+  implicit val intImplicit: UnShow[Int] = new UnShow[Int]
+  {
+    override def typeStr: String = "Int"
+
+    override def fromExpr(expr: Expr): EMon[Int] = expr match {
+      case IntDeciToken(i) => Good(i)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toInt)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toInt)
+      case _ => expr.exprParseErr[Int]
+    }
+  }
 }
