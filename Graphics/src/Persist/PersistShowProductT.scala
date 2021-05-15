@@ -2,15 +2,6 @@
 package ostrat
 import pParse._
 
-trait UnShowProduct[R] extends UnShow[R]
-{
-  override def fromExpr(expr: ParseExpr): EMon[R] = expr match
-  {
-    case AlphaBracketExpr(IdentLowerToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
-    //case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-    case _ => expr.exprParseErr[R](this)
-  }
-}
 
 /** The base trait for the persistence of algebraic product types, including case classes. Note the arity of the product, its size is based on the
  *  number of logical parameters. For example, a LineSeg is a product 2, it has a start point and an end point, although its is stored as 4 parameters
@@ -79,15 +70,6 @@ object Persist5
     new Persist5(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, newT, opt5, opt4, opt3, opt2, opt1)(
     ev1, ev2, ev3, ev4, ev5)
 }
-
-/** Persistence class for 6 parameter case classes. */
-/*class Persist6[A1, A2, A3, A4, A5, A6, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2,
-  name3: String, fArg3: R => A3, name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, name6: String, fArg6: R => A6,
-  val newT: (A1, A2, A3, A4, A5, A6) => R, opt6: Option[A6], opt5: Option[A5], opt4: Option[A4] = None, opt3: Option[A3] = None,
-  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4], ev5: Persist[A5],
-  ev6: Persist[A6], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3], eq4: EqT[A4], eq5: EqT[A5], eq6: EqT[A6]) extends
-  Show6T(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6, opt6, opt5, opt4, opt3, opt2, opt1) with
-  PersistShowProductT[R]*/
 
 object Persist6
 {
