@@ -50,8 +50,11 @@ object ShowT
     override def strT(obj: Int): String = obj.base32
   }
 
-  implicit val doublePersistImplicit: Persist[Double] = new PersistSimple[Double]("DFloat")
+  implicit val doublePersistImplicit: Persist[Double] = new Persist[Double]
   {
+    override def typeStr: String = "DFloat"
+    override def syntaxDepthT(obj: Double): Int = 1
+
     def strT(obj: Double): String = {
       val s1 = obj.toString
       ife(s1.last == '0', s1.dropRight(2), s1)
@@ -71,19 +74,11 @@ object ShowT
         case _ => s1
       }
 
-      /*val inner = maxPlaces match {
-      case 0 => f"$obj%1.0f"
-      case 1 => f"$obj%1.1f"
-      case 2 => f"$obj%1.2f"
-      case 3 => f"$obj%1.3f"
-      case _ => obj.toString*/
-    //}
-
-    way match {
-      case Show.Typed => typeStr + inner.enParenth
-      case _ => inner
+      way match {
+        case Show.Typed => typeStr + inner.enParenth
+        case _ => inner
+      }
     }
-  }
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match
     { case NatDeciToken(_, i) => Good(i.toDouble)
