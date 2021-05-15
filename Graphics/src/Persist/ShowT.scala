@@ -2,15 +2,18 @@
 package ostrat
 import pParse._, collection.immutable.ArraySeq
 
-/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
- *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
- *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
-trait ShowT[-T]
+trait PersistBase
 {
   /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
    * Show. */
   def typeStr: String
+}
 
+/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
+ *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
+ *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
+trait ShowT[-T] extends PersistBase
+{
   /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
    * rather than a method on the object being shown. */
   def strT(obj: T): String

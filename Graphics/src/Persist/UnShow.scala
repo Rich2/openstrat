@@ -3,8 +3,8 @@ package ostrat
 import pParse._, annotation.unchecked.uncheckedVariance
 
 /** Produces an object in memory or an error sequence from text. */
-trait UnShow[+T]
-{ def typeStr: String
+trait UnShow[+T] extends PersistBase
+{
   def fromExpr(expr: Expr): EMon[T]
   
   /** Trys to build an object of type T from the statement. Not sure if this is useful. */
@@ -64,8 +64,8 @@ trait UnShow[+T]
   }
 
   /** Finds value of this UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatements[ArrT <: ArrImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrTBuilder[T, ArrT] @uncheckedVariance): EMon[T] =
-    valuesFromStatements(sts) match
+  def findUniqueTFromStatements[ArrT <: ArrImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrTBuilder[T, ArrT] @uncheckedVariance):
+    EMon[T] = valuesFromStatements(sts) match
   { case s if s.elemsLen == 0 => TextPosn.emptyError("No values of type found")
     case s if s.elemsLen == 1 => Good(s.head)
     case s3 => sts.startPosn.bad(s3.elemsLen.toString -- "values of" -- typeStr -- "found.")
@@ -103,6 +103,18 @@ object UnShow
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toInt)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toInt)
       case _ => expr.exprParseErr[Int]
+    }
+  }
+
+  implicit val longImplicit: UnShow[Long] = new UnShow[Long]
+  {
+    override def typeStr = "Long"
+    def strT(obj: Long): String = obj.toString
+    override def fromExpr(expr: Expr): EMon[Long] = expr match
+    { case NatDeciToken(_, i) => Good(i.toLong)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toLong)
+      case  _ => expr.exprParseErr[Long]
     }
   }
 }

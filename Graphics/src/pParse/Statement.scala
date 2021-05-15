@@ -68,7 +68,7 @@ object Statement
 
     /** Find the sole [[Int]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Int]. */
-    def findInt: EMon[Int] = ShowT.intPersistImplicit.findUniqueTFromStatements(statementRefs)
+    def findInt: EMon[Int] = UnShow.intImplicit.findUniqueTFromStatements(statementRefs)
 
     /** Find the sole [[Double]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Double]. */

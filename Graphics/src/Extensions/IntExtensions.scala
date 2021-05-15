@@ -93,9 +93,16 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     case i => (i - 1).roundDownTo(f)
   }
 
+  /** Returns this [[Int]]'s value if even, else returns thisInt + 1. */
   def roundUpToEven = thisInt.ifEvenElse(thisInt, thisInt + 1)
+
+  /** Returns this [[Int]]'s value if even, else returns thisInt - 1. */
   def roundDownToEven = thisInt.ifEvenElse(thisInt, thisInt - 1)
+
+  /** Returns this [[Int]]'s value if odd, else returns thisInt + 1. */
   def roundUpToOdd = thisInt.ifEvenElse(thisInt + 1, thisInt)
+
+  /** Returns this [[Int]]'s value if odd, else returns thisInt - 1. */
   def roundDownToOdd = thisInt.ifEvenElse(thisInt - 1, thisInt)
    
   @inline def hexStr: String = thisInt.toHexString.toUpperCase

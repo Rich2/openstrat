@@ -14,7 +14,7 @@ trait UnShowProduct[R] extends UnShow[R]
 
 /** Persistence class for 6 parameter case classes. */
 trait UnShow6[A1, A2, A3, A4, A5, A6, R]
-{ // typeStr: String
+{ def typeStr: String
   def name1: String
   def fArg1: R => A1
   def name2: String
@@ -29,15 +29,15 @@ trait UnShow6[A1, A2, A3, A4, A5, A6, R]
   def fArg6: R => A6
   val newT: (A1, A2, A3, A4, A5, A6) => R
   def opt6: Option[A6]
-  def opt5: Option[A5]
+  def opt5: Option[A5] = None
   def opt4: Option[A4] = None
   def opt3: Option[A3] = None
   def opt2: Option[A2] = None
   def opt1: Option[A1] = None
-  implicit def ev1: Persist[A1]
-  implicit def ev2: Persist[A2]
-  implicit def ev3: Persist[A3]
-  implicit def ev4: Persist[A4]
-  implicit def ev5: Persist[A5]
-  implicit def ev6: Persist[A6]
+  implicit def ev1: UnShow[A1]
+  implicit def ev2: UnShow[A2]
+  implicit def ev3: UnShow[A3]
+  implicit def ev4: UnShow[A4]
+  implicit def ev5: UnShow[A5]
+  implicit def ev6: UnShow[A6]
 }
