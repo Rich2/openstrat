@@ -191,4 +191,18 @@ object UnShow
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
   }
+
+  /** Implicit method for creating List[A: Persist] instances. */
+  implicit def listImplicit[A](implicit evIn: UnShow[A]): UnShow[List[A]] = new UnShow[List[A]]// with ShowIterable[A, List[A]]
+  {
+    val evA: UnShow[A] = evIn
+    override def typeStr: String = Seq + evA.typeStr
+    override def fromExpr(expr: Expr): EMon[List[A]] = expr match
+    {
+      case eet: EmptyExprToken => Good(List[A]())
+      case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap(s => evA.fromExpr(s.expr)).toList
+      case AlphaParenth("Seq", sts) => ??? // sts.eMap[A](_.errGet[A](evA))
+      case e => bad1(expr, "Unknown Exoression for Seq")
+    }
+  }
 }
