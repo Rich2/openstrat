@@ -377,7 +377,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def toStrsSemiParenth(fToStr: A => String): String = toStrsSemiFold(fToStr).enParenth
 }
 
-case class ArrayLikeShow[A, R <: ArrayLike[A]](evA: ShowT[A]) extends ShowSeqLike[A, R]
+case class ArrayLikeShow[A, R <: ArrayLike[A]](evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.fMax(1)(evA.syntaxDepthT(_))
   override def showT(obj: R, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ""

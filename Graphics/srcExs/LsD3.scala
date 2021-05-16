@@ -5,7 +5,7 @@ import ostrat._, geom._, pCanv._
 /** D Series lessons deal with persistence */
 case class LsD3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D3")
 {
-  val r1 = Rval(5) - 2.1 - false - "Hello World!" - (2.3 pp -43.8)// - Array(4, 5, 6)
+  val r1 = Rval(5) - 2.1 - false - "Hello World!" - (2.3 pp -43.8) - Array(4, 5, 6)
   val topBlock = SText(300 , r1.str)
   
   val s2 = Sett("Age", 5).ap("Average", -2.1).ap("Open", false).ap("Greeting", "Hello World!"). ap("Posn", 2.3 pp -43.8).str

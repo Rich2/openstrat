@@ -146,16 +146,10 @@ object ShowT
 
   implicit def vectorImplicit[A](implicit ev: ShowT[A]): ShowT[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
-  implicit val ArrayIntPersistImplicit: ShowT[Array[Int]] = new PersistSeqLike[Int, Array[Int]](ShowT.intPersistImplicit)
+  implicit val ArrayIntPersistImplicit: ShowT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
   {
+    override def evA: ShowT[Int] = ShowT.intPersistImplicit
     override def syntaxDepthT(obj: Array[Int]): Int = ???
-
-    override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
-    { case SemicolonToken(_) => Good(Array[Int]())
-      case AlphaBracketExpr(IdentUpperToken(_, "Seq"), Arr2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
-      //sts.eMap[Int](_.errGet[Int](evA)).map(_.array)
-      case e => bad1(expr, "Unknown Exoression for Seq")
-    }
 
     override def showT(obj: Array[Int], way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
@@ -190,7 +184,7 @@ object ShowT
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arraySeqImplicit[A](implicit ev: ShowT[A]): ShowT[collection.immutable.ArraySeq[A]] = new ShowSeqLike[A, ArraySeq[A]]
+  implicit def arraySeqImplicit[A](implicit ev: ShowT[A]): ShowT[collection.immutable.ArraySeq[A]] = new ShowTSeqLike[A, ArraySeq[A]]
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
     override def evA: ShowT[A] = ev

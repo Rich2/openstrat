@@ -3,7 +3,7 @@ package ostrat
 
 class Rval(val str: String) extends AnyVal
 {
-  def - [A](value: A)(implicit ev: Persist[A]): Rval = new Rval(str + "\n" + ev.strT(value) + ";")
+  def - [A](value: A)(implicit ev: ShowT[A]): Rval = new Rval(str + "\n" + ev.strT(value) + ";")
 }
 
 object Rval
