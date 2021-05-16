@@ -179,4 +179,16 @@ object UnShow
       case  _ => expr.exprParseErr[Char]
     }
   }
+
+  implicit val arrayIntImplicit: UnShow[Array[Int]] = new UnShow[Array[Int]]//(ShowT.intPersistImplicit)
+  {
+    def typeStr: String = "Array[Int]"
+
+    override def fromExpr(expr: Expr): EMon[Array[Int]] = expr match
+    { case SemicolonToken(_) => Good(Array[Int]())
+      case AlphaBracketExpr(IdentUpperToken(_, "Seq"), Arr2(SquareBlock(ts, _, _), ParenthBlock(sts, _, _))) => ???
+      //sts.eMap[Int](_.errGet[Int](evA)).map(_.array)
+      case e => bad1(expr, "Unknown Exoression for Seq")
+    }
+  }
 }

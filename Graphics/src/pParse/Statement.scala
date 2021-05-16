@@ -84,7 +84,7 @@ object Statement
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */
-    def findIntArray: EMon[Array[Int]] = ShowT.ArrayIntPersistImplicit.findUniqueFromStatements(statementRefs)
+    def findIntArray: EMon[Array[Int]] = UnShow.arrayIntImplicit.findUniqueFromStatements(statementRefs)
 
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
     def findSettingInt(settingStr: String): EMon[Int] = ShowT.intPersistImplicit.settingTFromStatements(statementRefs, settingStr)

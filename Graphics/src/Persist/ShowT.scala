@@ -146,7 +146,7 @@ object ShowT
 
   implicit def vectorImplicit[A](implicit ev: ShowT[A]): ShowT[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
-  implicit val ArrayIntPersistImplicit: Persist[Array[Int]] = new PersistSeqLike[Int, Array[Int]](ShowT.intPersistImplicit)
+  implicit val ArrayIntPersistImplicit: ShowT[Array[Int]] = new PersistSeqLike[Int, Array[Int]](ShowT.intPersistImplicit)
   {
     override def syntaxDepthT(obj: Array[Int]): Int = ???
 
