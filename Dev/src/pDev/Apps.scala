@@ -9,6 +9,7 @@ object Apps
     ("L", learn.Lessons),
     ("W2", pWW2.WW2Launch),
     ("G1", gOne.OneLaunch),
+    ("G2", gTwo.TwoLaunch),
     ("Z", pZug.ZugLaunch),
   )
 
@@ -34,7 +35,6 @@ object Apps
     ("EG1", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNWTerrOld, 472 rr 204), "JavaFx NW Wurope Grid")),
     ("EG2", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNETerrOld, 456 rr 388), "JavaFx NE Wurope Grid")),
 
-    ("G2", (gTwo.GTwoGui(_, gTwo.TwoScen1), "JavaFx Game Two")),
     ("G3", (gThree.GThreeGui(_, gThree.ThreeScen2), "JavaFx Game Three")),
     ("G31", (gThree.GThreeGui(_, gThree.ThreeScen1), "JavaFx Game Three")),
     ("G33", (gThree.GThreeGui(_, gThree.ThreeScen3), "JavaFx Game Three")),

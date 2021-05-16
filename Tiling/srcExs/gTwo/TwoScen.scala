@@ -35,10 +35,3 @@ object TwoScen
 trait TwoScenStart extends TwoScen
 { override val turn: Int = 0
 }
-
-object TwoScen1 extends TwoScenStart
-{ implicit val grid = SqGrid(2, 8, 2, 10)
-  val oPlayers: SqCenArrOpt[Player] = grid.newTileArrOpt
-  oPlayers.setSome(4, 4, PlayerA)
-  oPlayers.setSomes((4, 6, PlayerB), (6, 8, PlayerC))
-}
