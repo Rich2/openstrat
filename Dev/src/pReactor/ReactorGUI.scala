@@ -218,10 +218,10 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
 
   def saveGame() : Unit =
   { if (aDefaultGame.gameState == "turn")
-    { var saveData = Sett("rows", aDefaultGame.rows).ap("cols", aDefaultGame.cols).ap("turn", aDefaultGame.turn).ap("gameState",
+    { var saveData = Setting("rows", aDefaultGame.rows).ap("cols", aDefaultGame.cols).ap("turn", aDefaultGame.turn).ap("gameState",
       aDefaultGame.gameState).ap("currentPlayer", aDefaultGame.currentPlayer).str + "\n" //.ap("cellCounts", aDefaultGame.cellCounts).ap("cellColors",  aDefaultGame.cellColors).str
-      for (i <-0 to aDefaultGame.rows * aDefaultGame.cols - 1) saveData += Sett("cellColors"+i.toString, aDefaultGame.cellColors(i)).str + "\n"
-      for (i <-0 to aDefaultGame.rows * aDefaultGame.cols - 1) saveData += Sett("cellCounts"+i.toString, aDefaultGame.cellCounts(i)).str + "\n"
+      for (i <-0 to aDefaultGame.rows * aDefaultGame.cols - 1) saveData += Setting("cellColors"+i.toString, aDefaultGame.cellColors(i)).str + "\n"
+      for (i <-0 to aDefaultGame.rows * aDefaultGame.cols - 1) saveData += Setting("cellCounts"+i.toString, aDefaultGame.cellCounts(i)).str + "\n"
       canv.saveFile("Reactor.data", saveData)
       deb("Saved! =>\n"+saveData)
       gameData = saveData

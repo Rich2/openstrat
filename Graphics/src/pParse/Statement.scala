@@ -54,7 +54,7 @@ object Statement
     def findSettingTElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSettingT[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if its unique from this Arr[Statement] and return value. */
-    def findUniqueT[A](implicit ev: Persist[A]): EMon[A] = ev.findUniqueFromStatements(statementRefs)
+    def findUniqueT[A](implicit ev: UnShow[A]): EMon[A] = ev.findUniqueFromStatements(statementRefs)
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */

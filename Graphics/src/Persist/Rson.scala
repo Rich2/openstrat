@@ -12,17 +12,18 @@ object Rval
   def apply[A](value: A)(implicit ev: Persist[A]): Rval = new Rval(ev.strT(value) + ";")
 }
 
-class Sett(val str: String) extends AnyVal
+/** Class for creating RSOn settings. */
+class Setting(val str: String) extends AnyVal
 {
   /** Not sure why this method is called ap. */
-  def ap[A](setting: String, value: A)(implicit ev: Persist[A]): Sett =
+  def ap[A](setting: String, value: A)(implicit ev: Persist[A]): Setting =
   {
-    new Sett(str + "\n" + setting + " = " + ev.strT(value) + ";")
+    new Setting(str + "\n" + setting + " = " + ev.strT(value) + ";")
   }
 }
 
-object Sett
+object Setting
 {
-  def apply[A](setting: String, value: A)(implicit ev: Persist[A]): Sett = new Sett(setting + " = " + ev.strT(value) + ";")
+  def apply[A](setting: String, value: A)(implicit ev: ShowT[A]): Setting = new Setting(setting + " = " + ev.strT(value) + ";")
 }
 
