@@ -10,6 +10,7 @@ object Apps
     ("W2", pWW2.WW2Launch),
     ("G1", gOne.OneLaunch),
     ("G2", gTwo.TwoLaunch),
+    ("G3", gThree.ThreeLaunch),
     ("Z", pZug.ZugLaunch),
   )
 
@@ -34,10 +35,6 @@ object Apps
 
     ("EG1", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNWTerrOld, 472 rr 204), "JavaFx NW Wurope Grid")),
     ("EG2", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNETerrOld, 456 rr 388), "JavaFx NE Wurope Grid")),
-
-    ("G3", (gThree.GThreeGui(_, gThree.ThreeScen2), "JavaFx Game Three")),
-    ("G31", (gThree.GThreeGui(_, gThree.ThreeScen1), "JavaFx Game Three")),
-    ("G33", (gThree.GThreeGui(_, gThree.ThreeScen3), "JavaFx Game Three")),
 
     ("Z1", (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
     ("X1", (pZug.ZugGuiOld(_, pZug.Zug1Old), "Old JavaFx Zugfuhrer Z1 Britain")),

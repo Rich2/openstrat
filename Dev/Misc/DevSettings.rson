@@ -8,12 +8,15 @@ lessons = A1;
 ww2 = { scale = 1; latitude = 50; longitude = 10; };
 gOne = 1;
 gTwo = 1;
+gThree = 1;
 zugFuhrer = 1;
 
 /* Change the  number to change the app on next run.
   ("L", learn.Lessons),
   ("W2", pWW2.WW2Launch),
   ("G1", gOne.OneLaunch),
+  ("G2", gTwo.TwoLaunch),
+  ("G3", gThree.ThreeLaunch),
   ("Z", pZug.ZugLaunch),
 */
 
@@ -39,7 +42,6 @@ zugFuhrer = 1;
  ("EG1", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNWTerrOld, 472 rr 204), "JavaFx NW Wurope Grid")),
  ("EG2", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNETerrOld, 456 rr 388), "JavaFx NE Wurope Grid")),
 
- ("G3", (gThree.GThreeGui(_, gThree.ThreeScen2), "JavaFx Game Three")),
  ("G31", (gThree.GThreeGui(_, gThree.ThreeScen1), "JavaFx Game Three")),
  ("G33", (gThree.GThreeGui(_, gThree.ThreeScen3), "JavaFx Game Three")),
 
