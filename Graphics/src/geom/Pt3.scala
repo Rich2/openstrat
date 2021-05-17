@@ -53,5 +53,5 @@ object Pt3
 { def apply(x: Double, y: Double, z: Double): Pt3 = new Pt3(x, y, z)
   def unapply(orig: Pt3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
 
-  implicit object PersistImplicit extends PersistD3[Pt3]("Pt3", "x", _.x, "y", _.y, "z", _.z, apply)
+ // implicit object showTImplicit extends PersistD3[Pt3]("Pt3", "x", _.x, "y", _.y, "z", _.z, apply)
 }

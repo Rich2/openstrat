@@ -65,3 +65,23 @@ class Show3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, 
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0), ev3.showT(fArg3(obj), way, decimalPlaces, 0))
 }
+
+/*
+case class Show3DblsT[T](typeStr: String) extends ShowT[T]{
+  /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
+   * rather than a method on the object being shown. */
+  override def strT(obj: T): String = ???
+
+  def elemStrs(obj: T, way: Show.Way, maxPlaces: Int, minPlaces: Int)
+  override def showT(obj: T, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = way match {
+    case Show.Semis =>
+  }
+
+  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
+   * should always be determined at compile time or if sometimes it should be determined at runtime. */
+  override def syntaxDepthT(obj: T): Int = 1
+
+  /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+   * Show. */
+
+}*/

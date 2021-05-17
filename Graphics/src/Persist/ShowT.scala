@@ -14,6 +14,8 @@ trait PersistBase
  *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
 trait ShowT[-T] extends PersistBase
 {
+
+
   /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
    * rather than a method on the object being shown. */
   def strT(obj: T): String
