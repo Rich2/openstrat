@@ -165,7 +165,7 @@ object Persist2
 
 /** Persist type class for types that extends Show2. */
 class Persist2Elem[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String,
-                                               val newT: (A1, A2) => R, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends
+  val newT: (A1, A2) => R, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends
   Show2ElemT[A1, A2, R] with PersistProduct[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
