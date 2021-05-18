@@ -2,7 +2,7 @@
 package ostrat
 import pParse._, annotation.unchecked.uncheckedVariance
 
-/** Produces an object in memory or an error sequence from text. */
+/** The UnShow type class produces an object in memory or an error sequence from RSON syntax strings. */
 trait UnShow[+T] extends PersistBase
 {
   def fromExpr(expr: Expr): EMon[T]
@@ -89,6 +89,7 @@ trait UnShow[+T] extends PersistBase
   }
 }
 
+/** Companion object for the [[UnShow]] type class trait, contains implicit instances for common types. */
 object UnShow
 {
   //implicit def tuple2Implicit[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist[Tuple2[A1, A2]] =
