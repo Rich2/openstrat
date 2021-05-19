@@ -73,16 +73,25 @@ object Show2ElemT
   }
 }
 
-/** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowProductT[R]
-{
-  def typeStr: String
+/** A base trait for [[Show2T]] and [[UnShow2]] */
+trait Persist2Base[A1, A2, R] extends PersistBase
+{ /** 1st parameter name. */
   def name1: String
-  def fArg1: R => A1
+
+  /** 2nd parameter name. */
   def name2: String
-  def fArg2: R => A2
-  def opt2: Option[A2]
+
+  /** The optional default value for parameter 1. */
   def opt1: Option[A1]
+
+  /** The optional default value for parameter 2. */
+  def opt2: Option[A2]
+}
+
+/** Show type class for 2 parameter case classes. */
+trait Show2T[A1, A2, R] extends ShowProductT[R] with Persist2Base[A1, A2, R]
+{ def fArg1: R => A1
+  def fArg2: R => A2
   implicit def ev1: ShowT[A1]
   implicit def ev2: ShowT[A2]
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
@@ -143,6 +152,22 @@ object Show2Base32sT
   def apply[R <: Show2Base32s](typeStrIn: String): Show2Base32sT[R] = new Show2Base32sT[R]()
   { val typeStr: String = typeStrIn
   }
+}
+
+
+/** UnShow type class trait for a 2 element Product. */
+trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with Persist2Base[A1, A2, R]
+{ /** Derive the 1st parameter from an object of type R. */
+  def fArg1: R => A1
+
+  /** The UnShow type class instance for type A1. */
+  def unShowA1: UnShow[A1]
+
+  /** Derive the 2nd parameter from an object of type R. */
+  def fArg2: R => A2
+
+  /** The UnShow type class instance for type A2. */
+  def unShowA2: UnShow[A2]
 }
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
