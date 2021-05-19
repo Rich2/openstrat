@@ -185,7 +185,7 @@ lazy val DevJs = jsProj("Dev").dependsOn(EarthJs).settings(
 )
 
 def dottySettings = List(
-	scalaVersion := "3.0.0-RC3",
+	scalaVersion := "3.0.0",
 	resolvers += Resolver.url("typesafe", url("https://repo.typesafe.com/typesafe/ivy-releases/"))(Resolver.ivyStylePatterns),
 	scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
@@ -195,7 +195,7 @@ lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).se
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
 
   Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Graphics/srcExs",
-    (ThisBuild/baseDirectory).value / "Graphics/srcDot", (ThisBuild/baseDirectory).value / "Graphics/srcFx"),
+    (ThisBuild/baseDirectory).value / "Graphics/srcDot", (ThisBuild/baseDirectory).value / "Graphics/srcJvm", (ThisBuild/baseDirectory).value / "Graphics/srcFx"),
 
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphics/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),

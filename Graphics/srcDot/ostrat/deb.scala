@@ -14,7 +14,7 @@ def debbImpl(using Quotes) = '{ println($posnStrImpl) }
 inline def debvar(expr: Any): Unit = ${ debvarImpl('expr) }
 def debvarImpl(expr: Expr[Any])(using Quotes) = '{ println($posnStrImpl + " " + ${Expr(expr.show)} + " = " + $expr) }
 
-inline def posnStr: String = ${ posnStrImpl }
+inline def posnStr(): String = ${ posnStrImpl }
 def posnStrImpl(using Quotes): Expr[String] =
 { val pos = quotes.reflect.Position.ofMacroExpansion
   Expr(pos.sourceFile.jpath.toString + ", " + pos.startLine + ", " + pos.startColumn)

@@ -11,7 +11,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   val active = grid.map{ hc =>hc.polygonReg.active(hc) }
   val text = terrs.mapHC((t, hc) => hc.rcText(14, t.contrastBW))
   val rows = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
-  val lines = terrs.sideFlatMap( (hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
+  val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
   def lunits = scen.lunits.gridHeadsFlatMap{ (roord, squad) =>
     val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(roord).colour).slate(roord.toPt2)// gridPt2)
