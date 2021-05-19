@@ -2,7 +2,9 @@
 package ostrat
 
 /** A class that can be construct from a fixed number of homogeneous primitive values such as Ints, Doubles or Longs. The final class can be stored as
- *  an Array of primitive values. */
+ *  an Array of primitive values. Note the classes that extend this trait do not extend [[Product]] or its numbered sub traits, because the logical
+ *  size of the product may not be the same as the number of primitive values, for example a LineSeg is a product of 2 [[Pt2]]s, but is composed from
+ *  4 [[Double]] values. */
 trait ValueNElem extends Any with SpecialT
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
