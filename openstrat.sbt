@@ -4,14 +4,14 @@ val versionStr = "0.2.2snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor = "2.13"
-val scalaMinor = "5"
+val scalaMinor = "6"
 lazy val jarVersion = "_" + scalaMajor + "-" + versionStr + ".jar"
 ThisBuild/scalaVersion := scalaMajor + "." + scalaMinor
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
 def commonSett = List(
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "UTF-8", "-deprecation", "-explaintypes"),//, "-Ywarn-value-discard", "-Xlint"),
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "UTF-8", "-deprecation", "-explaintypes", "-Xsource:3"),//, "-Ywarn-value-discard", "-Xlint"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 
