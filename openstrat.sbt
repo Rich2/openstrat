@@ -22,8 +22,8 @@ ThisBuild/baseDir := (ThisBuild/baseDirectory).value
 
 /*lazy val UtilMacros = Project("UtilMacros", file("Dev/SbtDir/UtilMacros")).settings(commonSett).settings(
   moduleDir := baseDir.value / "Graphics",
-  scalaSource := moduleDir.value / "srcMacros",
-  Compile/scalaSource := moduleDir.value / "srcMacros",
+  scalaSource := moduleDir.value / "src2",
+  Compile/scalaSource := moduleDir.value / "src2",
   Compile/unmanagedSourceDirectories := List(scalaSource.value),
   Test/scalaSource :=  moduleDir.value / "srcMacrosTest",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
@@ -39,7 +39,7 @@ def baseJvmProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/S
 def coreJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr + "Core").settings(
   scalaSource := moduleDir.value / "src",
   Compile/scalaSource := moduleDir.value / "src",
-  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "srcDot").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "src3").map(moduleDir.value / _),
   resourceDirectory := moduleDir.value / "res",
   Test/scalaSource := moduleDir.value / "testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
@@ -60,7 +60,9 @@ def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
 
-lazy val GraphicsCore = coreJvmProj("Graphics")/*.dependsOn(UtilMacros)*/.settings(
+lazy val Macros3 = coreJvmProj("Macros")
+
+lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(Macros3).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
 )
 
@@ -71,7 +73,7 @@ lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(
 lazy val GraphicsCoreLinux = baseJvmProj("Graphics", "GraphicsCoreLinux")/*.dependsOn(UtilMacros)*/.settings(
   scalaSource := moduleDir.value / "src",
   Compile/scalaSource := moduleDir.value / "src",
-  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "srcDot").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "src3").map(moduleDir.value / _),
   resourceDirectory := moduleDir.value / "res",
   Test/scalaSource := moduleDir.value / "testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
@@ -169,7 +171,7 @@ def jsProj(name: String) = Project(name + "Js", file("Dev/SbtDir/" + name + "Js"
 )*/
 
 lazy val GraphicsJs = jsProj("Graphics")/*.dependsOn(UtilMacrosJs)*/.settings(
-  Compile/unmanagedSourceDirectories := List("src", "srcJs", "srcDot").map(s => baseDir.value / "Graphics" / s)
+  Compile/unmanagedSourceDirectories := List("src", "srcJs", "src3").map(s => baseDir.value / "Graphics" / s)
 )
 
 lazy val TilingJs = jsProj("Tiling").dependsOn(GraphicsJs).settings(
@@ -196,7 +198,7 @@ lazy val GraphicsDot = Project("GraphicsDot", file("Dev/SbtDir/GraphicsDot")).se
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
 
   Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Graphics/srcExs",
-    (ThisBuild/baseDirectory).value / "Graphics/srcDot", (ThisBuild/baseDirectory).value / "Graphics/srcJvm", (ThisBuild/baseDirectory).value / "Graphics/srcFx"),
+    (ThisBuild/baseDirectory).value / "Graphics/src3", (ThisBuild/baseDirectory).value / "Graphics/srcJvm", (ThisBuild/baseDirectory).value / "Graphics/srcFx"),
 
   Test/scalaSource :=  (ThisBuild/baseDirectory).value / "Graphics/testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
