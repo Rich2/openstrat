@@ -127,9 +127,6 @@ lazy val DocJs = (project in file("Dev/SbtDir/DocJs"))/*.dependsOn(UtilMacrosJs)
   Compile/doc/scalacOptions ++= Seq("-groups"),
 )
 
-
-
-
 lazy val UtilMacrosNat = Project("UtilMacrosNat", file("Dev/SbtDir/UtilMacrosNat")).enablePlugins(ScalaNativePlugin).settings(  
   scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
   Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",

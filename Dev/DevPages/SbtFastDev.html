@@ -19,7 +19,7 @@
   // aid local development in ensuring script not cached during a simple refresh
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("src", "../../Dev/SbtDir/DevJs/target/scala-2.13/devjs-fastopt.js?"+Date.now().toString());
+    script.setAttribute("src", "../../Dev/SbtDir/DevJs2/target/scala-2.13/devjs2-fastopt.js?"+Date.now().toString());
     document.getElementsByTagName("head")[0].appendChild(script);
     script.addEventListener('load', function(e) {
     JsDevApp.main();
