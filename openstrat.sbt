@@ -123,18 +123,19 @@ custDoc :=
   println("Main docs and Js docs built")
 }
 
-lazy val DocMain = (project in file("Dev/SbtDir/DocMain"))/*.dependsOn(UtilMacros)*/.settings(
+lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).dependsOn(MacrosJvm3).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcExs", el + "srcFx")).map(s => baseDir.value / s),
+  scalaVersion := "3.0.0",
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "src3", el + "/srcJvm", el + "/srcExs", el + "srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "14",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15",
   Compile/doc/scalacOptions ++= Seq("-groups"),
 )
 
-lazy val DocJs = (project in file("Dev/SbtDir/DocJs"))/*.dependsOn(UtilMacrosJs)*/.settings(
+lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).dependsOn(MacrosJs2).settings(sett2).settings(
   name := "OpenStrat",
-  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExs")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
