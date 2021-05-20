@@ -15,7 +15,7 @@ def commonSett = List(
  // libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 
-lazy val root = (project in file(".")).aggregate(Graphics, Tiling, Earth, Dev, DevJs)
+lazy val root = (project in file(".")).aggregate(GraphicsJvm3, TilingJvm3, EarthJvm3, DevJvm3, DevJs)
 lazy val moduleDir = SettingKey[File]("moduleDir")
 lazy val baseDir = SettingKey[File]("baseDir")
 ThisBuild/baseDir := (ThisBuild/baseDirectory).value
@@ -30,15 +30,17 @@ ThisBuild/baseDir := (ThisBuild/baseDirectory).value
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.5" % "test",
 )*/
 
-def baseJvmProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/" + nameStr)).settings(commonSett).settings(
+def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/" + nameStr)).settings(commonSett).settings(
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
   moduleDir := baseDir.value / srcsStr,  
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test",
-  testFrameworks += new TestFramework("utest.runner.Framework"),  
-)
-
-def coreJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr + "Core").settings(
+  testFrameworks += new TestFramework("utest.runner.Framework"),
   scalaSource := moduleDir.value / "src",
   Compile/scalaSource := moduleDir.value / "src",
+  resourceDirectory := moduleDir.value / "res",
+)
+
+def coreJvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Core").settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "src3").map(moduleDir.value / _),
   resourceDirectory := moduleDir.value / "res",
   Test/scalaSource := moduleDir.value / "testSrc",
@@ -47,30 +49,29 @@ def coreJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr + "Core").settin
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
 )
 
-def exsJvmProj(srcsStr: String) = baseJvmProj(srcsStr, srcsStr).settings(
-  scalaSource := baseDir.value / srcsStr / "srcExs",
+def jvm3Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm3").settings(
+  scalaVersion := "3.0.0",
   testFrameworks += new TestFramework("utest.runner.Framework"), 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test",
-  Compile/scalaSource := moduleDir.value / "srcExs",
-  Compile/unmanagedSourceDirectories := List("srcExs", "srcExsJvm", "srcExsFx").map(moduleDir.value / _),
-  resourceDirectory := moduleDir.value  / "ExsRes",
+  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "src3", "srcExs", "srcExsJvm", "srcExsFx").map(moduleDir.value / _),
   Test/scalaSource := moduleDir.value / "testSrcExs",
   Test/unmanagedSourceDirectories := List(moduleDir.value / "testSrc", (Test/scalaSource).value),
   Test/resourceDirectory :=  moduleDir.value / "testResExs",
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
 
-lazy val Macros3 = coreJvmProj("Macros")
+lazy val MacrosJvm3 = coreJvmProj("Macros")
 
-lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(Macros3).settings(
+lazy val GraphicsCore = coreJvmProj("Graphics").dependsOn(MacrosJvm3).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
 )
 
-lazy val Graphics = exsJvmProj("Graphics").dependsOn(GraphicsCore).settings(
+lazy val GraphicsJvm3 = jvm3Proj("Graphics").dependsOn(MacrosJvm3).settings(
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-lazy val GraphicsCoreLinux = baseJvmProj("Graphics", "GraphicsCoreLinux")/*.dependsOn(UtilMacros)*/.settings(
+lazy val GraphicsCoreLinux = baseProj("Graphics", "GraphicsCoreLinux")/*.dependsOn(UtilMacros)*/.settings(
   scalaSource := moduleDir.value / "src",
   Compile/scalaSource := moduleDir.value / "src",
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "src3").map(moduleDir.value / _),
@@ -83,15 +84,12 @@ lazy val GraphicsCoreLinux = baseJvmProj("Graphics", "GraphicsCoreLinux")/*.depe
 )
 
 lazy val TilingCore = coreJvmProj("Tiling").dependsOn(GraphicsCore)
-lazy val Tiling = exsJvmProj("Tiling").dependsOn(TilingCore)
+lazy val TilingJvm3 = jvm3Proj("Tiling").dependsOn(GraphicsJvm3)
 lazy val EarthCore = coreJvmProj("Earth").dependsOn(TilingCore)
-lazy val Earth = exsJvmProj("Earth").dependsOn(EarthCore)
+lazy val EarthJvm3 = jvm3Proj("Earth").dependsOn(TilingJvm3)
 
-lazy val Dev = baseJvmProj("Dev", "Dev").dependsOn(Graphics, Tiling, Earth).settings(
-  scalaSource := moduleDir.value / "src",
-  Compile/scalaSource := moduleDir.value / "src",
+lazy val DevJvm3 = baseProj("Dev", "Dev").dependsOn(EarthJvm3).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
-  resourceDirectory := moduleDir.value / "res",
   Test/scalaSource := moduleDir.value / "testSrc",
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/resourceDirectory :=  moduleDir.value / "testRes",
