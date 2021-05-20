@@ -64,10 +64,15 @@ def js3Proj(name: String) = baseProj(name, name + "Js3").enablePlugins(ScalaJSPl
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.1.0").cross(CrossVersion.for3Use2_13),
 )
 
+def nat2Proj(name: String) = baseProj(name, name + "Nat2").enablePlugins(ScalaNativePlugin).settings(sett2).settings(
+  Compile/unmanagedSourceDirectories := List("src", "src2", "srcNat", "srcExs").map(moduleDir.value / _),
+)
+
 lazy val MacrosJvm2 = jvm2Proj("Macros")
 lazy val MacrosJvm3 = jvm3Proj("Macros")
 lazy val MacrosJs2 = js2Proj("Macros")
 lazy val MacrosJs3 = js3Proj("Macros")
+lazy val MacrosNat2 = nat2Proj("Macros")
 
 lazy val GraphicsJvm2 = jvm2Proj("Graphics").dependsOn(MacrosJvm2).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
@@ -81,12 +86,15 @@ lazy val GraphicsJvm3 = jvm3Proj("Graphics").dependsOn(MacrosJvm3).settings(
 
 lazy val GraphicsJs2 = js2Proj("Graphics").dependsOn(MacrosJs2)
 lazy val GraphicsJs3 = js3Proj("Graphics").dependsOn(MacrosJs3)
+lazy val GraphicsNat2 = nat2Proj("Graphics").dependsOn(MacrosNat2)
 lazy val TilingJvm2 = jvm2Proj("Tiling").dependsOn(GraphicsJvm2)
 lazy val TilingJvm3 = jvm3Proj("Tiling").dependsOn(GraphicsJvm3)
 lazy val TilingJs2 = js2Proj("Tiling").dependsOn(GraphicsJs2)
+lazy val TilingNat2 = js2Proj("Tiling").dependsOn(GraphicsNat2)
 lazy val EarthJvm2 = jvm2Proj("Earth").dependsOn(TilingJvm2)
 lazy val EarthJvm3 = jvm3Proj("Earth").dependsOn(TilingJvm3)
 lazy val EarthJs2 = js2Proj("Earth").dependsOn(TilingJs2)
+lazy val EarthNat2 = js2Proj("Earth").dependsOn(TilingNat2)
 
 lazy val DevJvm3 = jvm3Proj("Dev").dependsOn(EarthJvm3).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
@@ -98,6 +106,12 @@ lazy val DevJvm3 = jvm3Proj("Dev").dependsOn(EarthJvm3).settings(
 
 lazy val DevJs2 = js2Proj("Dev").dependsOn(EarthJs2).settings(
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs").map(s => (ThisBuild/baseDirectory).value / s),
+)
+
+lazy val DevNat2 = nat2Proj("Dev").dependsOn(EarthNat2).settings(
+  resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
+  Compile/resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
+  Compile/unmanagedResourceDirectories := List(resourceDirectory.value),
 )
 
 val docDirs: List[String] = List("Graphics", "Tiling", "Earth", "Dev")
@@ -126,31 +140,3 @@ lazy val DocJs = (project in file("Dev/SbtDir/DocJs"))/*.dependsOn(UtilMacrosJs)
   apiURL := Some(url("https://richstrat.com/api/")),
   Compile/doc/scalacOptions ++= Seq("-groups"),
 )
-
-lazy val UtilMacrosNat = Project("UtilMacrosNat", file("Dev/SbtDir/UtilMacrosNat")).enablePlugins(ScalaNativePlugin).settings(  
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/srcMacros",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),
-  //libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
-)
-
-lazy val UtilNat = Project("UtilNat", file("Dev/SbtDir/UtilNat")).dependsOn(UtilMacrosNat).enablePlugins(ScalaNativePlugin).settings(  
-  scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Util/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value),
- )
-
-lazy val GraphicsNat = Project("GraphicsNat", file("Dev/SbtDir/GraphicsNat")).dependsOn(UtilNat).enablePlugins(ScalaNativePlugin).settings(  
-  scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Graphics/src",
-  Compile/unmanagedSourceDirectories := List(scalaSource.value, (ThisBuild/baseDirectory).value / "Graphics/srcNat"),
- )
-
-lazy val DevNat = Project("DevNat", file("Dev/SbtDir/DevNat")).dependsOn(GraphicsNat).enablePlugins(ScalaNativePlugin).settings(
-  scalaSource := (ThisBuild/baseDirectory).value / "Dev/srcNat",
-  Compile/scalaSource := (ThisBuild/baseDirectory).value / "Dev/srcNat",
-  Compile/unmanagedSourceDirectories := List((Compile/scalaSource).value),
-  resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
-  Compile/resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
-  Compile/unmanagedResourceDirectories := List(resourceDirectory.value),
-)  
