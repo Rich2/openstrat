@@ -36,15 +36,18 @@ def sett2 = List(
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
 )
 
+def sett3 = List(
+  scalaVersion := "3.0.0",
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
+)
+
 def jvm2Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm2").settings(sett2).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "src2", "srcExs", "srcExsJvm", "srcExsFx").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
 )
 
-def jvm3Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm3").settings(
-  scalaVersion := "3.0.0",
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
+def jvm3Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm3").settings(sett3).settings(
   testFrameworks += new TestFramework("utest.runner.Framework"), 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test",
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "src3", "srcExs", "srcExsJvm", "srcExsFx").map(moduleDir.value / _),
@@ -57,9 +60,7 @@ def js2Proj(name: String) = baseProj(name, name + "Js2").enablePlugins(ScalaJSPl
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0",
 )
 
-def js3Proj(name: String) = baseProj(name, name + "Js3").enablePlugins(ScalaJSPlugin).settings(
-  scalaVersion := "3.0.0",
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
+def js3Proj(name: String) = baseProj(name, name + "Js3").enablePlugins(ScalaJSPlugin).settings(sett3).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs", "src3", "srcExs").map(moduleDir.value / _),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.1.0").cross(CrossVersion.for3Use2_13),
 )
@@ -116,17 +117,15 @@ lazy val DevNat2 = nat2Proj("Dev").dependsOn(EarthNat2).settings(
 
 val docDirs: List[String] = List("Graphics", "Tiling", "Earth", "Dev")
 
-lazy val custDoc = taskKey[Unit]("Aims to be a task to aid buiding ScalaDocs")
-custDoc :=
+lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid buiding ScalaDocs")
+bothDoc :=
 { val t1 = (DocMain/Compile/doc).value
   val t2 = (DocJs/Compile/doc).value
   println("Main docs and Js docs built")
 }
 
-lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).dependsOn(MacrosJvm3).settings(
+lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).dependsOn(MacrosJvm3).settings(sett3).settings(
   name := "OpenStrat",
-  scalaVersion := "3.0.0",
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "src3", el + "/srcJvm", el + "/srcExs", el + "srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),

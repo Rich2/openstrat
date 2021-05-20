@@ -34,7 +34,10 @@ ol > li
 .lexical { color: DarkBlue; }
 
 code { color: DarkRed; }
-.sbt {color: DarkGreen;}
+.sbt { color: DarkGreen; }
+.folder { color: DarkBlue; 
+	white-space: nowrap;
+}
 
 @media (min-width:50em)
 {
