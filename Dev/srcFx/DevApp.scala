@@ -23,19 +23,7 @@ class AppStart extends application.Application
     val jScene = new Scene(root, canvWidth, canvHeight)
     val eExpr: EMon[pParse.Expr] = findDevSettingExpr("appSet")
 
-    /** The default App setting. */
-    val dPair: (pCanv.CanvasPlatform => Any, String) = (pWW2.WWIIGuiOld(_, pWW2.WW1940), "World War II")
-
-    val pair = eExpr.fold{ dPair }{ expr => expr match
-    { case it: IdentifierToken if Apps.idMap.contains(it.srcStr) =>
-      { val launch = Apps.idMap(it.srcStr)
-        val eSett = findDevSettingExpr(launch.settingStr)
-        eSett.fold(launch(expr))(launch(_))
-      }
-
-      case it: IdentifierToken => Apps.strMap.getOrElse(it.srcStr, dPair)
-      case _ => dPair
-    }}
+    val pair = Apps.eGen(eExpr)
 
     val newAlt = CanvasFx(canvasCanvas, jScene)
     pair._1(newAlt)

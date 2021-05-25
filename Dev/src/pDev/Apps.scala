@@ -58,5 +58,5 @@ object Apps
     case _ => {debvar(expr); strMap("1") }
   }
 
-  def eGen(eExpr: EMon[Expr]): (CanvasPlatform => Any, String) = eExpr.fold{ strMap("1") }(gen(_))
+  def eGen(eExpr: EMon[Expr]): (CanvasPlatform => Any, String) = eExpr.fold{ default }(gen(_))
 }
