@@ -3,10 +3,8 @@ package ostrat; package pEarth
 import geom._, LatLong._, WTile._
 
 object AfricaEast extends EarthLevel1("AfricaEast", 18.19 ll 24.46)
-{
-   //override val gridMaker = E80Empty// AfricaEastGrid
-   override def fill = false   
-   override val a2Arr: Arr[EarthLevel2] = Arr(SaharaEast, AfricaNorthEast ,Peloponnese)
+{ //override val gridMaker = E80Empty// AfricaEastGrid
+  override val a2Arr: Arr[EarthLevel2] = Arr(SaharaEast, AfricaNorthEast ,Peloponnese)
 }
 
 //object AfricaEastGrid extends EGridMaker

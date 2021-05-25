@@ -6,6 +6,5 @@ import geom._
 abstract class EarthLevel1(val symName: String, val cen: LatLong) extends GeographicSymbolKey
 { def neighbs: Arr[EarthLevel1] = Arr()
   def a2Arr: Arr[EarthLevel2]
-  def fill: Boolean = true
-  def disp2(eg: EarthGuiOld): GraphicElems = a2Arr.flatMap(_.display(eg, fill))
+  def disp2(eg: EarthGuiOld): GraphicElems = a2Arr.flatMap(_.display(eg))
 }

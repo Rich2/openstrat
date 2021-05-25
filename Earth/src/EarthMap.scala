@@ -4,7 +4,7 @@ import pGrid._, reflect.ClassTag
 
 /** An all world map, parametrised by Tile and Tile side types. */
 class EarthAllMap[TileT <: TileAncient, SideT <: TileSideAncient](fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
-                                                                 (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
+  (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
 { override val tops: Arr[EarthLevel1] = EarthAreas.allTops
 }
 
@@ -32,5 +32,5 @@ object EarthAreas
   val newWorld: Arr[EarthLevel1] = Arr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
   val grids: Arr[EGridMaker] = Arr(EuropeNWGridAncient, EuropeNEGridAncient)
 
-  def allTops =  oldWorld ++ newWorld
+  def allTops: Arr[EarthLevel1] =  oldWorld ++ newWorld
 }

@@ -3,9 +3,7 @@ package ostrat; package pEarth; package pPts
 import geom._, geom.LatLong._, WTile._
 
 object PolarNorth extends EarthLevel1("NPole", 89.5 ll 0)
-{ override def fill: Boolean = false
-
-  val sGreenland = degs(59.87, -43.95)
+{ val sGreenland = degs(59.87, -43.95)
   val swGreenland = degs(60.82, -48.07)
   val pt1 = 75.73 ll -58.98
   val wGreenland = degs(78.20, -72.77)
