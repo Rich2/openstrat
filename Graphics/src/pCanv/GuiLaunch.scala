@@ -6,6 +6,7 @@ import pParse._
 trait GuiLaunch
 { def settingStr: String
   def apply(expr: Expr): (CanvasPlatform => Any, String)
+  def default: (CanvasPlatform => Any, String)
 }
 
 trait GuiLaunchMore extends GuiLaunch

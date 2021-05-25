@@ -5,6 +5,8 @@ import prid._, pCanv._
 object TwoLaunch extends GuiLaunchStd
 {
   override def settingStr: String = "gTwo"
+
+  override def default: (CanvasPlatform => Any, String) = (GTwoGui(_, gTwo.TwoScen1), "JavaFx Game Two")
   override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match {
     case 1 => (GTwoGui(_, gTwo.TwoScen1), "JavaFx Game Two")
     case 2 => (gTwo.GTwoGui(_, gTwo.TwoScen2), "JavaFx Game Two")

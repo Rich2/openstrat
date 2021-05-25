@@ -5,6 +5,9 @@ import prid._, pCanv._
 object ThreeLaunch extends GuiLaunchStd
 {
   override def settingStr: String = "gThree"
+
+  override def default: (CanvasPlatform => Any, String) = (GThreeGui(_, ThreeScen1), "JavaFx Game Three")
+
   override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match {
     case 1 => (GThreeGui(_, ThreeScen1), "JavaFx Game Three")
     case 2 => (GThreeGui(_, ThreeScen2), "JavaFx Game Three")

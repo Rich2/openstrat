@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pCanv._, pStrat._, pGrid._
+import pCanv._, pStrat._, pGrid._, pParse._
 
 /** Object for selecting various JavaFx apps /examples at run time. */
 object Apps
@@ -14,7 +14,7 @@ object Apps
     ("Z", pZug.ZugLaunch),
   )
 
-  val theMap: Map[String, (CanvasPlatform => Any, String)] = Map(
+  val strMap: Map[String, (CanvasPlatform => Any, String)] = Map(
     ("Y2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
     ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
     ("Y4", (pSpace.Planets(_), "JavaFx Planets")),
@@ -30,7 +30,7 @@ object Apps
     ("Y14", (pReactor.ReactorGUI(_), "reactor")),
     ("Y15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
     ("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
-    
+
     ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
 
     ("EG1", (pEarth.E80GridGuiOld(_, pEarth.pEurope.EuropeNWTerrOld, 472 rr 204), "JavaFx NW Wurope Grid")),
@@ -47,14 +47,16 @@ object Apps
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
   )
 
+  def default: (CanvasPlatform => Any, String) = pWW2.WW2Launch.default
+
   /** Change appNum to change the default loaded application. */
-  def curr(str: String): (CanvasPlatform => Any, String) = theMap.getOrElse(str, theMap("1"))
-  import pParse._
+  def curr(str: String): (CanvasPlatform => Any, String) = strMap.getOrElse(str, strMap("1"))
+
   def gen(expr: Expr): (CanvasPlatform => Any, String) = expr match {
-    case StringToken(_, str) => theMap.getOrElse(str, theMap("1"))
+    case StringToken(_, str) => strMap.getOrElse(str, strMap("1"))
     case it: IdentifierToken if it.srcStr == "G" => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
-    case _ => {debvar(expr); theMap("1") }
+    case _ => {debvar(expr); strMap("1") }
   }
-  
-  def eGen(eExpr: EMon[Expr]): (CanvasPlatform => Any, String) = eExpr.fold{ debvar(eExpr); theMap("1") }(gen(_))
+
+  def eGen(eExpr: EMon[Expr]): (CanvasPlatform => Any, String) = eExpr.fold{ strMap("1") }(gen(_))
 }

@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pFx
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pFx
 import javafx.scene._, javafx.stage._, canvas._
 
 object App3D
@@ -36,5 +35,3 @@ class AppStart3D extends javafx.application.Application
     primaryStage.show
   }
 }
-
-

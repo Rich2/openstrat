@@ -33,7 +33,7 @@ class AppStart extends application.Application
         eSett.fold(launch(expr))(launch(_))
       }
 
-      case it: IdentifierToken => Apps.theMap.getOrElse(it.srcStr, dPair)
+      case it: IdentifierToken => Apps.strMap.getOrElse(it.srcStr, dPair)
       case _ => dPair
     }}
 

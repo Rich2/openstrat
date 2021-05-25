@@ -5,6 +5,9 @@ import prid._, pCanv._
 object OneLaunch extends GuiLaunchStd
 {
   override def settingStr: String = "gOne"
+
+  override def default: (CanvasPlatform => Any, String) = (GOneGui(_, OneScen1), "JavaFx Game One")
+
   override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match {
     case 1 => (GOneGui(_, OneScen1), "JavaFx Game One")
     case 2 => (GOneGui(_, OneScen2), "JavaFx Game One")
