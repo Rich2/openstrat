@@ -10,7 +10,7 @@ abstract class EarthLevel2(val symName: String, val cen: LatLong, val terr: WTil
    def textScale: Metres = 15.km
    def latLongs: LatLongs
 
-   def display(eg: EarthGuiOld/*, fill: Boolean = true*/): GraphicElems =
+   def display(eg: EarthGuiOld): GraphicElems =
    {
       eg.polyToGlobedArea(latLongs) match
       {

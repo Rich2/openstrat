@@ -75,6 +75,10 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   { val d3s: Metre3s = inp.pMap(el => fromFocusMetres(el))
     d3s.earthZPositive
   }
+
+  /** Taking this LatLong as the focus. The focus pont being the point of the Earth that from the view point is at x = 0km aad y = 0km in 2D
+   *  coordinates, determines if the parameter point on the globe is Z positive. True if it is facing the viewer false if it is on the far side of the
+   *  Earth form the viewer's perspective. */
   def latLongFacing(ll: LatLong): Boolean = fromFocusMetres(ll).z.pos
 
   /** From focus parameter, converts to 3D metre coordinates. */

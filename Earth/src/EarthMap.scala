@@ -26,6 +26,7 @@ class OldWorldMap[TileT <: TileAncient, SideT <: TileSideAncient](val fTile: (In
   grids(0).rightGrid = Some(grids(1))
 }
 
+/** Object for irregular areas and hexagonal tile grids to represent the Earths surface. */
 object EarthAreas
 { import pPts._, pEurope._
   val oldWorld: Arr[EarthLevel1] = Arr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, AtlanticNorth)

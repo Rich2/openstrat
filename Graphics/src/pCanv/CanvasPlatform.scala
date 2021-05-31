@@ -73,13 +73,19 @@ trait CanvasPlatform extends RectCenlign
    
   final def shapeGenDraw(sgd: ShapeGenDrawOld): Unit = oif(sgd.shape.elemsLen > 0, pShapeGenDraw(sgd))
   protected def pShapeGenDraw(sgd: ShapeGenDrawOld): Unit
-  
+
+  /** Side effecting procedure that fills a circle. Implemented by the target platform. */
   def circleFill(cf: CircleFill): Unit
+
   def circleFillRadial(circle: Circle, fill: FillRadial): Unit
 
+  /** Side effecting procedure that draws a circle on the screen. Implemented by the target platform. */
   def circleDraw(cd: CircleDraw): Unit
-  
+
+  /** Side effecting procedure that fills an ellipse on the screen. Implemented by the target platform. */
   def ellipseFill(ef: EllipseFill): Unit
+
+  /** Side effecting procedure that draws an ellipse on the screen. Implemented by the target platform. */
   def ellipseDraw(ed: EllipseDraw): Unit
   
   def textGraphic(tg: TextGraphic): Unit
