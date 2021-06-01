@@ -108,8 +108,8 @@ object EArc
   /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the
    *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greater than
    *  360 degrees and less than -360 degrees. */
-  final case class EArcImp(xStart: Double, yStart: Double, cenX: Double, cenY: Double, axesPt1x: Double, axesPt1y: Double, axesPt4x: Double,
-                           axesPt4y: Double, xEnd: Double, yEnd: Double, counter: Int) extends EArc
+  final case class EArcImp(startX: Double, startY: Double, cenX: Double, cenY: Double, axesPt1x: Double, axesPt1y: Double, axesPt4x: Double,
+                           axesPt4y: Double, endX: Double, endY: Double, counter: Int) extends EArc
   {
     override def cen: Pt2 = Pt2(cenX, cenY)
     override def radius1: Double = cen.distTo(axesPt1)
@@ -127,7 +127,7 @@ object EArc
     override def cenP3: Vec2 = -cenP1
     override def cenP4: Vec2 = cen >> axesPt4
 
-    def addRotations(delta: Int): EArcImp = new EArcImp(xStart, yStart, cenX, cenY, axesPt1x, axesPt1y, axesPt4x, axesPt4y, xEnd, yEnd, counter + delta)
+    def addRotations(delta: Int): EArcImp = new EArcImp(startX, startY, cenX, cenY, axesPt1x, axesPt1y, axesPt4x, axesPt4y, endX, endY, counter + delta)
   }
 
   object EArcImp {

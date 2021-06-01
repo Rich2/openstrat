@@ -9,7 +9,7 @@ package geom
  *  @groupdesc EllipticalGroup Class members that treat this circular arc as a special case of an elliptical arc.
  *  @groupname EllipticalGroup Elliptical Members
  *  @groupprio EllipticalGroup 1010 */
-class CArc private(val xStart: Double, val yStart: Double, val cenX: Double, val cenY: Double, val xEnd: Double, val yEnd: Double,
+class CArc private(val startX: Double, val startY: Double, val cenX: Double, val cenY: Double, val endX: Double, val endY: Double,
                    val counter: Int) extends EArclign
 { /** The centre of this circular arc. */
   override def cen: Pt2 = Pt2(cenX, cenY)
@@ -23,7 +23,7 @@ class CArc private(val xStart: Double, val yStart: Double, val cenX: Double, val
   /** The mid point of the chord of this arc. */
   def chordCen: Pt2 = pStart.midPt(pEnd)
 
-  def addRotations(delta: Int): CArc = new CArc(xStart, yStart, cenX, cenY, xEnd, yEnd, counter + delta)
+  def addRotations(delta: Int): CArc = new CArc(startX, startY, cenX, cenY, endX, endY, counter + delta)
 
   /** Draws this geometric element to produce a [[CArcDraw]] graphical element, that can be displayed or printed. */
   override def draw(lineColour: Colour, lineWidth: Double): CArcDraw = CArcDraw(this, lineColour, lineWidth)

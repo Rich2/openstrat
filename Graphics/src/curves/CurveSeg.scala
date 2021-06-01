@@ -7,22 +7,22 @@ package geom
  *  [[Bezier]]s, which require different numbers of points in their specification. */
 trait CurveSeg extends Drawable
 { /** The X component of the start point of this curve segment often called x1 in other APIs. */
-  def xStart: Double
+  def startX: Double
 
   /** The Y component of the start point of this curve segment, often called y1 in other APIs. */
-  def yStart: Double
+  def startY: Double
 
   /** Start point of this curve segment, often called p1 */
-  final def pStart: Pt2 = xStart pp yStart
+  final def pStart: Pt2 = startX pp startY
 
   /** The X component of the end point of this curve segment. Often called x2 on a line or x4 on a cubic bezier in other APIs.*/
-  def xEnd: Double
+  def endX: Double
 
   /** The Y component of the end point of this curve segment. Often called y2 on a line or y4 on a cubic bezier in other APIs. */
-  def yEnd: Double
+  def endY: Double
 
   /** The end point [[Pt2]] of this curve segment. Often called p2 on a line or p4 on a cubic bezier in other APIs. */
-  final def pEnd: Pt2 = xEnd pp yEnd
+  final def pEnd: Pt2 = endX pp endY
 
   /** Translate 2D geometric transformation, on this CurveSeg, returns a CurveSeg. The Return type will be narrowed in sub traits. */
   override def slateXY(xDelta: Double, yDelta: Double): CurveSeg

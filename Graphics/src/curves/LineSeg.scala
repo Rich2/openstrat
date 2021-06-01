@@ -1,11 +1,10 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import collection.mutable.ArrayBuffer, Colour.Black
 
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
-final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, val yEnd: Double) extends LineLike with CurveSeg with
+final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineLike with CurveSeg with
   Show2[Pt2, Pt2] with Dbl4Elem with AffinePreserve
 { override type ThisT = LineSeg
   override def typeStr: String = "LineSeg"
@@ -16,36 +15,36 @@ final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, va
   override def syntaxdepth: Int = 2
   override def show1: Pt2 = startPt
   override def show2: Pt2 = endPt
-  override def dbl1: Double = xStart
-  override def dbl2: Double = yStart
-  override def dbl3: Double = xEnd
-  override def dbl4: Double = yEnd
-  def startPt: Pt2 = xStart pp yStart
-  def endPt: Pt2 = xEnd pp yEnd
+  override def dbl1: Double = startX
+  override def dbl2: Double = startY
+  override def dbl3: Double = endX
+  override def dbl4: Double = endY
+  def startPt: Pt2 = startX pp startY
+  def endPt: Pt2 = endX pp endY
 
   /*override def canEqual(that: Any): Boolean = that match
   { case op: LineSeg => xStart == op.xStart & yStart == op.yStart & xEnd == op.xEnd & yEnd == op.yEnd }*/
 
-  def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(xStart, yStart, xEnd, yEnd)
+  def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(startX, startY, endX, endY)
   def ptsTrans(f: Pt2 => Pt2): LineSeg = LineSeg(f(pStart), f(pEnd))
-  def shortArray: Array[Short] = Array(xStart.toShort, yStart.toShort,xEnd.toShort,yEnd.toShort)
-  def toLatLongLine(f: Pt2 => LatLong): LLLineSeg = LLLineSeg(f(pStart), f(pEnd))
-  def isHorizontal: Boolean = yStart == yEnd
-  def isVertical: Boolean = xStart == xEnd
+  def shortArray: Array[Short] = Array(startX.toShort, startY.toShort,endX.toShort,endY.toShort)
+  def toLatLongLine(f: Pt2 => LatLong): LineSegLL = LineSegLL(f(pStart), f(pEnd))
+  def isHorizontal: Boolean = startY == endY
+  def isVertical: Boolean = startX == endX
   /**Checks whether a forward horizontal ray crosses this polygon side. */
   def rayIntersection(pt: Pt2): Boolean = ife3(
-    pt.y > yStart & pt.y > yEnd, false, //Check if point is above the polygon side, above beg pt and end pt
-    pt.y < yStart & pt.y < yEnd, false, //Check if point is  below the polygon side, below beg pt and end pt
-    0.000001 > (yEnd - yStart).abs, false, /* deltaY. If the polygon side is close to horizontal the point is close enough to the perimeter
+    pt.y > startY & pt.y > endY, false, //Check if point is above the polygon side, above beg pt and end pt
+    pt.y < startY & pt.y < endY, false, //Check if point is  below the polygon side, below beg pt and end pt
+    0.000001 > (endY - startY).abs, false, /* deltaY. If the polygon side is close to horizontal the point is close enough to the perimeter
      of the polygon that the point can measured as outside */
-    { val ptDeltaY: Double = pt.y - yStart
-      val deltaX: Double = xEnd - xStart //Not entirely sure what's going on here
-      val lineX: Double = xStart + (deltaX * ptDeltaY / (yEnd - yStart)) //
+    { val ptDeltaY: Double = pt.y - startY
+      val deltaX: Double = endX - startX //Not entirely sure what's going on here
+      val lineX: Double = startX + (deltaX * ptDeltaY / (endY - startY)) //
       pt.x > lineX
     })
 
   /** The mid or half way point of this lineSeg. */
-  def midPt: Pt2 = Pt2((xStart + xEnd) / 2, (yStart + yEnd) / 2)
+  def midPt: Pt2 = Pt2((startX + endX) / 2, (startY + endY) / 2)
 
   /** The angle of this line segment. */
   def angle: Angle = vec.angle
@@ -57,10 +56,10 @@ final class LineSeg(val xStart: Double, val yStart: Double, val xEnd: Double, va
   def right90: Angle = angle.m90
 
   /** The relative vector [[Vec2]] of the end point from the start point. */
-  def vec: Vec2 = Vec2(xEnd - xStart, yEnd - yStart)
+  def vec: Vec2 = Vec2(endX - startX, endY - startY)
 
   /** The relative vector [[Vec2]] of the start point from the end point. */
-  def revVec: Vec2 = Vec2(xStart - xEnd, yStart - yEnd)
+  def revVec: Vec2 = Vec2(startX - endX, startY - endY)
 
   @inline def length: Double = vec.magnitude
 

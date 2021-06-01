@@ -175,7 +175,7 @@ object CanvasJs extends CanvasTopLeft
   
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath()
-    lsd.lines.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
+    lsd.lines.foreach(ls => { gc.moveTo(ls.startX, ls.startY);  gc.lineTo(ls.endX, ls.endY)})
     gc.lineWidth = lsd.lineWidth
     gc.strokeStyle = lsd.colour.webStr
     gc.stroke()

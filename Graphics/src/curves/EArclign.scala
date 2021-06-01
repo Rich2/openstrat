@@ -61,8 +61,8 @@ object EArclign
   /** implementation class fpr Elliptical Arc. This class stores the start point, the centre point, axis vertex 1, by convention the vertex on the
    *  right of the ellipse, axis vertex 4, by convention the vertex at the top of the Ellipse and the rotation counter, to allow arcs of greter than
    *  360 degrees and less than -360 degrees. */
-  final case class EArclignImp(xStart: Double, yStart: Double, cenX: Double, cenY: Double, xRadius: Double, yRadius: Double,
-                               xEnd: Double, yEnd: Double, counter: Int) extends EArclign
+  final case class EArclignImp(startX: Double, startY: Double, cenX: Double, cenY: Double, xRadius: Double, yRadius: Double,
+                               endX: Double, endY: Double, counter: Int) extends EArclign
   {
     //override def fTrans(f: Vec2 => Vec2): EArclign = ???
 
@@ -99,6 +99,6 @@ object EArclign
     override def cenP3: Vec2 = -xRadius vv 0
     override def cenP4: Vec2 = 0 vv yRadius
 
-    def addRotations(delta: Int): EArclignImp = EArclignImp(xStart, yStart, cenX, cenY, xRadius, yRadius, xEnd, yEnd, counter + delta)
+    def addRotations(delta: Int): EArclignImp = EArclignImp(startX, startY, cenX, cenY, xRadius, yRadius, endX, endY, counter + delta)
   }
 }

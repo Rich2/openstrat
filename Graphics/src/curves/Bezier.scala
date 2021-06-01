@@ -4,8 +4,8 @@ package geom
 import Colour.Black
 
 /** Cubic bezier curve. */
-class Bezier (val xStart: Double, val yStart: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
-      val xEnd: Double, val yEnd: Double) extends CurveSeg with AffinePreserve
+class Bezier (val startX: Double, val startY: Double, val xC1: Double, val yC1: Double, val xC2: Double, val yC2: Double,
+              val endX: Double, val endY: Double) extends CurveSeg with AffinePreserve
 { override type ThisT = Bezier
   def typeStr: String = "Bezier"
   def ptsTrans(f: Pt2 => Pt2): Bezier = Bezier(f(pStart), f(pC1), f(pC2), f(pEnd))

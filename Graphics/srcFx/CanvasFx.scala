@@ -188,7 +188,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
    
   protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath
-    lsd.lines.foreach(ls => { gc.moveTo(ls.xStart, ls.yStart);  gc.lineTo(ls.xEnd, ls.yEnd)})
+    lsd.lines.foreach(ls => { gc.moveTo(ls.startX, ls.startY);  gc.lineTo(ls.endX, ls.endY)})
     gc.setLineWidth(lsd.lineWidth)
     gc.setStroke(toFxColor(lsd.colour))
     gc.stroke()
