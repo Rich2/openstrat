@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
@@ -22,7 +21,7 @@ class LineSegs(val arrayUnsafe: Array[Double]) extends Dbl4sArr[LineSeg] with Af
   def draw(lineWidth: Double, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)
 }
 
-/** Companion object for the Line2s class. */
+/** Companion object for the LineSegs class. */
 object LineSegs extends Dbl4sArrCompanion[LineSeg, LineSegs]
 {
   implicit val factory: Int => LineSegs = i => new LineSegs(new Array[Double](i * 4))

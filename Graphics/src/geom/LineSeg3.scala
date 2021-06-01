@@ -2,20 +2,19 @@
 package ostrat; package geom
 
 /** A 3 dimensional line segment. A straight line between two points in a 3d space. */
-final class LineSeg3(val xStart: Double, val yStart: Double, val zStart: Double, val xEnd: Double, val yEnd: Double, val zEnd: Double) extends
+final class LineSeg3(val startX: Double, val startY: Double, val startZ: Double, val endX: Double, val endY: Double, val endZ: Double) extends
   Dbl6Elem
-{ def typeStr: String = "Line3" 
+{ def typeStr: String = "Line3"
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineSeg3]
-  override def dbl1: Double = xStart
-  override def dbl2 = yStart
-  override def dbl3 = zStart
-  override def dbl4 = xEnd
-  override def dbl5 = yEnd
-  override def dbl6 = zEnd
-  def pStart: Pt3 = Pt3(xStart, yStart, zStart)
-  def pEnd: Pt3 = Pt3(xEnd, yEnd, zEnd)
-  //def func6Dou[T](f: (Double, Double, Double, Double, Double, Double) => T): T = f(x1, y1, z2, x2, y2, z2)
-  def toXY: LineSeg = LineSeg(pStart.toXY, pEnd.toXY)
+  override def dbl1: Double = startX
+  override def dbl2 = startY
+  override def dbl3 = startZ
+  override def dbl4 = endX
+  override def dbl5 = endY
+  override def dbl6 = endZ
+  def startPt: Pt3 = Pt3(startX, startY, startZ)
+  def endPt: Pt3 = Pt3(endX, endY, endZ)
+  def toXY: LineSeg = LineSeg(startPt.toXY, endPt.toXY)
    //def fTrans(f: Vec3 => Vec3): Line3 = Line2(f(pt1), f(pt2))
    
    //def toLatLongLine(f: Vec2 => LatLong): LatLongLine = LatLongLine(f(pt1), f(pt2))
