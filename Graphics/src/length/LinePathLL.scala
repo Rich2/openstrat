@@ -8,4 +8,7 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
 { override type ThisT = LinePathLL
   override def unsafeFromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
   override def typeStr: String = "LinePathLL"
+
+  /** closes this LinePathLL into a [[PolygonLL]] with a line Segment from the last point to the first point. */
+  @inline def close: PolygonLL = new PolygonLL(arrayUnsafe)
 }

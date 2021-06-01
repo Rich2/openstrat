@@ -1,11 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** A base trait for a sequence of [[LatLong]]s. The final classes are more strongly typed as an [[LatLongs]] */
-trait LatLongsLike extends Any with Dbl2sArr[LatLong]
-{ final override def elemBuilder(d1: Double, d2: Double): LatLong = LatLong.secs(d1, d2)
-  final override def fElemStr: LatLong => String = _.str
-}
 
 /** A latitude-longitude polygon. A quasi polygon where the points are stored as points of latitude and longitude.Once the points are converted into a
 *  view, ie into pixel positions an actual polygon can be drawn or filled as desired. Do not create Polygons that span an arc of greater than 90
