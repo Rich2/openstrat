@@ -3,7 +3,7 @@ package ostrat
 package geom
 
 /** A quasi Polygon specified in 3D Kilometre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
- *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[PolygonLL]]s to [[PolygonKMs]]s on world
+ *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonKMs]]s on world
  *  maps. */
 final class PolygonKMs3(val unsafeArray: Array[Double]) extends AnyVal
 {

@@ -27,7 +27,7 @@ object FranceSouth extends EarthLevel2("FranceSouth", 44.54 ll 2.53, plain)
   val seFrance = 42.43 ll 3.17
 
   val swFrance = 43 ll -2
-  val latLongs = LatLongs(swFrance, Frankia.southWest, Frankia.southEast, montelimar, orangeCrossing,
+  val latLongs = PolygonLL(swFrance, Frankia.southWest, Frankia.southEast, montelimar, orangeCrossing,
      stRaphael, frejus,laBastideBlanche, capBenat, laSeyneSurMer, fosSurMer, laGrandeMotte, narbonne, seFrance)
 }
 
@@ -57,6 +57,6 @@ object Iberia extends EarthLevel2("Iberia", 41 ll -3.5, hills)
   val almeriaEast = 36.28 ll -2.06
    
       
-  val latLongs = LatLongs(gibralter, chipiona, heulva, swPortugal, estoril, espinho, escaselas, malipica, carino, santander, FranceSouth.swFrance,
+  val latLongs = PolygonLL(gibralter, chipiona, heulva, swPortugal, estoril, espinho, escaselas, malipica, carino, santander, FranceSouth.swFrance,
      FranceSouth.seFrance, neSpain, begur, barcelona, valencia, xabia, almeriaEast)
 }

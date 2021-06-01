@@ -8,7 +8,7 @@ abstract class EarthLevel2(val symName: String, val cen: LatLong, val terr: WTil
    override def toString = name.appendCommas(terr.toString)
    def aStrs: Strings = Strings(name)
    def textScale: Metres = 15.km
-   def latLongs: LatLongs
+   def latLongs: PolygonLL
 
    def display(eg: EarthGuiOld): GraphicElems =
    {
@@ -39,6 +39,6 @@ abstract class EarthLevel2(val symName: String, val cen: LatLong, val terr: WTil
 object EarthLevel2
 {
    def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EarthLevel2(symName, cen, terr)
-   { val latLongs = LatLongs(latLongArgs: _*)
+   { val latLongs = PolygonLL(latLongArgs: _*)
    }  
 }

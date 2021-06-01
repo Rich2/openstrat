@@ -22,7 +22,7 @@ object Jutland extends EarthLevel2("Jutland", 56.29 ll 9.33, plain)
   val nyborg = 55.29 ll 10.85
   val lubeck = 53.97 ll 10.84
    
-  val latLongs = LatLongs(swJutland, sanktPeterOrding, blavandshuk, ferring, hanstholm,
+  val latLongs = PolygonLL(swJutland, sanktPeterOrding, blavandshuk, ferring, hanstholm,
       slettestrand, hirtshals, wSkivern, skagen, albaek, hevring, grenaa, kirkeskov, funenN, nyborg, lubeck)
 }
 
@@ -36,7 +36,7 @@ object Zealand extends EarthLevel2("Zealand", 55.58 ll 11.90, plain)
   val nakskov = 54.76 ll 11.00
   val zealandNW = 55.74 ll 10.87
    
-  val latLongs = LatLongs(zealandN, helsingor, mikkelborg, copenhagen, gedser, nakskov, zealandNW)
+  val latLongs = PolygonLL(zealandN, helsingor, mikkelborg, copenhagen, gedser, nakskov, zealandNW)
 }
 
 object SwedenSouth extends EarthLevel2("SwedenSouth", 58.25 ll 15.14, plain)
@@ -68,7 +68,7 @@ object SwedenSouth extends EarthLevel2("SwedenSouth", 58.25 ll 15.14, plain)
   val wHono = 57.69 ll 11.60
   val oslo = 59.57 ll 10.59
    
-  val latLongs = LatLongs(gavie, gardskarE, klungstenN, stenskar, orskar, kappelskar, herrhamra, hummelvik, torhamn,
+  val latLongs = PolygonLL(gavie, gardskarE, klungstenN, stenskar, orskar, kappelskar, herrhamra, hummelvik, torhamn,
          /* South Baltic */ stenshamn, pukavik, ahus, simrishamn, sandhammaren, vellinge, helsingborg, kullens, torekov, bastad, andersberg,
          sTylosand, wHono, oslo)
 }
@@ -119,7 +119,7 @@ object SwedenNorth extends EarthLevel2("SwedenNorth", 62.75 ll 14.30, taiga)
   val nordkapp = 71.16 ll 25.78
   val lakselv = 70.05 ll 25.00
    
-  val latLongs = LatLongs(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand, junibosand,
+  val latLongs = PolygonLL(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand, junibosand,
     holick, SwedenSouth.gavie,
     /* South Coast */SwedenSouth.oslo, hvasser, nevlunghavn, flekkeroy, lindesnes, borhag,
     /* West Coast */bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, svelllingen, uthaug, bodo, nordskot, baroya,
@@ -131,7 +131,7 @@ object Faroe extends EarthLevel2("Faroe", 62.14 ll -6.91, taiga)
   val wValgar = 62.3 ll -7.46
   val nEysturoy = 62.34 ll -6.98
   val eFugloy = 62.33 ll -6.25
-  val latLongs = LatLongs(sSuduroy, wValgar, nEysturoy, eFugloy)
+  val latLongs = PolygonLL(sSuduroy, wValgar, nEysturoy, eFugloy)
 }
 
 object JanMayen extends EarthLevel2("JanMayen", 71.02 ll -8.29, taiga)
@@ -142,5 +142,5 @@ object JanMayen extends EarthLevel2("JanMayen", 71.02 ll -8.29, taiga)
   val northEast = 71.16 ll -7.94
   val southEast = 71.02 ll -7.98
    
-  val latLongs = LatLongs(south, west, susabu, point1, northEast, southEast)
+  val latLongs = PolygonLL(south, west, susabu, point1, northEast, southEast)
 }

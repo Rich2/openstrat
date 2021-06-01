@@ -21,7 +21,7 @@ OfHex[TileT, SideT, EGridAncient[TileT, SideT]] with OfEElem[TileT, SideT]
    def cenLL: LatLong = eGrid.getLL(cood)
    def cen: Pt2 = eg.latLongToXY(cenLL)
    def cenFacing: Boolean = focus.latLongFacing(cenLL)
-   def vertLLs: LatLongs = vertCoods.pMap(eGrid.getLL)
+   def vertLLs: PolygonLL = vertCoods.pMap(eGrid.getLL)
    def vertDist2s: Metres2s = eg.polyToDist2s(vertLLs)
    override def vertDispVecs: PolygonImp = vertDist2s.pMap(eg.trans)
 }

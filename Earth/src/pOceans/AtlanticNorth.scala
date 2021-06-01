@@ -25,6 +25,6 @@ object Iceland extends EarthLevel2("Iceland", 64.78 ll -18.07, taiga)
   val sIceland = 63.40 ll -18.73
   val swIceland = 63.8 ll -22.70
 
-  val latLongs: LatLongs = LatLongs(reykjavik, w1, wIceland, kleifar, breidavik, homstrandir, n1, hrutafjodur, n2, nIceland, n3, eIceland, vattames,
+  val latLongs: PolygonLL = PolygonLL(reykjavik, w1, wIceland, kleifar, breidavik, homstrandir, n1, hrutafjodur, n2, nIceland, n3, eIceland, vattames,
      sIceland, swIceland)
 }

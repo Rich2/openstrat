@@ -26,7 +26,7 @@ object RusNorth extends EarthLevel2("NRus", 61 ll 54, taiga)
   //val nRusSW = 55.north * cEuropeE
   val kazakNE = 55.north * wAsiaE
 
-  val latLongs: LatLongs = LatLongs(Baltland.mezenMouth, chizhaSouth, chizhaWest, shoynaNorth1, shoynaNorth2, shoynaNorth3, shoynaNorth4, shoynaEast1,
+  val latLongs: PolygonLL = PolygonLL(Baltland.mezenMouth, chizhaSouth, chizhaWest, shoynaNorth1, shoynaNorth2, shoynaNorth3, shoynaNorth4, shoynaEast1,
      shoynaEast2, kiyaEast1, chizhaEast1, vizhas, amderma, nRusNE, cAsiaNE, kazakNE, Baltland.southEast)
 }
 

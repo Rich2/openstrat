@@ -69,9 +69,9 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def xyLat0: Pt2 = Pt2(longRadians.sine * latRadians.sine, latRadians.sine)
 
   /** Note this method does not check which side of the earth relative to viewer the polygon verts are */
-  def polyToDist2s(inp: LatLongs): Metres2s = inp.pMap(fromFocusDist2)
+  def polyToDist2s(inp: PolygonLL): Metres2s = inp.pMap(fromFocusDist2)
 
-  def polyToGlobedArea(inp: LatLongs): OptEither[Metres2s, CurveSegDists] =
+  def polyToGlobedArea(inp: PolygonLL): OptEither[Metres2s, CurveSegDists] =
   { val d3s: Metre3s = inp.pMap(el => fromFocusMetres(el))
     d3s.earthZPositive
   }
@@ -99,7 +99,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
     r1.toXYIfZPositive
   }
 
-  def toVec3(polarRadius: Double, equatorialRadius: Double): Pt3 =
+  def toPt3(polarRadius: Double, equatorialRadius: Double): Pt3 =
   { val clat = latCos.abs
     Pt3(longSine * equatorialRadius * clat, latCos * polarRadius, longCos * equatorialRadius * clat)
   }

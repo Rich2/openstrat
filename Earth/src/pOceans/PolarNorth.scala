@@ -31,7 +31,7 @@ object Svalbard extends EarthLevel2("Svalbard", 78.94 ll 17.78, ice)
   val sEdgeoya = 77.25 ll 22.67
   val pt1 = 78.47 ll 18.93
    
-  val latLongs: LatLongs = LatLongs(south, wSpitsbergen, nSpitzbergen, north, east, sEdgeoya, pt1)
+  val latLongs: PolygonLL = PolygonLL(south, wSpitsbergen, nSpitzbergen, north, east, sEdgeoya, pt1)
 }      
 
 object Nordauslandet extends EarthLevel2("Nordauslandet", 79.85 ll 23.71, ice)
@@ -43,5 +43,5 @@ object Nordauslandet extends EarthLevel2("Nordauslandet", 79.85 ll 23.71, ice)
   val north3 = 80.51 ll 22.79
   val northEast = 80.15 ll 26.83
    
-  val latLongs: LatLongs = LatLongs(south, southWest, northWest, north1, north2, north3, northEast)
+  val latLongs: PolygonLL = PolygonLL(south, southWest, northWest, north1, north2, north3, northEast)
 }

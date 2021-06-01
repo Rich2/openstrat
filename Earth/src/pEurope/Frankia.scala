@@ -42,7 +42,7 @@ object Frankia extends EarthLevel2("Frankia", 47.28 ll 1.93, plain)
   val bourgeEnBresse = 46.20 ll 5.22
 
 
-  val latLongs = LatLongs(southEast, southWest, sLAmelie, royan, laCoubre, laRochelle, niortaise, sablesdOlonne, vilaineMouth, penmarch, brest,
+  val latLongs = PolygonLL(southEast, southWest, sLAmelie, royan, laCoubre, laRochelle, niortaise, sablesdOlonne, vilaineMouth, penmarch, brest,
     landunvez, pleubian, yffiniac, capFrehel, pointeDuGrouin, vildeLaMarine, avranches,
     cabaneVauban, auderville, gatteville, carentan, cabourg,villierville, seineMouth,
     wLeHavre, capAntifer, cayeux, capGrisNez, calais, belgianCoast,

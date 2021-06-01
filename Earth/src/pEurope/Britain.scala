@@ -36,7 +36,7 @@ object Scotland extends EarthLevel2("Scotland", 56.82 ll -4.07, hills)
    val tantallion = 56.05 ll -2.65
    val stAbbs = 55.91 ll -2.14
    val bamburgh = 55.60 ll -1.68
-   val latLongs = LatLongs(England.solwayMouth, eggerness, sWhithorn, dunragit, cairngaan, northCairn, ayr, sKintyre, portahaven,
+   val latLongs = PolygonLL(England.solwayMouth, eggerness, sWhithorn, dunragit, cairngaan, northCairn, ayr, sKintyre, portahaven,
          snaigmore, wScarba, kerrera, wMull, canna, wRum,
          wSkye, nSkye, nRona, nwScotland, johnOGroats, girnigoe,
          inverness, lossieMouth, aberdeenshire, firthForth, archerfield, tantallion, stAbbs, bamburgh, England.tyneMouth)
@@ -83,7 +83,7 @@ object England extends EarthLevel2("England",  52.73 ll -1.26, plain)
    val startPeninsular = 50.22 ll -3.64
    val stAustell = 50.33 ll -4.75
    val lizard = 49.95 ll -5.20
-   val latLongs = LatLongs(penzance, trevoseHead, nwDevon, parrettMouth, chepstow, stDavids, anglesey, liverpool,
+   val latLongs = PolygonLL(penzance, trevoseHead, nwDevon, parrettMouth, chepstow, stDavids, anglesey, liverpool,
          kentMouth, sBarrow, stBeesHead, solwayMouth,  tyneMouth, scarborough, flamborough, holbeach, ouseMouth,
          hunstanton, cromer, horsey, lowestoft, foulness, nwGrain, nekent, dover, ventnor,
          bournemouth, swanage, ePortland, charmouth, exeMouth, startPeninsular, stAustell, lizard)         
