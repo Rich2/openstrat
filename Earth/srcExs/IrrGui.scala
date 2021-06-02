@@ -9,9 +9,8 @@ case class IrrGui(canv: CanvasPlatform) extends CmdBarGui("The Earth in irregula
   def thisTop(): Unit = reTop(Arr())
   thisTop()
 
-  def a2Arr: Arr[EarthLevel2] = ???
 
-  def ls =  EarthAreas.allTops.flatMap(_.a2Arr)//.flatMap(a => a.disp2(this))
+  val eas: Arr[EarthLevel2] =  EarthAreas.allTops.flatMap(_.a2Arr)//.flatMap(a => a.disp2(this))
 
 
 

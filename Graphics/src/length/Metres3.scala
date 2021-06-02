@@ -26,8 +26,12 @@ final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Doubl
   def zNeg: Boolean = z.neg
   def ifZPos[A](vPos: => A, vNeg: => A): A = ife(zPos, vPos, vNeg)
   def / (operator: Metres): Pt3 = Pt3(x / operator, y / operator, z / operator)
+
+  /** Converts this Metres3 point to a Some[Metres2] point of the X and Y values, returns None if the Z value is negative. */
   def toXYIfZPositive: Option[Metres2] = ifZPos(Some(Metres2(x, y)), None)
-  def xRotation(rotation: Double): Metres3 =
+
+  /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[Metres3]] point. */
+  def xRotateRadians(rotationRadians: Double): Metres3 =
   { val scalar: Metres = Metres(sqrt(y.metres * y.metres + z.metres * z.metres))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
@@ -36,7 +40,7 @@ final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Doubl
       z.neg,          Pi + atan(y / z), //The atan will give a negative value. Added to Pi gives a range Pi/2 to Pi
                       atan(y / z))//This operates on the standard atan range -Pi/2 to pi/2
 
-    val ang1 = ang0 + rotation
+    val ang1 = ang0 + rotationRadians
     Metres3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }
 }

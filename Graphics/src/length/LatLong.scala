@@ -82,20 +82,21 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def latLongFacing(ll: LatLong): Boolean = fromFocusMetres(ll).z.pos
 
   /** From focus parameter, converts to 3D metre coordinates. */
-  def fromFocusMetres(focus: LatLong): Metres3 = focus.subLongRadians(longRadians).toMetres3.xRotation(-latRadians)
+  def fromFocusMetres(focus: LatLong): Metres3 = focus.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
 
   def fromFocusLineDist3(inp: LineSegLL): LineDist3 = LineDist3(
-    inp.llStart.subLongRadians(longRadians).toMetres3.xRotation(-latRadians),
-    inp.latLong2.subLongRadians(longRadians).toMetres3.xRotation(-latRadians))
+    inp.llStart.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians),
+    inp.latLong2.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians))
 
   def fromFocusDist2(ll: LatLong): Metres2 = fromFocusMetres(ll).xy
+
   def optFromFocusDist2(ll: LatLong): Option[Metres2] =
-  { val v3 = fromFocusMetres(ll)
-    v3.z.pos.toOption(v3.xy)
+  { val m3 = fromFocusMetres(ll)
+    m3.z.pos.toOption(m3.xy)
   }
 
   def toOptDist2(inp: LatLong): Option[Metres2] =
-  { val r1: Metres3 = inp.subLongRadians(longRadians).toMetres3.xRotation(-latRadians)
+  { val r1: Metres3 = inp.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
     r1.toXYIfZPositive
   }
 
