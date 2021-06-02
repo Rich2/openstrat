@@ -51,12 +51,4 @@ object Apps
 
   /** Change appNum to change the default loaded application. */
   def curr(str: String): (CanvasPlatform => Any, String) = strMap.getOrElse(str, strMap("1"))
-
-  def gen(expr: Expr): (CanvasPlatform => Any, String) = expr match {
-    case StringToken(_, str) => strMap.getOrElse(str, strMap("1"))
-    case it: IdentifierToken if idMap.contains(it.srcStr) => (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")
-    case _ => {debvar(expr); default }
-  }
-
-  def eGen(eExpr: EMon[Expr]): (CanvasPlatform => Any, String) = eExpr.fold{ default }(gen(_))
 }

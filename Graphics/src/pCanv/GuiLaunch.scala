@@ -13,7 +13,7 @@ trait GuiLaunchMore extends GuiLaunch
 {
   override def apply(expr: ParseExpr): (CanvasPlatform => Any, String) = expr match {
     case BracketedStatements(sts, _, _, _) => fromStatments(sts)
-    case _ => {debvar(expr); fromStatments(Arr()) }
+    case _ => fromStatments(Arr())
   }
 
   def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String)

@@ -8,6 +8,7 @@ class WWIIScen extends EarthAllMap[W2TileAncient, W2SideAncient](W2TileAncient.a
   val fArmy: (W2TileAncient, Polity) => Unit = (tile, p: Polity) => tile.lunits = Army(tile, p) +: tile.lunits
 }
 
+/** Object for launching WW2 app. */
 object WW2Launch extends GuiLaunchMore
 {
   override def settingStr: String = "ww2"
