@@ -5,40 +5,39 @@ import geom._
 /** A second level area of the Earth. */
 abstract class EarthLevel2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
-   override def toString = name.appendCommas(terr.toString)
-   def aStrs: Strings = Strings(name)
-   def textScale: Metres = 15.km
-   def latLongs: PolygonLL
+  override def toString = name.appendCommas(terr.toString)
+  def aStrs: Strings = Strings(name)
+  def textScale: Metres = 15.km
+  def latLongs: PolygonLL
 
-   def display(eg: EarthGuiOld): GraphicElems =
-   {
-      eg.polyToGlobedArea(latLongs) match
-      {
-         case SomeA(d2s) =>
-         {
-            val v2s: PolygonImp = d2s.pMap(eg.trans)
-            val cenXY: Pt2 = eg.latLongToXY(cen)
-            val vis1: GraphicElems = Arr(v2s.fillActive(terr.colour, this))
-            val vis2: GraphicElems = Arr(v2s.draw(terr.colour.redOrPink, 2.0))
-            val vis3: GraphicElems =
-              if (eg.scale < textScale) TextGraphic.lines(aStrs, 10, cenXY, terr.contrast)
-              else Arr()
-            (vis1 ++ vis2 ++ vis3)
-         }
-         case SomeB(curveSegDists) =>
-         {
-            val cenXY: Pt2 = eg.latLongToXY(cen)
-            val curveSegs: ShapeGenOld = curveSegDists.pMap(_.toCurveSeg(eg.trans))
-            Arr(PolyCurveParentFull.fill(cenXY, curveSegs, this, terr.colour))
-         }
-         case NoOptEither => Arr()
+  def display(eg: EarthGuiOld): GraphicElems =
+  {
+    eg.polyToGlobedArea(latLongs) match
+    {
+      case SomeA(d2s) =>
+      { val v2s: PolygonImp = d2s.pMap(eg.trans)
+        val cenXY: Pt2 = eg.latLongToXY(cen)
+        val vis1: GraphicElems = Arr(v2s.fillActive(terr.colour, this))
+        val vis2: GraphicElems = Arr(v2s.draw(terr.colour.redOrPink, 2.0))
+        val vis3: GraphicElems =
+        if (eg.scale < textScale) TextGraphic.lines(aStrs, 10, cenXY, terr.contrast)  else Arr()
+        (vis1 ++ vis2 ++ vis3)
       }
-   }
+
+      case SomeB(curveSegDists) =>
+      { val cenXY: Pt2 = eg.latLongToXY(cen)
+        val curveSegs: ShapeGenOld = curveSegDists.pMap(_.toCurveSeg(eg.trans))
+        Arr(PolyCurveParentFull.fill(cenXY, curveSegs, this, terr.colour))
+      }
+
+      case NoOptEither => Arr()
+    }
+  }
 }
 
 object EarthLevel2
 {
-   def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EarthLevel2(symName, cen, terr)
-   { val latLongs = PolygonLL(latLongArgs: _*)
-   }  
+  def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EarthLevel2(symName, cen, terr)
+  { val latLongs = PolygonLL(latLongArgs: _*)
+  }
 }

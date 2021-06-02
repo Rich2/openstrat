@@ -17,14 +17,12 @@ trait Length extends Any
 object Length
 {
   implicit class LengthExtensions(val thisLength: Length)
-  {
-    def / (operand: Length): Double = thisLength.metres / operand.metres
+  { def / (operand: Length): Double = thisLength.metres / operand.metres
   }
 }
 
 final class KMetres(override val kMetres: Double) extends AnyVal with Length
-{
-  override def metres: Double = kMetres * 1000
+{ override def metres: Double = kMetres * 1000
   override def + (operand: Length): KMetres = KMetres(kMetres + operand.metres)
   override def - (operand: Length): KMetres = KMetres(kMetres - operand.metres)
   override def unary_- : KMetres = KMetres(-kMetres)
@@ -33,8 +31,7 @@ final class KMetres(override val kMetres: Double) extends AnyVal with Length
 }
 
 object KMetres
-{
-  def apply(kMetres: Double): KMetres = new KMetres(kMetres)
+{ def apply(kMetres: Double): KMetres = new KMetres(kMetres)
 }
 
 /** Length measure in GigaMetres or millions of kilometres. */

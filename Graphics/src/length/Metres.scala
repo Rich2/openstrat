@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import math._
 
 /** Length in metres. */
@@ -19,6 +18,8 @@ final class Metres(val metres: Double) extends AnyVal with Length with Ordered[M
 
   def pos: Boolean = metres >= 0
   def neg: Boolean = metres < 0
+
+  def toKm: KMetres = new KMetres(metres / 1000)
 }
 
 /** Companion object for the Distance class. */
