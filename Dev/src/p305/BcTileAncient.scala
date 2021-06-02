@@ -1,4 +1,4 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package p305
 import pGrid._, pEarth._
 
@@ -26,6 +26,5 @@ class Legion(val polity: Polity, var cood: Cood)
 }
 
 object Legion
-{
-  def apply(polity: Polity, cood: Cood = Cood00): Legion = new Legion(polity, cood)
+{ def apply(polity: Polity, cood: Cood = Cood00): Legion = new Legion(polity, cood)
 }

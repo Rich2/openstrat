@@ -22,9 +22,15 @@ class AppStart extends application.Application
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
     val eExpr: EMon[pParse.Expr] = findDevSettingExpr("appSet")
-
-    val pair = Apps.eGen(eExpr)
-
+    val pair = eExpr match {
+      case Good(it: IdentifierToken) if Apps.idMap.contains(it.srcStr) => {
+        val launch = Apps.idMap(it.srcStr)
+        val eSett = findDevSettingExpr(launch.settingStr)
+        eSett.fold(launch.default)(launch(_))
+      }
+      case Good(StringToken(_, str)) if Apps.strMap.contains(str) => Apps.strMap(str)
+      case _ => Apps.default
+    }
     val newAlt = CanvasFx(canvasCanvas, jScene)
     pair._1(newAlt)
     primaryStage.setTitle(pair._2)
