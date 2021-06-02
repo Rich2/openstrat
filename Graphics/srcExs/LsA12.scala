@@ -8,13 +8,13 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val c1 = Circle(200).draw()
   val c2 = Circle(231).draw(DarkBlue)
 
-  val h1: HexXlign = HexXlign(200)
+  val h1: HexParrX = HexParrX(200)
   val hd = h1.draw()
   val htv = h1.vertsMap(v => Circle(25, v).fill(Pink))
   val hts = h1.vertsMap(v => TextGraphic(v.str0, 15, v))
-  val h2: HexXlign = h1.slateX(-400)
+  val h2: HexParrX = h1.slateX(-400)
   val hc = h2.sidesIMap(){ (s, i) => s.draw(Colour.rainbow.cycleGet(i), 2) }
-  val h3d = HexYlign(231, 231, 0).draw(DarkBlue)
+  val h3d = HexParrY(231, 231, 0).draw(DarkBlue)
 
   def hexGraphics(hr: HexReg, colour: Colour): GraphicElems =
   { val verts = hr.vertsIFlatMap(1){(pt, i) => pt.textArrowToward(hr.cen, "V" + i.str)}
@@ -22,10 +22,10 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
     verts ++ sides +- hr.draw(colour) +- TextGraphic(hr.str, 12, hr.cen, colour)
   }
 
-  val h4 = HexXlign(250, 200, 290)
+  val h4 = HexParrX(250, 200, 290)
   val h4d = hexGraphics(h4, Green)
 
-  val h5 = HexYlign(250, -200, 290)
+  val h5 = HexParrY(250, -200, 290)
   val h5d = hexGraphics(h5, DarkMagenta)
 
   val gap = 290

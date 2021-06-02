@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module. */
-final class HexYlign(val width: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2] with Dbl3Elem
+final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2] with Dbl3Elem
 { override def typeStr = "HexYlign"
   override def name1: String = "width"
   override def name2: String = "cen"
@@ -67,44 +67,44 @@ final class HexYlign(val width: Double, val cenX: Double, val cenY: Double) exte
   override def sd6Cen: Pt2 = sd6CenX pp sd6CenY
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
-  override def slateXY(xDelta: Double, yDelta: Double): HexYlign = HexYlign(diameterIn, cen.addXY(xDelta, yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): HexParrY = HexParrY(diameterIn, cen.addXY(xDelta, yDelta))
 
   /** Uniform scaling against both X and Y axes 2D geometric transformation on this HexYlign returns a HexYlign. */
-  override def scale(operand: Double): HexYlign = HexYlign(diameterIn * operand, cen.scale(operand))
+  override def scale(operand: Double): HexParrY = HexParrY(diameterIn * operand, cen.scale(operand))
 
   /** Mirror, reflection 2D geometric transformation of this HexYlign across the X axis, negates Y, returns a HexYlign. */
-  override def negY: HexYlign = HexYlign(diameterIn, cen.negY)
+  override def negY: HexParrY = HexParrY(diameterIn, cen.negY)
 
   /** Mirror, reflection 2D geometric transformation of this HexYlign across the Y axis, negates X, returns a HexYlign. */
-  override def negX: HexYlign = HexYlign(diameterIn, cen.negX)
+  override def negX: HexParrY = HexParrY(diameterIn, cen.negX)
 
   /** Rotate 90 degrees positively or anti clockwise  2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 270 degrees
    *  clockwise. */
-  override def rotate90: HexXlign = HexXlign(diameterIn, cen.rotate90)
+  override def rotate90: HexParrX = HexParrX(diameterIn, cen.rotate90)
 
   /** Rotate 180 degrees 2D geometric transformation on a HexYlign, returns a HexYlign. */
-  override def rotate180: HexYlign = HexYlign(diameterIn, cen.rotate180)
+  override def rotate180: HexParrY = HexParrY(diameterIn, cen.rotate180)
 
   /** Rotate 270 degrees positively or anti clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 90 degrees
    *  clockwise. */
-  override def rotate270: HexYlign = HexYlign(diameterIn, cen.rotate270)
+  override def rotate270: HexParrY = HexParrY(diameterIn, cen.rotate270)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes on this HexTlign returns a HexYlign. */
-  override def prolign(matrix: ProlignMatrix): HexYlign = HexYlign(diameterIn, cen.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): HexParrY = HexParrY(diameterIn, cen.prolign(matrix))
 }
 
 /** Companion object for the regular hexagon aligned to the Y Axis class. It has a limited set of 2D geometric transformation type class instances as
  * the type can not be maintained through all affine transformations. */
-object HexYlign
+object HexParrY
 {
-  def apply(width: Double, cen: Pt2 = Pt2Z): HexYlign = new HexYlign(width, cen.x, cen.y)
-  def apply(width: Double, xCen: Double, yCen: Double): HexYlign = new HexYlign(width, xCen, yCen)
-  def unapply(input: HexYlign): Some[(Double, Pt2)] = Some((input.width, input.cen))
+  def apply(width: Double, cen: Pt2 = Pt2Z): HexParrY = new HexParrY(width, cen.x, cen.y)
+  def apply(width: Double, xCen: Double, yCen: Double): HexParrY = new HexParrY(width, xCen, yCen)
+  def unapply(input: HexParrY): Some[(Double, Pt2)] = Some((input.width, input.cen))
 
-  implicit val persistImplicit: Persist[HexYlign] =
-    new Persist2[Double, Pt2, HexYlign]("HexYlign", "width", _.width,"cen", _.cen, apply)
+  implicit val persistImplicit: Persist[HexParrY] =
+    new Persist2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen, apply)
 
-  implicit val slateImplicit: Slate[HexYlign] = (obj: HexYlign, dx: Double, dy: Double) => obj.slateXY(dx, dy)
-  implicit val scaleImplicit: Scale[HexYlign] = (obj: HexYlign, operand: Double) => obj.scale(operand)
-  implicit val prolignImplicit: Prolign[HexYlign] = (obj, matrix) => obj.prolign(matrix)
+  implicit val slateImplicit: Slate[HexParrY] = (obj: HexParrY, dx: Double, dy: Double) => obj.slateXY(dx, dy)
+  implicit val scaleImplicit: Scale[HexParrY] = (obj: HexParrY, operand: Double) => obj.scale(operand)
+  implicit val prolignImplicit: Prolign[HexParrY] = (obj, matrix) => obj.prolign(matrix)
 }
