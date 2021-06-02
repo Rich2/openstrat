@@ -1,5 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-appSet = Y1;
+appSet = W2;
 displayX = 0;
 displayY = 0;//Some operating systems will not allow a positive y value that pushes the window bottom below the bottom of the display viewport.
 // displayWidth = 1920;
@@ -14,6 +14,7 @@ zugFuhrer = 1;
 /* Change the  number to change the app on next run.
   ("L", learn.Lessons),
   ("W2", pWW2.WW2Launch),
+  ("WM", pEarth.IrrLaunch),
   ("G1", gOne.OneLaunch),
   ("G2", gTwo.TwoLaunch),
   ("G3", gThree.ThreeLaunch),

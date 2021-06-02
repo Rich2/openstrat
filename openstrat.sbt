@@ -21,7 +21,7 @@ ThisBuild/baseDir := (ThisBuild/baseDirectory).value
 
 def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/" + nameStr)).settings(
   moduleDir := baseDir.value / srcsStr,  
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test",
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test" withSources(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
   scalaSource := moduleDir.value / "src",
   Compile/scalaSource := moduleDir.value / "src",
@@ -33,7 +33,7 @@ def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtD
 def sett2 = List(
   scalaVersion := "2.13.6",
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-encoding", "UTF-8", "-Xsource:3"),
-  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value,
+  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value withSources(),
 )
 
 def sett3 = List(
@@ -49,7 +49,7 @@ def jvm2Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm2").settings(set
 
 def jvm3Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm3").settings(sett3).settings(
   testFrameworks += new TestFramework("utest.runner.Framework"), 
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test",
+  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test" withSources(),
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "src3", "srcExs", "srcExsJvm", "srcExsFx").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List(moduleDir.value / "testSrc", (Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
@@ -57,12 +57,12 @@ def jvm3Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm3").settings(set
 
 def js2Proj(name: String) = baseProj(name, name + "Js2").enablePlugins(ScalaJSPlugin).settings(sett2).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs", "src2", "srcExs").map(moduleDir.value / _),
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0",
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
 )
 
 def js3Proj(name: String) = baseProj(name, name + "Js3").enablePlugins(ScalaJSPlugin).settings(sett3).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs", "src3", "srcExs").map(moduleDir.value / _),
-  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.1.0").cross(CrossVersion.for3Use2_13),
+  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.1.0").cross(CrossVersion.for3Use2_13) withSources(),
 )
 
 def nat2Proj(name: String) = baseProj(name, name + "Nat2").enablePlugins(ScalaNativePlugin).settings(sett2).settings(
@@ -76,12 +76,12 @@ lazy val MacrosJs3 = js3Proj("Macros")
 lazy val MacrosNat2 = nat2Proj("Macros")
 
 lazy val GraphicsJvm2 = jvm2Proj("Graphics").dependsOn(MacrosJvm2).settings(
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
 lazy val GraphicsJvm3 = jvm3Proj("Graphics").dependsOn(MacrosJvm3).settings(
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 

@@ -9,6 +9,11 @@ trait GuiLaunch
   def default: (CanvasPlatform => Any, String)
 }
 
+case class GuiLaunchSimple(settingStr: String, default: (CanvasPlatform => Any, String)) extends GuiLaunch
+{
+  override def apply(expr: ParseExpr): (CanvasPlatform => Any, String) = default
+}
+
 trait GuiLaunchMore extends GuiLaunch
 {
   override def apply(expr: ParseExpr): (CanvasPlatform => Any, String) = expr match {
