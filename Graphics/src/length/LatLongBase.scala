@@ -50,11 +50,4 @@ trait LatLongBase
 
   def degMinStr: String = latDegMinStr.appendCommas(longDegMinStr)
   def degMinStrs: (String, String) = (latDegMinStr, longDegMinStr)
-
-  /** Converts to Metres3 where 0°N 0°E is the max Z value 90°N is the max Y value, 0°N 90°E is the max X value. */
-  def toMetres3: Metres3 =
-  { /** This factor reduces the value of X and Z as latitudes move towards the Poles. */
-    val clat = latRadians.cos.abs
-    Metres3(longSine * equatorialRadius * clat, latSine * polarRadius, longCos * equatorialRadius * clat)
-  }
 }

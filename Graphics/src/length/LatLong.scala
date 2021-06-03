@@ -100,9 +100,11 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
     r1.toXYIfZPositive
   }
 
-  def toPt3(polarRadius: Double, equatorialRadius: Double): Pt3 =
-  { val clat = latCos.abs
-    Pt3(longSine * equatorialRadius * clat, latCos * polarRadius, longCos * equatorialRadius * clat)
+  /** Converts to Metres3 where 0°N 0°E is the max Z value 90°N is the max Y value, 0°N 90°E is the max X value. */
+  def toMetres3: Metres3 =
+  { /** This factor reduces the value of X and Z as latitudes move towards the Poles. */
+    val clat = latRadians.cos.abs
+    Metres3(longSine * equatorialRadius * clat, latSine * polarRadius, longCos * equatorialRadius * clat)
   }
 }
 
