@@ -45,10 +45,10 @@ object Prolign
   implicit def transAlignerImplicit[T <: SimilarPreserve]: Prolign[T] = (obj, offset) => obj.prolign(offset).asInstanceOf[T]
 
   implicit def arrImplicit[A](implicit ct: ClassTag[A], ev: Prolign[A]): Prolign[Arr[A]] =
-    (obj, offset) => obj.map(ev.prolignObj(_, offset))(new AnyBuild[A])
+    (arrA : Arr[A], prolignMatrix: ProlignMatrix) => arrA.map(a => ev.prolignObj(a, prolignMatrix))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Prolign[A]): Prolign[F[A]] =
-    (obj, offset) => evF.mapT(obj, evA.prolignObj(_, offset))
+    (fa, offset) => evF.mapT(fa, a => evA.prolignObj(a, offset))
 
   implicit def arrayImplicit[A](implicit ct: ClassTag[A], ev: Prolign[A]): Prolign[Array[A]] = (obj, offset) => obj.map(ev.prolignObj(_, offset))
 }
