@@ -84,7 +84,6 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
         case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
         case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
         case (_, c2) => f1(hs, apply(c2))
-        case _ => excep(s"$hs hex side should not exist, without at least one of adjacent tile locations existing.")
       }
     }
 
@@ -97,9 +96,8 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
       case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
       case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
       case (_, c2) => f1(hs, apply(c2))
-      case _ => excep(s"$hs hex side should not exist, without at least one of adjacent tile locations existing.")
     }
-    }
+  }
 }
 
 /** Companion object for [[HCenArr]], contains an apply factory method. */

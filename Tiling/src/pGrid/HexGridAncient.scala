@@ -2,12 +2,11 @@
 package ostrat; package pGrid
 import reflect.ClassTag,geom._, math.sqrt
 
-/** A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2. */
-abstract class HexGridAncient[TileT <: TileAncient, SideT <: TileSideAncient](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int, val yTileMax: Int, val turnNum: Int)
-                                                                             (implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridAncient[TileT, SideT]
-{
-  //override val yRatio: Double = HexGrid.yRatio
-  override val xRatio: Double = HexGridAncient.xRatio
+/** To be deprecated. A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2.
+ *  */
+abstract class HexGridAncient[TileT <: TileAncient, SideT <: TileSideAncient](val xTileMin: Int, val xTileMax: Int, val yTileMin: Int,
+  val yTileMax: Int, val turnNum: Int)(implicit val evTile: ClassTag[TileT], val evSide: ClassTag[SideT]) extends TileGridAncient[TileT, SideT]
+{ override val xRatio: Double = HexGridAncient.xRatio
   override def xArrLen: Int = (xTileMax - xTileMin) / 4 + 1 //+1 for zeroth tile
   override val yArrLen: Int = yTileMax - yTileMin + 3//+ 1 for lowersides +1 for zeroth tile, + 1 for upper side(s)
   override val arr: Array[TileT] = new Array[TileT](arrLen)

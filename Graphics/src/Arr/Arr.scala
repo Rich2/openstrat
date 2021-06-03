@@ -15,7 +15,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   override def apply(index: Int): A = unsafeArr(index)
 
   def eqs(other: Any): Boolean = other match {
-    case a: Arr[A] => unsafeArr.sameElements(a.unsafeArr)
+    case a: Arr[_] => unsafeArr.sameElements(a.unsafeArr)
     case _ => false
   }
 
