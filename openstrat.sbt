@@ -37,7 +37,7 @@ def sett2 = List(
 )
 
 def sett3 = List(
-  scalaVersion := "3.0.0",
+  scalaVersion := "3.0.1-RC1",
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
