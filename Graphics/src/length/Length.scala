@@ -47,5 +47,5 @@ final class GMetres(override val kMetres: Double) extends AnyVal with Length
 
 object GMetres
 {
-  def apply(kMetres: Double): KMetres = new KMetres(kMetres)
+  def apply(gMetres: Double): GMetres = new GMetres(gMetres)
 }

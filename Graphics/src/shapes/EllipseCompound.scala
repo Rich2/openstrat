@@ -1,8 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import pWeb._
 
+/** Compound graphic trait for an ellipse. The final sub classes of this trait are [[CircleCompound]] and[[Ellipse.EllipseImp]]. */
 trait EllipseCompound extends ShapeCompound with EllipseGraphic
 { /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): EllipseCompound
@@ -32,6 +32,7 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
   override def shearY(operand: Double): EllipseCompound
 }
 
+/** Companion object for the [[EllipseCompound]] trait contains factory apply method and implicit instances for the 2D geometric transformations.  */
 object EllipseCompound
 {
   def apply(shape: Ellipse, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()): EllipseCompound =

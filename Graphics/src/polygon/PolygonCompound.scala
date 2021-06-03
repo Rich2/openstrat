@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import pWeb._
 
 /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
@@ -58,6 +57,8 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
   def addChildren(newChildren: Arr[GraphicElem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
 }
 
+/** Companion object for the PolygonCompound trait contains factory apply method and implicit instances for the 2D geometric transformation type
+ * classes. */
 object PolygonCompound
 {
   def apply(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()): PolygonCompound =
