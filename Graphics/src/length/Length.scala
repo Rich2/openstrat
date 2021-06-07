@@ -45,7 +45,8 @@ final class GMetres(override val kMetres: Double) extends AnyVal with Length
   override def /(operand: Double) : KMetres = KMetres(kMetres / operand)
 }
 
+/** Companion object for the GMetres GigaMeters (1000s of KMs) class contains apply factory method. */
 object GMetres
-{
+{ /** Apply factory for GMetres. */
   def apply(gMetres: Double): GMetres = new GMetres(gMetres)
 }

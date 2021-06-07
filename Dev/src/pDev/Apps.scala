@@ -8,7 +8,7 @@ object Apps
   val idMap: Map[String, GuiLaunch] = Map(
     ("L", learn.Lessons),
     ("W2", pWW2.WW2Launch),
-    ("WM", pEarth.IrrLaunch),
+    ("WM", pEarth.EarthBasicLaunch),
     ("G1", gOne.OneLaunch),
     ("G2", gTwo.TwoLaunch),
     ("G3", gThree.ThreeLaunch),
