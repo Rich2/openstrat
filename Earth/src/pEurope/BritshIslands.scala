@@ -11,7 +11,7 @@ object OuterHebrides extends EarthLevel2("OuterHebrides", 57.83 ll -6.09, plain)
    val wUist = 57.60 ll -7.53
    val wLewis = 58.12 ll -7.13
    
-   val latLongs = PolygonLL(nLewis, swLewis, sHarris, sandray, wUist, wLewis)
+   val polygonLL = PolygonLL(nLewis, swLewis, sHarris, sandray, wUist, wLewis)
 }
 
 object Ireland extends EarthLevel2("Ireland", 53.36 ll -7.63, plain)
@@ -29,7 +29,7 @@ object Ireland extends EarthLevel2("Ireland", 53.36 ll -7.63, plain)
    val nIrelandE = 54.48 ll -5.43
    val dundalk = 54.01 ll -6.34
    
-   val latLongs = PolygonLL(irelandSE, baltimore, dunquin, oranmore, carrowteige, ardoone, derkmorePoint, malinBeg,
+   val polygonLL = PolygonLL(irelandSE, baltimore, dunquin, oranmore, carrowteige, ardoone, derkmorePoint, malinBeg,
          irelandN, torHead, nIrelandE, dundalk)         
 }
 
@@ -43,5 +43,5 @@ object Shetland extends EarthLevel2("Shetland", 60.34 ll -1.23, plain)
    val nUnst = 60.84 ll -0.87
    val eWhalsay = 60.38 ll -0.90
    
-   val latLongs = PolygonLL(south, sSoundsound, sSilwick, papaStour, eshaness, nUnst, eWhalsay)
+   val polygonLL = PolygonLL(south, sSoundsound, sSilwick, papaStour, eshaness, nUnst, eWhalsay)
 }

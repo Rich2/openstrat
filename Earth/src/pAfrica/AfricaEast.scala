@@ -40,7 +40,7 @@ object Peloponnese extends EarthLevel2("Peloponnese", 37.56 ll 22.18, hills)
   val rioPio = 38.30 ll 21.77
   val corinth = 37.94 ll 22.93
   val nPeninsular = 38.15 ll 23.22
-  val latLongs: PolygonLL = PolygonLL(ePeninsular, kechries, p1, neaKios, voia, eElos, wElos, sGreece, koroni, kyllini, rioPio, corinth, nPeninsular)
+  val polygonLL: PolygonLL = PolygonLL(ePeninsular, kechries, p1, neaKios, voia, eElos, wElos, sGreece, koroni, kyllini, rioPio, corinth, nPeninsular)
 }
 
 object SaharaEast extends EarthLevel2("ESahara", 23 ll 26, desert)
@@ -52,7 +52,7 @@ object SaharaEast extends EarthLevel2("ESahara", 23 ll 26, desert)
   val suez = 29.38 ll 32.22
   val southEast = 17 ll 39.4
    
-  val latLongs: PolygonLL = PolygonLL(SaharaWest.southEast, SaharaWest.northEast, elAgheila, benghazi, derna, alamein, portSaid, suez, southEast)
+  val polygonLL: PolygonLL = PolygonLL(SaharaWest.southEast, SaharaWest.northEast, elAgheila, benghazi, derna, alamein, portSaid, suez, southEast)
 }
 
 object AfricaNorthEast extends EarthLevel2("NEAfrica", 9 ll 32, plain)
@@ -66,6 +66,6 @@ object AfricaNorthEast extends EarthLevel2("NEAfrica", 9 ll 32, plain)
   val southEast = WestAfrica.cAfricaN * 48.east
   val cAfricaNE = WestAfrica.cAfricaN * 32.east
     
-  val latLongs: PolygonLL = PolygonLL(WestAfrica.southEast, SaharaWest.southEast, SaharaEast.southEast, dankalia, berbera, hornAfrica, iskushuban1,
+  val polygonLL: PolygonLL = PolygonLL(WestAfrica.southEast, SaharaWest.southEast, SaharaEast.southEast, dankalia, berbera, hornAfrica, iskushuban1,
     iskushuban2, rasMacbar, southEast, cAfricaNE)
 }

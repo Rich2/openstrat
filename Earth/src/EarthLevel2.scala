@@ -8,11 +8,13 @@ abstract class EarthLevel2(val symName: String, val cen: LatLong, val terr: WTil
   override def toString = name.appendCommas(terr.toString)
   def aStrs: Strings = Strings(name)
   def textScale: Metres = 15.km
-  def latLongs: PolygonLL
+
+  /** A quasi polygon on the earths surface defined in [[LatLong]]s. */
+  def polygonLL: PolygonLL
 
   def display(eg: EarthGuiOld): GraphicElems =
   {
-    eg.polyToGlobedArea(latLongs) match
+    eg.polyToGlobedArea(polygonLL) match
     {
       case SomeA(d2s) =>
       { val v2s: PolygonImp = d2s.pMap(eg.trans)
@@ -38,6 +40,6 @@ abstract class EarthLevel2(val symName: String, val cen: LatLong, val terr: WTil
 object EarthLevel2
 {
   def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EarthLevel2(symName, cen, terr)
-  { val latLongs = PolygonLL(latLongArgs: _*)
+  { val polygonLL = PolygonLL(latLongArgs: _*)
   }
 }

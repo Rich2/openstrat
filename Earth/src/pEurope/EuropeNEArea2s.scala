@@ -11,7 +11,7 @@ object Polandia extends EarthLevel2("Polandia", 50.07 ll 20.13, plain)
   val kaliningrad = 54.93 ll 21.26
   val cenEast = 52 ll 24
 
-  val latLongs = PolygonLL(Germania.swinoujscie, mielno, jaroslawiec, jastrzebia, wladyslawowo, danzig, kaliningrad, cenEast, Balkans.odessa,
+  val polygonLL = PolygonLL(Germania.swinoujscie, mielno, jaroslawiec, jastrzebia, wladyslawowo, danzig, kaliningrad, cenEast, Balkans.odessa,
      Alpsland.zagreb, Alpsland.vienna)
 }
 
@@ -54,7 +54,7 @@ object Baltland extends EarthLevel2("BaltLand", 56.46 ll 27.83, plain)
   val mezenMouth = 66.07 ll 44.10
   val southEast = 52 ll 45
    
-  val latLongs = PolygonLL(Polandia.kaliningrad, klaipeda, ziemupe, ovsi, kolka, jurmala, saulkrasti, parnu, lao, virtsu, noarootsi, paldiski, udria,
+  val polygonLL = PolygonLL(Polandia.kaliningrad, klaipeda, ziemupe, ovsi, kolka, jurmala, saulkrasti, parnu, lao, virtsu, noarootsi, paldiski, udria,
      krasnoselsky, piterland, nevaMouth, ladogaEast, svirMouth, onegaSouth, ustye, onegaEast, peschanoyeSouth,pudozhgorskiy, chelmuzhiEast,
      /** North coast */onezhsky, onegaRiver, pushlakhtaNorth, letniyNavolok, uyma, niznyayaWest, intsy, koyda, koydaEast, mezenMouth,southEast,
      Polandia.cenEast)
@@ -67,7 +67,7 @@ object Gotland extends EarthLevel2("Gotland", 57.46 ll 18.47, plain)
   val hallshuk = 57.92 ll 18.73
   val east = 57.96 ll 19.35
    
-  val latLongs = PolygonLL(southWest, west, tofta, hallshuk, east)
+  val polygonLL = PolygonLL(southWest, west, tofta, hallshuk, east)
 }
 
 object Saaremaa extends EarthLevel2("Saaremaa", 58.43 ll 22.52, plain)
@@ -80,7 +80,7 @@ object Saaremaa extends EarthLevel2("Saaremaa", 58.43 ll 22.52, plain)
   val east = 58.55 ll 23.40
   val tehumardi = 58.18 ll 22.25
    
-  val latLongs = PolygonLL(south, uudibe, west, northWest, nommkula, loetsa, east, tehumardi)
+  val polygonLL = PolygonLL(south, uudibe, west, northWest, nommkula, loetsa, east, tehumardi)
 }
 
 object Hiiumaa extends EarthLevel2("Hiiumaa", 58.90 ll 22.63, plain)
@@ -89,7 +89,7 @@ object Hiiumaa extends EarthLevel2("Hiiumaa", 58.90 ll 22.63, plain)
   val sarve = 58.83 ll 23.05
   val southEast = 58.70 ll 22.67
   val southWest = 58.7 ll 22.49
-  val latLongs = PolygonLL(west, north, sarve, southEast, southWest)
+  val polygonLL = PolygonLL(west, north, sarve, southEast, southWest)
 }
 
 object Finlandia extends EarthLevel2("Scandanavia", 65.56 ll 29.95, taiga)
@@ -151,7 +151,7 @@ object Finlandia extends EarthLevel2("Scandanavia", 65.56 ll 29.95, taiga)
   val petrozavodsk = 61.81 ll 34.55
   val shcheleyki = 61.14 ll 35.70
    
-  val latLongs = PolygonLL(Baltland.piterland, lisyNos, laskovyy, ozerki, baltiyets, helsinki, hanko,
+  val polygonLL = PolygonLL(Baltland.piterland, lisyNos, laskovyy, ozerki, baltiyets, helsinki, hanko,
      /*East Baltic */point1, kimitoonSE, hyppeis, lyperto, pooskeri, sidebySW, wVaasa, vasankariWest, oulu, olhava, SwedenNorth.haparanda,
      /*Barents Sea */ SwedenNorth.lakselv, svaerholt, vardo, karlebotn, tulomaMouth, ostrov, mayakGorodetsky, ponoyNorth, ponoyEast,
      /* Start od White Sea North */ sosnovka, mayakNikodimsky, tetrino, olenitsa, umbaWest, luvenga, kandalasaksha,

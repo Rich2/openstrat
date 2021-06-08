@@ -12,7 +12,7 @@ object Germania extends EarthLevel2("Germania", 50.50 ll 11.11, plain)
    val cuxhaven = 53.88 ll 8.66   
    val swinoujscie = 53.92 ll 14.24
       
-   val latLongs = PolygonLL(Frankia.belgianCoast, eBelgianCoast, wMiddleburg, eemshaven, neNetherlands, cuxhaven,
+   val polygonLL = PolygonLL(Frankia.belgianCoast, eBelgianCoast, wMiddleburg, eemshaven, neNetherlands, cuxhaven,
          Jutland.swJutland, Jutland.lubeck, swinoujscie, Alpsland.vienna, Alpsland.steyr, Frankia.basel)
 }
 
@@ -28,7 +28,7 @@ object Alpsland extends EarthLevel2("Alpsland", 45.93 ll 10.49, mtain)
    val petraLigure = 44.14 ll 8.28
    val imperia = 43.89 ll 8.06  
       
-   val latLongs = PolygonLL(FranceSouth.stRaphael, FranceSouth.orangeCrossing, FranceSouth.montelimar, Frankia.southEast, Frankia.bourgeEnBresse,
+   val polygonLL = PolygonLL(FranceSouth.stRaphael, FranceSouth.orangeCrossing, FranceSouth.montelimar, Frankia.southEast, Frankia.bourgeEnBresse,
       Frankia.basel, steyr, vienna, zagreb, monfalcone, portoDiFalconera, Italy.venice, Italy.voltri, petraLigure, imperia
    )
 }
@@ -70,7 +70,7 @@ object Italy extends EarthLevel2("Italy", 42.25 ll 13.39, plain)
    val genoa = 44.39 ll 8.94
    val voltri = 44.42 ll 8.75
    
-   val latLongs = PolygonLL(venice, ven1, cervia, ancona, guilianova, vasto, campomarina, vieste, siponto, barletta, otranto,
+   val polygonLL = PolygonLL(venice, ven1, cervia, ancona, guilianova, vasto, campomarina, vieste, siponto, barletta, otranto,
                 leuca, taranto, bruscata, capoColonna, palizzi, riaciCapo, giovanni,
                bagnaraCalabra, lamezia, licosa, diProcida, gaeta, santaMarinella, puntaAla,
                livorno, forteDeiMarmi, palmaria, recco, genoa, voltri)   
@@ -88,7 +88,7 @@ object Corsica extends EarthLevel2("Corsica", 42.18 ll 9.17, hills)
    val pointeMignola = 42.73 ll 9.16
    val fromontica = 42.67 ll 9.29
    
-   val latLongs = PolygonLL(nCorsica, bastia, olmuccia, sCorsica, swCorsica, scandola, nwCalvi, pointeMignola, fromontica)
+   val polygonLL = PolygonLL(nCorsica, bastia, olmuccia, sCorsica, swCorsica, scandola, nwCalvi, pointeMignola, fromontica)
 }
 
 object Sardina extends EarthLevel2("Sardina", 40.12 ll 9.07, hills)
@@ -102,5 +102,5 @@ object Sardina extends EarthLevel2("Sardina", 40.12 ll 9.07, hills)
    val north = 41.25 ll 9.23   
    val east = 40.52 ll 9.82
    
-   val latLongs = PolygonLL(calaCaterina, perdaLonga, capoTeulada, portscuso, capoFalcone, platamona, north, east)
+   val polygonLL = PolygonLL(calaCaterina, perdaLonga, capoTeulada, portscuso, capoFalcone, platamona, north, east)
 }

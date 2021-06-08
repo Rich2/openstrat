@@ -10,7 +10,7 @@ object Majorca extends EarthLevel2("Majorca", 39.59 ll 3.01, plain)
   val capFormentor = 39.96 ll 3.21
   val east = 39.71 ll 3.47
    
-  val latLongs: PolygonLL = PolygonLL(south, palma, portalsVells, santElm, capFormentor, east)
+  val polygonLL: PolygonLL = PolygonLL(south, palma, portalsVells, santElm, capFormentor, east)
 }
 
 object Sicily extends EarthLevel2("Sicily", cen = 37.58 ll 14.27, plain)
@@ -25,7 +25,7 @@ object Sicily extends EarthLevel2("Sicily", cen = 37.58 ll 14.27, plain)
   val messina = 38.18 ll 15.56
   val catania = 37.48 ll 15.08
    
-  val latLongs: PolygonLL = PolygonLL(sSicily, kartibubbo, marsala, calaRossa, mondello, n1, torreFaro, contradoFortino, messina, catania)
+  val polygonLL: PolygonLL = PolygonLL(sSicily, kartibubbo, marsala, calaRossa, mondello, n1, torreFaro, contradoFortino, messina, catania)
 }
 
 object Canarias extends EarthLevel2("Canarias", 27.96 ll -15.60, plain)
@@ -35,7 +35,7 @@ object Canarias extends EarthLevel2("Canarias", 27.96 ll -15.60, plain)
   val fuerteventura = 28.24 ll -13.94
   val granCanaria = 27.74 ll -15.60
    
-  val latLongs: PolygonLL = PolygonLL(elHierro, laPalma, lanzarote, fuerteventura, granCanaria)
+  val polygonLL: PolygonLL = PolygonLL(elHierro, laPalma, lanzarote, fuerteventura, granCanaria)
 }
 
 object SaharaWest extends EarthLevel2("NWAfrica", 25 ll 1, desert)
@@ -60,7 +60,7 @@ object SaharaWest extends EarthLevel2("NWAfrica", 25 ll 1, desert)
   val misrata = 32.37 ll 15.03
   val southEast = southLine * eastLine
    
-  val latLongs: PolygonLL = PolygonLL(southWest, nouakchott,nouadhibouBay, nouadhibou, nou2, boujdour, agadir, rabat, tangierW, ceuta, alHoceima, tunis,
+  val polygonLL: PolygonLL = PolygonLL(southWest, nouakchott,nouadhibouBay, nouadhibou, nou2, boujdour, agadir, rabat, tangierW, ceuta, alHoceima, tunis,
      neTunis, sTunis, misrata, northEast, southEast)
 }
 
@@ -77,6 +77,6 @@ object WestAfrica extends EarthLevel2("WAfrica", 11 ll 0, plain)
   val keurMassene = 16.7 ll -16.38
   val southEast =  cAfricaN * SaharaWest.eastLine
    
-  val latLongs: PolygonLL = PolygonLL(cAfricaNW, sangana, aiyetoro, capeThreePoints, liberia, sierraLeone, dakar, keurMassene, SaharaWest.southWest,
+  val polygonLL: PolygonLL = PolygonLL(cAfricaNW, sangana, aiyetoro, capeThreePoints, liberia, sierraLeone, dakar, keurMassene, SaharaWest.southWest,
      SaharaWest.southEast, southEast, cAfricaNW)
 }

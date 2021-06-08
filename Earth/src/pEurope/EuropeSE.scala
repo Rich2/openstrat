@@ -29,7 +29,7 @@ object Balkans extends EarthLevel2("Balkans", 43.9 ll 22.1, plain)
   val basanija = 45.48 ll 13.48
   val trieste = 45.70 ll 13.73
    
-  val latLongs: PolygonLL = PolygonLL(Alpsland.monfalcone, Alpsland.zagreb, odessa, burgas, istanbul, seddElBahr, thessalonika, nEuboea, sEuboea,
+  val polygonLL: PolygonLL = PolygonLL(Alpsland.monfalcone, Alpsland.zagreb, odessa, burgas, istanbul, seddElBahr, thessalonika, nEuboea, sEuboea,
      sAttica, Peloponnese.ePeninsular, Peloponnese.nPeninsular, monstrika, oxia,seLefkada, wCorfu, vlore, shengjin, dubrovnik, paleniOtoci,
      puntaPlanka, b1, zadar, matulji, pula, basanija, trieste)
 }
@@ -40,7 +40,7 @@ object Crimea extends EarthLevel2("Crimea", 45.33 ll 34.15, plain)
   val crimeaS = 44.39 ll 33.74
   val crimeaW = 45.40 ll 32.48
   val crimeaNW = 45.93 ll 33.76
-  val latLongs: PolygonLL = PolygonLL(henichesk, kerch, crimeaS, crimeaW, crimeaNW)
+  val polygonLL: PolygonLL = PolygonLL(henichesk, kerch, crimeaS, crimeaW, crimeaNW)
 }
 
 object Ukraine extends EarthLevel2("Ukraine", 50 ll 24, plain)
@@ -52,7 +52,7 @@ object Ukraine extends EarthLevel2("Ukraine", 50 ll 24, plain)
    
   val koblev = 46.63 ll 31.18
    
-  val latLongs: PolygonLL = PolygonLL(Baltland.southEast, caspianW, asiaMinorNM, llich, rostov, Crimea.henichesk, Crimea.crimeaNW, koblev,
+  val polygonLL: PolygonLL = PolygonLL(Baltland.southEast, caspianW, asiaMinorNM, llich, rostov, Crimea.henichesk, Crimea.crimeaNW, koblev,
      Balkans.odessa, Polandia.cenEast)
 }
 
@@ -67,7 +67,7 @@ object Anatolia extends EarthLevel2("AsiaMinor", 39.46 ll 33.07, hills)
    
   val eGaza = 31.32 ll 34.22
   val yukanbumaz = 36.94 ll 36.04
-  val latLongs: PolygonLL = PolygonLL( Balkans.istanbul, sinopeN, surmene, cizre, damascus, eilat, sSinai, SaharaEast.suez, SaharaEast.portSaid, eGaza,
+  val polygonLL: PolygonLL = PolygonLL( Balkans.istanbul, sinopeN, surmene, cizre, damascus, eilat, sSinai, SaharaEast.suez, SaharaEast.portSaid, eGaza,
      yukanbumaz, bodrum, Balkans.seddElBahr)
 }
 
@@ -78,6 +78,6 @@ object Caucasus extends EarthLevel2("Caucasus", 42.0 ll 45.0, hills)
   val sangachal = 40.18 ll 49.47
   val asiaMinorE = 50.03.east
   val caspianSW = 37.41.north * asiaMinorE
-  val latLongs: PolygonLL = PolygonLL(Anatolia.surmene, blackSeaE, Ukraine.asiaMinorNM, Ukraine.caspianW, sumqayit, baku, sangachal, caspianSW,
+  val polygonLL: PolygonLL = PolygonLL(Anatolia.surmene, blackSeaE, Ukraine.asiaMinorNM, Ukraine.caspianW, sumqayit, baku, sangachal, caspianSW,
      Anatolia.cizre)
 }
