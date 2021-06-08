@@ -3,7 +3,7 @@ package ostrat; package pEarth
 import geom._
 
 /** A second level area of the Earth. */
-abstract class EarthLevel2(val symName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
+abstract class EarthLevel2(val shortName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
   override def toString = name.appendCommas(terr.toString)
   def aStrs: Strings = Strings(name)

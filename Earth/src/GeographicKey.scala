@@ -2,40 +2,40 @@
 package ostrat; package pEarth
 
 /** Not sure about this trait. */
-trait GeographicSymbolKey// extends SymbolKey
-{
-  def symName: String
+trait GeographicSymbolKey
+{ /** The Shortened name for this geographic area. */
+  def shortName: String
+
+  /** The name of the is Geographic Area. */
   def name: String =
   {
     def concat(str1: String, str2: String): String =
-    {
-      val p1 = str1 match
+    { val s1 = str1 match
       { case "" => ""
         case _ if str2 == "" => str1
         case _ if str1.last == '-' => str1
         case _ => str1 :+ ' '
       }
-      
-      val p2 = str2 match
+      val s2 = str2 match
       { case "N" => "North"
         case "S" => "South"
         case "W" => "West"
         case "E" => "East"
         case "C" => "Cen-"
         case "F" => "Far-"
-        case "J" => "Just-"   
+        case "J" => "Just-"
         case s2 => s2
       }
-      p1 + p2
+      s1 + s2
     }
-      
+
     def loop(rem: List[Char], acc: String, currWord: String): String = rem match
     { case Nil => concat(acc, currWord)
       case c :: tail if c.isUpper => loop(tail, concat(acc, currWord), c.toString)
       case c :: tail => loop(tail, acc, currWord + c.toString)
     }
-      
-    val list = symName.toList
+
+    val list = shortName.toList
     loop(list.tail, "", list.head.toString())
   }         
 }
