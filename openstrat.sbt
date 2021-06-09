@@ -74,19 +74,23 @@ lazy val MacrosJvm3 = jvm3Proj("Macros")
 lazy val MacrosJs2 = js2Proj("Macros")
 lazy val MacrosJs3 = js3Proj("Macros")
 lazy val MacrosNat2 = nat2Proj("Macros")
+lazy val UtilJvm2 = jvm2Proj("Util").dependsOn(MacrosJvm2)
+lazy val UtilJvm3 = jvm3Proj("Util").dependsOn(MacrosJvm3)
+lazy val UtilJs2 = js2Proj("Graphics").dependsOn(MacrosJs2)
+lazy val UtilJs3 = js3Proj("Graphics").dependsOn(MacrosJs3)
 
-lazy val GraphicsJvm2 = jvm2Proj("Graphics").dependsOn(MacrosJvm2).settings(
+lazy val GraphicsJvm2 = jvm2Proj("Graphics").dependsOn(UtilJvm2).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-lazy val GraphicsJvm3 = jvm3Proj("Graphics").dependsOn(MacrosJvm3).settings(
+lazy val GraphicsJvm3 = jvm3Proj("Graphics").dependsOn(UtilJvm3).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-lazy val GraphicsJs2 = js2Proj("Graphics").dependsOn(MacrosJs2)
-lazy val GraphicsJs3 = js3Proj("Graphics").dependsOn(MacrosJs3)
+lazy val GraphicsJs2 = js2Proj("Graphics").dependsOn(UtilJs2)
+lazy val GraphicsJs3 = js3Proj("Graphics").dependsOn(UtilJs3)
 lazy val GraphicsNat2 = nat2Proj("Graphics").dependsOn(MacrosNat2)
 lazy val TilingJvm2 = jvm2Proj("Tiling").dependsOn(GraphicsJvm2)
 lazy val TilingJvm3 = jvm3Proj("Tiling").dependsOn(GraphicsJvm3)
