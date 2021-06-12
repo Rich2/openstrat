@@ -57,13 +57,15 @@ abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sArr[A]](typeStr: String)
 }
 
 /** Class for the singleton companion objects of [[Dbl3sArr]] final classes to extend. */
-abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sArr[A]]
-{ val factory: Int => ArrA
-  def apply(length: Int): ArrA = factory(length)
+abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sArr[A]] extends DblNsArrCompanion[A, ArrA]
+{ //val factory: Int => ArrA
+
+  final override def elemSize: Int = 3
+  def unintitialised(length: Int): ArrA = unintitialised(length)
 
   def apply(elems: A*): ArrA =
   { val length = elems.length
-    val res = factory(length)
+    val res = unintitialised(length)
     var count: Int = 0
 
     while (count < length)

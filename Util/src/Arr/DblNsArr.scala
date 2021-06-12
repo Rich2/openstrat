@@ -63,6 +63,8 @@ trait DblNsArrCompanion[A <: DblNElem, ArrA <: DblNsArr[A]] extends ValueNArrCom
 {
   implicit val persistImplicit: DblNsArrPersist[A, ArrA]
 
+  def fromArrayDbl(array: Array[Double]): ArrA
+
   /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   override implicit def uninitialised(length: Int): ArrA = persistImplicit.fromArray(new Array[Double](length * elemSize))
 }

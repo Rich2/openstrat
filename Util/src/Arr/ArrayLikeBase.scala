@@ -11,6 +11,6 @@ trait ArrayLikeBase[A] extends Any
   /** Just a handy short cut to give the length of this collection as a string. */
   def lenStr: String = elemsLen.toString
 
-  /** Performs the effectful function on each member of the collection. */
+  /** Performs the effectual function on each member of the collection. */
   def foreach[U](f: A => U): Unit
 }

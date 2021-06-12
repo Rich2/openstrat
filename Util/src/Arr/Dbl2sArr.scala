@@ -72,10 +72,8 @@ trait Dbl2SArrCombinedBuilders[B <: Dbl2Elem, ArrB <: Dbl2sArr[B]] extends DblNs
 /** Class for the singleton companion objects of [[Dbl2sArr]] final classes to extend. */
 trait Dbl2sArrCompanion[A <: Dbl2Elem, ArrA <: Dbl2sArr[A]] extends DblNsArrCompanion[A, ArrA]
 {
-  implicit val persistImplicit: Dbl2sArrPersist[A, ArrA]
-  def elemSize: Int = 2
-  //implicit val factory: Int => ST = len => persistImplicit.fromArray(new Array[Double](len * 2))
-  def apply(length: Int): ArrA = uninitialised(length)
+  final def elemSize: Int = 2
+
   def apply(elems: A*): ArrA =
   {
     val length = elems.length
