@@ -14,3 +14,11 @@ final class PolygonMs3(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3s
   /** A 2D view of these 3D quasi polygons from infinity expressed in 2D kilometres. This will distort at the Earth's horizon. */
   def infinityView: PolygonMs = ???
 }
+
+object PolygonMs3 extends Dbl3sArrCompanion[Metres3, PolygonMs3]
+{
+  override val factory: Int => PolygonMs3 = ???
+  implicit val persistImplicit: Dbl3sArrPersist[Metres3, PolygonMs3] = new Dbl3sArrPersist[Metres3, PolygonMs3]("PolygonMs3")
+  { override def fromArray(value: Array[Double]): PolygonMs3 = new PolygonMs3(value)
+  }
+}

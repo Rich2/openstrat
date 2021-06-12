@@ -37,7 +37,7 @@ trait DblNsArr[A <: DblNElem] extends Any with ValueNsArr[A] with ArrayDblBased
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsArr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNsArrBuilders[B <: DblNElem, ArrB <: DblNsArr[B]] extends ValueNsArrBuilders[B, ArrB]
+trait DblNsArrCombinedBuilders[B <: DblNElem, ArrB <: DblNsArr[B]] extends ValueNsArrCombinedBuilders[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT

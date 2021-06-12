@@ -37,7 +37,7 @@ trait Dbl4sArr[A <: Dbl4Elem] extends Any with DblNsArr[A]
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
  *  [[ArrTFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl4sArrBuilders[B <: Dbl4Elem, ArrB <: Dbl4sArr[B]] extends DblNsArrBuilders[B, ArrB]
+trait Dbl4SArrCombinedBuilders[B <: Dbl4Elem, ArrB <: Dbl4sArr[B]] extends DblNsArrCombinedBuilders[B, ArrB]
 { type BuffT <: Dbl4sBuffer[B]
 
   final override def elemSize = 4

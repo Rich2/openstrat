@@ -42,7 +42,7 @@ object Pt2s extends Dbl2sArrCompanion[Pt2, Pt2s]
   { override def fromArray(value: Array[Double]): Pt2s = new Pt2s(value)
   }
 
-  implicit val arrArrayImplicit: ArrTFlatBuilder[Pt2s] = Pt2.vec2sBuildImplicit
+  implicit val arrFlatBuilderImplicit: ArrTFlatBuilder[Pt2s] = Pt2.combinedBuildersImplicit
 
   implicit val slateImplicit: Slate[Pt2s] = (obj: Pt2s, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Pt2s] = (obj: Pt2s, operand: Double) => obj.scale(operand)

@@ -64,7 +64,7 @@ trait ValueNsArr[A <: ValueNElem] extends Any with ArrImut[A]
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ValueNsArr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNsArrBuilders[B <: ValueNElem, ArrB <: ValueNsArr[B]] extends ArrTBuilder[B, ArrB] with ArrTFlatBuilder[ArrB]
+trait ValueNsArrCombinedBuilders[B <: ValueNElem, ArrB <: ValueNsArr[B]] extends ArrTBuilder[B, ArrB] with ArrTFlatBuilder[ArrB]
 { def elemSize: Int
 }
 

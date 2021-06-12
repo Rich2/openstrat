@@ -1,6 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+import scala.collection.mutable.ArrayBuffer
+
 /** An object that can be constructed from 3 [[Double]]s. These are used in [[Dbl3sArr]] Array[Double] based collections. */
 trait Dbl3Elem extends Any with DblNElem
 { def dbl1: Double
@@ -28,7 +30,7 @@ trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsArr[A]
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. Instances for
  *  [[ArrTFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl3sArrBuilders[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrBuilders[B, ArrB]
+trait Dbl3SArrCombinedBuilders[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrCombinedBuilders[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
 
   final override def elemSize = 3
@@ -39,6 +41,19 @@ trait Dbl3sArrBuilders[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrBuild
   }
 
   override def buffGrow(buff: BuffT, value: B): Unit = ??? //{ buff.append(value.dbl1,) ??? //buff.buffer.append(value)
+}
+
+/** Persists and assists in building [[DblNsArr]]s. */
+abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sArr[A]](typeStr: String) extends DblNsArrPersist[A, M](typeStr)
+{
+  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
+  { buf += value.dbl1
+    buf += value.dbl2
+    buf += value.dbl3
+  }
+
+  override def syntaxDepthT(obj: M): Int = 3
+  override def showT(obj: M, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ""
 }
 
 /** Class for the singleton companion objects of [[Dbl3sArr]] final classes to extend. */

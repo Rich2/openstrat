@@ -16,7 +16,7 @@ object SFaceUL extends SqFace(7, 45.degs, -1, 1)
 object SqFace
 {
   /** Needs to be renamed. */
-  @deprecated def optFaceOld(orig: Cood, dirn: Cood): Option[SqFace] = dirn - orig match
+  def optFaceOld(orig: Cood, dirn: Cood): Option[SqFace] = dirn - orig match
   { case Cood(0, 2) => Some(SFaceUp)
     case Cood(2, 2) => Some(SFaceUR)
     case Cood(2, 0) => Some(SFaceRt)

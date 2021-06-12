@@ -44,7 +44,7 @@ trait Int1sArr[A <: Int1Elem] extends Any with IntNsArr[A]
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Int1sArrBuilders[A <: Int1Elem, ArrT <: Int1sArr[A]] extends IntNsArrBuilders[A, ArrT]
+trait Int1SArrCombinedBuilders[A <: Int1Elem, ArrT <: Int1sArr[A]] extends IntNsArrCombinedBuilders[A, ArrT]
 { type BuffT <: Int1sBuffer[A, ArrT]
 
   final override def elemSize: Int = 1

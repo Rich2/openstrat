@@ -112,7 +112,7 @@ object Colour
   implicit val arrBuildImplicit: ArrTBuilder[Colour, Colours] = ColoursBuild
   implicit val arrFlatBuildImplicit: ArrTFlatBuilder[Colours] = ColoursBuild
   
-  object ColoursBuild extends Int1sArrBuilders[Colour, Colours]
+  object ColoursBuild extends Int1SArrCombinedBuilders[Colour, Colours]
   { type BuffT = ColourBuff
     override def fromIntArray(inp: Array[Int]): Colours = new Colours(inp)
 

@@ -26,7 +26,7 @@ trait IntNsArr[A <: IntNElem] extends Any with ValueNsArr[A]
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[IntNsArr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait IntNsArrBuilders[B <: IntNElem, ArrB <: IntNsArr[B]] extends ValueNsArrBuilders[B, ArrB]
+trait IntNsArrCombinedBuilders[B <: IntNElem, ArrB <: IntNsArr[B]] extends ValueNsArrCombinedBuilders[B, ArrB]
 { type BuffT <:  IntNsBuffer[B]
   def fromIntArray(inp: Array[Int]): ArrB
 
