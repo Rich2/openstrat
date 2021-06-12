@@ -13,4 +13,10 @@ trait ArrayLikeBase[A] extends Any
 
   /** Performs the effectual function on each member of the collection. */
   def foreach[U](f: A => U): Unit
+
+  /** foreach with index starting at 0. */
+  def iForeach[U](f: (A, Int) => U): Unit
+
+  /** foreach with index. */
+  def iForeach[U](startIndex: Int)(f: (A, Int) => U): Unit
 }

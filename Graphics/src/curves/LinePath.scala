@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
@@ -32,19 +31,7 @@ class LinePath(val arrayUnsafe: Array[Double]) extends Dbl2sArr[Pt2] with Affine
 
 /** Companion object for LinePath contains apply factory object and Persist type class instance. */
 object LinePath extends Dbl2sArrCompanion[Pt2, LinePath]
-{
-  def apply(pStart: Pt2, pEnds: Pt2 *): LinePath =
-  { val array = new Array[Double](pEnds.length * 2 + 2)
-    array(0) = pStart.x
-    array(1) = pStart.y
-    var count = 0
-    while (count < pEnds.length)
-    { array(count * 2 + 2) = pEnds(count).x
-      array(count * 2 + 3) = pEnds(count).y
-      count += 1
-    }
-    new LinePath(array)
-  }
+{ override def fromArrayDbl(array: Array[Double]): LinePath = new LinePath(array)
 
   implicit val persistImplicit: Dbl2sArrPersist[Pt2, LinePath] = new Dbl2sArrPersist[Pt2, LinePath]("LinePath")
   { override def fromArray(value: Array[Double]): LinePath = new LinePath(value)

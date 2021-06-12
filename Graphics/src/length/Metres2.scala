@@ -72,9 +72,11 @@ class Metres2s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sArr[Metr
   override def fElemStr: Metres2 => String = _.str
 }
 
-/** Companion object for the [[Metres2s]] class not to be confused with the [[Metres2]] class. Contains implicit nstance for Persist type class. */
+/** Companion object for the [[Metres2s]] class not to be confused with the [[Metres2]] class. Contains implicit Instance for Persist type class. */
 object Metres2s extends Dbl2sArrCompanion[Metres2, Metres2s]
 {
+  override def fromArrayDbl(array: Array[Double]): Metres2s = new Metres2s(array)
+
   implicit val persistImplicit: Dbl2sArrPersist[Metres2, Metres2s] = new Dbl2sArrPersist[Metres2, Metres2s]("Metres2s")
   { override def fromArray(value: Array[Double]): Metres2s = new Metres2s(value)
   }

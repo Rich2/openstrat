@@ -2,9 +2,10 @@
 package ostrat; package geom
 
 class ArrLikeBaseExtensions[A](val al : ArrayLikeBase[A])
-{
-  def mapPolygonLL(f: A => LatLong): PolygonLL = {
-    PolygonLL.uninitialised(al.elemsLen)
-    ???
+{ /** Map this collection elements to [[LatLong]]s building a [[PolygonLL]]. */
+  def mapPolygonLL(f: A => LatLong): PolygonLL =
+  { val res = PolygonLL.uninitialised(al.elemsLen)
+    al.iForeach{(a, i) => res.unsafeSetElem(i, f(a)) }
+    res
   }
 }

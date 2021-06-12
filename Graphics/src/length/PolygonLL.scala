@@ -13,7 +13,7 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike
 
 /** Companion object for the [[PolygonLL]] class. */
 object PolygonLL extends Dbl2sArrCompanion[LatLong, PolygonLL]
-{ override type ThisT = PolygonLL
+{ //override type ThisT = PolygonLL
 
   override def fromArrayDbl(array: Array[Double]): PolygonLL = new PolygonLL(array)
 

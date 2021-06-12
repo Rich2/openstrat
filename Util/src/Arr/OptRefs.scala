@@ -39,6 +39,22 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
     }
   }
 
+  override def iForeach[U](f: (OptRef[A], Int) => U): Unit =
+  { var count = 0
+    while (count < elemsLen)
+    { f(apply(count), count)
+      count += 1
+    }
+  }
+
+  override def iForeach[U](startIndex: Int)(f: (OptRef[A], Int) => U): Unit =
+  { var count = startIndex
+    while (count < elemsLen)
+    { f(apply(count), count)
+      count += 1
+    }
+  }
+
   def foreachSome(f: A => Unit): Unit =
   { var count = 0
     while (count < elemsLen){ apply(count).foreach(f); count += 1}

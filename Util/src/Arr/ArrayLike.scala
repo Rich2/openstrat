@@ -30,8 +30,19 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     }
   }
 
-  /** foreach with index. The startIndex parameter is placed 2nd to allow it to have a default value of zero. */
-  def iForeach[U](f: (A, Int) => U, startIndex: Int = 0): Unit =
+
+  override def iForeach[U](f: (A, Int) => U): Unit =
+  { var count = 0
+    var i: Int = 0
+    while(count < elemsLen )
+    { f(apply(count), i)
+      count+= 1
+      i += 1
+    }
+  }
+
+  /** foreach with index. */
+  def iForeach[U](startIndex: Int = 0)(f: (A, Int) => U): Unit =
   { var count = 0
     var i: Int = startIndex
     while(count < elemsLen )

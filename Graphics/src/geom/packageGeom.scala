@@ -15,6 +15,8 @@ package object geom
   /** A [[Vec2]] along the Y Axis, whose X component = 0. */
   def yVec2(y: Double): Vec2 = Vec2(0, y)
 
+  implicit def arrBaseLikeExtension[A](value: ArrayLikeBase[A]): ArrLikeBaseExtensions[A] = new ArrLikeBaseExtensions[A](value)
+
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
   implicit def slateToExtensions[T](value: T)(implicit ev: Slate[T]): SlateExtensions[T] = new SlateExtensions[T](value, ev)
   implicit def boundedToExtensions[T <: BoundedElem](value: T): BoundedExtensions[T] = new BoundedExtensions[T](value)

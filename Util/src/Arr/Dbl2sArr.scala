@@ -70,8 +70,7 @@ trait Dbl2SArrCombinedBuilders[B <: Dbl2Elem, ArrB <: Dbl2sArr[B]] extends DblNs
 
 /** Class for the singleton companion objects of [[Dbl2sArr]] final classes to extend. */
 trait Dbl2sArrCompanion[A <: Dbl2Elem, ArrA <: Dbl2sArr[A]] extends DblNsArrCompanion[A, ArrA]
-{
-  final def elemSize: Int = 2
+{ final def elemSize: Int = 2
 
   def apply(elems: A*): ArrA =
   {
