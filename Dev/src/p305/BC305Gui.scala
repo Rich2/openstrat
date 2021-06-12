@@ -47,9 +47,9 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
    }   
          
   def ls: GraphicElems =
-  { val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-    val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
-    gs ++ as
+  { val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
+    val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
+    as ++ gs
   }
    
   eTop()

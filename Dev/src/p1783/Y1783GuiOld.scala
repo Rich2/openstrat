@@ -36,9 +36,9 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
      } 
       
   def ls: GraphicElems =
-  { val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-    val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
-    gs ++ as
+  { val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
+    val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
+    as ++ gs
   }
  
   mapPanel.mouseUp = (but: MouseButton, clickList, v) => but match

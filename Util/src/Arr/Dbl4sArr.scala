@@ -49,8 +49,6 @@ trait Dbl4SArrCombinedBuilders[B <: Dbl4Elem, ArrB <: Dbl4sArr[B]] extends DblNs
     arr.arrayUnsafe(index * 4 + 2) = value.dbl3
     arr.arrayUnsafe(index * 4 + 3) = value.dbl4
   }
-
-  override def buffGrow(buff: BuffT, value: B): Unit = ??? //{ buff.append(value.dbl1,) ??? //buff.buffer.append(value)
 }
 
 /** Class for the singleton companion objects of [[Dbl4sArr]] final classes to extend. */
@@ -107,7 +105,7 @@ abstract class Dbl4sArrCompanion[A <: Dbl4Elem, ArrA <: Dbl4sArr[A]]
   }
 }
 
-/** Both Persists and Builds ProductD4s Collection classes. */
+/** Persists [[Dble4Elem] Collection classes. */
 abstract class ArrProdDbl4Persist[A <: Dbl4Elem, ArrA <: Dbl4sArr[A]](typeStr: String) extends DblNsArrPersist[A, ArrA](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =

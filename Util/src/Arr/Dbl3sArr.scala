@@ -32,18 +32,14 @@ trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsArr[A]
  *  in ```map(f: A => B): ArrB``` function. */
 trait Dbl3SArrCombinedBuilders[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrCombinedBuilders[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
-
   final override def elemSize = 3
-  //def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl2; arr.arrayUnsafe(index * 3 + 2) = value.dbl3
   }
-
-  override def buffGrow(buff: BuffT, value: B): Unit = ??? //{ buff.append(value.dbl1,) ??? //buff.buffer.append(value)
 }
 
-/** Persists and assists in building [[DblNsArr]]s. */
+/** Persists [[DblNsArr]]s. */
 abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sArr[A]](typeStr: String) extends DblNsArrPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
@@ -58,9 +54,7 @@ abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sArr[A]](typeStr: String)
 
 /** Class for the singleton companion objects of [[Dbl3sArr]] final classes to extend. */
 abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sArr[A]] extends DblNsArrCompanion[A, ArrA]
-{ //val factory: Int => ArrA
-
-  final override def elemSize: Int = 3
+{ final override def elemSize: Int = 3
   def unintitialised(length: Int): ArrA = unintitialised(length)
 
   def apply(elems: A*): ArrA =

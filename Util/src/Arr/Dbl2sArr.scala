@@ -66,7 +66,6 @@ trait Dbl2SArrCombinedBuilders[B <: Dbl2Elem, ArrB <: Dbl2sArr[B]] extends DblNs
 { type BuffT <: Dbl2sBuffer[B]
   final override def elemSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
-  override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)// er.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3); () }
 }
 
 /** Class for the singleton companion objects of [[Dbl2sArr]] final classes to extend. */

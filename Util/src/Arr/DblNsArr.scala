@@ -45,6 +45,7 @@ trait DblNsArrCombinedBuilders[B <: DblNElem, ArrB <: DblNsArr[B]] extends Value
   final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemSize))
   final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.buffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
+  final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
@@ -69,7 +70,7 @@ trait DblNsArrCompanion[A <: DblNElem, ArrA <: DblNsArr[A]] extends ValueNArrCom
   override implicit def uninitialised(length: Int): ArrA = persistImplicit.fromArray(new Array[Double](length * elemSize))
 }
 
-/** Persists and assists in building [[DblNsArr]]s. */
+/** Persists [[DblNsArr]]s. */
 abstract class DblNsArrPersist[A <: DblNElem, M <: DblNsArr[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
