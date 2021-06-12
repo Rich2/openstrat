@@ -86,7 +86,6 @@ trait Dbl2sArrCompanion[A <: Dbl2Elem, ArrA <: Dbl2sArr[A]] extends DblNsArrComp
     res
   }
 
-
   def fromList(list: List[A]): ArrA =
   {
     val arrLen: Int = list.length * 2
