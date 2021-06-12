@@ -9,6 +9,8 @@ abstract class EarthLevel2(val shortName: String, val cen: LatLong, val terr: WT
   def aStrs: Strings = Strings(name)
   def textScale: Metres = 15.km
 
+  def colour = terr.colour
+
   /** A quasi polygon on the earths surface defined in [[LatLong]]s. */
   def polygonLL: PolygonLL
 
