@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
 trait PolygonLength extends Any
 
@@ -15,7 +14,8 @@ final class PolygonMs(val arrayUnsafe: Array[Double]) extends AnyVal with Polygo
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
 object PolygonMs extends Dbl2sArrCompanion[Metres2, PolygonMs]
-{
+{ override def fromArrayDbl(array: Array[Double]): PolygonMs = new PolygonMs(array)
+
   implicit val persistImplicit: Dbl2sArrPersist[Metres2, PolygonMs] = new Dbl2sArrPersist[Metres2, PolygonMs]("PolygonMs")
   { override def fromArray(value: Array[Double]): PolygonMs = new PolygonMs(value)
   }

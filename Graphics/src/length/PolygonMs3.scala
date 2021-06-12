@@ -10,9 +10,7 @@ final class PolygonMs3(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3s
   override def unsafeFromArray(array: Array[Double]): PolygonMs3 = new PolygonMs3(array)
   override def typeStr: String = "PolygonMs3"
   override def fElemStr: Metres3 => String = _.toString
-
-  /** A 2D view of these 3D quasi polygons from infinity expressed in 2D kilometres. This will distort at the Earth's horizon. */
-  def infinityView: PolygonMs = ???
+  def xyPlane: PolygonMs = this.mapPolygonMs(_.xy)
 }
 
 /** Companion object for PolygonM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */
