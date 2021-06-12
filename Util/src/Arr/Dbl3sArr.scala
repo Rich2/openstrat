@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-
 import scala.collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 3 [[Double]]s. These are used in [[Dbl3sArr]] Array[Double] based collections. */
@@ -39,7 +38,7 @@ trait Dbl3SArrCombinedBuilders[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNs
   }
 }
 
-/** Persists [[DblNsArr]]s. */
+/** Persists [[Dbl3sArr]]s. */
 abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sArr[A]](typeStr: String) extends DblNsArrPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
@@ -55,11 +54,10 @@ abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sArr[A]](typeStr: String)
 /** Class for the singleton companion objects of [[Dbl3sArr]] final classes to extend. */
 abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sArr[A]] extends DblNsArrCompanion[A, ArrA]
 { final override def elemSize: Int = 3
-  def unintitialised(length: Int): ArrA = unintitialised(length)
 
   def apply(elems: A*): ArrA =
   { val length = elems.length
-    val res = unintitialised(length)
+    val res = uninitialised(length)
     var count: Int = 0
 
     while (count < length)

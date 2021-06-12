@@ -85,16 +85,16 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 }
 
 /** Companion object for [[PolygonImp]]. */
-object PolygonImp
-{ implicit val uninitialised: Int => PolygonImp = i => new PolygonImp(new Array[Double](i * 2))
+object PolygonImp extends Dbl2sArrCompanion[Pt2, PolygonImp]
+{ override def fromArrayDbl(array: Array[Double]): PolygonImp = new PolygonImp(array)
 
-  def apply(v1: Pt2, v2: Pt2, v3: Pt2, tail: Pt2 *): PolygonImp =
+  /*def apply(v1: Pt2, v2: Pt2, v3: Pt2, tail: Pt2 *): PolygonImp =
   { val len = (3 + tail.length)
     val res = uninitialised(len)
     res.unsafeSetElems(0, v1, v2, v3)
     res.unsafeSetElemSeq(3, tail)
     res
-  }
+  }*/
 
   implicit val eqImplicit: EqT[PolygonImp] = (p1, p2) => EqT.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
 

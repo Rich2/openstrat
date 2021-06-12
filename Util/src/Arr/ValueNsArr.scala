@@ -90,12 +90,20 @@ abstract class ValueNsArrPersist[A, M](val typeStr: String) extends PersistCompo
 
 /** Helper trait for companion objects of [[ValueNsArr]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
 trait ValueNArrCompanion[A <: ValueNElem, ArrA <: ValueNsArr[A]]
-{ /** The final type of this Array[Int] backed collection class. */
-  //type ThisT <: ValueNsArr[A]
-
-  /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
+{ /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   implicit def uninitialised(length: Int): ArrA
 
   /** the product size of the ValueNsArr type's elements. */
   def elemSize: Int
+
+  /** This method allows you to map from an ArrayLikeBase to the ArrA type. */
+  final def fromArrMap[T](alb: ArrayLikeBase[T])(f: T => A): ArrA = {
+    val res = uninitialised(alb.elemsLen)
+    var count = 0
+    alb.foreach{ t =>
+      res.unsafeSetElem(count, f(t))
+      count += 1
+    }
+    res
+  }
 }

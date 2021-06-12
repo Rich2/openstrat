@@ -36,8 +36,6 @@ object MyDbl2s extends Dbl2sArrCompanion[MyDbl2, MyDbl2s]
 
   override def fromArrayDbl(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
 
-  /** The final type of this Array[Int] backed collection class. */
-  //override type ThisT = MyDbl2s
   implicit val persistImplicit: Dbl2sArrPersist[MyDbl2, MyDbl2s] = new Dbl2sArrPersist[MyDbl2, MyDbl2s]("Mines")
   { override def fromArray(value: Array[Double]): MyDbl2s = new MyDbl2s(value)
   }

@@ -72,7 +72,7 @@ trait Dbl2SArrCombinedBuilders[B <: Dbl2Elem, ArrB <: Dbl2sArr[B]] extends DblNs
 trait Dbl2sArrCompanion[A <: Dbl2Elem, ArrA <: Dbl2sArr[A]] extends DblNsArrCompanion[A, ArrA]
 { final def elemSize: Int = 2
 
-  def apply(elems: A*): ArrA =
+  final def apply(elems: A*): ArrA =
   {
     val length = elems.length
     val res = uninitialised(length)
@@ -85,6 +85,7 @@ trait Dbl2sArrCompanion[A <: Dbl2Elem, ArrA <: Dbl2sArr[A]] extends DblNsArrComp
     }
     res
   }
+
 
   def fromList(list: List[A]): ArrA =
   {
