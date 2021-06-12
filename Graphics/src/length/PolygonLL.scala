@@ -8,7 +8,7 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike
 { type ThisT = PolygonLL
   override def unsafeFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
   override def typeStr: String = "LatLongs"
-  def metres3Default: PolygonMs3 = ??? //map[Metres3, PolygonMs3](ll => ???)
+  def metres3Default: PolygonMs3 = this.mapPolygonMs3(_.toMetres3)
 }
 
 /** Companion object for the [[PolygonLL]] class. */
