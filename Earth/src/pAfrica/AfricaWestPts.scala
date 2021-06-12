@@ -64,7 +64,7 @@ object SaharaWest extends EarthLevel2("NWAfrica", 25 ll 1, desert)
      neTunis, sTunis, misrata, northEast, southEast)
 }
 
-object WestAfrica extends EarthLevel2("WAfrica", 11 ll 0, plain)
+object WestAfricaSouth extends EarthLevel2("WAfrica", 11 ll 0, plain)
 { //val wAfricaE = 16.75.east
   val cAfricaN = 4.53.north
   val cAfricaNW = cAfricaN * 8.89.east
