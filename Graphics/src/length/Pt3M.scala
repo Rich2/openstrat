@@ -105,7 +105,6 @@ class Pt3MArr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sArr[Pt3M]
 
 object Pt3MArr extends Dbl3sArrCompanion[Pt3M, Pt3MArr]
 {
-  implicit val factory: Int => Pt3MArr = i => new Pt3MArr(new Array[Double](i * 3))
   override implicit val persistImplicit: DblNsArrPersist[Pt3M, Pt3MArr] = ???
 
   override def fromArrayDbl(array: Array[Double]): Pt3MArr = new Pt3MArr(array)

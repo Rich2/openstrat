@@ -5,7 +5,7 @@ import math._
 /** A 2 dimensional point specified in metres as units rather than pure scalar numbers. */
 final class Pt2M(val xMetres: Double, val yMetres: Double) extends Show2Dbls
 { //override def toString: String = Metres2.PersistImplicit.strT(this)
-  override def typeStr: String = "Metres2"
+  override def typeStr: String = "Pt2M"
  // override def approx(that: Any, delta: Double): Boolean = ???
   override def name1: String = "x"
   override def name2: String = "y"
