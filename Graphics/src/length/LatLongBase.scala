@@ -5,8 +5,8 @@ package ostrat; package geom
 trait LatLongBase
 { def latSecs: Double
   def longSecs: Double
-  def equatorialRadius: Metres
-  def polarRadius: Metres
+  def equatorialRadius: Metre
+  def polarRadius: Metre
   def equatorialRadiusKm = equatorialRadius
   @inline final def lat: Latitude = Latitude.secs(latSecs)
   @inline final def long: Longitude = Longitude.secs(longSecs)

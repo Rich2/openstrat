@@ -63,7 +63,7 @@ class EGrid80KmAncient[TileT <: TileAncient, SideT <: TileSideAncient](bounds: A
 }
 
 object EGrid80KmAncient
-{ val scale: Metres = 20.km * math.sqrt(3)
+{ val scale: Metre = 20.km * math.sqrt(3)
   val yOffset = 300
 
   def coodToLatLong0Off200(inp: Cood): LatLong = coodToLatLong0(inp.subX(200))
@@ -71,7 +71,7 @@ object EGrid80KmAncient
   /** The key method to get the longitude delta for x based from 0 degs longitude. */
   def coodToLatLong0(inp: Cood): LatLong =
   { val adj: Pt2 = HexGridAncient.coodToVec2(inp.subXY(0, 300))
-     val d2: Metres2 = adj.toDist2(scale)
+     val d2: Pt2M = adj.toDist2(scale)
      val lat: Double = d2.y / EarthPolarRadius
      val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
      LatLong.radians(lat, longDelta)

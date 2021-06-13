@@ -5,17 +5,17 @@ package geom
 /** A 2 dimensional line segment measured in metres, equivlent of the [[LineSeg]] class. A straight line between two points on a 2 dimensional flat
  *  surface. */
 class LineSegDist(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double, yEndMetres: Double)
-{ def xStart: Metres = Metres(xStartMetres)
-  def yStart: Metres = Metres(yStartMetres)
-  def xEnd: Metres = Metres(xEndMetres)
-  def yEnd: Metres = Metres(yEndMetres)
-  def ptStart: Metres2 = Metres2(xStart, yStart)
-  def ptEnd: Metres2 = Metres2(xEnd, yEnd)
-  def toLine2(f: Metres2 => Pt2): LineSeg = LineSeg(f(ptStart), f(ptEnd))
+{ def xStart: Metre = Metre(xStartMetres)
+  def yStart: Metre = Metre(yStartMetres)
+  def xEnd: Metre = Metre(xEndMetres)
+  def yEnd: Metre = Metre(yEndMetres)
+  def ptStart: Pt2M = Pt2M(xStart, yStart)
+  def ptEnd: Pt2M = Pt2M(xEnd, yEnd)
+  def toLine2(f: Pt2M => Pt2): LineSeg = LineSeg(f(ptStart), f(ptEnd))
 }
 
 object LineSegDist
 {
-  def apply(startDist2: Metres2, endDist2: Metres2): LineSegDist =
+  def apply(startDist2: Pt2M, endDist2: Pt2M): LineSegDist =
     new LineSegDist(startDist2.xMetres, startDist2.yMetres, endDist2.xMetres, endDist2.yMetres)
 }

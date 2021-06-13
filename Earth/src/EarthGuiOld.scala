@@ -7,12 +7,12 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
 {
   var focus: LatLong = 50 ll 0
   /** The number of km per pixel  for 1Km on the map. This will normally be much less than 1 */
-  var scale: Metres =   14000.km / mapPanelDiameter
-  def scaleMin: Metres = 180.km / mapPanelDiameter
-  def scaleMax: Metres = 17000.km / mapPanelDiameter
+  var scale: Metre =   14000.km / mapPanelDiameter
+  def scaleMin: Metre = 180.km / mapPanelDiameter
+  def scaleMax: Metre = 17000.km / mapPanelDiameter
   /** Km / Radian Earth/s Circumference divided by 2 Pi */
   //val kmPerRadian = 40075.0 / Pi2
-  val metresPerRadian: Metres = 40075.km / Pi2
+  val metresPerRadian: Metre = 40075.km / Pi2
   def viewStr: String = "Focus:" -- focus.degStr -- "Scale: " + scale.kmStr2
   def updateView(): Unit = {repaintMap(); setStatus(viewStr) }
   def setFocus(ll: LatLong): Unit = { focus = ll; updateView() }
@@ -20,21 +20,21 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def setView(ev: EarthView): Unit = { focus = ev.latLong; scale = ev.scale; focusUp = ev.up }   
   var focusUp: Boolean = true
   //def focusDown = ! focusUp
-  def ifInvScale: Metres = ife(focusUp, scale, -scale)
+  def ifInvScale: Metre = ife(focusUp, scale, -scale)
   def saveNamePrefix: String = "EarthGui"
   def saveName = saveNamePrefix + ".save"
   def loadView(): Unit = canv.fromFileFindForeach(saveName, newView => setView(newView))   
-  @inline def polyToGlobedArea(latLongs: PolygonLL): OptEither[Metres2s, CurveSegDists] = focus.polyToGlobedArea(latLongs)
-  def latLongToDist2(ll: LatLong): Metres2 = focus.fromFocusDist2(ll)
-  @inline def polyToDist2s(latLongs: PolygonLL): Metres2s =  latLongs.pMap(focus.fromFocusDist2)
-  val trans: Metres2 => Pt2 = _ / ifInvScale
+  @inline def polyToGlobedArea(latLongs: PolygonLL): OptEither[Pt2MArr, CurveSegDists] = focus.polyToGlobedArea(latLongs)
+  def latLongToDist2(ll: LatLong): Pt2M = focus.fromFocusDist2(ll)
+  @inline def polyToDist2s(latLongs: PolygonLL): Pt2MArr =  latLongs.pMap(focus.fromFocusDist2)
+  val trans: Pt2M => Pt2 = _ / ifInvScale
  //  val transSeq: Dist2s => Vec2s = _.map(trans)
   /** Seems to have a bug */
   def latLongToXY(ll: LatLong): Pt2 = trans(focus.fromFocusDist2(ll))
   def optLatLongToXY(ll: LatLong): Option[Pt2] = focus.optFromFocusDist2(ll).map(trans)
-  def optFromFocusDist2(ll: LatLong): Option[Metres2] = focus.optFromFocusDist2(ll)
-  def latLongToDist3(ll: LatLong): PtMs3 = focus.fromFocusMetres(ll)
-  def latLongLineToDist3(inp: LineSegLL): LineSegMs3 = focus.fromFocusLineDist3(inp)
+  def optFromFocusDist2(ll: LatLong): Option[Pt2M] = focus.optFromFocusDist2(ll)
+  def latLongToDist3(ll: LatLong): Pt3M = focus.fromFocusMetres(ll)
+  def latLongLineToDist3(inp: LineSegLL): LineSegM3 = focus.fromFocusLineDist3(inp)
     
   def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0) * ifInvScale / 400.km             
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)  

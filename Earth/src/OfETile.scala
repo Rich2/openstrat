@@ -7,10 +7,10 @@ trait OfEElem[TileT <: TileAncient, SideT <: TileSideAncient] extends OfGridElem
    val eg: EarthGuiOld
    val eGrid: EGridAncient[TileT, SideT]
    override def grid: EGridAncient[TileT, SideT]= eGrid
-   def gridScale: Metres = eGrid.scale
+   def gridScale: Metre = eGrid.scale
    def focus: LatLong = eg.focus   
    override def coodToDispVec2(inp: Cood): Pt2 = eg.trans(eg.latLongToDist2(eGrid.getLL(inp)))
-   def egScale: Metres = eg.scale
+   def egScale: Metre = eg.scale
    override def psc = gridScale / egScale   
 }
 
@@ -22,7 +22,7 @@ OfHex[TileT, SideT, EGridAncient[TileT, SideT]] with OfEElem[TileT, SideT]
    def cen: Pt2 = eg.latLongToXY(cenLL)
    def cenFacing: Boolean = focus.latLongFacing(cenLL)
    def vertLLs: PolygonLL = vertCoods.pMap(eGrid.getLL)
-   def vertDist2s: Metres2s = eg.polyToDist2s(vertLLs)
+   def vertDist2s: Pt2MArr = eg.polyToDist2s(vertLLs)
    override def vertDispVecs: PolygonImp = vertDist2s.pMap(eg.trans)
 }
 

@@ -81,7 +81,7 @@ final class PolygonImp(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
     res
   }
 
-  def distScale(distRatio: Metres): PolygonMs = pMap[Metres2, PolygonMs](p => p.toDist2(distRatio))
+  def distScale(distRatio: Metre): PolygonMs = pMap[Pt2M, PolygonMs](p => p.toDist2(distRatio))
 }
 
 /** Companion object for [[PolygonImp]]. */

@@ -6,22 +6,22 @@ import geom._, pCanv._, Colour._
 case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist2Gui
 {
   statusText = "Choose centreing body."
-  val maxOrbit: Metres = 3700.millionMiles
+  val maxOrbit: Metre = 3700.millionMiles
   var years: Double = 0
   var paused: Boolean = false
   def pausedStr: String = paused.fold("Restart", "Pause")  
   var scale = 0.5.millionMiles
-  override val scaleMax: Metres = 10.millionMiles
-  override val scaleMin: Metres = 100000.miles
+  override val scaleMax: Metre = 10.millionMiles
+  override val scaleMin: Metre = 100000.miles
   val earthDist = 93.millionMiles
   /** Years per second */
    
   mapPanel.backColour = Black
   mapPanel.mouseUp = (a, b, s) => deb(s.toString)
   canv.onScroll = b => { scale = ife(b, (scale * 1.2).min(scaleMax), (scale / 1.2).max(scaleMin)) }
-  case class Planet(dist: Metres, colour: Colour, name: String)
+  case class Planet(dist: Metre, colour: Colour, name: String)
   {
-    var posn: Metres2 = Metres2(dist, 0.metre)
+    var posn: Pt2M = Pt2M(dist, 0.metre)
     //Gets the angle and the multiplies by the scala. (* dist) at end
     
     def move(elapsed: Integer): Unit =

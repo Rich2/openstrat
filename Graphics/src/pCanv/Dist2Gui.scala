@@ -6,18 +6,18 @@ import geom._
 trait Dist2Gui extends MapGui
 {
   /** The Distance represented by one pixel width / height on the screen */
-  var scale: Metres
+  var scale: Metre
   val margin = 35
    
   //(canv.width.subMin(margin, 20) / mapWidth).min(canv.height.subMin(margin, 20) / mapHeight)
-  def scaleMax: Metres
-  def scaleMin: Metres //= scaleAlignedMin.min(10.millionMiles)
+  def scaleMax: Metre
+  def scaleMin: Metre //= scaleAlignedMin.min(10.millionMiles)
 
-  var mapFocus: Metres2 = Metres2(0.km, 0.km)
+  var mapFocus: Pt2M = Pt2M(0.km, 0.km)
   //@inline def setFocus(x: Distouble, y: Double): Unit = mapFocus = Vec2(x, y)
   
-  def scaleAlignedMin: Metres = ??? //mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
-  def scaleRotatedMin: Metres = ??? //(mapWidth.squared + mapHeight.squared) / mapWidth.max(mapHeight).max(0.000001)
+  def scaleAlignedMin: Metre = ??? //mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
+  def scaleRotatedMin: Metre = ??? //(mapWidth.squared + mapHeight.squared) / mapWidth.max(mapHeight).max(0.000001)
    
   val bZoomIn = clickButtonOld("+", zoomInCmd)
   val bZoomOut = clickButtonOld("-", zoomOutCmd)
@@ -31,25 +31,25 @@ trait Dist2Gui extends MapGui
   def zoomOutCmd: MouseButton => Unit = mb => { scale = (scale * 1.5).min(scaleMax); repaintMap() }
 
   /** Translates a point from map position to Canvas Display position */
-  def toCanv(mapPoint: Metres2): Pt2 = (mapPoint - mapFocus).rotate(rotation) / scale
+  def toCanv(mapPoint: Pt2M): Pt2 = (mapPoint - mapFocus).rotate(rotation) / scale
    
   /** Translates a point from Canvas Display position back to Map position */
   def invCanv(canvPoint: Pt2): Pt2 = ??? //(canvPoint / scale).rotate(-rotation) + mapFocus
 
   /** Translates an array of map points to an array of Canvas Display positions */
-  def arrCanv(inp: Metres2s): PolygonImp = inp.pMap(toCanv(_))
+  def arrCanv(inp: Pt2MArr): PolygonImp = inp.pMap(toCanv(_))
 
   final def repaintMap(): Unit =
   { val o2 = mapObjs
     mapPanel.repaint(o2)
   }
    
-  def reFocus(newFocus: Metres2): Unit =
+  def reFocus(newFocus: Pt2M): Unit =
   { mapFocus = newFocus
     repaintMap()
   }
 
-  def adjFocus(adj: Metres2): Unit = reFocus(mapFocus + adj)
+  def adjFocus(adj: Pt2M): Unit = reFocus(mapFocus + adj)
   var rotation: AngleVec = Deg0
 
   implicit class ImpVec2InCanvasMap(thisVec2: Pt2)
