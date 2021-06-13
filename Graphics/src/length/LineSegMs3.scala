@@ -6,8 +6,8 @@ class LineSegMs3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: D
   Dbl6Elem
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
-  def pStart: Metres3 = new Metres3(xStartMs, yStartMs, zStartMs)
-  def pEnd: Metres3 = new Metres3(xEndMs, yEndMs, zEndMs)
+  def pStart: PtMs3 = new PtMs3(xStartMs, yStartMs, zStartMs)
+  def pEnd: PtMs3 = new PtMs3(xEndMs, yEndMs, zEndMs)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineDist3]
   override def dbl1 = xStartMs
   override def dbl2 = yStartMs
@@ -28,6 +28,6 @@ class LineSegMs3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: D
 /** Companion object for [[LineSegMs3]] trait contains apply factory method. */
 object LineSegMs3
 {
-   def apply(pStart: Metres3, pEnd: Metres3): LineSegMs3 = new LineSegMs3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
+   def apply(pStart: PtMs3, pEnd: PtMs3): LineSegMs3 = new LineSegMs3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
        pEnd.xMetres, pEnd.yMetres, pEnd.zMetres)
 }

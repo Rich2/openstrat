@@ -1,12 +1,11 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import utest._
 
 object PersistGeomTest  extends TestSuite
 {
-  val tests = Tests
-  { val vec2a: Pt2 = 56.1 pp -45.2
+  val tests = Tests {
+    val vec2a: Pt2 = 56.1 pp -45.2
     val vec2aSemi = "56.1; -45.2"
     val vec2aComma = "56.1, -45.2"
     val vec2aStd = "Vec2" + vec2aSemi.enParenth
@@ -15,7 +14,7 @@ object PersistGeomTest  extends TestSuite
     val vec2bComma = "-0.01, 0.02"
     val vec2bStd: String = "Vec2" + vec2bSemi.enParenth
 
-    "Vec2Test" -
+    test("Vec2Test")
     { /*assert(vec2a.toString == vec2aStd)
       assert(vec2a.str == vec2aStd)
       assert(vec2a.str == vec2aStd)
@@ -29,7 +28,7 @@ object PersistGeomTest  extends TestSuite
     val l1 = LineSeg(vec2a, vec2b)
     val lineSegStd: String = "LineSeg(" + vec2aComma + "; " + vec2bComma + ")"
     
-    "Line2Test" -
+    test("Line2Test")
     { /*assert(l1.toString == lineSegStd)
       assert(l1.str == lineSegStd)
       assert(l1.str == lineSegStd)
@@ -38,7 +37,7 @@ object PersistGeomTest  extends TestSuite
      // assert(l1.strComma == vec2aStd + ", " + vec2bStd)
     }
     
-    "OtherTest" -
+    test("OtherTest")
     { //assert(Pt3(3.1, -4, 5).str == "Vec3(3.1; -4; 5)")
     }
   }

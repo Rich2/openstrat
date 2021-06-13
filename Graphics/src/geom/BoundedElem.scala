@@ -19,7 +19,7 @@ trait BoundedElem extends GeomElem
   /** The centre of the bounding rectangle. consider also using cenDefault. */
   @inline final def boundCen: Pt2 = boundingRect.cen
 
-  /** If the geometric element has a defined centre then the cenDefualt uses that, else it defaults to the centre of the bounding rectangle. */
+  /** If the geometric element has a defined centre then the cenDefault uses that, else it defaults to the centre of the bounding rectangle. */
   def cenDefault: Pt2 = boundingRect.cen
 }
 

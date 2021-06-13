@@ -13,7 +13,7 @@ case class Panel(private val outerCanv: CanvasPanelled, clipPoly: Polygon, cover
   override def toString: String = "Panel:" -- clipPoly.toString
 
   /** The position of the centre of the Panel on the underlying canvas. */
-  val clipCen: Pt2 = clipPoly.polyCentre
+  val clipCen: Pt2 = clipPoly.cenPt
   val clipVec: Vec2 = clipPoly.cenVec
   def width = clipPoly.boundingWidth
   def height = clipPoly.boundingHeight

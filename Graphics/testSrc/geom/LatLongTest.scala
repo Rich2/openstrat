@@ -2,15 +2,14 @@
 package ostrat; package geom
 import utest._
 
-object LatLongTest   extends TestSuite
+object LatLongTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     val ll1 = 44 ll 46
     val ll2 = 43 ll 45
     val ll3 = ll2.subLongRadians(226.degsToRadians)
     
-    "AddLongitude" -
+    test("AddLongitude")
     { assert(ll1.latDegs =~ 44)
       assert(ll1.longDegs =~ 46)
       assert(ll1.addLongRadians(4.degsToRadians).longDegs =~ 50)
@@ -30,11 +29,9 @@ object LatLongTest   extends TestSuite
     //val ll4 = 0 ll 0
     //val m4 = ll4.toMetres3
     //debvar(m4)
-    "Persist" -
-    {
-      44.north.str ==> "44.0N"
+    test("Persist")
+    { 44.north.str ==> "44.0N"
       77.52.south.str ==> "77.52S"
     }
-
   }
 }

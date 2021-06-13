@@ -5,8 +5,7 @@ import utest._
 
 object CurveTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     val ls1 = LineTail(4 pp 56)
     val as1 = ArcTail(4 pp 4, 6 pp 4)
     val as2 = as1.scale(2)
@@ -16,7 +15,7 @@ object CurveTest extends TestSuite
     val ls3 = ls2.slateXY(50, -50)
     val css = ShapeGenOld(ls1, ls2, ls3)
 
-    "Test1" -
+    test("Test1")
     { ls1 ==> CurveTail(10, 0, 0, 0, 0, 4, 56)
       as1 ==> CurveTail(11, 0, 0, 4, 4, 6, 4)
       as2 ==> as3

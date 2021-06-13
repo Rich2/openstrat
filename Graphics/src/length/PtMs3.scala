@@ -2,8 +2,8 @@
 package ostrat; package geom
 import math._
 
-/** 3 dimensional vector using metres as units rather than pure numbers. */
-final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends Length3 with Dbl3Elem
+/** 3 dimensional point specified using metres as units rather than pure numbers. */
+final class PtMs3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends Length3 with Dbl3Elem
 { def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetres.toString, yMetres.toString, zMetres.toString)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
@@ -15,7 +15,7 @@ final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Doubl
   def z: Metres = Metres(zMetres)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
-  @inline def dot(operand: Metres3): Area = x * operand.x + y * operand.y + z * operand.z
+  @inline def dot(operand: PtMs3): Area = x * operand.x + y * operand.y + z * operand.z
   def xy: Metres2 = new Metres2(xMetres, yMetres)
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg
@@ -29,8 +29,8 @@ final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Doubl
   /** Converts this Metres3 point to a Some[Metres2] point of the X and Y values, returns None if the Z value is negative. */
   def toXYIfZPositive: Option[Metres2] = ifZPos(Some(Metres2(x, y)), None)
 
-  /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[Metres3]] point. */
-  def xRotateRadians(rotationRadians: Double): Metres3 =
+  /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[PtMs3]] point. */
+  def xRotateRadians(rotationRadians: Double): PtMs3 =
   { val scalar: Metres = Metres(sqrt(y.metres * y.metres + z.metres * z.metres))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
@@ -40,26 +40,26 @@ final class Metres3(val xMetres: Double, val yMetres: Double, val zMetres: Doubl
                       atan(y / z))//This operates on the standard atan range -Pi/2 to pi/2
 
     val ang1 = ang0 + rotationRadians
-    Metres3(x, sin(ang1) * scalar, cos(ang1) * scalar)
+    PtMs3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }
 }
 
 /** Companion object for the Metres3 class. */
-object Metres3
+object PtMs3
 {
-  def metres(xMetres: Double, yMetres: Double, zMetres: Double): Metres3 = new Metres3(xMetres, yMetres, zMetres)
-  def apply(x: Metres, y: Metres, z: Metres): Metres3 = new Metres3(x.metres, y.metres, z.metres)
+  def metres(xMetres: Double, yMetres: Double, zMetres: Double): PtMs3 = new PtMs3(xMetres, yMetres, zMetres)
+  def apply(x: Metres, y: Metres, z: Metres): PtMs3 = new PtMs3(x.metres, y.metres, z.metres)
   //implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
   var counter = 0
 }
 
-/** Collection class for Metres3s. Not clear if this a Polygon equivalent or a Vec3s equivalent */
-class Metre3s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sArr[Metres3]
-{ type ThisT = Metre3s
-  def unsafeFromArray(array: Array[Double]): ThisT = new Metre3s(array)
+/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonMs]] and[[LinePathMs]] classes are not appropriate. */
+class PtMs3s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sArr[PtMs3]
+{ type ThisT = PtMs3s
+  def unsafeFromArray(array: Array[Double]): ThisT = new PtMs3s(array)
   override def typeStr: String = "Metres3s"
-  override def fElemStr: Metres3 => String = _ => "Undefined" //_.str
-  override def newElem(d1: Double, d2: Double, d3: Double): Metres3 = new Metres3(d1, d2, d3)
+  override def fElemStr: PtMs3 => String = _ => "Undefined" //_.str
+  override def newElem(d1: Double, d2: Double, d3: Double): PtMs3 = new PtMs3(d1, d2, d3)
 
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
    *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative
@@ -103,6 +103,10 @@ class Metre3s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sArr[Metre
   }
 }
 
-object Metre3s
-{ implicit val factory: Int => Metre3s = i => new Metre3s(new Array[Double](i * 3))
+object PtMs3s extends Dbl3sArrCompanion[PtMs3, PtMs3s]
+{
+  implicit val factory: Int => PtMs3s = i => new PtMs3s(new Array[Double](i * 3))
+  override implicit val persistImplicit: DblNsArrPersist[PtMs3, PtMs3s] = ???
+
+  override def fromArrayDbl(array: Array[Double]): PtMs3s = new PtMs3s(array)
 }

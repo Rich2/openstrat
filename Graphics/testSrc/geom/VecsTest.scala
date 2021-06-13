@@ -1,16 +1,14 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import utest._
 
 /** Was called LinePath. */
 object VecsTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     val v1s: LinePath = LinePath(2.1 pp 0, 5.4 pp 0)
 
-    "Test0" -
+    test("Test0")
     {
      // assert(v1s.str == "LinePath(2.1, 0; 5.4, 0)")
     }
@@ -25,7 +23,7 @@ object VecsTest extends TestSuite
     val vs3 = Ints(1, 2, 3).map(i => i pp i)
     val cf = vs3.toPolygon.fill(Colour.Red)
 
-    "Test1" -
+    test("Test1")
     { v21 ==> Pt2(4, 4)
       vs0(2) ==> v23
       v31 ==> Pt3(-2.4, 54.6, 34.7)

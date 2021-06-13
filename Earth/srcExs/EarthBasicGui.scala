@@ -10,9 +10,11 @@ case class EarthBasicGui(canv: CanvasPlatform) extends CmdBarGui("The Earth in i
   thisTop()
 
   val eas: Arr[EarthLevel2] =  Arr(AfricaWest, AfricaEast, AfricaSouthern).flatMap(_.a2Arr)
-  val af0 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / 10.km).draw() } //fill(a.colour) }
+  val af0 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / 10.km).fill(a.colour) }
+  val af1 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / 10.km).draw() }
+ // val af2 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / 10.km).drawT draw() }
 
-  mainRepaint(af0)
+  mainRepaint(af0 ++ af1)
 }
 
 /** object to launch EarthBasic Gui. */

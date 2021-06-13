@@ -7,9 +7,8 @@ object TCoordTest extends TestSuite
   val hc1 = HCen(6, 2)
   val hc2 = HCen(6, 10)
 
-  val tests = Tests
-  {
-    "test1" -
+  val tests = Tests {
+    test("test1")
       { 10.base32 ==> "A"
         hc1.strComma ==> "6, 2"
         hc2.strComma ==> "6, A"

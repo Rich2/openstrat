@@ -209,7 +209,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double]
   /** Determines if the parameter point lies inside this Polygon. */
   def ptInside(pt: Pt2): Boolean = toLineSegs.ptInPolygon(pt)
 
-  def polyCentre: Pt2 = boundingRect.cen
+  /** The centre point of this Polygon. The default centre for Polygons is the centre of the bounding rectangle. */
+  def cenPt: Pt2 = boundingRect.cen
   def cenVec: Vec2 = boundingRect.cenVec
 
   def sline(index: Int): LineSeg =

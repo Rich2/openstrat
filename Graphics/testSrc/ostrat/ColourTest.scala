@@ -4,8 +4,7 @@ import utest._//, Colour._
 
 object ColourTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     //val c1 = Black
    // val s1 = c1.str
     /*val e1 = s1.findType[Colour]
@@ -16,7 +15,7 @@ object ColourTest extends TestSuite
     val s4 = c4.str
     val m4 = s4.findType[Colour]*/
 
-    "Test1" -
+    test("Test1")
     {
      // s1 ==> "Black"
       /*e1 ==> Good(Black)
