@@ -6,7 +6,6 @@ object AfricaSouthern extends EarthLevel1("AfricaSouthern", -16.14 ll 24.36)
 { type A2Type = EarthLevel2
   import AfricaSouthernPts._
   override val a2Arr: Arr[EarthLevel2] = Arr(lakeVictoria, sAfrica, cAfrica, seAfrica, madagascar)
-  //override val gridMaker = E80Empty
 }
 
 object AfricaSouthernPts
@@ -21,8 +20,8 @@ object AfricaSouthernPts
   val sAfricaN = 17.south
   val cAfricaSE = sAfricaN * 31.east
 
-  val cAfrica: EarthLevel2 =  EarthLevel2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba, WestAfricaSouth.cAfricaNW,
-    WestAfricaSouth.southEast, AfricaNorthEast.cAfricaNE, katongaMouth, lakeVictoriaSW, cAfricaSE)
+  val cAfrica: EarthLevel2 =  EarthLevel2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba,
+    WestAfricaSouth.cAfricaNW, WestAfricaSouth.southEast, AfricaNorthEast.cAfricaNE, katongaMouth, lakeVictoriaSW, cAfricaSE)
 
   val lakeVictoriaSE = -2.23 ll 33.84
   val lakeVictoriaE = -0.39 ll 34.26
