@@ -32,6 +32,12 @@ trait DblNsArr[A <: DblNElem] extends Any with ValueNsArr[A] with ArrayDblBased
 
   /** The number of Doubles, that specify / construct an element of this immutable flat Array based collection class. */
   def elemProductNum: Int
+
+  def reverse: ThisT =
+  { val res: ThisT = unsafeNew(elemsLen)
+    iForeach{(el, i) => res.unsafeSetElem(elemsLen - 1 - i, el)}
+    res
+  }
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsArr]] final classes. Instances for the [[ArrTBuilder]] type

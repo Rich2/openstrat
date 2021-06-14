@@ -33,7 +33,7 @@ object AfricaSouthernPts
 
   val victoriaShore = LinePathLL(lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN, katongaMouth)
 
-  val lakeVictoria = EarthLevel2("LVictoria", -1 ll 34, lake, victoriaShore.close)
+  val lakeVictoria = EarthLevel2("LVictoria", -1 ll 34, lake, victoriaShore.reverse.close)
 
   val seAfricaPoly = (cAfricaSE +: victoriaShore).close(AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa,
     seNacala, sAfricaNE)
