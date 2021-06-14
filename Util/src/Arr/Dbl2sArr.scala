@@ -72,6 +72,7 @@ trait Dbl2SArrCombinedBuilders[B <: Dbl2Elem, ArrB <: Dbl2sArr[B]] extends DblNs
 trait Dbl2sArrCompanion[A <: Dbl2Elem, ArrA <: Dbl2sArr[A]] extends DblNsArrCompanion[A, ArrA]
 { final def elemSize: Int = 2
 
+  /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
   final def apply(elems: A*): ArrA =
   {
     val length = elems.length

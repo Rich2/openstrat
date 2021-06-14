@@ -5,7 +5,7 @@ import geom._, LatLong._, WTile._
 object AfricaSouthern extends EarthLevel1("AfricaSouthern", -16.14 ll 24.36)
 { type A2Type = EarthLevel2
   import AfricaSouthernPts._
-  override val a2Arr: Arr[EarthLevel2] = Arr(sAfrica, cAfrica, sEAfrica, madagascar)
+  override val a2Arr: Arr[EarthLevel2] = Arr(sAfrica, cAfrica, seAfrica, madagascar)
   //override val gridMaker = E80Empty
 }
 
@@ -23,7 +23,7 @@ object AfricaSouthernPts
 
   val cAfrica: EarthLevel2 =  EarthLevel2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba, WestAfricaSouth.cAfricaNW,
     WestAfricaSouth.southEast, AfricaNorthEast.cAfricaNE, katongaMouth, lakeVictoriaSW, cAfricaSE)
-   
+
   val lakeVictoriaSE = -2.23 ll 33.84
   val lakeVictoriaE = -0.39 ll 34.26
   val lakeVictoriaN = 0.34 ll 33.34
@@ -31,8 +31,13 @@ object AfricaSouthernPts
   val mombassa = -4.03 ll 39.28
   val seNacala = -14.4 ll 40.3
   val sAfricaNE = -17 ll 39.06
-  val sEAfrica: EarthLevel2 = EarthLevel2("SEAfrica", -2.17 ll 36.64, plain, cAfricaSE, lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN,
+
+  val victoriaShore = LinePathLL(lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN)
+
+  val seAfricaPoly = PolygonLL(cAfricaSE, lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN,
     katongaMouth, AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa, seNacala, sAfricaNE)
+
+  val seAfrica: EarthLevel2 = EarthLevel2("SEAfrica", -2.17 ll 36.64, plain, seAfricaPoly)
    
   val agulhas = degs(-34.83, 20.00)
   val capeTown = degs(-34, 19)

@@ -11,4 +11,22 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
 
   /** closes this LinePathLL into a [[PolygonLL]] with a line Segment from the last point to the first point. */
   @inline def close: PolygonLL = new PolygonLL(arrayUnsafe)
+
+  def +: (newElem: LatLong): LinePathLL =
+  { val res = LinePathLL.uninitialised(elemsLen + 1)
+    res.unsafeSetElem(0, newElem)
+    iForeach{(ll, i) => res.unsafeSetElem(i + 1, ll) }
+    res
+  }
+
+  def close(newElems: LatLong*): PolygonLL =
+  { val res = PolygonLL.uninitialised(elemsLen + newElems.length)
+    arrayUnsafe.copyToArray(res.arrayUnsafe)
+    newElems.iForeach((ll, i) => res.unsafeSetElem(elemsLen + i, ll))
+    res
+  }
+}
+
+object LinePathLL extends Dbl2sArrCompanion[LatLong, LinePathLL]
+{ override def fromArrayDbl(array: Array[Double]): LinePathLL = new LinePathLL(array)
 }
