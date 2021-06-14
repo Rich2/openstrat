@@ -5,7 +5,7 @@ import geom._, LatLong._, WTile._
 object AfricaSouthern extends EarthLevel1("AfricaSouthern", -16.14 ll 24.36)
 { type A2Type = EarthLevel2
   import AfricaSouthernPts._
-  override val a2Arr: Arr[EarthLevel2] = Arr(sAfrica, cAfrica, seAfrica, madagascar)
+  override val a2Arr: Arr[EarthLevel2] = Arr(lakeVictoria, sAfrica, cAfrica, seAfrica, madagascar)
   //override val gridMaker = E80Empty
 }
 
@@ -34,8 +34,10 @@ object AfricaSouthernPts
 
   val victoriaShore = LinePathLL(lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN)
 
-  val seAfricaPoly = PolygonLL(cAfricaSE, lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN,
-    katongaMouth, AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa, seNacala, sAfricaNE)
+  val lakeVictoria = EarthLevel2("LVictoria", -1 ll 34, sea, victoriaShore.close)
+
+  val seAfricaPoly = (cAfricaSE +: victoriaShore).close(katongaMouth, AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa,
+    seNacala, sAfricaNE)
 
   val seAfrica: EarthLevel2 = EarthLevel2("SEAfrica", -2.17 ll 36.64, plain, seAfricaPoly)
    
