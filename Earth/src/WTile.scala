@@ -31,15 +31,22 @@ object WTile
   val ice : WTile = Land(Plains, IceCap)
   val sice: WTile = SeaIce
   val sea: WTile = Ocean
+  val lake: WTile = Lake
   val mtain: WTile = Land(Mountains)
 }
 
 trait Water extends WTile
-{ def colour = Blue
+{
 }
 
-case object Ocean extends Water { def str = "Ocean" }
-case object Lake extends Water { def str = "Lake" }
+case object Ocean extends Water
+{ def str = "Ocean"
+  def colour = Blue
+}
+case object Lake extends Water
+{ def str = "Lake"
+  def colour = Blue
+}
 
 object TerrainNone extends WTile
 { override def str = "No terrain"
