@@ -20,8 +20,10 @@ object AfricaSouthernPts
   val sAfricaN = 17.south
   val cAfricaSE = sAfricaN * 31.east
 
+  val centralAfrWestCoast = LinePathLL(sAfricaNW, baiaFarta, luanda, wAfricaEquator)
+
   val cAfrica: EarthLevel2 =  EarthLevel2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba,
-    WestAfricaSouth.cAfricaNW, WestAfricaSouth.southEast, AfricaNorthEast.cAfricaNE, katongaMouth, lakeVictoriaSW, cAfricaSE)
+    AfricaWestPts.cAfricaNW, AfricaWestPts.westAfricaPtSE, AfricaNorthEast.cAfricaNE, katongaMouth, lakeVictoriaSW, cAfricaSE)
 
   val lakeVictoriaSE = -2.23 ll 33.84
   val lakeVictoriaE = -0.39 ll 34.26

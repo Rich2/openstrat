@@ -62,10 +62,10 @@ object AfricaNorthEast extends EarthLevel2("NEAfrica", 9 ll 32, plain)
   val iskushuban1 = 10.44 ll 51.41
   val iskushuban2 = 10.31 ll 50.90
   val rasMacbar = 9.47 ll 50.85
-   
-  val southEast = WestAfricaSouth.cAfricaN * 48.east
-  val cAfricaNE = WestAfricaSouth.cAfricaN * 32.east
+
+  val southEast = AfricaWestPts.cAfricaN * 48.east
+  val cAfricaNE = AfricaWestPts.cAfricaN * 32.east
     
-  val polygonLL: PolygonLL = PolygonLL(WestAfricaSouth.southEast, SaharaWest.southEast, SaharaEast.southEast, dankalia, berbera, hornAfrica, iskushuban1,
+  val polygonLL: PolygonLL = PolygonLL(AfricaWestPts.westAfricaPtSE, SaharaWest.southEast, SaharaEast.southEast, dankalia, berbera, hornAfrica, iskushuban1,
     iskushuban2, rasMacbar, southEast, cAfricaNE)
 }
