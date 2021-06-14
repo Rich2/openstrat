@@ -44,4 +44,8 @@ object EarthLevel2
   def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EarthLevel2(symName, cen, terr)
   { val polygonLL = PolygonLL(latLongArgs: _*)
   }
+
+  def apply(symName: String, cen: LatLong, terr: WTile, polygonIn: PolygonLL) = new EarthLevel2(symName, cen, terr)
+  { val polygonLL = polygonIn
+  }
 }
