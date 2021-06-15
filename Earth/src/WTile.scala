@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, Colour._
+import Colour._
 
 trait WTile extends WithColour
 { def str: String
@@ -41,7 +41,7 @@ trait Water extends WTile
 
 case object Ocean extends Water
 { def str = "Ocean"
-  def colour = Blue
+  def colour = DarkBlue
 }
 case object Lake extends Water
 { def str = "Lake"
