@@ -114,6 +114,11 @@ lazy val DevJs2 = js2Proj("Dev").dependsOn(EarthJs2).settings(
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs").map(s => (ThisBuild/baseDirectory).value / s),
 )
 
+lazy val WW2Js2 = js2Proj("WW2").dependsOn(EarthJs2).settings(
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/WW2Js").map(s => (ThisBuild/baseDirectory).value / s),
+ // Compile/mainClass	:= Some("ostrat.pSJs.Ww2JsApp"),
+)
+
 lazy val DevNat2 = nat2Proj("Dev").dependsOn(EarthNat2).settings(
   resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
   Compile/resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
