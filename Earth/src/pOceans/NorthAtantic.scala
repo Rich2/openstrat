@@ -2,10 +2,9 @@
 package ostrat; package pEarth
 import geom._, WTile._
 
-object AtlanticNorth extends EarthLevel1("NAtlantic", 60 ll -30)
-{ 
-  // override val gridMaker = E80Empty   
-   override val a2Arr: Arr[EarthLevel2] = Arr(Iceland)
+/** The North Atlantic. The seas and the land of the north Atlantic. */
+object NorthAtantic extends EarthLevel1("NAtlantic", 60 ll -30)
+{ override val a2Arr: Arr[EarthLevel2] = Arr(Iceland)
 }
 
 object Iceland extends EarthLevel2("Iceland", 64.78 ll -18.07, taiga)
