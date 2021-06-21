@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import Colour.Black
 
 /** The generalised implementation of a [[Shape]]. A closed sequence of curve segments. An Array[Double] based collection for a sequence of CurveSegs,

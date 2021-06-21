@@ -10,7 +10,7 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sA
   override def unsafeFromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
   override def typeStr: String = "PolygonMs3"
   override def fElemStr: Pt3M => String = _.toString
-  def xyPlane: PolygonM = this.mapPolygonMs(_.xy)
+  def xyPlane: PolygonM = this.mapPolygonM(_.xy)
 }
 
 /** Companion object for PolygonM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */

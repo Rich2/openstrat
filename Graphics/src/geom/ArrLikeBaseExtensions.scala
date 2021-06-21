@@ -9,8 +9,11 @@ class ArrLikeBaseExtensions[A](val al : ArrayLikeBase[A])
   def mapPolygonLL(f: A => LatLong): PolygonLL = PolygonLL.fromArrMap(al)(f)
 
   /** Map this collection elements to [[Pt3M]]s building a [[PolygonM3]]. */
-  def mapPolygonMs3(f: A => Pt3M): PolygonM3 = PolygonM3.fromArrMap(al)(f)
+  def mapPolygonM3(f: A => Pt3M): PolygonM3 = PolygonM3.fromArrMap(al)(f)
 
   /** Map this collection elements to [[Pt2M]]s building a [[PolygonM2]]. */
-  def mapPolygonMs(f: A => Pt2M): PolygonM = PolygonM.fromArrMap(al)(f)
+  def mapPolygonM(f: A => Pt2M): PolygonM = PolygonM.fromArrMap(al)(f)
+
+  /** Map this collection elements to [[Pt2M]]s building a [[Pt2MArr]]. */
+  def mapPt2MArr(f: A => Pt2M): Pt2MArr = Pt2MArr.fromArrMap(al)(f)
 }
