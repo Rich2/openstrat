@@ -53,7 +53,7 @@ object Pt3M
   var counter = 0
 }
 
-/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonMs]] and[[LinePathMs]] classes are not appropriate. */
+/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM]] and[[LinePathMs]] classes are not appropriate. */
 class Pt3MArr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sArr[Pt3M]
 { type ThisT = Pt3MArr
   def unsafeFromArray(array: Array[Double]): ThisT = new Pt3MArr(array)

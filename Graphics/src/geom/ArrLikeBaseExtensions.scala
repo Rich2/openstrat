@@ -12,5 +12,5 @@ class ArrLikeBaseExtensions[A](val al : ArrayLikeBase[A])
   def mapPolygonMs3(f: A => Pt3M): PolygonM3 = PolygonM3.fromArrMap(al)(f)
 
   /** Map this collection elements to [[Pt2M]]s building a [[PolygonM2]]. */
-  def mapPolygonMs(f: A => Pt2M): PolygonMs = PolygonMs.fromArrMap(al)(f)
+  def mapPolygonMs(f: A => Pt2M): PolygonM = PolygonM.fromArrMap(al)(f)
 }

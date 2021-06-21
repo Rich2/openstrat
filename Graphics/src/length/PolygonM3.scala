@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
- *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonMs]]s on world
+ *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM]]s on world
  *  maps. */
 final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sArr[Pt3M]
 { override type ThisT = PolygonM3
@@ -10,7 +10,7 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sA
   override def unsafeFromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
   override def typeStr: String = "PolygonMs3"
   override def fElemStr: Pt3M => String = _.toString
-  def xyPlane: PolygonMs = this.mapPolygonMs(_.xy)
+  def xyPlane: PolygonM = this.mapPolygonMs(_.xy)
 }
 
 /** Companion object for PolygonM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */
