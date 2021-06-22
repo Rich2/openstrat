@@ -10,7 +10,7 @@ class Dbls(val arrayUnsafe: Array[Double]) extends AnyVal with ArrImut[Double]
   override def elemsLen: Int = arrayUnsafe.length
   override def apply(index: Int): Double = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Double): Unit = arrayUnsafe(i) = value
-  override def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
+  def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
   def ++ (op: Dbls): Dbls =
   { val newArray = new Array[Double](elemsLen + op.elemsLen)

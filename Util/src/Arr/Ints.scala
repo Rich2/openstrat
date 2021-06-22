@@ -10,7 +10,7 @@ final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with ArrImut[Int]
   override def elemsLen: Int = arrayUnsafe.length
   override def apply(index: Int): Int = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Int): Unit = arrayUnsafe(i) = value
-  override def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
+  def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
   /** Alias for appendInts. Functionally appends the operand Ints. */
   @inline def ++ (op: Ints): Ints = appendInts(op)

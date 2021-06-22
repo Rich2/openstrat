@@ -10,7 +10,7 @@ class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with ArrImut[Float]
   override def elemsLen: Int = arrayUnsafe.length
   override def apply(index: Int): Float = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = arrayUnsafe(i) = value
-  override def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
+  def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
 
 

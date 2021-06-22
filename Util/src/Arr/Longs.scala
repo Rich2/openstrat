@@ -5,12 +5,15 @@ import collection.mutable.ArrayBuffer
 /** Immutable Array based class for [[Long]]s. */
 class Longs(val arrayUnsafe: Array[Long]) extends AnyVal with ArrImut[Long]
 { type ThisT = Longs
+
+  /** Copy's the backing Array[[Long]] to a new Array[char]. End users should rarely have to use this method. */
+  def unsafeArrayCopy(operand: Array[Long], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
+
   override def typeStr: String = "Longs"
   override def unsafeNew(length: Int): Longs = new Longs(new Array[Long](length))
   override def elemsLen: Int = arrayUnsafe.length
   override def apply(index: Int): Long = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = arrayUnsafe(i) = value
-  override def unsafeArrayCopy(operand: Array[Long], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Long => String = _.toString
 
   def ++ (op: Longs): Longs =

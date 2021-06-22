@@ -5,12 +5,15 @@ import scala.collection.mutable.ArrayBuffer
 /** An immutable Array based class for [[Boolean]]s. */
 class Booleans(val array: Array[Boolean]) extends AnyVal with ArrImut[Boolean]
 { type ThisT = Booleans
-  override def typeStr: String = "Booleans"
+
+  /** Copy's the backing Array[[Boolean]] to a new Array[char]. End users should rarely have to use this method. */
   override def unsafeNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))
+  override def typeStr: String = "Booleans"
+
   override def elemsLen: Int = array.length
   override def apply(index: Int): Boolean = array(index)
   override def unsafeSetElem(i: Int, value: Boolean): Unit = array(i) = value
-  override def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
+  def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
   override def fElemStr: Boolean => String = _.toString
 
   def ++ (op: Booleans): Booleans =

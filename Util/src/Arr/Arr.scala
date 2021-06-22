@@ -8,6 +8,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 { type ThisT = Arr[A]@uncheckedVariance
   override def typeStr: String = "Arr"
 
+  /** Copy's the backing Array[[AnyRef]] to a new Array[char]. End users should rarely have to use this method. */
   override def unsafeNew(length: Int): Arr[A] = new Arr(new Array[AnyRef](length).asInstanceOf[Array[A]])
 
   override def elemsLen: Int = unsafeArr.length
@@ -42,7 +43,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   def offset0: ArrOff[A @uncheckedVariance] = offset(0)
 
   /** Copies the backing Array to the operand Array. */
-  override def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
+  def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
   { unsafeArr.copyToArray(unsafeArr, offset, copyLength); () }
 
   /** Returns a new shorter Arr with the head elements removed. */

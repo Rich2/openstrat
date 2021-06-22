@@ -4,12 +4,16 @@ package ostrat
 /** Efficient immutable Array based collection for Chars. */
 final class Chars(val arrayUnsafe: Array[Char]) extends AnyVal with ArrImut[Char]
 { type ThisT = Chars
+
+  /** Copy's the backing Array[[Char]] to a new Array[char]. End users should rarely have to use this method */
+  def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
+
   override def typeStr: String = "Chars"
   override def unsafeNew(length: Int): Chars = new Chars(new Array[Char](length))
   override def elemsLen: Int = arrayUnsafe.length
   override def apply(index: Int): Char = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Char): Unit = arrayUnsafe(i) = value
-  override def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
+
   override def fElemStr: Char => String = _.toString
 
   /** Append another Chars collection. */
