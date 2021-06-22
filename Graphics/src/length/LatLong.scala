@@ -68,9 +68,6 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   /** Get the XY point from a focus with latitude 0 */
   def xyLat0: Pt2 = Pt2(longRadians.sine * latRadians.sine, latRadians.sine)
 
-  /** Note this method does not check which side of the earth relative to viewer the polygon verts are */
-  def polyToMArr(inp: PolygonLL): Pt2MArr = inp.mapPt2MArr(fromFocusDist2)// PolygonMs(fromFocusDist2)
-
   def polyToGlobedArea(inp: PolygonLL): OptEither[Pt2MArr, CurveSegDists] =
   { val d3s: Pt3MArr = inp.pMap(el => fromFocusMetres(el))
     d3s.earthZPositive

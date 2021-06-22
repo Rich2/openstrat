@@ -25,17 +25,24 @@ trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsArr[A]
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3)))
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[ArrTBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. Instances for
- *  [[ArrTFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
- *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl3SArrCombinedBuilders[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrCombinedBuilders[B, ArrB]
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[ArrTBuilder]] type class, for classes /
+ *  traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because to
+ *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrBuilder[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
   final override def elemSize = 3
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl2; arr.arrayUnsafe(index * 3 + 2) = value.dbl3
   }
+}
+
+/** Trait for creating the [[ArrTFlatBuilder]] type class instances for [[Dbl3Arr]] final classes. Instances for the  for classes / traits you
+ *  control, should go in the companion object of Instances for [[ArrTFlatBuilder] should go in the companion object the ArrT final class.
+ *  The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait Dbl3sArrFlatBuilder[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrFlatBuilder[B, ArrB]
+{ type BuffT <: Dbl3sBuffer[B]
+  final override def elemSize = 3
 }
 
 /** Persists [[Dbl3sArr]]s. */

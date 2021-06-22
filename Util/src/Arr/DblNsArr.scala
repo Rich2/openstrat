@@ -40,6 +40,32 @@ trait DblNsArr[A <: DblNElem] extends Any with ValueNsArr[A] with ArrayDblBased
   }
 }
 
+/** Trait for creating the ArrTBuilder type class instances for [[DblNsArr]] final classes. Instances for the [[ArrTBuilder]] type class, for classes
+ *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
+ *  ```map(f: A => B): ArrB``` function. */
+trait DblNsArrBuilder[B <: DblNElem, ArrB <: DblNsArr[B]] extends ValueNsArrBuilder[B, ArrB]
+{ type BuffT <: DblNsBuffer[B]
+  def fromDblArray(array: Array[Double]): ArrB
+  def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
+  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
+  final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemSize))
+  final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.buffer.toArray)
+  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
+  final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
+}
+
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsArr]] final classes. Instances for the [[ArrTBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
+ *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait DblNsArrFlatBuilder[B <: DblNElem, ArrB <: DblNsArr[B]] extends ValueNsArrFlatBuilder[B, ArrB]
+{ type BuffT <: DblNsBuffer[B]
+  def fromDblArray(array: Array[Double]): ArrB
+  def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
+  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
+  final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.buffer.toArray)
+  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
+}
+
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsArr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */

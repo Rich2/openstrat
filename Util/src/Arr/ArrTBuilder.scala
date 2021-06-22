@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import reflect.ClassTag, scala.annotation.unused
+import reflect.ClassTag, annotation.unused
 
 /** A common trait inherited by [[ArrTBuilder]] and [[ArrTFlatBuider]]. */
 trait ArrTBuilderCommon[ArrB <: ArrImut[_]]
@@ -10,6 +10,7 @@ trait ArrTBuilderCommon[ArrB <: ArrImut[_]]
   type BuffT <: ArrayLike[_]
   def newBuff(length: Int = 4): BuffT
   def buffToArr(buff: BuffT): ArrB
+
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrB): Unit
 }
