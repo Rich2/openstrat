@@ -44,7 +44,11 @@ object Pt2s extends Dbl2sArrCompanion[Pt2, Pt2s]
   { override def fromArray(value: Array[Double]): Pt2s = new Pt2s(value)
   }
 
-  implicit val arrFlatBuilderImplicit: ArrTFlatBuilder[Pt2s] = Pt2.combinedBuildersImplicit
+  implicit val arrFlatBuilderImplicit: ArrTFlatBuilder[Pt2s] =  new Dbl2SArrFlatBuilder[Pt2, Pt2s]
+  { override type BuffT = Pt2Buff
+    override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
+  }
 
   implicit val slateImplicit: Slate[Pt2s] = (obj: Pt2s, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Pt2s] = (obj: Pt2s, operand: Double) => obj.scale(operand)

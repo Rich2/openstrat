@@ -5,8 +5,7 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
  *  [[Vec2]] instead. Thanks to René Descartes for this. */
 final class Pt2(val x: Double, val y: Double) extends Vec2Like
-{
-  override def typeStr: String = "Pt2"
+{ override def typeStr: String = "Pt2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
   @inline override def show1: Double = x
   @inline override def show2: Double = y
@@ -253,18 +252,14 @@ object Pt2
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))
   def circlePtClockwise(angle: Double): Pt2 = Pt2(cos(angle), - sin(angle))
 
-  implicit class Vec2IterableExtension(thisIter: Iterable[Pt2])
-  { //def toPolygon: PolygonImp = thisIter.toArrProdHomo
-  }
-
   implicit val persistImplicit: Persist2Dbls[Pt2] = new Persist2Dbls[Pt2]("Pt2", "x", "y", apply)
   implicit val eqTImplicit: EqT[Pt2] = (pt1, pt2) => pt1.x == pt2.x & pt1.y == pt2.y
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
-  implicit val combinedBuildersImplicit: Dbl2SArrCombinedBuilders[Pt2, Pt2s] = new Dbl2SArrCombinedBuilders[Pt2, Pt2s]
-  { type BuffT = Pt2Buff
+  implicit val buildersImplicit: Dbl2sArrBuilder[Pt2, Pt2s] = new Dbl2sArrBuilder[Pt2, Pt2s]
+  { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
-    def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
   implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
