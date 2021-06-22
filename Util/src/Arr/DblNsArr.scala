@@ -93,14 +93,11 @@ trait DblNsBuffer[A <: DblNElem] extends Any with ValueNsBuffer[A]
 
 /** Helper trait for Companion objects of [[DblNsArr]] classes. */
 trait DblNsArrCompanion[A <: DblNElem, ArrA <: DblNsArr[A]] extends ValueNArrCompanion[A, ArrA]
-{
-  //val persistImplicit: DblNsArrPersist[A, ArrA]
-
+{ /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArrayDbl(array: Array[Double]): ArrA
 
   /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
-  override implicit def uninitialised(length: Int): ArrA = fromArrayDbl(new Array[Double](length * elemSize))// persistImplicit.fromArray(new Array[Double](length * elemSize))
-
+  override implicit def uninitialised(length: Int): ArrA = fromArrayDbl(new Array[Double](length * elemSize))
 }
 
 /** Persists [[DblNsArr]]s. */

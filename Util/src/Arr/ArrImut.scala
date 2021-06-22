@@ -5,7 +5,9 @@ import annotation.unchecked.uncheckedVariance
 /** Base trait for specialised immutable Arrays. The final classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage.
  *  A lot of the time this is a compile time wrapper with no boxing run cost. */
 trait ArrImut[+A] extends Any with ArrayLike[A]
-{ type ThisT <: ArrImut[A]
+{ override type ThisT <: ArrImut[A]
+
+  /** String specifying the type of this object. */
   def typeStr: String
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised ArrT of the this [[ArrImut]]'s final type. */
@@ -25,8 +27,6 @@ trait ArrImut[+A] extends Any with ArrayLike[A]
   /** Sets / mutates the last element in the Arr. This method should rarely be needed by end users, but is used by initialisation and factory
    * methods. */
   def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(elemsLen -1, value)
-
-  //def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int ): Unit
 
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
   def fElemStr: A @uncheckedVariance => String

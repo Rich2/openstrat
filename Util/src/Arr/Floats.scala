@@ -5,14 +5,16 @@ import collection.mutable.ArrayBuffer
 /** Immutable Array based class for Floats. */
 class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with ArrImut[Float]
 { type ThisT = Floats
-  override def typeStr: String = "Floats"
+
+  /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */
   override def unsafeNew(length: Int): Floats = new Floats(new Array[Float](length))
+
+  override def typeStr: String = "Floats"
   override def elemsLen: Int = arrayUnsafe.length
   override def apply(index: Int): Float = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = arrayUnsafe(i) = value
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
-
 
   def ++ (op: Floats): Floats =
   { val newArray = new Array[Float](elemsLen + op.elemsLen)

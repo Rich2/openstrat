@@ -59,8 +59,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
   def str2: String = strMod(_.str2)
   def str3: String = strMod(_.str3)
 
-
-
   /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
   def xySlate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
 

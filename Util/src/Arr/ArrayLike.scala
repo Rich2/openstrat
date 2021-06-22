@@ -6,8 +6,11 @@ import annotation.unchecked.uncheckedVariance, collection.immutable._
  *  currently there are just two classes for each type A, An ArrImut that wraps a standard immutable Array to produce an immutable array, and a
  *  ArrBuff that wraps an ArrayBuffer. Currently this just in a standard ArrayBuffer. Where A is a compound value types or an AnyVal type. */
 trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
-{ type ThisT <: ArrayLike[A]
-  def returnThis: ThisT = ???
+{ /** The final type of this object. */
+  type ThisT <: ArrayLike[A]
+
+  /** Method for keeping the typer happy when returning this as an instance of ThisT. */
+  @inline def returnThis: ThisT = this.asInstanceOf[ThisT]
 
   @inline def apply(index: Int): A
   @inline def head: A = apply(0)
@@ -29,7 +32,6 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
       count = count + 1
     }
   }
-
 
   override def iForeach[U](f: (A, Int) => U): Unit =
   { var count = 0

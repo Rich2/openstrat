@@ -8,7 +8,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 { type ThisT = Arr[A]@uncheckedVariance
   override def typeStr: String = "Arr"
 
-  /** Copy's the backing Array[[AnyRef]] to a new Array[char]. End users should rarely have to use this method. */
+  /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
   override def unsafeNew(length: Int): Arr[A] = new Arr(new Array[AnyRef](length).asInstanceOf[Array[A]])
 
   override def elemsLen: Int = unsafeArr.length

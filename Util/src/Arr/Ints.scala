@@ -5,8 +5,11 @@ import collection.mutable.ArrayBuffer
 /** Immutable Array based class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be widened. */
 final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with ArrImut[Int]
 { type ThisT = Ints
-  override def typeStr: String = "Ints"
+
+  /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */
   override def unsafeNew(length: Int): Ints = new Ints(new Array[Int](length))
+
+  override def typeStr: String = "Ints"
   override def elemsLen: Int = arrayUnsafe.length
   override def apply(index: Int): Int = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Int): Unit = arrayUnsafe(i) = value
