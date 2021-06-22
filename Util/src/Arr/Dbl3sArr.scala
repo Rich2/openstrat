@@ -18,10 +18,12 @@ trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsArr[A]
 { def elemProductNum = 3
   def newElem(d1: Double, d2: Double, d3: Double): A
   def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
-  override def unsafeSetElem(index: Int, elem: A): Unit = { arrayUnsafe(3 * index) = elem.dbl1; arrayUnsafe(3 * index + 1) = elem.dbl2; arrayUnsafe(3 * index + 2) = elem.dbl3 }
-  def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2)
 
-  //def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el.dbl1, el.dbl2, el.dbl3))
+  override def unsafeSetElem(index: Int, elem: A): Unit =
+  { arrayUnsafe(3 * index) = elem.dbl1; arrayUnsafe(3 * index + 1) = elem.dbl2; arrayUnsafe(3 * index + 2) = elem.dbl3
+  }
+
+  def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2)
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3)))
 }
 
@@ -38,8 +40,8 @@ trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrBuilde
 }
 
 /** Trait for creating the [[ArrTFlatBuilder]] type class instances for [[Dbl3Arr]] final classes. Instances for the  for classes / traits you
- *  control, should go in the companion object of Instances for [[ArrTFlatBuilder] should go in the companion object the ArrT final class.
- *  The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+ *  control, should go in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in
+ *  ```map(f: A => B): ArrB``` function. */
 trait Dbl3sArrFlatBuilder[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrFlatBuilder[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
   final override def elemSize = 3
