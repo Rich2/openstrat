@@ -15,14 +15,14 @@ case class MyDbl2(a: Double, b: Double) extends Dbl2Elem
 
 object MyDbl2
 {
-  implicit val arrBuilderImplicit: Dbl2SArrCombinedBuilders[MyDbl2, MyDbl2s] = new Dbl2SArrCombinedBuilders[MyDbl2, MyDbl2s]
+  implicit val arrBuilderImplicit: Dbl2sArrBuilder[MyDbl2, MyDbl2s] = new Dbl2sArrBuilder[MyDbl2, MyDbl2s]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)
   }
 }
 
-class MyDbl2s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sArr[MyDbl2]
+final class MyDbl2s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sArr[MyDbl2]
 { type ThisT = MyDbl2s
   def typeStr = "Mines"
   def unsafeFromArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
@@ -32,7 +32,11 @@ class MyDbl2s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sArr[MyDbl
 
 object MyDbl2s extends Dbl2sArrCompanion[MyDbl2, MyDbl2s]
 {
-  implicit val flatImplicit: ArrTFlatBuilder[MyDbl2s] = MyDbl2.arrBuilderImplicit
+  implicit val flatImplicit: ArrTFlatBuilder[MyDbl2s] = new Dbl2sArrFlatBuilder[MyDbl2, MyDbl2s]
+  { type BuffT = MinesBuff
+    override def fromDblArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
+    def fromDblBuffer(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)
+  }
 
   override def fromArrayDbl(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
 
