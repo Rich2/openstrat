@@ -66,20 +66,6 @@ trait DblNsArrFlatBuilder[B <: DblNElem, ArrB <: DblNsArr[B]] extends ValueNsArr
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsArr]] final classes. Instances for the [[ArrTBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
- *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNsArrCombinedBuilders[B <: DblNElem, ArrB <: DblNsArr[B]] extends ValueNsArrCombinedBuilders[B, ArrB]
-{ type BuffT <: DblNsBuffer[B]
-  def fromDblArray(array: Array[Double]): ArrB
-  def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
-  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
-  final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemSize))
-  final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.buffer.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
-  final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
-}
-
 /** Specialised flat ArrayBuffer[Double] based collection class. */
 trait DblNsBuffer[A <: DblNElem] extends Any with ValueNsBuffer[A]
 { type ArrT <: DblNsArr[A]

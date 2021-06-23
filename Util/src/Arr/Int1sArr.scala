@@ -41,6 +41,30 @@ trait Int1sArr[A <: Int1Elem] extends Any with IntNsArr[A]
   }
 }
 
+/** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrTBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
+ *  the B in ```map(f: A => B): ArrB``` function. */
+trait Int1sArrBuilder[A <: Int1Elem, ArrT <: Int1sArr[A]] extends IntNsArrBuilder[A, ArrT]
+{ type BuffT <: Int1sBuffer[A, ArrT]
+
+  final override def elemSize: Int = 1
+  def newArray(length: Int): Array[Int] = new Array[Int](length)
+  final override def arrSet(arr: ArrT, index: Int, value: A): Unit =  arr.arrayUnsafe(index) = value.int1
+  override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value.int1); () }
+}
+
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrTBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
+ *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait Int1sArrFlatBuilder[A <: Int1Elem, ArrT <: Int1sArr[A]] extends IntNsArrCombinedBuilders[A, ArrT]
+{ type BuffT <: Int1sBuffer[A, ArrT]
+
+  final override def elemSize: Int = 1
+  def newArray(length: Int): Array[Int] = new Array[Int](length)
+  final override def arrSet(arr: ArrT, index: Int, value: A): Unit =  arr.arrayUnsafe(index) = value.int1
+  override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value.int1); () }
+}
+
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
