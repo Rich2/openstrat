@@ -33,15 +33,12 @@ trait Dbl4sArr[A <: Dbl4Elem] extends Any with DblNsArr[A]
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrTBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
- *  [[ArrTFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
- *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl4SArrCombinedBuilders[B <: Dbl4Elem, ArrB <: Dbl4sArr[B]] extends DblNsArrCombinedBuilders[B, ArrB]
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrTBuilder]] type class, for classes /
+ *  traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. The first type parameter is called B, because to
+ *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait Dbl4sArrBuilder[B <: Dbl4Elem, ArrB <: Dbl4sArr[B]] extends DblNsArrBuilder[B, ArrB]
 { type BuffT <: Dbl4sBuffer[B]
-
   final override def elemSize = 4
-  //def newArray(length: Int): Array[Double] = new Array[Double](length * 2)
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.arrayUnsafe(index * 4) = value.dbl1
@@ -49,6 +46,15 @@ trait Dbl4SArrCombinedBuilders[B <: Dbl4Elem, ArrB <: Dbl4sArr[B]] extends DblNs
     arr.arrayUnsafe(index * 4 + 2) = value.dbl3
     arr.arrayUnsafe(index * 4 + 3) = value.dbl4
   }
+}
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrTBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
+ *  [[ArrTFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
+ *  in ```map(f: A => B): ArrB``` function. */
+trait Dbl4sArrFlatBuilder[B <: Dbl4Elem, ArrB <: Dbl4sArr[B]] extends DblNsArrFlatBuilder[B, ArrB]
+{ type BuffT <: Dbl4sBuffer[B]
+
+  final override def elemSize = 4
 }
 
 /** Class for the singleton companion objects of [[Dbl4sArr]] final classes to extend. */
