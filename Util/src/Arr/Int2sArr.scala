@@ -21,6 +21,30 @@ trait Int2sArr[A <: Int2Elem] extends Any with IntNsArr[A]
   def head1: Int = arrayUnsafe(0)
   def head2: Int = arrayUnsafe(1)
 }
+/** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrTBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int2Elem,
+ *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
+trait Int2sArrBuilder[B <: Int2Elem, ArrB <: Int2sArr[B]] extends IntNsArrBuilder[B, ArrB]
+{ type BuffT <: Int2sBuffer[B, ArrB]
+
+  final override def elemSize: Int = 2
+  def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
+
+  final override def arrSet(arr: ArrB, index: Int, value: B): Unit =
+  { arr.arrayUnsafe(index * 2) = value.int1; arr.arrayUnsafe(index * 2 + 1) = value.int2
+  }
+  override def buffGrow(buff: BuffT, value: B): Unit = { buff.buffer.append(value.int1); buff.buffer.append(value.int2); () }
+}
+
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrTBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
+ *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
+ *  ```map(f: A => B): ArrB``` function. */
+trait Int2sArrFlatBuilder[B <: Int2Elem, ArrB <: Int2sArr[B]] extends IntNsArrFlatBuilder[B, ArrB]
+{ type BuffT <: Int2sBuffer[B, ArrB]
+  final override def elemSize: Int = 2
+  def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
+}
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrTBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
