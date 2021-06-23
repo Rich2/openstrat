@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package prid
+package ostrat; package prid
 import geom._
 
 class HVert private(val bLong: Long) extends AnyVal with HCoord with Int2Elem
@@ -33,7 +32,7 @@ object HVert
 
  // implicit object persistImplicit extends Persist2Ints[HVert]("Rood", "r", "c", apply)
 
-  implicit val hVertsBuildImplicit: Int2SArrCombinedBuilders[HVert, HVerts] = new Int2SArrCombinedBuilders[HVert, HVerts]
+  implicit val hVertsBuildImplicit: Int2sArrBuilder[HVert, HVerts] = new Int2sArrBuilder[HVert, HVerts]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVerts = new HVerts(array)
     override def fromIntBuffer(inp: Buff[Int]): HVertBuff = new HVertBuff(inp)
