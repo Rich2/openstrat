@@ -29,6 +29,12 @@ object Colours
   }
 
   def rainbowStart: RainbowCycle = new RainbowCycle(0)
+
+  implicit val arrFlatBuildImplicit: ArrTFlatBuilder[Colours] = new Int1sArrFlatBuilder[Colour, Colours]
+  { type BuffT = ColourBuff
+    override def fromIntArray(inp: Array[Int]): Colours = new Colours(inp)
+    override def fromIntBuffer(inp: ArrayBuffer[Int]): ColourBuff = new ColourBuff(inp)
+  }
 }
 
 /** ArrayBuffer based buffer class for Colours. */
