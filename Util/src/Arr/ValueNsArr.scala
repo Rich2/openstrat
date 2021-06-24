@@ -74,13 +74,6 @@ trait ValueNsArrFlatBuilder[B <: ValueNElem, ArrB <: ValueNsArr[B]] extends ArrT
 { def elemSize: Int
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ValueNsArr]] final classes. Instances for the [[ArrTBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
- *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNsArrCombinedBuilders[B <: ValueNElem, ArrB <: ValueNsArr[B]] extends ArrTBuilder[B, ArrB] with ArrTFlatBuilder[ArrB]
-{ def elemSize: Int
-}
-
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
 trait ValueNsBuffer[A <: ValueNElem] extends Any with ArrayLike[A]
