@@ -15,8 +15,8 @@ object TransTest extends TestSuite
     val v1 = Vector(r1, r2)
 
     test("Test1")
-    { /*r1 ==> r1
-      assert(r1.scale(3) equ (r2))
+    { r1 ==> r1
+      /*assert(r1.scale(3) equ (r2))
       assert(r1.scale(2) equ r3)
       assert(r2.scale(2) equ r4)*/
      // assert(Arr(r1, r2).scale(2) equ Arr(r3, r4))
