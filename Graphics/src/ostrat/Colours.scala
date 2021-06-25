@@ -20,6 +20,9 @@ object Colours
     new Colours(arr)
   }
 
+  /** The classically designated 7 colours of the rainbow: Red, Orange, Yellow, Green, Blue, Indigo, Violet. */
+  def rainbow: Colours = Colours(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
+
   /** This class cycles through the colour of the Rainbow. */
   class RainbowCycle(val value: Int) extends AnyVal
   {
@@ -30,6 +33,8 @@ object Colours
 
   def rainbowStart: RainbowCycle = new RainbowCycle(0)
 
+  /** All the named colours. */
+  def allNamed: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c }
   implicit val arrFlatBuildImplicit: ArrTFlatBuilder[Colours] = new Int1sArrFlatBuilder[Colour, Colours]
   { type BuffT = ColourBuff
     override def fromIntArray(inp: Array[Int]): Colours = new Colours(inp)

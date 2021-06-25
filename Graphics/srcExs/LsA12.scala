@@ -13,7 +13,7 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val htv = h1.vertsMap(v => Circle(25, v).fill(Pink))
   val hts = h1.vertsMap(v => TextGraphic(v.str0, 15, v))
   val h2: HexParrX = h1.slateX(-400)
-  val hc = h2.sidesIMap(){ (s, i) => s.draw(Colour.rainbow.cycleGet(i), 2) }
+  val hc = h2.sidesIMap(){ (s, i) => s.draw(Colours.rainbow.cycleGet(i), 2) }
   val h3d = HexParrY(231, 231, 0).draw(DarkBlue)
 
   def hexGraphics(hr: HexReg, colour: Colour): GraphicElems =

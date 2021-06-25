@@ -35,7 +35,7 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
     case SomeInt(i) => seq(i + 1)
   }
 
-  def nextFromRainbow: Colour = nextFrom(Colour.rainbow)
+  def nextFromRainbow: Colour = nextFrom(Colours.rainbow)
   
   /** Returns the colour with the greatest contrast */
   def contrast: Colour =
@@ -90,6 +90,7 @@ trait WithColour extends AnyRef
   def contrastBW = colour.contrastBW
 }
 
+/** Companion object for Colour class, contains named values for the standard web colours and implicit instances for various type classes. */
 object Colour
 {
   implicit val eqImplicit: EqT[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
@@ -121,19 +122,7 @@ object Colour
   def fromInts(red: Int, green: Int, blue: Int, a: Int = 255): Colour = Colour(a * 256 * 256 * 256 + red * 256 * 256 + green * 256 + blue)
   def blackOrWhite(b: Boolean): Colour = if (b) Black else White
 
-  /** The classically designated 7 colours of the rainbow: Red, Orange, Yellow, Green, Blue, Indigo, Violet. */
-  def rainbow: Colours = Colours(Red, Orange, Yellow, Green, Blue, Indigo, Violet)
-
-  /** All the named colours. */
-  def allColours: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c }
-
   def pairs: Arr[(Colour, Colour)] = ???
-
-  /*implicit val optBuildImplicit: OptBuild[Colour] = new OptBuild[Colour]
-  { override type OptT = OptOldColour
-    def apply(c: Colour): OptOldColour = new SomeColour(c.argbValue)
-    def none: OptOldColour = NoColour
-  }*/
   
    /** named colors & values following CSS Color Module Level 4 - though names are UpperCamelCase here
        - plus 4 non standard colors: BrightSkyBlue, DarkYellow, LemonLime, LightRed*/
