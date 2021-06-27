@@ -388,6 +388,8 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def toStrsSemiFold(fToStr: A => String): String = toStrsFold("; ", fToStr)
   def toStrsCommaParenth(fToStr: A => String): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String): String = toStrsSemiFold(fToStr).enParenth
+
+  def sum(implicit ev: Sumable[A] @uncheckedVariance): A = foldLeft[A](ev.identity)(ev.sum(_, _))
 }
 
 case class ArrayLikeShow[A, R <: ArrayLike[A]](evA: ShowT[A]) extends ShowTSeqLike[A, R]

@@ -9,7 +9,7 @@ final class Mile(val miles: Double) extends AnyVal with Length with Ordered[Leng
 { def typeStr: String = "Dist"
   //def str = persistD1(miles)
   override def metres: Double = ???
-  override def +(operand: Length): Mile = ???//Metre(miles + operand.miles)
+  override def +(operand: Length): Mile = ???//Mile(miles + operand.miles)
   override def -(operand: Length): Mile = ??? //Metre(miles - operand.miles)
   override def unary_- : Mile = Mile(-miles)
   override def *(operand: Double): Mile = Mile(miles * operand)
@@ -29,6 +29,11 @@ final class Mile(val miles: Double) extends AnyVal with Length with Ordered[Leng
 object Mile
 { def apply(miles: Double): Mile = new Mile(miles)
 
+  implicit val summableImplicit: Sumable[Mile] = new Sumable[Mile]{
+    override def identity: Mile = Mile(0)
+
+    override def sum(a1: Mile, a2: Mile): Mile = ???
+  }
   /*implicit class MetreExtensions(thisDist: Metre)
   { def * (operand: Metre): Area = new Area(thisDist.miles * operand.miles)
   }*/
