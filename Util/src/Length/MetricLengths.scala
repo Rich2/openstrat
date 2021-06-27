@@ -24,7 +24,7 @@ final class Metres(val metres: Double) extends AnyVal with MetricLength
   def pos: Boolean = metres >= 0
   def neg: Boolean = metres < 0
 
-  def toKm: KMetres = new KMetres(metres / 1000)
+  @inline override def kMetres: Double = metres / 1000
 }
 
 /** Companion object for the [[Metres] class. */

@@ -4,9 +4,11 @@ import math._
 
 /** Common trait for metric units of length. */
 trait ImperialLength extends Any with Length
+{ override def kMetres: Double = 1000
+}
 
 /** Length in miles. */
-final class Miles(val miles: Double) extends AnyVal with Length with Ordered[Length]
+final class Miles(val miles: Double) extends AnyVal with ImperialLength with Ordered[Length]
 { def typeStr: String = "Dist"
   //def str = persistD1(miles)
   override def metres: Double = 1609.34 * miles
