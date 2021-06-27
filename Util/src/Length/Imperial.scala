@@ -2,8 +2,10 @@
 package ostrat;
 import math._
 
+trait ImperialLength extends Any with Length
+
 /** Length in miles. */
-final class Mile(val miles: Double) extends AnyVal with Length with Ordered[Mile]
+final class Mile(val miles: Double) extends AnyVal with Length with Ordered[Length]
 { def typeStr: String = "Dist"
   //def str = persistD1(miles)
   override def metres: Double = ???
@@ -15,7 +17,7 @@ final class Mile(val miles: Double) extends AnyVal with Length with Ordered[Mile
   //def max(operand: Metre): Metre = ife(miles > operand.miles, this, operand)
   //def min(operand: Metre): Metre = ife(miles < operand.miles, this, operand)
   //def kmStr2 = (miles / 1000).str2 + "km"
-  override def compare(that: Mile): Int = ??? //miles.match3(_ == that.miles, 0, _ > that.miles, 1,-1)
+  override def compare(that: Length): Int = ??? //miles.match3(_ == that.miles, 0, _ > that.miles, 1,-1)
 
   def pos: Boolean = miles >= 0
   def neg: Boolean = miles < 0
