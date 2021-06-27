@@ -3,8 +3,7 @@ package ostrat
 import pParse._, collection.immutable.ArraySeq
 
 trait PersistBase
-{
-  /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+{ /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
    * Show. */
   def typeStr: String
 }
@@ -13,10 +12,7 @@ trait PersistBase
  *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
  *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
 trait ShowT[-T] extends PersistBase
-{
-
-
-  /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
+{ /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
    * rather than a method on the object being shown. */
   def strT(obj: T): String
 
@@ -142,7 +138,7 @@ object ShowT
   implicit def listImplicit[A](implicit ev: ShowT[A]): ShowT[List[A]] = new ShowIterableClass[A, List[A]](ev)
 
   /** Implicit method for creating ::[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  //implicit def consPersistImplicit[A](implicit ev: Persist[A]): Persist[::[A]] = new PersistConsImplicit[A](ev)
+  //implicit def consShowImplicit[A](implicit ev: ShowT[A]): ShowT[::[A]] = new PersistConsImplicit[A](ev)
 
   //implicit def nilPersistImplicit[A](implicit ev: Persist[A]): Persist[Nil.type] = new PersistNilImplicit[A](ev)
 
@@ -151,7 +147,7 @@ object ShowT
   implicit val arrayIntImplicit: ShowT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
   {
     override def evA: ShowT[Int] = ShowT.intPersistImplicit
-    override def syntaxDepthT(obj: Array[Int]): Int = ???
+    override def syntaxDepthT(obj: Array[Int]): Int = 2
 
     override def showT(obj: Array[Int], way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }

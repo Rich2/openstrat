@@ -18,7 +18,6 @@ lazy val moduleDir = SettingKey[File]("moduleDir")
 lazy val baseDir = SettingKey[File]("baseDir")
 ThisBuild/baseDir := (ThisBuild/baseDirectory).value
 
-
 def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/" + nameStr)).settings(
   moduleDir := baseDir.value / srcsStr,  
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test" withSources(),
