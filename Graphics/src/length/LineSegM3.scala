@@ -14,12 +14,12 @@ class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Do
   override def dbl4 = xEndMs
   override def dbl5 = yEndMs
   override def dbl6 = zEndMs
-  def xStart: Metre = Metre(xStartMs)
-  def yStart: Metre = Metre(yStartMs)
-  def zStart: Metre = Metre(zStartMs)
-  def xEnd: Metre = Metre(xEndMs)
-  def yEnd: Metre = Metre(yEndMs)
-  def zEnd: Metre = Metre(zEndMs)
+  def xStart: Metres = Metres(xStartMs)
+  def yStart: Metres = Metres(yStartMs)
+  def zStart: Metres = Metres(zStartMs)
+  def xEnd: Metres = Metres(xEndMs)
+  def yEnd: Metres = Metres(yEndMs)
+  def zEnd: Metres = Metres(zEndMs)
   def zsPos: Boolean = zStart.pos && zEnd.pos
   def toXY: LineSegDist = new LineSegDist(xStartMs, yStartMs, xEndMs, yEndMs)
 }

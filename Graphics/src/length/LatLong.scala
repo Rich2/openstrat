@@ -18,8 +18,8 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
 
   def persistName = "LatLong"
   def persistMems = Seq(latRadians, longRadians)  
-  def polarRadius: Metre = EarthPolarRadius
-  def equatorialRadius: Metre = EarthEquatorialRadius
+  def polarRadius: Metres = EarthPolarRadius
+  def equatorialRadius: Metres = EarthEquatorialRadius
 
   /** This method current does not take account of lines that cross the date line, including the Poles */
   def segsTo(num: Int, toPt: LatLong): Seq[LatLong] =

@@ -2,18 +2,19 @@
 package ostrat;
 import math._
 
+/** Common trait for metric units of length. */
 trait ImperialLength extends Any with Length
 
 /** Length in miles. */
-final class Mile(val miles: Double) extends AnyVal with Length with Ordered[Length]
+final class Miles(val miles: Double) extends AnyVal with Length with Ordered[Length]
 { def typeStr: String = "Dist"
   //def str = persistD1(miles)
-  override def metres: Double = ???
-  override def +(operand: Length): Mile = ???//Mile(miles + operand.miles)
-  override def -(operand: Length): Mile = ??? //Metre(miles - operand.miles)
-  override def unary_- : Mile = Mile(-miles)
-  override def *(operand: Double): Mile = Mile(miles * operand)
-  override def /(operand: Double): Metre = Metre(miles / operand)
+  override def metres: Double = 1609.34 * miles
+  override def +(operand: Length): Miles = Miles(miles + operand.miles)
+  override def -(operand: Length): Miles = Miles(miles - operand.miles)
+  override def unary_- : Miles = Miles(-miles)
+  override def *(operand: Double): Miles = Miles(miles * operand)
+  override def /(operand: Double): Metres = Metres(miles / operand)
   //def max(operand: Metre): Metre = ife(miles > operand.miles, this, operand)
   //def min(operand: Metre): Metre = ife(miles < operand.miles, this, operand)
   //def kmStr2 = (miles / 1000).str2 + "km"
@@ -25,14 +26,14 @@ final class Mile(val miles: Double) extends AnyVal with Length with Ordered[Leng
   //def toKm: Kmiles = new KMetres(metres / 1000)
 }
 
-/** Companion object for the [[Metre] class. */
-object Mile
-{ def apply(miles: Double): Mile = new Mile(miles)
+/** Companion object for the [[Metres] class. */
+object Miles
+{ def apply(miles: Double): Miles = new Miles(miles)
 
-  implicit val summableImplicit: Sumable[Mile] = new Sumable[Mile]{
-    override def identity: Mile = Mile(0)
+  implicit val summableImplicit: Sumable[Miles] = new Sumable[Miles]{
+    override def identity: Miles = Miles(0)
 
-    override def sum(a1: Mile, a2: Mile): Mile = ???
+    override def sum(a1: Miles, a2: Miles): Miles = ???
   }
   /*implicit class MetreExtensions(thisDist: Metre)
   { def * (operand: Metre): Area = new Area(thisDist.miles * operand.miles)

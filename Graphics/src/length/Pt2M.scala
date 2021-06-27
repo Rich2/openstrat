@@ -10,21 +10,21 @@ final class Pt2M(val xMetres: Double, val yMetres: Double) extends Show2Dbls
   override def name1: String = "x"
   override def name2: String = "y"
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres2]
-  def x: Metre = Metre(xMetres)
-  def y: Metre = Metre(yMetres)
+  def x: Metres = Metres(xMetres)
+  def y: Metres = Metres(yMetres)
   override def show1: Double = xMetres
   override def show2: Double = yMetres
   def + (op: Pt2M): Pt2M = Pt2M(x + op.x, y + op.y)
   def - (op: Pt2M): Pt2M = Pt2M(x - op.x, y - op.y)
-  def addXY (otherX: Metre, otherY: Metre): Pt2M = Pt2M(x + otherX, y + otherY)
-  def subXY (otherX: Metre, otherY: Metre): Pt2M = Pt2M(x - otherX, y - otherY)
-  def addX(adj: Metre): Pt2M = Pt2M(x + adj, y)
-  def addY(adj: Metre): Pt2M = Pt2M(x, y + adj)
-  def subX(adj: Metre): Pt2M = Pt2M(x - adj, y)
-  def subY(adj: Metre): Pt2M = Pt2M(x, y - adj)
+  def addXY (otherX: Metres, otherY: Metres): Pt2M = Pt2M(x + otherX, y + otherY)
+  def subXY (otherX: Metres, otherY: Metres): Pt2M = Pt2M(x - otherX, y - otherY)
+  def addX(adj: Metres): Pt2M = Pt2M(x + adj, y)
+  def addY(adj: Metres): Pt2M = Pt2M(x, y + adj)
+  def subX(adj: Metres): Pt2M = Pt2M(x - adj, y)
+  def subY(adj: Metres): Pt2M = Pt2M(x, y - adj)
   def * (operator: Double): Pt2M = Pt2M(x * operator, y * operator)
   def / (operator: Double): Pt2M = Pt2M(x / operator, y / operator)
-  def magnitude: Metre = Metre(math.sqrt(xMetres.squared + yMetres.squared))
+  def magnitude: Metres = Metres(math.sqrt(xMetres.squared + yMetres.squared))
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: Pt2M): Area = x * operand.x + y * operand.y
@@ -53,10 +53,10 @@ final class Pt2M(val xMetres: Double, val yMetres: Double) extends Show2Dbls
 /** Companion object for [[Pt2M]] class contains factory methods. */
 object Pt2M
 { def metres(xMetres: Double, yMetres: Double): Pt2M = new Pt2M(xMetres, yMetres)
-  def apply(x: Metre, y: Metre): Pt2M = new Pt2M(x.metres, y.metres)
+  def apply(x: Metres, y: Metres): Pt2M = new Pt2M(x.metres, y.metres)
 
   implicit class Metres2Implicit(thisMetres2: Pt2M)
-  { def / (operator: Metre): Pt2 = Pt2(thisMetres2.x/ operator, thisMetres2.y / operator)
+  { def / (operator: Metres): Pt2 = Pt2(thisMetres2.x/ operator, thisMetres2.y / operator)
   }
 
   implicit val PersistImplicit: Persist[Pt2M] = new Persist2Dbls[Pt2M]("Metres2", "x", "y", new Pt2M(_, _))

@@ -3,11 +3,12 @@ package ostrat
 
 import scala.math.Ordered
 
-/** A quantity or measurement of length. The final classes include [[Metre]], [[KMetres]]. The purpose of the separate classes is for displaying
+/** A quantity or measurement of length. The final classes include [[Metres]], [[KMetres]]. The purpose of the separate classes is for displaying
  *  values. 100M and 0.1KMetres have the same value but will be displayed differently. */
 trait Length extends Any with Ordered[Length]
 { /** The value of this length expressed metres. */
   def metres: Double
+  def miles: Double
   def +(operand: Length): Length
   def -(operand: Length): Length
   def unary_- : Length

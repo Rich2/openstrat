@@ -17,7 +17,7 @@ object WW2Launch extends GuiLaunchMore
 
   override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
   { val oScale = sts.findSettingT[Int]("scale")
-    val scale: Option[Metre] = oScale.mapToOption(1.km * _)
+    val scale: Option[Metres] = oScale.mapToOption(1.km * _)
     val oLat: EMon[Double] = sts.findSettingDbl("latitude")
     val oLong = sts.findSettingT[Double]("longitude")
     val oll = oLat.flatMap2ToOption[Double, LatLong](oLong, (la, lo) => LatLong.degs(la, lo))

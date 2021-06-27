@@ -219,21 +219,21 @@ object HexGridOld
 
   val triangleFan = Seq(Pt2Z, v0, v5, v4, v3, v2, v1)
 
-  def latLong(pt: Pt2, latLongOffset: LatLong, xyOffset: Pt2M, gridScale: Metre): LatLong =
+  def latLong(pt: Pt2, latLongOffset: LatLong, xyOffset: Pt2M, gridScale: Metres): LatLong =
   { val lat = (pt.y * gridScale + xyOffset.y) / EarthPolarRadius + latLongOffset.latRadians
     val long = (pt.x * gridScale + xyOffset.x) / (EarthEquatorialRadius * math.cos(lat)) + latLongOffset.longRadians
     LatLong.radians(lat, long)
   }
 
-  def latLongToRoord(latLong: LatLong, latLongOffset: LatLong, xyOffset: Pt2M, gridScale: Metre): Pt2 =
+  def latLongToRoord(latLong: LatLong, latLongOffset: LatLong, xyOffset: Pt2M, gridScale: Metres): Pt2 =
   { val y: Double = ((latLong.latRadians - latLongOffset.latRadians) * EarthPolarRadius - xyOffset.y) / gridScale
     val x: Double = ((latLong.longRadians - latLongOffset.longRadians) * EarthEquatorialRadius * math.cos(latLong.latRadians) - xyOffset.x) / gridScale
     Pt2(x / Sqrt3, y)
   }
 
-  def latLongU(pt: Pt2, latLongOffset: LatLong, xyOffset: Pt2M): LatLong = latLong(pt, latLongOffset, xyOffset, Metre(gridU))
-  def latLongV(pt: Pt2, latLongOffset: LatLong, xyOffset: Pt2M): LatLong = latLong(pt, latLongOffset, xyOffset, Metre(gridV))
-  def latLongW(pt: Pt2, latLongOffset: LatLong, xyOffset: Pt2M): LatLong = latLong(pt, latLongOffset, xyOffset, Metre(gridW))
+  def latLongU(pt: Pt2, latLongOffset: LatLong, xyOffset: Pt2M): LatLong = latLong(pt, latLongOffset, xyOffset, Metres(gridU))
+  def latLongV(pt: Pt2, latLongOffset: LatLong, xyOffset: Pt2M): LatLong = latLong(pt, latLongOffset, xyOffset, Metres(gridV))
+  def latLongW(pt: Pt2, latLongOffset: LatLong, xyOffset: Pt2M): LatLong = latLong(pt, latLongOffset, xyOffset, Metres(gridW))
 
   val gridA: Int = 1//3.125cm
   val gridB: Int = 2//6.25cm
@@ -262,10 +262,10 @@ object HexGridOld
   val gridY: Int = 16777216//524.288km
   val gridZ: Int = 33554432//1048.576km
 
-  def gridToGridDist(i: Int): Metre  = Metre(i / 32.0)
-  val gridDistU: Metre = gridToGridDist(gridU)
-  val gridDistV: Metre = gridToGridDist(gridV)
-  val gridDistW: Metre = gridToGridDist(gridW)
-  val gridDistX: Metre = gridToGridDist(gridX)
-  val gridDistY: Metre = gridToGridDist(gridY)
+  def gridToGridDist(i: Int): Metres  = Metres(i / 32.0)
+  val gridDistU: Metres = gridToGridDist(gridU)
+  val gridDistV: Metres = gridToGridDist(gridV)
+  val gridDistW: Metres = gridToGridDist(gridW)
+  val gridDistX: Metres = gridToGridDist(gridX)
+  val gridDistY: Metres = gridToGridDist(gridY)
 }

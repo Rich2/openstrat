@@ -3,13 +3,13 @@ package ostrat; package pEarth
 import pCanv._, geom._
 
 /** Basic map of the Earth using irregular areas. */
-case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metre] = None, startFocus: Option[LatLong] = None) extends
+case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None, startFocus: Option[LatLong] = None) extends
   CmdBarGui("The Earth in irregular tiles")
 {
   statusText = "Welcome to world map, constructed from irregular areas."
   def thisTop(): Unit = reTop(Arr())
   thisTop()
-  var scale: Metre = startScale.getOrElse(8.km)
+  var scale: Metres = startScale.getOrElse(8.km)
 
   val eas: Arr[EarthLevel2] =  Arr(AfricaWest, AfricaEast, AfricaSouthern).flatMap(_.a2Arr)
   val af0 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / scale).fill(a.colour) }
