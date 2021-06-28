@@ -40,6 +40,7 @@ object Metres
   //implicit object DistPersist extends PersistDbl1[Metres]("Dist", "metres",_.metres, new Metres(_))
 }
 
+/** Length in kilometres. */
 final class KMetres(override val kMetres: Double) extends AnyVal with MetricLength
 {
   override def + (operand: Length): KMetres = KMetres(kMetres + operand.metres)
@@ -54,45 +55,42 @@ final class KMetres(override val kMetres: Double) extends AnyVal with MetricLeng
     case _ => 1
   }
 
-  override def metres: Double = kMetres * 1000
-  override def mMetres: Double = kMetres / 1000
-  override def gMetres: Double = kMetres / 1000000
+  @inline override def metres: Double = kMetres * 1000
+  @inline override def mMetres: Double = kMetres / 1000
+  @inline override def gMetres: Double = kMetres / 1000000
 }
 
 object KMetres
 { def apply(kMetres: Double): KMetres = new KMetres(kMetres)
 }
 
+/** Length in megametres or thousands of kilometres. */
 final class MMetres(override val mMetres: Double) extends AnyVal with MetricLength
 {
-  /** Adds the operand length to this length. The return type will be narrowed to the dispatching object's type in the final implementing class. */
-  override def +(operand: Length): Length = ???
+  /** Adds the operand length to this MMetres. Returns the value in MMetres. */
+  override def +(operand: Length): MMetres = new MMetres(mMetres + operand.mMetres)
 
-  /** Subtracts the operand length from this length. The return type will be narrowed to the dispatching object's type in the final implementing
-   * class. */
-  override def -(operand: Length): Length = ???
+  /** Subtracts the operand length to this MMetres. Returns the value in MMetres. */
+  override def -(operand: Length): MMetres = new MMetres(mMetres - operand.mMetres)
 
-  /** Negates this length. The return type will be narrowed to the final class's class in the implementing class. */
-  override def unary_- : Length = ???
+  /** Negates this MMetres. Returns the value in MMetres. */
+  override def unary_- : MMetres = new MMetres(-mMetres)
 
-  /** Multiplies this length by the operand scalar [[Double]]. The return type will be narrowed to the final class's class in the implementing
-   * class. */
-  override def *(operand: Double): Length = ???
+  /** Multiplies this MMetres by the operand scalar [[Double]]. Returns the value in MMetres class. */
+  override def *(operand: Double): MMetres = new MMetres(mMetres * operand)
 
-  /** Divides this length by the operand scalar [[Double]]. The return type will be narrowed to the final class's class in the implementing class. */
-  override def /(operand: Double): Length = ???
+  /** Divides this MMetres by the operand scalar [[Double]]. Returns the value in MMetres class. */
+  override def /(operand: Double): MMetres = new MMetres(mMetres / operand)
 
+  override def compare(that: Length): Int = (mMetres - that.mMetres) match {
+    case d if d < 0 => -1
+    case 0 => 0
+    case _ => 1
+  }
 
-
-
-  override def compare(that: Length): Int = ???
-
-  /** The scalar [[Double]] value of this length expressed in metres. */
-  override def metres: Double = ???
-  /** The scalar [[Double]] value of this length expressed in kilometres. */
-  override def kMetres: Double = ???
-  /** The scalar [[Double]] value of this length expressed in gigametres or millions of kilometres. */
-  override def gMetres: Double = ???
+  @inline override def metres: Double = mMetres * 1000000
+  @inline override def kMetres: Double = mMetres * 1000
+  @inline override def gMetres: Double = mMetres / 1000
 }
 
 /** Length measure in GigaMetres or millions of kilometres. */
@@ -110,9 +108,9 @@ final class GMetres(override val gMetres: Double) extends AnyVal with MetricLeng
     case _ => 1
   }
 
-  override def metres: Double = gMetres * 1000000000
-  override def kMetres: Double = gMetres * 1000000
-  override def mMetres: Double = gMetres * 1000
+  @inline override def metres: Double = gMetres * 1000000000
+  @inline override def kMetres: Double = gMetres * 1000000
+  @inline override def mMetres: Double = gMetres * 1000
 }
 
 /** Companion object for the GMetres GigaMeters (1000s of KMs) class contains apply factory method. */

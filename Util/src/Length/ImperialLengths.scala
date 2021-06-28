@@ -4,13 +4,13 @@ import math._
 
 /** Common trait for metric units of length. */
 trait ImperialLength extends Any with Length
-{ override def kMetres: Double = metres / 1000
-  override def mMetres: Double = metres / 1000000
-  override def gMetres: Double = metres / 1000000000
+{ @inline override def kMetres: Double = metres / 1000
+  @inline override def mMetres: Double = metres / 1000000
+  @inline override def gMetres: Double = metres / 1000000000
 }
 
 /** Length in yards. */
-final class Yards(override val yards: Double) extends AnyVal with ImperialLength with Ordered[Length]
+final class Yards(override val yards: Double) extends AnyVal with ImperialLength
 {
   override def compare(that: Length): Int = (yards - that.yards) match
   { case d if d < 0 => -1
@@ -34,14 +34,14 @@ final class Yards(override val yards: Double) extends AnyVal with ImperialLength
   override def /(operand: Double): Length = new Yards(yards / operand)
 
   /** The scalar [[Double]] value of this length expressed in metres. */
-  override def metres: Double = yards * 0.9144
+  @inline override def metres: Double = yards * 0.9144
 
   /** The scalar Double value of this length expressed in miles. */
-  override def miles: Double = yards / 1760
+  @inline override def miles: Double = yards / 1760
 }
 
 /** Length in miles. */
-final class Miles(override val miles: Double) extends AnyVal with ImperialLength with Ordered[Length]
+final class Miles(override val miles: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Miles"
   //def str = persistD1(miles)
   override def metres: Double = 1609.34 * miles
@@ -57,9 +57,7 @@ final class Miles(override val miles: Double) extends AnyVal with ImperialLength
 
   def pos: Boolean = miles >= 0
   def neg: Boolean = miles < 0
-
-  /** The scalar Double value of this length expressed in miles. */
-  override def yards: Double = miles * 1760
+  @inline override def yards: Double = miles * 1760
 }
 
 /** Companion object for the [[Metres] class. */
