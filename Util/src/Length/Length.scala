@@ -23,6 +23,10 @@ trait Length extends Any with Ordered[Length]
   /** Divides this length by the operand scalar [[Double]]. The return type will be narrowed to the final class's class in the implementing class. */
   def /(operand: Double): Length
 
+  /** Returns the max [[Length]] of this and the operand value. The return type will be narrowed to the final class's class in the implementing
+   *  class. */
+  def max(operand: Length): Length
+
   /** The scalar [[Double]] value of this length expressed in metres. */
   def metres: Double
 

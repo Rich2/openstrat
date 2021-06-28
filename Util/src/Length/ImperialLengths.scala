@@ -12,11 +12,7 @@ trait ImperialLength extends Any with Length
 /** Length in yards. */
 final class Yards(override val yards: Double) extends AnyVal with ImperialLength
 {
-  override def compare(that: Length): Int = (yards - that.yards) match
-  { case d if d < 0 => -1
-    case 0 => 0
-    case _ => 1
-  }
+  override def compare(that: Length): Int = (yards - that.yards).match3(_ < -1, -1, _ == 0, 0, 1)
 
   /** Adds the operand length to this Yards. Returns the value in Yards. */
   override def +(operand: Length): Yards = new Yards(yards + operand.yards)
@@ -32,6 +28,9 @@ final class Yards(override val yards: Double) extends AnyVal with ImperialLength
 
   /** Divides this Yrads by the operand scalar [[Double]]. Returns the value in Yards. */
   override def /(operand: Double): Length = new Yards(yards / operand)
+
+  /** Returns the max length of this and the operand length in [[Yards]]. */
+  override def max(operand: Length): Yards = new Yards(yards.max(operand.yards))
 
   /** The scalar [[Double]] value of this length expressed in metres. */
   @inline override def metres: Double = yards * 0.9144
@@ -50,10 +49,12 @@ final class Miles(override val miles: Double) extends AnyVal with ImperialLength
   override def unary_- : Miles = Miles(-miles)
   override def *(operand: Double): Miles = Miles(miles * operand)
   override def /(operand: Double): Metres = Metres(miles / operand)
-  //def max(operand: Metre): Metre = ife(miles > operand.miles, this, operand)
-  //def min(operand: Metre): Metre = ife(miles < operand.miles, this, operand)
+
+  /** Returns the max length of this and the operand length in [[Miles]]. */
+  override def max(operand: Length): Miles = new Miles(miles.max(operand.miles))
+
   //def kmStr2 = (miles / 1000).str2 + "km"
-  override def compare(that: Length): Int = ??? //miles.match3(_ == that.miles, 0, _ > that.miles, 1,-1)
+  override def compare(that: Length): Int = (miles - that.miles).match3(_ < 0, -1,_ == 0,0,1)
 
   def pos: Boolean = miles >= 0
   def neg: Boolean = miles < 0

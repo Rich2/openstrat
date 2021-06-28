@@ -16,7 +16,10 @@ final class Metres(val metres: Double) extends AnyVal with MetricLength
   override def unary_- : Metres = Metres(-metres)
   override def *(operand: Double): Metres = Metres(metres * operand)
   override def /(operand: Double): Metres = Metres(metres / operand)
-  def max(operand: Metres): Metres = ife(metres > operand.metres, this, operand)
+
+  /** Returns the max length of this and the operand length in [[Metres]]. */
+  override def max(operand: Length): Metres = new Metres(metres.max(operand.metres))
+
   def min(operand: Metres): Metres = ife(metres < operand.metres, this, operand)
   def kmStr2 = (metres / 1000).str2 + "km"
   override def compare(that: Length): Int = metres.match3(_ == that.metres, 0, _ > that.metres, 1,-1)
@@ -49,11 +52,10 @@ final class KMetres(override val kMetres: Double) extends AnyVal with MetricLeng
   override def *(operand: Double): KMetres = KMetres(kMetres * operand)
   override def /(operand: Double) : KMetres = KMetres(kMetres / operand)
 
-  override def compare(that: Length): Int = (kMetres - that.kMetres) match {
-    case d if d < 0 => -1
-    case 0 => 0
-    case _ => 1
-  }
+  /** Returns the max length of this and the operand length in [[KMetres]]. */
+  override def max(operand: Length): KMetres = new KMetres(kMetres.max(operand.kMetres))
+
+  override def compare(that: Length): Int = (kMetres - that.kMetres).match3(_ < 0, -1, _ == 0, 0, 1)
 
   @inline override def metres: Double = kMetres * 1000
   @inline override def mMetres: Double = kMetres / 1000
@@ -82,11 +84,10 @@ final class MMetres(override val mMetres: Double) extends AnyVal with MetricLeng
   /** Divides this MMetres by the operand scalar [[Double]]. Returns the value in MMetres class. */
   override def /(operand: Double): MMetres = new MMetres(mMetres / operand)
 
-  override def compare(that: Length): Int = (mMetres - that.mMetres) match {
-    case d if d < 0 => -1
-    case 0 => 0
-    case _ => 1
-  }
+  /** Returns the max length of this and the operand length in [[MMetres]]. */
+  override def max(operand: Length): MMetres = new MMetres(mMetres.max(operand.mMetres))
+
+  override def compare(that: Length): Int = (mMetres - that.mMetres).match3(_ < 0, -1, _ == 0, 0, 1)
 
   @inline override def metres: Double = mMetres * 1000000
   @inline override def kMetres: Double = mMetres * 1000
@@ -102,11 +103,10 @@ final class GMetres(override val gMetres: Double) extends AnyVal with MetricLeng
   override def *(operand: Double): GMetres = GMetres(gMetres * operand)
   override def /(operand: Double) : GMetres = GMetres(gMetres / operand)
 
-  override def compare(that: Length): Int = (gMetres - that.gMetres)match {
-    case d if d < 0 => -1
-    case 0 => 0
-    case _ => 1
-  }
+  /** Returns the max lLength of this and the operand value in [[GMetres]]. */
+  override def max(operand: Length): GMetres = new GMetres(gMetres.max(operand.gMetres))
+
+  override def compare(that: Length): Int = (gMetres - that.gMetres).match3(_ < 0, -1, _ == 0, 0, 1)
 
   @inline override def metres: Double = gMetres * 1000000000
   @inline override def kMetres: Double = gMetres * 1000000
