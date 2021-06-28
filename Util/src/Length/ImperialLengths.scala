@@ -4,11 +4,13 @@ import math._
 
 /** Common trait for metric units of length. */
 trait ImperialLength extends Any with Length
-{ override def kMetres: Double = 1000
+{ override def kMetres: Double = metres / 1000
+  override def mMetres: Double = metres / 1000000
+  override def gMetres: Double = metres / 1000000000
 }
 
 /** Length in yards. */
-final class Yards(val yards: Double) extends AnyVal with ImperialLength with Ordered[Length]
+final class Yards(override val yards: Double) extends AnyVal with ImperialLength with Ordered[Length]
 {
   override def compare(that: Length): Int = (yards - that.yards) match
   { case d if d < 0 => -1
@@ -39,7 +41,7 @@ final class Yards(val yards: Double) extends AnyVal with ImperialLength with Ord
 }
 
 /** Length in miles. */
-final class Miles(val miles: Double) extends AnyVal with ImperialLength with Ordered[Length]
+final class Miles(override val miles: Double) extends AnyVal with ImperialLength with Ordered[Length]
 { def typeStr: String = "Miles"
   //def str = persistD1(miles)
   override def metres: Double = 1609.34 * miles
