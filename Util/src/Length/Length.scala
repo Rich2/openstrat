@@ -36,12 +36,19 @@ trait Length extends Any with Ordered[Length]
   @inline final def toKMetres: KMetres = new KMetres(kMetres)
 
   /** The scalar Double value of this length expressed in miles. */
+  def yards: Double
+
+  /** The value of this length expressed as [[Miles]]. */
+  @inline final def toYards: Yards = new Yards(yards)
+
+  /** The scalar Double value of this length expressed in miles. */
   def miles: Double
 
   /** The value of this length expressed as [[Miles]]. */
   @inline final def toMiles: Miles = new Miles(miles)
 }
 
+/** Companion object for [[Length]] trait contains extension class for [[Length]] */
 object Length
 {
   implicit class LengthExtensions(val thisLength: Length)
