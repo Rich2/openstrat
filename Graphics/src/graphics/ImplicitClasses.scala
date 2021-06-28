@@ -4,6 +4,8 @@ package ostrat; package geom
 /** Extension methods class for Int, for the geom package. */
 class IntGeomImplicit(thisInt: Int)
 {
+  def ° : Angle = Angle(thisInt)
+
   /** Succinct syntax for creating 2 dimensional points [[Pt2]]s, from 2 numbers. Note the low precedence of this method relative to most numerical
    * operators. A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [[Pt3]]. */
   @inline def pp(y: Double): Pt2 = Pt2(thisInt, y)
@@ -12,12 +14,6 @@ class IntGeomImplicit(thisInt: Int)
       operators. A third number as example {{{3.1 vv 4 vv -7.25}}} can be used to create a [[Vec3]]. */
   @inline def vv(y: Double): Vec2 = Vec2(thisInt, y)
 
-  def ° : Angle = Angle(thisInt)
-  def km: Metres = Metres(thisInt * 1000)
-  def metre: Metres = Metres(thisInt)
-  @inline def miles: Metres = Metres(thisInt * 1609.344)
-  @inline def millionMiles: Metres = thisInt.miles * 1000000
-  def * (operator: Metres): Metres = Metres(thisInt * operator.metres)
 
   /** Converts this Int into an absolute angle of the given degrees from 0 until 360 degrees. */
   def angle: Angle = Angle(thisInt)
@@ -43,11 +39,7 @@ class DoubleImplicitGeom(thisDouble: Double)
    *  operators. A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [Pt3]. */
   @inline def vv(y: Double): Vec2 = Vec2(thisDouble, y)
 
-  def km: Metres = Metres(thisDouble * 1000)
-  def metre: Metres = Metres(thisDouble)
-  def * (operator: Metres): Metres = Metres(thisDouble * operator.metres)
-  @inline def miles: Metres = Metres(thisDouble * 1609.344)
-  @inline def millionMiles: Metres = thisDouble.miles * 1000000
+
   def radians: Angle = Angle.radians(thisDouble)
 
   /** Converts this Double into an absolute angle of the given degrees from 0 until 360 degrees. */

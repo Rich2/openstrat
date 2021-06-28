@@ -5,6 +5,12 @@ import math.Pi
 /** Extension class for Double. This is created as a separate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
 {
+  def km: Metres = Metres(thisDouble * 1000)
+  def metre: Metres = Metres(thisDouble)
+  def * (operator: Metres): Metres = Metres(thisDouble * operator.metres)
+  @inline def miles: Miles = Miles(thisDouble)//etres = Metres(thisDouble * 1609.344)
+  @inline def millionMiles: Miles = thisDouble.miles * 1000000
+
   /** Alternative modulo or remainder operator that gives a positive modulus remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
   def %%(divisor: Double): Double =
   { val r = thisDouble % divisor
