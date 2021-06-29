@@ -31,7 +31,7 @@ def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtD
 
 def sett2 = List(
   scalaVersion := "2.13.6",
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-encoding", "UTF-8", "-Xsource:3"),
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-encoding", "UTF-8"), // "-Xsource:3"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value withSources(),
 )
 
@@ -124,7 +124,7 @@ lazy val DevNat2 = nat2Proj("Dev").dependsOn(EarthNat2).settings(
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value),
 )
 
-val docDirs: List[String] = List("Graphics", "Tiling", "Earth", "Dev")
+val docDirs: List[String] = List("Util", "Graphics", "Tiling", "Earth", "Dev")
 
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid buiding ScalaDocs")
 bothDoc :=
@@ -133,18 +133,19 @@ bothDoc :=
   println("Main docs and Js docs built")
 }
 
-lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).dependsOn(MacrosJvm3).settings(sett3).settings(
+lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "src3", el + "/srcJvm", el + "/srcExs", el + "srcFx")).map(s => baseDir.value / s),
+  Compile/unmanagedSourceDirectories := ("Macros" :: docDirs).flatMap(el => List(el + "/src", el + "/src3", el + "/srcJvm", el + "/srcExs", el + "srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15",
   Compile/doc/scalacOptions ++= Seq("-groups"),
 )
 
-lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).dependsOn(MacrosJs2).settings(sett2).settings(
+lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).dependsOn(MacrosJs2).settings(sett2).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExs")).map(s => baseDir.value / s),
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   Compile/doc/scalacOptions ++= Seq("-groups"),
