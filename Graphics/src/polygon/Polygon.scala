@@ -6,7 +6,7 @@ import Colour.Black, pWeb._
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the
  *  vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
  *  with then end point of side n sdn at vertex n. */
-trait Polygon extends Shape with BoundedElem with Approx[Double]
+trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLike[Pt2]
 {
   /** The vertices of this Polygon in an Array of [[Double]]s. */
   def vertsArray: Array[Double]

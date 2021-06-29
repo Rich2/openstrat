@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pSJs
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pSJs
 import pCanv._, pStrat._, pGrid._
 
 /** This file was meant to allow the developer to make local changes to appNum without modifying the master project. */

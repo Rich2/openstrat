@@ -1,10 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-trait PolygonLength extends Any
-
 /* A polygon using distances measured in metres rather than scalars. */
-final class PolygonM(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength with Dbl2sArr[Pt2M]
+final class PolygonM(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sArr[Pt2M]
 { type ThisT = PolygonM
   def unsafeFromArray(array: Array[Double]): PolygonM = new PolygonM(array)
   override def typeStr: String = "PolygonMs"
@@ -22,4 +20,4 @@ object PolygonM extends Dbl2sArrCompanion[Pt2M, PolygonM]
 }
 
 /* A polygon using distances measured in metres rather than scalars. */
-final class PolygonKMs(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonLength
+final class PolygonKMs(val arrayUnsafe: Array[Double]) extends AnyVal

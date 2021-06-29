@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pGrid
 import geom._
 
 sealed class SqFace(val ordNum: Int, val angle: AngleVec, val xTile: Int, val yTile: Int)
@@ -14,10 +13,9 @@ object SFaceLt extends SqFace(6, 90.degs, -2, 0)
 object SFaceUL extends SqFace(7, 45.degs, -1, 1)
 
 object SqFace
-{
-  /** Needs to be renamed. */
-  def optFaceOld(orig: Cood, dirn: Cood): Option[SqFace] = dirn - orig match
-  { case Cood(0, 2) => Some(SFaceUp)
+{ /** Needs to be renamed. */
+  def optFaceOld(orig: Cood, dirn: Cood): Option[SqFace] = (dirn - orig) match {
+    case Cood(0, 2) => Some(SFaceUp)
     case Cood(2, 2) => Some(SFaceUR)
     case Cood(2, 0) => Some(SFaceRt)
     case Cood(2, -2) => Some(SFaceDR)
