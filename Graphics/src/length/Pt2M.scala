@@ -11,7 +11,6 @@ final class Pt2M (val xMetresNum: Double, val yMetresNum: Double) extends Show2D
   def y: Metres = Metres(yMetresNum)
   override def show1: Double = xMetresNum
   override def show2: Double = yMetresNum
-  //def + (op: Pt2M): Pt2M = Pt2M(x + op.x, y + op.y)
   def + (op: Vec2M): Pt2M = new Pt2M(xMetresNum + op.xMetresNum, yMetresNum + op.yMetresNum)
   def - (op: Pt2M): Pt2M = Pt2M(x - op.x, y - op.y)
   def addXY (otherX: Metres, otherY: Metres): Pt2M = Pt2M(x + otherX, y + otherY)
