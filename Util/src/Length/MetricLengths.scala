@@ -3,8 +3,10 @@ package ostrat;
 
 /** Common trait for metric units of length. */
 trait MetricLength extends Any with Length
-{ @inline override def milesNum: Double = metresNum / 1609.34
+{
   @inline override def yardsNum: Double = metresNum * 1.09361
+  @inline override def milesNum: Double = metresNum / 1609.34
+  @inline override def mMilesNum: Double = metresNum / 1609340000
 }
 
 /** Length in metres. */

@@ -61,6 +61,12 @@ trait Length extends Any with Ordered[Length]
 
   /** The value of this length expressed as [[Miles]]. */
   @inline final def miles: Miles = new Miles(milesNum)
+
+  /** The scalar Double value of this length expressed in millions of miles. */
+  def mMilesNum: Double
+
+  /** The value of this length expressed as [[Miles]]. */
+  @inline final def mMmiles: MMiles = new MMiles(mMilesNum)
 }
 
 /** Companion object for [[Length]] trait contains extension class for [[Length]] */

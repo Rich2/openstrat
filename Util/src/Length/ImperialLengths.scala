@@ -35,30 +35,29 @@ final class Yards(override val yardsNum: Double) extends AnyVal with ImperialLen
   /** The scalar [[Double]] value of this length expressed in metres. */
   @inline override def metresNum: Double = yardsNum * 0.9144
 
-  /** The scalar Double value of this length expressed in miles. */
   @inline override def milesNum: Double = yardsNum / 1760
+  @inline override def mMilesNum: Double = yardsNum / 1760000000
 }
 
 /** Length in miles. */
 final class Miles(override val milesNum: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Miles"
-  //def str = persistD1(miles)
   override def metresNum: Double = 1609.34 * milesNum
   override def +(operand: Length): Miles = Miles(milesNum + operand.milesNum)
   override def -(operand: Length): Miles = Miles(milesNum - operand.milesNum)
   override def unary_- : Miles = Miles(-milesNum)
   override def *(operand: Double): Miles = Miles(milesNum * operand)
-  override def /(operand: Double): Metres = Metres(milesNum / operand)
+  override def /(operand: Double): Miles = Miles(milesNum / operand)
 
   /** Returns the max length of this and the operand length in [[Miles]]. */
   override def max(operand: Length): Miles = new Miles(milesNum.max(operand.milesNum))
 
-  //def kmStr2 = (miles / 1000).str2 + "km"
   override def compare(that: Length): Int = (milesNum - that.milesNum).match3(_ < 0, -1,_ == 0,0,1)
 
   def pos: Boolean = milesNum >= 0
   def neg: Boolean = milesNum < 0
   @inline override def yardsNum: Double = milesNum * 1760
+  @inline override def mMilesNum: Double = milesNum / 1000000
 }
 
 /** Companion object for the [[Metres] class. */
@@ -75,4 +74,25 @@ object Miles
   }*/
 
   //implicit object DistPersist extends PersistDbl1[miles]("Dist", "miles",_.miles, new miles(_))
+}
+
+/** Length in millions of miles. */
+final class MMiles(override val mMilesNum: Double) extends AnyVal with ImperialLength
+{ def typeStr: String = "MMiles"
+  override def metresNum: Double = 1609340000 * mMilesNum
+  override def +(operand: Length): MMiles = new MMiles(mMilesNum + operand.mMilesNum)
+  override def -(operand: Length): MMiles = new MMiles(mMilesNum - operand.mMilesNum)
+  override def unary_- : MMiles = new MMiles(-mMilesNum)
+  override def *(operand: Double): MMiles = new MMiles(mMilesNum * operand)
+  override def /(operand: Double): MMiles = new MMiles(milesNum / operand)
+
+  /** Returns the max length of this and the operand length in [[Miles]]. */
+  override def max(operand: Length): Miles = new Miles(milesNum.max(operand.milesNum))
+
+  override def compare(that: Length): Int = (milesNum - that.milesNum).match3(_ < 0, -1,_ == 0,0,1)
+
+  def pos: Boolean = milesNum >= 0
+  def neg: Boolean = milesNum < 0
+  @inline override def yardsNum: Double = milesNum * 1760
+  @inline override def milesNum: Double = mMilesNum * 1000000
 }

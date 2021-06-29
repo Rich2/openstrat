@@ -6,7 +6,7 @@ import math.Pi
 class IntExtensions(val thisInt: Int) extends AnyVal
 { def km: Metres = Metres(thisInt * 1000)
   def metre: Metres = Metres(thisInt)
-  @inline def miles: Miles = Miles(thisInt)//etres = Metres(thisInt * 1609.344)
+  @inline def miles: Miles = new Miles(thisInt)
   @inline def millionMiles: Miles = thisInt.miles * 1000000
   def * (operator: Metres): Metres = Metres(thisInt * operator.metresNum)
 
