@@ -4,12 +4,9 @@ import math._
 
 /** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
 final class Pt2M (val xMetresNum: Double, val yMetresNum: Double) extends Show2Dbls
-{ //override def toString: String = Metres2.PersistImplicit.strT(this)
-  override def typeStr: String = "Pt2M"
- // override def approx(that: Any, delta: Double): Boolean = ???
+{ override def typeStr: String = "Pt2M"
   override def name1: String = "x"
   override def name2: String = "y"
-  //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres2]
   def x: Metres = Metres(xMetresNum)
   def y: Metres = Metres(yMetresNum)
   override def show1: Double = xMetresNum
@@ -24,10 +21,7 @@ final class Pt2M (val xMetresNum: Double, val yMetresNum: Double) extends Show2D
   def subY(adj: Metres): Pt2M = Pt2M(x, y - adj)
   def * (operator: Double): Pt2M = Pt2M(x * operator, y * operator)
   def / (operator: Double): Pt2M = Pt2M(x / operator, y / operator)
-  def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
-
-  /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
-  @inline def dot(operand: Pt2M): Area = x * operand.x + y * operand.y
+  //def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
 
   def rotate(a: AngleVec): Pt2M =  Pt2M.metresNum(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
 
