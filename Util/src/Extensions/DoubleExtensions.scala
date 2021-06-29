@@ -7,7 +7,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
 {
   def km: Metres = Metres(thisDouble * 1000)
   def metre: Metres = Metres(thisDouble)
-  def * (operator: Metres): Metres = Metres(thisDouble * operator.metres)
+  def * (operator: Metres): Metres = Metres(thisDouble * operator.metresNum)
   @inline def miles: Miles = Miles(thisDouble)//etres = Metres(thisDouble * 1609.344)
   @inline def millionMiles: Miles = thisDouble.miles * 1000000
 

@@ -31,7 +31,7 @@ final class Pt3M(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
 
   /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[Pt3M]] point. */
   def xRotateRadians(rotationRadians: Double): Pt3M =
-  { val scalar: Metres = Metres(sqrt(y.metres * y.metres + z.metres * z.metres))
+  { val scalar: Metres = Metres(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
     val ang0 = ife2(//As y and z are both negative, the atan will give a positive value added to -Pi gives range -Pi / 2 to - Pi
@@ -48,7 +48,7 @@ final class Pt3M(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
 object Pt3M
 {
   def metres(xMetres: Double, yMetres: Double, zMetres: Double): Pt3M = new Pt3M(xMetres, yMetres, zMetres)
-  def apply(x: Metres, y: Metres, z: Metres): Pt3M = new Pt3M(x.metres, y.metres, z.metres)
+  def apply(x: Metres, y: Metres, z: Metres): Pt3M = new Pt3M(x.metresNum, y.metresNum, z.metresNum)
   //implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
   var counter = 0
 

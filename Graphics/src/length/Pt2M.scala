@@ -29,7 +29,7 @@ final class Pt2M(val xMetres: Double, val yMetres: Double) extends Show2Dbls
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: Pt2M): Area = x * operand.x + y * operand.y
 
-  def rotate(a: AngleVec): Pt2M =  Pt2M.metres(x.metres * a.cos - y.metres * a.sin, x.metres * a.sin + y.metres * a.cos)
+  def rotate(a: AngleVec): Pt2M =  Pt2M.metres(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
 
   def rotateRadians(r: Double): Pt2M =
   { val newX = xMetres * cos(r) - yMetres * sin(r)
@@ -53,7 +53,7 @@ final class Pt2M(val xMetres: Double, val yMetres: Double) extends Show2Dbls
 /** Companion object for [[Pt2M]] class contains factory methods. */
 object Pt2M
 { def metres(xMetres: Double, yMetres: Double): Pt2M = new Pt2M(xMetres, yMetres)
-  def apply(x: Metres, y: Metres): Pt2M = new Pt2M(x.metres, y.metres)
+  def apply(x: Metres, y: Metres): Pt2M = new Pt2M(x.metresNum, y.metresNum)
 
   implicit class Metres2Implicit(thisMetres2: Pt2M)
   { def / (operator: Metres): Pt2 = Pt2(thisMetres2.x/ operator, thisMetres2.y / operator)

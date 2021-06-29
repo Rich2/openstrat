@@ -8,7 +8,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def metre: Metres = Metres(thisInt)
   @inline def miles: Miles = Miles(thisInt)//etres = Metres(thisInt * 1609.344)
   @inline def millionMiles: Miles = thisInt.miles * 1000000
-  def * (operator: Metres): Metres = Metres(thisInt * operator.metres)
+  def * (operator: Metres): Metres = Metres(thisInt * operator.metresNum)
 
   /** Returns the value or 0, if this Int less than 0. */
   def atLeast0: Int = ife(thisInt > 0, thisInt, 0)

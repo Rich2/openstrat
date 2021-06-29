@@ -28,46 +28,46 @@ trait Length extends Any with Ordered[Length]
   def max(operand: Length): Length
 
   /** The scalar [[Double]] value of this length expressed in metres. */
-  def metres: Double
+  def metresNum: Double
 
   /** The value of this length expressed as [[KMetres]]. */
-  @inline final def toMetres: Metres = new Metres(metres)
+  @inline final def toMetres: Metres = new Metres(metresNum)
 
   /** The scalar [[Double]] value of this length expressed in kilometres. */
-  def kMetres: Double
+  def kMetresNum: Double
 
   /** The value of this length expressed as [[KMetres]]. */
-  @inline final def toKMetres: KMetres = new KMetres(kMetres)
+  @inline final def toKMetres: KMetres = new KMetres(kMetresNum)
 
   /** The scalar [[Double]] value of this length expressed in megametres. */
-  def mMetres: Double
+  def mMetresNum: Double
 
   /** The value of this length expressed as [[MMetres]] megametres or thousands of kilometres. */
-  @inline final def toMMetres: MMetres = new MMetres(kMetres)
+  @inline final def toMMetres: MMetres = new MMetres(kMetresNum)
 
   /** The scalar [[Double]] value of this length expressed in gigametres or millions of kilometres. */
-  def gMetres: Double
+  def gMetresNum: Double
 
   /** The value of this length expressed as [[GMetres]] gigametres or millions of kilometres. */
-  @inline final def toGMetres: GMetres = new GMetres(gMetres)
+  @inline final def toGMetres: GMetres = new GMetres(gMetresNum)
 
   /** The scalar Double value of this length expressed in miles. */
-  def yards: Double
+  def yardsNum: Double
 
   /** The value of this length expressed as [[Miles]]. */
-  @inline final def toYards: Yards = new Yards(yards)
+  @inline final def toYards: Yards = new Yards(yardsNum)
 
   /** The scalar Double value of this length expressed in miles. */
-  def miles: Double
+  def milesNum: Double
 
   /** The value of this length expressed as [[Miles]]. */
-  @inline final def toMiles: Miles = new Miles(miles)
+  @inline final def toMiles: Miles = new Miles(milesNum)
 }
 
 /** Companion object for [[Length]] trait contains extension class for [[Length]] */
 object Length
 {
   implicit class LengthExtensions(val thisLength: Length)
-  { def / (operand: Length): Double = thisLength.metres / operand.metres
+  { def / (operand: Length): Double = thisLength.metresNum / operand.metresNum
   }
 }

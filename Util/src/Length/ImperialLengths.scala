@@ -4,61 +4,61 @@ import math._
 
 /** Common trait for metric units of length. */
 trait ImperialLength extends Any with Length
-{ @inline override def kMetres: Double = metres / 1000
-  @inline override def mMetres: Double = metres / 1000000
-  @inline override def gMetres: Double = metres / 1000000000
+{ @inline override def kMetresNum: Double = metresNum / 1000
+  @inline override def mMetresNum: Double = metresNum / 1000000
+  @inline override def gMetresNum: Double = metresNum / 1000000000
 }
 
 /** Length in yards. */
-final class Yards(override val yards: Double) extends AnyVal with ImperialLength
+final class Yards(override val yardsNum: Double) extends AnyVal with ImperialLength
 {
-  override def compare(that: Length): Int = (yards - that.yards).match3(_ < -1, -1, _ == 0, 0, 1)
+  override def compare(that: Length): Int = (yardsNum - that.yardsNum).match3(_ < -1, -1, _ == 0, 0, 1)
 
   /** Adds the operand length to this Yards. Returns the value in Yards. */
-  override def +(operand: Length): Yards = new Yards(yards + operand.yards)
+  override def +(operand: Length): Yards = new Yards(yardsNum + operand.yardsNum)
 
   /** Subtracts the operand length from this Yards. Returns the value in Yards. */
-  override def -(operand: Length): Yards = new Yards(yards - operand.yards)
+  override def -(operand: Length): Yards = new Yards(yardsNum - operand.yardsNum)
 
   /** Negates this Yards. Returns the value in Yards. */
-  override def unary_- : Yards = new Yards(-yards)
+  override def unary_- : Yards = new Yards(-yardsNum)
 
   /** Multiplies this Yards by the operand scalar [[Double]]. Returns the value in Yards. */
-  override def *(operand: Double): Length = new Yards(yards * operand)
+  override def *(operand: Double): Length = new Yards(yardsNum * operand)
 
   /** Divides this Yrads by the operand scalar [[Double]]. Returns the value in Yards. */
-  override def /(operand: Double): Length = new Yards(yards / operand)
+  override def /(operand: Double): Length = new Yards(yardsNum / operand)
 
   /** Returns the max length of this and the operand length in [[Yards]]. */
-  override def max(operand: Length): Yards = new Yards(yards.max(operand.yards))
+  override def max(operand: Length): Yards = new Yards(yardsNum.max(operand.yardsNum))
 
   /** The scalar [[Double]] value of this length expressed in metres. */
-  @inline override def metres: Double = yards * 0.9144
+  @inline override def metresNum: Double = yardsNum * 0.9144
 
   /** The scalar Double value of this length expressed in miles. */
-  @inline override def miles: Double = yards / 1760
+  @inline override def milesNum: Double = yardsNum / 1760
 }
 
 /** Length in miles. */
-final class Miles(override val miles: Double) extends AnyVal with ImperialLength
+final class Miles(override val milesNum: Double) extends AnyVal with ImperialLength
 { def typeStr: String = "Miles"
   //def str = persistD1(miles)
-  override def metres: Double = 1609.34 * miles
-  override def +(operand: Length): Miles = Miles(miles + operand.miles)
-  override def -(operand: Length): Miles = Miles(miles - operand.miles)
-  override def unary_- : Miles = Miles(-miles)
-  override def *(operand: Double): Miles = Miles(miles * operand)
-  override def /(operand: Double): Metres = Metres(miles / operand)
+  override def metresNum: Double = 1609.34 * milesNum
+  override def +(operand: Length): Miles = Miles(milesNum + operand.milesNum)
+  override def -(operand: Length): Miles = Miles(milesNum - operand.milesNum)
+  override def unary_- : Miles = Miles(-milesNum)
+  override def *(operand: Double): Miles = Miles(milesNum * operand)
+  override def /(operand: Double): Metres = Metres(milesNum / operand)
 
   /** Returns the max length of this and the operand length in [[Miles]]. */
-  override def max(operand: Length): Miles = new Miles(miles.max(operand.miles))
+  override def max(operand: Length): Miles = new Miles(milesNum.max(operand.milesNum))
 
   //def kmStr2 = (miles / 1000).str2 + "km"
-  override def compare(that: Length): Int = (miles - that.miles).match3(_ < 0, -1,_ == 0,0,1)
+  override def compare(that: Length): Int = (milesNum - that.milesNum).match3(_ < 0, -1,_ == 0,0,1)
 
-  def pos: Boolean = miles >= 0
-  def neg: Boolean = miles < 0
-  @inline override def yards: Double = miles * 1760
+  def pos: Boolean = milesNum >= 0
+  def neg: Boolean = milesNum < 0
+  @inline override def yardsNum: Double = milesNum * 1760
 }
 
 /** Companion object for the [[Metres] class. */

@@ -112,7 +112,7 @@ package object geom
   }
 
   implicit class DistImplicit(thisDist: Metres)
-  {  def / (operand: Metres): Double = thisDist.metres / operand.metres
+  {  def / (operand: Metres): Double = thisDist.metresNum / operand.metresNum
   }
    
   implicit class OptionGeomImplicit[A](thisOption: Option[A])
