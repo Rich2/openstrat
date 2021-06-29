@@ -10,7 +10,7 @@ object VecsTest extends TestSuite
 
     test("Test0")
     {
-     // assert(v1s.str == "LinePath(2.1, 0; 5.4, 0)")
+      4 ==> 4 // assert(v1s.str == "LinePath(2.1, 0; 5.4, 0)")
     }
 
     val v21 = 4 pp 4
