@@ -70,9 +70,9 @@ package object geom
   val Cos30: Double = math.cos(Pi/6)
   val Cos60: Double = 0.5
   val LatLong0 = LatLong.degs(0, 0)
-  val EarthPolarRadius: Metres = 6356.7523.kmsOld
-  val EarthEquatorialRadius: Metres = 6378.137.kmsOld
-  val EarthAvDiameter: Metres = 12742.kmsOld
+  val EarthPolarRadius: Metres = 6356752.3.metres
+  val EarthEquatorialRadius: Metres = 6378137.metres
+  val EarthAvDiameter: Metres = 12742000.metres
   val EarthAvRadius: Metres = EarthAvDiameter / 2
   type GraphicElems = Arr[GraphicElem]
 
