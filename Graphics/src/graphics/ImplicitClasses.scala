@@ -14,7 +14,6 @@ class IntGeomImplicit(thisInt: Int)
       operators. A third number as example {{{3.1 vv 4 vv -7.25}}} can be used to create a [[Vec3]]. */
   @inline def vv(y: Double): Vec2 = Vec2(thisInt, y)
 
-
   /** Converts this Int into an absolute angle of the given degrees from 0 until 360 degrees. */
   def angle: Angle = Angle(thisInt)
 
@@ -39,7 +38,6 @@ class DoubleImplicitGeom(thisDouble: Double)
    *  operators. A third number as example {{{3.1 pp 4 pp -7.25}}} can be used to create a [Pt3]. */
   @inline def vv(y: Double): Vec2 = Vec2(thisDouble, y)
 
-
   def radians: Angle = Angle.radians(thisDouble)
 
   /** Converts this Double into an absolute angle of the given degrees from 0 until 360 degrees. */
@@ -57,5 +55,4 @@ class DoubleImplicitGeom(thisDouble: Double)
   def south: Latitude = Latitude.apply(-thisDouble)
   def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
   def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
-  def metres: Metres = new Metres(thisDouble)
 }
