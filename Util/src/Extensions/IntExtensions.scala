@@ -7,7 +7,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
 { /** Returns this [[Int]] value in [[Metres]]. */
   @inline def metres: Metres = Metres(thisInt)
 
-  /** Extension methods multiplies this scalar [[int]] by the operand in metres */
+  /** Extension methods multiplies this scalar [[Int]] by the operand in metres */
   @inline def * (operator: Metres): Metres = Metres(thisInt * operator.metresNum)
 
   /** Returns this [[Int]] value in [[KMetres]] kilometres. */
