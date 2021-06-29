@@ -62,7 +62,7 @@ package object geom
   val Pt2Z = Pt2(0, 0)
 
   /** Dist2(0.km, 0.km) constant */
-  val Dist2Z = Pt2M(0.kmsOld, 0.kmsOld)
+  val Dist2Z = Pt2M(0.metres, 0.metres)
 
   val Sin15: Double = math.sin(Pi/12)
   val Sin30: Double = 0.5

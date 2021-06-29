@@ -9,7 +9,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   statusText = "Welcome to world map, constructed from irregular areas."
   def thisTop(): Unit = reTop(Arr())
   thisTop()
-  var scale: Metres = startScale.getOrElse(8.kmsOld)
+  var scale: Metres = startScale.getOrElse(8000.metres)
 
   val eas: Arr[EarthLevel2] =  Arr(AfricaWest, AfricaEast, AfricaSouthern).flatMap(_.a2Arr)
   val af0 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / scale).fill(a.colour) }
