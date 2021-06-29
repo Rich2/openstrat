@@ -13,7 +13,7 @@ trait Dist2Gui extends MapGui
   def scaleMax: Metres
   def scaleMin: Metres //= scaleAlignedMin.min(10.millionMiles)
 
-  var mapFocus: Pt2M = Pt2M(0.km, 0.km)
+  var mapFocus: Pt2M = Pt2M(0.kmsOld, 0.kmsOld)
   //@inline def setFocus(x: Distouble, y: Double): Unit = mapFocus = Vec2(x, y)
   
   def scaleAlignedMin: Metres = ??? //mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)

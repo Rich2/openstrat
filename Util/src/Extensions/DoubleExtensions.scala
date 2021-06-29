@@ -4,11 +4,25 @@ import math.Pi
 
 /** Extension class for Double. This is created as a separate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
-{
-  def km: Metres = Metres(thisDouble * 1000)
-  def metre: Metres = Metres(thisDouble)
-  def * (operator: Metres): Metres = Metres(thisDouble * operator.metresNum)
-  @inline def miles: Miles = Miles(thisDouble)//etres = Metres(thisDouble * 1609.344)
+{ /** Method to be removed, prefer kMetres. */
+  def kmsOld: Metres = Metres(thisDouble * 1000)
+
+  /** Returns this [[Double]] value in [[Metres]]. */
+  @inline def metre: Metres = Metres(thisDouble)
+
+  /** Extension methods multiplies this scalar [[Double]] by the operand in metres */
+  @inline def * (operator: Metres): Metres = Metres(thisDouble * operator.metresNum)
+
+  /** Returns this [[Double]] value in [[KMetres]] kilometres. */
+  @inline def kMetres: KMetres = KMetres(thisDouble)
+
+  /** Returns this [[Double]] value in [[GMetres]] or millions of kilometres. */
+  @inline def gMetres: GMetres = GMetres(thisDouble)
+
+  /** Returns this [[Double]] value in [[Miles]]. */
+  @inline def miles: Miles = Miles(thisDouble)
+
+  /** Returns this [[Double]] value in [[MMiles]] millions of miles. */
   @inline def mMiles: MMiles = new MMiles(thisDouble)
 
   /** Alternative modulo or remainder operator that gives a positive modulus remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */

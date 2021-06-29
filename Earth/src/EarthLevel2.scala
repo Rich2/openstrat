@@ -7,7 +7,7 @@ abstract class EarthLevel2(val shortName: String, val cen: LatLong, val terr: WT
 {
   override def toString = name.appendCommas(terr.toString)
   def aStrs: Strings = Strings(name)
-  def textScale: Metres = 15.km
+  def textScale: Metres = 15.kmsOld
 
   def colour = terr.colour
 

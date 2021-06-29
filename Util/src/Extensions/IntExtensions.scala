@@ -4,11 +4,26 @@ import math.Pi
 
 /** Extension methods for Int. */
 class IntExtensions(val thisInt: Int) extends AnyVal
-{ def km: Metres = Metres(thisInt * 1000)
-  def metre: Metres = Metres(thisInt)
+{ /** Method to be removed, prefer kMetres. */
+  def kmsOld: Metres = Metres(thisInt * 1000)
+
+  /** Returns this [[Int]] value in [[Metres]]. */
+  @inline def metre: Metres = Metres(thisInt)
+
+  /** Extension methods multiplies this scalar [[int]] by the operand in metres */
+  @inline def * (operator: Metres): Metres = Metres(thisInt * operator.metresNum)
+
+  /** Returns this [[Int]] value in [[KMetres]] kilometres. */
+  @inline def kMetres: KMetres = KMetres(thisInt)
+
+  /** Returns this [[Int]] value in [[GMetres]] or millions of kilometres. */
+  @inline def gMetres: GMetres = GMetres(thisInt)
+
+  /** Returns this [[Int]] value in [[Miles]]. */
   @inline def miles: Miles = new Miles(thisInt)
+
+  /** Returns this [[Int]] value in [[MMiles]] millions of miles. */
   @inline def mMiles: MMiles = new MMiles(thisInt)
-  def * (operator: Metres): Metres = Metres(thisInt * operator.metresNum)
 
   /** Returns the value or 0, if this Int less than 0. */
   def atLeast0: Int = ife(thisInt > 0, thisInt, 0)
