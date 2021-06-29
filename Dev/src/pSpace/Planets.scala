@@ -6,14 +6,14 @@ import geom._, pCanv._, Colour._
 case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist2Gui
 {
   statusText = "Choose centreing body."
-  val maxOrbit: Metres = 3700.millionMiles.metres
+  val maxOrbit: Metres = 3700.mMiles.metres
   var years: Double = 0
   var paused: Boolean = false
   def pausedStr: String = paused.fold("Restart", "Pause")  
-  var scale = 0.5.millionMiles.metres
-  override val scaleMax: Metres = 10.millionMiles.metres
+  var scale = 0.5.mMiles.metres
+  override val scaleMax: Metres = 10.mMiles.metres
   override val scaleMin: Metres = 100000.miles.metres
-  val earthDist = 93.millionMiles
+  val earthDist = 93.mMiles
   /** Years per second */
    
   mapPanel.backColour = Black
@@ -37,20 +37,21 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
 
   object Planet
   {
-    def miles(dist: Miles, colour: Colour, name: String): Planet = new Planet(dist.metres, colour, name)
+    def miles(miles: Miles, colour: Colour, name: String): Planet = new Planet(miles.metres, colour, name)
+    def mMiles(mMiles: MMiles, colour: Colour, name: String): Planet = new Planet(mMiles.metres, colour, name)
   }
   
-  val mercury = Planet.miles(36.millionMiles, Colour.Gray, "Mercury")
-  val venus = Planet.miles(67.2.millionMiles , White, "Venus" )
-  val earth = Planet.miles(earthDist, Blue, "Earth")
-  val mars = Planet.miles(141.6.millionMiles , Red, "Mars")
-  val jupiter = Planet.miles(483.6.millionMiles , Orange, "Jupiter")
-  val saturn = Planet.miles(886.7.millionMiles , Gold, "Saturn")
-  val uranus = Planet.miles(1784.0.millionMiles , Colour.BrightSkyBlue, "Uranus")
-  val neptune = Planet.miles(2794.4.millionMiles , LightGreen, "Neptune")
-  val pluto = Planet.miles(3674.5.millionMiles, Colour.SandyBrown, "Pluto")
+  val mercury = Planet.mMiles(36.mMiles, Colour.Gray, "Mercury")
+  val venus = Planet.mMiles(67.2.mMiles , White, "Venus" )
+  val earth = Planet.mMiles(earthDist, Blue, "Earth")
+  val mars = Planet.mMiles(141.6.mMiles , Red, "Mars")
+  val jupiter = Planet.mMiles(483.6.mMiles , Orange, "Jupiter")
+  val saturn = Planet.mMiles(886.7.mMiles , Gold, "Saturn")
+  val uranus = Planet.mMiles(1784.0.mMiles , Colour.BrightSkyBlue, "Uranus")
+  val neptune = Planet.mMiles(2794.4.mMiles , LightGreen, "Neptune")
+  val pluto = Planet.mMiles(3674.5.mMiles, Colour.SandyBrown, "Pluto")
   
-  object Sun extends Planet(0.millionMiles.metres, Yellow, "Sun")
+  object Sun extends Planet(0.mMiles.metres, Yellow, "Sun")
   { override def move(elapsed: Integer): Unit = {}
     override val size = 14
   }

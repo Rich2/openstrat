@@ -7,7 +7,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
 { def km: Metres = Metres(thisInt * 1000)
   def metre: Metres = Metres(thisInt)
   @inline def miles: Miles = new Miles(thisInt)
-  @inline def millionMiles: Miles = thisInt.miles * 1000000
+  @inline def mMiles: MMiles = new MMiles(thisInt)
   def * (operator: Metres): Metres = Metres(thisInt * operator.metresNum)
 
   /** Returns the value or 0, if this Int less than 0. */
