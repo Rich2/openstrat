@@ -6,13 +6,13 @@ import geom._, pCanv._, Colour._
 case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist2Gui
 {
   statusText = "Choose centreing body."
-  val maxOrbit: Metres = 3700.millionMiles.toMetres
+  val maxOrbit: Metres = 3700.millionMiles.metres
   var years: Double = 0
   var paused: Boolean = false
   def pausedStr: String = paused.fold("Restart", "Pause")  
-  var scale = 0.5.millionMiles.toMetres
-  override val scaleMax: Metres = 10.millionMiles.toMetres
-  override val scaleMin: Metres = 100000.miles.toMetres
+  var scale = 0.5.millionMiles.metres
+  override val scaleMax: Metres = 10.millionMiles.metres
+  override val scaleMin: Metres = 100000.miles.metres
   val earthDist = 93.millionMiles
   /** Years per second */
    
@@ -37,7 +37,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
 
   object Planet
   {
-    def miles(dist: Miles, colour: Colour, name: String): Planet = new Planet(dist.toMetres, colour, name)
+    def miles(dist: Miles, colour: Colour, name: String): Planet = new Planet(dist.metres, colour, name)
   }
   
   val mercury = Planet.miles(36.millionMiles, Colour.Gray, "Mercury")
@@ -50,7 +50,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
   val neptune = Planet.miles(2794.4.millionMiles , LightGreen, "Neptune")
   val pluto = Planet.miles(3674.5.millionMiles, Colour.SandyBrown, "Pluto")
   
-  object Sun extends Planet(0.millionMiles.toMetres, Yellow, "Sun")
+  object Sun extends Planet(0.millionMiles.metres, Yellow, "Sun")
   { override def move(elapsed: Integer): Unit = {}
     override val size = 14
   }

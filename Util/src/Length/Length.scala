@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-
 import scala.math.Ordered
 
 /** A quantity or measurement of length. The final classes include [[Metres]], [[KMetres]]. The purpose of the separate classes is for displaying
@@ -30,38 +29,38 @@ trait Length extends Any with Ordered[Length]
   /** The scalar [[Double]] value of this length expressed in metres. */
   def metresNum: Double
 
-  /** The value of this length expressed as [[KMetres]]. */
-  @inline final def toMetres: Metres = new Metres(metresNum)
+  /** The value of this length expressed as [[Metres]]. */
+  @inline final def metres: Metres = new Metres(metresNum)
 
   /** The scalar [[Double]] value of this length expressed in kilometres. */
   def kMetresNum: Double
 
   /** The value of this length expressed as [[KMetres]]. */
-  @inline final def toKMetres: KMetres = new KMetres(kMetresNum)
+  @inline final def kMetres: KMetres = new KMetres(kMetresNum)
 
   /** The scalar [[Double]] value of this length expressed in megametres. */
   def mMetresNum: Double
 
   /** The value of this length expressed as [[MMetres]] megametres or thousands of kilometres. */
-  @inline final def toMMetres: MMetres = new MMetres(kMetresNum)
+  @inline final def mMetres: MMetres = new MMetres(kMetresNum)
 
   /** The scalar [[Double]] value of this length expressed in gigametres or millions of kilometres. */
   def gMetresNum: Double
 
   /** The value of this length expressed as [[GMetres]] gigametres or millions of kilometres. */
-  @inline final def toGMetres: GMetres = new GMetres(gMetresNum)
+  @inline final def gMetres: GMetres = new GMetres(gMetresNum)
 
   /** The scalar Double value of this length expressed in miles. */
   def yardsNum: Double
 
   /** The value of this length expressed as [[Miles]]. */
-  @inline final def toYards: Yards = new Yards(yardsNum)
+  @inline final def yards: Yards = new Yards(yardsNum)
 
   /** The scalar Double value of this length expressed in miles. */
   def milesNum: Double
 
   /** The value of this length expressed as [[Miles]]. */
-  @inline final def toMiles: Miles = new Miles(milesNum)
+  @inline final def miles: Miles = new Miles(milesNum)
 }
 
 /** Companion object for [[Length]] trait contains extension class for [[Length]] */
