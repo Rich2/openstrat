@@ -17,5 +17,5 @@ class LineSegDist(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double
 object LineSegDist
 {
   def apply(startDist2: Pt2M, endDist2: Pt2M): LineSegDist =
-    new LineSegDist(startDist2.xMetres, startDist2.yMetres, endDist2.xMetres, endDist2.yMetres)
+    new LineSegDist(startDist2.xMetresNum, startDist2.yMetresNum, endDist2.xMetresNum, endDist2.yMetresNum)
 }

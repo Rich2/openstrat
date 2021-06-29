@@ -68,7 +68,7 @@ class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Do
 
 /** To be removed. */
 object LineSegDistTail
-{ def apply(endPt: Pt2M): DistCurveTail = new DistCurveTail(10, 0, 0, 0, 0, endPt.xMetres, endPt.yMetres)
+{ def apply(endPt: Pt2M): DistCurveTail = new DistCurveTail(10, 0, 0, 0, 0, endPt.xMetresNum, endPt.yMetresNum)
 //   override def toVec2s(f: Dist2 => Vec2): CurveSeg = LineSeg(f(endPt))   
 }
 
@@ -76,6 +76,6 @@ object LineSegDistTail
 object ArcSegDistTail
 {
    def apply(cenPt: Pt2M, endPt: Pt2M): DistCurveTail =
-      new DistCurveTail(11, 0, 0, cenPt.xMetres, cenPt.yMetres, endPt.xMetres, endPt.yMetres)
+      new DistCurveTail(11, 0, 0, cenPt.xMetresNum, cenPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 //   def toVec2s(f: Dist2 => Vec2): CurveSeg = ArcSeg(f(cenPt), f(endPt))
 }

@@ -2,18 +2,18 @@
 package ostrat; package geom
 import math._
 
-/** A 2 dimensional point specified in metres as units rather than pure scalar numbers. */
-final class Pt2M(val xMetres: Double, val yMetres: Double) extends Show2Dbls
+/** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
+final class Pt2M (val xMetresNum: Double, val yMetresNum: Double) extends Show2Dbls
 { //override def toString: String = Metres2.PersistImplicit.strT(this)
   override def typeStr: String = "Pt2M"
  // override def approx(that: Any, delta: Double): Boolean = ???
   override def name1: String = "x"
   override def name2: String = "y"
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres2]
-  def x: Metres = Metres(xMetres)
-  def y: Metres = Metres(yMetres)
-  override def show1: Double = xMetres
-  override def show2: Double = yMetres
+  def x: Metres = Metres(xMetresNum)
+  def y: Metres = Metres(yMetresNum)
+  override def show1: Double = xMetresNum
+  override def show2: Double = yMetresNum
   def + (op: Pt2M): Pt2M = Pt2M(x + op.x, y + op.y)
   def - (op: Pt2M): Pt2M = Pt2M(x - op.x, y - op.y)
   def addXY (otherX: Metres, otherY: Metres): Pt2M = Pt2M(x + otherX, y + otherY)
@@ -24,21 +24,21 @@ final class Pt2M(val xMetres: Double, val yMetres: Double) extends Show2Dbls
   def subY(adj: Metres): Pt2M = Pt2M(x, y - adj)
   def * (operator: Double): Pt2M = Pt2M(x * operator, y * operator)
   def / (operator: Double): Pt2M = Pt2M(x / operator, y / operator)
-  def magnitude: Metres = Metres(math.sqrt(xMetres.squared + yMetres.squared))
+  def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: Pt2M): Area = x * operand.x + y * operand.y
 
-  def rotate(a: AngleVec): Pt2M =  Pt2M.metres(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
+  def rotate(a: AngleVec): Pt2M =  Pt2M.metresNum(x.metresNum * a.cos - y.metresNum * a.sin, x.metresNum * a.sin + y.metresNum * a.cos)
 
   def rotateRadians(r: Double): Pt2M =
-  { val newX = xMetres * cos(r) - yMetres * sin(r)
+  { val newX = xMetresNum * cos(r) - yMetresNum * sin(r)
     val newY =
-    { val ya = xMetres * sin(r)
-      val yb = yMetres * cos(r)
+    { val ya = xMetresNum * sin(r)
+      val yb = yMetresNum * cos(r)
       ya + yb
     }
-    Pt2M.metres(newX, newY)
+    Pt2M.metresNum(newX, newY)
   }
 
   /** Currently not working for angles greater than Pi / 2 */
@@ -52,11 +52,13 @@ final class Pt2M(val xMetres: Double, val yMetres: Double) extends Show2Dbls
 
 /** Companion object for [[Pt2M]] class contains factory methods. */
 object Pt2M
-{ def metres(xMetres: Double, yMetres: Double): Pt2M = new Pt2M(xMetres, yMetres)
+{ /** Factory method for creating a 2 dimensional point measured in metres from the scalar [[Double]] values. */
+  def metresNum(xMetres: Double, yMetres: Double): Pt2M = new Pt2M(xMetres, yMetres)
+
   def apply(x: Metres, y: Metres): Pt2M = new Pt2M(x.metresNum, y.metresNum)
 
   implicit class Metres2Implicit(thisMetres2: Pt2M)
-  { def / (operator: Metres): Pt2 = Pt2(thisMetres2.x/ operator, thisMetres2.y / operator)
+  { def / (operator: Length): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
   }
 
   implicit val PersistImplicit: Persist[Pt2M] = new Persist2Dbls[Pt2M]("Metres2", "x", "y", new Pt2M(_, _))
