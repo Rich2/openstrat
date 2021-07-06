@@ -52,14 +52,27 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def ifSumEven[A](evenVal: => A, oddVal: => A, operand: Int): A = if((thisInt + operand).isEven) evenVal else oddVal
   def ifSumOdd[A](oddVal: => A, evenVal: => A, operand: Int): A = if((thisInt + operand).isOdd) oddVal else evenVal
   def diff(operand: Int): Int = (thisInt - operand).abs
+
+  /** Divides this [[Int]] by 2. */
   def div2: Int = thisInt / 2
+
+  /** Divides this [[Int]] by 4. */
   def div4: Int = thisInt / 4
   def div2RoundUp: Int = thisInt / 2 + thisInt % 2
   def div2RoundDown: Int = thisInt / 2 - thisInt % 2
-  def million: Int = thisInt *             1000000
-  def billion: Long = thisInt.toLong *     1000000000L
-  def trillion: Long = thisInt.toLong *    1000000000000L
+
+  /** multiplies this Int by a million and returns the result as [[Int]]. */
+  def million: Int = thisInt * 1000000
+
+  /** multiplies this Int by a billion and returns the result as [[Long]]. */
+  def billion: Long = thisInt.toLong * 1000000000L
+
+  /** multiplies this Int by a trillion and returns the result as [[Long]]. */
+  def trillion: Long = thisInt.toLong * 1000000000000L
+
+  /** multiplies this Int by a quadrillion and returns the result as [[Long]]. */
   def quadrillion: Long = thisInt.toLong * 1000000000000000L
+
   def spaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
   def repeatChar(c: Char): String = (1 to thisInt).foldLeft("")((a, b) => a + c)
   def commaInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + ", " + _.toString)

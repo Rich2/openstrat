@@ -2,7 +2,7 @@
 package ostrat; package pCanv
 import geom._
 
-/** Why is the called a Dist2LikeGui not a Dist2 Gui */
+/** To be removed probably a Gui for maps measured in metres. */
 trait Dist2Gui extends MapGui
 {
   /** The Distance represented by one pixel width / height on the screen */
@@ -16,8 +16,8 @@ trait Dist2Gui extends MapGui
   var mapFocus: Pt2M = Pt2M(0.metres, 0.metres)
   //@inline def setFocus(x: Distouble, y: Double): Unit = mapFocus = Vec2(x, y)
   
-  def scaleAlignedMin: Metres = ??? //mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
-  def scaleRotatedMin: Metres = ??? //(mapWidth.squared + mapHeight.squared) / mapWidth.max(mapHeight).max(0.000001)
+  //def scaleAlignedMin: Metres = mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
+  //def scaleRotatedMin: Metres = ??? //(mapWidth.squared + mapHeight.squared) / mapWidth.max(mapHeight).max(0.000001)
    
   val bZoomIn = clickButtonOld("+", zoomInCmd)
   val bZoomOut = clickButtonOld("-", zoomOutCmd)
