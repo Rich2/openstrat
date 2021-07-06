@@ -4,7 +4,7 @@ import annotation.unchecked.uncheckedVariance
 
 /** Base trait for specialised immutable Arrays. The final classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage.
  *  A lot of the time this is a compile time wrapper with no boxing run cost. */
-trait ArrImut[+A] extends Any with ArrayLike[A]
+trait ArrImut[+A] extends Any with SeqArrayLike[A]
 { override type ThisT <: ArrImut[A]
 
   /** String specifying the type of this object. */

@@ -77,7 +77,7 @@ object IntsBuild extends ArrTBuilder[Int, Ints] with ArrTFlatBuilder[Ints]
   override def buffToArr(buff: IntBuff): Ints = new Ints(buff.unsafeBuff.toArray)
 }
 
-class IntBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with ArrayLike[Int]
+class IntBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with SeqArrayLike[Int]
 { override def apply(index: Int): Int = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
 }

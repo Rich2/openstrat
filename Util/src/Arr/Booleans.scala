@@ -39,7 +39,7 @@ object BooleansBuild extends ArrTBuilder[Boolean, Booleans] with ArrTFlatBuilder
   override def buffToArr(buff: BooleanBuff): Booleans = new Booleans(buff.unsafeBuff.toArray)
 }
 
-class BooleanBuff(val unsafeBuff: ArrayBuffer[Boolean]) extends AnyVal with ArrayLike[Boolean]
+class BooleanBuff(val unsafeBuff: ArrayBuffer[Boolean]) extends AnyVal with SeqArrayLike[Boolean]
 { override def apply(index: Int): Boolean = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
 }

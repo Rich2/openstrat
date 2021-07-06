@@ -4,7 +4,7 @@ import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 /** OptRefs is an array based collection of optional values, that uses nulls for implementation. The collection use should not have to interact with
  *  the null values directly.  */
-class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrayLikeBase[OptRef[A]]
+class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal// with CollectionBased[OptRef[A]]
 { @inline def elemsLen: Int = unsafeArray.length
   def apply(index: Int): OptRef[A] = OptRef(unsafeArray(index))
 
@@ -31,7 +31,7 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
     }
   }
 
-  override def foreach[U](f: OptRef[A] => U): Unit =
+  def foreach[U](f: OptRef[A] => U): Unit =
   { var count = 0
     while (count < elemsLen)
     { f(apply(count))
@@ -39,7 +39,7 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
     }
   }
 
-  override def iForeach[U](f: (OptRef[A], Int) => U): Unit =
+  def iForeach[U](f: (OptRef[A], Int) => U): Unit =
   { var count = 0
     while (count < elemsLen)
     { f(apply(count), count)
@@ -47,7 +47,7 @@ class OptRefs[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends
     }
   }
 
-  override def iForeach[U](startIndex: Int)(f: (OptRef[A], Int) => U): Unit =
+  def iForeach[U](startIndex: Int)(f: (OptRef[A], Int) => U): Unit =
   { var count = startIndex
     while (count < elemsLen)
     { f(apply(count), count)

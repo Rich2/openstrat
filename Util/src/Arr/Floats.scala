@@ -38,7 +38,7 @@ object FloatsBuild extends ArrTBuilder[Float, Floats] with ArrTFlatBuilder[Float
   override def buffToArr(buff: FloatsBuff): Floats = new Floats(buff.unsafeBuff.toArray)
 }
 
-class FloatsBuff(val unsafeBuff: ArrayBuffer[Float]) extends AnyVal with ArrayLike[Float]
+class FloatsBuff(val unsafeBuff: ArrayBuffer[Float]) extends AnyVal with SeqArrayLike[Float]
 { override def apply(index: Int): Float = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
 }

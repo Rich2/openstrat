@@ -2,21 +2,31 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.immutable._
 
-/** This the base trait for all collections based on Array like classes, Arrays, ArrayBuffers etc. that compile time platform Array classes. So
- *  currently there are just two classes for each type A, An ArrImut that wraps a standard immutable Array to produce an immutable array, and a
+/** This the base trait for all sequence collections based on Array like classes, Arrays, ArrayBuffers etc. that compile time platform Array classes.
+ *  So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable Array to produce an immutable array, and a
  *  ArrBuff that wraps an ArrayBuffer. Currently this just in a standard ArrayBuffer. Where A is a compound value types or an AnyVal type. */
-trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
+trait SeqArrayLike[+A] extends Any with CollectionBased[A @uncheckedVariance]
 { /** The final type of this object. */
-  type ThisT <: ArrayLike[A]
+  type ThisT <: SeqArrayLike[A]
 
   /** Method for keeping the typer happy when returning this as an instance of ThisT. */
   @inline def returnThis: ThisT = this.asInstanceOf[ThisT]
 
+  /** apply method accesses the individual elements of the sequence by 0 based index. */
   @inline def apply(index: Int): A
+
+  /** The first element of this sequence. */
   @inline def head: A = apply(0)
+
+  /** The last element of this sequence. */
   @inline def last: A = apply(elemsLen - 1)
+
+  /** Is this sequence empty? */
   @inline def empty: Boolean = elemsLen <= 0
+
+  /** Is this sequence non empty? */
   @inline def nonEmpty: Boolean = elemsLen > 0
+
   def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (elemsLen == 0) vEmpty else vNonEmpty
   def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(elemsLen >= 1, ifHead(head), noHead)
   def headToStringElse(ifEmptyString: String): String = ife(elemsLen >= 1, head.toString, ifEmptyString)
@@ -25,6 +35,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
    * integers as an index value without throwing an exception. */
   @inline def cycleGet(index: Int): A = apply(index %% elemsLen)
 
+  /** Performs a side effecting function on each element of this sequence in order. */
   def foreach[U](f: A => U): Unit =
   { var count = 0
     while(count < elemsLen)
@@ -33,7 +44,8 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     }
   }
 
-  override def iForeach[U](f: (A, Int) => U): Unit =
+  /** Performs a side effecting function on each element of this sequence with an index starting at 0. */
+  def iForeach[U](f: (A, Int) => U): Unit =
   { var count = 0
     var i: Int = 0
     while(count < elemsLen )
@@ -43,8 +55,8 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
     }
   }
 
-  /** foreach with index. */
-  def iForeach[U](startIndex: Int = 0)(f: (A, Int) => U): Unit =
+  /** Performs a side effecting function on each element of this sequence with an index starting at the given integer parameter. */
+  def iForeach[U](startIndex: Int)(f: (A, Int) => U): Unit =
   { var count = 0
     var i: Int = startIndex
     while(count < elemsLen )
@@ -74,7 +86,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
    * function from type A and type B to type C. */
-  def zipMap[B, C, ArrC <: ArrImut[C]](operator: ArrayLike[B])(f: (A, B) => C)(implicit ev: ArrTBuilder[C, ArrC]): ArrC =
+  def zipMap[B, C, ArrC <: ArrImut[C]](operator: SeqArrayLike[B])(f: (A, B) => C)(implicit ev: ArrTBuilder[C, ArrC]): ArrC =
   { val newLen = elemsLen.min(operator.elemsLen)
     val res = ev.newArr(newLen)
     var count = 0
@@ -88,7 +100,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
 
   /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
    *  the specialised map function from type A and type B and type C to type D. */
-  def zipMap2[B, C, D, ArrD <: ArrImut[D]](operator1: ArrayLike[B], operator2: ArrayLike[C])(f: (A, B, C) => D)(implicit ev: ArrTBuilder[D, ArrD]): ArrD =
+  def zipMap2[B, C, D, ArrD <: ArrImut[D]](operator1: SeqArrayLike[B], operator2: SeqArrayLike[C])(f: (A, B, C) => D)(implicit ev: ArrTBuilder[D, ArrD]): ArrD =
   { val newLen = elemsLen.min(operator1.elemsLen).min(operator2.elemsLen)
     val res = ev.newArr(newLen)
     var count = 0
@@ -392,7 +404,7 @@ trait ArrayLike[+A] extends Any with ArrayLikeBase[A @uncheckedVariance]
   def sum(implicit ev: Sumable[A] @uncheckedVariance): A = foldLeft[A](ev.identity)(ev.sum(_, _))
 }
 
-case class ArrayLikeShow[A, R <: ArrayLike[A]](evA: ShowT[A]) extends ShowTSeqLike[A, R]
+case class ArrayLikeShow[A, R <: SeqArrayLike[A]](evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.fMax(1)(evA.syntaxDepthT(_))
   override def showT(obj: R, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ""

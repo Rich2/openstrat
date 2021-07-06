@@ -37,7 +37,7 @@ object StringsBuild extends ArrTBuilder[String, Strings] with ArrTFlatBuilder[St
   override def buffToArr(buff: StringsBuff): Strings = new Strings(buff.unsafeBuff.toArray)
 }
 
-class StringsBuff(val unsafeBuff: ArrayBuffer[String]) extends AnyVal with ArrayLike[String]
+class StringsBuff(val unsafeBuff: ArrayBuffer[String]) extends AnyVal with SeqArrayLike[String]
 { override def apply(index: Int): String = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
 }

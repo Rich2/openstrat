@@ -149,7 +149,7 @@ class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) e
 }
 
 /** Not sure if this class is necessary now that Arr take Any. */
-class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with ArrayLike[A]
+class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with SeqArrayLike[A]
 { override def apply(index: Int): A = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
 }
