@@ -1,12 +1,9 @@
-/* Copyright 2020 w0d. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pFlags
+/* Copyright 2021 w0d. Licensed under Apache Licence version 2.0. */
+package ostrat; package pFlags
 import geom._, pCanv._, Colour._
 
-/*    NB: Assumes Flag.ratio is always <=2. :NB: From Left | Right */
-/*  TODO: drag bar, click base, spring scroll, touch, pixel, clip, effects
-          separate scrollbar, vertical scrollbar */
-
+/**    NB: Assumes Flag.ratio is always <=2. :NB: From Left | Right TODO: drag bar, click base, spring scroll, touch, pixel, clip, effects
+ *  separate scrollbar, vertical scrollbar */
 case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags Are Ace")
 { //val #_less = "Less".intern()
   //val #_more = "More".intern()
