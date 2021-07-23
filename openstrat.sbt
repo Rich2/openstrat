@@ -95,10 +95,12 @@ lazy val GraphicsNat2 = nat2Proj("Graphics").dependsOn(UtilNat2)
 lazy val TilingJvm2 = jvm2Proj("Tiling").dependsOn(GraphicsJvm2)
 lazy val TilingJvm3 = jvm3Proj("Tiling").dependsOn(GraphicsJvm3)
 lazy val TilingJs2 = js2Proj("Tiling").dependsOn(GraphicsJs2)
+lazy val TilingJs3 = js3Proj("Tiling").dependsOn(GraphicsJs3)
 lazy val TilingNat2 = js2Proj("Tiling").dependsOn(GraphicsNat2)
 lazy val EarthJvm2 = jvm2Proj("Earth").dependsOn(TilingJvm2)
 lazy val EarthJvm3 = jvm3Proj("Earth").dependsOn(TilingJvm3)
 lazy val EarthJs2 = js2Proj("Earth").dependsOn(TilingJs2)
+lazy val EarthJs3 = js3Proj("Earth").dependsOn(TilingJs3)
 lazy val EarthNat2 = js2Proj("Earth").dependsOn(TilingNat2)
 
 lazy val DevJvm3 = jvm3Proj("Dev").dependsOn(EarthJvm3).settings(
@@ -110,6 +112,10 @@ lazy val DevJvm3 = jvm3Proj("Dev").dependsOn(EarthJvm3).settings(
 )
 
 lazy val DevJs2 = js2Proj("Dev").dependsOn(EarthJs2).settings(
+  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs").map(s => (ThisBuild/baseDirectory).value / s),
+)
+
+lazy val DevJs3 = js3Proj("Dev").dependsOn(EarthJs3).settings(
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs").map(s => (ThisBuild/baseDirectory).value / s),
 )
 
