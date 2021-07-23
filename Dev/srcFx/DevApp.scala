@@ -12,7 +12,8 @@ class AppStart extends application.Application
 {
   override def start(primaryStage: Stage): Unit =
   {
-    //println(scala3Str(4))
+    //deb(scala3Str(4))
+    //deb(top3)
     val bounds = stage.Screen.getPrimary.getVisualBounds
     val canvWidth: Double = findDevSettingElse("displayWidth", bounds.getWidth - 8)
     val canvHeight = findDevSettingElse("displayHeight", bounds.getHeight)
