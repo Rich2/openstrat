@@ -4,7 +4,7 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
 
 /** The immutable Array based class for types without there own specialised [[ArrImut]] collection classes. It Inherits the standard foreach, map,
  *  flatMap and fold and their variations' methods from ArrayLike. */
-final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends /*AnyVal with*/ ArrImut[A]
+final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with ArrImut[A]
 { type ThisT = Arr[A]@uncheckedVariance
   override def typeStr: String = "Arr"
 

@@ -3,12 +3,18 @@ package ostrat
 import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** The immutable Array based class for types without there own specialised [[ArrImut]] collection classes. It Inherits the standard foreach, map,
- *  flatMap and fold and their variations' methods from ArrayLike. */
-opaque type ArrNew[+A] /* >: ArrImut[A] @uncheckedVariance */ = Array[A]
+ *  flatMap and fold and their variations' methods from ArrayLike. >: ArrImut[A] @uncheckedVariance */
+opaque type ArrNew[+A] = Array[A]
 
 object ArrNew
-{
-  def fromArray[A](array: Array[A]) = array
+{ def fromArray[A](array: Array[A]): ArrNew[A] = array
+  def apply[A](input: A*)(implicit ct: ClassTag[A]): ArrNew[A] = input.toArray
+}
+
+extension [A](arr: ArrNew[A])
+{ def unsafeArray: Array[A] = arr
+  def elemsLen: Int = arr.length
+  def apply(index: Int): A = arr(index)
 }
 //{
   //type ThisT = ArrNew[A]@uncheckedVariance
@@ -16,10 +22,9 @@ object ArrNew
 //
 //  /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
 //  override def unsafeNew(length: Int): ArrNew[A] = new ArrNew(new Array[AnyRef](length).asInstanceOf[Array[A]])
+
 //
-//  override def elemsLen: Int = unsafeArr.length
-//
-//  override def apply(index: Int): A = unsafeArrNew(index)
+//  override
 //
 //  def eqs(other: Any): Boolean = other match {
 //    case a: Arr[_] => unsafeArr.sameElements(a.unsafeArr)
@@ -127,10 +132,10 @@ object ArrNew
 //  }
 //}
 
+
 /** Companion object for the Arr class. */
 /*object Arr
-{ def apply[A](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
-  implicit def showImplicit[A <: AnyRef](implicit evA: ShowT[A]): ShowT[Arr[A]] = ArrayLikeShow[A, Arr[A]](evA)
+{ implicit def showImplicit[A <: AnyRef](implicit evA: ShowT[A]): ShowT[Arr[A]] = ArrayLikeShow[A, Arr[A]](evA)
 
   implicit class ArrExtension[A <: AnyRef](thisArr: Arr[A])
   {
