@@ -3,7 +3,7 @@ package ostrat
 import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** The immutable Array based class for types without there own specialised [[ArrImut]] collection classes. It Inherits the standard foreach, map,
- *  flatMap and fold and their variations' methods from ArrayLike. */
+ *  flatMap and fold and their variations' methods from ArrayLike. As of 3.0.2-RC1 this will not build for Scala.js. */
 final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with ArrImut[A]
 { type ThisT = Arr[A]@uncheckedVariance
   override def typeStr: String = "Arr"

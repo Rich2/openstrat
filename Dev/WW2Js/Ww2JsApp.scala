@@ -4,7 +4,7 @@ import scalajs.js.annotation._, pWW2._
 
 @JSExportTopLevel("Ww2JsApp")
 object Ww2JsApp
-{ @JSExport def main(args: Array[String]): Unit = {
+{ @JSExport def main(): Unit = {
     WWIIGuiOld(CanvasJs, WW1940)
     ()
   }

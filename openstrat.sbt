@@ -118,10 +118,14 @@ lazy val DevJs2 = js2Proj("Dev").dependsOn(EarthJs2).settings(
 lazy val DevJs3 = js3Proj("Dev").dependsOn(EarthJs3).settings(
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs").map(s => (ThisBuild/baseDirectory).value / s),
 )
+def js2App(name: String) = baseProj(name, name + "Js2").enablePlugins(ScalaJSPlugin).settings(sett2).settings(
+  Compile/unmanagedSourceDirectories := List("src", "src2", "srcExs").map(moduleDir.value / _),
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
+)
 
-lazy val WW2Js2 = js2Proj("WW2").dependsOn(EarthJs2).settings(
+lazy val WW2Js2 = js2App("WW2").dependsOn(EarthJs2).settings(
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/WW2Js").map(s => (ThisBuild/baseDirectory).value / s),
- // Compile/mainClass	:= Some("ostrat.pSJs.Ww2JsApp"),
+  Compile/mainClass	:= Some("ostrat.pSJs.Ww2JsApp"),
 )
 
 lazy val DevNat2 = nat2Proj("Dev").dependsOn(EarthNat2).settings(
