@@ -111,16 +111,17 @@ lazy val DevJvm3 = jvm3Proj("Dev").dependsOn(EarthJvm3).settings(
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
+def js2App(name: String) = baseProj(name, name + "Js2").enablePlugins(ScalaJSPlugin).settings(sett2).settings(
+  Compile/unmanagedSourceDirectories := List("src", "src2", "srcExs").map(moduleDir.value / _),
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
+)
+
 lazy val DevJs2 = js2Proj("Dev").dependsOn(EarthJs2).settings(
-  Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs").map(s => (ThisBuild/baseDirectory).value / s),
+  Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src", (ThisBuild/baseDirectory).value / "Dev/srcJs"),
 )
 
 lazy val DevJs3 = js3Proj("Dev").dependsOn(EarthJs3).settings(
   Compile/unmanagedSourceDirectories := List("Dev/src", "Dev/srcJs").map(s => (ThisBuild/baseDirectory).value / s),
-)
-def js2App(name: String) = baseProj(name, name + "Js2").enablePlugins(ScalaJSPlugin).settings(sett2).settings(
-  Compile/unmanagedSourceDirectories := List("src", "src2", "srcExs").map(moduleDir.value / _),
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
 )
 
 lazy val WW2Js2 = js2App("WW2").dependsOn(EarthJs2).settings(
