@@ -96,9 +96,9 @@ def js2App(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlug
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
 )
 
-lazy val DevJs2 = js2App("Dev").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/DevApp")
+lazy val WebGlJs = js2App("WebGl").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/GlApp")
 lazy val ZugJs = js2App("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/ZugApp")
-lazy val WW2Js = js2App("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJSApps/WW2Js")
+lazy val WW2Js = js2App("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/WW2App")
 
 lazy val DevNat = nat2Proj("Dev").dependsOn(EarthNat).settings(
   resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
@@ -108,7 +108,7 @@ lazy val DevNat = nat2Proj("Dev").dependsOn(EarthNat).settings(
 
 val docDirs: List[String] = List("Util", "Graphics", "Tiling", "Earth", "Dev")
 
-lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid buiding ScalaDocs")
+lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")
 bothDoc :=
 { val t1 = (DocMain/Compile/doc).value
   val t2 = (DocJs/Compile/doc).value
