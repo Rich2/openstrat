@@ -58,17 +58,16 @@ def js3Proj(name: String) = baseProj(name, name + "Js3").enablePlugins(ScalaJSPl
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.1.0").cross(CrossVersion.for3Use2_13) withSources(),
 )
 
-def nat2Proj(name: String) = baseProj(name, name + "Nat2").enablePlugins(ScalaNativePlugin).settings(sett2).settings(
+def nat2Proj(name: String) = baseProj(name, name + "Nat").enablePlugins(ScalaNativePlugin).settings(sett2).settings(
   Compile/unmanagedSourceDirectories := List("src", "src2", "srcNat", "srcExs").map(moduleDir.value / _),
 )
 
 lazy val MacrosJvm = jvm3Proj("Macros")
-lazy val MacrosJs2 = js2Proj("Macros")
-lazy val MacrosJs3 = js3Proj("Macros")
-lazy val MacrosNat2 = nat2Proj("Macros")
+lazy val MacrosJs = js2Proj("Macros")
+lazy val MacrosNat = nat2Proj("Macros")
 lazy val UtilJvm = jvm3Proj("Util").dependsOn(MacrosJvm)
-lazy val UtilJs = js2Proj("Util").dependsOn(MacrosJs2)
-lazy val UtilNat2 = nat2Proj("Util").dependsOn(MacrosNat2)
+lazy val UtilJs = js2Proj("Util").dependsOn(MacrosJs)
+lazy val UtilNat = nat2Proj("Util").dependsOn(MacrosNat)
 
 lazy val GraphicsJvm = jvm3Proj("Graphics").dependsOn(UtilJvm).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
@@ -76,13 +75,13 @@ lazy val GraphicsJvm = jvm3Proj("Graphics").dependsOn(UtilJvm).settings(
 )
 
 lazy val GraphicsJs = js2Proj("Graphics").dependsOn(UtilJs)
-lazy val GraphicsNat2 = nat2Proj("Graphics").dependsOn(UtilNat2)
+lazy val GraphicsNat = nat2Proj("Graphics").dependsOn(UtilNat)
 lazy val TilingJvm = jvm3Proj("Tiling").dependsOn(GraphicsJvm)
 lazy val TilingJs = js2Proj("Tiling").dependsOn(GraphicsJs)
-lazy val TilingNat2 = js2Proj("Tiling").dependsOn(GraphicsNat2)
+lazy val TilingNat = js2Proj("Tiling").dependsOn(GraphicsNat)
 lazy val EarthJvm = jvm3Proj("Earth").dependsOn(TilingJvm)
 lazy val EarthJs = js2Proj("Earth").dependsOn(TilingJs)
-lazy val EarthNat2 = js2Proj("Earth").dependsOn(TilingNat2)
+lazy val EarthNat = js2Proj("Earth").dependsOn(TilingNat)
 
 lazy val DevJvm = jvm3Proj("Dev").dependsOn(EarthJvm).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
@@ -101,7 +100,7 @@ lazy val DevJs2 = js2App("Dev").settings(Compile/unmanagedSourceDirectories += (
 lazy val ZugJs = js2App("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/ZugApp")
 lazy val WW2Js = js2App("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJSApps/WW2Js")
 
-lazy val DevNat2 = nat2Proj("Dev").dependsOn(EarthNat2).settings(
+lazy val DevNat = nat2Proj("Dev").dependsOn(EarthNat).settings(
   resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
   Compile/resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value),
@@ -121,11 +120,11 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).setti
   Compile/unmanagedSourceDirectories := ("Macros" :: docDirs).flatMap(el => List(el + "/src", el + "/src3", el + "/srcJvm", el + "/srcExs", el + "srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
-  libraryDependencies += "org.openjfx" % "javafx-controls" % "15",
+  libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
   Compile/doc/scalacOptions ++= Seq("-groups"),
 )
 
-lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).dependsOn(MacrosJs2).settings(sett2).settings(
+lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).dependsOn(MacrosJs).settings(sett2).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExs")).map(s => baseDir.value / s),
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
