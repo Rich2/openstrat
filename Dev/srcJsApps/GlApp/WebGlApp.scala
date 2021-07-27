@@ -1,11 +1,11 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pSJs
-import scalajs._, org.scalajs.dom._, pGrid._
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pSJs
+import scalajs._,js.annotation._, org.scalajs.dom._, pGrid._
 
-object webglStuff
+@JSExportTopLevel("WebGlApp")
+object WebGlApp
 {
-  def f(): Unit =
+  @JSExport def main(): Unit =
   {
     val can: html.Canvas = document.createElement("canvas").asInstanceOf[html.Canvas]
     document.body.appendChild(can)
