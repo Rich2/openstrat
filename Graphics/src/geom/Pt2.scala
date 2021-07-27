@@ -185,9 +185,9 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
     centre + rel2
   }
 
-  def centreSquare(length: Double): PolygonImp =
+  def centreSquare(length: Double): PolygonGen =
   { val r = length / 2.0
-    PolygonImp(-r pp r, r pp r, r pp -r, -r pp -r).slateXY(x, y)
+    PolygonGen(-r pp r, r pp r, r pp -r, -r pp -r).slateXY(x, y)
   }
 
   def textAt(str: String, fontSize: Int, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str, fontSize, this, fontColour)

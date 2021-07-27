@@ -2,8 +2,8 @@
 package ostrat; package geom
 
 class ArrLikeBaseExtensions[A](val al : SeqArrayLike[A])
-{ /** Map this collection elements to [[Pt2]]s building a [[PolygonImp]]. */
-  def mapPolygon(f: A => Pt2): PolygonImp = PolygonImp.fromArrMap(al)(f)
+{ /** Map this collection elements to [[Pt2]]s building a [[PolygonGen]]. */
+  def mapPolygon(f: A => Pt2): PolygonGen = PolygonGen.fromArrMap(al)(f)
 
   /** Map this collection elements to [[LatLong]]s building a [[PolygonLL]]. */
   def mapPolygonLL(f: A => LatLong): PolygonLL = PolygonLL.fromArrMap(al)(f)

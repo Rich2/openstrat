@@ -122,10 +122,10 @@ object Rectangle
   def curvedGoldenRatioCentred(height: Double, radius: Double, posn: Pt2 = Pt2Z): PolyCurveCentred =
     curvedCornersCentred(height * Phi, height, radius, posn)
 
-  def fromAxis(centreLine: LineSeg, height: Double): PolygonImp =
+  def fromAxis(centreLine: LineSeg, height: Double): PolygonGen =
   { val hAngle: Angle = centreLine.angle
     val offset = hAngle.toVec2(height * 0.5)
-    PolygonImp(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
+    PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 
   implicit val slateImplicit: Slate[Rectangle] = (obj: Rectangle, dx: Double, dy: Double) => obj.slateXY(dx, dy)

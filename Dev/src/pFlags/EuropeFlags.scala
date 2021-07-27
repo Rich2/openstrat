@@ -40,22 +40,22 @@ object UnitedKingdom extends EnglandLike
     /** ywc * 2 where diag crosses ywc */
     val xDiag = 10.0 / 30.0
 
-    val b1 = PolygonImp(
+    val b1 = PolygonGen(
       5.0 / 30 pp 0.5, 1 - xd * 3 pp 0.5,
       1.0 / 6.0 pp ywc + yd)
 
-    val b2 = PolygonImp(
+    val b2 = PolygonGen(
       xDiag + 3 * xd pp ywc,
       1 pp 0.5 - yd * 3,
       1 pp ywc)
 
-    val r1: PolygonImp = PolygonImp(
+    val r1: PolygonGen = PolygonGen(
       -1 pp 0.5,
       -xDiag pp ywc,
       -(xDiag + xd * 2) pp ywc,
       -1 pp 0.5 - (yd * 2))
 
-    val r2: PolygonImp = PolygonImp(
+    val r2: PolygonGen = PolygonGen(
       xDiag - xd * 2 pp ywc,
       1 - xd * 2 pp 0.5,
       1 pp 0.5,

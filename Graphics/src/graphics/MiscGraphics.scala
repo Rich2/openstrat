@@ -37,7 +37,7 @@ object Star7
 
 object Star3
 {
-  def apply(sideLength: Double = 1): PolygonImp = PolygonImp((0 pp sideLength * math.sqrt(3) / 3),
+  def apply(sideLength: Double = 1): PolygonGen = PolygonGen((0 pp sideLength * math.sqrt(3) / 3),
               (sideLength / 2 pp -sideLength * math.sqrt(3) / 6),
               (-sideLength / 2 pp -sideLength * math.sqrt(3) / 6))
       
@@ -48,7 +48,7 @@ object Star3
 
 object Pentagram
 {
-  def apply(): PolygonImp =
+  def apply(): PolygonGen =
   { val l2: Pt2s = Pt2s(Pt2(0, 1), Pt2(0, -1).rotateClkDegs(36))
     iToFlatMap(0, 4)(i => l2.rotate(-Deg72 * i)).toPolygon
   }

@@ -23,7 +23,7 @@ OfHex[TileT, SideT, EGridAncient[TileT, SideT]] with OfEElem[TileT, SideT]
    def cenFacing: Boolean = focus.latLongFacing(cenLL)
    def vertLLs: PolygonLL = vertCoods.pMap(eGrid.getLL)
    def vertDist2s: Pt2MArr = eg.polyToDist2s(vertLLs)
-   override def vertDispVecs: PolygonImp = vertDist2s.pMap(eg.trans)
+   override def vertDispVecs: PolygonGen = vertDist2s.pMap(eg.trans)
 }
 
 class OfESide[TileT <: TileAncient, SideT <: TileSideAncient](val eg: EarthGuiOld, val eGrid: EGridAncient[TileT, SideT], val side: SideT) extends

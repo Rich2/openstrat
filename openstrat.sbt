@@ -99,6 +99,7 @@ def js2App(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlug
 lazy val WebGlJs = js2App("WebGl").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/GlApp")
 lazy val ZugJs = js2App("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/ZugApp")
 lazy val WW2Js = js2App("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/WW2App")
+lazy val Y1783Js = js2App("Y1783").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Y1783App")
 
 lazy val DevNat = nat2Proj("Dev").dependsOn(EarthNat).settings(
   resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",

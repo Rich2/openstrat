@@ -137,7 +137,7 @@ trait TileGridOld
   final def foreachRVec(f: (Roord, Pt2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
 
   /** maps over each tile's Roord and its Polygon. */
-  final def mapRPolygons[A, ArrT <: ArrImut[A]](f: (Roord, PolygonImp) => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
+  final def mapRPolygons[A, ArrT <: ArrImut[A]](f: (Roord, PolygonGen) => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
     map { roord =>
       val vcs = tileVertRoords(roord)
       val vvs = vcs.map(c => roordToPt2(c))

@@ -17,9 +17,9 @@ case class BoundingRect(minX: Double, maxX: Double, minY: Double, maxY: Double) 
   def yCen: Double = (minY + maxY) / 2
   def cen: Pt2 = Pt2((minX + maxX) / 2, (minY + maxY) /2)
   def cenVec: Vec2 = Vec2((minX + maxX) / 2, (minY + maxY) /2)
-  def toPolygon: Polygon = PolygonImp(minX pp maxY, maxX pp maxY, maxX pp minY, minX pp minY)
+  def toPolygon: Polygon = PolygonGen(minX pp maxY, maxX pp maxY, maxX pp minY, minX pp minY)
   def ptInside(pt: Pt2): Boolean = maxX > pt.x & pt.x > minX & maxY > pt.y & pt.y > minY
-  def toRectangle: Polygon = PolygonImp(minX pp maxY, maxX pp maxY, maxX pp minY, minX pp minY)
+  def toRectangle: Polygon = PolygonGen(minX pp maxY, maxX pp maxY, maxX pp minY, minX pp minY)
   
   override def || (operand: BoundingOpt): BoundingRect = operand match
   { case br2: BoundingRect => BoundingRect (minX.min (br2.minX), maxX.max (br2.maxX), minY.min (br2.minY), maxY.max (br2.maxY) )

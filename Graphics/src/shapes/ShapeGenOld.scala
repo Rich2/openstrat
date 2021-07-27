@@ -91,7 +91,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends Dbl7sArr[CurveTail] wi
     if (i == 0) throw new Exception("boundingRect method called on empty Vec2 collection") else {}
     BoundingRect(minX, maxX, minY, maxY)
   }
-  def ptInShape: Pt2 => Boolean = pt =>  pMap[Pt2, PolygonImp](_.pEnd).ptInside(pt)
+  def ptInShape: Pt2 => Boolean = pt =>  pMap[Pt2, PolygonGen](_.pEnd).ptInside(pt)
 
   /** Not sure if this is useful */
   def tailForeach(fLineSeg: CurveTail => Unit, fArcSeg: CurveTail => Unit, fBezierSeg: CurveTail => Unit): Unit =

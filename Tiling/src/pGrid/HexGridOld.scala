@@ -98,7 +98,7 @@ trait HexGridOld extends TileGridOld
     }
   }
 
-  def sidePolygon(sr: Roord): PolygonImp =
+  def sidePolygon(sr: Roord): PolygonGen =
   { //val (topEnd, bottomEnd) = HexGrid.sideRoordToLineEndRoords(sr)
     //val vTop: Vec2 = roordToVec2(topEnd)
     //val vBottom: Vec2 = roordToVec2(bottomEnd)

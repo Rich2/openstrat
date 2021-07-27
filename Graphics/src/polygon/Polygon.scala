@@ -2,7 +2,7 @@
 package ostrat; package geom
 import Colour.Black, pWeb._
 
-/** A mathematical closed polygon. The general case can be instantiated with [[PolygonImp]], but it provides the interface for particular sub sets of
+/** A mathematical closed polygon. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the
  *  vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
  *  with then end point of side n sdn at vertex n. */
@@ -253,7 +253,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =
-  { val res = PolygonImp.uninitialised(vertsNum + 1)
+  { val res = PolygonGen.uninitialised(vertsNum + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, vert(i)))
     res.unsafeSetElem(insertionPoint, newVec)
     (insertionPoint until vertsNum).foreach(i => res.unsafeSetElem(i + 1, vert(i)))
@@ -262,7 +262,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   /** Insert vertices before the specified insertion vertex. */
   def insVerts(insertionPoint: Int, newVecs: Pt2 *): Polygon =
-  { val res = PolygonImp.uninitialised(vertsNum + newVecs.length)
+  { val res = PolygonGen.uninitialised(vertsNum + newVecs.length)
     (1 until insertionPoint).foreach(i => res.unsafeSetElem(i - 1, vert(i)))
     newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i -1, elem))
     (insertionPoint until vertsNum + 1).foreach(i => res.unsafeSetElem(i + newVecs.length -1, vert(i)))
@@ -277,9 +277,9 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 /** Companion object for the Polygon trait, contains factory apply methods and implicit instances for all 2D affine geometric transformations. */
 object Polygon
 {
-  def apply(pts: Pt2 *): Polygon = PolygonImp(pts: _*)
+  def apply(pts: Pt2 *): Polygon = PolygonGen(pts: _*)
 
-  def uninitialised(length: Int): Polygon = new PolygonImp(new Array[Double](length * 2))
+  def uninitialised(length: Int): Polygon = new PolygonGen(new Array[Double](length * 2))
 
   implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqv(p1.vertsArray, p2.vertsArray)
 

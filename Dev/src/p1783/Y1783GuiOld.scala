@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package p1783
+package ostrat; package p1783
 import geom._, pEarth._, pCanv._, pStrat._
 
 case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiOld("1783")
@@ -36,9 +35,10 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
      } 
       
   def ls: GraphicElems =
-  { val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
+  { val circ = Circle(EarthAvDiameter / scale).fill(Ocean.colour)
+    val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
     val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-    as ++ gs
+    (circ +: as) ++ gs
   }
  
   mapPanel.mouseUp = (but: MouseButton, clickList, v) => but match
@@ -46,14 +46,15 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
     case LeftButton => selected = clickList //.fHead(Arr(), Arr(_))
         
     case RightButton => (selected, clickList) match
-    { case (List(c: Corps), List(newTile: NTileAncient)) =>
-      {
-       c.tile.lunits = c.tile.lunits.removeFirst (_ == c)
-       val newCorps = c.copy (newTile)
-       newTile.lunits +:= newCorps
-       selected = List(newCorps)
-       repaintMap()
+    {
+      case (List(c: Corps), List(newTile: NTileAncient)) =>
+      { c.tile.lunits = c.tile.lunits.removeFirst (_ == c)
+        val newCorps = c.copy (newTile)
+        newTile.lunits +:= newCorps
+        selected = List(newCorps)
+        repaintMap()
       }
+
       case (List(c: Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)
       case _ =>
     }

@@ -9,7 +9,7 @@ object Trapezium
 
 object TrapezoidIsosceles
 {
-  def apply(baseWidth: Double, topWidth: Double, height: Double): PolygonImp = PolygonImp(
+  def apply(baseWidth: Double, topWidth: Double, height: Double): PolygonGen = PolygonGen(
       -topWidth /2  pp height/2,
       topWidth/2    pp height / 2,
       baseWidth/2   pp - height/2,
