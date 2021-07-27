@@ -10,10 +10,10 @@ val scalaMinor = "1"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-//scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
-// "-feature", "-language:implicitConversions", "UTF-8", "-deprecation", "-explaintypes"),// "-Xsource:3"),//, "-Ywarn-value-discard", "-Xlint"),
+lazy val root = (project in file(".")).aggregate(UtilJvm, GraphicsJvm, TilingJvm, EarthJvm, DevJvm).settings(
+  publish/skip := true,
+)
 
-lazy val root = (project in file(".")).aggregate(UtilJvm, GraphicsJvm, TilingJvm, EarthJvm, DevJvm)
 lazy val moduleDir = SettingKey[File]("moduleDir")
 lazy val baseDir = SettingKey[File]("baseDir")
 ThisBuild/baseDir := (ThisBuild/baseDirectory).value
@@ -31,8 +31,9 @@ def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtD
 
 def sett2 = List(
   scalaVersion := "2.13.6",
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-deprecation", "-encoding", "UTF-8"), // "-Xsource:3"),
+  scalacOptions ++= List("-feature", "-language:implicitConversions", "-deprecation", "-encoding", "UTF-8", "-Xsource:3"),// "-explaintypes", "-Ywarn-value-discard", "-Xlint"),
   libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value withSources(),
+  publish/skip := true,
 )
 
 def sett3 = List(
@@ -123,6 +124,7 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).setti
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
   Compile/doc/scalacOptions ++= Seq("-groups"),
+  publish/skip := true,
 )
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).dependsOn(MacrosJs).settings(sett2).settings(
