@@ -2,8 +2,10 @@
 package ostrat; package pSJs
 import scalajs.js.annotation._
 
-@JSExportTopLevel("BrowsertestJsApp")
-object BrowsertestJsApp
-{ @JSExport def main(args: Array[String]): Unit = pStrat.FlagsGui(CanvasJs)
+@JSExportTopLevel("PlanetsJsApp")
+object PlanetsJsApp
+{
+  @JSExport def main(): Unit = pSpace.Planets(CanvasJs)
 }
-  
+
+

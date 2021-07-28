@@ -7,11 +7,11 @@ object WebGlApp
 {
   @JSExport def main(): Unit =
   {
-    val can: html.Canvas = document.createElement("canvas").asInstanceOf[html.Canvas]
+    val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas]
     document.body.appendChild(can)
     import raw.WebGLRenderingContext._
     val gl: raw.WebGLRenderingContext = can.getContext("webgl").asInstanceOf[raw.WebGLRenderingContext]
-    gl.clearColor(0.4, 0.0, 0.5, 0.8)
+    gl.clearColor(0.4, 0.0, 0.2, 0.8)
     gl.clear(COLOR_BUFFER_BIT)
      
     val vShader = gl.createShader(VERTEX_SHADER)

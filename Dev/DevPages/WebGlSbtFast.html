@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-  <title>OpenStrat: Rise of Civs</title>
+  <title>OpenStrat: WebGl</title>
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width'> 
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
@@ -19,10 +19,10 @@
   // aid local development in ensuring script not cached during a simple refresh
     var script = document.createElement("script");
     script.setAttribute("type", "text/javascript");
-    script.setAttribute("src", "../JsPlay/target/scala-2.12/jsplay-fastopt.js?"+Date.now().toString());
+    script.setAttribute("src", "../SbtDir/WebGlJs/target/scala-2.13/webgljs-fastopt.js?"+Date.now().toString());
     document.getElementsByTagName("head")[0].appendChild(script);
     script.addEventListener('load', function(e) {
-    JsDevApp.main(0);
+    WebGlApp.main();
   });
   </script>
 </body>
