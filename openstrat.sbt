@@ -101,6 +101,7 @@ lazy val WebGlJs = js2App("WebGl").settings(Compile/unmanagedSourceDirectories +
 lazy val ZugJs = js2App("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/ZugApp")
 lazy val WW2Js = js2App("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/WW2App")
 lazy val Y1783Js = js2App("Y1783").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Y1783App")
+lazy val Bc305Js = js2App("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Bc305App")
 lazy val PlanetsJs = js2App("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/PlanetsApp")
 
 lazy val DevNat = nat2Proj("Dev").dependsOn(EarthNat).settings(
