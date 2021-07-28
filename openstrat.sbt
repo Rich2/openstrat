@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-val versionStr = "0.2.2"
+val versionStr = "0.3.0snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor = "3.0"
@@ -63,10 +63,13 @@ def nat2Proj(name: String) = baseProj(name, name + "Nat").enablePlugins(ScalaNat
   Compile/unmanagedSourceDirectories := List("src", "src2", "srcNat", "srcExs").map(moduleDir.value / _),
 )
 
-lazy val MacrosJvm = jvm3Proj("Macros")
+//lazy val MacrosJvm = jvm3Proj("Macros")
 lazy val MacrosJs = js2Proj("Macros")
 lazy val MacrosNat = nat2Proj("Macros")
-lazy val UtilJvm = jvm3Proj("Util").dependsOn(MacrosJvm)
+lazy val UtilJvm = jvm3Proj("Util")/*.dependsOn(MacrosJvm)*/.settings(
+  name := "RUtil",
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src3"
+)
 lazy val UtilJs = js2Proj("Util").dependsOn(MacrosJs)
 lazy val UtilNat = nat2Proj("Util").dependsOn(MacrosNat)
 
