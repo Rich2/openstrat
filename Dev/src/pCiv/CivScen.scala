@@ -1,22 +1,22 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pCiv
-import pEarth._, pGrid._
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pCiv
+import prid._, pEarth._
 
-trait CivScen
-{ implicit def grid: TileGridOld
-  def terrs: TilesArr[Terrain]
-  /** Not sure about this collection type. */
-  def lunits: TilesArr[List[Warrior]]
+trait CivScen  extends HexGridScen
+{
+  /** tile terrain. */
+  def terrs: HCenArr[Terrain]
 }
 
-object Civ1 extends CivScen
+trait CivScenStart extends CivScen
+{ override def turn: Int = 0
+}
+
+/** Civ scenario 1. */
+object Civ11 extends CivScenStart
 {
-  implicit val grid = HexGridRegOld(4, 16, 4, 40)
-  val terrs = grid.newTileArr[Terrain](Plains)
+  override implicit val grid: HGrid = HGridReg(2, 14, 4, 40)
+  val terrs: HCenArr[Terrain] = grid.newTileArr[Terrain](Plains)
   terrs.setRow(12, 20, Hilly, Mountains * 2)
   terrs.setRow(4, 4, Hilly * 3)
-  val lunits: TilesArr[List[Warrior]] = grid.newTileArr[List[Warrior]](Nil)
-  lunits.prependAt(10, 18, Warrior(Uruk))
-  lunits.prependAt(6, 10, Warrior(Eridu))
 }

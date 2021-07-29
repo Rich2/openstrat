@@ -1,10 +1,9 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pCiv
+package ostrat; package pCiv
 import geom._, pGrid._, pCanv._
 
 /** Gui for civilisation  game. */
-case class CivGui(canv: CanvasPlatform, scen: CivScen) extends CmdBarGui("Civ Rise Game Gui")
+case class CivGuiOld(canv: CanvasPlatform, scen: CivScenOld) extends CmdBarGui("Civ Rise Game Gui")
 { statusText = "Welcome to Civ Rise."
   implicit val grid: TileGridOld = scen.grid
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)

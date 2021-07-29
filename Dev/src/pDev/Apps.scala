@@ -21,7 +21,7 @@ object Apps
     ("Y4", (pSpace.Planets(_), "JavaFx Planets")),
 
     ("Y6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
-    ("Y7", (pCiv.CivGui(_, pCiv.Civ1), "JavaFx Rise of Civs")),
+    ("Y7", (pCiv.CivGuiOld(_, pCiv.Civ1Old), "JavaFx Rise of Civs")),
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
     ("Y9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
     ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
