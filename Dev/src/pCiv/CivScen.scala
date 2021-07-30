@@ -2,6 +2,7 @@
 package ostrat; package pCiv
 import prid._, pEarth._, pCanv._
 
+/** A Civ scenario turn state. */
 trait CivScen  extends HexGridScen
 {
   /** tile terrain. */
@@ -9,6 +10,7 @@ trait CivScen  extends HexGridScen
   val lunits: HCenArrArr[Warrior]
 }
 
+/** A Civ scenario state at turn 0. */
 trait CivScenStart extends CivScen
 { override def turn: Int = 0
 }
