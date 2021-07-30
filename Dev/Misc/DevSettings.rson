@@ -10,6 +10,7 @@ gOne = 1;
 gTwo = 1;
 gThree = 1;
 zugFuhrer = 1;
+civ = 1;
 
 /* Change the  number to change the app on next run.
   ("L", learn.Lessons),
