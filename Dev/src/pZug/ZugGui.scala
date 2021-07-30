@@ -18,7 +18,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
     val action: GraphicElems = squad.action match
     {
       /*case Move(rs) =>
-      { rs.foldWithPrevious[GraphicElems](roord, Arr()){ (acc, prevCood, nextCood) =>
+      { rs.foldWithPrevious[GraphicElems](hc, Arr()){ (acc, prevCood, nextCood) =>
         val sideCood = (prevCood + nextCood) / 2
         val l1 = RoordLine(prevCood, sideCood).gridLine2.draw(Black, 2)
         val l2 = RoordLine(sideCood, nextCood).gridLine2.draw(Black, 2)
@@ -39,8 +39,8 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
       thisTop()
     }
 
-    /*case (RightButton, List(squad: Squad), List(newTile: HexTile)) =>
-      grid.findPath(squad.roord, newTile.roord)(moveFunc).fold[Unit]{
+    case (RightButton, List(squad: Squad), List(newTile: HCen)) =>
+      /*grid.findPath(squad.roord, newTile.roord)(moveFunc).fold[Unit]{
         statusText = "Squad can not move to " + newTile.roord.ycStr
         thisTop()
       } { l =>
@@ -48,12 +48,13 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
         mainRepaint(frame)
         statusText = Squad.toString()
         thisTop()
-      }
+      }*/
 
-    case (MiddleButton, List(squad : Squad), List(newTile: Roord)) =>
+    case (MiddleButton, List(squad : Squad), List(newTile: HCen)) =>
     { squad.action = Fire(newTile)
+      deb("Fire")
       mainRepaint(frame)
-    }*/
+    }
 
     //case (RightButton, List(squad : Squad), List(newTile: HexTile)) => deb("No Move" -- squad.toString -- newTile.roord.toString)//unreachable
     case (RightButton, ll, _) => debvar(ll)
