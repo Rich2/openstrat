@@ -36,7 +36,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
 
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 
-  def rcText(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2, colour)
+  def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2, colour)
   def decText(fontSize: Double = 12, colour: Colour = Black) = this.rcStr.toTextGraphic(fontSize, toPt2, colour)
 }
 

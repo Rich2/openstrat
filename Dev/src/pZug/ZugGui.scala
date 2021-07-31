@@ -9,12 +9,12 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val active = grid.map{ hc =>hc.polygonReg.active(hc) }
-  val text = terrs.mapHC((t, hc) => hc.rcText(14, t.contrastBW))
+  val text = terrs.mapHC((t, hc) => hc.decText(14, t.contrastBW))
   val rows = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
   def lunits = scen.lunits.gridHeadsFlatMap{ (hc, squad) =>
-    val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(hc).colour).slate(hc.toPt2)// gridPt2)
+    val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(hc).colour).slate(hc.toPt2)
     val action: GraphicElems = squad.action match
     {
       case Move(rs) => Arr()
@@ -25,7 +25,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
         acc +- l1 +- l2
       }
       }*/
-      //case FireOld(target) => Arr(RoordLine(roord, target).gridLine2.draw(Red, 2).dashed(20, 20))
+      case Fire(target) => Arr(HCoordLineSeg(hc, target).toLine2.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }
     action +- uc
