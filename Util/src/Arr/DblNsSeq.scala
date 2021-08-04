@@ -91,7 +91,7 @@ trait DblNsArrCompanion[A <: DblNElem, ArrA <: DblNsSeq[A]] extends ValueNArrCom
 }
 
 /** Persists [[DblNsSeq]]s. */
-abstract class DblNsArrPersist[A <: DblNElem, M <: DblNsSeq[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr) with EqT[M]
+abstract class DblNsDataPersist[A <: DblNElem, M <: DblNsData[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

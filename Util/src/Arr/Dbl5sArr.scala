@@ -96,7 +96,7 @@ abstract class Dbl5sArrCompanion[A <: Dbl5Elem, ArrA <: Dbl5sArr[A]]
 }
 
 /** Both Persists and Builds [[Dbl5sArr]] Collection classes. */
-abstract class Dbl5sArrPersist[A <: Dbl5Elem, ArrA <: Dbl5sArr[A]](typeStr: String) extends DblNsArrPersist[A, ArrA](typeStr)
+abstract class Dbl5sArrPersist[A <: Dbl5Elem, ArrA <: Dbl5sArr[A]](typeStr: String) extends DblNsDataPersist[A, ArrA](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

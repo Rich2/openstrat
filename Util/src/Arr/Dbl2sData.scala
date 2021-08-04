@@ -120,7 +120,7 @@ trait Dbl2sArrCompanion[A <: Dbl2Elem, ArrA <: Dbl2sSeq[A]] extends DblNsArrComp
 }
 
 /** Persists and assists in building [[DblNsSeq]]s. */
-abstract class Dbl2sArrPersist[A <: Dbl2Elem, M <: Dbl2sSeq[A]](typeStr: String) extends DblNsArrPersist[A, M](typeStr)
+abstract class Dbl2sArrPersist[A <: Dbl2Elem, M <: Dbl2sData[A]](typeStr: String) extends DblNsDataPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1
