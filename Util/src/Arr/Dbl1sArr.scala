@@ -8,7 +8,7 @@ trait Dbl1Elem extends Any with DblNElem
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl1Elem]]s. */
-trait Dbl1sArr[A <: Dbl1Elem] extends Any with DblNsArr[A]
+trait Dbl1sArr[A <: Dbl1Elem] extends Any with DblNsColl[A]
 { final override def elemProductNum: Int = 1
   def newElem(dblValue: Double): A
   final override def apply(index: Int): A = newElem(arrayUnsafe(index))

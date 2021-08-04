@@ -14,7 +14,7 @@ trait Dbl3Elem extends Any with DblNElem
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl3Elem]]s. */
-trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsArr[A]
+trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsColl[A]
 { def elemProductNum = 3
   def newElem(d1: Double, d2: Double, d3: Double): A
   def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))

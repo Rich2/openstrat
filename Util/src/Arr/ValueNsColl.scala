@@ -9,20 +9,13 @@ trait ValueNElem extends Any with SpecialT
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ValueNsArr[A <: ValueNElem] extends Any with ArrImut[A]
-{ type ThisT <: ValueNsArr[A]
-
-  /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
-   *  class. */
-  def elemProductNum: Int
-
-  /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
-  def arrLen: Int
+trait ValueNsColl[A <: ValueNElem] extends Any with ArrImut[A] with ValueNsCollData[A]
+{ type ThisT <: ValueNsColl[A]
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
   final def elemsLen: Int = arrLen / elemProductNum
 
-  def pMap[B <: ValueNElem, N <: ValueNsArr[B]](f: A => B)(implicit factory: Int => N): N =
+  def pMap[B <: ValueNElem, N <: ValueNsColl[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(elemsLen)
     var count: Int = 0
     while (count < elemsLen) {
@@ -35,7 +28,7 @@ trait ValueNsArr[A <: ValueNElem] extends Any with ArrImut[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++[N <: ValueNsArr[A]](operand: N)(implicit factory: Int => N): N =
+  def ++[N <: ValueNsColl[A]](operand: N)(implicit factory: Int => N): N =
   { val res = factory(elemsLen + operand.elemsLen)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     operand.iForeach((elem, i) => res.unsafeSetElem(i + elemsLen, elem))
@@ -43,7 +36,7 @@ trait ValueNsArr[A <: ValueNElem] extends Any with ArrImut[A]
   }
 
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
-  def :+[N <: ValueNsArr[A]](operand: A)(implicit factory: Int => N): N =
+  def :+[N <: ValueNsColl[A]](operand: A)(implicit factory: Int => N): N =
   { val res = factory(elemsLen + 1)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     res.unsafeSetElem(elemsLen, operand)
@@ -63,21 +56,21 @@ trait ValueNsArr[A <: ValueNElem] extends Any with ArrImut[A]
 
 /** Trait for creating the ArrTBuilder. Instances for the [[ArrTBuilder]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNsArrBuilder[B <: ValueNElem, ArrB <: ValueNsArr[B]] extends ArrTBuilder[B, ArrB]
+trait ValueNsArrBuilder[B <: ValueNElem, ArrB <: ValueNsColl[B]] extends ArrTBuilder[B, ArrB]
 { def elemSize: Int
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNsArr]] final classes. Instances for the [[ArrTFlatBuilder] should go in
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNsColl]] final classes. Instances for the [[ArrTFlatBuilder] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait ValueNsArrFlatBuilder[B <: ValueNElem, ArrB <: ValueNsArr[B]] extends ArrTFlatBuilder[ArrB]
+trait ValueNsArrFlatBuilder[B <: ValueNElem, ArrB <: ValueNsColl[B]] extends ArrTFlatBuilder[ArrB]
 { def elemSize: Int
 }
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
 trait ValueNsBuffer[A <: ValueNElem] extends Any with SeqArrayLike[A]
-{ type ArrT <: ValueNsArr[A]
+{ type ArrT <: ValueNsColl[A]
   def elemSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit
@@ -94,8 +87,8 @@ abstract class ValueNsArrPersist[A, M](val typeStr: String) extends PersistCompo
   def newBuffer: Buff[VT]
 }
 
-/** Helper trait for companion objects of [[ValueNsArr]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
-trait ValueNArrCompanion[A <: ValueNElem, ArrA <: ValueNsArr[A]]
+/** Helper trait for companion objects of [[ValueNsColl]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
+trait ValueNArrCompanion[A <: ValueNElem, ArrA <: ValueNsColl[A]]
 { /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   implicit def uninitialised(length: Int): ArrA
 

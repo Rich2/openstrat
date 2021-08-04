@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 trait LongNElem extends Any with ValueNElem
 
 /** Base trait for Array[Long] based collections of Products of Longs. */
-trait LongNsArr[A <: LongNElem] extends Any with ValueNsArr[A]
+trait LongNsArr[A <: LongNElem] extends Any with ValueNsColl[A]
 { def array: Array[Long]
   def arrLen = array.length
 

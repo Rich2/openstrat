@@ -12,7 +12,7 @@ trait Dbl5Elem extends Any with DblNElem
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
-trait Dbl5sArr[A <: Dbl5Elem] extends Any with DblNsArr[A]
+trait Dbl5sArr[A <: Dbl5Elem] extends Any with DblNsColl[A]
 {
   def elemProductNum: Int = 5
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A

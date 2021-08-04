@@ -11,7 +11,7 @@ trait Dbl2Elem extends Any with DblNElem
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl2Elem]]s. */
-trait Dbl2sArr[A <: Dbl2Elem] extends Any with DblNsArr[A]
+trait Dbl2sArr[A <: Dbl2Elem] extends Any with DblNsColl[A]
 { type ThisT <: Dbl2sArr[A]
 
   override def elemProductNum: Int = 2
@@ -112,7 +112,7 @@ trait Dbl2sArrCompanion[A <: Dbl2Elem, ArrA <: Dbl2sArr[A]] extends DblNsArrComp
   }
 }
 
-/** Persists and assists in building [[DblNsArr]]s. */
+/** Persists and assists in building [[DblNsColl]]s. */
 abstract class Dbl2sArrPersist[A <: Dbl2Elem, M <: Dbl2sArr[A]](typeStr: String) extends DblNsArrPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
