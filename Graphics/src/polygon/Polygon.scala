@@ -30,7 +30,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
    * new transformed Polygon */
   def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
-  def vertsMap[A, ArrT <: ArrImut[A]](f: Pt2 => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
+ override def vertsMap[A, ArrT <: ArrImut[A]](f: Pt2 => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
   { val acc = build.newBuff()
     foreachVert{ v => build.buffGrow(acc, f(v)) }
     build.buffToArr(acc)
@@ -60,13 +60,13 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sideForeach(f: LineSeg => Unit): Unit =
+  def foreachSide(f: LineSeg => Unit): Unit =
   { var count = 1
     while (count <= vertsNum) { f(side(count)); count += 1 }
   }
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sideIForeach(initCount: Int = 0)(f: (LineSeg, Int) => Unit): Unit =
+  def iForeachSide(initCount: Int = 0)(f: (LineSeg, Int) => Unit): Unit =
   { var count = 1
     while (count <= vertsNum)
     { f(side(count), count + initCount)
@@ -100,12 +100,18 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   def sidesIFlatMap[AA <: ArrImut[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: ArrTFlatBuilder[AA]): AA =
   { var count = initCount
     val buff = build.newBuff()
-    sideForeach { side =>
+    foreachSide { side =>
       val newElems = f(side, count)
       build.buffGrowArr(buff, newElems)
       count += 1
     }
     build.buffToArr(buff)
+  }
+
+  def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =
+  { var acc = init
+    foreachSide{s => acc = f(acc, s) }
+    acc
   }
 
   override def attribs: Arr[XANumeric] = ???
@@ -115,9 +121,6 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): PolygonCompound =
     PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)))
-
-  /** The number of vertices and also the number of sides in this Polygon. */
-  def vertsNum: Int
 
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   def xVert(index: Int): Double
@@ -197,18 +200,11 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
    *  traits. */
   override def shearY(operand: Double): Polygon = polygonMap(_.xShear(operand))
 
-  /** Converts this closed Polygon to LineSegs. The LineSegs collection is empty of there are less than 2 vertices. */
-  def toLineSegs: LineSegs = if (vertsNum > 1)
-  { val res: LineSegs = LineSegs(vertsNum)
-    res.unsafeSetElem(0, LineSeg(vert(vertsNum), vert(1)))
-    iUntilForeach(1, vertsNum){i => res.unsafeSetElem(i, LineSeg(vert(i), vert(i + 1))) }
-    res
-  }
-  else LineSegs()
-
   /** Determines if the parameter point lies inside this Polygon. */
-  def ptInside(pt: Pt2): Boolean = toLineSegs.ptInPolygon(pt)
-
+  def ptInside(pt: Pt2): Boolean =
+  { val num = sidesFold(0)((acc, line) => acc + ife(line.rayIntersection(pt), 1, 0))
+    num.isOdd
+  }
   /** The centre point of this Polygon. The default centre for Polygons is the centre of the bounding rectangle. */
   def cenPt: Pt2 = boundingRect.cen
   def cenVec: Vec2 = boundingRect.cenVec
