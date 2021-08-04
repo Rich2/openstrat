@@ -13,17 +13,19 @@ trait Dbl3Elem extends Any with DblNElem
     dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta) & dbl3.=~(that.dbl3, delta)
 }
 
+/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl3Elem]]s. */
 trait Dbl3sData[A <: Dbl3Elem] extends Any with DblNsData[A]
+{
+  override def unsafeSetElem(index: Int, elem: A): Unit =
+  { arrayUnsafe(3 * index) = elem.dbl1; arrayUnsafe(3 * index + 1) = elem.dbl2; arrayUnsafe(3 * index + 2) = elem.dbl3
+  }
+}
 
-/** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl3Elem]]s. */
+/** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl3Elem]]s. */
 trait Dbl3sSeq[A <: Dbl3Elem] extends Any with DblNsSeq[A] with Dbl3sData[A]
 { def elemProductNum = 3
   def newElem(d1: Double, d2: Double, d3: Double): A
   def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
-
-  override def unsafeSetElem(index: Int, elem: A): Unit =
-  { arrayUnsafe(3 * index) = elem.dbl1; arrayUnsafe(3 * index + 1) = elem.dbl2; arrayUnsafe(3 * index + 2) = elem.dbl3
-  }
 
   def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2)
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3)))
