@@ -27,6 +27,6 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   }
 }
 
-object LinePathLL extends Dbl2sArrCompanion[LatLong, LinePathLL]
+object LinePathLL extends Dbl2sDataCompanion[LatLong, LinePathLL]
 { override def fromArrayDbl(array: Array[Double]): LinePathLL = new LinePathLL(array)
 }

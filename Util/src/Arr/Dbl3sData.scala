@@ -68,7 +68,7 @@ abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sSeq[A]](typeStr: String)
 }
 
 /** Class for the singleton companion objects of [[Dbl3sSeq]] final classes to extend. */
-abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sSeq[A]] extends DblNsArrCompanion[A, ArrA]
+abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sSeq[A]] extends DblNsDataCompanion[A, ArrA]
 { final override def elemSize: Int = 3
 
   def apply(elems: A*): ArrA =

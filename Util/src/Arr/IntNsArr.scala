@@ -71,7 +71,7 @@ abstract class IntNsArrPersist[A <: IntNElem, M <: IntNsArr[A]](typeStr: String)
 
 /** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the of the
  *  collection class. */
-trait IntNArrCompanion[A <: IntNElem, ArrA <: IntNsArr[A]] extends ValueNArrCompanion[A, ArrA]
+trait IntNArrCompanion[A <: IntNElem, ArrA <: IntNsArr[A]] extends ValueNsDataCompanion[A, ArrA]
 { /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an ArrayBuffer[Int]. */
   def fromBuffer(buff: Buff[Int]): ArrA = fromArray(buff.toArray[Int])
 

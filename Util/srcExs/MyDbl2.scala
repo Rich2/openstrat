@@ -30,7 +30,7 @@ final class MyDbl2s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sSeq
   override def fElemStr: MyDbl2 => String = _.toString
 }
 
-object MyDbl2s extends Dbl2sArrCompanion[MyDbl2, MyDbl2s]
+object MyDbl2s extends Dbl2sDataCompanion[MyDbl2, MyDbl2s]
 {
   implicit val flatImplicit: ArrTFlatBuilder[MyDbl2s] = new Dbl2sArrFlatBuilder[MyDbl2, MyDbl2s]
   { type BuffT = MinesBuff

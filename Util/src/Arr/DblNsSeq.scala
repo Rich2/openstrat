@@ -82,7 +82,7 @@ trait DblNsBuffer[A <: DblNElem] extends Any with ValueNsBuffer[A]
 }
 
 /** Helper trait for Companion objects of [[DblNsSeq]] classes. */
-trait DblNsArrCompanion[A <: DblNElem, ArrA <: DblNsSeq[A]] extends ValueNArrCompanion[A, ArrA]
+trait DblNsDataCompanion[A <: DblNElem, ArrA <: DblNsData[A]] extends ValueNsDataCompanion[A, ArrA]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArrayDbl(array: Array[Double]): ArrA
 

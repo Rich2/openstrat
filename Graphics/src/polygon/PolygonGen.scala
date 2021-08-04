@@ -4,7 +4,7 @@ import Colour.Black, pWeb._
 
 /** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
-final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve with Dbl2sSeq[Pt2]
+final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2sLikeProdDbl2 with AffinePreserve with Dbl2sSeq[Pt2]
 { override type ThisT = PolygonGen
   override def vert(index: Int): Pt2 = indexData(index - 1)
   @inline override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = foreachPairTail(f)
@@ -83,7 +83,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
 }
 
 /** Companion object for [[PolygonGen]]. */
-object PolygonGen extends Dbl2sArrCompanion[Pt2, PolygonGen]
+object PolygonGen extends Dbl2sDataCompanion[Pt2, PolygonGen]
 { override def fromArrayDbl(array: Array[Double]): PolygonGen = new PolygonGen(array)
 
   /*def apply(v1: Pt2, v2: Pt2, v3: Pt2, tail: Pt2 *): PolygonImp =

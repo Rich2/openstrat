@@ -33,7 +33,7 @@ abstract class LongNsArrBuilders[B <: LongNElem, ArrB <: LongNsArr[B]](typeStr: 
 }
 
 /** Helper trait for Companion objects of [[LongNsArr]] classes. */
-trait ProductLongsCompanion[A <: LongNElem, ArrA <: LongNsArr[A]] extends ValueNArrCompanion[A, ArrA]
+trait ProductLongsCompanion[A <: LongNElem, ArrA <: LongNsArr[A]] extends ValueNsDataCompanion[A, ArrA]
 { def fromBuffer(buff: Buff[Long]): ArrA = fromArray(buff.toArray[Long])
   //val factory: Int => M
   def fromArray(array: Array[Long]): ArrA

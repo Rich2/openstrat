@@ -68,7 +68,7 @@ class Pt2MArr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sSeq[Pt2M]
 }
 
 /** Companion object for the [[Pt2MArr]] class. Contains implicit Instance for Persist type class. */
-object Pt2MArr extends Dbl2sArrCompanion[Pt2M, Pt2MArr]
+object Pt2MArr extends Dbl2sDataCompanion[Pt2M, Pt2MArr]
 {
   override def fromArrayDbl(array: Array[Double]): Pt2MArr = new Pt2MArr(array)
 

@@ -77,8 +77,8 @@ abstract class ValueNsArrPersist[A, M](val typeStr: String) extends PersistCompo
   def newBuffer: Buff[VT]
 }
 
-/** Helper trait for companion objects of [[ValueNsSeq]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
-trait ValueNArrCompanion[A <: ValueNElem, ArrA <: ValueNsSeq[A]]
+/** Helper trait for companion objects of [[ValueNsData]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
+trait ValueNsDataCompanion[A <: ValueNElem, ArrA <: ValueNsData[A]]
 { /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   implicit def uninitialised(length: Int): ArrA
 
