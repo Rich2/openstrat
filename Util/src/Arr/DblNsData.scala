@@ -25,8 +25,8 @@ trait DblNsData[A <: DblNElem] extends Any with ValueNsData[A] with ArrayDblBack
 trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
 { type ThisT <: DblNsSeq[A]
 
-  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
-  def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProdSize); () }
+  final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
+  //def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProdSize); () }
 
   /** Not sure about this method. */
   def foreachArr(f: Dbls => Unit): Unit
@@ -40,7 +40,7 @@ trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
   }
 
   def reverse: ThisT =
-  { val res: ThisT = unsafeNew(elemsNum)
+  { val res: ThisT = unsafeSameSize(elemsNum)
     iForeach{(el, i) => res.unsafeSetElem(elemsNum - 1 - i, el)}
     res
   }

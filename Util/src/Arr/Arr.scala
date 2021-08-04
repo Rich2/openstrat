@@ -2,15 +2,15 @@
 package ostrat
 import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-/** The immutable Array based class for types without there own specialised [[ArrImut]] collection classes. It Inherits the standard foreach, map,
+/** The immutable Array based class for types without there own specialised [[SeqImut]] collection classes. It Inherits the standard foreach, map,
  *  flatMap and fold and their variations' methods from ArrayLike. As it stands in Scala 3.0.2-RC1 the Graphics module will not build for Scala3 for
  *  the Javascript target. */
-final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with ArrImut[A]
+final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with SeqImut[A]
 { type ThisT = Arr[A]@uncheckedVariance
   override def typeStr: String = "Arr"
 
   /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
-  override def unsafeNew(length: Int): Arr[A] = new Arr(new Array[AnyRef](length).asInstanceOf[Array[A]])
+  override def unsafeSameSize(length: Int): Arr[A] = new Arr(new Array[AnyRef](length).asInstanceOf[Array[A]])
 
   override def elemsNum: Int = unsafeArr.length
 

@@ -3,11 +3,11 @@ package ostrat
 import scala.collection.mutable.ArrayBuffer
 
 /** An immutable efficient Array[Boolean] backed sequence class for [[Boolean]]s. */
-class Booleans(val array: Array[Boolean]) extends AnyVal with ArrImut[Boolean]
+class Booleans(val array: Array[Boolean]) extends AnyVal with SeqImut[Boolean]
 { type ThisT = Booleans
 
   /** Copy's the backing Array[[Boolean]] to a new Array[char]. End users should rarely have to use this method. */
-  override def unsafeNew(length: Int): Booleans = new Booleans(new Array[Boolean](length))
+  override def unsafeSameSize(length: Int): Booleans = new Booleans(new Array[Boolean](length))
   override def typeStr: String = "Booleans"
 
   override def elemsNum: Int = array.length

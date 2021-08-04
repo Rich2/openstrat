@@ -26,7 +26,7 @@ trait IntNsSeq[A <: IntNElem] extends Any with ValueNsSeq[A] with IntNsData[A]
 
 
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
-  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemProdSize))
+  final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemProdSize))
 }
 /** Trait for creating the ArrTBuilder type class instances for [[IntNsSeq]] final classes. Instances for the [[ArrTBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in

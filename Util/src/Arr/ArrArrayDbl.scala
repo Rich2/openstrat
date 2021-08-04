@@ -2,11 +2,11 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with ArrImut[A]
+trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with SeqImut[A]
 { def array: Array[Array[Double]]
   def elemsNum: Int = array.length
   def unsafeFromArrayArray(array: Array[Array[Double]]): ThisT
-  final def unsafeNew(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Double]](length))
+  final def unsafeSameSize(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Double]](length))
   def unsafeSetElem(i: Int, value: A): Unit = array(i) = value.arrayUnsafe
 }
 

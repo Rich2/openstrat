@@ -3,14 +3,14 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Long]]s. */
-class Longs(val arrayUnsafe: Array[Long]) extends AnyVal with ArrImut[Long]
+class Longs(val arrayUnsafe: Array[Long]) extends AnyVal with SeqImut[Long]
 { type ThisT = Longs
 
   /** Copy's the backing Array[[Long]] to a new Array[char]. End users should rarely have to use this method. */
   def unsafeArrayCopy(operand: Array[Long], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
 
   override def typeStr: String = "Longs"
-  override def unsafeNew(length: Int): Longs = new Longs(new Array[Long](length))
+  override def unsafeSameSize(length: Int): Longs = new Longs(new Array[Long](length))
   override def elemsNum: Int = arrayUnsafe.length
   override def indexData(index: Int): Long = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = arrayUnsafe(i) = value

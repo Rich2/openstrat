@@ -3,10 +3,10 @@ package ostrat
 import scala.collection.mutable.ArrayBuffer
 
 /** An immutable Array based class for Doubles. */
-class Dbls(val arrayUnsafe: Array[Double]) extends AnyVal with ArrImut[Double]
+class Dbls(val arrayUnsafe: Array[Double]) extends AnyVal with SeqImut[Double]
 { type ThisT = Dbls
   override def typeStr: String = "Doubles"
-  override def unsafeNew(length: Int): Dbls = new Dbls(new Array[Double](length))
+  override def unsafeSameSize(length: Int): Dbls = new Dbls(new Array[Double](length))
   override def elemsNum: Int = arrayUnsafe.length
   override def indexData(index: Int): Double = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Double): Unit = arrayUnsafe(i) = value

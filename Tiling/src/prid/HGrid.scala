@@ -56,7 +56,7 @@ trait HGrid extends TGrid
 
   /** Maps over the [[HCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
    *  corresponding to the standard Scala map function of A => B. */
-  final def map[B, ArrB <: ArrImut[B]](f: HCen => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB =
+  final def map[B, ArrB <: SeqImut[B]](f: HCen => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB =
   { val res = build.newArr(numCens)
     iForeach((hCen, i) => res.unsafeSetElem(i, f(hCen)))
     res
@@ -64,7 +64,7 @@ trait HGrid extends TGrid
 
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */
-  final def flatMap[ArrT <: ArrImut[_]](f: HCen => ArrT)(implicit build: ArrTFlatBuilder[ArrT]): ArrT =
+  final def flatMap[ArrT <: SeqImut[_]](f: HCen => ArrT)(implicit build: ArrTFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numCens)
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
     build.buffToArr(buff)
@@ -163,7 +163,7 @@ trait HGrid extends TGrid
 
   /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
    *  @group SidesGroup */
-  final def sidesMap[B, ArrT <: ArrImut[B]](f: HSide => B)(implicit build: ArrTBuilder[B, ArrT]): ArrT =
+  final def sidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrTBuilder[B, ArrT]): ArrT =
   {
     val res: ArrT = build.newArr(numSides)
     var count = 0
@@ -176,7 +176,7 @@ trait HGrid extends TGrid
 
   /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
    *  @group SidesGroup */
-  final def sidesFlatMap[ArrT <: ArrImut[_]](f: HSide => ArrT)(implicit build: ArrTFlatBuilder[ArrT]): ArrT =
+  final def sidesFlatMap[ArrT <: SeqImut[_]](f: HSide => ArrT)(implicit build: ArrTFlatBuilder[ArrT]): ArrT =
   {
     val buff = build.newBuff()// newArr(numSides)
     sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }

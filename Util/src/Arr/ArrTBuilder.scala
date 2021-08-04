@@ -3,7 +3,7 @@ package ostrat
 import reflect.ClassTag, annotation.unused
 
 /** A common trait inherited by [[ArrTBuilder]] and [[ArrTFlatBuider]]. */
-trait ArrTBuilderCommon[ArrB <: ArrImut[_]]
+trait ArrTBuilderCommon[ArrB <: SeqImut[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
@@ -20,7 +20,7 @@ trait ArrTBuilderCommon[ArrB <: ArrImut[_]]
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait ArrTBuilder[B, ArrB <: ArrImut[B]] extends ArrTBuilderCommon[ArrB]
+trait ArrTBuilder[B, ArrB <: SeqImut[B]] extends ArrTBuilderCommon[ArrB]
 { type BuffT <: SeqArrayLike[B]
   def newArr(length: Int): ArrB
   def arrSet(arr: ArrB, index: Int, value: B): Unit

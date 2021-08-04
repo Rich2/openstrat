@@ -3,11 +3,11 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for Floats. */
-class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with ArrImut[Float]
+class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with SeqImut[Float]
 { type ThisT = Floats
 
   /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */
-  override def unsafeNew(length: Int): Floats = new Floats(new Array[Float](length))
+  override def unsafeSameSize(length: Int): Floats = new Floats(new Array[Float](length))
 
   override def typeStr: String = "Floats"
   override def elemsNum: Int = arrayUnsafe.length

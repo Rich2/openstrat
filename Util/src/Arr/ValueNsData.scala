@@ -9,7 +9,7 @@ trait ValueNElem extends Any with SpecialT
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
  *  classes include both [[ValueNscollection]]s and classes like polygons and lines. */
-trait ValueNsData[A <: ValueNElem] extends Any with ArrayLikeBacked[A]
+trait ValueNsData[A <: ValueNElem] extends Any with DataImut[A]
 { type ThisT <: ValueNsData[A]
 
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
@@ -37,7 +37,7 @@ trait ValueNsData[A <: ValueNElem] extends Any with ArrayLikeBacked[A]
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ValueNsSeq[A <: ValueNElem] extends Any with ArrImut[A] with ValueNsData[A]
+trait ValueNsSeq[A <: ValueNElem] extends Any with SeqImut[A] with ValueNsData[A]
 { type ThisT <: ValueNsSeq[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
