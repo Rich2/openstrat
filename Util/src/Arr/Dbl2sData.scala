@@ -45,8 +45,6 @@ trait Dbl2sSeq[A <: Dbl2Elem] extends Any with DblNsSeq[A] with Dbl2sData[A]
 { type ThisT <: Dbl2sSeq[A]
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
-
-
   def getPair(index: Int): (Double, Double) = (arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
