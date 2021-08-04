@@ -21,26 +21,26 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   @inline def head: A = apply(0)
 
   /** The last element of this sequence. */
-  @inline def last: A = apply(elemsLen - 1)
+  @inline def last: A = apply(elemsNum - 1)
 
   /** Is this sequence empty? */
-  @inline def empty: Boolean = elemsLen <= 0
+  @inline def empty: Boolean = elemsNum <= 0
 
   /** Is this sequence non empty? */
-  @inline def nonEmpty: Boolean = elemsLen > 0
+  @inline def nonEmpty: Boolean = elemsNum > 0
 
-  def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (elemsLen == 0) vEmpty else vNonEmpty
-  def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(elemsLen >= 1, ifHead(head), noHead)
-  def headToStringElse(ifEmptyString: String): String = ife(elemsLen >= 1, head.toString, ifEmptyString)
+  def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (elemsNum == 0) vEmpty else vNonEmpty
+  def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(elemsNum >= 1, ifHead(head), noHead)
+  def headToStringElse(ifEmptyString: String): String = ife(elemsNum >= 1, head.toString, ifEmptyString)
 
   /** Applies an index to this ArrayLike collection which cycles back to element 0, when it reaches the end of the collection. Accepts even negative
    * integers as an index value without throwing an exception. */
-  @inline def cycleGet(index: Int): A = apply(index %% elemsLen)
+  @inline def cycleGet(index: Int): A = apply(index %% elemsNum)
 
   /** Performs a side effecting function on each element of this sequence in order. */
   def foreach[U](f: A => U): Unit =
   { var count = 0
-    while(count < elemsLen)
+    while(count < elemsNum)
     { f(apply(count))
       count = count + 1
     }
@@ -50,7 +50,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   def iForeach[U](f: (A, Int) => U): Unit =
   { var count = 0
     var i: Int = 0
-    while(count < elemsLen )
+    while(count < elemsNum )
     { f(apply(count), i)
       count+= 1
       i += 1
@@ -61,7 +61,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   def iForeach[U](startIndex: Int)(f: (A, Int) => U): Unit =
   { var count = 0
     var i: Int = startIndex
-    while(count < elemsLen )
+    while(count < elemsNum )
     { f(apply(count), i)
       count+= 1
       i += 1
@@ -70,7 +70,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
 
   /** Specialised map to an immutable ArrBase of B. */
   def map[B, ArrB <: ArrImut[B]](f: A => B)(implicit ev: ArrTBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsLen)
+  { val res = ev.newArr(elemsNum)
     iForeach((a, i) => ev.arrSet(res, i, f(a)))
     res
   }
@@ -89,7 +89,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
    * function from type A and type B to type C. */
   def zipMap[B, C, ArrC <: ArrImut[C]](operator: SeqArrayLike[B])(f: (A, B) => C)(implicit ev: ArrTBuilder[C, ArrC]): ArrC =
-  { val newLen = elemsLen.min(operator.elemsLen)
+  { val newLen = elemsNum.min(operator.elemsNum)
     val res = ev.newArr(newLen)
     var count = 0
     while(count < newLen)
@@ -103,7 +103,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
    *  the specialised map function from type A and type B and type C to type D. */
   def zipMap2[B, C, D, ArrD <: ArrImut[D]](operator1: SeqArrayLike[B], operator2: SeqArrayLike[C])(f: (A, B, C) => D)(implicit ev: ArrTBuilder[D, ArrD]): ArrD =
-  { val newLen = elemsLen.min(operator1.elemsLen).min(operator2.elemsLen)
+  { val newLen = elemsNum.min(operator1.elemsNum).min(operator2.elemsNum)
     val res = ev.newArr(newLen)
     var count = 0
     while(count < newLen)
@@ -116,7 +116,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
 
   /** Specialised map with index to an immutable ArrBase of B. This method should be overridden in sub classes. */
   def iMap[B, ArrB <: ArrImut[B]](f: (A, Int) => B)(implicit ev: ArrTBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsLen)
+  { val res = ev.newArr(elemsNum)
     iForeach((a, i) => ev.arrSet(res, i, f(a, i)))
     res
   }
@@ -125,7 +125,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   def iFlatMap[ArrB <: ArrImut[_]](f: (A, Int) => ArrB)(implicit build: ArrTFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
-    while (i < elemsLen)
+    while (i < elemsNum)
     { val newArr = f(apply(i), i);
       build.buffGrowArr(buff, newArr)
       i += 1
@@ -137,7 +137,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   def iFlatMap[ArrB <: ArrImut[_]](iInit: Int = 0)(f: (A, Int) => ArrB)(implicit build: ArrTFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
-    while (count < elemsLen)
+    while (count < elemsNum)
     { val newElems = f(apply(count), count + iInit)
       build.buffGrowArr(buff, newElems)
       count += 1
@@ -147,7 +147,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
 
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
   def mapWithAcc[B, ArrB <: ArrImut[B], C](initC: C)(f: (A, C) => (B, C))(implicit ev: ArrTBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsLen)
+  { val res = ev.newArr(elemsNum)
     var accC: C = initC
     iForeach { (a, i) =>
       val (newB, newC) = f(a, accC)
@@ -162,7 +162,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
     var continue = true
     var count = 0
     var errs: Strings = Strings()
-    while(count < elemsLen & continue == true)
+    while(count < elemsNum & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToArr(acc)), Bad(errs))
   }
@@ -172,16 +172,16 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
     var continue = true
     var count = 0
     var errs: Strings = Strings()
-    while(count < elemsLen & continue == true)
+    while(count < elemsNum & continue == true)
       f(apply(count)).foldErrs { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(acc.reverse), Bad(errs))
   }
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
   def map2To1[B, ArrB <: ArrImut[B]](f: (A, A) => B)(implicit ev: ArrTBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsLen)
+  { val res = ev.newArr(elemsNum)
     var count = 0
-    while (count + 1  < elemsLen)
+    while (count + 1  < elemsNum)
     {  ev.arrSet(res, count, f(apply(count), apply(count + 1)))
       count += 2
     }
@@ -209,7 +209,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
 
   /** FlatMaps over a function from A to any Iterable. */
   def iterFlatMap[B, ArrB <: ArrImut[B]](f: A => Iterable[B])(implicit ev: ArrTBuilder[B, ArrB]): ArrB =
-  { val buff = ev.newBuff(elemsLen)
+  { val buff = ev.newBuff(elemsNum)
     foreach(a => ev.buffGrowIter(buff, f(a)))
     ev.buffToArr(buff)
   }
@@ -223,7 +223,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   def indexOf(elem: A @uncheckedVariance): Int =
   { var result = -1
     var count  = 0
-    while (count < elemsLen & result == -1)
+    while (count < elemsNum & result == -1)
     { if (elem == apply(count)) result = count
     else count += 1
     }
@@ -234,7 +234,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   def indexWhere(f: A => Boolean): Int =
   { var count = 0
     var result = -1
-    while(count < elemsLen & result == -1)
+    while(count < elemsNum & result == -1)
     { if(f(apply(count))) result = count
       count += 1
     }
@@ -243,12 +243,12 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
 
   def foreachTail[U](f: A => U): Unit =
   { var count = 1
-    while(count < elemsLen) { f(apply(count)); count += 1 }
+    while(count < elemsNum) { f(apply(count)); count += 1 }
   }
 
   def foreachInit[U](f: A => U): Unit =
   { var count = 0
-    while(count < elemsLen - 1)
+    while(count < elemsNum - 1)
     { f(apply(count))
       count += 1
     }
@@ -272,26 +272,26 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
 
   /** Consider changing this name, as might not be appropriate to all sub classes. */
   def foreachReverse[U](f: A => U): Unit =
-  { var count = elemsLen
+  { var count = elemsNum
     while(count > 0) { count -= 1; f(apply(count)) }
   }
 
   def iForeachReverse[U](f: (A, Int) => U): Unit =
-  { var count = elemsLen
+  { var count = elemsNum
     while(count > 0) { count -= 1; f(apply(count), count) }
   }
 
   def forAll(p: (A) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
-    while (acc & count < elemsLen) if (p(apply(count))) count += 1 else acc = false
+    while (acc & count < elemsNum) if (p(apply(count))) count += 1 else acc = false
     acc
   }
 
   def iForAll(p: (A, Int) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
-    while (acc & count < elemsLen) if (p(apply(count), count)) count += 1 else acc = false
+    while (acc & count < elemsNum) if (p(apply(count), count)) count += 1 else acc = false
     acc
   }
 
@@ -299,7 +299,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   def contains[A1 >: A](elem: A1): Boolean =
   { var count = 0
     var res = false
-    while (res == false & count < elemsLen){ if (elem == apply(count)) res = true; count += 1 }
+    while (res == false & count < elemsNum){ if (elem == apply(count)) res = true; count += 1 }
     res
   }
 
@@ -325,10 +325,10 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   }
 
   /** Not sure about this method. */
-  def mkString(seperator: String): String = ife(elemsLen == 0, "",
+  def mkString(seperator: String): String = ife(elemsNum == 0, "",
     { var acc = head.toString
       var count = 1
-      while(count < elemsLen)
+      while(count < elemsNum)
       { acc += seperator + apply(count).toString
         count += 1
       }

@@ -19,7 +19,7 @@ trait ArrImut[+A] extends Any with SeqArrayLike[A]
 
   /** Sets / mutates the last element in the Arr. This method should rarely be needed by end users, but is used by initialisation and factory
    * methods. */
-  def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(elemsLen -1, value)
+  def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(elemsNum -1, value)
 
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
 
@@ -32,19 +32,19 @@ trait ArrImut[+A] extends Any with SeqArrayLike[A]
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
   { case -1 => returnThis
     case n =>
-    { val newArr = unsafeNew(elemsLen - 1)
+    { val newArr = unsafeNew(elemsNum - 1)
       iUntilForeach(0, n)(i => newArr.unsafeSetElem(i, apply(i)))
-      iUntilForeach(n + 1, elemsLen)(i => newArr.unsafeSetElem(i - 1, apply(i)))
+      iUntilForeach(n + 1, elemsNum)(i => newArr.unsafeSetElem(i - 1, apply(i)))
       newArr
     }
   }
 
   /** Replaces all instances of the old value with the new value. */
   def replace(oldValue: A @uncheckedVariance, newValue: A@uncheckedVariance): ThisT =
-  { val newArr = unsafeNew(elemsLen)
+  { val newArr = unsafeNew(elemsNum)
     var count = 0
 
-    while (count < elemsLen)
+    while (count < elemsNum)
     { val orig = apply(count)
       val finalVal = ife(orig == oldValue, newValue, orig)
       newArr.unsafeSetElem(count, finalVal)
@@ -55,10 +55,10 @@ trait ArrImut[+A] extends Any with SeqArrayLike[A]
 
   /** Replaces all instances of the old value that fulfill predicate with the new value. */
   def replaceWhere(pred: A => Boolean, newValue: A@uncheckedVariance): ThisT =
-  { val newArr = unsafeNew(elemsLen)
+  { val newArr = unsafeNew(elemsNum)
     var count = 0
 
-    while (count < elemsLen)
+    while (count < elemsNum)
     { val orig = apply(count)
       val finalVal = ife(pred(orig), newValue, orig)
       newArr.unsafeSetElem(count, finalVal)
@@ -69,10 +69,10 @@ trait ArrImut[+A] extends Any with SeqArrayLike[A]
 
   /** Replaces all instances of the old value that fulfill predicate with the new value. */
   def modifyWhere(pred: A => Boolean, fNewValue: A => A @uncheckedVariance): ThisT =
-  { val newArr = unsafeNew(elemsLen)
+  { val newArr = unsafeNew(elemsNum)
     var count = 0
 
-    while (count < elemsLen)
+    while (count < elemsNum)
     { val orig = apply(count)
       val finalVal = ife(pred(orig), fNewValue(orig), orig)
       newArr.unsafeSetElem(count, finalVal)
@@ -85,7 +85,7 @@ trait ArrImut[+A] extends Any with SeqArrayLike[A]
   {
     var count = 0
     var res: Option[A] = None
-    while (count < elemsLen & res.isEmpty)
+    while (count < elemsNum & res.isEmpty)
     {
       val el = apply(count)
       if (f(el)) res = Some(el)

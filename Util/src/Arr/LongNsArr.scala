@@ -11,7 +11,7 @@ trait LongNsArr[A <: LongNElem] extends Any with ValueNsSeq[A]
   def arrLen = array.length
 
   /** The number of Longs, that specify / construct an element of this immutable flat Array based collection class. */
-  def elemProductNum: Int
+  def elemProdSize: Int
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */

@@ -7,10 +7,10 @@ trait ArrayLikeBacked[A] extends Any
 {
   /** The number of elements in the collection. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying
    * Array will be this number or a multiple of this number. */
-  def elemsLen: Int
+  def elemsNum: Int
 
   /** Just a handy short cut to give the length of this collection as a string. */
-  def elemsLenStr: String = elemsLen.toString
+  def elemsLenStr: String = elemsNum.toString
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    *  methods. */

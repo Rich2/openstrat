@@ -12,7 +12,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
   override def unsafeNew(length: Int): Arr[A] = new Arr(new Array[AnyRef](length).asInstanceOf[Array[A]])
 
-  override def elemsLen: Int = unsafeArr.length
+  override def elemsNum: Int = unsafeArr.length
 
   override def apply(index: Int): A = unsafeArr(index)
 
@@ -49,8 +49,8 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 
   /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
-  { val newArray = new Array[A]((elemsLen - 1).atLeast0)
-    iUntilForeach(1, elemsLen)(i => newArray(i - 1) = unsafeArr(i))
+  { val newArray = new Array[A]((elemsNum - 1).atLeast0)
+    iUntilForeach(1, elemsNum)(i => newArray(i - 1) = unsafeArr(i))
     new Arr(newArray)
   }
 
@@ -59,9 +59,9 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   /** Functionally concatenates element to dispatching Refs, allows type widening. Aliased by -+ operator. The '-' character in the operator name
    *  indicates loss of type precision. The ++ appendRefs method is preferred when type widening is not required. */
   def appendRefs [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](elemsLen + op.elemsLen)
+  { val newArray = new Array[AA](elemsNum + op.elemsNum)
     unsafeArr.copyToArray(newArray)
-    op.unsafeArr.copyToArray(newArray, elemsLen)
+    op.unsafeArr.copyToArray(newArray, elemsNum)
     new Arr(newArray)
   }
 
@@ -69,9 +69,9 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   @inline def +- [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] = append[AA](op)(ct)
   /** Functionally appends an element to dispatching Refs, allows type widening. Aliased by +- operator. */
   def append[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](elemsLen + 1)
+  { val newArray = new Array[AA](elemsNum + 1)
     unsafeArr.copyToArray(newArray)
-    newArray(elemsLen) = op
+    newArray(elemsNum) = op
     new Arr(newArray)
   }
 
@@ -80,7 +80,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   @inline def +: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): Arr[AA] = prepend(op)(ct)
   /** Functionally prepends element to array. Aliased by the +: operator. */
   def prepend[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](elemsLen + 1)
+  { val newArray = new Array[AA](elemsNum + 1)
     newArray(0) = op
     unsafeArr.copyToArray(newArray, 1)
     new Arr(newArray)
@@ -118,7 +118,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 
   def setAll(value: A @uncheckedVariance): Unit =
   { var i = 0
-    while(i < elemsLen){unsafeSetElem(i, value); i += 1}
+    while(i < elemsNum){unsafeSetElem(i, value); i += 1}
   }
 }
 
@@ -132,7 +132,7 @@ object Arr
     def optFind(f: A => Boolean): OptRef[A] =
     { var acc: OptRef[A] = NoRef
       var count = 0
-      while (acc == NoRef & count < thisArr.elemsLen) if (f(thisArr(count))) acc = OptRef(thisArr(count)) else count += 1
+      while (acc == NoRef & count < thisArr.elemsNum) if (f(thisArr(count))) acc = OptRef(thisArr(count)) else count += 1
       acc
     }
   }
@@ -152,7 +152,7 @@ class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) e
 /** Not sure if this class is necessary now that Arr take Any. */
 class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with SeqArrayLike[A]
 { override def apply(index: Int): A = unsafeBuff(index)
-  override def elemsLen: Int = unsafeBuff.length
+  override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuff(i) = value
   override def fElemStr: A => String = _.toString
 }

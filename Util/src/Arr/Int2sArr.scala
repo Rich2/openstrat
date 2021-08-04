@@ -8,9 +8,9 @@ trait Int2Elem extends Any with IntNElem//ValueNElem
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */
-trait Int2sArr[A <: Int2Elem] extends Any with IntNsArr[A]
+trait Int2sArr[A <: Int2Elem] extends Any with IntNsSeq[A]
 {
-  override def elemProductNum: Int = 2
+  override def elemProdSize: Int = 2
   def newElem(i1: Int, i2: Int): A
   final override def apply(index: Int): A = newElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
@@ -28,7 +28,7 @@ trait Int2sArr[A <: Int2Elem] extends Any with IntNsArr[A]
 trait Int2sArrBuilder[B <: Int2Elem, ArrB <: Int2sArr[B]] extends IntNsArrBuilder[B, ArrB]
 { type BuffT <: Int2sBuffer[B, ArrB]
 
-  final override def elemSize: Int = 2
+  final override def elemProdSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
 
   final override def arrSet(arr: ArrB, index: Int, value: B): Unit =
@@ -43,14 +43,14 @@ trait Int2sArrBuilder[B <: Int2Elem, ArrB <: Int2sArr[B]] extends IntNsArrBuilde
  *  ```map(f: A => B): ArrB``` function. */
 trait Int2sArrFlatBuilder[B <: Int2Elem, ArrB <: Int2sArr[B]] extends IntNsArrFlatBuilder[B, ArrB]
 { type BuffT <: Int2sBuffer[B, ArrB]
-  final override def elemSize: Int = 2
+  final override def elemProdSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
 trait Int2sBuffer[A <: Int2Elem, M <: Int2sArr[A]] extends Any with IntNsBuffer[A]
 { type ArrT <: Int2sArr[A]
-  override def elemSize: Int = 2
+  override def elemProdSize: Int = 2
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1).append(newElem.int2); () }
   def intsToT(i1: Int, i2: Int): A
   def apply(index: Int): A = intsToT(unsafeBuff(index * 2), unsafeBuff(index * 2 + 1))
@@ -61,7 +61,7 @@ trait Int2sBuffer[A <: Int2Elem, M <: Int2sArr[A]] extends Any with IntNsBuffer[
 /** Helper class for companion objects of final Int2sArr classes. */
 abstract class Int2sArrCompanion[A <: Int2Elem, ArrA <: Int2sArr[A]] extends IntNArrCompanion[A, ArrA]
 {
-  override def elemSize: Int = 2
+  override def elemProdSize: Int = 2
 
   /** Apply factory method */
   def apply(elems: A*): ArrA =

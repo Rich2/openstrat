@@ -4,7 +4,7 @@ import Colour.Black, pWeb._
 
 /** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
-final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2sLikeProdDbl2 with AffinePreserve with Dbl2sSeq[Pt2]
+final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with Dbl2sSeq[Pt2]
 { override type ThisT = PolygonGen
   override def vert(index: Int): Pt2 = indexData(index - 1)
   @inline override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = foreachPairTail(f)
@@ -63,19 +63,19 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2s
 
   /** Insert vertex. */
   override def insVert(insertionPoint: Int, newVec: Pt2): PolygonGen =
-  { val res = PolygonGen.uninitialised(elemsLen + 1)
+  { val res = PolygonGen.uninitialised(elemsNum + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     res.unsafeSetElem(insertionPoint, newVec)
-    (insertionPoint until elemsLen).foreach(i => res.unsafeSetElem(i + 1, apply(i)))
+    (insertionPoint until elemsNum).foreach(i => res.unsafeSetElem(i + 1, apply(i)))
     res
   }
 
   /** Insert vertices */
   override def insVerts(insertionPoint: Int, newVecs: Pt2 *): PolygonGen =
-  { val res = PolygonGen.uninitialised(elemsLen + newVecs.length)
+  { val res = PolygonGen.uninitialised(elemsNum + newVecs.length)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, apply(i)))
     newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
-    (insertionPoint until elemsLen).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
+    (insertionPoint until elemsNum).foreach(i => res.unsafeSetElem(i + newVecs.length, apply(i)))
     res
   }
 

@@ -14,7 +14,7 @@ trait Dbl4sData[A <: Dbl4Elem] extends Any with DblNsData[A]
 { /** Method for creating new data elements from 4 [[Double]]s In the case of [[Dbl4sSeq]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
-  override def elemProductNum: Int = 4
+  override def elemProdSize: Int = 4
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =
   { arrayUnsafe(4 * index) = elem.dbl1
@@ -40,7 +40,7 @@ trait Dbl4sSeq[A <: Dbl4Elem] extends Any with DblNsSeq[A] with Dbl4sData[A]
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Dbl4sArrBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends DblNsArrBuilder[B, ArrB]
 { type BuffT <: Dbl4sBuffer[B]
-  final override def elemSize = 4
+  final override def elemProdSize = 4
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.arrayUnsafe(index * 4) = value.dbl1
@@ -56,7 +56,7 @@ trait Dbl4sArrBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends DblNsArrBuilde
 trait Dbl4sArrFlatBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends DblNsArrFlatBuilder[B, ArrB]
 { type BuffT <: Dbl4sBuffer[B]
 
-  final override def elemSize = 4
+  final override def elemProdSize = 4
 }
 
 /** Class for the singleton companion objects of [[Dbl4sSeq]] final classes to extend. */
@@ -129,7 +129,7 @@ abstract class ArrProdDbl4Persist[A <: Dbl4Elem, ArrA <: Dbl4sSeq[A]](typeStr: S
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
 trait Dbl4sBuffer[A <: Dbl4Elem] extends Any with DblNsBuffer[A]
 { type ArrT <: Dbl4sSeq[A]
-  override def elemSize: Int = 4
+  override def elemProdSize: Int = 4
 
   /** Grows the buffer by a single element. */
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4); () }

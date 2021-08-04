@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
  *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
-final class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2sLikeProdDbl2 with Dbl2sSeq[Pt2]
+final class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2sLike with Dbl2sSeq[Pt2]
 { type ThisT = Pt2s
   def unsafeFromArray(array: Array[Double]): Pt2s = new Pt2s(array)
   override def typeStr: String = "P2s"
@@ -22,7 +22,7 @@ final class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2
   /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
    * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
   def yMirrorClose: PolygonGen =
-  { val acc = appendArray(elemsLen)
+  { val acc = appendArray(elemsNum)
     var count = arrLen
 
     foreachReverse { orig =>

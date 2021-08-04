@@ -10,16 +10,16 @@ class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with ArrImut[Float]
   override def unsafeNew(length: Int): Floats = new Floats(new Array[Float](length))
 
   override def typeStr: String = "Floats"
-  override def elemsLen: Int = arrayUnsafe.length
+  override def elemsNum: Int = arrayUnsafe.length
   override def apply(index: Int): Float = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = arrayUnsafe(i) = value
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
 
   def ++ (op: Floats): Floats =
-  { val newArray = new Array[Float](elemsLen + op.elemsLen)
+  { val newArray = new Array[Float](elemsNum + op.elemsNum)
     arrayUnsafe.copyToArray(newArray)
-    op.arrayUnsafe.copyToArray(newArray, elemsLen)
+    op.arrayUnsafe.copyToArray(newArray, elemsNum)
     new Floats(newArray)
   }
 }
@@ -40,7 +40,7 @@ object FloatsBuild extends ArrTBuilder[Float, Floats] with ArrTFlatBuilder[Float
 
 class FloatsBuff(val unsafeBuff: ArrayBuffer[Float]) extends AnyVal with SeqArrayLike[Float]
 { override def apply(index: Int): Float = unsafeBuff(index)
-  override def elemsLen: Int = unsafeBuff.length
+  override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeBuff(i) = value
   override def fElemStr: Float => String = _.toString
 }

@@ -6,7 +6,7 @@ import Colour.Black
 trait PolyCurveElem extends GraphicAffineElem with GraphicBoundedAffine
 { type ThisT <: PolyCurveElem
   def shape: ShapeGenOld
-  def segsLen: Int = shape.elemsLen
+  def segsLen: Int = shape.elemsNum
   override def boundingRect: BoundingRect = shape.boundingRect
 }
 

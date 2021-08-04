@@ -18,7 +18,7 @@ trait Dbl3sData[A <: Dbl3Elem] extends Any with DblNsData[A]
 { /** Method for creating new data elements from 3 [[Double]]s In the case of [[Dbl3sSeq]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double): A
 
-  override def elemProductNum = 3
+  override def elemProdSize = 3
 
   override def unsafeSetElem(index: Int, elem: A): Unit =
   { arrayUnsafe(3 * index) = elem.dbl1; arrayUnsafe(3 * index + 1) = elem.dbl2; arrayUnsafe(3 * index + 2) = elem.dbl3
@@ -39,7 +39,7 @@ trait Dbl3sSeq[A <: Dbl3Elem] extends Any with DblNsSeq[A] with Dbl3sData[A]
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsArrBuilder[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
-  final override def elemSize = 3
+  final override def elemProdSize = 3
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl2; arr.arrayUnsafe(index * 3 + 2) = value.dbl3
@@ -51,7 +51,7 @@ trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsArrBuilde
  *  ```map(f: A => B): ArrB``` function. */
 trait Dbl3sArrFlatBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsArrFlatBuilder[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
-  final override def elemSize = 3
+  final override def elemProdSize = 3
 }
 
 /** Persists [[Dbl3sSeq]]s. */
@@ -69,7 +69,7 @@ abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sSeq[A]](typeStr: String)
 
 /** Class for the singleton companion objects of [[Dbl3sSeq]] final classes to extend. */
 abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sSeq[A]] extends DblNsDataCompanion[A, ArrA]
-{ final override def elemSize: Int = 3
+{ final override def elemProdSize: Int = 3
 
   def apply(elems: A*): ArrA =
   { val length = elems.length
@@ -88,7 +88,7 @@ abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sSeq[A]] extends Dbl
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl3Elem]]s collections. */
 trait Dbl3sBuffer[A <: Dbl3Elem] extends Any with DblNsBuffer[A]
 { type ArrT <: Dbl3sSeq[A]
-  override def elemSize: Int = 3
+  override def elemProdSize: Int = 3
 
   /** Grows the buffer by a single element. */
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3); () }

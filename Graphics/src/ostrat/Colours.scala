@@ -3,7 +3,7 @@ package ostrat
 import Colour._, collection.mutable.ArrayBuffer
 
 /** Specialist Array[Int] based class for [[Colour]]s. */
-final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with Int1sArr[Colour]
+final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with Int1sSeq[Colour]
 { type ThisT = Colours
   override def unsafeFromArray(array: Array[Int]): Colours = new Colours(array)
   override def typeStr: String = "Colours"
@@ -27,7 +27,7 @@ object Colours
   class RainbowCycle(val value: Int) extends AnyVal
   {
     def apply(): Colour = rainbow(value)
-    def next: RainbowCycle = ife(value == rainbow.elemsLen - 1, new RainbowCycle(0), new RainbowCycle(value + 1))
+    def next: RainbowCycle = ife(value == rainbow.elemsNum - 1, new RainbowCycle(0), new RainbowCycle(value + 1))
     def nextValue: Colour = next()
   }
 

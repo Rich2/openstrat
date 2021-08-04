@@ -16,7 +16,7 @@ trait Dbl2sData[A <: Dbl2Elem] extends Any with DblNsData[A]
   /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2sSeq]] this will be thee type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double): A
 
-  override def elemProductNum: Int = 2
+  override def elemProdSize: Int = 2
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl2Elem]]s. */
@@ -36,29 +36,29 @@ trait Dbl2sSeq[A <: Dbl2Elem] extends Any with DblNsSeq[A] with Dbl2sData[A]
 
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < elemsLen) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
+    while(count < elemsNum) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
 
   def elem1sArray: Array[Double] =
-  { val res = new Array[Double](elemsLen)
+  { val res = new Array[Double](elemsNum)
     var count = 0
-    while(count < elemsLen){ res(count) = arrayUnsafe(count * 2); count += 1 }
+    while(count < elemsNum){ res(count) = arrayUnsafe(count * 2); count += 1 }
     res
   }
 
   def elem2sArray: Array[Double] =
-  { val res = new Array[Double](elemsLen)
+  { val res = new Array[Double](elemsNum)
     var count = 0
-    while(count < elemsLen){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
+    while(count < elemsNum){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
     res
   }
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
-  { val newArray = new Array[Double](elemsLen + elemProductNum)
+  { val newArray = new Array[Double](elemsNum + elemProdSize)
     arrayUnsafe.copyToArray(newArray)
-    newArray(elemsLen) = op.dbl1
-    newArray(elemsLen + 1) = op.dbl2
+    newArray(elemsNum) = op.dbl1
+    newArray(elemsNum + 1) = op.dbl2
     unsafeFromArray(newArray)
   }
 
@@ -70,7 +70,7 @@ trait Dbl2sSeq[A <: Dbl2Elem] extends Any with DblNsSeq[A] with Dbl2sData[A]
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait Dbl2sArrBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsArrBuilder[B, ArrB]
 { type BuffT <: Dbl2sBuffer[B]
-  final override def elemSize = 2
+  final override def elemProdSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
 }
 
@@ -79,12 +79,12 @@ trait Dbl2sArrBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsArrBuilde
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait Dbl2sArrFlatBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsArrFlatBuilder[B, ArrB]
 { type BuffT <: Dbl2sBuffer[B]
-  final override def elemSize = 2
+  final override def elemProdSize = 2
 }
 
 /** Class for the singleton companion objects of [[Dbl2sSeq]] final classes to extend. */
 trait Dbl2sDataCompanion[A <: Dbl2Elem, ArrA <: Dbl2sData[A]] extends DblNsDataCompanion[A, ArrA]
-{ final def elemSize: Int = 2
+{ final def elemProdSize: Int = 2
 
   /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
   final def apply(elems: A*): ArrA =
@@ -134,7 +134,7 @@ abstract class Dbl2sArrPersist[A <: Dbl2Elem, M <: Dbl2sData[A]](typeStr: String
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl2Elem]]s collections. */
 trait Dbl2sBuffer[A <: Dbl2Elem] extends Any with DblNsBuffer[A]
 { type ArrT <: Dbl2sSeq[A]
-  override def elemSize: Int = 2
+  override def elemProdSize: Int = 2
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2); () }
   def dblsToT(d1: Double, d2: Double): A
   override def apply(index: Int): A = dblsToT(unsafeBuff(index * 2), unsafeBuff(index * 2 + 1))

@@ -16,7 +16,7 @@ class AnyTypeExtensions[A](thisA: A)
 
   def nextFromArr(arr: SeqArrayLike[A]): A =
   { val i: Int = arr.indexOf(thisA)
-    ife(i >= arr.elemsLen - 1, arr(0), arr(i + 1))
+    ife(i >= arr.elemsNum - 1, arr(0), arr(i + 1))
   }
 
   /** Short hand alternative to a 2 case match statement. */

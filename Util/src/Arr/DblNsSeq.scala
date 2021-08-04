@@ -22,8 +22,8 @@ trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
 { type ThisT <: DblNsSeq[A]
 
   def unsafeFromArray(array: Array[Double]): ThisT
-  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProductNum))
-  def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProductNum); () }
+  final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
+  def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProdSize); () }
   def arrLen = arrayUnsafe.length
 
   /** Not sure about this method. */
@@ -32,14 +32,14 @@ trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
   /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
   def appendArray(appendProductsLength: Int): Array[Double] =
   {
-    val acc = new Array[Double](arrLen + appendProductsLength * elemProductNum)
+    val acc = new Array[Double](arrLen + appendProductsLength * elemProdSize)
     arrayUnsafe.copyToArray(acc)
     acc
   }
 
   def reverse: ThisT =
-  { val res: ThisT = unsafeNew(elemsLen)
-    iForeach{(el, i) => res.unsafeSetElem(elemsLen - 1 - i, el)}
+  { val res: ThisT = unsafeNew(elemsNum)
+    iForeach{(el, i) => res.unsafeSetElem(elemsNum - 1 - i, el)}
     res
   }
 }
@@ -51,8 +51,8 @@ trait DblNsArrBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsArrBuil
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
-  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
-  final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemSize))
+  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
+  final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuff.toArray)
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
@@ -65,7 +65,7 @@ trait DblNsArrFlatBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsArr
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
-  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
+  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
   final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuff.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
 }
@@ -75,7 +75,7 @@ trait DblNsBuffer[A <: DblNElem] extends Any with ValueNsBuffer[A]
 { type ArrT <: DblNsSeq[A]
   def unsafeBuff: ArrayBuffer[Double]
 
-  def elemsLen: Int = unsafeBuff.length / elemSize
+  def elemsNum: Int = unsafeBuff.length / elemProdSize
   def toArray: Array[Double] = unsafeBuff.toArray[Double]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.arrayUnsafe); () }
@@ -87,7 +87,7 @@ trait DblNsDataCompanion[A <: DblNElem, ArrA <: DblNsData[A]] extends ValueNsDat
   def fromArrayDbl(array: Array[Double]): ArrA
 
   /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
-  override implicit def uninitialised(length: Int): ArrA = fromArrayDbl(new Array[Double](length * elemSize))
+  override implicit def uninitialised(length: Int): ArrA = fromArrayDbl(new Array[Double](length * elemProdSize))
 }
 
 /** Persists [[DblNsSeq]]s. */

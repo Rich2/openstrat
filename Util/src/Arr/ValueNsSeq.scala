@@ -13,22 +13,22 @@ trait ValueNsSeq[A <: ValueNElem] extends Any with ArrImut[A] with ValueNsData[A
 { type ThisT <: ValueNsSeq[A]
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
-  final def elemsLen: Int = arrLen / elemProductNum
+  final def elemsNum: Int = arrLen / elemProdSize
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++[N <: ValueNsSeq[A]](operand: N)(implicit factory: Int => N): N =
-  { val res = factory(elemsLen + operand.elemsLen)
+  { val res = factory(elemsNum + operand.elemsNum)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
-    operand.iForeach((elem, i) => res.unsafeSetElem(i + elemsLen, elem))
+    operand.iForeach((elem, i) => res.unsafeSetElem(i + elemsNum, elem))
     res
   }
 
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
   def :+[N <: ValueNsSeq[A]](operand: A)(implicit factory: Int => N): N =
-  { val res = factory(elemsLen + 1)
+  { val res = factory(elemsNum + 1)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
-    res.unsafeSetElem(elemsLen, operand)
+    res.unsafeSetElem(elemsNum, operand)
     res
   }
 
@@ -46,21 +46,21 @@ trait ValueNsSeq[A <: ValueNElem] extends Any with ArrImut[A] with ValueNsData[A
 /** Trait for creating the ArrTBuilder. Instances for the [[ArrTBuilder]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait ValueNsArrBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends ArrTBuilder[B, ArrB]
-{ def elemSize: Int
+{ def elemProdSize: Int
 }
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNsSeq]] final classes. Instances for the [[ArrTFlatBuilder] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
 trait ValueNsArrFlatBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends ArrTFlatBuilder[ArrB]
-{ def elemSize: Int
+{ def elemProdSize: Int
 }
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
 trait ValueNsBuffer[A <: ValueNElem] extends Any with SeqArrayLike[A]
 { type ArrT <: ValueNsSeq[A]
-  def elemSize: Int
+  def elemProdSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit
   def toArr(implicit build: ArrTBuilder[A, ArrT]): ArrT = ???
@@ -83,11 +83,11 @@ trait ValueNsDataCompanion[A <: ValueNElem, ArrA <: ValueNsData[A]]
   implicit def uninitialised(length: Int): ArrA
 
   /** the product size of the ValueNsArr type's elements. */
-  def elemSize: Int
+  def elemProdSize: Int
 
   /** This method allows you to map from an ArrayLikeBase to the ArrA type. */
   final def fromArrMap[T](alb: SeqArrayLike[T])(f: T => A): ArrA = {
-    val res = uninitialised(alb.elemsLen)
+    val res = uninitialised(alb.elemsNum)
     var count = 0
     alb.foreach { t =>
       res.unsafeSetElem(count, f(t))

@@ -7,15 +7,15 @@ class Dbls(val arrayUnsafe: Array[Double]) extends AnyVal with ArrImut[Double]
 { type ThisT = Dbls
   override def typeStr: String = "Doubles"
   override def unsafeNew(length: Int): Dbls = new Dbls(new Array[Double](length))
-  override def elemsLen: Int = arrayUnsafe.length
+  override def elemsNum: Int = arrayUnsafe.length
   override def apply(index: Int): Double = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Double): Unit = arrayUnsafe(i) = value
   def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
   def ++ (op: Dbls): Dbls =
-  { val newArray = new Array[Double](elemsLen + op.elemsLen)
+  { val newArray = new Array[Double](elemsNum + op.elemsNum)
     arrayUnsafe.copyToArray(newArray)
-    op.arrayUnsafe.copyToArray(newArray, elemsLen)
+    op.arrayUnsafe.copyToArray(newArray, elemsNum)
     new Dbls(newArray)
   }
 }
@@ -37,7 +37,7 @@ object DblsBuild extends ArrTBuilder[Double, Dbls] with ArrTFlatBuilder[Dbls]
 
 class DblsBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with SeqArrayLike[Double]
 { override def apply(index: Int): Double = unsafeBuff(index)
-  override def elemsLen: Int = unsafeBuff.length
+  override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Double): Unit = unsafeBuff(i) = value
   override def fElemStr: Double => String = _.toString
 }
