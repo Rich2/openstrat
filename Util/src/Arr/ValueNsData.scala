@@ -83,7 +83,7 @@ trait ValueNsArrFlatBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends ArrT
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
-trait ValueNsBuffer[A <: ValueNElem] extends Any with SeqArrayLike[A]
+trait ValueNsBuffer[A <: ValueNElem] extends Any with SeqArrayLikeBacked[A]
 { type ArrT <: ValueNsSeq[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit
@@ -111,7 +111,7 @@ trait ValueNsDataCompanion[A <: ValueNElem, ArrA <: ValueNsData[A]]
   def elemProdSize: Int
 
   /** This method allows you to map from an ArrayLikeBase to the ArrA type. */
-  final def fromArrMap[T](alb: SeqArrayLike[T])(f: T => A): ArrA = {
+  final def fromArrMap[T](alb: SeqArrayLikeBacked[T])(f: T => A): ArrA = {
     val res = uninitialised(alb.elemsNum)
     var count = 0
     alb.foreach { t =>

@@ -4,7 +4,7 @@ import annotation.unchecked.uncheckedVariance
 
 /** Base trait for specialised immutable Arrays. The final classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage.
  *  A lot of the time this is a compile time wrapper with no boxing run cost. */
-trait SeqImut[+A] extends Any with SeqArrayLike[A] with DataImut[A]
+trait SeqImut[+A] extends Any with SeqArrayLikeBacked[A] with DataImut[A]
 { override type ThisT <: SeqImut[A]
 
   /** Sets / mutates the head element in the Arr. This method should rarely be needed by end users, but is used by initialisation and factory

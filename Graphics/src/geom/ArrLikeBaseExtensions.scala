@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-class ArrLikeBaseExtensions[A](val al : SeqArrayLike[A])
+class ArrLikeBaseExtensions[A](val al : SeqArrayLikeBacked[A])
 { /** Map this collection elements to [[Pt2]]s building a [[PolygonGen]]. */
   def mapPolygon(f: A => Pt2): PolygonGen = PolygonGen.fromArrMap(al)(f)
 

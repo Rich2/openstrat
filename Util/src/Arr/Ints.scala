@@ -77,7 +77,7 @@ object IntsBuild extends ArrTBuilder[Int, Ints] with ArrTFlatBuilder[Ints]
   override def buffToArr(buff: IntBuff): Ints = new Ints(buff.unsafeBuff.toArray)
 }
 
-class IntBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with SeqArrayLike[Int]
+class IntBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with SeqArrayLikeBacked[Int]
 { override def indexData(index: Int): Int = unsafeBuff(index)
   override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Int): Unit = unsafeBuff(i) = value
