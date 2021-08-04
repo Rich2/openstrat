@@ -17,5 +17,5 @@ trait Vec2sLikeProdDbl2 extends Dbl2sSeq[Pt2]
   }
   override def fElemStr: Pt2 => String = _.str
   final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2.apply(d1, d2)
-  override def foldLeft[B](initial: B)(f: (B, Pt2) => B): B = super.foldLeft(initial)(f)
+  //override def foldLeft[B](initial: B)(f: (B, Pt2) => B): B = super.foldLeft(initial)(f)
 }

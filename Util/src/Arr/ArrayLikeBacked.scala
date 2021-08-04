@@ -20,4 +20,7 @@ trait ArrayLikeBacked[A] extends Any
   def unsafeSetElems(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
 
   def fElemStr: A @uncheckedVariance => String
+
+  /** apply method accesses the individual elements of the sequence by 0 based index. */
+  @inline def indexData(index: Int): A
 }

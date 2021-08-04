@@ -6,7 +6,7 @@ import Colour.Black, pWeb._
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
 final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2sLikeProdDbl2 with AffinePreserve
 { override type ThisT = PolygonGen
-  override def vert(index: Int): Pt2 = apply(index - 1)
+  override def vert(index: Int): Pt2 = indexData(index - 1)
   @inline override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = foreachPairTail(f)
   override def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   @inline override def vertsArray: Array[Double] = arrayUnsafe
