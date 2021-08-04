@@ -18,16 +18,15 @@ trait ArrayDblBacked extends Any
 trait DblNsData[A <: DblNElem] extends Any with ValueNsData[A] with ArrayDblBacked
 { type ThisT <: DblNsData[A]
   override def arrLen = arrayUnsafe.length
+  def unsafeFromArray(array: Array[Double]): ThisT
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
 trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
 { type ThisT <: DblNsSeq[A]
 
-  def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
   def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProdSize); () }
-
 
   /** Not sure about this method. */
   def foreachArr(f: Dbls => Unit): Unit

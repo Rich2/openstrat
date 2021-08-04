@@ -11,6 +11,8 @@ trait IntNsData[A <: IntNElem] extends Any with ValueNsData[A]
   /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */
   def arrayUnsafe: Array[Int]
 
+  def unsafeFromArray(array: Array[Int]): ThisT
+
   /** The length of the Array[Int] backing array. */
   def arrLen = arrayUnsafe.length
 }
@@ -21,7 +23,7 @@ trait IntNsSeq[A <: IntNElem] extends Any with ValueNsSeq[A] with IntNsData[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: IntNsSeq[A]
 
-  def unsafeFromArray(array: Array[Int]): ThisT
+
 
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
   final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemProdSize))
