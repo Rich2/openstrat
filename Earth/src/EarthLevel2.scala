@@ -19,7 +19,7 @@ abstract class EarthLevel2(val shortName: String, val cen: LatLong, val terr: WT
     eg.polyToGlobedArea(polygonLL) match
     {
       case SomeA(d2s) =>
-      { val v2s: PolygonGen = d2s.pMap(eg.trans)
+      { val v2s: PolygonGen = d2s.dataMap(eg.trans)
         val cenXY: Pt2 = eg.latLongToXY(cen)
         val vis1: GraphicElems = Arr(v2s.fillActive(terr.colour, this))
         val vis2: GraphicElems = Arr(v2s.draw(terr.colour.redOrPink, 2.0))
@@ -30,7 +30,7 @@ abstract class EarthLevel2(val shortName: String, val cen: LatLong, val terr: WT
 
       case SomeB(curveSegDists) =>
       { val cenXY: Pt2 = eg.latLongToXY(cen)
-        val curveSegs: ShapeGenOld = curveSegDists.pMap(_.toCurveSeg(eg.trans))
+        val curveSegs: ShapeGenOld = curveSegDists.dataMap(_.toCurveSeg(eg.trans))
         Arr(PolyCurveParentFull.fill(cenXY, curveSegs, this, terr.colour))
       }
 

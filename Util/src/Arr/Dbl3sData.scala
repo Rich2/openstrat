@@ -15,8 +15,10 @@ trait Dbl3Elem extends Any with DblNElem
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl3Elem]]s. */
 trait Dbl3sData[A <: Dbl3Elem] extends Any with DblNsData[A]
-{ /** Method for creating new data elements from 3 [[Double]]s In the case of [[Dbl3sSeq]] this will be thee type of the elements of the sequence. */
+{ /** Method for creating new data elements from 3 [[Double]]s In the case of [[Dbl3sSeq]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double): A
+
+  override def elemProductNum = 3
 
   override def unsafeSetElem(index: Int, elem: A): Unit =
   { arrayUnsafe(3 * index) = elem.dbl1; arrayUnsafe(3 * index + 1) = elem.dbl2; arrayUnsafe(3 * index + 2) = elem.dbl3
@@ -25,8 +27,7 @@ trait Dbl3sData[A <: Dbl3Elem] extends Any with DblNsData[A]
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl3Elem]]s. */
 trait Dbl3sSeq[A <: Dbl3Elem] extends Any with DblNsSeq[A] with Dbl3sData[A]
-{ def elemProductNum = 3
-
+{
   override def apply(index: Int): A = dataElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
 
   def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2)

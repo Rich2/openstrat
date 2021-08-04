@@ -79,7 +79,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Vec2
     res
   }
 
-  def distScale(distRatio: Metres): PolygonM = pMap[Pt2M, PolygonM](p => p.toDist2(distRatio))
+  def distScale(distRatio: Metres): PolygonM = dataMap[Pt2M, PolygonM](p => p.toDist2(distRatio))
 }
 
 /** Companion object for [[PolygonGen]]. */

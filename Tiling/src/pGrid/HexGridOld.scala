@@ -116,12 +116,12 @@ object HexGridOld
   val vertRoordsOfTile00: Roords = Roords(1 rr 0, 1 rr 2, -1 rr 2, -1 rr 0,  -1 rr -2, 1 rr -2)
 
   def vertRoordsOfTile(y: Int, c: Int): Roords = vertRoordsOfTile(y rr c)
-  def vertRoordsOfTile(tileRoord: Roord): Roords = vertRoordsOfTile00.pMap(_ + tileRoord)
+  def vertRoordsOfTile(tileRoord: Roord): Roords = vertRoordsOfTile00.dataMap(_ + tileRoord)
   val sideRoordsOfTile00: Roords = Roords(1 rr 1, 0 rr 2, -1 rr 1, -1 rr -1, 0 rr -2, 1 rr -1)
   //val sideRoordsOfTile00List: List[Roord] = Roords(1 cc 1, 2 cc 0, 1 cc -1, -1  cc -1, -2 cc 0, -1 cc 1)
-  def sideRoordsOfTile(tileRoord: Roord): Roords = sideRoordsOfTile00.pMap(tileRoord + _)
-  val adjTileRoordsOfTile00: Roords = sideRoordsOfTile00.pMap(_ * 2)
-  def adjTilesOfTile(tileRoord: Roord): Roords = adjTileRoordsOfTile00.pMap(tileRoord + _)
+  def sideRoordsOfTile(tileRoord: Roord): Roords = sideRoordsOfTile00.dataMap(tileRoord + _)
+  val adjTileRoordsOfTile00: Roords = sideRoordsOfTile00.dataMap(_ * 2)
+  def adjTilesOfTile(tileRoord: Roord): Roords = adjTileRoordsOfTile00.dataMap(tileRoord + _)
 
   def sideRoordToLine(sideRoord: Roord): LineSeg = sideRoordToRoordLine(sideRoord).toLine2(roordToVec2)
   def sideRoordToRoordLine(sideRoord: Roord): RoordLine = sideRoordToRoordLine(sideRoord.y, sideRoord.c)

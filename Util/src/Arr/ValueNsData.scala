@@ -13,7 +13,8 @@ trait ValueNsData[A <: ValueNElem] extends Any with ArrayLikeBacked[A]
   /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
   def arrLen: Int
 
-  def pMap[B <: ValueNElem, N <: ValueNsData[B]](f: A => B)(implicit factory: Int => N): N =
+  /** Maps the dat elements that specify the final class. */
+  def dataMap[B <: ValueNElem, N <: ValueNsData[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(elemsLen)
     var count: Int = 0
     while (count < elemsLen) {
