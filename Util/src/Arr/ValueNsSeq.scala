@@ -15,17 +15,6 @@ trait ValueNsSeq[A <: ValueNElem] extends Any with ArrImut[A] with ValueNsData[A
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
   final def elemsLen: Int = arrLen / elemProductNum
 
-  def pMap[B <: ValueNElem, N <: ValueNsData[B]](f: A => B)(implicit factory: Int => N): N =
-  { val res = factory(elemsLen)
-    var count: Int = 0
-    while (count < elemsLen) {
-      val newValue: B = f(indexData(count))
-      res.unsafeSetElem(count, newValue)
-      count += 1
-    }
-    res
-  }
-
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++[N <: ValueNsSeq[A]](operand: N)(implicit factory: Int => N): N =
