@@ -7,7 +7,7 @@ trait IntNElem extends Any with ValueNElem
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait IntNsArr[A <: IntNElem] extends Any with ValueNsColl[A]
+trait IntNsArr[A <: IntNElem] extends Any with ValueNsSeq[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: IntNsArr[A]
 

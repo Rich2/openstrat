@@ -2,7 +2,7 @@
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 3 [[Double]]s. These are used in [[Dbl3sArr]] Array[Double] based collections. */
+/** An object that can be constructed from 3 [[Double]]s. These are used in [[Dbl3sSeq]] Array[Double] based collections. */
 trait Dbl3Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
@@ -13,8 +13,10 @@ trait Dbl3Elem extends Any with DblNElem
     dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta) & dbl3.=~(that.dbl3, delta)
 }
 
+trait Dbl3sData[A <: Dbl3Elem] extends Any with DblNsData[A]
+
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl3Elem]]s. */
-trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsColl[A]
+trait Dbl3sSeq[A <: Dbl3Elem] extends Any with DblNsSeq[A] with Dbl3sData[A]
 { def elemProductNum = 3
   def newElem(d1: Double, d2: Double, d3: Double): A
   def apply(index: Int): A = newElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
@@ -30,7 +32,7 @@ trait Dbl3sArr[A <: Dbl3Elem] extends Any with DblNsColl[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[ArrTBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrBuilder[B, ArrB]
+trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsArrBuilder[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
   final override def elemSize = 3
 
@@ -42,13 +44,13 @@ trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrBuilde
 /** Trait for creating the [[ArrTFlatBuilder]] type class instances for [[Dbl3Arr]] final classes. Instances for the  for classes / traits you
  *  control, should go in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait Dbl3sArrFlatBuilder[B <: Dbl3Elem, ArrB <: Dbl3sArr[B]] extends DblNsArrFlatBuilder[B, ArrB]
+trait Dbl3sArrFlatBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsArrFlatBuilder[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
   final override def elemSize = 3
 }
 
-/** Persists [[Dbl3sArr]]s. */
-abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sArr[A]](typeStr: String) extends DblNsArrPersist[A, M](typeStr)
+/** Persists [[Dbl3sSeq]]s. */
+abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sSeq[A]](typeStr: String) extends DblNsArrPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1
@@ -60,8 +62,8 @@ abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sArr[A]](typeStr: String)
   override def showT(obj: M, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ""
 }
 
-/** Class for the singleton companion objects of [[Dbl3sArr]] final classes to extend. */
-abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sArr[A]] extends DblNsArrCompanion[A, ArrA]
+/** Class for the singleton companion objects of [[Dbl3sSeq]] final classes to extend. */
+abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sSeq[A]] extends DblNsArrCompanion[A, ArrA]
 { final override def elemSize: Int = 3
 
   def apply(elems: A*): ArrA =
@@ -80,7 +82,7 @@ abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sArr[A]] extends Dbl
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl3Elem]]s collections. */
 trait Dbl3sBuffer[A <: Dbl3Elem] extends Any with DblNsBuffer[A]
-{ type ArrT <: Dbl3sArr[A]
+{ type ArrT <: Dbl3sSeq[A]
   override def elemSize: Int = 3
 
   /** Grows the buffer by a single element. */

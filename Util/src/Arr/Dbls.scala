@@ -38,4 +38,5 @@ object DblsBuild extends ArrTBuilder[Double, Dbls] with ArrTFlatBuilder[Dbls]
 class DblsBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with SeqArrayLike[Double]
 { override def apply(index: Int): Double = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
+
 }
