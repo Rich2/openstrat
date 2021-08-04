@@ -39,4 +39,5 @@ class DblsBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with SeqArray
 { override def apply(index: Int): Double = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Double): Unit = unsafeBuff(i) = value
+  override def fElemStr: Double => String = _.toString
 }

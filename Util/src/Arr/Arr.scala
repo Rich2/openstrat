@@ -154,4 +154,5 @@ class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with SeqArrayLik
 { override def apply(index: Int): A = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuff(i) = value
+  override def fElemStr: A => String = _.toString
 }

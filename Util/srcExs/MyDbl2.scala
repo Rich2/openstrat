@@ -22,11 +22,11 @@ object MyDbl2
   }
 }
 
-final class MyDbl2s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sArr[MyDbl2]
+final class MyDbl2s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sSeq[MyDbl2]
 { type ThisT = MyDbl2s
   def typeStr = "Mines"
   def unsafeFromArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
-  override def elemBuilder(d1: Double, d2: Double): MyDbl2 = MyDbl2(d1, d2)
+  override def dataElem(d1: Double, d2: Double): MyDbl2 = MyDbl2(d1, d2)
   override def fElemStr: MyDbl2 => String = _.toString
 }
 

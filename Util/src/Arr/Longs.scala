@@ -42,4 +42,5 @@ class LongsBuff(val unsafeBuff: ArrayBuffer[Long]) extends AnyVal with SeqArrayL
 { override def apply(index: Int): Long = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeBuff(i) = value
+  override def fElemStr: Long => String = _.toString
 }

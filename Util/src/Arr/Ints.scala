@@ -81,4 +81,5 @@ class IntBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with SeqArrayLike
 { override def apply(index: Int): Int = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Int): Unit = unsafeBuff(i) = value
+  override def fElemStr: Int => String = _.toString
 }

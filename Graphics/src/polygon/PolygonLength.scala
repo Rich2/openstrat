@@ -2,11 +2,11 @@
 package ostrat; package geom
 
 /* A polygon using distances measured in metres rather than scalars. */
-final class PolygonM(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sArr[Pt2M]
+final class PolygonM(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sSeq[Pt2M]
 { type ThisT = PolygonM
   def unsafeFromArray(array: Array[Double]): PolygonM = new PolygonM(array)
   override def typeStr: String = "PolygonMs"
-  override def elemBuilder(d1: Double, d2: Double): Pt2M = new Pt2M(d1, d2)
+  override def dataElem(d1: Double, d2: Double): Pt2M = new Pt2M(d1, d2)
   override def fElemStr: Pt2M => String = _.str
 }
 

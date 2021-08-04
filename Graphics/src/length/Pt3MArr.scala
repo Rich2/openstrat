@@ -8,7 +8,7 @@ class Pt3MArr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sSeq[Pt3M]
   def unsafeFromArray(array: Array[Double]): ThisT = new Pt3MArr(array)
   override def typeStr: String = "Metres3s"
   override def fElemStr: Pt3M => String = _ => "Undefined" //_.str
-  override def newElem(d1: Double, d2: Double, d3: Double): Pt3M = new Pt3M(d1, d2, d3)
+  override def dataElem(d1: Double, d2: Double, d3: Double): Pt3M = new Pt3M(d1, d2, d3)
 
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
    *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative

@@ -42,4 +42,5 @@ class FloatsBuff(val unsafeBuff: ArrayBuffer[Float]) extends AnyVal with SeqArra
 { override def apply(index: Int): Float = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeBuff(i) = value
+  override def fElemStr: Float => String = _.toString
 }

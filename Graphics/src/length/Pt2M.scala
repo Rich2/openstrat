@@ -59,11 +59,11 @@ object Pt2M
 }
 
 /** Specialised immutable Array based collection class for [[Pt2M]]s. */
-class Pt2MArr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sArr[Pt2M]
+class Pt2MArr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sSeq[Pt2M]
 { type ThisT = Pt2MArr
   override def unsafeFromArray(array: Array[Double]): Pt2MArr = new Pt2MArr(array)
   override def typeStr: String = "Metres2s"
-  override def elemBuilder(d1: Double, d2: Double): Pt2M = new Pt2M(d1, d2)
+  override def dataElem(d1: Double, d2: Double): Pt2M = new Pt2M(d1, d2)
   override def fElemStr: Pt2M => String = _.str
 }
 

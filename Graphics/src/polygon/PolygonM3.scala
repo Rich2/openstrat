@@ -6,7 +6,7 @@ package ostrat; package geom
  *  maps. */
 final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sSeq[Pt3M]
 { override type ThisT = PolygonM3
-  override def newElem(d1: Double, d2: Double, d3: Double): Pt3M = new Pt3M(d1, d2, d3)
+  override def dataElem(d1: Double, d2: Double, d3: Double): Pt3M = new Pt3M(d1, d2, d3)
   override def unsafeFromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
   override def typeStr: String = "PolygonMs3"
   override def fElemStr: Pt3M => String = _.toString

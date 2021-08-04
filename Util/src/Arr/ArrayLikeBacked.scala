@@ -18,4 +18,6 @@ trait ArrayLikeBacked[A] extends Any
 
   /** Sets / mutates elements in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
   def unsafeSetElems(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
+
+  def fElemStr: A @uncheckedVariance => String
 }

@@ -55,6 +55,7 @@ trait Int2sBuffer[A <: Int2Elem, M <: Int2sArr[A]] extends Any with IntNsBuffer[
   def intsToT(i1: Int, i2: Int): A
   def apply(index: Int): A = intsToT(unsafeBuff(index * 2), unsafeBuff(index * 2 + 1))
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuff(i * 4) = value.int1; unsafeBuff(i * 4 + 1) = value.int2 }
+
 }
 
 /** Helper class for companion objects of final Int2sArr classes. */

@@ -43,4 +43,5 @@ class BooleanBuff(val unsafeBuff: ArrayBuffer[Boolean]) extends AnyVal with SeqA
 { override def apply(index: Int): Boolean = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeBuff(i) = value
+  override def fElemStr: Boolean => String = _.toString
 }

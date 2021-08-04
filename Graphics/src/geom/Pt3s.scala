@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 final class Pt3s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sSeq[Pt3]
 { type ThisT = Pt3s
   override def typeStr: String = "Vec3s"
-  def newElem(d1: Double, d2: Double, d3: Double): Pt3 = Pt3(d1, d2, d3)
+  def dataElem(d1: Double, d2: Double, d3: Double): Pt3 = Pt3(d1, d2, d3)
   def unsafeFromArray(array: Array[Double]): Pt3s = new Pt3s(array)
   override def fElemStr: Pt3 => String = _.str
 }

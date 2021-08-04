@@ -75,6 +75,7 @@ trait ValueNsBuffer[A <: ValueNElem] extends Any with SeqArrayLike[A]
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit
   def toArr(implicit build: ArrTBuilder[A, ArrT]): ArrT = ???
+  override def fElemStr: A => String = _.toString
 }
 
 /** Class to Persist specialised flat Array[Value] type based collections. */

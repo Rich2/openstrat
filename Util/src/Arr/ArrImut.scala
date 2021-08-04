@@ -22,7 +22,7 @@ trait ArrImut[+A] extends Any with SeqArrayLike[A]
   def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(elemsLen -1, value)
 
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
-  def fElemStr: A @uncheckedVariance => String
+
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   final def elemsStr: String = map(fElemStr).mkString("; ").enParenth
