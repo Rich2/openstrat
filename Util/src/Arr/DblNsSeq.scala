@@ -53,8 +53,8 @@ trait DblNsArrBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsArrBuil
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
   final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemSize))
-  final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.buffer.toArray)
-  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
+  final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuff.toArray)
+  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
@@ -66,19 +66,19 @@ trait DblNsArrFlatBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsArr
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemSize))
-  final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.buffer.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
+  final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuff.toArray)
+  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
 trait DblNsBuffer[A <: DblNElem] extends Any with ValueNsBuffer[A]
 { type ArrT <: DblNsSeq[A]
-  def buffer: ArrayBuffer[Double]
+  def unsafeBuff: ArrayBuffer[Double]
 
-  def elemsLen: Int = buffer.length / elemSize
-  def toArray: Array[Double] = buffer.toArray[Double]
+  def elemsLen: Int = unsafeBuff.length / elemSize
+  def toArray: Array[Double] = unsafeBuff.toArray[Double]
   def grow(newElem: A): Unit
-  override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.arrayUnsafe); () }
+  override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.arrayUnsafe); () }
 }
 
 /** Helper trait for Companion objects of [[DblNsSeq]] classes. */

@@ -40,4 +40,5 @@ object StringsBuild extends ArrTBuilder[String, Strings] with ArrTFlatBuilder[St
 class StringsBuff(val unsafeBuff: ArrayBuffer[String]) extends AnyVal with SeqArrayLike[String]
 { override def apply(index: Int): String = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
+  override def unsafeSetElem(i: Int, value: String): Unit = unsafeBuff(i) = value
 }

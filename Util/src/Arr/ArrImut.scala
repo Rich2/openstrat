@@ -13,10 +13,6 @@ trait ArrImut[+A] extends Any with SeqArrayLike[A]
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised ArrT of the this [[ArrImut]]'s final type. */
   def unsafeNew(length: Int): ThisT
 
-  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
-   *  methods. */
-  def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit
-
   /** Sets / mutates elements in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
   def unsafeSetElems(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
 

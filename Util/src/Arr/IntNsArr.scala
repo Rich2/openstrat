@@ -33,8 +33,8 @@ trait IntNsArrBuilder[B <: IntNElem, ArrB <: IntNsArr[B]] extends ValueNsArrBuil
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemSize))
-  final override def buffToArr(buff: BuffT): ArrB = fromIntArray(buff.buffer.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
+  final override def buffToArr(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuff.toArray)
+  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
 }
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[IntNsArr]] final classes. Instances for [[ArrTFlatBuilder] should go in the
@@ -47,18 +47,18 @@ trait IntNsArrFlatBuilder[B <: IntNElem, ArrB <: IntNsArr[B]] extends ValueNsArr
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   //final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemSize))
-  final override def buffToArr(buff: BuffT): ArrB = fromIntArray(buff.buffer.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.buffer.addAll(arr.arrayUnsafe); () }
+  final override def buffToArr(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuff.toArray)
+  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
 }
 
 /** Specialised flat ArrayBuffer[Int] based collection class. */
 trait IntNsBuffer[A <: IntNElem] extends Any with ValueNsBuffer[A]
 { type ArrT <: IntNsArr[A]
-  def buffer: ArrayBuffer[Int]
-  def toArray: Array[Int] = buffer.toArray[Int]
+  def unsafeBuff: ArrayBuffer[Int]
+  def toArray: Array[Int] = unsafeBuff.toArray[Int]
   def grow(newElem: A): Unit
-  override def grows(newElems: ArrT): Unit = { buffer.addAll(newElems.arrayUnsafe); () }
-  override def elemsLen = buffer.length / elemSize
+  override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.arrayUnsafe); () }
+  override def elemsLen = unsafeBuff.length / elemSize
 
 }
 

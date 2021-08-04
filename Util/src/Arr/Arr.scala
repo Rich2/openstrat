@@ -153,4 +153,5 @@ class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) e
 class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with SeqArrayLike[A]
 { override def apply(index: Int): A = unsafeBuff(index)
   override def elemsLen: Int = unsafeBuff.length
+  override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuff(i) = value
 }

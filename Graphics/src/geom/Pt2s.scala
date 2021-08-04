@@ -72,6 +72,6 @@ object Pt2s extends Dbl2sArrCompanion[Pt2, Pt2s]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt2]]s collections. */
-final class Pt2Buff(val buffer: ArrayBuffer[Double]) extends AnyVal with Dbl2sBuffer[Pt2]
+final class Pt2Buff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with Dbl2sBuffer[Pt2]
 { def dblsToT(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }

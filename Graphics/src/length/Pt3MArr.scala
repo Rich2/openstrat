@@ -63,6 +63,6 @@ object Pt3MArr extends Dbl3sArrCompanion[Pt3M, Pt3MArr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt3]]s collections. */
-final class Pt3MBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with Dbl3sBuffer[Pt3M]
+final class Pt3MBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with Dbl3sBuffer[Pt3M]
 { def dblsToT(d1: Double, d2: Double, d3: Double): Pt3M = new Pt3M(d1, d2, d3)
 }

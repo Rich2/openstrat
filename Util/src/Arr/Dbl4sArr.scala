@@ -130,8 +130,12 @@ trait Dbl4sBuffer[A <: Dbl4Elem] extends Any with DblNsBuffer[A]
   override def elemSize: Int = 4
 
   /** Grows the buffer by a single element. */
-  override def grow(newElem: A): Unit = { buffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4); () }
+  override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4); () }
 
   def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): A
-  def apply(index: Int): A = dblsToT(buffer(index * 4), buffer(index * 4 + 1), buffer(index * 4 + 2), buffer(index * 4 + 3))
+  def apply(index: Int): A = dblsToT(unsafeBuff(index * 4), unsafeBuff(index * 4 + 1), unsafeBuff(index * 4 + 2), unsafeBuff(index * 4 + 3))
+
+  override def unsafeSetElem(i: Int, value: A): Unit =
+  { unsafeBuff(i * 4) = value.dbl1; unsafeBuff(i * 4 + 1) = value.dbl2; unsafeBuff(i * 4 + 2) = value.dbl3; unsafeBuff(i * 4 + 3) = value.dbl4
+  }
 }

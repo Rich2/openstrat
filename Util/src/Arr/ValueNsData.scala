@@ -3,7 +3,7 @@ package ostrat
 
 /** A trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant classes
  * include both [[ValueNscollection]]s and classes like polygons and lines. */
-trait ValueNsData[A <: ValueNElem] extends Any with CollectionData[A]
+trait ValueNsData[A <: ValueNElem] extends Any with ArrayLikeBacked[A]
 { type ThisT <: ValueNsData[A]
 
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection

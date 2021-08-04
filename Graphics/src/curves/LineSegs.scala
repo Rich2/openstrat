@@ -42,6 +42,6 @@ object LineSegs extends Dbl4sArrCompanion[LineSeg, LineSegs]
 }
 
 /** Efficient expandable buffer for Line2s. */
-class Line2sBuff(val buffer: ArrayBuffer[Double]) extends AnyVal with Dbl4sBuffer[LineSeg]
+class Line2sBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with Dbl4sBuffer[LineSeg]
 { override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
 }

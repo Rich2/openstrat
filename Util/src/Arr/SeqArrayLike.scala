@@ -5,7 +5,7 @@ import annotation.unchecked.uncheckedVariance, collection.immutable._
 /** This the base trait for all sequence collections based on Array like classes, Arrays, ArrayBuffers etc. that compile time platform Array classes.
  *  So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable Array to produce an immutable array, and a
  *  ArrBuff that wraps an ArrayBuffer. Currently this just in a standard ArrayBuffer. Where A is a compound value types or an AnyVal type. */
-trait SeqArrayLike[+A] extends Any with CollectionData[A @uncheckedVariance]
+trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
 { /** The final type of this object. */
   type ThisT <: SeqArrayLike[A]
 

@@ -32,9 +32,13 @@ trait Int4sArr[A <: Int4Elem] extends Any with IntNsArr[A]
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */
 trait Int4sBuffer[A <: Int4Elem, M <: Int4sArr[A]] extends Any with IntNsBuffer[A]
 { override def elemSize: Int = 4
-  override def grow(newElem: A): Unit = { buffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
+  override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
   def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
-  def apply(index: Int): A = intsToT(buffer(index * 4), buffer(index * 4 + 1), buffer(index * 4 + 2), buffer(index * 4 + 3))
+  def apply(index: Int): A = intsToT(unsafeBuff(index * 4), unsafeBuff(index * 4 + 1), unsafeBuff(index * 4 + 2), unsafeBuff(index * 4 + 3))
+
+  override def unsafeSetElem(i: Int, value: A): Unit =
+  { unsafeBuff(i * 4) = value.int1; unsafeBuff(i * 4 + 1) = value.int2; unsafeBuff(i * 4 + 2) = value.int3; unsafeBuff(i * 4 + 3) = value.int4
+  }
 }
 
 /** Class for the singleton companion objects of [[Int4sArr]] final classes to extend. */

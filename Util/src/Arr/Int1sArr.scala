@@ -50,7 +50,7 @@ trait Int1sArrBuilder[A <: Int1Elem, ArrT <: Int1sArr[A]] extends IntNsArrBuilde
   final override def elemSize: Int = 1
   def newArray(length: Int): Array[Int] = new Array[Int](length)
   final override def arrSet(arr: ArrT, index: Int, value: A): Unit =  arr.arrayUnsafe(index) = value.int1
-  override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value.int1); () }
+  override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuff.append(value.int1); () }
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrTBuilder]] type
@@ -69,7 +69,11 @@ trait Int1sArrFlatBuilder[A <: Int1Elem, ArrT <: Int1sArr[A]] extends IntNsArrFl
 trait Int1sBuffer[A <: Int1Elem, M <: Int1sArr[A]] extends Any with IntNsBuffer[A]
 { type ArrT <: Int1sArr[A]
   def intToT(value: Int): A
-  def apply(i1: Int): A = intToT(buffer(i1))
+  def apply(i1: Int): A = intToT(unsafeBuff(i1))
   override def elemSize: Int = 1
-  override def grow(newElem: A): Unit = { buffer.append(newElem.int1); () }
+  override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1); () }
+
+  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuff(i) = value.int1
 }
