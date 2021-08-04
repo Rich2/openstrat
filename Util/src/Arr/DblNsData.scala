@@ -16,6 +16,9 @@ trait ArrayDblBacked extends Any
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[DblNsSeq]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
 trait DblNsData[A <: DblNElem] extends Any with ValueNsData[A] with ArrayDblBacked
+{ type ThisT <: DblNsData[A]
+  override def arrLen = arrayUnsafe.length
+}
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
 trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
@@ -24,7 +27,7 @@ trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
   def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProdSize); () }
-  override def arrLen = arrayUnsafe.length
+
 
   /** Not sure about this method. */
   def foreachArr(f: Dbls => Unit): Unit

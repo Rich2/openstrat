@@ -24,6 +24,20 @@ trait Dbl2sData[A <: Dbl2Elem] extends Any with DblNsData[A]
   }
 
   override def indexData(index: Int): A = dataElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
+
+  def elem1sArray: Array[Double] =
+  { val res = new Array[Double](elemsNum)
+    var count = 0
+    while(count < elemsNum){ res(count) = arrayUnsafe(count * 2); count += 1 }
+    res
+  }
+
+  def elem2sArray: Array[Double] =
+  { val res = new Array[Double](elemsNum)
+    var count = 0
+    while(count < elemsNum){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
+    res
+  }
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl2Elem]]s. */
@@ -38,20 +52,6 @@ trait Dbl2sSeq[A <: Dbl2Elem] extends Any with DblNsSeq[A] with Dbl2sData[A]
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
     while(count < elemsNum) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
-  }
-
-  def elem1sArray: Array[Double] =
-  { val res = new Array[Double](elemsNum)
-    var count = 0
-    while(count < elemsNum){ res(count) = arrayUnsafe(count * 2); count += 1 }
-    res
-  }
-
-  def elem2sArray: Array[Double] =
-  { val res = new Array[Double](elemsNum)
-    var count = 0
-    while(count < elemsNum){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
-    res
   }
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
