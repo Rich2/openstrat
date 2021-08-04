@@ -13,6 +13,9 @@ trait ValueNsData[A <: ValueNElem] extends Any with ArrayLikeBacked[A]
   /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
   def arrLen: Int
 
+  /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
+  final override def elemsNum: Int = arrLen / elemProdSize
+
   /** Maps the dat elements that specify the final class. */
   def dataMap[B <: ValueNElem, N <: ValueNsData[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(elemsNum)

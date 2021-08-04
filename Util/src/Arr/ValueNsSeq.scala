@@ -12,8 +12,6 @@ trait ValueNElem extends Any with SpecialT
 trait ValueNsSeq[A <: ValueNElem] extends Any with ArrImut[A] with ValueNsData[A]
 { type ThisT <: ValueNsSeq[A]
 
-  /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
-  final def elemsNum: Int = arrLen / elemProdSize
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */

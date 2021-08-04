@@ -24,7 +24,7 @@ trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeNew(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
   def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProdSize); () }
-  def arrLen = arrayUnsafe.length
+  override def arrLen = arrayUnsafe.length
 
   /** Not sure about this method. */
   def foreachArr(f: Dbls => Unit): Unit
