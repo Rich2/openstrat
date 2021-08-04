@@ -17,7 +17,7 @@ trait Dbl7sArr[A <: Dbl7Elem] extends Any with DblNsSeq[A]
 { def elemProdSize: Int = 7
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
-  def apply(index: Int): A =
+  def indexData(index: Int): A =
   { val offset = 7 * index
 
     newElem(arrayUnsafe(offset), arrayUnsafe(offset + 1), arrayUnsafe(offset + 2), arrayUnsafe(offset + 3), arrayUnsafe(offset + 4),

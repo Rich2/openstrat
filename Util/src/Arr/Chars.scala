@@ -11,7 +11,7 @@ final class Chars(val arrayUnsafe: Array[Char]) extends AnyVal with ArrImut[Char
   override def typeStr: String = "Chars"
   override def unsafeNew(length: Int): Chars = new Chars(new Array[Char](length))
   override def elemsNum: Int = arrayUnsafe.length
-  override def apply(index: Int): Char = arrayUnsafe(index)
+  override def indexData(index: Int): Char = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Char): Unit = arrayUnsafe(i) = value
 
   override def fElemStr: Char => String = _.toString

@@ -11,7 +11,7 @@ class Booleans(val array: Array[Boolean]) extends AnyVal with ArrImut[Boolean]
   override def typeStr: String = "Booleans"
 
   override def elemsNum: Int = array.length
-  override def apply(index: Int): Boolean = array(index)
+  override def indexData(index: Int): Boolean = array(index)
   override def unsafeSetElem(i: Int, value: Boolean): Unit = array(i) = value
   def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { array.copyToArray(array, offset, copyLength); () }
   override def fElemStr: Boolean => String = _.toString
@@ -40,7 +40,7 @@ object BooleansBuild extends ArrTBuilder[Boolean, Booleans] with ArrTFlatBuilder
 }
 
 class BooleanBuff(val unsafeBuff: ArrayBuffer[Boolean]) extends AnyVal with SeqArrayLike[Boolean]
-{ override def apply(index: Int): Boolean = unsafeBuff(index)
+{ override def indexData(index: Int): Boolean = unsafeBuff(index)
   override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeBuff(i) = value
   override def fElemStr: Boolean => String = _.toString

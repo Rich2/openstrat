@@ -14,7 +14,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 
   override def elemsNum: Int = unsafeArr.length
 
-  override def apply(index: Int): A = unsafeArr(index)
+  override def indexData(index: Int): A = unsafeArr(index)
 
   def eqs(other: Any): Boolean = other match {
     case a: Arr[_] => unsafeArr.sameElements(a.unsafeArr)
@@ -151,7 +151,7 @@ class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) e
 
 /** Not sure if this class is necessary now that Arr take Any. */
 class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with SeqArrayLike[A]
-{ override def apply(index: Int): A = unsafeBuff(index)
+{ override def indexData(index: Int): A = unsafeBuff(index)
   override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuff(i) = value
   override def fElemStr: A => String = _.toString

@@ -8,7 +8,7 @@ trait Long1Elem extends Any with LongNElem
 }
 
 /** A specialised immutable, flat Array[Long] based collection of a type of [[Long1Elem]]s. */
-trait Long1sArr[A <: Long1Elem] extends Any with LongNsArr[A]
+trait Long1sArr[A <: Long1Elem] extends Any with LongNsSeq[A]
 {
   final override def elemProdSize: Int = 1
   def newElem(intValue: Long): A

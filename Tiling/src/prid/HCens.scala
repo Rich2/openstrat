@@ -2,7 +2,7 @@
 package ostrat; package prid
 
 /** An efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates. */
-class HCens(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sArr[HCen]
+class HCens(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sSeq[HCen]
 { type ThisT = HCens
 
   override def newElem(i1: Int, i2: Int): HCen = HCen(i1, i2)

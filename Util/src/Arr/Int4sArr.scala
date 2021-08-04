@@ -15,7 +15,7 @@ trait Int4sArr[A <: Int4Elem] extends Any with IntNsSeq[A]
 {
   override def elemProdSize: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
-  def apply(index: Int): A = newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
+  override def indexData(index: Int): A = newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   override def unsafeSetElem(index: Int, elem: A): Unit =
   { arrayUnsafe(4 * index) = elem.int1;
     arrayUnsafe(4 * index + 1) = elem.int2
@@ -34,7 +34,7 @@ trait Int4sBuffer[A <: Int4Elem, M <: Int4sArr[A]] extends Any with IntNsBuffer[
 { override def elemProdSize: Int = 4
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
   def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
-  def apply(index: Int): A = intsToT(unsafeBuff(index * 4), unsafeBuff(index * 4 + 1), unsafeBuff(index * 4 + 2), unsafeBuff(index * 4 + 3))
+  override def indexData(index: Int): A = intsToT(unsafeBuff(index * 4), unsafeBuff(index * 4 + 1), unsafeBuff(index * 4 + 2), unsafeBuff(index * 4 + 3))
 
   override def unsafeSetElem(i: Int, value: A): Unit =
   { unsafeBuff(i * 4) = value.int1; unsafeBuff(i * 4 + 1) = value.int2; unsafeBuff(i * 4 + 2) = value.int3; unsafeBuff(i * 4 + 3) = value.int4

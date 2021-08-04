@@ -12,7 +12,7 @@ class Longs(val arrayUnsafe: Array[Long]) extends AnyVal with ArrImut[Long]
   override def typeStr: String = "Longs"
   override def unsafeNew(length: Int): Longs = new Longs(new Array[Long](length))
   override def elemsNum: Int = arrayUnsafe.length
-  override def apply(index: Int): Long = arrayUnsafe(index)
+  override def indexData(index: Int): Long = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = arrayUnsafe(i) = value
   override def fElemStr: Long => String = _.toString
 
@@ -39,7 +39,7 @@ object LongsBuild extends ArrTBuilder[Long, Longs] with ArrTFlatBuilder[Longs]
 }
 
 class LongsBuff(val unsafeBuff: ArrayBuffer[Long]) extends AnyVal with SeqArrayLike[Long]
-{ override def apply(index: Int): Long = unsafeBuff(index)
+{ override def indexData(index: Int): Long = unsafeBuff(index)
   override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeBuff(i) = value
   override def fElemStr: Long => String = _.toString

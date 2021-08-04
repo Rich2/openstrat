@@ -22,6 +22,8 @@ trait Dbl2sData[A <: Dbl2Elem] extends Any with DblNsData[A]
   { arrayUnsafe(2 * index) = elem.dbl1
     arrayUnsafe(2 * index + 1) = elem.dbl2
   }
+
+  override def indexData(index: Int): A = dataElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl2Elem]]s. */
@@ -30,7 +32,7 @@ trait Dbl2sSeq[A <: Dbl2Elem] extends Any with DblNsSeq[A] with Dbl2sData[A]
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
 
-  override def apply(index: Int): A = dataElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
+
   def getPair(index: Int): (Double, Double) = (arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
@@ -136,7 +138,7 @@ trait Dbl2sBuffer[A <: Dbl2Elem] extends Any with DblNsBuffer[A]
   override def elemProdSize: Int = 2
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2); () }
   def dblsToT(d1: Double, d2: Double): A
-  override def apply(index: Int): A = dblsToT(unsafeBuff(index * 2), unsafeBuff(index * 2 + 1))
+  override def indexData(index: Int): A = dblsToT(unsafeBuff(index * 2), unsafeBuff(index * 2 + 1))
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuff(i * 2) = value.dbl1; unsafeBuff(i * 2 + 1) = value.dbl2 }
   override def fElemStr: A => String = _.toString
 }

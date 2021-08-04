@@ -9,7 +9,7 @@ class Strings(val arrayUnsafe: Array[String]) extends AnyVal with ArrImut[String
   override def unsafeNew(length: Int): Strings = new Strings(new Array[String](length))
   override def unsafeSetElem(i: Int, value: String): Unit = arrayUnsafe(i) = value
   override def fElemStr: String => String = s => s
-  override def apply(index: Int): String = arrayUnsafe(index)
+  override def indexData(index: Int): String = arrayUnsafe(index)
   override def elemsNum: Int = arrayUnsafe.length
 
   /** Make 1 string with separator from this collection of strings. */
@@ -38,7 +38,7 @@ object StringsBuild extends ArrTBuilder[String, Strings] with ArrTFlatBuilder[St
 }
 
 class StringsBuff(val unsafeBuff: ArrayBuffer[String]) extends AnyVal with SeqArrayLike[String]
-{ override def apply(index: Int): String = unsafeBuff(index)
+{ override def indexData(index: Int): String = unsafeBuff(index)
   override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: String): Unit = unsafeBuff(i) = value
   override def fElemStr: String => String = s => s

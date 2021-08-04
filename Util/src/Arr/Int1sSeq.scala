@@ -12,7 +12,7 @@ trait Int1sSeq[A <: Int1Elem] extends Any with IntNsSeq[A]
 {
   final override def elemProdSize: Int = 1
   def newElem(intValue: Int): A
-  final override def apply(index: Int): A = newElem(arrayUnsafe(index))
+  final override def indexData(index: Int): A = newElem(arrayUnsafe(index))
   final override def unsafeSetElem(index: Int, elem: A): Unit = arrayUnsafe(index) = elem.intValue
 
   /** This method could be made more general. */
@@ -69,7 +69,7 @@ trait Int1sArrFlatBuilder[A <: Int1Elem, ArrT <: Int1sSeq[A]] extends IntNsArrFl
 trait Int1sBuffer[A <: Int1Elem, M <: Int1sSeq[A]] extends Any with IntNsBuffer[A]
 { type ArrT <: Int1sSeq[A]
   def intToT(value: Int): A
-  def apply(i1: Int): A = intToT(unsafeBuff(i1))
+  def indexData(i1: Int): A = intToT(unsafeBuff(i1))
   override def elemProdSize: Int = 1
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1); () }
 

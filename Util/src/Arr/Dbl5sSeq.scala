@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 5 [[Double]]s. These are used in [[Dbl5sArr]] Array[Double] based collections. */
+/** An object that can be constructed from 5 [[Double]]s. These are used in [[Dbl5sSeq]] Array[Double] based collections. */
 trait Dbl5Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
@@ -12,12 +12,12 @@ trait Dbl5Elem extends Any with DblNElem
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
-trait Dbl5sArr[A <: Dbl5Elem] extends Any with DblNsSeq[A]
+trait Dbl5sSeq[A <: Dbl5Elem] extends Any with DblNsSeq[A]
 {
   def elemProdSize: Int = 5
   def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
-  def apply(index: Int): A = newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
+  def indexData(index: Int): A = newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
     arrayUnsafe(5 * index + 4))
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =
@@ -38,8 +38,8 @@ trait Dbl5sArr[A <: Dbl5Elem] extends Any with DblNsSeq[A]
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
 }
 
-/** Helper class for companion objects of final [[Dbl5sArr]] classes. */
-abstract class Dbl5sArrCompanion[A <: Dbl5Elem, ArrA <: Dbl5sArr[A]]
+/** Helper class for companion objects of final [[Dbl5sSeq]] classes. */
+abstract class Dbl5sArrCompanion[A <: Dbl5Elem, ArrA <: Dbl5sSeq[A]]
 {
   val factory: Int => ArrA
   def apply(length: Int): ArrA = factory(length)
@@ -95,8 +95,8 @@ abstract class Dbl5sArrCompanion[A <: Dbl5Elem, ArrA <: Dbl5sArr[A]]
   }
 }
 
-/** Both Persists and Builds [[Dbl5sArr]] Collection classes. */
-abstract class Dbl5sArrPersist[A <: Dbl5Elem, ArrA <: Dbl5sArr[A]](typeStr: String) extends DblNsDataPersist[A, ArrA](typeStr)
+/** Both Persists and Builds [[Dbl5sSeq]] Collection classes. */
+abstract class Dbl5sArrPersist[A <: Dbl5Elem, ArrA <: Dbl5sSeq[A]](typeStr: String) extends DblNsDataPersist[A, ArrA](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

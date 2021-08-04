@@ -13,9 +13,7 @@ trait SeqArrayLike[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
   @inline def returnThis: ThisT = this.asInstanceOf[ThisT]
 
   /** apply method accesses the individual elements of the sequence by 0 based index. */
-  @inline def apply(index: Int): A
-
-  @inline override def indexData(index: Int): A = apply(index)
+  @inline def apply(index: Int): A = indexData(index)//: A = apply(index)
 
   /** The first element of this sequence. */
   @inline def head: A = apply(0)

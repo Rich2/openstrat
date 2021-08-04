@@ -2,7 +2,7 @@
 package ostrat; package prid
 
 /** Common trait for [[Hverts]] and [[HVertPolygon]] */
-trait HVertsLike extends Any with Int2sArr[HVert]
+trait HVertsLike extends Any with Int2sSeq[HVert]
 { override def newElem(i1: Int, i2: Int): HVert = HVert.apply(i1, i2)
   override def fElemStr: HVert => String = _.str
   def vertNum: Int = arrayUnsafe.length / 2
