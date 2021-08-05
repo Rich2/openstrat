@@ -15,7 +15,7 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike
 object PolygonLL extends Dbl2sDataCompanion[LatLong, PolygonLL]
 { override def fromArrayDbl(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
-  implicit val persistImplicit: Dbl2sArrPersist[LatLong, PolygonLL] = new Dbl2sArrPersist[LatLong, PolygonLL]("PolygonLL")
+  implicit val persistImplicit: Dbl2sDataPersist[LatLong, PolygonLL] = new Dbl2sDataPersist[LatLong, PolygonLL]("PolygonLL")
   { override def fromArray(value: Array[Double]): PolygonLL = new PolygonLL(value)
   }
 }

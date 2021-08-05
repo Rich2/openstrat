@@ -15,7 +15,7 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   def +: (newElem: LatLong): LinePathLL =
   { val res = LinePathLL.uninitialised(elemsNum + 1)
     res.unsafeSetElem(0, newElem)
-    iForeachData{(ll, i) => res.unsafeSetElem(i + 1, ll) }
+    dataIForeach{ (ll, i) => res.unsafeSetElem(i + 1, ll) }
     res
   }
 

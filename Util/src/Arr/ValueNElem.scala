@@ -25,7 +25,7 @@ trait ValueNsData[A <: ValueNElem] extends Any with DataImut[A]
   final override def elemsNum: Int = arrLen / elemProdSize
 
   /** Performs a side effecting function on each specifying data element of this ValueNsData in order. */
-  def foreachData[U](f: A => U): Unit =
+  def dataForeach[U](f: A => U): Unit =
   { var count = 0
     while(count < elemsNum)
     { f(indexData(count))
@@ -34,7 +34,7 @@ trait ValueNsData[A <: ValueNElem] extends Any with DataImut[A]
   }
 
   /** Performs a side effecting function on each element of this sequence with an index starting at 0. */
-  def iForeachData[U](f: (A, Int) => U): Unit =
+  def dataIForeach[U](f: (A, Int) => U): Unit =
   { var count = 0
     var i: Int = 0
     while(count < elemsNum )

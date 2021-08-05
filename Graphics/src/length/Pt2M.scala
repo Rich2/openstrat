@@ -1,6 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import math._
+import scala.collection.mutable.ArrayBuffer
 
 /** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
 final class Pt2M (val xMetresNum: Double, val yMetresNum: Double) extends Show2Dbls
@@ -56,6 +57,12 @@ object Pt2M
   }
 
   implicit val PersistImplicit: Persist[Pt2M] = new Persist2Dbls[Pt2M]("Metres2", "x", "y", new Pt2M(_, _))
+
+  implicit val linePathBuildImplicit: Dbl2sLinePathBuilder[Pt2M, LinePathM] = new Dbl2sLinePathBuilder[Pt2M, LinePathM]
+  { override type BuffT = Pt2MBuff
+    override def fromDblArray(array: Array[Double]): LinePathM = new LinePathM(array)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2MBuff = new Pt2MBuff(inp)
+  }
 }
 
 /** Specialised immutable Array based collection class for [[Pt2M]]s. */
@@ -72,7 +79,12 @@ object Pt2MArr extends Dbl2sDataCompanion[Pt2M, Pt2MArr]
 {
   override def fromArrayDbl(array: Array[Double]): Pt2MArr = new Pt2MArr(array)
 
-  implicit val persistImplicit: Dbl2sArrPersist[Pt2M, Pt2MArr] = new Dbl2sArrPersist[Pt2M, Pt2MArr]("Metres2s")
+  implicit val persistImplicit: Dbl2sDataPersist[Pt2M, Pt2MArr] = new Dbl2sDataPersist[Pt2M, Pt2MArr]("Metres2s")
   { override def fromArray(value: Array[Double]): Pt2MArr = new Pt2MArr(value)
   }
+}
+
+/** A specialised flat ArrayBuffer[Double] based class for [[Pt2M]]s collections. */
+final class Pt2MBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with Dbl2sBuffer[Pt2M]
+{ def dblsToT(d1: Double, d2: Double): Pt2M = new Pt2M(d1, d2)
 }

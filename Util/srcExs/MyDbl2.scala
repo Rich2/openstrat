@@ -40,7 +40,7 @@ object MyDbl2s extends Dbl2sDataCompanion[MyDbl2, MyDbl2s]
 
   override def fromArrayDbl(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
 
-  implicit val persistImplicit: Dbl2sArrPersist[MyDbl2, MyDbl2s] = new Dbl2sArrPersist[MyDbl2, MyDbl2s]("Mines")
+  implicit val persistImplicit: Dbl2sDataPersist[MyDbl2, MyDbl2s] = new Dbl2sDataPersist[MyDbl2, MyDbl2s]("Mines")
   { override def fromArray(value: Array[Double]): MyDbl2s = new MyDbl2s(value)
   }
 }

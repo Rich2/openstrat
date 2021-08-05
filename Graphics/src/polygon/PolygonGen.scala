@@ -96,7 +96,7 @@ object PolygonGen extends Dbl2sDataCompanion[Pt2, PolygonGen]
 
   implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
 
-  implicit val persistImplicit: Dbl2sArrPersist[Pt2, PolygonGen] = new Dbl2sArrPersist[Pt2, PolygonGen]("Polygon")
+  implicit val persistImplicit: Dbl2sDataPersist[Pt2, PolygonGen] = new Dbl2sDataPersist[Pt2, PolygonGen]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
 
     override def showT(obj: PolygonGen, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???

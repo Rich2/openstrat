@@ -14,7 +14,7 @@ final class PolygonM(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sSe
 object PolygonM extends Dbl2sDataCompanion[Pt2M, PolygonM]
 { override def fromArrayDbl(array: Array[Double]): PolygonM = new PolygonM(array)
 
-  implicit val persistImplicit: Dbl2sArrPersist[Pt2M, PolygonM] = new Dbl2sArrPersist[Pt2M, PolygonM]("PolygonMs")
+  implicit val persistImplicit: Dbl2sDataPersist[Pt2M, PolygonM] = new Dbl2sDataPersist[Pt2M, PolygonM]("PolygonMs")
   { override def fromArray(value: Array[Double]): PolygonM = new PolygonM(value)
   }
 }

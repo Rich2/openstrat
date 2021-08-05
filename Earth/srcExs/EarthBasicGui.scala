@@ -11,12 +11,17 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   thisTop()
   var scale: Length = startScale.getOrElse(8.kMetres)
 
+  val lp = LinePathLL(0 ll 0, 5 ll 0, 5 ll 5, 10 ll 10)
+  val lp2 = lp.map(_.toMetres3)
+  val lp3 = lp2.map(_.xy)
+  val lp4 = lp3.map(_ / scale)
+
   val eas: Arr[EarthLevel2] =  Arr(AfricaWest, AfricaEast, AfricaSouthern).flatMap(_.a2Arr)
   val af0 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon((p: Pt2M) => p / scale).fill(a.colour) }
   val af1 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / scale).draw() }
  // val af2 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / 10.km).drawT draw() }
 
-  mainRepaint(af0 ++ af1)
+  mainRepaint(af0 ++ af1 +- lp4.draw())
 }
 
 /** object to launch EarthBasic Gui. */
