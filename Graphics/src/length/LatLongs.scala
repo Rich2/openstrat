@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** A base trait for a sequence of [[LatLong]]s. The final classes are more strongly typed as a [[LinePathLL], a [[PolygonLL]]and [[LatLongs]], for a
  * a general collection of [[LatLong]] points. */
-trait LatLongsLike extends Any with Dbl2sSeq[LatLong]
+trait LatLongsLike extends Any with Dbl2sData[LatLong]
 { final override def dataElem(d1: Double, d2: Double): LatLong = LatLong.secs(d1, d2)
   final override def fElemStr: LatLong => String = _.str
 }

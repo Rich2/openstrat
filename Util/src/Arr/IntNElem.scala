@@ -69,7 +69,6 @@ trait IntNsBuffer[A <: IntNElem] extends Any with ValueNsBuffer[A]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.arrayUnsafe); () }
   override def elemsNum = unsafeBuff.length / elemProdSize
-
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */
@@ -81,7 +80,7 @@ abstract class IntNsArrPersist[A <: IntNElem, M <: IntNsSeq[A]](typeStr: String)
 
 /** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the of the
  *  collection class. */
-trait IntNArrCompanion[A <: IntNElem, ArrA <: IntNsSeq[A]] extends ValueNsDataCompanion[A, ArrA]
+trait IntNsDataCompanion[A <: IntNElem, ArrA <: IntNsData[A]] extends ValueNsDataCompanion[A, ArrA]
 { /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an ArrayBuffer[Int]. */
   def fromBuffer(buff: Buff[Int]): ArrA = fromArray(buff.toArray[Int])
 

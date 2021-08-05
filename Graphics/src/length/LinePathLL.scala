@@ -25,6 +25,9 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
     newElems.iForeach((ll, i) => res.unsafeSetElem(elemsNum + i, ll))
     res
   }
+
+  /** Reverses the line path so its end point becomes its start point. */
+  def reverse: LinePathLL = reverseData
 }
 
 object LinePathLL extends Dbl2sDataCompanion[LatLong, LinePathLL]

@@ -56,7 +56,7 @@ trait Int2sBuffer[A <: Int2Elem, M <: Int2sSeq[A]] extends Any with IntNsBuffer[
 }
 
 /** Helper class for companion objects of final Int2sArr classes. */
-abstract class Int2sArrCompanion[A <: Int2Elem, ArrA <: Int2sSeq[A]] extends IntNArrCompanion[A, ArrA]
+abstract class Int2sArrCompanion[A <: Int2Elem, ArrA <: Int2sSeq[A]] extends IntNsDataCompanion[A, ArrA]
 {
   override def elemProdSize: Int = 2
 
