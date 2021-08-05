@@ -92,14 +92,14 @@ trait ValueNsSeq[A <: ValueNElem] extends Any with SeqImut[A] with ValueNsData[A
 
 /** Trait for creating the ArrTBuilder. Instances for the [[SeqBuilder]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNsArrBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends SeqBuilder[B, ArrB]
+trait ValueNsSeqBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends SeqBuilder[B, ArrB]
 { def elemProdSize: Int
 }
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNsSeq]] final classes. Instances for the [[SeqFlatBuilder] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait ValueNsArrFlatBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends SeqFlatBuilder[ArrB]
+trait ValueNsSeqFlatBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends SeqFlatBuilder[ArrB]
 { def elemProdSize: Int
 }
 
@@ -115,7 +115,7 @@ trait ValueNsBuffer[A <: ValueNElem] extends Any with SeqGen[A]
 }
 
 /** Class to Persist specialised flat Array[Value] type based collections. */
-abstract class ValueNsArrPersist[A, M](val typeStr: String) extends PersistCompound[M]
+abstract class ValueNsDataPersist[A, M](val typeStr: String) extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT
   def appendtoBuffer(buf: Buff[VT], value: A): Unit

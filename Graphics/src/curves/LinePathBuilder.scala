@@ -1,6 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import reflect.ClassTag, annotation.unused
+import reflect.ClassTag
+import annotation.unused
+import scala.collection.mutable.ArrayBuffer
 
 /** A common trait inherited by [[SeqBuilder]] and [[ArrTFlatBuider]]. */
 trait LinePathBuilderCommon[ArrB <: DataImut[_]]
@@ -46,4 +48,33 @@ trait LinePathBuilder[B, ArrB <: DataImut[B]] extends LinePathBuilderCommon[ArrB
     inp.foreach(a => buffGrow(buff, f(a)))
     buffToArr(buff)
   }
+}
+
+/** Trait for creating the line path builder instances for the [[LinePathBuilder]] type class, for classes / traits you control, should go in the
+ *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait ValueNsLinePathBuilder[B <: ValueNElem, ArrB <: ValueNsData[B]] extends LinePathBuilder[B, ArrB]
+{ def elemProdSize: Int
+}
+
+/** Trait for creating the ArrTBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for classes
+ *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
+ *  ```map(f: A => B): ArrB``` function. */
+trait DblNsLinePathBuilder[B <: DblNElem, ArrB <: DblNsData[B]] extends ValueNsLinePathBuilder[B, ArrB]
+{ type BuffT <: DblNsBuffer[B]
+  def fromDblArray(array: Array[Double]): ArrB
+  def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
+  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
+  final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemProdSize))
+  final override def buffToArr(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuff.toArray)
+  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
+  final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
+}
+
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[SeqBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
+ *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+trait Dbl2sLinePathBuilder[B <: Dbl2Elem, ArrB <: Dbl2sData[B]] extends DblNsLinePathBuilder[B, ArrB]
+{ type BuffT <: Dbl2sBuffer[B]
+  final override def elemProdSize = 2
+  override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
 }

@@ -35,7 +35,7 @@ trait IntNsSeq[A <: IntNElem] extends Any with ValueNsSeq[A] with IntNsData[A]
 /** Trait for creating the ArrTBuilder type class instances for [[IntNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait IntNsArrBuilder[B <: IntNElem, ArrB <: IntNsSeq[B]] extends ValueNsArrBuilder[B, ArrB]
+trait IntNsArrBuilder[B <: IntNElem, ArrB <: IntNsSeq[B]] extends ValueNsSeqBuilder[B, ArrB]
 { type BuffT <:  IntNsBuffer[B]
   def fromIntArray(inp: Array[Int]): ArrB
 
@@ -49,7 +49,7 @@ trait IntNsArrBuilder[B <: IntNElem, ArrB <: IntNsSeq[B]] extends ValueNsArrBuil
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[IntNsSeq]] final classes. Instances for [[SeqFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait IntNsArrFlatBuilder[B <: IntNElem, ArrB <: IntNsSeq[B]] extends ValueNsArrFlatBuilder[B, ArrB]
+trait IntNsArrFlatBuilder[B <: IntNElem, ArrB <: IntNsSeq[B]] extends ValueNsSeqFlatBuilder[B, ArrB]
 { type BuffT <:  IntNsBuffer[B]
   def fromIntArray(inp: Array[Int]): ArrB
 
@@ -72,7 +72,7 @@ trait IntNsBuffer[A <: IntNElem] extends Any with ValueNsBuffer[A]
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */
-abstract class IntNsArrPersist[A <: IntNElem, M <: IntNsSeq[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr)
+abstract class IntNsArrPersist[A <: IntNElem, M <: IntNsSeq[A]](typeStr: String) extends ValueNsDataPersist[A, M](typeStr)
 { type VT = Int
   override def fromBuffer(buf: Buff[Int]): M = fromArray(buf.toArray)
   override def newBuffer: Buff[Int] = Buff[Int](0)

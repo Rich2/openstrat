@@ -67,7 +67,7 @@ trait Dbl2sSeq[A <: Dbl2Elem] extends Any with DblNsSeq[A] with Dbl2sData[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[SeqBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2sSeqBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsArrBuilder[B, ArrB]
+trait Dbl2sSeqBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsSeqBuilder[B, ArrB]
 { type BuffT <: Dbl2sBuffer[B]
   final override def elemProdSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}

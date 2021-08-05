@@ -51,10 +51,10 @@ trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
   }
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for classes
- *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
+/** Trait for creating the sequence builder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for
+ *  classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait DblNsArrBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsArrBuilder[B, ArrB]
+trait DblNsSeqBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsSeqBuilder[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -68,7 +68,7 @@ trait DblNsArrBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsArrBuil
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNsArrFlatBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsArrFlatBuilder[B, ArrB]
+trait DblNsArrFlatBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsSeqFlatBuilder[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -98,7 +98,7 @@ trait DblNsDataCompanion[A <: DblNElem, ArrA <: DblNsData[A]] extends ValueNsDat
 }
 
 /** Persists [[DblNsSeq]]s. */
-abstract class DblNsDataPersist[A <: DblNElem, M <: DblNsData[A]](typeStr: String) extends ValueNsArrPersist[A, M](typeStr) with EqT[M]
+abstract class DblNsDataPersist[A <: DblNElem, M <: DblNsData[A]](typeStr: String) extends ValueNsDataPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

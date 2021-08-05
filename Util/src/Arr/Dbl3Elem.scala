@@ -39,7 +39,7 @@ trait Dbl3sSeq[A <: Dbl3Elem] extends Any with DblNsSeq[A] with Dbl3sData[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[SeqBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsArrBuilder[B, ArrB]
+trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsSeqBuilder[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
   final override def elemProdSize = 3
 
