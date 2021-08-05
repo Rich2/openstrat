@@ -2,8 +2,9 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
-/** Base trait for all classes backed by Arrays, ArrayBuffers etc. */
-trait ArrayLikeBacked[A] extends Any
+/** Base trait for all efficient classes backed by Arrays, ArrayBuffers etc. Includes sequences and classes such as polygons and line paths that are
+ * encoded using sequence data. include immutable and expandable buffers. */
+trait DataGen[A] extends Any
 {
   /** The number of elements in the collection. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying
    * Array will be this number or a multiple of this number. */

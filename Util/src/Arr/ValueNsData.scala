@@ -1,10 +1,10 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** A class that can be construct from a fixed number of homogeneous primitive values such as Ints, Doubles or Longs. The final class can be stored as
- *  an Array of primitive values. Note the classes that extend this trait do not extend [[Product]] or its numbered sub traits, because the logical
- *  size of the product may not be the same as the number of primitive values, for example a LineSeg is a product of 2 [[Pt2]]s, but is composed from
- *  4 [[Double]] values. */
+/** A class that can be constructed from a fixed number of homogeneous primitive values such as Ints, Doubles or Longs. The final class can be stored
+ *  as *  an Array of primitive values. Note the classes that extend this trait do not extend [[Product]] or its numbered sub traits, because the
+ *  logical size of the product may not be the same as the number of primitive values, for example a LineSeg is a product of 2 [[Pt2]]s, but is
+ *  composed from 4 [[Double]] values. */
 trait ValueNElem extends Any with SpecialT
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
@@ -83,7 +83,7 @@ trait ValueNsArrFlatBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends ArrT
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
-trait ValueNsBuffer[A <: ValueNElem] extends Any with SeqArrayLikeBacked[A]
+trait ValueNsBuffer[A <: ValueNElem] extends Any with SeqGen[A]
 { type ArrT <: ValueNsSeq[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit
@@ -111,7 +111,7 @@ trait ValueNsDataCompanion[A <: ValueNElem, ArrA <: ValueNsData[A]]
   def elemProdSize: Int
 
   /** This method allows you to map from an ArrayLikeBase to the ArrA type. */
-  final def fromArrMap[T](alb: SeqArrayLikeBacked[T])(f: T => A): ArrA = {
+  final def fromArrMap[T](alb: SeqGen[T])(f: T => A): ArrA = {
     val res = uninitialised(alb.elemsNum)
     var count = 0
     alb.foreach { t =>

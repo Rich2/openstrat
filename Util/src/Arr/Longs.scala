@@ -38,7 +38,7 @@ object LongsBuild extends ArrTBuilder[Long, Longs] with ArrTFlatBuilder[Longs]
   override def buffToArr(buff: LongsBuff): Longs = new Longs(buff.unsafeBuff.toArray)
 }
 
-class LongsBuff(val unsafeBuff: ArrayBuffer[Long]) extends AnyVal with SeqArrayLikeBacked[Long]
+class LongsBuff(val unsafeBuff: ArrayBuffer[Long]) extends AnyVal with SeqGen[Long]
 { override def indexData(index: Int): Long = unsafeBuff(index)
   override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeBuff(i) = value

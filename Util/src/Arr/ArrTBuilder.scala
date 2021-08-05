@@ -7,7 +7,7 @@ trait ArrTBuilderCommon[ArrB <: SeqImut[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
-  type BuffT <: SeqArrayLikeBacked[_]
+  type BuffT <: SeqGen[_]
   def newBuff(length: Int = 4): BuffT
   def buffToArr(buff: BuffT): ArrB
 
@@ -21,7 +21,7 @@ trait ArrTBuilderCommon[ArrB <: SeqImut[_]]
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
 trait ArrTBuilder[B, ArrB <: SeqImut[B]] extends ArrTBuilderCommon[ArrB]
-{ type BuffT <: SeqArrayLikeBacked[B]
+{ type BuffT <: SeqGen[B]
   def newArr(length: Int): ArrB
   def arrSet(arr: ArrB, index: Int, value: B): Unit
 

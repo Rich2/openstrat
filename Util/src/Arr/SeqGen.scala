@@ -2,12 +2,13 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.immutable._
 
-/** This the base trait for all sequence collections based on Array like classes, Arrays, ArrayBuffers etc. that compile time platform Array classes.
- *  So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable Array to produce an immutable array, and a
- *  ArrBuff that wraps an ArrayBuffer. Currently this just in a standard ArrayBuffer. Where A is a compound value types or an AnyVal type. */
-trait SeqArrayLikeBacked[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
+/** This the base trait for all efficient sequence collections based on Array like classes, Arrays, ArrayBuffers etc. The final classes compile time
+ *  wrap the platform Array and buffer classes. So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable
+ *  Array to produce an immutable array, and a ArrBuff that wraps an ArrayBuffer. Currently this just in a standard ArrayBuffer. Where A is a compound
+ *  value types or an AnyVal type. */
+trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 { /** The final type of this object. */
-  type ThisT <: SeqArrayLikeBacked[A]
+  type ThisT <: SeqGen[A]
 
   /** Method for keeping the typer happy when returning this as an instance of ThisT. */
   @inline def returnThis: ThisT = this.asInstanceOf[ThisT]
@@ -86,7 +87,7 @@ trait SeqArrayLikeBacked[+A] extends Any with ArrayLikeBacked[A @uncheckedVarian
 
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
    * function from type A and type B to type C. */
-  def zipMap[B, C, ArrC <: SeqImut[C]](operator: SeqArrayLikeBacked[B])(f: (A, B) => C)(implicit ev: ArrTBuilder[C, ArrC]): ArrC =
+  def zipMap[B, C, ArrC <: SeqImut[C]](operator: SeqGen[B])(f: (A, B) => C)(implicit ev: ArrTBuilder[C, ArrC]): ArrC =
   { val newLen = elemsNum.min(operator.elemsNum)
     val res = ev.newArr(newLen)
     var count = 0
@@ -100,7 +101,7 @@ trait SeqArrayLikeBacked[+A] extends Any with ArrayLikeBacked[A @uncheckedVarian
 
   /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
    *  the specialised map function from type A and type B and type C to type D. */
-  def zipMap2[B, C, D, ArrD <: SeqImut[D]](operator1: SeqArrayLikeBacked[B], operator2: SeqArrayLikeBacked[C])(f: (A, B, C) => D)(implicit ev: ArrTBuilder[D, ArrD]): ArrD =
+  def zipMap2[B, C, D, ArrD <: SeqImut[D]](operator1: SeqGen[B], operator2: SeqGen[C])(f: (A, B, C) => D)(implicit ev: ArrTBuilder[D, ArrD]): ArrD =
   { val newLen = elemsNum.min(operator1.elemsNum).min(operator2.elemsNum)
     val res = ev.newArr(newLen)
     var count = 0
@@ -404,7 +405,7 @@ trait SeqArrayLikeBacked[+A] extends Any with ArrayLikeBacked[A @uncheckedVarian
   def sum(implicit ev: Sumable[A] @uncheckedVariance): A = foldLeft[A](ev.identity)(ev.sum(_, _))
 }
 
-case class ArrayLikeShow[A, R <: SeqArrayLikeBacked[A]](evA: ShowT[A]) extends ShowTSeqLike[A, R]
+case class ArrayLikeShow[A, R <: SeqGen[A]](evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.fMax(1)(evA.syntaxDepthT(_))
   override def showT(obj: R, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ""

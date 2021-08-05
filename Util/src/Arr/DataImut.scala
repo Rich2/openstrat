@@ -2,7 +2,9 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
-trait DataImut[+A] extends Any with ArrayLikeBacked[A @uncheckedVariance]
+/** Base trait for all immutable classes that use a backing Array for efficient storage. This includes immutable sequences [[SeqImut]], but also
+ *  polygons and line paths that are specified by data sequences. */
+trait DataImut[+A] extends Any with DataGen[A @uncheckedVariance]
 { type ThisT <: DataImut[A]
 
   /** String specifying the type of this object. */

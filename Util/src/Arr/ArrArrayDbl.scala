@@ -34,7 +34,7 @@ object ArrArrayDblEq
 }
 
 /** This is a buffer class for Arrays of Double. It is not a Buffer class for Arrays. */
-trait ArrayDoubleBuff[A <: ArrayDblBacked] extends Any with SeqArrayLikeBacked[A]
+trait ArrayDoubleBuff[A <: ArrayDblBacked] extends Any with SeqGen[A]
 { //override def apply(index: Int): AArray[Double] = unsafeBuff(index)
   def unsafeBuff: ArrayBuffer[Array[Double]]
   override def elemsNum: Int = unsafeBuff.length
