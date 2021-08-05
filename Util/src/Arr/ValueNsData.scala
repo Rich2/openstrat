@@ -90,16 +90,16 @@ trait ValueNsSeq[A <: ValueNElem] extends Any with SeqImut[A] with ValueNsData[A
   }
 }
 
-/** Trait for creating the ArrTBuilder. Instances for the [[ArrTBuilder]] type class, for classes / traits you control, should go in the companion
+/** Trait for creating the ArrTBuilder. Instances for the [[SeqBuild]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNsArrBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends ArrTBuilder[B, ArrB]
+trait ValueNsArrBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends SeqBuild[B, ArrB]
 { def elemProdSize: Int
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNsSeq]] final classes. Instances for the [[ArrTFlatBuilder] should go in
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNsSeq]] final classes. Instances for the [[SeqFlatBuild] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait ValueNsArrFlatBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends ArrTFlatBuilder[ArrB]
+trait ValueNsArrFlatBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends SeqFlatBuild[ArrB]
 { def elemProdSize: Int
 }
 
@@ -110,7 +110,7 @@ trait ValueNsBuffer[A <: ValueNElem] extends Any with SeqGen[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit
-  def toArr(implicit build: ArrTBuilder[A, ArrT]): ArrT = ???
+  def toArr(implicit build: SeqBuild[A, ArrT]): ArrT = ???
   override def fElemStr: A => String = _.toString
 }
 

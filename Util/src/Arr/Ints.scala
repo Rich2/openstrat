@@ -67,7 +67,7 @@ object Ints
     }
 }
 
-object IntsBuild extends ArrTBuilder[Int, Ints] with ArrTFlatBuilder[Ints]
+object IntsBuild extends SeqBuild[Int, Ints] with SeqFlatBuild[Ints]
 { type BuffT = IntBuff
   override def newArr(length: Int): Ints = new Ints(new Array[Int](length))
   override def arrSet(arr: Ints, index: Int, value: Int): Unit = arr.arrayUnsafe(index) = value

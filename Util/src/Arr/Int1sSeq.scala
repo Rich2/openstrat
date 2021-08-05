@@ -41,7 +41,7 @@ trait Int1sSeq[A <: Int1Elem] extends Any with IntNsSeq[A]
   }
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrTBuilder]] type
+/** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[SeqBuild]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
  *  the B in ```map(f: A => B): ArrB``` function. */
 trait Int1sArrBuilder[A <: Int1Elem, ArrT <: Int1sSeq[A]] extends IntNsArrBuilder[A, ArrT]
@@ -53,8 +53,8 @@ trait Int1sArrBuilder[A <: Int1Elem, ArrT <: Int1sSeq[A]] extends IntNsArrBuilde
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuff.append(value.int1); () }
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrTBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrTFlatBuilder] should go in the companion
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[SeqBuild]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuild] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Int1sArrFlatBuilder[A <: Int1Elem, ArrT <: Int1sSeq[A]] extends IntNsArrFlatBuilder[A, ArrT]
 { type BuffT <: Int1sBuffer[A, ArrT]

@@ -30,14 +30,14 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
    * new transformed Polygon */
   def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
- override def vertsMap[A, ArrT <: SeqImut[A]](f: Pt2 => A)(implicit build: ArrTBuilder[A, ArrT]): ArrT =
+ override def vertsMap[A, ArrT <: SeqImut[A]](f: Pt2 => A)(implicit build: SeqBuild[A, ArrT]): ArrT =
   { val acc = build.newBuff()
     foreachVert{ v => build.buffGrow(acc, f(v)) }
     build.buffToArr(acc)
   }
 
   /** flatMap with index to an immutable Arr. */
-  def vertsIFlatMap[BB <: SeqImut[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: ArrTFlatBuilder[BB]): BB =
+  def vertsIFlatMap[BB <: SeqImut[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: SeqFlatBuild[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = iInit
     foreachVert { v =>
@@ -75,7 +75,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   }
 
   /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesMap[A, AA <: SeqImut[A]](f: LineSeg => A)(implicit build: ArrTBuilder[A, AA]): AA =
+  def sidesMap[A, AA <: SeqImut[A]](f: LineSeg => A)(implicit build: SeqBuild[A, AA]): AA =
   { var count = 0
     val res = build.newArr(vertsNum)
     while (count < vertsNum)
@@ -86,7 +86,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   }
 
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIMap[A, AA <: SeqImut[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: ArrTBuilder[A, AA]): AA =
+  def sidesIMap[A, AA <: SeqImut[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: SeqBuild[A, AA]): AA =
   { var count = 0
     val res = build.newArr(vertsNum)
     while (count < vertsNum)
@@ -97,7 +97,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   }
 
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIFlatMap[AA <: SeqImut[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: ArrTFlatBuilder[AA]): AA =
+  def sidesIFlatMap[AA <: SeqImut[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: SeqFlatBuild[AA]): AA =
   { var count = initCount
     val buff = build.newBuff()
     foreachSide { side =>

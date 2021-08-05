@@ -38,7 +38,7 @@ final class Vec2M (val xMetresNum: Double, val yMetresNum: Double) extends lengt
 
 object Vec2M
 {
-  val buildImplicit: ArrTBuilder[Vec2M, Vec2MArr] = new Dbl2sArrBuilder[Vec2M, Vec2MArr]
+  val buildImplicit: SeqBuild[Vec2M, Vec2MArr] = new Dbl2sArrBuilder[Vec2M, Vec2MArr]
   { override type BuffT = Vec2MBuff
     override def fromDblArray(array: Array[Double]): Vec2MArr = new Vec2MArr(array)
     override def fromDblBuffer(inp: Buff[Double]): Vec2MBuff = new Vec2MBuff(inp)

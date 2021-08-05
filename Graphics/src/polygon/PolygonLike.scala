@@ -9,7 +9,7 @@ trait PolygonLike[VertT] extends Any
   def foreachVert[U](f: VertT => U): Unit
 
   /** This method should be overridden in final classes. */
-  def vertsMap[B, ArrB <: SeqImut[B]](f: VertT => B)(implicit builder: ArrTBuilder[B, ArrB]): ArrB =
+  def vertsMap[B, ArrB <: SeqImut[B]](f: VertT => B)(implicit builder: SeqBuild[B, ArrB]): ArrB =
   { val res = builder.newArr(vertsNum)
     var count = 0
     foreachVert{ v =>
