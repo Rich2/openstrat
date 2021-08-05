@@ -57,4 +57,10 @@ object Pt3M
     override def fromDblArray(array: Array[Double]): Pt3MArr = new Pt3MArr(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Pt3MBuff = new Pt3MBuff(inp)
   }
+
+  implicit val linePathBuildImplicit: Dbl3sLinePathBuilder[Pt3M, LinePathM3] = new Dbl3sLinePathBuilder[Pt3M, LinePathM3]
+  { override type BuffT = Pt3MBuff
+    override def fromDblArray(array: Array[Double]): LinePathM3 = new LinePathM3(array)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt3MBuff = new Pt3MBuff(inp)
+  }
 }

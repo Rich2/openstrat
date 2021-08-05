@@ -1,6 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
+import scala.collection.mutable.ArrayBuffer
+
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
 final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with Show2Dbls
@@ -133,4 +135,10 @@ object LatLong
 
   implicit val persistImplict: Persist[LatLong] = new Persist2Dbls[LatLong]("LatLong", "lat", "long", LatLong.radians)
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
+
+  implicit val linePathBuildImplicit: Dbl2sLinePathBuilder[LatLong, LinePathLL] = new Dbl2sLinePathBuilder[LatLong, LinePathLL]
+  { override type BuffT = LatLongBuff
+    override def fromDblArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
+  }
 }

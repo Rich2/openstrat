@@ -70,11 +70,21 @@ trait DblNsLinePathBuilder[B <: DblNElem, ArrB <: DblNsData[B]] extends ValueNsL
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[SeqBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
- *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+/** Trait for creating the line path type class instances for [[Dbl2Arr]] final classes. Instances for the [[DataBuilder]] type class, for classes /
+ *  traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is called B, because it
+ *  corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait Dbl2sLinePathBuilder[B <: Dbl2Elem, ArrB <: Dbl2sData[B]] extends DblNsLinePathBuilder[B, ArrB]
 { type BuffT <: Dbl2sBuffer[B]
   final override def elemProdSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
+}
+
+/** Trait for creating the line path type class instances for [[Dbl3Arr]] final classes. Instances for the [[DataBuilder]] type class, for classes /
+ *  traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because it
+ *  corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+trait Dbl3sLinePathBuilder[B <: Dbl3Elem, ArrB <: Dbl3sData[B]] extends DblNsLinePathBuilder[B, ArrB]
+{ type BuffT <: Dbl3sBuffer[B]
+  final override def elemProdSize = 3
+  override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl3
+    arr.arrayUnsafe(index * 2 + 2) = value.dbl3 }
 }
