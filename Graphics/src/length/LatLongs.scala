@@ -1,7 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-
-import scala.collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 /** A base trait for a sequence of [[LatLong]]s. The final classes are more strongly typed as a [[LinePathLL], a [[PolygonLL]]and [[LatLongs]], for a
  * a general collection of [[LatLong]] points. */

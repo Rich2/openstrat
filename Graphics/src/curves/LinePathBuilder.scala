@@ -1,11 +1,9 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import reflect.ClassTag
-import annotation.unused
-import scala.collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 /** A common trait inherited by [[SeqBuilder]] and [[ArrTFlatBuider]]. */
-trait LinePathBuilderCommon[ArrB <: DataImut[_]]
+trait LinePathBuilderCommon[ArrB <: LinePathLike[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
@@ -22,7 +20,7 @@ trait LinePathBuilderCommon[ArrB <: DataImut[_]]
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait LinePathBuilder[B, ArrB <: DataImut[B]] extends LinePathBuilderCommon[ArrB]
+trait LinePathBuilder[B, ArrB <: LinePathLike[B]] extends LinePathBuilderCommon[ArrB]
 { type BuffT <: SeqGen[B]
   def newArr(length: Int): ArrB
   def arrSet(arr: ArrB, index: Int, value: B): Unit
@@ -52,14 +50,14 @@ trait LinePathBuilder[B, ArrB <: DataImut[B]] extends LinePathBuilderCommon[ArrB
 
 /** Trait for creating the line path builder instances for the [[LinePathBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNsLinePathBuilder[B <: ValueNElem, ArrB <: ValueNsData[B]] extends LinePathBuilder[B, ArrB]
+trait ValueNsLinePathBuilder[B <: ValueNElem, ArrB <: LinePathLike[B]] extends LinePathBuilder[B, ArrB]
 { def elemProdSize: Int
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait DblNsLinePathBuilder[B <: DblNElem, ArrB <: DblNsData[B]] extends ValueNsLinePathBuilder[B, ArrB]
+trait DblNsLinePathBuilder[B <: DblNElem, ArrB <: DblNsLinePath[B] ] extends ValueNsLinePathBuilder[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -73,7 +71,7 @@ trait DblNsLinePathBuilder[B <: DblNElem, ArrB <: DblNsData[B]] extends ValueNsL
 /** Trait for creating the line path type class instances for [[Dbl2Arr]] final classes. Instances for the [[DataBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is called B, because it
  *  corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2sLinePathBuilder[B <: Dbl2Elem, ArrB <: Dbl2sData[B]] extends DblNsLinePathBuilder[B, ArrB]
+trait Dbl2sLinePathBuilder[B <: Dbl2Elem, ArrB <: Dbl2sLinePath[B]] extends DblNsLinePathBuilder[B, ArrB]
 { type BuffT <: Dbl2sBuffer[B]
   final override def elemProdSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
@@ -82,7 +80,7 @@ trait Dbl2sLinePathBuilder[B <: Dbl2Elem, ArrB <: Dbl2sData[B]] extends DblNsLin
 /** Trait for creating the line path type class instances for [[Dbl3Arr]] final classes. Instances for the [[DataBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because it
  *  corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl3sLinePathBuilder[B <: Dbl3Elem, ArrB <: Dbl3sData[B]] extends DblNsLinePathBuilder[B, ArrB]
+trait Dbl3sLinePathBuilder[B <: Dbl3Elem, ArrB <: Dbl3sLinePath[B]] extends DblNsLinePathBuilder[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
   final override def elemProdSize = 3
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl3
