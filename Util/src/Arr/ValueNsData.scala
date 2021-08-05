@@ -22,6 +22,26 @@ trait ValueNsData[A <: ValueNElem] extends Any with DataImut[A]
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
   final override def elemsNum: Int = arrLen / elemProdSize
 
+  /** Performs a side effecting function on each specifying data element of this ValueNsData in order. */
+  def foreachData[U](f: A => U): Unit =
+  { var count = 0
+    while(count < elemsNum)
+    { f(indexData(count))
+      count = count + 1
+    }
+  }
+
+  /** Performs a side effecting function on each element of this sequence with an index starting at 0. */
+  def iForeachData[U](f: (A, Int) => U): Unit =
+  { var count = 0
+    var i: Int = 0
+    while(count < elemsNum )
+    { f(indexData(count), i)
+      count+= 1
+      i += 1
+    }
+  }
+
   /** Maps the dat elements that specify the final class. */
   def dataMap[B <: ValueNElem, N <: ValueNsData[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(elemsNum)
