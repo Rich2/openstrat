@@ -57,7 +57,7 @@ trait ValueNsLinePathBuilder[B <: ValueNElem, ArrB <: LinePathLike[B]] extends L
 /** Trait for creating the ArrTBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait DblNsLinePathBuilder[B <: DblNElem, ArrB <: DblNsLinePath[B] ] extends ValueNsLinePathBuilder[B, ArrB]
+trait DblNsLinePathBuilder[B <: DblNElem, ArrB <: LinePathDblNs[B] ] extends ValueNsLinePathBuilder[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -71,7 +71,7 @@ trait DblNsLinePathBuilder[B <: DblNElem, ArrB <: DblNsLinePath[B] ] extends Val
 /** Trait for creating the line path type class instances for [[Dbl2Arr]] final classes. Instances for the [[DataBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is called B, because it
  *  corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2sLinePathBuilder[B <: Dbl2Elem, ArrB <: Dbl2sLinePath[B]] extends DblNsLinePathBuilder[B, ArrB]
+trait Dbl2sLinePathBuilder[B <: Dbl2Elem, ArrB <: LinePathDbl2s[B]] extends DblNsLinePathBuilder[B, ArrB]
 { type BuffT <: Dbl2sBuffer[B]
   final override def elemProdSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
@@ -80,7 +80,7 @@ trait Dbl2sLinePathBuilder[B <: Dbl2Elem, ArrB <: Dbl2sLinePath[B]] extends DblN
 /** Trait for creating the line path type class instances for [[Dbl3Arr]] final classes. Instances for the [[DataBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because it
  *  corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl3sLinePathBuilder[B <: Dbl3Elem, ArrB <: Dbl3sLinePath[B]] extends DblNsLinePathBuilder[B, ArrB]
+trait Dbl3sLinePathBuilder[B <: Dbl3Elem, ArrB <: LinePathDbl3s[B]] extends DblNsLinePathBuilder[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
   final override def elemProdSize = 3
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl3

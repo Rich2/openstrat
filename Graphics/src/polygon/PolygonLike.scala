@@ -21,3 +21,8 @@ trait PolygonLike[VertT] extends Any
 
   //def foreachLineVert[U](f: VertT => U): Unit
 }
+
+trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with ValueNsData[VT]
+trait PolygonDblNs[VT <: DblNElem] extends Any with PolygonValueN[VT] with DblNsData[VT]
+trait PolygonDbl2s[A <: Dbl2Elem] extends Any with PolygonDblNs[A] with Dbl2sData[A]
+trait PolygonDbl3s[A <: Dbl3Elem] extends Any with PolygonDblNs[A] with Dbl3sData[A]
