@@ -51,7 +51,7 @@ object Coods extends Int2sArrCompanion[Cood, Coods]
     override def showT(obj: Coods, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: SeqFlatBuild[Coods] = new Int2sArrFlatBuilder[Cood, Coods]
+  implicit val arrArrayImplicit: SeqFlatBuilder[Coods] = new Int2sArrFlatBuilder[Cood, Coods]
   { type BuffT = CoodBuff
     override def fromIntArray(array: Array[Int]): Coods = new Coods(array)
     override def fromIntBuffer(inp: Buff[Int]): CoodBuff = new CoodBuff(inp)

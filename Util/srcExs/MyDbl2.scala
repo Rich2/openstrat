@@ -15,7 +15,7 @@ case class MyDbl2(a: Double, b: Double) extends Dbl2Elem
 
 object MyDbl2
 {
-  implicit val arrBuilderImplicit: Dbl2sArrBuilder[MyDbl2, MyDbl2s] = new Dbl2sArrBuilder[MyDbl2, MyDbl2s]
+  implicit val arrBuilderImplicit: Dbl2sSeqBuilder[MyDbl2, MyDbl2s] = new Dbl2sSeqBuilder[MyDbl2, MyDbl2s]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)
@@ -32,7 +32,7 @@ final class MyDbl2s(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sSeq
 
 object MyDbl2s extends Dbl2sDataCompanion[MyDbl2, MyDbl2s]
 {
-  implicit val flatImplicit: SeqFlatBuild[MyDbl2s] = new Dbl2sArrFlatBuilder[MyDbl2, MyDbl2s]
+  implicit val flatImplicit: SeqFlatBuilder[MyDbl2s] = new Dbl2sArrFlatBuilder[MyDbl2, MyDbl2s]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)

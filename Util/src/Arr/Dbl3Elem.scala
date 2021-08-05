@@ -36,7 +36,7 @@ trait Dbl3sSeq[A <: Dbl3Elem] extends Any with DblNsSeq[A] with Dbl3sData[A]
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3)))
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[SeqBuild]] type class, for classes /
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[SeqBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsArrBuilder[B, ArrB]
@@ -48,7 +48,7 @@ trait Dbl3sArrBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsArrBuilde
   }
 }
 
-/** Trait for creating the [[SeqFlatBuild]] type class instances for [[Dbl3Arr]] final classes. Instances for the  for classes / traits you
+/** Trait for creating the [[SeqFlatBuilder]] type class instances for [[Dbl3Arr]] final classes. Instances for the  for classes / traits you
  *  control, should go in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait Dbl3sArrFlatBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsArrFlatBuilder[B, ArrB]

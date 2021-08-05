@@ -11,7 +11,7 @@ trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with SeqImut[A]
 }
 
 /** This is the builder for Arrays Arrays of Double. It is not the builder for Arrays of Double.  */
-trait ArrArrayDblBuild[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends SeqBuild[A, ArrT]
+trait ArrArrayDblBuild[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends SeqBuilder[A, ArrT]
 { @inline def fromArray(array: Array[Array[Double]]): ArrT
   type BuffT <: ArrayDoubleBuff[A]
   @inline override def newArr(length: Int): ArrT = fromArray(new Array[Array[Double]](length))

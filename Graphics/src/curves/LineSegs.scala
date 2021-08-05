@@ -27,7 +27,7 @@ object LineSegs extends Dbl4sDataCompanion[LineSeg, LineSegs]
     override def showT(obj: LineSegs, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrBuildImplicit: SeqFlatBuild[LineSegs] = new Dbl4sArrFlatBuilder[LineSeg, LineSegs]
+  implicit val arrArrBuildImplicit: SeqFlatBuilder[LineSegs] = new Dbl4sArrFlatBuilder[LineSeg, LineSegs]
   { type BuffT = Line2sBuff
     override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)

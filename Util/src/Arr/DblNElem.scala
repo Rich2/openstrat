@@ -51,7 +51,7 @@ trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
   }
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuild]] type class, for classes
+/** Trait for creating the ArrTBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait DblNsArrBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsArrBuilder[B, ArrB]
@@ -65,8 +65,8 @@ trait DblNsArrBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsArrBuil
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuild]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuild] should go in the companion
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait DblNsArrFlatBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsArrFlatBuilder[B, ArrB]
 { type BuffT <: DblNsBuffer[B]

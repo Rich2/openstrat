@@ -64,16 +64,16 @@ trait Dbl2sSeq[A <: Dbl2Elem] extends Any with DblNsSeq[A] with Dbl2sData[A]
   override def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2)))
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[SeqBuild]] type
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[SeqBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2sArrBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsArrBuilder[B, ArrB]
+trait Dbl2sSeqBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsArrBuilder[B, ArrB]
 { type BuffT <: Dbl2sBuffer[B]
   final override def elemProdSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[SeqFlatBuild] should go in the
+/** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[SeqFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait Dbl2sArrFlatBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsArrFlatBuilder[B, ArrB]

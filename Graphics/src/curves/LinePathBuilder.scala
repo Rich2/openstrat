@@ -1,9 +1,9 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
+package ostrat; package geom
 import reflect.ClassTag, annotation.unused
 
-/** A common trait inherited by [[SeqBuild]] and [[ArrTFlatBuider]]. */
-trait SeqBuildCommon[ArrB <: SeqImut[_]]
+/** A common trait inherited by [[SeqBuilder]] and [[ArrTFlatBuider]]. */
+trait LinePathBuilderCommon[ArrB <: DataImut[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
@@ -20,7 +20,7 @@ trait SeqBuildCommon[ArrB <: SeqImut[_]]
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait SeqBuild[B, ArrB <: SeqImut[B]] extends SeqBuildCommon[ArrB]
+trait LinePathBuilder[B, ArrB <: DataImut[B]] extends LinePathBuilderCommon[ArrB]
 { type BuffT <: SeqGen[B]
   def newArr(length: Int): ArrB
   def arrSet(arr: ArrB, index: Int, value: B): Unit
@@ -46,26 +46,4 @@ trait SeqBuild[B, ArrB <: SeqImut[B]] extends SeqBuildCommon[ArrB]
     inp.foreach(a => buffGrow(buff, f(a)))
     buffToArr(buff)
   }
-}
-
-/** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */
-object SeqBuild extends ArrBuildLowPriority
-{ implicit val intsImplicit: SeqBuild[Int, Ints] = IntsBuild
-  implicit val doublesImplicit: SeqBuild[Double, Dbls] = DblsBuild
-  implicit val longImplicit: SeqBuild[Long, Longs] = LongsBuild
-  implicit val floatImplicit: SeqBuild[Float, Floats] = FloatsBuild
-  implicit val stringImplicit: SeqBuild[String, Strings] = StringsBuild
-  implicit val booleansImplicit: SeqBuild[Boolean, Booleans] = BooleansBuild
-}
-
-/** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from
- * the implicit instance for [[Arr]]. */
-trait SpecialT extends Any
-
-trait ArrBuildLowPriority
-{
-  /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
-   * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
-   * specialist Arr classes. */
-  implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): SeqBuild[B, Arr[B]] = new AnyBuild[B]
 }

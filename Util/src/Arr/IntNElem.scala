@@ -32,7 +32,7 @@ trait IntNsSeq[A <: IntNElem] extends Any with ValueNsSeq[A] with IntNsData[A]
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemProdSize))
 }
-/** Trait for creating the ArrTBuilder type class instances for [[IntNsSeq]] final classes. Instances for the [[SeqBuild]] type class, for classes
+/** Trait for creating the ArrTBuilder type class instances for [[IntNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait IntNsArrBuilder[B <: IntNElem, ArrB <: IntNsSeq[B]] extends ValueNsArrBuilder[B, ArrB]
@@ -47,7 +47,7 @@ trait IntNsArrBuilder[B <: IntNElem, ArrB <: IntNsSeq[B]] extends ValueNsArrBuil
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[IntNsSeq]] final classes. Instances for [[SeqFlatBuild] should go in the
+/** Trait for creating the ArrTFlatBuilder type class instances for [[IntNsSeq]] final classes. Instances for [[SeqFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait IntNsArrFlatBuilder[B <: IntNElem, ArrB <: IntNsSeq[B]] extends ValueNsArrFlatBuilder[B, ArrB]
 { type BuffT <:  IntNsBuffer[B]

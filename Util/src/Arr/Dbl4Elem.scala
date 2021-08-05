@@ -35,7 +35,7 @@ trait Dbl4sSeq[A <: Dbl4Elem] extends Any with DblNsSeq[A] with Dbl4sData[A]
   override def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[SeqBuild]] type class, for classes /
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[SeqBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Dbl4sArrBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends DblNsArrBuilder[B, ArrB]
@@ -49,9 +49,9 @@ trait Dbl4sArrBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends DblNsArrBuilde
     arr.arrayUnsafe(index * 4 + 3) = value.dbl4
   }
 }
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[SeqBuild]] type
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[SeqBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
- *  [[SeqFlatBuild] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
+ *  [[SeqFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
 trait Dbl4sArrFlatBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends DblNsArrFlatBuilder[B, ArrB]
 { type BuffT <: Dbl4sBuffer[B]

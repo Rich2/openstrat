@@ -23,8 +23,8 @@ trait LongNsBuffer[A <: LongNElem] extends Any with ValueNsBuffer[A]
 //  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[LongNsSeq]] final classes. Instances for the [[SeqBuild]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuild] should go in the companion
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[LongNsSeq]] final classes. Instances for the [[SeqBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 abstract class LongNsArrBuilders[B <: LongNElem, ArrB <: LongNsSeq[B]](typeStr: String) extends ValueNsArrPersist[B, ArrB](typeStr)
 { type VT = Long

@@ -27,7 +27,7 @@ object Strings
   def apply(input: String*): Strings = new Strings(input.toArray)
 }
 
-object StringsBuild extends SeqBuild[String, Strings] with SeqFlatBuild[Strings]
+object StringsBuild extends SeqBuilder[String, Strings] with SeqFlatBuilder[Strings]
 { type BuffT = StringsBuff
   override def newArr(length: Int): Strings = new Strings(new Array[String](length))
   override def arrSet(arr: Strings, index: Int, value: String): Unit = arr.arrayUnsafe(index) = value

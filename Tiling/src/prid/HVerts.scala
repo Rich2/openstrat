@@ -56,7 +56,7 @@ object HVerts extends Int2sArrCompanion[HVert, HVerts]
     override def showT(obj: HVerts, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: SeqFlatBuild[HVerts] = new Int2sArrFlatBuilder[HVert, HVerts]
+  implicit val arrArrayImplicit: SeqFlatBuilder[HVerts] = new Int2sArrFlatBuilder[HVert, HVerts]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVerts = new HVerts(array)
     override def fromIntBuffer(inp: Buff[Int]): HVertBuff = new HVertBuff(inp)
