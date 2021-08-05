@@ -57,7 +57,7 @@ trait Dbl3sArrFlatBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends DblNsArrFl
 }
 
 /** Persists [[Dbl3sSeq]]s. */
-abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sSeq[A]](typeStr: String) extends DblNsDataPersist[A, M](typeStr)
+abstract class Dbl3sDataPersist[A <: Dbl3Elem, M <: Dbl3sData[A]](typeStr: String) extends DblNsDataPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1
@@ -70,7 +70,7 @@ abstract class Dbl3sArrPersist[A <: Dbl3Elem, M <: Dbl3sSeq[A]](typeStr: String)
 }
 
 /** Class for the singleton companion objects of [[Dbl3sSeq]] final classes to extend. */
-abstract class Dbl3sArrCompanion[A <: Dbl3Elem, ArrA <: Dbl3sSeq[A]] extends DblNsDataCompanion[A, ArrA]
+abstract class Dbl3sDataCompanion[A <: Dbl3Elem, ArrA <: Dbl3sData[A]] extends DblNsDataCompanion[A, ArrA]
 { final override def elemProdSize: Int = 3
 
   def apply(elems: A*): ArrA =

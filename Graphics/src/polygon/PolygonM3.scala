@@ -8,16 +8,16 @@ final class PolygonM3(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sS
 { override type ThisT = PolygonM3
   override def dataElem(d1: Double, d2: Double, d3: Double): Pt3M = new Pt3M(d1, d2, d3)
   override def unsafeFromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
-  override def typeStr: String = "PolygonMs3"
+  override def typeStr: String = "PolygonM3"
   override def fElemStr: Pt3M => String = _.toString
   def xyPlane: PolygonM = this.mapPolygonM(_.xy)
 }
 
 /** Companion object for PolygonM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */
-object PolygonM3 extends Dbl3sArrCompanion[Pt3M, PolygonM3]
+object PolygonM3 extends Dbl3sDataCompanion[Pt3M, PolygonM3]
 { override def fromArrayDbl(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 
-  implicit val persistImplicit: Dbl3sArrPersist[Pt3M, PolygonM3] = new Dbl3sArrPersist[Pt3M, PolygonM3]("PolygonMs3")
+  implicit val persistImplicit: Dbl3sDataPersist[Pt3M, PolygonM3] = new Dbl3sDataPersist[Pt3M, PolygonM3]("PolygonMs3")
   { override def fromArray(value: Array[Double]): PolygonM3 = new PolygonM3(value)
   }
 }
