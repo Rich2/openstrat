@@ -10,14 +10,13 @@ trait Dbl5Elem extends Any with DblNElem
   def dbl4: Double
   def dbl5: Double
 }
+/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl5Elem]]s. */
+trait Dbl5sData[A <: Dbl5Elem] extends Any with DblNsData[A]
+{ /** Method for creating new data elements from 5 [[Double]]s In the case of [[Dbl5sSeq]] this will be the type of the elements of the sequence. */
+  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
-/** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
-trait Dbl5sSeq[A <: Dbl5Elem] extends Any with DblNsSeq[A]
-{
   def elemProdSize: Int = 5
-  def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
-
-  def indexData(index: Int): A = newElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
+  def indexData(index: Int): A = dataElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
     arrayUnsafe(5 * index + 4))
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =
@@ -27,6 +26,11 @@ trait Dbl5sSeq[A <: Dbl5Elem] extends Any with DblNsSeq[A]
     arrayUnsafe(5 * index + 3) = elem.dbl4
     arrayUnsafe(5 * index + 4) = elem.dbl5
   }
+}
+
+/** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
+trait Dbl5sSeq[A <: Dbl5Elem] extends Any with DblNsSeq[A] with Dbl5sData[A]
+{ def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
@@ -34,7 +38,6 @@ trait Dbl5sSeq[A <: Dbl5Elem] extends Any with DblNsSeq[A]
   def head4: Double = arrayUnsafe(3)
   def head5: Double = arrayUnsafe(4)
 
-  //def toArrs: ArrOld[ArrOld[Double]] = mapArrSeq(el => ArrOld(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5))
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
 }
 

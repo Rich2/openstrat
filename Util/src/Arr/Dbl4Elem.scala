@@ -10,6 +10,7 @@ trait Dbl4Elem extends Any with DblNElem
   def dbl4: Double
 }
 
+/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl4Elem]]s. */
 trait Dbl4sData[A <: Dbl4Elem] extends Any with DblNsData[A]
 { /** Method for creating new data elements from 4 [[Double]]s In the case of [[Dbl4sSeq]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
@@ -26,9 +27,7 @@ trait Dbl4sData[A <: Dbl4Elem] extends Any with DblNsData[A]
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
 trait Dbl4sSeq[A <: Dbl4Elem] extends Any with DblNsSeq[A] with Dbl4sData[A]
-{
-
-  def head1: Double = arrayUnsafe(0)
+{ def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
   def head3: Double = arrayUnsafe(2)
   def head4: Double = arrayUnsafe(3)
