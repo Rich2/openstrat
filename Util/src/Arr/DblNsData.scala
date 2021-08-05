@@ -21,6 +21,12 @@ trait DblNsData[A <: DblNElem] extends Any with ValueNsData[A] with ArrayDblBack
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
   //def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProdSize); () }
+
+  override def reverseData: ThisT =
+  { val res: ThisT = unsafeSameSize(elemsNum)
+    iForeachData{(el, i) => res.unsafeSetElem(elemsNum - 1 - i, el)}
+    res
+  }
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */

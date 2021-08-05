@@ -15,6 +15,12 @@ trait IntNsData[A <: IntNElem] extends Any with ValueNsData[A]
 
   /** The length of the Array[Int] backing array. */
   def arrLen = arrayUnsafe.length
+
+  override def reverseData: ThisT =
+  { val res: ThisT = unsafeSameSize(elemsNum)
+    iForeachData{(el, i) => res.unsafeSetElem(elemsNum - 1 - i, el)}
+    res
+  }
 }
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
@@ -22,8 +28,6 @@ trait IntNsData[A <: IntNElem] extends Any with ValueNsData[A]
 trait IntNsSeq[A <: IntNElem] extends Any with ValueNsSeq[A] with IntNsData[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: IntNsSeq[A]
-
-
 
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemProdSize))
