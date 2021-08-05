@@ -2,6 +2,7 @@
 package ostrat; package pZug
 import prid._, pCanv._
 
+/** ZugFuhrer scenario turn state. */
 trait ZugScen extends HexGridScen
 { /** tile terrain. */
   def terrs: HCenArr[ZugTerr]
@@ -10,6 +11,7 @@ trait ZugScen extends HexGridScen
   val lunits: HCenArrArr[Squad]
 }
 
+/** ZugFuhrer scenario turn 0 state. */
 trait ZugScenStart extends ZugScen
 { override def turn: Int = 0
 }
