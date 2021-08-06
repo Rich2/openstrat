@@ -10,9 +10,9 @@ trait HCenRowLike
   def verts: HVerts = new HVerts(setHVertArray)
 
   /** The polygon of this tile, specified in [[HVert]] coordinates. */
-  def hVertPolygon: HVertPolygon = new HVertPolygon(setHVertArray)
+  def hVertPolygon: PolygonHVert = new PolygonHVert(setHVertArray)
 
-  /** Creates the backing Array[Int] of [[HVert]]s for this HCenRow. This same array can be used inside an [[HVerts]] or a [[HVertPolygon]] class. */
+  /** Creates the backing Array[Int] of [[HVert]]s for this HCenRow. This same array can be used inside an [[HVerts]] or a [[PolygonHVert]] class. */
   def setHVertArray: Array[Int] =
   { val res = new Array[Int]((num * 4 + 2) * 2)
     res.set2Elems(0, r + 1, c + 2)

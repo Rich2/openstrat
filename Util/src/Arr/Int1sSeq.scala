@@ -2,13 +2,13 @@
 package ostrat
 
 /** An object that can be constructed from a single [[Int]]. These are used in [[Int1sSeq]] Array[Int] based collections. */
-trait Int1Elem extends Any with IntNElem
+trait Int1Elem extends Any with ElemIntN
 { def intValue: Int
   @inline def int1 : Int = intValue
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
-trait Int1sSeq[A <: Int1Elem] extends Any with IntNsSeq[A]
+trait Int1sSeq[A <: Int1Elem] extends Any with ArrIntNs[A]
 {
   final override def elemProdSize: Int = 1
   def newElem(intValue: Int): A
@@ -44,7 +44,7 @@ trait Int1sSeq[A <: Int1Elem] extends Any with IntNsSeq[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
  *  the B in ```map(f: A => B): ArrB``` function. */
-trait Int1sArrBuilder[A <: Int1Elem, ArrT <: Int1sSeq[A]] extends IntNsArrBuilder[A, ArrT]
+trait Int1sArrBuilder[A <: Int1Elem, ArrT <: Int1sSeq[A]] extends ArrIntNsBuilder[A, ArrT]
 { type BuffT <: Int1sBuffer[A, ArrT]
 
   final override def elemProdSize: Int = 1
@@ -66,7 +66,7 @@ trait Int1sArrFlatBuilder[A <: Int1Elem, ArrT <: Int1sSeq[A]] extends IntNsArrFl
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
-trait Int1sBuffer[A <: Int1Elem, M <: Int1sSeq[A]] extends Any with IntNsBuffer[A]
+trait Int1sBuffer[A <: Int1Elem, M <: Int1sSeq[A]] extends Any with BuffIntNs[A]
 { type ArrT <: Int1sSeq[A]
   def intToT(value: Int): A
   def indexData(i1: Int): A = intToT(unsafeBuff(i1))

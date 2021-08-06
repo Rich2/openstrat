@@ -15,7 +15,7 @@ trait ArrLongNs[A <: ElemLongN] extends Any with ArrValueNs[A]
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait BuffLongNs[A <: ElemLongN] extends Any with ValueNsBuffer[A]
+trait BuffLongNs[A <: ElemLongN] extends Any with BuffValueNs[A]
 { def buffer: ArrayBuffer[Long]
   def toArray: Array[Long] = buffer.toArray[Long]
 //  def unBuff: M
@@ -26,14 +26,14 @@ trait BuffLongNs[A <: ElemLongN] extends Any with ValueNsBuffer[A]
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrLongNs]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-abstract class LongNsArrBuilders[B <: ElemLongN, ArrB <: ArrLongNs[B]](typeStr: String) extends ValueNsDataPersist[B, ArrB](typeStr)
+abstract class LongNsArrBuilders[B <: ElemLongN, ArrB <: ArrLongNs[B]](typeStr: String) extends DataValueNsPersist[B, ArrB](typeStr)
 { type VT = Long
   override def fromBuffer(buf: Buff[Long]): ArrB = fromArray(buf.toArray)
   override def newBuffer: Buff[Long] = Buff[Long](0)
 }
 
 /** Helper trait for Companion objects of [[ArrLongNs]] classes. */
-trait ProductLongsCompanion[A <: ElemLongN, ArrA <: ArrLongNs[A]] extends ValueNsDataCompanion[A, ArrA]
+trait ArrLongNsCompanion[A <: ElemLongN, ArrA <: ArrLongNs[A]] extends DataValueNsCompanion[A, ArrA]
 { def fromBuffer(buff: Buff[Long]): ArrA = fromArray(buff.toArray[Long])
   //val factory: Int => M
   def fromArray(array: Array[Long]): ArrA

@@ -2,10 +2,10 @@
 package ostrat; package prid
 import geom._
 
-class HVertPolygon(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
-{ override type ThisT = HVertPolygon
+class PolygonHVert(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
+{ override type ThisT = PolygonHVert
   override def typeStr: String = "HVertsPolygon"
-  override def unsafeFromArray(array: Array[Int]): HVertPolygon = new HVertPolygon(array)
+  override def unsafeFromArray(array: Array[Int]): PolygonHVert = new PolygonHVert(array)
 
   /** This applies the index value in a circular manner. So the 6th index of a Hexagon is applied at vertex 0, 7 at 1 and -1 at 5. */
   def circularIndex(inp: Int): Int = inp %% vertNum
@@ -17,7 +17,7 @@ class HVertPolygon(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
     res
   }
 
-  def combine(operand: HVertPolygon): Option[HVertPolygon] =
+  def combine(operand: PolygonHVert): Option[PolygonHVert] =
   {
     var starts: Option[(Int, Int)] = None
     val a = apply(0)
@@ -25,9 +25,9 @@ class HVertPolygon(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
   }
 }
 
-object HVertPolygon extends Int2sArrCompanion[HVert, HVertPolygon]
+object PolygonHVert extends Int2sArrCompanion[HVert, PolygonHVert]
 {
   //override def buff(initialSize: Int): Int2sBuffer[HVert, HVertPolygon] = ???
 
-  override def fromArray(array: Array[Int]): HVertPolygon = new HVertPolygon(array)
+  override def fromArray(array: Array[Int]): PolygonHVert = new PolygonHVert(array)
 }

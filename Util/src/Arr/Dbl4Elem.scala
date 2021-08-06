@@ -38,7 +38,7 @@ trait Dbl4sSeq[A <: Dbl4Elem] extends Any with ArrDblNs[A] with Dbl4sData[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl4sArrBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends DblNsSeqBuilder[B, ArrB]
+trait Dbl4sArrBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends ArrDblNsBuilder[B, ArrB]
 { type BuffT <: Dbl4sBuffer[B]
   final override def elemProdSize = 4
 
@@ -53,7 +53,7 @@ trait Dbl4sArrBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends DblNsSeqBuilde
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
  *  [[SeqFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl4sArrFlatBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends DblNsSeqFlatBuilder[B, ArrB]
+trait Dbl4sArrFlatBuilder[B <: Dbl4Elem, ArrB <: Dbl4sSeq[B]] extends ArrDblNsFlatBuilder[B, ArrB]
 { type BuffT <: Dbl4sBuffer[B]
 
   final override def elemProdSize = 4
@@ -127,7 +127,7 @@ abstract class Dbl4sDataPersist[A <: Dbl4Elem, ArrA <: Dbl4sData[A]](typeStr: St
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
-trait Dbl4sBuffer[A <: Dbl4Elem] extends Any with DblNsBuffer[A]
+trait Dbl4sBuffer[A <: Dbl4Elem] extends Any with BuffDblNs[A]
 { type ArrT <: Dbl4sSeq[A]
   override def elemProdSize: Int = 4
 

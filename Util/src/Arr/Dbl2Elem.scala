@@ -67,7 +67,7 @@ trait Dbl2sSeq[A <: Dbl2Elem] extends Any with ArrDblNs[A] with Dbl2sData[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2sSeqBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsSeqBuilder[B, ArrB]
+trait Dbl2sSeqBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends ArrDblNsBuilder[B, ArrB]
 { type BuffT <: Dbl2sBuffer[B]
   final override def elemProdSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
@@ -76,7 +76,7 @@ trait Dbl2sSeqBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsSeqBuilde
 /** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[SeqFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2sArrFlatBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsSeqFlatBuilder[B, ArrB]
+trait Dbl2sArrFlatBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends ArrDblNsFlatBuilder[B, ArrB]
 { type BuffT <: Dbl2sBuffer[B]
   final override def elemProdSize = 2
 }
@@ -131,7 +131,7 @@ abstract class Dbl2sDataPersist[A <: Dbl2Elem, M <: Dbl2sData[A]](typeStr: Strin
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl2Elem]]s collections. */
-trait Dbl2sBuffer[A <: Dbl2Elem] extends Any with DblNsBuffer[A]
+trait Dbl2sBuffer[A <: Dbl2Elem] extends Any with BuffDblNs[A]
 { type ArrT <: Dbl2sSeq[A]
   override def elemProdSize: Int = 2
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2); () }

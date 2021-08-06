@@ -2,13 +2,16 @@
 package ostrat
 
 /** An object that can be constructed from 2 [[Int]]s. These are used in [[Int2sSeq]] Array[Int] based collections. */
-trait Int2Elem extends Any with IntNElem//ValueNElem
+trait Int2Elem extends Any with ElemIntN//ValueNElem
 { def int1: Int
   def int2: Int
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */
-trait Int2sSeq[A <: Int2Elem] extends Any with IntNsSeq[A]
+trait Int2sData[A <: Int2Elem] extends Any with DataIntNs[A]
+
+/** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */
+trait Int2sSeq[A <: Int2Elem] extends Any with ArrIntNs[A]
 { def newElem(i1: Int, i2: Int): A
   override def elemProdSize: Int = 2
   final override def indexData(index: Int): A = newElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
@@ -22,7 +25,7 @@ trait Int2sSeq[A <: Int2Elem] extends Any with IntNsSeq[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int2Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int2sArrBuilder[B <: Int2Elem, ArrB <: Int2sSeq[B]] extends IntNsArrBuilder[B, ArrB]
+trait Int2sArrBuilder[B <: Int2Elem, ArrB <: Int2sSeq[B]] extends ArrIntNsBuilder[B, ArrB]
 { type BuffT <: Int2sBuffer[B, ArrB]
 
   final override def elemProdSize: Int = 2
@@ -45,7 +48,7 @@ trait Int2sArrFlatBuilder[B <: Int2Elem, ArrB <: Int2sSeq[B]] extends IntNsArrFl
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
-trait Int2sBuffer[A <: Int2Elem, M <: Int2sSeq[A]] extends Any with IntNsBuffer[A]
+trait Int2sBuffer[A <: Int2Elem, M <: Int2sSeq[A]] extends Any with BuffIntNs[A]
 { type ArrT <: Int2sSeq[A]
   override def elemProdSize: Int = 2
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1).append(newElem.int2); () }
@@ -56,7 +59,7 @@ trait Int2sBuffer[A <: Int2Elem, M <: Int2sSeq[A]] extends Any with IntNsBuffer[
 }
 
 /** Helper class for companion objects of final Int2sArr classes. */
-abstract class Int2sArrCompanion[A <: Int2Elem, ArrA <: Int2sSeq[A]] extends IntNsDataCompanion[A, ArrA]
+abstract class Int2sArrCompanion[A <: Int2Elem, ArrA <: Int2sSeq[A]] extends DataIntNsCompanion[A, ArrA]
 {
   override def elemProdSize: Int = 2
 

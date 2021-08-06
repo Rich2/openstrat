@@ -58,7 +58,7 @@ trait ValueNsLinePathBuilder[B <: ElemValueN, ArrB <: LinePathLike[B]] extends L
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait DblNsLinePathBuilder[B <: ElemDblN, ArrB <: LinePathDblNs[B] ] extends ValueNsLinePathBuilder[B, ArrB]
-{ type BuffT <: DblNsBuffer[B]
+{ type BuffT <: BuffDblNs[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))

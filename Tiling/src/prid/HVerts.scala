@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
-/** Common trait for [[Hverts]] and [[HVertPolygon]] */
+/** Common trait for [[Hverts]] and [[PolygonHVert]] */
 trait HVertsLike extends Any with Int2sSeq[HVert]
 { override def newElem(i1: Int, i2: Int): HVert = HVert.apply(i1, i2)
   override def fElemStr: HVert => String = _.str
@@ -14,7 +14,7 @@ class HVerts(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
   override def unsafeFromArray(array: Array[Int]): HVerts = new HVerts(array)
   override def typeStr: String = "HVerts" + foldLeft("")(_ + "; " + _.rcStr)
 
-  def toPolygon: HVertPolygon = new HVertPolygon(arrayUnsafe)
+  def toPolygon: PolygonHVert = new PolygonHVert(arrayUnsafe)
   /*def filter(f: HVert => Boolean): HVerts =
   { val tempArr = new Array[Int](array.length)
     var count = 0
