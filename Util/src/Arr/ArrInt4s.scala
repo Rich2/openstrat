@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 4 [[Int]]s. These are used in [[Int4sArr]] Array[Int] based collections. */
+/** An object that can be constructed from 4 [[Int]]s. These are used in [[ArrInt4s]] Array[Int] based collections. */
 trait ElemInt4 extends Any with ElemIntN
 { def int1: Int
   def int2: Int
@@ -11,7 +11,7 @@ trait ElemInt4 extends Any with ElemIntN
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt4]]s. */
-trait Int4sArr[A <: ElemInt4] extends Any with ArrIntNs[A]
+trait ArrInt4s[A <: ElemInt4] extends Any with ArrIntNs[A]
 {
   override def elemProdSize: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
@@ -30,7 +30,7 @@ trait Int4sArr[A <: ElemInt4] extends Any with ArrIntNs[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt4]]s collections. */
-trait Int4sBuffer[A <: ElemInt4, M <: Int4sArr[A]] extends Any with BuffIntNs[A]
+trait BuffInt4s[A <: ElemInt4, M <: ArrInt4s[A]] extends Any with BuffIntNs[A]
 { override def elemProdSize: Int = 4
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
   def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
@@ -41,10 +41,10 @@ trait Int4sBuffer[A <: ElemInt4, M <: Int4sArr[A]] extends Any with BuffIntNs[A]
   }
 }
 
-/** Class for the singleton companion objects of [[Int4sArr]] final classes to extend. */
-abstract class Int4sArrCompanion[A <: ElemInt4, M <: Int4sArr[A]]
+/** Class for the singleton companion objects of [[ArrInt4s]] final classes to extend. */
+abstract class ArrInt4sCompanion[A <: ElemInt4, M <: ArrInt4s[A]]
 { val factory: Int => M
-  def buff(initialSize: Int): Int4sBuffer[A, M]
+  def buff(initialSize: Int): BuffInt4s[A, M]
 
   def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4
@@ -65,8 +65,8 @@ abstract class Int4sArrCompanion[A <: ElemInt4, M <: Int4sArr[A]]
   }
 }
 
-/**  Class to persist specialised flat Array[Int] based [[Int4sArr]] collection classes. */
-abstract class Int4sArrPersist[B <: ElemInt4, ArrB <: Int4sArr[B]](typeStr: String) extends DataIntNsPersist[B, ArrB](typeStr)
+/**  Class to persist specialised flat Array[Int] based [[ArrInt4s]] collection classes. */
+abstract class ArrInt4sPersist[B <: ElemInt4, ArrB <: ArrInt4s[B]](typeStr: String) extends DataIntNsPersist[B, ArrB](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: B): Unit =
   { buf += value.int1

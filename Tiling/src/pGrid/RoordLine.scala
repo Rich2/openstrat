@@ -23,7 +23,7 @@ object RoordLine
 }
 
 /** An Array[Int] based collection for RoordLines. */
-class RoordLines(val arrayUnsafe: Array[Int]) extends AnyVal with Int4sArr[RoordLine]
+class RoordLines(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt4s[RoordLine]
 { type ThisT = RoordLines
   override def fElemStr: RoordLine => String = _.toString
   override def unsafeFromArray(array: Array[Int]): RoordLines = new RoordLines(array)
@@ -33,16 +33,16 @@ class RoordLines(val arrayUnsafe: Array[Int]) extends AnyVal with Int4sArr[Roord
   //override def toString: String = RoordLines.PersistImplicit.show(this)
 }
 
-class RoordLinesBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with Int4sBuffer[RoordLine, RoordLines]
+class RoordLinesBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt4s[RoordLine, RoordLines]
 {// override def unBuff: RoordLines = new RoordLines(toArray)
   override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): RoordLine = new RoordLine(i1, i2, i3, i4)
 }
 
-object RoordLines extends Int4sArrCompanion[RoordLine, RoordLines]
+object RoordLines extends ArrInt4sCompanion[RoordLine, RoordLines]
 { implicit val factory: Int => RoordLines = i => new RoordLines(new Array[Int](i * 4))
   override def buff(initialSize: Int): RoordLinesBuff = new RoordLinesBuff(buffInt(initialSize * 4))
 
-  implicit val PersistImplicit: Int4sArrPersist[RoordLine, RoordLines] = new Int4sArrPersist[RoordLine, RoordLines]("RoordLines")
+  implicit val PersistImplicit: ArrInt4sPersist[RoordLine, RoordLines] = new ArrInt4sPersist[RoordLine, RoordLines]("RoordLines")
   { override def fromArray(value: Array[Int]): RoordLines = new RoordLines(value)
 
     override def showT(obj: RoordLines, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???

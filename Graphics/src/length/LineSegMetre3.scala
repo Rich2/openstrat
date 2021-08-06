@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A line segment in 3 dimensional space specified in metres. A straight line between two points in 3D. */
-class LineSegMetre3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Double, yEndMs: Double, zEndMs: Double) extends Dbl6Elem
+class LineSegMetre3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Double, yEndMs: Double, zEndMs: Double) extends ElemDbl6
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
   def pStart: PtMetre3 = new PtMetre3(xStartMs, yStartMs, zStartMs)

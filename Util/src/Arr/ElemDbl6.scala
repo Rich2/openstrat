@@ -1,8 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from 6 [[Double]]s. These are used in [[Dbl6sSeq]] Array[Double] based collections. */
-trait Dbl6Elem extends Any with ElemDblN
+/** An object that can be constructed from 6 [[Double]]s. These are used in [[ArrDbl6s]] Array[Double] based collections. */
+trait ElemDbl6 extends Any with ElemDblN
 { def dbl1: Double
   def dbl2: Double
   def dbl3: Double
@@ -11,8 +11,8 @@ trait Dbl6Elem extends Any with ElemDblN
   def dbl6: Double
 }
 
-/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl6Elem]]s. */
-trait Dbl6sData[A <: Dbl6Elem] extends Any with DataDblNs[A]
+/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl6]]s. */
+trait DataDbl6s[A <: ElemDbl6] extends Any with DataDblNs[A]
 { def elemProdSize: Int = 6
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 
@@ -22,8 +22,8 @@ trait Dbl6sData[A <: Dbl6Elem] extends Any with DataDblNs[A]
   }
 }
 
-/** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl6Elem]]s. */
-trait Dbl6sSeq[A <: Dbl6Elem] extends Any with ArrDblNs[A] with Dbl6sData[A]
+/** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl6]]s. */
+trait ArrDbl6s[A <: ElemDbl6] extends Any with ArrDblNs[A] with DataDbl6s[A]
 {
   def setElem(index: Int, elem: A): Unit =
   { val offset = index * 6
@@ -37,8 +37,8 @@ trait Dbl6sSeq[A <: Dbl6Elem] extends Any with ArrDblNs[A] with Dbl6sData[A]
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6)))
 }
 
-/** Helper class for companion objects of final [[Dbl6sSeq]] classes. */
-abstract class Dbl6sDataCompanion[A <: Dbl6Elem, ArrA <: Dbl6sData[A]]
+/** Helper class for companion objects of final [[ArrDbl6s]] classes. */
+abstract class DataDbl6sCompanion[A <: ElemDbl6, ArrA <: DataDbl6s[A]]
 { val factory: Int => ArrA
   def apply(length: Int): ArrA = factory(length)
 

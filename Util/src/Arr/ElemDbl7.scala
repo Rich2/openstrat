@@ -1,8 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from 7 [[Double]]s. These are used in [[Dbl7sSeq]] Array[Double] based collections. */
-trait Dbl7Elem extends Any with ElemDblN
+/** An object that can be constructed from 7 [[Double]]s. These are used in [[ArrDbl7s]] Array[Double] based collections. */
+trait ElemDbl7 extends Any with ElemDblN
 { def dbl1: Double
   def dbl2: Double
   def dbl3: Double
@@ -11,14 +11,14 @@ trait Dbl7Elem extends Any with ElemDblN
   def dbl6: Double
   def dbl7: Double
 }
-/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl6Elem]]s. */
-trait Dbl7sData[A <: Dbl7Elem] extends Any with DataDblNs[A]
+/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl6]]s. */
+trait DataDbl7s[A <: ElemDbl7] extends Any with DataDblNs[A]
 { def elemProdSize: Int = 7
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 }
 
-/** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl7Elem]]s. */
-trait Dbl7sSeq[A <: Dbl7Elem] extends Any with ArrDblNs[A] with Dbl7sData[A]
+/** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl7]]s. */
+trait ArrDbl7s[A <: ElemDbl7] extends Any with ArrDblNs[A] with DataDbl7s[A]
 {
   def indexData(index: Int): A =
   { val offset = 7 * index
@@ -39,8 +39,8 @@ trait Dbl7sSeq[A <: Dbl7Elem] extends Any with ArrDblNs[A] with Dbl7sData[A]
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6, el.dbl7)))
 }
 
-/** Helper class for companion objects of final [[Dbl7sSeq]] classes. */
-abstract class Dbl7sDataCompanion[A <: Dbl7Elem, ArrA <: Dbl7sData[A]]
+/** Helper class for companion objects of final [[ArrDbl7s]] classes. */
+abstract class DataDbl7sCompanion[A <: ElemDbl7, ArrA <: DataDbl7s[A]]
 { val factory: Int => ArrA
   def apply(length: Int): ArrA = factory(length)
   def apply(elems: A*): ArrA =

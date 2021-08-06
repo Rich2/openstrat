@@ -34,7 +34,7 @@ trait DistCurveSegLike
 /** Needs removing. A curve segment tail described in distance units rather than scalars. A DistCurveSeg without its starting point which will
  *  normally be supplied by the preceding DistCurveTail. */
 class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double,
-                    val xEndMetres: Double, val yEndMetres: Double) extends Dbl7Elem with DistCurveSegLike
+                    val xEndMetres: Double, val yEndMetres: Double) extends ElemDbl7 with DistCurveSegLike
 { 
   def toCurveSeg(f: PtMetre2 => Pt2): CurveTail = xC1Metres match
   {
