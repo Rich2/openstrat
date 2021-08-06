@@ -4,7 +4,7 @@ package pGrid
 import geom._
 
 /** A 2d line defined by its start and end TileGrid Roord. */
-case class RoordLine(y1: Int, c1: Int, y2: Int, c2: Int) extends Int4Elem
+case class RoordLine(y1: Int, c1: Int, y2: Int, c2: Int) extends ElemInt4
 {
   def int1 = y1
   def int2 = c1

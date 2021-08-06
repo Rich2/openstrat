@@ -4,7 +4,7 @@ package pGrid
 import geom._
 
 /** A 2d line defined by its start and end Tile Cood. */
-case class CoodLine(x1: Int, y1: Int, x2: Int, y2: Int) extends Int4Elem
+case class CoodLine(x1: Int, y1: Int, x2: Int, y2: Int) extends ElemInt4
 {
   def int1 = x1
   def int2 = y1
