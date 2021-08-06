@@ -2,11 +2,11 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** A common trait inherited by [[SeqBuilder]] and [[ArrTFlatBuider]]. */
+/** A common trait inherited by [[LinePathBuilder]] and [[LinePathFlatBuilder]]. */
 trait LinePathBuilderCommon[ArrB <: LinePathLike[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
-      BuffProdHomo. */
+   * BuffProdHomo. */
   type BuffT <: SeqGen[_]
   def newBuff(length: Int = 4): BuffT
   def buffToArr(buff: BuffT): ArrB

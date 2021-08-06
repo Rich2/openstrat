@@ -2,7 +2,7 @@
 package ostrat
 import reflect.ClassTag, annotation.unused
 
-/** A common trait inherited by [[SeqBuilder]] and [[ArrTFlatBuider]]. */
+/** A common trait inherited by [[SeqBuilder]] and [[SeqFlatBuilder]]. */
 trait SeqBuilderCommon[ArrB <: SeqImut[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
