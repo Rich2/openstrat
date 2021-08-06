@@ -52,7 +52,7 @@ object PtMetre3
   //implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
   var counter = 0
 
-  implicit val builderImplicit: Dbl3sArrBuilder[PtMetre3, PtMetre3Arr] = new Dbl3sArrBuilder[PtMetre3, PtMetre3Arr]
+  implicit val builderImplicit: ArrDbl3sBuilder[PtMetre3, PtMetre3Arr] = new ArrDbl3sBuilder[PtMetre3, PtMetre3Arr]
   { type BuffT = Pt3MBuff
     override def fromDblArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Pt3MBuff = new Pt3MBuff(inp)
