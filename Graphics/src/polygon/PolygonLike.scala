@@ -1,6 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
+import scala.collection.mutable.ArrayBuffer
+
 trait PolygonLike[VertT] extends Any
 {
   /** The number of vertices and also the number of sides in this Polygon. */
@@ -82,4 +84,24 @@ trait PolygonBuilder[B <: ElemValueN, BB <: PolygonLike[B]] extends PolygonBuild
     inp.foreach(a => buffGrow(buff, f(a)))
     buffToArr(buff)
   }
+}
+
+/** Trait for creating the line path builder instances for the [[PolygonBuilder]] type class, for classes / traits you control, should go in the
+ *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait PolygonValueNsBuilder[B <: ElemValueN, BB <: PolygonLike[B]] extends PolygonBuilder[B, BB]
+{ def elemProdSize: Int
+}
+
+/** Trait for creating the builder type class instances for [[PolygonDblNs]] final classes. Instances for the [[PolygonBuilder]] type class, for classes
+ *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
+ *  ```map(f: A => B): ArrB``` function. */
+trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblNs[B] ] extends PolygonValueNsBuilder[B, BB]
+{ type BuffT <: BuffDblNs[B]
+  def fromDblArray(array: Array[Double]): BB
+  def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
+  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
+  final override def newArr(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
+  final override def buffToArr(buff: BuffT): BB = fromDblArray(buff.unsafeBuff.toArray)
+  final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
+  final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }

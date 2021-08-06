@@ -131,7 +131,7 @@ object LatLong
   implicit val persistImplict: Persist[LatLong] = new Persist2Dbls[LatLong]("LatLong", "lat", "long", LatLong.radians)
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
-  implicit val linePathBuildImplicit: Dbl2sLinePathBuilder[LatLong, LinePathLL] = new Dbl2sLinePathBuilder[LatLong, LinePathLL]
+  implicit val linePathBuildImplicit: LinePathDbl2sBuilder[LatLong, LinePathLL] = new LinePathDbl2sBuilder[LatLong, LinePathLL]
   { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)

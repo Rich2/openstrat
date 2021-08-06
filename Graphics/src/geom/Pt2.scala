@@ -262,7 +262,7 @@ object Pt2
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
-  implicit val linePathBuildImplicit: Dbl2sLinePathBuilder[Pt2, LinePath] = new Dbl2sLinePathBuilder[Pt2, LinePath]
+  implicit val linePathBuildImplicit: LinePathDbl2sBuilder[Pt2, LinePath] = new LinePathDbl2sBuilder[Pt2, LinePath]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): LinePath = new LinePath(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)

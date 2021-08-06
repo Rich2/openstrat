@@ -57,7 +57,7 @@ object PtMetre2
 
   implicit val PersistImplicit: Persist[PtMetre2] = new Persist2Dbls[PtMetre2]("Metres2", "x", "y", new PtMetre2(_, _))
 
-  implicit val linePathBuildImplicit: Dbl2sLinePathBuilder[PtMetre2, LinePathMetre] = new Dbl2sLinePathBuilder[PtMetre2, LinePathMetre]
+  implicit val linePathBuildImplicit: LinePathDbl2sBuilder[PtMetre2, LinePathMetre] = new LinePathDbl2sBuilder[PtMetre2, LinePathMetre]
   { override type BuffT = Pt2MBuff
     override def fromDblArray(array: Array[Double]): LinePathMetre = new LinePathMetre(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2MBuff = new Pt2MBuff(inp)
