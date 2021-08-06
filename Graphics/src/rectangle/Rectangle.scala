@@ -53,7 +53,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
 
   final override def vertsArrayX: Array[Double] = Array(v1x, v2x, v3x, v4x)
   final override def vertsArrayY: Array[Double] = Array(v1y, v2y, v3y, v4y)
-  final override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); ()}
+  final override def vertsForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); ()}
   final override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); () }
   override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v2x, v2y); f(v3x, v3y); f(v4x, v4y); () }
 

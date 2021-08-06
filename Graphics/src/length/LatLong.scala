@@ -66,7 +66,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def xyLat0: Pt2 = Pt2(longRadians.sine * latRadians.sine, latRadians.sine)
 
   def polyToGlobedArea(inp: PolygonLL): OptEither[Pt2MArr, CurveSegDists] =
-  { val d3s: Pt3MArr = inp.dataMap(el => fromFocusMetres(el))
+  { val d3s: PtMetre3Arr = inp.dataMap(el => fromFocusMetres(el))
     d3s.earthZPositive
   }
 
@@ -76,29 +76,29 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def latLongFacing(ll: LatLong): Boolean = fromFocusMetres(ll).z.pos
 
   /** From focus parameter, converts to 3D metre coordinates. */
-  def fromFocusMetres(focus: LatLong): Pt3M = focus.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
+  def fromFocusMetres(focus: LatLong): PtMetre3 = focus.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
 
-  def fromFocusLineDist3(inp: LineSegLL): LineSegM3 = LineSegM3(
+  def fromFocusLineDist3(inp: LineSegLL): LineSegMetre3 = LineSegMetre3(
     inp.llStart.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians),
     inp.latLong2.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians))
 
-  def fromFocusDist2(ll: LatLong): Pt2M = fromFocusMetres(ll).xy
+  def fromFocusDist2(ll: LatLong): PtMetre2 = fromFocusMetres(ll).xy
 
-  def optFromFocusDist2(ll: LatLong): Option[Pt2M] =
+  def optFromFocusDist2(ll: LatLong): Option[PtMetre2] =
   { val m3 = fromFocusMetres(ll)
     m3.z.pos.toOption(m3.xy)
   }
 
-  def toOptDist2(inp: LatLong): Option[Pt2M] =
-  { val r1: Pt3M = inp.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
+  def toOptDist2(inp: LatLong): Option[PtMetre2] =
+  { val r1: PtMetre3 = inp.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
     r1.toXYIfZPositive
   }
 
   /** Converts to Metres3 where 0°N 0°E is the max Z value 90°N is the max Y value, 0°N 90°E is the max X value. */
-  def toMetres3: Pt3M =
+  def toMetres3: PtMetre3 =
   { /** This factor reduces the value of X and Z as latitudes move towards the Poles. */
     val clat = latRadians.cos.abs
-    Pt3M(longSine * equatorialRadius * clat, latSine * polarRadius, longCos * equatorialRadius * clat)
+    PtMetre3(longSine * equatorialRadius * clat, latSine * polarRadius, longCos * equatorialRadius * clat)
   }
 }
 

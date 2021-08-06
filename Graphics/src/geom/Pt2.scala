@@ -71,7 +71,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)
 
   @inline def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
-  @inline def toDist2(factor: Metres): Pt2M = Pt2M(x * factor, y * factor)
+  @inline def toDist2(factor: Metres): PtMetre2 = PtMetre2(x * factor, y * factor)
 
   @inline def invScale(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 
@@ -246,7 +246,7 @@ object Pt2
   def unapply(orig: Pt2): Option[(Double, Double)] = Some((orig.x, orig.y))
 
   implicit class Pt2Implicit(thisPt: Pt2)
-  { def * (operand: Metres): Pt2M = Pt2M(thisPt.x * operand, thisPt.y * operand)
+  { def * (operand: Metres): PtMetre2 = PtMetre2(thisPt.x * operand, thisPt.y * operand)
   }
 
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))

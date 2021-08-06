@@ -2,13 +2,13 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM]] and[[LinePathMs]] classes are not appropriate. */
-class Pt3MArr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sSeq[Pt3M]
-{ type ThisT = Pt3MArr
-  def unsafeFromArray(array: Array[Double]): ThisT = new Pt3MArr(array)
+/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonMetre]] and[[LinePathMs]] classes are not appropriate. */
+class PtMetre3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sSeq[PtMetre3]
+{ type ThisT = PtMetre3Arr
+  def unsafeFromArray(array: Array[Double]): ThisT = new PtMetre3Arr(array)
   override def typeStr: String = "Metres3s"
-  override def fElemStr: Pt3M => String = _ => "Undefined" //_.str
-  override def dataElem(d1: Double, d2: Double, d3: Double): Pt3M = new Pt3M(d1, d2, d3)
+  override def fElemStr: PtMetre3 => String = _ => "Undefined" //_.str
+  override def dataElem(d1: Double, d2: Double, d3: Double): PtMetre3 = new PtMetre3(d1, d2, d3)
 
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
    *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative
@@ -52,17 +52,17 @@ class Pt3MArr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl3sSeq[Pt3M]
   }
 }
 
-object Pt3MArr extends Dbl3sDataCompanion[Pt3M, Pt3MArr]
-{ override def fromArrayDbl(array: Array[Double]): Pt3MArr = new Pt3MArr(array)
+object PtMetre3Arr extends Dbl3sDataCompanion[PtMetre3, PtMetre3Arr]
+{ override def fromArrayDbl(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
 
-  implicit val flatBuilderImplicit: Dbl3sArrFlatBuilder[Pt3M, Pt3MArr] = new Dbl3sArrFlatBuilder[Pt3M, Pt3MArr]
+  implicit val flatBuilderImplicit: Dbl3sArrFlatBuilder[PtMetre3, PtMetre3Arr] = new Dbl3sArrFlatBuilder[PtMetre3, PtMetre3Arr]
   { type BuffT = Pt3MBuff
-    override def fromDblArray(array: Array[Double]): Pt3MArr = new Pt3MArr(array)
+    override def fromDblArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt3MBuff = new Pt3MBuff(inp)
   }
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt3]]s collections. */
-final class Pt3MBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with Dbl3sBuffer[Pt3M]
-{ def dblsToT(d1: Double, d2: Double, d3: Double): Pt3M = new Pt3M(d1, d2, d3)
+final class Pt3MBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with Dbl3sBuffer[PtMetre3]
+{ def dblsToT(d1: Double, d2: Double, d3: Double): PtMetre3 = new PtMetre3(d1, d2, d3)
 }

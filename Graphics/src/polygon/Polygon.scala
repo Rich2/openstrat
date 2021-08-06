@@ -18,7 +18,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   def vertsArrayY: Array[Double]
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
-  def foreachVert[U](f: Pt2 => U): Unit
+  def vertsForeach[U](f: Pt2 => U): Unit
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex, excluding vertex v1. */
   def foreachVertTail[U](f: Pt2 => U): Unit
@@ -32,7 +32,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
  override def vertsMap[A, ArrT <: SeqImut[A]](f: Pt2 => A)(implicit build: SeqBuilder[A, ArrT]): ArrT =
   { val acc = build.newBuff()
-    foreachVert{ v => build.buffGrow(acc, f(v)) }
+    vertsForeach{ v => build.buffGrow(acc, f(v)) }
     build.buffToArr(acc)
   }
 
@@ -40,7 +40,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   def vertsIFlatMap[BB <: SeqImut[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: SeqFlatBuilder[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = iInit
-    foreachVert { v =>
+    vertsForeach { v =>
      val newElems = f(v, count)
       build.buffGrowArr(buff, newElems)
       count += 1
@@ -50,7 +50,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   def vertsFoldLeft[B](initial: B)(f: (B, Pt2) => B): B =
   { var acc: B = initial
-    foreachVert{ v => acc = f(acc, v) }
+    vertsForeach{ v => acc = f(acc, v) }
     acc
   }
 

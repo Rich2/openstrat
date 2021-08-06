@@ -19,7 +19,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
    * the length of the hexagon side. */
   @inline final def diameterOut: Double = diameterIn * 2 / Sqrt3
 
-  override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
+  override def vertsForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); f(v6); () }
 
   override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); f(v5); f(v6); () }
   override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v1x, v1y);  f(v2x, v2y); f(v3x, v3y);  f(v4x, v4y); f(v5x, v5y); f(v6x, y6); () }

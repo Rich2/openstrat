@@ -9,13 +9,13 @@ class LineSegDist(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double
   def yStart: Metres = Metres(yStartMetres)
   def xEnd: Metres = Metres(xEndMetres)
   def yEnd: Metres = Metres(yEndMetres)
-  def ptStart: Pt2M = Pt2M(xStart, yStart)
-  def ptEnd: Pt2M = Pt2M(xEnd, yEnd)
-  def toLine2(f: Pt2M => Pt2): LineSeg = LineSeg(f(ptStart), f(ptEnd))
+  def ptStart: PtMetre2 = PtMetre2(xStart, yStart)
+  def ptEnd: PtMetre2 = PtMetre2(xEnd, yEnd)
+  def toLine2(f: PtMetre2 => Pt2): LineSeg = LineSeg(f(ptStart), f(ptEnd))
 }
 
 object LineSegDist
 {
-  def apply(startDist2: Pt2M, endDist2: Pt2M): LineSegDist =
+  def apply(startDist2: PtMetre2, endDist2: PtMetre2): LineSegDist =
     new LineSegDist(startDist2.xMetresNum, startDist2.yMetresNum, endDist2.xMetresNum, endDist2.yMetresNum)
 }

@@ -2,11 +2,11 @@
 package ostrat; package geom
 
 /** A line segment in 3 dimensional space specified in metres. A straight line between two points in 3D. */
-class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Double, yEndMs: Double, zEndMs: Double) extends Dbl6Elem
+class LineSegMetre3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Double, yEndMs: Double, zEndMs: Double) extends Dbl6Elem
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
-  def pStart: Pt3M = new Pt3M(xStartMs, yStartMs, zStartMs)
-  def pEnd: Pt3M = new Pt3M(xEndMs, yEndMs, zEndMs)
+  def pStart: PtMetre3 = new PtMetre3(xStartMs, yStartMs, zStartMs)
+  def pEnd: PtMetre3 = new PtMetre3(xEndMs, yEndMs, zEndMs)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineDist3]
   override def dbl1 = xStartMs
   override def dbl2 = yStartMs
@@ -24,9 +24,9 @@ class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Do
   def toXY: LineSegDist = new LineSegDist(xStartMs, yStartMs, xEndMs, yEndMs)
 }
 
-/** Companion object for [[LineSegM3]] trait contains apply factory method. */
-object LineSegM3
+/** Companion object for [[LineSegMetre3]] trait contains apply factory method. */
+object LineSegMetre3
 {
-   def apply(pStart: Pt3M, pEnd: Pt3M): LineSegM3 = new LineSegM3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
+   def apply(pStart: PtMetre3, pEnd: PtMetre3): LineSegMetre3 = new LineSegMetre3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
        pEnd.xMetres, pEnd.yMetres, pEnd.zMetres)
 }

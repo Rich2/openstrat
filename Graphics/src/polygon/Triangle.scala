@@ -46,7 +46,7 @@ trait Triangle extends Polygon3Plus
 
 	override def vertsArrayX: Array[Double] = Array(v1x, v2x, v3x)
 	override def vertsArrayY: Array[Double] = Array(v1y, v2y, v3y)
-	override def foreachVert[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); () }
+	override def vertsForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); () }
 	override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); () }
 	override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v2x, v2y); f(v3x, v3y); () }
 

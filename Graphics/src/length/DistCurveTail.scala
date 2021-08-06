@@ -10,7 +10,7 @@ trait DistCurveSegLike
   final def xC1: Metres = Metres(xC1Metres)
   def yC1Metres: Double
   final def yC1: Metres = Metres(yC1Metres)
-  final def pC1: Pt2M = Pt2M(xC1, yC1)
+  final def pC1: PtMetre2 = PtMetre2(xC1, yC1)
    
   def xUsesMetres: Double
   /** the x component of the uses point */
@@ -20,7 +20,7 @@ trait DistCurveSegLike
   def yUses: Metres = Metres(yUsesMetres)
   /** the x component of the end point */
   /** The uses point. The centre point on an arc segment, control point 2 on a cubic bezier. Not used on line segment. */
-  final def pUses: Pt2M = Pt2M(xUses, yUses)
+  final def pUses: PtMetre2 = PtMetre2(xUses, yUses)
    
   def xEndMetres: Double
   def yEndMetres: Double
@@ -28,7 +28,7 @@ trait DistCurveSegLike
   /** the y component of the end point */
   def yEnd: Metres = Metres(yEndMetres)
   /** The end point. Often called p2 on a line or p4 on a cubic bezier. */
-  final def pEnd: Pt2M = Pt2M(xEnd, yEnd)
+  final def pEnd: PtMetre2 = PtMetre2(xEnd, yEnd)
 }
 
 /** Needs removing. A curve segment tail described in distance units rather than scalars. A DistCurveSeg without its starting point which will
@@ -36,7 +36,7 @@ trait DistCurveSegLike
 class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Double, val xUsesMetres: Double, val yUsesMetres: Double,
                     val xEndMetres: Double, val yEndMetres: Double) extends Dbl7Elem with DistCurveSegLike
 { 
-  def toCurveSeg(f: Pt2M => Pt2): CurveTail = xC1Metres match
+  def toCurveSeg(f: PtMetre2 => Pt2): CurveTail = xC1Metres match
   {
     case 10 =>
     { val endVec = f(pEnd)
@@ -68,14 +68,14 @@ class DistCurveTail(val iMatch: Double, val xC1Metres: Double, val yC1Metres: Do
 
 /** To be removed. */
 object LineSegDistTail
-{ def apply(endPt: Pt2M): DistCurveTail = new DistCurveTail(10, 0, 0, 0, 0, endPt.xMetresNum, endPt.yMetresNum)
+{ def apply(endPt: PtMetre2): DistCurveTail = new DistCurveTail(10, 0, 0, 0, 0, endPt.xMetresNum, endPt.yMetresNum)
 //   override def toVec2s(f: Dist2 => Vec2): CurveSeg = LineSeg(f(endPt))   
 }
 
 /** To be removed. */
 object ArcSegDistTail
 {
-   def apply(cenPt: Pt2M, endPt: Pt2M): DistCurveTail =
+   def apply(cenPt: PtMetre2, endPt: PtMetre2): DistCurveTail =
       new DistCurveTail(11, 0, 0, cenPt.xMetresNum, cenPt.yMetresNum, endPt.xMetresNum, endPt.yMetresNum)
 //   def toVec2s(f: Dist2 => Vec2): CurveSeg = ArcSeg(f(cenPt), f(endPt))
 }

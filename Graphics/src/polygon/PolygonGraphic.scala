@@ -22,7 +22,7 @@ trait PolygonGraphic extends ShapeGraphic with GraphicBounded
   def yVertsArray: Array[Double] = shape.vertsArrayY
   override def boundingRect: BoundingRect = shape.boundingRect
   override def svgElem(bounds: BoundingRect): SvgElem = ???
-  @inline def foreachVert(f: Pt2 => Unit): Unit = shape.foreachVert(f)
+  @inline def foreachVert(f: Pt2 => Unit): Unit = shape.vertsForeach(f)
   @inline def vertsMap[A, ArrT <: SeqImut[A]](f: Pt2 => A)(implicit build: SeqBuilder[A, ArrT]): ArrT = shape.vertsMap(f)
 
   /** Translate geometric transformation. */

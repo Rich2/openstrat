@@ -5,7 +5,7 @@ import geom._
 object Giza
 {
   trait Pyramid
-  { def base: PolygonM = ??? // Square.dist(baseLength)
+  { def base: PolygonMetre = ??? // Square.dist(baseLength)
     def baseLength: Metres
     def height: Metres
   }

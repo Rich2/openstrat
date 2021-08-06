@@ -6,23 +6,30 @@ trait PolygonLike[VertT] extends Any
   /** The number of vertices and also the number of sides in this Polygon. */
   def vertsNum: Int
 
-  def foreachVert[U](f: VertT => U): Unit
+  def vertsForeach[U](f: VertT => U): Unit
 
   /** This method should be overridden in final classes. */
   def vertsMap[B, ArrB <: SeqImut[B]](f: VertT => B)(implicit builder: SeqBuilder[B, ArrB]): ArrB =
   { val res = builder.newArr(vertsNum)
     var count = 0
-    foreachVert{ v =>
+    vertsForeach{ v =>
       builder.arrSet(res, count, f(v))
       count += 1
     }
     res
   }
 
+  //def mapq
+
   //def foreachLineVert[U](f: VertT => U): Unit
 }
 
 trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with ValueNsData[VT]
+{
+  override def vertsForeach[U](f: VT => U): Unit = dataForeach(f)
+
+  override def vertsNum: Int = elemsNum
+}
 trait PolygonDblNs[VT <: DblNElem] extends Any with PolygonValueN[VT] with DblNsData[VT]
-trait PolygonDbl2s[A <: Dbl2Elem] extends Any with PolygonDblNs[A] with Dbl2sData[A]
-trait PolygonDbl3s[A <: Dbl3Elem] extends Any with PolygonDblNs[A] with Dbl3sData[A]
+trait PolygonDbl2s[VT <: Dbl2Elem] extends Any with PolygonDblNs[VT] with Dbl2sData[VT]
+trait PolygonDbl3s[VT <: Dbl3Elem] extends Any with PolygonDblNs[VT] with Dbl3sData[VT]

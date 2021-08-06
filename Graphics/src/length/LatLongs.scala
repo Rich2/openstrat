@@ -16,7 +16,7 @@ final class LatLongs(val arrayUnsafe: Array[Double]) extends AnyVal with LatLong
 
   override def typeStr: String = "LatLongs"
 
-  def toKMs3: PolygonM3 = ???
+  def toKMs3: PolygonMetre3 = ???
   def toPolygonKms: PolygonKMs = ???
 }
 

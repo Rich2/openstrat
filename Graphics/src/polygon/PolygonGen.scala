@@ -26,7 +26,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2s
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   @inline override def ptsTrans(f: Pt2 => Pt2): PolygonGen = vertsTrans(f)
 
-  override def foreachVert[U](f: Pt2 => U): Unit =iUntilForeach(0, arrayUnsafe.length, 2){ i =>
+  override def vertsForeach[U](f: Pt2 => U): Unit =iUntilForeach(0, arrayUnsafe.length, 2){ i =>
     f(Pt2(arrayUnsafe(i), arrayUnsafe(i + 1))); ()
   }
 
@@ -79,7 +79,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2s
     res
   }
 
-  def distScale(distRatio: Metres): PolygonM = dataMap[Pt2M, PolygonM](p => p.toDist2(distRatio))
+  def distScale(distRatio: Metres): PolygonMetre = dataMap[PtMetre2, PolygonMetre](p => p.toDist2(distRatio))
 }
 
 /** Companion object for [[PolygonGen]]. */

@@ -3,7 +3,7 @@ package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer
 
 /** 3 dimensional point specified using metres as units rather than pure numbers. */
-final class Pt3M(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends Dbl3Elem
+final class PtMetre3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends Dbl3Elem
 { def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetres.toString, yMetres.toString, zMetres.toString)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
@@ -15,8 +15,8 @@ final class Pt3M(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   def z: Metres = Metres(zMetres)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
-  @inline def dot(operand: Pt3M): Area = x * operand.x + y * operand.y + z * operand.z
-  def xy: Pt2M = new Pt2M(xMetres, yMetres)
+  @inline def dot(operand: PtMetre3): Area = x * operand.x + y * operand.y + z * operand.z
+  def xy: PtMetre2 = new PtMetre2(xMetres, yMetres)
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg
   def yPos: Boolean = y.pos
@@ -27,10 +27,10 @@ final class Pt3M(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   def / (operator: Metres): Pt3 = Pt3(x / operator, y / operator, z / operator)
 
   /** Converts this Metres3 point to a Some[Metres2] point of the X and Y values, returns None if the Z value is negative. */
-  def toXYIfZPositive: Option[Pt2M] = ifZPos(Some(Pt2M(x, y)), None)
+  def toXYIfZPositive: Option[PtMetre2] = ifZPos(Some(PtMetre2(x, y)), None)
 
-  /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[Pt3M]] point. */
-  def xRotateRadians(rotationRadians: Double): Pt3M =
+  /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[PtMetre3]] point. */
+  def xRotateRadians(rotationRadians: Double): PtMetre3 =
   { val scalar: Metres = Metres(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
@@ -40,27 +40,27 @@ final class Pt3M(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
                       atan(y / z))//This operates on the standard atan range -Pi/2 to pi/2
 
     val ang1 = ang0 + rotationRadians
-    Pt3M(x, sin(ang1) * scalar, cos(ang1) * scalar)
+    PtMetre3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }
 }
 
 /** Companion object for the Metres3 class. */
-object Pt3M
+object PtMetre3
 {
-  def metres(xMetres: Double, yMetres: Double, zMetres: Double): Pt3M = new Pt3M(xMetres, yMetres, zMetres)
-  def apply(x: Metres, y: Metres, z: Metres): Pt3M = new Pt3M(x.metresNum, y.metresNum, z.metresNum)
+  def metres(xMetres: Double, yMetres: Double, zMetres: Double): PtMetre3 = new PtMetre3(xMetres, yMetres, zMetres)
+  def apply(x: Metres, y: Metres, z: Metres): PtMetre3 = new PtMetre3(x.metresNum, y.metresNum, z.metresNum)
   //implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
   var counter = 0
 
-  implicit val builderImplicit: Dbl3sArrBuilder[Pt3M, Pt3MArr] = new Dbl3sArrBuilder[Pt3M, Pt3MArr]
+  implicit val builderImplicit: Dbl3sArrBuilder[PtMetre3, PtMetre3Arr] = new Dbl3sArrBuilder[PtMetre3, PtMetre3Arr]
   { type BuffT = Pt3MBuff
-    override def fromDblArray(array: Array[Double]): Pt3MArr = new Pt3MArr(array)
+    override def fromDblArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Pt3MBuff = new Pt3MBuff(inp)
   }
 
-  implicit val linePathBuildImplicit: Dbl3sLinePathBuilder[Pt3M, LinePathM3] = new Dbl3sLinePathBuilder[Pt3M, LinePathM3]
+  implicit val linePathBuildImplicit: Dbl3sLinePathBuilder[PtMetre3, LinePathMetre3] = new Dbl3sLinePathBuilder[PtMetre3, LinePathMetre3]
   { override type BuffT = Pt3MBuff
-    override def fromDblArray(array: Array[Double]): LinePathM3 = new LinePathM3(array)
+    override def fromDblArray(array: Array[Double]): LinePathMetre3 = new LinePathMetre3(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt3MBuff = new Pt3MBuff(inp)
   }
 }
