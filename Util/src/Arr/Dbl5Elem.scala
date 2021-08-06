@@ -42,7 +42,7 @@ trait Dbl5sSeq[A <: Dbl5Elem] extends Any with DblNsSeq[A] with Dbl5sData[A]
 }
 
 /** Helper class for companion objects of final [[Dbl5sSeq]] classes. */
-abstract class Dbl5sArrCompanion[A <: Dbl5Elem, ArrA <: Dbl5sSeq[A]]
+abstract class Dbl5sDataCompanion[A <: Dbl5Elem, ArrA <: Dbl5sData[A]]
 {
   val factory: Int => ArrA
   def apply(length: Int): ArrA = factory(length)
@@ -99,7 +99,7 @@ abstract class Dbl5sArrCompanion[A <: Dbl5Elem, ArrA <: Dbl5sSeq[A]]
 }
 
 /** Both Persists and Builds [[Dbl5sSeq]] Collection classes. */
-abstract class Dbl5sArrPersist[A <: Dbl5Elem, ArrA <: Dbl5sSeq[A]](typeStr: String) extends DblNsDataPersist[A, ArrA](typeStr)
+abstract class Dbl5sDataPersist[A <: Dbl5Elem, ArrA <: Dbl5sData[A]](typeStr: String) extends DblNsDataPersist[A, ArrA](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

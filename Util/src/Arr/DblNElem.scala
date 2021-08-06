@@ -68,7 +68,7 @@ trait DblNsSeqBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsSeqBuil
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNsArrFlatBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsSeqFlatBuilder[B, ArrB]
+trait DblNsSeqFlatBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsSeqFlatBuilder[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT

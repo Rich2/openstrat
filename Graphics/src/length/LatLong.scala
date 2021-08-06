@@ -1,18 +1,13 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-
-import scala.collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
 final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with Show2Dbls
-{
+{ override def typeStr: String = "LatLong"
   override def name1: String = "lat"
   override def name2: String = "long"
-  override def typeStr: String = "LatLong"
-  //override def approx(that: Any, delta: Double): Boolean = ???
-  //override def toString: String = LatLong.persistImplict.strT(this)
- // override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
   def show1 = latSecs
   def show2 = longSecs
   def latSecs: Double = latMilliSecs / 1000

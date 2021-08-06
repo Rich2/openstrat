@@ -6,12 +6,12 @@ import Colour.Black
  *  similar to a Polygon which is an Array[Double based collection of just LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each
  *  curveSeg is set to Negative Infinity for a LineSeg positive infinity for an ArcSeg, but represents the x component of the first control point for
  *  a BezierSeg. */
-class ShapeGenOld(val arrayUnsafe: Array[Double]) extends Dbl7sArr[CurveTail] with AffinePreserve
+class ShapeGenOld(val arrayUnsafe: Array[Double]) extends Dbl7sSeq[CurveTail] with AffinePreserve
 { type ThisT = ShapeGenOld
   def unsafeFromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
   override def typeStr = "Shape"
   override def fElemStr: CurveTail => String = _.toString
-  override def newElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
+  override def dataElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
     CurveTail(iMatch, d1, d2, d3, d4, d5, d6)
 
   def ptsTrans(f: Pt2 => Pt2): ShapeGenOld =
@@ -98,6 +98,6 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends Dbl7sArr[CurveTail] wi
     foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
 }
 
-object ShapeGenOld extends Dbl7sArrCompanion[CurveTail, ShapeGenOld]
+object ShapeGenOld extends Dbl7sDataCompanion[CurveTail, ShapeGenOld]
 { implicit val factory: Int => ShapeGenOld = i => new ShapeGenOld(new Array[Double](i * 7))
 }
