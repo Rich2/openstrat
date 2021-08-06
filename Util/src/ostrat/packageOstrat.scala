@@ -252,7 +252,7 @@ package object ostrat
   }
 
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
-  { def app2(prod: Dbl2Elem): Unit = { thisBuff.append(prod.dbl1); thisBuff.append(prod.dbl2) }
+  { def app2(prod: ElemDbl2): Unit = { thisBuff.append(prod.dbl1); thisBuff.append(prod.dbl2) }
   }
 
   /* This needs to be removed. */

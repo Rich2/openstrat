@@ -30,6 +30,6 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   def reverse: LinePathLL = reverseData
 }
 
-object LinePathLL extends Dbl2sDataCompanion[LatLong, LinePathLL]
+object LinePathLL extends DataDbl2sCompanion[LatLong, LinePathLL]
 { override def fromArrayDbl(array: Array[Double]): LinePathLL = new LinePathLL(array)
 }

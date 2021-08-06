@@ -2,18 +2,18 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 2 [[Double]]s. These are used as elements in [[Dbl2sSeq]] Array[Double] based collections. */
-trait Dbl2Elem extends Any with ElemDblN
+/** An object that can be constructed from 2 [[Double]]s. These are used as elements in [[ArrDbl2s]] Array[Double] based collections. */
+trait ElemDbl2 extends Any with ElemDblN
 { def dbl1: Double
   def dbl2: Double
-  def dblsEqual(that: Dbl2Elem): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2
-  def dblsApprox(that: Dbl2Elem, delta: Double = 1e-12): Boolean = dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta)
+  def dblsEqual(that: ElemDbl2): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2
+  def dblsApprox(that: ElemDbl2, delta: Double = 1e-12): Boolean = dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta)
 }
 
-/** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[Dbl2Elem]]s. */
-trait Dbl2sData[A <: Dbl2Elem] extends Any with DblNsData[A]
+/** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemDbl2]]s. */
+trait DataDbl2s[A <: ElemDbl2] extends Any with DataDblNs[A]
 {
-  /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2sSeq]] this will be thee type of the elements of the sequence. */
+  /** Method for creating new data elements from 2 [[Double]]s In the case of [[ArrDbl2s]] this will be thee type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double): A
 
   override def elemProdSize: Int = 2
@@ -40,9 +40,9 @@ trait Dbl2sData[A <: Dbl2Elem] extends Any with DblNsData[A]
   }
 }
 
-/** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl2Elem]]s. */
-trait Dbl2sSeq[A <: Dbl2Elem] extends Any with ArrDblNs[A] with Dbl2sData[A]
-{ type ThisT <: Dbl2sSeq[A]
+/** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl2]]s. */
+trait ArrDbl2s[A <: ElemDbl2] extends Any with ArrDblNs[A] with DataDbl2s[A]
+{ type ThisT <: ArrDbl2s[A]
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
   def getPair(index: Int): (Double, Double) = (arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
@@ -65,10 +65,10 @@ trait Dbl2sSeq[A <: Dbl2Elem] extends Any with ArrDblNs[A] with Dbl2sData[A]
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[ArrBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
+ *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2sSeqBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends ArrDblNsBuilder[B, ArrB]
-{ type BuffT <: Dbl2sBuffer[B]
+trait ArrDbl2sBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsBuilder[B, ArrB]
+{ type BuffT <: BuffDbl2s[B]
   final override def elemProdSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
 }
@@ -76,16 +76,16 @@ trait Dbl2sSeqBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends ArrDblNsBuilde
 /** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[SeqFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl2sArrFlatBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends ArrDblNsFlatBuilder[B, ArrB]
-{ type BuffT <: Dbl2sBuffer[B]
+trait ArrDbl2sFlatBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsFlatBuilder[B, ArrB]
+{ type BuffT <: BuffDbl2s[B]
   final override def elemProdSize = 2
 }
 
-/** Class for the singleton companion objects of [[Dbl2sSeq]] final classes to extend. */
-trait Dbl2sDataCompanion[A <: Dbl2Elem, ArrA <: Dbl2sData[A]] extends DblNsDataCompanion[A, ArrA]
+/** Class for the singleton companion objects of [[ArrDbl2s]] final classes to extend. */
+trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: DataDbl2s[A]] extends DblNsDataCompanion[A, ArrA]
 { final def elemProdSize: Int = 2
 
-  /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
+  /** Apply factory method for creating Arrs of [[ElemDbl2]]s. */
   final def apply(elems: A*): ArrA =
   {
     val length = elems.length
@@ -119,7 +119,7 @@ trait Dbl2sDataCompanion[A <: Dbl2Elem, ArrA <: Dbl2sData[A]] extends DblNsDataC
 }
 
 /** Persists and assists in building [[ArrDblNs]]s. */
-abstract class Dbl2sDataPersist[A <: Dbl2Elem, M <: Dbl2sData[A]](typeStr: String) extends DblNsDataPersist[A, M](typeStr)
+abstract class DataDbl2sPersist[A <: ElemDbl2, M <: DataDbl2s[A]](typeStr: String) extends DataDblNsPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1
@@ -130,9 +130,9 @@ abstract class Dbl2sDataPersist[A <: Dbl2Elem, M <: Dbl2sData[A]](typeStr: Strin
   override def showT(obj: M, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ""
 }
 
-/** A specialised flat ArrayBuffer[Double] based trait for [[Dbl2Elem]]s collections. */
-trait Dbl2sBuffer[A <: Dbl2Elem] extends Any with BuffDblNs[A]
-{ type ArrT <: Dbl2sSeq[A]
+/** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl2]]s collections. */
+trait BuffDbl2s[A <: ElemDbl2] extends Any with BuffDblNs[A]
+{ type ArrT <: ArrDbl2s[A]
   override def elemProdSize: Int = 2
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2); () }
   def dblsToT(d1: Double, d2: Double): A

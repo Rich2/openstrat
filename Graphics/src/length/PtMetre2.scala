@@ -65,7 +65,7 @@ object PtMetre2
 }
 
 /** Specialised immutable Array based collection class for [[PtMetre2]]s. */
-class Pt2MArr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sSeq[PtMetre2]
+class Pt2MArr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2s[PtMetre2]
 { type ThisT = Pt2MArr
   override def unsafeFromArray(array: Array[Double]): Pt2MArr = new Pt2MArr(array)
   override def typeStr: String = "Metres2s"
@@ -74,16 +74,16 @@ class Pt2MArr(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl2sSeq[PtMet
 }
 
 /** Companion object for the [[Pt2MArr]] class. Contains implicit Instance for Persist type class. */
-object Pt2MArr extends Dbl2sDataCompanion[PtMetre2, Pt2MArr]
+object Pt2MArr extends DataDbl2sCompanion[PtMetre2, Pt2MArr]
 {
   override def fromArrayDbl(array: Array[Double]): Pt2MArr = new Pt2MArr(array)
 
-  implicit val persistImplicit: Dbl2sDataPersist[PtMetre2, Pt2MArr] = new Dbl2sDataPersist[PtMetre2, Pt2MArr]("Metres2s")
+  implicit val persistImplicit: DataDbl2sPersist[PtMetre2, Pt2MArr] = new DataDbl2sPersist[PtMetre2, Pt2MArr]("Metres2s")
   { override def fromArray(value: Array[Double]): Pt2MArr = new Pt2MArr(value)
   }
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtMetre2]]s collections. */
-final class Pt2MBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with Dbl2sBuffer[PtMetre2]
+final class Pt2MBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[PtMetre2]
 { def dblsToT(d1: Double, d2: Double): PtMetre2 = new PtMetre2(d1, d2)
 }

@@ -11,6 +11,6 @@ trait LinePathLike[A <: ElemValueN] extends Any with DataValueNs[A]
 }
 
 trait LinePathValueNsData[A <: ElemValueN] extends Any with LinePathLike[A]
-trait LinePathDblNs[A <: ElemDblN] extends  Any with LinePathLike[A] with DblNsData[A]
-trait LinePathDbl2s[A <: Dbl2Elem] extends Any with LinePathDblNs[A] with Dbl2sData[A]
+trait LinePathDblNs[A <: ElemDblN] extends  Any with LinePathLike[A] with DataDblNs[A]
+trait LinePathDbl2s[A <: ElemDbl2] extends Any with LinePathDblNs[A] with DataDbl2s[A]
 trait LinePathDbl3s[A <: Dbl3Elem] extends Any with LinePathDblNs[A] with Dbl3sData[A]

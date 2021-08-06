@@ -30,9 +30,12 @@ trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with Data
 
   override def vertsNum: Int = elemsNum
 }
-trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DblNsData[VT]
-trait PolygonDbl2s[VT <: Dbl2Elem] extends Any with PolygonDblNs[VT] with Dbl2sData[VT]
+
+trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DataDblNs[VT]
+trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with DataDbl2s[VT]
 trait PolygonDbl3s[VT <: Dbl3Elem] extends Any with PolygonDblNs[VT] with Dbl3sData[VT]
+
+trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with DataIntNs[VT]
 
 /** A common trait inherited by [[PolygonBuilder]] and [[PolygonFlatBuilder]]. */
 trait PolygonBuilderCommon[BB <: PolygonLike[_]]

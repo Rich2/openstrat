@@ -38,14 +38,14 @@ final class Vec2M (val xMetresNum: Double, val yMetresNum: Double) extends lengt
 
 object Vec2M
 {
-  val buildImplicit: ArrBuilder[Vec2M, Vec2MArr] = new Dbl2sSeqBuilder[Vec2M, Vec2MArr]
+  val buildImplicit: ArrBuilder[Vec2M, Vec2MArr] = new ArrDbl2sBuilder[Vec2M, Vec2MArr]
   { override type BuffT = Vec2MBuff
     override def fromDblArray(array: Array[Double]): Vec2MArr = new Vec2MArr(array)
     override def fromDblBuffer(inp: Buff[Double]): Vec2MBuff = new Vec2MBuff(inp)
   }
 }
 
-class Vec2MArr(override val arrayUnsafe: Array[Double]) extends Dbl2sSeq[Vec2M]
+class Vec2MArr(override val arrayUnsafe: Array[Double]) extends ArrDbl2s[Vec2M]
 { override type ThisT = Vec2MArr
   override def dataElem(d1: Double, d2: Double): Vec2M = new Vec2M(d1, d2)
   override def unsafeFromArray(array: Array[Double]): Vec2MArr = new Vec2MArr(array)
@@ -54,6 +54,6 @@ class Vec2MArr(override val arrayUnsafe: Array[Double]) extends Dbl2sSeq[Vec2M]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt2]]s collections. */
-final class Vec2MBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with Dbl2sBuffer[Vec2M]
+final class Vec2MBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[Vec2M]
 { def dblsToT(d1: Double, d2: Double): Vec2M = new Vec2M(d1, d2)
 }

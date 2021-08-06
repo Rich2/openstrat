@@ -11,7 +11,7 @@ trait Dbl5Elem extends Any with ElemDblN
   def dbl5: Double
 }
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl5Elem]]s. */
-trait Dbl5sData[A <: Dbl5Elem] extends Any with DblNsData[A]
+trait Dbl5sData[A <: Dbl5Elem] extends Any with DataDblNs[A]
 { /** Method for creating new data elements from 5 [[Double]]s In the case of [[Dbl5sSeq]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
@@ -99,7 +99,7 @@ abstract class Dbl5sDataCompanion[A <: Dbl5Elem, ArrA <: Dbl5sData[A]]
 }
 
 /** Both Persists and Builds [[Dbl5sSeq]] Collection classes. */
-abstract class Dbl5sDataPersist[A <: Dbl5Elem, ArrA <: Dbl5sData[A]](typeStr: String) extends DblNsDataPersist[A, ArrA](typeStr)
+abstract class Dbl5sDataPersist[A <: Dbl5Elem, ArrA <: Dbl5sData[A]](typeStr: String) extends DataDblNsPersist[A, ArrA](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

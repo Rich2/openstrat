@@ -14,7 +14,7 @@ trait Dbl3Elem extends Any with ElemDblN
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl3Elem]]s. */
-trait Dbl3sData[A <: Dbl3Elem] extends Any with DblNsData[A]
+trait Dbl3sData[A <: Dbl3Elem] extends Any with DataDblNs[A]
 { /** Method for creating new data elements from 3 [[Double]]s In the case of [[Dbl3sSeq]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double): A
 
@@ -57,7 +57,7 @@ trait Dbl3sArrFlatBuilder[B <: Dbl3Elem, ArrB <: Dbl3sSeq[B]] extends ArrDblNsFl
 }
 
 /** Persists [[Dbl3sSeq]]s. */
-abstract class Dbl3sDataPersist[A <: Dbl3Elem, M <: Dbl3sData[A]](typeStr: String) extends DblNsDataPersist[A, M](typeStr)
+abstract class Dbl3sDataPersist[A <: Dbl3Elem, M <: Dbl3sData[A]](typeStr: String) extends DataDblNsPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

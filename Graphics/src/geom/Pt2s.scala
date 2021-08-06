@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
  *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
-final class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2sLike with Dbl2sSeq[Pt2]
+final class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2sLike with ArrDbl2s[Pt2]
 { type ThisT = Pt2s
   def unsafeFromArray(array: Array[Double]): Pt2s = new Pt2s(array)
   override def typeStr: String = "P2s"
@@ -36,15 +36,15 @@ final class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2
   def toPathDraw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this.toLinePath, lineWidth, colour)
 }
 
-object Pt2s extends Dbl2sDataCompanion[Pt2, Pt2s]
+object Pt2s extends DataDbl2sCompanion[Pt2, Pt2s]
 {
   override def fromArrayDbl(array: Array[Double]): Pt2s = new Pt2s(array)
 
-  implicit val persistImplicit: Dbl2sDataPersist[Pt2, Pt2s] = new Dbl2sDataPersist[Pt2, Pt2s]("Pt2s")
+  implicit val persistImplicit: DataDbl2sPersist[Pt2, Pt2s] = new DataDbl2sPersist[Pt2, Pt2s]("Pt2s")
   { override def fromArray(value: Array[Double]): Pt2s = new Pt2s(value)
   }
 
-  implicit val arrFlatBuilderImplicit: SeqFlatBuilder[Pt2s] =  new Dbl2sArrFlatBuilder[Pt2, Pt2s]
+  implicit val arrFlatBuilderImplicit: SeqFlatBuilder[Pt2s] =  new ArrDbl2sFlatBuilder[Pt2, Pt2s]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
@@ -72,6 +72,6 @@ object Pt2s extends Dbl2sDataCompanion[Pt2, Pt2s]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt2]]s collections. */
-final class Pt2Buff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with Dbl2sBuffer[Pt2]
+final class Pt2Buff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[Pt2]
 { def dblsToT(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }

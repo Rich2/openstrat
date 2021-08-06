@@ -15,8 +15,8 @@ trait ArrayDblBacked extends Any
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[ArrDblNs]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait DblNsData[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBacked
-{ type ThisT <: DblNsData[A]
+trait DataDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBacked
+{ type ThisT <: DataDblNs[A]
   override def arrLen = arrayUnsafe.length
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
@@ -30,7 +30,7 @@ trait DblNsData[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBack
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
-trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DblNsData[A]
+trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DataDblNs[A]
 { type ThisT <: ArrDblNs[A]
 
   /** Not sure about this method. */
@@ -89,7 +89,7 @@ trait BuffDblNs[A <: ElemDblN] extends Any with BuffValueNs[A]
 }
 
 /** Helper trait for Companion objects of [[ArrDblNs]] classes. */
-trait DblNsDataCompanion[A <: ElemDblN, ArrA <: DblNsData[A]] extends DataValueNsCompanion[A, ArrA]
+trait DblNsDataCompanion[A <: ElemDblN, ArrA <: DataDblNs[A]] extends DataValueNsCompanion[A, ArrA]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArrayDbl(array: Array[Double]): ArrA
 
@@ -98,7 +98,7 @@ trait DblNsDataCompanion[A <: ElemDblN, ArrA <: DblNsData[A]] extends DataValueN
 }
 
 /** Persists [[ArrDblNs]]s. */
-abstract class DblNsDataPersist[A <: ElemDblN, M <: DblNsData[A]](typeStr: String) extends DataValueNsPersist[A, M](typeStr) with EqT[M]
+abstract class DataDblNsPersist[A <: ElemDblN, M <: DataDblNs[A]](typeStr: String) extends DataValueNsPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

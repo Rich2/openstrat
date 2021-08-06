@@ -4,7 +4,7 @@ import Colour.Black, pWeb._
 
 /** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
-final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with Dbl2sSeq[Pt2]
+final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with ArrDbl2s[Pt2]
 { override type ThisT = PolygonGen
   override def vert(index: Int): Pt2 = indexData(index - 1)
   @inline override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = foreachPairTail(f)
@@ -83,7 +83,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2s
 }
 
 /** Companion object for [[PolygonGen]]. */
-object PolygonGen extends Dbl2sDataCompanion[Pt2, PolygonGen]
+object PolygonGen extends DataDbl2sCompanion[Pt2, PolygonGen]
 { override def fromArrayDbl(array: Array[Double]): PolygonGen = new PolygonGen(array)
 
   /*def apply(v1: Pt2, v2: Pt2, v3: Pt2, tail: Pt2 *): PolygonImp =
@@ -96,7 +96,7 @@ object PolygonGen extends Dbl2sDataCompanion[Pt2, PolygonGen]
 
   implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqv(p1.arrayUnsafe, p2.arrayUnsafe)
 
-  implicit val persistImplicit: Dbl2sDataPersist[Pt2, PolygonGen] = new Dbl2sDataPersist[Pt2, PolygonGen]("Polygon")
+  implicit val persistImplicit: DataDbl2sPersist[Pt2, PolygonGen] = new DataDbl2sPersist[Pt2, PolygonGen]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
 
     override def showT(obj: PolygonGen, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
