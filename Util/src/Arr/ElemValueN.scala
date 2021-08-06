@@ -5,11 +5,11 @@ package ostrat
  *  as *  an Array of primitive values. Note the classes that extend this trait do not extend [[Product]] or its numbered sub traits, because the
  *  logical size of the product may not be the same as the number of primitive values, for example a LineSeg is a product of 2 [[Pt2]]s, but is
  *  composed from 4 [[Double]] values. */
-trait ValueNElem extends Any with SpecialT
+trait ElemValueN extends Any with SpecialT
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
  *  classes include both [[ValueNscollection]]s and classes like polygons and lines. */
-trait ValueNsData[A <: ValueNElem] extends Any with DataImut[A]
+trait ValueNsData[A <: ElemValueN] extends Any with DataImut[A]
 { type ThisT <: ValueNsData[A]
 
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
@@ -45,7 +45,7 @@ trait ValueNsData[A <: ValueNElem] extends Any with DataImut[A]
   }
 
   /** Maps the dat elements that specify the final class. */
-  def dataMap[B <: ValueNElem, N <: ValueNsData[B]](f: A => B)(implicit factory: Int => N): N =
+  def dataMap[B <: ElemValueN, N <: ValueNsData[B]](f: A => B)(implicit factory: Int => N): N =
   { val res = factory(elemsNum)
     var count: Int = 0
     while (count < elemsNum) {
@@ -59,12 +59,12 @@ trait ValueNsData[A <: ValueNElem] extends Any with DataImut[A]
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ValueNsSeq[A <: ValueNElem] extends Any with SeqImut[A] with ValueNsData[A]
-{ type ThisT <: ValueNsSeq[A]
+trait ArrValueNs[A <: ElemValueN] extends Any with ArrBase[A] with ValueNsData[A]
+{ type ThisT <: ArrValueNs[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++[N <: ValueNsSeq[A]](operand: N)(implicit factory: Int => N): N =
+  def ++[N <: ArrValueNs[A]](operand: N)(implicit factory: Int => N): N =
   { val res = factory(elemsNum + operand.elemsNum)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     operand.iForeach((elem, i) => res.unsafeSetElem(i + elemsNum, elem))
@@ -72,7 +72,7 @@ trait ValueNsSeq[A <: ValueNElem] extends Any with SeqImut[A] with ValueNsData[A
   }
 
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
-  def :+[N <: ValueNsSeq[A]](operand: A)(implicit factory: Int => N): N =
+  def :+[N <: ArrValueNs[A]](operand: A)(implicit factory: Int => N): N =
   { val res = factory(elemsNum + 1)
     iForeach((elem, i) => res.unsafeSetElem(i, elem))
     res.unsafeSetElem(elemsNum, operand)
@@ -90,27 +90,27 @@ trait ValueNsSeq[A <: ValueNElem] extends Any with SeqImut[A] with ValueNsData[A
   }
 }
 
-/** Trait for creating the ArrTBuilder. Instances for the [[SeqBuilder]] type class, for classes / traits you control, should go in the companion
+/** Trait for creating the ArrTBuilder. Instances for the [[ArrBuilder]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNsSeqBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends SeqBuilder[B, ArrB]
+trait ValueNsSeqBuilder[B <: ElemValueN, ArrB <: ArrValueNs[B]] extends ArrBuilder[B, ArrB]
 { def elemProdSize: Int
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNsSeq]] final classes. Instances for the [[SeqFlatBuilder] should go in
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueNs]] final classes. Instances for the [[SeqFlatBuilder] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait ValueNsSeqFlatBuilder[B <: ValueNElem, ArrB <: ValueNsSeq[B]] extends SeqFlatBuilder[ArrB]
+trait ValueNsSeqFlatBuilder[B <: ElemValueN, ArrB <: ArrValueNs[B]] extends SeqFlatBuilder[ArrB]
 { def elemProdSize: Int
 }
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
-trait ValueNsBuffer[A <: ValueNElem] extends Any with SeqGen[A]
-{ type ArrT <: ValueNsSeq[A]
+trait ValueNsBuffer[A <: ElemValueN] extends Any with SeqGen[A]
+{ type ArrT <: ArrValueNs[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit
-  def toArr(implicit build: SeqBuilder[A, ArrT]): ArrT = ???
+  def toArr(implicit build: ArrBuilder[A, ArrT]): ArrT = ???
   override def fElemStr: A => String = _.toString
 }
 
@@ -125,7 +125,7 @@ abstract class ValueNsDataPersist[A, M](val typeStr: String) extends PersistComp
 }
 
 /** Helper trait for companion objects of [[ValueNsData]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
-trait ValueNsDataCompanion[A <: ValueNElem, ArrA <: ValueNsData[A]]
+trait ValueNsDataCompanion[A <: ElemValueN, ArrA <: ValueNsData[A]]
 { /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   implicit def uninitialised(length: Int): ArrA
 

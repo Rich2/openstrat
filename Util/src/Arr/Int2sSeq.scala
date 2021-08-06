@@ -19,7 +19,7 @@ trait Int2sSeq[A <: Int2Elem] extends Any with IntNsSeq[A]
   def head2: Int = arrayUnsafe(1)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[SeqBuilder]] type
+/** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int2Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait Int2sArrBuilder[B <: Int2Elem, ArrB <: Int2sSeq[B]] extends IntNsArrBuilder[B, ArrB]
@@ -34,7 +34,7 @@ trait Int2sArrBuilder[B <: Int2Elem, ArrB <: Int2sSeq[B]] extends IntNsArrBuilde
   override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuff.append(value.int1); buff.unsafeBuff.append(value.int2); () }
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[SeqBuilder]] type
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */

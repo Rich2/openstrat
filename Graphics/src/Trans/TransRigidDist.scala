@@ -34,7 +34,7 @@ object TransRigidDist
     override def slate(obj: T, offset: PtMetre2): T = obj.slate(offset).asInstanceOf[T]
   }
 
-  implicit def arrImplicit[A, AA <: SeqImut[A]](implicit build: SeqBuilder[A, AA], ev: TransRigidDist[A]): TransRigidDist[AA] = new TransRigidDist[AA]
+  implicit def arrImplicit[A, AA <: ArrBase[A]](implicit build: ArrBuilder[A, AA], ev: TransRigidDist[A]): TransRigidDist[AA] = new TransRigidDist[AA]
   { override def slate(obj: AA, offset: PtMetre2): AA = obj.map{ ts => ev.slate(ts, offset)}
     override def rotateRadians(obj: AA, radians: Double): AA = obj.map{ts => ev.rotateRadians(ts, radians) }
     override def mirrorYOffset(obj: AA, xOffset: Metres): AA = obj.map{ ts => ev.mirrorYOffset(ts, xOffset) }

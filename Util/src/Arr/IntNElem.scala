@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** A class that can be construct from a fixed number of [[Int]]s can be stored as an Array[Int] of primitive values. */
-trait IntNElem extends Any with ValueNElem
+trait IntNElem extends Any with ElemValueN
 
 trait IntNsData[A <: IntNElem] extends Any with ValueNsData[A]
 { type ThisT <: IntNsData[A]
@@ -25,14 +25,14 @@ trait IntNsData[A <: IntNElem] extends Any with ValueNsData[A]
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait IntNsSeq[A <: IntNElem] extends Any with ValueNsSeq[A] with IntNsData[A]
+trait IntNsSeq[A <: IntNElem] extends Any with ArrValueNs[A] with IntNsData[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: IntNsSeq[A]
 
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemProdSize))
 }
-/** Trait for creating the ArrTBuilder type class instances for [[IntNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for classes
+/** Trait for creating the ArrTBuilder type class instances for [[IntNsSeq]] final classes. Instances for the [[ArrBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait IntNsArrBuilder[B <: IntNElem, ArrB <: IntNsSeq[B]] extends ValueNsSeqBuilder[B, ArrB]

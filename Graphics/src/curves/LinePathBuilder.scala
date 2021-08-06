@@ -20,7 +20,7 @@ trait LinePathBuilderCommon[ArrB <: LinePathLike[_]]
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait LinePathBuilder[B <: ValueNElem, ArrB <: LinePathLike[B]] extends LinePathBuilderCommon[ArrB]
+trait LinePathBuilder[B <: ElemValueN, ArrB <: LinePathLike[B]] extends LinePathBuilderCommon[ArrB]
 { type BuffT <: SeqGen[B]
   def newArr(length: Int): ArrB
   def arrSet(arr: ArrB, index: Int, value: B): Unit
@@ -50,14 +50,14 @@ trait LinePathBuilder[B <: ValueNElem, ArrB <: LinePathLike[B]] extends LinePath
 
 /** Trait for creating the line path builder instances for the [[LinePathBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNsLinePathBuilder[B <: ValueNElem, ArrB <: LinePathLike[B]] extends LinePathBuilder[B, ArrB]
+trait ValueNsLinePathBuilder[B <: ElemValueN, ArrB <: LinePathLike[B]] extends LinePathBuilder[B, ArrB]
 { def elemProdSize: Int
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for classes
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDblNs]] final classes. Instances for the [[ArrBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait DblNsLinePathBuilder[B <: DblNElem, ArrB <: LinePathDblNs[B] ] extends ValueNsLinePathBuilder[B, ArrB]
+trait DblNsLinePathBuilder[B <: ElemDblN, ArrB <: LinePathDblNs[B] ] extends ValueNsLinePathBuilder[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT

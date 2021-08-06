@@ -9,7 +9,7 @@ trait PolygonLike[VertT] extends Any
   def vertsForeach[U](f: VertT => U): Unit
 
   /** This method should be overridden in final classes. */
-  def vertsMap[B, ArrB <: SeqImut[B]](f: VertT => B)(implicit builder: SeqBuilder[B, ArrB]): ArrB =
+  def vertsMap[B, ArrB <: ArrBase[B]](f: VertT => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
   { val res = builder.newArr(vertsNum)
     var count = 0
     vertsForeach{ v =>
@@ -24,27 +24,27 @@ trait PolygonLike[VertT] extends Any
   //def foreachLineVert[U](f: VertT => U): Unit
 }
 
-trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with ValueNsData[VT]
+trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with ValueNsData[VT]
 {
   override def vertsForeach[U](f: VT => U): Unit = dataForeach(f)
 
   override def vertsNum: Int = elemsNum
 }
-trait PolygonDblNs[VT <: DblNElem] extends Any with PolygonValueN[VT] with DblNsData[VT]
+trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DblNsData[VT]
 trait PolygonDbl2s[VT <: Dbl2Elem] extends Any with PolygonDblNs[VT] with Dbl2sData[VT]
 trait PolygonDbl3s[VT <: Dbl3Elem] extends Any with PolygonDblNs[VT] with Dbl3sData[VT]
 
 /** A common trait inherited by [[PolygonBuilder]] and [[PolygonFlatBuilder]]. */
-trait PolygonBuilderCommon[ArrB <: PolygonLike[_]]
+trait PolygonBuilderCommon[BB <: PolygonLike[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
   type BuffT <: SeqGen[_]
   def newBuff(length: Int = 4): BuffT
-  def buffToArr(buff: BuffT): ArrB
+  def buffToArr(buff: BuffT): BB
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: ArrB): Unit
+  def buffGrowArr(buff: BuffT, arr: BB): Unit
 }
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
@@ -52,10 +52,10 @@ trait PolygonBuilderCommon[ArrB <: PolygonLike[_]]
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait PolygonBuilder[B <: ValueNElem, ArrB <: PolygonLike[B]] extends PolygonBuilderCommon[ArrB]
+trait PolygonBuilder[B <: ElemValueN, BB <: PolygonLike[B]] extends PolygonBuilderCommon[BB]
 { type BuffT <: SeqGen[B]
-  def newArr(length: Int): ArrB
-  def arrSet(arr: ArrB, index: Int, value: B): Unit
+  def newArr(length: Int): BB
+  def arrSet(arr: BB, index: Int, value: B): Unit
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
@@ -68,12 +68,12 @@ trait PolygonBuilder[B <: ValueNElem, ArrB <: PolygonLike[B]] extends PolygonBui
   }
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: ArrB): Unit// = arr.foreach(buffGrow(buff, _))
+  def buffGrowArr(buff: BuffT, arr: BB): Unit// = arr.foreach(buffGrow(buff, _))
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
 
-  def iterMap[A](inp: Iterable[A], f: A => B): ArrB =
+  def iterMap[A](inp: Iterable[A], f: A => B): BB =
   { val buff = newBuff()
     inp.foreach(a => buffGrow(buff, f(a)))
     buffToArr(buff)

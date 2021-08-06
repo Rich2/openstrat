@@ -2,7 +2,7 @@
 package ostrat
 
 /** An object that can be constructed from 7 [[Double]]s. These are used in [[Dbl7sSeq]] Array[Double] based collections. */
-trait Dbl7Elem extends Any with DblNElem
+trait Dbl7Elem extends Any with ElemDblN
 { def dbl1: Double
   def dbl2: Double
   def dbl3: Double
@@ -18,7 +18,7 @@ trait Dbl7sData[A <: Dbl7Elem] extends Any with DblNsData[A]
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl7Elem]]s. */
-trait Dbl7sSeq[A <: Dbl7Elem] extends Any with DblNsSeq[A] with Dbl7sData[A]
+trait Dbl7sSeq[A <: Dbl7Elem] extends Any with ArrDblNs[A] with Dbl7sData[A]
 {
   def indexData(index: Int): A =
   { val offset = 7 * index

@@ -2,10 +2,10 @@
 package ostrat
 import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-/** The immutable Array based class for types without there own specialised [[SeqImut]] collection classes. It Inherits the standard foreach, map,
+/** The immutable Array based class for types without there own specialised [[ArrBase]] collection classes. It Inherits the standard foreach, map,
  *  flatMap and fold and their variations' methods from ArrayLike. As it stands in Scala 3.0.2-RC1 the Graphics module will not build for Scala3 for
  *  the Javascript target. */
-final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with SeqImut[A]
+final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with ArrBase[A]
 { type ThisT = Arr[A]@uncheckedVariance
   override def typeStr: String = "Arr"
 
@@ -139,7 +139,7 @@ object Arr
 }
 
 /** The default Immutable Array based collection builder for the Arr[A] class. */
-class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends SeqBuilder[B, Arr[B]] with SeqFlatBuilder[Arr[B]]
+class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrBuilder[B, Arr[B]] with SeqFlatBuilder[Arr[B]]
 { type BuffT = AnyBuff[B]
   override def newArr(length: Int): Arr[B] = new Arr(new Array[B](length))
   override def arrSet(arr: Arr[B], index: Int, value: B): Unit = arr.unsafeArr(index) = value

@@ -2,8 +2,8 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from N [[Double]]s. These are used as elements in [[DblNsSeq]] Array[Double] based collections. */
-trait DblNElem extends Any with ValueNElem
+/** An object that can be constructed from N [[Double]]s. These are used as elements in [[ArrDblNs]] Array[Double] based collections. */
+trait ElemDblN extends Any with ElemValueN
 { //def defaultDelta: Double = 1e-12
 }
 
@@ -14,8 +14,8 @@ trait ArrayDblBacked extends Any
 }
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
- *  well as [[DblNsSeq]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait DblNsData[A <: DblNElem] extends Any with ValueNsData[A] with ArrayDblBacked
+ *  well as [[ArrDblNs]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
+trait DblNsData[A <: ElemDblN] extends Any with ValueNsData[A] with ArrayDblBacked
 { type ThisT <: DblNsData[A]
   override def arrLen = arrayUnsafe.length
   def unsafeFromArray(array: Array[Double]): ThisT
@@ -30,8 +30,8 @@ trait DblNsData[A <: DblNElem] extends Any with ValueNsData[A] with ArrayDblBack
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
-trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
-{ type ThisT <: DblNsSeq[A]
+trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DblNsData[A]
+{ type ThisT <: ArrDblNs[A]
 
   /** Not sure about this method. */
   def foreachArr(f: Dbls => Unit): Unit
@@ -51,10 +51,10 @@ trait DblNsSeq[A <: DblNElem] extends Any with ValueNsSeq[A] with DblNsData[A]
   }
 }
 
-/** Trait for creating the sequence builder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type class, for
+/** Trait for creating the sequence builder type class instances for [[ArrDblNs]] final classes. Instances for the [[ArrBuilder]] type class, for
  *  classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait DblNsSeqBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsSeqBuilder[B, ArrB]
+trait DblNsSeqBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ValueNsSeqBuilder[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -65,10 +65,10 @@ trait DblNsSeqBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsSeqBuil
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNsSeq]] final classes. Instances for the [[SeqBuilder]] type
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDblNs]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNsSeqFlatBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsSeqFlatBuilder[B, ArrB]
+trait DblNsSeqFlatBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ValueNsSeqFlatBuilder[B, ArrB]
 { type BuffT <: DblNsBuffer[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -78,8 +78,8 @@ trait DblNsSeqFlatBuilder[B <: DblNElem, ArrB <: DblNsSeq[B]] extends ValueNsSeq
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait DblNsBuffer[A <: DblNElem] extends Any with ValueNsBuffer[A]
-{ type ArrT <: DblNsSeq[A]
+trait DblNsBuffer[A <: ElemDblN] extends Any with ValueNsBuffer[A]
+{ type ArrT <: ArrDblNs[A]
   def unsafeBuff: ArrayBuffer[Double]
 
   def elemsNum: Int = unsafeBuff.length / elemProdSize
@@ -88,8 +88,8 @@ trait DblNsBuffer[A <: DblNElem] extends Any with ValueNsBuffer[A]
   override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.arrayUnsafe); () }
 }
 
-/** Helper trait for Companion objects of [[DblNsSeq]] classes. */
-trait DblNsDataCompanion[A <: DblNElem, ArrA <: DblNsData[A]] extends ValueNsDataCompanion[A, ArrA]
+/** Helper trait for Companion objects of [[ArrDblNs]] classes. */
+trait DblNsDataCompanion[A <: ElemDblN, ArrA <: DblNsData[A]] extends ValueNsDataCompanion[A, ArrA]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArrayDbl(array: Array[Double]): ArrA
 
@@ -97,8 +97,8 @@ trait DblNsDataCompanion[A <: DblNElem, ArrA <: DblNsData[A]] extends ValueNsDat
   override implicit def uninitialised(length: Int): ArrA = fromArrayDbl(new Array[Double](length * elemProdSize))
 }
 
-/** Persists [[DblNsSeq]]s. */
-abstract class DblNsDataPersist[A <: DblNElem, M <: DblNsData[A]](typeStr: String) extends ValueNsDataPersist[A, M](typeStr) with EqT[M]
+/** Persists [[ArrDblNs]]s. */
+abstract class DblNsDataPersist[A <: ElemDblN, M <: DblNsData[A]](typeStr: String) extends ValueNsDataPersist[A, M](typeStr) with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

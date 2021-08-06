@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for Floats. */
-class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with SeqImut[Float]
+class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with ArrBase[Float]
 { type ThisT = Floats
 
   /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */
@@ -28,7 +28,7 @@ object Floats
 { def apply(input: Float*): Floats = new Floats(input.toArray)
 }
 
-object FloatsBuild extends SeqBuilder[Float, Floats] with SeqFlatBuilder[Floats]
+object FloatsBuild extends ArrBuilder[Float, Floats] with SeqFlatBuilder[Floats]
 { type BuffT = FloatsBuff
   override def newArr(length: Int): Floats = new Floats(new Array[Float](length))
   override def arrSet(arr: Floats, index: Int, value: Float): Unit = arr.arrayUnsafe(index) = value

@@ -34,7 +34,7 @@ class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 
   def foreachSome(f: (Roord, A) => Unit)(implicit grid: TileGridOld): Unit = grid.foreach { r => f(r, unsafeArr(grid.arrIndex(r))) }
 
-  def mapSomeWithRoords[B, ArrT <: SeqImut[B]](f: (Roord, A) => B)(implicit grid: TileGridOld, build: SeqBuilder[B, ArrT]): ArrT =
+  def mapSomeWithRoords[B, ArrT <: ArrBase[B]](f: (Roord, A) => B)(implicit grid: TileGridOld, build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
@@ -47,7 +47,7 @@ class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     build.buffToArr(buff)
   }
 
-  def flatMapSomes[ArrT <: SeqImut[_]](f: (Roord, A) => ArrT)(implicit grid: TileGridOld, build: SeqFlatBuilder[ArrT]): ArrT =
+  def flatMapSomes[ArrT <: ArrBase[_]](f: (Roord, A) => ArrT)(implicit grid: TileGridOld, build: SeqFlatBuilder[ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
@@ -60,7 +60,7 @@ class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     build.buffToArr(buff)
   }
 
-  def mapSomes[B, ArrT <: SeqImut[B]](f: A => B)(implicit grid: TileGridOld, build: SeqBuilder[B, ArrT]): ArrT =
+  def mapSomes[B, ArrT <: ArrBase[B]](f: A => B)(implicit grid: TileGridOld, build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>

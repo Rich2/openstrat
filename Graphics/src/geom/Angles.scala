@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Efficient Immutable Array[Double] based collection class, with the Angle values stored as arc seconds. */
-final class Angles(val arrayUnsafe: Array[Double]) extends AnyVal with Dbl1sSeq[Angle]
+final class Angles(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl1s[Angle]
 { override type ThisT = Angles
   override def typeStr: String = "Angles"
   override def newElem(dblValue: Double): Angle = Angle.secs(dblValue)

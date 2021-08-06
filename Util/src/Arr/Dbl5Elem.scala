@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 5 [[Double]]s. These are used in [[Dbl5sSeq]] Array[Double] based collections. */
-trait Dbl5Elem extends Any with DblNElem
+trait Dbl5Elem extends Any with ElemDblN
 { def dbl1: Double
   def dbl2: Double
   def dbl3: Double
@@ -29,7 +29,7 @@ trait Dbl5sData[A <: Dbl5Elem] extends Any with DblNsData[A]
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl5Elem]]s. */
-trait Dbl5sSeq[A <: Dbl5Elem] extends Any with DblNsSeq[A] with Dbl5sData[A]
+trait Dbl5sSeq[A <: Dbl5Elem] extends Any with ArrDblNs[A] with Dbl5sData[A]
 { def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
   def head1: Double = arrayUnsafe(0)

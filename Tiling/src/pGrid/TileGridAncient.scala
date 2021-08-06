@@ -103,7 +103,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
   }
 
   /** Map all Tiles to Array[B] with function. */
-  final def tilesMapAll[B, BB <: SeqImut[B]](f: TileT => B)(implicit build: SeqBuilder[B, BB]): BB =
+  final def tilesMapAll[B, BB <: ArrBase[B]](f: TileT => B)(implicit build: ArrBuilder[B, BB]): BB =
   {
     val res = build.newArr(tileNum)
     val count = 0
@@ -116,7 +116,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
     res
   }
 
-  def tilesFlatMapAll[B, BB <: SeqImut[B]](f: TileT => BB)(implicit build: SeqBuilder[B, BB]): BB =
+  def tilesFlatMapAll[B, BB <: ArrBase[B]](f: TileT => BB)(implicit build: ArrBuilder[B, BB]): BB =
   {
     val acc = build.newBuff()
     foreachTilesCoodAll{ tileCood =>
@@ -173,7 +173,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
     acc.toArrOld
   }*/
 
-  final def tilesMapOptionAll[A, AA <: SeqImut[A]](f: TileT => Option[A])(implicit build: SeqBuilder[A, AA]): AA =
+  final def tilesMapOptionAll[A, AA <: ArrBase[A]](f: TileT => Option[A])(implicit build: ArrBuilder[A, AA]): AA =
   { val buff = build.newBuff()
     foreachTileAll { t =>
       f(t) match {
@@ -258,7 +258,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
   /** For all Sides call side effecting function on the Tile side's Cood. */
   @inline final def foreachSidesCoodAll(f: Cood => Unit): Unit = foreachSidesXYAll((x, y) => f(Cood(x, y)))
   
-  def foreachSideCoodPDMapAll[A <: ValueNElem, M <: ValueNsSeq[A]](f: Cood => A)(implicit ev: ValueNsDataPersist[A, M]): M =
+  def foreachSideCoodPDMapAll[A <: ElemValueN, M <: ArrValueNs[A]](f: Cood => A)(implicit ev: ValueNsDataPersist[A, M]): M =
   {
     val acc: ArrayBuffer[ev.VT] = ev.newBuffer
     foreachSidesCoodAll(c => ev.appendtoBuffer(acc, f (c)))      

@@ -6,6 +6,6 @@ class SideBooleans(val unsafeArr: Array[Boolean]) extends AnyVal
   def gridSetTrues(roords: Roords)(implicit grid: TileGridOld): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
   def gridSetTrues(roords: Roord*)(implicit grid: TileGridOld): Unit = roords.foreach(r => unsafeArr(grid.sideArrIndex(r)) = true)
 
-  def gridMap[A, AA <: SeqImut[A]](f: (Roord, Boolean) => A)(implicit grid: TileGridOld, build: SeqBuilder[A, AA]): AA =
+  def gridMap[A, AA <: ArrBase[A]](f: (Roord, Boolean) => A)(implicit grid: TileGridOld, build: ArrBuilder[A, AA]): AA =
     grid.sidesMap(r => f(r, unsafeArr(grid.sideArrIndex(r))))
 }

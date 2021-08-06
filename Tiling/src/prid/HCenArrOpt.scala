@@ -39,7 +39,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
   def cForeachSome(f: (A, HCen) => Unit)(implicit grid: HGrid): Unit = grid.foreach { hc => f(unsafeArr(grid.arrIndex(hc)), hc) }
 
   /** Coordinate-map. Maps the this Arr of Opt values, with their respective [[HCen]] coordinates to an Arr of type B. */
-  def cMap[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grid: HGrid, build: SeqBuilder[B, ArrT]): ArrT =
+  def cMap[B, ArrT <: ArrBase[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { hc =>
@@ -52,7 +52,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
    *  a standard Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArr]] was created. */
-  def map[B, ArrT <: SeqImut[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: SeqBuilder[B, ArrT]): ArrT =
+  def map[B, ArrT <: ArrBase[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
@@ -68,7 +68,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 
   /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
    *  Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArrOpt]] was created. */
-  def mapSomes[B, ArrT <: SeqImut[B]](f: A => B)(implicit build: SeqBuilder[B, ArrT]): ArrT =
+  def mapSomes[B, ArrT <: ArrBase[B]](f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     unsafeArr.foreach { a =>
@@ -82,7 +82,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 
   /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
    *  an immutable Array based collection of type ArrT, the second type parameter. */
-  def cMapSomes[B, ArrT <: SeqImut[B]](f: (A, HCen) => B)(implicit grid: HGrid, build: SeqBuilder[B, ArrT]): ArrT =
+  def cMapSomes[B, ArrT <: ArrBase[B]](f: (A, HCen) => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
@@ -97,7 +97,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 
   /** Coordinate map Nones. Map the None values respective [[HCen]] coordinates of this [[HCenArrOpt]] to type B, the first type parameter. Returns an
    * immutable Array based collection of type ArrT, the second type parameter. */
-  def cMapNones[B, ArrT <: SeqImut[B]](f: HCen => B)(implicit grid: HGrid, build: SeqBuilder[B, ArrT]): ArrT =
+  def cMapNones[B, ArrT <: ArrBase[B]](f: HCen => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
@@ -111,7 +111,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
   }
 
   /** Coordinate flatMap Somes. Maps and flattens each Some element with its associated [[HCen]] coordinate. It ignores the None values. */
-  def cFlatMapSomes[ArrT <: SeqImut[_]](f: (A, HCen) => ArrT)(implicit grid: HGrid, build: SeqFlatBuilder[ArrT]): ArrT =
+  def cFlatMapSomes[ArrT <: ArrBase[_]](f: (A, HCen) => ArrT)(implicit grid: HGrid, build: SeqFlatBuilder[ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { hc =>

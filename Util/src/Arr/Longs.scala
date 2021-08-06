@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Long]]s. */
-class Longs(val arrayUnsafe: Array[Long]) extends AnyVal with SeqImut[Long]
+class Longs(val arrayUnsafe: Array[Long]) extends AnyVal with ArrBase[Long]
 { type ThisT = Longs
 
   /** Copy's the backing Array[[Long]] to a new Array[char]. End users should rarely have to use this method. */
@@ -28,7 +28,7 @@ object Longs
 { def apply(input: Long*): Longs = new Longs(input.toArray)
 }
 
-object LongsBuild extends SeqBuilder[Long, Longs] with SeqFlatBuilder[Longs]
+object LongsBuild extends ArrBuilder[Long, Longs] with SeqFlatBuilder[Longs]
 { type BuffT = LongsBuff
   override def newArr(length: Int): Longs = new Longs(new Array[Long](length))
   override def arrSet(arr: Longs, index: Int, value: Long): Unit = arr.arrayUnsafe(index) = value

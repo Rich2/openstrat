@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be widened. */
-final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with SeqImut[Int]
+final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with ArrBase[Int]
 { type ThisT = Ints
 
   /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */
@@ -67,7 +67,7 @@ object Ints
     }
 }
 
-object IntsBuild extends SeqBuilder[Int, Ints] with SeqFlatBuilder[Ints]
+object IntsBuild extends ArrBuilder[Int, Ints] with SeqFlatBuilder[Ints]
 { type BuffT = IntBuff
   override def newArr(length: Int): Ints = new Ints(new Array[Int](length))
   override def arrSet(arr: Ints, index: Int, value: Int): Unit = arr.arrayUnsafe(index) = value

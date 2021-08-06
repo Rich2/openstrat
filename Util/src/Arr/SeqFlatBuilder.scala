@@ -3,9 +3,9 @@ package ostrat
 import reflect.ClassTag, scala.annotation.unused
 
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
- *  you control should go in the companion object of BB. This is different from the related [[SeqBuilder]][BB] type class where the instance
+ *  you control should go in the companion object of BB. This is different from the related [[ArrBuilder]][BB] type class where the instance
  *  should go into the B companion object. */
-trait SeqFlatBuilder[ArrT <: SeqImut[_]] extends SeqBuilderCommon[ArrT]
+trait SeqFlatBuilder[ArrT <: ArrBase[_]] extends ArrBuilderCommon[ArrT]
 
 /** Companion object for ArrTFlatBuilder, contains implicit instances for atomic value classes. */
 object SeqFlatBuilder extends SeqFlatBuilderLowPriority
@@ -23,5 +23,5 @@ trait SeqFlatBuilderLowPriority
 { /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBuildBase classes. It is placed in this low priority trait
    * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
    * specialist Arr classes. */
- implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ValueNElem]#L[A]): SeqFlatBuilder[Arr[A]] = new AnyBuild[A]
+ implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ElemValueN]#L[A]): SeqFlatBuilder[Arr[A]] = new AnyBuild[A]
 }

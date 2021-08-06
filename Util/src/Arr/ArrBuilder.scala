@@ -2,8 +2,8 @@
 package ostrat
 import reflect.ClassTag, annotation.unused
 
-/** A common trait inherited by [[SeqBuilder]] and [[SeqFlatBuilder]]. */
-trait SeqBuilderCommon[ArrB <: SeqImut[_]]
+/** A common trait inherited by [[ArrBuilder]] and [[SeqFlatBuilder]]. */
+trait ArrBuilderCommon[ArrB <: ArrBase[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compilte time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
@@ -20,7 +20,7 @@ trait SeqBuilderCommon[ArrB <: SeqImut[_]]
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait SeqBuilder[B, ArrB <: SeqImut[B]] extends SeqBuilderCommon[ArrB]
+trait ArrBuilder[B, ArrB <: ArrBase[B]] extends ArrBuilderCommon[ArrB]
 { type BuffT <: SeqGen[B]
   def newArr(length: Int): ArrB
   def arrSet(arr: ArrB, index: Int, value: B): Unit
@@ -49,23 +49,23 @@ trait SeqBuilder[B, ArrB <: SeqImut[B]] extends SeqBuilderCommon[ArrB]
 }
 
 /** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */
-object SeqBuilder extends ArrBuildLowPriority
-{ implicit val intsImplicit: SeqBuilder[Int, Ints] = IntsBuild
-  implicit val doublesImplicit: SeqBuilder[Double, Dbls] = DblsBuild
-  implicit val longImplicit: SeqBuilder[Long, Longs] = LongsBuild
-  implicit val floatImplicit: SeqBuilder[Float, Floats] = FloatsBuild
-  implicit val stringImplicit: SeqBuilder[String, Strings] = StringsBuild
-  implicit val booleansImplicit: SeqBuilder[Boolean, Booleans] = BooleansBuild
+object ArrBuilder extends ArrBuilderLowPriority
+{ implicit val intsImplicit: ArrBuilder[Int, Ints] = IntsBuild
+  implicit val doublesImplicit: ArrBuilder[Double, Dbls] = DblsBuild
+  implicit val longImplicit: ArrBuilder[Long, Longs] = LongsBuild
+  implicit val floatImplicit: ArrBuilder[Float, Floats] = FloatsBuild
+  implicit val stringImplicit: ArrBuilder[String, Strings] = StringsBuild
+  implicit val booleansImplicit: ArrBuilder[Boolean, Booleans] = BooleansBuild
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from
  * the implicit instance for [[Arr]]. */
 trait SpecialT extends Any
 
-trait ArrBuildLowPriority
+trait ArrBuilderLowPriority
 {
   /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
    * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
    * specialist Arr classes. */
-  implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): SeqBuilder[B, Arr[B]] = new AnyBuild[B]
+  implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrBuilder[B, Arr[B]] = new AnyBuild[B]
 }

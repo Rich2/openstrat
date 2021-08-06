@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 2 [[Double]]s. These are used as elements in [[Dbl2sSeq]] Array[Double] based collections. */
-trait Dbl2Elem extends Any with DblNElem
+trait Dbl2Elem extends Any with ElemDblN
 { def dbl1: Double
   def dbl2: Double
   def dblsEqual(that: Dbl2Elem): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2
@@ -41,7 +41,7 @@ trait Dbl2sData[A <: Dbl2Elem] extends Any with DblNsData[A]
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[Dbl2Elem]]s. */
-trait Dbl2sSeq[A <: Dbl2Elem] extends Any with DblNsSeq[A] with Dbl2sData[A]
+trait Dbl2sSeq[A <: Dbl2Elem] extends Any with ArrDblNs[A] with Dbl2sData[A]
 { type ThisT <: Dbl2sSeq[A]
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
@@ -64,7 +64,7 @@ trait Dbl2sSeq[A <: Dbl2Elem] extends Any with DblNsSeq[A] with Dbl2sData[A]
   override def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2)))
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[SeqBuilder]] type
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait Dbl2sSeqBuilder[B <: Dbl2Elem, ArrB <: Dbl2sSeq[B]] extends DblNsSeqBuilder[B, ArrB]
@@ -118,7 +118,7 @@ trait Dbl2sDataCompanion[A <: Dbl2Elem, ArrA <: Dbl2sData[A]] extends DblNsDataC
   }
 }
 
-/** Persists and assists in building [[DblNsSeq]]s. */
+/** Persists and assists in building [[ArrDblNs]]s. */
 abstract class Dbl2sDataPersist[A <: Dbl2Elem, M <: Dbl2sData[A]](typeStr: String) extends DblNsDataPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =

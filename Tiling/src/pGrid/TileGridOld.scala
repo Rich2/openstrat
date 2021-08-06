@@ -95,7 +95,7 @@ trait TileGridOld
   def rowForeachTile(y: Int)(f: Roord => Unit): Unit
 
   /** Maps from all tile Roords to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
-  final def map[A, ArrT <: SeqImut[A]](f: Roord => A)(implicit build: SeqBuilder[A, ArrT]): ArrT =
+  final def map[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuilder[A, ArrT]): ArrT =
   { val res = build.newArr(numOfTiles)
     foreach{ roord =>
       build.arrSet(res, arrIndex(roord), f(roord))
@@ -104,7 +104,7 @@ trait TileGridOld
   }
 
   /** Maps from all tile Roords with index to an Arr of A. The Arr produced can be accessed by its Roord from this grid Class. */
-  final def iMap[A, ArrT <: SeqImut[A]](f: (Roord, Int) => A)(implicit build: SeqBuilder[A, ArrT]): ArrT =
+  final def iMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuilder[A, ArrT]): ArrT =
   { val res = build.newArr(numOfTiles)
     var i = 0
     foreach{ roord =>
@@ -116,14 +116,14 @@ trait TileGridOld
 
   /** flatMaps from all tile Roords to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
    *  structure is lost in the flatMap operation. */
-  final def flatMap[ArrT <: SeqImut[_]](f: Roord => ArrT)(implicit build: SeqFlatBuilder[ArrT]): ArrT =
+  final def flatMap[ArrT <: ArrBase[_]](f: Roord => ArrT)(implicit build: SeqFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numOfTiles)
     foreach{ roord => build.buffGrowArr(buff, f(roord))}
     build.buffToArr(buff)
   }
 
   /** flatmaps from all tile Roords to an Arr of type ArrT, removing all duplicate elements. */
-  final def flatMapNoDupicates[A, ArrT <: SeqImut[A]](f: Roord => ArrT)(implicit build: SeqBuilder[A, ArrT]): ArrT =
+  final def flatMapNoDupicates[A, ArrT <: ArrBase[A]](f: Roord => ArrT)(implicit build: ArrBuilder[A, ArrT]): ArrT =
   { val buff = build.newBuff(numOfTiles)
     foreach { roord =>
       val newVals = f(roord)
@@ -137,7 +137,7 @@ trait TileGridOld
   final def foreachRVec(f: (Roord, Pt2) => Unit): Unit = foreach(r => f(r, roordToVec2Rel(r)))
 
   /** maps over each tile's Roord and its Polygon. */
-  final def mapRPolygons[A, ArrT <: SeqImut[A]](f: (Roord, PolygonGen) => A)(implicit build: SeqBuilder[A, ArrT]): ArrT =
+  final def mapRPolygons[A, ArrT <: ArrBase[A]](f: (Roord, PolygonGen) => A)(implicit build: ArrBuilder[A, ArrT]): ArrT =
     map { roord =>
       val vcs = tileVertRoords(roord)
       val vvs = vcs.map(c => roordToPt2(c))
@@ -186,7 +186,7 @@ trait TileGridOld
   /* Methods that operate on individual tiles. */
 
   /** Sets element in a flat Tiles Arr according to its Roord. */
-  def setTile[A](roord: Roord, value: A)(implicit arr: SeqImut[A]): Unit = arr.unsafeSetElem(arrIndex(roord), value)
+  def setTile[A](roord: Roord, value: A)(implicit arr: ArrBase[A]): Unit = arr.unsafeSetElem(arrIndex(roord), value)
 
   /** Converts Roord to a Vec2. For a square grid this will be a simple 1 to 1 map. */
   def roordToPt2(roord: Roord): Pt2
@@ -241,7 +241,7 @@ trait TileGridOld
   final def sidesForeach(f: Roord => Unit): Unit = sideRowForeach(y => rowForeachSide(y)(f))
 
   /** Maps from each sides Roord to an ArrBase of A. */
-  def sidesMap[A, ArrT <: SeqImut[A]](f: Roord => A)(implicit build: SeqBuilder[A, ArrT]) =
+  def sidesMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuilder[A, ArrT]) =
   { val res = build.newArr(numOfSides)
     var count = 0
     sidesForeach{r => build.arrSet(res, count, f(r)); count += 1 }
@@ -249,7 +249,7 @@ trait TileGridOld
   }
 
   /** Maps from each sides Roord to an ArrBase of A. */
-  def sidesIMap[A, ArrT <: SeqImut[A]](f: (Roord, Int) => A)(implicit build: SeqBuilder[A, ArrT]) =
+  def sidesIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuilder[A, ArrT]) =
   { val res = build.newArr(numOfSides)
     var count = 0
     sidesForeach{r => build.arrSet(res, count, f(r, count)); count += 1 }
@@ -323,7 +323,7 @@ trait TileGridOld
   def rowForeachVert(y: Int)(f: Roord => Unit): Unit
 
   /** maps from each Vertex's Roord to a value of type A. Returns a specialiased immutable Arr. */
-  def vertsMap[A, ArrT <: SeqImut[A]](f: Roord => A)(implicit build: SeqBuilder[A, ArrT]) =
+  def vertsMap[A, ArrT <: ArrBase[A]](f: Roord => A)(implicit build: ArrBuilder[A, ArrT]) =
   { val res = build.newArr(numOfVerts)
     var count = 0
     vertsForeach{r => build.arrSet(res, count, f(r)); count += 1 }
@@ -331,7 +331,7 @@ trait TileGridOld
   }
 
   /** Maps from each vertex's Roord with index, to a specialised Arr of type A. */
-  def vertsIMap[A, ArrT <: SeqImut[A]](f: (Roord, Int) => A)(implicit build: SeqBuilder[A, ArrT]) =
+  def vertsIMap[A, ArrT <: ArrBase[A]](f: (Roord, Int) => A)(implicit build: ArrBuilder[A, ArrT]) =
   { val res = build.newArr(numOfVerts)
     var count = 0
     vertsForeach{r => build.arrSet(res, count, f(r, count)); count += 1 }
