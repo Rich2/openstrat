@@ -21,6 +21,8 @@ trait DataIntNs[A <: ElemIntN] extends Any with DataValueNs[A]
     dataIForeach{ (el, i) => res.unsafeSetElem(elemsNum - 1 - i, el)}
     res
   }
+  /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
+  final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemProdSize))
 }
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
@@ -28,10 +30,8 @@ trait DataIntNs[A <: ElemIntN] extends Any with DataValueNs[A]
 trait ArrIntNs[A <: ElemIntN] extends Any with ArrValueNs[A] with DataIntNs[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: ArrIntNs[A]
-
-  /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
-  final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemProdSize))
 }
+
 /** Trait for creating the ArrTBuilder type class instances for [[ArrIntNs]] final classes. Instances for the [[ArrBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
@@ -49,7 +49,7 @@ trait ArrIntNsBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsBuil
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntNs]] final classes. Instances for [[SeqFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait IntNsArrFlatBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsFlatBuilder[B, ArrB]
+trait ArrIntNsFlatBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsFlatBuilder[B, ArrB]
 { type BuffT <:  BuffIntNs[B]
   def fromIntArray(inp: Array[Int]): ArrB
 

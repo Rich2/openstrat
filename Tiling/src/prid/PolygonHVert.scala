@@ -2,7 +2,7 @@
 package ostrat; package prid
 import geom._
 
-class PolygonHVert(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
+class PolygonHVert(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike with PolygonInt2s[HVert]
 { override type ThisT = PolygonHVert
   override def typeStr: String = "HVertsPolygon"
   override def unsafeFromArray(array: Array[Int]): PolygonHVert = new PolygonHVert(array)
@@ -13,14 +13,14 @@ class PolygonHVert(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
   def toPolygon(f: HVert => Pt2): Polygon =
   {
     val res = PolygonGen.uninitialised(elemsNum)
-    iForeach((hv, i) => res.unsafeSetElem(i, f(hv)))
+    dataIForeach((hv, i) => res.unsafeSetElem(i, f(hv)))
     res
   }
 
   def combine(operand: PolygonHVert): Option[PolygonHVert] =
   {
     var starts: Option[(Int, Int)] = None
-    val a = apply(0)
+    val a = indexData(0)
     ???
   }
 }

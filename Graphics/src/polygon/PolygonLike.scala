@@ -36,6 +36,7 @@ trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with DataDb
 trait PolygonDbl3s[VT <: ElemDbl3] extends Any with PolygonDblNs[VT] with DataDbl3s[VT]
 
 trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with DataIntNs[VT]
+trait PolygonInt2s[VT <: ElemInt2] extends Any with PolygonIntNs[VT] with DataInt2s[VT]
 
 /** A common trait inherited by [[PolygonBuilder]] and [[PolygonFlatBuilder]]. */
 trait PolygonBuilderCommon[BB <: PolygonLike[_]]

@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegs(val arrayUnsafe: Array[Double]) extends Dbl4sSeq[LineSeg] with AffinePreserve
+class LineSegs(val arrayUnsafe: Array[Double]) extends ArrDbl4s[LineSeg] with AffinePreserve
 { type ThisT = LineSegs
   def unsafeFromArray(array: Array[Double]): LineSegs = new LineSegs(array)
   override def typeStr: String = "Line2s"
@@ -17,17 +17,17 @@ class LineSegs(val arrayUnsafe: Array[Double]) extends Dbl4sSeq[LineSeg] with Af
 }
 
 /** Companion object for the LineSegs class. */
-object LineSegs extends Dbl4sDataCompanion[LineSeg, LineSegs]
+object LineSegs extends DataDbl4sCompanion[LineSeg, LineSegs]
 {
   implicit val factory: Int => LineSegs = i => new LineSegs(new Array[Double](i * 4))
 
-  implicit val persistImplicit: Dbl4sDataPersist[LineSeg, LineSegs] = new Dbl4sDataPersist[LineSeg, LineSegs]("Line2s")
+  implicit val persistImplicit: DataDbl4sPersist[LineSeg, LineSegs] = new DataDbl4sPersist[LineSeg, LineSegs]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegs = new LineSegs(value)
 
     override def showT(obj: LineSegs, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrBuildImplicit: SeqFlatBuilder[LineSegs] = new Dbl4sArrFlatBuilder[LineSeg, LineSegs]
+  implicit val arrArrBuildImplicit: SeqFlatBuilder[LineSegs] = new ArrDbl4sFlatBuilder[LineSeg, LineSegs]
   { type BuffT = Line2sBuff
     override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)
@@ -37,6 +37,6 @@ object LineSegs extends Dbl4sDataCompanion[LineSeg, LineSegs]
 }
 
 /** Efficient expandable buffer for Line2s. */
-class Line2sBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with Dbl4sBuffer[LineSeg]
+class Line2sBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl4s[LineSeg]
 { override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
 }

@@ -3,7 +3,7 @@ package ostrat
 import geom._, pWeb._, collection.mutable.ArrayBuffer
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
-class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
+class Colour(val argbValue: Int) extends AnyVal with FillFacet with ElemInt1
 { 
   override def toString: String = Colour.persistImplicit.strT(this)
 
@@ -110,7 +110,7 @@ object Colour
     def strT(obj: Colour): String = Colour.valueToStr.get(obj).fold(obj.hexStr)(c => c)
   }
 
-  implicit val arrBuildImplicit: ArrBuilder[Colour, Colours] = new Int1sArrBuilder[Colour, Colours]
+  implicit val arrBuildImplicit: ArrBuilder[Colour, Colours] = new ArrInt1sBuilder[Colour, Colours]
   { type BuffT = ColourBuff
     override def fromIntArray(inp: Array[Int]): Colours = new Colours(inp)
 

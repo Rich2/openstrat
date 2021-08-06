@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer, Colour.Black
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
 final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineLike with CurveSeg with
-  Show2[Pt2, Pt2] with Dbl4Elem with AffinePreserve
+  Show2[Pt2, Pt2] with ElemDbl4 with AffinePreserve
 { override type ThisT = LineSeg
   override def typeStr: String = "LineSeg"
   override def name1: String = "startPt"
@@ -112,7 +112,7 @@ object LineSeg
   implicit val persistImplicit: Persist[LineSeg] =  new Persist2Elem[Pt2, Pt2, LineSeg]("Line2", "pStart", "pEnd", apply)
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 
-  implicit val line2sBuildImplicit: Dbl4sArrBuilder[LineSeg, LineSegs] = new Dbl4sArrBuilder[LineSeg, LineSegs]
+  implicit val line2sBuildImplicit: ArrDbl4sBuilder[LineSeg, LineSegs] = new ArrDbl4sBuilder[LineSeg, LineSegs]
   { type BuffT = Line2sBuff
     override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)
