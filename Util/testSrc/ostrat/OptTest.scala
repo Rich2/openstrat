@@ -4,8 +4,7 @@ import utest._
 
 object OptTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     def f(ss: OptRef[String]): Int = ss.fld(-1, _.length)
     val n1: OptRef[String] = NoRef
     val n2 = OptRef("Hello")

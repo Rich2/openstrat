@@ -4,8 +4,7 @@ import utest._
 
 object CommentTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     val s1 = "//".parseTokens
     val s2 = "x = 5//".parseTokens
     val s3 = "x = 5//Some blurb".parseTokens

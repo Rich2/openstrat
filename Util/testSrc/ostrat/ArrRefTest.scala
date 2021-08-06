@@ -8,8 +8,7 @@ object ArrRefTest extends TestSuite
   case class MyA(i: Int) extends MyT
   case class MyB(i: Int) extends MyT
 
-  val tests = Tests
-  {
+  val tests = Tests {
     val myAArr1: Arr[MyA] = Arr(MyA(1), MyA(2), MyA(3))
     val myBArr1: Arr[MyB] = Arr(MyB(4), MyB(5))
     val myTArr1: Arr[MyT] = myAArr1 ++ myBArr1

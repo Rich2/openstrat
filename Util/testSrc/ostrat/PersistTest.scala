@@ -23,8 +23,7 @@ object PersistTest extends TestSuite
   { //implicit val persist: UnShow[My2] = Persist2[List[Int], String, My2]("My2", "ints", _.ints, "myStr", _.myStr, apply)
   }
 
-  val tests = Tests
-  {
+  val tests = Tests {
     val aa: TestClass = TestObjA
     val aaStr: String = "TestObjA"
     val str1: String = "I am a String"

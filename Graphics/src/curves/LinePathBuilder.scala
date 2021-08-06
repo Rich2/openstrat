@@ -78,9 +78,9 @@ trait Dbl2sLinePathBuilder[B <: ElemDbl2, ArrB <: LinePathDbl2s[B]] extends DblN
 }
 
 /** Trait for creating the line path type class instances for [[Dbl3Arr]] final classes. Instances for the [[DataBuilder]] type class, for classes /
- *  traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called B, because it
+ *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called B, because it
  *  corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait Dbl3sLinePathBuilder[B <: Dbl3Elem, ArrB <: LinePathDbl3s[B]] extends DblNsLinePathBuilder[B, ArrB]
+trait Dbl3sLinePathBuilder[B <: ElemDbl3, ArrB <: LinePathDbl3s[B]] extends DblNsLinePathBuilder[B, ArrB]
 { type BuffT <: Dbl3sBuffer[B]
   final override def elemProdSize = 3
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl3

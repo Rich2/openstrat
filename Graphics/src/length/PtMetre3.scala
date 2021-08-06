@@ -3,7 +3,7 @@ package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer
 
 /** 3 dimensional point specified using metres as units rather than pure numbers. */
-final class PtMetre3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends Dbl3Elem
+final class PtMetre3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ElemDbl3
 { def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetres.toString, yMetres.toString, zMetres.toString)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]

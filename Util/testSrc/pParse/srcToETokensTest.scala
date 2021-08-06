@@ -4,8 +4,8 @@ import utest._
 
 object srcToETokensTest extends TestSuite
 { 
-  val tests = Tests
-  { val Sp1 = StrPosn(1, 1)
+  val tests = Tests {
+    val Sp1 = StrPosn(1, 1)
     val Sp2 = StrPosn(1, 2)
     val Sp4 = StrPosn(1, 4)
 

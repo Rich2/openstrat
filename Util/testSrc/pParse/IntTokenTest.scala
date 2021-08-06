@@ -10,8 +10,7 @@ object IntTokenTest extends TestSuite
   val Sp3 = StrPosn(1, 3)
   val Sp44 = StrPosn(4, 4)
 
-  val tests = Tests
-  {
+  val tests = Tests {
     val it1 = NatDeciToken(Sp1, "13")
     val it2 = NatDeciToken(Sp44, "2147483647")
 

@@ -16,8 +16,7 @@ object PersistOptionTest extends TestSuite
   
   case class Test2(t1: Test1, t2: Test1)
   
-  val tests = Tests
-  {
+  val tests = Tests {
     /*'None
     {
       None.str ==> ""

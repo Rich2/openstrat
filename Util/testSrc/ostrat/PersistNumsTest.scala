@@ -4,8 +4,7 @@ import utest._
 
 object PersistNumsTest  extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     "Ints" -
     {
       5.str ==> "5"

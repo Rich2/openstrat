@@ -33,7 +33,7 @@ trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with Data
 
 trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DataDblNs[VT]
 trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with DataDbl2s[VT]
-trait PolygonDbl3s[VT <: Dbl3Elem] extends Any with PolygonDblNs[VT] with Dbl3sData[VT]
+trait PolygonDbl3s[VT <: ElemDbl3] extends Any with PolygonDblNs[VT] with Dbl3sData[VT]
 
 trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with DataIntNs[VT]
 

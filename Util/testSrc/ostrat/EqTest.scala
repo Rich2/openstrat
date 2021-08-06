@@ -4,8 +4,7 @@ import utest._
 
 object EqTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     val d1 = 1.0 / 3
     "Test1" -
     { assert(4.0 equ 4.0)

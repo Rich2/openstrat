@@ -4,8 +4,7 @@ import utest._
 
 object ParseTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     //val settingStr = "x = -5; y = 7; true"
 
     "Test1" -

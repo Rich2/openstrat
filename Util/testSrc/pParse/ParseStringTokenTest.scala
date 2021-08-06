@@ -19,8 +19,7 @@ object ParseStringTokenTest extends TestSuite
   val chs3 = s3.toChars
   val r3 =  parseStringToken(chs0.offsetter(4), StrPosn(1, 5))(chs3)
 
-  val tests = Tests
-  {
+  val tests = Tests {
     "Test1" -
     {
       assertMatch(r0){case Good3(CharsOff(2), StrPosn(1, 3), StringToken(p1, s0)) => }

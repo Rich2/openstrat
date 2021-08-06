@@ -4,8 +4,7 @@ import utest._
 
 object PersistCollectionsTest  extends TestSuite
 { 
-  val tests = Tests
-  { 
+  val tests = Tests {
     val l1 = List(-1, -2, -30)
     val l1Comma: String = "-1, -2, -30"
     val l2: List[Int] = List(4, 5, 6)

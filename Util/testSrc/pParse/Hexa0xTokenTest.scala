@@ -20,8 +20,7 @@ object Hexa0xTokenTest extends TestSuite
   val r3 = srcToETokens.str("0xCG3")
   deb(r3.toString +" This is short")
 
-  val tests = Tests
-  {
+  val tests = Tests {
     "Parse" -
     {
       assertMatch(r1){ case GoodArr1(Ht1) => }

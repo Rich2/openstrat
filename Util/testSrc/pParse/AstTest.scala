@@ -13,8 +13,7 @@ object AstTest extends TestSuite
   deb(a1.get.elemsLenStr)
  // deb(w1.toString)
 
-  val tests = Tests
-  {
+  val tests = Tests {
     "Test1" -
     {
       //t1 ==> Good(t3)

@@ -5,8 +5,7 @@ import utest._
 /** Test object for our own immutable wrapper. Types have been deliberatly left unannotated to test demonstrated type inference.*/
 object ArrOtherTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     val ints1 = Ints(1, 2, 3, 4)
     val ints2 = Ints(5, 6, 7)
     val ints3 = ints1 ++ ints2

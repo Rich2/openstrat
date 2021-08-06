@@ -5,8 +5,7 @@ import utest._
 /** Not quite sure the logic of this test code. */
 object ValueTypesTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     def tt(pIn: (Int, Int)): (Int, Int) = twoIntsToDouble(pIn._1, pIn._2).to2Ints     
     val dd1 = (-5, 4)
     val dd2 = (23457, -2147483647)

@@ -4,8 +4,7 @@ import utest._
 
 object ExtensionsTest extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     test("test1")
     { -1 %% 2 ==> 1
       -1 %% 3 ==> 2

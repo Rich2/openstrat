@@ -4,8 +4,7 @@ import utest._
 
 object EMonBuildTest  extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     val a1: EMon[Int] = Good(5)
     val a2 = a1.map(_ * 11)
     val a3 = a2.map("Good " + _.toString)

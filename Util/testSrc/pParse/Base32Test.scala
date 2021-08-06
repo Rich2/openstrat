@@ -4,8 +4,7 @@ import utest._
 
 object Base32Test extends TestSuite
 {
-  val tests = Tests
-  {
+  val tests = Tests {
     "Base32" -
     { 0.base32 ==> "0"
       -0.base32 ==> "0"
