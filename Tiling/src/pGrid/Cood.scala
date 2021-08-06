@@ -57,7 +57,7 @@ object Cood
   def list(inp: (Int, Int)*): List[Cood] = inp.toList.map(p => Cood(p._1, p._2))
   implicit object CoodPersist extends Persist2Ints[Cood]("Cood", "x", "y", apply)
 
-  implicit val coodsBuildImplicit: Int2sArrBuilder[Cood, Coods] = new Int2sArrBuilder[Cood, Coods]
+  implicit val coodsBuildImplicit: ArrInt2sBuilder[Cood, Coods] = new ArrInt2sBuilder[Cood, Coods]
   { type BuffT = CoodBuff
     override def fromIntArray(array: Array[Int]): Coods = new Coods(array)
     override def fromIntBuffer(inp: Buff[Int]): CoodBuff = new CoodBuff(inp)

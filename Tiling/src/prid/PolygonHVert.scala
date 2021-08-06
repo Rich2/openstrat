@@ -25,7 +25,7 @@ class PolygonHVert(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike
   }
 }
 
-object PolygonHVert extends Int2sArrCompanion[HVert, PolygonHVert]
+object PolygonHVert extends DataInt2sCompanion[HVert, PolygonHVert]
 {
   //override def buff(initialSize: Int): Int2sBuffer[HVert, HVertPolygon] = ???
 

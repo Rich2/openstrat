@@ -8,7 +8,7 @@ import geom._
  * that not all values are legal Cood values on a HexGrid. This system allows river and naval units to move along the tile sides. The axis are named
  * y and c to distinguish them from the x and y of a Vec2. On a Hex grid there is not a simple 1 to 1 mapping between the Cood components and the
  * Vec2 components. */
-final class Roord private(val bLong: Long) extends AnyVal with Int2Elem
+final class Roord private(val bLong: Long) extends AnyVal with ElemInt2
 { @inline def y: Int = bLong.>>(32).toInt
   @inline def c: Int = bLong.toInt
   @inline def int1 = y
@@ -47,7 +47,7 @@ object Roord
   def fromLong(value: Long): Roord = new Roord(value)
   def unapply(rd: Roord): Option[(Int, Int)] = Some((rd.y, rd.c))
 
-  implicit val roordsBuildImplicit: Int2sArrBuilder[Roord, Roords] = new Int2sArrBuilder[Roord, Roords]
+  implicit val roordsBuildImplicit: ArrInt2sBuilder[Roord, Roords] = new ArrInt2sBuilder[Roord, Roords]
   { type BuffT = RoordBuff
     override def fromIntArray(array: Array[Int]): Roords = new Roords(array)
     override def fromIntBuffer(inp: Buff[Int]): RoordBuff = new RoordBuff(inp)

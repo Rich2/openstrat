@@ -2,9 +2,9 @@
 package ostrat; package prid
 
 /** An efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates. */
-class HSides(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sSeq[HSide]
+class HSides(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[HSide]
 { type ThisT = HSides
-  override def newElem(i1: Int, i2: Int): HSide = HSide(i1, i2)
+  override def dataElem(i1: Int, i2: Int): HSide = HSide(i1, i2)
 
   override def unsafeFromArray(array: Array[Int]): HSides = new HSides(array)
 
@@ -15,7 +15,7 @@ class HSides(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sSeq[HSide]
 
 /** Companion object for [[HSides]] trait efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates, contains factory apply and
  *  uninitialised methods. */
-object HSides extends Int2sArrCompanion[HSide, HSides]
+object HSides extends DataInt2sCompanion[HSide, HSides]
 {
   //override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): HSides = new HSides(array)

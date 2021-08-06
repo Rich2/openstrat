@@ -2,12 +2,12 @@
 package ostrat; package pGrid
 
 /** An array[Int] based collection for Roord. */
-class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sSeq[Roord]
+class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[Roord]
 { type ThisT = Roords
   override def fElemStr: Roord => String = _.toString
   override def unsafeFromArray(array: Array[Int]): Roords = new Roords(array)
   override def typeStr: String = "Roords" + foldLeft("")(_ + "; " + _.ycStr)
-  override def newElem(i1: Int, i2: Int): Roord = Roord.apply(i1, i2)
+  override def dataElem(i1: Int, i2: Int): Roord = Roord.apply(i1, i2)
 
   /*def filter(f: Roord => Boolean): Roords =
   { val tempArr = new Array[Int](array.length)
@@ -39,7 +39,7 @@ class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sSeq[Roord]
   }*/
 }
 
-object Roords extends Int2sArrCompanion[Roord, Roords]
+object Roords extends DataInt2sCompanion[Roord, Roords]
 {
   //override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Roords = new Roords(array)
@@ -50,14 +50,14 @@ object Roords extends Int2sArrCompanion[Roord, Roords]
     override def showT(obj: Roords, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: SeqFlatBuilder[Roords] = new Int2sArrFlatBuilder[Roord, Roords]
+  implicit val arrArrayImplicit: SeqFlatBuilder[Roords] = new ArrInt2sFlatBuilder[Roord, Roords]
   { type BuffT = RoordBuff
     override def fromIntArray(array: Array[Int]): Roords = new Roords(array)
     override def fromIntBuffer(inp: Buff[Int]): RoordBuff = new RoordBuff(inp)
   }
 }
 
-class RoordBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with Int2sBuffer[Roord, Roords]
+class RoordBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[Roord, Roords]
 { type ArrT = Roords
   override def intsToT(i1: Int, i2: Int): Roord = Roord(i1, i2)
 }

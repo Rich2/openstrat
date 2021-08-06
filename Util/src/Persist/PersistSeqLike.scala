@@ -72,8 +72,8 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistIterable[A, Seq[A]](e
 }
 
 
-/**  Class to persist specialised flat Array[Int] based collections of [[Int2Elem]]s. */
-abstract class Int2sArrPersist[A <: Int2Elem, M <: Int2sSeq[A]](typeStr: String) extends DataIntNsPersist[A, M](typeStr)
+/**  Class to persist specialised flat Array[Int] based collections of [[ElemInt2]]s. */
+abstract class Int2sArrPersist[A <: ElemInt2, M <: ArrInt2s[A]](typeStr: String) extends DataIntNsPersist[A, M](typeStr)
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value.int1

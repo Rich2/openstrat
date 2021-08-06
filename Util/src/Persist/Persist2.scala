@@ -33,7 +33,7 @@ trait Show2[A1, A2] extends Any with ShowProduct// with Prod2[A1, A2]
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[Show2IntsT]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show2T]]. */
-trait Show2Ints extends Any with Show2[Int, Int] with Int2Elem
+trait Show2Ints extends Any with Show2[Int, Int] with ElemInt2
 { final override implicit def showT1: ShowT[Int] = ShowT.intPersistImplicit
   final override implicit def showT2: ShowT[Int] = ShowT.intPersistImplicit
   final override def syntaxdepth: Int = 2
@@ -44,7 +44,7 @@ trait Show2Ints extends Any with Show2[Int, Int] with Int2Elem
 /** Trait for Show for product of 2 Ints. This trait is implemented directly by the type in question, unlike the corresponding [[Show2IntsT]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show2T]]. */
-trait Show2Base32s extends Any with Show2[Int, Int] with Int2Elem
+trait Show2Base32s extends Any with Show2[Int, Int] with ElemInt2
 { final override implicit def showT1: ShowT[Int] = ShowT.base32
   final override implicit def showT2: ShowT[Int] = ShowT.base32
   final override def syntaxdepth: Int = 2

@@ -1,14 +1,13 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+package ostrat; package pGrid
 
 /** An array[Int] based collection for Cood. To be replaced by [[Roords]]. */
-class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sSeq[Cood]
+class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[Cood]
 { type ThisT = Coods
   override def fElemStr: Cood => String = _.str
   override def unsafeFromArray(array: Array[Int]): Coods = new Coods(array)
   override def typeStr: String = "Coods"
-  override def newElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
+  override def dataElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
 
   def filter(f: Cood => Boolean): Coods =
   { val tempArr = new Array[Int](arrayUnsafe.length)
@@ -40,7 +39,7 @@ class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with Int2sSeq[Cood]
   }
 }
 
-object Coods extends Int2sArrCompanion[Cood, Coods]
+object Coods extends DataInt2sCompanion[Cood, Coods]
 {
   //override def buff(initialSize: Int): CoodBuff = new CoodBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Coods = new Coods(array)
@@ -51,14 +50,14 @@ object Coods extends Int2sArrCompanion[Cood, Coods]
     override def showT(obj: Coods, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: SeqFlatBuilder[Coods] = new Int2sArrFlatBuilder[Cood, Coods]
+  implicit val arrArrayImplicit: SeqFlatBuilder[Coods] = new ArrInt2sFlatBuilder[Cood, Coods]
   { type BuffT = CoodBuff
     override def fromIntArray(array: Array[Int]): Coods = new Coods(array)
     override def fromIntBuffer(inp: Buff[Int]): CoodBuff = new CoodBuff(inp)
   }
 }
 
-class CoodBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with Int2sBuffer[Cood, Coods]
+class CoodBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[Cood, Coods]
 { type ArrT = Coods
   override def intsToT(i1: Int, i2: Int): Cood = Cood(i1, i2)
 }
