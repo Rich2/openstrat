@@ -1,7 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-
-import scala.collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 trait PolygonLike[VertT] extends Any
 {
@@ -123,4 +122,27 @@ trait PolygonDbl3sBuilder[B <: ElemDbl3, BB <: PolygonDbl3s[B]] extends PolygonD
   final override def elemProdSize = 3
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl3
     arr.arrayUnsafe(index * 2 + 2) = value.dbl3 }
+}
+
+/** Trait for creating the builder type class instances for [[PolygonDblNs]] final classes. Instances for the [[PolygonBuilder]] type class, for classes
+ *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
+ *  ```map(f: A => B): ArrB``` function. */
+trait PolygonIntNsBuilder[B <: ElemIntN, BB <: PolygonIntNs[B] ] extends PolygonValueNsBuilder[B, BB]
+{ type BuffT <: BuffIntNs[B]
+  def fromIntArray(array: Array[Int]): BB
+  def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
+  final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
+  final override def newArr(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
+  final override def buffToArr(buff: BuffT): BB = fromIntArray(buff.unsafeBuff.toArray)
+  final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
+  final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
+}
+
+/** Trait for creating the line path type class instances for [[PolygonInt2s]] final classes. Instances for the [[PolygonInt2sBuilder]] type class,
+ *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemInt2]]. The first type parameter is called
+ *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+trait PolygonInt2sBuilder[B <: ElemInt2, BB <: PolygonInt2s[B]] extends PolygonIntNsBuilder[B, BB]
+{ type BuffT <: BuffInt2s[B]
+  final override def elemProdSize = 2
+  override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.int1; arr.arrayUnsafe(index * 2 + 1) = value.int2}
 }

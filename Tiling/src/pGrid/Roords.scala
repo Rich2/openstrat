@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
 
-/** An array[Int] based collection for Roord. */
+/** An array[Int] based collection for [[Roord]]. */
 class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[Roord]
 { type ThisT = Roords
   override def fElemStr: Roord => String = _.toString
@@ -57,7 +57,7 @@ object Roords extends DataInt2sCompanion[Roord, Roords]
   }
 }
 
-class RoordBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[Roord, Roords]
+class RoordBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[Roord]
 { type ArrT = Roords
   override def intsToT(i1: Int, i2: Int): Roord = Roord(i1, i2)
 }

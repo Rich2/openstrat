@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
 
-/** An array[Int] based collection for Cood. To be replaced by [[Roords]]. */
+/** An array[Int] based collection for Cood. To be replaced by [[prid.TCoord]]. */
 class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[Cood]
 { type ThisT = Coods
   override def fElemStr: Cood => String = _.str
@@ -57,7 +57,7 @@ object Coods extends DataInt2sCompanion[Cood, Coods]
   }
 }
 
-class CoodBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[Cood, Coods]
+class CoodBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[Cood]
 { type ArrT = Coods
   override def intsToT(i1: Int, i2: Int): Cood = Cood(i1, i2)
 }

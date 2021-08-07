@@ -2,7 +2,7 @@
 package ostrat
 import Colour._, collection.mutable.ArrayBuffer
 
-/** Specialist Array[Int] based class for [[Colour]]s. */
+/** Specialist Arr, immutable sequence Array[Int] based class for [[Colour]]s. */
 final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1s[Colour]
 { type ThisT = Colours
   override def unsafeFromArray(array: Array[Int]): Colours = new Colours(array)
@@ -11,6 +11,7 @@ final class Colours(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1s[Co
   override def fElemStr: Colour => String = _.str
 }
 
+/** Companion object for the [[Colours]] class, contains apply factory method and helper methods. */
 object Colours
 {
   def apply(inp: Colour *): Colours =
@@ -43,7 +44,7 @@ object Colours
 }
 
 /** ArrayBuffer based buffer class for Colours. */
-class ColourBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with BuffInt1s[Colour, Colours]
+class ColourBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with BuffInt1s[Colour]
 { def intToT(i1: Int): Colour = new Colour(i1)
 }
 

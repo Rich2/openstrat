@@ -45,7 +45,7 @@ trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A]
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
  *  the B in ```map(f: A => B): ArrB``` function. */
 trait ArrInt1sBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends ArrIntNsBuilder[A, ArrT]
-{ type BuffT <: BuffInt1s[A, ArrT]
+{ type BuffT <: BuffInt1s[A]
 
   final override def elemProdSize: Int = 1
   def newArray(length: Int): Array[Int] = new Array[Int](length)
@@ -57,7 +57,7 @@ trait ArrInt1sBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends ArrIntNsBuilde
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait ArrInt1sFlatBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends ArrIntNsFlatBuilder[A, ArrT]
-{ type BuffT <: BuffInt1s[A, ArrT]
+{ type BuffT <: BuffInt1s[A]
 
   final override def elemProdSize: Int = 1
   def newArray(length: Int): Array[Int] = new Array[Int](length)
@@ -66,7 +66,7 @@ trait ArrInt1sFlatBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends ArrIntNsFl
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt1]]s collections. */
-trait BuffInt1s[A <: ElemInt1, M <: ArrInt1s[A]] extends Any with BuffIntNs[A]
+trait BuffInt1s[A <: ElemInt1] extends Any with BuffIntNs[A]
 { type ArrT <: ArrInt1s[A]
   def intToT(value: Int): A
   def indexData(i1: Int): A = intToT(unsafeBuff(i1))

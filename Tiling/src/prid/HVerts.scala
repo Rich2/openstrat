@@ -63,7 +63,7 @@ object HVerts extends DataInt2sCompanion[HVert, HVerts]
   }
 }
 
-class HVertBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HVert, HVerts]
+class HVertBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HVert]
 { type ArrT = HVerts
   override def intsToT(i1: Int, i2: Int): HVert = HVert(i1, i2)
 }
