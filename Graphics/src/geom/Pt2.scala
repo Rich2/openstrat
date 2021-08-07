@@ -268,6 +268,12 @@ object Pt2
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
+  /*implicit val polygonBuildImplicit: PolygonDbl2sBuilder[Pt2, PolygonGen] = new PolygonDbl2sBuilder[Pt2, PolygonGen]
+  { override type BuffT = Pt2Buff
+    override def fromDblArray(array: Array[Double]): Polygon = new PolygonGen(array)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
+  }*/
+
   implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)

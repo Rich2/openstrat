@@ -62,6 +62,12 @@ object PtMetre2
     override def fromDblArray(array: Array[Double]): LinePathMetre = new LinePathMetre(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2MBuff = new Pt2MBuff(inp)
   }
+
+  implicit val polygonBuildImplicit: PolygonDbl2sBuilder[PtMetre2, PolygonMetre] = new PolygonDbl2sBuilder[PtMetre2, PolygonMetre]
+  { override type BuffT = Pt2MBuff
+    override def fromDblArray(array: Array[Double]): PolygonMetre = new PolygonMetre(array)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2MBuff = new Pt2MBuff(inp)
+  }
 }
 
 /** Specialised immutable Array based collection class for [[PtMetre2]]s. */

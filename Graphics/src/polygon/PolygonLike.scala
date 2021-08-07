@@ -105,3 +105,22 @@ trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblNs[B] ] extends Polygon
   final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
+
+/** Trait for creating the line path type class instances for [[PolygonDbl2s]] final classes. Instances for the [[PolygonDbl2sBuilder]] type class,
+ *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is called
+ *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+trait PolygonDbl2sBuilder[B <: ElemDbl2, BB <: PolygonDbl2s[B]] extends PolygonDblNsBuilder[B, BB]
+{ type BuffT <: BuffDbl2s[B]
+  final override def elemProdSize = 2
+  override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
+}
+
+/** Trait for creating the line path type class instances for [[PolygonDbl3s]] final classes. Instances for the [[PolygonDbl3sBuilder]] type class,
+ *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called
+ *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+trait PolygonDbl3sBuilder[B <: ElemDbl3, BB <: PolygonDbl3s[B]] extends PolygonDblNsBuilder[B, BB]
+{ type BuffT <: BuffDbl3s[B]
+  final override def elemProdSize = 3
+  override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl3
+    arr.arrayUnsafe(index * 2 + 2) = value.dbl3 }
+}

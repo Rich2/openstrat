@@ -136,4 +136,10 @@ object LatLong
     override def fromDblArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
+
+  implicit val polygonBuildImplicit: PolygonDbl2sBuilder[LatLong, PolygonLL] = new PolygonDbl2sBuilder[LatLong, PolygonLL]
+  { override type BuffT = LatLongBuff
+    override def fromDblArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
+  }
 }
