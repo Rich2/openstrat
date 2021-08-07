@@ -8,9 +8,9 @@ class HCoords(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[HCoord] 
 
   override def typeStr: String = "HCoords" + foldLeft("")(_ + "; " + _.rcStr)
 
-  override def dataElem(i1: Int, i2: Int): HCoord = ???
+  override def dataElem(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
 
-  override def fElemStr: HCoord => String = ???
+  override def fElemStr: HCoord => String = _.toString
 }
 
 class HCoordBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HCoord]
