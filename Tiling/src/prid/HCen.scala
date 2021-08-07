@@ -16,7 +16,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
   def verts: HVerts = HCen.vertsOfHex00.map(hv => hv + this)
 
   /** The polygon of this tile, specified in [[HVert]] coordinates. */
-  def hVertPolygon: PolygonHVert = verts.toPolygon
+  def hVertPolygon: PolygonHC = verts.toPolygon
 
   /** The polygon of this hex tile if it is part of a regular grid. */
   def polygonReg: Polygon = verts.map(_.toPt2).toPolygon

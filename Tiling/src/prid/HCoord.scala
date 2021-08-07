@@ -1,8 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import geom._
-
-import scala.collection.mutable.ArrayBuffer
+import geom._, collection.mutable.ArrayBuffer
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends Any with TCoord
@@ -33,6 +31,12 @@ object HCoord
     case 2 if c.div4Rem2 => new HSide(r, c)
     case _ if r.isOdd & c.isEven => HVert(r, c)
     case _ => excep(s"$r, $c is not a valid Hex Grid coordinate.")
+  }
+
+  implicit val polygonBuildImplicit: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
+  { override type BuffT = HCoordBuff
+    override def fromIntArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
+    override def fromIntBuffer(inp: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(inp)
   }
 }
 

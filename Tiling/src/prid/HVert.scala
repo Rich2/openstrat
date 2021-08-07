@@ -2,6 +2,7 @@
 package ostrat; package prid
 import geom._, collection.mutable.ArrayBuffer
 
+/** A hex tile vertex coordinate. */
 class HVert private(val bLong: Long) extends AnyVal with HCoord with ElemInt2
 {
   @inline def r: Int = bLong.>>(32).toInt
@@ -36,11 +37,5 @@ object HVert
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVerts = new HVerts(array)
     override def fromIntBuffer(inp: Buff[Int]): HVertBuff = new HVertBuff(inp)
-  }
-
-  implicit val polygonBuildImplicit: PolygonInt2sBuilder[HVert, PolygonHVert] = new PolygonInt2sBuilder[HVert, PolygonHVert]
-  { override type BuffT = HVertBuff
-    override def fromIntArray(array: Array[Int]): PolygonHVert = new PolygonHVert(array)
-    override def fromIntBuffer(inp: ArrayBuffer[Int]): HVertBuff = new HVertBuff(inp)
   }
 }
