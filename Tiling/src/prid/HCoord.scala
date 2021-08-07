@@ -2,6 +2,8 @@
 package ostrat; package prid
 import geom._
 
+import scala.collection.mutable.ArrayBuffer
+
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
 trait HCoord extends Any with TCoord
 {

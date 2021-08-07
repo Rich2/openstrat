@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import geom._
+import geom._, collection.mutable.ArrayBuffer
 
 class HVert private(val bLong: Long) extends AnyVal with HCoord with ElemInt2
 {
@@ -36,5 +36,11 @@ object HVert
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVerts = new HVerts(array)
     override def fromIntBuffer(inp: Buff[Int]): HVertBuff = new HVertBuff(inp)
+  }
+
+  implicit val polygonBuildImplicit: PolygonInt2sBuilder[HVert, PolygonHVert] = new PolygonInt2sBuilder[HVert, PolygonHVert]
+  { override type BuffT = HVertBuff
+    override def fromIntArray(array: Array[Int]): PolygonHVert = new PolygonHVert(array)
+    override def fromIntBuffer(inp: ArrayBuffer[Int]): HVertBuff = new HVertBuff(inp)
   }
 }
