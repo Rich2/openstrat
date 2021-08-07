@@ -64,7 +64,7 @@ trait HGrid extends TGrid
 
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */
-  final def flatMap[ArrT <: ArrBase[_]](f: HCen => ArrT)(implicit build: SeqFlatBuilder[ArrT]): ArrT =
+  final def flatMap[ArrT <: ArrBase[_]](f: HCen => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numCens)
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
     build.buffToArr(buff)
@@ -176,7 +176,7 @@ trait HGrid extends TGrid
 
   /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
    *  @group SidesGroup */
-  final def sidesFlatMap[ArrT <: ArrBase[_]](f: HSide => ArrT)(implicit build: SeqFlatBuilder[ArrT]): ArrT =
+  final def sidesFlatMap[ArrT <: ArrBase[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   {
     val buff = build.newBuff()// newArr(numSides)
     sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }

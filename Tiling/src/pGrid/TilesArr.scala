@@ -119,7 +119,7 @@ object TilesArr
       build.buffToArr(buff)
     }
 
-    def gridHeadsFlatMap[BB <: ArrBase[_]](f: (Roord, A) => BB)(implicit grid: TileGridOld, build: SeqFlatBuilder[BB]): BB =
+    def gridHeadsFlatMap[BB <: ArrBase[_]](f: (Roord, A) => BB)(implicit grid: TileGridOld, build: ArrFlatBuilder[BB]): BB =
     {
       val buff = build.newBuff()
       grid.foreach { r => thisRefs(r) match

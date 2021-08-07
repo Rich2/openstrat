@@ -139,7 +139,7 @@ object Arr
 }
 
 /** The default Immutable Array based collection builder for the Arr[A] class. */
-class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrBuilder[B, Arr[B]] with SeqFlatBuilder[Arr[B]]
+class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrBuilder[B, Arr[B]] with ArrFlatBuilder[Arr[B]]
 { type BuffT = AnyBuff[B]
   override def newArr(length: Int): Arr[B] = new Arr(new Array[B](length))
   override def arrSet(arr: Arr[B], index: Int, value: B): Unit = arr.unsafeArr(index) = value

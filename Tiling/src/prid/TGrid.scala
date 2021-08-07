@@ -64,7 +64,7 @@ trait TGrid
   }
 
   /** flatMaps over each row number. */
-  final def flatMapRows[ArrT <: ArrBase[_]](f: Int => ArrT)(implicit build: SeqFlatBuilder[ArrT]): ArrT =
+  final def flatMapRows[ArrT <: ArrBase[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numCens)
     foreachRow{ r => build.buffGrowArr(buff, f(r)) }
     build.buffToArr(buff)

@@ -28,7 +28,7 @@ object Longs
 { def apply(input: Long*): Longs = new Longs(input.toArray)
 }
 
-object LongsBuild extends ArrBuilder[Long, Longs] with SeqFlatBuilder[Longs]
+object LongsBuild extends ArrBuilder[Long, Longs] with ArrFlatBuilder[Longs]
 { type BuffT = LongsBuff
   override def newArr(length: Int): Longs = new Longs(new Array[Long](length))
   override def arrSet(arr: Longs, index: Int, value: Long): Unit = arr.arrayUnsafe(index) = value

@@ -44,7 +44,7 @@ object Pt2s extends DataDbl2sCompanion[Pt2, Pt2s]
   { override def fromArray(value: Array[Double]): Pt2s = new Pt2s(value)
   }
 
-  implicit val arrFlatBuilderImplicit: SeqFlatBuilder[Pt2s] =  new ArrDbl2sFlatBuilder[Pt2, Pt2s]
+  implicit val arrFlatBuilderImplicit: ArrFlatBuilder[Pt2s] =  new ArrDbl2sFlatBuilder[Pt2, Pt2s]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)

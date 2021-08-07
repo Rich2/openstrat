@@ -93,7 +93,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that tkaes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */
-  def sideFlatMap[BB <: ArrBase[_]](f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit grid: HGrid, build: SeqFlatBuilder[BB]): BB =
+  def sideFlatMap[BB <: ArrBase[_]](f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit grid: HGrid, build: ArrFlatBuilder[BB]): BB =
     grid.sidesFlatMap{ hs => hs.tiles match
     {
       case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))

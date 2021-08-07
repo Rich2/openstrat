@@ -48,7 +48,7 @@ trait ArrDbl3sBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsBuilde
   }
 }
 
-/** Trait for creating the [[SeqFlatBuilder]] type class instances for [[Dbl3Arr]] final classes. Instances for the  for classes / traits you
+/** Trait for creating the [[ArrFlatBuilder]] type class instances for [[Dbl3Arr]] final classes. Instances for the  for classes / traits you
  *  control, should go in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait Dbl3sArrFlatBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsFlatBuilder[B, ArrB]

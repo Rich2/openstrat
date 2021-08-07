@@ -73,7 +73,7 @@ trait ArrDbl2sBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsBuilde
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[SeqFlatBuilder] should go in the
+/** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[ArrFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait ArrDbl2sFlatBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsFlatBuilder[B, ArrB]

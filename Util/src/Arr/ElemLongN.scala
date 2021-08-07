@@ -24,7 +24,7 @@ trait BuffLongNs[A <: ElemLongN] extends Any with BuffValueNs[A]
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrLongNs]] final classes. Instances for the [[ArrBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 abstract class LongNsArrBuilders[B <: ElemLongN, ArrB <: ArrLongNs[B]](typeStr: String) extends DataValueNsPersist[B, ArrB](typeStr)
 { type VT = Long

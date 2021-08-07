@@ -47,7 +47,7 @@ trait ArrIntNsBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsBuil
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntNs]] final classes. Instances for [[SeqFlatBuilder] should go in the
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntNs]] final classes. Instances for [[ArrFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait ArrIntNsFlatBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsFlatBuilder[B, ArrB]
 { type BuffT <:  BuffIntNs[B]

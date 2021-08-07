@@ -25,7 +25,7 @@ object Dbls
 { def apply(input: Double*): Dbls = new Dbls(input.toArray)
 }
 
-object DblsBuild extends ArrBuilder[Double, Dbls] with SeqFlatBuilder[Dbls]
+object DblsBuild extends ArrBuilder[Double, Dbls] with ArrFlatBuilder[Dbls]
 { type BuffT = DblsBuff
   override def newArr(length: Int): Dbls = new Dbls(new Array[Double](length))
   override def arrSet(arr: Dbls, index: Int, value: Double): Unit = arr.arrayUnsafe(index) = value

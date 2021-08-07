@@ -116,7 +116,7 @@ trait TileGridOld
 
   /** flatMaps from all tile Roords to an Arr of type ArrT. The elements of this array can not be accessed from this gird class as the TileGrid
    *  structure is lost in the flatMap operation. */
-  final def flatMap[ArrT <: ArrBase[_]](f: Roord => ArrT)(implicit build: SeqFlatBuilder[ArrT]): ArrT =
+  final def flatMap[ArrT <: ArrBase[_]](f: Roord => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numOfTiles)
     foreach{ roord => build.buffGrowArr(buff, f(roord))}
     build.buffToArr(buff)

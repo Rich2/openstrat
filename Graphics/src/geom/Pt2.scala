@@ -268,11 +268,23 @@ object Pt2
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
-  /*implicit val polygonBuildImplicit: PolygonDbl2sBuilder[Pt2, PolygonGen] = new PolygonDbl2sBuilder[Pt2, PolygonGen]
+  implicit val polygonBuildImplicit: PolygonBuilder[Pt2, Polygon] = new PolygonBuilder[Pt2, Polygon]
   { override type BuffT = Pt2Buff
-    override def fromDblArray(array: Array[Double]): Polygon = new PolygonGen(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
-  }*/
+
+    override def newArr(length: Int): Polygon = ???
+
+    override def arrSet(arr: Polygon, index: Int, value: Pt2): Unit = ???
+
+    /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
+    override def buffGrow(buff: Pt2Buff, value: Pt2): Unit = ???
+
+    /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
+    override def buffGrowArr(buff: Pt2Buff, arr: Polygon): Unit = ???
+
+    override def newBuff(length: Int): Pt2Buff = ???
+
+    override def buffToArr(buff: Pt2Buff): Polygon = ???
+  }
 
   implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)

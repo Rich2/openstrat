@@ -47,7 +47,7 @@ class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     build.buffToArr(buff)
   }
 
-  def flatMapSomes[ArrT <: ArrBase[_]](f: (Roord, A) => ArrT)(implicit grid: TileGridOld, build: SeqFlatBuilder[ArrT]): ArrT =
+  def flatMapSomes[ArrT <: ArrBase[_]](f: (Roord, A) => ArrT)(implicit grid: TileGridOld, build: ArrFlatBuilder[ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { r =>

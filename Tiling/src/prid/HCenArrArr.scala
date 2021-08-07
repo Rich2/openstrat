@@ -41,7 +41,7 @@ class HCenArrArr[A](val unsafeArray: Array[Array[A]])
   }
 
   /** flatMaps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
-  def gridHeadsFlatMap[BB <: ArrBase[_]](f: (HCen, A) => BB)(implicit grid: HGrid, build: SeqFlatBuilder[BB]): BB =
+  def gridHeadsFlatMap[BB <: ArrBase[_]](f: (HCen, A) => BB)(implicit grid: HGrid, build: ArrFlatBuilder[BB]): BB =
   {
     val buff = build.newBuff()
     grid.foreach { r =>

@@ -111,7 +111,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
   }
 
   /** Coordinate flatMap Somes. Maps and flattens each Some element with its associated [[HCen]] coordinate. It ignores the None values. */
-  def cFlatMapSomes[ArrT <: ArrBase[_]](f: (A, HCen) => ArrT)(implicit grid: HGrid, build: SeqFlatBuilder[ArrT]): ArrT =
+  def cFlatMapSomes[ArrT <: ArrBase[_]](f: (A, HCen) => ArrT)(implicit grid: HGrid, build: ArrFlatBuilder[ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { hc =>

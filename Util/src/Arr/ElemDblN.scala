@@ -66,7 +66,7 @@ trait ArrDblNsBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ArrValueNsBuil
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDblNs]] final classes. Instances for the [[ArrBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait ArrDblNsFlatBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ArrValueNsFlatBuilder[B, ArrB]
 { type BuffT <: BuffDblNs[B]

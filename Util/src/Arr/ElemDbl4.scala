@@ -51,7 +51,7 @@ trait ArrDbl4sBuilder[B <: ElemDbl4, ArrB <: ArrDbl4s[B]] extends ArrDblNsBuilde
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl4]]. Instances for
- *  [[SeqFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
+ *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
 trait ArrDbl4sFlatBuilder[B <: ElemDbl4, ArrB <: ArrDbl4s[B]] extends ArrDblNsFlatBuilder[B, ArrB]
 { type BuffT <: BuffDbl4s[B]

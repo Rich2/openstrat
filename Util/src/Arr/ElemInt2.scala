@@ -38,7 +38,7 @@ trait ArrInt2sBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends ArrIntNsBuilde
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[SeqFlatBuilder] should go in the companion
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */
 trait ArrInt2sFlatBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends ArrIntNsFlatBuilder[B, ArrB]

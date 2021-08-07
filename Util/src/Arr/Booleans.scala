@@ -29,7 +29,7 @@ object Booleans
   def ofLength(length: Int): Booleans = new Booleans(new Array[Boolean](length))
 }
 
-object BooleansBuild extends ArrBuilder[Boolean, Booleans] with SeqFlatBuilder[Booleans]
+object BooleansBuild extends ArrBuilder[Boolean, Booleans] with ArrFlatBuilder[Booleans]
 { type BuffT = BooleanBuff
   override def newArr(length: Int): Booleans = new Booleans(new Array[Boolean](length))
   override def arrSet(arr: Booleans, index: Int, value: Boolean): Unit = arr.array(index) = value

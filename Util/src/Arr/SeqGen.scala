@@ -75,7 +75,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** Specialised flatMap to an immutable Arr. */
-  def flatMap[ArrB <: ArrBase[_]](f: A => ArrB)(implicit ev: SeqFlatBuilder[ArrB]): ArrB =
+  def flatMap[ArrB <: ArrBase[_]](f: A => ArrB)(implicit ev: ArrFlatBuilder[ArrB]): ArrB =
   {
     val buff: ev.BuffT = ev.newBuff()
     foreach{ a =>
@@ -121,7 +121,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** Specialised flatMap with index to an immutable Arr. */
-  def iFlatMap[ArrB <: ArrBase[_]](f: (A, Int) => ArrB)(implicit build: SeqFlatBuilder[ArrB]): ArrB =
+  def iFlatMap[ArrB <: ArrBase[_]](f: (A, Int) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
     while (i < elemsNum)
@@ -133,7 +133,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** Specialised flatMap with index to an immutable Arr. */
-  def iFlatMap[ArrB <: ArrBase[_]](iInit: Int = 0)(f: (A, Int) => ArrB)(implicit build: SeqFlatBuilder[ArrB]): ArrB =
+  def iFlatMap[ArrB <: ArrBase[_]](iInit: Int = 0)(f: (A, Int) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
     while (count < elemsNum)

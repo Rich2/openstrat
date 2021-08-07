@@ -96,10 +96,10 @@ trait ArrValueNsBuilder[B <: ElemValueN, ArrB <: ArrValueNs[B]] extends ArrBuild
 { def elemProdSize: Int
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueNs]] final classes. Instances for the [[SeqFlatBuilder] should go in
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueNs]] final classes. Instances for the [[ArrFlatBuilder] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait ArrValueNsFlatBuilder[B <: ElemValueN, ArrB <: ArrValueNs[B]] extends SeqFlatBuilder[ArrB]
+trait ArrValueNsFlatBuilder[B <: ElemValueN, ArrB <: ArrValueNs[B]] extends ArrFlatBuilder[ArrB]
 { def elemProdSize: Int
 }
 

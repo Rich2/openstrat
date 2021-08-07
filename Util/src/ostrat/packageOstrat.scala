@@ -163,7 +163,7 @@ package object ostrat
 
   /** flatMaps over a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps.
    *  Default step value is 1. Throws on non termination. */
-  def iToFlatMap[AA <: ArrBase[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: SeqFlatBuilder[AA]): AA =
+  def iToFlatMap[AA <: ArrBase[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iFrom, iTo, iStep){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToArr(buff)
