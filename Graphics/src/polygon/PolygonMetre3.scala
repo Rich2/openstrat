@@ -10,7 +10,7 @@ final class PolygonMetre3(val arrayUnsafe: Array[Double]) extends AnyVal with Ar
   override def unsafeFromArray(array: Array[Double]): PolygonMetre3 = new PolygonMetre3(array)
   override def typeStr: String = "PolygonM3"
   override def fElemStr: PtMetre3 => String = _.toString
-  def xyPlane: PolygonMetre = this.mapPolygonMetre(_.xy)
+  def xyPlane: PolygonMetre = this.mapPolygon(_.xy)
 }
 
 /** Companion object for PolygonM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */
