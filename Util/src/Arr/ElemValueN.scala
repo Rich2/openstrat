@@ -25,13 +25,13 @@ trait DataValueNs[A <: ElemValueN] extends Any with DataImut[A]
   final override def elemsNum: Int = arrLen / elemProdSize
 
   /** Performs a side effecting function on each specifying data element of this ValueNsData in order. */
-  def dataForeach[U](f: A => U): Unit =
+  /*def dataForeach[U](f: A => U): Unit =
   { var count = 0
     while(count < elemsNum)
     { f(indexData(count))
       count = count + 1
     }
-  }
+  }*/
 
   /** Performs a side effecting function on each element of this sequence with an index starting at 0. */
   def dataIForeach[U](f: (A, Int) => U): Unit =
@@ -132,11 +132,11 @@ trait DataValueNsCompanion[A <: ElemValueN, ArrA <: DataValueNs[A]]
   /** the product size of the ValueNsArr type's elements. */
   def elemProdSize: Int
 
-  /** This method allows you to map from an ArrayLikeBase to the ArrA type. */
-  final def fromArrMap[T](alb: SeqGen[T])(f: T => A): ArrA = {
+  /** This method allows you to map from a DataGen to the ArrA type. */
+  final def fromDataGenMap[T](alb: DataGen[T])(f: T => A): ArrA = {
     val res = uninitialised(alb.elemsNum)
     var count = 0
-    alb.foreach { t =>
+    alb.dataForeach { t =>
       res.unsafeSetElem(count, f(t))
       count += 1
     }

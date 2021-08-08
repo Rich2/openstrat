@@ -24,4 +24,13 @@ trait DataGen[A] extends Any
 
   /** apply method accesses the individual elements of the sequence by 0 based index. */
   @inline def indexData(index: Int): A
+
+  /** Performs a side effecting function on each element of this sequence in order. */
+  def dataForeach[U](f: A => U): Unit =
+  { var count = 0
+    while(count < elemsNum)
+    { f(indexData(count))
+      count = count + 1
+    }
+  }
 }
