@@ -7,12 +7,11 @@ import Colour.Black, pWeb._
 final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with ArrDbl2s[Pt2]
 { override type ThisT = PolygonGen
   override def vert(index: Int): Pt2 = indexData(index - 1)
-  @inline override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = foreachPairTail(f)
+  @inline override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = dataForeachPairTail(f)
   override def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   @inline override def vertsArray: Array[Double] = arrayUnsafe
   override def typeStr: String = "Polygon"
   override def vertsNum: Int = arrayUnsafe.length / 2 //- dblsNumOffset
-  override def foldLeft[B](initial: B)(f: (B, Pt2) => B): B = super.foldLeft(initial)(f)
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   @inline override def polygonMap(f: Pt2 => Pt2): PolygonGen = vertsMap(f).toPolygon
@@ -42,10 +41,10 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2s
   }
 
   def eq(obj: PolygonGen): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
-  def minX: Double = foldTailLeft(head.x)((acc, el) => acc.min(el.x))
-  def maxX: Double = foldTailLeft(head.x)((acc, el) => acc.max(el.x))
-  def minY: Double = foldTailLeft(head.y)((acc, el) => acc.min(el.y))
-  def maxY: Double = foldTailLeft(head.y)((acc, el) => acc.max(el.y))
+  def minX: Double = dataTailfold(head.x)((acc, el) => acc.min(el.x))
+  def maxX: Double = dataTailfold(head.x)((acc, el) => acc.max(el.x))
+  def minY: Double = dataTailfold(head.y)((acc, el) => acc.min(el.y))
+  def maxY: Double = dataTailfold(head.y)((acc, el) => acc.max(el.y))
   def width: Double = maxX - minX
   def height: Double = maxY - minY
 

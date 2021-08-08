@@ -16,7 +16,7 @@ class Strings(val arrayUnsafe: Array[String]) extends AnyVal with ArrBase[String
   def mkStr(separator: String): String = if(empty) ""
   else {
     var acc = head
-    foreachTail{ s => acc += separator + s }
+    tailForeach{ s => acc += separator + s }
     acc
   }
 }

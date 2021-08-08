@@ -38,6 +38,11 @@ trait DataDbl2s[A <: ElemDbl2] extends Any with DataDblNs[A]
     while(count < elemsNum){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
     res
   }
+
+  def dataForeachPairTail[U](f: (Double, Double) => U): Unit =
+  { var count = 1
+    while(count < elemsNum) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
+  }
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl2]]s. */

@@ -240,7 +240,8 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     result
   }
 
-  def foreachTail[U](f: A => U): Unit =
+  /** Foreachs over the tail of this sequence. */
+  def tailForeach[U](f: A => U): Unit =
   { var count = 1
     while(count < elemsNum) { f(apply(count)); count += 1 }
   }
@@ -253,9 +254,10 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     }
   }
 
-  def foldTailLeft[B](initial: B)(f: (B, A) => B) =
+  /** foldLeft over the tail of this sequence. */
+  def tailfold[B](initial: B)(f: (B, A) => B) =
   { var acc: B = initial
-    foreachTail(a => acc = f(acc, a))
+    tailForeach(a => acc = f(acc, a))
     acc
   }
 
@@ -370,13 +372,13 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   def max[B >: A](implicit ord: math.Ordering[B]): A =
   { var acc = apply(0)
-    foreachTail{el => acc = ord.max(acc, el) }
+    tailForeach{ el => acc = ord.max(acc, el) }
     acc
   }
 
   def min[B >: A](implicit ord: math.Ordering[B]): A =
   { var acc = apply(0)
-    foreachTail{el => acc = ord.min(acc, el) }
+    tailForeach{ el => acc = ord.min(acc, el) }
     acc
   }
 
@@ -384,7 +386,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
    *  collection is empty. */
   def fMax[B](defaultValue: B)(f: (A) => B)(implicit cmp: math.Ordering[B]): B = if (empty) defaultValue else
   { var acc = f(head)
-    foreachTail{ el => acc = cmp.max(acc, f(el)) }
+    tailForeach{ el => acc = cmp.max(acc, f(el)) }
     acc
   }
 
@@ -392,7 +394,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
    *  collection is empty. */
   def fMin[B](defaultValue: B)(f: (A) => B)(implicit cmp: math.Ordering[B]): B =
   { var acc = f(head)
-    foreachTail{el => acc = cmp.min(acc, f(el)) }
+    tailForeach{ el => acc = cmp.min(acc, f(el)) }
     acc
   }
 

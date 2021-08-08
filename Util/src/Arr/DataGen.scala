@@ -42,4 +42,17 @@ trait DataGen[A] extends Any
       count = count + 1
     }
   }
+
+  /** Foreachs over the tail of the data sequence. */
+  def dataTailForeach[U](f: A => U): Unit =
+  { var count = 1
+    while(count < elemsNum) { f(indexData(count)); count += 1 }
+  }
+
+  /** foldLeft over the tail of the data sequence. */
+  def dataTailfold[B](initial: B)(f: (B, A) => B) =
+  { var acc: B = initial
+    dataTailForeach(a => acc = f(acc, a))
+    acc
+  }
 }
