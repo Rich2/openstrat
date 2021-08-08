@@ -110,13 +110,13 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   @inline def secsToRadians = thisDouble * Pi / (180.0 * 3600)
 
   /** Takes this Double as a value in thousands of an arc second and converts it to a value expressed in radians. */
-  @inline def milliSecsToRadians = thisDouble * Pi / 180.0 / 3600000
+  @inline def milliSecsToRadians = thisDouble * Pi / (180.0 * 3600000)
 
   /** Takes this Double as a value in arc seconds and converts it to a value of arc degrees. */
   @inline def secsToDegs = thisDouble / 3600
 
   /** Takes this Double as a value in arc seconds and converts it to a value of arc degrees. */
-  @inline def millisecsToDegs = thisDouble / 3600000
+  @inline def milliSecsToDegs = thisDouble / 3600000
 
   /** Probably good to get rid of this. */
   @inline def toWholeDegsStr: String = math.round(radiansToDegs).toString

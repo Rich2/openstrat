@@ -5,15 +5,17 @@ package ostrat; package geom
 trait LatLongBase
 { def latSecs: Double
   def longSecs: Double
+  def latMilliSecs: Double
+  def longMilliSecs: Double
   def equatorialRadius: Metres
   def polarRadius: Metres
   def equatorialRadiusKm = equatorialRadius
-  @inline final def lat: Latitude = Latitude.secs(latSecs)
-  @inline final def long: Longitude = Longitude.secs(longSecs)
-  @inline final def latDegs: Double = latSecs.secsToDegs
-  @inline final def longDegs: Double = longSecs.secsToDegs
-  @inline final def latRadians: Double = latSecs.secsToRadians
-  @inline final def longRadians: Double = longSecs.secsToRadians
+  @inline final def lat: Latitude = Latitude.milliSecs(latMilliSecs)
+  @inline final def long: Longitude = Longitude.milliSecs(longSecs)
+  @inline final def latDegs: Double = latMilliSecs.milliSecsToDegs
+  @inline final def longDegs: Double = longMilliSecs.milliSecsToDegs
+  @inline final def latRadians: Double = latMilliSecs.milliSecsToRadians
+  @inline final def longRadians: Double = longMilliSecs.milliSecsToRadians
 
   /** The sine of the longitude, where East is a positive longitude. */
   @inline final def longSine: Double = longRadians.sine

@@ -5,12 +5,12 @@ import collection.mutable.ArrayBuffer
 /** A base trait for a sequence of [[LatLong]]s. The final classes are more strongly typed as a [[LinePathLL], a [[PolygonLL]]and [[LatLongs]], for a
  * a general collection of [[LatLong]] points. */
 trait LatLongsLike extends Any with DataDbl2s[LatLong]
-{ final override def dataElem(d1: Double, d2: Double): LatLong = LatLong.secs(d1, d2)
+{ final override def dataElem(d1: Double, d2: Double): LatLong = LatLong.milliSecs(d1, d2)
   final override def fElemStr: LatLong => String = _.str
 }
 
 /** Immutable flat efficient Array[Double] based collection class for [[LatLong]]s. Prefer [[PolygonLL]] or [[LineSegLL]] where applicable. */
-final class LatLongs(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike with ArrDbl2s[LatLong]
+final class LatLongs(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike with DataDbl2s[LatLong]
 { override type ThisT = LatLongs
   override def unsafeFromArray(array: Array[Double]): LatLongs = new LatLongs(array)
 

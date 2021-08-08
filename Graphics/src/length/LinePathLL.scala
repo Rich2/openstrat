@@ -32,4 +32,19 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
 
 object LinePathLL extends DataDbl2sCompanion[LatLong, LinePathLL]
 { override def fromArrayDbl(array: Array[Double]): LinePathLL = new LinePathLL(array)
+
+  /** Apply factory method for creating Arrs of [[ElemDbl2]]s. */
+  override def apply(elems: LatLong*): LinePathLL =
+  {
+    val length = elems.length
+    val res = uninitialised(length)
+    var count: Int = 0
+
+    while (count < length)
+    { res.arrayUnsafe(count * 2) = elems(count).dbl1
+      res.arrayUnsafe(count * 2 + 1) = elems(count).dbl2
+      count += 1
+    }
+    res
+  }
 }

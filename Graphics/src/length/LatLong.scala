@@ -8,10 +8,11 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
 { override def typeStr: String = "LatLong"
   override def name1: String = "lat"
   override def name2: String = "long"
-  def show1 = latSecs
-  def show2 = longSecs
+  def show1: Double = latMilliSecs
+  def show2: Double = longMilliSecs
   def latSecs: Double = latMilliSecs / 1000
   def longSecs: Double = longMilliSecs / 1000
+  override def toString: String = "LatLong".appendCommas(latDegStr, longDegStr)
 
   def persistName = "LatLong"
   def persistMems = Seq(latRadians, longRadians)  
@@ -110,7 +111,7 @@ object LatLong
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
    * values are negative. */
-  def degs(lat: Double, long: Double): LatLong = LatLong.milliSecs(lat.degsToMilliSecs, long.degsToMilliSecs)
+  def degs(lat: Double, long: Double): LatLong = new LatLong(lat.degsToMilliSecs, long.degsToMilliSecs)
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in radians, where southern and western
    * values are negative. */

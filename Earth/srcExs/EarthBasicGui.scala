@@ -16,8 +16,8 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   val lp3 = lp2.map(_.xy)
   val lp4 = lp3.map(_ / scale)
 
-  val w0 = SaharaWest.polygonLL
-  deb(w0.toString)
+  val aw0 = AfricaWestPts.westAfricaSouth.polygonLL
+  deb(aw0.toString)
   val eas: Arr[EarthLevel2] =  Arr(AfricaWest, AfricaEast, AfricaSouthern).flatMap(_.a2Arr)
   val af0 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon((p: PtMetre2) => p / scale).fill(a.colour) }
   val af1 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / scale).draw() }

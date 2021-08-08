@@ -91,7 +91,7 @@ trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: DataDbl2s[A]] extends DblNsDataC
 { final def elemProdSize: Int = 2
 
   /** Apply factory method for creating Arrs of [[ElemDbl2]]s. */
-  final def apply(elems: A*): ArrA =
+  def apply(elems: A*): ArrA =
   {
     val length = elems.length
     val res = uninitialised(length)
