@@ -40,7 +40,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   { var i = count
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{el => build.buffGrow(buff, f(el, i)); i += 1 }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** flatMaps over a traversable (collection / sequence) with a counter */
@@ -48,7 +48,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   { var i = count
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{el => build.buffGrowArr(buff, f(el, i)); i += 1 }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
    
   /** foreach loop with index. The startIndex parameter is placed 2nd to allow it to have a default value of zero. */

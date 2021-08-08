@@ -67,7 +67,7 @@ trait HGrid extends TGrid
   final def flatMap[ArrT <: ArrBase[_]](f: HCen => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numCens)
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** Is the specified tile centre row empty? */
@@ -180,7 +180,7 @@ trait HGrid extends TGrid
   {
     val buff = build.newBuff()// newArr(numSides)
     sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array

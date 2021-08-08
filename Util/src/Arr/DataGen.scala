@@ -33,4 +33,13 @@ trait DataGen[A] extends Any
       count = count + 1
     }
   }
+
+  /** Performs a side effecting function on each element of this sequence in order. */
+  def dataIForeach[U](f: (A, Int) => U): Unit =
+  { var count = 0
+    while(count < elemsNum)
+    { f(indexData(count), count)
+      count = count + 1
+    }
+  }
 }

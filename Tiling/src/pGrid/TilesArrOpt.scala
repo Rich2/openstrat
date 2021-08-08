@@ -44,7 +44,7 @@ class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   def flatMapSomes[ArrT <: ArrBase[_]](f: (Roord, A) => ArrT)(implicit grid: TileGridOld, build: ArrFlatBuilder[ArrT]): ArrT =
@@ -57,7 +57,7 @@ class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
         build.buffGrowArr(buff, newVal)
       }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   def mapSomes[B, ArrT <: ArrBase[B]](f: A => B)(implicit grid: TileGridOld, build: ArrBuilder[B, ArrT]): ArrT =
@@ -70,6 +70,6 @@ class TilesArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 }

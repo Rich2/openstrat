@@ -35,7 +35,7 @@ object LongsBuild extends ArrBuilder[Long, Longs] with ArrFlatBuilder[Longs]
   override def newBuff(length: Int = 4): LongsBuff = new LongsBuff(new ArrayBuffer[Long](length))
   override def buffGrow(buff: LongsBuff, value: Long): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: LongsBuff, arr: Longs): Unit = buff.unsafeBuff.addAll(arr.arrayUnsafe)
-  override def buffToArr(buff: LongsBuff): Longs = new Longs(buff.unsafeBuff.toArray)
+  override def buffToBB(buff: LongsBuff): Longs = new Longs(buff.unsafeBuff.toArray)
 }
 
 class LongsBuff(val unsafeBuff: ArrayBuffer[Long]) extends AnyVal with SeqGen[Long]

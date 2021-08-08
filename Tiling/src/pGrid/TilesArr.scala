@@ -116,7 +116,7 @@ object TilesArr
           case _ =>
         }
       }
-      build.buffToArr(buff)
+      build.buffToBB(buff)
     }
 
     def gridHeadsFlatMap[BB <: ArrBase[_]](f: (Roord, A) => BB)(implicit grid: TileGridOld, build: ArrFlatBuilder[BB]): BB =
@@ -128,7 +128,7 @@ object TilesArr
         case _ =>
       }
       }
-      build.buffToArr(buff)
+      build.buffToBB(buff)
     }
   }
 }

@@ -67,7 +67,7 @@ trait TGrid
   final def flatMapRows[ArrT <: ArrBase[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numCens)
     foreachRow{ r => build.buffGrowArr(buff, f(r)) }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** Foreach tile centre coordinate. A less strongly typed method than the foreach's in the sub traits. */

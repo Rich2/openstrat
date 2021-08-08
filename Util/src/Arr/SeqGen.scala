@@ -82,7 +82,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
       val newVals = f(a)
       ev.buffGrowArr(buff, newVals)
     }
-    ev.buffToArr(buff)
+    ev.buffToBB(buff)
   }
 
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
@@ -129,7 +129,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
       build.buffGrowArr(buff, newArr)
       i += 1
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** Specialised flatMap with index to an immutable Arr. */
@@ -141,7 +141,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
       build.buffGrowArr(buff, newElems)
       count += 1
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
@@ -163,7 +163,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     var errs: Strings = Strings()
     while(count < elemsNum & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
-    ife(continue, Good(ev.buffToArr(acc)), Bad(errs))
+    ife(continue, Good(ev.buffToBB(acc)), Bad(errs))
   }
 
   def eMapList[B](f: A => EMon[B]): EMon[List[B]] =
@@ -190,13 +190,13 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def filter[ArrA <: ArrBase[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => oif(f(a), ev.buffGrow(buff, a)))
-    ev.buffToArr(buff)
+    ev.buffToBB(buff)
   }
 
   def filterNot[ArrA <: ArrBase[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => oif(!f(a), ev.buffGrow(buff, a)))
-    ev.buffToArr(buff)
+    ev.buffToBB(buff)
   }
 
   def filterToList(f: A => Boolean): List[A] =
@@ -210,7 +210,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def iterFlatMap[B, ArrB <: ArrBase[B]](f: A => Iterable[B])(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val buff = ev.newBuff(elemsNum)
     foreach(a => ev.buffGrowIter(buff, f(a)))
-    ev.buffToArr(buff)
+    ev.buffToBB(buff)
   }
 
   def foldLeft[B](initial: B)(f: (B, A) => B) =
@@ -351,7 +351,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def collect[B, BB <: ArrBase[B]](pf: PartialFunction[A, B])(implicit ev: ArrBuilder[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach{a => if (pf.isDefinedAt(a)) ev.buffGrow(acc, pf(a)) }
-    ev.buffToArr(acc)
+    ev.buffToBB(acc)
   }
 
   /** Collects a List values of B by applying partial function to only those elements of A, for which the PartialFunction is defined. */
@@ -365,7 +365,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def mapCollectGoods[B, BB <: ArrBase[B]](f: A => EMon[B])(implicit ev: ArrBuilder[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach(f(_).forGood(ev.buffGrow(acc, _)))
-    ev.buffToArr(acc)
+    ev.buffToBB(acc)
   }
 
   def max[B >: A](implicit ord: math.Ordering[B]): A =

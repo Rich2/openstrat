@@ -74,7 +74,7 @@ object IntsBuild extends ArrBuilder[Int, Ints] with ArrFlatBuilder[Ints]
   override def newBuff(length: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](length))
   override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: IntBuff, arr: Ints): Unit = buff.unsafeBuff.addAll(arr.arrayUnsafe)
-  override def buffToArr(buff: IntBuff): Ints = new Ints(buff.unsafeBuff.toArray)
+  override def buffToBB(buff: IntBuff): Ints = new Ints(buff.unsafeBuff.toArray)
 }
 
 class IntBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with SeqGen[Int]

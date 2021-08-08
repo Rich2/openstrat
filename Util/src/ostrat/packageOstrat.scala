@@ -166,7 +166,7 @@ package object ostrat
   def iToFlatMap[AA <: ArrBase[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iFrom, iTo, iStep){ i => ev.buffGrowArr(buff, f(i)) }
-    ev.buffToArr(buff)
+    ev.buffToBB(buff)
   }
 
   /** Folds over a range of Ints to an Int. From the start value to (while index is less than or equal to) the end value in integer steps. Default

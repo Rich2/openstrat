@@ -35,7 +35,7 @@ object FloatsBuild extends ArrBuilder[Float, Floats] with ArrFlatBuilder[Floats]
   override def newBuff(length: Int = 4): FloatsBuff = new FloatsBuff(new ArrayBuffer[Float](length))
   override def buffGrow(buff: FloatsBuff, value: Float): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: FloatsBuff, arr: Floats): Unit = buff.unsafeBuff.addAll(arr.arrayUnsafe)
-  override def buffToArr(buff: FloatsBuff): Floats = new Floats(buff.unsafeBuff.toArray)
+  override def buffToBB(buff: FloatsBuff): Floats = new Floats(buff.unsafeBuff.toArray)
 }
 
 class FloatsBuff(val unsafeBuff: ArrayBuffer[Float]) extends AnyVal with SeqGen[Float]

@@ -146,7 +146,7 @@ class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) e
   override def newBuff(length: Int = 4): AnyBuff[B] = new AnyBuff(new ArrayBuffer[B](length))
   override def buffGrow(buff: AnyBuff[B], value: B): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: AnyBuff[B], arr: Arr[B]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
-  override def buffToArr(buff: AnyBuff[B]): Arr[B] = new Arr(buff.unsafeBuff.toArray)
+  override def buffToBB(buff: AnyBuff[B]): Arr[B] = new Arr(buff.unsafeBuff.toArray)
 }
 
 /** Not sure if this class is necessary now that Arr take Any. */

@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
 trait PolygonLike[VertT] extends Any
 {
@@ -44,12 +44,12 @@ trait PolygonInt2s[VT <: ElemInt2] extends Any with PolygonIntNs[VT] with DataIn
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait PolygonBuilder[B <: ElemValueN, BB <: PolygonLike[B]] extends DataBuilderCommon[BB]
+trait PolygonBuilder[B <: ElemValueN, +BB <: PolygonLike[B]] extends DataBuilderCommon[BB @uncheckedVariance]
 { type BuffT <: SeqGen[B]
 
   /** Creates a new uninitialised class of type BB.  */
-  def newArr(length: Int): BB
-  def arrSet(arr: BB, index: Int, value: B): Unit
+  def newPolygonT(length: Int): BB
+  def arrSet(arr: BB @uncheckedVariance, index: Int, value: B): Unit
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
@@ -67,7 +67,7 @@ trait PolygonBuilder[B <: ElemValueN, BB <: PolygonLike[B]] extends DataBuilderC
   def iterMap[A](inp: Iterable[A], f: A => B): BB =
   { val buff = newBuff()
     inp.foreach(a => buffGrow(buff, f(a)))
-    buffToArr(buff)
+    buffToBB(buff)
   }
 }
 
@@ -85,8 +85,8 @@ trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblNs[B] ] extends Polygon
   def fromDblArray(array: Array[Double]): BB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
-  final override def newArr(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
-  final override def buffToArr(buff: BuffT): BB = fromDblArray(buff.unsafeBuff.toArray)
+  final override def newPolygonT(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
+  final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuff.toArray)
   final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
@@ -118,8 +118,8 @@ trait PolygonIntNsBuilder[B <: ElemIntN, BB <: PolygonIntNs[B] ] extends Polygon
   def fromIntArray(array: Array[Int]): BB
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
-  final override def newArr(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
-  final override def buffToArr(buff: BuffT): BB = fromIntArray(buff.unsafeBuff.toArray)
+  final override def newPolygonT(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
+  final override def buffToBB(buff: BuffT): BB = fromIntArray(buff.unsafeBuff.toArray)
   final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }

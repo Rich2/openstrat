@@ -124,7 +124,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
       val newRes: BB = f(tile)
       build.buffGrowArr(acc, newRes)
     }
-    build.buffToArr(acc)
+    build.buffToBB(acc)
   }
   
   /** Map all Tiles to an List with function and flatten into Single List. */
@@ -181,7 +181,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
         case Some(a) => build.buffGrow(buff, a)
       }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   final def tilesMapOptionListAll[A](f: TileT => Option[A]): List[A] =

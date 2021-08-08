@@ -30,7 +30,7 @@ class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenArrOpt]] to type B, the first type parameter. Returns
@@ -45,7 +45,7 @@ class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** Moves the object in the array location given by HCen1 to HCen2, by setting H2 to the value of h1 and setting H1 to null. */
@@ -65,7 +65,7 @@ class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns an immutable Array

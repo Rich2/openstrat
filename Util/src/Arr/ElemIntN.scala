@@ -43,7 +43,7 @@ trait ArrIntNsBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsBuil
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
-  final override def buffToArr(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuff.toArray)
+  final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuff.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
 }
 
@@ -57,7 +57,7 @@ trait ArrIntNsFlatBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNs
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   //final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
-  final override def buffToArr(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuff.toArray)
+  final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuff.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
 }
 

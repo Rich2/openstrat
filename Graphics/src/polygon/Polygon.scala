@@ -1,6 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black, pWeb._
+import Colour.Black
+import pWeb._
 
 /** A mathematical closed polygon. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the
@@ -33,7 +34,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
  override def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrBuilder[A, ArrT]): ArrT =
   { val acc = build.newBuff()
     vertsForeach{ v => build.buffGrow(acc, f(v)) }
-    build.buffToArr(acc)
+    build.buffToBB(acc)
   }
 
   /** flatMap with index to an immutable Arr. */
@@ -45,7 +46,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
       build.buffGrowArr(buff, newElems)
       count += 1
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   def vertsFoldLeft[B](initial: B)(f: (B, Pt2) => B): B =
@@ -105,7 +106,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
       build.buffGrowArr(buff, newElems)
       count += 1
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =

@@ -75,3 +75,8 @@ object Pt2s extends DataDbl2sCompanion[Pt2, Pt2s]
 final class Pt2Buff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[Pt2]
 { def dblsToT(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }
+
+object Pt2Buff
+{
+  def empty: Pt2Buff = new Pt2Buff(new Buff[Double](4))
+}

@@ -34,7 +34,7 @@ object StringsBuild extends ArrBuilder[String, Strings] with ArrFlatBuilder[Stri
   override def newBuff(length: Int = 4): StringsBuff = new StringsBuff(new ArrayBuffer[String](length))
   override def buffGrow(buff: StringsBuff, value: String): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: StringsBuff, arr: Strings): Unit = buff.unsafeBuff.addAll(arr.arrayUnsafe)
-  override def buffToArr(buff: StringsBuff): Strings = new Strings(buff.unsafeBuff.toArray)
+  override def buffToBB(buff: StringsBuff): Strings = new Strings(buff.unsafeBuff.toArray)
 }
 
 class StringsBuff(val unsafeBuff: ArrayBuffer[String]) extends AnyVal with SeqGen[String]

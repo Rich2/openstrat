@@ -24,7 +24,7 @@ trait ArrBuilder[B, ArrB <: ArrBase[B]] extends DataBuilder[B, ArrB]
   def iterMap[A](inp: Iterable[A], f: A => B): ArrB =
   { val buff = newBuff()
     inp.foreach(a => buffGrow(buff, f(a)))
-    buffToArr(buff)
+    buffToBB(buff)
   }
 }
 

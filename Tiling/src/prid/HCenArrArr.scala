@@ -37,7 +37,7 @@ class HCenArrArr[A](val unsafeArray: Array[Array[A]])
       val el:Arr[A] = apply(r)
       if (el.elemsNum >= 1) build. buffGrow(buff, f(r, el(0)))
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** flatMaps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
@@ -48,6 +48,6 @@ class HCenArrArr[A](val unsafeArray: Array[Array[A]])
       val el:Arr[A] = apply(r)
       if (el.elemsNum >= 1) build.buffGrowArr(buff, f(r, el(0)))
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 }

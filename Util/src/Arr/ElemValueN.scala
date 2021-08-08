@@ -34,7 +34,7 @@ trait DataValueNs[A <: ElemValueN] extends Any with DataImut[A]
   }*/
 
   /** Performs a side effecting function on each element of this sequence with an index starting at 0. */
-  def dataIForeach[U](f: (A, Int) => U): Unit =
+  /*def dataIForeach[U](f: (A, Int) => U): Unit =
   { var count = 0
     var i: Int = 0
     while(count < elemsNum )
@@ -42,7 +42,7 @@ trait DataValueNs[A <: ElemValueN] extends Any with DataImut[A]
       count+= 1
       i += 1
     }
-  }
+  }*/
 
   /** Maps the dat elements that specify the final class. */
   def dataMap[B <: ElemValueN, N <: DataValueNs[B]](f: A => B)(implicit factory: Int => N): N =

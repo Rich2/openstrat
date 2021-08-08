@@ -119,7 +119,7 @@ trait TileGridOld
   final def flatMap[ArrT <: ArrBase[_]](f: Roord => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numOfTiles)
     foreach{ roord => build.buffGrowArr(buff, f(roord))}
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** flatmaps from all tile Roords to an Arr of type ArrT, removing all duplicate elements. */
@@ -130,7 +130,7 @@ trait TileGridOld
       newVals.foreach{newVal =>
         if (!buff.contains(newVal)) build.buffGrow(buff, newVal) }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** foreachs over each tile's Roord and its centre Vec2. */

@@ -13,7 +13,8 @@ trait DataBuilderCommon[BB]
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: BB): Unit
 
-  def buffToArr(buff: BuffT): BB
+  /** converts a the buffer type to the target compound class. */
+  def buffToBB(buff: BuffT): BB
 }
 
 trait DataBuilder[B, BB <: DataImut[B]] extends DataBuilderCommon[BB]

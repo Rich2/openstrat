@@ -47,7 +47,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
       if (a != null) build.buffGrow(buff, fSome(a, hc))
       else { val newVal = fNone(hc); build.buffGrow(buff, newVal) }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
@@ -60,7 +60,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
       if (a != null) build.buffGrow(buff, noneValue)
       else { val newVal = f(a); build.buffGrow(buff, newVal) }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
@@ -77,7 +77,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
         build.buffGrow(buff, newVal)
       }
    }
-   build.buffToArr(buff)
+   build.buffToBB(buff)
   }
 
   /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
@@ -92,7 +92,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** Coordinate map Nones. Map the None values respective [[HCen]] coordinates of this [[HCenArrOpt]] to type B, the first type parameter. Returns an
@@ -107,7 +107,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 
   /** Coordinate flatMap Somes. Maps and flattens each Some element with its associated [[HCen]] coordinate. It ignores the None values. */
@@ -121,6 +121,6 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
         build.buffGrowArr(buff, newVal)
       }
     }
-    build.buffToArr(buff)
+    build.buffToBB(buff)
   }
 }

@@ -17,7 +17,7 @@ trait ArrArrayDblBuild[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends ArrB
   @inline override def newArr(length: Int): ArrT = fromArray(new Array[Array[Double]](length))
   override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.array(index) = value.arrayUnsafe
   //override def buffNew(length: Int = 4): DblsArrayBuff[A] = new DblsArrayBuff[A](new ArrayBuffer[Array[Double]]((length)))
-  override def buffToArr(buff: BuffT): ArrT = fromArray(buff.unsafeBuff.toArray)
+  override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuff.toArray)
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuff.append(value.arrayUnsafe); () }
   override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuff.addAll(arr.array); () }
 }

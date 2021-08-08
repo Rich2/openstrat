@@ -32,7 +32,7 @@ object DblsBuild extends ArrBuilder[Double, Dbls] with ArrFlatBuilder[Dbls]
   override def newBuff(length: Int = 4): DblsBuff = new DblsBuff(ArrayBuffer[Double](length))
   override def buffGrow(buff: DblsBuff, value: Double): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: DblsBuff, arr: Dbls): Unit = buff.unsafeBuff.addAll(arr.arrayUnsafe)
-  override def buffToArr(buff: DblsBuff): Dbls = new Dbls(buff.unsafeBuff.toArray)
+  override def buffToBB(buff: DblsBuff): Dbls = new Dbls(buff.unsafeBuff.toArray)
 }
 
 class DblsBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with SeqGen[Double]

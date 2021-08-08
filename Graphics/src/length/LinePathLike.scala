@@ -38,7 +38,7 @@ trait LinePathBuilder[B <: ElemValueN, BB <: LinePathLike[B]] extends DataBuilde
   def iterMap[A](inp: Iterable[A], f: A => B): BB =
   { val buff = newBuff()
     inp.foreach(a => buffGrow(buff, f(a)))
-    buffToArr(buff)
+    buffToBB(buff)
   }
 }
 
@@ -57,7 +57,7 @@ trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblNs[B] ] extends LineP
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
   final override def newArr(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
-  final override def buffToArr(buff: BuffT): BB = fromDblArray(buff.unsafeBuff.toArray)
+  final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuff.toArray)
   final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }

@@ -36,7 +36,7 @@ object BooleansBuild extends ArrBuilder[Boolean, Booleans] with ArrFlatBuilder[B
   override def newBuff(length: Int = 4): BooleanBuff = new BooleanBuff(new ArrayBuffer[Boolean](length))
   override def buffGrow(buff: BooleanBuff, value: Boolean): Unit = buff.unsafeBuff.append(value)
   override def buffGrowArr(buff: BooleanBuff, arr: Booleans): Unit = buff.unsafeBuff.addAll(arr.array)
-  override def buffToArr(buff: BooleanBuff): Booleans = new Booleans(buff.unsafeBuff.toArray)
+  override def buffToBB(buff: BooleanBuff): Booleans = new Booleans(buff.unsafeBuff.toArray)
 }
 
 class BooleanBuff(val unsafeBuff: ArrayBuffer[Boolean]) extends AnyVal with SeqGen[Boolean]
