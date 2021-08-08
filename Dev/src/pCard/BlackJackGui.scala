@@ -1,6 +1,5 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pCard
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pCard
 import geom._, pCanv._, Colour.Black
 
 case class BlackJackGui(canv: CanvasPlatform) extends CanvasNoPanels("BlackJack")

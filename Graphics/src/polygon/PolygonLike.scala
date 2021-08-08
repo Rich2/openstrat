@@ -9,6 +9,14 @@ trait PolygonLike[VertT] extends Any
 
   def vertsForeach[U](f: VertT => U): Unit
 
+  def vertsIForeach[U](f: (VertT, Int) => Unit): Unit ={
+    var count = 0
+    vertsForeach{ v =>
+      f(v, count)
+      count += 1
+    }
+  }
+
   /** This method should be overridden in final classes. */
   def vertsMap[B, ArrB <: ArrBase[B]](f: VertT => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
   { val res = builder.newArr(vertsNum)
@@ -20,7 +28,13 @@ trait PolygonLike[VertT] extends Any
     res
   }
 
-  //def mapq
+  /** Map this collection of data elements to PolygonLike class of type BB. */
+  def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VertT => B)(implicit build: PolygonBuilder[B, BB]): BB =
+  {
+    val res = build.newPolygonT(vertsNum)
+    vertsIForeach((a, i) => build.arrSet(res, i, f(a)))
+    res
+  }
 
   //def foreachLineVert[U](f: VertT => U): Unit
 }
