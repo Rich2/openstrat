@@ -257,33 +257,33 @@ object Pt2
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
   implicit val buildImplicit: ArrDbl2sBuilder[Pt2, Pt2s] = new ArrDbl2sBuilder[Pt2, Pt2s]
-  { override type BuffT = Pt2Buff
+  { override type BuffT = BuffPt2
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPt2 = new BuffPt2(inp)
   }
 
   implicit val linePathBuildImplicit: LinePathDbl2sBuilder[Pt2, LinePath] = new LinePathDbl2sBuilder[Pt2, LinePath]
-  { override type BuffT = Pt2Buff
+  { override type BuffT = BuffPt2
     override def fromDblArray(array: Array[Double]): LinePath = new LinePath(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPt2 = new BuffPt2(inp)
   }
 
   implicit val polygonBuildImplicit: PolygonBuilder[Pt2, Polygon] = new PolygonBuilder[Pt2, PolygonGen]
-  { override type BuffT = Pt2Buff
+  { override type BuffT = BuffPt2
 
     override def newPolygonT(length: Int): PolygonGen = PolygonGen.uninitialised(length)
 
     override def arrSet(arr: PolygonGen, index: Int, value: Pt2): Unit = arr.unsafeSetElem(index, value)
 
     /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
-    override def buffGrow(buff: Pt2Buff, value: Pt2): Unit = buff.grow(value)
+    override def buffGrow(buff: BuffPt2, value: Pt2): Unit = buff.grow(value)
 
     /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-    override def buffGrowArr(buff: Pt2Buff, arr: PolygonGen): Unit = ???
+    override def buffGrowArr(buff: BuffPt2, arr: PolygonGen): Unit = ???
 
-    override def newBuff(length: Int): Pt2Buff = Pt2Buff.empty
+    override def newBuff(length: Int): BuffPt2 = BuffPt2.empty
 
-    override def buffToBB(buff: Pt2Buff): PolygonGen = ???
+    override def buffToBB(buff: BuffPt2): PolygonGen = ???
   }
 
   implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)

@@ -3,11 +3,20 @@ package ostrat; package geom
 
 class DataGenExtensions[A](val al : DataGen[A])
 {
-  /** Map this collection of data elements to PolygonLike class of type BB. */
+  /** Map this collection of data elements to [[LinePathLike]] class of type BB. */
+  def mapLinePath[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
+  {
+    val res = build.newArr(al.elemsNum)
+    al.dataIForeach((a, i) => build.arrSet(res, i, f(a)))
+    res
+  }
+
+  /** Map this collection of data elements to [[PolygonLike]] class of type BB. */
   def mapPolygon[B <: ElemValueN, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonBuilder[B, BB]): BB =
   {
     val res = build.newPolygonT(al.elemsNum)
     al.dataIForeach((a, i) => build.arrSet(res, i, f(a)))
     res
   }
+
 }

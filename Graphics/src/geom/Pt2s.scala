@@ -45,9 +45,9 @@ object Pt2s extends DataDbl2sCompanion[Pt2, Pt2s]
   }
 
   implicit val arrFlatBuilderImplicit: ArrFlatBuilder[Pt2s] =  new ArrDbl2sFlatBuilder[Pt2, Pt2s]
-  { override type BuffT = Pt2Buff
+  { override type BuffT = BuffPt2
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPt2 = new BuffPt2(inp)
   }
 
   implicit val slateImplicit: Slate[Pt2s] = (obj: Pt2s, dx: Double, dy: Double) => obj.slateXY(dx, dy)
@@ -72,11 +72,11 @@ object Pt2s extends DataDbl2sCompanion[Pt2, Pt2s]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt2]]s collections. */
-final class Pt2Buff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[Pt2]
+final class BuffPt2(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[Pt2]
 { def dblsToT(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }
 
-object Pt2Buff
+object BuffPt2
 {
-  def empty: Pt2Buff = new Pt2Buff(new Buff[Double](4))
+  def empty: BuffPt2 = new BuffPt2(new Buff[Double](4))
 }
