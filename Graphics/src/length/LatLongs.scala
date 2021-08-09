@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
  * a general collection of [[LatLong]] points. */
 trait LatLongsLike extends Any with DataDbl2s[LatLong]
 { final override def dataElem(d1: Double, d2: Double): LatLong = LatLong.milliSecs(d1, d2)
-  final override def fElemStr: LatLong => String = _.str
+  final override def fElemStr: LatLong => String = _.toString//str
 }
 
 /** Immutable flat efficient Array[Double] based collection class for [[LatLong]]s. Prefer [[PolygonLL]] or [[LineSegLL]] where applicable. */

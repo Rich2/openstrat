@@ -35,8 +35,8 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
    
   val eCanada: A2Type = new EarthLevel2("ECanada", degs(53.71, -94), taiga)
   {
-    override val polygonLL: PolygonLL = (List(wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) :::
-            eCanadaCoast ::: List(maineE, h49th80, wCanadaES)).toArrProdHomo
+    override val polygonLL: PolygonLL = PolygonLL(wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS)// :::
+            //eCanadaCoast ::: List(maineE, h49th80, wCanadaES)).toArrProdHomo
   }
          
   val cAmericaN =  22.8.north
