@@ -15,11 +15,7 @@ trait ElemDbl7 extends Any with ElemDblN
 trait DataDbl7s[A <: ElemDbl7] extends Any with DataDblNs[A]
 { def elemProdSize: Int = 7
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
-}
 
-/** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl7]]s. */
-trait ArrDbl7s[A <: ElemDbl7] extends Any with ArrDblNs[A] with DataDbl7s[A]
-{
   def indexData(index: Int): A =
   { val offset = 7 * index
 
@@ -32,8 +28,11 @@ trait ArrDbl7s[A <: ElemDbl7] extends Any with ArrDblNs[A] with DataDbl7s[A]
     arrayUnsafe(offset) = elem.dbl1; arrayUnsafe(offset + 1) = elem.dbl2; arrayUnsafe(offset + 2) = elem.dbl3; arrayUnsafe(offset + 3) = elem.dbl4
     arrayUnsafe(offset + 4) = elem.dbl5; arrayUnsafe(offset + 5) = elem.dbl6; arrayUnsafe(offset + 6) = elem.dbl7
   }
+}
 
-  def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2); def head4: Double = arrayUnsafe(3)
+/** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl7]]s. */
+trait ArrDbl7s[A <: ElemDbl7] extends Any with ArrDblNs[A] with DataDbl7s[A]
+{ def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2); def head4: Double = arrayUnsafe(3)
   def head5: Double = arrayUnsafe(4); def head6: Double = arrayUnsafe(5); def head7: Double = arrayUnsafe(6)
 
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6, el.dbl7)))

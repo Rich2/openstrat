@@ -207,7 +207,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   { gc.beginPath
     var startPt = segs.last.pEnd
     gc.moveTo(startPt.x, startPt.y)
-    segs.foreach{seg =>
+    segs.dataForeach{seg =>
       seg.segDo(ls => gc.lineTo(ls.xEnd, ls.yEnd),
         as => as.fControlEndRadius(startPt, gc.arcTo),
         bs => gc.bezierCurveTo(bs.xC1, bs.yC1, bs.xUses, bs.yUses, bs.xEnd, bs.yEnd)

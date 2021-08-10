@@ -72,7 +72,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends ArrDbl7s[CurveTail] wi
   { //val t = Arc()
     var minX, maxX, minY, maxY = 0.0
     var i = 0
-    this.foreach {ss =>
+    dataForeach {ss =>
       val v = ss.pEnd
       if (i == 0)
       { minX = v.x
@@ -98,7 +98,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends ArrDbl7s[CurveTail] wi
 
   /** Not sure if this is useful */
   def tailForeach(fLineSeg: CurveTail => Unit, fArcSeg: CurveTail => Unit, fBezierSeg: CurveTail => Unit): Unit =
-    foreach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
+    dataForeach(_.segDo(fLineSeg, fArcSeg, fBezierSeg))
 }
 
 object ShapeGenOld extends DataDbl7sCompanion[CurveTail, ShapeGenOld]
