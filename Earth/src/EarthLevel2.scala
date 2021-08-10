@@ -19,7 +19,7 @@ abstract class EarthLevel2(val shortName: String, val cen: LatLong, val terr: WT
     eg.polyToGlobedArea(polygonLL) match
     {
       case SomeA(d2s) =>
-      { val v2s: PolygonGen = d2s.dataMap(eg.trans)
+      { val v2s: Polygon = d2s.mapPolygon(eg.trans)
         val cenXY: Pt2 = eg.latLongToXY(cen)
         val vis1: GraphicElems = Arr(v2s.fillActive(terr.colour, this))
         val vis2: GraphicElems = Arr(v2s.draw(terr.colour.redOrPink, 2.0))
