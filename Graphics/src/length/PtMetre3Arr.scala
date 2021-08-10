@@ -13,11 +13,11 @@ class PtMetre3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3s[P
   /** This methods function is to work on a sequence of 3d points representing a polygon on the surface a globe (eg the Earth). If Z is positive its
    *  on the side of the Earth that the viewer is looking at. Returns z positive dist2 points if 1 or more of the points are z positive. Z negative
    *  points are moved to the horizon. */
-  def earthZPositive: OptEither[Pt2MArr, CurveSegDists] =
+  def earthZPositive: OptEither[PtMetre2Arr, CurveSegDists] =
   {
     existsCount(_.z.pos) match
     { case 0 => NoOptEither
-    case n if n == elemsNum => SomeA(dataMap(_.xy))
+    case n if n == elemsNum => SomeA(map(_.xy))
     case n => NoOptEither
       //      {
       //        var els: List[Either[Dist2, Dist2]] = lMap {
@@ -56,13 +56,13 @@ object PtMetre3Arr extends DataDbl3sCompanion[PtMetre3, PtMetre3Arr]
 { override def fromArrayDbl(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
 
   implicit val flatBuilderImplicit: Dbl3sArrFlatBuilder[PtMetre3, PtMetre3Arr] = new Dbl3sArrFlatBuilder[PtMetre3, PtMetre3Arr]
-  { type BuffT = Pt3MBuff
+  { type BuffT = BuffPtMetre3
     override def fromDblArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt3MBuff = new Pt3MBuff(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)
   }
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt3]]s collections. */
-final class Pt3MBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl3s[PtMetre3]
+final class BuffPtMetre3(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl3s[PtMetre3]
 { def dblsToT(d1: Double, d2: Double, d3: Double): PtMetre3 = new PtMetre3(d1, d2, d3)
 }

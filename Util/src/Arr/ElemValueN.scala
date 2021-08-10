@@ -23,38 +23,6 @@ trait DataValueNs[A <: ElemValueN] extends Any with DataImut[A]
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
   final override def elemsNum: Int = arrLen / elemProdSize
-
-  /** Performs a side effecting function on each specifying data element of this ValueNsData in order. */
-  /*def dataForeach[U](f: A => U): Unit =
-  { var count = 0
-    while(count < elemsNum)
-    { f(indexData(count))
-      count = count + 1
-    }
-  }*/
-
-  /** Performs a side effecting function on each element of this sequence with an index starting at 0. */
-  /*def dataIForeach[U](f: (A, Int) => U): Unit =
-  { var count = 0
-    var i: Int = 0
-    while(count < elemsNum )
-    { f(indexData(count), i)
-      count+= 1
-      i += 1
-    }
-  }*/
-
-  /** Maps the dat elements that specify the final class. */
-  def dataMap[B <: ElemValueN, N <: DataValueNs[B]](f: A => B)(implicit factory: Int => N): N =
-  { val res = factory(elemsNum)
-    var count: Int = 0
-    while (count < elemsNum) {
-      val newValue: B = f(indexData(count))
-      res.unsafeSetElem(count, newValue)
-      count += 1
-    }
-    res
-  }
 }
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
