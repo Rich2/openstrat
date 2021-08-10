@@ -70,7 +70,7 @@ abstract class DataDbl3sPersist[A <: ElemDbl3, M <: DataDbl3s[A]](typeStr: Strin
 }
 
 /** Class for the singleton companion objects of [[ArrDbl3s]] final classes to extend. */
-abstract class DataDbl3sCompanion[A <: ElemDbl3, ArrA <: DataDbl3s[A]] extends DblNsDataCompanion[A, ArrA]
+abstract class DataDbl3sCompanion[A <: ElemDbl3, ArrA <: DataDbl3s[A]] extends DataDblNsCompanion[A, ArrA]
 { final override def elemProdSize: Int = 3
 
   def apply(elems: A*): ArrA =

@@ -89,7 +89,7 @@ trait BuffDblNs[A <: ElemDblN] extends Any with BuffValueNs[A]
 }
 
 /** Helper trait for Companion objects of [[ArrDblNs]] classes. */
-trait DblNsDataCompanion[A <: ElemDblN, ArrA <: DataDblNs[A]] extends DataValueNsCompanion[A, ArrA]
+trait DataDblNsCompanion[A <: ElemDblN, ArrA <: DataDblNs[A]] extends DataValueNsCompanion[A, ArrA]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArrayDbl(array: Array[Double]): ArrA
 

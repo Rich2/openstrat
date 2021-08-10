@@ -40,12 +40,13 @@ trait ArrDbl7s[A <: ElemDbl7] extends Any with ArrDblNs[A] with DataDbl7s[A]
 }
 
 /** Helper class for companion objects of final [[ArrDbl7s]] classes. */
-abstract class DataDbl7sCompanion[A <: ElemDbl7, ArrA <: DataDbl7s[A]]
-{ val factory: Int => ArrA
-  def apply(length: Int): ArrA = factory(length)
+abstract class DataDbl7sCompanion[A <: ElemDbl7, ArrA <: DataDbl7s[A]] extends DataDblNsCompanion[A, ArrA]
+{ override def elemProdSize: Int = 7
+  def apply(length: Int): ArrA = uninitialised(length)
+
   def apply(elems: A*): ArrA =
   { val length = elems.length
-    val res = factory(length)
+    val res = uninitialised(length)
     var count: Int = 0
 
     while (count < length)
@@ -60,14 +61,14 @@ abstract class DataDbl7sCompanion[A <: ElemDbl7, ArrA <: DataDbl7s[A]]
 
   def doubles(elems: Double*): ArrA =
   { val arrLen: Int = elems.length
-    val res = factory(elems.length / 7)
+    val res = uninitialised(elems.length / 7)
     var count: Int = 0
     while (count < arrLen) { res.arrayUnsafe(count) = elems(count); count += 1 }
     res
   }
 
    def fromList(list: List[A]): ArrA =
-   { val res = factory(list.length)
+   { val res = uninitialised(list.length)
      var count: Int = 0
      var rem = list
      

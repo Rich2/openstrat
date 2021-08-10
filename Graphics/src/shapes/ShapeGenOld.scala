@@ -102,5 +102,6 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends ArrDbl7s[CurveTail] wi
 }
 
 object ShapeGenOld extends DataDbl7sCompanion[CurveTail, ShapeGenOld]
-{ implicit val factory: Int => ShapeGenOld = i => new ShapeGenOld(new Array[Double](i * 7))
+{ /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
+  override def fromArrayDbl(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
 }

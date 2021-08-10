@@ -87,7 +87,7 @@ trait ArrDbl2sFlatBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsFl
 }
 
 /** Class for the singleton companion objects of [[ArrDbl2s]] final classes to extend. */
-trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: DataDbl2s[A]] extends DblNsDataCompanion[A, ArrA]
+trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: DataDbl2s[A]] extends DataDblNsCompanion[A, ArrA]
 { final def elemProdSize: Int = 2
 
   /** Apply factory method for creating Arrs of [[ElemDbl2]]s. */

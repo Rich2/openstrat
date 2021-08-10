@@ -49,20 +49,8 @@ trait DataGen[A] extends Any
     while(count < elemsNum) { f(indexData(count)); count += 1 }
   }
 
-  /** Maps the dat elements that specify the final class. */
-  def dataMap[B <: ElemValueN, N <: DataValueNs[B]](f: A => B)(implicit factory: Int => N): N =
-  { val res = factory(elemsNum)
-    var count: Int = 0
-    while (count < elemsNum) {
-      val newValue: B = f(indexData(count))
-      res.unsafeSetElem(count, newValue)
-      count += 1
-    }
-    res
-  }
-
   /** Specialised map to an immutable ArrBase of B. */
-  def dataMmap[B, ArrB <: ArrBase[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def dataMap[B, ArrB <: ArrBase[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
     dataIForeach((a, i) => ev.arrSet(res, i, f(a)))
     res

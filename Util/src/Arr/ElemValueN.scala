@@ -95,13 +95,13 @@ abstract class DataValueNsPersist[A, M](val typeStr: String) extends PersistComp
 /** Helper trait for companion objects of [[DataValueNs]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
 trait DataValueNsCompanion[A <: ElemValueN, ArrA <: DataValueNs[A]]
 { /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
-  implicit def uninitialised(length: Int): ArrA
+  def uninitialised(length: Int): ArrA
 
   /** the product size of the ValueNsArr type's elements. */
   def elemProdSize: Int
 
   /** This method allows you to map from a DataGen to the ArrA type. */
-  final def fromDataGenMap[T](alb: DataGen[T])(f: T => A): ArrA = {
+  final def dataGenMap[T](alb: DataGen[T])(f: T => A): ArrA = {
     val res = uninitialised(alb.elemsNum)
     var count = 0
     alb.dataForeach { t =>

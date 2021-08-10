@@ -30,7 +30,7 @@ abstract class EarthLevel2(val shortName: String, val cen: LatLong, val terr: WT
 
       case SomeB(curveSegDists) =>
       { val cenXY: Pt2 = eg.latLongToXY(cen)
-        val curveSegs: ShapeGenOld = curveSegDists.dataMap(_.toCurveSeg(eg.trans))
+        val curveSegs: ShapeGenOld = ShapeGenOld.dataGenMap(curveSegDists)(_.toCurveSeg(eg.trans))// curveSegDists.dataMap(_.toCurveSeg(eg.trans))
         Arr(PolyCurveParentFull.fill(cenXY, curveSegs, this, terr.colour))
       }
 
