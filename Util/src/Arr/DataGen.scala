@@ -22,6 +22,14 @@ trait DataGen[A] extends Any
 
   def fElemStr: A @uncheckedVariance => String
 
+  /** String specifying the type of this object. */
+  def typeStr: String
+
+  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
+  final def elemsStr: String = dataMap(fElemStr).mkString("; ").enParenth
+
+  final override def toString: String = typeStr + elemsStr
+
   /** apply method accesses the individual elements of the sequence by 0 based index. */
   @inline def indexData(index: Int): A
 

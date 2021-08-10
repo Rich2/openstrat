@@ -40,7 +40,8 @@ object BooleansBuild extends ArrBuilder[Boolean, Booleans] with ArrFlatBuilder[B
 }
 
 class BooleanBuff(val unsafeBuff: ArrayBuffer[Boolean]) extends AnyVal with SeqGen[Boolean]
-{ override def indexData(index: Int): Boolean = unsafeBuff(index)
+{ override def typeStr: String = "BooleanBuff"
+  override def indexData(index: Int): Boolean = unsafeBuff(index)
   override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeBuff(i) = value
   override def fElemStr: Boolean => String = _.toString

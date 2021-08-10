@@ -200,8 +200,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   def filterToList(f: A => Boolean): List[A] =
-  {
-    var acc: List[A] = Nil
+  { var acc: List[A] = Nil
     foreach{ a => if (f(a)) acc ::= a }
     acc.reverse
   }

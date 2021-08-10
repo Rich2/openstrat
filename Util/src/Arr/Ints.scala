@@ -78,7 +78,8 @@ object IntsBuild extends ArrBuilder[Int, Ints] with ArrFlatBuilder[Ints]
 }
 
 class IntBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with SeqGen[Int]
-{ override def indexData(index: Int): Int = unsafeBuff(index)
+{ override def typeStr: String = "IntBuff"
+  override def indexData(index: Int): Int = unsafeBuff(index)
   override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Int): Unit = unsafeBuff(i) = value
   override def fElemStr: Int => String = _.toString

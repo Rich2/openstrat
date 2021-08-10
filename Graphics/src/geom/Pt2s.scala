@@ -73,7 +73,8 @@ object Pt2s extends DataDbl2sCompanion[Pt2, Pt2s]
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt2]]s collections. */
 final class BuffPt2(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[Pt2]
-{ def dblsToT(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+{ override def typeStr: String = "BuffPt2"
+  def dblsToT(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }
 
 object BuffPt2

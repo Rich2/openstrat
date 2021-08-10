@@ -39,7 +39,8 @@ object FloatsBuild extends ArrBuilder[Float, Floats] with ArrFlatBuilder[Floats]
 }
 
 class FloatsBuff(val unsafeBuff: ArrayBuffer[Float]) extends AnyVal with SeqGen[Float]
-{ override def indexData(index: Int): Float = unsafeBuff(index)
+{ override def typeStr: String = "FloatsBuff"
+  override def indexData(index: Int): Float = unsafeBuff(index)
   override def elemsNum: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeBuff(i) = value
   override def fElemStr: Float => String = _.toString

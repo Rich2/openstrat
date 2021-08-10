@@ -45,7 +45,8 @@ object Colours
 
 /** ArrayBuffer based buffer class for Colours. */
 class ColourBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with BuffInt1s[Colour]
-{ def intToT(i1: Int): Colour = new Colour(i1)
+{ override def typeStr: String = "ColourBuff"
+  def intToT(i1: Int): Colour = new Colour(i1)
 }
 
 sealed trait OptColour extends Opt[Colour]

@@ -7,8 +7,7 @@ import annotation.unchecked.uncheckedVariance
 trait DataImut[+A] extends Any with DataGen[A @uncheckedVariance]
 { type ThisT <: DataImut[A]
 
-  /** String specifying the type of this object. */
-  def typeStr: String
+
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised ArrT of the this [[ArrBase]]'s final type. */
   def unsafeSameSize(length: Int): ThisT

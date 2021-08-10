@@ -59,5 +59,6 @@ object Coods extends DataInt2sCompanion[Cood, Coods]
 
 class CoodBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[Cood]
 { type ArrT = Coods
+  override def typeStr: String = "CoodBuff"
   override def intsToT(i1: Int, i2: Int): Cood = Cood(i1, i2)
 }

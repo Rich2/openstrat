@@ -19,9 +19,9 @@ trait ArrBase[+A] extends Any with SeqGen[A] with DataImut[A]
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  final def elemsStr: String = map(fElemStr).mkString("; ").enParenth
+  //final def elemsStr: String = dataMap(fElemStr).mkString("; ").enParenth
 
-  final override def toString: String = typeStr + elemsStr
+  //final override def toString: String = typeStr + elemsStr
 
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
   { case -1 => returnThis
