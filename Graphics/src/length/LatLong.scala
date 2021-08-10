@@ -12,7 +12,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def show2: Double = longMilliSecs
   def latSecs: Double = latMilliSecs / 1000
   def longSecs: Double = longMilliSecs / 1000
-  override def toString: String = "LatLong".appendCommas(latDegStr, longDegStr)
+  override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)
 
   def persistName = "LatLong"
   def persistMems = Seq(latRadians, longRadians)  

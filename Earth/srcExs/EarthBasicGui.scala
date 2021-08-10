@@ -16,18 +16,10 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   val lp3 = lp2.map(_.xy)
   val lp4 = lp3.map(_ / scale)
 
-  val aw0 = AfricaWestPts.westAfricaSouth.polygonLL
-  //deb(aw0.toString)
-  val eas: Arr[EarthLevel2] =  Arr(Canarias, Sicily, Majorca, SaharaWest, AfricaWestPts.westAfricaSouth)//*Arr(*/AfricaWest/*, AfricaEast, AfricaSouthern).flatM*/.a2Arr
-  val af0 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon((p: PtMetre2) => p / scale).fill(a.colour) }
-  val af1 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / scale).draw() }
-  val a2: Arr[PolygonLL] = eas.map(_.polygonLL)
-  deb(a2(0).toString)
-  val a3: Arr[PolygonMetre3] = a2.map(_.metres3Default)
-  deb(a3(0).toString)
- // val af2 = eas.map{a => a.polygonLL.metres3Default.xyPlane.mapPolygon(_ / 10.km).drawT draw() }
-  val ca = (27.72 ll -18.15).toMetres3
-  debvar(ca)
+  val eas: Arr[EarthLevel2] =  Arr(AfricaWest, AfricaEast, AfricaSouthern).flatMap(_.a2Arr)
+  val af0 = eas.map{a => a.polygonLL.metres3Default.xyPlane.map(_ / scale).fill(a.colour) }
+  val af1 = eas.map{a => a.polygonLL.metres3Default.xyPlane.map(_ / scale).draw() }
+
   mainRepaint(af0 ++ af1 +- lp4.draw())
 }
 

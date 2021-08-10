@@ -121,7 +121,7 @@ trait PolygonDbl3sBuilder[B <: ElemDbl3, BB <: PolygonDbl3s[B]] extends PolygonD
 { type BuffT <: BuffDbl3s[B]
   final override def elemProdSize = 3
   override def arrSet(arr: BB, index: Int, value: B): Unit =
-  { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl3; arr.arrayUnsafe(index * 3 + 2) = value.dbl3
+  { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl2; arr.arrayUnsafe(index * 3 + 2) = value.dbl3
   }
 }
 
