@@ -133,14 +133,14 @@ object LatLong
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
   implicit val linePathBuildImplicit: LinePathDbl2sBuilder[LatLong, LinePathLL] = new LinePathDbl2sBuilder[LatLong, LinePathLL]
-  { override type BuffT = LatLongBuff
+  { override type BuffT = BuffLatLong
     override def fromDblArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffLatLong = new BuffLatLong(inp)
   }
 
   implicit val polygonBuildImplicit: PolygonDbl2sBuilder[LatLong, PolygonLL] = new PolygonDbl2sBuilder[LatLong, PolygonLL]
-  { override type BuffT = LatLongBuff
+  { override type BuffT = BuffLatLong
     override def fromDblArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffLatLong = new BuffLatLong(inp)
   }
 }

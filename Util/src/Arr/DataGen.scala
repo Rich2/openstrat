@@ -70,4 +70,6 @@ trait DataGen[A] extends Any
     dataTailForeach(a => acc = f(acc, a))
     acc
   }
+
+  def dataLast: A = indexData(elemsNum - 1)
 }

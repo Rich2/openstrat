@@ -203,11 +203,11 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
     gc.strokeText(to.str, to.posn.x, to.posn.y)
   }
    
-  private[this] def segsPath(segs: ShapeGenOld): Unit =
+  private[this] def segsPath(sgo: ShapeGenOld): Unit =
   { gc.beginPath
-    var startPt = segs.last.pEnd
+    var startPt = sgo.segLast.pEnd
     gc.moveTo(startPt.x, startPt.y)
-    segs.dataForeach{seg =>
+    sgo.dataForeach{ seg =>
       seg.segDo(ls => gc.lineTo(ls.xEnd, ls.yEnd),
         as => as.fControlEndRadius(startPt, gc.arcTo),
         bs => gc.bezierCurveTo(bs.xC1, bs.yC1, bs.xUses, bs.yUses, bs.xEnd, bs.yEnd)
