@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from 7 [[Double]]s. These are used in [[ArrDbl7s]] Array[Double] based collections. */
+/** An object that can be constructed from 7 [[Double]]s. These are used in [[DataDbl7s]] classes including [[ArrDbl7s]] sequence collections. */
 trait ElemDbl7 extends Any with ElemDblN
 { def dbl1: Double
   def dbl2: Double
@@ -11,7 +11,8 @@ trait ElemDbl7 extends Any with ElemDblN
   def dbl6: Double
   def dbl7: Double
 }
-/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl6]]s. */
+
+/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl7]]s. */
 trait DataDbl7s[A <: ElemDbl7] extends Any with DataDblNs[A]
 { def elemProdSize: Int = 7
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
@@ -38,7 +39,7 @@ trait ArrDbl7s[A <: ElemDbl7] extends Any with ArrDblNs[A] with DataDbl7s[A]
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6, el.dbl7)))
 }
 
-/** Helper class for companion objects of final [[ArrDbl7s]] classes. */
+/** Helper class for companion objects of final [[DataDbl7s]] classes. */
 abstract class DataDbl7sCompanion[A <: ElemDbl7, ArrA <: DataDbl7s[A]] extends DataDblNsCompanion[A, ArrA]
 { override def elemProdSize: Int = 7
   def apply(length: Int): ArrA = uninitialised(length)
