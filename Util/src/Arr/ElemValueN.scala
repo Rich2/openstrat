@@ -82,8 +82,8 @@ trait BuffValueNs[A <: ElemValueN] extends Any with SeqGen[A]
   override def fElemStr: A => String = _.toString
 }
 
-/** Class to Persist specialised flat Array[Value] type based collections. */
-abstract class DataValueNsPersist[A, M](val typeStr: String) extends PersistCompound[M]
+/** Class to Persist specialised for [[DatValueNs]] cLasses. */
+abstract class DataValueNsPersist[A <: ElemValueN, M <: DataValueNs[A]](val typeStr: String) extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT
   def appendtoBuffer(buf: Buff[VT], value: A): Unit

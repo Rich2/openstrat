@@ -191,9 +191,9 @@ object CanvasJs extends CanvasTopLeft
    
   private[this] def segsPath(segs: ShapeGenOld): Unit =
   { gc.beginPath()
-    var startPt = segs.last.pEnd
+    var startPt = segs.segLast.pEnd
     gc.moveTo(startPt.x, startPt.y)
-    segs.foreach{seg =>
+    segs.dataForeach{seg =>
       seg.segDo(ls =>
         gc.lineTo(ls.xEnd, ls.yEnd),
         as => as.fControlEndRadius(startPt, gc.arcTo),
