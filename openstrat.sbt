@@ -4,7 +4,7 @@ val versionStr = "0.3.0snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor = "3.0"
-val scalaMinor = "1"
+val scalaMinor = "2"
 //lazy val jarVersion = "_" + scalaMajor + "-" + versionStr + ".jar"
 //ThisBuild/scalaVersion := scalaMajor + "." + scalaMinor
 ThisBuild/organization := "com.richstrat"
@@ -37,7 +37,7 @@ def sett2 = List(
 )
 
 def sett3 = List(
-  scalaVersion := "3.0.2-RC1",
+  scalaVersion := "3.0.2",
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
