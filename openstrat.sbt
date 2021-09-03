@@ -51,12 +51,12 @@ def jvm3Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm").settings(sett
 
 def js2Proj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(sett2).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs", "src2", "srcExs").map(moduleDir.value / _),
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.2.0" withSources(),
 )
 
 def js3Proj(name: String) = baseProj(name, name + "Js3").enablePlugins(ScalaJSPlugin).settings(sett3).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs", "src3", "srcExs").map(moduleDir.value / _),
-  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.1.0").cross(CrossVersion.for3Use2_13) withSources(),
+  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.2.0").cross(CrossVersion.for3Use2_13) withSources(),
 )
 
 def nat2Proj(name: String) = baseProj(name, name + "Nat").enablePlugins(ScalaNativePlugin).settings(sett2).settings(
