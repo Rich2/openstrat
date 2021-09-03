@@ -49,7 +49,7 @@ def jvm3Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm").settings(sett
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
 
-def js2Proj(name: String) = baseProj(name, name + "Js2").enablePlugins(ScalaJSPlugin).settings(sett2).settings(
+def js2Proj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(sett2).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs", "src2", "srcExs").map(moduleDir.value / _),
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
 )
@@ -85,6 +85,7 @@ lazy val TilingJs = js2Proj("Tiling").dependsOn(GraphicsJs)
 lazy val TilingNat = js2Proj("Tiling").dependsOn(GraphicsNat)
 lazy val EarthJvm = jvm3Proj("Earth").dependsOn(TilingJvm)
 lazy val EarthJs = js2Proj("Earth").dependsOn(TilingJs)
+lazy val EarthAppJs = js2App("EarthApp").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Earth/srcEarthApp")
 lazy val EarthNat = js2Proj("Earth").dependsOn(TilingNat)
 
 lazy val DevJvm = jvm3Proj("Dev").dependsOn(EarthJvm).settings(
