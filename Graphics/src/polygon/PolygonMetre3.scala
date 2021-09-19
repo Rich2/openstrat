@@ -11,6 +11,11 @@ final class PolygonMetre3(val arrayUnsafe: Array[Double]) extends AnyVal with Po
   override def typeStr: String = "PolygonMetre3"
   override def fElemStr: PtMetre3 => String = _.toString
   def xyPlane: PolygonMetre = map(_.xy)
+
+  /** All vertices have a non negative Z component. */
+  def zNonNeg: Boolean = vertsForAll(_.zMetres >= 0)
+
+  override def vert(index: Int): PtMetre3 = indexData(index)
 }
 
 /** Companion object for PolygonM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */

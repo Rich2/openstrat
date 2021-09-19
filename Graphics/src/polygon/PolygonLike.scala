@@ -28,11 +28,32 @@ trait PolygonLike[VertT] extends Any
     res
   }
 
+  /** This method should be overridden in final classes. */
+  def vertsFold[B, ArrB <: ArrBase[B]](init: B)(f: (B, VertT) => B): B =
+  { var res = init
+    vertsForeach(v => res = f(res, v))
+    res
+  }
+
   /** Map this collection of data elements to PolygonLike class of type BB. */
   def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VertT => B)(implicit build: PolygonBuilder[B, BB]): BB =
   {
     val res = build.newPolygonT(vertsNum)
     vertsIForeach((a, i) => build.arrSet(res, i, f(a)))
+    res
+  }
+
+  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
+  def vert(index: Int): VertT
+
+  /** This method should be overridden in final classes. */
+  def vertsForAll(f: VertT => Boolean): Boolean =
+  { var count = 0
+    var res = true
+    while (count < vertsNum & res)
+    { if (!f(vert(count))) res = false
+      count += 1
+    }
     res
   }
 

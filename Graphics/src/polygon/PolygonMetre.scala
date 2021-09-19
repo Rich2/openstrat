@@ -8,6 +8,9 @@ final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with Arr
   override def typeStr: String = "PolygonMs"
   override def dataElem(d1: Double, d2: Double): PtMetre2 = new PtMetre2(d1, d2)
   override def fElemStr: PtMetre2 => String = _.str
+
+  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
+  override def vert(index: Int): PtMetre2 = ???
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */

@@ -11,6 +11,10 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with PolygonInt2s[HC
 
   override def dataElem(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
 
+
+  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
+  override def vert(index: Int): HCoord = ???
+
   override def fElemStr: HCoord => String = _.toString
 
   /** This applies the index value in a circular manner. So the 6th index of a Hexagon is applied at vertex 0, 7 at 1 and -1 at 5. */

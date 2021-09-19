@@ -9,7 +9,11 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike
   override def unsafeFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
   override def typeStr: String = "PolygonLL"
   def metres3Default: PolygonMetre3 = map(_.toMetres3)
+
   //override def toString: String = PolygonLL.persistImplicit.showT(this, Show.Standard, 2, 2)
+
+  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
+  override def vert(index: Int): LatLong = ???
 }
 
 /** Companion object for the [[PolygonLL]] class. */
