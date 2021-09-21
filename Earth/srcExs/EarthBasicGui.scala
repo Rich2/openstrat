@@ -16,7 +16,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   val lp3 = lp2.map(_.xy)
   val lp4 = lp3.map(_ / scale)
 
-  val eas: Arr[EarthLevel2] =  EarthAreas.allTops/* Arr(AfricaWest, AfricaEast, AfricaSouthern)*/.flatMap(_.a2Arr)
+  val eas: Arr[EarthLevel2] =  EarthAreas.allTops.flatMap(_.a2Arr)
   val afPairs: Arr[(EarthLevel2, PolygonMetre3)] = eas.map{ a => (a, a.polygonLL.metres3Default) }.filter(_._2.zNonNeg)
   val af0 = afPairs.map{ p => p._2.xyPlane.map(_ / scale).fill(p._1.colour) }
   val af1 = afPairs.map{a => a._2.xyPlane.map(_ / scale).draw() }
@@ -25,4 +25,4 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
 }
 
 /** object to launch EarthBasic Gui. */
-object EarthBasicLaunch extends GuiLaunchSimple("earth", (EarthBasicGui.apply(_), "JavaFx Earth"))
+object EarthBasicLaunch extends GuiLaunchSimple("Earth", (EarthBasicGui.apply(_), "JavaFx Earth"))
