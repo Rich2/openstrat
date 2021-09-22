@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import pWeb._
 
 /** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareImp]], a general square. */
@@ -43,12 +42,20 @@ object Square extends ShapeIcon
   override type ShapeT = Sqlign
   def s2s4(s2Cen: Pt2, s4Cen: Pt2): Square = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
 
+  /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the
+   * square's scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with
+   * its centre at the axes centre. Otherwise the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre.
+   * If you want to create a square aligned to the axes, then you are probably better using the Sqlign factory apply method. */
   def apply(width: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Square =
   { val s2 = cen + xVec2(width / 2).rotate(rotation)
     val s4 = cen + xVec2(-width / 2).rotate(rotation)
     s2s4(s2, s4)
   }
-  
+
+  /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the
+   * square's scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with
+   * its centre at the axes centre. Otherwise the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre.
+   * If you want to create a square aligned to the axes, then you are probably better using the Sqlign factory apply method. */
   def apply(width: Double, rotation: AngleVec, xCen: Double, yCen: Double): Square =
   { val s2 = Pt2(width / 2, 0).rotate(rotation).addXY(xCen, yCen)
     val s4 = Pt2(-width / 2, 0).rotate(rotation).addXY(xCen, yCen)
