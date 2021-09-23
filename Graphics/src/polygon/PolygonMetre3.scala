@@ -16,6 +16,30 @@ final class PolygonMetre3(val arrayUnsafe: Array[Double]) extends AnyVal with Po
   def zNonNeg: Boolean = vertsForAll(_.zMetres >= 0)
 
   override def vert(index: Int): PtMetre3 = indexData(index)
+
+  override def vertsIForeach[U](f: (PtMetre3, Int) => Unit): Unit =
+  { var count = 0
+    vertsForeach{ v =>
+      f(v, count)
+      count += 1
+    }
+  }
+
+  override def vertsMap[B, ArrB <: ArrBase[B]](f: PtMetre3 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
+  { val res = builder.newArr(vertsNum)
+    var count = 0
+    vertsForeach{ v =>
+      builder.arrSet(res, count, f(v))
+      count += 1
+    }
+    res
+  }
+
+  override def vertsFold[B](init: B)(f: (B, PtMetre3) => B): B =
+  { var res = init
+    vertsForeach(v => res = f(res, v))
+    res
+  }
 }
 
 /** Companion object for PolygonM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */

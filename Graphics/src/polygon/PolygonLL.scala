@@ -14,6 +14,30 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
   override def vert(index: Int): LatLong = ???
+
+  override def vertsIForeach[U](f: (LatLong, Int) => Unit): Unit =
+  { var count = 0
+    vertsForeach{ v =>
+      f(v, count)
+      count += 1
+    }
+  }
+
+  override def vertsMap[B, ArrB <: ArrBase[B]](f: LatLong => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
+  { val res = builder.newArr(vertsNum)
+    var count = 0
+    vertsForeach{ v =>
+      builder.arrSet(res, count, f(v))
+      count += 1
+    }
+    res
+  }
+
+  override def vertsFold[B](init: B)(f: (B, LatLong) => B): B =
+  { var res = init
+    vertsForeach(v => res = f(res, v))
+    res
+  }
 }
 
 /** Companion object for the [[PolygonLL]] class. */

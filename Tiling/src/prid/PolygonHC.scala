@@ -15,6 +15,30 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with PolygonInt2s[HC
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
   override def vert(index: Int): HCoord = ???
 
+  override def vertsIForeach[U](f: (HCoord, Int) => Unit): Unit =
+  { var count = 0
+    vertsForeach{ v =>
+      f(v, count)
+      count += 1
+    }
+  }
+
+  override def vertsMap[B, ArrB <: ArrBase[B]](f: HCoord => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
+  { val res = builder.newArr(vertsNum)
+    var count = 0
+    vertsForeach{ v =>
+      builder.arrSet(res, count, f(v))
+      count += 1
+    }
+    res
+  }
+
+  override def vertsFold[B](init: B)(f: (B, HCoord) => B): B =
+  { var res = init
+    vertsForeach(v => res = f(res, v))
+    res
+  }
+
   override def fElemStr: HCoord => String = _.toString
 
   /** This applies the index value in a circular manner. So the 6th index of a Hexagon is applied at vertex 0, 7 at 1 and -1 at 5. */

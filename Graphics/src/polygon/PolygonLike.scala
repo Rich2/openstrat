@@ -2,41 +2,31 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
-trait PolygonLike[VertT] extends Any
+/** A Polygon like object with 2 dimensional point vertices, where the points dimensions could be specified in metres, latitude, longitude etc as well
+ *  as the regular scalar values of the standard [[Polygon]]. *
+ * @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a
+ *            [[PolygonMetre3]] it would be a [[PtMetre3]]. */
+trait PolygonLike[VT] extends Any
 {
   /** The number of vertices and also the number of sides in this Polygon. */
   def vertsNum: Int
 
-  def vertsForeach[U](f: VertT => U): Unit
+  def vertsForeach[U](f: VT => U): Unit
 
-  def vertsIForeach[U](f: (VertT, Int) => Unit): Unit ={
-    var count = 0
-    vertsForeach{ v =>
-      f(v, count)
-      count += 1
-    }
-  }
+  def vertsIForeach[U](f: (VT, Int) => Unit): Unit
 
-  /** This method should be overridden in final classes. */
-  def vertsMap[B, ArrB <: ArrBase[B]](f: VertT => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
-  { val res = builder.newArr(vertsNum)
-    var count = 0
-    vertsForeach{ v =>
-      builder.arrSet(res, count, f(v))
-      count += 1
-    }
-    res
-  }
+  /** Maps the vertices of this polygon to an immutable Array like sequence of type B.
+   * @tparam B The element type of the returned sequence.
+   * @tparam ArrB The type of the immutable Array like sequence of B.
+   * @return the immutable sequence collection by applying the supplied function to each vertex. */
+  def vertsMap[B, ArrB <: ArrBase[B]](f: VT => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB
 
-  /** This method should be overridden in final classes. */
-  def vertsFold[B, ArrB <: ArrBase[B]](init: B)(f: (B, VertT) => B): B =
-  { var res = init
-    vertsForeach(v => res = f(res, v))
-    res
-  }
+  /** Folds over the vertices.
+   * @tparam B type of the accumulator return value of this method. */
+  def vertsFold[B](init: B)(f: (B, VT) => B): B
 
   /** Map this collection of data elements to PolygonLike class of type BB. */
-  def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VertT => B)(implicit build: PolygonBuilder[B, BB]): BB =
+  def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonBuilder[B, BB]): BB =
   {
     val res = build.newPolygonT(vertsNum)
     vertsIForeach((a, i) => build.arrSet(res, i, f(a)))
@@ -44,10 +34,10 @@ trait PolygonLike[VertT] extends Any
   }
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  def vert(index: Int): VertT
+  def vert(index: Int): VT
 
   /** This method should be overridden in final classes. */
-  def vertsForAll(f: VertT => Boolean): Boolean =
+  def vertsForAll(f: VT => Boolean): Boolean =
   { var count = 0
     var res = true
     while (count < vertsNum & res)

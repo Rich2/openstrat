@@ -1,7 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black
-import pWeb._
+import pWeb._, Colour.Black
 
 /** A mathematical closed polygon. The general case can be instantiated with [[PolygonGen]], but it provides the interface for particular sub sets of
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the
@@ -31,7 +30,21 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
    * new transformed Polygon */
   def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
- override def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrBuilder[A, ArrT]): ArrT =
+  override def vertsIForeach[U](f: (Pt2, Int) => Unit): Unit = {
+    var count = 0
+    vertsForeach{ v =>
+      f(v, count)
+      count += 1
+    }
+  }
+
+  override def vertsFold[B](init: B)(f: (B, Pt2) => B): B =
+  { var res = init
+    vertsForeach(v => res = f(res, v))
+    res
+  }
+
+  override def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrBuilder[A, ArrT]): ArrT =
   { val acc = build.newBuff()
     vertsForeach{ v => build.buffGrow(acc, f(v)) }
     build.buffToBB(acc)
@@ -47,12 +60,6 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
       count += 1
     }
     build.buffToBB(buff)
-  }
-
-  def vertsFoldLeft[B](initial: B)(f: (B, Pt2) => B): B =
-  { var acc: B = initial
-    vertsForeach{ v => acc = f(acc, v) }
-    acc
   }
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */

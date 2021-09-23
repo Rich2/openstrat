@@ -11,6 +11,30 @@ final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with Arr
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
   override def vert(index: Int): PtMetre2 = ???
+
+  override def vertsIForeach[U](f: (PtMetre2, Int) => Unit): Unit =
+  { var count = 0
+    vertsForeach{ v =>
+      f(v, count)
+      count += 1
+    }
+  }
+
+  override def vertsMap[B, ArrB <: ArrBase[B]](f: PtMetre2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
+  { val res = builder.newArr(vertsNum)
+    var count = 0
+    vertsForeach{ v =>
+      builder.arrSet(res, count, f(v))
+      count += 1
+    }
+    res
+  }
+
+  override def vertsFold[B](init: B)(f: (B, PtMetre2) => B): B =
+  { var res = init
+    vertsForeach(v => res = f(res, v))
+    res
+  }
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
