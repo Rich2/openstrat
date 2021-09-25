@@ -30,8 +30,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
    * new transformed Polygon */
   def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
-  override def vertsIForeach[U](f: (Pt2, Int) => Unit): Unit = {
-    var count = 0
+  override def vertsIForeach[U](f: (Pt2, Int) => Unit): Unit =
+  { var count = 0
     vertsForeach{ v =>
       f(v, count)
       count += 1
@@ -50,12 +50,19 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
     build.buffToBB(acc)
   }
 
+  /** flatMap to an immutable Arr. */
+  def vertsFlatMap[BB <: ArrBase[_]](f: Pt2 => BB)(implicit build: ArrFlatBuilder[BB]): BB =
+  { val buff: build.BuffT = build.newBuff()
+    vertsForeach(v => build.buffGrowArr(buff, f(v)))
+    build.buffToBB(buff)
+  }
+
   /** flatMap with index to an immutable Arr. */
   def vertsIFlatMap[BB <: ArrBase[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = iInit
     vertsForeach { v =>
-     val newElems = f(v, count)
+      val newElems = f(v, count)
       build.buffGrowArr(buff, newElems)
       count += 1
     }
