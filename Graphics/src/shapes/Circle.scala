@@ -89,17 +89,22 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
 object Circle extends ShapeIcon
 {
   override type ShapeT = Circle
-  /** Standard factory method for creating a circle from its diameter and the position of its centre. */
+
+  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
+   * the centre point or the X and Y positions of its centre. */
   def apply(diameter: Double, cen: Pt2 = Pt2Z) = new Circle(diameter, cen.x, cen.y)
 
-  /** Factory method for creating circles. */
+  /** Factory apply method for creating a circle. The first parameter gives the diameter of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at its origin. The diameter can be followed by
+   * the centre point or the X and Y positions of its centre. */
   def apply(diameter: Double, cenX: Double, cenY: Double): Circle = new Circle(diameter, cenX, cenY)
 
-  /** Factory method for creating a circle from its radius and the position of its centre. */
-  def fromRadius(radius: Double, cen: Pt2 = Pt2Z) = new Circle(radius * 2, cen.x, cen.y)
+  /** Factory method for creating a circle from its radius and the position of its centre. The first parameter gives the radius of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at
+   *  its origin. The radius can be followed by the centre point or the X and Y positions of its centre. */
+  def radius(radius: Double, cen: Pt2 = Pt2Z) = new Circle(radius * 2, cen.x, cen.y)
 
-  /** Factory method for creating a circle from its radius and the position of its centre. */
-  def fromRadius(radius: Double, xCen: Double, yCen: Double) = new Circle(radius * 2, xCen, yCen)
+  /** Factory method for creating a circle from its radius and the position of its centre. The first parameter gives the radius of the circle. If no other parameters are passed the default position is for the centre of the circle to be positioned at
+   *  its origin. The radius can be followed by the centre point or the X and Y positions of its centre. */
+  def radius(radius: Double, xCen: Double, yCen: Double) = new Circle(radius * 2, xCen, yCen)
 
   override def reify(scale: Double, cen: Pt2): Circle = Circle(scale, cen)
   override def reify(scale: Double, xCen: Double, yCen: Double): Circle = Circle(scale, xCen, yCen)
