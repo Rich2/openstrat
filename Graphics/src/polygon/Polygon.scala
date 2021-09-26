@@ -44,7 +44,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
     res
   }
 
-  override def vertsMap[A, ArrT <: ArrBase[A]](f: Pt2 => A)(implicit build: ArrBuilder[A, ArrT]): ArrT =
+  override def vertsMap[B, ArrB <: ArrBase[B]](f: Pt2 => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
   { val acc = build.newBuff()
     vertsForeach{ v => build.buffGrow(acc, f(v)) }
     build.buffToBB(acc)

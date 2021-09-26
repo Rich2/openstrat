@@ -15,6 +15,15 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with PolygonInt2s[HC
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
   override def vert(index: Int): HCoord = ???
 
+  /** Performs the side effecting function on the [[HCoord]] value of each vertex. */
+  override def vertsForeach[U](f: HCoord => U): Unit =
+  { var count = 0
+    while (count < vertsNum)
+    { f(vert(count))
+      count += 1
+    }
+  }
+
   override def vertsIForeach[U](f: (HCoord, Int) => U): Unit =
   { var count = 0
     vertsForeach{ v =>
