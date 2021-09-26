@@ -5,6 +5,11 @@ import pWeb._
 /** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareImp]], a general square. */
 trait Square extends Rectangle
 {
+  /** The width of this square. */
+  def width: Double
+
+  def rotation: AngleVec
+
   /** Translate geometric transformation on a Square returns a Square. */
   override def slate(offset: Vec2Like): Square = Square.s2s4(sd2Cen.slate(offset), sd4Cen.slate(offset))
 
@@ -20,7 +25,7 @@ trait Square extends Rectangle
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
   override def negX: Square = Square.s2s4(sd2Cen.negX, sd4Cen.negX)
 
-  override def rotate90: Square = ???
+  override def rotate90: Square = ???//Square(width, rotation, xCen, yCen)
   override def rotate180: Square = ???
   override def rotate270: Square = ???
 
@@ -74,6 +79,7 @@ object Square extends ShapeIcon
    *  rotated while remaining a Square. */
   final class SquareImp(val sd2CenX: Double, val sd2CenY: Double, val sd4CenX: Double, val sd4CenY: Double) extends Square with RectS2S4
   {
+    @inline override def width: Double = width1
     @inline override def width2: Double = width1
 
     override def attribs: Arr[XANumeric] = ???
@@ -85,6 +91,8 @@ object Square extends ShapeIcon
     /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
      * thought of as vertex 2.5. */
     override def sd3CenY: Double = ???
+
+    override def rotation: AngleVec = ???
 
    // override def productArity: Int = 3
     //override def productElement(n: Int): Any = 4

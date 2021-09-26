@@ -30,7 +30,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
    * new transformed Polygon */
   def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
-  override def vertsIForeach[U](f: (Pt2, Int) => Unit): Unit =
+  override def vertsIForeach[U](f: (Pt2, Int) => U): Unit =
   { var count = 0
     vertsForeach{ v =>
       f(v, count)

@@ -17,7 +17,16 @@ final class PolygonMetre3(val arrayUnsafe: Array[Double]) extends AnyVal with Po
 
   override def vert(index: Int): PtMetre3 = indexData(index)
 
-  override def vertsIForeach[U](f: (PtMetre3, Int) => Unit): Unit =
+  /** Performs the side effecting function on the [[PtMetre3]] value of each vertex. */
+  override def vertsForeach[U](f: PtMetre3 => U): Unit =
+  { var count = 0
+    while (count < vertsNum)
+    { f(vert(count))
+      count += 1
+    }
+  }
+
+  override def vertsIForeach[U](f: (PtMetre3, Int) => U): Unit =
   { var count = 0
     vertsForeach{ v =>
       f(v, count)

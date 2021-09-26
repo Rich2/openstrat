@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import pWeb._
 
 /** A square aligned to the X and Y axes. */
@@ -17,8 +16,8 @@ final case class Sqlign private(width: Double, cenX: Double, cenY: Double) exten
   override def attribs: Arr[XANumeric] = ???
   override def width1 = width
   override def width2: Double = width
-
   override def height: Double = width
+  override def rotation: AngleVec = 0.degs
   override def slate(offset: Vec2Like): Sqlign = Sqlign(width, cen.slate(offset))
 
   override def slateXY(xDelta: Double, yDelta: Double): Sqlign = Sqlign(width, cenX + xDelta, cenY + yDelta)

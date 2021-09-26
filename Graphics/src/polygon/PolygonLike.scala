@@ -11,9 +11,11 @@ trait PolygonLike[VT] extends Any
   /** The number of vertices and also the number of sides in this Polygon. */
   def vertsNum: Int
 
+  /** Performs the side effecting function on the value of each vertex. */
   def vertsForeach[U](f: VT => U): Unit
 
-  def vertsIForeach[U](f: (VT, Int) => Unit): Unit
+  /** Performs the side effecting function on the value of each vertex and an index. */
+  def vertsIForeach[U](f: (VT, Int) => U): Unit
 
   /** Maps the vertices of this polygon to an immutable Array like sequence of type B.
    * @tparam B The element type of the returned sequence.
@@ -46,8 +48,6 @@ trait PolygonLike[VT] extends Any
     }
     res
   }
-
-  //def foreachLineVert[U](f: VertT => U): Unit
 }
 
 trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with DataValueNs[VT]
