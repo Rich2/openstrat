@@ -9,7 +9,7 @@ trait ZugScen extends HexGridScen
 
   def sTerrs: HSideBooleans
   val lunits: HCenArrArr[Squad]
-  def setSquadMove(r: Int, c: Int, polity: Polity, steps: HStep*): Unit = lunits.set(r, c, Squad(Britain, Move(r, c, steps :_*)))
+  def setSquadMove(r: Int, c: Int, polity: Polity, steps: HStep*): Unit = lunits.set(r, c, Squad(polity, Move(steps :_*)))
 }
 
 /** ZugFuhrer scenario turn 0 state. */

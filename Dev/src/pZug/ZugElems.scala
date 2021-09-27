@@ -50,8 +50,9 @@ object France extends Polity
 
 sealed trait Action
 
-class Move(val arrayUnsafe: Array[Int]) extends Action with HCenPathTr
-object Move extends HCenPathCompanion[Move]
+class Move(val arrayUnsafe: Array[Int]) extends Action with HStepsTr
+
+object Move extends HStepsCompanion[Move]
 { override def fromArray(array: Array[Int]): Move = new Move(array)
 }
 
