@@ -28,7 +28,7 @@ class AppStart extends application.Application
         eSett.fold(launch.default)(launch(_))
       }
       case Good(StringToken(_, str)) if Apps.strMap.contains(str) => Apps.strMap(str)
-      case _ => Apps.default
+      case _ => { debvar(eExpr); Apps.default }
     }
     val newAlt = CanvasFx(canvasCanvas, jScene)
     pair._1(newAlt)

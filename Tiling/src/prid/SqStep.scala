@@ -12,7 +12,7 @@ trait TileStepOpt
 }
 
 /** An optional square tile step. Can take 9 values. Represents the relative move from a square tile to one of its eight neighbours or the non move value. It
- *  can be one of the 6 [[HexStep]] values or the [[HexStepNone]] value. */
+ *  can be one of the 6 [[HStep]] values or the [[HStepNone]] value. */
 sealed trait SqStepOpt extends TileStepOpt
 
 /** An optional square tile step of None. */

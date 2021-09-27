@@ -17,15 +17,18 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
     val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(hc).colour).slate(hc.toPt2)
     val action: GraphicElems = squad.action match
     {
-      case Move(rs) => Arr()
-      /*{ rs.foldWithPrevious[GraphicElems](hc, Arr()){ (acc, prevCood, nextCood) =>
-        val sideCood = (prevCood + nextCood) / 2
-        val l1 = RoordLine(prevCood, sideCood).gridLine2.draw(Black, 2)
-        val l2 = RoordLine(sideCood, nextCood).gridLine2.draw(Black, 2)
-        acc +- l1 +- l2
+      case mv: Move =>
+      { deb((mv.arrayUnsafe == null).toString)
+        mv.segsMap(_.draw())//rs.foldWithPrevious[GraphicElems](hc, Arr()) { (acc, prevCood, nextCood) =>
+        //val sideCood = (prevCood + nextCood) / 2
+        //val l1 = RoordLine(prevCood, sideCood).gridLine2.draw(Black, 2)
+        //val l2 = RoordLine(sideCood, nextCood).gridLine2.draw(Black, 2)
+        //acc +- l1 +- l2
+        //Arr()
+      //}
       }
-      }*/
-      case Fire(target) => Arr(HCoordLineSeg(hc, target).toLine2.draw(Red, 2).dashed(20, 20))
+
+      case Fire(target) => Arr(HCoordLineSeg(hc, target).lineSeg.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }
     action +- uc

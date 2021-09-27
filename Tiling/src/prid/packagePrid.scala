@@ -29,8 +29,8 @@ package object prid
       evScale.scaleT(a, scale)
     }
   }
-  val hcStepSomes: Arr[HexStep] = Arr(HexStepUR, HexStepRt, HexStepDR, HexStepDL, HexStepLt, HexStepUL)
-  val hcSteps: Arr[HexStepOpt] = HexStepNone +: hcStepSomes
+  val hcStepSomes: Arr[HStep] = Arr(HStepUR, HStepRt, HexStepDR, HStepDL, HStepLt, HStepUL)
+  val hcSteps: Arr[HStepOpt] = HStepNone +: hcStepSomes
 
   val scStepSomes: Arr[SqStep] = Arr()//HexStepUR, HexStepRt, HexStepDR, HexStepDL, HexStepLt, HexStepUL)
   val scSteps: Arr[SqStepOpt] = SqStepNone +: scStepSomes

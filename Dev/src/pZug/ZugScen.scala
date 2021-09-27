@@ -9,6 +9,7 @@ trait ZugScen extends HexGridScen
 
   def sTerrs: HSideBooleans
   val lunits: HCenArrArr[Squad]
+  def setSquadMove(r: Int, c: Int, polity: Polity, steps: HStep*): Unit = lunits.set(r, c, Squad(Britain, Move(r, c, steps :_*)))
 }
 
 /** ZugFuhrer scenario turn 0 state. */
@@ -47,15 +48,15 @@ object Zug1 extends ZugScenStart
   //sTerrs.setTrues(wall1)
 
   val lunits: HCenArrArr[Squad] = grid.newTileArrArr[Squad]
-  lunits.set(2, 30, Squad(Britain, Move(2 hc 26, 2 hc 22)))
+  setSquadMove(2, 30, Britain, HStepLt, HStepLt)
   lunits.set(10, 38, Squad(Britain, Fire(6 hc 18)))
-  lunits.set(4, 32, Squad(Britain, Move(4 hc 28, 4 hc 24, 4 hc 20)))
-  lunits.set(6, 46, Squad(Britain, Move(6 hc 42)))
-  lunits.set(14, 46, Squad(Britain, Move(14 hc 42, 14 hc 38, 12 hc 36)))
+  setSquadMove(4, 32, Britain, HStepLt, HStepLt)
+  setSquadMove(6, 46, Britain, HStepLt)
+  setSquadMove(14, 46, Britain, HStepLt, HStepLt, HStepDL)
   lunits.set(10, 46, Squad(Britain))
   lunits.set(6, 18, Squad(Germany, Fire(4 hc 32)))
   lunits.set(10, 18, Squad(Germany, Fire(4 hc 32)))
-  lunits.set(6, 10, Squad(Germany, Move(8 hc 8, 8 hc 12, 8 hc 16)))
+  setSquadMove(6, 10, Germany, HStepUL, HStepRt, HStepRt)
 }
 
 /** ZugFuhrer scenario 2. */

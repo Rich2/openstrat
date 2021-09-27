@@ -50,9 +50,9 @@ object France extends Polity
 
 sealed trait Action
 
-case class Move(hCens: HCens) extends Action
-object Move
-{ def apply(hCens: HCen*): Action = new Move(HCens(hCens:_*))
+class Move(val arrayUnsafe: Array[Int]) extends Action with HCenPathTr
+object Move extends HCenPathCompanion[Move]
+{ override def fromArray(array: Array[Int]): Move = new Move(array)
 }
 
 case class Fire(hCen: HCen) extends Action

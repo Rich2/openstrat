@@ -151,7 +151,7 @@ trait HGrid extends TGrid
     count
   }
 
-  override def sideLines: LineSegs = sideCoordLines.map(_.toLine2)
+  override def sideLines: LineSegs = sideCoordLines.map(_.lineSeg)
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
