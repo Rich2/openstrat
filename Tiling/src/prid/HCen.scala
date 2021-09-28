@@ -2,7 +2,7 @@
 package ostrat; package prid
 import geom._, Colour.Black
 
-/** A Hex tile centre HexGrid coordinate. */
+/** A Hex tile centre hexG grid [[HGrid]] coordinate. */
 class HCen(val r: Int, val c: Int) extends HCenOrSide
 {
   def v1: HVert = HVert(1, 2)
