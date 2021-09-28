@@ -17,7 +17,7 @@ class HCens(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[HCen]
 /** Companion object for [[HCens]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
 object HCens extends DataInt2sCompanion[HCen, HCens]
 {
-  //override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
+  //override def buff(initialSize: Int): HCenBuff = new HCenBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): HCens = new HCens(array)
 
   implicit object PersistImplicit extends Int2sArrPersist[HCen, HCens]("HCens")
@@ -26,5 +26,11 @@ object HCens extends DataInt2sCompanion[HCen, HCens]
     override def showT(obj: HCens, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  //implicit val arrArrayImplicit: ArrTFlatBuilder[HCens] = HCen.roordsBuildImplicit
+  //implicit val arrArrayImplicit: ArrTFlatBuilder[HCens] = HCen.hCensBuildImplicit
+}
+
+class HCenBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HCen]
+{ type ArrT = HCens
+  override def typeStr: String = "HCenBuff"
+  override def intsToT(i1: Int, i2: Int): HCen = HCen(i1, i2)
 }

@@ -84,6 +84,12 @@ object HCen
 
     override implicit def ev2: ShowT[Int] = ShowT.base32
   }
+
+  implicit val hCensBuildImplicit: ArrInt2sBuilder[HCen, HCens] = new ArrInt2sBuilder[HCen, HCens]
+  { type BuffT = HCenBuff
+    override def fromIntArray(array: Array[Int]): HCens = new HCens(array)
+    override def fromIntBuffer(inp: Buff[Int]): HCenBuff = new HCenBuff(inp)
+  }
 }
 
 trait HexMem[A]

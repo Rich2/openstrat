@@ -16,12 +16,12 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   def lunits: GraphicElems = scen.lunits.gridHeadsFlatMap{ (hc, squad) =>
     val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(hc).colour).slate(hc.toPt2)
 
-    val action: GraphicElems = squad.action match
+    val actions: GraphicElems = squad.action match
     { case mv: Move => mv.segsMap(hc)(_.draw())
       case Fire(target) => Arr(HCoordLineSeg(hc, target).lineSeg.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }
-    action +- uc
+    actions +- uc
   }
 
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
@@ -33,8 +33,8 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
     }
 
     case (RightButton, List(squad: Squad), List(newTile: HCen)) =>
-      /*grid.findPath(squad.roord, newTile.roord)(moveFunc).fold[Unit]{
-        statusText = "Squad can not move to " + newTile.roord.ycStr
+      /*grid.findPath(squad.roord, newTile)(moveFunc).fold[Unit]{
+        statusText = "Squad can not move to " + newTile.rcStr
         thisTop()
       } { l =>
         squad.action = Move(l: _*)

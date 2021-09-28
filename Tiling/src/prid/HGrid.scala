@@ -140,7 +140,58 @@ trait HGrid extends TGrid
 
   /** Boolean. True if the specified hex centre exists in this hex grid. */
   def hCenExists(r: Int, c:Int): Boolean
+  def adjTilesOfTile(tile: HCen): HCens = ???
+  def findPath(startRoord: HCen, endRoord: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[List[HCen]] =
+  {
+    var open: List[Node] = Node(startRoord, 0, getHCost(startRoord, endRoord), NoRef) :: Nil
+    var closed: List[Node] = Nil
+    var found: Option[Node] = None
 
+    while (open.nonEmpty & found == None)
+    {
+      val curr: Node = open.minBy(_.fCost)
+      //if (curr.tile.Roord == endRoord) found = true
+      open = open.filterNot(_ == curr)
+      closed ::= curr
+      val neighbs: HCens = adjTilesOfTile(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+      neighbs.foreach { tile =>
+        fTerrCost(curr.tile, tile) match {
+          case NoInt =>
+          case SomeInt(nc) if closed.exists(_.tile == tile) =>
+          case SomeInt(nc) => {
+            val newGCost = nc + curr.gCost
+
+            open.find(_.tile == tile) match {
+              case Some(node) if newGCost < node.gCost => node.gCost = newGCost; node.parent = OptRef(curr)
+              case Some(node) =>
+              case None =>
+              { val newNode = Node(tile, newGCost, getHCost(tile, endRoord), OptRef(curr))
+                open ::= newNode
+                if (tile == endRoord) found = Some(newNode)
+              }
+            }
+          }
+        }
+      }
+    }
+    def loop(acc: List[HCen], curr: Node): List[HCen] = curr.parent.fld(acc, loop(curr.tile :: acc, _))
+
+    found.map(endNode =>  loop(Nil, endNode))
+  }
+  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
+   *  departure and the tile of arrival. */
+  def getHCost(startRoord: HCen, endRoord: HCen): Int =
+  { val diff = endRoord - startRoord
+    val c: Int = diff.c.abs
+    val y: Int = diff.r.abs
+
+    y - c match
+    { case 0 => c
+    case n if n > 0 => y
+    case n if n %% 4 == 0 => y - n / 2 //Subtract because n is negative, y being greater than x
+    case n => y - n / 2 + 2
+    }
+  }
   /* Methods that operate on Hex tile sides. ******************************************************/
 
   /** The number of Sides in the TileGrid. Needs reimplementing.
@@ -199,4 +250,8 @@ trait HGrid extends TGrid
   def sideCoordLines: Arr[HCoordLineSeg] = sidesMap[HCoordLineSeg, Arr[HCoordLineSeg]](_.coordLine)
 
   def newSideBooleans: HSideBooleans = new HSideBooleans(new Array[Boolean](numSides))
+}
+
+case class Node(val tile: HCen, var gCost: Int, var hCost: Int, var parent: OptRef[Node])
+{ def fCost = gCost + hCost
 }
