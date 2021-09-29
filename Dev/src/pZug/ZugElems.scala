@@ -2,7 +2,7 @@
 package ostrat; package pZug
 import prid._, pGrid._
 
-case class Squad(val polity: Polity, var action: Action = NoAction) extends WithColour
+case class Squad(polity: Polity, var action: Action = NoAction) extends WithColour
 {
   def colour = polity.colour
 }

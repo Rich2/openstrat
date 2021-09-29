@@ -65,11 +65,9 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   }
   thisTop()
 
-  def moveGraphics2 = moveGraphics.gridScale(scale).flatMap(_.arrow) //  .toLine2.drawArrow(players(rs.hc1).colour)
+  def moveGraphics2: GraphicElems = moveGraphics.gridScale(scale).flatMap(_.arrow)
 
   def frame: GraphicElems = (tiles +- sidesDraw ++ lunits ++ hexStrs).gridScale(scale) ++ moveGraphics2
-
-  def repaint() = mainRepaint(frame)
-
+  def repaint(): Unit = mainRepaint(frame)
   repaint()
 }
