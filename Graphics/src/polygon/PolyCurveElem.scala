@@ -73,5 +73,4 @@ case class PolyCurveAllOld(shape: ShapeGenOld, pointerId: Any, str: String, fill
   def xCen: Double = ???
   def yCen: Double = ???
   def cen: Pt2 = ???
- // override def slateTo(newCen: Pt2): PolyCurveAll = ???
 }

@@ -30,7 +30,10 @@ package object prid
     }
   }
 
+  /** The hex centre step values. */
   val hcSteps: Arr[HStep] = Arr(HStepUR, HStepRt, HexStepDR, HStepDL, HStepLt, HStepUL)
+
+  /** The square centre step values. */
   val scSteps: Arr[SqStep] = Arr(SqStepUp, SqStepUR, SqStepRt, SqStepDR, SqStepDn, SqStepDL, SqStepLt, SqStepUL)
 
   implicit class IntGridImplicit(thisInt: Int)

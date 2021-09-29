@@ -89,6 +89,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
    build.buffToBB(buff)
   }
 
+  /** Returns an Arr filtered to the Some values. */
   def somesArr[ArrT <: ArrBase[A]](implicit build: ArrBuilder[A, ArrT]): ArrT =
   {
     val buff = build.newBuff()
