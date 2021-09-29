@@ -62,7 +62,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends DataDbl7s[CurveTail] w
   def draw(lineColour: Colour = Black, lineWidth: Double = 2.0): PolyCurveDraw = PolyCurveDraw(this, lineColour, lineWidth)
 
   def shapeAll(shape: ShapeGenOld, evObj: AnyRef, fillColour: Colour, str: String, fontSize: Int = 24, lineWidth: Double = 2, lineColour: Colour = Black):
-    PolyCurveAll = PolyCurveAll(shape, evObj, str, fillColour, fontSize, lineColour, lineWidth)
+    PolyCurveAllOld = PolyCurveAllOld(shape, evObj, str, fillColour, fontSize, lineColour, lineWidth)
 
   def fillScale(colour: Colour, factor: Double): PolyCurveFill = PolyCurveFill(this.scale(factor), colour)
   def fillScaleSlate(colour: Colour, factor: Double, offset: Pt2): PolyCurveFill = PolyCurveFill(this.scale(factor).slate(offset), colour)

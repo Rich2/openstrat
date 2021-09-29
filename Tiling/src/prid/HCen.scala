@@ -5,6 +5,11 @@ import geom._, Colour.Black
 /** A Hex tile centre hexG grid [[HGrid]] coordinate. */
 class HCen(val r: Int, val c: Int) extends HCenOrSide
 {
+  override def equals(that: Any): Boolean = that match {
+    case that: HCen if r == that.r & c == that.c => true
+    case _ => false
+    }
+
   def v1: HVert = HVert(1, 2)
   def v2: HVert = HVert(-1, 2)
   def v3: HVert = HVert(-1, 0)
@@ -31,8 +36,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
   /** Returns a co0rdinate for this hex along with a step to an adjacent hex. */
   def andStep(hcs: HStep): HexAndStep = HexAndStep(r, c, hcs)
 
-  /** Optionally returns the Step value of the HCen if it is an adjacent HCen. */
-  def optStep(operand: HCen): OptRef[HStep] = hcSteps.optFind(_.hCen == operand - this)
+  /** Optionally returns the Step value of the HCen if it is an adjacent HCen else returns the safe null value. */
+  def findStep(operand: HCen): OptRef[HStep] = hcSteps.optFind(_.hCen == operand - this)
 
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 

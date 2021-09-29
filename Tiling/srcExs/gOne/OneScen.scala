@@ -13,7 +13,7 @@ trait OneScen extends HexGridScen
     val resolve: HCenArrBuff[HexAndStep] = grid.newHCenArrBuff
     orderList.foreach{ hts => resolve.appendAt(hts.hc2, hts) }
     val resValue: HCenArrOpt[Player] = oPlayers.clone
-    resolve.foreach { (hc2, buff) => buff.forLen1(head => resValue.mutMove(head.hc1, hc2)) }
+    resolve.foreach { (hc2, buff) => buff.forLen1(head => resValue.unsafeMove(head.hc1, hc2)) }
     OneScen(turn + 1, grid, resValue)
   }
 }

@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import Colour.Black
 
 trait PolyCurveElem extends GraphicAffineElem with GraphicBoundedAffine
@@ -58,10 +57,10 @@ case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: St
   def cen: Pt2 = ???
 }
 
-case class PolyCurveAll(shape: ShapeGenOld, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineColour: Colour = Black,
-                        lineWidth: Double = 2) extends PolyCurveElem with PolyCurveActive
-{ override type ThisT = PolyCurveAll
-  override def ptsTrans(f: Pt2 => Pt2) = PolyCurveAll(shape.ptsTrans(f), pointerId, str, fillColour, fontSize, lineColour, lineWidth)
+case class PolyCurveAllOld(shape: ShapeGenOld, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineColour: Colour = Black,
+                           lineWidth: Double = 2) extends PolyCurveElem with PolyCurveActive
+{ override type ThisT = PolyCurveAllOld
+  override def ptsTrans(f: Pt2 => Pt2) = PolyCurveAllOld(shape.ptsTrans(f), pointerId, str, fillColour, fontSize, lineColour, lineWidth)
   def textOnly: TextGraphic = TextGraphic(str, fontSize, shape.boundingRect.cen, Black, CenAlign)
   def fillDrawOnly: PolyCurveFillDraw = PolyCurveFillDraw(shape, fillColour, lineColour, lineWidth)
 

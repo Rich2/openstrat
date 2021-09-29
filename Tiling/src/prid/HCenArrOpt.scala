@@ -9,27 +9,36 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
   def clone: HCenArrOpt[A] = new HCenArrOpt[A](unsafeArr.clone)
 
   /** Sets the Some value of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def setSome(y: Int, c: Int, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(y, c)) = value
+  def unsafeSetSome(y: Int, c: Int, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(y, c)) = value
 
   /** Sets the Some value of the hex tile data at the specified [[HCen]] coordinate. This is an imperative mutating operation. */
-  def setSome(hc: HCen, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = value
+  def unsafeSetSome(hc: HCen, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = value
 
   /** Sets the Some values of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def setSomes(triples: (Int, Int, A)*)(implicit grid: HGridReg): Unit = triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
+  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: HGridReg): Unit = triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
 
-  def setNone(hc: HCen)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
+  /** Mutates the value ot the specified location to None. */
+  def unsafeSetNone(hc: HCen)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
 
-  def setAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
+  def unsafeSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
 
-  def setSomeNew(hc: HCen, value: A)(implicit grid: HGrid): HCenArrOpt[A] =
+  /** Creates a new ArrOpt with the specified location set to the specified value. */
+  def setSome(hc: HCen, value: A)(implicit grid: HGrid): HCenArrOpt[A] =
   { val newArr = unsafeArr.clone()
     newArr(grid.arrIndex(hc)) = value
     new HCenArrOpt[A](newArr)
   }
 
+  /** Creates a new ArrOpt with the specified location set to NoRef. */
+  def setNone(hc: HCen)(implicit grid: HGrid): HCenArrOpt[A] =
+  { val newArr = unsafeArr.clone()
+    newArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
+    new HCenArrOpt[A](newArr)
+  }
+
   /** Moves the object in the array location given by the 1st [[HCen]] to the 2nd [[HCen]], by setting hc2 to the value of hc1 and setting hc1 to
    *  None. */
-  def mutMove(hc1: HCen, hc2: HCen)(implicit grid: HGrid): Unit =
+  def unsafeMove(hc1: HCen, hc2: HCen)(implicit grid: HGrid): Unit =
   { unsafeArr(grid.arrIndex(hc2)) = unsafeArr(grid.arrIndex(hc1))
     unsafeArr(grid.arrIndex(hc1)) = null.asInstanceOf[A]
   }

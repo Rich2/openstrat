@@ -38,7 +38,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def moveGraphics: Arr[LineSegDraw] = moves.mapSomes { rs => HCoordLineSeg(rs.hc1, rs.hc2).lineSeg.draw(players(rs.hc1).colour) }
 
   /** Creates the turn button and the action to commit on mouse click. */
-  def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
+  def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString, _ => {
     val getOrders = moves.somesArr
     scen = scen.endTurn(getOrders)
     moves = NoMoves
@@ -56,9 +56,9 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
       thisTop()
     }
 
-    case (RightButton, List(HPlayer(p, hc1), HCen(y, c)), (hc2: HCen) :: _) => {
-      val newM: OptRef[HStep] = hc1.optStep(hc2)
-      newM.foreach(m => moves = moves.setSomeNew(hc1, hc1.andStep(m)))
+    case (RightButton, List(HPlayer(p, hc1), HCen(y, c)), (hc2: HCen) :: _) =>
+    { val newM: OptRef[HStep] = hc1.findStep(hc2)
+      newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, hc1.andStep(m)))
       repaint()
     }
     case (_, _, h) => deb("Other; " + h.toString)

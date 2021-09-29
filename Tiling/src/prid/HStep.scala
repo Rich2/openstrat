@@ -1,48 +1,48 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
-/** A hex tile step can take 6 values. */
+/** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. */
 sealed trait HStep extends TileStep
 { def hCen: HCen = HCen(r, c)
   def code: Int
 }
 
-/** hex Step up right. */
+/** A step upright on a hex tile grid [[HGrid]]. */
 case object HStepUR extends HStep
 { def r: Int = 2
   def c: Int = 2
   def code = 1
 }
 
-/** hex Step right. */
+/** A step right on a hex tile grid [[HGrid]]. */
 case object HStepRt extends HStep
 { def r: Int = 0
   def c: Int = 4
   def code = 2
 }
 
-/** hex Step down right. */
+/** A step downright on a hex tile grid [[HGrid]]. */
 case object HexStepDR extends HStep
 { def r: Int = -2
   def c: Int = 2
   def code = 3
 }
 
-/** hex Step down left. */
+/** A step downleft on a hex tile grid [[HGrid]]. */
 case object HStepDL extends HStep
 { def r: Int = -2
   def c: Int = -2
   def code = 4
 }
 
-/** Hex step left. */
+/** A step left on a hex tile grid [[HGrid]]. */
 case object HStepLt extends HStep
 { def r: Int = 0
   def c: Int = -4
   def code = 5
 }
 
-/** Hex step up left. */
+/** A step upleft on a hex tile grid [[HGrid]]. */
 case object HStepUL extends HStep
 { def r: Int = 2
   def c: Int = -2
