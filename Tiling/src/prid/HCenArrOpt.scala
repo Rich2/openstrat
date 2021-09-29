@@ -80,6 +80,13 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
    build.buffToBB(buff)
   }
 
+  def somesArr[ArrT <: ArrBase[A]](implicit build: ArrBuilder[A, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    unsafeArr.foreach { a => if (a != null) build.buffGrow(buff, a) }
+    build.buffToBB(buff)
+  }
+
   /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
    *  an immutable Array based collection of type ArrT, the second type parameter. */
   def cMapSomes[B, ArrT <: ArrBase[B]](f: (A, HCen) => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =

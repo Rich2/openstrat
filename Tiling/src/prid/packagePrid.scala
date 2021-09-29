@@ -29,11 +29,9 @@ package object prid
       evScale.scaleT(a, scale)
     }
   }
-  val hcStepSomes: Arr[HStep] = Arr(HStepUR, HStepRt, HexStepDR, HStepDL, HStepLt, HStepUL)
-  val hcSteps: Arr[HStepOpt] = HStepNone +: hcStepSomes
 
-  val scStepSomes: Arr[SqStep] = Arr()//HexStepUR, HexStepRt, HexStepDR, HexStepDL, HexStepLt, HexStepUL)
-  val scSteps: Arr[SqStepOpt] = SqStepNone +: scStepSomes
+  val hcSteps: Arr[HStep] = Arr(HStepUR, HStepRt, HexStepDR, HStepDL, HStepLt, HStepUL)
+  val scSteps: Arr[SqStep] = Arr(SqStepUp, SqStepUR, SqStepRt, SqStepDR, SqStepDn, SqStepDL, SqStepLt, SqStepUL)
 
   implicit class IntGridImplicit(thisInt: Int)
   { /** Syntax for succinct [[HCen]] notation. */

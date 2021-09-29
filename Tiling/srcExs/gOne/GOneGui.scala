@@ -39,7 +39,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
-    val getOrders = moves.mapSomes(rs => rs)
+    val getOrders = moves.somesArr
     scen = scen.endTurn(getOrders)
     moves = NoMoves
     repaint()

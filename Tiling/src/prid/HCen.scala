@@ -32,7 +32,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
   def andStep(hcs: HStep): HexAndStep = HexAndStep(r, c, hcs)
 
   /** Optionally returns the Step value of the HCen if it is an adjacent HCen. */
-  def optStep(operand: HCen): OptRef[HStep] = hcStepSomes.optFind(_.hCen == operand - this)
+  def optStep(operand: HCen): OptRef[HStep] = hcSteps.optFind(_.hCen == operand - this)
 
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 

@@ -1,22 +1,11 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
-/** An optional hex tile step. Can take 7 values. Represents the relative move from a hex tile to one of its six neighbours or the non move value. It
- *  can be one of the 6 [[HStep]] values or the [[HStepNone]] value. */
-sealed trait HStepOpt extends TileStepOpt
+/** A hex tile step can take 6 values. */
+sealed trait HStep extends TileStep
 { def hCen: HCen = HCen(r, c)
   def code: Int
 }
-
-/** An optional hex tile step of None. */
-case object HStepNone extends HStepOpt
- { def r: Int = 0
-   def c: Int = 0
-   def code = 0
- }
-
-/** A hex tile step can take 6 values. */
-sealed trait HStep extends HStepOpt
 
 /** hex Step up right. */
 case object HStepUR extends HStep
