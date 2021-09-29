@@ -11,6 +11,7 @@ object Plain extends Terr { def colour = Wheat }
 trait ThreeScen extends HexGridScen
 { /** tile terrain. */
   def terrs: HCenArr[Terr]
+  def oPlayers: HCenArrOpt[Player]
 }
 
 /** Example Game three opening scenario trait. */

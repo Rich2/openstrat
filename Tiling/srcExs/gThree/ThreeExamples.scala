@@ -1,6 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree
-import prid._, pCanv._
+import ostrat.gOne.OneScen1.grid
+import prid._
+import pCanv._
 
 object ThreeLaunch extends GuiLaunchStd
 {
@@ -21,6 +23,9 @@ object ThreeScen1 extends ThreeScenStart
   import terrs.{setRow => sr}
   sr(6,2, Water * 2)
   sr(4, 4, Woods * 2)
+  val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
+  oPlayers.unsafeSetSome(4, 4, PlayerA)
+  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
 
 /** 2nd Scenario of Game Three. Has a larger number of hexs. */
@@ -35,6 +40,9 @@ object ThreeScen2 extends ThreeScenStart
   sr(14, 42, Woods * 3)
   sr(16, 44, Woods * 3)
   sr(18, 42, Woods * 3)
+  val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
+  oPlayers.unsafeSetSome(4, 4, PlayerA)
+  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
 
 /** 3rd Scenario of Game Three. Has a larger number of hexs. */
@@ -43,5 +51,7 @@ object ThreeScen3 extends ThreeScenStart {
   override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
 
   import terrs.{setRow => sr}
-
+  val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
+  oPlayers.unsafeSetSome(4, 4, PlayerA)
+  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
