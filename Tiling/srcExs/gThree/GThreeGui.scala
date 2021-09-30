@@ -18,7 +18,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
   val rows = terrs.rowCombine
   val areas = rows.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   def players: HCenArrOpt[Player] = scen.oPlayers
-  def lunits: Arr[PolygonCompound] = players.cMapSomes { (p, hc) =>
+  def lunits: Arr[PolygonCompound] = players.mapHCenSomes { (hc, p) =>
     Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.strComma, 24, 2.0)
   }
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
