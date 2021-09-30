@@ -24,7 +24,7 @@ object Player
 }
 object PlayerA extends Player('A', Red)
 object PlayerB extends Player('B', Orange)
-object PlayerC extends Player('C', Green)
+object PlayerC extends Player('C', Pink)
 object PlayerD extends Player('D', Violet)
 
 /** A class identifying a Player and a hex coordinate position. */

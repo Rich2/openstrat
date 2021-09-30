@@ -18,14 +18,16 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
 
-  /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
-   * those moves. This data is state for the Gui. */
+  /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
+   *  moves. This data is state for the Gui. */
   var moves: HCenArrOpt[HStep] = NoMoves
 
-  def lunits: Arr[PolygonCompound] = players.mapHCenSomes { (hc, p) =>
+  /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
+  def units: Arr[PolygonCompound] = players.mapHCenSomes { (hc, p) =>
     Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.strComma, 24, 2.0)
   }
 
+  /** [[TextGraphic]]s to display the [[HCen]] cooridinate in the tiles that have no unit counters. */
   def hexStrs: Arr[TextGraphic] = players.mapHCenNones(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
@@ -69,7 +71,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
 
   def moveGraphics2: GraphicElems = moveGraphics.gridScale(scale).flatMap(_.arrow)
 
-  def frame: GraphicElems = (tiles +- sidesDraw ++ lunits ++ hexStrs).gridScale(scale) ++ moveGraphics2
+  def frame: GraphicElems = (tiles +- sidesDraw ++ units ++ hexStrs).gridScale(scale) ++ moveGraphics2
   def repaint(): Unit = mainRepaint(frame)
   repaint()
 }
