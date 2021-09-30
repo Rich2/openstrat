@@ -10,22 +10,31 @@ trait OneScen extends HexGridScen
   /** Resolves turn. Takes a set of commands / orders, resolves them and returns the new game state scenario. */
   def endTurn(orderList: Arr[HexAndStep]): OneScen =
   { /** A mutable grid of data. The tile data is an Array buffer of [[HexAndStep]]s. */
-    val resolve: HCenArrBuff[HexAndStep] = grid.newHCenArrBuff
-    orderList.foreach{ hts => resolve.appendAt(hts.hc2, hts) }
+    val targets: HCenArrBuff[HexAndStep] = grid.newHCenArrBuff
+    orderList.foreach{ hts => targets.appendAt(hts.hc2, hts) }
     val resValue: HCenArrOpt[Player] = oPlayers.clone
-    resolve.foreach { (hc2, buff) => buff.foreachLen1(head => if (oPlayers.tileEmpty(hc2)) resValue.unsafeMove(head.hc1, hc2)) }
+    targets.foreach { (hc2, buff) => buff.foreachLen1(head => if (oPlayers.tileNone(hc2)) resValue.unsafeMove(head.hc1, hc2)) }
     OneScen(turn + 1, grid, resValue)
   }
 
-  /** Resolves turn. Takes a set of commands / orders, resolves them and returns the new game state scenario. */
+  /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
+   * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def endTurn2(orderList: Arr[(Player, HStep)]): OneScen =
-  { /** A mutable grid of data. The tile data is an Array buffer of [[HexAndStep]]s. */
-    val players: Map[Player, HCen] = oPlayers.keyMap
-    val resolve: HCenArrBuff[HexAndStep] = grid.newHCenArrBuff
-    orderList.foreach{ hts => resolve.appendAt(players(hts._1), HexAndStep(players(hts._1), hts._2)) }
-    val resValue: HCenArrOpt[Player] = oPlayers.clone
-    resolve.foreach { (hc2, buff) => buff.foreachLen1(head => if (oPlayers.tileEmpty(hc2)) resValue.unsafeMove(head.hc1, hc2)) }
-    OneScen(turn + 1, grid, resValue)
+  {
+    val playersKey: Map[Player, HCen] = oPlayers.keyMap
+
+    /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
+    val targets: HCenArrBuff[HStep] = grid.newHCenArrBuff
+    orderList.foreach{ (player, step) =>
+      val hc1 = playersKey(player)
+      targets.appendAt(hc1.step(step), step.reverse) }
+
+    /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
+     * isolates mutation to within the method. */
+    val oPlayersNew: HCenArrOpt[Player] = oPlayers.clone
+    targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.step(backStep), hc2)) }
+
+    OneScen(turn + 1, grid, oPlayersNew)
   }
 }
 
