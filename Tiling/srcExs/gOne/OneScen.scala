@@ -7,19 +7,9 @@ trait OneScen extends HexGridScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
   def oPlayers: HCenArrOpt[Player]
 
-  /** Resolves turn. Takes a set of commands / orders, resolves them and returns the new game state scenario. */
-  def endTurn(orderList: Arr[HexAndStep]): OneScen =
-  { /** A mutable grid of data. The tile data is an Array buffer of [[HexAndStep]]s. */
-    val targets: HCenArrBuff[HexAndStep] = grid.newHCenArrBuff
-    orderList.foreach{ hts => targets.appendAt(hts.hc2, hts) }
-    val resValue: HCenArrOpt[Player] = oPlayers.clone
-    targets.foreach { (hc2, buff) => buff.foreachLen1(head => if (oPlayers.tileNone(hc2)) resValue.unsafeMove(head.hc1, hc2)) }
-    OneScen(turn + 1, grid, resValue)
-  }
-
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
-  def endTurn2(orderList: Arr[(Player, HStep)]): OneScen =
+  def endTurn(orderList: Arr[(Player, HStep)]): OneScen =
   {
     val playersKey: Map[Player, HCen] = oPlayers.keyMap
 

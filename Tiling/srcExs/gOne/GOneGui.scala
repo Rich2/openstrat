@@ -16,11 +16,11 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   val scale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HCenArrOpt[HexAndStep] = grid.newTileArrOpt[HexAndStep]
+  def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    * those moves. This data is state for the Gui. */
-  var moves: HCenArrOpt[HexAndStep] = NoMoves
+  var moves: HCenArrOpt[HStep] = NoMoves
 
   def lunits: Arr[PolygonCompound] = players.cMapSomes { (p, hc) =>
     Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.strComma, 24, 2.0)
@@ -35,11 +35,13 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   val sidesDraw: LinesDraw = grid.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineSegDraw] = moves.mapSomes { rs => HCoordLineSeg(rs.hc1, rs.hc2).lineSeg.draw(players.unSafeApply(rs.hc1).colour) }
+  def moveGraphics: Arr[LineSegDraw] = moves.cMapSomes { (step, hc) =>
+    HCoordLineSeg(hc, hc.step(step)).lineSeg.draw(players.unSafeApply(hc).colour)
+  }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString, _ => {
-    val getOrders = moves.somesArr
+    val getOrders = players.mapSomes2(moves)((player, step) => (player, step))
     scen = scen.endTurn(getOrders)
     moves = NoMoves
     repaint()
@@ -58,7 +60,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
 
     case (RightButton, List(HPlayer(p, hc1), HCen(y, c)), (hc2: HCen) :: _) =>
     { val newM: OptRef[HStep] = hc1.findStep(hc2)
-      newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, hc1.andStep(m)))
+      newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()
     }
     case (_, _, h) => deb("Other; " + h.toString)

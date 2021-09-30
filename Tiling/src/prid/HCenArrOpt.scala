@@ -120,6 +120,38 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     build.buffToBB(buff)
   }
 
+  /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
+   *  an immutable Array based collection of type ArrT, the second type parameter. */
+  def mapSomes2[B <: AnyRef, C, ArrT <: ArrBase[C]](optArrB: HCenArrOpt[B])(f: (A, B) => C)(implicit grid: HGrid, build: ArrBuilder[C, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { hc =>
+      val a: A = unsafeArr(grid.arrIndex(hc))
+      val b: B = optArrB.unsafeArr(grid.arrIndex(hc))
+      if(a != null)
+      { val newVal = f(a, b)
+        build.buffGrow(buff, newVal)
+      }
+    }
+    build.buffToBB(buff)
+  }
+
+  /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
+   *  an immutable Array based collection of type ArrT, the second type parameter. */
+  def cMapSomes2[B <: AnyRef, C, ArrT <: ArrBase[C]](optArrB: HCenArrOpt[B])(f: (A, B, HCen) => C)(implicit grid: HGrid, build: ArrBuilder[C, ArrT]): ArrT =
+  {
+    val buff = build.newBuff()
+    grid.foreach { hc =>
+      val a: A = unsafeArr(grid.arrIndex(hc))
+      val b: B = optArrB.unsafeArr(grid.arrIndex(hc))
+      if(a != null)
+      { val newVal = f(a, b, hc)
+        build.buffGrow(buff, newVal)
+      }
+    }
+    build.buffToBB(buff)
+  }
+
   /** Coordinate map Nones. Map the None values respective [[HCen]] coordinates of this [[HCenArrOpt]] to type B, the first type parameter. Returns an
    * immutable Array based collection of type ArrT, the second type parameter. */
   def cMapNones[B, ArrT <: ArrBase[B]](f: HCen => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
