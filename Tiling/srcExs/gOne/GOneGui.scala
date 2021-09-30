@@ -27,7 +27,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
     Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.strComma, 24, 2.0)
   }
 
-  /** [[TextGraphic]]s to display the [[HCen]] cooridinate in the tiles that have no unit counters. */
+  /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
   def hexStrs: Arr[TextGraphic] = players.mapHCenNones(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */

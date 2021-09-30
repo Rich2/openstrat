@@ -9,13 +9,13 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
   def clone: HCenArrOpt[A] = new HCenArrOpt[A](unsafeArr.clone)
 
   /** Sets the Some value of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def unsafeSetSome(y: Int, c: Int, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(y, c)) = value
+  def unsafeSetSome(r: Int, c: Int, value: A)(implicit grid: HGrid): Unit = unsafeArr(grid.arrIndex(r, c)) = value
 
   /** Sets the Some value of the hex tile data at the specified [[HCen]] coordinate. This is an imperative mutating operation. */
-  def unsafeSetSome(hc: HCen, value: A)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = value
+  def unsafeSetSome(hc: HCen, value: A)(implicit grid: HGrid): Unit = unsafeArr(grid.arrIndex(hc)) = value
 
   /** Sets the Some values of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: HGridReg): Unit = triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
+  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: HGrid): Unit = triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
 
   /** Mutates the value ot the specified location to None. */
   def unsafeSetNone(hc: HCen)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = null.asInstanceOf[A]

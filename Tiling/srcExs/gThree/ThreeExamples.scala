@@ -1,8 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree
-import ostrat.gOne.OneScen1.grid
-import prid._
-import pCanv._
+import prid._, pCanv._
 
 object ThreeLaunch extends GuiLaunchStd
 {
@@ -18,7 +16,7 @@ object ThreeLaunch extends GuiLaunchStd
 }
 
 object ThreeScen1 extends ThreeScenStart
-{ override implicit val grid: HGrid = HGridReg(2, 6, 2, 10)
+{ override implicit val grid: HGrid = HGridReg(2, 8, 2, 18)
   override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
   import terrs.{setRow => sr}
   sr(6,2, Water * 2)
@@ -47,7 +45,7 @@ object ThreeScen2 extends ThreeScenStart
 
 /** 3rd Scenario of Game Three. Has a larger number of hexs. */
 object ThreeScen3 extends ThreeScenStart {
-  override implicit val grid: HGrid = HGridReg(2, 6, 2, 10)
+  override implicit val grid: HGridReg = HGridReg(2, 6, 2, 10)
   override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
 
   import terrs.{setRow => sr}
