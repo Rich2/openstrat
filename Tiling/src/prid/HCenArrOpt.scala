@@ -72,8 +72,15 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     build.buffToBB(buff)
   }
 
+  def apply(hc: HCen)(implicit grid: HGrid): Option[A] = {
+    val r = unsafeArr(grid.arrIndex(hc))
+    if (r == null) None else Some(r)
+  }
+
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
-  def apply(hc: HCen)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(hc))
+  def unSafeApply(hc: HCen)(implicit grid: HGrid): A = unsafeArr(grid.arrIndex(hc))
+
+  def tileEmpty(hc: HCen)(implicit grid: HGrid): Boolean = unsafeArr(grid.arrIndex(hc)) == null
 
   /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
    *  Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArrOpt]] was created. */
@@ -139,5 +146,11 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
       }
     }
     build.buffToBB(buff)
+  }
+
+  def keyMap(implicit grid: HGrid): Map[A, HCen] =
+  { val build = Map.newBuilder[A, HCen]
+    cForeachSome((p, hc) => build.addOne(p, hc))
+    build.result
   }
 }

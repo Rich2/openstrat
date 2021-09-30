@@ -310,7 +310,7 @@ package object ostrat
   implicit class ArrayBufferExtensions[A](thisBuff: ArrayBuffer[A])(implicit ct: ClassTag[A])
   { def toArr: Arr[A] = new Arr(thisBuff.toArray[A])
     /** If length of this ArrayBuffer is one, perform side effecting function on the sole element. */
-    def forLen1(f: A => Unit): Unit = if (thisBuff.length == 1) f(thisBuff(0))
+    def foreachLen1(f: A => Unit): Unit = if (thisBuff.length == 1) f(thisBuff(0))
   }
 
   implicit class RangeExtensions(range: Range)

@@ -13,7 +13,18 @@ trait OneScen extends HexGridScen
     val resolve: HCenArrBuff[HexAndStep] = grid.newHCenArrBuff
     orderList.foreach{ hts => resolve.appendAt(hts.hc2, hts) }
     val resValue: HCenArrOpt[Player] = oPlayers.clone
-    resolve.foreach { (hc2, buff) => buff.forLen1(head => resValue.unsafeMove(head.hc1, hc2)) }
+    resolve.foreach { (hc2, buff) => buff.foreachLen1(head => if (oPlayers.tileEmpty(hc2)) resValue.unsafeMove(head.hc1, hc2)) }
+    OneScen(turn + 1, grid, resValue)
+  }
+
+  /** Resolves turn. Takes a set of commands / orders, resolves them and returns the new game state scenario. */
+  def endTurn2(orderList: Arr[(Player, HStep)]): OneScen =
+  { /** A mutable grid of data. The tile data is an Array buffer of [[HexAndStep]]s. */
+    val players: Map[Player, HCen] = oPlayers.keyMap
+    val resolve: HCenArrBuff[HexAndStep] = grid.newHCenArrBuff
+    orderList.foreach{ hts => resolve.appendAt(players(hts._1), HexAndStep(players(hts._1), hts._2)) }
+    val resValue: HCenArrOpt[Player] = oPlayers.clone
+    resolve.foreach { (hc2, buff) => buff.foreachLen1(head => if (oPlayers.tileEmpty(hc2)) resValue.unsafeMove(head.hc1, hc2)) }
     OneScen(turn + 1, grid, resValue)
   }
 }

@@ -57,3 +57,8 @@ case class HexAndStep(r1: Int, c1: Int, step: HStep)
   /** The destination hex centre. */
   def hc2: HCen = HCen(r1 + step.r, c1 + step.c)
 }
+
+object HexAndStep
+{
+  def apply(hCen: HCen, step: HStep): HexAndStep = new HexAndStep(hCen.r, hCen.c, step)
+}
