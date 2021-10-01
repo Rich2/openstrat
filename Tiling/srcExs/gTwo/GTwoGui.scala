@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo
-import pCanv._, prid._, geom._
+import pCanv._, prid._, geom._, gOne._
 
 case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends CmdBarGui("Game Two Gui")
 {

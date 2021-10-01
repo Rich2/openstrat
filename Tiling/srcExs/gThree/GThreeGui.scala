@@ -17,16 +17,16 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
 
   val rows = terrs.rowCombine
   val areas = rows.map{ hv => hv.polygonReg.fill(hv.value.colour) }
-  def players: HCenArrOpt[Player] = scen.oPlayers
-  def units: Arr[PolygonCompound] = players.mapHCenSomes { (hc, p) =>
+  //def players: HCenArrOpt[Player] = scen.oPlayers
+  /*def units: Arr[PolygonCompound] = players.mapHCenSomes { (hc, p) =>
     Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.strComma, 24, 2.0)
-  }
+  }*/
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr())//bTurn))
   statusText = s"Game Three. Scenario has ${grid.numCens} tiles."
   thisTop()
 
-  def frame: GraphicElems = (areas ++ lines ++ text ++ units).gridScale(scale)
+  def frame: GraphicElems = (areas ++ lines ++ text).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
-import geom._, Colour._
+package ostrat; package gOne
+import prid._, Colour._
 
 /** A Player has a very simple token with a letter and colour for recognition. */
 case class Player(val char: Char, val colour: Colour) extends Show//2[Char, Colour]
