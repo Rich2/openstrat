@@ -18,8 +18,13 @@ lazy val moduleDir = SettingKey[File]("moduleDir")
 lazy val baseDir = SettingKey[File]("baseDir")
 ThisBuild/baseDir := (ThisBuild/baseDirectory).value
 
-def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/" + nameStr)).settings(
-  moduleDir := baseDir.value / srcsStr,  
+def sett3 = List(
+  scalaVersion := "3.0.2",
+  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
+)
+
+def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/" + nameStr)).settings(sett3).settings(
+  moduleDir := baseDir.value / srcsStr,
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test" withSources(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
   scalaSource := moduleDir.value / "src",
@@ -29,19 +34,8 @@ def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtD
   Test/resourceDirectory :=  moduleDir.value / "testRes",
 )
 
-def sett2 = List(
-  scalaVersion := "2.13.6",
-  scalacOptions ++= List("-feature", "-language:implicitConversions", "-deprecation", "-encoding", "UTF-8", "-Xsource:3"),// "-explaintypes", "-Ywarn-value-discard", "-Xlint"),
-  libraryDependencies += scalaOrganization.value % "scala-reflect" % scalaVersion.value withSources(),
-  publish/skip := true,
-)
 
-def sett3 = List(
-  scalaVersion := "3.0.2",
-  scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
-)
-
-def jvm3Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm").settings(sett3).settings(
+def jvm3Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm").settings(
   testFrameworks += new TestFramework("utest.runner.Framework"), 
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test" withSources(),
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "src3", "srcExs", "srcExsJvm", "srcExsFx").map(moduleDir.value / _),
@@ -49,29 +43,16 @@ def jvm3Proj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm").settings(sett
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
 
-def js2Proj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(sett2).settings(
-  Compile/unmanagedSourceDirectories := List("src", "srcJs", "src2", "srcExs").map(moduleDir.value / _),
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.2.0" withSources(),
-)
-
-def js3Proj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(sett3).settings(
+def js3Proj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs", "src3", "srcExs").map(moduleDir.value / _),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.2.0").cross(CrossVersion.for3Use2_13) withSources(),
 )
 
-def nat2Proj(name: String) = baseProj(name, name + "Nat").enablePlugins(ScalaNativePlugin).settings(sett2).settings(
-  Compile/unmanagedSourceDirectories := List("src", "src2", "srcNat", "srcExs").map(moduleDir.value / _),
-)
-
-//lazy val MacrosJvm = jvm3Proj("Macros")
-lazy val MacrosJs = js2Proj("Macros")
-
-lazy val MacrosNat = nat2Proj("Macros")
-lazy val UtilJvm = jvm3Proj("Util")/*.dependsOn(MacrosJvm)*/.settings(
+lazy val UtilJvm = jvm3Proj("Util").settings(
   name := "RUtil",
   Compile/unmanagedSourceDirectories ++= Seq((ThisBuild/baseDirectory).value / "Macros/src3", (ThisBuild/baseDirectory).value / "Util/srcAnyVal")
 )
-lazy val UtilJs = js3Proj("Util")/*.dependsOn(MacrosJvm)*/.settings(
+lazy val UtilJs = js3Proj("Util").settings(
   name := "RUtil",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src3",
 
@@ -83,24 +64,18 @@ lazy val UtilJs = js3Proj("Util")/*.dependsOn(MacrosJvm)*/.settings(
     Seq(arr)
   }.taskValue,
 )
-//lazy val UtilJs = js2Proj("Util").dependsOn(MacrosJs)
-lazy val UtilNat = nat2Proj("Util").dependsOn(MacrosNat)
 
 lazy val GraphicsJvm = jvm3Proj("Graphics").dependsOn(UtilJvm).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-//lazy val GraphicsJs = js2Proj("Graphics").dependsOn(UtilJs)
 lazy val GraphicsJs = js3Proj("Graphics").dependsOn(UtilJs)
-lazy val GraphicsNat = nat2Proj("Graphics").dependsOn(UtilNat)
 lazy val TilingJvm = jvm3Proj("Tiling").dependsOn(GraphicsJvm)
 lazy val TilingJs = js3Proj("Tiling").dependsOn(GraphicsJs)
-lazy val TilingNat = js2Proj("Tiling").dependsOn(GraphicsNat)
 lazy val EarthJvm = jvm3Proj("Earth").dependsOn(TilingJvm)
 lazy val EarthJs = js3Proj("Earth").dependsOn(TilingJs)
 lazy val EarthAppJs = jsApp("EarthApp").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Earth/srcEarthApp")
-lazy val EarthNat = js2Proj("Earth").dependsOn(TilingNat)
 
 lazy val DevJvm = jvm3Proj("Dev").dependsOn(EarthJvm).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
@@ -112,7 +87,6 @@ lazy val DevJvm = jvm3Proj("Dev").dependsOn(EarthJvm).settings(
 
 def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(EarthJs).settings(sett3).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src"),
-  //libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.2.0").cross(CrossVersion.for3Use2_13) withSources(),
 )
 
@@ -122,12 +96,6 @@ lazy val WW2Js = jsApp("WW2").settings(Compile/unmanagedSourceDirectories += (Th
 lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Y1783App")
 lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Bc305App")
 lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/PlanetsApp")
-
-lazy val DevNat = nat2Proj("Dev").dependsOn(EarthNat).settings(
-  resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
-  Compile/resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
-  Compile/unmanagedResourceDirectories := List(resourceDirectory.value),
-)
 
 val docDirs: List[String] = List("Util", "Graphics", "Tiling", "Earth", "Dev")
 
@@ -148,7 +116,7 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).setti
   publish/skip := true,
 )
 
-lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).dependsOn(MacrosJs).settings(sett2).settings(
+lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExs")).map(s => baseDir.value / s),
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
