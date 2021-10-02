@@ -65,8 +65,13 @@ def nat2Proj(name: String) = baseProj(name, name + "Nat").enablePlugins(ScalaNat
 
 //lazy val MacrosJvm = jvm3Proj("Macros")
 lazy val MacrosJs = js2Proj("Macros")
+
 lazy val MacrosNat = nat2Proj("Macros")
 lazy val UtilJvm = jvm3Proj("Util")/*.dependsOn(MacrosJvm)*/.settings(
+  name := "RUtil",
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src3"
+)
+lazy val UtilJs3 = js3Proj("Util")/*.dependsOn(MacrosJvm)*/.settings(
   name := "RUtil",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src3"
 )
@@ -79,6 +84,7 @@ lazy val GraphicsJvm = jvm3Proj("Graphics").dependsOn(UtilJvm).settings(
 )
 
 lazy val GraphicsJs = js2Proj("Graphics").dependsOn(UtilJs)
+lazy val GraphicsJs3 = js3Proj("Graphics").dependsOn(UtilJs3)
 lazy val GraphicsNat = nat2Proj("Graphics").dependsOn(UtilNat)
 lazy val TilingJvm = jvm3Proj("Tiling").dependsOn(GraphicsJvm)
 lazy val TilingJs = js2Proj("Tiling").dependsOn(GraphicsJs)
