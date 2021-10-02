@@ -54,7 +54,7 @@ def js2Proj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlu
   libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.2.0" withSources(),
 )
 
-def js3Proj(name: String) = baseProj(name, name + "Js3").enablePlugins(ScalaJSPlugin).settings(sett3).settings(
+def js3Proj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(sett3).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs", "src3", "srcExs").map(moduleDir.value / _),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.2.0").cross(CrossVersion.for3Use2_13) withSources(),
 )
@@ -69,13 +69,21 @@ lazy val MacrosJs = js2Proj("Macros")
 lazy val MacrosNat = nat2Proj("Macros")
 lazy val UtilJvm = jvm3Proj("Util")/*.dependsOn(MacrosJvm)*/.settings(
   name := "RUtil",
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src3"
+  Compile/unmanagedSourceDirectories ++= Seq((ThisBuild/baseDirectory).value / "Macros/src3", (ThisBuild/baseDirectory).value / "Util/srcAnyVal")
 )
-lazy val UtilJs3 = js3Proj("Util")/*.dependsOn(MacrosJvm)*/.settings(
+lazy val UtilJs = js3Proj("Util")/*.dependsOn(MacrosJvm)*/.settings(
   name := "RUtil",
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src3"
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src3",
+
+  Compile / sourceGenerators += Def.task {
+    val str = scala.io.Source.fromFile("Util/srcAnyVal/Arr.scala").mkString
+    val str2 = str.replaceAll("AnyVal with ", "")
+    val arr = (Compile / sourceManaged).value / "Js" / "Arr.scala"
+    IO.write(arr, str2)
+    Seq(arr)
+  }.taskValue,
 )
-lazy val UtilJs = js2Proj("Util").dependsOn(MacrosJs)
+//lazy val UtilJs = js2Proj("Util").dependsOn(MacrosJs)
 lazy val UtilNat = nat2Proj("Util").dependsOn(MacrosNat)
 
 lazy val GraphicsJvm = jvm3Proj("Graphics").dependsOn(UtilJvm).settings(
@@ -83,15 +91,15 @@ lazy val GraphicsJvm = jvm3Proj("Graphics").dependsOn(UtilJvm).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-lazy val GraphicsJs = js2Proj("Graphics").dependsOn(UtilJs)
-lazy val GraphicsJs3 = js3Proj("Graphics").dependsOn(UtilJs3)
+//lazy val GraphicsJs = js2Proj("Graphics").dependsOn(UtilJs)
+lazy val GraphicsJs = js3Proj("Graphics").dependsOn(UtilJs)
 lazy val GraphicsNat = nat2Proj("Graphics").dependsOn(UtilNat)
 lazy val TilingJvm = jvm3Proj("Tiling").dependsOn(GraphicsJvm)
-lazy val TilingJs = js2Proj("Tiling").dependsOn(GraphicsJs)
+lazy val TilingJs = js3Proj("Tiling").dependsOn(GraphicsJs)
 lazy val TilingNat = js2Proj("Tiling").dependsOn(GraphicsNat)
 lazy val EarthJvm = jvm3Proj("Earth").dependsOn(TilingJvm)
-lazy val EarthJs = js2Proj("Earth").dependsOn(TilingJs)
-lazy val EarthAppJs = js2App("EarthApp").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Earth/srcEarthApp")
+lazy val EarthJs = js3Proj("Earth").dependsOn(TilingJs)
+lazy val EarthAppJs = jsApp("EarthApp").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Earth/srcEarthApp")
 lazy val EarthNat = js2Proj("Earth").dependsOn(TilingNat)
 
 lazy val DevJvm = jvm3Proj("Dev").dependsOn(EarthJvm).settings(
@@ -102,17 +110,18 @@ lazy val DevJvm = jvm3Proj("Dev").dependsOn(EarthJvm).settings(
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-def js2App(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(EarthJs).settings(sett2).settings(
+def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(EarthJs).settings(sett3).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src"),
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
+  //libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
+  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.2.0").cross(CrossVersion.for3Use2_13) withSources(),
 )
 
-lazy val WebGlJs = js2App("WebGl").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/GlApp")
-lazy val ZugJs = js2App("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/ZugApp")
-lazy val WW2Js = js2App("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/WW2App")
-lazy val Y1783Js = js2App("Y1783").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Y1783App")
-lazy val Bc305Js = js2App("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Bc305App")
-lazy val PlanetsJs = js2App("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/PlanetsApp")
+lazy val WebGlJs = jsApp("WebGl").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/GlApp")
+lazy val ZugJs = jsApp("Zug").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/ZugApp")
+lazy val WW2Js = jsApp("WW2").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/WW2App")
+lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Y1783App")
+lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Bc305App")
+lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/PlanetsApp")
 
 lazy val DevNat = nat2Proj("Dev").dependsOn(EarthNat).settings(
   resourceDirectory := (ThisBuild/baseDirectory).value / "Dev/resNat",
