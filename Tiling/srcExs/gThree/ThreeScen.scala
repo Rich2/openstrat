@@ -7,11 +7,14 @@ object Water extends Terr { def colour = DarkBlue }
 object Woods extends Terr { def colour = Green }
 object Plain extends Terr { def colour = Wheat }
 
+case class Hold(turns: Int)
+case class Lunit(num: Int, cmds: Arr[Command])
+
 /** Example Game three scenario trait. */
 trait ThreeScen extends HexGridScen
 { /** tile terrain. */
   def terrs: HCenArr[Terr]
-  //def oPlayers: HCenArrOpt[Player]
+  def units: HCenArrOpt[Lunit]
 }
 
 /** Example Game three opening scenario trait. */
