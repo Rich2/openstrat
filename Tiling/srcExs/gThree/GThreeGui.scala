@@ -13,20 +13,21 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
 
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
-  def text = terrs.mapHC((t, hc) => hc.decText(14, t.contrastBW))
-
   val rows = terrs.rowCombine
-  val areas = rows.map{ hv => hv.polygonReg.fill(hv.value.colour) }
+  val hexs = rows.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   def units: HCenArrOpt[Lunit] = scen.units
-  def units2: Arr[PolygonCompound] = units.mapHCenSomes { (hc, p) =>
-    Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, p, hc.rcStr + "\n" + hc.strComma, 24, 2.0)
-  }
+
+  /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
+   *  data in the separate terrs array by use of the HCen coordinate.  */
+  def unitOrTexts: GraphicElems = units.mapHCen{hc => hc.decText(14, terrs(hc).contrastBW) } { (hc, p) =>
+    Rect(1.0, 0.66, hc.toPt2).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
+
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr())//bTurn))
   statusText = s"Game Three. Scenario has ${grid.numCens} tiles."
   thisTop()
 
-  def frame: GraphicElems = (areas ++ lines ++ text ++ units2).gridScale(scale)
+  def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts: GraphicElems).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }
