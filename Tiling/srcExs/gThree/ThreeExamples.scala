@@ -22,8 +22,8 @@ object ThreeScen1 extends ThreeScenStart
   sr(6,2, Water * 2)
   sr(4, 4, Woods * 2)
   val units: HCenArrOpt[Lunit] = grid.newTileArrOpt
-  units.unsafeSetSome(4, 4, Lunit(TeamA))
-  units.unsafeSetSomes((4, 8, Lunit(TeamB)), (6, 10, Lunit(TeamA)))
+  units.unsafeSetSome(4, 4, Lunit(TeamA, HStepDR))
+  units.unsafeSetSomes((4, 8, Lunit(TeamB, HStepLt, HStepDL)), (6, 10, Lunit(TeamA)))
 }
 
 /** 2nd Scenario of Game Three. Has a larger number of hexs. */
@@ -39,8 +39,8 @@ object ThreeScen2 extends ThreeScenStart
   sr(16, 44, Woods * 3)
   sr(18, 42, Woods * 3)
   val units: HCenArrOpt[Lunit] = grid.newTileArrOpt
-  /*oPlayers.unsafeSetSome(4, 4, PlayerA)
-  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))*/
+  units.unsafeSetSome(4, 4, Lunit(TeamA))
+
 }
 
 /** 3rd Scenario of Game Three. Has a larger number of hexs. */
@@ -50,6 +50,5 @@ object ThreeScen3 extends ThreeScenStart {
 
   import terrs.{setRow => sr}
   val units: HCenArrOpt[Lunit] = grid.newTileArrOpt
-  /*oPlayers.unsafeSetSome(4, 4, PlayerA)
-  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))*/
+
 }

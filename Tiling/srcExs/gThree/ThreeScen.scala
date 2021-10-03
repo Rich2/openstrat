@@ -13,9 +13,14 @@ case class Team(name: String, colour: Colour) extends Coloured
 object TeamA extends Team("TeamA" , Red)
 object TeamB extends Team("TeamB" , Violet)
 
-case class Lunit(team: Team, cmds: Arr[Command] = Arr()) extends Coloured
+class Lunit(val team: Team, val cmds: Arr[Command] = Arr()) extends Coloured
+{ def colour = team.colour
+}
+
+object Lunit
 {
-  def colour = team.colour
+  def apply(team: Team, cmds: Command *): Lunit = new Lunit(team, cmds.toArr)
+  def apply(team: Team, cmds: Arr[Command]): Lunit = new Lunit(team, cmds)
 }
 
 /** Example Game three scenario trait. */
