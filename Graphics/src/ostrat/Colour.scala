@@ -83,7 +83,7 @@ def contrast2(other: Colour): Colour =
 }
 
 /** This trait provides a few handy methods for classes with the colour member */
-trait WithColour extends AnyRef
+trait Coloured extends AnyRef
 { def colour: Colour
   def contrast: Colour = colour.contrast
   def colourContrast2(other: Colour): Colour = colour.contrast2(other)

@@ -33,7 +33,7 @@ trait TileSideAncient extends GridElemAncient
   }
 }
 
-trait ColouredTileAncient extends TileAncient with WithColour
+trait ColouredTileAncient extends TileAncient with Coloured
 
 case class TileBareAncient(x: Int, y: Int) extends TileAncient
 { type FromT = Unit

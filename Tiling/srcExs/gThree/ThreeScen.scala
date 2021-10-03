@@ -2,13 +2,21 @@
 package ostrat; package gThree
 import prid._, Colour._
 
-sealed trait Terr extends WithColour
+sealed trait Terr extends Coloured
 object Water extends Terr { def colour = DarkBlue }
 object Woods extends Terr { def colour = Green }
 object Plain extends Terr { def colour = Wheat }
 
 case class Hold(turns: Int)
-case class Lunit(num: Int, cmds: Arr[Command])
+type Command = HStep | Hold
+case class Team(name: String, colour: Colour) extends Coloured
+object TeamA extends Team("TeamA" , Red)
+object TeamB extends Team("TeamB" , Violet)
+
+case class Lunit(team: Team, cmds: Arr[Command] = Arr()) extends Coloured
+{
+  def colour = team.colour
+}
 
 /** Example Game three scenario trait. */
 trait ThreeScen extends HexGridScen

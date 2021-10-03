@@ -3,7 +3,7 @@ package ostrat; package pEarth
 import Colour._
 
 /** World Tile, consider changing to ETile. */
-trait WTile extends WithColour
+trait WTile extends Coloured
 { def str: String
 }
 

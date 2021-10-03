@@ -3,7 +3,7 @@ package ostrat
 package pWW2
 import geom._
 
-case class Army(tile: W2TileAncient, polity: Polity) extends WithColour
+case class Army(tile: W2TileAncient, polity: Polity) extends Coloured
 {
   def colour = polity.colour
   override def toString = "Army" + (polity.toString).enParenth

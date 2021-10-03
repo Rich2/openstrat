@@ -27,7 +27,7 @@ object Queen extends Piece with UnScaledPolygonYMirror
 
 object King extends Piece
 
-sealed trait Player extends WithColour
+sealed trait Player extends Coloured
 
 object PWhite extends Player
 { def colour = White
