@@ -45,7 +45,10 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
 
   /** coordinate-foreach-Some. Foreach Some element and its associated [[HCen]] coordinate applies the side effecting parameter function. It ignores
    *  the None values. */
-  def foreachHCenSome(f: (HCen, A) => Unit)(implicit grid: HGrid): Unit = grid.foreach { hc => f(hc, unsafeArr(grid.arrIndex(hc))) }
+  def foreachHCenSome(f: (HCen, A) => Unit)(implicit grid: HGrid): Unit = grid.foreach { hc =>
+    val a = unsafeArr(grid.arrIndex(hc))
+    if (a != null) f(hc, a)
+  }
 
   /** Coordinate-map. Maps the this Arr of Opt values, with their respective [[HCen]] coordinates to an Arr of type B. */
   def mapHCen[B, ArrT <: ArrBase[B]](fNone: => HCen => B)(fSome: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
@@ -65,8 +68,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     val buff = build.newBuff()
     grid.foreach { r =>
       val a = unsafeArr(grid.arrIndex(r))
-      if (a != null) build.buffGrow(buff, noneValue)
-      else { val newVal = f(a); build.buffGrow(buff, newVal) }
+      build.buffGrow(buff, if (a == null) noneValue else f(a))
     }
     build.buffToBB(buff)
   }
