@@ -22,6 +22,10 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
   def unitOrTexts: GraphicElems = units.mapHCen{hc => hc.decText(14, terrs(hc).contrastBW) } { (hc, p) =>
     Rect(1.0, 0.66, hc.toPt2).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
+  def moves: GraphicElems = units.flatMapHCenSomes{(hc, u) =>
+    ???
+  }
+
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr())//bTurn))
   statusText = s"Game Three. Scenario has ${grid.numCens} tiles."
