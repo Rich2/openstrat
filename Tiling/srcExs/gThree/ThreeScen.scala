@@ -8,19 +8,19 @@ object Woods extends Terr { def colour = Green }
 object Plain extends Terr { def colour = Wheat }
 
 case class Hold(turns: Int)
-type Command = HStep | Hold
+//type Command = HStep | Hold
 case class Team(name: String, colour: Colour) extends Coloured
 object TeamA extends Team("TeamA" , Red)
 object TeamB extends Team("TeamB" , Violet)
 
-class Lunit(val team: Team, val cmds: Arr[Command] = Arr()) extends Coloured
+class Lunit(val team: Team, val cmds: Arr[HStep] = Arr()) extends Coloured
 { def colour = team.colour
 }
 
 object Lunit
 {
-  def apply(team: Team, cmds: Command *): Lunit = new Lunit(team, cmds.toArr)
-  def apply(team: Team, cmds: Arr[Command]): Lunit = new Lunit(team, cmds)
+  def apply(team: Team, cmds: HStep *): Lunit = new Lunit(team, cmds.toArr)
+  def apply(team: Team, cmds: Arr[HStep]): Lunit = new Lunit(team, cmds)
 }
 
 /** Example Game three scenario trait. */

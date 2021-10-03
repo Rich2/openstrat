@@ -23,7 +23,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
     Rect(1.0, 0.66, hc.toPt2).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
   def moves: GraphicElems = units.flatMapHCenSomes{(hc, u) =>
-    ???
+    u.cmds
+    Arr()
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
