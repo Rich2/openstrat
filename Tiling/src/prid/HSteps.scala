@@ -55,3 +55,10 @@ trait HStepsCompanion[T <: HStepsTr]
     fromArray(array)
   }
 }
+
+class HSteps(val arrayUnsafe: Array[Int]) extends AnyVal with HStepsTr
+
+object HSteps extends HStepsCompanion[HSteps]
+{
+  override def fromArray(array: Array[Int]): HSteps = new HSteps(array)
+}

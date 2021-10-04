@@ -17,7 +17,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
     val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(hc).colour).slate(hc.toPt2)
 
     val actions: GraphicElems = squad.action match
-    { case mv: Move => mv.segsMap(hc)(_.draw())
+    { case mv: HSteps => mv.segsMap(hc)(_.draw())
       case Fire(target) => Arr(HCoordLineSeg(hc, target).lineSeg.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }
