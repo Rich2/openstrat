@@ -21,7 +21,7 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
   override def numRow2s: Int = numTileRows.ifMod(tileRowBottom.div4Rem2, _.roundUpToEven) / 2
 
   /** The total number of Tiles in the tile Grid. */
-  override def numTiles: Int = ???
+  override def numTiles: Int = foldRows(0)((acc, r) => acc + 4 )
 
   def rowForeach(r: Int)(f: HCen => Unit): Unit = ???
 
