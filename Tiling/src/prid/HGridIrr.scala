@@ -80,3 +80,19 @@ case class HGridIrrRowLengths(unsafeArray: Array[Int]) extends HGrid
     res
   }*/
 }
+
+object HGridIrrRowLengths
+{
+  def apply(rMax: Int, cMinMaxs: (Int, Int) *): HGridIrrRowLengths =
+  { val array = new Array[Int](cMinMaxs.length * 2 + 2)
+    val len = cMinMaxs.length
+    array(0) = len
+    array(1) = rMax - len * 2
+    iUntilForeach(0, len){ i =>
+      val (cMin, cMax) = cMinMaxs(len - 1 - i)
+      array(i * 2 + 2) = cMin
+      array(i * 2 + 2) = cMax
+    }
+    new HGridIrrRowLengths(array)
+  }
+}

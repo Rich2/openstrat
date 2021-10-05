@@ -8,10 +8,14 @@ object OneLaunch extends GuiLaunchStd
 
   override def default: (CanvasPlatform => Any, String) = (GOneGui(_, OneScen1), "JavaFx Game One")
 
-  override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match {
-    case 1 => (GOneGui(_, OneScen1), "JavaFx Game One")
-    case 2 => (GOneGui(_, OneScen2), "JavaFx Game One")
-    case _ => (GOneGui(_, OneScen1), "JavaFx Game One")
+  override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) =
+  { val scen = s2 match
+    { case 1 => OneScen1
+      case 2 => OneScen2
+      case 3 => OneScen3
+      case _ => OneScen1
+    }
+    (GOneGui(_, scen), "JavaFx Game One")
   }
 }
 
@@ -26,6 +30,13 @@ object OneScen1 extends OneScenStart
 /** 2nd example Turn 0 scenario state for Game One. */
 object OneScen2 extends OneScenStart
 { implicit val grid: HGridReg = HGridReg(2, 10, 4, 8)
+  val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
+  oPlayers.unsafeSetSome(4, 4, PlayerA)
+}
+
+/** 3rd example Turn 0 scenario state for Game One. */
+object OneScen3 extends OneScenStart
+{ implicit val grid: HGrid = HGridIrrRowLengths(10, (6, 6), (4, 8), (2, 10), (4, 8), (6, 6))
   val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.unsafeSetSome(4, 4, PlayerA)
 }
