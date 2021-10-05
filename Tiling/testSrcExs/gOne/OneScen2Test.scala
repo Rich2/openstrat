@@ -8,15 +8,15 @@ object OneScen2Test  extends TestSuite
   val tests = Tests
   {
     "test1" -
-    { g.cenRowMin ==> 2
-      g.cenRMax ==> 10
-      g.cenColMin ==> 4
-      g.cenColMax ==> 8
+    { g.tileRowBottom ==> 2
+      g.tileRowTop ==> 10
+      g.tileColMin ==> 4
+      g.tileColMax ==> 8
       g.numRow0s ==> 2
       g.rRow2sMin ==> 2
       g.rRow2sMax ==> 10
       g.numRow2s ==> 3
-      g.numCenRows ==> 5
+      g.numTileRows ==> 5
       g.cRow2sMin ==> 6
       g.cRow0sMin ==> 4
 //      g. cRowStart(2) ==> 2

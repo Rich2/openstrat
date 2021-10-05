@@ -17,16 +17,16 @@ trait HGrid extends TGrid
   def rowNumCens(row: Int): Int
 
   /** The r coordinate of the bottom row of this grid divided by 4 leaves remainder of 0. */
-  def rBottomRow0: Boolean = cenRowMin.div4Rem0
+  def rBottomRow0: Boolean = tileRowBottom.div4Rem0
 
   /** The r coordinate of the bottom row of this grid divided by 4 leaves remainder of 2. */
-  def rBottomRow2: Boolean = cenRowMin.div4Rem2
+  def rBottomRow2: Boolean = tileRowBottom.div4Rem2
 
   /** Boolean, true if for top hex tile centre row of this hex grid r %% 4 == 0. */
-  final def rTopCenRow0: Boolean = cenRowMin.div4Rem0
+  final def rTopCenRow0: Boolean = tileRowBottom.div4Rem0
 
   /** Boolean, true if for top hex tile centre row of this hex grid r %% 4 == 2. */
-  final def rTopRow2: Boolean = cenRowMin.div4Rem2
+  final def rTopRow2: Boolean = tileRowBottom.div4Rem2
 
   /** Carries out the procedure function on each [[HCen]] hex tile centre coordinate in the given tile row. This method is defined here rather than on
    *  TileGrid so it can take the specific narrow [[HCen]] parameter to the foreach function. */
@@ -40,12 +40,12 @@ trait HGrid extends TGrid
   override def xRatio: Double = 1.0 / sqrt(3)
 
   /** The centre of the hex grid in terms of c column coordinates. */
-  def cCen: Double = (cenColMin + cenColMax) / 2.0
+  def cCen: Double = (tileColMin + tileColMax) / 2.0
 
   /** The centre of the hex grid along the X axis after the XRatio has been applied to c column value. */
   final override def xCen: Double = cCen * xRatio
 
-  /** foreachs over each [[HCen]] hex tile centre, apply the side effecting function. */
+  /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
   final def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeach(r)(f))
 
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
@@ -57,7 +57,7 @@ trait HGrid extends TGrid
   /** Maps over the [[HCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
    *  corresponding to the standard Scala map function of A => B. */
   final def map[B, ArrB <: ArrBase[B]](f: HCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
-  { val res = build.newArr(numCens)
+  { val res = build.newArr(numTiles)
     iForeach((hCen, i) => res.unsafeSetElem(i, f(hCen)))
     res
   }
@@ -65,7 +65,7 @@ trait HGrid extends TGrid
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */
   final def flatMap[ArrT <: ArrBase[_]](f: HCen => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
-  { val buff = build.newBuff(numCens)
+  { val buff = build.newBuff(numTiles)
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
     build.buffToBB(buff)
   }
@@ -73,8 +73,11 @@ trait HGrid extends TGrid
   /** Is the specified tile centre row empty? */
   final def cenRowEmpty(row: Int): Boolean = rowNumCens(row) == 0
 
-  /** The minimum or starting column of the tile centre of the given row. */
-  def rowCenMin(row: Int): Int
+  /** The start or by default left column of the tile centre of the given row. */
+  def rowCenStart(row: Int): Int
+
+  /** The end of by default right column number of the tile centre of the given row. */
+  def rowCenEnd(row: Int): Int
 
   override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
 
@@ -91,24 +94,24 @@ trait HGrid extends TGrid
 
   /** New immutable Arr of Tile data. */
   final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenArr[A] =
-  { val res = HCenArr[A](numCens)
+  { val res = HCenArr[A](numTiles)
     res.mutSetAll(value)
     res
   }
 
   /** New immutable Arr of Tile data. */
   final def newTileArrArr[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrArr[A] =
-  { val newArray = new Array[Array[A]](numCens)
+  { val newArray = new Array[Array[A]](numTiles)
     val init: Array[A] = Array()
-    iUntilForeach(0, numCens)(newArray(_) = init)
+    iUntilForeach(0, numTiles)(newArray(_) = init)
     new HCenArrArr[A](newArray)
   }
 
   /** Creates a new [[HCenArrBuff]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
-  final def newHCenArrBuff[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrBuff[A] = HCenArrBuff(numCens)
+  final def newHCenArrBuff[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrBuff[A] = HCenArrBuff(numTiles)
 
   /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numCens))
+  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numTiles))
 
   /** Combine adjacent tiles of the same value. */
   /*def combinedPolygons[A <: AnyRef](implicit arr: HCenArr[A]): Arr[(HVertPolygon, A)] =

@@ -3,14 +3,6 @@ package ostrat; package prid
 
 /** An irregular hex grid. This grid is irregular in the length of the hex rows. */
 trait HGridIrr extends HGrid
-{
-
-}
-
-object HGridIrr
-{
-
-}
 
 /** An irregular hex grid, where the rows have different lengths and irregular start row coordinates. This is backed by an Array[Int] The (0) value
  *  gives the number of tile centre [[HCen]] rows. The (1) value gives the rTileMin the bottom row coordinate. There are 2 more values for row. Each
@@ -18,24 +10,18 @@ object HGridIrr
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param yTileMin         The y value for the bottom tile row of the TileGrid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-case class HGridIrrRowLengths(unsafeArray: Array[Int]) extends HGrid
+class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
 {
-  override def cenRowMin: Int = iUntilFoldSumInt(0, numCenRows){ i => unsafeArray(i * 2 + 3) }
-
-  override def cenRMax: Int = foldRows(0)((acc, r) => acc.max(rowCenMin(r)))
-
-  /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
-  override def cenColMin: Int = ???
-
-  /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
-  override def cenColMax: Int = ???
-
-  override def numCenRows: Int = unsafeArray(0)
-  override def numRow0s: Int = ???
-  override def numRow2s: Int = ???
+  override def tileRowBottom: Int = iUntilFoldSumInt(0, numTileRows){ i => unsafeArray(i * 2 + 3) }
+  override def tileRowTop: Int = foldRows(0)((acc, r) => acc.max(rowCenStart(r)))
+  override def tileColMin: Int = foldRows(0)((acc, r) => acc.min(rowCenStart(r)))
+  override def tileColMax: Int = foldRows(0)((acc, r) => acc.max(rowCenEnd(r)))
+  override def numTileRows: Int = unsafeArray(0)
+  override def numRow0s: Int = numTileRows.ifMod(tileRowBottom.div4Rem0, _.roundUpToEven) / 2
+  override def numRow2s: Int = numTileRows.ifMod(tileRowBottom.div4Rem2, _.roundUpToEven) / 2
 
   /** The total number of Tiles in the tile Grid. */
-  override def numCens: Int = ???
+  override def numTiles: Int = ???
 
   def rowForeach(r: Int)(f: HCen => Unit): Unit = ???
 
@@ -51,7 +37,8 @@ case class HGridIrrRowLengths(unsafeArray: Array[Int]) extends HGrid
 
   override def rowNumCens(row: Int): Int = ???
 
-  override def rowCenMin(row: Int): Int = ???
+  override def rowCenStart(row: Int): Int = ???
+  override def rowCenEnd(row: Int): Int = ???
 
   override def hCenExists(r: Int, c: Int): Boolean = ???
 

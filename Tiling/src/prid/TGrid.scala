@@ -21,19 +21,21 @@ trait TGrid
 {
   /** Number of rows of tile centres. This will be different to the number of rows of sides and and will be different to the number of rows of
    *  vertices for HexGrids. */
-  def numCenRows: Int
+  def numTileRows: Int
 
-  /** The minimum row coordinate of tile centres. */
-  def cenRowMin: Int
+  /** The bottom or lowest tile centre row, r coordinate. */
+  def tileRowBottom: Int
 
-  /** The maximum row coordinate of tile centres. */
-  def cenRMax: Int
+  /** The top of highest tile centre row, r coordinate. */
+  def tileRowTop: Int
 
-  /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
-  def cenColMin: Int
+  /** The minimum or lowest tile centre column c coordinate in the whole tile grid. This is not called c rather than x because in some grids there is
+   *  not a 1 to 1 ratio from column coordinate to x. */
+  def tileColMin: Int
 
-  /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
-  def cenColMax: Int
+  /** the Maximum or highest tile centre column c coordinate in the whole tile grid. This is not called c rather than x because in some grids there is
+   *  not a 1 to 1 ratio from column coordinate to x. */
+  def tileColMax: Int
 
   /** Width of the tile Grid from furthest tile edge to furthest tile edge. */
   def width: Double
@@ -42,22 +44,22 @@ trait TGrid
   def height: Double
 
   /** The total number of tile centres in this tile Grid. */
-  def numCens: Int
+  def numTiles: Int
 
   def xRatio: Double
 
   def xCen: Double
-  def yCen: Double = (cenRowMin + cenRMax) / 2
+  def yCen: Double = (tileRowBottom + tileRowTop) / 2
 
   //def cenPt: Pt2 = Pt2(xCen, yCen)
   def cenVec: Vec2 = Vec2(xCen, yCen)
 
   /** Foreach grid Row y coordinate. */
-  final def foreachRow(f: Int => Unit): Unit = iToForeach(cenRowMin, cenRMax, 2)(f)
+  final def foreachRow(f: Int => Unit): Unit = iToForeach(tileRowBottom, tileRowTop, 2)(f)
 
   /** maps over each row number. */
   final def mapRows[B, BB <: ArrBase[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
-  { val res = build.newArr(numCenRows)
+  { val res = build.newArr(numTileRows)
     var index = 0
     foreachRow{r => res.unsafeSetElem(index, f(r)); index += 1 }
     res
@@ -65,7 +67,7 @@ trait TGrid
 
   /** flatMaps over each row number. */
   final def flatMapRows[ArrT <: ArrBase[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
-  { val buff = build.newBuff(numCens)
+  { val buff = build.newBuff(numTiles)
     foreachRow{ r => build.buffGrowArr(buff, f(r)) }
     build.buffToBB(buff)
   }
@@ -81,7 +83,7 @@ trait TGrid
   def foreachCenCoord(f: TCoord => Unit): Unit
 
   def mapCenCoords[B, BB <: ArrBase[B]](f: TCoord => B)(implicit build: ArrBuilder[B, BB]): BB =
-  { val res = build.newArr(numCens)
+  { val res = build.newArr(numTiles)
     var count = 0
     foreachCenCoord { tc => res.unsafeSetElem(count, f(tc))
       count += 1
@@ -101,7 +103,7 @@ trait TGrid
   }
 
   /** The number of Rows of vertices. */
-  @inline final def numOfVertRows: Int = ife(numCenRows > 1, numCenRows + 1, 0)
+  @inline final def numOfVertRows: Int = ife(numTileRows > 1, numTileRows + 1, 0)
 
   /** Gives the text graphics for the row and column of each tile centre. */
   def rcTexts = mapCenCoords(tc => tc.rcStr.toTextGraphic(16, tc.toPt2))
@@ -110,19 +112,19 @@ trait TGrid
 
   /** The number of Rows of Sides.
    *  @group SidesGroup */
-  @inline final def numOfSideRows: Int = ife(numCenRows > 1, numCenRows * 2 + 1, 0)
+  @inline final def numOfSideRows: Int = ife(numTileRows > 1, numTileRows * 2 + 1, 0)
 
   /** The bottom Side Row of this TileGrid. The r value, the row number value.
    *  @group SidesGroup */
-  @inline final def rSideMin: Int = cenRowMin - 1
+  @inline final def rSideMin: Int = tileRowBottom - 1
 
   /** The top Side Row of this TileGrid. The r value, the row number.
    *  @group SidesGroup*/
-  @inline final def rSideMax: Int = cenRMax + 1
+  @inline final def rSideMax: Int = tileRowTop + 1
 
   /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
-  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(cenRowMin - 1, cenRMax + 1)(f)
+  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(tileRowBottom - 1, tileRowTop + 1)(f)
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
