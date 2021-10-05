@@ -57,7 +57,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
   {
     grid.flatMapRows[Arr[HCenRowValue[A]]]{ r => if (grid.cenRowEmpty(r)) Arr()
       else
-      { var currStart: Int = grid.cRowCenMin(r)
+      { var currStart: Int = grid.rowCenMin(r)
         var currC: Int = currStart
         var currVal: A = rc(r, currStart)
         var list: List[HCenRowValue[A]] = Nil

@@ -15,19 +15,19 @@ object OneScen1Test  extends TestSuite
   {
     "os1" -
       { g1.numCenRows ==> 3
-        g1.rCenMin ==> 2
-        g1.rCenMax ==> 6
-        g1.cTileMin ==> 2
-        g1.cTileMax ==> 10
+        g1.cenRowMin ==> 2
+        g1.cenRMax ==> 6
+        g1.cenColMin ==> 2
+        g1.cenColMax ==> 10
         g1.numCens ==> 8
       }
 
     "os2" -
       { g2.numCenRows ==> 3
-        g2.rCenMin ==> 2
-        g2.rCenMax ==> 6
-        g2.cTileMin ==> 2
-        g2.cTileMax ==> 10
+        g2.cenRowMin ==> 2
+        g2.cenRMax ==> 6
+        g2.cenColMin ==> 2
+        g2.cenColMax ==> 10
         g2.numCens ==> 8
       }
 

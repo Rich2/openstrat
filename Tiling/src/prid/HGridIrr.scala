@@ -20,15 +20,15 @@ object HGridIrr
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
 case class HGridIrrRowLengths(unsafeArray: Array[Int]) extends HGrid
 {
-  override def rCenMin: Int = iUntilFoldSumInt(0, numCenRows){ i => unsafeArray(i * 2 + 3) }
+  override def cenRowMin: Int = iUntilFoldSumInt(0, numCenRows){ i => unsafeArray(i * 2 + 3) }
 
-  override def rCenMax: Int = ???
+  override def cenRMax: Int = foldRows(0)((acc, r) => acc.max(rowCenMin(r)))
 
   /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
-  override def cTileMin: Int = ???
+  override def cenColMin: Int = ???
 
   /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
-  override def cTileMax: Int = ???
+  override def cenColMax: Int = ???
 
   override def numCenRows: Int = unsafeArray(0)
   override def numRow0s: Int = ???
@@ -51,7 +51,7 @@ case class HGridIrrRowLengths(unsafeArray: Array[Int]) extends HGrid
 
   override def rowNumCens(row: Int): Int = ???
 
-  override def cRowCenMin(row: Int): Int = ???
+  override def rowCenMin(row: Int): Int = ???
 
   override def hCenExists(r: Int, c: Int): Boolean = ???
 

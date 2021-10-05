@@ -17,16 +17,16 @@ trait HGrid extends TGrid
   def rowNumCens(row: Int): Int
 
   /** The r coordinate of the bottom row of this grid divided by 4 leaves remainder of 0. */
-  def rBottomRow0: Boolean = rCenMin.div4Rem0
+  def rBottomRow0: Boolean = cenRowMin.div4Rem0
 
   /** The r coordinate of the bottom row of this grid divided by 4 leaves remainder of 2. */
-  def rBottomRow2: Boolean = rCenMin.div4Rem2
+  def rBottomRow2: Boolean = cenRowMin.div4Rem2
 
   /** Boolean, true if for top hex tile centre row of this hex grid r %% 4 == 0. */
-  final def rTopCenRow0: Boolean = rCenMin.div4Rem0
+  final def rTopCenRow0: Boolean = cenRowMin.div4Rem0
 
   /** Boolean, true if for top hex tile centre row of this hex grid r %% 4 == 2. */
-  final def rTopRow2: Boolean = rCenMin.div4Rem2
+  final def rTopRow2: Boolean = cenRowMin.div4Rem2
 
   /** Carries out the procedure function on each [[HCen]] hex tile centre coordinate in the given tile row. This method is defined here rather than on
    *  TileGrid so it can take the specific narrow [[HCen]] parameter to the foreach function. */
@@ -40,7 +40,7 @@ trait HGrid extends TGrid
   override def xRatio: Double = 1.0 / sqrt(3)
 
   /** The centre of the hex grid in terms of c column coordinates. */
-  def cCen: Double = (cTileMin + cTileMax) / 2.0
+  def cCen: Double = (cenColMin + cenColMax) / 2.0
 
   /** The centre of the hex grid along the X axis after the XRatio has been applied to c column value. */
   final override def xCen: Double = cCen * xRatio
@@ -74,7 +74,7 @@ trait HGrid extends TGrid
   final def cenRowEmpty(row: Int): Boolean = rowNumCens(row) == 0
 
   /** The minimum or starting column of the tile centre of the given row. */
-  def cRowCenMin(row: Int): Int
+  def rowCenMin(row: Int): Int
 
   override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
 

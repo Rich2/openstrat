@@ -24,16 +24,16 @@ trait TGrid
   def numCenRows: Int
 
   /** The minimum row coordinate of tile centres. */
-  def rCenMin: Int
+  def cenRowMin: Int
 
   /** The maximum row coordinate of tile centres. */
-  def rCenMax: Int
+  def cenRMax: Int
 
   /** Minimum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
-  def cTileMin: Int
+  def cenColMin: Int
 
   /** Maximum c or column value. This is not called x because in some grids there is not a 1 to 1 ratio from column coordinate to x. */
-  def cTileMax: Int
+  def cenColMax: Int
 
   /** Width of the tile Grid from furthest tile edge to furthest tile edge. */
   def width: Double
@@ -47,13 +47,13 @@ trait TGrid
   def xRatio: Double
 
   def xCen: Double
-  def yCen: Double = (rCenMin + rCenMax) / 2
+  def yCen: Double = (cenRowMin + cenRMax) / 2
 
   //def cenPt: Pt2 = Pt2(xCen, yCen)
   def cenVec: Vec2 = Vec2(xCen, yCen)
 
   /** Foreach grid Row y coordinate. */
-  final def foreachRow(f: Int => Unit): Unit = iToForeach(rCenMin, rCenMax, 2)(f)
+  final def foreachRow(f: Int => Unit): Unit = iToForeach(cenRowMin, cenRMax, 2)(f)
 
   /** maps over each row number. */
   final def mapRows[B, BB <: ArrBase[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
@@ -68,6 +68,13 @@ trait TGrid
   { val buff = build.newBuff(numCens)
     foreachRow{ r => build.buffGrowArr(buff, f(r)) }
     build.buffToBB(buff)
+  }
+
+  /** foldLefts over each row number. */
+  final def foldRows[B](init: B)(f: (B, Int) => B): B =
+  { var acc = init
+    foreachRow{ r => acc = f(acc, r) }
+    acc
   }
 
   /** Foreach tile centre coordinate. A less strongly typed method than the foreach's in the sub traits. */
@@ -107,15 +114,15 @@ trait TGrid
 
   /** The bottom Side Row of this TileGrid. The r value, the row number value.
    *  @group SidesGroup */
-  @inline final def rSideMin: Int = rCenMin - 1
+  @inline final def rSideMin: Int = cenRowMin - 1
 
   /** The top Side Row of this TileGrid. The r value, the row number.
    *  @group SidesGroup*/
-  @inline final def rSideMax: Int = rCenMax + 1
+  @inline final def rSideMax: Int = cenRMax + 1
 
   /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
-  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(rCenMin - 1, rCenMax + 1)(f)
+  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(cenRowMin - 1, cenRMax + 1)(f)
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
