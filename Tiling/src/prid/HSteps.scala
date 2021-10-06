@@ -2,6 +2,8 @@
 package ostrat; package prid
 import geom._
 
+/** A trait for [[HStep]]s. The purpose of the trait rather than a class is to allow the consumer to mix in their own traits. Its not clear whether
+ *  this is useful in Scala 3 or its bettter to use union types with the [[HSteps]] class. */
 trait HStepsTr extends Any
 { def arrayUnsafe: Array[Int]
   def segsNum: Int = arrayUnsafe.length
