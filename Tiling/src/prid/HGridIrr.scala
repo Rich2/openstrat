@@ -12,20 +12,31 @@ trait HGridIrr extends HGrid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
 class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
 {
+  override def numTileRows: Int = unsafeArray(0)
   override def tileRowBottom: Int = unsafeArray(1)
   override def tileRowTop: Int = tileRowBottom + unsafeArray(0) * 2 - 2
   override def tileColMin: Int = foldRows(0)((acc, r) => acc.min(rowCenStart(r)))
   override def tileColMax: Int = foldRows(0)((acc, r) => acc.max(rowCenEnd(r)))
-  override def numTileRows: Int = unsafeArray(0)
+
   override def numRow0s: Int = numTileRows.ifMod(tileRowBottom.div4Rem0, _.roundUpToEven) / 2
   override def numRow2s: Int = numTileRows.ifMod(tileRowBottom.div4Rem2, _.roundUpToEven) / 2
+  @inline protected def unsafeRowArrayindex(row: Int): Int = row - tileRowBottom + 2
 
   /** The total number of Tiles in the tile Grid. */
   override def numTiles: Int = foldRows(0)((acc, r) => acc + rowNumTiles(r))
 
-  def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(rowCenStart(r), rowCenEnd(r), 4)(c => f(HCen(r, c)))
+  override def rowNumTiles(row: Int): Int = unsafeArray(row - tileRowBottom + 2)
+  override def rowCenStart(row: Int): Int = unsafeArray(row - tileRowBottom + 3)
+  override def rowCenEnd(row: Int): Int = rowCenStart(row) + (rowNumTiles(row) - 1) * 4
 
-  override def rowIForeach(r: Int, count: Int)(f: (HCen, Int) => Unit): Int = ???
+  /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
+  def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(rowCenStart(r), rowCenEnd(r), 4){c => f(HCen(r, c))}
+
+  override def rowIForeach(r: Int, initCount: Int = 0)(f: (HCen, Int) => Unit): Int = {
+    var count = initCount
+    iToForeach(rowCenStart(r), rowCenEnd(r), 4){c => f(HCen(r, c), count); count += 1 }
+    count
+  }
 
   override def width: Double = ???
 
@@ -37,11 +48,6 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
   { val wholeRows = iUntilFoldInt(tileRowBottom, r, 2){ (acc, r) => acc + rowNumTiles(r) }
     wholeRows + (c - rowCenStart(r)) / 4
   }
-
-  override def rowNumTiles(row: Int): Int = ???
-
-  override def rowCenStart(row: Int): Int = unsafeArray(row - tileRowBottom + 2)
-  override def rowCenEnd(row: Int): Int = unsafeArray(row - tileRowBottom + 3)
 
   override def hCenExists(r: Int, c: Int): Boolean = ???
 
