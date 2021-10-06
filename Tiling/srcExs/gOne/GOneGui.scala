@@ -3,7 +3,8 @@ package ostrat; package gOne
 import pCanv._, geom._, prid._
 
 /** Graphical user interface for GOne example game. */
-case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("Game One Gui") {
+case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("Game One Gui")
+{
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   var history: Arr[OneScen] = Arr(scen)

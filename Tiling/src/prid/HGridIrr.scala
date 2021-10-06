@@ -38,11 +38,17 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
     count
   }
 
-  override def width: Double = ???
+  override def width: Double = 22
 
-  override def height: Double = ???
+  override def height: Double = tileRowTop - tileRowBottom
 
-  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = deb("Not implemented yet.")
+  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match {
+    case r if r.isEven => {
+      rowForeach(r){ hc => f(HSide(hc.r, hc.c -2))}
+      if (rowNumTiles(r) > 0) f(HSide(r, rowCenEnd(r) + 2))
+    }
+    case r =>
+  }
 
   override def arrIndex(r: Int, c: Int): Int =
   { val wholeRows = iUntilFoldInt(tileRowBottom, r, 2){ (acc, r) => acc + rowNumTiles(r) }
@@ -58,7 +64,7 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
   override def sideArrIndex(r: Int, c: Int): Int = sideRowIndexArray(r - rSideMin) + (c - cSideRowMin(r)) / r.ifEvenElse(4, 2)
 
   /** An Array of index values into an Array of Side data. 1 Int value for the start index of each Row. */
-  val sideRowIndexArray: Array[Int] = ???
+  val sideRowIndexArray: Array[Int] = new Array[Int](0)
   /*{
     val res = new Array[Int](rSideMax - rSideMin + 1)
     var count = 0
@@ -83,11 +89,11 @@ object HGridIrrRowLengths
   { val array = new Array[Int](cMinMaxs.length * 2 + 2)
     val len = cMinMaxs.length
     array(0) = len
-    array(1) = rMax - len * 2
+    array(1) = rMax - (len - 1) * 2
     iUntilForeach(0, len){ i =>
-      val (cMin, cMax) = cMinMaxs(len - 1 - i)
-      array(i * 2 + 2) = cMin
-      array(i * 2 + 2) = cMax
+      val (rLen, cMin) = cMinMaxs(len - 1 - i)
+      array(i * 2 + 2) = rLen
+      array(i * 2 + 3) = cMin
     }
     new HGridIrrRowLengths(array)
   }
