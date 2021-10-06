@@ -195,7 +195,7 @@ package object ostrat
   def iUntilFoldSumInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
     iToFoldSumInt(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep, accInit)(f)
 
-  /** 2 dimensional from-to-step foreach loop. Throws on non terminaton. */
+  /** 2 dimensional from-to-step foreach loop. Throws on non termination. */
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
     iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => f(i, j)}}
 

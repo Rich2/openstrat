@@ -12,8 +12,8 @@ trait HGridIrr extends HGrid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
 class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
 {
-  override def tileRowBottom: Int = iUntilFoldSumInt(0, numTileRows){ i => unsafeArray(i * 2 + 3) }
-  override def tileRowTop: Int = foldRows(0)((acc, r) => acc.max(rowCenStart(r)))
+  override def tileRowBottom: Int = unsafeArray(1)
+  override def tileRowTop: Int = tileRowBottom + unsafeArray(0) * 2 - 2
   override def tileColMin: Int = foldRows(0)((acc, r) => acc.min(rowCenStart(r)))
   override def tileColMax: Int = foldRows(0)((acc, r) => acc.max(rowCenEnd(r)))
   override def numTileRows: Int = unsafeArray(0)
@@ -21,9 +21,9 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
   override def numRow2s: Int = numTileRows.ifMod(tileRowBottom.div4Rem2, _.roundUpToEven) / 2
 
   /** The total number of Tiles in the tile Grid. */
-  override def numTiles: Int = foldRows(0)((acc, r) => acc + 4 )
+  override def numTiles: Int = foldRows(0)((acc, r) => acc + rowNumTiles(r))
 
-  def rowForeach(r: Int)(f: HCen => Unit): Unit = ???
+  def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(rowCenStart(r), rowCenEnd(r), 4)(c => f(HCen(r, c)))
 
   override def rowIForeach(r: Int, count: Int)(f: (HCen, Int) => Unit): Int = ???
 
@@ -31,14 +31,14 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
 
   override def height: Double = ???
 
-  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = ???
+  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = deb("Not implemented yet.")
 
   override def arrIndex(r: Int, c: Int): Int = ???
 
-  override def rowNumCens(row: Int): Int = ???
+  override def rowNumTiles(row: Int): Int = ???
 
-  override def rowCenStart(row: Int): Int = ???
-  override def rowCenEnd(row: Int): Int = ???
+  override def rowCenStart(row: Int): Int = unsafeArray(row - tileRowBottom + 2)
+  override def rowCenEnd(row: Int): Int = unsafeArray(row - tileRowBottom + 3)
 
   override def hCenExists(r: Int, c: Int): Boolean = ???
 

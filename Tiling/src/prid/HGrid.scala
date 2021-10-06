@@ -14,7 +14,7 @@ trait HGrid extends TGrid
   def numRow2s: Int
 
   /** The number of tile centres in the given row. */
-  def rowNumCens(row: Int): Int
+  def rowNumTiles(row: Int): Int
 
   /** The r coordinate of the bottom row of this grid divided by 4 leaves remainder of 0. */
   def rBottomRow0: Boolean = tileRowBottom.div4Rem0
@@ -71,7 +71,7 @@ trait HGrid extends TGrid
   }
 
   /** Is the specified tile centre row empty? */
-  final def cenRowEmpty(row: Int): Boolean = rowNumCens(row) == 0
+  final def cenRowEmpty(row: Int): Boolean = rowNumTiles(row) == 0
 
   /** The start or by default left column of the tile centre of the given row. */
   def rowCenStart(row: Int): Int

@@ -109,7 +109,7 @@ class HGridReg(val tileRowBottom: Int, val tileRowTop: Int, val tileColMin: Int,
     case y => iToForeach(tileColMin - 1, tileColMax + 1, 2){ c => f(HSide(y, c)) }
   }
 
-  override def rowNumCens(row: Int): Int = row %% 4 match {
+  override def rowNumTiles(row: Int): Int = row %% 4 match {
     case 0 => row0sNumCen
     case 2 => row2sNumCen
     case _ => excep("Invalid row number")
