@@ -7,7 +7,7 @@ trait ElemInt2 extends Any with ElemIntN
   def int2: Int
 }
 
-/** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt2]]s. */
+/** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemInt2]]s. */
 trait DataInt2s[A <: ElemInt2] extends Any with DataIntNs[A]
 {
   override def elemProdSize: Int = 2
