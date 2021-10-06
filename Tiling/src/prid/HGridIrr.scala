@@ -33,7 +33,10 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = deb("Not implemented yet.")
 
-  override def arrIndex(r: Int, c: Int): Int = ???
+  override def arrIndex(r: Int, c: Int): Int =
+  { val wholeRows = iUntilFoldInt(tileRowBottom, r, 2){ (acc, r) => acc + rowNumTiles(r) }
+    wholeRows + (c - rowCenStart(r)) / 4
+  }
 
   override def rowNumTiles(row: Int): Int = ???
 
