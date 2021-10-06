@@ -42,12 +42,21 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
 
   override def height: Double = tileRowTop - tileRowBottom
 
-  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match {
-    case r if r.isEven => {
-      rowForeach(r){ hc => f(HSide(hc.r, hc.c -2))}
+  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
+  {
+    case r if r.isEven =>
+    { rowForeach(r){ hc => f(HSide(hc.r, hc.c -2)) }
       if (rowNumTiles(r) > 0) f(HSide(r, rowCenEnd(r) + 2))
     }
+
+    case r if r == sideRowBottom => rowForeach(r + 1){ hc => f(HSide(r, hc.c - 1)); f(HSide(r, hc.c + 1)) }
+    case r if r == sideRowTop => rowForeach(r - 1){ hc => f(HSide(r, hc.c - 1)); f(HSide(r, hc.c + 1)) }
+
     case r =>
+    { val start = rowCenStart(r - 1).min(rowCenStart(r + 1)) - 1
+      val end = rowCenEnd(r - 1).max(rowCenEnd(r + 1)) + 1
+      iToForeach(start, end, 2){ c => f(HSide(r, c)) }
+    }
   }
 
   override def arrIndex(r: Int, c: Int): Int =

@@ -29,6 +29,12 @@ trait TGrid
   /** The top of highest tile centre row, r coordinate. */
   def tileRowTop: Int
 
+  /** The bottom or lowest tile side row, r coordinate. */
+  @inline final def sideRowBottom: Int = tileRowBottom -1
+
+  /** The top of highest tile side row, r coordinate. */
+  @inline def sideRowTop: Int = tileRowTop + 1
+
   /** The minimum or lowest tile centre column c coordinate in the whole tile grid. This is not called c rather than x because in some grids there is
    *  not a 1 to 1 ratio from column coordinate to x. */
   def tileColMin: Int
