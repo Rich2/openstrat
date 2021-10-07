@@ -8,7 +8,7 @@ val scalaMinor = "0"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-lazy val root = (project in file(".")).aggregate(UtilJvm, GraphicsJvm, TilingJvm, EarthJvm, DevJvm).settings(
+lazy val root = (project in file(".")).aggregate(UtilJvm, GraphicsJvm, TilingJvm/*, EarthJvm*/, DevJvm).settings(
   publish/skip := true,
 )
 
@@ -70,11 +70,11 @@ lazy val GraphicsJvm = jvmProj("Graphics").dependsOn(UtilJvm).settings(
 lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilJs)
 lazy val TilingJvm = jvmProj("Tiling").dependsOn(GraphicsJvm)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GraphicsJs)
-lazy val EarthJvm = jvmProj("Earth").dependsOn(TilingJvm)
-lazy val EarthJs = jsProj("Earth").dependsOn(TilingJs)
-lazy val EarthAppJs = jsApp("EarthApp").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Earth/srcEarthApp")
+//lazy val EarthJvm = jvmProj("Earth").dependsOn(TilingJvm)
+//lazy val EarthJs = jsProj("Earth").dependsOn(TilingJs)
+lazy val EarthAppJs = jsApp("EarthApp").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcEarthApp")
 
-lazy val DevJvm = jvmProj("Dev").dependsOn(EarthJvm).settings(
+lazy val DevJvm = jvmProj("Dev").dependsOn(TilingJvm).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
@@ -82,7 +82,7 @@ lazy val DevJvm = jvmProj("Dev").dependsOn(EarthJvm).settings(
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
 
-def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(EarthJs).settings(
+def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src"),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.2.0").cross(CrossVersion.for3Use2_13) withSources(),
 )
