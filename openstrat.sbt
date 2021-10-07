@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
-val versionStr = "0.3.0snap"
+val versionStr = "0.3.1snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor = "3.1"
@@ -8,7 +8,7 @@ val scalaMinor = "0"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-lazy val root = (project in file(".")).aggregate(UtilJvm, GraphicsJvm, TilingJvm/*, EarthJvm*/, DevJvm).settings(
+lazy val root = (project in file(".")).aggregate(UtilJvm, GraphicsJvm, TilingJvm, DevJvm).settings(
   publish/skip := true,
 )
 
@@ -49,6 +49,7 @@ lazy val UtilJvm = jvmProj("Util").settings(
   name := "RUtil",
   Compile/unmanagedSourceDirectories ++= Seq((ThisBuild/baseDirectory).value / "Macros/src3", (ThisBuild/baseDirectory).value / "Util/srcAnyVal")
 )
+
 lazy val UtilJs = jsProj("Util").settings(
   name := "RUtil",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src3",
@@ -70,8 +71,6 @@ lazy val GraphicsJvm = jvmProj("Graphics").dependsOn(UtilJvm).settings(
 lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilJs)
 lazy val TilingJvm = jvmProj("Tiling").dependsOn(GraphicsJvm)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GraphicsJs)
-//lazy val EarthJvm = jvmProj("Earth").dependsOn(TilingJvm)
-//lazy val EarthJs = jsProj("Earth").dependsOn(TilingJs)
 lazy val EarthAppJs = jsApp("EarthApp").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcEarthApp")
 
 lazy val DevJvm = jvmProj("Dev").dependsOn(TilingJvm).settings(
@@ -105,7 +104,8 @@ bothDoc :=
 
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := ("Macros" :: docDirs).flatMap(el => List(el + "/src", el + "/srcJvm", el + "/srcExs", el + "srcFx")).map(s => baseDir.value / s),
+  Compile/unmanagedSourceDirectories := ("Macros" :: docDirs).flatMap(el =>
+    List(el + "/src", el + "/srcJvm", el + "/srcExs", el + "srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
