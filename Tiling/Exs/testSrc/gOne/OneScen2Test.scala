@@ -5,8 +5,7 @@ import utest._
 object OneScen2Test  extends TestSuite
 {
   val g = OneScen2.grid
-  val tests = Tests
-  {
+  val tests = Tests {
     "test1" -
     { g.tileRowBottom ==> 2
       g.tileRowTop ==> 10

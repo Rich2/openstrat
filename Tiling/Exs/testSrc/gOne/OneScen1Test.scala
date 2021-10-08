@@ -8,11 +8,10 @@ object OneScen1Test  extends TestSuite
   val g1 = os1.grid
   val os2 = os1.endTurn(Arr())
   val g2 = os2.grid
-  val os3 = os1.endTurn(Arr(HexAndStep(4, 4, HStepUL), HexAndStep(4, 8, HStepUL), HexAndStep(6, 10, HStepLt)))
+  val os3 = os1.endTurn(Arr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))
   val g3 = os3.grid
 
-  val tests = Tests
-  {
+  val tests = Tests {
     "os1" -
       { g1.numTileRows ==> 3
         g1.tileRowBottom ==> 2
