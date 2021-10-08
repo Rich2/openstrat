@@ -8,7 +8,7 @@ val scalaMinor = "0"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-lazy val root = (project in file(".")).aggregate(UtilJvm, GraphicsJvm, TilingJvm, DevJvm).settings(
+lazy val root = (project in file(".")).aggregate(Util, Graphics, Tiling, Dev).settings(
   publish/skip := true,
 )
 
@@ -32,23 +32,25 @@ def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtD
   Test/resourceDirectory :=  moduleDir.value / "testRes",
 )
 
-def jvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Jvm").settings(
-  testFrameworks += new TestFramework("utest.runner.Framework"), 
-  libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test" withSources(),
-  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx", "srcExs", "srcExsJvm", "srcExsFx").map(moduleDir.value / _),
+def jvmProj(srcsStr: String, nameStr: String) = baseProj(srcsStr, nameStr).settings(
+  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List(moduleDir.value / "testSrc", (Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
 
+def coreProj(srcsStr: String) = jvmProj(srcsStr, srcsStr)
+def exsProj(srcsStr: String) = jvmProj(srcsStr + "/Exs", srcsStr + "Exs")
+
 def jsProj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
-  Compile/unmanagedSourceDirectories := List("src", "srcJs", "srcExs").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "srcJs", "Exs/src").map(moduleDir.value / _),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.2.0").cross(CrossVersion.for3Use2_13) withSources(),
 )
 
-lazy val UtilJvm = jvmProj("Util").settings(
+lazy val Util = coreProj("Util").settings(
   name := "RUtil",
-  Compile/unmanagedSourceDirectories ++= Seq((ThisBuild/baseDirectory).value / "Macros/src3", (ThisBuild/baseDirectory).value / "Util/srcAnyVal")
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Util/srcAnyVal",
 )
+lazy val UtilExs = exsProj("Util").dependsOn(Util)
 
 lazy val UtilJs = jsProj("Util").settings(
   name := "RUtil",
@@ -63,17 +65,19 @@ lazy val UtilJs = jsProj("Util").settings(
   }.taskValue,
 )
 
-lazy val GraphicsJvm = jvmProj("Graphics").dependsOn(UtilJvm).settings(
+lazy val Graphics = coreProj("Graphics").dependsOn(Util).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
   Compile/mainClass:= Some("learn.LsE1App"),
 )
-
+lazy val GraphicsExs = exsProj("Graphics").dependsOn(Graphics)
 lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilJs)
-lazy val TilingJvm = jvmProj("Tiling").dependsOn(GraphicsJvm)
+
+lazy val Tiling = coreProj("Tiling").dependsOn(Graphics)
+lazy val TilingExs = exsProj("Tiling").dependsOn(Tiling)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GraphicsJs)
 lazy val EarthAppJs = jsApp("EarthApp").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcEarthApp")
 
-lazy val DevJvm = jvmProj("Dev").dependsOn(TilingJvm).settings(
+lazy val Dev = coreProj("Dev").dependsOn(GraphicsExs, TilingExs).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
