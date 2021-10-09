@@ -33,7 +33,8 @@ object OneScen1Test  extends TestSuite
     "os3" -
     {
       g3.numTiles ==> 8
-//      g1.cSideRowMin(1) ==> 1
+      g1.row0sStart ==> 4
+      g1.row0sEnd ==> 8
 //      g1.cSideRowMin(2) ==> 0
 //      g1.cSideRowMin(5) ==> 1
       //os3.oPlayers(1) ==> NoRef

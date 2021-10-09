@@ -35,12 +35,12 @@ trait TGrid
   /** The top of highest tile side row, r coordinate. */
   @inline def sideRowTop: Int = tileRowTop + 1
 
-  /** The minimum or lowest tile centre column c coordinate in the whole tile grid. This is not called c rather than x because in some grids there is
-   *  not a 1 to 1 ratio from column coordinate to x. */
+  /** The minimum or lowest tile centre column c coordinate in the whole tile grid. This is called c rather than x because in hex grids [[HGrid]]s
+   *  there is not a 1 to 1 ratio from column coordinate to the x value in a [[Pt2]]. */
   def tileColMin: Int
 
-  /** the Maximum or highest tile centre column c coordinate in the whole tile grid. This is not called c rather than x because in some grids there is
-   *  not a 1 to 1 ratio from column coordinate to x. */
+  /** the Maximum or highest tile centre column c coordinate in the whole tile grid. This is called c rather than x because in hex grids [[HGrid]]s
+   *  there is not a 1 to 1 ratio from column coordinate to the x value in a [[Pt2]]. */
   def tileColMax: Int
 
   /** Width of the tile Grid from furthest tile edge to furthest tile edge. */

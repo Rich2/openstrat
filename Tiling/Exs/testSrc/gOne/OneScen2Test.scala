@@ -16,8 +16,8 @@ object OneScen2Test  extends TestSuite
       g.rRow2sMax ==> 10
       g.numRow2s ==> 3
       g.numTileRows ==> 5
-      g.cRow2sMin ==> 6
-      g.cRow0sMin ==> 4
+      g.row2sStart ==> 6
+      g.row0sStart ==> 4
 //      g. cRowStart(2) ==> 2
 //      g.cRowLen(2) ==> 3
 //      g.cRowEnd(2) ==> 10
