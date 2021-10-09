@@ -13,20 +13,20 @@ trait HGridIrr extends HGrid
 class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
 {
   override def numTileRows: Int = unsafeArray(0)
-  override def tileRowBottom: Int = unsafeArray(1)
-  override def tileRowTop: Int = tileRowBottom + unsafeArray(0) * 2 - 2
+  override def bottomTileRow: Int = unsafeArray(1)
+  override def topTileRow: Int = bottomTileRow + unsafeArray(0) * 2 - 2
   override def tileColMin: Int = foldRows(0)((acc, r) => acc.min(rowCenStart(r)))
   override def tileColMax: Int = foldRows(0)((acc, r) => acc.max(rowCenEnd(r)))
 
-  override def numRow0s: Int = numTileRows.ifMod(tileRowBottom.div4Rem0, _.roundUpToEven) / 2
-  override def numRow2s: Int = numTileRows.ifMod(tileRowBottom.div4Rem2, _.roundUpToEven) / 2
-  @inline protected def unsafeRowArrayindex(row: Int): Int = row - tileRowBottom + 2
+  override def numRow0s: Int = numTileRows.ifMod(bottomTileRow.div4Rem0, _.roundUpToEven) / 2
+  override def numRow2s: Int = numTileRows.ifMod(bottomTileRow.div4Rem2, _.roundUpToEven) / 2
+  @inline protected def unsafeRowArrayindex(row: Int): Int = row - bottomTileRow + 2
 
   /** The total number of Tiles in the tile Grid. */
   override def numTiles: Int = foldRows(0)((acc, r) => acc + rowNumTiles(r))
 
-  override def rowNumTiles(row: Int): Int = unsafeArray(row - tileRowBottom + 2)
-  override def rowCenStart(row: Int): Int = unsafeArray(row - tileRowBottom + 3)
+  override def rowNumTiles(row: Int): Int = unsafeArray(row - bottomTileRow + 2)
+  override def rowCenStart(row: Int): Int = unsafeArray(row - bottomTileRow + 3)
   override def rowCenEnd(row: Int): Int = rowCenStart(row) + (rowNumTiles(row) - 1) * 4
 
   /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
@@ -40,7 +40,7 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
 
   override def width: Double = 22
 
-  override def height: Double = tileRowTop - tileRowBottom
+  override def height: Double = topTileRow - bottomTileRow
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {
@@ -60,7 +60,7 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
   }
 
   override def arrIndex(r: Int, c: Int): Int =
-  { val wholeRows = iUntilFoldInt(tileRowBottom, r, 2){ (acc, r) => acc + rowNumTiles(r) }
+  { val wholeRows = iUntilFoldInt(bottomTileRow, r, 2){ (acc, r) => acc + rowNumTiles(r) }
     wholeRows + (c - rowCenStart(r)) / 4
   }
 

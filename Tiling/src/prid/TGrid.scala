@@ -24,16 +24,16 @@ trait TGrid
   def numTileRows: Int
 
   /** The bottom or lowest tile centre row, r coordinate. */
-  def tileRowBottom: Int
+  def bottomTileRow: Int
 
   /** The top of highest tile centre row, r coordinate. */
-  def tileRowTop: Int
+  def topTileRow: Int
 
   /** The bottom or lowest tile side row, r coordinate. */
-  @inline final def sideRowBottom: Int = tileRowBottom -1
+  @inline final def sideRowBottom: Int = bottomTileRow -1
 
   /** The top of highest tile side row, r coordinate. */
-  @inline def sideRowTop: Int = tileRowTop + 1
+  @inline def sideRowTop: Int = topTileRow + 1
 
   /** The minimum or lowest tile centre column c coordinate in the whole tile grid. This is called c rather than x because in hex grids [[HGrid]]s
    *  there is not a 1 to 1 ratio from column coordinate to the x value in a [[Pt2]]. */
@@ -55,13 +55,13 @@ trait TGrid
   def xRatio: Double
 
   def xCen: Double
-  def yCen: Double = (tileRowBottom + tileRowTop) / 2
+  def yCen: Double = (bottomTileRow + topTileRow) / 2
 
   //def cenPt: Pt2 = Pt2(xCen, yCen)
   def cenVec: Vec2 = Vec2(xCen, yCen)
 
   /** Foreach grid Row y coordinate. */
-  final def foreachRow(f: Int => Unit): Unit = iToForeach(tileRowBottom, tileRowTop, 2)(f)
+  final def foreachRow(f: Int => Unit): Unit = iToForeach(bottomTileRow, topTileRow, 2)(f)
 
   /** maps over each row number. */
   final def mapRows[B, BB <: ArrBase[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
@@ -122,15 +122,15 @@ trait TGrid
 
   /** The bottom Side Row of this TileGrid. The r value, the row number value.
    *  @group SidesGroup */
-  @inline final def rSideMin: Int = tileRowBottom - 1
+  @inline final def rSideMin: Int = bottomTileRow - 1
 
   /** The top Side Row of this TileGrid. The r value, the row number.
    *  @group SidesGroup*/
-  @inline final def rSideMax: Int = tileRowTop + 1
+  @inline final def rSideMax: Int = topTileRow + 1
 
   /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
-  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(tileRowBottom - 1, tileRowTop + 1)(f)
+  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(bottomTileRow - 1, topTileRow + 1)(f)
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
