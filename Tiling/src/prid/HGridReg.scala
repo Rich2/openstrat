@@ -136,8 +136,11 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
    * Array data. */
   override def sideArrIndex(r: Int, c: Int): Int = ???
 
-  def topSideRowLength: Int = ife(rTopCenRow0, row0sTileNum, row2sTileNum) * 2
-  def bottomSideRowLength: Int = ife(rBottomRow0, row0sTileNum, row2sTileNum) * 2
+  /** The number of tile sides in the top side row of the hex grid. */
+  def topSideRowNum: Int = ife(topTileRow.div4Rem0, row0sTileNum, row2sTileNum) * 2
+
+  /** The number of tile sides in the bottom side row of the hex grid. */
+  def bottomSideRowNum: Int = ife(bottomTileRow.div4Rem0, row0sTileNum, row2sTileNum) * 2
 
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   override def sideRowIndexArray: Array[Int] =

@@ -16,18 +16,6 @@ trait HGrid extends TGrid
   /** The number of tile centres in the given row. */
   def rowNumTiles(row: Int): Int
 
-  /** The r coordinate of the bottom row of this grid divided by 4 leaves remainder of 0. */
-  def rBottomRow0: Boolean = bottomTileRow.div4Rem0
-
-  /** The r coordinate of the bottom row of this grid divided by 4 leaves remainder of 2. */
-  def rBottomRow2: Boolean = bottomTileRow.div4Rem2
-
-  /** Boolean, true if for top hex tile centre row of this hex grid r %% 4 == 0. */
-  final def rTopCenRow0: Boolean = bottomTileRow.div4Rem0
-
-  /** Boolean, true if for top hex tile centre row of this hex grid r %% 4 == 2. */
-  final def rTopRow2: Boolean = bottomTileRow.div4Rem2
-
   /** Carries out the procedure function on each [[HCen]] hex tile centre coordinate in the given tile row. This method is defined here rather than on
    *  TileGrid so it can take the specific narrow [[HCen]] parameter to the foreach function. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit
