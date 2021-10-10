@@ -14,7 +14,7 @@ trait OneScen extends HexGridScen
     val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    val targets: HCenArrBuff[HStep] = grid.newHCenArrBuff
+    val targets: HCenArrOfBuff[HStep] = grid.newHCenArrOfBuff
 
     orderList.foreach{ (player, step) =>
       val hc1 = playersKey(player)

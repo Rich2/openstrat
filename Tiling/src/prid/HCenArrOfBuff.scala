@@ -3,7 +3,7 @@ package ostrat; package prid
 import reflect.ClassTag
 
 /** An [[HCen]] hex tile centre grid Arr of [[ArrayBuffer]]s corresponding to the centres of an [[HGrid]] hex tile grid. */
-class HCenArrBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
+class HCenArrOfBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
 {
   def appendAt(y: Int, c: Int, value: A)(implicit grid: HGrid): Unit = appendAt(HCen(y, c), value)
 
@@ -15,11 +15,11 @@ class HCenArrBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
 }
 
 /** Companion object for the hex (centres) grid Array of [[ArrayBuffer]] classes. */
-object HCenArrBuff
-{ /** Apply factory method, creates a new [[HCenArrBuff]] a hex grid Arr of ArrayBuffers, all of length 0. */
-  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenArrBuff[A] =
+object HCenArrOfBuff
+{ /** Apply factory method, creates a new [[HCenArrOfBuff]] a hex grid Arr of ArrayBuffers, all of length 0. */
+  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenArrOfBuff[A] =
   { val array = new Array[Buff[A]](length)
     iUntilForeach(0, array.length)(array(_) = new Buff[A])
-    new HCenArrBuff[A](array)
+    new HCenArrOfBuff[A](array)
   }
 }

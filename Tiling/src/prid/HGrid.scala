@@ -62,10 +62,10 @@ trait HGrid extends TGrid
   final def cenRowEmpty(row: Int): Boolean = rowNumTiles(row) == 0
 
   /** The start or by default left column of the tile centre of the given row. */
-  def rowCenStart(row: Int): Int
+  def tileRowStart(row: Int): Int
 
   /** The end of by default right column number of the tile centre of the given row. */
-  def rowCenEnd(row: Int): Int
+  def tileRowEnd(row: Int): Int
 
   override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
 
@@ -95,8 +95,8 @@ trait HGrid extends TGrid
     new HCenArrArr[A](newArray)
   }
 
-  /** Creates a new [[HCenArrBuff]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
-  final def newHCenArrBuff[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrBuff[A] = HCenArrBuff(numTiles)
+  /** Creates a new [[HCenArrOfBuff]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
+  final def newHCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOfBuff[A] = HCenArrOfBuff(numTiles)
 
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numTiles))

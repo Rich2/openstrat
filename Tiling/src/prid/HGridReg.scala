@@ -120,13 +120,13 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
     case _ => excep("Invalid row number")
   }
 
-  override def rowCenStart(row: Int): Int = row %% 4 match {
+  override def tileRowStart(row: Int): Int = row %% 4 match {
     case 0 => row0sStart
     case 2 => row2sStart
     case _ => excep("Invalid row number")
   }
 
-  override def rowCenEnd(row: Int): Int = row %% 4 match {
+  override def tileRowEnd(row: Int): Int = row %% 4 match {
     case 0 => row0sEnd
     case 2 => row2sEnd
     case _ => excep("Invalid row number")

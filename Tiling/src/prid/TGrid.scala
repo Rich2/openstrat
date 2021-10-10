@@ -30,7 +30,7 @@ trait TGrid
   def topTileRow: Int
 
   /** The bottom or lowest tile side row, r coordinate. */
-  @inline final def sideRowBottom: Int = bottomTileRow -1
+  @inline final def sideRowBottom: Int = bottomTileRow - 1
 
   /** The top of highest tile side row, r coordinate. */
   @inline def sideRowTop: Int = topTileRow + 1
