@@ -8,8 +8,9 @@ val scalaMinor = "0"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-lazy val root = (project in file(".")).aggregate(Util, Graphics, Tiling, Dev).settings(
+lazy val root = (project in file(".")).aggregate(Util, Graphics, Tiling, Dev).enablePlugins(ScalaUnidocPlugin).settings(
   publish/skip := true,
+  scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none",
 )
 
 lazy val moduleDir = SettingKey[File]("moduleDir")
@@ -97,7 +98,7 @@ lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories +=
 lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Bc305App")
 lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/PlanetsApp")
 
-val docDirs: List[String] = List("Util", "Graphics", "Tiling", "Earth", "Dev")
+val docDirs: List[String] = List("Util", "Graphics", "Tiling", "Dev")
 
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")
 bothDoc :=
@@ -108,8 +109,8 @@ bothDoc :=
 
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := ("Macros" :: docDirs).flatMap(el =>
-    List(el + "/src", el + "/srcJvm", el + "/srcExs", el + "srcFx")).map(s => baseDir.value / s),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el =>
+    List(el + "/src", el + "/srcAnyVal", el + "/srcJvm", el + "/Exs/src", el + "/srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
