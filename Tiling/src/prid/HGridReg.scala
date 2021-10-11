@@ -1,16 +1,23 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
-/** A Regular hex grid where the rows have the same length, except div4rem2 rows may differ in length by 1 from div4rem0 rows. A div4rem2 row is
- * where the y coordinate divided by 4 has a remainder of 2. This class replaces the old [[HexGridReg]], which used [[Roord]]s rather than
-*  [[HCen]]s etc. */
+/** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
+ * where r %% 4 == 0 rows. */
 class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int, val tileColMax: Int) extends HGrid
 {
   override def width: Double = xRight - xLeft
   override def height: Double =xTop - xBottom
+
+  /** The left most point of the grid. */
   def xLeft: Double = (tileColMin - 2) * xRatio
+
+  /** The right most point of the grid. */
   def xRight: Double = (tileColMax + 2) * xRatio
+
+  /** The top point of the grid. */
   def xTop: Double = topTileRow + 4.0 / 3
+
+  /** The bottom point of the grid. */
   def xBottom: Double = bottomTileRow - 4.0 / 3
 
   /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
