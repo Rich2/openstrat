@@ -70,7 +70,7 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGrid
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */
-  override def sideArrIndex(r: Int, c: Int): Int = sideRowIndexArray(r - rSideMin) + (c - cSideRowMin(r)) / r.ifEvenElse(4, 2)
+  override def sideArrIndex(r: Int, c: Int): Int = sideRowIndexArray(r - bottomSideRow) + (c - cSideRowMin(r)) / r.ifEvenElse(4, 2)
 
   /** An Array of index values into an Array of Side data. 1 Int value for the start index of each Row. */
   val sideRowIndexArray: Array[Int] = new Array[Int](0)

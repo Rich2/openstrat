@@ -20,8 +20,8 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
     { case 2 => (c - row2sStart) / 4
       case 0 => (c - row0sStart) / 4
     }
-    val r2s: Int = ((r - bottomRow2).divRoundUp(4) * row2sTileNum).atMost0
-    val r0s: Int = ((r - bottomRow0).divRoundUp(4) * row0sTileNum).atMost0
+    val r2s: Int = ((r - bottomRem2Row).divRoundUp(4) * row2sTileNum).atMost0
+    val r0s: Int = ((r - bottomRem0Row).divRoundUp(4) * row0sTileNum).atMost0
     r0s + r2s + thisRow
   }
 
@@ -48,20 +48,20 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
   def row0sEnd: Int = tileColMax.roundDownTo(_.div4Rem0)
 
 
-  /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem2. */
-  def bottomRow2: Int = bottomTileRow.roundUpTo(_.div4Rem2)
+  /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem2, r %% 4 == 2. */
+  def bottomRem2Row: Int = bottomTileRow.roundUpTo(_.div4Rem2)
 
-  /** The top, highest or maximum row r value for tile centre rows where r.Div4Rem2. */
-  def topRow2: Int = topTileRow.roundDownTo(_.div4Rem2)
+  /** The top, highest or maximum row r value for tile centre rows where r.Div4Rem2, r %% 4 == 2. */
+  def topRem2Row: Int = topTileRow.roundDownTo(_.div4Rem2)
 
-  /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem0. */
-  def bottomRow0: Int = bottomTileRow.roundUpTo(_.div4Rem0)
+  /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem0, r %% 4 == 0. */
+  def bottomRem0Row: Int = bottomTileRow.roundUpTo(_.div4Rem0)
 
-  /** The top, highest or maximum row r value for tile centres rows where r.Div4Rem0. */
-  def topRow0: Int = topTileRow.roundDownTo(_.div4Rem0)
+  /** The top, highest or maximum row r value for tile centres rows where r.Div4Rem0, r %% 4 == 0. */
+  def topRem0Row: Int = topTileRow.roundDownTo(_.div4Rem0)
 
-  override def numRow0s: Int = ((topRow0 - bottomRow0 + 4) / 4).max(0)
-  override def numRow2s: Int = ((topRow2 - bottomRow2 + 4) / 4).max(0)
+  override def numRow0s: Int = ((topRem0Row - bottomRem0Row + 4) / 4).max(0)
+  override def numRow2s: Int = ((topRem2Row - bottomRem2Row + 4) / 4).max(0)
   override def numTiles: Int = numRow2s * row2sTileNum + numRow0s * row0sTileNum
   override def numTileRows: Int = numRow2s + numRow0s
 
@@ -105,12 +105,12 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {
-    case y if y == rSideMax & y.div4Rem3 => iToForeach(row2sStart - 1, row2sEnd + 1, 2){ c => f(HSide(y, c)) }
-    case y if y == rSideMax => iToForeach(row0sStart - 1, row0sEnd + 1, 2){ c => f(HSide(y, c)) }
+    case y if y == topSideRow & y.div4Rem3 => iToForeach(row2sStart - 1, row2sEnd + 1, 2){ c => f(HSide(y, c)) }
+    case y if y == topSideRow => iToForeach(row0sStart - 1, row0sEnd + 1, 2){ c => f(HSide(y, c)) }
     case y if y.div4Rem2 => iToForeach(row2sStart - 2, row2sEnd + 2, 4){ c => f(HSide(y, c)) }
     case y if y.div4Rem0 => iToForeach(row0sStart - 2, row0sEnd + 2, 4){ c => f(HSide(y, c)) }
-    case y if y == rSideMin & y.div4Rem1 => iToForeach(row2sStart - 1, row2sEnd + 1, 2){ c => f(HSide(y, c)) }
-    case y if y == rSideMin => iToForeach(row0sStart - 1, row0sEnd + 1, 2){ c => f(HSide(y, c)) }
+    case y if y == bottomSideRow & y.div4Rem1 => iToForeach(row2sStart - 1, row2sEnd + 1, 2){ c => f(HSide(y, c)) }
+    case y if y == bottomSideRow => iToForeach(row0sStart - 1, row0sEnd + 1, 2){ c => f(HSide(y, c)) }
     case y => iToForeach(tileColMin - 1, tileColMax + 1, 2){ c => f(HSide(y, c)) }
   }
 
@@ -148,7 +148,7 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
     val array = new Array[Int](numOfSideRows)
     var count = 0
     sideRowForeach{y =>
-      array(y - rSideMin) = count
+      array(y - bottomSideRow) = count
       rowForeachSide(y)(_ => count += 1)
     }
     array

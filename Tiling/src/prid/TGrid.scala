@@ -120,13 +120,13 @@ trait TGrid
    *  @group SidesGroup */
   @inline final def numOfSideRows: Int = ife(numTileRows > 1, numTileRows * 2 + 1, 0)
 
-  /** The bottom Side Row of this TileGrid. The r value, the row number value.
+  /** The bottom, lowest or minimum Side Row of this TileGrid. The r value, the row number value.
    *  @group SidesGroup */
-  @inline final def rSideMin: Int = bottomTileRow - 1
+  @inline final def bottomSideRow: Int = bottomTileRow - 1
 
-  /** The top Side Row of this TileGrid. The r value, the row number.
+  /** The top, highest or maximum Side Row of this TileGrid. The r value, the row number.
    *  @group SidesGroup*/
-  @inline final def rSideMax: Int = topTileRow + 1
+  @inline final def topSideRow: Int = topTileRow + 1
 
   /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
