@@ -1,9 +1,9 @@
 // build.sc
 import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
 trait Common extends ScalaModule
-{ def version = "0.2.1snap"
-def scalaVersion = "2.13.3"
-  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8",
+{ def version = "0.3.1snap"
+def scalaVersion = "3.1.0-RC3"
+  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8",
    "-unchecked", "-Xlint")
 }
 
@@ -26,18 +26,18 @@ trait CommonJs extends ScalaJSModule with Common
   def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:1.1.0")
 }
 
-object UtilMacros extends CommonJvm// with PublishModule
-{ def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(Graphics.millSourcePath / 'srcMacros)
+object Util extends CommonJvm// with PublishModule
+{ //def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcAnyVal)
 }
 
-object UtilMacrosJs extends CommonJs
+object UtilJs extends CommonJs
 { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(Graphics.millSourcePath / 'srcMacros)
+  def sources = T.sources(Graphics.millSourcePath / 'src)
 }
 
 object Graphics extends CommonJvm
-{ def moduleDeps = Seq(UtilMacros)
+{ def moduleDeps = Seq(Util)
   def mainClass = Some("ostrat.WebPage1")
 
   def unmanagedClasspath = T{
@@ -59,7 +59,7 @@ object Graphics extends CommonJvm
 }
 
 object GraphicsJs extends CommonJs
-{ def moduleDeps = Seq(UtilMacrosJs)
+{ def moduleDeps = Seq(UtilJs)
   def sources = T.sources(Graphics.millSourcePath / 'src, Graphics.millSourcePath / 'srcJs, Graphics.millSourcePath / 'srcExs)
 }
 
