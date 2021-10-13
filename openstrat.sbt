@@ -10,7 +10,7 @@ ThisBuild/autoAPIMappings := true
 
 lazy val root = (project in file(".")).aggregate(Util, Graphics, Tiling, Dev).enablePlugins(ScalaUnidocPlugin).settings(
   publish/skip := true,
-  scalacOptions in (ScalaUnidoc, unidoc) += "-Ymacro-expand:none",
+  ScalaUnidoc/unidoc/scalacOptions += "-Ymacro-expand:none",
 )
 
 lazy val moduleDir = SettingKey[File]("moduleDir")
