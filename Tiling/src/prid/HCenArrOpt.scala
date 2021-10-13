@@ -74,8 +74,13 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
   }
 
   def apply(hc: HCen)(implicit grid: HGrid): Option[A] = {
-    val r = unsafeArr(grid.arrIndex(hc))
-    if (r == null) None else Some(r)
+    val elem = unsafeArr(grid.arrIndex(hc))
+    if (elem == null) None else Some(elem)
+  }
+
+  def apply(r: Int, c: Int)(implicit grid: HGrid): Option[A] = {
+    val elem = unsafeArr(grid.arrIndex(r, c))
+    if (elem == null) None else Some(elem)
   }
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */

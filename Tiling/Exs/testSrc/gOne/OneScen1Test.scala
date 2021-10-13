@@ -35,16 +35,17 @@ object OneScen1Test  extends TestSuite
       g3.numTiles ==> 8
       g1.row0sStart ==> 4
       g1.row0sEnd ==> 8
-      //os3.oPlayers(1) ==> NoRef
-//      os3.oPlayers(4, 4)(os3.grid) ==> NoRef
-//      os3.oPlayersOld(os3.grid.index(6, 2)) ==> OptRef(PlayerA)
-//      os3.oPlayersOld(os3.grid.index(6, 6)) ==> NoRef
-//      os3.oPlayersOld(os3.grid.index(4, 8)) ==> OptRef(PlayerB)
+      implicit val grid = os3.grid
+      os3.oPlayers(2, 2) ==> None
+      os3.oPlayers(4, 4) ==> None
+      os3.oPlayers(6, 2) ==> Some(PlayerA)
+      os3.oPlayers(6, 6) ==> None
+      os3.oPlayers(4, 8) ==> Some(PlayerB)
     }
 
     "Sides" -
       {
-        //g1.numOfSides ==> 35
+        g1.numSides ==> 35
       }
   }
 }
