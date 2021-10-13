@@ -17,5 +17,5 @@ def debvarImpl(expr: Expr[Any])(using Quotes) = '{ println($posnStrImpl + " " + 
 inline def posnStr(): String = ${ posnStrImpl }
 def posnStrImpl(using Quotes): Expr[String] =
 { val pos = quotes.reflect.Position.ofMacroExpansion
-  Expr(pos.sourceFile.jpath.toString + ", " + pos.startLine + ", " + pos.startColumn)
+  Expr(pos.sourceFile.name + "\u27e6" + pos.startLine + ", " + pos.startColumn + "\u27e7")
 }
