@@ -6,6 +6,7 @@ import pCanv._, geom._, prid._
 case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("Game One Gui")
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
+  deb("Macro test")
   var scen = scenStart
   var history: Arr[OneScen] = Arr(scen)
 

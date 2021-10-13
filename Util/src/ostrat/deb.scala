@@ -6,7 +6,7 @@ import quoted.*
 inline def deb(str: String): Unit = ${ debImpl('str) }
 def debImpl(expr: Expr[String])(using Quotes) = '{ println($posnStrImpl + " " + $expr) }
 
-/** Simplest Macro shows source code position. Must include parenthesis debb(). Without the parenthesis the macro will not print. */
+/** Simplest Macro that shows source code position. Must include parenthesis debb(). Without the parenthesis the macro will not print. */
 inline def debb(): Unit = ${ debbImpl }
 def debbImpl(using Quotes) = '{ println($posnStrImpl) }
 
@@ -14,8 +14,9 @@ def debbImpl(using Quotes) = '{ println($posnStrImpl) }
 inline def debvar(expr: Any): Unit = ${ debvarImpl('expr) }
 def debvarImpl(expr: Expr[Any])(using Quotes) = '{ println($posnStrImpl + " " + ${Expr(expr.show)} + " = " + $expr) }
 
+/** Macro for getting the file name and line number of the source code position. */
 inline def posnStr(): String = ${ posnStrImpl }
 def posnStrImpl(using Quotes): Expr[String] =
 { val pos = quotes.reflect.Position.ofMacroExpansion
-  Expr(pos.sourceFile.name + "\u27e6" + pos.startLine + ", " + pos.startColumn + "\u27e7")
+  Expr(pos.sourceFile.getJPath.fold("")(_.toString) + ":" + pos.startLine)
 }
