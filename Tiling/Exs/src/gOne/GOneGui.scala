@@ -14,7 +14,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def players: HCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
-  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
+  val scale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
