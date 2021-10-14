@@ -6,7 +6,6 @@ import pCanv._, geom._, prid._
 case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("Game One Gui")
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
-  deb("Macro test")
   var scen = scenStart
   var history: Arr[OneScen] = Arr(scen)
 
@@ -15,7 +14,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def players: HCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
-  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
+  val scale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
