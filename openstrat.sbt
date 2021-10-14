@@ -55,7 +55,6 @@ lazy val UtilExs = exsProj("Util").dependsOn(Util)
 
 lazy val UtilJs = jsProj("Util").settings(
   name := "RUtil",
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Macros/src3",
 
   Compile / sourceGenerators += Def.task {
     val str = scala.io.Source.fromFile("Util/srcAnyVal/Arr.scala").mkString
@@ -68,9 +67,10 @@ lazy val UtilJs = jsProj("Util").settings(
 
 lazy val Graphics = coreProj("Graphics").dependsOn(Util).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
+)
+lazy val GraphicsExs = exsProj("Graphics").dependsOn(Graphics).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
-lazy val GraphicsExs = exsProj("Graphics").dependsOn(Graphics)
 lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilJs)
 
 lazy val Tiling = coreProj("Tiling").dependsOn(Graphics)
