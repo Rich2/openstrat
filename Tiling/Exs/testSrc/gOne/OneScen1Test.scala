@@ -10,6 +10,7 @@ object OneScen1Test  extends TestSuite
   val g2 = os2.grid
   val os3 = os1.endTurn(Arr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))
   val g3 = os3.grid
+  val os4 = os1.endTurn(Arr((PlayerA, HStepLt)))
 
   val tests = Tests {
     "os1" -
@@ -41,6 +42,7 @@ object OneScen1Test  extends TestSuite
       os3.oPlayers(6, 2) ==> Some(PlayerA)
       os3.oPlayers(6, 6) ==> None
       os3.oPlayers(4, 8) ==> Some(PlayerB)
+      os1.oPlayers(4, 2) ==> Some(PlayerA)
     }
 
     "Sides" -

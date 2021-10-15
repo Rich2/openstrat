@@ -1,12 +1,10 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package prid
+package ostrat; package prid
 
 /** An immutable Arr of Opt Tile data for a specific square tile grid [[SqGrid]]. This is specialised for OptRef[A]. The tileGrid can map the
  * [[SqCen]] coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[SqGrid]] square grid parameter. */
-class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
+class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileArrOpt[A]
 {
-  def length: Int = unsafeArr.length
   def clone: SqCenArrOpt[A] = new SqCenArrOpt[A](unsafeArr.clone)
 
   /** Sets the Some value of the square tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
@@ -53,33 +51,4 @@ class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
   { unsafeArr(grid.arrIndex(s2)) = unsafeArr(grid.arrIndex(s1))
     unsafeArr(grid.arrIndex(s1)) = null.asInstanceOf[A]
   }
-
-  /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[SqCenArr]] class like a standard
-   *  Arr or Array. It does not utilise the grid [[SqGrid]] from which this [[SqCenArrOpt]] was created. */
-  def mapSomes[B, ArrT <: ArrBase[B]](f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
-    unsafeArr.foreach { a =>
-      if(a != null)
-      { val newVal = f(a)
-        build.buffGrow(buff, newVal)
-      }
-    }
-    build.buffToBB(buff)
-  }
-
-  /** map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns an immutable Array
-   * based collection of type ArrT, the second type parameter. */
-  /*def mapSqcenSomes[B, ArrT <: ArrBase[B]](f: (Sqcen, A) => B)(implicit grid: SqGrid, build: ArrBuild[B, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
-    grid.foreach { r =>
-      val a: A = unsafeArr(grid.arrIndex(r))
-      if(a != null)
-      { val newVal = f(r, a)
-        build.buffGrow(buff, newVal)
-      }
-    }
-    build.buffToArr(buff)
-  }*/
 }

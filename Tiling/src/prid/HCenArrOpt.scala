@@ -3,9 +3,8 @@ package ostrat; package prid
 
 /** An immutable Arr of Opt Tile data for a specific hex tile grid [[HGrid]]. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]]
  * coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[HGrid]] hex grid parameter. */
-class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
+class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileArrOpt[A]
 {
-  def length: Int = unsafeArr.length
   def clone: HCenArrOpt[A] = new HCenArrOpt[A](unsafeArr.clone)
 
   /** Sets the Some value of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
@@ -61,18 +60,6 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
     build.buffToBB(buff)
   }
 
-  /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
-   *  a standard Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArr]] was created. */
-  def map[B, ArrT <: ArrBase[B]](noneValue: => B)(f: A => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
-    grid.foreach { r =>
-      val a = unsafeArr(grid.arrIndex(r))
-      build.buffGrow(buff, if (a == null) noneValue else f(a))
-    }
-    build.buffToBB(buff)
-  }
-
   def apply(hc: HCen)(implicit grid: HGrid): Option[A] = {
     val elem = unsafeArr(grid.arrIndex(hc))
     if (elem == null) None else Some(elem)
@@ -89,20 +76,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
   def tileNone(hc: HCen)(implicit grid: HGrid): Boolean = unsafeArr(grid.arrIndex(hc)) == null
 
-  /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
-   *  Arr or Array. It does not utilise the grid [[HGrid]] from which this [[HCenArrOpt]] was created. */
-  def mapSomes[B, ArrT <: ArrBase[B]](f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
-    unsafeArr.foreach { a =>
-      if(a != null)
-      { val newVal = f(a)
-        build.buffGrow(buff, newVal)
-      }
-   }
-   build.buffToBB(buff)
-  }
-
+  
   /** Returns an Arr filtered to the Some values. */
   def somesArr[ArrT <: ArrBase[A]](implicit build: ArrBuilder[A, ArrT]): ArrT =
   {
