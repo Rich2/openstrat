@@ -31,7 +31,13 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
   override def typeStr: String = "HCen"
 
   /** Step to adjacent hex tile. */
-  def step(st: HStep): HCen = HCen(r + st.r, c + st.c)
+  def stepOld(st: HStep): HCen = HCen(r + st.r, c + st.c)
+
+  /** Step to adjacent hex tile. */
+  def step(st: HStep)(implicit grid: HGrid): Option[HCen] = {
+    val target = HCen(r + st.r, c + st.c)
+    ife(grid.hCenExists(target), Some(target), None)
+  }
 
   /** Returns a co0rdinate for this hex along with a step to an adjacent hex. */
   def andStep(hcs: HStep): HexAndStep = HexAndStep(r, c, hcs)

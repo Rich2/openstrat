@@ -39,7 +39,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.mapHCenSomes { (hc, step) =>
-    HCoordLineSeg(hc, hc.step(step)).lineSeg.draw(players.unSafeApply(hc).colour)
+    HCoordLineSeg(hc, hc.stepOld(step)).lineSeg.draw(players.unSafeApply(hc).colour)
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
