@@ -42,7 +42,10 @@ object OneScen1Test  extends TestSuite
       os3.oPlayers(6, 2) ==> Some(PlayerA)
       os3.oPlayers(6, 6) ==> None
       os3.oPlayers(4, 8) ==> Some(PlayerB)
-      os1.oPlayers(4, 2) ==> Some(PlayerA)
+      os1.oPlayers.numSomes ==> 3
+      os4.oPlayers.numSomes ==> 3
+      os1.oPlayers(4, 4) ==> Some(PlayerA)
+      //os4.oPlayers.find(PlayerA) ==> Some(HCen(4, 4))
     }
 
     "Sides" -

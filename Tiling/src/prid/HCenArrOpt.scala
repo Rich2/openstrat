@@ -166,4 +166,10 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
     foreachHCenSome((p, hc) => build.addOne(hc, p))
     build.result
   }
+
+  def find(value: A)(implicit grid: HGrid): Option[HCen] =
+  { var res: Option[HCen] = None
+    foreachHCenSome{(hc, a) => if (value == a) res = Some(hc)}
+    res
+  }
 }

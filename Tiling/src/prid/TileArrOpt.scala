@@ -28,5 +28,11 @@ trait TileArrOpt[A <: AnyRef] extends Any
     build.buffToBB(buff)
   }
 
-  def numSomes: Int = ???
+  def foldSomes[B](init: B)(f: (B, A) => B): B =
+  { var acc = init
+    unsafeArr.foreach { a => if(a != null) acc = f(acc, a) }
+    acc
+  }
+
+  def numSomes: Int = foldSomes(0)((acc, s) => acc + 1)
 }
