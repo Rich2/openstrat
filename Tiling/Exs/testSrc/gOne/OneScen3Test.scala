@@ -15,9 +15,9 @@ object OneScen3Test  extends TestSuite
   val tests = Tests {
     "os1" -
       { g1.numTileRows ==> 5
-        g1.bottomTileRow ==> 2
+        //g1.bottomTileRow ==> 2
         g1.topTileRow ==> 10
-        g1.tileColMin ==> 2
+       // g1.tileColMin ==> 2
         g1.tileColMax ==> 10
         g1.numTiles ==> 9
       }
@@ -26,14 +26,14 @@ object OneScen3Test  extends TestSuite
       { g2.numTileRows ==> 5
         g2.bottomTileRow ==> 2
         g2.topTileRow ==> 10
-        g2.tileColMin ==> 2
+       // g2.tileColMin ==> 2
         g2.tileColMax ==> 10
         g2.numTiles ==> 9
       }
 
     "os3" -
       {
-        g3.numTiles ==> 8
+        g3.numTiles ==> 9
         implicit val grid = os3.grid
         os3.oPlayers(2, 2) ==> None
         os3.oPlayers(4, 4) ==> None

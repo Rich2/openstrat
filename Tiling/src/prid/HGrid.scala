@@ -6,7 +6,7 @@ import geom._, math.sqrt, reflect.ClassTag, collection.mutable.ArrayBuffer
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
-trait HGrid extends TGrid
+trait HGrid extends Any with TGrid with HGridBased
 { /** The number of tile centre rows where r %% 4 == 0.  */
   def numRow0s: Int
 
@@ -126,11 +126,6 @@ trait HGrid extends TGrid
     else Arr()
   }*/
 
-  /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
-  final def hCenExists(hc: HCen): Boolean = hCenExists(hc.r, hc.c)
-
-  /** Boolean. True if the specified hex centre exists in this hex grid. */
-  def hCenExists(r: Int, c:Int): Boolean
   def adjTilesOfTile(tile: HCen): HCens = ???
   def findPath(startRoord: HCen, endRoord: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[List[HCen]] =
   {
