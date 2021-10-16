@@ -38,5 +38,5 @@ object OneScen2 extends OneScenStart
 object OneScen3 extends OneScenStart
 { implicit val grid: HGrid = HGridIrrRowLengths(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
   val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
-  oPlayers.unsafeSetSome(4, 4, PlayerA)
+  oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB))
 }
