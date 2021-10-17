@@ -59,20 +59,11 @@ trait HStepsCompanion[T <: HStepsTr]
 }
 
 class HSteps(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1s[HStep] with HStepsTr
-{
-  override def newElem(intValue: Int): HStep = ???
-
-  override def dataElem(intValue: Int): HStep = ???
-
-  /** The final type of this Array[Int] backed collection class. */
-  override type ThisT = this.type
-
-  override def unsafeFromArray(array: Array[Int]): HSteps.this.type = ???
-
-  override def fElemStr: HStep => String = ???
-
-  /** String specifying the type of this object. */
-  override def typeStr: String = ???
+{ override type ThisT = HSteps
+  override def typeStr: String = "HSteps"
+  override def dataElem(intValue: Int): HStep = HStep.fromInt(intValue)
+  override def unsafeFromArray(array: Array[Int]): HSteps = new HSteps(array)
+  override def fElemStr: HStep => String = _.toString
 }
 
 object HSteps extends HStepsCompanion[HSteps]

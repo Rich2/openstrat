@@ -18,8 +18,7 @@ trait DataInt1s[A <: ElemInt1] extends Any with DataIntNs[A]
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */
 trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A] with DataInt1s[A]
-{ def newElem(intValue: Int): A
-
+{
   /** This method could be made more general. */
   def findIndex(value: A): OptInt =
   {
