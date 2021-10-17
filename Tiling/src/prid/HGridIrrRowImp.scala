@@ -9,18 +9,7 @@ package ostrat; package prid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
 class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGridIrr
 {
-  /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
-  def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(tileRowStart(r), tileRowEnd(r), 4){ c => f(HCen(r, c))}
 
-  override def rowIForeach(r: Int, initCount: Int = 0)(f: (HCen, Int) => Unit): Int = {
-    var count = initCount
-    iToForeach(tileRowStart(r), tileRowEnd(r), 4){ c => f(HCen(r, c), count); count += 1 }
-    count
-  }
-
-  override def width: Double = 22
-
-  override def height: Double = topTileRow - bottomTileRow
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {

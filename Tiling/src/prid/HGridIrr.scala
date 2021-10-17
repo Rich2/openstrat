@@ -29,6 +29,15 @@ trait HGridIrr extends Any with HGrid
 
   override def rowNumTiles(row: Int): Int = unsafeArray(row - bottomTileRow + 2)
 
+  /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
+  def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(tileRowStart(r), tileRowEnd(r), 4){ c => f(HCen(r, c))}
+
+  override def rowIForeach(r: Int, initCount: Int = 0)(f: (HCen, Int) => Unit): Int = {
+    var count = initCount
+    iToForeach(tileRowStart(r), tileRowEnd(r), 4){ c => f(HCen(r, c), count); count += 1 }
+    count
+  }
+
   /** The start (or by default left column) of the tile centre of the given row. Will throw on illegal values. */
   override def tileRowStart(row: Int): Int = row match
   { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowStart method.")
@@ -50,4 +59,6 @@ trait HGridIrr extends Any with HGrid
     case r if r < bottomTileRow => false
     case r => c >= tileRowStart(r) & c <= tileRowEnd(r)
   }
+  override def width: Double = (tileColMax - tileColMin + 4) / Sqrt3
+  override def height: Double = topTileRow - bottomTileRow + 3
 }
