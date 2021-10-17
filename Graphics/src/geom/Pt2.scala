@@ -71,7 +71,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)
 
   @inline def scale(factor: Double): Pt2 = Pt2(x * factor, y * factor)
-  @inline def toDist2(factor: Metres): PtMetre2 = PtMetre2(x * factor, y * factor)
+  @inline def toMetres(factor: Metres): PtMetre2 = PtMetre2(x * factor, y * factor)
 
   @inline def invScale(divisor: Double): Pt2 = Pt2(x / divisor, y / divisor)
 

@@ -27,7 +27,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
     
     def move(elapsed: Integer): Unit =
     { val auRatio = dist / earthDist        
-      posn = Pt2.circlePtClockwise(0.001 * elapsed / math.sqrt(auRatio.cubed)).toDist2(dist)
+      posn = Pt2.circlePtClockwise(0.001 * elapsed / math.sqrt(auRatio.cubed)).toMetres(dist)
     }
 
     def size = 10
