@@ -53,12 +53,27 @@ trait HStepsCompanion[T <: HStepsTr]
 
   def apply(steps: HStep*): T =
   { val array = new Array[Int](steps.length)
-    steps.iForeach{(step, i) => array(i) = step.code }
+    steps.iForeach{(step, i) => array(i) = step.intValue }
     fromArray(array)
   }
 }
 
-class HSteps(val arrayUnsafe: Array[Int]) extends AnyVal with HStepsTr
+class HSteps(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1s[HStep] with HStepsTr
+{
+  override def newElem(intValue: Int): HStep = ???
+
+  override def dataElem(intValue: Int): HStep = ???
+
+  /** The final type of this Array[Int] backed collection class. */
+  override type ThisT = this.type
+
+  override def unsafeFromArray(array: Array[Int]): HSteps.this.type = ???
+
+  override def fElemStr: HStep => String = ???
+
+  /** String specifying the type of this object. */
+  override def typeStr: String = ???
+}
 
 object HSteps extends HStepsCompanion[HSteps]
 {

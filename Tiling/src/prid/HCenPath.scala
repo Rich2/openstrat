@@ -55,7 +55,7 @@ trait HCenPathCompanion[T <: HCenPathTr]
   { val array = new Array[Int](2 + steps.length)
     array(0) = startRow
     array(1) = startColumn
-    steps.iForeach{(step, i) => array(i + 2) = step.code }
+    steps.iForeach{(step, i) => array(i + 2) = step.intValue }
     fromArray(array)
   }
 }

@@ -15,7 +15,7 @@ package object ostrat
   type Not[T] = { type L[U] = U NotSubTypeOf T }
 
   /** The tangent of 30 degrees or π/6 radians. */
-  val Tan30: Double = 0.577350269
+  val Tan30: Double = 0.57735026919
 
   /** The cosine of 30 degrees or π/6 radians. */
   val Cos30: Double = 0.86602540378

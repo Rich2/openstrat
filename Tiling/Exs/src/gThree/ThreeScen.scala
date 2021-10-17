@@ -30,19 +30,19 @@ trait ThreeScen extends HexGridScen
   def units: HCenArrOpt[Lunit]
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
-   * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
-  def endTurn(orderList: Arr[(Lunit, HStep)]): ThreeScen =
+   * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
+  def endTurn(orderList: Arr[(Lunit, HSteps)]): ThreeScen =
   {
     val playersKey: Map[Lunit, HCen] = units.keyMap
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
     val targets: HCenArrOfBuff[HStep] = grid.newHCenArrOfBuff
 
-    orderList.foreach { (player, step) =>
-      val hc1 = playersKey(player)
+    orderList.foreach { (player, steps) => ??? }
+      /*val hc1 = playersKey(player)
       val optTarget: Option[HCen] = hc1.step(step)
       optTarget.foreach { target => targets.appendAt(target, step.reverse) }
-    }
+    }*/
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */

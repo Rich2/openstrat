@@ -2,17 +2,30 @@
 package ostrat; package prid
 
 /** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. */
-sealed trait HStep extends TileStep
+sealed trait HStep extends TileStep with ElemInt1
 { def hCen: HCen = HCen(r, c)
-  def code: Int
+  def intValue: Int
   def reverse: HStep
+}
+
+object HStep
+{
+  def fromInt(inp: Int): HStep = inp match {
+    case 1 => HStepUR
+    case 2 => HStepRt
+    case 3 => HStepDR
+    case 4 => HStepDL
+    case 5 => HStepLt
+    case 6 => HStepUL
+    case n => excep(s"$n is not a valid HStep")
+  }
 }
 
 /** A step upright on a hex tile grid [[HGrid]]. */
 case object HStepUR extends HStep
 { def r: Int = 2
   def c: Int = 2
-  def code = 1
+  def intValue = 1
   override def reverse: HStep = HStepDL
 }
 
@@ -20,7 +33,7 @@ case object HStepUR extends HStep
 case object HStepRt extends HStep
 { def r: Int = 0
   def c: Int = 4
-  def code = 2
+  def intValue = 2
   override def reverse: HStep = HStepLt
 }
 
@@ -28,7 +41,7 @@ case object HStepRt extends HStep
 case object HStepDR extends HStep
 { def r: Int = -2
   def c: Int = 2
-  def code = 3
+  def intValue = 3
   override def reverse: HStep = HStepUL
 }
 
@@ -36,7 +49,7 @@ case object HStepDR extends HStep
 case object HStepDL extends HStep
 { def r: Int = -2
   def c: Int = -2
-  def code = 4
+  def intValue = 4
   override def reverse: HStep = HStepUR
 }
 
@@ -44,7 +57,7 @@ case object HStepDL extends HStep
 case object HStepLt extends HStep
 { def r: Int = 0
   def c: Int = -4
-  def code = 5
+  def intValue = 5
   override def reverse: HStep = HStepRt
 }
 
@@ -52,7 +65,7 @@ case object HStepLt extends HStep
 case object HStepUL extends HStep
 { def r: Int = 2
   def c: Int = -2
-  def code = 6
+  def intValue = 6
   override def reverse: HStep = HStepDR
 }
 
