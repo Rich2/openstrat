@@ -14,33 +14,34 @@ package object ostrat
   //type Strings = Arr[String]
   type Not[T] = { type L[U] = U NotSubTypeOf T }
 
+  /** The tangent of 30 degrees or π/6 radians. */
   val Tan30: Double = 0.577350269
 
-  /** The cosine of 30 degrees or Pi / 6 radians. */
+  /** The cosine of 30 degrees or π/6 radians. */
   val Cos30: Double = 0.86602540378
 
-  /** the cosine of 60 degrees or pi / 3 radians. */
+  /** the cosine of 60 degrees or π/3 radians. */
   val Cos60: Double = 0.5
 
-  /** The sine of 30 degrees. */
+  /** The sine of 30 degrees or π/6 radians. */
   val Sin30: Double = 0.5
 
-  /** The sine of 60 degrees. */
+  /** The sine of 60 degrees or π/3 radians. */
   val Sin60: Double = 0.86602540378
 
   /** Pi. This has been named Pi1 to avoid a name clash if math._ is imported. */
   val Pi1: Double = math.Pi
 
-  /** 2 * Pi. */
+  /** 2π */
   val Pi2 = math.Pi * 2
 
-  /** Pi / 2 */
+  /** π/2 */
   val PiOn2: Double = math.Pi / 2
 
-  /** Pi / 3 */
+  /** π/3 */
   val PiOn3: Double = math.Pi / 3
 
-  /** Pi / 4 */
+  /** π/4 */
   val PiOn4: Double = math.Pi / 4
 
   /** The square root of 2. */
