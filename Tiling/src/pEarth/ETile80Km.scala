@@ -2,6 +2,7 @@
 package ostrat; package pEarth
 import geom._, prid._
 
+/** Functions for Earth tile grids where the hex tile is 80 Km form side to side. */
 object ETile80Km
 {
   val scale = 20000.metres * math.sqrt(3)

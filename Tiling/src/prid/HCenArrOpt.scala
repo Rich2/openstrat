@@ -60,14 +60,18 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
     build.buffToBB(buff)
   }
 
-  def apply(hc: HCen)(implicit grid: HGrid): Option[A] = {
-    val elem = unsafeArr(grid.arrIndex(hc))
-    if (elem == null) None else Some(elem)
+  def apply(hc: HCen)(implicit grid: HGrid): Option[A] =
+  { if (!grid.hCenExists(hc)) None else
+      { val elem = unsafeArr(grid.arrIndex(hc))
+        if (elem == null) None else Some(elem)
+      }
   }
 
   def apply(r: Int, c: Int)(implicit grid: HGrid): Option[A] = {
-    val elem = unsafeArr(grid.arrIndex(r, c))
-    if (elem == null) None else Some(elem)
+    if (!grid.hCenExists(r, c)) None else {
+      val elem = unsafeArr(grid.arrIndex(r, c))
+      if (elem == null) None else Some(elem)
+    }
   }
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */

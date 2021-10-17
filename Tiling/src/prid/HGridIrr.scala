@@ -11,8 +11,8 @@ trait HGridIrr extends Any with HGrid
   override def bottomTileRow: Int = unsafeArray(1)
   override def topTileRow: Int = bottomTileRow + unsafeArray(0) * 2 - 2
 
-  override def tileColMin: Int = foldRows(0)((acc, r) => acc.min(tileRowStart(r)))
-  override def tileColMax: Int = foldRows(0)((acc, r) => acc.max(tileRowEnd(r)))
+  override def tileColMin: Int = foldRows(Int.MaxValue - 1)((acc, r) => acc.min(tileRowStart(r)))
+  override def tileColMax: Int = foldRows(Int.MinValue )((acc, r) => acc.max(tileRowEnd(r)))
 
   override def numRow0s: Int = numTileRows.ifMod(bottomTileRow.div4Rem0, _.roundUpToEven) / 2
   override def numRow2s: Int = numTileRows.ifMod(bottomTileRow.div4Rem2, _.roundUpToEven) / 2
@@ -27,7 +27,27 @@ trait HGridIrr extends Any with HGrid
     wholeRows + (c - tileRowStart(r)) / 4
   }
 
-  override def hCenExists(r: Int, c: Int): Boolean ={
-    false
+  override def rowNumTiles(row: Int): Int = unsafeArray(row - bottomTileRow + 2)
+
+  /** The start (or by default left column) of the tile centre of the given row. Will throw on illegal values. */
+  override def tileRowStart(row: Int): Int = row match
+  { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowStart method.")
+    case r if r > topTileRow => excep(s"$r Row number greater than top tile row in tileRowStart method.")
+    case r if r < bottomTileRow => excep(s"$r Row number less than bottom tile row in tileRowStart method.")
+    case _ => unsafeArray(row - bottomTileRow + 3)
+  }
+
+  /** The end (or by default right) column number of the tile centre of the given row. Will throw on illegal values. */
+  override def tileRowEnd(row: Int): Int = row match
+  { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowEnd method.")
+    case r if r > topTileRow => excep(s"$r Row number greater than top tile row in tileRowEnd method.")
+    case r if r < bottomTileRow => excep(s"$r Row number less than bottom tile row value in tileRowEnd method.")
+    case _ => tileRowStart(row) + (rowNumTiles(row) - 1) * 4
+  }
+
+  override def hCenExists(r: Int, c: Int): Boolean = r match
+  { case r if r > topTileRow => false
+    case r if r < bottomTileRow => false
+    case r => c >= tileRowStart(r) & c <= tileRowEnd(r)
   }
 }

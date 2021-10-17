@@ -39,7 +39,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
     ife(grid.hCenExists(target), Some(target), None)
   }
 
-  /** Returns a co0rdinate for this hex along with a step to an adjacent hex. */
+  /** Returns a coordinate for this hex along with a step to an adjacent hex. */
   def andStep(hcs: HStep): HexAndStep = HexAndStep(r, c, hcs)
 
   /** Optionally returns the Step value of the HCen if it is an adjacent HCen else returns the safe null value. */

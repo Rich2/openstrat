@@ -8,11 +8,7 @@ package ostrat; package prid
  * @param yTileMin         The y value for the bottom tile row of the TileGrid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
 class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGridIrr
-{ 
-  override def rowNumTiles(row: Int): Int = unsafeArray(row - bottomTileRow + 2)
-  override def tileRowStart(row: Int): Int = unsafeArray(row - bottomTileRow + 3)
-  override def tileRowEnd(row: Int): Int = tileRowStart(row) + (rowNumTiles(row) - 1) * 4
-
+{
   /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(tileRowStart(r), tileRowEnd(r), 4){ c => f(HCen(r, c))}
 
