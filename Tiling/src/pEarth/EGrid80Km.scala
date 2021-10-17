@@ -3,8 +3,7 @@ package ostrat; package pEarth
 import geom._, prid._
 
 trait EGrid80Km extends HGridIrr
-{
-  def rOffset: Int
+{ def rOffset: Int
   def cOffset: Int
 }
 
@@ -18,7 +17,7 @@ object EGrid80Km
   val rOffset: Int = 300
 
   /** The key method to get the longitude delta for c based from 0° longitude. */
-  def hCenToLatLong0(inp: HCen, cOffset: Int): LatLong =hCenToLatLong0(inp.r, inp.c, cOffset)
+  def hCenToLatLong0(inp: HCen, cOffset: Int): LatLong = hCenToLatLong0(inp.r, inp.c, cOffset)
 
   /** The key method to get the longitude delta for c based from 0° longitude. */
   def hCenToLatLong0(r: Int, c: Int, cOffset: Int): LatLong =
