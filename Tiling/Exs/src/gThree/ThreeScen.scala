@@ -18,8 +18,7 @@ class Lunit(val team: Team, val cmds: Arr[HStep] = Arr()) extends Coloured
 }
 
 object Lunit
-{
-  def apply(team: Team, cmds: HStep *): Lunit = new Lunit(team, cmds.toArr)
+{ def apply(team: Team, cmds: HStep *): Lunit = new Lunit(team, cmds.toArr)
   def apply(team: Team, cmds: Arr[HStep]): Lunit = new Lunit(team, cmds)
 }
 
@@ -38,11 +37,12 @@ trait ThreeScen extends HexGridScen
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
     val targets: HCenArrOfBuff[HStep] = grid.newHCenArrOfBuff
 
-    orderList.foreach { (player, steps) => ??? }
-      /*val hc1 = playersKey(player)
+    orderList.foreach { case (player, steps) =>  steps.ifHead { step =>
+      val hc1 = playersKey(player)
       val optTarget: Option[HCen] = hc1.step(step)
       optTarget.foreach { target => targets.appendAt(target, step.reverse) }
-    }*/
+      }
+    }
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */

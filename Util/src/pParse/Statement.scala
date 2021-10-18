@@ -33,8 +33,8 @@ object Statement
   /** Extension class for Arr[Statement]. */
   implicit class arrImplicit(statementRefs: Arr[Statement]) extends TextSpan
   { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
-    def startPosn = statementRefs.ifEmpty(ifEmptyTextPosn, statementRefs.head.startPosn)
-    def endPosn = statementRefs.ifEmpty(ifEmptyTextPosn, statementRefs.last.endPosn)
+    def startPosn = statementRefs.headFold(ifEmptyTextPosn)(_.startPosn)
+    def endPosn = statementRefs.lastFold(ifEmptyTextPosn)(_.endPosn)
 
     /** Finds a setting [Expr] from this Arr[Statement] extension method. */
     def findSettingExpr(settingStr: String): EMon[Expr] = statementRefs match

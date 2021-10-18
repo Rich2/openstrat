@@ -28,9 +28,14 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   /** Is this sequence non empty? */
   @inline def nonEmpty: Boolean = elemsNum > 0
 
-  def ifEmpty[B](vEmpty: => B, vNonEmpty: => B): B = if (elemsNum == 0) vEmpty else vNonEmpty
-  def fHeadElse[B](noHead: => B)(ifHead: A => B): B = ife(elemsNum >= 1, ifHead(head), noHead)
-  def headToStringElse(ifEmptyString: String): String = ife(elemsNum >= 1, head.toString, ifEmptyString)
+  /** Folds over the non existence / existence of a head element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the head element. */
+  def headFold[B](noHead: => B)(ifHead: A => B): B = ife(elemsNum >= 1, ifHead(head), noHead)
+
+  /** Folds over the non existence / existence of a last element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the last element. */
+  def lastFold[B](noLast: => B)(ifLast: A => B): B = ife(elemsNum >= 1, ifLast(last), noLast)
+
+  /** if this [[SeqGen]] is nonEmpty performs the side effecting function on the head. If empty procedure is applied. */
+  def ifHead[U](f: A => U): Unit = if(elemsNum >= 1) f(apply(0))
 
   /** Applies an index to this ArrayLike collection which cycles back to element 0, when it reaches the end of the collection. Accepts even negative
    * integers as an index value without throwing an exception. */
