@@ -13,6 +13,7 @@ object OneLaunch extends GuiLaunchStd
     { case 1 => OneScen1
       case 2 => OneScen2
       case 3 => OneScen3
+      case 4 => OneScen4
       case _ => OneScen1
     }
     (GOneGui(_, scen), "JavaFx Game One")
@@ -39,4 +40,11 @@ object OneScen3 extends OneScenStart
 { implicit val grid: HGrid = HGridIrrRowLengths(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
   val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
+}
+
+object OneScen4 extends OneScenStart
+{ implicit val grid: HGridReg = HGridReg(2, 12, 2, 60)
+  val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
+  oPlayers.unsafeSetSome(4, 4, PlayerA)
+  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
