@@ -119,8 +119,17 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).setti
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/srcExs")).map(s => baseDir.value / s),
-  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0" withSources(),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/Exs/src")).map(s => baseDir.value / s),
+
+  Compile / sourceGenerators += Def.task {
+    val str = scala.io.Source.fromFile("Util/srcAnyVal/Arr.scala").mkString
+    val str2 = str.replaceAll("AnyVal with ", "")
+    val arr = (Compile / sourceManaged).value / "Js" / "Arr.scala"
+    IO.write(arr, str2)
+    Seq(arr)
+  }.taskValue,
+
+  libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "2.0.0" withSources(),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   Compile/doc/scalacOptions ++= Seq("-groups"),
