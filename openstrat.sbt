@@ -18,7 +18,7 @@ lazy val baseDir = SettingKey[File]("baseDir")
 ThisBuild/baseDir := (ThisBuild/baseDirectory).value
 
 def sett3 = List(
-  scalaVersion := "3.1.0-RC3",
+  scalaVersion := "3.1.0",
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
