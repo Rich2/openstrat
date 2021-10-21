@@ -44,7 +44,7 @@ def exsProj(srcsStr: String) = jvmProj(srcsStr + "/Exs", srcsStr + "Exs")
 
 def jsProj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs", "Exs/src").map(moduleDir.value / _),
-  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.2.0").cross(CrossVersion.for3Use2_13) withSources(),
+  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.0.0") withSources(),
 )
 
 lazy val Util = coreProj("Util").settings(
@@ -88,7 +88,6 @@ lazy val Dev = coreProj("Dev").dependsOn(GraphicsExs, TilingExs).settings(
 
 def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src"),
-  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "1.2.0").cross(CrossVersion.for3Use2_13) withSources(),
 )
 
 lazy val WebGlJs = jsApp("WebGl").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/GlApp")
