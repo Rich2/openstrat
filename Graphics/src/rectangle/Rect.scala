@@ -73,7 +73,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   override def scaleXY(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
 
-  override def activeChildren(id: Any, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) +: children)
+  override def activeChildren(id: AnyRef, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) +: children)
 
   override def fill(fillColour: Colour): RectangleFill = RectFill(this, fillColour)
   override def fillInt(intValue: Int): RectFill = RectFill(this, Colour(intValue))

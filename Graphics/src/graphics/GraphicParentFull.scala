@@ -12,5 +12,5 @@ trait GraphicParentFull extends GraphicAffineElem with GraphicActiveSim with Gra
 
   def addElems(newElems: Arr[GraphicAffineElem]): ThisT
   def addElem(newElem: GraphicAffineElem): ThisT = addElems(Arr(newElem))
-  def mutObj(newObj: Any): ThisT
+  def mutObj(newObj: AnyRef): ThisT
 }

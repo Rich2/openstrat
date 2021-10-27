@@ -12,7 +12,7 @@ trait Flag
 
   def compoundStr: RectCompound = rect.activeChildren(name + " flag", apply())
 
-  def compound(evObj: Any = this): PolygonCompound =
+  def compound(evObj: AnyRef = this): PolygonCompound =
   { val rect = Rect(ratio, 1)
     PolygonCompound(rect, Arr(), apply() +- rect.active(evObj))
   }

@@ -229,21 +229,21 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
     LineSeg(vert(startVertNum), vert(index))
   }
 
-  def active(id: Any): PolygonActive = PolygonActive(this, id)
-  def activeChildren(id: Any, children: GraphicElems): PolygonCompound = PolygonCompound(this, Arr(), active(id) +: children)
+  def active(id: AnyRef): PolygonActive = PolygonActive(this, id)
+  def activeChildren(id: AnyRef, children: GraphicElems): PolygonCompound = PolygonCompound(this, Arr(), active(id) +: children)
 
-  def fillActive(fillColour: Colour, pointerID: Any): PolygonCompound =
+  def fillActive(fillColour: Colour, pointerID: AnyRef): PolygonCompound =
     PolygonCompound(this, Arr(fillColour), Arr(PolygonActive(this, pointerID)))
 
-  def drawActive(lineColour: Colour = Black, lineWidth: Double = 2, pointerID: Any): PolygonCompound =
+  def drawActive(lineColour: Colour = Black, lineWidth: Double = 2, pointerID: AnyRef): PolygonCompound =
     PolygonCompound(this, Arr(DrawFacet(lineColour, lineWidth)), Arr(PolygonActive(this, pointerID)))
 
   /** Creates a PolygonCompound graphic that is active with a simple 1 colour fill and has a draw graphic for the Polygon. The default values for the
    * draw area line width of 2 and a colour of Black. */
-  def fillActiveDraw(fillColour: Colour, pointerID: Any, lineColour: Colour = Black, lineWidth: Double = 2): PolygonCompound =
+  def fillActiveDraw(fillColour: Colour, pointerID: AnyRef, lineColour: Colour = Black, lineWidth: Double = 2): PolygonCompound =
     PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)), Arr(PolygonActive(this, pointerID)))
 
-  def fillDrawActive(fillColour: Colour, pointerID: Any, lineWidth: Double, lineColour: Colour = Black): PolygonCompound =
+  def fillDrawActive(fillColour: Colour, pointerID: AnyRef, lineWidth: Double, lineColour: Colour = Black): PolygonCompound =
     PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)), Arr(PolygonActive(this, pointerID)))
 
   def fillDrawText(fillColour: Colour, str: String, fontSize: Int = 24, lineColour: Colour = Black, lineWidth: Double = 2.0): PolygonCompound =
@@ -252,14 +252,14 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
   PolygonCompound = PolygonCompound(this, Arr(fillColour, TextFacet(str, textColour)), Arr())
 
-  def fillDrawTextActive(fillColour: Colour, pointerID: Any, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
+  def fillDrawTextActive(fillColour: Colour, pointerID: AnyRef, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
     align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)),
     Arr(TextGraphic(str, fontSize, cenDefault, Black, align), PolygonActive(this, pointerID)))
 
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonCompound =
     PolygonCompound(this, Arr(fillColour), Arr(TextGraphic(str, fontSize, cenDefault, textColour)))
 
-  def fillTextActive(fillColour: Colour, pointerEv: Any, str: String, fontSize: Int = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
+  def fillTextActive(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Int = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
     PolygonCompound = PolygonCompound(this, Arr(fillColour), Arr(PolygonActive(this, pointerEv), TextGraphic(str, fontSize, cenDefault, fontColour, align)))
 
   /** Insert vertex. */

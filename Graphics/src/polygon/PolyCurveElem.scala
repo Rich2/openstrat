@@ -57,7 +57,7 @@ case class PolyCurveFillDrawText(shape: ShapeGenOld, fillColour: Colour, str: St
   def cen: Pt2 = ???
 }
 
-case class PolyCurveAllOld(shape: ShapeGenOld, pointerId: Any, str: String, fillColour: Colour, fontSize: Int = 24, lineColour: Colour = Black,
+case class PolyCurveAllOld(shape: ShapeGenOld, pointerId: AnyRef, str: String, fillColour: Colour, fontSize: Int = 24, lineColour: Colour = Black,
                            lineWidth: Double = 2) extends PolyCurveElem with PolyCurveActive
 { override type ThisT = PolyCurveAllOld
   override def ptsTrans(f: Pt2 => Pt2) = PolyCurveAllOld(shape.ptsTrans(f), pointerId, str, fillColour, fontSize, lineColour, lineWidth)

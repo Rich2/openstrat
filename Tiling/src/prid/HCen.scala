@@ -27,7 +27,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide
   def polygonReg: Polygon = verts.map(_.toPt2).toPolygon
 
   def fill(colour: Colour): PolygonFill = polygonReg.fill(colour)
-  def active(id: Any = this): PolygonActive = polygonReg.active(id)
+  def active(id: AnyRef = this): PolygonActive = polygonReg.active(id)
   override def typeStr: String = "HCen"
 
   /** Step to adjacent hex tile. */
