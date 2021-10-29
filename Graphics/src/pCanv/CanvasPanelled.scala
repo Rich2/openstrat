@@ -13,13 +13,10 @@ abstract class CanvasPanelled(title: String) extends CanvasUser(title)
     newPanel
   }     
   
-  canv.mouseUp = (v, b) =>
-    {
-      panels.find(_.clipPoly.ptInside(v)).foreach{ pan =>
-        val ids: Arr[AnyRef] = pan.actives.filter(_.ptInside(v)).map(_.pointerId)
-        pan.mouseUp(b, ids, v)
+  canv.mouseUp = (v, b) => panels.find(_.clipPoly.ptInside(v)).foreach{ pan =>
+      val ids: Arr[AnyRef] = pan.actives.filter(_.ptInside(v)).map(_.pointerId)
+      pan.mouseUp(b, ids, v)
     }
-  }
     
   def refresh(): Unit = panels.foreach(refreshPanel)   
   

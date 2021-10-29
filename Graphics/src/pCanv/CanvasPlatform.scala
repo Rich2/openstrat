@@ -12,10 +12,10 @@ import geom._, Colour._
  *  the provided classes don't fulfill your needs. */
 trait CanvasPlatform extends RectCenlign
 {
-  /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command */
+  /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command. */
   var mouseUp: (Pt2, MouseButton) => Unit = (v, b) => {}
 
-  /** The canvas implementation will call this function when the mouse button is depressed. Named after Javascript command */
+  /** The canvas implementation will call this function when the mouse button is depressed. Named after Javascript command. */
   var mouseDown: (Pt2, MouseButton) => Unit = (v, b) => {}
 
   var mouseMoved: (Pt2, MouseButton) => Unit = (v, b) => {}
