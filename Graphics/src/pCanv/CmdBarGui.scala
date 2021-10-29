@@ -30,7 +30,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
   }
   def mainMouseUp: (MouseButton, List[AnyRef], Pt2) => Unit = mainPanel.mouseUp
   def mainMouseUp_= (f: (MouseButton, List[AnyRef], Pt2) => Unit): Unit = { mainPanel.mouseUp = f }
-  var selected: List[Any] = Nil
+  var selected: List[AnyRef] = Nil
   topBar.mouseUp =
     { case (b, List(MouseButtonCmd(cmd)), _) => cmd.apply(b)
       case (_, l, _) => deb(l.toString)
