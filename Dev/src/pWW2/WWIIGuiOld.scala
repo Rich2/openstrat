@@ -58,14 +58,14 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[M
       }
 
       case RightButton => (selected, clickList) match
-      { case (List(army: Army), List(newTile: W2TileAncient)) =>
+      { case (ArrHead(army: Army), ArrHead(newTile: W2TileAncient)) =>
         { army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
           val newArmy = army.copy(newTile)
           newTile.lunits +-= newArmy
           selected = Arr(newArmy)
           repaintMap()
         }
-        case (List(army: Army), as) => debvar(as.elemsNum)
+        case (ArrHead(army: Army), as) => debvar(as.elemsNum)
         case _ =>
       }
 
