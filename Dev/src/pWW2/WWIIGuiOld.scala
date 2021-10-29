@@ -53,7 +53,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[M
     {      
       case LeftButton =>
       { selected = clickList//.fHead(Arr(), Arr(_))
-        statusText = selected.headToStringElse("Nothing Clicked")
+        statusText = selected.headFoldToString("Nothing Clicked")
         eTop()
       }
 
@@ -62,10 +62,10 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[M
         { army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
           val newArmy = army.copy(newTile)
           newTile.lunits +-= newArmy
-          selected = List(newArmy)
+          selected = Arr(newArmy)
           repaintMap()
         }
-        case (List(army: Army), as) => debvar(as.length)
+        case (List(army: Army), as) => debvar(as.elemsNum)
         case _ =>
       }
 

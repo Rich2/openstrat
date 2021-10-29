@@ -47,11 +47,11 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
         
     case RightButton => (selected, clickList) match
     {
-      case (List(c: Corps), List(newTile: NTileAncient)) =>
+      case (ArrHead(c: Corps), List(newTile: NTileAncient)) =>
       { c.tile.lunits = c.tile.lunits.removeFirst (_ == c)
         val newCorps = c.copy (newTile)
         newTile.lunits +:= newCorps
-        selected = List(newCorps)
+        selected = Arr(newCorps)
         repaintMap()
       }
 

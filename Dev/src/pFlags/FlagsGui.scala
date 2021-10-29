@@ -27,7 +27,7 @@ case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")
   val notChanging: Arr[GraphicElem] = tlObjs ++ trObjs ++ blObjs ++ brObjs +- us //+- myr
 
   mouseUp = (_, li, _) =>
-  { val str: String = li.headToStringElse("No clickable object on canvas")
+  { val str: String = li.headFoldToString("No clickable object on canvas")
     val tg = TextGraphic(str, 28, 0 pp 100)
     repaint(notChanging +-  tg)
   }

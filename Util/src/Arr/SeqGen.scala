@@ -31,6 +31,9 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   /** Folds over the non existence / existence of a head element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the head element. */
   def headFold[B](noHead: => B)(ifHead: A => B): B = ife(elemsNum >= 1, ifHead(head), noHead)
 
+  /** Folds over the non existence / existence of a head element. If the sequence is nonEmpty applies toString to head element else returns the noHead parameter string. */
+  def headFoldToString[B](noHead: => String): String = ife(elemsNum >= 1, apply(0).toString, noHead)
+
   /** Folds over the non existence / existence of a last element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the last element. */
   def lastFold[B](noLast: => B)(ifLast: A => B): B = ife(elemsNum >= 1, ifLast(last), noLast)
 

@@ -57,15 +57,16 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {
       selected = cl
-      statusText = selected.headToStringElse("Nothing Selected")
+      statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
     }
 
-    case (RightButton, List(HPlayer(p, hc1), HCen(y, c)), (hc2: HCen) :: _) =>
+    case (RightButton, Arr2(HPlayer(p, hc1), HCen(y, c)), ArrHead(hc2: HCen)) =>
     { val newM: OptRef[HStep] = hc1.findStep(hc2)
       newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()
     }
+
     case (_, _, h) => deb("Other; " + h.toString)
   }
   thisTop()

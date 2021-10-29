@@ -39,7 +39,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends CmdBarGui("
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   { case (LeftButton, _, cl) =>
     { selected = cl
-      statusText = selected.headToStringElse("Nothing Selected")
+      statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
     }
 

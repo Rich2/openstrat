@@ -37,8 +37,8 @@ case class ZugGuiOld(canv: CanvasPlatform, scen: ZugScenOld) extends CmdBarGui("
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList.headOption.toList
-      statusText = selected.headToStringElse("Nothing Clicked")
+    { selected = clickList
+      statusText = selected.headFoldToString("Nothing Clicked")
       thisTop()
     }
 

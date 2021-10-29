@@ -27,12 +27,12 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
   {
     case (LeftButton, _, cl) =>
-    { selected = clickList.headOption.toList
-      statusText = selected.headToStringElse("Nothing Clicked")
+    { selected = clickList
+      statusText = selected.headFoldToString("Nothing Clicked")
       thisTop()
     }
 
-    case (RightButton, List(squad: Squad), List(newTile: HCen)) =>
+    case (RightButton, ArrHead(squad: Squad), ArrHead(newTile: HCen)) => { deb("Move")}
       /*grid.findPath(squad.roord, newTile)(moveFunc).fold[Unit]{
         statusText = "Squad can not move to " + newTile.rcStr
         thisTop()
@@ -43,7 +43,7 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
         thisTop()
       }*/
 
-    case (MiddleButton, List(squad : Squad), List(newTile: HCen)) =>
+    case (MiddleButton, ArrHead(squad : Squad), ArrHead(newTile: HCen)) =>
     { squad.action = Fire(newTile)
       deb("Fire")
       mainRepaint(frame)

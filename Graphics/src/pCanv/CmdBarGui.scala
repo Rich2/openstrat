@@ -28,11 +28,11 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
     val st = TextGraphic(statusText, 15, sp, Black, LeftAlign)
     topBar.repaint(a +- st)
   }
-  def mainMouseUp: (MouseButton, List[AnyRef], Pt2) => Unit = mainPanel.mouseUp
-  def mainMouseUp_= (f: (MouseButton, List[AnyRef], Pt2) => Unit): Unit = { mainPanel.mouseUp = f }
-  var selected: List[AnyRef] = Nil
+  def mainMouseUp: (MouseButton, Arr[AnyRef], Pt2) => Unit = mainPanel.mouseUp
+  def mainMouseUp_= (f: (MouseButton, Arr[AnyRef], Pt2) => Unit): Unit = { mainPanel.mouseUp = f }
+  var selected: Arr[AnyRef] = Arr()
   topBar.mouseUp =
-    { case (b, List(MouseButtonCmd(cmd)), _) => cmd.apply(b)
+    { case (b, ArrHead(MouseButtonCmd(cmd)), _) => cmd.apply(b)
       case (_, l, _) => deb(l.toString)
     }
 }
