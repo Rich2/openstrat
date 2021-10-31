@@ -43,11 +43,15 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
  
   mapPanel.mouseUp = (but: MouseButton, clickList, v) => but match
   {
-    case LeftButton => selected = clickList //.fHead(Arr(), Arr(_))
+    case LeftButton => {
+      selected = clickList
+      statusText = selected.toString
+      eTop()
+    }
         
     case RightButton => (selected, clickList) match
     {
-      case (ArrHead(c: Corps), List(newTile: NTileAncient)) =>
+      case (ArrHead(c: Corps), ArrHead(newTile: NTileAncient)) =>
       { c.tile.lunits = c.tile.lunits.removeFirst (_ == c)
         val newCorps = c.copy (newTile)
         newTile.lunits +:= newCorps
@@ -55,7 +59,7 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
         repaintMap()
       }
 
-      case (List(c: Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)
+      case (ArrHead(c: Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)
       case _ =>
     }
     case _ =>
