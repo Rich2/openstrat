@@ -14,7 +14,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def players: HCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
-  val scale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
+  var scale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
@@ -51,8 +51,22 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
     thisTop()
   }
 
+  def zoomIn: PolygonCompound = clickButton("+"){_ =>
+    scale *= 1.1
+    repaint()
+    statusText = s"scale = ${scale.str2}"
+    thisTop()
+  }
+
+  def zoomOut: PolygonCompound = clickButton("-"){_ =>
+    scale /= 1.1
+    repaint()
+    statusText = s"scale = ${scale.str2}"
+    thisTop()
+  }
+
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn))
+  def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {

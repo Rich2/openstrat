@@ -28,7 +28,7 @@ class AppStart extends application.Application
           val eSett = findDevSettingExpr(launch.settingStr)
           eSett.fold(launch.default)(launch(_))
         }
-        else { deb(it.srcStr + " is not a recognised app identifier"); Apps.default }
+        else { deb(s"${it.srcStr} is not a recognised app identifier"); Apps.default }
 
       case Good(StringToken(_, str)) if Apps.strMap.contains(str) => Apps.strMap(str)
       case _ => { debvar(eExpr); Apps.default }
