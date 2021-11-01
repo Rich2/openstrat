@@ -5,11 +5,11 @@ import geom._
 /** A canvas divided up into panels. Each panel is clipped and has its own origin. */
 abstract class CanvasPanelled(title: String) extends CanvasUser(title)
 {
-  var panels: List[Panel] = Nil
+  var panels: Arr[Panel] = Arr()
   
   def addPanel(clipPoly: Polygon, cover: Boolean = true): Panel =
   { val newPanel = Panel(this, clipPoly, cover)
-    panels :+= newPanel
+    panels +-= newPanel
     newPanel
   }     
   

@@ -2,8 +2,8 @@
 package ostrat; package pCanv
 import geom._
 
-/** So currently this is a turn based class allowing the selection of objects within the map. That is not the case for the Planet App 
- *  where the planets move too quickly for selection. The focus centre is un fixed unlike the planet App. */
+/** So currently this is a turn based class allowing the selection of objects within the map. That is not the case for the Planet App where the
+ *  planets move too quickly for selection. The focus centre is un fixed unlike the planet App. */
 abstract class UnfixedMapGui(title: String) extends MapGui(title)
 {
   var selected: Arr[AnyRef] = Arr()
