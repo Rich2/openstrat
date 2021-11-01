@@ -2,7 +2,7 @@
 package ostrat; package pEarth
 import pCanv._, geom._
 
-/** Basic map of the Earth using irregular areas. */
+/** Basic map of the Earth using irregular areas / tiles. */
 case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None, startFocus: Option[LatLong] = None) extends
   CmdBarGui("The Earth in irregular tiles")
 {

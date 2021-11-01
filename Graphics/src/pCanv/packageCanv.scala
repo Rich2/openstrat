@@ -16,7 +16,7 @@ package object pCanv
     Rectangle.curvedCornersCentred((str.length + 1).max(2) * 17, 30, 5).allElems(MouseButtonCmd(cmd), backColour, 3, backColour.contrastBW, 25, str)
 
   /** A button to react to different mouse buttons. The length varies with the String. */
-  def clickButton(str: String, cmd: MouseCmd, backColour: Colour = Colour.White) =
+  def clickButton(str: String, backColour: Colour = Colour.White)(cmd: MouseCmd): PolygonCompound =
     Rect((str.length + 1).max(2) * 17, 30).fillDrawTextActive(backColour, MouseButtonCmd(cmd), str, 25, 3, backColour.contrastBW)
 
 

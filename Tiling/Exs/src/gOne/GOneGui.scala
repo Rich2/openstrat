@@ -43,13 +43,13 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
-  def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString, _ => {
+  def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
     val getOrders = players.mapSomes2(moves)((player, step) => (player, step))
     scen = scen.endTurn(getOrders)
     moves = NoMoves
     repaint()
     thisTop()
-  })
+  }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(bTurn))
