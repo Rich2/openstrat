@@ -28,6 +28,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   /** The h value of this ellipse. */
   def h: Double
 
+/** The alignment angle of the ellipse to axis 1. */
   def alignAngle: Angle
 
   /** Eccentricity of ellipse. */
