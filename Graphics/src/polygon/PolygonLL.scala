@@ -23,7 +23,8 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike
       count += 1
     }
   }
-  
+
+  /** Performs the side effecting function on the [[LatLong]] value of each vertex and an index. */
   override def vertsIForeach[U](f: (LatLong, Int) => U): Unit =
   { var count = 0
     vertsForeach{ v =>
@@ -32,6 +33,7 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike
     }
   }
 
+  /** Maps the [[LatLong]] values of each vertex to an immutable Array like sequence of type B. */
   override def vertsMap[B, ArrB <: ArrBase[B]](f: LatLong => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
   { val res = builder.newArr(vertsNum)
     var count = 0

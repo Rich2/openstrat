@@ -51,9 +51,7 @@ trait PolygonLike[VT] extends Any
 }
 
 trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with DataValueNs[VT]
-{
-  override def vertsForeach[U](f: VT => U): Unit = dataForeach(f)
-
+{ override def vertsForeach[U](f: VT => U): Unit = dataForeach(f)
   override def vertsNum: Int = elemsNum
 }
 
