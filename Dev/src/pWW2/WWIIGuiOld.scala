@@ -43,10 +43,10 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[M
   //def dSides: GraphicElems = ofSidesDisplayFold(fSide)//(OfHexSideReg.implicitBuilder(_, _, _))
       
   def ls: GraphicElems =
-  { val circ = Circle(EarthAvDiameter / scale).fill(Ocean.colour)
+  { val seas = earth2DEllipse(scale).fill(Ocean.colour)
     val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
     val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
-    (circ +: as) ++ gs
+    (seas +: as) ++ gs
   }   
   
   mapPanel.mouseUp = (button: MouseButton, clickList, _) => button match

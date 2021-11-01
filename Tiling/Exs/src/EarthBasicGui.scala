@@ -20,7 +20,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   val afPairs: Arr[(EarthLevel2, PolygonMetre3)] = eas.map{ a => (a, a.polygonLL.metres3Default) }.filter(_._2.zNonNeg)
   val af0 = afPairs.map{ p => p._2.xyPlane.map(_ / scale).fill(p._1.colour) }
   val af1 = afPairs.map{a => a._2.xyPlane.map(_ / scale).draw() }
-  val seas = Circle(EarthAvDiameter / scale).fill(Colour.DarkBlue)
+  def seas = earth2DEllipse(scale).fill(Colour.DarkBlue)
   mainRepaint((seas +: af0) ++ af1 +- lp4.draw())
 }
 

@@ -35,10 +35,10 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
      } 
       
   def ls: GraphicElems =
-  { val circ = Circle(EarthAvDiameter / scale).fill(Ocean.colour)
+  { val seas = earth2DEllipse(scale).fill(Ocean.colour)
     val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
     val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-    (circ +: as) ++ gs
+    (seas +: as) ++ gs
   }
  
   mapPanel.mouseUp = (but: MouseButton, clickList, v) => but match

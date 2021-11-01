@@ -53,5 +53,8 @@ package object pEarth
       val lat = d2.y / EarthPolarRadius         
       val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
       LatLong.radians(lat, longDelta)
-   } 
+   }
+
+
+   def earth2DEllipse(scale: Length): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
 }
