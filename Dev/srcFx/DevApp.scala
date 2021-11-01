@@ -21,12 +21,15 @@ class AppStart extends application.Application
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
     val eExpr: EMon[pParse.Expr] = findDevSettingExpr("appSet")
+
     val pair = eExpr match {
-      case Good(it: IdentifierToken) if Apps.idMap.contains(it.srcStr) => {
-        val launch = Apps.idMap(it.srcStr)
-        val eSett = findDevSettingExpr(launch.settingStr)
-        eSett.fold(launch.default)(launch(_))
-      }
+      case Good(it: IdentifierToken) => if (Apps.idMap.contains(it.srcStr))
+        { val launch = Apps.idMap(it.srcStr)
+          val eSett = findDevSettingExpr(launch.settingStr)
+          eSett.fold(launch.default)(launch(_))
+        }
+        else { deb(it.srcStr + " is not a recognised app identifier"); Apps.default }
+
       case Good(StringToken(_, str)) if Apps.strMap.contains(str) => Apps.strMap(str)
       case _ => { debvar(eExpr); Apps.default }
     }
