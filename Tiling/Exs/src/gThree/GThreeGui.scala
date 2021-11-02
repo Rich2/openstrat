@@ -2,14 +2,15 @@
 package ostrat; package gThree
 import pCanv._, prid._, geom._
 
-case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarGui("Game Three Gui")
+case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapGui("Game Three Gui")
 { statusText = "Welcome to Game Three."
   val scen = scenStart
   def terrs: HCenArr[Terr] = scen.terrs
   var history: Arr[ThreeScen] = Arr(scen)
   implicit def grid: HGrid = scen.grid
+
   /** The number of pixels / 2 displayed per row height. */
-  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
+  var yScale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
@@ -22,17 +23,26 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends CmdBarG
   def unitOrTexts: GraphicElems = units.mapHCen{hc => hc.decText(14, terrs(hc).contrastBW) } { (hc, p) =>
     Rect(1.0, 0.66, hc.toPt2).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
-  def moves: GraphicElems = units.flatMapHCenSomes{(hc, u) =>
+  def moves: GraphicElems = units.flatMapHCenSomes{ (hc, u) =>
     u.cmds
     Arr()
   }
 
+  /** Creates the turn button and the action to commit on mouse click. */
+  def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
+    /*val getOrders = moves.mapSomes(rs => rs)
+    scen = scen.doTurn(getOrders)
+    moves = NoMoves*/
+    repaint()
+    thisTop()
+  })
+
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr())//bTurn))
+  def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   statusText = s"Game Three. Scenario has ${grid.numTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts: GraphicElems).gridScale(scale)
-  def repaint() = mainRepaint(frame)
+  def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts: GraphicElems).gridScale(yScale)
+
   repaint()
 }

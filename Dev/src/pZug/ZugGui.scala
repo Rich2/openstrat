@@ -3,10 +3,10 @@ package ostrat; package pZug
 import pCanv._, prid._, geom._, Colour._, pStrat._
 
 /** Graphical User Interface for ZugFuhrer game. */
-case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuhrer Gui")
+case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends HexMapGui("ZugFuhrer Gui")
 {
   implicit val grid: HGrid = scen.grid
-  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
+  var yScale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val active = grid.map{ hc =>hc.polygonReg.active(hc) }
   val text = terrs.mapHC((t, hc) => hc.decText(14, t.contrastBW))
@@ -56,8 +56,8 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends CmdBarGui("ZugFuh
 
 
   statusText = "Welcome to ZugFuher"
-  def thisTop(): Unit = reTop(Arr())
+  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut))
   thisTop()
-  def frame: GraphicElems = (rows ++ lines ++ active ++ text ++ lunits).gridScale(scale)
+  def frame: GraphicElems = (rows ++ lines ++ active ++ text ++ lunits).gridScale(yScale)
   mainRepaint(frame)
 }

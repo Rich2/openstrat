@@ -3,7 +3,7 @@ package ostrat; package gOne
 import pCanv._, geom._, prid._
 
 /** Graphical user interface for GOne example game. */
-case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("Game One Gui")
+case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends HexMapGui("Game One Gui")
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
@@ -13,13 +13,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
 
   def players: HCenArrOpt[Player] = scen.oPlayers
 
-  /** The number of pixels / 2 displayed per row height. */
   var yScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
-
-  /** The number of pixels from a side of a tile to the opposite tile. */
-  def tileScale: Double = yScale * 4 / Sqrt3
-
-  def scaleStr = s"scale = ${tileScale.str2} pixels per tile"
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
@@ -56,20 +50,6 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
     thisTop()
   }
 
-  def zoomIn: PolygonCompound = clickButton("+"){_ =>
-    yScale *= 1.1
-    repaint()
-    statusText = scaleStr
-    thisTop()
-  }
-
-  def zoomOut: PolygonCompound = clickButton("-"){_ =>
-    yScale /= 1.1
-    repaint()
-    statusText = scaleStr
-    thisTop()
-  }
-
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
 
@@ -93,6 +73,6 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends CmdBarGui("
   def moveGraphics2: GraphicElems = moveGraphics.gridScale(yScale).flatMap(_.arrow)
 
   def frame: GraphicElems = (tiles +- sidesDraw ++ units ++ hexStrs).gridScale(yScale) ++ moveGraphics2
-  def repaint(): Unit = mainRepaint(frame)
+
   repaint()
 }

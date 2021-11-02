@@ -2,7 +2,7 @@
 package ostrat; package gTwo
 import pCanv._, prid._, geom._, gOne._
 
-case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends CmdBarGui("Game Two Gui")
+case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGui("Game Two Gui")
 {
   statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
@@ -10,7 +10,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends CmdBarGui("
   def players: SqCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
-  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
+  var yScale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   def lunits = players.cMapSomes{ (p, sc) =>
     Rect(0.9, 0.6, sc.toPt2).fillDrawTextActive(p.colour, p, p.toString + "\n" + sc.rcStr, 24, 2.0)  }
@@ -53,10 +53,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends CmdBarGui("
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn))
+  def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   thisTop()
-  def frame: GraphicElems = (lunits +- sidesDraw ++ css).gridScale(scale)// ++ moveGraphics2
-  //(tiles +- sidesDraw ++ roardTexts ++ lunits ).gridScale(scale)
-  def repaint() = mainRepaint(frame)
+  def frame: GraphicElems = (lunits +- sidesDraw ++ css).gridScale(yScale)// ++ moveGraphics2
   repaint()
 }
