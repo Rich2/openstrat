@@ -53,7 +53,7 @@ final class KMetres(override val kMetresNum: Double) extends AnyVal with MetricL
   override def unary_- : KMetres = KMetres(-kMetresNum)
   override def *(operand: Double): KMetres = KMetres(kMetresNum * operand)
   override def /(operand: Double) : KMetres = KMetres(kMetresNum / operand)
-
+  override def toString: String = s"${kMetresNum}km"
   /** Returns the max length of this and the operand length in [[KMetres]]. */
   override def max(operand: Length): KMetres = new KMetres(kMetresNum.max(operand.kMetresNum))
 
