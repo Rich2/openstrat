@@ -42,7 +42,7 @@ case class ZugGuiOld(canv: CanvasPlatform, scen: ZugScenOld) extends CmdBarGui("
       thisTop()
     }
 
-    case (RightButton, List(squad: SquadOld), List(newTile: HexTile)) =>
+    case (RightButton, Arr1(squad: SquadOld), Arr1(newTile: HexTile)) =>
       grid.findPath(squad.roord, newTile.roord)(moveFunc).fold[Unit]{
         statusText = "Squad can not move to " + newTile.roord.ycStr
         thisTop()
@@ -53,7 +53,7 @@ case class ZugGuiOld(canv: CanvasPlatform, scen: ZugScenOld) extends CmdBarGui("
         thisTop()
       }
 
-    case (MiddleButton, List(squad : SquadOld), List(newTile: Roord)) =>
+    case (MiddleButton, Arr1(squad : SquadOld), Arr1(newTile: Roord)) =>
     { squad.action = FireOld(newTile)
       mainRepaint(frame)
     }

@@ -43,7 +43,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
       thisTop()
     }
 
-    case (RightButton, List(SPlayer(p, sc1), SqCen(y, c)), (sc2 : SqCen) :: _) =>
+    case (RightButton, Arr2(SPlayer(p, sc1), SqCen(y, c)), ArrHead(sc2 : SqCen)) =>
     {
       val newM: OptRef[SqStep] = sc1.optStep(sc2)
       //newM.foreach(m => moves = moves.setSomeNew(hc1, hc1.andStep(m)))

@@ -18,7 +18,7 @@ case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
   mouseUp = (button, selectedList, posn) =>
     {
       val newText = selectedList match
-      { case ::(h, _) => TextGraphic("You hit a yellow rectangle at " + posn.str, 28, textPosn)
+      { case ArrHead(h) => TextGraphic("You hit a yellow rectangle at " + posn.str, 28, textPosn)
         case _ =>
           { deb(selectedList.toString())
             TextGraphic("You missed the yellow rectangles.\n" + posn.str, 28, textPosn)

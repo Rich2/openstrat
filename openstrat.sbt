@@ -65,18 +65,17 @@ lazy val UtilJs = jsProj("Util").settings(
   }.taskValue,
 )
 
-lazy val Graphics = coreProj("Graphics").dependsOn(Util).settings(
+def geomSett = List(Compile/unmanagedSourceDirectories ++= List("srcGui", "srcGlobe").map(s => (ThisBuild/baseDirectory).value / "Graphics" / s))
+
+lazy val Graphics = coreProj("Graphics").dependsOn(Util).settings(geomSett).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphics/srcGui",
 )
 
 lazy val GraphicsExs = exsProj("Graphics").dependsOn(Graphics).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilJs).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Graphics/srcGui",
-)
+lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilJs).settings(geomSett)
 
 lazy val Tiling = coreProj("Tiling").dependsOn(Graphics)
 lazy val TilingExs = exsProj("Tiling").dependsOn(Tiling)
