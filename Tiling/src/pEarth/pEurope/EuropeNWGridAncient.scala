@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, pGrid._, WTile._, reflect.ClassTag
+import geom._, pglobe._, pGrid._, WTile._, reflect.ClassTag
 
 object EuropeNWGridAncient extends EGridMaker
 {

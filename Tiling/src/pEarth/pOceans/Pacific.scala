@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, WTile._
+import geom._, pglobe._, WTile._
 
 object PacificTop extends EarthLevel1("Pacific", 0 ll 175)
 { val sHawaii = 18.91 ll -155.68

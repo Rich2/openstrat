@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pglobe._
+
 /** Extension methods class for Int, for the geom package. */
 class IntGeomImplicit(thisInt: Int)
 {
@@ -19,12 +19,6 @@ class IntGeomImplicit(thisInt: Int)
 
   /** Converts this Int into an [[AngleVec]] an angle of rotation for any positive or negative value of Int. */
   def degs: AngleVec = AngleVec(thisInt)
-
-  def ll (longDegs: Double): LatLong = LatLong.degs(thisInt, longDegs)
-  def east: Longitude = Longitude.degs(thisInt)
-  def west: Longitude = Longitude.degs(-thisInt)
-  def north: Latitude = Latitude.apply(thisInt)
-  def south: Latitude = Latitude.apply(-thisInt)
 }
 
 /** Extension methods class for [[Double]], for the geom package. */
@@ -46,13 +40,6 @@ class DoubleImplicitGeom(thisDouble: Double)
   /** Converts this Double into an [[AngleVec]] an angle of rotation from - infinity to + infinity. */
   def degs: AngleVec = AngleVec(thisDouble)
 
-  /** Creates a [[LatLong]], a position of Latitude and Longitude from 2 numbers. */
-  def ll (longDegs: Double): LatLong = LatLong.degs(thisDouble, longDegs)
-
-  def east: Longitude = Longitude.degs(thisDouble)
-  def west: Longitude = Longitude.degs(-thisDouble)
-  def north: Latitude = Latitude.apply(thisDouble)
-  def south: Latitude = Latitude.apply(-thisDouble)
   def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
   def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
 }

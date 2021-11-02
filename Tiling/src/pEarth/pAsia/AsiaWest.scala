@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pPts.RusNorth, pPts.AsiaWestPts
+import geom._, pglobe._, pPts.RusNorth, pPts.AsiaWestPts
 
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
 object AsiaWest  extends EarthLevel1("AsiaWest", 20.18 ll -0.65)
