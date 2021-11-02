@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, LatLong._, WTile._, pPts.RusNorth, pPts.AsiaWestPts
+import geom._, pglobe._, LatLong._, WTile._, pPts.RusNorth, pPts.AsiaWestPts
 
 object AsiaEastPts
 { val binhai = AsiaWestPts.persiaN ll 117.66

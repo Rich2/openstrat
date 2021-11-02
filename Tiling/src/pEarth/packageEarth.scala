@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import geom._, pGrid._
+import geom._, pglobe._, pGrid._
 
 /** This package and module is for Earth maps. In particular the tiling of the whole world in Hex grids, defining the changes over the course of
  *  history. This will be a data orientated module. It will also include terrain types to model terrain, both real and imagined for local maps and

@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pPts
-import geom._, geom.LatLong._, WTile._
+import geom._, pglobe._, LatLong._, WTile._
 
 object PolarNorth extends EarthLevel1("NPole", 89.5 ll 0)
 { val sGreenland = degs(59.87, -43.95)

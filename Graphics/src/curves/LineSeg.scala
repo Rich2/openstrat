@@ -28,7 +28,6 @@ final class LineSeg(val startX: Double, val startY: Double, val endX: Double, va
   def func4Dou[T](f: (Double, Double, Double, Double) => T): T = f(startX, startY, endX, endY)
   def ptsTrans(f: Pt2 => Pt2): LineSeg = LineSeg(f(pStart), f(pEnd))
   def shortArray: Array[Short] = Array(startX.toShort, startY.toShort,endX.toShort,endY.toShort)
-  def toLatLongLine(f: Pt2 => LatLong): LineSegLL = LineSegLL(f(pStart), f(pEnd))
   def isHorizontal: Boolean = startY == endY
   def isVertical: Boolean = startX == endX
   /**Checks whether a forward horizontal ray crosses this polygon side. */

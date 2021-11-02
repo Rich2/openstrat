@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, WTile._
+import geom._, pglobe._, WTile._
 
 object Majorca extends EarthLevel2("Majorca", 39.59 ll 3.01, plain)
 { val south = 39.26 ll 3.05

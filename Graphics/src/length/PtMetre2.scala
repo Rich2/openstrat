@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import collection.mutable.ArrayBuffer, math._
+import pglobe._, collection.mutable.ArrayBuffer, math._
 
 /** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
 final class PtMetre2(val xMetresNum: Double, val yMetresNum: Double) extends Show2Dbls

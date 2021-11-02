@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pPts
-import geom._, LatLong._, WTile._, pEurope.{Anatolia, Baltland, Caucasus, Ukraine}
+import geom._, pglobe._, LatLong._, WTile._, pEurope.{Anatolia, Baltland, Caucasus, Ukraine}
 
 object RusNorth extends EarthLevel2("NRus", 61 ll 54, taiga)
 { val wAsiaE = 66.52.east

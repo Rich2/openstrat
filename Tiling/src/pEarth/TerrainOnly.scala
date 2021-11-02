@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pGrid._
+import geom._, pglobe._, pGrid._
 
 case class TerrOnly(x: Int, y: Int, terr: WTile) extends ETileAncient
 {

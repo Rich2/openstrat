@@ -1,5 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package geom
+package ostrat; package geom; package pglobe
 
 /** A 2 dimensional line segment defined in units of latitude and longitude rather than scalars in X and Y. A line on the service of the earth. */
 final case class LineSegLL private(startSecsLat: Double, startSecsLong: Double, endSecsLat: Double, endSecsLong: Double)

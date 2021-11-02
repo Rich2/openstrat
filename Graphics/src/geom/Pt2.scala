@@ -125,9 +125,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
 
   @inline def prolign(m: ProlignMatrix): Pt2 = m.vecTrans(this)
 
-  /** Where xnd y is a map on the surface ofa sphere. Currently not working for angles greater than Pi / 2 */
-  def toLatLong(radius: Double): LatLong = LatLong.radians(math.acos(y / radius), math.acos(x / radius))
-
   /** Reverses the y coordinate. Useful for translating between canvases where the y axis measures down and coordinate systems where y is up */
   def inverseY: Pt2 = Pt2(x, -y)
 

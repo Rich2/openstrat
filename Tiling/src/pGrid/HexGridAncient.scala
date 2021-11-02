@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
-import reflect.ClassTag,geom._, math.sqrt
+import reflect.ClassTag, geom._, pglobe._, math.sqrt
 
 /** To be deprecated. A Hex tile own the right sides, upRight, Right and DownRight. It owns the Up, UpRight and DownRight Vertices numbers 0, 1 and 2.
  *  */

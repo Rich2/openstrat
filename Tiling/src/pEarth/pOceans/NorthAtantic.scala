@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, WTile._
+import geom._, pglobe._, WTile._
 
 /** The North Atlantic. The seas and the land of the north Atlantic. */
 object NorthAtantic extends EarthLevel1("NAtlantic", 60 ll -30)

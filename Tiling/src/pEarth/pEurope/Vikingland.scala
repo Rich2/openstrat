@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, WTile._
+import geom._, pglobe._, WTile._
 
 object Jutland extends EarthLevel2("Jutland", 56.29 ll 9.33, plain)
 {

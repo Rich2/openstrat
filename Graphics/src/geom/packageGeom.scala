@@ -6,7 +6,7 @@ package ostrat
  * A number of implementation Value classes of the Int and Double product classes defined in ostrat. 2d graphical objects for generalised use. They
  * are of particular use for the generic canvas based classes defined in pCanv but can be used in any display framework and for printing. */
 package object geom
-{ import math.Pi, Colour.Black
+{ import pglobe._, math.Pi, Colour.Black
   val Phi: Double = 1.6180339887498948482
 
   /** A [[Vec2]] along the X Axis, whose Y component = 0. */

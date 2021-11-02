@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, geom.LatLong._, WTile._
+import geom._, pglobe._, LatLong._, WTile._
 
 object Australasia extends EarthLevel1("Australasia", -23 ll 130)
 { val nSumatra = 5.65 ll 95.43

@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pPts
-import geom._, LatLong._, pEarth._, WTile._
+import geom._, pglobe._, LatLong._, WTile._
 
 object AmericasSouth extends EarthLevel1("SAmericas", -6.52 ll -62.28)
 { val swArgentine = -54.28 ll -65.06

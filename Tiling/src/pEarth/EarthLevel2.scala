@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._
+import geom._, pglobe._
 
 /** A second level area of the Earth. */
 abstract class EarthLevel2(val shortName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey

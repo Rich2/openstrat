@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pPts
-import geom._, LatLong._, WTile._
+import geom._, pglobe._, LatLong._, WTile._
 
 object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
 { val w49th = degs(49, -125.66)

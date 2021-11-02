@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._
+import geom._, pglobe._
 
 /** A first level area of the Earth, a large area such as North West Europe. */
 abstract class EarthLevel1(val shortName: String, val cen: LatLong) extends GeographicSymbolKey

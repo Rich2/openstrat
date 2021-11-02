@@ -1,5 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package geom
+package ostrat; package geom; package pglobe
 
 /** A compile time wrapper class for Latitude. The value is stored in arc seconds. */
 final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLike

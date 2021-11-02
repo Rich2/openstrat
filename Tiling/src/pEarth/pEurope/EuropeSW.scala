@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, WTile._
+import geom._, pglobe._, WTile._
 
 object EuropeSW extends EarthLevel1("EuropeSw", 20 ll 0)
 {//top = 45.59N * 2 - 46.21 = 44.97

@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
-import geom._, WTile._
+import geom._, pglobe._, WTile._
 
 object Balkans extends EarthLevel2("Balkans", 43.9 ll 22.1, plain)
 { val odessa = 46.48 ll 30.74

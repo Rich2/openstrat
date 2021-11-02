@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, prid._
+import geom._, pglobe._, prid._
 
 trait EGrid80Km extends HGridIrr
 { def rOffset: Int
