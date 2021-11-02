@@ -145,14 +145,14 @@ object CanvasJs extends CanvasTopLeft
 
   override protected[this] def tlEArcDraw(ead: EArcDraw): Unit = ???
 
-  override def tlCircleFill(cf: CircleFill): Unit =
+  override protected def tlCircleFill(cf: CircleFill): Unit =
   { gc.beginPath()
     setFill(cf.fill)
     gc.arc(cf.cenX, cf.cenY, cf.radius, 0, Pi * 2)
     gc.fill()
   }
 
-  override def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit =
+  override protected def tlCircleFillRadial(circle: Circle, fill: FillRadial): Unit =
   { val rg = gc.createRadialGradient(circle.cenX, circle.cenY, 0, circle.cenX, circle.cenY, circle.radius)
     rg.addColorStop(0, fill.cenColour.webStr);
     rg.addColorStop(1, fill.outerColour.webStr)
@@ -161,7 +161,7 @@ object CanvasJs extends CanvasTopLeft
     gc.fill()
   }
 
-  override def tlCircleDraw(cd: CircleDraw): Unit =
+  override protected def tlCircleDraw(cd: CircleDraw): Unit =
   { gc.beginPath()
     gc.strokeStyle = cd.lineColour.webStr
     gc.lineWidth = cd.lineWidth
@@ -169,9 +169,21 @@ object CanvasJs extends CanvasTopLeft
     gc.stroke()
   }
   
-  override def tlEllipseFill(ef: EllipseFill): Unit = ???
-  def tlEllipseDraw(ed: EllipseDraw): Unit = ???
-  
+  override protected def tlEllipseFill(ef: EllipseFill): Unit =
+  { gc.beginPath()
+    setFill(ef.fill)
+    gc.ellipse(ef.cenX, ef.cenY, ef.shape.radius1, ef.shape.radius2, ef.shape.alignAngle.radians, 0, Pi * 2)
+    gc.fill()
+  }
+
+  override protected def tlEllipseDraw(ed: EllipseDraw): Unit =
+  { gc.beginPath()
+    gc.strokeStyle = ed.lineColour.webStr
+    gc.lineWidth = ed.lineWidth
+    gc.ellipse(ed.cenX, ed.cenY, ed.shape.radius1, ed.shape.radius2, ed.shape.alignAngle.radians, 0, Pi * 2)
+    gc.stroke()
+  }
+
   override protected[this] def tlLinesDraw(lsd: LinesDraw): Unit =
   { gc.beginPath()
     lsd.lines.foreach(ls => { gc.moveTo(ls.startX, ls.startY);  gc.lineTo(ls.endX, ls.endY)})
