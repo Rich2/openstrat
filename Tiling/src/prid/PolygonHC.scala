@@ -2,9 +2,10 @@
 package ostrat; package prid
 import geom._
 
-/** A polygon with the vertices defined by hex tile corrdinates  [[HCoord]]s. */
+/** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
 class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with PolygonInt2s[HCoord]
 { override type ThisT = PolygonHC
+  override type SideT = LineSegHC
   override def typeStr: String = "PolygonHC"
   override def unsafeFromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
   def vertNum: Int = arrayUnsafe.length / 2
@@ -66,6 +67,8 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with PolygonInt2s[HC
     val a = indexData(0)
     ???
   }
+
+  override def sidesForeach[U](f: LineSegHC => U): Unit = ???
 }
 
 /** Companion object for the polygon whose vertices are defined by hex tile coordinates [[PolygonHC]] trait. */

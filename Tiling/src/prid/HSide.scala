@@ -10,10 +10,10 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide
 { override def typeStr: String = "HSide"
 
   /** Returns the Hex coordinate Line segment for this Hex Side.  */
-  def coordLine: HCoordLineSeg = r %% 4 match
-  { case 3 => HCoordLineSeg(r, c - 1, r, c + 1)
-    case 0 | 2 => HCoordLineSeg(r + 1, c, r - 1, c)
-    case 1 => HCoordLineSeg(r, c + 1, r, c - 1)
+  def coordLine: LineSegHC = r %% 4 match
+  { case 3 => LineSegHC(r, c - 1, r, c + 1)
+    case 0 | 2 => LineSegHC(r + 1, c, r - 1, c)
+    case 1 => LineSegHC(r, c + 1, r, c - 1)
   }
 
   /** Returns the 2 adjacent [[HCen]]s of this hex Side.  */

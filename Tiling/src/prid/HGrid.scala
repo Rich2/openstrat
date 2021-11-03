@@ -231,9 +231,10 @@ trait HGrid extends Any with TGrid with HGridBased
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   def sideRowIndexArray: Array[Int]
 
-  /** The Hex Sides of the Hex Grid defined in integer constructed [[HCoordLineSeg.]].
+  /** The Hex Sides of the Hex Grid defined in integer constructed [[LineSegHC.]].
+   *
    *  @group SidesGroup */
-  def sideCoordLines: Arr[HCoordLineSeg] = sidesMap[HCoordLineSeg, Arr[HCoordLineSeg]](_.coordLine)
+  def sideCoordLines: Arr[LineSegHC] = sidesMap[LineSegHC, Arr[LineSegHC]](_.coordLine)
 
   def newSideBooleans: HSideBooleans = new HSideBooleans(new Array[Boolean](numSides))
 }

@@ -50,6 +50,8 @@ final class PolygonMetre3(val arrayUnsafe: Array[Double]) extends AnyVal with Po
     vertsForeach(v => res = f(res, v))
     res
   }
+
+  override def sidesForeach[U](f: LineSegMetre3 => U): Unit = ???
 }
 
 /** Companion object for PolygonM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */

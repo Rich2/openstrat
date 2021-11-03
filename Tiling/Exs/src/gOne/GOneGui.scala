@@ -38,7 +38,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends HexMapGui("
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.mapHCenSomes { (hc, step) =>
-    HCoordLineSeg(hc, hc.stepOld(step)).lineSeg.draw(players.unSafeApply(hc).colour)
+    LineSegHC(hc, hc.stepOld(step)).lineSeg.draw(players.unSafeApply(hc).colour)
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

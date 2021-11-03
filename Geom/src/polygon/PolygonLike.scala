@@ -50,7 +50,7 @@ trait PolygonLike[VT] extends Any
     res
   }
 
-  //def sidesForeach[U](f: SideT => U): Unit
+  def sidesForeach[U](f: SideT => U): Unit
 }
 
 trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with DataValueNs[VT]

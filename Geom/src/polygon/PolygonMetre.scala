@@ -45,6 +45,8 @@ final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with Arr
     vertsForeach(v => res = f(res, v))
     res
   }
+
+  override def sidesForeach[U](f: LineSegMetre => U): Unit = ???
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */

@@ -27,7 +27,7 @@ trait HCenPathTr extends Any
         case 6 => { r2 = r1 + 2; c2 = c1 - 2 }
         case n => excep(s"$n unexpected integer value.")
       }
-      val hls = HCoordLineSeg(r1, c1, r2, c2)
+      val hls = LineSegHC(r1, c1, r2, c2)
       f(hls.lineSeg)
       count += 1
       r1 = r2

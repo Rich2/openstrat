@@ -6,6 +6,7 @@ package ostrat; package geom; package pglobe
 *  degrees as this may break the algorithms. preferably keep the arcs significantly smaller. */
 class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike with PolygonDbl2s[LatLong]
 { type ThisT = PolygonLL
+  type SideT = LineSegLL
   override def unsafeFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
   override def typeStr: String = "PolygonLL"
   def metres3Default: PolygonMetre3 = map(_.toMetres3)
@@ -49,6 +50,8 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike
     vertsForeach(v => res = f(res, v))
     res
   }
+
+  override def sidesForeach[U](f: LineSegLL => U): Unit = ???
 }
 
 /** Companion object for the [[PolygonLL]] class. */

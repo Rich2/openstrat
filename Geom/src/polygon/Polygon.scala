@@ -75,7 +75,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesForeach[U](f: LineSeg => U): Unit =
+  override def sidesForeach[U](f: LineSeg => U): Unit =
   { var count = 1
     while (count <= vertsNum) { f(side(count)); count += 1 }
   }
