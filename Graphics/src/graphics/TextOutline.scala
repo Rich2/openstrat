@@ -7,7 +7,7 @@ class TextOutline(val str: String, val fontSize: Double, val x: Double, val y: D
 { override type ThisT = TextOutline
   def posn: Pt2 = Pt2(x, y)
   override def ptsTrans(f: Pt2 => Pt2) = TextOutline(str, fontSize, f(posn), colour, lineWidth, align, baseLine)
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textOutline(this)
+  override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.textOutline(this)
 
   override def negY: TextOutline = ???
 

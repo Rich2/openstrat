@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
-import pCanv._, Colour.Black
+package ostrat; package geom
+import pgui._, Colour.Black
 
 /** Immutable Graphic element that defines and draws a Polygon. */
 trait PolygonDraw extends PolygonGraphicSimple with CanvShapeDraw

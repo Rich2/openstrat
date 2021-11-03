@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
-import pCanv._, geom._, prid._
+import pgui._, geom._, prid._
 
 /** Graphical user interface for GOne example game. */
 case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends HexMapGui("Game One Gui")

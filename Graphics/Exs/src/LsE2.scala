@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, pCanv._
+import ostrat._, pgui._
 
 case class LsE2(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")
 {

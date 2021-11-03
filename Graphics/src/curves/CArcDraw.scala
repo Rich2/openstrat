@@ -1,6 +1,5 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 import Colour._
 
 case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 2) extends EArcDraw with AxisFree
@@ -29,5 +28,5 @@ case class CArcDraw(curveSeg: CArc, colour: Colour = Black, lineWidth: Double = 
    * in sub traits / classes. */
   override def reflect(lineLike: LineLike): CArcDraw = CArcDraw(curveSeg.reflect(lineLike), colour, lineWidth)
 
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.cArcDraw(this)
+  override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.cArcDraw(this)
 }

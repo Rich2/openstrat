@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour._, pCanv._
+import Colour._, pgui._
 
 /** Graphic that draws a rectangle. */
 trait RectangleDraw extends PolygonDraw with RectangleGraphicSimple 

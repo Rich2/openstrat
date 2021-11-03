@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pCanv._
+import ostrat._, geom._, pgui._
 
 /** E Series lessons deal with games. E1 is a super simple single player turn game.  */
 case class LsE1(canv: CanvasPlatform) extends CmdBarGui("Lesson E1")

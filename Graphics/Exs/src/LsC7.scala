@@ -1,5 +1,5 @@
 package learn
-import ostrat._, geom._, pCanv._, Colour._
+import ostrat._, geom._, pgui._, Colour._
 
 /** This lesson displays an interactive Bezier curve whose points can be dragged and also displays the syntax required to draw it */
 case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Exploring Beziers")

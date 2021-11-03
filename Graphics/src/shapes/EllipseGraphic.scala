@@ -1,7 +1,6 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
-import pCanv._, Colour.Black
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
+import pgui._, Colour.Black
 
 /** An Ellipse based Graphic. The Ellipse can be defined as a circle. */
 trait EllipseGraphic extends ShapeGraphicCentred

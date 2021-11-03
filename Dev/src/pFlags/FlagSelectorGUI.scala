@@ -1,6 +1,6 @@
 /* Copyright 2021 w0d. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFlags
-import geom._, pCanv._, Colour._
+import geom._, pgui._, Colour._
 
 /**    NB: Assumes Flag.ratio is always <=2. :NB: From Left | Right TODO: drag bar, click base, spring scroll, touch, pixel, clip, effects
  *  separate scrollbar, vertical scrollbar */

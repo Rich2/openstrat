@@ -1,6 +1,6 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pCanv._
+import ostrat._, geom._, pgui._
 
 case class LsB3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson B3")
 {

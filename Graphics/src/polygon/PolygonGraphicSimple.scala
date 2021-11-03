@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pCanv._, pWeb._
+import pgui._, pWeb._
 
 /** This trait may be removed. */
 trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple

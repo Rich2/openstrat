@@ -1,6 +1,6 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pCanv._
+import ostrat._, geom._, pgui._
 
 /** The B series lessons are dynamic. The display changes with time. You don't need to do all the a lessons before starting on the Bs.
  *  Alternatively if you merely want to create printable materials then you don't need to do the B series. */

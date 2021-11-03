@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFlags
-import geom._, pCanv._, Colour._
+import geom._, pgui._, Colour._
 
 /** A shortcut application to display some flags. */
 case class FlagsGui(canv: CanvasPlatform) extends CanvasNoPanels("Flags Gui")

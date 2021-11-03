@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pZug
-import pCanv._, pGrid._, geom._, Colour._, pStrat._
+import pgui._, pGrid._, geom._, Colour._, pStrat._
 
 /** Uses the old Roards from pGrid, but with the new simpler Gui. */
 case class ZugGuiOld(canv: CanvasPlatform, scen: ZugScenOld) extends CmdBarGui("ZugFuhrer Gui")

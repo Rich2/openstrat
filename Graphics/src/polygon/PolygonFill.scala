@@ -1,7 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
-import pCanv._
+package ostrat; package geom
+import pgui._
 
 /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
  * PolygonFill will be returned. */

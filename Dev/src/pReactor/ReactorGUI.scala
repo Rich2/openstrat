@@ -1,6 +1,6 @@
 /* Copyright 2018-21 w0d, Rich Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pReactor
-import geom._, pCanv._, Colour._, collection.mutable.Map
+import geom._, pgui._, Colour._, collection.mutable.Map
 
 /** A clone of the classic Atoms game */
 case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")

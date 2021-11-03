@@ -3,7 +3,7 @@ package ostrat
 import geom._, Colour._
 
 /** The package attempts to encapsulate the various abstract canvas traits while the actual objects that populate a canvas go in package geom. */
-package object pCanv 
+package object pgui
 {
   type MenuSeq = Seq[MenuNode]
   type MouseCmd = MouseButton => Unit

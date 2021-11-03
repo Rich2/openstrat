@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pCiv
-import prid._, pEarth._, pCanv._
+import prid._, pEarth._, pgui._
 
 /** A Civ scenario turn state. */
 trait CivScen  extends HexGridScen

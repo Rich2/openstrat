@@ -5,7 +5,7 @@ import pWeb._
 /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
 trait PolygonCompound extends ShapeCompound with PolygonGraphic
 {
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach {
+  override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.polygonFill(shape.fill(c))
     case DrawFacet(c, w) => cp.polygonDraw(shape.draw(c, w))
     case TextFacet(s, col) => cp.textGraphic(TextGraphic(s, 18, cenDefault, col))
@@ -89,7 +89,7 @@ object PolygonCompound
     AxisFree
   {
     override type ThisT = PolygonCompoundImp
-    override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach {
+    override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
       case c: Colour => cp.polygonFill(shape.fill(c))
       case DrawFacet(c, w) => cp.polygonDraw(shape.draw(c, w))
       case TextFacet(s, col) => cp.textGraphic(TextGraphic(s, 18, cenDefault, col))

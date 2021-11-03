@@ -1,5 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pCanv
+package ostrat; package pgui
 import geom._, Colour._
 
 /** A MapGui uses a CanvMulti. It has a main map panel and a top control panel. In addition translates between 2d game coordinates and 2d coordinates

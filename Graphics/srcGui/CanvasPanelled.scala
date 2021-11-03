@@ -1,5 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pCanv
+package ostrat; package pgui
 import geom._
 
 /** A canvas divided up into panels. Each panel is clipped and has its own origin. */

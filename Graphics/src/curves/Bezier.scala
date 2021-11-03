@@ -23,7 +23,7 @@ case class BezierDraw (curveSeg: Bezier, colour: Colour, lineWidth: Double) exte
   def typeStr: String = "BezierDraw"
   //def str = persist6(pStart, pC1, pC2, pEnd, lineWidth, colour) 
   override def ptsTrans(f: Pt2 => Pt2): BezierDraw = BezierDraw(curveSeg.ptsTrans(f), colour, lineWidth)
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.bezierDraw(this)
+  override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.bezierDraw(this)
   def xC1: Double = curveSeg.xC1
   def yC1: Double = curveSeg.yC1
   final def pC1: Pt2 = Pt2(xC1, yC1)

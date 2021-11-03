@@ -6,7 +6,7 @@ package ostrat; package geom
 trait GraphicElem extends GeomElem
 {
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
-   def rendToCanvas(cp: pCanv.CanvasPlatform): Unit
+   def rendToCanvas(cp: pgui.CanvasPlatform): Unit
 
   /** Translate 2D geometric transformation on a GraphicElem, returns a GraphicElem. The Return type will be narrowed in sub traits / classes. */
   override def slateXY(xDelta: Double, yDelta: Double): GraphicElem
@@ -80,7 +80,7 @@ object GraphicElem
   }
 }
 
-/** A canvas element that can be rendered by the [[pCanv.CanvasPlatform]] API. This trait is not sealed, but should not be extended outside of the
+/** A canvas element that can be rendered by the [[pgui.CanvasPlatform]] API. This trait is not sealed, but should not be extended outside of the
  * library. */
 trait CanvElem extends GraphicElem
 {

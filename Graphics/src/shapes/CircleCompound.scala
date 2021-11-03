@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import pWeb._
 
 /** Compound Circle Graphic class. */
@@ -10,7 +9,7 @@ case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Ar
   override type ThisT = CircleCompound
   override def attribs: Arr[XmlAtt] = ???
 
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach {
+  override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.circleFill(CircleFill(shape, c))
     case DrawFacet(c, w) => cp.circleDraw(shape.draw(c, w))
     case fr: FillRadial => cp.circleFillRadial(shape, fr)  

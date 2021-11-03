@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pZug
-import pCanv._, prid._, geom._, Colour._, pStrat._
+import pgui._, prid._, geom._, Colour._, pStrat._
 
 /** Graphical User Interface for ZugFuhrer game. */
 case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends HexMapGui("ZugFuhrer Gui")

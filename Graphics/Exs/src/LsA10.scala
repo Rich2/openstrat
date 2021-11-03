@@ -1,6 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pCanv._
+import ostrat._, geom._, pgui._
 
 case class LsA10(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A10")
 { val rect = Rect(300, 200)

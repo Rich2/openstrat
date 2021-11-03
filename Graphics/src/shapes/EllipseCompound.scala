@@ -57,7 +57,7 @@ object EllipseCompound
       SvgEllipse(atts2 ++ facets.flatMap(_.attribs))
     }
 
-    override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = facets.foreach {
+    override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
       case c: Colour => cp.ellipseFill(EllipseFill(shape, c))
       //case CurveDraw(w, c) => cp.circleDraw(shape, w, c)
       //case fr: FillRadial => cp.circleFillRadial(shape, fr)*/

@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import geom._, pCanv._
+import geom._, pgui._
 
 abstract class TileMapGui(title: String) extends CmdBarGui(title)
 {

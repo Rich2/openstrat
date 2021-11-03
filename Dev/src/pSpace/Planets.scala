@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSpace
-import geom._, pCanv._, Colour._
+import geom._, pgui._, Colour._
 
 /** Simple Solar system model application. */
 case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist2Gui

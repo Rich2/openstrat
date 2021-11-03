@@ -1,5 +1,5 @@
 package learn
-import ostrat._, geom._, pCanv._, Colour._
+import ostrat._, geom._, pgui._, Colour._
 
 /** This is a temporary lesson: whilst Arcs get fixed. */
 case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")

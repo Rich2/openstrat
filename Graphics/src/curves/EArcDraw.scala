@@ -1,7 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
-import pCanv._
+package ostrat; package geom
+import pgui._
 
 /** 2D graphic that draws an arc of an ellipse. The trait has 2 implementations, [[CArcdraw]], a cirular arc draw and the general case is implemented
  * with [[EArcDraw.EArcDrawImp]]. */

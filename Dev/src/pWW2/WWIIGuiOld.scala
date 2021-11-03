@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWW2
-import geom._, pglobe._, pEarth._, pCanv._, pStrat._
+import geom._, pglobe._, pEarth._, pgui._, pStrat._
 
 /** Gui for World War 2 scenarios, uses the deprecated ancient tile system. */
 case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[Metres] = None, startFocus: Option[LatLong] = None) extends

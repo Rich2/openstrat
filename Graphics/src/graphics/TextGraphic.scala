@@ -37,7 +37,7 @@ case class TextGraphic(str: String, fontSize: Double, xPosn: Double, yPosn: Doub
 { type ThisT = TextGraphic
   def posn: Pt2 = Pt2(xPosn, yPosn)
   override def ptsTrans(f: Pt2 => Pt2) = TextGraphic(str, fontSize, f(posn), colour, align, baseLine)
-  override def rendToCanvas(cp: pCanv.CanvasPlatform): Unit = cp.textGraphic(this)
+  override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = cp.textGraphic(this)
 }
 
 object TextGraphic

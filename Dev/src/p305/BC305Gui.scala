@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package p305
-import geom._, pglobe._, pCanv._, pEarth._
+import geom._, pglobe._, pgui._, pEarth._
 
 case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 305")
 {

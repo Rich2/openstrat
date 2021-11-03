@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
-import prid._, pCanv._
+import prid._, pgui._
 
 object OneLaunch extends GuiLaunchStd
 {

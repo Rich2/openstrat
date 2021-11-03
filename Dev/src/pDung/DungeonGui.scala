@@ -1,7 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pDung
-import pCanv._, pGrid._, geom._
+package ostrat; package pDung
+import pgui._, pGrid._, geom._
 
 /** This uses the new Gui. */
 case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui("Dungeon Gui")

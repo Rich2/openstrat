@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Licensed under Apache Licence version 2.0. */
 package learn
-import ostrat._, geom._, pCanv._, Colour._
+import ostrat._, geom._, pgui._, Colour._
 
 /** Lesson A12. */
 case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")

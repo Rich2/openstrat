@@ -1,5 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pCanv
+package ostrat; package pgui
 import geom._
 
 /** A canvas that is not divided up into panels. A panel is a portion of the canvas that has its own origin and is clipped. */
