@@ -8,6 +8,7 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
  *            [[PolygonMetre3]] it would be a [[PtMetre3]]. */
 trait PolygonLike[VT] extends Any
 {
+  type SideT <: LineSegLike[VT]
   /** The number of vertices and also the number of sides in this Polygon. */
   def vertsNum: Int
 
@@ -48,6 +49,8 @@ trait PolygonLike[VT] extends Any
     }
     res
   }
+
+  //def sidesForeach[U](f: SideT => U): Unit
 }
 
 trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with DataValueNs[VT]

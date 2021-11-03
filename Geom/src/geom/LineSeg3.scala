@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** A 3 dimensional line segment. A straight line between two points in a 3d space. */
 final class LineSeg3(val startX: Double, val startY: Double, val startZ: Double, val endX: Double, val endY: Double, val endZ: Double) extends
-  ElemDbl6
+  LineSegLike[Pt3] with ElemDbl6
 { def typeStr: String = "Line3"
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[LineSeg3]
   override def dbl1: Double = startX

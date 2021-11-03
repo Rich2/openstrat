@@ -6,6 +6,7 @@ package ostrat; package geom
  *  maps. */
 final class PolygonMetre3(val arrayUnsafe: Array[Double]) extends AnyVal with PolygonDbl3s[PtMetre3]
 { override type ThisT = PolygonMetre3
+  override type SideT = LineSegMetre3
   override def dataElem(d1: Double, d2: Double, d3: Double): PtMetre3 = new PtMetre3(d1, d2, d3)
   override def unsafeFromArray(array: Array[Double]): PolygonMetre3 = new PolygonMetre3(array)
   override def typeStr: String = "PolygonMetre3"

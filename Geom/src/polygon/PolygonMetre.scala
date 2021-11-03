@@ -4,6 +4,7 @@ package ostrat; package geom
 /* A polygon using distances measured in metres rather than scalars. */
 final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2s[PtMetre2] with PolygonDbl2s[PtMetre2]
 { type ThisT = PolygonMetre
+  type SideT = LineSegMetre
   def unsafeFromArray(array: Array[Double]): PolygonMetre = new PolygonMetre(array)
   override def typeStr: String = "PolygonMs"
   override def dataElem(d1: Double, d2: Double): PtMetre2 = new PtMetre2(d1, d2)

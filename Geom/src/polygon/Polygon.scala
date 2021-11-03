@@ -7,7 +7,7 @@ import pWeb._, Colour.Black
  *  vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
  *  with then end point of side n sdn at vertex n. */
 trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLike[Pt2]
-{
+{ override type SideT = LineSeg
   /** The vertices of this Polygon in an Array of [[Double]]s. */
   def vertsArray: Array[Double]
 
@@ -75,7 +75,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def foreachSide(f: LineSeg => Unit): Unit =
+  def sidesForeach[U](f: LineSeg => U): Unit =
   { var count = 1
     while (count <= vertsNum) { f(side(count)); count += 1 }
   }
@@ -115,7 +115,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   def sidesIFlatMap[AA <: ArrBase[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: ArrFlatBuilder[AA]): AA =
   { var count = initCount
     val buff = build.newBuff()
-    foreachSide { side =>
+    sidesForeach { side =>
       val newElems = f(side, count)
       build.buffGrowArr(buff, newElems)
       count += 1
@@ -125,7 +125,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =
   { var acc = init
-    foreachSide{s => acc = f(acc, s) }
+    sidesForeach{ s => acc = f(acc, s) }
     acc
   }
 

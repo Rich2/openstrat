@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+package ostrat; package geom
 
 /** Common base trait for [[Line]], [[LineSeg]] and [[Ray]]. */
 trait LineLike extends GeomElem

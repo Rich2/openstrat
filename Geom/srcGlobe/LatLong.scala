@@ -80,8 +80,8 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def fromFocusMetres(focus: LatLong): PtMetre3 = focus.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
 
   def fromFocusLineDist3(inp: LineSegLL): LineSegMetre3 = LineSegMetre3(
-    inp.llStart.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians),
-    inp.latLong2.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians))
+    inp.startPt.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians),
+    inp.endPt.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians))
 
   def fromFocusDist2(ll: LatLong): PtMetre2 = fromFocusMetres(ll).xy
 
