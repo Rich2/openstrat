@@ -8,7 +8,7 @@ val scalaMinor = "0"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
-lazy val root = (project in file(".")).aggregate(Util, Graphics, Tiling, Dev).enablePlugins(ScalaUnidocPlugin).settings(
+lazy val root = (project in file(".")).aggregate(Util, Geom, Tiling, Dev).enablePlugins(ScalaUnidocPlugin).settings(
   publish/skip := true,
   ScalaUnidoc/unidoc/scalacOptions += "-Ymacro-expand:none",
 )
@@ -65,24 +65,24 @@ lazy val UtilJs = jsProj("Util").settings(
   }.taskValue,
 )
 
-def geomSett = List(Compile/unmanagedSourceDirectories ++= List("srcGui", "srcGlobe").map(s => (ThisBuild/baseDirectory).value / "Graphics" / s))
+def geomSett = List(Compile/unmanagedSourceDirectories ++= List("srcGui", "srcGlobe").map(s => (ThisBuild/baseDirectory).value / "Geom" / s))
 
-lazy val Graphics = coreProj("Graphics").dependsOn(Util).settings(geomSett).settings(
+lazy val Geom = coreProj("Geom").dependsOn(Util).settings(geomSett).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
 )
 
-lazy val GraphicsExs = exsProj("Graphics").dependsOn(Graphics).settings(
+lazy val GeomExs = exsProj("Geom").dependsOn(Geom).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
-lazy val GraphicsJs = jsProj("Graphics").dependsOn(UtilJs).settings(geomSett)
+lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)
 
-lazy val Tiling = coreProj("Tiling").dependsOn(Graphics)
+lazy val Tiling = coreProj("Tiling").dependsOn(Geom)
 lazy val TilingExs = exsProj("Tiling").dependsOn(Tiling)
-lazy val TilingJs = jsProj("Tiling").dependsOn(GraphicsJs)
+lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs)
 lazy val EarthAppJs = jsApp("EarthApp").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcEarthApp")
 
-lazy val Dev = coreProj("Dev").dependsOn(GraphicsExs, TilingExs).settings(
+lazy val Dev = coreProj("Dev").dependsOn(GeomExs, TilingExs).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
@@ -101,7 +101,7 @@ lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories +=
 lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Bc305App")
 lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/PlanetsApp")
 
-val docDirs: List[String] = List("Util", "Graphics", "Tiling", "Dev")
+val docDirs: List[String] = List("Util", "Geom", "Tiling", "Dev")
 
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")
 bothDoc :=
