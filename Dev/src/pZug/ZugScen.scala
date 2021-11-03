@@ -4,12 +4,30 @@ import prid._, pgui._
 
 /** ZugFuhrer scenario turn state. */
 trait ZugScen extends HexGridScen
-{ /** tile terrain. */
+{ origSelf =>
+
+  /** tile terrain. */
   def terrs: HCenArr[ZugTerr]
 
   def sTerrs: HSideBooleans
   val lunits: HCenArrArr[Squad]
   def setSquadMove(r: Int, c: Int, polity: Polity, steps: HStep*): Unit = lunits.set(r, c, Squad(polity, HSteps(steps :_*)))
+
+  def endTurn(): ZugScen = new ZugScen
+  {
+    /** tile terrain. */
+    override def terrs: HCenArr[ZugTerr] = origSelf.terrs
+
+    override def sTerrs: HSideBooleans = origSelf.sTerrs
+
+    override val lunits: HCenArrArr[Squad] = origSelf.lunits
+
+    override implicit val grid: HGrid = origSelf.grid
+
+    /** The turn number. This will normally start at 0. The player will then give their instructions for turn 1. The scenario will take these orders /
+     * instructions and return the new game state at turn 1. */
+    override def turn: Int = origSelf.turn + 1
+  }
 }
 
 /** ZugFuhrer scenario turn 0 state. */

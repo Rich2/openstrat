@@ -3,9 +3,10 @@ package ostrat; package pZug
 import pgui._, prid._, geom._, Colour._, pStrat._
 
 /** Graphical User Interface for ZugFuhrer game. */
-case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends HexMapGui("ZugFuhrer Gui")
+case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugFuhrer Gui")
 {
-  implicit val grid: HGrid = scen.grid
+  var scen = scenIn
+  implicit def grid: HGrid = scen.grid
   var yScale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val active = grid.map{ hc =>hc.polygonReg.active(hc) }
@@ -54,9 +55,14 @@ case class ZugGui(canv: CanvasPlatform, scen: ZugScen) extends HexMapGui("ZugFuh
     case _ => deb("Other" -- clickList.toString)
   }
 
-
+  /** Creates the turn button and the action to commit on mouse click. */
+  def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
+    scen = scen.endTurn()
+    repaint()
+    thisTop()
+  }
   statusText = "Welcome to ZugFuher"
-  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut))
+  def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   thisTop()
   def frame: GraphicElems = (rows ++ lines ++ active ++ text ++ lunits).gridScale(yScale)
   mainRepaint(frame)
