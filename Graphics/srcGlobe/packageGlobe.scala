@@ -1,9 +1,13 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom;
 
+/** This package is for global geometry. */
 package object pglobe
-{
+{ /** The position of latitude and longitude [[LatLong]] 0 east and 0 north. */
   val LatLong0: LatLong = LatLong.degs(0, 0)
+
+  /** Method for creating a 2d background or outline for the earth. */
+  def earth2DEllipse(scale: Length): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
 
   extension (thisInt: Int)
   { /** infix extension method for creating a latitude-longitude value [[LatLong]]. This [[Int]] is the latitude specified in degrees. The operand
