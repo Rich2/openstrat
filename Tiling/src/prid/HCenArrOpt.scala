@@ -60,6 +60,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
     build.buffToBB(buff)
   }
 
+  /** Indexes in to this [[HCenArrOpt]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
   def apply(hc: HCen)(implicit grid: HGrid): Option[A] =
   { if (!grid.hCenExists(hc)) None else
       { val elem = unsafeArr(grid.arrIndex(hc))
@@ -67,6 +68,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
       }
   }
 
+  /** Indexes in to this [[HCenArrOpt]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
   def apply(r: Int, c: Int)(implicit grid: HGrid): Option[A] = {
     if (!grid.hCenExists(r, c)) None else {
       val elem = unsafeArr(grid.arrIndex(r, c))
@@ -80,11 +82,9 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
   def tileNone(hc: HCen)(implicit grid: HGrid): Boolean = unsafeArr(grid.arrIndex(hc)) == null
 
-
-  /** Returns an Arr filtered to the Some values. */
-  def somesArr[ArrT <: ArrBase[A]](implicit build: ArrBuilder[A, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
+  /** Returns an ArrBase[A] of type ArrA filtered to the Some values. */
+  def somesArr[ArrA <: ArrBase[A]](implicit build: ArrBuilder[A, ArrA]): ArrA =
+  { val buff = build.newBuff()
     unsafeArr.foreach { a => if (a != null) build.buffGrow(buff, a) }
     build.buffToBB(buff)
   }
