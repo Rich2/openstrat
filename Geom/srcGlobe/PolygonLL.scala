@@ -51,6 +51,12 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike
     res
   }
 
+  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
+   * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
+   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
+   * signature. */
+  override def vertsPrevForEach[U](f: (LatLong, LatLong) => U): Unit = ???
+
   override def sidesForeach[U](f: LineSegLL => U): Unit = ???
 }
 

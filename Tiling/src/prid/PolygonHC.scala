@@ -49,6 +49,12 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with PolygonInt2s[HC
     res
   }
 
+  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
+   * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
+   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
+   * signature. */
+  override def vertsPrevForEach[U](f: (HCoord, HCoord) => U): Unit = ???
+
   override def fElemStr: HCoord => String = _.toString
 
   /** This applies the index value in a circular manner. So the 6th index of a Hexagon is applied at vertex 0, 7 at 1 and -1 at 5. */

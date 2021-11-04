@@ -51,6 +51,16 @@ final class PolygonMetre3(val arrayUnsafe: Array[Double]) extends AnyVal with Po
     res
   }
 
+  /** This method does nothing if the vertNum < 2. Foreach [[PtMetre3]] vertex applies the side effecting function to the previous [[PtMetre3]] vertex
+   *  with each vertex. The previous vertex to the first vertex is the last vertex of this [[PolygonMetre3]]. Note the function signature (previous,
+   *  vertex) => U follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
+   *  (accumulator, element) => B signature. */
+  override def vertsPrevForEach[U](f: (PtMetre3, PtMetre3) => U): Unit = if (vertsNum >= 2)
+  { f(dataLast, vert(0))
+    var i = 2
+    while (i <= vertsNum) f(vert(i - 1), vert(i))
+  }
+
   override def sidesForeach[U](f: LineSegMetre3 => U): Unit = ??? //if (vertsNum >= 2)
 }
 
