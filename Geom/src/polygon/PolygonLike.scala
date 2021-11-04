@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 /** A Polygon like object with 2 dimensional point vertices, where the points dimensions could be specified in metres, latitude, longitude etc as well
  *  as the regular scalar values of the standard [[Polygon]]. *
  * @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a
- *            [[PolygonMetre3]] it would be a [[PtMetre3]]. */
+ * [[PolygonMetre3]] it would be a [[PtMetre3]]. */
 trait PolygonLike[VT] extends Any
 {
   type SideT <: LineSegLike[VT]
@@ -49,6 +49,9 @@ trait PolygonLike[VT] extends Any
     }
     res
   }
+
+  /** This method does nothing if the vertNum < 2.  */
+  //def vertsPrevForEach[U](f: (VT, VT) => U): Unit
 
   def sidesForeach[U](f: SideT => U): Unit
 }
