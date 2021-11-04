@@ -10,7 +10,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
   var yScale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val active = grid.map{ hc =>hc.polygonReg.active(hc) }
-  val text = terrs.mapHC((t, hc) => hc.decText(14, t.contrastBW))
+  val text = terrs.hcMap((hc, t) => hc.decText(14, t.contrastBW))
   val rows = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 

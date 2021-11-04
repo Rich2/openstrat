@@ -17,9 +17,10 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
    *  Array. It does not utilise the grid [[HGrid]] from which this [[HCenArr]] was created. */
   def foreach[U](f: A => U): Unit = unsafeArr.foreach(f)
 
-  /** Short for coordinate-foreach. For each element in the underlying array, with its respective [[HCen]] coordinate performs the side effecting
-   *  function. */
-  def cForeach[U](f: (A, HCen) => U)(implicit grid: HGrid): Unit = grid.iForeach{ (hc, i) => f(unsafeArr(i), hc); () }
+  /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
+   *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
+   *  => B signature.  */
+  def hcForeach[U](f: (HCen, A) => U)(implicit grid: HGrid): Unit = grid.iForeach{ (hc, i) => f(hc, unsafeArr(i)); () }
 
   /** Each element in the underlying array is mapped by the parameter function to an element of type B. This method treat the [[HCenArr]] class like a
    *  standard Arr or Array. It does not utilise the grid HGrid from which this HCenArr was created. */
@@ -30,12 +31,13 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
     res
   }
 
-  /** Short for map with hex centre coordinate-map. Each element in the underlying array, with its corresponding [[HCen]] coordinate is mapped by the
-   *  parameter function to an element of type B. */
-  def mapHC[B, BB <: ArrBase[B]](f: (A, HCen) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
+  /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
+   *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
+   *  => B signature. */
+  def hcMap[B, BB <: ArrBase[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
   { val res = build.newArr(length)
     grid.iForeach{ (hc, i) =>
-      val newElem = f(apply(hc), hc)
+      val newElem = f(hc, apply(hc))
       res.unsafeSetElem(i, newElem)
     }
     res
