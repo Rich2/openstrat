@@ -27,10 +27,10 @@ final class PolygonMetre3(val arrayUnsafe: Array[Double]) extends AnyVal with Po
     }
   }
 
-  override def vertsIForeach[U](f: (PtMetre3, Int) => U): Unit =
+  override def vertsIForeach[U](f: (Int, PtMetre3) => Any): Unit =
   { var count = 0
     vertsForeach{ v =>
-      f(v, count)
+      f(count, v)
       count += 1
     }
   }

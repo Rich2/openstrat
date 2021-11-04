@@ -25,11 +25,11 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with PolygonInt2s[HC
     }
   }
 
-  override def vertsIForeach[U](f: (HCoord, Int) => U): Unit =
-  { var count = 0
-    vertsForeach{ v =>
-      f(v, count)
-      count += 1
+  override def vertsIForeach[U](f: (Int, HCoord) => Any): Unit =
+  { var i = 0
+    vertsForeach{ vert =>
+      f(i, vert)
+      i += 1
     }
   }
 

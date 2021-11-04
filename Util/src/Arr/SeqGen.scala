@@ -315,10 +315,12 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     acc
   }
 
-  def iForAll(p: (A, Int) => Boolean): Boolean =
+  /**  Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold
+   *  methods' (accumulator, element) => B signature. */
+  def iForAll(p: (Int, A) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
-    while (acc & count < elemsNum) if (p(apply(count), count)) count += 1 else acc = false
+    while (acc & count < elemsNum) if (p(count, apply(count))) count += 1 else acc = false
     acc
   }
 

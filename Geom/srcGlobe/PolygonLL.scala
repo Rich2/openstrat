@@ -26,10 +26,10 @@ class PolygonLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike
   }
 
   /** Performs the side effecting function on the [[LatLong]] value of each vertex and an index. */
-  override def vertsIForeach[U](f: (LatLong, Int) => U): Unit =
+  override def vertsIForeach[U](f: (Int, LatLong) => Any): Unit =
   { var count = 0
     vertsForeach{ v =>
-      f(v, count)
+      f(count, v)
       count += 1
     }
   }

@@ -15,8 +15,10 @@ trait PolygonLike[VT] extends Any
   /** Performs the side effecting function on the value of each vertex. */
   def vertsForeach[U](f: VT => U): Unit
 
-  /** Performs the side effecting function on the value of each vertex and an index. */
-  def vertsIForeach[U](f: (VT, Int) => U): Unit
+  /** Index with foreach on each vertx. Applies the side effecting function on the index with the value of each vertex. Note the function signature
+   *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
+   *  => B signature. */
+  def vertsIForeach[U](f: (Int, VT) => Any): Unit
 
   /** Maps the vertices of this polygon to an immutable Array like sequence of type B.
    * @tparam B The element type of the returned sequence.
@@ -32,7 +34,7 @@ trait PolygonLike[VT] extends Any
   def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonBuilder[B, BB]): BB =
   {
     val res = build.newPolygonT(vertsNum)
-    vertsIForeach((a, i) => build.arrSet(res, i, f(a)))
+    vertsIForeach((i, a) => build.arrSet(res, i, f(a)))
     res
   }
 
