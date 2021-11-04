@@ -23,12 +23,12 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends HexMapGui("
   var moves: HCenArrOpt[HStep] = NoMoves
 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
-  def units: Arr[PolygonCompound] = players.mapHCenSomes { (hc, p) =>
+  def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, p) =>
     Rect(1.1, 0.75, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.strComma, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.mapHCenNones(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
+  def hexStrs: Arr[TextGraphic] = players.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles: Arr[PolygonActive] = grid.activeTiles
@@ -37,13 +37,13 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends HexMapGui("
   val sidesDraw: LinesDraw = grid.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineSegDraw] = moves.mapHCenSomes { (hc, step) =>
+  def moveGraphics: Arr[LineSegDraw] = moves.hcSomesMap { (hc, step) =>
     LineSegHC(hc, hc.stepOld(step)).lineSeg.draw(players.unSafeApply(hc).colour)
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    val getOrders = players.mapSomes2(moves)((player, step) => (player, step))
+    val getOrders = players.some2sMap(moves)((player, step) => (player, step))
     scen = scen.endTurn(getOrders)
     moves = NoMoves
     repaint()

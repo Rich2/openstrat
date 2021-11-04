@@ -44,7 +44,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** coordinate-foreach-Some. Foreach Some element and its associated [[HCen]] coordinate applies the side effecting parameter function. It ignores
    *  the None values. */
-  def foreachHCenSome(f: (HCen, A) => Unit)(implicit grid: HGrid): Unit = grid.foreach { hc =>
+  def hcSomesForeach(f: (HCen, A) => Unit)(implicit grid: HGrid): Unit = grid.foreach { hc =>
     val a = unsafeArr(grid.arrIndex(hc))
     if (a != null) f(hc, a)
   }
@@ -80,7 +80,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
   def tileNone(hc: HCen)(implicit grid: HGrid): Boolean = unsafeArr(grid.arrIndex(hc)) == null
 
-  
+
   /** Returns an Arr filtered to the Some values. */
   def somesArr[ArrT <: ArrBase[A]](implicit build: ArrBuilder[A, ArrT]): ArrT =
   {
@@ -91,7 +91,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** Coordinate map Somes. map the Some values of this HcenArrOpt, with the respective [[HCen]] coordinate to type B, the first type parameter B. Returns
    *  an immutable Array based collection of type ArrT, the second type parameter. */
-  def mapHCenSomes[B, ArrT <: ArrBase[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
+  def hcSomesMap[B, ArrT <: ArrBase[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { hc =>
@@ -104,11 +104,11 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
     build.buffToBB(buff)
   }
 
-  /** Coordinate map the Somes of this [[HCenArrOpt]] and the Some values of a second HCenArrOpt. Map the some values of this HcenArrOpt, with the
-   * respective Hcen coordinate to type B, the first type parameter B. Returns an immutable Array based collection of type ArrT, the second type parameter. */
-  def mapSomes2[B <: AnyRef, C, ArrT <: ArrBase[C]](optArrB: HCenArrOpt[B])(f: (A, B) => C)(implicit grid: HGrid, build: ArrBuilder[C, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
+  /** Maps the Somes of this [[HCenArrOpt]] and the Some values of a second HCenArrOpt. Returns an immutable Array based collection of type ArrC, the
+   *  second type parameter. */
+  def some2sMap[B <: AnyRef, C, ArrC <: ArrBase[C]](optArrB: HCenArrOpt[B])(f: (A, B) => C)(implicit grid: HGrid, build: ArrBuilder[C, ArrC]): ArrC =
+  { val buff = build.newBuff()
+
     grid.foreach { hc =>
       val a: A = unsafeArr(grid.arrIndex(hc))
       val b: B = optArrB.unsafeArr(grid.arrIndex(hc))
@@ -122,7 +122,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
    *  an immutable Array based collection of type ArrT, the second type parameter. */
-  def mapHCenSomes2[B <: AnyRef, C, ArrT <: ArrBase[C]](optArrB: HCenArrOpt[B])(f: (HCen, A, B) => C)(implicit grid: HGrid, build: ArrBuilder[C, ArrT]): ArrT =
+  def hcSome2sMap[B <: AnyRef, C, ArrT <: ArrBase[C]](optArrB: HCenArrOpt[B])(f: (HCen, A, B) => C)(implicit grid: HGrid, build: ArrBuilder[C, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { hc =>
@@ -136,9 +136,9 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
     build.buffToBB(buff)
   }
 
-  /** Coordinate map Nones. Map the None values respective [[HCen]] coordinates of this [[HCenArrOpt]] to type B, the first type parameter. Returns an
-   * immutable Array based collection of type ArrT, the second type parameter. */
-  def mapHCenNones[B, ArrT <: ArrBase[B]](f: HCen => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
+  /** maps over the [[HCen]] Coordinate values to type B, but only where the element is a None value. Returns an immutable Array based collection of
+   *  type ArrB, the second type parameter. */
+  def hcNonesMap[B, ArrB <: ArrBase[B]](f: HCen => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrB]): ArrB =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
@@ -151,8 +151,10 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
     build.buffToBB(buff)
   }
 
-  /** Coordinate flatMap Somes. Maps and flattens each Some element with its associated [[HCen]] coordinate. It ignores the None values. */
-  def flatMapHCenSomes[ArrT <: ArrBase[_]](f: (HCen, A) => ArrT)(implicit grid: HGrid, build: ArrFlatBuilder[ArrT]): ArrT =
+  /** [[HCen]] with element flatMap, but only coordinates where there some value. Maps and flattens each [[HCen]] coordinate with its associated
+   * element of type A. It ignores the None values. Note the function signature follows the foreach based convention of putting the collection element
+   * 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
+  def hcSomesFlatMap[ArrT <: ArrBase[_]](f: (HCen, A) => ArrT)(implicit grid: HGrid, build: ArrFlatBuilder[ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { hc =>
@@ -167,13 +169,13 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   def keyMap(implicit grid: HGrid): Map[A, HCen] =
   { val build = Map.newBuilder[A, HCen]
-    foreachHCenSome((p, hc) => build.addOne(hc, p))
+    hcSomesForeach((p, hc) => build.addOne(hc, p))
     build.result
   }
 
   def find(value: A)(implicit grid: HGrid): Option[HCen] =
   { var res: Option[HCen] = None
-    foreachHCenSome{(hc, a) => if (value == a) res = Some(hc)}
+    hcSomesForeach{ (hc, a) => if (value == a) res = Some(hc)}
     res
   }
 }

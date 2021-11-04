@@ -23,7 +23,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
   def unitOrTexts: GraphicElems = units.mapHCen{hc => hc.decText(14, terrs(hc).contrastBW) } { (hc, p) =>
     Rect(1.0, 0.66, hc.toPt2).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
-  def moves: GraphicElems = units.flatMapHCenSomes{ (hc, u) =>
+  def moves: GraphicElems = units.hcSomesFlatMap{ (hc, u) =>
     u.cmds
     Arr()
   }
