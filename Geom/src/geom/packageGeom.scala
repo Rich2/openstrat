@@ -202,7 +202,7 @@ package object geom
   val Deg300: AngleVec = AngleVec(300)
 
   def displayRowGraphics(leftPt: Pt2, actives: Arr[GraphicBounded], margin: Double = 10): Arr[GraphicBounded] =
-    actives.mapWithAcc(leftPt.x + margin)((head, x) => (head.slateX(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
+    actives.mapWithAcc(leftPt.x + margin)((x, head) => (head.slateX(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
     
   def displayRowTexts(leftPt: Pt2, textCells: Arr[TextCell], fontSize: Double = 18, margin: Double = 10): Arr[BoundedElem] =
   {

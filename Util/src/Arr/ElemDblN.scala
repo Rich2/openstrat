@@ -46,7 +46,7 @@ trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DataDblNs[A]
 
   def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(elemsNum)
-    iForeach{(el, i) => res.unsafeSetElem(elemsNum - 1 - i, el)}
+    iForeach({(i, el) => res.unsafeSetElem(elemsNum - 1 - i, el)})
     res
   }
 }

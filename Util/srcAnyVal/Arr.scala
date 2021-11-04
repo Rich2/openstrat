@@ -24,7 +24,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   /** Not sure why this is called smap. */
   def smap(f: A => A @uncheckedVariance): Arr[A] =
   { val newArray: Array[A] = unsafeArr.clone()
-    iForeach{(el, i) => newArray(i) = f(el) }
+    iForeach({(i, el) => newArray(i) = f(el) })
     new Arr[A](newArray)
   }
 

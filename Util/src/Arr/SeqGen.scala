@@ -44,7 +44,8 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
    * integers as an index value without throwing an exception. */
   @inline def cycleGet(index: Int): A = apply(index %% elemsNum)
 
-  /** Performs a side effecting function on each element of this sequence in order. */
+  /** Performs a side effecting function on each element of this sequence in order. The function may return Unit. If it does return a non Unit value
+   *  it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def foreach[U](f: A => U): Unit =
   { var count = 0
     while(count < elemsNum)
@@ -53,23 +54,33 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     }
   }
 
-  /** Performs a side effecting function on each element of this sequence with an index starting at 0. */
-  def iForeach[U](f: (A, Int) => U): Unit =
+  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The
+   *  function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about
+   *  discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just
+   *  the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value
+   *  of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example
+   *  in fold methods' (accumulator, element) => B signature. */
+  def iForeach[U](f: (Int, A) => U): Unit =
   { var count = 0
     var i: Int = 0
     while(count < elemsNum )
-    { f(apply(count), i)
+    { f(i, apply(count))
       count+= 1
       i += 1
     }
   }
 
-  /** Performs a side effecting function on each element of this sequence with an index starting at the given integer parameter. */
-  def iForeach[U](startIndex: Int)(f: (A, Int) => U): Unit =
+  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The
+   *  function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about
+   *  discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just
+   *  the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value
+   *  of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example
+   *  in fold methods' (accumulator, element) => B signature. */
+  def iForeach[U](startIndex: Int)(f: (Int, A) => U): Unit =
   { var count = 0
     var i: Int = startIndex
     while(count < elemsNum )
-    { f(apply(count), i)
+    { f(i, apply(count))
       count+= 1
       i += 1
     }
@@ -78,7 +89,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   /** Specialised map to an immutable ArrBase of B. */
   def map[B, ArrB <: ArrBase[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
-    iForeach((a, i) => ev.arrSet(res, i, f(a)))
+    iForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
 
@@ -121,46 +132,52 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     res
   }
 
-  /** Specialised map with index to an immutable ArrBase of B. This method should be overridden in sub classes. */
-  def iMap[B, ArrB <: ArrBase[B]](f: (A, Int) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  /** Specialised index with map to an immutable ArrBase of B. This method should be overridden in sub classes. Note the function signature follows
+   * the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B
+   *  signature. */
+  def iMap[B, ArrB <: ArrBase[B]](f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
-    iForeach((a, i) => ev.arrSet(res, i, f(a, i)))
+    iForeach((i, a) => ev.arrSet(res, i, f(i, a)))
     res
   }
 
-  /** Specialised flatMap with index to an immutable Arr. */
-  def iFlatMap[ArrB <: ArrBase[_]](f: (A, Int) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
+  /** Specialised index with flatMap to an immutable Arr. Note the function signature follows the foreach based convention of putting the collection
+   *  element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
+  def iFlatMap[ArrB <: ArrBase[_]](f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
     while (i < elemsNum)
-    { val newArr = f(apply(i), i);
+    { val newArr = f(i, apply(i));
       build.buffGrowArr(buff, newArr)
       i += 1
     }
     build.buffToBB(buff)
   }
 
-  /** Specialised flatMap with index to an immutable Arr. */
-  def iFlatMap[ArrB <: ArrBase[_]](iInit: Int = 0)(f: (A, Int) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
+  /** Specialised index with flatMap to an immutable Arr. Note the function signature follows the foreach based convention of putting the collection
+   *  element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
+  def iFlatMap[ArrB <: ArrBase[_]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
     while (count < elemsNum)
-    { val newElems = f(apply(count), count + iInit)
+    { val newElems = f(count + iInit, apply(count))
       build.buffGrowArr(buff, newElems)
       count += 1
     }
     build.buffToBB(buff)
   }
 
-  /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed */
-  def mapWithAcc[B, ArrB <: ArrBase[B], C](initC: C)(f: (A, C) => (B, C))(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed. Note the function
+   * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
+   *  (accumulator, element) => B signature. */
+  def mapWithAcc[B, ArrB <: ArrBase[B], C](initC: C)(f: (C, A) => (B, C))(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
     var accC: C = initC
-    iForeach { (a, i) =>
-      val (newB, newC) = f(a, accC)
-      res.unsafeSetElem(i, newB)
-      accC = newC
-    }
+    iForeach({ (i, a) =>
+          val (newB, newC) = f(accC, a)
+          res.unsafeSetElem(i, newB)
+          accC = newC
+        })
     res
   }
 
@@ -284,9 +301,11 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     while(count > 0) { count -= 1; f(apply(count)) }
   }
 
-  def iForeachReverse[U](f: (A, Int) => U): Unit =
+  /** Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold
+   *  methods' (accumulator, element) => B signature. */
+  def iForeachReverse[U](f: (Int, A) => U): Unit =
   { var count = elemsNum
-    while(count > 0) { count -= 1; f(apply(count), count) }
+    while(count > 0) { count -= 1; f(count, apply(count)) }
   }
 
   def forAll(p: (A) => Boolean): Boolean =
@@ -302,7 +321,6 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     while (acc & count < elemsNum) if (p(apply(count), count)) count += 1 else acc = false
     acc
   }
-
 
   def contains[A1 >: A](elem: A1): Boolean =
   { var count = 0

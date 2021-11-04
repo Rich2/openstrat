@@ -22,7 +22,7 @@ case class ColourGen(canv: CanvasPlatform) extends CanvasNoPanels("Colour Genera
     (c2, c3)
   }
    
-  val cols2 = cols.iFlatMap{ (pair, i) =>
+  val cols2 = cols.iFlatMap{ (i, pair) =>
     val offset = - 35 * i
     Arr(pair._1.slateY(offset), pair._2.slateY(offset))
   }

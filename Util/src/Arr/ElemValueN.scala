@@ -34,15 +34,15 @@ trait ArrValueNs[A <: ElemValueN] extends Any with ArrBase[A] with DataValueNs[A
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++[N <: ArrValueNs[A]](operand: N)(implicit factory: Int => N): N =
   { val res = factory(elemsNum + operand.elemsNum)
-    iForeach((elem, i) => res.unsafeSetElem(i, elem))
-    operand.iForeach((elem, i) => res.unsafeSetElem(i + elemsNum, elem))
+    iForeach((i, elem) => res.unsafeSetElem(i, elem))
+    operand.iForeach((i, elem) => res.unsafeSetElem(i + elemsNum, elem))
     res
   }
 
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
   def :+[N <: ArrValueNs[A]](operand: A)(implicit factory: Int => N): N =
   { val res = factory(elemsNum + 1)
-    iForeach((elem, i) => res.unsafeSetElem(i, elem))
+    iForeach((i, elem) => res.unsafeSetElem(i, elem))
     res.unsafeSetElem(elemsNum, operand)
     res
   }
