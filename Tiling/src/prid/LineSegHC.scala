@@ -10,8 +10,12 @@ case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[HCo
   def _3: Int = r2
   def _4: Int = c2
 
+  /** The start [[HCoord]] point. */
   def startPt: HCoord = HCoord(r1, c1)
+
+  /** The end [[HCoord]] point. */
   def endPt: HCoord = HCoord(r2, c2)
+
   def lineSeg: LineSeg = LineSeg(startPt.toPt2, endPt.toPt2)
 }
 

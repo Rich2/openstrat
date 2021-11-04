@@ -12,12 +12,15 @@ final class LineSeg3(val startX: Double, val startY: Double, val startZ: Double,
   override def dbl4 = endX
   override def dbl5 = endY
   override def dbl6 = endZ
+
+  /** The start [[Pt3]]. */
   def startPt: Pt3 = Pt3(startX, startY, startZ)
+
+  /** The end [[Pt3]]. */
   def endPt: Pt3 = Pt3(endX, endY, endZ)
+
+  /** Drops the z components of this 3D line segment, returns a 2D [[LineSeg]] with just the X and Y components. */
   def toXY: LineSeg = LineSeg(startPt.toXY, endPt.toXY)
-   //def fTrans(f: Vec3 => Vec3): Line3 = Line2(f(pt1), f(pt2))
-   
-   //def toLatLongLine(f: Vec2 => LatLong): LatLongLine = LatLongLine(f(pt1), f(pt2))
 }
 
 /** Companion object for LineSeg3 contains factory apply methods. */
