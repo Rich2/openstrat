@@ -10,6 +10,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
 
   /** Scale in km / pixel */
   var scale: Length = startScale.getOrElse(12.kMetres)
+  var long: Longitude = Longitude.degs(20)
 
   def scaleStr = s"scale = ${scale.kMetresNum.str2} km/pixel"
 

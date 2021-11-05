@@ -9,7 +9,6 @@ package object pglobe
   /** Method for creating a 2d background or outline for the earth. */
   def earth2DEllipse(scale: Length): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
 
-
   implicit class PolygonMetre3PglobeExtension (thisPoly: PolygonMetre3)
   {
     def earthZPosXYModify: PolygonMetre = thisPoly.vertsFold(0)((acc, v) => ife(v.zNeg, acc, acc + 1)) match
@@ -41,7 +40,7 @@ package object pglobe
           case _ =>
         }
       )
-      new PolygonMetre(buff.unsafeBuff.toArray)
+      buff.toPolygon
     }
   }
 }
