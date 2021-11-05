@@ -100,3 +100,7 @@ final class BuffPtMetre2(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal wit
 { override def typeStr: String = "BuffPtMetre2"
   def dblsToT(d1: Double, d2: Double): PtMetre2 = new PtMetre2(d1, d2)
 }
+
+object BuffPtMetre2{
+  def apply(initSize: Int = 4): BuffPtMetre2 = new BuffPtMetre2(new ArrayBuffer[Double](initSize * 2))
+}
