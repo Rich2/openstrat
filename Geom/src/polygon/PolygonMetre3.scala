@@ -61,6 +61,12 @@ final class PolygonMetre3(val arrayUnsafe: Array[Double]) extends AnyVal with Po
     while (i <= vertsNum) f(vert(i - 1), vert(i))
   }
 
+  def modifyToZPositive: PolygonMetre3 = vertsFold(0)((acc, v) => ife(v.zNeg, acc, acc + 1)) match {
+    case n if n == vertsNum => this
+    case 0 | 1 => PolygonMetre3.empty
+    case _ => this
+  }
+
   override def sidesForeach[U](f: LineSegMetre3 => U): Unit = ??? //if (vertsNum >= 2)
 }
 

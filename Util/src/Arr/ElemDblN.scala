@@ -95,6 +95,8 @@ trait DataDblNsCompanion[A <: ElemDblN, ArrA <: DataDblNs[A]] extends DataValueN
 
   /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   override implicit def uninitialised(length: Int): ArrA = fromArrayDbl(new Array[Double](length * elemProdSize))
+
+  def empty: ArrA = fromArrayDbl(new Array[Double](0))
 }
 
 /** Persists [[ArrDblNs]]s. */
