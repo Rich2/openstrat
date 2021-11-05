@@ -58,25 +58,18 @@ final class PolygonMetre3(val arrayUnsafe: Array[Double]) extends AnyVal with Po
   override def vertsPrevForEach[U](f: (PtMetre3, PtMetre3) => U): Unit = if (vertsNum >= 2)
   { f(dataLast, vert(0))
     var i = 2
-    while (i <= vertsNum) f(vert(i - 1), vert(i))
+    while (i <= vertsNum){
+      f(vert(i - 2), vert(i - 1))
+      i += 1
+    }
   }
 
   def toXY: PolygonMetre = map(_.xy)
 
-  def earthZPosXYModify: PolygonMetre = vertsFold(0)((acc, v) => ife(v.zNeg, acc, acc + 1)) match {
-    case n if n == vertsNum => toXY
-    case 0 | 1 => PolygonMetre.empty
-    case _ =>{
-      val buff = BuffPtMetre2()
-      vertsPrevForEach{ (prev, v) => if (v.zPos) buff.grow(v.xy) }
-      ???
-    }
-  }
-
   override def sidesForeach[U](f: LineSegMetre3 => U): Unit = ??? //if (vertsNum >= 2)
 }
 
-/** Companion object for PolygonM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */
+/** Companion object for [[PolygonMetre3]]. Contains apply factory method fromArrayDbl and Persist Implicit. */
 object PolygonMetre3 extends DataDbl3sCompanion[PtMetre3, PolygonMetre3]
 { override def fromArrayDbl(array: Array[Double]): PolygonMetre3 = new PolygonMetre3(array)
 

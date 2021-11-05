@@ -9,48 +9,39 @@ package object pglobe
   /** Method for creating a 2d background or outline for the earth. */
   def earth2DEllipse(scale: Length): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
 
-  extension (thisInt: Int)
-  { /** infix extension method for creating a latitude-longitude value [[LatLong]]. This [[Int]] is the latitude specified in degrees. The operand
-     * parameter is the longitude specified in degrees. */
-    infix def ll (longDegs: Double): LatLong = LatLong.degs(thisInt, longDegs)
 
-    /** Extension method returns a longitude where this [[Int]] is the value east specified in degrees. An Int -180 > i < 0 returns a western
-     *  value. */
-    def east: Longitude = Longitude.degs(thisInt)
-
-    /** Extension method returns a longitude where this [[Int]] is the value west specified in degrees. An Int -180 > i < 0 returns an eastern
-     *  value. */
-    def west: Longitude = Longitude.degs(-thisInt)
-
-    /** Extension method returns a latitude where this [[Int]] is the value north specified in degrees. An Int -180 > i < 0 returns a southern
-     *  value. */
-    def north: Latitude = Latitude.apply(thisInt)
-
-    /** Extension method returns a latitude where this [[Int]] is the value south specified in degrees. An Int -180 > i < 0 returns a northern
-     *  value. */
-    def south: Latitude = Latitude.apply(-thisInt)
-  }
-
-  extension (thisDouble: Double)
+  implicit class PolygonMetre3PglobeExtension (thisPoly: PolygonMetre3)
   {
-    /** infix extension method for creating a latitude-longitude value [[LatLong]]. This [[Double]] is the latitude specified in degrees. The operand
-     * parameter is the longitude specified in degrees. */
-    infix def ll (longDegs: Double): LatLong = LatLong.degs(thisDouble, longDegs)
+    def earthZPosXYModify: PolygonMetre = thisPoly.vertsFold(0)((acc, v) => ife(v.zNeg, acc, acc + 1)) match
+    { case n if n == thisPoly.vertsNum => thisPoly.toXY
+      case 0 | 1 => PolygonMetre.empty
+      case _ => thisPoly.earthZPosXYModifyInefficient
+    }
 
-    /** Extension method returns a longitude where this [Double] is the value east specified in degrees. A Double -180 > d < 0 returns a western
-     *  value. */
-    def east: Longitude = Longitude.degs(thisDouble)
+    def earthZPosXYModifyInefficient: PolygonMetre =
+    { val buff = BuffPtMetre2()
+      thisPoly.vertsPrevForEach((prev, v) => (v.zPos) match
+        {
+          case true if prev.zNeg =>
+          { val y: Metres = (prev.y + v.y) / 2
+            val ratio = (1 - (y / EarthAvRadius).squared).sqrt
+            val x: Metres = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
+            buff.grow(PtMetre2(x, y))
+            buff.grow(v.xy)
+          }
 
-    /** Extension method returns a longitude where this [[Double]] is the value west specified in degrees. A Double -180 > d < 0 returns an eastern
-     *  value. */
-    def west: Longitude = Longitude.degs(-thisDouble)
+          case false if prev.zPos =>
+          { val y: Metres = (prev.y + v.y) / 2
+            val ratio: Double = (1 - (y / EarthAvRadius).squared).sqrt //gets cosine value from sine value
+            val x: Metres = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
+            buff.grow(PtMetre2(x, y))
+          }
 
-    /** Extension method returns a latitude where this [[Double]] is the value north specified in degrees. A Double -180 > d < 0 returns a southern
-     *  value. */
-    def north: Latitude = Latitude.apply(thisDouble)
-
-    /** Extension method returns a latitude where this [[Double]] is the value south specified in degrees. A Double -180 > d < 0 returns a northern
-     *  value. */
-    def south: Latitude = Latitude.apply(-thisDouble)
+          case true => buff.grow(v.xy)
+          case _ =>
+        }
+      )
+      new PolygonMetre(buff.unsafeBuff.toArray)
+    }
   }
 }
