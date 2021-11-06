@@ -29,10 +29,27 @@ final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLi
 
 /** Companion object of the [[Longitude]] class. */
 object Longitude
-{ def degs(degVal: Double): Longitude = new Longitude(degVal.degsToMilliSecs)
-  def radians(value: Double): Longitude = new Longitude(value.radiansToMilliSecs)
-  def secs(value: Double): Longitude = new Longitude(value * 1000)
-  def milliSecs(milliSecsNum: Double): Longitude = new Longitude(milliSecsNum)
+{
+  /** Factory method for creating [[Longitude]] from the value defined in degrees. A positive value creates a western value, a negative value creates
+   * an eastern value. Values beyond 180 degrees East and from 180 degrees West loop around. */
+  def degs(degsValue: Double): Longitude = milliSecs(degsValue.degsToMilliSecs)
+
+  /** Factory method for creating [[Longitude]] from the value defined in radians. A positive value creates a western value, a negative value creates
+   * an eastern value. Values beyond 180 degrees East and from 180 degrees West loop around. */
+  def radians(radiansValue: Double): Longitude = milliSecs(radiansValue.radiansToMilliSecs)
+
+  /** Factory method for creating [[Longitude]] from the value defined in seconds of a degree. A positive value creates a western value, a negative
+   *  value creates an eastern value. Values beyond 180 degrees East and from 180 degrees West loop around. */
+  def secs(secondsValue: Double): Longitude = milliSecs(secondsValue * 1000)
+
+  /** Factory method for creating [[Longitude]] from the value defined in one thousands of a second of a degree. A positive value creates a western
+   *  value, a negative value creates an eastern value. Values beyond 180 degrees East and from 180 degrees West loop around. */
+  def milliSecs(milliSecondsValue: Double): Longitude = {
+    val l1 = milliSecondsValue.abs %% MilliSecsIn360Degs
+    val l2 = ife(milliSecondsValue < 0, -l1, l1)
+    val l3 = ife2(l2 > MilliSecsIn180Degs, - MilliSecsIn360Degs + l2, l2 <= -MilliSecsIn180Degs, MilliSecsIn360Degs + l2, l2)
+    new Longitude(l3)
+  }
 
   implicit val eqTImplicit: EqT[Longitude] = (a1, a2) => a1.milliSecs == a2.milliSecs
   implicit val approxTImplicit: ApproxAngleT[Longitude] = (a1, a2, precsion) => a1 =~ (a2, precsion)

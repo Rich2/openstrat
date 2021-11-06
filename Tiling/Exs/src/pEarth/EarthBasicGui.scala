@@ -10,14 +10,9 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
 
   /** Scale in km / pixel */
   var scale: Length = startScale.getOrElse(12.kMetres)
-  var long: Longitude = Longitude.degs(40)
+  var long: Longitude = Longitude.degs(0)
 
   def scaleStr = s"scale = ${scale.kMetresNum.str2} km/pixel"
-
-  val lp = LinePathLL(0 ll 0, 5 ll 0, 5 ll 5, 10 ll 10)
-  val lp2 = lp.map(_.toMetres3)
-  val lp3 = lp2.map(_.xy)
-  val lp4 = lp3.map(_ / scale)
 
   def repaint(): Unit = {
     val eas: Arr[EarthLevel2] = EarthAreas.allTops.flatMap(_.a2Arr)
@@ -27,7 +22,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
 
     def seas = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
-    mainRepaint((seas +: af0) ++ af1 +- lp4.draw())
+    mainRepaint((seas +: af0) ++ af1)
   }
 
   def zoomIn: PolygonCompound = clickButton("+"){_ =>
@@ -43,7 +38,24 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
     statusText = scaleStr
     thisTop()
   }
-  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut))
+
+  def goEast: PolygonCompound = clickButton("\u2192"){b =>
+    def delta = b.apply(1, 10, 90, 0)
+    long += Longitude.degs(delta)
+    repaint()
+    statusText = s"Longitude $long"
+    thisTop()
+  }
+
+  def goWest: PolygonCompound = clickButton("\u2190"){b =>
+    def delta = b.apply(1, 10, 90, 0)
+    long -= Longitude.degs(delta)
+    repaint()
+    statusText = s"Longitude $long"
+    thisTop()
+  }
+
+  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goWest, goEast))
 
   repaint()
   thisTop()
