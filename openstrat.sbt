@@ -116,7 +116,7 @@ bothDoc :=
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := docDirs.flatMap(el =>
-    List(el + "/src", el + "/srcAnyVal", el + "/srcJvm", el + "/Exs/src", el + "/srcFx")).map(s => baseDir.value / s),
+    List(el + "/src", el + "/srcGui", el + "/srcGlobe", el + "/srcAnyVal", el + "/srcJvm", el + "/Exs/src", el + "/srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
@@ -126,7 +126,7 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).setti
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcJs", el + "/Exs/src")).map(s => baseDir.value / s),
+  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcGui", el + "/srcGlobe", el + "/srcJs", el + "/Exs/src")).map(s => baseDir.value / s),
 
   Compile / sourceGenerators += Def.task {
     val str = scala.io.Source.fromFile("Util/srcAnyVal/Arr.scala").mkString
