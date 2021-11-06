@@ -66,10 +66,13 @@ trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with Data
   override def vertsNum: Int = elemsNum
 }
 
+/** A polygon whose elements are defined by [[Double]]s. */
 trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DataDblNs[VT]
+
 trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with DataDbl2s[VT]
 trait PolygonDbl3s[VT <: ElemDbl3] extends Any with PolygonDblNs[VT] with DataDbl3s[VT]
 
+/** A polygon whose elements are defined by [[Inte]]s. */
 trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with DataIntNs[VT]
-trait PolygonInt2s[VT <: ElemInt2] extends Any with PolygonIntNs[VT] with DataInt2s[VT]
 
+trait PolygonInt2s[VT <: ElemInt2] extends Any with PolygonIntNs[VT] with DataInt2s[VT]

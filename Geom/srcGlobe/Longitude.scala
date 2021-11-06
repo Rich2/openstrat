@@ -18,8 +18,8 @@ final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLi
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Longitude]
 
-  override def approx(that: Any, precision: AngleVec = precisionDefault): Boolean = that match {
-    case th: Longitude => milliSecs =~(th.milliSecs, precision.milliSecs)
+  override def approx(that: Any, precision: AngleVec = precisionDefault): Boolean = that match
+  { case th: Longitude => milliSecs =~(th.milliSecs, precision.milliSecs)
     case _ => false
   }
 
