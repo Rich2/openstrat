@@ -5,9 +5,15 @@ import geom._, pglobe._
 /** Scrap pad console app for the Tiling module. */
 object TilingTryApp  extends App
 {
+  val l2 = 5.east
+  val long = Longitude.degs(20)
+  val l3 = l2 + long
+  debvar(l3)
   val p1 = SaharaWest.polygonLL
   debvar(p1)
-  val long = Longitude.degs(20)
-  val p2 = p1.llLongAdd(long)
+
+  val p2 = p1.addLong(long)
   debvar(p2)
+
+
 }
