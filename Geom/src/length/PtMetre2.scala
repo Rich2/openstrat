@@ -99,7 +99,6 @@ object PtMetre2Arr extends DataDbl2sCompanion[PtMetre2, PtMetre2Arr]
 final class BuffPtMetre2(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[PtMetre2]
 { override def typeStr: String = "BuffPtMetre2"
   def dblsToT(d1: Double, d2: Double): PtMetre2 = new PtMetre2(d1, d2)
-  def toPolygon: PolygonMetre = new PolygonMetre(unsafeBuff.toArray)
 }
 
 object BuffPtMetre2{
