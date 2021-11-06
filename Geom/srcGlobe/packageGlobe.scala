@@ -43,4 +43,9 @@ package object pglobe
       buff.toPolygon
     }
   }
+
+  implicit class LLTransExtensions[T](val thisT: T)(implicit ev: LLTrans[T])
+  {
+    def llLongAdd(longDelta: Longitude): T = ev.fLLTrans(thisT, ll => LatLong(ll.lat, ll.long + longDelta))
+  }
 }

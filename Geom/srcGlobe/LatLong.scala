@@ -106,7 +106,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
 /** Companion object for the [[LatLong]] class. Contains factory methods for the creation of LatLong s.  */
 object LatLong
 {
-  /** Factory method for LatLong, creates LatLong from a [[Latitude]] and a [[Longitude]]. */
+  /** Factory apply method for LatLong, creates LatLong from a [[Latitude]] and a [[Longitude]]. */
   def apply(lat: Latitude, long: Longitude): LatLong = new LatLong(lat.milliSecs, long.milliSecs)
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
