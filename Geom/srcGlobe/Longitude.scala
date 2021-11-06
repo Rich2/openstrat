@@ -23,7 +23,7 @@ final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLi
     case _ => false
   }
 
-  def +(operand: Longitude): Longitude = Longitude.milliSecs(milliSecs + operand.milliSecs)
+  def +(operand: Longitude): Longitude = { Longitude.milliSecs(milliSecs + operand.milliSecs) }
   def -(operand: Longitude): Longitude = Longitude.milliSecs(milliSecs - operand.milliSecs)
 }
 
@@ -32,7 +32,7 @@ object Longitude
 { def degs(degVal: Double): Longitude = new Longitude(degVal.degsToMilliSecs)
   def radians(value: Double): Longitude = new Longitude(value.radiansToMilliSecs)
   def secs(value: Double): Longitude = new Longitude(value * 1000)
-  def milliSecs(value: Double): Longitude = new Longitude(value)
+  def milliSecs(milliSecsNum: Double): Longitude = new Longitude(milliSecsNum)
 
   implicit val eqTImplicit: EqT[Longitude] = (a1, a2) => a1.milliSecs == a2.milliSecs
   implicit val approxTImplicit: ApproxAngleT[Longitude] = (a1, a2, precsion) => a1 =~ (a2, precsion)

@@ -65,7 +65,10 @@ lazy val UtilJs = jsProj("Util").settings(
   }.taskValue,
 )
 
-def geomSett = List(Compile/unmanagedSourceDirectories ++= List("srcGui", "srcGlobe").map(s => (ThisBuild/baseDirectory).value / "Geom" / s))
+def geomSett = List(
+  Compile/unmanagedSourceDirectories ++= List("srcGui", "srcGlobe").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
+  Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/testSrcGlobe",
+)
 
 lazy val Geom = coreProj("Geom").dependsOn(Util).settings(geomSett).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),

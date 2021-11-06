@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 import utest._
 
 object CurveTest extends TestSuite
@@ -13,7 +12,6 @@ object CurveTest extends TestSuite
     val as4 = as3.slateXY(5, 10)
     val ls2 = LineTail(-5 pp -8)
     val ls3 = ls2.slateXY(50, -50)
-    val css = ShapeGenOld(ls1, ls2, ls3)
 
     test("Test1")
     { ls1 ==> CurveTail(10, 0, 0, 0, 0, 4, 56)
@@ -22,7 +20,6 @@ object CurveTest extends TestSuite
       as4 ==> ArcTail(13 pp 18, 17 pp 18)
       ls2 ==> CurveTail(10, 0, 0, 0, 0, -5, -8)
       ls3 ==> CurveTail(10, 0, 0, 0, 0, 45, -58)
-      css(0) ==> ls1
     }
   }
 }

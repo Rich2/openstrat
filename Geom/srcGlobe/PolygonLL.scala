@@ -67,4 +67,8 @@ object PolygonLL extends DataDbl2sCompanion[LatLong, PolygonLL]
   implicit val persistImplicit: DataDbl2sPersist[LatLong, PolygonLL] = new DataDbl2sPersist[LatLong, PolygonLL]("PolygonLL")
   { override def fromArray(value: Array[Double]): PolygonLL = new PolygonLL(value)
   }
+
+  implicit val llTransImplicit: LLTrans[PolygonLL] = new LLTrans[PolygonLL] {
+    override def fLLTrans(orig: PolygonLL, f: LatLong => LatLong): PolygonLL = orig.map(f)
+  }
 }

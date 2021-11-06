@@ -19,13 +19,17 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   val lp3 = lp2.map(_.xy)
   val lp4 = lp3.map(_ / scale)
 
+  val p1 = SaharaWest.polygonLL
+  debvar(p1)
+  val p2 = p1.llLongAdd(long)
+  debvar(p2)
+
   def repaint(): Unit = {
     val eas: Arr[EarthLevel2] = EarthAreas.allTops.flatMap(_.a2Arr)
-    val afPairs: Arr[(EarthLevel2, PolygonMetre3)] = eas.map { a => (a, a.polygonLL.metres3Default) }.filter(_._2.zNonNeg)
+    //val afPairs: Arr[(EarthLevel2, PolygonMetre3)] = eas.map { a => (a, a.polygonLL.metres3Default) }.filter(_._2.zNonNeg)
     val afps: Arr[(EarthLevel2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.metres3Default.earthZPosXYModify) }//.filter(_._2.zNonNeg)
-    //val af0 = afPairs.map { p => p._2.xyPlane.map(_ / scale).fill(p._1.colour) }
     val af0 = afps.map { p => p._2.map(_ / scale).fill(p._1.colour) }
-    val af1 = afPairs.map { a => a._2.xyPlane.map(_ / scale).draw() }
+    val af1 = afps.map { a => a._2.map(_ / scale).draw() }
 
     def seas = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
