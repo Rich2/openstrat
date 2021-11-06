@@ -86,6 +86,7 @@ trait BuffDblNs[A <: ElemDblN] extends Any with BuffValueNs[A]
   def toArray: Array[Double] = unsafeBuff.toArray[Double]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.arrayUnsafe); () }
+  def toArr(implicit build: ArrDblNsBuilder[A, ArrT]): ArrT = build.fromDblArray(unsafeBuff.toArray)
 }
 
 /** Helper trait for Companion objects of [[ArrDblNs]] classes. */

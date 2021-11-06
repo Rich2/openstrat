@@ -78,7 +78,6 @@ trait BuffValueNs[A <: ElemValueN] extends Any with SeqGen[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit
-  def toArr(implicit build: ArrBuilder[A, ArrT]): ArrT = ???
   override def fElemStr: A => String = _.toString
 }
 
