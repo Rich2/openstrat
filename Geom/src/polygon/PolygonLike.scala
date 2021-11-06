@@ -69,10 +69,14 @@ trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with Data
 /** A polygon whose elements are defined by [[Double]]s. */
 trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DataDblNs[VT]
 
+/** A polygon whose elements are defined by 2 [[Double]]s. */
 trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with DataDbl2s[VT]
+
+/** A polygon whose elements are defined by 3 [[Double]]s. */
 trait PolygonDbl3s[VT <: ElemDbl3] extends Any with PolygonDblNs[VT] with DataDbl3s[VT]
 
 /** A polygon whose elements are defined by [[Inte]]s. */
 trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with DataIntNs[VT]
 
+/** A polygon whose elements are defined by 2 [[int]]s. */
 trait PolygonInt2s[VT <: ElemInt2] extends Any with PolygonIntNs[VT] with DataInt2s[VT]

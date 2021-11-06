@@ -14,6 +14,4 @@ object TilingTryApp  extends App
 
   val p2 = p1.addLong(long)
   debvar(p2)
-
-
 }

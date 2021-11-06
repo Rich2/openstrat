@@ -23,7 +23,10 @@ final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLi
     case _ => false
   }
 
+  /** Adds the operand [[Longitude]]. */
   def +(operand: Longitude): Longitude = { Longitude.milliSecs(milliSecs + operand.milliSecs) }
+
+  /** Subtracts the operand [[Longitude]]. */
   def -(operand: Longitude): Longitude = Longitude.milliSecs(milliSecs - operand.milliSecs)
 }
 
