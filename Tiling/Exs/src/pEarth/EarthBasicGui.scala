@@ -19,11 +19,6 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   val lp3 = lp2.map(_.xy)
   val lp4 = lp3.map(_ / scale)
 
-  val p1 = SaharaWest.polygonLL
-  debvar(p1)
-  val p2 = p1.llLongAdd(long)
-  debvar(p2)
-
   def repaint(): Unit = {
     val eas: Arr[EarthLevel2] = EarthAreas.allTops.flatMap(_.a2Arr)
     //val afPairs: Arr[(EarthLevel2, PolygonMetre3)] = eas.map { a => (a, a.polygonLL.metres3Default) }.filter(_._2.zNonNeg)
