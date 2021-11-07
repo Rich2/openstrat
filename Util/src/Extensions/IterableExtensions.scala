@@ -22,7 +22,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def headToStringElse(elseString: => String): String = headOnly(elseString, _.toString)
   
   /** Converts to ArrImut of A. Most commonly a Refs. Prefer the mapArr method where appropriate which combines the converson with a map operation. */
-  def toImut[AA <: ArrBase[A]](implicit bu: ArrBuilder[A, AA]): AA =
+  def toImut[AA <: SeqImut[A]](implicit bu: ArrBuilder[A, AA]): AA =
   { val len = thisIter.size
     val res = bu.newArr(len)
     iForeach((i, a) => res.unsafeSetElem(i, a))
@@ -59,7 +59,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
 
   /** Specialised index with map to an immutable ArrBase of B. Note the function signature follows the foreach based convention of putting the
    *  collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
-  def iMap[B, BB <: ArrBase[B]](f: (Int, A) => B)(implicit build: ArrBuilder[B, BB]): BB =
+  def iMap[B, BB <: SeqImut[B]](f: (Int, A) => B)(implicit build: ArrBuilder[B, BB]): BB =
   { var i = 0
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{el => build.buffGrow(buff, f(i, el)); i += 1 }
@@ -68,7 +68,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
 
   /** Specialised index with map to an immutable ArrBase of B. Note the function signature follows the foreach based convention of putting the
    *  collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
-  def iMap[B, BB <: ArrBase[B]](count: Int)(f: (A, Int) => B)(implicit build: ArrBuilder[B, BB]): BB =
+  def iMap[B, BB <: SeqImut[B]](count: Int)(f: (A, Int) => B)(implicit build: ArrBuilder[B, BB]): BB =
   { var i = count
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{el => build.buffGrow(buff, f(el, i)); i += 1 }
@@ -76,7 +76,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** flatMaps over a traversable (collection / sequence) with a counter */
-  def iFlatMap[B, BB <: ArrBase[B]](f: (Int, A) => BB)(implicit build: ArrBuilder[B, BB]): BB =
+  def iFlatMap[B, BB <: SeqImut[B]](f: (Int, A) => BB)(implicit build: ArrBuilder[B, BB]): BB =
   { var i = 0
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{ el => build.buffGrowArr(buff, f(i, el)); i += 1 }
@@ -84,7 +84,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** flatMaps over a traversable (collection / sequence) with a counter */
-  def iFlatMap[B, BB <: ArrBase[B]](count: Int)(f: (Int, A) => BB)(implicit build: ArrBuilder[B, BB]): BB =
+  def iFlatMap[B, BB <: SeqImut[B]](count: Int)(f: (Int, A) => BB)(implicit build: ArrBuilder[B, BB]): BB =
   { var i = count
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{ el => build.buffGrowArr(buff, f(i, el)); i += 1 }
@@ -125,7 +125,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** Maps to a ArrImut an immutable Array of B. */
-  def mapArr[B, BB <: ArrBase[B]](f: A => B)(implicit ev: ArrBuilder[B, BB]): BB = ev.iterMap[A](thisIter, f)
+  def mapArr[B, BB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, BB]): BB = ev.iterMap[A](thisIter, f)
 }
 
 /** Extension methods for [[Iterable]][A <: ValueNElem]. */

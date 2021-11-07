@@ -35,7 +35,7 @@ trait HCenPathTr extends Any
     }
   }
 
-  def segsMap[B, ArrB <: ArrBase[B]](f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  def segsMap[B, ArrB <: SeqImut[B]](f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
   { val res = build.newArr(segNum)
     var count = 0
     segsForeach{ s =>

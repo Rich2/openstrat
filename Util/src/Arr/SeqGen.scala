@@ -87,14 +87,14 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** Specialised map to an immutable ArrBase of B. */
-  def map[B, ArrB <: ArrBase[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def map[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
     iForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
 
   /** Specialised flatMap to an immutable Arr. */
-  def flatMap[ArrB <: ArrBase[_]](f: A => ArrB)(implicit ev: ArrFlatBuilder[ArrB]): ArrB =
+  def flatMap[ArrB <: SeqImut[_]](f: A => ArrB)(implicit ev: ArrFlatBuilder[ArrB]): ArrB =
   {
     val buff: ev.BuffT = ev.newBuff()
     foreach{ a =>
@@ -106,7 +106,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
    * function from type A and type B to type C. */
-  def zipMap[B, C, ArrC <: ArrBase[C]](operator: SeqGen[B])(f: (A, B) => C)(implicit ev: ArrBuilder[C, ArrC]): ArrC =
+  def zipMap[B, C, ArrC <: SeqImut[C]](operator: SeqGen[B])(f: (A, B) => C)(implicit ev: ArrBuilder[C, ArrC]): ArrC =
   { val newLen = elemsNum.min(operator.elemsNum)
     val res = ev.newArr(newLen)
     var count = 0
@@ -120,7 +120,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
    *  the specialised map function from type A and type B and type C to type D. */
-  def zipMap2[B, C, D, ArrD <: ArrBase[D]](operator1: SeqGen[B], operator2: SeqGen[C])(f: (A, B, C) => D)(implicit ev: ArrBuilder[D, ArrD]): ArrD =
+  def zipMap2[B, C, D, ArrD <: SeqImut[D]](operator1: SeqGen[B], operator2: SeqGen[C])(f: (A, B, C) => D)(implicit ev: ArrBuilder[D, ArrD]): ArrD =
   { val newLen = elemsNum.min(operator1.elemsNum).min(operator2.elemsNum)
     val res = ev.newArr(newLen)
     var count = 0
@@ -132,10 +132,13 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     res
   }
 
-  /** Specialised index with map to an immutable ArrBase of B. This method should be overridden in sub classes. Note the function signature follows
-   * the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B
-   *  signature. */
-  def iMap[B, ArrB <: ArrBase[B]](f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  /** Index with element map. Applies the parameter function to the index and each respective element of this sequence. The function returns an
+   * element of type B and the method as a whole returns the specialised [[SeqImut]] of type B. The method has 2 versions / name overloads. The
+   * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first
+   * parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection
+   * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. This method should be overridden in sub
+   * classes. */
+  def iMap[B, ArrB <: SeqImut[B]](f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
     iForeach((i, a) => ev.arrSet(res, i, f(i, a)))
     res
@@ -143,7 +146,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   /** Specialised index with flatMap to an immutable Arr. Note the function signature follows the foreach based convention of putting the collection
    *  element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
-  def iFlatMap[ArrB <: ArrBase[_]](f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
+  def iFlatMap[ArrB <: SeqImut[_]](f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
     while (i < elemsNum)
@@ -156,7 +159,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   /** Specialised index with flatMap to an immutable Arr. Note the function signature follows the foreach based convention of putting the collection
    *  element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
-  def iFlatMap[ArrB <: ArrBase[_]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
+  def iFlatMap[ArrB <: SeqImut[_]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
     while (count < elemsNum)
@@ -170,7 +173,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed. Note the function
    * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    *  (accumulator, element) => B signature. */
-  def mapWithAcc[B, ArrB <: ArrBase[B], C](initC: C)(f: (C, A) => (B, C))(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def mapWithAcc[B, ArrB <: SeqImut[B], C](initC: C)(f: (C, A) => (B, C))(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
     var accC: C = initC
     iForeach({ (i, a) =>
@@ -181,7 +184,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     res
   }
 
-  def eMap[B, ArrB <: ArrBase[B]](f: A => EMon[B])(implicit ev: ArrBuilder[B, ArrB]): EMon[ArrB] =
+  def eMap[B, ArrB <: SeqImut[B]](f: A => EMon[B])(implicit ev: ArrBuilder[B, ArrB]): EMon[ArrB] =
   { val acc = ev.newBuff()
     var continue = true
     var count = 0
@@ -202,7 +205,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
-  def map2To1[B, ArrB <: ArrBase[B]](f: (A, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def map2To1[B, ArrB <: SeqImut[B]](f: (A, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
     var count = 0
     while (count + 1  < elemsNum)
@@ -212,13 +215,13 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     res
   }
 
-  def filter[ArrA <: ArrBase[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuilder[A, ArrA] @uncheckedVariance): ArrA =
+  def filter[ArrA <: SeqImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => oif(f(a), ev.buffGrow(buff, a)))
     ev.buffToBB(buff)
   }
 
-  def filterNot[ArrA <: ArrBase[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuilder[A, ArrA] @uncheckedVariance): ArrA =
+  def filterNot[ArrA <: SeqImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => oif(!f(a), ev.buffGrow(buff, a)))
     ev.buffToBB(buff)
@@ -231,7 +234,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** FlatMaps over a function from A to any Iterable. */
-  def iterFlatMap[B, ArrB <: ArrBase[B]](f: A => Iterable[B])(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def iterFlatMap[B, ArrB <: SeqImut[B]](f: A => Iterable[B])(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val buff = ev.newBuff(elemsNum)
     foreach(a => ev.buffGrowIter(buff, f(a)))
     ev.buffToBB(buff)
@@ -377,7 +380,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** Collects values of B by applying partial function to only those elements of A, for which the PartialFunction is defined. */
-  def collect[B, BB <: ArrBase[B]](pf: PartialFunction[A, B])(implicit ev: ArrBuilder[B, BB]): BB =
+  def collect[B, BB <: SeqImut[B]](pf: PartialFunction[A, B])(implicit ev: ArrBuilder[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach{a => if (pf.isDefinedAt(a)) ev.buffGrow(acc, pf(a)) }
     ev.buffToBB(acc)
@@ -391,7 +394,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** maps from A to EMon[B], collects the good values. */
-  def mapCollectGoods[B, BB <: ArrBase[B]](f: A => EMon[B])(implicit ev: ArrBuilder[B, BB]): BB =
+  def mapCollectGoods[B, BB <: SeqImut[B]](f: A => EMon[B])(implicit ev: ArrBuilder[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach(f(_).forGood(ev.buffGrow(acc, _)))
     ev.buffToBB(acc)

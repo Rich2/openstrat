@@ -50,7 +50,7 @@ trait UnShow[+T] extends PersistBase
   }*/
 
   /** Produces an ArrImut of the UnShow type from Statements (Refs[Statement]. */
-  def valuesFromStatements[ArrT <: ArrBase[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance): ArrT =
+  def valuesFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance): ArrT =
     sts.mapCollectGoods(fromStatement)(arrBuild)
 
   /** Produces a List of the UnShow type from List of Statements */
@@ -64,7 +64,7 @@ trait UnShow[+T] extends PersistBase
   }
 
   /** Finds value of this UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatements[ArrT <: ArrBase[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance):
+  def findUniqueTFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance):
     EMon[T] = valuesFromStatements(sts) match
   { case s if s.elemsNum == 0 => TextPosn.emptyError("No values of type found")
     case s if s.elemsNum == 1 => Good(s.head)

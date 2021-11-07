@@ -78,7 +78,7 @@ trait DataGen[A] extends Any
   }
 
   /** Specialised map to an immutable ArrBase of B. */
-  def dataMap[B, ArrB <: ArrBase[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def dataMap[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
     dataIForeach((i, a) => ev.arrSet(res, i, f(a)))
     res

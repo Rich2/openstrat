@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for Floats. */
-class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with ArrBase[Float]
+class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with SeqImut[Float]
 { type ThisT = Floats
 
   /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */

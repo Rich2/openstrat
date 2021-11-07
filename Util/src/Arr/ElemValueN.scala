@@ -27,7 +27,7 @@ trait DataValueNs[A <: ElemValueN] extends Any with DataImut[A]
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ArrValueNs[A <: ElemValueN] extends Any with ArrBase[A] with DataValueNs[A]
+trait ArrValueNs[A <: ElemValueN] extends Any with SeqImut[A] with DataValueNs[A]
 { type ThisT <: ArrValueNs[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different

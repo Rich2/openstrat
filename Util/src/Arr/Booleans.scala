@@ -3,7 +3,7 @@ package ostrat
 import scala.collection.mutable.ArrayBuffer
 
 /** An immutable efficient Array[Boolean] backed sequence class for [[Boolean]]s. */
-class Booleans(val array: Array[Boolean]) extends AnyVal with ArrBase[Boolean]
+class Booleans(val array: Array[Boolean]) extends AnyVal with SeqImut[Boolean]
 { type ThisT = Booleans
 
   /** Copy's the backing Array[[Boolean]] to a new Array[char]. End users should rarely have to use this method. */

@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for Strings. */
-class Strings(val arrayUnsafe: Array[String]) extends AnyVal with ArrBase[String]
+class Strings(val arrayUnsafe: Array[String]) extends AnyVal with SeqImut[String]
 { override type ThisT = Strings
   override def typeStr: String = "Strings"
   override def unsafeSameSize(length: Int): Strings = new Strings(new Array[String](length))

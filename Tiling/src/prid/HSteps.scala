@@ -34,9 +34,9 @@ trait HStepsTr extends Any
     }
   }
 
-  def segsMap[B, ArrB <: ArrBase[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = segsMap(start.r, start.c)(f)(build)
+  def segsMap[B, ArrB <: SeqImut[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = segsMap(start.r, start.c)(f)(build)
 
-  def segsMap[B, ArrB <: ArrBase[B]](startR: Int, startC: Int)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  def segsMap[B, ArrB <: SeqImut[B]](startR: Int, startC: Int)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
   { val res = build.newArr(segsNum)
     var count = 0
     segsForeach(startR, startC){ s =>

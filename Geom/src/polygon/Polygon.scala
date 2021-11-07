@@ -44,21 +44,21 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
     res
   }
 
-  override def vertsMap[B, ArrB <: ArrBase[B]](f: Pt2 => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: SeqImut[B]](f: Pt2 => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
   { val acc = build.newBuff()
     vertsForeach{ v => build.buffGrow(acc, f(v)) }
     build.buffToBB(acc)
   }
 
   /** flatMap to an immutable Arr. */
-  def vertsFlatMap[BB <: ArrBase[_]](f: Pt2 => BB)(implicit build: ArrFlatBuilder[BB]): BB =
+  def vertsFlatMap[BB <: SeqImut[_]](f: Pt2 => BB)(implicit build: ArrFlatBuilder[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     vertsForeach(v => build.buffGrowArr(buff, f(v)))
     build.buffToBB(buff)
   }
 
   /** flatMap with index to an immutable Arr. */
-  def vertsIFlatMap[BB <: ArrBase[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
+  def vertsIFlatMap[BB <: SeqImut[_]](iInit: Int = 0)(f: (Pt2, Int) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = iInit
     vertsForeach { v =>
@@ -97,7 +97,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   }
 
   /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesMap[A, AA <: ArrBase[A]](f: LineSeg => A)(implicit build: ArrBuilder[A, AA]): AA =
+  def sidesMap[A, AA <: SeqImut[A]](f: LineSeg => A)(implicit build: ArrBuilder[A, AA]): AA =
   { var count = 0
     val res = build.newArr(vertsNum)
     while (count < vertsNum)
@@ -108,7 +108,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   }
 
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIMap[A, AA <: ArrBase[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: ArrBuilder[A, AA]): AA =
+  def sidesIMap[A, AA <: SeqImut[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: ArrBuilder[A, AA]): AA =
   { var count = 0
     val res = build.newArr(vertsNum)
     while (count < vertsNum)
@@ -119,7 +119,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   }
 
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
-  def sidesIFlatMap[AA <: ArrBase[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: ArrFlatBuilder[AA]): AA =
+  def sidesIFlatMap[AA <: SeqImut[_]](initCount: Int = 0)(f: (LineSeg, Int) => AA)(implicit build: ArrFlatBuilder[AA]): AA =
   { var count = initCount
     val buff = build.newBuff()
     sidesForeach { side =>

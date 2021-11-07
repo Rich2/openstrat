@@ -30,7 +30,7 @@ class HCenArrArr[A](val unsafeArray: Array[Array[A]])
   //    def prepends(value : A, roords: Roord*)(implicit grid: TileGridOld): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
 
   /** flatMaps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
-  def gridHeadsMap[B, BB <: ArrBase[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
+  def gridHeadsMap[B, BB <: SeqImut[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
   {
     val buff = build.newBuff()
     grid.foreach { r =>
@@ -41,7 +41,7 @@ class HCenArrArr[A](val unsafeArray: Array[Array[A]])
   }
 
   /** flatMaps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
-  def gridHeadsFlatMap[BB <: ArrBase[_]](f: (HCen, A) => BB)(implicit grid: HGrid, build: ArrFlatBuilder[BB]): BB =
+  def gridHeadsFlatMap[BB <: SeqImut[_]](f: (HCen, A) => BB)(implicit grid: HGrid, build: ArrFlatBuilder[BB]): BB =
   {
     val buff = build.newBuff()
     grid.foreach { r =>

@@ -5,8 +5,8 @@ import annotation.unchecked.uncheckedVariance
 /** Base trait for specialised immutable Arrays. "Arr" is the prescript for all immutable collection classes backed by underlying Arrays. The final
  *  classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage. A lot of the time this is a compile time wrapper with
  *  no boxing run cost. */
-trait ArrBase[+A] extends Any with SeqGen[A] with DataImut[A]
-{ override type ThisT <: ArrBase[A]
+trait SeqImut[+A] extends Any with SeqGen[A] with DataImut[A]
+{ override type ThisT <: SeqImut[A]
 
   /** Sets / mutates the head element in the Arr. This method should rarely be needed by end users, but is used by initialisation and factory
    * methods. */

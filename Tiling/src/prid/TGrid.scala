@@ -64,7 +64,7 @@ trait TGrid extends Any
   final def foreachRow(f: Int => Unit): Unit = iToForeach(bottomTileRow, topTileRow, 2)(f)
 
   /** maps over each row number. */
-  final def mapRows[B, BB <: ArrBase[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
+  final def mapRows[B, BB <: SeqImut[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
   { val res = build.newArr(numTileRows)
     var index = 0
     foreachRow{r => res.unsafeSetElem(index, f(r)); index += 1 }
@@ -72,7 +72,7 @@ trait TGrid extends Any
   }
 
   /** flatMaps over each row number. */
-  final def flatMapRows[ArrT <: ArrBase[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
+  final def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     foreachRow{ r => build.buffGrowArr(buff, f(r)) }
     build.buffToBB(buff)
@@ -88,7 +88,7 @@ trait TGrid extends Any
   /** Foreach tile centre coordinate. A less strongly typed method than the foreach's in the sub traits. */
   def foreachCenCoord(f: TCoord => Unit): Unit
 
-  def mapCenCoords[B, BB <: ArrBase[B]](f: TCoord => B)(implicit build: ArrBuilder[B, BB]): BB =
+  def mapCenCoords[B, BB <: SeqImut[B]](f: TCoord => B)(implicit build: ArrBuilder[B, BB]): BB =
   { val res = build.newArr(numTiles)
     var count = 0
     foreachCenCoord { tc => res.unsafeSetElem(count, f(tc))

@@ -50,7 +50,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
   }
 
   /** Coordinate-map. Maps the this Arr of Opt values, with their respective [[HCen]] coordinates to an Arr of type B. */
-  def mapHCen[B, ArrT <: ArrBase[B]](fNone: => HCen => B)(fSome: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
+  def mapHCen[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     grid.foreach { hc =>
       val a = unsafeArr(grid.arrIndex(hc))
@@ -83,7 +83,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
   def tileNone(hc: HCen)(implicit grid: HGrid): Boolean = unsafeArr(grid.arrIndex(hc)) == null
 
   /** Returns an ArrBase[A] of type ArrA filtered to the Some values. */
-  def somesArr[ArrA <: ArrBase[A]](implicit build: ArrBuilder[A, ArrA]): ArrA =
+  def somesArr[ArrA <: SeqImut[A]](implicit build: ArrBuilder[A, ArrA]): ArrA =
   { val buff = build.newBuff()
     unsafeArr.foreach { a => if (a != null) build.buffGrow(buff, a) }
     build.buffToBB(buff)
@@ -91,7 +91,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** [[HCen]] with Some map. map the Some values of this HcenArrOpt, with the respective [[HCen]] coordinate to type B, the first type parameter B.
    *  Returns an immutable Array based collection of type ArrT, the second type parameter. */
-  def hcSomesMap[B, ArrB <: ArrBase[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrB]): ArrB =
+  def hcSomesMap[B, ArrB <: SeqImut[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
     grid.foreach { hc =>
@@ -106,7 +106,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** Maps the Somes of this [[HCenArrOpt]] and the Some values of a second HCenArrOpt. Returns an immutable Array based collection of type ArrC, the
    *  second type parameter. */
-  def some2sMap[B <: AnyRef, C, ArrC <: ArrBase[C]](optArrB: HCenArrOpt[B])(f: (A, B) => C)(implicit grid: HGrid, build: ArrBuilder[C, ArrC]): ArrC =
+  def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenArrOpt[B])(f: (A, B) => C)(implicit grid: HGrid, build: ArrBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
     grid.foreach { hc =>
@@ -122,7 +122,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** [[HCen]] with Some values from 2 [[HCenArrOpts]] map to type C. This only maps the values where both collections have Some values. Returns an
    *  immutable Array based collection of type ArrC, the second type parameter. */
-  def hcSome2sMap[B <: AnyRef, C, ArrC <: ArrBase[C]](optArrB: HCenArrOpt[B])(f: (HCen, A, B) => C)(implicit grid: HGrid, build: ArrBuilder[C, ArrC]):
+  def hcSome2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenArrOpt[B])(f: (HCen, A, B) => C)(implicit grid: HGrid, build: ArrBuilder[C, ArrC]):
     ArrC =
   { val buff = build.newBuff()
 
@@ -139,7 +139,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** maps the [[HCen]] Coordinate values to type B, but only where the element is a None value. Returns an immutable Array based collection of type
    *  ArrB, the second type parameter. */
-  def hcNonesMap[B, ArrB <: ArrBase[B]](f: HCen => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrB]): ArrB =
+  def hcNonesMap[B, ArrB <: SeqImut[B]](f: HCen => B)(implicit grid: HGrid, build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
     grid.foreach { r =>
@@ -155,7 +155,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
   /** [[HCen]] with element flatMap, but only coordinates where there some value. Maps and flattens each [[HCen]] coordinate with its associated
    * element of type A. It ignores the None values. Note the function signature follows the foreach based convention of putting the collection element
    * 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
-  def hcSomesFlatMap[ArrT <: ArrBase[_]](f: (HCen, A) => ArrT)(implicit grid: HGrid, build: ArrFlatBuilder[ArrT]): ArrT =
+  def hcSomesFlatMap[ArrT <: SeqImut[_]](f: (HCen, A) => ArrT)(implicit grid: HGrid, build: ArrFlatBuilder[ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grid.foreach { hc =>

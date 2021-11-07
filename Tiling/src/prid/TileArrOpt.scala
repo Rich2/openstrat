@@ -8,7 +8,7 @@ trait TileArrOpt[A <: AnyRef] extends Any
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
    *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TileArrOpt]] was created. */
-  def map[B, ArrT <: ArrBase[B]](noneValue: => B)(f: A => B)(implicit /*grid: HGrid,*/ build: ArrBuilder[B, ArrT]): ArrT =
+  def map[B, ArrT <: SeqImut[B]](noneValue: => B)(f: A => B)(implicit /*grid: HGrid,*/ build: ArrBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     unsafeArr.foreach{ a => build.buffGrow(buff, if (a == null) noneValue else f(a)) }
     build.buffToBB(buff)
@@ -16,7 +16,7 @@ trait TileArrOpt[A <: AnyRef] extends Any
 
   /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
    *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TileArrOpt]] was created. */
-  def mapSomes[B, ArrT <: ArrBase[B]](f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  def mapSomes[B, ArrT <: SeqImut[B]](f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     unsafeArr.foreach { a =>

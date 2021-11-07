@@ -24,7 +24,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
 
   /** Each element in the underlying array is mapped by the parameter function to an element of type B. This method treat the [[HCenArr]] class like a
    *  standard Arr or Array. It does not utilise the grid HGrid from which this HCenArr was created. */
-  def map[B, BB <: ArrBase[B]](f: A => B)(implicit build: ArrBuilder[B, BB]): BB =
+  def map[B, BB <: SeqImut[B]](f: A => B)(implicit build: ArrBuilder[B, BB]): BB =
   { val res = build.newArr(length)
     var count = 0
     foreach{a => res.unsafeSetElem(count, f(a)); count += 1 }
@@ -34,7 +34,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
   /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
    *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
    *  => B signature. */
-  def hcMap[B, BB <: ArrBase[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
+  def hcMap[B, BB <: SeqImut[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
   { val res = build.newArr(length)
     grid.iForeach{ (hc, i) =>
       val newElem = f(hc, apply(hc))
@@ -82,7 +82,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that tkaes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */
-  def sideMap[B, BB <: ArrBase[B]](f1: (HSide, A) => B, f2: (HSide, A, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
+  def sideMap[B, BB <: SeqImut[B]](f1: (HSide, A) => B, f2: (HSide, A, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
     grid.sidesMap{ hs => hs.tiles match
       {
         case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
@@ -94,7 +94,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */
-  def sideFlatMap[BB <: ArrBase[_]](f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit grid: HGrid, build: ArrFlatBuilder[BB]): BB =
+  def sideFlatMap[BB <: SeqImut[_]](f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit grid: HGrid, build: ArrFlatBuilder[BB]): BB =
     grid.sidesFlatMap{ hs => hs.tiles match
     { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
       case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
