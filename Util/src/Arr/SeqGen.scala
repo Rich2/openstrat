@@ -93,6 +93,32 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     res
   }
 
+  /** Index with element map. Applies the parameter function to the index and each respective element of this sequence. The function returns an
+   * element of type B and the method as a whole returns the specialised [[SeqImut]] of type B. The method has 2 versions / name overloads. The
+   * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first
+   * parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection
+   * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. This method should be overridden in sub
+   * classes. */
+  def iMap[B, ArrB <: SeqImut[B]](f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  { val res = ev.newArr(elemsNum)
+    iForeach((i, a) => ev.arrSet(res, i, f(i, a)))
+    res
+  }
+
+  /** Index with element map. Applies the parameter function to the index and each respective element of this sequence. The function returns an
+   * element of type B and the method as a whole returns the specialised [[SeqImut]] of type B. The method has 2 versions / name overloads. The
+   * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first
+   * parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection
+   * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should be overridden in sub
+   * classes. */
+  def iMap[B, ArrB <: SeqImut[B]](startindex: Int)(f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  { val res = ev.newArr(elemsNum)
+    iForeach(startindex)((i, a) => ev.arrSet(res, i, f(i, a)))
+    res
+  }
+
+
+
   /** Specialised flatMap to an immutable Arr. */
   def flatMap[ArrB <: SeqImut[_]](f: A => ArrB)(implicit ev: ArrFlatBuilder[ArrB]): ArrB =
   {
@@ -132,17 +158,6 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     res
   }
 
-  /** Index with element map. Applies the parameter function to the index and each respective element of this sequence. The function returns an
-   * element of type B and the method as a whole returns the specialised [[SeqImut]] of type B. The method has 2 versions / name overloads. The
-   * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first
-   * parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection
-   * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. This method should be overridden in sub
-   * classes. */
-  def iMap[B, ArrB <: SeqImut[B]](f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsNum)
-    iForeach((i, a) => ev.arrSet(res, i, f(i, a)))
-    res
-  }
 
   /** Specialised index with flatMap to an immutable Arr. Note the function signature follows the foreach based convention of putting the collection
    *  element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */

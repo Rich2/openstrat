@@ -10,13 +10,15 @@ package object pglobe
   def earth2DEllipse(scale: Length): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
 
   implicit class PolygonMetre3PglobeExtension (thisPoly: PolygonMetre3)
-  {
+  { /** Method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
     def earthZPosXYModify: PolygonMetre = thisPoly.vertsFold(0)((acc, v) => ife(v.zNeg, acc, acc + 1)) match
     { case n if n == thisPoly.vertsNum => thisPoly.toXY
-      case 0 | 1 => PolygonMetre.empty
+      case 0 => PolygonMetre.empty
+      case _ if thisPoly.vertsNum < 2 => PolygonMetre.empty
       case _ => thisPoly.earthZPosXYModifyInefficient
     }
 
+    /** Internal method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
     def earthZPosXYModifyInefficient: PolygonMetre =
     { val buff = BuffPtMetre2()
       thisPoly.vertsPrevForEach((prev, v) => (v.zPos) match
