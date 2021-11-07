@@ -42,12 +42,12 @@ trait DataGen[A] extends Any
     }
   }
 
-  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of this sequence. It takes a function
-   *  as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid
-   *  warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index
-   *  is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start
-   *  value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for
-   *  example in fold methods' (accumulator, element) => B signature. */
+  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of the data sequence. It takes a
+   *  function as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just
+   *  to avoid warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for
+   *  the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set
+   *  the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as
+   *  seen for example in fold methods' (accumulator, element) => B signature. */
   def dataIForeach[U](f: (Int, A) => Any): Unit =
   { var i = 0
     while(i < elemsNum)
@@ -56,12 +56,12 @@ trait DataGen[A] extends Any
     }
   }
 
-  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of this sequence. It takes a function
-   *  as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid
-   *  warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index
-   *  is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start
-   *  value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for
-   *  example in fold methods' (accumulator, element) => B signature. */
+  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of the data sequence. It takes a
+   *  function as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just
+   *  to avoid warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for
+   *  the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set
+   *  the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as
+   *  seen for example in fold methods' (accumulator, element) => B signature. */
   def dataIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
   { var i = 0
     while(i < elemsNum)
@@ -76,7 +76,8 @@ trait DataGen[A] extends Any
     while(count < elemsNum) { f(indexData(count)); count += 1 }
   }
 
-  /** Specialised map to an immutable ArrBase of B. */
+  /** Specialised map to an immutable [[SeqImut]] of B. For [[SeqGen]] dataMap is the same as map, but for other structures it will be different, for
+   * example a PolygonLike will map to another PolgonLike. */
   def dataMap[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
     dataIForeach((i, a) => ev.arrSet(res, i, f(a)))
