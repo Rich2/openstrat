@@ -42,7 +42,6 @@ trait DataGen[A] extends Any
     }
   }
 
-
   /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of this sequence. It takes a function
    *  as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid
    *  warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index

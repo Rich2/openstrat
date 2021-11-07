@@ -86,7 +86,8 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     }
   }
 
-  /** Specialised map to an immutable ArrBase of B. */
+  /** Specialised map to an immutable [[SeqImut]] of B. Applies the supplied function to every
+   *  element of this sequence. */
   def map[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
     iForeach((i, a) => ev.arrSet(res, i, f(a)))
@@ -119,8 +120,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   /** Specialised flatMap to a [[SeqImut]]. */
   def flatMap[ArrB <: SeqImut[_]](f: A => ArrB)(implicit ev: ArrFlatBuilder[ArrB]): ArrB =
-  {
-    val buff: ev.BuffT = ev.newBuff()
+  { val buff: ev.BuffT = ev.newBuff()
     foreach{ a =>
       val newVals = f(a)
       ev.buffGrowArr(buff, newVals)
