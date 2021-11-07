@@ -13,7 +13,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends HexMapGui("
 
   def players: HCenArrOpt[Player] = scen.oPlayers
 
-  var yScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
+  var rScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
@@ -70,9 +70,9 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends HexMapGui("
   }
   thisTop()
 
-  def moveGraphics2: GraphicElems = moveGraphics.gridScale(yScale).flatMap(_.arrow)
+  def moveGraphics2: GraphicElems = moveGraphics.gridScale(rScale).flatMap(_.arrow)
 
-  def frame: GraphicElems = (tiles +- sidesDraw ++ units ++ hexStrs).gridScale(yScale) ++ moveGraphics2
+  def frame: GraphicElems = (tiles +- sidesDraw ++ units ++ hexStrs).gridScale(rScale) ++ moveGraphics2
 
   repaint()
 }

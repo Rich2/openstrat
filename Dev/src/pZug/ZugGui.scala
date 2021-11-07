@@ -7,7 +7,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
 {
   var scen = scenIn
   implicit def grid: HGrid = scen.grid
-  var yScale = grid.fullDisplayScale(mainWidth, mainHeight)
+  var rScale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val active = grid.map{ hc =>hc.polygonReg.active(hc) }
   val text = terrs.hcMap((hc, t) => hc.decText(14, t.contrastBW))
@@ -64,6 +64,6 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
   statusText = "Welcome to ZugFuher"
   def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   thisTop()
-  def frame: GraphicElems = (rows ++ lines ++ active ++ text ++ lunits).gridScale(yScale)
+  def frame: GraphicElems = (rows ++ lines ++ active ++ text ++ lunits).gridScale(rScale)
   mainRepaint(frame)
 }
