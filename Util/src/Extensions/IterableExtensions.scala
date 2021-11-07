@@ -76,20 +76,27 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** flatMaps over a traversable (collection / sequence) with a counter */
-  def iFlatMap[B, BB <: ArrBase[B]](f: (A, Int) => BB, count: Int = 0)(implicit build: ArrBuilder[B, BB]): BB =
-  { var i = count
+  def iFlatMap[B, BB <: ArrBase[B]](f: (Int, A) => BB)(implicit build: ArrBuilder[B, BB]): BB =
+  { var i = 0
     val buff: build.BuffT = build.newBuff()
-    thisIter.foreach{el => build.buffGrowArr(buff, f(el, i)); i += 1 }
+    thisIter.foreach{ el => build.buffGrowArr(buff, f(i, el)); i += 1 }
     build.buffToBB(buff)
   }
-   
 
-  def iForall(f: (A, Int) => Boolean): Boolean = 
+  /** flatMaps over a traversable (collection / sequence) with a counter */
+  def iFlatMap[B, BB <: ArrBase[B]](count: Int)(f: (Int, A) => BB)(implicit build: ArrBuilder[B, BB]): BB =
+  { var i = count
+    val buff: build.BuffT = build.newBuff()
+    thisIter.foreach{ el => build.buffGrowArr(buff, f(i, el)); i += 1 }
+    build.buffToBB(buff)
+  }
+
+  def iForall(f: (Int, A) => Boolean): Boolean =
   { var count = 0
     var rem = thisIter
     var succeed = true
     while(rem.nonEmpty & succeed)
-      if (f(rem.head, count)) {count += 1; rem = rem.tail }
+      if (f(count, rem.head)) {count += 1; rem = rem.tail }
         else succeed = false
     succeed    
   }
