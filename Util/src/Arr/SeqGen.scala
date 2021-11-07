@@ -117,9 +117,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     res
   }
 
-
-
-  /** Specialised flatMap to an immutable Arr. */
+  /** Specialised flatMap to a [[SeqImut]]. */
   def flatMap[ArrB <: SeqImut[_]](f: A => ArrB)(implicit ev: ArrFlatBuilder[ArrB]): ArrB =
   {
     val buff: ev.BuffT = ev.newBuff()
@@ -128,6 +126,40 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
       ev.buffGrowArr(buff, newVals)
     }
     ev.buffToBB(buff)
+  }
+
+  /** Index with element flatMap. Applies the parameter function to the index and each respective element of this sequence. The function returns a
+   * [[SeqImut]] of elements of type B and the method as a whole flattens and then returns the specialised [[SeqImut]] of type B. The method has 2
+   * versions / name overloads. The default start for the index is 0 if just the function parameter is passed. The second version name overload takes
+   * an [[Int]] for the first parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of
+   * putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should
+   * be overridden in sub classes. */
+  def iFlatMap[ArrB <: SeqImut[_]](f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
+  { val buff: build.BuffT = build.newBuff()
+    var i: Int = 0
+    while (i < elemsNum)
+    { val newArr = f(i, apply(i));
+      build.buffGrowArr(buff, newArr)
+      i += 1
+    }
+    build.buffToBB(buff)
+  }
+
+  /** Index with element flatMap. Applies the parameter function to the index and each respective element of this sequence. The function returns a
+   * [[SeqImut]] of elements of type B and the method as a whole flattens and then returns the specialised [[SeqImut]] of type B. The method has 2
+   * versions / name overloads. The default start for the index is 0 if just the function parameter is passed. The second version name overload takes
+   * an [[Int]] for the first parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of
+   * putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should
+   * be overridden in sub classes. */
+  def iFlatMap[ArrB <: SeqImut[_]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
+  { val buff: build.BuffT = build.newBuff()
+    var count: Int = 0
+    while (count < elemsNum)
+    { val newElems = f(count + iInit, apply(count))
+      build.buffGrowArr(buff, newElems)
+      count += 1
+    }
+    build.buffToBB(buff)
   }
 
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
@@ -156,33 +188,6 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
       count += 1
     }
     res
-  }
-
-
-  /** Specialised index with flatMap to an immutable Arr. Note the function signature follows the foreach based convention of putting the collection
-   *  element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
-  def iFlatMap[ArrB <: SeqImut[_]](f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
-  { val buff: build.BuffT = build.newBuff()
-    var i: Int = 0
-    while (i < elemsNum)
-    { val newArr = f(i, apply(i));
-      build.buffGrowArr(buff, newArr)
-      i += 1
-    }
-    build.buffToBB(buff)
-  }
-
-  /** Specialised index with flatMap to an immutable Arr. Note the function signature follows the foreach based convention of putting the collection
-   *  element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
-  def iFlatMap[ArrB <: SeqImut[_]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
-  { val buff: build.BuffT = build.newBuff()
-    var count: Int = 0
-    while (count < elemsNum)
-    { val newElems = f(count + iInit, apply(count))
-      build.buffGrowArr(buff, newElems)
-      count += 1
-    }
-    build.buffToBB(buff)
   }
 
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed. Note the function
