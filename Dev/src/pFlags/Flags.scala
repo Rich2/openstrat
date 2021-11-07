@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pFlags
+package ostrat; package pFlags
 import geom._, Colour._
 
 /** The flag trait is a builder for Graphic Elements and sequences of Graphic Elements, representing the flag, it is not itself. */
@@ -18,13 +17,13 @@ trait Flag
   }
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
-  def leftToRight(colours: Colour*): GraphicElems = colours.iMap((colour, i) => Rect.tl(ratio / colours.length, 1,
-    -ratio / 2 pp + 0.5).slateXY(i * ratio / colours.length, 0).fill(colour))
+  def leftToRight(colours: Colour*): GraphicElems = colours.iMap{ (i, colour) => Rect.tl(ratio / colours.length, 1,
+    -ratio / 2 pp + 0.5).slateXY(i * ratio / colours.length, 0).fill(colour) }
          
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
-  def topToBottom(colours: Colour*): GraphicElems = colours.iMap((colour, i) => Rect.tl(ratio,
+  def topToBottom(colours: Colour*): GraphicElems = colours.iMap{ (i, colour) => Rect.tl(ratio,
      1.0 / colours.length, -ratio / 2 pp + 0.5).slateXY(0,
-       - i.toDouble / colours.length).fill(colour))
+       - i.toDouble / colours.length).fill(colour) }
 
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
   def topToBottomRepeat(numBands: Int, colours: Colour*): GraphicElems = iUntilMap(0, numBands){ i =>

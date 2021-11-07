@@ -57,9 +57,18 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     thisIter.foreach { elem => f(i, elem); i += 1 }
   }
 
+  /** Specialised index with map to an immutable ArrBase of B. Note the function signature follows the foreach based convention of putting the
+   *  collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
+  def iMap[B, BB <: ArrBase[B]](f: (Int, A) => B)(implicit build: ArrBuilder[B, BB]): BB =
+  { var i = 0
+    val buff: build.BuffT = build.newBuff()
+    thisIter.foreach{el => build.buffGrow(buff, f(i, el)); i += 1 }
+    build.buffToBB(buff)
+  }
 
-  /** Maps over and  */
-  def iMap[B, BB <: ArrBase[B]](f: (A, Int) => B, count: Int = 0)(implicit build: ArrBuilder[B, BB]): BB =
+  /** Specialised index with map to an immutable ArrBase of B. Note the function signature follows the foreach based convention of putting the
+   *  collection element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
+  def iMap[B, BB <: ArrBase[B]](count: Int)(f: (A, Int) => B)(implicit build: ArrBuilder[B, BB]): BB =
   { var i = count
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{el => build.buffGrow(buff, f(el, i)); i += 1 }
