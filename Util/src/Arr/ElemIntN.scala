@@ -18,7 +18,7 @@ trait DataIntNs[A <: ElemIntN] extends Any with DataValueNs[A]
 
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(elemsNum)
-    dataIForeach{ (el, i) => res.unsafeSetElem(elemsNum - 1 - i, el)}
+    dataIForeach({ (i, el) => res.unsafeSetElem(elemsNum - 1 - i, el)})
     res
   }
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */

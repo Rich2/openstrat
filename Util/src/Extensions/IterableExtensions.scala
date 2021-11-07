@@ -25,7 +25,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def toImut[AA <: ArrBase[A]](implicit bu: ArrBuilder[A, AA]): AA =
   { val len = thisIter.size
     val res = bu.newArr(len)
-    iForeach((a, i) => res.unsafeSetElem(i, a))
+    iForeach((i, a) => res.unsafeSetElem(i, a))
     res
   }
 
@@ -34,6 +34,29 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     thisIter.foreach(acc += f(_))
     acc
   }
+
+  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The
+   *  function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about
+   *  discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just
+   *  the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value
+   *  of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example
+   *  in fold methods' (accumulator, element) => B signature. */
+  def iForeach(f: (Int, A) => Unit): Unit =
+  { var i = 0
+    thisIter.foreach { elem => f(i, elem); i += 1 }
+  }
+
+  /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The
+   *  function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about
+   *  discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index is 0 if just
+   *  the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start value
+   *  of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example
+   *  in fold methods' (accumulator, element) => B signature. */
+  def iForeach(initialIndex: Int)(f: (Int, A) => Unit): Unit =
+  { var i = initialIndex
+    thisIter.foreach { elem => f(i, elem); i += 1 }
+  }
+
 
   /** Maps over and  */
   def iMap[B, BB <: ArrBase[B]](f: (A, Int) => B, count: Int = 0)(implicit build: ArrBuilder[B, BB]): BB =
@@ -51,12 +74,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     build.buffToBB(buff)
   }
    
-  /** foreach loop with index. The startIndex parameter is placed 2nd to allow it to have a default value of zero. */
-  def iForeach(f: (A, Int) => Unit, initialIndex: Int = 0): Unit =
-  { var i = initialIndex
-    thisIter.foreach { elem => f(elem, i); i += 1 }
-  }
-  
+
   def iForall(f: (A, Int) => Boolean): Boolean = 
   { var count = 0
     var rem = thisIter

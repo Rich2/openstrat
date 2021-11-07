@@ -282,7 +282,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   def insVerts(insertionPoint: Int, newVecs: Pt2 *): Polygon =
   { val res = PolygonGen.uninitialised(vertsNum + newVecs.length)
     (1 until insertionPoint).foreach(i => res.unsafeSetElem(i - 1, vert(i)))
-    newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i -1, elem))
+    newVecs.iForeach((i, elem) => res.unsafeSetElem(insertionPoint + i - 1, elem))
     (insertionPoint until vertsNum + 1).foreach(i => res.unsafeSetElem(i + newVecs.length -1, vert(i)))
     res
   }

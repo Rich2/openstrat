@@ -6,7 +6,7 @@ trait LinePathLike[A <: ElemValueN] extends Any with DataValueNs[A]
 {
   def map[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.newArr(elemsNum)
-    dataIForeach((p, i) => res.unsafeSetElem(i, f(p)))
+    dataIForeach((i, p) => res.unsafeSetElem(i, f(p)))
     res
   }
 }

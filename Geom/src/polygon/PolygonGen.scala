@@ -73,7 +73,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2s
   override def insVerts(insertionPoint: Int, newVecs: Pt2 *): PolygonGen =
   { val res = PolygonGen.uninitialised(elemsNum + newVecs.length)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, indexData(i)))
-    newVecs.iForeach((elem, i) => res.unsafeSetElem(insertionPoint + i, elem))
+    newVecs.iForeach((i, elem) => res.unsafeSetElem(insertionPoint + i, elem))
     (insertionPoint until elemsNum).foreach(i => res.unsafeSetElem(i + newVecs.length, indexData(i)))
     res
   }

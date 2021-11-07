@@ -17,7 +17,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
   final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGridOld): Roord =
   {
     val tiles: List[A] = tileValues.toSingles
-    tiles.iForeach { (e, i) =>
+    tiles.iForeach { (i, e) =>
       val c = cStart + i * grid.cStep
       unsafeArr(grid.arrIndex(yRow, c)) = e
     }
@@ -30,7 +30,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
 
   def sqSetAllOfRow(y: Int, tileMakers: Multiple[A]*)(implicit grid: SquareGridSimpleOld): Unit =
   { val tiles = tileMakers.flatMap(_.singlesList)
-    tiles.iForeach{(el , i) =>
+    tiles.iForeach{(i, el) =>
       val index = grid.arrIndex(y, grid.cTileMin + i * 2)
       unsafeArr(index) =  el
     }
@@ -40,7 +40,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
   final def setRowBack(yRow: Int, cStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGridOld): Roord =
   {
     val tiles = tileMakers.toSingles
-    tiles.iForeach{(el, i) =>
+    tiles.iForeach{(i, el) =>
       val c = cStart - i * grid.cStep
       val index = grid.arrIndex(yRow, c)
       unsafeArr(index) = el
@@ -54,7 +54,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
   final def setColumn(c: Int, yStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGridOld): Roord =
   {
     val tiles = tileMakers.flatMap(_.singlesList)
-    tiles.iForeach{(el, i) =>
+    tiles.iForeach{(i, el) =>
       val y = yStart + i * 2
       val index = grid.arrIndex(y, c)
       unsafeArr(index) =  el
@@ -69,7 +69,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
   {
     val tiles = tileMakers.flatMap(_.singlesList)
 
-    tiles.iForeach{(el, i) =>
+    tiles.iForeach{(i, el) =>
       val y = yStart - i * 2
       val index = grid.arrIndex(y, c)
       unsafeArr(index) = el

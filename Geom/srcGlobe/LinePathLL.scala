@@ -15,14 +15,28 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   def +: (newElem: LatLong): LinePathLL =
   { val res = LinePathLL.uninitialised(elemsNum + 1)
     res.unsafeSetElem(0, newElem)
-    dataIForeach{ (ll, i) => res.unsafeSetElem(i + 1, ll) }
+    dataIForeach{ (i, ll) => res.unsafeSetElem(i + 1, ll) }
+    res
+  }
+
+  def ++ (operand: LinePathLL): LinePathLL =
+  { val res = LinePathLL.uninitialised(elemsNum + operand.elemsNum)
+    dataIForeach{ (i, ll) => res.unsafeSetElem(i, ll) }
+    operand.dataIForeach(elemsNum) { (i, ll) => res.unsafeSetElem(i, ll) }
+    res
+  }
+
+  def ++ (elems: LatLong *): LinePathLL =
+  { val res = LinePathLL.uninitialised(elemsNum + elems.length)
+    dataIForeach{ (i, ll) => res.unsafeSetElem(i, ll) }
+    elems.iForeach(elemsNum){ (i, ll) => res.unsafeSetElem(i, ll) }
     res
   }
 
   def close(newElems: LatLong*): PolygonLL =
   { val res = PolygonLL.uninitialised(elemsNum + newElems.length)
     arrayUnsafe.copyToArray(res.arrayUnsafe)
-    newElems.iForeach((ll, i) => res.unsafeSetElem(elemsNum + i, ll))
+    newElems.iForeach((i, ll) => res.unsafeSetElem(elemsNum + i, ll))
     res
   }
 

@@ -18,7 +18,7 @@ object Angles
 {
   def apply(elems: Angle*): Angles =
   { val array: Array[Double] = new Array[Double](elems.length)
-    elems.iForeach((a, i) => array(i) = a.secs)
+    elems.iForeach((i, a) => array(i) = a.secs)
     new Angles(array)
   }
 

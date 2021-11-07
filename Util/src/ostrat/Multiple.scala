@@ -39,6 +39,6 @@ object Multiple
 
   implicit class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
   { def toSingles: List[A] = thisSeq.toList.flatMap(_.singlesList)
-    def iForeachSingle(f: (A, Int) => Unit) = toSingles.iForeach(f)
+    def iForeachSingle(f: (Int, A) => Unit) = toSingles.iForeach(f)
   }
 }

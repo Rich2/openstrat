@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+package ostrat; package pGrid
 import geom._
 
 /** A 2d line defined by its start and end TileGrid Roord. */

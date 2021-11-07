@@ -63,7 +63,7 @@ class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with PolygonInt2s[HC
   def toPolygon(f: HCoord => Pt2): Polygon =
   {
     val res = PolygonGen.uninitialised(elemsNum)
-    dataIForeach((hv, i) => res.unsafeSetElem(i, f(hv)))
+    dataIForeach((i, hv) => res.unsafeSetElem(i, f(hv)))
     res
   }
 

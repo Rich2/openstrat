@@ -16,7 +16,7 @@ trait ArrBase[+A] extends Any with SeqGen[A] with DataImut[A]
    * methods. */
   def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(elemsNum -1, value)
 
-  def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
+  def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach(index){(i, a) => unsafeSetElem(i, a) }
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   //final def elemsStr: String = dataMap(fElemStr).mkString("; ").enParenth

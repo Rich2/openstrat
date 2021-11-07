@@ -7,7 +7,7 @@ class DataGenExtensions[A](val al : DataGen[A])
   def mapLinePath[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   {
     val res = build.newArr(al.elemsNum)
-    al.dataIForeach((a, i) => build.arrSet(res, i, f(a)))
+    al.dataIForeach((i, a) => build.arrSet(res, i, f(a)))
     res
   }
 
@@ -15,8 +15,7 @@ class DataGenExtensions[A](val al : DataGen[A])
   def mapPolygon[B <: ElemValueN, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonBuilder[B, BB]): BB =
   {
     val res = build.newPolygonT(al.elemsNum)
-    al.dataIForeach((a, i) => build.arrSet(res, i, f(a)))
+    al.dataIForeach((i, a) => build.arrSet(res, i, f(a)))
     res
   }
-
 }

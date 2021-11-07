@@ -215,7 +215,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
   final def setRow[A](yRow: Int, xStart: Int, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {
     val tiles: List[A] = tileValues.toSingles      
-    tiles.iForeach{(e, i) =>
+    tiles.iForeach{ (i, e) =>
       val x = xStart + i * xStep
       fSetTile(x, yRow, e)         
     }
@@ -226,7 +226,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
   final def setRowBack[A](yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {
     val tiles = tileMakers.toSingles      
-    tiles.iForeach{(e, i) =>
+    tiles.iForeach{ (i, e) =>
       val x = xStart - i * xStep
       fSetTile(x, yRow, e)
     }

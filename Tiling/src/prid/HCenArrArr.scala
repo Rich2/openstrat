@@ -12,7 +12,7 @@ class HCenArrArr[A](val unsafeArray: Array[Array[A]])
 
   def set(hc: HCen, values: A*)(implicit grid: HGrid, ct: ClassTag[A]): Unit =
   { val newElem: Array[A] = new Array[A](values.length)
-    values.iForeach((v ,i) => newElem(i) = v)
+    values.iForeach((i, v) => newElem(i) = v)
     unsafeArray(grid.arrIndex(hc)) = newElem
   }
 

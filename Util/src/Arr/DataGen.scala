@@ -18,7 +18,7 @@ trait DataGen[A] extends Any
   def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit
 
   /** Sets / mutates elements in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
-  def unsafeSetElems(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach((a, i) => unsafeSetElem(i, a), index)
+  def unsafeSetElems(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach(index){ (i, a) => unsafeSetElem(i, a) }
 
   def fElemStr: A @uncheckedVariance => String
 
@@ -35,19 +35,39 @@ trait DataGen[A] extends Any
 
   /** Performs a side effecting function on each element of this sequence in order. */
   def dataForeach[U](f: A => U): Unit =
-  { var count = 0
-    while(count < elemsNum)
-    { f(indexData(count))
-      count = count + 1
+  { var i = 0
+    while(i < elemsNum)
+    { f(indexData(i))
+      i = i + 1
     }
   }
 
-  /** Performs a side effecting function on each element of this sequence in order. */
-  def dataIForeach[U](f: (A, Int) => U): Unit =
-  { var count = 0
-    while(count < elemsNum)
-    { f(indexData(count), count)
-      count = count + 1
+
+  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of this sequence. It takes a function
+   *  as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid
+   *  warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index
+   *  is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start
+   *  value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for
+   *  example in fold methods' (accumulator, element) => B signature. */
+  def dataIForeach[U](f: (Int, A) => Any): Unit =
+  { var i = 0
+    while(i < elemsNum)
+    { f(i, indexData(i))
+      i = i + 1
+    }
+  }
+
+  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of this sequence. It takes a function
+   *  as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid
+   *  warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for the index
+   *  is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set the start
+   *  value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for
+   *  example in fold methods' (accumulator, element) => B signature. */
+  def dataIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
+  { var i = 0
+    while(i < elemsNum)
+    { f(i + initIndex, indexData(i))
+      i = i + 1
     }
   }
 
@@ -60,7 +80,7 @@ trait DataGen[A] extends Any
   /** Specialised map to an immutable ArrBase of B. */
   def dataMap[B, ArrB <: ArrBase[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val res = ev.newArr(elemsNum)
-    dataIForeach((a, i) => ev.arrSet(res, i, f(a)))
+    dataIForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
 

@@ -53,7 +53,7 @@ trait HStepsCompanion[T <: HStepsTr]
 
   def apply(steps: HStep*): T =
   { val array = new Array[Int](steps.length)
-    steps.iForeach{(step, i) => array(i) = step.intValue }
+    steps.iForeach{(i, step) => array(i) = step.intValue }
     fromArray(array)
   }
 }

@@ -24,7 +24,7 @@ trait DataDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBack
 
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(elemsNum)
-    dataIForeach{ (el, i) => res.unsafeSetElem(elemsNum - 1 - i, el)}
+    dataIForeach({ (i, el) => res.unsafeSetElem(elemsNum - 1 - i, el)})
     res
   }
 }

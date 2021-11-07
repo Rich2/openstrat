@@ -47,10 +47,9 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
   final def setRow(row: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: HGrid): HCen =
   {
     val tiles: List[A] = tileValues.toSingles
-    tiles.iForeach { (e, i) =>
+    tiles.iForeach { (i, e) =>
       val c = cStart + i * 4
-
-      unsafeArr(grid.arrIndex(row, c)) = e
+      unsafeArr(grid.arrIndex(c, row)) = e
     }
     HCen(row, cStart + (tiles.length - 1) * 4)
   }
