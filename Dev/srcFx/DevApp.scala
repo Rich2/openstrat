@@ -31,6 +31,7 @@ class AppStart extends application.Application
         else { deb(s"${it.srcStr} is not a recognised app identifier"); Apps.default }
 
       case Good(StringToken(_, str)) if Apps.strMap.contains(str) => Apps.strMap(str)
+      case Good(expr) => { debvar(expr); Apps.default }
       case _ => { debvar(eExpr); Apps.default }
     }
     val newAlt = CanvasFx(canvasCanvas, jScene)
