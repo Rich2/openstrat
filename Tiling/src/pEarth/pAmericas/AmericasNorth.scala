@@ -2,6 +2,12 @@
 package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._
 
+
+object LakeSuperior extends EarthLevel2("Lake Superior", 47.66 ll -90, lake)
+{
+  override def polygonLL: PolygonLL = ???
+}
+
 object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
 { val w49th = degs(49, -125.66)
   val yakut = degs(59.93, -141.03)
@@ -13,15 +19,19 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
    
   val wCanada: A2Type = EarthLevel2("WCanada", degs(64.051, -129.98), taiga, w49th, yakut, swAlaska, nwAlaska, wCanadaEN, wCanadaES)
 
-  val nwPass = degs(69.5, -82.82)
+  val nwPass = 69.5 ll -82.82
   val eggIsland = degs(59.91, -94.85)
   val jamesBayNW = degs(55.07, -82.31)
   val jamesBayS = degs(51.14, -79.79)
+  val huronNE = degs(45.90, -80.76)
+
+  val h49th80 = degs(49, -80)
+
+  val cCanada: A2Type = EarthLevel2("CCanada", degs(64.051, -100.0), taiga, wCanadaES, wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS, huronNE)
+
   val hudsonBayMouthE = degs(62.57, -77.99)
   val ungavaW = degs(61.04, -69.56)
   val ungavaS = degs(58.26, -67.45)
-  val h49th80 = degs(49, -80)
-   
   /** Camden County Georgia USA */
   val NAtlanticSW = 31 ll  -81.47
   val ungavaE = degs(60.49, -64.74)
@@ -33,11 +43,11 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
    
   val eCanadaCoast = LinePathLL(ungavaE, labradorE, newFoundlandE, eNovaScotia)
    
-  val eCanada: A2Type = new EarthLevel2("ECanada", degs(53.71, -94), taiga)
+  val eCanada: A2Type = new EarthLevel2("ECanada", degs(53.71, -70), taiga)
   {
     override val polygonLL: PolygonLL = {
-      val lPath = LinePathLL(wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) ++ eCanadaCoast
-      lPath.close(maineE, h49th80, wCanadaES)
+      val lPath = LinePathLL(huronNE, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) ++ eCanadaCoast
+      lPath.close(maineE, h49th80)
     }
   }
          
@@ -54,7 +64,7 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
    
   val montague = 31.70 ll -114.71
    
-  lazy val usa = EarthLevel2("UnitedStates", degs(39.8, -98.6), plain, /*cAmericaNW, */ sanDiego, humboldt, w49th, wCanadaES, h49th80, maineE,
+  lazy val usa = EarthLevel2("UnitedStates", degs(39.8, -98.6), plain, /*cAmericaNW, */ sanDiego, humboldt, w49th, wCanadaES, huronNE, h49th80, maineE,
      NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
    
   val cabotPulmo = 23.37 ll -109.44
@@ -97,5 +107,5 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
          
   type A2Type = EarthLevel2
    
-  override val a2Arr: Arr[A2Type] = Arr(usa, wCanada, eCanada, baja, cAmerica, cuba)
+  override val a2Arr: Arr[A2Type] = Arr(usa, wCanada, cCanada, eCanada, baja, cAmerica, cuba)
 }
