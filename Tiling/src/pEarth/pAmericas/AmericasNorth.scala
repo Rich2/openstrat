@@ -59,6 +59,7 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
   val cAmericaNW= cAmericaN ll -105.97
   val sanDiego = degs(32.57, -117.11)
   val humboldt = 40.44 ll -124.40
+  val wUsaNE = 50 ll -98
   val ensenada = 31.74 ll -116.73
   val seFlorida = degs(25.34, -80.39)
   val swFlorida = degs(25.19, -81.13)
@@ -67,9 +68,12 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
   val rockyPoint = 31.16 ll -113.02
    
   val montague = 31.70 ll -114.71
+
+  lazy val wUsa = EarthLevel2("WUnitedStates", degs(40.0, -108.0), desert, sanDiego, humboldt, w49th, wCanadaES, wUsaNE,
+    galveston, rockyPoint, montague)
    
-  lazy val usa = EarthLevel2("UnitedStates", degs(39.8, -98.6), plain, /*cAmericaNW, */ sanDiego, humboldt, w49th, wCanadaES, huronNE, h49th80, maineE,
-     NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
+  lazy val eUsa = EarthLevel2("EUnitedStates", degs(39.8, -85.0), plain, galveston, wUsaNE, LakeSuperior.west, LakeSuperior.east, huronNE,
+    h49th80, maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
    
   val cabotPulmo = 23.37 ll -109.44
   val sanLucas = 22.87 ll -109.91
@@ -111,5 +115,5 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
          
   type A2Type = EarthLevel2
    
-  override val a2Arr: Arr[A2Type] = Arr(usa, wCanada, cCanada, eCanada, baja, cAmerica, cuba)
+  override val a2Arr: Arr[A2Type] = Arr(wUsa, eUsa, wCanada, cCanada, eCanada, baja, cAmerica, cuba)
 }
