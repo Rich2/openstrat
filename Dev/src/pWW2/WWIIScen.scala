@@ -19,7 +19,10 @@ object WW2Launch extends GuiLaunchMore
   { val oScale = sts.findSettingT[Int]("scale")
     val scale: Option[Metres] = oScale.mapToOption(1.kmsOld * _)
     val oLat: EMon[Double] = sts.findSettingDbl("latitude")
-    val oLong = sts.findSettingT[Double]("longitude")
+    sts.foreach(println)
+    debvar(oLat)
+    val oLong: EMon[Double] = sts.findSettingT[Double]("longitude")
+    debvar(oLong)
     val oll = oLat.flatMap2ToOption[Double, LatLong](oLong, (la, lo) => LatLong.degs(la, lo))
     (cv => WWIIGuiOld(cv, WW1940, scale, oll), "World War II")
   }

@@ -5,7 +5,10 @@ import geom._, pglobe._, LatLong._, WTile._
 
 object LakeSuperior extends EarthLevel2("Lake Superior", 47.66 ll -90, lake)
 {
-  override def polygonLL: PolygonLL = ???
+  val west: LatLong = 46.77 ll -92.11
+  val north: LatLong = 48.80 ll -87.31
+  val east: LatLong = 46.52 ll -84.61
+  override def polygonLL: PolygonLL = PolygonLL(west, north, east)
 }
 
 object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
@@ -27,7 +30,8 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
 
   val h49th80 = degs(49, -80)
 
-  val cCanada: A2Type = EarthLevel2("CCanada", degs(64.051, -100.0), taiga, wCanadaES, wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS, huronNE)
+  val cCanada: A2Type = EarthLevel2("CCanada", degs(64.051, -100.0), taiga, wCanadaES, wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS,
+    huronNE, LakeSuperior.east, LakeSuperior.north, LakeSuperior.west)
 
   val hudsonBayMouthE = degs(62.57, -77.99)
   val ungavaW = degs(61.04, -69.56)

@@ -116,6 +116,7 @@ object UnShow
     { case NatDeciToken(_, i) => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toDouble))
+      case intok: IntNegToken => Good(intok.getInt)
       /* case FloatToken(_, _, d) => Good(d)
        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d)
        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d)
