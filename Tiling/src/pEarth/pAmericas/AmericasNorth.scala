@@ -23,9 +23,22 @@ object LakeMichigan extends EarthLevel2("Lake Michigan", 43.82 ll -87.1, lake)
 object LakeHuron extends EarthLevel2("Lake Michigan", 43.82 ll -87.1, lake)
 { val south: LatLong = 43.00 ll -82.42
   val northEast: LatLong = 45.90 ll -80.70
-  val mouthNorth: LatLong = 45.84 ll -84.75
+  val east: LatLong = 44.86 ll -79.89
+  val geogianSouth: LatLong = 44.47 ll -80.11
   val tobermory: LatLong = 45.26 ll -81.69
-  override def polygonLL: PolygonLL = PolygonLL(south, LakeMichigan.mouthSouth, LakeMichigan.mouthNorth, northEast, mouthNorth)
+  override def polygonLL: PolygonLL = PolygonLL(south, LakeMichigan.mouthSouth, LakeMichigan.mouthNorth, northEast, east, geogianSouth,
+    tobermory)
+}
+
+object LakeErie extends EarthLevel2("Lake Erie", 42.24 ll -81.03, lake)
+{
+  val maumeeMouth: LatLong = 41.70 ll -83.47
+  val detroitMouth: LatLong = 42.05 ll -83.15
+  val niagraMouth: LatLong = 42.89 ll -78.91
+  val portStanley: LatLong = 42.66 ll -81.24
+  val east: LatLong = 42.78 ll -78.85
+  val south: LatLong = 41.38 ll -82.49
+  override def polygonLL: PolygonLL = PolygonLL(maumeeMouth, detroitMouth, niagraMouth, portStanley, east, south)
 }
 
 object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
@@ -64,7 +77,8 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
   val eCanada: A2Type = new EarthLevel2("ECanada", degs(53.71, -70), taiga)
   {
     override val polygonLL: PolygonLL = {
-      val lPath = LinePathLL(LakeHuron.south, LakeHuron.northEast, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) ++ eCanadaCoast
+      val lPath = LinePathLL(LakeErie.niagraMouth, LakeErie.portStanley, LakeErie.detroitMouth, LakeHuron.south, LakeHuron.tobermory,
+        LakeHuron.geogianSouth, LakeHuron.east, LakeHuron.northEast, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) ++ eCanadaCoast
       lPath.close(maineE)
     }
   }
@@ -88,7 +102,8 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
 
   lazy val eUsa = EarthLevel2("EUnitedStates", degs(39.8, -85.0), plain, galveston, wUsaNE, LakeSuperior.west48, LakeSuperior.west,
     LakeSuperior.east, LakeMichigan.mouthNorth, LakeMichigan.north, LakeMichigan.northWest, LakeMichigan.west, LakeMichigan.south,
-    LakeMichigan.mouthSouth, LakeHuron.south, maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
+    LakeMichigan.mouthSouth, LakeHuron.south, LakeErie.detroitMouth, LakeErie.maumeeMouth, LakeErie.south, LakeErie.east, LakeErie.niagraMouth,
+    maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
    
   val cabotPulmo = 23.37 ll -109.44
   val sanLucas = 22.87 ll -109.91
