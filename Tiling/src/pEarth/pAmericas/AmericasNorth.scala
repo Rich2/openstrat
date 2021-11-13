@@ -2,13 +2,30 @@
 package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._
 
-
 object LakeSuperior extends EarthLevel2("Lake Superior", 47.66 ll -90, lake)
-{
-  val west: LatLong = 46.77 ll -92.11
+{ val west: LatLong = 46.77 ll -92.11
+  val west48: LatLong = 48.00 ll -89.57
   val north: LatLong = 48.80 ll -87.31
   val east: LatLong = 46.52 ll -84.61
   override def polygonLL: PolygonLL = PolygonLL(west, north, east)
+}
+
+object LakeMichigan extends EarthLevel2("Lake Michigan", 43.82 ll -87.1, lake)
+{ val south: LatLong = 41.62 ll -87.25
+  val west: LatLong = 43.04 ll -87.89
+  val northWest: LatLong = 45.91 ll -86.97
+  val north: LatLong = 46.10 ll -85.42
+  val mouthNorth: LatLong = 45.84 ll -84.75
+  val mouthSouth: LatLong = 45.78 ll -84.75
+  override def polygonLL: PolygonLL = PolygonLL(south, west, northWest, mouthNorth, mouthSouth)
+}
+
+object LakeHuron extends EarthLevel2("Lake Michigan", 43.82 ll -87.1, lake)
+{ val south: LatLong = 43.00 ll -82.42
+  val northEast: LatLong = 45.90 ll -80.70
+  val mouthNorth: LatLong = 45.84 ll -84.75
+  val tobermory: LatLong = 45.26 ll -81.69
+  override def polygonLL: PolygonLL = PolygonLL(south, LakeMichigan.mouthSouth, LakeMichigan.mouthNorth, northEast, mouthNorth)
 }
 
 object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
@@ -19,19 +36,16 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
   val wCanadaE = 110.west
   val wCanadaEN = 72.97.north * wCanadaE
   val wCanadaES = 49.north * wCanadaE
-   
+
   val wCanada: A2Type = EarthLevel2("WCanada", degs(64.051, -129.98), taiga, w49th, yakut, swAlaska, nwAlaska, wCanadaEN, wCanadaES)
 
   val nwPass = 69.5 ll -82.82
   val eggIsland = degs(59.91, -94.85)
   val jamesBayNW = degs(55.07, -82.31)
   val jamesBayS = degs(51.14, -79.79)
-  val huronNE = degs(45.90, -80.76)
-
-  val h49th80 = degs(49, -80)
 
   val cCanada: A2Type = EarthLevel2("CCanada", degs(64.051, -100.0), taiga, wCanadaES, wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS,
-    huronNE, LakeSuperior.east, LakeSuperior.north, LakeSuperior.west)
+    LakeHuron.northEast, LakeSuperior.east, LakeSuperior.north, LakeSuperior.west48)
 
   val hudsonBayMouthE = degs(62.57, -77.99)
   val ungavaW = degs(61.04, -69.56)
@@ -44,17 +58,17 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
   //val e49th = deg(49, -64.41) Removed as Newfoundland is the close
   val maineE = degs(44.87, -66.93)
   val eNovaScotia = 46.16 ll -59.86
-   
+
   val eCanadaCoast = LinePathLL(ungavaE, labradorE, newFoundlandE, eNovaScotia)
-   
+
   val eCanada: A2Type = new EarthLevel2("ECanada", degs(53.71, -70), taiga)
   {
     override val polygonLL: PolygonLL = {
-      val lPath = LinePathLL(huronNE, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) ++ eCanadaCoast
-      lPath.close(maineE, h49th80)
+      val lPath = LinePathLL(LakeHuron.south, LakeHuron.northEast, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) ++ eCanadaCoast
+      lPath.close(maineE)
     }
   }
-         
+
   val cAmericaN =  22.8.north
   val cAmericaNW= cAmericaN ll -105.97
   val sanDiego = degs(32.57, -117.11)
@@ -66,14 +80,15 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
   val nwFlorida = degs(30.14, -84.06)
   val galveston = 29.31 ll -94.77
   val rockyPoint = 31.16 ll -113.02
-   
+
   val montague = 31.70 ll -114.71
 
   lazy val wUsa = EarthLevel2("WUnitedStates", degs(40.0, -108.0), desert, sanDiego, humboldt, w49th, wCanadaES, wUsaNE,
     galveston, rockyPoint, montague)
-   
-  lazy val eUsa = EarthLevel2("EUnitedStates", degs(39.8, -85.0), plain, galveston, wUsaNE, LakeSuperior.west, LakeSuperior.east, huronNE,
-    h49th80, maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
+
+  lazy val eUsa = EarthLevel2("EUnitedStates", degs(39.8, -85.0), plain, galveston, wUsaNE, LakeSuperior.west48, LakeSuperior.west,
+    LakeSuperior.east, LakeMichigan.mouthNorth, LakeMichigan.north, LakeMichigan.northWest, LakeMichigan.west, LakeMichigan.south,
+    LakeMichigan.mouthSouth, LakeHuron.south, maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
    
   val cabotPulmo = 23.37 ll -109.44
   val sanLucas = 22.87 ll -109.91
@@ -101,9 +116,9 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
   val stIgnacio = degs(9.26, -78.12)
   val nePanama = degs(8.43, -77.26)
 
-  val cAmerica: A2Type = EarthLevel2("CAmerica", degs(17.31, -94.16), jungle, sePanama, mariato, quebrada, swGuatemala, pochutala, manzanillo,
-     cAmericaNW, rockyPoint, galveston, brownsville, coatz, champeton, nwYucatan, neYucatan, seBelize, eHonduras, kusapin, stIsabel, stIgnacio,
-     nePanama)
+  val cAmerica: A2Type = EarthLevel2("CAmerica", degs(17.31, -94.16), jungle, sePanama, mariato, quebrada, swGuatemala, pochutala,
+    manzanillo, cAmericaNW, rockyPoint, galveston, brownsville, coatz, champeton, nwYucatan, neYucatan, seBelize, eHonduras, kusapin, stIsabel,
+    stIgnacio, nePanama)
    
   val wCuba = 21.86 ll -84.95
   val havana = 23.14 ll -82.39
