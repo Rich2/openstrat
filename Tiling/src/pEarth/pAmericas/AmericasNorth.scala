@@ -31,14 +31,24 @@ object LakeHuron extends EarthLevel2("Lake Michigan", 43.82 ll -87.1, lake)
 }
 
 object LakeErie extends EarthLevel2("Lake Erie", 42.24 ll -81.03, lake)
-{
-  val maumeeMouth: LatLong = 41.70 ll -83.47
+{ val maumeeMouth: LatLong = 41.70 ll -83.47
   val detroitMouth: LatLong = 42.05 ll -83.15
   val niagraMouth: LatLong = 42.89 ll -78.91
   val portStanley: LatLong = 42.66 ll -81.24
   val east: LatLong = 42.78 ll -78.85
   val south: LatLong = 41.38 ll -82.49
   override def polygonLL: PolygonLL = PolygonLL(maumeeMouth, detroitMouth, niagraMouth, portStanley, east, south)
+}
+
+object LakeOntario extends EarthLevel2("Lake Ontario", 43.65 ll -77.84, lake)
+{ val southWest: LatLong = 43.30 ll -79.82
+  val frenchmansBay: LatLong = 43.81 ll -79.09
+  val northEast: LatLong = 44.20 ll -76.51
+  val wolfeSW: LatLong = 44.10 ll -76.44
+  val tibbettsPoint =  44.10 ll -76.37
+  val southEast: LatLong = 43.53 ll -76.22
+  val niagraMouth: LatLong = 43.26 ll -79.07
+  override def polygonLL: PolygonLL = PolygonLL(southWest, frenchmansBay, northEast, wolfeSW, tibbettsPoint, southEast, niagraMouth)
 }
 
 object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
@@ -77,9 +87,10 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
   val eCanada: A2Type = new EarthLevel2("ECanada", degs(53.71, -70), taiga)
   {
     override val polygonLL: PolygonLL = {
-      val lPath = LinePathLL(LakeErie.niagraMouth, LakeErie.portStanley, LakeErie.detroitMouth, LakeHuron.south, LakeHuron.tobermory,
-        LakeHuron.geogianSouth, LakeHuron.east, LakeHuron.northEast, jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) ++ eCanadaCoast
-      lPath.close(maineE)
+      val lPath = LinePathLL(LakeHuron.south, LakeHuron.tobermory, LakeHuron.geogianSouth, LakeHuron.east, LakeHuron.northEast, jamesBayS,
+        hudsonBayMouthE, ungavaW, ungavaS) ++ eCanadaCoast
+      lPath.close(maineE, LakeOntario.wolfeSW, LakeOntario.northEast, LakeOntario.frenchmansBay, LakeOntario.southWest, LakeOntario.niagraMouth,
+        LakeErie.niagraMouth, LakeErie.portStanley, LakeErie.detroitMouth)
     }
   }
 
@@ -103,7 +114,8 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
   lazy val eUsa = EarthLevel2("EUnitedStates", degs(39.8, -85.0), plain, galveston, wUsaNE, LakeSuperior.west48, LakeSuperior.west,
     LakeSuperior.east, LakeMichigan.mouthNorth, LakeMichigan.north, LakeMichigan.northWest, LakeMichigan.west, LakeMichigan.south,
     LakeMichigan.mouthSouth, LakeHuron.south, LakeErie.detroitMouth, LakeErie.maumeeMouth, LakeErie.south, LakeErie.east, LakeErie.niagraMouth,
-    maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
+    LakeOntario.niagraMouth, LakeOntario.southEast, LakeOntario.tibbettsPoint, maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston,
+    rockyPoint, montague)
    
   val cabotPulmo = 23.37 ll -109.44
   val sanLucas = 22.87 ll -109.91
