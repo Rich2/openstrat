@@ -156,6 +156,7 @@ object AmericasNorth extends EarthLevel1("AmericasNorth", 49 ll -100)
   val cuba = EarthLevel2("Cuba", 21.97 ll -78.96, jungle, wCuba, havana, eCuba, cabotCruz, yara, surgidero)
          
   type A2Type = EarthLevel2
-   
-  override val a2Arr: Arr[A2Type] = Arr(wUsa, eUsa, wCanada, cCanada, eCanada, baja, cAmerica, cuba)
+
+  val lakes = Arr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
+  override val a2Arr: Arr[A2Type] = Arr(wUsa, eUsa, wCanada, cCanada, eCanada, baja, cAmerica, cuba) ++ lakes
 }

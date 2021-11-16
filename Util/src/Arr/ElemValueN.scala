@@ -19,6 +19,7 @@ trait DataValueNs[A <: ElemValueN] extends Any with DataImut[A]
   /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
   def arrLen: Int
 
+  /** Reverses the order of the elements. */
   def reverseData: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */

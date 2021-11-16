@@ -9,9 +9,6 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   override def unsafeFromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
   override def typeStr: String = "LinePathLL"
 
-  /** closes this LinePathLL into a [[PolygonLL]] with a line Segment from the last point to the first point. */
-  @inline def close: PolygonLL = new PolygonLL(arrayUnsafe)
-
   def +: (newElem: LatLong): LinePathLL =
   { val res = LinePathLL.uninitialised(elemsNum + 1)
     res.unsafeSetElem(0, newElem)
@@ -33,6 +30,9 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
     res
   }
 
+  /** closes this LinePathLL into a [[PolygonLL]] with a line Segment from the last point to the first point. */
+  @inline def close: PolygonLL = new PolygonLL(arrayUnsafe)
+
   def close(newElems: LatLong*): PolygonLL =
   { val res = PolygonLL.uninitialised(elemsNum + newElems.length)
     arrayUnsafe.copyToArray(res.arrayUnsafe)
@@ -42,6 +42,8 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
 
   /** Reverses the line path so its end point becomes its start point. */
   def reverse: LinePathLL = reverseData
+
+  def reverseClose: PolygonLL = new PolygonLL(unsafeReverseArray)
 }
 
 object LinePathLL extends DataDbl2sCompanion[LatLong, LinePathLL]

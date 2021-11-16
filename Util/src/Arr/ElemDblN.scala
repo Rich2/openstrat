@@ -17,14 +17,26 @@ trait ArrayDblBacked extends Any
  *  well as [[ArrDblNs]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
 trait DataDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBacked
 { type ThisT <: DataDblNs[A]
-  override def arrLen = arrayUnsafe.length
+  @inline override def arrLen = arrayUnsafe.length
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
   //def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProdSize); () }
 
+
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(elemsNum)
     dataIForeach({ (i, el) => res.unsafeSetElem(elemsNum - 1 - i, el)})
+    res
+  }
+
+  /** Reverses the order of the elements in a new Array[Double] which is returned. */
+  def unsafeReverseArray: Array[Double] = {
+    val res = new Array[Double](arrLen)
+    iUntilForeach(0, elemsNum){ i =>
+      val origIndex = i * elemProdSize
+      val resIndex = (elemsNum - i - 1) * elemProdSize
+      iUntilForeach(0, elemProdSize){j => res(resIndex + j) = arrayUnsafe(origIndex + j) }
+    }
     res
   }
 }

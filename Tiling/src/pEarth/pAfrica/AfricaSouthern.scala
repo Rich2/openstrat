@@ -5,7 +5,17 @@ import geom._, pglobe._, LatLong._, WTile._
 object AfricaSouthern extends EarthLevel1("AfricaSouthern", -16.14 ll 24.36)
 { type A2Type = EarthLevel2
   import AfricaSouthernPts._
-  override val a2Arr: Arr[EarthLevel2] = Arr(lakeVictoria, sAfrica, cAfrica, seAfrica, madagascar)
+  override val a2Arr: Arr[EarthLevel2] = Arr(LakeVictoria, sAfrica, cAfrica, seAfrica, madagascar)
+}
+
+object LakeVictoria extends EarthLevel2("LakeVictoria", -1 ll 32.83, lake)
+{ val southEast = -2.23 ll 33.84
+  val katongaMouth =  -0.14 ll 31.94
+  val east = -0.39 ll 34.26
+  val north = 0.34 ll 33.34
+  val southWest = -2.64 ll 31.76
+  val southEastAfrica = LinePathLL(southWest, southEast, east, north, katongaMouth )
+  override def polygonLL: PolygonLL = southEastAfrica.reverseClose
 }
 
 object AfricaSouthernPts
@@ -15,29 +25,21 @@ object AfricaSouthernPts
   val luanda = -8.35 ll 13.15
   val bouemba = 2.09 ll 9.76
   val wAfricaEquator = 0.0 ll 9.13
-  val katongaMouth =  -0.14 ll 31.94
-  val lakeVictoriaSW = -2.64 ll 31.76
+
   val sAfricaN = 17.south
   val cAfricaSE = sAfricaN * 31.east
 
   val centralAfrWestCoast = LinePathLL(sAfricaNW, baiaFarta, luanda, wAfricaEquator)
 
   val cAfrica: EarthLevel2 =  EarthLevel2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba,
-    AfricaWestPts.cAfricaNW, AfricaWestPts.westAfricaPtSE, AfricaNorthEast.cAfricaNE, katongaMouth, lakeVictoriaSW, cAfricaSE)
+    AfricaWestPts.cAfricaNW, AfricaWestPts.westAfricaPtSE, AfricaNorthEast.cAfricaNE, LakeVictoria.katongaMouth, LakeVictoria.southWest, cAfricaSE)
 
-  val lakeVictoriaSE = -2.23 ll 33.84
-  val lakeVictoriaE = -0.39 ll 34.26
-  val lakeVictoriaN = 0.34 ll 33.34
   val eAfricaEquator = 0.0 ll 42.4
   val mombassa = -4.03 ll 39.28
   val seNacala = -14.4 ll 40.3
   val sAfricaNE = -17 ll 39.06
 
-  val victoriaShore = LinePathLL(lakeVictoriaSW, lakeVictoriaSE, lakeVictoriaE, lakeVictoriaN, katongaMouth)
-
-  val lakeVictoria = EarthLevel2("LVictoria", -1 ll 34, lake, victoriaShore.reverse.close)
-
-  val seAfricaPoly = (cAfricaSE +: victoriaShore).close(AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa,
+  val seAfricaPoly = (cAfricaSE +: LakeVictoria.southEastAfrica).close(AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa,
     seNacala, sAfricaNE)
 
   val seAfrica: EarthLevel2 = EarthLevel2("SEAfrica", -2.17 ll 36.64, plain, seAfricaPoly)
