@@ -57,11 +57,11 @@ object HCen
   def apply(r: Int, c: Int): HCen = r %% 4 match
   { case 0 if c.div4Rem0 => new HCen(r, c)
     case 2 if c.div4Rem2 => new HCen(r, c)
-    case _ => excep(s"$r, $c is not a valid Hex centre tile coordinate.")
+    case _ => debexc(s"$r, $c is not a valid Hex centre tile coordinate.")
   }
 
-  def unapply(input: HCoord): Option[(Int, Int)] = input match {
-    case hc: HCen => Some((hc.r, hc.c))
+  def unapply(input: HCoord): Option[(Int, Int)] = input match
+  { case hc: HCen => Some((hc.r, hc.c))
     case _ => None
   }
 

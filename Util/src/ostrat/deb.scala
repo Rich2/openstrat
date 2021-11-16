@@ -2,13 +2,17 @@
 package ostrat
 import quoted.*
 
-/** Simple macro, prints out string preceded by source code position. */
+/** Simple macro, prints out [[String]] preceded by source code position. */
 inline def deb(str: String): Unit = ${ debImpl('str) }
 def debImpl(expr: Expr[String])(using Quotes) = '{ println($posnStrImpl + " " + $expr) }
 
 /** Simplest Macro that shows source code position. Must include parenthesis debb(). Without the parenthesis the macro will not print. */
 inline def debb(): Unit = ${ debbImpl }
 def debbImpl(using Quotes) = '{ println($posnStrImpl) }
+
+/** Simple macro to create a debug [[Exception]], inserts the [[String]] preceded by source code position. */
+inline def debexc(str: String): Nothing = ${ debexcImpl('str) }
+def debexcImpl(expr: Expr[String])(using Quotes) = '{ throw new Exception($posnStrImpl + " " + $expr) }
 
 /** An expression debug macro. Prints out source code position followed by expression name, followed by expression value. */
 inline def debvar(expr: Any): Unit = ${ debvarImpl('expr) }
