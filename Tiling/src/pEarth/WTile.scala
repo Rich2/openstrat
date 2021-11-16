@@ -36,14 +36,14 @@ object WTile
   val mtain: WTile = Land(Mountains)
 }
 
+/** Currently a common trait for Ocean and Lake. */
 trait Water extends WTile
-{
-}
 
 case object Ocean extends Water
 { def str = "Ocean"
   def colour = DarkBlue
 }
+
 case object Lake extends Water
 { def str = "Lake"
   def colour = Blue
