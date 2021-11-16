@@ -18,6 +18,11 @@ object LakeVictoria extends EarthLevel2("LakeVictoria", -1 ll 32.83, lake)
   override def polygonLL: PolygonLL = southEastAfrica.reverseClose
 }
 
+object LakeTanganyika extends EarthLevel2("LakeTanganyika", -1 ll 32.83, lake)
+{ val south: LatLong = -8.81 ll 31.03
+  override def polygonLL: PolygonLL = ???
+}
+
 object AfricaSouthernPts
 { val cAfricaN = 4.42.north
   val sAfricaNW = - 17 ll 11.76
