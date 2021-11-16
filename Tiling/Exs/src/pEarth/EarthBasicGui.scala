@@ -17,7 +17,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   def repaint(): Unit = {
     val eas: Arr[EarthLevel2] = EarthAreas.allTops.flatMap(_.a2Arr)
     val afps: Arr[(EarthLevel2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.subLong(long).metres3Default.earthZPosXYModify) }
-    val af0 = afps.map { p => p._2.map(_ / scale).fill(p._1.colour) }
+    val af0 = afps.map { p => p._2.map(_ / scale).fillActive(p._1.colour, p._1) }
     val af1 = afps.map { a => a._2.map(_ / scale).draw() }
 
     def seas = earth2DEllipse(scale).fill(Colour.DarkBlue)
@@ -53,6 +53,16 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
     repaint()
     statusText = s"Longitude $long"
     thisTop()
+  }
+
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
+    case (LeftButton, _, cl) => {
+      selected = cl
+      statusText = selected.headFoldToString("Nothing Selected")
+      thisTop()
+    }
+
+    case (_, _, h) => deb("Other; " + h.toString)
   }
 
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goWest, goEast))
