@@ -2,13 +2,13 @@
 package ostrat; package pEarth
 import geom._, pglobe._, LatLong._, WTile._
 
-object AfricaSouthern extends EarthLevel1("AfricaSouthern", -16.14 ll 24.36)
-{ type A2Type = EarthLevel2
+object AfricaSouthern extends EArea1("AfricaSouthern", -16.14 ll 24.36)
+{ type A2Type = EArea2
   import AfricaSouthernPts._
-  override val a2Arr: Arr[EarthLevel2] = Arr(LakeVictoria, sAfrica, cAfrica, seAfrica, madagascar)
+  override val a2Arr: Arr[EArea2] = Arr(LakeVictoria, sAfrica, cAfrica, seAfrica, madagascar)
 }
 
-object LakeVictoria extends EarthLevel2("LakeVictoria", -1 ll 32.83, lake)
+object LakeVictoria extends EArea2("LakeVictoria", -1 ll 32.83, lake)
 { val southEast = -2.23 ll 33.84
   val katongaMouth =  -0.14 ll 31.94
   val east = -0.39 ll 34.26
@@ -18,7 +18,7 @@ object LakeVictoria extends EarthLevel2("LakeVictoria", -1 ll 32.83, lake)
   override def polygonLL: PolygonLL = southEastAfrica.reverseClose
 }
 
-object LakeTanganyika extends EarthLevel2("LakeTanganyika", -1 ll 32.83, lake)
+object LakeTanganyika extends EArea2("LakeTanganyika", -1 ll 32.83, lake)
 { val south: LatLong = -8.81 ll 31.03
   override def polygonLL: PolygonLL = ???
 }
@@ -36,7 +36,7 @@ object AfricaSouthernPts
 
   val centralAfrWestCoast = LinePathLL(sAfricaNW, baiaFarta, luanda, wAfricaEquator)
 
-  val cAfrica: EarthLevel2 =  EarthLevel2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba,
+  val cAfrica: EArea2 =  EArea2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba,
     AfricaWestPts.cAfricaNW, AfricaWestPts.westAfricaPtSE, AfricaNorthEast.cAfricaNE, LakeVictoria.katongaMouth, LakeVictoria.southWest, cAfricaSE)
 
   val eAfricaEquator = 0.0 ll 42.4
@@ -47,7 +47,7 @@ object AfricaSouthernPts
   val seAfricaPoly = (cAfricaSE +: LakeVictoria.southEastAfrica).close(AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa,
     seNacala, sAfricaNE)
 
-  val seAfrica: EarthLevel2 = EarthLevel2("SEAfrica", -2.17 ll 36.64, plain, seAfricaPoly)
+  val seAfrica: EArea2 = EArea2("SEAfrica", -2.17 ll 36.64, plain, seAfricaPoly)
    
   val agulhas = degs(-34.83, 20.00)
   val capeTown = degs(-34, 19)
@@ -58,7 +58,7 @@ object AfricaSouthernPts
   val richardsBay = degs(-29, 32)
   val portLiz = degs(-34, 26)
          
-  val sAfrica: EarthLevel2 = EarthLevel2("SAfrica", -25 ll 24, plain, agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane,
+  val sAfrica: EArea2 = EArea2("SAfrica", -25 ll 24, plain, agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane,
     maputo, richardsBay, portLiz)
          
   val madagascarN = degs(-11.95, 49.26)
@@ -66,5 +66,5 @@ object AfricaSouthernPts
   val madagascarSE = degs(-25.03, 46.99)
   val madagascarS = degs(-25.60, 45.16)
   val tambohorano = degs(-17.51, 43.93)
-  val madagascar = EarthLevel2("Madagascar", degs(-19.42, 46.57), plain, madagascarN, madagascarE, madagascarSE, madagascarS, tambohorano)
+  val madagascar = EArea2("Madagascar", degs(-19.42, 46.57), plain, madagascarN, madagascarE, madagascarSE, madagascarS, tambohorano)
 }

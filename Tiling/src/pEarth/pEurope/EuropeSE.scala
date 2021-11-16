@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
-object Balkans extends EarthLevel2("Balkans", 43.9 ll 22.1, plain)
+object Balkans extends EArea2("Balkans", 43.9 ll 22.1, plain)
 { val odessa = 46.48 ll 30.74
   val burgas = 42.51 ll 27.58
   val istanbul = 41.21 ll 29.04
@@ -34,7 +34,7 @@ object Balkans extends EarthLevel2("Balkans", 43.9 ll 22.1, plain)
      puntaPlanka, b1, zadar, matulji, pula, basanija, trieste)
 }
 
-object Crimea extends EarthLevel2("Crimea", 45.33 ll 34.15, plain)
+object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)
 { val henichesk = 46.17 ll 34.82
   val kerch = 45.39 ll 36.63
   val crimeaS = 44.39 ll 33.74
@@ -43,7 +43,7 @@ object Crimea extends EarthLevel2("Crimea", 45.33 ll 34.15, plain)
   val polygonLL: PolygonLL = PolygonLL(henichesk, kerch, crimeaS, crimeaW, crimeaNW)
 }
 
-object Ukraine extends EarthLevel2("Ukraine", 50 ll 24, plain)
+object Ukraine extends EArea2("Ukraine", 50 ll 24, plain)
 { val caspianWLat = 44.53.north
   val asiaMinorNM = caspianWLat ll 38.09
   val caspianW = caspianWLat ll 46.65
@@ -56,7 +56,7 @@ object Ukraine extends EarthLevel2("Ukraine", 50 ll 24, plain)
      Balkans.odessa, Polandia.cenEast)
 }
 
-object Anatolia extends EarthLevel2("AsiaMinor", 39.46 ll 33.07, hills)
+object Anatolia extends EArea2("AsiaMinor", 39.46 ll 33.07, hills)
 { val sinopeN = 42.09 ll 34.99
   val bodrum = 37.06 ll 27.35
   val surmene = 40.91 ll 40.12
@@ -71,7 +71,7 @@ object Anatolia extends EarthLevel2("AsiaMinor", 39.46 ll 33.07, hills)
      yukanbumaz, bodrum, Balkans.seddElBahr)
 }
 
-object Caucasus extends EarthLevel2("Caucasus", 42.0 ll 45.0, hills)
+object Caucasus extends EArea2("Caucasus", 42.0 ll 45.0, hills)
 { val blackSeaE = 41.84 ll 41.77
   val sumqayit = 40.64 ll 49.55
   val baku = 40.44 ll 50.21

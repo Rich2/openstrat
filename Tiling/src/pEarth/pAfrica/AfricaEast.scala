@@ -2,9 +2,9 @@
 package ostrat; package pEarth
 import geom._, pglobe._, LatLong._, WTile._
 
-object AfricaEast extends EarthLevel1("AfricaEast", 18.19 ll 24.46)
+object AfricaEast extends EArea1("AfricaEast", 18.19 ll 24.46)
 { //override val gridMaker = E80Empty// AfricaEastGrid
-  override val a2Arr: Arr[EarthLevel2] = Arr(SaharaEast, AfricaNorthEast ,Peloponnese)
+  override val a2Arr: Arr[EArea2] = Arr(SaharaEast, AfricaNorthEast ,Peloponnese)
 }
 
 //object AfricaEastGrid extends EGridMaker
@@ -26,7 +26,7 @@ object AfricaEast extends EarthLevel1("AfricaEast", 18.19 ll 24.46)
 //   }
 //}
 
-object Peloponnese extends EarthLevel2("Peloponnese", 37.56 ll 22.18, hills)
+object Peloponnese extends EArea2("Peloponnese", 37.56 ll 22.18, hills)
 { val ePeninsular = 38.04 ll 23.56
   val kechries = 37.88 ll 22.99
   val p1 = 37.44 ll 23.51
@@ -43,7 +43,7 @@ object Peloponnese extends EarthLevel2("Peloponnese", 37.56 ll 22.18, hills)
   val polygonLL: PolygonLL = PolygonLL(ePeninsular, kechries, p1, neaKios, voia, eElos, wElos, sGreece, koroni, kyllini, rioPio, corinth, nPeninsular)
 }
 
-object SaharaEast extends EarthLevel2("ESahara", 23 ll 26, desert)
+object SaharaEast extends EArea2("ESahara", 23 ll 26, desert)
 { val elAgheila = 30.12 ll 19.08
   val benghazi = degs(32.12, 20.05)
   val derna = degs(32.93, 22.15)
@@ -55,7 +55,7 @@ object SaharaEast extends EarthLevel2("ESahara", 23 ll 26, desert)
   val polygonLL: PolygonLL = PolygonLL(SaharaWest.southEast, SaharaWest.northEast, elAgheila, benghazi, derna, alamein, portSaid, suez, southEast)
 }
 
-object AfricaNorthEast extends EarthLevel2("NEAfrica", 9 ll 32, plain)
+object AfricaNorthEast extends EArea2("NEAfrica", 9 ll 32, plain)
 { val dankalia = 14 ll 41.66// eAfricaN
   val berbera = degs(10, 44)
   val hornAfrica = degs(12, 51)

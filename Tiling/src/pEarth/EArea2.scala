@@ -3,7 +3,7 @@ package ostrat; package pEarth
 import geom._, pglobe._
 
 /** A second level area of the Earth. */
-abstract class EarthLevel2(val shortName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
+abstract class EArea2(val shortName: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
   override def toString = name.appendCommas(terr.toString)
   def aStrs: Strings = Strings(name)
@@ -39,13 +39,13 @@ abstract class EarthLevel2(val shortName: String, val cen: LatLong, val terr: WT
   }
 }
 
-object EarthLevel2
+object EArea2
 {
-  def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EarthLevel2(symName, cen, terr)
+  def apply(symName: String, cen: LatLong, terr: WTile, latLongArgs: LatLong*) = new EArea2(symName, cen, terr)
   { val polygonLL = PolygonLL(latLongArgs: _*)
   }
 
-  def apply(symName: String, cen: LatLong, terr: WTile, polygonIn: PolygonLL) = new EarthLevel2(symName, cen, terr)
+  def apply(symName: String, cen: LatLong, terr: WTile, polygonIn: PolygonLL) = new EArea2(symName, cen, terr)
   { val polygonLL = polygonIn
   }
 }

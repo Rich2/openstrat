@@ -2,15 +2,15 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
-object EuropeSW extends EarthLevel1("EuropeSw", 20 ll 0)
+object EuropeSW extends EArea1("EuropeSw", 20 ll 0)
 {//top = 45.59N * 2 - 46.21 = 44.97
   //override def fill = false
-  override val a2Arr: Arr[EarthLevel2] = Arr(FranceSouth, Iberia, Sardina, Italy, Corsica)
+  override val a2Arr: Arr[EArea2] = Arr(FranceSouth, Iberia, Sardina, Italy, Corsica)
   //override def iTiles: Seq[ITile] = Seq()//,CBritain, NBritain ,SBritain, Denmark, NSea, BalticSea)
   //override def iSides: Seq[ISide] = iTiles.flatMap(_.ownISides)
 }
 
-object FranceSouth extends EarthLevel2("FranceSouth", 44.54 ll 2.53, plain)
+object FranceSouth extends EArea2("FranceSouth", 44.54 ll 2.53, plain)
 {
   val montelimar = 44.55 ll 4.71
   val orangeCrossing = 44.07 ll 4.76
@@ -31,7 +31,7 @@ object FranceSouth extends EarthLevel2("FranceSouth", 44.54 ll 2.53, plain)
      stRaphael, frejus,laBastideBlanche, capBenat, laSeyneSurMer, fosSurMer, laGrandeMotte, narbonne, seFrance)
 }
 
-object Iberia extends EarthLevel2("Iberia", 41 ll -3.5, hills)
+object Iberia extends EArea2("Iberia", 41 ll -3.5, hills)
 {
   val southWest = 40 ll -8.91
   val espinho = 41.02 ll -8.64

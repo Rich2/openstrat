@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
-object Frankia extends EarthLevel2("Frankia", 47.28 ll 1.93, plain)
+object Frankia extends EArea2("Frankia", 47.28 ll 1.93, plain)
 {
   val southWest = divN45 ll -1.29
   val southEast = divN45 ll 5.53

@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._
 
-object PolarNorth extends EarthLevel1("NPole", 89.5 ll 0)
+object PolarNorth extends EArea1("NPole", 89.5 ll 0)
 { val sGreenland = degs(59.87, -43.95)
   val swGreenland = degs(60.82, -48.07)
   val pt1 = 75.73 ll -58.98
@@ -13,16 +13,16 @@ object PolarNorth extends EarthLevel1("NPole", 89.5 ll 0)
   val semersooq = degs(70.03, -23.07)
   val kulusuk = 65.53 ll -37.05
    
-  val greenland: EarthLevel2 = EarthLevel2("Greenland", degs(75, -42), ice, sGreenland, swGreenland, pt1, wGreenland, nwGreenland,
+  val greenland: EArea2 = EArea2("Greenland", degs(75, -42), ice, sGreenland, swGreenland, pt1, wGreenland, nwGreenland,
      nGreenland, neGreenland, semersooq, kulusuk)
    
-  val artic: EarthLevel2 = EarthLevel2("Artic", degs(89.9, 0), ice, AmericasNorth.nwAlaska, AsiaEastPts.iultinsky, AsiaEastPts.krasnoyarsk,
+  val artic: EArea2 = EArea2("Artic", degs(89.9, 0), ice, AmericasNorth.nwAlaska, AsiaEastPts.iultinsky, AsiaEastPts.krasnoyarsk,
      degs(81.21, 15.83), semersooq, neGreenland, nGreenland, nwGreenland)
   
-  override val a2Arr: Arr[EarthLevel2] = Arr(greenland, artic, Svalbard, Nordauslandet)
+  override val a2Arr: Arr[EArea2] = Arr(greenland, artic, Svalbard, Nordauslandet)
 }
 
-object Svalbard extends EarthLevel2("Svalbard", 78.94 ll 17.78, ice)
+object Svalbard extends EArea2("Svalbard", 78.94 ll 17.78, ice)
 { val south = 76.59 ll 16.70
   val wSpitsbergen = 79.54 ll 10.64
   val nSpitzbergen = 79.87 ll 13.75
@@ -34,7 +34,7 @@ object Svalbard extends EarthLevel2("Svalbard", 78.94 ll 17.78, ice)
   val polygonLL: PolygonLL = PolygonLL(south, wSpitsbergen, nSpitzbergen, north, east, sEdgeoya, pt1)
 }      
 
-object Nordauslandet extends EarthLevel2("Nordauslandet", 79.85 ll 23.71, ice)
+object Nordauslandet extends EArea2("Nordauslandet", 79.85 ll 23.71, ice)
 { val south = 79.22 ll 23.61
   val southWest = 79.36 ll 20.76
   val northWest = 80.13 ll 17.72

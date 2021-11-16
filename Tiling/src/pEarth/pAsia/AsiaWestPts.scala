@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._, pEurope.{Anatolia, Baltland, Caucasus, Ukraine}
 
-object RusNorth extends EarthLevel2("NRus", 61 ll 54, taiga)
+object RusNorth extends EArea2("NRus", 61 ll 54, taiga)
 { val wAsiaE = 66.52.east
   val indiaE = 91.5.east
    
@@ -47,12 +47,12 @@ object AsiaWestPts
   val sharmas = degs(28.03, 35.23)
   val alFaw = degs(29.93, 48.47)
       
-  val arabia: EarthLevel2 = EarthLevel2("Arabia", degs(25, 45.0), desert, Anatolia.damascus, alFaw, salwa, nQatar, doha, alGharbia, icad, kumzar,
+  val arabia: EArea2 = EArea2("Arabia", degs(25, 45.0), desert, Anatolia.damascus, alFaw, salwa, nQatar, doha, alGharbia, icad, kumzar,
      alKhaburah, eOman, mirbat, dhahawnMouth, haswayn, sYemen, sharmas, Anatolia.eilat)
    
   val mahshahr = 30.22.north * Caucasus.asiaMinorE
 
-  val iraq: EarthLevel2 = EarthLevel2("Iraq", 34.0 ll 44.5, desert, Anatolia.damascus, Anatolia.cizre, Caucasus.caspianSW, mahshahr, alFaw)
+  val iraq: EArea2 = EArea2("Iraq", 34.0 ll 44.5, desert, Anatolia.damascus, Anatolia.cizre, Caucasus.caspianSW, mahshahr, alFaw)
    
   val mianiLat: Latitude = 25.39.north
    
@@ -67,7 +67,7 @@ object AsiaWestPts
   val nwHormuz = 26.49 ll 54.79
   val zeydan = 27.88 ll 51.50
 
-  val persia: EarthLevel2 = EarthLevel2("Persia", degs(32.4, 60), hills, mahshahr, Caucasus.caspianSW, caspianSE, persiaCaspianN, persiaNE,
+  val persia: EArea2 = EArea2("Persia", degs(32.4, 60), hills, mahshahr, Caucasus.caspianSW, caspianSE, persiaCaspianN, persiaNE,
      mianiHor, seIran, kuhmobarak, nHormuz, nwHormuz, zeydan)
  
    
@@ -78,10 +78,10 @@ object AsiaWestPts
   val mangystau = degs(45.48, 52.78)
   val volodarsky = degs(46.39, 49.03)
 
-  val kazak: EarthLevel2 = EarthLevel2("Kazak", degs(47, 60), plain, RusNorth.kazakNE, persiaNE, persiaCaspianN, kendirliBay, bautino, mangystau,
+  val kazak: EArea2 = EArea2("Kazak", degs(47, 60), plain, RusNorth.kazakNE, persiaNE, persiaCaspianN, kendirliBay, bautino, mangystau,
      caspianNE, caspianN, volodarsky, Ukraine.caspianW, Baltland.southEast)
   
-  val caspianSea: EarthLevel2 = EarthLevel2("CaspianSea", degs(42.10, 50.64), sea, caspianN, caspianNE, persiaCaspianN, caspianSE,
+  val caspianSea: EArea2 = EArea2("CaspianSea", degs(42.10, 50.64), sea, caspianN, caspianNE, persiaCaspianN, caspianSE,
      Caucasus.caspianSW)
     
   val magdhara = 22.41.north * RusNorth.indiaE
@@ -106,7 +106,7 @@ object AsiaWestPts
   val bhada = 22.83 ll 69.19
   val karachi = degs(25.38, 66.70)
 
-  val india: EarthLevel2 = EarthLevel2("India", degs(20.85, 78.68), jungle, mianiHor, indiaNE, indiaNE, magdhara, balasore, ongale, kattupali,
+  val india: EArea2 = EArea2("India", degs(20.85, 78.68), jungle, mianiHor, indiaNE, indiaNE, magdhara, balasore, ongale, kattupali,
      manapad, sIndia, kovalam, karnataka1, karnataka2, tarapur, khambat, girSomnath, varvala, kutchMouth, bhada, karachi)
                
   val dodanduwa = 6.10 ll 80.12
@@ -116,19 +116,19 @@ object AsiaWestPts
   val oiluvil = 7.29 ll 81.86
   val dondra = 5.92 ll 80.59
 
-  val sriLanka: EarthLevel2 = EarthLevel2("SriLanka", 7.47 ll 80.78, jungle, dodanduwa, wSriLanka, nwSrilanka, neSrilanka, oiluvil, dondra)
+  val sriLanka: EArea2 = EArea2("SriLanka", 7.47 ll 80.78, jungle, dodanduwa, wSriLanka, nwSrilanka, neSrilanka, oiluvil, dondra)
    
   val cAsiaSE = AsiaWestPts.persiaN * RusNorth.indiaE
 
-   val himalayas: EarthLevel2 = EarthLevel2("Himalayas", degs(32, 75), mtain, cAsiaSE, AsiaWestPts.persiaNE, AsiaWestPts.mianiHor,
+   val himalayas: EArea2 = EArea2("Himalayas", degs(32, 75), mtain, cAsiaSE, AsiaWestPts.persiaNE, AsiaWestPts.mianiHor,
       AsiaWestPts.indiaNE)
        
-   val centralAsia = EarthLevel2("CAsia", degs(47, 76), plain, RusNorth.cAsiaNE, RusNorth.kazakNE, persiaNE, cAsiaSE)
+   val centralAsia = EArea2("CAsia", degs(47, 76), plain, RusNorth.cAsiaNE, RusNorth.kazakNE, persiaNE, cAsiaSE)
         
    val wSeverny = 71.81 ll 51.49
    val severny1 = 75.37 ll 57.03
    val severnyN = 76.99 ll 67.91
    val severny2 = 72.28 ll 55.36
    val eSeverny = 70.71 ll 57.59
-   val severny = EarthLevel2("Severny", 74.38 ll 57.29, ice, wSeverny, severny1, severnyN, severny2, eSeverny)
+   val severny = EArea2("Severny", 74.38 ll 57.29, ice, wSeverny, severny1, severnyN, severny2, eSeverny)
 }

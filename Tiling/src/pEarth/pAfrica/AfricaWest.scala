@@ -2,9 +2,9 @@
 package ostrat; package pEarth
 import geom._, pglobe._, pGrid._, reflect.ClassTag
 
-object AfricaWest extends EarthLevel1("WAfrica", 20 ll 40)
-{ type A2Type = EarthLevel2
-  override val a2Arr: Arr[EarthLevel2] = Arr(Canarias, Sicily, Majorca, SaharaWest, AfricaWestPts.westAfricaSouth)
+object AfricaWest extends EArea1("WAfrica", 20 ll 40)
+{ type A2Type = EArea2
+  override val a2Arr: Arr[EArea2] = Arr(Canarias, Sicily, Majorca, SaharaWest, AfricaWestPts.westAfricaSouth)
 }
 
 object AfricaWestGrid extends EGridMaker

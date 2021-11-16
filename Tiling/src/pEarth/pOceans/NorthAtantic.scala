@@ -3,11 +3,11 @@ package ostrat; package pEarth
 import geom._, pglobe._, WTile._
 
 /** The North Atlantic. The seas and the land of the north Atlantic. */
-object NorthAtantic extends EarthLevel1("NAtlantic", 60 ll -30)
-{ override val a2Arr: Arr[EarthLevel2] = Arr(Iceland)
+object NorthAtantic extends EArea1("NAtlantic", 60 ll -30)
+{ override val a2Arr: Arr[EArea2] = Arr(Iceland)
 }
 
-object Iceland extends EarthLevel2("Iceland", 64.78 ll -18.07, taiga)
+object Iceland extends EArea2("Iceland", 64.78 ll -18.07, taiga)
 { val reykjavik = 64.17 ll -21.75
   val w1 = 64.75 ll -22.30
   val wIceland = 64.87 ll -24.04

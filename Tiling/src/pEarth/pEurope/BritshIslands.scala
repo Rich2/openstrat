@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
-object OuterHebrides extends EarthLevel2("OuterHebrides", 57.83 ll -6.09, plain)
+object OuterHebrides extends EArea2("OuterHebrides", 57.83 ll -6.09, plain)
 {
    val nLewis = 58.51 ll -6.26
    val swLewis = 57.94 ll -6.47
@@ -14,7 +14,7 @@ object OuterHebrides extends EarthLevel2("OuterHebrides", 57.83 ll -6.09, plain)
    val polygonLL = PolygonLL(nLewis, swLewis, sHarris, sandray, wUist, wLewis)
 }
 
-object Ireland extends EarthLevel2("Ireland", 53.36 ll -7.63, plain)
+object Ireland extends EArea2("Ireland", 53.36 ll -7.63, plain)
 {
    val irelandSE = 52.17 ll -6.36
    val baltimore = 51.47 ll -9.37
@@ -33,7 +33,7 @@ object Ireland extends EarthLevel2("Ireland", 53.36 ll -7.63, plain)
          irelandN, torHead, nIrelandE, dundalk)         
 }
 
-object Shetland extends EarthLevel2("Shetland", 60.34 ll -1.23, plain)
+object Shetland extends EArea2("Shetland", 60.34 ll -1.23, plain)
 {
    val south = 59.85 ll -1.27
    val sSoundsound = 60.20 ll -1.34

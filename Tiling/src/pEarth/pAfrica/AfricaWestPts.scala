@@ -2,7 +2,7 @@
 package ostrat; package pEarth
 import geom._, pglobe._, WTile._
 
-object Majorca extends EarthLevel2("Majorca", 39.59 ll 3.01, plain)
+object Majorca extends EArea2("Majorca", 39.59 ll 3.01, plain)
 { val south = 39.26 ll 3.05
   val palma = 39.56 ll 2.63
   val portalsVells = 39.45 ll 2.51
@@ -13,7 +13,7 @@ object Majorca extends EarthLevel2("Majorca", 39.59 ll 3.01, plain)
   val polygonLL: PolygonLL = PolygonLL(south, palma, portalsVells, santElm, capFormentor, east)
 }
 
-object Sicily extends EarthLevel2("Sicily", cen = 37.58 ll 14.27, plain)
+object Sicily extends EArea2("Sicily", cen = 37.58 ll 14.27, plain)
 { val sSicily = 36.66 ll 15.08
   val kartibubbo = 37.56 ll 12.67
   val marsala = 37.80 ll 12.42
@@ -28,7 +28,7 @@ object Sicily extends EarthLevel2("Sicily", cen = 37.58 ll 14.27, plain)
   val polygonLL: PolygonLL = PolygonLL(sSicily, kartibubbo, marsala, calaRossa, mondello, n1, torreFaro, contradoFortino, messina, catania)
 }
 
-object Canarias extends EarthLevel2("Canarias", 27.96 ll -15.60, plain)
+object Canarias extends EArea2("Canarias", 27.96 ll -15.60, plain)
 { val elHierro = 27.72 ll -18.15
   val laPalma = 28.85 ll -17.92
   val lanzarote = 29.24 ll -13.47
@@ -38,7 +38,7 @@ object Canarias extends EarthLevel2("Canarias", 27.96 ll -15.60, plain)
   val polygonLL: PolygonLL = PolygonLL(elHierro, laPalma, lanzarote, fuerteventura, granCanaria)
 }
 
-object SaharaWest extends EarthLevel2("NWAfrica", 25 ll 1, desert)
+object SaharaWest extends EArea2("NWAfrica", 25 ll 1, desert)
 { val southLine = 17.north
   val eastLine = 16.75.east
   val northEast = 31.2.north *  eastLine
@@ -84,5 +84,5 @@ object AfricaWestPts
   val westAfricaSouthPolygon: PolygonLL = PolygonLL(cAfricaNW, sangana, aiyetoro, capeThreePoints, liberia, sierraLeone, dakar, keurMassene, SaharaWest.southWest,
     SaharaWest.southEast, westAfricaPtSE, cAfricaNW)
 
-  val westAfricaSouth: EarthLevel2 = EarthLevel2("WAfrica", 11 ll 0, plain, westAfricaSouthPolygon)
+  val westAfricaSouth: EArea2 = EArea2("WAfrica", 11 ll 0, plain, westAfricaSouthPolygon)
 }

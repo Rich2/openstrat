@@ -3,9 +3,9 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, pGrid._, WTile._
 
 /** 20North, 0 East */
-object EuropeNW extends EarthLevel1("EuropeNW", 20 ll 0)
+object EuropeNW extends EArea1("EuropeNW", 20 ll 0)
 {
-  override val a2Arr: Arr[EarthLevel2] = Arr(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
+  override val a2Arr: Arr[EArea2] = Arr(Ireland, England, Scotland, OuterHebrides, Shetland, Faroe, JanMayen, Frankia, Jutland, Zealand,  Germania,
      Alpsland, Polandia, Baltland, Ukraine, SwedenSouth, SwedenNorth)
 }
 
