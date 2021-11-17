@@ -2,13 +2,13 @@
 package ostrat; package pEarth
 import geom._, pglobe._, LatLong._, WTile._
 
-object AfricaSouthern extends EArea1("AfricaSouthern", -16.14 ll 24.36)
+object AfricanTrangle extends EArea1("African Triangle", -16.14 ll 24.36)
 { type A2Type = EArea2
   import AfricaSouthernPts._
-  override val a2Arr: Arr[EArea2] = Arr(LakeVictoria, sAfrica, cAfrica, seAfrica, madagascar)
+  override val a2Arr: Arr[EArea2] = Arr(LakeVictoria, southernAfrica, CentralAfricaWest, centralAfricaEast, madagascar)
 }
 
-object LakeVictoria extends EArea2("LakeVictoria", -1 ll 32.83, lake)
+object LakeVictoria extends EArea2("Lake Victoria", -1 ll 32.83, lake)
 { val southEast = -2.23 ll 33.84
   val katongaMouth =  -0.14 ll 31.94
   val east = -0.39 ll 34.26
@@ -36,19 +36,19 @@ object AfricaSouthernPts
 
   val centralAfrWestCoast = LinePathLL(sAfricaNW, baiaFarta, luanda, wAfricaEquator)
 
-  val cAfrica: EArea2 =  EArea2("CAfrica", -7 ll 25, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba,
-    AfricaWestPts.cAfricaNW, AfricaWestPts.westAfricaPtSE, AfricaNorthEast.cAfricaNE, LakeVictoria.katongaMouth, LakeVictoria.southWest, cAfricaSE)
+  val CentralAfricaWest: EArea2 =  EArea2("Central Africa\nwest", -7 ll 24, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba,
+    AfricaWestPts.cAfricaNW, AfricaWestPts.westAfricaPtSE, EastAfricaSouth.cAfricaNE, LakeVictoria.katongaMouth, LakeVictoria.southWest, cAfricaSE)
 
   val eAfricaEquator = 0.0 ll 42.4
   val mombassa = -4.03 ll 39.28
   val seNacala = -14.4 ll 40.3
   val sAfricaNE = -17 ll 39.06
 
-  val seAfricaPoly = (cAfricaSE +: LakeVictoria.southEastAfrica).close(AfricaNorthEast.cAfricaNE, AfricaNorthEast.southEast, eAfricaEquator, mombassa,
+  val seAfricaPoly = (cAfricaSE +: LakeVictoria.southEastAfrica).close(EastAfricaSouth.cAfricaNE, EastAfricaSouth.southEast, eAfricaEquator, mombassa,
     seNacala, sAfricaNE)
 
-  val seAfrica: EArea2 = EArea2("SEAfrica", -2.17 ll 36.64, plain, seAfricaPoly)
-   
+  val centralAfricaEast: EArea2 = EArea2("Central Africa\neast", -2.17 ll 36.64, plain, seAfricaPoly)
+
   val agulhas = degs(-34.83, 20.00)
   val capeTown = degs(-34, 19)
   val nNamibia = -17.12 ll 11.3
@@ -57,8 +57,8 @@ object AfricaSouthernPts
   val maputo = -25.4 ll 32.2
   val richardsBay = degs(-29, 32)
   val portLiz = degs(-34, 26)
-         
-  val sAfrica: EArea2 = EArea2("SAfrica", -25 ll 24, plain, agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane,
+
+  val southernAfrica: EArea2 = EArea2("Southern Africa", -25 ll 24, plain, agulhas, capeTown, nNamibia, sAfricaNW, cAfricaSE, sAfricaNE, beira, inhambane,
     maputo, richardsBay, portLiz)
          
   val madagascarN = degs(-11.95, 49.26)

@@ -4,10 +4,10 @@ package ostrat; package pEarth
 /** Not sure about this trait. */
 trait GeographicSymbolKey
 { /** The Shortened name for this geographic area. */
-  def shortName: String
+  def name: String
 
   /** The name of the is Geographic Area. */
-  def name: String =
+  /*def name: String =
   {
     def concat(str1: String, str2: String): String =
     { val s1 = str1 match
@@ -21,15 +21,15 @@ trait GeographicSymbolKey
         case "S" => "South"
         case "W" => "West"
         case "E" => "East"
-        case "C" => "Cen-"
+        case "C" => "Central"
         case "F" => "Far-"
         case "J" => "Just-"
         case s2 => s2
       }
       s1 + s2
-    }
+    }*/
 
-    def loop(rem: List[Char], acc: String, currWord: String): String = rem match
+    /*def loop(rem: List[Char], acc: String, currWord: String): String = rem match
     { case Nil => concat(acc, currWord)
       case c :: tail if c.isUpper => loop(tail, concat(acc, currWord), c.toString)
       case c :: tail => loop(tail, acc, currWord + c.toString)
@@ -37,5 +37,5 @@ trait GeographicSymbolKey
 
     val list = shortName.toList
     loop(list.tail, "", list.head.toString())
-  }         
+  }         */
 }

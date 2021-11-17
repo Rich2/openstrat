@@ -60,14 +60,14 @@ object AmericasNorth extends EArea1("AmericasNorth", 49 ll -100)
   val wCanadaEN = 72.97.north * wCanadaE
   val wCanadaES = 49.north * wCanadaE
 
-  val wCanada: EArea2 = EArea2("WCanada", degs(64.051, -129.98), taiga, w49th, yakut, swAlaska, nwAlaska, wCanadaEN, wCanadaES)
+  val wCanada: EArea2 = EArea2("West Canada", degs(64.051, -129.98), taiga, w49th, yakut, swAlaska, nwAlaska, wCanadaEN, wCanadaES)
 
   val nwPass = 69.5 ll -82.82
   val eggIsland = degs(59.91, -94.85)
   val jamesBayNW = degs(55.07, -82.31)
   val jamesBayS = degs(51.14, -79.79)
 
-  val cCanada: EArea2 = EArea2("CCanada", degs(64.051, -100.0), taiga, wCanadaES, wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS,
+  val cCanada: EArea2 = EArea2("Central Canada", degs(56.0, -98.0), taiga, wCanadaES, wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS,
     LakeHuron.northEast, LakeSuperior.east, LakeSuperior.north, LakeSuperior.west48)
 
   val hudsonBayMouthE = degs(62.57, -77.99)
@@ -84,7 +84,7 @@ object AmericasNorth extends EArea1("AmericasNorth", 49 ll -100)
 
   val eCanadaCoast = LinePathLL(ungavaE, labradorE, newFoundlandE, eNovaScotia)
 
-  val eCanada: EArea2 = new EArea2("ECanada", degs(53.71, -70), taiga)
+  val eCanada: EArea2 = new EArea2("East Canada", degs(53.71, -70), taiga)
   {
     override val polygonLL: PolygonLL = {
       val lPath = LinePathLL(LakeHuron.south, LakeHuron.tobermory, LakeHuron.geogianSouth, LakeHuron.east, LakeHuron.northEast, jamesBayS,
@@ -108,10 +108,10 @@ object AmericasNorth extends EArea1("AmericasNorth", 49 ll -100)
 
   val montague = 31.70 ll -114.71
 
-  lazy val wUsa = EArea2("WUnitedStates", degs(40.0, -108.0), desert, sanDiego, humboldt, w49th, wCanadaES, wUsaNE,
+  lazy val wUsa = EArea2("United States\nwest", degs(40.0, -108.0), desert, sanDiego, humboldt, w49th, wCanadaES, wUsaNE,
     galveston, rockyPoint, montague)
 
-  lazy val eUsa = EArea2("EUnitedStates", degs(39.8, -85.0), plain, galveston, wUsaNE, LakeSuperior.west48, LakeSuperior.west,
+  lazy val eUsa = EArea2("United States\neast", degs(39.8, -85.0), plain, galveston, wUsaNE, LakeSuperior.west48, LakeSuperior.west,
     LakeSuperior.east, LakeMichigan.mouthNorth, LakeMichigan.north, LakeMichigan.northWest, LakeMichigan.west, LakeMichigan.south,
     LakeMichigan.mouthSouth, LakeHuron.south, LakeErie.detroitMouth, LakeErie.maumeeMouth, LakeErie.south, LakeErie.east, LakeErie.niagraMouth,
     LakeOntario.niagraMouth, LakeOntario.southEast, LakeOntario.tibbettsPoint, maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston,

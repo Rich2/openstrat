@@ -38,7 +38,7 @@ object Canarias extends EArea2("Canarias", 27.96 ll -15.60, plain)
   val polygonLL: PolygonLL = PolygonLL(elHierro, laPalma, lanzarote, fuerteventura, granCanaria)
 }
 
-object SaharaWest extends EArea2("NWAfrica", 25 ll 1, desert)
+object SaharaWest extends EArea2("Sahara\nwest", 25 ll 1, desert)
 { val southLine = 17.north
   val eastLine = 16.75.east
   val northEast = 31.2.north *  eastLine
@@ -84,5 +84,5 @@ object AfricaWestPts
   val westAfricaSouthPolygon: PolygonLL = PolygonLL(cAfricaNW, sangana, aiyetoro, capeThreePoints, liberia, sierraLeone, dakar, keurMassene, SaharaWest.southWest,
     SaharaWest.southEast, westAfricaPtSE, cAfricaNW)
 
-  val westAfricaSouth: EArea2 = EArea2("WAfrica", 11 ll 0, plain, westAfricaSouthPolygon)
+  val westAfricaSouth: EArea2 = EArea2("West Africa\nsouth", 11 ll 0, plain, westAfricaSouthPolygon)
 }

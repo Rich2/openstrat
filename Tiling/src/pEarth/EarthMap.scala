@@ -30,7 +30,7 @@ class OldWorldMap[TileT <: TileAncient, SideT <: TileSideAncient](val fTile: (In
 object EarthAreas
 { import pPts._, pEurope._
   val oldWorld: Arr[EArea1] = Arr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, NorthAtantic)
-  val newWorld: Arr[EArea1] = Arr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricaSouthern)
+  val newWorld: Arr[EArea1] = Arr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricanTrangle)
   val grids: Arr[EGridMaker] = Arr(EuropeNWGridAncient, EuropeNEGridAncient)
 
   def allTops: Arr[EArea1] =  oldWorld ++ newWorld
