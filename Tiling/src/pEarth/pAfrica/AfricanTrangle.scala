@@ -19,8 +19,26 @@ object LakeVictoria extends EArea2("Lake Victoria", -1 ll 32.83, lake)
 }
 
 object LakeTanganyika extends EArea2("LakeTanganyika", -1 ll 32.83, lake)
-{ val south: LatLong = -8.81 ll 31.03
+{ val northEast: LatLong = -3.36 ll 29.34
+  val northWest: LatLong = -3.36 ll 29.16
+  val kalemie: LatLong = -5.91 ll 29.20
+  val moba: LatLong = -7.04 ll 29.78
+  val south: LatLong = -8.81 ll 31.03
+  val eastCoast: LinePathLL = LinePathLL(northEast, northWest, kalemie, moba, south)
+
+  val mahaleNE: LatLong = -5.91 ll 29.95
   override def polygonLL: PolygonLL = ???
+}
+
+object CentralAfricaWest extends EArea2("Central Africa\nwest", -7 ll 24, jungle)
+{
+  import AfricaSouthernPts._
+  /** A quasi polygon on the earths surface defined in [[LatLong]]s. */
+  override def polygonLL: PolygonLL ={
+    val l1 = LinePathLL(sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba, AfricaWestPts.cAfricaNW, AfricaWestPts.westAfricaPtSE,
+      EastAfricaSouth.cAfricaNE, LakeVictoria.katongaMouth, LakeVictoria.southWest) ++ LakeTanganyika.eastCoast
+    l1.close(cAfricaSE)
+  }
 }
 
 object AfricaSouthernPts
@@ -36,8 +54,7 @@ object AfricaSouthernPts
 
   val centralAfrWestCoast = LinePathLL(sAfricaNW, baiaFarta, luanda, wAfricaEquator)
 
-  val CentralAfricaWest: EArea2 =  EArea2("Central Africa\nwest", -7 ll 24, jungle, sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba,
-    AfricaWestPts.cAfricaNW, AfricaWestPts.westAfricaPtSE, EastAfricaSouth.cAfricaNE, LakeVictoria.katongaMouth, LakeVictoria.southWest, cAfricaSE)
+
 
   val eAfricaEquator = 0.0 ll 42.4
   val mombassa = -4.03 ll 39.28

@@ -51,7 +51,7 @@ object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, lake)
   override def polygonLL: PolygonLL = PolygonLL(southWest, frenchmansBay, northEast, wolfeSW, tibbettsPoint, southEast, niagraMouth)
 }
 
-object AmericasNorth extends EArea1("AmericasNorth", 49 ll -100)
+object AmericasNorth extends EArea1("North America", 49 ll -100)
 { val w49th = degs(49, -125.66)
   val yakut = degs(59.93, -141.03)
   val swAlaska = degs(60.50, -164.55)
