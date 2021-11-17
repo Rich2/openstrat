@@ -34,11 +34,9 @@ object CentralAfricaWest extends EArea2("Central Africa\nwest", -7 ll 24, jungle
 {
   import AfricaSouthernPts._
   /** A quasi polygon on the earths surface defined in [[LatLong]]s. */
-  override def polygonLL: PolygonLL ={
-    val l1 = LinePathLL(sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba, AfricaWestPts.cAfricaNW, AfricaWestPts.westAfricaPtSE,
-      EastAfricaSouth.cAfricaNE, LakeVictoria.katongaMouth, LakeVictoria.southWest) ++ LakeTanganyika.eastCoast
-    l1.close(cAfricaSE)
-  }
+  override def polygonLL: PolygonLL = LinePathLL(sAfricaNW, baiaFarta, luanda, wAfricaEquator, bouemba, AfricaWestPts.cAfricaNW,
+    AfricaWestPts.westAfricaPtSE, EastAfricaSouth.cAfricaNE, LakeVictoria.katongaMouth, LakeVictoria.southWest) ++
+    LakeTanganyika.eastCoast +! cAfricaSE
 }
 
 object AfricaSouthernPts
@@ -61,7 +59,7 @@ object AfricaSouthernPts
   val seNacala = -14.4 ll 40.3
   val sAfricaNE = -17 ll 39.06
 
-  val seAfricaPoly = (cAfricaSE +: LakeVictoria.southEastAfrica).close(EastAfricaSouth.cAfricaNE, EastAfricaSouth.southEast, eAfricaEquator, mombassa,
+  val seAfricaPoly = cAfricaSE %: LakeVictoria.southEastAfrica ++! (EastAfricaSouth.cAfricaNE, EastAfricaSouth.southEast, eAfricaEquator, mombassa,
     seNacala, sAfricaNE)
 
   val centralAfricaEast: EArea2 = EArea2("Central Africa\neast", -2.17 ll 36.64, plain, seAfricaPoly)

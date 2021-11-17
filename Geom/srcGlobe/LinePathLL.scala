@@ -9,7 +9,7 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   override def unsafeFromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
   override def typeStr: String = "LinePathLL"
 
-  def +: (newElem: LatLong): LinePathLL =
+  def %: (newElem: LatLong): LinePathLL =
   { val res = LinePathLL.uninitialised(elemsNum + 1)
     res.unsafeSetElem(0, newElem)
     dataIForeach{ (i, ll) => res.unsafeSetElem(i + 1, ll) }
@@ -33,10 +33,43 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   /** closes this LinePathLL into a [[PolygonLL]] with a line Segment from the last point to the first point. */
   @inline def close: PolygonLL = new PolygonLL(arrayUnsafe)
 
-  def close(newElems: LatLong*): PolygonLL =
+  /** Alias for concatClose. Concatenates the operand [[LatLong]] and closes into a PolyonLL. */
+  inline def +!(newElem: LatLong): PolygonLL = concatClose(newElem)
+
+  /** Concatenates the operand [[LatLong]] and closes into a PolyonLL. */
+  def concatClose(newElem: LatLong): PolygonLL =
+  { val res = PolygonLL.uninitialised(elemsNum + 1)
+    arrayUnsafe.copyToArray(res.arrayUnsafe)
+    res.unsafeSetElem(elemsNum, newElem)
+    res
+  }
+
+  def %!: (newElem: LatLong): PolygonLL =
+  { val res = PolygonLL.uninitialised(elemsNum + 1)
+    res.unsafeSetElem(0, newElem)
+    dataIForeach{ (i, ll) => res.unsafeSetElem(i + 1, ll) }
+    res
+  }
+
+  /** Alias for concatClose. Concatenate the operand [[LatLong]]s and closes the line path into a [[PolyognLL]]. */
+  inline def ++!(newElems: LatLong*): PolygonLL = concatClose(newElems :_*)
+
+  /** Concatenate the operand [[LatLong]]s and closes the line path into a [[PolyognLL]]. */
+  def concatClose(newElems: LatLong*): PolygonLL =
   { val res = PolygonLL.uninitialised(elemsNum + newElems.length)
     arrayUnsafe.copyToArray(res.arrayUnsafe)
     newElems.iForeach((i, ll) => res.unsafeSetElem(elemsNum + i, ll))
+    res
+  }
+
+  /** Alias for concatClose. Concatenate the operand [[LinePathLL]] and close into a [[PolyognLL]]. */
+  inline def ++!(operand: LinePathLL): PolygonLL = concatClose(operand)
+
+  /** Concatenate the operand [[LinePathLL]] and closes the line path into a [[PolyognLL]]. */
+  def concatClose(operand: LinePathLL): PolygonLL =
+  { val res = PolygonLL.uninitialised(elemsNum + operand.elemsNum)
+    arrayUnsafe.copyToArray(res.arrayUnsafe)
+    operand.vertsIForeach{ (i, ll) => res.unsafeSetElem(elemsNum + i, ll) }
     res
   }
 
@@ -56,6 +89,8 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
 
   /** Performs the side effecting function on the [[LatLong]] value of each vertex. */
   def vertsForeach[U](f: LatLong => U): Unit = dataForeach(f)
+
+  def vertsIForeach[U](f: (Int, LatLong) => U): Unit = dataIForeach(f)
 }
 
 object LinePathLL extends DataDbl2sCompanion[LatLong, LinePathLL]

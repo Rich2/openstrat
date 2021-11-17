@@ -2,12 +2,14 @@
 package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._
 
-object LakeSuperior extends EArea2("Lake Superior", 47.66 ll -90, lake)
+object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, lake)
 { val west: LatLong = 46.77 ll -92.11
   val west48: LatLong = 48.00 ll -89.57
+  val michipicoten: LatLong = 47.96 ll -84.86
   val north: LatLong = 48.80 ll -87.31
   val east: LatLong = 46.52 ll -84.61
-  override def polygonLL: PolygonLL = PolygonLL(west, north, east)
+  val canadaCoast = LinePathLL(east, michipicoten, north, west48)
+  override def polygonLL: PolygonLL = west %!: canadaCoast.reverse
 }
 
 object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
@@ -51,6 +53,12 @@ object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, lake)
   override def polygonLL: PolygonLL = PolygonLL(southWest, frenchmansBay, northEast, wolfeSW, tibbettsPoint, southEast, niagraMouth)
 }
 
+object CentralCanada extends EArea2("Central Canada", 56.0 ll -98.0, taiga){
+  import AmericasNorth._
+  override def polygonLL: PolygonLL = LinePathLL(wCanadaES, wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS, LakeHuron.northEast) ++!
+    LakeSuperior.canadaCoast
+}
+
 object AmericasNorth extends EArea1("North America", 49 ll -100)
 { val w49th = degs(49, -125.66)
   val yakut = degs(59.93, -141.03)
@@ -67,8 +75,6 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
   val jamesBayNW = degs(55.07, -82.31)
   val jamesBayS = degs(51.14, -79.79)
 
-  val cCanada: EArea2 = EArea2("Central Canada", degs(56.0, -98.0), taiga, wCanadaES, wCanadaEN, nwPass, eggIsland, jamesBayNW, jamesBayS,
-    LakeHuron.northEast, LakeSuperior.east, LakeSuperior.north, LakeSuperior.west48)
 
   val hudsonBayMouthE = degs(62.57, -77.99)
   val ungavaW = degs(61.04, -69.56)
@@ -86,12 +92,11 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
 
   val eCanada: EArea2 = new EArea2("East Canada", degs(53.71, -70), taiga)
   {
-    override val polygonLL: PolygonLL = {
-      val lPath = LinePathLL(LakeHuron.south, LakeHuron.tobermory, LakeHuron.geogianSouth, LakeHuron.east, LakeHuron.northEast, jamesBayS,
-        hudsonBayMouthE, ungavaW, ungavaS) ++ eCanadaCoast
-      lPath.close(maineE, LakeOntario.wolfeSW, LakeOntario.northEast, LakeOntario.frenchmansBay, LakeOntario.southWest, LakeOntario.niagraMouth,
+    override val polygonLL: PolygonLL = LinePathLL(LakeHuron.south, LakeHuron.tobermory, LakeHuron.geogianSouth, LakeHuron.east, LakeHuron.northEast,
+      jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) ++
+      eCanadaCoast ++!
+      (maineE, LakeOntario.wolfeSW, LakeOntario.northEast, LakeOntario.frenchmansBay, LakeOntario.southWest, LakeOntario.niagraMouth,
         LakeErie.niagraMouth, LakeErie.portStanley, LakeErie.detroitMouth)
-    }
   }
 
   val cAmericaN =  22.8.north
@@ -116,21 +121,21 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
     LakeMichigan.mouthSouth, LakeHuron.south, LakeErie.detroitMouth, LakeErie.maumeeMouth, LakeErie.south, LakeErie.east, LakeErie.niagraMouth,
     LakeOntario.niagraMouth, LakeOntario.southEast, LakeOntario.tibbettsPoint, maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston,
     rockyPoint, montague)
-   
+
   val cabotPulmo = 23.37 ll -109.44
   val sanLucas = 22.87 ll -109.91
   val wBaja = 27.84 ll -115.07
   val baja = EArea2("Baja", 27.80 ll -113.31, plain, sanDiego, montague, cabotPulmo, sanLucas, wBaja)
-   
+
   val mariato = degs(7.22, -80.88)
   val quebrada = degs(8.04, -82.88)
   val swGuatemala = degs(14.55, -92.21)
   val pochutala = degs(15.76, -96.50)
   val manzanillo = degs(19.15, -104)
-   
+
   val brownsville = degs(25.98, -97.26)
   // val cAmericaNE= cAmericaN ll -97.79
-         
+
   val sePanama = degs(7.26, -77.9)
   val coatz = degs(18.13, -94.5)
   val champeton = degs(19.36, -90.71)
@@ -146,7 +151,7 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
   val cAmerica: EArea2 = EArea2("CAmerica", degs(17.31, -94.16), jungle, sePanama, mariato, quebrada, swGuatemala, pochutala,
     manzanillo, cAmericaNW, rockyPoint, galveston, brownsville, coatz, champeton, nwYucatan, neYucatan, seBelize, eHonduras, kusapin, stIsabel,
     stIgnacio, nePanama)
-   
+
   val wCuba = 21.86 ll -84.95
   val havana = 23.14 ll -82.39
   val eCuba = 20.22 ll -74.13
@@ -156,5 +161,5 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
   val cuba = EArea2("Cuba", 21.97 ll -78.96, jungle, wCuba, havana, eCuba, cabotCruz, yara, surgidero)
 
   val lakes = Arr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
-  override val a2Arr: Arr[EArea2] = Arr(wUsa, eUsa, wCanada, cCanada, eCanada, baja, cAmerica, cuba) ++ lakes
+  override val a2Arr: Arr[EArea2] = Arr(wUsa, eUsa, wCanada, CentralCanada, eCanada, baja, cAmerica, cuba) ++ lakes
 }
