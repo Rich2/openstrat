@@ -3,13 +3,19 @@ package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._
 
 object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, lake)
-{ val west: LatLong = 46.77 ll -92.11
-  val west48: LatLong = 48.00 ll -89.57
+{ val east: LatLong = 46.52 ll -84.61
   val michipicoten: LatLong = 47.96 ll -84.86
   val north: LatLong = 48.80 ll -87.31
-  val east: LatLong = 46.52 ll -84.61
+  val west48: LatLong = 48.00 ll -89.57
   val canadaCoast = LinePathLL(east, michipicoten, north, west48)
-  override def polygonLL: PolygonLL = west %!: canadaCoast.reverse
+
+  val west: LatLong = 46.77 ll -92.11
+  val montrealMouth: LatLong = 44.57 ll -90.42
+  val highRock : LatLong = 47.42 ll -87.71
+  val chocolayMouth: LatLong = 46.50 ll -87.35
+  val usCoast = LinePathLL(west48, west, montrealMouth, highRock, chocolayMouth, east)
+
+  override def polygonLL: PolygonLL = canadaCoast.reverse +--! usCoast.reverse
 }
 
 object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
@@ -161,5 +167,5 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
   val cuba = EArea2("Cuba", 21.97 ll -78.96, jungle, wCuba, havana, eCuba, cabotCruz, yara, surgidero)
 
   val lakes = Arr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
-  override val a2Arr: Arr[EArea2] = Arr(wUsa, eUsa, wCanada, CentralCanada, eCanada, baja, cAmerica, cuba) ++ lakes
+  override val a2Arr: Arr[EArea2] = lakes ++ Arr(wUsa, eUsa, wCanada, CentralCanada, eCanada, baja, cAmerica, cuba)
 }

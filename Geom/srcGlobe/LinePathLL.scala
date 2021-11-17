@@ -36,7 +36,7 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   /** Alias for concatClose. Concatenates the operand [[LatLong]] and closes into a PolyonLL. */
   inline def +!(newElem: LatLong): PolygonLL = concatClose(newElem)
 
-  /** Concatenates the operand [[LatLong]] and closes into a PolyonLL. */
+  /** Concatenates the operand [[LatLong]] and closes into a [[PolyonLL]]. */
   def concatClose(newElem: LatLong): PolygonLL =
   { val res = PolygonLL.uninitialised(elemsNum + 1)
     arrayUnsafe.copyToArray(res.arrayUnsafe)
@@ -44,7 +44,11 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
     res
   }
 
-  def %!: (newElem: LatLong): PolygonLL =
+  /** Alias for prependClose. Prepend the left hand operand element and close into a [[PolygonLL]].  */
+  inline def +!:(newElem: LatLong): PolygonLL = prependClose(newElem)
+
+  /** Prepend the left hand operand element and close into a [[PolygonLL]].  */
+  def prependClose(newElem: LatLong): PolygonLL =
   { val res = PolygonLL.uninitialised(elemsNum + 1)
     res.unsafeSetElem(0, newElem)
     dataIForeach{ (i, ll) => res.unsafeSetElem(i + 1, ll) }
@@ -78,11 +82,28 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
 
   def reverseClose: PolygonLL = new PolygonLL(unsafeReverseArray)
 
-  def +--(operand: LinePathLL): LinePathLL =
+  /** Alias for concatTailInit. Concatenates the elements of the operand [[LinePathLL]] minus the head and the last element of the operand. Immutable
+   * operation returns a new [[LinePathLL]]. */
+  def +--(operand: LinePathLL): LinePathLL = new LinePathLL(arrayAppendTailInit(operand))
+
+  /** Concatenates the elements of the operand [[LinePathLL]] minus the head and the last element of the operand. */
+  def concatTailInit(operand: LinePathLL): LinePathLL = new LinePathLL(arrayAppendTailInit(operand))
+
+  /** Alias for concatTailInitClose. Concatenates the elements of the operand [[LinePathLL]] minus the head and the last element of the operand. And
+   *  then closes into a [[PolygonLL]]. */
+  def +--!(operand: LinePathLL): PolygonLL = new PolygonLL(arrayAppendTailInit(operand))
+
+  /** Concatenates the elements of the operand [[LinePathLL]] minus the head and the last element of the operand. And then closes into a
+   *  [[PolygonLL]]. */
+  def concatTailInitClose(operand: LinePathLL): PolygonLL = new PolygonLL(arrayAppendTailInit(operand))
+
+  /** Creates a new backing Array[Double] with the elements of this [[LinePathLL]], with the elements of the operand
+   * minus the head and last element of the operand. */
+  def arrayAppendTailInit(operand: LinePathLL): Array[Double] =
   { val array = new Array[Double]((elemsNum + (operand.elemsNum - 2).max(0)) * 2)
     arrayUnsafe.copyToArray(array)
-    iUntilForeach(2, operand.arrLen - 2){i => array(elemsNum * 2 + i) = operand.arrayUnsafe(i) }
-    new LinePathLL(array)
+    iUntilForeach(2, operand.arrLen - 2) { i => array(elemsNum * 2 + i - 2) = operand.arrayUnsafe(i) }
+    array
   }
 
   def vertsNum: Int = elemsNum
