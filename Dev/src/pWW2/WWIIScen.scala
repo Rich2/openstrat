@@ -5,7 +5,7 @@ import geom._, pglobe._,pEarth._, pgui._, pParse._
 /** Primitive WWII scenario using ancient deprecated tile grid system. */
 class WWIIScen extends EarthAllMap[W2TileAncient, W2SideAncient](W2TileAncient.apply, W2SideAncient.apply)
 {
-  val fArmy: (W2TileAncient, Polity) => Unit = (tile, p: Polity) => tile.lunits = Army(tile, p) +: tile.lunits
+  val fArmy: (W2TileAncient, Polity) => Unit = (tile, p: Polity) => tile.lunits = Army(tile, p) %: tile.lunits
 }
 
 /** Object for launching WW2 app. */

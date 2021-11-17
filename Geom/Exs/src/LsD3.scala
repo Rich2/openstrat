@@ -21,5 +21,5 @@ case class LsD3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D3")
   
   val bottomBlock = TextGraphic.lines(Arr(c0, c1, c2, c3, c4, c5, c6).map(_.toString), lineSpacing = 1.5, posn = -250 pp -150, align = LeftAlign)
    
-  repaint(topBlock +: middleBlock +: bottomBlock)
+  repaint(topBlock %: middleBlock %: bottomBlock)
 }

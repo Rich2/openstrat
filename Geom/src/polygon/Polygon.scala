@@ -237,7 +237,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   }
 
   def active(id: AnyRef): PolygonActive = PolygonActive(this, id)
-  def activeChildren(id: AnyRef, children: GraphicElems): PolygonCompound = PolygonCompound(this, Arr(), active(id) +: children)
+  def activeChildren(id: AnyRef, children: GraphicElems): PolygonCompound = PolygonCompound(this, Arr(), active(id) %: children)
 
   def fillActive(fillColour: Colour, pointerID: AnyRef): PolygonCompound =
     PolygonCompound(this, Arr(fillColour), Arr(PolygonActive(this, pointerID)))

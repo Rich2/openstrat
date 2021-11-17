@@ -38,7 +38,7 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
   { val seas = earth2DEllipse(scale).fill(Ocean.colour)
     val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
     val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-    (seas +: as) ++ gs
+    seas %: as ++ gs
   }
  
   mapPanel.mouseUp = (but: MouseButton, clickList, v) => but match
@@ -54,7 +54,7 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
       case (ArrHead(c: Corps), ArrHead(newTile: NTileAncient)) =>
       { c.tile.lunits = c.tile.lunits.removeFirst (_ == c)
         val newCorps = c.copy (newTile)
-        newTile.lunits +:= newCorps
+        newTile.lunits %:= newCorps
         selected = Arr(newCorps)
         repaintMap()
       }

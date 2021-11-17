@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pFlags
+package ostrat; package pFlags
 import geom._, Colour._
 
 object Austria extends Flag
@@ -19,7 +18,7 @@ trait EnglandLike extends Flag
 { def ratio = 2
   def englishRed: Colour = Colour.fromInts(204, 0, 0)
   def redCross: Arr[PolygonFill] = Rect.cross(2, 1, 0.2).map(_.fill(englishRed))
-  def common = rect.fill(White) +: redCross
+  def common = rect.fill(White) %: redCross
 }
 
 object England extends EnglandLike

@@ -22,7 +22,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
 
     def seas = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
-    mainRepaint((seas +: af0) ++ af1)
+    mainRepaint(seas %: af0 ++ af1)
   }
 
   def zoomIn: PolygonCompound = clickButton("+"){_ =>

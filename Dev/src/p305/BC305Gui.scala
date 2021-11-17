@@ -35,7 +35,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
         { val strs: Strings = Strings(yxStr, cenLL.degStr)
           TextGraphic.lines(strs, 10, cen, colour.contrastBW)//.toArraySeq
         })
-      poly +: tileText
+      poly %: tileText
       }
    def fSide: OfESide[BcTileAncient, ESideOnyAncient] => GraphicElems = ofs => {
       import ofs._
@@ -50,7 +50,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 
   { val seas = earth2DEllipse(scale).fill(Ocean.colour)
     val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
     val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
-    (seas +: as) ++ gs
+    seas %: as ++ gs
   }
    
   eTop()
