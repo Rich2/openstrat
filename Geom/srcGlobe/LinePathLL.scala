@@ -44,6 +44,18 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   def reverse: LinePathLL = reverseData
 
   def reverseClose: PolygonLL = new PolygonLL(unsafeReverseArray)
+
+  def +--(operand: LinePathLL): LinePathLL =
+  { val array = new Array[Double]((elemsNum + (operand.elemsNum - 2).max(0)) * 2)
+    arrayUnsafe.copyToArray(array)
+    iUntilForeach(2, operand.arrLen - 2){i => array(elemsNum * 2 + i) = operand.arrayUnsafe(i) }
+    new LinePathLL(array)
+  }
+
+  def vertsNum: Int = elemsNum
+
+  /** Performs the side effecting function on the [[LatLong]] value of each vertex. */
+  def vertsForeach[U](f: LatLong => U): Unit = dataForeach(f)
 }
 
 object LinePathLL extends DataDbl2sCompanion[LatLong, LinePathLL]
