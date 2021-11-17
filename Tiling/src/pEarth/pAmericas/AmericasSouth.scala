@@ -15,23 +15,25 @@ object AmericasSouth extends EArea1("SAmericas", -6.52 ll -62.28)
   val buenosAires = degs(-34, -59)
   val sBuenos = degs(-36, -57)
 
-  val fSAmerica: EArea2 = EArea2("FSAmerica", degs(-33.51, -65.36), plain,
+  val SouthAmericaSouth: EArea2 = EArea2("SAmerica.south", degs(-34.0, -64.0), plain,
      sChile, sSAmericaNW, nwSAmericaES, sSAmericaNE, saoPaulo, puntaDelEste, buenosAires, sBuenos, swArgentine)
-     
+
   val nChile = degs(-18, -70)
   val nPeru = degs(-5, -81)
-   
+
   val nColumbia = 12.19 ll -71.27
   val caracas = degs(11, -71)
   val nwSAmericaEN = 6.77.north * nwAmericaE
-   
-  val wSAmerica: EArea2 = EArea2("WSAmerica", degs(-10.42, -47.78), jungle,
-     sSAmericaNW,nChile, nPeru, AmericasNorth.sePanama, AmericasNorth.nePanama, nColumbia, caracas, nwSAmericaEN, nwSAmericaES)
-   
+
+  val SouthAmericaWest: EArea2 = EArea2("SAmerica.west", degs(-5.0, -70.0), jungle,
+     sSAmericaNW, nChile, nPeru, AmericasNorth.sePanama, AmericasNorth.nePanama, nColumbia, caracas, nwSAmericaEN, nwSAmericaES)
+
   val nAmapa = degs(4.39, -51.51)
   val amazonMouthS = degs(-0.18, -49.3)
   val paraiba = degs(-7.15, -34.82)
-  val eSAmerica = EArea2("ESAmerica", degs(-2.04, -70.81), jungle, nwSAmericaEN, nAmapa, amazonMouthS, paraiba, sSAmericaNE, nwSAmericaES)
-   
-  override val a2Arr: Arr[EArea2] = Arr(fSAmerica, wSAmerica, eSAmerica)
+
+  val SouthAmericaEast = EArea2("SAmerica.east", degs(-10.04, -45.81), jungle, nwSAmericaEN, nAmapa, amazonMouthS, paraiba, sSAmericaNE,
+    nwSAmericaES)
+
+  override val a2Arr: Arr[EArea2] = Arr(SouthAmericaSouth, SouthAmericaWest, SouthAmericaEast)
 }
