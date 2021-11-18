@@ -16,7 +16,7 @@ object PolarNorth extends EArea1("NPole", 89.5 ll 0)
   val greenland: EArea2 = EArea2("Greenland", degs(75, -42), ice, sGreenland, swGreenland, pt1, wGreenland, nwGreenland,
      nGreenland, neGreenland, semersooq, kulusuk)
    
-  val artic: EArea2 = EArea2("Artic", degs(89.9, 0), ice, AmericasNorth.nwAlaska, AsiaEastPts.iultinsky, AsiaEastPts.krasnoyarsk,
+  val artic: EArea2 = EArea2("Artic", degs(89.9, 0), ice, WestCanada.nwAlaska, AsiaEastPts.iultinsky, AsiaEastPts.krasnoyarsk,
      degs(81.21, 15.83), semersooq, neGreenland, nGreenland, nwGreenland)
   
   override val a2Arr: Arr[EArea2] = Arr(greenland, artic, Svalbard, Nordauslandet)

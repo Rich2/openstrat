@@ -9,26 +9,39 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   override def unsafeFromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
   override def typeStr: String = "LinePathLL"
 
-  def %: (newElem: LatLong): LinePathLL =
+  /** Alias for prepend. Prepends element, returning a new [[LatLong]]. */
+  inline def %: (newElem: LatLong): LinePathLL = prepend(newElem)
+
+  /** Prepends element, returning a new [[LatLong]]. Aliased by %: operator. */
+  def prepend (newElem: LatLong): LinePathLL =
   { val res = LinePathLL.uninitialised(elemsNum + 1)
     res.unsafeSetElem(0, newElem)
     dataIForeach{ (i, ll) => res.unsafeSetElem(i + 1, ll) }
     res
   }
 
-  def ++ (operand: LinePathLL): LinePathLL =
+  /** Aliased by concat. Concatenate elements of the operand [[LinePathLL]] returning a new [[LinePathLL]]. An immutable append. */
+  inline def ++ (operand: LinePathLL): LinePathLL = concat(operand)
+
+  /** Concatenate elements of the operand [[LinePathLL]] returning a new [[LinePathLL]]. An immutable append. Aliased by ++ operator. */
+  def concat (operand: LinePathLL): LinePathLL =
   { val res = LinePathLL.uninitialised(elemsNum + operand.elemsNum)
     dataIForeach{ (i, ll) => res.unsafeSetElem(i, ll) }
     operand.dataIForeach(elemsNum) { (i, ll) => res.unsafeSetElem(i, ll) }
     res
   }
 
-  def ++ (elems: LatLong *): LinePathLL =
+  /** Alias for concat. Concatenate repeat [[LatLong]] elements, returning a new [[LinePathLL]]. An immutable append. */
+  inline def ++ (elems: LatLong *): LinePathLL = concat(elems :_*)
+
+  /** Concatenate repeat [[LatLong]] elements returning a new [[LinePathLL]]. An immutable append. Aliased by ++ operator. */
+  def concat (elems: LatLong *): LinePathLL =
   { val res = LinePathLL.uninitialised(elemsNum + elems.length)
     dataIForeach{ (i, ll) => res.unsafeSetElem(i, ll) }
     elems.iForeach(elemsNum){ (i, ll) => res.unsafeSetElem(i, ll) }
     res
   }
+
 
   /** closes this LinePathLL into a [[PolygonLL]] with a line Segment from the last point to the first point. */
   @inline def close: PolygonLL = new PolygonLL(arrayUnsafe)
@@ -80,6 +93,7 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   /** Reverses the line path so its end point becomes its start point. */
   def reverse: LinePathLL = reverseData
 
+  /** Reverses this [[LinePathLL]] and closes it returning a [[PolygonLL]] */
   def reverseClose: PolygonLL = new PolygonLL(unsafeReverseArray)
 
   /** Alias for concatTailInit. Concatenates the elements of the operand [[LinePathLL]] minus the head and the last element of the operand. Immutable
