@@ -10,7 +10,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
 
   /** Scale in km / pixel */
   var scale: Length = startScale.getOrElse(12.kMetres)
-  var long: Longitude = Longitude.degs(0)
+  var long: Longitude = startFocus.fld(Longitude.degs(0), _.long)
 
   def scaleStr = s"scale = ${scale.kMetresNum.str2} km/pixel"
 
@@ -70,6 +70,3 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   repaint()
   thisTop()
 }
-
-/** object to launch EarthBasic Gui. */
-object EarthBasicLaunch extends GuiLaunchSimple("Earth", (EarthBasicGui.apply(_), "JavaFx Earth"))

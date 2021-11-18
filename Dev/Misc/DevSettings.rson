@@ -5,6 +5,7 @@ displayY = 0;//Some operating systems will not allow a positive y value that pus
 // displayWidth = 1920;
 // displayHeight = 1080;
 lessons = A1;
+earth = { scale = 12; latitude = 0; longitude = 0; };
 ww2 = { scale = 1; latitude = 50; longitude = 10; };
 gOne = 1;
 gTwo = 1;
