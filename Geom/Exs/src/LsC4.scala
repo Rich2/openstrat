@@ -14,8 +14,8 @@ case class LsC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
   def gArr = rArr.map(r => r.fillActive(colour, r.cenPt))
   val textPosn = 0 pp 0
   val startText = TextGraphic("Click on the rectangles to cycle the colour.", 28, textPosn)
-  deb((gArr +- startText).elemsNum.toString)
-  repaint(gArr +- startText)
+  deb((gArr +% startText).elemsNum.toString)
+  repaint(gArr +% startText)
   
   /** Note you can use what names you like. Here I put the types explicitly for clarity. When you are familiar with an anonymous function, you will
    *  probably want to use a short parameter list like (v, b, s).  */
@@ -23,7 +23,7 @@ case class LsC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
   {
     case ArrHead(cen: Pt2/*, tail*/) =>
     { colour = colour.nextFrom(Colours(Red, Orange, Green))
-      repaint(gArr +- startText)
+      repaint(gArr +% startText)
     }
       
     case _ =>  deb("Missed")

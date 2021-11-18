@@ -222,7 +222,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
       case _ => LeftAlign
     }
     val tg = TextGraphic(str, fontSize, this.slateAngle(angle, arrowLength + 4), colour, align)
-    this.angleFromLine(angle, arrowLength).withArrow(colour) +- tg
+    this.angleFromLine(angle, arrowLength).withArrow(colour) +% tg
   }
 
   /** Creates a [[TextGraphic]] and a line segment with an arrow head at the end. The arrow pointing from the [[TextGraphic]] to this point. The arrow

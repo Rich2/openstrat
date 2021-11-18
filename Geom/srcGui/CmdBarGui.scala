@@ -26,7 +26,7 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
     val a = displayRowGraphics(topBar.cenLeft, commands)
     val sp = ife(a.empty, topBar.cenLeft,a.last.boundingRect.cen.addX(80))
     val st = TextGraphic(statusText, 15, sp, Black, LeftAlign)
-    topBar.repaint(a +- st)
+    topBar.repaint(a +% st)
   }
   def mainMouseUp: (MouseButton, Arr[AnyRef], Pt2) => Unit = mainPanel.mouseUp
   def mainMouseUp_= (f: (MouseButton, Arr[AnyRef], Pt2) => Unit): Unit = { mainPanel.mouseUp = f }

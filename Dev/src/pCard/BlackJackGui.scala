@@ -13,7 +13,7 @@ case class BlackJackGui(canv: CanvasPlatform) extends CanvasNoPanels("BlackJack"
       val circ3: PolygonGen = PolygonGen(0 pp rad, - rad * Sin60 pp - rad * Sin30, rad * Sin60 pp - rad * Sin30).scale(0.5)
       val c3 = circ3.slateY(0.06).vertsMap(cen => Circle(2 * rad * 0.46, cen).fill(Black))
       val rect: PolygonFill = TrapezoidIsosceles(0.35, 0.2, 0.5).slateY(- 0.28).fill(Black)
-      c3 +- rect
+      c3 +% rect
    }      
    repaint(clubFill().scale(400) )//++ canv.gridLines2Colours(200, Colour.Red, Colour.Blue))
    //disp.repaint(Seq(Diamond().scale(400).fillDraw(Red, 4, Green)) ++ disp.gridLines2(200, Colour.Red, Colour.Blue))

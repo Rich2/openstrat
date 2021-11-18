@@ -12,7 +12,7 @@ case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
   val rList = Arr(r1, r2, r3, r4)
   val textPosn = 0 pp 0
   val startText = TextGraphic("Please click on the screen.", 28, textPosn)
-  repaint(rList +- startText)
+  repaint(rList +% startText)
   
   //Note we are ignoring the button here
   mouseUp = (button, selectedList, posn) =>
@@ -24,6 +24,6 @@ case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
             TextGraphic("You missed the yellow rectangles.\n" + posn.str, 28, textPosn)
           }
       }  
-      repaint(rList +- newText)
+      repaint(rList +% newText)
   }
 }

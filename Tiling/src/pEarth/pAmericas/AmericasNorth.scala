@@ -19,8 +19,8 @@ object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
 object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
 { import AmericasNorth._
   override def polygonLL: PolygonLL = LinePathLL(galveston, wUsaNE) ++ LakeSuperior.usCoast ++ LakeHuron.pineMouth ++ LakeMichigan.coast ++
-    LakeHuron.usCoastSouth  ++ LakeErie.usCoast ++! (LakeOntario.niagraMouth, LakeOntario.southEast, LakeOntario.tibbettsPoint, EastCanada.maineE,
-    NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
+    LakeHuron.usCoastSouth  ++ LakeErie.usCoast ++ LakeOntario.usCoast ++!
+    (EastCanada.maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
 }
 
 object AmericasNorth extends EArea1("North America", 49 ll -100)

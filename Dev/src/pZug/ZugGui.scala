@@ -22,7 +22,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
       case Fire(target) => Arr(LineSegHC(hc, target).lineSeg.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }
-    actions +- uc
+    actions +% uc
   }
 
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match

@@ -60,7 +60,7 @@ case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Explori
     val quadraticEndControlLine = LineSegDraw(quadraticEnd.loc, quadraticControl.loc, Grey, 1)
     val txtQuad = TextGraphic("BezierDraw(" + quadraticStart.loc + ", " + quadraticControl.loc + ", " + quadraticControl.loc + ", " + quadraticEnd.loc + ", 2, Blue)", 18, 0 pp -300, Blue)
 
-    repaint(elementsToPaint +- txtQuad ++ quadraticDragCircles +- quadraticBezier +- quadraticStartControlLine +- quadraticEndControlLine )
+    repaint(elementsToPaint +% txtQuad ++ quadraticDragCircles +% quadraticBezier +% quadraticStartControlLine +% quadraticEndControlLine )
   }
 
   /* test to see if drag operation has started. if the mouseDown is on one of the represented bezier points then set theDragee to its corresponding

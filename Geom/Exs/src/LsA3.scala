@@ -25,5 +25,5 @@ case class LsA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
   val elTopRight = el1.trBoundTo(canv.topRight)
   val els = Arr(el1, el2, el3, elTopRight)
 
-  repaint(circles ++ crosses ++ els +- c1d)
+  repaint(circles ++ crosses ++ els +% c1d)
 }

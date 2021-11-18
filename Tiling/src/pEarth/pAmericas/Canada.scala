@@ -39,9 +39,7 @@ object EastCanada extends EArea2("East Canada", degs(53.71, -70), taiga)
   val eCanadaCoast = LinePathLL(ungavaE, labradorE, newFoundlandE, eNovaScotia)
 
   override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++ LinePathLL(CentralCanada.jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) ++
-    eCanadaCoast ++ (maineE, LakeOntario.wolfeSW, LakeOntario.northEast, LakeOntario.frenchmansBay, LakeOntario.southWest,
-    LakeOntario.niagraMouth) ++! LakeErie.eastCanadaCoast
-   //   LakeErie.niagraMouth, LakeErie.portStanley, LakeErie.detroitMouth)
+    eCanadaCoast +% maineE ++ LakeOntario.canadaCoast ++! LakeErie.eastCanadaCoast
 }
 
 object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, lake)
@@ -58,7 +56,7 @@ object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, lake)
 
   val usCoast = LinePathLL(west48, west, montrealMouth, highRock, chocolayMouth, east)
 
-  override def polygonLL: PolygonLL = canadaCoast.reverse +--! usCoast.reverse
+  override def polygonLL: PolygonLL = canadaCoast.reverse +/--! usCoast
 }
 
 object LakeHuron extends EArea2("Lake Huron", 44.80 ll -82.4, lake)
@@ -85,8 +83,8 @@ object LakeHuron extends EArea2("Lake Huron", 44.80 ll -82.4, lake)
 
   val usCoastSouth: LinePathLL = LinePathLL(pesqueIsle, tobicoLagoon, turnipRock, south)
 
-  override def polygonLL: PolygonLL = usCoastSouth.reverse ++ LinePathLL(LakeMichigan.mouthSouth, LakeMichigan.mouthNorth) ++
-    centralCanadaCoast.reverse +--! eastCanadaCoast.reverse
+  override def polygonLL: PolygonLL = usCoastSouth.reverse ++ LinePathLL(LakeMichigan.mouthSouth, LakeMichigan.mouthNorth) ++/
+    centralCanadaCoast +/--! eastCanadaCoast
 }
 
 object LakeErie extends EArea2("Lake Erie", 42.24 ll -81.03, lake)
@@ -104,16 +102,22 @@ object LakeErie extends EArea2("Lake Erie", 42.24 ll -81.03, lake)
 
   val usCoast: LinePathLL = LinePathLL(detroitMouth, maumeeMouth, south, east, niagraMouth)
 
-  override def polygonLL: PolygonLL = eastCanadaCoast.reverse +--! usCoast.reverse
+  override def polygonLL: PolygonLL = eastCanadaCoast.reverse +/--! usCoast
 }
 
 object LakeOntario extends EArea2("Lake Ontario", 43.65 ll -77.84, lake)
-{ val southWest: LatLong = 43.30 ll -79.82
-  val frenchmansBay: LatLong = 43.81 ll -79.09
+{ val wolfeSW: LatLong = 44.10 ll -76.44
   val northEast: LatLong = 44.20 ll -76.51
-  val wolfeSW: LatLong = 44.10 ll -76.44
-  val tibbettsPoint =  44.10 ll -76.37
-  val southEast: LatLong = 43.53 ll -76.22
+  val frenchmansBay: LatLong = 43.81 ll -79.09
+  val southWest: LatLong = 43.30 ll -79.82
   val niagraMouth: LatLong = 43.26 ll -79.07
-  override def polygonLL: PolygonLL = PolygonLL(southWest, frenchmansBay, northEast, wolfeSW, tibbettsPoint, southEast, niagraMouth)
+
+  val canadaCoast: LinePathLL = LinePathLL(wolfeSW, northEast, frenchmansBay, southWest, niagraMouth)
+
+  val southEast: LatLong = 43.53 ll -76.22
+  val tibbettsPoint =  44.10 ll -76.37
+
+  val usCoast: LinePathLL = LinePathLL(niagraMouth, southEast, tibbettsPoint, wolfeSW)
+
+  override def polygonLL: PolygonLL = canadaCoast.reverse +/--! usCoast
 }

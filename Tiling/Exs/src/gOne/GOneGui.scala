@@ -72,7 +72,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends HexMapGui("
 
   def moveGraphics2: GraphicElems = moveGraphics.gridScale(rScale).flatMap(_.arrow)
 
-  def frame: GraphicElems = (tiles +- sidesDraw ++ units ++ hexStrs).gridScale(rScale) ++ moveGraphics2
+  def frame: GraphicElems = (tiles +% sidesDraw ++ units ++ hexStrs).gridScale(rScale) ++ moveGraphics2
 
   repaint()
 }

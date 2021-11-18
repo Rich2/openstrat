@@ -91,7 +91,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
     for(j <- 0 to itemsPerCol - 1; i <- 0 to itemsPerRow - 1 if firstIndex + i * iScrollStep + j * jScrollStep < itemCount)
     { val thisIndex = firstIndex + i * iScrollStep + j * jScrollStep
       val thisFlag = listOfFlags(thisIndex).compound(thisIndex.toString).scale(vCommonScale / Math.sqrt(listOfFlags(thisIndex).ratio))
-      viewableItems = viewableItems +- thisFlag.SlateXY(i * vCellWidth, -j * vCellHeight).slate(firstFlagsPosition)
+      viewableItems = viewableItems +% thisFlag.SlateXY(i * vCellWidth, -j * vCellHeight).slate(firstFlagsPosition)
     }
     viewIndex = firstIndex
     if (selectedIndex == -1) positionBar() else showSelected()

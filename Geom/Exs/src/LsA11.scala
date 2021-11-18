@@ -55,5 +55,5 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
 
 
   val aa = Arr(ccl1, ccl1r, r1, r1r)
-  repaint(aa ++ c1 ++ c1r +- cd1 +- cd2 +- cd3 +- rStr +- rStr2 +- redLine)
+  repaint(aa ++ c1 ++ c1r +% cd1 +% cd2 +% cd3 +% rStr +% rStr2 +% redLine)
 }

@@ -23,13 +23,13 @@ case class ZugGuiOld(canv: CanvasPlatform, scen: ZugScenOld) extends CmdBarGui("
           val sideCood = (prevCood + nextCood) / 2
           val l1 = RoordLine(prevCood, sideCood).gridLine2.draw(Black, 2)
           val l2 = RoordLine(sideCood, nextCood).gridLine2.draw(Black, 2)
-          acc +- l1 +- l2
+          acc +% l1 +% l2
         }
       }
       case FireOld(target) => Arr(RoordLine(roord, target).gridLine2.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }
-    action +- uc
+    action +% uc
   }
 
   def moveFunc: (Roord, Roord) => OptInt = (r1, r2) =>  SquadOld.terrCost(terrs(r1)) |+| SquadOld.terrCost(terrs(r2))

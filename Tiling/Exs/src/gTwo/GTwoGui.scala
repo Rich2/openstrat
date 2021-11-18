@@ -55,6 +55,6 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   thisTop()
-  def frame: GraphicElems = (lunits +- sidesDraw ++ css).gridScale(rScale)// ++ moveGraphics2
+  def frame: GraphicElems = (lunits +% sidesDraw ++ css).gridScale(rScale)// ++ moveGraphics2
   repaint()
 }

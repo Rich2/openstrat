@@ -13,7 +13,7 @@ trait Flag
 
   def compound(evObj: AnyRef = this): PolygonCompound =
   { val rect = Rect(ratio, 1)
-    PolygonCompound(rect, Arr(), apply() +- rect.active(evObj))
+    PolygonCompound(rect, Arr(), apply() +% rect.active(evObj))
   }
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
