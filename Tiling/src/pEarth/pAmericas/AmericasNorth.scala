@@ -18,15 +18,13 @@ object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
 
 object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
 { import AmericasNorth._
-  override def polygonLL: PolygonLL = LinePathLL(galveston, wUsaNE) ++ LakeSuperior.usCoast ++ LakeMichigan.coast  ++!
-    (LakeHuron.south, LakeErie.detroitMouth, LakeErie.maumeeMouth, LakeErie.south, LakeErie.east, LakeErie.niagraMouth, LakeOntario.niagraMouth,
-      LakeOntario.southEast, LakeOntario.tibbettsPoint, EastCanada.maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint,
-      montague)
+  override def polygonLL: PolygonLL = LinePathLL(galveston, wUsaNE) ++ LakeSuperior.usCoast ++ LakeHuron.pineMouth ++ LakeMichigan.coast ++
+    LakeHuron.usCoastSouth  ++ LakeErie.usCoast ++! (LakeOntario.niagraMouth, LakeOntario.southEast, LakeOntario.tibbettsPoint, EastCanada.maineE,
+    NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
 }
 
 object AmericasNorth extends EArea1("North America", 49 ll -100)
-{
-  /** Camden County Georgia USA */
+{ /** Camden County Georgia USA */
   val NAtlanticSW = 31 ll  -81.47
 
   val cAmericaN =  22.8.north
@@ -45,8 +43,6 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
 
   lazy val wUsa = EArea2("United States\nwest", degs(40.0, -108.0), desert, sanDiego, humboldt, WestCanada.w49th, WestCanada.southEast, wUsaNE,
     galveston, rockyPoint, montague)
-
-
 
   val cabotPulmo = 23.37 ll -109.44
   val sanLucas = 22.87 ll -109.91
