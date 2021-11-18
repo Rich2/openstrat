@@ -40,9 +40,23 @@ class LongExtensions(val thisLong: Long) extends AnyVal
 }
 
 class OptionExtensions[A](thisOption: Option[A])
-{
+{ /** An alternative fold extension method for [[Option]] with a single parameter list. */
   def fld[B](noneValue: => B, fSome: A => B): B = thisOption match
   { case None => noneValue
+    case Some(a) => fSome(a)
+  }
+
+  /** safe get. Seeks an implicit value for the [[GefaultValue]] type class for the type of the option. Returns the value if a some else returns the
+   * default value. */
+  def sget(implicit ev: DefaultValue[A]): A = thisOption match
+  { case Some(a) => a
+    case None => ev.default
+  }
+
+  /** An alternative fold extension method for [[Option]] where it searches for an implicit instance of [[DefaultValue]][B] and uses the default value
+   *  in the case of None' */
+  def dFold[B](fSome: A => B)(implicit ev: DefaultValue[B]): B = thisOption match
+  { case None => ev.default
     case Some(a) => fSome(a)
   }
 
