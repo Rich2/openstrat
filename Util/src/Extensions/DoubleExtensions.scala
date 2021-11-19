@@ -17,7 +17,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   @inline def kMetres: KMetres = KMetres(thisDouble)
 
   /** Returns this [[Double]] value in [[GMetres]] or millions of kilometres. */
-  @inline def gMetres: GMetres = GMetres(thisDouble)
+  @inline def gMetres: Metres = Metres(thisDouble * 1000000000)
 
   /** Returns this [[Double]] value in [[Miles]]. */
   @inline def miles: Miles = Miles(thisDouble)

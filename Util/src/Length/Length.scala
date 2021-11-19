@@ -48,7 +48,7 @@ trait Length extends Any with Ordered[Length]
   def gMetresNum: Double
 
   /** The value of this length expressed as [[GMetres]] gigametres or millions of kilometres. */
-  @inline final def gMetres: GMetres = new GMetres(gMetresNum)
+  //@inline final def gMetres: GMetres = new GMetres(gMetresNum)
 
   /** The scalar Double value of this length expressed in miles. */
   def yardsNum: Double

@@ -96,6 +96,7 @@ final class MMetres(override val mMetresNum: Double) extends AnyVal with MetricL
   @inline override def gMetresNum: Double = mMetresNum / 1000
 }
 
+/*
 /** Length measure in GigaMetres or millions of kilometres. */
 final class GMetres(override val gMetresNum: Double) extends AnyVal with MetricLength
 {
@@ -119,4 +120,4 @@ final class GMetres(override val gMetresNum: Double) extends AnyVal with MetricL
 object GMetres
 { /** Apply factory for GMetres. */
   def apply(gMetres: Double): GMetres = new GMetres(gMetres)
-}
+}*/

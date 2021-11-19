@@ -14,7 +14,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   @inline def kMetres: KMetres = KMetres(thisInt)
 
   /** Returns this [[Int]] value in [[GMetres]] or millions of kilometres. */
-  @inline def gMetres: GMetres = GMetres(thisInt)
+  @inline def gMetres: Metres = Metres(thisInt * 1000000000)
 
   /** Returns this [[Int]] value in [[Miles]]. */
   @inline def miles: Miles = new Miles(thisInt)
