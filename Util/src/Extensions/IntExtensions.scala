@@ -20,7 +20,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   @inline def miles: Miles = new Miles(thisInt)
 
   /** Returns this [[Int]] value in [[MMiles]] millions of miles. */
-  @inline def mMiles: MMiles = new MMiles(thisInt)
+  @inline def mMiles: Metres = new Metres(thisInt * 1609344)
 
   /** Returns the value or 0, if this Int less than 0. */
   def atLeast0: Int = ife(thisInt > 0, thisInt, 0)

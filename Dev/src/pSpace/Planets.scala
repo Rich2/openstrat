@@ -38,7 +38,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
   object Planet
   {
     def miles(miles: Miles, colour: Colour, name: String): Planet = new Planet(miles.metres, colour, name)
-    def mMiles(mMiles: MMiles, colour: Colour, name: String): Planet = new Planet(mMiles.metres, colour, name)
+    def mMiles(mMiles: Metres, colour: Colour, name: String): Planet = new Planet(mMiles, colour, name)
   }
   
   val mercury = Planet.mMiles(36.mMiles, Colour.Gray, "Mercury")
@@ -51,7 +51,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
   val neptune = Planet.mMiles(2794.4.mMiles , LightGreen, "Neptune")
   val pluto = Planet.mMiles(3674.5.mMiles, Colour.SandyBrown, "Pluto")
   
-  object Sun extends Planet(0.mMiles.metres, Yellow, "Sun")
+  object Sun extends Planet(0.mMiles, Yellow, "Sun")
   { override def move(elapsed: Integer): Unit = {}
     override val size = 14
   }

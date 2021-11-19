@@ -66,7 +66,7 @@ trait Length extends Any with Ordered[Length]
   def mMilesNum: Double
 
   /** The value of this length expressed as [[Miles]]. */
-  @inline final def mMmiles: MMiles = new MMiles(mMilesNum)
+  //@inline final def mMmiles: MMiles = new MMiles(mMilesNum)
 }
 
 /** Companion object for [[Length]] trait contains extension class for [[Length]] */

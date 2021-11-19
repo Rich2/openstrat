@@ -75,24 +75,3 @@ object Miles
 
   //implicit object DistPersist extends PersistDbl1[miles]("Dist", "miles",_.miles, new miles(_))
 }
-
-/** Length in millions of miles. */
-final class MMiles(override val mMilesNum: Double) extends AnyVal with ImperialLength
-{ def typeStr: String = "MMiles"
-  override def metresNum: Double = 1609340000 * mMilesNum
-  override def +(operand: Length): MMiles = new MMiles(mMilesNum + operand.mMilesNum)
-  override def -(operand: Length): MMiles = new MMiles(mMilesNum - operand.mMilesNum)
-  override def unary_- : MMiles = new MMiles(-mMilesNum)
-  override def *(operand: Double): MMiles = new MMiles(mMilesNum * operand)
-  override def /(operand: Double): MMiles = new MMiles(milesNum / operand)
-
-  /** Returns the max length of this and the operand length in [[Miles]]. */
-  override def max(operand: Length): Miles = new Miles(milesNum.max(operand.milesNum))
-
-  override def compare(that: Length): Int = (milesNum - that.milesNum).match3(_ < 0, -1,_ == 0,0,1)
-
-  def pos: Boolean = milesNum >= 0
-  def neg: Boolean = milesNum < 0
-  @inline override def yardsNum: Double = milesNum * 1760
-  @inline override def milesNum: Double = mMilesNum * 1000000
-}

@@ -23,7 +23,7 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   @inline def miles: Miles = Miles(thisDouble)
 
   /** Returns this [[Double]] value in [[MMiles]] millions of miles. */
-  @inline def mMiles: MMiles = new MMiles(thisDouble)
+  @inline def mMiles: Metres = new Metres(thisDouble * 1609344)
 
   /** Alternative modulo or remainder operator that gives a positive modulus remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
   def %%(divisor: Double): Double =
