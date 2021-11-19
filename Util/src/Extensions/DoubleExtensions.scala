@@ -20,10 +20,10 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   @inline def gMetres: Metres = Metres(thisDouble * 1000000000)
 
   /** Returns this [[Double]] value in [[Miles]]. */
-  @inline def miles: Miles = Miles(thisDouble)
+  @inline def miles: Metres = Metres(thisDouble * 1609.344)
 
   /** Returns this [[Double]] value in [[MMiles]] millions of miles. */
-  @inline def mMiles: Metres = new Metres(thisDouble * 1609344)
+  @inline def mMiles: Metres = new Metres(thisDouble * 1609344000)
 
   /** Alternative modulo or remainder operator that gives a positive modulus remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
   def %%(divisor: Double): Double =

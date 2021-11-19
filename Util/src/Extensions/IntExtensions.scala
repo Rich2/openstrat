@@ -17,10 +17,10 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   @inline def gMetres: Metres = Metres(thisInt * 1000000000)
 
   /** Returns this [[Int]] value in [[Miles]]. */
-  @inline def miles: Miles = new Miles(thisInt)
+  @inline def miles: Metres = new Metres(thisInt * 1609.344)
 
   /** Returns this [[Int]] value in [[MMiles]] millions of miles. */
-  @inline def mMiles: Metres = new Metres(thisInt * 1609344)
+  @inline def mMiles: Metres = new Metres(thisInt * 1609344000)
 
   /** Returns the value or 0, if this Int less than 0. */
   def atLeast0: Int = ife(thisInt > 0, thisInt, 0)
