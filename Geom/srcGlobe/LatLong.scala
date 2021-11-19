@@ -49,6 +49,14 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def subLatRadians(radians: Double): LatLong = addLatRadians(-radians)
 
+  def addLong(delta: AngleVec): LatLong = {
+    val long1 = longMilliSecs + delta.milliSecs
+    val long2 = long1 %+- MilliSecsIn360Degs
+    LatLong.milliSecs(latMilliSecs, long2)
+  }
+
+  def subLong(delta: AngleVec): LatLong = addLong(-delta)
+
   /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def addLongRadians(radians: Double): LatLong = LatLong.radians(latRadians, (longRadians + radians) %+- Pi1)
 

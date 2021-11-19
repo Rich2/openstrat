@@ -42,7 +42,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
 
   def goEast: PolygonCompound = clickButton("\u2192"){b =>
     def delta = b.apply(1, 10, 90, 0)
-    focus = focus.addLongRadians(delta / 180.0) // long += Longitude.degs(delta)
+    focus = focus.addLong(delta.degs)
     repaint()
     statusText = s"Longitude $long"
     thisTop()
@@ -50,7 +50,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
 
   def goWest: PolygonCompound = clickButton("\u2190"){b =>
     def delta = b.apply(1, 10, 90, 0)
-    focus = focus.addLongRadians(-delta / 180.0) // long -= Longitude.degs(delta)
+    focus = focus.subLong(delta.degs)
     repaint()
     statusText = s"Longitude $long"
     thisTop()
