@@ -11,7 +11,8 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   /** Scale in km / pixel */
   var scale: Length = startScale.getOrElse(12.kMetres)
   var focus: LatLong = startFocus.sget
-  def long: Longitude = focus.long// startFocus.dFold(_.long)
+  def lat: Latitude = focus.lat
+  def long: Longitude = focus.long
 
   def scaleStr = s"scale = ${scale.kMetresNum.str2} km/pixel"
 
@@ -40,21 +41,24 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
     thisTop()
   }
 
-  def goEast: PolygonCompound = clickButton("\u2192"){b =>
-    def delta = b.apply(1, 10, 90, 0)
-    focus = focus.addLong(delta.degs)
+  def goDirn(str: String, f: Double => Unit): PolygonCompound = clickButton(str){b =>
+    def delta = b.apply(1, 10, 60, 0)
+    f(delta)
     repaint()
-    statusText = s"Longitude $long"
+    statusText = s"focus $focus"
     thisTop()
   }
 
-  def goWest: PolygonCompound = clickButton("\u2190"){b =>
-    def delta = b.apply(1, 10, 90, 0)
-    focus = focus.subLong(delta.degs)
+  def goNorth: PolygonCompound = clickButton("\u2191"){b =>
+    def delta = b.apply(1, 10, 60, 0)
+    focus = focus.addLat(delta.degs)
     repaint()
-    statusText = s"Longitude $long"
+    statusText = s"Latitude $lat"
     thisTop()
   }
+
+  def goEast: PolygonCompound = goDirn("\u2192", delta => focus = focus.addLong(delta.degs))
+  def goWest: PolygonCompound = goDirn("\u2190", delta => focus = focus.subLong(delta.degs))
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {
@@ -66,7 +70,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
     case (_, _, h) => deb("Other; " + h.toString)
   }
 
-  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goWest, goEast))
+  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goWest, goEast))
 
   repaint()
   thisTop()
