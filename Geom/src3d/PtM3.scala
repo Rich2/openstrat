@@ -2,8 +2,9 @@
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer
 
-/** 3 dimensional point specified using metres as units rather than pure numbers. */
-final class PtMetre3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ElemDbl3
+/** 3 dimensional point specified using metres as units rather than pure numbers. The Letter M was used rather L for Length to avoid confusion with
+ * the LL ending which is short for Latitude-longitude. */
+final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ElemDbl3
 { def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetres.str2, yMetres.str2, zMetres.str2)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
@@ -15,7 +16,7 @@ final class PtMetre3(val xMetres: Double, val yMetres: Double, val zMetres: Doub
   def z: Length = Length(zMetres)
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
-  @inline def dot(operand: PtMetre3): Area = x * operand.x + y * operand.y + z * operand.z
+  @inline def dot(operand: PtM3): Area = x * operand.x + y * operand.y + z * operand.z
   def xy: PtMetre2 = new PtMetre2(xMetres, yMetres)
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg
@@ -29,8 +30,8 @@ final class PtMetre3(val xMetres: Double, val yMetres: Double, val zMetres: Doub
   /** Converts this Metres3 point to a Some[Metres2] point of the X and Y values, returns None if the Z value is negative. */
   def toXYIfZPositive: Option[PtMetre2] = ifZPos(Some(PtMetre2(x, y)), None)
 
-  /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[PtMetre3]] point. */
-  def xRotateRadians(rotationRadians: Double): PtMetre3 =
+  /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[PtM3]] point. */
+  def xRotateRadians(rotationRadians: Double): PtM3 =
   { val scalar: Length = Length(sqrt(y.metresNum * y.metresNum + z.metresNum * z.metresNum))
     if(scalar > EarthEquatorialRadius * 1.05) throw excep("scalar: " + scalar.toString)
 
@@ -40,49 +41,49 @@ final class PtMetre3(val xMetres: Double, val yMetres: Double, val zMetres: Doub
                       atan(y / z))//This operates on the standard atan range -Pi/2 to pi/2
 
     val ang1 = ang0 + rotationRadians
-    PtMetre3(x, sin(ang1) * scalar, cos(ang1) * scalar)
+    PtM3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }
 
   /** rotates the vector around the Y axis, 90 degrees or Pi/2 radians, anticlockwise. */
-  @inline def rotateY90: PtMetre3 = PtMetre3(-z, y, x)
+  @inline def rotateY90: PtM3 = PtM3(-z, y, x)
 
   /** Rotates the vector around the Y axis 180 degrees or Pi radians. */
-  @inline def rotateY180: PtMetre3 = PtMetre3(-x, y, -z)
+  @inline def rotateY180: PtM3 = PtM3(-x, y, -z)
 
   /** rotates the vector around the Y axis 90 degrees or Pi/2 radians, clockwise. */
-  @inline def rotateY270: PtMetre3 = PtMetre3(z, y, -x)
+  @inline def rotateY270: PtM3 = PtM3(z, y, -x)
 
   /** Rotates this vector around the Y axis through the given angle around the origin. */
-  def rotateY(a: AngleVec): PtMetre3 = a match
+  def rotateY(a: AngleVec): PtM3 = a match
   { case Deg0 => this
     case Deg90 => rotateY90
     case Deg180 => rotateY180
     case Deg270 => rotateY270
-    case a => PtMetre3(x * a.cos - z * a.sin, y, x * a.sin + z * a.cos)
+    case a => PtM3(x * a.cos - z * a.sin, y, x * a.sin + z * a.cos)
   }
 }
 
 /** Companion object for the Metres3 class. */
-object PtMetre3
+object PtM3
 {
-  def metres(xMetres: Double, yMetres: Double, zMetres: Double): PtMetre3 = new PtMetre3(xMetres, yMetres, zMetres)
-  def apply(x: Length, y: Length, z: Length): PtMetre3 = new PtMetre3(x.metresNum, y.metresNum, z.metresNum)
+  def metres(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
+  def apply(x: Length, y: Length, z: Length): PtM3 = new PtM3(x.metresNum, y.metresNum, z.metresNum)
   //implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
   var counter = 0
 
-  implicit val builderImplicit: ArrDbl3sBuilder[PtMetre3, PtMetre3Arr] = new ArrDbl3sBuilder[PtMetre3, PtMetre3Arr]
+  implicit val builderImplicit: ArrDbl3sBuilder[PtM3, PtMetre3Arr] = new ArrDbl3sBuilder[PtM3, PtMetre3Arr]
   { type BuffT = BuffPtMetre3
     override def fromDblArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)
   }
 
-  implicit val linePathBuildImplicit: LinePathDbl3sBuilder[PtMetre3, LinePathMetre3] = new LinePathDbl3sBuilder[PtMetre3, LinePathMetre3]
+  implicit val linePathBuildImplicit: LinePathDbl3sBuilder[PtM3, LinePathMetre3] = new LinePathDbl3sBuilder[PtM3, LinePathMetre3]
   { override type BuffT = BuffPtMetre3
     override def fromDblArray(array: Array[Double]): LinePathMetre3 = new LinePathMetre3(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)
   }
 
-  implicit val polygonBuildImplicit: PolygonDbl3sBuilder[PtMetre3, PolygonMetre3] = new PolygonDbl3sBuilder[PtMetre3, PolygonMetre3]
+  implicit val polygonBuildImplicit: PolygonDbl3sBuilder[PtM3, PolygonMetre3] = new PolygonDbl3sBuilder[PtM3, PolygonMetre3]
   { override type BuffT = BuffPtMetre3
     override def fromDblArray(array: Array[Double]): PolygonMetre3 = new PolygonMetre3(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)

@@ -85,7 +85,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def latLongFacing(ll: LatLong): Boolean = fromFocusMetres(ll).z.pos
 
   /** From focus parameter, converts to 3D metre coordinates. */
-  def fromFocusMetres(focus: LatLong): PtMetre3 = focus.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
+  def fromFocusMetres(focus: LatLong): PtM3 = focus.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
 
   def fromFocusLineDist3(inp: LineSegLL): LineSegMetre3 = LineSegMetre3(
     inp.startPt.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians),
@@ -99,15 +99,15 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   }
 
   def toOptDist2(inp: LatLong): Option[PtMetre2] =
-  { val r1: PtMetre3 = inp.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
+  { val r1: PtM3 = inp.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
     r1.toXYIfZPositive
   }
 
   /** Converts to Metres3 where 0°N 0°E is the max Z value 90°N is the max Y value, 0°N 90°E is the max X value. */
-  def toMetres3: PtMetre3 =
+  def toMetres3: PtM3 =
   { /** This factor reduces the value of X and Z as latitudes move towards the Poles. */
     val clat = latRadians.cos.abs
-    PtMetre3(longSine * equatorialRadius * clat, latSine * polarRadius, longCos * equatorialRadius * clat)
+    PtM3(longSine * equatorialRadius * clat, latSine * polarRadius, longCos * equatorialRadius * clat)
   }
 }
 
