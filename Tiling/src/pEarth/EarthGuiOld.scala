@@ -7,12 +7,12 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
 {
   var focus: LatLong = 50 ll 0
   /** The number of km per pixel  for 1Km on the map. This will normally be much less than 1 */
-  var scale: Metres =   14000.kmsOld / mapPanelDiameter
-  def scaleMin: Metres = 180.kmsOld / mapPanelDiameter
-  def scaleMax: Metres = 17000.kmsOld / mapPanelDiameter
+  var scale: Metres =   14000.km / mapPanelDiameter
+  def scaleMin: Metres = 180.km / mapPanelDiameter
+  def scaleMax: Metres = 17000.km / mapPanelDiameter
   /** Km / Radian Earth/s Circumference divided by 2 Pi */
   //val kmPerRadian = 40075.0 / Pi2
-  val metresPerRadian: Metres = 40075.kmsOld / Pi2
+  val metresPerRadian: Metres = 40075.km / Pi2
   def viewStr: String = "Focus:" -- focus.degStr -- "Scale: " + scale.kmStr2
   def updateView(): Unit = {repaintMap(); setStatus(viewStr) }
   def setFocus(ll: LatLong): Unit = { focus = ll; updateView() }
@@ -36,7 +36,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def latLongToDist3(ll: LatLong): PtMetre3 = focus.fromFocusMetres(ll)
   def latLongLineToDist3(inp: LineSegLL): LineSegMetre3 = focus.fromFocusLineDist3(inp)
     
-  def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0) * ifInvScale / 400.kmsOld
+  def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0) * ifInvScale / 400.km
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)  
   def inCmd = (mb: MouseButton) => { scale = (scale / scaleDelta(mb)).max(scaleMin); updateView() }
   def outCmd = (mb: MouseButton) => { scale = (scale * scaleDelta(mb)).min(scaleMax); updateView() }

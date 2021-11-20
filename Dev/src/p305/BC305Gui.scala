@@ -5,7 +5,7 @@ import geom._, pglobe._, pgui._, pEarth._
 case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 305")
 {
   override def saveNamePrefix = "BC305"
-  override def scaleMax: Metres = 14000.kmsOld / mapPanelDiameter
+  override def scaleMax: Metres = 14000.km / mapPanelDiameter
   scale = scaleMax
   var lat: Latitude = 20.north
   var long: Longitude = 20.east

@@ -36,13 +36,10 @@ trait Length extends Any with Ordered[Length]
   def kMetresNum: Double
 
   /** The value of this length expressed as [[KMetres]]. */
-  @inline final def kMetres: KMetres = new KMetres(kMetresNum)
+  //@inline final def kMetres: KMetres = new KMetres(kMetresNum)
 
   /** The scalar [[Double]] value of this length expressed in megametres. */
   def mMetresNum: Double
-
-  /** The value of this length expressed as [[MMetres]] megametres or thousands of kilometres. */
-  @inline final def mMetres: MMetres = new MMetres(kMetresNum)
 
   /** The scalar [[Double]] value of this length expressed in gigametres or millions of kilometres. */
   def gMetresNum: Double

@@ -9,7 +9,7 @@ trait EGrid80KmOld extends EGridOld
  * Base32 BG0. */
 object EGrid80KmOld
 {
-  val scale = 20.kmsOld * math.sqrt(3)
+  val scale = 20.km * math.sqrt(3)
   val yFarNorthTileMinMax = (446, 540)
   val yNearNorthTileMinMax = (340, 444)
 

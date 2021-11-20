@@ -10,16 +10,16 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   /** Extension methods multiplies this scalar [[Int]] by the operand in metres */
   @inline def * (operator: Metres): Metres = Metres(thisInt * operator.metresNum)
 
-  /** Returns this [[Int]] value in [[KMetres]] kilometres. */
-  @inline def kMetres: KMetres = KMetres(thisInt)
+  /** Returns this [[Int]] value in [[Metres]] kilometres. */
+  @inline def kMetres: Metres = Metres(thisInt * 1000)
 
-  /** Returns this [[Int]] value in [[GMetres]] or millions of kilometres. */
+  /** Returns this [[Int]] value in [[Metres]] or millions of kilometres. */
   @inline def gMetres: Metres = Metres(thisInt * 1000000000)
 
-  /** Returns this [[Int]] value in [[Miles]]. */
+  /** Returns this [[Int]] value in [[Metres]]. */
   @inline def miles: Metres = new Metres(thisInt * 1609.344)
 
-  /** Returns this [[Int]] value in [[MMiles]] millions of miles. */
+  /** Returns this [[Int]] value in [[Metres]] millions of miles. */
   @inline def mMiles: Metres = new Metres(thisInt * 1609344000)
 
   /** Returns the value or 0, if this Int less than 0. */

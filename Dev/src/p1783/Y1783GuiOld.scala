@@ -6,7 +6,7 @@ case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiO
 {
   override def saveNamePrefix = "Y1783"
   /** The distance per pixel. This will normally be much greater than than 1 */
-  scale = 0.99.kmsOld
+  scale = 0.99.km
   focus = 53.17 ll 0.0
 
   val fHex: OfETile[NTileAncient, ESideOnyAncient] => GraphicElems = etog =>

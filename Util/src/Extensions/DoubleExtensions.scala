@@ -5,22 +5,22 @@ import math.Pi
 /** Extension class for Double. This is created as a separate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
 { /** Method to be removed, prefer kMetres. */
-  def kmsOld: Metres = Metres(thisDouble * 1000)
+  def km: Metres = new Metres(thisDouble * 1000)
 
   /** Returns this [[Double]] value in [[Metres]]. */
-  @inline def metres: Metres = Metres(thisDouble)
+  @inline def metres: Metres = new Metres(thisDouble)
 
   /** Extension methods multiplies this scalar [[Double]] by the operand in metres */
-  @inline def * (operator: Metres): Metres = Metres(thisDouble * operator.metresNum)
+  @inline def * (operator: Metres): Metres = new Metres(thisDouble * operator.metresNum)
 
-  /** Returns this [[Double]] value in [[KMetres]] kilometres. */
-  @inline def kMetres: KMetres = KMetres(thisDouble)
+  /** Returns this [[Double]] value in [[Metres]] kilometres. */
+  @inline def Metres: Metres = new Metres(thisDouble)
 
-  /** Returns this [[Double]] value in [[GMetres]] or millions of kilometres. */
-  @inline def gMetres: Metres = Metres(thisDouble * 1000000000)
+  /** Returns this [[Double]] value in [[Metres]] or millions of kilometres. */
+  @inline def gMetres: Metres = new Metres(thisDouble * 1000000000)
 
-  /** Returns this [[Double]] value in [[Miles]]. */
-  @inline def miles: Metres = Metres(thisDouble * 1609.344)
+  /** Returns this [[Double]] value in [[Metres]]. */
+  @inline def miles: Metres = new Metres(thisDouble * 1609.344)
 
   /** Returns this [[Double]] value in [[MMiles]] millions of miles. */
   @inline def mMiles: Metres = new Metres(thisDouble * 1609344000)
