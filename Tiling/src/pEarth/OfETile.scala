@@ -7,10 +7,10 @@ trait OfEElem[TileT <: TileAncient, SideT <: TileSideAncient] extends OfGridElem
    val eg: EarthGuiOld
    val eGrid: EGridAncient[TileT, SideT]
    override def grid: EGridAncient[TileT, SideT]= eGrid
-   def gridScale: Metres = eGrid.scale
+   def gridScale: Length = eGrid.scale
    def focus: LatLong = eg.focus   
    override def coodToDispVec2(inp: Cood): Pt2 = eg.trans(eg.latLongToDist2(eGrid.getLL(inp)))
-   def egScale: Metres = eg.scale
+   def egScale: Length = eg.scale
    override def psc = gridScale / egScale   
 }
 

@@ -78,7 +78,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2s
     res
   }
 
-  def distScale(distRatio: Metres): PolygonMetre = map[PtMetre2, PolygonMetre](p => p.toMetres(distRatio))
+  def distScale(distRatio: Length): PolygonMetre = map[PtMetre2, PolygonMetre](p => p.toMetres(distRatio))
 }
 
 /** Companion object for [[PolygonGen]]. */

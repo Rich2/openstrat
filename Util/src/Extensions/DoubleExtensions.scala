@@ -5,25 +5,25 @@ import math.Pi
 /** Extension class for Double. This is created as a separate class to keep down the size of the package object. */
 class DoubleImplicit(val thisDouble: Double) extends AnyVal
 { /** Method to be removed, prefer kMetres. */
-  def km: Metres = new Metres(thisDouble * 1000)
+  def km: Length = new Length(thisDouble * 1000)
 
   /** Returns this [[Double]] value in [[Metres]]. */
-  @inline def metres: Metres = new Metres(thisDouble)
+  @inline def metres: Length = new Length(thisDouble)
 
   /** Extension methods multiplies this scalar [[Double]] by the operand in metres */
-  @inline def * (operator: Metres): Metres = new Metres(thisDouble * operator.metresNum)
+  @inline def * (operator: Length): Length = new Length(thisDouble * operator.metresNum)
 
   /** Returns this [[Double]] value in [[Metres]] kilometres. */
-  @inline def Metres: Metres = new Metres(thisDouble)
+  @inline def Metres: Length = new Length(thisDouble)
 
   /** Returns this [[Double]] value in [[Metres]] or millions of kilometres. */
-  @inline def gMetres: Metres = new Metres(thisDouble * 1000000000)
+  @inline def gMetres: Length = new Length(thisDouble * 1000000000)
 
   /** Returns this [[Double]] value in [[Metres]]. */
-  @inline def miles: Metres = new Metres(thisDouble * 1609.344)
+  @inline def miles: Length = new Length(thisDouble * 1609.344)
 
-  /** Returns this [[Double]] value in [[MMiles]] millions of miles. */
-  @inline def mMiles: Metres = new Metres(thisDouble * 1609344000)
+  /** Returns this [[Double]] value of millions of miles in [[Metres]]. */
+  @inline def mMiles: Length = new Length(thisDouble * 1609344000)
 
   /** Alternative modulo or remainder operator that gives a positive modulus remainders for negative numbers. So -1 %% 3 == 2. -7 %% 4 == 1. */
   def %%(divisor: Double): Double =

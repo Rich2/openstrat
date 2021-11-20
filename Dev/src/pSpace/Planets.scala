@@ -6,13 +6,13 @@ import geom._, pgui._, Colour._
 case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist2Gui
 {
   statusText = "Choose centreing body."
-  val maxOrbit: Metres = 3700.mMiles
+  val maxOrbit: Length = 3700.mMiles
   var years: Double = 0
   var paused: Boolean = false
   def pausedStr: String = paused.fold("Restart", "Pause")  
   var scale = 0.5.mMiles
-  override val scaleMax: Metres = 10.mMiles
-  override val scaleMin: Metres = 0.1.mMiles
+  override val scaleMax: Length = 10.mMiles
+  override val scaleMin: Length = 0.1.mMiles
   val earthDist = 93.mMiles
   /** Years per second */
    
@@ -20,7 +20,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
   mapPanel.mouseUp = (a, b, s) => deb(s.toString)
   canv.onScroll = b => { scale = ife(b, (scale * 1.2).min(scaleMax), (scale / 1.2).max(scaleMin)) }
 
-  class Planet(val dist: Metres, val colour: Colour, val name: String)
+  class Planet(val dist: Length, val colour: Colour, val name: String)
   {
     var posn: PtMetre2 = PtMetre2(dist, 0.metres)
     //Gets the angle and the multiplies by the scala. (* dist) at end
@@ -36,7 +36,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
   }
 
   object Planet
-  { def apply(metres: Metres, colour: Colour, name: String): Planet = new Planet(metres, colour, name)
+  { def apply(metres: Length, colour: Colour, name: String): Planet = new Planet(metres, colour, name)
   }
 
   val mercury = Planet(36.mMiles, Colour.Gray, "Mercury")

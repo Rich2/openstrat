@@ -7,8 +7,8 @@ trait LatLongBase
   def longSecs: Double
   def latMilliSecs: Double
   def longMilliSecs: Double
-  def equatorialRadius: Metres
-  def polarRadius: Metres
+  def equatorialRadius: Length
+  def polarRadius: Length
   def equatorialRadiusKm = equatorialRadius
   @inline final def lat: Latitude = Latitude.milliSecs(latMilliSecs)
   @inline final def long: Longitude = Longitude.milliSecs(longMilliSecs)

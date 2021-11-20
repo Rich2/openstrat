@@ -3,7 +3,7 @@ package ostrat; package pWW2
 import geom._, pglobe._, pEarth._, pgui._, pStrat._
 
 /** Gui for World War 2 scenarios, uses the deprecated ancient tile system. */
-case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[Metres] = None, startFocus: Option[LatLong] = None) extends
+case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[Length] = None, startFocus: Option[LatLong] = None) extends
   EarthAllGuiOld("World War II")
 {
   statusText --= "Left click on unit to select, right click to move."

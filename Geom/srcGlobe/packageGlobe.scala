@@ -7,7 +7,7 @@ package object pglobe
   val LatLong0: LatLong = LatLong.degs(0, 0)
 
   /** Method for creating a 2d background or outline for the earth. */
-  def earth2DEllipse(scale: Metres): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
+  def earth2DEllipse(scale: Length): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
 
   implicit class PolygonMetre3PglobeExtension (thisPoly: PolygonMetre3)
   { /** Method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
@@ -24,17 +24,17 @@ package object pglobe
       thisPoly.vertsPrevForEach((prev, v) => (v.zPos) match
         {
           case true if prev.zNeg =>
-          { val y: Metres = (prev.y + v.y) / 2
+          { val y: Length = (prev.y + v.y) / 2
             val ratio = (1 - (y / EarthAvRadius).squared).sqrt
-            val x: Metres = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
+            val x: Length = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
             buff.grow(PtMetre2(x, y))
             buff.grow(v.xy)
           }
 
           case false if prev.zPos =>
-          { val y: Metres = (prev.y + v.y) / 2
+          { val y: Length = (prev.y + v.y) / 2
             val ratio: Double = (1 - (y / EarthAvRadius).squared).sqrt //gets cosine value from sine value
-            val x: Metres = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
+            val x: Length = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
             buff.grow(PtMetre2(x, y))
           }
 

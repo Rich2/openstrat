@@ -12,7 +12,7 @@ trait EGridMaker
 
 /** A Hex Grid for an area of the earth. It is irregular because as you move towards the poles the row length decreases. The x dirn 
  *  follows lines of longitude. The y Axis at the cenLong moves along a line of longitude. */
-class EGridAncient[TileT <: TileAncient, SideT <: TileSideAncient](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Metres, val xOffset: Int,
+class EGridAncient[TileT <: TileAncient, SideT <: TileSideAncient](bounds: Array[Int], val name: String, val cenLong: Longitude, val scale: Length, val xOffset: Int,
                                                                    val yOffset: Int, xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT],
   evSide: ClassTag[SideT]) extends HexGridIrrAncient[TileT, SideT](bounds, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
 {

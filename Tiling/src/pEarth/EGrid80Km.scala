@@ -11,7 +11,7 @@ trait EGrid80Km extends HGridIrr
 object EGrid80Km
 {
   /** The scale of the c or column coordinate in metres. */
-  val cScale: Metres = 20000.metres * Sqrt3
+  val cScale: Length = 20000.metres * Sqrt3
 
   /** The r or row value of tiles at the equator. */
   val rOffset: Int = 300

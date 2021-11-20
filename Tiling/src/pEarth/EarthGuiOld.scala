@@ -7,12 +7,12 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
 {
   var focus: LatLong = 50 ll 0
   /** The number of km per pixel  for 1Km on the map. This will normally be much less than 1 */
-  var scale: Metres =   14000.km / mapPanelDiameter
-  def scaleMin: Metres = 180.km / mapPanelDiameter
-  def scaleMax: Metres = 17000.km / mapPanelDiameter
+  var scale: Length =   14000.km / mapPanelDiameter
+  def scaleMin: Length = 180.km / mapPanelDiameter
+  def scaleMax: Length = 17000.km / mapPanelDiameter
   /** Km / Radian Earth/s Circumference divided by 2 Pi */
   //val kmPerRadian = 40075.0 / Pi2
-  val metresPerRadian: Metres = 40075.km / Pi2
+  val metresPerRadian: Length = 40075.km / Pi2
   def viewStr: String = "Focus:" -- focus.degStr -- "Scale: " + scale.kmStr2
   def updateView(): Unit = {repaintMap(); setStatus(viewStr) }
   def setFocus(ll: LatLong): Unit = { focus = ll; updateView() }
@@ -20,7 +20,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def setView(ev: EarthView): Unit = { focus = ev.latLong; scale = ev.scale; focusUp = ev.up }   
   var focusUp: Boolean = true
   //def focusDown = ! focusUp
-  def ifInvScale: Metres = ife(focusUp, scale, -scale)
+  def ifInvScale: Length = ife(focusUp, scale, -scale)
   def saveNamePrefix: String = "EarthGui"
   def saveName = saveNamePrefix + ".save"
   def loadView(): Unit = canv.fromFileFindForeach(saveName, newView => setView(newView))   

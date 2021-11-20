@@ -6,12 +6,12 @@ import geom._
 trait Dist2Gui extends MapGui
 {
   /** The Distance represented by one pixel width / height on the screen */
-  var scale: Metres
+  var scale: Length
   val margin = 35
    
   //(canv.width.subMin(margin, 20) / mapWidth).min(canv.height.subMin(margin, 20) / mapHeight)
-  def scaleMax: Metres
-  def scaleMin: Metres //= scaleAlignedMin.min(10.millionMiles)
+  def scaleMax: Length
+  def scaleMin: Length //= scaleAlignedMin.min(10.millionMiles)
 
   var mapFocus: PtMetre2 = PtMetre2(0.metres, 0.metres)
   //@inline def setFocus(x: Distouble, y: Double): Unit = mapFocus = Vec2(x, y)

@@ -17,7 +17,7 @@ package object pEarth
    val divN45 = 45.27369792435918.north
    //import HexGrid._
    /** Returns a function for a specific EGrid to convert from gridVec to Latlong */
-   def fVec2ToLatLongReg(refLong: Longitude, scale: Metres, xOffset: Int, yOffset: Int = 0): Pt2 => LatLong = inp =>
+   def fVec2ToLatLongReg(refLong: Longitude, scale: Length, xOffset: Int, yOffset: Int = 0): Pt2 => LatLong = inp =>
       {
          val vOffset = HexGridAncient.coodToVec2(xOffset, yOffset)
          val d2: PtMetre2 = (inp - vOffset).toMetres(scale)
@@ -26,7 +26,7 @@ package object pEarth
          LatLong.radians(lat, refLong.radians + longDelta)
       }
       
-   def vec2ToLatLongReg(inp: Pt2, refLong: Longitude, scale: Metres, xOffset: Int, yOffset: Int = 0): LatLong =
+   def vec2ToLatLongReg(inp: Pt2, refLong: Longitude, scale: Length, xOffset: Int, yOffset: Int = 0): LatLong =
       {
          val vOffset = HexGridAncient.coodToVec2(xOffset, yOffset)
          val d2: PtMetre2 = (inp - vOffset).toMetres(scale)
@@ -36,7 +36,7 @@ package object pEarth
       }   
    
    /** Not necessarily used */   
-   def vec2ToLatLong0(inp: Pt2, refLong: Longitude, scale: Metres, yOffset: Int = 0): LatLong =
+   def vec2ToLatLong0(inp: Pt2, refLong: Longitude, scale: Length, yOffset: Int = 0): LatLong =
    {
       val vOffset = HexGridAncient.coodToVec2(0, yOffset)
       val d2: PtMetre2 = (inp - vOffset).toMetres(scale)
@@ -46,7 +46,7 @@ package object pEarth
    }
    
    /** Not necessarily used */
-   def  coodToLatLong0(inp: Cood, scale: Metres, yOffset: Int = 0): LatLong =
+   def  coodToLatLong0(inp: Cood, scale: Length, yOffset: Int = 0): LatLong =
    {
       val adj: Pt2 = HexGridAncient.coodToVec2(inp.subY(yOffset))
       val d2: PtMetre2 = adj.toMetres(scale)

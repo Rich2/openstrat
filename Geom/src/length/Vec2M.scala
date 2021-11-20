@@ -9,11 +9,11 @@ trait length2M extends Show2Dbls
 final class Vec2M (val xMetresNum: Double, val yMetresNum: Double) extends length2M
 { override def typeStr: String = "Vec2M"
 
-  /** The X component of this 2 dimensional [[Metres]] vector. */
-  def x: Metres = Metres(xMetresNum)
+  /** The X component of this 2 dimensional [[Length]] vector. */
+  def x: Length = Length(xMetresNum)
 
-  /** The Y component of this 2 dimensional [[Metres]] vector. */
-  def y: Metres = Metres(yMetresNum)
+  /** The Y component of this 2 dimensional [[Length]] vector. */
+  def y: Length = Length(yMetresNum)
 
   /** the name of the 1st element of this 2 element product. */
   override def name1: String = "x"
@@ -31,7 +31,7 @@ final class Vec2M (val xMetresNum: Double, val yMetresNum: Double) extends lengt
   def - (op: Vec2M): Vec2M = new Vec2M(xMetresNum - op.xMetresNum, yMetresNum - op.yMetresNum)
   def * (operator: Double): Vec2M = new Vec2M(xMetresNum * operator, yMetresNum * operator)
   def / (operator: Double): Vec2M = new Vec2M(xMetresNum / operator, yMetresNum / operator)
-  def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
+  def magnitude: Length = Length(math.sqrt(xMetresNum.squared + yMetresNum.squared))
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: Vec2M): Area = x * operand.x + y * operand.y
 }

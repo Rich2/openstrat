@@ -2,23 +2,23 @@
 package ostrat; package geom
 import pglobe._, collection.mutable.ArrayBuffer, math._
 
-/** A 2 dimensional point specified in [[Metres]] as units rather than pure scalar numbers. */
+/** A 2 dimensional point specified in [[Length]] as units rather than pure scalar numbers. */
 final class PtMetre2(val xMetresNum: Double, val yMetresNum: Double) extends Show2Dbls
 { override def typeStr: String = "Pt2M"
   override def name1: String = "x"
   override def name2: String = "y"
-  def x: Metres = Metres(xMetresNum)
-  def y: Metres = Metres(yMetresNum)
+  def x: Length = Length(xMetresNum)
+  def y: Length = Length(yMetresNum)
   override def show1: Double = xMetresNum
   override def show2: Double = yMetresNum
   def + (op: Vec2M): PtMetre2 = new PtMetre2(xMetresNum + op.xMetresNum, yMetresNum + op.yMetresNum)
   def - (op: PtMetre2): PtMetre2 = PtMetre2(x - op.x, y - op.y)
-  def addXY (otherX: Metres, otherY: Metres): PtMetre2 = PtMetre2(x + otherX, y + otherY)
-  def subXY (otherX: Metres, otherY: Metres): PtMetre2 = PtMetre2(x - otherX, y - otherY)
-  def addX(adj: Metres): PtMetre2 = PtMetre2(x + adj, y)
-  def addY(adj: Metres): PtMetre2 = PtMetre2(x, y + adj)
-  def subX(adj: Metres): PtMetre2 = PtMetre2(x - adj, y)
-  def subY(adj: Metres): PtMetre2 = PtMetre2(x, y - adj)
+  def addXY (otherX: Length, otherY: Length): PtMetre2 = PtMetre2(x + otherX, y + otherY)
+  def subXY (otherX: Length, otherY: Length): PtMetre2 = PtMetre2(x - otherX, y - otherY)
+  def addX(adj: Length): PtMetre2 = PtMetre2(x + adj, y)
+  def addY(adj: Length): PtMetre2 = PtMetre2(x, y + adj)
+  def subX(adj: Length): PtMetre2 = PtMetre2(x - adj, y)
+  def subY(adj: Length): PtMetre2 = PtMetre2(x, y - adj)
   def * (operator: Double): PtMetre2 = PtMetre2(x * operator, y * operator)
   def / (operator: Double): PtMetre2 = PtMetre2(x / operator, y / operator)
   //def magnitude: Metres = Metres(math.sqrt(xMetresNum.squared + yMetresNum.squared))
@@ -49,10 +49,10 @@ object PtMetre2
 { /** Factory method for creating a 2 dimensional point measured in metres from the scalar [[Double]] values. */
   def metresNum(xMetres: Double, yMetres: Double): PtMetre2 = new PtMetre2(xMetres, yMetres)
 
-  def apply(x: Metres, y: Metres): PtMetre2 = new PtMetre2(x.metresNum, y.metresNum)
+  def apply(x: Length, y: Length): PtMetre2 = new PtMetre2(x.metresNum, y.metresNum)
 
   implicit class Metres2Implicit(thisMetres2: PtMetre2)
-  { def / (operator: Metres): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
+  { def / (operator: Length): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
   }
 
   implicit val PersistImplicit: Persist[PtMetre2] = new Persist2Dbls[PtMetre2]("Metres2", "x", "y", new PtMetre2(_, _))

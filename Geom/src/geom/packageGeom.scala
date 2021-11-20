@@ -69,10 +69,10 @@ package object geom
   val Sin60: Double = math.sin(Pi/3)
   val Cos30: Double = math.cos(Pi/6)
   val Cos60: Double = 0.5
-  val EarthPolarRadius: Metres = 6356752.3.metres
-  val EarthEquatorialRadius: Metres = 6378137.metres
-  val EarthAvDiameter: Metres = 12742000.metres
-  val EarthAvRadius: Metres = EarthAvDiameter / 2
+  val EarthPolarRadius: Length = 6356752.3.metres
+  val EarthEquatorialRadius: Length = 6378137.metres
+  val EarthAvDiameter: Length = 12742000.metres
+  val EarthAvRadius: Length = EarthAvDiameter / 2
   type GraphicElems = Arr[GraphicElem]
 
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)
@@ -120,8 +120,8 @@ package object geom
     def toPolygon[PT <: PolygonIntNs[A]](implicit build: PolygonIntNsBuilder[A, PT]): PT = build.fromIntArray(thisBuff.unsafeBuff.toArray)
   }
 
-  implicit class MetreExtensionsImplicit(thisMetres: Metres)
-  {  def / (operand: Metres): Double = thisMetres.metresNum / operand.metresNum
+  implicit class MetreExtensionsImplicit(thisMetres: Length)
+  {  def / (operand: Length): Double = thisMetres.metresNum / operand.metresNum
   }
    
   implicit class OptionGeomImplicit[A](thisOption: Option[A])
