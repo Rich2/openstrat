@@ -79,6 +79,6 @@ object PolygonM3 extends DataDbl3sCompanion[PtM3, PolygonM3]
   { override def fromArray(value: Array[Double]): PolygonM3 = new PolygonM3(value)
   }
 
-  implicit val rotateM3TImplicit: RotateM3[PolygonM3] = (obj: PolygonM3, angle: AngleVec) => obj.map(pt => pt.rotateY(angle))
+  implicit val rotateM3TImplicit: RotateM3T[PolygonM3] = (obj: PolygonM3, angle: AngleVec) => obj.map(pt => pt.rotateY(angle))
 
 }

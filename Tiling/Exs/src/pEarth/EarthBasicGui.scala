@@ -18,7 +18,8 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
 
   def repaint(): Unit = {
     val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
-    val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.subLong(long).metres3Default.earthZPosXYModify) }
+    //val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.subLong(long).metres3Default.earthZPosXYModify) }
+    val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.metres3Default.rotateY(-focus.longVec).earthZPosXYModify) }
     val af0 = afps.map { p => p._2.map(_ / scale).fillActive(p._1.colour, p._1) }
     val af1 = afps.map { a => a._2.map(_ / scale).draw() }
 
