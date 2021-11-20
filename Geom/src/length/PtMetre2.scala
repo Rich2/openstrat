@@ -52,7 +52,7 @@ object PtMetre2
   def apply(x: Metres, y: Metres): PtMetre2 = new PtMetre2(x.metresNum, y.metresNum)
 
   implicit class Metres2Implicit(thisMetres2: PtMetre2)
-  { def / (operator: Length): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
+  { def / (operator: Metres): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
   }
 
   implicit val PersistImplicit: Persist[PtMetre2] = new Persist2Dbls[PtMetre2]("Metres2", "x", "y", new PtMetre2(_, _))

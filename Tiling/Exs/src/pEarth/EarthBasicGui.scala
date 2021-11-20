@@ -9,7 +9,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Metres] = None
   statusText = "Welcome to world map, constructed from irregular areas."
 
   /** Scale in km / pixel */
-  var scale: Length = startScale.getOrElse(12.kMetres)
+  var scale: Metres = startScale.getOrElse(12.kMetres)
   var focus: LatLong = startFocus.sget
   def lat: Latitude = focus.lat
   def long: Longitude = focus.long

@@ -7,7 +7,7 @@ package object pglobe
   val LatLong0: LatLong = LatLong.degs(0, 0)
 
   /** Method for creating a 2d background or outline for the earth. */
-  def earth2DEllipse(scale: Length): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
+  def earth2DEllipse(scale: Metres): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
 
   implicit class PolygonMetre3PglobeExtension (thisPoly: PolygonMetre3)
   { /** Method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
