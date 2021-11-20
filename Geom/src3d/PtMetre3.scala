@@ -42,6 +42,24 @@ final class PtMetre3(val xMetres: Double, val yMetres: Double, val zMetres: Doub
     val ang1 = ang0 + rotationRadians
     PtMetre3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }
+
+  /** rotates the vector around the Y axis, 90 degrees or Pi/2 radians, anticlockwise. */
+  @inline def rotateY90: PtMetre3 = PtMetre3(-z, y, x)
+
+  /** Rotates the vector around the Y axis 180 degrees or Pi radians. */
+  @inline def rotateY180: PtMetre3 = PtMetre3(-x, y, -z)
+
+  /** rotates the vector around the Y axis 90 degrees or Pi/2 radians, clockwise. */
+  @inline def rotateY270: PtMetre3 = PtMetre3(z, y, -x)
+
+  /** Rotates this vector around the Y axis through the given angle around the origin. */
+  def rotateY(a: AngleVec): PtMetre3 = a match
+  { case Deg0 => this
+    case Deg90 => rotateY90
+    case Deg180 => rotateY180
+    case Deg270 => rotateY270
+    case a => PtMetre3(x * a.cos - z * a.sin, y, x * a.sin + z * a.cos)
+  }
 }
 
 /** Companion object for the Metres3 class. */
