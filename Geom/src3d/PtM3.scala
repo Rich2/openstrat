@@ -62,6 +62,8 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
     //Pt2(x1 * a.cos - y1 * a.sin, x1 * a.sin + y1 * a.cos)
     case a => PtM3(z * a.sin + x * a.cos, y, z * a.cos - x * a.sin)
   }
+
+  def rotateX(a: AngleVec): PtM3 = PtM3(x, z * a.sin + y * a.cos, z * a.cos - y * a.sin)
 }
 
 /** Companion object for the Metres3 class. */
