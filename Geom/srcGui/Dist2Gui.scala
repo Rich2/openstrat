@@ -13,7 +13,7 @@ trait Dist2Gui extends MapGui
   def scaleMax: Length
   def scaleMin: Length //= scaleAlignedMin.min(10.millionMiles)
 
-  var mapFocus: PtMetre2 = PtMetre2(0.metres, 0.metres)
+  var mapFocus: PtM2 = PtM2(0.metres, 0.metres)
   //@inline def setFocus(x: Distouble, y: Double): Unit = mapFocus = Vec2(x, y)
   
   //def scaleAlignedMin: Metres = mapPanelDiameter / mapWidth.max(mapHeight).max(0.000001)
@@ -31,7 +31,7 @@ trait Dist2Gui extends MapGui
   def zoomOutCmd: MouseButton => Unit = mb => { scale = (scale * 1.5).min(scaleMax); repaintMap() }
 
   /** Translates a point from map position to Canvas Display position */
-  def toCanv(mapPoint: PtMetre2): Pt2 = (mapPoint - mapFocus).rotate(rotation) / scale
+  def toCanv(mapPoint: PtM2): Pt2 = (mapPoint - mapFocus).rotate(rotation) / scale
    
   /** Translates a point from Canvas Display position back to Map position */
   def invCanv(canvPoint: Pt2): Pt2 = ??? //(canvPoint / scale).rotate(-rotation) + mapFocus
@@ -44,7 +44,7 @@ trait Dist2Gui extends MapGui
     mapPanel.repaint(o2)
   }
    
-  def reFocus(newFocus: PtMetre2): Unit =
+  def reFocus(newFocus: PtM2): Unit =
   { mapFocus = newFocus
     repaintMap()
   }

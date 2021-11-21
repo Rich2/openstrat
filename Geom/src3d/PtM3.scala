@@ -17,7 +17,7 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
 
   /** Produces the dot product of this 2 dimensional distance Vector and the operand. */
   @inline def dot(operand: PtM3): Area = x * operand.x + y * operand.y + z * operand.z
-  def xy: PtMetre2 = new PtMetre2(xMetres, yMetres)
+  def xy: PtM2 = new PtM2(xMetres, yMetres)
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg
   def yPos: Boolean = y.pos
@@ -28,7 +28,7 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   def / (operator: Length): Pt3 = Pt3(x / operator, y / operator, z / operator)
 
   /** Converts this Metres3 point to a Some[Metres2] point of the X and Y values, returns None if the Z value is negative. */
-  def toXYIfZPositive: Option[PtMetre2] = ifZPos(Some(PtMetre2(x, y)), None)
+  def toXYIfZPositive: Option[PtM2] = ifZPos(Some(PtM2(x, y)), None)
 
   /** Rotate this 3D point defined in metres around the X Axis by the given parameter given in radians. Returns a new [[PtM3]] point. */
   def xRotateRadians(rotationRadians: Double): PtM3 =

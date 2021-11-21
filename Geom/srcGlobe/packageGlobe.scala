@@ -30,7 +30,7 @@ package object pglobe
           { val y: Length = (prev.y + v.y) / 2
             val ratio = (1 - (y / EarthAvRadius).squared).sqrt
             val x: Length = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
-            buff.grow(PtMetre2(x, y))
+            buff.grow(PtM2(x, y))
             buff.grow(v.xy)
           }
 
@@ -38,7 +38,7 @@ package object pglobe
           { val y: Length = (prev.y + v.y) / 2
             val ratio: Double = (1 - (y / EarthAvRadius).squared).sqrt //gets cosine value from sine value
             val x: Length = ife(v.xPos, EarthAvRadius * ratio, -EarthAvRadius * ratio)
-            buff.grow(PtMetre2(x, y))
+            buff.grow(PtM2(x, y))
           }
 
           case true => buff.grow(v.xy)

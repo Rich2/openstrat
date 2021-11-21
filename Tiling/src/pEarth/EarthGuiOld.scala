@@ -25,14 +25,14 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def saveName = saveNamePrefix + ".save"
   def loadView(): Unit = canv.fromFileFindForeach(saveName, newView => setView(newView))   
   @inline def polyToGlobedArea(latLongs: PolygonLL): OptEither[PtMetre2Arr, CurveSegDists] = focus.polyToGlobedArea(latLongs)
-  def latLongToDist2(ll: LatLong): PtMetre2 = focus.fromFocusDist2(ll)
+  def latLongToDist2(ll: LatLong): PtM2 = focus.fromFocusDist2(ll)
   @inline def polyToDist2s(latLongs: PolygonLL): PtMetre2Arr =  latLongs.dataMap(focus.fromFocusDist2)
-  val trans: PtMetre2 => Pt2 = _ / ifInvScale
+  val trans: PtM2 => Pt2 = _ / ifInvScale
  //  val transSeq: Dist2s => Vec2s = _.map(trans)
   /** Seems to have a bug */
   def latLongToXY(ll: LatLong): Pt2 = trans(focus.fromFocusDist2(ll))
   def optLatLongToXY(ll: LatLong): Option[Pt2] = focus.optFromFocusDist2(ll).map(trans)
-  def optFromFocusDist2(ll: LatLong): Option[PtMetre2] = focus.optFromFocusDist2(ll)
+  def optFromFocusDist2(ll: LatLong): Option[PtM2] = focus.optFromFocusDist2(ll)
   def latLongToDist3(ll: LatLong): PtM3 = focus.fromFocusMetres(ll)
   def latLongLineToDist3(inp: LineSegLL): LineSegMetre3 = focus.fromFocusLineDist3(inp)
     

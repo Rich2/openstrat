@@ -22,7 +22,7 @@ case class Planets(val canv: CanvasPlatform) extends MapGui("Planets") with Dist
 
   class Planet(val dist: Length, val colour: Colour, val name: String)
   {
-    var posn: PtMetre2 = PtMetre2(dist, 0.metres)
+    var posn: PtM2 = PtM2(dist, 0.metres)
     //Gets the angle and the multiplies by the scala. (* dist) at end
     
     def move(elapsed: Integer): Unit =

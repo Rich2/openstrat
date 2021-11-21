@@ -20,7 +20,7 @@ package object pEarth
    def fVec2ToLatLongReg(refLong: Longitude, scale: Length, xOffset: Int, yOffset: Int = 0): Pt2 => LatLong = inp =>
       {
          val vOffset = HexGridAncient.coodToVec2(xOffset, yOffset)
-         val d2: PtMetre2 = (inp - vOffset).toMetres(scale)
+         val d2: PtM2 = (inp - vOffset).toMetres(scale)
          val lat: Double = d2.y / EarthPolarRadius         
          val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
          LatLong.radians(lat, refLong.radians + longDelta)
@@ -29,7 +29,7 @@ package object pEarth
    def vec2ToLatLongReg(inp: Pt2, refLong: Longitude, scale: Length, xOffset: Int, yOffset: Int = 0): LatLong =
       {
          val vOffset = HexGridAncient.coodToVec2(xOffset, yOffset)
-         val d2: PtMetre2 = (inp - vOffset).toMetres(scale)
+         val d2: PtM2 = (inp - vOffset).toMetres(scale)
          val lat: Double = d2.y / EarthPolarRadius         
          val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
          LatLong.radians(lat, refLong.radians + longDelta)
@@ -39,7 +39,7 @@ package object pEarth
    def vec2ToLatLong0(inp: Pt2, refLong: Longitude, scale: Length, yOffset: Int = 0): LatLong =
    {
       val vOffset = HexGridAncient.coodToVec2(0, yOffset)
-      val d2: PtMetre2 = (inp - vOffset).toMetres(scale)
+      val d2: PtM2 = (inp - vOffset).toMetres(scale)
       val lat: Double = d2.y / EarthPolarRadius         
       val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
       LatLong.radians(lat, refLong.radians + longDelta)
@@ -49,7 +49,7 @@ package object pEarth
    def  coodToLatLong0(inp: Cood, scale: Length, yOffset: Int = 0): LatLong =
    {
       val adj: Pt2 = HexGridAncient.coodToVec2(inp.subY(yOffset))
-      val d2: PtMetre2 = adj.toMetres(scale)
+      val d2: PtM2 = adj.toMetres(scale)
       val lat = d2.y / EarthPolarRadius         
       val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
       LatLong.radians(lat, longDelta)

@@ -1,7 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
-import ostrat.geom.pglobe.LatLong.milliSecs
-
 import collection.mutable.ArrayBuffer
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
@@ -47,7 +45,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   { //Going over the north Pole
     case a if a > MilliSecsIn90Degs => LatLong.milliSecs(MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs)
     //Going over the south Pole from western longitude
-    case a if a < -MilliSecsIn90Degs => LatLong.milliSecs(-MilliSecsIn90Degs - a, -longMilliSecs)
+    case a if a < -MilliSecsIn90Degs => LatLong.milliSecs(-MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs)
     case a => LatLong.milliSecs(a, longMilliSecs)
   }
 
@@ -98,14 +96,14 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
     inp.startPt.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians),
     inp.endPt.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians))
 
-  def fromFocusDist2(ll: LatLong): PtMetre2 = fromFocusMetres(ll).xy
+  def fromFocusDist2(ll: LatLong): PtM2 = fromFocusMetres(ll).xy
 
-  def optFromFocusDist2(ll: LatLong): Option[PtMetre2] =
+  def optFromFocusDist2(ll: LatLong): Option[PtM2] =
   { val m3 = fromFocusMetres(ll)
     m3.z.pos.toOption(m3.xy)
   }
 
-  def toOptDist2(inp: LatLong): Option[PtMetre2] =
+  def toOptDist2(inp: LatLong): Option[PtM2] =
   { val r1: PtM3 = inp.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
     r1.toXYIfZPositive
   }

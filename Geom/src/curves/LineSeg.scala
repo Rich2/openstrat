@@ -6,11 +6,11 @@ import collection.mutable.ArrayBuffer, Colour.Black
 trait LineSegLike[VT]
 {
   /** The start point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
-   * [[PtMetre2]] for a [[LineSegMetre]]. */
+   * [[PtM2]] for a [[LineSegMetre]]. */
   def startPt: VT
 
   /** The end point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
-   * [[PtMetre2]] for a [[LineSegMetre]]. */
+   * [[PtM2]] for a [[LineSegMetre]]. */
   def endPt: VT
 }
 

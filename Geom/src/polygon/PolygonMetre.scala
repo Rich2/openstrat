@@ -2,19 +2,19 @@
 package ostrat; package geom
 
 /* A polygon using distances measured in metres rather than scalars. */
-final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2s[PtMetre2] with PolygonDbl2s[PtMetre2]
+final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2s[PtM2] with PolygonDbl2s[PtM2]
 { type ThisT = PolygonMetre
   type SideT = LineSegMetre
   def unsafeFromArray(array: Array[Double]): PolygonMetre = new PolygonMetre(array)
   override def typeStr: String = "PolygonMs"
-  override def dataElem(d1: Double, d2: Double): PtMetre2 = new PtMetre2(d1, d2)
-  override def fElemStr: PtMetre2 => String = _.str
+  override def dataElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
+  override def fElemStr: PtM2 => String = _.str
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  @inline override def vert(index: Int): PtMetre2 = indexData(index)
+  @inline override def vert(index: Int): PtM2 = indexData(index)
 
-  /** Performs the side effecting function on the [[PtMetre2]] value of each vertex. */
-  override def vertsForeach[U](f: PtMetre2 => U): Unit =
+  /** Performs the side effecting function on the [[PtM2]] value of each vertex. */
+  override def vertsForeach[U](f: PtM2 => U): Unit =
   { var count = 0
     while (count < vertsNum)
     { f(vert(count))
@@ -22,7 +22,7 @@ final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with Arr
     }
   }
 
-  override def vertsIForeach[U](f: (Int, PtMetre2) => Any): Unit =
+  override def vertsIForeach[U](f: (Int, PtM2) => Any): Unit =
   { var count = 0
     vertsForeach{ v =>
       f(count, v)
@@ -30,7 +30,7 @@ final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with Arr
     }
   }
 
-  override def vertsMap[B, ArrB <: SeqImut[B]](f: PtMetre2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: SeqImut[B]](f: PtM2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
   { val res = builder.newArr(vertsNum)
     var count = 0
     vertsForeach{ v =>
@@ -40,7 +40,7 @@ final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with Arr
     res
   }
 
-  override def vertsFold[B](init: B)(f: (B, PtMetre2) => B): B =
+  override def vertsFold[B](init: B)(f: (B, PtM2) => B): B =
   { var res = init
     vertsForeach(v => res = f(res, v))
     res
@@ -50,16 +50,16 @@ final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with Arr
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
    * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
    * signature. */
-  override def vertsPrevForEach[U](f: (PtMetre2, PtMetre2) => U): Unit = ???
+  override def vertsPrevForEach[U](f: (PtM2, PtM2) => U): Unit = ???
 
   override def sidesForeach[U](f: LineSegMetre => U): Unit = ???
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
-object PolygonMetre extends DataDbl2sCompanion[PtMetre2, PolygonMetre]
+object PolygonMetre extends DataDbl2sCompanion[PtM2, PolygonMetre]
 { override def fromArrayDbl(array: Array[Double]): PolygonMetre = new PolygonMetre(array)
 
-  implicit val persistImplicit: DataDbl2sPersist[PtMetre2, PolygonMetre] = new DataDbl2sPersist[PtMetre2, PolygonMetre]("PolygonMs")
+  implicit val persistImplicit: DataDbl2sPersist[PtM2, PolygonMetre] = new DataDbl2sPersist[PtM2, PolygonMetre]("PolygonMs")
   { override def fromArray(value: Array[Double]): PolygonMetre = new PolygonMetre(value)
   }
 }
