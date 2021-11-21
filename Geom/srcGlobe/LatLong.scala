@@ -12,7 +12,9 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def show2: Double = longMilliSecs
   def latSecs: Double = latMilliSecs / 1000
   def longSecs: Double = longMilliSecs / 1000
+  def latVec: AngleVec = latDegs.degs
   def longVec: AngleVec = longDegs.degs
+
   override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)
 
   def persistName = "LatLong"
@@ -46,6 +48,8 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
     case a if a < -MilliSecsIn90Degs => LatLong.milliSecs(-MilliSecsIn90Degs - a, -longMilliSecs)
     case a => LatLong.milliSecs(a, longMilliSecs)
   }
+
+  def subLat(delta: AngleVec): LatLong = addLat(-delta)
 
   /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def subLatRadians(radians: Double): LatLong = addLatRadians(-radians)

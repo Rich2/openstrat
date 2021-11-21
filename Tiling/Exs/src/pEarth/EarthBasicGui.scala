@@ -19,7 +19,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   def repaint(): Unit = {
     val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
     //val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.subLong(long).metres3Default.earthZPosXYModify) }
-    val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.metres3Default.rotateY(-focus.longVec).earthZPosXYModify) }
+    val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.metres3Default.rotateY(-focus.longVec).rotateX(-focus.latVec).earthZPosXYModify) }
     val af0 = afps.map { p => p._2.map(_ / scale).fillActive(p._1.colour, p._1) }
     val af1 = afps.map { a => a._2.map(_ / scale).draw() }
 
@@ -50,14 +50,8 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
     thisTop()
   }
 
-  def goNorth: PolygonCompound = clickButton("\u2191"){b =>
-    def delta = b.apply(1, 10, 60, 0)
-    focus = focus.addLat(delta.degs)
-    repaint()
-    statusText = s"Latitude $lat"
-    thisTop()
-  }
-
+  def goNorth: PolygonCompound = goDirn("\u2191", delta => focus = focus.addLat(delta.degs))
+  def goSouth: PolygonCompound = goDirn("\u2193", delta => focus = focus.subLat(delta.degs))
   def goEast: PolygonCompound = goDirn("\u2192", delta => focus = focus.addLong(delta.degs))
   def goWest: PolygonCompound = goDirn("\u2190", delta => focus = focus.subLong(delta.degs))
 
@@ -71,7 +65,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
     case (_, _, h) => deb("Other; " + h.toString)
   }
 
-  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goWest, goEast))
+  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
 
   repaint()
   thisTop()
