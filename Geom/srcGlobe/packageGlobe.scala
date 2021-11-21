@@ -10,7 +10,8 @@ package object pglobe
   def earth2DEllipse(scale: Length): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
 
   implicit class PolygonMetre3PglobeExtension (thisPoly: PolygonM3)
-  { /** Method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
+  {
+    /** Method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
     def earthZPosXYModify: PolygonMetre = thisPoly.vertsFold(0)((acc, v) => ife(v.zNeg, acc, acc + 1)) match
     { case n if n == thisPoly.vertsNum => thisPoly.toXY
       case 0 => PolygonMetre.empty
@@ -52,5 +53,10 @@ package object pglobe
 
     /** Subtract Longitude, translate to the west extension method. */
     def subLong(longDelta: Longitude): T = ev.fLLTrans(thisT, ll => LatLong(ll.lat, ll.long - longDelta))
+  }
+
+  implicit class RotateM3GlobeExtensions[T](val thisT: T)(implicit ev: RotateM3T[T])
+  {
+    def latLongFocus(focus: LatLong): T = thisT.rotateY(-focus.longVec).rotateX(-focus.latVec)
   }
 }

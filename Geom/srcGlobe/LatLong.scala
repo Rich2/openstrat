@@ -1,5 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
+import ostrat.geom.pglobe.LatLong.milliSecs
+
 import collection.mutable.ArrayBuffer
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
@@ -43,7 +45,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
    *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def addLat(delta: AngleVec): LatLong = (latMilliSecs + delta.milliSecs) match
   { //Going over the north Pole
-    case a if a > MilliSecsIn90Degs => LatLong.milliSecs(MilliSecsIn90Degs - a, -longMilliSecs)
+    case a if a > MilliSecsIn90Degs => LatLong.milliSecs(MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs)
     //Going over the south Pole from western longitude
     case a if a < -MilliSecsIn90Degs => LatLong.milliSecs(-MilliSecsIn90Degs - a, -longMilliSecs)
     case a => LatLong.milliSecs(a, longMilliSecs)
@@ -68,13 +70,13 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def subLongRadians(radians: Double): LatLong = addLongRadians(-radians)
   
-  def addLatSecs(secs: Double): LatLong = (latSecs + secs) %+- SecsIn180Degs match
+  def addLatSecs(secs: Double): LatLong = LatLong.secs(latSecs + secs, longSecs) /*(latSecs + secs) %+- SecsIn180Degs match
   { //Going over the north Pole
     case a if a > SecsIn90Degs => LatLong.secs(SecsIn180Degs - a, -longSecs)
     //Going over the south Pole
     case a if a < -SecsIn90Degs => LatLong.secs(-SecsIn180Degs - a, - longSecs)
     case a => LatLong.secs(a, longSecs)
-  }
+  }*/
 
   /** Get the XY point from a focus with latitude 0 */
   def xyLat0: Pt2 = Pt2(longRadians.sine * latRadians.sine, latRadians.sine)
@@ -120,27 +122,42 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
 object LatLong
 {
   /** Factory apply method for LatLong, creates LatLong from a [[Latitude]] and a [[Longitude]]. */
-  def apply(lat: Latitude, long: Longitude): LatLong = new LatLong(lat.milliSecs, long.milliSecs)
+  def apply(lat: Latitude, long: Longitude): LatLong = milliSecs(lat.milliSecs, long.milliSecs)
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in degrees, where southern and western
    * values are negative. */
-  def degs(lat: Double, long: Double): LatLong = new LatLong(lat.degsToMilliSecs, long.degsToMilliSecs)
+  def degs(lat: Double, long: Double): LatLong = milliSecs(lat.degsToMilliSecs, long.degsToMilliSecs)
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in radians, where southern and western
    * values are negative. */
-  @inline def radians(latRadians: Double, longRadians: Double): LatLong =
-  { val lat = ((latRadians + PiOn2) %% Pi1) - PiOn2
+  @inline def radians(latRadians: Double, longRadians: Double): LatLong = milliSecs(latRadians.radiansToMilliSecs, longRadians.radiansToMilliSecs)
+  /*{ val lat = ((latRadians + PiOn2) %% Pi1) - PiOn2
     val long = ((longRadians + Pi1) %% Pi2) - Pi1
     LatLong.milliSecs(lat.radiansToMilliSecs, long.radiansToMilliSecs)
-  }
+  }*/
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in arc seconds of a degree, where
    *  southern and western values are negative. */
-  def secs(lat: Double, long: Double): LatLong = new LatLong(lat * 1000, long * 1000)
+  def secs(lat: Double, long: Double): LatLong = milliSecs(lat * 1000, long * 1000)
 
   /** Factory method for [[LatLong]], creates LatLong from the [[Double]] values for the Latitude and Longitude in thousands of an arc second of a
    *  degree, where southern and western values are negative. */
-  def milliSecs(lat: Double, long: Double): LatLong = new LatLong(lat, long)
+  def milliSecs(lat: Double, long: Double): LatLong =
+  {
+    val lat1 = lat %+- MilliSecsIn180Degs
+    val lat2 = lat1 match {
+      case l if l > MilliSecsIn90Degs => MilliSecsIn180Degs - l
+      case l if l < - MilliSecsIn90Degs => -MilliSecsIn180Degs - l
+      case l => l
+    }
+    val long1 = long %+- MilliSecsIn180Degs
+    val long2 = long1 match {
+      case lo if lo >= 0 & (lat1 > MilliSecsIn90Degs | lat1 < -MilliSecsIn90Degs) => -MilliSecsIn180Degs + lo
+      case lo if lo < 0 & (lat1 > MilliSecsIn90Degs | lat1 < -MilliSecsIn90Degs) => MilliSecsIn180Degs + lo
+      case lo => lo
+    }
+    new LatLong(lat2, long2)
+  }
 
   implicit val defaultValueImplicit: DefaultValue[LatLong] = new DefaultValue[LatLong] { override def default: LatLong = LatLong0 }
   implicit val persistImplict: Persist[LatLong] = new Persist2Dbls[LatLong]("LatLong", "lat", "long", LatLong.radians)
