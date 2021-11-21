@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 
-extension (thisInt: Int)
+class IntGlobeExtensions(thisInt: Int)
 { /** infix extension method for creating a latitude-longitude value [[LatLong]]. This [[Int]] is the latitude specified in degrees. The operand
  * parameter is the longitude specified in degrees. */
   infix def ll (longDegs: Double): LatLong = LatLong.degs(thisInt, longDegs)
@@ -23,7 +23,7 @@ extension (thisInt: Int)
   def south: Latitude = Latitude.apply(-thisInt)
 }
 
-extension (thisDouble: Double)
+class DoubleGlobeExtensions(thisDouble: Double)
 {
   /** infix extension method for creating a latitude-longitude value [[LatLong]]. This [[Double]] is the latitude specified in degrees. The operand
    * parameter is the longitude specified in degrees. */

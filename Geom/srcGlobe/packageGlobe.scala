@@ -5,6 +5,8 @@ package ostrat; package geom;
 package object pglobe
 { /** The position of latitude and longitude [[LatLong]] 0 east and 0 north. */
   val LatLong0: LatLong = LatLong.degs(0, 0)
+  implicit def intGlobeToExtensions(thisInt: Int): IntGlobeExtensions = new IntGlobeExtensions(thisInt)
+  implicit def doubleGlobeToExtensions(thisDouble: Double): DoubleGlobeExtensions = new DoubleGlobeExtensions(thisDouble)
 
   /** Method for creating a 2d background or outline for the earth. */
   def earth2DEllipse(scale: Length): Ellipse = Ellipse(EarthEquatorialRadius / scale, EarthPolarRadius / scale)
