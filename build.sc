@@ -1,10 +1,10 @@
 // build.sc
 import mill._, scalalib._, scalajslib._, scalanativelib._, publish._
+
 trait Common extends ScalaModule
 { def version = "0.3.1snap"
-def scalaVersion = "3.1.0-RC3"
-  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-Ywarn-value-discard", "-encoding", "UTF-8",
-   "-unchecked", "-Xlint")
+  def scalaVersion = "3.1.0"
+  def scalacOptions = Seq("-feature", "-language:higherKinds,implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8", "-unchecked")
 }
 
 trait CommonJvm extends Common
@@ -13,7 +13,7 @@ trait CommonJvm extends Common
     millSourcePath / 'srcFx)
 
   trait InnerTests extends Tests
-  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.5")
+  { def ivyDeps = Agg(ivy"com.lihaoyi::utest:0.7.10")
     def testFrameworks = Seq("utest.runner.Framework") 
     def sources = T.sources(millSourcePath / 'src)
     def resources = T.sources(millSourcePath / 'res)
@@ -21,9 +21,9 @@ trait CommonJvm extends Common
 }
 
 trait CommonJs extends ScalaJSModule with Common
-{ def scalaJSVersion = "1.1.0"
+{ def scalaJSVersion = "1.7.1"
   //def sources = T.sources(outer.millSourcePath / 'src, outer.millSourcePath / 'srcJs)
-  def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:1.1.0")
+  def ivyDeps = Agg(ivy"org.scala-js::scalajs-dom_sjs1:2.0.0")
 }
 
 object Util extends CommonJvm// with PublishModule
