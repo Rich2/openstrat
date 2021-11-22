@@ -27,7 +27,10 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike w
     case _ => false
   }
 
-  override def canEqual(that: Any): Boolean = that.match2(_.isInstanceOf[Angle], true, false)
+  override def canEqual(that: Any): Boolean = that match
+  { case _: Angle => true
+    case _ => false
+  }
 
   override def compare(that: Angle): Int = milliSecs - that.milliSecs match {
     case r if r < 0 => -1

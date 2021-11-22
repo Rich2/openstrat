@@ -44,6 +44,9 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
     PtM3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }
 
+  /** Rotate around the X axis, viewed from positive X. A positive angle is anti clockwise. */
+  def rotateX(a: AngleVec): PtM3 = PtM3(x, z * a.sin + y * a.cos, z * a.cos - y * a.sin)
+
   /** rotates the vector around the Y axis, 90 degrees or Pi/2 radians, anticlockwise. */
   @inline def rotateY90: PtM3 = PtM3(z, y, -x)
 
@@ -53,7 +56,7 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   /** rotates the vector around the Y axis 90 degrees or Pi/2 radians, clockwise. */
   @inline def rotateY270: PtM3 = PtM3(-z, y, x)
 
-  /** Rotates this vector around the Y axis through the given angle around the origin. */
+  /** Rotates this vector around the Y axis, viewed form positive Y through the given angle around the origin. */
   def rotateY(a: AngleVec): PtM3 = a match
   { case a if a == Deg0 => this
     case a if a == Deg90 => rotateY90
@@ -62,8 +65,6 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
     //Pt2(x1 * a.cos - y1 * a.sin, x1 * a.sin + y1 * a.cos)
     case a => PtM3(z * a.sin + x * a.cos, y, z * a.cos - x * a.sin)
   }
-
-  def rotateX(a: AngleVec): PtM3 = PtM3(x, z * a.sin + y * a.cos, z * a.cos - y * a.sin)
 
   /** rotates the vector around the Z axis, 90 degrees or Pi/2 radians, anticlockwise. */
   @inline def rotateZ90: PtM3 = PtM3(-y, x, z)

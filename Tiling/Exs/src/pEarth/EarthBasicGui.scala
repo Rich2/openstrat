@@ -11,7 +11,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   /** Scale in km / pixel */
   var scale: Length = startScale.getOrElse(12.kMetres)
   var focus: LatLong = startFocus.sget
-  var southUp: Boolean = true
+  var northUp: Boolean = true
   def lat: Latitude = focus.lat
   def long: Longitude = focus.long
 
@@ -20,7 +20,12 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   def repaint(): Unit = {
     val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
     //val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.subLong(long).metres3Default.earthZPosXYModify) }
-    val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.metres3Default.latLongFocus(focus).earthZPosXYModify) }
+    val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a =>
+      val p3s: PolygonM3 = a.polygonLL.metres3Default.latLongFocus(focus)
+      val p3s2: PolygonM3 = ife(northUp, p3s, p3s.rotateZ180)
+      val p3s3 = p3s2.earthZPosXYModify
+      (a, p3s3)
+    }
     val af0 = afps.map { p => p._2.map(_ / scale).fillActive(p._1.colour, p._1) }
     val af1 = afps.map { a => a._2.map(_ / scale).draw() }
 
@@ -43,18 +48,26 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
     thisTop()
   }
 
-  def goDirn(str: String, f: Double => Unit): PolygonCompound = clickButton(str){b =>
-    def delta = b.apply(1, 10, 60, 0)
+  def goDirn(str: String)(f: Double => Unit): PolygonCompound = clickButton(str){b =>
+    val delta: Int = b.apply(1, 10, 60, 0)
     f(delta)
     repaint()
     statusText = s"focus $focus"
     thisTop()
   }
 
-  def goNorth: PolygonCompound = goDirn("\u2191", delta => focus = focus.addLat(delta.degs))
-  def goSouth: PolygonCompound = goDirn("\u2193", delta => focus = focus.subLat(delta.degs))
-  def goEast: PolygonCompound = goDirn("\u2192", delta => focus = focus.addLong(delta.degs))
-  def goWest: PolygonCompound = goDirn("\u2190", delta => focus = focus.subLong(delta.degs))
+  def goNorth: PolygonCompound = goDirn("\u2191"){ delta =>
+    val newLat: Double = focus.latDegs + ife(northUp, delta , -delta)
+    focus = ife(northUp, focus.addLat(delta.degs), focus.subLat(delta.degs))
+    northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
+  }
+  def goSouth: PolygonCompound = goDirn("\u2193"){ delta =>
+    val newLat: Double = focus.latDegs + ife(northUp, -delta, delta)
+    focus = ife(northUp, focus.subLat(delta.degs), focus.addLat(delta.degs))
+    northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
+  }
+  def goEast: PolygonCompound = goDirn("\u2192"){ delta => focus = ife(northUp, focus.addLong(delta.degs), focus.subLong(delta.degs)) }
+  def goWest: PolygonCompound = goDirn("\u2190"){ delta => focus = ife(northUp, focus.subLong(delta.degs), focus.addLong(delta.degs)) }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {

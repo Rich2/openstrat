@@ -68,13 +68,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def subLongRadians(radians: Double): LatLong = addLongRadians(-radians)
   
-  def addLatSecs(secs: Double): LatLong = LatLong.secs(latSecs + secs, longSecs) /*(latSecs + secs) %+- SecsIn180Degs match
-  { //Going over the north Pole
-    case a if a > SecsIn90Degs => LatLong.secs(SecsIn180Degs - a, -longSecs)
-    //Going over the south Pole
-    case a if a < -SecsIn90Degs => LatLong.secs(-SecsIn180Degs - a, - longSecs)
-    case a => LatLong.secs(a, longSecs)
-  }*/
+  def addLatSecs(secs: Double): LatLong = LatLong.secs(latSecs + secs, longSecs)
 
   /** Get the XY point from a focus with latitude 0 */
   def xyLat0: Pt2 = Pt2(longRadians.sine * latRadians.sine, latRadians.sine)

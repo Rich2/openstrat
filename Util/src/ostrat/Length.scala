@@ -18,7 +18,12 @@ final class Length(val metresNum: Double) extends AnyVal with Ordered[Length]
 
   def min(operand: Length): Length = ife(metresNum < operand.metresNum, this, operand)
   def kmStr2 = (metresNum / 1000).str2 + "km"
-  override def compare(that: Length): Int = metresNum.match3(_ == that.metresNum, 0, _ > that.metresNum, 1,-1)
+
+  override def compare(that: Length): Int = metresNum match {
+    case l if l == that.metresNum => 0
+    case l if l > that.metresNum => 1
+    case _ => -1
+  }
 
   def pos: Boolean = metresNum >= 0
   def neg: Boolean = metresNum < 0

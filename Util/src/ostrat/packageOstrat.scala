@@ -59,10 +59,10 @@ package object ostrat
   def NoRef[A <: AnyRef]: OptRef[A] = new OptRef[A](null.asInstanceOf[A])
 
   /** onlyIf-do. Only if the condition is true, perform the effect. */
-  @inline def oif[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue
+  inline def onlyIf[U](b: Boolean, vTrue: => Unit): Unit = if(b) vTrue else ()
 
   /** if-else. If the condition is true, use 2nd parameter, else use 3rd parameter. */
-  @inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
+  inline def ife[A](b: Boolean, vTrue: => A, vFalse: => A): A = if (b) vTrue else vFalse
 
   /** ifNot-else. If the condition is false, use 2nd parameter, else use 3rd parameter. */
   @inline def ifne[A](b: Boolean, vNotTrue: => A, visTrue: => A): A = if (b) vNotTrue else vNotTrue
@@ -343,6 +343,7 @@ package object ostrat
   }
 
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
+  implicit def AnyRefTypeToExtensions[T <: AnyRef](thisT: T): AnyRefTypeExtensions[T] = new AnyRefTypeExtensions[T](thisT)
   implicit def arrayToExtensions[A](arr: Array[A]): ArrayExtensions[A] = new ArrayExtensions[A](arr)
   implicit def arrayValueNElemToExtensions[A <: ElemValueN](arr: Array[A]): ArrayValueNElemExtensions[A] = new ArrayValueNElemExtensions[A](arr)
   implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)

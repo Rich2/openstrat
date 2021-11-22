@@ -237,13 +237,13 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   def filter[ArrA <: SeqImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
-    foreach(a => oif(f(a), ev.buffGrow(buff, a)))
+    foreach(a => onlyIf(f(a), ev.buffGrow(buff, a)))
     ev.buffToBB(buff)
   }
 
   def filterNot[ArrA <: SeqImut[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
-    foreach(a => oif(!f(a), ev.buffGrow(buff, a)))
+    foreach(a => onlyIf(!f(a), ev.buffGrow(buff, a)))
     ev.buffToBB(buff)
   }
 
