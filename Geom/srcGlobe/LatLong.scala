@@ -31,16 +31,6 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
 
   /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
    *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
-  def addLatRadians(radians: Double): LatLong = (latRadians + radians) %+- Pi1 match
-  { //Going over the north Pole
-    case a if a > PiOn2 => LatLong.radians(Pi1 - a, -longRadians)
-    //Going over the south Pole from western longitude
-    case a if a < -PiOn2 => LatLong.radians(-Pi1 - a, -longRadians)
-    case a => LatLong.radians(a, longRadians)
-  }
-
-  /** Moves the value northward from this LatLong. This may involve crossing the North Pole or South Pole if the operand is a negative value. When
-   *  moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
   def addLat(delta: AngleVec): LatLong = (latMilliSecs + delta.milliSecs) match
   { //Going over the north Pole
     case a if a > MilliSecsIn90Degs => LatLong.milliSecs(MilliSecsIn180Degs - a, longMilliSecs + MilliSecsIn180Degs)
@@ -49,26 +39,21 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
     case a => LatLong.milliSecs(a, longMilliSecs)
   }
 
+  /** Subtract the [[AngleVec]] delta parameter from the latitude. */
   def subLat(delta: AngleVec): LatLong = addLat(-delta)
 
-  /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
-  def subLatRadians(radians: Double): LatLong = addLatRadians(-radians)
-
+  /** Add the [[AngleVec]] delta parameter to the longitude. */
   def addLong(delta: AngleVec): LatLong = {
     val long1 = longMilliSecs + delta.milliSecs
     val long2 = long1 %+- MilliSecsIn360Degs
     LatLong.milliSecs(latMilliSecs, long2)
   }
 
+  /** Subtract the [[AngleVec]] delta parameter from the longitude. */
   def subLong(delta: AngleVec): LatLong = addLong(-delta)
 
-  /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
-  def addLongRadians(radians: Double): LatLong = LatLong.radians(latRadians, (longRadians + radians) %+- Pi1)
-
-  /** When moving across a globe it will often be done using radians as the values come from 3d vector manipulation. */
-  def subLongRadians(radians: Double): LatLong = addLongRadians(-radians)
-  
-  def addLatSecs(secs: Double): LatLong = LatLong.secs(latSecs + secs, longSecs)
+  def addLongDegs(degsDelta: Double): LatLong = addLong(degsDelta.degs)
+  def subLongDegs(degsDelta: Double): LatLong = addLongDegs(-degsDelta)
 
   /** Get the XY point from a focus with latitude 0 */
   def xyLat0: Pt2 = Pt2(longRadians.sine * latRadians.sine, latRadians.sine)
@@ -84,11 +69,11 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def latLongFacing(ll: LatLong): Boolean = fromFocusMetres(ll).z.pos
 
   /** From focus parameter, converts to 3D metre coordinates. */
-  def fromFocusMetres(focus: LatLong): PtM3 = focus.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
+  def fromFocusMetres(focus: LatLong): PtM3 = focus.subLong(longVec).toMetres3.xRotateRadians(-latRadians)
 
   def fromFocusLineDist3(inp: LineSegLL): LineSegMetre3 = LineSegMetre3(
-    inp.startPt.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians),
-    inp.endPt.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians))
+    inp.startPt.subLong(longVec).toMetres3.xRotateRadians(-latRadians),
+    inp.endPt.subLong(longVec).toMetres3.xRotateRadians(-latRadians))
 
   def fromFocusDist2(ll: LatLong): PtM2 = fromFocusMetres(ll).xy
 
@@ -98,7 +83,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   }
 
   def toOptDist2(inp: LatLong): Option[PtM2] =
-  { val r1: PtM3 = inp.subLongRadians(longRadians).toMetres3.xRotateRadians(-latRadians)
+  { val r1: PtM3 = inp.subLong(longVec).toMetres3.xRotateRadians(-latRadians)
     r1.toXYIfZPositive
   }
 

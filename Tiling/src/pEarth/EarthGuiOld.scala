@@ -36,7 +36,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def latLongToDist3(ll: LatLong): PtM3 = focus.fromFocusMetres(ll)
   def latLongLineToDist3(inp: LineSegLL): LineSegMetre3 = focus.fromFocusLineDist3(inp)
     
-  def distDelta(mb: MouseButton): Double = mb(1, 5, 25, 0) * ifInvScale / 400.km
+  def distDelta(mb: MouseButton): AngleVec = (mb(1, 5, 25, 0) * ifInvScale / 7.km).degs
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)  
   def inCmd = (mb: MouseButton) => { scale = (scale / scaleDelta(mb)).max(scaleMin); updateView() }
   def outCmd = (mb: MouseButton) => { scale = (scale * scaleDelta(mb)).min(scaleMax); updateView() }
@@ -75,10 +75,10 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
     repaintMap()
   }
 
-  def leftCmd: MouseCmd = mb => setFocus(focus.subLongRadians(distDelta(mb)))
-  def rightCmd: MouseCmd = mb => { focus = focus.addLongRadians(distDelta(mb)); updateView() }
-  def downCmd: MouseCmd = mb => { addLatRadians(-distDelta(mb)); updateView() }
-  def upCmd: MouseCmd = mb => { addLatRadians(distDelta(mb)); updateView() }
+  def leftCmd: MouseCmd = mb => setFocus(focus.subLong(distDelta(mb)))
+  def rightCmd: MouseCmd = mb => { focus = focus.addLong(distDelta(mb)); updateView() }
+  def downCmd: MouseCmd = mb => { addLat(-distDelta(mb)); updateView() }
+  def upCmd: MouseCmd = mb => { addLat(distDelta(mb)); updateView() }
   def invCmd: MouseCmd = mb => {focusUp = !focusUp; repaintMap() }
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); updateView() }  
       
