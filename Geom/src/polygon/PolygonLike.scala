@@ -12,6 +12,9 @@ trait PolygonLike[VT] extends Any
   /** The number of vertices and also the number of sides in this Polygon. */
   def vertsNum: Int
 
+  /** Checks this polygon has at least 3 vertices. */
+  def vertsMin3: Boolean = vertsNum >= 3
+
   /** Performs the side effecting function on the value of each vertex. */
   def vertsForeach[U](f: VT => U): Unit
 

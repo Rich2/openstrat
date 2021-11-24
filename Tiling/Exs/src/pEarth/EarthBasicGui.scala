@@ -26,8 +26,11 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
       val p3s3 = p3s2.earthZPosXYModify
       (a, p3s3)
     }
-    val af0 = afps.map { p => p._2.map(_ / scale).fillActive(p._1.colour, p._1) }
-    val af1 = afps.map { a => a._2.map(_ / scale).draw() }
+
+    val afps2 = afps.filter(_._2.vertsMin3)
+    val af0 = afps2.map { p => p._2.map(_ / scale).fillTextActive(p._1.colour, p._1, p._1.name, 10) }
+    val af1 = afps2.map { a => a._2.map(_ / scale).draw() }
+
 
     def seas = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
