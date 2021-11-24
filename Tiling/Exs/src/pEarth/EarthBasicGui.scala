@@ -19,22 +19,30 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
 
   def repaint(): Unit = {
     val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
-    //val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a => (a, a.polygonLL.subLong(long).metres3Default.earthZPosXYModify) }
+
     val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a =>
-      val p3s: PolygonM3 = a.polygonLL.metres3Default.latLongFocus(focus)
+      val p3s: PolygonM3 = a.polygonLL.metres3Default.fromLatLongFocus(focus)
       val p3s2: PolygonM3 = ife(northUp, p3s, p3s.rotateZ180)
       val p3s3 = p3s2.earthZPosXYModify
       (a, p3s3)
     }
 
     val afps2 = afps.filter(_._2.vertsMin3)
-    val af0 = afps2.map { p => p._2.map(_ / scale).fillTextActive(p._1.colour, p._1, p._1.name, 10) }
-    val af1 = afps2.map { a => a._2.map(_ / scale).draw() }
+    val af0 = afps2.map { pair =>
+      val (d, p) = pair
+      p.map(_ / scale).fillActive(d.colour, d)
+    }
 
+    val af1 = afps2.map { a => a._2.map(_ / scale).draw() }
+    val af2 = afps2.map { pair =>
+      val (d, _) = pair
+      val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
+      TextGraphic(d.name, 10, posn, d.colour.contrastBW)
+    }
 
     def seas = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
-    mainRepaint(seas %: af0 ++ af1)
+    mainRepaint(seas %: af0 ++ af1 ++ af2)
   }
 
   def zoomIn: PolygonCompound = clickButton("+"){_ =>

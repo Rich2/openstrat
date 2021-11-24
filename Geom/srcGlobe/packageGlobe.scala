@@ -57,8 +57,12 @@ package object pglobe
     def subLong(longDelta: Longitude): T = ev.fLLTrans(thisT, ll => LatLong(ll.lat, ll.long - longDelta))
   }
 
-  implicit class RotateM3GlobeExtensions[T](val thisT: T)(implicit ev: RotateM3T[T])
+  implicit class LatLongGlobeExtensions(val thisPt: PtM3)
   {
-    def latLongFocus(focus: LatLong): T = thisT.rotateY(-focus.longVec).rotateX(-focus.latVec)
+    def fromLatLongFocus(focus: LatLong): PtM3 = thisPt.rotateY(-focus.longVec).rotateX(-focus.latVec)
+  }
+
+  implicit class RotateM3GlobeExtensions[T](val thisT: T)(implicit ev: RotateM3T[T])
+  { def fromLatLongFocus(focus: LatLong): T = thisT.rotateY(-focus.longVec).rotateX(-focus.latVec)
   }
 }
