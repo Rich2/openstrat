@@ -13,8 +13,8 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   /** Extension methods multiplies this scalar [[Double]] by the operand in metres */
   @inline def * (operator: Length): Length = new Length(thisDouble * operator.metresNum)
 
-  /** Returns this [[Double]] value in [[Length]] kilometres. */
-  @inline def Metres: Length = new Length(thisDouble)
+  /** Returns this [[Int]] value in [[Length]] kilometres. */
+  @inline def kMetres: Length = Length(thisDouble * 1000)
 
   /** Returns this [[Double]] value in [[Length]] or millions of kilometres. */
   @inline def gMetres: Length = new Length(thisDouble * 1000000000)

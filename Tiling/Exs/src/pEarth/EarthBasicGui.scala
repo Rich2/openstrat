@@ -10,6 +10,9 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
 
   /** Scale in km / pixel */
   var scale: Length = startScale.getOrElse(12.kMetres)
+
+  val scaleMin: Length = 0.2.kMetres
+  val scaleMax: Length = 100.kMetres
   var focus: LatLong = startFocus.sget
   var northUp: Boolean = true
   def lat: Latitude = focus.lat
@@ -89,7 +92,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
 
     case (_, _, h) => deb("Other; " + h.toString)
   }
-  canv.onScroll = b => { scale = ife(b, (scale / 1.2)/*.max(scaleMin)*/, (scale * 1.2)/*.min(scaleMax)*/); repaint() }
+  canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); repaint() }
 
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
 
