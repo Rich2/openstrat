@@ -13,6 +13,7 @@ trait RotateM3T[T]
   /** Rotate around the Z axis, viewed from positive Z. A positive angle is anti clockwise. */
   def rotateZT(obj: T, angle: AngleVec): T
 
+  /** Rotate 180 degrees around the Z axis. */
   def rotateZ180T(obj: T): T
 }
 
