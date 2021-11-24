@@ -29,9 +29,9 @@ object AsiaEastPts
   val chittagong = degs(22.74, 91.54)
   val seAsiaNE = AsiaWestPts.mianiLat * neVietnamLong
 
-  val seAsia: EArea2 = EArea2("SEAsia", 26.0 ll 104.0, plain, binhai, rongcheng, haitzhou, putuo, longhai, hongKong, xuwen,
-     yingzaiMouth, neVietnam, dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth, pathein, chittagong,
-     AsiaWestPts.magdhara, AsiaWestPts.indiaNE,  AsiaWestPts.cAsiaSE)
+  val seAsia: EArea2 = EArea2("SEAsia", 26.0 ll 104.0, plain, binhai, rongcheng, haitzhou, putuo, longhai, hongKong, xuwen, yingzaiMouth, neVietnam,
+    dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth, pathein, chittagong, AsiaWestPts.magdhara,
+    AsiaWestPts.indiaNE,  AsiaWestPts.cAsiaSE)
      
   val khabarovsk = 55 ll 134.73
   val chongpyong = degs(39.74, 127.46)

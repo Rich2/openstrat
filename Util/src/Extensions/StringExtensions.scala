@@ -25,6 +25,11 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
       case sts => ev.fromStatements(sts)
     })*/
 
+  def newLinesToSpaces: String = thisString.map{
+    case '\n' => ' '
+    case c => c
+  }
+
   def asInt: EMon[Int] = asType[Int]
 
   def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)

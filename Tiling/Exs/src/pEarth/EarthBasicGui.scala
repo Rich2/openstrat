@@ -83,7 +83,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {
       selected = cl
-      statusText = selected.headFoldToString("Nothing Selected")
+      statusText = selected.headFoldToString("Nothing Selected").newLinesToSpaces
       thisTop()
     }
 
