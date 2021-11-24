@@ -20,7 +20,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   def repaint(): Unit = {
     val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
 
-    val afps: Arr[(EArea2, PolygonMetre)] = eas.map { a =>
+    val afps: Arr[(EArea2, PolygonM)] = eas.map { a =>
       val p3s: PolygonM3 = a.polygonLL.metres3Default.fromLatLongFocus(focus)
       val p3s2: PolygonM3 = ife(northUp, p3s, p3s.rotateZ180)
       val p3s3 = p3s2.earthZPosXYModify

@@ -2,9 +2,9 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
-/** A Polygon like object with 2 dimensional point vertices, where the points dimensions could be specified in metres, latitude, longitude etc as well
- *  as the regular scalar values of the standard [[Polygon]]. *
- * @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a
+/** A Polygon like object, where the points dimensions could be specified in 2D or 3D [[Length]], latitude and longitude etc as well as the regular
+ *  scalar values of the standard [[Polygon]].
+ *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a
  *            [[PolygonM3]] it would be a [[PtM3]]. */
 trait PolygonLike[VT] extends Any
 {

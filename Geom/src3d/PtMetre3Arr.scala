@@ -2,7 +2,7 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonMetre]] and[[LinePathMs]] classes are not appropriate. */
+/** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM]] and[[LinePathMs]] classes are not appropriate. */
 class PtMetre3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3s[PtM3]
 { type ThisT = PtMetre3Arr
   def unsafeFromArray(array: Array[Double]): ThisT = new PtMetre3Arr(array)

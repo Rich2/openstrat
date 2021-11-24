@@ -1,11 +1,11 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/* A polygon using distances measured in metres rather than scalars. */
-final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2s[PtM2] with PolygonDbl2s[PtM2]
-{ type ThisT = PolygonMetre
+/* A polygon using distances measured in [[Length]] or metres rather than scalars. */
+final class PolygonM(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2s[PtM2] with PolygonDbl2s[PtM2]
+{ type ThisT = PolygonM
   type SideT = LineSegMetre
-  def unsafeFromArray(array: Array[Double]): PolygonMetre = new PolygonMetre(array)
+  def unsafeFromArray(array: Array[Double]): PolygonM = new PolygonM(array)
   override def typeStr: String = "PolygonMs"
   override def dataElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def fElemStr: PtM2 => String = _.str
@@ -56,13 +56,10 @@ final class PolygonMetre(val arrayUnsafe: Array[Double]) extends AnyVal with Arr
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
-object PolygonMetre extends DataDbl2sCompanion[PtM2, PolygonMetre]
-{ override def fromArrayDbl(array: Array[Double]): PolygonMetre = new PolygonMetre(array)
+object PolygonM extends DataDbl2sCompanion[PtM2, PolygonM]
+{ override def fromArrayDbl(array: Array[Double]): PolygonM = new PolygonM(array)
 
-  implicit val persistImplicit: DataDbl2sPersist[PtM2, PolygonMetre] = new DataDbl2sPersist[PtM2, PolygonMetre]("PolygonMs")
-  { override def fromArray(value: Array[Double]): PolygonMetre = new PolygonMetre(value)
+  implicit val persistImplicit: DataDbl2sPersist[PtM2, PolygonM] = new DataDbl2sPersist[PtM2, PolygonM]("PolygonMs")
+  { override def fromArray(value: Array[Double]): PolygonM = new PolygonM(value)
   }
 }
-
-/* A polygon using distances measured in metres rather than scalars. */
-final class PolygonKMs(val arrayUnsafe: Array[Double]) extends AnyVal

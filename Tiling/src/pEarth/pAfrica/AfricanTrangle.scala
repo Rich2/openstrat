@@ -9,7 +9,7 @@ object AfricanTrangle extends EArea1("African Triangle", -16.14 ll 24.36)
   override val a2Arr: Arr[EArea2] = Arr(LakeVictoria, LakeTanganyika, southernAfrica, CentralAfricaWest, centralAfricaEast, madagascar)
 }
 
-object LakeVictoria extends EArea2("Lake Victoria", -1 ll 32.83, lake)
+object LakeVictoria extends EArea2("Lake\nVictoria", -1 ll 32.83, lake)
 { val southEast = -2.23 ll 33.84
   val katongaMouth =  -0.14 ll 31.94
   val east = -0.39 ll 34.26
@@ -19,7 +19,7 @@ object LakeVictoria extends EArea2("Lake Victoria", -1 ll 32.83, lake)
   override def polygonLL: PolygonLL = southEastAfrica.reverseClose
 }
 
-object LakeTanganyika extends EArea2("LakeTanganyika", -6.25 ll 29.57, lake)
+object LakeTanganyika extends EArea2("Lake\nTanganyika", -6.25 ll 29.57, lake)
 { val northEast: LatLong = -3.36 ll 29.34
   val northWest: LatLong = -3.36 ll 29.16
   val kalemie: LatLong = -5.91 ll 29.20
