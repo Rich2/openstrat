@@ -89,6 +89,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
 
     case (_, _, h) => deb("Other; " + h.toString)
   }
+  canv.onScroll = b => { scale = ife(b, (scale / 1.2)/*.max(scaleMin)*/, (scale * 1.2)/*.min(scaleMax)*/); repaint() }
 
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
 
