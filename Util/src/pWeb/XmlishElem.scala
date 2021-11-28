@@ -3,7 +3,8 @@ package ostrat; package pWeb
 
 /** An XML or an HTML element */
 trait XmlishElem extends XCon
-{ def tag: String
+{ /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
+  def tag: String
   def attribs: Arr[XmlAtt]
   def contents: Arr[XCon]
  

@@ -8,6 +8,14 @@ trait XmlAtt
   def str: String = name + "=" + valueStr.enquote
 }
 
+object XmlAtt
+{
+  def apply(nameIn: String, valueStrIn: String): XmlAtt = new XmlAtt
+  { override def name: String = nameIn
+    override def valueStr: String = valueStrIn
+  }
+}
+
 /** An Xml numeric attribute. */
 trait XANumeric extends XmlAtt
 { def value: Double
