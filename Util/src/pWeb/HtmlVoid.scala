@@ -6,16 +6,21 @@ sealed trait HtmlVoid extends HtmlElem
 { final override def contents: Arr[XCon] = Arr()
 }
 
+/** HTML meta element. */
 trait HtmlMeta extends HtmlVoid
-{
-  override def tag: String = "meta"
+{ override def tag: String = "meta"
+  override def out(indent: Int, linePosn: Int, lineLen: Int): String = indent.spaces + openUnclosed
 }
 
+/** HTML charset='UTF-8' meta element. */
 object HtmlUtf8 extends HtmlMeta
-{
-  val utf8Attrib = XmlAtt("charset", "UTF-8")
+{ val utf8Attrib: XmlAtt = XmlAtt("charset", "UTF-8")
   override def attribs: Arr[XmlAtt] = Arr(utf8Attrib)
+}
 
-  /** Returns the XML source code, formatted according to the input. */
-  override def out(indent: Int, linePosn: Int, lineLen: Int): String = indent.spaces + openUnclosed
+/** Creates the meta element <meta name="viewport" content="width=device-width,initial-scale=1.0" > */
+object HtmlViewDevWidth extends HtmlMeta
+{ val viewPort: XmlAtt = XmlAtt("name", "viewport")
+  val content: XmlAtt = XmlAtt("content", "width=device-width,initial-scale=1.0")
+  override def attribs: Arr[XmlAtt] = Arr(viewPort, content)
 }

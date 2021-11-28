@@ -10,5 +10,5 @@ case class HtmlHead(contents : Arr[XCon], attribs: Arr[XmlAtt] = Arr()) extends 
 
 /** Companion object for the [[HtmlHead]] case class. */
 object HtmlHead
-{ def title(titleStr: String): HtmlHead = new HtmlHead(Arr[XCon](HtmlTitle(titleStr), HtmlUtf8))
+{ def title(titleStr: String): HtmlHead = new HtmlHead(Arr[XCon](HtmlTitle(titleStr), HtmlUtf8, HtmlViewDevWidth))
 }
