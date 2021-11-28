@@ -2,8 +2,8 @@
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer
 
-/** 3 dimensional point specified using metres as units rather than pure numbers. The Letter M was used rather L for Length to avoid confusion with
- * the LL ending which is short for Latitude-longitude. */
+/** 3 dimensional point specified using metres [[Length]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
+ *  confusion with the LL ending which is short for Latitude-longitude. */
 final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ElemDbl3
 { def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetres.str2, yMetres.str2, zMetres.str2)
@@ -85,7 +85,7 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
   }
 }
 
-/** Companion object for the Metres3 class. */
+/** Companion object for the [[PtM3] class. the 3D point measure in metres length. */
 object PtM3
 {
   def metres(xMetres: Double, yMetres: Double, zMetres: Double): PtM3 = new PtM3(xMetres, yMetres, zMetres)
