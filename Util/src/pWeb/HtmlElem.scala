@@ -16,25 +16,17 @@ trait HtmlNotVoid extends HtmlElem
   def openTag2: String = openTag + "\n\n"
 }
 
+/** An HTML page, contains a head and a body element */
 case class HtmlPage(head: HtmlHead, body: HtmlBody)
 { def out: String = "<!doctype html>\n" + HtmlHtml(head, body).out(0, 0, 150)
 }
 
+/** Companion object for the [[HtmlHead]] class. */
 object HtmlPage
-{ /** A quick and crude method for creatings an HTML page object from the title String and the HTML body contents String. */
-  def title(title: String, bodyContent: String): HtmlPage = HtmlPage(HtmlHead(title), HtmlBody(title.h1Str ---- bodyContent))
+{ /** A quick and crude method for creating an HTML page object from the title String and the HTML body contents String. */
+  def titleOnly(title: String, bodyContent: String): HtmlPage = HtmlPage(HtmlHead(title), HtmlBody(title.h1Str ---- bodyContent))
 }
 
-/** HTML head element. */
-case class HtmlHead(contents : Arr[XCon], attribs: Arr[XmlAtt] = Arr()) extends HtmlNotVoid
-{ override def tag: String = "head"
-  //override def contents: Arr[XCon] = Arr[XCon](HtmlTitle(titleStr))
-  def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag1 + contents.toStrsFold("\n", _.out(indent + 2, 0, 150)) + "\n" + closeTag
-}
-  
-object HtmlHead
-{ def apply(titleStr: String): HtmlHead = new HtmlHead(Arr[XCon](HtmlTitle(titleStr)))
-}
 
 /** HTML title element. */
 case class HtmlTitle(str: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlElem
