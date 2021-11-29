@@ -6,7 +6,7 @@ trait HtmlElem extends XmlishElem
 { thisHElem: HtmlUnvoid | HtmlVoid =>
 }
 
-
+/** An HTML element that is not void. */
 trait HtmlUnvoid extends HtmlElem
 { def openTag: String = openAtts + ">"
   def openTag1: String = openTag + "\n"
@@ -44,9 +44,9 @@ case class HtmlBody(contentStr: String) extends HtmlUnvoid
   override def contents: Arr[XCon] = Arr(contentStr.xCon)
   def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag1 + contents.toStrsFold("\n", _.out(0, 0, 150)) + n1CloseTag
   override def attribs: Arr[XmlAtt] = Arr()
-  //def out: String = "<body>\n" + content + "\n</body>"
 }
 
+/** An HTML code element. */
 case class HtmlCode(contentStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlUnvoid
 { override def tag: String = "code"
   override def contents: Arr[XCon] = Arr(contentStr.xCon)
@@ -54,3 +54,5 @@ case class HtmlCode(contentStr: String, attribs: Arr[XmlAtt] = Arr()) extends Ht
 }
 
 case class HtmlCssLink(fileName: String)
+
+//case class HtmlH1(strIn: String) extends Html

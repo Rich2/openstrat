@@ -1,13 +1,14 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** An XML attribute. */
+/** An XML / HTML attribute, has a name and a value [[Strings]]. */
 trait XmlAtt
 { def name: String
   def valueStr: String
   def str: String = name + "=" + valueStr.enquote
 }
 
+/** Companion object for the XML attribute [[XmlAtt]] trait. */
 object XmlAtt
 {
   def apply(nameIn: String, valueStrIn: String): XmlAtt = new XmlAtt
