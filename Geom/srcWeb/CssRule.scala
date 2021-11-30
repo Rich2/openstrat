@@ -3,14 +3,19 @@ package ostrat; package pWeb
 
 /** CSS declaration */
 trait CssDec
-{
-  def prop: String
+{ def prop: String
+  def valueStr: String
+  def out: String = prop + ": " + valueStr
 }
 
-//case class CssBGColour(colour: Colour) extends CssDec
+/** CSS background-color property. */
+case class CssBGColour(colour: Colour) extends CssDec
+{ override def prop: String = "background-color"
+  override def valueStr: String = colour.webStr
+}
 
-trait CssRule {
-  def selec: String
+trait CssRule
+{ def selec: String
   def props: Arr[CssDec]
 }
 
