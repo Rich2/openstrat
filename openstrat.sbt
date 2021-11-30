@@ -66,7 +66,7 @@ lazy val UtilJs = jsProj("Util").settings(
 )
 
 def geomSett = List(
-  Compile/unmanagedSourceDirectories ++= List("src3d", "srcGui", "srcGlobe").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
+  Compile/unmanagedSourceDirectories ++= List("src3d", "srcWeb", "srcGui", "srcGlobe").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
   Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/testSrcGlobe",
 )
 
