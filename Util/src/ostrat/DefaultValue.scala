@@ -6,7 +6,7 @@ trait DefaultValue[T] {
 }
 
 object DefaultValue
-{
-  implicit val intImplicit: Int = 0
+{ implicit val intImplicit: Int = 0
   implicit val doubleImplicit: Double = 0
+  implicit val stringImplicit: String = ""
 }

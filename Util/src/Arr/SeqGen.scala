@@ -260,7 +260,8 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     ev.buffToBB(buff)
   }
 
-  def foldLeft[B](initial: B)(f: (B, A) => B) =
+  /** Folds over this sequence starting with the initial value */
+  def foldLeft[B](initial: B)(f: (B, A) => B): B =
   { var acc: B = initial
     foreach(a => acc = f(acc, a))
     acc
