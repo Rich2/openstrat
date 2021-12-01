@@ -37,5 +37,4 @@ class AnyRefTypeExtensions[A <: AnyRef](thisA: A)
   /** Short hand alternative to a 3 case match statement. */
   def match3[B](f1: A => Boolean, v1: => B, f2: A => Boolean, v2: => B, v3: => B): B =
     if (f1(thisA)) v1 else if (f2(thisA)) v2 else v3
-
 }
