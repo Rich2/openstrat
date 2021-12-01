@@ -309,12 +309,11 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     acc
   }
 
-  def foldHeadTail[B](initial: B)(fHead: (B, A) => B)(fTail: (B, A) => B) =
-  { var acc: B = initial
-    var start: Boolean = true
-    foreach { a =>
-      if(start == true) { acc = fHead(acc, a); start = false }
-      else acc = fTail(acc, a)
+  def foldHeadTail[B](initVal: B)(f: A => B, fAcc: (B, B) => B) =
+  { var acc = initVal
+    if (this.nonEmpty)
+    { acc = fAcc(acc, f(head))
+      tailForeach { a => acc = fAcc(acc, f(a)) }
     }
     acc
   }
