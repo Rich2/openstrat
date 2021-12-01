@@ -17,7 +17,7 @@ case class CssBGColour(colour: Colour) extends CssDec
 trait CssRule
 { def selec: String
   def props: Arr[CssDec]
-  def out: String = selec
+  def out: String = selec + props.foldLeft("")(_ + " " + _.out)
 }
 
 case class CssBody(props: Arr[CssDec]) extends CssRule

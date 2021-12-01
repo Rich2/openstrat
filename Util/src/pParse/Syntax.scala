@@ -4,7 +4,7 @@ package ostrat; package pParse
 trait Syntax
 {
   def outLines(indent: Int)(implicit prefs: SyntaxPrefs): Arr[String]
-  def out(implicit prefs: SyntaxPrefs): String = outLines(0)(prefs).foldLeft("")(_ + _)
+  def out(implicit prefs: SyntaxPrefs): String = outLines(0)(prefs).foldLeft("")(_ + '\n' + _)
 }
 
 case class SyntaxPrefs(maxLineLength: Int = 150, multiStatement: Boolean = false)
