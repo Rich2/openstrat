@@ -120,6 +120,8 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   { var i = 0
     while(i < elemsNum){unsafeSetElem(i, value); i += 1}
   }
+
+  def mapToCurlySyntax: String = ???
 }
 
 /** Companion object for the Arr class. */

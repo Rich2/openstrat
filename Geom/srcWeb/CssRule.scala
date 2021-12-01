@@ -5,7 +5,7 @@ package ostrat; package pWeb
 trait CssDec
 { def prop: String
   def valueStr: String
-  def out: String = prop + ": " + valueStr
+  def out: String = prop + ": " + valueStr + ";"
 }
 
 /** CSS background-color property. */
@@ -17,6 +17,7 @@ case class CssBGColour(colour: Colour) extends CssDec
 trait CssRule
 { def selec: String
   def props: Arr[CssDec]
+  def out: String = selec
 }
 
 case class CssBody(props: Arr[CssDec]) extends CssRule
