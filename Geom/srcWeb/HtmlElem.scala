@@ -2,7 +2,7 @@
 package ostrat; package pWeb
 
 /** HTML element. */
-trait HtmlElem extends XmlishElem
+trait HtmlElem extends XmlElemLike
 { thisHElem: HtmlUnvoid | HtmlVoid =>
 }
 

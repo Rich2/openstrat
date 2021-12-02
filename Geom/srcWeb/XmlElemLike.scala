@@ -2,16 +2,16 @@
 package ostrat; package pWeb
 
 /** An XML or an HTML element */
-trait XmlishElem extends XCon
+trait XmlElemLike extends XCon
 { /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
   def tag: String
   def attribs: Arr[XmlAtt]
   def contents: Arr[XCon]
- 
+
   def attribsOut: String = ife(attribs.empty, "", " " + attribs.toStrsFold(" ", _.str) + " ")
-  def openAtts: String = "<" + tag + attribsOut 
+  def openAtts: String = "<" + tag + attribsOut
   def openUnclosed: String = openAtts + ">"
- 
+
   def closeTag: String = "</" + tag + ">"
   def n1CloseTag: String = "\n" + closeTag
   def n2CloseTag: String = "\n\n" + closeTag
@@ -19,7 +19,7 @@ trait XmlishElem extends XCon
 }
 
 /** An XML element. */
-trait XmlElem extends XmlishElem
+trait XmlElem extends XmlElemLike
 {
  // override def openVoid: String = openAtts + "/>"
   override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = if (contents.empty) openAtts + "/>"

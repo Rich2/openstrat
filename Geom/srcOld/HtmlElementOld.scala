@@ -1,13 +1,11 @@
-/* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pWeb
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pWeb
 
 trait HtmlEl extends XmlEl with XCon
 trait HNotVoid extends HtmlEl with XNotVoid
 
 trait HEmpty extends HtmlEl with XEmpty
 
-object HtmlUTF8 extends HMeta { override def atts = Seq(XAtt("charset", "UTF-8")) }
 case class HMetaNC(name: String, content: String) extends HMeta { override def atts = Seq(XAtt("name", name), XAtt("content", content)) }
 
 object HHead
