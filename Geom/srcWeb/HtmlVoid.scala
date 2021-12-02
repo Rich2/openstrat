@@ -34,5 +34,5 @@ class HtmlCssLink(val fullFileName: String) extends HtmlVoid
   override def attribs: Arr[XmlAtt] = Arr()
 
   /** Returns the XML source code, formatted according to the input. */
-  override def out(indent: Int, linePosn: Int, lineLen: Int): String = ???
+  override def out(indent: Int, linePosn: Int, lineLen: Int): String = indent.spaces
 }
