@@ -22,19 +22,19 @@ trait XmlElemLike extends XCon
 trait XmlElem extends XmlElemLike
 {
  // override def openVoid: String = openAtts + "/>"
-  override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = if (contents.empty) openAtts + "/>"
-    else openUnclosed.nli(indent + 2) + contents.toStrsFold("\n" + (indent + 2).spaces, _.out(indent + 2, 0, 150)).nli(indent) + closeTag
+  override def out(indent: Int = 0, maxLineLen: Int = 150): String = if (contents.empty) openAtts + "/>"
+    else openUnclosed.nli(indent + 2) + contents.toStrsFold("\n" + (indent + 2).spaces, _.out(indent + 2, 150)).nli(indent) + closeTag
 }
 
-/** Content for XML and HTML. */
+/** Content for XML and HTML elements. */
 trait XCon
 { /** Returns the XML source code, formatted according to the input. */
-  def out(indent: Int, linePosn: Int, lineLen: Int): String
+  def out(indent: Int, maxLineLen: Int): String
 }
 
 /** XConStr is a wrapper to convert [[String]]s to XCon, XML Element content. */
 case class XConStr(value: String) extends XCon
-{ override def out(indent: Int, linePosn: Int, lineLen: Int): String = value
+{ override def out(indent: Int, maxLineLen: Int): String = value
 }
 
 object XConStr

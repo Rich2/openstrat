@@ -15,7 +15,7 @@ trait HtmlUnvoid extends HtmlElem
 
 /** An HTML page, contains a head and a body element */
 case class HtmlPage(head: HtmlHead, body: HtmlBody)
-{ def out: String = "<!doctype html>\n" + HtmlHtml(head, body).out(0, 0, 150)
+{ def out: String = "<!doctype html>\n" + HtmlHtml(head, body).out(0, 150)
 }
 
 /** Companion object for the [[HtmlHead]] class. */
@@ -28,21 +28,21 @@ object HtmlPage
 case class HtmlTitle(str: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlUnvoid
 { override def tag = "title"
   override def contents: Arr[XCon] = Arr(str.xCon)
-  override def out(indent: Int, linePosn: Int, lineLen: Int): String = indent.spaces + "<title>" + str + "</title>"
+  override def out(indent: Int, maxLineLen: Int): String = indent.spaces + "<title>" + str + "</title>"
 }
 
 /** The "html" HTML element */
 case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: Arr[XmlAtt] = Arr()) extends HtmlUnvoid
 { def tag: String = "html"
   override def contents = Arr(head, body)
-  def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag2 + head.out(0, 0, 150) + "\n\n" + body.out(0, 0, 150) + n2CloseTag
+  def out(indent: Int, maxLineLen: Int): String = openTag2 + head.out(0, 150) + "\n\n" + body.out(0, 150) + n2CloseTag
 }
 
 /** The HTML body element. */
 case class HtmlBody(contentStr: String) extends HtmlUnvoid
 { override def tag: String = "body"
   override def contents: Arr[XCon] = Arr(contentStr.xCon)
-  def out(indent: Int, linePosn: Int, lineLen: Int): String = openTag1 + contents.toStrsFold("\n", _.out(0, 0, 150)) + n1CloseTag
+  def out(indent: Int, maxLineLen: Int): String = openTag1 + contents.toStrsFold("\n", _.out(0, 150)) + n1CloseTag
   override def attribs: Arr[XmlAtt] = Arr()
 }
 
@@ -50,7 +50,7 @@ case class HtmlBody(contentStr: String) extends HtmlUnvoid
 case class HtmlCode(contentStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlUnvoid
 { override def tag: String = "code"
   override def contents: Arr[XCon] = Arr(contentStr.xCon)
-  override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = openUnclosed + contentStr + closeTag
+  override def out(indent: Int = 0, maxLineLen: Int = 150): String = openUnclosed + contentStr + closeTag
 }
 
 //case class HtmlH1(strIn: String) extends Html

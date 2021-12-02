@@ -11,8 +11,8 @@ trait ShapeGraphic extends GraphicBounded
   def svgStr: String
   def shapeAttribs: Arr[XmlAtt] = shape.attribs
   final def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
-    svgJustElem).out(0, 0, 150)
-  def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, linePosn, lineLen)
+        svgJustElem).out(0, 150)
+  def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, lineLen)
   final def svgJustElem: SvgElem = svgElem(shape.boundingRect)
   def svgElem(bounds: BoundingRect): SvgElem
 
@@ -56,7 +56,7 @@ object ShapeGraphic
 
     def svgInline(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String =
     { val br = thisArr.foldLeft(thisArr.head.shape.boundingRect)(_ || _.shape.boundingRect)
-      SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(indent, linePosn, lineLen)
+      SvgSvgElem(br.minX, br.minY, br.width, br.height, thisArr.map(_.svgElem(br))).out(indent, lineLen)
     }
   }
   

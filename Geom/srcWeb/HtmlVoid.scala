@@ -9,7 +9,7 @@ sealed trait HtmlVoid extends HtmlElem
 /** HTML meta element. */
 trait HtmlMeta extends HtmlVoid
 { override def tag: String = "meta"
-  override def out(indent: Int, linePosn: Int, lineLen: Int): String = indent.spaces + openUnclosed
+  override def out(indent: Int, maxLineLen: Int): String = indent.spaces + openUnclosed
 }
 
 /** HTML charset='UTF-8' meta element. */
@@ -34,5 +34,5 @@ class HtmlCssLink(val fullFileName: String) extends HtmlVoid
   override def attribs: Arr[XmlAtt] = Arr()
 
   /** Returns the XML source code, formatted according to the input. */
-  override def out(indent: Int, linePosn: Int, lineLen: Int): String = indent.spaces
+  override def out(indent: Int, maxLineLen: Int): String = indent.spaces
 }
