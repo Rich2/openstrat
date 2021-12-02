@@ -53,6 +53,4 @@ case class HtmlCode(contentStr: String, attribs: Arr[XmlAtt] = Arr()) extends Ht
   override def out(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = openUnclosed + contentStr + closeTag
 }
 
-case class HtmlCssLink(fileName: String)
-
 //case class HtmlH1(strIn: String) extends Html

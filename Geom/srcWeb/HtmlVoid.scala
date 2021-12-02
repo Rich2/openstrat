@@ -24,3 +24,15 @@ object HtmlViewDevWidth extends HtmlMeta
   val content: XmlAtt = XmlAtt("content", "width=device-width,initial-scale=1.0")
   override def attribs: Arr[XmlAtt] = Arr(viewPort, content)
 }
+
+
+class HtmlCssLink(val fullFileName: String) extends HtmlVoid
+{
+  /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
+  override def tag: String = "link"
+
+  override def attribs: Arr[XmlAtt] = Arr()
+
+  /** Returns the XML source code, formatted according to the input. */
+  override def out(indent: Int, linePosn: Int, lineLen: Int): String = ???
+}
