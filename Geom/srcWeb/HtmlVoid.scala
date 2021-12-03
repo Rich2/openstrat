@@ -4,12 +4,12 @@ package ostrat; package pWeb
 /** trait for HTML Void elements such as br img and input. */
 sealed trait HtmlVoid extends HtmlElem
 { final override def contents: Arr[XCon] = Arr()
+  override def out(indent: Int, maxLineLen: Int): String = indent.spaces + openUnclosed
 }
 
 /** HTML meta element. */
 trait HtmlMeta extends HtmlVoid
 { override def tag: String = "meta"
-  override def out(indent: Int, maxLineLen: Int): String = indent.spaces + openUnclosed
 }
 
 /** HTML charset='UTF-8' meta element. */
@@ -27,12 +27,10 @@ object HtmlViewDevWidth extends HtmlMeta
 
 
 class HtmlCssLink(val fullFileName: String) extends HtmlVoid
-{
-  /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
-  override def tag: String = "link"
+{ override def tag: String = "link"
+  override def attribs: Arr[XmlAtt] = Arr(XmlAtt("rel", "stylesheet"), XmlAtt("href", fullFileName))
+}
 
-  override def attribs: Arr[XmlAtt] = Arr()
-
-  /** Returns the XML source code, formatted according to the input. */
-  override def out(indent: Int, maxLineLen: Int): String = indent.spaces
+object HtmlCssLink
+{ def apply(fileNameStem: String): HtmlCssLink = new HtmlCssLink(fileNameStem + ".css")
 }
