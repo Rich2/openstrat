@@ -25,7 +25,7 @@ final class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2
   { val acc = appendArray(elemsNum)
     var count = arrLen
 
-    foreachReverse { orig =>
+    reverseForeach { orig =>
       acc(count) = - orig.x
       acc(count + 1) = orig.y
       count += 2

@@ -273,12 +273,6 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     acc
   }
 
-  /*def foldStr[B](f: (String, A) => String): String =
-  { var acc: String = ""
-    foreach(a => acc = f(acc, a))
-    acc
-  }*/
-
   def indexOf(elem: A @uncheckedVariance): Int =
   { var result = -1
     var count  = 0
@@ -306,7 +300,9 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     while(count < elemsNum) { f(apply(count)); count += 1 }
   }
 
-  def foreachInit[U](f: A => U): Unit =
+  /** Performs a side effecting function on each element of this sequence excluding the last. The function may return Unit. If it does return a non
+   *  Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
+  def initForeach[U](f: A => U): Unit =
   { var count = 0
     while(count < elemsNum - 1)
     { f(apply(count))
@@ -330,19 +326,21 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     acc
   }
 
-  /** Consider changing this name, as might not be appropriate to all sub classes. */
-  def foreachReverse[U](f: A => U): Unit =
+  /** Performs a side effecting function on each element of this sequence in reverse order. The function may return Unit. If it does return a non Unit
+   *  value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
+  def reverseForeach[U](f: A => U): Unit =
   { var count = elemsNum
     while(count > 0) { count -= 1; f(apply(count)) }
   }
 
   /** Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold
    *  methods' (accumulator, element) => B signature. */
-  def iForeachReverse[U](f: (Int, A) => U): Unit =
+  def reverseIForeach[U](f: (Int, A) => U): Unit =
   { var count = elemsNum
     while(count > 0) { count -= 1; f(count, apply(count)) }
   }
 
+  /** Returns true if the predicate holds true for all values of this sequence, else retruns false. */
   def forAll(p: (A) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
@@ -369,12 +367,12 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   /** maps ValueProduct collection to List */
   def mapList[B <: AnyRef](f: A => B): List[B] =
   { var res: List[B] = Nil
-    foreachReverse(res ::= f(_))
+    reverseForeach(res ::= f(_))
     res
   }
 
   /** Folds left to a [[String]] accumulator with an initial value of the empty string. The first parameter is a function from A tp String. The second
-   * parameter is a seperator [[String]] the 2nd and subsequent A => String values. */
+   * parameter is a separator [[String]] the 2nd and subsequent A => String values. */
   def foldStr(f: A => String, seperator: String = ""): String =
   { var acc: String = ""
     var start = true
@@ -390,11 +388,11 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** Not sure about this method. */
-  def mkString(seperator: String): String = ife(elemsNum == 0, "",
+  def mkString(separator: String): String = ife(elemsNum == 0, "",
     { var acc = head.toString
       var count = 1
       while(count < elemsNum)
-      { acc += seperator + apply(count).toString
+      { acc += separator + apply(count).toString
         count += 1
       }
       acc
@@ -403,7 +401,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   def toList: List[A] =
   { var acc: List[A] = Nil
-    foreachReverse(acc ::= _)
+    reverseForeach(acc ::= _)
     acc
   }
 
