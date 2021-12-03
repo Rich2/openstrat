@@ -267,6 +267,18 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     acc
   }
 
+  def foldLeft[B](f: (B, A) => B)(implicit ev: DefaultValue[B]): B =
+  { var acc: B = ev.default
+    foreach(a => acc = f(acc, a))
+    acc
+  }
+
+  /*def foldStr[B](f: (String, A) => String): String =
+  { var acc: String = ""
+    foreach(a => acc = f(acc, a))
+    acc
+  }*/
+
   def indexOf(elem: A @uncheckedVariance): Int =
   { var result = -1
     var count  = 0
@@ -361,7 +373,9 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     res
   }
 
-  def toStrsFold(seperator: String,  f: A => String): String =
+  /** Folds left to a [[String]] accumulator with an initial value of the empty string. The first parameter is a function from A tp String. The second
+   * parameter is a seperator [[String]] the 2nd and subsequent A => String values. */
+  def foldStr(f: A => String, seperator: String = ""): String =
   { var acc: String = ""
     var start = true
     foreach{ a => if(start == true) { acc = f(a); start = false } else acc = acc + seperator + f(a)}
@@ -448,9 +462,9 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     acc
   }
 
-  def toStrsCommaFold(fToStr: A => String): String = toStrsFold(", ", fToStr)
-  def toStrsCommaNoSpaceFold(fToStr: A => String): String = toStrsFold(",", fToStr)
-  def toStrsSemiFold(fToStr: A => String): String = toStrsFold("; ", fToStr)
+  def toStrsCommaFold(fToStr: A => String): String = foldStr(fToStr, ", ")
+  def toStrsCommaNoSpaceFold(fToStr: A => String): String = foldStr(fToStr, ",")
+  def toStrsSemiFold(fToStr: A => String): String = foldStr(fToStr, "; ")
   def toStrsCommaParenth(fToStr: A => String): String = toStrsCommaFold(fToStr).enParenth
   def toStrsSemiParenth(fToStr: A => String): String = toStrsSemiFold(fToStr).enParenth
 

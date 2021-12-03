@@ -42,7 +42,7 @@ case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: Arr[XmlAtt] = Arr()
 case class HtmlBody(contentStr: String) extends HtmlUnvoid
 { override def tag: String = "body"
   override def contents: Arr[XCon] = Arr(contentStr.xCon)
-  def out(indent: Int, maxLineLen: Int): String = openTag1 + contents.toStrsFold("\n", _.out(0, 150)) + n1CloseTag
+  def out(indent: Int, maxLineLen: Int): String = openTag1 + contents.foldStr(_.out(0, 150), "\n") + n1CloseTag
   override def attribs: Arr[XmlAtt] = Arr()
 }
 

@@ -8,7 +8,7 @@ trait XmlElemLike extends XCon
   def attribs: Arr[XmlAtt]
   def contents: Arr[XCon]
 
-  def attribsOut: String = ife(attribs.empty, "", " " + attribs.toStrsFold(" ", _.str) + " ")
+  def attribsOut: String = ife(attribs.empty, "", " " + attribs.foldStr(_.str, " ") + " ")
   def openAtts: String = "<" + tag + attribsOut
   def openUnclosed: String = openAtts + ">"
 
@@ -23,7 +23,7 @@ trait XmlElem extends XmlElemLike
 {
  // override def openVoid: String = openAtts + "/>"
   override def out(indent: Int = 0, maxLineLen: Int = 150): String = if (contents.empty) openAtts + "/>"
-    else openUnclosed.nli(indent + 2) + contents.toStrsFold("\n" + (indent + 2).spaces, _.out(indent + 2, 150)).nli(indent) + closeTag
+    else openUnclosed.nli(indent + 2) + contents.foldStr(_.out(indent + 2, 150), "\n" + (indent + 2).spaces).nli(indent) + closeTag
 }
 
 /** Content for XML and HTML elements. */
