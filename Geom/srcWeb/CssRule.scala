@@ -1,6 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
+/** Css Rule consisting of selector plus a set of declarations. */
 trait CssRule
 { def selec: String
   def props: Arr[CssDec]
@@ -12,27 +13,12 @@ trait CssRule
   def out: String = selec + propsStr
 }
 
+/** CSS rule for the body. */
 case class CssBody(props: Arr[CssDec]) extends CssRule
 { override def selec: String = "body"
 }
 
+/** CSS rule for the H1 header. */
 case class CssH1(props: Arr[CssDec]) extends CssRule
 { override def selec: String = "h1"
-}
-
-object homeHtmlWrite
-{ /** A quick and crude method for creating / overwriting an html file in the user's home directory. It takes 2 strings. The first is used for the
- * HTML title and the file name. The second is contents of the HTML body element.  */
-  def apply(dir: String, title: String, bodyContent: String): EMon[String] =
-  { val h = System.getProperty("user.home")
-    fileWrite(h -/- dir, title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
-  }
-}
-
-object opensettHtmlWrite
-{
-  def apply(title: String, bodyContent: String): EMon[String] =
-  { val h: String = System.getProperty("user.home")
-    fileWrite(h + "/opensett", title + ".html", HtmlPage.titleOnly(title, bodyContent).out)
-  }
 }
