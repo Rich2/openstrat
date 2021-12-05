@@ -6,7 +6,7 @@ case class E80GridGui(canv: CanvasPlatform) extends CmdBarGui("North West Europe
 {
   statusText = "Welcome to the new E80 grids"
   implicit val grid: HGrid = EuropeNWGrid
-  //val terrs = EuropeNW80Terr()
+  val terrs = EuropeNW80Terr()
   //val tiles = grid.map{ r => r.polygonReg.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
   def thisTop(): Unit = reTop(Arr())//zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
 

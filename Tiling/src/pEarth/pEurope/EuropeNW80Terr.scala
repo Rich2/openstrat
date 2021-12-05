@@ -12,20 +12,20 @@ object EuropeNWGrid extends HGridIrr
 
 
 /** The new 80 Km grid for North West Europe. The c or column offset is 512 which is G0 in base 32. The c offset for North East Europe will be 1536 or
- * 1G0 in base 32. Current y offset is 300 for the equator. The Old c offst was 200 so a diff of 312 */
+ * 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
 object EuropeNW80Terr {
-  def apply(): Unit =
+  def apply(): HCenArr[WTile] =
   {
     implicit val grid: HGridIrr = EuropeNWGrid
-    val terrs = grid.newTileArr[WTile](sea)
+    val terrs: HCenArr[WTile] = grid.newTileArr[WTile](sea)
     def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = {terrs.setRow(yRow, cStart, tileValues :_*); () }
 
-    gs(518, 542, taiga)
-    gs(516, 544, taiga)
-    gs(514, 542, taiga)
-    gs(512, 544, taiga)
-    gs(510, 542, taiga * 2)
-    gs(508, 540, taiga * 3)
+    //gs(518, 542, taiga)
+    //gs(516, 544, taiga)
+    //gs(514, 542, taiga)
+    //gs(512, 544, taiga)
+    //gs(510, 542, taiga * 2)
+    /*gs(508, 540, taiga * 3)
     gs(506, 538, taiga * 3)
     gs(504, 536, taiga * 4)
     gs(502, 540, taiga * 6)
@@ -54,8 +54,9 @@ object EuropeNW80Terr {
     gs(456, 500, plain, sea, plain * 7, hills * 3, plain * 3, hills * 2)
     gs(454, 498, plain * 10, hills * 2, plain * 4, hills, mtain)
     gs(452, 504, plain * 9, hills * 2, mtain * 6)
-    gs(450, 506, plain * 7, hills, mtain * 8)
-    gs(448, 508, plain * 4, hills * 2, plain, mtain * 9)
-    gs(446, 510, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
+    gs(450, 506, plain * 7, hills, mtain * 8)*/
+    //gs(448, 508, plain * 4, hills * 2, plain, mtain * 9)
+    //gs(446, 510, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
+    terrs
   }
 }

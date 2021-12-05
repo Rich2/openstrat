@@ -27,7 +27,10 @@ trait HGridIrr extends Any with HGrid
     wholeRows + (c - tileRowStart(r)) / 4
   }
 
-  override def rowNumTiles(row: Int): Int = unsafeArray(row - bottomTileRow + 2)
+  override def rowNumTiles(row: Int): Int = {
+    debvar(bottomTileRow)
+    debvar(row)
+    unsafeArray(row - bottomTileRow + 2)}
 
   /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(tileRowStart(r), tileRowEnd(r), 4){ c => f(HCen(r, c))}

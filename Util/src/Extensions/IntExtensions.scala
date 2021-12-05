@@ -26,7 +26,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def atLeast0: Int = ife(thisInt > 0, thisInt, 0)
 
   /** Returns the value or 0, if this Int more than 0. */
-  def atMost0: Int = ife(thisInt > 0, thisInt, 0)
+  def atMost0: Int = ife(thisInt > 0, 0, thisInt)
 
   /** Returns true if this Int is even, false if this Int is odd. */
   def isEven: Boolean = thisInt % 2 == 0
