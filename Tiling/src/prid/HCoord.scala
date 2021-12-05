@@ -18,6 +18,8 @@ trait HCoord extends Any with TCoord
     val result1 = (prime * f) + r
     prime * result1 + c * 17
   }
+
+  def subR(rDelta: Int): HCoord = HCoord(r -rDelta, c)
 }
 
 /** Companion object for Hex coordinate trait, contains apply factory object. */
