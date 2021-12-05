@@ -2,7 +2,7 @@
 package ostrat; package pEarth; package pEurope
 import geom._, prid._, WTile._
 
-/** The new 80 Km grid for North West Europe. The c or column offset is 512 which is G0 in base 32. The c oofset for North East Europe will be 1536 or
+/** The new 80 Km grid for North West Europe. The c or column offset is 512 which is G0 in base 32. The c offset for North East Europe will be 1536 or
  * 1G0 in base 32. Current y offset is 300 for the equator. The Old c offst was 200 so a diff of 312 */
 object EuropeNW80Terr {
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = {}// {terrs.setRow(yRow, cStart, tileValues :_*); () }

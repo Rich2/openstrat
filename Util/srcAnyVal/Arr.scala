@@ -109,13 +109,6 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   def concatsOption[AA >: A <: AnyRef](optElems: Option[Arr[AA]])(implicit ct: ClassTag[AA]): Arr[AA] =
     optElems.fld[Arr[AA]](this, this ++ _)
 
-  /*def optFind(f: A => Boolean): OptRef[A] =
-  { var acc: OptRef[A] = NoRef
-    var count = 0
-    while (acc == NoRef & count < length) if (f(apply(count))) acc = OptRef(apply(count)) else count += 1
-    acc
-  }*/
-
   def setAll(value: A @uncheckedVariance): Unit =
   { var i = 0
     while(i < elemsNum){unsafeSetElem(i, value); i += 1}
