@@ -35,9 +35,7 @@ ol > li
 
 code { color: DarkRed; }
 .sbt { color: DarkGreen; }
-.folder { color: DarkBlue; 
-	white-space: nowrap;
-}
+.folder { color: DarkBlue; white-space: nowrap; }
 
 @media (min-width:50em)
 {

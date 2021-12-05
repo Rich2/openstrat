@@ -2,7 +2,6 @@
 package ostrat; package pEarth
 import geom._, pglobe._, pgui._, pParse._
 
-
 /** object to launch EarthBasic Gui. */
 object EarthBasicLaunch extends GuiLaunchMore
 {
