@@ -47,7 +47,7 @@ object EGrid80KmOld
     (neg + cOffset , pos + cOffset)
   }
 
-  /** This would seem to return the Arrray that has the irregular HexGrid row specifications. */
+  /** This would seem to return the Array that has the irregular HexGrid row specifications. */
   def getBounds(xOffset: Int, yTileMin: Int, yTileMax: Int): Array[Int] =
   { val bounds: Array[Int] = new Array[Int]((yTileMax - yTileMin + 2).atMost0)
     (yTileMin to yTileMax by 2).foreach{ y =>

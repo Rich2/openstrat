@@ -2,6 +2,7 @@
 package ostrat; package pEarth
 import geom._, pglobe._, prid._
 
+
 trait EGrid80Km extends HGridIrr
 { def rOffset: Int
   def cOffset: Int
@@ -65,5 +66,17 @@ object EGrid80Km
     }
     val (neg, pos) = loop(startC)
     (neg + cOffset , pos + cOffset)
+  }
+
+  /** Copied form Old. This would seem to return the Array that has the irregular HexGrid row specifications. */
+  def getBounds(cOffset: Int, rTileMin: Int, rTileMax: Int): Array[Int] =
+  { val bounds: Array[Int] = new Array[Int]((rTileMax - rTileMin + 2).atMost0)
+    (rTileMin to rTileMax by 2).foreach{ y =>
+      val p = (y - rTileMin)// * 2
+      val pair = tileRowMaxC(y, cOffset)
+      bounds(p) = pair._1
+      bounds(p + 1) = pair._2
+    }
+    bounds
   }
 }
