@@ -1,5 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pEurope
+package ostrat; package pEarth//; package pEurope
 import geom._, prid._, WTile._
 
 
@@ -18,7 +18,7 @@ object EuropeNW80Terr {
   {
     implicit val grid: HGridIrr = EuropeNWGrid
     val terrs: HCenArr[WTile] = grid.newTileArr[WTile](sea)
-    def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = {terrs.setRow(yRow, cStart, tileValues :_*); () }
+    def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.setRow(yRow, cStart, tileValues :_*); () }
 
     //gs(518, 542, taiga)
     //gs(516, 544, taiga)

@@ -80,10 +80,16 @@ lazy val GeomExs = exsProj("Geom").dependsOn(Geom).settings(
 
 lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)
 
-lazy val Tiling = coreProj("Tiling").dependsOn(Geom)
+lazy val Tiling = coreProj("Tiling").dependsOn(Geom).settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
+)
+
 lazy val TilingExs = exsProj("Tiling").dependsOn(Tiling)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs)
-lazy val EarthAppJs = jsApp("EarthApp").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcEarthApp")
+lazy val EarthAppJs = jsApp("EarthApp").settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcEarthApp",
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
+)
 
 lazy val Dev = coreProj("Dev").dependsOn(GeomExs, TilingExs).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),

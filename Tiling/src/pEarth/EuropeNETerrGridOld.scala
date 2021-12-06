@@ -1,8 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pEurope
+package ostrat; package pEarth
 import pGrid._, WTile._
 
-object EuropeNETerrOld extends E80DataOld
+object EuropeNETerrGridOld extends E80DataOld
 {
   implicit val grid: HexGridIrrOld = EuropeNEGridOld
   val terrs: TilesArr[WTile] = grid.newTileArr[WTile](Ocean)
