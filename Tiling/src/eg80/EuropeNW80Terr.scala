@@ -1,10 +1,10 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth//; package pEurope
-import geom._, prid._, WTile._
+package ostrat; package eg80
+import pEarth._, prid._, WTile._
 
 
 object EuropeNWGrid extends HGridIrr
-{ override def unsafeArray: Array[Int] = EGrid80Km.getBounds(512, 446, 540)
+{ override def unsafeArray: Array[Int] = EGrid80KmMain.getBounds(512, 446, 540)
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = {}
   override def sideArrIndex(r: Int, c: Int): Int = ???
   override def sideRowIndexArray: Array[Int] = ???

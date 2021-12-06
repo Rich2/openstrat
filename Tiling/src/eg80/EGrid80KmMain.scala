@@ -1,15 +1,18 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth
-import geom._, pglobe._, prid._
+package ostrat; package eg80
+import geom._, pglobe._, prid._, egrid._
 
-
-trait EGrid80Km extends HGridIrr
-{ def rOffset: Int
-  def cOffset: Int
+trait EGrid80Km extends EGrid
+{
+  /** The scale of the c or column coordinate in metres. */
+  val cScale: Length = 20000.metres * Sqrt3
 }
 
+/** A main non-polar gird with a hex pan of 80Km */
+trait EGrid80KmMain extends EGridMain with EGrid80Km
+
 /** Functions for Earth tile grids where the hex tile is 80 km from side to side. */
-object EGrid80Km
+object EGrid80KmMain
 {
   /** The scale of the c or column coordinate in metres. */
   val cScale: Length = 20000.metres * Sqrt3

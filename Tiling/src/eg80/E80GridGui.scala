@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth
-import  pgui._, prid._, pParse._, pEurope._
+package ostrat; package eg80
+import  pgui._, prid._, pParse._//, pEurope._
 
 case class E80GridGui(canv: CanvasPlatform) extends CmdBarGui("North West Europe Gui")
 {
