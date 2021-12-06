@@ -1,15 +1,16 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import pEarth._, prid._, WTile._
+import egrid._, pEarth._, prid._, WTile._
 
-
-object EuropeNWGrid extends HGridIrr
-{ override def unsafeArray: Array[Int] = EGrid80KmMain.getBounds(512, 446, 540)
+object EuropeNWGrid extends EGrid80KmMain
+{
+  /** The c offset for the Equator */
+  override def cOffset: Int = 300
+  override def unsafeArray: Array[Int] = EGridMain.getBounds(512, 446, 540, cScale)
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = {}
   override def sideArrIndex(r: Int, c: Int): Int = ???
   override def sideRowIndexArray: Array[Int] = ???
 }
-
 
 /** The new 80 Km grid for North West Europe. The c or column offset is 512 which is G0 in base 32. The c offset for North East Europe will be 1536 or
  * 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
