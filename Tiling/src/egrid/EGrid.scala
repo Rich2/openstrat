@@ -75,9 +75,9 @@ object EGridMain
   { val bounds: Array[Int] = new Array[Int]((rTileMax - rTileMin + 2).atLeast0 + 2)
     bounds(0) = ((rTileMax - rTileMin) / 2 + 1).atLeast0
     bounds(1) = rTileMin
-    (rTileMin to rTileMax by 2).foreach{ y =>
-      val p = (y - rTileMin) + 2
-      val pair = tileRowMaxC(y, c0Offset, cScale)
+    (rTileMin to rTileMax by 2).foreach{ r =>
+      val p = (r - rTileMin) + 2
+      val pair = tileRowMaxC(r, c0Offset, cScale)
       bounds(p) = pair._1
       bounds(p + 1) = pair._2
     }

@@ -9,8 +9,6 @@ package ostrat; package prid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
 class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGridIrr
 {
-
-
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {
     case r if r.isEven =>
@@ -27,7 +25,6 @@ class HGridIrrRowLengths(val unsafeArray: Array[Int]) extends HGridIrr
       iToForeach(start, end, 2){ c => f(HSide(r, c)) }
     }
   }
-
 
   def cSideRowMin(r: Int): Int = ???
 
