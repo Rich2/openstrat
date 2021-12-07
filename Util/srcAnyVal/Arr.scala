@@ -49,7 +49,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 
   /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
-  { val newArray = new Array[A]((elemsNum - 1).atLeast0)
+  { val newArray = new Array[A]((elemsNum - 1).max0)
     iUntilForeach(1, elemsNum)(i => newArray(i - 1) = unsafeArr(i))
     new Arr(newArray)
   }

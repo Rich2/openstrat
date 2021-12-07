@@ -10,10 +10,10 @@ import geom._, reflect.ClassTag
 final class SqGrid(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int, val tileColMax: Int) extends TGrid
 {
   /** Number of rows of tiles. */
-  override def numTileRows: Int = (topTileRow - bottomTileRow + 2).atLeast0 / 2
+  override def numTileRows: Int = (topTileRow - bottomTileRow + 2).max0 / 2
 
   /** The number of tiles in each tile row. */
-  def tileRowLen: Int = (tileColMax - tileColMin + 2).atLeast0 / 2
+  def tileRowLen: Int = (tileColMax - tileColMin + 2).max0 / 2
 
   /** The total number of Tiles in the tile Grid. */
   override def numTiles: Int = numTileRows * tileRowLen

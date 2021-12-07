@@ -53,7 +53,7 @@ class HexGridIrrOld(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]
         case y if y.isEven => (cRowEnd(y) - cRowStart(y)) / 4 + 2
         case y => (cRowEnd(y - 1).max(cRowEnd(y + 1)) - cRowStart(y - 1).min(cRowStart(y + 1))) / 2 + 2
       }
-      count += rowLen.atMost0
+      count += rowLen.min0
     }
     res
   }
@@ -68,7 +68,7 @@ class HexGridIrrOld(override val yTileMin: Int, val tileRowsStartEnd: Array[Int]
   def cRowEnd(y: Int): Int = tileRowsStartEnd(y - yTileMin + 1)
 
   /** Tile Row length for a give n y Row. */
-  def cRowLen(y: Int): Int = ((cRowEnd(y) - cRowStart(y) + 4) / 4).atMost0
+  def cRowLen(y: Int): Int = ((cRowEnd(y) - cRowStart(y) + 4) / 4).min0
 
   /** foreach Tile in a given Row, calls the effectful function on the Tiles Roord. */
   def rowForeachTile(y: Int)(f: Roord => Unit): Unit = iToForeach(cRowStart(y), cRowEnd(y), 4) { c => f(Roord(y, c)) }

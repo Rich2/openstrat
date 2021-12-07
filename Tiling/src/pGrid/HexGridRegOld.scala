@@ -77,8 +77,8 @@ class HexGridRegOld(val yTileMin: Int, val yTileMax: Int, val cTileMin: Int, val
     { case 2 => (c - cRow2sMin) / 4
       case 0 => (c - cRow0sMin) / 4
     }
-    val y2s: Int = ((y - yRow2sMin).divRoundUp(4) * row2sTileLen).atMost0
-    val y0s: Int = ((y - yRow0sMin).divRoundUp(4) * row0sTileLen).atMost0
+    val y2s: Int = ((y - yRow2sMin).divRoundUp(4) * row2sTileLen).min0
+    val y0s: Int = ((y - yRow0sMin).divRoundUp(4) * row0sTileLen).min0
     y0s + y2s + thisRow
   }
 

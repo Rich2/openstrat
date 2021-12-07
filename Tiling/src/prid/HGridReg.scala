@@ -20,15 +20,15 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
   /** The bottom point of the grid. */
   def xBottom: Double = bottomTileRow - 4.0 / 3
 
-  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
-   *  data. */
+  /** Gives the index into an Arr / Array of Tile data from its [[HCen]] hex tile centre coordinate. Use sideIndex and vertIndex methods to access
+   *  Side and Vertex Arr / Array data. */
   @inline def arrIndex(r: Int, c: Int): Int =
   { val thisRow: Int = r %% 4 match
     { case 2 => (c - row2sStart) / 4
       case 0 => (c - row0sStart) / 4
     }
-    val r2s: Int = ((r - bottomRem2Row).divRoundUp(4) * row2sTileNum).atMost0
-    val r0s: Int = ((r - bottomRem0Row).divRoundUp(4) * row0sTileNum).atMost0
+    val r2s: Int = ((r - bottomRem2Row).divRoundUp(4) * row2sTileNum).max0
+    val r0s: Int = ((r - bottomRem0Row).divRoundUp(4) * row0sTileNum).max0
     r0s + r2s + thisRow
   }
 
@@ -44,7 +44,7 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
   def row0sTileNum = ((row0sEnd - row0sStart + 4) / 4).max(0)
 
   /** The number of tiles or tile centres in rows where r.Div4Rem2. */
-  def row2sTileNum = ((row2sEnd - row2sStart + 4) / 4).atLeast0
+  def row2sTileNum = ((row2sEnd - row2sStart + 4) / 4).max0
 
   /** The starting, minimum or by convention left column coordinate c value for tile centre rows where r.Div4Rem0. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
@@ -171,7 +171,7 @@ object HGridReg
   {
     val rMin = rTileMin.roundUpToEven
     val rMax = rTileMax.roundDownToEven
-    val rowsNum = (rMax - rMin + 2).atLeast0 / 2
+    val rowsNum = (rMax - rMin + 2).max0 / 2
 
     val cMin = rowsNum match
     { case 1 if rMin.div4Rem0 => cTileMin.roundUpTo(_.div4Rem0)
