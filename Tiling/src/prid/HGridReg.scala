@@ -159,7 +159,6 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
     }
     array
   }
-
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */
