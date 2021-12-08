@@ -49,7 +49,7 @@ object EGrid80KmOld
 
   /** This would seem to return the Array that has the irregular HexGrid row specifications. */
   def getBounds(xOffset: Int, yTileMin: Int, yTileMax: Int): Array[Int] =
-  { val bounds: Array[Int] = new Array[Int]((yTileMax - yTileMin + 2).min0)
+  { val bounds: Array[Int] = new Array[Int]((yTileMax - yTileMin + 2).max0)
     (yTileMin to yTileMax by 2).foreach{ y =>
       val p = (y - yTileMin)// * 2
       val pair = EGrid80KmOld.tileRowMaxC(y, xOffset)

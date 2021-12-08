@@ -54,7 +54,6 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
   def row0sEnd: Int = tileColMax.roundDownTo(_.div4Rem0)
 
-
   /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem2, r %% 4 == 2. */
   def bottomRem2Row: Int = bottomTileRow.roundUpTo(_.div4Rem2)
 

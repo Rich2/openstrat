@@ -49,7 +49,7 @@ object EGridMain
   def cDelta(r: Int, c: Int, cScale: Length): Double = hCoordToLatLong0(HCoord(r, c), cScale).longDegs
 
   /** Returns the min and max columns of a tile row in an EGrid80Km grid for a given y (latitude) with a given c offset. */
-  def tileRowMaxC(r: Int, cOffset: Int, cScale: Length): (Int, Int) =
+  def tileRowMinMaxC(r: Int, cOffset: Int, cScale: Length): (Int, Int) =
   {
     val startC: Int = ife(r %% 4 == 0, 0, 2)
     val hexDelta: Double = cDelta(r, 4, cScale)
@@ -75,11 +75,11 @@ object EGridMain
   { val bounds: Array[Int] = new Array[Int]((rTileMax - rTileMin + 2).max0 + 2)
     bounds(0) = ((rTileMax - rTileMin) / 2 + 1).max0
     bounds(1) = rTileMin
-    (rTileMin to rTileMax by 2).foreach{ r =>
+    iToForeach(rTileMin, rTileMax, 2){ r =>
       val p = (r - rTileMin) + 2
-      val pair = tileRowMaxC(r, c0Offset, cScale)
-      bounds(p) = pair._1
-      bounds(p + 1) = pair._2
+      val pair = tileRowMinMaxC(r, c0Offset, cScale)
+      bounds(p) = (((pair._2 - pair._1)/ 4) + 1).max0
+      bounds(p + 1) = pair._1
     }
     bounds
   }

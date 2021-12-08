@@ -4,8 +4,10 @@ import  pgui._, prid._, pParse._//, pEurope._
 
 case class E80GridGui(canv: CanvasPlatform) extends CmdBarGui("North West Europe Gui")
 {
+  deb("St")
   statusText = "Welcome to the new E80 grids"
   implicit val grid: HGrid = EuropeNWGrid
+  deb("st2")
   val terrs = EuropeNW80Terr()
   //val tiles = grid.map{ r => r.polygonReg.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
   def thisTop(): Unit = reTop(Arr())//zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
