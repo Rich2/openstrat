@@ -2,7 +2,8 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** Immutable Array based class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be widened. */
+/** Immutable efficent [[Array]][[Int]] backed class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be
+ *  widened. */
 final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with SeqImut[Int]
 { type ThisT = Ints
 
@@ -15,8 +16,10 @@ final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with SeqImut[Int]
   override def unsafeSetElem(i: Int, value: Int): Unit = arrayUnsafe(i) = value
   def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
+
   /** Alias for appendInts. Functionally appends the operand Ints. */
   @inline def ++ (op: Ints): Ints = appendInts(op)
+
   /** Functionally appends the operand Ints. Aliased by the ++ operator. */
   def appendInts(op: Ints): Ints =
   { val newArray = new Array[Int](elemsNum + op.elemsNum)
@@ -47,6 +50,8 @@ final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with SeqImut[Int]
   }
 }
 
+/** Companion object for the [[Ints]] claas an immutable efficient [[Array]] backed sequence for class [[Int]]s. Contains apply factory method and
+ * implicit type class instances. */
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
 
@@ -57,12 +62,7 @@ object Ints
     else
     { var count = 0
       var acc = true
-      var continue = true
-
-      while (count < a1.elemsNum & continue)
-      { if (a1(count) == a2(count)) count += 1
-      else {acc = false; continue = false}
-      }
+      while (count < a1.elemsNum & acc) if (a1(count) == a2(count)) count += 1 else acc = false
       acc
     }
 }

@@ -276,8 +276,11 @@ package object ostrat
   }
 
   implicit class EqerImplicit[T](thisT: T)(implicit ev: EqT[T])
-  { def equ(operand: T): Boolean = ev.eqv(thisT, operand)
-    def nequ(operand: T): Boolean = !equ(operand)
+  { /** Equals. An alternative type class based equals method. */
+    def ===(operand: T): Boolean = ev.eqv(thisT, operand)
+
+    /** Not-equals. An alternative type class based not-equals method. */
+    def !==(operand: T): Boolean = !ev.eqv(thisT, operand)
   }
 
   /** Extension methods for approximation type class. */
