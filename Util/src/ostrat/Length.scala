@@ -4,7 +4,7 @@ package ostrat;
 /** Length can be negative. The underlying data is stored in metres. */
 final class Length(val metresNum: Double) extends AnyVal with Ordered[Length]
 { def typeStr: String = "Dist"
-  //def str = persistD1(metres)
+  def str = "Length".appendParenth(metresNum.toString)// persistD1(metres)
   def +(operand: Length): Length = Length(metresNum + operand.metresNum)
   def -(operand: Length): Length = Length(metresNum - operand.metresNum)
   def unary_- : Length = Length(-metresNum)

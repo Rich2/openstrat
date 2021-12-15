@@ -5,11 +5,14 @@ import egrid._, pEarth._, prid._, WTile._
 object EuropeNWGrid extends EGrid80KmMain
 {
   /** The c offset for the Equator */
-  override def cOffset: Int = 300
-  override def unsafeArray: Array[Int] = EGridMain.getBounds(512, 446, 540, cScale)
-  override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = {}
-  override def sideArrIndex(r: Int, c: Int): Int = ???
-  override def sideRowIndexArray: Array[Int] = ???
+  override val cOffset: Int = 300
+  override def unsafeRowsArray: Array[Int] = EGridMain.getBounds(512, 446, 540, 20.km)//
+  override val bottomTileRow: Int = 446
+  override def numTileRows: Int = ((540 - 446 + 2) / 2).max0
+
+  //override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = {}
+  //override def sideArrIndex(r: Int, c: Int): Int = ???
+  //override def sideRowIndexArray: Array[Int] = ???
 }
 
 /** The new 80 Km grid for North West Europe. The c or column offset is 512 which is G0 in base 32. The c offset for North East Europe will be 1536 or

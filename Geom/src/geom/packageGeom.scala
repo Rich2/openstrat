@@ -70,8 +70,14 @@ package object geom
   val Sin60: Double = math.sin(Pi/3)
   val Cos30: Double = math.cos(Pi/6)
   val Cos60: Double = 0.5
+
+  /** The Earths polar radius 6356.7523 km. */
   val EarthPolarRadius: Length = 6356752.3.metres
+
+  /** The Earths equatorial radius 6378.137 km. */
   val EarthEquatorialRadius: Length = 6378137.metres
+
+
   val EarthAvDiameter: Length = 12742000.metres
   val EarthAvRadius: Length = EarthAvDiameter / 2
   type GraphicElems = Arr[GraphicElem]

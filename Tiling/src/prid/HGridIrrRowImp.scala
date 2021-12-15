@@ -7,7 +7,7 @@ package ostrat; package prid
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param yTileMin         The y value for the bottom tile row of the TileGrid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-class HGridIrrRows(val unsafeArray: Array[Int]) extends HGridIrr
+trait HGridIrrRows/*(val unsafeArray: Array[Int])*/ extends HGridIrr
 {
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {
@@ -52,18 +52,19 @@ class HGridIrrRows(val unsafeArray: Array[Int]) extends HGridIrr
   }*/
 }
 
+class HGridIrrRowsImp(val bottomTileRow: Int, val numTileRows: Int, val unsafeRowsArray: Array[Int]) extends HGridIrrRows
+
 object HGridIrrRows
 {
   def apply(rMax: Int, cMinMaxs: (Int, Int) *): HGridIrrRows =
-  { val array = new Array[Int](cMinMaxs.length * 2 + 2)
+  { val array = new Array[Int](cMinMaxs.length * 2)
     val len = cMinMaxs.length
-    array(0) = len
-    array(1) = rMax - (len - 1) * 2
+    val rMin = rMax - (len - 1) * 2
     iUntilForeach(0, len){ i =>
       val (rLen, cMin) = cMinMaxs(len - 1 - i)
-      array(i * 2 + 2) = rLen
-      array(i * 2 + 3) = cMin
+      array(i * 2) = cMin
+      array(i * 2 + 1) = rLen
     }
-    new HGridIrrRows(array)
+    new HGridIrrRowsImp(rMin, len, array)
   }
 }
