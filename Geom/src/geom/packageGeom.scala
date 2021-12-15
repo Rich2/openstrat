@@ -43,20 +43,34 @@ package object geom
   { def prolign(matrix: ProlignMatrix): T = ev.prolignObj(value, matrix)
   }  
     
-  /** The number of seconds, 3600 in a degree. */
+  /** The number of arc seconds in a degree = 3600. */
   val SecsInDeg: Int = 3600
 
-  /** The number of thousands of a second, 3600000 in a degree. */
+  /** The number of thousandths of an arc second in a degree = 3600000. */
   val MilliSecsInDeg: Int = 3600000
 
+  /** The number of arc seconds in 360 degrees = 3600000. */
   val SecsIn360Degs: Int = SecsInDeg * 360
+
+  /** The number arc seconds in 180 degrees = 1800000. */
   val SecsIn180Degs: Int = SecsInDeg * 180
+
+  /** The number arc seconds in 90 degrees = 900000. */
   val SecsIn90Degs: Int = SecsInDeg * 90
+
+  /** The number arc seconds in a radian = 206264.80624709636. */
   val SecsInRadian: Double = SecsInDeg * 180.0 / Pi
 
+  /** The number of thousands of an arc second in 360 degrees = 3600000000. */
   val MilliSecsIn360Degs: Int = MilliSecsInDeg * 360
+
+  /** The number of thousands of an arc second in 180 degrees = 1800000000. */
   val MilliSecsIn180Degs: Int = MilliSecsInDeg * 180
+
+  /** The number of thousands of an arc second in 90 degrees = 900000000. */
   val MilliSecsIn90Degs: Int = MilliSecsInDeg * 90
+
+  /** The number of thousands of an arc second in a radian = 2.0626480624709636E8. */
   val MilliSecsInRadian: Double = MilliSecsInDeg * 180.0 / Pi
   
   /** The origin, the intersection of the axes for 2 dimensional vectors. */
