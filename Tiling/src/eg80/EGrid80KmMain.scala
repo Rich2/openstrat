@@ -3,10 +3,11 @@ package ostrat; package eg80
 import egrid._, geom.pglobe._
 
 /** A main non-polar grid with a hex pan of 80Km */
-class EGrid80KmMain(bottomTileRow: Int, numTileRows: Int, cenLong: Longitude, cOffset: Int) extends
-  EGridMain(bottomTileRow, numTileRows, cenLong, 20000.metres, 300, cOffset)
+class EGrid80KmMain(rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: Int) extends
+  EGridMain(rBottomCen, rTopCen, cenLong, 20000.metres, 300, cOffset)
 
-object EGrid80Km0
-{
-  def apply(): EGrid80KmMain = new EGrid80KmMain(446, ((540 - 446 + 2) / 2).max0, 0.east, 512)
+/** object for creating 80km hex scale earth grids. */
+object EGrid80Km
+{ /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
+  def l0(rBottomCen: Int, rTopCen: Int = 540): EGrid80KmMain = new EGrid80KmMain(rBottomCen, rTopCen, 0.east, 512)
 }

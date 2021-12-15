@@ -10,8 +10,8 @@ abstract class EGrid(bottomTileRow: Int, numTileRows: Int, unsafeRowsArray: Arra
 }
 
 /** One of the main hex grids for the earth not a polar grid. */
-abstract class EGridMain(bottomTileRow: Int, numTileRows: Int, val cenLong: Longitude, cScale: Length, val rOffset: Int,
-  val cOffset: Int) extends EGrid(bottomTileRow, numTileRows, EGridMain.getBounds(bottomTileRow, numTileRows, rOffset, cOffset, cScale), cScale)
+abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, cScale: Length, val rOffset: Int,
+                         val cOffset: Int) extends EGrid(rBottomCen, ((rTopCen - rBottomCen + 2) / 2).max0, EGridMain.getBounds(rBottomCen, ((rTopCen - rBottomCen + 2) / 2).max0, rOffset, cOffset, cScale), cScale)
 
 
 /** Functions for Earth tile grids. */
