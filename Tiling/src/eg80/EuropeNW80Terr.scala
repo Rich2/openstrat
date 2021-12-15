@@ -1,26 +1,15 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import egrid._, pEarth._, prid._, WTile._
+import egrid._, geom.pglobe._, pEarth._, prid._, WTile._
 
-object EuropeNWGrid extends EGrid80KmMain
-{
-  /** The c offset for the Equator */
-  override val cOffset: Int = 300
-  override def unsafeRowsArray: Array[Int] = EGridMain.getBounds(512, 446, 540, 20.km)//
-  override val bottomTileRow: Int = 446
-  override def numTileRows: Int = ((540 - 446 + 2) / 2).max0
 
-  //override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = {}
-  //override def sideArrIndex(r: Int, c: Int): Int = ???
-  //override def sideRowIndexArray: Array[Int] = ???
-}
 
 /** The new 80 Km grid for North West Europe. The c or column offset is 512 which is G0 in base 32. The c offset for North East Europe will be 1536 or
  * 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
 object EuropeNW80Terr {
   def apply(): HCenArr[WTile] =
   {
-    implicit val grid: HGridIrr = EuropeNWGrid
+    implicit val grid: HGridIrr = EGrid80Km0()
     val terrs: HCenArr[WTile] = grid.newTileArr[WTile](sea)
     def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.setRow(yRow, cStart, tileValues :_*); () }
 

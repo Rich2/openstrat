@@ -3,22 +3,18 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._
 
 /** A hex grid on the surface of the earth. */
-trait EGrid extends HGridIrrRows
+abstract class EGrid(bottomTileRow: Int, numTileRows: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrrRows(bottomTileRow, numTileRows, unsafeRowsArray)
 {
   /** The scale of the c or column coordinate in metres. */
-  val cScale: Length
+
 }
 
 /** One of the main hex grids for the earth not a polar grid. */
-trait EGridMain extends EGrid
-{ /** The row offset for the longitude centre */
-  def rOffset: Int
+abstract class EGridMain(bottomTileRow: Int, numTileRows: Int, val cenLong: Longitude, cScale: Length, val rOffset: Int,
+  val cOffset: Int) extends EGrid(bottomTileRow, numTileRows, EGridMain.getBounds(bottomTileRow, numTileRows, rOffset, cOffset, cScale), cScale)
 
-  /** The c offset for the Equator */
-  def cOffset: Int
-}
 
-/** Functions for Earth tile grids where the hex tile is 80 km from side to side. */
+/** Functions for Earth tile grids. */
 object EGridMain
 { /** The key method to get the longitude delta for c based from 0° longitude. */
   def hCenToLatLong0(inp: HCen, cOffset: Int, cScale: Length): LatLong = hCenToLatLong0(inp.r, inp.c, cOffset, cScale)
@@ -38,7 +34,7 @@ object EGridMain
 
   /** Copied from pGrid. The key method to get the longitude delta for x based from 0 degs longitude. */
   def hCoordToLatLong0(inp: HCoord, cScale: Length): LatLong =
-  { val adj: Pt2 = inp.subR(300).toPt2
+  { val adj: Pt2 = inp/*.subR(300)*/.toPt2
     val d2: PtM2 = adj.toMetres(cScale)
     val d2x = d2.x
     val latRadians: Double = d2.y / EarthPolarRadius
@@ -54,15 +50,15 @@ object EGridMain
   }
 
   /** Returns the min and max columns of a tile row in an EGrid80Km grid for a given y (latitude) with a given c offset. */
-  def tileRowMinMaxC(r: Int, cOffset: Int, cScale: Length): (Int, Int) =
+  def tileRowMinMaxC(r: Int, rOffset: Int, cOffset: Int, cScale: Length): (Int, Int) =
   {
     val startC: Int = ife(r %% 4 == 0, 0, 2)
-    val hexDelta: Double = cDelta(r, 4, cScale)
+    val hexDelta: Double = cDelta(r - rOffset, 4, cScale)
     val margin = 15 - hexDelta
 
     def loop(cAcc: Int): (Int, Int) =
     {
-      val newPt: Double = cDelta(r, cAcc, cScale)
+      val newPt: Double = cDelta(r - rOffset, cAcc, cScale)
       val overlapRatio = (newPt - margin) / hexDelta
       val res = newPt match {
         case pt if (pt < margin) => loop(cAcc + 4)
@@ -76,15 +72,13 @@ object EGridMain
   }
 
   /** Copied from Old. This would seem to return the Array that has the irregular HexGrid row specifications. */
-  def getBounds(c0Offset: Int, rTileMin: Int, rTileMax: Int, cScale: Length): Array[Int] =
+  def getBounds(rTileMin: Int, rTileMax: Int, rOffset: Int, c0Offset: Int, cScale: Length): Array[Int] =
   { deb("Get Bounds")
     val bounds: Array[Int] = new Array[Int]((rTileMax - rTileMin + 2).max0)// + 2)
     deb("Get bounds 2")
-    //bounds(0) = ((rTileMax - rTileMin) / 2 + 1).max0
-    //bounds(1) = rTileMin
     iToForeach(rTileMin, rTileMax, 2){ r =>
       val p = (r - rTileMin)// + 2
-      val pair = tileRowMinMaxC(r, c0Offset, cScale)
+      val pair = tileRowMinMaxC(r, c0Offset, rOffset, cScale)
       bounds(p) = pair._1//(((pair._2 - pair._1)/ 4) + 1).max0
       bounds(p + 1) = ((pair._2 - pair._1 + 4)/ 4).max0//pair._1
     }

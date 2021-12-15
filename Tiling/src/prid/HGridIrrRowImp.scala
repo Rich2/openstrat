@@ -7,7 +7,7 @@ package ostrat; package prid
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param yTileMin         The y value for the bottom tile row of the TileGrid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-trait HGridIrrRows/*(val unsafeArray: Array[Int])*/ extends HGridIrr
+class HGridIrrRows(val bottomTileRow: Int, val numTileRows: Int, val unsafeRowsArray: Array[Int])/*(val unsafeArray: Array[Int])*/ extends HGridIrr
 {
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {
@@ -52,7 +52,7 @@ trait HGridIrrRows/*(val unsafeArray: Array[Int])*/ extends HGridIrr
   }*/
 }
 
-class HGridIrrRowsImp(val bottomTileRow: Int, val numTileRows: Int, val unsafeRowsArray: Array[Int]) extends HGridIrrRows
+class HGridIrrRowsImp(bottomTileRow: Int, numTileRows: Int, unsafeRowsArray: Array[Int]) extends HGridIrrRows(bottomTileRow, numTileRows, unsafeRowsArray)
 
 object HGridIrrRows
 {
