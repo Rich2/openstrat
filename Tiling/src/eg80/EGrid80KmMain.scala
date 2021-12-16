@@ -11,6 +11,6 @@ object EGrid80Km
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
   def l0(rBottomCen: Int, rTopCen: Int = 540): EGrid80KmMain = new EGrid80KmMain(rBottomCen, rTopCen, 0.east, 512)
 
-  def scen1: EScenBasic = new EScenBasic(l0(446))
+  def scen1: EScenBasic = new EScenBasic(l0(446), EuropeNW80Terr())
 }
 
