@@ -5,6 +5,12 @@ package ostrat; package prid
  * where r %% 4 == 0 rows. */
 class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int, val tileColMax: Int) extends HGrid
 {
+  final override val numSides: Int =
+  { var count = 0
+    sidesForeach(r => count += 1)
+    count
+  }
+
   override def width: Double = xRight - xLeft
   override def height: Double =xTop - xBottom
 

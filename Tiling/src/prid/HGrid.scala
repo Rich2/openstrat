@@ -182,11 +182,8 @@ trait HGrid extends Any with TGrid with HGridBased
 
   /** The number of Sides in the TileGrid. Needs reimplementing.
    *  @group SidesGroup */
-  final val numSides: Int =
-  { var count = 0
-    sidesForeach(r => count += 1)
-    count
-  }
+  def numSides: Int
+
 
   override def sideLines: LineSegs = sideCoordLines.map(_.lineSeg)
 

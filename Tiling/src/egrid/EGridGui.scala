@@ -7,9 +7,7 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic) extends HexMapGui("N
   statusText = "Welcome to the new EGrids"
   implicit val grid: HGrid = scen.eGrid
   var rScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
-  debvar(grid.numTiles)
   val terrs: HCenArr[WTile] = scen.terrs
-  debvar(terrs.length)
   val tiles = grid.map{ hc => hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, hc.rcStr, 16, terrs(hc).contrastBW) }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut))//, goNorth, goSouth, goWest, goEast))
   def frame: GraphicElems = (tiles).gridScale(rScale)

@@ -9,14 +9,18 @@ package ostrat; package prid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
 class HGridIrrRows(val bottomTileRow: Int, val unsafeRowsArray: Array[Int]) extends HGridIrr
 {
-  val temp = unsafeRowsArray.length / 2
-  debvar(temp)
   final val numTileRows: Int = unsafeRowsArray.length / 2
 
   final override def topTileRow: Int = bottomTileRow + numTileRows * 2 - 2
 
   /** The total number of hex tiles in the tile Grid. This is determined from the unsafeRowsArray */
-  final override def numTiles: Int = iUntilFoldInt(0, unsafeRowsArray.length, 2)((acc, r) => acc + rowNumTiles(r))
+  final override def numTiles: Int = iUntilFoldInt(0, unsafeRowsArray.length, 2)((acc, i) => acc + unsafeRowsArray(i))
+
+  final override val numSides: Int =
+  { var count = 0
+    sidesForeach(r => count += 1)
+    count
+  }
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {

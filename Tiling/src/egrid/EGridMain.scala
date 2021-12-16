@@ -72,7 +72,6 @@ object EGridMain
       bounds(p) = ((pair._2 - pair._1 + 4)/ 4).max0//
       bounds(p + 1) = pair._1
     }
-    debvar(bounds.length)
     bounds
   }
 }
