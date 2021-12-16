@@ -6,7 +6,7 @@ import geom._, pgui._, pGrid._
 case class E80GridGuiOld(canv: CanvasPlatform, scen: E80DataOld, cenRoord: Roord) extends CmdBarGui("North West Europe Gui")
 {
   implicit val grid: HexGridIrrOld = scen.grid
-  val scale = 40
+  val scale: Double = 40
   val terrs = scen.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
 

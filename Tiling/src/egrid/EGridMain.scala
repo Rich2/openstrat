@@ -4,7 +4,7 @@ import geom._, pglobe._, prid._
 
 /** One of the main hex grids for the earth not a polar grid.  ((rTopCen - rBottomCen + 2) / 2).max0 */
 abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, cScale: Length, val rOffset: Int,
-  val cOffset: Int) extends EGrid(rBottomCen, ((rTopCen - rBottomCen + 2) / 2).max0, EGridMain.getBounds(rBottomCen, rTopCen, rOffset, cOffset, cScale), cScale)
+  val cOffset: Int) extends EGrid(rBottomCen, EGridMain.getBounds(rBottomCen, rTopCen, rOffset, cOffset, cScale), cScale)
 
 /** Functions for Earth tile grids. */
 object EGridMain
@@ -65,12 +65,12 @@ object EGridMain
 
   /** Copied from Old. This would seem to return the Array that has the irregular HexGrid row specifications. */
   def getBounds(rTileMin: Int, rTileMax: Int, rOffset: Int, c0Offset: Int, cScale: Length): Array[Int] =
-  { val bounds: Array[Int] = new Array[Int]((rTileMax - rTileMin + 2).max0)// + 2)
+  { val bounds: Array[Int] = new Array[Int]((rTileMax - rTileMin + 2).max0)
     iToForeach(rTileMin, rTileMax, 2){ r =>
-      val p = (r - rTileMin)// + 2
+      val p = (r - rTileMin)
       val pair = tileRowMinMaxC(r, c0Offset, rOffset, cScale)
-      bounds(p) = pair._1
-      bounds(p + 1) = ((pair._2 - pair._1 + 4)/ 4).max0
+      bounds(p) = ((pair._2 - pair._1 + 4)/ 4).max0//
+      bounds(p + 1) = pair._1
     }
     debvar(bounds.length)
     bounds

@@ -9,7 +9,7 @@ object EuropeNW80Terr {
   {
     implicit val grid: HGridIrr = EGrid80Km.l0(446)
     val terrs: HCenArr[WTile] = grid.newTileArr[WTile](sea)
-    def gs(yRow: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.setRow(yRow, cStart, tileValues :_*); () }
+    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.setRow(r, cStart, tileValues :_*); () }
 
     //gs(518, 542, taiga)
     //gs(516, 544, taiga)

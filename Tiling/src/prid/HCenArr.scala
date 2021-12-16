@@ -49,7 +49,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
     val tiles: List[A] = tileValues.toSingles
     tiles.iForeach { (i, e) =>
       val c = cStart + i * 4
-      unsafeArr(grid.arrIndex(c, row)) = e
+      unsafeArr(grid.arrIndex(row, c)) = e
     }
     HCen(row, cStart + (tiles.length - 1) * 4)
   }

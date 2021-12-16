@@ -1,14 +1,23 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
-/** An irregular hex grid, where the rows have different lengths and irregular start row coordinates. This is backed by an Array[Int] The (0) value
- *  gives the number of tile centre [[HCen]] rows. The (1) value gives the rTileMin the bottom row coordinate. There are 2 more values for row. Each
- *  row from lowest to highest has two values length of the row in the number of tile centres [[HCen]]s and the rTileMin coordinate for the row.
+/** An irregular hex grid, where the rows have different lengths and irregular start row coordinates. This is backed by an Array[Int]. The length of
+ *  this Array is twice the number of tile rows in the grid. Each row from lowest to highest has two values length of the row in the number of tile
+ *  centres [[HCen]]s and the rTileMin coordinate for the row.
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param yTileMin         The y value for the bottom tile row of the TileGrid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-class HGridIrrRows(val bottomTileRow: Int, val numTileRows: Int, val unsafeRowsArray: Array[Int])/*(val unsafeArray: Array[Int])*/ extends HGridIrr
+class HGridIrrRows(val bottomTileRow: Int, val unsafeRowsArray: Array[Int]) extends HGridIrr
 {
+  val temp = unsafeRowsArray.length / 2
+  debvar(temp)
+  final val numTileRows: Int = unsafeRowsArray.length / 2
+
+  final override def topTileRow: Int = bottomTileRow + numTileRows * 2 - 2
+
+  /** The total number of hex tiles in the tile Grid. This is determined from the unsafeRowsArray */
+  final override def numTiles: Int = iUntilFoldInt(0, unsafeRowsArray.length, 2)((acc, r) => acc + rowNumTiles(r))
+
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {
     case r if r.isEven =>
@@ -50,9 +59,57 @@ class HGridIrrRows(val bottomTileRow: Int, val numTileRows: Int, val unsafeRowsA
     }
     res
   }*/
-}
 
-class HGridIrrRowsImp(bottomTileRow: Int, numTileRows: Int, unsafeRowsArray: Array[Int]) extends HGridIrrRows(bottomTileRow, numTileRows, unsafeRowsArray)
+  override def tileColMin: Int = foldRows(Int.MaxValue - 1)((acc, r) => acc.min(tileRowStart(r)))
+  override def tileColMax: Int = foldRows(Int.MinValue )((acc, r) => acc.max(tileRowEnd(r)))
+
+  override def numRow0s: Int = numTileRows.ifMod(bottomTileRow.div4Rem0, _.roundUpToEven) / 2
+  override def numRow2s: Int = numTileRows.ifMod(bottomTileRow.div4Rem2, _.roundUpToEven) / 2
+
+  @inline protected def unsafeRowArrayindex(row: Int): Int = row - bottomTileRow
+
+  override def arrIndex(r: Int, c: Int): Int =
+  { val wholeRows = iUntilFoldInt(bottomTileRow, r, 2){ (acc, r) => acc + rowNumTiles(r) }
+    wholeRows + (c - tileRowStart(r)) / 4
+  }
+
+  override def rowNumTiles(row: Int): Int = unsafeRowsArray(row - bottomTileRow)
+
+  /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
+  def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(tileRowStart(r), tileRowEnd(r), 4){ c => f(HCen(r, c))}
+
+  override def rowIForeach(r: Int, initCount: Int = 0)(f: (HCen, Int) => Unit): Int = {
+    var count = initCount
+    iToForeach(tileRowStart(r), tileRowEnd(r), 4){ c => f(HCen(r, c), count); count += 1 }
+    count
+  }
+
+  /** The start (or by default left column) of the tile centre of the given row. Will throw on illegal values. */
+  override def tileRowStart(row: Int): Int = row match
+  { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowStart method.")
+    case r if r > topTileRow =>
+      excep(s"Row number $r is greater than top tile row $topTileRow. There are $numTileRows rows. Exception in tileRowStart method.")
+    case r if r < bottomTileRow => excep(s"$r Row number less than bottom tile row in tileRowStart method.")
+    case _ => unsafeRowsArray(row - bottomTileRow + 1)
+  }
+
+  /** The end (or by default right) column number of the tile centre of the given row. Will throw on illegal values. */
+  override def tileRowEnd(row: Int): Int = row match
+  { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowEnd method.")
+    case r if r > topTileRow => excep(s"Row number $r is greater than top tile row $topTileRow in tileRowEnd method.")
+    case r if r < bottomTileRow => excep(s"$r Row number less than bottom tile row value in tileRowEnd method.")
+    case _ => tileRowStart(row) + (rowNumTiles(row) - 1) * 4
+  }
+
+  override def hCenExists(r: Int, c: Int): Boolean = r match
+  { case r if r > topTileRow => false
+    case r if r < bottomTileRow => false
+    case r => c >= tileRowStart(r) & c <= tileRowEnd(r)
+  }
+  override def width: Double = (tileColMax - tileColMin + 4) / Sqrt3
+  override def height: Double = topTileRow - bottomTileRow + 3
+
+}
 
 object HGridIrrRows
 {
@@ -62,9 +119,11 @@ object HGridIrrRows
     val rMin = rMax - (len - 1) * 2
     iUntilForeach(0, len){ i =>
       val (rLen, cMin) = cMinMaxs(len - 1 - i)
-      array(i * 2) = cMin
-      array(i * 2 + 1) = rLen
+      array(i * 2) = rLen
+      array(i * 2 + 1) = cMin
     }
-    new HGridIrrRowsImp(rMin, len, array)
+    val arrayLen = array.length
+    debvar(arrayLen)
+    new HGridIrrRows(rMin, array)
   }
 }

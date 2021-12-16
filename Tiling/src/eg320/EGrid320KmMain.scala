@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import egrid._, geom.pglobe._, pEarth._, WTile._
+import egrid._, geom.pglobe._, pEarth._, prid._, WTile._
 
 /** A main non-polar grid with a hex span of 320Km */
 class EGrid320KmMain (rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: Int) extends
@@ -13,7 +13,19 @@ object EGrid320Km
 
   def scen1: EScenBasic = {
     val grid: EGridMain = l0(160)
-    new EScenBasic(grid, grid.newTileArr[WTile](sea))
+    new EScenBasic(grid, Terr00())
+  }
+}
+
+object Terr00
+{
+  def apply(): HCenArr[WTile] =
+  {
+    implicit val grid: EGrid320KmMain = EGrid320Km.l0(160)
+    val terrs: HCenArr[WTile] = grid.newTileArr[WTile](sea)
+    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.setRow(r, cStart, tileValues :_*); () }
+   // gs(518, 96, taiga)
+    terrs
   }
 }
 
