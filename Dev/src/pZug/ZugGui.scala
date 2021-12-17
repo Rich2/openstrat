@@ -8,9 +8,6 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
   var scen = scenIn
   implicit def grid: HGrid = scen.grid
 
-  val pt1 = HCen(4, 4).toPt2
-  debvar(pt1.x)
-  debvar(pt1.y)
   var rScale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val active = grid.map{ hc =>hc.polygonReg.active(hc) }
