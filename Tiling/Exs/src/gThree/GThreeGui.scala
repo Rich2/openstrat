@@ -10,7 +10,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
   implicit def grid: HGrid = scen.grid
 
   /** The number of pixels / 2 displayed per row height. */
-  var rScale = grid.fullDisplayScale(mainWidth, mainHeight)
+  var cPScale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
@@ -42,7 +42,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
   statusText = s"Game Three. Scenario has ${grid.numTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts: GraphicElems).gridScale(rScale)
+  def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts: GraphicElems).gridScale(cPScale)
 
   repaint()
 }

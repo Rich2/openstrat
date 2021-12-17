@@ -11,7 +11,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   def players: SqCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
-  var rScale = grid.fullDisplayScale(mainWidth, mainHeight)
+  var cPScale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   def lunits = players.cMapSomes{ (p, sc) =>
     Rect(0.9, 0.6, sc.toPt2).fillDrawTextActive(p.colour, p, p.toString + "\n" + sc.rcStr, 24, 2.0)  }
@@ -56,6 +56,6 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   thisTop()
-  def frame: GraphicElems = (lunits +% sidesDraw ++ css).gridScale(rScale)// ++ moveGraphics2
+  def frame: GraphicElems = (lunits +% sidesDraw ++ css).gridScale(cPScale)// ++ moveGraphics2
   repaint()
 }
