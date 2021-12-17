@@ -243,6 +243,8 @@ class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
    *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
   @inline def strComma: String = ev.showT(thisVal, Show.Commas, -1, 0)//ev.showComma(thisVal)
 
+  def str2Comma: String = ev.showT(thisVal, Show.Commas, 2, 0)
+
   /** Return the defining member values of the type as a series of semicolon separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 4. if it is 4 or greater return the full typed data. This method is not commonly needed but is useful
    *  for case classes with a single member. */
