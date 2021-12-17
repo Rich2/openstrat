@@ -73,7 +73,7 @@ object EGridMain
     iToForeach(rTileMin, rTileMax, 2){ r =>
       val p = (r - rTileMin)
       val pair = tileRowMinMaxC(r, rOffset, c0Offset, cScale)
-      bounds(p) = ((pair._2 - pair._1 + 4)/ 4).max0//
+      bounds(p) = ((pair._2 - pair._1 + 4)/ 4).max0
       bounds(p + 1) = pair._1
     }
     bounds
