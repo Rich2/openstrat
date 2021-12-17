@@ -7,6 +7,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
   implicit def grid: SqGrid = scen.grid
+  debvar(grid.xCen)
   def players: SqCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */

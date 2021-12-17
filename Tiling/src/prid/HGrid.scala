@@ -25,13 +25,13 @@ trait HGrid extends Any with TGrid with HGridBased
   def rowIForeach(r: Int, count: Int = 0)(f: (HCen, Int) => Unit): Int
 
   /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
-  override def xRatio: Double = 1.0 / sqrt(3)
+  override def yRatio: Double = sqrt(3)
 
-  /** The centre of the hex grid in terms of c column coordinates. */
-  def cCen: Double = (tileColMin + tileColMax) / 2.0
+  /** The centre of the hex grid in terms of r row coordinates. */
+  def rCen: Double = (bottomTileRow + topTileRow) / 2.0
 
-  /** The centre of the hex grid along the X axis after the XRatio has been applied to c column value. */
-  final override def xCen: Double = cCen * xRatio
+  /** The centre of the hex grid along the Y axis after the yRatio has been applied to the r row value. */
+  final override def yCen: Double = rCen * yRatio
 
   /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
   final def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeach(r)(f))

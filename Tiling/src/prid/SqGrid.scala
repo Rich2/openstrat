@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package prid
+package ostrat; package prid
 import geom._, reflect.ClassTag
 
 /** A grid of Squares. A regular rectangle of squares.
@@ -23,8 +22,8 @@ final class SqGrid(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: 
   def cGridMin: Int = tileColMin - 1
   def cGridMax: Int = tileColMax + 1
 
-  override def xRatio: Double = 1
-  override def xCen: Double = (tileColMin + tileColMax) / 2
+  override def yRatio: Double = 1
+  override def yCen: Double = (bottomTileRow + topTileRow) / 2
   override def width: Double = cGridMax - cGridMin
   override def height: Double = rGridMax - rGridMin
 
@@ -33,7 +32,7 @@ final class SqGrid(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: 
   def sideLines: LineSegs = horrSideLines ++ vertSideLines
 
 
-  /** Gives the index into an Arr / Array of Tile data from its tile Roord. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+  /** Gives the index into an Arr / Array of Tile data from its tile [[SqCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline final def arrIndex(sc: SqCen): Int = arrIndex(sc.r, sc.c)
 

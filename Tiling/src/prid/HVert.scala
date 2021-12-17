@@ -13,13 +13,13 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with ElemInt2
   override def canEqual(that: Any): Boolean = ???
 
   override def toVec: Vec2 = (r %% 4, c %% 4) match
-  { case (1, 0) | (3, 2)  =>  Vec2(c / Sqrt3, r + 1.0 / 3)
-    case _ => Vec2(c / Sqrt3, r - 1.0 / 3)
+  { case (1, 0) | (3, 2)  =>  Vec2(c, r * Sqrt3 + 1.0/Sqrt3)
+    case _ => Vec2(c , r * Sqrt3 - 1.0/Sqrt3)
   }
 
   override def toPt2: Pt2 = (r %% 4, c %% 4) match
-  { case (1, 0) | (3, 2)  =>  Pt2(c / Sqrt3, r + 1.0 / 3)
-    case _ => Pt2(c / Sqrt3, r - 1.0 / 3)
+  { case (1, 0) | (3, 2)  =>  Pt2(c, r  * Sqrt3 + 1.0/Sqrt3)
+    case _ => Pt2(c, r * Sqrt3 - 1.0/Sqrt3)
   }
 
   def + (hCen: HCen): HVert = HVert(r + hCen.r, c + hCen.c)

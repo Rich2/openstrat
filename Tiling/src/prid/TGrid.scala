@@ -52,10 +52,10 @@ trait TGrid extends Any
   /** The total number of tile centres in this tile Grid. */
   def numTiles: Int
 
-  def xRatio: Double
+  def yRatio: Double
 
-  def xCen: Double
-  def yCen: Double = (bottomTileRow + topTileRow) / 2
+  def xCen: Double = (tileColMin + tileColMax) / 2
+  def yCen: Double
 
   //def cenPt: Pt2 = Pt2(xCen, yCen)
   def cenVec: Vec2 = Vec2(xCen, yCen)
@@ -99,7 +99,7 @@ trait TGrid extends Any
 
   def fullDisplayScale(dispWidth: Double, dispHeight: Double, padding: Double = 20): Double =
   {
-    def adj(inp : Double): Double =inp match
+    def adj(inp : Double): Double = inp match
     { case n if n > 1000 => inp - padding
       case n if n > 500 => inp - padding * inp / 1000.0
       case n if n > 10 => n

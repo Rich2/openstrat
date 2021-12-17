@@ -15,16 +15,16 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
   override def height: Double =xTop - xBottom
 
   /** The left most point of the grid. */
-  def xLeft: Double = (tileColMin - 2) * xRatio
+  def xLeft: Double = (tileColMin - 2)// * xRatio
 
   /** The right most point of the grid. */
-  def xRight: Double = (tileColMax + 2) * xRatio
+  def xRight: Double = (tileColMax + 2)// * xRatio
 
   /** The top point of the grid. */
-  def xTop: Double = topTileRow + 4.0 / 3
+  def xTop: Double = topTileRow * yRatio + 4.0/Sqrt3
 
   /** The bottom point of the grid. */
-  def xBottom: Double = bottomTileRow - 4.0 / 3
+  def xBottom: Double = bottomTileRow * yRatio - 4.0/Sqrt3
 
   /** Gives the index into an Arr / Array of Tile data from its [[HCen]] hex tile centre coordinate. Use sideIndex and vertIndex methods to access
    *  Side and Vertex Arr / Array data. */

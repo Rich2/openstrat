@@ -44,6 +44,6 @@ object HCoord
 
 /** Common trait for hex centre and hex side coordinate. The position of these coordinates is proportional, unlike the Hex vertices positions. */
 trait HCenOrSide extends HCoord
-{ override def toVec: Vec2 = Vec2(c / Sqrt3, r)
-  override def toPt2: Pt2 = Pt2(c / Sqrt3, r)
+{ override def toVec: Vec2 = Vec2(c, r * Sqrt3)
+  override def toPt2: Pt2 = Pt2(c, r  * Sqrt3)
 }
