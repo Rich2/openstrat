@@ -20,7 +20,7 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic) extends HexMapGui("N
   }
 
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut))//, goNorth, goSouth, goWest, goEast))
-  def frame: GraphicElems = ife(metresScale > 550, tileStrs,tiles).gridScale(cPScale)
+  def frame: GraphicElems = ife(metresScale > 1400, tileStrs,tiles).gridScale(cPScale)
   repaint()
   thisTop()
 }
