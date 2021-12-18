@@ -32,10 +32,10 @@ object EuropeNWTerrGridOld extends E80DataOld
   gs(488, 220, taiga * 2, sea * 2, taiga * 3)//, sea * 2)
   gs(486, 186, hills * 2, sea * 10, plain * 3)
   gs(484, 180, hills * 4, sea * 10, plain * 3)
-  gs(482, 182, hills * 3, sea * 8, plain * 2, sea, plain * 3)
+  gs(482, 182, hills * 3, sea * 8, plain * 2, sea, plain * 3)//check if theres an extra plain
   gs(480, 184, hills * 2, sea * 9, plain *2, sea, plain * 2)
   gs(478, 182, hills, plain * 3, sea * 7, plain * 5, sea)
-  gs(476, 176, plain * 2, sea, hills * 2, sea * 8, plain * 3, sea * 3)
+  gs(476, 176, plain * 2, sea, hills * 2, sea * 8, plain * 3, sea * 3)//Check if this right
   gs(474, 170, plain * 3, sea * 2, hills, plain, sea * 8, plain * 2, sea * 3)
   gs(472, 168, plain * 3, sea * 3, plain * 2, sea * 7, plain * 6)
   gs(470, 170, plain * 3, sea, hills * 2, plain * 2, sea * 5, plain * 8)
