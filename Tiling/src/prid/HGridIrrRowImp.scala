@@ -31,15 +31,15 @@ class HGridIrrRows(val bottomTileRow: Int, val unsafeRowsArray: Array[Int]) exte
   {
     case r if r.isEven =>
     { rowForeach(r){ hc => f(HSide(hc.r, hc.c -2)) }
-      if (rowNumTiles(r) > 0) f(HSide(r, tileRowEnd(r) + 2))
+      if (rowNumTiles(r) > 0) f(HSide(r, rowCenRight(r) + 2))
     }
 
     case r if r == sideRowBottom => rowForeach(r + 1){ hc => f(HSide(r, hc.c - 1)); f(HSide(r, hc.c + 1)) }
     case r if r == sideRowTop => rowForeach(r - 1){ hc => f(HSide(r, hc.c - 1)); f(HSide(r, hc.c + 1)) }
 
     case r =>
-    { val start = tileRowStart(r - 1).min(tileRowStart(r + 1)) - 1
-      val end = tileRowEnd(r - 1).max(tileRowEnd(r + 1)) + 1
+    { val start = rowCenLeft(r - 1).min(rowCenLeft(r + 1)) - 1
+      val end = rowCenRight(r - 1).max(rowCenRight(r + 1)) + 1
       iToForeach(start, end, 2){ c => f(HSide(r, c)) }
     }
   }
@@ -69,8 +69,8 @@ class HGridIrrRows(val bottomTileRow: Int, val unsafeRowsArray: Array[Int]) exte
     res
   }*/
 
-  override def tileColMin: Int = foldRows(Int.MaxValue - 1)((acc, r) => acc.min(tileRowStart(r)))
-  override def tileColMax: Int = foldRows(Int.MinValue )((acc, r) => acc.max(tileRowEnd(r)))
+  override def tileColMin: Int = foldRows(Int.MaxValue - 1)((acc, r) => acc.min(rowCenLeft(r)))
+  override def tileColMax: Int = foldRows(Int.MinValue )((acc, r) => acc.max(rowCenRight(r)))
 
   override def numRow0s: Int = numTileRows.ifMod(bottomTileRow.div4Rem0, _.roundUpToEven) / 2
   override def numRow2s: Int = numTileRows.ifMod(bottomTileRow.div4Rem2, _.roundUpToEven) / 2
@@ -79,22 +79,22 @@ class HGridIrrRows(val bottomTileRow: Int, val unsafeRowsArray: Array[Int]) exte
 
   override def arrIndex(r: Int, c: Int): Int =
   { val wholeRows = iUntilFoldInt(bottomTileRow, r, 2){ (acc, r) => acc + rowNumTiles(r) }
-    wholeRows + (c - tileRowStart(r)) / 4
+    wholeRows + (c - rowCenLeft(r)) / 4
   }
 
   override def rowNumTiles(row: Int): Int = unsafeRowsArray(row - bottomTileRow)
 
   /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
-  def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(tileRowStart(r), tileRowEnd(r), 4){ c => f(HCen(r, c))}
+  def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(rowCenLeft(r), rowCenRight(r), 4){ c => f(HCen(r, c))}
 
   override def rowIForeach(r: Int, initCount: Int = 0)(f: (HCen, Int) => Unit): Int = {
     var count = initCount
-    iToForeach(tileRowStart(r), tileRowEnd(r), 4){ c => f(HCen(r, c), count); count += 1 }
+    iToForeach(rowCenLeft(r), rowCenRight(r), 4){ c => f(HCen(r, c), count); count += 1 }
     count
   }
 
   /** The start (or by default left column) of the tile centre of the given row. Will throw on illegal values. */
-  override def tileRowStart(row: Int): Int = row match
+  override def rowCenLeft(row: Int): Int = row match
   { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowStart method.")
     case r if r > topTileRow =>
       excep(s"Row number $r is greater than top tile row $topTileRow. There are $numTileRows rows. Exception in tileRowStart method.")
@@ -103,17 +103,17 @@ class HGridIrrRows(val bottomTileRow: Int, val unsafeRowsArray: Array[Int]) exte
   }
 
   /** The end (or by default right) column number of the tile centre of the given row. Will throw on illegal values. */
-  override def tileRowEnd(row: Int): Int = row match
+  override def rowCenRight(row: Int): Int = row match
   { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowEnd method.")
     case r if r > topTileRow => excep(s"Row number $r is greater than top tile row $topTileRow in tileRowEnd method.")
     case r if r < bottomTileRow => excep(s"$r Row number less than bottom tile row value in tileRowEnd method.")
-    case _ => tileRowStart(row) + (rowNumTiles(row) - 1) * 4
+    case _ => rowCenLeft(row) + (rowNumTiles(row) - 1) * 4
   }
 
   override def hCenExists(r: Int, c: Int): Boolean = r match
   { case r if r > topTileRow => false
     case r if r < bottomTileRow => false
-    case r => c >= tileRowStart(r) & c <= tileRowEnd(r)
+    case r => c >= rowCenLeft(r) & c <= rowCenRight(r)
   }
   override def width: Double = (tileColMax - tileColMin + 4) / Sqrt3
   override def height: Double = topTileRow - bottomTileRow + 3

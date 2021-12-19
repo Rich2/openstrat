@@ -44,9 +44,12 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
   }
 
   /** Note set Row starts with the r (row) parameter. */
-  final def setRow(row: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: HGrid): HCen =
+  final def completeRow(row: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: HGrid): HCen =
   {
     val tiles: List[A] = tileValues.toSingles
+    val endValues = cStart + tiles.length * 4 - 4
+    val rowEnd = grid.rowCenRight(row)
+    if( rowEnd != endValues) debexc(s"last data column ${endValues} != $rowEnd")
     tiles.iForeach { (i, e) =>
       val c = cStart + i * 4
       unsafeArr(grid.arrIndex(row, c)) = e
@@ -58,7 +61,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
   {
     grid.flatMapRows[Arr[HCenRowValue[A]]]{ r => if (grid.cenRowEmpty(r)) Arr()
       else
-      { var currStart: Int = grid.tileRowStart(r)
+      { var currStart: Int = grid.rowCenLeft(r)
         var currC: Int = currStart
         var currVal: A = rc(r, currStart)
         var list: List[HCenRowValue[A]] = Nil

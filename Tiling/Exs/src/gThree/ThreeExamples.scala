@@ -18,7 +18,7 @@ object ThreeLaunch extends GuiLaunchStd
 object ThreeScen1 extends ThreeScenStart
 { override implicit val grid: HGrid = HGridReg(2, 8, 2, 18)
   override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
-  import terrs.{setRow => sr}
+  import terrs.{completeRow => sr}
   sr(6,2, Water * 2)
   sr(4, 4, Woods * 2)
   val units: HCenArrOpt[Lunit] = grid.newTileArrOpt
@@ -30,7 +30,7 @@ object ThreeScen1 extends ThreeScenStart
 object ThreeScen2 extends ThreeScenStart
 { override implicit val grid: HGrid = HGridReg(2, 20, 4, 60)
   override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
-  import terrs.{setRow => sr}
+  import terrs.{completeRow => sr}
   sr(6,6, Water * 4)
   sr(8,4, Water * 5)
   sr(10,6, Water * 4)
@@ -48,7 +48,7 @@ object ThreeScen3 extends ThreeScenStart {
   override implicit val grid: HGridReg = HGridReg(2, 6, 2, 10)
   override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
 
-  import terrs.{setRow => sr}
+  import terrs.{completeRow => sr}
   val units: HCenArrOpt[Lunit] = grid.newTileArrOpt
 
 }
