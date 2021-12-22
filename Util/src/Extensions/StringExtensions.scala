@@ -62,7 +62,9 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
   def findSettingBoolElse(settingStr: String, elseValue: Boolean): Boolean = findSettingBool(settingStr).getElse(elseValue)
-  
+
+
+
   /** Concatenates a space and then the other String. */
   def -- (other: String): String = thisString + " " + other
   
@@ -73,7 +75,10 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def ---- (other: String): String = thisString + "\n\n" + other
   
   /** Concatenates a newline special character followed by spaces to this string. */
-  def nli(indent: Int): String = thisString + "\n" + indent.spaces  
+  def nli(indent: Int): String = thisString + "\n" + indent.spaces
+
+  /** Concatenates a space and then the other String. */
+  def / (operand: String): String = thisString + "/" + operand
   
   /** prepends a newline special character and spaces to this string */
   def preNl(indent: Int): String = thisString + "\n" + indent.spaces

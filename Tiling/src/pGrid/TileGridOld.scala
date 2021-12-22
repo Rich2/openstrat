@@ -149,7 +149,8 @@ trait TileGridOld
 
   /** New mutable Array of Tile data. All tiles set to an initial value. */
   final def newTileArray[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): Array[A] =
-  { val res = new Array[A](numOfTiles)
+  { debvar(numOfTiles)
+    val res = new Array[A](numOfTiles)
     res.mapInPlace(_ => value)
     res
   }
@@ -163,7 +164,8 @@ trait TileGridOld
 
   /** New immutable Arr of Tile data. */
   final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): TilesArr[A] =
-  { val res = TilesArr[A](numOfTiles)
+  { debvar(numOfTiles)
+    val res = TilesArr[A](numOfTiles)
     res.mutSetAll(value)
     res
   }

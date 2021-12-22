@@ -19,7 +19,8 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
     val tiles: List[A] = tileValues.toSingles
     tiles.iForeach { (i, e) =>
       val c = cStart + i * grid.cStep
-      unsafeArr(grid.arrIndex(yRow, c)) = e
+      val dataI = grid.arrIndex(yRow, c)
+      unsafeArr(dataI) = e
     }
     Roord(yRow, cStart + (tiles.length - 1) * grid.cStep)
   }
