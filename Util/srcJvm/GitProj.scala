@@ -10,7 +10,8 @@ object GitProj
     |DevData/
     |bin/
     |out/
-    |SbtDir/""".stripMargin
+    |SbtDir/
+    |.*/""".stripMargin
 
   def sbtStr(projName: String): String =
     s"""
