@@ -12,8 +12,26 @@ object GitProj
     |out/
     |SbtDir/""".stripMargin
 
-  def apply(location: String): Unit =
+  def sbtStr(projName: String): String =
+    s"""
+      |name := "$projName"
+      |scalaVersion := "3.1.0"
+      |Compile/scalaSource := baseDirectory.value / "src"
+      |scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8")
+      |""".stripMargin
+
+  def mainStr(projName: String) =
+  s"""
+      |object ${projName}App extends App{
+      |println("Hello from $projName")
+      |}
+      |""".stripMargin
+
+  def apply(path: String, projName: String): Unit =
   {
-    fileWrite(location,".gitignore", ignoreStr)
+    val fullPath = path / projName
+    fileWrite(fullPath,".gitignore", ignoreStr)
+    fileWrite(fullPath,projName + ".sbt", sbtStr(projName))
+    fileWrite(fullPath / "src",projName + "App.scala", mainStr(projName))
   }
 }

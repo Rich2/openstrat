@@ -28,7 +28,7 @@ trait CommonJs extends ScalaJSModule with Common
 
 object Util extends CommonJvm// with PublishModule
 { //def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcAnyVal)
+  def sources = T.sources(millSourcePath / 'src, millSourcePath / 'srcAnyVal, millSourcePath / 'srcJvm)
 }
 
 object UtilJs extends CommonJs
