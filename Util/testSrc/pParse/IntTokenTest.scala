@@ -41,10 +41,10 @@ object IntTokenTest extends TestSuite
       assertMatch("0y11".parseTokens){ case Good(Arr1(Nat0yToken(Sp1, "11"))) => }
     }
     val n1 = "-4".parseTokens
-
+    debvar(n1)
     "Negative" -
     {
-      assertMatch("-4".parseTokens){ case Good(Arr1(IntNegToken(Sp1, "4"))) => }
+      assertMatch(n1){ case Good(Arr1(IntNegToken(Sp1, "4"))) => }
       "-4".findInt ==> Good(-4)
     }
   }

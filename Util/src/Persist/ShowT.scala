@@ -82,7 +82,7 @@ object ShowT
     }
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match
-    { case NatDeciToken(_, i) => Good(i.toDouble)
+    { case IntDeciToken(i) => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toDouble))
       /* case FloatToken(_, _, d) => Good(d)
