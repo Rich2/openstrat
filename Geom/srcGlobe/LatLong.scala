@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with ShowElemDbl2
+final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with ShowDbl2 with ElemDbl2
 { override def typeStr: String = "LatLong"
   override def name1: String = "lat"
   override def name2: String = "long"

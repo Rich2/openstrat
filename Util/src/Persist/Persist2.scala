@@ -64,8 +64,8 @@ trait ShowDbl2 extends Any with Show2[Double, Double]
  *  corresponding [[ShowShowDbl2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2T]]. */
 trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
-{ override def dbl1: Double = show1
-  override def dbl2: Double = show2
+{ final override def dbl1: Double = show1
+  final override def dbl2: Double = show2
 }
 
 trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends ShowShowT[R]

@@ -7,10 +7,6 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black
 final class Pt2(val x: Double, val y: Double) extends Vec2Like
 { override def typeStr: String = "Pt2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
-  @inline override def show1: Double = x
-  @inline override def show2: Double = y
-  @inline override def dbl1: Double = x
-  @inline override def dbl2: Double = y
 
   override def approx(that: Any, precision: Double): Boolean = that match
   { case other: Pt2 => dblsApprox(other, precision)
