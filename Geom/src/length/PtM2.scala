@@ -9,6 +9,8 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends Show2Db
   override def name2: String = "y"
   def x: Length = Length(xMetresNum)
   def y: Length = Length(yMetresNum)
+  override def dbl1: Double = xMetresNum
+  override def dbl2: Double = yMetresNum
   override def show1: Double = xMetresNum
   override def show2: Double = yMetresNum
   def + (op: Vec2M): PtM2 = new PtM2(xMetresNum + op.xMetresNum, yMetresNum + op.yMetresNum)

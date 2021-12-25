@@ -8,8 +8,10 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
 { override def typeStr: String = "LatLong"
   override def name1: String = "lat"
   override def name2: String = "long"
-  def show1: Double = latMilliSecs
-  def show2: Double = longMilliSecs
+  def show1: Double = latDegs
+  def show2: Double = longDegs
+  override def dbl1: Double = latMilliSecs//
+  override def dbl2: Double = longMilliSecs//
   def latSecs: Double = latMilliSecs / 1000
   def longSecs: Double = longMilliSecs / 1000
   def latVec: AngleVec = latDegs.degs
@@ -137,7 +139,7 @@ object LatLong
   }
 
   implicit val defaultValueImplicit: DefaultValue[LatLong] = new DefaultValue[LatLong] { override def default: LatLong = LatLong0 }
-  implicit val persistImplict: Persist[LatLong] = new Persist2Dbls[LatLong]("LatLong", "lat", "long", LatLong.radians)
+  implicit val persistImplict: Persist[LatLong] = new Persist2Dbls[LatLong]("LatLong", "lat", "long", LatLong.degs)
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
   implicit val linePathBuildImplicit: LinePathDbl2sBuilder[LatLong, LinePathLL] = new LinePathDbl2sBuilder[LatLong, LinePathLL]

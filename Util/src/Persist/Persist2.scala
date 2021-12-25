@@ -59,8 +59,8 @@ trait Show2Dbls extends Any with Show2[Double, Double] with ElemDbl2
 { final override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
   final override implicit def showT2: ShowT[Double] = ShowT.doublePersistImplicit
   final override def syntaxdepth: Int = 2
-  override def dbl1: Double = show1
-  override def dbl2: Double = show2
+  //override def dbl1: Double = show1
+  //override def dbl2: Double = show2
 }
 
 trait Show2ElemT[A1, A2, R <: Show2[A1, A2]] extends ShowElemT[R]

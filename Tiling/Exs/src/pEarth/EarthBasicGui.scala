@@ -24,8 +24,9 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
     val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
 
     val afps: Arr[(EArea2, PolygonM)] = eas.map { a =>
-      val p3s: PolygonM3 = a.polygonLL.metres3Default.fromLatLongFocus(focus)
-      val p3s2: PolygonM3 = ife(northUp, p3s, p3s.rotateZ180)
+      val p3s0: PolygonM3 = a.polygonLL.metres3Default
+      val p3s1 = p3s0.fromLatLongFocus(focus)
+      val p3s2: PolygonM3 = ife(northUp, p3s1, p3s1.rotateZ180)
       val p3s3 = p3s2.earthZPosXYModify
       (a, p3s3)
     }
