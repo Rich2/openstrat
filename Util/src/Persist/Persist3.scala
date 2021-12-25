@@ -40,7 +40,7 @@ trait Show3[A1, A2, A3] extends Any with ShowProduct
     showT3.showT(show3, way, decimalPlaces, 0))
 }
 
-/** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[Show2DblsT]]
+/** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowDbl2T]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
  *  over [[Show2T]]. */
 trait Show3Dbls extends Any with Show3[Double, Double, Double] with ElemDbl3

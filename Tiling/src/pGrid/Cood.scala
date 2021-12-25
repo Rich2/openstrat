@@ -7,7 +7,7 @@ import geom._
  *  for a Hex Grid except that not all values are legal Cood values on a HexGrid. This system allows river and naval units to move along the tile
  *  sides. The axis are named xi and yi to distinguish them from the x and y of a Vec2. On a Hex grid there is not a simple 1 to 1 mapping between the
  *  Cood components and the Vec2 components. */
-final class Cood(val xi: Int, val yi: Int) extends Show2Ints
+final class Cood(val xi: Int, val yi: Int) extends ShowElemInt2
 {
   override def typeStr: String = "Cood"
   override def name1: String = "xi"
@@ -55,7 +55,7 @@ object Cood
 { def apply(x: Int, y: Int): Cood = new Cood(x, y)
   def unapply(tc: Cood): Option[(Int, Int)] = Some((tc.xi, tc.yi))
   def list(inp: (Int, Int)*): List[Cood] = inp.toList.map(p => Cood(p._1, p._2))
-  implicit object CoodPersist extends Persist2Ints[Cood]("Cood", "x", "y", apply)
+  implicit object CoodPersist extends PersistShowInt2[Cood]("Cood", "x", "y", apply)
 
   implicit val coodsBuildImplicit: ArrInt2sBuilder[Cood, Coods] = new ArrInt2sBuilder[Cood, Coods]
   { type BuffT = CoodBuff

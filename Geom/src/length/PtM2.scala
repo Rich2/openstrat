@@ -3,7 +3,7 @@ package ostrat; package geom
 import pglobe._, collection.mutable.ArrayBuffer, math._
 
 /** A 2 dimensional point specified in [[Length]] as units rather than pure scalar numbers. */
-final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends Show2Dbls
+final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends ShowElemDbl2
 { override def typeStr: String = "Pt2M"
   override def name1: String = "x"
   override def name2: String = "y"
@@ -57,7 +57,7 @@ object PtM2
   { def / (operator: Length): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
   }
 
-  implicit val PersistImplicit: Persist[PtM2] = new Persist2Dbls[PtM2]("Metres2", "x", "y", new PtM2(_, _))
+  implicit val PersistImplicit: Persist[PtM2] = new PersistShowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
   implicit val builderImplicit: ArrDbl2sBuilder[PtM2, PtMetre2Arr] = new ArrDbl2sBuilder[PtM2, PtMetre2Arr]
   { type BuffT = BuffPtMetre2

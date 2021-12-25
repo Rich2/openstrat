@@ -99,5 +99,5 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
 object Vec2
 { def apply(x: Double, y: Double): Vec2 = new Vec2(x, y)
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
-  implicit val showImplicit: ShowT[Vec2] = ShowElemT("Vec2")
+  implicit val showImplicit: ShowT[Vec2] = ShowShowT("Vec2")
 }

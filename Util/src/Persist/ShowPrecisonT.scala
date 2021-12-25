@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-trait ShowPrecisonT[-T] extends PersistBase
+trait ShowPrecisonT[-T] extends TypeStred
 {
   def showPrecisionT(obj: Double, way: Show.Way, maxPlaces: Int, minPlaces: Int): String =
   {

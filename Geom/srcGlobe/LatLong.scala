@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with Show2Dbls
+final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with ShowElemDbl2
 { override def typeStr: String = "LatLong"
   override def name1: String = "lat"
   override def name2: String = "long"
@@ -139,7 +139,7 @@ object LatLong
   }
 
   implicit val defaultValueImplicit: DefaultValue[LatLong] = new DefaultValue[LatLong] { override def default: LatLong = LatLong0 }
-  implicit val persistImplict: Persist[LatLong] = new Persist2Dbls[LatLong]("LatLong", "lat", "long", LatLong.degs)
+  implicit val persistImplict: Persist[LatLong] = new PersistShowDbl2[LatLong]("LatLong", "lat", "long", LatLong.degs)
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
   implicit val linePathBuildImplicit: LinePathDbl2sBuilder[LatLong, LinePathLL] = new LinePathDbl2sBuilder[LatLong, LinePathLL]
