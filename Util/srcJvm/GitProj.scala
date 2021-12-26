@@ -4,7 +4,7 @@ package ostrat
 case class GitProj(path: String, projName: String)
 {
   def fullPath = path / projName
-  def scalaVersionStr: String = "3.1.0"
+  def scalaVersionStr: String = "\"3.1.0\""
 
   def ignoreStr =
   """project/project/
@@ -36,15 +36,13 @@ case class GitProj(path: String, projName: String)
   def mainWrite: Unit = fileWrite(fullPath / "src",projName + "App.scala", mainStr)
 
   def millStr: String =
-    """
-      |// build.sc
+    s"""// build.sc
       |import mill._, scalalib._
       |
       |object Common extends ScalaModule
       |{ def scalaVersion = $scalaVersionStr
-      |  def sources = T.sources(millSourcePath / "../src")
-      |}
-      |""".stripMargin
+      |  def sources = T.sources(millSourcePath / os.up / "src")
+      |}""".stripMargin
 
   def millWrite: Unit = fileWrite(fullPath,"build.sc", millStr)
 

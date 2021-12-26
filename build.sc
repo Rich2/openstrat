@@ -33,10 +33,10 @@ object Util extends CommonJvm// with PublishModule
 
 object UtilJs extends CommonJs
 { def ivyDeps = Agg(ivy"${scalaOrganization()}:scala-reflect:${scalaVersion()}")
-  def sources = T.sources(Graphics.millSourcePath / 'src)
+  def sources = T.sources(Util.millSourcePath / 'src)
 }
 
-object Graphics extends CommonJvm
+object Geom extends CommonJvm
 { def moduleDeps = Seq(Util)
   def mainClass = Some("ostrat.WebPage1")
 
@@ -58,19 +58,19 @@ object Graphics extends CommonJvm
   object test extends InnerTests  
 }
 
-object GraphicsJs extends CommonJs
+object GeomJs extends CommonJs
 { def moduleDeps = Seq(UtilJs)
-  def sources = T.sources(Graphics.millSourcePath / 'src, Graphics.millSourcePath / 'srcJs, Graphics.millSourcePath / 'srcExs)
+  def sources = T.sources(Geom.millSourcePath / 'src, Geom.millSourcePath / 'srcJs, Geom.millSourcePath / 'srcExs)
 }
 
 object Tiling extends CommonJvm
-{ def moduleDeps = Seq(Graphics)  
+{ def moduleDeps = Seq(Geom)  
   object test extends InnerTests
   def sources = T.sources(Tiling.millSourcePath / 'src)
 }
 
 object TilingJs extends CommonJs
-{ def moduleDeps = Seq(GraphicsJs)
+{ def moduleDeps = Seq(GeomJs)
   def sources = T.sources(Tiling.millSourcePath / 'src, Tiling.millSourcePath / 'srcJs, Tiling.millSourcePath / 'srcExs)
 }
 
@@ -97,6 +97,6 @@ object DevJs extends CommonJs
   def sources = T.sources(Dev.millSourcePath / 'src, Dev.millSourcePath / 'srcJs)
 } 
 //def run() = Dev.runBackground()
-def test = Graphics.test
+def test = Geom.test
 def jsfast = DevJs.fastOpt
 def jsfull = DevJs.fullOpt
