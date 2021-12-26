@@ -1,14 +1,11 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import geom._, collection.mutable.ArrayBuffer
+import geom._
 
 /** A hex tile vertex coordinate. */
-class HVert private(val bLong: Long) extends AnyVal with HCoord with ElemInt2
-{
-  @inline def r: Int = bLong.>>(32).toInt
+class HVert private(val bLong: Long) extends AnyVal with HCoord
+{ @inline def r: Int = bLong.>>(32).toInt
   @inline def c: Int = bLong.toInt
-  override def int1: Int = r
-  override def int2: Int = c
   override def typeStr: String = "HVert"
   override def canEqual(that: Any): Boolean = ???
 

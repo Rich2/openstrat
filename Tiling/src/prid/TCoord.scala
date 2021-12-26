@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import geom._, Colour._
+import geom._
 
 /** A coordinate in a tile grid [[TGrid]]. The row is the first field, the column is the second. */
 trait TCoord extends Any with Show2Base32s

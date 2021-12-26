@@ -73,27 +73,10 @@ object HCen
   val h00v6: HVert = HVert(1, 0)
   val vertsOfHex00: HVerts = HVerts(h00v1, h00v2, h00v3, h00v4, h00v5, h00v6)
 
-  implicit val showImplicit: ShowT[HCen] = new Show2T[Int, Int, HCen]
+  implicit val showImplicit: ShowT[HCen] = new ShowShowInt2T[HCen]
   { override def typeStr: String = "HCen"
-    //override def strT(obj: HCen): String = obj.str
+
     override def showT(obj: HCen, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
-    //override def syntaxDepthT(obj: HCen): Int = 2
-
-    override def name1: String = "r"
-
-    override def fArg1: HCen => Int = _.r
-
-    override def name2: String = "c"
-
-    override def fArg2: HCen => Int = _.c
-
-    override def opt2: Option[Int] = None
-
-    override def opt1: Option[Int] = None
-
-    override implicit def ev1: ShowT[Int] = ShowT.base32
-
-    override implicit def ev2: ShowT[Int] = ShowT.base32
   }
 
   implicit val hCensBuildImplicit: ArrInt2sBuilder[HCen, HCens] = new ArrInt2sBuilder[HCen, HCens]
@@ -103,6 +86,7 @@ object HCen
   }
 }
 
+/** Not sure about this trait for occupants of a hex tile. */
 trait HexMem[A]
 { val hc: HCen
   val value: A
