@@ -1,24 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
-import prid._, pgui._
-
-object OneLaunch extends GuiLaunchStd
-{
-  override def settingStr: String = "gOne"
-
-  override def default: (CanvasPlatform => Any, String) = (GOneGui(_, OneScen1), "JavaFx Game One")
-
-  override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) =
-  { val scen = s2 match
-    { case 1 => OneScen1
-      case 2 => OneScen2
-      case 3 => OneScen3
-      case 4 => OneScen4
-      case _ => OneScen1
-    }
-    (GOneGui(_, scen), "JavaFx Game One")
-  }
-}
+import prid._
 
 /** 1st example Turn 0 scenario state for Game One. */
 object OneScen1 extends OneScenStart

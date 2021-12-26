@@ -8,23 +8,6 @@ class WWIIScen extends EarthAllMap[W2TileAncient, W2SideAncient](W2TileAncient.a
   val fArmy: (W2TileAncient, Polity) => Unit = (tile, p: Polity) => tile.lunits = Army(tile, p) %: tile.lunits
 }
 
-/** Object for launching WW2 app. */
-object WW2Launch extends GuiLaunchMore
-{
-  override def settingStr: String = "ww2"
-
-  override def default: (CanvasPlatform => Any, String) = (cv => WWIIGuiOld(cv, WW1940, None, None), "World War II")
-
-  override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
-  { val oScale = sts.findSettingT[Int]("scale")
-    val scale: Option[Length] = oScale.mapToOption(1.km * _)
-    val oLat: EMon[Double] = sts.findSettingDbl("latitude")
-    val oLong: EMon[Double] = sts.findSettingDbl("longitude")
-    val latLong: EMon[LatLong] =sts.findSettingT[LatLong]("latLong")
-    val oll = oLat.flatMap2ToOption[Double, LatLong](oLong, (la, lo) => LatLong.degs(la, lo))
-    (cv => WWIIGuiOld(cv, WW1940, scale, oll), "World War II")
-  }
-}
 
 object WW1940 extends WWIIScen
 {
