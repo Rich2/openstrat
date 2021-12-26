@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
-import pgui._, pParse._
+import pgui._, pParse._, prid._
 
 object OneLaunch extends GuiLaunchMore
 {
@@ -18,6 +18,9 @@ object OneLaunch extends GuiLaunchMore
       case 4 => OneScen4
       case _ => OneScen1
     }
+    debvar(sts(1))
+    val hc = sts.findSettingT[HCen]("hcen")
+    debvar(hc)
     (GOneGui(_, scen), "JavaFx Game One")
   }
 }

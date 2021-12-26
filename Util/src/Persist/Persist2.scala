@@ -1,5 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import pParse._
 
 /** Trait for [[Show]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[Show2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
@@ -96,7 +97,7 @@ trait Show2T[A1, A2, R] extends ShowProductT[R] with Persist2Base[A1, A2, R]
   def fArg2: R => A2
   implicit def ev1: ShowT[A1]
   implicit def ev2: ShowT[A2]
-  final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
+  override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
 
   override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0))
@@ -178,8 +179,17 @@ class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R =
   PersistShowProductT[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  override implicit def ev1: ShowT[A1] = ev1In
-  override implicit def ev2: ShowT[A2] = ev2In
+  override implicit def ev1: Persist[A1] = ev1In
+  override implicit def ev2: Persist[A2] = ev2In
+
+  override def fromExpr(expr: ParseExpr): EMon[R] = expr match
+  {
+    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(Arr2(s1, s2), _, _))) if typeStr == typeName =>
+      ev1.fromExpr(s1.expr).flatMap(a1 => ev2.fromExpr(s2.expr).map{a2 => newT(a1, a2)})
+
+    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+    case _ => {deb("fromExpr"); expr.exprParseErr[R](this) }
+  }
 }
 
 /** Factory object for Persist product 2 type class */
@@ -191,13 +201,13 @@ object Persist2
 }
 
 /** Persist type class for types that extends [[Show2]]. */
-class PersistShow2[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val newT: (A1, A2) => R,
-  val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends ShowShow2T[A1, A2, R] with
-  PersistProduct[R]
+class PersistShow2[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
+  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends
+  Persist2[A1, A2, R](typeStr, name1, _.show1, name2, _.show2, newT, opt2, opt1) with ShowShow2T[A1, A2, R]
 {
-  val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  implicit def ev1: ShowT[A1] = ev1In
-  implicit def ev2: ShowT[A2] = ev2In
+  //val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+//  implicit def ev1: ShowT[A1] = ev1In
+ // implicit def ev2: ShowT[A2] = ev2In
 }
 
 /** Persistence type class for types that extend [[ShowElemInt2]]. */
