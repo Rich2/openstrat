@@ -5,18 +5,18 @@ package ostrat; package pParse
  *  statements in the file or the statements with in a bracket block. Conceptually the source file is considered a special case of bracket block where 
  *  the beginning of substitutes for the opening bracket and the end of file substitutes for the closing bracket. BlockMember has only two sub traits
  *  StatementMember and SemiToken. So a sequence of TokenOrBlocks is simply a series of tokens which has been parsed into Blocks. */
-trait BlockMember extends TextSpan
+trait BlockMem extends TextSpan
 
 /** A statement member is a Token except the semi colon, which is the statement delimiter and the braces, plus it includes blocks, As blocks contain a
  *  sequence of Statements but can themselves be part of a statement. */
-trait StatementMember extends BlockMember
+trait StatementMem extends BlockMem
 
 /** An Assignment member can appear in the expressions either side of an asignment operator. */
-trait AssignmentMember extends StatementMember
+trait AssignMem extends StatementMem
 
 /** I think its helpful to have an expression member trait for syntax that is not expressions. So I don't think it would be helpful if say an opening
  *  brace was an expression. All Expressions are Expression members. */
-trait ClauseMember extends AssignmentMember
+trait ClauseMem extends AssignMem
 
 sealed trait BracketToken extends Token
 { def braces: Braces

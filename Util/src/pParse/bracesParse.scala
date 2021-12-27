@@ -6,7 +6,7 @@ object bracesParse
 { /** Sorts tokens in to brace hierarchy. */
   def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: Arr[Token]): EMon2[BracketedStatements, ArrOff[Token]] =
   {
-    val acc: Buff[BlockMember] = Buff()
+    val acc: Buff[BlockMem] = Buff()
     def loop(rem: ArrOff[Token]): EMon2[BracketedStatements, ArrOff[Token]] = rem match
     {
       case ArrOff0() => open.startPosn.bad2("Unclosed Brace")
@@ -24,7 +24,7 @@ object bracesParse
         }
         else bc.startPosn.bad2("Unexpected Closing Parenthesis")
 
-      case ArrOff1Tail(nbt: BlockMember, tail) => { acc.append(nbt);  loop(tail) }
+      case ArrOff1Tail(nbt: BlockMem, tail) => { acc.append(nbt);  loop(tail) }
       case _ => excep("Case not implemented")
     }
 

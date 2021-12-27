@@ -7,7 +7,7 @@ case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ExprToken
 { override def subTypeStr: String = "HashAlpha"
 }
 
-case class UnderscoreToken(startPosn: TextPosn) extends EmptyExprToken with StatementMember
+case class UnderscoreToken(startPosn: TextPosn) extends EmptyExprToken with StatementMem
 { def srcStr = "_"
   override def exprName: String = "EmptyClauseExpr"
   override def subTypeStr: String = "Underscore"

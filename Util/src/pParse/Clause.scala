@@ -6,7 +6,7 @@ trait Clauselike
 
 /** Statements in RCON can be unclaused or multi comma separated. The empty Clause just contains a comma. The comma at the end of the last Clause of a
  *  Statement is optional. */
-case class Clause(expr: ClauseMemberExpr, optComma: OptRef[CommaToken]) extends TextSpan
+case class Clause(expr: ClauseMemExpr, optComma: OptRef[CommaToken]) extends TextSpan
 { def startPosn = expr.startPosn
   def endPosn = optComma.fld(expr.endPosn, _.endPosn)
 }

@@ -6,12 +6,12 @@ package ostrat; package pParse
 object statementsParse
 {
   /** Parses a sequence of block members raw Statement where bracket blocks have already been parsed into a sequence of Statements. */
-  def apply(implicit inp: Arr[BlockMember]): ERefs[Statement] =
+  def apply(implicit inp: Arr[BlockMem]): ERefs[Statement] =
   {
     val acc: Buff[Statement] = Buff()
-    var subAcc: Buff[StatementMember] = Buff()
+    var subAcc: Buff[StatementMem] = Buff()
 
-    def loop(rem: ArrOff[BlockMember]): ERefs[Statement] = rem match
+    def loop(rem: ArrOff[BlockMem]): ERefs[Statement] = rem match
     { case ArrOff0() if subAcc.isEmpty => Good(acc.toArr)
       case ArrOff0() => statementParse(subAcc.toArr, NoRef).map(acc :+ _).map(_.toArr)
       case ArrOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(EmptyStatement(st)); loop(tail) }
@@ -22,7 +22,7 @@ object statementsParse
           loop(tail)
         }
 
-      case ArrOff1Tail(sm: StatementMember, tail) => { subAcc.append(sm); loop(tail) }
+      case ArrOff1Tail(sm: StatementMem, tail) => { subAcc.append(sm); loop(tail) }
       case u => excep("Statement Loop, impossible case")
     }
 

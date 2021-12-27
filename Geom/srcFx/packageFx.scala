@@ -11,7 +11,7 @@ package object pFx
   lazy val devSettingsStatements: EMon[Statements] = statementsFromResource("DevSettings.rson")
 
   /** Find a setting of the given name and and return its Expr from the file DevSettings.rson. */
-  def findDevSettingExpr(settingStr: String): EMon[AssignmentMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
+  def findDevSettingExpr(settingStr: String): EMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson. */
   def findDevSettingT[A: Persist](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSettingT(settingStr))

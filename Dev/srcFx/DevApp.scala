@@ -20,7 +20,7 @@ class AppStart extends application.Application
     primaryStage.setX(findDevSettingElse("displayX", 0))//Sets default x value
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
-    val eExpr: EMon[pParse.AssignmentMemExpr] = findDevSettingExpr("appSet")
+    val eExpr: EMon[pParse.AssignMemExpr] = findDevSettingExpr("appSet")
 
     val pair = eExpr match {
       case Good(it: IdentifierToken) => if (Apps.idMap.contains(it.srcStr))

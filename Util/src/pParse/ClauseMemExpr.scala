@@ -3,38 +3,38 @@ package ostrat; package pParse
 
 /** The fundamental expression trait. As it currently stands properly formed Statements either is empty or contains an expression or a sequence of
  *  clauses that contain each contain an expression. */
-trait Expr extends BlockMember with StatementMember
+trait Expr extends BlockMem with StatementMem
 { def exprName: String
   def exprParseErr[A](implicit ev: UnShow[A]): EMon[A] = startPosn.bad(ev.typeStr -- "is not available from" -- exprName)
 }
 
-trait AssignmentMemExpr extends Expr with AssignmentMember
+trait AssignMemExpr extends Expr with AssignMem
 
 /** The fundamental expression trait. As it currently stands properly formed Statements either is empty or contains an expression or a sequence of
  *  clauses that contain each contain an expression. */
-trait ClauseMemberExpr extends AssignmentMemExpr with ClauseMember
+trait ClauseMemExpr extends AssignMemExpr with ClauseMem
 
 trait Expr0 extends Expr1
-trait Expr1 extends ClauseMemberExpr
+trait Expr1 extends ClauseMemExpr
 
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
 trait CompoundExpr extends Expr with TextSpanCompound
 
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
-trait CompoundClauseMemExpr extends CompoundExpr with ClauseMemberExpr// with TextSpanCompound
+trait CompoundClauseMemExpr extends CompoundExpr with ClauseMemExpr// with TextSpanCompound
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
-trait ExprSeq extends ClauseMemberExpr
+trait ExprSeq extends ClauseMemExpr
 { def exprs: Arr[Expr]
 }
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeqNonEmpty extends CompoundClauseMemExpr with ExprSeq
-{ def exprs: Arr[ClauseMemberExpr]
+{ def exprs: Arr[ClauseMemExpr]
 }
 
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
-trait ExprToken extends ClauseMemberExpr with ClauseMemberToken
+trait ExprToken extends ClauseMemExpr with ClauseMemberToken
 { def subTypeStr: String
   def exprName: String = subTypeStr + "Expr"
   final override def tokenTypeStr: String = subTypeStr + "Token"
@@ -50,7 +50,7 @@ trait BlockRaw
 
 trait BlockStatements extends ExprSeqNonEmpty
 { def statements: Arr[Statement]
-  def exprs: Arr[ClauseMemberExpr] = statements.map(_.expr).asInstanceOf[Arr[ClauseMemberExpr]]
+  def exprs: Arr[ClauseMemExpr] = statements.map(_.expr).asInstanceOf[Arr[ClauseMemExpr]]
   def startMem = statements.head
   def endMem = statements.last
 }
@@ -68,13 +68,13 @@ case class StringStatements(statements: Arr[Statement]) extends BlockStatements
 }
 
 case class ClausesExpr(clauses: Arr[Clause]) extends ExprSeqNonEmpty
-{ def exprs: Arr[ClauseMemberExpr] = clauses.map(_.expr)
+{ def exprs: Arr[ClauseMemExpr] = clauses.map(_.expr)
   def startMem = exprs.head
   def endMem = exprs.last
   override def exprName: String = "Claused Expr"
 }
 
-case class UnimplementedExpr(bMems: Arr[BlockMember]) extends CompoundClauseMemExpr
+case class UnimplementedExpr(bMems: Arr[BlockMem]) extends CompoundClauseMemExpr
 { def startMem = bMems.head
   def endMem = bMems.last
   override def exprName: String = "UnimplementedExpr"
@@ -86,20 +86,20 @@ case class AlphaBracketExpr(name: IdentifierToken, blocks: Arr[BracketedStatemen
   override def exprName: String = "AlphaBracketExpr"
 }
 
-case class PreOpExpr(op: OperatorToken, right: ClauseMemberExpr) extends CompoundClauseMemExpr
+case class PreOpExpr(op: OperatorToken, right: ClauseMemExpr) extends CompoundClauseMemExpr
 { override def startMem = op
   override def endMem = right
   override def exprName: String = "PreOpExpr"
   def opStr = op.srcStr
 }
 
-case class AsignExpr(left: AssignmentMemExpr, asToken: AsignToken, right : AssignmentMemExpr) extends CompoundExpr
+case class AsignExpr(left: AssignMemExpr, asToken: AsignToken, right : AssignMemExpr) extends CompoundExpr
 { override def startMem = left
   override def endMem = right
   override def exprName: String = "AsignExpr"
 }
 
-case class SpacedExpr(exprs: Arr[ClauseMemberExpr]) extends CompoundClauseMemExpr
+case class SpacedExpr(exprs: Arr[ClauseMemExpr]) extends CompoundClauseMemExpr
 { override def startMem = exprs(0)
   override def endMem = exprs.last
   override def exprName: String = "SpacedExprs"

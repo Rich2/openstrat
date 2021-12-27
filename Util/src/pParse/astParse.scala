@@ -7,7 +7,7 @@ object astParse
   /** Gets Statements from Tokens. All other methods in this object are private. */
   def apply(implicit tokens: Arr[Token]): ERefs[Statement] =
   {
-    val acc: Buff[BlockMember] = Buff()
+    val acc: Buff[BlockMem] = Buff()
 
     /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the
      * intervening tokens with a Bracket Block. */
@@ -20,7 +20,7 @@ object astParse
       }
 
       case ArrOffHead(bc: BracketCloseToken) => bc.startPosn.bad("Unexpected Closing Brace at top syntax level")
-      case ArrOff1Tail(bm: BlockMember, tail) => { acc.append(bm); loop(tail) }
+      case ArrOff1Tail(bm: BlockMem, tail) => { acc.append(bm); loop(tail) }
       case _ => excep("Case not implemented")
     }
 

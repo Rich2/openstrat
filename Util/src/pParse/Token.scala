@@ -26,7 +26,7 @@ object Token
   }
 }
 
-trait BlockMemberToken extends BlockMember with Token
+trait BlockMemberToken extends BlockMem with Token
 
 trait EmptyExprToken extends BlockMemberToken with ExprToken with ExprSeq
 { override def exprs: Arr[Expr] = Arr()
@@ -39,14 +39,14 @@ case class SemicolonToken(startPosn: TextPosn) extends EmptyExprToken
   override def toString: String = tokenTypeStr.appendParenthSemis(startPosn.lineNum.toString, startPosn.linePosn.toString)
 }
 
-case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with AssignmentMember
+case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with AssignMem
 { def srcStr = ","
   override def exprName: String = "EmptyClauseExpr"
   override def subTypeStr: String = "CommaToken"
 }
 
 /** A Token that can be a member of a Clause. */
-trait ClauseMemberToken extends BlockMemberToken with ClauseMember
+trait ClauseMemberToken extends BlockMemberToken with ClauseMem
 
 /** The Dot or Stop Token. */
 case class DotToken(startPosn: TextPosn) extends ClauseMemberToken
@@ -92,7 +92,7 @@ case class PrefixToken(startPosn: TextPosn, srcStr: String) extends OperatorToke
 { override def tokenTypeStr: String = "PlusPreToken"
 }*/
 
-case class AsignToken(startPosn: TextPosn) extends BlockMemberToken with StatementMember
+case class AsignToken(startPosn: TextPosn) extends BlockMemberToken with StatementMem
 { def srcStr = "="
   override def tokenTypeStr: String = "AsignToken"
 }

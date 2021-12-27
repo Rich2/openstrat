@@ -4,11 +4,11 @@ package ostrat; package pParse
 /** Function object. Not entirely sure what this does. */
 object prefixPlus
 {
-  def apply(implicit refs: Arr[BlockMember]): ERefs[BlockMember] =
+  def apply(implicit refs: Arr[BlockMem]): ERefs[BlockMem] =
   {
-    val acc: Buff[BlockMember] = Buff()
+    val acc: Buff[BlockMem] = Buff()
 
-    def loop(rem: ArrOff[BlockMember]): ERefs[BlockMember] = rem match
+    def loop(rem: ArrOff[BlockMem]): ERefs[BlockMem] = rem match
     { case ArrOff0() => Good(acc).map(_.toArr)
       //case RefsOff2Tail(pp: PrefixToken,  right: Expr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
       //case RefsOffHead(pp: PrefixToken) => bad1(pp, "Prefix operator not followed by expression")
@@ -21,19 +21,19 @@ object prefixPlus
 /** Function object that seeks to get a valid expression from a Mono Statement or clause. */
 object getExpr
 { /** Seeks to get a valid expression from a Mono Statement or clause. */
-  def apply (implicit seg: Arr[StatementMember]): EMon[Expr] = fromOffset(seg.offset0)
+  def apply (implicit seg: Arr[StatementMem]): EMon[Expr] = fromOffset(seg.offset0)
 
-  def fromOffset(inp: ArrOff[StatementMember])(implicit seg: Arr[StatementMember]): EMon[Expr] =
+  def fromOffset(inp: ArrOff[StatementMem])(implicit seg: Arr[StatementMem]): EMon[Expr] =
   {
-    val acc: Buff[AssignmentMember] = Buff()
+    val acc: Buff[AssignMem] = Buff()
 
-    def rightLoop(rem: ArrOff[StatementMember]): EMon[AssignmentMemExpr] = rem match {
+    def rightLoop(rem: ArrOff[StatementMem]): EMon[AssignMemExpr] = rem match {
       case ArrOff0() => getClauses(acc.toArr)
       case ArrOffHead(at: AsignToken) => bad1(at, "Prefix operator not followed by expression")
-      case ArrOff1Tail(am: AssignmentMember, tail) => { acc.append(am); rightLoop(tail)}
+      case ArrOff1Tail(am: AssignMem, tail) => { acc.append(am); rightLoop(tail)}
     }
 
-    def loop(rem: ArrOff[StatementMember]): EMon[Expr] = rem match
+    def loop(rem: ArrOff[StatementMem]): EMon[Expr] = rem match
     { case ArrOff0() => getClauses(acc.toArr)
 
       case ArrOff1Tail(at @ AsignToken(_), tail) =>
@@ -46,7 +46,7 @@ object getExpr
 
         eA
       }*/
-      case ArrOff1Tail(h: AssignmentMemExpr, tail) => { acc.append(h); loop(tail) }
+      case ArrOff1Tail(h: AssignMemExpr, tail) => { acc.append(h); loop(tail) }
     }
     loop(inp)
   }
@@ -55,13 +55,13 @@ object getExpr
 object getClauses
 {
   /** This assumes this is not empty */
-  def apply (implicit seg: Arr[AssignmentMember]): EMon[AssignmentMemExpr] = fromOffset(seg.offset0)
+  def apply (implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] = fromOffset(seg.offset0)
 
-  def fromOffset(inp: ArrOff[AssignmentMember])(implicit seg: Arr[AssignmentMember]): EMon[AssignmentMemExpr] =
+  def fromOffset(inp: ArrOff[AssignMem])(implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] =
   {
-    var subAcc: Buff[ClauseMember] = Buff()
+    var subAcc: Buff[ClauseMem] = Buff()
     val acc: Buff[Clause] = Buff()
-    def loop(rem: ArrOff[AssignmentMember]): EMon[AssignmentMemExpr] = rem match {
+    def loop(rem: ArrOff[AssignMem]): EMon[AssignMemExpr] = rem match {
 
       case ArrOff0() if acc.isEmpty => composeBlocks(subAcc.toArr)
       case ArrOff0() if subAcc.isEmpty => Good(ClausesExpr(acc.toArr))
@@ -73,7 +73,7 @@ object getClauses
         subAcc = Buff()
         loop(tail)
       }
-      case ArrOff1Tail(cm: ClauseMember, tail) => { subAcc.append(cm); loop(tail)}
+      case ArrOff1Tail(cm: ClauseMem, tail) => { subAcc.append(cm); loop(tail)}
     }
     loop(inp)
   }

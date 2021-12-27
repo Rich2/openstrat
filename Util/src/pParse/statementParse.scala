@@ -6,12 +6,12 @@ package ostrat; package pParse
 object statementParse
 {
   /** Parses a sequence of Statement members into a Statement. Statement members are either nonBracketTokens or parsed BracketBlocks.  */
-  def apply(memsIn: Arr[StatementMember], optSemi: OptRef[SemicolonToken]): EMon[Statement] =
+  def apply(memsIn: Arr[StatementMem], optSemi: OptRef[SemicolonToken]): EMon[Statement] =
   {
     implicit val inp = memsIn
-    val acc: Buff[StatementMember] = Buff()
+    val acc: Buff[StatementMem] = Buff()
 
-    def loop(rem: ArrOff[StatementMember]): EMon[Statement] =
+    def loop(rem: ArrOff[StatementMem]): EMon[Statement] =
       rem.headFold(getExpr(acc.toArr).map(g => NonEmptyStatement(g, optSemi))){ (em, tail) =>
         acc.append(em)
         loop(tail)
