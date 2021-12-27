@@ -73,7 +73,7 @@ trait UnShow[+T] extends TypeStred
 
   /** Finds a setting of the type of this UnShow instance from a [Statement]. */
   def settingTFromStatement(settingStr: String, st: Statement): EMon[T] = st match
-  { case MonoStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
+  { case NonEmptyStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
   }
 

@@ -4,11 +4,11 @@ package ostrat; package pParse
 /** I believe this composes Blocks with their preceding identifiers. */
 object composeBlocks
 {
-  def apply(implicit seg: Arr[ClauseMember]): EMon[Expr]=
+  def apply(implicit seg: Arr[StatementMember]): EMon[Expr]=
   {
     val acc: Buff[BlockMember] = Buff()
 
-    def sortBlocks(rem: ArrOff[ClauseMember]): ERefs[BlockMember] = rem match
+    def sortBlocks(rem: ArrOff[StatementMember]): ERefs[BlockMember] = rem match
     { case ArrOff0() => prefixPlus(acc.toArr)
       case ArrOff2Tail(at: IdentifierToken, bb: BracketedStatements, t2) => {
         val abe = AlphaBracketExpr(at, Arr(bb))

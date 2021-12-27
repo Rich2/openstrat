@@ -9,20 +9,14 @@ object statementParse
   def apply(memsIn: Arr[StatementMember], optSemi: OptRef[SemicolonToken]): EMon[Statement] =
   {
     implicit val inp = memsIn
-    val acc: Buff[Clause] = Buff()
-    val subAcc: Buff[ClauseMember] = Buff()
+    val acc: Buff[StatementMember] = Buff()
 
-    def loop(rem: ArrOff[StatementMember]): EMon[Statement] = rem match
-    { case ArrOff0() if acc.isEmpty => getExpr(subAcc.toArr).map(g => MonoStatement(g, optSemi))
-      case ArrOff0() if subAcc.isEmpty => Good(ClausedStatement(acc.toArr, optSemi))
-      case ArrOff0() => getExpr(subAcc.toArr).map(g => ClausedStatement(acc.append(Clause(g, NoRef)).toArr, optSemi))
-      case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
-      case ArrOff1Tail(ct: CommaToken, tail) => getExpr(subAcc.toArr).flatMap{ g =>
-        acc.append(Clause(g, OptRef(ct)))
+    def loop(rem: ArrOff[StatementMember]): EMon[Statement] =
+      rem.headFold(getExpr(acc.toArr).map(g => NonEmptyStatement(g, optSemi))){ (em, tail) =>
+        acc.append(em)
         loop(tail)
       }
-      case ArrOff1Tail(em: ClauseMember, tail) => { subAcc.append(em); loop(tail) }
-    }
+
 
     loop(inp.offset0)
   }

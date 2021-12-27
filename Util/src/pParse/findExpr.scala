@@ -21,13 +21,13 @@ object prefixPlus
 /** Function object that seeks to get a valid expression from a Mono Statement or clause. */
 object getExpr
 { /** Seeks to get a valid expression from a Mono Statement or clause. */
-  def apply (implicit seg: Arr[ClauseMember]): EMon[Expr] = fromOffset(seg.offset0)
+  def apply (implicit seg: Arr[StatementMember]): EMon[Expr] = fromOffset(seg.offset0)
 
-  def fromOffset(inp: ArrOff[ClauseMember])(implicit seg: Arr[ClauseMember]): EMon[Expr] =
+  def fromOffset(inp: ArrOff[StatementMember])(implicit seg: Arr[StatementMember]): EMon[Expr] =
   {
-    val acc: Buff[ClauseMember] = Buff()
+    val acc: Buff[StatementMember] = Buff()
 
-    def loop(rem: ArrOff[ClauseMember]): EMon[Expr] = { rem match
+    def loop(rem: ArrOff[StatementMember]): EMon[Expr] = { rem match
     { case ArrOff0() => composeBlocks(acc.toArr)
 
       case ArrOff1Tail(at @ AsignToken(_), tail) =>

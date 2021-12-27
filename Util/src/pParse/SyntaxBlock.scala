@@ -11,9 +11,12 @@ trait BlockMember extends TextSpan
  *  sequence of Statements but can themselves be part of a statement. */
 trait StatementMember extends BlockMember
 
+/** An Assignment member can appear in the expressions either side of an asignment operator. */
+trait AssignmentMember extends StatementMember
+
 /** I think its helpful to have an expression member trait for syntax that is not expressions. So I don't think it would be helpful if say an opening
  *  brace was an expression. All Expressions are Expression members. */
-trait ClauseMember extends StatementMember
+trait ClauseMember extends AssignmentMember
 
 sealed trait BracketToken extends Token
 { def braces: Braces

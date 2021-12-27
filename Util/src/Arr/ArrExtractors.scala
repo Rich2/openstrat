@@ -153,8 +153,11 @@ class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, Arr[A]]
     (new Arr(newArray), drop(count))
   }
   /** Checks condition against head. Returns false if the collection is empty. */
-  def ifHead(f: A => Boolean)(implicit arr: Arr[A]) : Boolean = (arr.elemsNum > offset0) & f(arr(offset0))
+  def ifHead(f: A => Boolean)(implicit arr: Arr[A]): Boolean = (arr.elemsNum > offset0) & f(arr(offset0))
 
+  /** Folds over the existence of a head on this [[ArrOff]] iterator */
+  def headFold[B](emptyValue: => B)(f: (A, ArrOff[A]) => B)(implicit arr: Arr[A]): B =
+    if (arr.elemsNum > offset0) f(arr(offset0), drop1) else emptyValue
 }
 
 /** Extractor for empty immutable heapless iterator for Arr. */

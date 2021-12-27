@@ -5,7 +5,11 @@ package ostrat; package pParse
   * clauses containing a single expression. An empty statement is a special case of the UnClausedStatement where the semicolon character is the
   * expression. */
 sealed trait Statement extends TextSpan
-{ /** The opt semicolon token. */
+{
+  /** The expression value of this Statement. */
+  def expr: Expr
+
+  /** The opt semicolon token. */
   def optSemi: OptRef[SemicolonToken]
 
   /** The statement has semicolon as end */
@@ -17,12 +21,9 @@ sealed trait Statement extends TextSpan
   /** Not sure what this is meant to be doing, or whether it can be removed. */
   final def errGet[A](implicit ev: Persist[A]): EMon[A] = ???
 
-  /** The expression value of this Statement. */
-  def expr: Expr
-
   /** Returns the right expression if this Statement is a setting of the given name. */
   def settingExpr(settingName: String): EMon[Expr] = this match {
-    case MonoStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
+    case NonEmptyStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
     case _ => startPosn.bad(settingName -- "not found.")
   }
 }
@@ -124,28 +125,27 @@ object Statement
 
 /** This statement has 1 or more comma separated clauses. If there is only 1 Clause, it must be terminated by a comma, otherwise the trailing comma
  *  on the last Clauses is optional. */
-case class ClausedStatement(clauses: Arr[Clause], optSemi: OptRef[SemicolonToken]) extends Statement with TextSpanCompound
+/*case class ClausedStatement(clauses: Arr[Clause], optSemi: OptRef[SemicolonToken]) extends Statement with TextSpanCompound
 { def expr: Expr = ??? //ClausesExpr(clauses.map(_.expr))
   def startMem: TextSpan = clauses.head
   def endMem: TextSpan = optSemi.fld[TextSpan](clauses.last, st => st)
   //override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)
-}
+}*/
 
 /** An unclaused Statement has a single expression. */
-sealed trait UnClausedStatement extends Statement
-{ def expr: Expr
-  def optSemi: OptRef[SemicolonToken]
+/*sealed trait UnClausedStatement extends Statement
+{
  // override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromExpr(expr)
-}
+}*/
 
 /** An un-claused Statement that is not the empty statement. */
-case class MonoStatement(expr: Expr, optSemi: OptRef[SemicolonToken]) extends UnClausedStatement with TextSpanCompound
+case class NonEmptyStatement(expr: Expr, optSemi: OptRef[SemicolonToken]) extends Statement with TextSpanCompound
 { def startMem: TextSpan = expr
   def endMem: TextSpan = optSemi.fld(expr, sc => sc)
 }
 
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
-case class EmptyStatement(st: SemicolonToken) extends UnClausedStatement with TextSpanCompound
+case class EmptyStatement(st: SemicolonToken) extends Statement with TextSpanCompound
 { override def expr: Expr = st
   override def optSemi: OptRef[SemicolonToken] = OptRef(st)
   override def startMem: TextSpan = st
