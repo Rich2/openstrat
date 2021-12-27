@@ -25,13 +25,19 @@ object getExpr
 
   def fromOffset(inp: ArrOff[StatementMember])(implicit seg: Arr[StatementMember]): EMon[Expr] =
   {
-    val acc: Buff[StatementMember] = Buff()
+    val acc: Buff[AssignmentMember] = Buff()
 
-    def loop(rem: ArrOff[StatementMember]): EMon[Expr] = { rem match
-    { case ArrOff0() => composeBlocks(acc.toArr)
+    def rightLoop(rem: ArrOff[StatementMember]): EMon[AssignmentMemExpr] = rem match {
+      case ArrOff0() => getClauses(acc.toArr)
+      case ArrOffHead(at: AsignToken) => bad1(at, "Prefix operator not followed by expression")
+      case ArrOff1Tail(am: AssignmentMember, tail) => { acc.append(am); rightLoop(tail)}
+    }
+
+    def loop(rem: ArrOff[StatementMember]): EMon[Expr] = rem match
+    { case ArrOff0() => getClauses(acc.toArr)
 
       case ArrOff1Tail(at @ AsignToken(_), tail) =>
-        composeBlocks(acc.toArr).flatMap(gLs => fromOffset(tail).map(gRs => AsignExpr(gLs, at, gRs)))
+        getClauses(acc.toArr).flatMap(gLs => rightLoop(tail).map(gRs => AsignExpr(gLs, at, gRs)))
       /*{
         val eA = for {
           gLs <- composeBlocks(acc.toRefs)
@@ -40,8 +46,35 @@ object getExpr
 
         eA
       }*/
-      case ArrOff1Tail(h, tail) => { acc.append(h); loop(tail) }
-    } }
+      case ArrOff1Tail(h: AssignmentMemExpr, tail) => { acc.append(h); loop(tail) }
+    }
+    loop(inp)
+  }
+}
+
+object getClauses
+{
+  /** This assumes this is not empty */
+  def apply (implicit seg: Arr[AssignmentMember]): EMon[AssignmentMemExpr] = fromOffset(seg.offset0)
+
+  def fromOffset(inp: ArrOff[AssignmentMember])(implicit seg: Arr[AssignmentMember]): EMon[AssignmentMemExpr] =
+  {
+    var subAcc: Buff[ClauseMember] = Buff()
+    val acc: Buff[Clause] = Buff()
+    def loop(rem: ArrOff[AssignmentMember]): EMon[AssignmentMemExpr] = rem match {
+
+      case ArrOff0() if acc.isEmpty => composeBlocks(subAcc.toArr)
+      case ArrOff0() if subAcc.isEmpty => Good(ClausesExpr(acc.toArr))
+      case ArrOff0() => composeBlocks(subAcc.toArr).map{e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
+      case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
+
+      case ArrOff1Tail(ct: CommaToken, tail) => composeBlocks(subAcc.toArr).flatMap{ expr =>
+        acc.append(Clause(expr, OptRef(ct)))
+        subAcc = Buff()
+        loop(tail)
+      }
+      case ArrOff1Tail(cm: ClauseMember, tail) => { subAcc.append(cm); loop(tail)}
+    }
     loop(inp)
   }
 }

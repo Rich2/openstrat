@@ -39,7 +39,7 @@ case class SemicolonToken(startPosn: TextPosn) extends EmptyExprToken
   override def toString: String = tokenTypeStr.appendParenthSemis(startPosn.lineNum.toString, startPosn.linePosn.toString)
 }
 
-case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with StatementMember
+case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with AssignmentMember
 { def srcStr = ","
   override def exprName: String = "EmptyClauseExpr"
   override def subTypeStr: String = "CommaToken"

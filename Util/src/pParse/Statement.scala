@@ -22,7 +22,7 @@ sealed trait Statement extends TextSpan
   final def errGet[A](implicit ev: Persist[A]): EMon[A] = ???
 
   /** Returns the right expression if this Statement is a setting of the given name. */
-  def settingExpr(settingName: String): EMon[Expr] = this match {
+  def settingExpr(settingName: String): EMon[AssignmentMemExpr] = this match {
     case NonEmptyStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingName => Good(rightExpr)
     case _ => startPosn.bad(settingName -- "not found.")
   }
@@ -38,7 +38,7 @@ object Statement
     def endPosn = statementRefs.lastFold(ifEmptyTextPosn)(_.endPosn)
 
     /** Finds a setting [Expr] from this Arr[Statement] extension method. */
-    def findSettingExpr(settingStr: String): EMon[Expr] = statementRefs match
+    def findSettingExpr(settingStr: String): EMon[AssignmentMemExpr] = statementRefs match
     { case Arr0() => TextPosn.emptyError("No Statements")
       case Arr1(st1) => st1.settingExpr(settingStr)
       case sts => sts.map(st => st.settingExpr(settingStr)).collect{ case g @ Good(_) => g } match
@@ -146,7 +146,7 @@ case class NonEmptyStatement(expr: Expr, optSemi: OptRef[SemicolonToken]) extend
 
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
 case class EmptyStatement(st: SemicolonToken) extends Statement with TextSpanCompound
-{ override def expr: Expr = st
+{ override def expr: ClauseMemberExpr = st
   override def optSemi: OptRef[SemicolonToken] = OptRef(st)
   override def startMem: TextSpan = st
   override def endMem: TextSpan = st

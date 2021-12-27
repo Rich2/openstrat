@@ -18,7 +18,7 @@ object Lessons extends GuiLaunch
   override def settingStr: String = "lessons"
 
   override def default: (CanvasPlatform => Any, String) = (LsA1a(_), "JavaFx Demonstration Canvas A1")
-  override def apply(expr: Expr): (CanvasPlatform => Any, String) = expr match {
+  override def apply(expr: AssignmentMemExpr): (CanvasPlatform => Any, String) = expr match {
     case it: IdentifierToken => theMap(it.srcStr)
     case _ => theMap("")
   }
