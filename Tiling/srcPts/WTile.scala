@@ -20,7 +20,7 @@ object WTile
   implicit val persistImplicit: Persist[WTile] = new PersistSimple[WTile]("Terrain")
   {
     def strT(obj: WTile): String = obj.str
-    def fromExpr(expr: ParseExpr): EMon[WTile] = ???
+    def fromExpr(expr: pParse.Expr): EMon[WTile] = ???
   }
 
   val plain: WTile = Land(Plains)

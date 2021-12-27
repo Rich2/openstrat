@@ -29,7 +29,7 @@ object Token
 trait BlockMemberToken extends BlockMember with Token
 
 trait EmptyExprToken extends BlockMemberToken with ExprToken with ExprSeq
-{ override def exprs: Arr[ParseExpr] = Arr()
+{ override def exprs: Arr[Expr] = Arr()
 }
 
 case class SemicolonToken(startPosn: TextPosn) extends EmptyExprToken

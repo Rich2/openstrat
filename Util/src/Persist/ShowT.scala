@@ -157,7 +157,7 @@ object ShowT
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
 
-    override def fromExpr(expr: ParseExpr): EMon[ArraySeq[A]] =  expr match
+    override def fromExpr(expr: Expr): EMon[ArraySeq[A]] =  expr match
     { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
       case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
       case _ => ??? // expr.exprParseErr[A](this)
@@ -172,7 +172,7 @@ object ShowT
   {
     override def syntaxDepthT(obj: Array[A]): Int = ???
 
-    override def fromExpr(expr: ParseExpr): EMon[Array[A]] =  expr match
+    override def fromExpr(expr: Expr): EMon[Array[A]] =  expr match
     {
       case AlphaBracketExpr(IdentLowerToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => ??? // fromParameterStatements(sts)
       case AlphaBracketExpr(IdentLowerToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)

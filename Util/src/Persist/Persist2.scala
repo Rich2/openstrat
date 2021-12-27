@@ -182,7 +182,7 @@ class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R =
   override implicit def ev1: Persist[A1] = ev1In
   override implicit def ev2: Persist[A2] = ev2In
 
-  override def fromExpr(expr: ParseExpr): EMon[R] = expr match
+  override def fromExpr(expr: Expr): EMon[R] = expr match
   {
     case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(Arr2(s1, s2), _, _))) if typeStr == typeName =>
       ev1.fromExpr(s1.expr).flatMap(a1 => ev2.fromExpr(s2.expr).map{a2 => newT(a1, a2)})

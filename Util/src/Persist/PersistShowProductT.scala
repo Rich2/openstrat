@@ -7,7 +7,7 @@ import pParse._
  *  xStart, yStart, xEnd, yEnd. */
 trait PersistProduct[R] extends Persist[R]
 {
-  override def fromExpr(expr: ParseExpr): EMon[R] = expr match
+  override def fromExpr(expr: Expr): EMon[R] = expr match
   {
     case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName =>
     {deb("PersistProduct.fromExpr"); expr.exprParseErr[R](this) }//  fromParameterStatements(sts)
