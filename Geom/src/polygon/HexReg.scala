@@ -142,7 +142,7 @@ object HexReg
     override def show2: Pt2 = sd1Cen
     override implicit def showT1: ShowT[Pt2] = Pt2.persistImplicit
     override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
-    override def syntaxdepth: Int = 3
+    override def syntaxDepth: Int = 3
 
     override def vert(index: Int): Pt2 = index match {
       case 1 => v1

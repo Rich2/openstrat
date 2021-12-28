@@ -37,7 +37,7 @@ trait Show2[A1, A2] extends Any with ShowProduct
 trait ShowElemInt2 extends Any with Show2[Int, Int] with ElemInt2
 { final override implicit def showT1: ShowT[Int] = ShowT.intPersistImplicit
   final override implicit def showT2: ShowT[Int] = ShowT.intPersistImplicit
-  final override def syntaxdepth: Int = 2
+  final override def syntaxDepth: Int = 2
   final override def int1: Int = show1
   final override def int2: Int = show2
 }
@@ -55,7 +55,7 @@ trait Show2Base32s extends Any with ShowElemInt2
 trait ShowDbl2 extends Any with Show2[Double, Double]
 { final override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
   final override implicit def showT2: ShowT[Double] = ShowT.doublePersistImplicit
-  final override def syntaxdepth: Int = 2
+  final override def syntaxDepth: Int = 2
 }
 
 /** Trait for Show for product of 2 Doubles that is also an [[ElemDbl2]]. This trait is implemented directly by the type in question, unlike the
@@ -208,16 +208,18 @@ object Persist2
 class PersistShow2[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends
   Persist2[A1, A2, R](typeStr, name1, _.show1, name2, _.show2, newT, opt2, opt1) with ShowShow2T[A1, A2, R]
+
+object PersistShow2
 {
-  //val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-//  implicit def ev1: ShowT[A1] = ev1In
- // implicit def ev2: ShowT[A2] = ev2In
+  def apply[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]): PersistShow2[A1, A2, R] =
+    new PersistShow2[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
 }
 
-/** Persistence type class for types that extend [[ShowElemInt2]]. */
+  /** Persistence type class for types that extend [[ShowElemInt2]]. */
 class PersistShowInt2[R <: ShowElemInt2](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R) extends
   PersistShow2[Int, Int, R](typeStr, name1, name2, newT)
 
-/** Persistence class for types that extends [[Show2Dl]]. */
-class PersistShowDbl2[R <: ShowDbl2](typeStr: String, name1: String, name2: String, newT: (Double, Double) => R) extends PersistShow2[Double, Double, R](
-  typeStr, name1,  name2, newT)
+  /** Persistence class for types that extends [[Show2Dl]]. */
+class PersistShowDbl2[R <: ShowDbl2](typeStr: String, name1: String, name2: String, newT: (Double, Double) => R) extends
+  PersistShow2[Double, Double, R](typeStr, name1, name2, newT)

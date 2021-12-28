@@ -12,7 +12,7 @@ final case class Sqlign private(width: Double, cenX: Double, cenY: Double) exten
   override def show2: Pt2 = cen
   override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
   override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
-  override def syntaxdepth: Int = 3
+  override def syntaxDepth: Int = 3
   override def attribs: Arr[XANumeric] = ???
   override def width1 = width
   override def width2: Double = width

@@ -14,7 +14,7 @@ case class Player(val char: Char, val colour: Colour) extends Show//2[Char, Colo
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   override def show(way: Show.Way, maxPlaces: Int, minPlaces: Int): String = "Player" + char
 
-  override def syntaxdepth: Int = 1
+  override def syntaxDepth: Int = 1
 }
 
 /** Companion object for Player case class contains implicit instance for Persist. */

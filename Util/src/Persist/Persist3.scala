@@ -41,7 +41,7 @@ trait Show3[A1, A2, A3] extends Any with ShowProduct
 }
 
 trait ShowDbl3 extends Any with Show3[Double, Double, Double]
-{ final override def syntaxdepth: Int = 2
+{ final override def syntaxDepth: Int = 2
   final override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
   final override implicit def showT2: ShowT[Double] = ShowT.doublePersistImplicit
   final override implicit def showT3: ShowT[Double] = ShowT.doublePersistImplicit

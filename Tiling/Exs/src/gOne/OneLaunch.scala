@@ -18,8 +18,9 @@ object OneLaunch extends GuiLaunchMore
       case 4 => OneScen4
       case _ => OneScen1
     }
-    val hc = sts.findSettingT[HCenOrSide]("view")
-    debvar(hc)
-    (GOneGui(_, scen, hc.getElse(scen.grid.coordCen).view()), "JavaFx Game One")
+    debb()
+    val oview = sts.findSettingT[HGridView]("view")
+    debvar(oview)
+    (GOneGui(_, scen, oview.getElse(scen.grid.coordCen.view())), "JavaFx Game One")
   }
 }

@@ -15,7 +15,7 @@ trait ShowShowT[R <: Show] extends ShowT[R]
 
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
-  override def syntaxDepthT(obj: R): Int = obj.syntaxdepth
+  override def syntaxDepthT(obj: R): Int = obj.syntaxDepth
 }
 
 object ShowShowT

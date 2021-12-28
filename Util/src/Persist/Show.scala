@@ -15,7 +15,7 @@ trait Show extends Any
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def show(way: Show.Way = Show.Standard, maxPlaces: Int = -1, minPlaces: Int = 0): String
 
-  def syntaxdepth: Int
+  def syntaxDepth: Int
 
   override def toString: String = str
 }
@@ -60,5 +60,5 @@ trait ShowSingleton extends Show
     case _ => str
   }
 
-  override def syntaxdepth: Int = 1
+  override def syntaxDepth: Int = 1
 }
