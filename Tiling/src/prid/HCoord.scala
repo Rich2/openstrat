@@ -20,6 +20,8 @@ trait HCoord extends Any with TCoord
   }
 
   def subR(rDelta: Int): HCoord = HCoord(r -rDelta, c)
+
+  def view(pxScale: Double = 50): HGridView = HGridView(r, c, pxScale)
 }
 
 /** Companion object for Hex coordinate trait, contains apply factory object. */

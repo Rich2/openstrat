@@ -14,6 +14,8 @@ trait HexGridScen extends GridTurnScen
   /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
    *  on flat arrays of data. */
   implicit val grid: HGrid
+
+  def defaultView: HGridView = HGridView(4, 4)
 }
 
 trait SqGridScen extends GridTurnScen

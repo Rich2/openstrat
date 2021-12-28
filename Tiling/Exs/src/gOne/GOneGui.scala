@@ -3,7 +3,7 @@ package ostrat; package gOne
 import pgui._, geom._, prid._
 
 /** Graphical user interface for GOne example game. */
-case class GOneGui(canv: CanvasPlatform, scenStart: OneScen) extends HexMapGui("Game One Gui")
+case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) extends HexMapGui("Game One Gui")
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
