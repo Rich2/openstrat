@@ -18,7 +18,6 @@ object OneLaunch extends GuiLaunchMore
       case 4 => OneScen4
       case _ => OneScen1
     }
-    debvar(sts(1))
     val hc = sts.findSettingT[HCen]("hcen")
     debvar(hc)
     (GOneGui(_, scen), "JavaFx Game One")
