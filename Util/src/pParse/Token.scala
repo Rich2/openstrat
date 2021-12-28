@@ -14,10 +14,9 @@ trait Token extends TextSpan
   }
 
   override def hashCode(): Int = tokenTypeStr.hashCode * 31 + startPosn.hashCode
-
-  //override def toString = "Unnamed Token"
 }
 
+/** Companion object for [[Token]] trait contains [[Show]] implicit instance. */
 object Token
 {
   implicit val showImplicit: ShowT[Token] = new ShowSimpleT[Token]
@@ -26,9 +25,10 @@ object Token
   }
 }
 
-trait BlockMemberToken extends BlockMem with Token
+/** Token that is member of a block. Includes all tokens except the brace tokens. */
+trait BlockMemToken extends BlockMem with Token
 
-trait EmptyExprToken extends BlockMemberToken with ExprToken with ExprSeq
+trait EmptyExprToken extends BlockMemToken with ExprToken with ExprSeq
 { override def exprs: Arr[Expr] = Arr()
 }
 
@@ -46,22 +46,22 @@ case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with AssignMem
 }
 
 /** A Token that can be a member of a Clause. */
-trait ClauseMemberToken extends BlockMemberToken with ClauseMem
+trait ClauseMemToken extends BlockMemToken with ClauseMem
 
 /** The Dot or Stop Token. */
-case class DotToken(startPosn: TextPosn) extends ClauseMemberToken
+case class DotToken(startPosn: TextPosn) extends ClauseMemToken
 { def srcStr = "."
   override def tokenTypeStr: String = "DotToken"
 }
 
 /** The double Dot or Stop Token. */
-case class Dot2Token(startPosn: TextPosn) extends ClauseMemberToken
+case class Dot2Token(startPosn: TextPosn) extends ClauseMemToken
 { def srcStr = ".."
   override def tokenTypeStr: String = "DotToken"
 }
 
 /** The triple Dot or Stop Token. */
-case class Dot3Token(startPosn: TextPosn) extends ClauseMemberToken
+case class Dot3Token(startPosn: TextPosn) extends ClauseMemToken
 { def srcStr = "..."
   override def tokenTypeStr: String = "DotToken"
 }
@@ -78,7 +78,7 @@ case class StringToken(startPosn: TextPosn, stringStr: String) extends ExprToken
 
 /** An Operator token. */
 //trait OperatorToken extends ClauseMemberToken
-case class OperatorToken(startPosn: TextPosn, srcStr: String) extends ClauseMemberToken // OperatorToken
+case class OperatorToken(startPosn: TextPosn, srcStr: String) extends ClauseMemToken // OperatorToken
 { override def tokenTypeStr: String = "OtherOperatorToken"
 }
 
@@ -92,7 +92,7 @@ case class PrefixToken(startPosn: TextPosn, srcStr: String) extends OperatorToke
 { override def tokenTypeStr: String = "PlusPreToken"
 }*/
 
-case class AsignToken(startPosn: TextPosn) extends BlockMemberToken with StatementMem
+case class AsignToken(startPosn: TextPosn) extends BlockMemToken with StatementMem
 { def srcStr = "="
   override def tokenTypeStr: String = "AsignToken"
 }

@@ -8,10 +8,10 @@ trait Expr extends BlockMem with StatementMem
   def exprParseErr[A](implicit ev: UnShow[A]): EMon[A] = startPosn.bad(ev.typeStr -- "is not available from" -- exprName)
 }
 
+/** An expression that is a member of the right oe left side of an assignment expression. */
 trait AssignMemExpr extends Expr with AssignMem
 
-/** The fundamental expression trait. As it currently stands properly formed Statements either is empty or contains an expression or a sequence of
- *  clauses that contain each contain an expression. */
+/** An expression that can be a member of a [[Clause]]. */
 trait ClauseMemExpr extends AssignMemExpr with ClauseMem
 
 trait Expr0 extends Expr1
@@ -34,7 +34,7 @@ trait ExprSeqNonEmpty extends CompoundClauseMemExpr with ExprSeq
 }
 
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
-trait ExprToken extends ClauseMemExpr with ClauseMemberToken
+trait ExprToken extends ClauseMemExpr with ClauseMemToken
 { def subTypeStr: String
   def exprName: String = subTypeStr + "Expr"
   final override def tokenTypeStr: String = subTypeStr + "Token"
