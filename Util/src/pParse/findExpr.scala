@@ -27,26 +27,25 @@ object getExpr
   {
     val acc: Buff[AssignMem] = Buff()
 
-    def rightLoop(rem: ArrOff[StatementMem]): EMon[AssignMemExpr] = rem match {
-      case ArrOff0() => getClauses(acc.toArr)
-      case ArrOffHead(at: AsignToken) => bad1(at, "Prefix operator not followed by expression")
-      case ArrOff1Tail(am: AssignMem, tail) => { acc.append(am); rightLoop(tail)}
-    }
-
     def loop(rem: ArrOff[StatementMem]): EMon[Expr] = rem match
     { case ArrOff0() => getClauses(acc.toArr)
 
-      case ArrOff1Tail(at @ AsignToken(_), tail) =>
-        getClauses(acc.toArr).flatMap(gLs => rightLoop(tail).map(gRs => AsignExpr(gLs, at, gRs)))
-      /*{
-        val eA = for {
-          gLs <- composeBlocks(acc.toRefs)
-          gRs <- fromOffset(tail) //This has been altered. I think its correct now with no altering to acc
-        } yield AsignExpr(gLs, at, gRs)
+      case ArrOff1Tail(at @ AsignToken(_), tail) => getClauses(acc.toArr).flatMap(gLs => rightExpr(tail).map { gRs =>
+          AsignExpr(gLs, at, gRs)
+        })
 
-        eA
-      }*/
       case ArrOff1Tail(h: AssignMemExpr, tail) => { acc.append(h); loop(tail) }
+    }
+    loop(inp)
+  }
+
+  def rightExpr(inp: ArrOff[StatementMem])(implicit seg: Arr[StatementMem]): EMon[AssignMemExpr] =
+  {
+    val acc: Buff[AssignMem] = Buff()
+    def loop(rem: ArrOff[StatementMem]): EMon[AssignMemExpr] = rem match {
+      case ArrOff0() => getClauses(acc.toArr)
+      case ArrOffHead(at: AsignToken) => bad1(at, "Prefix operator not followed by expression")
+      case ArrOff1Tail(am: AssignMem, tail) => { acc.append(am); loop(tail)}
     }
     loop(inp)
   }

@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import geom._, pWeb._, collection.mutable.ArrayBuffer
+import geom._, pWeb._, collection.mutable.ArrayBuffer, pParse._
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
 class Colour(val argbValue: Int) extends AnyVal with FillFacet with ElemInt1
@@ -97,7 +97,6 @@ object Colour
 
   implicit val persistImplicit: Persist[Colour] = new PersistSimple[Colour]("Colour")
   {
-    import pParse._
     def fromExpr(expr: Expr): EMon[Colour] = expr match
     { case IdentLowerToken(_, typeName) if Colour.strToValue.contains(typeName) => Good(Colour.strToValue(typeName))
       case Nat0xToken(_, _) => ??? //Good(Colour(v.toInt))

@@ -4,7 +4,7 @@ package ostrat; package pParse
 /** I believe this composes Blocks with their preceding identifiers. */
 object composeBlocks
 {
-  def apply(implicit seg: Arr[ClauseMem]): EMon[ClauseMemExpr]=
+  def apply(implicit seg: Arr[ClauseMem]): EMon[ClauseMemExpr] =
   {
     val acc: Buff[BlockMem] = Buff()
 
