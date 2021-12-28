@@ -15,7 +15,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
 
   var cPScale: Double = viewIn.pxScale// grid.fullDisplayScale(mainWidth, mainHeight)
 
-  // focus: Pt2 = ???//viewIn.
+   focus = viewIn.vec
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
@@ -72,9 +72,9 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   }
   thisTop()
 
-  def moveGraphics2: GraphicElems = moveGraphics.gridScale(cPScale).flatMap(_.arrow)
+  def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
 
-  def frame: GraphicElems = (tiles +% sidesDraw ++ units ++ hexStrs).gridScale(cPScale) ++ moveGraphics2
+  def frame: GraphicElems = (tiles +% sidesDraw ++ units ++ hexStrs).slate(-focus).scale(cPScale) ++ moveGraphics2
 
   repaint()
 }
