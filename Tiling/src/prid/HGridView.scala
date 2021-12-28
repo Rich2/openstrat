@@ -1,8 +1,11 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
+import geom._
 
-class HGridView(val r: Int, val c: Int, val pxScale: Double) {
-
+class HGridView(val r: Int, val c: Int, val pxScale: Double)
+{
+  def hcoord: HCoord = HCoord(r, c)
+  def vec: Vec2 = hcoord.toVec
 }
 
 object HGridView

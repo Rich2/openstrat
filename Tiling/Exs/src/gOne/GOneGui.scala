@@ -13,7 +13,9 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
 
   def players: HCenArrOpt[Player] = scen.oPlayers
 
-  var cPScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
+  var cPScale: Double = viewIn.pxScale// grid.fullDisplayScale(mainWidth, mainHeight)
+
+  // focus: Pt2 = ???//viewIn.
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
