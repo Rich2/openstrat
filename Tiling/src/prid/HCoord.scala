@@ -37,6 +37,8 @@ object HCoord
     case _ => excep(s"$r, $c is not a valid HCoord hex grid coordinate.")
   }
 
+  implicit val persistImplicit: Persist[HCoord] = new PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
+
   implicit val polygonBuildImplicit: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
   { override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): PolygonHC = new PolygonHC(array)

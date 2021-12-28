@@ -15,7 +15,7 @@ trait HexGridScen extends GridTurnScen
    *  on flat arrays of data. */
   implicit val grid: HGrid
 
-  def defaultView: HGridView = HGridView(4, 4)
+  def defaultView(pxScale: Double = 50): HGridView = grid.coordCen.view(pxScale)// HGridView(4, 4)
 }
 
 trait SqGridScen extends GridTurnScen

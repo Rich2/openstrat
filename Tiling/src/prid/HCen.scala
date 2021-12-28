@@ -74,8 +74,6 @@ object HCen
   val vertsOfHex00: HVerts = HVerts(h00v1, h00v2, h00v3, h00v4, h00v5, h00v6)
 
   implicit val persistImplicit: Persist[HCen] = new PersistShowInt2[HCen]("HCen", "r", "c", HCen(_, _))
-  {
-  }
 
   implicit val hCensBuildImplicit: ArrInt2sBuilder[HCen, HCens] = new ArrInt2sBuilder[HCen, HCens]
   { type BuffT = HCenBuff

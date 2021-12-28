@@ -35,6 +35,7 @@ trait TGrid extends Any
   /** The centre of the hex grid in terms of c column coordinates. */
   def cCen: Int = (leftCenCol + rightCenCol) / 2
 
+  /** The [[TileCenOrSide]] coordinate centre of this tile grid. */
   def coordCen: TileCenOrSide
 
   /** The bottom or lowest tile side row, r coordinate. */
@@ -60,12 +61,16 @@ trait TGrid extends Any
   /** The total number of tile centres in this tile Grid. */
   def numTiles: Int
 
+  /** the ratio of r => y, when translating from [[TCoord]] tile grid coordinates to [[Pt2]] and [[Vec2]]s. */
   def yRatio: Double
 
-  def xCen: Double = (leftCenCol + rightCenCol) / 2
-  def yCen: Double
+  /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
+  @inline def xCen: Double = (leftCenCol + rightCenCol) / 2
 
-  //def cenPt: Pt2 = Pt2(xCen, yCen)
+  /** The centre of this grid in the y axis. For [[SqGrid]]s this will be equal to the cCen [[Int]] value, but this is not the case for [[HGrid]]s. */
+  @inline def yCen: Double
+
+  /** The centre point as a [[Vec2]]. Not sure why this id implemented here. */
   def cenVec: Vec2 = Vec2(xCen, yCen)
 
   /** Foreach grid Row y coordinate. */

@@ -6,7 +6,7 @@ object OneLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "gOne"
 
-  override def default: (CanvasPlatform => Any, String) = (GOneGui(_, OneScen1, OneScen1.defaultView), "JavaFx Game One")
+  override def default: (CanvasPlatform => Any, String) = (GOneGui(_, OneScen1, OneScen1.defaultView()), "JavaFx Game One")
 
   override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen: EMon[Int] = sts.findSettingT[Int]("scen")
@@ -18,8 +18,8 @@ object OneLaunch extends GuiLaunchMore
       case 4 => OneScen4
       case _ => OneScen1
     }
-    val hc = sts.findSettingT[HCen]("hcen")
+    val hc = sts.findSettingT[HCenOrSide]("view")
     debvar(hc)
-    (GOneGui(_, scen, hc.getElse(HCen(4, 4)).view()), "JavaFx Game One")
+    (GOneGui(_, scen, hc.getElse(scen.grid.coordCen).view()), "JavaFx Game One")
   }
 }
