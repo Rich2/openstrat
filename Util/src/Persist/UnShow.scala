@@ -9,45 +9,6 @@ trait UnShow[+T] extends TypeStred
   
   /** Trys to build an object of type T from the statement. Not sure if this is useful. */
   final def fromStatement(st: Statement): EMon[T] = fromExpr(st.expr)
-  
-  def fromClauses1[A1, B](f: A1 => B, clauses: Arr[Clause])(implicit ev1: Persist[A1]): EMon[B] = clauses match
-  { case Arr1(c1) => ev1.fromExpr(c1.expr).map(f)
-    case _ => excep("from clauses exception")
-  }
-  
-  /*def fromClauses2[A1, A2, B](f: (A1, A2) => B, clauses: Refs[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = clauses match
-  { case Refs2(c1, c2) => for { g1 <- ev1.fromExpr(c1.expr); g2 <- ev2.fromExpr(c2.expr) } yield f(g1, g2)
-    case _ => excep("from clauses exception")
-  }*/
-   
-  /*def fromClauses3[A1, A2, A3, B](f: (A1, A2, A3) => B, clauses: Refs[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B]
-    = clauses match { case Refs3(c1, c2, c3) => for
-    { g1 <- ev1.fromExpr(c1.expr); g2 <- ev2.fromExpr(c2.expr); g3 <- ev3.fromExpr(c3.expr) } yield f(g1, g2, g3) }
-
-  
-  def fromClauses4[A1, A2, A3, A4, B](f: (A1, A2, A3, A4) => B, clauses: Refs[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2],
-      ev3: Persist[A3], ev4: Persist[A4]): EMon[B] = clauses match
-  { case Refs4(c1, c2, c3, c4) => for { g1 <- ev1.fromExpr(c1.expr); g2 <- ev2.fromExpr(c2.expr);
-      g3 <- ev3.fromExpr(c3.expr); g4 <- ev4.fromExpr(c4.expr)} yield f(g1, g2, g3, g4)
-  }
-
-  def fromClauses5[A1, A2, A3, A4, A5, B](f: (A1, A2, A3, A4, A5) => B, clauses: Refs[Clause])(implicit ev1: Persist[A1], ev2: Persist[A2],
-    ev3: Persist[A3], ev4: Persist[A4], ev5: Persist[A5]): EMon[B] = clauses match
-  {
-    case Refs5(c1, c2, c3, c4, c5) =>
-      for { g1 <- ev1.fromExpr(c1.expr); g2 <- ev2.fromExpr(c2.expr); g3 <- ev3.fromExpr(c3.expr); g4 <- ev4.fromExpr(c4.expr);
-            g5 <- ev5.fromExpr(c5.expr)
-          } yield f(g1, g2, g3, g4, g5)
-  }*/
-
-  /*def fromClauses6[A1, A2, A3, A4, A5, A6, B](f: (A1, A2, A3, A4, A5, A6) => B, clauses: Refs[Clause])(implicit
-  ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4], ev5: Persist[A5], ev6: Persist[A6]): EMon[B] = clauses match
-  {
-    case Refs6(c1, c2, c3, c4, c5, c6) =>
-      for { g1 <- ev1.fromExpr(c1.expr); g2 <- ev2.fromExpr(c2.expr); g3 <- ev3.fromExpr(c3.expr); g4 <- ev4.fromExpr(c4.expr);
-            g5 <- ev5.fromExpr(c5.expr); g6 <- ev6.fromExpr(c6.expr)
-          } yield f(g1, g2, g3, g4, g5, g6)
-  }*/
 
   /** Produces an ArrImut of the UnShow type from Statements (Refs[Statement]. */
   def valuesFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance): ArrT =
@@ -148,6 +109,7 @@ object UnShow
   {
     override def typeStr: String = "Str"
     def strT(obj: String): String = obj.enquote
+
     override def fromExpr(expr: Expr): EMon[String] = expr match
     { case StringToken(_, stringStr) => Good(stringStr)
       case  _ => expr.exprParseErr[String]
