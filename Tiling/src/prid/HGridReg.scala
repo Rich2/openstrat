@@ -3,7 +3,7 @@ package ostrat; package prid
 
 /** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
  * where r %% 4 == 0 rows. */
-class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int, val tileColMax: Int) extends HGrid
+class HGridReg(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, val rightCenCol: Int) extends HGrid
 {
   final override val numSides: Int =
   { var count = 0
@@ -15,16 +15,16 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
   override def height: Double =xTop - xBottom
 
   /** The left most point of the grid. */
-  def xLeft: Double = (tileColMin - 2)// * xRatio
+  def xLeft: Double = (leftCenCol - 2)// * xRatio
 
   /** The right most point of the grid. */
-  def xRight: Double = (tileColMax + 2)// * xRatio
+  def xRight: Double = (rightCenCol + 2)// * xRatio
 
   /** The top point of the grid. */
-  def xTop: Double = topTileRow * yRatio + 4.0/Sqrt3
+  def xTop: Double = topCenRow * yRatio + 4.0/Sqrt3
 
   /** The bottom point of the grid. */
-  def xBottom: Double = bottomTileRow * yRatio - 4.0/Sqrt3
+  def xBottom: Double = bottomCenRow * yRatio - 4.0/Sqrt3
 
   /** Gives the index into an Arr / Array of Tile data from its [[HCen]] hex tile centre coordinate. Use sideIndex and vertIndex methods to access
    *  Side and Vertex Arr / Array data. */
@@ -40,11 +40,11 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
 
   /** The start minimum or by convention left column or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def row2sStart: Int = tileColMin.roundUpTo(_.div4Rem2)
+  def row2sStart: Int = leftCenCol.roundUpTo(_.div4Rem2)
 
   /** The end, maximum or by convention right column coordinate or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def row2sEnd: Int = tileColMax.roundDownTo(_.div4Rem2)
+  def row2sEnd: Int = rightCenCol.roundDownTo(_.div4Rem2)
 
   /** The number of tiles or tile centres in rows where r.Div4Rem0. */
   def row0sTileNum = ((row0sEnd - row0sStart + 4) / 4).max(0)
@@ -54,23 +54,23 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
 
   /** The starting, minimum or by convention left column coordinate c value for tile centre rows where r.Div4Rem0. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def row0sStart: Int = tileColMin.roundUpTo(_.div4Rem0)
+  def row0sStart: Int = leftCenCol.roundUpTo(_.div4Rem0)
 
   /** The end maximum or by convention right column coordinate, or c value for tile centre rows where r.Div4Rem0. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def row0sEnd: Int = tileColMax.roundDownTo(_.div4Rem0)
+  def row0sEnd: Int = rightCenCol.roundDownTo(_.div4Rem0)
 
   /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem2, r %% 4 == 2. */
-  def bottomRem2Row: Int = bottomTileRow.roundUpTo(_.div4Rem2)
+  def bottomRem2Row: Int = bottomCenRow.roundUpTo(_.div4Rem2)
 
   /** The top, highest or maximum row r value for tile centre rows where r.Div4Rem2, r %% 4 == 2. */
-  def topRem2Row: Int = topTileRow.roundDownTo(_.div4Rem2)
+  def topRem2Row: Int = topCenRow.roundDownTo(_.div4Rem2)
 
   /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem0, r %% 4 == 0. */
-  def bottomRem0Row: Int = bottomTileRow.roundUpTo(_.div4Rem0)
+  def bottomRem0Row: Int = bottomCenRow.roundUpTo(_.div4Rem0)
 
   /** The top, highest or maximum row r value for tile centres rows where r.Div4Rem0, r %% 4 == 0. */
-  def topRem0Row: Int = topTileRow.roundDownTo(_.div4Rem0)
+  def topRem0Row: Int = topCenRow.roundDownTo(_.div4Rem0)
 
   override def numRow0s: Int = ((topRem0Row - bottomRem0Row + 4) / 4).max(0)
   override def numRow2s: Int = ((topRem2Row - bottomRem2Row + 4) / 4).max(0)
@@ -101,7 +101,7 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
 
   def hCenExists(r: Int, c:Int): Boolean = (r, c) match
   {
-    case (r, c) if r < bottomTileRow | r > topTileRow => false
+    case (r, c) if r < bottomCenRow | r > topCenRow => false
     case (r, c) if r.isOdd => false
 
     case (r, c) if r.div4Rem0 & (c < row0sStart | c > row0sEnd) => false
@@ -123,7 +123,7 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
     case y if y.div4Rem0 => iToForeach(row0sStart - 2, row0sEnd + 2, 4){ c => f(HSide(y, c)) }
     case y if y == bottomSideRow & y.div4Rem1 => iToForeach(row2sStart - 1, row2sEnd + 1, 2){ c => f(HSide(y, c)) }
     case y if y == bottomSideRow => iToForeach(row0sStart - 1, row0sEnd + 1, 2){ c => f(HSide(y, c)) }
-    case y => iToForeach(tileColMin - 1, tileColMax + 1, 2){ c => f(HSide(y, c)) }
+    case y => iToForeach(leftCenCol - 1, rightCenCol + 1, 2){ c => f(HSide(y, c)) }
   }
 
   override def rowNumTiles(row: Int): Int = row %% 4 match {
@@ -149,10 +149,10 @@ class HGridReg(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int,
   override def sideArrIndex(r: Int, c: Int): Int = ???
 
   /** The number of tile sides in the top side row of the hex grid. */
-  def topSideRowNum: Int = ife(topTileRow.div4Rem0, row0sTileNum, row2sTileNum) * 2
+  def topSideRowNum: Int = ife(topCenRow.div4Rem0, row0sTileNum, row2sTileNum) * 2
 
   /** The number of tile sides in the bottom side row of the hex grid. */
-  def bottomSideRowNum: Int = ife(bottomTileRow.div4Rem0, row0sTileNum, row2sTileNum) * 2
+  def bottomSideRowNum: Int = ife(bottomCenRow.div4Rem0, row0sTileNum, row2sTileNum) * 2
 
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   override def sideRowIndexArray: Array[Int] =

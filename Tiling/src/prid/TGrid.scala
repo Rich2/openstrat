@@ -24,24 +24,32 @@ trait TGrid extends Any
   def numTileRows: Int
 
   /** The bottom or lowest tile centre row, r coordinate. */
-  def bottomTileRow: Int
+  def bottomCenRow: Int
 
   /** The top of highest tile centre row, r coordinate. */
-  def topTileRow: Int
+  def topCenRow: Int
+
+  /** The centre of the hex grid in terms of r row coordinates. */
+  def rCen: Int = (bottomCenRow + topCenRow) / 2
+
+  /** The centre of the hex grid in terms of c column coordinates. */
+  def cCen: Int = (leftCenCol + rightCenCol) / 2
+
+  def coordCen: TileCenOrSide
 
   /** The bottom or lowest tile side row, r coordinate. */
-  @inline final def sideRowBottom: Int = bottomTileRow - 1
+  @inline final def sideRowBottom: Int = bottomCenRow - 1
 
   /** The top of highest tile side row, r coordinate. */
-  @inline def sideRowTop: Int = topTileRow + 1
+  @inline def sideRowTop: Int = topCenRow + 1
 
   /** The minimum or lowest tile centre column c coordinate in the whole tile grid. This is called c rather than x because in hex grids [[HGrid]]s
    *  there is not a 1 to 1 ratio from column coordinate to the x value in a [[Pt2]]. */
-  def tileColMin: Int
+  def leftCenCol: Int
 
   /** the Maximum or highest tile centre column c coordinate in the whole tile grid. This is called c rather than x because in hex grids [[HGrid]]s
    *  there is not a 1 to 1 ratio from column coordinate to the x value in a [[Pt2]]. */
-  def tileColMax: Int
+  def rightCenCol: Int
 
   /** Width of the tile Grid from furthest tile edge to furthest tile edge. */
   def width: Double
@@ -54,14 +62,14 @@ trait TGrid extends Any
 
   def yRatio: Double
 
-  def xCen: Double = (tileColMin + tileColMax) / 2
+  def xCen: Double = (leftCenCol + rightCenCol) / 2
   def yCen: Double
 
   //def cenPt: Pt2 = Pt2(xCen, yCen)
   def cenVec: Vec2 = Vec2(xCen, yCen)
 
   /** Foreach grid Row y coordinate. */
-  final def foreachRow(f: Int => Unit): Unit = iToForeach(bottomTileRow, topTileRow, 2)(f)
+  final def foreachRow(f: Int => Unit): Unit = iToForeach(bottomCenRow, topCenRow, 2)(f)
 
   /** maps over each row number. */
   final def mapRows[B, BB <: SeqImut[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
@@ -86,9 +94,9 @@ trait TGrid extends Any
   }
 
   /** Foreach tile centre coordinate. A less strongly typed method than the foreach's in the sub traits. */
-  def foreachCenCoord(f: TCoord => Unit): Unit
+  def foreachCenCoord(f: TileCoord => Unit): Unit
 
-  def mapCenCoords[B, BB <: SeqImut[B]](f: TCoord => B)(implicit build: ArrBuilder[B, BB]): BB =
+  def mapCenCoords[B, BB <: SeqImut[B]](f: TileCoord => B)(implicit build: ArrBuilder[B, BB]): BB =
   { val res = build.newArr(numTiles)
     var count = 0
     foreachCenCoord { tc => res.unsafeSetElem(count, f(tc))
@@ -122,15 +130,15 @@ trait TGrid extends Any
 
   /** The bottom, lowest or minimum Side Row of this TileGrid. The r value, the row number value.
    *  @group SidesGroup */
-  @inline final def bottomSideRow: Int = bottomTileRow - 1
+  @inline final def bottomSideRow: Int = bottomCenRow - 1
 
   /** The top, highest or maximum Side Row of this TileGrid. The r value, the row number.
    *  @group SidesGroup*/
-  @inline final def topSideRow: Int = topTileRow + 1
+  @inline final def topSideRow: Int = topCenRow + 1
 
   /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
-  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(bottomTileRow - 1, topTileRow + 1)(f)
+  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(bottomCenRow - 1, topCenRow + 1)(f)
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */

@@ -15,10 +15,10 @@ object OneScen3Test  extends TestSuite
   val tests = Tests {
     "os1" -
       { g1.numTileRows ==> 5
-        g1.bottomTileRow ==> 2
-        g1.topTileRow ==> 10
-        g1.tileColMin ==> 2
-        g1.tileColMax ==> 10
+        g1.bottomCenRow ==> 2
+        g1.topCenRow ==> 10
+        g1.leftCenCol ==> 2
+        g1.rightCenCol ==> 10
         g1.numTiles ==> 9
         implicit val grid = os1.grid
         os1.oPlayers.numSomes ==> 3
@@ -27,10 +27,10 @@ object OneScen3Test  extends TestSuite
 
     "os2" -
       { g2.numTileRows ==> 5
-        g2.bottomTileRow ==> 2
-        g2.topTileRow ==> 10
-        g2.tileColMin ==> 2
-        g2.tileColMax ==> 10
+        g2.bottomCenRow ==> 2
+        g2.topCenRow ==> 10
+        g2.leftCenCol ==> 2
+        g2.rightCenCol ==> 10
         g2.numTiles ==> 9
       }
 

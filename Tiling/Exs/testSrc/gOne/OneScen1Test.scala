@@ -15,19 +15,19 @@ object OneScen1Test  extends TestSuite
   val tests = Tests {
     "os1" -
       { g1.numTileRows ==> 3
-        g1.bottomTileRow ==> 2
-        g1.topTileRow ==> 6
-        g1.tileColMin ==> 2
-        g1.tileColMax ==> 10
+        g1.bottomCenRow ==> 2
+        g1.topCenRow ==> 6
+        g1.leftCenCol ==> 2
+        g1.rightCenCol ==> 10
         g1.numTiles ==> 8
       }
 
     "os2" -
       { g2.numTileRows ==> 3
-        g2.bottomTileRow ==> 2
-        g2.topTileRow ==> 6
-        g2.tileColMin ==> 2
-        g2.tileColMax ==> 10
+        g2.bottomCenRow ==> 2
+        g2.topCenRow ==> 6
+        g2.leftCenCol ==> 2
+        g2.rightCenCol ==> 10
         g2.numTiles ==> 8
       }
 

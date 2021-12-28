@@ -6,24 +6,25 @@ import geom._, reflect.ClassTag
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
-final class SqGrid(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: Int, val tileColMax: Int) extends TGrid
+final class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, val rightCenCol: Int) extends TGrid
 {
   /** Number of rows of tiles. */
-  override def numTileRows: Int = (topTileRow - bottomTileRow + 2).max0 / 2
+  override def numTileRows: Int = (topCenRow - bottomCenRow + 2).max0 / 2
 
   /** The number of tiles in each tile row. */
-  def tileRowLen: Int = (tileColMax - tileColMin + 2).max0 / 2
+  def tileRowLen: Int = (rightCenCol - leftCenCol + 2).max0 / 2
 
   /** The total number of Tiles in the tile Grid. */
   override def numTiles: Int = numTileRows * tileRowLen
 
-  def rGridMin: Int = bottomTileRow - 1
-  def rGridMax: Int = topTileRow + 1
-  def cGridMin: Int = tileColMin - 1
-  def cGridMax: Int = tileColMax + 1
+  def rGridMin: Int = bottomCenRow - 1
+  def rGridMax: Int = topCenRow + 1
+  def cGridMin: Int = leftCenCol - 1
+  def cGridMax: Int = rightCenCol + 1
 
+  override def coordCen: SqCenOrSide = SqCenOrSide(rCen, cCen)
   override def yRatio: Double = 1
-  override def yCen: Double = (bottomTileRow + topTileRow) / 2
+  override def yCen: Double = (bottomCenRow + topCenRow) / 2
   override def width: Double = cGridMax - cGridMin
   override def height: Double = rGridMax - rGridMin
 
@@ -36,7 +37,7 @@ final class SqGrid(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: 
    *  data. */
   @inline final def arrIndex(sc: SqCen): Int = arrIndex(sc.r, sc.c)
 
-  @inline def arrIndex(r: Int, c: Int): Int = (r - bottomTileRow) / 2 * tileRowLen + (c - tileColMin) / 2
+  @inline def arrIndex(r: Int, c: Int): Int = (r - bottomCenRow) / 2 * tileRowLen + (c - leftCenCol) / 2
   /** New immutable Arr of Tile data. */
   /*final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqcenArr[A] =
   { val res = HcenArr[A](numOfTiles)
@@ -56,7 +57,7 @@ final class SqGrid(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: 
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrOpt[A] = new SqCenArrOpt(new Array[A](numTiles))
 
-  def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(tileColMin, tileColMax, 2)(c => f(SqCen(r, c)))
+  def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(leftCenCol, rightCenCol, 2)(c => f(SqCen(r, c)))
 
   def foreach(f: SqCen => Unit): Unit = foreachRow(rowForeach(_)(f))
 
@@ -69,13 +70,13 @@ final class SqGrid(val bottomTileRow: Int, val topTileRow: Int, val tileColMin: 
   {
     var count = startCount
     iToForeach(0, tileRowLen) { i =>
-      f(SqCen(r, tileColMin + i * 2), i)
+      f(SqCen(r, leftCenCol + i * 2), i)
       count += 1
     }
     count
   }
 
-  override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
+  override def foreachCenCoord(f: TileCoord => Unit): Unit = foreach(f)
 
   final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrBuff[A] = SqCenArrBuff(numTiles)
 }

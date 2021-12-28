@@ -3,7 +3,7 @@ package ostrat; package prid
 import geom._, collection.mutable.ArrayBuffer
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
-trait HCoord extends Any with TCoord
+trait HCoord extends Any with TileCoord
 {
   override def equals(obj: Any): Boolean = obj match {
     case hc: HCoord if r == hc.r & c == hc.c => true
@@ -34,7 +34,7 @@ object HCoord
     case 1 | 3 if c.isOdd => new HSide(r, c)
     case 2 if c.div4Rem0 => new HSide(r, c)
     case _ if r.isOdd & c.isEven => HVert(r, c)
-    case _ => excep(s"$r, $c is not a valid Hex Grid coordinate.")
+    case _ => excep(s"$r, $c is not a valid HCoord hex grid coordinate.")
   }
 
   implicit val polygonBuildImplicit: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
@@ -42,10 +42,4 @@ object HCoord
     override def fromIntArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
     override def fromIntBuffer(inp: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(inp)
   }
-}
-
-/** Common trait for hex centre and hex side coordinate. The position of these coordinates is proportional, unlike the Hex vertices positions. */
-trait HCenOrSide extends HCoord
-{ override def toVec: Vec2 = Vec2(c, r * Sqrt3)
-  override def toPt2: Pt2 = Pt2(c, r  * Sqrt3)
 }

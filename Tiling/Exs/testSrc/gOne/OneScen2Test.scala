@@ -7,10 +7,10 @@ object OneScen2Test  extends TestSuite
   val g = OneScen2.grid
   val tests = Tests {
     "test1" -
-    { g.bottomTileRow ==> 2
-      g.topTileRow ==> 10
-      g.tileColMin ==> 4
-      g.tileColMax ==> 8
+    { g.bottomCenRow ==> 2
+      g.topCenRow ==> 10
+      g.leftCenCol ==> 4
+      g.rightCenCol ==> 8
       g.numRow0s ==> 2
       g.bottomRem2Row ==> 2
       g.topRem2Row ==> 10

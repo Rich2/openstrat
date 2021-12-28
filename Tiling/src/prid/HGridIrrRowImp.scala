@@ -12,11 +12,11 @@ abstract class HGridIrr() extends HGrid
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param yTileMin         The y value for the bottom tile row of the TileGrid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-class HGridIrrRows(val bottomTileRow: Int, val unsafeRowsArray: Array[Int]) extends HGridIrr
+class HGridIrrRows(val bottomCenRow: Int, val unsafeRowsArray: Array[Int]) extends HGridIrr
 {
   final val numTileRows: Int = unsafeRowsArray.length / 2
 
-  final override def topTileRow: Int = bottomTileRow + numTileRows * 2 - 2
+  final override def topCenRow: Int = bottomCenRow + numTileRows * 2 - 2
 
   /** The total number of hex tiles in the tile Grid. This is determined from the unsafeRowsArray */
   final override def numTiles: Int = iUntilFoldInt(0, unsafeRowsArray.length, 2)((acc, i) => acc + unsafeRowsArray(i))
@@ -69,20 +69,20 @@ class HGridIrrRows(val bottomTileRow: Int, val unsafeRowsArray: Array[Int]) exte
     res
   }*/
 
-  override def tileColMin: Int = foldRows(Int.MaxValue - 1)((acc, r) => acc.min(rowCenLeft(r)))
-  override def tileColMax: Int = foldRows(Int.MinValue )((acc, r) => acc.max(rowCenRight(r)))
+  override def leftCenCol: Int = foldRows(Int.MaxValue - 1)((acc, r) => acc.min(rowCenLeft(r)))
+  override def rightCenCol: Int = foldRows(Int.MinValue )((acc, r) => acc.max(rowCenRight(r)))
 
-  override def numRow0s: Int = numTileRows.ifMod(bottomTileRow.div4Rem0, _.roundUpToEven) / 2
-  override def numRow2s: Int = numTileRows.ifMod(bottomTileRow.div4Rem2, _.roundUpToEven) / 2
+  override def numRow0s: Int = numTileRows.ifMod(bottomCenRow.div4Rem0, _.roundUpToEven) / 2
+  override def numRow2s: Int = numTileRows.ifMod(bottomCenRow.div4Rem2, _.roundUpToEven) / 2
 
-  @inline protected def unsafeRowArrayindex(row: Int): Int = row - bottomTileRow
+  @inline protected def unsafeRowArrayindex(row: Int): Int = row - bottomCenRow
 
   override def arrIndex(r: Int, c: Int): Int =
-  { val wholeRows = iUntilFoldInt(bottomTileRow, r, 2){ (acc, r) => acc + rowNumTiles(r) }
+  { val wholeRows = iUntilFoldInt(bottomCenRow, r, 2){ (acc, r) => acc + rowNumTiles(r) }
     wholeRows + (c - rowCenLeft(r)) / 4
   }
 
-  override def rowNumTiles(row: Int): Int = unsafeRowsArray(row - bottomTileRow)
+  override def rowNumTiles(row: Int): Int = unsafeRowsArray(row - bottomCenRow)
 
   /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(rowCenLeft(r), rowCenRight(r), 4){ c => f(HCen(r, c))}
@@ -96,27 +96,27 @@ class HGridIrrRows(val bottomTileRow: Int, val unsafeRowsArray: Array[Int]) exte
   /** The start (or by default left column) of the tile centre of the given row. Will throw on illegal values. */
   override def rowCenLeft(row: Int): Int = row match
   { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowStart method.")
-    case r if r > topTileRow =>
-      excep(s"Row number $r is greater than top tile row $topTileRow. There are $numTileRows rows. Exception in tileRowStart method.")
-    case r if r < bottomTileRow => excep(s"$r Row number less than bottom tile row in tileRowStart method.")
-    case _ => unsafeRowsArray(row - bottomTileRow + 1)
+    case r if r > topCenRow =>
+      excep(s"Row number $r is greater than top tile row $topCenRow. There are $numTileRows rows. Exception in tileRowStart method.")
+    case r if r < bottomCenRow => excep(s"$r Row number less than bottom tile row in tileRowStart method.")
+    case _ => unsafeRowsArray(row - bottomCenRow + 1)
   }
 
   /** The end (or by default right) column number of the tile centre of the given row. Will throw on illegal values. */
   override def rowCenRight(row: Int): Int = row match
   { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowEnd method.")
-    case r if r > topTileRow => excep(s"Row number $r is greater than top tile row $topTileRow in tileRowEnd method.")
-    case r if r < bottomTileRow => excep(s"$r Row number less than bottom tile row value in tileRowEnd method.")
+    case r if r > topCenRow => excep(s"Row number $r is greater than top tile row $topCenRow in tileRowEnd method.")
+    case r if r < bottomCenRow => excep(s"$r Row number less than bottom tile row value in tileRowEnd method.")
     case _ => rowCenLeft(row) + (rowNumTiles(row) - 1) * 4
   }
 
   override def hCenExists(r: Int, c: Int): Boolean = r match
-  { case r if r > topTileRow => false
-    case r if r < bottomTileRow => false
+  { case r if r > topCenRow => false
+    case r if r < bottomCenRow => false
     case r => c >= rowCenLeft(r) & c <= rowCenRight(r)
   }
-  override def width: Double = (tileColMax - tileColMin + 4) / Sqrt3
-  override def height: Double = topTileRow - bottomTileRow + 3
+  override def width: Double = (rightCenCol - leftCenCol + 4) / Sqrt3
+  override def height: Double = topCenRow - bottomCenRow + 3
 
 }
 

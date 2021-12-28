@@ -27,8 +27,7 @@ trait HGrid extends Any with TGrid with HGridBased
   /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
   override def yRatio: Double = sqrt(3)
 
-  /** The centre of the hex grid in terms of r row coordinates. */
-  def rCen: Double = (bottomTileRow + topTileRow) / 2.0
+  override def coordCen: HCenOrSide = HCenOrSide(rCen, cCen)
 
 
 
@@ -69,7 +68,7 @@ trait HGrid extends Any with TGrid with HGridBased
   /** The end (or by default right) column number of the tile centre of the given row. */
   def rowCenRight(row: Int): Int
 
-  override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
+  override def foreachCenCoord(f: TileCoord => Unit): Unit = foreach(f)
 
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())
