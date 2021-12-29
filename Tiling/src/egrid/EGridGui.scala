@@ -6,9 +6,10 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
 {
   statusText = "Welcome to the new EGrids"
   implicit val grid: EGridMain = scen.eGrid
+  focus = viewIn.vec
   var cPScale: Double = viewIn.pxScale
   def metresScale = cPScale / grid.cScale.mMetresNum
-  debvar(cPScale)
+
   val terrs: HCenArr[WTile] = scen.terrs
   def tiles = grid.map{ hc =>
     val str = grid.hCoordLL(hc).degStr --- hc.rcStr
@@ -20,7 +21,7 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
   }
 
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut))//, goNorth, goSouth, goWest, goEast))
-  def frame: GraphicElems = ife(metresScale > 1400, tileStrs,tiles).gridScale(cPScale)
+  def frame: GraphicElems = ife(metresScale > 1400, tileStrs,tiles).slate(-focus).scale(cPScale)
   repaint()
   thisTop()
 }

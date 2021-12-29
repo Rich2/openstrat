@@ -49,7 +49,7 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
     val tiles: List[A] = tileValues.toSingles
     val endValues = cStart + tiles.length * 4 - 4
     val rowEnd = grid.rowCenRight(row)
-    if( rowEnd != endValues) debexc(s"last data column ${endValues} != $rowEnd")
+    if( rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
     tiles.iForeach { (i, e) =>
       val c = cStart + i * 4
       unsafeArr(grid.arrIndex(row, c)) = e
