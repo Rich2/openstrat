@@ -51,6 +51,8 @@ sealed trait EMon[+A]
 
   def mapToOption[B](f: A => B): Option[B]
   def flatMap2ToOption[A2, B](o2: EMon[A2], f: (A, A2) => B): Option[B]
+
+  def goodOrOther(otherEMon: => EMon[A] @uncheckedVariance): EMon[A]
 }
 
 /** Companion object for EMon triat contains implict class for EMon returning extension methods on [[String]] and Show implicit instance. */
@@ -99,6 +101,9 @@ final case class Good[+A](val value: A) extends EMon[A] //with GoodBase[A]
   override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Right(fRight(value))
   override def mapToOption[B](f: A => B): Option[B] = Some[B](f(value))
   override def flatMap2ToOption[A2, B](e2: EMon[A2], f: (A, A2) => B): Option[B] = e2.fld(None, a2 => Some(f(value, a2)))
+
+  /** Returns this [[EMon]][A] if this is Good, else returns the operand EMon[A]. */
+  override def goodOrOther(otherEMon: => EMon[A] @uncheckedVariance): Good[A] = this
 }
 
 object Good
@@ -139,6 +144,7 @@ class Bad[+A](val errs: Strings) extends EMon[A]
   override def biMap[L2, R2](fLeft: Strings => L2, fRight: A => R2): Either[L2, R2] = Left(fLeft(errs))
   override def mapToOption[B](f: A => B): Option[B] = None
   override def flatMap2ToOption[A2, B](e2: EMon[A2], f: (A, A2) => B): Option[B] = None
+  override def goodOrOther(otherEMon: => EMon[A] @uncheckedVariance): EMon[A] = otherEMon
 }
 
 object Bad
