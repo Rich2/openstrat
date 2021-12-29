@@ -24,17 +24,17 @@ trait HCoord extends Any with TileCoord
   def view(pxScale: Double = 50): HGridView = HGridView(r, c, pxScale)
 }
 
-/** Companion object for Hex coordinate trait, contains apply factory object. */
+/** Companion object for Hex coordinate trait, contains apply factory method and persist and PolygonBuilder implicit instances. */
 object HCoord
-{
+{ /** Factory apply method will throw an exception on illegal values where r is even and c is odd.  */
   def apply(r: Int, c: Int): HCoord = r %% 4 match
   { case 0 if c.div4Rem0 => new HCen(r, c)
-    case 2 if c.div4Rem2 => new HCen(r, c)
-    case 0 if c.div4Rem0 => new HSide(r, c)
-    case 1 | 3 if c.isOdd => new HSide(r, c)
+    case 0 if c.div4Rem2 => new HSide(r, c)
     case 2 if c.div4Rem0 => new HSide(r, c)
-    case _ if r.isOdd & c.isEven => HVert(r, c)
-    case _ => excep(s"$r, $c is not a valid HCoord hex grid coordinate.")
+    case 2 if c.div4Rem2 => new HCen(r, c)
+    case 1 | 3 if c.isOdd => new HSide(r, c)
+    case 1 | 3 => HVert(r, c)
+    case _ => excep(s"$r, $c, where r is even and c is odd is not a valid HCoord hex grid coordinate.")
   }
 
   implicit val persistImplicit: Persist[HCoord] = new PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))

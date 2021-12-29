@@ -51,6 +51,7 @@ object Statement
     /** Find Setting of type T from this Arr[Statement]. Extension method. */
     def findSettingT[T](settingStr: String)(implicit ev: Persist[T]): EMon[T] = ev.settingTFromStatements(statementRefs, settingStr)
 
+    /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
     def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Persist[T]): EMon[T] = findSettingT[T](settingStr).goodOrOther(findUniqueT)
 
     /** Find Setting of type T from this Arr[Statement] or return the default value parameter. Extension method */

@@ -7,13 +7,14 @@ trait HCenOrSide extends HCoord with TileCenOrSide
 { override def toVec: Vec2 = Vec2(c, r * Sqrt3)
   override def toPt2: Pt2 = Pt2(c, r  * Sqrt3)
 }
-/** Companion object for [[HCenOrSide]] trait, contians factory apply method and implicit [[Persist]] instance. */
+
+/** Companion object for [[HCenOrSide]] trait, contains factory apply method and implicit [[Persist]] instance. */
 object HCenOrSide
 { /** Apply factory method for creating [[HCenOrSide]] instances. Will throw exception on illegal values.  */
   def apply(r: Int, c: Int): HCenOrSide = r %% 4 match
   { case 0 if c.div4Rem0 => new HCen(r, c)
     case 2 if c.div4Rem2 => new HCen(r, c)
-    case 0 if c.div4Rem0 => new HSide(r, c)
+    case 0 if c.div4Rem2 => new HSide(r, c)
     case 1 | 3 if c.isOdd => new HSide(r, c)
     case 2 if c.div4Rem0 => new HSide(r, c)
     case _ => excep(s"$r, $c is not a valid HCenOrSide hex grid coordinate.")
