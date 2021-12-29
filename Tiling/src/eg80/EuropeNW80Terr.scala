@@ -31,9 +31,9 @@ object EuropeNW80Terr {
     gs(484, 492, hills * 4, sea * 10, plain * 3)
     gs(482, 494, hills * 3, sea * 8, plain * 2, sea, plain * 2)//Seems like there's an extra plain
     gs(480, 496, hills * 2, sea * 9, plain * 2, sea, plain * 2)
-    //gs(478, 494, hills, plain * 3, sea * 7, plain * 5, sea)
-    //gs(476, 488, plain * 2, sea, hills * 2, sea * 8, plain * 3, sea * 3)//Looks like theres extra sea at end
-    /*gs(474, 482, plain * 3, sea * 2, hills, plain, sea * 8, plain * 2, sea * 3)
+    gs(478, 494, hills, plain * 3, sea * 7, plain * 5, sea)
+    gs(476, 488, plain * 2, sea, hills * 2, sea * 8, plain * 3, sea * 2)//Looks like theres extra sea at end
+    gs(474, 482, plain * 3, sea * 2, hills, plain, sea * 8, plain * 2, sea * 3)
     gs(472, 480, plain * 3, sea * 3, plain * 2, sea * 7, plain * 6)
     gs(470, 482, plain * 3, sea, hills * 2, plain * 2, sea * 5, plain * 8)
     gs(468, 480, plain * 3, sea, hills * 3, plain * 3, sea * 3, plain * 8)
@@ -47,7 +47,7 @@ object EuropeNW80Terr {
     gs(452, 504, plain * 9, hills * 2, mtain * 6)
     gs(450, 506, plain * 7, hills, mtain * 8)
     gs(448, 508, plain * 4, hills * 2, plain, mtain * 9)
-    gs(446, 510, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)*/
+    gs(446, 510, plain * 2, hills * 4, mtain * 3, plain * 2, mtain, plain * 2, hills * 2)
     terrs
   }
 }
