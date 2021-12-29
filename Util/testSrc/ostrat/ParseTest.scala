@@ -16,5 +16,20 @@ object ParseTest extends TestSuite
       settingStr.findSettingInt("y") ==> Good(7)
       settingStr.findType[Boolean] ==> Good(true)
     }
+    val oi: Option[Int] = Some(50)
+
+    val l1 = List(4, 5, 6)
+    val l1s = "Seq[Int](4; 5; 6)"
+
+    "List Test" -
+    {
+      l1.str ==> l1s
+      //l1s.findType[List[Int]] ==> Good(l1)
+    }
+
+    "Option Test" -
+    {
+      oi.str ==> "50"
+    }
   }
 }

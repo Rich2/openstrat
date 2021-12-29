@@ -168,7 +168,7 @@ object UnShow
   }
 
   /** Implicit method for creating List[A: Persist] instances. */
-  implicit def vectorImplicit[A](implicit evIn: UnShow[A]): UnShow[Vector[A]] = new UnShow[Vector[A]]// with ShowIterable[A, List[A]]
+  implicit def vectorImplicit[A](implicit evIn: UnShow[A]): UnShow[Vector[A]] = new UnShow[Vector[A]]
   {
     val evA: UnShow[A] = evIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
@@ -180,4 +180,6 @@ object UnShow
       case e => bad1(expr, "Unknown Exoression for Seq")
     }
   }
+
+  //implicit def optionImplicit[A](implicit evIn: UnShow[A]): UnShow[Option[A]] = new UnShow[Option[A]]
 }
