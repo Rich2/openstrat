@@ -6,7 +6,7 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
 {
   statusText = "Welcome to the new EGrids"
   implicit val grid: EGridMain = scen.eGrid
-  var cPScale: Double = 5.75//grid.fullDisplayScale(mainWidth, mainHeight)
+  var cPScale: Double = viewIn.pxScale
   def metresScale = cPScale / grid.cScale.mMetresNum
   debvar(cPScale)
   val terrs: HCenArr[WTile] = scen.terrs
