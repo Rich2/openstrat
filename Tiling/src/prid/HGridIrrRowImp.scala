@@ -26,6 +26,8 @@ class HGridIrrRows(val bottomCenRow: Int, val unsafeRowsArray: Array[Int]) exten
     sidesForeach(r => count += 1)
     count
   }
+  /** The [[HCenOrSide]] coordinate centre for this hex grid. */
+  override def coordCen: HCoord = HCoord(rCen, cCen)
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {

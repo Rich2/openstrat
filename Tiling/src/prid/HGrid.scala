@@ -27,8 +27,9 @@ trait HGrid extends Any with TGrid with HGridBased
   /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
   override def yRatio: Double = sqrt(3)
 
-  /** The [[HCenOrSide]] coordinate centre for this hex grid. */
-  override def coordCen: HCenOrSide = HCenOrSide(rCen, cCen)
+  override def coordCen: HCoord
+
+  def defaultView(pxScale: Double = 50): HGridView = coordCen.view(pxScale)
 
   /** The centre of the hex grid along the Y axis after the yRatio has been applied to the r row value. */
   final override def yCen: Double = rCen * yRatio

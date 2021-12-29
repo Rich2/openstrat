@@ -1,17 +1,25 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import pgui._, eg80._, eg320._
+import pgui._, eg80._, eg320._, prid._, pParse._
 
 /** object to launch EGrid basic Gui. */
-object EGridBasicLaunch extends GuiLaunchStd
+object EGridBasicLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "eGrid"
 
-  override def default: (CanvasPlatform => Any, String) = (cv => EGridGui(cv, EGrid80Km.scen1), "JavaFx Eath 80KM Grid")
+  override def default: (CanvasPlatform => Any, String) = (cv => EGridGui(cv, EGrid80Km.scen1, EGrid80Km.scen1.eGrid.coordCen.view()), "JavaFx Eath 80KM Grid")
 
-  override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match {
-    case 1 => (cv => EGridGui(cv, EGrid80Km.scen1), "JavaFx EGrid80Km.scen1")
-    case 2 => (cv => EGridGui(cv, EGrid320Km.scen1), "JavaFx EGrid320Km.scen1")
-    case _ => (cv => EGridGui(cv, EGrid80Km.scen1), "JavaFx EGrid80Km.scen1")
+  override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
+  { val oScen: EMon[Int] = sts.findSettingT[Int]("scen")
+    val num: Int = oScen.getElse(1)
+
+    val scen = num match
+    { case 1 => EGrid80Km.scen1
+      case 2 => EGrid320Km.scen1
+      case _ => EGrid80Km.scen1
+    }
+
+    val oview = sts.findSettingOrUniqueT[HGridView]("view")
+    (EGridGui(_, scen, oview.getElse(scen.eGrid.coordCen.view())), "JavaFx EGrid80Km.scen1")
   }
 }

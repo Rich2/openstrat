@@ -26,6 +26,9 @@ class HGridReg(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, v
   /** The bottom point of the grid. */
   def xBottom: Double = bottomCenRow * yRatio - 4.0/Sqrt3
 
+  /** The [[HCenOrSide]] coordinate centre for this hex grid. */
+  override def coordCen: HCenOrSide = HCenOrSide(rCen, cCen)
+
   /** Gives the index into an Arr / Array of Tile data from its [[HCen]] hex tile centre coordinate. Use sideIndex and vertIndex methods to access
    *  Side and Vertex Arr / Array data. */
   @inline def arrIndex(r: Int, c: Int): Int =

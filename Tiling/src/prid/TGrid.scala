@@ -36,7 +36,7 @@ trait TGrid extends Any
   def cCen: Int = (leftCenCol + rightCenCol) / 2
 
   /** The [[TileCenOrSide]] coordinate centre of this tile grid. */
-  def coordCen: TileCenOrSide
+  def coordCen: TileCoord
 
   /** The bottom or lowest tile side row, r coordinate. */
   @inline final def sideRowBottom: Int = bottomCenRow - 1
