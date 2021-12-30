@@ -43,7 +43,8 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
     res
   }
 
-  /** Note set Row starts with the r (row) parameter. */
+  /** Completes the given row from the given starting c column value to the end of the row. An exception is
+   *  thrown if the tile values don't match with the end of the row. */
   final def completeRow(row: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: HGrid): HCen =
   {
     val tiles: List[A] = tileValues.toSingles
@@ -55,6 +56,20 @@ class HCenArr[A <: AnyRef](val unsafeArr: Array[A])
       unsafeArr(grid.arrIndex(row, c)) = e
     }
     HCen(row, cStart + (tiles.length - 1) * 4)
+  }
+
+  /** Sets the given row from the given starting c column value, for the given number of tile centre values. An exception is thrown if the numOfCens
+   * overflows the row end. */
+  final def setRowPart(row: Int, cStart: Int, numOfCens: Int, tileValue: A)(implicit grid: HGrid): HCen =
+  {
+    val rightC = cStart + numOfCens * 4 - 4
+    val rowEnd = grid.rowCenRight(row)
+    if( rowEnd < rightC) debexc(s"Row $row last data column ${rightC} > $rowEnd the grid row end.")
+    iToForeach(cStart, rightC, 4) { i =>
+      val c = cStart + i
+      unsafeArr(grid.arrIndex(row, c)) = tileValue
+    }
+    HCen(row, rightC)
   }
 
   def rowCombine(implicit grid: HGrid): Arr[HCenRowValue[A]] =

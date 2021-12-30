@@ -18,9 +18,9 @@ object ThreeLaunch extends GuiLaunchStd
 object ThreeScen1 extends ThreeScenStart
 { override implicit val grid: HGrid = HGridReg(2, 8, 2, 18)
   override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
-  import terrs.{completeRow => sr}
-  sr(6,2, Water * 2)
-  sr(4, 4, Woods * 2)
+  import terrs.{setRowPart => srp}
+  srp(6, 2, 2, Water)
+  srp(4, 4, 2, Woods)
   val units: HCenArrOpt[Lunit] = grid.newTileArrOpt
   units.unsafeSetSome(4, 4, Lunit(TeamA, HStepDR))
   units.unsafeSetSomes((4, 8, Lunit(TeamB, HStepLt, HStepDL)), (6, 10, Lunit(TeamA)))
