@@ -2,11 +2,13 @@
 package ostrat; package prid
 import geom._
 
-/** A square grid integer tile coordinate. */
-trait SqCoord extends Any with TileCoord
+trait SqBaseCoord extends Any with TileCoord
 { override def toVec: Vec2 = Vec2(c, r)
   override def toPt2: Pt2 = Pt2(c, r)
 }
+
+/** A square grid integer tile coordinate. */
+trait SqCoord extends Any with SqBaseCoord
 
 trait SqCenOrSide extends Any with SqCoord with TileCenOrSide
 
