@@ -110,7 +110,9 @@ lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories +=
 lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Bc305App")
 lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/PlanetsApp")
 
-val docDirs: List[String] = List("Util", "Geom", "Tiling", "Dev")
+val moduleDirs: List[String] = List("Util", "Geom", "Tiling", "Dev")
+val specDirs: List[String] = List("Geom/src3d", "Geom/srcGlobe", "Geom/srcGui", "Geom/srcWeb", "Tiling/srcPts")
+val CommonDirs: List[String] = moduleDirs.flatMap(s => List(s + "/src", s + "/Exs/src")) ::: specDirs
 
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")
 bothDoc :=
@@ -121,8 +123,8 @@ bothDoc :=
 
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el =>
-    List(el + "/src", el + "/srcGui", el + "/srcGlobe", el + "/srcAnyVal", el + "/srcJvm", el + "/Exs/src", el + "/srcFx")).map(s => baseDir.value / s),
+  Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.flatMap(s =>
+    List(s + "/srcJvm", s + "/Exs/srcJvm")) ::: List("Util/srcAnyVal", "Geom/srcFx", "Dev/srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
@@ -132,7 +134,7 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).setti
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := docDirs.flatMap(el => List(el + "/src", el + "/srcGui", el + "/srcGlobe", el + "/srcJs", el + "/Exs/src")).map(s => baseDir.value / s),
+  Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.map(_ + "/srcJs")).map(s => baseDir.value / s),
 
   Compile / sourceGenerators += Def.task {
     val str = scala.io.Source.fromFile("Util/srcAnyVal/Arr.scala").mkString
