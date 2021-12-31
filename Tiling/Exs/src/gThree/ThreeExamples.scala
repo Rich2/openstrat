@@ -30,14 +30,14 @@ object ThreeScen1 extends ThreeScenStart
 object ThreeScen2 extends ThreeScenStart
 { override implicit val grid: HGrid = HGridReg(2, 20, 4, 60)
   override val terrs: HCenArr[Terr] = grid.newTileArr[Terr](Plain)
-  import terrs.{completeRow => sr}
-  sr(6,6, Water * 4)
-  sr(8,4, Water * 5)
-  sr(10,6, Water * 4)
-  sr(16,4, Water * 4)
-  sr(14, 42, Woods * 3)
-  sr(16, 44, Woods * 3)
-  sr(18, 42, Woods * 3)
+  import terrs.{setRowPart => sr}
+  sr(6,6, 4, Water)
+  sr(8,4, 5, Water)
+  sr(10, 6, 4, Water)
+  sr(16, 4, 4, Water)
+  sr(14, 42, 3, Woods)
+  sr(16, 44, 3, Woods)
+  sr(18, 42, 3, Woods)
   val units: HCenArrOpt[Lunit] = grid.newTileArrOpt
   units.unsafeSetSome(4, 4, Lunit(TeamA))
 
