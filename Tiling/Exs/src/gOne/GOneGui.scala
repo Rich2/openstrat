@@ -24,9 +24,17 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
    *  moves. This data is state for the Gui. */
   var moves: HCenArrOpt[HStep] = NoMoves
 
+  val urect = Rect(1.4, 1)
+
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
   def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, p) =>
-    Rect(1.1, 0.75, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), p.toString + "\n" + hc.strComma, 24, 2.0)
+    val str = tilePScale match {
+      case s if s > 170 => p.toString + "\n" + hc.strComma
+      case s if s > 150 => p.char + "\n" + hc.strComma
+      case s if s > 60 => p.char.toString
+      case s => ""
+    }
+    urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), str, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
