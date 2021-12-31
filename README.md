@@ -22,7 +22,7 @@
 
 <h3> Heapless Compound Value type collections library</h3>
 
-<p>Scala currently set to 3.1.0. Jdk 11+, 11 prefered. Scala.Js set to 1.8.0. Sbt currently set to 1.5.7, Sbt will not work running on Windows in
+<p>Scala currently set to 3.1.0. Jdk 11+, 11 prefered. Scala.Js set to 1.8.0. Sbt currently set to 1.6.1, Sbt will not work running on Windows in
  Git Bash. Update your Mill to 0.9.11.</p>
 
 </body>
