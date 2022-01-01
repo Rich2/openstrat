@@ -8,10 +8,8 @@ package object ostrat
   type Buff[A] = ArrayBuffer[A]
   type ERefs[A <: AnyRef] = EMon[Arr[A]]
   type RefsMulti[A <: AnyRef] = Arr[Multiple[A]]
-  //type PersistEq[A] = Persist[A] with EqT[A]
   type ShowEq[A] = ShowT[A] with EqT[A]
   type AnyRefs = Arr[AnyRef]
-  //type Strings = Arr[String]
   type Not[T] = { type L[U] = U NotSubTypeOf T }
 
   /** The tangent of 30 degrees or π/6 radians. */
@@ -143,8 +141,6 @@ package object ostrat
   /** foreachs over a range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iTo == iFrom & iStep == 0) throw excep("Loop step can not be 0.")
-   // if (iTo > iFrom & iStep <= 0) throw excep("Loop step must be greater then 0. if to-value greater then from-value.")
-   // if (iTo < iFrom & iStep >= 0) throw excep("Loop step must be less then 0. if to-value less then from-value.")
     var i: Int = iFrom
     while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
   }
@@ -229,8 +225,8 @@ package object ostrat
 
   /** 2 dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
    * From the start value until (while index is less than) the end value in integer steps. Default step values are 1. */
-  def ijUntilMap[A, AA <: SeqImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)
-                                     (implicit ev: ArrBuilder[A, AA]): AA = ijToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(jFrom, jUntil - 1, jStep)(f)
+  def ijUntilMap[A, AA <: SeqImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => A)(
+    implicit ev: ArrBuilder[A, AA]): AA = ijToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(jFrom, jUntil - 1, jStep)(f)
 
   /** ijToMap where i and j have identical ranges. */
   def ijSameToMap[A, AA <: SeqImut[A]](nFrom: Int, nTo: Int, nStep: Int = 1)(f: (Int, Int) => A)(implicit ev: ArrBuilder[A, AA]): AA =
@@ -276,10 +272,10 @@ package object ostrat
 
   implicit class EqerImplicit[T](thisT: T)(implicit ev: EqT[T])
   { /** Equals. An alternative type class based equals method. */
-    def ===(operand: T): Boolean = ev.eqv(thisT, operand)
+    def ===(operand: T): Boolean = ev.eqT(thisT, operand)
 
     /** Not-equals. An alternative type class based not-equals method. */
-    def !==(operand: T): Boolean = !ev.eqv(thisT, operand)
+    def !==(operand: T): Boolean = !ev.eqT(thisT, operand)
   }
 
   /** Extension methods for approximation type class. */

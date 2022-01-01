@@ -26,6 +26,15 @@ class Longs(val arrayUnsafe: Array[Long]) extends AnyVal with SeqImut[Long]
 
 object Longs
 { def apply(input: Long*): Longs = new Longs(input.toArray)
+
+  implicit val EqImplicit: EqT[Longs] = (a1, a2) =>
+    if(a1.elemsNum != a2.elemsNum) false
+    else
+    { var i = 0
+      var acc = true
+      while (i < a1.elemsNum & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      acc
+    }
 }
 
 object LongsBuild extends ArrBuilder[Long, Longs] with ArrFlatBuilder[Longs]

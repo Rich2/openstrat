@@ -117,5 +117,5 @@ abstract class DataDblNsPersist[A <: ElemDblN, M <: DataDblNs[A]](typeStr: Strin
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
-  override def eqv(m1: M, m2: M): Boolean = m1.arrayUnsafe === m2.arrayUnsafe
+  override def eqT(m1: M, m2: M): Boolean = m1.arrayUnsafe === m2.arrayUnsafe
 }

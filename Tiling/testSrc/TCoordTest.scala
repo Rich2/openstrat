@@ -11,7 +11,7 @@ object TCoordTest extends TestSuite
     test("test1")
       { 10.base32 ==> "A"
         hc1.strComma ==> "6, 2"
-        hc2.strComma ==> "6, A"
+        hc2.strComma ==> "6, 10"
       }
   }
 }

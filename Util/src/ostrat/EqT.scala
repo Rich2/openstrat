@@ -1,9 +1,11 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Equals type class trait. */
-trait EqT[A]
-{ def eqv(a1: A, a2: A): Boolean
+/** Equals type class trait has one method eqT that tests Equality on 2 values of type T. */
+trait EqT[T]
+{
+  /** Tests Equality on 2 values of type T. */
+  def eqT(a1: T, a2: T): Boolean
 }
 
 /** The campanion object for the EqT type class, containing instances for common types. This does not currently use a functor instance for a number of
@@ -16,18 +18,18 @@ object EqT
   implicit val stringImplicit: EqT[String] = (a1, a2) => a1 == a2
   implicit val charImplicit: EqT[Char] = (a1, a2) => a1 == a2
   implicit val noneImplicit: EqT[None.type] = (_, _) => true
-  implicit def someImplicit[A](implicit ev: EqT[A]): EqT[Some[A]]= (s1, s2) => ev.eqv(s1.value, s2.value)
+  implicit def someImplicit[A](implicit ev: EqT[A]): EqT[Some[A]]= (s1, s2) => ev.eqT(s1.value, s2.value)
 
   implicit def optionImplicit[A](implicit ev: EqT[A]): EqT[Option[A]] = (a1, a2) => (a1, a2) match
   { case (None, None) => true
-    case (Some(v1), Some(v2)) => ev.eqv(v1, v2)
+    case (Some(v1), Some(v2)) => ev.eqT(v1, v2)
     case _ => false
   }
 
   implicit def listImplicit[A](implicit ev: EqT[A]): EqT[List[A]] = (l1, l2) =>
   { def loop(rem1: List[A], rem2: List[A]): Boolean = (rem1, rem2) match
     { case (Nil, Nil) => true
-      case (::(h1, t1) , ::(h2, t2)) if ev.eqv(h1, h2) => loop(t1, t2)
+      case (::(h1, t1) , ::(h2, t2)) if ev.eqT(h1, h2) => loop(t1, t2)
       case _ => false
     }
     loop(l1, l2)
@@ -41,21 +43,21 @@ object EqT
       var continue = true
 
       while (count < a1.length & continue)
-      { if (ev.eqv(a1(count), a2(count))) count += 1
+      { if (ev.eqT(a1(count), a2(count))) count += 1
         else {acc = false; continue = false}
       }
       acc
     }
 
-  implicit def seqImplicit[A](implicit ev: EqT[A]): EqT[Seq[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall{ (i, el) => ev.eqv(el, s2(i)) }
+  implicit def seqImplicit[A](implicit ev: EqT[A]): EqT[Seq[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall{ (i, el) => ev.eqT(el, s2(i)) }
 
-  implicit def vectorImplicit[A](implicit ev: EqT[A]): EqT[Vector[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall{ (i, el) => ev.eqv(el, s2(i)) }
+  implicit def vectorImplicit[A](implicit ev: EqT[A]): EqT[Vector[A]] = (s1, s2) => (s1.length == s2.length) & s1.iForall{ (i, el) => ev.eqT(el, s2(i)) }
 
-  implicit def tuple2Implicit[A1, A2](implicit eq1: EqT[A1], eq2: EqT[A2]): EqT[(A1, A2)] = (p1, p2) => eq1.eqv(p1._1, p2._1) & eq2.eqv(p1._2, p2._2)
+  implicit def tuple2Implicit[A1, A2](implicit eq1: EqT[A1], eq2: EqT[A2]): EqT[(A1, A2)] = (p1, p2) => eq1.eqT(p1._1, p2._1) & eq2.eqT(p1._2, p2._2)
 }
 
 class Eq1T[A1, R](val fArg1: R => A1)(implicit eq1: EqT[A1]) extends EqT[R]
-{ override def eqv(r1: R, r2: R): Boolean = eq1.eqv(fArg1(r1), fArg1(r2))
+{ override def eqT(r1: R, r2: R): Boolean = eq1.eqT(fArg1(r1), fArg1(r2))
 }
 
 /** Equality type class trait for Product 2. */
@@ -64,7 +66,7 @@ trait Eq2T[A1, A2, R] extends EqT[R]
   def fArg2: R => A2
   implicit def eq1: EqT[A1]
   implicit def eq2: EqT[A2]
-  override def eqv(r1: R, r2: R): Boolean = eq1.eqv(fArg1(r1), fArg1(r2)) & eq2.eqv(fArg2(r1), fArg2(r2))
+  override def eqT(r1: R, r2: R): Boolean = eq1.eqT(fArg1(r1), fArg1(r2)) & eq2.eqT(fArg2(r1), fArg2(r2))
 }
 
 object Eq2T
@@ -85,7 +87,7 @@ case class Eq2DblsT[R](fArg1: R => Double, fArg2: R => Double) extends Eq2T[Doub
 /** Equality type class trait for Product 3. */
 class Eq3T[A1, A2, A3, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3)(implicit eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends
   EqT[R]
-{ override def eqv(r1: R, r2: R): Boolean = eq1.eqv(fArg1(r1), fArg1(r2)) & eq2.eqv(fArg2(r1), fArg2(r2)) & eq3.eqv(fArg3(r1), fArg3(r2))
+{ override def eqT(r1: R, r2: R): Boolean = eq1.eqT(fArg1(r1), fArg1(r2)) & eq2.eqT(fArg2(r1), fArg2(r2)) & eq3.eqT(fArg3(r1), fArg3(r2))
 }
 
 object Eq3T
@@ -98,8 +100,8 @@ object Eq3T
 class Eq4T[A1, A2, A3, A4, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3, val fArg4: R => A4)(implicit eq1: EqT[A1], eq2: EqT[A2],
                                                                                                               eq3: EqT[A3], eq4: EqT[A4]) extends EqT[R]
 {
-  override def eqv(r1: R, r2: R): Boolean = eq1.eqv(fArg1(r1), fArg1(r2)) & eq2.eqv(fArg2(r1), fArg2(r2)) & eq3.eqv(fArg3(r1), fArg3(r2)) &
-    eq4.eqv(fArg4(r1), fArg4(r2))
+  override def eqT(r1: R, r2: R): Boolean = eq1.eqT(fArg1(r1), fArg1(r2)) & eq2.eqT(fArg2(r1), fArg2(r2)) & eq3.eqT(fArg3(r1), fArg3(r2)) &
+    eq4.eqT(fArg4(r1), fArg4(r2))
 }
 
 /*class EqCase5[A1, A2, A3, A4, A5, R](val fArg1: R => A1, val fArg2: R => A2, val fArg3: R => A3, val fArg4: R => A4, val fArg5: R => A5)(implicit

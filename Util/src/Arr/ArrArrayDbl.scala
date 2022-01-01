@@ -24,7 +24,7 @@ trait ArrArrayDblBuild[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends ArrB
 
 class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends EqT[ArrT]
 {
-  override def eqv(a1: ArrT, a2: ArrT): Boolean = if (a1.elemsNum != a2.elemsNum) false
+  override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.elemsNum != a2.elemsNum) false
     else a1.iForAll((i, el1) =>  el1.arrayUnsafe === a2(i).arrayUnsafe)
 }
 

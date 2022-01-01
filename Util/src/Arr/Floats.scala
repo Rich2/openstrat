@@ -26,6 +26,16 @@ class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with SeqImut[Float]
 
 object Floats
 { def apply(input: Float*): Floats = new Floats(input.toArray)
+
+
+  implicit val eqImplicit: EqT[Floats] = (a1, a2) =>
+    if(a1.elemsNum != a2.elemsNum) false
+    else
+    { var i = 0
+      var acc = true
+      while (i < a1.elemsNum & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      acc
+    }
 }
 
 object FloatsBuild extends ArrBuilder[Float, Floats] with ArrFlatBuilder[Floats]

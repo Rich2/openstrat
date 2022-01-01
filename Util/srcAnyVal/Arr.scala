@@ -122,6 +122,13 @@ object Arr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
   implicit def showImplicit[A <: AnyRef](implicit evA: ShowT[A]): ShowT[Arr[A]] = ArrayLikeShow[A, Arr[A]](evA)
 
+  implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[Arr[A]] = (arr1, arr2) => if (arr1.elemsNum != arr2.elemsNum) false else
+  { var i = 0
+    var res = true
+    while(i < arr1.elemsNum & res) if (evA.eqT(arr1(i), arr2(i))) i += 1 else res = false
+    res
+  }
+
   implicit class ArrExtension[A <: AnyRef](thisArr: Arr[A])
   {
     def optFind(f: A => Boolean): OptRef[A] =

@@ -30,8 +30,8 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, p) =>
     val str = tilePScale match {
       case s if s > 170 => p.toString + "\n" + hc.strComma
-      case s if s > 150 => p.char + "\n" + hc.strComma
-      case s if s > 60 => p.char.toString
+      case s if s > 150 => p.charStr + "\n" + hc.strComma
+      case s if s > 60 => p.charStr
       case s => ""
     }
     urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), str, 24, 2.0)

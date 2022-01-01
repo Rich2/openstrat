@@ -29,7 +29,7 @@ case class Multiple[+A](value: A, num: Int)
 /** Companion object for the Multiple[+A] type class. */
 object Multiple
 {
-  implicit def eqImplicit[A](implicit ev: EqT[A]): EqT[Multiple[A]] = (a1, a2) => (a1.num == a2.num) & ev.eqv(a1.value, a2.value)
+  implicit def eqImplicit[A](implicit ev: EqT[A]): EqT[Multiple[A]] = (a1, a2) => (a1.num == a2.num) & ev.eqT(a1.value, a2.value)
 
   implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
 

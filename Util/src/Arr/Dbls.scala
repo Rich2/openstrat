@@ -23,6 +23,15 @@ class Dbls(val arrayUnsafe: Array[Double]) extends AnyVal with SeqImut[Double]
 /** Companion object for the Dbls Array based class for Doubles, contains a repeat parameter factory method. */
 object Dbls
 { def apply(input: Double*): Dbls = new Dbls(input.toArray)
+
+  implicit val eqImplicit: EqT[Dbls] = (a1, a2) =>
+    if(a1.elemsNum != a2.elemsNum) false
+    else
+    { var i = 0
+      var acc = true
+      while (i < a1.elemsNum & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      acc
+    }
 }
 
 object DblsBuild extends ArrBuilder[Double, Dbls] with ArrFlatBuilder[Dbls]

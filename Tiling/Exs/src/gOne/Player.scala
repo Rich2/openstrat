@@ -3,13 +3,15 @@ package ostrat; package gOne
 import prid._, Colour._
 
 /** A Player has a very simple token with a letter and colour for recognition. */
-case class Player(val char: Char, val colour: Colour) extends Show//2[Char, Colour]
+case class Player(char: Char, colour: Colour) extends Show//2[Char, Colour]
 { //override def toString = "Player " + char
   /** the name of the type of this object. */
   override def typeStr: String = "Player"
 
   /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
   override def str: String = "Player" + char
+
+  def charStr: String = char.toString
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Player" + char

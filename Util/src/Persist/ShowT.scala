@@ -235,7 +235,7 @@ sealed trait ShowInstancesPriority2
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
 class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
 { /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  def show(way: ShowStyle = ShowStandard, decimalPlaces: Int = -1, minPlaces: Int = 0): String = ev.showT(thisVal, way, decimalPlaces, minPlaces)
+  def show(style: ShowStyle = ShowStandard, decimalPlaces: Int = -1, minPlaces: Int = 0): String = ev.showT(thisVal, style, decimalPlaces, minPlaces)
 
   /** Provides the standard string representation for the object. */
   @inline def str: String = ev.strT(thisVal)

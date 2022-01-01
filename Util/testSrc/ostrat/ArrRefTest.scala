@@ -8,6 +8,15 @@ object ArrRefTest extends TestSuite
   case class MyA(i: Int) extends MyT
   case class MyB(i: Int) extends MyT
 
+  object MyT
+  {
+    implicit val eqTImplicit: EqT[MyT] = (m1, m2) => (m1, m2)match
+    { case (MyA(i1), MyA(i2)) => i1 == i2
+      case (MyB(i1), MyB(i2)) => i1 == i2
+      case _ => false
+    }
+  }
+
   val tests = Tests {
     val myAArr1: Arr[MyA] = Arr(MyA(1), MyA(2), MyA(3))
     val myBArr1: Arr[MyB] = Arr(MyB(4), MyB(5))
@@ -29,6 +38,20 @@ object ArrRefTest extends TestSuite
       myRefs1(1) ==> MyA(6)
       refs2(2) ==> MyA(7)
       ints3(2) ==> 7
+    }
+    val a1 = MyA(2)
+    val b1 = MyB(3)
+    val b2 = MyB(7)
+    val b3 = MyB(7)
+    val arr1: Arr[MyT] = Arr(a1, b1, b2)
+    val arr2: Arr[MyT] = Arr(a1, b1, b2)
+    val arr3: Arr[MyT] = Arr(a1, b1, b3)
+    val arr4: Arr[MyT] = Arr(a1, b2, b3)
+    test("Equality")
+    {
+      (arr1 === arr2) ==> true
+      (arr1 === arr3) ==> true
+      (arr1 === arr4) ==> false
     }
 
     val rs1 = "Seq[Int](5; 6; 7)"

@@ -25,6 +25,15 @@ class Strings(val arrayUnsafe: Array[String]) extends AnyVal with SeqImut[String
 object Strings
 { /** Repeat parameter apply factor method. */
   def apply(input: String*): Strings = new Strings(input.toArray)
+
+  implicit val eqImplicit: EqT[Strings] = (a1, a2) =>
+    if(a1.elemsNum != a2.elemsNum) false
+    else
+    { var i = 0
+      var acc = true
+      while (i < a1.elemsNum & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      acc
+    }
 }
 
 object StringsBuild extends ArrBuilder[String, Strings] with ArrFlatBuilder[Strings]
