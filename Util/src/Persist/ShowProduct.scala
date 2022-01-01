@@ -15,17 +15,17 @@ trait ShowProduct extends Any with Show
   /** A [[Strings]] Arr of the element type names of this Show Product class. */
   def elemTypeNames: Strings
 
-  override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  def showSemisNames(maxPlaces: Int = -1, minPlaces: Int = 0): String =
+    elemNames.zipMap(showElemStrs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
+
+  override def show(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
   { def semisStr = showElemStrs(ShowCommas, maxPlaces).mkStr("; ")
 
     style match
     { case ShowSemis => semisStr
       case ShowCommas => showElemStrs(ShowStandard, maxPlaces).mkStr(", ")
-
-      case ShowParamNames =>
-      { val inner = elemNames.zipMap(showElemStrs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
-        typeStr + inner.enParenth
-      }
+      case ShowParamNames => typeStr + showSemisNames(maxPlaces, minPlaces).enParenth
+      case ShowSemisNames => showSemisNames(maxPlaces, minPlaces)
 
       case ShowStdTypedFields =>
       { val inner = elemNames.zipMap2(elemTypeNames,showElemStrs(ShowStandard, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr(", ")

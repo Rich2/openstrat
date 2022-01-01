@@ -17,7 +17,7 @@ trait ShowT[-T] extends TypeStred
    * rather than a method on the object being shown. */
   def strT(obj: T): String
 
-  def showT(obj: T, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String
+  def showT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
 
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */

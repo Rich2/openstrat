@@ -40,6 +40,9 @@ object ShowStandard extends ShowStyle
 /** Show the object in the standard default manner, with parameter names. */
 object ShowParamNames extends ShowStyle
 
+/** Show the object as semicolon separated constituent values preceded b y their parameter names. */
+object ShowSemisNames extends ShowStyle
+
 /** Show the object in the standard default manner, with field names and their types. */
 object ShowStdTypedFields extends ShowStyle
 
