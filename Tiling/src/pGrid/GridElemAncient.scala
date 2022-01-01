@@ -1,6 +1,5 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
-import geom._
 
 /** In a simple Grid the only GridElems are Tiles. In a complex grid, there are values for tiles and tile sides. For programmatic purposes it is
  *  vital that GridElem contains its grid coordinates, although at a logical level a tile does not need to know its position within the tile grid.
@@ -68,7 +67,7 @@ object TileRow {
     // def fromClauses(clauses: Refs[ostrat.pParse.Clause]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def fromExpr(expr: pParse.Expr): ostrat.EMon[TileRow[T]] = ???
 
-    override def showT(obj: TileRow[T], way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showT(obj: TileRow[T], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
 
     //  def fromStatements(sts: Refs[ostrat.pParse.Statement]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def typeStr: String = ???

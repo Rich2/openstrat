@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
 
 /** An array[Int] based collection for [[Roord]]. */
@@ -47,7 +47,7 @@ object Roords extends DataInt2sCompanion[Roord, Roords]
   implicit object PersistImplicit extends Int2sArrPersist[Roord, Roords]("Roords")
   { override def fromArray(value: Array[Int]): Roords = new Roords(value)
 
-    override def showT(obj: Roords, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showT(obj: Roords, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   implicit val arrArrayImplicit: ArrFlatBuilder[Roords] = new ArrInt2sFlatBuilder[Roord, Roords]

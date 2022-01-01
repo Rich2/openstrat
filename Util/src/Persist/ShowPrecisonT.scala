@@ -3,7 +3,7 @@ package ostrat
 
 trait ShowPrecisonT[-T] extends TypeStred
 {
-  def showPrecisionT(obj: Double, way: Show.Way, maxPlaces: Int, minPlaces: Int): String =
+  def showPrecisionT(obj: Double, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   {
     val s1 = obj.toString
     val len = s1.length
@@ -17,8 +17,8 @@ trait ShowPrecisonT[-T] extends TypeStred
       case _ => s1
     }
 
-    way match {
-      case Show.Typed => typeStr + inner.enParenth
+    way match
+    { case ShowTyped => typeStr + inner.enParenth
       case _ => inner
     }
   }
@@ -26,12 +26,12 @@ trait ShowPrecisonT[-T] extends TypeStred
 
 object ShowPrecisonT
 {
-  implicit val doublePersistImplicit: ShowPrecisonT[Double] = new ShowPrecisonT[Double] {
-    override def typeStr: String = "DFloat"
+  implicit val doublePersistImplicit: ShowPrecisonT[Double] = new ShowPrecisonT[Double]
+  { override def typeStr: String = "DFloat"
     //override def syntaxDepthT(obj: Double): Int = 1
 
-    override def showPrecisionT(obj: Double, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = {
-      val s1 = obj.toString
+    override def showPrecisionT(obj: Double, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+    { val s1 = obj.toString
       val len = s1.length
       val i = s1.indexOf('.')
 
@@ -44,7 +44,7 @@ object ShowPrecisonT
       }
 
       way match {
-        case Show.Typed => typeStr + inner.enParenth
+        case ShowTyped => typeStr + inner.enParenth
         case _ => inner
       }
     }

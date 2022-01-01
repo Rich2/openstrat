@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
 
 /** An array[Int] based collection for Cood. To be replaced by [[prid.TileCoord]]. */
@@ -47,7 +47,7 @@ object Coods extends DataInt2sCompanion[Cood, Coods]
   implicit object PersistImplicit extends Int2sArrPersist[Cood, Coods]("Coods")
   { override def fromArray(value: Array[Int]): Coods = new Coods(value)
 
-    override def showT(obj: Coods, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showT(obj: Coods, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   implicit val arrArrayImplicit: ArrFlatBuilder[Coods] = new ArrInt2sFlatBuilder[Cood, Coods]

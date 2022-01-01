@@ -36,7 +36,7 @@ trait Show3[A1, A2, A3] extends Any with ShowProduct
 
   def elemNames: Strings = Strings(name1, name2, name3)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr, showT3.typeStr)
-  def shows(way: Show.Way, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces, 0), showT2.showT(show2, way, decimalPlaces, 0),
+  def showElemStrs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces, 0), showT2.showT(show2, way, decimalPlaces, 0),
     showT3.showT(show3, way, decimalPlaces, 0))
 }
 
@@ -65,7 +65,7 @@ class Show3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, 
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
-  override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
+  override def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0), ev3.showT(fArg3(obj), way, decimalPlaces, 0))
 }
 

@@ -37,15 +37,15 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepthT(el)))
 
-  final override def showT(obj: R, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = way match
+  final override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
   {
-    case Show.Commas if obj.foldLeft[Int](1)((acc: Int, el: A) =>
-      acc.max(evA.syntaxDepthT(el))) == 1 => obj.map(el => evA.showT(el, Show.Standard, maxPlaces, 0)).commaFold
+    case ShowCommas if obj.foldLeft[Int](1)((acc: Int, el: A) =>
+      acc.max(evA.syntaxDepthT(el))) == 1 => obj.map(el => evA.showT(el, ShowStandard, maxPlaces, 0)).commaFold
 
-    case Show.Semis if obj.foldLeft(1)((acc, el) =>
-      acc.max(evA.syntaxDepthT(el))) <= 2 => obj.map(el => evA.showT(el, Show.Commas, maxPlaces, 0)).semiFold
+    case ShowSemis if obj.foldLeft(1)((acc, el) =>
+      acc.max(evA.syntaxDepthT(el))) <= 2 => obj.map(el => evA.showT(el, ShowCommas, maxPlaces, 0)).semiFold
 
-    case _ => typeStr + obj.map(el => evA.showT(el, Show.Semis, maxPlaces, 0)).semiFold.enParenth
+    case _ => typeStr + obj.map(el => evA.showT(el, ShowSemis, maxPlaces, 0)).semiFold.enParenth
   }
 }
 

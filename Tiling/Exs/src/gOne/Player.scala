@@ -12,7 +12,7 @@ case class Player(val char: Char, val colour: Colour) extends Show//2[Char, Colo
   override def str: String = "Player" + char
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  override def show(way: Show.Way, maxPlaces: Int, minPlaces: Int): String = "Player" + char
+  override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Player" + char
 
   override def syntaxDepth: Int = 1
 }

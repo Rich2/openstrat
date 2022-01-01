@@ -26,7 +26,7 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: Cl
     case a2: A2 => ev2.showSemi(a2)
   }*/
 
-  override def showT(obj: ST, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = ???
+  override def showT(obj: ST, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
 }
 
 object ShowSum2

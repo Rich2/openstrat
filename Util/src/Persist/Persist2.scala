@@ -28,7 +28,7 @@ trait Show2[A1, A2] extends Any with ShowProduct
 
   def elemNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
-  def shows(way: Show.Way, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces, 0), showT2.showT(show2, way, decimalPlaces, 0))
+  def showElemStrs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces, 0), showT2.showT(show2, way, decimalPlaces, 0))
 }
 
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
@@ -72,7 +72,7 @@ object ShowShow2T
 {
   def apply[A1, A2, R<: Show2[A1, A2]](typeStrIn: String): ShowShow2T[A1, A2, R] = new ShowShow2T[A1, A2, R]
   { override def typeStr: String = typeStrIn
-    override def showT(obj: R, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
+    override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
   }
 }
 
@@ -99,7 +99,7 @@ trait Show2T[A1, A2, R] extends ShowProductT[R] with Persist2Base[A1, A2, R]
   implicit def ev2: ShowT[A2]
   override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
 
-  override def strs(obj: R, way: Show.Way, decimalPlaces: Int): Strings =
+  override def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0))
 }
 
@@ -123,7 +123,7 @@ object Show2T
 class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 {
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  def show2(way: Show.Way = Show.Standard, way1: Show.Way = Show.Standard, places1: Int = -1, way2: Show.Way = Show.Standard, places2: Int = -1):
+  def show2(way: ShowStyle = ShowStandard, way1: ShowStyle = ShowStandard, places1: Int = -1, way2: ShowStyle = ShowStandard, places2: Int = -1):
     String = ???
 }
 
