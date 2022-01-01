@@ -1,10 +1,10 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._
 
 /** The purpose of this trait is to give common methods for Panels and Simple Canvases. A SimpleCanvas is like a Panel but not a Panel.*/
 trait PanelLike extends RectCenlign
-{var backColour: Colour = Colour.White
+{ var backColour: Colour = Colour.White
 
   /** These are currently stored in reverse. I think this would be better in an Array */
   var actives: Arr[GraphicActive] = Arr()
