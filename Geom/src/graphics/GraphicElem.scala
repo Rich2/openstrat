@@ -1,8 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** This will be sealde in due course. A graphic element is either an element that can be rendered to a display (or printed) or is an active element
- * in a display or both. */
+/** This will be sealed in due course. A graphic element is either an element that can be rendered to a display (or printed) or is an active element
+ * in a display or both. So I think the self type will force all [[GraphicElem]]s to extend [[CanvElem]] or [[NoCanvElem]]. */
 trait GraphicElem extends GeomElem
 {
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
