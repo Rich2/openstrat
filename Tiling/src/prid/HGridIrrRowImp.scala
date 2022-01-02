@@ -134,7 +134,6 @@ object HGridIrrRows
       array(i * 2 + 1) = cMin
     }
     val arrayLen = array.length
-    debvar(arrayLen)
     new HGridIrrRows(rMin, array)
   }
 }

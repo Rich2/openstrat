@@ -13,7 +13,7 @@ class HCoords(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[HCoord] 
   override def fElemStr: HCoord => String = _.toString
 }
 
-class HCoordBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HCoord]
+class HCoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HCoord]
 { type ArrT = HCoords
   override def typeStr: String = "HCoordBuff"
   override def intsToT(i1: Int, i2: Int): HCoord = HCoord(i1, i2)

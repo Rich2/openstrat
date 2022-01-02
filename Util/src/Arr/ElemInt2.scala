@@ -35,7 +35,7 @@ trait ArrInt2sBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends ArrIntNsBuilde
   final override def arrSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.unsafeArray(index * 2) = value.int1; arr.unsafeArray(index * 2 + 1) = value.int2
   }
-  override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuff.append(value.int1); buff.unsafeBuff.append(value.int2); () }
+  override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2); () }
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrBuilder]] type
@@ -52,11 +52,11 @@ trait ArrInt2sFlatBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends ArrIntNsFl
 trait BuffInt2s[A <: ElemInt2] extends Any with BuffIntNs[A]
 { type ArrT <: ArrInt2s[A]
   override def elemProdSize: Int = 2
-  final override def length: Int = unsafeBuff.length / 2
-  override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1).append(newElem.int2); () }
+  final override def length: Int = unsafeBuffer.length / 2
+  override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2); () }
   def intsToT(i1: Int, i2: Int): A
-  override def indexData(index: Int): A = intsToT(unsafeBuff(index * 2), unsafeBuff(index * 2 + 1))
-  override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuff(i * 4) = value.int1; unsafeBuff(i * 4 + 1) = value.int2 }
+  override def indexData(index: Int): A = intsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
+  override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 4) = value.int1; unsafeBuffer(i * 4 + 1) = value.int2 }
 }
 
 /** Helper class for companion objects of final Int2sArr classes. */

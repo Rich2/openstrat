@@ -1,21 +1,21 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable efficent [[Array]][[Int]] backed class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be
  *  widened. */
-final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with SeqImut[Int]
+final class Ints(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
 { type ThisT = Ints
 
   /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */
   override def unsafeSameSize(length: Int): Ints = new Ints(new Array[Int](length))
 
   override def typeStr: String = "Ints"
-  override def dataLength: Int = arrayUnsafe.length
-  override def length: Int = arrayUnsafe.length
-  override def indexData(index: Int): Int = arrayUnsafe(index)
-  override def unsafeSetElem(i: Int, value: Int): Unit = arrayUnsafe(i) = value
-  def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
+  override def dataLength: Int = unsafeArray.length
+  override def length: Int = unsafeArray.length
+  override def indexData(index: Int): Int = unsafeArray(index)
+  override def unsafeSetElem(i: Int, value: Int): Unit = unsafeArray(i) = value
+  def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
 
   /** Alias for appendInts. Functionally appends the operand Ints. */
@@ -24,8 +24,8 @@ final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with SeqImut[Int]
   /** Functionally appends the operand Ints. Aliased by the ++ operator. */
   def appendInts(op: Ints): Ints =
   { val newArray = new Array[Int](dataLength + op.dataLength)
-    arrayUnsafe.copyToArray(newArray)
-    op.arrayUnsafe.copyToArray(newArray, dataLength)
+    unsafeArray.copyToArray(newArray)
+    op.unsafeArray.copyToArray(newArray, dataLength)
     new Ints(newArray)
   }
 
@@ -35,7 +35,7 @@ final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with SeqImut[Int]
    *  confusion with arithmetic operations. */
   def append(op: Int): Ints =
   { val newArray = new Array[Int](dataLength + 1)
-    arrayUnsafe.copyToArray(newArray)
+    unsafeArray.copyToArray(newArray)
     newArray(dataLength) = op
     new Ints(newArray)
   }
@@ -46,7 +46,7 @@ final class Ints(val arrayUnsafe: Array[Int]) extends AnyVal with SeqImut[Int]
   def prepend(op: Int): Ints =
   { val newArray = new Array[Int](dataLength + 1)
     newArray(0) = op
-    arrayUnsafe.copyToArray(newArray, 1)
+    unsafeArray.copyToArray(newArray, 1)
     new Ints(newArray)
   }
 }
@@ -71,18 +71,18 @@ object Ints
 object IntsBuild extends ArrBuilder[Int, Ints] with ArrFlatBuilder[Ints]
 { type BuffT = IntBuff
   override def newArr(length: Int): Ints = new Ints(new Array[Int](length))
-  override def arrSet(arr: Ints, index: Int, value: Int): Unit = arr.arrayUnsafe(index) = value
+  override def arrSet(arr: Ints, index: Int, value: Int): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](length))
-  override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: IntBuff, arr: Ints): Unit = buff.unsafeBuff.addAll(arr.arrayUnsafe)
-  override def buffToBB(buff: IntBuff): Ints = new Ints(buff.unsafeBuff.toArray)
+  override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrowArr(buff: IntBuff, arr: Ints): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: IntBuff): Ints = new Ints(buff.unsafeBuffer.toArray)
 }
 
-class IntBuff(val unsafeBuff: ArrayBuffer[Int]) extends AnyVal with SeqGen[Int]
+class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with SeqGen[Int]
 { override def typeStr: String = "IntBuff"
-  override def indexData(index: Int): Int = unsafeBuff(index)
-  override def length: Int = unsafeBuff.length
-  override def dataLength: Int = unsafeBuff.length
-  override def unsafeSetElem(i: Int, value: Int): Unit = unsafeBuff(i) = value
+  override def indexData(index: Int): Int = unsafeBuffer(index)
+  override def length: Int = unsafeBuffer.length
+  override def dataLength: Int = unsafeBuffer.length
+  override def unsafeSetElem(i: Int, value: Int): Unit = unsafeBuffer(i) = value
   override def fElemStr: Int => String = _.toString
 }

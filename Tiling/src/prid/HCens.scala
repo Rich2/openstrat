@@ -29,7 +29,7 @@ object HCens extends DataInt2sCompanion[HCen, HCens]
   //implicit val arrArrayImplicit: ArrTFlatBuilder[HCens] = HCen.hCensBuildImplicit
 }
 
-class HCenBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HCen]
+class HCenBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HCen]
 { type ArrT = HCens
   override def typeStr: String = "HCenBuff"
   override def intsToT(i1: Int, i2: Int): HCen = HCen(i1, i2)

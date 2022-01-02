@@ -91,15 +91,15 @@ abstract class DataDbl3sCompanion[A <: ElemDbl3, ArrA <: DataDbl3s[A]] extends D
 trait BuffDbl3s[A <: ElemDbl3] extends Any with BuffDblNs[A]
 { type ArrT <: ArrDbl3s[A]
   override def elemProdSize: Int = 3
-  final override def length: Int = unsafeBuff.length / 3
+  final override def length: Int = unsafeBuffer.length / 3
 
   /** Grows the buffer by a single element. */
-  override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3); () }
+  override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3); () }
 
   def dblsToT(d1: Double, d2: Double, d3: Double): A
-  def indexData(index: Int): A = dblsToT(unsafeBuff(index * 3), unsafeBuff(index * 3 + 1), unsafeBuff(index * 3 + 2))
+  def indexData(index: Int): A = dblsToT(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
 
   override def unsafeSetElem(i: Int, value: A): Unit =
-  { unsafeBuff(i * 4) = value.dbl1; unsafeBuff(i * 4 + 1) = value.dbl2; unsafeBuff(i * 4 + 2) = value.dbl3
+  { unsafeBuffer(i * 4) = value.dbl1; unsafeBuffer(i * 4 + 1) = value.dbl2; unsafeBuffer(i * 4 + 2) = value.dbl3
   }
 }

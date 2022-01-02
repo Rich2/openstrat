@@ -139,11 +139,11 @@ abstract class DataDbl2sPersist[A <: ElemDbl2, M <: DataDbl2s[A]](typeStr: Strin
 /** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl2]]s collections. */
 trait BuffDbl2s[A <: ElemDbl2] extends Any with BuffDblNs[A]
 { type ArrT <: ArrDbl2s[A]
-  final override def length: Int = unsafeBuff.length / 2
+  final override def length: Int = unsafeBuffer.length / 2
   override def elemProdSize: Int = 2
-  override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2); () }
+  override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2); () }
   def dblsToT(d1: Double, d2: Double): A
-  override def indexData(index: Int): A = dblsToT(unsafeBuff(index * 2), unsafeBuff(index * 2 + 1))
-  override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuff(i * 2) = value.dbl1; unsafeBuff(i * 2 + 1) = value.dbl2 }
+  override def indexData(index: Int): A = dblsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
+  override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 2) = value.dbl1; unsafeBuffer(i * 2 + 1) = value.dbl2 }
   override def fElemStr: A => String = _.toString
 }

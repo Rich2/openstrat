@@ -32,7 +32,7 @@ class RoordLines(val unsafeArray: Array[Int]) extends AnyVal with ArrInt4s[Roord
   //override def toString: String = RoordLines.PersistImplicit.show(this)
 }
 
-class RoordLinesBuff(val unsafeBuff: Buff[Int] = buffInt()) extends AnyVal with BuffInt4s[RoordLine, RoordLines]
+class RoordLinesBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with BuffInt4s[RoordLine, RoordLines]
 {// override def unBuff: RoordLines = new RoordLines(toArray)
   override def typeStr: String = "RoordLinesBuff"
   override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): RoordLine = new RoordLine(i1, i2, i3, i4)

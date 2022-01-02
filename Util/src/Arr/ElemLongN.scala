@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -7,8 +7,8 @@ trait ElemLongN extends Any with ElemValueN
 
 /** Base trait for Array[Long] based collections of Products of Longs. */
 trait ArrLongNs[A <: ElemLongN] extends Any with ArrValueNs[A]
-{ def array: Array[Long]
-  def arrLen = array.length
+{ def unsafeArray: Array[Long]
+  def arrLen: Int = unsafeArray.length
 
   /** The number of Longs, that specify / construct an element of this immutable flat Array based collection class. */
   def elemProdSize: Int
@@ -16,8 +16,8 @@ trait ArrLongNs[A <: ElemLongN] extends Any with ArrValueNs[A]
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
 trait BuffLongNs[A <: ElemLongN] extends Any with BuffValueNs[A]
-{ def buffer: ArrayBuffer[Long]
-  def toArray: Array[Long] = buffer.toArray[Long]
+{ def unsafeBuffer: ArrayBuffer[Long]
+  def toArray: Array[Long] = unsafeBuffer.toArray[Long]
 //  def unBuff: M
   def grow(newElem: A): Unit
 //  def addAll(newElems: M): Unit = { buffer.addAll(newElems.array); () }

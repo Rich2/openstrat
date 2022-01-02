@@ -12,8 +12,8 @@ trait ArrLong1s[A <: ElemLong1] extends Any with ArrLongNs[A]
 {
   final override def elemProdSize: Int = 1
   def newElem(intValue: Long): A
-  final override def apply(index: Int): A = newElem(array(index))
-  final override def unsafeSetElem(index: Int, elem: A): Unit = array(index) = elem.intValue
+  final override def apply(index: Int): A = newElem(unsafeArray(index))
+  final override def unsafeSetElem(index: Int, elem: A): Unit = unsafeArray(index) = elem.intValue
 
   /** This method could be made more general. */
   def findIndex(value: A): Option[Int] =
@@ -23,7 +23,7 @@ trait ArrLong1s[A <: ElemLong1] extends Any with ArrLongNs[A]
     var continue = true
     while (continue == true & count < dataLength)
     {
-      if (value.intValue == array(count))
+      if (value.intValue == unsafeArray(count))
       { acc = Some(count)
         continue = false
       }
@@ -35,5 +35,5 @@ trait ArrLong1s[A <: ElemLong1] extends Any with ArrLongNs[A]
 
 /** A specialised flat ArrayBuffer[long] based trait for [[ElemLong1]]s collections. */
 trait BuffLong1s[A <: ElemLong1, ArrA <: ArrLong1s[A]] extends Any with BuffLongNs[A]
-{ override def grow(newElem: A): Unit = { buffer.append(newElem._1); () }
+{ override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem._1); () }
 }

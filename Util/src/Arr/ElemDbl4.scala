@@ -130,15 +130,15 @@ abstract class DataDbl4sPersist[A <: ElemDbl4, ArrA <: DataDbl4s[A]](typeStr: St
 trait BuffDbl4s[A <: ElemDbl4] extends Any with BuffDblNs[A]
 { type ArrT <: ArrDbl4s[A]
   override def elemProdSize: Int = 4
-  final override def length: Int = unsafeBuff.length / 4
+  final override def length: Int = unsafeBuffer.length / 4
 
   /** Grows the buffer by a single element. */
-  override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4); () }
+  override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4); () }
 
   def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): A
-  override def indexData(index: Int): A = dblsToT(unsafeBuff(index * 4), unsafeBuff(index * 4 + 1), unsafeBuff(index * 4 + 2), unsafeBuff(index * 4 + 3))
+  override def indexData(index: Int): A = dblsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
 
   override def unsafeSetElem(i: Int, value: A): Unit =
-  { unsafeBuff(i * 4) = value.dbl1; unsafeBuff(i * 4 + 1) = value.dbl2; unsafeBuff(i * 4 + 2) = value.dbl3; unsafeBuff(i * 4 + 3) = value.dbl4
+  { unsafeBuffer(i * 4) = value.dbl1; unsafeBuffer(i * 4 + 1) = value.dbl2; unsafeBuffer(i * 4 + 2) = value.dbl3; unsafeBuffer(i * 4 + 3) = value.dbl4
   }
 }

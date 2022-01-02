@@ -1,22 +1,22 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
 /** An immutable Array based class for Doubles. */
-class Dbls(val arrayUnsafe: Array[Double]) extends AnyVal with SeqImut[Double]
+class Dbls(val unsafeArray: Array[Double]) extends AnyVal with SeqImut[Double]
 { type ThisT = Dbls
   override def typeStr: String = "Doubles"
   override def unsafeSameSize(length: Int): Dbls = new Dbls(new Array[Double](length))
-  override def dataLength: Int = arrayUnsafe.length
-  override def length: Int = arrayUnsafe.length
-  override def indexData(index: Int): Double = arrayUnsafe(index)
-  override def unsafeSetElem(i: Int, value: Double): Unit = arrayUnsafe(i) = value
-  def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
+  override def dataLength: Int = unsafeArray.length
+  override def length: Int = unsafeArray.length
+  override def indexData(index: Int): Double = unsafeArray(index)
+  override def unsafeSetElem(i: Int, value: Double): Unit = unsafeArray(i) = value
+  def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
   def ++ (op: Dbls): Dbls =
   { val newArray = new Array[Double](dataLength + op.dataLength)
-    arrayUnsafe.copyToArray(newArray)
-    op.arrayUnsafe.copyToArray(newArray, dataLength)
+    unsafeArray.copyToArray(newArray)
+    op.unsafeArray.copyToArray(newArray, dataLength)
     new Dbls(newArray)
   }
 }
@@ -38,18 +38,18 @@ object Dbls
 object DblsBuild extends ArrBuilder[Double, Dbls] with ArrFlatBuilder[Dbls]
 { type BuffT = DblsBuff
   override def newArr(length: Int): Dbls = new Dbls(new Array[Double](length))
-  override def arrSet(arr: Dbls, index: Int, value: Double): Unit = arr.arrayUnsafe(index) = value
+  override def arrSet(arr: Dbls, index: Int, value: Double): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): DblsBuff = new DblsBuff(ArrayBuffer[Double](length))
-  override def buffGrow(buff: DblsBuff, value: Double): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: DblsBuff, arr: Dbls): Unit = buff.unsafeBuff.addAll(arr.arrayUnsafe)
-  override def buffToBB(buff: DblsBuff): Dbls = new Dbls(buff.unsafeBuff.toArray)
+  override def buffGrow(buff: DblsBuff, value: Double): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrowArr(buff: DblsBuff, arr: Dbls): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: DblsBuff): Dbls = new Dbls(buff.unsafeBuffer.toArray)
 }
 
-class DblsBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with SeqGen[Double]
+class DblsBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with SeqGen[Double]
 { override def typeStr: String = "DblsBuff"
-  override def indexData(index: Int): Double = unsafeBuff(index)
-  override def dataLength: Int = unsafeBuff.length
-  override def length: Int = unsafeBuff.length
-  override def unsafeSetElem(i: Int, value: Double): Unit = unsafeBuff(i) = value
+  override def indexData(index: Int): Double = unsafeBuffer(index)
+  override def dataLength: Int = unsafeBuffer.length
+  override def length: Int = unsafeBuffer.length
+  override def unsafeSetElem(i: Int, value: Double): Unit = unsafeBuffer(i) = value
   override def fElemStr: Double => String = _.toString
 }

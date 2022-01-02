@@ -32,13 +32,13 @@ trait ArrInt4s[A <: ElemInt4] extends Any with ArrIntNs[A]
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt4]]s collections. */
 trait BuffInt4s[A <: ElemInt4, M <: ArrInt4s[A]] extends Any with BuffIntNs[A]
 { override def elemProdSize: Int = 4
-  final override def length: Int = unsafeBuff.length / 4
-  override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
+  final override def length: Int = unsafeBuffer.length / 4
+  override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
   def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
-  override def indexData(index: Int): A = intsToT(unsafeBuff(index * 4), unsafeBuff(index * 4 + 1), unsafeBuff(index * 4 + 2), unsafeBuff(index * 4 + 3))
+  override def indexData(index: Int): A = intsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
 
   override def unsafeSetElem(i: Int, value: A): Unit =
-  { unsafeBuff(i * 4) = value.int1; unsafeBuff(i * 4 + 1) = value.int2; unsafeBuff(i * 4 + 2) = value.int3; unsafeBuff(i * 4 + 3) = value.int4
+  { unsafeBuffer(i * 4) = value.int1; unsafeBuffer(i * 4 + 1) = value.int2; unsafeBuffer(i * 4 + 2) = value.int3; unsafeBuffer(i * 4 + 3) = value.int4
   }
 }
 
