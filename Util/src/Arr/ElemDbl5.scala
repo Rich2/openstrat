@@ -31,7 +31,7 @@ trait DataDbl5s[A <: ElemDbl5] extends Any with DataDblNs[A]
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl5]]s. */
 trait ArrDbl5s[A <: ElemDbl5] extends Any with ArrDblNs[A] with DataDbl5s[A]
 { def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
-
+  final override def length: Int = arrayUnsafe.length / 5
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
   def head3: Double = arrayUnsafe(2)

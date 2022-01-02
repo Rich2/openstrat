@@ -31,7 +31,7 @@ trait ArrDbl4s[A <: ElemDbl4] extends Any with ArrDblNs[A] with DataDbl4s[A]
   def head2: Double = arrayUnsafe(1)
   def head3: Double = arrayUnsafe(2)
   def head4: Double = arrayUnsafe(3)
-
+  final override def length: Int = arrayUnsafe.length / 4
   override def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
 }
 
@@ -130,6 +130,7 @@ abstract class DataDbl4sPersist[A <: ElemDbl4, ArrA <: DataDbl4s[A]](typeStr: St
 trait BuffDbl4s[A <: ElemDbl4] extends Any with BuffDblNs[A]
 { type ArrT <: ArrDbl4s[A]
   override def elemProdSize: Int = 4
+  final override def length: Int = unsafeBuff.length / 4
 
   /** Grows the buffer by a single element. */
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4); () }

@@ -17,7 +17,7 @@ class PtMetre3Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl3s[P
   {
     existsCount(_.z.pos) match
     { case 0 => NoOptEither
-    case n if n == elemsNum => SomeA(map(_.xy))
+    case n if n == dataLength => SomeA(map(_.xy))
     case n => NoOptEither
       //      {
       //        var els: List[Either[Dist2, Dist2]] = lMap {

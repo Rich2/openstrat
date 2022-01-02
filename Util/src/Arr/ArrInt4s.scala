@@ -12,8 +12,8 @@ trait ElemInt4 extends Any with ElemIntN
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt4]]s. */
 trait ArrInt4s[A <: ElemInt4] extends Any with ArrIntNs[A]
-{
-  override def elemProdSize: Int = 4
+{ override def elemProdSize: Int = 4
+  final override def length: Int = arrayUnsafe.length / 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
   override def indexData(index: Int): A = newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
   override def unsafeSetElem(index: Int, elem: A): Unit =
@@ -32,6 +32,7 @@ trait ArrInt4s[A <: ElemInt4] extends Any with ArrIntNs[A]
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt4]]s collections. */
 trait BuffInt4s[A <: ElemInt4, M <: ArrInt4s[A]] extends Any with BuffIntNs[A]
 { override def elemProdSize: Int = 4
+  final override def length: Int = unsafeBuff.length / 4
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
   def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
   override def indexData(index: Int): A = intsToT(unsafeBuff(index * 4), unsafeBuff(index * 4 + 1), unsafeBuff(index * 4 + 2), unsafeBuff(index * 4 + 3))

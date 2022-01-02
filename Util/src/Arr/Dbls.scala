@@ -7,15 +7,16 @@ class Dbls(val arrayUnsafe: Array[Double]) extends AnyVal with SeqImut[Double]
 { type ThisT = Dbls
   override def typeStr: String = "Doubles"
   override def unsafeSameSize(length: Int): Dbls = new Dbls(new Array[Double](length))
-  override def elemsNum: Int = arrayUnsafe.length
+  override def dataLength: Int = arrayUnsafe.length
+  override def length: Int = arrayUnsafe.length
   override def indexData(index: Int): Double = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Double): Unit = arrayUnsafe(i) = value
   def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
   def ++ (op: Dbls): Dbls =
-  { val newArray = new Array[Double](elemsNum + op.elemsNum)
+  { val newArray = new Array[Double](dataLength + op.dataLength)
     arrayUnsafe.copyToArray(newArray)
-    op.arrayUnsafe.copyToArray(newArray, elemsNum)
+    op.arrayUnsafe.copyToArray(newArray, dataLength)
     new Dbls(newArray)
   }
 }
@@ -25,11 +26,11 @@ object Dbls
 { def apply(input: Double*): Dbls = new Dbls(input.toArray)
 
   implicit val eqImplicit: EqT[Dbls] = (a1, a2) =>
-    if(a1.elemsNum != a2.elemsNum) false
+    if(a1.dataLength != a2.dataLength) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.elemsNum & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.dataLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -47,7 +48,8 @@ object DblsBuild extends ArrBuilder[Double, Dbls] with ArrFlatBuilder[Dbls]
 class DblsBuff(val unsafeBuff: ArrayBuffer[Double]) extends AnyVal with SeqGen[Double]
 { override def typeStr: String = "DblsBuff"
   override def indexData(index: Int): Double = unsafeBuff(index)
-  override def elemsNum: Int = unsafeBuff.length
+  override def dataLength: Int = unsafeBuff.length
+  override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Double): Unit = unsafeBuff(i) = value
   override def fElemStr: Double => String = _.toString
 }

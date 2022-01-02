@@ -19,13 +19,15 @@ trait DataInt1s[A <: ElemInt1] extends Any with DataIntNs[A]
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */
 trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A] with DataInt1s[A]
 {
+  final override def length: Int = arrayUnsafe.length
+
   /** This method could be made more general. */
   def findIndex(value: A): OptInt =
   {
     var count = 0
     var acc: OptInt = NoInt
     var continue = true
-    while (continue == true & count < elemsNum)
+    while (continue == true & count < dataLength)
     {
       if (value.intValue == arrayUnsafe(count))
       { acc = SomeInt(count)
@@ -38,9 +40,9 @@ trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A] with DataInt1s[A]
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
-  { val newArray = new Array[Int](elemsNum + 1)
+  { val newArray = new Array[Int](dataLength + 1)
     arrayUnsafe.copyToArray(newArray)
-    newArray(elemsNum) = op.int1
+    newArray(dataLength) = op.int1
     unsafeFromArray(newArray)
   }
 }
@@ -72,6 +74,7 @@ trait ArrInt1sFlatBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends ArrIntNsFl
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt1]]s collections. */
 trait BuffInt1s[A <: ElemInt1] extends Any with BuffIntNs[A]
 { type ArrT <: ArrInt1s[A]
+  final override def length: Int = unsafeBuff.length
   def intToT(value: Int): A
   def indexData(i1: Int): A = intToT(unsafeBuff(i1))
   override def elemProdSize: Int = 1

@@ -20,7 +20,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
    Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag,
    CommonShapesInFlags)
 
-  val itemCount: Int = listOfFlags.elemsNum // 224 //
+  val itemCount: Int = listOfFlags.dataLength // 224 //
   val itemsPerRow: Int = 5  //  columns
   val itemsPerCol: Int = 3  //  rows
   val itemsPerPage: Int = itemsPerRow * itemsPerCol

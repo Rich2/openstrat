@@ -10,16 +10,17 @@ class Floats(val arrayUnsafe: Array[Float]) extends AnyVal with SeqImut[Float]
   override def unsafeSameSize(length: Int): Floats = new Floats(new Array[Float](length))
 
   override def typeStr: String = "Floats"
-  override def elemsNum: Int = arrayUnsafe.length
+  override def dataLength: Int = arrayUnsafe.length
+  override def length: Int = arrayUnsafe.length
   override def indexData(index: Int): Float = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = arrayUnsafe(i) = value
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
 
   def ++ (op: Floats): Floats =
-  { val newArray = new Array[Float](elemsNum + op.elemsNum)
+  { val newArray = new Array[Float](dataLength + op.dataLength)
     arrayUnsafe.copyToArray(newArray)
-    op.arrayUnsafe.copyToArray(newArray, elemsNum)
+    op.arrayUnsafe.copyToArray(newArray, dataLength)
     new Floats(newArray)
   }
 }
@@ -29,11 +30,11 @@ object Floats
 
 
   implicit val eqImplicit: EqT[Floats] = (a1, a2) =>
-    if(a1.elemsNum != a2.elemsNum) false
+    if(a1.dataLength != a2.dataLength) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.elemsNum & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.dataLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -51,7 +52,8 @@ object FloatsBuild extends ArrBuilder[Float, Floats] with ArrFlatBuilder[Floats]
 class FloatsBuff(val unsafeBuff: ArrayBuffer[Float]) extends AnyVal with SeqGen[Float]
 { override def typeStr: String = "FloatsBuff"
   override def indexData(index: Int): Float = unsafeBuff(index)
-  override def elemsNum: Int = unsafeBuff.length
+  override def dataLength: Int = unsafeBuff.length
+  override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeBuff(i) = value
   override def fElemStr: Float => String = _.toString
 }

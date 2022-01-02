@@ -10,7 +10,8 @@ class Strings(val arrayUnsafe: Array[String]) extends AnyVal with SeqImut[String
   override def unsafeSetElem(i: Int, value: String): Unit = arrayUnsafe(i) = value
   override def fElemStr: String => String = s => s
   override def indexData(index: Int): String = arrayUnsafe(index)
-  override def elemsNum: Int = arrayUnsafe.length
+  override def dataLength: Int = arrayUnsafe.length
+  override def length: Int = arrayUnsafe.length
 
   /** Make 1 string with separator from this collection of strings. */
   def mkStr(separator: String): String = if(empty) ""
@@ -27,11 +28,11 @@ object Strings
   def apply(input: String*): Strings = new Strings(input.toArray)
 
   implicit val eqImplicit: EqT[Strings] = (a1, a2) =>
-    if(a1.elemsNum != a2.elemsNum) false
+    if(a1.dataLength != a2.dataLength) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.elemsNum & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.dataLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -49,7 +50,8 @@ object StringsBuild extends ArrBuilder[String, Strings] with ArrFlatBuilder[Stri
 class StringsBuff(val unsafeBuff: ArrayBuffer[String]) extends AnyVal with SeqGen[String]
 { override def typeStr: String = "Stringsbuff"
   override def indexData(index: Int): String = unsafeBuff(index)
-  override def elemsNum: Int = unsafeBuff.length
+  override def dataLength: Int = unsafeBuff.length
+  override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: String): Unit = unsafeBuff(i) = value
   override def fElemStr: String => String = s => s
 }

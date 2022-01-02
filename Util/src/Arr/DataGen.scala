@@ -6,12 +6,12 @@ import annotation.unchecked.uncheckedVariance
  * encoded using sequence data. include immutable and expandable buffers. */
 trait DataGen[A] extends Any
 {
-  /** The number of elements in the collection. These collections use underlying mutable Arrays and ArrayBuffers. The length of the underlying
-   * Array will be this number or a multiple of this number. */
-  def elemsNum: Int
+  /** The number of data elements in this data sequence base class. These collections use underlying mutable Arrays and ArrayBuffers. The length of
+   *  the underlying Array will be this number or a multiple of this number. */
+  def dataLength: Int
 
   /** Just a handy short cut to give the length of this collection as a string. */
-  def elemsLenStr: String = elemsNum.toString
+  def dataLengthStr: String = dataLength.toString
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    *  methods. */
@@ -36,7 +36,7 @@ trait DataGen[A] extends Any
   /** Performs a side effecting function on each element of this sequence in order. */
   def dataForeach[U](f: A => U): Unit =
   { var i = 0
-    while(i < elemsNum)
+    while(i < dataLength)
     { f(indexData(i))
       i = i + 1
     }
@@ -50,7 +50,7 @@ trait DataGen[A] extends Any
    *  seen for example in fold methods' (accumulator, element) => B signature. */
   def dataIForeach[U](f: (Int, A) => Any): Unit =
   { var i = 0
-    while(i < elemsNum)
+    while(i < dataLength)
     { f(i, indexData(i))
       i = i + 1
     }
@@ -64,7 +64,7 @@ trait DataGen[A] extends Any
    *  seen for example in fold methods' (accumulator, element) => B signature. */
   def dataIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
   { var i = 0
-    while(i < elemsNum)
+    while(i < dataLength)
     { f(i + initIndex, indexData(i))
       i = i + 1
     }
@@ -73,13 +73,13 @@ trait DataGen[A] extends Any
   /** Foreachs over the tail of the data sequence. */
   def dataTailForeach[U](f: A => U): Unit =
   { var count = 1
-    while(count < elemsNum) { f(indexData(count)); count += 1 }
+    while(count < dataLength) { f(indexData(count)); count += 1 }
   }
 
   /** Specialised map to an immutable [[SeqImut]] of B. For [[SeqGen]] dataMap is the same as map, but for other structures it will be different, for
    * example a PolygonLike will map to another PolgonLike. */
   def dataMap[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsNum)
+  { val res = ev.newArr(dataLength)
     dataIForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
@@ -91,5 +91,5 @@ trait DataGen[A] extends Any
     acc
   }
 
-  def dataLast: A = indexData(elemsNum - 1)
+  def dataLast: A = indexData(dataLength - 1)
 }

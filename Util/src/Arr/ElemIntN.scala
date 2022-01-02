@@ -17,8 +17,8 @@ trait DataIntNs[A <: ElemIntN] extends Any with DataValueNs[A]
   def arrLen = arrayUnsafe.length
 
   override def reverseData: ThisT =
-  { val res: ThisT = unsafeSameSize(elemsNum)
-    dataIForeach({ (i, el) => res.unsafeSetElem(elemsNum - 1 - i, el)})
+  { val res: ThisT = unsafeSameSize(dataLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(dataLength - 1 - i, el)})
     res
   }
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
@@ -68,7 +68,7 @@ trait BuffIntNs[A <: ElemIntN] extends Any with BuffValueNs[A]
   def toArray: Array[Int] = unsafeBuff.toArray[Int]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.arrayUnsafe); () }
-  override def elemsNum = unsafeBuff.length / elemProdSize
+  override def dataLength = unsafeBuff.length / elemProdSize
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */

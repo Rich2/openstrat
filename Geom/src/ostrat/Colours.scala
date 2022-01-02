@@ -28,7 +28,7 @@ object Colours
   class RainbowCycle(val value: Int) extends AnyVal
   {
     def apply(): Colour = rainbow(value)
-    def next: RainbowCycle = ife(value == rainbow.elemsNum - 1, new RainbowCycle(0), new RainbowCycle(value + 1))
+    def next: RainbowCycle = ife(value == rainbow.dataLength - 1, new RainbowCycle(0), new RainbowCycle(value + 1))
     def nextValue: Colour = next()
   }
 

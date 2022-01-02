@@ -24,7 +24,8 @@ trait DataDbl6s[A <: ElemDbl6] extends Any with DataDblNs[A]
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl6]]s. */
 trait ArrDbl6s[A <: ElemDbl6] extends Any with ArrDblNs[A] with DataDbl6s[A]
-{
+{ final override def length: Int = arrayUnsafe.length / 6
+
   def setElem(index: Int, elem: A): Unit =
   { val offset = index * 6
     arrayUnsafe(offset) = elem.dbl1; arrayUnsafe(offset + 1) = elem.dbl2; arrayUnsafe(offset + 2) = elem.dbl3; arrayUnsafe(offset + 3) = elem.dbl4; arrayUnsafe(offset + 4) = elem.dbl5

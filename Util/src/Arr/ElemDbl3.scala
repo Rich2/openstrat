@@ -29,7 +29,7 @@ trait DataDbl3s[A <: ElemDbl3] extends Any with DataDblNs[A]
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl3]]s. */
 trait ArrDbl3s[A <: ElemDbl3] extends Any with ArrDblNs[A] with DataDbl3s[A]
-{
+{ final override def length: Int = arrayUnsafe.length / 3
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
   def head3: Double = arrayUnsafe(2)
@@ -91,6 +91,7 @@ abstract class DataDbl3sCompanion[A <: ElemDbl3, ArrA <: DataDbl3s[A]] extends D
 trait BuffDbl3s[A <: ElemDbl3] extends Any with BuffDblNs[A]
 { type ArrT <: ArrDbl3s[A]
   override def elemProdSize: Int = 3
+  final override def length: Int = unsafeBuff.length / 3
 
   /** Grows the buffer by a single element. */
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3); () }

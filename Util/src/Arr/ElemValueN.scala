@@ -23,7 +23,7 @@ trait DataValueNs[A <: ElemValueN] extends Any with DataImut[A]
   def reverseData: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
-  final override def elemsNum: Int = arrLen / elemProdSize
+  final override def dataLength: Int = arrLen / elemProdSize
 }
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
@@ -34,17 +34,17 @@ trait ArrValueNs[A <: ElemValueN] extends Any with SeqImut[A] with DataValueNs[A
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++[N <: ArrValueNs[A]](operand: N)(implicit factory: Int => N): N =
-  { val res = factory(elemsNum + operand.elemsNum)
+  { val res = factory(dataLength + operand.dataLength)
     iForeach((i, elem) => res.unsafeSetElem(i, elem))
-    operand.iForeach((i, elem) => res.unsafeSetElem(i + elemsNum, elem))
+    operand.iForeach((i, elem) => res.unsafeSetElem(i + dataLength, elem))
     res
   }
 
   /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
   def :+[N <: ArrValueNs[A]](operand: A)(implicit factory: Int => N): N =
-  { val res = factory(elemsNum + 1)
+  { val res = factory(dataLength + 1)
     iForeach((i, elem) => res.unsafeSetElem(i, elem))
-    res.unsafeSetElem(elemsNum, operand)
+    res.unsafeSetElem(dataLength, operand)
     res
   }
 
@@ -102,7 +102,7 @@ trait DataValueNsCompanion[A <: ElemValueN, ArrA <: DataValueNs[A]]
 
   /** This method allows you to map from a DataGen to the ArrA type. */
   final def dataGenMap[T](alb: DataGen[T])(f: T => A): ArrA = {
-    val res = uninitialised(alb.elemsNum)
+    val res = uninitialised(alb.dataLength)
     var count = 0
     alb.dataForeach { t =>
       res.unsafeSetElem(count, f(t))

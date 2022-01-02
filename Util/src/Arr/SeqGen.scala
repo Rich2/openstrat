@@ -10,6 +10,9 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 { /** The final type of this object. */
   type ThisT <: SeqGen[A]
 
+  /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[DataGen]][A]. */
+  def length: Int
+
   /** Method for keeping the typer happy when returning this as an instance of ThisT. */
   @inline def returnThis: ThisT = this.asInstanceOf[ThisT]
 
@@ -20,35 +23,35 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   @inline def head: A = apply(0)
 
   /** The last element of this sequence. */
-  @inline def last: A = apply(elemsNum - 1)
+  @inline def last: A = apply(dataLength - 1)
 
   /** Is this sequence empty? */
-  @inline def empty: Boolean = elemsNum <= 0
+  @inline def empty: Boolean = dataLength <= 0
 
   /** Is this sequence non empty? */
-  @inline def nonEmpty: Boolean = elemsNum > 0
+  @inline def nonEmpty: Boolean = dataLength > 0
 
   /** Folds over the non existence / existence of a head element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the head element. */
-  def headFold[B](noHead: => B)(ifHead: A => B): B = ife(elemsNum >= 1, ifHead(head), noHead)
+  def headFold[B](noHead: => B)(ifHead: A => B): B = ife(dataLength >= 1, ifHead(head), noHead)
 
   /** Folds over the non existence / existence of a head element. If the sequence is nonEmpty applies toString to head element else returns the noHead parameter string. */
-  def headFoldToString[B](noHead: => String): String = ife(elemsNum >= 1, apply(0).toString, noHead)
+  def headFoldToString[B](noHead: => String): String = ife(dataLength >= 1, apply(0).toString, noHead)
 
   /** Folds over the non existence / existence of a last element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the last element. */
-  def lastFold[B](noLast: => B)(ifLast: A => B): B = ife(elemsNum >= 1, ifLast(last), noLast)
+  def lastFold[B](noLast: => B)(ifLast: A => B): B = ife(dataLength >= 1, ifLast(last), noLast)
 
   /** if this [[SeqGen]] is nonEmpty performs the side effecting function on the head. If empty procedure is applied. */
-  def ifHead[U](f: A => U): Unit = if(elemsNum >= 1) f(apply(0))
+  def ifHead[U](f: A => U): Unit = if(dataLength >= 1) f(apply(0))
 
   /** Applies an index to this ArrayLike collection which cycles back to element 0, when it reaches the end of the collection. Accepts even negative
    * integers as an index value without throwing an exception. */
-  @inline def cycleGet(index: Int): A = apply(index %% elemsNum)
+  @inline def cycleGet(index: Int): A = apply(index %% dataLength)
 
   /** Performs a side effecting function on each element of this sequence in order. The function may return Unit. If it does return a non Unit value
    *  it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def foreach[U](f: A => U): Unit =
   { var count = 0
-    while(count < elemsNum)
+    while(count < dataLength)
     { f(apply(count))
       count = count + 1
     }
@@ -63,7 +66,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def iForeach[U](f: (Int, A) => U): Unit =
   { var count = 0
     var i: Int = 0
-    while(count < elemsNum )
+    while(count < dataLength )
     { f(i, apply(count))
       count+= 1
       i += 1
@@ -79,7 +82,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def iForeach[U](startIndex: Int)(f: (Int, A) => U): Unit =
   { var count = 0
     var i: Int = startIndex
-    while(count < elemsNum )
+    while(count < dataLength )
     { f(i, apply(count))
       count+= 1
       i += 1
@@ -89,7 +92,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   /** Specialised map to an immutable [[SeqImut]] of B. Applies the supplied function to every
    *  element of this sequence. */
   def map[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsNum)
+  { val res = ev.newArr(dataLength)
     iForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
@@ -101,7 +104,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
    * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. This method should be overridden in sub
    * classes. */
   def iMap[B, ArrB <: SeqImut[B]](f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsNum)
+  { val res = ev.newArr(dataLength)
     iForeach((i, a) => ev.arrSet(res, i, f(i, a)))
     res
   }
@@ -113,7 +116,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
    * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should be overridden in sub
    * classes. */
   def iMap[B, ArrB <: SeqImut[B]](startindex: Int)(f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsNum)
+  { val res = ev.newArr(dataLength)
     iForeach(startindex)((i, a) => ev.arrSet(res, i, f(i, a)))
     res
   }
@@ -137,7 +140,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def iFlatMap[ArrB <: SeqImut[_]](f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
-    while (i < elemsNum)
+    while (i < dataLength)
     { val newArr = f(i, apply(i));
       build.buffGrowArr(buff, newArr)
       i += 1
@@ -154,7 +157,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def iFlatMap[ArrB <: SeqImut[_]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
-    while (count < elemsNum)
+    while (count < dataLength)
     { val newElems = f(count + iInit, apply(count))
       build.buffGrowArr(buff, newElems)
       count += 1
@@ -165,7 +168,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
    * function from type A and type B to type C. */
   def zipMap[B, C, ArrC <: SeqImut[C]](operator: SeqGen[B])(f: (A, B) => C)(implicit ev: ArrBuilder[C, ArrC]): ArrC =
-  { val newLen = elemsNum.min(operator.elemsNum)
+  { val newLen = dataLength.min(operator.dataLength)
     val res = ev.newArr(newLen)
     var count = 0
     while(count < newLen)
@@ -179,7 +182,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
    *  the specialised map function from type A and type B and type C to type D. */
   def zipMap2[B, C, D, ArrD <: SeqImut[D]](operator1: SeqGen[B], operator2: SeqGen[C])(f: (A, B, C) => D)(implicit ev: ArrBuilder[D, ArrD]): ArrD =
-  { val newLen = elemsNum.min(operator1.elemsNum).min(operator2.elemsNum)
+  { val newLen = dataLength.min(operator1.dataLength).min(operator2.dataLength)
     val res = ev.newArr(newLen)
     var count = 0
     while(count < newLen)
@@ -194,7 +197,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
    * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    *  (accumulator, element) => B signature. */
   def mapWithAcc[B, ArrB <: SeqImut[B], C](initC: C)(f: (C, A) => (B, C))(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsNum)
+  { val res = ev.newArr(dataLength)
     var accC: C = initC
     iForeach({ (i, a) =>
           val (newB, newC) = f(accC, a)
@@ -209,7 +212,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     var continue = true
     var count = 0
     var errs: Strings = Strings()
-    while(count < elemsNum & continue == true)
+    while(count < dataLength & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToBB(acc)), Bad(errs))
   }
@@ -219,16 +222,16 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     var continue = true
     var count = 0
     var errs: Strings = Strings()
-    while(count < elemsNum & continue == true)
+    while(count < dataLength & continue == true)
       f(apply(count)).foldErrs { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(acc.reverse), Bad(errs))
   }
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
   def map2To1[B, ArrB <: SeqImut[B]](f: (A, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(elemsNum)
+  { val res = ev.newArr(dataLength)
     var count = 0
-    while (count + 1  < elemsNum)
+    while (count + 1  < dataLength)
     {  ev.arrSet(res, count, f(apply(count), apply(count + 1)))
       count += 2
     }
@@ -255,7 +258,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   /** FlatMaps over a function from A to any Iterable. */
   def iterFlatMap[B, ArrB <: SeqImut[B]](f: A => Iterable[B])(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val buff = ev.newBuff(elemsNum)
+  { val buff = ev.newBuff(dataLength)
     foreach(a => ev.buffGrowIter(buff, f(a)))
     ev.buffToBB(buff)
   }
@@ -276,7 +279,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def indexOf(elem: A @uncheckedVariance): Int =
   { var result = -1
     var count  = 0
-    while (count < elemsNum & result == -1)
+    while (count < dataLength & result == -1)
     { if (elem == apply(count)) result = count
     else count += 1
     }
@@ -287,7 +290,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def indexWhere(f: A => Boolean): Int =
   { var count = 0
     var result = -1
-    while(count < elemsNum & result == -1)
+    while(count < dataLength & result == -1)
     { if(f(apply(count))) result = count
       count += 1
     }
@@ -297,14 +300,14 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   /** Foreachs over the tail of this sequence. */
   def tailForeach[U](f: A => U): Unit =
   { var count = 1
-    while(count < elemsNum) { f(apply(count)); count += 1 }
+    while(count < dataLength) { f(apply(count)); count += 1 }
   }
 
   /** Performs a side effecting function on each element of this sequence excluding the last. The function may return Unit. If it does return a non
    *  Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def initForeach[U](f: A => U): Unit =
   { var count = 0
-    while(count < elemsNum - 1)
+    while(count < dataLength - 1)
     { f(apply(count))
       count += 1
     }
@@ -329,14 +332,14 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   /** Performs a side effecting function on each element of this sequence in reverse order. The function may return Unit. If it does return a non Unit
    *  value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def reverseForeach[U](f: A => U): Unit =
-  { var count = elemsNum
+  { var count = dataLength
     while(count > 0) { count -= 1; f(apply(count)) }
   }
 
   /** Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold
    *  methods' (accumulator, element) => B signature. */
   def reverseIForeach[U](f: (Int, A) => U): Unit =
-  { var count = elemsNum
+  { var count = dataLength
     while(count > 0) { count -= 1; f(count, apply(count)) }
   }
 
@@ -344,7 +347,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def forAll(p: (A) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
-    while (acc & count < elemsNum) if (p(apply(count))) count += 1 else acc = false
+    while (acc & count < dataLength) if (p(apply(count))) count += 1 else acc = false
     acc
   }
 
@@ -353,14 +356,14 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def iForAll(p: (Int, A) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
-    while (acc & count < elemsNum) if (p(count, apply(count))) count += 1 else acc = false
+    while (acc & count < dataLength) if (p(count, apply(count))) count += 1 else acc = false
     acc
   }
 
   def contains[A1 >: A](elem: A1): Boolean =
   { var count = 0
     var res = false
-    while (res == false & count < elemsNum){ if (elem == apply(count)) res = true; count += 1 }
+    while (res == false & count < dataLength){ if (elem == apply(count)) res = true; count += 1 }
     res
   }
 
@@ -388,10 +391,10 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** Not sure about this method. */
-  def mkString(separator: String): String = ife(elemsNum == 0, "",
+  def mkString(separator: String): String = ife(dataLength == 0, "",
     { var acc = head.toString
       var count = 1
-      while(count < elemsNum)
+      while(count < dataLength)
       { acc += separator + apply(count).toString
         count += 1
       }

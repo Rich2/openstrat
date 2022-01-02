@@ -35,7 +35,7 @@ trait DataDbl7s[A <: ElemDbl7] extends Any with DataDblNs[A]
 trait ArrDbl7s[A <: ElemDbl7] extends Any with ArrDblNs[A] with DataDbl7s[A]
 { def head1: Double = arrayUnsafe(0); def head2: Double = arrayUnsafe(1); def head3: Double = arrayUnsafe(2); def head4: Double = arrayUnsafe(3)
   def head5: Double = arrayUnsafe(4); def head6: Double = arrayUnsafe(5); def head7: Double = arrayUnsafe(6)
-
+  final override def length: Int = arrayUnsafe.length / 7
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6, el.dbl7)))
 }
 

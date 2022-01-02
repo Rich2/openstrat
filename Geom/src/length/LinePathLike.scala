@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 trait LinePathLike[A <: ElemValueN] extends Any with DataValueNs[A]
 {
   def map[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
-  { val res = build.newArr(elemsNum)
+  { val res = build.newArr(dataLength)
     dataIForeach((i, p) => res.unsafeSetElem(i, f(p)))
     res
   }
@@ -28,7 +28,7 @@ trait LinePathBuilder[B <: ElemValueN, BB <: LinePathLike[B]] extends DataBuilde
   def buffContains(buff: BuffT, newElem: B): Boolean =
   { var res = false
     var count = 0
-    while (!res & count < buff.elemsNum) if (buff(count) == newElem) res = true else count += 1
+    while (!res & count < buff.dataLength) if (buff(count) == newElem) res = true else count += 1
     res
   }
 

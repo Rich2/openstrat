@@ -5,7 +5,7 @@ package ostrat; package pWeb
 trait CssRule
 { def selec: String
   def props: Arr[CssDec]
-  def propsStr: String = props.elemsNum match {
+  def propsStr: String = props.dataLength match {
     case 0 => " {}"
     case 1 => s" { ${props.head.out} }"
     case _ => "\n{  " + props.foldStr(_.out, "\n  ") + " \n}"

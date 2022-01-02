@@ -189,7 +189,7 @@ class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R =
 
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
 
-    case ClausesExpr(clauses) if clauses.elemsNum == 2 =>
+    case ClausesExpr(clauses) if clauses.dataLength == 2 =>
       ev1.fromExpr(clauses(0).expr).flatMap(a1 => ev2.fromExpr(clauses(1).expr).map{a2 => newT(a1, a2)})
 
     case _ => expr.exprParseErr[R](this)

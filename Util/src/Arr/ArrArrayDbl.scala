@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with SeqImut[A]
 { def array: Array[Array[Double]]
-  def elemsNum: Int = array.length
+  def dataLength: Int = array.length
   def unsafeFromArrayArray(array: Array[Array[Double]]): ThisT
   final def unsafeSameSize(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Double]](length))
   def unsafeSetElem(i: Int, value: A): Unit = array(i) = value.arrayUnsafe
@@ -24,7 +24,7 @@ trait ArrArrayDblBuild[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends ArrB
 
 class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends EqT[ArrT]
 {
-  override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.elemsNum != a2.elemsNum) false
+  override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.dataLength != a2.dataLength) false
     else a1.iForAll((i, el1) =>  el1.arrayUnsafe === a2(i).arrayUnsafe)
 }
 
@@ -37,5 +37,5 @@ object ArrArrayDblEq
 trait ArrayDoubleBuff[A <: ArrayDblBacked] extends Any with SeqGen[A]
 { //override def apply(index: Int): AArray[Double] = unsafeBuff(index)
   def unsafeBuff: ArrayBuffer[Array[Double]]
-  override def elemsNum: Int = unsafeBuff.length
+  override def dataLength: Int = unsafeBuff.length
 }

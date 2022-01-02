@@ -26,43 +26,44 @@ trait DataDbl2s[A <: ElemDbl2] extends Any with DataDblNs[A]
   override def indexData(index: Int): A = dataElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
   def elem1sArray: Array[Double] =
-  { val res = new Array[Double](elemsNum)
+  { val res = new Array[Double](dataLength)
     var count = 0
-    while(count < elemsNum){ res(count) = arrayUnsafe(count * 2); count += 1 }
+    while(count < dataLength){ res(count) = arrayUnsafe(count * 2); count += 1 }
     res
   }
 
   def elem2sArray: Array[Double] =
-  { val res = new Array[Double](elemsNum)
+  { val res = new Array[Double](dataLength)
     var count = 0
-    while(count < elemsNum){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
+    while(count < dataLength){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
     res
   }
 
   def dataForeachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < elemsNum) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
+    while(count < dataLength) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl2]]s. */
 trait ArrDbl2s[A <: ElemDbl2] extends Any with ArrDblNs[A] with DataDbl2s[A]
 { type ThisT <: ArrDbl2s[A]
+  final override def length: Int = arrayUnsafe.length / 2
   def head1: Double = arrayUnsafe(0)
   def head2: Double = arrayUnsafe(1)
   def getPair(index: Int): (Double, Double) = (arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
 
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < elemsNum) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
+    while(count < dataLength) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
   }
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
-  { val newArray = new Array[Double](elemsNum + elemProdSize)
+  { val newArray = new Array[Double](dataLength + elemProdSize)
     arrayUnsafe.copyToArray(newArray)
-    newArray(elemsNum) = op.dbl1
-    newArray(elemsNum + 1) = op.dbl2
+    newArray(dataLength) = op.dbl1
+    newArray(dataLength + 1) = op.dbl2
     unsafeFromArray(newArray)
   }
 
@@ -138,6 +139,7 @@ abstract class DataDbl2sPersist[A <: ElemDbl2, M <: DataDbl2s[A]](typeStr: Strin
 /** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl2]]s collections. */
 trait BuffDbl2s[A <: ElemDbl2] extends Any with BuffDblNs[A]
 { type ArrT <: ArrDbl2s[A]
+  final override def length: Int = unsafeBuff.length / 2
   override def elemProdSize: Int = 2
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.dbl1).append(newElem.dbl2); () }
   def dblsToT(d1: Double, d2: Double): A

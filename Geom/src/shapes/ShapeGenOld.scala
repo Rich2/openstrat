@@ -15,7 +15,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends DataDbl7s[CurveTail] w
     CurveTail(iMatch, d1, d2, d3, d4, d5, d6)
 
   def ptsTrans(f: Pt2 => Pt2): ShapeGenOld =
-  { val newArray = new Array[Double](elemsNum * 7)
+  { val newArray = new Array[Double](dataLength * 7)
     def setMiddle(offset: Int): Unit =
     { val newMiddle: Pt2 = f(arrayUnsafe(offset + 3) pp arrayUnsafe(offset + 4))
       newArray(offset + 3) = newMiddle.x
@@ -28,7 +28,7 @@ class ShapeGenOld(val arrayUnsafe: Array[Double]) extends DataDbl7s[CurveTail] w
       newArray(offset + 6) = newEnd.y
     }
 
-    (0 until elemsNum).foreach{ index =>
+    (0 until dataLength).foreach{ index =>
       val offset = index * 7
       arrayUnsafe(offset) match
       {

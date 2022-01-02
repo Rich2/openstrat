@@ -11,15 +11,16 @@ class Longs(val arrayUnsafe: Array[Long]) extends AnyVal with SeqImut[Long]
 
   override def typeStr: String = "Longs"
   override def unsafeSameSize(length: Int): Longs = new Longs(new Array[Long](length))
-  override def elemsNum: Int = arrayUnsafe.length
+  override def dataLength: Int = arrayUnsafe.length
+  override def length: Int = arrayUnsafe.length
   override def indexData(index: Int): Long = arrayUnsafe(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = arrayUnsafe(i) = value
   override def fElemStr: Long => String = _.toString
 
   def ++ (op: Longs): Longs =
-  { val newArray = new Array[Long](elemsNum + op.elemsNum)
+  { val newArray = new Array[Long](dataLength + op.dataLength)
     arrayUnsafe.copyToArray(newArray)
-    op.arrayUnsafe.copyToArray(newArray, elemsNum)
+    op.arrayUnsafe.copyToArray(newArray, dataLength)
     new Longs(newArray)
   }
 }
@@ -28,11 +29,11 @@ object Longs
 { def apply(input: Long*): Longs = new Longs(input.toArray)
 
   implicit val EqImplicit: EqT[Longs] = (a1, a2) =>
-    if(a1.elemsNum != a2.elemsNum) false
+    if(a1.dataLength != a2.dataLength) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.elemsNum & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.dataLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -50,7 +51,8 @@ object LongsBuild extends ArrBuilder[Long, Longs] with ArrFlatBuilder[Longs]
 class LongsBuff(val unsafeBuff: ArrayBuffer[Long]) extends AnyVal with SeqGen[Long]
 { override def typeStr: String = "LongsBuff"
   override def indexData(index: Int): Long = unsafeBuff(index)
-  override def elemsNum: Int = unsafeBuff.length
+  override def dataLength: Int = unsafeBuff.length
+  override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeBuff(i) = value
   override def fElemStr: Long => String = _.toString
 }

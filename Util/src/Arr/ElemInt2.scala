@@ -20,6 +20,7 @@ trait DataInt2s[A <: ElemInt2] extends Any with DataIntNs[A]
 trait ArrInt2s[A <: ElemInt2] extends Any with ArrIntNs[A] with DataInt2s[A]
 { def head1: Int = arrayUnsafe(0)
   def head2: Int = arrayUnsafe(1)
+  final override def length: Int = arrayUnsafe.length / 2
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrBuilder]] type
@@ -51,6 +52,7 @@ trait ArrInt2sFlatBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends ArrIntNsFl
 trait BuffInt2s[A <: ElemInt2] extends Any with BuffIntNs[A]
 { type ArrT <: ArrInt2s[A]
   override def elemProdSize: Int = 2
+  final override def length: Int = unsafeBuff.length / 2
   override def grow(newElem: A): Unit = { unsafeBuff.append(newElem.int1).append(newElem.int2); () }
   def intsToT(i1: Int, i2: Int): A
   override def indexData(index: Int): A = intsToT(unsafeBuff(index * 2), unsafeBuff(index * 2 + 1))
