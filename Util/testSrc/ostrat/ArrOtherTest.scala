@@ -11,7 +11,8 @@ object ArrOtherTest extends TestSuite
     val ints3 = ints1 ++ ints2
     val dbls1 = Dbls(1.5, 3, 4.5, 6)
     val dbls2 = ints1.map(_ * 1.5)
-    //val dbls3: Dbls = ints1.iterFlatMap { a => List(a + 0.1, a + 0.2)}
+    val dbls3: Dbls = ints1.flatToIterableMap[Double, Dbls] { a => List(a + 0.1, a + 0.2) }
+    //debvar(dbls3)
     val longs1 = Longs(2, 4, 6) ++ Longs(8, 9)
     val pre1 = Ints(2, 3, 4).prepend(1)
 
@@ -22,8 +23,8 @@ object ArrOtherTest extends TestSuite
       dbls1(2) ==> 4.5
       dbls2(0) ==> 1.5
       dbls2.dataLength ==> 4
-     // dbls3(0) ==> 1.1
-     // dbls3.length ==> 8
+      //dbls3(0) ==> 1.1
+      dbls3.length ==> 8
       longs1(4) == 9L
       pre1(0) ==> 1
       pre1(3) ==> 4

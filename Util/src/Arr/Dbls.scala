@@ -39,12 +39,13 @@ object DblsBuild extends ArrBuilder[Double, Dbls] with ArrFlatBuilder[Dbls]
 { type BuffT = DblsBuff
   override def newArr(length: Int): Dbls = new Dbls(new Array[Double](length))
   override def arrSet(arr: Dbls, index: Int, value: Double): Unit = arr.unsafeArray(index) = value
-  override def newBuff(length: Int = 4): DblsBuff = new DblsBuff(ArrayBuffer[Double](length))
+  override def newBuff(length: Int = 4): DblsBuff = new DblsBuff(new ArrayBuffer[Double](length))
   override def buffGrow(buff: DblsBuff, value: Double): Unit = buff.unsafeBuffer.append(value)
   override def buffGrowArr(buff: DblsBuff, arr: Dbls): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
   override def buffToBB(buff: DblsBuff): Dbls = new Dbls(buff.unsafeBuffer.toArray)
 }
 
+/** Compile time wrapped Buffer class for [[Double]]s, used to build[[Dbls]]. */
 class DblsBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with SeqGen[Double]
 { override def typeStr: String = "DblsBuff"
   override def indexData(index: Int): Double = unsafeBuffer(index)

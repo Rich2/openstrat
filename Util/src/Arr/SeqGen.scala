@@ -256,8 +256,8 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     acc.reverse
   }
 
-  /** FlatMaps over a function from A to any Iterable. */
-  def iterFlatMap[B, ArrB <: SeqImut[B]](f: A => Iterable[B])(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  /** Maps over a function from A to any Iterable and flattens the result into an [[Arr]][A]. */
+  def flatToIterableMap[B, ArrB <: SeqImut[B]](f: A => Iterable[B])(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val buff = ev.newBuff(dataLength)
     foreach(a => ev.buffGrowIter(buff, f(a)))
     ev.buffToBB(buff)

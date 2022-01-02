@@ -25,5 +25,5 @@ trait DataBuilder[B, BB <: DataImut[B]] extends DataBuilderCommon[BB]
   def buffGrow(buff: BuffT, value: B): Unit
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: BB): Unit// = arr.foreach(buffGrow(buff, _))
+  def buffGrowArr(buff: BuffT, arr: BB): Unit
 }
