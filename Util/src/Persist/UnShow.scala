@@ -32,20 +32,37 @@ trait UnShow[+T] extends TypeStred
     case s3 => sts.startPosn.bad(s3.dataLength.toString -- "values of" -- typeStr -- "found.")
   }
 
-  /** Finds a setting of the type of this UnShow instance from a [Statement]. */
+  /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */
   def settingTFromStatement(settingStr: String, st: Statement): EMon[T] = st match
   { case NonEmptyStatement(AsignExpr(IdentLowerToken(_, sym), _, rightExpr), _) if sym == settingStr => fromExpr(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
   }
 
-  /** Finds a setting of the type of this UnShow instance from an Arr[Statement]. */
-  def settingTFromStatements(sts: Arr[Statement], settingStr: String): EMon[T] = sts match
+  /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
+  def keySettingFromStatement[KT](settingCode: KT, st: Statement)(implicit evST: UnShow[KT]): EMon[T] = st match
+  { case NonEmptyStatement(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExpr(codeExpr) == Good(settingCode) => fromExpr(rightExpr)
+    case _ => st.startPosn.bad(typeStr -- "not found.")
+  }
+
+  /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
+  def settingFromStatements(sts: Arr[Statement], settingStr: String): EMon[T] = sts match
   { case Arr0() => TextPosn.emptyError("No Statements")
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect{ case g @ Good(_) => g } match
     { case Arr1(t) => t
       case Arr0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
       case s3 => sts.startPosn.bad(s3.dataLength.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
+    }
+  }
+
+  /** Finds a key setting with Key type KT of the type of this UnShow instance from an Arr[Statement]. */
+  def keySettingFromStatements[KT](sts: Arr[Statement], settingCode: KT)(implicit evST: UnShow[KT]): EMon[T] = sts match
+  { case Arr0() => TextPosn.emptyError("No Statements")
+    case Arr1(st1) => keySettingFromStatement(settingCode, st1)
+    case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect{ case g @ Good(_) => g } match
+    { case Arr1(t) => t
+      case Arr0() => sts.startPosn.bad(settingCode.toString -- typeStr -- "Setting not found.")
+      case s3 => sts.startPosn.bad(s3.dataLength.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
     }
   }
 }

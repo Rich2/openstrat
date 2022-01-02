@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 appSet = W2;
 displayX = 0;
 displayY = 0;//Some operating systems will not allow a positive y value that pushes the window bottom below the bottom of the display viewport.
@@ -8,7 +8,7 @@ lessons = A1;
 earth = { scale = 12; latitude = 0; longitude = 0; };
 ww2 = { scale = 1; latitude = 50; longitude = 10; };
 eGrid = { scen = 1; HGridView(452, 523; 19) };
-gOne = {scen = 1; HGridView(4, 6; 60) };
+gOne = {scen = 1; 1 = HGridView(4, 6; 60); 2 = HGridView(6, 6; 60); 3 = HGridView(6, 6; 50); 4 = HGridView(7, 20; 40) };
 gTwo = 1;
 gThree = 1;
 zugFuhrer = 1;

@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
 import pgui._, pParse._, prid._
 
@@ -9,7 +9,7 @@ object OneLaunch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (GOneGui(_, OneScen1, OneScen1.defaultView()), "JavaFx Game One")
 
   override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
-  { val oScen: EMon[Int] = sts.findSettingT[Int]("scen")
+  { val oScen: EMon[Int] = sts.findSetting[Int]("scen")
     val num: Int = oScen.getElse(1)
     val scen: OneScen = num match
     { case 1 => OneScen1
@@ -18,7 +18,7 @@ object OneLaunch extends GuiLaunchMore
       case 4 => OneScen4
       case _ => OneScen1
     }
-    val oview = sts.findSettingOrUniqueT[HGridView]("view")
+    val oview: EMon[HGridView] = sts.findKeySetting[Int, HGridView](num)
     (GOneGui(_, scen, oview.getElse(scen.grid.coordCen.view())), "JavaFx Game One")
   }
 }

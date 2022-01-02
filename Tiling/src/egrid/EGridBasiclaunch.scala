@@ -10,7 +10,7 @@ object EGridBasicLaunch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (cv => EGridGui(cv, EGrid80Km.scen1, EGrid80Km.scen1.eGrid.coordCen.view()), "JavaFx Eath 80KM Grid")
 
   override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
-  { val oScen: EMon[Int] = sts.findSettingT[Int]("scen")
+  { val oScen: EMon[Int] = sts.findSetting[Int]("scen")
     val num: Int = oScen.getElse(1)
 
     val scen = num match

@@ -14,10 +14,10 @@ package object pFx
   def findDevSettingExpr(settingStr: String): EMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson. */
-  def findDevSettingT[A: Persist](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSettingT(settingStr))
+  def findDevSettingT[A: Persist](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
-  def findDevSettingElse[A: Persist](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSettingT(settingStr)).getElse(elseValue)
+  def findDevSettingElse[A: Persist](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
 
   def saveRsonFile(path: String, fileName: String, output: String): Unit =
   { import java.io._
