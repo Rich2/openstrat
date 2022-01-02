@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -10,14 +10,14 @@ trait ElemDblN extends Any with ElemValueN
 /** Trait for Array[Double] backed classes. The purpose of this trait is to allow for collections of this class to be stored with their underlying
  * Array[Double]s. */
 trait ArrayDblBacked extends Any
-{ def arrayUnsafe: Array[Double]
+{ def unsafeArray: Array[Double]
 }
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[ArrDblNs]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
 trait DataDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBacked
 { type ThisT <: DataDblNs[A]
-  @inline override def arrLen = arrayUnsafe.length
+  @inline override def arrLen = unsafeArray.length
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
   //def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProdSize); () }
@@ -35,7 +35,7 @@ trait DataDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBack
     iUntilForeach(0, dataLength){ i =>
       val origIndex = i * elemProdSize
       val resIndex = (dataLength - i - 1) * elemProdSize
-      iUntilForeach(0, elemProdSize){j => res(resIndex + j) = arrayUnsafe(origIndex + j) }
+      iUntilForeach(0, elemProdSize){j => res(resIndex + j) = unsafeArray(origIndex + j) }
     }
     res
   }
@@ -52,7 +52,7 @@ trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DataDblNs[A]
   def appendArray(appendProductsLength: Int): Array[Double] =
   {
     val acc = new Array[Double](arrLen + appendProductsLength * elemProdSize)
-    arrayUnsafe.copyToArray(acc)
+    unsafeArray.copyToArray(acc)
     acc
   }
 
@@ -73,7 +73,7 @@ trait ArrDblNsBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ArrValueNsBuil
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
   final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuff.toArray)
-  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
+  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
@@ -86,7 +86,7 @@ trait ArrDblNsFlatBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ArrValueNs
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuff.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
+  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.unsafeArray); () }
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
@@ -97,7 +97,7 @@ trait BuffDblNs[A <: ElemDblN] extends Any with BuffValueNs[A]
   def dataLength: Int = unsafeBuff.length / elemProdSize
   def toArray: Array[Double] = unsafeBuff.toArray[Double]
   def grow(newElem: A): Unit
-  override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.arrayUnsafe); () }
+  override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.unsafeArray); () }
   def toArr(implicit build: ArrDblNsBuilder[A, ArrT]): ArrT = build.fromDblArray(unsafeBuff.toArray)
 }
 
@@ -117,5 +117,5 @@ abstract class DataDblNsPersist[A <: ElemDblN, M <: DataDblNs[A]](typeStr: Strin
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
-  override def eqT(m1: M, m2: M): Boolean = m1.arrayUnsafe === m2.arrayUnsafe
+  override def eqT(m1: M, m2: M): Boolean = m1.unsafeArray === m2.unsafeArray
 }

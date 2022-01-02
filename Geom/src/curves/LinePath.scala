@@ -3,14 +3,14 @@ package ostrat; package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
-class LinePath(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2sLike with LinePathDbl2s[Pt2]
+class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2sLike with LinePathDbl2s[Pt2]
 { type ThisT = LinePath
   def unsafeFromArray(array: Array[Double]): LinePath = new LinePath(array)
   override def typeStr: String = "LinePath"
   
-  @inline def lengthFull: Int = arrayUnsafe.length / 2
-  @inline def xStart: Double = arrayUnsafe(0)
-  @inline def yStart: Double = arrayUnsafe(1)
+  @inline def lengthFull: Int = unsafeArray.length / 2
+  @inline def xStart: Double = unsafeArray(0)
+  @inline def yStart: Double = unsafeArray(1)
   @inline def pStart: Pt2 = Pt2(xStart, yStart)
  
   def ptsTrans(f: Pt2 => Pt2): LinePath =  new LinePath(arrTrans(f))
@@ -18,7 +18,7 @@ class LinePath(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2sL
   def foreachEnd(f: (Double, Double) => Unit): Unit =
   { var count = 1
     while (count < lengthFull)
-    { f(arrayUnsafe(count *2), arrayUnsafe( count * 2 + 1))
+    { f(unsafeArray(count *2), unsafeArray( count * 2 + 1))
       count += 1      
     }
   }

@@ -77,7 +77,7 @@ object PtM2
 }
 
 /** Specialised immutable Array based collection class for [[PtM2]]s. */
-class PtMetre2Arr(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2s[PtM2]
+class PtMetre2Arr(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2s[PtM2]
 { type ThisT = PtMetre2Arr
   override def unsafeFromArray(array: Array[Double]): PtMetre2Arr = new PtMetre2Arr(array)
   override def typeStr: String = "Metres2s"

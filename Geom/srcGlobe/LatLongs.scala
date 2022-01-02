@@ -10,7 +10,7 @@ trait LatLongsLike extends Any with DataDbl2s[LatLong]
 }
 
 /** Immutable flat efficient Array[Double] based collection class for [[LatLong]]s. Prefer [[PolygonLL]] or [[LineSegLL]] where applicable. */
-final class LatLongs(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike with ArrDbl2s[LatLong]
+final class LatLongs(val unsafeArray: Array[Double]) extends AnyVal with LatLongsLike with ArrDbl2s[LatLong]
 { override type ThisT = LatLongs
   override def unsafeFromArray(array: Array[Double]): LatLongs = new LatLongs(array)
   override def typeStr: String = "LatLongs"

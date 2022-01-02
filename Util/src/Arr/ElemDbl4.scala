@@ -18,20 +18,20 @@ trait DataDbl4s[A <: ElemDbl4] extends Any with DataDblNs[A]
   override def elemProdSize: Int = 4
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =
-  { arrayUnsafe(4 * index) = elem.dbl1
-    arrayUnsafe(4 * index + 1) = elem.dbl2
-    arrayUnsafe(4 * index + 2) = elem.dbl3
-    arrayUnsafe(4 * index + 3) = elem.dbl4
+  { unsafeArray(4 * index) = elem.dbl1
+    unsafeArray(4 * index + 1) = elem.dbl2
+    unsafeArray(4 * index + 2) = elem.dbl3
+    unsafeArray(4 * index + 3) = elem.dbl4
   }
-  override def indexData(index: Int): A = dataElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
+  override def indexData(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl4]]s. */
 trait ArrDbl4s[A <: ElemDbl4] extends Any with ArrDblNs[A] with DataDbl4s[A]
-{ def head1: Double = arrayUnsafe(0)
-  def head2: Double = arrayUnsafe(1)
-  def head3: Double = arrayUnsafe(2)
-  def head4: Double = arrayUnsafe(3)
-  final override def length: Int = arrayUnsafe.length / 4
+{ def head1: Double = unsafeArray(0)
+  def head2: Double = unsafeArray(1)
+  def head3: Double = unsafeArray(2)
+  def head4: Double = unsafeArray(3)
+  final override def length: Int = unsafeArray.length / 4
   override def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
 }
 
@@ -43,10 +43,10 @@ trait ArrDbl4sBuilder[B <: ElemDbl4, ArrB <: ArrDbl4s[B]] extends ArrDblNsBuilde
   final override def elemProdSize = 4
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
-  { arr.arrayUnsafe(index * 4) = value.dbl1
-    arr.arrayUnsafe(index * 4 + 1) = value.dbl2
-    arr.arrayUnsafe(index * 4 + 2) = value.dbl3
-    arr.arrayUnsafe(index * 4 + 3) = value.dbl4
+  { arr.unsafeArray(index * 4) = value.dbl1
+    arr.unsafeArray(index * 4 + 1) = value.dbl2
+    arr.unsafeArray(index * 4 + 2) = value.dbl3
+    arr.unsafeArray(index * 4 + 3) = value.dbl4
   }
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrBuilder]] type
@@ -71,10 +71,10 @@ abstract class DataDbl4sCompanion[A <: ElemDbl4, ArrA <: DataDbl4s[A]]
     var count: Int = 0
 
     while (count < length)
-    { res.arrayUnsafe(count * 4) = elems(count).dbl1
-      res.arrayUnsafe(count * 4 + 1) = elems(count).dbl2
-      res.arrayUnsafe(count * 4 + 2) = elems(count).dbl3
-      res.arrayUnsafe(count * 4 + 3) = elems(count).dbl4
+    { res.unsafeArray(count * 4) = elems(count).dbl1
+      res.unsafeArray(count * 4 + 1) = elems(count).dbl2
+      res.unsafeArray(count * 4 + 2) = elems(count).dbl3
+      res.unsafeArray(count * 4 + 3) = elems(count).dbl4
       count += 1
     }
      res
@@ -86,7 +86,7 @@ abstract class DataDbl4sCompanion[A <: ElemDbl4, ArrA <: DataDbl4s[A]]
     var count: Int = 0
 
     while (count < arrLen)
-    { res.arrayUnsafe(count) = elems(count)
+    { res.unsafeArray(count) = elems(count)
       count += 1
     }
     res
@@ -99,13 +99,13 @@ abstract class DataDbl4sCompanion[A <: ElemDbl4, ArrA <: DataDbl4s[A]]
     var rem = list
 
     while (count < arrLen)
-    { res.arrayUnsafe(count) = rem.head.dbl1
+    { res.unsafeArray(count) = rem.head.dbl1
       count += 1
-      res.arrayUnsafe(count) = rem.head.dbl2
+      res.unsafeArray(count) = rem.head.dbl2
       count += 1
-      res.arrayUnsafe(count) = rem.head.dbl3
+      res.unsafeArray(count) = rem.head.dbl3
       count += 1
-      res.arrayUnsafe(count) = rem.head.dbl4
+      res.unsafeArray(count) = rem.head.dbl4
       count += 1
       rem = rem.tail
     }

@@ -4,7 +4,7 @@ package ostrat; package geom; package pglobe
 /** A latitude-longitude line path. A quasi line path where the points are stored as points of latitude and longitude.Once the points are converted into a
  *  view, ie into pixel positions an actual polygon can be drawn or filled as desired. Do not create line paths that span an arc of greater than 90
  *  degrees as this may break the algorithms. */
-class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLike with LinePathDbl2s[LatLong]
+class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongsLike with LinePathDbl2s[LatLong]
 { override type ThisT = LinePathLL
   override def unsafeFromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
   override def typeStr: String = "LinePathLL"
@@ -70,7 +70,7 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   }
 
   /** closes this LinePathLL into a [[PolygonLL]] with a line Segment from the last point to the first point. */
-  @inline def close: PolygonLL = new PolygonLL(arrayUnsafe)
+  @inline def close: PolygonLL = new PolygonLL(unsafeArray)
 
   /** Alias for concatClose. Concatenates the operand [[LatLong]] and closes into a PolyonLL. */
   inline def +!(newElem: LatLong): PolygonLL = concatClose(newElem)
@@ -78,7 +78,7 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   /** Concatenates the operand [[LatLong]] and closes into a [[PolyonLL]]. */
   def concatClose(newElem: LatLong): PolygonLL =
   { val res = PolygonLL.uninitialised(dataLength + 1)
-    arrayUnsafe.copyToArray(res.arrayUnsafe)
+    unsafeArray.copyToArray(res.unsafeArray)
     res.unsafeSetElem(dataLength, newElem)
     res
   }
@@ -100,7 +100,7 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   /** Concatenate the operand [[LatLong]]s and closes the line path into a [[PolyognLL]]. */
   def concatClose(newElems: LatLong*): PolygonLL =
   { val res = PolygonLL.uninitialised(dataLength + newElems.length)
-    arrayUnsafe.copyToArray(res.arrayUnsafe)
+    unsafeArray.copyToArray(res.unsafeArray)
     newElems.iForeach((i, ll) => res.unsafeSetElem(dataLength + i, ll))
     res
   }
@@ -111,7 +111,7 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
   /** Concatenate the operand [[LinePathLL]] and closes the line path into a [[PolyognLL]]. */
   def concatClose(operand: LinePathLL): PolygonLL =
   { val res = PolygonLL.uninitialised(dataLength + operand.dataLength)
-    arrayUnsafe.copyToArray(res.arrayUnsafe)
+    unsafeArray.copyToArray(res.unsafeArray)
     operand.vertsIForeach{ (i, ll) => res.unsafeSetElem(dataLength + i, ll) }
     res
   }
@@ -149,8 +149,8 @@ class LinePathLL(val arrayUnsafe: Array[Double]) extends AnyVal with LatLongsLik
    * minus the head and last element of the operand. */
   def arrayAppendTailInit(operand: LinePathLL): Array[Double] =
   { val array = new Array[Double]((dataLength + (operand.dataLength - 2).max(0)) * 2)
-    arrayUnsafe.copyToArray(array)
-    iUntilForeach(2, operand.arrLen - 2) { i => array(dataLength * 2 + i - 2) = operand.arrayUnsafe(i) }
+    unsafeArray.copyToArray(array)
+    iUntilForeach(2, operand.arrLen - 2) { i => array(dataLength * 2 + i - 2) = operand.unsafeArray(i) }
     array
   }
 
@@ -173,8 +173,8 @@ object LinePathLL extends DataDbl2sCompanion[LatLong, LinePathLL]
     var count: Int = 0
 
     while (count < length)
-    { res.arrayUnsafe(count * 2) = elems(count).dbl1
-      res.arrayUnsafe(count * 2 + 1) = elems(count).dbl2
+    { res.unsafeArray(count * 2) = elems(count).dbl1
+      res.unsafeArray(count * 2 + 1) = elems(count).dbl2
       count += 1
     }
     res

@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /* A polygon using distances measured in [[Length]] or metres rather than scalars. */
-final class PolygonM(val arrayUnsafe: Array[Double]) extends AnyVal with ArrDbl2s[PtM2] with PolygonDbl2s[PtM2]
+final class PolygonM(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2s[PtM2] with PolygonDbl2s[PtM2]
 { type ThisT = PolygonM
   type SideT = LineSegMetre
   def unsafeFromArray(array: Array[Double]): PolygonM = new PolygonM(array)

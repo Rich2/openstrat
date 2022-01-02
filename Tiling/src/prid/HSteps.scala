@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._
 
@@ -18,14 +18,14 @@ trait HStepsTr extends Any
     var c2: Int = 0
     while (count < segsNum)
     { unsafeArray(count) match
-    { case 1 => { r2 = r1 + 2; c2 = c1 + 2 }
-      case 2 => { r2 = r1; c2 = c1 + 4 }
-      case 3 => { r2 = r1 - 2; c2 = c1 + 2 }
-      case 4 => { r2 = r1 - 2; c2 = c1 - 2 }
-      case 5 => { r2 = r1; c2 = c1 - 4 }
-      case 6 => { r2 = r1 + 2; c2 = c1 - 2 }
-      case n => excep(s"$n unexpected integer value.")
-    }
+      { case 1 => { r2 = r1 + 2; c2 = c1 + 2 }
+        case 2 => { r2 = r1; c2 = c1 + 4 }
+        case 3 => { r2 = r1 - 2; c2 = c1 + 2 }
+        case 4 => { r2 = r1 - 2; c2 = c1 - 2 }
+        case 5 => { r2 = r1; c2 = c1 - 4 }
+        case 6 => { r2 = r1 + 2; c2 = c1 - 2 }
+        case n => excep(s"$n unexpected integer value.")
+      }
       val hls = LineSegHC(r1, c1, r2, c2)
       f(hls.lineSeg)
       count += 1
@@ -67,6 +67,5 @@ class HSteps(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1s[HStep] wi
 }
 
 object HSteps extends HStepsCompanion[HSteps]
-{
-  override def fromArray(array: Array[Int]): HSteps = new HSteps(array)
+{ override def fromArray(array: Array[Int]): HSteps = new HSteps(array)
 }

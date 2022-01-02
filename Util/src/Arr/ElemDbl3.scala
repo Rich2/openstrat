@@ -21,18 +21,18 @@ trait DataDbl3s[A <: ElemDbl3] extends Any with DataDblNs[A]
   override def elemProdSize = 3
 
   override def unsafeSetElem(index: Int, elem: A): Unit =
-  { arrayUnsafe(3 * index) = elem.dbl1; arrayUnsafe(3 * index + 1) = elem.dbl2; arrayUnsafe(3 * index + 2) = elem.dbl3
+  { unsafeArray(3 * index) = elem.dbl1; unsafeArray(3 * index + 1) = elem.dbl2; unsafeArray(3 * index + 2) = elem.dbl3
   }
 
-  override def indexData(index: Int): A = dataElem(arrayUnsafe(3 * index), arrayUnsafe(3 * index + 1), arrayUnsafe(3 * index + 2))
+  override def indexData(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl3]]s. */
 trait ArrDbl3s[A <: ElemDbl3] extends Any with ArrDblNs[A] with DataDbl3s[A]
-{ final override def length: Int = arrayUnsafe.length / 3
-  def head1: Double = arrayUnsafe(0)
-  def head2: Double = arrayUnsafe(1)
-  def head3: Double = arrayUnsafe(2)
+{ final override def length: Int = unsafeArray.length / 3
+  def head1: Double = unsafeArray(0)
+  def head2: Double = unsafeArray(1)
+  def head3: Double = unsafeArray(2)
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3)))
 }
 
@@ -44,7 +44,7 @@ trait ArrDbl3sBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsBuilde
   final override def elemProdSize = 3
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
-  { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl2; arr.arrayUnsafe(index * 3 + 2) = value.dbl3
+  { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl2; arr.unsafeArray(index * 3 + 2) = value.dbl3
   }
 }
 
@@ -79,8 +79,8 @@ abstract class DataDbl3sCompanion[A <: ElemDbl3, ArrA <: DataDbl3s[A]] extends D
     var count: Int = 0
 
     while (count < length)
-    { res.arrayUnsafe(count * 3) = elems(count).dbl1;  res.arrayUnsafe(count * 3 + 1) = elems(count).dbl2;
-      res.arrayUnsafe(count * 3 + 2) = elems(count).dbl3
+    { res.unsafeArray(count * 3) = elems(count).dbl1;  res.unsafeArray(count * 3 + 1) = elems(count).dbl2;
+      res.unsafeArray(count * 3 + 2) = elems(count).dbl3
       count += 1
     }
     res

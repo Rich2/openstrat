@@ -4,33 +4,33 @@ import Colour.Black, pWeb._
 
 /** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
-final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with DataDbl2s[Pt2]
+final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with DataDbl2s[Pt2]
 { override type ThisT = PolygonGen
   override def vert(index: Int): Pt2 = indexData(index - 1)
   @inline override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = dataForeachPairTail(f)
   override def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
-  @inline override def vertsArray: Array[Double] = arrayUnsafe
+  @inline override def vertsArray: Array[Double] = unsafeArray
   override def typeStr: String = "Polygon"
-  override def vertsNum: Int = arrayUnsafe.length / 2 //- dblsNumOffset
+  override def vertsNum: Int = unsafeArray.length / 2 //- dblsNumOffset
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   @inline override def polygonMap(f: Pt2 => Pt2): PolygonGen = vertsMap(f).toPolygon
-  override def xVert(index: Int): Double = arrayUnsafe(index * 2)// + dblsNumOffset)
-  override def yVert(index: Int): Double = arrayUnsafe(index * 2 + 1)// + dblsNumOffset)
-  @inline def v1x: Double = arrayUnsafe(0)// + dblsNumOffset)
-  @inline def v1y: Double = arrayUnsafe(1)// + dblsNumOffset)
+  override def xVert(index: Int): Double = unsafeArray(index * 2)// + dblsNumOffset)
+  override def yVert(index: Int): Double = unsafeArray(index * 2 + 1)// + dblsNumOffset)
+  @inline def v1x: Double = unsafeArray(0)// + dblsNumOffset)
+  @inline def v1y: Double = unsafeArray(1)// + dblsNumOffset)
   @inline def v1: Pt2 = v1x pp v1y
   override def vertsTrans(f: Pt2 => Pt2): PolygonGen = new PolygonGen(arrTrans(f))
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   @inline override def ptsTrans(f: Pt2 => Pt2): PolygonGen = vertsTrans(f)
 
-  override def vertsForeach[U](f: Pt2 => U): Unit =iUntilForeach(0, arrayUnsafe.length, 2){ i =>
-    f(Pt2(arrayUnsafe(i), arrayUnsafe(i + 1))); ()
+  override def vertsForeach[U](f: Pt2 => U): Unit =iUntilForeach(0, unsafeArray.length, 2){ i =>
+    f(Pt2(unsafeArray(i), unsafeArray(i + 1))); ()
   }
 
-  override def foreachVertTail[U](f: Pt2 => U): Unit = iUntilForeach(2, arrayUnsafe.length, 2){ i =>
-    f(Pt2(arrayUnsafe(i), arrayUnsafe(i + 1))); ()
+  override def foreachVertTail[U](f: Pt2 => U): Unit = iUntilForeach(2, unsafeArray.length, 2){ i =>
+    f(Pt2(unsafeArray(i), unsafeArray(i + 1))); ()
   }
 
   override def attribs: Arr[XANumeric] = ???
@@ -40,7 +40,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2s
     case _ => false
   }
 
-  def eq(obj: PolygonGen): Boolean = arrayUnsafe.sameElements(obj.arrayUnsafe)
+  def eq(obj: PolygonGen): Boolean = unsafeArray.sameElements(obj.unsafeArray)
   def minX: Double = dataTailfold(v1.x)((acc, el) => acc.min(el.x))
   def maxX: Double = dataTailfold(v1.x)((acc, el) => acc.max(el.x))
   def minY: Double = dataTailfold(v1.y)((acc, el) => acc.min(el.y))
@@ -85,7 +85,7 @@ final class PolygonGen(val arrayUnsafe: Array[Double]) extends Polygon with Pt2s
 object PolygonGen extends DataDbl2sCompanion[Pt2, PolygonGen]
 { override def fromArrayDbl(array: Array[Double]): PolygonGen = new PolygonGen(array)
 
-  implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.arrayUnsafe, p2.arrayUnsafe)
+  implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.unsafeArray, p2.unsafeArray)
 
   implicit val persistImplicit: DataDbl2sPersist[Pt2, PolygonGen] = new DataDbl2sPersist[Pt2, PolygonGen]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)

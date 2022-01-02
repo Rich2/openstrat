@@ -16,27 +16,27 @@ trait DataDbl5s[A <: ElemDbl5] extends Any with DataDblNs[A]
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
   def elemProdSize: Int = 5
-  def indexData(index: Int): A = dataElem(arrayUnsafe(5 * index), arrayUnsafe(5 * index + 1), arrayUnsafe(5 * index + 2), arrayUnsafe(5 * index + 3),
-    arrayUnsafe(5 * index + 4))
+  def indexData(index: Int): A = dataElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
+    unsafeArray(5 * index + 4))
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =
-  { arrayUnsafe(5 * index) = elem.dbl1
-    arrayUnsafe(5 * index + 1) = elem.dbl2
-    arrayUnsafe(5 * index + 2) = elem.dbl3
-    arrayUnsafe(5 * index + 3) = elem.dbl4
-    arrayUnsafe(5 * index + 4) = elem.dbl5
+  { unsafeArray(5 * index) = elem.dbl1
+    unsafeArray(5 * index + 1) = elem.dbl2
+    unsafeArray(5 * index + 2) = elem.dbl3
+    unsafeArray(5 * index + 3) = elem.dbl4
+    unsafeArray(5 * index + 4) = elem.dbl5
   }
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl5]]s. */
 trait ArrDbl5s[A <: ElemDbl5] extends Any with ArrDblNs[A] with DataDbl5s[A]
 { def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
-  final override def length: Int = arrayUnsafe.length / 5
-  def head1: Double = arrayUnsafe(0)
-  def head2: Double = arrayUnsafe(1)
-  def head3: Double = arrayUnsafe(2)
-  def head4: Double = arrayUnsafe(3)
-  def head5: Double = arrayUnsafe(4)
+  final override def length: Int = unsafeArray.length / 5
+  def head1: Double = unsafeArray(0)
+  def head2: Double = unsafeArray(1)
+  def head3: Double = unsafeArray(2)
+  def head4: Double = unsafeArray(3)
+  def head5: Double = unsafeArray(4)
 
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
 }
@@ -53,11 +53,11 @@ abstract class DataDbl5sCompanion[A <: ElemDbl5, ArrA <: DataDbl5s[A]]
     var count: Int = 0
 
     while (count < length)
-    { res.arrayUnsafe(count * 5) = elems(count).dbl1
-      res.arrayUnsafe(count * 5 + 1) = elems(count).dbl2
-      res.arrayUnsafe(count * 5 + 2) = elems(count).dbl3
-      res.arrayUnsafe(count * 5 + 3) = elems(count).dbl4
-      res.arrayUnsafe(count * 5 + 4) = elems(count).dbl5
+    { res.unsafeArray(count * 5) = elems(count).dbl1
+      res.unsafeArray(count * 5 + 1) = elems(count).dbl2
+      res.unsafeArray(count * 5 + 2) = elems(count).dbl3
+      res.unsafeArray(count * 5 + 3) = elems(count).dbl4
+      res.unsafeArray(count * 5 + 4) = elems(count).dbl5
       count += 1
     }
     res
@@ -69,7 +69,7 @@ abstract class DataDbl5sCompanion[A <: ElemDbl5, ArrA <: DataDbl5s[A]]
     var count: Int = 0
 
     while (count < arrLen)
-    { res.arrayUnsafe(count) = elems(count)
+    { res.unsafeArray(count) = elems(count)
       count += 1
     }
     res
@@ -82,15 +82,15 @@ abstract class DataDbl5sCompanion[A <: ElemDbl5, ArrA <: DataDbl5s[A]]
     var rem = list
 
     while (count < arrLen)
-    { res.arrayUnsafe(count) = rem.head.dbl1
+    { res.unsafeArray(count) = rem.head.dbl1
       count += 1
-      res.arrayUnsafe(count) = rem.head.dbl2
+      res.unsafeArray(count) = rem.head.dbl2
       count += 1
-      res.arrayUnsafe(count) = rem.head.dbl3
+      res.unsafeArray(count) = rem.head.dbl3
       count += 1
-      res.arrayUnsafe(count) = rem.head.dbl4
+      res.unsafeArray(count) = rem.head.dbl4
       count += 1
-      res.arrayUnsafe(count) = rem.head.dbl5
+      res.unsafeArray(count) = rem.head.dbl5
       count += 1
       rem = rem.tail
     }

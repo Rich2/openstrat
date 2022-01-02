@@ -4,17 +4,17 @@ import collection.mutable.ArrayBuffer
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
  *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
-final class Pt2s(val arrayUnsafe: Array[Double]) extends AffinePreserve with Pt2sLike with ArrDbl2s[Pt2]
+final class Pt2s(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2sLike with ArrDbl2s[Pt2]
 { type ThisT = Pt2s
   def unsafeFromArray(array: Array[Double]): Pt2s = new Pt2s(array)
   override def typeStr: String = "P2s"
 
-  @inline def lengthFull: Int = arrayUnsafe.length / 2
-  @inline def xStart: Double = arrayUnsafe(0)
-  @inline def yStart: Double = arrayUnsafe(1)
+  @inline def lengthFull: Int = unsafeArray.length / 2
+  @inline def xStart: Double = unsafeArray(0)
+  @inline def yStart: Double = unsafeArray(1)
   @inline def pStart: Pt2 = Pt2(xStart, yStart)
-  @inline def toPolygon: PolygonGen = new PolygonGen(arrayUnsafe)
-  @inline def toLinePath: LinePath = new LinePath(arrayUnsafe)
+  @inline def toPolygon: PolygonGen = new PolygonGen(unsafeArray)
+  @inline def toLinePath: LinePath = new LinePath(unsafeArray)
 
   /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
   def ptsTrans(f: Pt2 => Pt2): Pt2s =  new Pt2s(arrTrans(f))

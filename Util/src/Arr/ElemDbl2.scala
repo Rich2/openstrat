@@ -19,49 +19,49 @@ trait DataDbl2s[A <: ElemDbl2] extends Any with DataDblNs[A]
   override def elemProdSize: Int = 2
 
   override def unsafeSetElem(index: Int, elem: A): Unit =
-  { arrayUnsafe(2 * index) = elem.dbl1
-    arrayUnsafe(2 * index + 1) = elem.dbl2
+  { unsafeArray(2 * index) = elem.dbl1
+    unsafeArray(2 * index + 1) = elem.dbl2
   }
 
-  override def indexData(index: Int): A = dataElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
+  override def indexData(index: Int): A = dataElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
 
   def elem1sArray: Array[Double] =
   { val res = new Array[Double](dataLength)
     var count = 0
-    while(count < dataLength){ res(count) = arrayUnsafe(count * 2); count += 1 }
+    while(count < dataLength){ res(count) = unsafeArray(count * 2); count += 1 }
     res
   }
 
   def elem2sArray: Array[Double] =
   { val res = new Array[Double](dataLength)
     var count = 0
-    while(count < dataLength){ res(count) = arrayUnsafe(count * 2 + 1); count += 1 }
+    while(count < dataLength){ res(count) = unsafeArray(count * 2 + 1); count += 1 }
     res
   }
 
   def dataForeachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < dataLength) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
+    while(count < dataLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
   }
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl2]]s. */
 trait ArrDbl2s[A <: ElemDbl2] extends Any with ArrDblNs[A] with DataDbl2s[A]
 { type ThisT <: ArrDbl2s[A]
-  final override def length: Int = arrayUnsafe.length / 2
-  def head1: Double = arrayUnsafe(0)
-  def head2: Double = arrayUnsafe(1)
-  def getPair(index: Int): (Double, Double) = (arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
+  final override def length: Int = unsafeArray.length / 2
+  def head1: Double = unsafeArray(0)
+  def head2: Double = unsafeArray(1)
+  def getPair(index: Int): (Double, Double) = (unsafeArray(2 * index), unsafeArray(2 * index + 1))
 
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < dataLength) { f(arrayUnsafe(count * 2), arrayUnsafe(count * 2 + 1)); count += 1 }
+    while(count < dataLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
   }
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
   { val newArray = new Array[Double](dataLength + elemProdSize)
-    arrayUnsafe.copyToArray(newArray)
+    unsafeArray.copyToArray(newArray)
     newArray(dataLength) = op.dbl1
     newArray(dataLength + 1) = op.dbl2
     unsafeFromArray(newArray)
@@ -76,7 +76,7 @@ trait ArrDbl2s[A <: ElemDbl2] extends Any with ArrDblNs[A] with DataDbl2s[A]
 trait ArrDbl2sBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsBuilder[B, ArrB]
 { type BuffT <: BuffDbl2s[B]
   final override def elemProdSize = 2
-  override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
+  override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
 }
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[ArrFlatBuilder] should go in the
@@ -99,8 +99,8 @@ trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: DataDbl2s[A]] extends DataDblNsC
     var count: Int = 0
 
     while (count < length)
-    { res.arrayUnsafe(count * 2) = elems(count).dbl1
-      res.arrayUnsafe(count * 2 + 1) = elems(count).dbl2
+    { res.unsafeArray(count * 2) = elems(count).dbl1
+      res.unsafeArray(count * 2 + 1) = elems(count).dbl2
       count += 1
     }
     res
@@ -114,9 +114,9 @@ trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: DataDbl2s[A]] extends DataDblNsC
     var rem = list
 
     while (count < arrLen)
-    { res.arrayUnsafe(count) = rem.head.dbl1
+    { res.unsafeArray(count) = rem.head.dbl1
       count += 1
-      res.arrayUnsafe(count) = rem.head.dbl2
+      res.unsafeArray(count) = rem.head.dbl2
       count += 1
       rem = rem.tail
     }

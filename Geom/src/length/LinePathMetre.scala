@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** A quasi line path specified in 2D metre points. The points do not have to lie within the same plane. I'm not sure how useful this class will
  *  prove. It has been created for the intermediary step of converting from [[LinePathLL]]s to [[LinePathMetre]]s on world maps. */
-class LinePathMetre(val arrayUnsafe: Array[Double]) extends AnyVal with LinePathDbl2s[PtM2]
+class LinePathMetre(val unsafeArray: Array[Double]) extends AnyVal with LinePathDbl2s[PtM2]
 { override type ThisT = LinePathMetre
   override def dataElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def unsafeFromArray(array: Array[Double]): LinePathMetre = new LinePathMetre(array)

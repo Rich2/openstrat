@@ -58,7 +58,7 @@ trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblNs[B] ] extends LineP
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
   final override def newArr(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuff.toArray)
-  final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
+  final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuff.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
@@ -68,7 +68,7 @@ trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblNs[B] ] extends LineP
 trait LinePathDbl2sBuilder[B <: ElemDbl2, BB <: LinePathDbl2s[B]] extends LinePathDblNsBuilder[B, BB]
 { type BuffT <: BuffDbl2s[B]
   final override def elemProdSize = 2
-  override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
+  override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
 }
 
 /** Trait for creating the line path type class instances for [[LinePathDbl3s]] final classes. Instances for the [[LinePathDbl3sBuilder]] type class,
@@ -77,6 +77,6 @@ trait LinePathDbl2sBuilder[B <: ElemDbl2, BB <: LinePathDbl2s[B]] extends LinePa
 trait LinePathDbl3sBuilder[B <: ElemDbl3, BB <: LinePathDbl3s[B]] extends LinePathDblNsBuilder[B, BB]
 { type BuffT <: BuffDbl3s[B]
   final override def elemProdSize = 3
-  override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl3
-    arr.arrayUnsafe(index * 2 + 2) = value.dbl3 }
+  override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl3
+    arr.unsafeArray(index * 2 + 2) = value.dbl3 }
 }

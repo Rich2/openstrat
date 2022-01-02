@@ -7,7 +7,7 @@ trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with SeqImut[A]
   def dataLength: Int = array.length
   def unsafeFromArrayArray(array: Array[Array[Double]]): ThisT
   final def unsafeSameSize(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Double]](length))
-  def unsafeSetElem(i: Int, value: A): Unit = array(i) = value.arrayUnsafe
+  def unsafeSetElem(i: Int, value: A): Unit = array(i) = value.unsafeArray
 }
 
 /** This is the builder for Arrays Arrays of Double. It is not the builder for Arrays of Double.  */
@@ -15,17 +15,17 @@ trait ArrArrayDblBuild[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends ArrB
 { @inline def fromArray(array: Array[Array[Double]]): ArrT
   type BuffT <: ArrayDoubleBuff[A]
   @inline override def newArr(length: Int): ArrT = fromArray(new Array[Array[Double]](length))
-  override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.array(index) = value.arrayUnsafe
+  override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.array(index) = value.unsafeArray
   //override def buffNew(length: Int = 4): DblsArrayBuff[A] = new DblsArrayBuff[A](new ArrayBuffer[Array[Double]]((length)))
   override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuff.toArray)
-  override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuff.append(value.arrayUnsafe); () }
+  override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuff.append(value.unsafeArray); () }
   override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuff.addAll(arr.array); () }
 }
 
 class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends EqT[ArrT]
 {
   override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.dataLength != a2.dataLength) false
-    else a1.iForAll((i, el1) =>  el1.arrayUnsafe === a2(i).arrayUnsafe)
+    else a1.iForAll((i, el1) =>  el1.unsafeArray === a2(i).unsafeArray)
 }
 
 object ArrArrayDblEq

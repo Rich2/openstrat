@@ -50,7 +50,7 @@ trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblNs[B] ] extends Polygon
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
   final override def newPolygonT(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuff.toArray)
-  final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
+  final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuff.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
@@ -60,7 +60,7 @@ trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblNs[B] ] extends Polygon
 trait PolygonDbl2sBuilder[B <: ElemDbl2, BB <: PolygonDbl2s[B]] extends PolygonDblNsBuilder[B, BB]
 { type BuffT <: BuffDbl2s[B]
   final override def elemProdSize = 2
-  override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.arrayUnsafe(index * 2) = value.dbl1; arr.arrayUnsafe(index * 2 + 1) = value.dbl2}
+  override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
 }
 
 /** Trait for creating the line path type class instances for [[PolygonDbl3s]] final classes. Instances for the [[PolygonDbl3sBuilder]] type class,
@@ -70,7 +70,7 @@ trait PolygonDbl3sBuilder[B <: ElemDbl3, BB <: PolygonDbl3s[B]] extends PolygonD
 { type BuffT <: BuffDbl3s[B]
   final override def elemProdSize = 3
   override def arrSet(arr: BB, index: Int, value: B): Unit =
-  { arr.arrayUnsafe(index * 3) = value.dbl1; arr.arrayUnsafe(index * 3 + 1) = value.dbl2; arr.arrayUnsafe(index * 3 + 2) = value.dbl3
+  { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl2; arr.unsafeArray(index * 3 + 2) = value.dbl3
   }
 }
 
