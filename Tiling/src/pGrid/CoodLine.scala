@@ -21,7 +21,7 @@ object CoodLine
 }
 
 /** An Array[Int] based collection for CoodLines. */
-class CoodLines(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt4s[CoodLine]
+class CoodLines(val unsafeArray: Array[Int]) extends AnyVal with ArrInt4s[CoodLine]
 { type ThisT = CoodLines
   override def fElemStr: CoodLine => String = _.toString
   override def unsafeFromArray(array: Array[Int]): CoodLines = new CoodLines(array)

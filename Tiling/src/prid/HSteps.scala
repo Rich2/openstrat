@@ -5,8 +5,8 @@ import geom._
 /** A trait for [[HStep]]s. The purpose of the trait rather than a class is to allow the consumer to mix in their own traits. Its not clear whether
  *  this is useful in Scala 3 or its bettter to use union types with the [[HSteps]] class. */
 trait HStepsTr extends Any
-{ def arrayUnsafe: Array[Int]
-  def segsNum: Int = arrayUnsafe.length
+{ def unsafeArray: Array[Int]
+  def segsNum: Int = unsafeArray.length
 
   def segsForeach[U](start: HCen)(f: LineSeg => U): Unit = segsForeach(start.r, start.c)(f)
 
@@ -17,7 +17,7 @@ trait HStepsTr extends Any
     var r2: Int = 0
     var c2: Int = 0
     while (count < segsNum)
-    { arrayUnsafe(count) match
+    { unsafeArray(count) match
     { case 1 => { r2 = r1 + 2; c2 = c1 + 2 }
       case 2 => { r2 = r1; c2 = c1 + 4 }
       case 3 => { r2 = r1 - 2; c2 = c1 + 2 }
@@ -58,7 +58,7 @@ trait HStepsCompanion[T <: HStepsTr]
   }
 }
 
-class HSteps(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt1s[HStep] with HStepsTr
+class HSteps(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1s[HStep] with HStepsTr
 { override type ThisT = HSteps
   override def typeStr: String = "HSteps"
   override def dataElem(intValue: Int): HStep = HStep.fromInt(intValue)

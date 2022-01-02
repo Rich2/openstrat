@@ -2,7 +2,7 @@
 package ostrat; package pGrid
 
 /** An array[Int] based collection for Cood. To be replaced by [[prid.TileCoord]]. */
-class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[Cood]
+class Coods(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[Cood]
 { type ThisT = Coods
   override def fElemStr: Cood => String = _.str
   override def unsafeFromArray(array: Array[Int]): Coods = new Coods(array)
@@ -10,14 +10,14 @@ class Coods(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[Cood]
   override def dataElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
 
   def filter(f: Cood => Boolean): Coods =
-  { val tempArr = new Array[Int](arrayUnsafe.length)
+  { val tempArr = new Array[Int](unsafeArray.length)
     var count = 0
     var lengthCounter = 0
     while (count < dataLength)
     {
       if (f(this.apply(count)))
-      { tempArr(lengthCounter * 2) = arrayUnsafe(count * 2)
-        tempArr(lengthCounter * 2 + 1) = arrayUnsafe(count * 2 + 1)
+      { tempArr(lengthCounter * 2) = unsafeArray(count * 2)
+        tempArr(lengthCounter * 2 + 1) = unsafeArray(count * 2 + 1)
         lengthCounter += 1
       }
       count += 1

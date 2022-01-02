@@ -2,7 +2,7 @@
 package ostrat; package prid
 
 /** An efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates. */
-class HSides(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[HSide]
+class HSides(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[HSide]
 { type ThisT = HSides
   override def dataElem(i1: Int, i2: Int): HSide = HSide(i1, i2)
 

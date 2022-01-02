@@ -11,16 +11,16 @@ trait ElemInt2 extends Any with ElemIntN
 trait DataInt2s[A <: ElemInt2] extends Any with DataIntNs[A]
 {
   override def elemProdSize: Int = 2
-  final override def indexData(index: Int): A = dataElem(arrayUnsafe(2 * index), arrayUnsafe(2 * index + 1))
+  final override def indexData(index: Int): A = dataElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
   def dataElem(i1: Int, i2: Int): A
-  final override def unsafeSetElem(index: Int, elem: A): Unit = { arrayUnsafe(2 * index) = elem.int1; arrayUnsafe(2 * index + 1) = elem.int2 }
+  final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(2 * index) = elem.int1; unsafeArray(2 * index + 1) = elem.int2 }
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt2]]s. */
 trait ArrInt2s[A <: ElemInt2] extends Any with ArrIntNs[A] with DataInt2s[A]
-{ def head1: Int = arrayUnsafe(0)
-  def head2: Int = arrayUnsafe(1)
-  final override def length: Int = arrayUnsafe.length / 2
+{ def head1: Int = unsafeArray(0)
+  def head2: Int = unsafeArray(1)
+  final override def length: Int = unsafeArray.length / 2
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrBuilder]] type
@@ -33,7 +33,7 @@ trait ArrInt2sBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends ArrIntNsBuilde
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
 
   final override def arrSet(arr: ArrB, index: Int, value: B): Unit =
-  { arr.arrayUnsafe(index * 2) = value.int1; arr.arrayUnsafe(index * 2 + 1) = value.int2
+  { arr.unsafeArray(index * 2) = value.int1; arr.unsafeArray(index * 2 + 1) = value.int2
   }
   override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuff.append(value.int1); buff.unsafeBuff.append(value.int2); () }
 }
@@ -71,9 +71,9 @@ abstract class DataInt2sCompanion[A <: ElemInt2, ArrA <: DataInt2s[A]] extends D
     var count: Int = 0
 
     while (count < arrLen)
-    { res.arrayUnsafe(count) = elems(count / 2).int1
+    { res.unsafeArray(count) = elems(count / 2).int1
       count += 1
-      res.arrayUnsafe(count) = elems(count / 2).int2
+      res.unsafeArray(count) = elems(count / 2).int2
       count += 1
     }
     res

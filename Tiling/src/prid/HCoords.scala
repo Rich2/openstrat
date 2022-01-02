@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
-class HCoords(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[HCoord] {
+class HCoords(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[HCoord] {
   type ThisT = HCoords
 
   override def unsafeFromArray(array: Array[Int]): HCoords = new HCoords(array)

@@ -3,12 +3,12 @@ package ostrat; package prid
 import geom._
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonHC(val arrayUnsafe: Array[Int]) extends AnyVal with PolygonInt2s[HCoord]
+class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with PolygonInt2s[HCoord]
 { override type ThisT = PolygonHC
   override type SideT = LineSegHC
   override def typeStr: String = "PolygonHC"
   override def unsafeFromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
-  def vertNum: Int = arrayUnsafe.length / 2
+  def vertNum: Int = unsafeArray.length / 2
 
   override def dataElem(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
 

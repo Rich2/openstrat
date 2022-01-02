@@ -11,15 +11,15 @@ trait ElemInt1 extends Any with ElemIntN
 trait DataInt1s[A <: ElemInt1] extends Any with DataIntNs[A]
 {
   override def elemProdSize: Int = 1
-  final override def indexData(index: Int): A = dataElem(arrayUnsafe(index))
+  final override def indexData(index: Int): A = dataElem(unsafeArray(index))
   def dataElem(intValue: Int): A
-  final override def unsafeSetElem(index: Int, elem: A): Unit = { arrayUnsafe(2 * index) = elem.int1 }
+  final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(2 * index) = elem.int1 }
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */
 trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A] with DataInt1s[A]
 {
-  final override def length: Int = arrayUnsafe.length
+  final override def length: Int = unsafeArray.length
 
   /** This method could be made more general. */
   def findIndex(value: A): OptInt =
@@ -29,7 +29,7 @@ trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A] with DataInt1s[A]
     var continue = true
     while (continue == true & count < dataLength)
     {
-      if (value.intValue == arrayUnsafe(count))
+      if (value.intValue == unsafeArray(count))
       { acc = SomeInt(count)
         continue = false
       }
@@ -41,7 +41,7 @@ trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A] with DataInt1s[A]
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
   { val newArray = new Array[Int](dataLength + 1)
-    arrayUnsafe.copyToArray(newArray)
+    unsafeArray.copyToArray(newArray)
     newArray(dataLength) = op.int1
     unsafeFromArray(newArray)
   }
@@ -55,7 +55,7 @@ trait ArrInt1sBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends ArrIntNsBuilde
 
   final override def elemProdSize: Int = 1
   def newArray(length: Int): Array[Int] = new Array[Int](length)
-  final override def arrSet(arr: ArrT, index: Int, value: A): Unit =  arr.arrayUnsafe(index) = value.int1
+  final override def arrSet(arr: ArrT, index: Int, value: A): Unit =  arr.unsafeArray(index) = value.int1
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuff.append(value.int1); () }
 }
 

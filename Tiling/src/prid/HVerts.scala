@@ -5,16 +5,16 @@ package ostrat; package prid
 trait HVertsLike extends Any with DataInt2s[HVert]
 { override def dataElem(i1: Int, i2: Int): HVert = HVert.apply(i1, i2)
   override def fElemStr: HVert => String = _.str
-  def vertNum: Int = arrayUnsafe.length / 2
+  def vertNum: Int = unsafeArray.length / 2
 }
 
 /** An array[Int] based collection for HVert. */
-class HVerts(val arrayUnsafe: Array[Int]) extends AnyVal with HVertsLike with ArrInt2s[HVert]
+class HVerts(val unsafeArray: Array[Int]) extends AnyVal with HVertsLike with ArrInt2s[HVert]
 { type ThisT = HVerts
   override def unsafeFromArray(array: Array[Int]): HVerts = new HVerts(array)
   override def typeStr: String = "HVerts" + foldLeft("")(_ + "; " + _.rcStr)
 
-  def toPolygon: PolygonHC = new PolygonHC(arrayUnsafe)
+  def toPolygon: PolygonHC = new PolygonHC(unsafeArray)
   /*def filter(f: HVert => Boolean): HVerts =
   { val tempArr = new Array[Int](array.length)
     var count = 0

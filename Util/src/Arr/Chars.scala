@@ -2,26 +2,26 @@
 package ostrat
 
 /** Efficient immutable Array based collection for Chars. */
-final class Chars(val arrayUnsafe: Array[Char]) extends AnyVal with SeqImut[Char]
+final class Chars(val unsafeArray: Array[Char]) extends AnyVal with SeqImut[Char]
 { type ThisT = Chars
 
   /** Copy's the backing Array[[Char]] to a new Array[char]. End users should rarely have to use this method */
-  def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = { arrayUnsafe.copyToArray(arrayUnsafe, offset, copyLength); () }
+  def unsafeArrayCopy(operand: Array[Char], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
 
   override def typeStr: String = "Chars"
   override def unsafeSameSize(length: Int): Chars = new Chars(new Array[Char](length))
-  override def dataLength: Int = arrayUnsafe.length
-  override def length: Int = arrayUnsafe.length
-  override def indexData(index: Int): Char = arrayUnsafe(index)
-  override def unsafeSetElem(i: Int, value: Char): Unit = arrayUnsafe(i) = value
+  override def dataLength: Int = unsafeArray.length
+  override def length: Int = unsafeArray.length
+  override def indexData(index: Int): Char = unsafeArray(index)
+  override def unsafeSetElem(i: Int, value: Char): Unit = unsafeArray(i) = value
 
   override def fElemStr: Char => String = _.toString
 
   /** Append another Chars collection. */
   def ++ (op: Chars): Chars =
   { val newArray = new Array[Char](dataLength + op.dataLength)
-    arrayUnsafe.copyToArray(newArray)
-    op.arrayUnsafe.copyToArray(newArray, dataLength)
+    unsafeArray.copyToArray(newArray)
+    op.unsafeArray.copyToArray(newArray, dataLength)
     new Chars(newArray)
   }
 
@@ -30,7 +30,7 @@ final class Chars(val arrayUnsafe: Array[Char]) extends AnyVal with SeqImut[Char
   @inline def offsetter1: CharsOff = new CharsOff(1)
   @inline def offsetter2: CharsOff = new CharsOff(2)
   @inline def offsetter3: CharsOff = new CharsOff(3)
-  @inline def mkString: String = arrayUnsafe.mkString
+  @inline def mkString: String = unsafeArray.mkString
 }
 
 /** Companion object of Chars class contains repeat parameter apply factor method. */

@@ -13,20 +13,20 @@ trait ElemInt4 extends Any with ElemIntN
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt4]]s. */
 trait ArrInt4s[A <: ElemInt4] extends Any with ArrIntNs[A]
 { override def elemProdSize: Int = 4
-  final override def length: Int = arrayUnsafe.length / 4
+  final override def length: Int = unsafeArray.length / 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
-  override def indexData(index: Int): A = newElem(arrayUnsafe(4 * index), arrayUnsafe(4 * index + 1), arrayUnsafe(4 * index + 2), arrayUnsafe(4 * index + 3))
+  override def indexData(index: Int): A = newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
   override def unsafeSetElem(index: Int, elem: A): Unit =
-  { arrayUnsafe(4 * index) = elem.int1;
-    arrayUnsafe(4 * index + 1) = elem.int2
-    arrayUnsafe(4 * index + 2) = elem.int3
-    arrayUnsafe(4 * index + 3) = elem.int4
+  { unsafeArray(4 * index) = elem.int1;
+    unsafeArray(4 * index + 1) = elem.int2
+    unsafeArray(4 * index + 2) = elem.int3
+    unsafeArray(4 * index + 3) = elem.int4
   }
 
-  def head1: Int = arrayUnsafe(0)
-  def head2: Int = arrayUnsafe(1)
-  def head3: Int = arrayUnsafe(2)
-  def head4: Int = arrayUnsafe(3)
+  def head1: Int = unsafeArray(0)
+  def head2: Int = unsafeArray(1)
+  def head3: Int = unsafeArray(2)
+  def head4: Int = unsafeArray(3)
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt4]]s collections. */
@@ -53,13 +53,13 @@ abstract class ArrInt4sCompanion[A <: ElemInt4, M <: ArrInt4s[A]]
     var count: Int = 0
     while (count < arrLen)
     {
-      res.arrayUnsafe(count) = elems(count / 2).int1
+      res.unsafeArray(count) = elems(count / 2).int1
       count += 1
-      res.arrayUnsafe(count) = elems(count / 2).int2
+      res.unsafeArray(count) = elems(count / 2).int2
       count += 1
-      res.arrayUnsafe(count) = elems(count / 2).int3
+      res.unsafeArray(count) = elems(count / 2).int3
       count += 1
-      res.arrayUnsafe(count) = elems(count / 2).int4
+      res.unsafeArray(count) = elems(count / 2).int4
       count += 1
     }
     res

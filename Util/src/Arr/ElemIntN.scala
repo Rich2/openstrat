@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -9,12 +9,12 @@ trait DataIntNs[A <: ElemIntN] extends Any with DataValueNs[A]
 { type ThisT <: DataIntNs[A]
 
   /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */
-  def arrayUnsafe: Array[Int]
+  def unsafeArray: Array[Int]
 
   def unsafeFromArray(array: Array[Int]): ThisT
 
   /** The length of the Array[Int] backing array. */
-  def arrLen = arrayUnsafe.length
+  def arrLen = unsafeArray.length
 
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(dataLength)
@@ -44,7 +44,7 @@ trait ArrIntNsBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsBuil
   final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuff.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
+  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.unsafeArray); () }
 }
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntNs]] final classes. Instances for [[ArrFlatBuilder] should go in the
@@ -58,7 +58,7 @@ trait ArrIntNsFlatBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNs
   //final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuff.toArray)
-  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.arrayUnsafe); () }
+  override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuff.addAll(arr.unsafeArray); () }
 }
 
 /** Specialised flat ArrayBuffer[Int] based collection class. */
@@ -67,7 +67,7 @@ trait BuffIntNs[A <: ElemIntN] extends Any with BuffValueNs[A]
   def unsafeBuff: ArrayBuffer[Int]
   def toArray: Array[Int] = unsafeBuff.toArray[Int]
   def grow(newElem: A): Unit
-  override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.arrayUnsafe); () }
+  override def grows(newElems: ArrT): Unit = { unsafeBuff.addAll(newElems.unsafeArray); () }
   override def dataLength = unsafeBuff.length / elemProdSize
 }
 

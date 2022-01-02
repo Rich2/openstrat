@@ -2,7 +2,7 @@
 package ostrat; package pGrid
 
 /** An array[Int] based collection for [[Roord]]. */
-class Roords(val arrayUnsafe: Array[Int]) extends AnyVal with ArrInt2s[Roord]
+class Roords(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[Roord]
 { type ThisT = Roords
   override def fElemStr: Roord => String = _.toString
   override def unsafeFromArray(array: Array[Int]): Roords = new Roords(array)
