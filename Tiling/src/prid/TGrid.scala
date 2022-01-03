@@ -143,7 +143,7 @@ trait TGrid extends Any
 
   /** The number of Rows of Sides.
    *  @group SidesGroup */
-  @inline final def numOfSideRows: Int = ife(numTileRows > 1, numTileRows * 2 + 1, 0)
+  @inline final def numOfSideRows: Int = ife(numTileRows > 0, numTileRows * 2 + 1, 0)
 
   /** The bottom, lowest or minimum Side Row of this TileGrid. The r value, the row number value.
    *  @group SidesGroup */
