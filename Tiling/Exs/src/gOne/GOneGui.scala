@@ -57,7 +57,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
+  def thisTop(): Unit = reTop(Arr(bTurn) ++ navButtons)//, zoomIn, zoomOut, focusLeft))
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {

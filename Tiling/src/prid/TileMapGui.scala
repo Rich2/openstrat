@@ -32,12 +32,23 @@ abstract class TileMapGui(title: String) extends CmdBarGui(title)
     thisTop()
   }
 
-  def focusLeft: PolygonCompound = clickButton("\u2192"){_ =>
-    cPScale *= 1.1
+  def focusAdj(uniStr: String)(f: (Vec2, Double) => Vec2): PolygonCompound = clickButton(uniStr){butt =>
+    val delta = butt(1, 10, 100, 0)
+    focus = f(focus, cPScale * delta / 40)
     repaint()
-    statusText = tilePScaleStr
+    statusText = focus.strSemi
     thisTop()
   }
+
+  def focusLeft: PolygonCompound = focusAdj("\u2190"){ (v, d) =>
+    val newX = (v.x - d)//.min(gr)
+    Vec2(newX, v.y)
+  }
+  def focusRight: PolygonCompound = focusAdj("\u2192"){ (v, d) => v.addX(d) }
+  def focusUp: PolygonCompound = focusAdj("\u2191"){ (v, d) => v.addY(d) }
+  def focusDown: PolygonCompound = focusAdj("\u2193"){ (v, d) => v.subY(d) }
+
+  def navButtons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 }
 
 abstract class HexMapGui(title: String) extends TileMapGui(title)
