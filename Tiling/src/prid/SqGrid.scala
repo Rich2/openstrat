@@ -19,17 +19,20 @@ final class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: In
 
   def rGridMin: Int = bottomCenRow - 1
   def rGridMax: Int = topCenRow + 1
-  def cGridMin: Int = leftCenCol - 1
-  def cGridMax: Int = rightCenCol + 1
+  def leftSideCol: Int = leftCenCol - 1
+  def rightSideCol: Int = rightCenCol + 1
+
+  override def left: Double = leftSideCol
+  override def right: Double = rightSideCol
 
   override def coordCen: SqCenOrSide = SqCenOrSide(rCen, cCen)
   override def yRatio: Double = 1
   override def yCen: Double = (bottomCenRow + topCenRow) / 2
-  override def width: Double = cGridMax - cGridMin
+  override def width: Double = rightSideCol - leftSideCol
   override def height: Double = rGridMax - rGridMin
 
-  def horrSideLines: LineSegs = iToMap(rGridMin, rGridMax, 2){ r => LineSeg(cGridMin, r, cGridMax, r) }
-  def vertSideLines: LineSegs = iToMap(cGridMin, cGridMax, 2){ c => LineSeg(c, rGridMin, c, rGridMax) }
+  def horrSideLines: LineSegs = iToMap(rGridMin, rGridMax, 2){ r => LineSeg(leftSideCol, r, rightSideCol, r) }
+  def vertSideLines: LineSegs = iToMap(leftSideCol, rightSideCol, 2){ c => LineSeg(c, rGridMin, c, rGridMax) }
   def sideLines: LineSegs = horrSideLines ++ vertSideLines
 
 

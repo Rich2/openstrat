@@ -1,18 +1,13 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
-/** An irregular hex grid, where the rows have different lengths and irregular start row coordinates. This is backed by an Array[Int]. There are 2
-* values for each row. Each row from lowest to highest has two values. The rTileMin coordinate for the row followed by the length of the row in the
-* number of tile centres [[HCen]]s. */
-abstract class HGridIrr() extends HGrid
-
 /** An irregular hex grid, where the rows have different lengths and irregular start row coordinates. This is backed by an Array[Int]. The length of
  *  this Array is twice the number of tile rows in the grid. Each row from lowest to highest has two values length of the row in the number of tile
  *  centres [[HCen]]s and the rTileMin coordinate for the row.
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param yTileMin         The y value for the bottom tile row of the TileGrid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-class HGridIrrRows(val bottomCenRow: Int, val unsafeRowsArray: Array[Int]) extends HGridIrr
+class HGridIrr(val bottomCenRow: Int, val unsafeRowsArray: Array[Int]) extends HGrid
 {
   final val numTileRows: Int = unsafeRowsArray.length / 2
 
@@ -122,9 +117,9 @@ class HGridIrrRows(val bottomCenRow: Int, val unsafeRowsArray: Array[Int]) exten
 
 }
 
-object HGridIrrRows
+object HGridIrr
 {
-  def apply(rMax: Int, cMinMaxs: (Int, Int) *): HGridIrrRows =
+  def apply(rMax: Int, cMinMaxs: (Int, Int) *): HGridIrr =
   { val array = new Array[Int](cMinMaxs.length * 2)
     val len = cMinMaxs.length
     val rMin = rMax - (len - 1) * 2
@@ -134,6 +129,6 @@ object HGridIrrRows
       array(i * 2 + 1) = cMin
     }
     val arrayLen = array.length
-    new HGridIrrRows(rMin, array)
+    new HGridIrr(rMin, array)
   }
 }

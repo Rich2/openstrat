@@ -11,11 +11,8 @@ class HGridReg(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, v
     count
   }
 
-  override def width: Double = xRight - xLeft
+  override def width: Double = xRight - left
   override def height: Double =xTop - xBottom
-
-  /** The left most point of the grid. */
-  def xLeft: Double = (leftCenCol - 2)// * xRatio
 
   /** The right most point of the grid. */
   def xRight: Double = (rightCenCol + 2)// * xRatio

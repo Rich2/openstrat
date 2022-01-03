@@ -19,7 +19,7 @@ object OneScen2 extends OneScenStart
 
 /** 3rd example Turn 0 scenario state for Game One. */
 object OneScen3 extends OneScenStart
-{ implicit val grid: HGrid = HGridIrrRows(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
+{ implicit val grid: HGrid = HGridIrr(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
   val oPlayers: HCenArrOpt[Player] = grid.newTileArrOpt
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
 }

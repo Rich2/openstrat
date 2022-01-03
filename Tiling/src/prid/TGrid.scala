@@ -64,6 +64,12 @@ trait TGrid extends Any
   /** the ratio of r => y, when translating from [[TCoord]] tile grid coordinates to [[Pt2]] and [[Vec2]]s. */
   def yRatio: Double
 
+  /** The left most point in the grid where x is minimum. */
+  def left: Double
+
+  /** The right most point in the grid where the value of x is maximum. */
+  def right: Double
+
   /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
   @inline def xCen: Double = (leftCenCol + rightCenCol) / 2
 

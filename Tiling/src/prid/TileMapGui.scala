@@ -4,6 +4,7 @@ import geom._, pgui._
 
 abstract class TileMapGui(title: String) extends CmdBarGui(title)
 {
+  def grid: TGrid
   /** The number of pixels displayed per c column coordinate. */
   var cPScale: Double
 
@@ -41,10 +42,13 @@ abstract class TileMapGui(title: String) extends CmdBarGui(title)
   }
 
   def focusLeft: PolygonCompound = focusAdj("\u2190"){ (v, d) =>
-    val newX = (v.x - d)//.min(gr)
+    val newX: Double = (v.x - d).max(grid.left)
     Vec2(newX, v.y)
   }
-  def focusRight: PolygonCompound = focusAdj("\u2192"){ (v, d) => v.addX(d) }
+  def focusRight: PolygonCompound = focusAdj("\u2192"){ (v, d) =>
+    val newX: Double = (v.x + d).min(grid.right)
+    Vec2(newX, v.y)
+  }
   def focusUp: PolygonCompound = focusAdj("\u2191"){ (v, d) => v.addY(d) }
   def focusDown: PolygonCompound = focusAdj("\u2193"){ (v, d) => v.subY(d) }
 

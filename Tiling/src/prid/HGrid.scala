@@ -7,7 +7,11 @@ import geom._, math.sqrt, reflect.ClassTag, collection.mutable.ArrayBuffer
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
 trait HGrid extends Any with TGrid with HGridBased
-{ /** The number of tile centre rows where r %% 4 == 0.  */
+{
+  final override def left: Double = leftCenCol - 2
+  final override def right: Double = rightCenCol + 2
+
+  /** The number of tile centre rows where r %% 4 == 0.  */
   def numRow0s: Int
 
   /** The number of tile centre rows where r %% 4 == 2.  */
