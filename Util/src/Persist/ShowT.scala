@@ -249,7 +249,9 @@ class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
   /** Return the defining member values of the type as a series of semicolon separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 4. if it is 4 or greater return the full typed data. This method is not commonly needed but is useful
    *  for case classes with a single member. */
-  @inline def strSemi: String = ev.showT(thisVal, ShowSemis, -1, 0)//  ev.showSemi(thisVal)
+  @inline def strSemi: String = ev.showT(thisVal, ShowSemis, -1, 0)
+
+  @inline def strSemi(maxPlaces: Int, minPlaces: Int = 0): String =  ev.showT(thisVal, ShowSemis, maxPlaces, minPlaces)
 
   /** For most objects showTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.showTyped
    * will return Int(4) */

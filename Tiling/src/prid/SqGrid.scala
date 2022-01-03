@@ -17,22 +17,22 @@ final class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: In
   /** The total number of Tiles in the tile Grid. */
   override def numTiles: Int = numTileRows * tileRowLen
 
-  def rGridMin: Int = bottomCenRow - 1
-  def rGridMax: Int = topCenRow + 1
   def leftSideCol: Int = leftCenCol - 1
   def rightSideCol: Int = rightCenCol + 1
 
   override def left: Double = leftSideCol
   override def right: Double = rightSideCol
+  override def top: Double = topSideRow
+  override def bottom: Double = bottomSideRow
 
   override def coordCen: SqCenOrSide = SqCenOrSide(rCen, cCen)
   override def yRatio: Double = 1
   override def yCen: Double = (bottomCenRow + topCenRow) / 2
   override def width: Double = rightSideCol - leftSideCol
-  override def height: Double = rGridMax - rGridMin
+  override def height: Double = topSideRow - bottomSideRow
 
-  def horrSideLines: LineSegs = iToMap(rGridMin, rGridMax, 2){ r => LineSeg(leftSideCol, r, rightSideCol, r) }
-  def vertSideLines: LineSegs = iToMap(leftSideCol, rightSideCol, 2){ c => LineSeg(c, rGridMin, c, rGridMax) }
+  def horrSideLines: LineSegs = iToMap(bottomSideRow, topSideRow, 2){ r => LineSeg(leftSideCol, r, rightSideCol, r) }
+  def vertSideLines: LineSegs = iToMap(leftSideCol, rightSideCol, 2){ c => LineSeg(c, bottomSideRow, c, topSideRow) }
   def sideLines: LineSegs = horrSideLines ++ vertSideLines
 
 

@@ -10,6 +10,8 @@ trait HGrid extends Any with TGrid with HGridBased
 {
   final override def left: Double = leftCenCol - 2
   final override def right: Double = rightCenCol + 2
+  final override def top: Double = topCenRow * Sqrt3 + 2
+  final override def bottom: Double = bottomCenRow * Sqrt3 - 2
 
   /** The number of tile centre rows where r %% 4 == 0.  */
   def numRow0s: Int

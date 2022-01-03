@@ -37,7 +37,7 @@ abstract class TileMapGui(title: String) extends CmdBarGui(title)
     val delta = butt(1, 10, 100, 0)
     focus = f(focus, cPScale * delta / 40)
     repaint()
-    statusText = focus.strSemi
+    statusText = focus.strSemi(2, 2)
     thisTop()
   }
 
@@ -49,9 +49,15 @@ abstract class TileMapGui(title: String) extends CmdBarGui(title)
     val newX: Double = (v.x + d).min(grid.right)
     Vec2(newX, v.y)
   }
-  def focusUp: PolygonCompound = focusAdj("\u2191"){ (v, d) => v.addY(d) }
-  def focusDown: PolygonCompound = focusAdj("\u2193"){ (v, d) => v.subY(d) }
+  def focusUp: PolygonCompound = focusAdj("\u2191"){ (v, d) =>
+    val newY: Double = (v.y + d).min(grid.top)
+    Vec2(v.x, newY)
+  }
 
+  def focusDown: PolygonCompound = focusAdj("\u2193"){ (v, d) =>
+    val newY: Double = (v.y - d).max(grid.bottom)
+    Vec2(v.x, newY)
+  }
   def navButtons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 }
 
