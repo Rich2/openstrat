@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
 import pgui._, geom._, prid._
 
@@ -8,14 +8,10 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   var history: Arr[OneScen] = Arr(scen)
-
   implicit def grid: HGrid = scen.grid
-
   def players: HCenArrOpt[Player] = scen.oPlayers
-
-  var cPScale: Double = viewIn.pxScale// grid.fullDisplayScale(mainWidth, mainHeight)
-
-   focus = viewIn.vec
+  var cPScale: Double = viewIn.pxScale
+  focus = viewIn.vec
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
@@ -81,8 +77,6 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   thisTop()
 
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
-
   def frame: GraphicElems = (tiles +% sidesDraw ++ units ++ hexStrs).slate(-focus).scale(cPScale) ++ moveGraphics2
-
   repaint()
 }
