@@ -11,8 +11,8 @@ trait TwoScen extends SqGridScen
   {
     val playersKey: Map[Player, SqCen] = oPlayers.keyMap
 
-    /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    //val targets: SqCenArrOfBuff[SqStep] = grid.newHCenArrOfBuff
+    /** A mutable grid of data. The tile data is an Array buffer of [[SqStep]]s, the SqStep pointing back to the origin [[SqCen]] of the player. */
+    val targets: SqCenArrOfBuff[SqStep] = grid.newSqCenArrOfBuff
 
     /*val resolve: SqCenArrBuff[SqAndStep] = grid.newTileBuffArr
     sat.foreach{sat => resolve.appendAt(sat.sc2, sat) }
