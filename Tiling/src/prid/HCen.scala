@@ -30,11 +30,11 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TileCen
   def active(id: AnyRef = this): PolygonActive = polygonReg.active(id)
   override def typeStr: String = "HCen"
 
-  /** Step to adjacent hex tile. */
-  def stepOld(st: HStep): HCen = HCen(r + st.r, c + st.c)
+  /** Step to adjacent hex tile. Will throw exception on illegal value. */
+  def step(st: HStep): HCen = HCen(r + st.r, c + st.c)
 
   /** Step to adjacent hex tile. */
-  def step(st: HStep)(implicit grid: HGrid): Option[HCen] = {
+  def stepOpt(st: HStep)(implicit grid: HGrid): Option[HCen] = {
     val target = HCen(r + st.r, c + st.c)
     ife(grid.hCenExists(target), Some(target), None)
   }

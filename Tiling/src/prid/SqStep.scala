@@ -12,6 +12,9 @@ trait TileStep
 
 /** A square tile step can take 8 values */
 sealed trait SqStep extends TileStep
+{
+  def sqCen: SqCen = SqCen(r, c)
+}
 
 /** A non-diagonal square tile Step can take 4 values. */
 sealed trait SqStepNear extends /*SqStepNearOpt with*/ SqStep

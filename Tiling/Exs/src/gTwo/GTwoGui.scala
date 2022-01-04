@@ -21,12 +21,12 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
-  var moves: SqCenArrOpt[SqAndStep] = NoMoves
+  var moves: SqCenArrOpt[SqStep] = NoMoves
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
-        val getOrders = moves.mapSomes(rs => rs)
-        scen = scen.doTurn(getOrders)
+        val getOrders = players.some2sMap(moves)((player, step) => (player, step))//moves.mapSomes(rs => rs)
+        scen = scen.endTurn(getOrders)
         moves = NoMoves
         repaint()
         thisTop()
@@ -36,7 +36,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   val sidesDraw = grid.sidesDraw()
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: SqCenArrOpt[SqAndStep] = grid.newTileArrOpt[SqAndStep]
+  def NoMoves: SqCenArrOpt[SqStep] = grid.newTileArrOpt[SqStep]
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   { case (LeftButton, _, cl) =>
@@ -47,7 +47,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
 
     case (RightButton, Arr2(SPlayer(p, sc1), SqCen(y, c)), ArrHead(sc2 : SqCen)) =>
     {
-      val newM: OptRef[SqStep] = sc1.optStep(sc2)
+      val newM: OptRef[SqStep] = sc1.findStep(sc2)
+      newM.foldDo{ if (sc1 == sc2) moves = moves.setNone(sc1) }(m => moves = moves.setSome(sc1, m))
       //newM.foreach(m => moves = moves.setSomeNew(hc1, hc1.andStep(m)))
       repaint()
     }

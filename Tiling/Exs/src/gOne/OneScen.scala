@@ -18,14 +18,14 @@ trait OneScen extends HexGridScen
 
     orderList.foreach { (player, step) =>
       val hc1 = playersKey(player)
-      val optTarget: Option[HCen] = hc1.step(step)
+      val optTarget: Option[HCen] = hc1.stepOpt(step)
       optTarget.foreach { target => targets.appendAt(target, step.reverse) }
     }
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
     val oPlayersNew: HCenArrOpt[Player] = oPlayers.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.stepOld(backStep), hc2)) }
+    targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.step(backStep), hc2)) }
 
     OneScen(turn + 1, grid, oPlayersNew)
   }
