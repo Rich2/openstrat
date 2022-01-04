@@ -14,7 +14,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   var cPScale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   def lunits = players.cMapSomes{ (p, sc) =>
-    Rect(0.9, 0.6, sc.toPt2).fillDrawTextActive(p.colour, p, p.toString + "\n" + sc.rcStr, 24, 2.0)  }
+    val str = ptScale.scaledStr(170, p.toString + "\n" + sc.strComma, 150, p.charStr + "\n" + sc.strComma, 60, p.charStr)
+    Rect(1.2, 0.8, sc.toPt2).fillDrawTextActive(p.colour, p, str, 24, 2.0)  }
 
   def css = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2))
 

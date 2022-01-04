@@ -30,6 +30,11 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TileCen
   def optStep(operand: SqCen): OptRef[SqStep] = ??? // hcStepSomes.optFind(_.hCen == operand - this)
 }
 
+object SqCen
+{
+  implicit val persistImplicit: Persist[SqCen] = new PersistShowInt2[SqCen]("SqCen", "r", "c", SqCen(_, _))
+}
+
 /** A Square tile side square grid [[SqGrid]] coordinate. */
 class SqSide(val r: Int, val c: Int) extends SqCenOrSide with TileSide
 { override def typeStr: String = "Sqside"

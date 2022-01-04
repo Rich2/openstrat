@@ -83,7 +83,8 @@ class IntExtensions(val thisInt: Int) extends AnyVal
     res
   }
 
-  def scaledStr(i1: Int, s1: String, i2:Int, s2: String, i3: Int, s3: String, pairs: (Int, String)*): String = scaledStr(pairs :_*)
+  def scaledStr(i1: Int, s1: String, i2:Int, s2: String, i3: Int, s3: String, pairs: (Int, String)*): String =
+    scaledStr(List((i1, s1), (i2, s2), (i3, s3)) ++: pairs :_*)
 
   def repeatChar(c: Char): String = (1 to thisInt).foldLeft("")((a, b) => a + c)
   def commaInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + ", " + _.toString)

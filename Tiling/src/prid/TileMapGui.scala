@@ -3,17 +3,18 @@ package ostrat; package prid
 import geom._, pgui._
 
 abstract class TileMapGui(title: String) extends CmdBarGui(title)
-{
+{ /** Tile grid this gui displays. */
   def grid: TGrid
+
   /** The number of pixels displayed per c column coordinate. */
   var cPScale: Double
 
-  /** The number of pixels from a side of a tile to the opposite tile. */
-  def tilePScale: Double
+  /** Pixels per Tile. The number of pixels from a side of a tile to the opposite side of the tile. */
+  def ptScale: Double
 
   var focus: Vec2 = Vec2(0, 0)
 
-  def tilePScaleStr = s"scale = ${tilePScale.str2} pixels per tile"
+  def tilePScaleStr = s"scale = ${ptScale.str2} pixels per tile"
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit
   def frame: GraphicElems
@@ -62,13 +63,9 @@ abstract class TileMapGui(title: String) extends CmdBarGui(title)
 }
 
 abstract class HexMapGui(title: String) extends TileMapGui(title)
-{
-  /** The number of pixels from a side of a tile to the opposite tile.The number of pixels. For Hex tiles this is 4 times the value of the tilePScale
-   * property. */
-  override def tilePScale: Double = cPScale * 4
+{ override def ptScale: Double = cPScale * 4
 }
 
 abstract class SquareMapGui(title: String) extends TileMapGui(title)
-{ /** The number of pixels from a side of a tile to the opposite tile. For Square tiles this is twice the value of the tilePScale property. */
-  override def tilePScale: Double = cPScale * 2
+{ override def ptScale: Double = cPScale * 2
 }
