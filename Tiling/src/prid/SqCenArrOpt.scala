@@ -30,7 +30,8 @@ class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with Tile
     new SqCenArrOpt[A](newArr)
   }
 
-
+  /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
+  def tileNone(sc: SqCen)(implicit grid: SqGrid): Boolean = unsafeArr(grid.arrIndex(sc)) == null
 
   /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
    *  an immutable Array based collection of type ArrT, the second type parameter. */
@@ -95,5 +96,12 @@ class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with Tile
   { val build = Map.newBuilder[A, SqCen]
     scSomesForeach((p, hc) => build.addOne(hc, p))
     build.result
+  }
+
+  /** Moves the object in the array location given by the 1st [[SqCen]] to the 2nd [[SqCen]], by setting sc2 to the value of sc1 and setting sc1 to
+   *  None. */
+  def unsafeMove(sc1: SqCen, sc2: SqCen)(implicit grid: SqGrid): Unit =
+  { unsafeArr(grid.arrIndex(sc2)) = unsafeArr(grid.arrIndex(sc1))
+    unsafeArr(grid.arrIndex(sc1)) = null.asInstanceOf[A]
   }
 }

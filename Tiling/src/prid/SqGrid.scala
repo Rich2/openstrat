@@ -85,6 +85,12 @@ final class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: In
 
   /** Creates a new [[HCenArrOfBuff]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
   final def newSqCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrOfBuff[A] = SqCenArrOfBuff(numTiles)
+
+  /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
+  final def sqCenExists(sc: SqCen): Boolean = sqCenExists(sc.r, sc.c)
+
+  /** Boolean. True if the specified hex centre exists in this hex grid. */
+  def sqCenExists(r: Int, c:Int): Boolean = r.isEven & c.isEven & r >= bottomCenRow & r <= topCenRow & c >= leftCenCol & c <= rightCenCol
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */
