@@ -20,7 +20,7 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
     hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, str, 16, terrs(hc).contrastBW)
   }
 
-  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut))//, goNorth, goSouth, goWest, goEast))
+  def thisTop(): Unit = reTop(navButtons)
   def frame: GraphicElems = ife(metresScale > 1400, tileStrs,tiles).slate(-focus).scale(cPScale)
   repaint()
   thisTop()

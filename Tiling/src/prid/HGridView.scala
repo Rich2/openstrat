@@ -2,9 +2,9 @@
 package ostrat; package prid
 import geom._
 
+/** A view of a hex grid, currently representing the [[HCoord]] focus and the pixels/dx scale. */
 class HGridView(val r: Int, val c: Int, val pxScale: Double) extends Show2[HCoord, Double]
-{
-  def hCoord: HCoord = HCoord(r, c)
+{ def hCoord: HCoord = HCoord(r, c)
   def vec: Vec2 = hCoord.toVec
   def pt2: Pt2 = hCoord.toPt2
   override def typeStr: String = "GridView"
@@ -17,9 +17,9 @@ class HGridView(val r: Int, val c: Int, val pxScale: Double) extends Show2[HCoor
   override def syntaxDepth: Int = 3
 }
 
+/** Companion object for HGridView contains factory apply method overloads. */
 object HGridView
-{
-  def apply(r: Int, c: Int, pxScale: Double = 50): HGridView = new HGridView(r, c, pxScale)
+{ def apply(r: Int, c: Int, pxScale: Double = 50): HGridView = new HGridView(r, c, pxScale)
   def apply(hCoord: HCoord, pxScale: Double): HGridView = new HGridView(hCoord.r, hCoord.c, pxScale)
 
   implicit val persistImplicit: PersistShow2[HCoord, Double, HGridView] =
