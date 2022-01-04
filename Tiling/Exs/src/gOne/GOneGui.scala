@@ -24,12 +24,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
   def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, p) =>
-    val str = tilePScale match {
-      case s if s > 170 => p.toString + "\n" + hc.strComma
-      case s if s > 150 => p.charStr + "\n" + hc.strComma
-      case s if s > 60 => p.charStr
-      case s => ""
-    }
+    val str = tilePScale.scaledStr((170, p.toString + "\n" + hc.strComma), (150, p.charStr + "\n" + hc.strComma), (60, p.charStr))
     urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), str, 24, 2.0)
   }
 

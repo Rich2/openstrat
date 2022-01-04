@@ -74,6 +74,17 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def quadrillion: Long = thisInt.toLong * 1000000000000000L
 
   def spaces: String = (1 to thisInt).foldLeft("")((a, b) => a + " ")
+
+  def scaledStr(pairs: (Int, String)*): String = {
+    var res = ""
+    var i = 0
+    val ps: Seq[(Int, String)] = pairs.sortWith(_._1 > _._1)
+    while(res == "" & i < ps.length) if (thisInt >= ps(i)._1) res = ps(i)._2 else i += 1
+    res
+  }
+
+  def scaledStr(i1: Int, s1: String, i2:Int, s2: String, i3: Int, s3: String, pairs: (Int, String)*): String = scaledStr(pairs :_*)
+
   def repeatChar(c: Char): String = (1 to thisInt).foldLeft("")((a, b) => a + c)
   def commaInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + ", " + _.toString)
   def semicolonInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + "; " + _.toString)

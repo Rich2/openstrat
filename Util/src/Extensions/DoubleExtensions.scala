@@ -135,4 +135,12 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
 
   /** The cosine of this Double expressed in radians. */
   @inline def cos: Double = math.cos(thisDouble)
+
+  def scaledStr(pairs: (Double, String)*): String = {
+    var res = ""
+    var i = 0
+    val ps: Seq[(Double, String)] = pairs.sortWith(_._1 > _._1)
+    while(res == "" & i < ps.length) if (thisDouble >= ps(i)._1) res = ps(i)._2 else i += 1
+    res
+  }
 }
