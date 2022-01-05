@@ -61,7 +61,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
       thisTop()
     }
 
-    case (RightButton, Arr2(HPlayer(p, hc1), HCen(y, c)), ArrHead(hc2: HCen)) =>
+    case (RightButton, ArrHead(HPlayer(p, hc1)), ArrHead(hc2: HCen)) =>
     { val newM: OptRef[HStep] = hc1.findStep(hc2)
       newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()

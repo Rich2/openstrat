@@ -36,7 +36,6 @@ class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with Tile
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
   def unSafeApply(sc: SqCen)(implicit grid: SqGrid): A = unsafeArr(grid.arrIndex(sc))
 
-
   /** [[SqCen]] with Some map. map the Some values of this HcenArrOpt, with the respective [[SqCen]] coordinate to type B, the first type parameter B.
    *  Returns an immutable Array based collection of type ArrT, the second type parameter. */
   def scSomesMap[B, ArrB <: SeqImut[B]](f: (SqCen, A) => B)(implicit grid: SqGrid, build: ArrBuilder[B, ArrB]): ArrB =

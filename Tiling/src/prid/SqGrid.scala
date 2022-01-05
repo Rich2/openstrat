@@ -34,7 +34,8 @@ final class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: In
   def horrSideLines: LineSegs = iToMap(bottomSideRow, topSideRow, 2){ r => LineSeg(leftSideCol, r, rightSideCol, r) }
   def vertSideLines: LineSegs = iToMap(leftSideCol, rightSideCol, 2){ c => LineSeg(c, bottomSideRow, c, topSideRow) }
   def sideLines: LineSegs = horrSideLines ++ vertSideLines
-
+  /** The active tiles without any PaintElems. */
+  def activeTiles: Arr[PolygonActive] = map(_.active())
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[SqCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
@@ -48,6 +49,14 @@ final class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: In
     //res
     ???
   }*/
+
+  /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
+   *  corresponding to the standard Scala map function of A => B. */
+  final def map[B, ArrB <: SeqImut[B]](f: SqCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  { val res = build.newArr(numTiles)
+    iForeach((sqCen, i) => res.unsafeSetElem(i, f(sqCen)))
+    res
+  }
 
   /** New immutable Arr of Tile data. */
   final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenArr[A] =
