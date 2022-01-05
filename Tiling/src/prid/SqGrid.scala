@@ -73,16 +73,20 @@ final class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: In
 
   def foreach(f: SqCen => Unit): Unit = foreachRow(rowForeach(_)(f))
 
-  final def iForeach(f: (SqCen, Int) => Unit, startCount: Int = 0): Unit =
-  { var count: Int = startCount
-    foreachRow{r => count = rowIForeach(r, count)(f) }
+  final def iForeach(f: (SqCen, Int) => Unit): Unit =
+  { var i: Int = 0
+    foreachRow{ r => i = rowIForeach(r, i)(f) }
+  }
+
+  final def iForeach(startCount: Int)(f: (SqCen, Int) => Unit): Unit =
+  { var i: Int = startCount
+    foreachRow{r => i = rowIForeach(r, i)(f) }
   }
 
   def rowIForeach(r: Int, startCount: Int)(f: (SqCen, Int) => Unit): Int =
-  {
-    var count = startCount
-    iToForeach(0, tileRowLen) { i =>
-      f(SqCen(r, leftCenCol + i * 2), i)
+  { var count = startCount
+    iUntilForeach(0, tileRowLen) { deltaC =>
+      f(SqCen(r, leftCenCol + deltaC * 2), count)
       count += 1
     }
     count

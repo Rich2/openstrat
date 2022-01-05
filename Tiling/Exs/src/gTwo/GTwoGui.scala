@@ -13,7 +13,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   var cPScale = grid.fullDisplayScale(mainWidth, mainHeight)
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val tiles: Arr[PolygonActive] = grid.activeTiles
+  def tiles: Arr[PolygonActive] = grid.activeTiles
 
   def lunits = players.scSomesMap{ (sc, p) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + sc.strComma, 150, p.charStr + "\n" + sc.strComma, 60, p.charStr)
@@ -66,6 +66,13 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   thisTop()
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
-  def frame: GraphicElems = (tiles +% sidesDraw ++ lunits ++ css).gridScale(cPScale) ++ moveGraphics2
+
+  def frame: GraphicElems =
+  { val tiles2 = tiles.gridScale(cPScale)
+    val ls = (tiles ++ lunits +% sidesDraw ++ css).gridScale(cPScale)
+    debvar(tiles2(0))
+    ls ++ moveGraphics2
+  }
+
   repaint()
 }

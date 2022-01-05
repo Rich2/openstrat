@@ -21,7 +21,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
     case _ => false
   }
 
-  /** Not sure why this is called smap. */
+  /** Same map. Maps from this Arr[A] to a new Arr[A]. */
   def smap(f: A => A @uncheckedVariance): Arr[A] =
   { val newArray: Array[A] = unsafeArr.clone()
     iForeach({(i, el) => newArray(i) = f(el) })
@@ -49,8 +49,19 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 
   /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
-  { val newArray = new Array[A]((dataLength - 1).max0)
-    iUntilForeach(1, dataLength)(i => newArray(i - 1) = unsafeArr(i))
+  { val n2 = n.max0
+    val newLen: Int = (dataLength - n2).max0
+    val newArray = new Array[A](newLen)
+    iUntilForeach(0, newLen)(i => newArray(i) = unsafeArr(i + n2))
+    new Arr(newArray)
+  }
+
+  /** Returns a new shorter Arr with the last elements removed. */
+  def dropRight(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
+  { val n2 = n.max0
+    val newLen: Int = (dataLength - n2).max0
+    val newArray = new Array[A](newLen)
+    iUntilForeach(0, newLen)(i => newArray(i) = unsafeArr(i))
     new Arr(newArray)
   }
 

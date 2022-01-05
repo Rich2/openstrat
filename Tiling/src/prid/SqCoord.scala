@@ -45,7 +45,6 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TileCen
   def verts: SqVerts =
   {
     val res = SqCen.vertsOfSq00.map(sv => sv + this)
-    debvar(res.length)
     res
   }
 
@@ -83,10 +82,7 @@ object SqCen
   val s00v3: SqVert = SqVert(-1, -1)
   val s00v4: SqVert = SqVert(-1, 1)
 
-  val vertsOfSq00: SqVerts = {
-    deb("verts of sq00")
-    SqVerts(s00v1, s00v2, s00v3, s00v4)
-  }
+  val vertsOfSq00: SqVerts = SqVerts(s00v1, s00v2, s00v3, s00v4)
 }
 
 /** A Square tile side square grid [[SqGrid]] coordinate. */
