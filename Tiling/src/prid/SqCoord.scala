@@ -10,6 +10,10 @@ trait SqBaseCoord extends Any with TileCoord
 /** A square grid integer tile coordinate. */
 trait SqCoord extends Any with SqBaseCoord
 
+object SqCoord{
+  def apply(r: Int, c: Int): SqCoord = ???
+}
+
 trait SqCenOrSide extends Any with SqCoord with TileCenOrSide
 
 object SqCenOrSide

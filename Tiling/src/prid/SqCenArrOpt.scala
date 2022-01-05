@@ -33,20 +33,25 @@ class SqCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with Tile
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
   def tileNone(sc: SqCen)(implicit grid: SqGrid): Boolean = unsafeArr(grid.arrIndex(sc)) == null
 
-  /** Coordinate map Somes. map the some values of this HcenArrOpt, with the respective Hcen coordinate to type B, the first type parameter B. Returns
-   *  an immutable Array based collection of type ArrT, the second type parameter. */
-  def cMapSomes[B, ArrT <: SeqImut[B]](f: (A, SqCen) => B)(implicit grid: SqGrid, build: ArrBuilder[B, ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
-    grid.foreach { (sc: SqCen) =>
+  /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
+  def unSafeApply(sc: SqCen)(implicit grid: SqGrid): A = unsafeArr(grid.arrIndex(sc))
+
+
+  /** [[SqCen]] with Some map. map the Some values of this HcenArrOpt, with the respective [[SqCen]] coordinate to type B, the first type parameter B.
+   *  Returns an immutable Array based collection of type ArrT, the second type parameter. */
+  def scSomesMap[B, ArrB <: SeqImut[B]](f: (SqCen, A) => B)(implicit grid: SqGrid, build: ArrBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
+
+    grid.foreach { sc =>
       val a: A = unsafeArr(grid.arrIndex(sc))
       if(a != null)
-      { val newVal = f(a, sc)
+      { val newVal = f(sc, a)
         build.buffGrow(buff, newVal)
       }
     }
     build.buffToBB(buff)
   }
+
 
   /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenArrOpt]] to type B, the first type parameter. Returns
    *  an immutable Array based collection of type ArrT, the second type parameter. */
