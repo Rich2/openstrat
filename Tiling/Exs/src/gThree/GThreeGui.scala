@@ -42,7 +42,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
   statusText = s"Game Three. Scenario has ${grid.numTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts: GraphicElems).gridScale(cPScale)
+  def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts: GraphicElems).slate(-focus).scale(cPScale)//.gridScale(cPScale)
 
   repaint()
 }

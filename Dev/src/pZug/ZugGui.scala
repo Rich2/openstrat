@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pZug
 import pgui._, prid._, geom._, Colour._, pStrat._
 
@@ -7,6 +7,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
 {
   var scen = scenIn
   implicit def grid: HGrid = scen.grid
+  focus = grid.cenVec
 
   var cPScale = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
@@ -65,6 +66,6 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
   statusText = "Welcome to ZugFuher"
   def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   thisTop()
-  def frame: GraphicElems = (rows ++ lines ++ active ++ text ++ lunits).gridScale(cPScale)
+  def frame: GraphicElems = (rows ++ lines ++ active ++ text ++ lunits).slate(-focus).scale(cPScale)
   mainRepaint(frame)
 }

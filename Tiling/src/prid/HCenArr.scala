@@ -11,8 +11,6 @@ class HCenArr[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TileCe
   def apply(hc: HCen)(implicit grid: HGrid): A = unsafeArray(grid.arrIndex(hc))
   def rc(r: Int, c: Int)(implicit grid: HGrid): A = unsafeArray(grid.arrIndex(r, c))
 
-
-
   /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
    *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
    *  => B signature.  */

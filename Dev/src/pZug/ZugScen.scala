@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pZug
 import prid._
 
@@ -39,13 +39,13 @@ trait ZugScenStart extends ZugScen
 object Zug1 extends ZugScenStart
 { override implicit val grid: HGrid = HGridReg(2, 14, 4, 48)
   val terrs: HCenArr[ZugTerr] = grid.newTileArr[ZugTerr](Plain)
-  def tr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.completeRow(yRow, cStart, tileValues :_*)(grid)
-  tr(yRow = 12, cStart = 4, WheatField * 2)
-  tr(10, 6, WheatField, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding)
-  tr(8, 4, WheatField * 3, StoneBuilding * 1, WheatField * 2, Lake)
-  tr(6, 6, WheatField, Plain * 2, StoneBuilding, Plain, Lake)
-  tr(4, 4, WheatField * 2)
-  tr(2, 6, WheatField)
+  def cr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.completeRow(yRow, cStart, tileValues :_*)(grid)
+  cr(yRow = 12, cStart = 4, WheatField * 2, Plain * 10)
+  cr(10, 6, WheatField, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding, Plain * 2)
+  cr(8, 4, WheatField * 3, StoneBuilding * 1, WheatField * 2, Lake, Plain * 5)
+  cr(6, 6, WheatField, Plain * 2, StoneBuilding, Plain, Lake, Plain * 5)
+  cr(4, 4, WheatField * 2, Plain * 10)
+  cr(2, 6, WheatField, Plain * 10)
 
   val sTerrs: HSideBooleans = grid.newSideBooleans
   val wall1: HSides = HSides(14 hs 36, 13 hs 35, 12 hs 34, 11 hs 35, 10 hs 36)
@@ -73,7 +73,7 @@ object Zug2 extends ZugScenStart
   gs(8, 4 , Plain * 4, Lake * 2, Plain * 3 )
   gs(6, 6 , Plain * 4, Lake, Plain * 4)
   gs(4, 4, Plain * 4, Lake, Hill, Plain * 3)
-  gs(2, 6, Plain * 2, Lake * 2, Hill, Plain)
+  gs(2, 6, Plain * 2, Lake * 2, Hill, Plain * 4)
   val sTerrs: HSideBooleans = grid.newSideBooleans
   val lunits: HCenArrArr[Squad] = grid.newTileArrArr[Squad]
 }
