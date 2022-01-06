@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, pglobe._, prid._
+import geom._, pglobe._, prid._, phex._
 
 /** One of the main hex grids for the earth not a polar grid.  ((rTopCen - rBottomCen + 2) / 2).max0 */
 abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, cScale: Length, val rOffset: Int,

@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree
-import prid._, Colour._
+import prid._, phex._, Colour._
 
 sealed trait Terr extends Coloured
 object Water extends Terr { def colour = DarkBlue }

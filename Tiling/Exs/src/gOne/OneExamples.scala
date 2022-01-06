@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
-import prid._
+import prid._, phex._
 
 /** 1st example Turn 0 scenario state for Game One. */
 object OneScen1 extends OneScenStart

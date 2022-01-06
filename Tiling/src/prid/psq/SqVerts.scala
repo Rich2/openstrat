@@ -14,7 +14,7 @@ class SqVerts(val unsafeArray: Array[Int]) extends AnyVal with SqVertsLike with 
   override def unsafeFromArray(array: Array[Int]): SqVerts = new SqVerts(array)
   override def typeStr: String = "SqVerts" + foldLeft("")(_ + "; " + _.rcStr)
 
-  def toPolygon: PolygonHC = new PolygonHC(unsafeArray)
+  //def toPolygon: PolygonSC = new PolygonSC(unsafeArray)
   /*def filter(f: SqVert => Boolean): SqVerts =
   { val tempArr = new Array[Int](array.length)
     var count = 0

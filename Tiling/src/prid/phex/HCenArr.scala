@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
+package ostrat; package prid; package phex
 import reflect.ClassTag
 
 /** An array of hex tile or hex centre data. For efficiency the data is stored as a flat Array. No run time information distinguishes this from an

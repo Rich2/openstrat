@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
+package ostrat; package prid; package phex
 import geom._
 
 /** A trait for [[HStep]]s. The purpose of the trait rather than a class is to allow the consumer to mix in their own traits. Its not clear whether

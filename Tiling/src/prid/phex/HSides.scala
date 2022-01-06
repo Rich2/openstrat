@@ -1,5 +1,5 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package prid; package phex
 
 /** An efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates. */
 class HSides(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[HSide]

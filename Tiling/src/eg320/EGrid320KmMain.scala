@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import egrid._, geom.pglobe._, pEarth._, prid._, WTile._
+import egrid._, geom.pglobe._, pEarth._, prid._, phex._, WTile._
 
 /** A main non-polar grid with a hex span of 320Km */
 class EGrid320KmMain (rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: Int) extends
@@ -28,4 +28,3 @@ object Terr00
     terrs
   }
 }
-

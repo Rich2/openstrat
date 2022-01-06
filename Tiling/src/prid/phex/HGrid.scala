@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
+package ostrat; package prid; package phex
 import geom._, math.sqrt, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.

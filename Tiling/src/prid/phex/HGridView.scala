@@ -1,5 +1,5 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package prid; package phex
 import geom._
 
 /** A view of a hex grid, currently representing the [[HCoord]] focus and the pixels/dx scale. */

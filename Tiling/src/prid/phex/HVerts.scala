@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
+package ostrat; package prid; package phex
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
 trait HVertsLike extends Any with DataInt2s[HVert]

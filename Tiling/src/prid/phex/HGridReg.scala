@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
+package ostrat; package prid; package phex
 
 /** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
  * where r %% 4 == 0 rows. */

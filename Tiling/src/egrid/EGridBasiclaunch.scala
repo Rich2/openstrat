@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import pgui._, eg80._, eg320._, prid._, pParse._
+import pgui._, eg80._, eg320._, prid._, phex._, pParse._
 
 /** object to launch EGrid basic Gui. */
 object EGridBasicLaunch extends GuiLaunchMore

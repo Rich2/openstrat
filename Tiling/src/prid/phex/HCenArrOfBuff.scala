@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
+package ostrat; package prid; package phex
 import reflect.ClassTag
 
 /** An [[HCen]] hex tile centre grid Arr of [[ArrayBuffer]]s corresponding to the centres of an [[HGrid]] hex tile grid. */
