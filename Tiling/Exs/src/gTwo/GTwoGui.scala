@@ -49,7 +49,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>
-    { selected = pointerHits
+    { debvar(pointerHits)
+      selected = pointerHits
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
     }
@@ -69,7 +70,11 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   thisTop()
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
 
-  def frame: GraphicElems = (tiles ++ lunits +% sidesDraw ++ css).slate(-focus).scale(cPScale) ++ moveGraphics2
+  def frame: GraphicElems =
+  { val t1: Arr[PolygonActive] = tiles.slate(-focus).scale(cPScale)
+    debvar(t1(0).shape)
+    t1 ++ (lunits +% sidesDraw ++ css).slate(-focus).scale(cPScale) ++ moveGraphics2
+  }
 
   repaint()
 }
