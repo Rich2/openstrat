@@ -1,14 +1,5 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
-
-/** A tile step, move or addition, or no move. */
-trait TileStep
-{/** Row coordinate delta. */
-  def r: Int
-
-  /** Column coordinate delta */
-  def c: Int
-}
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package prid; package psq
 
 /** A square tile step can take 8 values */
 sealed trait SqStep extends TileStep

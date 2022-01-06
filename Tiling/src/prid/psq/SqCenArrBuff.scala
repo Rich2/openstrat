@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid
+package ostrat; package prid; package psq
 import reflect.ClassTag
 
 /** An Array of [[ArrayBuffer]]s corresponding to (the centres of a) Hex tile Grid. */

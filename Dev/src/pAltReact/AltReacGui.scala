@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pAltReact
-import pgui._, prid._, geom._
+import pgui._, prid._, psq._, geom._
 
 case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends HexMapGui("Alternative Reactor")
 {

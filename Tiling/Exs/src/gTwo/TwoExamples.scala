@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo
-import prid._, pgui._, gOne._
+import prid._, psq._, pgui._, gOne._
 
 object TwoLaunch extends GuiLaunchStd
 {

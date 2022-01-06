@@ -26,9 +26,6 @@ package object prid
   /** The hex centre step values. */
   val hcSteps: Arr[HStep] = Arr(HStepUR, HStepRt, HStepDR, HStepDL, HStepLt, HStepUL)
 
-  /** The square centre step values. */
-  val scSteps: Arr[SqStep] = Arr(SqStepUp, SqStepUR, SqStepRt, SqStepDR, SqStepDn, SqStepDL, SqStepLt, SqStepUL)
-
   implicit class IntGridImplicit(thisInt: Int)
   { /** Syntax for succinct [[HCen]] notation. */
     def hc (c: Int): HCen = HCen(thisInt, c)

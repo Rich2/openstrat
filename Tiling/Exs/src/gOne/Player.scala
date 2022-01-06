@@ -31,6 +31,3 @@ object PlayerD extends Player('D', Violet)
 
 /** A class identifying a Player and a hex coordinate position. */
 case class HPlayer(value: Player, hc: HCen) extends HexMem[Player]
-
-/** A class identifying a Player and a hex coordinate position. */
-case class SPlayer(value: Player, sc: SqCen) extends SqMem[Player]

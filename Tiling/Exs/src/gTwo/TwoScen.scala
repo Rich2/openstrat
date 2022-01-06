@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo
-import prid._, gOne.Player
+import prid._, psq._, gOne._
 
 /** Scenario trait for Game Two. */
 trait TwoScen extends SqGridScen
@@ -51,3 +51,6 @@ object TwoScen
 trait TwoScenStart extends TwoScen
 { override val turn: Int = 0
 }
+
+/** A class identifying a Player and a hex coordinate position. */
+case class SPlayer(value: Player, sc: SqCen) extends SqMem[Player]

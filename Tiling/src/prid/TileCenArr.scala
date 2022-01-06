@@ -1,6 +1,5 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import reflect.ClassTag
 
 /** An Array of tile centre data of type A. An appropriate [[SqGrid]] or [[HGrid]] is required to utilise its functionality. */
 trait TileCenArr[A <: AnyRef] extends Any
@@ -25,14 +24,4 @@ trait TileCenArr[A <: AnyRef] extends Any
     foreach{a => res.unsafeSetElem(count, f(a)); count += 1 }
     res
   }
-}
-
-/** An array of hex tile or hex centre data. */
-class SqCenArr[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TileCenArr[A]
-{
-  def apply(sc: SqCen)(implicit grid: SqGrid): A = unsafeArray(grid.arrIndex(sc))
-}
-
-object SqCenArr
-{ def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): SqCenArr[A] = new SqCenArr[A](new Array[A](length))
 }

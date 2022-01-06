@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo
-import pgui._, prid._, geom._, gOne._
+import pgui._, prid._, psq._, geom._, gOne._
 
 case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGui("Game Two Gui")
 {
@@ -11,6 +11,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
 
   /** The number of pixels / 2 displayed per row height. */
   var cPScale = grid.fullDisplayScale(mainWidth, mainHeight)
+
+  focus = grid.cenVec
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   def tiles: Arr[PolygonActive] = grid.activeTiles
