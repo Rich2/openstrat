@@ -47,6 +47,10 @@ def jsProj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlug
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.0.0") withSources(),
 )
 
+def natProj(name: String) = baseProj(name, name + "Nat").enablePlugins(ScalaNativePlugin).settings(
+  Compile/unmanagedSourceDirectories := List("src", "srcNat", "Exs/src").map(moduleDir.value / _),  
+)
+
 lazy val Util = coreProj("Util").settings(
   name := "RUtil",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Util/srcAnyVal",
@@ -63,6 +67,10 @@ lazy val UtilJs = jsProj("Util").settings(
     IO.write(arr, str2)
     Seq(arr)
   }.taskValue,
+)
+
+lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(
+  Compile/unmanagedSourceDirectories += moduleDir.value / "srcAnyVal",
 )
 
 def geomSett = List(
