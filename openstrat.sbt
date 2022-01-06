@@ -48,7 +48,8 @@ def jsProj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlug
 )
 
 def natProj(name: String) = baseProj(name, name + "Nat").enablePlugins(ScalaNativePlugin).settings(
-  Compile/unmanagedSourceDirectories := List("src", "srcNat", "Exs/src").map(moduleDir.value / _),  
+  Compile/unmanagedSourceDirectories := List("src", "srcNat", "Exs/src").map(moduleDir.value / _),
+  Compile/resourceDirectories := List("res", "resNat").map(moduleDir.value / _),
 )
 
 lazy val Util = coreProj("Util").settings(
@@ -87,13 +88,24 @@ lazy val GeomExs = exsProj("Geom").dependsOn(Geom).settings(
 )
 
 lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)
+lazy val GeomNat = natProj("Geom").dependsOn(UtilNat).settings(geomSett).settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/srcNat",
+)
 
 lazy val Tiling = coreProj("Tiling").dependsOn(Geom).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
 lazy val TilingExs = exsProj("Tiling").dependsOn(Tiling)
-lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs)
+
+lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
+)
+
+lazy val TilingNat = natProj("Tiling").dependsOn(GeomNat).settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
+)
+
 lazy val EarthAppJs = jsApp("EarthApp").settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcEarthApp",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
@@ -106,6 +118,8 @@ lazy val Dev = coreProj("Dev").dependsOn(GeomExs, TilingExs).settings(
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
 )
+
+lazy val DevNat = natProj("Dev").dependsOn(TilingNat)
 
 def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src"),

@@ -27,7 +27,7 @@ import geom._, x11._, XLib._, scalanative._, unsafe._, unsigned._
        val window = XCreateSimpleWindow(disp, rootWin, 10, 10, 200.toUInt, 100.toUInt, 1.toUInt, bp, wp)
        XSelectInput(disp, window, ExposureMask | KeyPressMask)
        XMapWindow(disp, window)
-       val event = stackalloc[Event]
+       val event = stackalloc[Event]()
        var continue = true
        while(continue) {
          XNextEvent(disp, event.toPtr)
