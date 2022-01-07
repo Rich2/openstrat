@@ -1,18 +1,17 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pX11
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pX11
 import geom._, x11._, XLib._, scalanative._, unsafe._, unsigned._
 
-@extern object myapi {
+/*@extern object myapi {
   def add3(in: CLong): CLong = extern
-}
+}*/
 
  object Main
  {
    def main(args: Array[String]): Unit =
    {
-   	 val i: Long = myapi.add3(-3L)
-   	 println(i)
+   	 //val i: Long = myapi.add3(-3L)
+   	 //println(i)
    	 val p1 = Pt2(5.6, 7)
      deb("Hello, native world!, p1 = " + p1.toString)
      val disp = XOpenDisplay(null)
