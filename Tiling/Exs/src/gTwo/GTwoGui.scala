@@ -15,7 +15,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   focus = grid.cenVec
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  def tiles: Arr[PolygonActive] = grid.activeTiles
+  def tiles = grid.fillTiles
 
   def lunits = players.scSomesMap{ (sc, p) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + sc.strComma, 150, p.charStr + "\n" + sc.strComma, 60, p.charStr)
@@ -50,6 +50,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>
     { debvar(pointerHits)
+      debvar(mainPanel.actives.length)
       selected = pointerHits
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
@@ -66,13 +67,14 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
+  def thisTop(): Unit = reTop(bTurn %: this.navButtons)
   thisTop()
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
 
   def frame: GraphicElems =
-  { val t1: Arr[PolygonActive] = tiles.slate(-focus).scale(cPScale)
-    debvar(t1(0).shape)
+  { val t1 = tiles.slate(-focus).scale(cPScale)
+    debvar(t1(0))
+    debvar(lunits.slate(-focus).scale(cPScale)(0))
     t1 ++ (lunits +% sidesDraw ++ css).slate(-focus).scale(cPScale) ++ moveGraphics2
   }
 

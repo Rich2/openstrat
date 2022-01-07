@@ -34,8 +34,11 @@ final class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: In
   def horrSideLines: LineSegs = iToMap(bottomSideRow, topSideRow, 2){ r => LineSeg(leftSideCol, r, rightSideCol, r) }
   def vertSideLines: LineSegs = iToMap(leftSideCol, rightSideCol, 2){ c => LineSeg(c, bottomSideRow, c, topSideRow) }
   def sideLines: LineSegs = horrSideLines ++ vertSideLines
+
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())
+
+  def fillTiles: Arr[PolygonFill] = map(_.fill(Colour.Red))
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[SqCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */

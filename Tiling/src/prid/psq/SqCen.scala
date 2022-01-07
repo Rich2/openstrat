@@ -37,7 +37,7 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TileCen
   }
 
   /** The polygon of this hex tile if it is part of a regular grid. */
-  def polygonReg: Polygon = verts.map(_.toPt2).toPolygon
+  def polygonReg: Polygon = verts. mapPolygon(_.toPt2)
 
   def fill(colour: Colour): PolygonFill = polygonReg.fill(colour)
 

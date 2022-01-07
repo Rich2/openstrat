@@ -6,7 +6,7 @@ import geom._
 trait PanelLike extends RectCenlign
 { var backColour: Colour = Colour.White
 
-  /** These are currently stored in reverse. I think this would be better in an Array */
+  /** The active objects registered with this [[PanelLike]]. */
   var actives: Arr[GraphicActive] = Arr()
 
   var canvObjs: Arr[GraphicElem] = Arr()
