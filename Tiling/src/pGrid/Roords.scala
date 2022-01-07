@@ -44,7 +44,7 @@ object Roords extends DataInt2sCompanion[Roord, Roords]
   //override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Roords = new Roords(array)
 
-  implicit object PersistImplicit extends Int2sArrPersist[Roord, Roords]("Roords")
+  implicit object PersistImplicit extends PersistArrInt2s[Roord, Roords]("Roords")
   { override def fromArray(value: Array[Int]): Roords = new Roords(value)
 
     override def showT(obj: Roords, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???

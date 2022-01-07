@@ -20,7 +20,7 @@ object HSides extends DataInt2sCompanion[HSide, HSides]
   //override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): HSides = new HSides(array)
 
-  implicit object PersistImplicit extends Int2sArrPersist[HSide, HSides]("HSides")
+  implicit object PersistImplicit extends PersistArrInt2s[HSide, HSides]("HSides")
   { override def fromArray(value: Array[Int]): HSides = new HSides(value)
 
     override def showT(obj: HSides, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???

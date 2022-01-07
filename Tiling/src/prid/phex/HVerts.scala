@@ -48,7 +48,7 @@ class HVerts(val unsafeArray: Array[Int]) extends AnyVal with HVertsLike with Ar
 object HVerts extends DataInt2sCompanion[HVert, HVerts]
 { def fromArray(array: Array[Int]): HVerts = new HVerts(array)
 
-  implicit object PersistImplicit extends Int2sArrPersist[HVert, HVerts]("HVerts")
+  implicit object PersistImplicit extends PersistArrInt2s[HVert, HVerts]("HVerts")
   { override def fromArray(value: Array[Int]): HVerts = new HVerts(value)
 
     override def showT(obj: HVerts, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???

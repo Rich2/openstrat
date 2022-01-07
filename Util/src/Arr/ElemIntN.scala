@@ -72,7 +72,7 @@ trait BuffIntNs[A <: ElemIntN] extends Any with BuffValueNs[A]
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */
-abstract class DataIntNsPersist[A <: ElemIntN, M <: DataIntNs[A]](typeStr: String) extends DataValueNsPersist[A, M](typeStr)
+trait DataIntNsPersist[A <: ElemIntN, M <: DataIntNs[A]] extends DataValueNsPersist[A, M]
 { type VT = Int
   override def fromBuffer(buf: Buff[Int]): M = fromArray(buf.toArray)
   override def newBuffer: Buff[Int] = Buff[Int](0)

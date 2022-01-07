@@ -125,7 +125,7 @@ trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: DataDbl2s[A]] extends DataDblNsC
 }
 
 /** Persists and assists in building [[ArrDblNs]]s. */
-abstract class DataDbl2sPersist[A <: ElemDbl2, M <: DataDbl2s[A]](typeStr: String) extends DataDblNsPersist[A, M](typeStr)
+abstract class DataDbl2sPersist[A <: ElemDbl2, M <: DataDbl2s[A]](val typeStr: String) extends DataDblNsPersist[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

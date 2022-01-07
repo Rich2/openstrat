@@ -48,7 +48,7 @@ class SqVerts(val unsafeArray: Array[Int]) extends AnyVal with SqVertsLike with 
 object SqVerts extends DataInt2sCompanion[SqVert, SqVerts]
 { def fromArray(array: Array[Int]): SqVerts = new SqVerts(array)
 
-  implicit object PersistImplicit extends Int2sArrPersist[SqVert, SqVerts]("SqVerts")
+  implicit object PersistImplicit extends PersistArrInt2s[SqVert, SqVerts]("SqVerts")
   { override def fromArray(value: Array[Int]): SqVerts = new SqVerts(value)
 
     override def showT(obj: SqVerts, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???

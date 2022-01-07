@@ -70,15 +70,3 @@ class PersistSeqImplicit[A](ev: Persist[A]) extends PersistIterable[A, Seq[A]](e
 {
   override def fromExpr(expr: Expr): EMon[Seq[A]] = fromExprLike(expr)
 }
-
-
-/**  Class to persist specialised flat Array[Int] based collections of [[ElemInt2]]s. */
-abstract class Int2sArrPersist[A <: ElemInt2, M <: ArrInt2s[A]](typeStr: String) extends DataIntNsPersist[A, M](typeStr)
-{
-  override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
-  { buf += value.int1
-    buf += value.int2
-  }
-
-  override def syntaxDepthT(obj: M): Int = 3
-}

@@ -113,7 +113,7 @@ trait DataDblNsCompanion[A <: ElemDblN, ArrA <: DataDblNs[A]] extends DataValueN
 }
 
 /** Persists [[ArrDblNs]]s. */
-abstract class DataDblNsPersist[A <: ElemDblN, M <: DataDblNs[A]](typeStr: String) extends DataValueNsPersist[A, M](typeStr) with EqT[M]
+trait DataDblNsPersist[A <: ElemDblN, M <: DataDblNs[A]] extends DataValueNsPersist[A, M] with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

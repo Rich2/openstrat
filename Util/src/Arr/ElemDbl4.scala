@@ -114,7 +114,7 @@ abstract class DataDbl4sCompanion[A <: ElemDbl4, ArrA <: DataDbl4s[A]]
 }
 
 /** Persists [[Dble4Elem] Collection classes. */
-abstract class DataDbl4sPersist[A <: ElemDbl4, ArrA <: DataDbl4s[A]](typeStr: String) extends DataDblNsPersist[A, ArrA](typeStr)
+abstract class DataDbl4sPersist[A <: ElemDbl4, ArrA <: DataDbl4s[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

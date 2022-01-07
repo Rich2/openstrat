@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse._, collection.mutable.ArrayBuffer
 
 /** Trait for [[Show]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[Show2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
@@ -158,6 +158,7 @@ object Show2Base32sT
 }
 
 
+
 /** UnShow type class trait for a 2 element Product. */
 trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with Persist2Base[A1, A2, R]
 { /** Derive the 1st parameter from an object of type R. */
@@ -223,3 +224,15 @@ class PersistShowInt2[R <: ShowElemInt2](typeStr: String, name1: String, name2: 
   /** Persistence class for types that extends [[Show2Dl]]. */
 class PersistShowDbl2[R <: ShowDbl2](typeStr: String, name1: String, name2: String, newT: (Double, Double) => R) extends
   PersistShow2[Double, Double, R](typeStr, name1, name2, newT)
+
+
+/**  Class to persist [[ArrInt2s]] collection classes. */
+abstract class PersistArrInt2s[A <: ElemInt2, M <: ArrInt2s[A]](val typeStr: String) extends DataIntNsPersist[A, M]
+{
+  override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
+  { buf += value.int1
+    buf += value.int2
+  }
+
+  override def syntaxDepthT(obj: M): Int = 3
+}

@@ -44,7 +44,7 @@ object Coods extends DataInt2sCompanion[Cood, Coods]
   //override def buff(initialSize: Int): CoodBuff = new CoodBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Coods = new Coods(array)
 
-  implicit object PersistImplicit extends Int2sArrPersist[Cood, Coods]("Coods")
+  implicit object PersistImplicit extends PersistArrInt2s[Cood, Coods]("Coods")
   { override def fromArray(value: Array[Int]): Coods = new Coods(value)
 
     override def showT(obj: Coods, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???

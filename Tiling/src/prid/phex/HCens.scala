@@ -20,7 +20,7 @@ object HCens extends DataInt2sCompanion[HCen, HCens]
   //override def buff(initialSize: Int): HCenBuff = new HCenBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): HCens = new HCens(array)
 
-  implicit object PersistImplicit extends Int2sArrPersist[HCen, HCens]("HCens")
+  implicit object PersistImplicit extends PersistArrInt2s[HCen, HCens]("HCens")
   { override def fromArray(value: Array[Int]): HCens = new HCens(value)
 
     override def showT(obj: HCens, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???

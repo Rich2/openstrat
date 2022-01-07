@@ -57,7 +57,7 @@ trait Dbl3sArrFlatBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsFl
 }
 
 /** Persists [[ArrDbl3s]]s. */
-abstract class DataDbl3sPersist[A <: ElemDbl3, M <: DataDbl3s[A]](typeStr: String) extends DataDblNsPersist[A, M](typeStr)
+abstract class DataDbl3sPersist[A <: ElemDbl3, M <: DataDbl3s[A]](val typeStr: String) extends DataDblNsPersist[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1
