@@ -37,7 +37,8 @@ object TextPosn
     def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](Strings(parseErr("Not implemented.")))
   }
   
-  implicit object TextPosnShow extends ShowEq3T[String, Int, Int, TextPosn]("TextPosn", "fileName", _.fileName, "lineNum", _.lineNum,"linePosn", _.linePosn)
+  implicit val TextPosnShow: Show3T[String, Int, Int, TextPosn] = Show3T[String, Int, Int, TextPosn](
+    "TextPosn", "fileName", _.fileName, "lineNum", _.lineNum,"linePosn", _.linePosn)
 }
 
 trait TextSpan
