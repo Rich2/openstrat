@@ -2,10 +2,10 @@
 package ostrat
 
 /** Trait for [[Show]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
- *  [[Show3T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
+ *  [[ShowEq3T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
- *  toString override to a [[Show3T]] instance. */
+ *  toString override to a [[ShowEq3T]] instance. */
 trait Show3[A1, A2, A3] extends Any with ShowProduct
 { /** the name of the 1st element of this 3 element Show product. */
   def name1: String
@@ -57,7 +57,7 @@ trait ShowElemDbl3 extends Any with ShowDbl3 with ElemDbl3
 }
 
 /** Show type class for 3 parameter case classes. */
-class Show3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
+class ShowEq3T[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3],
   eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends Eq3T[A1, A2, A3, R](fArg1, fArg2, fArg3) with ShowProductT[R]
 {
@@ -97,7 +97,7 @@ class UnShow3[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1,
 /** Persistence class for 3 logical parameter product types. */
 class Persist3[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
                               val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2],
-                                                                                                                                      ev3: Persist[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends Show3T[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3,
+                                                                                                                                      ev3: Persist[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends ShowEq3T[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3,
   opt2, opt1) with PersistShowProductT[R]
 
 object Persist3

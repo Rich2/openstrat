@@ -1,11 +1,11 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pgui._
 
 /** Immutable Graphic element that defines and fills a Polygon. This element can be trnsformed through all the Affine transformations and a
  * PolygonFill will be returned. */
 trait PolygonFill extends PolygonGraphicSimple with CanvShapeFill
-{ //type ThisT <: PolygonFill
+{ type ThisT <: PolygonFill
   // override def fTrans(f: Vec2 => Vec2): PolygonFill = PolygonFill(shape.fTrans(f), colour)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.polygonFill(this)
   override def toDraw(lineWidth: Double = 2, newColour: Colour ): PolygonDraw = shape.draw(newColour, lineWidth)

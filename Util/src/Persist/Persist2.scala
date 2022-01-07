@@ -76,7 +76,7 @@ object ShowShow2T
   }
 }
 
-/** A base trait for [[Show2T]] and [[UnShow2]] */
+/** A base trait for [[Show2T]] and [[UnShow2]], declares the common properties of name1, name2, opt1 and opt2. */
 trait Persist2Base[A1, A2, R] extends TypeStred
 { /** 1st parameter name. */
   def name1: String

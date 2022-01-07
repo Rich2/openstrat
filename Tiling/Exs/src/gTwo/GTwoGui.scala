@@ -73,8 +73,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
 
   def frame: GraphicElems =
   { val t1 = tiles.slate(-focus).scale(cPScale)
-    debvar(t1(0))
-    debvar(lunits.slate(-focus).scale(cPScale)(0))
+    debvar(t1(0).vertsNum)
+    deb("Units" + lunits.slate(-focus).scale(cPScale)(0).toString)
     t1 ++ (lunits +% sidesDraw ++ css).slate(-focus).scale(cPScale) ++ moveGraphics2
   }
 

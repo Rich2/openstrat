@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -63,6 +63,8 @@ object PolygonCompound
 {
   def apply(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()): PolygonCompound =
     new PolygonCompoundImp(shape, facets, children)
+
+  //implicit val showTImplicit: Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound] = Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound]()
   
   implicit val slateImplicit: Slate[PolygonCompound] = (obj: PolygonCompound, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[PolygonCompound] = (obj: PolygonCompound, operand: Double) => obj.scale(operand)
