@@ -84,6 +84,12 @@ trait DataGen[A] extends Any
     res
   }
 
+  def dataFold[B](initVal: B)(f: (B, A) => B): B =
+  { var res = initVal
+    dataForeach(a => res = f(res, a))
+    res
+  }
+
   /** foldLeft over the tail of the data sequence. */
   def dataTailfold[B](initial: B)(f: (B, A) => B) =
   { var acc: B = initial
@@ -92,4 +98,11 @@ trait DataGen[A] extends Any
   }
 
   def dataLast: A = indexData(dataLength - 1)
+}
+
+case class DataGenShow[A, R <: DataGen[A]](evA: ShowT[A]) extends ShowTSeqLike[A, R]
+{
+  override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
+  override def showT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+    typeStr + evA.typeStr.enSquare + obj.dataMap(a => evA.showT(a, style, maxPlaces, minPlaces))
 }

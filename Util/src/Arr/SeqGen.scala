@@ -471,9 +471,3 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   def sum(implicit ev: Sumable[A] @uncheckedVariance): A = foldLeft[A](ev.identity)(ev.sum(_, _))
 }
-
-case class ArrayLikeShow[A, R <: SeqGen[A]](evA: ShowT[A]) extends ShowTSeqLike[A, R]
-{
-  override def syntaxDepthT(obj: R): Int = obj.fMax(1)(evA.syntaxDepthT(_))
-  override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
-}
