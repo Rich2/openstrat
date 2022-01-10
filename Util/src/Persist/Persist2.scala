@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._, collection.mutable.ArrayBuffer
 
@@ -66,6 +66,7 @@ trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
   final override def dbl2: Double = show2
 }
 
+/** Type class trait for Showing [[Show2]] objects. */
 trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends ShowShowT[R]
 
 object ShowShow2T
@@ -103,6 +104,7 @@ trait Show2T[A1, A2, R] extends ShowProductT[R] with Persist2Base[A1, A2, R]
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0))
 }
 
+/** Companion object for the [[Show2T]] type class trait that shows object with 2 logical fields. */
 object Show2T
 {
   def apply [A1, A2, R](typeStrIn: String, name1In: String, fArg1In: R => A1, name2In: String, fArg2In: R => A2, opt2In: Option[A2] = None,
@@ -197,7 +199,7 @@ class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R =
   }
 }
 
-/** Factory object for Persist product 2 type class */
+/** Factory object for Persist product 2 type class that persists objects with 2 parameters. */
 object Persist2
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
@@ -210,6 +212,7 @@ class PersistShow2[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, n
   opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends
   Persist2[A1, A2, R](typeStr, name1, _.show1, name2, _.show2, newT, opt2, opt1) with ShowShow2T[A1, A2, R]
 
+/** Companion object for the [[PersistShow2]] class the persists object that extend [[Show2]]. Contains an apply factory method. */
 object PersistShow2
 {
   def apply[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
