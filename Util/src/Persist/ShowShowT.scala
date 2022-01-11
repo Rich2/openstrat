@@ -22,10 +22,7 @@ trait ShowShowT[R <: Show] extends ShowT[R]
  * very least it can increase compile times. */
 trait ShowPrecisionShowT[R <: ShowPrec] extends ShowPrecisionT[R] with ShowShowT[R]
 {
-
-
   override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
-
 }
 
 object ShowPrecisionShowT

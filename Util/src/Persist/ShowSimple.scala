@@ -14,4 +14,4 @@ trait ShowSimpleT[-A] extends ShowPrecisionT[A]
 }
 
 /** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
-abstract class PersistSimple[A](val typeStr: String) extends ShowSimpleT[A] with Persist[A]
+abstract class PersistSimple[A](val typeStr: String) extends ShowSimpleT[A] with PersistPrecision[A]

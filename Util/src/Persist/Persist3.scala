@@ -98,14 +98,14 @@ class UnShow3[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1,
 /** Persistence class for 3 logical parameter product types. */
 class Persist3[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
  val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
- implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends Show3T[A1, A2, A3, R](
+ implicit ev1: PersistPrecision[A1], ev2: PersistPrecision[A2], ev3: PersistPrecision[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends Show3T[A1, A2, A3, R](
   typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3,opt2, opt1) with PersistShowProductT[R]
 
 object Persist3
 {
   def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-    implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]): Persist3[A1, A2, A3, R] =
+    implicit ev1: PersistPrecision[A1], ev2: PersistPrecision[A2], ev3: PersistPrecision[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]): Persist3[A1, A2, A3, R] =
     new Persist3(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)(ev1, ev2, ev3, eq1 , eq2, eq3)
 }
 

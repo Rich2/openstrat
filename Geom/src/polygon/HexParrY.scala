@@ -101,7 +101,7 @@ object HexParrY
   def apply(width: Double, xCen: Double, yCen: Double): HexParrY = new HexParrY(width, xCen, yCen)
   def unapply(input: HexParrY): Some[(Double, Pt2)] = Some((input.width, input.cen))
 
-  implicit val persistImplicit: Persist[HexParrY] =
+  implicit val persistImplicit: PersistPrecision[HexParrY] =
     new Persist2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen, apply)
 
   implicit val slateImplicit: Slate[HexParrY] = (obj: HexParrY, dx: Double, dy: Double) => obj.slateXY(dx, dy)

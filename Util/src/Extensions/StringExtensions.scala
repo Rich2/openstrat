@@ -16,10 +16,10 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findInt: EMon[Int] = thisString.parseStatements.flatMap(_.findInt)
   def findDouble: EMon[Double] = thisString.parseStatements.flatMap(_.findDbl)
   def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBool)
-  def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
-  def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
+  def findTypeIndex[A: PersistPrecision](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
+  def findTypeDo[A: PersistPrecision](f: A => Unit): Unit = findType[A].forGood(f)
 
-  def asType[A](implicit ev: Persist[A]): EMon[A] = ???
+  def asType[A](implicit ev: PersistPrecision[A]): EMon[A] = ???
     /*parseStatements.flatMap(sts => sts match
     { case Refs1(h) => ev.fromStatement(h).elseTry(ev.fromStatements(sts))
       case sts => ev.fromStatements(sts)
@@ -35,10 +35,10 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findSettingT[T: Persist](settingStr: String): EMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
+  def findSettingT[T: PersistPrecision](settingStr: String): EMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
-  def findSettingElse[T: Persist](settingStr: String, elseValue: T): T = findSettingT[T](settingStr).getElse(elseValue)
+  def findSettingElse[T: PersistPrecision](settingStr: String, elseValue: T): T = findSettingT[T](settingStr).getElse(elseValue)
 
   /** Find setting of type Int from this [[String]] extension method, parsing this String as RSON Statements. */
   def findSettingInt(settingStr: String): EMon[Int] = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))

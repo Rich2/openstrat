@@ -158,12 +158,12 @@ trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with TypeStred2[A1, A2, R]
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
 class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,
-  val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends Show2T[A1, A2, R] with
+  val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: PersistPrecision[A1], ev2In: PersistPrecision[A2]) extends Show2T[A1, A2, R] with
   PersistShowProductT[R]
 {
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  override implicit def ev1: Persist[A1] = ev1In
-  override implicit def ev2: Persist[A2] = ev2In
+  override implicit def ev1: PersistPrecision[A1] = ev1In
+  override implicit def ev2: PersistPrecision[A2] = ev2In
 
   override def fromExpr(expr: Expr): EMon[R] = expr match
   {
@@ -183,20 +183,20 @@ class Persist2[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R =
 object Persist2
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist2[A1, A2, R] =
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: PersistPrecision[A1], ev2: PersistPrecision[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist2[A1, A2, R] =
     new Persist2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
 }
 
 /** Persist type class for types that extends [[Show2]]. */
 class PersistShow2[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
-  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]) extends
+  opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: PersistPrecision[A1], ev2In: PersistPrecision[A2]) extends
   Persist2[A1, A2, R](typeStr, name1, _.show1, name2, _.show2, newT, opt2, opt1) with ShowShow2T[A1, A2, R]
 
 /** Companion object for the [[PersistShow2]] class the persists object that extend [[Show2]]. Contains an apply factory method. */
 object PersistShow2
 {
   def apply[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]): PersistShow2[A1, A2, R] =
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: PersistPrecision[A1], ev2In: PersistPrecision[A2]): PersistShow2[A1, A2, R] =
     new PersistShow2[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
 }
 

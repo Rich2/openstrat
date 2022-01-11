@@ -38,7 +38,7 @@ object HCoord
     case _ => new HCoordOther(r, c)// excep(s"$r, $c, where r is even and c is odd is not a valid HCoord hex grid coordinate.")
   }
 
-  implicit val persistImplicit: Persist[HCoord] = new PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
+  implicit val persistImplicit: PersistPrecision[HCoord] = new PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
 
   implicit val polygonBuildImplicit: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
   { override type BuffT = HCoordBuff
@@ -55,7 +55,7 @@ trait HNotVert extends HCoord
 /** Common trait for hex centre and hex side coordinate. The position of these coordinates is proportional, unlike the Hex vertices positions. */
 trait HCenOrSide extends HNotVert with TileCenOrSide
 
-/** Companion object for [[HCenOrSide]] trait, contains factory apply method and implicit [[Persist]] instance. */
+/** Companion object for [[HCenOrSide]] trait, contains factory apply method and implicit [[PersistPrecision]] instance. */
 object HCenOrSide
 { /** Apply factory method for creating [[HCenOrSide]] instances. Will throw exception on illegal values.  */
   def apply(r: Int, c: Int): HCenOrSide = r %% 4 match

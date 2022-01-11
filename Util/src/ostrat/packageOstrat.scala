@@ -91,7 +91,7 @@ package object ostrat
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
   /** Not sure what this method does. */
-  def readT[T](implicit ev: Persist[T]): T =
+  def readT[T](implicit ev: PersistPrecision[T]): T =
   { val artStr = ev.typeStr.prependIndefiniteArticle
     def loop(inp: EMon[T]): T = inp match
     { case Good(t) => t
@@ -356,7 +356,13 @@ package object ostrat
   implicit def optionToExtension[A](thisOption: Option[A]): OptionExtensions[A] = new OptionExtensions(thisOption)
 
   implicit def seqToExtensions[A](thisSeq: Seq[A]): SeqExtensions[A] = new SeqExtensions(thisSeq)
-  implicit def showTypeToExtensions[A](thisVal: A)(implicit ev: ShowPrecisionT[A]): ShowTExtensions[A] = new ShowTExtensions[A](ev, thisVal)
+
+  implicit def showTToExtensions[A](thisValIn: A)(implicit evIn: ShowT[A]): ShowTExtensions[A] = new ShowTExtensions[A]{
+    val ev: ShowT[A] = evIn
+    val thisVal: A = thisValIn
+  }
+
+  implicit def showPrecisionTToExtensions[A](thisVal: A)(implicit ev: ShowPrecisionT[A]): ShowPrecisionTExtensions[A] = new ShowPrecisionTExtensions[A](ev, thisVal)
   implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2T[A1, A2, T]): Show2TExtensions[A1, A2, T] =
     new Show2TExtensions[A1, A2, T](ev, thisVal)
 
