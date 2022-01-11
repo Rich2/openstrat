@@ -1,9 +1,9 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._
 
 /** A coordinate in a tile grid [[TGrid]]. The row is the first field, the column is the second. */
-trait TileCoord extends Any with Show2Base32s
+trait TileCoord extends Any with ShowElemInt2
 { /** Row number for the coordinate of a tile grid. */
   def r: Int
 
