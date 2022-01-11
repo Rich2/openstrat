@@ -6,7 +6,7 @@ package ostrat
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
  *  toString override to a [[ShowEq3T]] instance. */
-trait Show3[A1, A2, A3] extends Any with ShowProduct
+trait Show3[A1, A2, A3] extends Any with ShowProductPrec
 { /** the name of the 1st element of this 3 element Show product. */
   def name1: String
 

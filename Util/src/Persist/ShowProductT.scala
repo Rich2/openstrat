@@ -1,8 +1,10 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+
+
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowProductT[R] extends ShowCompoundT[R]
+trait ShowProductT[R] extends ShowCompoundPrecT[R]
 {
   def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings
 

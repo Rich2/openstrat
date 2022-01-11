@@ -15,6 +15,9 @@ trait Show extends Any
   def syntaxDepth: Int
 
   override def toString: String = str
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowPrecisionT]] type class instances. */
+  def show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1, minPlaces: Int = 0): String
 }
 
 /** A trait for providing an alternative to toString. USing this trait can be convenient, but at some level of the inheritance the type must provide a
@@ -23,8 +26,7 @@ trait Show extends Any
  *  can increase compile times. */
 trait ShowPrec extends Any with Show
 {
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowPrecisionT]] type class instances. */
-  def show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1, minPlaces: Int = 0): String
+
 
 }
 

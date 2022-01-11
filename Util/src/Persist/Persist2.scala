@@ -7,7 +7,7 @@ import pParse._, collection.mutable.ArrayBuffer
  *  inherit from Show2 and then use [[ShowShow2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShow2T]] or
  *  [[PersistShow2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
  *  toString override to a [[Show2T]] instance. */
-trait Show2[A1, A2] extends Any with ShowProduct
+trait Show2[A1, A2] extends Any with ShowProductPrec
 { /** the name of the 1st element of this 2 element product. */
   def name1: String
 

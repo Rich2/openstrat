@@ -20,7 +20,7 @@ object AlphaParenth
   }
 }
 
-abstract class PersistSeqLike[A, R](override val evA: PersistPrecision[A]) extends ShowTSeqLike[A, R] with PersistCompound[R]
+abstract class PersistSeqLike[A, R](override val evA: PersistPrecision[A]) extends ShowTSeqLike[A, R] with PersistCompoundPrec[R]
 {
   def fromExprLike(expr: Expr): EMon[List[A]] = expr match
   {
