@@ -94,14 +94,14 @@ object Statement
     def findIntArray: EMon[Array[Int]] = UnShow.arrayIntImplicit.findUniqueFromStatements(statementRefs)
 
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
-    def findSettingInt(settingStr: String): EMon[Int] = ShowPrecisionT.intPersistImplicit.settingFromStatements(statementRefs, settingStr)
+    def findSettingInt(settingStr: String): EMon[Int] = ShowT.intPersistImplicit.settingFromStatements(statementRefs, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingDbl(settingStr: String): EMon[Double] = ShowPrecisionT.doublePersistImplicit.settingFromStatements(statementRefs, settingStr)
+    def findSettingDbl(settingStr: String): EMon[Double] = ShowT.doublePersistImplicit.settingFromStatements(statementRefs, settingStr)
 
-    /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
+    /** Find the [[Boolean]] setting of the given name, from  Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      *  resolve to Expr[Boolean]. */
-    def findSettingBool(settingStr: String): EMon[Boolean] = ShowPrecisionT.booleanPersistImplicit.settingFromStatements(statementRefs, settingStr)
+    def findSettingBool(settingStr: String): EMon[Boolean] = ShowT.booleanPersistImplicit.settingFromStatements(statementRefs, settingStr)
 
     /*def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementRefs match
     { case Arr1(h1) => h1.errGet[A1].map(f1)

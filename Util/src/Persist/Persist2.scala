@@ -35,8 +35,8 @@ trait Show2[A1, A2] extends Any with ShowProduct
  *  corresponding [[ShowShowInt2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2T]]. */
 trait ShowElemInt2 extends Any with Show2[Int, Int] with ElemInt2
-{ final override implicit def showT1: ShowPrecisionT[Int] = ShowPrecisionT.intPersistImplicit
-  final override implicit def showT2: ShowPrecisionT[Int] = ShowPrecisionT.intPersistImplicit
+{ final override implicit def showT1: ShowPrecisionT[Int] = ShowT.intPersistImplicit
+  final override implicit def showT2: ShowPrecisionT[Int] = ShowT.intPersistImplicit
   final override def syntaxDepth: Int = 2
   final override def int1: Int = show1
   final override def int2: Int = show2
@@ -45,8 +45,8 @@ trait ShowElemInt2 extends Any with Show2[Int, Int] with ElemInt2
 /** Shows a class with 2 [[Double]] components. Note if the class also extends ElemDbl2, the dbl1 and dbl2 properties, may be different to the show1
  * and show2 properties, unless the class extends [[ShowElemDbl2]]. */
 trait ShowDbl2 extends Any with Show2[Double, Double]
-{ final override implicit def showT1: ShowPrecisionT[Double] = ShowPrecisionT.doublePersistImplicit
-  final override implicit def showT2: ShowPrecisionT[Double] = ShowPrecisionT.doublePersistImplicit
+{ final override implicit def showT1: ShowPrecisionT[Double] = ShowT.doublePersistImplicit
+  final override implicit def showT2: ShowPrecisionT[Double] = ShowT.doublePersistImplicit
   final override def syntaxDepth: Int = 2
 }
 

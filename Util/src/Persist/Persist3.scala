@@ -42,9 +42,9 @@ trait Show3[A1, A2, A3] extends Any with ShowProduct
 
 trait ShowDbl3 extends Any with Show3[Double, Double, Double]
 { final override def syntaxDepth: Int = 2
-  final override implicit def showT1: ShowPrecisionT[Double] = ShowPrecisionT.doublePersistImplicit
-  final override implicit def showT2: ShowPrecisionT[Double] = ShowPrecisionT.doublePersistImplicit
-  final override implicit def showT3: ShowPrecisionT[Double] = ShowPrecisionT.doublePersistImplicit
+  final override implicit def showT1: ShowPrecisionT[Double] = ShowT.doublePersistImplicit
+  final override implicit def showT2: ShowPrecisionT[Double] = ShowT.doublePersistImplicit
+  final override implicit def showT3: ShowPrecisionT[Double] = ShowT.doublePersistImplicit
 }
 
 /** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowDbl2T]]

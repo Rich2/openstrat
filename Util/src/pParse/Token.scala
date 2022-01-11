@@ -19,7 +19,7 @@ trait Token extends TextSpan
 /** Companion object for [[Token]] trait contains [[ShowPrec]] implicit instance. */
 object Token
 {
-  implicit val showImplicit: ShowPrecisionT[Token] = new ShowSimpleT[Token]
+  implicit val showImplicit: ShowPrecisionT[Token] = new ShowSimplePrecisionT[Token]
   { override def typeStr: String = "Token"
     def strT(obj: Token): String = obj.str
   }

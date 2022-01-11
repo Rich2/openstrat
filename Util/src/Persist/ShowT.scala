@@ -25,21 +25,13 @@ trait ShowT[-T] extends TypeStred
   def showT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
 }
 
-/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
- *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
- *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
-trait ShowPrecisionT[-T] extends ShowT[T]
-{
-  def showT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
-}
-
 /* The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikely that anyone would want to create an UnShow
    instance without a ShowT instance. Many Persist instances are placed inside the Show companion object. However type instances that themselves
    one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
    Persist type instances, and these will be placed in the Persist companion object. */
-object ShowPrecisionT
+object ShowT
 {
-  implicit val intPersistImplicit: PersistPrecision[Int] = new PersistSimple[Int]("Int")
+  implicit val intPersistImplicit: PersistPrecision[Int] = new PersistSimplePrecision[Int]("Int")
   {
     def strT(obj: Int): String = obj.toString
 
@@ -51,12 +43,12 @@ object ShowPrecisionT
     }
   }
 
-  val hexadecimal: ShowPrecisionT[Int] = new ShowSimpleT[Int]
+  val hexadecimal: ShowPrecisionT[Int] = new ShowSimplePrecisionT[Int]
   { override def typeStr: String = "Int"
     override def strT(obj: Int): String = obj.hexStr
   }
 
-  val base32: ShowPrecisionT[Int] = new ShowSimpleT[Int]
+  val base32: ShowPrecisionT[Int] = new ShowSimplePrecisionT[Int]
   { override def typeStr: String = "Int"
     override def strT(obj: Int): String = obj.base32
   }
@@ -102,7 +94,7 @@ object ShowPrecisionT
     }
   }
 
-  implicit val longPersistImplicit: PersistPrecision[Long] = new PersistSimple[Long]("Long")
+  implicit val longPersistImplicit: PersistPrecision[Long] = new PersistSimplePrecision[Long]("Long")
   { def strT(obj: Long): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Long] = expr match
     { case NatDeciToken(_, i) => Good(i.toLong)
@@ -112,12 +104,12 @@ object ShowPrecisionT
     }
   }
 
-  implicit val floatImplicit: ShowPrecisionT[Float] = new ShowSimpleT[Float]
+  implicit val floatImplicit: ShowPrecisionT[Float] = new ShowSimplePrecisionT[Float]
   { override def typeStr: String = "SFloat"
     def strT(obj: Float): String = obj.toString
   }
 
-  implicit val booleanPersistImplicit: PersistPrecision[Boolean] = new PersistSimple[Boolean]("Bool")
+  implicit val booleanPersistImplicit: PersistPrecision[Boolean] = new PersistSimplePrecision[Boolean]("Bool")
   { override def strT(obj: Boolean): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
     { case IdentLowerToken(_, str) if str == "true" => Good(true)
@@ -126,7 +118,7 @@ object ShowPrecisionT
     }
   }
 
-  implicit val stringPersistImplicit: PersistPrecision[String] = new PersistSimple[String]("Str")
+  implicit val stringPersistImplicit: PersistPrecision[String] = new PersistSimplePrecision[String]("Str")
   { def strT(obj: String): String = obj.enquote
     override def fromExpr(expr: Expr): EMon[String] = expr match
     { case StringToken(_, stringStr) => Good(stringStr)
@@ -134,7 +126,7 @@ object ShowPrecisionT
     }
   }
 
-  implicit val charImplicit: ShowPrecisionT[Char] = new ShowSimpleT[Char]
+  implicit val charImplicit: ShowPrecisionT[Char] = new ShowSimplePrecisionT[Char]
   { override def typeStr: String = "Char"
     def strT(obj: Char): String = obj.toString.enquote1
   }
@@ -156,7 +148,7 @@ object ShowPrecisionT
 
   implicit val arrayIntImplicit: ShowPrecisionT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
   {
-    override def evA: ShowPrecisionT[Int] = ShowPrecisionT.intPersistImplicit
+    override def evA: ShowPrecisionT[Int] = ShowT.intPersistImplicit
     override def syntaxDepthT(obj: Array[Int]): Int = 2
 
     override def showT(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
@@ -216,7 +208,7 @@ object ShowPrecisionT
     }
   }
 
-  implicit val nonePersistImplicit: PersistPrecision[None.type] = new PersistSimple[None.type]("None")
+  implicit val nonePersistImplicit: PersistPrecision[None.type] = new PersistSimplePrecision[None.type]("None")
   {
     override def strT(obj: None.type): String = ""
 
@@ -241,13 +233,13 @@ sealed trait ShowInstancesPriority2
 }
 
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
-trait ShowTExtensions[-A]
+class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)// @uncheckedVariance)
 {
-  def ev: ShowT[A]
-  def thisVal: A @uncheckedVariance
-
   /** Provides the standard string representation for the object. */
   @inline def str: String = ev.strT(thisVal)
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowPrecisionT]] type class instances. */
+  def show(style: ShowStyle = ShowStandard, decimalPlaces: Int = -1, minPlaces: Int = 0): String = ev.showT(thisVal, style, decimalPlaces, minPlaces)
 
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
@@ -262,21 +254,28 @@ trait ShowTExtensions[-A]
    * will return Int(4) */
   @inline def strTyped: String = ev.showT(thisVal, ShowTyped, -1, 0)
 
+  def showFields: String = ev.showT(thisVal, ShowParamNames, 1, 0)
+  def showTypedFields: String = ev.showT(thisVal, ShowStdTypedFields, 1, 0)
+}
+
+/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
+ *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
+ *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
+trait ShowPrecisionT[-T] extends ShowT[T]
+{
+  //def showT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
+}
+
+
+/** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
+class ShowPrecisionTExtensions[-A](ev: ShowPrecisionT[A], thisVal: A) //extends ShowTExtensions[A]
+{
+  def str2Comma: String = ev.showT(thisVal, ShowCommas, 2, 0)
+
+  //@inline def strSemi: String = ev.showT(thisVal, ShowSemis, -1, 0)
+
   def str0: String = ev.showT(thisVal, ShowStandard, 0, 0)
   def str1: String = ev.showT(thisVal, ShowStandard, 1, 0)
   def str2: String = ev.showT(thisVal, ShowStandard, 2, 0)
   def str3: String = ev.showT(thisVal, ShowStandard, 3, 0)
-  def showFields: String = ev.showT(thisVal, ShowParamNames, 1, 0)
-  def showTypedFields: String = ev.showT(thisVal, ShowStdTypedFields, 1, 0)
-
-}
-
-/** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
-class ShowPrecisionTExtensions[-A](val ev: ShowPrecisionT[A], val thisVal: A @uncheckedVariance) extends ShowTExtensions[A]
-{ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowPrecisionT]] type class instances. */
-  def show(style: ShowStyle = ShowStandard, decimalPlaces: Int = -1, minPlaces: Int = 0): String = ev.showT(thisVal, style, decimalPlaces, minPlaces)
-
-  def str2Comma: String = ev.showT(thisVal, ShowCommas, 2, 0)
-
-  @inline def strSemi: String = ev.showT(thisVal, ShowSemis, -1, 0)
 }
