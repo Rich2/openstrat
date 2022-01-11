@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Regular Hexagon */
-trait HexReg extends ShapeCentred with Polygon6Plus with Show
+trait HexReg extends ShapeCentred with Polygon6Plus with ShowPrec
 { override def typeStr = "HexReg"
 
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
@@ -112,7 +112,7 @@ object HexReg
    * a regular hexagon both Y values will be 0. */
   def sd4Sd1(sd4Cen: Pt2, sd1Cen: Pt2): HexReg = HexRegImp(sd4Cen.x, sd4Cen.y, sd1Cen.x, sd1Cen.y)
 
-  implicit val showImplicit: ShowT[HexReg] = new ShowT[HexReg]
+  implicit val showImplicit: ShowPrecisionT[HexReg] = new ShowPrecisionT[HexReg]
   { override def typeStr: String = "HexReg"
     override def strT(obj: HexReg): String = obj.str
     override def showT(obj: HexReg, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
@@ -140,8 +140,8 @@ object HexReg
 
     override def show1: Pt2 = sd4Cen
     override def show2: Pt2 = sd1Cen
-    override implicit def showT1: ShowT[Pt2] = Pt2.persistImplicit
-    override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
+    override implicit def showT1: ShowPrecisionT[Pt2] = Pt2.persistImplicit
+    override implicit def showT2: ShowPrecisionT[Pt2] = Pt2.persistImplicit
     override def syntaxDepth: Int = 3
 
     override def vert(index: Int): Pt2 = index match {

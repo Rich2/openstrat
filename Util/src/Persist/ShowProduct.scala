@@ -4,7 +4,7 @@ package ostrat
 /** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowProductT]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  * [[ShowProductT]]. */
-trait ShowProduct extends Any with Show
+trait ShowProduct extends Any with ShowPrec
 {
   /** A [[Strings]] Arr collection  of the show methods return values of the elements of this Show Product class. */
   def showElemStrs(way: ShowStyle, decimalPlaces: Int): Strings

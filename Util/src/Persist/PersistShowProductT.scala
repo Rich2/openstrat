@@ -18,4 +18,4 @@ trait PersistProduct[R] extends Persist[R]
 
 trait PersistShowProductT[R] extends PersistProduct[R] with ShowProductT[R]
 
-trait PersistShowerProduct[R <: Show] extends PersistProduct[R]
+trait PersistShowerProduct[R <: ShowPrec] extends PersistProduct[R]

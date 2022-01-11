@@ -56,7 +56,7 @@ final class Ints(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
 
-  implicit val showImplicit: ShowT[Ints] = DataGenShowT[Int, Ints](ShowT.intPersistImplicit)
+  implicit val showImplicit: ShowPrecisionT[Ints] = DataGenShowT[Int, Ints](ShowPrecisionT.intPersistImplicit)
 
   implicit val eqImplicit: EqT[Ints] = (a1, a2) =>
     if(a1.dataLength != a2.dataLength) false

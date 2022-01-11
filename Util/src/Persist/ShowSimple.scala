@@ -3,7 +3,7 @@ package ostrat
 
 /** Shows a simple object like a Singleton object or a Double. For your own objects that you control it is better to use Show and its helper sub
  * rather than the sub traits of ShowT to implement your Show functionality.S */
-trait ShowSimpleT[-A] extends ShowT[A]
+trait ShowSimpleT[-A] extends ShowPrecisionT[A]
 {
   final override def syntaxDepthT(obj: A): Int = 1
 

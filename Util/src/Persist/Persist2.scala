@@ -2,7 +2,7 @@
 package ostrat
 import pParse._, collection.mutable.ArrayBuffer
 
-/** Trait for [[Show]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+/** Trait for [[ShowPrec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[Show2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show2 and then use [[ShowShow2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShow2T]] or
  *  [[PersistShow2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
@@ -21,10 +21,10 @@ trait Show2[A1, A2] extends Any with ShowProduct
   def show2: A2
 
   /** The ShowT type class instance for the 1st element of this 2 element product. */
-  implicit def showT1: ShowT[A1]
+  implicit def showT1: ShowPrecisionT[A1]
 
   /** The ShowT type class instance for the 2nd element of this 2 element product. */
-  implicit def showT2: ShowT[A2]
+  implicit def showT2: ShowPrecisionT[A2]
 
   def elemNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
@@ -35,8 +35,8 @@ trait Show2[A1, A2] extends Any with ShowProduct
  *  corresponding [[ShowShowInt2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2T]]. */
 trait ShowElemInt2 extends Any with Show2[Int, Int] with ElemInt2
-{ final override implicit def showT1: ShowT[Int] = ShowT.intPersistImplicit
-  final override implicit def showT2: ShowT[Int] = ShowT.intPersistImplicit
+{ final override implicit def showT1: ShowPrecisionT[Int] = ShowPrecisionT.intPersistImplicit
+  final override implicit def showT2: ShowPrecisionT[Int] = ShowPrecisionT.intPersistImplicit
   final override def syntaxDepth: Int = 2
   final override def int1: Int = show1
   final override def int2: Int = show2
@@ -45,8 +45,8 @@ trait ShowElemInt2 extends Any with Show2[Int, Int] with ElemInt2
 /** Shows a class with 2 [[Double]] components. Note if the class also extends ElemDbl2, the dbl1 and dbl2 properties, may be different to the show1
  * and show2 properties, unless the class extends [[ShowElemDbl2]]. */
 trait ShowDbl2 extends Any with Show2[Double, Double]
-{ final override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
-  final override implicit def showT2: ShowT[Double] = ShowT.doublePersistImplicit
+{ final override implicit def showT1: ShowPrecisionT[Double] = ShowPrecisionT.doublePersistImplicit
+  final override implicit def showT2: ShowPrecisionT[Double] = ShowPrecisionT.doublePersistImplicit
   final override def syntaxDepth: Int = 2
 }
 
@@ -59,7 +59,7 @@ trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
 }
 
 /** Type class trait for Showing [[Show2]] objects. */
-trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends ShowShowT[R]
+trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends ShowPrecisionShowT[R]
 
 object ShowShow2T
 {
@@ -88,8 +88,8 @@ trait TypeStred2[A1, A2, R] extends TypeStred
 trait Show2T[A1, A2, R] extends ShowProductT[R] with TypeStred2[A1, A2, R]
 { def fArg1: R => A1
   def fArg2: R => A2
-  implicit def ev1: ShowT[A1]
-  implicit def ev2: ShowT[A2]
+  implicit def ev1: ShowPrecisionT[A1]
+  implicit def ev2: ShowPrecisionT[A2]
   override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
 
   override def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
@@ -100,15 +100,15 @@ trait Show2T[A1, A2, R] extends ShowProductT[R] with TypeStred2[A1, A2, R]
 object Show2T
 {
   def apply [A1, A2, R](typeStrIn: String, name1In: String, fArg1In: R => A1, name2In: String, fArg2In: R => A2, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1In: ShowT[A1], ev2In: ShowT[A2]): Show2T[A1, A2, R] = new Show2T[A1, A2, R]
+    opt1In: Option[A1] = None)(implicit ev1In: ShowPrecisionT[A1], ev2In: ShowPrecisionT[A2]): Show2T[A1, A2, R] = new Show2T[A1, A2, R]
   {
     override def typeStr: String = typeStrIn
     override def name1: String = name1In
     override def fArg1: R => A1 = fArg1In
     override def name2: String = name2In
     override def fArg2: R => A2 = fArg2In
-    override implicit def ev1: ShowT[A1] = ev1In
-    override implicit def ev2: ShowT[A2] = ev2In
+    override implicit def ev1: ShowPrecisionT[A1] = ev1In
+    override implicit def ev2: ShowPrecisionT[A2] = ev2In
     val opt2: Option[A2] = opt2In
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
@@ -116,7 +116,7 @@ object Show2T
 
 class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 {
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowPrecisionT]] type class instances. */
   def show2(way: ShowStyle = ShowStandard, way1: ShowStyle = ShowStandard, places1: Int = -1, way2: ShowStyle = ShowStandard, places2: Int = -1):
     String = ???
 }

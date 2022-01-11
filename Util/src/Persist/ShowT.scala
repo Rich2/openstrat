@@ -2,7 +2,7 @@
 package ostrat
 import pParse._, collection.immutable.ArraySeq
 
-/** Common super trait for [[Show]], [[ShowT]] and [[UnShow]]. All of which inherit the typeStr property. */
+/** Common super trait for [[ShowPrec]], [[ShowPrecisionT]] and [[UnShow]]. All of which inherit the typeStr property. */
 trait TypeStred
 { /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
    * Show. */
@@ -13,22 +13,29 @@ trait TypeStred
  *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
  *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
 trait ShowT[-T] extends TypeStred
-{ /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
+{
+  /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
    * rather than a method on the object being shown. */
   def strT(obj: T): String
-
-  def showT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
 
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
   def syntaxDepthT(obj: T): Int
+}
+
+/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
+ *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
+ *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. */
+trait ShowPrecisionT[-T] extends ShowT[T]
+{
+  def showT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
  }
 
 /* The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikely that anyone would want to create an UnShow
    instance without a ShowT instance. Many Persist instances are placed inside the Show companion object. However type instances that themselves
    one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
    Persist type instances, and these will be placed in the Persist companion object. */
-object ShowT
+object ShowPrecisionT
 {
   implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int")
   {
@@ -42,12 +49,12 @@ object ShowT
     }
   }
 
-  val hexadecimal: ShowT[Int] = new ShowSimpleT[Int]
+  val hexadecimal: ShowPrecisionT[Int] = new ShowSimpleT[Int]
   { override def typeStr: String = "Int"
     override def strT(obj: Int): String = obj.hexStr
   }
 
-  val base32: ShowT[Int] = new ShowSimpleT[Int]
+  val base32: ShowPrecisionT[Int] = new ShowSimpleT[Int]
   { override def typeStr: String = "Int"
     override def strT(obj: Int): String = obj.base32
   }
@@ -103,7 +110,7 @@ object ShowT
     }
   }
 
-  implicit val floatImplicit: ShowT[Float] = new ShowSimpleT[Float]
+  implicit val floatImplicit: ShowPrecisionT[Float] = new ShowSimpleT[Float]
   { override def typeStr: String = "SFloat"
     def strT(obj: Float): String = obj.toString
   }
@@ -125,29 +132,29 @@ object ShowT
     }
   }
 
-  implicit val charImplicit: ShowT[Char] = new ShowSimpleT[Char]
+  implicit val charImplicit: ShowPrecisionT[Char] = new ShowSimpleT[Char]
   { override def typeStr: String = "Char"
     def strT(obj: Char): String = obj.toString.enquote1
   }
 
-  class ShowIterableClass[A, R <: Iterable[A]](val evA: ShowT[A]) extends ShowIterable[A, R]{}
+  class ShowIterableClass[A, R <: Iterable[A]](val evA: ShowPrecisionT[A]) extends ShowIterable[A, R]{}
 
-  implicit def ShowIterableImplicit[A](implicit evA: ShowT[A]): ShowT[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
-  implicit def ShowSeqImplicit[A](implicit evA: ShowT[A]): ShowT[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
+  implicit def ShowIterableImplicit[A](implicit evA: ShowPrecisionT[A]): ShowPrecisionT[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
+  implicit def ShowSeqImplicit[A](implicit evA: ShowPrecisionT[A]): ShowPrecisionT[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
 
   /** Implicit method for creating List[A: Show] instances. */
-  implicit def listImplicit[A](implicit ev: ShowT[A]): ShowT[List[A]] = new ShowIterableClass[A, List[A]](ev)
+  implicit def listImplicit[A](implicit ev: ShowPrecisionT[A]): ShowPrecisionT[List[A]] = new ShowIterableClass[A, List[A]](ev)
 
   /** Implicit method for creating ::[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   //implicit def consShowImplicit[A](implicit ev: ShowT[A]): ShowT[::[A]] = new PersistConsImplicit[A](ev)
 
   //implicit def nilPersistImplicit[A](implicit ev: Persist[A]): Persist[Nil.type] = new PersistNilImplicit[A](ev)
 
-  implicit def vectorImplicit[A](implicit ev: ShowT[A]): ShowT[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
+  implicit def vectorImplicit[A](implicit ev: ShowPrecisionT[A]): ShowPrecisionT[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
-  implicit val arrayIntImplicit: ShowT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
+  implicit val arrayIntImplicit: ShowPrecisionT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
   {
-    override def evA: ShowT[Int] = ShowT.intPersistImplicit
+    override def evA: ShowPrecisionT[Int] = ShowPrecisionT.intPersistImplicit
     override def syntaxDepthT(obj: Array[Int]): Int = 2
 
     override def showT(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
@@ -183,10 +190,10 @@ object ShowT
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arraySeqImplicit[A](implicit ev: ShowT[A]): ShowT[collection.immutable.ArraySeq[A]] = new ShowTSeqLike[A, ArraySeq[A]]
+  implicit def arraySeqImplicit[A](implicit ev: ShowPrecisionT[A]): ShowPrecisionT[collection.immutable.ArraySeq[A]] = new ShowTSeqLike[A, ArraySeq[A]]
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
-    override def evA: ShowT[A] = ev
+    override def evA: ShowPrecisionT[A] = ev
 
     /** Not fully correct yet. */
     override def showT(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
@@ -233,8 +240,8 @@ sealed trait ShowInstancesPriority2
 
 
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
-class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
-{ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+class ShowTExtensions[-A](ev: ShowPrecisionT[A], thisVal: A)
+{ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowPrecisionT]] type class instances. */
   def show(style: ShowStyle = ShowStandard, decimalPlaces: Int = -1, minPlaces: Int = 0): String = ev.showT(thisVal, style, decimalPlaces, minPlaces)
 
   /** Provides the standard string representation for the object. */

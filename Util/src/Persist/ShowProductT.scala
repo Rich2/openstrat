@@ -21,7 +21,7 @@ trait ShowProductT[R] extends ShowCompoundT[R]
 /** Show type class for 4 parameter case classes. */
 abstract class Show4T[A1, A2, A3, A4, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String,
   fArg3: R => A3, name4: String, fArg4: R => A4, val opt4: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None,
-  opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4]) extends ShowProductT[R]
+  opt1In: Option[A1] = None)(implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2], ev3: ShowPrecisionT[A3], ev4: ShowPrecisionT[A4]) extends ShowProductT[R]
 {
   val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
@@ -37,8 +37,8 @@ abstract class Show4T[A1, A2, A3, A4, R](val typeStr: String, name1: String, fAr
 /** Show type class for 5 parameter case classes. */
 class Show5T[A1, A2, A3, A4, A5, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, val opt5: Option[A5], opt4In: Option[A4] = None, opt3In: Option[A3] = None,
-  opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4],
-  ev5: ShowT[A5]) extends ShowProductT[R]
+  opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2], ev3: ShowPrecisionT[A3], ev4: ShowPrecisionT[A4],
+  ev5: ShowPrecisionT[A5]) extends ShowProductT[R]
 {
   val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
   val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
@@ -57,7 +57,7 @@ object Show5T
 {
   def apply[A1, A2, A3, A4, A5, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, opt5: Option[A5] = None, opt4: Option[A4] = None, opt3: Option[A3] = None,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5]) =
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2], ev3: ShowPrecisionT[A3], ev4: ShowPrecisionT[A4], ev5: ShowPrecisionT[A5]) =
     new Show5T[A1, A2, A3, A4, A5, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1)(
     ev1, ev2, ev3, ev4, ev5)
 }
@@ -66,7 +66,7 @@ object Show5T
 class Show6T[A1, A2, A3, A4, A5, A6, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String,
   fArg3: R => A3, name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, name6: String, fArg6: R => A6, val opt6: Option[A6],
   val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-  implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6]) extends ShowProductT[R]
+  implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2], ev3: ShowPrecisionT[A3], ev4: ShowPrecisionT[A4], ev5: ShowPrecisionT[A5], ev6: ShowPrecisionT[A6]) extends ShowProductT[R]
 {
   val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
   val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
@@ -87,7 +87,7 @@ object Show6T
   def apply[A1, A2, A3, A4, A5, A6, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, name6: String, fArg6: R => A6, opt6: Option[A6] = None, opt5: Option[A5] = None,
     opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
-                                                                                                        ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6],
+                                                                                                        ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2], ev3: ShowPrecisionT[A3], ev4: ShowPrecisionT[A4], ev5: ShowPrecisionT[A5], ev6: ShowPrecisionT[A6],
                                                                                                         eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3], eq4: EqT[A4], eq5: EqT[A5], eq6: EqT[A6]) =
     new Show6T[A1, A2, A3, A4, A5, A6, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6,
     opt6, opt5, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4, ev5, ev6)

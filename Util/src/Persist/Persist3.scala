@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Trait for [[Show]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+/** Trait for [[ShowPrec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[ShowEq3T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
@@ -26,13 +26,13 @@ trait Show3[A1, A2, A3] extends Any with ShowProduct
   def show3: A3
 
   /** The ShowT type class instance for the 1st element of this 3 element Show product. */
-  def showT1: ShowT[A1]
+  def showT1: ShowPrecisionT[A1]
 
   /** The ShowT type class instance for the 2nd element of this 3 element Show product. */
-  def showT2: ShowT[A2]
+  def showT2: ShowPrecisionT[A2]
 
   /** The ShowT type class instance for the 3rd element of this 3 element Show product. */
-  def showT3: ShowT[A3]
+  def showT3: ShowPrecisionT[A3]
 
   def elemNames: Strings = Strings(name1, name2, name3)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr, showT3.typeStr)
@@ -42,9 +42,9 @@ trait Show3[A1, A2, A3] extends Any with ShowProduct
 
 trait ShowDbl3 extends Any with Show3[Double, Double, Double]
 { final override def syntaxDepth: Int = 2
-  final override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
-  final override implicit def showT2: ShowT[Double] = ShowT.doublePersistImplicit
-  final override implicit def showT3: ShowT[Double] = ShowT.doublePersistImplicit
+  final override implicit def showT1: ShowPrecisionT[Double] = ShowPrecisionT.doublePersistImplicit
+  final override implicit def showT2: ShowPrecisionT[Double] = ShowPrecisionT.doublePersistImplicit
+  final override implicit def showT3: ShowPrecisionT[Double] = ShowPrecisionT.doublePersistImplicit
 }
 
 /** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowDbl2T]]
@@ -59,7 +59,7 @@ trait ShowElemDbl3 extends Any with ShowDbl3 with ElemDbl3
 /** Show type class for 3 parameter case classes. */
 class Show3T[A1, A2, A3, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
   val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-  implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3]) extends ShowProductT[R]
+  implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2], ev3: ShowPrecisionT[A3]) extends ShowProductT[R]
 {
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
