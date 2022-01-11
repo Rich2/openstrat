@@ -128,10 +128,11 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   def mapToCurlySyntax: String = ???
 }
 
-/** Companion object for the Arr class. */
+/** Companion object for the [[Arr]] class contains factory apply method, EqT implicit type class instance and Extension method for Arr[A] where A
+ * extends AnyRef. */
 object Arr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
-  implicit def showImplicit[A <: AnyRef](implicit evA: ShowT[A]): ShowT[Arr[A]] = DataGenShow[A, Arr[A]](evA)
+  implicit def showImplicit[A <: AnyRef](implicit evA: ShowT[A]): ShowT[Arr[A]] = DataGenShowT[A, Arr[A]](evA)
 
   implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[Arr[A]] = (arr1, arr2) => if (arr1.dataLength != arr2.dataLength) false else
   { var i = 0

@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
@@ -100,7 +100,8 @@ trait DataGen[A] extends Any
   def dataLast: A = indexData(dataLength - 1)
 }
 
-case class DataGenShow[A, R <: DataGen[A]](evA: ShowT[A]) extends ShowTSeqLike[A, R]
+/** [[ShowT] type class for showing [[DataGen]][A] objects. */
+class DataGenShowT[A, R <: DataGen[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =

@@ -78,7 +78,7 @@ object ShowShow2T
 }
 
 /** A base trait for [[Show2T]] and [[UnShow2]], declares the common properties of name1, name2, opt1 and opt2. */
-trait Persist2Base[A1, A2, R] extends TypeStred
+trait TypeStred2[A1, A2, R] extends TypeStred
 { /** 1st parameter name. */
   def name1: String
 
@@ -93,7 +93,7 @@ trait Persist2Base[A1, A2, R] extends TypeStred
 }
 
 /** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowProductT[R] with Persist2Base[A1, A2, R]
+trait Show2T[A1, A2, R] extends ShowProductT[R] with TypeStred2[A1, A2, R]
 { def fArg1: R => A1
   def fArg2: R => A2
   implicit def ev1: ShowT[A1]
@@ -162,7 +162,7 @@ object Show2Base32sT
 
 
 /** UnShow type class trait for a 2 element Product. */
-trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with Persist2Base[A1, A2, R]
+trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with TypeStred2[A1, A2, R]
 { /** Derive the 1st parameter from an object of type R. */
   def fArg1: R => A1
 
