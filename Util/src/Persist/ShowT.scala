@@ -133,18 +133,18 @@ object ShowT
 
   class ShowIterableClass[A, R <: Iterable[A]](val evA: ShowPrecisionT[A]) extends ShowIterable[A, R]{}
 
-  implicit def ShowIterableImplicit[A](implicit evA: ShowPrecisionT[A]): ShowPrecisionT[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
-  implicit def ShowSeqImplicit[A](implicit evA: ShowPrecisionT[A]): ShowPrecisionT[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
+  implicit def ShowIterableImplicit[A](implicit evA: ShowPrecisionT[A]): ShowT[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
+  implicit def ShowSeqImplicit[A](implicit evA: ShowPrecisionT[A]): ShowT[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
 
   /** Implicit method for creating List[A: Show] instances. */
-  implicit def listImplicit[A](implicit ev: ShowPrecisionT[A]): ShowPrecisionT[List[A]] = new ShowIterableClass[A, List[A]](ev)
+  implicit def listImplicit[A](implicit ev: ShowPrecisionT[A]): ShowT[List[A]] = new ShowIterableClass[A, List[A]](ev)
 
   /** Implicit method for creating ::[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   //implicit def consShowImplicit[A](implicit ev: ShowT[A]): ShowT[::[A]] = new PersistConsImplicit[A](ev)
 
   //implicit def nilPersistImplicit[A](implicit ev: Persist[A]): Persist[Nil.type] = new PersistNilImplicit[A](ev)
 
-  implicit def vectorImplicit[A](implicit ev: ShowPrecisionT[A]): ShowPrecisionT[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
+  implicit def vectorImplicit[A](implicit ev: ShowPrecisionT[A]): ShowT[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
   implicit val arrayIntImplicit: ShowPrecisionT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
   {
