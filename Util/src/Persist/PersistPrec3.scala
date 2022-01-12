@@ -110,12 +110,12 @@ object ShowPrec3T
   implicit ev1In: ShowPrecisionT[A1], ev2In: ShowPrecisionT[A2], ev3In: ShowPrecisionT[A3]): ShowPrec3T[A1, A2, A3, R] = new ShowPrec3T {
     val typeStr: String = typeStrIn
     val name1: String = name1In
-    val fArg1: R => A1 = fArg1In
+    override val fArg1: R => A1 = fArg1In
     val name2: String = name2In
     val fArg2: R => A2 = fArg2In
     val name3: String = name3In
     val fArg3: R => A3 = fArg3In
-    val ev1: ShowPrecisionT[A1] = ev1In
+    override val ev1: ShowPrecisionT[A1] = ev1In
     val ev2: ShowPrecisionT[A2] = ev2In
     val ev3: ShowPrecisionT[A3] = ev3In
     val opt3: Option[A3] = opt3In
@@ -150,18 +150,30 @@ class UnShow3[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1,
   val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: UnShow[A1], ev2: UnShow[A2],
   ev3: UnShow[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends UnShowProduct[R]
 
-/** Persistence class for 3 logical parameter product types. */
-class Persist3[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String, val fArg3: R => A3,
- val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, val opt2: Option[A2] = None, val opt1: Option[A1] = None)(
- implicit val ev1: PersistPrecision[A1], val ev2: PersistPrecision[A2], val ev3: PersistPrecision[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends
-  ShowPrec3T[A1, A2, A3, R] with PersistShowProductPrecT[R]
+trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with PersistShowProductT[R]
+{
+  def ev1: PersistPrecision[A1]
+  def ev2: PersistPrecision[A2]
+  def ev3: PersistPrecision[A3]
+}
 
 object Persist3
 {
+  //def apply[A1, A2, A3, R]
+}
+
+/** Persistence class for 3 logical parameter product types. */
+class PersistPrec3[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String, val fArg3: R => A3,
+ val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, val opt2: Option[A2] = None, val opt1: Option[A1] = None)(
+ implicit val ev1: PersistPrecision[A1], val ev2: PersistPrecision[A2], val ev3: PersistPrecision[A3]) extends
+  ShowPrec3T[A1, A2, A3, R] with PersistShowProductPrecT[R] with Persist3[A1, A2, A3, R]
+
+object PersistPrec3
+{
   def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-    implicit ev1: PersistPrecision[A1], ev2: PersistPrecision[A2], ev3: PersistPrecision[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]): Persist3[A1, A2, A3, R] =
-    new Persist3(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)(ev1, ev2, ev3, eq1 , eq2, eq3)
+    implicit ev1: PersistPrecision[A1], ev2: PersistPrecision[A2], ev3: PersistPrecision[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]): PersistPrec3[A1, A2, A3, R] =
+    new PersistPrec3(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)(ev1, ev2, ev3)
 }
 
 /** Persistence class for case classes consisting of 3 Double parameters. */
