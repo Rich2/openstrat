@@ -49,7 +49,7 @@ trait ShowDbl3 extends Any with Show3[Double, Double, Double]
 
 /** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowDbl2T]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
- *  over [[Show2T]]. */
+ *  over [[ShowPrec2T]]. */
 trait ShowElemDbl3 extends Any with ShowDbl3 with ElemDbl3
 { final override def dbl1: Double = show1
   final override def dbl2: Double = show2
@@ -59,7 +59,7 @@ trait ShowElemDbl3 extends Any with ShowDbl3 with ElemDbl3
 /** Show type class for 3 parameter case classes. */
 class Show3T[A1, A2, A3, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
   val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-  implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2], ev3: ShowPrecisionT[A3]) extends ShowProductT[R]
+  implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2], ev3: ShowPrecisionT[A3]) extends ShowProductPrecT[R]
 {
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -99,7 +99,7 @@ class UnShow3[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1,
 class Persist3[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
  val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
  implicit ev1: PersistPrecision[A1], ev2: PersistPrecision[A2], ev3: PersistPrecision[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends Show3T[A1, A2, A3, R](
-  typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3,opt2, opt1) with PersistShowProductT[R]
+  typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3,opt2, opt1) with PersistShowProductPrecT[R]
 
 object Persist3
 {

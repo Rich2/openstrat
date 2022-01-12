@@ -3,7 +3,7 @@ package ostrat; package geom
 import pWeb._
 
 /** A square aligned to the X and Y axes. */
-final case class Sqlign private(width: Double, cenX: Double, cenY: Double) extends Square with Rect with Show2[Double, Pt2]
+final case class Sqlign private(width: Double, cenX: Double, cenY: Double) extends Square with Rect with ShowPrec2[Double, Pt2]
 {
   override def typeStr: String = "Sqlign"
   override def name1: String = "width"

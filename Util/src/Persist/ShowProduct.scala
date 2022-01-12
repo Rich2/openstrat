@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowProductT]] trait
+/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowProductPrecT]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
- * [[ShowProductT]]. */
+ * [[ShowProductPrecT]]. */
 trait ShowProduct extends Any with Show
 {
   /** A [[Strings]] Arr collection  of the show methods return values of the elements of this Show Product class. */
@@ -41,9 +41,9 @@ trait ShowProduct extends Any with Show
   override def str: String = show(ShowStandard, 1, 0)
 }
 
-/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowProductT]] trait
+/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowProductPrecT]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
- * [[ShowProductT]]. */
+ * [[ShowProductPrecT]]. */
 trait ShowProductPrec extends Any with ShowPrec with ShowProduct
 {
 

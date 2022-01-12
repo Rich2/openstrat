@@ -359,7 +359,7 @@ package object ostrat
 
   implicit def showTToExtensions[A](thisVal: A)(implicit ev: ShowT[A]): ShowTExtensions[A] = new ShowTExtensions[A](ev, thisVal)
   implicit def showPrecisionTToExtensions[A](thisVal: A)(implicit ev: ShowPrecisionT[A]): ShowPrecisionTExtensions[A] = new ShowPrecisionTExtensions[A](ev, thisVal)
-  implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2T[A1, A2, T]): Show2TExtensions[A1, A2, T] =
+  implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: ShowPrec2T[A1, A2, T]): Show2TExtensions[A1, A2, T] =
     new Show2TExtensions[A1, A2, T](ev, thisVal)
 
   implicit def stringToExtensions(s: String): StringImplicit = new StringImplicit(s)

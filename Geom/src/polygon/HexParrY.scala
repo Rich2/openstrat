@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module. */
-final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2] with ElemDbl3
+final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) extends Hexlign with ShowPrec2[Double, Pt2] with ElemDbl3
 { override def typeStr = "HexYlign"
   override def name1: String = "width"
   override def name2: String = "cen"
@@ -102,7 +102,7 @@ object HexParrY
   def unapply(input: HexParrY): Some[(Double, Pt2)] = Some((input.width, input.cen))
 
   implicit val persistImplicit: PersistPrecision[HexParrY] =
-    new Persist2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen, apply)
+    new PersistPrec2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen, apply)
 
   implicit val slateImplicit: Slate[HexParrY] = (obj: HexParrY, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexParrY] = (obj: HexParrY, operand: Double) => obj.scale(operand)

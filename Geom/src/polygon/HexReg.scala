@@ -133,7 +133,7 @@ object HexReg
   }
 
   /** Implementation class for the [[HexReg]] trait. */
-  final case class HexRegImp(sd4CenX: Double, sd4CenY: Double, sd1CenX: Double, sd1CenY: Double) extends HexReg with Show2[Pt2, Pt2]
+  final case class HexRegImp(sd4CenX: Double, sd4CenY: Double, sd1CenX: Double, sd1CenY: Double) extends HexReg with ShowPrec2[Pt2, Pt2]
   {
     override def name1: String = "sd4Cen"
     override def name2: String = "sd1Cen"

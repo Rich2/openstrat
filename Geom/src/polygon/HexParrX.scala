@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
-final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2]
+final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) extends Hexlign with ShowPrec2[Double, Pt2]
 { override def typeStr = "HexXlign"
   override def name1: String = "height"
   override def name2: String = "cen"
@@ -102,7 +102,7 @@ object HexParrX
   def unapply(input: HexParrX): Some[(Double, Pt2)] = Some((input.height, input.cen))
 
   implicit val persistImplicit: PersistPrecision[HexParrX] =
-    new Persist2[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
+    new PersistPrec2[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
 
   implicit val slateImplicit: Slate[HexParrX] = (obj: HexParrX, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexParrX] = (obj: HexParrX, operand: Double) => obj.scale(operand)
