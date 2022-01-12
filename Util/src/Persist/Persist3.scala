@@ -89,18 +89,50 @@ trait Show3T[A1, A2, A3, R] extends ShowProductT[R]
   def ev1: ShowT[A1]
   def ev2: ShowT[A2]
   def ev3: ShowT[A3]
+
+  final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
+
+  final override def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
+    Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0), ev3.showT(fArg3(obj), way, decimalPlaces, 0))
+}
+
+object Show3T{
+  def apply[A1, A2, A3, R]: Show3T[A1, A2, A3, R] = new Show3T[A1, A2, A3, R] {
+    override def name1: String = ???
+
+    override def fArg1: R => A1 = ???
+
+    override def name2: String = ???
+
+    override def fArg2: R => A2 = ???
+
+    override def name3: String = ???
+
+    override def fArg3: R => A3 = ???
+
+    override def opt3: Option[A3] = ???
+
+    override def opt2: Option[A2] = ???
+
+    override def opt1: Option[A1] = ???
+
+    override def ev1: ShowT[A1] = ???
+
+    override def ev2: ShowT[A2] = ???
+
+    override def ev3: ShowT[A3] = ???
+
+    /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+     * Show. */
+    override def typeStr: String = ???
+  }
 }
 
 /** Show type class for 3 parameter case classes. */
 trait ShowPrec3T[A1, A2, A3, R] extends ShowProductPrecT[R] with Show3T[A1, A2, A3, R]
-{
-  override def ev1: ShowPrecisionT[A1]
+{ override def ev1: ShowPrecisionT[A1]
   override def ev2: ShowPrecisionT[A2]
   override def ev3: ShowPrecisionT[A3]
-  final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
-
-  override def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
-    Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0), ev3.showT(fArg3(obj), way, decimalPlaces, 0))
 }
 
 object ShowPrec3T
@@ -151,8 +183,7 @@ class UnShow3[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1,
   ev3: UnShow[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends UnShowProduct[R]
 
 trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with PersistShowProductT[R]
-{
-  def ev1: PersistPrecision[A1]
+{ def ev1: PersistPrecision[A1]
   def ev2: PersistPrecision[A2]
   def ev3: PersistPrecision[A3]
 }
