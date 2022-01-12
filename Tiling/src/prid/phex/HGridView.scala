@@ -22,6 +22,6 @@ object HGridView
 { def apply(r: Int, c: Int, pxScale: Double = 50): HGridView = new HGridView(r, c, pxScale)
   def apply(hCoord: HCoord, pxScale: Double): HGridView = new HGridView(hCoord.r, hCoord.c, pxScale)
 
-  implicit val persistImplicit: PersistShow2[HCoord, Double, HGridView] =
-    PersistShow2[HCoord, Double, HGridView]("HGridView", "hCoord", "pxScale", apply(_, _))
+  implicit val persistImplicit: PersistShowPrec2[HCoord, Double, HGridView] =
+    PersistShowPrec2[HCoord, Double, HGridView]("HGridView", "hCoord", "pxScale", apply(_, _))
 }
