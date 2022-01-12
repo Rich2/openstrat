@@ -94,9 +94,9 @@ trait Show2T[A1, A2, R] extends ShowProductT[R] with TypeStred2[A1, A2, R]
   implicit def ev1: ShowT[A1]
   implicit def ev2: ShowT[A2]
   override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
-
-  override def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
-    Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0))
+  override def names: Strings = Strings(name1, name2)
+  override def strs(obj: R, style: ShowStyle, decimalPlaces: Int): Strings =
+    Strings(ev1.showT(fArg1(obj), style, decimalPlaces, 0), ev2.showT(fArg2(obj), style, decimalPlaces, 0))
 }
 
 /** Companion object for the [[Show2T]] type class trait that shows object with 2 logical fields. */

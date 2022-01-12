@@ -89,11 +89,11 @@ trait Show3T[A1, A2, A3, R] extends ShowProductT[R]
   def ev1: ShowT[A1]
   def ev2: ShowT[A2]
   def ev3: ShowT[A3]
-
+  override def names: Strings = Strings(name1, name2, name3)
   final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
 
-  final override def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
-    Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0), ev3.showT(fArg3(obj), way, decimalPlaces, 0))
+  final override def strs(obj: R, style: ShowStyle, decimalPlaces: Int): Strings =
+    Strings(ev1.showT(fArg1(obj), style, decimalPlaces, 0), ev2.showT(fArg2(obj), style, decimalPlaces, 0), ev3.showT(fArg3(obj), style, decimalPlaces, 0))
 }
 
 object Show3T{
