@@ -70,19 +70,7 @@ trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
   final override def dbl2: Double = show2
 }
 
-/** Type class trait for Showing [[Show2]] objects. */
-trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends ShowShowT[R]
 
-/** Type class trait for Showing [[ShowPrec2]] objects. */
-trait ShowShowPrec2T[A1, A2, R <: ShowPrec2[A1, A2]] extends ShowPrecisionShowT[R] with ShowShow2T[A1, A2, R]
-
-object ShowShowPrec2T
-{
-  def apply[A1, A2, R<: ShowPrec2[A1, A2]](typeStrIn: String): ShowShowPrec2T[A1, A2, R] = new ShowShowPrec2T[A1, A2, R]
-  { override def typeStr: String = typeStrIn
-    override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
-  }
-}
 
 /** A base trait for [[ShowPrec2T]] and [[UnShow2]], declares the common properties of name1, name2, opt1 and opt2. */
 trait TypeStred2[A1, A2, R] extends TypeStred
@@ -154,6 +142,23 @@ object ShowPrec2T
   }
 }
 
+/** Type class trait for Showing [[Show2]] objects. */
+trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends ShowShowT[R] with Show2T[A1, A2, R]
+{
+
+}
+
+/** Type class trait for Showing [[ShowPrec2]] objects. */
+trait ShowShowPrec2T[A1, A2, R <: ShowPrec2[A1, A2]] extends ShowPrecisionShowT[R] with ShowShow2T[A1, A2, R]
+
+object ShowShowPrec2T
+{
+  /*def apply[A1, A2, R<: ShowPrec2[A1, A2]](typeStrIn: String): ShowShowPrec2T[A1, A2, R] = new ShowShowPrec2T[A1, A2, R]
+  { override def typeStr: String = typeStrIn
+    override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
+  }*/
+}
+
 class Show2TExtensions[A1, A2, -T](ev: ShowPrec2T[A1, A2, T], thisVal: T)
 {
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowPrecisionT]] type class instances. */
@@ -166,9 +171,9 @@ trait ShowShowDbl2T[R <: ShowDbl2] extends ShowShowPrec2T[Double, Double, R]
 
 object ShowShowDbl2T
 { /** Factory apply method for creating quick ShowT instances for products of 2 Doubles. */
-  def apply[R <: ShowElemDbl2](typeStrIn: String): ShowShowDbl2T[R] = new ShowShowDbl2T[R]()
+  /*def apply[R <: ShowElemDbl2](typeStrIn: String): ShowShowDbl2T[R] = new ShowShowDbl2T[R]()
   { val typeStr: String = typeStrIn
-  }
+  }*/
 }
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
@@ -176,9 +181,9 @@ trait ShowShowInt2T[R <: ShowElemInt2] extends ShowShowPrec2T[Int, Int, R]
 
 object ShowShowInt2T
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
-  def apply[R <: ShowElemInt2](typeStrIn: String): ShowShowInt2T[R] = new ShowShowInt2T[R]()
+  /*def apply[R <: ShowElemInt2](typeStrIn: String): ShowShowInt2T[R] = new ShowShowInt2T[R]()
   { val typeStr: String = typeStrIn
-  }
+  }*/
 }
 
 /** UnShow type class trait for a 2 element Product. */
