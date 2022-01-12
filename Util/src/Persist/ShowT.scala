@@ -146,9 +146,9 @@ object ShowT
 
   implicit def vectorImplicit[A](implicit ev: ShowPrecisionT[A]): ShowT[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
-  implicit val arrayIntImplicit: ShowPrecisionT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
+  implicit val arrayIntImplicit: ShowT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
   {
-    override def evA: ShowPrecisionT[Int] = ShowT.intPersistImplicit
+    override def evA: ShowT[Int] = ShowT.intPersistImplicit
     override def syntaxDepthT(obj: Array[Int]): Int = 2
 
     override def showT(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
@@ -184,7 +184,7 @@ object ShowT
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arraySeqImplicit[A](implicit ev: ShowPrecisionT[A]): ShowPrecisionT[collection.immutable.ArraySeq[A]] = new ShowTSeqLike[A, ArraySeq[A]]
+  implicit def arraySeqImplicit[A](implicit ev: ShowPrecisionT[A]): ShowT[collection.immutable.ArraySeq[A]] = new ShowTSeqLike[A, ArraySeq[A]]
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
     override def evA: ShowPrecisionT[A] = ev

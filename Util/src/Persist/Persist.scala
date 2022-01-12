@@ -13,4 +13,4 @@ trait Persist[T] extends ShowT[T] with UnShow[T]
  * implicit parameter instances be specified as separate ShowT and UnShowT parameters. Do not combine them into a Persist parameter. There are no
  * implicit instances for [[Int]], [[Double]], [[List]] etc in the [[PersistPrecision]] companion object, the Persist components for these standard types will
  * be found in the ShowT and UnShow companion objects. */
-trait PersistPrecision[T] extends ShowPrecisionT[T] with UnShow[T]
+trait PersistPrecision[T] extends ShowPrecisionT[T] with UnShow[T] with Persist[T]
