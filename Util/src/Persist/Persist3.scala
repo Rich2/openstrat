@@ -183,14 +183,30 @@ class UnShow3[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1,
   ev3: UnShow[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends UnShowProduct[R]
 
 trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with PersistShowProductT[R]
-{ def ev1: PersistPrecision[A1]
-  def ev2: PersistPrecision[A2]
-  def ev3: PersistPrecision[A3]
+{ def ev1: Persist[A1]
+  def ev2: Persist[A2]
+  def ev3: Persist[A3]
 }
 
 object Persist3
 {
-  //def apply[A1, A2, A3, R]
+  def apply[A1, A2, A3, R](typeStrIn: String, name1In: String, fArg1In: R => A1, name2In: String, fArg2In: R => A2, name3In: String, fArg3In: R => A3,
+    newTIn: (A1, A2, A3) => R, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+  implicit ev1In: Persist[A1], ev2In: Persist[A2], ev3In: Persist[A3]): Persist3[A1, A2, A3, R] = new Persist3[A1, A2, A3, R]
+  { override def typeStr: String = typeStrIn
+    override def ev1: Persist[A1] = ev1In
+    override def ev2: Persist[A2] = ev2In
+    override def ev3: Persist[A3] = ev3In
+    override def name1: String = name1In
+    override def fArg1: R => A1 = fArg1In
+    override def name2: String = name2In
+    override def fArg2: R => A2 = fArg2In
+    override def name3: String = name3In
+    override def fArg3: R => A3 = fArg3In
+    override def opt3: Option[A3] = opt3In
+    override def opt2: Option[A2] = opt2In
+    override def opt1: Option[A1] = opt1In
+  }
 }
 
 /** Persistence class for 3 logical parameter product types. */
