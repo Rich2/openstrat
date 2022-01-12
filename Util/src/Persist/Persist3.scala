@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Trait for [[ShowPrec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
@@ -6,8 +6,9 @@ package ostrat
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
  *  toString override to a [[ShowEq3T]] instance. */
-trait Show3[A1, A2, A3] extends Any with ShowProductPrec
-{ /** the name of the 1st element of this 3 element Show product. */
+trait Show3[A1, A2, A3] extends Any with ShowProduct
+{
+  /** the name of the 1st element of this 3 element Show product. */
   def name1: String
 
   /** the name of the 2nd element of this 3 element Show product. */
@@ -26,13 +27,13 @@ trait Show3[A1, A2, A3] extends Any with ShowProductPrec
   def show3: A3
 
   /** The ShowT type class instance for the 1st element of this 3 element Show product. */
-  def showT1: ShowPrecisionT[A1]
+  def showT1: ShowT[A1]
 
   /** The ShowT type class instance for the 2nd element of this 3 element Show product. */
-  def showT2: ShowPrecisionT[A2]
+  def showT2: ShowT[A2]
 
   /** The ShowT type class instance for the 3rd element of this 3 element Show product. */
-  def showT3: ShowPrecisionT[A3]
+  def showT3: ShowT[A3]
 
   def elemNames: Strings = Strings(name1, name2, name3)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr, showT3.typeStr)
@@ -40,7 +41,25 @@ trait Show3[A1, A2, A3] extends Any with ShowProductPrec
     showT3.showT(show3, way, decimalPlaces, 0))
 }
 
-trait ShowDbl3 extends Any with Show3[Double, Double, Double]
+/** Trait for [[ShowPrec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+ *  [[ShowEq3T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
+ *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
+ *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
+ *  toString override to a [[ShowEq3T]] instance. */
+trait ShowPrec3[A1, A2, A3] extends Any with ShowProductPrec with Show3[A1, A2, A3]
+{
+  /** The ShowT type class instance for the 1st element of this 3 element Show product. */
+  override def showT1: ShowPrecisionT[A1]
+
+  /** The ShowT type class instance for the 2nd element of this 3 element Show product. */
+  override def showT2: ShowPrecisionT[A2]
+
+  /** The ShowT type class instance for the 3rd element of this 3 element Show product. */
+  override def showT3: ShowPrecisionT[A3]
+
+}
+
+trait ShowDbl3 extends Any with ShowPrec3[Double, Double, Double]
 { final override def syntaxDepth: Int = 2
   final override implicit def showT1: ShowPrecisionT[Double] = ShowT.doublePersistImplicit
   final override implicit def showT2: ShowPrecisionT[Double] = ShowT.doublePersistImplicit
@@ -56,10 +75,12 @@ trait ShowElemDbl3 extends Any with ShowDbl3 with ElemDbl3
   final override def dbl3: Double = show2
 }
 
+trait Show3T[A1, A2, A3, R] extends ShowProductT[R]
+
 /** Show type class for 3 parameter case classes. */
-class Show3T[A1, A2, A3, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
+class ShowPrec3T[A1, A2, A3, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
   val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-  implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2], ev3: ShowPrecisionT[A3]) extends ShowProductPrecT[R]
+  implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2], ev3: ShowPrecisionT[A3]) extends ShowProductPrecT[R] with Show3T[A1, A2, A3, R]
 {
   val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -98,7 +119,7 @@ class UnShow3[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1,
 /** Persistence class for 3 logical parameter product types. */
 class Persist3[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
  val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
- implicit ev1: PersistPrecision[A1], ev2: PersistPrecision[A2], ev3: PersistPrecision[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends Show3T[A1, A2, A3, R](
+ implicit ev1: PersistPrecision[A1], ev2: PersistPrecision[A2], ev3: PersistPrecision[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends ShowPrec3T[A1, A2, A3, R](
   typeStr, name1, fArg1, name2, fArg2, name3, fArg3, opt3,opt2, opt1) with PersistShowProductPrecT[R]
 
 object Persist3

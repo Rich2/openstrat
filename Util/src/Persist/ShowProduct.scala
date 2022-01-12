@@ -45,6 +45,3 @@ trait ShowProduct extends Any with Show
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  * [[ShowProductPrecT]]. */
 trait ShowProductPrec extends Any with ShowPrec with ShowProduct
-{
-
-}

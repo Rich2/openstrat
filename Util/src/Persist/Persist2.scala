@@ -111,6 +111,24 @@ trait Show2T[A1, A2, R] extends ShowProductT[R] with TypeStred2[A1, A2, R]
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0))
 }
 
+/** Companion object for the [[Show2T]] type class trait that shows object with 2 logical fields. */
+object Show2T
+{
+  def apply [A1, A2, R](typeStrIn: String, name1In: String, fArg1In: R => A1, name2In: String, fArg2In: R => A2, opt2In: Option[A2] = None,
+    opt1In: Option[A1] = None)(implicit ev1In: ShowT[A1], ev2In: ShowT[A2]): Show2T[A1, A2, R] = new Show2T[A1, A2, R]
+  {
+    override def typeStr: String = typeStrIn
+    override def name1: String = name1In
+    override def fArg1: R => A1 = fArg1In
+    override def name2: String = name2In
+    override def fArg2: R => A2 = fArg2In
+    override implicit def ev1: ShowT[A1] = ev1In
+    override implicit def ev2: ShowT[A2] = ev2In
+    val opt2: Option[A2] = opt2In
+    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
 /** Show type class for 2 parameter case classes. */
 trait ShowPrec2T[A1, A2, R] extends ShowProductPrecT[R] with Show2T[A1, A2, R]
 {
