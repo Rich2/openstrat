@@ -49,16 +49,16 @@ object Statement
     }
 
     /** Find Identifier setting of type T from this Arr[Statement]. Extension method. */
-    def findSetting[T](settingStr: String)(implicit ev: PersistPrecision[T]): EMon[T] = ev.settingFromStatements(statementRefs, settingStr)
+    def findSetting[T](settingStr: String)(implicit ev: Persist[T]): EMon[T] = ev.settingFromStatements(statementRefs, settingStr)
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
-    def findKeySetting[KT, VT](key: KT)(implicit evST: UnShow[KT], ev: PersistPrecision[VT]): EMon[VT] = ev.keySettingFromStatements(statementRefs, key)
+    def findKeySetting[KT, VT](key: KT)(implicit evST: UnShow[KT], ev: Persist[VT]): EMon[VT] = ev.keySettingFromStatements(statementRefs, key)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
-    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: PersistPrecision[T]): EMon[T] = findSetting[T](settingStr).goodOrOther(findUniqueT)
+    def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Persist[T]): EMon[T] = findSetting[T](settingStr).goodOrOther(findUniqueT)
 
     /** Find idnetifier setting of value type T from this Arr[Statement] or return the default value parameter. Extension method */
-    def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: PersistPrecision[A]): A = findSetting[A](settingStr).getElse(elseValue)
+    def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSetting[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if its unique from this Arr[Statement] and return value. */
     def findUniqueT[A](implicit ev: UnShow[A]): EMon[A] = ev.findUniqueFromStatements(statementRefs)

@@ -35,7 +35,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findSettingT[T: PersistPrecision](settingStr: String): EMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
+  def findSettingT[T: Persist](settingStr: String): EMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
   def findSettingElse[T: PersistPrecision](settingStr: String, elseValue: T): T = findSettingT[T](settingStr).getElse(elseValue)
