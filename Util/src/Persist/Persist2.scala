@@ -137,10 +137,14 @@ trait ShowShowPrec2T[A1, A2, R <: ShowPrec2[A1, A2]] extends ShowPrecisionShowT[
 
 object ShowShowPrec2T
 {
-  /*def apply[A1, A2, R<: ShowPrec2[A1, A2]](typeStrIn: String): ShowShowPrec2T[A1, A2, R] = new ShowShowPrec2T[A1, A2, R]
-  { override def typeStr: String = typeStrIn
-    override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
-  }*/
+  def apply[A1, A2, R<: ShowPrec2[A1, A2]](typeStr: String, name1: String, name2: String, opt2: Option[A2] = None, opt1In: Option[A1] = None)(
+    implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2]): ShowShowPrec2T[A1, A2, R] =
+    new ShowShowPrec2TImp[A1, A2, R](typeStr, name1, name2, opt2, opt1In)
+
+  class ShowShowPrec2TImp[A1, A2, R<: ShowPrec2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val opt2: Option[A2] = None,
+    opt1In: Option[A1] = None)(implicit val ev1: ShowPrecisionT[A1], val ev2: ShowPrecisionT[A2]) extends ShowShowPrec2T[A1, A2, R]
+  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  }
 }
 
 class Show2TExtensions[A1, A2, -T](ev: ShowPrec2T[A1, A2, T], thisVal: T)
