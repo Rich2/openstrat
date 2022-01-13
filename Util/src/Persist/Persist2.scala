@@ -204,6 +204,7 @@ trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with TypeStred2[A1, A2, R]
   def unShowA2: UnShow[A2]
 }
 
+/** Persists, shows and unshows, objects with 2 arguments */
 trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with PersistShowProductT[R]
 {
   def newT: (A1, A2) => R
@@ -224,6 +225,8 @@ trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with PersistShowProductT[R]
   }
 }
 
+/** Companion object for [[Persist2]] trait which, shows and unshows, objects with 2 arguments. contains implementation class and factory apply
+ *  method. */
 object Persist2
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
