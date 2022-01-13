@@ -231,34 +231,21 @@ trait PersistPrec2[A1, A2, R] extends ShowPrec2T[A1, A2, R] with
 
 object PersistPrec2
 {
-  def apply[A1, A2, R](typeStrIn: String, name1In: String, fArg1In: R => A1, name2In: String, fArg2In: R => A2, newTIn: (A1, A2) => R,
-    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: PersistPrec[A1], ev2In: PersistPrec[A2]): PersistPrec2[A1, A2, R] =
-    new PersistPrec2[A1, A2, R]
+  def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: PersistPrec[A1], ev2: PersistPrec[A2]): PersistPrec2[A1, A2, R] =
+    new PersistPrec2Imp[A1, A2, R](typeStr, name1, fArg1, name2: String, fArg2, newT,opt2In, opt1In)
+
+
+  class PersistPrec2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
+    val newT: (A1, A2) => R, val opt2: Option[A2] = None, opt1In: Option[A1] = None)(
+    implicit val ev1: PersistPrec[A1], val ev2: PersistPrec[A2]) extends PersistPrec2[A1, A2, R]
   {
-    override val typeStr: String = typeStrIn
-    override val name1: String = name1In
-    override val fArg1: R => A1 = fArg1In
-    override val name2: String = name2In
-    override val fArg2: R => A2 = fArg2In
-    override val newT: (A1, A2) => R = newTIn
-    override val opt2: Option[A2] = opt2In
     override val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-    override implicit val ev1: PersistPrec[A1] = ev1In
-    override implicit val ev2: PersistPrec[A2] = ev2In
   }
 }
 
-/** Factory object for Persist product 2 type class that persists objects with 2 parameters. */
-/*object PersistPrec2
-{
-  def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: PersistPrecision[A1], ev2: PersistPrecision[A2], eq1: EqT[A1], eq2: EqT[A2]): PersistPrec2[A1, A2, R] =
-    new PersistPrec2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
-}*/
-
 /** Persist type class for persisting types that extends [[Show2]]. */
 trait PersistShow2[A1, A2, R <: Show2[A1, A2]] extends Persist2[A1, A2, R] with ShowShow2T[A1, A2, R]
-
 
 /** Companion object for the PersistShow2 trait that persists types that extend the [[Show2]][A1, A2] trait. Contains factory apply method. */
 object PersistShow2
