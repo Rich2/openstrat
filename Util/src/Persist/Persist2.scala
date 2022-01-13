@@ -80,6 +80,7 @@ trait TypeStred2[A1, A2, R] extends TypeStred
   def opt2: Option[A2]
 }
 
+/** [[ShowT]] type class trait for Showing 2 logical argument types. */
 trait Show2T[A1, A2, R] extends ShowProductT[R] with TypeStred2[A1, A2, R]
 {
   def fArg1: R => A1
@@ -114,18 +115,14 @@ trait ShowPrec2T[A1, A2, R] extends ShowProductPrecT[R] with Show2T[A1, A2, R]
 /** Companion object for the [[ShowPrec2T]] type class trait that shows object with 2 logical fields. */
 object ShowPrec2T
 {
-  def apply [A1, A2, R](typeStrIn: String, name1In: String, fArg1In: R => A1, name2In: String, fArg2In: R => A2, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1In: ShowPrecisionT[A1], ev2In: ShowPrecisionT[A2]): ShowPrec2T[A1, A2, R] = new ShowPrec2T[A1, A2, R]
-  {
-    override def typeStr: String = typeStrIn
-    override def name1: String = name1In
-    override def fArg1: R => A1 = fArg1In
-    override def name2: String = name2In
-    override def fArg2: R => A2 = fArg2In
-    override implicit def ev1: ShowPrecisionT[A1] = ev1In
-    override implicit def ev2: ShowPrecisionT[A2] = ev2In
-    val opt2: Option[A2] = opt2In
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  def apply [A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
+    opt1In: Option[A1] = None)(implicit ev1: ShowPrecisionT[A1], ev2: ShowPrecisionT[A2]): ShowPrec2T[A1, A2, R] =
+    new ShowPrec2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
+
+  class ShowPrec2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
+    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(
+    implicit val ev1: ShowPrecisionT[A1], val ev2: ShowPrecisionT[A2]) extends ShowPrec2T[A1, A2, R]
+  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
