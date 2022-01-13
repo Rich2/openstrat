@@ -241,8 +241,28 @@ object PersistPrec2
     new PersistPrec2(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
 }
 
-/** Persist type class for types that extends [[ShowPrec2]]. */
+/** Persist type class for persisting types that extends [[Show2]]. */
 trait PersistShow2[A1, A2, R <: Show2[A1, A2]] extends Persist2[A1, A2, R] with ShowShow2T[A1, A2, R]
+
+
+/** Companion object for the PersistShow2 trait that persists types that extend the [[Show2]][A1, A2] trait. Contains factory apply method. */
+object PersistShow2
+{ /** Factory apply method for [[PersistShow2]]. */
+  def apply[A1, A2, R <: Show2[A1, A2]](typeStrIn: String, name1In: String, name2In: String, newTIn: (A1, A2) => R,
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: PersistPrecision[A1], ev2In: PersistPrecision[A2]): PersistShow2[A1, A2,R] =
+    new PersistShow2[A1, A2, R] {
+      override def typeStr: String = typeStrIn
+      override def name1: String = name1In
+      override def fArg1: R => A1 = _.show1
+      override def name2: String = name2In
+      override def fArg2: R => A2 = _.show2
+      override def newT: (A1, A2) => R = newTIn
+      override implicit def ev1: Persist[A1] = ev1In
+      override implicit def ev2: Persist[A2] = ev2In
+      override def opt2: Option[A2] = opt2In
+      override def opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+    }
+}
 
 /** Persist type class for types that extends [[ShowPrec2]]. */
 class PersistShowPrec2[A1, A2, R <: ShowPrec2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
