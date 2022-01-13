@@ -263,18 +263,16 @@ trait PersistShow2[A1, A2, R <: Show2[A1, A2]] extends Persist2[A1, A2, R] with 
 /** Companion object for the PersistShow2 trait that persists types that extend the [[Show2]][A1, A2] trait. Contains factory apply method. */
 object PersistShow2
 { /** Factory apply method for [[PersistShow2]]. */
-  def apply[A1, A2, R <: Show2[A1, A2]](typeStrIn: String, name1In: String, name2In: String, newTIn: (A1, A2) => R,
-    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]): PersistShow2[A1, A2,R] =
-    new PersistShow2[A1, A2, R] {
-      override def typeStr: String = typeStrIn
-      override def name1: String = name1In
-      override def name2: String = name2In
-      override def newT: (A1, A2) => R = newTIn
-      override implicit def ev1: Persist[A1] = ev1In
-      override implicit def ev2: Persist[A2] = ev2In
-      override def opt2: Option[A2] = opt2In
-      override def opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-    }
+  def apply[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]): PersistShow2[A1, A2,R] =
+    new PersistShow2Imp[A1, A2, R] (typeStr, name1, name2, newT: (A1, A2) => R,opt2, opt1)
+
+  class PersistShow2Imp[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val newT: (A1, A2) => R,
+    opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit val ev1: Persist[A1], val ev2: Persist[A2]) extends PersistShow2[A1, A2, R]
+  {
+    override def opt2: Option[A2] = opt2In
+    override def opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  }
 }
 
 /** Persist type class for types that extends [[ShowPrec2]]. */
