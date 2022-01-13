@@ -17,7 +17,7 @@ object WTile
   /** This is not correct, but put in as temporary measure. */
   implicit val eqImplicit: EqT[WTile] = (a1, a2) => a1 == a2
 
-  implicit val persistImplicit: PersistPrecision[WTile] = new PersistSimplePrecision[WTile]("Terrain")
+  implicit val persistImplicit: PersistPrec[WTile] = new PersistSimplePrecision[WTile]("Terrain")
   {
     def strT(obj: WTile): String = obj.str
     def fromExpr(expr: pParse.Expr): EMon[WTile] = ???

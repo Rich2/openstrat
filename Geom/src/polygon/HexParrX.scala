@@ -98,12 +98,9 @@ object HexParrX
 
   /** Apply factory method for [[HexParrX]], Creates a regular hexagon with 2 of its side aligned to the Y axis. */
   def apply(height: Double, xCen: Double, yCen: Double): HexParrX = new HexParrX(height, xCen, yCen)
-
   def unapply(input: HexParrX): Some[(Double, Pt2)] = Some((input.height, input.cen))
 
-  implicit val persistImplicit: PersistPrecision[HexParrX] =
-    new PersistPrec2[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
-
+  implicit val persistImplicit: PersistPrec[HexParrX] = PersistPrec2[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
   implicit val slateImplicit: Slate[HexParrX] = (obj: HexParrX, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexParrX] = (obj: HexParrX, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexParrX] = (obj, matrix) => obj.prolign(matrix)

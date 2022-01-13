@@ -21,6 +21,6 @@ trait PersistShowProductT[R] extends PersistProduct[R] with ShowProductT[R]
 /** The base trait for the persistence of algebraic product types, including case classes. Note the arity of the product, its size is based on the
  *  number of logical parameters. For example, a LineSeg is a product 2, it has a start point and an end point, although its is stored as 4 parameters
  *  xStart, yStart, xEnd, yEnd. */
-trait PersistProductPrec[R] extends PersistPrecision[R] with PersistProduct[R]
+trait PersistProductPrec[R] extends PersistPrec[R] with PersistProduct[R]
 
 trait PersistShowProductPrecT[R] extends PersistProductPrec[R] with ShowProductPrecT[R]

@@ -25,7 +25,7 @@ trait PersistCompound[R] extends ShowCompoundT[R] with Persist[R]
 }
 
 /** Persistence base trait for PersistCase and PersistSeqLike. Some methods probably need to be moved down into sub classes. */
-trait PersistCompoundPrec[R] extends ShowCompoundPrecT[R] with PersistPrecision[R] with PersistCompound[R]
+trait PersistCompoundPrec[R] extends ShowCompoundPrecT[R] with PersistPrec[R] with PersistCompound[R]
 
 trait ShowTSeqLike[A, R] extends ShowCompoundT[R]
 { def evA: ShowT[A]

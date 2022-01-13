@@ -31,7 +31,7 @@ trait ShowT[-T] extends TypeStred
    Persist type instances, and these will be placed in the Persist companion object. */
 object ShowT
 {
-  implicit val intPersistImplicit: PersistPrecision[Int] = new PersistSimplePrecision[Int]("Int")
+  implicit val intPersistImplicit: PersistPrec[Int] = new PersistSimplePrecision[Int]("Int")
   {
     def strT(obj: Int): String = obj.toString
 
@@ -53,7 +53,7 @@ object ShowT
     override def strT(obj: Int): String = obj.base32
   }
 
-  implicit val doublePersistImplicit: PersistPrecision[Double] = new PersistPrecision[Double]
+  implicit val doublePersistImplicit: PersistPrec[Double] = new PersistPrec[Double]
   {
     override def typeStr: String = "DFloat"
     override def syntaxDepthT(obj: Double): Int = 1
@@ -94,7 +94,7 @@ object ShowT
     }
   }
 
-  implicit val longPersistImplicit: PersistPrecision[Long] = new PersistSimplePrecision[Long]("Long")
+  implicit val longPersistImplicit: PersistPrec[Long] = new PersistSimplePrecision[Long]("Long")
   { def strT(obj: Long): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Long] = expr match
     { case NatDeciToken(_, i) => Good(i.toLong)
@@ -109,7 +109,7 @@ object ShowT
     def strT(obj: Float): String = obj.toString
   }
 
-  implicit val booleanPersistImplicit: PersistPrecision[Boolean] = new PersistSimplePrecision[Boolean]("Bool")
+  implicit val booleanPersistImplicit: PersistPrec[Boolean] = new PersistSimplePrecision[Boolean]("Bool")
   { override def strT(obj: Boolean): String = obj.toString
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
     { case IdentLowerToken(_, str) if str == "true" => Good(true)
@@ -118,7 +118,7 @@ object ShowT
     }
   }
 
-  implicit val stringPersistImplicit: PersistPrecision[String] = new PersistSimplePrecision[String]("Str")
+  implicit val stringPersistImplicit: PersistPrec[String] = new PersistSimplePrecision[String]("Str")
   { def strT(obj: String): String = obj.enquote
     override def fromExpr(expr: Expr): EMon[String] = expr match
     { case StringToken(_, stringStr) => Good(stringStr)
@@ -154,7 +154,7 @@ object ShowT
     override def showT(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  class ArrRefPersist[A <: AnyRef](ev: PersistPrecision[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
+  class ArrRefPersist[A <: AnyRef](ev: PersistPrec[A]) extends PersistSeqLike[A, ArraySeq[A]](ev)
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
 
@@ -168,8 +168,8 @@ object ShowT
   }
 
   /** Implicit method for creating Array[A <: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def arrayRefToPersist[A <: AnyRef](implicit ev: PersistPrecision[A]): PersistPrecision[Array[A]] = new ArrayRefPersist[A](ev)
-  class ArrayRefPersist[A <: AnyRef](ev: PersistPrecision[A]) extends PersistSeqLike[A, Array[A]](ev)
+  implicit def arrayRefToPersist[A <: AnyRef](implicit ev: PersistPrec[A]): PersistPrec[Array[A]] = new ArrayRefPersist[A](ev)
+  class ArrayRefPersist[A <: AnyRef](ev: PersistPrec[A]) extends PersistSeqLike[A, Array[A]](ev)
   {
     override def syntaxDepthT(obj: Array[A]): Int = ???
 
@@ -194,7 +194,7 @@ object ShowT
       obj.map(el => ev.showT(el, ShowStandard, maxPlaces, 0)).semiFold
   }
 
-  implicit def somePersistImplicit[A](implicit ev: PersistPrecision[A]): PersistPrecision[Some[A]] = new PersistPrecision[Some[A]]
+  implicit def somePersistImplicit[A](implicit ev: PersistPrec[A]): PersistPrec[Some[A]] = new PersistPrec[Some[A]]
   {
     override def typeStr: String = "Some" + ev.typeStr.enSquare
     override def syntaxDepthT(obj: Some[A]): Int = ev.syntaxDepthT(obj.value)
@@ -208,7 +208,7 @@ object ShowT
     }
   }
 
-  implicit val nonePersistImplicit: PersistPrecision[None.type] = new PersistSimplePrecision[None.type]("None")
+  implicit val nonePersistImplicit: PersistPrec[None.type] = new PersistSimplePrecision[None.type]("None")
   {
     override def strT(obj: None.type): String = ""
 
@@ -219,7 +219,7 @@ object ShowT
     }
   }
 
-  implicit def optionPersistImplicit[A](implicit evA: PersistPrecision[A]): PersistPrecision[Option[A]] =
+  implicit def optionPersistImplicit[A](implicit evA: PersistPrec[A]): PersistPrec[Option[A]] =
     new PersistSum2[Option[A], Some[A], None.type](somePersistImplicit[A](evA), nonePersistImplicit)
   { override def typeStr: String = "Option" + evA.typeStr.enSquare
       override def syntaxDepthT(obj: Option[A]): Int = obj.fld(1, evA.syntaxDepthT(_))
@@ -229,7 +229,7 @@ object ShowT
 sealed trait ShowInstancesPriority2
 {
   /** Implicit method for creating Seq[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
-  implicit def seqPersistImplicit[T](implicit ev: PersistPrecision[T]): PersistPrecision[Seq[T]] = new PersistSeqImplicit[T](ev)
+  implicit def seqPersistImplicit[T](implicit ev: PersistPrec[T]): PersistPrec[Seq[T]] = new PersistSeqImplicit[T](ev)
 }
 
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */

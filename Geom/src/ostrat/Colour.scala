@@ -95,7 +95,7 @@ object Colour
 {
   implicit val eqImplicit: EqT[Colour] = (c1, c2) => c1.argbValue == c2.argbValue
 
-  implicit val persistImplicit: PersistPrecision[Colour] = new PersistSimplePrecision[Colour]("Colour")
+  implicit val persistImplicit: PersistPrec[Colour] = new PersistSimplePrecision[Colour]("Colour")
   {
     def fromExpr(expr: Expr): EMon[Colour] = expr match
     { case IdentLowerToken(_, typeName) if Colour.strToValue.contains(typeName) => Good(Colour.strToValue(typeName))

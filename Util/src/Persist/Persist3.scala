@@ -213,7 +213,7 @@ object Persist3
 /** Persistence class for 3 logical parameter product types. */
 class PersistPrec3[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String, val fArg3: R => A3,
  val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, val opt2: Option[A2] = None, val opt1: Option[A1] = None)(
- implicit val ev1: PersistPrecision[A1], val ev2: PersistPrecision[A2], val ev3: PersistPrecision[A3]) extends
+ implicit val ev1: PersistPrec[A1], val ev2: PersistPrec[A2], val ev3: PersistPrec[A3]) extends
   ShowPrec3T[A1, A2, A3, R] with PersistShowProductPrecT[R] with Persist3[A1, A2, A3, R]
 
 object PersistPrec3

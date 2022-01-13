@@ -119,17 +119,17 @@ trait CanvasPlatform extends RectCenlign
   def gcRestore(): Unit 
   def saveFile(fileName: String, output: String): Unit
   def loadFile(fileName: String): EMon[String]
-  def fromFileFind[A](fileName: String)(implicit ev: PersistPrecision[A]): EMon[A] = loadFile(fileName).findType(ev)
-  def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: PersistPrecision[A]): A = fromFileFind(fileName)(ev).getElse(elseValue)
+  def fromFileFind[A](fileName: String)(implicit ev: PersistPrec[A]): EMon[A] = loadFile(fileName).findType(ev)
+  def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: PersistPrec[A]): A = fromFileFind(fileName)(ev).getElse(elseValue)
   
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls 
    *  procedure (Unit returning function) with that object of type A */
-  def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: PersistPrecision[A]): Unit = fromFileFind(fileName)(ev).forGood(f)
+  def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: PersistPrec[A]): Unit = fromFileFind(fileName)(ev).forGood(f)
   
-  def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: PersistPrecision[A]): EMon[A] =
+  def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: PersistPrec[A]): EMon[A] =
     loadFile(fileName).findSetting(settingStr)(ev)
     
-  def fromFileFindSettingElse[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: PersistPrecision[A]): A =
+  def fromFileFindSettingElse[A](settingStr: String, fileName: String, elseValue: => A)(implicit ev: PersistPrec[A]): A =
     fromFileFindSetting(settingStr, fileName)(ev).getElse(elseValue)
 
   def rendElems(elems: Arr[GraphicElem]): Unit = elems.foreach(_.rendToCanvas(this))

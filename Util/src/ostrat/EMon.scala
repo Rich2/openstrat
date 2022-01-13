@@ -59,14 +59,14 @@ sealed trait EMon[+A]
 object EMon
 {
   implicit class EMonStringImplicit(thisEMon: EMon[String])
-  { def findType[A](implicit ev: PersistPrecision[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findUniqueT[A]))
-    def findTypeElse[A: PersistPrecision](elseValue: => A): A = findType[A].getElse(elseValue)
-    def findTypeForeach[A: PersistPrecision](f: A => Unit): Unit = findType[A].forGood(f)
-    def findSetting[A](settingStr: String)(implicit ev: PersistPrecision[A]): EMon[A] =
+  { def findType[A](implicit ev: PersistPrec[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findUniqueT[A]))
+    def findTypeElse[A: PersistPrec](elseValue: => A): A = findType[A].getElse(elseValue)
+    def findTypeForeach[A: PersistPrec](f: A => Unit): Unit = findType[A].forGood(f)
+    def findSetting[A](settingStr: String)(implicit ev: PersistPrec[A]): EMon[A] =
       thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSetting[A](settingStr)))
-    def findSettingElse[A: PersistPrecision](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
-    def findSomeSetting[A: PersistPrecision](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
-    def findSomeSettingElse[A: PersistPrecision](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
+    def findSettingElse[A: PersistPrec](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
+    def findSomeSetting[A: PersistPrec](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
+    def findSomeSettingElse[A: PersistPrec](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
   }
 
   implicit def showImplicit[A](implicit ev: ShowPrecisionT[A]): ShowPrecisionT[EMon[A]] =

@@ -19,7 +19,7 @@ sealed trait Statement extends TextSpan
   def noSemi: Boolean = optSemi.empty
 
   /** Not sure what this is meant to be doing, or whether it can be removed. */
-  final def errGet[A](implicit ev: PersistPrecision[A]): EMon[A] = ???
+  final def errGet[A](implicit ev: PersistPrec[A]): EMon[A] = ???
 
   /** Returns the right expression if this Statement is a setting of the given name. */
   def settingExpr(settingName: String): EMon[AssignMemExpr] = this match {
@@ -65,9 +65,9 @@ object Statement
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: PersistPrecision[A]): A = findUniqueT[A].getElse(elseValue)
+    def findTypeElse[A](elseValue: A)(implicit ev: PersistPrec[A]): A = findUniqueT[A].getElse(elseValue)
 
-    def findTypeIndex[A](index: Int)(implicit ev: PersistPrecision[A]): EMon[A] =
+    def findTypeIndex[A](index: Int)(implicit ev: PersistPrec[A]): EMon[A] =
     { val list = ev.valueListFromStatements(statementRefs)
       if (list.length > index) Good(list(index))
       else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
