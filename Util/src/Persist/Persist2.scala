@@ -25,7 +25,6 @@ trait Show2[A1, A2] extends Any with ShowProduct
   def elemNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
   def showElemStrs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces, 0), showT2.showT(show2, way, decimalPlaces, 0))
-
 }
 
 /** Trait for [[ShowPrec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
@@ -132,9 +131,11 @@ trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends ShowShowT[R] with Show2T[A1
   final override def fArg2: R => A2 = _.show2
 }
 
-/** Type class trait for Showing [[ShowPrec2]] objects. */
+/** Type class trait for Showing [[ShowPrec2]] objects of type [[Show2T]]. */
 trait ShowShowPrec2T[A1, A2, R <: ShowPrec2[A1, A2]] extends ShowPrecisionShowT[R] with ShowShow2T[A1, A2, R]
 
+/** Companion object for [[ShowShowPrec2T]] trait that shows objects of type [[Show2T]]. Contains an implementation class and an apply factory
+ *  method. */
 object ShowShowPrec2T
 {
   def apply[A1, A2, R<: ShowPrec2[A1, A2]](typeStr: String, name1: String, name2: String, opt2: Option[A2] = None, opt1In: Option[A1] = None)(
@@ -156,26 +157,36 @@ class Show2TExtensions[A1, A2, -T](ev: ShowPrec2T[A1, A2, T], thisVal: T)
 
 /** A trait for making quick ShowT instances for [[ShowDbl2]] types. It uses the functionality of the [[ShowDbl2]]. */
 trait ShowShowDbl2T[R <: ShowDbl2] extends ShowShowPrec2T[Double, Double, R]
+{ override implicit def ev1: ShowT[Double] = ShowT.doublePersistImplicit
+  override implicit def ev2: ShowT[Double] = ShowT.doublePersistImplicit
+}
 
 object ShowShowDbl2T
 { /** Factory apply method for creating quick ShowT instances for products of 2 Doubles. */
-  /*def apply[R <: ShowElemDbl2](typeStrIn: String): ShowShowDbl2T[R] = new ShowShowDbl2T[R]()
-  { val typeStr: String = typeStrIn
-  }*/
+  def apply[R <: ShowDbl2](typeStr: String, name1: String, name2: String, opt2: Option[Double] = None, opt1In: Option[Double] = None):
+    ShowShowDbl2T[R] = new ShowShowDbl2TImp[R](typeStr, name1, name2: String, opt2, opt1In)
+
+  class ShowShowDbl2TImp[R <: ShowDbl2](val typeStr: String, val name1: String, val name2: String, val opt2: Option[Double] = None,
+  opt1In: Option[Double] = None) extends ShowShowDbl2T[R]
+  { val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+  }
 }
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
 trait ShowShowInt2T[R <: ShowElemInt2] extends ShowShow2T[Int, Int, R]
-{
-  override def ev1: ShowT[Int] = ShowT.intPersistImplicit
+{ override def ev1: ShowT[Int] = ShowT.intPersistImplicit
   override def ev2: ShowT[Int] = ShowT.intPersistImplicit
 }
 
 object ShowShowInt2T
 { /** Factory apply method for creating quick ShowT instances for products of 2 [[Int]]s. */
-  /*def apply[R <: ShowElemInt2](typeStrIn: String): ShowShowInt2T[R] = new ShowShowInt2T[R]()
-  { val typeStr: String = typeStrIn
-  }*/
+  def apply[R <: ShowElemInt2](typeStr: String, name1: String, name2: String, opt2: Option[Int] = None, opt1In: Option[Int] = None):
+    ShowShowInt2T[R] = new ShowShowInt2TImp[R](typeStr, name1, name2, opt2, opt1In)
+
+  class ShowShowInt2TImp[R <: ShowElemInt2](val typeStr: String, val name1: String, val name2: String, val opt2: Option[Int] = None,
+    opt1In: Option[Int] = None) extends ShowShowInt2T[R]
+  { val opt1: Option[Int] = ife(opt2.nonEmpty, opt1In, None)
+  }
 }
 
 /** UnShow type class trait for a 2 element Product. */
