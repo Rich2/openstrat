@@ -194,7 +194,7 @@ class PersistShow2[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, n
 
 /** Companion object for the [[PersistShow2]] class the persists object that extend [[Show2]]. Contains an apply factory method. */
 object PersistShow2
-{
+{ /** Factory apply method for [[PersistShow2]], that Persists [[Show2]] objects. */
   def apply[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
     opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]): PersistShow2[A1, A2, R] =
     new PersistShow2[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
@@ -203,6 +203,12 @@ object PersistShow2
   /** Persistence type class for types that extend [[ShowElemInt2]]. */
 class PersistShowInt2[R <: ShowElemInt2](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R) extends
   PersistShow2[Int, Int, R](typeStr, name1, name2, newT)
+
+object PersistShowInt2
+{ /** Factory apply method for [[PersistShowInt2]] that persists objects of type [[ShowElemInt2]]. */
+  def apply[R <: ShowElemInt2](typeStr: String, name1: String, name2: String, newT: (Int, Int) => R): PersistShowInt2[R] =
+    new PersistShowInt2[R](typeStr, name1, name2, newT)
+}
 
   /** Persistence class for types that extends [[Show2Dl]]. */
 class PersistShowDbl2[R <: ShowDbl2](typeStr: String, name1: String, name2: String, newT: (Double, Double) => R) extends

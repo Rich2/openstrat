@@ -17,7 +17,7 @@ class HGridView(val r: Int, val c: Int, val pxScale: Double) extends Show2[HCoor
   override def syntaxDepth: Int = 3
 }
 
-/** Companion object for HGridView contains factory apply method overloads. */
+/** Companion object for [[HGridView]] class. Contains factory apply method overloads and implicit Persist instance. */
 object HGridView
 { def apply(r: Int, c: Int, pxScale: Double = 50): HGridView = new HGridView(r, c, pxScale)
   def apply(hCoord: HCoord, pxScale: Double): HGridView = new HGridView(hCoord.r, hCoord.c, pxScale)

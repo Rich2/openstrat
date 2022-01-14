@@ -38,7 +38,7 @@ object HCoord
     case _ => new HCoordOther(r, c)// excep(s"$r, $c, where r is even and c is odd is not a valid HCoord hex grid coordinate.")
   }
 
-  implicit val persistImplicit: Persist[HCoord] = new PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
+  implicit val persistImplicit: Persist[HCoord] = PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
 
   implicit val polygonBuildImplicit: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
   { override type BuffT = HCoordBuff
