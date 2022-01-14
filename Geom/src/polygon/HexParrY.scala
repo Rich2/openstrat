@@ -1,8 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module. */
-final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) extends Hexlign with ShowPrec2[Double, Pt2] with ElemDbl3
+final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2] with ElemDbl3
 { override def typeStr = "HexYlign"
   override def name1: String = "width"
   override def name2: String = "cen"
@@ -13,8 +13,8 @@ final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) exte
   override def height: Double = diameterOut
   override def show1: Double = width
   override def show2: Pt2 = cen
-  override implicit def showT1: ShowPrecisionT[Double] = ShowT.doublePersistImplicit
-  override implicit def showT2: ShowPrecisionT[Pt2] = Pt2.persistImplicit
+  override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
+  override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
 
   override def cen: Pt2 = cenX pp cenY
@@ -101,7 +101,9 @@ object HexParrY
   def apply(width: Double, xCen: Double, yCen: Double): HexParrY = new HexParrY(width, xCen, yCen)
   def unapply(input: HexParrY): Some[(Double, Pt2)] = Some((input.width, input.cen))
 
-  implicit val persistImplicit: PersistPrec[HexParrY] = PersistPrec2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen, apply)
+  implicit val persistImplicit: Persist[HexParrY] =
+    new Persist2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen, apply)
+
   implicit val slateImplicit: Slate[HexParrY] = (obj: HexParrY, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexParrY] = (obj: HexParrY, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexParrY] = (obj, matrix) => obj.prolign(matrix)

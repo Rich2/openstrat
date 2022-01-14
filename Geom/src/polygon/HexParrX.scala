@@ -1,8 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
-final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) extends Hexlign with ShowPrec2[Double, Pt2]
+final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2]
 { override def typeStr = "HexXlign"
   override def name1: String = "height"
   override def name2: String = "cen"
@@ -10,8 +10,8 @@ final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) ext
   override def width: Double = diameterOut
   override def show1: Double = height
   override def show2: Pt2 = cen
-  override implicit def showT1: ShowPrecisionT[Double] = ShowT.doublePersistImplicit
-  override implicit def showT2: ShowPrecisionT[Pt2] = Pt2.persistImplicit
+  override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
+  override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
 
   override def cen: Pt2 = cenX pp cenY
@@ -98,9 +98,12 @@ object HexParrX
 
   /** Apply factory method for [[HexParrX]], Creates a regular hexagon with 2 of its side aligned to the Y axis. */
   def apply(height: Double, xCen: Double, yCen: Double): HexParrX = new HexParrX(height, xCen, yCen)
+
   def unapply(input: HexParrX): Some[(Double, Pt2)] = Some((input.height, input.cen))
 
-  implicit val persistImplicit: PersistPrec[HexParrX] = PersistPrec2[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
+  implicit val persistImplicit: Persist[HexParrX] =
+    new Persist2[Double, Pt2, HexParrX]("HexXlign", "height", _.height,"cen", _.cen, apply)
+
   implicit val slateImplicit: Slate[HexParrX] = (obj: HexParrX, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[HexParrX] = (obj: HexParrX, operand: Double) => obj.scale(operand)
   implicit val prolignImplicit: Prolign[HexParrX] = (obj, matrix) => obj.prolign(matrix)

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, Colour.Black
 
@@ -17,13 +17,13 @@ trait LineSegLike[VT]
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
 final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLike[Pt2] with LineLike with CurveSeg
-  with ShowPrec2[Pt2, Pt2] with ElemDbl4 with AffinePreserve
+  with Show2[Pt2, Pt2] with ElemDbl4 with AffinePreserve
 { override type ThisT = LineSeg
   override def typeStr: String = "LineSeg"
   override def name1: String = "startPt"
   override def name2: String = "endPt"
-  override implicit def showT1: ShowPrecisionT[Pt2] = Pt2.persistImplicit
-  override implicit def showT2: ShowPrecisionT[Pt2] = Pt2.persistImplicit
+  override implicit def showT1: ShowT[Pt2] = Pt2.persistImplicit
+  override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 2
   override def show1: Pt2 = startPt
   override def show2: Pt2 = endPt
@@ -120,7 +120,7 @@ object LineSeg
   /** Creates a vertical LineSeg. */
   @inline def vert(x: Double, yStart: Double, yEnd: Double): LineSeg = new LineSeg(x, yStart, x, yEnd)
 
-  implicit val persistImplicit: PersistShowPrec2[Pt2, Pt2, LineSeg] =  PersistShowPrec2[Pt2, Pt2, LineSeg]("Line2", "pStart", "pEnd", apply)
+  implicit val persistImplicit: Persist[LineSeg] =  new PersistShow2[Pt2, Pt2, LineSeg]("Line2", "pStart", "pEnd", apply)
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 
   implicit val line2sBuildImplicit: ArrDbl4sBuilder[LineSeg, LineSegs] = new ArrDbl4sBuilder[LineSeg, LineSegs]

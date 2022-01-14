@@ -7,7 +7,7 @@ object PersistOptionTest extends TestSuite
   case class Test1(a: Option[Int], b: Int, c: Option[Double])
   object Test1
   {
-    implicit object Test1Persist extends PersistPrec3[Option[Int], Int, Option[Double], Test1](
+    implicit object Test1Persist extends Persist3[Option[Int], Int, Option[Double], Test1](
       "Test1", "a", _.a, "b", _.b, "c", _.c, apply)
   }
   val t1 = Test1(Some(5), 4, Some(2.0))

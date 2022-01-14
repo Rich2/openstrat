@@ -100,7 +100,7 @@ trait DataGen[A] extends Any
   def dataLast: A = indexData(dataLength - 1)
 }
 
-/** [[ShowPrecisionT] type class for showing [[DataGen]][A] objects. */
+/** [[ShowT] type class for showing [[DataGen]][A] objects. */
 class DataGenShowT[A, R <: DataGen[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))

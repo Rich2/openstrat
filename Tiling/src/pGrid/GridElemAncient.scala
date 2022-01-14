@@ -53,7 +53,7 @@ case class TileRow[T <: AnyRef](yRow: Int, xStart: Int, yStart: Int, values: Arr
 object TileRow {
   implicit def eqImplicit[T <: AnyRef](implicit ev: EqT[T]): EqT[TileRow[T]] = ??? //EqCase3(_.yRow, _.xStart, _.values)
 
-  implicit def persistImplicit[T <: AnyRef](implicit ev: PersistPrec[T]): PersistPrec[TileRow[T]] = new PersistPrec[TileRow[T]] {
+  implicit def persistImplicit[T <: AnyRef](implicit ev: Persist[T]): Persist[TileRow[T]] = new Persist[TileRow[T]] {
     def strT(obj: TileRow[T]): String = (posnStr() + ": This is a placeholder for TileRow").enquote
 
     def showComma(obj: TileRow[T]): String = strT(obj)

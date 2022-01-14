@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+import pParse._, collection.mutable.ArrayBuffer
 
 object AlphaSquareParenth
 {
@@ -20,7 +20,7 @@ object AlphaParenth
   }
 }
 
-abstract class PersistSeqLike[A, R](override val evA: PersistPrec[A]) extends ShowTSeqLike[A, R] with PersistCompoundPrec[R]
+abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowTSeqLike[A, R] with PersistCompound[R]
 {
   def fromExprLike(expr: Expr): EMon[List[A]] = expr match
   {
@@ -31,7 +31,7 @@ abstract class PersistSeqLike[A, R](override val evA: PersistPrec[A]) extends Sh
   }
 }
 
-abstract class PersistIterable[A, R <: Iterable[A]](ev: PersistPrec[A]) extends PersistSeqLike[A, R](ev) with ShowIterable[A, R]
+abstract class PersistIterable[A, R <: Iterable[A]](ev: Persist[A]) extends PersistSeqLike[A, R](ev) with ShowIterable[A, R]
 
 trait ShowIterable[A, R <: Iterable[A]] extends ShowTSeqLike[A, R]
 {
@@ -66,7 +66,7 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowTSeqLike[A, R]
   }
 }*/
 
-class PersistSeqImplicit[A](ev: PersistPrec[A]) extends PersistIterable[A, Seq[A]](ev)
+class PersistSeqImplicit[A](ev: Persist[A]) extends PersistIterable[A, Seq[A]](ev)
 {
   override def fromExpr(expr: Expr): EMon[Seq[A]] = fromExprLike(expr)
 }

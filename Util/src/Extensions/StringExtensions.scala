@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
@@ -16,8 +16,8 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findInt: EMon[Int] = thisString.parseStatements.flatMap(_.findInt)
   def findDouble: EMon[Double] = thisString.parseStatements.flatMap(_.findDbl)
   def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBool)
-  def findTypeIndex[A: PersistPrec](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
-  def findTypeDo[A: PersistPrec](f: A => Unit): Unit = findType[A].forGood(f)
+  def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
+  def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
 
   def asType[A](implicit ev: Persist[A]): EMon[A] = ???
     /*parseStatements.flatMap(sts => sts match
@@ -38,7 +38,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findSettingT[T: Persist](settingStr: String): EMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
-  def findSettingElse[T: PersistPrec](settingStr: String, elseValue: T): T = findSettingT[T](settingStr).getElse(elseValue)
+  def findSettingElse[T: Persist](settingStr: String, elseValue: T): T = findSettingT[T](settingStr).getElse(elseValue)
 
   /** Find setting of type Int from this [[String]] extension method, parsing this String as RSON Statements. */
   def findSettingInt(settingStr: String): EMon[Int] = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))

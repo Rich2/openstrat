@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Helper class for constructing [[String]]s from ShowT implicit instances on objects. */
@@ -24,6 +24,6 @@ class Setting(val str: String) extends AnyVal
 
 object Setting
 {
-  def apply[A](setting: String, value: A)(implicit ev: ShowPrecisionT[A]): Setting = new Setting(setting + " = " + ev.strT(value) + ";")
+  def apply[A](setting: String, value: A)(implicit ev: ShowT[A]): Setting = new Setting(setting + " = " + ev.strT(value) + ";")
 }
 

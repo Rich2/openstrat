@@ -19,7 +19,7 @@ sealed trait Statement extends TextSpan
   def noSemi: Boolean = optSemi.empty
 
   /** Not sure what this is meant to be doing, or whether it can be removed. */
-  final def errGet[A](implicit ev: PersistPrec[A]): EMon[A] = ???
+  final def errGet[A](implicit ev: Persist[A]): EMon[A] = ???
 
   /** Returns the right expression if this Statement is a setting of the given name. */
   def settingExpr(settingName: String): EMon[AssignMemExpr] = this match {
@@ -65,9 +65,9 @@ object Statement
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: PersistPrec[A]): A = findUniqueT[A].getElse(elseValue)
+    def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findUniqueT[A].getElse(elseValue)
 
-    def findTypeIndex[A](index: Int)(implicit ev: PersistPrec[A]): EMon[A] =
+    def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
     { val list = ev.valueListFromStatements(statementRefs)
       if (list.length > index) Good(list(index))
       else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
@@ -99,7 +99,7 @@ object Statement
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
     def findSettingDbl(settingStr: String): EMon[Double] = ShowT.doublePersistImplicit.settingFromStatements(statementRefs, settingStr)
 
-    /** Find the [[Boolean]] setting of the given name, from  Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
+    /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      *  resolve to Expr[Boolean]. */
     def findSettingBool(settingStr: String): EMon[Boolean] = ShowT.booleanPersistImplicit.settingFromStatements(statementRefs, settingStr)
 

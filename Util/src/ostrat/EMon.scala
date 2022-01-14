@@ -59,17 +59,17 @@ sealed trait EMon[+A]
 object EMon
 {
   implicit class EMonStringImplicit(thisEMon: EMon[String])
-  { def findType[A](implicit ev: PersistPrec[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findUniqueT[A]))
-    def findTypeElse[A: PersistPrec](elseValue: => A): A = findType[A].getElse(elseValue)
-    def findTypeForeach[A: PersistPrec](f: A => Unit): Unit = findType[A].forGood(f)
-    def findSetting[A](settingStr: String)(implicit ev: PersistPrec[A]): EMon[A] =
+  { def findType[A](implicit ev: Persist[A]): EMon[A] = thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findUniqueT[A]))
+    def findTypeElse[A: Persist](elseValue: => A): A = findType[A].getElse(elseValue)
+    def findTypeForeach[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
+    def findSetting[A](settingStr: String)(implicit ev: Persist[A]): EMon[A] =
       thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSetting[A](settingStr)))
-    def findSettingElse[A: PersistPrec](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
-    def findSomeSetting[A: PersistPrec](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
-    def findSomeSettingElse[A: PersistPrec](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
+    def findSettingElse[A: Persist](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
+    def findSomeSetting[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
+    def findSomeSettingElse[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
   }
 
-  implicit def showImplicit[A](implicit ev: ShowPrecisionT[A]): ShowPrecisionT[EMon[A]] =
+  implicit def showImplicit[A](implicit ev: ShowT[A]): ShowT[EMon[A]] =
     ShowSum2("EMon", Good.GoodShowImplicit(ev),
       Bad.BadShowImplicit(ev))
 }
@@ -108,7 +108,7 @@ final case class Good[+A](val value: A) extends EMon[A] //with GoodBase[A]
 
 object Good
 {
-  implicit def GoodShowImplicit[A](implicit ev: ShowPrecisionT[A]): ShowPrecisionT[Good[A]] = new ShowPrecisionT[Good[A]] with ShowCompoundPrecT[Good[A]]
+  implicit def GoodShowImplicit[A](implicit ev: ShowT[A]): ShowT[Good[A]] = new ShowT[Good[A]] with ShowCompoundT[Good[A]]
   { override def syntaxDepthT(obj: Good[A]): Int = ev.syntaxDepthT(obj.value) + 1
     override def typeStr: String = "Good" + ev.typeStr.enSquare
     //override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
@@ -155,7 +155,7 @@ object Bad
     case _ => None
   }
 
-  implicit def BadShowImplicit[A](implicit ev: ShowPrecisionT[A]): ShowPrecisionT[Bad[A]] = new ShowPrecisionT[Bad[A]] with ShowCompoundPrecT[Bad[A]]
+  implicit def BadShowImplicit[A](implicit ev: ShowT[A]): ShowT[Bad[A]] = new ShowT[Bad[A]] with ShowCompoundT[Bad[A]]
   { override def syntaxDepthT(obj: Bad[A]): Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare
     override def showT(obj: Bad[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???

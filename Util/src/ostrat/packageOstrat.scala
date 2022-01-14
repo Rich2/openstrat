@@ -8,7 +8,7 @@ package object ostrat
   type Buff[A] = ArrayBuffer[A]
   type ERefs[A <: AnyRef] = EMon[Arr[A]]
   type RefsMulti[A <: AnyRef] = Arr[Multiple[A]]
-  type ShowEq[A] = ShowPrecisionT[A] with EqT[A]
+  type ShowEq[A] = ShowT[A] with EqT[A]
   type AnyRefs = Arr[AnyRef]
   type Not[T] = { type L[U] = U NotSubTypeOf T }
 
@@ -91,7 +91,7 @@ package object ostrat
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
   /** Not sure what this method does. */
-  def readT[T](implicit ev: PersistPrec[T]): T =
+  def readT[T](implicit ev: Persist[T]): T =
   { val artStr = ev.typeStr.prependIndefiniteArticle
     def loop(inp: EMon[T]): T = inp match
     { case Good(t) => t
@@ -356,10 +356,8 @@ package object ostrat
   implicit def optionToExtension[A](thisOption: Option[A]): OptionExtensions[A] = new OptionExtensions(thisOption)
 
   implicit def seqToExtensions[A](thisSeq: Seq[A]): SeqExtensions[A] = new SeqExtensions(thisSeq)
-
-  implicit def showTToExtensions[A](thisVal: A)(implicit ev: ShowT[A]): ShowTExtensions[A] = new ShowTExtensions[A](ev, thisVal)
-  implicit def showPrecisionTToExtensions[A](thisVal: A)(implicit ev: ShowPrecisionT[A]): ShowPrecisionTExtensions[A] = new ShowPrecisionTExtensions[A](ev, thisVal)
-  implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: ShowPrec2T[A1, A2, T]): Show2TExtensions[A1, A2, T] =
+  implicit def showTypeToExtensions[A](thisVal: A)(implicit ev: ShowT[A]): ShowTExtensions[A] = new ShowTExtensions[A](ev, thisVal)
+  implicit def show2TypeToExtensions[A1, A2,  T](thisVal: T)(implicit ev: Show2T[A1, A2, T]): Show2TExtensions[A1, A2, T] =
     new Show2TExtensions[A1, A2, T](ev, thisVal)
 
   implicit def stringToExtensions(s: String): StringImplicit = new StringImplicit(s)
