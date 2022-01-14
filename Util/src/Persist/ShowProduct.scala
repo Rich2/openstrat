@@ -1,5 +1,12 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+
+/** Common super trait for [[Show]], [[ShowT]] and [[UnShow]]. All of which inherit the typeStr property. */
+trait TypeStred
+{ /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+ * Show. */
+  def typeStr: String
+}
 
 /** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowProductT]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
