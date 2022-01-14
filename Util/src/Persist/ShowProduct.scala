@@ -18,7 +18,7 @@ trait ShowProduct extends Any with Show
   def showSemisNames(maxPlaces: Int = -1, minPlaces: Int = 0): String =
     elemNames.zipMap(showElemStrs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
 
-  override def show(style: ShowStyle, maxPlaces: Int = -1, minPlaces: Int = 0): String =
+  override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = showElemStrs(ShowCommas, maxPlaces).mkStr("; ")
 
     style match

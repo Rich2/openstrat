@@ -13,7 +13,10 @@ trait Show extends Any
   def str: String
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
-  def show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1, minPlaces: Int = 0): String
+  def show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show(style, maxPlaces, maxPlaces)
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+  def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
 
   def syntaxDepth: Int
 

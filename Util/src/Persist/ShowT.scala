@@ -237,6 +237,7 @@ class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
 { /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def show(style: ShowStyle = ShowStandard, decimalPlaces: Int = -1): String = ev.showT(thisVal, style, decimalPlaces, decimalPlaces)
 
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def show(style: ShowStyle, decimalPlaces: Int, minPlaces: Int): String = ev.showT(thisVal, style, decimalPlaces, minPlaces)
 
   /** Provides the standard string representation for the object. */

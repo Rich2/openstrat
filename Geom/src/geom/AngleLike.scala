@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Base trait for [[Angle]], [[AngleVec]], [[Latitude]] and [[Longitude]]. */
@@ -23,7 +23,7 @@ trait AngleLike extends Any with Show with ApproxAngle with ElemDbl1
   @inline def cos: Double = math.cos(radians)
 
   final override def syntaxDepth: Int = 1
-  final override def str: String = show(ShowStandard, minPlaces = 0)
+  final override def str: String = show(ShowStandard,  0)
 }
 
 trait ApproxAngle extends Any with Approx[AngleVec]
