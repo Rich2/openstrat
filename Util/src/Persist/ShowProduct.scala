@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import pParse._
 
 /** Common super trait for [[Show]], [[ShowT]] and [[UnShow]]. All of which inherit the typeStr property. */
 trait TypeStred
@@ -45,3 +46,41 @@ trait ShowProduct extends Any with Show
 
   override def str: String = show(ShowStandard, 1, 0)
 }
+
+
+/** The base trait for the persistence of algebraic product types, including case classes. */
+trait ShowProductT[R] extends ShowCompoundT[R]
+{
+  def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings
+
+  override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
+
+    way match
+    { case ShowUnderScore => "_"
+    case ShowSemis => semisStr
+    case ShowCommas => strs(obj, ShowStandard, maxPlaces).mkStr(", ")
+    case _ => typeStr.appendParenth(semisStr)
+    }
+  }
+}
+
+trait ShowLessProductT[R] extends ShowLessCompoundT[R]
+
+/** The base trait for the persistence of algebraic product types, including case classes. Note the arity of the product, its size is based on the
+ *  number of logical parameters. For example, a LineSeg is a product 2, it has a start point and an end point, although its is stored as 4 parameters
+ *  xStart, yStart, xEnd, yEnd. */
+trait PersistProduct[R] extends Persist[R]
+{
+  override def fromExpr(expr: Expr): EMon[R] = expr match
+  {
+    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName =>
+    {deb("PersistProduct.fromExpr"); expr.exprParseErr[R](this) }//  fromParameterStatements(sts)
+    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+    case _ => {deb("fromExpr"); expr.exprParseErr[R](this) }
+  }
+}
+
+trait PersistShowProductT[R] extends PersistProduct[R] with ShowProductT[R]
+
+trait PersistShowerProduct[R <: Show] extends PersistProduct[R]

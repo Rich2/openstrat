@@ -25,11 +25,6 @@ trait Show extends Any
   override def toString: String = str
 }
 
-/** Companion object of the Show trait contains the Way trait, used by the show method on Show and the showT method on [[ShowT]] */
-object Show
-{
-}
-
 /** Currently can't think of a better name for this trait */
 sealed trait ShowStyle
 

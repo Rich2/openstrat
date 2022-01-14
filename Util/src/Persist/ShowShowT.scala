@@ -25,7 +25,7 @@ object ShowShowT
   }
 }
 
-trait ShowLessT[R] extends ShowT[R]
+trait ShowLessT[R]
 {
   /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
    * Show. */

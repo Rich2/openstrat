@@ -7,10 +7,10 @@ trait ShowCompoundT[R] extends ShowT[R]
 { override def strT(obj: R): String = showT(obj, ShowStandard, -1, 0)
 }
 
-trait ShowLessCompoundT[R] extends ShowCompoundT[R]
+trait ShowLessCompoundT[R] extends ShowLessT[R]
 
 /** Persistence base trait for PersistCase and PersistSeqLike. Some methods probably need to be moved down into sub classes. */
-trait PersistCompound[R] extends ShowLessCompoundT[R] with Persist[R]
+trait PersistCompound[R] extends ShowCompoundT[R] with ShowLessCompoundT[R] with Persist[R]
 {
   override def fromExpr(expr: Expr): EMon[R] =  expr match
   {
