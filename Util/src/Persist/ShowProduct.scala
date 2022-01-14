@@ -4,7 +4,7 @@ package ostrat
 /** Common super trait for [[Show]], [[ShowT]] and [[UnShow]]. All of which inherit the typeStr property. */
 trait TypeStred
 { /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
- * Show. */
+    * Show. */
   def typeStr: String
 }
 

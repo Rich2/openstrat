@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
 
@@ -7,8 +7,10 @@ trait ShowCompoundT[R] extends ShowT[R]
 { override def strT(obj: R): String = showT(obj, ShowStandard, -1, 0)
 }
 
+trait ShowLessCompoundT[R] extends ShowCompoundT[R]
+
 /** Persistence base trait for PersistCase and PersistSeqLike. Some methods probably need to be moved down into sub classes. */
-trait PersistCompound[R] extends ShowCompoundT[R] with Persist[R]
+trait PersistCompound[R] extends ShowLessCompoundT[R] with Persist[R]
 {
   override def fromExpr(expr: Expr): EMon[R] =  expr match
   {

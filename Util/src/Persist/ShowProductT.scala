@@ -18,6 +18,8 @@ trait ShowProductT[R] extends ShowCompoundT[R]
   }
 }
 
+trait ShowLessProductT[R] extends ShowProductT[R] with ShowLessCompoundT[R]
+
 /** Show type class for 4 parameter case classes. */
 abstract class Show4T[A1, A2, A3, A4, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String,
   fArg3: R => A3, name4: String, fArg4: R => A4, val opt4: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None,

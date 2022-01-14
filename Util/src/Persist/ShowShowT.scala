@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** A sub trait of the [[ShowT]] sub class where the type parameter of ShowT extends Show. This allows the ShowT type class to delegate to the Show
@@ -23,4 +23,11 @@ object ShowShowT
   def apply[R <: Show](typeStrIn: String): ShowShowT[R] = new ShowShowT[R]
   { override def typeStr: String = typeStrIn
   }
+}
+
+trait ShowLessT[R] extends ShowT[R]
+{
+  /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
+   * Show. */
+  def typeStr: String
 }

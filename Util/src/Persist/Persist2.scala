@@ -58,16 +58,6 @@ trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
   final override def dbl2: Double = show2
 }
 
-/** Type class trait for Showing [[Show2]] objects. */
-trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends ShowShowT[R]
-
-object ShowShow2T
-{
-  def apply[A1, A2, R<: Show2[A1, A2]](typeStrIn: String): ShowShow2T[A1, A2, R] = new ShowShow2T[A1, A2, R]
-  { override def typeStr: String = typeStrIn
-    override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
-  }
-}
 
 /** A base trait for [[Show2T]] and [[UnShow2]], declares the common properties of name1, name2, opt1 and opt2. */
 trait TypeStred2[A1, A2, R] extends TypeStred
@@ -119,6 +109,17 @@ class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def show2(way: ShowStyle = ShowStandard, way1: ShowStyle = ShowStandard, places1: Int = -1, way2: ShowStyle = ShowStandard, places2: Int = -1):
     String = ???
+}
+
+/** Type class trait for Showing [[Show2]] objects. */
+trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends ShowShowT[R]
+
+object ShowShow2T
+{
+  def apply[A1, A2, R<: Show2[A1, A2]](typeStrIn: String): ShowShow2T[A1, A2, R] = new ShowShow2T[A1, A2, R]
+  { override def typeStr: String = typeStrIn
+    override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
+  }
 }
 
 /** A trait for making quick ShowT instances for [[ShowDbl2]] types. It uses the functionality of the [[ShowDbl2]]. */
