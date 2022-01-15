@@ -3,7 +3,7 @@ package ostrat
 import pParse._, annotation.unchecked.uncheckedVariance
 
 /** The UnShow type class produces an object in memory or an error sequence from RSON syntax strings. */
-trait UnShow[+T] extends TypeStred
+trait UnShow[+T] extends ShowSelf
 {
   def fromExpr(expr: Expr): EMon[T]
   

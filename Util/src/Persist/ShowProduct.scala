@@ -2,13 +2,6 @@
 package ostrat
 import pParse._
 
-/** Common super trait for [[Show]], [[ShowT]] and [[UnShow]]. All of which inherit the typeStr property. */
-trait TypeStred
-{ /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
-    * Show. */
-  def typeStr: String
-}
-
 /** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowProductT]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  * [[ShowProductT]]. */
@@ -46,7 +39,6 @@ trait ShowProduct extends Any with Show
 
   override def str: String = show(ShowStandard, 1, 0)
 }
-
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
 trait ShowProductT[R] extends ShowCompoundT[R]
