@@ -113,9 +113,14 @@ case class Show3DblsT[T](typeStr: String) extends ShowT[T]{
 }*/
 
 /** UnShow class for 3 logical parameter product types. */
-class UnShow3[A1, A2, A3, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
+trait UnShow3[A1, A2, A3, R] extends UnShowProduct[R] with ShowSelf3[A1, A2, A3]
+
+object UnShow3
+{
+  /*(val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: UnShow[A1], ev2: UnShow[A2],
-  ev3: UnShow[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3]) extends UnShowProduct[R]
+  ev3: UnShow[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3])*/
+}
 
 /** Persistence class for 3 logical parameter product types. */
 trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with PersistProduct[R]

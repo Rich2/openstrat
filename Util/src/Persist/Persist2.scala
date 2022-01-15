@@ -166,24 +166,12 @@ object ShowShowInt2T
 
 /** UnShow type class trait for a 2 element Product. */
 trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with ShowSelf2[A1, A2]
-{ /** Derive the 1st parameter from an object of type R. */
-  def fArg1: R => A1
-
-  /** The UnShow type class instance for type A1. */
-  def unShowA1: UnShow[A1]
-
-  /** Derive the 2nd parameter from an object of type R. */
-  def fArg2: R => A2
+{ /** The UnShow type class instance for type A1. */
+  def ev1: UnShow[A1]
 
   /** The UnShow type class instance for type A2. */
-  def unShowA2: UnShow[A2]
-}
+  def ev2: UnShow[A2]
 
-/** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
-trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with PersistProduct[R]
-{
-  override def ev1: Persist[A1]
-  override def ev2: Persist[A2]
   def newT: (A1, A2) => R
 
   override def fromExpr(expr: Expr): EMon[R] = expr match
@@ -198,6 +186,12 @@ trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with PersistProduct[R]
 
     case _ => expr.exprParseErr[R](this)
   }
+}
+
+/** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
+trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with UnShow2T[A1, A2, R] with PersistProduct[R]
+{ override def ev1: Persist[A1]
+  override def ev2: Persist[A2]
 }
 
 /** Factory object for Persist product 2 type class that persists objects with 2 parameters. */
