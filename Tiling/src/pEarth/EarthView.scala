@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._
 
@@ -8,6 +8,7 @@ case class EarthView (latLong: LatLong, scale: Length, up: Boolean)
 object EarthView
 {
   /** Not sure about the scale .metres parameter conversion */
-  implicit object EarthViewPersist extends Persist3[LatLong, Double, Boolean, EarthView]("EarthView", "latLong", _.latLong,
-    "scale", _.scale.metresNum / 1000, "up", _.up, (ll: LatLong, d: Double, b: Boolean) => EarthView(ll, Length(d * 1000), b))
+  implicit val earthViewPersistPersist3: Persist3[LatLong, Double, Boolean, EarthView] =
+    Persist3[LatLong, Double, Boolean, EarthView]("EarthView", "latLong", _.latLong,"scale", _.scale.metresNum / 1000, "up", _.up,
+    (ll: LatLong, d: Double, b: Boolean) => EarthView(ll, Length(d * 1000), b))
 }

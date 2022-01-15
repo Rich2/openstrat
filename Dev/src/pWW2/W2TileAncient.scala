@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWW2
 import pEarth._
 
@@ -19,5 +19,6 @@ object W2TileAncient
     override def asType(obj: AnyRef): W2TileAncient = obj.asInstanceOf[W2TileAncient]
   }
   
-  implicit val persistImplicit: Persist[W2TileAncient] = new Persist3[Int, Int, WTile, W2TileAncient]("W2Tile", "x", _.x , "y", _.y, "terr", _.terr, apply)
+  implicit val persistImplicit: Persist[W2TileAncient] = Persist3[Int, Int, WTile, W2TileAncient](
+  "W2Tile", "x", _.x , "y", _.y, "terr", _.terr, apply)
 }
