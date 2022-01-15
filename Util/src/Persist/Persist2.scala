@@ -45,6 +45,9 @@ trait Show2[A1, A2] extends Any with ShowProduct with ShowSelf2[A1, A2]
   def elemNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
   def showElemStrs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces, 0), showT2.showT(show2, way, decimalPlaces, 0))
+
+  def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT1.showT(show1, style, maxPlaces, maxPlaces): String
+  def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT2.showT(show2, style, maxPlaces, maxPlaces): String
 }
 
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
