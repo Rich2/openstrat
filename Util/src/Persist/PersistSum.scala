@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag, pParse._
 
@@ -26,7 +26,11 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: Cl
     case a2: A2 => ev2.showSemi(a2)
   }*/
 
-  override def showT(obj: ST, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+  override def showT(obj: ST, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =  obj match
+  { case a1: A1 => ev1.strT(a1)
+    case a2: A2 => ev2.strT(a2)
+    case _ => excep("Case not implemented")
+  }
 }
 
 object ShowSum2
