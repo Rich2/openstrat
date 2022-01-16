@@ -114,26 +114,6 @@ object ShowShowDbl3T
   }
 }
 
-/*
-case class Show3DblsT[T](typeStr: String) extends ShowT[T]{
-  /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
-   * rather than a method on the object being shown. */
-  override def strT(obj: T): String = ???
-
-  def elemStrs(obj: T, way: Show.Way, maxPlaces: Int, minPlaces: Int)
-  override def showT(obj: T, way: Show.Way, maxPlaces: Int, minPlaces: Int): String = way match {
-    case Show.Semis =>
-  }
-
-  /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
-   * should always be determined at compile time or if sometimes it should be determined at runtime. */
-  override def syntaxDepthT(obj: T): Int = 1
-
-  /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
-   * Show. */
-
-}*/
-
 /** UnShow class for 3 logical parameter product types. */
 trait UnShow3[A1, A2, A3, R] extends UnShowProduct[R] with ShowSelf3[A1, A2, A3]
 {
@@ -180,7 +160,27 @@ object Persist3
   }
 }
 
-/** Persistence class for case classes consisting of 3 Double parameters. */
-/*
-abstract class PersistD3[R](typeStr: String, name1: String, fArg1: R => Double, name2: String, fArg2: R => Double, name3: String, fArg3: R => Double,
-  newT: (Double, Double, Double) => R) extends Persist3[Double, Double, Double, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT)*/
+trait PersistShow3[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Persist3[A1, A2, A3, R] with ShowShow3T[A1, A2, A3, R]
+
+/** Companion object for the [[PersistShow3]] class the persists object that extend [[Show3]]. Contains an apply factory method. */
+object PersistShow3
+{ /** Factory apply method for [[PersistShow3]], that Persists [[Show3]] objects. */
+  def apply[A1, A2, A3, R <: Show3[A1, A2, A3]](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R,
+    opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2], ev3In: Persist[A3]):
+    PersistShow3[A1, A2, A3, R] = new PersistShow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, opt3,opt2, opt1)
+
+  class PersistShow3Imp[A1, A2, A3, R <: Show3[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
+    val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+    implicit val ev1: Persist[A1], val ev2: Persist[A2], val ev3: Persist[A3]) extends PersistShow3[A1, A2, A3, R]
+  { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
+    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
+/** Persistence class for types that extends [[ShowDbl3]]. */
+class PersistShowDbl3[R <: ShowDbl3](val typeStr: String, val name1: String, val name2: String, val name3: String,
+  val newT: (Double, Double, Double) => R, val opt3: Option[Double] = None, val opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
+  PersistShow3[Double, Double, Double, R] with ShowShowDbl3T[R]
+{ val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
+  val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+}

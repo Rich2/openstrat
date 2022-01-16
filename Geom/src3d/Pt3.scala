@@ -48,9 +48,9 @@ final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like
   }
 }
 
-/** Companion object for [[Pt3]] class. Contains apply, unapply factory methods and ShowT type class instance. */
+/** Companion object for [[Pt3]] class. Contains apply, unapply factory methods and Persist type class instance. */
 object Pt3
 { def apply(x: Double, y: Double, z: Double): Pt3 = new Pt3(x, y, z)
   def unapply(orig: Pt3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
-  implicit val showTImplicit: ShowShowDbl3T[Pt3] = ShowShowDbl3T[Pt3]("Pt3", "x", "y", "z")//, apply)
+  implicit val showTImplicit: PersistShowDbl3[Pt3] = new PersistShowDbl3[Pt3]("Pt3", "x", "y", "z", apply)
 }

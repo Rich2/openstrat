@@ -234,11 +234,11 @@ object PersistShowInt2
     new PersistShowInt2[R](typeStr, name1, name2, newT)
 }
 
-  /** Persistence class for types that extends [[Show2Dl]]. */
+/** Persistence class for types that extends [[ShowDbl2]]. */
 class PersistShowDbl2[R <: ShowDbl2](val typeStr: String, val name1: String, val name2: String, val newT: (Double, Double) => R,
-    val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends PersistShow2[Double, Double, R] with ShowShowDbl2T[R]
-  { val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  }
+  val opt2: Option[Double] = None, opt1In: Option[Double] = None) extends PersistShow2[Double, Double, R] with ShowShowDbl2T[R]
+{ val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+}
 
 /**  Class to persist [[ArrInt2s]] collection classes. */
 abstract class PersistArrInt2s[A <: ElemInt2, M <: ArrInt2s[A]](val typeStr: String) extends DataIntNsPersist[A, M]

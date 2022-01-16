@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A 3 dimensional vector. This is similar data to [[Pt3]]. The purpose of this separate type is to encode the relative nature of the Vec3 as opposed
@@ -24,5 +24,5 @@ object Vec3
 { def apply(x: Double, y: Double, z: Double): Vec3 = new Vec3(x, y, z)
   def unapply(orig: Vec3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
 
- implicit val persistImplicit: ShowShowDbl3T[Vec3] = ShowShowDbl3T[Vec3]("Vec3", "x", "y", "z")//, apply)
+ implicit val persistImplicit: PersistShowDbl3[Vec3] = new PersistShowDbl3[Vec3]("Vec3", "x", "y", "z", apply)
 }
