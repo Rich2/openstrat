@@ -114,6 +114,18 @@ case class Show3DblsT[T](typeStr: String) extends ShowT[T]{
 
 /** UnShow class for 3 logical parameter product types. */
 trait UnShow3[A1, A2, A3, R] extends UnShowProduct[R] with ShowSelf3[A1, A2, A3]
+{
+  /** The UnShow type class instance for type A1. */
+  def ev1: UnShow[A1]
+
+  /** The UnShow type class instance for type A2. */
+  def ev2: UnShow[A2]
+
+  /** The UnShow type class instance for type A2. */
+  def ev3: UnShow[A3]
+
+  def newT: (A1, A2, A3) => R
+}
 
 object UnShow3
 {
@@ -123,8 +135,13 @@ object UnShow3
 }
 
 /** Persistence class for 3 logical parameter product types. */
-trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with PersistProduct[R]
+trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with UnShow3[A1, A2, A3, R] with PersistProduct[R]
+{ override def ev1: Persist[A1]
+  override def ev2: Persist[A2]
+  override def ev3: Persist[A3]
+}
 
+/** Companion object for [[Persist3]] trait contains implementation class and factory apply method. */
 object Persist3
 {
   def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
