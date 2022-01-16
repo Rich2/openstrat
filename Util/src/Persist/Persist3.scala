@@ -102,6 +102,18 @@ trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R]
   override implicit def ev3: Persist[Double] = ShowT.doublePersistImplicit
 }
 
+object ShowShowDbl3T
+{ /** Factory apply method for creating quick ShowT instances for products of 3 Doubles. */
+  def apply[R <: ShowElemDbl3](typeStr: String, name1: String, name2: String, name3: String, opt2: Option[Double] = None, opt1In: Option[Double] = None):
+  ShowShowDbl3TImp[R] = new ShowShowDbl3TImp[R](typeStr, name1, name2, name3, opt2, opt1In)
+
+  class ShowShowDbl3TImp[R <: ShowDbl3](val typeStr: String, val name1: String, val name2: String, val name3: String, val opt3: Option[Double] = None,
+    opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends ShowShowDbl3T[R]
+  { val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
+    val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
 /*
 case class Show3DblsT[T](typeStr: String) extends ShowT[T]{
   /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
