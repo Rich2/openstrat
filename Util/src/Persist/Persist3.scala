@@ -68,7 +68,7 @@ trait Show3T[A1, A2, A3, R] extends ShowProductT[R] with ShowSelf3[A1, A2, A3]
   def ev1: ShowT[A1]
   def ev2: ShowT[A2]
   def ev3: ShowT[A3]
-  final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
+  override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
 
   override def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
     Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0), ev3.showT(fArg3(obj), way, decimalPlaces, 0))
@@ -90,7 +90,17 @@ object Show3T
   }
 }
 
+trait ShowShow3T[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowT[R]
+{ override def fArg1: R => A1 = _.show1
+  override def fArg2: R => A2 = _.show2
+  override def fArg3: R => A3 = _.show3
+}
 
+trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R]
+{ override implicit def ev1: Persist[Double] = ShowT.doublePersistImplicit
+  override implicit def ev2: Persist[Double] = ShowT.doublePersistImplicit
+  override implicit def ev3: Persist[Double] = ShowT.doublePersistImplicit
+}
 
 /*
 case class Show3DblsT[T](typeStr: String) extends ShowT[T]{
