@@ -45,14 +45,14 @@ trait ShowProductT[R] extends ShowCompoundT[R]
 {
   def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings
 
-  override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  override def showT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
 
-    way match
+    style match
     { case ShowUnderScore => "_"
-    case ShowSemis => semisStr
-    case ShowCommas => strs(obj, ShowStandard, maxPlaces).mkStr(", ")
-    case _ => typeStr.appendParenth(semisStr)
+      case ShowSemis => semisStr
+      case ShowCommas => strs(obj, ShowStandard, maxPlaces).mkStr(", ")
+      case _ => typeStr.appendParenth(semisStr)
     }
   }
 }
