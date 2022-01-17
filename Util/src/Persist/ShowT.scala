@@ -57,13 +57,14 @@ object ShowT
       ife(s1.last == '0', s1.dropRight(2), s1)
     }
 
-    override def showT(obj: Double, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+    override def showT(obj: Double, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
     {
       val s1 = obj.toString
       val len = s1.length
       val i = s1.indexOf('.')
 
-      val inner = i match {
+      val inner = i match
+      { case i if maxPlaces < 0 & minPlaces <= 1 & s1.last == '0' => s1.dropRight(2)
         case i if maxPlaces < 0 => s1
         case i if maxPlaces == 0 => s1.dropRight(len  - i - maxPlaces)
         case i if len > maxPlaces + i + 1 => s1.dropRight(len  - i - 1 - maxPlaces)
@@ -71,7 +72,7 @@ object ShowT
         case _ => s1
       }
 
-      way match {
+      style match {
         case ShowTyped => typeStr + inner.enParenth
         case _ => inner
       }
@@ -177,7 +178,7 @@ object ShowT
     override def showT(obj: Array[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  /** Implicit method for creating Arr[A <: Show] instances. This seems to have to be a method rather directly using an implicit class */
+  /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
   implicit def arraySeqImplicit[A](implicit ev: ShowT[A]): ShowT[collection.immutable.ArraySeq[A]] = new ShowTSeqLike[A, ArraySeq[A]]
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???

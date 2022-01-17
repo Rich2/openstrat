@@ -26,8 +26,8 @@ object PersistNumsTest  extends TestSuite
        9.12345.show(ShowStandard, 1, 0) ==> "9.1"
        9.12345.show(ShowStandard, 4, 0) ==> "9.1234"
        4.3234.show(ShowStandard, 6, 6) ==> "4.323400"
-       //d.strTyped ==> "DFloat(8)"
-      // (-6.00).str ==> "-6"
+       (8.0).strTyped ==> "DFloat(8)"
+       (-6.00).str ==> "-6"
      }
   }
 }
