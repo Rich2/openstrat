@@ -86,23 +86,32 @@ object UnShow
   }
 
   implicit val doubleImplicit: UnShow[Double] = new UnShow[Double]
-  {
-    override def typeStr: String = "DFloat"
-    //override def syntaxDepthT(obj: Double): Int = 1
+  { override def typeStr: String = "DFloat"
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match {
       case NatDeciToken(_, i) => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toDouble)
       case intok: IntNegToken => Good(intok.getInt.toDouble)
-      case e => { debvar(e); expr.exprParseErr[Double] }
+      case _ => expr.exprParseErr[Double]
+    }
+  }
+
+  implicit val floatImplicit: UnShow[Float] = new UnShow[Float]
+  { override def typeStr: String = "SFloat"
+
+    override def fromExpr(expr: Expr): EMon[Float] = expr match
+    { case NatDeciToken(_, i) => Good(i.toFloat)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
+      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
+      case intok: IntNegToken => Good(intok.getInt.toFloat)
+      case  _ => expr.exprParseErr[Float]
     }
   }
 
   implicit val longImplicit: UnShow[Long] = new UnShow[Long]
-  {
-    override def typeStr = "Long"
-    def strT(obj: Long): String = obj.toString
+  { override def typeStr = "Long"
+
     override def fromExpr(expr: Expr): EMon[Long] = expr match
     { case NatDeciToken(_, i) => Good(i.toLong)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toLong)
@@ -112,8 +121,7 @@ object UnShow
   }
 
   implicit val booleanImplicit: UnShow[Boolean] = new UnShow[Boolean]
-  {
-    override def typeStr: String = "Bool"
+  { override def typeStr: String = "Bool"
 
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
     { case IdentLowerToken(_, str) if str == "true" => Good(true)
@@ -123,28 +131,11 @@ object UnShow
   }
 
   implicit val stringImplicit: UnShow[String] = new UnShow[String]
-  {
-    override def typeStr: String = "Str"
-    def strT(obj: String): String = obj.enquote
+  { override def typeStr: String = "Str"
 
     override def fromExpr(expr: Expr): EMon[String] = expr match
     { case StringToken(_, stringStr) => Good(stringStr)
       case  _ => expr.exprParseErr[String]
-    }
-  }
-
-  implicit val floatImplicit: UnShow[Float] = new UnShow[Float]
-  {
-    override def typeStr: String = "SFloat"
-
-    override def fromExpr(expr: Expr): EMon[Float] = expr match
-    { case NatDeciToken(_, i) => Good(i.toFloat)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
-      /*  case FloatToken(_, _, d) => Good(d.toFloat)
-        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d.toFloat)
-        case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d.toFloat)
-       */ case  _ => expr.exprParseErr[Float]
     }
   }
 
@@ -172,12 +163,11 @@ object UnShow
 
   /** Implicit method for creating List[A: Persist] instances. */
   implicit def listImplicit[A](implicit evIn: UnShow[A]): UnShow[List[A]] = new UnShow[List[A]]// with ShowIterable[A, List[A]]
-  {
-    val evA: UnShow[A] = evIn
+  { val evA: UnShow[A] = evIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
+
     override def fromExpr(expr: Expr): EMon[List[A]] = expr match
-    {
-      case eet: EmptyExprToken => Good(List[A]())
+    { case eet: EmptyExprToken => Good(List[A]())
       case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap(s => evA.fromExpr(s.expr)).toList
       case AlphaParenth("Seq", sts) => ??? // sts.eMap[A](_.errGet[A](evA))
       case e => bad1(expr, "Unknown Exoression for Seq")
@@ -186,12 +176,11 @@ object UnShow
 
   /** Implicit method for creating List[A: Persist] instances. */
   implicit def vectorImplicit[A](implicit evIn: UnShow[A]): UnShow[Vector[A]] = new UnShow[Vector[A]]
-  {
-    val evA: UnShow[A] = evIn
+  { val evA: UnShow[A] = evIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
+
     override def fromExpr(expr: Expr): EMon[Vector[A]] = expr match
-    {
-      case eet: EmptyExprToken => Good(Vector[A]())
+    { case eet: EmptyExprToken => Good(Vector[A]())
       case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap(s => evA.fromExpr(s.expr)).toList
       case AlphaParenth("Seq", sts) => ??? // sts.eMap[A](_.errGet[A](evA))
       case e => bad1(expr, "Unknown Exoression for Seq")
@@ -199,4 +188,15 @@ object UnShow
   }
 
   //implicit def optionImplicit[A](implicit evIn: UnShow[A]): UnShow[Option[A]] = new UnShow[Option[A]]
+
+  implicit val noneUnShowImplicit: UnShow[None.type] = new UnShow[None.type]//("None")
+  {
+    //override def strT(obj: None.type): String = ""
+    override def typeStr: String = "None"
+    def fromExpr(expr: Expr): EMon[None.type] = expr match
+    { case IdentUpperToken(_, "None") => Good(None)
+      case eet: EmptyExprToken => Good(None)
+      case e => bad1(e, "None not found")
+    }
+  }
 }
