@@ -174,7 +174,7 @@ object UnShow
     }
   }
 
-  /** Implicit method for creating List[A: Persist] instances. */
+  /** Implicit method for creating Vector[A: UnShow] instances. */
   implicit def vectorImplicit[A](implicit evIn: UnShow[A]): UnShow[Vector[A]] = new UnShow[Vector[A]]
   { val evA: UnShow[A] = evIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
@@ -187,12 +187,24 @@ object UnShow
     }
   }
 
-  //implicit def optionImplicit[A](implicit evIn: UnShow[A]): UnShow[Option[A]] = new UnShow[Option[A]]
+  implicit def someUnShowImplicit[A](implicit ev: UnShow[A]): UnShow[Some[A]] = new UnShow[Some[A]]
+  { override def typeStr: String = "Some" + ev.typeStr.enSquare
+
+    override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
+    { case AlphaBracketExpr(IdentUpperToken(_, "Some"), Arr1(ParenthBlock(Arr1(hs), _, _))) => ev.fromExpr(hs.expr).map(Some(_))
+      case expr => ev.fromExpr(expr).map(Some(_))
+    }
+  }
+
+  implicit def optionUnShowImplicit[A](implicit evA: UnShow[A]): UnShow[Option[A]] = new UnShowSum2[Option[A], Some[A], None.type]
+  { override def typeStr: String = "Option" + evA.typeStr.enSquare
+    override def ev1: UnShow[Some[A]] = someUnShowImplicit[A](evA)
+    override def ev2: UnShow[None.type] = noneUnShowImplicit
+  }
 
   implicit val noneUnShowImplicit: UnShow[None.type] = new UnShow[None.type]//("None")
-  {
-    //override def strT(obj: None.type): String = ""
-    override def typeStr: String = "None"
+  { override def typeStr: String = "None"
+
     def fromExpr(expr: Expr): EMon[None.type] = expr match
     { case IdentUpperToken(_, "None") => Good(None)
       case eet: EmptyExprToken => Good(None)
