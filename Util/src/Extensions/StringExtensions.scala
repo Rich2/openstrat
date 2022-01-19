@@ -19,11 +19,10 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
 
-  def asType[A](implicit ev: Persist[A]): EMon[A] = ???
-    /*parseStatements.flatMap(sts => sts match
-    { case Refs1(h) => ev.fromStatement(h).elseTry(ev.fromStatements(sts))
-      case sts => ev.fromStatements(sts)
-    })*/
+  def asType[A](implicit ev: Persist[A]): EMon[A] = parseStatements.flatMap(sts => sts match
+    { case Arr1(h) => ev.fromStatement(h)//.goodOrOther(ev.fromExpr(sts)
+      case sts => ??? //ev.fromStatements(sts)
+    })
 
   def newLinesToSpaces: String = thisString.map{
     case '\n' => ' '

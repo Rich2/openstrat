@@ -82,10 +82,10 @@ object ShowT
     { case IntDeciToken(i) => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toDouble))
-      /* case FloatToken(_, _, d) => Good(d)
-       case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d)
-       case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d)
-     */  case  _ => expr.exprParseErr[Double]
+      //case FloatToken(_, _, d) => Good(d)
+      //case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d)
+      //case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d)
+      case  _ => expr.exprParseErr[Double]
     }
   }
 
