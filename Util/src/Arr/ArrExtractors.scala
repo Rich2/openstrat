@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag
 
@@ -138,6 +138,7 @@ class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, Arr[A]]
   def drop1: ArrOff[A] = new ArrOff(offset0 + 1)
   def drop2: ArrOff[A] = new ArrOff(offset0 + 2)
   def length(implicit arr: Arr[A]): Int = arr.dataLength - offset0
+  def str: String = "ArrOff offset = " + offset0.toString
 
   def span(p: A => Boolean)(implicit arr: Arr[A], ct: ClassTag[A]): (Arr[A], ArrOff[A]) =
   { var count = 0

@@ -23,10 +23,12 @@ object PersistOptionTest extends TestSuite
       "None".findType[None.type] ==> Good(None)
      // "".asType[None.type] ==> Good(None)
     }    
-    
+
+    val sm5: Option[Int] = Some(-5)
+
     test("Some")
     {
-      //Some(-5).str ==> "-5"
+      sm5.str ==> "-5"
       //"-78.2".findType[Some[Double]] ==> Good(Some(-78.2))
       //"-78.2".findType[Option[Double]] ==> Good(Some(-78.2))
      // "Some(-78.2)".findType[Some[Double]] ==> Good(Some(-78.2))
