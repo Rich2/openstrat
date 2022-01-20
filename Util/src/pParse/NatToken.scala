@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** The base trait for all integer tokens. A Natural (non negative) number Token. It contains a single property, the digitStr. The digitStr depending
@@ -14,6 +14,7 @@ trait NatRawToken extends NatBase32Token
 /** A raw natural number token. */
 trait DigitsRawToken extends NatRawToken
 
+/** A raw integer token could be negative. */
 trait IntDeciToken extends DigitsRawToken
 {
   /** gets the natural integer value from this token interpreting it as a standard Base10 notation. */
@@ -30,8 +31,9 @@ trait IntDeciToken extends DigitsRawToken
   }
 }
 
+/** Companion object for the [[IntDecToken]] trait, only contains an unapply method. */
 object IntDeciToken
-{
+{ /** Factory unapply method for the [[IntDecToken]] trait. */
   def unapply(inp: Token): Option[Int] = inp match {
     case idt: IntDeciToken => Some(idt.getInt)
     case _ => None
@@ -42,9 +44,11 @@ object IntDeciToken
  *  Ints and 64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST
  *  (Abstract Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming
  *  languages. */
-case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToken with IntDeciToken
+case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToken with IntDeciToken with DigitSeqsCode
 { override def exprTypeStr: String = "Decimal"
   override def digitsStr: String = srcStr
+  override def digitSeqs: Strings = Strings(digitsStr)
+  override def trail: String = ???
 }
 
 /** Negative natural number token. There must be no space between the '-' character and the digits. */

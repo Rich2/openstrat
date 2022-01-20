@@ -4,8 +4,9 @@ package ostrat; package pParse
 /** Sequence of point separated number sequences. Includes fixed point decimal numbers, IPv4 notation nad version nunbers. */
 trait DigitSeqsCode extends ExprToken
 { /** The digit sequences of the code. For example "2.13.7" gives Strings("2", "13", "7"). */
-   def digitSeqs: Strings
+  def digitSeqs: Strings
 
+  /** Lower case trailing letter sequence. */
   def trail: String
 }
 
