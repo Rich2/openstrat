@@ -4,11 +4,11 @@ package ostrat; package pParse
 /** The purpose of this token is for use at the beginning of a file, to make the the rest of the Statements, sub-statements. As if they were the
  *  statements inside parenthesis. */
 case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ExprToken
-{ override def subTypeStr: String = "HashAlpha"
+{ override def exprTypeStr: String = "HashAlpha"
 }
 
 case class UnderscoreToken(startPosn: TextPosn) extends EmptyExprToken with StatementMem
 { def srcStr = "_"
   override def exprName: String = "EmptyClauseExpr"
-  override def subTypeStr: String = "Underscore"
+  override def exprTypeStr: String = "Underscore"
 }

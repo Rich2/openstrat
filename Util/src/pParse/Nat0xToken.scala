@@ -6,7 +6,7 @@ package ostrat; package pParse
  *  although of course at the higher semantic levels it can be used very well for programming languages. */
 case class Nat0xToken(startPosn: TextPosn, digitsStr: String) extends NatHexaToken
 { override def srcStr: String = "0x" + digitsStr
-  override def subTypeStr: String = "IntHexa"
+  override def exprTypeStr: String = "IntHexa"
   def getInt: Int = asHexaInt
 }
 

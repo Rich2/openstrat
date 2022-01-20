@@ -43,13 +43,13 @@ object IntDeciToken
  *  (Abstract Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming
  *  languages. */
 case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToken with IntDeciToken
-{ override def subTypeStr: String = "Decimal"
+{ override def exprTypeStr: String = "Decimal"
   override def digitsStr: String = srcStr
 }
 
 /** Negative natural number token. There must be no space between the '-' character and the digits. */
 case class IntNegToken(startPosn: TextPosn, digitsStr: String) extends IntDeciToken
-{ override def subTypeStr: String = "IntNeg"
+{ override def exprTypeStr: String = "IntNeg"
   override def srcStr: String = "-" + digitsStr
   override def getInt: Int = -super.getInt
 }

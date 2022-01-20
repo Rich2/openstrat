@@ -10,12 +10,12 @@ trait NatBase32Token extends NatToken
 
 /** A raw natural Base32 integer token starting with a digit that is not a valid hexadecimal or decimal number. */
 case class Nat32OnlyToken(startPosn: TextPosn, srcStr: String) extends NatRawToken
-{ override def subTypeStr: String = "Base32Raw"
+{ override def exprTypeStr: String = "Base32Raw"
   override def digitsStr: String = srcStr
 }
 
 /** An unambiguous base32 natural number token, starts with the 0z characters. */
 case class Nat0tToken(startPosn: TextPosn, digitsStr: String) extends NatBase32Token
-{ override def subTypeStr: String = "NatOt"
+{ override def exprTypeStr: String = "NatOt"
   override def srcStr: String = "0t" + digitsStr
 }

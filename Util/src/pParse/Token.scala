@@ -35,14 +35,14 @@ trait EmptyExprToken extends BlockMemToken with ExprToken with ExprSeq
 case class SemicolonToken(startPosn: TextPosn) extends EmptyExprToken
 { def srcStr = ";"
   override def exprName: String = "EmptyStatementExpr"
-  override def subTypeStr: String = "SemicolonToken"
+  override def exprTypeStr: String = "SemicolonToken"
   override def toString: String = tokenTypeStr.appendParenthSemis(startPosn.lineNum.toString, startPosn.linePosn.toString)
 }
 
 case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with AssignMem
 { def srcStr = ","
   override def exprName: String = "EmptyClauseExpr"
-  override def subTypeStr: String = "CommaToken"
+  override def exprTypeStr: String = "CommaToken"
 }
 
 /** A Token that can be a member of a Clause. */
@@ -68,12 +68,12 @@ case class Dot3Token(startPosn: TextPosn) extends ClauseMemToken
 
 case class CharToken(startPosn: TextPosn, char: Char) extends ExprToken
 { def srcStr = char.toString.enquote1
-  override def subTypeStr: String = "CharToken"
+  override def exprTypeStr: String = "CharToken"
 }
 
 case class StringToken(startPosn: TextPosn, stringStr: String) extends ExprToken
 { def srcStr = stringStr.enquote
-  override def subTypeStr: String = "StringToken"
+  override def exprTypeStr: String = "StringToken"
 }
 
 /** An Operator token. */
