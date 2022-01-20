@@ -8,8 +8,8 @@ trait NatBase32Token extends NatToken
   def asbase32: Int = ???
 }
 
-/** A raw natural Base32 integer token starting with a digit that is not a valid hexadecimal or decimal number. */
-case class Nat32OnlyToken(startPosn: TextPosn, srcStr: String) extends NatRawToken
+/** A raw natural Base32 integer token starting with a digit that is not a valid hexadecimal and hence is not a decimal number either. */
+case class RawNat32OnlyToken(startPosn: TextPosn, srcStr: String) extends NatRawToken
 { override def exprTypeStr: String = "Base32Raw"
   override def digitsStr: String = srcStr
 }

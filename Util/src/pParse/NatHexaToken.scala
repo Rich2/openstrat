@@ -1,7 +1,7 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
-/** Common trait for all tokens that can be valid hexadecimal natural numbers. */
+/** Common trait for all tokens that can be valid hexadecimal natural numbers as well as valid base32 numbers. */
 trait NatHexaToken extends NatToken
 {
   def asHexaInt: Int =
@@ -17,6 +17,7 @@ trait NatHexaToken extends NatToken
   }
 }
 
+/** Raw natural number in hexadecimal format. */
 trait NatRawHexaToken extends NatRawToken
 
 object NatRawHexaToken
