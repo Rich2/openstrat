@@ -4,7 +4,7 @@ import pgui._, prid._, psq._, geom._
 
 case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends HexMapGui("Alternative Reactor")
 {
-  statusText = "Welcome to alternative ReactorGui."
+  statusText = "a Welcome alternative to ReactorGui."
 
   var scen = AltScen.start(rows, columns)
   implicit def grid: SqGrid = scen.grid
