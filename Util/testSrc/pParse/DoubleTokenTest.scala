@@ -8,12 +8,16 @@ object DoubleTokenTest extends TestSuite
   val Sp1 = StrPosn(1, 1)
   val Sp2 = StrPosn(1, 2)
   val Sp3 = StrPosn(1, 3)
+  val Sp5 = StrPosn(4, 5)
   val Sp44 = StrPosn(4, 4)
+
 
   val tests = Tests {
     "Test1" - {
       4 ==> 4
       assertMatch("4.5".parseTokens){ case Good(Arr1(DeciFracToken(Sp1, "4", "5", ""))) => }
+      //Note this not a legal AST but it doesn't matter for the purpose of lexical tests
+      assertMatch("4.5 4.5".parseTokens){ case Good(Arr2(DeciFracToken(Sp1, "4", "5", ""), DeciFracToken(sp5, "4", "5", ""))) => }
     }
   }
 

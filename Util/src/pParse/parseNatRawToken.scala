@@ -5,33 +5,36 @@ package ostrat; package pParse
  * parsed with this function object. Raw hex and trigdual numbers can be encoded as alpha numeric identity tokens. */
 object parseNatRawToken
 {
-  def apply(rem: CharsOff, tp: TextPosn, str:String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
-  {
-    def hexaLoop(rem: CharsOff, tp: TextPosn, str: String): EMon3[CharsOff, TextPosn, Token] = rem match
-    { case CharsOff1Tail(d, tail) if d.isDigit | (d <= 'F' && d >= 'A') => hexaLoop(tail, tp, str + d.toString)
-      case CharsOff1Tail(l, tail) if (l <= 'G' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, tp, l.toString)
-      case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed raw hexadecimal token.")
-      case _ => Good3(rem, tp.addStr(str), RawHexaToken(tp, str))
-    }
-
-    def base32Loop(rem: CharsOff, tp: TextPosn, str: String): EMon3[CharsOff, TextPosn, RawNat32OnlyToken] = rem match
-    { case CharsOff1Tail(l, tail) if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, tp, l.toString)
-      case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed raw Base 32 token.")
-      case _ => Good3(rem, tp.addStr(str), RawNat32OnlyToken(tp, str))
-    }
-
-    rem match
-    { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString)
-      case CharsOff2Tail('.', d, tail) if d.isDigit => deciFracLoop(tail, tp, str, d.toString)
-      case CharsOff1Tail(HexaUpperChar(l), tail) => hexaLoop(tail, tp, str + l.toString)
-      case CharsOff1Tail(l, tail) if (l <= 'G' && l >= 'G') | (l <= 'W' && l >= 'P') => base32Loop(tail, tp, l.toString)
-      case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed number token.")
-      case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
-    }
+  def apply(rem: CharsOff, tp: TextPosn, str:String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =  rem match
+  { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString)
+    case CharsOff2Tail('.', d, tail) if d.isDigit => parseDeciFrac(tail, tp, str, d.toString)
+    case CharsOff1Tail(HexaUpperChar(l), tail) => parseHexaToken(tail, tp, str + l.toString)
+    case CharsOff1Tail(l, tail) if (l <= 'G' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, l.toString)
+    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed number token.")
+    case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
   }
 }
 
-object deciFracLoop
+object parseHexaToken
+{
+  def apply(rem: CharsOff, tp: TextPosn, str: String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] = rem match
+  { case CharsOff1Tail(d, tail) if d.isDigit | (d <= 'F' && d >= 'A') => parseHexaToken(tail, tp, str + d.toString)
+    case CharsOff1Tail(l, tail) if (l <= 'G' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, l.toString)
+    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed raw hexadecimal token.")
+    case _ => Good3(rem, tp.addStr(str), RawHexaToken(tp, str))
+  }
+}
+
+object parseBase32
+{
+  def apply(rem: CharsOff, tp: TextPosn, str: String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, RawNat32OnlyToken]= rem match
+  { case CharsOff1Tail(l, tail) if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, l.toString)
+    case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed raw Base 32 token.")
+    case _ => Good3(rem, tp.addStr(str), RawNat32OnlyToken(tp, str))
+  }
+}
+
+object parseDeciFrac
 {
   def apply (rem: CharsOff, tp: TextPosn, seq1: String, seq2: String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] = rem match
   { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp.right1, seq1, seq2 + d.toString)
