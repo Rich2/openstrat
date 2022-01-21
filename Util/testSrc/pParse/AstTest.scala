@@ -10,7 +10,7 @@ object AstTest extends TestSuite
   val w1 = stringToStatements(s1)
   val t3= Arr(IdentLowerOnlyToken(Sp1, "x"), AsignToken(StrPosn(1, 3)), IdentLowerOnlyToken(StrPosn(1, 5), "y"), SemicolonToken(StrPosn(1, 6)))
   val a1: ERefs[Statement] = astParse(t3)
-  deb(a1.get.dataLengthStr)
+  //deb(a1.get.dataLengthStr)
  // deb(w1.toString)
 
   val tests = Tests {

@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 import utest._
 
@@ -34,7 +34,6 @@ object IntTokenTest extends TestSuite
       assertMatch("45".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "45"))) => }
       assertMatch("4A".parseTokens){ case Good(Arr1(NatRawHexaToken(Sp1, "4A"))) => }
       assertMatch("4F5".parseTokens){ case Good(Arr1(NatRawHexaToken(Sp1, "4F5"))) => }
-      assertMatch("4.5".parseTokens){ case Good(Arr3(NatDeciToken(Sp1, "4"), DotToken(Sp2), NatDeciToken(Sp3, "5"))) => }
       assertMatch("\"45\"".parseTokens){ case Good(Arr1(StringToken(Sp1, "45"))) => }
       assertMatch("0x11".parseTokens){ case Good(Arr1(Nat0xToken(Sp1, "11"))) => }
       assertMatch("0y11".parseTokens){ case Good(Arr1(Nat0yToken(Sp1, "11"))) => }

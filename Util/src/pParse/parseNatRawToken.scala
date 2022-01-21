@@ -20,11 +20,6 @@ object parseNatRawToken
       case _ => Good3(rem, tp.addStr(str), RawNat32OnlyToken(tp, str))
     }
 
-    def deciFracLoop(rem: CharsOff, tp: TextPosn, seq1: String, seq2: String): EMon3[CharsOff, TextPosn, Token] = rem match
-    { case CharsOff1Tail(d, tail) if d.isDigit => deciFracLoop(tail, tp, seq1, seq2 + d.toString)
-      case _ => Good3(rem, tp.addStr(seq1).addStr(seq2).right1, DeciFracToken(tp, seq1, seq2, ""))
-    }
-
     rem match
     { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString)
       case CharsOff2Tail('.', d, tail) if d.isDigit => deciFracLoop(tail, tp, str, d.toString)
@@ -33,6 +28,14 @@ object parseNatRawToken
       case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed number token.")
       case _ => Good3(rem, tp.addStr(str), NatDeciToken(tp, str))
     }
+  }
+}
+
+object deciFracLoop
+{
+  def apply (rem: CharsOff, tp: TextPosn, seq1: String, seq2: String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] = rem match
+  { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp.right1, seq1, seq2 + d.toString)
+    case _ => Good3(rem, tp.addStr(seq1).addStr(seq2).right1, DeciFracToken(tp, seq1, seq2, ""))
   }
 }
 
