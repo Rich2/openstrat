@@ -52,7 +52,7 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToke
 }
 
 /** Negative natural number token. There must be no space between the '-' character and the digits. */
-case class IntNegToken(startPosn: TextPosn, digitsStr: String) extends IntDeciToken
+case class NegDeciToken(startPosn: TextPosn, digitsStr: String) extends IntDeciToken
 { override def exprTypeStr: String = "IntNeg"
   override def srcStr: String = "-" + digitsStr
   override def getInt: Int = -super.getInt

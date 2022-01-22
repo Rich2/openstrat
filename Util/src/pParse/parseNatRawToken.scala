@@ -42,12 +42,12 @@ object parseDeciFrac
   }
 }
 
-/** Function object for parsing [[IntNegToken]]. */
+/** Function object for parsing [[NegDeciToken]]. */
 object parseNatNegToken
 {
-  def apply(rem: CharsOff, tp: TextPosn, str: String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, IntNegToken] = rem match
+  def apply(rem: CharsOff, tp: TextPosn, str: String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, NegDeciToken] = rem match
   { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString)
     case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed negative number token.")
-    case _ => Good3(rem, tp.addStr(str), IntNegToken(tp, str))
+    case _ => Good3(rem, tp.addStr(str), NegDeciToken(tp, str))
   }
 }
