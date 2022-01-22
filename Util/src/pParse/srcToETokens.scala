@@ -66,8 +66,8 @@ object srcToETokens
 
       case CharsOffHead2('0', 'x') => Nat0xToken.parse(rem, tp).appendLoop
       case CharsOffHead2('0', 'y') => Nat0yToken.parse(rem, tp).appendLoop
-      case CharsOffHead(DigitChar(d)) => parseNatRawToken(rem.drop1, tp, d.toString).appendLoop
-      case CharsOff2Tail('-', DigitChar(d), tail) => parseNatNegToken(tail, tp, d.toString).appendLoop
+      case CharsOff1Tail(DigitChar(d), tail) => parseRawNumberToken(tail, tp, d.toString, false).appendLoop
+      case CharsOff2Tail('-', DigitChar(d), tail) => parseRawNumberToken(tail, tp, d.toString, true).appendLoop
 
       case CharsOffHead(c) if isOperator(c) => parseOperatorToken(rem, tp).appendLoop
       case CharsOffHead(c) => tp.bad("Unimplemented character in main loop: " + c.toString)

@@ -90,8 +90,12 @@ object UnShow
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match {
       case NatDeciToken(_, i) => Good(i.toDouble)
+      case dft: DeciFracToken => {
+        debvar(dft.doubleValue)
+        Good(dft.doubleValue) }
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toDouble)
+
       case intok: NegDeciToken => Good(intok.getInt.toDouble)
       case _ => expr.exprParseErr[Double]
     }

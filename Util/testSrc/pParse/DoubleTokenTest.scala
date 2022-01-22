@@ -16,6 +16,8 @@ object DoubleTokenTest extends TestSuite
     "Test1" - {
       4 ==> 4
       assertMatch("4.5".parseTokens){ case Good(Arr1(DeciFracToken(Sp1, "4", "5", ""))) => }
+      assertMatch("0.5".parseTokens){ case Good(Arr1(DeciFracToken(Sp1, "0", "5", ""))) => }
+      assertMatch("271.562".parseTokens){ case Good(Arr1(DeciFracToken(sp1, "271", "562", ""))) => }
       //Note this not a legal AST but it doesn't matter for the purpose of lexical tests
       assertMatch("4.5 4.5".parseTokens){ case Good(Arr2(DeciFracToken(Sp1, "4", "5", ""), DeciFracToken(sp5, "4", "5", ""))) => }
     }

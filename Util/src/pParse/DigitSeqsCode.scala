@@ -15,4 +15,7 @@ case class DeciFracToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail:
 { override def digitSeqs: Strings = Strings(dgs1, dgs2)
   override def srcStr: String = dgs1 + "." + dgs2 + trail
   override def exprTypeStr: String = "DeciFrac"
+  def wholeNum: Long = dgs1.unsafeDigitsToLong
+  def fractionalValue: Double = dgs2.unsafeDigitsToLong.toDouble / 10.power(dgs2.length)
+  def doubleValue: Double = wholeNum.toDouble + fractionalValue
 }

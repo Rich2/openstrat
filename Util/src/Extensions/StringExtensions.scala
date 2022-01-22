@@ -62,8 +62,6 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
    * RSON Statements. */
   def findSettingBoolElse(settingStr: String, elseValue: Boolean): Boolean = findSettingBool(settingStr).getElse(elseValue)
 
-
-
   /** Concatenates a space and then the other String. */
   def -- (other: String): String = thisString + " " + other
   
@@ -163,4 +161,15 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   
   /** Replaces the reserved HTML characters with their corresponding entities, in order to display XML code as text. Eg '>' is replaced by "&gt;". */
   def htmlReservedSubstitute: String = toChars.foldLeft(""){ (acc, el) => acc + el.htmlReservedSubstituion }
+
+  def unsafeDigitsToLong: Long = {
+    var acc: Long = thisString.head - '0'
+    var i = 1
+    while (i < thisString.length){
+      acc *= 10
+      acc += thisString(i)
+      i += 1
+    }
+    acc
+  }
 }
