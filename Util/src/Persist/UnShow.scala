@@ -89,10 +89,9 @@ object UnShow
   { override def typeStr: String = "DFloat"
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match {
+      case dft @ DeciFracToken(_, _, _, _) => Good(dft.doubleValue)
       case NatDeciToken(_, i) => Good(i.toDouble)
-      case dft: DeciFracToken => {
-        debvar(dft.doubleValue)
-        Good(dft.doubleValue) }
+
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toDouble)
 
