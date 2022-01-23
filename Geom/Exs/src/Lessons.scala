@@ -28,6 +28,7 @@ object Lessons extends GuiLaunch
     case "A10" => (LsA10(_), "JavaFx Demonstration Canvas 10")
     case "A11" => (LsA11(_), "Reflecting a point across a Line")
     case "A12" => (LsA12(_), "Hexagons")
+    case "A13" => (LsA13(_), "Floor tiling Squares with diags")
 
     case "B1" => (learn.LsB1(_), "JavaFx Demonstration Animated Canvas 1") //Moving Graphics
     case "B2" => (learn.LsB2(_), "JavaFx Demonstration Animated Canvas 2")
