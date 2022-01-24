@@ -7,8 +7,8 @@ package geom
 trait PolygonGraphic extends ShapeGraphic with GraphicBounded
 {
   override def shape: Polygon
-  def x1: Double = shape.v1x
-  def y1: Double = shape.v1y
+  def x1: Double = shape.v0x
+  def y1: Double = shape.v0y
 
   /** The number of vertices. */
   def vertsNum: Int = shape.vertsNum

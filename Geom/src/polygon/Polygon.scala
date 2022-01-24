@@ -80,8 +80,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   def dropVert(v: Int): Polygon = {
     val res = PolygonGen.uninitialised(vertsNum - 1)
-    iUntilForeach(1, v){i => res.unsafeSetElem(i - 1, vert(i)) }
-    iToForeach(v + 1, vertsNum){i => res.unsafeSetElem(i - 2, vert(i)) }
+    iUntilForeach(0, v){i => res.unsafeSetElem(i, vert(i)) }
+    iUntilForeach(v + 1, vertsNum){i => res.unsafeSetElem(i - 1, vert(i)) }
     res
   }
 
@@ -157,21 +157,21 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   def yVert(index: Int): Double
 
   /** The X component of the 1st vertex, will throw on a 0 vertices polygon. */
-  def v1x: Double
+  def v0x: Double
 
   /** The Y component of the 1st vertex, will throw on a 0 vertices polygon. */
-  def v1y: Double
+  def v0y: Double
 
   /** The 1st vertex, will throw on a 0 vertices polygon. */
-  def v1: Pt2
+  def v0: Pt2
 
   /** The last vertex will throw an exception on a 0 vertices polygon. */
   def vLast: Pt2 = vert(vertsNum)
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
   override def boundingRect: BoundingRect =
-  { var minX, maxX = v1x
-    var minY, maxY = v1y
+  { var minX, maxX = v0x
+    var minY, maxY = v0y
     foreachVertTail{v =>
       minX = minX.min(v.x)
       maxX = maxX.max(v.x)

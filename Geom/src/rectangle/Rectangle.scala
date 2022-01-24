@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -18,47 +18,47 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineColour: Colour, lineWidth: Double): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
-  override def vertsArray: Array[Double] = Array(cenX, cenY, v1x, v1y, v2x, v2y, v3x, v3y, v4x, v4y)
+  override def vertsArray: Array[Double] = Array(cenX, cenY, v0x, v0y, v1x, v1y, v2x, v2y, v3x, v3y)
 
   def alignAngle: AngleVec
   def widthAttrib: WidthAtt = WidthAtt(width1)
   def heightAttrib: HeightAtt = HeightAtt(width2)
-  def xAttrib: XAttrib = XAttrib(v4x)
-  def yAttrib: YAttrib = YAttrib(v4y)
+  def xAttrib: XAttrib = XAttrib(v3x)
+  def yAttrib: YAttrib = YAttrib(v3y)
   override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
 
   @inline final override def vert(index: Int): Pt2 = index match
-  { case 1 => v1
+  { case 0 => v0
+    case 1 => v1
     case 2 => v2
     case 3 => v3
-    case 4 => v4
     case n => excep("Index: " + n.toString + " out of range. Only 4 vertices in a Rectangle.")
   }
 
   override def xVert(index: Int): Double = index match
-  { case 1 => v1x
+  { case 0 => v0x
+    case 1 => v1x
     case 2 => v2x
     case 3 => v3x
-    case 4 => v4x
     case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
   }
 
   override def yVert(index: Int): Double = index match
-  { case 1 => v1y
+  { case 0 => v0y
+    case 1 => v1y
     case 2 => v2y
     case 3 => v3y
-    case 4 => v4y
     case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
   }
 
-  final override def vertsArrayX: Array[Double] = Array(v1x, v2x, v3x, v4x)
-  final override def vertsArrayY: Array[Double] = Array(v1y, v2y, v3y, v4y)
-  final override def vertsForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); ()}
-  final override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); f(v4); () }
-  override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v2x, v2y); f(v3x, v3y); f(v4x, v4y); () }
+  final override def vertsArrayX: Array[Double] = Array(v0x, v1x, v2x, v3x)
+  final override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y, v3y)
+  final override def vertsForeach[U](f: Pt2 => U): Unit = { f(v0); f(v1); f(v2); f(v3); ()}
+  final override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); () }
+  override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v1x, v1y); f(v2x, v2y); f(v3x, v3y); () }
 
-  def diag1: LineSeg = LineSeg(v3, v1)
-  def diag2: LineSeg = LineSeg(v4, v2)
+  def diag1: LineSeg = LineSeg(v2, v0)
+  def diag2: LineSeg = LineSeg(v3, v1)
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
@@ -77,7 +77,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negX: Rectangle = Rectangle.sd2sd4(sd2Cen.negX, sd4Cen.negX, width2)
 
-  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(sd2Cen.prolign(matrix), sd4Cen.prolign(matrix), v1.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(sd2Cen.prolign(matrix), sd4Cen.prolign(matrix), v0.prolign(matrix))
 
   override def rotate90: Rectangle = Rectangle.sd2sd4(sd2Cen.rotate90, sd4Cen.rotate90, width2)
   override def rotate180: Rectangle = Rectangle.sd2sd4(sd2Cen.rotate180, sd4Cen.rotate180, width2)
@@ -88,7 +88,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   override def rotate(angle: AngleVec): Rectangle = Rectangle.sd2sd4(sd2Cen.rotate(angle), sd4Cen.rotate(angle), width2)
 
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle =
-    Rectangle.s2s4v1(sd2Cen.xyScale(xOperand, yOperand), sd4Cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
+    Rectangle.s2s4v1(sd2Cen.xyScale(xOperand, yOperand), sd4Cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
 }
 
 /** Companion object fot the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also
@@ -145,7 +145,7 @@ object Rectangle
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectangleImp(val sd2CenX: Double, val sd2CenY: Double, val sd4CenX: Double, val sd4CenY: Double, val width2: Double) extends RectS2S4
   {
-    override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd2Cen), f(sd4Cen), f(v1))
+    override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd2Cen), f(sd4Cen), f(v0))
 
    // override def productArity: Int = 5
    // override def productElement(n: Int): Any = ???

@@ -4,8 +4,8 @@ package ostrat; package geom
 /** A mathematical triangle. The Triangle trait is implemented for its general case by [[Triangle.TriangleImp]]. */
 trait Triangle extends Polygon3Plus
 {	override def vertsNum: Int = 3
-	override def v1: Pt2 = v1x pp v1y
-	override def v3: Pt2 = v3x pp v3y
+	override def v0: Pt2 = v0x pp v0y
+	override def v2: Pt2 = v2x pp v2y
 
 	/** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
 	 * be thought of as vertex 0.5. */
@@ -15,13 +15,13 @@ trait Triangle extends Polygon3Plus
 	 * be thought of as vertex 0.5. */
 	override def sd1CenY: Double = ???
 
-	override def sd1Cen: Pt2 = v3 midPt v1
+	override def sd1Cen: Pt2 = v2 midPt v0
 
 	override def sd2CenX: Double = ???
 
 	override def sd2CenY: Double = ???
 
-	override def sd2Cen: Pt2 = v1 midPt v2
+	override def sd2Cen: Pt2 = v0 midPt v1
 
 
 	/** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
@@ -32,25 +32,25 @@ trait Triangle extends Polygon3Plus
 	 * thought of as vertex 2.5. */
 	override def sd3CenY: Double = ???
 
-	override def sd3Cen: Pt2 = v2 midPt v3
+	override def sd3Cen: Pt2 = v1 midPt v2
 
 	override def vert(index: Int): Pt2 = index match
-	{	case 1 => v1
-		case 2 => v2
-		case 3 => v3
+	{	case 1 => v0
+		case 2 => v1
+		case 3 => v2
 		case n => excep("index: " + n.toString + "out of range. There are only 3 vertices in a triangle.")
 	}
 
-	override def vertsArray: Array[Double] = Array(xCen, yCen, v1x, v1y, v2x, v2y, v3x, v3y)
+	override def vertsArray: Array[Double] = Array(xCen, yCen, v0x, v0y, v1x, v1y, v2x, v2y)
 
-	override def vertsArrayX: Array[Double] = Array(v1x, v2x, v3x)
-	override def vertsArrayY: Array[Double] = Array(v1y, v2y, v3y)
-	override def vertsForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); () }
-	override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v2); f(v3); () }
-	override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v2x, v2y); f(v3x, v3y); () }
+	override def vertsArrayX: Array[Double] = Array(v0x, v1x, v2x)
+	override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y)
+	override def vertsForeach[U](f: Pt2 => U): Unit = { f(v0); f(v1); f(v2); () }
+	override def foreachVertTail[U](f: Pt2 => U): Unit = { f(v1); f(v2); () }
+	override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = { f(v1x, v1y); f(v2x, v2y); () }
 
 	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Pt2]] 2D Vector or point to a [[Pt2]]. */
-	override def vertsTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v1), f(v2), f(v3))
+	override def vertsTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v0), f(v1), f(v2))
 
 	/** Translate 2D geometric transformation on a Triangle returns a Triangle. The return type is narrowed in sub classes. */
 	override def slate(offset: Vec2Like): Triangle = vertsTrans(_.slate(offset))
@@ -83,21 +83,21 @@ trait Triangle extends Polygon3Plus
 
 
 	override def xVert(index: Int): Double = index match
-	{	case 1 => v1x
-		case 2 => v2x
-		case 3 => v3x
+	{	case 1 => v0x
+		case 2 => v1x
+		case 3 => v2x
 		case n => excep(n.str + " is out of range for a triangle.")
 	}
 
 	override def yVert(index: Int): Double = index match
-	{	case 1 => v1y
-		case 2 => v2y
-		case 3 => v3y
+	{	case 1 => v0y
+		case 2 => v1y
+		case 3 => v2y
 		case n => excep(n.str + " is out of range for a triangle.")
 	}
 
-	def xCen: Double = (v1x + v2x + v3x) / 3
-	def yCen: Double = (v1y + v2y + v3y) / 3
+	def xCen: Double = (v0x + v1x + v2x) / 3
+	def yCen: Double = (v0y + v1y + v2y) / 3
 
 	override def fill(colour: Colour): TriangleFill = TriangleFill(this, colour)
 	override def fillInt(intValue: Int): TriangleFill = TriangleFill(this, Colour(intValue))
@@ -107,10 +107,10 @@ object Triangle
 { def apply(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Triangle = TriangleImp(x1, y1, x2, y2, x3, y3)
 	def apply(v1: Pt2, v2: Pt2, v3: Pt2): Triangle = TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 
-	final case class TriangleImp(v1x: Double, v1y: Double, v2x: Double, v2y: Double, v3x: Double, v3y: Double) extends Triangle with AffinePreserve
+	final case class TriangleImp(v0x: Double, v0y: Double, v1x: Double, v1y: Double, v2x: Double, v2y: Double) extends Triangle with AffinePreserve
 	{ override type ThisT = TriangleImp
-		override def v2: Pt2 = Pt2(v2x, v2y)
-		override def vertsTrans(f: Pt2 => Pt2): TriangleImp = TriangleImp(f(v1), f(v2), f(v3))
+		override def v1: Pt2 = Pt2(v1x, v1y)
+		override def vertsTrans(f: Pt2 => Pt2): TriangleImp = TriangleImp(f(v0), f(v1), f(v2))
 
 		/** A method to perform all the [[AffinePreserve]] transformations with a function from PT2 => PT2. This is delegated to the VertsTrans method as
 		 * a TriangleImp is specified by its vertices. This is not the case for all Polygons. */

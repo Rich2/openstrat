@@ -18,21 +18,21 @@ final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) exte
   override def syntaxDepth: Int = 3
 
   override def cen: Pt2 = cenX pp cenY
+  override def v0x: Double = cenX + radiusIn
+  override def v0y: Double = cenY + radiusOut / 2
+  @inline override def v0: Pt2 = Pt2(v0x, v0y)
+
   override def v1x: Double = cenX + radiusIn
-  override def v1y: Double = cenY + radiusOut / 2
+  override def v1y: Double = cenY - radiusOut / 2
   @inline override def v1: Pt2 = Pt2(v1x, v1y)
 
-  override def v2x: Double = cenX + radiusIn
-  override def v2y: Double = cenY - radiusOut / 2
+  override def v2x: Double = cenX
+  override def v2y: Double = cenY - radiusOut
   @inline override def v2: Pt2 = Pt2(v2x, v2y)
 
-  override def v3x: Double = cenX
-  override def v3y: Double = cenY - radiusOut
+  override def v3x: Double = cenX - radiusIn
+  override def v3y: Double = cenY - radiusOut / 2
   @inline override def v3: Pt2 = Pt2(v3x, v3y)
-
-  override def v4x: Double = cenX - radiusIn
-  override def v4y: Double = cenY - radiusOut / 2
-  @inline override def v4: Pt2 = Pt2(v4x, v4y)
 
   override def v5x: Double = cenX - radiusIn
   override def v5y: Double = cenY + radiusOut / 2

@@ -61,18 +61,18 @@ object PhiRectangle
     override def sd3Cen: Pt2 = Pt2(sd3CenX, sd3CenY)
     override def width2: Double = sd1Cen.distTo(sd3Cen)
     override def alignAngle: AngleVec = sd1Cen.angleFrom(sd3Cen).rotationFrom90
-    override def v1: Pt2 = sd1Cen + xVec2(width2 / 2).rotate(alignAngle)
+    override def v0: Pt2 = sd1Cen + xVec2(width2 / 2).rotate(alignAngle)
+    override def v0x: Double = v0.x
+    override def v0y: Double = v0.y
+    override def v1: Pt2 = sd3Cen + xVec2(width2 / 2).rotate(alignAngle)
     override def v1x: Double = v1.x
     override def v1y: Double = v1.y
-    override def v2: Pt2 = sd3Cen + xVec2(width2 / 2).rotate(alignAngle)
-    override def v2x: Double = v2.x
-    override def v2y: Double = v2.y
-    override def v3: Pt2 = sd3Cen + xVec2(-width2 / 2).rotate(alignAngle)
-    override def v3x: Double = v2.x
-    override def v3y: Double = v2.y
-    override def v4: Pt2 = sd1Cen + xVec2(-width2 / 2).rotate(alignAngle)
-    override def v4x: Double = v2.x
-    override def v4y: Double = v2.y
+    override def v2: Pt2 = sd3Cen + xVec2(-width2 / 2).rotate(alignAngle)
+    override def v2x: Double = v1.x
+    override def v2y: Double = v1.y
+    override def v3: Pt2 = sd1Cen + xVec2(-width2 / 2).rotate(alignAngle)
+    override def v3x: Double = v1.x
+    override def v3y: Double = v1.y
 
     override def sd2CenX: Double = ??? //average(xSd1Cen midPt sd2Cen
 

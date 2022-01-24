@@ -6,7 +6,7 @@ import Colour.Black, pWeb._
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
 final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with DataDbl2s[Pt2]
 { override type ThisT = PolygonGen
-  override def vert(index: Int): Pt2 = indexData(index - 1)
+  override def vert(index: Int): Pt2 = indexData(index)
   @inline override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = dataForeachPairTail(f)
   override def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   @inline override def vertsArray: Array[Double] = unsafeArray
@@ -17,15 +17,15 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2s
   @inline override def polygonMap(f: Pt2 => Pt2): PolygonGen = vertsMap(f).toPolygon
   override def xVert(index: Int): Double = unsafeArray(index * 2)// + dblsNumOffset)
   override def yVert(index: Int): Double = unsafeArray(index * 2 + 1)// + dblsNumOffset)
-  @inline def v1x: Double = unsafeArray(0)// + dblsNumOffset)
-  @inline def v1y: Double = unsafeArray(1)// + dblsNumOffset)
-  @inline def v1: Pt2 = v1x pp v1y
+  @inline def v0x: Double = unsafeArray(0)// + dblsNumOffset)
+  @inline def v0y: Double = unsafeArray(1)// + dblsNumOffset)
+  @inline def v0: Pt2 = v0x pp v0y
   override def vertsTrans(f: Pt2 => Pt2): PolygonGen = new PolygonGen(arrTrans(f))
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   @inline override def ptsTrans(f: Pt2 => Pt2): PolygonGen = vertsTrans(f)
 
-  override def vertsForeach[U](f: Pt2 => U): Unit =iUntilForeach(0, unsafeArray.length, 2){ i =>
+  override def vertsForeach[U](f: Pt2 => U): Unit = iUntilForeach(0, unsafeArray.length, 2){ i =>
     f(Pt2(unsafeArray(i), unsafeArray(i + 1))); ()
   }
 
@@ -41,10 +41,10 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2s
   }
 
   def eq(obj: PolygonGen): Boolean = unsafeArray.sameElements(obj.unsafeArray)
-  def minX: Double = dataTailfold(v1.x)((acc, el) => acc.min(el.x))
-  def maxX: Double = dataTailfold(v1.x)((acc, el) => acc.max(el.x))
-  def minY: Double = dataTailfold(v1.y)((acc, el) => acc.min(el.y))
-  def maxY: Double = dataTailfold(v1.y)((acc, el) => acc.max(el.y))
+  def minX: Double = dataTailfold(v0.x)((acc, el) => acc.min(el.x))
+  def maxX: Double = dataTailfold(v0.x)((acc, el) => acc.max(el.x))
+  def minY: Double = dataTailfold(v0.y)((acc, el) => acc.min(el.y))
+  def maxY: Double = dataTailfold(v0.y)((acc, el) => acc.max(el.y))
   def width: Double = maxX - minX
   def height: Double = maxY - minY
 

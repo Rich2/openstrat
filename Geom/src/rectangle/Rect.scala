@@ -4,20 +4,20 @@ import pWeb._
 
 /** A Rectangle aligned to the X and Y axes. */
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
-{ @inline final override def v1x: Double = xTopRight
-  @inline final override def v1y: Double = yTopRight
+{ @inline final override def v0x: Double = xTopRight
+  @inline final override def v0y: Double = yTopRight
+  @inline final override def v0: Pt2 = v0x pp v0y
+  @inline final override def v1x: Double = xBottomRight
+  @inline final override def v1y: Double = yBottomRight
   @inline final override def v1: Pt2 = v1x pp v1y
-  @inline final override def v2x: Double = xBottomRight
-  @inline final override def v2y: Double = yBottomRight
-  @inline final override def v2: Pt2 = v2x pp v2y
   @inline final override def cen: Pt2 = cenX pp cenY
   override def alignAngle: AngleVec = Deg0
-  @inline final def v3x: Double = xBottomLeft
-  @inline final def v3y: Double = yBottomLeft
-  @inline final def v3: Pt2 = bottomLeft
-  @inline final def v4x: Double = xTopLeft
-  @inline final def v4y: Double = yTopLeft
-  @inline final def v4: Pt2 = topLeft
+  @inline final def v2x: Double = xBottomLeft
+  @inline final def v2y: Double = yBottomLeft
+  @inline final def v2: Pt2 = bottomLeft
+  @inline final def v3x: Double = xTopLeft
+  @inline final def v3y: Double = yTopLeft
+  @inline final def v3: Pt2 = topLeft
 
   /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
    * be thought of as vertex 0.5. */
@@ -69,9 +69,9 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   override def rotate180: Rect = ???
   override def rotate270: Rect = ???
 
-  override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v1.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
-  override def scaleXY(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
+  override def scaleXY(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
 
   override def activeChildren(id: AnyRef, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) %: children)
 
@@ -130,7 +130,7 @@ object Rect
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final case class RectImp(width: Double, height: Double, cenX: Double, cenY: Double) extends Rect
-  { override def vertsTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV0(f(cen), f(v1))
+  { override def vertsTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV0(f(cen), f(v0))
     override def width1: Double = width
     override def width2: Double = height
 
@@ -151,9 +151,9 @@ object Rect
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
     override def negX: RectImp = RectImp(width, height, cen.negX)
 
-    override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v1.prolign(matrix))
+    override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
-    override def scaleXY(xOperand: Double, yOperand: Double): RectImp = RectImp.cenV0(cen.xyScale(xOperand, yOperand), v1.xyScale(xOperand, yOperand))
+    override def scaleXY(xOperand: Double, yOperand: Double): RectImp = RectImp.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
   }
 
   /** Companion object for the [[Rect.RectImp]] class */

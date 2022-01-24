@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A [[Polygon]] with at least 3 vertices. The PolygonNPlus traits include values for the vertices and the x and y components of the vertices. The X
@@ -6,39 +6,39 @@ package ostrat; package geom
 trait Polygon3Plus extends Polygon
 { /** The X component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
-  def v2x: Double
+  def v1x: Double
 
   /** The Y component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
-  def v2y: Double
+  def v1y: Double
 
   /** The 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
    *  from 12 o'clock. */
-  def v2: Pt2
+  def v1: Pt2
 
   /** The X component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
-  def v3x: Double
+  def v2x: Double
 
   /** The Y component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
-  def v3y: Double
+  def v2y: Double
 
   /** The 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
    *  12 o'clock. */
-  def v3: Pt2
+  def v2: Pt2
 
   /** The last vertex. */
-  override def vLast: Pt2 = vert(vertsNum)
+  override def vLast: Pt2 = vert(vertsNum - 1)
 
-  /** Polygon side 1 from the last vertex to Vertex 1. */
-  def sd1: LineSeg = LineSeg(vLast, v1)
+  /** Polygon side 0 from the last vertex to Vertex 0. */
+  def sd0: LineSeg = LineSeg(vLast, v0)
 
-  /** Polygon side 2 from vertex 1 to vertex 2. */
-  def sd2: LineSeg = LineSeg(v1, v2)
+  /** Polygon side 1 from vertex 0 to vertex 1. */
+  def sd1: LineSeg = LineSeg(v0, v1)
 
   /** Polygon side 3 from v2 to v3. */
-  def sd3: LineSeg = LineSeg(v2, v3)
+  def sd2: LineSeg = LineSeg(v1, v2)
 
   /** The centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can be thought of as
    *  vertex 0.5. */
@@ -82,13 +82,13 @@ trait Polygon4Plus extends Polygon3Plus
 {
   /** The X component of the 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
-  def v4x: Double
+  def v3x: Double
   /** The Y component of the 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
-  def v4y: Double
+  def v3y: Double
   /** The 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
    *  12 o'clock. */
-  def v4: Pt2
+  def v3: Pt2
 
   /** The centre or half way point of side 4 of this polygon. Side 4 starts at the v3 vertex and ends at the v4 vertex. This can be thought of as
    * vertex 3.5. */
