@@ -78,7 +78,12 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
    * signature. */
   override def vertsPrevForEach[U](f: (Pt2, Pt2) => U): Unit = ???
 
-
+  def dropVert(v: Int): Polygon = {
+    val res = PolygonGen.uninitialised(vertsNum - 1)
+    iUntilForeach(1, v){i => res.unsafeSetElem(i - 1, vert(i)) }
+    iToForeach(v + 1, vertsNum){i => res.unsafeSetElem(i - 2, vert(i)) }
+    res
+  }
 
   @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
 
