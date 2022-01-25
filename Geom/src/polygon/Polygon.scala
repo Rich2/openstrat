@@ -85,18 +85,18 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
     res
   }
 
-  @inline def side(index: Int): LineSeg = LineSeg(ife(index == 1, vLast, vert(index - 1)), vert(index))
+  @inline def side(index: Int): LineSeg = LineSeg(ife(index == 0, vLast, vert(index)), vert(index))
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   override def sidesForeach[U](f: LineSeg => U): Unit =
-  { var count = 1
-    while (count <= vertsNum) { f(side(count)); count += 1 }
+  { var count = 0
+    while (count < vertsNum) { f(side(count)); count += 1 }
   }
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def iForeachSide(initCount: Int = 0)(f: (LineSeg, Int) => Unit): Unit =
-  { var count = 1
-    while (count <= vertsNum)
+  { var count = 0
+    while (count < vertsNum)
     { f(side(count), count + initCount)
       count += 1
     }
@@ -166,7 +166,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   def v0: Pt2
 
   /** The last vertex will throw an exception on a 0 vertices polygon. */
-  def vLast: Pt2 = vert(vertsNum)
+  def vLast: Pt2 = vert(vertsNum - 1)
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
   override def boundingRect: BoundingRect =
@@ -278,18 +278,18 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =
   { val res = PolygonGen.uninitialised(vertsNum + 1)
-    (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, vert(i)))
+    iUntilForeach(0,insertionPoint - 1){ i => res.unsafeSetElem(i, vert(i)) }
     res.unsafeSetElem(insertionPoint, newVec)
-    (insertionPoint until vertsNum).foreach(i => res.unsafeSetElem(i + 1, vert(i)))
+    iUntilForeach(insertionPoint, vertsNum){ i => res.unsafeSetElem(i + 1, vert(i)) }
     res
   }
 
   /** Insert vertices before the specified insertion vertex. */
   def insVerts(insertionPoint: Int, newVecs: Pt2 *): Polygon =
   { val res = PolygonGen.uninitialised(vertsNum + newVecs.length)
-    (1 until insertionPoint).foreach(i => res.unsafeSetElem(i - 1, vert(i)))
-    newVecs.iForeach((i, elem) => res.unsafeSetElem(insertionPoint + i - 1, elem))
-    (insertionPoint until vertsNum + 1).foreach(i => res.unsafeSetElem(i + newVecs.length -1, vert(i)))
+    iUntilForeach(0, insertionPoint){ i => res.unsafeSetElem(i, vert(i)) }
+    newVecs.iForeach((i, elem) => res.unsafeSetElem(insertionPoint + i, elem))
+    iUntilForeach(insertionPoint,vertsNum){ i => res.unsafeSetElem(i + newVecs.length, vert(i)) }
     res
   }
 

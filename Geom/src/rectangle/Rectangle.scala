@@ -62,33 +62,33 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def slate(offset: Vec2Like): Rectangle = Rectangle.sd2sd4(sd1Cen.slate(offset), sd4Cen.slate(offset), width2)
+  override def slate(offset: Vec2Like): Rectangle = Rectangle.sd2sd4(sd1Cen.slate(offset), sd3Cen.slate(offset), width2)
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def slateXY(xDelta: Double, yDelta: Double): Rectangle =
-    Rectangle.sd2sd4(sd1Cen.addXY(xDelta, yDelta), sd4Cen.addXY(xDelta, yDelta), width2)
+    Rectangle.sd2sd4(sd1Cen.addXY(xDelta, yDelta), sd3Cen.addXY(xDelta, yDelta), width2)
 
   /** Uniform scaling 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def scale(operand: Double): Rectangle = Rectangle.sd2sd4(sd1Cen.scale(operand), sd4Cen.scale(operand), width2 * operand)
+  override def scale(operand: Double): Rectangle = Rectangle.sd2sd4(sd1Cen.scale(operand), sd3Cen.scale(operand), width2 * operand)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negY: Rectangle = Rectangle.sd2sd4(sd1Cen.negY, sd4Cen.negY, width2)
+  override def negY: Rectangle = Rectangle.sd2sd4(sd1Cen.negY, sd3Cen.negY, width2)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negX: Rectangle = Rectangle.sd2sd4(sd1Cen.negX, sd4Cen.negX, width2)
+  override def negX: Rectangle = Rectangle.sd2sd4(sd1Cen.negX, sd3Cen.negX, width2)
 
-  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(sd1Cen.prolign(matrix), sd4Cen.prolign(matrix), v0.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(sd1Cen.prolign(matrix), sd3Cen.prolign(matrix), v0.prolign(matrix))
 
-  override def rotate90: Rectangle = Rectangle.sd2sd4(sd1Cen.rotate90, sd4Cen.rotate90, width2)
-  override def rotate180: Rectangle = Rectangle.sd2sd4(sd1Cen.rotate180, sd4Cen.rotate180, width2)
-  override def rotate270: Rectangle = Rectangle.sd2sd4(sd1Cen.rotate270, sd4Cen.rotate270, width2)
+  override def rotate90: Rectangle = Rectangle.sd2sd4(sd1Cen.rotate90, sd3Cen.rotate90, width2)
+  override def rotate180: Rectangle = Rectangle.sd2sd4(sd1Cen.rotate180, sd3Cen.rotate180, width2)
+  override def rotate270: Rectangle = Rectangle.sd2sd4(sd1Cen.rotate270, sd3Cen.rotate270, width2)
 
-  override def reflect(lineLike: LineLike): Rectangle = Rectangle.sd2sd4(sd1Cen.reflect(lineLike), sd4Cen.reflect(lineLike), width2)
+  override def reflect(lineLike: LineLike): Rectangle = Rectangle.sd2sd4(sd1Cen.reflect(lineLike), sd3Cen.reflect(lineLike), width2)
 
-  override def rotate(angle: AngleVec): Rectangle = Rectangle.sd2sd4(sd1Cen.rotate(angle), sd4Cen.rotate(angle), width2)
+  override def rotate(angle: AngleVec): Rectangle = Rectangle.sd2sd4(sd1Cen.rotate(angle), sd3Cen.rotate(angle), width2)
 
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle =
-    Rectangle.s2s4v1(sd1Cen.xyScale(xOperand, yOperand), sd4Cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
+    Rectangle.s2s4v1(sd1Cen.xyScale(xOperand, yOperand), sd3Cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
 }
 
 /** Companion object fot the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also
@@ -143,9 +143,9 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleImp(val sd1CenX: Double, val sd1CenY: Double, val sd4CenX: Double, val sd4CenY: Double, val width2: Double) extends RectS2S4
+  final class RectangleImp(val sd1CenX: Double, val sd1CenY: Double, val sd3CenX: Double, val sd3CenY: Double, val width2: Double) extends RectS2S4
   {
-    override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd1Cen), f(sd4Cen), f(v0))
+    override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))
 
    // override def productArity: Int = 5
    // override def productElement(n: Int): Any = ???

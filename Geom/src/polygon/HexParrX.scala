@@ -32,13 +32,13 @@ final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) ext
   override def v3y: Double = cenY - radiusIn
   @inline override def v3: Pt2 = Pt2(v3x, v3y)
 
-  override def v5x: Double = cenX - radiusOut
-  override def v5y: Double = cenY
-  @inline override def v5: Pt2 = Pt2(v5x, v5y)
+  override def v4x: Double = cenX - radiusOut
+  override def v4y: Double = cenY
+  @inline override def v4: Pt2 = Pt2(v4x, v4y)
 
-  override def v6x: Double = cenX - radiusOut / 2
-  override def y6: Double = cenY + radiusIn
-  @inline override def v6: Pt2 = Pt2(v6x, y6)
+  override def v5x: Double = cenX - radiusOut / 2
+  override def y5: Double = cenY + radiusIn
+  @inline override def v5: Pt2 = Pt2(v5x, y5)
 
   override def sd0CenX: Double = cenX
   override def sd0CenY: Double = cenY + radiusIn
@@ -52,16 +52,16 @@ final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) ext
   override def sd2CenY: Double = cenY - radiusIn * Sin30
   override def sd2Cen: Pt2 = sd2CenX pp sd2CenY
 
-  override def sd4CenX: Double = cenX
-  override def sd4CenY: Double = cenY - radiusIn
-  override def sd4Cen: Pt2 = sd4CenX pp sd4CenY
+  override def sd3CenX: Double = cenX
+  override def sd3CenY: Double = cenY - radiusIn
+  override def sd3Cen: Pt2 = sd3CenX pp sd3CenY
 
+  override def sd4CenX: Double = cenX - radiusIn * Cos30
+  override def sd4CenY: Double = cenY - radiusIn * Sin30
+  override def sd4Cen: Pt2 = sd4CenX pp sd4CenY
   override def sd5CenX: Double = cenX - radiusIn * Cos30
-  override def sd5CenY: Double = cenY - radiusIn * Sin30
+  override def sd5CenY: Double = cenY + radiusIn * Sin30
   override def sd5Cen: Pt2 = sd5CenX pp sd5CenY
-  override def sd6CenX: Double = cenX - radiusIn * Cos30
-  override def sd6CenY: Double = cenY + radiusIn * Sin30
-  override def sd6Cen: Pt2 = sd6CenX pp sd6CenY
 
   /** Translate 2D geometric transformation on this HexXlign returns a HexXlign. */
   override def slateXY(xDelta: Double, yDelta: Double): HexParrX = HexParrX(diameterIn, cen.addXY(xDelta, yDelta))

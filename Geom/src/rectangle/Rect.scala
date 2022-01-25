@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
@@ -44,11 +44,11 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   final override def sd1CenY: Double = ???
 
 
-  override def sd4CenX: Double = ???
+  override def sd3CenX: Double = ???
 
-  override def sd4CenY: Double = ???
+  override def sd3CenY: Double = ???
 
-  final override def sd4Cen: Pt2 = Pt2(cenX - width / 2, cenY)
+  final override def sd3Cen: Pt2 = Pt2(cenX - width / 2, cenY)
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(offset: Vec2Like): Rect = Rect(width, height, cen.slate(offset))

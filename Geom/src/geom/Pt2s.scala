@@ -32,10 +32,9 @@ final class Pt2s(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2
     }
     new PolygonGen(acc)
   }
-
-  def toPathDraw(lineWidth: Double, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this.toLinePath, lineWidth, colour)
 }
 
+/** Companion object for the [[Pt2s]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
 object Pt2s extends DataDbl2sCompanion[Pt2, Pt2s]
 {
   override def fromArrayDbl(array: Array[Double]): Pt2s = new Pt2s(array)

@@ -80,11 +80,11 @@ object PhiRectangle
 
     override def sd1Cen: Pt2 = sd0Cen midPt sd1Cen
 
-    override def sd4CenX: Double = ???
+    override def sd3CenX: Double = ???
 
-    override def sd4CenY: Double = ???
+    override def sd3CenY: Double = ???
 
-    override def sd4Cen: Pt2 = sd2Cen midPt sd4Cen
+    override def sd3Cen: Pt2 = sd2Cen midPt sd3Cen
   }
 }
 

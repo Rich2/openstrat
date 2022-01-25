@@ -70,7 +70,7 @@ trait ArrDbl2s[A <: ElemDbl2] extends Any with ArrDblNs[A] with DataDbl2s[A]
   override def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2)))
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[ArrBuilder]] type
+/** Trait for creating the ArrTBuilder type class instances for [[ArrDbl2s]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait ArrDbl2sBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsBuilder[B, ArrB]

@@ -11,29 +11,29 @@ trait Square extends Rectangle
   def rotation: AngleVec
 
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slate(offset: Vec2Like): Square = Square.s2s4(sd1Cen.slate(offset), sd4Cen.slate(offset))
+  override def slate(offset: Vec2Like): Square = Square.s2s4(sd1Cen.slate(offset), sd3Cen.slate(offset))
 
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slateXY(xDelta: Double, yDelta: Double): Square = Square.s2s4(sd1Cen.addXY(xDelta, yDelta), sd4Cen.addXY(xDelta, yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): Square = Square.s2s4(sd1Cen.addXY(xDelta, yDelta), sd3Cen.addXY(xDelta, yDelta))
 
   /** Uniform scaling transformation on a Square returns a Square. */
-  override def scale(operand: Double): Square = Square.s2s4(sd1Cen.scale(operand), sd4Cen.scale(operand))
+  override def scale(operand: Double): Square = Square.s2s4(sd1Cen.scale(operand), sd3Cen.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
-  override def negY: Square = Square.s2s4(sd1Cen.negY, sd4Cen.negY)
+  override def negY: Square = Square.s2s4(sd1Cen.negY, sd3Cen.negY)
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
-  override def negX: Square = Square.s2s4(sd1Cen.negX, sd4Cen.negX)
+  override def negX: Square = Square.s2s4(sd1Cen.negX, sd3Cen.negX)
 
   override def rotate90: Square = ???//Square(width, rotation, xCen, yCen)
   override def rotate180: Square = ???
   override def rotate270: Square = ???
 
-  override def prolign(matrix: ProlignMatrix): Square = Square.s2s4(sd1Cen.prolign(matrix), sd4Cen.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Square = Square.s2s4(sd1Cen.prolign(matrix), sd3Cen.prolign(matrix))
 
-  override def reflect(lineLike: LineLike): Square = Square.s2s4(sd1Cen.reflect(lineLike), sd4Cen.reflect(lineLike))
+  override def reflect(lineLike: LineLike): Square = Square.s2s4(sd1Cen.reflect(lineLike), sd3Cen.reflect(lineLike))
 
-  override def rotate(angle: AngleVec): Square = Square.s2s4(sd1Cen.rotate(angle), sd4Cen.rotate(angle))
+  override def rotate(angle: AngleVec): Square = Square.s2s4(sd1Cen.rotate(angle), sd3Cen.rotate(angle))
 }
 
 /** Companion object for the Square trait. However its apply methods delegate to the [[SquareImp]] implementation class. */
@@ -72,7 +72,7 @@ object Square extends ShapeIcon
 
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
-  final class SquareImp(val sd1CenX: Double, val sd1CenY: Double, val sd4CenX: Double, val sd4CenY: Double) extends Square with RectS2S4
+  final class SquareImp(val sd1CenX: Double, val sd1CenY: Double, val sd3CenX: Double, val sd3CenY: Double) extends Square with RectS2S4
   {
     @inline override def width: Double = width1
     @inline override def width2: Double = width1
