@@ -4,40 +4,40 @@ package ostrat; package geom
 /** A [[Polygon]] with at least 3 vertices. The PolygonNPlus traits include values for the vertices and the x and y components of the vertices. The X
  * and Y components are included because Graphics implementation APIs use them. */
 trait Polygon3Plus extends Polygon
-{ /** The X component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
+{ /** The X component of the v1 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or
+      immediately clockwise from 12 o'clock. */
   def v1x: Double
 
-  /** The Y component of the 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
+  /** The Y component of the v1 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or
+   * immediately clockwise from 12 o'clock. */
   def v1y: Double
 
-  /** The 2nd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
+  /** The v1 Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or immediately clockwise
    *  from 12 o'clock. */
   def v1: Pt2
 
-  /** The X component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
+  /** The X component of the v2 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or
+   * immediately clockwise from 12 o'clock. */
   def v2x: Double
 
-  /** The Y component of the 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
+  /** The Y component of the v2 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or
+   * immediately clockwise from 12 o'clock. */
   def v2y: Double
 
-  /** The 3rd Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise from
-   *  12 o'clock. */
+  /** The v2 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or immediately clockwise
+   * from 12 o'clock. */
   def v2: Pt2
 
-  /** The last vertex. */
+  /** The last vertex. The default convention places this just anti clockwise of 12 oclock. */
   override def vLast: Pt2 = vert(vertsNum - 1)
 
-  /** Polygon side 0 from the last vertex to Vertex 0. */
+  /** Polygon side 0 from vertex 0 to vertex 1. */
   def side0: LineSeg = LineSeg(v0, v1)
 
-  /** Polygon side 1 from vertex 0 to vertex 1. */
+  /** Polygon side 1 from vertex 1 to vertex 2. */
   def sd1: LineSeg = LineSeg(v1, v2)
 
-  /** Polygon side 3 from v2 to v3. */
+  /** Polygon side 2 from vertex 2 to vertex 3. */
   def sd2: LineSeg = LineSeg(v2, ife(vertsNum == 3, v0, vert(3)))
 
   /** The centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can be thought of as
