@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import Colour.Black, pWeb._
 
@@ -6,7 +6,7 @@ import Colour.Black, pWeb._
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
 final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with DataDbl2s[Pt2]
 { override type ThisT = PolygonGen
-  override def vert(index: Int): Pt2 = indexData(index)
+  override def unsafeVert(index: Int): Pt2 = indexData(index)
   @inline override def foreachVertPairTail[U](f: (Double, Double) => U): Unit = dataForeachPairTail(f)
   override def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   @inline override def vertsArray: Array[Double] = unsafeArray

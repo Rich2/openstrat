@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Regular Hexagon */
@@ -29,7 +29,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
   override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y, v3y, v4y, y5)
   override def vertsArray: Array[Double] = ???
 
-  override def vert(index: Int): Pt2 = index match
+  override def unsafeVert(index: Int): Pt2 = index match
   { case 1 => v0
     case 2 => v1
     case 3 => v2
@@ -144,7 +144,7 @@ object HexReg
     override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
     override def syntaxDepth: Int = 3
 
-    override def vert(index: Int): Pt2 = index match {
+    override def unsafeVert(index: Int): Pt2 = index match {
       case 1 => v0
       case 2 => v1
       case 3 => v2

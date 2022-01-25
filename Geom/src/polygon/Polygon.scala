@@ -69,8 +69,12 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
     build.buffToBB(buff)
   }
 
+  /** Returns the vertex of the given index. If the index is out of range, it will just circle round the vertices, so for a triangle -1 gives v2, -2
+   * gives v1, 3 gives v0, 4 gives v1 etc. It will not throw unlike the unsafeVert method. */
+  final def vert(index: Int): Pt2 = unsafeVert(index %% vertsNum)
+
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  def vert(index: Int): Pt2
+  def unsafeVert(index: Int): Pt2
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
@@ -85,7 +89,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
     res
   }
 
-  @inline def side(index: Int): LineSeg = LineSeg(ife(index == 0, vLast, vert(index - 1)), vert(index))
+  @inline def side(index: Int): LineSeg = LineSeg(vert(index), ife(index == vertsNum - 1, v0, vert(index + 1)))
 
   /** foreachs over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   override def sidesForeach[U](f: LineSeg => U): Unit =
@@ -156,13 +160,13 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   def yVert(index: Int): Double
 
-  /** The X component of the 1st vertex, will throw on a 0 vertices polygon. */
+  /** The X component of vertex v0, will throw on a 0 vertices polygon. */
   def v0x: Double
 
-  /** The Y component of the 1st vertex, will throw on a 0 vertices polygon. */
+  /** The Y component of vertex v1, will throw on a 0 vertices polygon. */
   def v0y: Double
 
-  /** The 1st vertex, will throw on a 0 vertices polygon. */
+  /** Vertex v0, will throw on a 0 vertices polygon. */
   def v0: Pt2
 
   /** The last vertex will throw an exception on a 0 vertices polygon. */

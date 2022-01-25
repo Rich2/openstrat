@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A mathematical triangle. The Triangle trait is implemented for its general case by [[Triangle.TriangleImp]]. */
@@ -34,7 +34,7 @@ trait Triangle extends Polygon3Plus
 
 	override def sd2Cen: Pt2 = v1 midPt v2
 
-	override def vert(index: Int): Pt2 = index match
+	override def unsafeVert(index: Int): Pt2 = index match
 	{	case 1 => v0
 		case 2 => v1
 		case 3 => v2

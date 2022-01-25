@@ -27,7 +27,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   def yAttrib: YAttrib = YAttrib(v3y)
   override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
 
-  @inline final override def vert(index: Int): Pt2 = index match
+  @inline final override def unsafeVert(index: Int): Pt2 = index match
   { case 0 => v0
     case 1 => v1
     case 2 => v2
