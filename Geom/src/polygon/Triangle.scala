@@ -9,30 +9,30 @@ trait Triangle extends Polygon3Plus
 
 	/** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
 	 * be thought of as vertex 0.5. */
-	override def sd1CenX: Double = ???
+	override def sd0CenX: Double = ???
 
 	/** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
 	 * be thought of as vertex 0.5. */
+	override def sd0CenY: Double = ???
+
+	override def sd0Cen: Pt2 = v2 midPt v0
+
+	override def sd1CenX: Double = ???
+
 	override def sd1CenY: Double = ???
 
-	override def sd1Cen: Pt2 = v2 midPt v0
-
-	override def sd2CenX: Double = ???
-
-	override def sd2CenY: Double = ???
-
-	override def sd2Cen: Pt2 = v0 midPt v1
+	override def sd1Cen: Pt2 = v0 midPt v1
 
 
 	/** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
 	 * thought of as vertex 2.5. */
-	override def sd3CenX: Double = ???
+	override def sd2CenX: Double = ???
 
 	/** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
 	 * thought of as vertex 2.5. */
-	override def sd3CenY: Double = ???
+	override def sd2CenY: Double = ???
 
-	override def sd3Cen: Pt2 = v1 midPt v2
+	override def sd2Cen: Pt2 = v1 midPt v2
 
 	override def vert(index: Int): Pt2 = index match
 	{	case 1 => v0

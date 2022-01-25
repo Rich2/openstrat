@@ -40,17 +40,17 @@ final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) ext
   override def y6: Double = cenY + radiusIn
   @inline override def v6: Pt2 = Pt2(v6x, y6)
 
-  override def sd1CenX: Double = cenX
-  override def sd1CenY: Double = cenY + radiusIn
+  override def sd0CenX: Double = cenX
+  override def sd0CenY: Double = cenY + radiusIn
+  override def sd0Cen: Pt2 = sd0CenX pp sd0CenY
+
+  override def sd1CenX: Double = cenX + radiusIn * Cos30
+  override def sd1CenY: Double = cenY + radiusIn * Sin30
   override def sd1Cen: Pt2 = sd1CenX pp sd1CenY
 
   override def sd2CenX: Double = cenX + radiusIn * Cos30
-  override def sd2CenY: Double = cenY + radiusIn * Sin30
+  override def sd2CenY: Double = cenY - radiusIn * Sin30
   override def sd2Cen: Pt2 = sd2CenX pp sd2CenY
-
-  override def sd3CenX: Double = cenX + radiusIn * Cos30
-  override def sd3CenY: Double = cenY - radiusIn * Sin30
-  override def sd3Cen: Pt2 = sd3CenX pp sd3CenY
 
   override def sd4CenX: Double = cenX
   override def sd4CenY: Double = cenY - radiusIn

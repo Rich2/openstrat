@@ -16,7 +16,7 @@ object Star5
 
   def crossLines(ratio: Double = classicRatio): GraphicElem =
   { val poly = apply(ratio)
-    Ints(2, 6, 10, 4, 8, 2).map{i => poly.vert(i) }.toPathDraw(1)
+    Ints(1, 5, 9, 3, 7, 1).map{i => poly.vert(i) }.toPathDraw(1)
   }
 
   /** Not quite sure what this does. */

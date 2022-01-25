@@ -66,30 +66,30 @@ trait HexReg extends ShapeCentred with Polygon6Plus with Show
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slateXY(xDelta: Double, yDelta: Double): HexReg = HexReg.sd4Sd1(sd4Cen.addXY(xDelta, yDelta), sd1Cen.addXY(xDelta, yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): HexReg = HexReg.sd4Sd1(sd4Cen.addXY(xDelta, yDelta), sd0Cen.addXY(xDelta, yDelta))
 
   /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */
-  override def scale(operand: Double): HexReg = HexReg.sd4Sd1(sd4Cen.scale(operand), sd1Cen.scale(operand))
+  override def scale(operand: Double): HexReg = HexReg.sd4Sd1(sd4Cen.scale(operand), sd0Cen.scale(operand))
 
   /** Mirror, reflection transformation of a HexReg across the X axis, returns a HexReg. */
-  override def negY: HexReg = HexReg.sd4Sd1(sd4Cen.negY, sd1Cen.negY)
+  override def negY: HexReg = HexReg.sd4Sd1(sd4Cen.negY, sd0Cen.negY)
 
   /** Mirror, reflection transformation of HexReg across the Y axis, returns a HexReg. */
-  override def negX: HexReg = HexReg.sd4Sd1(sd4Cen.negX, sd1Cen.negX)
+  override def negX: HexReg = HexReg.sd4Sd1(sd4Cen.negX, sd0Cen.negX)
 
-  override def rotate90: HexReg = HexReg.sd4Sd1(sd4Cen.rotate90, sd1Cen.rotate90)
-  override def rotate180: HexReg = HexReg.sd4Sd1(sd4Cen.rotate180, sd1Cen.rotate180)
-  override def rotate270: HexReg = HexReg.sd4Sd1(sd4Cen.rotate270, sd1Cen.rotate270)
+  override def rotate90: HexReg = HexReg.sd4Sd1(sd4Cen.rotate90, sd0Cen.rotate90)
+  override def rotate180: HexReg = HexReg.sd4Sd1(sd4Cen.rotate180, sd0Cen.rotate180)
+  override def rotate270: HexReg = HexReg.sd4Sd1(sd4Cen.rotate270, sd0Cen.rotate270)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): HexReg = HexReg.sd4Sd1(sd4Cen.prolign(matrix), sd1Cen.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): HexReg = HexReg.sd4Sd1(sd4Cen.prolign(matrix), sd0Cen.prolign(matrix))
 
-  override def rotate(angle: AngleVec): HexReg = HexReg.sd4Sd1(sd4Cen.rotate(angle), sd1Cen.rotate(angle))
+  override def rotate(angle: AngleVec): HexReg = HexReg.sd4Sd1(sd4Cen.rotate(angle), sd0Cen.rotate(angle))
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
    * traits / classes. */
-  override def reflect(lineLike: LineLike): HexReg = HexReg.sd4Sd1(sd4Cen.reflect(lineLike), sd1Cen.reflect(lineLike))
+  override def reflect(lineLike: LineLike): HexReg = HexReg.sd4Sd1(sd4Cen.reflect(lineLike), sd0Cen.reflect(lineLike))
 }
 
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
@@ -133,13 +133,13 @@ object HexReg
   }
 
   /** Implementation class for the [[HexReg]] trait. */
-  final case class HexRegImp(sd4CenX: Double, sd4CenY: Double, sd1CenX: Double, sd1CenY: Double) extends HexReg with Show2[Pt2, Pt2]
+  final case class HexRegImp(sd4CenX: Double, sd4CenY: Double, sd0CenX: Double, sd0CenY: Double) extends HexReg with Show2[Pt2, Pt2]
   {
     override def name1: String = "sd4Cen"
     override def name2: String = "sd1Cen"
 
     override def show1: Pt2 = sd4Cen
-    override def show2: Pt2 = sd1Cen
+    override def show2: Pt2 = sd0Cen
     override implicit def showT1: ShowT[Pt2] = Pt2.persistImplicit
     override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
     override def syntaxDepth: Int = 3
@@ -154,12 +154,12 @@ object HexReg
       case n => excep(s"There is no vertex $n on a Hexagon.")
     }
     def sd4Cen: Pt2 = Pt2(sd4CenX, sd4CenY)
-    def sd1Cen: Pt2 = Pt2(sd1CenX, sd1CenY)
-    def cenX: Double = (sd1CenX + sd4CenX) / 2
-    def cenY: Double = (sd1CenY + sd4CenY) / 2
+    def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
+    def cenX: Double = (sd0CenX + sd4CenX) / 2
+    def cenY: Double = (sd0CenY + sd4CenY) / 2
     def s1CenRMax: Pt2 = cen + (cen >> sd4Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(cenX, cenY)
-    @inline override def diameterIn: Double = sd1Cen.distTo(sd4Cen)
+    @inline override def diameterIn: Double = sd0Cen.distTo(sd4Cen)
     override def v0: Pt2 = s1CenRMax.rotateAbout(cen,  - Deg30)
     override def v0x: Double = v0.x
     override def v0y: Double = v0.y
@@ -179,12 +179,12 @@ object HexReg
     override def v6x: Double = v6.x
     override def y6: Double = v6.y
 
-    override def sd2CenX: Double = average(v0x, v1x)
-    override def sd2CenY: Double = average(v0y, v1y)
-    override def sd2Cen: Pt2 = v0 midPt v1
-    override def sd3CenX: Double = average(v1x, v2x)
-    override def sd3CenY: Double = average(v1y, v2y)
-    override def sd3Cen: Pt2 = v1 midPt v2
+    override def sd1CenX: Double = average(v0x, v1x)
+    override def sd1CenY: Double = average(v0y, v1y)
+    override def sd1Cen: Pt2 = v0 midPt v1
+    override def sd2CenX: Double = average(v1x, v2x)
+    override def sd2CenY: Double = average(v1y, v2y)
+    override def sd2Cen: Pt2 = v1 midPt v2
     override def sd5CenX: Double = average(v3x, v5x)
     override def sd5CenY: Double = average(v3y, v5y)
     override def sd5Cen: Pt2 = v3 midPt v5

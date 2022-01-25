@@ -42,39 +42,39 @@ trait Polygon3Plus extends Polygon
 
   /** The centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can be thought of as
    *  vertex 0.5. */
-  def sd1Cen: Pt2
+  def sd0Cen: Pt2
 
   /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
    *  be thought of as vertex 0.5. */
-  def sd1CenX: Double
+  def sd0CenX: Double
 
   /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
    *  be thought of as vertex 0.5. */
-  def sd1CenY: Double
+  def sd0CenY: Double
 
   /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as
    * vertex 1.5 */
-  def sd2Cen: Pt2
+  def sd1Cen: Pt2
 
   /** The X component of the centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v1 vertex. This can be
    *  thought of as vertex 1.5. */
-  def sd2CenX: Double
+  def sd1CenX: Double
 
   /** The Y component of the centre or half way point of side 3 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be
    *  thought of as vertex 1.5. */
-  def sd2CenY: Double
+  def sd1CenY: Double
 
   /** The centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be thought of as
    *  vertex 2.5. */
-  def sd3Cen: Pt2
+  def sd2Cen: Pt2
 
   /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
    *  thought of as vertex 2.5. */
-  def sd3CenX: Double
+  def sd2CenX: Double
 
   /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
    *  thought of as vertex 2.5. */
-  def sd3CenY: Double
+  def sd2CenY: Double
 }
 
 /** A [[Polygon]] with at least 4 vertices. */
