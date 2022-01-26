@@ -3,7 +3,7 @@ package ostrat; package pParse
 
 /** The purpose of this token is for use at the beginning of a file, to make the the rest of the Statements, sub-statements. As if they were the
  *  statements inside parenthesis. */
-case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ExprToken
+case class HashAlphaToken(startPosn: TextPosn, srcStr: String) extends ClauseMemExprToken
 { override def exprTypeStr: String = "HashAlpha"
 }
 

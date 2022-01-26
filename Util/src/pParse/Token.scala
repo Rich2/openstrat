@@ -28,7 +28,7 @@ object Token
 /** Token that is member of a block. Includes all tokens except the brace tokens. */
 trait BlockMemToken extends BlockMem with Token
 
-trait EmptyExprToken extends BlockMemToken with ExprToken with ExprSeq
+trait EmptyExprToken extends BlockMemToken with ClauseMemExprToken with ExprSeq
 { override def exprs: Arr[Expr] = Arr()
 }
 
@@ -66,12 +66,12 @@ case class Dot3Token(startPosn: TextPosn) extends ClauseMemToken
   override def tokenTypeStr: String = "DotToken"
 }
 
-case class CharToken(startPosn: TextPosn, char: Char) extends ExprToken
+case class CharToken(startPosn: TextPosn, char: Char) extends ClauseMemExprToken
 { def srcStr = char.toString.enquote1
   override def exprTypeStr: String = "CharToken"
 }
 
-case class StringToken(startPosn: TextPosn, stringStr: String) extends ExprToken
+case class StringToken(startPosn: TextPosn, stringStr: String) extends ClauseMemExprToken
 { def srcStr = stringStr.enquote
   override def exprTypeStr: String = "StringToken"
 }

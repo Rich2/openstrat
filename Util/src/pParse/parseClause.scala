@@ -1,8 +1,8 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
-/** I believe this composes Blocks with their preceding identifiers. */
-object composeBlocks
+/** Function object for parsing clause members into ClauseMemExpr. */
+object parseClause
 {
   def apply(implicit seg: Arr[ClauseMem]): EMon[ClauseMemExpr] =
   {

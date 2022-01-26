@@ -34,7 +34,7 @@ trait ExprSeqNonEmpty extends CompoundClauseMemExpr with ExprSeq
 }
 
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
-trait ExprToken extends ClauseMemExpr with ClauseMemToken
+trait ClauseMemExprToken extends ClauseMemExpr with ClauseMemToken
 { /** This with the addition of the "Expr" [[String]] gives the exprName property. */
   def exprTypeStr: String
 

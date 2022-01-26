@@ -63,12 +63,12 @@ object getClauses
     val acc: Buff[Clause] = Buff()
     def loop(rem: ArrOff[AssignMem]): EMon[AssignMemExpr] = rem match {
 
-      case ArrOff0() if acc.isEmpty => composeBlocks(subAcc.toArr)
+      case ArrOff0() if acc.isEmpty => parseClause(subAcc.toArr)
       case ArrOff0() if subAcc.isEmpty => Good(ClausesExpr(acc.toArr))
-      case ArrOff0() => composeBlocks(subAcc.toArr).map{e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
+      case ArrOff0() => parseClause(subAcc.toArr).map{e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
       case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
 
-      case ArrOff1Tail(ct: CommaToken, tail) => composeBlocks(subAcc.toArr).flatMap{ expr =>
+      case ArrOff1Tail(ct: CommaToken, tail) => parseClause(subAcc.toArr).flatMap{ expr =>
         acc.append(Clause(expr, OptRef(ct)))
         subAcc = Buff()
         loop(tail)

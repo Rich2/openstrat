@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 import utest._
 
@@ -8,7 +8,8 @@ object AstTest extends TestSuite
   val s1 = "x = y;"
   val t1 = srcToETokens.str(s1)
   val w1 = stringToStatements(s1)
-  val t3= Arr(IdentLowerOnlyToken(Sp1, "x"), AsignToken(StrPosn(1, 3)), IdentLowerOnlyToken(StrPosn(1, 5), "y"), SemicolonToken(StrPosn(1, 6)))
+  val t3: Arr[StatementMem with BlockMemToken] = Arr(IdentLowerOnlyToken(Sp1, "x"), AsignToken(StrPosn(1, 3)),
+    IdentLowerOnlyToken(StrPosn(1, 5), "y"), SemicolonToken(StrPosn(1, 6)))
   val a1: ERefs[Statement] = astParse(t3)
   //deb(a1.get.dataLengthStr)
  // deb(w1.toString)
