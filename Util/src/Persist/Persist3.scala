@@ -124,7 +124,7 @@ trait UnShow3[A1, A2, A3, R] extends UnShowProduct[R] with ShowSelf3[A1, A2, A3]
   /** The UnShow type class instance for type A2. */
   def ev2: UnShow[A2]
 
-  /** The UnShow type class instance for type A2. */
+  /** The UnShow type class instance for type A3. */
   def ev3: UnShow[A3]
 
   def newT: (A1, A2, A3) => R
@@ -141,7 +141,6 @@ trait UnShow3[A1, A2, A3, R] extends UnShowProduct[R] with ShowSelf3[A1, A2, A3]
 
     case _ => expr.exprParseErr[R](this)
   }
-
 }
 
 object UnShow3
