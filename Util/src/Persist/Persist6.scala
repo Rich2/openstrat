@@ -33,7 +33,7 @@ object Show6T
 }
 
 /** UnShow trait for 6 parameter product / case classes. */
-trait UnShow6[A1, A2, A3, A4, A5, A6, R] extends UnShowProduct[R]
+trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends Unshow[R]
 { def name1: String
   def fArg1: R => A1
   def name2: String
@@ -53,10 +53,10 @@ trait UnShow6[A1, A2, A3, A4, A5, A6, R] extends UnShowProduct[R]
   def opt3: Option[A3] = None
   def opt2: Option[A2] = None
   def opt1: Option[A1] = None
-  implicit def ev1: UnShow[A1]
-  implicit def ev2: UnShow[A2]
-  implicit def ev3: UnShow[A3]
-  implicit def ev4: UnShow[A4]
-  implicit def ev5: UnShow[A5]
-  implicit def ev6: UnShow[A6]
+  implicit def ev1: Unshow[A1]
+  implicit def ev2: Unshow[A2]
+  implicit def ev3: Unshow[A3]
+  implicit def ev4: Unshow[A4]
+  implicit def ev5: Unshow[A5]
+  implicit def ev6: Unshow[A6]
 }

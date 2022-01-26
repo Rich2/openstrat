@@ -164,12 +164,12 @@ object ShowShowInt2T
 }
 
 /** UnShow type class trait for a 2 element Product. */
-trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with ShowSelf2[A1, A2]
+trait Unshow2[A1, A2, R] extends Unshow[R] with ShowSelf2[A1, A2]
 { /** The UnShow type class instance for type A1. */
-  def ev1: UnShow[A1]
+  def ev1: Unshow[A1]
 
   /** The UnShow type class instance for type A2. */
-  def ev2: UnShow[A2]
+  def ev2: Unshow[A2]
 
   def newT: (A1, A2) => R
 
@@ -188,7 +188,7 @@ trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with ShowSelf2[A1, A2]
 }
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
-trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with UnShow2T[A1, A2, R] with PersistProduct[R]
+trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with Unshow2[A1, A2, R] with PersistProduct[R]
 { override def ev1: Persist[A1]
   override def ev2: Persist[A2]
 }

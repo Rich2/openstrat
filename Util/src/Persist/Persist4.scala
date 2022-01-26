@@ -2,7 +2,7 @@
 package ostrat
 import pParse._
 
-/** A base trait for [[Show4T]] and [[UnShow4]], declares the common properties of name1 - 4 and opt1 - 4. */
+/** A base trait for [[Show4T]] and [[Unshow4]], declares the common properties of name1 - 4 and opt1 - 4. */
 trait ShowSelf4[A1, A2, A3, A4] extends Any with ShowSelf3[A1, A2, A3]
 { /** 1st parameter name. */
   def name4: String
@@ -28,19 +28,19 @@ abstract class Show4T[A1, A2, A3, A4, R](val typeStr: String, name1: String, fAr
 }
 
 /** UnShow class for 3 logical parameter product types. */
-trait UnShow4[A1, A2, A3, A4, R] extends UnShowProduct[R] with ShowSelf4[A1, A2, A3, A4]
+trait Unshow4[A1, A2, A3, A4, R] extends Unshow[R] with ShowSelf4[A1, A2, A3, A4]
 {
   /** The UnShow type class instance for type A1. */
-  def ev1: UnShow[A1]
+  def ev1: Unshow[A1]
 
   /** The UnShow type class instance for type A2. */
-  def ev2: UnShow[A2]
+  def ev2: Unshow[A2]
 
   /** The UnShow type class instance for type A3. */
-  def ev3: UnShow[A3]
+  def ev3: Unshow[A3]
 
   /** The UnShow type class instance for type A4. */
-  def ev4: UnShow[A4]
+  def ev4: Unshow[A4]
 
   def newT: (A1, A2, A3, A4) => R
 

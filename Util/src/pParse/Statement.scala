@@ -52,7 +52,7 @@ object Statement
     def findSetting[T](settingStr: String)(implicit ev: Persist[T]): EMon[T] = ev.settingFromStatements(statementRefs, settingStr)
 
     /** Find Setting of key type KT type T from this Arr[Statement]. Extension method. */
-    def findKeySetting[KT, VT](key: KT)(implicit evST: UnShow[KT], ev: Persist[VT]): EMon[VT] = ev.keySettingFromStatements(statementRefs, key)
+    def findKeySetting[KT, VT](key: KT)(implicit evST: Unshow[KT], ev: Persist[VT]): EMon[VT] = ev.keySettingFromStatements(statementRefs, key)
 
     /** Searches for the setting of the correct type. If not found it searches for a unique setting / value of the correct type. */
     def findSettingOrUniqueT[T](settingStr: String)(implicit ev: Persist[T]): EMon[T] = findSetting[T](settingStr).goodOrOther(findUniqueT)
@@ -61,7 +61,7 @@ object Statement
     def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSetting[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if its unique from this Arr[Statement] and return value. */
-    def findUniqueT[A](implicit ev: UnShow[A]): EMon[A] = ev.findUniqueFromStatements(statementRefs)
+    def findUniqueT[A](implicit ev: Unshow[A]): EMon[A] = ev.findUniqueFromStatements(statementRefs)
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
@@ -75,23 +75,23 @@ object Statement
 
     /** Find the sole [[Int]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Int]. */
-    def findInt: EMon[Int] = UnShow.intImplicit.findUniqueTFromStatements(statementRefs)
+    def findInt: EMon[Int] = Unshow.intImplicit.findUniqueTFromStatements(statementRefs)
 
     /** Find the sole [[Double]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Double]. */
-    def findDbl: EMon[Double] = UnShow.doubleImplicit.findUniqueTFromStatements(statementRefs)
+    def findDbl: EMon[Double] = Unshow.doubleImplicit.findUniqueTFromStatements(statementRefs)
 
     /** Find the sole [[Boolean]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Boolean]. */
-    def findBool: EMon[Boolean] = UnShow.booleanImplicit.findUniqueTFromStatements(statementRefs)
+    def findBool: EMon[Boolean] = Unshow.booleanImplicit.findUniqueTFromStatements(statementRefs)
 
     /** Find the sole [[Long]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Long]. */
-    def findLong: EMon[Long] = UnShow.longImplicit.findUniqueTFromStatements(statementRefs)
+    def findLong: EMon[Long] = Unshow.longImplicit.findUniqueTFromStatements(statementRefs)
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */
-    def findIntArray: EMon[Array[Int]] = UnShow.arrayIntImplicit.findUniqueFromStatements(statementRefs)
+    def findIntArray: EMon[Array[Int]] = Unshow.arrayIntImplicit.findUniqueFromStatements(statementRefs)
 
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
     def findSettingInt(settingStr: String): EMon[Int] = ShowT.intPersistImplicit.settingFromStatements(statementRefs, settingStr)

@@ -2,7 +2,7 @@
 package ostrat
 import pParse._
 
-/** A base trait for [[Show3T]] and [[UnShow3]], declares the common properties of name1 - 3 and opt1 - 3. */
+/** A base trait for [[Show3T]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
 trait ShowSelf3[A1, A2, A3] extends Any with ShowSelf2[A1, A2]
 { /** 1st parameter name. */
   def name3: String
@@ -116,16 +116,16 @@ object ShowShowDbl3T
 }
 
 /** UnShow class for 3 logical parameter product types. */
-trait UnShow3[A1, A2, A3, R] extends UnShowProduct[R] with ShowSelf3[A1, A2, A3]
+trait Unshow3[A1, A2, A3, R] extends Unshow[R] with ShowSelf3[A1, A2, A3]
 {
   /** The UnShow type class instance for type A1. */
-  def ev1: UnShow[A1]
+  def ev1: Unshow[A1]
 
   /** The UnShow type class instance for type A2. */
-  def ev2: UnShow[A2]
+  def ev2: Unshow[A2]
 
   /** The UnShow type class instance for type A3. */
-  def ev3: UnShow[A3]
+  def ev3: Unshow[A3]
 
   def newT: (A1, A2, A3) => R
 
@@ -143,7 +143,7 @@ trait UnShow3[A1, A2, A3, R] extends UnShowProduct[R] with ShowSelf3[A1, A2, A3]
   }
 }
 
-object UnShow3
+object Unshow3
 {
   /*(val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
   val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: UnShow[A1], ev2: UnShow[A2],
@@ -151,7 +151,7 @@ object UnShow3
 }
 
 /** Persistence class for 3 logical parameter product types. */
-trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with UnShow3[A1, A2, A3, R] with PersistProduct[R]
+trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistProduct[R]
 { override def ev1: Persist[A1]
   override def ev2: Persist[A2]
   override def ev3: Persist[A3]

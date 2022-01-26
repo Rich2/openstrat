@@ -3,10 +3,10 @@ package ostrat
 import pParse._, annotation.unchecked.uncheckedVariance
 
 /** The UnShow type class produces an object in memory or an error sequence from RSON syntax strings. */
-trait UnShow[+T] extends ShowSelf
+trait Unshow[+T] extends ShowSelf
 {
   def fromExpr(expr: Expr): EMon[T]
-  
+
   /** Trys to build an object of type T from the statement. Not sure if this is useful. */
   final def fromStatement(st: Statement): EMon[T] = fromExpr(st.expr)
 
@@ -39,7 +39,7 @@ trait UnShow[+T] extends ShowSelf
   }
 
   /** Finds a setting with a key / code of type KT and a value of the type of this UnShow instance from a [Statement]. */
-  def keySettingFromStatement[KT](settingCode: KT, st: Statement)(implicit evST: UnShow[KT]): EMon[T] = st match
+  def keySettingFromStatement[KT](settingCode: KT, st: Statement)(implicit evST: Unshow[KT]): EMon[T] = st match
   { case NonEmptyStatement(AsignExpr(codeExpr, _, rightExpr), _) if evST.fromExpr(codeExpr) == Good(settingCode) => fromExpr(rightExpr)
     case _ => st.startPosn.bad(typeStr -- "not found.")
   }
@@ -56,7 +56,7 @@ trait UnShow[+T] extends ShowSelf
   }
 
   /** Finds a key setting with Key type KT of the type of this UnShow instance from an Arr[Statement]. */
-  def keySettingFromStatements[KT](sts: Arr[Statement], settingCode: KT)(implicit evST: UnShow[KT]): EMon[T] = sts match
+  def keySettingFromStatements[KT](sts: Arr[Statement], settingCode: KT)(implicit evST: Unshow[KT]): EMon[T] = sts match
   { case Arr0() => TextPosn.emptyError("No Statements")
     case Arr1(st1) => keySettingFromStatement(settingCode, st1)
     case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect{ case g @ Good(_) => g } match
@@ -67,13 +67,13 @@ trait UnShow[+T] extends ShowSelf
   }
 }
 
-/** Companion object for the [[UnShow]] type class trait, contains implicit instances for common types. */
-object UnShow
+/** Companion object for the [[Unshow]] type class trait, contains implicit instances for common types. */
+object Unshow
 {
   //implicit def tuple2Implicit[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist[Tuple2[A1, A2]] =
   // Persist2[A1, A2, (A1, A2)]("Tuple2", "_1", _._1, "_2", _._2, (a1, a2) => (a1, a2))
 
-  implicit val intImplicit: UnShow[Int] = new UnShow[Int]
+  implicit val intImplicit: Unshow[Int] = new Unshow[Int]
   {
     override def typeStr: String = "Int"
 
@@ -85,7 +85,7 @@ object UnShow
     }
   }
 
-  implicit val doubleImplicit: UnShow[Double] = new UnShow[Double]
+  implicit val doubleImplicit: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "DFloat"
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match {
@@ -100,7 +100,7 @@ object UnShow
     }
   }
 
-  implicit val floatImplicit: UnShow[Float] = new UnShow[Float]
+  implicit val floatImplicit: Unshow[Float] = new Unshow[Float]
   { override def typeStr: String = "SFloat"
 
     override def fromExpr(expr: Expr): EMon[Float] = expr match
@@ -112,7 +112,7 @@ object UnShow
     }
   }
 
-  implicit val longImplicit: UnShow[Long] = new UnShow[Long]
+  implicit val longImplicit: Unshow[Long] = new Unshow[Long]
   { override def typeStr = "Long"
 
     override def fromExpr(expr: Expr): EMon[Long] = expr match
@@ -123,7 +123,7 @@ object UnShow
     }
   }
 
-  implicit val booleanImplicit: UnShow[Boolean] = new UnShow[Boolean]
+  implicit val booleanImplicit: Unshow[Boolean] = new Unshow[Boolean]
   { override def typeStr: String = "Bool"
 
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
@@ -133,7 +133,7 @@ object UnShow
     }
   }
 
-  implicit val stringImplicit: UnShow[String] = new UnShow[String]
+  implicit val stringImplicit: Unshow[String] = new Unshow[String]
   { override def typeStr: String = "Str"
 
     override def fromExpr(expr: Expr): EMon[String] = expr match
@@ -142,7 +142,7 @@ object UnShow
     }
   }
 
-  implicit val charImplicit: UnShow[Char] = new UnShow[Char]
+  implicit val charImplicit: Unshow[Char] = new Unshow[Char]
   {
     override def typeStr: String = "Char"
 
@@ -152,7 +152,7 @@ object UnShow
     }
   }
 
-  implicit val arrayIntImplicit: UnShow[Array[Int]] = new UnShow[Array[Int]]//(ShowT.intPersistImplicit)
+  implicit val arrayIntImplicit: Unshow[Array[Int]] = new Unshow[Array[Int]]//(ShowT.intPersistImplicit)
   {
     def typeStr: String = "Array[Int]"
 
@@ -165,8 +165,8 @@ object UnShow
   }
 
   /** Implicit method for creating List[A: Persist] instances. */
-  implicit def listImplicit[A](implicit evIn: UnShow[A]): UnShow[List[A]] = new UnShow[List[A]]// with ShowIterable[A, List[A]]
-  { val evA: UnShow[A] = evIn
+  implicit def listImplicit[A](implicit evIn: Unshow[A]): Unshow[List[A]] = new Unshow[List[A]]// with ShowIterable[A, List[A]]
+  { val evA: Unshow[A] = evIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): EMon[List[A]] = expr match
@@ -178,8 +178,8 @@ object UnShow
   }
 
   /** Implicit method for creating Vector[A: UnShow] instances. */
-  implicit def vectorImplicit[A](implicit evIn: UnShow[A]): UnShow[Vector[A]] = new UnShow[Vector[A]]
-  { val evA: UnShow[A] = evIn
+  implicit def vectorImplicit[A](implicit evIn: Unshow[A]): Unshow[Vector[A]] = new Unshow[Vector[A]]
+  { val evA: Unshow[A] = evIn
     override def typeStr: String = "Seq" + evA.typeStr.enSquare
 
     override def fromExpr(expr: Expr): EMon[Vector[A]] = expr match
@@ -190,7 +190,7 @@ object UnShow
     }
   }
 
-  implicit def someUnShowImplicit[A](implicit ev: UnShow[A]): UnShow[Some[A]] = new UnShow[Some[A]]
+  implicit def someUnShowImplicit[A](implicit ev: Unshow[A]): Unshow[Some[A]] = new Unshow[Some[A]]
   { override def typeStr: String = "Some" + ev.typeStr.enSquare
 
     override def fromExpr(expr: Expr): EMon[Some[A]] = expr match
@@ -199,13 +199,13 @@ object UnShow
     }
   }
 
-  implicit def optionUnShowImplicit[A](implicit evA: UnShow[A]): UnShow[Option[A]] = new UnShowSum2[Option[A], Some[A], None.type]
+  implicit def optionUnShowImplicit[A](implicit evA: Unshow[A]): Unshow[Option[A]] = new UnShowSum2[Option[A], Some[A], None.type]
   { override def typeStr: String = "Option" + evA.typeStr.enSquare
-    override def ev1: UnShow[Some[A]] = someUnShowImplicit[A](evA)
-    override def ev2: UnShow[None.type] = noneUnShowImplicit
+    override def ev1: Unshow[Some[A]] = someUnShowImplicit[A](evA)
+    override def ev2: Unshow[None.type] = noneUnShowImplicit
   }
 
-  implicit val noneUnShowImplicit: UnShow[None.type] = new UnShow[None.type]//("None")
+  implicit val noneUnShowImplicit: Unshow[None.type] = new Unshow[None.type]//("None")
   { override def typeStr: String = "None"
 
     def fromExpr(expr: Expr): EMon[None.type] = expr match
@@ -216,9 +216,9 @@ object UnShow
   }
 }
 
-/** A convenience trait type class trait for persistence, that combines the [[ShowT]] and [[UnShow]] type classes. Most if not all final classes that
+/** A convenience trait type class trait for persistence, that combines the [[ShowT]] and [[Unshow]] type classes. Most if not all final classes that
  * inherit from this trait will require type class instances of ShowT and UnShowT to implement [[Persist]]'s members. It is most important that these
  * implicit parameter instances be specified as separate ShowT and UnShowT parameters. Do not combine them into a Persist parameter. There are no
  * implicit instances for [[Int]], [[Double]], [[List]] etc in the [[Persist]] companion object, the Persist components for these standard types will
  * be found in the ShowT and UnShow companion objects. */
-trait Persist[T] extends ShowT[T] with UnShow[T]
+trait Persist[T] extends ShowT[T] with Unshow[T]

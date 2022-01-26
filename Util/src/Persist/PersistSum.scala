@@ -43,12 +43,12 @@ object ShowSum2
   }
 }
 
-trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends UnShow[ST]
+trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends Unshow[ST]
 {
-  def ev1: UnShow[A1]  
-  def ev2: UnShow[A2] 
+  def ev1: Unshow[A1]
+  def ev2: Unshow[A2]
   
-  def pList: List[UnShow[ST]] = List(ev1, ev2)
+  def pList: List[Unshow[ST]] = List(ev1, ev2)
   override def fromExpr(expr: Expr): EMon[ST] =
     pList.mapFirstGood(_.fromExpr(expr), expr.startPosn.bad("fromExpr, No value of" -- typeStr -- "found."))
     
