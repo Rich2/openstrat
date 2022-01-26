@@ -13,6 +13,7 @@ sealed trait EMon[+A]
   def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
 
   def map2[B, C](mb: EMon[B])(f: (A, B) => C): EMon[C]
+  def map3[B, C, D](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => D): EMon[D]
 
   /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid
    * unnecessary boxing of primitive values. */
@@ -88,7 +89,7 @@ final case class Good[+A](val value: A) extends EMon[A] //with GoodBase[A]
   override def fld[B](noneValue: => B, fGood: A => B): B = fGood(value)
 
   override def map2[B, C](mb: EMon[B])(f: (A, B) => C): EMon[C] = mb.map(b => f(value, b))
-
+  override def map3[B, C, D](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => D): EMon[D] = mb.map2(mc){(b, c) => f(value, b, c) }
  // @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fGood(value)
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
   override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
@@ -132,7 +133,7 @@ class Bad[+A](val errs: Strings) extends EMon[A]
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
 
   override def map2[B, C](mb: EMon[B])(f: (A, B) => C): EMon[C] = Bad[C](errs ++ mb.errs)
-
+  override def map3[B, C, D](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => D): EMon[D] = Bad[D](errs ++ mb.errs ++ mc.errs)
   override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
   override def getElse(elseValue: A @uncheckedVariance): A = elseValue

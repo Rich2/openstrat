@@ -129,18 +129,18 @@ trait UnShow3[A1, A2, A3, R] extends UnShowProduct[R] with ShowSelf3[A1, A2, A3]
 
   def newT: (A1, A2, A3) => R
 
-  /*override def fromExpr(expr: Expr): EMon[R] = expr match
+  override def fromExpr(expr: Expr): EMon[R] = expr match
   {
-    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(Arr2(s1, s2), _, _))) if typeStr == typeName =>
-      ev1.fromExpr(s1.expr).flatMap(a1 => ev2.fromExpr(s2.expr).map{a2 => newT(a1, a2)})
+    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(Arr3(s1, s2, s3), _, _))) if typeStr == typeName =>
+      ev1.fromExpr(s1.expr).map3(ev2.fromExpr(s2.expr), ev3.fromExpr(s3.expr)){ (a1, a2, a3) => newT(a1, a2, a3) }
 
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
 
-    case ClausesExpr(clauses) if clauses.dataLength == 2 =>
-      ev1.fromExpr(clauses(0).expr).flatMap(a1 => ev2.fromExpr(clauses(1).expr).map{a2 => newT(a1, a2)})
+    case ClausesExpr(clauses) if clauses.dataLength == 3 => ev1.fromExpr(clauses(0).expr).map3(
+      ev2.fromExpr(clauses(1).expr), ev3.fromExpr(clauses(2).expr)){ (a1, a2, a3) => newT(a1, a2, a3) }
 
     case _ => expr.exprParseErr[R](this)
-  }*/
+  }
 
 }
 

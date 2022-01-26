@@ -181,7 +181,7 @@ trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with ShowSelf2[A1, A2]
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
 
     case ClausesExpr(clauses) if clauses.dataLength == 2 =>
-      ev1.fromExpr(clauses(0).expr).flatMap(a1 => ev2.fromExpr(clauses(1).expr).map{a2 => newT(a1, a2)})
+      ev1.fromExpr(clauses(0).expr).map2(ev2.fromExpr(clauses(1).expr)){ (a1, a2) => newT(a1, a2) }
 
     case _ => expr.exprParseErr[R](this)
   }
