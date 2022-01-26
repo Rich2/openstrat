@@ -18,7 +18,7 @@ object AstTest extends TestSuite
     "Test1" -
     {
       //t1 ==> Good(t3)
-      //Good(Arr(4)).eq(Good(Arr(4))
+      Good(Arr(4)).eq(Good(Arr(4)))
       assertMatch(a1){case Good(Arr1(_)) => }
     }
   }
