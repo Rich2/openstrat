@@ -35,53 +35,40 @@ trait Polygon3Plus extends Polygon
   def side0: LineSeg = LineSeg(v0, v1)
 
   /** Polygon side 1 from vertex 1 to vertex 2. */
-  def sd1: LineSeg = LineSeg(v1, v2)
+  def side1: LineSeg = LineSeg(v1, v2)
 
   /** Polygon side 2 from vertex 2 to vertex 3. */
-  def sd2: LineSeg = LineSeg(v2, ife(vertsNum == 3, v0, vert(3)))
+  def side2: LineSeg = LineSeg(v2, ife(vertsNum == 3, v0, vert(3)))
 
-  /** The centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can be thought of as
+  /** The centre or half way point of side 0 of this polygon. Side 0 starts at the vertex v0 and ends at the vertex v1. This can be thought of as
    *  vertex 0.5. */
   def sd0Cen: Pt2
-
-  /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
-   *  be thought of as vertex 0.5. */
+  /** The X component of the centre or half way point of side 0 of this polygon. */
   def sd0CenX: Double
-
-  /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
-   *  be thought of as vertex 0.5. */
+  /** The Y component of the centre or half way point of side 0 of this polygon. */
   def sd0CenY: Double
 
-  /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as
+  /** The centre or half way point of side 1 of this polygon. Side 1 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as
    * vertex 1.5 */
   def sd1Cen: Pt2
-
-  /** The X component of the centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v1 vertex. This can be
-   *  thought of as vertex 1.5. */
+  /** The X component of the centre or half way point of side 1 of this polygon. */
   def sd1CenX: Double
-
-  /** The Y component of the centre or half way point of side 3 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be
-   *  thought of as vertex 1.5. */
+  /** The Y component of the centre or half way point of side 1 of this polygon. */
   def sd1CenY: Double
 
-  /** The centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be thought of as
+  /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v2 vertex and ends at the v3 vertex. This can be thought of as
    *  vertex 2.5. */
   def sd2Cen: Pt2
-
-  /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
-   *  thought of as vertex 2.5. */
+  /** The X component of the centre or half way point of side 2 of this polygon. */
   def sd2CenX: Double
-
-  /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
-   *  thought of as vertex 2.5. */
+  /** The Y component of the centre or half way point of side 2 of this polygon. */
   def sd2CenY: Double
 }
 
 /** A [[Polygon]] with at least 4 vertices. */
 trait Polygon4Plus extends Polygon3Plus
-{
-  /** The X component of the 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
+{ /** The X component of vertex 3. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately
+      clockwise from 12 o'clock. */
   def v3x: Double
   /** The Y component of the 4th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
    *  immediately clockwise from 12 o'clock. */
@@ -90,42 +77,31 @@ trait Polygon4Plus extends Polygon3Plus
    *  12 o'clock. */
   def v3: Pt2
 
-  /** The centre or half way point of side 4 of this polygon. Side 4 starts at the v3 vertex and ends at the v4 vertex. This can be thought of as
-   * vertex 3.5. */
+  /** The centre or half way point of side 3 of this polygon. */
   def sd3Cen: Pt2
-
-  /** The X component of the centre or half way point of side 4 of this polygon. Side 4 starts at the v3 vertex and ends at the v4 vertex. This can be
-   *  thought of as vertex 3.5. */
+  /** The X component of the centre or half way point of side 3 of this polygon. */
   def sd3CenX: Double
-
-  /** The Y component of the centre or half way point of side 4 of this polygon. Side 4 starts at the v3 vertex and ends at the v4 vertex. This can be
-   *  thought of as vertex 3.5. */
+  /** The Y component of the centre or half way point of side 3 of this polygon. */
   def sd3CenY: Double
 }
 
 /** A [[Polygon]] with at least 5 vertices. */
 trait Polygon5Plus extends Polygon4Plus
-{
-  /** The X component of the 5th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
+{ /** Vertex 4. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately clockwise from 12
+   *  o'clock. */
+  def v4: Pt2
+  /** The X component of the vertex 4. */
   def v4x: Double
-
-  /** The Y component of the 5th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
+  /** The Y component of the vertex 4. */
   def v4y: Double
 
-  /** The 5th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
-   *  from 12 o'clock. */
-  def v4: Pt2
 
   /** The centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be thought of as
    * vertex 4.5. */
   def sd4Cen: Pt2
-
   /** The X component of the centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be
    *  thought of as vertex 4.5. */
   def sd4CenX: Double
-
   /** The Y component of the centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be
    *  thought of as vertex 4.5. */
   def sd4CenY: Double
@@ -133,28 +109,19 @@ trait Polygon5Plus extends Polygon4Plus
 
 /** A [[Polygon]] with at least 6 vertices. */
 trait Polygon6Plus extends Polygon5Plus
-{
-  /** The X component of the 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
+{ /** Vertex 5. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately clockwise from 12
+   *  o'clock. */
+  def v5: Pt2
+  /** The X component of the 6th Vertex. */
   def v5x: Double
-
-  /** The Y component of the 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex
-   *  immediately clockwise from 12 o'clock. */
+  /** The Y component of the 6th Vertex. */
   def y5: Double
 
-  /** The 6th Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1st vertex immediately clockwise
-   *  from 12 o'clock. */
-  def v5: Pt2
-
-  /** The centre or half way point of side 6 of this polygon. Side 6 starts at the v5 vertex and ends at the v6 vertex. This can be thought of as
+  /** The centre or half way point of side 5 of this polygon. Side 5 starts at the v5 vertex and ends at the v6 vertex. This can be thought of as
    * vertex 5.5. */
   def sd5Cen: Pt2
-
-  /** The X component of the centre or half way point of side 6 of this polygon. Side 6 starts at the v5 vertex and ends at the v6 vertex. This can be
-   *  thought of as vertex 5.5. */
+  /** The X component of the centre or half way point of side 6 of this polygon. */
   def sd5CenX: Double
-
-  /** The Y component of the centre or half way point of side 6 of this polygon. Side 5 starts at the v5 vertex and ends at the v6 vertex. This can be
-   *  thought of as vertex 5.5. */
+  /** The Y component of the centre or half way point of side 5 of this polygon. */
   def sd5CenY: Double
 }
