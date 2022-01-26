@@ -79,7 +79,7 @@ object ShowT
     }
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match {
-      case dft: DeciFracToken => Good(dft.doubleValue)
+      case dft: DeciFracPosToken => Good(dft.doubleValue)
       case IntDeciToken(i) => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toDouble)

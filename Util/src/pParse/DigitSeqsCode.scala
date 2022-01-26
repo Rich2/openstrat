@@ -10,12 +10,29 @@ trait DigitSeqsCode extends ClauseMemExprToken
   def trail: String
 }
 
+
+
 /** Decimal fractional fixed point token. */
-case class DeciFracToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DigitSeqsCode
-{ override def digitSeqs: Strings = Strings(dgs1, dgs2)
-  override def srcStr: String = dgs1 + "." + dgs2 + trail
-  override def exprTypeStr: String = "DeciFrac"
+trait DeciFracToken extends ClauseMemExprToken
+{ def dgs1: String
+  def dgs2: String
+  def trail: String
   def wholeNum: Long = dgs1.unsafeDigitsToLong
   def fractionalValue: Double = dgs2.unsafeDigitsToLong.toDouble / 10.power(dgs2.length)
   def doubleValue: Double = wholeNum.toDouble + fractionalValue
+  override def srcStr: String = dgs1 + "." + dgs2 + trail
+
+}
+
+/** Positive Decimal fractional fixed point token. */
+case class DeciFracPosToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DeciFracToken with DigitSeqsCode
+{ override def exprTypeStr: String = "DeciFrac"
+  override def digitSeqs: Strings = Strings(dgs1, dgs2)
+}
+
+/** Positive Decimal fractional fixed point token. */
+case class DeciFracNegToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DeciFracToken //with DigitSeqsCode
+{ override def srcStr: String = "-" + super.srcStr
+  override def exprTypeStr: String = "DeciFrac"
+  override def doubleValue: Double = -super.doubleValue
 }

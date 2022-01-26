@@ -7,7 +7,7 @@ object parseRawNumberToken
 {
   def apply(rem: CharsOff, tp: TextPosn, str:String, isNeg: Boolean)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =  rem match
   { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString, isNeg)
-    case CharsOff2Tail('.', d, tail) if d.isDigit => parseDeciFrac(tail, tp, str, d.toString)
+    case CharsOff2Tail('.', d, tail) if d.isDigit => parseDeciFrac(tail, tp, str, d.toString, isNeg)
     case CharsOff1Tail(HexaUpperChar(l), tail) => parseHexaToken(tail, tp, str + l.toString)
     case CharsOff1Tail(l, tail) if (l <= 'G' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, l.toString)
     case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed number token.")
@@ -37,8 +37,8 @@ object parseBase32
 
 object parseDeciFrac
 {
-  def apply (rem: CharsOff, tp: TextPosn, seq1: String, seq2: String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] = rem match
-  { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, seq1, seq2 + d.toString)
-    case _ => Good3(rem, tp.addStr(seq1).addStr(seq2).right1, DeciFracToken(tp, seq1, seq2, ""))
+  def apply (rem: CharsOff, tp: TextPosn, seq1: String, seq2: String, isNeg: Boolean)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] = rem match
+  { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, seq1, seq2 + d.toString, isNeg)
+    case _ => Good3(rem, tp.addStr(seq1).addStr(seq2).right1, DeciFracPosToken(tp, seq1, seq2, ""))
   }
 }
