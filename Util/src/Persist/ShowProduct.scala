@@ -57,6 +57,8 @@ trait ShowProductT[R] extends ShowCompoundT[R]
   }
 }
 
+trait UnShowProduct[R] extends UnShow[R]
+
 /** The base trait for the persistence of algebraic product types, including case classes. Note the arity of the product, its size is based on the
  *  number of logical parameters. For example, a LineSeg is a product 2, it has a start point and an end point, although its is stored as 4 parameters
  *  xStart, yStart, xEnd, yEnd. */

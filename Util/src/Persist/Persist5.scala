@@ -28,3 +28,29 @@ object Show5T
     new Show5T[A1, A2, A3, A4, A5, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, opt5, opt4, opt3, opt2, opt1)(
       ev1, ev2, ev3, ev4, ev5)
 }
+
+/** Unshow trait for 5 parameter product / case classes. */
+trait UnShow5[A1, A2, A3, A4, A5, R] extends UnShowProduct[R]
+{
+  def name1: String
+  def fArg1: R => A1
+  def name2: String
+  def fArg2: R => A2
+  def name3: String
+  def fArg3: R => A3
+  def name4: String
+  def fArg4: R => A4
+  def name5: String
+  def fArg5: R => A5
+  def newT: (A1, A2, A3, A4, A5) => R
+  def opt5: Option[A5]
+  def opt4: Option[A4] = None
+  def opt3: Option[A3] = None
+  def opt2: Option[A2] = None
+  def opt1: Option[A1] = None
+  implicit def ev1: UnShow[A1]
+  implicit def ev2: UnShow[A2]
+  implicit def ev3: UnShow[A3]
+  implicit def ev4: UnShow[A4]
+  implicit def ev5: UnShow[A5]
+}
