@@ -176,7 +176,7 @@ trait UnShow2T[A1, A2, R] extends UnShowProduct[R] with ShowSelf2[A1, A2]
   override def fromExpr(expr: Expr): EMon[R] = expr match
   {
     case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(Arr2(s1, s2), _, _))) if typeStr == typeName =>
-      ev1.fromExpr(s1.expr).flatMap(a1 => ev2.fromExpr(s2.expr).map{a2 => newT(a1, a2)})
+      ev1.fromExpr(s1.expr).map2(ev2.fromExpr(s2.expr)){ (a1, a2) => newT(a1, a2) }
 
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
 

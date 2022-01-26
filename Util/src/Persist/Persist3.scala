@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import pParse._
 
 /** A base trait for [[Show3T]] and [[UnShow3]], declares the common properties of name1 - 3 and opt1 - 3. */
 trait ShowSelf3[A1, A2, A3] extends Any with ShowSelf2[A1, A2]
@@ -127,6 +128,20 @@ trait UnShow3[A1, A2, A3, R] extends UnShowProduct[R] with ShowSelf3[A1, A2, A3]
   def ev3: UnShow[A3]
 
   def newT: (A1, A2, A3) => R
+
+  /*override def fromExpr(expr: Expr): EMon[R] = expr match
+  {
+    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(Arr2(s1, s2), _, _))) if typeStr == typeName =>
+      ev1.fromExpr(s1.expr).flatMap(a1 => ev2.fromExpr(s2.expr).map{a2 => newT(a1, a2)})
+
+    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+
+    case ClausesExpr(clauses) if clauses.dataLength == 2 =>
+      ev1.fromExpr(clauses(0).expr).flatMap(a1 => ev2.fromExpr(clauses(1).expr).map{a2 => newT(a1, a2)})
+
+    case _ => expr.exprParseErr[R](this)
+  }*/
+
 }
 
 object UnShow3

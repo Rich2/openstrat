@@ -20,6 +20,22 @@ class Strings(val unsafeArray: Array[String]) extends AnyVal with SeqImut[String
     tailForeach{ s => acc += separator + s }
     acc
   }
+
+  /** Append. */
+  def ++ (operand: Strings): Strings =
+  { val newArray: Array[String] = new Array[String](length + operand.length)
+    var i = 0
+    while (i < length) {
+      newArray(i) = unsafeArray(i)
+      i += 1
+    }
+    i = 0
+    while (i < operand.length) {
+      newArray(i + length) = unsafeArray(i)
+      i += 1
+    }
+    new Strings(newArray)
+  }
 }
 
 /** Companion object of ArrStrings class contains repeat parameter apply factor method. */
