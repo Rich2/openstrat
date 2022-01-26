@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWW2
 import geom._, pglobe._, pParse._, pgui._
 
@@ -10,7 +10,7 @@ object WW2Launch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (cv => WWIIGuiOld(cv, WW1940, None, None), "World War II")
 
   override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
-  { val oScale = sts.findSetting[Int]("scale")
+  { val oScale = sts.findSettingDbl("scale")
     val scale: Option[Length] = oScale.mapToOption(1.km * _)
     val oLat: EMon[Double] = sts.findSettingDbl("latitude")
     val oLong: EMon[Double] = sts.findSettingDbl("longitude")

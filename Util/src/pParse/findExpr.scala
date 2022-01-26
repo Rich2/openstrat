@@ -4,11 +4,11 @@ package ostrat; package pParse
 /** Function object. Not entirely sure what this does. */
 object prefixPlus
 {
-  def apply(implicit refs: Arr[BlockMem]): ERefs[BlockMem] =
+  def apply(implicit refs: Arr[BlockMem]): EArr[BlockMem] =
   {
     val acc: Buff[BlockMem] = Buff()
 
-    def loop(rem: ArrOff[BlockMem]): ERefs[BlockMem] = rem match
+    def loop(rem: ArrOff[BlockMem]): EArr[BlockMem] = rem match
     { case ArrOff0() => Good(acc).map(_.toArr)
       //case RefsOff2Tail(pp: PrefixToken,  right: Expr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
       //case RefsOffHead(pp: PrefixToken) => bad1(pp, "Prefix operator not followed by expression")

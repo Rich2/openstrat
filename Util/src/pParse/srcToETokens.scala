@@ -5,26 +5,26 @@ package ostrat; package pParse
  *  encapsulated. */
 object srcToETokens
 {
-  def str(inp: String): ERefs[Token] = apply(inp.toArray, "String")
+  def str(inp: String): EArr[Token] = apply(inp.toArray, "String")
 
   /** Max numbers for long and hexadecimal formats needs to be implemented. */
-  def apply(charsIn: Array[Char], fileName: String): ERefs[Token] =
+  def apply(charsIn: Array[Char], fileName: String): EArr[Token] =
   { implicit val charArr: Chars = new Chars(charsIn)
     val acc: Buff[Token] = Buff[Token]()
 
     implicit class E3Implicit (e3: EMon3[CharsOff, TextPosn, Token])
-    { def appendLoop: ERefs[Token] = e3.flatMap { (cOff, tp, token) =>
+    { def appendLoop: EArr[Token] = e3.flatMap { (cOff, tp, token) =>
       acc.append (token)
       mainLoop (cOff, tp)
       }
     }
 
-    def appendLoop(newToken: Token, charsOff: CharsOff, tp: TextPosn): ERefs[Token] =
+    def appendLoop(newToken: Token, charsOff: CharsOff, tp: TextPosn): EArr[Token] =
     { acc.append(newToken)
       mainLoop(charsOff, tp)
     }
 
-    def mainLoop(rem: CharsOff, tp: TextPosn): ERefs[Token] = rem match
+    def mainLoop(rem: CharsOff, tp: TextPosn): EArr[Token] = rem match
     { case CharsOff0() => acc.goodRefs
       case CharsOff1Tail(';', tail) => appendLoop(SemicolonToken(tp), tail, tp.right1)
       case CharsOff1Tail(',', tail) => appendLoop(CommaToken(tp), tail, tp.right1)

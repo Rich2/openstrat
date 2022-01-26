@@ -8,7 +8,7 @@ object parseClause
   {
     val acc: Buff[BlockMem] = Buff()
 
-    def sortBlocks(rem: ArrOff[ClauseMem]): ERefs[BlockMem] = rem match
+    def sortBlocks(rem: ArrOff[ClauseMem]): EArr[BlockMem] = rem match
     { case ArrOff0() => prefixPlus(acc.toArr)
       case ArrOff2Tail(at: IdentifierToken, bb: BracketedStatements, t2) => {
         val abe = AlphaBracketExpr(at, Arr(bb))

@@ -21,13 +21,13 @@ package object pParse
   type Statements = Arr[Statement]
   /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non fatal exceptions or if the file doesn't exist
    *   will be returned as errors. */
-  def srcToEStatements(input: Array[Char], inputSourceName: String): ERefs[Statement] =
+  def srcToEStatements(input: Array[Char], inputSourceName: String): EArr[Statement] =
     srcToETokens(input, inputSourceName).flatMap(astParse(_))
   /** Returns an EMon of a sequence of Statements from a String. */
-  def stringToStatements(input: String): ERefs[Statement] =
+  def stringToStatements(input: String): EArr[Statement] =
     stringToTokens(input).flatMap(astParse(_))
   /** Max numbers for long and hexidecimal formats needs to be implemented */
-  def stringToTokens(srcStr: String): ERefs[Token] = srcToETokens(srcStr.toCharArray, "String")
+  def stringToTokens(srcStr: String): EArr[Token] = srcToETokens(srcStr.toCharArray, "String")
 
   def isOperator(char: Char): Boolean = char match
   { case '+' | '-' | '*' | '/' | '=' => true

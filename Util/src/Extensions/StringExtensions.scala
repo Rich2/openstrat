@@ -4,8 +4,8 @@ package ostrat
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {
-  def parseTokens: ERefs[pParse.Token] = pParse.srcToETokens(thisString.toCharArray, "String")
-  def parseStatements: ERefs[pParse.Statement] = parseTokens.flatMap(pParse.astParse(_))
+  def parseTokens: EArr[pParse.Token] = pParse.srcToETokens(thisString.toCharArray, "String")
+  def parseStatements: EArr[pParse.Statement] = parseTokens.flatMap(pParse.astParse(_))
   //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
@@ -167,7 +167,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
     var i = 1
     while (i < thisString.length){
       acc *= 10
-      acc += thisString(i)
+      acc += thisString(i) - '0'
       i += 1
     }
     acc

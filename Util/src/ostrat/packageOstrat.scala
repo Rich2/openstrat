@@ -6,7 +6,7 @@
 package object ostrat
 { import collection.mutable.ArrayBuffer, reflect.ClassTag
   type Buff[A] = ArrayBuffer[A]
-  type ERefs[A <: AnyRef] = EMon[Arr[A]]
+  type EArr[A <: AnyRef] = EMon[Arr[A]]
   type RefsMulti[A <: AnyRef] = Arr[Multiple[A]]
   type ShowEq[A] = ShowT[A] with EqT[A]
   type AnyRefs = Arr[AnyRef]
