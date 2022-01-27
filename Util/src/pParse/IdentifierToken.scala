@@ -24,7 +24,7 @@ object IdentUpperToken
 
 /** An alphanumeric token beginning with an alphabetic character that most commonly represents a name of something, but is also a valid raw Base32
  *  Token. */
-trait IdentUpperBase32Token extends IdentUpperToken with NatBase32Token
+trait IdentUpperBase32Token extends IdentUpperToken with ValidRawNatBase32Token
 { override def digitsStr: String = srcStr
 }
 
@@ -33,7 +33,7 @@ case class IdentUpperBase32OnlyToken(startPosn: TextPosn, srcStr: String) extend
 }
 
 /** An identifier Token that is also a valid raw hexadecimal raw Base32 token. */
-trait IdentHexaToken extends NatRawHexaToken
+trait IdentHexaToken extends ValidRawHexaNatToken
 
 /** An identifier beigning with an upper case letter that is also a valid raw hexadecimal token. */
 case class IdentUpperHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpperBase32Token with IdentHexaToken
@@ -58,7 +58,7 @@ case class IdentLowerHexaToken(startPosn: TextPosn, srcStr: String) extends Iden
 }
 
 /** An identifier beginning with a lowercase that is not a valid raw Base32 or hexadecimal token. */
-case class IdentLowerBase32OnlyToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken with NatBase32Token
+case class IdentLowerBase32OnlyToken(startPosn: TextPosn, srcStr: String) extends IdentLowerToken with ValidRawNatBase32Token
 { override def exprTypeStr: String = "IdentifierLower"
   override def digitsStr: String = srcStr
 }

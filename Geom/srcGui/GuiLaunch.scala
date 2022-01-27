@@ -29,8 +29,8 @@ trait GuiLaunchStd extends GuiLaunch
 {
   def launch(s2: Int, s3: String): (CanvasPlatform => Any, String)
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) = expr match {
-    case SpacedExpr(Arr2Tail(nd: NatDeciToken, it2: IdentifierToken, _)) => launch(nd.getInt, it2.srcStr)
-    case nd: NatDeciToken => launch(nd.getInt, "")
+    case SpacedExpr(Arr2Tail(nd: NatDeciToken, it2: IdentifierToken, _)) => launch(nd.getIntStd, it2.srcStr)
+    case nd: NatDeciToken => launch(nd.getIntStd, "")
     case _ => launch(1, "")
   }
 }

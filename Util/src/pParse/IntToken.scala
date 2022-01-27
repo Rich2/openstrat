@@ -3,22 +3,27 @@ package ostrat; package pParse
 
 /** The base trait for all integer tokens. A Natural (non negative) number Token. It contains a single property, the digitStr. The digitStr depending
 * on the class may be interpreted in 1 to 3 ways, as a normal decimal number, a hexadecimal number, or a trigdual (base 32) number. */
-trait NatToken extends ClauseMemExprToken
+trait IntToken extends ClauseMemExprToken
 { def digitsStr: String
 }
 
-/** A raw valid natural number Token. All of these tokens are valid raw Base 32 tokens. A subset will be valid hexadecimal natural numbers and a
- * subset of them will be valid decimal numbers. */
-trait NatRawToken extends NatBase32Token
+/** A valid fractional number token */
+trait ValidFracToken extends ClauseMemExprToken
+{ def doubleValue: Double
+}
 
-/** A raw natural number token. */
-trait DigitsRawToken extends NatRawToken
+/** Common trait for [[IntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
+ * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
+trait IntStdToken extends IntToken with ValidFracToken
+{ def getIntStd: Int
+  override def doubleValue: Double = getIntStd
+}
 
 /** A raw integer token could be negative. */
-trait IntDeciToken extends DigitsRawToken
+trait IntDeciToken extends IntStdToken
 {
   /** gets the natural integer value from this token interpreting it as a standard Base10 notation. */
-  def getInt: Int =
+  override def getIntStd: Int =
   { var acc = 0
     implicit val chars: Chars = digitsStr.toChars
 
@@ -35,7 +40,7 @@ trait IntDeciToken extends DigitsRawToken
 object IntDeciToken
 { /** Factory unapply method for the [[IntDecToken]] trait. */
   def unapply(inp: Token): Option[Int] = inp match {
-    case idt: IntDeciToken => Some(idt.getInt)
+    case idt: IntDeciToken => Some(idt.getIntStd)
     case _ => None
   }
 }
@@ -55,5 +60,5 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToke
 case class NegDeciToken(startPosn: TextPosn, digitsStr: String) extends IntDeciToken
 { override def exprTypeStr: String = "IntNeg"
   override def srcStr: String = "-" + digitsStr
-  override def getInt: Int = -super.getInt
+  override def getIntStd: Int = -super.getIntStd
 }

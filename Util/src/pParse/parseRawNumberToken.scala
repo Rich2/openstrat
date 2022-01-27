@@ -28,10 +28,10 @@ object parseHexaToken
 
 object parseBase32
 {
-  def apply(rem: CharsOff, tp: TextPosn, str: String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, RawNat32OnlyToken]= rem match
+  def apply(rem: CharsOff, tp: TextPosn, str: String)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, RawNat32Token]= rem match
   { case CharsOff1Tail(l, tail) if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, l.toString)
     case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed raw Base 32 token.")
-    case _ => Good3(rem, tp.addStr(str), RawNat32OnlyToken(tp, str))
+    case _ => Good3(rem, tp.addStr(str), RawNat32Token(tp, str))
   }
 }
 

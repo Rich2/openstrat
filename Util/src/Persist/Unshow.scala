@@ -95,7 +95,7 @@ object Unshow
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toDouble)
 
-      case intok: NegDeciToken => Good(intok.getInt.toDouble)
+      case intok: NegDeciToken => Good(intok.getIntStd.toDouble)
       case _ => expr.exprParseErr[Double]
     }
   }
@@ -107,7 +107,7 @@ object Unshow
     { case NatDeciToken(_, i) => Good(i.toFloat)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toFloat)
       case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-(i.toFloat))
-      case intok: NegDeciToken => Good(intok.getInt.toFloat)
+      case intok: NegDeciToken => Good(intok.getIntStd.toFloat)
       case  _ => expr.exprParseErr[Float]
     }
   }

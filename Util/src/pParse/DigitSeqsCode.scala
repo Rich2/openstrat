@@ -10,10 +10,8 @@ trait DigitSeqsCode extends ClauseMemExprToken
   def trail: String
 }
 
-
-
 /** Decimal fractional fixed point token. */
-trait DeciFracToken extends ClauseMemExprToken
+trait DeciFracToken extends ValidFracToken
 { def dgs1: String
   def dgs2: String
   def trail: String
@@ -21,7 +19,6 @@ trait DeciFracToken extends ClauseMemExprToken
   def fractionalValue: Double = dgs2.unsafeDigitsToLong.toDouble / 10.power(dgs2.length)
   def doubleValue: Double = wholeNum.toDouble + fractionalValue
   override def srcStr: String = dgs1 + "." + dgs2 + trail
-
 }
 
 /** Positive Decimal fractional fixed point token. */

@@ -2,7 +2,7 @@
 package ostrat; package pParse
 
 /** Common trait for all tokens that can be valid hexadecimal natural numbers as well as valid base32 numbers. */
-trait NatHexaToken extends NatToken
+trait NatHexaToken extends IntToken
 {
   def asHexaInt: Int =
   { var acc = 0
@@ -17,19 +17,19 @@ trait NatHexaToken extends NatToken
   }
 }
 
-/** Raw natural number in hexadecimal format. */
-trait NatRawHexaToken extends NatRawToken
+/** Valid Raw natural number compatible with hexadecimal format. This trait exists for its unapply method. */
+trait ValidRawHexaNatToken extends IntToken
 
-object NatRawHexaToken
+object ValidRawHexaNatToken
 {
   def unapply(input: Any): Option[(TextPosn, String)] = input match {
-    case nrht: NatRawHexaToken => Some((nrht.startPosn, nrht.digitsStr))
+    case nrht: ValidRawHexaNatToken => Some((nrht.startPosn, nrht.digitsStr))
     case _ => None
   }
 }
 
 /** Raw hexadecimal natural number token, starting with a digit that includes one or more 'A' .. 'F' digits. */
-case class RawHexaToken(startPosn: TextPosn, srcStr: String) extends NatRawHexaToken
+case class RawHexaToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken
 { override def exprTypeStr: String = "HexaRaw"
   override def digitsStr: String = srcStr
 }

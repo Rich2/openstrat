@@ -15,8 +15,8 @@ object IntTokenTest extends TestSuite
     val it2 = NatDeciToken(Sp44, "2147483647")
 
     "IntDeciToken" -
-    { it1.getInt ==> 13
-      it2.getInt ==> 2147483647
+    { it1.getIntStd ==> 13
+      it2.getIntStd ==> 2147483647
     }
 
     val ht1 = Nat0xToken(Sp1, "A")
@@ -24,16 +24,16 @@ object IntTokenTest extends TestSuite
     val ht3 = Nat0xToken(Sp2, "7FFFFFFF")
 
     "IntDeciToken" -
-    { ht1.getInt ==> 10
-      ht2.getInt ==> 26
-      ht3.getInt ==> 2147483647
+    { ht1.getIntStd ==> 10
+      ht2.getIntStd ==> 26
+      ht3.getIntStd ==> 2147483647
     }
 
     "General" -
     { assertMatch("4".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "4"))) => }
       assertMatch("45".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "45"))) => }
-      assertMatch("4A".parseTokens){ case Good(Arr1(NatRawHexaToken(Sp1, "4A"))) => }
-      assertMatch("4F5".parseTokens){ case Good(Arr1(NatRawHexaToken(Sp1, "4F5"))) => }
+      assertMatch("4A".parseTokens){ case Good(Arr1(ValidRawHexaNatToken(Sp1, "4A"))) => }
+      assertMatch("4F5".parseTokens){ case Good(Arr1(ValidRawHexaNatToken(Sp1, "4F5"))) => }
       assertMatch("\"45\"".parseTokens){ case Good(Arr1(StringToken(Sp1, "45"))) => }
       assertMatch("0x11".parseTokens){ case Good(Arr1(Nat0xToken(Sp1, "11"))) => }
       assertMatch("0y11".parseTokens){ case Good(Arr1(Nat0yToken(Sp1, "11"))) => }

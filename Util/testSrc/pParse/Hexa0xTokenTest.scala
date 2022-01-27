@@ -25,10 +25,10 @@ object Hexa0xTokenTest extends TestSuite
     {
       assertMatch(r1){ case GoodArr1(Ht1) => }
       Ht1.asHexaInt ==> 0x123
-      Ht1.getInt ==> rr1
+      Ht1.getIntStd ==> rr1
       Ht1.asHexaInt ==> rr1
       assertMatch(r2){ case GoodArr1(Ht2) => }
-      Ht2.getInt ==> rr2
+      Ht2.getIntStd ==> rr2
       assertMatch(r3) { case Bad(_) => }
     }
   }

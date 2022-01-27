@@ -1,13 +1,13 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** A hexadecimal token with a leading "0x", that can be used for standard 32 bit Ints, 64 bit Longs, as well as less used integer
  *  formats such as BigInteger and Byte. This is in accord with the principle that RSON at the Token and AST (Abstract Syntax Tree) levels stores data not code,
  *  although of course at the higher semantic levels it can be used very well for programming languages. */
-case class Nat0xToken(startPosn: TextPosn, digitsStr: String) extends NatHexaToken
+case class Nat0xToken(startPosn: TextPosn, digitsStr: String) extends IntStdToken with NatHexaToken
 { override def srcStr: String = "0x" + digitsStr
   override def exprTypeStr: String = "IntHexa"
-  def getInt: Int = asHexaInt
+  def getIntStd: Int = asHexaInt
 }
 
 /** Function for parsing explicit Hexadecimal Token, one that begins with the charchters '0x'. */
