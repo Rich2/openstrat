@@ -2,7 +2,7 @@
 package ostrat; package pParse
 
 /** Common trait for all tokens that can be valid hexadecimal natural numbers as well as valid base32 numbers. */
-trait NatHexaToken extends IntToken
+trait NatHexaToken extends ValidIntToken
 {
   def asHexaInt: Int =
   { var acc = 0
@@ -19,7 +19,7 @@ trait NatHexaToken extends IntToken
 
 /** Valid Raw natural number compatible with hexadecimal format. This trait exists for its natAsRawHexa method and the associated unapply method.in
  *  the companion object. */
-trait ValidRawHexaNatToken extends IntToken
+trait ValidRawHexaNatToken extends ValidIntToken
 { /** Interpreting the token in raw hexadecimal format, returns a natural number Int. An Int by Scala type, that is non negative. This method should
       only be use in narrowly defined data formats not for general purpose programming. */
   def natAsRawHexa: Int = ???

@@ -78,16 +78,11 @@ object ShowT
       }
     }
 
-    override def fromExpr(expr: Expr): EMon[Double] = expr match {
-      case dft: DeciFracPosToken => Good(dft.doubleValue)
-      case IntDeciToken(i) => Good(i.toDouble)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toDouble)
-
-      //case FloatToken(_, _, d) => Good(d)
-      //case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "+" => Good(d)
-      //case PreOpExpr(op, FloatToken(_, _, d)) if op.srcStr == "-" => Good(-d)
-      case  _ => expr.exprParseErr[Double]
+    override def fromExpr(expr: Expr): EMon[Double] = expr match
+    { case vft: ValidFracToken => Good(vft.doubleValue)
+      case PreOpExpr(op, vft: ValidFracToken) if op.srcStr == "+" => Good(vft.doubleValue)
+      case PreOpExpr(op, vft: ValidFracToken) if op.srcStr == "-" => Good(vft.doubleValue)
+      case _ => expr.exprParseErr[Double]
     }
   }
 

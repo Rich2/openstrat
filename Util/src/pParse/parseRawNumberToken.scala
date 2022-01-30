@@ -39,6 +39,9 @@ object parseDeciFrac
 {
   def apply (rem: CharsOff, tp: TextPosn, seq1: String, seq2: String, isNeg: Boolean)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] = rem match
   { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, seq1, seq2 + d.toString, isNeg)
-    case _ => Good3(rem, tp.addStr(seq1).addStr(seq2).right1, DeciFracPosToken(tp, seq1, seq2, ""))
+    case _ => {
+      val token = ife(isNeg, DeciFracNegToken(tp, seq1, seq2, ""), DeciFracPosToken(tp, seq1, seq2, ""))
+      Good3(rem, tp.addStr(seq1).addStr(seq2).right1, token)
+    }
   }
 }

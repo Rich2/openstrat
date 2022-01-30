@@ -3,7 +3,7 @@ package ostrat; package pParse
 
 /** The base trait for all integer tokens. A Natural (non negative) number Token. It contains a single property, the digitStr. The digitStr depending
 * on the class may be interpreted in 1 to 3 ways, as a normal decimal number, a hexadecimal number, or a trigdual (base 32) number. */
-trait IntToken extends ClauseMemExprToken
+trait ValidIntToken extends ClauseMemExprToken
 { /** The digit chars used to calculate the integer. */
   def digitsStr: String
 }
@@ -20,7 +20,7 @@ trait ValidPosFracToken extends ClauseMemExprToken
 
 /** Common trait for [[IntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
  * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
-trait IntStdToken extends IntToken with ValidFracToken
+trait IntStdToken extends ValidIntToken with ValidFracToken
 { /** Returns an integer value for the [[Token]] using the standard decimal format unless it is an 0x or 0y Token. */
   def getIntStd: Int
   override def doubleValue: Double = getIntStd

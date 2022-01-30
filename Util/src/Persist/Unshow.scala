@@ -88,14 +88,10 @@ object Unshow
   implicit val doubleImplicit: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "DFloat"
 
-    override def fromExpr(expr: Expr): EMon[Double] = expr match {
-      case dft: DeciFracPosToken => Good(dft.doubleValue)
-      case NatDeciToken(_, i) => Good(i.toDouble)
-
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toDouble)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toDouble)
-
-      case intok: NegDeciToken => Good(intok.getIntStd.toDouble)
+    override def fromExpr(expr: Expr): EMon[Double] = expr match
+    { case vft: ValidFracToken => Good(vft.doubleValue)
+      case PreOpExpr(op, vft: ValidFracToken) if op.srcStr == "+" => Good(vft.doubleValue)
+      case PreOpExpr(op, vft: ValidFracToken) if op.srcStr == "-" => Good(vft.doubleValue)
       case _ => expr.exprParseErr[Double]
     }
   }

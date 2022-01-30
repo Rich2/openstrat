@@ -22,7 +22,8 @@ object DoubleTokenTest extends TestSuite
       assertMatch("4.5".parseTokens){ case Good(Arr1(DeciFracPosToken(Sp1, "4", "5", ""))) => }
       assertMatch("0.5".parseTokens){ case Good(Arr1(DeciFracPosToken(Sp1, "0", "5", ""))) => }
       "0.4".findDouble ==> Good(0.4)
-      "-0.4".findDouble ==> Good(0.4)
+      "-0.4".findDouble ==> Good(-0.4)
+      "-4".findDouble ==> Good(-4)
       assertMatch(s51.parseTokens){ case Good(Arr1(DeciFracPosToken(Sp1, "51", "1", ""))) => }
       "51".unsafeDigitsToLong ==> 51l
       s51.findDouble ==> Good(51.1)
