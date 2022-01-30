@@ -4,7 +4,8 @@ package ostrat; package pParse
 /** The base trait for all integer tokens. A Natural (non negative) number Token. It contains a single property, the digitStr. The digitStr depending
 * on the class may be interpreted in 1 to 3 ways, as a normal decimal number, a hexadecimal number, or a trigdual (base 32) number. */
 trait IntToken extends ClauseMemExprToken
-{ def digitsStr: String
+{ /** The digit chars used to calculate the integer. */
+  def digitsStr: String
 }
 
 /** A valid fractional number token */
@@ -12,18 +13,31 @@ trait ValidFracToken extends ClauseMemExprToken
 { def doubleValue: Double
 }
 
+/** A valid non negative fractional number token */
+trait ValidPosFracToken extends ClauseMemExprToken
+{ def posDoubleValue: Double
+}
+
 /** Common trait for [[IntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
  * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
 trait IntStdToken extends IntToken with ValidFracToken
-{ def getIntStd: Int
+{ /** Returns an integer value for the [[Token]] using the standard decimal format unless it is an 0x or 0y Token. */
+  def getIntStd: Int
   override def doubleValue: Double = getIntStd
+}
+
+/** Common trait for [[IntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
+ * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
+trait NatStdToken extends IntStdToken with ValidPosFracToken
+{ def getNatStd: Int
+  inline override def posDoubleValue: Double = getNatStd
 }
 
 /** A raw integer token could be negative. */
 trait IntDeciToken extends IntStdToken
 {
-  /** gets the natural integer value from this token interpreting it as a standard Base10 notation. */
-  override def getIntStd: Int =
+  /** gets the natural integer value part from this token interpreting it as a standard Base10 notation. */
+  def getAbsoluteIntStd: Int =
   { var acc = 0
     implicit val chars: Chars = digitsStr.toChars
 
@@ -53,6 +67,8 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToke
 { override def exprTypeStr: String = "Decimal"
   override def digitsStr: String = srcStr
   override def digitSeqs: Strings = Strings(digitsStr)
+  inline override def getIntStd: Int = getAbsoluteIntStd
+
   override def trail: String = ???
 }
 
@@ -60,5 +76,5 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToke
 case class NegDeciToken(startPosn: TextPosn, digitsStr: String) extends IntDeciToken
 { override def exprTypeStr: String = "IntNeg"
   override def srcStr: String = "-" + digitsStr
-  override def getIntStd: Int = -super.getIntStd
+  override def getIntStd: Int = -super.getAbsoluteIntStd
 }
