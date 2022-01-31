@@ -26,6 +26,15 @@ trait IntStdToken extends ValidIntToken with ValidFracToken
   override def doubleValue: Double = getIntStd
 }
 
+/** Companion object for the [[IntStdToken]] trait, only contains an unapply method. */
+object IntStdToken
+{ /** Factory unapply method for the [[IntStdToken]] trait. */
+  def unapply(inp: Token): Option[Int] = inp match {
+    case idt: IntStdToken => Some(idt.getIntStd)
+    case _ => None
+  }
+}
+
 /** Common trait for [[IntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
  * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
 trait NatStdToken extends IntStdToken with ValidPosFracToken
@@ -47,15 +56,6 @@ trait IntDeciToken extends IntStdToken
     }
 
     loop(chars.offsetter0)
-  }
-}
-
-/** Companion object for the [[IntDecToken]] trait, only contains an unapply method. */
-object IntDeciToken
-{ /** Factory unapply method for the [[IntDecToken]] trait. */
-  def unapply(inp: Token): Option[Int] = inp match {
-    case idt: IntDeciToken => Some(idt.getIntStd)
-    case _ => None
   }
 }
 

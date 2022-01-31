@@ -78,9 +78,9 @@ object Unshow
     override def typeStr: String = "Int"
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match {
-      case IntDeciToken(i) => Good(i)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "+" => Good(i.toInt)
-      case PreOpExpr(op, NatDeciToken(_, i)) if op.srcStr == "-" => Good(-i.toInt)
+      case IntStdToken(i) => Good(i)
+      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Good(i)
+      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "-" => Good(-i)
       case _ => expr.exprParseErr[Int]
     }
   }
