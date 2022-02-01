@@ -38,9 +38,19 @@ object IntStdToken
 /** Common trait for [[IntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
  * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
 trait NatStdToken extends IntStdToken with ValidPosFracToken
-{ def getNatStd: Int
+{ def getNatStd: Int = getIntStd
   inline override def posDoubleValue: Double = getNatStd
 }
+
+/** Companion object for the [[NatStdToken]] trait, only contains an unapply method. */
+object NatStdToken
+{ /** Factory unapply method for the [[NatStdToken]] trait. */
+  def unapply(inp: Token): Option[Int] = inp match {
+    case idt: NatStdToken => Some(idt.getNatStd)
+    case _ => None
+  }
+}
+
 
 /** A raw integer token could be negative. */
 trait IntDeciToken extends IntStdToken
@@ -63,7 +73,7 @@ trait IntDeciToken extends IntStdToken
  *  Ints and 64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST
  *  (Abstract Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming
  *  languages. */
-case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToken with IntDeciToken with DigitSeqsCode
+case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToken with IntDeciToken with NatStdToken with DigitSeqsCode
 { override def exprTypeStr: String = "Decimal"
   override def digitsStr: String = srcStr
   override def digitSeqs: Strings = Strings(digitsStr)

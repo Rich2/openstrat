@@ -85,6 +85,16 @@ object Unshow
     }
   }
 
+  val natImplicit: Unshow[Int] = new Unshow[Int]
+  {
+    override def typeStr: String = "Nat"
+
+    override def fromExpr(expr: Expr): EMon[Int] = expr match {
+      case  NatStdToken(i) => Good(i)
+      case _ => expr.exprParseErr[Int]
+    }
+  }
+
   implicit val doubleImplicit: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "DFloat"
 

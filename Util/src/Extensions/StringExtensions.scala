@@ -11,9 +11,15 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
   def findType[A: Unshow]: EMon[A] = thisString.parseStatements.flatMap(_.findUniqueT[A])
 
-  /** Finds Statement of type A. */
+  /** Finds Statement of type A and returns value or returns the elseValue if not found. */
   def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
+
+  /** Parses this [[String]] into EMon statements returns [[Good]][Int] if single statement or type Int. */
   def findInt: EMon[Int] = thisString.parseStatements.flatMap(_.findInt)
+
+  /** Parses this [[String]] into EMon statements returns [[Good]][Int] if single statement or type natural Int. */
+  def findNat: EMon[Int] = thisString.parseStatements.flatMap(_.findNat)
+
   def findDouble: EMon[Double] = thisString.parseStatements.flatMap(_.findDbl)
   def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBool)
   def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))

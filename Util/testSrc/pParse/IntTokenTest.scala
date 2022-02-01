@@ -23,10 +23,12 @@ object IntTokenTest extends TestSuite
     val ht2 = Nat0xToken(Sp44, "1A")
     val ht3 = Nat0xToken(Sp2, "7FFFFFFF")
 
-    "IntDeciToken" -
+    "Nat0xToken" -
     { ht1.getIntStd ==> 10
+      ht1.getNatStd ==> 10
       ht2.getIntStd ==> 26
       ht3.getIntStd ==> 2147483647
+      ht3.getNatStd ==> 2147483647
     }
 
     "General" -
@@ -39,10 +41,25 @@ object IntTokenTest extends TestSuite
       assertMatch("0y11".parseTokens){ case Good(Arr1(Nat0yToken(Sp1, "11"))) => }
     }
 
+    val st1 = "true; 17; false"
+
+    "Find Int" -
+    {
+      "17".findInt ==> Good(17)
+      "17".findNat ==> Good(17)
+      st1.findInt ==> Good(17)
+      st1.findNat ==> Good(17)
+      "true".findBoolean ==> Good(true)
+      st1.findBoolean.isGood ==> false
+      "17; -17".findInt.isBad ==> true
+      "17; -17".findNat ==> Good(17)
+    }
+
     "Negative" -
     {
       assertMatch("-4".parseTokens){ case Good(Arr1(NegDeciToken(Sp1, "4"))) => }
       "-4".findInt ==> Good(-4)
+      "-4".findNat.isBad ==> true
     }
   }
 }
