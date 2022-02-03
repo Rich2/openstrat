@@ -19,22 +19,29 @@ trait ValidHexaIntToken extends ValidIntToken
 
 /** Valid Raw natural number compatible with hexadecimal format. This trait exists for its natAsRawHexa method and the associated unapply method.in
  *  the companion object. */
-trait ValidRawHexaNatToken extends ValidHexaIntToken
-{ /** Interpreting the token in raw hexadecimal format, returns a natural number Int. An Int by Scala type, that is non negative. This method should
-      only be use in narrowly defined data formats not for general purpose programming. */
-  //def natAsRawHexa: Int = ???
-}
+trait ValidRawHexaIntToken extends ValidHexaIntToken
 
-object ValidRawHexaNatToken
+object ValidRawHexaIntToken
 { /** unapply method needs modifying to use natAsRawHex method. */
   def unapply(input: Any): Option[(TextPosn, String)] = input match {
-    case nrht: ValidRawHexaNatToken => Some((nrht.startPosn, nrht.digitsStr))
+    case vrhit: ValidRawHexaIntToken => Some((vrhit.startPosn, vrhit.digitsStr))
     case _ => None
   }
 }
 
 /** Valid raw negative hexadecimal Int Token. */
-trait ValidRawHexaNegToken extends ValidHexaIntToken
+trait ValidRawHexaNatToken extends ValidRawHexaIntToken
+{ /** Interpreting this token as a raw hexdecimal returns a natural number. */
+  def asHexaNat: Int = asHexaInt
+}
+
+object ValidRawHexaNatToken
+{
+  //def unapply
+}
+
+/** Valid raw negative hexadecimal Int Token. */
+trait ValidRawHexaNegToken extends ValidRawHexaIntToken
 { override def asHexaInt: Int = -super.asHexaInt
 }
 

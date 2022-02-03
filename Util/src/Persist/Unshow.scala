@@ -100,7 +100,7 @@ object Unshow
     override def typeStr: String = "Nat"
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match
-    { case vr: ValidRawHexaNatToken => Good(vr.asHexaInt)
+    { case vr: ValidRawHexaIntToken => Good(vr.asHexaInt)
       case _ => expr.exprParseErr[Int]
     }
   }

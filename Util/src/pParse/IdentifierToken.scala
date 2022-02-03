@@ -33,7 +33,7 @@ case class IdentUpperBase32OnlyToken(startPosn: TextPosn, srcStr: String) extend
 }
 
 /** An identifier Token that is also a valid raw hexadecimal raw Base32 token. */
-trait IdentHexaToken extends ValidRawHexaNatToken
+trait IdentHexaToken extends ValidRawHexaIntToken
 
 /** An identifier beigning with an upper case letter that is also a valid raw hexadecimal token. */
 case class IdentUpperHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpperBase32Token with IdentHexaToken
