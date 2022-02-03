@@ -22,8 +22,8 @@ object IntTokenTest extends TestSuite
     "General" -
     { assertMatch("4".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "4"))) => }
       assertMatch("45".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "45"))) => }
-      assertMatch("4A".parseTokens){ case Good(Arr1(ValidRawHexaIntToken(Sp1, "4A"))) => }
-      assertMatch("4F5".parseTokens){ case Good(Arr1(ValidRawHexaIntToken(Sp1, "4F5"))) => }
+      assertMatch("4A".parseTokens){ case Good(Arr1(ValidRawHexaIntToken(74))) => }
+      assertMatch("4F5".parseTokens){ case Good(Arr1(ValidRawHexaIntToken(1269))) => }
       assertMatch("\"45\"".parseTokens){ case Good(Arr1(StringToken(Sp1, "45"))) => }
       assertMatch("0x11".parseTokens){ case Good(Arr1(Nat0xToken(Sp1, "11"))) => }
       assertMatch("0y11".parseTokens){ case Good(Arr1(Nat0yToken(Sp1, "11"))) => }

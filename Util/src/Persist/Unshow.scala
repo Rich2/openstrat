@@ -97,10 +97,20 @@ object Unshow
 
   val rawHexaImplicit: Unshow[Int] = new Unshow[Int]
   {
-    override def typeStr: String = "Nat"
+    override def typeStr: String = "HexaInt"
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match
     { case vr: ValidRawHexaIntToken => Good(vr.asHexaInt)
+      case _ => expr.exprParseErr[Int]
+    }
+  }
+
+  val rawHexaNatImplicit: Unshow[Int] = new Unshow[Int]
+  {
+    override def typeStr: String = "HexaInt"
+
+    override def fromExpr(expr: Expr): EMon[Int] = expr match
+    { case vr: ValidRawHexaNatToken => Good(vr.asHexaNat)
       case _ => expr.exprParseErr[Int]
     }
   }

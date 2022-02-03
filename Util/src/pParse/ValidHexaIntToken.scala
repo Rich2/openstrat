@@ -23,8 +23,8 @@ trait ValidRawHexaIntToken extends ValidHexaIntToken
 
 object ValidRawHexaIntToken
 { /** unapply method needs modifying to use natAsRawHex method. */
-  def unapply(input: Any): Option[(TextPosn, String)] = input match {
-    case vrhit: ValidRawHexaIntToken => Some((vrhit.startPosn, vrhit.digitsStr))
+  def unapply(input: Any): Option[Int] = input match {
+    case vrhit: ValidRawHexaIntToken => Some(vrhit.asHexaInt)// startPosn, vrhit.digitsStr))
     case _ => None
   }
 }
@@ -55,5 +55,4 @@ case class RawHexaNatToken(startPosn: TextPosn, srcStr: String) extends ValidRaw
 case class RawHexaNegToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNegToken
 { override def exprTypeStr: String = "HexaRaw"
   override def digitsStr: String = srcStr
-
 }
