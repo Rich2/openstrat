@@ -62,13 +62,6 @@ trait ShowProductT[R] extends ShowCompoundT[R]
  *  xStart, yStart, xEnd, yEnd. */
 trait PersistProduct[R] extends Persist[R] with ShowProductT[R]
 {
-  override def fromExpr(expr: Expr): EMon[R] = expr match
-  {
-    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName =>
-    {deb("PersistProduct.fromExpr"); expr.exprParseErr[R](this) }//  fromParameterStatements(sts)
-    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-    case _ => {deb("fromExpr"); expr.exprParseErr[R](this) }
-  }
 }
 
 trait PersistShowProduct[R <: ShowProduct] extends PersistProduct[R]
