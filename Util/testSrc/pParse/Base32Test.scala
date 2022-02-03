@@ -1,9 +1,13 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 import utest._
 
 object Base32Test extends TestSuite
 {
+  val Sp1 = StrPosn(1, 1)
+  val Sp2 = StrPosn(1, 2)
+  val Sp3 = StrPosn(1, 3)
+
   val tests = Tests {
     "Base32" -
     { 0.base32 ==> "0"
@@ -25,5 +29,21 @@ object Base32Test extends TestSuite
       666.base32 ==> "KR"
       1024.base32 ==> "100"
     }
+
+    val ht4 = Nat0yToken(Sp1, "9")
+    val ht5 = Nat0yToken(Sp1, "A")
+    val ht6 = Nat0yToken(Sp1, "M")
+    val ht7 = Nat0yToken(Sp1, "P")
+    val ht8 = Nat0yToken(Sp1, "W")
+    val ht9 = Nat0yToken(Sp1, "80")
+
+    "Nat0yToken" -
+     { ht4.getIntStd ==> 9
+       ht5.getIntStd ==> 10
+       ht6.getIntStd ==> 22
+       ht7.getIntStd ==> 24
+       ht8.getIntStd ==> 31
+       ht9.getIntStd ==> 256
+     }
   }
 }

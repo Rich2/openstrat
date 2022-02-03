@@ -8,7 +8,7 @@ trait ValidIntToken extends ClauseMemExprToken
   def digitsStr: String
 }
 
-/** A valid fractional number token */
+/** A valid fractional number token. Could be an integer or a fractional number. */
 trait ValidFracToken extends ClauseMemExprToken
 { def doubleValue: Double
 }
@@ -23,6 +23,7 @@ trait ValidPosFracToken extends ClauseMemExprToken
 trait IntStdToken extends ValidIntToken with ValidFracToken
 { /** Returns an integer value for the [[Token]] using the standard decimal format unless it is an 0x or 0y Token. */
   def getIntStd: Int
+
   override def doubleValue: Double = getIntStd
 }
 
@@ -73,7 +74,7 @@ trait IntDeciToken extends IntStdToken
  *  Ints and 64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST
  *  (Abstract Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming
  *  languages. */
-case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends NatHexaToken with IntDeciToken with NatStdToken with DigitSeqsCode
+case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends ValidHexaToken with IntDeciToken with NatStdToken with DigitSeqsCode
 { override def exprTypeStr: String = "Decimal"
   override def digitsStr: String = srcStr
   override def digitSeqs: Strings = Strings(digitsStr)

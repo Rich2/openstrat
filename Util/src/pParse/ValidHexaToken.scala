@@ -2,7 +2,7 @@
 package ostrat; package pParse
 
 /** Common trait for all tokens that can be valid hexadecimal natural numbers as well as valid base32 numbers. */
-trait NatHexaToken extends ValidIntToken
+trait ValidHexaToken extends ValidIntToken
 {
   def asHexaInt: Int =
   { var acc = 0

@@ -31,6 +31,8 @@ object IntTokenTest extends TestSuite
       ht3.getNatStd ==> 2147483647
     }
 
+
+
     "General" -
     { assertMatch("4".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "4"))) => }
       assertMatch("45".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "45"))) => }
