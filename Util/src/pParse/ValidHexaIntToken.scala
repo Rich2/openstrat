@@ -19,25 +19,29 @@ trait ValidHexaIntToken extends ValidIntToken
 
 /** Valid Raw natural number compatible with hexadecimal format. This trait exists for its natAsRawHexa method and the associated unapply method.in
  *  the companion object. */
-trait ValidRawHexaIntToken extends ValidHexaIntToken
+trait ValidRawHexaIntToken extends ValidHexaIntToken with ValidRawBase32IntToken
 
 object ValidRawHexaIntToken
-{ /** unapply method needs modifying to use natAsRawHex method. */
+{ /** unapply method needs to get Int decoding Token as hexadecimal. */
   def unapply(input: Any): Option[Int] = input match {
-    case vrhit: ValidRawHexaIntToken => Some(vrhit.asHexaInt)// startPosn, vrhit.digitsStr))
+    case vri: ValidRawHexaIntToken => Some(vri.asHexaInt)
     case _ => None
   }
 }
 
 /** Valid raw negative hexadecimal Int Token. */
-trait ValidRawHexaNatToken extends ValidRawHexaIntToken
+trait ValidRawHexaNatToken extends ValidRawHexaIntToken with ValidRawBase32NatToken
 { /** Interpreting this token as a raw hexdecimal returns a natural number. */
   def asHexaNat: Int = asHexaInt
 }
 
 object ValidRawHexaNatToken
 {
-  //def unapply
+  /** unapply method needs to get natural Int decoding Token as hexadecimal. */
+  def unapply(input: Any): Option[Int] = input match {
+    case vri: ValidRawHexaNatToken => Some(vri.asHexaInt)
+    case _ => None
+  }
 }
 
 /** Valid raw negative hexadecimal Int Token. */

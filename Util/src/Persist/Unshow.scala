@@ -95,12 +95,14 @@ object Unshow
     }
   }
 
-  val rawHexaImplicit: Unshow[Int] = new Unshow[Int]
+  val rawHexaIntImplicit: Unshow[Int] = new Unshow[Int]
   {
     override def typeStr: String = "HexaInt"
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match
-    { case vr: ValidRawHexaIntToken => Good(vr.asHexaInt)
+    { case ValidRawHexaIntToken(i) => Good(i)
+      case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "+" => Good(i)
+      case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "-" => Good(-i)
       case _ => expr.exprParseErr[Int]
     }
   }
@@ -110,11 +112,32 @@ object Unshow
     override def typeStr: String = "HexaInt"
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match
-    { case vr: ValidRawHexaNatToken => Good(vr.asHexaNat)
+    { case ValidRawHexaNatToken(n) => Good(n)
       case _ => expr.exprParseErr[Int]
     }
   }
 
+  val rawBase32IntImplicit: Unshow[Int] = new Unshow[Int]
+  {
+    override def typeStr: String = "Base32Int"
+
+    override def fromExpr(expr: Expr): EMon[Int] = expr match
+    { case ValidRawBase32IntToken(i) => Good(i)
+      case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "+" => Good(i)
+      case PreOpExpr(op, ValidRawBase32IntToken(i)) if op.srcStr == "-" => Good(-i)
+      case _ => expr.exprParseErr[Int]
+    }
+  }
+
+  val rawBase32NatImplicit: Unshow[Int] = new Unshow[Int]
+  {
+    override def typeStr: String = "Base32Nat"
+
+    override def fromExpr(expr: Expr): EMon[Int] = expr match
+    { case ValidRawBase32NatToken(n) => Good(n)
+      case _ => expr.exprParseErr[Int]
+    }
+  }
 
   implicit val doubleImplicit: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "DFloat"
