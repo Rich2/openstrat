@@ -103,6 +103,9 @@ object Statement
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
     def findSettingDbl(settingStr: String): EMon[Double] = ShowT.doublePersistImplicit.settingFromStatements(statements, settingStr)
 
+    /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
+    def findSettingPosDbl(settingStr: String): EMon[Double] = Unshow.posDoubleImplicit.settingFromStatements(statements, settingStr)
+
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      *  resolve to Expr[Boolean]. */
     def findSettingBool(settingStr: String): EMon[Boolean] = ShowT.booleanPersistImplicit.settingFromStatements(statements, settingStr)

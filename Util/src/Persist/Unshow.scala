@@ -120,9 +120,20 @@ object Unshow
   { override def typeStr: String = "DFloat"
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match
-    { case vft: ValidFracToken => Good(vft.doubleValue)
-      case PreOpExpr(op, vft: ValidFracToken) if op.srcStr == "+" => Good(vft.doubleValue)
-      case PreOpExpr(op, vft: ValidFracToken) if op.srcStr == "-" => Good(vft.doubleValue)
+    { case ValidFracToken(d) => Good(d)
+      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "+" => Good(d)
+      case PreOpExpr(op, ValidFracToken(d)) if op.srcStr == "-" => Good(-d)
+      case _ => expr.exprParseErr[Double]
+    }
+  }
+
+  val posDoubleImplicit: Unshow[Double] = new Unshow[Double]
+  { override def typeStr: String = "PosDFloat"
+
+    override def fromExpr(expr: Expr): EMon[Double] = expr match
+    { case ValidPosFracToken(d) => Good(d)
+      case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "+" => Good(d)
+      case PreOpExpr(op, ValidPosFracToken(d)) if op.srcStr == "-" => Good(-d)
       case _ => expr.exprParseErr[Double]
     }
   }

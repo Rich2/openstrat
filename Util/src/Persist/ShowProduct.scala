@@ -61,7 +61,5 @@ trait ShowProductT[R] extends ShowCompoundT[R]
  *  number of logical parameters. For example, a LineSeg is a product 2, it has a start point and an end point, although its is stored as 4 parameters
  *  xStart, yStart, xEnd, yEnd. */
 trait PersistProduct[R] extends Persist[R] with ShowProductT[R]
-{
-}
 
 trait PersistShowProduct[R <: ShowProduct] extends PersistProduct[R]

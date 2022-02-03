@@ -22,9 +22,10 @@ trait DeciFracToken extends ValidFracToken
 }
 
 /** Positive Decimal fractional fixed point token. */
-case class DeciFracPosToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DeciFracToken with DigitSeqsCode
+case class DeciFracPosToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DeciFracToken with ValidPosFracToken with DigitSeqsCode
 { override def exprTypeStr: String = "DeciFrac"
   override def digitSeqs: Strings = Strings(dgs1, dgs2)
+  override def posDoubleValue: Double = doubleValue
 }
 
 /** Positive Decimal fractional fixed point token. */

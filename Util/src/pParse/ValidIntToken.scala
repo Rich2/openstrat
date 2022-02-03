@@ -13,9 +13,25 @@ trait ValidFracToken extends ClauseMemExprToken
 { def doubleValue: Double
 }
 
+object ValidFracToken
+{
+  def unapply(input: Any): Option[Double] = input match{
+    case vpft: ValidFracToken => Some(vpft.doubleValue)
+    case _ => None
+  }
+}
+
 /** A valid non negative fractional number token */
 trait ValidPosFracToken extends ClauseMemExprToken
 { def posDoubleValue: Double
+}
+
+object ValidPosFracToken
+{
+  def unapply(input: Any): Option[Double] = input match{
+    case vpft: ValidPosFracToken => Some(vpft.posDoubleValue)
+    case _ => None
+  }
 }
 
 /** Common trait for [[RawIntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
