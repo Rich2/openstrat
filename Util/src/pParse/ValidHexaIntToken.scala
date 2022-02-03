@@ -2,7 +2,7 @@
 package ostrat; package pParse
 
 /** Common trait for all tokens that can be valid hexadecimal natural numbers as well as valid base32 numbers. */
-trait ValidHexaToken extends ValidIntToken
+trait ValidHexaIntToken extends ValidIntToken
 {
   def asHexaInt: Int =
   { var acc = 0
@@ -19,10 +19,10 @@ trait ValidHexaToken extends ValidIntToken
 
 /** Valid Raw natural number compatible with hexadecimal format. This trait exists for its natAsRawHexa method and the associated unapply method.in
  *  the companion object. */
-trait ValidRawHexaNatToken extends ValidIntToken
+trait ValidRawHexaNatToken extends ValidHexaIntToken
 { /** Interpreting the token in raw hexadecimal format, returns a natural number Int. An Int by Scala type, that is non negative. This method should
       only be use in narrowly defined data formats not for general purpose programming. */
-  def natAsRawHexa: Int = ???
+  //def natAsRawHexa: Int = ???
 }
 
 object ValidRawHexaNatToken
@@ -33,8 +33,20 @@ object ValidRawHexaNatToken
   }
 }
 
+/** Valid raw negative hexadecimal Int Token. */
+trait ValidRawHexaNegToken extends ValidHexaIntToken
+{ override def asHexaInt: Int = -super.asHexaInt
+}
+
 /** Raw hexadecimal natural number token, starting with a digit that includes one or more 'A' .. 'F' digits. */
-case class RawHexaToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken
+case class RawHexaNatToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken
 { override def exprTypeStr: String = "HexaRaw"
   override def digitsStr: String = srcStr
+}
+
+/** Raw hexadecimal natural number token, starting with a digit that includes one or more 'A' .. 'F' digits. */
+case class RawHexaNegToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNegToken
+{ override def exprTypeStr: String = "HexaRaw"
+  override def digitsStr: String = srcStr
+
 }

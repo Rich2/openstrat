@@ -95,6 +95,17 @@ object Unshow
     }
   }
 
+  val rawHexaImplicit: Unshow[Int] = new Unshow[Int]
+  {
+    override def typeStr: String = "Nat"
+
+    override def fromExpr(expr: Expr): EMon[Int] = expr match
+    { case vr: ValidRawHexaNatToken => Good(vr.asHexaInt)
+      case _ => expr.exprParseErr[Int]
+    }
+  }
+
+
   implicit val doubleImplicit: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "DFloat"
 

@@ -71,7 +71,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[L
 
       case mb => deb(mb.toString)
     }
-  debvar(scale.str)
+ 
   eTop()
   loadView()
   repaintMap()

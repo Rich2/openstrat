@@ -18,7 +18,7 @@ trait ValidPosFracToken extends ClauseMemExprToken
 { def posDoubleValue: Double
 }
 
-/** Common trait for [[IntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
+/** Common trait for [[RawIntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
  * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
 trait IntStdToken extends ValidIntToken with ValidFracToken
 { /** Returns an integer value for the [[Token]] using the standard decimal format unless it is an 0x or 0y Token. */
@@ -36,7 +36,7 @@ object IntStdToken
   }
 }
 
-/** Common trait for [[IntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
+/** Common trait for [[RawIntDeciToken]], [[NatOxToken]] and [[NatOyToken]] has the getIntStd method. This is the trait you would use in general purpose
  * programming language, where raw hexadecimal and raw Bse32 numbers are disallowed. */
 trait NatStdToken extends IntStdToken with ValidPosFracToken
 { def getNatStd: Int = getIntStd
@@ -54,7 +54,7 @@ object NatStdToken
 
 
 /** A raw integer token could be negative. */
-trait IntDeciToken extends IntStdToken
+trait RawIntDeciToken extends IntStdToken with ValidRawHexaNatToken
 {
   /** gets the natural integer value part from this token interpreting it as a standard Base10 notation. */
   def getAbsoluteIntStd: Int =
@@ -74,7 +74,7 @@ trait IntDeciToken extends IntStdToken
  *  Ints and 64 bit Longs, as well as less used integer formats such as Byte. This is in accord with the principle that RSON at the Token and AST
  *  (Abstract Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming
  *  languages. */
-case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends ValidHexaToken with IntDeciToken with NatStdToken with DigitSeqsCode
+case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNegToken with RawIntDeciToken with NatStdToken with DigitSeqsCode
 { override def exprTypeStr: String = "Decimal"
   override def digitsStr: String = srcStr
   override def digitSeqs: Strings = Strings(digitsStr)
@@ -84,7 +84,7 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends ValidHexaTo
 }
 
 /** Negative natural number token. There must be no space between the '-' character and the digits. */
-case class NegDeciToken(startPosn: TextPosn, digitsStr: String) extends IntDeciToken
+case class NegDeciToken(startPosn: TextPosn, digitsStr: String) extends RawIntDeciToken
 { override def exprTypeStr: String = "IntNeg"
   override def srcStr: String = "-" + digitsStr
   override def getIntStd: Int = -super.getAbsoluteIntStd

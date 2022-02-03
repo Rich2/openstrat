@@ -19,20 +19,6 @@ object IntTokenTest extends TestSuite
       it2.getIntStd ==> 2147483647
     }
 
-    val ht1 = Nat0xToken(Sp1, "A")
-    val ht2 = Nat0xToken(Sp44, "1A")
-    val ht3 = Nat0xToken(Sp2, "7FFFFFFF")
-
-    "Nat0xToken" -
-    { ht1.getIntStd ==> 10
-      ht1.getNatStd ==> 10
-      ht2.getIntStd ==> 26
-      ht3.getIntStd ==> 2147483647
-      ht3.getNatStd ==> 2147483647
-    }
-
-
-
     "General" -
     { assertMatch("4".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "4"))) => }
       assertMatch("45".parseTokens){ case Good(Arr1(NatDeciToken(Sp1, "45"))) => }
