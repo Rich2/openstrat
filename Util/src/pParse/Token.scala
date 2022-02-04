@@ -78,7 +78,7 @@ case class StringToken(startPosn: TextPosn, stringStr: String) extends ClauseMem
 
 /** An Operator token. */
 //trait OperatorToken extends ClauseMemberToken
-case class OperatorToken(startPosn: TextPosn, srcStr: String) extends ClauseMemToken // OperatorToken
+case class OperatorToken(startPosn: TextPosn, srcStr: String) extends AssignMem with Token
 { override def tokenTypeStr: String = "OtherOperatorToken"
 }
 

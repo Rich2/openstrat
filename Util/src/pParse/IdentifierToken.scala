@@ -2,7 +2,7 @@
 package ostrat; package pParse
 
 /** An alphanumeric token beginning with an alphabetic character that normally represents a name of something, that identifies something. */
-trait IdentifierToken extends ClauseMemExprToken
+trait IdentifierToken extends AssignMemExprToken
 
 /** An identifier token beginning with an underscore character. */
 case class IdentUnderToken(startPosn: TextPosn, srcStr: String) extends IdentifierToken
@@ -32,11 +32,8 @@ case class IdentUpperBase32OnlyToken(startPosn: TextPosn, srcStr: String) extend
 { override def exprTypeStr: String = "IdentifierUpperBase32"
 }
 
-/** An identifier Token that is also a valid raw hexadecimal raw Base32 token. */
-trait IdentHexaToken extends ValidRawHexaIntToken
-
 /** An identifier beigning with an upper case letter that is also a valid raw hexadecimal token. */
-case class IdentUpperHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpperBase32Token with IdentHexaToken
+case class IdentUpperHexaToken(startPosn: TextPosn, srcStr: String) extends IdentUpperBase32Token with ValidRawHexaNatToken
 { override def exprTypeStr: String = "IdentifierUpperHexa"
 }
 

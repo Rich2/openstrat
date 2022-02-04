@@ -35,7 +35,7 @@ object getExpr
         })
 
       case ArrOff1Tail(h: AssignMemExpr, tail) => { acc.append(h); loop(tail) }
-      case ArrOff1Tail(h, tail) => debexc(h.toString + " is not AssingMemExpr.")
+      case ArrOff1Tail(h, tail) => debexc(h.toString + " is not AssignMemExpr.")
     }
     loop(inp)
   }

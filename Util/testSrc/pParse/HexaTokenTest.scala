@@ -52,6 +52,9 @@ object HexaTokenTest extends TestSuite
       "1A".asHexaNat ==> Good(26)
       "-5A".asHexaInt ==> Good(-90)
       "-5A".asHexaNat.isBad ==> true
+      "C0".asHexaInt ==> Good(192)
+      "C0".asHexaNat ==> Good(192)
+      //"-C0".asHexaInt ==> Good(-192)
     }
   }
 }
