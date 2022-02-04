@@ -1,19 +1,18 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
-/** Function object for getting an EMon of Statements from Tokens. */
-object astParse
+object tokensToBlockMems
 {
   /** Gets Statements from Tokens. All other methods in this object are private. */
-  def apply(implicit tokens: Arr[Token]): EArr[Statement] =
+  def apply(implicit tokens: Arr[Token]): EArr[BlockMem] =
   {
     val acc: Buff[BlockMem] = Buff()
 
     /** The top level loop takes a token sequence input usually from a single source file stripping out the brackets and replacing them and the
      * intervening tokens with a Bracket Block. */
-    def loop(rem: ArrOff[Token]): EArr[Statement] = rem match
+    def loop(rem: ArrOff[Token]): EArr[BlockMem] = rem match
     {
-      case ArrOff0() => statementsParse(acc.toArr)
+      case ArrOff0() => Good(acc.toArr)
       case ArrOff1Tail(bo: BracketOpen, tail) => bracesParse(tail, bo).flatMap { (bracketBlock, remTokens) =>
         acc.append(bracketBlock)
         loop(remTokens)

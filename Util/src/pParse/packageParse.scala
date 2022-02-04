@@ -22,10 +22,10 @@ package object pParse
   /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non fatal exceptions or if the file doesn't exist
    *   will be returned as errors. */
   def srcToEStatements(input: Array[Char], inputSourceName: String): EArr[Statement] =
-    srcToETokens(input, inputSourceName).flatMap(astParse(_))
+    srcToETokens(input, inputSourceName).flatMap(tokensToStatements(_))
   /** Returns an EMon of a sequence of Statements from a String. */
   def stringToStatements(input: String): EArr[Statement] =
-    stringToTokens(input).flatMap(astParse(_))
+    stringToTokens(input).flatMap(tokensToStatements(_))
   /** Max numbers for long and hexidecimal formats needs to be implemented */
   def stringToTokens(srcStr: String): EArr[Token] = srcToETokens(srcStr.toCharArray, "String")
 
@@ -33,4 +33,8 @@ package object pParse
   { case '+' | '-' | '*' | '/' | '=' => true
     case _ => false
   }
+
+  /** Gets Statements from Tokens. All other methods in this object are private. */
+  def tokensToStatements(implicit tokens: Arr[Token]): EArr[Statement] = tokensToBlockMems(tokens).flatMap{ g => statementsParse(g)}
+
 }

@@ -9,7 +9,7 @@ object CommentTest extends TestSuite
     val s2 = "x = 5//".parseTokens
     val s3 = "x = 5//Some blurb".parseTokens
     val s4 = "x = //\n5".parseTokens
-    val a4 = s4.flatMap(astParse(_))
+    val a4 = s4.flatMap(tokensToStatements(_))
     val s5: EMon[Array[Char]] = eTry(io.Source.fromResource("c1.rson").toArray)// .getLines().mkString)
     val a5: EArr[Token] = s5.flatMap(g => srcToETokens(g, ""))//(EMonBuild.refsImplicit)
     //val s6 = "appStr =//\n\"Z0\";"

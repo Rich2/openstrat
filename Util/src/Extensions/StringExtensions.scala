@@ -1,11 +1,13 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import pParse._
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {
   def parseTokens: EArr[pParse.Token] = pParse.srcToETokens(thisString.toCharArray, "String")
-  def parseStatements: EArr[pParse.Statement] = parseTokens.flatMap(pParse.astParse(_))
+  def parseStatements: EArr[pParse.Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
+  //def parseExpr: EMon[Expr] =
   //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
