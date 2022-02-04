@@ -35,6 +35,13 @@ package object pParse
   }
 
   /** Gets Statements from Tokens. All other methods in this object are private. */
-  def tokensToStatements(implicit tokens: Arr[Token]): EArr[Statement] = tokensToBlockMems(tokens).flatMap{ g => statementsParse(g)}
+  def tokensToStatements(tokens: Arr[Token]): EArr[Statement] = tokensToBlockMems(tokens).flatMap{ g => blockMemsToStatements(g)}
 
+  /** Parses a sequence of block members raw Statement where bracket blocks have already been parsed into a sequence of Statements. */
+  def blockMemsToStatements(inp: Arr[BlockMem]): EArr[Statement] = blockMemsToExpr(inp).map{
+    case StringStatements(sts) => sts
+    case e => Arr(NonEmptyStatement(e, NoRef))
+  }
+
+  def tokensToExpr(tokens: Arr[Token]): EMon[Expr] = tokensToBlockMems(tokens).flatMap{ g => blockMemsToExpr(g)}
 }

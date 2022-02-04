@@ -18,7 +18,7 @@ object bracesParse
       }
 
       case ArrOff1Tail(bc: BracketCloseToken, tail) =>
-        if (bc.braces == open.braces) statementsParse(acc.toArr).toEMon2 { g =>
+        if (bc.braces == open.braces) blockMemsToStatements(acc.toArr).toEMon2 { g =>
           val res = BracketedStatements(g, bc.braces, open.startPosn, bc.startPosn)
           Good2(res, tail)
         }

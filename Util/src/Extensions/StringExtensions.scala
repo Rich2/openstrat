@@ -5,10 +5,9 @@ import pParse._
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
 {
-  def parseTokens: EArr[pParse.Token] = pParse.srcToETokens(thisString.toCharArray, "String")
+  def parseTokens: EArr[pParse.Token] = srcToETokens(thisString.toCharArray, "String")
   def parseStatements: EArr[pParse.Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
-  //def parseExpr: EMon[Expr] =
-  //def asType[A](implicit ev: Persist[A]): EMon[A] = thisString.parseToStatements.flatMap(ev.fromStatements)
+  def parseExpr: EMon[Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
   def findType[A: Unshow]: EMon[A] = thisString.parseStatements.flatMap(_.findUniqueT[A])
@@ -27,10 +26,7 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
 
-  def asType[A](implicit ev: Persist[A]): EMon[A] = parseStatements.flatMap(sts => sts match
-    { case Arr1(h) => ev.fromStatement(h)//.goodOrOther(ev.fromExpr(sts)
-      case sts => ??? //ev.fromStatements(sts)
-    })
+  def asType[A](implicit ev: Persist[A]): EMon[A] = parseExpr.flatMap(g => ev.fromExpr(g))
 
   def newLinesToSpaces: String = thisString.map{
     case '\n' => ' '
