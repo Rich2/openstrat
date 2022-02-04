@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** This is the RSON package. Readable Succinct Object Notation. It could be just as accurately be described as Readable Succinct Data Notation, but
@@ -34,14 +34,15 @@ package object pParse
     case _ => false
   }
 
-  /** Gets Statements from Tokens. All other methods in this object are private. */
+  /** Tries to parse a sequence of [[Token]]s to [[Statement]]s. */
   def tokensToStatements(tokens: Arr[Token]): EArr[Statement] = tokensToBlockMems(tokens).flatMap{ g => blockMemsToStatements(g)}
 
-  /** Parses a sequence of block members raw Statement where bracket blocks have already been parsed into a sequence of Statements. */
+  /** Tries to parse a sequence of block members [[BlockMem]]s to a squence of [[Statement]]s. */
   def blockMemsToStatements(inp: Arr[BlockMem]): EArr[Statement] = blockMemsToExpr(inp).map{
     case StringStatements(sts) => sts
     case e => Arr(NonEmptyStatement(e, NoRef))
   }
 
+  /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
   def tokensToExpr(tokens: Arr[Token]): EMon[Expr] = tokensToBlockMems(tokens).flatMap{ g => blockMemsToExpr(g)}
 }

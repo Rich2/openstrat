@@ -46,5 +46,12 @@ object HexaTokenTest extends TestSuite
       ht3.getIntStd ==> 2147483647
       ht3.getNatStd ==> 2147483647
     }
+
+    "Raw Test" -
+    { "10".asHexaInt ==> Good(16)
+      "1A".asHexaNat ==> Good(26)
+      "-5A".asHexaInt ==> Good(-90)
+      "-5A".asHexaNat.isBad ==> true
+    }
   }
 }

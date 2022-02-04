@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** The top level compositional unit of Syntax in CRON: Compact Readable Object Notation. A statement can be claused consisting of comma separated
@@ -75,11 +75,11 @@ object Statement
 
     /** Find the sole [[Int]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Int]. */
-    def findInt: EMon[Int] = Unshow.intImplicit.findUniqueTFromStatements(statements)
+    def findInt: EMon[Int] = Unshow.intEv.findUniqueTFromStatements(statements)
 
     /** Find the sole natural [[Int]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Int]. */
-    def findNat: EMon[Int] = Unshow.natImplicit.findUniqueTFromStatements(statements)
+    def findNat: EMon[Int] = Unshow.natEv.findUniqueTFromStatements(statements)
 
     /** Find the sole [[Double]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Double]. */

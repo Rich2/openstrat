@@ -26,14 +26,24 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
 
-  def asType[A](implicit ev: Persist[A]): EMon[A] = parseExpr.flatMap(g => ev.fromExpr(g))
+  def asType[A](implicit ev: Unshow[A]): EMon[A] = parseExpr.flatMap(g => ev.fromExpr(g))
 
   def newLinesToSpaces: String = thisString.map{
     case '\n' => ' '
     case c => c
   }
 
+  /** Tries to parse this String as an [[Int]] expression. */
   def asInt: EMon[Int] = asType[Int]
+
+  /** Tries to parse this String as a natural non negative [[Int]] expression. */
+  def asNat: EMon[Int] = asType[Int](Unshow.natEv)
+
+  /** Tries to parse this String as an [[Int]] in hexadecimal format expression. */
+  def asHexaInt: EMon[Int] = asType(Unshow.hexaIntEv)
+
+  /** Tries to parse this String as a natural non negative [[Int]] in hexadecimal format expression. */
+  def asHexaNat: EMon[Int] = asType(Unshow.hexaNatEv)
 
   def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 

@@ -31,9 +31,8 @@ object IntTokenTest extends TestSuite
 
     val st1 = "true; 17; false"
 
-    "Find Int" -
-    {
-      "17".findInt ==> Good(17)
+    "Find / as Int" -
+    { "17".findInt ==> Good(17)
       "17".findNat ==> Good(17)
       st1.findInt ==> Good(17)
       st1.findNat ==> Good(17)
@@ -41,13 +40,16 @@ object IntTokenTest extends TestSuite
       st1.findBoolean.isGood ==> false
       "17; -17".findInt.isBad ==> true
       "17; -17".findNat ==> Good(17)
+      "25".asInt ==> Good(25)
+      "25;".asInt.isBad ==> true
     }
 
     "Negative" -
-    {
-      assertMatch("-4".parseTokens){ case Good(Arr1(NegDeciToken(Sp1, "4"))) => }
+    { assertMatch("-4".parseTokens){ case Good(Arr1(NegDeciToken(Sp1, "4"))) => }
       "-4".findInt ==> Good(-4)
       "-4".findNat.isBad ==> true
+      "-257".asInt ==> Good(-257)
+      "-257".asNat.isBad ==> true
     }
   }
 }

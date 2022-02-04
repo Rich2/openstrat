@@ -1,11 +1,11 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
-/** Function object parses blockMems to an expression. */
+/** Function object for parseing [[blockMem]]s to an [[Expr]]. */
 object blockMemsToExpr
 {
-  /** Tries to Parses a sequence of block members to an [[Expr]]. Returns an [[EMon]][Expr]. So an original String of "4' will essentially return
-   * a Good natural integer expression. but "4;" will return a Good Statement sequence of one statment. */
+  /** Tries to Parses a sequence of block members to an [[Expr]]. So an original String of "4' will return a [[Good]] natural integer expression. but
+   *  "4;" will return a [[Good]] [[Statement]] sequence of one Statement. */
   def apply(implicit inp: Arr[BlockMem]): EMon[Expr] =
   {
     val acc: Buff[Statement] = Buff()

@@ -73,7 +73,8 @@ object Unshow
   //implicit def tuple2Implicit[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist[Tuple2[A1, A2]] =
   // Persist2[A1, A2, (A1, A2)]("Tuple2", "_1", _._1, "_2", _._2, (a1, a2) => (a1, a2))
 
-  implicit val intImplicit: Unshow[Int] = new Unshow[Int]
+  /** Implicit [[Unshow]] instance for an [[Int]] in a standard format. */
+  implicit val intEv: Unshow[Int] = new Unshow[Int]
   {
     override def typeStr: String = "Int"
 
@@ -85,7 +86,8 @@ object Unshow
     }
   }
 
-  val natImplicit: Unshow[Int] = new Unshow[Int]
+  /** [[Unshow]] instance for natural, non-negative [[Int]] in a standard format. This must be passed explicitly. */
+  val natEv: Unshow[Int] = new Unshow[Int]
   {
     override def typeStr: String = "Nat"
 
@@ -95,7 +97,8 @@ object Unshow
     }
   }
 
-  val rawHexaIntImplicit: Unshow[Int] = new Unshow[Int]
+  /** [[Unshow]] instance for [[Int]] in hexadecimal format. This must be passed explicitly. */
+  val hexaIntEv: Unshow[Int] = new Unshow[Int]
   {
     override def typeStr: String = "HexaInt"
 
@@ -103,6 +106,17 @@ object Unshow
     { case ValidRawHexaIntToken(i) => Good(i)
       case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "+" => Good(i)
       case PreOpExpr(op, ValidRawHexaIntToken(i)) if op.srcStr == "-" => Good(-i)
+      case _ => expr.exprParseErr[Int]
+    }
+  }
+
+  /** Unshow instance for natural non negative [[Int]] in hexadecimal format. This evidence must be passed explicitly. */
+  val hexaNatEv: Unshow[Int] = new Unshow[Int]
+  {
+    override def typeStr: String = "HexaNat"
+
+    override def fromExpr(expr: Expr): EMon[Int] = expr match
+    { case ValidRawHexaNatToken(i) => Good(i)
       case _ => expr.exprParseErr[Int]
     }
   }
