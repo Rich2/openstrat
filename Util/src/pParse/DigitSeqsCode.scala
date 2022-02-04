@@ -38,11 +38,21 @@ final case class DeciFracNegToken(startPosn: TextPosn, dgs1: String, dgs2: Strin
 
 trait FloatPtToken extends DeciFracToken
 { def expStr: String
+  def expPos: Boolean
+  def expAbs: Int = expStr.tail.foldLeft[Int](expStr.head - '0'){ (acc, el) => acc * 10 + el - '0' }
+  def exp: Int = ife(expPos, expAbs, -expAbs)
 }
 
 /** Positive Floaiting point fractional number token. */
-case class FloatPtPosToken(startPosn: TextPosn, dgs1: String, dgs2: String, expStr: String, trail: String) extends FloatPtToken
-{ override def srcStr: String = "-" + super.srcStr
-  override def exprTypeStr: String = "DeciFrac"
-  override def doubleValue: Double = fixedValue
+final case class FloatPtPosToken(startPosn: TextPosn, dgs1: String, dgs2: String, expPos: Boolean, expStr: String, trail: String) extends FloatPtToken
+{ override def srcStr: String = dgs1 + "." + dgs2 + "e" + expStr
+  override def exprTypeStr: String = "FloatPtPos"
+  override def doubleValue: Double = fixedValue * 10.power(exp)
+}
+
+/** Negative Floating point fractional number token. */
+final case class FloatPtNegToken(startPosn: TextPosn, dgs1: String, dgs2: String, expPos: Boolean, expStr: String, trail: String) extends FloatPtToken
+{ override def srcStr: String = "-" + dgs1 + "." + dgs2 + "e" + expStr
+  override def exprTypeStr: String = "PloatPtNeg"
+  override def doubleValue: Double = fixedValue * 10.power(exp)
 }
