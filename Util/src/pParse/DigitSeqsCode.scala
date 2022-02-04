@@ -17,20 +17,32 @@ trait DeciFracToken extends ValidFracToken
   def trail: String
   def wholeNum: Long = dgs1.unsafeDigitsToLong
   def fractionalValue: Double = dgs2.unsafeDigitsToLong.toDouble / 10.power(dgs2.length)
-  def doubleValue: Double = wholeNum.toDouble + fractionalValue
+  def fixedValue: Double = wholeNum.toDouble + fractionalValue
   override def srcStr: String = dgs1 + "." + dgs2 + trail
 }
 
 /** Positive Decimal fractional fixed point token. */
-case class DeciFracPosToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DeciFracToken with ValidPosFracToken with DigitSeqsCode
+final case class DeciFracPosToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DeciFracToken with ValidPosFracToken with DigitSeqsCode
 { override def exprTypeStr: String = "DeciFrac"
   override def digitSeqs: Strings = Strings(dgs1, dgs2)
+  inline override def doubleValue: Double = fixedValue
   override def posDoubleValue: Double = doubleValue
 }
 
-/** Positive Decimal fractional fixed point token. */
-case class DeciFracNegToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DeciFracToken //with DigitSeqsCode
+/** Negative Decimal fractional fixed point number [[token]]. */
+final case class DeciFracNegToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DeciFracToken
 { override def srcStr: String = "-" + super.srcStr
   override def exprTypeStr: String = "DeciFrac"
-  override def doubleValue: Double = -super.doubleValue
+  inline override def doubleValue: Double = -fixedValue
+}
+
+trait FloatPtToken extends DeciFracToken
+{ def expStr: String
+}
+
+/** Positive Floaiting point fractional number token. */
+case class FloatPtPosToken(startPosn: TextPosn, dgs1: String, dgs2: String, expStr: String, trail: String) extends FloatPtToken
+{ override def srcStr: String = "-" + super.srcStr
+  override def exprTypeStr: String = "DeciFrac"
+  override def doubleValue: Double = fixedValue
 }
