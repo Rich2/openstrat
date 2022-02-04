@@ -4,7 +4,7 @@ val versionStr = "0.3.1snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
 val scalaMajor = "3.1"
-val scalaMinor = "0"
+val scalaMinor = "1"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
@@ -18,7 +18,7 @@ lazy val baseDir = SettingKey[File]("baseDir")
 ThisBuild/baseDir := (ThisBuild/baseDirectory).value
 
 def sett3 = List(
-  scalaVersion := "3.1.0",
+  scalaVersion := "3.1.1",
   scalacOptions ++= Seq("-feature", "-language:implicitConversions", "-noindent", "-deprecation", "-encoding", "UTF-8"),
 )
 
