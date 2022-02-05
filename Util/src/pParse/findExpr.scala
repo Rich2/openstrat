@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
 /** Function object. Not entirely sure what this does. */
@@ -10,8 +10,8 @@ object prefixPlus
 
     def loop(rem: ArrOff[BlockMem]): EArr[BlockMem] = rem match
     { case ArrOff0() => Good(acc).map(_.toArr)
-      //case RefsOff2Tail(pp: PrefixToken,  right: Expr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
-      //case RefsOffHead(pp: PrefixToken) => bad1(pp, "Prefix operator not followed by expression")
+      case ArrOff2Tail(pp: OperatorToken,  right: ClauseMemExpr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
+      case ArrOffHead(pp: OperatorToken) => bad1(pp, "Prefix operator not followed by expression")
       case ArrOff1Tail(h, tail) => { acc.append(h); loop(tail) }
     }
     loop(refs.offset0)

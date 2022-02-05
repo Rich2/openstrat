@@ -90,7 +90,7 @@ case class AlphaBracketExpr(name: IdentifierToken, blocks: Arr[BracketedStatemen
   override def exprName: String = "AlphaBracketExpr"
 }
 
-case class PreOpExpr(op: OperatorToken, right: ClauseMemExpr) extends CompoundClauseMemExpr
+case class PreOpExpr(op: OperatorToken, right: AssignMemExpr) extends CompoundClauseMemExpr
 { override def startMem = op
   override def endMem = right
   override def exprName: String = "PreOpExpr"
