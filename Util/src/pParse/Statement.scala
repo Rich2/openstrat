@@ -61,17 +61,14 @@ object Statement
     def findSettingElse[A](settingStr: String, elseValue: A)(implicit ev: Persist[A]): A = findSetting[A](settingStr).getElse(elseValue)
 
     /** Find Statement of type T, if its unique from this Arr[Statement] and return value. */
-    def findUniqueT[A](implicit ev: Unshow[A]): EMon[A] = ev.findUniqueFromStatements(statements)
+    def findUniqueT[A](implicit ev: Unshow[A]): EMon[A] = statements.mapUniqueGood(ev.fromStatement(_))//  ev.findUniqueFromStatements(statements)
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findUniqueT[A].getElse(elseValue)
 
-    def findTypeIndex[A](index: Int)(implicit ev: Unshow[A]): EMon[A] =
-    { val list = ev.valueListFromStatements(statements)
-      if (list.length > index) Good(list(index))
-      else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
-    }
+    /** Tries to get value of specified type form the statement at the specified index. */
+    def asTypeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMon[A] = ife(statements.length > index, ev.fromStatement(statements(index)), badNone("Not unique"))
 
     /** Find the sole [[Int]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Int]. */
@@ -95,7 +92,7 @@ object Statement
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */
-    def findIntArray: EMon[Array[Int]] = Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
+    def findIntArray: EMon[Array[Int]] = ???// Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
 
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
     def findSettingInt(settingStr: String): EMon[Int] = ShowT.intPersistImplicit.settingFromStatements(statements, settingStr)

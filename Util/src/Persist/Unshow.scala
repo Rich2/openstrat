@@ -14,16 +14,6 @@ trait Unshow[+T] extends ShowSelf
   def valuesFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance): ArrT =
     sts.mapCollectGoods(fromStatement)(arrBuild)
 
-  /** Produces a List of the UnShow type from List of Statements */
-  def valueListFromStatements(l: Statements): List[T] = l.map(fromStatement(_)).collectList{ case Good(value) => value }
-
-  /** Finds value of UnShow type, returns error if more than one match. */
-  def findUniqueFromStatements(sts: Statements): EMon[T] = valueListFromStatements(sts) match
-  { case Nil => TextPosn.emptyError("No values of type found")
-    case h :: Nil => Good(h)
-    case s3 => sts.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
-  }
-
   /** Finds value of this UnShow type, returns error if more than one match. */
   def findUniqueTFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance):
     EMon[T] = valuesFromStatements(sts) match

@@ -422,11 +422,11 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   }
 
   /** Collects a List values of B by applying partial function to only those elements of A, for which the PartialFunction is defined. */
-  def collectList[B](pf: PartialFunction[A, B]): List[B] =
+  /*def collectList[B](pf: PartialFunction[A, B]): List[B] =
   { var acc: List[B] = Nil
     foreach{a => if (pf.isDefinedAt(a)) acc ::= pf(a) }
     acc.reverse
-  }
+  }*/
 
   def mapUniqueGood[B](f: A => EMon[B]): EMon[B] = {
     var count = 0
