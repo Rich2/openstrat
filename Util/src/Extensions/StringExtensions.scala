@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
-class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
+class StringImplicit(val thisString: String) extends AnyVal
 {
   def parseTokens: EArr[pParse.Token] = srcToETokens(thisString.toCharArray, "String")
   def parseStatements: EArr[pParse.Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
@@ -18,20 +18,31 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   /** Parses this [[String]] into EMon statements returns [[Good]][Int] if single statement or type Int. */
   def findInt: EMon[Int] = thisString.parseStatements.flatMap(_.findInt)
 
-  /** Parses this [[String]] into EMon statements returns [[Good]][Int] if single statement or type natural Int. */
-  def findNat: EMon[Int] = thisString.parseStatements.flatMap(_.findNat)
-
-  def findDouble: EMon[Double] = thisString.parseStatements.flatMap(_.findDbl)
   def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBool)
-  def findTypeIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
+
+  /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
+  def stsIndexAsType[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.findTypeIndex[A](index))
+
+  /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
+  def stsIndexAsDbl(index: Int): EMon[Double] = thisString.parseStatements.flatMap(_.findTypeIndex[Double](index))
+
+  /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
+  def stsIndexAsInt(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.findTypeIndex[Int](index))
+
+  /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
+  def stsIndexAsNat(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.findTypeIndex[Int](index)(Unshow.natEv))
+
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
 
   def asType[A](implicit ev: Unshow[A]): EMon[A] = parseExpr.flatMap(g => ev.fromExpr(g))
 
-  def newLinesToSpaces: String = thisString.map{
-    case '\n' => ' '
-    case c => c
-  }
+  def newLinesToSpaces: String = thisString.map { case '\n' => ' '; case c => c }
+
+  /** Tries to parse this String as a [[Double]] expression. */
+  def asDbl: EMon[Double] = asType[Double]
+
+  /** Tries to parse this String as a [[Double]] expression. */
+  def asPosDbl: EMon[Double] = asType[Double](Unshow.posDoubleEv)
 
   /** Tries to parse this String as an [[Int]] expression. */
   def asInt: EMon[Int] = asType[Int]

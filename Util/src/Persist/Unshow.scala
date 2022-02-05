@@ -86,7 +86,7 @@ object Unshow
     }
   }
 
-  /** [[Unshow]] instance for natural, non-negative [[Int]] in a standard format. This must be passed explicitly. */
+  /** [[Unshow]] instance / evidence for natural, non-negative [[Int]] in a standard format. This must be passed explicitly. */
   val natEv: Unshow[Int] = new Unshow[Int]
   {
     override def typeStr: String = "Nat"
@@ -145,7 +145,8 @@ object Unshow
     }
   }
 
-  implicit val doubleImplicit: Unshow[Double] = new Unshow[Double]
+  /** Implicit [[Unshow]] instance / evidence for an [[Double]]. */
+  implicit val doubleEv: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "DFloat"
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match
@@ -156,7 +157,8 @@ object Unshow
     }
   }
 
-  val posDoubleImplicit: Unshow[Double] = new Unshow[Double]
+  /** [[Unshow]] instance / evidence for positive, non-negative [[Double]]. This must be passed explicitly. */
+  val posDoubleEv: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "PosDFloat"
 
     override def fromExpr(expr: Expr): EMon[Double] = expr match

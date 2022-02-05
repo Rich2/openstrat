@@ -67,7 +67,7 @@ object Statement
      *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findUniqueT[A].getElse(elseValue)
 
-    def findTypeIndex[A](index: Int)(implicit ev: Persist[A]): EMon[A] =
+    def findTypeIndex[A](index: Int)(implicit ev: Unshow[A]): EMon[A] =
     { val list = ev.valueListFromStatements(statements)
       if (list.length > index) Good(list(index))
       else TextPosn.empty.bad("Element " + index.toString -- "of" -- ev.typeStr -- "not found")
@@ -83,7 +83,7 @@ object Statement
 
     /** Find the sole [[Double]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Double]. */
-    def findDbl: EMon[Double] = Unshow.doubleImplicit.findUniqueTFromStatements(statements)
+    def findDbl: EMon[Double] = Unshow.doubleEv.findUniqueTFromStatements(statements)
 
     /** Find the sole [[Boolean]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Boolean]. */
@@ -104,7 +104,7 @@ object Statement
     def findSettingDbl(settingStr: String): EMon[Double] = ShowT.doublePersistImplicit.settingFromStatements(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
-    def findSettingPosDbl(settingStr: String): EMon[Double] = Unshow.posDoubleImplicit.settingFromStatements(statements, settingStr)
+    def findSettingPosDbl(settingStr: String): EMon[Double] = Unshow.posDoubleEv.settingFromStatements(statements, settingStr)
 
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      *  resolve to Expr[Boolean]. */

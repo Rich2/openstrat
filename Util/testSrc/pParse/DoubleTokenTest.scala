@@ -21,12 +21,16 @@ object DoubleTokenTest extends TestSuite
       4 ==> 4
       assertMatch("4.5".parseTokens){ case Good(Arr1(DeciFracPosToken(Sp1, "4", "5", ""))) => }
       assertMatch("0.5".parseTokens){ case Good(Arr1(DeciFracPosToken(Sp1, "0", "5", ""))) => }
-      "0.4".findDouble ==> Good(0.4)
-      "-0.4".findDouble ==> Good(-0.4)
-      "-4".findDouble ==> Good(-4)
+      "0.4".asDbl ==> Good(0.4)
+      "543.012".asDbl ==> Good(543.012)
+      "543.012".asPosDbl ==> Good(543.012)
+      "-543.012".asDbl ==> Good(-543.012)
+      "-543.012".asPosDbl.isBad ==> true
+        "-0.4".asDbl ==> Good(-0.4)
+      "-4".asDbl ==> Good(-4)
       assertMatch(s51.parseTokens){ case Good(Arr1(DeciFracPosToken(Sp1, "51", "1", ""))) => }
       "51".unsafeDigitsToLong ==> 51l
-      s51.findDouble ==> Good(51.1)
+      s51.findType[Double] ==> Good(51.1)
       assertMatch(xeqStr.parseTokens){ case Good(Arr3(IdentLowerOnlyToken(_, "x"), AsignToken(_), DeciFracPosToken(_, _, _, _))) => }
       assertMatch("271.562".parseTokens){ case Good(Arr1(DeciFracPosToken(sp1, "271", "562", ""))) => }
       //Note this not a legal AST but it doesn't matter for the purpose of lexical tests
