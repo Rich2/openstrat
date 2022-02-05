@@ -67,12 +67,13 @@ object Statement
      *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Persist[A]): A = findUniqueT[A].getElse(elseValue)
 
-    /** Tries to get value of specified type form the statement at the specified index. */
-    def asTypeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMon[A] = ife(statements.length > index, ev.fromStatement(statements(index)), badNone("Not unique"))
+    /** Extension method tries to get value of specified type from the statement at the specified index of this [[Arr]][Statement]. */
+    def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMon[A] =
+      ife(statements.length > index, ev.fromStatement(statements(index)), badNone("No statement at given index."))
 
-    /** Find the sole [[Int]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
-     * Expr[Int]. */
-    def findInt: EMon[Int] = Unshow.intEv.findUniqueTFromStatements(statements)
+    /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    def intAtIndex(index: Int): EMon[Int] =
+      ife(statements.length > index, Unshow.intEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
     /** Find the sole natural [[Int]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Int]. */

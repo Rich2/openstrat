@@ -15,22 +15,19 @@ class StringImplicit(val thisString: String) extends AnyVal
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
   def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
 
-  /** Parses this [[String]] into EMon statements returns [[Good]][Int] if single statement or type Int. */
-  def findInt: EMon[Int] = thisString.parseStatements.flatMap(_.findInt)
-
   def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBool)
 
   /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
-  def stsIndexAsType[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.asTypeAtIndex[A](index))
+  def typeAtStsIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
-  def stsIndexAsDbl(index: Int): EMon[Double] = thisString.parseStatements.flatMap(_.asTypeAtIndex[Double](index))
+  def DblAtStsIndex(index: Int): EMon[Double] = thisString.parseStatements.flatMap(_.typeAtIndex[Double](index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def IntAtStsIndex(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.asTypeAtIndex[Int](index))
+  def intAtStsIndex(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.typeAtIndex[Int](index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def stsIndexAsNat(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.asTypeAtIndex[Int](index)(Unshow.natEv))
+  def natAtStsIndex(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.typeAtIndex[Int](index)(Unshow.natEv))
 
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
 

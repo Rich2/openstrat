@@ -9,8 +9,8 @@ object PersistNumsTest  extends TestSuite
     {
       5.str ==> "5"
       "5".findType[Int] ==> Good(5)
-      "228".findInt ==> Good(228)
-      "-228".findInt ==> Good(-228)
+      "228".asInt ==> Good(228)
+      "-228".intAtStsIndex(0) ==> Good(-228)
       (-86).str ==> "-86"
       (-86).strComma ==> "-86"
       (-86).strTyped ==> "Int(-86)"
