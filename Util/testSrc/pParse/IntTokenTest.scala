@@ -38,7 +38,7 @@ object IntTokenTest extends TestSuite
       //st1.stsIndexAsInt(1) ==> Good(17)
       "true".findBoolean ==> Good(true)
       st1.findBoolean.isGood ==> false
-      "17; -17".findInt ==> Good(17)
+      "17; -17".findInt.isBad ==> true
       "17; -17".asNat.isBad ==> true
       "25".asInt ==> Good(25)
       "25;".asInt.isBad ==> true

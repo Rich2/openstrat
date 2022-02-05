@@ -76,11 +76,26 @@ object EMon
   implicit def showImplicit[A](implicit ev: ShowT[A]): ShowT[EMon[A]] =
     ShowSum2("EMon", Good.GoodShowImplicit(ev),
       Bad.BadShowImplicit(ev))
+
+  implicit class EMonSeqGen[A, S <: SeqGen[A]](thisES: EMon[S])
+  {
+    /** Method on EMon[SeqGen[A]]. If this is good, the sequence is mapped with a function from A to EMon[B]. If that mapping produces on Good value,
+     * the unique Good value is returned.*/
+    def seqMapUniqueGood[B](f: A => EMon[B]): EMon[B] = thisES.flatMap{ thisSeq =>
+      var count = 0
+      var acc: EMon[B] = badNone[B]("No elem of type found")
+      thisSeq.foreach { a =>
+        val eb: EMon[B] = f(a)
+        if (eb.isGood) { count += 1; acc = eb }
+      }
+      ife (count < 2, acc, badNone (s"$count values found") )
+    }
+  }
 }
 
 /** The Good sub class of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based
  *  Right[Refs[String], +A]. */
-final case class Good[+A](val value: A) extends EMon[A] //with GoodBase[A]
+final case class Good[+A](val value: A) extends EMon[A]
 {
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)

@@ -10,7 +10,7 @@ class StringImplicit(val thisString: String) extends AnyVal
   def parseExpr: EMon[Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
-  def findType[A: Unshow]: EMon[A] = thisString.parseStatements.flatMap(_.findUniqueT[A])
+  def findType[A](implicit ev: Unshow[A]): EMon[A] = thisString.parseStatements.seqMapUniqueGood((st: Statement) => ev.fromStatement(st))//flatMap(_.findUniqueT[A])
 
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
   def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)

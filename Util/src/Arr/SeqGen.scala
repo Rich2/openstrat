@@ -428,6 +428,16 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     acc.reverse
   }
 
+  def mapUniqueGood[B](f: A => EMon[B]): EMon[B] = {
+    var count = 0
+    var acc: EMon[B] = badNone("No elem of type found")
+    foreach{a =>
+      val eb: EMon[B] = f(a)
+      if(eb.isGood){ count += 1; acc = eb }
+    }
+    ife(count < 2, acc, badNone(s"$count values found"))
+  }
+
   /** maps from A to EMon[B], collects the good values. */
   def mapCollectGoods[B, BB <: SeqImut[B]](f: A => EMon[B])(implicit ev: ArrBuilder[B, BB]): BB =
   { val acc = ev.newBuff()
