@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.immutable._
 
@@ -360,6 +360,8 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     acc
   }
 
+  /** Returns true if this sequence contains a value equal to the parameter value. The passed vvalue for equivlence testing  an be a super type of the
+   * collection type. */
   def contains[A1 >: A](elem: A1): Boolean =
   { var count = 0
     var res = false
@@ -402,12 +404,14 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     }
   )
 
+  /** Converts this SeqGen to a [[list]]. */
   def toList: List[A] =
   { var acc: List[A] = Nil
     reverseForeach(acc ::= _)
     acc
   }
 
+  /** Sums aaccumulating the results of the A => Int function. */
   def sumBy(f: A => Int): Int =
   { var acc = 0
     foreach(acc += f(_))
@@ -421,15 +425,9 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     ev.buffToBB(acc)
   }
 
-  /** Collects a List values of B by applying partial function to only those elements of A, for which the PartialFunction is defined. */
-  /*def collectList[B](pf: PartialFunction[A, B]): List[B] =
-  { var acc: List[B] = Nil
-    foreach{a => if (pf.isDefinedAt(a)) acc ::= pf(a) }
-    acc.reverse
-  }*/
-
-  def mapUniqueGood[B](f: A => EMon[B]): EMon[B] = {
-    var count = 0
+  /** Takes a function from A to EMon[B]. If the function applied to eqch element produces a single Good, it is returned else returns [[Bad]]. */
+  def mapUniqueGood[B](f: A => EMon[B]): EMon[B] =
+  { var count = 0
     var acc: EMon[B] = badNone("No elem of type found")
     foreach{a =>
       val eb: EMon[B] = f(a)
@@ -445,12 +443,14 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     ev.buffToBB(acc)
   }
 
+  /** Gives the maximum value of this sequence according to the implicit ordering type class instance, which can be passed explicitly. */
   def max[B >: A](implicit ord: math.Ordering[B]): A =
   { var acc = apply(0)
     tailForeach{ el => acc = ord.max(acc, el) }
     acc
   }
 
+  /** Gives the minimum value of this sequence according to the implicit ordering type class instance, which can be passed explicitly. */
   def min[B >: A](implicit ord: math.Ordering[B]): A =
   { var acc = apply(0)
     tailForeach{ el => acc = ord.min(acc, el) }
