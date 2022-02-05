@@ -21,13 +21,16 @@ class StringImplicit(val thisString: String) extends AnyVal
   def typeAtStsIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
-  def DblAtStsIndex(index: Int): EMon[Double] = thisString.parseStatements.flatMap(_.typeAtIndex[Double](index))
+  def dblAtStsIndex(index: Int): EMon[Double] = thisString.parseStatements.flatMap(_.dblAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def intAtStsIndex(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.typeAtIndex[Int](index))
+  def intAtStsIndex(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.intAtIndex(index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
-  def natAtStsIndex(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.typeAtIndex[Int](index)(Unshow.natEv))
+  def natAtStsIndex(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.natAtIndex(index))
+
+  /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
+  def posDblAtStsIndex(index: Int): EMon[Double] = thisString.parseStatements.flatMap(_.posDblAtIndex(index))
 
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
 

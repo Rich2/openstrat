@@ -75,13 +75,17 @@ object Statement
     def intAtIndex(index: Int): EMon[Int] =
       ife(statements.length > index, Unshow.intEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
-    /** Find the sole natural [[Int]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
-     * Expr[Int]. */
-    def findNat: EMon[Int] = Unshow.natEv.findUniqueTFromStatements(statements)
+    /** Extension methods tries to get a natural non negative [[Int]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    def natAtIndex(index: Int): EMon[Int] =
+      ife(statements.length > index, Unshow.natEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
-    /** Find the sole [[Double]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
-     * Expr[Double]. */
-    def findDbl: EMon[Double] = Unshow.doubleEv.findUniqueTFromStatements(statements)
+    /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    def dblAtIndex(index: Int): EMon[Double] =
+      ife(statements.length > index, Unshow.doubleEv.fromStatement(statements(index)), badNone("No statement at given index."))
+
+    /** Extension methods tries to get a positive, non negative [[Double]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    def posDblAtIndex(index: Int): EMon[Double] =
+      ife(statements.length > index, Unshow.posDoubleEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
     /** Find the sole [[Boolean]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Boolean]. */

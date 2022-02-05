@@ -18,7 +18,7 @@ case class LsD2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D2")
   val t5 = tStr.typeAtStsIndex[String](1)
   val t6 = tStr.typeAtStsIndex[String](2)//Because Indexs start at 0. There is no element 2 of type String.
   val t7 = tStr.findType[Pt2]
-  val t8 = tStr.DblAtStsIndex(0)// findDouble //This fails because 7 can be both an Int and a Double.
+  val t8 = tStr.dblAtStsIndex(0)// findDouble //This fails because 7 can be both an Int and a Double.
   val topStrs = Arr(t1, t2, t3, t4, t5, t6, t7, t8).map(_.toString)
   val topBlock = MText(200, topStrs)
   
