@@ -24,7 +24,7 @@ object IdentUpperToken
 
 /** An alphanumeric token beginning with an alphabetic character that most commonly represents a name of something, but is also a valid raw Base32
  *  Token. */
-trait IdentUpperBase32Token extends IdentUpperToken with ValidRawBase32IntToken
+trait IdentUpperBase32Token extends IdentUpperToken with ValidRawBase32NatToken
 { override def digitsStr: String = srcStr
 }
 

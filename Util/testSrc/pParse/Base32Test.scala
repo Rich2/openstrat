@@ -45,5 +45,23 @@ object Base32Test extends TestSuite
        ht8.getIntStd ==> 31
        ht9.getIntStd ==> 256
      }
+
+    "AsBase32" - {
+      "9".asBase32Int ==> Good(9)
+      "1A".asBase32Int ==> Good(42)
+      "1A".asBase32Nat ==> Good(42)
+      "2M".asBase32Int ==> Good(86)
+      "2N".asBase32Int ==> Good(87)
+      "2P".asBase32Int ==> Good(88)
+      "G".asBase32Int ==> Good(16)
+      "G".asBase32Nat ==> Good(16)
+      "N2".asBase32Int ==> Good(738)
+    }
+
+    "Neg AsBase32" -
+    { "-N2".asBase32Int ==> Good(-738)
+      "-N2".asBase32Nat.isBad ==> true
+    }
+
   }
 }

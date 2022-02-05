@@ -32,7 +32,8 @@ object parseIdentifierToken
       case CharsOffHead2('_', LetterOrDigitChar(_)) => upperLoop(acc + "_", remOff.drop1, tp.right1)
       case CharsOffHead2('_', '_') => tp.right1.bad3("Consecutive underscores in Identifier not allowed.")
       case CharsOff1Tail(Base32UpperChar(c), tail) => upperBase32Loop(acc + c, tail, tp.right1)
-      case CharsOff1Tail(LetterOrDigitChar(c), tail) => upperLoop(acc + c, tail, tp.right1)
+      case CharsOff1Tail(DigitChar(d), tail) => upperBase32Loop(acc + d, tail, tp.right1)
+      case CharsOff1Tail(LetterChar(c), tail) => upperLoop(acc + c, tail, tp.right1)
       case CharsOffHead(_) => Good3(remOff, tp, IdentUpperBase32OnlyToken(tpStart, acc))
     }
 

@@ -45,6 +45,12 @@ class StringImplicit(val thisString: String) extends AnyVal //extends PersistStr
   /** Tries to parse this String as a natural non negative [[Int]] in hexadecimal format expression. */
   def asHexaNat: EMon[Int] = asType(Unshow.hexaNatEv)
 
+  /** Tries to parse this String as an [[Int]] in base32 format expression. */
+  def asBase32Int: EMon[Int] = asType(Unshow.base32IntEv)
+
+  /** Tries to parse this String as a natural non negative [[Int]] in base32 format expression. */
+  def asBase32Nat: EMon[Int] = asType(Unshow.base32NatEv)
+
   def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */

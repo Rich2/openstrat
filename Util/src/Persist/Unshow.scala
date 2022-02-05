@@ -110,7 +110,7 @@ object Unshow
     }
   }
 
-  /** Unshow instance for natural non negative [[Int]] in hexadecimal format. This evidence must be passed explicitly. */
+  /** [[Unshow]] instance for natural non negative [[Int]] in hexadecimal format. This evidence must be passed explicitly. */
   val hexaNatEv: Unshow[Int] = new Unshow[Int]
   {
     override def typeStr: String = "HexaNat"
@@ -121,17 +121,8 @@ object Unshow
     }
   }
 
-  val rawHexaNatImplicit: Unshow[Int] = new Unshow[Int]
-  {
-    override def typeStr: String = "HexaInt"
-
-    override def fromExpr(expr: Expr): EMon[Int] = expr match
-    { case ValidRawHexaNatToken(n) => Good(n)
-      case _ => expr.exprParseErr[Int]
-    }
-  }
-
-  val rawBase32IntImplicit: Unshow[Int] = new Unshow[Int]
+  /** [[Unshow]] instance for [[Int]] in base32 format. This must be passed explicitly. */
+  val base32IntEv: Unshow[Int] = new Unshow[Int]
   {
     override def typeStr: String = "Base32Int"
 
@@ -143,7 +134,8 @@ object Unshow
     }
   }
 
-  val rawBase32NatImplicit: Unshow[Int] = new Unshow[Int]
+  /** [[Unshow]] instance for natural non negative [[Int]] in base32 format. This evidence must be passed explicitly. */
+  val base32NatEv: Unshow[Int] = new Unshow[Int]
   {
     override def typeStr: String = "Base32Nat"
 
