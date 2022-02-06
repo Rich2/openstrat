@@ -11,14 +11,23 @@ case class LsD2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D2")
       Vec2(2.3; 3.2);
       "Goodbye" """
   val t1 = tStr.intAtStsIndex(2)
+
   /** Gives the same result as t1 as the Int value ar index 2 is unique. */
-  val t2 = tStr.findType[Int]//Does the same as r1
+  val t2 = tStr.findType[Int]
+
   val t3 = tStr.findType[String]
-  val t4 = tStr.typeAtStsIndex[String](0)//Indexs start at 0
+
+  /** Indexes start at 0. */
+  val t4 = tStr.typeAtStsIndex[String](0)
+
   val t5 = tStr.typeAtStsIndex[String](1)
-  val t6 = tStr.typeAtStsIndex[String](2)//Because Indexs start at 0. There is no element 2 of type String.
+
+  /** Because Indexes start at 0. There is no element 2 of type String. */
+  val t6 = tStr.typeAtStsIndex[String](2)
+
   val t7 = tStr.findType[Pt2]
-  val t8 = tStr.dblAtStsIndex(0)// findDouble //This fails because 7 can be both an Int and a Double.
+  val t8 = tStr.dblAtStsIndex(0)
+
   val topStrs = Arr(t1, t2, t3, t4, t5, t6, t7, t8).map(_.toString)
   val topBlock = MText(200, topStrs)
   
