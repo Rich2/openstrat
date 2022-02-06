@@ -87,13 +87,17 @@ object Statement
     def posDblAtIndex(index: Int): EMon[Double] =
       ife(statements.length > index, Unshow.posDoubleEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
+    /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    def boolAtIndex(index: Int): EMon[Boolean] =
+      ife(statements.length > index, Unshow.booleanEv.fromStatement(statements(index)), badNone("No statement at given index."))
+
     /** Find the sole [[Boolean]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Boolean]. */
-    def findBool: EMon[Boolean] = Unshow.booleanImplicit.findUniqueTFromStatements(statements)
+    //def findBool: EMon[Boolean] = Unshow.booleanEv.findUniqueTFromStatements(statements)
 
     /** Find the sole [[Long]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Long]. */
-    def findLong: EMon[Long] = Unshow.longImplicit.findUniqueTFromStatements(statements)
+    def findLong: EMon[Long] = Unshow.longEv.findUniqueTFromStatements(statements)
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */

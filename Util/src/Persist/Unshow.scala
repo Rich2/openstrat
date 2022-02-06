@@ -135,7 +135,7 @@ object Unshow
     }
   }
 
-  /** Implicit [[Unshow]] instance / evidence for an [[Double]]. */
+  /** Implicit [[Unshow]] instance / evidence for [[Double]]. */
   implicit val doubleEv: Unshow[Double] = new Unshow[Double]
   { override def typeStr: String = "DFloat"
 
@@ -159,7 +159,8 @@ object Unshow
     }
   }
 
-  implicit val floatImplicit: Unshow[Float] = new Unshow[Float]
+  /** Implicit [[Unshow]] instance / evidence for [[Float]]. */
+  implicit val floatEv: Unshow[Float] = new Unshow[Float]
   { override def typeStr: String = "SFloat"
 
     override def fromExpr(expr: Expr): EMon[Float] = expr match
@@ -171,7 +172,8 @@ object Unshow
     }
   }
 
-  implicit val longImplicit: Unshow[Long] = new Unshow[Long]
+  /** Implicit [[Unshow]] instance / evidence for [[Long]]. */
+  implicit val longEv: Unshow[Long] = new Unshow[Long]
   { override def typeStr = "Long"
 
     override def fromExpr(expr: Expr): EMon[Long] = expr match
@@ -182,7 +184,8 @@ object Unshow
     }
   }
 
-  implicit val booleanImplicit: Unshow[Boolean] = new Unshow[Boolean]
+  /** Implicit [[Unshow]] instance / evidence for [[Boolean]]. */
+  implicit val booleanEv: Unshow[Boolean] = new Unshow[Boolean]
   { override def typeStr: String = "Bool"
 
     override def fromExpr(expr: Expr): EMon[Boolean] = expr match
@@ -192,7 +195,8 @@ object Unshow
     }
   }
 
-  implicit val stringImplicit: Unshow[String] = new Unshow[String]
+  /** Implicit [[Unshow]] instance / evidence for [[String]]. */
+  implicit val stringEv: Unshow[String] = new Unshow[String]
   { override def typeStr: String = "Str"
 
     override def fromExpr(expr: Expr): EMon[String] = expr match
@@ -201,7 +205,8 @@ object Unshow
     }
   }
 
-  implicit val charImplicit: Unshow[Char] = new Unshow[Char]
+  /** Implicit [[Unshow]] instance / evidence for [[Char]]. */
+  implicit val charEv: Unshow[Char] = new Unshow[Char]
   {
     override def typeStr: String = "Char"
 

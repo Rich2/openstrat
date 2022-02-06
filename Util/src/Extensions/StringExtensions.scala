@@ -15,7 +15,7 @@ class StringImplicit(val thisString: String) extends AnyVal
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
   def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
 
-  def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBool)
+  //def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBool)
 
   /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
   def typeAtStsIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
@@ -29,8 +29,11 @@ class StringImplicit(val thisString: String) extends AnyVal
   /** Parses this [[String]] into EMon statements and tries to get a [[Int]] value from the Statement given by the index. */
   def natAtStsIndex(index: Int): EMon[Int] = thisString.parseStatements.flatMap(_.natAtIndex(index))
 
-  /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
+  /** Parses this [[String]] into EMon statements and tries to get a positive, non negative [[Double]] value from the Statement given by the index. */
   def posDblAtStsIndex(index: Int): EMon[Double] = thisString.parseStatements.flatMap(_.posDblAtIndex(index))
+
+  /** Parses this [[String]] into EMon statements and tries to get a [[Boolean]] value from the Statement given by the index. */
+  def boolAtStsIndex(index: Int): EMon[Boolean] = thisString.parseStatements.flatMap(_.boolAtIndex(index))
 
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
 
@@ -61,6 +64,9 @@ class StringImplicit(val thisString: String) extends AnyVal
 
   /** Tries to parse this String as a natural non negative [[Int]] in base32 format expression. */
   def asBase32Nat: EMon[Int] = asType(Unshow.base32NatEv)
+
+  /** Tries to parse this String as a [[Boolean]] expression. */
+  def asBool: EMon[Boolean] = asType[Boolean]
 
   def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
