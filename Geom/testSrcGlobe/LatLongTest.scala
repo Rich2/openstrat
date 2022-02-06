@@ -27,8 +27,8 @@ object LatLongTest extends TestSuite
     }
 
     test("Persist")
-    { //44.north.str ==> "44.0N"
-      //77.52.south.str ==> "77.52S"
+    { 44.north.str ==> "44N"
+      77.52.south.str ==> "77.52S"
     }
 
     val o1 = Longitude.degs(20)
