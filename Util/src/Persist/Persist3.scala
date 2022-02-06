@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** A base trait for [[Show3T]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
-trait ShowSelf3[A1, A2, A3] extends Any with ShowSelf2[A1, A2]
+trait TypeStr3[A1, A2, A3] extends Any with TypeStr2[A1, A2]
 { /** 1st parameter name. */
   def name3: String
 
@@ -11,12 +11,12 @@ trait ShowSelf3[A1, A2, A3] extends Any with ShowSelf2[A1, A2]
   def opt3: Option[A3]
 }
 
-/** Trait for [[Show]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+/** Trait for [[ShowPrec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[ShowEq3T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
  *  toString override to a [[ShowEq3T]] instance. */
-trait Show3[A1, A2, A3] extends Any with ShowProduct with ShowSelf3[A1, A2, A3]
+trait Show3[A1, A2, A3] extends Any with ShowProduct with TypeStr3[A1, A2, A3]
 { override def opt1: Option[A1] = None
   override def opt2: Option[A2] = None
   override def opt3: Option[A3] = None
@@ -62,7 +62,7 @@ trait ShowElemDbl3 extends Any with ShowDbl3 with ElemDbl3
 }
 
 /** Show type class for 3 parameter case classes. */
-trait Show3T[A1, A2, A3, R] extends ShowProductT[R] with ShowSelf3[A1, A2, A3]
+trait Show3T[A1, A2, A3, R] extends ShowProductT[R] with TypeStr3[A1, A2, A3]
 { def fArg1: R => A1
   def fArg2: R => A2
   def fArg3: R => A3
@@ -116,7 +116,7 @@ object ShowShowDbl3T
 }
 
 /** UnShow class for 3 logical parameter product types. */
-trait Unshow3[A1, A2, A3, R] extends Unshow[R] with ShowSelf3[A1, A2, A3]
+trait Unshow3[A1, A2, A3, R] extends Unshow[R] with TypeStr3[A1, A2, A3]
 {
   /** The UnShow type class instance for type A1. */
   def ev1: Unshow[A1]

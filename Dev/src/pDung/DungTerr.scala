@@ -3,7 +3,7 @@ package ostrat
 package pDung
 import geom._, Colour._
 
-sealed trait DungTerr extends AnyRef with ShowSingleton
+sealed trait DungTerr extends AnyRef with ShowSimple
 { override def typeStr: String = "DungTerr"
   def colour: Colour
 }

@@ -7,7 +7,7 @@ import pParse._, collection.immutable.ArraySeq
  *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. The capabilities of decimal place
  *  precision and explicit typing for numbers are placed defined here and in the corresponding [[SHow]] type class although they have n meaning /
  *  purpose for many types, as separating them adds enormous complexity for very little gain. */
-trait ShowT[-T] extends ShowSelf
+trait ShowT[-T] extends TypeStr
 { /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
    * rather than a method on the object being shown. */
   def strT(obj: T): String

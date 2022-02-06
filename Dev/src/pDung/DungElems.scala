@@ -3,14 +3,14 @@ package ostrat
 package pDung
 import geom._, Colour._, pGrid._
 
-sealed class Faction(val str: String, val colour: Colour) extends ShowSingleton
+sealed class Faction(val str: String, val colour: Colour) extends ShowSimple
 { override def typeStr: String = "Faction"
 }
 
 object Fac1 extends Faction("Fac1", Orange)
 object Fac2 extends Faction("Fac2", Green)
 
-class Character(val iden: Char, val faction: Faction) extends ShowSingleton // with CoodMover
+class Character(val iden: Char, val faction: Faction) extends ShowSimple // with CoodMover
 { override def typeStr = "Character"
   def colour = faction.colour
   var facing: SqFace = SFaceUp

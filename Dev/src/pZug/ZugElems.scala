@@ -6,7 +6,7 @@ case class Squad(polity: Polity, var action: Action = NoAction) extends Coloured
 { def colour = polity.colour
 }
 
-trait Polity extends ShowSingleton
+trait Polity extends ShowSimple
 { override def typeStr: String = "Polity"
   def colour: Colour
 }

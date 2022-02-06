@@ -3,7 +3,7 @@ package ostrat
 import pParse._, collection.mutable.ArrayBuffer
 
 /** A base trait for [[Show2T]] and [[UnShow2]], declares the common properties of name1, name2, opt1 and opt2. */
-trait ShowSelf2[A1, A2] extends Any with ShowSelf
+trait TypeStr2[A1, A2] extends Any with TypeStr
 { /** 1st parameter name. */
   def name1: String
 
@@ -17,12 +17,12 @@ trait ShowSelf2[A1, A2] extends Any with ShowSelf
   def opt2: Option[A2]
 }
 
-/** Trait for [[Show]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+/** Trait for [[ShowPrec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[Show2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show2 and then use [[ShowShow2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShow2T]] or
  *  [[PersistShow2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
  *  toString override to a [[Show2T]] instance. */
-trait Show2[A1, A2] extends Any with ShowProduct with ShowSelf2[A1, A2]
+trait Show2[A1, A2] extends Any with ShowProduct with TypeStr2[A1, A2]
 {
   /** The optional default value for parameter 1. */
   override def opt1: Option[A1] = None
@@ -80,7 +80,7 @@ trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
 
 
 /** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowProductT[R] with ShowSelf2[A1, A2]
+trait Show2T[A1, A2, R] extends ShowProductT[R] with TypeStr2[A1, A2]
 { def fArg1: R => A1
   def fArg2: R => A2
   implicit def ev1: ShowT[A1]
@@ -164,7 +164,7 @@ object ShowShowInt2T
 }
 
 /** UnShow type class trait for a 2 element Product. */
-trait Unshow2[A1, A2, R] extends Unshow[R] with ShowSelf2[A1, A2]
+trait Unshow2[A1, A2, R] extends Unshow[R] with TypeStr2[A1, A2]
 { /** The UnShow type class instance for type A1. */
   def ev1: Unshow[A1]
 
