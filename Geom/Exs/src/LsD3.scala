@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package learn
 import ostrat._, geom._, pgui._
 
@@ -13,11 +13,19 @@ case class LsD3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D3")
   
   val c0 = s2.findType[Boolean]
   val c1 = s2.findSettingT[Boolean]("Open")
-  val c2 = s2.findSettingBool("Guilty")//Just a convenince method for the general one above
+
+  /** Just a convenince method for the general one above. */
+  val c2 = s2.findSettingBool("Guilty")
+
   val c3 = s2.findSettingInt("Posn")
-  val c4 = s2.findSettingPt2("Posn")//Again as Vec2 is such a commonly used type, special methods have been created for your convenience
+
+  /** Again as [[Pt2]] is such a commonly used type, special methods have been created for convenience. */
+  val c4 = s2.findSettingPt2("Posn")
+
   val c5 = s2.findSettingPt2Else("MyPosn", 45 pp 1.2)
-  val c6 = s2.findSettingPt2Else("Posn", 45 pp 1.2)//Gives the result from the string, but has guard if setting not found.
+
+  /** Gives the result from the string, but has guard if setting not found. */
+  val c6 = s2.findSettingPt2Else("Posn", 45 pp 1.2)
   
   val bottomBlock = TextGraphic.lines(Arr(c0, c1, c2, c3, c4, c5, c6).map(_.toString), lineSpacing = 1.5, posn = -250 pp -150, align = LeftAlign)
    

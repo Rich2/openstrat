@@ -111,47 +111,8 @@ object Statement
     /** Find the [[Boolean]] setting of the given name, from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s
      *  resolve to Expr[Boolean]. */
     def findSettingBool(settingStr: String): EMon[Boolean] = ShowT.booleanPersistImplicit.settingFromStatements(statements, settingStr)
-
-    /*def errFun1[A1, B](f1: A1 => B)(implicit ev1: Persist[A1]): EMon[B] = statementRefs match
-    { case Arr1(h1) => h1.errGet[A1].map(f1)
-      case s => bad1(s, s.elemsLen.toString -- "statements not 1")
-    }*/
-
-    /*def errFun2[A1, A2, B](f2: (A1, A2) => B)(implicit ev1: Persist[A1], ev2: Persist[A2]): EMon[B] = statementRefs match
-    { case Refs2(h1, h2) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2) } yield f2(g1, g2)
-      case s => bad1(s, s.length.toString -- "statements not 2")
-    }
-
-    def errFun3[A1, A2, A3, B](f3: (A1, A2, A3) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3]): EMon[B] =
-      statementRefs match
-      { case Refs3(h1, h2, h3) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2); g3 <- h3.errGet[A3](ev3) } yield f3(g1, g2, g3)
-      case s => bad1(s, s.length.toString -- "statements not 3")
-      }*/
-
-    /*def errFun4[A1, A2, A3, A4, B](f4: (A1, A2, A3, A4) => B)(implicit ev1: Persist[A1], ev2: Persist[A2], ev3: Persist[A3], ev4: Persist[A4]):
-    EMon[B] = statementRefs match
-    {
-      case Refs4(h1, h2, h3, h4) => for { g1 <- h1.errGet[A1](ev1); g2 <- h2.errGet[A2](ev2); g3 <- h3.errGet[A3](ev3); g4 <-  h4.errGet[A4] }
-        yield f4(g1, g2, g3, g4)
-      case s => bad1(s, s.length.toString -- "statements not 4")
-    }*/
   }
 }
-
-/** This statement has 1 or more comma separated clauses. If there is only 1 Clause, it must be terminated by a comma, otherwise the trailing comma
- *  on the last Clauses is optional. */
-/*case class ClausedStatement(clauses: Arr[Clause], optSemi: OptRef[SemicolonToken]) extends Statement with TextSpanCompound
-{ def expr: Expr = ??? //ClausesExpr(clauses.map(_.expr))
-  def startMem: TextSpan = clauses.head
-  def endMem: TextSpan = optSemi.fld[TextSpan](clauses.last, st => st)
-  //override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromClauses(clauses)
-}*/
-
-/** An unclaused Statement has a single expression. */
-/*sealed trait UnClausedStatement extends Statement
-{
- // override def errGet[A](implicit ev: Persist[A]): EMon[A] = ev.fromExpr(expr)
-}*/
 
 /** An un-claused Statement that is not the empty statement. */
 case class NonEmptyStatement(expr: Expr, optSemi: OptRef[SemicolonToken]) extends Statement with TextSpanCompound
