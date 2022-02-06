@@ -91,13 +91,9 @@ object Statement
     def boolAtIndex(index: Int): EMon[Boolean] =
       ife(statements.length > index, Unshow.booleanEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
-    /** Find the sole [[Boolean]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
-     * Expr[Boolean]. */
-    //def findBool: EMon[Boolean] = Unshow.booleanEv.findUniqueTFromStatements(statements)
-
-    /** Find the sole [[Long]] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
-     * Expr[Long]. */
-    def findLong: EMon[Long] = Unshow.longEv.findUniqueTFromStatements(statements)
+    /** Extension methods tries to get an [[Long]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    def longAtIndex(index: Int): EMon[Long] =
+      ife(statements.length > index, Unshow.longEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
     /** Find the sole Array[Int] expression from this Arr[Statement] extension method. Returns bad if absent or multiple [[Statement]]s resolve to
      * Expr[Array[Int]]. */

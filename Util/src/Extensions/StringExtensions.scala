@@ -15,8 +15,6 @@ class StringImplicit(val thisString: String) extends AnyVal
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
   def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
 
-  //def findBoolean: EMon[Boolean] = thisString.parseStatements.flatMap(_.findBool)
-
   /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
   def typeAtStsIndex[A: Persist](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
 
@@ -34,6 +32,9 @@ class StringImplicit(val thisString: String) extends AnyVal
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Boolean]] value from the Statement given by the index. */
   def boolAtStsIndex(index: Int): EMon[Boolean] = thisString.parseStatements.flatMap(_.boolAtIndex(index))
+
+  /** Parses this [[String]] into EMon statements and tries to get a [[Long]] value from the Statement given by the index. */
+  def longAtStsIndex(index: Int): EMon[Long] = thisString.parseStatements.flatMap(_.longAtIndex(index))
 
   def findTypeDo[A: Persist](f: A => Unit): Unit = findType[A].forGood(f)
 
@@ -67,6 +68,9 @@ class StringImplicit(val thisString: String) extends AnyVal
 
   /** Tries to parse this String as a [[Boolean]] expression. */
   def asBool: EMon[Boolean] = asType[Boolean]
+
+  /** Tries to parse this String as a [[Long]] expression. */
+  def asLong: EMon[Long] = asType[Long]
 
   def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 

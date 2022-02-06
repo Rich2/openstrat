@@ -5,9 +5,11 @@ import pParse._, annotation.unchecked.uncheckedVariance
 /** The UnShow type class produces an object in memory or an error sequence from RSON syntax strings. */
 trait Unshow[+T] extends ShowSelf
 {
+  /** Tries to return a value of the type from an RSON expression [[Expr]] that has been parsed from a String or text file. This method must be
+   *  implemented by all instances. */
   def fromExpr(expr: Expr): EMon[T]
 
-  /** Trys to build an object of type T from the statement. Not sure if this is useful. */
+  /** Trys to build an object of type T from the statement. */
   final def fromStatement(st: Statement): EMon[T] = fromExpr(st.expr)
 
   /** Produces an ArrImut of the UnShow type from Statements (Refs[Statement]. */
