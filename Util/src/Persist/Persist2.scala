@@ -187,6 +187,16 @@ trait Unshow2[A1, A2, R] extends Unshow[R] with ShowSelf2[A1, A2]
   }
 }
 
+object Unshow2{
+  def apply[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
+    ev1: Unshow[A1], ev2: Unshow[A2]): Unshow2[A1, A2, R] = new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
+
+  case class Unshow2Imp[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, val opt2: Option[A2], opt1In: Option[A1])(implicit
+    val ev1: Unshow[A1], val ev2: Unshow[A2]) extends Unshow2[A1, A2, R]
+  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+  }
+}
+
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
 trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with Unshow2[A1, A2, R] with PersistProduct[R]
 { override def ev1: Persist[A1]

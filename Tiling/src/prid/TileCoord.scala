@@ -19,6 +19,7 @@ trait TileCoord extends Any with ShowElemInt2
   def toVec: Vec2
   def typeStr: String
   def rcStr: String = s"$r, $c"
+  def rcStr32: String = s"${r.base32}, ${c.base32}"
   def parenthStr: String = rcStr.enParenth
 }
 

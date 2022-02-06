@@ -40,6 +40,10 @@ object HCoord
 
   implicit val persistImplicit: Persist[HCoord] = PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
 
+  //val unshow32Ev: Unshow2[Int, Int, HCoord] = Unshow
+  //val persist32: Persist[HCoord] =
+    //Persist2[Int, Int, HCoord]("HCoord", "r", _.r, "c", _.c, HCoord(_, _))()
+
   implicit val polygonBuildImplicit: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
   { override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): PolygonHC = new PolygonHC(array)

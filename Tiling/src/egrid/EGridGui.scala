@@ -16,7 +16,7 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
     hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg)
   }
   def tileStrs = grid.map{ hc =>
-    val str = grid.hCoordLL(hc).degStr --- hc.rcStr
+    val str = hc.rcStr32 --- grid.hCoordLL(hc).degStr --- hc.rcStr
     hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, str, 16, terrs(hc).contrastBW)
   }
 
