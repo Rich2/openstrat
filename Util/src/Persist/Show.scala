@@ -31,6 +31,10 @@ trait Show extends Any with TypeStr
  *  little gain. */
 trait ShowPrec extends Any with Show
 { def str: String = show(ShowStandard, -1, 0)
+  def str0: String = show(ShowStandard, 0, 0)
+  def str1: String = show(ShowStandard, 1, 1)
+  def str2: String = show(ShowStandard, 2, 2)
+  def str3: String = show(ShowStandard, 3, 3)
 }
 
 /** Currently can't think of a better name for this trait */

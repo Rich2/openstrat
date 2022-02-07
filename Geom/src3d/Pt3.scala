@@ -20,8 +20,6 @@ final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like
   /** The dot product of this and the operand vector. */
   @inline def dot(operand: Pt3): Double = x * operand.x + y * operand.y + z * operand.z
 
-  def str1: String = "x: " + x.str1 + ", y: " + y.str1 + ", z: " + z.str1
-
   def toTriple: (Double, Double, Double) = (x, y, z)
 
   def +(other: Pt3): Pt3 = Pt3(x + other.x, y + other.y, z + other.z)

@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, Colour.Black
 
@@ -49,10 +49,6 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
   def midPt(point2: Pt2): Pt2 = Pt2(x + point2.x, y + point2.y).invScale(2)
 
   def strMod(f: Double => String): String = "Pt2".appendParenthSemis(f(x), f(y))
-  def str0: String = strMod(_.str0)
-  def str1: String = strMod(_.str1)
-  def str2: String = strMod(_.str2)
-  def str3: String = strMod(_.str3)
 
   /** 2D geometric translation transofrmation on this Pt2 returns a Pt2. */
   def xySlate(xOperand: Double, yOperand: Double): Pt2 = Pt2(x + xOperand, y + yOperand)
