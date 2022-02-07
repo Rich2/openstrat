@@ -20,10 +20,10 @@
 
 <h3>RSON A Show, 2D-Show and Persistence Library / Framework</h3>
 
-<h3> Heapless Compound Value type collections library</h3>
+<h3>Heapless Compound Value type collections library</h3>
 
-<p>Scala currently set to 3.1.0. Jdk 11+, 11 prefered. Scala.Js set to 1.8.0. Sbt currently set to 1.6.1, Sbt will not work running on Windows in
- Git Bash. Update your Mill to 0.9.11.</p>
+<p>Scala currently set to 3.1.1. Jdk 11+, 11 prefered. Scala.Js set to 1.8.0. Sbt currently set to 1.6.2, Sbt will not work running on Windows in
+  Git Bash. Update your Mill to 0.10.0.</p>
 
 </body>
 </html>
