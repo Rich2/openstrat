@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 
 /** A compile time wrapper class for Latitude. The value is stored in arc seconds. */
@@ -11,15 +11,10 @@ final class Latitude private(val milliSecs: Double) extends AnyVal with AngleLik
   /** True if southern latitude. */
   def southern: Boolean = milliSecs < 0
 
-  override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
-    case ShowTyped => typeStr + degs.show(ShowStandard, maxPlaces, 0).enParenth
-    case _ => {
-      val d = degs.abs.show(ShowStandard, maxPlaces, 0)
-      val i = d.indexOf('.')
-      val endStr = d.drop(i + 1)
-      //d.takeWhile(_ != '.') + ife(northern, "N", "S") + endStr
-      d + ife(northern, "N", "S")
-    }
+  override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match
+  { case ShowTyped => typeStr + degs.show(ShowStandard, maxPlaces, 0).enParenth
+    case ShowUnderScore => "_"
+    case _ => degs.abs.show(ShowStandard, maxPlaces, minPlaces) + ife(northern, "N", "S")
   }
 
   def * (long: Longitude): LatLong = LatLong.milliSecs(milliSecs, long.milliSecs)

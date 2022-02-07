@@ -1,10 +1,10 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import Colour._
 
 /** World Tile, consider changing to ETile. */
-trait WTile extends Coloured
-{ def str: String
+trait WTile extends Coloured with ShowSimple
+{ override def typeStr: String = "WTile"
 }
 
 object WTile

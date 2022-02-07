@@ -61,9 +61,9 @@ object ShowT
     {
       val s1 = obj.toString
       val len = s1.length
-      val i = s1.indexOf('.')
+      val di = s1.indexOf('.')
 
-      val inner = i match
+      val inner = di match
       { case i if maxPlaces < 0 & minPlaces <= 1 & s1.last == '0' => s1.dropRight(2)
         case i if maxPlaces < 0 => s1
         case i if maxPlaces == 0 => s1.dropRight(len  - i - maxPlaces)
