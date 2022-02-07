@@ -44,7 +44,7 @@ def exsProj(srcsStr: String) = jvmProj(srcsStr + "/Exs", srcsStr + "Exs")
 
 def jsProj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs", "Exs/src").map(moduleDir.value / _),
-  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.0.0") withSources(),
+  libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.1.0") withSources(),
 )
 
 def natProj(name: String) = baseProj(name, name + "Nat").enablePlugins(ScalaNativePlugin).settings(

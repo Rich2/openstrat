@@ -4,9 +4,9 @@ package ostrat
 /** Test App for [[EMon]]s. */
 object HelloEmon extends App
 { println("Welcome to Hello Emon. This will printout the first number but not the second.")
-  val mi1: EMon[Int] = "4".findInt
+  val mi1: EMon[Int] = "4".asInt
   mi1.forGood(i => println(i.str))//Something happens
-  val mi2: EMon[Int] = "2.2".findInt
+  val mi2: EMon[Int] = "2.2".asInt
   mi2.forGood(i => println(i.str))//Nothing happens.
   val i1: Int = mi2.getElse(0)
   println("You asked for " + i1.str)
