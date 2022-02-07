@@ -59,17 +59,19 @@ object ShowT
 
     override def showT(obj: Double, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
     {
-      val s1 = obj.toString
-      val len = s1.length
-      val di = s1.indexOf('.')
+      val orig = obj.toString
+      val len = orig.length
+      val minPlacesAdj: Int = ife(maxPlaces < 0, minPlaces, minPlaces.min(maxPlaces))
+      val dotIndex: Int = orig.indexOf('.')
+      val fracLen: Int = len - dotIndex - 1
 
-      val inner = di match
-      { case i if maxPlaces < 0 & minPlaces <= 1 & s1.last == '0' => s1.dropRight(2)
-        case i if maxPlaces < 0 => s1
-        case i if maxPlaces == 0 => s1.dropRight(len  - i - maxPlaces)
-        case i if len > maxPlaces + i + 1 => s1.dropRight(len  - i - 1 - maxPlaces)
-        case i if len - i - 1 < minPlaces => s1 + (minPlaces + i + i - len).repeatChar('0')
-        case _ => s1
+      val inner: String = None match
+      { case _ if maxPlaces < 0 & minPlacesAdj <= 1 & orig.last == '0' => orig.dropRight(2)
+        case _ if fracLen < minPlacesAdj => orig + (minPlacesAdj -fracLen).repeatChar('0')
+        case _ if maxPlaces < 0 => orig
+        case _ if maxPlaces == 0 => orig.dropRight(fracLen + 1)
+        case _ if fracLen > maxPlaces => orig.dropRight(fracLen - maxPlaces)
+        case _ => orig
       }
 
       style match {

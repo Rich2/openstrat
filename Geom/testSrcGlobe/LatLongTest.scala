@@ -30,7 +30,7 @@ object LatLongTest extends TestSuite
     { 44.north.str ==> "44N"
       77.52.south.str ==> "77.52S"
       18.0.north.str ==> "18N"
-      22.2.north.show(ShowStandard, -1, 3) ==> "22.2N"
+      22.2.north.show(ShowStandard, -1, 3) ==> "22.200N"
     }
 
     val o1 = Longitude.degs(20)
