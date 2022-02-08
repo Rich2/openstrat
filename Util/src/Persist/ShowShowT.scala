@@ -24,10 +24,3 @@ object ShowShowT
   { override def typeStr: String = typeStrIn
   }
 }
-
-trait ShowLessT[R]
-{
-  /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
-   * Show. */
-  def typeStr: String
-}
