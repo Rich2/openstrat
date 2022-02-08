@@ -13,7 +13,7 @@ final class Longitude private(val milliSecs: Double) extends AnyVal with AngleLi
 
   override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
     case ShowTyped => typeStr + degs.show(ShowStandard, maxPlaces, 0).enParenth
-    case _ => degs.abs.show(ShowStandard, maxPlaces, 0) + ife(eastern, "E", "W")
+    case _ => degs.abs.show(ShowStandard, maxPlaces, minPlaces) + ife(eastern, "E", "W")
   }
 
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Longitude]
@@ -54,6 +54,7 @@ object Longitude
     new Longitude(l3)
   }
 
+  implicit val showTEv: ShowT[Longitude] = ShowShowT("Longitude")
   implicit val eqTImplicit: EqT[Longitude] = (a1, a2) => a1.milliSecs == a2.milliSecs
   implicit val approxTImplicit: ApproxAngleT[Longitude] = (a1, a2, precsion) => a1 =~ (a2, precsion)
   implicit val defaultValueImplicit: DefaultValue[Longitude] = new DefaultValue[Longitude] { override val default: Longitude = new Longitude(0)}
