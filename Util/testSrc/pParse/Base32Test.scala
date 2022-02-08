@@ -9,7 +9,8 @@ object Base32Test extends TestSuite
   val Sp3 = StrPosn(1, 3)
 
   val tests = Tests {
-    "Base32" -
+
+    test("Base32")
     { 0.base32 ==> "0"
       -0.base32 ==> "0"
       7.base32 ==> "7"
@@ -37,7 +38,7 @@ object Base32Test extends TestSuite
     val ht8 = Nat0yToken(Sp1, "W")
     val ht9 = Nat0yToken(Sp1, "80")
 
-    "Nat0yToken" -
+    test("Nat0yToken")
      { ht4.getIntStd ==> 9
        ht5.getIntStd ==> 10
        ht6.getIntStd ==> 22
@@ -46,8 +47,8 @@ object Base32Test extends TestSuite
        ht9.getIntStd ==> 256
      }
 
-    "AsBase32" - {
-      "9".asBase32Int ==> Good(9)
+    test("AsBase32")
+    { "9".asBase32Int ==> Good(9)
       "1A".asBase32Int ==> Good(42)
       "1A".asBase32Nat ==> Good(42)
       "2M".asBase32Int ==> Good(86)
@@ -58,10 +59,9 @@ object Base32Test extends TestSuite
       "N2".asBase32Int ==> Good(738)
     }
 
-    "Neg AsBase32" -
+    test("Neg AsBase32")
     { "-N2".asBase32Int ==> Good(-738)
       "-N2".asBase32Nat.isBad ==> true
     }
-
   }
 }

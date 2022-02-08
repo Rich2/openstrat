@@ -40,5 +40,7 @@ object LatLongTest extends TestSuite
     test("Longitude"){
       o1.milliSecs ==> Longitude.milliSecs(o1.milliSecs).milliSecs
     }
+
+    test
   }
 }
