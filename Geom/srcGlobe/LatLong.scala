@@ -12,8 +12,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def show2: Double = longDegs
   override def dbl1: Double = latMilliSecs//
   override def dbl2: Double = longMilliSecs//
-  def latSecs: Double = latMilliSecs / 1000
-  def longSecs: Double = longMilliSecs / 1000
+
   def latVec: AngleVec = latDegs.degs
   def longVec: AngleVec = longDegs.degs
 

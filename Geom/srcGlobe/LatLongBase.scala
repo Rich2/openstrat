@@ -1,10 +1,10 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
 
 /** The purpose of this trait is to provide super trait for surface positions on all Spheroids.  */
 trait LatLongBase
-{ def latSecs: Double
-  def longSecs: Double
+{ //def latSecs: Double
+  //def longSecs: Double
   def latMilliSecs: Double
   def longMilliSecs: Double
   def equatorialRadius: Length
@@ -16,7 +16,8 @@ trait LatLongBase
   @inline final def longDegs: Double = longMilliSecs.milliSecsToDegs
   @inline final def latRadians: Double = latMilliSecs.milliSecsToRadians
   @inline final def longRadians: Double = longMilliSecs.milliSecsToRadians
-
+  @inline final def latSecs: Double = latMilliSecs / 1000
+  @inline final def longSecs: Double = longMilliSecs / 1000
   /** The sine of the longitude, where East is a positive longitude. */
   @inline final def longSine: Double = longRadians.sine
 
