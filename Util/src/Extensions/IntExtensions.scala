@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import math.Pi
 
@@ -11,16 +11,16 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   @inline def * (operator: Length): Length = Length(thisInt * operator.metresNum)
 
   /** Returns this [[Int]] value in [[Length]] kilometres. */
-  @inline def kMetres: Length = Length(thisInt * 1000)
+  @inline def kMetres: Length = Length(thisInt * 1000.0)
 
   /** Returns this [[Int]] value in [[Length]] or millions of kilometres. */
-  @inline def gMetres: Length = Length(thisInt * 1000000000)
+  @inline def gMetres: Length = Length(thisInt * 1000000000.0)
 
   /** Returns this [[Int]] value in [[Length]]. */
   @inline def miles: Length = new Length(thisInt * 1609.344)
 
   /** Returns this [[Int]] value in [[Length]] millions of miles. */
-  @inline def mMiles: Length = new Length(thisInt * 1609344000)
+  @inline def mMiles: Length = new Length(thisInt * 1609344000.0)
 
   /** Returns the value or 0, if this Int less than 0. */
   def max0: Int = ife(thisInt > 0, thisInt, 0)

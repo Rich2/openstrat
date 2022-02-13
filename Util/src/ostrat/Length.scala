@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat;
 
 /** Length can be negative. The underlying data is stored in metres. */
@@ -33,7 +33,7 @@ final class Length(val metresNum: Double) extends AnyVal with Ordered[Length]
   @inline def gMetresNum: Double = metresNum / 1000000000
 }
 
-/** Companion object for the [[Length] class. */
+/** Companion object for the [[Length]] class. */
 object Length
 { def apply(metres: Double): Length = new Length(metres)
 
