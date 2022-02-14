@@ -21,14 +21,30 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets") with D
 
   implicit class PlanetExtensions(thisPlanet: Planet)
   {
-    def dispColour(planet: Planet): Colour = ???
-    def paint(elapsed: Integer): CircleFill = Circle(0.6 * thisPlanet.size, toCanv(thisPlanet.posn(elapsed))).fill(thisPlanet.colour)
-  }
+    def dispColour: Colour = thisPlanet match {
+    case Mercury => Gray
+    case Venus => White
+    case Earth => Blue
+    case Mars => Red
+    case Jupiter => Orange
+    case Saturn => Gold
+    case Uranus => BrightSkyBlue
+    case Neptune => LightGreen
+    case Pluto => SandyBrown
+    case _ => Yellow
+    }
 
+    def dispSize: Double = thisPlanet match {
+      case Sun => 14
+      case _ => 10
+    }
+
+    def paint(elapsed: Integer): CircleFill = Circle(0.6 * dispSize, toCanv(thisPlanet.posn(elapsed))).fill(thisPlanet.dispColour)
+  }
 
   var planetFocus: Planet = Earth
   override def eTop(): Unit = ???
-  def fBut(planet: Planet) = clickButtonOld(planet.name, mb => {planetFocus = planet; repaintMap()}, planet.colour)
+  def fBut(planet: Planet) = clickButtonOld(planet.name, mb => {planetFocus = planet; repaintMap()}, planet.dispColour)
   def pause = clickButtonStdOld(pausedStr, mb => { deb(pausedStr -- "not implemented yet."); paused = !paused; reTop(cmds)})
    
   def cmds: Arr[GraphicBounded] = zoomable +% pause ++ sunPlus9.map(fBut)
