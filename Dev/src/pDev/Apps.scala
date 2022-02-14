@@ -20,7 +20,7 @@ object Apps
   val strMap: Map[String, (CanvasPlatform => Any, String)] = Map(
     ("Y2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
     ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
-    ("Y4", (pspace.Planets(_), "JavaFx Planets")),
+    ("Y4", (pspace.PlanetsGui(_), "JavaFx Planets")),
     ("Y6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
     ("Y9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),

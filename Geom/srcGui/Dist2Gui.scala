@@ -39,10 +39,7 @@ trait Dist2Gui extends MapGui
   /** Translates an array of map points to an array of Canvas Display positions */
   def arrCanv(inp: PtMetre2Arr): Polygon = inp.mapPolygon(toCanv(_))
 
-  final def repaintMap(): Unit =
-  { val o2 = mapObjs
-    mapPanel.repaint(o2)
-  }
+  final def repaintMap(): Unit = mapPanel.repaint( mapObjs)
    
   def reFocus(newFocus: PtM2): Unit =
   { mapFocus = newFocus

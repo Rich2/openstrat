@@ -1,15 +1,15 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import geom._, Colour._
 
 /** An abstract Canvas interface implemented and to be implemented on various platforms. A concrete implementation will utilise canvas like an HTML
- *  canvas or a Scalafx canvas. This concrete implementation class must (can?) be mixed in with a a particular use trait like CanvSimple or CanvMulti.
- *  The default methods take the origin as the centre of the canvas. Note the Canvas Platform merely passes bare pointer event data to delegate
- *  functions. It does not process them in relation to objects painted on the Canvas.
+ * canvas or a Scalafx canvas. This concrete implementation class must (can?) be mixed in with a a particular use trait like CanvSimple or CanvMulti.
+ * The default methods take the origin as the centre of the canvas. Note the Canvas Platform merely passes bare pointer event data to delegate
+ * functions. It does not process them in relation to objects painted on the Canvas.
  *
- *  It is really not a good idea to use this trait, use a sub class of this trait directly in your applications. You do not want to be thinking in
- *  terms of the imperative methods of this application. Use one of the provided classes like CanvasNoPanels or Canvas Panelled or create your own if
- *  the provided classes don't fulfill your needs. */
+ * It is really not a good idea to use this trait, use a sub class of this trait directly in your applications. You do not want to be thinking in
+ * terms of the imperative methods of this application. Use one of the provided classes like CanvasNoPanels or Canvas Panelled or create your own if
+ * the provided classes don't fulfill your needs. */
 trait CanvasPlatform extends RectCenlign
 {
   /** The canvas implementation will call this function when a mouse button is released. Named after Javascript command. */
@@ -30,13 +30,13 @@ trait CanvasPlatform extends RectCenlign
   def getTime: Long
 
   /** A callback timer with an elapsed time from a given start point. Although are in a general purpose form, the most common usage is for animations
-   *   where things move dependent on how much time has passed. The function is of form: (elapsedTime(in milliseconds), Startime (in
-   *   milliseconds) => Unit. The startTime is to be used to call the next frame at then end of the function, if another frame is needed. */
+   * where things move dependent on how much time has passed. The function is of form: (elapsedTime(in milliseconds), Startime
+   * (in milliseconds) => Unit. The startTime is to be used to call the next frame at then end of the function, if another frame is needed. */
   def frame(f: (Integer, Integer) => Unit, startTime: Integer, frameLength: Integer = 15): Unit =
     timeOut(() => f(getTime.toInt - startTime, startTime), frameLength)
 
   /** The initial frame although are in a general purpose form, the most common usage is for animations where things move dependent on how much time
-   *   has passed. */
+   * has passed. */
   def startFrame(f: (Integer, Integer) => Unit, frameLength: Integer = 15): Unit = frame(f, getTime.toInt)
 
   /** A call back timer. Takes the delay in milliseconds */
