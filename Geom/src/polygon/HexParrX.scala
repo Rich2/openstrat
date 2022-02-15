@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
@@ -10,7 +10,7 @@ final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) ext
   override def width: Double = diameterOut
   override def show1: Double = height
   override def show2: Pt2 = cen
-  override implicit def showT1: ShowTDec[Double] = ShowTDec.doublePersistImplicit
+  override implicit def showT1: ShowTDec[Double] = ShowT.doublePersistEv
   override implicit def showT2: ShowTDec[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
 

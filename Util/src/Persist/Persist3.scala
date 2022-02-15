@@ -47,9 +47,9 @@ trait Show3[A1, A2, A3] extends Any with ShowProduct with TypeStr3[A1, A2, A3]
 
 trait ShowDbl3 extends Any with Show3[Double, Double, Double]
 { final override def syntaxDepth: Int = 2
-  final override implicit def showT1: Persist[Double] = ShowTDec.doublePersistImplicit
-  final override implicit def showT2: Persist[Double] = ShowTDec.doublePersistImplicit
-  final override implicit def showT3: Persist[Double] = ShowTDec.doublePersistImplicit
+  final override implicit def showT1: Persist[Double] = ShowT.doublePersistEv
+  final override implicit def showT2: Persist[Double] = ShowT.doublePersistEv
+  final override implicit def showT3: Persist[Double] = ShowT.doublePersistEv
 }
 
 /** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowDbl2T]]
@@ -98,9 +98,9 @@ trait ShowShow3T[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Show3T[A1, A2, A3, 
 }
 
 trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R]
-{ override implicit def ev1: Persist[Double] = ShowTDec.doublePersistImplicit
-  override implicit def ev2: Persist[Double] = ShowTDec.doublePersistImplicit
-  override implicit def ev3: Persist[Double] = ShowTDec.doublePersistImplicit
+{ override implicit def ev1: Persist[Double] = ShowT.doublePersistEv
+  override implicit def ev2: Persist[Double] = ShowT.doublePersistEv
+  override implicit def ev3: Persist[Double] = ShowT.doublePersistEv
 }
 
 object ShowShowDbl3T

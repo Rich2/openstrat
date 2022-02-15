@@ -31,7 +31,7 @@ trait ShowTDec[-T] extends ShowT[T]
    instance without a ShowT instance. Many Persist instances are placed inside the Show companion object. However type instances that themselves
    one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
    Persist type instances, and these will be placed in the Persist companion object. */
-object ShowTDec
+object ShowT
 {
   implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int")
   {
@@ -55,7 +55,8 @@ object ShowTDec
     override def strT(obj: Int): String = obj.base32
   }
 
-  implicit val doublePersistImplicit: Persist[Double] = new Persist[Double]
+  /** Implicit [[Persist]] instance / evidence for [[Double]]. */
+  implicit val doublePersistEv: Persist[Double] = new Persist[Double]
   {
     override def typeStr: String = "DFloat"
     override def syntaxDepthT(obj: Double): Int = 1
@@ -150,7 +151,7 @@ object ShowTDec
 
   implicit val arrayIntImplicit: ShowTDec[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
   {
-    override def evA: ShowTDec[Int] = ShowTDec.intPersistImplicit
+    override def evA: ShowTDec[Int] = ShowT.intPersistImplicit
     override def syntaxDepthT(obj: Array[Int]): Int = 2
 
     override def showDecT(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"
@@ -233,17 +234,20 @@ sealed trait ShowTInstancesPriority2
   implicit def seqPersistImplicit[T](implicit ev: Persist[T]): Persist[Seq[T]] = new PersistSeqImplicit[T](ev)
 }
 
+class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
+{ /** Provides the standard string representation for the object. */
+  @inline def str: String = ev.strT(thisVal)
+}
+
 
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
-class ShowTExtensions[-A](ev: ShowTDec[A], thisVal: A)
+class ShowDecTExtensions[-A](ev: ShowTDec[A], thisVal: A)
 { /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowTDec]] type class instances. */
   def show(style: ShowStyle = ShowStandard, decimalPlaces: Int = -1): String = ev.showDecT(thisVal, style, decimalPlaces, decimalPlaces)
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowTDec]] type class instances. */
   def show(style: ShowStyle, decimalPlaces: Int, minPlaces: Int): String = ev.showDecT(thisVal, style, decimalPlaces, minPlaces)
 
-  /** Provides the standard string representation for the object. */
-  @inline def str: String = ev.strT(thisVal)
 
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
