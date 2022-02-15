@@ -3,5 +3,7 @@ package ostrat
 
 /** Package offering some code for Space. */
 package object pspace
-{ val sunPlus9: Arr[SSPrimaryBody] = Arr(Sun, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto)
+{
+  val planets: Arr[Planet] = Arr(Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto)
+  val sunPlus9: Arr[SSPrimaryBody] = Arr(Sun, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto)
 }
