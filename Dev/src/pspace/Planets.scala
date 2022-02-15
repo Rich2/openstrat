@@ -15,6 +15,8 @@ object Earth extends Planet
   override val name: String = "Earth"
 
   object TheMoon extends Moon
+  { override val name: String = "The Moon"
+  }
 
   override val moons: Arr[TheMoon.type] = Arr(TheMoon)
 }
