@@ -14,10 +14,13 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets") with D
   override val scaleMax: Length = 10.mMiles
   override val scaleMin: Length = 0.1.mMiles
   var elapsed: Int = 0
-  val fixedClock: Instant = Instant.now()// Clock.fixed(Instant.ofEpochSecond(1234567890L), ZoneOffset.ofHours(0))
+  val nowt: Instant = Instant.now()
+  //val num = 1234567890L
+  val num = Long.MinValue / 293 // -3111462345678901L
+  val fixedClock = Clock.fixed(Instant.ofEpochSecond(num), ZoneOffset.ofHours(0))
   debvar(fixedClock)
-  //val date = LocalDateTime.now(fixedClock)
- // deb(fixedClock.getMonth.toString)
+  val date = LocalDateTime.now(fixedClock)
+  deb(date.getMonth.toString)
 
   mapPanel.backColour = Black
   mapPanel.mouseUp = (a, b, s) => deb(s.toString)

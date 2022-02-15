@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** Immutable efficent [[Array]][[Int]] backed class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be
+/** Immutable efficient [[Array]][[Int]] backed class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be
  *  widened. */
 final class Ints(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
 { type ThisT = Ints
@@ -56,7 +56,7 @@ final class Ints(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
 
-  implicit val showImplicit: ShowTDec[Ints] = DataGenShowT[Int, Ints](ShowT.intPersistImplicit)
+  implicit val showImplicit: ShowDecT[Ints] = DataGenShowT[Int, Ints](ShowT.intPersistImplicit)
 
   implicit val eqImplicit: EqT[Ints] = (a1, a2) =>
     if(a1.dataLength != a2.dataLength) false
@@ -68,6 +68,7 @@ object Ints
     }
 }
 
+/** Builder object for [[Ints]]. */
 object IntsBuild extends ArrBuilder[Int, Ints] with ArrFlatBuilder[Ints]
 { type BuffT = IntBuff
   override def newArr(length: Int): Ints = new Ints(new Array[Int](length))
@@ -78,6 +79,7 @@ object IntsBuild extends ArrBuilder[Int, Ints] with ArrFlatBuilder[Ints]
   override def buffToBB(buff: IntBuff): Ints = new Ints(buff.unsafeBuffer.toArray)
 }
 
+/** ArrayBuffer class for [[Ints]]. End users should rarely have need to use this class */
 class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with SeqGen[Int]
 { override def typeStr: String = "IntBuff"
   override def indexData(index: Int): Int = unsafeBuffer(index)

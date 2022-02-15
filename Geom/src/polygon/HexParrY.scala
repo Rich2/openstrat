@@ -13,8 +13,8 @@ final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) exte
   override def height: Double = diameterOut
   override def show1: Double = width
   override def show2: Pt2 = cen
-  override implicit def showT1: ShowTDec[Double] = ShowT.doublePersistEv
-  override implicit def showT2: ShowTDec[Pt2] = Pt2.persistImplicit
+  override implicit def showT1: ShowDecT[Double] = ShowT.doublePersistEv
+  override implicit def showT2: ShowDecT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
 
   override def cen: Pt2 = cenX pp cenY

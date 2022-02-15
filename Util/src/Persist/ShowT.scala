@@ -15,17 +15,6 @@ trait ShowT[-T] extends TypeStr
   def syntaxDepthT(obj: T): Int
 }
 
-/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
- *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
- *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. The capabilities of decimal place
- *  precision and explicit typing for numbers are placed defined here and in the corresponding [[SHow]] type class although they have n meaning /
- *  purpose for many types, as separating them adds enormous complexity for very little gain. */
-trait ShowTDec[-T] extends ShowT[T]
-{
-  def showDecT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
-
-  def showT(obj: T, style: ShowStyle): String = showDecT(obj, style, -1, -1)
- }
 
 /* The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikely that anyone would want to create an UnShow
    instance without a ShowT instance. Many Persist instances are placed inside the Show companion object. However type instances that themselves
@@ -45,12 +34,12 @@ object ShowT
     }
   }
 
-  val hexadecimal: ShowTDec[Int] = new ShowSimpleT[Int]
+  val hexadecimal: ShowDecT[Int] = new ShowSimpleT[Int]
   { override def typeStr: String = "Int"
     override def strT(obj: Int): String = obj.hexStr
   }
 
-  val base32: ShowTDec[Int] = new ShowSimpleT[Int]
+  val base32: ShowDecT[Int] = new ShowSimpleT[Int]
   { override def typeStr: String = "Int"
     override def strT(obj: Int): String = obj.base32
   }
@@ -107,7 +96,7 @@ object ShowT
     }
   }
 
-  implicit val floatImplicit: ShowTDec[Float] = new ShowSimpleT[Float]
+  implicit val floatImplicit: ShowDecT[Float] = new ShowSimpleT[Float]
   { override def typeStr: String = "SFloat"
     def strT(obj: Float): String = obj.toString
   }
@@ -129,29 +118,29 @@ object ShowT
     }
   }
 
-  implicit val charImplicit: ShowTDec[Char] = new ShowSimpleT[Char]
+  implicit val charImplicit: ShowDecT[Char] = new ShowSimpleT[Char]
   { override def typeStr: String = "Char"
     def strT(obj: Char): String = obj.toString.enquote1
   }
 
-  class ShowIterableClass[A, R <: Iterable[A]](val evA: ShowTDec[A]) extends ShowIterable[A, R]{}
+  class ShowIterableClass[A, R <: Iterable[A]](val evA: ShowDecT[A]) extends ShowIterable[A, R]{}
 
-  implicit def ShowIterableImplicit[A](implicit evA: ShowTDec[A]): ShowTDec[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
-  implicit def ShowSeqImplicit[A](implicit evA: ShowTDec[A]): ShowTDec[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
+  implicit def ShowIterableImplicit[A](implicit evA: ShowDecT[A]): ShowDecT[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
+  implicit def ShowSeqImplicit[A](implicit evA: ShowDecT[A]): ShowDecT[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
 
   /** Implicit method for creating List[A: Show] instances. */
-  implicit def listImplicit[A](implicit ev: ShowTDec[A]): ShowTDec[List[A]] = new ShowIterableClass[A, List[A]](ev)
+  implicit def listImplicit[A](implicit ev: ShowDecT[A]): ShowDecT[List[A]] = new ShowIterableClass[A, List[A]](ev)
 
   /** Implicit method for creating ::[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   //implicit def consShowImplicit[A](implicit ev: ShowT[A]): ShowT[::[A]] = new PersistConsImplicit[A](ev)
 
   //implicit def nilPersistImplicit[A](implicit ev: Persist[A]): Persist[Nil.type] = new PersistNilImplicit[A](ev)
 
-  implicit def vectorImplicit[A](implicit ev: ShowTDec[A]): ShowTDec[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
+  implicit def vectorImplicit[A](implicit ev: ShowDecT[A]): ShowDecT[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
-  implicit val arrayIntImplicit: ShowTDec[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
+  implicit val arrayIntImplicit: ShowDecT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
   {
-    override def evA: ShowTDec[Int] = ShowT.intPersistImplicit
+    override def evA: ShowDecT[Int] = ShowT.intPersistImplicit
     override def syntaxDepthT(obj: Array[Int]): Int = 2
 
     override def showDecT(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"
@@ -187,10 +176,10 @@ object ShowT
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
-  implicit def arraySeqImplicit[A](implicit ev: ShowTDec[A]): ShowTDec[collection.immutable.ArraySeq[A]] = new ShowTSeqLike[A, ArraySeq[A]]
+  implicit def arraySeqImplicit[A](implicit ev: ShowDecT[A]): ShowDecT[collection.immutable.ArraySeq[A]] = new ShowTSeqLike[A, ArraySeq[A]]
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
-    override def evA: ShowTDec[A] = ev
+    override def evA: ShowDecT[A] = ev
 
     /** Not fully correct yet. */
     override def showDecT(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
@@ -224,9 +213,9 @@ object ShowT
 
   implicit def optionPersistImplicit[A](implicit evA: Persist[A]): Persist[Option[A]] =
     new PersistSum2[Option[A], Some[A], None.type](somePersistImplicit[A](evA), nonePersistImplicit)
-  { override def typeStr: String = "Option" + evA.typeStr.enSquare
+    { override def typeStr: String = "Option" + evA.typeStr.enSquare
       override def syntaxDepthT(obj: Option[A]): Int = obj.fld(1, evA.syntaxDepthT(_))
-  }
+    }
 }
 
 sealed trait ShowTInstancesPriority2
@@ -237,39 +226,4 @@ sealed trait ShowTInstancesPriority2
 class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
 { /** Provides the standard string representation for the object. */
   @inline def str: String = ev.strT(thisVal)
-}
-
-
-/** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
-class ShowDecTExtensions[-A](ev: ShowTDec[A], thisVal: A)
-{ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowTDec]] type class instances. */
-  def show(style: ShowStyle = ShowStandard, decimalPlaces: Int = -1): String = ev.showDecT(thisVal, style, decimalPlaces, decimalPlaces)
-
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowTDec]] type class instances. */
-  def show(style: ShowStyle, decimalPlaces: Int, minPlaces: Int): String = ev.showDecT(thisVal, style, decimalPlaces, minPlaces)
-
-
-  /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
-   *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
-  @inline def strComma: String = ev.showDecT(thisVal, ShowCommas, -1, 0)//ev.showComma(thisVal)
-
-  def str2Comma: String = ev.showDecT(thisVal, ShowCommas, 2, 0)
-
-  /** Return the defining member values of the type as a series of semicolon separated values without enclosing type information, note this will only
-   *  happen if the syntax depth is less than 4. if it is 4 or greater return the full typed data. This method is not commonly needed but is useful
-   *  for case classes with a single member. */
-  @inline def strSemi: String = ev.showDecT(thisVal, ShowSemis, -1, 0)
-
-  @inline def strSemi(maxPlaces: Int, minPlaces: Int = 0): String =  ev.showDecT(thisVal, ShowSemis, maxPlaces, minPlaces)
-
-  /** For most objects showTyped will return the same value as persist, for PeristValues the value will be type enclosed. 4.showTyped
-   * will return Int(4) */
-  @inline def strTyped: String = ev.showDecT(thisVal, ShowTyped, -1, 0)
-
-  def str0: String = ev.showDecT(thisVal, ShowStandard, 0, 0)
-  def str1: String = ev.showDecT(thisVal, ShowStandard, 1, 0)
-  def str2: String = ev.showDecT(thisVal, ShowStandard, 2, 0)
-  def str3: String = ev.showDecT(thisVal, ShowStandard, 3, 0)
-  def showFields: String = ev.showDecT(thisVal, ShowParamNames, 1, 0)
-  def showTypedFields: String = ev.showDecT(thisVal, ShowStdTypedFields, 1, 0)
 }

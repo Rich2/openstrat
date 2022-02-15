@@ -4,7 +4,7 @@ package ostrat
 /** Helper class for constructing [[String]]s from ShowT implicit instances on objects. */
 class Rval(val str: String) extends AnyVal
 { /** Adds any object' with an implicit instance in scope's String representation to this Rval's String. */
-  def - [A](value: A)(implicit ev: ShowTDec[A]): Rval = new Rval(str + "\n" + ev.strT(value) + ";")
+  def - [A](value: A)(implicit ev: ShowDecT[A]): Rval = new Rval(str + "\n" + ev.strT(value) + ";")
 }
 
 object Rval
@@ -24,6 +24,6 @@ class Setting(val str: String) extends AnyVal
 
 object Setting
 {
-  def apply[A](setting: String, value: A)(implicit ev: ShowTDec[A]): Setting = new Setting(setting + " = " + ev.strT(value) + ";")
+  def apply[A](setting: String, value: A)(implicit ev: ShowDecT[A]): Setting = new Setting(setting + " = " + ev.strT(value) + ";")
 }
 

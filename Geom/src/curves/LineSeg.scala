@@ -22,8 +22,8 @@ final class LineSeg(val startX: Double, val startY: Double, val endX: Double, va
   override def typeStr: String = "LineSeg"
   override def name1: String = "startPt"
   override def name2: String = "endPt"
-  override implicit def showT1: ShowTDec[Pt2] = Pt2.persistImplicit
-  override implicit def showT2: ShowTDec[Pt2] = Pt2.persistImplicit
+  override implicit def showT1: ShowDecT[Pt2] = Pt2.persistImplicit
+  override implicit def showT2: ShowDecT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 2
   override def show1: Pt2 = startPt
   override def show2: Pt2 = endPt

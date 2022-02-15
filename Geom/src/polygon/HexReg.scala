@@ -112,7 +112,7 @@ object HexReg
    * a regular hexagon both Y values will be 0. */
   def sd4Sd1(sd4Cen: Pt2, sd1Cen: Pt2): HexReg = HexRegImp(sd4Cen.x, sd4Cen.y, sd1Cen.x, sd1Cen.y)
 
-  implicit val showImplicit: ShowTDec[HexReg] = new ShowTDec[HexReg]
+  implicit val showImplicit: ShowDecT[HexReg] = new ShowDecT[HexReg]
   { override def typeStr: String = "HexReg"
     override def strT(obj: HexReg): String = obj.str
     override def showDecT(obj: HexReg, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
@@ -140,8 +140,8 @@ object HexReg
 
     override def show1: Pt2 = sd3Cen
     override def show2: Pt2 = sd0Cen
-    override implicit def showT1: ShowTDec[Pt2] = Pt2.persistImplicit
-    override implicit def showT2: ShowTDec[Pt2] = Pt2.persistImplicit
+    override implicit def showT1: ShowDecT[Pt2] = Pt2.persistImplicit
+    override implicit def showT2: ShowDecT[Pt2] = Pt2.persistImplicit
     override def syntaxDepth: Int = 3
 
     override def unsafeVert(index: Int): Pt2 = index match {
