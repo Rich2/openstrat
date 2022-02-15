@@ -19,9 +19,9 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets") with D
   mapPanel.mouseUp = (a, b, s) => deb(s.toString)
   canv.onScroll = b => { scale = ife(b, (scale * 1.2).min(scaleMax), (scale / 1.2).max(scaleMin)) }
 
-  implicit class PlanetExtensions(thisPlanet: Planet)
+  implicit class PlanetExtensions(thisBody: SSPrimaryBody)
   {
-    def dispColour: Colour = thisPlanet match {
+    def dispColour: Colour = thisBody match {
     case Mercury => Gray
     case Venus => White
     case Earth => Blue
@@ -34,17 +34,22 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets") with D
     case _ => Yellow
     }
 
-    def dispSize: Double = thisPlanet match {
+    def dispSize: Double = thisBody match {
       case Sun => 14
       case _ => 10
     }
 
-    def paint(elapsed: Integer): CircleFill = Circle(0.6 * dispSize, toCanv(thisPlanet.posn(elapsed))).fill(thisPlanet.dispColour)
+    def paint(elapsed: Integer): CircleFill = Circle(0.6 * dispSize, toCanv(thisBody.posn(elapsed))).fill(thisBody.dispColour)
+
+    def posn(elapsed: Integer): PtM2 =
+    { val auRatio: Double = thisBody.avSunDist / Earth.avSunDist
+      Pt2.circlePtClockwise(0.001 * elapsed / math.sqrt(auRatio.cubed)).toMetres(thisBody.avSunDist)
+    }
   }
 
-  var planetFocus: Planet = Earth
-  override def eTop(): Unit = ???
-  def fBut(planet: Planet) = clickButtonOld(planet.name, mb => {planetFocus = planet; repaintMap()}, planet.dispColour)
+  var focus: SSPrimaryBody = Earth
+  override def eTop(): Unit = {}
+  def fBut(body: SSPrimaryBody) = clickButtonOld(body.name, mb => {focus = body; repaintMap()}, body.dispColour)
   def pause = clickButtonStdOld(pausedStr, mb => { deb(pausedStr -- "not implemented yet."); paused = !paused; reTop(cmds)})
    
   def cmds: Arr[GraphicBounded] = zoomable +% pause ++ sunPlus9.map(fBut)
@@ -56,7 +61,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets") with D
   def out(elapsedIn: Integer, startTime: Integer): Unit =
   { //pls.foreach(_.posn(elapsed))
     elapsed = elapsedIn
-    mapFocus = planetFocus.posn(elapsed)
+    mapFocus = focus.posn(elapsed)
     if(!paused)repaintMap()
     canv.frame(out, startTime)           
   }      
