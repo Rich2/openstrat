@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import geom._, Colour._
 
@@ -18,9 +18,4 @@ package object pgui
   /** A button to react to different mouse buttons. The length varies with the String. */
   def clickButton(str: String, backColour: Colour = Colour.White)(cmd: MouseCmd): PolygonCompound =
     Rect((str.length + 1).max(2) * 17, 30).fillDrawTextActive(backColour, MouseButtonCmd(cmd), str, 25, 3, backColour.contrastBW)
-
-
-  /** A button to react to different mouse buttons. The length is fixed regardless of the length of the String. */
-  def clickButtonStdOld(str: String, cmd: MouseCmd, backColour: Colour = Colour.White): PolyCurveAllOld =
-    Rectangle.curvedCornersCentred(100, 25, 5).allElems(cmd, backColour, 3, backColour.contrastBW, 20, str)
 }

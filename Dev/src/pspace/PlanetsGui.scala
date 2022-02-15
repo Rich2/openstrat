@@ -50,7 +50,10 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets") with D
   var focus: SSPrimaryBody = Earth
   override def eTop(): Unit = {}
   def fBut(body: SSPrimaryBody) = clickButtonOld(body.name, mb => {focus = body; repaintMap()}, body.dispColour)
-  def pause = clickButtonStdOld(pausedStr, mb => { deb(pausedStr -- "not implemented yet."); paused = !paused; reTop(cmds)})
+
+  def pause = clickButton(pausedStr){ mb => deb(pausedStr -- "not implemented yet.");
+    paused = !paused; reTop(cmds)
+  }
    
   def cmds: Arr[GraphicBounded] = zoomable +% pause ++ sunPlus9.map(fBut)
   reTop(cmds)
