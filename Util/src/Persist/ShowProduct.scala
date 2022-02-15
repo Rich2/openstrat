@@ -45,7 +45,7 @@ trait ShowProductT[R] extends ShowCompoundT[R]
 {
   def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings
 
-  override def showT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = strs(obj, ShowCommas, maxPlaces).mkStr("; ")
 
     style match

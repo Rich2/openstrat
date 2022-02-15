@@ -10,8 +10,8 @@ final case class Sqlign private(width: Double, cenX: Double, cenY: Double) exten
   override def name2: String = "cen"
   override def show1: Double = width
   override def show2: Pt2 = cen
-  override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
-  override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
+  override implicit def showT1: ShowTDec[Double] = ShowTDec.doublePersistImplicit
+  override implicit def showT2: ShowTDec[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
   override def attribs: Arr[XANumeric] = ???
   override def width1 = width
@@ -39,10 +39,10 @@ object Sqlign
 { def apply(width: Double, cen: Pt2 = Pt2Z): Sqlign = new Sqlign(width, cen.x, cen.y)
   def apply(width: Double, xCen: Double, yCen: Double): Sqlign = new Sqlign(width, xCen, yCen)
 
-  implicit val ShowTImplicit: ShowT[Sqlign] = new ShowT[Sqlign]
+  implicit val ShowTImplicit: ShowTDec[Sqlign] = new ShowTDec[Sqlign]
   { override def typeStr: String = "Sqlign"
     override def strT(obj: Sqlign): String = obj.str
-    override def showT(obj: Sqlign, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
+    override def showDecT(obj: Sqlign, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = obj.show(way, maxPlaces, 0)
     override def syntaxDepthT(obj: Sqlign): Int = 3
   }
 }

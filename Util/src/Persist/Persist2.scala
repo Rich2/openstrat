@@ -37,25 +37,25 @@ trait Show2[A1, A2] extends Any with ShowProduct with TypeStr2[A1, A2]
   def show2: A2
 
   /** The ShowT type class instance for the 1st element of this 2 element product. */
-  implicit def showT1: ShowT[A1]
+  implicit def showT1: ShowTDec[A1]
 
   /** The ShowT type class instance for the 2nd element of this 2 element product. */
-  implicit def showT2: ShowT[A2]
+  implicit def showT2: ShowTDec[A2]
 
   def elemNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
-  def showElemStrs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showT(show1, way, decimalPlaces, 0), showT2.showT(show2, way, decimalPlaces, 0))
+  def showElemStrs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0))
 
-  def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT1.showT(show1, style, maxPlaces, maxPlaces): String
-  def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT2.showT(show2, style, maxPlaces, maxPlaces): String
+  def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT1.showDecT(show1, style, maxPlaces, maxPlaces): String
+  def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT2.showDecT(show2, style, maxPlaces, maxPlaces): String
 }
 
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
  *  corresponding [[ShowShowInt2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2T]]. */
 trait ShowElemInt2 extends Any with Show2[Int, Int] with ElemInt2
-{ final override implicit def showT1: ShowT[Int] = ShowT.intPersistImplicit
-  final override implicit def showT2: ShowT[Int] = ShowT.intPersistImplicit
+{ final override implicit def showT1: ShowTDec[Int] = ShowTDec.intPersistImplicit
+  final override implicit def showT2: ShowTDec[Int] = ShowTDec.intPersistImplicit
   final override def syntaxDepth: Int = 2
   final override def int1: Int = show1
   final override def int2: Int = show2
@@ -64,8 +64,8 @@ trait ShowElemInt2 extends Any with Show2[Int, Int] with ElemInt2
 /** Shows a class with 2 [[Double]] components. Note if the class also extends ElemDbl2, the dbl1 and dbl2 properties, may be different to the show1
  * and show2 properties, unless the class extends [[ShowElemDbl2]]. */
 trait ShowDbl2 extends Any with Show2[Double, Double]
-{ final override implicit def showT1: ShowT[Double] = ShowT.doublePersistImplicit
-  final override implicit def showT2: ShowT[Double] = ShowT.doublePersistImplicit
+{ final override implicit def showT1: ShowTDec[Double] = ShowTDec.doublePersistImplicit
+  final override implicit def showT2: ShowTDec[Double] = ShowTDec.doublePersistImplicit
   final override def syntaxDepth: Int = 2
 }
 
@@ -83,30 +83,30 @@ trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
 trait Show2T[A1, A2, R] extends ShowProductT[R] with TypeStr2[A1, A2]
 { def fArg1: R => A1
   def fArg2: R => A2
-  implicit def ev1: ShowT[A1]
-  implicit def ev2: ShowT[A2]
+  implicit def ev1: ShowTDec[A1]
+  implicit def ev2: ShowTDec[A2]
   override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
 
   override def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
-    Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0))
+    Strings(ev1.showDecT(fArg1(obj), way, decimalPlaces, 0), ev2.showDecT(fArg2(obj), way, decimalPlaces, 0))
 }
 
 /** Companion object for the [[Show2T]] type class trait that shows object with 2 logical fields. */
 object Show2T
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2]): Show2T[A1, A2, R] =
+    opt1In: Option[A1] = None)(implicit ev1: ShowTDec[A1], ev2: ShowTDec[A2]): Show2T[A1, A2, R] =
     new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
   class Show2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val ev1: ShowT[A1], val ev2: ShowT[A2]) extends Show2T[A1, A2, R]
+    opt1In: Option[A1] = None)(implicit val ev1: ShowTDec[A1], val ev2: ShowTDec[A2]) extends Show2T[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
 class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 {
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowTDec]] type class instances. */
   def show2(way: ShowStyle = ShowStandard, way1: ShowStyle = ShowStandard, places1: Int = -1, way2: ShowStyle = ShowStandard, places2: Int = -1):
     String = ???
 }
@@ -120,19 +120,19 @@ trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends Show2T[A1, A2, R] with Show
 object ShowShow2T
 {
   def apply[A1, A2, R<: Show2[A1, A2]](typeStr: String, name1: String, name2: String, opt2: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit ev1: ShowT[A1], ev2: ShowT[A2]): ShowShow2T[A1, A2, R] =
+    implicit ev1: ShowTDec[A1], ev2: ShowTDec[A2]): ShowShow2T[A1, A2, R] =
     new ShowShow2TImp[A1, A2, R](typeStr, name1, name2: String, opt2, opt1In)
 
   class ShowShow2TImp[A1, A2, R<: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val ev1: ShowT[A1], val ev2: ShowT[A2]) extends ShowShow2T[A1, A2, R]
+    opt1In: Option[A1] = None)(implicit val ev1: ShowTDec[A1], val ev2: ShowTDec[A2]) extends ShowShow2T[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
 
 /** A trait for making quick ShowT instances for [[ShowDbl2]] types. It uses the functionality of the [[ShowDbl2]]. */
 trait ShowShowDbl2T[R <: ShowDbl2] extends ShowShow2T[Double, Double, R]
-{ override implicit def ev1: Persist[Double] = ShowT.doublePersistImplicit
-  override implicit def ev2: Persist[Double] = ShowT.doublePersistImplicit
+{ override implicit def ev1: Persist[Double] = ShowTDec.doublePersistImplicit
+  override implicit def ev2: Persist[Double] = ShowTDec.doublePersistImplicit
 }
 
 object ShowShowDbl2T
@@ -148,8 +148,8 @@ object ShowShowDbl2T
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
 trait ShowShowInt2T[R <: ShowElemInt2] extends ShowShow2T[Int, Int, R]
-{ override implicit def ev1: Persist[Int] = ShowT.intPersistImplicit
-  override implicit def ev2: Persist[Int] = ShowT.intPersistImplicit
+{ override implicit def ev1: Persist[Int] = ShowTDec.intPersistImplicit
+  override implicit def ev2: Persist[Int] = ShowTDec.intPersistImplicit
 }
 
 object ShowShowInt2T

@@ -3,10 +3,10 @@ package ostrat
 import reflect.ClassTag, pParse._
 
 /** Show class for algebraic sum types. If you are using your own code then Show sum types handled by inheritance. */
-abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: ClassTag[A1], val ct2: ClassTag[A2]) extends ShowT[ST]
+abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: ClassTag[A1], val ct2: ClassTag[A2]) extends ShowTDec[ST]
 {
-  def ev1: ShowT[A1]
-  def ev2: ShowT[A2]
+  def ev1: ShowTDec[A1]
+  def ev2: ShowTDec[A2]
 
   override def strT(obj: ST): String = obj match
   { case a1: A1 => ev1.strT(a1)
@@ -26,7 +26,7 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: Cl
     case a2: A2 => ev2.showSemi(a2)
   }*/
 
-  override def showT(obj: ST, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =  obj match
+  override def showDecT(obj: ST, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =  obj match
   { case a1: A1 => ev1.strT(a1)
     case a2: A2 => ev2.strT(a2)
     case _ => excep("Case not implemented")
@@ -35,11 +35,11 @@ abstract class ShowSum2[ST <: AnyRef, A1 <: ST, A2 <: ST]()(implicit val ct1: Cl
 
 object ShowSum2
 {
-  def apply[ST <: AnyRef, A1 <: ST, A2 <: ST](typeIn: String, ev1In: ShowT[A1], ev2In: ShowT[A2])(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]):
+  def apply[ST <: AnyRef, A1 <: ST, A2 <: ST](typeIn: String, ev1In: ShowTDec[A1], ev2In: ShowTDec[A2])(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]):
     ShowSum2[ST, A1, A2] = new ShowSum2[ST, A1, A2]()(ct1, ct2)
   { override def typeStr: String = typeIn
-    override def ev1: ShowT[A1] = ev1In
-    override def ev2: ShowT[A2] = ev2In
+    override def ev1: ShowTDec[A1] = ev1In
+    override def ev2: ShowTDec[A2] = ev2In
   }
 }
 

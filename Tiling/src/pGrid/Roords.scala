@@ -47,7 +47,7 @@ object Roords extends DataInt2sCompanion[Roord, Roords]
   implicit object PersistImplicit extends PersistArrInt2s[Roord, Roords]("Roords")
   { override def fromArray(value: Array[Int]): Roords = new Roords(value)
 
-    override def showT(obj: Roords, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDecT(obj: Roords, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   implicit val arrArrayImplicit: ArrFlatBuilder[Roords] = new ArrInt2sFlatBuilder[Roord, Roords]

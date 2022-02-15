@@ -5,7 +5,7 @@ package ostrat
 class Show6T[A1, A2, A3, A4, A5, A6, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String,
   fArg3: R => A3, name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, name6: String, fArg6: R => A6, val opt6: Option[A6],
   val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-  implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6]) extends ShowProductT[R]
+                                         implicit ev1: ShowTDec[A1], ev2: ShowTDec[A2], ev3: ShowTDec[A3], ev4: ShowTDec[A4], ev5: ShowTDec[A5], ev6: ShowTDec[A6]) extends ShowProductT[R]
 {
   val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
   val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
@@ -17,8 +17,8 @@ class Show6T[A1, A2, A3, A4, A5, A6, R](val typeStr: String, name1: String, fArg
     max(ev4.syntaxDepthT(fArg4(obj))).max(ev5.syntaxDepthT(fArg5(obj))).max(ev6.syntaxDepthT(fArg6(obj))) + 1
 
   override def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
-    Strings(ev1.showT(fArg1(obj), way, decimalPlaces, 0), ev2.showT(fArg2(obj), way, decimalPlaces, 0), ev3.showT(fArg3(obj), way, decimalPlaces, 0),
-      ev4.showT(fArg4(obj), way, decimalPlaces, 0), ev5.showT(fArg5(obj), way, decimalPlaces, 0), ev6.showT(fArg6(obj), way, decimalPlaces, 0))
+    Strings(ev1.showDecT(fArg1(obj), way, decimalPlaces, 0), ev2.showDecT(fArg2(obj), way, decimalPlaces, 0), ev3.showDecT(fArg3(obj), way, decimalPlaces, 0),
+      ev4.showDecT(fArg4(obj), way, decimalPlaces, 0), ev5.showDecT(fArg5(obj), way, decimalPlaces, 0), ev6.showDecT(fArg6(obj), way, decimalPlaces, 0))
 }
 
 object Show6T
@@ -26,8 +26,8 @@ object Show6T
   def apply[A1, A2, A3, A4, A5, A6, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, name6: String, fArg6: R => A6, opt6: Option[A6] = None, opt5: Option[A5] = None,
     opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
-    ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6],
-    eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3], eq4: EqT[A4], eq5: EqT[A5], eq6: EqT[A6]) =
+                                                                                                        ev1: ShowTDec[A1], ev2: ShowTDec[A2], ev3: ShowTDec[A3], ev4: ShowTDec[A4], ev5: ShowTDec[A5], ev6: ShowTDec[A6],
+                                                                                                        eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3], eq4: EqT[A4], eq5: EqT[A5], eq6: EqT[A6]) =
     new Show6T[A1, A2, A3, A4, A5, A6, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6,
       opt6, opt5, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4, ev5, ev6)
 }

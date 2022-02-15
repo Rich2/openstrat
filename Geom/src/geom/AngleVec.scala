@@ -6,7 +6,7 @@ package ostrat; package geom
 class AngleVec private(val milliSecs: Double) extends AngleLike
 { override def typeStr: String = "AngleVec"
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowTDec]] type class instances. */
   override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match {
     case ShowTyped => typeStr + degs.str.enParenth
     case _ =>  degs.str.enParenth

@@ -133,7 +133,7 @@ abstract class DataDbl2sPersist[A <: ElemDbl2, M <: DataDbl2s[A]](val typeStr: S
   }
 
   override def syntaxDepthT(obj: M): Int = 3
-  override def showT(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = typeStr //+ obj.dataF Map(_.toString).toString
+  override def showDecT(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = typeStr //+ obj.dataF Map(_.toString).toString
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl2]]s collections. */

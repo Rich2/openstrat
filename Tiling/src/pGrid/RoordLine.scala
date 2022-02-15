@@ -45,6 +45,6 @@ object RoordLines extends ArrInt4sCompanion[RoordLine, RoordLines]
   implicit val PersistImplicit: ArrInt4sPersist[RoordLine, RoordLines] = new ArrInt4sPersist[RoordLine, RoordLines]("RoordLines")
   { override def fromArray(value: Array[Int]): RoordLines = new RoordLines(value)
 
-    override def showT(obj: RoordLines, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDecT(obj: RoordLines, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }

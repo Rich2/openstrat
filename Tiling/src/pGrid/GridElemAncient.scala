@@ -67,7 +67,7 @@ object TileRow {
     // def fromClauses(clauses: Refs[ostrat.pParse.Clause]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def fromExpr(expr: pParse.Expr): ostrat.EMon[TileRow[T]] = ???
 
-    override def showT(obj: TileRow[T], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDecT(obj: TileRow[T], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
 
     //  def fromStatements(sts: Refs[ostrat.pParse.Statement]): ostrat.EMon[ostrat.pGrid.TileRow[T]] = ???
     def typeStr: String = ???

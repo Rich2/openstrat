@@ -73,7 +73,7 @@ object EMon
     def findSomeSettingElse[A: Persist](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
   }
 
-  implicit def showImplicit[A](implicit ev: ShowT[A]): ShowT[EMon[A]] =
+  implicit def showImplicit[A](implicit ev: ShowTDec[A]): ShowTDec[EMon[A]] =
     ShowSum2("EMon", Good.GoodShowImplicit(ev),
       Bad.BadShowImplicit(ev))
 
@@ -130,13 +130,13 @@ final case class Good[+A](val value: A) extends EMon[A]
 
 object Good
 {
-  implicit def GoodShowImplicit[A](implicit ev: ShowT[A]): ShowT[Good[A]] = new ShowT[Good[A]] with ShowCompoundT[Good[A]]
+  implicit def GoodShowImplicit[A](implicit ev: ShowTDec[A]): ShowTDec[Good[A]] = new ShowTDec[Good[A]] with ShowCompoundT[Good[A]]
   { override def syntaxDepthT(obj: Good[A]): Int = ev.syntaxDepthT(obj.value) + 1
     override def typeStr: String = "Good" + ev.typeStr.enSquare
     //override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
     //override def showComma(obj: Good[A]): String = ev.showComma(obj.value)
 
-    override def showT(obj: Good[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDecT(obj: Good[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }
 
@@ -182,9 +182,9 @@ object Bad
     case _ => None
   }
 
-  implicit def BadShowImplicit[A](implicit ev: ShowT[A]): ShowT[Bad[A]] = new ShowT[Bad[A]] with ShowCompoundT[Bad[A]]
+  implicit def BadShowImplicit[A](implicit ev: ShowTDec[A]): ShowTDec[Bad[A]] = new ShowTDec[Bad[A]] with ShowCompoundT[Bad[A]]
   { override def syntaxDepthT(obj: Bad[A]): Int = 2
     override def typeStr: String = "Bad" + ev.typeStr.enSquare
-    override def showT(obj: Bad[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDecT(obj: Bad[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }

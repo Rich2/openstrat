@@ -66,7 +66,7 @@ abstract class DataDbl3sPersist[A <: ElemDbl3, M <: DataDbl3s[A]](val typeStr: S
   }
 
   override def syntaxDepthT(obj: M): Int = 3
-  override def showT(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
+  override def showDecT(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
 }
 
 /** Class for the singleton companion objects of [[ArrDbl3s]] final classes to extend. */

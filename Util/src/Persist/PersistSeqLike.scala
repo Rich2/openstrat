@@ -37,15 +37,15 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.foldLeft[Int](1)((acc: Int, el: A) => acc.max(evA.syntaxDepthT(el)))
 
-  final override def showT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
+  final override def showDecT(obj: R, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
   {
     case ShowCommas if obj.foldLeft[Int](1)((acc: Int, el: A) =>
-      acc.max(evA.syntaxDepthT(el))) == 1 => obj.map(el => evA.showT(el, ShowStandard, maxPlaces, 0)).commaFold
+      acc.max(evA.syntaxDepthT(el))) == 1 => obj.map(el => evA.showDecT(el, ShowStandard, maxPlaces, 0)).commaFold
 
     case ShowSemis if obj.foldLeft(1)((acc, el) =>
-      acc.max(evA.syntaxDepthT(el))) <= 2 => obj.map(el => evA.showT(el, ShowCommas, maxPlaces, 0)).semiFold
+      acc.max(evA.syntaxDepthT(el))) <= 2 => obj.map(el => evA.showDecT(el, ShowCommas, maxPlaces, 0)).semiFold
 
-    case _ => typeStr + obj.map(el => evA.showT(el, ShowSemis, maxPlaces, 0)).semiFold.enParenth
+    case _ => typeStr + obj.map(el => evA.showDecT(el, ShowSemis, maxPlaces, 0)).semiFold.enParenth
   }
 }
 
