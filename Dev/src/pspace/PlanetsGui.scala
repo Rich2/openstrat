@@ -3,16 +3,38 @@ package ostrat; package pspace
 import geom._, pgui._, Colour._, java.time._
 
 /** Simple Solar system model application. */
-case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets") with Dist2Gui
+case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")// with Length2Gui
 {
+  val margin = 35
+  var mapFocus: PtM2 = PtM2(0.metres, 0.metres)
+
+  val bZoomIn: PolygonCompound = clickButton("+")(zoomInCmd)
+  val bZoomOut: PolygonCompound = clickButton("-")(zoomOutCmd)
+
+  def zoomInCmd: MouseButton => Unit = mb =>  { scale = (scale / 1.5).max(scaleMin); repaintMap() }
+  def zoomOutCmd: MouseButton => Unit = mb => { scale = (scale * 1.5).min(scaleMax); repaintMap() }
+
+  /** Translates a point from map position to Canvas Display position */
+  def toCanv(mapPoint: PtM2): Pt2 = (mapPoint - mapFocus) / scale
+
+  /** Translates an array of map points to an array of Canvas Display positions */
+  def arrCanv(inp: PtMetre2Arr): Polygon = inp.mapPolygon(toCanv(_))
+
+  final def repaintMap(): Unit = mapPanel.repaint( mapObjs)
+
+  def reFocus(newFocus: PtM2): Unit =
+  { mapFocus = newFocus
+    repaintMap()
+  }
+
   statusText = "Choose centreing body."
   val maxOrbit: Length = 3700.mMiles
   var years: Double = 0
   var paused: Boolean = false
   def pausedStr: String = paused.fold("Restart", "Pause")  
   var scale: Length = 0.5.mMiles
-  override val scaleMax: Length = 10.mMiles
-  override val scaleMin: Length = 0.1.mMiles
+  val scaleMax: Length = 10.mMiles
+  val scaleMin: Length = 0.1.mMiles
   var elapsed: Int = 0
   val nowt: Instant = Instant.now()
   //val num = 1234567890L
@@ -26,21 +48,11 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets") with D
   mapPanel.mouseUp = (a, b, s) => deb(s.toString)
   canv.onScroll = b => { scale = ife(b, (scale * 1.2).min(scaleMax), (scale / 1.2).max(scaleMin)) }
 
+  val dispColours: Map[SSPrimaryBody, Colour] = Map(Mercury -> Gray, Venus -> White, Earth -> Blue, Mars -> Red, Jupiter -> Orange, Saturn -> Gold,
+    Uranus -> BrightSkyBlue, Neptune -> LightGreen, Pluto -> SandyBrown, Sun -> Yellow)
+
   implicit class PrimaryBodyExtensions(thisBody: SSPrimaryBody)
   {
-    def dispColour: Colour = thisBody match {
-    case Mercury => Gray
-    case Venus => White
-    case Earth => Blue
-    case Mars => Red
-    case Jupiter => Orange
-    case Saturn => Gold
-    case Uranus => BrightSkyBlue
-    case Neptune => LightGreen
-    case Pluto => SandyBrown
-    case _ => Yellow
-    }
-
     def posn(elapsed: Integer): PtM2 = thisBody match
     {
       case p: Planet =>
@@ -50,7 +62,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets") with D
       case _ => PtM2(0.metres, 0.metres)
     }
 
-    def paint(elapsed: Integer): CircleFill = Circle(0.6 * dispSize, toCanv(thisBody.posn(elapsed))).fill(thisBody.dispColour)
+    def paint(elapsed: Integer): CircleFill = Circle(0.6 * dispSize, toCanv(thisBody.posn(elapsed))).fill(dispColours(thisBody))
 
     def dispSize: Double = thisBody match {
       case Sun => 14
@@ -60,13 +72,13 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets") with D
 
   var focus: SSPrimaryBody = Earth
   override def eTop(): Unit = {}
-  def fBut(body: SSPrimaryBody) = clickButtonOld(body.name, mb => {focus = body; repaintMap()}, body.dispColour)
+  def fBut(body: SSPrimaryBody) = clickButtonOld(body.name, mb => {focus = body; repaintMap()}, Yellow)
 
   def pause: PolygonCompound = clickButton(pausedStr){ mb => deb(pausedStr -- "not implemented yet.");
     paused = !paused; reTop(cmds)
   }
    
-  def cmds: Arr[GraphicBounded] = zoomable +% pause ++ sunPlus9.map(fBut)
+  def cmds: Arr[GraphicBounded] = Arr(bZoomIn, bZoomOut, pause) ++ sunPlus9.map(fBut)
   reTop(cmds)
   
   canv.startFrame((el, st) => out(el, st))
