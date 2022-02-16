@@ -30,13 +30,13 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
-  def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
+  def bTurn = simpleButton("Turn " + (scen.turn + 1).toString){
     /*val getOrders = moves.mapSomes(rs => rs)
     scen = scen.doTurn(getOrders)
     moves = NoMoves*/
     repaint()
     thisTop()
-  })
+  }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {

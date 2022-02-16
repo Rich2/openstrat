@@ -15,10 +15,11 @@ case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui("Ch
     p.fillText(col, yStr + cStr, 20) }
   val pieces = scen.pieces.mapSomeWithRoords((r, p) => p.piece().slate(r.gridPt2).fillDraw(p.player.colour, p.player.contrastBW))
 
-  def bTurn = clickButtonOld("Turn ", _ => {
+  def bTurn = simpleButton("Turn "){
     repaint()
     thisTop()
-  })
+  }
+
   def thisTop(): Unit = reTop(Arr(bTurn))
   thisTop()
   def frame = (tiles ++ pieces).gridScale(scale)

@@ -72,7 +72,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")// with
 
   var focus: SSPrimaryBody = Earth
   override def eTop(): Unit = {}
-  def fBut(body: SSPrimaryBody) = clickButtonOld(body.name, mb => {focus = body; repaintMap()}, Yellow)
+  def fBut(body: SSPrimaryBody) = simpleButton(body.name, Yellow){focus = body; repaintMap()}
 
   def pause: PolygonCompound = clickButton(pausedStr){ mb => deb(pausedStr -- "not implemented yet.");
     paused = !paused; reTop(cmds)

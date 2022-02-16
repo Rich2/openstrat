@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._, pgui._
 
@@ -82,17 +82,17 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def invCmd: MouseCmd = mb => {focusUp = !focusUp; repaintMap() }
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); updateView() }  
       
-  val bInv: GraphicBoundedAffine = clickButtonOld("inv", invCmd)
+  val bInv = clickButton("inv")(invCmd)
    
   mapPanel.mouseUp = (b, s, v) => { statusText = s.headFoldToString("Nothing Clicked"); eTop() }
    
   def saveCmd = (mb: MouseButton) => { setStatus("Saved"); canv.saveFile(saveName, view.str) }
   def loadCmd = (mb: MouseButton) => { loadView(); updateView() }
-  def bSave = clickButtonOld("save", saveCmd)
-  def bLoad = clickButtonOld("load", loadCmd)
-  def eaButts: Arr[GraphicBoundedAffine] =  Arr(bSave, bLoad)
+  def bSave = clickButton("save")(saveCmd)
+  def bLoad = clickButton("load")(loadCmd)
+  def eaButts =  Arr(bSave, bLoad)
   def cmd00: MouseCmd = mb => { focus = LatLong0; focusUp = true; updateView() }
-  def b00: GraphicBoundedAffine = clickButtonOld("00", cmd00)
+  def b00 = clickButton("00")(cmd00)
   override def eTop(): Unit = reTop(guButs ++ Arr(b00, bInv) ++ eaButts +% status)
      
   def ls: GraphicElems

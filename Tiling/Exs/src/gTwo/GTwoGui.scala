@@ -33,13 +33,13 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
-  def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
+  def bTurn = simpleButton("Turn " + (scen.turn + 1).toString){
         val getOrders = players.some2sMap(moves)((player, step) => (player, step))//moves.mapSomes(rs => rs)
         scen = scen.endTurn(getOrders)
         moves = NoMoves
         repaint()
         thisTop()
-  })
+  }
 
   /** Draws the tiles sides (or edges). */
   val sidesDraw = grid.sidesDraw()

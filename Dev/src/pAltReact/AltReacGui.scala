@@ -23,13 +23,13 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends Hex
     p.toString + "\n" + hc.rcStr, 24, 2.0) }*/
 
   /** Creates the turn button and the action to commit on mouse click. */
-  def bTurn = clickButtonOld("Turn " + (scen.turn + 1).toString, _ => {
+  def bTurn = simpleButton("Turn " + (scen.turn + 1).toString){
     //    val getOrders = moves.mapSomeOnlys(rs => rs)
     //    scen = scen.turn(getOrders)
     //    moves = NoMoves
     //    repaint()
     //    thisTop()
-  })
+  }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(bTurn))

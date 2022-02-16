@@ -16,10 +16,11 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
 
   val pieces = scen.draughts.mapSomeWithRoords((r, d) => Circle(0.7, r.gridPt2).fill(d.colour))
 
- def bTurn = clickButtonOld("Turn ", _ => {
-   repaint()
-   thisTop()
- })
+  def bTurn = simpleButton("Turn "){
+    repaint()
+    thisTop()
+  }
+
   def thisTop(): Unit = reTop(Arr(bTurn))
   thisTop()
 
