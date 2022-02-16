@@ -11,7 +11,7 @@ trait TypeStr3[A1, A2, A3] extends Any with TypeStr2[A1, A2]
   def opt3: Option[A3]
 }
 
-/** Trait for [[ShowPrec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+/** Trait for [[ShowDec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[ShowEq3T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
@@ -41,7 +41,7 @@ trait Show3[A1, A2, A3] extends Any with ShowProductDec with TypeStr3[A1, A2, A3
 
   def elemNames: Strings = Strings(name1, name2, name3)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr, showT3.typeStr)
-  def showElemStrs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0),
+  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0),
     showT3.showDecT(show3, way, decimalPlaces, 0))
 }
 
@@ -97,10 +97,14 @@ trait ShowShow3T[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Show3T[A1, A2, A3, 
   override def fArg3: R => A3 = _.show3
 }
 
-trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R]
+trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R] with ShowProductDecT[R]
 { override implicit def ev1: PersistDec[Double] = ShowT.doublePersistEv
   override implicit def ev2: PersistDec[Double] = ShowT.doublePersistEv
   override implicit def ev3: PersistDec[Double] = ShowT.doublePersistEv
+
+  override def strDecs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
+    Strings(ev1.showDecT(fArg1(obj), way, decimalPlaces, 0), ev2.showDecT(fArg2(obj), way, decimalPlaces, 0), ev3.showDecT(fArg3(obj), way, decimalPlaces, 0))
+
 }
 
 object ShowShowDbl3T

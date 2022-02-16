@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Common super trait for [[ShowPrec]], [[ShowDecT]] and [[Unshow]]. All of which inherit the typeStr property. */
+/** Common super trait for [[ShowDec]], [[ShowDecT]] and [[Unshow]]. All of which inherit the typeStr property. */
 trait TypeStr extends Any
 { /** The RSON type of T. This the only data that a ShowT instance requires, that can't be implemented through delegation to an object of type
     * Show. */
@@ -26,10 +26,10 @@ trait Show extends Any with TypeStr
  *  can increase compile times. The capabilities of decimal place precision and explicit typing for numbers are placed defined here and in the
  *  corresponding [[SHowT]] type class although they have n meaning / purpose for many types, as seperating them adds enormous complexity for very
  *  little gain. */
-trait ShowPrec extends Any with Show
+trait ShowDec extends Any with Show
 {
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
-  def showDec(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showDec(style, maxPlaces, maxPlaces)
+  def showDec(style: ShowStyle = ShowStandard, maxPlaces: Int): String = showDec(style, maxPlaces, maxPlaces)
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
   def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String

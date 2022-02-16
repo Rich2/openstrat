@@ -17,7 +17,7 @@ trait TypeStr2[A1, A2] extends Any with TypeStr
   def opt2: Option[A2]
 }
 
-/** Trait for [[ShowPrec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+/** Trait for [[ShowDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[Show2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
  *  inherit from Show2 and then use [[ShowShow2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShow2T]] or
  *  [[PersistShow2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
@@ -44,7 +44,7 @@ trait Show2[A1, A2] extends Any with ShowProductDec with TypeStr2[A1, A2]
 
   def elemNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
-  def showElemStrs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0))
+  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0))
 
   def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT1.showDecT(show1, style, maxPlaces, maxPlaces): String
   def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT2.showDecT(show2, style, maxPlaces, maxPlaces): String

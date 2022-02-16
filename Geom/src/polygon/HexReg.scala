@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Regular Hexagon */
-trait HexReg extends ShapeCentred with Polygon6Plus with ShowPrec
+trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
 { override def typeStr = "HexReg"
 
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */

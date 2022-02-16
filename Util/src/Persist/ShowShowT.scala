@@ -2,10 +2,10 @@
 package ostrat
 
 /** A sub trait of the [[ShowDecT]] sub class where the type parameter of ShowT extends Show. This allows the ShowT type class to delegate to the Show
- * class for the implementation of its strT and ShowT methods. It is better to use [[ShowPrec]] and ShowElemT for types you control than have the toString
+ * class for the implementation of its strT and ShowT methods. It is better to use [[ShowDec]] and ShowElemT for types you control than have the toString
  * method delegate to the [[ShowDecT]] type class instance in the companion object. Potentially that can create initialisation order problems, but at the
  * very least it can increase compile times. */
-trait ShowShowT[R <: ShowPrec] extends ShowDecT[R]
+trait ShowShowT[R <: ShowDec] extends ShowDecT[R]
 {
   /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
    * rather than a method on the object being shown. */
@@ -20,7 +20,7 @@ trait ShowShowT[R <: ShowPrec] extends ShowDecT[R]
 
 object ShowShowT
 {
-  def apply[R <: ShowPrec](typeStrIn: String): ShowShowT[R] = new ShowShowT[R]
+  def apply[R <: ShowDec](typeStrIn: String): ShowShowT[R] = new ShowShowT[R]
   { override def typeStr: String = typeStrIn
   }
 }
