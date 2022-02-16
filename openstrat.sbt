@@ -127,6 +127,10 @@ lazy val DevNat = natProj("Dev").dependsOn(TilingNat)
 
 def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src"),
+  libraryDependencies ++= Seq(
+    "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
+    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"
+  ),
 )
 
 lazy val WebGlJs = jsApp("WebGl").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/GlApp")
