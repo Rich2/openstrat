@@ -1,11 +1,11 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import pParse._
+
 
 /** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowProductDecT]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  * [[ShowProductDecT]]. */
-trait ShowProduct extends Any with ShowPrec
+trait ShowProductDec extends Any with ShowPrec
 {
   /** A [[Strings]] Arr collection  of the show methods return values of the elements of this Show Product class. */
   def showElemStrs(way: ShowStyle, decimalPlaces: Int): Strings
@@ -79,4 +79,4 @@ trait ShowProductDecT[R] extends ShowCompoundT[R] with ShowDecT[R]
  *  xStart, yStart, xEnd, yEnd. */
 trait PersistProductDec[R] extends PersistDec[R] with ShowProductDecT[R]
 
-trait PersistShowProduct[R <: ShowProduct] extends PersistProductDec[R]
+trait PersistShowProduct[R <: ShowProductDec] extends PersistProductDec[R]
