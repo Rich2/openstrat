@@ -226,4 +226,7 @@ sealed trait ShowTInstancesPriority2
 class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
 { /** Provides the standard string representation for the object. */
   @inline def str: String = ev.strT(thisVal)
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
+  def show(style: ShowStyle = ShowStandard): String = ev.showT(thisVal, style)
 }

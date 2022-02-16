@@ -19,7 +19,7 @@ trait ShowProductDec extends Any with ShowPrec
   def showSemisNames(maxPlaces: Int = -1, minPlaces: Int = 0): String =
     elemNames.zipMap(showElemStrs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
 
-  override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+  override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = showElemStrs(ShowCommas, maxPlaces).mkStr("; ")
 
     style match
@@ -37,7 +37,7 @@ trait ShowProductDec extends Any with ShowPrec
     }
   }
 
-  override def str: String = show(ShowStandard, 1, 0)
+  override def str: String = showDec(ShowStandard, 1, 0)
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */

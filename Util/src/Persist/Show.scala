@@ -13,10 +13,7 @@ trait Show extends Any with TypeStr
   def str: String
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
-  def show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = show(style, maxPlaces, maxPlaces)
-
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
-  def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
+  def show(style: ShowStyle = ShowStandard): String
 
   def syntaxDepth: Int
 
@@ -30,19 +27,28 @@ trait Show extends Any with TypeStr
  *  corresponding [[SHowT]] type class although they have n meaning / purpose for many types, as seperating them adds enormous complexity for very
  *  little gain. */
 trait ShowPrec extends Any with Show
-{ def str: String = show(ShowStandard, -1, 0)
+{
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
+  def showDec(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showDec(style, maxPlaces, maxPlaces)
+
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
+  def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
+
+  override def show(style: ShowStyle = ShowStandard): String = showDec(style, -1, -1)
+
+  override def str: String = showDec(ShowStandard, -1, 0)
 
   /** Show with decimal precision of 0 places. */
-  def str0: String = show(ShowStandard, 0, 0)
+  def str0: String = showDec(ShowStandard, 0, 0)
 
   /** Show with decimal precision of 1 place padding with a zero if necessary. */
-  def str1: String = show(ShowStandard, 1, 1)
+  def str1: String = showDec(ShowStandard, 1, 1)
 
   /** Show with decimal precision of 2 places padding with zeros if necessary. */
-  def str2: String = show(ShowStandard, 2, 2)
+  def str2: String = showDec(ShowStandard, 2, 2)
 
   /** Show with decimal precision of 3 places padding with zeros if necessary. */
-  def str3: String = show(ShowStandard, 3, 3)
+  def str3: String = showDec(ShowStandard, 3, 3)
 }
 
 /** Currently can't think of a better name for this trait */

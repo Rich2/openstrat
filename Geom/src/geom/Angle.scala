@@ -9,7 +9,7 @@ final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike w
 { override def typeStr: String = "Angle"
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
-  override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match
+  override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = style match
   { case ShowTyped => typeStr + degs.str.enParenth
     case _ =>  degs.str.enParenth
   }

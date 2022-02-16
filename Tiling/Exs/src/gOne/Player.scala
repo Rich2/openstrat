@@ -14,7 +14,7 @@ case class Player(char: Char, colour: Colour) extends ShowPrec//2[Char, Colour]
   def charStr: String = char.toString
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
-  override def show(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Player" + char
+  override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Player" + char
 
   override def syntaxDepth: Int = 1
 }
