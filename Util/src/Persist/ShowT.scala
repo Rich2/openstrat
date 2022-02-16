@@ -123,7 +123,7 @@ object ShowT
     def strT(obj: Char): String = obj.toString.enquote1
   }
 
-  class ShowIterableClass[A, R <: Iterable[A]](val evA: ShowDecT[A]) extends ShowIterable[A, R]{}
+  class ShowIterableClass[A, R <: Iterable[A]](val evA: ShowDecT[A]) extends ShowIterable[A, R] with ShowDecT[R]{}
 
   implicit def ShowIterableImplicit[A](implicit evA: ShowDecT[A]): ShowDecT[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
   implicit def ShowSeqImplicit[A](implicit evA: ShowDecT[A]): ShowDecT[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)

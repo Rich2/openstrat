@@ -41,7 +41,7 @@ trait ShowProduct extends Any with ShowPrec
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowProductT[R] extends ShowCompoundT[R]
+trait ShowProductT[R] extends ShowCompoundT[R] with ShowDecT[R]
 {
   def strs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings
 
