@@ -17,7 +17,7 @@ trait ShowDecT[-T] extends ShowT[T]
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
 class ShowDecTExtensions[-A](ev: ShowDecT[A], thisVal: A)
 { /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
-  def showDec(style: ShowStyle = ShowStandard, decimalPlaces: Int = -1): String = ev.showDecT(thisVal, style, decimalPlaces, decimalPlaces)
+  def showDec(style: ShowStyle = ShowStandard, decimalPlaces: Int): String = ev.showDecT(thisVal, style, decimalPlaces, decimalPlaces)
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
   def showDec(style: ShowStyle, decimalPlaces: Int, minPlaces: Int): String = ev.showDecT(thisVal, style, decimalPlaces, minPlaces)
