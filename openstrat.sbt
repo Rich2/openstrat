@@ -39,10 +39,8 @@ def jvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr).settings(
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
 
-//def coreProj(srcsStr: String) = jvmProj(srcsStr, srcsStr)
-
 def jsProj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
-  Compile/unmanagedSourceDirectories := List("src", "srcJs", "Exs/src").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "srcJs").map(moduleDir.value / _),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.1.0") withSources(),
 )
 
@@ -87,6 +85,7 @@ lazy val GeomExs = jvmProj("GeomExs").dependsOn(Geom).settings(
 )
 
 lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)
+lazy val GeomExsJs = jsProj("GeomExs").dependsOn(GeomJs).settings(geomSett)
 lazy val GeomNat = natProj("Geom").dependsOn(UtilNat).settings(geomSett).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/srcNat",
 )
@@ -100,6 +99,7 @@ lazy val TilingExs = jvmProj("TilingExs").dependsOn(Tiling)
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
+lazy val TilingExsJs = jsProj("TilingExs").dependsOn(TilingJs)
 
 lazy val TilingNat = natProj("Tiling").dependsOn(GeomNat).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
@@ -124,7 +124,7 @@ lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs).settings(
 
 lazy val DevNat = natProj("Dev").dependsOn(TilingNat)
 
-def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs).settings(
+def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs, GeomExsJs, TilingExsJs).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src"),
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
@@ -139,9 +139,9 @@ lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories +=
 lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/Bc305App")
 lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/srcJsApps/PlanetsApp")
 
-val moduleDirs: List[String] = List("Util", "Geom", "Tiling", "Dev")
+val moduleDirs: List[String] = List("Util", "UtilExs", "Geom", "GeomExs", "Tiling", "TilingExs", "Dev")
 val specDirs: List[String] = List("Geom/src3d", "Geom/srcGlobe", "Geom/srcGui", "Geom/srcWeb", "Tiling/srcPts")
-val CommonDirs: List[String] = moduleDirs.flatMap(s => List(s + "/src", s + "/Exs/src")) ::: specDirs
+val CommonDirs: List[String] = moduleDirs.map(_ + "/src") ::: specDirs
 
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")
 bothDoc :=
@@ -153,7 +153,7 @@ bothDoc :=
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.flatMap(s =>
-    List(s + "/srcJvm", s + "/Exs/srcJvm")) ::: List("Util/srcAnyVal", "Geom/srcFx", "Dev/srcFx")).map(s => baseDir.value / s),
+    List(s + "/srcJvm")) ::: List("Util/srcAnyVal", "Geom/srcFx", "Dev/srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
