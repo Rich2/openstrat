@@ -1,11 +1,21 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+/** A base trait for [[Show5T]] and [[Unshow5]], declares the common properties of name1 - 5 and opt1 - 5. */
+trait TypeStr5[A1, A2, A3, A4, A5] extends Any with TypeStr4[A1, A2, A3, A4]
+{ /** 5th parameter name. */
+  def name5: String
+
+  /** The optional default value for parameter 5. */
+  def opt5: Option[A5]
+}
+
 /** Show type class for 5 parameter case classes. */
-class Show5T[A1, A2, A3, A4, A5, R](val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-  name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, val opt5: Option[A5], opt4In: Option[A4] = None, opt3In: Option[A3] = None,
-  opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2], ev3: ShowDecT[A3], ev4: ShowDecT[A4],
-                                                        ev5: ShowDecT[A5]) extends ShowProductDecT[R]
+class Show5T[A1, A2, A3, A4, A5, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2,
+  val name3: String, fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val opt5: Option[A5],
+  opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+  implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2], ev3: ShowDecT[A3], ev4: ShowDecT[A4], ev5: ShowDecT[A5]) extends
+  ShowProductDecT[R] with TypeStr5[A1, A2, A3, A4, A5]
 {
   val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
   val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
@@ -29,18 +39,13 @@ object Show5T
       ev1, ev2, ev3, ev4, ev5)
 }
 
-/** Unshow trait for 5 parameter product / case classes. */
-trait Unshow5[A1, A2, A3, A4, A5, R] extends Unshow[R]
+/** [[Unshow]] trait for 5 parameter product / case classes. */
+trait Unshow5[A1, A2, A3, A4, A5, R] extends Unshow[R] with TypeStr5[A1, A2, A3, A4, A5]
 {
-  def name1: String
   def fArg1: R => A1
-  def name2: String
   def fArg2: R => A2
-  def name3: String
   def fArg3: R => A3
-  def name4: String
   def fArg4: R => A4
-  def name5: String
   def fArg5: R => A5
   def newT: (A1, A2, A3, A4, A5) => R
   def opt5: Option[A5]

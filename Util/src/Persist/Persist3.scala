@@ -4,10 +4,10 @@ import pParse._
 
 /** A base trait for [[Show3T]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
 trait TypeStr3[A1, A2, A3] extends Any with TypeStr2[A1, A2]
-{ /** 1st parameter name. */
+{ /** 3rd parameter name. */
   def name3: String
 
-  /** The optional default value for parameter 2. */
+  /** The optional default value for parameter 3. */
   def opt3: Option[A3]
 }
 
