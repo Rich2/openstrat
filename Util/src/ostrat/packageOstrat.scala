@@ -91,7 +91,7 @@ package object ostrat
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
   /** Not sure what this method does. */
-  def readT[T](implicit ev: Persist[T]): T =
+  def readT[T](implicit ev: PersistDec[T]): T =
   { val artStr = ev.typeStr.prependIndefiniteArticle
     def loop(inp: EMon[T]): T = inp match
     { case Good(t) => t

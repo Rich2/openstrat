@@ -8,7 +8,7 @@ trait ShowCompoundT[R] extends ShowT[R]
 }
 
 /** Persistence base trait for PersistCase and PersistSeqLike. Some methods probably need to be moved down into sub classes. */
-trait PersistCompound[R] extends ShowCompoundT[R] with Persist[R]
+trait PersistCompound[R] extends ShowCompoundT[R] with PersistDec[R]
 {
   override def fromExpr(expr: Expr): EMon[R] =  expr match
   {

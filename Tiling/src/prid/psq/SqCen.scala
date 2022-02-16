@@ -46,7 +46,7 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TileCen
 
 object SqCen
 {
-  implicit val persistImplicit: Persist[SqCen] = new PersistShowInt2[SqCen]("SqCen", "r", "c", SqCen(_, _))
+  implicit val persistImplicit: PersistDec[SqCen] = new PersistShowInt2[SqCen]("SqCen", "r", "c", SqCen(_, _))
 
   val s00v1: SqVert = SqVert(1, 1)
   val s00v2: SqVert = SqVert(-1, 1)

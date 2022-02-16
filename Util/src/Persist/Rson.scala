@@ -9,14 +9,14 @@ class Rval(val str: String) extends AnyVal
 
 object Rval
 { /** Factory apply method for creating initial Rval box. */
-  def apply[A](value: A)(implicit ev: Persist[A]): Rval = new Rval(ev.strT(value) + ";")
+  def apply[A](value: A)(implicit ev: PersistDec[A]): Rval = new Rval(ev.strT(value) + ";")
 }
 
 /** Class for creating RSOn settings. */
 class Setting(val str: String) extends AnyVal
 {
   /** Not sure why this method is called ap. */
-  def ap[A](setting: String, value: A)(implicit ev: Persist[A]): Setting =
+  def ap[A](setting: String, value: A)(implicit ev: PersistDec[A]): Setting =
   {
     new Setting(str + "\n" + setting + " = " + ev.strT(value) + ";")
   }

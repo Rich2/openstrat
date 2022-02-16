@@ -59,5 +59,5 @@ trait UnShowSum2[+ST <: AnyRef, A1 <: ST , A2 <: ST] extends Unshow[ST]
     pList.mapFirstGood(_.fromStatements(sts), sts.startPosn.bad("fromStatements, No value of" -- typeStr -- "found.")) */
 }
 
-abstract class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](val ev1: Persist[A1], val ev2: Persist[A2])(implicit ct1: ClassTag[A1],
-    ct2: ClassTag[A2]) extends ShowSum2[ST, A1, A2] with UnShowSum2[ST, A1, A2] with Persist[ST]
+abstract class PersistSum2[ST <: AnyRef, A1 <: ST , A2 <: ST](val ev1: PersistDec[A1], val ev2: PersistDec[A2])(implicit ct1: ClassTag[A1],
+    ct2: ClassTag[A2]) extends ShowSum2[ST, A1, A2] with UnShowSum2[ST, A1, A2] with PersistDec[ST]
