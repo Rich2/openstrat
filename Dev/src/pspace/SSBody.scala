@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pspace
+import Colour._
 
 /** Solar System body includes the Sun, the Planets, Dwarf planets and their moons. */
 sealed trait SSBody
@@ -7,6 +8,7 @@ sealed trait SSBody
   val name: String
 
   override def toString = name
+  def colour: Colour = White
 }
 
 /** The Sun or a body that directly orbits the Sun. */
@@ -18,7 +20,8 @@ trait Planet extends SSPrimaryBody
   def moons: Arr[Moon] = Arr()
 }
 
-/** The Sun, the Star of our aolar system. */
+/** The Sun, the Star of our solar system. */
 object Sun extends SSPrimaryBody
 { override val name: String = "Sun"
+  override def colour: Colour = Yellow
 }

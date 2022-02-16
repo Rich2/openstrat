@@ -48,9 +48,6 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")// with
   mapPanel.mouseUp = (a, b, s) => deb(s.toString)
   canv.onScroll = b => { scale = ife(b, (scale * 1.2).min(scaleMax), (scale / 1.2).max(scaleMin)) }
 
-  val dispColours: Map[SSPrimaryBody, Colour] = Map(Mercury -> Gray, Venus -> White, Earth -> Blue, Mars -> Red, Jupiter -> Orange, Saturn -> Gold,
-    Uranus -> BrightSkyBlue, Neptune -> LightGreen, Pluto -> SandyBrown, Sun -> Yellow)
-
   implicit class PrimaryBodyExtensions(thisBody: SSPrimaryBody)
   {
     def posn(elapsed: Integer): PtM2 = thisBody match
@@ -62,7 +59,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")// with
       case _ => PtM2(0.metres, 0.metres)
     }
 
-    def paint(elapsed: Integer): CircleFill = Circle(0.6 * dispSize, toCanv(thisBody.posn(elapsed))).fill(dispColours(thisBody))
+    def paint(elapsed: Integer): CircleFill = Circle(0.6 * dispSize, toCanv(thisBody.posn(elapsed))).fill(thisBody.colour)
 
     def dispSize: Double = thisBody match {
       case Sun => 14
@@ -72,7 +69,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")// with
 
   var focus: SSPrimaryBody = Earth
   override def eTop(): Unit = {}
-  def fBut(body: SSPrimaryBody) = simpleButton(body.name, Yellow){focus = body; repaintMap()}
+  def fBut(body: SSPrimaryBody) = simpleButton(body.name, body.colour){focus = body; repaintMap()}
 
   def pause: PolygonCompound = clickButton(pausedStr){ mb => deb(pausedStr -- "not implemented yet.");
     paused = !paused; reTop(cmds)
