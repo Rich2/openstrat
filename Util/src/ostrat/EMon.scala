@@ -69,8 +69,8 @@ object EMon
     def findSetting[A](settingStr: String)(implicit ev: Unshow[A]): EMon[A] =
       thisEMon.flatMap(str => pParse.stringToStatements(str).flatMap(_.findSetting[A](settingStr)))
     def findSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = findSetting[A](settingStr).getElse(elseValue)
-    def findSomeSetting[A: PersistDec](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
-    def findSomeSettingElse[A: PersistDec](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
+    def findSomeSetting[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[Option[A]](settingStr)(implicit ev: Persist[A]): EMon[A]
+    def findSomeSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = ??? //findSetting[A](settingStr).getElse(elseValue)
   }
 
   implicit def showImplicit[A](implicit ev: ShowDecT[A]): ShowDecT[EMon[A]] =
