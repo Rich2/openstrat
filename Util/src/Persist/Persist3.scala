@@ -198,10 +198,10 @@ trait PersistDec3[A1, A2, A3, R] extends Persist3[A1, A2, A3, R] with ShowDec3T[
 /** Companion object for [[PersistDec3]] trait contains implementation class and factory apply method. */
 object PersistDec3
 {
-  def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-    newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-    implicit ev1: PersistDec[A1], ev2: PersistDec[A2], ev3: PersistDec[A3]): PersistDec3[A1, A2, A3, R] =
-    new Persist3DecImp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)(ev1, ev2, ev3)
+//  def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
+//    newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
+//    implicit ev1: PersistDec[A1], ev2: PersistDec[A2], ev3: PersistDec[A3]): PersistDec3[A1, A2, A3, R] =
+//    new Persist3DecImp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)(ev1, ev2, ev3)
 
   class Persist3DecImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None,

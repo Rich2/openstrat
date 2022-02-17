@@ -119,12 +119,12 @@ trait CanvasPlatform extends RectCenlign
   def gcRestore(): Unit 
   def saveFile(fileName: String, output: String): Unit
   def loadFile(fileName: String): EMon[String]
-  def fromFileFind[A](fileName: String)(implicit ev: PersistDec[A]): EMon[A] = loadFile(fileName).findType(ev)
+  def fromFileFind[A](fileName: String)(implicit ev: Persist[A]): EMon[A] = loadFile(fileName).findType(ev)
   def fromFileFindElse[A](fileName: String, elseValue: => A)(implicit ev: PersistDec[A]): A = fromFileFind(fileName)(ev).getElse(elseValue)
   
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls 
    *  procedure (Unit returning function) with that object of type A */
-  def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: PersistDec[A]): Unit = fromFileFind(fileName)(ev).forGood(f)
+  def fromFileFindForeach[A](fileName: String, f: A => Unit)(implicit ev: Persist[A]): Unit = fromFileFind(fileName)(ev).forGood(f)
   
   def fromFileFindSetting[A](settingStr: String, fileName: String)(implicit ev: PersistDec[A]): EMon[A] =
     loadFile(fileName).findSetting(settingStr)(ev)
