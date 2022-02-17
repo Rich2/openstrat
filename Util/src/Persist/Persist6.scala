@@ -11,7 +11,7 @@ trait TypeStr6[A1, A2, A3, A4, A5, A6] extends Any with TypeStr5[A1, A2, A3, A4,
 }
 
 /** [[ShowT]] type class for 6 parameter case classes. */
-trait Show6T[A1, A2, A3, A4, A5, A6, R] extends ShowProductT[R]
+trait Show6T[A1, A2, A3, A4, A5, A6, R] extends ShowNT[R]
 
 /** Companion object for [[Show6T]] contains implementation class and factory apply method. */
 object Show6T
@@ -28,7 +28,7 @@ object Show6T
     fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val name6: String, fArg6: R => A6, val opt6: Option[A6],
     val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit
     ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6]) extends
-    Show6T[A1, A2, A3, A4, A5, A6, R] with ShowProductT[R] with TypeStr6[A1, A2, A3, A4, A5, A6]
+    Show6T[A1, A2, A3, A4, A5, A6, R] with ShowNT[R] with TypeStr6[A1, A2, A3, A4, A5, A6]
   {
     val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
     val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)

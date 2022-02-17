@@ -23,7 +23,7 @@ trait TypeStr2[A1, A2] extends Any with TypeStr
  *  inherit from Show2 and then use [[ShowShow2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShow2T]] or
  *  [[PersistShow2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
  *  toString override to a [[Show2T]] instance. */
-trait Show2[A1, A2] extends Any with ShowProductDec with TypeStr2[A1, A2]
+trait Show2[A1, A2] extends Any with ShowDecN with TypeStr2[A1, A2]
 {
   /** The optional default value for parameter 1. */
   override def opt1: Option[A1] = None
@@ -79,15 +79,15 @@ trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
 }
 
 /** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowProductDecT[R]
+trait Show2T[A1, A2, R] extends ShowDecNT[R]
 { def fArg1: R => A1
   def fArg2: R => A2
   implicit def ev1: ShowDecT[A1]
   implicit def ev2: ShowDecT[A2]
   override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
 
-  override def strDecs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
-    Strings(ev1.showDecT(fArg1(obj), way, decimalPlaces, 0), ev2.showDecT(fArg2(obj), way, decimalPlaces, 0))
+  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings =
+    Strings(ev1.showDecT(fArg1(obj), way, maxPlaces, 0), ev2.showDecT(fArg2(obj), way, maxPlaces, 0))
 }
 
 /** Companion object for the [[Show2T]] type class trait that shows object with 2 logical fields. */

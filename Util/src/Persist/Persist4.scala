@@ -12,7 +12,7 @@ trait TypeStr4[A1, A2, A3, A4] extends Any with TypeStr3[A1, A2, A3]
 }
 
 /** Show type class for 4 parameter case classes. */
-trait Show4T[A1, A2, A3, A4, R] extends ShowProductT[R]
+trait Show4T[A1, A2, A3, A4, R] extends ShowNT[R]
 
 object Show4T
 {
