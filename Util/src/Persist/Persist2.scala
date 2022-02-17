@@ -2,7 +2,8 @@
 package ostrat
 import pParse._, collection.mutable.ArrayBuffer
 
-/** A base trait for [[Show2T]] and [[UnShow2]], declares the common properties of name1, name2, opt1 and opt2. */
+/** A base trait for [[Show2]] and [[UnShow2]] it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait for
+ *  [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can delgate to the [[Show2]] object to implement their interfaces. */
 trait TypeStr2[A1, A2] extends Any with TypeStr
 { /** 1st parameter name. */
   def name1: String
@@ -80,7 +81,7 @@ trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
 
 
 /** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowProductDecT[R] with TypeStr2[A1, A2]
+trait Show2T[A1, A2, R] extends ShowProductDecT[R] //with TypeStr2[A1, A2]
 { def fArg1: R => A1
   def fArg2: R => A2
   implicit def ev1: ShowDecT[A1]
@@ -121,12 +122,10 @@ object ShowShow2T
 {
   def apply[A1, A2, R<: Show2[A1, A2]](typeStr: String, name1: String, name2: String, opt2: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2]): ShowShow2T[A1, A2, R] =
-    new ShowShow2TImp[A1, A2, R](typeStr, name1, name2: String, opt2, opt1In)
+    new ShowShow2TImp[A1, A2, R](typeStr)
 
-  class ShowShow2TImp[A1, A2, R<: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2]) extends ShowShow2T[A1, A2, R]
-  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-  }
+  class ShowShow2TImp[A1, A2, R<: Show2[A1, A2]](val typeStr: String)(implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2]) extends
+    ShowShow2T[A1, A2, R]
 }
 
 /** A trait for making quick ShowT instances for [[ShowDbl2]] types. It uses the functionality of the [[ShowDbl2]]. */
@@ -137,13 +136,9 @@ trait ShowShowDbl2T[R <: ShowDbl2] extends ShowShow2T[Double, Double, R]
 
 object ShowShowDbl2T
 { /** Factory apply method for creating quick ShowT instances for products of 2 Doubles. */
-  def apply[R <: ShowElemDbl2](typeStr: String, name1: String, name2: String, opt2: Option[Double] = None, opt1In: Option[Double] = None):
-    ShowShowDbl2TImp[R] = new ShowShowDbl2TImp[R](typeStr, name1, name2, opt2, opt1In)
+  def apply[R <: ShowElemDbl2](typeStr: String): ShowShowDbl2TImp[R] = new ShowShowDbl2TImp[R](typeStr)
 
-  class ShowShowDbl2TImp[R <: ShowDbl2](val typeStr: String, val name1: String, val name2: String, val opt2: Option[Double] = None,
-    opt1In: Option[Double] = None) extends ShowShowDbl2T[R]
-  { val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
-  }
+  class ShowShowDbl2TImp[R <: ShowDbl2](val typeStr: String) extends ShowShowDbl2T[R]
 }
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
