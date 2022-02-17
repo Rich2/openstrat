@@ -2,7 +2,7 @@
 package ostrat
 import pParse._
 
-/** A base trait for [[ShowDec3T]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
+/** A base trait for [[Show3T]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
 trait TypeStr3[A1, A2, A3] extends Any with TypeStr2[A1, A2]
 { /** 3rd parameter name. */
   def name3: String
@@ -82,17 +82,7 @@ trait ShowElemDbl3 extends Any with ShowDbl3 with ElemDbl3
 }
 
 /** Show type class for 3 parameter case classes. */
-trait Show3T[A1, A2, A3, R] extends ShowProductT[R] with TypeStr3[A1, A2, A3]
-{ def fArg1: R => A1
-  def fArg2: R => A2
-  def fArg3: R => A3
-  def ev1: ShowT[A1]
-  def ev2: ShowT[A2]
-  def ev3: ShowT[A3]
-  override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
-
-  override def strs(obj: R, way: ShowStyle): Strings = Strings(ev1.showT(fArg1(obj), way), ev2.showT(fArg2(obj), way), ev3.showT(fArg3(obj), way))
-}
+trait Show3T[A1, A2, A3, R] extends ShowProductT[R]
 
 object Show3T
 {
@@ -102,38 +92,45 @@ object Show3T
 
   class Show3TImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val ev1: ShowT[A1], val ev2: ShowT[A2], val ev3: ShowT[A3]) extends Show3T[A1, A2, A3, R]
+    implicit val ev1: ShowT[A1], val ev2: ShowT[A2], val ev3: ShowT[A3]) extends Show3T[A1, A2, A3, R] with TypeStr3[A1, A2, A3]
   {
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
+
+    override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
+
+    override def strs(obj: R, way: ShowStyle): Strings = Strings(ev1.showT(fArg1(obj), way), ev2.showT(fArg2(obj), way), ev3.showT(fArg3(obj), way))
+
   }
 }
 
 /** Show type class for 3 parameter case classes. */
 trait ShowDec3T[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with ShowProductDecT[R]
 {
-  override def ev1: ShowDecT[A1]
-  override def ev2: ShowDecT[A2]
-  override def ev3: ShowDecT[A3]
 
-  override def strDecs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
-    Strings(ev1.showDecT(fArg1(obj), way, decimalPlaces, 0), ev2.showDecT(fArg2(obj), way, decimalPlaces, 0), ev3.showDecT(fArg3(obj), way, decimalPlaces, 0))
+
+//    Strings(ev1.showDecT(fArg1(obj), way, decimalPlaces, 0), ev2.showDecT(fArg2(obj), way, decimalPlaces, 0), ev3.showDecT(fArg3(obj), way, decimalPlaces, 0))
+
 }
 
-trait ShowShowDec3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends ShowDec3T[A1, A2, A3, R] with ShowShowDecT[R]
-{ override def fArg1: R => A1 = _.show1
-  override def fArg2: R => A2 = _.show2
-  override def fArg3: R => A3 = _.show3
+trait ShowShow3T[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowT[R]
+{ override def syntaxDepthT(obj: R): Int = obj.syntaxDepth
+  override def strs(obj: R, way: ShowStyle): Strings = ???
+}
+
+trait ShowShowDec3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends ShowShow3T[A1, A2, A3, R] with ShowDec3T[A1, A2, A3, R] with ShowShowDecT[R]
+{ override def strDecs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings = ???
 }
 
 trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShowDec3T[Double, Double, Double, R] with ShowProductDecT[R]
-{ override implicit def ev1: PersistDec[Double] = ShowT.doublePersistEv
-  override implicit def ev2: PersistDec[Double] = ShowT.doublePersistEv
-  override implicit def ev3: PersistDec[Double] = ShowT.doublePersistEv
+{
+//  override implicit def ev1: PersistDec[Double] = ShowT.doublePersistEv
+//  override implicit def ev2: PersistDec[Double] = ShowT.doublePersistEv
+//  override implicit def ev3: PersistDec[Double] = ShowT.doublePersistEv
 
-  override def strDecs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings =
-    Strings(ev1.showDecT(fArg1(obj), way, decimalPlaces, 0), ev2.showDecT(fArg2(obj), way, decimalPlaces, 0), ev3.showDecT(fArg3(obj), way, decimalPlaces, 0))
+  override def strDecs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings = ??? // obj.str
+    //Strings(ev1.showDecT(fArg1(obj), way, decimalPlaces, 0), ev2.showDecT(fArg2(obj), way, decimalPlaces, 0), ev3.showDecT(fArg3(obj), way, decimalPlaces, 0))
 
 }
 
@@ -205,6 +202,9 @@ object Persist3
   { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
+    override def syntaxDepthT(obj: R): Int = ???
+
+    override def strDecs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings = ???
   }
 }
 
@@ -231,4 +231,7 @@ class PersistShowDbl3[R <: ShowDbl3](val typeStr: String, val name1: String, val
   PersistShow3[Double, Double, Double, R] with ShowShowDbl3T[R]
 { val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
+  override def ev1: PersistDec[Double] = ShowT.doublePersistEv
+  override def ev2: PersistDec[Double] = ShowT.doublePersistEv
+  override def ev3: PersistDec[Double] = ShowT.doublePersistEv
 }
