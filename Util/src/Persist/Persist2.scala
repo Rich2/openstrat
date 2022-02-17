@@ -78,10 +78,8 @@ trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
   final override def dbl2: Double = show2
 }
 
-
-
 /** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowProductDecT[R] //with TypeStr2[A1, A2]
+trait Show2T[A1, A2, R] extends ShowProductDecT[R]
 { def fArg1: R => A1
   def fArg2: R => A2
   implicit def ev1: ShowDecT[A1]
@@ -100,7 +98,7 @@ object Show2T
     new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
   class Show2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2]) extends Show2T[A1, A2, R]
+    opt1In: Option[A1] = None)(implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2]) extends Show2T[A1, A2, R] with TypeStr2[A1,A2]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
