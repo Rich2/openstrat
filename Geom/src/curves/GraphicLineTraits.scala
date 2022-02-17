@@ -32,8 +32,8 @@ case class LinesDraw(lines: LineSegs, lineWidth: Double, colour: Colour = Black)
 
 object LinesDraw
 {
-  implicit val persistImplicit: Persist3[LineSegs, Double, Colour, LinesDraw] =
-    Persist3("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
+  implicit val persistImplicit: PersistDec3[LineSegs, Double, Colour, LinesDraw] =
+    PersistDec3("LinesDraw", "lines", _.lines, "lineWidth", _.lineWidth, "colour", _.colour, apply)
 }
 
 case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Black) extends GraphicAffineElem with CanvElem

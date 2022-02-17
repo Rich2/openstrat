@@ -294,4 +294,4 @@ trait Persist[T] extends ShowT[T] with Unshow[T]
  * implicit parameter instances be specified as separate ShowT and UnShowT parameters. Do not combine them into a Persist parameter. There are no
  * implicit instances for [[Int]], [[Double]], [[List]] etc in the [[PersistDec]] companion object, the Persist components for these standard types will
  * be found in the ShowT and UnShow companion objects. */
-trait PersistDec[T] extends ShowDecT[T] with Unshow[T]
+trait PersistDec[T] extends Persist[T] with ShowDecT[T]
