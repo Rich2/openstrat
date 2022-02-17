@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import pParse._
 
@@ -14,10 +14,10 @@ package object pFx
   def findDevSettingExpr(settingStr: String): EMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson. */
-  def findDevSettingT[A: PersistDec](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
+  def findDevSettingT[A: Unshow](settingStr: String): EMon[A] = devSettingsStatements.flatMap(_.findSetting(settingStr))
 
   /** Find a setting of the given name and type from the file DevSettings.rson, else return the given default value.. */
-  def findDevSettingElse[A: PersistDec](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
+  def findDevSettingElse[A: Unshow](settingStr: String, elseValue: => A): A = devSettingsStatements.flatMap(_.findSetting(settingStr)).getElse(elseValue)
 
   def saveRsonFile(path: String, fileName: String, output: String): Unit =
   { import java.io._
@@ -29,11 +29,13 @@ package object pFx
   }
    
   def loadRsonFile(pathFileName: String): EMon[String] = eTry(io.Source.fromFile(pathFileName).mkString)
-  def fromRsonFileFind[A: PersistDec](fileName: String): EMon[A] = loadRsonFile(fileName).findType[A]
-  def fromRsonFileFindElse[A: PersistDec](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getElse(elseValue)
+  def fromRsonFileFind[A: Unshow](fileName: String): EMon[A] = loadRsonFile(fileName).findType[A]
+  def fromRsonFileFindElse[A: Unshow](fileName: String, elseValue: => A): A = fromRsonFileFind(fileName).getElse(elseValue)
+
   /** Attempts to find find and load file, attempts to parse the file, attempts to find object of type A. If all stages successful, calls
    *  procedure (Unit returning function) with that object of type A */
-  def fromRsonFileFindForeach[A: PersistDec](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).forGood(f)
-  def settFromFile[A: PersistDec](settingStr: String, fileName: String): EMon[A] = loadRsonFile(fileName).findSetting[A](settingStr)
-  def settFromFileElse[A: PersistDec](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
+  def fromRsonFileFindForeach[A: Unshow](fileName: String, f: A => Unit): Unit = fromRsonFileFind(fileName).forGood(f)
+
+  def settFromFile[A: Unshow](settingStr: String, fileName: String): EMon[A] = loadRsonFile(fileName).findSetting[A](settingStr)
+  def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
 }
