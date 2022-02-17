@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** A base trait for [[Show6T]] and [[Unshow6]], declares the common properties of name1 - 6 and opt1 - 6. */
+/** A base trait for [[Unshow6]], declares the common properties of name1 - 6 and opt1 - 6. */
 trait TypeStr6[A1, A2, A3, A4, A5, A6] extends Any with TypeStr5[A1, A2, A3, A4, A5]
 { /** 6th parameter name. */
   def name6: String
@@ -10,9 +10,10 @@ trait TypeStr6[A1, A2, A3, A4, A5, A6] extends Any with TypeStr5[A1, A2, A3, A4,
   def opt6: Option[A6]
 }
 
-/** Show type class for 6 parameter case classes. */
+/** [[ShowT]] type class for 6 parameter case classes. */
 trait Show6T[A1, A2, A3, A4, A5, A6, R] extends ShowProductT[R]
 
+/** Companion object for [[Show6T]] contains implementation class and factory apply method. */
 object Show6T
 {
   def apply[A1, A2, A3, A4, A5, A6, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
