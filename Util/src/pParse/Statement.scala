@@ -65,7 +65,7 @@ object Statement
 
     /** Find unique instance of type from RSON statement. The unique instance can be a plain value or setting. If no value or duplicate values found
      *  use elseValue. */
-    def findTypeElse[A](elseValue: A)(implicit ev: PersistDec[A]): A = findUniqueT[A].getElse(elseValue)
+    def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findUniqueT[A].getElse(elseValue)
 
     /** Extension method tries to get value of specified type from the statement at the specified index of this [[Arr]][Statement]. */
     def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMon[A] =
