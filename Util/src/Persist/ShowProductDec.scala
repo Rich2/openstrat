@@ -88,9 +88,11 @@ trait ShowProductT[R] extends ShowCompoundT[R]
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowProductDecT[R] extends ShowCompoundT[R] with ShowDecT[R]
+trait ShowProductDecT[R] extends ShowProductT[R] with ShowDecT[R]
 {
   def strDecs(obj: R, way: ShowStyle, decimalPlaces: Int): Strings
+
+  override def strs(obj: R, way: ShowStyle): Strings = strDecs(obj, way, -1)
 
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = strDecs(obj, ShowCommas, maxPlaces).mkStr("; ")

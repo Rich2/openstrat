@@ -11,7 +11,7 @@ trait ShowDecT[-T] extends ShowT[T]
 {
   def showDecT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
 
-  def showT(obj: T, style: ShowStyle): String = showDecT(obj, style, -1, -1)
+  override def showT(obj: T, style: ShowStyle): String = showDecT(obj, style, -1, -1)
 }
 
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
