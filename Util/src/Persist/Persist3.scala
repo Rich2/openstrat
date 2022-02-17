@@ -180,7 +180,7 @@ object Unshow3
 }
 
 /** Persistence class for 3 logical parameter product types. */
-trait Persist3[A1, A2, A3, R] extends ShowDec3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistProductDec[R]
+trait Persist3[A1, A2, A3, R] extends ShowDec3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistDecN[R]
 { override def ev1: PersistDec[A1]
   override def ev2: PersistDec[A2]
   override def ev3: PersistDec[A3]

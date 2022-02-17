@@ -60,6 +60,6 @@ trait ShowShowDecNT[R <: ShowDecN] extends ShowDecNT[R] with ShowShowT[R]
 /** The base trait for the persistence of algebraic product types, including case classes. Note the arity of the product, its size is based on the
  *  number of logical parameters. For example, a LineSeg is a product 2, it has a start point and an end point, although its is stored as 4 parameters
  *  xStart, yStart, xEnd, yEnd. */
-trait PersistProductDec[R] extends PersistDec[R] with ShowDecNT[R]
+trait PersistDecN[R] extends PersistDec[R] with ShowDecNT[R]
 
-trait PersistShowProduct[R <: ShowDecN] extends PersistProductDec[R]
+trait PersistShowN[R <: ShowDecN] extends PersistDecN[R]
