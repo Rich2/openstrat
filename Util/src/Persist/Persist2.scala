@@ -112,7 +112,7 @@ class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 }
 
 /** Type class trait for Showing [[Show2]] objects. */
-trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends Show2T[A1, A2, R] with ShowShowT[R]
+trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends Show2T[A1, A2, R] with ShowShowDecT[R]
 { override def fArg1: R => A1 = _.show1
   override def fArg2: R => A2 = _.show2
 }

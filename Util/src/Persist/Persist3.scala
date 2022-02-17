@@ -110,9 +110,8 @@ object Show3T
   }
 }
 
-
 /** Show type class for 3 parameter case classes. */
-trait ShowDec3T[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with ShowProductDecT[R]// with TypeStr3[A1, A2, A3]
+trait ShowDec3T[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with ShowProductDecT[R]
 {
   override def ev1: ShowDecT[A1]
   override def ev2: ShowDecT[A2]
@@ -122,23 +121,7 @@ trait ShowDec3T[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with ShowProductDec
     Strings(ev1.showDecT(fArg1(obj), way, decimalPlaces, 0), ev2.showDecT(fArg2(obj), way, decimalPlaces, 0), ev3.showDecT(fArg3(obj), way, decimalPlaces, 0))
 }
 
-object ShowDec3T
-{
-  def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-    opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2], ev3: ShowDecT[A3]):
-    ShowDec3T[A1, A2, A3, R] = new Show3DecTImp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3,opt3, opt2In, opt1In)
-
-  class Show3DecTImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
-    val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-                                  implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2], val ev3: ShowDecT[A3]) extends ShowDec3T[A1, A2, A3, R]
-  {
-    val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
-    val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
-    val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
-  }
-}
-
-trait ShowShowDec3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends ShowDec3T[A1, A2, A3, R] with ShowShowT[R]
+trait ShowShowDec3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends ShowDec3T[A1, A2, A3, R] with ShowShowDecT[R]
 { override def fArg1: R => A1 = _.show1
   override def fArg2: R => A2 = _.show2
   override def fArg3: R => A3 = _.show3
