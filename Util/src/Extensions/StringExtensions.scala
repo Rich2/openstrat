@@ -5,8 +5,8 @@ import pParse._
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal
 {
-  def parseTokens: EArr[pParse.Token] = srcToETokens(thisString.toCharArray, "String")
-  def parseStatements: EArr[pParse.Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
+  def parseTokens: EArr[Token] = srcToETokens(thisString.toCharArray, "String")
+  def parseStatements: EArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
   def parseExpr: EMon[Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
@@ -16,7 +16,7 @@ class StringImplicit(val thisString: String) extends AnyVal
   def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
 
   /** Parses this [[String]] into EMon statements and tries to get the value from the Statement given by the index. */
-  def typeAtStsIndex[A: PersistDec](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
+  def typeAtStsIndex[A: Unshow](index: Int): EMon[A] = thisString.parseStatements.flatMap(_.typeAtIndex[A](index))
 
   /** Parses this [[String]] into EMon statements and tries to get a [[Double]] value from the Statement given by the index. */
   def dblAtStsIndex(index: Int): EMon[Double] = thisString.parseStatements.flatMap(_.dblAtIndex(index))
@@ -36,7 +36,7 @@ class StringImplicit(val thisString: String) extends AnyVal
   /** Parses this [[String]] into EMon statements and tries to get a [[Long]] value from the Statement given by the index. */
   def longAtStsIndex(index: Int): EMon[Long] = thisString.parseStatements.flatMap(_.longAtIndex(index))
 
-  def findTypeDo[A: PersistDec](f: A => Unit): Unit = findType[A].forGood(f)
+  def findTypeDo[A: Unshow](f: A => Unit): Unit = findType[A].forGood(f)
 
   def asType[A](implicit ev: Unshow[A]): EMon[A] = parseExpr.flatMap(g => ev.fromExpr(g))
 
