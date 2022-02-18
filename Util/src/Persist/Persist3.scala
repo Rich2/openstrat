@@ -105,7 +105,7 @@ object Show3T
   }
 }
 
-trait ShowShow3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowDecNT[R]
+trait ShowShow3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowNT[R]
 
 trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R] with ShowDecNT[R]
 

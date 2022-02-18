@@ -14,4 +14,4 @@ trait Persist[T] extends ShowDecT[T] with Unshow[T]
 trait PersistN[R] extends Persist[R] with ShowDecNT[R]
 
 /** [[Persist]] trait for types whose objects inherit from [[ShowDecN]]. */
-trait PersistShowN[R <: ShowDecN] extends PersistN[R] with ShowShowDecNT[R]
+trait PersistShowN[R <: ShowDecN] extends PersistN[R] with ShowShowNT[R]

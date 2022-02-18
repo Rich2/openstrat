@@ -18,10 +18,6 @@ trait ShowNT[R] extends ShowCompoundT[R]
   }
 }
 
-trait ShowShowNT[R <: ShowN] extends ShowNT[R] with ShowShowT[R]
-{ override def strs(obj: R, way: ShowStyle): Strings = obj.showElemStrs(way)
-}
-
 /** The base trait for the persistence of algebraic product types, including case classes. */
 trait ShowDecNT[R] extends ShowNT[R] with ShowDecT[R]
 {
@@ -41,6 +37,6 @@ trait ShowDecNT[R] extends ShowNT[R] with ShowDecT[R]
   }
 }
 
-trait ShowShowDecNT[R <: ShowDecN] extends ShowDecNT[R] with ShowShowDecT[R] with ShowShowNT[R]
+trait ShowShowNT[R <: ShowDecN] extends ShowDecNT[R] with ShowShowDecT[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = obj.showElemStrDecs(way, maxPlaces)
 }
