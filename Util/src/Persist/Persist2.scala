@@ -3,7 +3,7 @@ package ostrat
 import pParse._, collection.mutable.ArrayBuffer
 
 /** A base trait for [[Show2]] and [[UnShow2]] it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait for
- *  [[ShowDec2T]], as [[ShowShowDec2T]] classes do not need this data, as they can delgate to the [[Show2]] object to implement their interfaces. */
+ *  [[ShowDec2T]], as [[ShowShow2T]] classes do not need this data, as they can delgate to the [[Show2]] object to implement their interfaces. */
 trait TypeStr2[A1, A2] extends Any with TypeStr
 { /** 1st parameter name. */
   def name1: String
@@ -20,7 +20,7 @@ trait TypeStr2[A1, A2] extends Any with TypeStr
 
 /** Trait for [[ShowDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
  *  [[ShowDec2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
- *  inherit from Show2 and then use [[ShowShowDec2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShowDec2T]] or
+ *  inherit from Show2 and then use [[ShowShow2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShow2T]] or
  *  [[PersistShow2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
  *  toString override to a [[ShowDec2T]] instance. */
 trait Show2[A1, A2] extends Any with ShowDecN with TypeStr2[A1, A2]
@@ -133,28 +133,24 @@ class Show2TExtensions[A1, A2, -T](ev: ShowDec2T[A1, A2, T], thisVal: T)
 }
 
 /** Type class trait for Showing [[Show2]] objects. */
-trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends Show2T[A1, A2, R] with ShowShowNT[R]
-{ override def fArg1: R => A1 = _.show1
+trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends ShowDec2T[A1, A2, R] with ShowShowT[R]
+{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = obj.showElemStrDecs(way, maxPlaces)
+  override def fArg1: R => A1 = _.show1
   override def fArg2: R => A2 = _.show2
 }
 
-/** Type class trait for Showing [[Show2]] objects. */
-trait ShowShowDec2T[A1, A2, R <: Show2[A1, A2]] extends ShowDec2T[A1, A2, R] with ShowShow2T[A1, A2, R] with ShowShowT[R]
-{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = obj.showElemStrDecs(way, maxPlaces)
-}
-
-object ShowShowDec2T
+object ShowShow2T
 {
   def apply[A1, A2, R<: Show2[A1, A2]](typeStr: String, name1: String, name2: String, opt2: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2]): ShowShowDec2T[A1, A2, R] =
+    implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2]): ShowShow2T[A1, A2, R] =
     new ShowShow2TImp[A1, A2, R](typeStr)
 
   class ShowShow2TImp[A1, A2, R<: Show2[A1, A2]](val typeStr: String)(implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2]) extends
-    ShowShowDec2T[A1, A2, R]
+    ShowShow2T[A1, A2, R]
 }
 
 /** A trait for making quick ShowT instances for [[ShowDbl2]] types. It uses the functionality of the [[ShowDbl2]]. */
-trait ShowShowDbl2T[R <: ShowDbl2] extends ShowShowDec2T[Double, Double, R]
+trait ShowShowDbl2T[R <: ShowDbl2] extends ShowShow2T[Double, Double, R]
 { override implicit def ev1: Persist[Double] = ShowT.doublePersistEv
   override implicit def ev2: Persist[Double] = ShowT.doublePersistEv
 }
@@ -167,7 +163,7 @@ object ShowShowDbl2T
 }
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
-trait ShowShowInt2T[R <: ShowElemInt2] extends ShowShowDec2T[Int, Int, R]
+trait ShowShowInt2T[R <: ShowElemInt2] extends ShowShow2T[Int, Int, R]
 { override implicit def ev1: Persist[Int] = ShowT.intPersistImplicit
   override implicit def ev2: Persist[Int] = ShowT.intPersistImplicit
 }
@@ -243,7 +239,7 @@ object Persist2
 }
 
 /** Persist type class for types that extends [[Show2]]. */
-trait PersistShow2[A1, A2, R <: Show2[A1, A2]] extends Persist2[A1, A2, R] with ShowShowDec2T[A1, A2, R]
+trait PersistShow2[A1, A2, R <: Show2[A1, A2]] extends Persist2[A1, A2, R] with ShowShow2T[A1, A2, R]
 
 /** Companion object for the [[PersistShow2]] class the persists object that extend [[Show2]]. Contains an apply factory method. */
 object PersistShow2
