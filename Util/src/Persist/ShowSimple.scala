@@ -29,7 +29,7 @@ trait ShowSimpleT[-A] extends ShowDecT[A]
 }
 
 /** A Persist class described by a single value. This may be removed. Its not clear whether this means a single token or not. */
-abstract class PersistSimple[A](val typeStr: String) extends ShowSimpleT[A] with PersistDec[A]
+abstract class PersistSimple[A](val typeStr: String) extends ShowSimpleT[A] with Persist[A]
 
 /** I think this class may be redundant and can be replace by a more general PersistSum class for displaying algebraic sum types. */
 abstract class PersistSingletons[A <: ShowSimple](typeStr: String) extends PersistSimple[A](typeStr)

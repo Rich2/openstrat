@@ -155,8 +155,8 @@ object ShowShowDec2T
 
 /** A trait for making quick ShowT instances for [[ShowDbl2]] types. It uses the functionality of the [[ShowDbl2]]. */
 trait ShowShowDbl2T[R <: ShowDbl2] extends ShowShowDec2T[Double, Double, R]
-{ override implicit def ev1: PersistDec[Double] = ShowT.doublePersistEv
-  override implicit def ev2: PersistDec[Double] = ShowT.doublePersistEv
+{ override implicit def ev1: Persist[Double] = ShowT.doublePersistEv
+  override implicit def ev2: Persist[Double] = ShowT.doublePersistEv
 }
 
 object ShowShowDbl2T
@@ -168,8 +168,8 @@ object ShowShowDbl2T
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
 trait ShowShowInt2T[R <: ShowElemInt2] extends ShowShowDec2T[Int, Int, R]
-{ override implicit def ev1: PersistDec[Int] = ShowT.intPersistImplicit
-  override implicit def ev2: PersistDec[Int] = ShowT.intPersistImplicit
+{ override implicit def ev1: Persist[Int] = ShowT.intPersistImplicit
+  override implicit def ev2: Persist[Int] = ShowT.intPersistImplicit
 }
 
 object ShowShowInt2T
@@ -219,19 +219,19 @@ object Unshow2{
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
 trait Persist2[A1, A2, R] extends ShowDec2T[A1, A2, R] with Unshow2[A1, A2, R] with PersistDecN[R]
-{ override def ev1: PersistDec[A1]
-  override def ev2: PersistDec[A2]
+{ override def ev1: Persist[A1]
+  override def ev2: Persist[A2]
 }
 
 /** Factory object for Persist product 2 type class that persists objects with 2 parameters. */
 object Persist2
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: PersistDec[A1], ev2: PersistDec[A2]): Persist2[A1, A2, R] =
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2]): Persist2[A1, A2, R] =
     new Persist2Imp(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
 
   class Persist2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,
-    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val ev1: PersistDec[A1], val ev2: PersistDec[A2]) extends Persist2[A1, A2, R]
+    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val ev1: Persist[A1], val ev2: Persist[A2]) extends Persist2[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
     override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = ???
@@ -249,11 +249,11 @@ trait PersistShow2[A1, A2, R <: Show2[A1, A2]] extends Persist2[A1, A2, R] with 
 object PersistShow2
 { /** Factory apply method for [[PersistShow2]], that Persists [[Show2]] objects. */
   def apply[A1, A2, R <: Show2[A1, A2]](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: PersistDec[A1], ev2In: PersistDec[A2]): PersistShow2[A1, A2, R] =
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2]): PersistShow2[A1, A2, R] =
     new PersistShow2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
 
   class PersistShow2Imp[A1, A2, R <: Show2[A1, A2]](val typeStr: String, val name1: String, val name2: String, val newT: (A1, A2) => R,
-    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val ev1: PersistDec[A1], val ev2: PersistDec[A2]) extends PersistShow2[A1, A2, R]
+    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val ev1: Persist[A1], val ev2: Persist[A2]) extends PersistShow2[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
 }
