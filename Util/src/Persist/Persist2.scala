@@ -23,7 +23,7 @@ trait TypeStr2[A1, A2] extends Any with TypeStr
  *  inherit from Show2 and then use [[ShowShow2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShow2T]] or
  *  [[PersistShow2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
  *  toString override to a [[Show2T]] instance. */
-trait Show2[A1, A2] extends Any with ShowDecN with TypeStr2[A1, A2]
+trait Show2[A1, A2] extends Any with ShowN with TypeStr2[A1, A2]
 {
   /** The optional default value for parameter 1. */
   override def opt1: Option[A1] = None

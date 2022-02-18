@@ -44,28 +44,13 @@ trait Show3[A1, A2, A3] extends Any with ShowN with TypeStr3[A1, A2, A3]
   override def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr, showT3.typeStr)
 
   override def showElemStrs(way: ShowStyle): Strings = Strings(showT1.showT(show1, way), showT2.showT(show2, way), showT3.showT(show3, way))
-}
 
-/** Trait for [[ShowDec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
- *  [[ShowEq3T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
- *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
- *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
- *  toString override to a [[ShowEq3T]] instance. */
-trait ShowDec3[A1, A2, A3] extends Any with ShowDecN with Show3[A1, A2, A3]
-{ /** The [[ShowT]] type class instance for the 1st element of this 3 element [[ShowDec]] product. */
-  override def showT1: ShowT[A1]
-
-  /** The [[ShowT]] type class instance for the 2nd element of this 3 element [[ShowDec]] product. */
-  override def showT2: ShowT[A2]
-
-  /** The [[ShowT]] type class instance for the 3rd element of this 3 element [[ShowDec]] product. */
-  override def showT3: ShowT[A3]
 
   override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0),
     showT3.showDecT(show3, way, decimalPlaces, 0))
 }
 
-trait ShowDbl3 extends Any with ShowDec3[Double, Double, Double]
+trait ShowDbl3 extends Any with Show3[Double, Double, Double]
 { final override def syntaxDepth: Int = 2
   final override implicit def showT1: Persist[Double] = ShowT.doublePersistEv
   final override implicit def showT2: Persist[Double] = ShowT.doublePersistEv
@@ -105,7 +90,7 @@ object Show3T
   }
 }
 
-trait ShowShow3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowNT[R]
+trait ShowShow3T[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowNT[R]
 
 trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R] with ShowNT[R]
 
@@ -183,16 +168,16 @@ object Persist3
   }
 }
 
-trait PersistShow3[A1, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowN[R] with ShowShow3T[A1, A2, A3, R]
+trait PersistShow3[A1, A2 <: ShowDec, A3 <: ShowDec, R <: Show3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowN[R] with ShowShow3T[A1, A2, A3, R]
 
 /** Companion object for the [[PersistShow3]] class the persists object that extend [[ShowDec3]]. Contains an apply factory method. */
 object PersistShow3
 { /** Factory apply method for [[PersistShow3]], that Persists [[ShowDec3]] objects. */
-  def apply[A1 <: ShowDec, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R,
+  def apply[A1 <: ShowDec, A2 <: ShowDec, A3 <: ShowDec, R <: Show3[A1, A2, A3]](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R,
     opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2], ev3In: Persist[A3]):
     PersistShow3[A1, A2, A3, R] = new PersistShow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, opt3,opt2, opt1)
 
-  class PersistShow3Imp[A1 <: ShowDec, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
+  class PersistShow3Imp[A1 <: ShowDec, A2 <: ShowDec, A3 <: ShowDec, R <: Show3[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
     val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val ev1: Persist[A1], val ev2: Persist[A2], val ev3: Persist[A3]) extends PersistShow3[A1, A2, A3, R]
   { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)

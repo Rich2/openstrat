@@ -14,7 +14,7 @@ trait ShowN extends Any with ShowDec
   override def str: String = show(ShowStandard)
 
   /** A [[Strings]] Arr collection  of the show methods return values of the elements of this Show Product class. */
-  def showElemStrs(way: ShowStyle): Strings
+  //def showElemStrs(way: ShowStyle): Strings
 
   def showSemisNames: String =
     elemNames.zipMap(showElemStrs(ShowStandard))((n, s) => n + " = " + s).mkStr("; ")
@@ -36,18 +36,11 @@ trait ShowN extends Any with ShowDec
     case _ => typeStr.appendParenth(semisStr)
     }
   }
-}
 
-
-/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowNT]] trait
- * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
- * [[ShowNT]]. */
-trait ShowDecN extends Any with ShowN with ShowDec
-{
   /** A [[Strings]] Arr collection  of the show methods return values of the elements of this Show Product class. */
   def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): Strings
 
-  override def showElemStrs(way: ShowStyle): Strings = showElemStrDecs(way, -1)
+  def showElemStrs(way: ShowStyle): Strings = showElemStrDecs(way, -1)
 
   def showSemisNameDecs(maxPlaces: Int = -1, minPlaces: Int = 0): String =
     elemNames.zipMap(showElemStrDecs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
