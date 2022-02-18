@@ -3,7 +3,7 @@ package ostrat; package gOne
 import prid._, phex._, Colour._
 
 /** A Player has a very simple token with a letter and colour for recognition. */
-case class Player(char: Char, colour: Colour) extends Show
+case class Player(char: Char, colour: Colour) extends ShowNoDec
 { //override def toString = "Player " + char
   /** the name of the type of this object. */
   override def typeStr: String = "Player"

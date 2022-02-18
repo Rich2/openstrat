@@ -13,8 +13,6 @@ trait ShowT[-T] extends TypeStr //ShowT[T]
    * rather than a method on the object being shown. */
   def strT(obj: T): String
 
- // def showT(obj: T, style: ShowStyle): String
-
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
   def syntaxDepthT(obj: T): Int
@@ -237,12 +235,8 @@ class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def show(style: ShowStyle = ShowStandard): String = ev.showT(thisVal, style)
-}
 
-
-/** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
-class ShowDecTExtensions[-A](ev: ShowT[A], thisVal: A)
-{ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
+ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def showDec(style: ShowStyle = ShowStandard, decimalPlaces: Int): String = ev.showDecT(thisVal, style, decimalPlaces, decimalPlaces)
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
@@ -272,4 +266,17 @@ class ShowDecTExtensions[-A](ev: ShowT[A], thisVal: A)
   def str3: String = ev.showDecT(thisVal, ShowStandard, 3, 0)
   def showFields: String = ev.showDecT(thisVal, ShowParamNames, 1, 0)
   def showTypedFields: String = ev.showDecT(thisVal, ShowStdTypedFields, 1, 0)
+}
+
+/** Shows a simple object like a Singleton object or a Double. For your own objects that you control it is better to use Show and its helper sub
+ * rather than the sub traits of ShowT to implement your Show functionality.S */
+trait ShowSimpleT[-A] extends ShowT[A]
+{
+  final override def syntaxDepthT(obj: A): Int = 1
+
+  override def showDecT(obj: A, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = way match
+  { case ShowTyped => typeStr + strT(obj).enParenth
+    case ShowUnderScore => "_"
+    case _ => strT(obj)
+  }
 }

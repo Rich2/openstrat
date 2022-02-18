@@ -47,5 +47,5 @@ object StdButton
 
 object Turn extends ShowSimple
 { override def typeStr: String = "Turn.type"
-  def str: String = "Turn"
+  override def str: String = "Turn"
 }

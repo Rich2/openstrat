@@ -40,12 +40,12 @@ object WTile
 trait Water extends WTile
 
 case object Ocean extends Water
-{ def str = "Ocean"
+{ override def str = "Ocean"
   def colour = DarkBlue
 }
 
 case object Lake extends Water
-{ def str = "Lake"
+{ override def str = "Lake"
   def colour = Blue
 }
 
