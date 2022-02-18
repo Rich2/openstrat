@@ -218,7 +218,7 @@ object Unshow2{
 }
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
-trait Persist2[A1, A2, R] extends ShowDec2T[A1, A2, R] with Unshow2[A1, A2, R] with PersistDecN[R]
+trait Persist2[A1, A2, R] extends ShowDec2T[A1, A2, R] with Unshow2[A1, A2, R] with PersistN[R]
 { override def ev1: Persist[A1]
   override def ev2: Persist[A2]
 }

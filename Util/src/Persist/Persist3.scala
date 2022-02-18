@@ -157,7 +157,7 @@ object Unshow3
 }
 
 /** Persistence class for 3 logical parameter product types. */
-trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistDecN[R]
+trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistN[R]
 { override def ev1: Persist[A1]
   override def ev2: Persist[A2]
   override def ev3: Persist[A3]
@@ -183,7 +183,7 @@ object Persist3
   }
 }
 
-trait PersistShow3[A1, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowDecN[R] with ShowShow3T[A1, A2, A3, R]
+trait PersistShow3[A1, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowN[R] with ShowShow3T[A1, A2, A3, R]
 
 /** Companion object for the [[PersistShow3]] class the persists object that extend [[ShowDec3]]. Contains an apply factory method. */
 object PersistShow3
