@@ -82,17 +82,17 @@ trait ShowElemDbl3 extends Any with ShowDbl3 with ElemDbl3
 }
 
 /** Show type class for 3 parameter case classes. */
-trait Show3T[A1, A2, A3, R] extends ShowNT[R]
+trait Show3T[A1, A2, A3, R] extends  ShowDecNT[R]
 
 object Show3T
 {
   def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-    opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3]):
-  Show3T[A1, A2, A3, R] = new Show3TImp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3,opt3, opt2In, opt1In)
+    opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2], ev3: ShowDecT[A3]):
+  Show3T[A1, A2, A3, R] = new ShowDec3TImp[A1, A2, A3, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3,opt3, opt2In, opt1In)
 
-  class Show3TImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
+  class ShowDec3TImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val ev1: ShowT[A1], val ev2: ShowT[A2], val ev3: ShowT[A3]) extends Show3T[A1, A2, A3, R] with TypeStr3[A1, A2, A3]
+    implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2], val ev3: ShowDecT[A3]) extends Show3T[A1, A2, A3, R] with TypeStr3[A1, A2, A3]
   {
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -100,22 +100,19 @@ object Show3T
 
     override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
 
-    override def strs(obj: R, way: ShowStyle): Strings = Strings(ev1.showT(fArg1(obj), way), ev2.showT(fArg2(obj), way), ev3.showT(fArg3(obj), way))
-
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings =
+      Strings(ev1.showDecT(fArg1(obj),way, maxPlaces), ev2.showDecT(fArg2(obj),way, maxPlaces), ev3.showDecT(fArg3(obj),way, maxPlaces))
   }
 }
 
-/** Show type class for 3 parameter case classes. */
-trait ShowDec3T[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with ShowDecNT[R]
-
 trait ShowShow3T[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowNT[R]
 
-trait ShowShowDec3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends ShowShow3T[A1, A2, A3, R] with ShowDec3T[A1, A2, A3, R] with ShowShowDecNT[R]
+trait ShowShowDec3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends ShowShow3T[A1, A2, A3, R] with Show3T[A1, A2, A3, R] with ShowShowDecNT[R]
 
 trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShowDec3T[Double, Double, Double, R] with ShowDecNT[R]
 
 object ShowShowDbl3T
-{ /** Factory apply method for creating quick ShowT instances for products of 3 Doubles. */
+{ /** Factory apply method for creating quick ShowDecT instances for products of 3 Doubles. */
   def apply[R <: ShowElemDbl3](typeStr: String, name1: String, name2: String, name3: String, opt2: Option[Double] = None, opt1In: Option[Double] = None):
   ShowShowDbl3TImp[R] = new ShowShowDbl3TImp[R](typeStr, name1, name2, name3, opt2, opt1In)
 
@@ -162,7 +159,7 @@ object Unshow3
 }
 
 /** Persistence class for 3 logical parameter product types. */
-trait Persist3[A1, A2, A3, R] extends ShowDec3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistDecN[R]
+trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistDecN[R]
 { override def ev1: PersistDec[A1]
   override def ev2: PersistDec[A2]
   override def ev3: PersistDec[A3]
