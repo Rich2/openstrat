@@ -162,30 +162,23 @@ object Unshow3
 }
 
 /** Persistence class for 3 logical parameter product types. */
-trait Persist3[A1, A2, A3, R] extends Show3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistN[R]
-{ override def ev1: Persist[A1]
-  override def ev2: Persist[A2]
-  override def ev3: Persist[A3]
-}
-
-/** Persistence class for 3 logical parameter product types. */
-trait PersistDec3[A1, A2, A3, R] extends Persist3[A1, A2, A3, R] with ShowDec3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistDecN[R]
+trait Persist3[A1, A2, A3, R] extends ShowDec3T[A1, A2, A3, R] with Unshow3[A1, A2, A3, R] with PersistDecN[R]
 { override def ev1: PersistDec[A1]
   override def ev2: PersistDec[A2]
   override def ev3: PersistDec[A3]
 }
 
-/** Companion object for [[PersistDec3]] trait contains implementation class and factory apply method. */
-object PersistDec3
+/** Companion object for [[Persist3]] trait contains implementation class and factory apply method. */
+object Persist3
 {
   def apply[A1, A2, A3, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(
-    implicit ev1: PersistDec[A1], ev2: PersistDec[A2], ev3: PersistDec[A3]): PersistDec3[A1, A2, A3, R] =
-    new Persist3DecImp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)(ev1, ev2, ev3)
+    implicit ev1: PersistDec[A1], ev2: PersistDec[A2], ev3: PersistDec[A3]): Persist3[A1, A2, A3, R] =
+    new Persist3Imp(typeStr, name1, fArg1, name2, fArg2, name3, fArg3, newT, opt3, opt2, opt1)(ev1, ev2, ev3)
 
-  class Persist3DecImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
+  class Persist3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val ev1: PersistDec[A1], val ev2: PersistDec[A2], val ev3: PersistDec[A3]) extends PersistDec3[A1, A2, A3, R]
+    opt1In: Option[A1] = None)(implicit val ev1: PersistDec[A1], val ev2: PersistDec[A2], val ev3: PersistDec[A3]) extends Persist3[A1, A2, A3, R]
   { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
@@ -195,18 +188,18 @@ object PersistDec3
   }
 }
 
-trait PersistShowDec3[A1, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]] extends PersistDec3[A1, A2, A3, R]  with PersistShowDecN[R] with ShowShowDec3T[A1, A2, A3, R]
+trait PersistShow3[A1, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowDecN[R] with ShowShowDec3T[A1, A2, A3, R]
 
-/** Companion object for the [[PersistShowDec3]] class the persists object that extend [[ShowDec3]]. Contains an apply factory method. */
-object PersistShowDec3
-{ /** Factory apply method for [[PersistShowDec3]], that Persists [[ShowDec3]] objects. */
+/** Companion object for the [[PersistShow3]] class the persists object that extend [[ShowDec3]]. Contains an apply factory method. */
+object PersistShow3
+{ /** Factory apply method for [[PersistShow3]], that Persists [[ShowDec3]] objects. */
   def apply[A1 <: ShowDec, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R,
     opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: PersistDec[A1], ev2In: PersistDec[A2], ev3In: PersistDec[A3]):
-    PersistShowDec3[A1, A2, A3, R] = new PersistShow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, opt3,opt2, opt1)
+    PersistShow3[A1, A2, A3, R] = new PersistShow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, opt3,opt2, opt1)
 
   class PersistShow3Imp[A1 <: ShowDec, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
     val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val ev1: PersistDec[A1], val ev2: PersistDec[A2], val ev3: PersistDec[A3]) extends PersistShowDec3[A1, A2, A3, R]
+    implicit val ev1: PersistDec[A1], val ev2: PersistDec[A2], val ev3: PersistDec[A3]) extends PersistShow3[A1, A2, A3, R]
   { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
   }
@@ -215,7 +208,7 @@ object PersistShowDec3
 /** Persistence class for types that extends [[ShowDbl3]]. */
 class PersistShowDbl3[R <: ShowDbl3](val typeStr: String, val name1: String, val name2: String, val name3: String,
   val newT: (Double, Double, Double) => R, val opt3: Option[Double] = None, val opt2In: Option[Double] = None, opt1In: Option[Double] = None) extends
-  PersistDec3[Double, Double, Double, R] with PersistShowN[R] with ShowShowDbl3T[R]
+  Persist3[Double, Double, Double, R] with PersistShowN[R] with ShowShowDbl3T[R]
 { val opt2: Option[Double] = ife(opt3.nonEmpty, opt2In, None)
   val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
   override def ev1: PersistDec[Double] = ShowT.doublePersistEv
