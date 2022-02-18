@@ -236,7 +236,7 @@ class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
  *  purpose for many types, as separating them adds enormous complexity for very little gain. */
 trait ShowDecT[-T] extends ShowT[T]
 {
-  def showDecT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String
+  def showDecT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int = -1): String
 
   override def showT(obj: T, style: ShowStyle): String = showDecT(obj, style, -1, -1)
 }
