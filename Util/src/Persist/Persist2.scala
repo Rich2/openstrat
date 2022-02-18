@@ -3,7 +3,7 @@ package ostrat
 import pParse._, collection.mutable.ArrayBuffer
 
 /** A base trait for [[Show2]] and [[UnShow2]] it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait for
- *  [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can delgate to the [[Show2]] object to implement their interfaces. */
+ *  [[ShowDec2T]], as [[ShowShowDec2T]] classes do not need this data, as they can delgate to the [[Show2]] object to implement their interfaces. */
 trait TypeStr2[A1, A2] extends Any with TypeStr
 { /** 1st parameter name. */
   def name1: String
@@ -19,10 +19,10 @@ trait TypeStr2[A1, A2] extends Any with TypeStr
 }
 
 /** Trait for [[ShowDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
- *  [[Show2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
- *  inherit from Show2 and then use [[ShowShow2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShow2T]] or
+ *  [[ShowDec2T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
+ *  inherit from Show2 and then use [[ShowShowDec2T]] or [[Persist2ElemT]] to create the type class instance for ShowT. The [[ShowShowDec2T]] or
  *  [[PersistShow2]] class will delegate to Show2 for some of its methods. It is better to use Show2 to override toString method than delegating the
- *  toString override to a [[Show2T]] instance. */
+ *  toString override to a [[ShowDec2T]] instance. */
 trait Show2[A1, A2] extends Any with ShowDecN with TypeStr2[A1, A2]
 {
   /** The optional default value for parameter 1. */
@@ -53,7 +53,7 @@ trait Show2[A1, A2] extends Any with ShowDecN with TypeStr2[A1, A2]
 
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
  *  corresponding [[ShowShowInt2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
- *  types ShowProduct is preferred over [[Show2T]]. */
+ *  types ShowProduct is preferred over [[ShowDec2T]]. */
 trait ShowElemInt2 extends Any with Show2[Int, Int] with ElemInt2
 { final override implicit def showT1: ShowDecT[Int] = ShowT.intPersistImplicit
   final override implicit def showT2: ShowDecT[Int] = ShowT.intPersistImplicit
@@ -72,38 +72,60 @@ trait ShowDbl2 extends Any with Show2[Double, Double]
 
 /** Trait for Show for product of 2 Doubles that is also an [[ElemDbl2]]. This trait is implemented directly by the type in question, unlike the
  *  corresponding [[ShowShowDbl2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
- *  types ShowProduct is preferred over [[Show2T]]. */
+ *  types ShowProduct is preferred over [[ShowDec2T]]. */
 trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
 { final override def dbl1: Double = show1
   final override def dbl2: Double = show2
 }
 
 /** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowDecNT[R]
-{ def fArg1: R => A1
+trait Show2T[A1, A2, R] extends ShowNT[R]
+{
+  def fArg1: R => A1
   def fArg2: R => A2
-  implicit def ev1: ShowDecT[A1]
-  implicit def ev2: ShowDecT[A2]
-  override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
-
-  override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings =
-    Strings(ev1.showDecT(fArg1(obj), way, maxPlaces, 0), ev2.showDecT(fArg2(obj), way, maxPlaces, 0))
 }
 
-/** Companion object for the [[Show2T]] type class trait that shows object with 2 logical fields. */
+/** Companion object for the [[ShowDec2T]] type class trait that shows object with 2 logical fields. */
 object Show2T
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2]): Show2T[A1, A2, R] =
+    opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2]): Show2T[A1, A2, R] =
     new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
   class Show2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2]) extends Show2T[A1, A2, R] with TypeStr2[A1,A2]
+    opt1In: Option[A1] = None)(implicit val ev1: ShowT[A1], val ev2: ShowT[A2]) extends Show2T[A1, A2, R] with TypeStr2[A1,A2]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+    override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
+    override def strs(obj: R, way: ShowStyle): Strings = Strings(ev1.showT(fArg1(obj), way), ev2.showT(fArg2(obj), way))
   }
 }
 
-class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
+/** Show type class for 2 parameter case classes. */
+trait ShowDec2T[A1, A2, R] extends Show2T[A1, A2, R] with ShowDecNT[R]
+{
+  implicit def ev1: ShowDecT[A1]
+  implicit def ev2: ShowDecT[A2]
+
+}
+
+/** Companion object for the [[ShowDec2T]] type class trait that shows object with 2 logical fields. */
+object ShowDec2T
+{
+  def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
+    opt1In: Option[A1] = None)(implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2]): ShowDec2T[A1, A2, R] =
+    new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
+
+  class Show2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
+    opt1In: Option[A1] = None)(implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2]) extends ShowDec2T[A1, A2, R] with TypeStr2[A1,A2]
+  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+    override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
+
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings =
+      Strings(ev1.showDecT(fArg1(obj), way, maxPlaces, 0), ev2.showDecT(fArg2(obj), way, maxPlaces, 0))
+  }
+}
+
+class Show2TExtensions[A1, A2, -T](ev: ShowDec2T[A1, A2, T], thisVal: T)
 {
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
   def show2(way: ShowStyle = ShowStandard, way1: ShowStyle = ShowStandard, places1: Int = -1, way2: ShowStyle = ShowStandard, places2: Int = -1):
@@ -111,23 +133,28 @@ class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 }
 
 /** Type class trait for Showing [[Show2]] objects. */
-trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends Show2T[A1, A2, R] with ShowShowDecT[R]
+trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends Show2T[A1, A2, R] with ShowShowNT[R]
 { override def fArg1: R => A1 = _.show1
   override def fArg2: R => A2 = _.show2
 }
 
-object ShowShow2T
+/** Type class trait for Showing [[Show2]] objects. */
+trait ShowShowDec2T[A1, A2, R <: Show2[A1, A2]] extends ShowDec2T[A1, A2, R] with ShowShow2T[A1, A2, R] with ShowShowDecT[R]
+{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = obj.showElemStrDecs(way, maxPlaces)
+}
+
+object ShowShowDec2T
 {
   def apply[A1, A2, R<: Show2[A1, A2]](typeStr: String, name1: String, name2: String, opt2: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2]): ShowShow2T[A1, A2, R] =
+    implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2]): ShowShowDec2T[A1, A2, R] =
     new ShowShow2TImp[A1, A2, R](typeStr)
 
   class ShowShow2TImp[A1, A2, R<: Show2[A1, A2]](val typeStr: String)(implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2]) extends
-    ShowShow2T[A1, A2, R]
+    ShowShowDec2T[A1, A2, R]
 }
 
 /** A trait for making quick ShowT instances for [[ShowDbl2]] types. It uses the functionality of the [[ShowDbl2]]. */
-trait ShowShowDbl2T[R <: ShowDbl2] extends ShowShow2T[Double, Double, R]
+trait ShowShowDbl2T[R <: ShowDbl2] extends ShowShowDec2T[Double, Double, R]
 { override implicit def ev1: PersistDec[Double] = ShowT.doublePersistEv
   override implicit def ev2: PersistDec[Double] = ShowT.doublePersistEv
 }
@@ -140,7 +167,7 @@ object ShowShowDbl2T
 }
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
-trait ShowShowInt2T[R <: ShowElemInt2] extends ShowShow2T[Int, Int, R]
+trait ShowShowInt2T[R <: ShowElemInt2] extends ShowShowDec2T[Int, Int, R]
 { override implicit def ev1: PersistDec[Int] = ShowT.intPersistImplicit
   override implicit def ev2: PersistDec[Int] = ShowT.intPersistImplicit
 }
@@ -191,26 +218,57 @@ object Unshow2{
 }
 
 /** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
-trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with Unshow2[A1, A2, R] with PersistDecN[R]
-{ override def ev1: PersistDec[A1]
-  override def ev2: PersistDec[A2]
+trait Persist2[A1, A2, R] extends Show2T[A1, A2, R] with Unshow2[A1, A2, R] with PersistN[R]
+{ override def ev1: Persist[A1]
+  override def ev2: Persist[A2]
 }
 
 /** Factory object for Persist product 2 type class that persists objects with 2 parameters. */
 object Persist2
 {
   def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
-    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: PersistDec[A1], ev2: PersistDec[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist2[A1, A2, R] =
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Persist[A1], ev2: Persist[A2]): Persist2[A1, A2, R] =
     new Persist2Imp(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
 
   class Persist2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,
-    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val ev1: PersistDec[A1], val ev2: PersistDec[A2]) extends Persist2[A1, A2, R]
+    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val ev1: Persist[A1], val ev2: Persist[A2]) extends Persist2[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+
+    override def strs(obj: R, way: ShowStyle): Strings = ???
+
+    /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
+     * should always be determined at compile time or if sometimes it should be determined at runtime. */
+    override def syntaxDepthT(obj: R): Int = ???
+  }
+}
+
+/** Persistence class for product 2 type class. It ShowTs and UnShows objects with 2 logical parameters. */
+trait PersistDec2[A1, A2, R] extends Persist2[A1, A2, R] with ShowDec2T[A1, A2, R] with PersistDecN[R]
+{ override def ev1: PersistDec[A1]
+  override def ev2: PersistDec[A2]
+}
+
+/** Factory object for Persist product 2 type class that persists objects with 2 parameters. */
+object PersistDec2
+{
+  def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, newT: (A1, A2) => R,
+    opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: PersistDec[A1], ev2: PersistDec[A2]): PersistDec2[A1, A2, R] =
+    new Persist2Imp(typeStr, name1, fArg1, name2, fArg2, newT, opt2, opt1)(ev1, ev2)
+
+  class Persist2Imp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val newT: (A1, A2) => R,
+    val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val ev1: PersistDec[A1], val ev2: PersistDec[A2]) extends PersistDec2[A1, A2, R]
+  { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
+
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = ???
+
+    /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
+     * should always be determined at compile time or if sometimes it should be determined at runtime. */
+    override def syntaxDepthT(obj: R): Int = ???
   }
 }
 
 /** Persist type class for types that extends [[Show2]]. */
-trait PersistShow2[A1, A2, R <: Show2[A1, A2]] extends Persist2[A1, A2, R] with ShowShow2T[A1, A2, R]
+trait PersistShow2[A1, A2, R <: Show2[A1, A2]] extends PersistDec2[A1, A2, R] with ShowShowDec2T[A1, A2, R]
 
 /** Companion object for the [[PersistShow2]] class the persists object that extend [[Show2]]. Contains an apply factory method. */
 object PersistShow2
