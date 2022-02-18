@@ -139,7 +139,7 @@ trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends Show2T[A1, A2, R] with Show
 }
 
 /** Type class trait for Showing [[Show2]] objects. */
-trait ShowShowDec2T[A1, A2, R <: Show2[A1, A2]] extends ShowDec2T[A1, A2, R] with ShowShow2T[A1, A2, R] with ShowShowDecT[R]
+trait ShowShowDec2T[A1, A2, R <: Show2[A1, A2]] extends ShowDec2T[A1, A2, R] with ShowShow2T[A1, A2, R] with ShowShowT[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = obj.showElemStrDecs(way, maxPlaces)
 }
 
