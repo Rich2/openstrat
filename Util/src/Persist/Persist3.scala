@@ -105,11 +105,9 @@ object Show3T
   }
 }
 
-trait ShowShow3T[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowNT[R]
+trait ShowShow3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowDecNT[R]
 
-trait ShowShowDec3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends ShowShow3T[A1, A2, A3, R] with Show3T[A1, A2, A3, R] with ShowShowDecNT[R]
-
-trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShowDec3T[Double, Double, Double, R] with ShowDecNT[R]
+trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R] with ShowDecNT[R]
 
 object ShowShowDbl3T
 { /** Factory apply method for creating quick ShowDecT instances for products of 3 Doubles. */
@@ -185,7 +183,7 @@ object Persist3
   }
 }
 
-trait PersistShow3[A1, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowDecN[R] with ShowShowDec3T[A1, A2, A3, R]
+trait PersistShow3[A1, A2 <: ShowDec, A3 <: ShowDec, R <: ShowDec3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowDecN[R] with ShowShow3T[A1, A2, A3, R]
 
 /** Companion object for the [[PersistShow3]] class the persists object that extend [[ShowDec3]]. Contains an apply factory method. */
 object PersistShow3
