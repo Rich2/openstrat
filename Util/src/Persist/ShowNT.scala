@@ -2,9 +2,9 @@
 package ostrat
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowNT[R] extends ShowCompoundT[R]
+trait ShowNT[R] extends ShowCompoundT[R] with ShowDecT[R]
 {
-  def strs(obj: R, way: ShowStyle): Strings
+  //def strs(obj: R, way: ShowStyle): Strings
 
   override def showT(obj: R, style: ShowStyle): String =
   { def semisStr = strs(obj, ShowCommas).mkStr("; ")
@@ -16,14 +16,10 @@ trait ShowNT[R] extends ShowCompoundT[R]
     case _ => typeStr.appendParenth(semisStr)
     }
   }
-}
 
-/** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowDecNT[R] extends ShowNT[R] with ShowDecT[R]
-{
   def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings
 
-  override def strs(obj: R, way: ShowStyle): Strings = strDecs(obj, way, -1)
+  def strs(obj: R, way: ShowStyle): Strings = strDecs(obj, way, -1)
 
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = strDecs(obj, ShowCommas, maxPlaces).mkStr("; ")
@@ -37,6 +33,6 @@ trait ShowDecNT[R] extends ShowNT[R] with ShowDecT[R]
   }
 }
 
-trait ShowShowNT[R <: ShowDecN] extends ShowDecNT[R] with ShowShowT[R]
+trait ShowShowNT[R <: ShowDecN] extends ShowNT[R] with ShowShowT[R]
 { override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = obj.showElemStrDecs(way, maxPlaces)
 }

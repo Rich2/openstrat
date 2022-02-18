@@ -11,7 +11,7 @@ trait TypeStr5[A1, A2, A3, A4, A5] extends Any with TypeStr4[A1, A2, A3, A4]
 }
 
 /** [[ShowT]] type class for 5 parameter case classes. */
-trait Show5T[A1, A2, A3, A4, A5, R] extends ShowDecNT[R]
+trait Show5T[A1, A2, A3, A4, A5, R] extends ShowNT[R]
 
 /** Companion object for [[Show5T]] trait contains implementation class and factory apply method. */
 object Show5T

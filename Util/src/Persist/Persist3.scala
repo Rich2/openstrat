@@ -82,7 +82,7 @@ trait ShowElemDbl3 extends Any with ShowDbl3 with ElemDbl3
 }
 
 /** Show type class for 3 parameter case classes. */
-trait Show3T[A1, A2, A3, R] extends  ShowDecNT[R]
+trait Show3T[A1, A2, A3, R] extends  ShowNT[R]
 
 object Show3T
 {
@@ -107,7 +107,7 @@ object Show3T
 
 trait ShowShow3T[A1, A2, A3, R <: ShowDec3[A1, A2, A3]] extends Show3T[A1, A2, A3, R] with ShowShowNT[R]
 
-trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R] with ShowDecNT[R]
+trait ShowShowDbl3T[R <: ShowDbl3] extends ShowShow3T[Double, Double, Double, R] with ShowNT[R]
 
 object ShowShowDbl3T
 { /** Factory apply method for creating quick ShowDecT instances for products of 3 Doubles. */

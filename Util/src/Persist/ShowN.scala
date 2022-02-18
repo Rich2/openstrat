@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowDecNT]] trait
+/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowNT]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
- * [[ShowDecNT]]. */
+ * [[ShowNT]]. */
 trait ShowN extends Any with Show
 { /** A [[Strings]] Arr of the element names of this Show Product class. */
   def elemNames: Strings
@@ -39,9 +39,9 @@ trait ShowN extends Any with Show
 }
 
 
-/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowDecNT]] trait
+/** Trait for Show for product types. This trait is implemented directly by the type in question, unlike the corresponding [[ShowNT]] trait
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
- * [[ShowDecNT]]. */
+ * [[ShowNT]]. */
 trait ShowDecN extends Any with ShowN with ShowDec
 {
   /** A [[Strings]] Arr collection  of the show methods return values of the elements of this Show Product class. */

@@ -11,7 +11,7 @@ trait TypeStr6[A1, A2, A3, A4, A5, A6] extends Any with TypeStr5[A1, A2, A3, A4,
 }
 
 /** [[ShowT]] type class for 6 parameter case classes. */
-trait Show6T[A1, A2, A3, A4, A5, A6, R] extends ShowDecNT[R]
+trait Show6T[A1, A2, A3, A4, A5, A6, R] extends ShowNT[R]
 
 /** Companion object for [[Show6T]] contains implementation class and factory apply method. */
 object Show6T

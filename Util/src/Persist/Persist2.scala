@@ -79,7 +79,7 @@ trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
 }
 
 /** Show type class for 2 parameter case classes. */
-trait Show2T[A1, A2, R] extends ShowDecNT[R]
+trait Show2T[A1, A2, R] extends ShowNT[R]
 { def fArg1: R => A1
   def fArg2: R => A2
   implicit def ev1: ShowDecT[A1]
