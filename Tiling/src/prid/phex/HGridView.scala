@@ -12,8 +12,8 @@ class HGridView(val r: Int, val c: Int, val pxScale: Double) extends Show2[HCoor
   inline override def show1: HCoord = hCoord
   override def name2: String = "pxScale"
   inline override def show2: Double = pxScale
-  override implicit def showT1: ShowDecT[HCoord] = HCoord.persistImplicit
-  override implicit def showT2: ShowDecT[Double] = ShowT.doublePersistEv
+  override implicit def showT1: ShowT[HCoord] = HCoord.persistImplicit
+  override implicit def showT2: ShowT[Double] = ShowT.doublePersistEv
   override def syntaxDepth: Int = 3
 }
 

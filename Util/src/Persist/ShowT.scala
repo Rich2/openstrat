@@ -2,17 +2,26 @@
 package ostrat
 import pParse._, collection.immutable.ArraySeq
 
-trait ShowT[-T] extends TypeStr
+/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
+ *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
+ *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. The capabilities of decimal place
+ *  precision and explicit typing for numbers are placed defined here and in the corresponding [[SHow]] type class although they have n meaning /
+ *  purpose for many types, as separating them adds enormous complexity for very little gain. */
+trait ShowT[-T] extends TypeStr //ShowT[T]
 {
   /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
    * rather than a method on the object being shown. */
   def strT(obj: T): String
 
-  def showT(obj: T, style: ShowStyle): String
+ // def showT(obj: T, style: ShowStyle): String
 
   /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
    * should always be determined at compile time or if sometimes it should be determined at runtime. */
   def syntaxDepthT(obj: T): Int
+
+  def showDecT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int = -1): String
+
+  def showT(obj: T, style: ShowStyle): String = showDecT(obj, style, -1, -1)
 }
 
 /* The companion object for the ShowT type class. Persist extends ShowT with UnShow. As its very unlikely that anyone would want to create an UnShow
@@ -33,12 +42,12 @@ object ShowT
     }
   }
 
-  val hexadecimal: ShowDecT[Int] = new ShowSimpleT[Int]
+  val hexadecimal: ShowT[Int] = new ShowSimpleT[Int]
   { override def typeStr: String = "Int"
     override def strT(obj: Int): String = obj.hexStr
   }
 
-  val base32: ShowDecT[Int] = new ShowSimpleT[Int]
+  val base32: ShowT[Int] = new ShowSimpleT[Int]
   { override def typeStr: String = "Int"
     override def strT(obj: Int): String = obj.base32
   }
@@ -95,7 +104,7 @@ object ShowT
     }
   }
 
-  implicit val floatImplicit: ShowDecT[Float] = new ShowSimpleT[Float]
+  implicit val floatImplicit: ShowT[Float] = new ShowSimpleT[Float]
   { override def typeStr: String = "SFloat"
     def strT(obj: Float): String = obj.toString
   }
@@ -117,29 +126,29 @@ object ShowT
     }
   }
 
-  implicit val charImplicit: ShowDecT[Char] = new ShowSimpleT[Char]
+  implicit val charImplicit: ShowT[Char] = new ShowSimpleT[Char]
   { override def typeStr: String = "Char"
     def strT(obj: Char): String = obj.toString.enquote1
   }
 
-  class ShowIterableClass[A, R <: Iterable[A]](val evA: ShowDecT[A]) extends ShowIterable[A, R] with ShowDecT[R]{}
+  class ShowIterableClass[A, R <: Iterable[A]](val evA: ShowT[A]) extends ShowIterable[A, R] with ShowT[R]{}
 
-  implicit def ShowIterableImplicit[A](implicit evA: ShowDecT[A]): ShowDecT[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
-  implicit def ShowSeqImplicit[A](implicit evA: ShowDecT[A]): ShowDecT[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
+  implicit def ShowIterableImplicit[A](implicit evA: ShowT[A]): ShowT[Iterable[A]] = new ShowIterableClass[A, Iterable[A]](evA)
+  implicit def ShowSeqImplicit[A](implicit evA: ShowT[A]): ShowT[Seq[A]] = new ShowIterableClass[A, Seq[A]](evA)
 
   /** Implicit method for creating List[A: Show] instances. */
-  implicit def listImplicit[A](implicit ev: ShowDecT[A]): ShowDecT[List[A]] = new ShowIterableClass[A, List[A]](ev)
+  implicit def listImplicit[A](implicit ev: ShowT[A]): ShowT[List[A]] = new ShowIterableClass[A, List[A]](ev)
 
   /** Implicit method for creating ::[A: Persist] instances. This seems to have to be a method rather directly using an implicit class */
   //implicit def consShowImplicit[A](implicit ev: ShowT[A]): ShowT[::[A]] = new PersistConsImplicit[A](ev)
 
   //implicit def nilPersistImplicit[A](implicit ev: Persist[A]): Persist[Nil.type] = new PersistNilImplicit[A](ev)
 
-  implicit def vectorImplicit[A](implicit ev: ShowDecT[A]): ShowDecT[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
+  implicit def vectorImplicit[A](implicit ev: ShowT[A]): ShowT[Vector[A]] = new ShowIterableClass[A, Vector[A]](ev)
 
-  implicit val arrayIntImplicit: ShowDecT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
+  implicit val arrayIntImplicit: ShowT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
   {
-    override def evA: ShowDecT[Int] = ShowT.intPersistImplicit
+    override def evA: ShowT[Int] = ShowT.intPersistImplicit
     override def syntaxDepthT(obj: Array[Int]): Int = 2
 
     override def showDecT(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"
@@ -175,10 +184,10 @@ object ShowT
   }
 
   /** Implicit method for creating Arr[A <: Show] instances. This seems toRich have to be a method rather directly using an implicit class */
-  implicit def arraySeqImplicit[A](implicit ev: ShowDecT[A]): ShowDecT[collection.immutable.ArraySeq[A]] = new ShowTSeqLike[A, ArraySeq[A]]
+  implicit def arraySeqImplicit[A](implicit ev: ShowT[A]): ShowT[collection.immutable.ArraySeq[A]] = new ShowTSeqLike[A, ArraySeq[A]]
   {
     override def syntaxDepthT(obj: ArraySeq[A]): Int = ???
-    override def evA: ShowDecT[A] = ev
+    override def evA: ShowT[A] = ev
 
     /** Not fully correct yet. */
     override def showDecT(obj: ArraySeq[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
@@ -226,27 +235,17 @@ class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
 { /** Provides the standard string representation for the object. */
   @inline def str: String = ev.strT(thisVal)
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def show(style: ShowStyle = ShowStandard): String = ev.showT(thisVal, style)
 }
-/** A type class for string, text and visual representation of objects. An alternative to toString. This trait has mor demanding ambitions Mostly you
- *  will want to use  Persist which not only gives the Show methods to String representation, but the methods to parse Strings back to objects of the
- *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. The capabilities of decimal place
- *  precision and explicit typing for numbers are placed defined here and in the corresponding [[SHow]] type class although they have n meaning /
- *  purpose for many types, as separating them adds enormous complexity for very little gain. */
-trait ShowDecT[-T] extends ShowT[T]
-{
-  def showDecT(obj: T, style: ShowStyle, maxPlaces: Int, minPlaces: Int = -1): String
 
-  override def showT(obj: T, style: ShowStyle): String = showDecT(obj, style, -1, -1)
-}
 
 /** The stringer implicit class gives extension methods for Show methods from the implicit Show instance type A. */
-class ShowDecTExtensions[-A](ev: ShowDecT[A], thisVal: A)
-{ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
+class ShowDecTExtensions[-A](ev: ShowT[A], thisVal: A)
+{ /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def showDec(style: ShowStyle = ShowStandard, decimalPlaces: Int): String = ev.showDecT(thisVal, style, decimalPlaces, decimalPlaces)
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def showDec(style: ShowStyle, decimalPlaces: Int, minPlaces: Int): String = ev.showDecT(thisVal, style, decimalPlaces, minPlaces)
 
 
@@ -274,4 +273,3 @@ class ShowDecTExtensions[-A](ev: ShowDecT[A], thisVal: A)
   def showFields: String = ev.showDecT(thisVal, ShowParamNames, 1, 0)
   def showTypedFields: String = ev.showDecT(thisVal, ShowStdTypedFields, 1, 0)
 }
-

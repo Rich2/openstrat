@@ -19,7 +19,7 @@ object Show6T
   def apply[A1, A2, A3, A4, A5, A6, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
     name4: String, fArg4: R => A4, name5: String, fArg5: R => A5, name6: String, fArg6: R => A6, opt6: Option[A6] = None, opt5: Option[A5] = None,
     opt4: Option[A4] = None, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
-    ev1: ShowDecT[A1], ev2: ShowDecT[A2], ev3: ShowDecT[A3], ev4: ShowDecT[A4], ev5: ShowDecT[A5], ev6: ShowDecT[A6]): Show6T[A1, A2, A3, A4, A5, A6, R] =
+    ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6]): Show6T[A1, A2, A3, A4, A5, A6, R] =
     new Show6TImp[A1, A2, A3, A4, A5, A6, R](typeStr, name1, fArg1, name2, fArg2, name3, fArg3, name4, fArg4, name5, fArg5, name6, fArg6,
       opt6, opt5, opt4, opt3, opt2, opt1)(ev1, ev2, ev3, ev4, ev5, ev6)
 
@@ -27,7 +27,7 @@ object Show6T
   class Show6TImp[A1, A2, A3, A4, A5, A6, R](val typeStr: String, val name1: String, fArg1: R => A1, val name2: String, fArg2: R => A2, val name3: String,
     fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val name6: String, fArg6: R => A6, val opt6: Option[A6],
     val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit
-    ev1: ShowDecT[A1], ev2: ShowDecT[A2], ev3: ShowDecT[A3], ev4: ShowDecT[A4], ev5: ShowDecT[A5], ev6: ShowDecT[A6]) extends
+    ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6]) extends
     Show6T[A1, A2, A3, A4, A5, A6, R] with ShowNT[R] with TypeStr6[A1, A2, A3, A4, A5, A6]
   {
     val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)

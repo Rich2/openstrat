@@ -18,7 +18,7 @@ object Show4T
 {
   class Show4TImp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val opt4: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2], ev3: ShowDecT[A3], ev4: ShowDecT[A4]) extends Show4T[A1, A2, A3, A4, R] with
+    opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4]) extends Show4T[A1, A2, A3, A4, R] with
     TypeStr4[A1, A2, A3, A4]
   {
     val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)

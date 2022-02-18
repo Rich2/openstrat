@@ -18,7 +18,7 @@ trait PersistCompound[R] extends ShowCompoundT[R] with Persist[R]
   }
 }
 
-trait ShowTSeqLike[A, R] extends ShowCompoundT[R] with ShowDecT[R]
-{ def evA: ShowDecT[A]
+trait ShowTSeqLike[A, R] extends ShowCompoundT[R] with ShowT[R]
+{ def evA: ShowT[A]
   override def typeStr = "Seq" + evA.typeStr.enSquare
 }

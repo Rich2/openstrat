@@ -13,7 +13,7 @@ case class Player(char: Char, colour: Colour) extends Show
 
   def charStr: String = char.toString
 
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
+  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   override def show(style: ShowStyle): String = "Player" + char
 
   override def syntaxDepth: Int = 1

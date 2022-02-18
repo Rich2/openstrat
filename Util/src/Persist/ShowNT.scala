@@ -2,7 +2,7 @@
 package ostrat
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
-trait ShowNT[R] extends ShowCompoundT[R] with ShowDecT[R]
+trait ShowNT[R] extends ShowCompoundT[R] with ShowT[R]
 {
   //def strs(obj: R, way: ShowStyle): Strings
 
