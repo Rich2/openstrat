@@ -111,9 +111,9 @@ trait ShowDec2T[A1, A2, R] extends Show2T[A1, A2, R] with ShowDecNT[R]
 /** Companion object for the [[ShowDec2T]] type class trait that shows object with 2 logical fields. */
 object ShowDec2T
 {
-  def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2]): ShowDec2T[A1, A2, R] =
-    new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
+//  def apply[A1, A2, R](typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, opt2: Option[A2] = None,
+//    opt1In: Option[A1] = None)(implicit ev1: ShowDecT[A1], ev2: ShowDecT[A2]): ShowDec2T[A1, A2, R] =
+//    new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
   class Show2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
     opt1In: Option[A1] = None)(implicit val ev1: ShowDecT[A1], val ev2: ShowDecT[A2]) extends ShowDec2T[A1, A2, R] with TypeStr2[A1,A2]

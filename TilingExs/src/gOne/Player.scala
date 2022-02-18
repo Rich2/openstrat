@@ -3,7 +3,7 @@ package ostrat; package gOne
 import prid._, phex._, Colour._
 
 /** A Player has a very simple token with a letter and colour for recognition. */
-case class Player(char: Char, colour: Colour) extends ShowDec//2[Char, Colour]
+case class Player(char: Char, colour: Colour) extends Show
 { //override def toString = "Player " + char
   /** the name of the type of this object. */
   override def typeStr: String = "Player"
@@ -14,7 +14,7 @@ case class Player(char: Char, colour: Colour) extends ShowDec//2[Char, Colour]
   def charStr: String = char.toString
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowDecT]] type class instances. */
-  override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Player" + char
+  override def show(style: ShowStyle): String = "Player" + char
 
   override def syntaxDepth: Int = 1
 }
@@ -22,7 +22,7 @@ case class Player(char: Char, colour: Colour) extends ShowDec//2[Char, Colour]
 /** Companion object for Player case class contains implicit instance for Persist. */
 object Player
 {
-  implicit val showPlayer: ShowDecT[Player] = ShowDec2T[Char, Colour, Player]("Player", "char", _.char, "colour", _.colour)
+  implicit val showPlayer: Show2T[Char, Colour, Player] = Show2T[Char, Colour, Player]("Player", "char", _.char, "colour", _.colour)
 }
 object PlayerA extends Player('A', Red)
 object PlayerB extends Player('B', Orange)
