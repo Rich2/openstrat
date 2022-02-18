@@ -74,7 +74,7 @@ trait ShowDbl3 extends Any with ShowDec3[Double, Double, Double]
 
 /** Trait for Show for product of 2 Doubles. This trait is implemented directly by the type in question, unlike the corresponding [[ShowShowDbl2T]]
  *  trait which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred
- *  over [[ShowDec2T]]. */
+ *  over [[Show2T]]. */
 trait ShowElemDbl3 extends Any with ShowDbl3 with ElemDbl3
 { final override def dbl1: Double = show1
   final override def dbl2: Double = show2
