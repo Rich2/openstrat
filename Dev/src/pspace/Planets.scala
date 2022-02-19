@@ -2,12 +2,14 @@
 package ostrat; package pspace
 import Colour._
 
+/** The planet <a href="https://en.wikipedia.org/wiki/Mercury_(planet)">Mercury</a>. */
 object Mercury extends Planet
 { override val avSunDist: Length = 36.mMiles
   override val name: String = "Mercury"
   override def colour: Colour = Colour.LightGray
 }
 
+/** The planet <a href="https://en.wikipedia.org/wiki/Venus_(planet)">Venus</a>. */
 object Venus extends Planet
 { override val avSunDist: Length = 67.2.mMiles
   override val name: String = "Venus"
@@ -26,6 +28,7 @@ object Earth extends Planet
   override val moons: Arr[TheMoon.type] = Arr(TheMoon)
 }
 
+/** The planet <a href="https://en.wikipedia.org/wiki/Mars_(planet)">Mars</a>. */
 object Mars extends Planet
 { override val avSunDist: Length = 141.6.mMiles
   override val name: String = "Mars"
