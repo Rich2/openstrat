@@ -239,7 +239,7 @@ object Unshow
     { case eet: EmptyExprToken => Good(List[A]())
       case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap(s => evA.fromExpr(s.expr)).toList
       case AlphaParenth("Seq", sts) => ??? // sts.eMap[A](_.errGet[A](evA))
-      case e => bad1(expr, "Unknown Exoression for Seq")
+      case e => bad1(expr, expr.toString + " unknown Expression for Seq")
     }
   }
 

@@ -27,7 +27,7 @@ abstract class PersistSeqLike[A, R](override val evA: Persist[A]) extends ShowTS
     case SemicolonToken(_) => Good(List[A]())
     case AlphaSquareParenth("Seq", ts, sts) => ??? //sts.eMap(s => evA.fromExpr(s.expr)).toList
     case AlphaParenth("Seq", sts) => ??? // sts.eMap[A](_.errGet[A](evA))
-    case e => bad1(expr, "Unknown Exoression for Seq")
+    case e => bad1(expr, expr.toString + " Unknown Expression for Seq")
   }
 }
 
@@ -45,7 +45,7 @@ trait ShowIterable[A, R <: Iterable[A]] extends ShowTSeqLike[A, R]
     case ShowSemis if obj.foldLeft(1)((acc, el) =>
       acc.max(evA.syntaxDepthT(el))) <= 2 => obj.map(el => evA.showDecT(el, ShowCommas, maxPlaces, 0)).semiFold
 
-    case _ => typeStr + obj.map(el => evA.showDecT(el, ShowSemis, maxPlaces, 0)).semiFold.enParenth
+    case _ => typeStr + obj.map(el => evA.showDecT(el, ShowCommas, maxPlaces, 0)).semiFold.enParenth
   }
 }
 
