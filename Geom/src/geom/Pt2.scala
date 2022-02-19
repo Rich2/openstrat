@@ -231,7 +231,10 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
 /** Companion object for Pt2. Contains apply factory and unapply methods. Persist and EqT implicit type classes instances and instances for all the
  * 2D geometric transformation type classes. */
 object Pt2
-{ def apply(x: Double, y: Double): Pt2 = new Pt2(x, y)
+{ /** apply factory method for [[Pt2]]s. */
+  def apply(x: Double, y: Double): Pt2 = new Pt2(x, y)
+
+  /** unapply extractor method for [[Pt2]]s. */
   def unapply(orig: Pt2): Option[(Double, Double)] = Some((orig.x, orig.y))
 
   implicit class Pt2Implicit(thisPt: Pt2)
@@ -241,7 +244,9 @@ object Pt2
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))
   def circlePtClockwise(angle: Double): Pt2 = Pt2(cos(angle), - sin(angle))
 
+  /** implicit [[Persist]] type class instance / evidence for [[Pt2]]s. */
   implicit val persistImplicit: PersistShowDbl2[Pt2] = new PersistShowDbl2[Pt2]("Pt2", "x", "y", apply)
+
   implicit val eqTImplicit: EqT[Pt2] = (pt1, pt2) => pt1.x == pt2.x & pt1.y == pt2.y
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 

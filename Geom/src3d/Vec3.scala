@@ -19,10 +19,14 @@ final class Vec3(val x: Double, val y: Double, val z: Double) extends Vec3Like
   }
 }
 
-/** Companion object for 3 dimensional vector [[Vec3]] class. Contains apply and unapply factory methods, and Persist type class instance. */
+/** Companion object for 3 dimensional vector [[Vec3]] class. Contains apply factory unapply extractor and [[Persist]] type class instance. */
 object Vec3
-{ def apply(x: Double, y: Double, z: Double): Vec3 = new Vec3(x, y, z)
+{ /** apply factory method for [[Vec3]]s. */
+  def apply(x: Double, y: Double, z: Double): Vec3 = new Vec3(x, y, z)
+
+  /** unapply extractor method for [[Vec3]]s. */
   def unapply(orig: Vec3): Option[(Double, Double, Double)] = Some((orig.x, orig.y, orig.z))
 
- implicit val persistImplicit: PersistShowDbl3[Vec3] = new PersistShowDbl3[Vec3]("Vec3", "x", "y", "z", apply)
+  /** implicit [[Persist]] type class intance / evidence for [[Vec3]]. */
+ implicit val persistEv: PersistShowDbl3[Vec3] = new PersistShowDbl3[Vec3]("Vec3", "x", "y", "z", apply)
 }

@@ -91,9 +91,14 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
   def magnitude: Double = math.sqrt(x * x + y * y)
 }
 
-/** Companion object for Vec2 contains apply factory method and unapply method. */
+/** Companion object for [[Vec2]] contains apply factory, unapply extractor and implicit [[Persist instances. */
 object Vec2
-{ def apply(x: Double, y: Double): Vec2 = new Vec2(x, y)
+{ /** apply factory method for [[Vec2]]s. */
+  def apply(x: Double, y: Double): Vec2 = new Vec2(x, y)
+
+  /** unapply extractor method for [[Vec2]]s. */
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
-  implicit val showImplicit: ShowT[Vec2] = ShowShowT("Vec2")
+
+  /** implicit [[Persist]] type class instance / evidence for [[Vec2]]s. */
+  implicit val persistImplicit: PersistShowDbl2[Vec2] = new PersistShowDbl2[Vec2]("Vec2", "x", "y", apply)
 }

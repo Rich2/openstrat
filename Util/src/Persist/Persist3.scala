@@ -50,6 +50,7 @@ trait Show3[A1, A2, A3] extends Any with ShowN with TypeStr3[A1, A2, A3]
     showT3.showDecT(show3, way, decimalPlaces, 0))
 }
 
+/** Show classes with 3 [[Double]] parameters. */
 trait ShowDbl3 extends Any with Show3[Double, Double, Double]
 { final override def syntaxDepth: Int = 2
   final override implicit def showT1: Persist[Double] = ShowT.doublePersistEv
