@@ -128,8 +128,8 @@ trait Unshow3[A1, A2, A3, R] extends Unshow[R] with TypeStr3[A1, A2, A3]
 
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
 
-    case ClausesExpr(clauses) if clauses.dataLength == 3 => ev1.fromExpr(clauses(0).expr).map3(
-      ev2.fromExpr(clauses(1).expr), ev3.fromExpr(clauses(2).expr)){ (a1, a2, a3) => newT(a1, a2, a3) }
+    case ExprSeqNonEmpty(exprs) if exprs.length == 3 => ev1.fromExpr(exprs(0)).map3(
+      ev2.fromExpr(exprs(1)), ev3.fromExpr(exprs(2))){ (a1, a2, a3) => newT(a1, a2, a3) }
 
     case _ => expr.exprParseErr[R](this)
   }
