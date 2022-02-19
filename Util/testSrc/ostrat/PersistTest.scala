@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import utest._
 
@@ -17,10 +17,10 @@ object PersistTest extends TestSuite
   object TestObjA extends TestClass("TestObjA")
   object TestObjB extends TestClass("TestObjB")
   
-  case class My2(ints: List[Int], myStr: String)
+  case class My2(ints: Ints, myStr: String)
  
   object My2
-  { //implicit val persist: UnShow[My2] = Persist2[List[Int], String, My2]("My2", "ints", _.ints, "myStr", _.myStr, apply)
+  { //implicit val persist: Unshow[My2] = Persist2[Ints, String, My2]("My2", "ints", _.ints, "myStr", _.myStr, apply)
   }
 
   val tests = Tests {
@@ -31,7 +31,7 @@ object PersistTest extends TestSuite
     val abSeq = Seq(TestObjA, TestObjB)
     val abRefs = Arr(TestObjA, TestObjB)
     val sStr = "Seq[TestClass](TestObjA; TestObjB)"
-    val mc = My2(List(7, 8, 9), "hi")
+    val mc = My2(Ints(7, 8, 9), "hi")
     
     "Show Other" -
     {
@@ -41,7 +41,7 @@ object PersistTest extends TestSuite
       str1.strSemi ==> str1Std
       str1.strComma ==> str1Std
       str1.strTyped ==> "Str(" + str1Std + ")"
-     // mc.str ==> "My2(7, 8, 9; \"hi\")"
+      //mc.str ==> "My2(7, 8, 9; \"hi\")"
       abSeq.str ==> sStr
      // abRefs.str ==> sStr
     }
