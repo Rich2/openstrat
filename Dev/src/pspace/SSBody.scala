@@ -3,7 +3,7 @@ package ostrat; package pspace
 import Colour._
 
 /** Solar System body includes the Sun, the Planets, Dwarf planets and their moons. */
-sealed trait SSBody
+sealed trait SSBody extends Coloured
 { /** The name of this body. */
   val name: String
 
