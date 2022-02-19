@@ -119,27 +119,34 @@ trait Unshow3[A1, A2, A3, R] extends Unshow[R] with TypeStr3[A1, A2, A3]
   /** The UnShow type class instance for type A3. */
   def ev3: Unshow[A3]
 
+  /** Method fpr creating a value of type R from values A1, A2, A3. */
   def newT: (A1, A2, A3) => R
 
   override def fromExpr(expr: Expr): EMon[R] = expr match
-  {
-    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(Arr3(s1, s2, s3), _, _))) if typeStr == typeName =>
-      ev1.fromExpr(s1.expr).map3(ev2.fromExpr(s2.expr), ev3.fromExpr(s3.expr)){ (a1, a2, a3) => newT(a1, a2, a3) }
-
+  { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-
-    case ExprSeqNonEmpty(exprs) if exprs.length == 3 => ev1.fromExpr(exprs(0)).map3(
-      ev2.fromExpr(exprs(1)), ev3.fromExpr(exprs(2))){ (a1, a2, a3) => newT(a1, a2, a3) }
-
+    case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
     case _ => expr.exprParseErr[R](this)
   }
+
+  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 3) ev1.fromExpr(exprs(0)).map3(
+    ev2.fromExpr(exprs(1)), ev3.fromExpr(exprs(2))){ (a1, a2, a3) => newT(a1, a2, a3) }
+    else Bad(Strings("Paremters wrong"))
 }
 
 object Unshow3
 {
-  /*(val typeStr: String, name1: String, fArg1: R => A1, name2: String, fArg2: R => A2, name3: String, fArg3: R => A3,
-  val newT: (A1, A2, A3) => R, opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: UnShow[A1], ev2: UnShow[A2],
-  ev3: UnShow[A3], eq1: EqT[A1], eq2: EqT[A2], eq3: EqT[A3])*/
+  def apply[A1, A2, A3, R](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R,
+    opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1: Unshow[A1], ev2: Unshow[A2], ev3: Unshow[A3]) = new
+    Unshow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, opt3, opt2, opt1)
+
+  class Unshow3Imp[A1, A2, A3, R](val typeStr: String, val name1: String, val name2: String, val name3: String, val newT: (A1, A2, A3) => R,
+    val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
+    implicit val ev1: Unshow[A1], val ev2: Unshow[A2], val ev3: Unshow[A3]) extends Unshow3[A1, A2, A3, R]
+  {
+    override def opt2: Option[A2] = ife(opt3.nonEmpty , opt2In, None)
+    override def opt1: Option[A1] = ife(opt2.nonEmpty , opt1In, None)
+  }
 }
 
 /** Persistence class for 3 logical parameter product types. */
