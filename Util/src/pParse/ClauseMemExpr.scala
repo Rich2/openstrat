@@ -35,6 +35,14 @@ trait ExprSeqNonEmpty extends CompoundClauseMemExpr with ExprSeq
 { def exprs: Arr[ClauseMemExpr]
 }
 
+object ExprSeqNonEmpty
+{
+  def unapply(inp: Any): Option[Arr[Expr]] = inp match {
+    case esne: ExprSeqNonEmpty => Some(esne.exprs)
+    case _ => None
+  }
+}
+
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
 trait ClauseMemExprToken extends ClauseMemExpr with ClauseMemToken
 { /** This with the addition of the "Expr" [[String]] gives the exprName property. */

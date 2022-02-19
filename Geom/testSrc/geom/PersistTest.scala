@@ -11,7 +11,8 @@ object PersistTest extends TestSuite
       p1.strSemi ==> "2.5; -4"
       p1.strComma ==> "2.5, -4"
       p1.str.asType[Pt2] ==> Good(p1)
-      //p1.strSemi.asType[Pt2] ==> Good(p1)
+      p1.strSemi.asType[Pt2] ==> Good(p1)
+      p1.strComma.asType[Pt2] ==> Good(p1)
     }
   }
 }

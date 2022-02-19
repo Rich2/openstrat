@@ -174,8 +174,14 @@ trait Unshow2[A1, A2, R] extends Unshow[R] with TypeStr2[A1, A2]
 
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
 
-    case ClausesExpr(clauses) if clauses.dataLength == 2 =>
-      ev1.fromExpr(clauses(0).expr).map2(ev2.fromExpr(clauses(1).expr)){ (a1, a2) => newT(a1, a2) }
+    case ExprSeqNonEmpty(exprs) if exprs.length == 2 =>
+      ev1.fromExpr(exprs(0)).map2(ev2.fromExpr(exprs(1))){ (a1, a2) => newT(a1, a2) }
+
+//    case ClausesExpr(clauses) if clauses.dataLength == 2 =>
+//      ev1.fromExpr(clauses(0).expr).map2(ev2.fromExpr(clauses(1).expr)){ (a1, a2) => newT(a1, a2) }
+//
+//    case StringStatements(sts) if sts.length == 2 =>
+//      ev1.fromExpr(sts(0).expr).map2(ev2.fromExpr(sts(1).expr)){ (a1, a2) => newT(a1, a2) }
 
     case _ => expr.exprParseErr[R](this)
   }
