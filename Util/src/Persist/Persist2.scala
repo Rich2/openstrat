@@ -168,23 +168,14 @@ trait Unshow2[A1, A2, R] extends Unshow[R] with TypeStr2[A1, A2]
   def newT: (A1, A2) => R
 
   override def fromExpr(expr: Expr): EMon[R] = expr match
-  {
-    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(Arr2(s1, s2), _, _))) if typeStr == typeName =>
-      ev1.fromExpr(s1.expr).map2(ev2.fromExpr(s2.expr)){ (a1, a2) => newT(a1, a2) }
-
+  { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-
-    case ExprSeqNonEmpty(exprs) if exprs.length == 2 =>
-      ev1.fromExpr(exprs(0)).map2(ev2.fromExpr(exprs(1))){ (a1, a2) => newT(a1, a2) }
-
-//    case ClausesExpr(clauses) if clauses.dataLength == 2 =>
-//      ev1.fromExpr(clauses(0).expr).map2(ev2.fromExpr(clauses(1).expr)){ (a1, a2) => newT(a1, a2) }
-//
-//    case StringStatements(sts) if sts.length == 2 =>
-//      ev1.fromExpr(sts(0).expr).map2(ev2.fromExpr(sts(1).expr)){ (a1, a2) => newT(a1, a2) }
-
+    case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
     case _ => expr.exprParseErr[R](this)
   }
+
+  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 2) ev1.fromExpr(exprs(0)).map2(ev2.fromExpr(exprs(1)))(newT)
+  else Bad(Strings("Parameters wrong"))
 }
 
 object Unshow2{
