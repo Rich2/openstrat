@@ -17,7 +17,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
   def lunits: GraphicElems = scen.lunits.gridHeadsFlatMap{ (hc, squad) =>
-    val uc = UnitCounters.infantry(0.6, squad, squad.colour, terrs(hc).colour).slate(hc.toPt2)
+    val uc = UnitCounters.infantry(1.2, squad, squad.colour, terrs(hc).colour).slate(hc.toPt2)
 
     val actions: GraphicElems = squad.action match
     { case mv: HSteps => mv.segsMap(hc)(_.draw())

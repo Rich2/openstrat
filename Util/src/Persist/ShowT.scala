@@ -7,7 +7,7 @@ import pParse._, collection.immutable.ArraySeq
  *  type T. However it may often be useful to start with Show type class and upgrade it later to Persist[T]. The capabilities of decimal place
  *  precision and explicit typing for numbers are placed defined here and in the corresponding [[SHow]] type class although they have n meaning /
  *  purpose for many types, as separating them adds enormous complexity for very little gain. */
-trait ShowT[-T] extends TypeStr //ShowT[T]
+trait ShowT[-T] extends TypeStr
 {
   /** Provides the standard string representation for the object. Its called ShowT to indicate this is a type class method that acts upon an object
    * rather than a method on the object being shown. */
@@ -242,7 +242,6 @@ class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   def showDec(style: ShowStyle, decimalPlaces: Int, minPlaces: Int): String = ev.showDecT(thisVal, style, decimalPlaces, minPlaces)
 
-
   /** Return the defining member values of the type as a series of comma separated values without enclosing type information, note this will only
    *  happen if the syntax depth is less than 3. if it is 3 or greater return the full typed data. */
   @inline def strComma: String = ev.showDecT(thisVal, ShowCommas, -1, 0)//ev.showComma(thisVal)
@@ -264,8 +263,11 @@ class ShowTExtensions[-A](ev: ShowT[A], thisVal: A)
   def str1: String = ev.showDecT(thisVal, ShowStandard, 1, 0)
   def str2: String = ev.showDecT(thisVal, ShowStandard, 2, 0)
   def str3: String = ev.showDecT(thisVal, ShowStandard, 3, 0)
-  def showFields: String = ev.showDecT(thisVal, ShowParamNames, 1, 0)
-  def showTypedFields: String = ev.showDecT(thisVal, ShowStdTypedFields, 1, 0)
+
+  /** Shows this object with field names. */
+  def showFields: String = ev.showDecT(thisVal, ShowParamNames, -1, 0)
+
+  def showTypedFields: String = ev.showDecT(thisVal, ShowStdTypedFields, -1, 0)
 }
 
 /** Shows a simple object like a Singleton object or a Double. For your own objects that you control it is better to use Show and its helper sub

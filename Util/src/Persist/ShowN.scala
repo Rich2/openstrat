@@ -29,7 +29,7 @@ trait ShowN extends Any with ShowDec
     case ShowSemisNames => showSemisNames
 
     case ShowStdTypedFields =>
-    { val inner = elemNames.zipMap2(elemTypeNames,showElemStrs(ShowStandard))((n, t, s) => n + ": " + t + " = " + s).mkStr(", ")
+    { val inner = elemNames.zipMap2(elemTypeNames,showElemStrs(ShowStandard))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
       typeStr + inner.enParenth
     }
 
