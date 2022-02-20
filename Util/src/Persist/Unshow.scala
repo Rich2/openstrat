@@ -62,13 +62,10 @@ trait Unshow[+T] extends TypeStr
 /** Companion object for the [[Unshow]] type class trait, contains implicit instances for common types. */
 object Unshow
 {
-  //implicit def tuple2Implicit[A1, A2](implicit ev1: Persist[A1], ev2: Persist[A2], eq1: EqT[A1], eq2: EqT[A2]): Persist[Tuple2[A1, A2]] =
-  // Persist2[A1, A2, (A1, A2)]("Tuple2", "_1", _._1, "_2", _._2, (a1, a2) => (a1, a2))
-
   /** Implicit [[Unshow]] instance for an [[Int]] in a standard format. */
-  implicit val intEv: Unshow[Int] = new Unshow[Int]
-  {
-    override def typeStr: String = "Int"
+  implicit val intEv: Unshow[Int] = new IntEvCl
+  class IntEvCl extends Unshow[Int]
+  { override def typeStr: String = "Int"
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match {
       case IntStdToken(i) => Good(i)

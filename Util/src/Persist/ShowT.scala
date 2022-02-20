@@ -28,16 +28,9 @@ trait ShowT[-T] extends TypeStr
    Persist type instances, and these will be placed in the Persist companion object. */
 object ShowT
 {
-  implicit val intPersistImplicit: Persist[Int] = new PersistSimple[Int]("Int")
-  {
-    def strT(obj: Int): String = obj.toString
-
-    override def fromExpr(expr: Expr): EMon[Int] = expr match {
-      case IntStdToken(i) => Good(i)
-      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "+" => Good(i)
-      case PreOpExpr(op, IntStdToken(i)) if op.srcStr == "-" => Good(-i)
-      case _ => expr.exprParseErr[Int]
-    }
+  implicit val intPersistImplicit: Persist[Int] = new IntPersistClass
+  class IntPersistClass extends Unshow.IntEvCl with Persist[Int] with ShowSimpleT[Int]
+  { def strT(obj: Int): String = obj.toString
   }
 
   val hexadecimal: ShowT[Int] = new ShowSimpleT[Int]
