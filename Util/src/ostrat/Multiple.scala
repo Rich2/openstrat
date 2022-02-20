@@ -1,9 +1,11 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0 */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. */
 case class Multiple[+A](value: A, num: Int)
-{ def * (operand: Int): Multiple[A] = Multiple(value, num * operand)
+{ /** multiply the [[Multiple]] number with the operand */
+  def * (operand: Int): Multiple[A] = Multiple(value, num * operand)
+
   override def toString = "Multiple" + (value.toString + "; " + num.toString).enParenth
 
   def foreach(f: A => Unit): Unit = num.doTimes(() => f(value))
