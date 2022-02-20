@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
-/** Function object. Not entirely sure what this does. */
-object prefixPlus
-{
+/** Function object, seems to parse prefix operators. */
+object parsePrefixPlus
+{ /** Seems to parse prefix operators. Function object apply method. */
   def apply(implicit refs: Arr[BlockMem]): EArr[BlockMem] =
   {
     val acc: Buff[BlockMem] = Buff()
@@ -28,9 +28,9 @@ object getExpr
     val acc: Buff[AssignMem] = Buff()
 
     def loop(rem: ArrOff[StatementMem]): EMon[Expr] = rem match
-    { case ArrOff0() => getClauses(acc.toArr)
+    { case ArrOff0() => parseClauses(acc.toArr)
 
-      case ArrOff1Tail(at @ AsignToken(_), tail) => getClauses(acc.toArr).flatMap(gLs => rightExpr(tail).map { gRs =>
+      case ArrOff1Tail(at @ AsignToken(_), tail) => parseClauses(acc.toArr).flatMap(gLs => rightExpr(tail).map { gRs =>
           AsignExpr(gLs, at, gRs)
         })
 
@@ -44,7 +44,7 @@ object getExpr
   {
     val acc: Buff[AssignMem] = Buff()
     def loop(rem: ArrOff[StatementMem]): EMon[AssignMemExpr] = rem match {
-      case ArrOff0() => getClauses(acc.toArr)
+      case ArrOff0() => parseClauses(acc.toArr)
       case ArrOffHead(at: AsignToken) => bad1(at, "Prefix operator not followed by expression")
       case ArrOff1Tail(am: AssignMem, tail) => { acc.append(am); loop(tail)}
     }
@@ -52,9 +52,10 @@ object getExpr
   }
 }
 
-object getClauses
+/** Function object parses [[Clause]]s. */
+object parseClauses
 {
-  /** This assumes this is not empty */
+  /** parses [[Clause]]s. Assumess input [[Arr]] is not empty. */
   def apply (implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] = fromOffset(seg.offset0)
 
   def fromOffset(inp: ArrOff[AssignMem])(implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] =

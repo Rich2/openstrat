@@ -3,13 +3,13 @@ package ostrat; package pParse
 
 /** Function object for parsing clause members into ClauseMemExpr. */
 object parseClause
-{
+{ /** parsing clause members into ClauseMemExpr */
   def apply(implicit seg: Arr[ClauseMem]): EMon[ClauseMemExpr] =
   {
     val acc: Buff[BlockMem] = Buff()
 
     def sortBlocks(rem: ArrOff[ClauseMem]): EArr[BlockMem] = rem match
-    { case ArrOff0() => prefixPlus(acc.toArr)
+    { case ArrOff0() => parsePrefixPlus(acc.toArr)
       case ArrOff2Tail(at: IdentifierToken, bb: BracketedStatements, t2) => {
         val abe = AlphaBracketExpr(at, Arr(bb))
         acc.append(abe)

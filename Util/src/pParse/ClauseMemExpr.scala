@@ -13,7 +13,7 @@ trait AssignMemExpr extends Expr with AssignMem
 
 trait AssignMemExprToken extends ClauseMemExprToken with AssignMemExpr// with Token
 
-/** An expression that can be a member of a [[Clause]]. */
+/** An expression that can be a member of a [[Clause]] or the expression of clause. */
 trait ClauseMemExpr extends AssignMemExpr with ClauseMem
 
 trait Expr0 extends Expr1
