@@ -11,6 +11,51 @@ trait TypeStr4[A1, A2, A3, A4] extends Any with TypeStr3[A1, A2, A3]
   def opt4: Option[A4]
 }
 
+/** Trait for [[ShowDec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
+ *  [[ShowEq3T]] trait which externally acts on an object of the specified type to create its String representations. For your own types it is better to
+ *  inherit from Show3 and then use [[Show3ElemT]] or [[Persist3ElemT]] to create the type class instance for ShowT. The [[Show3ElemT]] or
+ *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
+ *  toString override to a [[ShowEq3T]] instance. */
+trait Show4[A1, A2, A3, A4] extends Any with ShowN with TypeStr4[A1, A2, A3, A4]
+{
+  override def opt1: Option[A1] = None
+  override def opt2: Option[A2] = None
+  override def opt3: Option[A3] = None
+  override def opt4: Option[A4] = None
+
+  /** Element 1 of this 4 element Show product. */
+  def show1: A1
+
+  /** Element 2 of this 4 element Show product. */
+  def show2: A2
+
+  /** Element 3 of this 4 element Show product. */
+  def show3: A3
+
+  /** Element 4 of this 4 element Show product. */
+  def show4: A4
+
+  /** The [[ShowT]] type class instance for the 1st element of this 4 element Show product. */
+  def showT1: ShowT[A1]
+
+  /** The [[ShowT]] type class instance for the 2nd element of this 4 element Show product. */
+  def showT2: ShowT[A2]
+
+  /** The [[ShowT]] type class instance for the 3rd element of this 4 element Show product. */
+  def showT3: ShowT[A3]
+
+  /** The [[ShowT]] type class instance for the 4th element of this 4 element Show product. */
+  def showT4: ShowT[A4]
+
+  override def elemNames: Strings = Strings(name1, name2, name3, name4)
+  override def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr, showT3.typeStr, showT4.typeStr)
+
+  override def showElemStrs(way: ShowStyle): Strings = Strings(showT1.showT(show1, way), showT2.showT(show2, way), showT3.showT(show3, way), showT4.showT(show4, way))
+
+  override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0),
+    showT3.showDecT(show3, way, decimalPlaces, 0), showT4.showDecT(show4, way, decimalPlaces, 0))
+}
+
 /** Show type class for 4 parameter case classes. */
 trait Show4T[A1, A2, A3, A4, R] extends ShowNT[R]
 
