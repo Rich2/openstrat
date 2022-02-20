@@ -129,9 +129,9 @@ trait Unshow3[A1, A2, A3, R] extends Unshow[R] with TypeStr3[A1, A2, A3]
     case _ => expr.exprParseErr[R](this)
   }
 
-  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 3) ev1.fromExpr(exprs(0)).map3(
-    ev2.fromExpr(exprs(1)), ev3.fromExpr(exprs(2))){ newT }
-    else Bad(Strings("Paremters wrong"))
+  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 3) ev1.fromSettingOrExpr(name1, exprs(0)).map3(
+    ev2.fromSettingOrExpr(name2, exprs(1)), ev3.fromSettingOrExpr(name3, exprs(2))){ newT }
+    else Bad(Strings("Parameters wrong"))
 }
 
 object Unshow3

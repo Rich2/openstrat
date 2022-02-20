@@ -174,7 +174,8 @@ trait Unshow2[A1, A2, R] extends Unshow[R] with TypeStr2[A1, A2]
     case _ => expr.exprParseErr[R](this)
   }
 
-  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 2) ev1.fromExpr(exprs(0)).map2(ev2.fromExpr(exprs(1)))(newT)
+  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 2)
+    ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
   else Bad(Strings("Parameters wrong"))
 }
 

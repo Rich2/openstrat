@@ -4,6 +4,14 @@ package ostrat; package pParse
 /** An alphanumeric token beginning with an alphabetic character that normally represents a name of something, that identifies something. */
 trait IdentifierToken extends AssignMemExprToken
 
+object IdentifierToken
+{
+  def unapply(inp: Any): Option[String] = inp match {
+    case idt: IdentifierToken => Some(idt.srcStr)
+    case _ => None
+  }
+}
+
 /** An identifier token beginning with an underscore character. */
 case class IdentUnderToken(startPosn: TextPosn, srcStr: String) extends IdentifierToken
 { override def exprTypeStr: String = "IndentUnder"
