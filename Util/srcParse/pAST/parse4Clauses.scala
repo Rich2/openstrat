@@ -15,7 +15,7 @@ object parse4Clauses
 
       case ArrOff0() if acc.isEmpty => parse5Clause(subAcc.toArr)
       case ArrOff0() if subAcc.isEmpty => Good(ClausesExpr(acc.toArr))
-      case ArrOff0() => parse6ColonMem(subAcc.toArr).map{e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
+      case ArrOff0() => parse8ColonMem(subAcc.toArr).map{e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
       case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
 
       case ArrOff1Tail(ct: CommaToken, tail) => parse5Clause(subAcc.toArr).flatMap{ expr =>

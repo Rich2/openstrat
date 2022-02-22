@@ -1,9 +1,10 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 
-object tokensToBlockMems
+/** Function object to parse the Blocks from the input [[Token]] sequence. */
+object parse0Blocks
 {
-  /** Gets Statements from Tokens. All other methods in this object are private. */
+  /** Function object to parse the Blocks from the input [[Token]] sequence. */
   def apply(implicit tokens: Arr[Token]): EArr[BlockMem] =
   {
     val acc: Buff[BlockMem] = Buff()
