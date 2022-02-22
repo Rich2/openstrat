@@ -9,13 +9,13 @@ object parse6Clauses
 
   def fromOffset(inp: ArrOff[AssignMem])(implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] =
   {
-    var subAcc: Buff[ColonOpMem] = Buff()
+    var subAcc: Buff[ClauseMem] = Buff()
     val acc: Buff[Clause] = Buff()
     def loop(rem: ArrOff[AssignMem]): EMon[AssignMemExpr] = rem match {
 
       case ArrOff0() if acc.isEmpty => parse7Clause(subAcc.toArr)
       case ArrOff0() if subAcc.isEmpty => Good(ClausesExpr(acc.toArr))
-      case ArrOff0() => parse8ColonMem(subAcc.toArr).map{e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
+      case ArrOff0() => parse7Clause(subAcc.toArr).map{e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
       case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
 
       case ArrOff1Tail(ct: CommaToken, tail) => parse7Clause(subAcc.toArr).flatMap{ expr =>
@@ -23,7 +23,7 @@ object parse6Clauses
         subAcc = Buff()
         loop(tail)
       }
-      case ArrOff1Tail(cm: ColonOpMem, tail) => { subAcc.append(cm); loop(tail)}
+      case ArrOff1Tail(cm: ClauseMem, tail) => { subAcc.append(cm); loop(tail)}
     }
     loop(inp)
   }

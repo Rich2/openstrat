@@ -18,6 +18,7 @@ object lexOperatorToken
     def sort: Token = acc.last match
     {
       case '=' => AsignToken(tp)
+      case ':' => ColonToken(tp)
       case _ => OperatorToken(tp, acc)
     }
     loop(remOff, tp)

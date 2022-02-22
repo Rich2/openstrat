@@ -9,15 +9,15 @@ object parse7Clause
     val leftAcc: Buff[ColonOpMem] = Buff()
     val rightAcc: Buff[ColonOpMem] = Buff()
 
-    def rightLoop(rem: ArrOff[ClauseMem], ct: ColonToken, leftExpr: ColonMemExpr): EMon[ColonExpr] = rem match {
+    def rightLoop(rem: ArrOff[ClauseMem], leftExpr: ColonMemExpr, ct: ColonToken): EMon[ColonExpr] = rem match {
       case ArrOff0() => parse8ColonMem(rightAcc.toArr).map{r => ColonExpr(leftExpr, ct, r) }
       case ArrOff1Tail(ct2: ColonToken, tail) => bad1(ct2, "More than 1 Colon in expression.")
-      case ArrOff1Tail(cm: ColonOpMem, tail) => { rightAcc.append(cm); rightLoop(tail, ct, leftExpr)}
+      case ArrOff1Tail(cm: ColonOpMem, tail) => { rightAcc.append(cm); rightLoop(tail, leftExpr, ct) }
     }
 
     def leftLoop(rem: ArrOff[ClauseMem]): EMon[ClauseMemExpr] = rem match {
       case ArrOff0() => parse8ColonMem(leftAcc.toArr)
-      case ArrOff1Tail(ct: ColonToken, tail) => parse8ColonMem(leftAcc.toArr).flatMap{leftExpr => rightLoop(tail, ct, leftExpr) }
+      case ArrOff1Tail(ct: ColonToken, tail) => parse8ColonMem(leftAcc.toArr).flatMap{leftExpr => rightLoop(tail, leftExpr, ct) }
       case ArrOff1Tail(cm: ColonOpMem, tail) => { leftAcc.append(cm); leftLoop(tail) }
     }
 

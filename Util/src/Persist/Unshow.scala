@@ -12,7 +12,8 @@ trait Unshow[+T] extends TypeStr
   /** Trys to build an object of type T from the statement. */
   final def fromStatement(st: Statement): EMon[T] = fromExpr(st.expr)
 
-  def fromSettingOrExpr(SettingStr: String, expr: Expr): EMon[T] = expr match {
+  def fromSettingOrExpr(SettingStr: String, expr: Expr): EMon[T] = expr match
+  { case AsignExpr(ColonExpr(IdentifierToken(SettingStr), _, IdentifierToken(_)), _, rExpr) => fromExpr(rExpr)
     case AsignExpr(IdentifierToken(SettingStr), _, rExpr) => fromExpr(rExpr)
     case e => fromExpr(e)
   }

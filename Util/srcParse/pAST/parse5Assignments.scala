@@ -17,7 +17,7 @@ object parse5Assignments
           AsignExpr(gLs, at, gRs)
         })
 
-      case ArrOff1Tail(h: AssignMemExpr, tail) => { acc.append(h); loop(tail) }
+      case ArrOff1Tail(h: AssignMem, tail) => { acc.append(h); loop(tail) }
       case ArrOff1Tail(h, tail) => debexc(h.toString + " is not AssignMemExpr.")
     }
     loop(inp)
