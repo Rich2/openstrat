@@ -51,12 +51,13 @@ def natProj(name: String) = baseProj(name, name + "Nat").enablePlugins(ScalaNati
 
 lazy val Util = jvmProj("Util").settings(
   name := "RUtil",
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Util/srcAnyVal",
+  Compile/unmanagedSourceDirectories ++= List("srcAnyVal", "srcParse").map{ str => (ThisBuild/baseDirectory).value / "Util" / str },
 )
 lazy val UtilExs = jvmProj("Util").dependsOn(Util)
 
 lazy val UtilJs = jsProj("Util").settings(
   name := "RUtil",
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Util/srcParse",
 
   Compile / sourceGenerators += Def.task {
     val str = scala.io.Source.fromFile("Util/srcAnyVal/Arr.scala").mkString
