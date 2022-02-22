@@ -114,7 +114,7 @@ case class AsignExpr(left: AssignMemExpr, asToken: AsignToken, right : AssignMem
   override def exprName: String = "AsignExpr"
 }
 
-case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends CompoundExpr
+case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends CompoundExpr with ClauseMemExpr
 { override def startMem = left
   override def endMem = right
   override def exprName: String = "ColonExpr"
