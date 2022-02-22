@@ -1,8 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pParse
+package ostrat; package pParse; package pAST
 
 /** Function object for parseing [[blockMem]]s to an [[Expr]]. */
-object blockMemsToExpr
+object parse1Statements
 {
   /** Tries to Parses a sequence of block members to an [[Expr]]. So an original String of "4' will return a [[Good]] natural integer expression. but
    *  "4;" will return a [[Good]] [[Statement]] sequence of one Statement. */
@@ -14,11 +14,11 @@ object blockMemsToExpr
     def loop(rem: ArrOff[BlockMem]): EMon[Expr] = rem match
     {
       case ArrOff0() if subAcc.isEmpty => Good(StringStatements(acc.toArr))
-      case ArrOff0() if acc.isEmpty => getExpr(subAcc.toArr)
-      case ArrOff0() => statementParse(subAcc.toArr, NoRef).map(acc :+ _).map(g => StringStatements(g.toArr))
+      case ArrOff0() if acc.isEmpty => parse3Assignments(subAcc.toArr)
+      case ArrOff0() => parse2Statement(subAcc.toArr, NoRef).map(acc :+ _).map(g => StringStatements(g.toArr))
       case ArrOff1Tail(st: SemicolonToken, tail) if subAcc.isEmpty => { acc.append(EmptyStatement(st)); loop(tail) }
 
-      case ArrOff1Tail(st: SemicolonToken, tail) => statementParse(subAcc.toArr, OptRef(st)).flatMap{ g =>
+      case ArrOff1Tail(st: SemicolonToken, tail) => parse2Statement(subAcc.toArr, OptRef(st)).flatMap{ g =>
         acc.append(g)
         subAcc = Buff()
         loop(tail)

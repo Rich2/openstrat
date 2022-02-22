@@ -38,11 +38,11 @@ package object pParse
   def tokensToStatements(tokens: Arr[Token]): EArr[Statement] = tokensToBlockMems(tokens).flatMap{ g => blockMemsToStatements(g)}
 
   /** Tries to parse a sequence of block members [[BlockMem]]s to a squence of [[Statement]]s. */
-  def blockMemsToStatements(inp: Arr[BlockMem]): EArr[Statement] = blockMemsToExpr(inp).map{
+  def blockMemsToStatements(inp: Arr[BlockMem]): EArr[Statement] = pAST.parse1Statements(inp).map{
     case StringStatements(sts) => sts
     case e => Arr(NonEmptyStatement(e, NoRef))
   }
 
   /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
-  def tokensToExpr(tokens: Arr[Token]): EMon[Expr] = tokensToBlockMems(tokens).flatMap{ g => blockMemsToExpr(g)}
+  def tokensToExpr(tokens: Arr[Token]): EMon[Expr] = tokensToBlockMems(tokens).flatMap{ g => pAST.parse1Statements(g)}
 }
