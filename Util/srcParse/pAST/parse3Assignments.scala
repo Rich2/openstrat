@@ -11,9 +11,9 @@ object parse3Assignments
     val acc: Buff[AssignMem] = Buff()
 
     def loop(rem: ArrOff[StatementMem]): EMon[Expr] = rem match
-    { case ArrOff0() => parse4Clauses(acc.toArr)
+    { case ArrOff0() => parse6Clauses(acc.toArr)
 
-      case ArrOff1Tail(at @ AsignToken(_), tail) => parse4Clauses(acc.toArr).flatMap(gLs => rightExpr(tail).map { gRs =>
+      case ArrOff1Tail(at @ AsignToken(_), tail) => parse6Clauses(acc.toArr).flatMap(gLs => rightExpr(tail).map { gRs =>
           AsignExpr(gLs, at, gRs)
         })
 
@@ -27,7 +27,7 @@ object parse3Assignments
   {
     val acc: Buff[AssignMem] = Buff()
     def loop(rem: ArrOff[StatementMem]): EMon[AssignMemExpr] = rem match {
-      case ArrOff0() => parse4Clauses(acc.toArr)
+      case ArrOff0() => parse6Clauses(acc.toArr)
       case ArrOffHead(at: AsignToken) => bad1(at, "Prefix operator not followed by expression")
       case ArrOff1Tail(am: AssignMem, tail) => { acc.append(am); loop(tail)}
     }

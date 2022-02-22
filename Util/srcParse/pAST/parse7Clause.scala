@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 
-/** Function object to parse ColonExpr. */
-object parse5Clause
-{ /** Function object to parse ColonExpr. */
+/** Function object to parse [[ColonExpr]] from [[ClauseMem]]s. */
+object parse7Clause
+{ /** Function apply method parses [[ColonExpr]] from [[ClauseMem]]s. */
   def apply(implicit seg: Arr[ClauseMem]): EMon[ClauseMemExpr] =
   {
     val leftAcc: Buff[ColonOpMem] = Buff()
