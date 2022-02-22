@@ -24,9 +24,9 @@ trait ShowN extends Any with ShowDec
 
     style match
     { case ShowSemis => semisStr
-    case ShowCommas => showElemStrs(ShowStandard).mkStr(", ")
-    case ShowParamNames => typeStr + showSemisNames.enParenth
-    case ShowSemisNames => showSemisNames
+      case ShowCommas => showElemStrs(ShowStandard).mkStr(", ")
+      case ShowParamNames => typeStr + showSemisNames.enParenth
+      case ShowSemisNames => showSemisNames
 
     case ShowStdTypedFields =>
     { val inner = elemNames.zipMap2(elemTypeNames,showElemStrs(ShowStandard))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
@@ -55,7 +55,7 @@ trait ShowN extends Any with ShowDec
     case ShowSemisNames => showSemisNameDecs(maxPlaces, minPlaces)
 
     case ShowStdTypedFields =>
-    { val inner = elemNames.zipMap2(elemTypeNames,showElemStrDecs(ShowStandard, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr(", ")
+    { val inner = elemNames.zipMap2(elemTypeNames,showElemStrDecs(ShowStandard, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
       typeStr + inner.enParenth
     }
 

@@ -31,7 +31,7 @@ object PersistTest extends TestSuite
       p3.showFields ==> "Pt3(x = 2.5; y = -4; z = -20.01)"
       "Pt3(x = 2.5; y = -4; z = -20.01)".asType[Pt3] ==> Good(p3)
       "Pt3(x = 2.5; y1 = -4; z = -20.01)".asType[Pt3].isGood ==> false
-      //p3.showTypedFields ==> "Pt3(x: DFLoat = 2.5; y: DFloat = -4; z: DFloat = -20.01)"
+      p3.showTypedFields ==> "Pt3(x: DFloat = 2.5; y: DFloat = -4; z: DFloat = -20.01)"
       "Pt3(x: DFLoat = 2.5; y: DFloat = -4; z: DFloat = -20.01)".asType[Pt3] ==> Good(p3)
     }
   }

@@ -4,16 +4,14 @@ package ostrat
 /** The base trait for the persistence of algebraic product types, including case classes. */
 trait ShowNT[R] extends ShowCompoundT[R] with ShowT[R]
 {
-  //def strs(obj: R, way: ShowStyle): Strings
-
   override def showT(obj: R, style: ShowStyle): String =
   { def semisStr = strs(obj, ShowCommas).mkStr("; ")
 
     style match
     { case ShowUnderScore => "_"
-    case ShowSemis => semisStr
-    case ShowCommas => strs(obj, ShowStandard).mkStr(", ")
-    case _ => typeStr.appendParenth(semisStr)
+      case ShowSemis => semisStr
+      case ShowCommas => strs(obj, ShowStandard).mkStr(", ")
+      case _ => typeStr.appendParenth(semisStr)
     }
   }
 
