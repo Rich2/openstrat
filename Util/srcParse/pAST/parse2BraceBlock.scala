@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 
-/** Function object to sort tokens in to brace hierarchy. */
-object bracesParse
-{ /** Sorts tokens in to brace hierarchy. */
+/** Function object to parse a brace delineated block. */
+object parse2BraceBlock
+{ /** Funton apply method parses input [[Token]]s into a brace syntax block. */
   def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: Arr[Token]): EMon2[BracketedStatements, ArrOff[Token]] =
   {
     val acc: Buff[BlockMem] = Buff()
@@ -12,7 +12,7 @@ object bracesParse
       case ArrOff0() => open.startPosn.bad2("Unclosed Brace")
 
       //This case is where an inner BracketBlock starts within the current BracketBlock
-      case ArrOff1Tail(bo: BracketOpen, tail) => bracesParse(tail, bo).flatMap2{ (bracketBlock, remTokens) =>
+      case ArrOff1Tail(bo: BracketOpen, tail) => parse2BraceBlock(tail, bo).flatMap2{ (bracketBlock, remTokens) =>
         acc.append(bracketBlock)
         loop(remTokens)
       }

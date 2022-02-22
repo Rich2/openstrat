@@ -1,10 +1,10 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 
-/** Function object to parse the Blocks from the input [[Token]] sequence. */
-object parse0Blocks
+/** Function object to parse the brace delineated syntax block syntax structure from the input [[Token]] sequence. */
+object parse1BlockStructure
 {
-  /** Function object to parse the Blocks from the input [[Token]] sequence. */
+  /** Function apply method to parse the brace delineated block syntax structure from the input [[Token]] sequence. */
   def apply(implicit tokens: Arr[Token]): EArr[BlockMem] =
   {
     val acc: Buff[BlockMem] = Buff()
@@ -14,7 +14,7 @@ object parse0Blocks
     def loop(rem: ArrOff[Token]): EArr[BlockMem] = rem match
     {
       case ArrOff0() => Good(acc.toArr)
-      case ArrOff1Tail(bo: BracketOpen, tail) => bracesParse(tail, bo).flatMap { (bracketBlock, remTokens) =>
+      case ArrOff1Tail(bo: BracketOpen, tail) => parse2BraceBlock(tail, bo).flatMap { (bracketBlock, remTokens) =>
         acc.append(bracketBlock)
         loop(remTokens)
       }

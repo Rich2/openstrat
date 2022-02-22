@@ -2,7 +2,7 @@
 package ostrat; package pParse; package pAST
 
 /** Function object that seeks to get a valid expression from a Mono Statement or clause. */
-object parse3Assignments
+object parse5Assignments
 { /** Seeks to get a valid expression from a Mono Statement or clause. */
   def apply (implicit seg: Arr[StatementMem]): EMon[Expr] = fromOffset(seg.offset0)
 
