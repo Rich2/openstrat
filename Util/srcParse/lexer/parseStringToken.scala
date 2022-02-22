@@ -1,5 +1,5 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pParse
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pParse; package lexer
 
 /** Function object that parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first. */
 object parseStringToken

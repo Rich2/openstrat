@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pParse
+package ostrat; package pParse; package lexer
 
 /** Function object for parsing a raw number, could be a normal decimal, hexadecimal or trigdual number. Not all natural numbers are
  * parsed with this function object. Raw hex and trigdual numbers can be encoded as alpha numeric identity tokens. */

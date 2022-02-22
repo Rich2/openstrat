@@ -16,18 +16,20 @@ package ostrat
  *  artist, professional game scripter, professional imperative programming wizards in languages such as C / C++ and Rust and professional functional
  *  programming wizards in languages such as Scala, Haskell and Idris. */
 package object pParse
-{
+{ /** type alias for Arr[Token] .*/
   type Tokens = Arr[Token]
+
   type Statements = Arr[Statement]
   /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non fatal exceptions or if the file doesn't exist
    *   will be returned as errors. */
   def srcToEStatements(input: Array[Char], inputSourceName: String): EArr[Statement] =
-    srcToETokens(input, inputSourceName).flatMap(tokensToStatements(_))
+    lexer.srcToETokens(input, inputSourceName).flatMap(tokensToStatements(_))
+
   /** Returns an EMon of a sequence of Statements from a String. */
-  def stringToStatements(input: String): EArr[Statement] =
-    stringToTokens(input).flatMap(tokensToStatements(_))
+  def stringToStatements(input: String): EArr[Statement] = stringToTokens(input).flatMap(tokensToStatements(_))
+
   /** Max numbers for long and hexidecimal formats needs to be implemented */
-  def stringToTokens(srcStr: String): EArr[Token] = srcToETokens(srcStr.toCharArray, "String")
+  def stringToTokens(srcStr: String): EArr[Token] = lexer.srcToETokens(srcStr.toCharArray, "String")
 
   def isOperator(char: Char): Boolean = char match
   { case '+' | '-' | '*' | '/' | '=' => true
