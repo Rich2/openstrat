@@ -2,22 +2,22 @@
 package ostrat; package pParse; package plex
 import utest._
 
-object ParseStringTokenTest extends TestSuite
+object lexStringTokenTest extends TestSuite
 {
   val s0 = "\"\""
   val chs0 = s0.toChars
-  val r0 = parseStringToken(chs0.offsetter0, StrPosn())(chs0)
+  val r0 = lexStringToken(chs0.offsetter0, StrPosn())(chs0)
 
   val p1 = StrPosn(1, 1)
   val s1 = "\"Hello\""
   val chs1 = s1.toChars
-  val r1: EMon3[CharsOff, TextPosn, StringToken] = parseStringToken(chs1.offsetter0, StrPosn())(chs1)
+  val r1: EMon3[CharsOff, TextPosn, StringToken] = lexStringToken(chs1.offsetter0, StrPosn())(chs1)
   val s2 = s1 + " AnIdentifier"
   val chs2 = s2.toChars
-  val r2 = parseStringToken(chs2.offsetter0, StrPosn())(chs2)
+  val r2 = lexStringToken(chs2.offsetter0, StrPosn())(chs2)
   val s3 = "1234\"abc\nABC\""
   val chs3 = s3.toChars
-  val r3 =  parseStringToken(chs0.offsetter(4), StrPosn(1, 5))(chs3)
+  val r3 =  lexStringToken(chs0.offsetter(4), StrPosn(1, 5))(chs3)
 
   val tests = Tests {
     "Test1" -

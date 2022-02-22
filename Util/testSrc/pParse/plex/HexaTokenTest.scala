@@ -11,18 +11,18 @@ object HexaTokenTest extends TestSuite
 
   val s1 = "0x123"
   val p1 = StrPosn(1, 1)
-  val r1 = srcToETokens.str(s1)
+  val r1 = lexSrc.str(s1)
   val Ht1 = Nat0xToken(p1, "123")
   val rr1 = 0x123
 
   val s2 = "0xC32AB34"
   val c2 = s2.toChars
   val o2 = c2.offsetter0
-  val r2 = srcToETokens.str(s2)
+  val r2 = lexSrc.str(s2)
   val Ht2 = Nat0xToken(p1, "C32AB34")
   val rr2 = 0xC32AB34
 
-  val r3 = srcToETokens.str("0xCG3")
+  val r3 = lexSrc.str("0xCG3")
 
   val tests = Tests {
     "Parse" -

@@ -3,7 +3,7 @@ package ostrat; package pParse; package plex
 
 /** Function object for creating an [[EMon]] of Refs of Token from a source. This internally uses a mutable ArrayBuffer, but the mutability is fully
  *  encapsulated. */
-object srcToETokens
+object lexSrc
 {
   def str(inp: String): EArr[Token] = apply(inp.toArray, "String")
 
@@ -61,15 +61,15 @@ object srcToETokens
         loop(tail, tp.right2).f2(mainLoop)
       }
 
-      case CharsOffHead('\"') => parseStringToken(rem, tp).appendLoop
-      case CharsOffHead(LetterOrUnderscoreChar(_)) => parseIdentifierToken(rem, tp).appendLoop
+      case CharsOffHead('\"') => lexStringToken(rem, tp).appendLoop
+      case CharsOffHead(LetterOrUnderscoreChar(_)) => lexIdentifierToken(rem, tp).appendLoop
 
       case CharsOffHead2('0', 'x') => Nat0xToken.parse(rem, tp).appendLoop
       case CharsOffHead2('0', 'y') => Nat0yToken.parse(rem, tp).appendLoop
-      case CharsOff1Tail(DigitChar(d), tail) => parseRawNumberToken(tail, tp, d.toString, false).appendLoop
-      case CharsOff2Tail('-', DigitChar(d), tail) => parseRawNumberToken(tail, tp, d.toString, true).appendLoop
+      case CharsOff1Tail(DigitChar(d), tail) => lexRawNumberToken(tail, tp, d.toString, false).appendLoop
+      case CharsOff2Tail('-', DigitChar(d), tail) => lexRawNumberToken(tail, tp, d.toString, true).appendLoop
 
-      case CharsOffHead(c) if isOperator(c) => parseOperatorToken(rem, tp).appendLoop
+      case CharsOffHead(c) if isOperator(c) => lexOperatorToken(rem, tp).appendLoop
       case CharsOffHead(c) => tp.bad("Unimplemented character in main loop: " + c.toString)
     }
 

@@ -6,7 +6,7 @@ object AstTest extends TestSuite
 {
   val Sp1 = StrPosn(1, 1)
   val s1 = "x = y;"
-  val t1 = srcToETokens.str(s1)
+  val t1 = lexSrc.str(s1)
   val w1 = stringToStatements(s1)
   val t3: Arr[StatementMem with BlockMemToken] = Arr(IdentLowerOnlyToken(Sp1, "x"), AsignToken(StrPosn(1, 3)),
     IdentLowerOnlyToken(StrPosn(1, 5), "y"), SemicolonToken(StrPosn(1, 6)))

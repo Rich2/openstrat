@@ -3,7 +3,7 @@ package ostrat; package pParse; package plex
 
 /** Function object for parsing a raw number, could be a normal decimal, hexadecimal or trigdual number. Not all natural numbers are
  * parsed with this function object. Raw hex and trigdual numbers can be encoded as alpha numeric identity tokens. */
-object parseRawNumberToken
+object lexRawNumberToken
 {
   def apply(rem: CharsOff, tp: TextPosn, str:String, isNeg: Boolean)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =  rem match
   { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString, isNeg)
