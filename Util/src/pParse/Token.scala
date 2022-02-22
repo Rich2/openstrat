@@ -46,7 +46,7 @@ case class CommaToken(startPosn: TextPosn) extends EmptyExprToken with AssignMem
 }
 
 /** A Token that can be a member of a Clause. */
-trait ClauseMemToken extends BlockMemToken with ClauseMem
+trait ClauseMemToken extends BlockMemToken with ColonOpMem
 
 /** The Dot or Stop Token. */
 case class DotToken(startPosn: TextPosn) extends ClauseMemToken
@@ -94,5 +94,10 @@ case class PrefixToken(startPosn: TextPosn, srcStr: String) extends OperatorToke
 
 case class AsignToken(startPosn: TextPosn) extends BlockMemToken with StatementMem
 { def srcStr = "="
+  override def tokenTypeStr: String = "AsignToken"
+}
+
+case class ColonToken(startPosn: TextPosn) extends BlockMemToken with ClauseMem
+{ def srcStr = ":"
   override def tokenTypeStr: String = "AsignToken"
 }

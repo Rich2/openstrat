@@ -122,7 +122,7 @@ case class NonEmptyStatement(expr: Expr, optSemi: OptRef[SemicolonToken]) extend
 
 /** The Semicolon of the Empty statement is the expression of this special case of the unclaused statement */
 case class EmptyStatement(st: SemicolonToken) extends Statement with TextSpanCompound
-{ override def expr: ClauseMemExpr = st
+{ override def expr: ColonMemExpr = st
   override def optSemi: OptRef[SemicolonToken] = OptRef(st)
   override def startMem: TextSpan = st
   override def endMem: TextSpan = st

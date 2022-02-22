@@ -1,14 +1,23 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
-/** Function object for parsing clause members into ClauseMemExpr. */
-object parseClause
-{ /** parsing clause members into ClauseMemExpr */
+object parseClauseMem
+{
   def apply(implicit seg: Arr[ClauseMem]): EMon[ClauseMemExpr] =
+  {
+    val acc: Buff[ColonOpMem] = Buff()
+    ???
+  }
+}
+
+/** Function object for parsing clause members into ClauseMemExpr. */
+object parseColonMem
+{ /** parsing clause members into ClauseMemExpr */
+  def apply(implicit seg: Arr[ColonOpMem]): EMon[ColonMemExpr] =
   {
     val acc: Buff[BlockMem] = Buff()
 
-    def sortBlocks(rem: ArrOff[ClauseMem]): EArr[BlockMem] = rem match
+    def sortBlocks(rem: ArrOff[ColonOpMem]): EArr[BlockMem] = rem match
     { case ArrOff0() => parsePrefixPlus(acc.toArr)
       case ArrOff2Tail(at: IdentifierToken, bb: BracketedStatements, t2) => {
         val abe = AlphaBracketExpr(at, Arr(bb))
@@ -23,8 +32,8 @@ object parseClause
     }
 
     sortBlocks(seg.offset0).flatMap {
-      case Arr1(e: ClauseMemExpr) => Good(e)
-      case arr if arr.forAll(_.isInstanceOf[ClauseMemExpr]) => Good(SpacedExpr(arr.map(_.asInstanceOf[ClauseMemExpr])))
+      case Arr1(e: ColonMemExpr) => Good(e)
+      case arr if arr.forAll(_.isInstanceOf[ColonMemExpr]) => Good(SpacedExpr(arr.map(_.asInstanceOf[ColonMemExpr])))
       case s => bad1(s.head, "Unknown Expression sequence in getBlocks:" -- s.toString)
     }
   }

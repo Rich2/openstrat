@@ -10,7 +10,7 @@ object parsePrefixPlus
 
     def loop(rem: ArrOff[BlockMem]): EArr[BlockMem] = rem match
     { case ArrOff0() => Good(acc).map(_.toArr)
-      case ArrOff2Tail(pp: OperatorToken,  right: ClauseMemExpr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
+      case ArrOff2Tail(pp: OperatorToken,  right: ColonMemExpr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
       case ArrOffHead(pp: OperatorToken) => bad1(pp, "Prefix operator not followed by expression")
       case ArrOff1Tail(h, tail) => { acc.append(h); loop(tail) }
     }
@@ -60,21 +60,21 @@ object parseClauses
 
   def fromOffset(inp: ArrOff[AssignMem])(implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] =
   {
-    var subAcc: Buff[ClauseMem] = Buff()
+    var subAcc: Buff[ColonOpMem] = Buff()
     val acc: Buff[Clause] = Buff()
     def loop(rem: ArrOff[AssignMem]): EMon[AssignMemExpr] = rem match {
 
-      case ArrOff0() if acc.isEmpty => parseClause(subAcc.toArr)
+      case ArrOff0() if acc.isEmpty => parseColonMem(subAcc.toArr)
       case ArrOff0() if subAcc.isEmpty => Good(ClausesExpr(acc.toArr))
-      case ArrOff0() => parseClause(subAcc.toArr).map{e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
+      case ArrOff0() => parseColonMem(subAcc.toArr).map{e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
       case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
 
-      case ArrOff1Tail(ct: CommaToken, tail) => parseClause(subAcc.toArr).flatMap{ expr =>
+      case ArrOff1Tail(ct: CommaToken, tail) => parseColonMem(subAcc.toArr).flatMap{ expr =>
         acc.append(Clause(expr, OptRef(ct)))
         subAcc = Buff()
         loop(tail)
       }
-      case ArrOff1Tail(cm: ClauseMem, tail) => { subAcc.append(cm); loop(tail)}
+      case ArrOff1Tail(cm: ColonOpMem, tail) => { subAcc.append(cm); loop(tail)}
     }
     loop(inp)
   }
