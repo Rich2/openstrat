@@ -2,7 +2,7 @@
 package ostrat; package pParse; package pAST
 
 /** Function object for parsing clause members into ClauseMemExpr. */
-object parseColonMem
+object parse6ColonMem
 { /** parsing clause members into ClauseMemExpr */
   def apply(implicit seg: Arr[ColonOpMem]): EMon[ColonMemExpr] =
   {

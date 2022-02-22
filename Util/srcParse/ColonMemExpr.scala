@@ -35,7 +35,7 @@ trait ExprSeq extends ColonMemExpr
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeqNonEmpty extends CompoundClauseMemExpr with ExprSeq
-{ def exprs: Arr[ColonMemExpr]
+{ def exprs: Arr[ClauseMemExpr]
 }
 
 object ExprSeqNonEmpty
@@ -83,7 +83,7 @@ case class StringStatements(statements: Arr[Statement]) extends BlockStatements
 }
 
 case class ClausesExpr(clauses: Arr[Clause]) extends ExprSeqNonEmpty
-{ def exprs: Arr[ColonMemExpr] = clauses.map(_.expr)
+{ override def exprs: Arr[ClauseMemExpr] = clauses.map(_.expr)
   def startMem = exprs.head
   def endMem = exprs.last
   override def exprName: String = "Claused Expr"
