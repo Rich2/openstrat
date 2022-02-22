@@ -4,7 +4,7 @@ package ostrat; package pParse; package pAST
 /** Function object parses [[Clause]]s. */
 object parse4Clauses
 {
-  /** parses [[Clause]]s. Assumess input [[Arr]] is not empty. */
+  /** parses [[Clause]]s. Assumes input [[Arr]] is not empty. */
   def apply (implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] = fromOffset(seg.offset0)
 
   def fromOffset(inp: ArrOff[AssignMem])(implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] =
