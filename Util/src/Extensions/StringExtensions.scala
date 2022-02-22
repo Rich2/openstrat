@@ -5,7 +5,7 @@ import pParse._
 /** Extension methods for String. Brought into scope by the stringToImplicit method in the package object. */
 class StringImplicit(val thisString: String) extends AnyVal
 {
-  def parseTokens: EArr[Token] = lexer.srcToETokens(thisString.toCharArray, "String")
+  def parseTokens: EArr[Token] = plex.srcToETokens(thisString.toCharArray, "String")
   def parseStatements: EArr[Statement] = parseTokens.flatMap(pParse.tokensToStatements(_))
   def parseExpr: EMon[Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
