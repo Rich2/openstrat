@@ -96,17 +96,13 @@ trait Unshow4[A1, A2, A3, A4, R] extends Unshow[R] with TypeStr4[A1, A2, A3, A4]
   def newT: (A1, A2, A3, A4) => R
 
   override def fromExpr(expr: Expr): EMon[R] = expr match
-  {
-    case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(Arr4(s1, s2, s3, s4), _, _))) if typeStr == typeName =>
-      ev1.fromExpr(s1.expr).map4(ev2.fromExpr(s2.expr), ev3.fromExpr(s3.expr), ev4.fromExpr(s4.expr)){
-        (a1, a2, a3, a4) => newT(a1, a2, a3, a4) }
-
+  { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-
-    case ClausesExpr(clauses) if clauses.dataLength == 4 => ev1.fromExpr(clauses(0).expr).map4(
-      ev2.fromExpr(clauses(1).expr), ev3.fromExpr(clauses(2).expr), ev4.fromExpr(clauses(3).expr)){ (a1, a2, a3, a4) =>
-        newT(a1, a2, a3, a4) }
-
+    case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
     case _ => expr.exprParseErr[R](this)
   }
+
+  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 4) ev1.fromSettingOrExpr(name1, exprs(0)).map4(
+    ev2.fromSettingOrExpr(name2, exprs(1)), ev3.fromSettingOrExpr(name3, exprs(2)), ev4.fromSettingOrExpr(name4, exprs(3))){ newT }
+  else Bad(Strings("Parameters wrong"))
 }
