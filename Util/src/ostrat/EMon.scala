@@ -38,7 +38,7 @@ sealed trait EMon[+A]
   def fold[B](noneValue: => B)(fGood: A => B): B
   def fld[B](noneValue: => B, fGood: A => B): B
 
-
+  def toOption: Option[A]
   def toEither: Either[Strings, A]
   def isGood: Boolean
   def isBad: Boolean
@@ -115,6 +115,7 @@ final case class Good[+A](val value: A) extends EMon[A]
   override def getElse(elseValue: A @uncheckedVariance): A = value
   //def value: A
   override def errs: Strings = Strings()
+  override def toOption: Option[A] = Some(value)
   override def toEither: Either[Strings, A] = Right(value)
   override def isGood: Boolean = true
   override def isBad: Boolean = false
@@ -157,13 +158,11 @@ class Bad[+A](val errs: Strings) extends EMon[A]
   override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
   override def getElse(elseValue: A @uncheckedVariance): A = elseValue
- // override def elseTry[A1 >: A](otherValue: EMon[A1]): EMon[A1] = otherValue
- override def forGood(f: A => Unit): Unit = {}
+  override def forGood(f: A => Unit): Unit = {}
+  override def toOption: Option[A] = None
   override def toEither: Either[Strings, A] = Left(errs)
   override def get: A = excep("Called get on Bad.")
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fBad(errs)
-  // override def mapArr[B, BB <: ArrImut[B]](f: A => B)(implicit build: ArrBuild[B, BB]): BB = build.imutNew(0)
-
   override def isGood: Boolean = false
   override def isBad: Boolean = true
   override def mapToEither[D](f: A => D): Either[Strings, D] = Left(errs)
