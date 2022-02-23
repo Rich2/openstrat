@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
-import utest._, prid._
+import utest._, prid._, phex._
 
 object OneScen1Test  extends TestSuite
 {
@@ -13,27 +13,27 @@ object OneScen1Test  extends TestSuite
   val os4 = os1.endTurn(Arr((PlayerA, HStepLt)))
 
   val tests = Tests {
-    "os1" -
-      { g1.numTileRows ==> 3
-        g1.bottomCenRow ==> 2
-        g1.topCenRow ==> 6
-        g1.leftCenCol ==> 2
-        g1.rightCenCol ==> 10
-        g1.numTiles ==> 8
-      }
 
-    "os2" -
-      { g2.numTileRows ==> 3
-        g2.bottomCenRow ==> 2
-        g2.topCenRow ==> 6
-        g2.leftCenCol ==> 2
-        g2.rightCenCol ==> 10
-        g2.numTiles ==> 8
-      }
+    test("os1")
+    { g1.numTileRows ==> 3
+      g1.bottomCenRow ==> 2
+      g1.topCenRow ==> 6
+      g1.leftCenCol ==> 2
+      g1.rightCenCol ==> 10
+      g1.numTiles ==> 8
+    }
 
-    "os3" -
-    {
-      g3.numTiles ==> 8
+    test("os2")
+    { g2.numTileRows ==> 3
+      g2.bottomCenRow ==> 2
+      g2.topCenRow ==> 6
+      g2.leftCenCol ==> 2
+      g2.rightCenCol ==> 10
+      g2.numTiles ==> 8
+    }
+
+    test("os3")
+    { g3.numTiles ==> 8
       g1.row0sStart ==> 4
       g1.row0sEnd ==> 8
       implicit val grid = os3.grid
@@ -48,9 +48,9 @@ object OneScen1Test  extends TestSuite
       os4.oPlayers.find(PlayerA) ==> Some(HCen(4, 4))
     }
 
-    "Sides" -
-      {
-        g1.numSides ==> 35
-      }
+    test("Sides")
+    {
+      g1.numSides ==> 35
+    }
   }
 }

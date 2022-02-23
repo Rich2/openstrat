@@ -107,7 +107,6 @@ final case class Good[+A](val value: A) extends EMon[A]
   override def map2[B, R](mb: EMon[B])(f: (A, B) => R): EMon[R] = mb.map(b => f(value, b))
   override def map3[B, C, R](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => R): EMon[R] = mb.map2(mc){(b, c) => f(value, b, c) }
   override def map4[B, C, D, R](mb: EMon[B], mc: EMon[C], md: EMon[D])(f: (A, B, C, D) => R): EMon[R] = mb.map3(mc, md){(b, c, d) => f(value, b, c, d) }
- // @inline override def fld[B](fGood: A => B, fBad: Strings => B) : B = fGood(value)
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
   override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
@@ -134,8 +133,6 @@ object Good
   implicit def GoodShowImplicit[A](implicit ev: ShowT[A]): ShowT[Good[A]] = new ShowT[Good[A]] with ShowCompoundT[Good[A]]
   { override def syntaxDepthT(obj: Good[A]): Int = ev.syntaxDepthT(obj.value) + 1
     override def typeStr: String = "Good" + ev.typeStr.enSquare
-    //override def showSemi(obj: Good[A]): String = ev.showSemi(obj.value)
-    //override def showComma(obj: Good[A]): String = ev.showComma(obj.value)
 
     override def showDecT(obj: Good[A], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
