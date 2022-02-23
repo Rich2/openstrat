@@ -8,13 +8,23 @@ import scala.annotation.unchecked.uncheckedVariance
  * methods biMap, to Either, eitherMap and eitherFlatMap when interoperability with Either is required. In my view Either[T] class is redundant and is
  * rarely used except as an errors handler. So it makes sense to use a dedicated class. */
 sealed trait EMon[+A]
-{ def map[B](f: A => B): EMon[B]
+{ /** Maps the Good case of this EMon with the function. */
+  def map[B](f: A => B): EMon[B]
+
   def flatMap[B](f: A => EMon[B]): EMon[B]
   def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
 
+  /** 2 type parameters, maps the Good case of this [[EMon]], with the [[Good]] case of an additional [[EMon]] of a different type. */
   def map2[B, R](mb: EMon[B])(f: (A, B) => R): EMon[R]
+
+  /** 3 type parameters, maps the Good case of this [[EMon]], with the [[Good]] cases of an additional 3 [[EMon]]s of a different types. */
   def map3[B, C, R](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => R): EMon[R]
+
+  /** 4 type parameters,maps the Good case of this [[EMon]], with the [[Good]] cases of an additional 3 [[EMon]]s of a different types. */
   def map4[B, C, D, R](mb: EMon[B], mc: EMon[C], md: EMon[D])(f: (A, B, C, D) => R): EMon[R]
+
+  /** 5 type parameters,maps the Good case of this [[EMon]], with the [[Good]] cases of an additional 4 [[EMon]]s of a different types. */
+  def map5[B, C, D, E, R](mb: EMon[B], mc: EMon[C], md: EMon[D], me: EMon[E])(f: (A, B, C, D, E) => R): EMon[R]
 
   /** Gets the value of Good or returns the elseValue parameter if Bad. Both Good and Bad should be implemented in the leaf classes to avoid
    * unnecessary boxing of primitive values. */
@@ -107,6 +117,7 @@ final case class Good[+A](val value: A) extends EMon[A]
   override def map2[B, R](mb: EMon[B])(f: (A, B) => R): EMon[R] = mb.map(b => f(value, b))
   override def map3[B, C, R](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => R): EMon[R] = mb.map2(mc){(b, c) => f(value, b, c) }
   override def map4[B, C, D, R](mb: EMon[B], mc: EMon[C], md: EMon[D])(f: (A, B, C, D) => R): EMon[R] = mb.map3(mc, md){(b, c, d) => f(value, b, c, d) }
+  override def map5[B, C, D, E, R](mb: EMon[B], mc: EMon[C], md: EMon[D], me: EMon[E])(f: (A, B, C, D, E) => R): EMon[R] = mb.map4(mc, md, me){(b, c, d, e) => f(value, b, c, d, e) }
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
   override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
@@ -151,6 +162,9 @@ class Bad[+A](val errs: Strings) extends EMon[A]
   override def map3[B, C, R](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => R): EMon[R] = Bad[R](errs ++ mb.errs ++ mc.errs)
   override def map4[B, C, D, R](mb: EMon[B], mc: EMon[C], md: EMon[D])(f: (A, B, C, D) => R): EMon[R] =
     Bad[R](errs ++ mb.errs ++ mc.errs ++ md.errs)
+
+  override def map5[B, C, D, E, R](mb: EMon[B], mc: EMon[C], md: EMon[D], me: EMon[E])(f: (A, B, C, D, E) => R): EMon[R] =
+    Bad[R](errs ++ mb.errs ++ mc.errs ++ md.errs ++ me.errs)
 
   override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 

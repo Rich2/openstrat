@@ -79,7 +79,7 @@ object Show4T
 }
 
 /** UnShow class for 3 logical parameter product types. */
-trait Unshow4[A1, A2, A3, A4, R] extends Unshow[R] with TypeStr4[A1, A2, A3, A4]
+trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with TypeStr4[A1, A2, A3, A4]
 {
   /** The UnShow type class instance for type A1. */
   def ev1: Unshow[A1]
@@ -102,7 +102,7 @@ trait Unshow4[A1, A2, A3, A4, R] extends Unshow[R] with TypeStr4[A1, A2, A3, A4]
     case _ => expr.exprParseErr[R](this)
   }
 
-  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 4) ev1.fromSettingOrExpr(name1, exprs(0)).map4(
+  override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 4) ev1.fromSettingOrExpr(name1, exprs(0)).map4(
     ev2.fromSettingOrExpr(name2, exprs(1)), ev3.fromSettingOrExpr(name3, exprs(2)), ev4.fromSettingOrExpr(name4, exprs(3))){ newT }
   else Bad(Strings("Parameters wrong"))
 }

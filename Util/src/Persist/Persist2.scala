@@ -160,7 +160,7 @@ object ShowShowInt2T
 }
 
 /** UnShow type class trait for a 2 element Product. */
-trait Unshow2[A1, A2, R] extends Unshow[R] with TypeStr2[A1, A2]
+trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
 { /** The UnShow type class instance for type A1. */
   def ev1: Unshow[A1]
 
@@ -176,7 +176,7 @@ trait Unshow2[A1, A2, R] extends Unshow[R] with TypeStr2[A1, A2]
     case _ => expr.exprParseErr[R](this)
   }
 
-  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 2)
+  override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 2)
     ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
   else Bad(Strings("Parameters wrong"))
 }

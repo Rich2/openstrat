@@ -108,7 +108,7 @@ object ShowShowDbl3T
 }
 
 /** UnShow class for 3 logical parameter product types. */
-trait Unshow3[A1, A2, A3, R] extends Unshow[R] with TypeStr3[A1, A2, A3]
+trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with TypeStr3[A1, A2, A3]
 {
   /** The UnShow type class instance for type A1. */
   def ev1: Unshow[A1]
@@ -129,7 +129,7 @@ trait Unshow3[A1, A2, A3, R] extends Unshow[R] with TypeStr3[A1, A2, A3]
     case _ => expr.exprParseErr[R](this)
   }
 
-  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 3) ev1.fromSettingOrExpr(name1, exprs(0)).map3(
+  override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 3) ev1.fromSettingOrExpr(name1, exprs(0)).map3(
     ev2.fromSettingOrExpr(name2, exprs(1)), ev3.fromSettingOrExpr(name3, exprs(2))){ newT }
     else Bad(Strings("Parameters wrong"))
 }
