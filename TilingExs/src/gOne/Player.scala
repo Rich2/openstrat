@@ -3,26 +3,24 @@ package ostrat; package gOne
 import prid._, phex._, Colour._
 
 /** A Player has a very simple token with a letter and colour for recognition. */
-case class Player(char: Char, colour: Colour) extends ShowNoDec
-{ //override def toString = "Player " + char
-  /** the name of the type of this object. */
-  override def typeStr: String = "Player"
-
-  /** The most basic Show method, paralleling the strT method on ShowT type class instances. */
+case class Player(char: Char, colour: Colour) extends Show2[Char, Colour]
+{ override def typeStr: String = "Player"
+  override def show1: Char = char
+  override def show2: Colour = colour
+  override implicit def showT1: ShowT[Char] = ShowT.charImplicit
+  override implicit def showT2: ShowT[Colour] = Colour.persistImplicit
+  override def name1: String = "char"
+  override def name2: String = "colour"
   override def str: String = "Player" + char
-
   def charStr: String = char.toString
-
-  /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */
   override def show(style: ShowStyle): String = "Player" + char
-
   override def syntaxDepth: Int = 1
 }
 
 /** Companion object for Player case class contains implicit instance for Persist. */
 object Player
 { /* Implicit [[ShowT]] instance / evidence for [[Player]]. */
-  implicit val showTEv: Show2T[Char, Colour, Player] = Show2T[Char, Colour, Player]("Player", "char", _.char, "colour", _.colour)
+  implicit val showTEv: Show2T[Char, Colour, Player] = ShowShow2T[Char, Colour, Player]("Player", "char", "colour")
 }
 object PlayerA extends Player('A', Red)
 object PlayerB extends Player('B', Orange)

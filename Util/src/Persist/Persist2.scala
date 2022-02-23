@@ -49,6 +49,8 @@ trait Show2[A1, A2] extends Any with ShowN with TypeStr2[A1, A2]
 
   def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT1.showDecT(show1, style, maxPlaces, maxPlaces): String
   def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT2.showDecT(show2, style, maxPlaces, maxPlaces): String
+
+  override def str: String = typeStr + (showT1.strT(show1).appendSemicolons(showT2.strT(show2))).enParenth
 }
 
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
