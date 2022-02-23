@@ -10,7 +10,7 @@ class StringImplicit(val thisString: String) extends AnyVal
   def parseExpr: EMon[Expr] = parseTokens.flatMap(pParse.tokensToExpr(_))
 
   /** Searches for Statement of type A. Can be a value of type A or a setting of a type A. */
-  def findType[A](implicit ev: Unshow[A]): EMon[A] = thisString.parseStatements.seqMapUniqueGood((st: Statement) => ev.fromStatement(st))//flatMap(_.findUniqueT[A])
+  def findType[A](implicit ev: Unshow[A]): EMon[A] = thisString.parseStatements.seqMapUniqueGood((st: Statement) => ev.fromStatement(st))
 
   /** Finds Statement of type A and returns value or returns the elseValue if not found. */
   def findTypeElse[A: Unshow](elseValue: => A): A = findType[A].getElse(elseValue)
@@ -75,33 +75,33 @@ class StringImplicit(val thisString: String) extends AnyVal
   def findIntArray: EMon[Array[Int]] = thisString.parseStatements.flatMap(_.findIntArray)
 
   /** Find setting of type T from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findSettingT[T: Unshow](settingStr: String): EMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
+  def findSetting[T: Unshow](settingStr: String): EMon[T] = thisString.parseStatements.flatMap(_.findSetting[T](settingStr))
 
   /** Find setting of type T, from this [[String]], or return the default value, extension method, parsing this String as RSON Statements. */
-  def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSettingT[T](settingStr).getElse(elseValue)
+  def findSettingElse[T: Unshow](settingStr: String, elseValue: T): T = findSetting[T](settingStr).getElse(elseValue)
 
   /** Find setting of type Int from this [[String]] extension method, parsing this String as RSON Statements. */
-  def findSettingInt(settingStr: String): EMon[Int] = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))
+  def findIntSetting(settingStr: String): EMon[Int] = thisString.parseStatements.flatMap(_.findSettingInt(settingStr))
 
   /** Find setting of the given name and type [[Int]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
-  def findSettingIntElse(settingStr: String, elseValue: Int): Int = findSettingInt(settingStr).getElse(elseValue)
+  def findIntSettingElse(settingStr: String, elseValue: Int): Int = findIntSetting(settingStr).getElse(elseValue)
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as
    *  RSON Statements. */
-  def findSettingDbl(settingStr: String): EMon[Double] = thisString.parseStatements.flatMap(_.findSettingDbl(settingStr))
+  def findDblSetting(settingStr: String): EMon[Double] = thisString.parseStatements.flatMap(_.findSettingDbl(settingStr))
 
   /** Find setting of the given name and type [[Double]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
-  def findSettingDblElse(settingStr: String, elseValue: Double): Double = findSettingDbl(settingStr).getElse(elseValue)
+  def findDblSettingElse(settingStr: String, elseValue: Double): Double = findDblSetting(settingStr).getElse(elseValue)
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    *  RSON Statements. */
-  def findSettingBool(settingStr: String): EMon[Boolean] = thisString.parseStatements.flatMap(_.findSettingBool(settingStr))
+  def findBoolSetting(settingStr: String): EMon[Boolean] = thisString.parseStatements.flatMap(_.findSettingBool(settingStr))
 
   /** Find setting of the given name and type [[Boolean]], from this [[String]], or return the default value, extension method, parsing this String as
    * RSON Statements. */
-  def findSettingBoolElse(settingStr: String, elseValue: Boolean): Boolean = findSettingBool(settingStr).getElse(elseValue)
+  def findBoolSettingBool(settingStr: String, elseValue: Boolean): Boolean = findBoolSetting(settingStr).getElse(elseValue)
 
   /** Concatenates a space and then the other String. */
   def -- (other: String): String = thisString + " " + other

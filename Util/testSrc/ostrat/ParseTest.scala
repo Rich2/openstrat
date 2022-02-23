@@ -11,9 +11,9 @@ object ParseTest extends TestSuite
     {
       "4".findType[Int] ==> Good(4)
       "-4".findType[Int] ==> Good(-4)
-      settingStr.findSettingT[Int]("x") ==> Good(-5)
-      settingStr.findSettingT[Int]("y") ==> Good(7)
-      settingStr.findSettingInt("y") ==> Good(7)
+      settingStr.findSetting[Int]("x") ==> Good(-5)
+      settingStr.findSetting[Int]("y") ==> Good(7)
+      settingStr.findIntSetting("y") ==> Good(7)
       settingStr.findType[Boolean] ==> Good(true)
     }
     val oi: Option[Int] = Some(50)
