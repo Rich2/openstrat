@@ -30,4 +30,13 @@ object PlayerC extends Player('C', Pink)
 object PlayerD extends Player('D', Violet)
 
 /** A class identifying a Player and a hex coordinate position. */
-case class HPlayer(value: Player, hc: HCen) extends HexMem[Player]
+case class HPlayer(value: Player, hc: HCen) extends HexMem[Player] with Show2[Player, HCen]
+{ override def typeStr: String = "HPlayer"
+  override def show1: Player = value
+  override def show2: HCen = hc
+  override implicit def showT1: ShowT[Player] = Player.showTEv
+  override implicit def showT2: ShowT[HCen] = HCen.persistEv
+  override def name1: String = "player"
+  override def name2: String = "hCen"
+  override def syntaxDepth: Int = 2
+}
