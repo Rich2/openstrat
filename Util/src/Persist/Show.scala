@@ -6,7 +6,7 @@ import pParse._, collection.immutable.ArraySeq
  *  ShowT type class instance. It is better for the [[ShowT]] type class instance to delegate to this trait than have the toString method delegate to
  *  the [[ShowT]] type class instance in the companion object. Potentially that can create initialisation order problems, but at the very least it
  *  can increase compile times. The capabilities of decimal place precision and explicit typing for numbers are placed defined here and in the
- *  corresponding [[SHowT]] type class although they have n meaning / purpose for many types, as seperating them adds enormous complexity for very
+ *  corresponding [[SHowT]] type class although they have n meaning / purpose for many types, as separating them adds enormous complexity for very
  *  little gain. */
 trait Show extends Any with TypeStr
 {

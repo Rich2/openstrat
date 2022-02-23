@@ -10,11 +10,13 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   override def name2: String = "long"
   def show1: Double = latDegs
   def show2: Double = longDegs
-  override def dbl1: Double = latMilliSecs//
-  override def dbl2: Double = longMilliSecs//
-
+  override def dbl1: Double = latMilliSecs
+  override def dbl2: Double = longMilliSecs
   def latVec: AngleVec = latDegs.degs
   def longVec: AngleVec = longDegs.degs
+  override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)
+  def persistName = "LatLong"
+  def persistMems = Seq(latRadians, longRadians)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
 
   override def approx(that: Any, precision: Double): Boolean = that match
@@ -27,11 +29,6 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
     case _ => false
   }
 
-
-  override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)
-
-  def persistName = "LatLong"
-  def persistMems = Seq(latRadians, longRadians)  
   def polarRadius: Length = EarthPolarRadius
   def equatorialRadius: Length = EarthEquatorialRadius
 
