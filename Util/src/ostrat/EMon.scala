@@ -15,7 +15,7 @@ sealed trait EMon[+A]
   def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2]
 
   /** 2 type parameters, maps the Good case of this [[EMon]], with the [[Good]] case of an additional [[EMon]] of a different type. */
-  def map2[B, R](mb: EMon[B])(f: (A, B) => R): EMon[R]
+  def map2[A2, R](e2: EMon[A2])(f: (A, A2) => R): EMon[R]
 
   /** 3 type parameters, maps the Good case of this [[EMon]], with the [[Good]] cases of an additional 3 [[EMon]]s of a different types. */
   def map3[B, C, R](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => R): EMon[R]
@@ -118,7 +118,7 @@ final case class Good[+A](val value: A) extends EMon[A]
   override def fld[B](noneValue: => B, fGood: A => B): B = fGood(value)
 
   override def map2[A2, R](e2: EMon[A2])(f: (A, A2) => R): EMon[R] = e2.map{ a2 => f(value, a2) }
-  override def map3[A2, A3, R](e2: EMon[A2], e3: EMon[A3])(f: (A, A2, A3) => R): EMon[R] = e2.map2(e3){ (a2, a3) => f(value, a2, a3) }
+  override def map3[A2, A3, R](e2: EMon[A2], e3: EMon[A3])(f: (A, A2, A3) => R): EMon[R] = e2.map2(e3)({ (a2, a3) => f(value, a2, a3) })
   override def map4[B, C, D, R](mb: EMon[B], mc: EMon[C], md: EMon[D])(f: (A, B, C, D) => R): EMon[R] = mb.map3(mc, md){(b, c, d) => f(value, b, c, d) }
 
   override def map5[B, C, D, E, R](a2: EMon[B], a3: EMon[C], a4: EMon[D], a5: EMon[E])(f: (A, B, C, D, E) => R): EMon[R] =
@@ -167,7 +167,7 @@ class Bad[+A](val errs: Strings) extends EMon[A]
   override def fld[B](noneValue: => B, fGood: A => B): B = noneValue
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
 
-  override def map2[B, R](mb: EMon[B])(f: (A, B) => R): EMon[R] = Bad[R](errs ++ mb.errs)
+  override def map2[A2, R](e2: EMon[A2])(f: (A, A2) => R): EMon[R] = Bad[R](errs ++ e2.errs)
   override def map3[B, C, R](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => R): EMon[R] = Bad[R](errs ++ mb.errs ++ mc.errs)
   override def map4[B, C, D, R](mb: EMon[B], mc: EMon[C], md: EMon[D])(f: (A, B, C, D) => R): EMon[R] =
     Bad[R](errs ++ mb.errs ++ mc.errs ++ md.errs)
