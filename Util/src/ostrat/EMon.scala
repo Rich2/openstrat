@@ -18,13 +18,13 @@ sealed trait EMon[+A]
   def map2[A2, R](e2: EMon[A2])(f: (A, A2) => R): EMon[R]
 
   /** 3 type parameters, maps the Good case of this [[EMon]], with the [[Good]] cases of an additional 3 [[EMon]]s of a different types. */
-  def map3[B, C, R](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => R): EMon[R]
+  def map3[A2, A3, R](e2: EMon[A2], e3: EMon[A3])(f: (A, A2, A3) => R): EMon[R]
 
   /** 4 type parameters, maps the Good case of this [[EMon]], with the [[Good]] cases of an additional 3 [[EMon]]s of a different types. */
-  def map4[B, C, D, R](mb: EMon[B], mc: EMon[C], md: EMon[D])(f: (A, B, C, D) => R): EMon[R]
+  def map4[A2, A3, A4, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4])(f: (A, A2, A3, A4) => R): EMon[R]
 
   /** 5 type parameters, maps the Good case of this [[EMon]], with the [[Good]] cases of an additional 4 [[EMon]]s of a different types. */
-  def map5[A2, A3, A4, A5, R](a2: EMon[A2], a3: EMon[A3], a4: EMon[A4], a5: EMon[A5])(f: (A, A2, A3, A4, A5) => R): EMon[R]
+  def map5[A2, A3, A4, A5, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5])(f: (A, A2, A3, A4, A5) => R): EMon[R]
 
   /** 6 type parameters, maps the Good case of this [[EMon]], with the [[Good]] cases of an additional 5 [[EMon]]s of a different types. */
   def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R): EMon[R]
@@ -119,10 +119,12 @@ final case class Good[+A](val value: A) extends EMon[A]
 
   override def map2[A2, R](e2: EMon[A2])(f: (A, A2) => R): EMon[R] = e2.map{ a2 => f(value, a2) }
   override def map3[A2, A3, R](e2: EMon[A2], e3: EMon[A3])(f: (A, A2, A3) => R): EMon[R] = e2.map2(e3)({ (a2, a3) => f(value, a2, a3) })
-  override def map4[B, C, D, R](mb: EMon[B], mc: EMon[C], md: EMon[D])(f: (A, B, C, D) => R): EMon[R] = mb.map3(mc, md){(b, c, d) => f(value, b, c, d) }
 
-  override def map5[B, C, D, E, R](a2: EMon[B], a3: EMon[C], a4: EMon[D], a5: EMon[E])(f: (A, B, C, D, E) => R): EMon[R] =
-    a2.map4(a3, a4, a5){ (b, c, d, e) => f(value, b, c, d, e) }
+  override def map4[A2, A3, A4, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4])(f: (A, A2, A3, A4) => R): EMon[R] =
+    e2.map3(e3, e4){(a2, a3, a4) => f(value, a2, a3, a4) }
+
+  override def map5[B, C, D, E, R](e2: EMon[B], e3: EMon[C], e4: EMon[D], e5: EMon[E])(f: (A, B, C, D, E) => R): EMon[R] =
+    e2.map4(e3, e4, e5){ (b, c, d, e) => f(value, b, c, d, e) }
 
   override def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R): EMon[R] =
     e2.map5(e3, e4, e5, e6){ (a2, a3, a4, a5, a6) => f(value, a2, a3, a4, a5, a6) }
@@ -168,12 +170,12 @@ class Bad[+A](val errs: Strings) extends EMon[A]
   @inline override def foldErrs[B](fGood: A => B)(fBad: Strings => B): B = fBad(errs)
 
   override def map2[A2, R](e2: EMon[A2])(f: (A, A2) => R): EMon[R] = Bad[R](errs ++ e2.errs)
-  override def map3[B, C, R](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => R): EMon[R] = Bad[R](errs ++ mb.errs ++ mc.errs)
-  override def map4[B, C, D, R](mb: EMon[B], mc: EMon[C], md: EMon[D])(f: (A, B, C, D) => R): EMon[R] =
-    Bad[R](errs ++ mb.errs ++ mc.errs ++ md.errs)
+  override def map3[B, C, R](e2: EMon[B], e3: EMon[C])(f: (A, B, C) => R): EMon[R] = Bad[R](errs ++ e2.errs ++ e3.errs)
+  override def map4[B, C, D, R](e2: EMon[B], e3: EMon[C], e4: EMon[D])(f: (A, B, C, D) => R): EMon[R] =
+    Bad[R](errs ++ e2.errs ++ e3.errs ++ e4.errs)
 
-  override def map5[B, C, D, E, R](a2: EMon[B], a3: EMon[C], a4: EMon[D], a5: EMon[E])(f: (A, B, C, D, E) => R): EMon[R] =
-    Bad[R](errs ++ a2.errs ++ a3.errs ++ a4.errs ++ a5.errs)
+  override def map5[B, C, D, E, R](e2: EMon[B], e3: EMon[C], e4: EMon[D], e5: EMon[E])(f: (A, B, C, D, E) => R): EMon[R] =
+    Bad[R](errs ++ e2.errs ++ e3.errs ++ e4.errs ++ e5.errs)
 
   override def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R):
     EMon[R] = Bad[R](errs ++ e2.errs ++ e3.errs ++ e4.errs ++ e5.errs)
