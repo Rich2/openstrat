@@ -117,11 +117,16 @@ final case class Good[+A](val value: A) extends EMon[A]
   override def fold[B](noneValue: => B)(fGood: A => B): B = fGood(value)
   override def fld[B](noneValue: => B, fGood: A => B): B = fGood(value)
 
-  override def map2[B, R](mb: EMon[B])(f: (A, B) => R): EMon[R] = mb.map(b => f(value, b))
-  override def map3[B, C, R](mb: EMon[B], mc: EMon[C])(f: (A, B, C) => R): EMon[R] = mb.map2(mc){(b, c) => f(value, b, c) }
+  override def map2[A2, R](e2: EMon[A2])(f: (A, A2) => R): EMon[R] = e2.map{ a2 => f(value, a2) }
+  override def map3[A2, A3, R](e2: EMon[A2], e3: EMon[A3])(f: (A, A2, A3) => R): EMon[R] = e2.map2(e3){ (a2, a3) => f(value, a2, a3) }
   override def map4[B, C, D, R](mb: EMon[B], mc: EMon[C], md: EMon[D])(f: (A, B, C, D) => R): EMon[R] = mb.map3(mc, md){(b, c, d) => f(value, b, c, d) }
-  override def map5[B, C, D, E, R](a2: EMon[B], a3: EMon[C], a4: EMon[D], a5: EMon[E])(f: (A, B, C, D, E) => R): EMon[R] = a2.map4(a3, a4, a5){ (b, c, d, e) => f(value, b, c, d, e) }
-  override def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R): EMon[R] = ???
+
+  override def map5[B, C, D, E, R](a2: EMon[B], a3: EMon[C], a4: EMon[D], a5: EMon[E])(f: (A, B, C, D, E) => R): EMon[R] =
+    a2.map4(a3, a4, a5){ (b, c, d, e) => f(value, b, c, d, e) }
+
+  override def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R): EMon[R] =
+    e2.map5(e3, e4, e5, e6){ (a2, a3, a4, a5, a6) => f(value, a2, a3, a4, a5, a6) }
+
   override def foldDo(fGood: A => Unit)(fBad: Strings => Unit): Unit = fGood(value)
   override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
@@ -170,7 +175,8 @@ class Bad[+A](val errs: Strings) extends EMon[A]
   override def map5[B, C, D, E, R](a2: EMon[B], a3: EMon[C], a4: EMon[D], a5: EMon[E])(f: (A, B, C, D, E) => R): EMon[R] =
     Bad[R](errs ++ a2.errs ++ a3.errs ++ a4.errs ++ a5.errs)
 
-  override def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R): EMon[R] = ???
+  override def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R):
+    EMon[R] = Bad[R](errs ++ e2.errs ++ e3.errs ++ e4.errs ++ e5.errs)
 
   override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = new Bad2[B1, B2](errs)
 
