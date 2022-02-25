@@ -18,6 +18,12 @@ trait Unshow[+T] extends TypeStr
     case e => fromExpr(e)
   }
 
+  def fromAnySettingOrExpr(expr: Expr): EMon[T] = expr match
+  { case AsignExpr(ColonExpr(IdentifierToken(_), _, IdentifierToken(_)), _, rExpr) => fromExpr(rExpr)
+    case AsignExpr(IdentifierToken(_), _, rExpr) => fromExpr(rExpr)
+    case e => fromExpr(e)
+  }
+
   /** Produces an ArrImut of the UnShow type from Statements (Refs[Statement]. */
   def valuesFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: Statements)(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance): ArrT =
     sts.mapCollectGoods(fromStatement)(arrBuild)

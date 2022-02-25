@@ -77,4 +77,9 @@ class OptionExtensions[A](thisOption: Option[A])
   { case Some(a) => Good(a)
     case None => bad1(fp, detail)
   }
+
+  def toEMon: EMon[A] = thisOption match
+  { case Some(a) => Good(a)
+    case None => Bad(Strings())
+  }
 }

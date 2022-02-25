@@ -2,7 +2,7 @@
 package ostrat
 import utest._
 
-case class ExUA(a: Int, b: String = "blah") extends Show2[Int, String]
+case class ExUA(a: Int, b: String) extends Show2[Int, String]
 {
   override def typeStr: String = "ExUA"
   override def show1: Int = a
@@ -16,14 +16,16 @@ case class ExUA(a: Int, b: String = "blah") extends Show2[Int, String]
 }
 
 object ExUA{
-  implicit val unshowEv: Unshow2[Int, String, ExUA] = Unshow2("ExUA", "a", "b", apply, Some("blah"))
+  implicit val unshowEv: Unshow2[Int, String, ExUA] = Unshow2("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
 object UnshowTest extends TestSuite
 {
   val tests = Tests {
     test("U2") {
-      "ExUA(42)".asType[ExUA] ==> Good(ExUA(42))
+      """ExUA(42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
+      "ExUA(42)".asType[ExUA] ==> Good(ExUA(42, "blah"))
+      "ExUA()".asType[ExUA] ==> Good(ExUA(0, "blah"))
     }
   }
 }
