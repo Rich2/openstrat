@@ -11,7 +11,7 @@ trait Expr extends BlockMem with StatementMem
 /** An expression that is a member of the right oe left side of an assignment expression. */
 trait AssignMemExpr extends Expr with AssignMem
 
-trait AssignMemExprToken extends ClauseMemExprToken with AssignMemExpr// with Token
+trait AssignMemExprToken extends ClauseMemExprToken with AssignMemExpr
 
 /** An expression that can be a member of a [[Clause]] or the expression of clause. */
 trait ClauseMemExpr extends AssignMemExpr with ClauseMem

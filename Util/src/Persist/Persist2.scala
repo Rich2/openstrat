@@ -182,7 +182,13 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
 //    ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
 //  else Bad(Strings("Parameters wrong"))
 
+
+  protected def fromSortedExprs(sortedExprs: Arr[Expr], ev1: Unshow[A1], ev2: Unshow[A2]): EMon[R] =
+     ev1.fromSettingOrExpr(name1, sortedExprs(0)).map2(ev2.fromSettingOrExpr(name2,sortedExprs(1)))(newT)
+
+
   override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = exprs.length match {
+    case n if n > 2 =>Bad(Strings(s"$n parameters for 2 parameter constructor."))
     case 2 => ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
     case 1 if opt2.nonEmpty => ev1.fromSettingOrExpr(name1, exprs(0)).map(a1 => newT(a1, opt2.get))
     case _ => Bad(Strings("Parameters wrong"))
