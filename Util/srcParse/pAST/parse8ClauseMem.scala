@@ -1,10 +1,10 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
 
-/** Needs change of input from ColonOpMem => ClauseMem, Function object for parsing [[ColonOpMem]]s into [[ColonMemExpr]]. */
+/** Function object for parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
 object parse8ClauseMem
-{ /** Needs change of input from ColonOpMem => ClauseMem, Function apply method parsing [[ColonOpMem]]s into [[ColonMemExpr]]. */
-  def apply(implicit seg: Arr[ClauseMem]): EMon[ClauseMemExpr] =
+{ /** Function apply method parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
+  def apply(implicit inp: Arr[ClauseMem]): EMon[ClauseMemExpr] =
   {
     val acc: Buff[ClauseMem] = Buff()
 
@@ -20,7 +20,7 @@ object parse8ClauseMem
       case ArrOff1Tail(h, tail) => { acc.append(h); loop(tail) }
     }
 
-    loop(seg.offset0).flatMap {
+    loop(inp.offset0).flatMap {
       case Arr1(e: ClauseMemExpr) => Good(e)
       case arr if arr.forAll(_.isInstanceOf[ColonMemExpr]) => Good(SpacedExpr(arr.map(_.asInstanceOf[ColonMemExpr])))
       case s => bad1(s.head, "Unknown Expression sequence in getBlocks:" -- s.toString)

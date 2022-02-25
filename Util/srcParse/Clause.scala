@@ -1,9 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse
 
-/** Intended as a common trait for Clauses and Unclaused Statements. */
-trait Clauselike
-
 /** Statements in RCON can be unclaused or multi comma separated. The empty Clause just contains a comma. The comma at the end of the last Clause of a
  *  Statement is optional. */
 case class Clause(expr: ClauseMemExpr, optComma: OptRef[CommaToken]) extends TextSpan

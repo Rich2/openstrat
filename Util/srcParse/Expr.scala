@@ -11,17 +11,11 @@ trait Expr extends BlockMem with StatementMem
 /** An expression that is a member of the right oe left side of an assignment expression. */
 trait AssignMemExpr extends Expr with AssignMem
 
-trait AssignMemExprToken extends Token with AssignMemExpr
-
 /** An expression that can be a member of a Colon expression operand. */
-trait ColonMemExpr extends AssignMemExpr //with ColonOpMem
+trait ColonMemExpr extends AssignMemExpr with ColonOpMem
 
 /** An expression that can be a member of a [[Clause]] or the expression of clause. */
 trait ClauseMemExpr extends ColonMemExpr with ClauseMem
-
-
-trait Expr0 extends Expr1
-trait Expr1 extends ColonMemExpr
 
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
 trait CompoundExpr extends Expr with TextSpanCompound
@@ -68,14 +62,10 @@ trait BlockStatements extends ExprSeqNonEmpty
 
 case class FileStatements(statements: Arr[Statement]) extends BlockStatements
 { def exprName: String = "FileStatements"
-//  def startPosn: TextPosn = statements.head.startPosn
-  //def endPosn: TextPosn = statements.last.endPosn
 }
 
 case class StringStatements(statements: Arr[Statement]) extends BlockStatements
 { def exprName: String = "StringStatements"
-  //def startPosn: TextPosn = statements.head.startPosn
-  //def endPosn: TextPosn = statements.last.endPosn
 }
 
 case class ClausesExpr(clauses: Arr[Clause]) extends ExprSeqNonEmpty

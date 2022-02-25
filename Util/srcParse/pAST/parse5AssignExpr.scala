@@ -4,7 +4,7 @@ package ostrat; package pParse; package pAST
 /** Function object to parse assignment expressions. */
 object parse5AssignExpr
 { /** Function apply method parses assignment expressions. */
-  def apply (implicit seg: Arr[StatementMem]): EMon[Expr] =
+  def apply (implicit inp: Arr[StatementMem]): EMon[Expr] =
   {
     val leftAcc: Buff[AssignMem] = Buff()
     val rightAcc: Buff[AssignMem] = Buff()
@@ -26,6 +26,6 @@ object parse5AssignExpr
       case ArrOff1Tail(am: AssignMem, tail) => { rightAcc.append(am); rightLoop(tail) }
     }
 
-    leftLoop(seg.offset0)
+    leftLoop(inp.offset0)
   }
 }
