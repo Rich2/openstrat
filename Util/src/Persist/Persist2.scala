@@ -38,10 +38,10 @@ trait Show2[A1, A2] extends Any with ShowN with TypeStr2[A1, A2]
   def show2: A2
 
   /** The ShowT type class instance for the 1st element of this 2 element product. */
-  implicit def showT1: ShowT[A1]
+  def showT1: ShowT[A1]
 
   /** The ShowT type class instance for the 2nd element of this 2 element product. */
-  implicit def showT2: ShowT[A2]
+  def showT2: ShowT[A2]
 
   def elemNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
@@ -51,14 +51,16 @@ trait Show2[A1, A2] extends Any with ShowN with TypeStr2[A1, A2]
   def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT2.showDecT(show2, style, maxPlaces, maxPlaces): String
 
   override def str: String = typeStr + (showT1.strT(show1).appendSemicolons(showT2.strT(show2))).enParenth
+
+  override def syntaxDepth: Int = showT1.syntaxDepthT(show1).max(showT2.syntaxDepthT(show2)) + 1
 }
 
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
  *  corresponding [[ShowShowInt2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2T]]. */
 trait ShowElemInt2 extends Any with Show2[Int, Int] with ElemInt2
-{ final override implicit def showT1: ShowT[Int] = ShowT.intPersistImplicit
-  final override implicit def showT2: ShowT[Int] = ShowT.intPersistImplicit
+{ final override implicit def showT1: ShowT[Int] = ShowT.intPersistEv
+  final override implicit def showT2: ShowT[Int] = ShowT.intPersistEv
   final override def syntaxDepth: Int = 2
   final override def int1: Int = show1
   final override def int2: Int = show2
@@ -144,8 +146,8 @@ object ShowShowDbl2T
 
 /** A trait for making quick ShowT instances for [[ShowElemInt2]] classes. It uses the functionality of the [[ShowelemInt2]]. */
 trait ShowShowInt2T[R <: ShowElemInt2] extends ShowShow2T[Int, Int, R]
-{ override implicit def ev1: Persist[Int] = ShowT.intPersistImplicit
-  override implicit def ev2: Persist[Int] = ShowT.intPersistImplicit
+{ override implicit def ev1: Persist[Int] = ShowT.intPersistEv
+  override implicit def ev2: Persist[Int] = ShowT.intPersistEv
 }
 
 object ShowShowInt2T
@@ -176,11 +178,11 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
     case _ => expr.exprParseErr[R](this)
   }
 
-  override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 2)
-    ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
-  else Bad(Strings("Parameters wrong"))
+//  override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 2)
+//    ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
+//  else Bad(Strings("Parameters wrong"))
 
-  def fromExprSeqOpt(exprs: Arr[Expr]): EMon[R] = exprs.length match {
+  override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = exprs.length match {
     case 2 => ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
     case 1 if opt2.nonEmpty => ev1.fromSettingOrExpr(name1, exprs(0)).map(a1 => newT(a1, opt2.get))
     case _ => Bad(Strings("Parameters wrong"))

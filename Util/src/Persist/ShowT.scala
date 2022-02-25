@@ -27,9 +27,9 @@ trait ShowT[-T] extends TypeStr
    one or more Show type instances as parameters require a specific Show instance. The Persist instance for these types will require corresponding
    Persist type instances, and these will be placed in the Persist companion object. */
 object ShowT
-{
-  implicit val intPersistImplicit: Persist[Int] = new IntPersistClass
-  class IntPersistClass extends Unshow.IntEvCl with Persist[Int] with ShowSimpleT[Int]
+{ /** Implicit [[Persist]] type class instance /evidence for [[Int]]. */
+  implicit val intPersistEv: Persist[Int] = new IntPersistClass
+  class IntPersistClass extends Unshow.IntEvClass with Persist[Int] with ShowSimpleT[Int]
   { def strT(obj: Int): String = obj.toString
   }
 
@@ -109,7 +109,8 @@ object ShowT
     }
   }
 
-  implicit val stringPersistImplicit: Persist[String] = new PersistSimple[String]("Str")
+  /** Implicit [[Persist]] type class instance /evidence for [[String]]. */
+  implicit val stringPersistEv: Persist[String] = new PersistSimple[String]("Str")
   { def strT(obj: String): String = obj.enquote
     override def fromExpr(expr: Expr): EMon[String] = expr match
     { case StringToken(_, stringStr) => Good(stringStr)
@@ -139,7 +140,7 @@ object ShowT
 
   implicit val arrayIntImplicit: ShowT[Array[Int]] = new ShowTSeqLike[Int, Array[Int]]
   {
-    override def evA: ShowT[Int] = ShowT.intPersistImplicit
+    override def evA: ShowT[Int] = ShowT.intPersistEv
     override def syntaxDepthT(obj: Array[Int]): Int = 2
 
     override def showDecT(obj: Array[Int], way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = "Unimplemented"

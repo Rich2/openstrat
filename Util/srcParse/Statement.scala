@@ -100,7 +100,7 @@ object Statement
     def findIntArray: EMon[Array[Int]] = ???// Unshow.arrayIntImplicit.findUniqueFromStatements(statements)
 
     /** Find Setting of the given name and type Int from this Arr[Statement] Extension method. */
-    def findSettingInt(settingStr: String): EMon[Int] = ShowT.intPersistImplicit.settingFromStatements(statements, settingStr)
+    def findSettingInt(settingStr: String): EMon[Int] = ShowT.intPersistEv.settingFromStatements(statements, settingStr)
 
     /** Find Setting of the given name and type [[Double]] from this Arr[Statement] Extension method. */
     def findSettingDbl(settingStr: String): EMon[Double] = ShowT.doublePersistEv.settingFromStatements(statements, settingStr)

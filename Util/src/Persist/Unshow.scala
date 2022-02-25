@@ -69,8 +69,8 @@ trait Unshow[+T] extends TypeStr
 object Unshow
 {
   /** Implicit [[Unshow]] instance for an [[Int]] in a standard format. */
-  implicit val intEv: Unshow[Int] = new IntEvCl
-  class IntEvCl extends Unshow[Int]
+  implicit val intEv: Unshow[Int] = new IntEvClass
+  class IntEvClass extends Unshow[Int]
   { override def typeStr: String = "Int"
 
     override def fromExpr(expr: Expr): EMon[Int] = expr match {
