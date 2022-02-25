@@ -2,7 +2,7 @@
 package ostrat; package pParse; package pAST
 
 /** Function object, seems to parse prefix operators. */
-object parsePrefixPlus
+object parse9PrefixPlus
 { /** Seems to parse prefix operators. Function object apply method. */
   def apply(implicit refs: Arr[BlockMem]): EArr[BlockMem] =
   {

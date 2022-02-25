@@ -12,7 +12,7 @@ object parse4Statement
     val acc: Buff[StatementMem] = Buff()
 
     def loop(rem: ArrOff[StatementMem]): EMon[Statement] =
-      rem.headFold(parse5Assignments(acc.toArr).map(g => NonEmptyStatement(g, optSemi))){ (em, tail) =>
+      rem.headFold(parse5AssignExpr(acc.toArr).map(g => NonEmptyStatement(g, optSemi))){ (em, tail) =>
         acc.append(em)
         loop(tail)
       }

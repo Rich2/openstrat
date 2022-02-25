@@ -13,12 +13,12 @@ object parse6Clauses
     val acc: Buff[Clause] = Buff()
     def loop(rem: ArrOff[AssignMem]): EMon[AssignMemExpr] = rem match {
 
-      case ArrOff0() if acc.isEmpty => parse7Clause(subAcc.toArr)
+      case ArrOff0() if acc.isEmpty => parse7ColonExpr(subAcc.toArr)
       case ArrOff0() if subAcc.isEmpty => Good(ClausesExpr(acc.toArr))
-      case ArrOff0() => parse7Clause(subAcc.toArr).map{e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
+      case ArrOff0() => parse7ColonExpr(subAcc.toArr).map{ e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
       case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
 
-      case ArrOff1Tail(ct: CommaToken, tail) => parse7Clause(subAcc.toArr).flatMap{ expr =>
+      case ArrOff1Tail(ct: CommaToken, tail) => parse7ColonExpr(subAcc.toArr).flatMap{ expr =>
         acc.append(Clause(expr, OptRef(ct)))
         subAcc = Buff()
         loop(tail)
