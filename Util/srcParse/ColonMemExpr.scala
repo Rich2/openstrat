@@ -11,13 +11,14 @@ trait Expr extends BlockMem with StatementMem
 /** An expression that is a member of the right oe left side of an assignment expression. */
 trait AssignMemExpr extends Expr with AssignMem
 
-trait AssignMemExprToken extends ClauseMemExprToken with AssignMemExpr
-
-/** An expression that can be a member of a [[Clause]] or the expression of clause. */
-trait ClauseMemExpr extends AssignMemExpr with ClauseMem
+trait AssignMemExprToken extends Token with AssignMemExpr
 
 /** An expression that can be a member of a Colon expression operand. */
-trait ColonMemExpr extends ClauseMemExpr with ColonOpMem
+trait ColonMemExpr extends AssignMemExpr //with ColonOpMem
+
+/** An expression that can be a member of a [[Clause]] or the expression of clause. */
+trait ClauseMemExpr extends ColonMemExpr with ClauseMem
+
 
 trait Expr0 extends Expr1
 trait Expr1 extends ColonMemExpr
@@ -26,7 +27,7 @@ trait Expr1 extends ColonMemExpr
 trait CompoundExpr extends Expr with TextSpanCompound
 
 /** A compound expression. The traits sole purpose is to give an Expr, the start and end text positions from its first and last components. */
-trait CompoundClauseMemExpr extends CompoundExpr with ColonMemExpr// with TextSpanCompound
+trait CompoundClauseMemExpr extends CompoundExpr with ClauseMemExpr// with TextSpanCompound
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeq extends ColonMemExpr
@@ -35,7 +36,7 @@ trait ExprSeq extends ColonMemExpr
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeqNonEmpty extends CompoundClauseMemExpr with ExprSeq
-{ def exprs: Arr[ClauseMemExpr]
+{ def exprs: Arr[AssignMemExpr]
 }
 
 object ExprSeqNonEmpty
@@ -47,18 +48,13 @@ object ExprSeqNonEmpty
 }
 
 /** A Token that is an Expression. Most tokens are expressions, but some are not such as braces, commas and semicolons. */
-trait ClauseMemExprToken extends ColonMemExpr with ClauseMemToken
-{ /** This with the addition of the "Expr" [[String]] gives the exprName property. */
-  def exprTypeStr: String
-
-  def exprName: String = exprTypeStr + "Expr"
-  final override def tokenTypeStr: String = exprTypeStr + "Token"
+trait ClauseMemExprToken extends ClauseMemExpr with ClauseMemToken
+{ final override def tokenTypeStr: String = exprName + "Token"
   override def toString: String = tokenTypeStr.appendParenthSemis(srcStr, startPosn.lineNum.toString, startPosn.linePosn.toString)
 }
 
 trait BlockRaw
 { def statements: Arr[Statement]
- // def exprs: Refs[Expr] = statements.map(_.expr)
   def startMem = statements.head
   def endMem = statements.last
 }
@@ -114,7 +110,7 @@ case class AsignExpr(left: AssignMemExpr, asToken: AsignToken, right : AssignMem
   override def exprName: String = "AsignExpr"
 }
 
-case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends CompoundExpr with ClauseMemExpr
+case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends CompoundExpr with AssignMemExpr with AssignMem
 { override def startMem = left
   override def endMem = right
   override def exprName: String = "ColonExpr"

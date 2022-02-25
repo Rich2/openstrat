@@ -2,23 +2,23 @@
 package ostrat; package pParse; package pAST
 
 /** Function object parses [[Clause]]s. */
-object parse6Clauses
+object parse7Clauses
 {
   /** Function apply method parses [[Clause]]s. Assumes input [[Arr]] is not empty. */
-  def apply (implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] = fromOffset(seg.offset0)
+  def apply (implicit seg: Arr[ColonOpMem]): EMon[ColonMemExpr] = fromOffset(seg.offset0)
 
-  def fromOffset(inp: ArrOff[AssignMem])(implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] =
+  def fromOffset(inp: ArrOff[ColonOpMem])(implicit seg: Arr[ColonOpMem]): EMon[ColonMemExpr] =
   {
     var subAcc: Buff[ClauseMem] = Buff()
     val acc: Buff[Clause] = Buff()
-    def loop(rem: ArrOff[AssignMem]): EMon[AssignMemExpr] = rem match {
+    def loop(rem: ArrOff[ColonOpMem]): EMon[ColonMemExpr] = rem match {
 
-      case ArrOff0() if acc.isEmpty => parse7ColonExpr(subAcc.toArr)
+      case ArrOff0() if acc.isEmpty => parse8ClauseMem(subAcc.toArr)
       case ArrOff0() if subAcc.isEmpty => Good(ClausesExpr(acc.toArr))
-      case ArrOff0() => parse7ColonExpr(subAcc.toArr).map{ e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
+      case ArrOff0() => parse8ClauseMem(subAcc.toArr).map{ e => ClausesExpr(acc.append(Clause(e, NoRef)).toArr)}
       case ArrOff1Tail(ct: CommaToken, tail) if subAcc.isEmpty => { acc.append(EmptyClause(ct)); loop(tail) }
 
-      case ArrOff1Tail(ct: CommaToken, tail) => parse7ColonExpr(subAcc.toArr).flatMap{ expr =>
+      case ArrOff1Tail(ct: CommaToken, tail) => parse8ClauseMem(subAcc.toArr).flatMap{ expr =>
         acc.append(Clause(expr, OptRef(ct)))
         subAcc = Buff()
         loop(tail)

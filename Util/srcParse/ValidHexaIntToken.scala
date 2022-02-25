@@ -51,12 +51,12 @@ trait ValidRawHexaNegToken extends ValidRawHexaIntToken
 
 /** Raw hexadecimal natural number token, starting with a digit that includes one or more 'A' .. 'F' digits. */
 case class RawHexaNatToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken
-{ override def exprTypeStr: String = "HexaRaw"
+{ override def exprName: String = "HexaRaw"
   override def digitsStr: String = srcStr
 }
 
 /** Raw hexadecimal natural number token, starting with a digit that includes one or more 'A' .. 'F' digits. */
 case class RawHexaNegToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNegToken
-{ override def exprTypeStr: String = "HexaRaw"
+{ override def exprName: String = "HexaRaw"
   override def digitsStr: String = srcStr
 }

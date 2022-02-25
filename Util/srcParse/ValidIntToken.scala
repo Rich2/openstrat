@@ -91,7 +91,7 @@ trait RawIntDeciToken extends IntStdToken with ValidRawHexaIntToken
  *  (Abstract Syntax Tree) levels stores data not code, although of course at the higher semantic levels it can be used very well for programming
  *  languages. */
 case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken with RawIntDeciToken with NatStdToken with DigitSeqsCode
-{ override def exprTypeStr: String = "Decimal"
+{ override def exprName: String = "Decimal"
   override def digitsStr: String = srcStr
   override def digitSeqs: Strings = Strings(digitsStr)
   inline override def getIntStd: Int = getAbsoluteIntStd
@@ -101,7 +101,7 @@ case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends ValidRawHex
 
 /** Negative natural number token. There must be no space between the '-' character and the digits. */
 case class NegDeciToken(startPosn: TextPosn, digitsStr: String) extends RawIntDeciToken with ValidRawHexaNegToken
-{ override def exprTypeStr: String = "IntNeg"
+{ override def exprName: String = "IntNeg"
   override def srcStr: String = "-" + digitsStr
   override def getIntStd: Int = -super.getAbsoluteIntStd
 }

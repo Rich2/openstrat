@@ -14,12 +14,12 @@ trait StatementMem extends BlockMem
 /** An Assignment member can appear in the expressions either side of an asignment operator. */
 trait AssignMem extends StatementMem
 
-/** Can be a member of either side of a ColonExpr */
-trait ClauseMem extends AssignMem
-
 /** I think its helpful to have an expression member trait for syntax that is not expressions. So I don't think it would be helpful if say an opening
  *  brace was an expression. All Expressions are Expression members. */
-trait ColonOpMem extends ClauseMem
+trait ColonOpMem extends AssignMem
+
+/** Can be a member of either side of a ColonExpr */
+trait ClauseMem extends ColonOpMem
 
 sealed trait BracketToken extends Token
 { def braces: Braces

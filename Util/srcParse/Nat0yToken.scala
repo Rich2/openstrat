@@ -6,7 +6,7 @@ package ostrat; package pParse
  *  although of course at the higher semantic levels it can be used very well for programming languages. */
 case class Nat0yToken(startPosn: TextPosn, digitsStr: String) extends IntStdToken with ValidBase32IntToken
 { override def srcStr: String = "0y" + digitsStr
-  override def exprTypeStr: String = "Nat0y"
+  override def exprName: String = "Nat0y"
   override def getIntStd: Int = asBase32Int
 }
 

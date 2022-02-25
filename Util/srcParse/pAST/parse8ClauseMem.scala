@@ -4,11 +4,11 @@ package ostrat; package pParse; package pAST
 /** Needs change of input from ColonOpMem => ClauseMem, Function object for parsing [[ColonOpMem]]s into [[ColonMemExpr]]. */
 object parse8ClauseMem
 { /** Needs change of input from ColonOpMem => ClauseMem, Function apply method parsing [[ColonOpMem]]s into [[ColonMemExpr]]. */
-  def apply(implicit seg: Arr[ColonOpMem]): EMon[ColonMemExpr] =
+  def apply(implicit seg: Arr[ClauseMem]): EMon[ClauseMemExpr] =
   {
-    val acc: Buff[BlockMem] = Buff()
+    val acc: Buff[ClauseMem] = Buff()
 
-    def loop(rem: ArrOff[ColonOpMem]): EArr[BlockMem] = rem match
+    def loop(rem: ArrOff[ClauseMem]): EArr[ClauseMem] = rem match
     { case ArrOff0() => parse9PrefixPlus(acc.toArr)
 
       case ArrOff2Tail(at: IdentifierToken, bb: BracketedStatements, t2) => {
@@ -21,7 +21,7 @@ object parse8ClauseMem
     }
 
     loop(seg.offset0).flatMap {
-      case Arr1(e: ColonMemExpr) => Good(e)
+      case Arr1(e: ClauseMemExpr) => Good(e)
       case arr if arr.forAll(_.isInstanceOf[ColonMemExpr]) => Good(SpacedExpr(arr.map(_.asInstanceOf[ColonMemExpr])))
       case s => bad1(s.head, "Unknown Expression sequence in getBlocks:" -- s.toString)
     }

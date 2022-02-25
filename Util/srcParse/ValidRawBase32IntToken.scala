@@ -62,13 +62,13 @@ object ValidRawBase32NatToken
 
 /** A raw natural Base32 integer token starting with a digit that is not a valid hexadecimal and hence is not a decimal number either. */
 case class RawBase32NatToken(startPosn: TextPosn, srcStr: String) extends ValidRawBase32NatToken
-{ override def exprTypeStr: String = "Base32Raw"
+{ override def exprName: String = "Base32Raw"
   override def digitsStr: String = srcStr
 }
 
 /** A raw natural Base32 integer token starting with a digit that is not a valid hexadecimal and hence is not a decimal number either. */
 case class RawBase32NegToken(startPosn: TextPosn, srcStr: String) extends ValidRawBase32IntToken
-{ override def exprTypeStr: String = "Base32Raw"
+{ override def exprName: String = "Base32Raw"
   override def digitsStr: String = srcStr
 }
 

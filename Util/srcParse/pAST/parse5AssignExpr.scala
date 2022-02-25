@@ -10,9 +10,9 @@ object parse5AssignExpr
     val rightAcc: Buff[AssignMem] = Buff()
 
     def leftLoop(rem: ArrOff[StatementMem]): EMon[Expr] = rem match
-    { case ArrOff0() => parse6Clauses(leftAcc.toArr)
+    { case ArrOff0() => parse6ColonExpr(leftAcc.toArr)
 
-      case ArrOff1Tail(at@AsignToken(_), tail) => parse6Clauses(leftAcc.toArr).flatMap(gLs => rightLoop(tail).map { gRs =>
+      case ArrOff1Tail(at@AsignToken(_), tail) => parse6ColonExpr(leftAcc.toArr).flatMap(gLs => rightLoop(tail).map { gRs =>
         AsignExpr(gLs, at, gRs)
       })
 
@@ -21,7 +21,7 @@ object parse5AssignExpr
     }
 
     def rightLoop(rem: ArrOff[StatementMem])(implicit seg: Arr[StatementMem]): EMon[AssignMemExpr] = rem match
-    { case ArrOff0() => parse6Clauses(rightAcc.toArr)
+    { case ArrOff0() => parse6ColonExpr(rightAcc.toArr)
       case ArrOffHead(at: AsignToken) => bad1(at, "Prefix operator not followed by expression")
       case ArrOff1Tail(am: AssignMem, tail) => { rightAcc.append(am); rightLoop(tail) }
     }

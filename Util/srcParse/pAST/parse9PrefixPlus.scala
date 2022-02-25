@@ -4,11 +4,11 @@ package ostrat; package pParse; package pAST
 /** Function object, seems to parse prefix operators. */
 object parse9PrefixPlus
 { /** Seems to parse prefix operators. Function object apply method. */
-  def apply(implicit refs: Arr[BlockMem]): EArr[BlockMem] =
+  def apply(implicit refs: Arr[ClauseMem]): EArr[ClauseMem] =
   {
-    val acc: Buff[BlockMem] = Buff()
+    val acc: Buff[ClauseMem] = Buff()
 
-    def loop(rem: ArrOff[BlockMem]): EArr[BlockMem] = rem match
+    def loop(rem: ArrOff[ClauseMem]): EArr[ClauseMem] = rem match
     { case ArrOff0() => Good(acc).map(_.toArr)
       case ArrOff2Tail(pp: OperatorToken,  right: ColonMemExpr, tail) => { acc.append(PreOpExpr(pp, right)); loop(tail) }
       case ArrOffHead(pp: OperatorToken) => bad1(pp, "Prefix operator not followed by expression")
