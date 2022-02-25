@@ -179,6 +179,12 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
   override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 2)
     ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
   else Bad(Strings("Parameters wrong"))
+
+  def fromExprSeqOpt(exprs: Arr[Expr]): EMon[R] = exprs.length match {
+    case 2 => ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
+    case 1 if opt2.nonEmpty => ev1.fromSettingOrExpr(name1, exprs(0)).map(a1 => newT(a1, opt2.get))
+    case _ => Bad(Strings("Parameters wrong"))
+  }
 }
 
 object Unshow2{
