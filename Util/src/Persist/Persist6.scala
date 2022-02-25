@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import pParse._
 
 /** A base trait for [[Unshow6]], declares the common properties of name1 - 6 and opt1 - 6. */
 trait TypeStr6[A1, A2, A3, A4, A5, A6] extends Any with TypeStr5[A1, A2, A3, A4, A5]
@@ -46,7 +47,7 @@ object Show6T
 }
 
 /** UnShow trait for 6 parameter product / case classes. */
-trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends Unshow[R] with TypeStr6[A1, A2, A3, A4, A5, A6]
+trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with TypeStr6[A1, A2, A3, A4, A5, A6]
 { def fArg1: R => A1
   def fArg2: R => A2
   def fArg3: R => A3
@@ -66,4 +67,17 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends Unshow[R] with TypeStr6[A1, A2,
   implicit def ev4: Unshow[A4]
   implicit def ev5: Unshow[A5]
   implicit def ev6: Unshow[A6]
+
+  override def fromExpr(expr: Expr): EMon[R] = expr match
+  { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
+    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
+    case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
+    case _ => expr.exprParseErr[R](this)
+  }
+
+  override def fromExprSeq(exprs: Arr[Expr]): EMon[R] =
+    if (exprs.length == 6)
+      ev1.fromSettingOrExpr(name1, exprs(0)).map6(ev2.fromSettingOrExpr(name2, exprs(1)), ev3.fromSettingOrExpr(name3, exprs(2)),
+        ev4.fromSettingOrExpr(name4, exprs(3)), ev5.fromSettingOrExpr(name5, exprs(4)), ev6.fromSettingOrExpr(name6, exprs(5))){ newT }
+    else Bad(Strings("Parameters wrong"))
 }
