@@ -100,6 +100,15 @@ case class AsignExpr(left: AssignMemExpr, asToken: AsignToken, right : AssignMem
   override def exprName: String = "AsignExpr"
 }
 
+object AsignExprName
+{
+  def unapply(inp: Any): Option[String] = inp match {
+    case AsignExpr(ColonExpr(IdentifierToken(settingStr), _, IdentifierToken(_)), _, rExpr) => Some(settingStr)
+    case AsignExpr(IdentifierToken(settingStr), _, rExpr) => Some(settingStr)
+    case _ => None
+  }
+}
+
 case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemExpr) extends CompoundExpr with AssignMemExpr with AssignMem
 { override def startMem = left
   override def endMem = right

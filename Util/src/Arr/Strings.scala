@@ -71,3 +71,7 @@ class StringsBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Seq
   override def unsafeSetElem(i: Int, value: String): Unit = unsafeBuffer(i) = value
   override def fElemStr: String => String = s => s
 }
+
+object StringsBuff
+{ def apply(startSize: Int = 4): StringsBuff = new StringsBuff(new ArrayBuffer[String](startSize))
+}

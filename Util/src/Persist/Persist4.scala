@@ -47,7 +47,7 @@ trait Show4[A1, A2, A3, A4] extends Any with ShowN with TypeStr4[A1, A2, A3, A4]
   /** The [[ShowT]] type class instance for the 4th element of this 4 element Show product. */
   def showT4: ShowT[A4]
 
-  override def elemNames: Strings = Strings(name1, name2, name3, name4)
+  override def paramNames: Strings = Strings(name1, name2, name3, name4)
   override def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr, showT3.typeStr, showT4.typeStr)
 
   override def showElemStrs(way: ShowStyle): Strings = Strings(showT1.showT(show1, way), showT2.showT(show2, way), showT3.showT(show3, way), showT4.showT(show4, way))

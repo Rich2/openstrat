@@ -87,4 +87,9 @@ class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with SeqGen[Int
   override def dataLength: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Int): Unit = unsafeBuffer(i) = value
   override def fElemStr: Int => String = _.toString
+  def grow(newElem: Int): Unit = unsafeBuffer.append(newElem)
+}
+
+object IntBuff
+{ def apply(startSize: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](startSize))
 }

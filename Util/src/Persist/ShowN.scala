@@ -6,7 +6,7 @@ package ostrat
  * [[ShowNT]]. */
 trait ShowN extends Any with ShowDec
 { /** A [[Strings]] Arr of the element names of this Show Product class. */
-  def elemNames: Strings
+  def paramNames: Strings
 
   /** A [[Strings]] Arr of the element type names of this Show Product class. */
   def elemTypeNames: Strings
@@ -17,7 +17,7 @@ trait ShowN extends Any with ShowDec
   //def showElemStrs(way: ShowStyle): Strings
 
   def showSemisNames: String =
-    elemNames.zipMap(showElemStrs(ShowStandard))((n, s) => n + " = " + s).mkStr("; ")
+    paramNames.zipMap(showElemStrs(ShowStandard))((n, s) => n + " = " + s).mkStr("; ")
 
   override def show(style: ShowStyle): String =
   { def semisStr = showElemStrs(ShowCommas).mkStr("; ")
@@ -29,7 +29,7 @@ trait ShowN extends Any with ShowDec
       case ShowSemisNames => showSemisNames
 
     case ShowStdTypedFields =>
-    { val inner = elemNames.zipMap2(elemTypeNames,showElemStrs(ShowStandard))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
+    { val inner = paramNames.zipMap2(elemTypeNames,showElemStrs(ShowStandard))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
       typeStr + inner.enParenth
     }
 
@@ -43,7 +43,7 @@ trait ShowN extends Any with ShowDec
   def showElemStrs(way: ShowStyle): Strings = showElemStrDecs(way, -1)
 
   def showSemisNameDecs(maxPlaces: Int = -1, minPlaces: Int = 0): String =
-    elemNames.zipMap(showElemStrDecs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
+    paramNames.zipMap(showElemStrDecs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")
 
   override def showDec(style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = showElemStrDecs(ShowCommas, maxPlaces).mkStr("; ")
@@ -55,7 +55,7 @@ trait ShowN extends Any with ShowDec
     case ShowSemisNames => showSemisNameDecs(maxPlaces, minPlaces)
 
     case ShowStdTypedFields =>
-    { val inner = elemNames.zipMap2(elemTypeNames,showElemStrDecs(ShowStandard, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
+    { val inner = paramNames.zipMap2(elemTypeNames,showElemStrDecs(ShowStandard, maxPlaces))((n, t, s) => n + ": " + t + " = " + s).mkStr("; ")
       typeStr + inner.enParenth
     }
 

@@ -4,7 +4,7 @@ import pParse._, collection.mutable.ArrayBuffer
 
 /** A base trait for [[Show2]] and [[UnShow2]] it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait for
  *  [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can delgate to the [[Show2]] object to implement their interfaces. */
-trait TypeStr2[A1, A2] extends Any with TypeStr
+trait TypeStr2Plus[A1, A2] extends Any with TypeStr
 { /** 1st parameter name. */
   def name1: String
 
@@ -16,6 +16,15 @@ trait TypeStr2[A1, A2] extends Any with TypeStr
 
   /** The optional default value for parameter 2. */
   def opt2: Option[A2]
+
+  def paramNames: Strings = Strings(name1, name2)
+
+  def numParams: Int = 2
+}
+
+trait TypeStr2[A1, A2] extends Any with TypeStr2Plus[A1, A2]
+{ override def paramNames: Strings = Strings(name1, name2)
+  override def numParams: Int = 2
 }
 
 /** Trait for [[ShowDec]] for a product of 2 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
@@ -43,7 +52,7 @@ trait Show2[A1, A2] extends Any with ShowN with TypeStr2[A1, A2]
   /** The ShowT type class instance for the 2nd element of this 2 element product. */
   def showT2: ShowT[A2]
 
-  def elemNames: Strings = Strings(name1, name2)
+  override def paramNames: Strings = Strings(name1, name2)
   def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
   def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0))
 
@@ -98,7 +107,7 @@ object Show2T
     new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
   class Show2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val ev1: ShowT[A1], val ev2: ShowT[A2]) extends Show2T[A1, A2, R] with TypeStr2[A1,A2]
+    opt1In: Option[A1] = None)(implicit val ev1: ShowT[A1], val ev2: ShowT[A2]) extends Show2T[A1, A2, R] with TypeStr2Plus[A1,A2]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
 
@@ -182,14 +191,37 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
 //    ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
 //  else Bad(Strings("Parameters wrong"))
 
+  def fromExprSeqAlt(exprs: Arr[Expr]): EMon[R] = if(exprs.length > 2) Bad(Strings(exprs.length.toString + " parameters for 2 parameter constructor."))
+  else {
+    val usedNames: StringsBuff = StringsBuff()
+    var oldSeq: Array[Int] = {
+      val res = new Array[Int](numParams)
+      iUntilForeach(0, numParams){i => res(i) = i}
+      res
+    }
+    val newSeq: IntBuff = IntBuff()
+    def exprsLoop(i: Int): EMon[R] =  exprs(i) match {
+      case _ if i >= exprs.length => ???
+      case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")
+      case AsignExprName(name) if usedNames.contains(name) => bad1(exprs(i), name + " Multiple parameters of the same name.")
+      case AsignExprName(name) => { val pi = paramNames.indexOf(name)
+        oldSeq.drop(oldSeq.indexOf(pi))
+        newSeq.grow(pi)
+        exprsLoop(i + 1)
+      }
+      case _ => ???
+    }
+    iUntilForeach(exprs.length, numParams){ i => }
+    fromSortedExprs(exprs)
+  }
 
-  protected def fromSortedExprs(sortedExprs: Arr[Expr]): EMon[R] =
-  {
-    val len: Int = sortedExprs.length
-    val r0: EMon[A1] = ife(len > 0, ev1.fromSettingOrExpr(name1, sortedExprs(0)), opt1.toEMon)
-    def e2: EMon[A2] = ife(len > 1, ev2.fromSettingOrExpr(name2,sortedExprs(1)), opt2.toEMon)
+  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints = Ints(0, 1)): EMon[R] =
+  { val len: Int = sortedExprs.length
+    val r0: EMon[A1] = ife(len > 0, ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMon[A2] = ife(len > 1, ev2.fromSettingOrExpr(name2,sortedExprs(pSeq(1))), opt2.toEMon)
     r0.map2(e2)(newT)
   }
+
   def fromExprSeq(exprs: Arr[Expr]): EMon[R] = exprs.length match {
     case n if n > 2 => Bad(Strings(s"$n parameters for 2 parameter constructor."))
     case _ => fromSortedExprs(exprs)

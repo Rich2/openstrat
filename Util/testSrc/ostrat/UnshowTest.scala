@@ -22,8 +22,8 @@ object ExUA{
 object UnshowTest extends TestSuite
 {
   val tests = Tests {
-    test("U2") {
-      """ExUA(42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
+    test("U2")
+    { """ExUA(42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
       "ExUA(42)".asType[ExUA] ==> Good(ExUA(42, "blah"))
       "ExUA()".asType[ExUA] ==> Good(ExUA(0, "blah"))
     }

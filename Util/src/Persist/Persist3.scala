@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** A base trait for [[Show3T]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
-trait TypeStr3[A1, A2, A3] extends Any with TypeStr2[A1, A2]
+trait TypeStr3[A1, A2, A3] extends Any with TypeStr2Plus[A1, A2]
 { /** 3rd parameter name. */
   def name3: String
 
@@ -40,7 +40,7 @@ trait Show3[A1, A2, A3] extends Any with ShowN with TypeStr3[A1, A2, A3]
   /** The [[ShowT]] type class instance for the 3rd element of this 3 element Show product. */
   def showT3: ShowT[A3]
 
-  override def elemNames: Strings = Strings(name1, name2, name3)
+  override def paramNames: Strings = Strings(name1, name2, name3)
   override def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr, showT3.typeStr)
 
   override def showElemStrs(way: ShowStyle): Strings = Strings(showT1.showT(show1, way), showT2.showT(show2, way), showT3.showT(show3, way))
