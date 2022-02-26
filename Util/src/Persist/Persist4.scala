@@ -3,12 +3,17 @@ package ostrat
 import pParse._
 
 /** A base trait for [[Show4T]] and [[Unshow4]], declares the common properties of name1 - 4 and opt1 - 4. */
-trait TypeStr4[A1, A2, A3, A4] extends Any with TypeStr3[A1, A2, A3]
+trait TypeStr4Plus[A1, A2, A3, A4] extends Any with TypeStr3Plus[A1, A2, A3]
 { /** 4th parameter name. */
   def name4: String
 
   /** The optional default value for parameter 4. */
   def opt4: Option[A4]
+}
+
+trait TypeStr4[A1, A2, A3, A4] extends Any with TypeStr4Plus[A1, A2, A3, A4]
+{ override def paramNames: Strings = Strings(name1, name2, name3, name4)
+  override def numParams: Int = 4
 }
 
 /** Trait for [[ShowDec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
@@ -63,8 +68,7 @@ object Show4T
 {
   class Show4TImp[A1, A2, A3, A4, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2,
     val name3: String, val fArg3: R => A3, val name4: String, val fArg4: R => A4, val opt4: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4]) extends Show4T[A1, A2, A3, A4, R] with
-    TypeStr4[A1, A2, A3, A4]
+    opt1In: Option[A1] = None)(implicit ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4]) extends Show4T[A1, A2, A3, A4, R] //with TypeStr4Plus[A1, A2, A3, A4]
   {
     val opt3: Option[A3] = ife(opt4.nonEmpty, opt3In, None)
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
@@ -95,7 +99,7 @@ trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with TypeStr4[A1, A2, A3, A4
 
   def newT: (A1, A2, A3, A4) => R
 
-  override def fromExpr(expr: Expr): EMon[R] = expr match
+  /*override def fromExpr(expr: Expr): EMon[R] = expr match
   { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
@@ -104,5 +108,5 @@ trait Unshow4[A1, A2, A3, A4, R] extends UnshowN[R] with TypeStr4[A1, A2, A3, A4
 
   override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 4) ev1.fromSettingOrExpr(name1, exprs(0)).map4(
     ev2.fromSettingOrExpr(name2, exprs(1)), ev3.fromSettingOrExpr(name3, exprs(2)), ev4.fromSettingOrExpr(name4, exprs(3))){ newT }
-  else Bad(Strings("Parameters wrong"))
+  else Bad(Strings("Parameters wrong"))*/
 }

@@ -3,12 +3,17 @@ package ostrat
 import pParse._
 
 /** A base trait for [[Show3T]] and [[Unshow3]], declares the common properties of name1 - 3 and opt1 - 3. */
-trait TypeStr3[A1, A2, A3] extends Any with TypeStr2Plus[A1, A2]
+trait TypeStr3Plus[A1, A2, A3] extends Any with TypeStr2Plus[A1, A2]
 { /** 3rd parameter name. */
   def name3: String
 
   /** The optional default value for parameter 3. */
   def opt3: Option[A3]
+}
+
+trait TypeStr3[A1, A2, A3] extends Any with TypeStr3Plus[A1, A2, A3]
+{ override def paramNames: Strings = Strings(name1, name2, name3)
+  override def numParams: Int = 3
 }
 
 /** Trait for [[ShowDec]] for a product of 3 logical elements. This trait is implemented directly by the type in question, unlike the corresponding
@@ -17,8 +22,7 @@ trait TypeStr3[A1, A2, A3] extends Any with TypeStr2Plus[A1, A2]
  *  [[Persist3Elem]] class will delegate to Show3 for some of its methods. It is better to use Show3 to override toString method than delegating the
  *  toString override to a [[ShowEq3T]] instance. */
 trait Show3[A1, A2, A3] extends Any with ShowN with TypeStr3[A1, A2, A3]
-{
-  override def opt1: Option[A1] = None
+{ override def opt1: Option[A1] = None
   override def opt2: Option[A2] = None
   override def opt3: Option[A3] = None
 
@@ -78,7 +82,7 @@ object Show3T
 
   class Show3TImp[A1, A2, A3, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val name3: String,
     val fArg3: R => A3, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
-    implicit val ev1: ShowT[A1], val ev2: ShowT[A2], val ev3: ShowT[A3]) extends Show3T[A1, A2, A3, R] with TypeStr3[A1, A2, A3]
+    implicit val ev1: ShowT[A1], val ev2: ShowT[A2], val ev3: ShowT[A3]) extends Show3T[A1, A2, A3, R] //with TypeStr3Plus[A1, A2, A3]
   {
     val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)
     val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
@@ -109,8 +113,7 @@ object ShowShowDbl3T
 
 /** UnShow class for 3 logical parameter product types. */
 trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with TypeStr3[A1, A2, A3]
-{
-  /** The UnShow type class instance for type A1. */
+{ /** The UnShow type class instance for type A1. */
   def ev1: Unshow[A1]
 
   /** The UnShow type class instance for type A2. */
@@ -122,16 +125,13 @@ trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with TypeStr3[A1, A2, A3]
   /** Method fpr creating a value of type R from values A1, A2, A3. */
   def newT: (A1, A2, A3) => R
 
-  override def fromExpr(expr: Expr): EMon[R] = expr match
-  { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
-    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-    case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
-    case _ => expr.exprParseErr[R](this)
+  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints = Ints(0, 2)): EMon[R] =
+  { val len: Int = sortedExprs.length
+    val e1: EMon[A1] = ife(len > pSeq(0), ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMon[A2] = ife(len > pSeq(1), ev2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
+    def e3: EMon[A3] = ife(len > pSeq(2), ev3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
+    e1.map3(e2, e3)(newT)
   }
-
-  override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 3) ev1.fromSettingOrExpr(name1, exprs(0)).map3(
-    ev2.fromSettingOrExpr(name2, exprs(1)), ev3.fromSettingOrExpr(name3, exprs(2))){ newT }
-    else Bad(Strings("Parameters wrong"))
 }
 
 object Unshow3

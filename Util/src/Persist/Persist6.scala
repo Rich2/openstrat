@@ -3,12 +3,17 @@ package ostrat
 import pParse._
 
 /** A base trait for [[Unshow6]], declares the common properties of name1 - 6 and opt1 - 6. */
-trait TypeStr6[A1, A2, A3, A4, A5, A6] extends Any with TypeStr5[A1, A2, A3, A4, A5]
+trait TypeStr6Plus[A1, A2, A3, A4, A5, A6] extends Any with TypeStr5Plus[A1, A2, A3, A4, A5]
 { /** 6th parameter name. */
   def name6: String
 
   /** The optional default value for parameter 6. */
   def opt6: Option[A6]
+}
+
+trait TypeStr6[A1, A2, A3, A4, A5, A6] extends Any with TypeStr6Plus[A1, A2, A3, A4, A5, A6]
+{ override def paramNames: Strings = Strings(name1, name2, name3, name4, name5, name6)
+  override def numParams: Int = 6
 }
 
 /** [[ShowT]] type class for 6 parameter case classes. */
@@ -29,7 +34,7 @@ object Show6T
     fArg3: R => A3, val name4: String, fArg4: R => A4, val name5: String, fArg5: R => A5, val name6: String, fArg6: R => A6, val opt6: Option[A6],
     val opt5In: Option[A5] = None, opt4In: Option[A4] = None, opt3In: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(implicit
     ev1: ShowT[A1], ev2: ShowT[A2], ev3: ShowT[A3], ev4: ShowT[A4], ev5: ShowT[A5], ev6: ShowT[A6]) extends
-    Show6T[A1, A2, A3, A4, A5, A6, R] with ShowNT[R] with TypeStr6[A1, A2, A3, A4, A5, A6]
+    Show6T[A1, A2, A3, A4, A5, A6, R] with ShowNT[R]
   {
     val opt5: Option[A5] = ife(opt6.nonEmpty, opt5In, None)
     val opt4: Option[A4] = ife(opt5.nonEmpty, opt4In, None)
@@ -47,7 +52,7 @@ object Show6T
 }
 
 /** UnShow trait for 6 parameter product / case classes. */
-trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with TypeStr6[A1, A2, A3, A4, A5, A6]
+trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with TypeStr6Plus[A1, A2, A3, A4, A5, A6]
 { def fArg1: R => A1
   def fArg2: R => A2
   def fArg3: R => A3
@@ -68,7 +73,7 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with TypeStr6[A1, A2
   implicit def ev5: Unshow[A5]
   implicit def ev6: Unshow[A6]
 
-  override def fromExpr(expr: Expr): EMon[R] = expr match
+  /*override def fromExpr(expr: Expr): EMon[R] = expr match
   { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
@@ -79,5 +84,5 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with TypeStr6[A1, A2
     if (exprs.length == 6)
       ev1.fromSettingOrExpr(name1, exprs(0)).map6(ev2.fromSettingOrExpr(name2, exprs(1)), ev3.fromSettingOrExpr(name3, exprs(2)),
         ev4.fromSettingOrExpr(name4, exprs(3)), ev5.fromSettingOrExpr(name5, exprs(4)), ev6.fromSettingOrExpr(name6, exprs(5))){ newT }
-    else Bad(Strings("Parameters wrong"))
+    else Bad(Strings("Parameters wrong"))*/
 }

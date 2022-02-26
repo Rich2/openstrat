@@ -19,6 +19,25 @@ object ExUA{
   implicit val unshowEv: Unshow2[Int, String, ExUA] = Unshow2("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
+case class ExUB(a: ExUA, b: String, c: Int) extends Show3[ExUA, String, Int]
+{
+  override def typeStr: String = "ExUA"
+  override def show1: ExUA = a
+  override def show2: String = b
+  override def show3: Int = c
+  override def showT1: ShowT[ExUA] = ???
+  override def showT2: ShowT[String] = ShowT.stringPersistEv
+  override def showT3: ShowT[Int] = ShowT.intPersistEv
+  override def name1: String = "a"
+  override def name2: String = "b"
+  override def name3: String = "c"
+
+  override def opt2: Option[String] = Some("blah")
+
+  override def syntaxDepth: Int = 3
+}
+
+
 object UnshowTest extends TestSuite
 {
   val tests = Tests {

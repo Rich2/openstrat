@@ -4,7 +4,7 @@ import pParse._, collection.mutable.ArrayBuffer
 
 /** A base trait for [[Show2]] and [[UnShow2]] it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait for
  *  [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can delgate to the [[Show2]] object to implement their interfaces. */
-trait TypeStr2Plus[A1, A2] extends Any with TypeStr
+trait TypeStr2Plus[A1, A2] extends Any with TypeStrN
 { /** 1st parameter name. */
   def name1: String
 
@@ -17,9 +17,7 @@ trait TypeStr2Plus[A1, A2] extends Any with TypeStr
   /** The optional default value for parameter 2. */
   def opt2: Option[A2]
 
-  def paramNames: Strings = Strings(name1, name2)
 
-  def numParams: Int = 2
 }
 
 trait TypeStr2[A1, A2] extends Any with TypeStr2Plus[A1, A2]
@@ -107,7 +105,7 @@ object Show2T
     new Show2TImp[A1, A2, R](typeStr, name1, fArg1, name2, fArg2, opt2, opt1In)
 
   class Show2TImp[A1, A2, R](val typeStr: String, val name1: String, val fArg1: R => A1, val name2: String, val fArg2: R => A2, val opt2: Option[A2] = None,
-    opt1In: Option[A1] = None)(implicit val ev1: ShowT[A1], val ev2: ShowT[A2]) extends Show2T[A1, A2, R] with TypeStr2Plus[A1,A2]
+    opt1In: Option[A1] = None)(implicit val ev1: ShowT[A1], val ev2: ShowT[A2]) extends Show2T[A1, A2, R] //with TypeStr2Plus[A1,A2]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
 
@@ -180,35 +178,12 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
 
   def newT: (A1, A2) => R
 
-  override def fromExpr(expr: Expr): EMon[R] = expr match
+  /*override def fromExpr(expr: Expr): EMon[R] = expr match
   { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
     case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
     case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
     case _ => expr.exprParseErr[R](this)
-  }
-
-  /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
-  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if(exprs.length > 2) Bad(Strings(exprs.length.toString + " parameters for 2 parameter constructor."))
-  else {
-    val usedNames: StringsBuff = StringsBuff()
-
-    def exprsLoop(i: Int, oldSeq: Ints, newSeq: Ints): EMon[R] =
-      if (i >= exprs.length)  fromSortedExprs(exprs, newSeq ++ oldSeq)
-      else exprs(i) match
-      {
-        case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")
-        case AsignExprName(name) if usedNames.contains(name) => bad1(exprs(i), name + " Multiple parameters of the same name.")
-
-        case AsignExprName(name) => { val nameInd = paramNames.indexOf(name)
-          val oldSeqInd = oldSeq.indexOf(nameInd)
-          exprsLoop(i + 1,oldSeq.removeIndex(oldSeqInd), newSeq :+ oldSeq(oldSeqInd))
-        }
-
-        case _ => exprsLoop(i + 1, oldSeq.drop1, newSeq :+ oldSeq(0))
-      }
-
-    exprsLoop(0, Ints.until(0, numParams), Ints())
-  }
+  }*/
 
   protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints = Ints(0, 1)): EMon[R] =
   { val len: Int = sortedExprs.length
