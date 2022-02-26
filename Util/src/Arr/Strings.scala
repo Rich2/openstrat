@@ -36,6 +36,17 @@ class Strings(val unsafeArray: Array[String]) extends AnyVal with SeqImut[String
     }
     new Strings(newArray)
   }
+
+  /** Alias for append. Functionally appends the operand [[String]]. */
+  @inline def :+(op: String): Strings = append(op)
+  /** Functionally appends the operand [[String]]. This method by the :+ operator, rather than the +- operator alias used for append on [[Arr]] to
+   *  avoid confusion with arithmetic operations. */
+  def append(op: String): Strings =
+  { val newArray = new Array[String](dataLength + 1)
+    unsafeArray.copyToArray(newArray)
+    newArray(dataLength) = op
+    new Strings(newArray)
+  }
 }
 
 /** Companion object of ArrStrings class contains repeat parameter apply factor method. */

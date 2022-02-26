@@ -55,25 +55,24 @@ trait UnshowN[R] extends Unshow[R] with TypeStrN
   }
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
-  final def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if(exprs.length > numParams) Bad(Strings(exprs.length.toString + " parameters for 2 parameter constructor."))
-  else {
-    val usedNames: StringsBuff = StringsBuff()
+  final def fromExprSeq(exprs: Arr[Expr]): EMon[R] =
+    if(exprs.length > numParams) Bad(Strings(exprs.length.toString + " parameters for 2 parameter constructor."))
+    else
+    {
+      def exprsLoop(i: Int, oldSeq: Ints, newSeq: Ints, usedNames: Strings): EMon[R] =
+        if (i >= exprs.length) fromSortedExprs(exprs, newSeq ++ oldSeq)
+        else exprs(i) match
+        {
+          case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")
+          case AsignExprName(name) if usedNames.contains(name) => bad1(exprs(i), name + " Multiple parameters of the same name.")
 
-    def exprsLoop(i: Int, oldSeq: Ints, newSeq: Ints): EMon[R] =
-      if (i >= exprs.length) fromSortedExprs(exprs, newSeq ++ oldSeq)
-      else exprs(i) match
-      {
-        case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")
-        case AsignExprName(name) if usedNames.contains(name) => bad1(exprs(i), name + " Multiple parameters of the same name.")
+          case AsignExprName(name) => { val nameInd = paramNames.indexOf(name)
+            val oldSeqInd = oldSeq.indexOf(nameInd)
+            exprsLoop(i + 1,oldSeq.removeIndex(oldSeqInd), newSeq :+ oldSeq(oldSeqInd), usedNames :+ name)
+          }
 
-        case AsignExprName(name) => { val nameInd = paramNames.indexOf(name)
-          val oldSeqInd = oldSeq.indexOf(nameInd)
-          exprsLoop(i + 1,oldSeq.removeIndex(oldSeqInd), newSeq :+ oldSeq(oldSeqInd))
+          case _ => exprsLoop(i + 1, oldSeq.drop1, newSeq :+ oldSeq(0), usedNames)
         }
-
-        case _ => exprsLoop(i + 1, oldSeq.drop1, newSeq :+ oldSeq(0))
-      }
-
-    exprsLoop(0, Ints.until(0, numParams), Ints())
+      exprsLoop(0, Ints.until(0, numParams), Ints(), Strings())
   }
 }

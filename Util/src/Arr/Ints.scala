@@ -42,7 +42,7 @@ final class Ints(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
 
   /** Alias for prepend. Functionally appends the operand Int. */
   @inline def +:(op: Int): Ints = prepend(op)
-  /** Functionally prepends the operand Int. This alphanumeric method is not aliased with an operator to avoid confusion with numeric operators. */
+  /** Functionally prepends the operand [[Int]]. */
   def prepend(op: Int): Ints =
   { val newArray = new Array[Int](dataLength + 1)
     newArray(0) = op
