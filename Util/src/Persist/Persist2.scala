@@ -191,30 +191,28 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
 //    ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
 //  else Bad(Strings("Parameters wrong"))
 
-  def fromExprSeqb(exprs: Arr[Expr]): EMon[R] = if(exprs.length > 2) Bad(Strings(exprs.length.toString + " parameters for 2 parameter constructor."))
+  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if(exprs.length > 2) Bad(Strings(exprs.length.toString + " parameters for 2 parameter constructor."))
   else {
     val usedNames: StringsBuff = StringsBuff()
 
-    def exprsLoop(i: Int, oldSeq: Array[Int], newSeq: Array[Int]): EMon[R] =  exprs(i) match {
+    def exprsLoop(i: Int, oldSeq: Array[Int], newSeq: Array[Int]): EMon[R] =
+      if (i >= exprs.length)  fromSortedExprs(exprs, new Ints(newSeq ++ oldSeq))
+      else exprs(i) match
+      {
+        case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")
+        case AsignExprName(name) if usedNames.contains(name) => bad1(exprs(i), name + " Multiple parameters of the same name.")
 
-      case _ if i >= exprs.length => {
-        val finalSeq =  new Ints(newSeq ++ oldSeq)
-        if (finalSeq.length != 2) excep(finalSeq.length.toString + " is wrong number of indexes.")
-        fromSortedExprs(exprs)//, finalSeq)
+        case AsignExprName(name) => { val nameInd = paramNames.indexOf(name)
+          if (nameInd < 0) excep("Name index less than 0")
+          if (nameInd > 1) excep("Name index grater than 1s")
+          val oldSeqInd = oldSeq.indexOf(nameInd)
+          if (oldSeqInd < 0) excep("Old seq index less than 0")
+          if (oldSeqInd > 1) excep("Old Seq index grater than 1s")
+          exprsLoop(i + 1,oldSeq.take(oldSeqInd) ++ oldSeq.drop(oldSeqInd + 1), newSeq :+ oldSeq(oldSeqInd))
+        }
+
+        case _ => exprsLoop(i + 1, oldSeq.drop(1), newSeq :+ oldSeq.head)
       }
-
-      case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")
-      case AsignExprName(name) if usedNames.contains(name) => bad1(exprs(i), name + " Multiple parameters of the same name.")
-      /*case AsignExprName(name) => { val nameInd = paramNames.indexOf(name)
-        if (nameInd < 0) excep("Name index less than 0")
-        if (nameInd > 1) excep("Name index grater than 1s")
-        val oldSeqInd = oldSeq.indexOf(nameInd)
-        if (oldSeqInd < 0) excep("Old seq index less than 0")
-        if (oldSeqInd > 1) excep("Old Seq index grater than 1s")
-        exprsLoop(i + 1,oldSeq.take(oldSeqInd) ++ oldSeq.drop(oldSeqInd + 1), newSeq :+ oldSeq(oldSeqInd))
-      }*/
-      case _ => exprsLoop(i + 1, oldSeq.drop(1), newSeq :+ oldSeq.head)
-    }
 
     val initSeq: Array[Int] = {
       val res = new Array[Int](numParams)
@@ -222,18 +220,18 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
       res
     }
 
-    exprsLoop(0, Array[Int](0, 1), Array[Int]())
+    exprsLoop(0, initSeq, Array[Int]())
   }
 
-  def fromExprSeq(exprs: Arr[Expr]): EMon[R] = exprs.length match {
+  def fromExprSeqb(exprs: Arr[Expr]): EMon[R] = exprs.length match {
     case n if n > 2 => Bad(Strings(s"$n parameters for 2 parameter constructor."))
     case _ => fromSortedExprs(exprs)
   }
 
   protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints = Ints(0, 1)): EMon[R] =
   { val len: Int = sortedExprs.length
-    val r0: EMon[A1] = ife(len > 0, ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
-    def e2: EMon[A2] = ife(len > 1, ev2.fromSettingOrExpr(name2,sortedExprs(pSeq(1))), opt2.toEMon)
+    val r0: EMon[A1] = ife(len > pSeq(0), ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMon[A2] = ife(len > pSeq(1), ev2.fromSettingOrExpr(name2,sortedExprs(pSeq(1))), opt2.toEMon)
     r0.map2(e2)(newT)
   }
 

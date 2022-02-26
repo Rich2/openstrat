@@ -29,7 +29,9 @@ object UnshowTest extends TestSuite
       """ExUA(a = 42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
       """ExUA(a = 42; b = "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
       """ExUA(a = 42; c = "Hello")""".asType[ExUA].isBad ==> true
-      //"""ExUA(b = "Hello"; a = 42)""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
+      """ExUA(b = "Hello"; a = 42)""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
+      """ExUA(b = "Hello"; 42)""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
+      """ExUA(b = "Hello")""".asType[ExUA] ==> Good(ExUA(0, "Hello"))
     }
   }
 }
