@@ -16,7 +16,7 @@ case class ExUA(a: Int, b: String) extends Show2[Int, String]
 }
 
 object ExUA{
-  implicit val unshowEv: Unshow2[Int, String, ExUA] = Unshow2("ExUA", "a", "b", apply, Some("blah"), Some(0))
+  implicit val persistEv: Persist2[Int, String, ExUA] = PersistShow2[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
 case class ExUB(a: ExUA, b: String, c: Int) extends Show3[ExUA, String, Int]
@@ -25,7 +25,7 @@ case class ExUB(a: ExUA, b: String, c: Int) extends Show3[ExUA, String, Int]
   override def show1: ExUA = a
   override def show2: String = b
   override def show3: Int = c
-  override def showT1: ShowT[ExUA] = ???
+  override def showT1: ShowT[ExUA] = ExUA.persistEv
   override def showT2: ShowT[String] = ShowT.stringPersistEv
   override def showT3: ShowT[Int] = ShowT.intPersistEv
   override def name1: String = "a"
@@ -37,11 +37,16 @@ case class ExUB(a: ExUA, b: String, c: Int) extends Show3[ExUA, String, Int]
   override def syntaxDepth: Int = 3
 }
 
+object ExUB
+{
+  implicit val persistEv: PersistShow3[ExUA, String, Int, ExUB] = PersistShow3[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply)
+}
+
 
 object UnshowTest extends TestSuite
 {
   val tests = Tests {
-    test("U2")
+    test("UA")
     { """ExUA(42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
       "ExUA(42)".asType[ExUA] ==> Good(ExUA(42, "blah"))
       "ExUA()".asType[ExUA] ==> Good(ExUA(0, "blah"))
@@ -51,6 +56,10 @@ object UnshowTest extends TestSuite
       """ExUA(b = "Hello"; a = 42)""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
       """ExUA(b = "Hello"; 42)""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
       """ExUA(b = "Hello")""".asType[ExUA] ==> Good(ExUA(0, "Hello"))
+    }
+
+    test("UB") {
+      4 ==> 4
     }
   }
 }

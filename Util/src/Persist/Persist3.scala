@@ -125,7 +125,7 @@ trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with TypeStr3[A1, A2, A3]
   /** Method fpr creating a value of type R from values A1, A2, A3. */
   def newT: (A1, A2, A3) => R
 
-  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints = Ints(0, 2)): EMon[R] =
+  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints): EMon[R] =
   { val len: Int = sortedExprs.length
     val e1: EMon[A1] = ife(len > pSeq(0), ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), ev2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
@@ -176,16 +176,16 @@ object Persist3
   }
 }
 
-trait PersistShow3[A1, A2 <: ShowDec, A3 <: ShowDec, R <: Show3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowN[R] with ShowShow3T[A1, A2, A3, R]
+trait PersistShow3[A1, A2, A3, R <: Show3[A1, A2, A3]] extends Persist3[A1, A2, A3, R]  with PersistShowN[R] with ShowShow3T[A1, A2, A3, R]
 
 /** Companion object for the [[PersistShow3]] class the persists object that extend [[ShowDec3]]. Contains an apply factory method. */
 object PersistShow3
 { /** Factory apply method for [[PersistShow3]], that Persists [[ShowDec3]] objects. */
-  def apply[A1 <: ShowDec, A2 <: ShowDec, A3 <: ShowDec, R <: Show3[A1, A2, A3]](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R,
+  def apply[A1, A2, A3, R <: Show3[A1, A2, A3]](typeStr: String, name1: String, name2: String, name3: String, newT: (A1, A2, A3) => R,
     opt3: Option[A3] = None, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit ev1In: Persist[A1], ev2In: Persist[A2], ev3In: Persist[A3]):
     PersistShow3[A1, A2, A3, R] = new PersistShow3Imp[A1, A2, A3, R](typeStr, name1, name2, name3, newT, opt3,opt2, opt1)
 
-  class PersistShow3Imp[A1 <: ShowDec, A2 <: ShowDec, A3 <: ShowDec, R <: Show3[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
+  class PersistShow3Imp[A1, A2, A3, R <: Show3[A1, A2, A3]](val typeStr: String, val name1: String, val name2: String, val name3: String,
     val newT: (A1, A2, A3) => R, val opt3: Option[A3] = None, opt2In: Option[A2] = None, opt1In: Option[A1] = None)(
     implicit val ev1: Persist[A1], val ev2: Persist[A2], val ev3: Persist[A3]) extends PersistShow3[A1, A2, A3, R]
   { val opt2: Option[A2] = ife(opt3.nonEmpty, opt2In, None)

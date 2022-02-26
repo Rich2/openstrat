@@ -73,16 +73,14 @@ trait Unshow6[A1, A2, A3, A4, A5, A6, R] extends UnshowN[R] with TypeStr6Plus[A1
   implicit def ev5: Unshow[A5]
   implicit def ev6: Unshow[A6]
 
-  /*override def fromExpr(expr: Expr): EMon[R] = expr match
-  { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
-    case AlphaBracketExpr(IdentUpperToken(fp, typeName), _) => fp.bad(typeName -- "does not equal" -- typeStr)
-    case ExprSeqNonEmpty(exprs) => fromExprSeq(exprs)
-    case _ => expr.exprParseErr[R](this)
+  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints): EMon[R] =
+  { val len: Int = sortedExprs.length
+    val e1: EMon[A1] = ife(len > pSeq(0), ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
+    def e2: EMon[A2] = ife(len > pSeq(1), ev2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
+    def e3: EMon[A3] = ife(len > pSeq(2), ev3.fromSettingOrExpr(name3, sortedExprs(pSeq(2))), opt3.toEMon)
+    def e4: EMon[A4] = ife(len > pSeq(3), ev4.fromSettingOrExpr(name4, sortedExprs(pSeq(3))), opt4.toEMon)
+    def e5: EMon[A5] = ife(len > pSeq(4), ev5.fromSettingOrExpr(name5, sortedExprs(pSeq(4))), opt5.toEMon)
+    def e6: EMon[A6] = ife(len > pSeq(5), ev6.fromSettingOrExpr(name6, sortedExprs(pSeq(5))), opt6.toEMon)
+    e1.map6(e2, e3, e4, e5, e6)(newT)
   }
-
-  override def fromExprSeq(exprs: Arr[Expr]): EMon[R] =
-    if (exprs.length == 6)
-      ev1.fromSettingOrExpr(name1, exprs(0)).map6(ev2.fromSettingOrExpr(name2, exprs(1)), ev3.fromSettingOrExpr(name3, exprs(2)),
-        ev4.fromSettingOrExpr(name4, exprs(3)), ev5.fromSettingOrExpr(name5, exprs(4)), ev6.fromSettingOrExpr(name6, exprs(5))){ newT }
-    else Bad(Strings("Parameters wrong"))*/
 }
