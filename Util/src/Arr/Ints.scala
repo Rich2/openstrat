@@ -49,6 +49,14 @@ final class Ints(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
     unsafeArray.copyToArray(newArray, 1)
     new Ints(newArray)
   }
+
+  /** Removes the Int element at the given index, will throw exception if out of range. */
+  def removeIndex(index: Int): Ints =
+  { val newArray = new Array[Int](length - 1)
+    iUntilForeach(0, index){i => newArray(i) = apply(i) }
+    iUntilForeach(index + 1, length){i => newArray(i - 1) = apply(i) }
+    new Ints(newArray)
+  }
 }
 
 /** Companion object for the [[Ints]] claas an immutable efficient [[Array]] backed sequence for class [[Int]]s. Contains apply factory method and

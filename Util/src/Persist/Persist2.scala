@@ -212,13 +212,10 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
       res
     }
 
+    val initSeqAlt: Ints = iUntilMap(0, numParams){i =>  i}
+
     exprsLoop(0, initSeq, Array[Int]())
   }
-
-  /*def fromExprSeqb(exprs: Arr[Expr]): EMon[R] = exprs.length match {
-    case n if n > 2 => Bad(Strings(s"$n parameters for 2 parameter constructor."))
-    case _ => fromSortedExprs(exprs)
-  }*/
 
   protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints = Ints(0, 1)): EMon[R] =
   { val len: Int = sortedExprs.length

@@ -8,7 +8,7 @@ trait EqT[T]
   def eqT(a1: T, a2: T): Boolean
 }
 
-/** The campanion object for the EqT type class, containing instances for common types. This does not currently use a functor instance for a number of
+/** The companion object for the EqT type class, containing instances for common types. This does not currently use a functor instance for a number of
  * reasons. */
 object EqT
 {
