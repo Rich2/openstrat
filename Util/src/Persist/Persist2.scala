@@ -187,10 +187,6 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
     case _ => expr.exprParseErr[R](this)
   }
 
-//  override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if (exprs.length == 2)
-//    ev1.fromSettingOrExpr(name1, exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
-//  else Bad(Strings("Parameters wrong"))
-
   def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if(exprs.length > 2) Bad(Strings(exprs.length.toString + " parameters for 2 parameter constructor."))
   else {
     val usedNames: StringsBuff = StringsBuff()
@@ -203,11 +199,7 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
         case AsignExprName(name) if usedNames.contains(name) => bad1(exprs(i), name + " Multiple parameters of the same name.")
 
         case AsignExprName(name) => { val nameInd = paramNames.indexOf(name)
-          if (nameInd < 0) excep("Name index less than 0")
-          if (nameInd > 1) excep("Name index grater than 1s")
           val oldSeqInd = oldSeq.indexOf(nameInd)
-          if (oldSeqInd < 0) excep("Old seq index less than 0")
-          if (oldSeqInd > 1) excep("Old Seq index grater than 1s")
           exprsLoop(i + 1,oldSeq.take(oldSeqInd) ++ oldSeq.drop(oldSeqInd + 1), newSeq :+ oldSeq(oldSeqInd))
         }
 
@@ -223,10 +215,10 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
     exprsLoop(0, initSeq, Array[Int]())
   }
 
-  def fromExprSeqb(exprs: Arr[Expr]): EMon[R] = exprs.length match {
+  /*def fromExprSeqb(exprs: Arr[Expr]): EMon[R] = exprs.length match {
     case n if n > 2 => Bad(Strings(s"$n parameters for 2 parameter constructor."))
     case _ => fromSortedExprs(exprs)
-  }
+  }*/
 
   protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints = Ints(0, 1)): EMon[R] =
   { val len: Int = sortedExprs.length
@@ -234,13 +226,6 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
     def e2: EMon[A2] = ife(len > pSeq(1), ev2.fromSettingOrExpr(name2,sortedExprs(pSeq(1))), opt2.toEMon)
     r0.map2(e2)(newT)
   }
-
-  /*override def fromExprSeq(exprs: Arr[Expr]): EMon[R] = exprs.length match {
-    case n if n > 2 =>Bad(Strings(s"$n parameters for 2 parameter constructor."))
-    case 2 => ev1.fromAnySettingOrExpr(exprs(0)).map2(ev2.fromSettingOrExpr(name2,exprs(1)))(newT)
-    case 1 if opt2.nonEmpty => ev1.fromAnySettingOrExpr(exprs(0)).map(a1 => newT(a1, opt2.get))
-    case _ => Bad(Strings("Parameters wrong"))
-  }*/
 }
 
 object Unshow2{
