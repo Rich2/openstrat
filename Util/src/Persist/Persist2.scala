@@ -191,8 +191,8 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
   else {
     val usedNames: StringsBuff = StringsBuff()
 
-    def exprsLoop(i: Int, oldSeq: Array[Int], newSeq: Array[Int]): EMon[R] =
-      if (i >= exprs.length)  fromSortedExprs(exprs, new Ints(newSeq ++ oldSeq))
+    def exprsLoop(i: Int, oldSeq: Ints, newSeq: Array[Int]): EMon[R] =
+      if (i >= exprs.length)  fromSortedExprs(exprs, new Ints(newSeq ++ oldSeq.unsafeArray))
       else exprs(i) match
       {
         case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")
@@ -200,21 +200,13 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
 
         case AsignExprName(name) => { val nameInd = paramNames.indexOf(name)
           val oldSeqInd = oldSeq.indexOf(nameInd)
-          exprsLoop(i + 1,oldSeq.take(oldSeqInd) ++ oldSeq.drop(oldSeqInd + 1), newSeq :+ oldSeq(oldSeqInd))
+          exprsLoop(i + 1,oldSeq.removeIndex(oldSeqInd), newSeq :+ oldSeq(oldSeqInd))
         }
 
         case _ => exprsLoop(i + 1, oldSeq.drop(1), newSeq :+ oldSeq.head)
       }
 
-    val initSeq: Array[Int] = {
-      val res = new Array[Int](numParams)
-      iUntilForeach(0, numParams){i => res(i) = i}
-      res
-    }
-
-    val initSeqAlt: Ints = iUntilMap(0, numParams){i =>  i}
-
-    exprsLoop(0, initSeq, Array[Int]())
+    exprsLoop(0, iUntilMap(0, numParams){i =>  i}, Array[Int]())
   }
 
   protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints = Ints(0, 1)): EMon[R] =

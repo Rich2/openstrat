@@ -57,6 +57,13 @@ final class Ints(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
     iUntilForeach(index + 1, length){i => newArray(i - 1) = apply(i) }
     new Ints(newArray)
   }
+
+  /** Drops the given number of elements from the head of this sequence. If n is greater than the length returns an empty [[Ints] sequence. */
+  def drop(n: Int): Ints =
+  { val newArray = new Array[Int]((length - n).max0)
+    iUntilForeach(n, length){i => newArray(i - n.min(length)) = apply(i) }
+    new Ints(newArray)
+  }
 }
 
 /** Companion object for the [[Ints]] claas an immutable efficient [[Array]] backed sequence for class [[Int]]s. Contains apply factory method and
