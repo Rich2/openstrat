@@ -2,7 +2,7 @@
 package ostrat
 import utest._
 
-case class ExUA(a: Int, b: String) extends Show2[Int, String]
+case class ExUA(a: Int = 0, b: String = "blah") extends Show2[Int, String]
 {
   override def typeStr: String = "ExUA"
   override def show1: Int = a
@@ -19,7 +19,7 @@ object ExUA{
   implicit val persistEv: Persist2[Int, String, ExUA] = PersistShow2[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
-case class ExUB(a: ExUA, b: String, c: Int) extends Show3[ExUA, String, Int]
+case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3[ExUA, String, Int]
 {
   override def typeStr: String = "ExUA"
   override def show1: ExUA = a
@@ -39,7 +39,7 @@ case class ExUB(a: ExUA, b: String, c: Int) extends Show3[ExUA, String, Int]
 
 object ExUB
 {
-  implicit val persistEv: PersistShow3[ExUA, String, Int, ExUB] = PersistShow3[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply)
+  implicit val persistEv: PersistShow3[ExUA, String, Int, ExUB] = PersistShow3[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
 }
 
 
@@ -59,7 +59,12 @@ object UnshowTest extends TestSuite
     }
 
     test("UB") {
-      4 ==> 4
+      """ExUB()""".asType[ExUB] ==> Good(ExUB())
+      """ExUB(ExUA(); "999"; -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
+      """ExUB(a = ExUA(); b = "999"; c = -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
+      """ExUB(a: ExUA = ExUA(); b: String = "999"; c: Int = -100)""".asType[ExUB] ==> Good(ExUB(ExUA(), "999", -100))
+      """ExUB(b: String = "AAA")""".asType[ExUB] ==> Good(ExUB(b = "AAA"))
+      """ExUB(c = 5;)""".asType[ExUB] ==> Good(ExUB(c = 5))
     }
   }
 }
