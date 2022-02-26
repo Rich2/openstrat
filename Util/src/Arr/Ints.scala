@@ -64,12 +64,23 @@ final class Ints(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
     iUntilForeach(n, length){i => newArray(i - n.min(length)) = apply(i) }
     new Ints(newArray)
   }
+
+  /** Drops the the head of this sequence. If the seqeunce is already empty returns an empty [[Ints] sequence. */
+  inline def drop1: Ints = drop(1)
 }
 
 /** Companion object for the [[Ints]] claas an immutable efficient [[Array]] backed sequence for class [[Int]]s. Contains apply factory method and
  * implicit type class instances. */
 object Ints
 { def apply(input: Int*): Ints = new Ints(input.toArray)
+
+  /** Factory method for making ranges of ints */
+  def until(iStart: Int, iEnd: Int, step: Int = 1): Ints =
+  { val newArray = new Array[Int](((iEnd - iStart)/ step).max0)
+    var index = 0
+    iUntilForeach(iStart, iEnd, step){i => newArray(index) = i; index += 1}
+    new Ints(newArray)
+  }
 
   implicit val showImplicit: ShowT[Ints] = DataGenShowT[Int, Ints](ShowT.intPersistEv)
 

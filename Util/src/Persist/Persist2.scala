@@ -187,12 +187,13 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
     case _ => expr.exprParseErr[R](this)
   }
 
+  /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
   def fromExprSeq(exprs: Arr[Expr]): EMon[R] = if(exprs.length > 2) Bad(Strings(exprs.length.toString + " parameters for 2 parameter constructor."))
   else {
     val usedNames: StringsBuff = StringsBuff()
 
-    def exprsLoop(i: Int, oldSeq: Ints, newSeq: Array[Int]): EMon[R] =
-      if (i >= exprs.length)  fromSortedExprs(exprs, new Ints(newSeq ++ oldSeq.unsafeArray))
+    def exprsLoop(i: Int, oldSeq: Ints, newSeq: Ints): EMon[R] =
+      if (i >= exprs.length)  fromSortedExprs(exprs, newSeq ++ oldSeq)
       else exprs(i) match
       {
         case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")
@@ -203,10 +204,10 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
           exprsLoop(i + 1,oldSeq.removeIndex(oldSeqInd), newSeq :+ oldSeq(oldSeqInd))
         }
 
-        case _ => exprsLoop(i + 1, oldSeq.drop(1), newSeq :+ oldSeq.head)
+        case _ => exprsLoop(i + 1, oldSeq.drop1, newSeq :+ oldSeq(0))
       }
 
-    exprsLoop(0, iUntilMap(0, numParams){i =>  i}, Array[Int]())
+    exprsLoop(0, Ints.until(0, numParams), Ints())
   }
 
   protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints = Ints(0, 1)): EMon[R] =
@@ -217,7 +218,8 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
   }
 }
 
-object Unshow2{
+object Unshow2
+{
   def apply[A1, A2, R](typeStr: String, name1: String, name2: String, newT: (A1, A2) => R, opt2: Option[A2] = None, opt1: Option[A1] = None)(implicit
     ev1: Unshow[A1], ev2: Unshow[A2]): Unshow2[A1, A2, R] = new Unshow2Imp[A1, A2, R](typeStr, name1, name2, newT, opt2, opt1)
 
