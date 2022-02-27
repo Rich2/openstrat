@@ -2,8 +2,8 @@
 package ostrat
 import pParse._, collection.mutable.ArrayBuffer
 
-/** A base trait for [[Show2]] and [[UnShow2]] it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait for
- *  [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can delgate to the [[Show2]] object to implement their interfaces. */
+/** Base trait for [[TypeStr2]] and [[TypeStr3Plus]] classes. it declares the common properties of name1, name2, opt1 and opt2. It is not a base trait
+ *  for [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can delegate to the [[Show2]] object to implement their interfaces. */
 trait TypeStr2Plus[A1, A2] extends Any with TypeStrN
 { /** 1st parameter name. */
   def name1: String
@@ -16,10 +16,10 @@ trait TypeStr2Plus[A1, A2] extends Any with TypeStrN
 
   /** The optional default value for parameter 2. */
   def opt2: Option[A2]
-
-
 }
 
+/** A base trait for [[Show2]] and [[UnShow2]]. It is not a base trait for  [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can
+ *  delegate to the [[Show2]] object to implement their interfaces. */
 trait TypeStr2[A1, A2] extends Any with TypeStr2Plus[A1, A2]
 { override def paramNames: Strings = Strings(name1, name2)
   override def numParams: Int = 2

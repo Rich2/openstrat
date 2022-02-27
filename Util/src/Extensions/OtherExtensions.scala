@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 class CharExtensions(thisChar: Char)
@@ -10,6 +10,7 @@ class CharExtensions(thisChar: Char)
     case _ => false
   }
 
+  /** Returns a [[String]] that repeats this [[Char]] the given parameter number of times. */
   def timesString(n: Int): String =
   {
     var acc = ""

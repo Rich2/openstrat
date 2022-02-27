@@ -2,6 +2,7 @@
 package ostrat
 import utest._
 
+/** Example of a [[Show2]] class for testing purposes. */
 case class ExUA(a: Int = 0, b: String = "blah") extends Show2[Int, String]
 {
   override def typeStr: String = "ExUA"
@@ -19,6 +20,7 @@ object ExUA{
   implicit val persistEv: Persist2[Int, String, ExUA] = PersistShow2[Int, String, ExUA]("ExUA", "a", "b", apply, Some("blah"), Some(0))
 }
 
+/** Example of a [[Show3]] class on of whose parameters is also a [[ShowN]] class. */
 case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3[ExUA, String, Int]
 {
   override def typeStr: String = "ExUA"
@@ -38,14 +40,13 @@ case class ExUB(a: ExUA = ExUA(), b: String = "BBB", c: Int = 777) extends Show3
 }
 
 object ExUB
-{
-  implicit val persistEv: PersistShow3[ExUA, String, Int, ExUB] = PersistShow3[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
+{ implicit val persistEv: PersistShow3[ExUA, String, Int, ExUB] =
+    PersistShow3[ExUA, String, Int, ExUB ]("ExUB", "a", "b", "c", apply, Some(777), Some("BBB"), Some(ExUA()))
 }
 
-
 object UnshowTest extends TestSuite
-{
-  val tests = Tests {
+{ val tests = Tests {
+
     test("UA")
     { """ExUA(42; "Hello")""".asType[ExUA] ==> Good(ExUA(42, "Hello"))
       "ExUA(42)".asType[ExUA] ==> Good(ExUA(42, "blah"))

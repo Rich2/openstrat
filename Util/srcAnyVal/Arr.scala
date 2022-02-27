@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
@@ -164,7 +164,7 @@ class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) e
   override def buffToBB(buff: AnyBuff[B]): Arr[B] = new Arr(buff.unsafeBuff.toArray)
 }
 
-/** Not sure if this class is necessary now that Arr take Any. */
+/** Not sure if this class is necessary now that Arr takes Any. */
 class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with SeqGen[A]
 { override def typeStr: String = "AnyBuff"
   override def indexData(index: Int): A = unsafeBuff(index)
