@@ -17,7 +17,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   @inline def returnThis: ThisT = this.asInstanceOf[ThisT]
 
   /** apply method accesses the individual elements of the sequence by 0 based index. */
-  @inline def apply(index: Int): A = indexData(index)//: A = apply(index)
+  @inline def apply(index: Int): A = indexData(index)
 
   /** The first element of this sequence. */
   @inline def head: A = apply(0)
@@ -480,4 +480,24 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
   def toStrsSemiParenth(fToStr: A => String): String = toStrsSemiFold(fToStr).enParenth
 
   def sum(implicit ev: Sumable[A] @uncheckedVariance): A = foldLeft[A](ev.identity)(ev.sum(_, _))
+
+  def find(f: A => Boolean): Option[A] =
+  {
+    var count = 0
+    var res: Option[A] = None
+    while (count < dataLength & res.isEmpty)
+    {
+      val el = apply(count)
+      if (f(el)) res = Some(el)
+      else count += 1
+    }
+    res
+  }
+
+  def exists(f: A => Boolean): Boolean =
+  { var count = 0
+    var res = false
+    while (count < length & res == false)  if (f(apply(count))) res = true else count += 1
+    res
+  }
 }

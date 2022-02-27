@@ -47,6 +47,19 @@ class Strings(val unsafeArray: Array[String]) extends AnyVal with SeqImut[String
     newArray(dataLength) = op
     new Strings(newArray)
   }
+
+  /** Finds the index of the first [[String]] element that fulfills the predicate parameter. */
+  def findIndex(f: String => Boolean): Int =
+  {
+    def loop(index: Int): Int = index match {
+      case i if i == length => -1
+      case i if f(apply(i)) => i
+      case i => loop(i + 1)
+    }
+    loop(0)
+  }
+
+
 }
 
 /** Companion object of ArrStrings class contains repeat parameter apply factor method. */
