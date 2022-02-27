@@ -15,7 +15,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   focus = grid.cenVec
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  def tiles = grid.fillTiles
+  def tiles = grid.activeTiles// fillTiles(Colour.Cornsilk)
 
   def lunits = players.scSomesMap{ (sc, p) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + sc.strComma, 150, p.charStr + "\n" + sc.strComma, 60, p.charStr)

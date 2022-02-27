@@ -38,7 +38,8 @@ final class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: In
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())
 
-  def fillTiles: Arr[PolygonFill] = map(_.fill(Colour.Red))
+  /** Fills all the tiles with the same given parameter [[Colour]]. Not sure how useful this method is. */
+  def fillTiles(colour: Colour): Arr[PolygonFill] = map(_.fill(colour))
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[SqCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */

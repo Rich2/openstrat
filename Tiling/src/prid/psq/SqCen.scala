@@ -15,7 +15,7 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TileCen
   /** The vertex sequence in [[HVert]] coordinates. This starts with the upper right vertex and proceeds clockwise to the upper vertex. */
   def verts: SqVerts =
   {
-    val res = SqCen.vertsOfSq00.map(sv => sv + this)
+    val res: SqVerts = SqCen.vertsOfSq00.map(sv => sv + this)
     res
   }
 
@@ -37,7 +37,7 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TileCen
   }
 
   /** The polygon of this hex tile if it is part of a regular grid. */
-  def polygonReg: Polygon = verts. mapPolygon(_.toPt2)
+  def polygonReg: Polygon = verts.mapPolygon(_.toPt2)
 
   def fill(colour: Colour): PolygonFill = polygonReg.fill(colour)
 
@@ -51,7 +51,7 @@ object SqCen
   val s00v1: SqVert = SqVert(1, 1)
   val s00v2: SqVert = SqVert(-1, 1)
   val s00v3: SqVert = SqVert(-1, -1)
-  val s00v4: SqVert = SqVert(-1, 1)
+  val s00v4: SqVert = SqVert(1, -1)
 
   val vertsOfSq00: SqVerts = SqVerts(s00v1, s00v2, s00v3, s00v4)
 }
