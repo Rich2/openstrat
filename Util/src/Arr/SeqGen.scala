@@ -481,6 +481,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
 
   def sum(implicit ev: Sumable[A] @uncheckedVariance): A = foldLeft[A](ev.identity)(ev.sum(_, _))
 
+  /** Tries to find te first element of this sequence conforming to the predicate. */
   def find(f: A => Boolean): Option[A] =
   {
     var count = 0
@@ -494,6 +495,7 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     res
   }
 
+  /** Tests if the condition exists for any element of this sequence. */
   def exists(f: A => Boolean): Boolean =
   { var count = 0
     var res = false

@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
@@ -17,11 +17,6 @@ trait SeqImut[+A] extends Any with SeqGen[A] with DataImut[A]
   def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(dataLength -1, value)
 
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach(index){(i, a) => unsafeSetElem(i, a) }
-
-  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  //final def elemsStr: String = dataMap(fElemStr).mkString("; ").enParenth
-
-  //final override def toString: String = typeStr + elemsStr
 
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
   { case -1 => returnThis
@@ -48,7 +43,7 @@ trait SeqImut[+A] extends Any with SeqGen[A] with DataImut[A]
   }
 
   /** Replaces all instances of the old value that fulfill predicate with the new value. */
-  def replaceWhere(pred: A => Boolean, newValue: A@uncheckedVariance): ThisT =
+  def replaceAll(pred: A => Boolean, newValue: A@uncheckedVariance): ThisT =
   { val newArr = unsafeSameSize(dataLength)
     var count = 0
 
@@ -61,8 +56,8 @@ trait SeqImut[+A] extends Any with SeqGen[A] with DataImut[A]
     newArr
   }
 
-  /** Replaces all instances of the old value that fulfill predicate with the new value. */
-  def modifyWhere(pred: A => Boolean, fNewValue: A => A @uncheckedVariance): ThisT =
+  /** Modifies all instances of the old value that fulfill predicate, with a new value by applying the parameter function. */
+  def modifyAll(pred: A => Boolean, fNewValue: A => A @uncheckedVariance): ThisT =
   { val newArr = unsafeSameSize(dataLength)
     var count = 0
 
@@ -74,6 +69,4 @@ trait SeqImut[+A] extends Any with SeqGen[A] with DataImut[A]
     }
     newArr
   }
-  
-
 }
