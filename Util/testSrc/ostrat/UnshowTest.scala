@@ -66,6 +66,10 @@ object UnshowTest extends TestSuite
       """ExUB(b: String = "AAA")""".asType[ExUB] ==> Good(ExUB(b = "AAA"))
       """ExUB(c = 5;)""".asType[ExUB] ==> Good(ExUB(c = 5))
       """ExUB(c = 5; a = ExUA(b = "Hi"))""".asType[ExUB] ==> Good(ExUB(ExUA(b = "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi")""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi",)""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi";)""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
+      """ExUB(c = 5; a = 7, "Hi", ;)""".asType[ExUB] ==> Good(ExUB(ExUA(7, "Hi"), c = 5))
     }
   }
 }

@@ -59,22 +59,17 @@ trait UnshowN[R] extends Unshow[R] with TypeStrN
     if(exprs.length > numParams) Bad(Strings(exprs.length.toString + " parameters for 2 parameter constructor."))
     else
     {
-      def exprsLoop(i: Int, oldSeq: Ints, newSeq: Ints, usedNames: Strings): EMon[R] =
+      def exprsLoop(i: Int, usedNames: Strings): EMon[R] =
         if (i >= exprs.length)
-          if (i >= numParams) { val intSeq = paramNames.map(pn => usedNames.findIndex(_ == pn)) ;fromSortedExprs(exprs, intSeq) }// newSeq ++ oldSeq) }
-          else exprsLoop(i + 1, oldSeq, newSeq, usedNames :+ paramNames.find(u => !usedNames.exists(_ == u)).get)
+          if (i >= numParams) fromSortedExprs(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
+          else exprsLoop(i + 1, usedNames :+ paramNames.find(u => !usedNames.exists(_ == u)).get)
         else exprs(i) match
         {
           case AsignExprName(name) if !paramNames.contains(name) => bad1(exprs(i),"Unrecognised setting identifer name.")
           case AsignExprName(name) if usedNames.contains(name) => bad1(exprs(i), name + " Multiple parameters of the same name.")
-
-          case AsignExprName(name) => { val nameInd = paramNames.indexOf(name)
-            val oldSeqInd = oldSeq.indexOf(nameInd)
-            exprsLoop(i + 1,oldSeq.removeIndex(oldSeqInd), newSeq :+ oldSeq(oldSeqInd), usedNames :+ name)
-          }
-
-          case _ => exprsLoop(i + 1, oldSeq.drop1, newSeq :+ oldSeq(0), usedNames :+ paramNames.find(u => !usedNames.exists(_ == u)).get)
+          case AsignExprName(name) => exprsLoop(i + 1, usedNames :+ name)
+          case _ => exprsLoop(i + 1, usedNames :+ paramNames.find(u => !usedNames.exists(_ == u)).get)
         }
-      exprsLoop(0, Ints.until(0, numParams), Ints(), Strings())
+      exprsLoop(0, Strings())
   }
 }
