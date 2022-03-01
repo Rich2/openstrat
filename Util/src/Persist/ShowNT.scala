@@ -3,10 +3,11 @@ package ostrat
 import pParse._
 
 trait TypeStrN extends Any with TypeStr
-{
+{ /** Sequence of the names of parameter constituents of this class. */
   def paramNames: Strings// = Strings(name1, name2)
 
-  def numParams: Int// = 2
+  /** Number of parameter constituents of this class. */
+  def numParams: Int
 }
 
 /** The base trait for the persistence of algebraic product types, including case classes. */
