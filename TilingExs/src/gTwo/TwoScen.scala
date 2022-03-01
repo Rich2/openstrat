@@ -22,12 +22,11 @@ trait TwoScen extends SqGridScen
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
     val oPlayersNew: SqCenArrOpt[Player] = oPlayers.clone
-    targets.foreach{ (sc2, buff) => buff.length match
-    { case _ if !(oPlayers.tileNone(sc2)) =>
-      case 0 =>
-      case 1 => oPlayersNew.unsafeMove(sc2.step(buff(0)), sc2)
-      case _ =>
-      //if (oPlayers.tileNone(sc2)) oPlayersNew.unsafeMove(sc2.step(backStep), sc2)
+    targets.foreach{ (sc2, buff) => buff.partition(_.isNear) match
+      { case _ if !(oPlayers.tileNone(sc2)) =>
+        case (Arr1(sc), _) => oPlayersNew.unsafeMove(sc2.step(sc), sc2)
+        case (Arr0(), Arr1(sc)) => oPlayersNew.unsafeMove(sc2.step(sc), sc2)
+        case _ =>
       }
     }
 
