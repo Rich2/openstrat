@@ -15,9 +15,9 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   focus = grid.cenVec
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  def tiles = grid.activeTiles// fillTiles(Colour.Cornsilk)
+  def tiles: Arr[PolygonActive] = grid.activeTiles
 
-  def lunits = players.scSomesMap{ (sc, p) =>
+  def lunits: Arr[PolygonCompound] = players.scSomesMap{ (sc, p) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + sc.strComma, 150, p.charStr + "\n" + sc.strComma, 60, p.charStr)
     Rect(1.2, 0.8, sc.toPt2).fillDrawTextActive(p.colour, p, str, 24, 2.0)  }
 
@@ -34,11 +34,11 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = simpleButton("Turn " + (scen.turn + 1).toString){
-        val getOrders = players.some2sMap(moves)((player, step) => (player, step))//moves.mapSomes(rs => rs)
-        scen = scen.endTurn(getOrders)
-        moves = NoMoves
-        repaint()
-        thisTop()
+    val getOrders = players.some2sMap(moves)((player, step) => (player, step))//moves.mapSomes(rs => rs)
+    scen = scen.endTurn(getOrders)
+    moves = NoMoves
+    repaint()
+    thisTop()
   }
 
   /** Draws the tiles sides (or edges). */
@@ -49,9 +49,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>
-    { debvar(pointerHits)
-      debvar(mainPanel.actives.length)
-      selected = pointerHits
+    { selected = pointerHits
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
     }
@@ -71,12 +69,6 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   thisTop()
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
 
-  def frame: GraphicElems =
-  { val t1 = tiles.slate(-focus).scale(cPScale)
-    debvar(t1(0).vertsNum)
-    deb("Units" + lunits.slate(-focus).scale(cPScale)(0).toString)
-    t1 ++ (lunits +% sidesDraw ++ css).slate(-focus).scale(cPScale) ++ moveGraphics2
-  }
-
+  def frame: GraphicElems = (tiles ++ lunits +% sidesDraw ++ css).slate(-focus).scale(cPScale) ++ moveGraphics2
   repaint()
 }
