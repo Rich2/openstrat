@@ -3,13 +3,17 @@ package ostrat; package prid; package psq
 
 /** A square tile step can take 8 values */
 sealed trait SqStep extends TileStep
-{
-  def sqCen: SqCen = SqCen(r, c)
+{ def sqCen: SqCen = SqCen(r, c)
   def reverse: SqStep
+  def isNear: Boolean
+  def isDiag: Boolean
 }
 
 /** A non-diagonal square tile Step can take 4 values. */
-sealed trait SqStepNear extends /*SqStepNearOpt with*/ SqStep
+sealed trait SqStepNear extends SqStep
+{ override def isNear: Boolean = true
+  override def isDiag: Boolean = false
+}
 
 /** An upward step / move addition of one square tile in a square tile grid. Increases the row coordinate by 2. */
 case object SqStepUp extends SqStepNear
@@ -41,25 +45,35 @@ case object SqStepLt extends SqStepNear
 
 /** A non-diagonal square tile Step can take 4 values. */
 sealed trait SqStepDiag extends SqStep
+{ override def isNear: Boolean = false
+  override def isDiag: Boolean = true
+}
 
+/** Up Right square tile step. */
 case object SqStepUR extends SqStepDiag
 { def r: Int = 2
   def c: Int = 2
   override def reverse: SqStep = SqStepDR
 }
+
+/** Down Right square tile step. */
 case object SqStepDR extends SqStepDiag
-{ def r: Int = 2
-  def c: Int = -2
+{ def r: Int = -2
+  def c: Int = 2
   override def reverse: SqStep = SqStepUL
 }
+
+/** Down Left square tile step. */
 case object SqStepDL extends SqStepDiag
 { def r: Int = -2
   def c: Int = -2
   override def reverse: SqStep = SqStepUR
 }
+
+/** Up Left square tile step. */
 case object SqStepUL extends SqStepDiag
 { def r: Int = 2
-  def c: Int = 2
+  def c: Int = -2
   override def reverse: SqStep = SqStepDR
 }
 

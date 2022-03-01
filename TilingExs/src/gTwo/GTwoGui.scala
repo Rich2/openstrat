@@ -57,7 +57,6 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
     case (RightButton, ArrHead(SPlayer(p, sc1)), ArrHead(sc2 : SqCen)) =>
     { val newM: OptRef[SqStep] = sc1.findStep(sc2)
       newM.foldDo{ if (sc1 == sc2) moves = moves.setNone(sc1) }(m => moves = moves.setSome(sc1, m))
-      deb("Move")
       repaint()
     }
     case (RightButton, ArrHead(SPlayer(p, sc1)), pointerHits) => deb("SPlayer Other; " -- selected.toString -- pointerHits.toString)

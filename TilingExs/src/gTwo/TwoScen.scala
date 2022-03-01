@@ -13,7 +13,6 @@ trait TwoScen extends SqGridScen
 
     /** A mutable grid of data. The tile data is an Array buffer of [[SqStep]]s, the SqStep pointing back to the origin [[SqCen]] of the player. */
     val targets: SqCenArrOfBuff[SqStep] = grid.newSqCenArrOfBuff
-
     orderList.foreach { (player, step) =>
       val sc1 = playersKey(player)
       val optTarget: Option[SqCen] = sc1.stepOpt(step)
@@ -23,15 +22,14 @@ trait TwoScen extends SqGridScen
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
     val oPlayersNew: SqCenArrOpt[Player] = oPlayers.clone
-    targets.foreach{ (sc2, buff) => if (oPlayers.tileNone(sc2))
-        buff.length match
-        {
-          case 0 =>
-          case 1 => oPlayersNew.unsafeMove(sc2.step(buff(0)), sc2)
-          case _ =>
-        //if (oPlayers.tileNone(sc2)) oPlayersNew.unsafeMove(sc2.step(backStep), sc2)
-        }
+    targets.foreach{ (sc2, buff) => buff.length match
+    { case _ if !(oPlayers.tileNone(sc2)) =>
+      case 0 =>
+      case 1 => oPlayersNew.unsafeMove(sc2.step(buff(0)), sc2)
+      case _ =>
+      //if (oPlayers.tileNone(sc2)) oPlayersNew.unsafeMove(sc2.step(backStep), sc2)
       }
+    }
 
     TwoScen(turn + 1, grid, oPlayersNew)
   }
