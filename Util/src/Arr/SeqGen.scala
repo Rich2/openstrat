@@ -502,4 +502,11 @@ trait SeqGen[+A] extends Any with DataGen[A @uncheckedVariance]
     while (count < length & res == false)  if (f(apply(count))) res = true else count += 1
     res
   }
+
+  def partition[ArrA <: SeqImut[A] @uncheckedVariance](f: A => Boolean)(implicit build: ArrBuilder[A, ArrA] @uncheckedVariance): (ArrA, ArrA) =
+  { val buff1: build.BuffT = build.newBuff()
+    val buff2: build.BuffT = build.newBuff()
+    foreach{a => if (f(a)) build.buffGrow(buff1, a) else build.buffGrow(buff2,a) }
+    (build.buffToBB(buff1), build.buffToBB(buff2) )
+  }
 }
