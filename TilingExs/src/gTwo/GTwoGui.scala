@@ -21,7 +21,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
     val str = ptScale.scaledStr(170, p.toString + "\n" + sc.strComma, 150, p.charStr + "\n" + sc.strComma, 60, p.charStr)
     Rect(1.2, 0.8, sc.toPt2).fillDrawTextActive(p.colour, p, str, 24, 2.0)  }
 
-  def css = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2))
+  def css: Arr[TextGraphic] = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2))
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
@@ -61,7 +61,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
       repaint()
     }
 
-    case (_, _, pointerHits) => deb("Other mouse; " + pointerHits.toString)
+    case (_, _, pointerHits) => deb("Other mouse; " -- selected.toString -- pointerHits.toString)
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
