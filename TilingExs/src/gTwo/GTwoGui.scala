@@ -10,7 +10,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   def players: SqCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
-  var cPScale = grid.fullDisplayScale(mainWidth, mainHeight)
+  var cPScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
 
   focus = grid.cenVec
 
@@ -19,7 +19,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
 
   def lunits: Arr[PolygonCompound] = players.scSomesMap{ (sc, p) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + sc.strComma, 150, p.charStr + "\n" + sc.strComma, 60, p.charStr)
-    Rect(1.2, 0.8, sc.toPt2).fillDrawTextActive(p.colour, p, str, 24, 2.0)  }
+    Rect(1.2, 0.8, sc.toPt2).fillDrawTextActive(p.colour, SPlayer(p, sc), str, 24, 2.0)  }
 
   def css: Arr[TextGraphic] = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2))
 
@@ -60,6 +60,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
       deb("Move")
       repaint()
     }
+    case (RightButton, ArrHead(SPlayer(p, sc1)), pointerHits) => deb("SPlayer Other; " -- selected.toString -- pointerHits.toString)
+    case (RightButton, _, pointerHits) => deb("Right Other; " -- selected.toString -- pointerHits.toString)
 
     case (_, _, pointerHits) => deb("Other mouse; " -- selected.toString -- pointerHits.toString)
   }
