@@ -3,9 +3,16 @@ package ostrat; package prid; package psq
 
 /** A square tile step can take 8 values */
 sealed trait SqStep extends TileStep
-{ def sqCen: SqCen = SqCen(r, c)
+{ /** The SqCen that this step would point to if it departed from SqCen(0, 0). */
+  def sqCen: SqCen = SqCen(r, c)
+
+  /** the step that foes in the opposite direct to this step. */
   def reverse: SqStep
+
+  /** Is an Up / Right / Down / Left step. */
   def isNear: Boolean
+
+  /** Is an UpRight / DownRight / DownLeft / UPLeft step. */
   def isDiag: Boolean
 }
 

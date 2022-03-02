@@ -54,14 +54,13 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
       thisTop()
     }
 
-    case (RightButton, ArrHead(SPlayer(p, sc1)), ArrHead(sc2 : SqCen)) =>
-    { val newM: OptRef[SqStep] = sc1.findStep(sc2)
+    case (RightButton, ArrHead(SPlayer(p, sc1)), hits) => hits.sqCenForFirst{ sc2 =>
+      val newM: OptRef[SqStep] = sc1.findStep(sc2)
       newM.foldDo{ if (sc1 == sc2) moves = moves.setNone(sc1) }(m => moves = moves.setSome(sc1, m))
       repaint()
     }
-    case (RightButton, ArrHead(SPlayer(p, sc1)), pointerHits) => deb("SPlayer Other; " -- selected.toString -- pointerHits.toString)
-    case (RightButton, _, pointerHits) => deb("Right Other; " -- selected.toString -- pointerHits.toString)
 
+    case (RightButton, _, pointerHits) => deb("Right Other; " -- selected.toString -- pointerHits.toString)
     case (_, _, pointerHits) => deb("Other mouse; " -- selected.toString -- pointerHits.toString)
   }
 
