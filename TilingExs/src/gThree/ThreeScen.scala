@@ -15,6 +15,7 @@ object TeamB extends Team("TeamB" , Violet)
 
 class Lunit(val team: Team, val cmds: Arr[HStep] = Arr()) extends Coloured
 { def colour = team.colour
+  override def toString: String = team.toString
 }
 
 object Lunit

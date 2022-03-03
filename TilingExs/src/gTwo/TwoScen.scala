@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo
-import prid._, psq._, gOne._
+import prid._, psq._, gPlay._
 
 /** Scenario trait for Game Two. */
 trait TwoScen extends SqGridScen

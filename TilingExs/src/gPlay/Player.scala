@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gOne
+package ostrat; package gPlay
 import prid._, phex._, Colour._
 
 /** A Player has a very simple token with a letter and colour for recognition. */

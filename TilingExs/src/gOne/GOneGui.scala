@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
-import pgui._, geom._, prid._, phex._
+import pgui._, geom._, prid._, phex._, gPlay._
 
 /** Graphical user interface for GOne example game. */
 case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) extends HexMapGui("Game One Gui")
@@ -61,7 +61,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
       thisTop()
     }
 
-    case (RightButton, ArrHead(HPlayer(p, hc1)), hits) =>hits.hCenForFirst{ hc2 =>
+    case (RightButton, ArrHead(HPlayer(p, hc1)), hits) => hits.hCenForFirst{ hc2 =>
       val newM: OptRef[HStep] = hc1.findStep(hc2)
       newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()

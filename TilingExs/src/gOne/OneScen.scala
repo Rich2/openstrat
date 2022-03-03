@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne
-import prid._, phex._
+import prid._, phex._, gPlay._
 
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
 trait OneScen extends HexGridScen

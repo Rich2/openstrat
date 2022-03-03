@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo
-import pgui._, prid._, psq._, geom._, gOne._
+import pgui._, prid._, psq._, geom._, gPlay._
 
 case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGui("Game Two Gui")
 {

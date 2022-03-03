@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree
-import pgui._, prid._, phex._, geom._
+import pgui._, prid._, phex._, geom._, gPlay._
 
 case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapGui("Game Three Gui")
 { statusText = "Welcome to Game Three."
@@ -9,6 +9,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
   var history: Arr[ThreeScen] = Arr(scen)
   implicit def grid: HGrid = scen.grid
   focus = grid.cenVec
+  //def players: HCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
   var cPScale = grid.fullDisplayScale(mainWidth, mainHeight)
@@ -24,10 +25,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
   def unitOrTexts: GraphicElems = units.mapHCen{hc => hc.decText(14, terrs(hc).contrastBW) } { (hc, p) =>
     Rect(1.6, 1.2, hc.toPt2).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
-  def moveGraphics: GraphicElems = units.hcSomesFlatMap{ (hc, u) => //LineSegHC(hc, hc.step(u.cmds(0))).lineSeg.draw(players.unSafeApply(hc).colour)
-    u.cmds
-    Arr()
-  }
+  def moveGraphics: GraphicElems = units.hcSomesMap{ (hc, u) => LineSegHC(hc, hc.step(u.cmds(0))).lineSeg.draw(units.unSafeApply(hc).colour)}
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = simpleButton("Turn " + (scen.turn + 1).toString){
@@ -45,11 +43,11 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
       thisTop()
     }
 
-    /*case (RightButton, ArrHead(HPlayer(p, hc1)), ArrHead(hc2: HCen)) =>
-    { val newM: OptRef[HStep] = hc1.findStep(hc2)
-      newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
+    case (RightButton, ArrHead(HPlayer(p, hc1)), hits) => hits.hCenForFirst{ hc2 =>
+     val newM: OptRef[HStep] = hc1.findStep(hc2)
+     // newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()
-    }*/
+    }
 
     case (_, _, h) => deb("Other; " + h.toString)
   }
