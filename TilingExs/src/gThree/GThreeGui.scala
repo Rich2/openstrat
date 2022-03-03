@@ -22,9 +22,9 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
   /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
    *  data in the separate terrs array by use of the HCen coordinate.  */
   def unitOrTexts: GraphicElems = units.mapHCen{hc => hc.decText(14, terrs(hc).contrastBW) } { (hc, p) =>
-    Rect(1.0, 0.66, hc.toPt2).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
+    Rect(1.6, 1.2, hc.toPt2).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
-  def moves: GraphicElems = units.hcSomesFlatMap{ (hc, u) =>
+  def moveGraphics: GraphicElems = units.hcSomesFlatMap{ (hc, u) => //LineSegHC(hc, hc.step(u.cmds(0))).lineSeg.draw(players.unSafeApply(hc).colour)
     u.cmds
     Arr()
   }
