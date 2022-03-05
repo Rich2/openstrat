@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pDraughts
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pchess; package pdraughts
 import geom._, Colour._
 
 sealed trait Draught

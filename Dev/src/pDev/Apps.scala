@@ -25,10 +25,10 @@ object Apps
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
     ("Y9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
     ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
-    ("Y11", (pDraughts.DraughtsGui(_, pDraughts.DraughtsStart), "Draughts")),
+    ("Y11", (pchess.pdraughts.DraughtsGui(_, pchess.pdraughts.DraughtsStart), "Draughts")),
     ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
     ("Y14", (pReactor.ReactorGUI(_), "reactor")),
-    ("Y15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
+    ("Y15", (pchess.ChessGui(_, pchess.ChessStart), "Chess")),
     ("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
 
     ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),

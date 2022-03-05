@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pGrid
 
 /** An immutable Arr of Opt Tile data for a specific TileGrid. This is specialised for OptRef[A]. The tileGrid can map the Roord of the Tile to the
  *  index of the Arr. Hence most methods take an implicit TileGrid parameter. */
