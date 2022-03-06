@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
-import geom._
+import geom._, proord._
 
 /** A deci-Roordinate. Divides the line between 2 Roords into graduations of ten. Defines the point a certain number of tenths toward the second
  *  Roord. */

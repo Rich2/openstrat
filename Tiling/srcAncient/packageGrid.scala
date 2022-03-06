@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** This package has been deprecated. It is being replaced by the [[prid]] package.
@@ -33,12 +33,7 @@ package object pGrid
   implicit class IntGridImplicit(thisInt: Int)
   { /** Syntax for succinct [[Cood]] notation. */
     def cc (y: Int): Cood = Cood(thisInt, y)
-
-    /** Syntax for succinct [[Roord]] notation. */
-    def rr (c: Int): Roord = Roord(thisInt, c)
   }
 
-  implicit class ArrayImplicit[A](thisArray: Array[A])
-  { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGridOld): Unit = grid.foreach{ r => f(r, thisArray(grid.arrIndex(r)))}
-  }
+
 }

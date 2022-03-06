@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pgui._, pStrat._, pGrid._
+import pgui._, pStrat._, pGrid._, proord._
 
 /** Object for selecting various JavaFx apps /examples at run time. */
 object Apps
@@ -32,6 +32,7 @@ object Apps
     ("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
 
     ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
+
 
     ("EG1", (pEarth.E80GridGuiOld(_, pEarth.EuropeNWTerrGridOld, 472 rr 204), "JavaFx NW Wurope Grid")),
     ("EG2", (pEarth.E80GridGuiOld(_, pEarth.EuropeNETerrGridOld, 456 rr 388), "JavaFx NE Wurope Grid")),

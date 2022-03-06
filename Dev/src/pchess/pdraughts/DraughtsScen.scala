@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pchess; package pdraughts
-import pGrid._
+import pGrid._, proord._
 
 trait DraughtsScen extends ChessLikeScen
 { def draughts: TilesArrOpt[Draught]

@@ -1,7 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pDung
-import pGrid._
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pDung
+import pGrid._, proord._
 
 case class CharacPosn(charac: Character, y: Int, c: Int, facing: SqFace)
 
