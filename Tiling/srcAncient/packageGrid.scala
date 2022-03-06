@@ -1,6 +1,5 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import geom._
 
 /** This package has been deprecated. It is being replaced by the [[prid]] package.
  *
@@ -14,14 +13,8 @@ package object pGrid
 {
   val Cood00 = Cood(0, 0)
 
-  /** Gives a Coods Seq of Cood along a horizontal line */
-  def hexSidesHorr(y: Int, cStart: Int, cEnd : Int): Roords =
-  { val cs: Range = if (cStart > cEnd) cStart.roundDownToOdd to cEnd.roundUpToOdd by -2 else cStart.roundUpToOdd to cEnd.roundDownToOdd by 2
-    cs.pMap(c => Roord(y, c))
-  }
-
   /** Gives a Coods Seq of Cood along a horisonatal line */
-  @deprecated def hexSidesHorrOld(y: Int, xStart: Int, xEnd : Int): Coods =
+  @deprecated def hexSidesHorrAncient(y: Int, xStart: Int, xEnd : Int): Coods =
   { val xs = if (xStart > xEnd) xStart.roundDownToOdd to xEnd.roundUpToOdd by -2 else xStart.roundUpToOdd to xEnd.roundDownToOdd by 2
     xs.pMap(x => Cood(x, y))     
   }
@@ -38,37 +31,14 @@ package object pGrid
   }
   
   implicit class IntGridImplicit(thisInt: Int)
-  { /** Syntax for succinct  Cood notation. */
+  { /** Syntax for succinct [[Cood]] notation. */
     def cc (y: Int): Cood = Cood(thisInt, y)
+
+    /** Syntax for succinct [[Roord]] notation. */
     def rr (c: Int): Roord = Roord(thisInt, c)
   }
 
   implicit class ArrayImplicit[A](thisArray: Array[A])
   { def gridForeach(f: (Roord, A) => Unit)(implicit grid: TileGridOld): Unit = grid.foreach{ r => f(r, thisArray(grid.arrIndex(r)))}
   }
-  
-  implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TileGridOld, evSlate: Slate[T], evScale: Scale[T]) {
-    /** Translates Vec2s relative to Grid centre and then scales. */
-    def gridScale(scale: Double): T =
-    { val v = - grid.cenVec
-      val a = evSlate.SlateXYT(value, v.x, v.y)
-      evScale.scaleT(a, scale)
-    }
-    /** Translates Vec2s relative to focus and then scales. */
-    def gridRoordScale(focus: Roord, scale: Double): T =
-    { val v = - focus.gridVec
-      val a = evSlate.SlateXYT(value, v.x, v.y)
-      evScale.scaleT(a, scale)
-    }
-  }
-
-  implicit class GridTransSimExtension[T](value: T)(implicit grid: TileGridOld, ev: TransSim[T])
-  {
-    def gridTrans(offset: Vec2, scale: Double): T =
-    { val a = ev.slate(value, -offset - grid.cenVec)
-      ev.scale(a, scale)
-    }
-  }
-
-
 }

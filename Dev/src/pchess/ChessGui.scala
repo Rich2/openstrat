@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pchess
-import geom._, pgui._, Colour._, pGrid._
+import geom._, pgui._, Colour._, pGrid._, proord._
 
 case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui("Chess")
 { implicit val grid: SquareGridSimpleOld = scen.grid
