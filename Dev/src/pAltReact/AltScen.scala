@@ -21,8 +21,8 @@ object AltScen
   {
     implicit val grid = SqGrid(2, r * 2, 2, c * 2)
     val balls = grid.newTileArrOpt[Balls]
-    balls.setSome(6, 6, Balls(PlayerA, 2))
-    balls.setSome(4, 4, Balls(PlayerB, 1))
+    balls.unsafeSetSome(6, 6, Balls(PlayerA, 2))
+    balls.unsafeSetSome(4, 4, Balls(PlayerB, 1))
     AltScen(0, grid, balls)
   }
 }
