@@ -1,6 +1,5 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pGrid
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pGrid
 import geom._
 
 /** A deci-Roordinate. Divides the line between 2 Roords into graduations of ten. Defines the point a certain number of tenths toward the second
@@ -19,6 +18,7 @@ object RoordOff
 sealed class HVOffDirn(val y: Int, val c: Int)
 { def r: Roord = y rr c
 }
+
 case object HVOffUp extends HVOffDirn(1, 0)
 case object HVOffUR extends HVOffDirn(1, 2)
 case object HVOffDR extends HVOffDirn(-1, 2)
