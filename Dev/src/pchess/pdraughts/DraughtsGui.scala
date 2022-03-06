@@ -2,9 +2,9 @@
 package ostrat; package pchess; package pdraughts
 import geom._, pgui._, Colour._, pGrid._, proord._
 
-case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarGui("Draughts")
+case class DraughtsGui(canv: CanvasPlatform/*, scen: DraughtsScen*/) extends CmdBarGui("Draughts")
 {
-  implicit def grid: SquareGridSimpleOld = scen.grid
+  /*implicit def grid: SquareGridSimpleOld = scen.grid
   statusText = "Welcome to Draughts Gui"
   val darkSquareColour = Brown
   val lightSquareColour = Pink
@@ -15,7 +15,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
     p.fill(col) }
 
   val pieces = scen.draughts.mapSomeWithRoords((r, d) => Circle(0.7, r.gridPt2).fill(d.colour))
-
+*/
   def bTurn = simpleButton("Turn "){
     repaint()
     thisTop()
@@ -24,7 +24,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
   def thisTop(): Unit = reTop(Arr(bTurn))
   thisTop()
 
-  def frame = (tiles ++ pieces).gridScale(scale)
+  def frame: GraphicElems = Arr()//(tiles ++ pieces).gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

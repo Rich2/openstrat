@@ -1,20 +1,28 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pchess
-import pGrid._
+import prid._, psq._
+
+object ChessBoard extends SqGrid(2, 16, 2, 16)
+
+trait ChessLikeScen extends SqGridScen
+{ def turn: Int
+  implicit val grid: ChessBoard.type = ChessBoard//: SquareGridSimpleOld = SquareGridSimpleOld(2, 16, 2, 16)
+  def playerSeg: Player = ife(turn.isOdd, PWhite, PBlack)
+}
 
 trait ChessScen extends ChessLikeScen
-{ val turnSeg: Int
-  def pieces: TilesArrOpt[PPiece]
+{ val turn: Int
+  def pieces: SqCenArrOpt[PPiece]
 }
 
 object ChessStart extends ChessScen
 {
-  val turnSeg = 0
+  val turn = 0
 
   val pieces = grid.newTileArrOpt[PPiece]
-  val rp = Arr(Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook)
-  rp.iForeach({(i, p) => pieces.mutSetSome(2, i * 2 + 2, PPiece(PWhite, p)) })
-  iToForeach(2, 16, 2)(c => pieces.mutSetSome(4, c, PPiece(PWhite, Pawn)))
-  rp.iForeach({(i, p) => pieces.mutSetSome(16, i * 2 + 2, PPiece(PBlack, p)) })
-  iToForeach(2, 16, 2)(c => pieces.mutSetSome(14, c, PPiece(PBlack, Pawn)))
+//  val rp = Arr(Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook)
+//  rp.iForeach({(i, p) => pieces.mutSetSome(2, i * 2 + 2, PPiece(PWhite, p)) })
+//  iToForeach(2, 16, 2)(c => pieces.mutSetSome(4, c, PPiece(PWhite, Pawn)))
+//  rp.iForeach({(i, p) => pieces.mutSetSome(16, i * 2 + 2, PPiece(PBlack, p)) })
+//  iToForeach(2, 16, 2)(c => pieces.mutSetSome(14, c, PPiece(PBlack, Pawn)))
 }

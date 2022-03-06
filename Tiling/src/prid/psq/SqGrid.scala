@@ -6,7 +6,7 @@ import geom._, reflect.ClassTag
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
-final class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, val rightCenCol: Int) extends TGrid
+class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, val rightCenCol: Int) extends TGrid
 {
   /** Number of rows of tiles. */
   override def numTileRows: Int = (topCenRow - bottomCenRow + 2).max0 / 2

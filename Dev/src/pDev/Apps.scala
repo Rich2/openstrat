@@ -2,7 +2,7 @@
 package ostrat; package pDev
 import pgui._, pStrat._, pGrid._, proord._
 
-/** Object for selecting various JavaFx apps /examples at run time. */
+/** Object for selecting various JavaFx apps / examples at run time. */
 object Apps
 {
   val idMap: Map[String, GuiLaunch] = Map(
@@ -25,14 +25,13 @@ object Apps
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
     ("Y9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
     ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
-    ("Y11", (pchess.pdraughts.DraughtsGui(_, pchess.pdraughts.DraughtsStart), "Draughts")),
+    ("Y11", (pchess.pdraughts.DraughtsGui(_/*, pchess.pdraughts.DraughtsStart*/), "Draughts")),
     ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
     ("Y14", (pReactor.ReactorGUI(_), "reactor")),
     ("Y15", (pchess.ChessGui(_, pchess.ChessStart), "Chess")),
     ("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
 
     ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
-
 
     ("EG1", (pEarth.E80GridGuiOld(_, pEarth.EuropeNWTerrGridOld, 472 rr 204), "JavaFx NW Wurope Grid")),
     ("EG2", (pEarth.E80GridGuiOld(_, pEarth.EuropeNETerrGridOld, 456 rr 388), "JavaFx NE Wurope Grid")),

@@ -2,14 +2,14 @@
 package ostrat; package pchess; package pdraughts
 import pGrid._, proord._
 
-trait DraughtsScen extends ChessLikeScen
-{ def draughts: TilesArrOpt[Draught]
-}
-
-object DraughtsStart extends DraughtsScen
-{ val turnSeg = 0
-  val draughts: TilesArrOpt[Draught] = grid.newTileArrOpt[Draught]
-  def rowRoords(y: Int): Roords = iToMap(ife(y.div4Rem2, 2, 4), 16, 4){c => y rr c}
-  iToForeach(2, 6, 2){y => rowRoords(y).foreach{r => draughts.mutSetSome(r, WhiteMan) } }
-  iToForeach(16, 12, -2){y => rowRoords(y).foreach{r => draughts.mutSetSome(r, BlackMan) } }
-}
+//trait DraughtsScen extends ChessLikeScen
+//{ def draughts: TilesArrOpt[Draught]
+//}
+//
+//object DraughtsStart extends DraughtsScen
+//{ val turn = 0
+//  val draughts: TilesArrOpt[Draught] = grid.newTileArrOpt[Draught]
+//  def rowRoords(y: Int): Roords = iToMap(ife(y.div4Rem2, 2, 4), 16, 4){c => y rr c}
+//  iToForeach(2, 6, 2){y => rowRoords(y).foreach{r => draughts.mutSetSome(r, WhiteMan) } }
+//  iToForeach(16, 12, -2){y => rowRoords(y).foreach{r => draughts.mutSetSome(r, BlackMan) } }
+//}
