@@ -3,7 +3,7 @@ package ostrat; package pchess
 import geom._, Colour._
 
 /** Chess piece. */
-sealed trait Piece extends UnScaledPolygon
+sealed trait Piece extends PolygonMemIcon
 
 /** Symmetrical Chess piece */
 trait MirrorPiece extends Piece with UnScaledPolygonYMirror
