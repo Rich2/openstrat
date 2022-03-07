@@ -16,7 +16,7 @@ case class ChessGui(canv: CanvasPlatform, scen: ChessScen) extends CmdBarGui("Ch
   /** The number of pixels / 2 displayed per row height. */
   var cPScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
 
-  val pieces: GraphicElems = Arr()// = scen.pieces.mapSomeWithRoords((r, p) => p.piece().slate(r.gridPt2).fillDraw(p.player.colour, p.player.contrastBW))
+  val pieces: GraphicElems = scen.pieces.scSomesMap((r, p) => p.piece().slate(r.toPt2).fillDraw(p.player.colour, p.player.contrastBW))
 
   def bTurn = simpleButton("Turn "){
     repaint()
