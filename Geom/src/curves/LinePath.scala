@@ -24,6 +24,20 @@ class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2sL
   }
   
   def draw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this, lineWidth, colour)
+
+  /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
+   * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
+  def yMirrorClose: PolygonGen =
+  { val acc = appendArray(dataLength)
+    var count = arrLen
+
+    reverseDataForeach { orig =>
+      acc(count) = - orig.x
+      acc(count + 1) = orig.y
+      count += 2
+    }
+    new PolygonGen(acc)
+  }
 }
 
 /** Companion object for LinePath contains apply factory object and Persist type class instance. */

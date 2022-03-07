@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -18,20 +18,6 @@ final class Pt2s(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2
 
   /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
   def ptsTrans(f: Pt2 => Pt2): Pt2s =  new Pt2s(arrTrans(f))
-
-  /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
-   * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
-  def yMirrorClose: PolygonGen =
-  { val acc = appendArray(dataLength)
-    var count = arrLen
-
-    reverseForeach { orig =>
-      acc(count) = - orig.x
-      acc(count + 1) = orig.y
-      count += 2
-    }
-    new PolygonGen(acc)
-  }
 }
 
 /** Companion object for the [[Pt2s]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
@@ -51,7 +37,7 @@ object Pt2s extends DataDbl2sCompanion[Pt2, Pt2s]
 
   implicit val slateImplicit: Slate[Pt2s] = (obj: Pt2s, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Pt2s] = (obj: Pt2s, operand: Double) => obj.scale(operand)
-  implicit val rotateImplicit: Rotate[Pt2s] = (obj: Pt2s, angle: AngleVec) => obj.map(_.rotate(angle))
+  implicit val rotateImplicit: Rotate[Pt2s] = (obj: Pt2s, angle: AngleVec) => obj.rotate(angle)
   implicit val prolignImplicit: Prolign[Pt2s] = (obj, matrix) => obj.prolign(matrix)
   implicit val XYScaleImplicit: ScaleXY[Pt2s] = (obj, xOperand, yOperand) => obj.scaleXY(xOperand, yOperand)
   implicit val reflectImplicit: Reflect[Pt2s] = (obj: Pt2s, lineLike: LineLike) => obj.reflect(lineLike)

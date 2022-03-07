@@ -39,6 +39,14 @@ trait DataDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBack
     }
     res
   }
+
+  /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
+  def appendArray(appendProductsLength: Int): Array[Double] =
+  {
+    val acc = new Array[Double](arrLen + appendProductsLength * elemProdSize)
+    unsafeArray.copyToArray(acc)
+    acc
+  }
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
@@ -48,13 +56,7 @@ trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DataDblNs[A]
   /** Not sure about this method. */
   def foreachArr(f: Dbls => Unit): Unit
 
-  /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
-  def appendArray(appendProductsLength: Int): Array[Double] =
-  {
-    val acc = new Array[Double](arrLen + appendProductsLength * elemProdSize)
-    unsafeArray.copyToArray(acc)
-    acc
-  }
+
 
   def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(dataLength)
