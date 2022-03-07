@@ -243,7 +243,7 @@ case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLef
   override protected[this] def tlClip(poly: Polygon): Unit =
   { gc.beginPath
     gc.moveTo(poly.v0x, poly.v0y)
-    poly.foreachVertPairTail(gc.lineTo)
+    poly.vertPairsTailForeach(gc.lineTo)
     gc.closePath()
     gc.clip()
   }

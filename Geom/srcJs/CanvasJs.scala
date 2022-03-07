@@ -88,7 +88,7 @@ object CanvasJs extends CanvasTopLeft
   override protected[this] def tlPolyFill(pf: PolygonFill): Unit =
   { gc.beginPath()
     gc.moveTo(pf.x1, pf.y1)
-    pf.shape.foreachVertPairTail(gc.lineTo)
+    pf.shape.vertPairsTailForeach(gc.lineTo)
     gc.closePath()
     setFill(pf.fill)
     gc.fill()
@@ -97,7 +97,7 @@ object CanvasJs extends CanvasTopLeft
   override def tlPolyDraw(pd: PolygonDraw): Unit =
   { gc.beginPath()
     gc.moveTo(pd.x1, pd.y1)
-    pd.shape.foreachVertPairTail(gc.lineTo)
+    pd.shape.vertPairsTailForeach(gc.lineTo)
     gc.closePath()
     gc.strokeStyle = pd.lineColour.webStr
     gc.lineWidth = pd.lineWidth
@@ -251,7 +251,7 @@ object CanvasJs extends CanvasTopLeft
   override protected[this] def tlClip(poly: Polygon): Unit =
   { gc.beginPath()
     gc.moveTo(poly.v0x, poly.v0y)
-    poly.foreachVertPairTail(gc.lineTo)
+    poly.vertPairsTailForeach(gc.lineTo)
     gc.closePath()
     gc.clip()
   }

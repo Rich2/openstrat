@@ -8,23 +8,40 @@ import pWeb._, Colour.Black
  *  with then end point of side n sdn at vertex n. */
 trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLike[Pt2]
 { override type SideT = LineSeg
-  /** The vertices of this Polygon in an Array of [[Double]]s. */
-  def vertsArray: Array[Double]
+  /** The vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub classes. */
+  def vertsArray: Array[Double] = {
+    val res = new Array[Double](vertsNum * 2)
+    var i = 0
+    vertsForeach{v => res(i) = v.x
+      i += 1
+      res(i) = v.y
+      i += 1
+    }
+    res
+  }
 
-  /** The X component of the vertices of this Polygon in an Array of [[Double]]s. */
-  def vertsArrayX: Array[Double]
+  /** The X component of the vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub
+   *  classes. */
+  def vertsArrayX: Array[Double] =
+  { val res = new Array[Double](vertsNum)
+    var i = 0
+    vertsForeach{v => res(i) = v.x; i += 1 }
+    res
+  }
 
-  /** The Y component of the vertices of this Polygon in an Array of [[Double]]s. */
+  /** The Y component of the vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub
+   *  classes. */
   def vertsArrayY: Array[Double]
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
   def vertsForeach[U](f: Pt2 => U): Unit
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex, excluding vertex v1. */
-  def foreachVertTail[U](f: Pt2 => U): Unit
+  def vertsTailForeach[U](f: Pt2 => U): Unit
 
-  /** Foreach vertex excluding vertex 1, perform the side effecting function on the Tuple2 of the x and y values of the vertex. */
-  def foreachVertPairTail[U](f: (Double, Double) => U): Unit
+  /** Foreach vertex excluding vertex 1, perform the side effecting function on the Tuple2 of the x and y values of the vertex. For maximum efficiency
+   * override the implementation in sub classes. */
+  def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = vertsTailForeach(v => f(v.x, v.y))
 
   /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a
    * new transformed Polygon */
@@ -154,20 +171,22 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): PolygonCompound =
     PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)))
 
-  /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  def xVert(index: Int): Double
+  /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
+   * override the implementation in sub classes. */
+  def xVert(index: Int): Double = vert(index).x
 
-  /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  def yVert(index: Int): Double
+  /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
+   * override the implementation in sub classes. */
+  def yVert(index: Int): Double = vert(index).y
 
-  /** The X component of vertex v0, will throw on a 0 vertices polygon. */
-  def v0x: Double
+  /** The X component of vertex v0, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
+  def v0x: Double = vert(0).x
 
-  /** The Y component of vertex v1, will throw on a 0 vertices polygon. */
-  def v0y: Double
+  /** The Y component of vertex v1, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
+  def v0y: Double = vert(0).y
 
-  /** Vertex v0, will throw on a 0 vertices polygon. */
-  def v0: Pt2
+  /** Vertex v0, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
+  def v0: Pt2 = vert(0)
 
   /** The last vertex will throw an exception on a 0 vertices polygon. */
   def vLast: Pt2 = vert(vertsNum - 1)
@@ -176,7 +195,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   override def boundingRect: BoundingRect =
   { var minX, maxX = v0x
     var minY, maxY = v0y
-    foreachVertTail{v =>
+    vertsTailForeach{v =>
       minX = minX.min(v.x)
       maxX = maxX.max(v.x)
       minY = minY.min(v.y)
