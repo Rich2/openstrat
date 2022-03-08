@@ -185,13 +185,13 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   def yVert(index: Int): Double = vert(index).y
 
   /** The X component of vertex v0, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
-  def v0x: Double = vert(0).x
+  def v0x: Double// = vert(0).x
 
   /** The Y component of vertex v1, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
-  def v0y: Double = vert(0).y
+  def v0y: Double //= vert(0).y
 
   /** Vertex v0, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
-  def v0: Pt2 = vert(0)
+  def v0: Pt2 //= vert(0)
 
   /** The last vertex will throw an exception on a 0 vertices polygon. */
   def vLast: Pt2 = vert(vertsNum - 1)
