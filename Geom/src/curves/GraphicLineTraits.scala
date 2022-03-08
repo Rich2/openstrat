@@ -42,7 +42,7 @@ case class LinePathDraw(path: LinePath, lineWidth: Double, colour: Colour = Blac
   def xStart = path.xStart
   def yStart = path.yStart
   override def ptsTrans(f: Pt2 => Pt2): LinePathDraw = LinePathDraw(path.ptsTrans(f), lineWidth, colour)
-  @inline def foreachEnd(f: (Double, Double) => Unit): Unit = path.foreachEnd(f)
+  @inline def foreachEnd(f: (Double, Double) => Unit): Unit = path.vertsTailForeach(f)
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.linePathDraw(this)
 }
 

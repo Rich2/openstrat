@@ -14,8 +14,9 @@ class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2sL
   @inline def pStart: Pt2 = Pt2(xStart, yStart)
  
   def ptsTrans(f: Pt2 => Pt2): LinePath =  new LinePath(arrTrans(f))
-  
-  def foreachEnd(f: (Double, Double) => Unit): Unit =
+
+
+  def vertsTailForeach(f: (Double, Double) => Unit): Unit =
   { var count = 1
     while (count < lengthFull)
     { f(unsafeArray(count *2), unsafeArray( count * 2 + 1))
