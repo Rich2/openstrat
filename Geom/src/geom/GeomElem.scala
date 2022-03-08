@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** A 2D geometric element to which 2D geometric transformations can be applied. Not all elements preserve their full properties under all
@@ -6,7 +6,7 @@ package ostrat; package geom
  *  inherits from GeomElem. A [[Circle]] is not a [[GraphicElem]] but if we add a fill colour to make a [[CircleFill]], or a line width and line
  *  colour to it, we have a [[GraphicElem]] a graphical element that can be displayed on a canvas or output to SVG. It is expected that all elements
  *  that inherit from GeomElem that are not [[GraphicElem]]s will be [[Drawable]] elements, but this has not been finalised. */
-trait GeomElem
+trait GeomElem extends Any
 {
   /** Translate 2D geometric transformation, taking the xOffset and yOffset as parameters on this GeomElem returning a GeomElem. The Return type will
    *  be narrowed in sub traits. End users will often want to use the slate method taking a [[Pt2]] or [[Vec2]] as a parameter, the slateX or the
