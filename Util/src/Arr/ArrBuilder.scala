@@ -29,7 +29,7 @@ trait ArrBuilder[B, ArrB <: SeqImut[B]] extends DataBuilder[B, ArrB]
 }
 
 /** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */
-object ArrBuilder extends ArrBuilderLowPriority
+object ArrBuilder extends ArrBuilderPriority2
 { implicit val intsImplicit: ArrBuilder[Int, Ints] = IntsBuild
   implicit val doublesImplicit: ArrBuilder[Double, Dbls] = DblsBuild
   implicit val longImplicit: ArrBuilder[Long, Longs] = LongsBuild
@@ -42,7 +42,15 @@ object ArrBuilder extends ArrBuilderLowPriority
  * the implicit instance for [[Arr]]. */
 trait SpecialT extends Any
 
-trait ArrBuilderLowPriority
+trait ArrBuilderPriority2 extends ArrBuilderPriority3
+{
+  /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
+   * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
+   * specialist Arr classes. */
+  implicit def anyTImplicit[B <: AnyVal](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrBuilder[B, Arr[B]] = new AnyBuild[B]
+}
+
+trait ArrBuilderPriority3
 {
   /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
    * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
