@@ -4,7 +4,7 @@ package ostrat; package geom
 /** This will be sealed in due course. A graphic element is either an element that can be rendered to a display (or printed) or is an active element
  * in a display or both. So I think the self type will force all [[GraphicElem]]s to extend [[CanvElem]] or [[NoCanvElem]]. */
 trait GraphicElem extends GeomElem
-{ //thisGraphic: CanvElem | NoCanvElem =>
+{
   /** Renders this functional immutable GraphicElem, using the imperative methods of the abstract [[pCanv.CanvasPlatform]] interface. */
    def rendToCanvas(cp: pgui.CanvasPlatform): Unit
 
