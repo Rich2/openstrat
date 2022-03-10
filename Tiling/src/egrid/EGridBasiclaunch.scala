@@ -15,11 +15,12 @@ object EGridBasicLaunch extends GuiLaunchMore
 
     val scen = num match
     { case 1 => EGrid80Km.scen1
-      case 2 => EGrid320Km.scen1
+      case 2 => EGrid80Km.scen2
+      case 11 => EGrid320Km.scen1
       case _ => EGrid80Km.scen1
     }
-
-    val oview = sts.findSettingOrUniqueT[HGridView]("view")
+    val oview: EMon[HGridView] = sts.findKeySetting[Int, HGridView](num)
+    //val oview = sts.findSettingOrUniqueT[HGridView]("view")
     (EGridGui(_, scen, oview.getElse(scen.eGrid.coordCen.view())), "JavaFx EGrid80Km.scen1")
   }
 }

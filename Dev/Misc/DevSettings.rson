@@ -7,7 +7,7 @@ displayY = 0;//Some operating systems will not allow a positive y value that pus
 lessons = A1;
 earth = { scale = 12; latitude = 0; longitude = 0; };
 ww2 = { scale = 1; latLong = LatLong(51.5; 0); };
-eGrid = { scen = 1; HGridView(452, 523; 19) };
+eGrid = { scen = 1; 1 = HGridView(460, 523; 32); 2 = HGridView(460, 1536; 20); };
 gOne = { scen = 1; 1 = HGridView(4, 6; 80); 2 = HGridView(6, 6; 55); 3 = HGridView(6, 6; 50); 4 = HGridView(7, 20; 40) };
 gTwo = 1;
 gThree = 1;
