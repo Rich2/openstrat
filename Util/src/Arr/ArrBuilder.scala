@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag, annotation.unused
 
@@ -36,6 +36,7 @@ object ArrBuilder extends ArrBuilderPriority2
   implicit val floatImplicit: ArrBuilder[Float, Floats] = FloatsBuild
   implicit val stringImplicit: ArrBuilder[String, Strings] = StringsBuild
   implicit val booleansImplicit: ArrBuilder[Boolean, Booleans] = BooleansBuild
+  implicit val anyImplicit: ArrBuilder[Any, Anys] = AnysBuild
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from

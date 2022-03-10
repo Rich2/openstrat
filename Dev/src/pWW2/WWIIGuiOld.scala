@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWW2
 import geom._, pglobe._, pEarth._, pgui._, pStrat._
 
@@ -20,7 +20,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[L
       val poly = etog.vertDispVecs.fillActive(colour, tile)
       //val sides = etog.ifScaleCObjs(60, ownSideLines.map(line => LineDraw(line, 1, colour.contrastBW)))
       val textOrUnit: GraphicElems = ifScaleCObjs(110, tile.lunits match
-        { case s if tScale > 68 & s.nonEmpty => Arr(UnitCounters.infantry(30, s.head, s.head.colour,tile.colour).slate(cen))
+        { case s if tScale > 68 & s.nonEmpty => Arr(UnitCounters.infantry(50, s.head, s.head.colour,tile.colour).slate(cen))
           case _ =>
           { val strs: Strings = Strings(cood.base32, cenLL.degStr, cood.yxStr)
             TextGraphic.lines(strs, 10, cen, colour.contrastBW)
@@ -58,14 +58,14 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[L
       }
 
       case RightButton => (selected, clickList) match
-      { case (ArrHead(army: Army), ArrHead(newTile: W2TileAncient)) =>
+      { case (AnysHead(army: Army), AnysHead(newTile: W2TileAncient)) =>
         { army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
           val newArmy = army.copy(newTile)
           newTile.lunits +%= newArmy
-          selected = Arr(newArmy)
+          selected = Anys(newArmy)
           repaintMap()
         }
-        case (ArrHead(army: Army), as) => debvar(as.dataLength)
+        case (AnysHead(army: Army), as) => debvar(as.dataLength)
         case _ =>
       }
 
