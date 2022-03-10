@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
-import pgui._, pStrat._, pGrid._, proord._
+import pgui._, pStrat._, proord._
 
 /** Object for selecting various JavaFx apps / examples at run time. */
 object Apps
@@ -15,6 +15,7 @@ object Apps
     ("G3", gThree.ThreeLaunch),
     ("Z", pZug.ZugLaunch),
     ("CV", pCiv.CivLaunch),
+    ("CH", pchess.ChessLaunch),
   )
 
   val strMap: Map[String, (CanvasPlatform => Any, String)] = Map(
@@ -25,10 +26,10 @@ object Apps
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
     ("Y9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
     ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
-    ("Y11", (pchess.pdraughts.DraughtsGui(_/*, pchess.pdraughts.DraughtsStart*/), "Draughts")),
+    ("Y11", (pchess.pdraughts.DraughtsGui(_, pchess.pdraughts.DraughtsStart), "Draughts")),
     ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
     ("Y14", (pReactor.ReactorGUI(_), "reactor")),
-    ("Y15", (pchess.ChessGui(_, pchess.ChessStart), "Chess")),
+
     ("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
 
     ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),

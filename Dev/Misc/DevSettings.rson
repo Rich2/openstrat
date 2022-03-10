@@ -13,6 +13,7 @@ gTwo = 1;
 gThree = 1;
 zugFuhrer = 1;
 civ = 1;
+chess = {scen = 1 };
 
 /* Change the  number to change the app on next run.
   ("L", learn.Lessons),
@@ -24,6 +25,7 @@ civ = 1;
   ("G3", gThree.ThreeLaunch),
   ("Z", pZug.ZugLaunch),
   ("CV", pCiv.CivLaunch),
+  ("CH", pchess.ChessLaunch),
 */
 
 /*
@@ -34,11 +36,10 @@ civ = 1;
  ("Y8", (ColourGen(_), "JavaFx Some Colours")),
  ("Y9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
  ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
- ("Y11", (pDraughts.DraughtsGui(_, pDraughts.DraughtsStart), "Draughts")),
 
  ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
  ("Y14", (pReactor.ReactorGUI(_), "reactor")),
- ("Y15", (pChess.ChessGui(_, pChess.ChessStart), "Chess")),
+
  ("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
 
  ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),

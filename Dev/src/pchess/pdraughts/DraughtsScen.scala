@@ -9,7 +9,7 @@ trait DraughtsScen extends ChessLikeScen
 object DraughtsStart extends DraughtsScen
 { val turn = 0
   val draughts: SqCenArrOpt[Draught] = grid.newTileArrOpt[Draught]
-  //def rowRoords(y: Int): SqCens = iToMap(ife(y.div4Rem2, 2, 4), 16, 4){c => y rr c}
-//  iToForeach(2, 6, 2){y => rowRoords(y).foreach{r => draughts.mutSetSome(r, WhiteMan) } }
-//  iToForeach(16, 12, -2){y => rowRoords(y).foreach{r => draughts.mutSetSome(r, BlackMan) } }
+  def rowCens(y: Int): SqCens = iToMap(ife(y.div4Rem2, 2, 4), 16, 4){c => SqCen(y, c) }
+  iToForeach(2, 6, 2){y => rowCens(y).foreach{r => draughts.unsafeSetSome(r, WhiteMan) } }
+  iToForeach(16, 12, -2){y => rowCens(y).foreach{r => draughts.unsafeSetSome(r, BlackMan) } }
 }
