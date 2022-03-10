@@ -8,17 +8,14 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
   statusText = "Welcome to Draughts Gui"
   val darkSquareColour = Brown
   val lightSquareColour = Pink
-  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
+
   /** The number of pixels / 2 displayed per row height. */
   var cPScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
 
   val tiles: GraphicElems =grid.map{sc => sc.polygonReg.fillActive(sc.checkeredColour(darkSquareColour, lightSquareColour), sc) }
-//    grid.mapRPolygons{ (r, p) =>
-//    val col = ife(r.yPlusC %% 4 == 0, darkSquareColour, lightSquareColour)
-//    p.fill(col) }
 
-  //val pieces = scen.draughts.mapSomeWithRoords((r, d) => Circle(0.7, r.gridPt2).fill(d.colour))
-  def bTurn = simpleButton("Turn "){
+  val pieces: Arr[CircleFill] = scen.draughts.scSomesMap((r, d) => Circle(1.2, r.toPt2).fill(d.colour))
+  def bTurn: PolygonCompound = simpleButton("Turn "){
     repaint()
     thisTop()
   }
@@ -26,7 +23,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
   def thisTop(): Unit = reTop(Arr(bTurn))
   thisTop()
 
-  def frame: GraphicElems = (tiles/* ++ pieces*/).slate(-grid.cenVec).scale(cPScale)//.gridScale(scale)
-  def repaint() = mainRepaint(frame)
+  def frame: GraphicElems = (tiles ++ pieces).slate(-grid.cenVec).scale(cPScale)
+  def repaint(): Unit = mainRepaint(frame)
   repaint()
 }
