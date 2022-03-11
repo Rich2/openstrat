@@ -134,7 +134,9 @@ trait HGrid extends Any with TGrid with HGridBased
   }*/
 
   def adjTilesOfTile(tile: HCen): HCens
-  def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[List[HCen]] =
+
+  /** Finds path from Start hex tile centre to end tile centre given the cost function parameter. */
+  def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCens] =
   {
     var open: List[Node] = Node(startCen, 0, getHCost(startCen, endCen), NoRef) :: Nil
     var closed: List[Node] = Nil
@@ -143,7 +145,6 @@ trait HGrid extends Any with TGrid with HGridBased
     while (open.nonEmpty & found == None)
     {
       val curr: Node = open.minBy(_.fCost)
-      //if (curr.tile.Roord == endRoord) found = true
       open = open.filterNot(_ == curr)
       closed ::= curr
       val neighbs: HCens = adjTilesOfTile(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
@@ -156,7 +157,7 @@ trait HGrid extends Any with TGrid with HGridBased
 
             open.find(_.tile == tile) match {
               case Some(node) if newGCost < node.gCost => node.gCost = newGCost; node.parent = OptRef(curr)
-              case Some(node) =>
+              case Some(_) =>
               case None =>
               { val newNode = Node(tile, newGCost, getHCost(tile, endCen), OptRef(curr))
                 open ::= newNode
@@ -169,12 +170,13 @@ trait HGrid extends Any with TGrid with HGridBased
     }
     def loop(acc: List[HCen], curr: Node): List[HCen] = curr.parent.fld(acc, loop(curr.tile :: acc, _))
 
-    found.map(endNode =>  loop(Nil, endNode))
+    found.map(endNode =>  loop(Nil, endNode).toImut)
   }
+
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
    *  departure and the tile of arrival. */
-  def getHCost(startRoord: HCen, endRoord: HCen): Int =
-  { val diff = endRoord - startRoord
+  def getHCost(startCen: HCen, endCen: HCen): Int =
+  { val diff = endCen - startCen
     val c: Int = diff.c.abs
     val y: Int = diff.r.abs
 
