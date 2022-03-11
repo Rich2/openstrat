@@ -115,6 +115,15 @@ class HGridReg(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, v
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
+  /** Combine adjacent tiles of the same value. */
+  override def adjTilesOfTile(tile: HCen): HCens = adjTilesOfTile(tile).filter{hc => (hc.r, hc.c) match {
+    case (r, _) if r > topCenRow => false
+    case (r, _) if r < bottomCenRow => false
+    case (_, c) if c > rightCenCol => false
+    case (_, c) if c < leftCenCol => false
+    case _ => true
+  }}
+
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {
     case y if y == topSideRow & y.div4Rem3 => iToForeach(row2sStart - 1, row2sEnd + 1, 2){ c => f(HSide(y, c)) }

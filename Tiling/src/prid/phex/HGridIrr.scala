@@ -21,6 +21,10 @@ class HGridIrr(val bottomCenRow: Int, val unsafeRowsArray: Array[Int]) extends H
     sidesForeach(r => count += 1)
     count
   }
+
+  /** Combine adjacent tiles of the same value. */
+  override def adjTilesOfTile(tile: HCen): HCens = ???
+
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
 

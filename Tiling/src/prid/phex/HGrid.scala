@@ -133,10 +133,10 @@ trait HGrid extends Any with TGrid with HGridBased
     else Arr()
   }*/
 
-  def adjTilesOfTile(tile: HCen): HCens = ???
-  def findPath(startRoord: HCen, endRoord: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[List[HCen]] =
+  def adjTilesOfTile(tile: HCen): HCens
+  def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[List[HCen]] =
   {
-    var open: List[Node] = Node(startRoord, 0, getHCost(startRoord, endRoord), NoRef) :: Nil
+    var open: List[Node] = Node(startCen, 0, getHCost(startCen, endCen), NoRef) :: Nil
     var closed: List[Node] = Nil
     var found: Option[Node] = None
 
@@ -158,9 +158,9 @@ trait HGrid extends Any with TGrid with HGridBased
               case Some(node) if newGCost < node.gCost => node.gCost = newGCost; node.parent = OptRef(curr)
               case Some(node) =>
               case None =>
-              { val newNode = Node(tile, newGCost, getHCost(tile, endRoord), OptRef(curr))
+              { val newNode = Node(tile, newGCost, getHCost(tile, endCen), OptRef(curr))
                 open ::= newNode
-                if (tile == endRoord) found = Some(newNode)
+                if (tile == endCen) found = Some(newNode)
               }
             }
           }
