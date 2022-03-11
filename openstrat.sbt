@@ -120,8 +120,8 @@ lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs).settings(
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
   Compile/mainClass	:= Some("ostrat.pFx.DevApp"),
   libraryDependencies ++= Seq(
-      "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
-      "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"
+    "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
+    "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"
     ),
 )
 
