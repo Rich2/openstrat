@@ -35,19 +35,19 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
       thisTop()
     }
 
-    case (RightButton, ArrHead(squad: Squad), ArrHead(newTile: HCen)) => { deb("Move")}
-      /*grid.findPath(squad.roord, newTile)(moveFunc).fold[Unit]{
+    case (RightButton, AnysHead(squad: Squad), AnysHead(newTile: HCen)) => { deb("Move")//}
+      //grid.findPath(squad.roord, newTile)(moveFunc).fold[Unit]{
         statusText = "Squad can not move to " + newTile.rcStr
         thisTop()
-      } { l =>
+      }/* { l =>
         squad.action = Move(l: _*)
         mainRepaint(frame)
         statusText = Squad.toString()
         thisTop()
       }*/
 
-    case (MiddleButton, ArrHead(squad : Squad), ArrHead(newTile: HCen)) =>
-    { squad.action = Fire(newTile)
+    case (MiddleButton, AnysHead(squad : Squad), hits) => hits.hCenForFirst{ hc2 =>
+      squad.action = Fire(hc2)
       deb("Fire")
       mainRepaint(frame)
     }
