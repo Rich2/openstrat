@@ -18,7 +18,7 @@ object EuropeNE80Terr {
     gs(518, 1136 + 374, taiga * 12, sea * 2, taiga)
     gs(516, 1136 + 372, taiga * 13, sea * 2, taiga)
     gs(514, 1136 + 370, taiga * 14, sea * 2)
-//    gs(512, 1136 + 372, taiga * 10, sea * 2, taiga, sea, taiga * 2)
+    gs(512, 1136 + 372, taiga * 10, sea * 2, taiga, sea, taiga * 2)
 //    gs(510, 1136 + 370, taiga * 4, sea, taiga * 6, sea * 3, taiga * 3)
 //    gs(508, 1136 + 368, taiga * 3, sea * 3, taiga * 5, sea, taiga, sea, taiga * 3)
     /*gs(506, 366, taiga * 4, sea, taiga * 7, sea, taiga * 5)
