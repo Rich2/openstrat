@@ -9,15 +9,15 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
   implicit def grid: HGrid = scen.grid
   focus = grid.cenVec
 
-  var cPScale = grid.fullDisplayScale(mainWidth, mainHeight)
-  val terrs = scen.terrs
-  val active = grid.map{ hc =>hc.polygonReg.active(hc) }
-  val text = terrs.hcMap((hc, t) => hc.decText(14, t.contrastBW))
-  val rows = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
+  var cPScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
+  val terrs: HCenArr[ZugTerr] = scen.terrs
+  val active: Arr[PolygonActive] = grid.map{ hc =>hc.polygonReg.active(hc) }
+  val text: Arr[TextGraphic] = terrs.hcMap((hc, t) => hc.decText(14, t.contrastBW))
+  val rows: Arr[PolygonFill] = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
   def lunits: GraphicElems = scen.lunits.gridHeadsFlatMap{ (hc, squad) =>
-    val uc = UnitCounters.infantry(1.2, squad, squad.colour, terrs(hc).colour).slate(hc.toPt2)
+    val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour, terrs(hc).colour).slate(hc.toPt2)
 
     val actions: GraphicElems = squad.action match
     { case mv: HSteps => mv.segsMap(hc)(_.draw())
@@ -35,18 +35,23 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
       thisTop()
     }
 
-    case (RightButton, AnysHead(squad: Squad), AnysHead(newTile: HCen)) => { deb("Move")//}
-      //grid.findPath(squad.roord, newTile)(moveFunc).fold[Unit]{
-        statusText = "Squad can not move to " + newTile.rcStr
-        thisTop()
-      }/* { l =>
-        squad.action = Move(l: _*)
-        mainRepaint(frame)
-        statusText = Squad.toString()
-        thisTop()
-      }*/
+    case (RightButton, AnysHead(HSquad(hc2, squad)), AnysHead(newTile: HCen)) =>
+    {
+      deb("Move") //}
+      grid.findPath(hc2, newTile)((_, _) => SomeInt(1)).fold[Unit]
+        {
+          statusText = "Squad can not move to " + newTile.rcStr
+          thisTop()
+        }
+        { (l: List[HCen]) =>
+          //squad.action = Move(l: _*)
+          mainRepaint(frame)
+          statusText = Squad.toString()
+          thisTop()
+        }
+    }
 
-    case (MiddleButton, AnysHead(squad : Squad), hits) => hits.hCenForFirst{ hc2 =>
+    case (MiddleButton, AnysHead(HSquad(_, squad)), hits) => hits.hCenForFirst{ hc2 =>
       squad.action = Fire(hc2)
       deb("Fire")
       mainRepaint(frame)

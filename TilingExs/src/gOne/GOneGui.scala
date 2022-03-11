@@ -25,7 +25,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
   def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, p) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
-    urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc), str, 24, 2.0)
+    urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
@@ -61,7 +61,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
       thisTop()
     }
 
-    case (RightButton, AnysHead(HPlayer(_, hc1)), hits) => hits.hCenForFirst{ hc2 =>
+    case (RightButton, AnysHead(HPlayer(hc1, _)), hits) => hits.hCenForFirst{ hc2 =>
       val newM: OptRef[HStep] = hc1.findStep(hc2)
       newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()

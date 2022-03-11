@@ -43,7 +43,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
       thisTop()
     }
 
-    case (RightButton, ArrHead(HPlayer(p, hc1)), hits) => hits.hCenForFirst{ hc2 =>
+    case (RightButton, ArrHead(HPlayer(hc1, _)), hits) => hits.hCenForFirst{ hc2 =>
      val newM: OptRef[HStep] = hc1.findStep(hc2)
      // newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()

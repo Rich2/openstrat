@@ -89,3 +89,16 @@ trait HexMem[A]
 { val hc: HCen
   val value: A
 }
+
+object HexMem
+{
+  def apply[A](hc: HCen, value: A): HexMem[A] = HexMemImp[A](hc, value)
+  case class HexMemImp[A](hc: HCen, value: A) extends HexMem[A]
+}
+
+trait HexMemShow[A] extends HexMem[A] with Show2[HCen, A]
+{ override def show1: HCen = hc
+  override def name1: String = "hCen"
+  override implicit def showT1: ShowT[HCen] = HCen.persistEv
+  override def show2: A = value
+}
