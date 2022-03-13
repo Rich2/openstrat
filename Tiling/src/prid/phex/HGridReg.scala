@@ -116,7 +116,7 @@ class HGridReg(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, v
   /* Methods that operate on Hex tile sides. ******************************************************/
 
   /** Combine adjacent tiles of the same value. */
-  override def adjTilesOfTile(tile: HCen): HCens = adjTilesOfTile(tile).filter{hc => (hc.r, hc.c) match {
+  override def adjTilesOfTile(tile: HCen): HCens = tile.neibs.filter{hc => (hc.r, hc.c) match {
     case (r, _) if r > topCenRow => false
     case (r, _) if r < bottomCenRow => false
     case (_, c) if c > rightCenCol => false

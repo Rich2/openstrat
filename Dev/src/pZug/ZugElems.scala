@@ -2,7 +2,7 @@
 package ostrat; package pZug
 import prid._, phex._
 
-case class Squad(polity: Polity, var action: Action = NoAction) extends Coloured
+case class Squad(polity: Polity, var action: ZugAction = NoAction) extends Coloured
 { def colour = polity.colour
 }
 

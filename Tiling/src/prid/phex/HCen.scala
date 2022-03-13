@@ -49,6 +49,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TileCen
 
   def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2, colour)
   def decText(fontSize: Double = 12, colour: Colour = Black) = this.rcStr.toTextGraphic(fontSize, toPt2, colour)
+
+  def neibs: HCens = HCen.neibs00.map(n => HCen(r + n.r, c + n.c))
 }
 
 /** Companion object of HCen trait, contains HVert values for hex tile 0, 0. As well as apply method and Show implicit. */
@@ -73,7 +75,7 @@ object HCen
   val h00v6: HVert = HVert(1, 0)
   val vertsOfHex00: HVerts = HVerts(h00v1, h00v2, h00v3, h00v4, h00v5, h00v6)
 
-  val hCen0Neibs: HCens = HCens(HCen(2, 2))
+  val neibs00: HCens = HCens(HCen(2, 2), HCen(0, 4), HCen(-2, 2), HCen(-2, -2), HCen(0, -4), HCen(2, -2))
 
   /** implicit [[Persist]] instance / evidence for [[HCen]]. */
   implicit val persistEv: Persist[HCen] = new PersistShowInt2[HCen]("HCen", "r", "c", HCen(_, _))
