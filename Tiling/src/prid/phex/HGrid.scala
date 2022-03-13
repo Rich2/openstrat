@@ -108,35 +108,13 @@ trait HGrid extends Any with TGrid with HGridBased
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numTiles))
 
-  /** Combine adjacent tiles of the same value. */
-  /*def combinedPolygons[A <: AnyRef](implicit arr: HCenArr[A]): Arr[(HVertPolygon, A)] =
-  {
-    implicit def grid: HGrid = this
-    if (numCenRows > 0)
-    {
-      val incomplete: ArrayBuffer[(HVertPolygon, A)] = Buff()
-      val complete: ArrayBuffer[(HVertPolygon, A)] = Buff()
-
-      foreachRow { r =>
-        var curr: Option[(HVertPolygon, A)] = None
-        rowIForeach(r) { (hc, i) =>
-          val newValue: A = arr(hc)(this)
-          curr match {
-            case None => curr = Some((hc.hVertPolygon, newValue))
-            case Some((p, a)) if a == newValue =>
-            case Some(pair) => incomplete.append(pair)
-          }
-        }
-      }
-      ???
-    }
-    else Arr()
-  }*/
 
   def adjTilesOfTile(tile: HCen): HCens
 
+  def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCens] = findPathList(startCen, endCen)(fTerrCost).map(_.toImut)
+
   /** Finds path from Start hex tile centre to end tile centre given the cost function parameter. */
-  def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCens] =
+  def findPathList(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[List[HCen]] =
   {
     var open: List[Node] = Node(startCen, 0, getHCost(startCen, endCen), NoRef) :: Nil
     var closed: List[Node] = Nil
@@ -170,7 +148,7 @@ trait HGrid extends Any with TGrid with HGridBased
     }
     def loop(acc: List[HCen], curr: Node): List[HCen] = curr.parent.fld(acc, loop(curr.tile :: acc, _))
 
-    found.map(endNode =>  loop(Nil, endNode).toImut)
+    found.map(endNode =>  loop(Nil, endNode))
   }
 
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of

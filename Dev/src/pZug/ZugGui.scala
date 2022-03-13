@@ -38,14 +38,14 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
     case (RightButton, AnysHead(HSquad(hc2, squad)), AnysHead(newTile: HCen)) =>
     {
       deb("Move") //}
-      grid.findPath(hc2, newTile)((_, _) => SomeInt(1)).fold[Unit]
+      grid.findPathList(hc2, newTile)((_, _) => SomeInt(1)).fold[Unit]
         {
           statusText = "Squad can not move to " + newTile.rcStr
           thisTop()
         }
         { (l: List[HCen]) =>
           deb("Valid Move")
-          //squad.action = Move(l: _*)
+          squad.action = Move(l: _*)
           mainRepaint(frame)
           statusText = Squad.toString()
           thisTop()

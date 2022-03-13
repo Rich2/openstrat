@@ -59,4 +59,10 @@ case class Fire(hCen: HCen) extends ZugAction
 { override def toString: String = "Fire" + hCen.rcStr
 }
 
+case class Move(hCens: HCens) extends ZugAction
+
+object Move
+{ def apply(hCens: HCen*): ZugAction = new Move(HCens(hCens:_*))
+}
+
 object NoAction extends ZugAction
