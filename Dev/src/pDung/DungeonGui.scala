@@ -7,7 +7,7 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
 {
   statusText = "Welcome to Dungeon Gui"
   implicit def grid: TileGridOld = scen.grid
-  val scale = grid.fullDisplayScale(mainWidth, mainHeight)
+  val scale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
   val terrs = scen.terrs
   val tiles = grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
   val sls = grid.sidesDraw(2.0)

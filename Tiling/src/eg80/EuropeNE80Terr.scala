@@ -2,8 +2,8 @@
 package ostrat; package eg80
 import egrid._, pEarth._, prid._, phex._, WTile._
 
-/** The new 80 Km grid for North West Europe. The c or column offset is 1536 which is 1G0 in base 32. The c offset for North East Europe will be 1536
- *  or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
+/** The new 80 Km grid for North East Europe, 15E to 45E. The c or column offset for 30E is 1536 which is 1G0 in base 32. Current y offset is 300 for
+ *  the equator. The Old c offset was 400 so a diff of 1136. */
 object EuropeNE80Terr {
   def apply(): HCenArr[WTile] =
   {
