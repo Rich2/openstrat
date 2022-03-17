@@ -2,6 +2,7 @@
 package ostrat; package prid; package phex
 import geom._
 
+/** A trait for classes of line paths specified by [[[HCen]] hex grid tile centre coordinates. Can't remember why this is a trait. */
 trait HCenPathTr extends Any
 {
   def arrayUnsafe: Array[Int]
@@ -60,6 +61,7 @@ trait HCenPathCompanion[T <: HCenPathTr]
   }
 }
 
+/** A line path specified in hex grid centre coordinates. */
 class HCenPath(val arrayUnsafe: Array[Int]) extends AnyVal with HCenPathTr
 {
 

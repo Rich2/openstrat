@@ -42,7 +42,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
         statusText = "Squad can not move to " + newTile.rcStr
         thisTop()
       } { (hcs: HCens) =>
-          deb("Valid Move")
+          deb("Valid Move " + hcs.toString)
           squad.action = Move(hcs)
           mainRepaint(frame)
           statusText = Squad.toString()

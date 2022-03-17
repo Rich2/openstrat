@@ -11,7 +11,7 @@ class HCens(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[HCen]
 
   override def typeStr: String = "HCens"
 
-  override def fElemStr: HCen => String = _ => "Not implemented"
+  override def fElemStr: HCen => String = _.toString
 }
 
 /** Companion object for [[HCens]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
