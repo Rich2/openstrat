@@ -108,7 +108,6 @@ trait HGrid extends Any with TGrid with HGridBased
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numTiles))
 
-
   def adjTilesOfTile(tile: HCen): HCens
 
   def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCens] = findPathList(startCen, endCen)(fTerrCost).map(_.toImut)
@@ -116,13 +115,13 @@ trait HGrid extends Any with TGrid with HGridBased
   /** Finds path from Start hex tile centre to end tile centre given the cost function parameter. */
   def findPathList(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[List[HCen]] =
   {
-    var open: List[Node] = Node(startCen, 0, getHCost(startCen, endCen), NoRef) :: Nil
-    var closed: List[Node] = Nil
-    var found: Option[Node] = None
+    var open: List[HNode] = HNode(startCen, 0, getHCost(startCen, endCen), NoRef) :: Nil
+    var closed: List[HNode] = Nil
+    var found: Option[HNode] = None
 
     while (open.nonEmpty & found == None)
     {
-      val curr: Node = open.minBy(_.fCost)
+      val curr: HNode = open.minBy(_.fCost)
       open = open.filterNot(_ == curr)
       closed ::= curr
       val neighbs: HCens = adjTilesOfTile(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
@@ -137,7 +136,7 @@ trait HGrid extends Any with TGrid with HGridBased
               case Some(node) if newGCost < node.gCost => node.gCost = newGCost; node.parent = OptRef(curr)
               case Some(_) =>
               case None =>
-              { val newNode = Node(tile, newGCost, getHCost(tile, endCen), OptRef(curr))
+              { val newNode = HNode(tile, newGCost, getHCost(tile, endCen), OptRef(curr))
                 open ::= newNode
                 if (tile == endCen) found = Some(newNode)
               }
@@ -146,7 +145,7 @@ trait HGrid extends Any with TGrid with HGridBased
         }
       }
     }
-    def loop(acc: List[HCen], curr: Node): List[HCen] = curr.parent.fld(acc, loop(curr.tile :: acc, _))
+    def loop(acc: List[HCen], curr: HNode): List[HCen] = curr.parent.fld(acc, loop(curr.tile :: acc, _))
 
     found.map(endNode =>  loop(Nil, endNode))
   }
@@ -223,6 +222,7 @@ trait HGrid extends Any with TGrid with HGridBased
   def newSideBooleans: HSideBooleans = new HSideBooleans(new Array[Boolean](numSides))
 }
 
-case class Node(val tile: HCen, var gCost: Int, var hCost: Int, var parent: OptRef[Node])
+/** Hex grid path finding node. */
+case class HNode(val tile: HCen, var gCost: Int, var hCost: Int, var parent: OptRef[HNode])
 { def fCost = gCost + hCost
 }

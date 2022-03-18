@@ -106,6 +106,9 @@ package object ostrat
   def readInt: Int = readT[Int]
   def readDouble: Double = readT[Double]
 
+  @inline def Buffer[A](inp: A*): ArrayBuffer[A] = ArrayBuffer[A](inp :_*)
+
+
   @inline def Buff[A](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
   @inline def buffInt(initialLength: Int = 5): ArrayBuffer[Int] = new ArrayBuffer[Int](initialLength)
 
