@@ -5,11 +5,11 @@ import geom._
 /** A trait for classes of line paths specified by [[[HCen]] hex grid tile centre coordinates. Can't remember why this is a trait. */
 trait HCenPathTr extends Any
 {
-  def arrayUnsafe: Array[Int]
-  @inline final def startR: Int = arrayUnsafe(0)
-  @inline final def startC: Int = arrayUnsafe(1)
+  def unsafeArray: Array[Int]
+  @inline final def startR: Int = unsafeArray(0)
+  @inline final def startC: Int = unsafeArray(1)
   def start: HCen = HCen(startR, startC)
-  def segNum: Int = arrayUnsafe.length - 2
+  def segNum: Int = unsafeArray.length - 2
 
   def segsForeach[U](f: LineSeg => U): Unit =
   { var count = 0
@@ -19,7 +19,7 @@ trait HCenPathTr extends Any
     var r2: Int = 0
     var c2: Int = 0
     while (count < segNum)
-    { arrayUnsafe(count + 2) match
+    { unsafeArray(count + 2) match
       { case 1 => { r2 = r1 + 2; c2 = c1 + 2 }
         case 2 => { r2 = r1; c2 = c1 + 4 }
         case 3 => { r2 = r1 - 2; c2 = c1 + 2 }
@@ -62,7 +62,10 @@ trait HCenPathCompanion[T <: HCenPathTr]
 }
 
 /** A line path specified in hex grid centre coordinates. */
-class HCenPath(val arrayUnsafe: Array[Int]) extends AnyVal with HCenPathTr
-{
-
+class LinePathHC(val unsafeArray: Array[Int]) extends AnyVal with HCenPathTr with LinePathInt2s[HCen]
+{ override type ThisT = LinePathHC
+  override def typeStr: String = "HCenPath"
+  override def dataElem(i1: Int, i2: Int): HCen = HCen(i1, i2)
+  override def unsafeFromArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
+  override def fElemStr: HCen => String = _.toString
 }

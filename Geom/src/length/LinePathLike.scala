@@ -16,6 +16,9 @@ trait LinePathDblNs[A <: ElemDblN] extends  Any with LinePathLike[A] with DataDb
 trait LinePathDbl2s[A <: ElemDbl2] extends Any with LinePathDblNs[A] with DataDbl2s[A]
 trait LinePathDbl3s[A <: ElemDbl3] extends Any with LinePathDblNs[A] with DataDbl3s[A]
 
+trait LinePathIntNs[A <: ElemIntN] extends  Any with LinePathLike[A] with DataIntNs[A]
+trait LinePathInt2s[A <: ElemInt2] extends Any with LinePathIntNs[A] with DataInt2s[A]
+
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
  * the companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
@@ -79,4 +82,27 @@ trait LinePathDbl3sBuilder[B <: ElemDbl3, BB <: LinePathDbl3s[B]] extends LinePa
   final override def elemProdSize = 3
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl3
     arr.unsafeArray(index * 2 + 2) = value.dbl3 }
+}
+
+/** Trait for creating the builder type class instances for [[LinePathIntNs]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
+ *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
+ *  ```map(f: A => B): ArrB``` function. */
+trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntNs[B] ] extends LinePathValueNsBuilder[B, BB]
+{ type BuffT <: BuffIntNs[B]
+  def fromIntArray(array: Array[Int]): BB
+  def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
+  final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
+  final override def newArr(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
+  final override def buffToBB(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
+  final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
+  final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
+}
+
+/** Trait for creating the line path type class instances for [[LinePathInt2s]] final classes. Instances for the [[LinePathInt2sBuilder]] type class,
+ *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemInt2]]. The first type parameter is called
+ *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
+trait LinePathInt2sBuilder[B <: ElemInt2, BB <: LinePathInt2s[B]] extends LinePathIntNsBuilder[B, BB]
+{ type BuffT <: BuffInt2s[B]
+  final override def elemProdSize = 2
+  override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.int1; arr.unsafeArray(index * 2 + 1) = value.int2 }
 }

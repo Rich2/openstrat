@@ -86,6 +86,12 @@ object HCen
     override def fromIntArray(array: Array[Int]): HCens = new HCens(array)
     override def fromIntBuffer(inp: Buff[Int]): HCenBuff = new HCenBuff(inp)
   }
+
+  implicit val linePathbuildEv: LinePathInt2sBuilder[HCen, LinePathHC] = new LinePathInt2sBuilder[HCen, LinePathHC]{
+    override type BuffT = HCenBuff
+    override def fromIntArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
+    override def fromIntBuffer(inp: Buff[Int]): HCenBuff = new HCenBuff(inp)
+  }
 }
 
 /** Not sure about this trait for occupants of a hex tile. */

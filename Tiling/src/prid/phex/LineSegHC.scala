@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._
 
 /** A 2d line upon a HexGrid defined by its start and end [[HGrid]] [[HCoord]]s. */
-case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[HCoord] //extends ProdInt4
+case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[HCoord]
 {
   def _1: Int = r1
   def _2: Int = c1
