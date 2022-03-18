@@ -7,6 +7,6 @@ import annotation.unchecked.uncheckedVariance
 trait DataImut[+A] extends Any with DataGen[A @uncheckedVariance]
 { type ThisT <: DataImut[A]
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised ArrT of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[DataImut]] of the this [[SeqImut]]'s final type. */
   def unsafeSameSize(length: Int): ThisT
 }

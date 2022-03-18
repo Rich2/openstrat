@@ -157,19 +157,20 @@ package object geom
   {
     /** Converts to a [[LinePathLike]] with points of type A. Most commonly a Refs. */
     def toLinePath[AA <: LinePathLike[A]](implicit builder: LinePathBuilder[A, AA]): AA =
-    { val len = thisIter.size
+    {
+      val len = thisIter.size
       val res = builder.newLinePath(len)
       thisIter.iForeach((i, a) => res.unsafeSetElem(i, a))
       res
     }
 
     /** Converts to a [[PolygonLike]] with points of type A. Most commonly a Refs. */
-    /*def toPolygon[AA <: PolygonLike[A]](implicit builder: PolygonBuilder[A, AA]): AA =
+    def toPolygon[AA <: PolygonLikeData[A]](implicit builder: PolygonBuilderData[A, AA]): AA =
     { val len = thisIter.size
       val res = builder.newPolygonT(len)
       thisIter.iForeach((i, a) => res.unsafeSetElem(i, a))
       res
-    }*/
+    }
   }
    
   /** 0 degrees or 0 radians */
