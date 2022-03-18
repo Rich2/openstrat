@@ -19,6 +19,7 @@ case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[HCo
   def lineSeg: LineSeg = LineSeg(startPt.toPt2, endPt.toPt2)
 }
 
+/** companion object for [[LineSegHC]] class contains factory apply method. */
 object LineSegHC
 { /** Factory apply method to create a hex coordinate line segment a [[LineSegHC]] from the start and end hex coordinates [[HCoord]]s. */
   def apply(hCoord1: HCoord, hCoord2: HCoord): LineSegHC = new LineSegHC(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)

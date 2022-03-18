@@ -1,17 +1,18 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
-trait LinePathLike[A <: ElemValueN] extends Any with DataValueNs[A]
+/** A generalisation of a line path where the type of the points is not resriscted to [[Pt2]]. */
+trait LinePathLike[A] extends Any with DataImut[A]
 {
   def map[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
-  { val res = build.newArr(dataLength)
+  { val res = build.newLinePath(dataLength)
     dataIForeach((i, p) => res.unsafeSetElem(i, f(p)))
     res
   }
 }
 
-trait LinePathValueNsData[A <: ElemValueN] extends Any with LinePathLike[A]
+trait LinePathValueNsData[A <: ElemValueN] extends Any with LinePathLike[A] with DataValueNs[A]
 trait LinePathDblNs[A <: ElemDblN] extends  Any with LinePathLike[A] with DataDblNs[A]
 trait LinePathDbl2s[A <: ElemDbl2] extends Any with LinePathDblNs[A] with DataDbl2s[A]
 trait LinePathDbl3s[A <: ElemDbl3] extends Any with LinePathDblNs[A] with DataDbl3s[A]
@@ -24,8 +25,8 @@ trait LinePathInt2s[A <: ElemInt2] extends Any with LinePathIntNs[A] with DataIn
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait LinePathBuilder[B <: ElemValueN, BB <: LinePathLike[B]] extends DataBuilder[B, BB]
-{ def newArr(length: Int): BB
+trait LinePathBuilder[B, BB <: LinePathLike[B]] extends DataBuilder[B, BB]
+{ def newLinePath(length: Int): BB
   def arrSet(arr: BB, index: Int, value: B): Unit
 
   def buffContains(buff: BuffT, newElem: B): Boolean =
@@ -59,7 +60,7 @@ trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblNs[B] ] extends LineP
   def fromDblArray(array: Array[Double]): BB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
-  final override def newArr(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
+  final override def newLinePath(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuffer.toArray)
   final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
@@ -92,7 +93,7 @@ trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntNs[B] ] extends LineP
   def fromIntArray(array: Array[Int]): BB
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
-  final override def newArr(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
+  final override def newLinePath(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
   final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)

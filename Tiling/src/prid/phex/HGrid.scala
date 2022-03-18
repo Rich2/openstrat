@@ -110,6 +110,8 @@ trait HGrid extends Any with TGrid with HGridBased
 
   def adjTilesOfTile(tile: HCen): HCens
 
+  def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
+
   def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCens] = findPathList(startCen, endCen)(fTerrCost).map(_.toImut)
 
   /** Finds path from Start hex tile centre to end tile centre given the cost function parameter. */

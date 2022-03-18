@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** Extension methods for [[Iterable]][A]. */
@@ -21,10 +21,10 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   /** If the collection is nonEmpty, return head of list convert to string or return the defualt string. */
   def headToStringElse(elseString: => String): String = headOnly(elseString, _.toString)
   
-  /** Converts to ArrImut of A. Most commonly a Refs. Prefer the mapArr method where appropriate which combines the converson with a map operation. */
-  def toImut[AA <: SeqImut[A]](implicit bu: ArrBuilder[A, AA]): AA =
+  /** Converts to [[SeqImut]] of A. Most commonly an [[Arr]]. Prefer the mapArr method where appropriate which combines the conversion with a map operation. */
+  def toImut[AA <: SeqImut[A]](implicit builder: ArrBuilder[A, AA]): AA =
   { val len = thisIter.size
-    val res = bu.newArr(len)
+    val res = builder.newArr(len)
     iForeach((i, a) => res.unsafeSetElem(i, a))
     res
   }

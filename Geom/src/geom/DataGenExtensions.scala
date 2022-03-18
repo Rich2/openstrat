@@ -6,7 +6,7 @@ class DataGenExtensions[A](val al : DataGen[A])
   /** Map this collection of data elements to [[LinePathLike]] class of type BB. */
   def mapLinePath[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   {
-    val res = build.newArr(al.dataLength)
+    val res = build.newLinePath(al.dataLength)
     al.dataIForeach((i, a) => build.arrSet(res, i, f(a)))
     res
   }

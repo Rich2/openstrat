@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and
@@ -151,6 +151,25 @@ package object geom
         case Some(a) => f(a)
         case None => (Seq(), Seq())
      }
+  }
+
+  implicit class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
+  {
+    /** Converts to a [[LinePathLike]] with points of type A. Most commonly a Refs. */
+    def toLinePath[AA <: LinePathLike[A]](implicit builder: LinePathBuilder[A, AA]): AA =
+    { val len = thisIter.size
+      val res = builder.newLinePath(len)
+      thisIter.iForeach((i, a) => res.unsafeSetElem(i, a))
+      res
+    }
+
+    /** Converts to a [[PolygonLike]] with points of type A. Most commonly a Refs. */
+    /*def toPolygon[AA <: PolygonLike[A]](implicit builder: PolygonBuilder[A, AA]): AA =
+    { val len = thisIter.size
+      val res = builder.newPolygonT(len)
+      thisIter.iForeach((i, a) => res.unsafeSetElem(i, a))
+      res
+    }*/
   }
    
   /** 0 degrees or 0 radians */
