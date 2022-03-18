@@ -1,6 +1,26 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, math.sqrt, reflect.ClassTag, collection.mutable.ArrayBuffer
+import geom._, math.sqrt, reflect.ClassTag
+
+trait HGridBased extends Any with TGridBased
+{ /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
+  final def hCenExists(hc: HCen): Boolean = hCenExists(hc.r, hc.c)
+
+  /** Boolean. True if the specified hex centre exists in this hex grid. */
+  def hCenExists(r: Int, c:Int): Boolean
+
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   *  data. */
+  @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
+
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
+   *  Array data. */
+  def arrIndex(r: Int, c: Int): Int
+
+  /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
+  def foreach(f: HCen => Unit): Unit
+}
+
 
 /** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
@@ -79,13 +99,7 @@ trait HGrid extends Any with TGrid with HGridBased
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
-   *  data. */
-  @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
-   *  Array data. */
-  def arrIndex(r: Int, c: Int): Int
 
   /** New immutable Arr of Tile data. */
   final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenArr[A] =

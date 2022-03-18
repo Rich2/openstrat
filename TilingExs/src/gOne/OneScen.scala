@@ -45,3 +45,31 @@ object OneScen
 trait OneScenStart extends OneScen
 { override val turn: Int = 0
 }
+
+trait UneScen extends HexGridBasedScen
+{
+  /** An optional player can occupy each tile. This is the only tile data in the game. */
+  def oPlayers: HCenArrOpt[Player]
+
+  /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
+   * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
+  def endTurn(orderList: Arr[(Player, HCen)]): UneScen ={
+    //val playersKey: Map[Player, HCen] = oPlayers.keyMap
+    ???
+  }
+}
+
+/** Companion object for [[UneScen]] trait, contains factory apply method. */
+object UneScen
+{ /** Factory apply method for OneScen trait. */
+  def apply(turnIn: Int, gridIn: HGridBased, opIn: HCenArrOpt[Player]): UneScen = new UneScen
+  { override val turn = turnIn
+    override implicit val grid: HGridBased = gridIn
+    override def oPlayers: HCenArrOpt[Player] = opIn
+  }
+}
+
+/** This trait just puts the value 0 in for the turn. */
+trait UneScenStart extends UneScen
+{ override val turn: Int = 0
+}
