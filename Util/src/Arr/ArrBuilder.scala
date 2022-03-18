@@ -7,7 +7,7 @@ import reflect.ClassTag, annotation.unused
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait ArrBuilder[B, ArrB <: SeqImut[B]] extends DataBuilder[B, ArrB]
+trait ArrBuilder[B, ArrB <: SeqImut[B]] extends DataImutBuilder[B, ArrB]
 { def newArr(length: Int): ArrB
   def arrSet(arr: ArrB, index: Int, value: B): Unit
 

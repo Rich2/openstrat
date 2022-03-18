@@ -155,7 +155,7 @@ package object geom
 
   implicit class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   {
-    /** Converts to a [[LinePathLike]] with points of type A. Most commonly a Refs. */
+    /** Converts to a [[LinePathLike]] with points of type A. */
     def toLinePath[AA <: LinePathLike[A]](implicit builder: LinePathBuilder[A, AA]): AA =
     {
       val len = thisIter.size
@@ -164,7 +164,7 @@ package object geom
       res
     }
 
-    /** Converts to a [[PolygonLike]] with points of type A. Most commonly a Refs. */
+    /** Converts to a [[PolygonLike]] with points of type A. */
     def toPolygon[AA <: PolygonLikeData[A]](implicit builder: PolygonBuilderData[A, AA]): AA =
     { val len = thisIter.size
       val res = builder.newPolygonT(len)

@@ -21,7 +21,6 @@ trait HGridBased extends Any with TGridBased
   def foreach(f: HCen => Unit): Unit
 }
 
-
 /** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members

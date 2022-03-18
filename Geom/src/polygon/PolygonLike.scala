@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 
@@ -6,9 +6,10 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
  *  scalar values of the standard [[Polygon]].
  *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a
  *            [[PolygonM3]] it would be a [[PtM3]]. */
-trait PolygonLike[VT] extends Any// with DataImut[VT]
+trait PolygonLike[VT] extends Any
 {
   type SideT <: LineSegLike[VT]
+
   /** The number of vertices and also the number of sides in this Polygon. */
   def vertsNum: Int
 

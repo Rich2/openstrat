@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** A Common base trait for [[Arrbuilder]], [[ArrFlatBuilder]] and other builders like Polygon and  LinePath builders. */
@@ -17,7 +17,7 @@ trait DataBuilderCommon[BB]
   def buffToBB(buff: BuffT): BB
 }
 
-trait DataBuilder[B, BB <: DataImut[B]] extends DataBuilderCommon[BB]
+trait DataImutBuilder[B, BB <: DataImut[B]] extends DataBuilderCommon[BB]
 { /** The type of the buffer used for building the target compound class BB. */
   type BuffT <: SeqGen[B]
 
