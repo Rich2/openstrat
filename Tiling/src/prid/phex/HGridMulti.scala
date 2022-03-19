@@ -32,10 +32,7 @@ trait HGridMulti extends HGrider
 
   override def sides: HSides = gridNumsFlatMap{ n => gridSides(n) }
 
-  /** The number of Sides in the TileGrid. Needs reimplementing.
-   *
-   * @group SidesGroup */
-  override def numSides: Int = ???
+  override def numSides: Int = gridNumsFold{(acc, i) => acc + gridNumSides(i) }
 
   override def defaultView(pxScale: Double = 50): HGridView = grids(0).defaultView(pxScale)
 }
