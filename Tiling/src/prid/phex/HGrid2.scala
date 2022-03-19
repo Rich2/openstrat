@@ -29,6 +29,8 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
   override def adjTilesOfTile(tile: HCen): HCens = ???
 
   override def gridSides(gridNum: Int): HSides = ???
+
+  override def gridNumSides(gridNum: Int): Int = ???
 }
 
 object HGrid2

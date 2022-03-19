@@ -10,10 +10,8 @@ trait HGrid extends Any with TGrid with HGriderFlat
 {
   final override def left: Double = leftCenCol - 2
   final override def right: Double = rightCenCol + 2
-
   final override def top: Double = topCenRow * yRatio + 4.0/Sqrt3
   final override def bottom: Double = bottomCenRow * yRatio - 4.0/Sqrt3
-
 
   /** The number of tile centre rows where r %% 4 == 0.  */
   def numRow0s: Int
@@ -128,32 +126,17 @@ trait HGrid extends Any with TGrid with HGriderFlat
   }
   /* Methods that operate on Hex tile sides. ******************************************************/
 
-  /** The number of Sides in the TileGrid. Needs reimplementing.
-   *  @group SidesGroup */
-  def numSides: Int
+
 
   override def sideLines: LineSegs = sideCoordLines.map(_.lineSeg)
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
-  final def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(r => rowForeachSide(r)(f))
+  final override def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(r => rowForeachSide(r)(f))
 
   /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter.
    *  @group */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit
-
-  /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
-   *  @group SidesGroup */
-  final def sidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
-  {
-    val res: ArrT = build.newArr(numSides)
-    var count = 0
-    sidesForeach{hs =>
-      res.unsafeSetElem(count, f(hs))
-      count += 1
-    }
-    res
-  }
 
   /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
    *  @group SidesGroup */

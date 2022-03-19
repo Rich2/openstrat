@@ -46,7 +46,7 @@ trait OneScenStart extends OneScen
 { override val turn: Int = 0
 }
 
-trait UneScen extends HexGridBasedScen
+trait UneScen extends HexGriderScen
 {
   /** An optional player can occupy each tile. This is the only tile data in the game. */
   def oPlayers: HCenArrOpt[Player]

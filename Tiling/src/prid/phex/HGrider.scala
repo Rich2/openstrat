@@ -70,15 +70,37 @@ trait HGrider extends Any with TGrider
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numTiles))
 
+  /** The number of Sides in the TileGrid. Needs reimplementing.
+   *  @group SidesGroup */
+  def numSides: Int
+
+  /** foreach Hex side's coordinate HSide, calls the effectfull function.
+   * @group SidesGroup */
+  def sidesForeach(f: HSide => Unit): Unit = sides.foreach(f)
+
+  /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
+   *  @group SidesGroup */
+  final def sidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  {
+    val res: ArrT = build.newArr(numSides)
+    var count = 0
+    sidesForeach{hs =>
+      res.unsafeSetElem(count, f(hs))
+      count += 1
+    }
+    res
+  }
+
   def sides: HSides
+  def defaultView(pxScale: Double = 50): HGridView
 }
 
 trait HGriderFlat extends Any with HGrider with TGriderFlat
 {
   override def height: Double = top - bottom
 
-  def polygons: Arr[Polygon] //= ???
+  def polygons: Arr[Polygon]
 
   /** The active tiles without any PaintElems. */
-  def activeTiles: Arr[PolygonActive] //= map(_.active())
+  def activeTiles: Arr[PolygonActive]
 }
