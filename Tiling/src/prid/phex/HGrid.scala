@@ -19,6 +19,12 @@ trait HGridBased extends Any with TGridBased
 
   /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
   def foreach(f: HCen => Unit): Unit
+
+  /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
+  def iForeach(f: (HCen, Int) => Unit): Unit
+
+  /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
+  def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit
 }
 
 /** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
@@ -63,8 +69,14 @@ trait HGrid extends Any with TGrid with HGridBased
   final def foreach(f: HCen => Unit): Unit = foreachRow(r => rowForeach(r)(f))
 
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
-  final def iForeach(f: (HCen, Int) => Unit) =
+  final def iForeach(f: (HCen, Int) => Unit): Unit =
   { var count: Int = 0
+    foreachRow{r => count = rowIForeach(r, count)(f) }
+  }
+
+  /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
+  override def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit =
+  { var count: Int = init
     foreachRow{r => count = rowIForeach(r, count)(f) }
   }
 

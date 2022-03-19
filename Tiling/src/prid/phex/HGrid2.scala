@@ -11,8 +11,18 @@ case class HGrid2(minR: Int, maxR: Int, minC1: Int, maxC1: Int, minC2: Int, maxC
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */
-  override def arrIndex(r: Int, c: Int): Int = ???
+  override def arrIndex(r: Int, c: Int): Int = (r, c) match {
+    case (r, c) if grid1.hCenExists(r, c) => grid1.arrIndex(r, c)
+    case (r, c) if grid2.hCenExists(r, c) => grid1.numTiles + grid2.arrIndex(r, c)
+    case (r, c) => excep(s"$r, $c not valid coordinates for this grid.")
+  }
 
   /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
   override def foreach(f: HCen => Unit): Unit = { grid1.foreach(f); grid2.foreach(f) }
+
+  /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
+  override def iForeach(f: (HCen, Int) => Unit): Unit = { grid1.iForeach(f); grid2.iForeach(grid1.numTiles)(f) }
+
+  /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
+  override def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit = { grid1.iForeach(init)(f); grid2.iForeach(init + grid1.numTiles)(f) }
 }
