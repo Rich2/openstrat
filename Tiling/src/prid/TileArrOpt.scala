@@ -1,9 +1,12 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
+/** An efficient immutable array of optional values mapped to a [[TGrid]] tile grid. */
 trait TileArrOpt[A <: AnyRef] extends Any
-{
+{ /** The underlying mutable backing [[Array]]. it is designated unsafe because it uses [[null]]s for run time efficiency. End users should rarely need to access this directly.  */
   def unsafeArr: Array[A]
+
+  /** The length of this tile grid mapped [[Array]] of optional values. */
   def length: Int = unsafeArr.length
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
@@ -25,6 +28,13 @@ trait TileArrOpt[A <: AnyRef] extends Any
         build.buffGrow(buff, newVal)
       }
     }
+    build.buffToBB(buff)
+  }
+
+  /** Returns an ArrBase[A] of type ArrA filtered to the Some values. */
+  def somesArr[ArrA <: SeqImut[A]](implicit build: ArrBuilder[A, ArrA]): ArrA =
+  { val buff = build.newBuff()
+    unsafeArr.foreach { a => if (a != null) build.buffGrow(buff, a) }
     build.buffToBB(buff)
   }
 

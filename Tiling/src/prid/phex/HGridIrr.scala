@@ -45,6 +45,8 @@ class HGridIrr(val bottomCenRow: Int, val unsafeRowsArray: Array[Int]) extends H
     }
   }
 
+  override def sides: HSides = ???
+
   def cSideRowMin(r: Int): Int = ???
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /

@@ -169,6 +169,10 @@ package object ostrat
   def iUntilMap[A, AA <: SeqImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuilder[A, AA]): AA =
     iToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
 
+  /** flatMaps over a range of Ints to an ArrBase[A]. From the start value until (while index is less than) the end value in integer steps.
+   *  Default step value is 1. Throws on non termination. */
+  def iUntilFlatMap[AA <: SeqImut[_]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA = iUntilFlatMap[AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
+
   /** flatMaps over a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps.
    *  Default step value is 1. Throws on non termination. */
   def iToFlatMap[AA <: SeqImut[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA =

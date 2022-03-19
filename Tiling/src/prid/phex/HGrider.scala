@@ -69,6 +69,8 @@ trait HGrider extends Any with TGrider
 
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numTiles))
+
+  def sides: HSides
 }
 
 trait HGriderFlat extends Any with HGrider with TGriderFlat

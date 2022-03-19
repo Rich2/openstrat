@@ -8,52 +8,52 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
   def clone: HCenArrOpt[A] = new HCenArrOpt[A](unsafeArr.clone)
 
   /** Sets the Some value of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def unsafeSetSome(r: Int, c: Int, value: A)(implicit grid: HGrider): Unit = unsafeArr(grid.arrIndex(r, c)) = value
+  def unsafeSetSome(r: Int, c: Int, value: A)(implicit grider: HGrider): Unit = unsafeArr(grider.arrIndex(r, c)) = value
 
   /** Sets the Some value of the hex tile data at the specified [[HCen]] coordinate. This is an imperative mutating operation. */
-  def unsafeSetSome(hc: HCen, value: A)(implicit grid: HGrider): Unit = unsafeArr(grid.arrIndex(hc)) = value
+  def unsafeSetSome(hc: HCen, value: A)(implicit grider: HGrider): Unit = unsafeArr(grider.arrIndex(hc)) = value
 
   /** Sets the Some values of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: HGrider): Unit = triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
+  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grider: HGrider): Unit = triples.foreach(t => unsafeArr(grider.arrIndex(t._1, t._2)) = t._3)
 
   /** Mutates the value ot the specified location to None. */
-  def unsafeSetNone(hc: HCen)(implicit grid: HGridReg): Unit = unsafeArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
+  def unsafeSetNone(hc: HCen)(implicit grider: HGrider): Unit = unsafeArr(grider.arrIndex(hc)) = null.asInstanceOf[A]
 
   def unsafeSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
-  def setSome(hc: HCen, value: A)(implicit grid: HGrider): HCenArrOpt[A] =
+  def setSome(hc: HCen, value: A)(implicit grider: HGrider): HCenArrOpt[A] =
   { val newArr = unsafeArr.clone()
-    newArr(grid.arrIndex(hc)) = value
+    newArr(grider.arrIndex(hc)) = value
     new HCenArrOpt[A](newArr)
   }
 
   /** Creates a new ArrOpt with the specified location set to NoRef. */
-  def setNone(hc: HCen)(implicit grid: HGrider): HCenArrOpt[A] =
+  def setNone(hc: HCen)(implicit grider: HGrider): HCenArrOpt[A] =
   { val newArr = unsafeArr.clone()
-    newArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
+    newArr(grider.arrIndex(hc)) = null.asInstanceOf[A]
     new HCenArrOpt[A](newArr)
   }
 
   /** Moves the object in the array location given by the 1st [[HCen]] to the 2nd [[HCen]], by setting hc2 to the value of hc1 and setting hc1 to
    *  None. */
-  def unsafeMove(hc1: HCen, hc2: HCen)(implicit grid: HGrider): Unit =
-  { unsafeArr(grid.arrIndex(hc2)) = unsafeArr(grid.arrIndex(hc1))
-    unsafeArr(grid.arrIndex(hc1)) = null.asInstanceOf[A]
+  def unsafeMove(hc1: HCen, hc2: HCen)(implicit grider: HGrider): Unit =
+  { unsafeArr(grider.arrIndex(hc2)) = unsafeArr(grider.arrIndex(hc1))
+    unsafeArr(grider.arrIndex(hc1)) = null.asInstanceOf[A]
   }
 
   /** coordinate-foreach-Some. Foreach Some element and its associated [[HCen]] coordinate applies the side effecting parameter function. It ignores
    *  the None values. */
-  def hcSomesForeach(f: (HCen, A) => Unit)(implicit grid: HGrider): Unit = grid.foreach { hc =>
-    val a = unsafeArr(grid.arrIndex(hc))
+  def hcSomesForeach(f: (HCen, A) => Unit)(implicit grider: HGrider): Unit = grider.foreach { hc =>
+    val a = unsafeArr(grider.arrIndex(hc))
     if (a != null) f(hc, a)
   }
 
   /** Coordinate-map. Maps the this Arr of Opt values, with their respective [[HCen]] coordinates to an Arr of type B. */
-  def mapHCen[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (HCen, A) => B)(implicit grid: HGrider, build: ArrBuilder[B, ArrT]): ArrT =
+  def mapHCen[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (HCen, A) => B)(implicit grider: HGrider, build: ArrBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
-    grid.foreach { hc =>
-      val a = unsafeArr(grid.arrIndex(hc))
+    grider.foreach { hc =>
+      val a = unsafeArr(grider.arrIndex(hc))
       if (a != null) build.buffGrow(buff, fSome(hc, a))
       else { val newVal = fNone(hc); build.buffGrow(buff, newVal) }
     }
@@ -61,41 +61,35 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
   }
 
   /** Indexes in to this [[HCenArrOpt]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
-  def apply(hc: HCen)(implicit grid: HGrider): Option[A] =
-  { if (!grid.hCenExists(hc)) None else
-      { val elem = unsafeArr(grid.arrIndex(hc))
+  def apply(hc: HCen)(implicit grider: HGrider): Option[A] =
+  { if (!grider.hCenExists(hc)) None else
+      { val elem = unsafeArr(grider.arrIndex(hc))
         if (elem == null) None else Some(elem)
       }
   }
 
   /** Indexes in to this [[HCenArrOpt]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
-  def apply(r: Int, c: Int)(implicit grid: HGrider): Option[A] = {
-    if (!grid.hCenExists(r, c)) None else {
-      val elem = unsafeArr(grid.arrIndex(r, c))
+  def apply(r: Int, c: Int)(implicit grider: HGrider): Option[A] = {
+    if (!grider.hCenExists(r, c)) None else {
+      val elem = unsafeArr(grider.arrIndex(r, c))
       if (elem == null) None else Some(elem)
     }
   }
 
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
-  def unSafeApply(hc: HCen)(implicit grid: HGrider): A = unsafeArr(grid.arrIndex(hc))
+  def unSafeApply(hc: HCen)(implicit grider: HGrider): A = unsafeArr(grider.arrIndex(hc))
 
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
-  def tileNone(hc: HCen)(implicit grid: HGrider): Boolean = unsafeArr(grid.arrIndex(hc)) == null
+  def tileNone(hc: HCen)(implicit grider: HGrider): Boolean = unsafeArr(grider.arrIndex(hc)) == null
 
-  /** Returns an ArrBase[A] of type ArrA filtered to the Some values. */
-  def somesArr[ArrA <: SeqImut[A]](implicit build: ArrBuilder[A, ArrA]): ArrA =
-  { val buff = build.newBuff()
-    unsafeArr.foreach { a => if (a != null) build.buffGrow(buff, a) }
-    build.buffToBB(buff)
-  }
 
   /** [[HCen]] with Some map. map the Some values of this HcenArrOpt, with the respective [[HCen]] coordinate to type B, the first type parameter B.
    *  Returns an immutable Array based collection of type ArrT, the second type parameter. */
-  def hcSomesMap[B, ArrB <: SeqImut[B]](f: (HCen, A) => B)(implicit grid: HGrider, build: ArrBuilder[B, ArrB]): ArrB =
+  def hcSomesMap[B, ArrB <: SeqImut[B]](f: (HCen, A) => B)(implicit grider: HGrider, build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
-    grid.foreach { hc =>
-      val a: A = unsafeArr(grid.arrIndex(hc))
+    grider.foreach { hc =>
+      val a: A = unsafeArr(grider.arrIndex(hc))
       if(a != null)
       { val newVal = f(hc, a)
         build.buffGrow(buff, newVal)
@@ -106,12 +100,12 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** Maps the Somes of this [[HCenArrOpt]] and the Some values of a second HCenArrOpt. Returns an immutable Array based collection of type ArrC, the
    *  second type parameter. */
-  def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenArrOpt[B])(f: (A, B) => C)(implicit grid: HGrider, build: ArrBuilder[C, ArrC]): ArrC =
+  def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenArrOpt[B])(f: (A, B) => C)(implicit grider: HGrider, build: ArrBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
-    grid.foreach { hc =>
-      val a: A = unsafeArr(grid.arrIndex(hc))
-      val b: B = optArrB.unsafeArr(grid.arrIndex(hc))
+    grider.foreach { hc =>
+      val a: A = unsafeArr(grider.arrIndex(hc))
+      val b: B = optArrB.unsafeArr(grider.arrIndex(hc))
       if(a != null & b != null)
       { val newVal = f(a, b)
         build.buffGrow(buff, newVal)
@@ -122,13 +116,13 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** [[HCen]] with Some values from 2 [[HCenArrOpts]] map to type C. This only maps the values where both collections have Some values. Returns an
    *  immutable Array based collection of type ArrC, the second type parameter. */
-  def hcSome2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenArrOpt[B])(f: (HCen, A, B) => C)(implicit grid: HGrider, build: ArrBuilder[C, ArrC]):
+  def hcSome2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenArrOpt[B])(f: (HCen, A, B) => C)(implicit grider: HGrider, build: ArrBuilder[C, ArrC]):
     ArrC =
   { val buff = build.newBuff()
 
-    grid.foreach { hc =>
-      val a: A = unsafeArr(grid.arrIndex(hc))
-      val b: B = optArrB.unsafeArr(grid.arrIndex(hc))
+    grider.foreach { hc =>
+      val a: A = unsafeArr(grider.arrIndex(hc))
+      val b: B = optArrB.unsafeArr(grider.arrIndex(hc))
       if(a != null)
       { val newVal = f(hc, a, b)
         build.buffGrow(buff, newVal)
@@ -139,11 +133,11 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** maps the [[HCen]] Coordinate values to type B, but only where the element is a None value. Returns an immutable Array based collection of type
    *  ArrB, the second type parameter. */
-  def hcNonesMap[B, ArrB <: SeqImut[B]](f: HCen => B)(implicit grid: HGrider, build: ArrBuilder[B, ArrB]): ArrB =
+  def hcNonesMap[B, ArrB <: SeqImut[B]](f: HCen => B)(implicit grider: HGrider, build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
-    grid.foreach { r =>
-      val a: A = unsafeArr(grid.arrIndex(r))
+    grider.foreach { r =>
+      val a: A = unsafeArr(grider.arrIndex(r))
       if(a == null)
       { val newVal = f(r)
         build.buffGrow(buff, newVal)
@@ -155,11 +149,11 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
   /** [[HCen]] with element flatMap, but only coordinates where there some value. Maps and flattens each [[HCen]] coordinate with its associated
    * element of type A. It ignores the None values. Note the function signature follows the foreach based convention of putting the collection element
    * 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
-  def hcSomesFlatMap[ArrT <: SeqImut[_]](f: (HCen, A) => ArrT)(implicit grid: HGrider, build: ArrFlatBuilder[ArrT]): ArrT =
+  def hcSomesFlatMap[ArrT <: SeqImut[_]](f: (HCen, A) => ArrT)(implicit grider: HGrider, build: ArrFlatBuilder[ArrT]): ArrT =
   {
     val buff = build.newBuff()
-    grid.foreach { hc =>
-      val a = unsafeArr(grid.arrIndex(hc))
+    grider.foreach { hc =>
+      val a = unsafeArr(grider.arrIndex(hc))
       if(a != null)
       { val newVal = f(hc, a)
         build.buffGrowArr(buff, newVal)
@@ -168,13 +162,13 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
     build.buffToBB(buff)
   }
 
-  def keyMap(implicit grid: HGrider): Map[A, HCen] =
+  def keyMap(implicit grider: HGrider): Map[A, HCen] =
   { val build = Map.newBuilder[A, HCen]
     hcSomesForeach((p, hc) => build.addOne(hc, p))
     build.result
   }
 
-  def find(value: A)(implicit grid: HGrider): Option[HCen] =
+  def find(value: A)(implicit grider: HGrider): Option[HCen] =
   { var res: Option[HCen] = None
     hcSomesForeach{ (hc, a) => if (value == a) res = Some(hc)}
     res

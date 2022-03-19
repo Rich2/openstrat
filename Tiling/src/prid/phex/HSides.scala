@@ -26,5 +26,16 @@ object HSides extends DataInt2sCompanion[HSide, HSides]
     override def showDecT(obj: HSides, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  //implicit val arrArrayImplicit: ArrTFlatBuilder[HSides] = HSide.roordsBuildImplicit
+  /** Implicit flatMap builder instance / evidence for [[HSides]]. */
+  implicit val flatBuilderEv: ArrFlatBuilder[HSides] = new ArrInt2sFlatBuilder[HSide, HSides]
+  { type BuffT = HSideBuff
+    override def fromIntArray(array: Array[Int]): HSides = new HSides(array)
+    override def fromIntBuffer(inp: Buff[Int]): HSideBuff = new HSideBuff(inp)
+  }
+}
+
+class HSideBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HSide]
+{ type ArrT = HSides
+  override def typeStr: String = "HSideBuff"
+  override def intsToT(i1: Int, i2: Int): HSide = HSide(i1, i2)
 }

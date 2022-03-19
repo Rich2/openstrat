@@ -26,7 +26,12 @@ object HCens extends DataInt2sCompanion[HCen, HCens]
     override def showDecT(obj: HCens, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  //implicit val arrArrayImplicit: ArrTFlatBuilder[HCens] = HCen.hCensBuildImplicit
+  /** Implicit flatMap builder instance / evidence for [[HCens]]. */
+  implicit val flatBuilderEv: ArrFlatBuilder[HCens] = new ArrInt2sFlatBuilder[HCen, HCens]
+  { type BuffT = HCenBuff
+    override def fromIntArray(array: Array[Int]): HCens = new HCens(array)
+    override def fromIntBuffer(inp: Buff[Int]): HCenBuff = new HCenBuff(inp)
+  }
 }
 
 class HCenBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HCen]

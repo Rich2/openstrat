@@ -42,4 +42,11 @@ object HSide
     case 2 if c.div4Rem0 => new HSide(r, c)
     case _ => excep(s"$r, $c is not a valid Hex edge tile coordinate.")
   }
+
+  /** Implicit [[ArrBuilder]] type class instance / evidence for [[HSide]] and [[HSides]]. */
+  implicit val buildEv: ArrInt2sBuilder[HSide, HSides] = new ArrInt2sBuilder[HSide, HSides]
+  { type BuffT = HSideBuff
+    override def fromIntArray(array: Array[Int]): HSides = new HSides(array)
+    override def fromIntBuffer(inp: Buff[Int]): HSideBuff = new HSideBuff(inp)
+  }
 }

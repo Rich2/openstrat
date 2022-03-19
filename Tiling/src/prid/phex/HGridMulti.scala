@@ -8,7 +8,7 @@ trait HGridMulti extends HGrider
   def numGrids: Int = grids.length
   def gridNumForeach(f: Int => Unit): Unit = iUntilForeach(0, numGrids)(f)
   def gridNumMap[A, AA <: SeqImut[A]](f: Int => A)(implicit build: ArrBuilder[A, AA]): AA = iUntilMap(0, numGrids)(f)
-  //def gridFlatMap[AA <: SeqImut[_]](f: Int => AA)(implicit build: ArrFlatBuilder[AA]): AA = iUntilFlatMap(0, numGrids)(f)
+  def gridFlatMap[AA <: SeqImut[_]](f: Int => AA)(implicit build: ArrFlatBuilder[AA]): AA = iUntilFlatMap(0, numGrids)(f)
 
   override val numTiles: Int = grids.sumBy(_.numTiles)
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
@@ -18,6 +18,10 @@ trait HGridMulti extends HGrider
   { var count = init
     grids.foreach { gr => gr.iForeach(count)(f); count += gr.numTiles }
   }
+
+  def gridSides(gridNum: Int): HSides
+
+  override def sides: HSides = ??? //gridFlatMap{n => gridSides(n)}
 }
 
 trait HGridMultiFlat extends HGridMulti with HGriderFlat
@@ -36,6 +40,7 @@ trait HGridMultiFlat extends HGridMulti with HGriderFlat
   override def polygons: Arr[Polygon] = gridOffsetsFlatMap((g, offset) => g.polygons.slate(offset))
 
   override def activeTiles: Arr[PolygonActive] = gridOffsetsFlatMap{(grid, offset) => grid.map{ hc => hc.polygonReg.slate(offset).active(hc)} }
+
 
 
 
