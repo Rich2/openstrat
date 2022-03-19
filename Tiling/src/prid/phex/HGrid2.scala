@@ -1,17 +1,23 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
+import geom._
 
 /** This class may be removed. Its ofr the development of [[HGrider]]. So just 2 regular grids side by side, to make an easy start on the general problem. */
-class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends HGridMultiFlat
+final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends HGridMultiFlat
 {
   val grid1 = HGridReg(minCenR, maxCenR, minC1, maxC1)
   val grid2 = HGridReg(minCenR, maxCenR, minC2, maxC2)
 
   override val grids: Arr[HGrid] = Arr(grid1, grid2)
-  final override def top: Double = maxCenR * Sqrt3 + 4.0/Sqrt3
-  final override def bottom: Double = minCenR * Sqrt3 - 4.0/Sqrt3
+  val grid1Offset = 0 vv 0
+  val grid2Offset = 0 vv (grid1.right - grid2.left - 2)
 
-  /** Boolean. True if the specified hex centre exists in this hex grid. */
+  override def gridsOffsets: Vec2s = Vec2s(grid1Offset, grid2Offset)
+
+  override def top: Double = maxCenR * Sqrt3 + 4.0/Sqrt3
+  override def bottom: Double = minCenR * Sqrt3 - 4.0/Sqrt3
+  override def left: Double = grid1.left
+  override def right: Double = grid1.right + grid2.width - 2
   override def hCenExists(r: Int, c: Int): Boolean = grid1.hCenExists(r, c) | grid2.hCenExists(r, c)
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /

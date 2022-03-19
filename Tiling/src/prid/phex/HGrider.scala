@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import reflect.ClassTag, math.sqrt
+import geom._, reflect.ClassTag, math.sqrt
 
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
 trait HGrider extends Any with TGrider
@@ -74,4 +74,9 @@ trait HGrider extends Any with TGrider
 trait HGriderFlat extends Any with HGrider with TGriderFlat
 {
   override def height: Double = top - bottom
+
+  def polygons: Arr[Polygon] //= ???
+
+  /** The active tiles without any PaintElems. */
+  def activeTiles: Arr[PolygonActive] //= map(_.active())
 }

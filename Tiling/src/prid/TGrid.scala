@@ -21,6 +21,12 @@ trait TGriderFlat extends Any with TGrider{
 
   /** Height of the tile grid from furthest tile edge or vertex to furthest tile edge or vertex. */
   def height: Double
+
+  /** The left most point in the grid where x is minimum. */
+  def left: Double
+
+  /** The right most point in the grid where the value of x is maximum. */
+  def right: Double
 }
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
@@ -76,11 +82,7 @@ trait TGrid extends Any with TGriderFlat
   /** Width of the tile Grid from furthest tile edge to furthest tile edge. */
   def width: Double
 
-  /** The left most point in the grid where x is minimum. */
-  def left: Double
 
-  /** The right most point in the grid where the value of x is maximum. */
-  def right: Double
 
 
   /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */

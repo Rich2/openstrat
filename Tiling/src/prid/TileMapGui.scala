@@ -1,10 +1,10 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._, pgui._
 
 abstract class TileMapGui(title: String) extends CmdBarGui(title)
 { /** Tile grid this gui displays. */
-  def grid: TGrid
+  def grid: TGriderFlat
 
   /** The number of pixels displayed per c column coordinate. */
   var cPScale: Double

@@ -1,5 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import scala.collection.mutable.ArrayBuffer
 import scala.math.{Pi, atan}
 
 /** A 2 dimensional vector. This is similar data to [[Pt2]]. The purpose of this separate type is to encode the relative nature of the Vec2 as opposed
@@ -98,6 +99,12 @@ object Vec2
 
   /** unapply extractor method for [[Vec2]]s. */
   def unapply(orig: Vec2): Option[(Double, Double)] = Some((orig.x, orig.y))
+
+  implicit val buildImplicit: ArrDbl2sBuilder[Vec2, Vec2s] = new ArrDbl2sBuilder[Vec2, Vec2s]
+  { override type BuffT = BuffVec2
+    override def fromDblArray(array: Array[Double]): Vec2s = new Vec2s(array)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(inp)
+  }
 
   /** implicit [[Persist]] type class instance / evidence for [[Vec2]]s. */
   implicit val persistImplicit: PersistShowDbl2[Vec2] = new PersistShowDbl2[Vec2]("Vec2", "x", "y", apply)

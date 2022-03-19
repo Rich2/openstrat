@@ -6,7 +6,7 @@ import geom._
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
-trait HGrid extends Any with TGrid with HGrider
+trait HGrid extends Any with TGrid with HGriderFlat
 {
   final override def left: Double = leftCenCol - 2
   final override def right: Double = rightCenCol + 2
@@ -66,7 +66,7 @@ trait HGrid extends Any with TGrid with HGrider
   override def foreachCenCoord(f: TileCoord => Unit): Unit = foreach(f)
 
   /** The active tiles without any PaintElems. */
-  def activeTiles: Arr[PolygonActive] = map(_.active())
+  override def activeTiles: Arr[PolygonActive] = map(_.active())
 
   def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
