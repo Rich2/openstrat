@@ -12,16 +12,12 @@ class HGridReg(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, v
   }
 
   override def width: Double = xRight - left
-  override def height: Double =xTop - xBottom
+  override def height: Double = top - bottom
 
   /** The right most point of the grid. */
   def xRight: Double = (rightCenCol + 2)// * xRatio
 
-  /** The top point of the grid. */
-  def xTop: Double = topCenRow * yRatio + 4.0/Sqrt3
 
-  /** The bottom point of the grid. */
-  def xBottom: Double = bottomCenRow * yRatio - 4.0/Sqrt3
 
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCenOrSide = HCenOrSide(rCen, cCen)

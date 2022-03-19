@@ -7,6 +7,20 @@ trait TGrider extends Any
 {
   /** The total number of tile centres in this tile Grid system. */
   def numTiles: Int
+
+  /** the ratio of r => y, when translating from [[TCoord]] tile grid coordinates to [[Pt2]] and [[Vec2]]s. */
+  def yRatio: Double
+}
+
+trait TGriderFlat extends Any with TGrider{
+  /** The top most point in the grid where the value of y is maximum. */
+  def top: Double
+
+  /** The bottom most point in the grid where the value of y is minimum. */
+  def bottom: Double
+
+  /** Height of the tile grid from furthest tile edge or vertex to furthest tile edge or vertex. */
+  def height: Double
 }
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
@@ -24,7 +38,7 @@ trait TGrider extends Any
  *  @groupdesc SidesGroup Methods that operate on the tile sides of the grid. Remember a TileGrid object contains no data about the sides or the
  *             boundaries of the tiles.
  *  @groupprio SidesGroup 1010 */
-trait TGrid extends Any with TGrider
+trait TGrid extends Any with TGriderFlat
 {
   /** Number of rows of tile centres. This will be different to the number of rows of sides and and will be different to the number of rows of
    *  vertices for HexGrids. */
@@ -62,25 +76,12 @@ trait TGrid extends Any with TGrider
   /** Width of the tile Grid from furthest tile edge to furthest tile edge. */
   def width: Double
 
-  /** Height of the tile grid from furthest tile edge or vertex to furthest tile edge or vertex. */
-  def height: Double
-
-
-
-  /** the ratio of r => y, when translating from [[TCoord]] tile grid coordinates to [[Pt2]] and [[Vec2]]s. */
-  def yRatio: Double
-
   /** The left most point in the grid where x is minimum. */
   def left: Double
 
   /** The right most point in the grid where the value of x is maximum. */
   def right: Double
 
-  /** The top most point in the grid where the value of y is maximum. */
-  def top: Double
-
-  /** The bottom most point in the grid where the value of y is minimum. */
-  def bottom: Double
 
   /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
   @inline def xCen: Double = (leftCenCol + rightCenCol) / 2

@@ -13,3 +13,5 @@ trait HGridMulti extends HGrider
     grids.foreach { gr => gr.iForeach(count)(f); count += gr.numTiles }
   }
 }
+
+trait HGridMultiFlat extends HGridMulti with HGriderFlat

@@ -8,7 +8,7 @@ import reflect.ClassTag
  * through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
 class HCenArr[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TileCenArr[A]
 {
-  def apply(hc: HCen)(implicit grid: HGrid): A = unsafeArray(grid.arrIndex(hc))
+  def apply(hc: HCen)(implicit grider: HGrider): A = unsafeArray(grider.arrIndex(hc))
   def rc(r: Int, c: Int)(implicit grid: HGrid): A = unsafeArray(grid.arrIndex(r, c))
 
   /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature

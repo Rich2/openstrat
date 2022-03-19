@@ -60,10 +60,10 @@ trait UneScen extends HexGridBasedScen
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
     val targets: HCenArrOfBuff[HCen] = grid.newHCenArrOfBuff
 
-    orderList.foreach { (player: Player, step: HCen) =>
+    orderList.foreach { (player: Player, target: HCen) =>
       val hc1: HCen = playersKey(player)
      // val optTarget: Option[HCen] = hc1.stepOpt(step)
-      targets.appendAt(step, hc1)
+      targets.appendAt(target, hc1)
     }
 
     ???

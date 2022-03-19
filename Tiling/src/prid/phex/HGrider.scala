@@ -1,10 +1,14 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import reflect.ClassTag
+import reflect.ClassTag, math.sqrt
 
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
 trait HGrider extends Any with TGrider
-{ /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
+{
+  /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
+  override def yRatio: Double = sqrt(3)
+
+  /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
   final def hCenExists(hc: HCen): Boolean = hCenExists(hc.r, hc.c)
 
   /** Boolean. True if the specified hex centre exists in this hex grid. */
@@ -17,6 +21,8 @@ trait HGrider extends Any with TGrider
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array data. */
   def arrIndex(r: Int, c: Int): Int
+
+  def adjTilesOfTile(tile: HCen): HCens
 
   /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
   def foreach(f: HCen => Unit): Unit
@@ -63,4 +69,9 @@ trait HGrider extends Any with TGrider
 
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numTiles))
+}
+
+trait HGriderFlat extends Any with HGrider with TGriderFlat
+{
+  override def height: Double = top - bottom
 }

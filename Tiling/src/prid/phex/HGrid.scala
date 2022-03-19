@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, math.sqrt
+import geom._
 
 /** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
@@ -10,8 +10,10 @@ trait HGrid extends Any with TGrid with HGrider
 {
   final override def left: Double = leftCenCol - 2
   final override def right: Double = rightCenCol + 2
-  final override def top: Double = topCenRow * Sqrt3 + 2
-  final override def bottom: Double = bottomCenRow * Sqrt3 - 2
+
+  final override def top: Double = topCenRow * yRatio + 4.0/Sqrt3
+  final override def bottom: Double = bottomCenRow * yRatio - 4.0/Sqrt3
+
 
   /** The number of tile centre rows where r %% 4 == 0.  */
   def numRow0s: Int
@@ -29,9 +31,6 @@ trait HGrid extends Any with TGrid with HGrider
   /** Carries out the procedure function on each [[HCen]] hex tile centre coordinate and an index counter in the given tile row. This method is
    *  defined here rather than on TileGrid so it can take the specific narrow [[HCen]] parameter to the foreach function. */
   def rowIForeach(r: Int, count: Int = 0)(f: (HCen, Int) => Unit): Int
-
-  /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
-  override def yRatio: Double = sqrt(3)
 
   override def coordCen: HCoord
 
@@ -68,8 +67,6 @@ trait HGrid extends Any with TGrid with HGrider
 
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())
-
-  def adjTilesOfTile(tile: HCen): HCens
 
   def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
