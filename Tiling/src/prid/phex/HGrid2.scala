@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** This class may be removed. Its ofr the development of [[HGridBased]]. So just 2 regular grids side by side, to make an easy start on the general problem. */
+/** This class may be removed. Its ofr the development of [[HGrider]]. So just 2 regular grids side by side, to make an easy start on the general problem. */
 case class HGrid2(minR: Int, maxR: Int, minC1: Int, maxC1: Int, minC2: Int, maxC2: Int) extends HGridMulti
 {
   val grid1 = HGridReg(minR, maxR, minC1, maxC1)

@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-trait HGridMulti extends HGridBased
+trait HGridMulti extends HGrider
 {
   def grids: Arr[HGrid]
   override val numTiles: Int = grids.sumBy(_.numTiles)

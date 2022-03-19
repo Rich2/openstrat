@@ -2,7 +2,8 @@
 package ostrat; package prid
 import geom._, Colour.Black
 
-trait TGridBased extends Any
+/** A system of tile grids. Can be a single tile grid or a system of multiple tile grids. */
+trait TGrider extends Any
 {
   /** The total number of tile centres in this tile Grid system. */
   def numTiles: Int
@@ -23,7 +24,7 @@ trait TGridBased extends Any
  *  @groupdesc SidesGroup Methods that operate on the tile sides of the grid. Remember a TileGrid object contains no data about the sides or the
  *             boundaries of the tiles.
  *  @groupprio SidesGroup 1010 */
-trait TGrid extends Any with TGridBased
+trait TGrid extends Any with TGrider
 {
   /** Number of rows of tile centres. This will be different to the number of rows of sides and and will be different to the number of rows of
    *  vertices for HexGrids. */

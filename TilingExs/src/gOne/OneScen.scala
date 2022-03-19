@@ -58,7 +58,14 @@ trait UneScen extends HexGridBasedScen
     val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    val targets: HCenArrOfBuff[HStep] = grid.newHCenArrOfBuff
+    val targets: HCenArrOfBuff[HCen] = grid.newHCenArrOfBuff
+
+    orderList.foreach { (player: Player, step: HCen) =>
+      val hc1: HCen = playersKey(player)
+     // val optTarget: Option[HCen] = hc1.stepOpt(step)
+      targets.appendAt(step, hc1)
+    }
+
     ???
   }
 }
@@ -66,9 +73,9 @@ trait UneScen extends HexGridBasedScen
 /** Companion object for [[UneScen]] trait, contains factory apply method. */
 object UneScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGridBased, opIn: HCenArrOpt[Player]): UneScen = new UneScen
+  def apply(turnIn: Int, gridIn: HGrider, opIn: HCenArrOpt[Player]): UneScen = new UneScen
   { override val turn = turnIn
-    override implicit val grid: HGridBased = gridIn
+    override implicit val grid: HGrider = gridIn
     override def oPlayers: HCenArrOpt[Player] = opIn
   }
 }

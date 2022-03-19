@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 
 trait HexGridBasedScen extends GridTurnScen
 {
-  implicit def grid: HGridBased
+  implicit def grid: HGrider
 }
 
 trait HexGridScen extends HexGridBasedScen{

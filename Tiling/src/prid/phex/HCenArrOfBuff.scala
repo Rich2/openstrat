@@ -5,13 +5,13 @@ import reflect.ClassTag
 /** An [[HCen]] hex tile centre grid Arr of [[ArrayBuffer]]s corresponding to the centres of an [[HGrid]] hex tile grid. */
 class HCenArrOfBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
 { /** Appends value to the array buffer at the given  [[HCen]]vlocation. */
-  def appendAt(y: Int, c: Int, value: A)(implicit grid: HGrid): Unit = appendAt(HCen(y, c), value)
+  def appendAt(y: Int, c: Int, value: A)(implicit grider: HGrider): Unit = appendAt(HCen(y, c), value)
 
   /** Appends value to the array buffer at the given [[HCen]] location. */
-  def appendAt(hCen: HCen, value: A)(implicit grid: HGrid): Unit = unsafeArr(grid.arrIndex(hCen)).append(value)
+  def appendAt(hCen: HCen, value: A)(implicit grider: HGrider): Unit = unsafeArr(grider.arrIndex(hCen)).append(value)
 
   /** Foreach's over the [[HCen]] and the corresponding [[ArrayBuffer]] value. */
-  def foreach(f: (HCen, Buff[A]) => Unit)(implicit grid: HGrid): Unit = grid.foreach{ r => f(r, unsafeArr(grid.arrIndex(r))) }
+  def foreach(f: (HCen, Buff[A]) => Unit)(implicit grider: HGrider): Unit = grider.foreach{ r => f(r, unsafeArr(grider.arrIndex(r))) }
 }
 
 /** Companion object for the hex (centres) grid Array of [[ArrayBuffer]] classes. */
