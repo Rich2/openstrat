@@ -65,6 +65,8 @@ trait HGrid extends Any with TGrid with HGriderFlat
 
   override def foreachCenCoord(f: TileCoord => Unit): Unit = foreach(f)
 
+  override def polygons: Arr[Polygon] = map(_.polygonReg)
+
   /** The active tiles without any PaintElems. */
   override def activeTiles: Arr[PolygonActive] = map(_.active())
 
