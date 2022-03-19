@@ -53,8 +53,12 @@ trait UneScen extends HexGridBasedScen
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
-  def endTurn(orderList: Arr[(Player, HCen)]): UneScen ={
-    //val playersKey: Map[Player, HCen] = oPlayers.keyMap
+  def endTurn(orderList: Arr[(Player, HCen)]): UneScen =
+  {
+    val playersKey: Map[Player, HCen] = oPlayers.keyMap
+
+    /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
+    val targets: HCenArrOfBuff[HStep] = grid.newHCenArrOfBuff
     ???
   }
 }

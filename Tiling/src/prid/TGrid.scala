@@ -4,7 +4,8 @@ import geom._, Colour.Black
 
 trait TGridBased extends Any
 {
-
+  /** The total number of tile centres in this tile Grid system. */
+  def numTiles: Int
 }
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
@@ -63,8 +64,7 @@ trait TGrid extends Any with TGridBased
   /** Height of the tile grid from furthest tile edge or vertex to furthest tile edge or vertex. */
   def height: Double
 
-  /** The total number of tile centres in this tile Grid. */
-  def numTiles: Int
+
 
   /** the ratio of r => y, when translating from [[TCoord]] tile grid coordinates to [[Pt2]] and [[Vec2]]s. */
   def yRatio: Double
