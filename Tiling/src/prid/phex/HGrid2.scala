@@ -30,11 +30,17 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
     case (r, c) => excep(s"$r, $c not valid coordinates for this grid.")
   }
 
-  override def adjTilesOfTile(tile: HCen): HCens = ???
+  def gridNumFold[A](gridNum: Int, if1: => A, if2: A): A = gridNum match
+  { case 0 => if1
+    case 1 => if2
+  }
 
-  override def gridSides(gridNum: Int): HSides = ???
+  override def adjTilesOfTile(tile: HCen): HCens = gridsHCenFold(tile, grid1.adjTilesOfTile(tile), grid2.adjTilesOfTile(tile))
 
-  override def gridNumSides(gridNum: Int): Int = ???
+  override def gridSides(gridNum: Int): HSides =
+    gridNumFold(gridNum, grid1.sides,grid2.sides.filterNot(hs => hs.c == grid2.leftCenCol | hs.c == (grid2.leftCenCol + 2)))
+
+  override def gridNumSides(gridNum: Int): Int = gridNumFold(gridNum, grid1.numSides, grid2.numSides - grid2.numTileRows * 2)
 }
 
 object HGrid2
