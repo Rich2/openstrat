@@ -14,7 +14,7 @@ case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarG
 
   val tiles: GraphicElems =grid.map{sc => sc.polygonReg.fillActive(sc.checkeredColour(darkSquareColour, lightSquareColour), sc) }
 
-  val pieces: Arr[CircleFill] = scen.draughts.scSomesMap((r, d) => Circle(1.2, r.toPt2).fill(d.colour))
+  val pieces: Arr[CircleFill] = scen.draughts.scSomesMap((r, d) => Circle(1.2, r.toPt2Reg).fill(d.colour))
   def bTurn: PolygonCompound = simpleButton("Turn "){
     repaint()
     thisTop()

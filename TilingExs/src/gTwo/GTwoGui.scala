@@ -6,22 +6,22 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
 {
   statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
-  implicit def grid: SqGrid = scen.grid
+  implicit def grider: SqGrid = scen.grid
   def players: SqCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
-  var cPScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
+  var cPScale: Double = grider.fullDisplayScale(mainWidth, mainHeight)
 
-  focus = grid.cenVec
+  focus = grider.cenVec
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  def tiles: Arr[PolygonActive] = grid.activeTiles
+  def tiles: Arr[PolygonActive] = grider.activeTiles
 
   def lunits: Arr[PolygonCompound] = players.scSomesMap{ (sc, p) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + sc.strComma, 150, p.charStr + "\n" + sc.strComma, 60, p.charStr)
-    Rect(1.2, 0.8, sc.toPt2).fillDrawTextActive(p.colour, SPlayer(p, sc), str, 24, 2.0)  }
+    Rect(1.2, 0.8, sc.toPt2Reg).fillDrawTextActive(p.colour, SPlayer(p, sc), str, 24, 2.0)  }
 
-  def css: Arr[TextGraphic] = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2))
+  def css: Arr[TextGraphic] = players.cMapNones(hc => TextGraphic(hc.rcStr, 20, hc.toPt2Reg))
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
@@ -42,10 +42,10 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   }
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw = grid.sidesDraw()
+  val sidesDraw = grider.sidesDraw()
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: SqCenArrOpt[SqStep] = grid.newTileArrOpt[SqStep]
+  def NoMoves: SqCenArrOpt[SqStep] = grider.newTileArrOpt[SqStep]
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>

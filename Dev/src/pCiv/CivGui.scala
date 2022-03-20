@@ -5,14 +5,14 @@ import geom._, prid._, phex._, pgui._
 /** Gui for civilisation  game. */
 case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HexMapGui("Civ Rise Game Gui")
 { statusText = "Welcome to Civ Rise."
-  implicit val grid: HGrid = scen.grid
-  focus = grid.cenVec
-  var cPScale = grid.fullDisplayScale(mainWidth, mainHeight)
-  val sls = grid.sidesDraw()
+  implicit val grider: HGrid = scen.grider
+  focus = grider.cenVec
+  var cPScale = grider.fullDisplayScale(mainWidth, mainHeight)
+  val sls = grider.sidesDraw()
   val terrs = scen.terrs
-  val tiles = grid.map{ hc => hc.polygonReg.fillTextActive(terrs(hc).colour, hc, hc.strComma, 16) }
+  val tiles = grider.map{ hc => hc.polygonReg.fillTextActive(terrs(hc).colour, hc, hc.strComma, 16) }
   val lunits = scen.lunits.gridHeadsMap { (hc, lu) =>
-    Rectangle.curvedCornersCentred(1.2, 0.8, 0.3, hc.toPt2).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
+    Rectangle.curvedCornersCentred(1.2, 0.8, 0.3, hc.toPt2Reg).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
   }
 
   def thisTop(): Unit = reTop(navButtons)

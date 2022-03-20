@@ -8,13 +8,13 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   var history: Arr[OneScen] = Arr(scen)
-  implicit def grid: HGriderFlat = scen.grid
+  implicit def grider: HGriderFlat = scen.grider
   def players: HCenArrOpt[Player] = scen.oPlayers
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HCenArrOpt[HStep] = grid.newTileArrOpt[HStep]
+  def NoMoves: HCenArrOpt[HStep] = grider.newTileArrOpt[HStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
@@ -25,17 +25,17 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
   def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, p) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
-    urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+    urect.scale(1.5).slate(hc.toPt2Reg).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
+  def hexStrs: Arr[TextGraphic] = players.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2Reg))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val tiles: Arr[PolygonActive] = grid.activeTiles
+  val tiles: Arr[PolygonActive] = grider.activeTiles
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw: LinesDraw = grid.sidesDraw()
+  val sidesDraw: LinesDraw = grider.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.hcSomesMap { (hc, step) =>

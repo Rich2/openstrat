@@ -15,7 +15,7 @@ trait TileCoord extends Any with ShowElemInt2
   override def name1: String = "r"
   override def name2: String = "c"
 
-  def toPt2: Pt2
+  def toPt2Reg: Pt2
   def toVec: Vec2
   def typeStr: String
   def rcStr: String = s"$r, $c"

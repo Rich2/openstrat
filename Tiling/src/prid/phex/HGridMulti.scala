@@ -18,7 +18,7 @@ trait HGridMulti extends HGrider
 
   inline def gridNumsFold[B](f: (B, Int) => B)(implicit ev: DefaultValue[B]): B = gridNumsFold(ev.default)(f)
 
-  override val numTiles: Int = grids.sumBy(_.numTiles)
+  override def numTiles: Int = grids.sumBy(_.numTiles)
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
   override def iForeach(f: (HCen, Int) => Unit): Unit = iForeach(0)(f)
 
@@ -54,5 +54,5 @@ trait HGridMultiFlat extends HGridMulti with HGriderFlat
 
   override def activeTiles: Arr[PolygonActive] = gridOffsetsFlatMap{(grid, offset) => grid.map{ hc => hc.polygonReg.slate(offset).active(hc)} }
 
-  override def sideLines: LineSegs = ???
+  override def sideLines: LineSegs = LineSegs()
 }

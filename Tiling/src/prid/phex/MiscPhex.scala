@@ -3,12 +3,17 @@ package ostrat; package prid; package phex
 
 trait HexGriderScen extends GridTurnScen
 {
-  implicit def grid: HGrider
-  def defaultView(pxScale: Double = 50): HGridView = grid.defaultView(pxScale)// .coordCen.view(pxScale)
+  implicit def grider: HGrider
+  def defaultView(pxScale: Double = 50): HGridView = grider.defaultView(pxScale)
+}
+
+trait HexGriderFlatScen extends HexGriderScen
+{
+  implicit override def grider: HGriderFlat
 }
 
 trait HexGridScen extends HexGriderScen
 { /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
    *  on flat arrays of data. */
-  implicit override def grid: HGrid
+  implicit override def grider: HGrid
 }

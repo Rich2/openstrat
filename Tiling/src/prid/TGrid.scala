@@ -155,7 +155,7 @@ trait TGrid extends Any with TGriderFlat
   @inline final def numOfVertRows: Int = ife(numTileRows > 1, numTileRows + 1, 0)
 
   /** Gives the text graphics for the row and column of each tile centre. */
-  def rcTexts = mapCenCoords(tc => tc.rcStr.toTextGraphic(16, tc.toPt2))
+  def rcTexts = mapCenCoords(tc => tc.rcStr.toTextGraphic(16, tc.toPt2Reg))
 
   /* SideGroup Methods that operate on tile sides. **********************************************************/
 

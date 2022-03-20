@@ -34,6 +34,8 @@ trait HGrid extends Any with TGrid with HGriderFlat
 
   def defaultView(pxScale: Double = 50): HGridView = coordCen.view(pxScale)
 
+  override def hCoordToPt2(hCoord: HCoord): Pt2 = hCoord.toPt2Reg
+
   /** The centre of the hex grid along the Y axis after the yRatio has been applied to the r row value. */
   final override def yCen: Double = rCen * yRatio
 
@@ -124,9 +126,8 @@ trait HGrid extends Any with TGrid with HGriderFlat
     case n => y - n / 2 + 2
     }
   }
+
   /* Methods that operate on Hex tile sides. ******************************************************/
-
-
 
   override def sideLines: LineSegs = sideCoordLines.map(_.lineSeg)
 

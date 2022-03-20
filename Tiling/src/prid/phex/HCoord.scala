@@ -53,7 +53,7 @@ object HCoord
 
 trait HNotVert extends HCoord
 { override def toVec: Vec2 = Vec2(c, r * Sqrt3)
-  override def toPt2: Pt2 = Pt2(c, r  * Sqrt3)
+  override def toPt2Reg: Pt2 = Pt2(c, r  * Sqrt3)
 }
 
 /** Common trait for hex centre and hex side coordinate. The position of these coordinates is proportional, unlike the Hex vertices positions. */

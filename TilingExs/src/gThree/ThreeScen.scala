@@ -36,7 +36,7 @@ trait ThreeScen extends HexGridScen
     val playersKey: Map[Lunit, HCen] = units.keyMap
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    val targets: HCenArrOfBuff[HStep] = grid.newHCenArrOfBuff
+    val targets: HCenArrOfBuff[HStep] = grider.newHCenArrOfBuff
 
     orderList.foreach { case (player, steps) =>  steps.ifHead { step =>
       val hc1 = playersKey(player)
@@ -50,7 +50,7 @@ trait ThreeScen extends HexGridScen
     val oPlayersNew: HCenArrOpt[Lunit] = units.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (units.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.step(backStep), hc2)) }
 
-    ThreeScen(turn + 1, grid, terrs, oPlayersNew)
+    ThreeScen(turn + 1, grider, terrs, oPlayersNew)
   }
 }
 
@@ -64,7 +64,7 @@ object ThreeScen
 
     /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
      * on flat arrays of data. */
-    override implicit val grid: HGrid = gridIn
+    override implicit val grider: HGrid = gridIn
 
     /** The turn number. This will normally start at 0. The player will then give their instructions for turn 1. The scenario will take these orders /
      * instructions and return the new game state at turn 1. */

@@ -5,11 +5,11 @@ import utest._, prid._, phex._, gPlay._
 object OneScen1Test  extends TestSuite
 {
   val os1 = OneScen1
-  val g1 = os1.grid
+  val g1 = os1.grider
   val os2 = os1.endTurn(Arr())
-  val g2 = os2.grid
+  val g2 = os2.grider
   val os3 = os1.endTurn(Arr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))
-  val g3 = os3.grid
+  val g3 = os3.grider
   val os4 = os1.endTurn(Arr((PlayerA, HStepLt)))
 
   val tests = Tests {
@@ -36,7 +36,7 @@ object OneScen1Test  extends TestSuite
     { g3.numTiles ==> 8
       g1.row0sStart ==> 4
       g1.row0sEnd ==> 8
-      implicit val grid = os3.grid
+      implicit val grid = os3.grider
       os3.oPlayers(2, 2) ==> None
       os3.oPlayers(4, 4) ==> None
       os3.oPlayers(6, 2) ==> Some(PlayerA)

@@ -3,7 +3,7 @@ package ostrat; package gOne
 import prid._, phex._, gPlay._
 
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
-trait OneScen extends HexGridScen
+trait OneScen extends HexGriderFlatScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
   def oPlayers: HCenArrOpt[Player]
 
@@ -14,7 +14,7 @@ trait OneScen extends HexGridScen
     val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    val targets: HCenArrOfBuff[HStep] = grid.newHCenArrOfBuff
+    val targets: HCenArrOfBuff[HStep] = grider.newHCenArrOfBuff
 
     orderList.foreach { (player: Player, step: HStep) =>
       val hc1: HCen = playersKey(player)
@@ -27,16 +27,16 @@ trait OneScen extends HexGridScen
     val oPlayersNew: HCenArrOpt[Player] = oPlayers.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.step(backStep), hc2)) }
 
-    OneScen(turn + 1, grid, oPlayersNew)
+    OneScen(turn + 1, grider, oPlayersNew)
   }
 }
 
 /** Companion object for OneScen trait, contains factory apply method. */
 object OneScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGrid, opIn: HCenArrOpt[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HGriderFlat, opIn: HCenArrOpt[Player]): OneScen = new OneScen
   { override val turn = turnIn
-    override implicit val grid: HGrid = gridIn
+    override implicit val grider: HGriderFlat = gridIn
     override def oPlayers: HCenArrOpt[Player] = opIn
   }
 }
@@ -58,7 +58,7 @@ trait UneScen extends HexGriderScen
     val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    val targets: HCenArrOfBuff[HCen] = grid.newHCenArrOfBuff
+    val targets: HCenArrOfBuff[HCen] = grider.newHCenArrOfBuff
 
     orderList.foreach { (player: Player, target: HCen) =>
       val hc1: HCen = playersKey(player)
@@ -75,7 +75,7 @@ object UneScen
 { /** Factory apply method for OneScen trait. */
   def apply(turnIn: Int, gridIn: HGrider, opIn: HCenArrOpt[Player]): UneScen = new UneScen
   { override val turn = turnIn
-    override implicit val grid: HGrider = gridIn
+    override implicit val grider: HGrider = gridIn
     override def oPlayers: HCenArrOpt[Player] = opIn
   }
 }

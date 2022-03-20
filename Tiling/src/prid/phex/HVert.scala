@@ -14,7 +14,7 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with TileCoord
     case _ => Vec2(c , r * Sqrt3 - 1.0/Sqrt3)
   }
 
-  override def toPt2: Pt2 = (r %% 4, c %% 4) match
+  override def toPt2Reg: Pt2 = (r %% 4, c %% 4) match
   { case (1, 0) | (3, 2)  =>  Pt2(c, r  * Sqrt3 + 1.0/Sqrt3)
     case _ => Pt2(c, r * Sqrt3 - 1.0/Sqrt3)
   }

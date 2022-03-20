@@ -19,7 +19,9 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
   override def left: Double = grid1.left
   override def right: Double = grid1.right + grid2.width - 2
   override def hCenExists(r: Int, c: Int): Boolean = grid1.hCenExists(r, c) | grid2.hCenExists(r, c)
-  
+
+  override def hCoordToPt2(hCoord: HCoord): Pt2 = ???
+
   override def arrIndex(r: Int, c: Int): Int = gridsHCenFold(r, c, grid1.arrIndex(r, c), grid1.numTiles + grid2.arrIndex(r, c))
 
   def gridsHCenFold[A](hCen: HCen, if1: => A, if2: A): A = gridsHCenFold(hCen.r, hCen.c, if1, if2)

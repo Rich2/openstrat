@@ -4,7 +4,7 @@ import utest._
 
 object OneScen2Test  extends TestSuite
 {
-  val g = OneScen2.grid
+  val g = OneScen2.grider
   val tests = Tests {
     "test1" -
     { g.bottomCenRow ==> 2

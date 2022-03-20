@@ -6,18 +6,18 @@ import pgui._, prid._, phex._, geom._, Colour._, pStrat._
 case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugFuhrer Gui")
 {
   var scen = scenIn
-  implicit def grid: HGrid = scen.grid
-  focus = grid.cenVec
+  implicit def grider: HGrid = scen.grider
+  focus = grider.cenVec
 
-  var cPScale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
+  var cPScale: Double = grider.fullDisplayScale(mainWidth, mainHeight)
   val terrs: HCenArr[ZugTerr] = scen.terrs
-  val active: Arr[PolygonActive] = grid.map{ hc =>hc.polygonReg.active(hc) }
+  val active: Arr[PolygonActive] = grider.map{ hc =>hc.polygonReg.active(hc) }
   val text: Arr[TextGraphic] = terrs.hcMap((hc, t) => hc.decText(14, t.contrastBW))
   val rows: Arr[PolygonFill] = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
   def lunits: GraphicElems = scen.lunits.gridHeadsFlatMap{ (hc, squad) =>
-    val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour, terrs(hc).colour).slate(hc.toPt2)
+    val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour, terrs(hc).colour).slate(hc.toPt2Reg)
 
     val actions: GraphicElems = squad.action match
     { case mv: HSteps => mv.segsMap(hc)(_.draw())
@@ -38,7 +38,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
     case (RightButton, AnysHead(HSquad(hc2, squad)), AnysHead(newTile: HCen)) =>
     {
       deb("Move")
-      grid.findPath(hc2, newTile)((_, _) => SomeInt(1)).fold[Unit] {
+      grider.findPath(hc2, newTile)((_, _) => SomeInt(1)).fold[Unit] {
         statusText = "Squad can not move to " + newTile.rcStr
         thisTop()
       } { (hcs: HCens) =>

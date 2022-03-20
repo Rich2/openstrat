@@ -24,7 +24,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TileCen
   def hVertPolygon: PolygonHC = verts.toPolygon
 
   /** The polygon of this hex tile if it is part of a regular grid. */
-  def polygonReg: Polygon = verts.mapPolygon(_.toPt2)
+  def polygonReg: Polygon = verts.mapPolygon(_.toPt2Reg)
 
   def fill(colour: Colour): PolygonFill = polygonReg.fill(colour)
   def active(id: AnyRef = this): PolygonActive = polygonReg.active(id)
@@ -34,9 +34,9 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TileCen
   def step(st: HStep): HCen = HCen(r + st.r, c + st.c)
 
   /** Step to adjacent hex tile. */
-  def stepOpt(st: HStep)(implicit grid: HGrid): Option[HCen] = {
+  def stepOpt(st: HStep)(implicit grider: HGrider): Option[HCen] = {
     val target = HCen(r + st.r, c + st.c)
-    ife(grid.hCenExists(target), Some(target), None)
+    ife(grider.hCenExists(target), Some(target), None)
   }
 
   /** Returns a coordinate for this hex along with a step to an adjacent hex. */
@@ -47,8 +47,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TileCen
 
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 
-  def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2, colour)
-  def decText(fontSize: Double = 12, colour: Colour = Black) = this.rcStr.toTextGraphic(fontSize, toPt2, colour)
+  def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2Reg, colour)
+  def decText(fontSize: Double = 12, colour: Colour = Black) = this.rcStr.toTextGraphic(fontSize, toPt2Reg, colour)
 
   def neibs: HCens = HCen.neibs00.map(n => HCen(r + n.r, c + n.c))
 }

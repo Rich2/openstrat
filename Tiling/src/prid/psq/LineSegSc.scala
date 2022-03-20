@@ -16,7 +16,7 @@ case class LineSegSC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[SqC
   /** The end [[HCoord]] point. */
   def endPt: SqCoord = SqCoord(r2, c2)
 
-  def lineSeg: LineSeg = LineSeg(startPt.toPt2, endPt.toPt2)
+  def lineSeg: LineSeg = LineSeg(startPt.toPt2Reg, endPt.toPt2Reg)
 }
 
 object LineSegSC

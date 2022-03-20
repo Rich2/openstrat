@@ -5,18 +5,18 @@ import  pgui._, geom._, prid._, phex._, pEarth._
 case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) extends HexMapGui("North West Europe Gui")
 {
   statusText = "Welcome to the new EGrids"
-  implicit val grid: EGridMain = scen.eGrid
+  implicit val grider: EGridMain = scen.eGrid
   focus = viewIn.vec
   var cPScale: Double = viewIn.pxScale
-  def metresScale = cPScale / grid.cScale.mMetresNum
+  def metresScale = cPScale / grider.cScale.mMetresNum
 
   val terrs: HCenArr[WTile] = scen.terrs
-  def tiles = grid.map{ hc =>
-    val str = grid.hCoordLL(hc).degStr --- hc.rcStr
+  def tiles = grider.map{ hc =>
+    val str = grider.hCoordLL(hc).degStr --- hc.rcStr
     hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg)
   }
-  def tileStrs = grid.map{ hc =>
-    val str = hc.rcStr32 --- grid.hCoordLL(hc).degStr --- hc.rcStr
+  def tileStrs = grider.map{ hc =>
+    val str = hc.rcStr32 --- grider.hCoordLL(hc).degStr --- hc.rcStr
     hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, str, 16, terrs(hc).contrastBW)
   }
 

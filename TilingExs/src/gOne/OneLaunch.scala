@@ -16,9 +16,10 @@ object OneLaunch extends GuiLaunchMore
       case 2 => OneScen2
       case 3 => OneScen3
       case 4 => OneScen4
+      case 5 => OneScen5
       case _ => OneScen1
     }
     val oview: EMon[HGridView] = sts.findKeySetting[Int, HGridView](num)
-    (GOneGui(_, scen, oview.getElse(scen.grid.coordCen.view())), "JavaFx Game One")
+    (GOneGui(_, scen, oview.getElse(scen.grider.defaultView())), "JavaFx Game One")
   }
 }

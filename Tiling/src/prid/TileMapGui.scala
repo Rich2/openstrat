@@ -4,7 +4,7 @@ import geom._, pgui._
 
 abstract class TileMapGui(title: String) extends CmdBarGui(title)
 { /** Tile grid this gui displays. */
-  def grid: TGriderFlat
+  def grider: TGriderFlat
 
   /** The number of pixels displayed per c column coordinate. */
   var cPScale: Double
@@ -43,20 +43,20 @@ abstract class TileMapGui(title: String) extends CmdBarGui(title)
   }
 
   def focusLeft: PolygonCompound = focusAdj("\u2190"){ (v, d) =>
-    val newX: Double = (v.x - d).max(grid.left)
+    val newX: Double = (v.x - d).max(grider.left)
     Vec2(newX, v.y)
   }
   def focusRight: PolygonCompound = focusAdj("\u2192"){ (v, d) =>
-    val newX: Double = (v.x + d).min(grid.right)
+    val newX: Double = (v.x + d).min(grider.right)
     Vec2(newX, v.y)
   }
   def focusUp: PolygonCompound = focusAdj("\u2191"){ (v, d) =>
-    val newY: Double = (v.y + d).min(grid.top)
+    val newY: Double = (v.y + d).min(grider.top)
     Vec2(v.x, newY)
   }
 
   def focusDown: PolygonCompound = focusAdj("\u2193"){ (v, d) =>
-    val newY: Double = (v.y - d).max(grid.bottom)
+    val newY: Double = (v.y - d).max(grider.bottom)
     Vec2(v.x, newY)
   }
   def navButtons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)

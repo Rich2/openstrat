@@ -33,7 +33,7 @@ trait HCenRowLike
   }
 
   /** The polygon of this HCenRow of tiles if it is part of a regular grid. */
-  def polygonReg: Polygon = hVertPolygon.toPolygon(_.toPt2)
+  def polygonReg: Polygon = hVertPolygon.toPolygon(_.toPt2Reg)
 }
 
 /** A row or a segment a row of Hex tiles in a grid. The start / left centre HexGrid coordinate and the number of tiles in the row.. */
