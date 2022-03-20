@@ -9,7 +9,7 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with TileCoord
   override def typeStr: String = "HVert"
   override def canEqual(that: Any): Boolean = ???
 
-  override def toVec: Vec2 = (r %% 4, c %% 4) match
+  override def toVecReg: Vec2 = (r %% 4, c %% 4) match
   { case (1, 0) | (3, 2)  =>  Vec2(c, r * Sqrt3 + 1.0/Sqrt3)
     case _ => Vec2(c , r * Sqrt3 - 1.0/Sqrt3)
   }

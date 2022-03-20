@@ -5,7 +5,7 @@ import geom._
 /** A view of a hex grid, currently representing the [[HCoord]] focus and the pixels/dx scale. */
 class HGridView(val r: Int, val c: Int, val pxScale: Double) extends Show2[HCoord, Double]
 { def hCoord: HCoord = HCoord(r, c)
-  def vec: Vec2 = hCoord.toVec
+  def vec: Vec2 = hCoord.toVecReg
   def pt2: Pt2 = hCoord.toPt2Reg
   override def typeStr: String = "GridView"
   override def name1: String = "hCoord"

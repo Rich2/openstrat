@@ -10,7 +10,7 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
 
   override val grids: Arr[HGrid] = Arr(grid1, grid2)
   val grid1Offset: Vec2 = 0 vv 0
-  val grid2Offset: Vec2 = Vec2(0, grid1.right - grid2.left - 2)
+  val grid2Offset: Vec2 = Vec2(grid1.right - grid2.left - 2, 0)
 
   override def gridsOffsets: Vec2s = Vec2s(grid1Offset, grid2Offset)
 
@@ -20,7 +20,10 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
   override def right: Double = grid1.right + grid2.width - 2
   override def hCenExists(r: Int, c: Int): Boolean = grid1.hCenExists(r, c) | grid2.hCenExists(r, c)
 
-  override def hCoordToPt2(hCoord: HCoord): Pt2 = ???
+  override def hCoordToPt2(hCoord: HCoord): Pt2 = hCoord.c match
+  { case c if c >= (grid1.leftCenCol - 2) & c <= (grid1.rightCenCol + 2) => grid1.hCoordToPt2(hCoord)
+    case c if c >= (grid2.leftCenCol - 2) & c <= (grid2.rightCenCol + 2) => grid2.hCoordToPt2(hCoord) + grid2Offset
+  }
 
   override def arrIndex(r: Int, c: Int): Int = gridsHCenFold(r, c, grid1.arrIndex(r, c), grid1.numTiles + grid2.arrIndex(r, c))
 

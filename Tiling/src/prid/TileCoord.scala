@@ -1,6 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._
+import ostrat.prid.phex.HGriderFlat
 
 /** A coordinate in a tile grid [[TGrid]]. The row is the first field, the column is the second. */
 trait TileCoord extends Any with ShowElemInt2
@@ -16,7 +17,7 @@ trait TileCoord extends Any with ShowElemInt2
   override def name2: String = "c"
 
   def toPt2Reg: Pt2
-  def toVec: Vec2
+  def toVecReg: Vec2
   def typeStr: String
   def rcStr: String = s"$r, $c"
   def rcStr32: String = s"${r.base32}, ${c.base32}"

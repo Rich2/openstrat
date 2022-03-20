@@ -17,7 +17,7 @@ package object prid
   {
     /** Translates Vec2s relative to focus and then scales. */
     def gridCoordScale(focus: TileCoord, scale: Double): T =
-    { val v = -focus.toVec
+    { val v = -focus.toVecReg
       val a = evSlate.SlateXYT(value, v.x, v.y)
       evScale.scaleT(a, scale)
     }

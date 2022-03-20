@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import geom._
 
 trait SqBaseCoord extends Any with TileCoord
-{ override def toVec: Vec2 = Vec2(c, r)
+{ override def toVecReg: Vec2 = Vec2(c, r)
   override def toPt2Reg: Pt2 = Pt2(c, r)
 }
 

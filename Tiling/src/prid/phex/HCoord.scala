@@ -22,6 +22,9 @@ trait HCoord extends Any with TileCoord
   def subR(rDelta: Int): HCoord = HCoord(r -rDelta, c)
 
   def view(pxScale: Double = 50): HGridView = HGridView(r, c, pxScale)
+
+  /** Uses the implicit [[HGriderFlat]] to convert to [[Pt2]]. */
+  def toPt2(implicit grider: HGriderFlat): Pt2 = grider.hCoordToPt2(this)
 }
 
 /** Companion object for Hex coordinate trait, contains apply factory method and persist and PolygonBuilder implicit instances. */
@@ -52,7 +55,7 @@ object HCoord
 }
 
 trait HNotVert extends HCoord
-{ override def toVec: Vec2 = Vec2(c, r * Sqrt3)
+{ override def toVecReg: Vec2 = Vec2(c, r * Sqrt3)
   override def toPt2Reg: Pt2 = Pt2(c, r  * Sqrt3)
 }
 
