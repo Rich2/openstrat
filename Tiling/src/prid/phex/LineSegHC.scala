@@ -4,11 +4,10 @@ import geom._
 
 /** A 2d line upon a HexGrid defined by its start and end [[HGrid]] [[HCoord]]s. */
 case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[HCoord]
-{
-  def _1: Int = r1
-  def _2: Int = c1
-  def _3: Int = r2
-  def _4: Int = c2
+{ def int1: Int = r1
+  def int2: Int = c1
+  def int3: Int = r2
+  def int4: Int = c2
 
   /** The start [[HCoord]] point. */
   def startPt: HCoord = HCoord(r1, c1)
