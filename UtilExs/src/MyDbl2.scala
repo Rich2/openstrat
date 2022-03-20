@@ -45,7 +45,7 @@ object MyDbl2s extends DataDbl2sCompanion[MyDbl2, MyDbl2s]
   }
 }
 
-class MinesBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[MyDbl2]
+class MinesBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[MyDbl2]
 { override def typeStr: String = "MinesBuff"
   def dblsToT(d1: Double, d2: Double): MyDbl2 = MyDbl2(d1, d2)
 }

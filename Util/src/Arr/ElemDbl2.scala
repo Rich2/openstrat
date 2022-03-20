@@ -74,7 +74,7 @@ trait ArrDbl2s[A <: ElemDbl2] extends Any with ArrDblNs[A] with DataDbl2s[A]
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait ArrDbl2sBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsBuilder[B, ArrB]
-{ type BuffT <: BuffDbl2s[B]
+{ type BuffT <: Dbl2Buff[B]
   final override def elemProdSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
 }
@@ -83,7 +83,7 @@ trait ArrDbl2sBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsBuilde
  *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait ArrDbl2sFlatBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsFlatBuilder[B, ArrB]
-{ type BuffT <: BuffDbl2s[B]
+{ type BuffT <: Dbl2Buff[B]
   final override def elemProdSize = 2
 }
 
@@ -137,7 +137,7 @@ abstract class DataDbl2sPersist[A <: ElemDbl2, M <: DataDbl2s[A]](val typeStr: S
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl2]]s collections. */
-trait BuffDbl2s[A <: ElemDbl2] extends Any with BuffDblNs[A]
+trait Dbl2Buff[A <: ElemDbl2] extends Any with DblNBuff[A]
 { type ArrT <: ArrDbl2s[A]
   final override def length: Int = unsafeBuffer.length / 2
   override def elemProdSize: Int = 2

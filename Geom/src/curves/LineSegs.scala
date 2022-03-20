@@ -28,16 +28,16 @@ object LineSegs extends DataDbl4sCompanion[LineSeg, LineSegs]
   }
 
   implicit val arrArrBuildImplicit: ArrFlatBuilder[LineSegs] = new ArrDbl4sFlatBuilder[LineSeg, LineSegs]
-  { type BuffT = Line2sBuff
+  { type BuffT = LineSegBuff
     override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
-    def fromDblBuffer(inp: ArrayBuffer[Double]): Line2sBuff = new Line2sBuff(inp)
+    def fromDblBuffer(inp: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(inp)
   }
 
   implicit val transImplicit: AffineTrans[LineSegs] = (obj, f) => obj.dataMap(_.ptsTrans(f))
 }
 
 /** Efficient expandable buffer for Line2s. */
-class Line2sBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl4s[LineSeg]
+class LineSegBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl4Buff[LineSeg]
 { override def typeStr: String = "Line2sBuff"
   override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
 }

@@ -27,7 +27,7 @@ trait ArrInt2s[A <: ElemInt2] extends Any with ArrIntNs[A] with DataInt2s[A]
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int2Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait ArrInt2sBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends ArrIntNsBuilder[B, ArrB]
-{ type BuffT <: BuffInt2s[B]
+{ type BuffT <: Int2Buff[B]
 
   final override def elemProdSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
@@ -43,13 +43,13 @@ trait ArrInt2sBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends ArrIntNsBuilde
  *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */
 trait ArrInt2sFlatBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends ArrIntNsFlatBuilder[B, ArrB]
-{ type BuffT <: BuffInt2s[B]
+{ type BuffT <: Int2Buff[B]
   final override def elemProdSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt2]]s collections. */
-trait BuffInt2s[A <: ElemInt2] extends Any with BuffIntNs[A]
+trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
 { type ArrT <: ArrInt2s[A]
   override def elemProdSize: Int = 2
   final override def length: Int = unsafeBuffer.length / 2

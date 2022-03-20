@@ -74,7 +74,7 @@ trait ArrValueNsFlatBuilder[B <: ElemValueN, ArrB <: ArrValueNs[B]] extends ArrF
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
-trait BuffValueNs[A <: ElemValueN] extends Any with SeqGen[A]
+trait ValueNBuff[A <: ElemValueN] extends Any with SeqGen[A]
 { type ArrT <: ArrValueNs[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit

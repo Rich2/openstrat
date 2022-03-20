@@ -15,7 +15,7 @@ trait ArrLongNs[A <: ElemLongN] extends Any with ArrValueNs[A]
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait BuffLongNs[A <: ElemLongN] extends Any with BuffValueNs[A]
+trait BuffLongNs[A <: ElemLongN] extends Any with ValueNBuff[A]
 { def unsafeBuffer: ArrayBuffer[Long]
   def toArray: Array[Long] = unsafeBuffer.toArray[Long]
 //  def unBuff: M

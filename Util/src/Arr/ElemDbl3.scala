@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
@@ -40,7 +40,7 @@ trait ArrDbl3s[A <: ElemDbl3] extends Any with ArrDblNs[A] with DataDbl3s[A]
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait ArrDbl3sBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsBuilder[B, ArrB]
-{ type BuffT <: BuffDbl3s[B]
+{ type BuffT <: Dbl3Buff[B]
   final override def elemProdSize = 3
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
@@ -52,7 +52,7 @@ trait ArrDbl3sBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsBuilde
  *  control, should go in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait Dbl3sArrFlatBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsFlatBuilder[B, ArrB]
-{ type BuffT <: BuffDbl3s[B]
+{ type BuffT <: Dbl3Buff[B]
   final override def elemProdSize = 3
 }
 
@@ -88,7 +88,7 @@ abstract class DataDbl3sCompanion[A <: ElemDbl3, ArrA <: DataDbl3s[A]] extends D
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl3]]s collections. */
-trait BuffDbl3s[A <: ElemDbl3] extends Any with BuffDblNs[A]
+trait Dbl3Buff[A <: ElemDbl3] extends Any with DblNBuff[A]
 { type ArrT <: ArrDbl3s[A]
   override def elemProdSize: Int = 3
   final override def length: Int = unsafeBuffer.length / 3

@@ -57,7 +57,7 @@ object Roords extends DataInt2sCompanion[Roord, Roords]
   }
 }
 
-class RoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[Roord]
+class RoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[Roord]
 { type ArrT = Roords
   override def typeStr: String = "RoordBuff"
   override def intsToT(i1: Int, i2: Int): Roord = Roord(i1, i2)

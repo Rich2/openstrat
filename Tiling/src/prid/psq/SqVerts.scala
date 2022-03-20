@@ -61,7 +61,7 @@ object SqVerts extends DataInt2sCompanion[SqVert, SqVerts]
   }
 }
 
-class SqVertBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[SqVert]
+class SqVertBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[SqVert]
 { type ArrT = SqVerts
   override def typeStr: String = "SqVertBuff"
   override def intsToT(i1: Int, i2: Int): SqVert = SqVert(i1, i2)

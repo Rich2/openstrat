@@ -96,7 +96,7 @@ object PtMetre2Arr extends DataDbl2sCompanion[PtM2, PtMetre2Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[PtM2]]s collections. */
-final class BuffPtMetre2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[PtM2]
+final class BuffPtMetre2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[PtM2]
 { override def typeStr: String = "BuffPtMetre2"
   def dblsToT(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
 }

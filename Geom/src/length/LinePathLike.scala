@@ -56,7 +56,7 @@ trait LinePathValueNsBuilder[B <: ElemValueN, BB <: LinePathLike[B]] extends Lin
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblNs[B] ] extends LinePathValueNsBuilder[B, BB]
-{ type BuffT <: BuffDblNs[B]
+{ type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): BB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
@@ -70,7 +70,7 @@ trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblNs[B] ] extends LineP
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait LinePathDbl2sBuilder[B <: ElemDbl2, BB <: LinePathDbl2s[B]] extends LinePathDblNsBuilder[B, BB]
-{ type BuffT <: BuffDbl2s[B]
+{ type BuffT <: Dbl2Buff[B]
   final override def elemProdSize = 2
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
 }
@@ -79,7 +79,7 @@ trait LinePathDbl2sBuilder[B <: ElemDbl2, BB <: LinePathDbl2s[B]] extends LinePa
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait LinePathDbl3sBuilder[B <: ElemDbl3, BB <: LinePathDbl3s[B]] extends LinePathDblNsBuilder[B, BB]
-{ type BuffT <: BuffDbl3s[B]
+{ type BuffT <: Dbl3Buff[B]
   final override def elemProdSize = 3
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl3
     arr.unsafeArray(index * 2 + 2) = value.dbl3 }
@@ -89,7 +89,7 @@ trait LinePathDbl3sBuilder[B <: ElemDbl3, BB <: LinePathDbl3s[B]] extends LinePa
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntNs[B] ] extends LinePathValueNsBuilder[B, BB]
-{ type BuffT <: BuffIntNs[B]
+{ type BuffT <: IntNBuff[B]
   def fromIntArray(array: Array[Int]): BB
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
@@ -103,7 +103,7 @@ trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntNs[B] ] extends LineP
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemInt2]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait LinePathInt2sBuilder[B <: ElemInt2, BB <: LinePathInt2s[B]] extends LinePathIntNsBuilder[B, BB]
-{ type BuffT <: BuffInt2s[B]
+{ type BuffT <: Int2Buff[B]
   final override def elemProdSize = 2
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.int1; arr.unsafeArray(index * 2 + 1) = value.int2 }
 }

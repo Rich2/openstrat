@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -39,7 +39,7 @@ trait ArrDbl4s[A <: ElemDbl4] extends Any with ArrDblNs[A] with DataDbl4s[A]
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl4]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait ArrDbl4sBuilder[B <: ElemDbl4, ArrB <: ArrDbl4s[B]] extends ArrDblNsBuilder[B, ArrB]
-{ type BuffT <: BuffDbl4s[B]
+{ type BuffT <: Dbl4Buff[B]
   final override def elemProdSize = 4
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
@@ -54,7 +54,7 @@ trait ArrDbl4sBuilder[B <: ElemDbl4, ArrB <: ArrDbl4s[B]] extends ArrDblNsBuilde
  *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
 trait ArrDbl4sFlatBuilder[B <: ElemDbl4, ArrB <: ArrDbl4s[B]] extends ArrDblNsFlatBuilder[B, ArrB]
-{ type BuffT <: BuffDbl4s[B]
+{ type BuffT <: Dbl4Buff[B]
 
   final override def elemProdSize = 4
 }
@@ -127,7 +127,7 @@ abstract class DataDbl4sPersist[A <: ElemDbl4, ArrA <: DataDbl4s[A]](val typeStr
 }
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl4]]s collections. */
-trait BuffDbl4s[A <: ElemDbl4] extends Any with BuffDblNs[A]
+trait Dbl4Buff[A <: ElemDbl4] extends Any with DblNBuff[A]
 { type ArrT <: ArrDbl4s[A]
   override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4

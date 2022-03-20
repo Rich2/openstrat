@@ -36,7 +36,7 @@ trait ArrIntNs[A <: ElemIntN] extends Any with ArrValueNs[A] with DataIntNs[A]
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait ArrIntNsBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsBuilder[B, ArrB]
-{ type BuffT <:  BuffIntNs[B]
+{ type BuffT <:  IntNBuff[B]
   def fromIntArray(inp: Array[Int]): ArrB
 
   /* Not sure about the return type of this method. */
@@ -50,7 +50,7 @@ trait ArrIntNsBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsBuil
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntNs]] final classes. Instances for [[ArrFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait ArrIntNsFlatBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsFlatBuilder[B, ArrB]
-{ type BuffT <:  BuffIntNs[B]
+{ type BuffT <:  IntNBuff[B]
   def fromIntArray(inp: Array[Int]): ArrB
 
   /* Not sure about the return type of this method. */
@@ -62,7 +62,7 @@ trait ArrIntNsFlatBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNs
 }
 
 /** Specialised flat ArrayBuffer[Int] based collection class. */
-trait BuffIntNs[A <: ElemIntN] extends Any with BuffValueNs[A]
+trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
 { type ArrT <: ArrIntNs[A]
   def unsafeBuffer: ArrayBuffer[Int]
   def toArray: Array[Int] = unsafeBuffer.toArray[Int]

@@ -30,7 +30,7 @@ trait ArrInt4s[A <: ElemInt4] extends Any with ArrIntNs[A]
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt4]]s collections. */
-trait BuffInt4s[A <: ElemInt4, M <: ArrInt4s[A]] extends Any with BuffIntNs[A]
+trait BuffInt4s[A <: ElemInt4, M <: ArrInt4s[A]] extends Any with IntNBuff[A]
 { override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}

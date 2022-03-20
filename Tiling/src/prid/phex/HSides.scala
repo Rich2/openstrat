@@ -34,7 +34,7 @@ object HSides extends DataInt2sCompanion[HSide, HSides]
   }
 }
 
-class HSideBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with BuffInt2s[HSide]
+class HSideBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[HSide]
 { type ArrT = HSides
   override def typeStr: String = "HSideBuff"
   override def intsToT(i1: Int, i2: Int): HSide = HSide(i1, i2)

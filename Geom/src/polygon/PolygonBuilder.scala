@@ -46,7 +46,7 @@ trait PolygonValueNsBuilder[B <: ElemValueN, BB <: PolygonValueN[B]] extends Pol
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblNs[B] ] extends PolygonValueNsBuilder[B, BB]
-{ type BuffT <: BuffDblNs[B]
+{ type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): BB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
@@ -60,7 +60,7 @@ trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblNs[B] ] extends Polygon
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait PolygonDbl2sBuilder[B <: ElemDbl2, BB <: PolygonDbl2s[B]] extends PolygonDblNsBuilder[B, BB]
-{ type BuffT <: BuffDbl2s[B]
+{ type BuffT <: Dbl2Buff[B]
   final override def elemProdSize = 2
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
 }
@@ -69,7 +69,7 @@ trait PolygonDbl2sBuilder[B <: ElemDbl2, BB <: PolygonDbl2s[B]] extends PolygonD
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait PolygonDbl3sBuilder[B <: ElemDbl3, BB <: PolygonDbl3s[B]] extends PolygonDblNsBuilder[B, BB]
-{ type BuffT <: BuffDbl3s[B]
+{ type BuffT <: Dbl3Buff[B]
   final override def elemProdSize = 3
   override def arrSet(arr: BB, index: Int, value: B): Unit =
   { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl2; arr.unsafeArray(index * 3 + 2) = value.dbl3
@@ -80,7 +80,7 @@ trait PolygonDbl3sBuilder[B <: ElemDbl3, BB <: PolygonDbl3s[B]] extends PolygonD
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait PolygonIntNsBuilder[B <: ElemIntN, BB <: PolygonIntNs[B] ] extends PolygonValueNsBuilder[B, BB]
-{ type BuffT <: BuffIntNs[B]
+{ type BuffT <: IntNBuff[B]
   def fromIntArray(array: Array[Int]): BB
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
@@ -94,7 +94,7 @@ trait PolygonIntNsBuilder[B <: ElemIntN, BB <: PolygonIntNs[B] ] extends Polygon
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemInt2]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait PolygonInt2sBuilder[B <: ElemInt2, BB <: PolygonInt2s[B]] extends PolygonIntNsBuilder[B, BB]
-{ type BuffT <: BuffInt2s[B]
+{ type BuffT <: Int2Buff[B]
   final override def elemProdSize = 2
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.int1; arr.unsafeArray(index * 2 + 1) = value.int2}
 }

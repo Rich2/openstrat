@@ -53,7 +53,7 @@ class Vec2MArr(override val unsafeArray: Array[Double]) extends ArrDbl2s[Vec2M]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt2]]s collections. */
-final class Vec2MBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with BuffDbl2s[Vec2M]
+final class Vec2MBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[Vec2M]
 { override def typeStr: String = "Vec2MBuff"
   def dblsToT(d1: Double, d2: Double): Vec2M = new Vec2M(d1, d2)
 }

@@ -131,13 +131,13 @@ package object geom
                 baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, fontSize, posn, colour, align, baseLine)
   }
 
-  implicit class BuffDblExtensionsImplicit[A <: ElemDblN](val thisBuff: BuffDblNs[A])
-  { /** Extension method to create Polygons from [[BuffDblNs]]. Takes an implicit [[PolygonDblNsBuilder]] parameter to return the [[PolygonDblNs]] */
+  implicit class BuffDblExtensionsImplicit[A <: ElemDblN](val thisBuff: DblNBuff[A])
+  { /** Extension method to create Polygons from [[DblNBuff]]. Takes an implicit [[PolygonDblNsBuilder]] parameter to return the [[PolygonDblNs]] */
     def toPolygon[PT <: PolygonDblNs[A]](implicit build: PolygonDblNsBuilder[A, PT]): PT = build.fromDblArray(thisBuff.unsafeBuffer.toArray)
   }
 
-  implicit class BuffIntExtensionsImplicit[A <: ElemIntN](val thisBuff: BuffIntNs[A])
-  { /** Extension method to create Polygons from [[BuffIntNs]]. Takes an implicit [[PolygonIntNsBuilder]] parameter to return the [[PolygonIntNs]] */
+  implicit class BuffIntExtensionsImplicit[A <: ElemIntN](val thisBuff: IntNBuff[A])
+  { /** Extension method to create Polygons from [[IntNBuff]]. Takes an implicit [[PolygonIntNsBuilder]] parameter to return the [[PolygonIntNs]] */
     def toPolygon[PT <: PolygonIntNs[A]](implicit build: PolygonIntNsBuilder[A, PT]): PT = build.fromIntArray(thisBuff.unsafeBuffer.toArray)
   }
 
