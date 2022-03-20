@@ -16,10 +16,10 @@ object OneScen1Test  extends TestSuite
 
     test("os1")
     { g1.numTileRows ==> 3
-      g1.bottomCenRow ==> 2
+      g1.bottomCenR ==> 2
       g1.topCenRow ==> 6
-      g1.leftCenCol ==> 2
-      g1.rightCenCol ==> 10
+      g1.leftCenC ==> 2
+      g1.rightCenC ==> 10
       g1.numTiles ==> 8
     }
 

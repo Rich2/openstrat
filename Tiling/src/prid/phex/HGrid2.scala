@@ -21,8 +21,8 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
   override def hCenExists(r: Int, c: Int): Boolean = grid1.hCenExists(r, c) | grid2.hCenExists(r, c)
 
   override def hCoordToPt2(hCoord: HCoord): Pt2 = hCoord.c match
-  { case c if c >= (grid1.leftCenCol - 2) & c <= (grid1.rightCenCol + 2) => grid1.hCoordToPt2(hCoord)
-    case c if c >= (grid2.leftCenCol - 2) & c <= (grid2.rightCenCol + 2) => grid2.hCoordToPt2(hCoord) + grid2Offset
+  { case c if c >= (grid1.leftCenC - 2) & c <= (grid1.rightCenC + 2) => grid1.hCoordToPt2(hCoord)
+    case c if c >= (grid2.leftCenC - 2) & c <= (grid2.rightCenC + 2) => grid2.hCoordToPt2(hCoord) + grid2Offset
   }
 
   override def arrIndex(r: Int, c: Int): Int = gridsHCenFold(r, c, grid1.arrIndex(r, c), grid1.numTiles + grid2.arrIndex(r, c))
@@ -43,7 +43,7 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
   override def adjTilesOfTile(tile: HCen): HCens = gridsHCenFold(tile, grid1.adjTilesOfTile(tile), grid2.adjTilesOfTile(tile))
 
   override def gridSides(gridNum: Int): HSides =
-    gridNumFold(gridNum, grid1.sides,grid2.sides.filterNot(hs => hs.c == grid2.leftCenCol | hs.c == (grid2.leftCenCol + 2)))
+    gridNumFold(gridNum, grid1.sides,grid2.sides.filterNot(hs => hs.c == grid2.leftCenC | hs.c == (grid2.leftCenC + 2)))
 
   override def gridNumSides(gridNum: Int): Int = gridNumFold(gridNum, grid1.numSides, grid2.numSides - grid2.numTileRows * 2)
 }

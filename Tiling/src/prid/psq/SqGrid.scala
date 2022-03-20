@@ -6,19 +6,19 @@ import geom._, reflect.ClassTag
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
-class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, val rightCenCol: Int) extends TGrid
+class SqGrid(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val rightCenC: Int) extends TGrid
 {
   /** Number of rows of tiles. */
-  override def numTileRows: Int = (topCenRow - bottomCenRow + 2).max0 / 2
+  override def numTileRows: Int = (topCenRow - bottomCenR + 2).max0 / 2
 
   /** The number of tiles in each tile row. */
-  def tileRowLen: Int = (rightCenCol - leftCenCol + 2).max0 / 2
+  def tileRowLen: Int = (rightCenC - leftCenC + 2).max0 / 2
 
   /** The total number of Tiles in the tile Grid. */
   override def numTiles: Int = numTileRows * tileRowLen
 
-  def leftSideCol: Int = leftCenCol - 1
-  def rightSideCol: Int = rightCenCol + 1
+  def leftSideCol: Int = leftCenC - 1
+  def rightSideCol: Int = rightCenC + 1
 
   override def left: Double = leftSideCol
   override def right: Double = rightSideCol
@@ -27,7 +27,7 @@ class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, val
 
   override def coordCen: SqCenOrSide = SqCenOrSide(rCen, cCen)
   override def yRatio: Double = 1
-  override def yCen: Double = (bottomCenRow + topCenRow) / 2
+  override def yCen: Double = (bottomCenR + topCenRow) / 2
   override def width: Double = rightSideCol - leftSideCol
   override def height: Double = topSideRow - bottomSideRow
 
@@ -45,7 +45,7 @@ class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, val
    *  data. */
   @inline final def arrIndex(sc: SqCen): Int = arrIndex(sc.r, sc.c)
 
-  @inline def arrIndex(r: Int, c: Int): Int = (r - bottomCenRow) / 2 * tileRowLen + (c - leftCenCol) / 2
+  @inline def arrIndex(r: Int, c: Int): Int = (r - bottomCenR) / 2 * tileRowLen + (c - leftCenC) / 2
   /** New immutable Arr of Tile data. */
   /*final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqcenArr[A] =
   { val res = HcenArr[A](numOfTiles)
@@ -73,7 +73,7 @@ class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, val
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrOpt[A] = new SqCenArrOpt(new Array[A](numTiles))
 
-  def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(leftCenCol, rightCenCol, 2)(c => f(SqCen(r, c)))
+  def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(leftCenC, rightCenC, 2)(c => f(SqCen(r, c)))
 
   def foreach(f: SqCen => Unit): Unit = foreachRow(rowForeach(_)(f))
 
@@ -90,7 +90,7 @@ class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, val
   def rowIForeach(r: Int, startCount: Int)(f: (SqCen, Int) => Unit): Int =
   { var count = startCount
     iUntilForeach(0, tileRowLen) { deltaC =>
-      f(SqCen(r, leftCenCol + deltaC * 2), count)
+      f(SqCen(r, leftCenC + deltaC * 2), count)
       count += 1
     }
     count
@@ -107,7 +107,7 @@ class SqGrid(val bottomCenRow: Int, val topCenRow: Int, val leftCenCol: Int, val
   final def sqCenExists(sc: SqCen): Boolean = sqCenExists(sc.r, sc.c)
 
   /** Boolean. True if the specified hex centre exists in this hex grid. */
-  def sqCenExists(r: Int, c:Int): Boolean = r.isEven & c.isEven & r >= bottomCenRow & r <= topCenRow & c >= leftCenCol & c <= rightCenCol
+  def sqCenExists(r: Int, c:Int): Boolean = r.isEven & c.isEven & r >= bottomCenR & r <= topCenRow & c >= leftCenC & c <= rightCenC
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */
