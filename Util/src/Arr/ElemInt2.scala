@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** An object that can be constructed from 2 [[Int]]s. These are used in [[ArrInt2s]] Array[Int] based collections. */
@@ -56,7 +56,7 @@ trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2); () }
   def intsToT(i1: Int, i2: Int): A
   override def indexData(index: Int): A = intsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
-  override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 4) = value.int1; unsafeBuffer(i * 4 + 1) = value.int2 }
+  override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 2) = value.int1; unsafeBuffer(i * 2 + 1) = value.int2 }
 }
 
 /** Helper class for companion objects of final Int2sArr classes. */
