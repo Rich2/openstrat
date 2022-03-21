@@ -5,19 +5,19 @@ import pWeb._
 /** A Rectangle aligned to the X and Y axes. */
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 { def unsafeArray: Array[Double]
-  @inline final override def v0x: Double = unsafeArray(0)//xTopRight
-  @inline final override def v0y: Double = unsafeArray(1)//yTopRight
+  @inline final override def v0x: Double = unsafeArray(0)
+  @inline final override def v0y: Double = unsafeArray(1)
   @inline final override def v0: Pt2 = v0x pp v0y
-  @inline final override def v1x: Double = unsafeArray(2)//xBottomRight
-  @inline final override def v1y: Double = unsafeArray(3)//yBottomRight
+  @inline final override def v1x: Double = unsafeArray(2)
+  @inline final override def v1y: Double = unsafeArray(3)/
   @inline final override def v1: Pt2 = v1x pp v1y
   @inline final override def cen: Pt2 = cenX pp cenY
   override def alignAngle: AngleVec = Deg0
-  @inline final def v2x: Double = xBottomLeft
-  @inline final def v2y: Double = yBottomLeft
+  @inline final def v2x: Double = unsafeArray(4)
+  @inline final def v2y: Double = unsafeArray(5)
   @inline final def v2: Pt2 = bottomLeft
-  @inline final def v3x: Double = xTopLeft
-  @inline final def v3y: Double = yTopLeft
+  @inline final def v3x: Double = unsafeArray(6)
+  @inline final def v3y: Double = unsafeArray(7)
   @inline final def v3: Pt2 = topLeft
 
   /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
@@ -165,14 +165,18 @@ object Rect
   /** Companion object for the [[Rect.RectImp]] class */
   object RectImp
   { /** Factory method for Rect.RectImp class. */
-    def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectImp = ??? // new RectImp(width, height, cen.x, cen.y)
-
-    def apply(width: Double, height: Double, cenX: Double, cenY: Double): RectImp = {
-      val w = width / 2
+    def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectImp =
+    { val w = width / 2
       val h = height / 2
-      val array = Array[Double](cenX - w, cenY + h, cenX + w, cenY + w, cenX + w, cenY - h, cenX - w, cenY - h)
+      val array = Array[Double](cen.x - w, cen.y + h, cen.x + w, cen.y + h, cen.x + w, cen.y - h, cen.x - w, cen.y - h)
       new RectImp(array)
+    }
 
+    def apply(width: Double, height: Double, cenX: Double, cenY: Double): RectImp =
+    { val w = width / 2
+      val h = height / 2
+      val array = Array[Double](cenX - w, cenY + h, cenX + w, cenY + h, cenX + w, cenY - h, cenX - w, cenY - h)
+      new RectImp(array)
     }
 
     /** Factory method to create a RectImp from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
