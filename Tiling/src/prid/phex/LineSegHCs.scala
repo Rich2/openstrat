@@ -16,7 +16,7 @@ class LineSegHCs(val unsafeArray: Array[Int]) extends ArrInt4s[LineSegHC]
 /** Companion object for the LineSegHCs class. */
 object LineSegHCs extends ArrInt4sCompanion[LineSegHC, LineSegHCs]
 {
-  implicit val factory: Int => LineSegHCs = i => new LineSegHCs(new Array[Int](i * 4))
+  val factory: Int => LineSegHCs = i => new LineSegHCs(new Array[Int](i * 4))
 
   /*implicit val persistImplicit: DataInt4sPersist[LineSegHC, LineSegHCs] = new DataDbl4sPersist[LineSegHC, LineSegHCs]("Line2s")
   { override def fromArray(value: Array[Int]): LineSegHCs = new LineSegHCs(value)

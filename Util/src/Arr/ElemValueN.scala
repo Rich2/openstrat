@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** A class that can be constructed from a fixed number of homogeneous primitive values such as Ints, Doubles or Longs. The final class can be stored
@@ -8,7 +8,7 @@ package ostrat
 trait ElemValueN extends Any with SpecialT
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
- *  classes include both [[ValueNscollection]]s and classes like polygons and lines. */
+ *  classes include both [[SeqImut]s and classes like polygons and lines. */
 trait DataValueNs[A <: ElemValueN] extends Any with DataImut[A]
 { type ThisT <: DataValueNs[A]
 
