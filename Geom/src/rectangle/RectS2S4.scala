@@ -4,6 +4,7 @@ package geom
 
 /** Rectangle that is in part specified by points s2Cen and s4Cen. This is the [[Square.SquareImp]] and [[Rect.RectImp]] classes. This trait is purely
  *  for implementation. It does not have value as a library user interface type. */
+/*
 trait RectS2S4 extends Rectangle
 {
   final override def cen: Pt2 = sd2Cen midPt sd0Cen
@@ -48,4 +49,4 @@ trait RectS2S4 extends Rectangle
   final override  def sd1Cen: Pt2 = Pt2(sd1CenX, sd1CenY)
 
   final override def sd3Cen: Pt2 = Pt2(sd3CenX, sd3CenY)
-}
+}*/

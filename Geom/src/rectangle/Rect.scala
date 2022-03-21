@@ -4,52 +4,8 @@ import pWeb._
 
 /** A Rectangle aligned to the X and Y axes. */
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
-{ def unsafeArray: Array[Double]
-  @inline final override def v0x: Double = unsafeArray(0)
-  @inline final override def v0y: Double = unsafeArray(1)
-  @inline final override def v0: Pt2 = v0x pp v0y
-  @inline final override def v1x: Double = unsafeArray(2)
-  @inline final override def v1y: Double = unsafeArray(3)/
-  @inline final override def v1: Pt2 = v1x pp v1y
-  @inline final override def cen: Pt2 = cenX pp cenY
+{
   override def alignAngle: AngleVec = Deg0
-  @inline final def v2x: Double = unsafeArray(4)
-  @inline final def v2y: Double = unsafeArray(5)
-  @inline final def v2: Pt2 = bottomLeft
-  @inline final def v3x: Double = unsafeArray(6)
-  @inline final def v3y: Double = unsafeArray(7)
-  @inline final def v3: Pt2 = topLeft
-
-  /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
-   * be thought of as vertex 0.5. */
-  override def sd0CenX: Double = ???
-
-  /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
-   * be thought of as vertex 0.5. */
-  override def sd0CenY: Double = ???
-
-  final override def sd0Cen: Pt2 = Pt2(cenX, cenY + height / 2)
-  final override def sd1Cen: Pt2 = Pt2(cenX + width / 2, cenY)
-  final override def sd2Cen: Pt2 = Pt2(cenX, cenY -height / 2)
-
-  /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
-   * thought of as vertex 2.5. */
-  final override def sd2CenX: Double = ???
-
-  /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
-   * thought of as vertex 2.5. */
-  final override def sd2CenY: Double = ???
-
-  final override def sd1CenX: Double = ???
-
-  final override def sd1CenY: Double = ???
-
-
-  override def sd3CenX: Double = ???
-
-  override def sd3CenY: Double = ???
-
-  final override def sd3Cen: Pt2 = Pt2(cenX - width / 2, cenY)
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(offset: Vec2Like): Rect = Rect(width, height, cen.slate(offset))
@@ -134,8 +90,8 @@ object Rect
   {
     def width: Double = (v1x - v0x).abs
     def height: Double = (v1y - v2y).abs
-    def cenX: Double = v0x aver v1x
-    def cenY: Double = v1y aver v2y
+    override def cenX: Double = v0x aver v1x
+    override def cenY: Double = v1y aver v2y
     override def vertsTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV0(f(cen), f(v0))
     override def width1: Double = width
     override def width2: Double = height

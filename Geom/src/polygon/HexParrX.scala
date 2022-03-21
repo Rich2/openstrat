@@ -17,38 +17,6 @@ final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[
 
   override def cen: Pt2 = cenX pp cenY
 
-  override def v0x: Double = cenX + radiusOut / 2
-  override def v0y: Double = cenY + radiusIn
-  @inline override def v0: Pt2 = Pt2(v0x, v0y)
-
-  override def v1x: Double = cenX + radiusOut
-  override def v1y: Double = cenY
-  @inline override def v1: Pt2 = Pt2(v1x, v1y)
-
-  override def v2x: Double = cenX + radiusOut / 2
-  override def v2y: Double = cenY - radiusIn
-  @inline override def v2: Pt2 = Pt2(v2x, v2y)
-
-  override def v3x: Double = cenX - radiusOut / 2
-  override def v3y: Double = cenY - radiusIn
-  @inline override def v3: Pt2 = Pt2(v3x, v3y)
-
-  override def sd0CenX: Double = cenX
-  override def sd0CenY: Double = cenY + radiusIn
-  override def sd0Cen: Pt2 = sd0CenX pp sd0CenY
-
-  override def sd1CenX: Double = cenX + radiusIn * Cos30
-  override def sd1CenY: Double = cenY + radiusIn * Sin30
-  override def sd1Cen: Pt2 = sd1CenX pp sd1CenY
-
-  override def sd2CenX: Double = cenX + radiusIn * Cos30
-  override def sd2CenY: Double = cenY - radiusIn * Sin30
-  override def sd2Cen: Pt2 = sd2CenX pp sd2CenY
-
-  override def sd3CenX: Double = cenX
-  override def sd3CenY: Double = cenY - radiusIn
-  override def sd3Cen: Pt2 = sd3CenX pp sd3CenY
-
   override def sd4CenX: Double = cenX - radiusIn * Cos30
   override def sd4CenY: Double = cenY - radiusIn * Sin30
   override def sd4Cen: Pt2 = sd4CenX pp sd4CenY

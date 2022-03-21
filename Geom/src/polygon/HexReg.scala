@@ -7,10 +7,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
 
   def cenX: Double = (v0x + v3x) / 2
   def cenY: Double = (v0y + v3y) / 2
-  def sd3CenX: Double = ???
-  def sd3CenY: Double = ???
-  def sd0CenX: Double = ???
-  def sd0CenY: Double = ???
+
   //sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
   def diameterIn: Double
@@ -160,31 +157,11 @@ object HexReg
       case 6 => v5
       case n => excep(s"There is no vertex $n on a Hexagon.")
     }
-    def sd3Cen: Pt2 = Pt2(sd3CenX, sd3CenY)
-    def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
 
     def s1CenRMax: Pt2 = cen + (cen >> sd3Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(cenX, cenY)
     @inline override def diameterIn: Double = sd0Cen.distTo(sd3Cen)
-    override def v0: Pt2 = s1CenRMax.rotateAbout(cen,  - Deg30)
-    override def v0x: Double = v0.x
-    override def v0y: Double = v0.y
-    override def v1: Pt2 = s1CenRMax.rotateAbout(cen, - Deg90)
-    override def v1x: Double = v1.x
-    override def v1y: Double = v1.y
-    override def v2: Pt2 = s1CenRMax.rotateAbout(cen, -Deg150)
-    override def v2x: Double = v2.x
-    override def v2y: Double = v2.y
-    override def v3: Pt2 = s1CenRMax.rotateAbout(cen, Deg150)
-    override def v3x: Double = v3.x
-    override def v3y: Double = v3.y
 
-    override def sd1CenX: Double = average(v0x, v1x)
-    override def sd1CenY: Double = average(v0y, v1y)
-    override def sd1Cen: Pt2 = v0 midPt v1
-    override def sd2CenX: Double = average(v1x, v2x)
-    override def sd2CenY: Double = average(v1y, v2y)
-    override def sd2Cen: Pt2 = v1 midPt v2
     override def sd4CenX: Double = average(v3x, v4x)
     override def sd4CenY: Double = average(v3y, v4y)
     override def sd4Cen: Pt2 = v3 midPt v4

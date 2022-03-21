@@ -8,7 +8,7 @@ package ostrat; package geom
  *  equals the radius of a circle whose outermost point is also the corner of a golden rectangle added to the square. */
 trait PhiRectangle extends Rectangle
 {
-  def width1: Double = width2 * Phi
+  //def width1: Double = width2 * Phi
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
   override def slateXY(xDelta: Double, yDelta: Double): PhiRectangle = PhiRectangle.s1s3(sd0Cen.addXY(xDelta, yDelta), sd2Cen.addXY(xDelta, yDelta))
@@ -39,60 +39,25 @@ object PhiRectangle
   def apply(height: Double, rotation: AngleVec, cen: Pt2): PhiRectangle =
   { val s1Cen: Pt2 = cen + yVec2(height / 2).rotate(rotation)
     val s3Cen: Pt2 = cen + yVec2(-height / 2).rotate(rotation)
-    PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
+    ??? //PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
   }
 
-  def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
+  def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = ???//PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
-  case class PhiRectangleImp(xS1Cen: Double, yS1Cen: Double, sd2CenX: Double, sd2CenY: Double) extends PhiRectangle
-  { override def cen: Pt2 = cenX pp cenY
-    override def cenX: Double = average(xS1Cen, xS1Cen)
-    override def cenY: Double = average(yS1Cen, yS1Cen)
+  class PhiRectangleImp(val unsafeArray: Array[Double]) extends PhiRectangle
+  {
+    //xS1Cen: Double, yS1Cen: Double, sd2CenX: Double, sd2CenY: Double
+    //override def cenX: Double = average(xS1Cen, xS1Cen)
+   // override def cenY: Double = average(yS1Cen, yS1Cen)
 
-    /** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
-     * be thought of as vertex 0.5. */
-    override def sd0CenX: Double = ???
-
-    /** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
-     * be thought of as vertex 0.5. */
-    override def sd0CenY: Double = ???
-
-    override def sd0Cen: Pt2 = Pt2(xS1Cen, yS1Cen)
-    override def sd2Cen: Pt2 = Pt2(sd2CenX, sd2CenY)
     override def width2: Double = sd0Cen.distTo(sd2Cen)
     override def alignAngle: AngleVec = sd0Cen.angleFrom(sd2Cen).rotationFrom90
-    override def v0: Pt2 = sd0Cen + xVec2(width2 / 2).rotate(alignAngle)
-    override def v0x: Double = v0.x
-    override def v0y: Double = v0.y
-    override def v1: Pt2 = sd2Cen + xVec2(width2 / 2).rotate(alignAngle)
-    override def v1x: Double = v1.x
-    override def v1y: Double = v1.y
-    override def v2: Pt2 = sd2Cen + xVec2(-width2 / 2).rotate(alignAngle)
-    override def v2x: Double = v1.x
-    override def v2y: Double = v1.y
-    override def v3: Pt2 = sd0Cen + xVec2(-width2 / 2).rotate(alignAngle)
-    override def v3x: Double = v1.x
-    override def v3y: Double = v1.y
-
-    override def sd1CenX: Double = ??? //average(xSd1Cen midPt sd2Cen
-
-    override def sd1CenY: Double = ???
-
-    override def sd1Cen: Pt2 = sd0Cen midPt sd1Cen
-
-    override def sd3CenX: Double = ???
-
-    override def sd3CenY: Double = ???
-
-    override def sd3Cen: Pt2 = sd2Cen midPt sd3Cen
   }
 }
 
 class PhiRect(val unsafeArray: Array[Double]) extends Rect with PhiRectangle
 {
   def height: Double = ???
-  def cenX: Double = ???
-  def cenY: Double = ???
   override def width: Double = width1
   override def width2: Double = height
 
@@ -129,8 +94,7 @@ object PhiRect
 class PhiRectY(val unsafeArray: Array[Double]) extends Rect with PhiRectangle
 {
   def width: Double = ???
-  def cenX: Double = ???
-  def cenY: Double = ???
+
   override def height: Double = width1
   override def width2: Double = width
 

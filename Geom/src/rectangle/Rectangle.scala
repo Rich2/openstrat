@@ -6,13 +6,22 @@ import pWeb._
  *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
  *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
 trait Rectangle extends ShapeCentred with Polygon4Plus
-{ final override def vertsNum: Int = 4
+{
+  final override def vertsNum: Int = 4
+
+  /** The X component of the centre. */
+  override def cenX: Double = ???
+
+  /** The Y component of the centre. */
+  override def cenY: Double = ???
 
   /** length from v1 to v2 and v3 to v4. */
-  def width1: Double
+  def width1: Double = v0.distTo(v1)
 
   /** length from v2 to v3 and v03 to v1. */
-  def width2: Double
+  def width2: Double = v1.distTo(v2)
+
+  @inline final override def cen: Pt2 = cenX pp cenY
 
   override def fill(fillColour: Colour): RectangleFill = RectangleFill(this, fillColour)
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
@@ -98,11 +107,14 @@ object Rectangle
   def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Rectangle =
   { val s2Cen: Pt2 = cen.addX(width / 2).rotate(rotation)
     val s4Cen: Pt2 = cen.subX(width / 2).rotate(rotation)
-    new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
+    ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
   }
 
-  def sd2sd4(sd2Cen: Pt2, sd4Cen: Pt2, height: Double): Rectangle = new RectangleImp(sd2Cen.x, sd2Cen.y, sd4Cen.x, sd4Cen.y, height)
-  def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
+  def sd2sd4(sd2Cen: Pt2, sd4Cen: Pt2, height: Double): Rectangle =
+    ??? //new RectangleImp(sd2Cen.x, sd2Cen.y, sd4Cen.x, sd4Cen.y, height)
+
+  def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle =
+    ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
 
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Pt2Z): ShapeGenOld =
   { val w = width / 2
@@ -143,15 +155,19 @@ object Rectangle
   }
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
-  final class RectangleImp(val sd1CenX: Double, val sd1CenY: Double, val sd3CenX: Double, val sd3CenY: Double, val width2: Double) extends RectS2S4
-  {
+  final class RectangleImp(val unsafeArray: Array[Double]) extends Rectangle//S2S4
+  { //val sd1CenX: Double, val sd1CenY: Double, val sd3CenX: Double, val sd3CenY: Double, val width2: Double
     override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))
 
    // override def productArity: Int = 5
    // override def productElement(n: Int): Any = ???
+
+    override def alignAngle: AngleVec = ???
   }
 
   object RectangleImp
-  { def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): RectangleImp = new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
+  {
+    def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): RectangleImp =
+      ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
   }
 }

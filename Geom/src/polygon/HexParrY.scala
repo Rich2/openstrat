@@ -20,37 +20,37 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[
   override def syntaxDepth: Int = 3
 
   override def cen: Pt2 = cenX pp cenY
-  override def v0x: Double = cenX + radiusIn
-  override def v0y: Double = cenY + radiusOut / 2
-  @inline override def v0: Pt2 = Pt2(v0x, v0y)
-
-  override def v1x: Double = cenX + radiusIn
-  override def v1y: Double = cenY - radiusOut / 2
-  @inline override def v1: Pt2 = Pt2(v1x, v1y)
-
-  override def v2x: Double = cenX
-  override def v2y: Double = cenY - radiusOut
-  @inline override def v2: Pt2 = Pt2(v2x, v2y)
-
-  override def v3x: Double = cenX - radiusIn
-  override def v3y: Double = cenY - radiusOut / 2
-  @inline override def v3: Pt2 = Pt2(v3x, v3y)
-
-  override def sd0CenX: Double = cenX + radiusIn * Cos60
-  override def sd0CenY: Double = cenY + radiusIn * Sin60
-  override def sd0Cen: Pt2 = sd0CenX pp sd0CenY
-
-  override def sd1CenX: Double = cenX + radiusIn
-  override def sd1CenY: Double = cenY
-  override def sd1Cen: Pt2 = sd1CenX pp sd1CenY
-
-  override def sd2CenX: Double = cenX + radiusIn * Cos60
-  override def sd2CenY: Double = cenY - radiusIn * Sin60
-  override def sd2Cen: Pt2 = sd2CenX pp sd2CenY
-
-  override def sd3CenX: Double = cenX - radiusIn * Cos60
-  override def sd3CenY: Double = cenY - radiusIn * Sin60
-  override def sd3Cen: Pt2 = sd3CenX pp sd3CenY
+//  override def v0x: Double = cenX + radiusIn
+//  override def v0y: Double = cenY + radiusOut / 2
+//  @inline override def v0: Pt2 = Pt2(v0x, v0y)
+//
+//  override def v1x: Double = cenX + radiusIn
+//  override def v1y: Double = cenY - radiusOut / 2
+//  @inline override def v1: Pt2 = Pt2(v1x, v1y)
+//
+//  override def v2x: Double = cenX
+//  override def v2y: Double = cenY - radiusOut
+//  @inline override def v2: Pt2 = Pt2(v2x, v2y)
+//
+//  override def v3x: Double = cenX - radiusIn
+//  override def v3y: Double = cenY - radiusOut / 2
+//  @inline override def v3: Pt2 = Pt2(v3x, v3y)
+//
+//  override def sd0CenX: Double = cenX + radiusIn * Cos60
+//  override def sd0CenY: Double = cenY + radiusIn * Sin60
+//  override def sd0Cen: Pt2 = sd0CenX pp sd0CenY
+//
+//  override def sd1CenX: Double = cenX + radiusIn
+//  override def sd1CenY: Double = cenY
+//  override def sd1Cen: Pt2 = sd1CenX pp sd1CenY
+//
+//  override def sd2CenX: Double = cenX + radiusIn * Cos60
+//  override def sd2CenY: Double = cenY - radiusIn * Sin60
+//  override def sd2Cen: Pt2 = sd2CenX pp sd2CenY
+//
+//  override def sd3CenX: Double = cenX - radiusIn * Cos60
+//  override def sd3CenY: Double = cenY - radiusIn * Sin60
+//  override def sd3Cen: Pt2 = sd3CenX pp sd3CenY
 
   override def sd4CenX: Double = cenX - radiusIn
   override def sd4CenY: Double = cenY

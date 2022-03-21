@@ -3,8 +3,7 @@ package ostrat; package geom
 
 /** A Rectangle like final class aligned to the X and Y axes. */
 trait Rectangularlign extends OrdinalEdgePoints
-{ //def unsafeArray: Array[Double]
-  def width: Double
+{ def width: Double
   def height: Double
   def xTopLeft: Double = cenX - width / 2
   def yTopLeft: Double = cenY + height / 2

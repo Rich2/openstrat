@@ -40,7 +40,7 @@ trait Square extends Rectangle
 object Square extends ShapeIcon
 {
   override type ShapeT = Sqlign
-  def s2s4(s2Cen: Pt2, s4Cen: Pt2): Square = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
+  def s2s4(s2Cen: Pt2, s4Cen: Pt2): Square = SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the
    * square's scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with
@@ -72,20 +72,15 @@ object Square extends ShapeIcon
 
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
-  final class SquareImp(val sd1CenX: Double, val sd1CenY: Double, val sd3CenX: Double, val sd3CenY: Double) extends Square with RectS2S4
+  final class SquareImp(val unsafeArray: Array[Double]) extends Square //with RectS2S4
   {
+    //val sd1CenX: Double, val sd1CenY: Double, val sd3CenX: Double, val sd3CenY: Double
     @inline override def width: Double = width1
     @inline override def width2: Double = width1
 
+    override def alignAngle: AngleVec = ???
+
     override def attribs: Arr[XANumeric] = ???
-
-    /** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
-     * thought of as vertex 2.5. */
-    override def sd2CenX: Double = ???
-
-    /** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
-     * thought of as vertex 2.5. */
-    override def sd2CenY: Double = ???
 
     override def rotation: AngleVec = ???
 
@@ -96,6 +91,9 @@ object Square extends ShapeIcon
 
   /** Factory object for squares. */
   object SquareImp
-  { def s2s4(s2Cen: Pt2, s4Cen: Pt2): SquareImp = new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
+  {
+    def s2s4(s2Cen: Pt2, s4Cen: Pt2): SquareImp = ???// new SquareImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y)
+
+    def apply(sd1CenX: Double, sd1CenY: Double, sd3CenX: Double, sd3CenY: Double): SquareImp = ???
   }
 }

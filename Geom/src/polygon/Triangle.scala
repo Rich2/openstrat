@@ -6,43 +6,6 @@ trait Triangle extends Polygon3Plus
 { def unsafeArray: Array[Double]
 	override def vertsNum: Int = 3
 
-	def v0x: Double = unsafeArray(0)
-	def v0y: Double = unsafeArray(1)
-	override def v0: Pt2 = v0x pp v0y
-	def v1x: Double = unsafeArray(2)
-	def v1y: Double = unsafeArray(3)
-	inline override def v1: Pt2 = v1x pp v1y
-	def v2x: Double = unsafeArray(4)
-	def v2y: Double = unsafeArray(5)
-	override def v2: Pt2 = v2x pp v2y
-
-	/** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
-	 * be thought of as vertex 0.5. */
-	override def sd0CenX: Double = ???
-
-	/** The Y component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
-	 * be thought of as vertex 0.5. */
-	override def sd0CenY: Double = ???
-
-	override def sd0Cen: Pt2 = v2 midPt v0
-
-	override def sd1CenX: Double = ???
-
-	override def sd1CenY: Double = ???
-
-	override def sd1Cen: Pt2 = v0 midPt v1
-
-
-	/** The X component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
-	 * thought of as vertex 2.5. */
-	override def sd2CenX: Double = ???
-
-	/** The Y component of the centre or half way point of side 3 of this polygon. Side 3 starts at the v2 vertex and ends at the v3 vertex. This can be
-	 * thought of as vertex 2.5. */
-	override def sd2CenY: Double = ???
-
-	override def sd2Cen: Pt2 = v1 midPt v2
-
 	override def unsafeVert(index: Int): Pt2 = index match
 	{	case 1 => v0
 		case 2 => v1
