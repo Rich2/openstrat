@@ -82,28 +82,28 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 /** Companion object for the [[Rect]] trait contains factory methods for the Rect trait which delegate to the [[RectImp]] class. */
 object Rect
 {
-  def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): Rect = new RectImp(width, height, cen.x, cen.y)
-  def apply(width: Double, height: Double, xCen: Double, cenY: Double): Rect = new RectImp(width, height, xCen, cenY)
+  def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): Rect = ???//new RectImp(width, height, cen.x, cen.y)
+  def apply(width: Double, height: Double, xCen: Double, cenY: Double): Rect = ???//new RectImp(width, height, xCen, cenY)
 
   /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top
    *  right vertex of the Rect at the origin. */
-  def tr(width: Double, height: Double, topRight: Pt2 = Pt2Z): Rect = new RectImp(width, height, topRight.x - width / 2, topRight.y - height / 2)
+  def tr(width: Double, height: Double, topRight: Pt2 = Pt2Z): Rect = ???// new RectImp(width, height, topRight.x - width / 2, topRight.y - height / 2)
 
   /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the topLeft parameter places the top
    *  left vertex of the Rect at the origin. */
-  def tl(width: Double, height: Double, topLeft: Pt2 = Pt2Z): Rect = new RectImp(width, height, topLeft.x + width / 2, topLeft.y - height / 2)
+  def tl(width: Double, height: Double, topLeft: Pt2 = Pt2Z): Rect = ???//new RectImp(width, height, topLeft.x + width / 2, topLeft.y - height / 2)
 
   /** Factory method for Rect from width, height and the topLeft position parameters. The default position for the bottomRight parameter places the
    * bottom right vertex of the Rect at the origin. */
-  def br(width: Double, height: Double, bottomRight: Pt2 = Pt2Z): Rect = new RectImp(width, height, bottomRight.x - width / 2, bottomRight.y + height / 2)
+  def br(width: Double, height: Double, bottomRight: Pt2 = Pt2Z): Rect = ???//new RectImp(width, height, bottomRight.x - width / 2, bottomRight.y + height / 2)
 
   /** Factory method for Rect from width, height and the bottomLeft position parameters. The default position for the bottomLeft parameter places the
    * bottom left vertex of the Rect at the origin. */
-  def bl(width: Double, height: Double, bottomLeft: Pt2 = Pt2Z): Rect = new RectImp(width, height, bottomLeft.x + width / 2, bottomLeft.y + height / 2)
+  def bl(width: Double, height: Double, bottomLeft: Pt2 = Pt2Z): Rect = ???// new RectImp(width, height, bottomLeft.x + width / 2, bottomLeft.y + height / 2)
 
   /** Factory method for Rect from width, height and the bottomCentre position parameters. The default position for the bottomCentre parameter places
    *  the bottom centre of the Rect at the origin. */
-  def bCen(width: Double, height: Double, bottomCentre: Pt2 = Pt2Z): Rect = new RectImp(width, height, bottomCentre.x, bottomCentre.y + height / 2)
+  def bCen(width: Double, height: Double, bottomCentre: Pt2 = Pt2Z): Rect = ??? // new RectImp(width, height, bottomCentre.x, bottomCentre.y + height / 2)
 
   def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
 
@@ -114,7 +114,7 @@ object Rect
 
   /** Factory method to create a Rect from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
    * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
-  def cenV0(cen: Pt2, v0: Pt2): Rect = new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
+  def cenV0(cen: Pt2, v0: Pt2): Rect = ???// new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
 
   implicit val slateImplicit: Slate[Rect] = (obj: Rect, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Rect] = (obj: Rect, operand: Double) => obj.scale(operand)
@@ -129,8 +129,13 @@ object Rect
   }
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
-  final case class RectImp(width: Double, height: Double, cenX: Double, cenY: Double) extends Rect
-  { override def vertsTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV0(f(cen), f(v0))
+  final class RectImp(val unsafeArray: Array[Double]) extends Rect
+  {
+    def width: Double = ???
+    def height: Double = ???
+    def cenX: Double = ???
+    def cenY: Double = ???
+    override def vertsTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV0(f(cen), f(v0))
     override def width1: Double = width
     override def width2: Double = height
 
@@ -159,10 +164,12 @@ object Rect
   /** Companion object for the [[Rect.RectImp]] class */
   object RectImp
   { /** Factory method for Rect.RectImp class. */
-    def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectImp = new RectImp(width, height, cen.x, cen.y)
+    def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectImp = ??? // new RectImp(width, height, cen.x, cen.y)
+
+    def apply(width: Double, height: Double, cenX: Double, cenY: Double): RectImp = ???
 
     /** Factory method to create a RectImp from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
      * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
-    def cenV0(cen: Pt2, v0: Pt2): RectImp = new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
+    def cenV0(cen: Pt2, v0: Pt2): RectImp = ??? //new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
   }
 }

@@ -1,10 +1,10 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package geom
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package geom
 
 /** A Rectangle like final class aligned to the X and Y axes. */
 trait Rectangularlign extends OrdinalEdgePoints
-{ def width: Double
+{ def unsafeArray: Array[Double]
+  def width: Double
   def height: Double
   @inline final def xTopLeft: Double = cenX - width / 2
   @inline final def yTopLeft: Double = cenY + height / 2

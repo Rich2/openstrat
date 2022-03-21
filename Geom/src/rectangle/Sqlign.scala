@@ -3,8 +3,11 @@ package ostrat; package geom
 import pWeb._
 
 /** A square aligned to the X and Y axes. */
-final case class Sqlign private(width: Double, cenX: Double, cenY: Double) extends Square with Rect with Show2[Double, Pt2]
+final class Sqlign private(val unsafeArray: Array[Double]) extends Square with Rect with Show2[Double, Pt2]
 {
+  def width: Double = v1x - v0x
+  def cenX: Double = (v0x + v2x) / 2
+  def cenY: Double = (v0y + v2y) / 2
   override def typeStr: String = "Sqlign"
   override def name1: String = "width"
   override def name2: String = "cen"
@@ -36,8 +39,16 @@ final case class Sqlign private(width: Double, cenX: Double, cenY: Double) exten
 
 /** Companion object for Sqlign class, a square aligned to the X and Y axes. Contains factory apply methods. */
 object Sqlign
-{ def apply(width: Double, cen: Pt2 = Pt2Z): Sqlign = new Sqlign(width, cen.x, cen.y)
-  def apply(width: Double, xCen: Double, yCen: Double): Sqlign = new Sqlign(width, xCen, yCen)
+{ def apply(width: Double, cen: Pt2 = Pt2Z): Sqlign ={
+  val array = Array[Double](4)
+  //width, cen.x, cen.y
+  new Sqlign(array)
+}
+  def apply(width: Double, xCen: Double, yCen: Double): Sqlign = {
+    val array = Array[Double](4)
+    //width, xCen, yCen
+    new Sqlign(array)
+  }
 
   implicit val ShowTImplicit: ShowT[Sqlign] = new ShowT[Sqlign]
   { override def typeStr: String = "Sqlign"

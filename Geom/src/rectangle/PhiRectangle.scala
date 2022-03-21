@@ -88,8 +88,11 @@ object PhiRectangle
   }
 }
 
-case class PhiRect(height: Double, cenX: Double, cenY: Double) extends Rect with PhiRectangle
+class PhiRect(val unsafeArray: Array[Double]) extends Rect with PhiRectangle
 {
+  def height: Double = ???
+  def cenX: Double = ???
+  def cenY: Double = ???
   override def width: Double = width1
   override def width2: Double = height
 
@@ -118,11 +121,16 @@ case class PhiRect(height: Double, cenX: Double, cenY: Double) extends Rect with
 
 object PhiRect
 {
-  def apply(height: Double, cen: Pt2 = Pt2Z): PhiRect = PhiRect(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Pt2Z): PhiRect = ???// PhiRect(height, cen.x, cen.y)
+  def apply(height: Double, cenX: Double, cenY: Double): PhiRect = ???
 }
 
-case class PhiRectY(width: Double, cenX: Double, cenY: Double) extends Rect with PhiRectangle
+/** Not sure what this class is. */
+class PhiRectY(val unsafeArray: Array[Double]) extends Rect with PhiRectangle
 {
+  def width: Double = ???
+  def cenX: Double = ???
+  def cenY: Double = ???
   override def height: Double = width1
   override def width2: Double = width
 
@@ -151,5 +159,6 @@ case class PhiRectY(width: Double, cenX: Double, cenY: Double) extends Rect with
 
 object PhiRectY
 {
-  def apply(width: Double, cen: Pt2 = Pt2Z): PhiRectY = PhiRectY(width, cen.x, cen.y)
+  def apply(width: Double, cen: Pt2 = Pt2Z): PhiRectY = ???// PhiRectY(width, cen.x, cen.y)
+  def apply(width: Double, cenX: Double, cenY: Double): PhiRectY = ???
 }

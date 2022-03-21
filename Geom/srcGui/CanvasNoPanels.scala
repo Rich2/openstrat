@@ -4,7 +4,10 @@ import geom._
 
 /** A canvas that is not divided up into panels. A panel is a portion of the canvas that has its own origin and is clipped. */
 abstract class CanvasNoPanels(title: String) extends CanvasUser(title) with PanelLike
-{      
+{
+
+  override def unsafeArray: Array[Double] = ???
+
   override def width = canv.width
   override def height = canv.height
    
