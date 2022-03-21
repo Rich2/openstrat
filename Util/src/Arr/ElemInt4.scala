@@ -29,8 +29,25 @@ trait ArrInt4s[A <: ElemInt4] extends Any with ArrIntNs[A]
   def head4: Int = unsafeArray(3)
 }
 
+/** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
+ *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
+trait ArrInt4sBuilder[B <: ElemInt4, ArrB <: ArrInt4s[B]] extends ArrIntNsBuilder[B, ArrB]
+{ type BuffT <: Int4Buff[B, ArrB]
+
+  final override def elemProdSize: Int = 4
+  def newArray(length: Int): Array[Int] = new Array[Int](length * 4)
+
+  final override def arrSet(arr: ArrB, index: Int, value: B): Unit =
+  { arr.unsafeArray(index * 4) = value.int1; arr.unsafeArray(index * 4 + 1) = value.int2; arr.unsafeArray(index * 4 + 2) = value.int3
+    arr.unsafeArray(index * 4 + 3) = value.int4 }
+
+  override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2)
+    buff.unsafeBuffer.append(value.int3); buff.unsafeBuffer.append(value.int4); () }
+}
+
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt4]]s collections. */
-trait BuffInt4s[A <: ElemInt4, M <: ArrInt4s[A]] extends Any with IntNBuff[A]
+trait Int4Buff[A <: ElemInt4, M <: ArrInt4s[A]] extends Any with IntNBuff[A]
 { override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
@@ -45,7 +62,7 @@ trait BuffInt4s[A <: ElemInt4, M <: ArrInt4s[A]] extends Any with IntNBuff[A]
 /** Class for the singleton companion objects of [[ArrInt4s]] final classes to extend. */
 abstract class ArrInt4sCompanion[A <: ElemInt4, M <: ArrInt4s[A]]
 { val factory: Int => M
-  def buff(initialSize: Int): BuffInt4s[A, M]
+  def buff(initialSize: Int): Int4Buff[A, M]
 
   def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4

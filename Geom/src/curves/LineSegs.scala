@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -27,7 +27,8 @@ object LineSegs extends DataDbl4sCompanion[LineSeg, LineSegs]
     override def showDecT(obj: LineSegs, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrBuildImplicit: ArrFlatBuilder[LineSegs] = new ArrDbl4sFlatBuilder[LineSeg, LineSegs]
+  /** Implicit instance  /evidence for [[ArrFlatBuilder]] type class instance. */
+  implicit val flatBuildEv: ArrFlatBuilder[LineSegs] = new ArrDbl4sFlatBuilder[LineSeg, LineSegs]
   { type BuffT = LineSegBuff
     override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(inp)

@@ -162,7 +162,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
   /** The Hex Sides of the Hex Grid defined in integer constructed [[LineSegHC.]].
    *
    *  @group SidesGroup */
-  def sideCoordLines: Arr[LineSegHC] = sidesMap[LineSegHC, Arr[LineSegHC]](_.coordLine)
+  def sideCoordLines: LineSegHCs = sidesMap[LineSegHC, LineSegHCs](_.coordLine)
 
   def newSideBooleans: HSideBooleans = new HSideBooleans(new Array[Boolean](numSides))
 }
