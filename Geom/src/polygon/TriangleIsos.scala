@@ -9,13 +9,7 @@ trait TriangleIsos extends Triangle
   /** The height of this isosceles triangle. */
   def height: Double = ???
 
-  def v0x: Double = unsafeArray(0)
-  def v0y: Double = unsafeArray(1)
-  def v1x: Double = unsafeArray(2)
-  def v1y: Double = unsafeArray(3)
-  inline override def v1: Pt2 = v1x pp v1y
-  def v2x: Double = unsafeArray(4)
-  def v2y: Double = unsafeArray(5)
+
 }
 
 /** The general case of an isosceles triangle. */

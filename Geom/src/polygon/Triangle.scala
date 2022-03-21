@@ -3,8 +3,17 @@ package ostrat; package geom
 
 /** A mathematical triangle. The Triangle trait is implemented for its general case by [[Triangle.TriangleImp]]. */
 trait Triangle extends Polygon3Plus
-{	override def vertsNum: Int = 3
+{ def unsafeArray: Array[Double]
+	override def vertsNum: Int = 3
+
+	def v0x: Double = unsafeArray(0)
+	def v0y: Double = unsafeArray(1)
 	override def v0: Pt2 = v0x pp v0y
+	def v1x: Double = unsafeArray(2)
+	def v1y: Double = unsafeArray(3)
+	inline override def v1: Pt2 = v1x pp v1y
+	def v2x: Double = unsafeArray(4)
+	def v2y: Double = unsafeArray(5)
 	override def v2: Pt2 = v2x pp v2y
 
 	/** The X component of the centre or half way point of side 1 of this polygon. Side 1 starts at the vLast vertex and ends at the v1 vertex. This can
@@ -107,9 +116,9 @@ object Triangle
 { def apply(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Triangle = TriangleImp(x1, y1, x2, y2, x3, y3)
 	def apply(v1: Pt2, v2: Pt2, v3: Pt2): Triangle = TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
 
-	final case class TriangleImp(v0x: Double, v0y: Double, v1x: Double, v1y: Double, v2x: Double, v2y: Double) extends Triangle with AffinePreserve
+	final class TriangleImp(val unsafeArray: Array[Double]) extends Triangle with AffinePreserve
 	{ override type ThisT = TriangleImp
-		override def v1: Pt2 = Pt2(v1x, v1y)
+		//override def v1: Pt2 = Pt2(v1x, v1y)
 		override def vertsTrans(f: Pt2 => Pt2): TriangleImp = TriangleImp(f(v0), f(v1), f(v2))
 
 		/** A method to perform all the [[AffinePreserve]] transformations with a function from PT2 => PT2. This is delegated to the VertsTrans method as
@@ -118,6 +127,17 @@ object Triangle
 	}
 
 	object TriangleImp
-	{		def apply(v1: Pt2, v2: Pt2, v3: Pt2): TriangleImp = new TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
+	{
+		def apply(v0x: Double, v0y: Double, v1x: Double, v1y: Double, v2x: Double, v2y: Double): TriangleImp = {
+		  val array = new Array[Double](6)
+		  array(0) = v0x; array(1) = v0y; array(2) = v1x; array(3) = v1y; array(4) = v2x; array(5) = v2y
+		  new TriangleImp(array)
+	  }
+
+		def apply(v0: Pt2, v1: Pt2, v2: Pt2): TriangleImp =  {
+			val array = new Array[Double](6)
+			array(0) = v0.x; array(1) = v0.y; array(2) = v1.x; array(3) = v1.y; array(4) = v2.x; array(5) = v2.y
+			new TriangleImp(array)
+		}
 	}
 }
