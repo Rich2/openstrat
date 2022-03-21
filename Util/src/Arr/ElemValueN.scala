@@ -101,7 +101,7 @@ trait DataValueNsCompanion[A <: ElemValueN, ArrA <: DataValueNs[A]]
   def elemProdSize: Int
 
   /** This method allows you to map from a DataGen to the ArrA type. */
-  final def dataGenMap[T](alb: DataGen[T])(f: T => A): ArrA = {
+  final def dataGenMap[T](alb: SqdfGen[T])(f: T => A): ArrA = {
     val res = uninitialised(alb.dataLength)
     var count = 0
     alb.dataForeach { t =>

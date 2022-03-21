@@ -2,9 +2,10 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
-/** Base trait for all efficient classes backed by Arrays, ArrayBuffers etc. Includes sequences and classes such as polygons and line paths that are
- * encoded using sequence data. include immutable and expandable buffers. */
-trait DataGen[A] extends Any
+/** Sequence-defined efficient final classes backed by Arrays, ArrayBuffers etc. Includes actual sequences both mutable and immutable as well as
+ *  classes such as polygons and line paths that
+ *  are defined by sequence data. include immutable and expandable buffers. */
+trait SqdfGen[A] extends Any
 {
   /** The number of data elements in this data sequence base class. These collections use underlying mutable Arrays and ArrayBuffers. The length of
    *  the underlying Array will be this number or a multiple of this number. */
@@ -108,7 +109,7 @@ trait DataGen[A] extends Any
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
-class DataGenShowT[A, R <: DataGen[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+class DataGenShowT[A, R <: SqdfGen[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
