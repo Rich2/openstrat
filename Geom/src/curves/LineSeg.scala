@@ -2,18 +2,6 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, Colour.Black
 
-/** A class that is like a LineSeg, includes [[LineSeg]] and [[LineSegMetre]]. The trait takes the type parameter of the vertex. */
-trait LineSegLike[VT]
-{
-  /** The start point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
-   * [[PtM2]] for a [[LineSegMetre]]. */
-  def startPt: VT
-
-  /** The end point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
-   * [[PtM2]] for a [[LineSegMetre]]. */
-  def endPt: VT
-}
-
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
 final class LineSeg(val startX: Double, val startY: Double, val endX: Double, val endY: Double) extends LineSegLike[Pt2] with LineLike with CurveSeg
