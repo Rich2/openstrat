@@ -10,10 +10,6 @@ case class DispStill(fDisp: () => Unit) extends DispPhase
 /** A virtual panel created from the Canvas implemented using the clip function. */
 case class Panel(private val outerCanv: CanvasPanelled, clipPoly: Polygon, cover: Boolean = true) extends PanelLike
 {
-
-
-  override def unsafeArray: Array[Double] = ???
-
   override def toString: String = "Panel:" -- clipPoly.toString
 
   /** The position of the centre of the Panel on the underlying canvas. */

@@ -55,6 +55,8 @@ class DoubleImplicit(val thisDouble: Double) extends AnyVal
   /** Returns the square root of this Double. */
   def sqrt: Double = math.sqrt(thisDouble)
 
+  def aver(operand: Double) = (thisDouble + operand) / 2
+
   /** String representation for Double that drops the decimal point and zero for integer values. */
   /*def str: String = thisDouble.toLong match
   { case l if l == thisDouble => l.toString

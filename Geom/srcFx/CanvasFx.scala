@@ -6,9 +6,6 @@ import geom._, pgui._, javafx._, scene._
  * <a href="https://openjfx.io/javadoc/15/javafx.graphics/javafx/scene/canvas/GraphicsContext.html">GraphicContext</a>*/
 case class CanvasFx(canvFx: canvas.Canvas, theScene: Scene) extends CanvasTopLeft// with CanvSaver
 {
-
-  override def unsafeArray: Array[Double] = ???
-
   val gc: canvas.GraphicsContext = canvFx.getGraphicsContext2D
   override def width = canvFx.getWidth.max(100)
   override def height = canvFx.getHeight.max(100)
