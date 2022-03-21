@@ -3,7 +3,7 @@ package ostrat; package geom
 import pWeb._
 
 /** Equilateral triangle. will become a trait. */
-final case class TriangleEqui(v0x: Double, v0y: Double, v2x: Double, v2y: Double) extends TriangleIsos with AxisFree
+final case class TriangleEqui(unsafeArray: Array[Double]) extends TriangleIsos with AxisFree
 {
   type ThisT = TriangleEqui
   override def height: Double = ???
@@ -13,4 +13,6 @@ final case class TriangleEqui(v0x: Double, v0y: Double, v2x: Double, v2y: Double
   override def rotate(angle: AngleVec): TriangleEqui = ???
 
   override def reflect(lineLike: LineLike): TriangleEqui = ???
+
+
 }
