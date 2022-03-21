@@ -5,6 +5,13 @@ package ostrat; package geom
 trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
 { override def typeStr = "HexReg"
 
+  def cenX: Double = (v0x + v3x) / 2
+  def cenY: Double = (v0y + v3y) / 2
+  def sd3CenX: Double = ???
+  def sd3CenY: Double = ???
+  def sd0CenX: Double = ???
+  def sd0CenY: Double = ???
+  //sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
   def diameterIn: Double
 
@@ -22,11 +29,11 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
   override def vertsForeach[U](f: Pt2 => U): Unit = { f(v0); f(v1); f(v2); f(v3); f(v4); f(v5); () }
 
   override def vertsTailForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); () }
-  override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = { f(v0x, v0y);  f(v1x, v1y); f(v2x, v2y);  f(v3x, v3y); f(v4x, v4y); f(v5x, y5); () }
+  override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = { f(v0x, v0y);  f(v1x, v1y); f(v2x, v2y);  f(v3x, v3y); f(v4x, v4y); f(v5x, v5y); () }
 
   override def vertsArrayX: Array[Double] = Array(v0x, v1x, v2x, v3x, v4x, v5x)
 
-  override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y, v3y, v4y, y5)
+  override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y, v3y, v4y, v5y)
   override def vertsArray: Array[Double] = ???
 
   override def unsafeVert(index: Int): Pt2 = index match
@@ -57,7 +64,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
     case 3 => v2y
     case 4 => v3y
     case 5 => v4y
-    case 6 => y5
+    case 6 => v5y
     case n => excep(s"$n is out of range for a Hexagon vertex")
   }
 
@@ -133,7 +140,7 @@ object HexReg
   }
 
   /** Implementation class for the [[HexReg]] trait. */
-  final case class HexRegImp(sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double) extends HexReg with Show2[Pt2, Pt2]
+  final case class HexRegImp(val unsafeArray: Array[Double]) extends HexReg with Show2[Pt2, Pt2]
   {
     override def name1: String = "sd4Cen"
     override def name2: String = "sd1Cen"
@@ -155,8 +162,7 @@ object HexReg
     }
     def sd3Cen: Pt2 = Pt2(sd3CenX, sd3CenY)
     def sd0Cen: Pt2 = Pt2(sd0CenX, sd0CenY)
-    def cenX: Double = (sd0CenX + sd3CenX) / 2
-    def cenY: Double = (sd0CenY + sd3CenY) / 2
+
     def s1CenRMax: Pt2 = cen + (cen >> sd3Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(cenX, cenY)
     @inline override def diameterIn: Double = sd0Cen.distTo(sd3Cen)
@@ -172,12 +178,6 @@ object HexReg
     override def v3: Pt2 = s1CenRMax.rotateAbout(cen, Deg150)
     override def v3x: Double = v3.x
     override def v3y: Double = v3.y
-    override def v4: Pt2 = s1CenRMax.rotateAbout(cen, Deg90)
-    override def v4x: Double = v4.x
-    override def v4y: Double = v4.y
-    def v5: Pt2 = s1CenRMax.rotateAbout(cen, Deg30)
-    override def v5x: Double = v5.x
-    override def y5: Double = v5.y
 
     override def sd1CenX: Double = average(v0x, v1x)
     override def sd1CenY: Double = average(v0y, v1y)
@@ -189,7 +189,19 @@ object HexReg
     override def sd4CenY: Double = average(v3y, v4y)
     override def sd4Cen: Pt2 = v3 midPt v4
     override def sd5CenX: Double = average(v4x, v5x)
-    override def sd5CenY: Double = average(v4y, y5)
+    override def sd5CenY: Double = average(v4y, v5y)
     override def sd5Cen: Pt2 = v4 midPt v5
+  }
+
+  object HexRegImp{
+    def apply(sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double) : HexRegImp = ???
+
+    /*override def v4: Pt2 = s1CenRMax.rotateAbout(cen, Deg90)
+    override def v4x: Double = v4.x
+    override def v4y: Double = v4.y*/
+
+    /*def v5: Pt2 = s1CenRMax.rotateAbout(cen, Deg30)
+    override def v5x: Double = v5.x
+    override def v5y: Double = v5.y*/
   }
 }

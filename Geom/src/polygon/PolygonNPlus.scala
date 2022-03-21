@@ -87,13 +87,15 @@ trait Polygon4Plus extends Polygon3Plus
 
 /** A [[Polygon]] with at least 5 vertices. */
 trait Polygon5Plus extends Polygon4Plus
-{ /** Vertex 4. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately clockwise from 12
+{
+  def unsafeArray: Array[Double]
+  /** Vertex 4. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately clockwise from 12
    *  o'clock. */
-  def v4: Pt2
+  inline final def v4: Pt2 = v4x pp v4y
   /** The X component of the vertex 4. */
-  def v4x: Double
+  final def v4x: Double = unsafeArray(8)
   /** The Y component of the vertex 4. */
-  def v4y: Double
+  final def v4y: Double = unsafeArray(9)
 
 
   /** The centre or half way point of side 5 of this polygon. Side 5 starts at the v4 vertex and ends at the v5 vertex. This can be thought of as
@@ -111,11 +113,11 @@ trait Polygon5Plus extends Polygon4Plus
 trait Polygon6Plus extends Polygon5Plus
 { /** Vertex 5. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately clockwise from 12
    *  o'clock. */
-  def v5: Pt2
+  final def v5: Pt2 = v5x pp v5y
   /** The X component of the 6th Vertex. */
-  def v5x: Double
+  final def v5x: Double = unsafeArray(10)
   /** The Y component of the 6th Vertex. */
-  def y5: Double
+  final def v5y: Double = unsafeArray(11)
 
   /** The centre or half way point of side 5 of this polygon. Side 5 starts at the v5 vertex and ends at the v6 vertex. This can be thought of as
    * vertex 5.5. */

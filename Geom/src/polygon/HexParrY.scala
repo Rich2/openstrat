@@ -2,8 +2,10 @@
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module. */
-final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2] with ElemDbl3
+final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[Double, Pt2] with ElemDbl3
 { override def typeStr = "HexYlign"
+  def width: Double = ???
+
   override def name1: String = "width"
   override def name2: String = "cen"
   override def dbl1: Double = width
@@ -33,14 +35,6 @@ final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) exte
   override def v3x: Double = cenX - radiusIn
   override def v3y: Double = cenY - radiusOut / 2
   @inline override def v3: Pt2 = Pt2(v3x, v3y)
-
-  override def v4x: Double = cenX - radiusIn
-  override def v4y: Double = cenY + radiusOut / 2
-  @inline override def v4: Pt2 = Pt2(v4x, v4y)
-
-  override def v5x: Double = cenX
-  override def y5: Double = cenY + radiusOut
-  @inline override def v5: Pt2 = Pt2(v5x, y5)
 
   override def sd0CenX: Double = cenX + radiusIn * Cos60
   override def sd0CenY: Double = cenY + radiusIn * Sin60
@@ -97,8 +91,18 @@ final class HexParrY(val width: Double, val cenX: Double, val cenY: Double) exte
  * the type can not be maintained through all affine transformations. */
 object HexParrY
 {
-  def apply(width: Double, cen: Pt2 = Pt2Z): HexParrY = new HexParrY(width, cen.x, cen.y)
-  def apply(width: Double, xCen: Double, yCen: Double): HexParrY = new HexParrY(width, xCen, yCen)
+  def apply(width: Double, cen: Pt2 = Pt2Z): HexParrY = ???//new HexParrY(width, cen.x, cen.y)
+  def apply(width: Double, xCen: Double, yCen: Double): HexParrY = ???//new HexParrY(width, xCen, yCen)
+
+  /*override def v4x: Double = cenX - radiusIn
+  override def v4y: Double = cenY + radiusOut / 2
+  @inline override def v4: Pt2 = Pt2(v4x, v4y)*/
+
+
+  /*override def v5x: Double = cenX
+  override def y5: Double = cenY + radiusOut
+  @inline override def v5: Pt2 = Pt2(v5x, y5)*/
+
   def unapply(input: HexParrY): Some[(Double, Pt2)] = Some((input.width, input.cen))
 
   implicit val persistImplicit: Persist[HexParrY] = Persist2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen, apply)

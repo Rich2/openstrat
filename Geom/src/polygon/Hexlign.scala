@@ -3,7 +3,8 @@ package ostrat; package geom
 
 /** A regular Hexagon aligned to the X and Y axes. */
 trait Hexlign extends HexReg
-{ def width: Double
+{
+  def width: Double
   def height: Double
 
   override def rotate90: Hexlign = this match

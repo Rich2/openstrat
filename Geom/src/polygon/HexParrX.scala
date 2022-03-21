@@ -2,8 +2,9 @@
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
-final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) extends Hexlign with Show2[Double, Pt2]
-{ override def typeStr = "HexXlign"
+final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[Double, Pt2]
+{ def height: Double = ???//, val cenX: Double, val cenY: Double
+  override def typeStr = "HexXlign"
   override def name1: String = "height"
   override def name2: String = "cen"
   override def diameterIn: Double = height
@@ -31,14 +32,6 @@ final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) ext
   override def v3x: Double = cenX - radiusOut / 2
   override def v3y: Double = cenY - radiusIn
   @inline override def v3: Pt2 = Pt2(v3x, v3y)
-
-  override def v4x: Double = cenX - radiusOut
-  override def v4y: Double = cenY
-  @inline override def v4: Pt2 = Pt2(v4x, v4y)
-
-  override def v5x: Double = cenX - radiusOut / 2
-  override def y5: Double = cenY + radiusIn
-  @inline override def v5: Pt2 = Pt2(v5x, y5)
 
   override def sd0CenX: Double = cenX
   override def sd0CenY: Double = cenY + radiusIn
@@ -94,10 +87,18 @@ final class HexParrX(val height: Double, val cenX: Double, val cenY: Double) ext
  * the type can not be maintained through all affine transformations. */
 object HexParrX
 { /** Apply factory method for HexXlign, Creates a regular hexagon with 2 of its side aligned to the X axis. */
-  def apply(height: Double, cen: Pt2 = Pt2Z): HexParrX = new HexParrX(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Pt2Z): HexParrX = ???//new HexParrX(height, cen.x, cen.y)
 
   /** Apply factory method for [[HexParrX]], Creates a regular hexagon with 2 of its side aligned to the Y axis. */
-  def apply(height: Double, xCen: Double, yCen: Double): HexParrX = new HexParrX(height, xCen, yCen)
+  def apply(height: Double, xCen: Double, yCen: Double): HexParrX = ???//new HexParrX(height, xCen, yCen)
+
+  /*override def v4x: Double = cenX - radiusOut
+  override def v4y: Double = cenY
+  @inline override def v4: Pt2 = Pt2(v4x, v4y)*/
+
+  /*override def v5x: Double = cenX - radiusOut / 2
+  override def v5y: Double = cenY + radiusIn
+  @inline override def v5: Pt2 = Pt2(v5x, v5y)*/
 
   def unapply(input: HexParrX): Some[(Double, Pt2)] = Some((input.height, input.cen))
 
