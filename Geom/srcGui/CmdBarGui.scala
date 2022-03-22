@@ -5,20 +5,20 @@ import geom._, Colour._
 /** A simple 2 panel display, a man panel and a command bar. */
 abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
 {
-  val barWidth = 30
-  val topBar = addPanel(Rect.tl(canv.width, barWidth, canv.topLeft), true)
+  val barThickness = 30
+  val topBar = addPanel(Rect.tl(canv.width, barThickness, canv.topLeft), true)
   topBar.backColour = Colour.Cornsilk
 
   /** The text for the status field of the command bar. */
   var statusText: String = ""
-  
+
   def textBox(str: String, cmd: AnyRef) = Rect(40, 25).fillDrawTextActive(Gray, cmd, str, 15, 2, White, LeftAlign)
-  
-  val mainPanel: Panel = addPanel(Rect.bl(canv.width, canv.height - barWidth, canv.bottomLeft))
+
+  val mainPanel: Panel = addPanel(Rect.bl(canv.width, canv.height - barThickness, canv.bottomLeft))
   def mainRepaint(els: Arr[GraphicElem]): Unit = mainPanel.repaint(els)
   def mainRepaints(els: GraphicElem*): Unit = mainPanel.repaints(els: _*)
-  def mainWidth = mainPanel.width
-  def mainHeight = mainPanel.height
+  def mainWidth: Double = mainPanel.width
+  def mainHeight: Double = mainPanel.height
 
   /**  repaints the top command bar */
   def reTop(commands: Arr[GraphicBounded]): Unit =

@@ -5,7 +5,7 @@ import pWeb._
 /** A Rectangle aligned to the X and Y axes. */
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 { type ThisT <: Rect
-
+  def mapRect(f: Pt2 => Pt2): Rect = Rect.fromArray(unsafeMap(f))
   override def alignAngle: AngleVec = Deg0
 
   /** Translate geometric transformation on a Rect returns a Rect. */
@@ -18,10 +18,10 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   override def scale(operand: Double): Rect = Rect(width * operand, height * operand, cen.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-  override def negY: Rect = Rect(width, height, cen.negY)
+  override def negY: Rect = Rect.fromArray(unsafeNegY)
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-  override def negX: Rect = Rect(width, height, cen.negX)
+  override def negX: Rect = Rect.fromArray(unsafeNegX)
 
   override def rotate90: Rect = ???
   override def rotate180: Rect = ???
@@ -42,6 +42,7 @@ object Rect
 {
   def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): Rect = RectImp(width, height, cen.x, cen.y)
   def apply(width: Double, height: Double, xCen: Double, cenY: Double): Rect = RectImp(width, height, xCen, cenY)
+  def fromArray(array: Array[Double]): Rect = new RectImp(array)
 
   /** Factory method for Rect from width, height and the topRight position parameters. The default position for the topLeft parameter places the top
    *  right vertex of the Rect at the origin. */
@@ -96,8 +97,8 @@ object Rect
 
     def width: Double = (v1x - v0x).abs
     def height: Double = (v1y - v2y).abs
-    override def cenX: Double = v0x aver v1x
-    override def cenY: Double = v1y aver v2y
+    override def cenX: Double = v0x aver v2x
+    override def cenY: Double = v0y aver v2y
     override def vertsTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV1(f(cen), f(v0))
     override def width1: Double = width
     override def width2: Double = height
@@ -119,7 +120,7 @@ object Rect
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
     override def negX: RectImp = RectImp(width, height, cen.negX)
 
-    override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
+    override def prolign(matrix: ProlignMatrix): Rect = mapRect(_.prolign(matrix))
 
     override def scaleXY(xOperand: Double, yOperand: Double): RectImp = RectImp.cenV1(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
   }
@@ -128,16 +129,16 @@ object Rect
   object RectImp
   { /** Factory method for Rect.RectImp class. */
     def apply(width: Double, height: Double, cen: Pt2 = Pt2Z): RectImp =
-    { val w = width / 2
-      val h = height / 2
-      val array = Array[Double](cen.x - w, cen.y + h, cen.x + w, cen.y + h, cen.x + w, cen.y - h, cen.x - w, cen.y - h)
+    { val w: Double = width / 2
+      val h: Double = height / 2
+      val array: Array[Double] = Array[Double](cen.x - w, cen.y + h, cen.x + w, cen.y + h, cen.x + w, cen.y - h, cen.x - w, cen.y - h)
       new RectImp(array)
     }
 
     def apply(width: Double, height: Double, cenX: Double, cenY: Double): RectImp =
-    { val w = width / 2
-      val h = height / 2
-      val array = Array[Double](cenX - w, cenY + h, cenX + w, cenY + h, cenX + w, cenY - h, cenX - w, cenY - h)
+    { val w: Double = width / 2
+      val h: Double = height / 2
+      val array: Array[Double] = Array[Double](cenX - w, cenY + h, cenX + w, cenY + h, cenX + w, cenY - h, cenX - w, cenY - h)
       new RectImp(array)
     }
 

@@ -23,10 +23,10 @@ trait Square extends Rectangle
   override def scale(operand: Double): Square = ???//Square.s2s4(sd1Cen.scale(operand), sd3Cen.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
-  override def negY: Square = Square.fromArray(unsafeNegY)//Square.s2s4(sd1Cen.negY, sd3Cen.negY)
+  override def negY: Square = Square.fromArray(unsafeNegY)
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
-  override def negX: Square = Square.fromArray(unsafeNegX) //Square.s2s4(sd1Cen.negX, sd3Cen.negX)
+  override def negX: Square = Square.fromArray(unsafeNegX)
 
   override def rotate90: Square = ???//Square(width, rotation, xCen, yCen)
   override def rotate180: Square = ???

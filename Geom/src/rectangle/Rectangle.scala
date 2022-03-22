@@ -10,6 +10,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   override def typeStr: String = "Rectangle"
 
   final override def vertsNum: Int = 4
+  def mapRectangle(f: Pt2 => Pt2): Rectangle = Rectangle.fromArray(unsafeMap(f))
 
   /** The X component of the centre. */
   override def cenX: Double = v0x aver v2x
@@ -45,25 +46,24 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def slate(offset: Vec2Like): Rectangle = Rectangle.sd2sd4(sd1Cen.slate(offset), sd3Cen.slate(offset), width2)
+  override def slate(offset: Vec2Like): Rectangle = mapRectangle(_.slate(offset))
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def slateXY(xDelta: Double, yDelta: Double): Rectangle =
-    Rectangle.sd2sd4(sd1Cen.addXY(xDelta, yDelta), sd3Cen.addXY(xDelta, yDelta), width2)
+  override def slateXY(xDelta: Double, yDelta: Double): Rectangle = mapRectangle(_.xySlate(xDelta, yDelta))
 
   /** Uniform scaling 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def scale(operand: Double): Rectangle = Rectangle.sd2sd4(sd1Cen.scale(operand), sd3Cen.scale(operand), width2 * operand)
+  override def scale(operand: Double): Rectangle = mapRectangle(_.scale(operand))
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negY: Rectangle = Rectangle.sd2sd4(sd1Cen.negY, sd3Cen.negY, width2)
+  override def negY: Rectangle = Rectangle.fromArray(unsafeNegY)
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
-  override def negX: Rectangle = Rectangle.sd2sd4(sd1Cen.negX, sd3Cen.negX, width2)
+  override def negX: Rectangle = Rectangle.fromArray(unsafeNegX)
 
   override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(sd1Cen.prolign(matrix), sd3Cen.prolign(matrix), v0.prolign(matrix))
 
-  override def rotate90: Rectangle = Rectangle.sd2sd4(sd1Cen.rotate90, sd3Cen.rotate90, width2)
-  override def rotate180: Rectangle = Rectangle.sd2sd4(sd1Cen.rotate180, sd3Cen.rotate180, width2)
+  override def rotate90: Rectangle = mapRectangle(_.rotate90)
+  override def rotate180: Rectangle = mapRectangle(_.rotate180)
   override def rotate270: Rectangle = Rectangle.sd2sd4(sd1Cen.rotate270, sd3Cen.rotate270, width2)
 
   override def reflect(lineLike: LineLike): Rectangle = Rectangle.sd2sd4(sd1Cen.reflect(lineLike), sd3Cen.reflect(lineLike), width2)
@@ -89,6 +89,8 @@ object Rectangle
 
   def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle =
     ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
+
+  def fromArray(array: Array[Double]): Rectangle = new RectangleImp(array)
 
   def curvedCorners(width: Double, height: Double, radius: Double, cen: Pt2 = Pt2Z): ShapeGenOld =
   { val w = width / 2
