@@ -39,21 +39,6 @@ trait Triangle extends Polygon3Plus
 	override def shearX(operand: Double): Triangle = vertsTrans(_.xShear(operand))
 	override def shearY(operand: Double): Triangle = vertsTrans(_.yShear(operand))
 
-
-	override def xVert(index: Int): Double = index match
-	{	case 1 => v0x
-		case 2 => v1x
-		case 3 => v2x
-		case n => excep(n.str + " is out of range for a triangle.")
-	}
-
-	override def yVert(index: Int): Double = index match
-	{	case 1 => v0y
-		case 2 => v1y
-		case 3 => v2y
-		case n => excep(n.str + " is out of range for a triangle.")
-	}
-
 	def xCen: Double = (v0x + v1x + v2x) / 3
 	def yCen: Double = (v0y + v1y + v2y) / 3
 
@@ -61,6 +46,7 @@ trait Triangle extends Polygon3Plus
 	override def fillInt(intValue: Int): TriangleFill = TriangleFill(this, Colour(intValue))
 }
 
+/** Companion object for [[Triangle]] trait. Contains apply factory methods and [[TriangleImp]] implementation for non specialised triangles. */
 object Triangle
 { def apply(x1: Double, y1: Double, x2: Double, y2: Double, x3: Double, y3: Double): Triangle = TriangleImp(x1, y1, x2, y2, x3, y3)
 	def apply(v1: Pt2, v2: Pt2, v3: Pt2): Triangle = TriangleImp(v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)

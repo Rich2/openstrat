@@ -23,17 +23,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   /** Polygon side 0 from vertex 0 to vertex 1. */
   final def side0: LineSeg = LineSeg(vLast, v0)
 
-  /** The vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub classes. */
-  /*def vertsArray: Array[Double] = {
-    val res = new Array[Double](vertsNum * 2)
-    var i = 0
-    vertsForeach{v => res(i) = v.x
-      i += 1
-      res(i) = v.y
-      i += 1
-    }
-    res
-  }*/
+  final def xVert(index: Int): Double = unsafeArray(index * 2)
+  final def yVert(index: Int): Double = unsafeArray(index * 2 + 1)
 
   /** The X component of the vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub
    *  classes. */
@@ -193,11 +184,11 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
    * override the implementation in sub classes. */
-  def xVert(index: Int): Double = vert(index).x
+  //def xVert(index: Int): Double = vert(index).x
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
    * override the implementation in sub classes. */
-  def yVert(index: Int): Double = vert(index).y
+  //def yVert(index: Int): Double = vert(index).y
 
   /** The X component of vertex v0, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
   final def v0x: Double = unsafeArray(0)

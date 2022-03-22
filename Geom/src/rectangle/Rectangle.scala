@@ -66,7 +66,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
 
   override def rotate(angle: AngleVec): Rectangle = mapRectangle(_.rotate(angle))
 
-  override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = ???//Rectangle.s2s4v1(sd1Cen.xyScale(xOperand, yOperand), sd3Cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
+  override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = mapRectangle(_.xyScale(xOperand, yOperand))
 }
 
 /** Companion object fot the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also
