@@ -5,11 +5,10 @@ import pWeb._
 /** The Rectangle trait defines 4 vertices v0, v1, v2 and v3. The leaf classes of this class may or may not be squares and may or may not be aligned
  *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
  *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
-trait Rectangle extends ShapeCentred with Polygon4Plus with DataDbl2s[Pt2]
+trait Rectangle extends ShapeCentred with Polygon4Plus
 { type ThisT <: Rectangle
   override def typeStr: String = "Rectangle"
-  final override def fElemStr: Pt2 => String = _.str
-  final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+
   final override def vertsNum: Int = 4
 
   /** The X component of the centre. */

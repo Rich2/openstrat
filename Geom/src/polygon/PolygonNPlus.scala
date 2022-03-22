@@ -83,8 +83,12 @@ trait Polygon3Plus extends Polygon
 }
 
 /** A [[Polygon]] with at least 4 vertices. */
-trait Polygon4Plus extends Polygon3Plus
-{ /** The X component of vertex 3. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately
+trait Polygon4Plus extends Polygon3Plus with DataDbl2s[Pt2]
+{ type ThisT <: Polygon4Plus
+  final override def fElemStr: Pt2 => String = _.str
+  final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+
+  /** The X component of vertex 3. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately
       clockwise from 12 o'clock. */
   final def v3x: Double = unsafeArray(6)
 
@@ -109,8 +113,7 @@ trait Polygon4Plus extends Polygon3Plus
 /** A [[Polygon]] with at least 5 vertices. */
 trait Polygon5Plus extends Polygon4Plus with DataDbl2s[Pt2]
 { type ThisT <: Polygon5Plus
-  final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
-  final override def fElemStr: Pt2 => String = _.str
+
   /** The X component of the vertex 4. */
   final def v4x: Double = unsafeArray(8)
 
