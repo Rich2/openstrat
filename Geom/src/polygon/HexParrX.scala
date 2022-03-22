@@ -3,7 +3,10 @@ package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the X Axis */
 final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[Double, Pt2]
-{ def height: Double = ???//, val cenX: Double, val cenY: Double
+{ override type ThisT = HexParrX
+  override def unsafeFromArray(array: Array[Double]): HexParrX = new HexParrX(array)
+  def height: Double = ???
+  //, val cenX: Double, val cenY: Double
   override def typeStr = "HexXlign"
   override def name1: String = "height"
   override def name2: String = "cen"

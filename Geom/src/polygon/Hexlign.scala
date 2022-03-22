@@ -2,10 +2,13 @@
 package ostrat; package geom
 
 /** A regular Hexagon aligned to the X and Y axes. */
-trait Hexlign extends HexReg
+trait Hexlign extends HexReg with DataDbl2s[Pt2]
 {
   def width: Double
   def height: Double
+
+  final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+  final override def fElemStr: Pt2 => String = _.str
 
   override def rotate90: Hexlign = this match
   { case HexParrX(h, cen) => HexParrY(h, cen.rotate90)
