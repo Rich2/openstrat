@@ -9,6 +9,8 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
   def cenX: Double = (v0x + v3x) / 2
   def cenY: Double = (v0y + v3y) / 2
 
+  def mapHexReg(f: Pt2 => Pt2): HexReg = ???
+
   //sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
   def diameterIn: Double
@@ -32,39 +34,6 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
   override def vertsArrayX: Array[Double] = Array(v0x, v1x, v2x, v3x, v4x, v5x)
 
   override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y, v3y, v4y, v5y)
-  //override def vertsArray: Array[Double] = ???
-
-  /*override def unsafeVert(index: Int): Pt2 = index match
-  { case 1 => v0
-    case 2 => v1
-    case 3 => v2
-    case 4 => v3
-    case 5 => v4
-    case 6 => v5
-    case n => excep(s"$n is out of range for a Hexagon vertex")
-  }
-
-  /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  override def xVert(index: Int): Double = index match
-  { case 1 => v0x
-    case 2 => v1x
-    case 3 => v2x
-    case 4 => v3x
-    case 5 => v4x
-    case 6 => v5x
-    case n => excep(s"$n is out of range for a Hexagon vertex")
-  }
-
-  /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
-  override def yVert(index: Int): Double = index match
-  { case 1 => v0y
-    case 2 => v1y
-    case 3 => v2y
-    case 4 => v3y
-    case 5 => v4y
-    case 6 => v5y
-    case n => excep(s"$n is out of range for a Hexagon vertex")
-  }*/
 
   /** A Hexagon has 6 vertices. */
   final override def vertsNum: Int = 6
@@ -102,12 +71,7 @@ object HexReg
 {
   /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side
    * 4 at the bottom parallel to the X axis and side1 at the top. */
-  def apply(dInner: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): HexReg =
-  { val v4 = (Ang90 + rotation).toVec2(dInner /2)
-    val sd4Cen = cen + v4//.subY(dInner / 2).rotate(rotation)
-    val sd1Cen = cen - v4 //.addY(dInner / 2).rotate(rotation)
-    HexRegImp(sd4Cen.x, sd4Cen.y, sd1Cen.x, sd1Cen.y)
-  }
+  def apply(dInner: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): HexReg = HexParrX(dInner, cen).rotate(rotation)
 
   /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side
    * 4 at the bottom parallel to the X axis and side1 at the top. */
@@ -152,38 +116,21 @@ object HexReg
     override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
     override def syntaxDepth: Int = 3
 
-    /*override def unsafeVert(index: Int): Pt2 = index match {
-      case 1 => v0
-      case 2 => v1
-      case 3 => v2
-      case 4 => v3
-      case 5 => v4
-      case 6 => v5
-      case n => excep(s"There is no vertex $n on a Hexagon.")
-    }*/
-
     def s1CenRMax: Pt2 = cen + (cen >> sd3Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(cenX, cenY)
     @inline override def diameterIn: Double = sd0Cen.distTo(sd3Cen)
   }
 
-  object HexRegImp{
-    def apply(sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double) : HexRegImp ={
-    val h = 20 //height / 2
-    val array = Array[Double](20 - h /2, 20 + h,
-      20 + h /2, 20 + h,
-      h, 0,
-      0, 0,
-      0, 0,
-      0, 0)
-    new HexRegImp(array)
-  }
-    /*override def v4: Pt2 = s1CenRMax.rotateAbout(cen, Deg90)
-    override def v4x: Double = v4.x
-    override def v4y: Double = v4.y*/
-
-    /*def v5: Pt2 = s1CenRMax.rotateAbout(cen, Deg30)
-    override def v5x: Double = v5.x
-    override def v5y: Double = v5.y*/
+  object HexRegImp {
+    def apply(sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double) : HexRegImp = {
+      val h = 20 //height / 2
+      val array = Array[Double](20 - h /2, 20 + h,
+        20 + h /2, 20 + h,
+        h, 0,
+        0, 0,
+        0, 0,
+        0, 0)
+      new HexRegImp(array)
+    }
   }
 }

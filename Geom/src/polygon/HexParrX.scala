@@ -54,18 +54,19 @@ object HexParrX
   def apply(height: Double, cen: Pt2 = Pt2Z): HexParrX = apply(height, cen.x, cen.y)//new HexParrX(height, cen.x, cen.y)
 
   /** Apply factory method for [[HexParrX]], Creates a regular hexagon with 2 of its side aligned to the Y axis. */
-  def apply(height: Double, xCen: Double, yCen: Double): HexParrX =
-  { val h2: Double = height / 2
+  def apply(height: Double, xCen: Double, yCen: Double): HexParrX = new HexParrX(unsafe(height, xCen, yCen))
+
+  def unsafe(height: Double, xCen: Double, yCen: Double): Array[Double] =
+  {
+    val h2: Double = height / 2
     val dsq3: Double = height / 3.sqrt
-    val d2sq3: Double = height /(3.sqrt * 2)
-    val array: Array[Double] = Array[Double](
-      xCen - d2sq3, yCen + h2,
+    val d2sq3: Double = height / (3.sqrt * 2)
+    Array[Double](xCen - d2sq3, yCen + h2,
       xCen + d2sq3, yCen + h2,
       xCen + dsq3, yCen,
       xCen + d2sq3, yCen - h2,
       xCen - d2sq3, yCen - h2,
       xCen - dsq3, yCen)
-    new HexParrX(array)
   }
   /*override def v4x: Double = cenX - radiusOut
   override def v4y: Double = cenY
