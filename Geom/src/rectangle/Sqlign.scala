@@ -3,20 +3,15 @@ package ostrat; package geom
 import pWeb._
 
 /** A square aligned to the X and Y axes. */
-final class Sqlign private(val unsafeArray: Array[Double]) extends Square with Rect with Show2[Double, Pt2] with DataDbl2s[Pt2]
+final class Sqlign private(val unsafeArray: Array[Double]) extends Square with Rect with Show2[Double, Pt2]
 {
   override type ThisT = Sqlign
-
-  override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
-
+  override def typeStr: String = "Sqlign"
   override def unsafeFromArray(array: Array[Double]): Sqlign = new Sqlign(array)
-
-  override def fElemStr: Pt2 => String = ???
 
   def width: Double = v1x - v0x
   //def cenX: Double = (v0x + v2x) / 2
   //def cenY: Double = (v0y + v2y) / 2
-  override def typeStr: String = "Sqlign"
   override def name1: String = "width"
   override def name2: String = "cen"
   override def show1: Double = width

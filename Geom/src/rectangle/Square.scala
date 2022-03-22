@@ -5,6 +5,7 @@ import pWeb._
 /** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareImp]], a general square. */
 trait Square extends Rectangle
 {
+  override def typeStr: String = "Square"
   /** The width of this square. */
   def width: Double
 
@@ -73,7 +74,10 @@ object Square extends ShapeIcon
   /** The class for a generalised square. If you want a square aligned XY axes use [[Sqlign]]. The square can be translated, scaled, reflected and
    *  rotated while remaining a Square. */
   final class SquareImp(val unsafeArray: Array[Double]) extends Square //with RectS2S4
-  {
+  { override type ThisT = SquareImp
+
+    override def unsafeFromArray(array: Array[Double]): SquareImp = new SquareImp(array)
+
     //val sd1CenX: Double, val sd1CenY: Double, val sd3CenX: Double, val sd3CenY: Double
     @inline override def width: Double = width1
     @inline override def width2: Double = width1

@@ -5,8 +5,11 @@ import pWeb._
 /** The Rectangle trait defines 4 vertices v0, v1, v2 and v3. The leaf classes of this class may or may not be squares and may or may not be aligned
  *  to the X and Y Axes. You can build a Rectangle using the factory methods in the Rectangle companion object. However if your rectangle is a aligned
  *  to the X and Y axis prefer the factory methods on the companion object of the shorter named [[Rect]] trait. */
-trait Rectangle extends ShapeCentred with Polygon4Plus
-{
+trait Rectangle extends ShapeCentred with Polygon4Plus with DataDbl2s[Pt2]
+{ type ThisT <: Rectangle
+  override def typeStr: String = "Rectangle"
+  final override def fElemStr: Pt2 => String = _.str
+  final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
   final override def vertsNum: Int = 4
 
   /** The X component of the centre. */
@@ -156,7 +159,10 @@ object Rectangle
 
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectangleImp(val unsafeArray: Array[Double]) extends Rectangle//S2S4
-  { //val sd1CenX: Double, val sd1CenY: Double, val sd3CenX: Double, val sd3CenY: Double, val width2: Double
+  { override type ThisT = RectangleImp
+    override def unsafeFromArray(array: Array[Double]): RectangleImp = new RectangleImp(array)
+
+    //val sd1CenX: Double, val sd1CenY: Double, val sd3CenX: Double, val sd3CenY: Double, val width2: Double
     override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))
 
    // override def productArity: Int = 5

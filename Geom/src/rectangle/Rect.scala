@@ -4,7 +4,8 @@ import pWeb._
 
 /** A Rectangle aligned to the X and Y axes. */
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
-{
+{ type ThisT <: Rect
+
   override def alignAngle: AngleVec = Deg0
 
   /** Translate geometric transformation on a Rect returns a Rect. */
@@ -87,7 +88,12 @@ object Rect
   
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final class RectImp(val unsafeArray: Array[Double]) extends Rect
-  {
+  { type ThisT = RectImp
+
+    override def unsafeFromArray(array: Array[Double]): RectImp = new RectImp(array)
+
+    override def typeStr: String = "Rect"
+
     def width: Double = (v1x - v0x).abs
     def height: Double = (v1y - v2y).abs
     override def cenX: Double = v0x aver v1x

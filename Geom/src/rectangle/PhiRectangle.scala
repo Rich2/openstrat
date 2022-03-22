@@ -7,7 +7,8 @@ package ostrat; package geom
  *  rectangles as well. A method to construct a golden rectangle. Owing to the Pythagorean theorem,[a] the diagonal dividing one half of a square
  *  equals the radius of a circle whose outermost point is also the corner of a golden rectangle added to the square. */
 trait PhiRectangle extends Rectangle
-{
+{ type ThisT <: PhiRectangle
+  override def typeStr: String = "PhiRectangle"
   //def width1: Double = width2 * Phi
 
   /** Translate geometric transformation on a PhiRectangle returns a PhiRectangle. */
@@ -45,7 +46,8 @@ object PhiRectangle
   def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = ???//PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
 
   class PhiRectangleImp(val unsafeArray: Array[Double]) extends PhiRectangle
-  {
+  { override type ThisT = PhiRectangleImp
+    override def unsafeFromArray(array: Array[Double]): PhiRectangleImp = new PhiRectangleImp(array)
     //xS1Cen: Double, yS1Cen: Double, sd2CenX: Double, sd2CenY: Double
     //override def cenX: Double = average(xS1Cen, xS1Cen)
    // override def cenY: Double = average(yS1Cen, yS1Cen)
@@ -56,7 +58,11 @@ object PhiRectangle
 }
 
 class PhiRect(val unsafeArray: Array[Double]) extends Rect with PhiRectangle
-{
+{ override type ThisT = PhiRect
+  override def unsafeFromArray(array: Array[Double]): PhiRect = new PhiRect(array)
+
+  override def typeStr: String = "PhiRect"
+
   def height: Double = ???
   override def width: Double = width1
   override def width2: Double = height
@@ -91,8 +97,11 @@ object PhiRect
 }
 
 /** Not sure what this class is. */
-class PhiRectY(val unsafeArray: Array[Double]) extends Rect with PhiRectangle
-{
+final class PhiRectY(val unsafeArray: Array[Double]) extends Rect with PhiRectangle
+{ override type ThisT = PhiRectY
+  override def unsafeFromArray(array: Array[Double]): PhiRectY = new PhiRectY(array)
+  override def typeStr: String = "PhiRectY"
+
   def width: Double = ???
 
   override def height: Double = width1
