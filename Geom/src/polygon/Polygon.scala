@@ -14,7 +14,6 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 
   final def vLastX: Double = unsafeArray(vertsNum - 2)
-
   final def vLastY: Double = unsafeArray(vertsNum - 1)
 
   /** The last vertex. The default convention places this just anti clockwise of 12 oclock. */
@@ -25,24 +24,6 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   final def xVert(index: Int): Double = unsafeArray(index * 2)
   final def yVert(index: Int): Double = unsafeArray(index * 2 + 1)
-
-  /** The X component of the vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub
-   *  classes. */
-  final def vertsArrayX: Array[Double] =
-  { val res = new Array[Double](vertsNum)
-    var i = 0
-    vertsForeach{v => res(i) = v.x; i += 1 }
-    res
-  }
-
-  /** The Y component of the vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub
-   *  classes. */
-  final def vertsArrayY: Array[Double] =
-  { val res = new Array[Double](vertsNum)
-    var i = 0
-    vertsForeach{v => res(i) = v.y; i += 1 }
-    res
-  }
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
   final override def vertsForeach[U](f: Pt2 => U): Unit = dataForeach(f)

@@ -9,13 +9,13 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   override def alignAngle: AngleVec = Deg0
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slate(offset: Vec2Like): Rect = Rect(width, height, cen.slate(offset))
+  override def slate(offset: Vec2Like): Rect = mapRect(_.slate(offset))
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slateXY(xDelta: Double, yDelta: Double): Rect = Rect(width, height, cenX + xDelta, cenY + yDelta)
+  override def slateXY(xDelta: Double, yDelta: Double): Rect = mapRect(_.xySlate(xDelta,yDelta))
 
   /** Uniform scaling transformation on a Rect returns a Rect. */
-  override def scale(operand: Double): Rect = Rect(width * operand, height * operand, cen.scale(operand))
+  override def scale(operand: Double): Rect = mapRect(_.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negY: Rect = Rect.fromArray(unsafeNegY)
@@ -23,13 +23,13 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negX: Rect = Rect.fromArray(unsafeNegX)
 
-  override def rotate90: Rect = ???
-  override def rotate180: Rect = ???
-  override def rotate270: Rect = ???
+  override def rotate90: Rect = mapRect(_.rotate90)
+  override def rotate180: Rect = mapRect(_.rotate180)
+  override def rotate270: Rect = mapRect(_.rotate270)
 
-  override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rect = mapRect(_.prolign(matrix))
 
-  override def scaleXY(xOperand: Double, yOperand: Double): Rect = Rect.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
+  override def scaleXY(xOperand: Double, yOperand: Double): Rect = mapRect(_.xyScale(xOperand, yOperand))
 
   override def activeChildren(id: AnyRef, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) %: children)
 
