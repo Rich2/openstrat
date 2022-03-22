@@ -26,10 +26,6 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
    * the length of the hexagon side. */
   @inline final def diameterOut: Double = diameterIn * 2 / Sqrt3
 
-  override def vertsArrayX: Array[Double] = Array(v0x, v1x, v2x, v3x, v4x, v5x)
-
-  override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y, v3y, v4y, v5y)
-
   /** A Hexagon has 6 vertices. */
   final override def vertsNum: Int = 6
 

@@ -14,7 +14,6 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2s
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   @inline override def polygonMap(f: Pt2 => Pt2): PolygonGen = vertsMap(f).toPolygon
 
-
   override def vertsTrans(f: Pt2 => Pt2): PolygonGen = new PolygonGen(arrTrans(f))
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
@@ -34,18 +33,6 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2s
   def maxY: Double = dataTailfold(v0.y)((acc, el) => acc.max(el.y))
   def width: Double = maxX - minX
   def height: Double = maxY - minY
-
-  override def vertsArrayX: Array[Double] =
-  { val newArray = new Array[Double](vertsNum)
-    iUntilForeach(0, vertsNum){i => newArray(i) = xVert(i)}
-    newArray
-  }
-
-  override def vertsArrayY: Array[Double] =
-  { val newArray = new Array[Double](vertsNum)
-    iUntilForeach(0, vertsNum){i => newArray(i) = yVert(i)}
-    newArray
-  }
 
   /** Insert vertex. */
   override def insVert(insertionPoint: Int, newVec: Pt2): PolygonGen =

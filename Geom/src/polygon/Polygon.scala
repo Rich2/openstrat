@@ -28,7 +28,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   /** The X component of the vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub
    *  classes. */
-  def vertsArrayX: Array[Double] =
+  final def vertsArrayX: Array[Double] =
   { val res = new Array[Double](vertsNum)
     var i = 0
     vertsForeach{v => res(i) = v.x; i += 1 }
@@ -37,7 +37,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   /** The Y component of the vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub
    *  classes. */
-  def vertsArrayY: Array[Double] =
+  final def vertsArrayY: Array[Double] =
   { val res = new Array[Double](vertsNum)
     var i = 0
     vertsForeach{v => res(i) = v.y; i += 1 }
