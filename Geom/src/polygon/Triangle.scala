@@ -5,20 +5,7 @@ package ostrat; package geom
 trait Triangle extends Polygon3Plus
 { type ThisT <: Triangle
 	override def typeStr: String = "Triangle"
-
-
 	override def vertsNum: Int = 3
-
-	/*override def unsafeVert(index: Int): Pt2 = index match
-	{	case 1 => v0
-		case 2 => v1
-		case 3 => v2
-		case n => excep("index: " + n.toString + "out of range. There are only 3 vertices in a triangle.")
-	}*/
-
-	override def vertsForeach[U](f: Pt2 => U): Unit = { f(v0); f(v1); f(v2); () }
-	override def vertsTailForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); () }
-	override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = { f(v1x, v1y); f(v2x, v2y); () }
 
 	/** 2D geometric transformation on a triangle returns a triangle. The method takes a function from a [[Pt2]] 2D Vector or point to a [[Pt2]]. */
 	override def vertsTrans(f: Pt2 => Pt2): Triangle = Triangle(f(v0), f(v1), f(v2))

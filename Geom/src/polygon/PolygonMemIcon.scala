@@ -13,14 +13,6 @@ trait PolygonYMirror extends Polygon
 {
   def rtLine: LinePath
 
-  /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
-  override def vertsForeach[U](f: Pt2 => U): Unit = {
-    rtLine.dataForeach(f(_))
-  }
-
-  /** Performs the side effecting function on the [[Pt2]] value of each vertex, excluding vertex v1. */
-  override def vertsTailForeach[U](f: Pt2 => U): Unit = ???
-
   /** The number of vertices and also the number of sides in this Polygon. */
   override def vertsNum: Int = ???
 }

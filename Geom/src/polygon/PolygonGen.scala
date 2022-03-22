@@ -7,7 +7,6 @@ import Colour.Black, pWeb._
 final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with DataDbl2s[Pt2]
 { override type ThisT = PolygonGen
 
-  @inline override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = dataForeachPairTail(f)
   override def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   override def typeStr: String = "Polygon"
   override def vertsNum: Int = unsafeArray.length / 2
@@ -21,14 +20,6 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2s
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */
   @inline override def ptsTrans(f: Pt2 => Pt2): PolygonGen = vertsTrans(f)
-
-  override def vertsForeach[U](f: Pt2 => U): Unit = iUntilForeach(0, unsafeArray.length, 2){ i =>
-    f(Pt2(unsafeArray(i), unsafeArray(i + 1))); ()
-  }
-
-  override def vertsTailForeach[U](f: Pt2 => U): Unit = iUntilForeach(2, unsafeArray.length, 2){ i =>
-    f(Pt2(unsafeArray(i), unsafeArray(i + 1))); ()
-  }
 
   override def attribs: Arr[XANumeric] = ???
 
@@ -86,7 +77,6 @@ object PolygonGen extends DataDbl2sCompanion[Pt2, PolygonGen]
 
   implicit val persistImplicit: DataDbl2sPersist[Pt2, PolygonGen] = new DataDbl2sPersist[Pt2, PolygonGen]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
-
     override def showDecT(obj: PolygonGen, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 }

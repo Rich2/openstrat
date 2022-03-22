@@ -9,7 +9,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
   def cenX: Double = (v0x + v3x) / 2
   def cenY: Double = (v0y + v3y) / 2
 
-  def mapHexReg(f: Pt2 => Pt2): HexReg = ???
+  def mapHexReg(f: Pt2 => Pt2): HexReg = HexReg.fromArray(unsafeMap(f))
 
   //sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
@@ -26,10 +26,8 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
    * the length of the hexagon side. */
   @inline final def diameterOut: Double = diameterIn * 2 / Sqrt3
 
-  override def vertsForeach[U](f: Pt2 => U): Unit = { f(v0); f(v1); f(v2); f(v3); f(v4); f(v5); () }
 
-  override def vertsTailForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); f(v4); f(v5); () }
-  override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = { f(v0x, v0y);  f(v1x, v1y); f(v2x, v2y);  f(v3x, v3y); f(v4x, v4y); f(v5x, v5y); () }
+ // override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = { f(v0x, v0y);  f(v1x, v1y); f(v2x, v2y);  f(v3x, v3y); f(v4x, v4y); f(v5x, v5y); () }
 
   override def vertsArrayX: Array[Double] = Array(v0x, v1x, v2x, v3x, v4x, v5x)
 
@@ -40,30 +38,30 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
-  override def slateXY(xDelta: Double, yDelta: Double): HexReg = HexReg.sd4Sd1(sd3Cen.addXY(xDelta, yDelta), sd0Cen.addXY(xDelta, yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): HexReg = mapHexReg(_.addXY(xDelta, yDelta))
 
   /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
    * return type of this method will be narrowed further in descendant traits / classes. */
-  override def scale(operand: Double): HexReg = HexReg.sd4Sd1(sd3Cen.scale(operand), sd0Cen.scale(operand))
+  override def scale(operand: Double): HexReg = mapHexReg(_.scale(operand))
 
   /** Mirror, reflection transformation of a HexReg across the X axis, returns a HexReg. */
-  override def negY: HexReg = HexReg.sd4Sd1(sd3Cen.negY, sd0Cen.negY)
+  override def negY: HexReg = HexReg.fromArray(unsafeNegY)
 
   /** Mirror, reflection transformation of HexReg across the Y axis, returns a HexReg. */
-  override def negX: HexReg = HexReg.sd4Sd1(sd3Cen.negX, sd0Cen.negX)
+  override def negX: HexReg = HexReg.fromArray(unsafeNegX)
 
-  override def rotate90: HexReg = HexReg.sd4Sd1(sd3Cen.rotate90, sd0Cen.rotate90)
-  override def rotate180: HexReg = HexReg.sd4Sd1(sd3Cen.rotate180, sd0Cen.rotate180)
-  override def rotate270: HexReg = HexReg.sd4Sd1(sd3Cen.rotate270, sd0Cen.rotate270)
+  override def rotate90: HexReg = mapHexReg(_.rotate90)
+  override def rotate180: HexReg = mapHexReg(_.rotate180)
+  override def rotate270: HexReg = mapHexReg(_.rotate270)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes. */
-  override def prolign(matrix: ProlignMatrix): HexReg = HexReg.sd4Sd1(sd3Cen.prolign(matrix), sd0Cen.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): HexReg = mapHexReg(_.prolign(matrix))
 
-  override def rotate(angle: AngleVec): HexReg = HexReg.sd4Sd1(sd3Cen.rotate(angle), sd0Cen.rotate(angle))
+  override def rotate(angle: AngleVec): HexReg = mapHexReg(_.rotate(angle))
 
   /** Reflect 2D geometric transformation across a line, line segment or ray on a HexReg, returns a HexReg. The Return type will be narrowed in sub
    * traits / classes. */
-  override def reflect(lineLike: LineLike): HexReg = HexReg.sd4Sd1(sd3Cen.reflect(lineLike), sd0Cen.reflect(lineLike))
+  override def reflect(lineLike: LineLike): HexReg = mapHexReg(_.reflect(lineLike))
 }
 
 /** Companion object for HegReg trait, contains [[HexRegImp]] implementation case for the general case of regular Hexagons. */
@@ -77,9 +75,11 @@ object HexReg
    * 4 at the bottom parallel to the X axis and side1 at the top. */
   def apply(dInner: Double, rotation: AngleVec, xCen: Double, yCen: Double): HexReg = apply(dInner, rotation, xCen pp yCen)
 
+  def fromArray(array: Array[Double]): HexReg = new HexRegImp(array)
+
   /** Factory method for HexReg, taking 2 points as parameters, the centre of side 4, followed by the centre of side 1. In the default alignment for
    * a regular hexagon both Y values will be 0. */
-  def sd4Sd1(sd4Cen: Pt2, sd1Cen: Pt2): HexReg = HexRegImp(sd4Cen.x, sd4Cen.y, sd1Cen.x, sd1Cen.y)
+  //def sd4Sd1(sd4Cen: Pt2, sd1Cen: Pt2): HexReg = HexRegImp(sd4Cen.x, sd4Cen.y, sd1Cen.x, sd1Cen.y)
 
   implicit val showImplicit: ShowT[HexReg] = new ShowT[HexReg]
   { override def typeStr: String = "HexReg"
@@ -122,7 +122,7 @@ object HexReg
   }
 
   object HexRegImp {
-    def apply(sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double) : HexRegImp = {
+    /*def apply(sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double) : HexRegImp = {
       val h = 20 //height / 2
       val array = Array[Double](20 - h /2, 20 + h,
         20 + h /2, 20 + h,
@@ -131,6 +131,6 @@ object HexReg
         0, 0,
         0, 0)
       new HexRegImp(array)
-    }
+    }*/
   }
 }

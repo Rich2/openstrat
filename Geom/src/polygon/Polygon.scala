@@ -54,14 +54,14 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   }
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
-  def vertsForeach[U](f: Pt2 => U): Unit
+  final override def vertsForeach[U](f: Pt2 => U): Unit = dataForeach(f)
 
-  /** Performs the side effecting function on the [[Pt2]] value of each vertex, excluding vertex v1. */
-  def vertsTailForeach[U](f: Pt2 => U): Unit
+  /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
+  final def vertsTailForeach[U](f: Pt2 => U): Unit = dataTailForeach(f)
 
   /** Foreach vertex excluding vertex 1, perform the side effecting function on the Tuple2 of the x and y values of the vertex. For maximum efficiency
    * override the implementation in sub classes. */
-  def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = vertsTailForeach(v => f(v.x, v.y))
+  final def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = vertsTailForeach(v => f(v.x, v.y))
 
   /** A function that takes a 2D geometric transformation on a [[Pt2]] as a parameter and performs the transformation on all the vertices returning a
    * new transformed Polygon */
@@ -207,8 +207,6 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   /** Vertex v0, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
   final def v0: Pt2 = v0x pp v0y
-
-
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
   override def boundingRect: BoundingRect =

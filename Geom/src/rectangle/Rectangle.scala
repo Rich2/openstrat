@@ -37,10 +37,6 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   def yAttrib: YAttrib = YAttrib(v3y)
   override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
 
-  final override def vertsForeach[U](f: Pt2 => U): Unit = { f(v0); f(v1); f(v2); f(v3); ()}
-  final override def vertsTailForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); () }
-  override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = { f(v1x, v1y); f(v2x, v2y); f(v3x, v3y); () }
-
   def diag1: LineSeg = LineSeg(v2, v0)
   def diag2: LineSeg = LineSeg(v3, v1)
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
