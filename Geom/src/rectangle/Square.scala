@@ -1,10 +1,10 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._
 
 /** the Square trait can either be a [[Sqlign]], an aligned square or a [[SquareImp]], a general square. */
 trait Square extends Rectangle
-{
+{ type ThisT <: Square
   override def typeStr: String = "Square"
   /** The width of this square. */
   def width: Double
@@ -41,27 +41,36 @@ trait Square extends Rectangle
 object Square extends ShapeIcon
 {
   override type ShapeT = Sqlign
-  def sd3sd1(s3cen: Pt2, s1cen: Pt2): Square = SquareImp.sd3sd1(s3cen, s1cen)
+  //def sd3sd1(s3cen: Pt2, s1cen: Pt2): Square = SquareImp.sd3sd1(s3cen, s1cen)
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the
    * square's scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with
    * its centre at the axes centre. Otherwise the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre.
    * If you want to create a square aligned to the axes, then you are probably better using the Sqlign factory apply method. */
   def apply(width: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Square =
-  { val sd3 = cen - xVec2(width / 2).rotate(rotation)
-    val sd1 = cen + xVec2(-width / 2).rotate(rotation)
-    sd3sd1(sd3, sd1)
+  { val rtVec = xVec2(width / 2).rotate(rotation)
+    val upVec = yVec2(width / 2).rotate(rotation)
+    val p0 = cen - rtVec + upVec
+    val p1 = cen + rtVec + upVec
+    val p2 = cen + rtVec - upVec
+    val p3 = cen - rtVec - upVec
+    val array: Array[Double] = Array[Double](p0.x, p0.y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y)
+    new SquareImp(array)
   }
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the
    * square's scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with
    * its centre at the axes centre. Otherwise the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre.
    * If you want to create a square aligned to the axes, then you are probably better using the Sqlign factory apply method. */
-  def apply(width: Double, rotation: AngleVec, xCen: Double, yCen: Double): Square =
-  { val s2 = Pt2(width / 2, 0).rotate(rotation).addXY(xCen, yCen)
-    val s4 = Pt2(-width / 2, 0).rotate(rotation).addXY(xCen, yCen)
-    ???//s2s4(s2, s4)
-  }
+  def apply(width: Double, rotation: AngleVec, xCen: Double, yCen: Double): Square = apply(width, rotation, xCen pp yCen)
+
+
+  /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the
+   * square's scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with
+   * its centre at the axes centre. Otherwise the rotation can be followed by a centre point [[Pt2]] or the X and Y positions of the square's centre.
+   * If you want to create a square aligned to the axes, then you are probably better using the Sqlign factory apply method. */
+  //def apply(width: Double, rotation: AngleVec, cen: Pt2): Square = xy(width, rotation, cen.x, cen.y)
+
 
   /** Scale the Square and position (translate) it. This method is equivalent to scaling the icon and then translating (repositioning) it. */
   override def reify(scale: Double, xCen: Double, yCen: Double): Sqlign = Sqlign(scale, xCen, yCen)

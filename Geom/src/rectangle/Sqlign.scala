@@ -4,8 +4,7 @@ import pWeb._
 
 /** A square aligned to the X and Y axes. */
 final class Sqlign private(val unsafeArray: Array[Double]) extends Square with Rect with Show2[Double, Pt2]
-{
-  override type ThisT = Sqlign
+{ override type ThisT = Sqlign
   override def typeStr: String = "Sqlign"
   override def unsafeFromArray(array: Array[Double]): Sqlign = new Sqlign(array)
 
@@ -40,7 +39,7 @@ final class Sqlign private(val unsafeArray: Array[Double]) extends Square with R
   override def prolign(matrix: ProlignMatrix): Sqlign = Sqlign(width * matrix.vFactor, cen.prolign(matrix))
 }
 
-/** Companion object for Sqlign class, a square aligned to the X and Y axes. Contains factory apply methods. */
+/** Companion object for [[Sqlign]] class, a square aligned to the X and Y axes. Contains factory apply methods. */
 object Sqlign
 {
   def apply(width: Double, cen: Pt2 = Pt2Z): Sqlign =

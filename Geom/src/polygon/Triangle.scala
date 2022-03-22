@@ -2,11 +2,10 @@
 package ostrat; package geom
 
 /** A mathematical triangle. The Triangle trait is implemented for its general case by [[Triangle.TriangleImp]]. */
-trait Triangle extends Polygon3Plus with DataDbl2s[Pt2]
+trait Triangle extends Polygon3Plus
 { type ThisT <: Triangle
 	override def typeStr: String = "Triangle"
-	final override def fElemStr: Pt2 => String = _.str
-	final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+
 
 	override def vertsNum: Int = 3
 

@@ -5,10 +5,9 @@ import pWeb._
 /** An isosceles triangle. This trait is implemented by the equilateral triangle, [[TriangleEqui]] and the general case [[TriangleIsos]]. */
 trait TriangleIsos extends Triangle
 { type ThisT <: TriangleIsos
-
   override def typeStr: String = "TriangleIsos"
 
-  /** The height of this isosceles triangle. */
+  /** The height of this isosceles triangle from the bisection of the thrid side to the vertex where the 2 euql length sides meet. */
   def height: Double = ???
 }
 

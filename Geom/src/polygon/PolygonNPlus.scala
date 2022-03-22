@@ -3,10 +3,11 @@ package ostrat; package geom
 
 /** A [[Polygon]] with at least 3 vertices. The PolygonNPlus traits include values for the vertices and the x and y components of the vertices. The X
  * and Y components are included because Graphics implementation APIs use them. */
-trait Polygon3Plus extends Polygon
-{
-  def unsafeArray: Array[Double]
+trait Polygon3Plus extends Polygon with DataDbl2s[Pt2]
+{ type ThisT <: Polygon3Plus
 
+  final override def fElemStr: Pt2 => String = _.str
+  final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
   @inline final override def v0x: Double = unsafeArray(0)
   @inline final override def v0y: Double = unsafeArray(1)
   @inline final override def v0: Pt2 = v0x pp v0y
@@ -85,8 +86,6 @@ trait Polygon3Plus extends Polygon
 /** A [[Polygon]] with at least 4 vertices. */
 trait Polygon4Plus extends Polygon3Plus with DataDbl2s[Pt2]
 { type ThisT <: Polygon4Plus
-  final override def fElemStr: Pt2 => String = _.str
-  final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 
   /** The X component of vertex 3. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately
       clockwise from 12 o'clock. */
