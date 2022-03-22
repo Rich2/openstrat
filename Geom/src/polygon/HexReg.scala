@@ -3,7 +3,8 @@ package ostrat; package geom
 
 /** Regular Hexagon */
 trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
-{ override def typeStr = "HexReg"
+{ type ThisT <: HexReg
+  override def typeStr = "HexReg"
 
   def cenX: Double = (v0x + v3x) / 2
   def cenY: Double = (v0y + v3y) / 2
@@ -137,8 +138,11 @@ object HexReg
   }
 
   /** Implementation class for the [[HexReg]] trait. */
-  final case class HexRegImp(val unsafeArray: Array[Double]) extends HexReg with Show2[Pt2, Pt2]
-  {
+  final class HexRegImp(val unsafeArray: Array[Double]) extends HexReg with Show2[Pt2, Pt2]
+  { override type ThisT = HexRegImp
+
+    override def unsafeFromArray(array: Array[Double]): HexRegImp = new HexRegImp(array)
+
     override def name1: String = "sd4Cen"
     override def name2: String = "sd1Cen"
 

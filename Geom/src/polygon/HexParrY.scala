@@ -7,7 +7,6 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[
   override type ThisT = HexParrY
   override def unsafeFromArray(array: Array[Double]): HexParrY = new HexParrY(array)
 
-
   override def typeStr = "HexYlign"
   def width: Double = ???
 

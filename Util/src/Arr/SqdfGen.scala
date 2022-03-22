@@ -29,7 +29,7 @@ trait SqdfGen[A] extends Any
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   final def elemsStr: String = dataMap(fElemStr).mkString("; ").enParenth
 
-  final override def toString: String = typeStr + elemsStr
+  override def toString: String = typeStr + elemsStr
 
   /** apply method accesses the individual elements of the sequence by 0 based index. */
   @inline def indexData(index: Int): A

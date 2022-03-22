@@ -107,8 +107,10 @@ trait Polygon4Plus extends Polygon3Plus
 }
 
 /** A [[Polygon]] with at least 5 vertices. */
-trait Polygon5Plus extends Polygon4Plus
-{
+trait Polygon5Plus extends Polygon4Plus with DataDbl2s[Pt2]
+{ type ThisT <: Polygon5Plus
+  final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+  final override def fElemStr: Pt2 => String = _.str
   /** The X component of the vertex 4. */
   final def v4x: Double = unsafeArray(8)
 
@@ -135,7 +137,8 @@ trait Polygon5Plus extends Polygon4Plus
 
 /** A [[Polygon]] with at least 6 vertices. */
 trait Polygon6Plus extends Polygon5Plus
-{
+{ type ThisT <: Polygon6Plus
+
   /** The X component of the 6th Vertex. */
   final def v5x: Double = unsafeArray(10)
 
