@@ -94,35 +94,36 @@ object Rect
     override def unsafeFromArray(array: Array[Double]): RectImp = new RectImp(array)
 
     override def typeStr: String = "Rect"
+    def mapRectImp(f: Pt2 => Pt2): RectImp = RectImp.fromArray(unsafeMap(f))
 
     def width: Double = (v1x - v0x).abs
     def height: Double = (v1y - v2y).abs
     override def cenX: Double = v0x aver v2x
     override def cenY: Double = v0y aver v2y
-    override def vertsTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV1(f(cen), f(v0))
+    override def vertsTrans(f: Pt2 => Pt2): RectImp = mapRectImp(f)
     override def width1: Double = width
     override def width2: Double = height
 
     override def attribs: Arr[XANumeric] = ???
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    override def slateXY(xDelta: Double, yDelta: Double): RectImp = RectImp(width, height, cenX + xDelta, cenY + yDelta)
+    override def slateXY(xDelta: Double, yDelta: Double): RectImp = mapRectImp(_.xySlate(xDelta, yDelta))
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
-    override def slate(offset: Vec2Like): RectImp = RectImp(width, height, cen.slate(offset))
+    override def slate(offset: Vec2Like): RectImp = mapRectImp(_.slate(offset))
 
     /** Uniform scaling transformation on a RectImp returns a RectImp. */
-    override def scale(operand: Double): RectImp = RectImp(width * operand, height * operand, cen.scale(operand))
+    override def scale(operand: Double): RectImp = mapRectImp(_.scale(operand))
 
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-    override def negY: RectImp = RectImp(width, height, cen.negY)
+    override def negY: RectImp = RectImp.fromArray(unsafeNegY)
 
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
-    override def negX: RectImp = RectImp(width, height, cen.negX)
+    override def negX: RectImp = RectImp.fromArray(unsafeNegX)
 
     override def prolign(matrix: ProlignMatrix): Rect = mapRect(_.prolign(matrix))
 
-    override def scaleXY(xOperand: Double, yOperand: Double): RectImp = RectImp.cenV1(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
+    override def scaleXY(xOperand: Double, yOperand: Double): RectImp = mapRectImp(_.xyScale(xOperand, yOperand))
   }
 
   /** Companion object for the [[Rect.RectImp]] class */
@@ -142,15 +143,17 @@ object Rect
       new RectImp(array)
     }
 
+    def fromArray(array: Array[Double]): RectImp = new RectImp(array)
+
     /** Factory method to create a RectImp from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
      * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
-    def cenV1(cen: Pt2, v1: Pt2): RectImp =
+    def cenaV1(cen: Pt2, v1: Pt2): RectImp =
     { val urVec: Vec2 = v1 - cen
-      val ulVec = urVec.rotate90
-      val p0 = cen + ulVec
-      val p2 = cen - ulVec
-      val p3 = cen - urVec
-      val array: Array[Double] = Array[Double](p0.x, p0.y, v1.x, v1.y, p2.x, p2.y, p3.x, p3.y)
+      val ulVec: Vec2 = urVec.rotate90
+      val v0: Pt2 = cen + ulVec
+      val v2: Pt2 = cen - ulVec
+      val v3: Pt2 = cen - urVec
+      val array: Array[Double] = Array[Double](v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
       new RectImp(array)
     }
   }
