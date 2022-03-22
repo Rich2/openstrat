@@ -9,11 +9,6 @@ trait Polygon3Plus extends Polygon
   def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
   def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)
 
-
-  @inline final override def v0x: Double = unsafeArray(0)
-  @inline final override def v0y: Double = unsafeArray(1)
-  @inline final override def v0: Pt2 = v0x pp v0y
-
   /** The X component of the v1 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or
       immediately clockwise from 12 o'clock. */
   final def v1x: Double = unsafeArray(2)
@@ -37,16 +32,6 @@ trait Polygon3Plus extends Polygon
   /** The v2 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or immediately clockwise
    * from 12 o'clock. */
   final def v2: Pt2 = v2x pp v2y
-
-  final def vLastX: Double = unsafeArray(vertsNum - 2)
-
-  final def vLastY: Double = unsafeArray(vertsNum - 1)
-
-  /** The last vertex. The default convention places this just anti clockwise of 12 oclock. */
-  override def vLast: Pt2 = vLastX pp vLastY
-
-  /** Polygon side 0 from vertex 0 to vertex 1. */
-  final def side0: LineSeg = LineSeg(vLast, v0)
 
   /** Polygon side 1 from vertex 1 to vertex 2. */
   final def side1: LineSeg = LineSeg(v0, v1)
@@ -88,8 +73,6 @@ trait Polygon3Plus extends Polygon
 /** A [[Polygon]] with at least 4 vertices. */
 trait Polygon4Plus extends Polygon3Plus with DataDbl2s[Pt2]
 { type ThisT <: Polygon4Plus
-
-  override def unsafeVert(index: Int): Pt2 = indexData(index)
 
   /** The X component of vertex 3. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately
       clockwise from 12 o'clock. */

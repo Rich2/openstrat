@@ -9,12 +9,12 @@ trait Triangle extends Polygon3Plus
 
 	override def vertsNum: Int = 3
 
-	override def unsafeVert(index: Int): Pt2 = index match
+	/*override def unsafeVert(index: Int): Pt2 = index match
 	{	case 1 => v0
 		case 2 => v1
 		case 3 => v2
 		case n => excep("index: " + n.toString + "out of range. There are only 3 vertices in a triangle.")
-	}
+	}*/
 
 	override def vertsForeach[U](f: Pt2 => U): Unit = { f(v0); f(v1); f(v2); () }
 	override def vertsTailForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); () }

@@ -6,20 +6,17 @@ import Colour.Black, pWeb._
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
 final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with DataDbl2s[Pt2]
 { override type ThisT = PolygonGen
-  override def unsafeVert(index: Int): Pt2 = indexData(index)
+
   @inline override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = dataForeachPairTail(f)
   override def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
- // @inline override def vertsArray: Array[Double] = unsafeArray
   override def typeStr: String = "Polygon"
-  override def vertsNum: Int = unsafeArray.length / 2 //- dblsNumOffset
+  override def vertsNum: Int = unsafeArray.length / 2
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
   @inline override def polygonMap(f: Pt2 => Pt2): PolygonGen = vertsMap(f).toPolygon
-  override def xVert(index: Int): Double = unsafeArray(index * 2)// + dblsNumOffset)
-  override def yVert(index: Int): Double = unsafeArray(index * 2 + 1)// + dblsNumOffset)
-  @inline override def v0x: Double = unsafeArray(0)// + dblsNumOffset)
-  @inline override def v0y: Double = unsafeArray(1)// + dblsNumOffset)
-  @inline override def v0: Pt2 = v0x pp v0y
+  override def xVert(index: Int): Double = unsafeArray(index * 2)
+  override def yVert(index: Int): Double = unsafeArray(index * 2 + 1)
+
   override def vertsTrans(f: Pt2 => Pt2): PolygonGen = new PolygonGen(arrTrans(f))
 
   /** A method to perform all the [[ProlignPreserve]] transformations with a function from PT2 => PT2. */

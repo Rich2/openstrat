@@ -13,6 +13,16 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   override def fElemStr: Pt2 => String = _.str
   override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 
+  final def vLastX: Double = unsafeArray(vertsNum - 2)
+
+  final def vLastY: Double = unsafeArray(vertsNum - 1)
+
+  /** The last vertex. The default convention places this just anti clockwise of 12 oclock. */
+  def vLast: Pt2 = vLastX pp vLastY
+
+  /** Polygon side 0 from vertex 0 to vertex 1. */
+  final def side0: LineSeg = LineSeg(vLast, v0)
+
   /** The vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub classes. */
   /*def vertsArray: Array[Double] = {
     val res = new Array[Double](vertsNum * 2)
@@ -101,7 +111,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   final def vert(index: Int): Pt2 = unsafeVert(index %% vertsNum)
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  def unsafeVert(index: Int): Pt2
+  final def unsafeVert(index: Int): Pt2 = indexData(index)
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
@@ -190,16 +200,15 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   def yVert(index: Int): Double = vert(index).y
 
   /** The X component of vertex v0, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
-  def v0x: Double// = vert(0).x
+  final def v0x: Double = unsafeArray(0)
 
   /** The Y component of vertex v1, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
-  def v0y: Double //= vert(0).y
+  final def v0y: Double = unsafeArray(1)
 
   /** Vertex v0, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
-  def v0: Pt2 //= vert(0)
+  final def v0: Pt2 = v0x pp v0y
 
-  /** The last vertex will throw an exception on a 0 vertices polygon. */
-  def vLast: Pt2 = vert(vertsNum - 1)
+
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
   override def boundingRect: BoundingRect =
