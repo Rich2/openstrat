@@ -7,7 +7,10 @@ import pWeb._, Colour.Black
  *  vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
  *  with then end point of side n sdn at vertex n. */
 trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLike[Pt2]
-{ override type SideT = LineSeg
+{
+  //def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+
+  override type SideT = LineSeg
   /** The vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub classes. */
   def vertsArray: Array[Double] = {
     val res = new Array[Double](vertsNum * 2)
