@@ -60,15 +60,15 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negX: Rectangle = Rectangle.fromArray(unsafeNegX)
 
-  override def prolign(matrix: ProlignMatrix): Rectangle = Rectangle.s2s4v1(sd1Cen.prolign(matrix), sd3Cen.prolign(matrix), v0.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rectangle = mapRectangle(_.prolign(matrix))
 
   override def rotate90: Rectangle = mapRectangle(_.rotate90)
   override def rotate180: Rectangle = mapRectangle(_.rotate180)
-  override def rotate270: Rectangle = Rectangle.sd2sd4(sd1Cen.rotate270, sd3Cen.rotate270, width2)
+  override def rotate270: Rectangle = mapRectangle(_.rotate270)
 
-  override def reflect(lineLike: LineLike): Rectangle = Rectangle.sd2sd4(sd1Cen.reflect(lineLike), sd3Cen.reflect(lineLike), width2)
+  override def reflect(lineLike: LineLike): Rectangle = mapRectangle(_.reflect(lineLike))
 
-  override def rotate(angle: AngleVec): Rectangle = Rectangle.sd2sd4(sd1Cen.rotate(angle), sd3Cen.rotate(angle), width2)
+  override def rotate(angle: AngleVec): Rectangle = mapRectangle(_.rotate(angle))
 
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle =
     Rectangle.s2s4v1(sd1Cen.xyScale(xOperand, yOperand), sd3Cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
@@ -87,8 +87,7 @@ object Rectangle
   def sd2sd4(sd2Cen: Pt2, sd4Cen: Pt2, height: Double): Rectangle =
     ??? //new RectangleImp(sd2Cen.x, sd2Cen.y, sd4Cen.x, sd4Cen.y, height)
 
-  def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle =
-    ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
+  def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle = ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
 
   def fromArray(array: Array[Double]): Rectangle = new RectangleImp(array)
 
