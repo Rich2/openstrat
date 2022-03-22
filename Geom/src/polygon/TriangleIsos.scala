@@ -3,14 +3,10 @@ package ostrat; package geom
 import pWeb._
 
 /** An isosceles triangle. This trait is implemented by the equilateral triangle, [[TriangleEqui]] and the general case [[TriangleIsos]]. */
-trait TriangleIsos extends Triangle with DataDbl2s[Pt2]
+trait TriangleIsos extends Triangle
 { type ThisT <: TriangleIsos
 
   override def typeStr: String = "TriangleIsos"
-
-  final override def fElemStr: Pt2 => String = _.str
-  final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
-  //def unsafeArray: Array[Double]
 
   /** The height of this isosceles triangle. */
   def height: Double = ???

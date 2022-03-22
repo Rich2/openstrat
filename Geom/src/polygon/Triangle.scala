@@ -2,8 +2,12 @@
 package ostrat; package geom
 
 /** A mathematical triangle. The Triangle trait is implemented for its general case by [[Triangle.TriangleImp]]. */
-trait Triangle extends Polygon3Plus
-{ def unsafeArray: Array[Double]
+trait Triangle extends Polygon3Plus with DataDbl2s[Pt2]
+{ type ThisT <: Triangle
+	override def typeStr: String = "Triangle"
+	final override def fElemStr: Pt2 => String = _.str
+	final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+
 	override def vertsNum: Int = 3
 
 	override def unsafeVert(index: Int): Pt2 = index match
@@ -81,7 +85,8 @@ object Triangle
 
 	final class TriangleImp(val unsafeArray: Array[Double]) extends Triangle with AffinePreserve
 	{ override type ThisT = TriangleImp
-		//override def v1: Pt2 = Pt2(v1x, v1y)
+		override def unsafeFromArray(array: Array[Double]): TriangleImp = new TriangleImp(unsafeArray)
+
 		override def vertsTrans(f: Pt2 => Pt2): TriangleImp = TriangleImp(f(v0), f(v1), f(v2))
 
 		/** A method to perform all the [[AffinePreserve]] transformations with a function from PT2 => PT2. This is delegated to the VertsTrans method as
