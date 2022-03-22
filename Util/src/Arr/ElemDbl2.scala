@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -42,6 +42,33 @@ trait DataDbl2s[A <: ElemDbl2] extends Any with DataDblNs[A]
   def dataForeachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
     while(count < dataLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
+  }
+
+  /** Maps the 2 [[Double]]s of each element to a new [[Array]][Double]. */
+  def unsafeMap(f: A => A): Array[Double] = {
+    val newArray: Array[Double] = new Array[Double](unsafeArray.length)
+    iUntilForeach(0, 8, 2){ i =>
+      val newElem = f(dataElem(unsafeArray(i), unsafeArray(i + 1)))
+      newArray(i) = newElem.dbl1
+      newArray(i + 1) = newElem.dbl2
+    }
+    newArray
+  }
+
+  /** Maps the 1st [[Double]] of each element to a new [[Array]][Double], copies the 2nd elements. */
+  def unsafeD1Map(f: Double => Double): Array[Double] = {
+    val newArray: Array[Double] = new Array[Double](unsafeArray.length)
+    iUntilForeach(0, 7, 2){ i => newArray(i) = f(unsafeArray(i)) }
+    iUntilForeach(1, 8, 2){ i => newArray(i) = unsafeArray(i) }
+    newArray
+  }
+
+  /** Maps the 2nd [[Double]] of each element with the parameter function to a new [[Array]][Double], copies the 1st [[Double]] of each element. */
+  def unsafeD2Map(f: Double => Double): Array[Double] = {
+    val newArray: Array[Double] = new Array[Double](unsafeArray.length)
+    iUntilForeach(0, 7, 2){ i => newArray(i) = unsafeArray(i) }
+    iUntilForeach(1, 8, 2){ i => newArray(i) = f(unsafeArray(i)) }
+    newArray
   }
 }
 

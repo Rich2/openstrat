@@ -11,20 +11,22 @@ trait Square extends Rectangle
 
   def rotation: AngleVec
 
+  def mapSquare(f: Pt2 => Pt2): Square = Square.fromArray(unsafeMap(f))
+
   /** Translate geometric transformation on a Square returns a Square. */
   override def slate(offset: Vec2Like): Square = ??? //Square.s2s4(sd1Cen.slate(offset), sd3Cen.slate(offset))
 
   /** Translate geometric transformation on a Square returns a Square. */
-  override def slateXY(xDelta: Double, yDelta: Double): Square = ???//Square.s2s4(sd1Cen.addXY(xDelta, yDelta), sd3Cen.addXY(xDelta, yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): Square = mapSquare(_.addXY(xDelta, yDelta))
 
   /** Uniform scaling transformation on a Square returns a Square. */
   override def scale(operand: Double): Square = ???//Square.s2s4(sd1Cen.scale(operand), sd3Cen.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
-  override def negY: Square = ???//Square.s2s4(sd1Cen.negY, sd3Cen.negY)
+  override def negY: Square = Square.fromArray(unsafeNegY)//Square.s2s4(sd1Cen.negY, sd3Cen.negY)
 
   /** Mirror, reflection transformation across the X axis on a Square, returns a Square. */
-  override def negX: Square = ???//Square.s2s4(sd1Cen.negX, sd3Cen.negX)
+  override def negX: Square = Square.fromArray(unsafeNegX) //Square.s2s4(sd1Cen.negX, sd3Cen.negX)
 
   override def rotate90: Square = ???//Square(width, rotation, xCen, yCen)
   override def rotate180: Square = ???
@@ -42,6 +44,8 @@ object Square extends ShapeIcon
 {
   override type ShapeT = Sqlign
   //def sd3sd1(s3cen: Pt2, s1cen: Pt2): Square = SquareImp.sd3sd1(s3cen, s1cen)
+
+  def fromArray(array: Array[Double]) = new SquareImp(array)
 
   /** Factory method for the creation of [[[Square]]s in the general case where the square is not aligned to the X and Y axis. The method takes the
    * square's scalar width followed by its rotation specified in [[AngleVec]]. If no further arguments are supplied the square will positioned with

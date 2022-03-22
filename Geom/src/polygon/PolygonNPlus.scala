@@ -6,6 +6,9 @@ package ostrat; package geom
 trait Polygon3Plus extends Polygon with DataDbl2s[Pt2]
 { type ThisT <: Polygon3Plus
 
+  def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
+  def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)
+
   final override def fElemStr: Pt2 => String = _.str
   final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
   @inline final override def v0x: Double = unsafeArray(0)

@@ -12,10 +12,10 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   final override def vertsNum: Int = 4
 
   /** The X component of the centre. */
-  override def cenX: Double = ???
+  override def cenX: Double = v0x aver v2x
 
   /** The Y component of the centre. */
-  override def cenY: Double = ???
+  override def cenY: Double = v0y aver v2y
 
   /** length from v1 to v2 and v3 to v4. */
   def width1: Double = v0.distTo(v1)
