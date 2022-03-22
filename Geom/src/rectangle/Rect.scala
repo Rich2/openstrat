@@ -98,7 +98,7 @@ object Rect
     def height: Double = (v1y - v2y).abs
     override def cenX: Double = v0x aver v1x
     override def cenY: Double = v1y aver v2y
-    override def vertsTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV0(f(cen), f(v0))
+    override def vertsTrans(f: Pt2 => Pt2): RectImp = RectImp.cenV1(f(cen), f(v0))
     override def width1: Double = width
     override def width2: Double = height
 
@@ -112,7 +112,7 @@ object Rect
 
     /** Uniform scaling transformation on a RectImp returns a RectImp. */
     override def scale(operand: Double): RectImp = RectImp(width * operand, height * operand, cen.scale(operand))
-    
+
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
     override def negY: RectImp = RectImp(width, height, cen.negY)
 
@@ -121,7 +121,7 @@ object Rect
 
     override def prolign(matrix: ProlignMatrix): Rect = Rect.cenV0(cen.prolign(matrix), v0.prolign(matrix))
 
-    override def scaleXY(xOperand: Double, yOperand: Double): RectImp = RectImp.cenV0(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
+    override def scaleXY(xOperand: Double, yOperand: Double): RectImp = RectImp.cenV1(cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
   }
 
   /** Companion object for the [[Rect.RectImp]] class */
@@ -143,6 +143,14 @@ object Rect
 
     /** Factory method to create a RectImp from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
      * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
-    def cenV0(cen: Pt2, v0: Pt2): RectImp = ??? //new RectImp((v0.x - cen.x).abs * 2, (v0.y - cen.y).abs * 2, cen.x, cen.y)
+    def cenV1(cen: Pt2, v1: Pt2): RectImp =
+    { val urVec: Vec2 = v1 - cen
+      val ulVec = urVec.rotate90
+      val p0 = cen + ulVec
+      val p2 = cen - ulVec
+      val p3 = cen - urVec
+      val array: Array[Double] = Array[Double](p0.x, p0.y, v1.x, v1.y, p2.x, p2.y, p3.x, p3.y)
+      new RectImp(array)
+    }
   }
 }
