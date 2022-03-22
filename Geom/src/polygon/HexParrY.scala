@@ -97,14 +97,15 @@ object HexParrY
   def apply(width: Double, cen: Pt2 = Pt2Z): HexParrY = apply(width, cen.x, cen .y)
 
   def apply(width: Double, xCen: Double, yCen: Double): HexParrY =
-  { val sq3 = width / 3.sqrt
+  { val dsq3 = width / 3.sqrt
+    val d2sq3: Double = width /(3.sqrt * 2)
     val w2 = width / 2
-    val array = Array[Double](xCen, yCen + sq3,
-      xCen + w2, yCen + sq3 / 2,
-      xCen, yCen,
-      xCen, yCen,
-      xCen, yCen,
-      xCen, yCen)
+    val array = Array[Double](xCen, yCen + dsq3,
+      xCen + w2, yCen + d2sq3,
+      xCen + w2, yCen - d2sq3,
+      xCen, yCen - dsq3,
+      xCen - w2, yCen - d2sq3,
+      xCen - w2, yCen + d2sq3)
     new HexParrY(array)
   }
 

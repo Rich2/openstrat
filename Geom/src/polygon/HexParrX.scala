@@ -55,13 +55,16 @@ object HexParrX
 
   /** Apply factory method for [[HexParrX]], Creates a regular hexagon with 2 of its side aligned to the Y axis. */
   def apply(height: Double, xCen: Double, yCen: Double): HexParrX =
-  { val h = height / 2
-    val array = Array[Double](xCen - h /2, yCen + h,
-      xCen + h /2, yCen + h,
-      xCen, yCen,
-      xCen, yCen,
-      xCen, yCen,
-      xCen, yCen)
+  { val h2: Double = height / 2
+    val dsq3: Double = height / 3.sqrt
+    val d2sq3: Double = height /(3.sqrt * 2)
+    val array: Array[Double] = Array[Double](
+      xCen - d2sq3, yCen + h2,
+      xCen + d2sq3, yCen + h2,
+      xCen + dsq3, yCen,
+      xCen + d2sq3, yCen - h2,
+      xCen - d2sq3, yCen - h2,
+      xCen - dsq3, yCen)
     new HexParrX(array)
   }
   /*override def v4x: Double = cenX - radiusOut

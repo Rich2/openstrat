@@ -38,7 +38,7 @@ object HCoord
     case 2 if c.div4Rem2 => new HCen(r, c)
     case 1 | 3 if c.isOdd => new HSide(r, c)
     case 1 | 3 => HVert(r, c)
-    case _ => new HCoordOther(r, c)// excep(s"$r, $c, where r is even and c is odd is not a valid HCoord hex grid coordinate.")
+    case _ => new HCoordOther(r, c)
   }
 
   implicit val persistImplicit: Persist[HCoord] = PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
