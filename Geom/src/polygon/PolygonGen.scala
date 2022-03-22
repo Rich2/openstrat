@@ -9,7 +9,7 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2s
   override def unsafeVert(index: Int): Pt2 = indexData(index)
   @inline override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = dataForeachPairTail(f)
   override def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
-  @inline override def vertsArray: Array[Double] = unsafeArray
+ // @inline override def vertsArray: Array[Double] = unsafeArray
   override def typeStr: String = "Polygon"
   override def vertsNum: Int = unsafeArray.length / 2 //- dblsNumOffset
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)

@@ -32,7 +32,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
   override def vertsArrayX: Array[Double] = Array(v0x, v1x, v2x, v3x, v4x, v5x)
 
   override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y, v3y, v4y, v5y)
-  override def vertsArray: Array[Double] = ???
+  //override def vertsArray: Array[Double] = ???
 
   /*override def unsafeVert(index: Int): Pt2 = index match
   { case 1 => v0

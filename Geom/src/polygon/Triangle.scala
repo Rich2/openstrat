@@ -16,10 +16,6 @@ trait Triangle extends Polygon3Plus
 		case n => excep("index: " + n.toString + "out of range. There are only 3 vertices in a triangle.")
 	}
 
-	override def vertsArray: Array[Double] = Array(xCen, yCen, v0x, v0y, v1x, v1y, v2x, v2y)
-
-	override def vertsArrayX: Array[Double] = Array(v0x, v1x, v2x)
-	override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y)
 	override def vertsForeach[U](f: Pt2 => U): Unit = { f(v0); f(v1); f(v2); () }
 	override def vertsTailForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); () }
 	override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = { f(v1x, v1y); f(v2x, v2y); () }

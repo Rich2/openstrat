@@ -6,13 +6,15 @@ import pWeb._, Colour.Black
  *  polygons such as triangles and square. Mathematically a closed polygon made up of straight line segments. The default convention is to number the
  *  vertices in a clockwise direction, with vertex 1 the first vertex that is clockwise from 12 O'Clock. Sides are numbered in a corresponding manner
  *  with then end point of side n sdn at vertex n. */
-trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLike[Pt2]
+trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLike[Pt2] with DataDbl2s[Pt2]
 {
-  //def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
-
   override type SideT = LineSeg
+
+  override def fElemStr: Pt2 => String = _.str
+  override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+
   /** The vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub classes. */
-  def vertsArray: Array[Double] = {
+  /*def vertsArray: Array[Double] = {
     val res = new Array[Double](vertsNum * 2)
     var i = 0
     vertsForeach{v => res(i) = v.x
@@ -21,7 +23,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
       i += 1
     }
     res
-  }
+  }*/
 
   /** The X component of the vertices of this Polygon in an Array of [[Double]]s. For maximum efficiency override the implementation in sub
    *  classes. */
@@ -336,7 +338,7 @@ object Polygon
 
   def uninitialised(length: Int): Polygon = new PolygonGen(new Array[Double](length * 2))
 
-  implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.vertsArray, p2.vertsArray)
+  implicit val eqImplicit: EqT[Polygon] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.unsafeArray, p2.unsafeArray)
 
   implicit val slateImplicit: Slate[Polygon] = (obj: Polygon, dx: Double, dy: Double) => obj.slateXY(dx, dy)
   implicit val scaleImplicit: Scale[Polygon] = (obj: Polygon, operand: Double) => obj.scale(operand)
