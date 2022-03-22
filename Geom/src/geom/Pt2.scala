@@ -22,7 +22,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
   def +(operand: Vec2): Pt2 = Pt2(x + operand.x, y + operand.y)
 
   /** Subtracts the operand [[Vec2]] 2D vector from this 2D point. Returns a new [[Pt2]]. */
-  def -(operand: Vec2): Pt2 = Pt2(x - operand.x, y - operand.y)
+  def -(operand: Pt2): Vec2 = Vec2(x - operand.x, y - operand.y)
 
   /** Returns the [[Vec2]] 2D vector from the origin to this Pt2. */
   def toVec: Vec2 = Vec2(x, y)
@@ -239,6 +239,7 @@ object Pt2
 
   implicit class Pt2Implicit(thisPt: Pt2)
   { def * (operand: Length): PtM2 = PtM2(thisPt.x * operand, thisPt.y * operand)
+    def - (operand: Vec2): Pt2 = Pt2(thisPt.x - operand.x, thisPt.y - operand.y)
   }
 
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))

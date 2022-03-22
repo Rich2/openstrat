@@ -161,13 +161,6 @@ object HexReg
     def s1CenRMax: Pt2 = cen + (cen >> sd3Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(cenX, cenY)
     @inline override def diameterIn: Double = sd0Cen.distTo(sd3Cen)
-
-    override def sd4CenX: Double = average(v3x, v4x)
-    override def sd4CenY: Double = average(v3y, v4y)
-    override def sd4Cen: Pt2 = v3 midPt v4
-    override def sd5CenX: Double = average(v4x, v5x)
-    override def sd5CenY: Double = average(v4y, v5y)
-    override def sd5Cen: Pt2 = v4 midPt v5
   }
 
   object HexRegImp{

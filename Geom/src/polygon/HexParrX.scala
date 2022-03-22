@@ -17,13 +17,6 @@ final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[
 
   override def cen: Pt2 = cenX pp cenY
 
-  override def sd4CenX: Double = cenX - radiusIn * Cos30
-  override def sd4CenY: Double = cenY - radiusIn * Sin30
-  override def sd4Cen: Pt2 = sd4CenX pp sd4CenY
-  override def sd5CenX: Double = cenX - radiusIn * Cos30
-  override def sd5CenY: Double = cenY + radiusIn * Sin30
-  override def sd5Cen: Pt2 = sd5CenX pp sd5CenY
-
   /** Translate 2D geometric transformation on this HexXlign returns a HexXlign. */
   override def slateXY(xDelta: Double, yDelta: Double): HexParrX = HexParrX(diameterIn, cen.addXY(xDelta, yDelta))
 
