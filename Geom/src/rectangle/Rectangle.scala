@@ -29,8 +29,6 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineColour: Colour, lineWidth: Double): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
-  override def vertsArray: Array[Double] = Array(cenX, cenY, v0x, v0y, v1x, v1y, v2x, v2y, v3x, v3y)
-
   def alignAngle: AngleVec
   def widthAttrib: WidthAtt = WidthAtt(width1)
   def heightAttrib: HeightAtt = HeightAtt(width2)
@@ -38,32 +36,6 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
   def yAttrib: YAttrib = YAttrib(v3y)
   override def attribs: Arr[XANumeric] = Arr(widthAttrib, heightAttrib, xAttrib, yAttrib)
 
-  @inline final override def unsafeVert(index: Int): Pt2 = index match
-  { case 0 => v0
-    case 1 => v1
-    case 2 => v2
-    case 3 => v3
-    case n => excep("Index: " + n.toString + " out of range. Only 4 vertices in a Rectangle.")
-  }
-
-  override def xVert(index: Int): Double = index match
-  { case 0 => v0x
-    case 1 => v1x
-    case 2 => v2x
-    case 3 => v3x
-    case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
-  }
-
-  override def yVert(index: Int): Double = index match
-  { case 0 => v0y
-    case 1 => v1y
-    case 2 => v2y
-    case 3 => v3y
-    case n => excep("Index " + n.toString + " out of range. Only 4 vertices in rectangle.")
-  }
-
-  final override def vertsArrayX: Array[Double] = Array(v0x, v1x, v2x, v3x)
-  final override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y, v3y)
   final override def vertsForeach[U](f: Pt2 => U): Unit = { f(v0); f(v1); f(v2); f(v3); ()}
   final override def vertsTailForeach[U](f: Pt2 => U): Unit = { f(v1); f(v2); f(v3); () }
   override def vertPairsTailForeach[U](f: (Double, Double) => U): Unit = { f(v1x, v1y); f(v2x, v2y); f(v3x, v3y); () }

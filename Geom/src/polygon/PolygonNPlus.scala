@@ -90,6 +90,8 @@ trait Polygon3Plus extends Polygon with DataDbl2s[Pt2]
 trait Polygon4Plus extends Polygon3Plus with DataDbl2s[Pt2]
 { type ThisT <: Polygon4Plus
 
+  override def unsafeVert(index: Int): Pt2 = indexData(index)
+
   /** The X component of vertex 3. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately
       clockwise from 12 o'clock. */
   final def v3x: Double = unsafeArray(6)
