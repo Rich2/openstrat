@@ -34,7 +34,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
   override def vertsArrayY: Array[Double] = Array(v0y, v1y, v2y, v3y, v4y, v5y)
   override def vertsArray: Array[Double] = ???
 
-  override def unsafeVert(index: Int): Pt2 = index match
+  /*override def unsafeVert(index: Int): Pt2 = index match
   { case 1 => v0
     case 2 => v1
     case 3 => v2
@@ -64,7 +64,7 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
     case 5 => v4y
     case 6 => v5y
     case n => excep(s"$n is out of range for a Hexagon vertex")
-  }
+  }*/
 
   /** A Hexagon has 6 vertices. */
   final override def vertsNum: Int = 6
@@ -152,7 +152,7 @@ object HexReg
     override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
     override def syntaxDepth: Int = 3
 
-    override def unsafeVert(index: Int): Pt2 = index match {
+    /*override def unsafeVert(index: Int): Pt2 = index match {
       case 1 => v0
       case 2 => v1
       case 3 => v2
@@ -160,7 +160,7 @@ object HexReg
       case 5 => v4
       case 6 => v5
       case n => excep(s"There is no vertex $n on a Hexagon.")
-    }
+    }*/
 
     def s1CenRMax: Pt2 = cen + (cen >> sd3Cen) * 2 / Sqrt3
     @inline override def cen: Pt2 = Pt2(cenX, cenY)
@@ -168,8 +168,16 @@ object HexReg
   }
 
   object HexRegImp{
-    def apply(sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double) : HexRegImp = ???
-
+    def apply(sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double) : HexRegImp ={
+    val h = 20 //height / 2
+    val array = Array[Double](20 - h /2, 20 + h,
+      20 + h /2, 20 + h,
+      h, 0,
+      0, 0,
+      0, 0,
+      0, 0)
+    new HexRegImp(array)
+  }
     /*override def v4: Pt2 = s1CenRMax.rotateAbout(cen, Deg90)
     override def v4x: Double = v4.x
     override def v4y: Double = v4.y*/

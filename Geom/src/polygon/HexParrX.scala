@@ -5,7 +5,7 @@ package ostrat; package geom
 final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[Double, Pt2]
 { override type ThisT = HexParrX
   override def unsafeFromArray(array: Array[Double]): HexParrX = new HexParrX(array)
-  def height: Double = ???
+  def height: Double = (v1y - v2y).abs
   //, val cenX: Double, val cenY: Double
   override def typeStr = "HexXlign"
   override def name1: String = "height"
@@ -51,11 +51,19 @@ final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[
  * the type can not be maintained through all affine transformations. */
 object HexParrX
 { /** Apply factory method for HexXlign, Creates a regular hexagon with 2 of its side aligned to the X axis. */
-  def apply(height: Double, cen: Pt2 = Pt2Z): HexParrX = ???//new HexParrX(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Pt2Z): HexParrX = apply(height, cen.x, cen.y)//new HexParrX(height, cen.x, cen.y)
 
   /** Apply factory method for [[HexParrX]], Creates a regular hexagon with 2 of its side aligned to the Y axis. */
-  def apply(height: Double, xCen: Double, yCen: Double): HexParrX = ???//new HexParrX(height, xCen, yCen)
-
+  def apply(height: Double, xCen: Double, yCen: Double): HexParrX =
+  { val h = height / 2
+    val array = Array[Double](xCen - h /2, yCen + h,
+      xCen + h /2, yCen + h,
+      xCen, yCen,
+      xCen, yCen,
+      xCen, yCen,
+      xCen, yCen)
+    new HexParrX(array)
+  }
   /*override def v4x: Double = cenX - radiusOut
   override def v4y: Double = cenY
   @inline override def v4: Pt2 = Pt2(v4x, v4y)*/

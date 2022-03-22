@@ -7,7 +7,7 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[
   override def unsafeFromArray(array: Array[Double]): HexParrY = new HexParrY(array)
 
   override def typeStr = "HexParrY"
-  def width: Double = ???
+  def width: Double = (v1x - v5x).abs
 
   override def name1: String = "width"
   override def name2: String = "cen"
@@ -94,8 +94,19 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[
  * the type can not be maintained through all affine transformations. */
 object HexParrY
 {
-  def apply(width: Double, cen: Pt2 = Pt2Z): HexParrY = ???//new HexParrY(width, cen.x, cen.y)
-  def apply(width: Double, xCen: Double, yCen: Double): HexParrY = ???//new HexParrY(width, xCen, yCen)
+  def apply(width: Double, cen: Pt2 = Pt2Z): HexParrY = apply(width, cen.x, cen .y)
+
+  def apply(width: Double, xCen: Double, yCen: Double): HexParrY =
+  { val sq3 = width / 3.sqrt
+    val w2 = width / 2
+    val array = Array[Double](xCen, yCen + sq3,
+      xCen + w2, yCen + sq3 / 2,
+      xCen, yCen,
+      xCen, yCen,
+      xCen, yCen,
+      xCen, yCen)
+    new HexParrY(array)
+  }
 
   /*override def v4x: Double = cenX - radiusIn
   override def v4y: Double = cenY + radiusOut / 2

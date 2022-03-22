@@ -70,8 +70,7 @@ trait Rectangle extends ShapeCentred with Polygon4Plus
 
   override def rotate(angle: AngleVec): Rectangle = mapRectangle(_.rotate(angle))
 
-  override def scaleXY(xOperand: Double, yOperand: Double): Rectangle =
-    Rectangle.s2s4v1(sd1Cen.xyScale(xOperand, yOperand), sd3Cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
+  override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = ???//Rectangle.s2s4v1(sd1Cen.xyScale(xOperand, yOperand), sd3Cen.xyScale(xOperand, yOperand), v0.xyScale(xOperand, yOperand))
 }
 
 /** Companion object fot the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also
@@ -84,10 +83,9 @@ object Rectangle
     ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
   }
 
-  def sd2sd4(sd2Cen: Pt2, sd4Cen: Pt2, height: Double): Rectangle =
-    ??? //new RectangleImp(sd2Cen.x, sd2Cen.y, sd4Cen.x, sd4Cen.y, height)
+  def axis1(sd2Cen: Pt2, sd4Cen: Pt2, height: Double): Rectangle =  ??? //new RectangleImp(sd2Cen.x, sd2Cen.y, sd4Cen.x, sd4Cen.y, height)
 
-  def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle = ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
+  //def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle = ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
 
   def fromArray(array: Array[Double]): Rectangle = new RectangleImp(array)
 
