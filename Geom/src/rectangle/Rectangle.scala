@@ -78,9 +78,9 @@ trait Rectangle extends ShapeCentred with Quadrilateral
 object Rectangle
 {
   def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Rectangle =
-  { val s2Cen: Pt2 = cen.addX(width / 2).rotate(rotation)
-    val s4Cen: Pt2 = cen.subX(width / 2).rotate(rotation)
-    ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
+  { val rtVec = rotation.toVec(width / 2)
+    val upVec = (rotation + 90.degs).toVec(height / 2)
+    vecsCen(rtVec, upVec, cen)
   }
 
   /** Creates a [[Rectangle]] from axis 1. The default for axis 1 is the left right axis. */
@@ -89,6 +89,11 @@ object Rectangle
     val upVec: Vec2 = rtVec.angle.p90.toVec2(height) / 2
     val cen = sd4Cen midPt sd2Cen
     val verts = Pt2s(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
+    new RectangleImp(verts.unsafeArray)
+  }
+
+  def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle =
+  { val verts = Pt2s(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
     new RectangleImp(verts.unsafeArray)
   }
 

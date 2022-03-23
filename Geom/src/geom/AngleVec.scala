@@ -12,6 +12,9 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
     case _ =>  degs.str.enParenth
   }
 
+  /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
+  def toVec(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
+
   /** Adds the operand AngleVec to this AngleVec. If you want to add an [[Angle]] to this AngleVec use addTo. */
   def +(operand: AngleVec): AngleVec = AngleVec.milliSecs(milliSecs + operand.milliSecs)
 
