@@ -3,9 +3,9 @@ package ostrat
 import annotation.unchecked.uncheckedVariance
 
 /** Sequence-defined efficient final classes backed by Arrays, ArrayBuffers etc. Includes actual sequences both mutable and immutable as well as
- *  classes such as polygons and line paths that
- *  are defined by sequence data. include immutable and expandable buffers. */
-trait SqdfGen[A] extends Any
+ *  classes such as polygons and line paths that are defined by sequence data. So for example a Polyogn in the Geom module is defined by a sequence of
+ *  points, but is a different type to the Pt2s class which is the immutable sequence class for 2 dimensional points. includes expandable buffers. */
+trait SeqDefGen[A] extends Any
 {
   /** The number of data elements in this data sequence base class. These collections use underlying mutable Arrays and ArrayBuffers. The length of
    *  the underlying Array will be this number or a multiple of this number. */
@@ -109,7 +109,7 @@ trait SqdfGen[A] extends Any
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
-class DataGenShowT[A, R <: SqdfGen[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+class DataGenShowT[A, R <: SeqDefGen[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =

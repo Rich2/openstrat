@@ -11,7 +11,7 @@ trait ElemDbl4 extends Any with ElemDblN
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl4]]s. */
-trait DataDbl4s[A <: ElemDbl4] extends Any with DataDblNs[A]
+trait DataDbl4s[A <: ElemDbl4] extends Any with SeqDefDblNs[A]
 { /** Method for creating new data elements from 4 [[Double]]s In the case of [[ArrDbl4s]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 

@@ -10,8 +10,8 @@ trait ElemDbl2 extends Any with ElemDblN
   def dblsApprox(that: ElemDbl2, delta: Double = 1e-12): Boolean = dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta)
 }
 
-/** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemDbl2]]s. */
-trait DataDbl2s[A <: ElemDbl2] extends Any with DataDblNs[A]
+/** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[ElemDbl2]]s. */
+trait SeqDefDbl2s[A <: ElemDbl2] extends Any with SeqDefDblNs[A]
 {
   /** Method for creating new data elements from 2 [[Double]]s In the case of [[ArrDbl2s]] this will be thee type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double): A
@@ -73,7 +73,7 @@ trait DataDbl2s[A <: ElemDbl2] extends Any with DataDblNs[A]
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl2]]s. */
-trait ArrDbl2s[A <: ElemDbl2] extends Any with ArrDblNs[A] with DataDbl2s[A]
+trait ArrDbl2s[A <: ElemDbl2] extends Any with ArrDblNs[A] with SeqDefDbl2s[A]
 { type ThisT <: ArrDbl2s[A]
   final override def length: Int = unsafeArray.length / 2
   def head1: Double = unsafeArray(0)
@@ -115,7 +115,7 @@ trait ArrDbl2sFlatBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsFl
 }
 
 /** Class for the singleton companion objects of [[ArrDbl2s]] final classes to extend. */
-trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: DataDbl2s[A]] extends DataDblNsCompanion[A, ArrA]
+trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: SeqDefDbl2s[A]] extends DataDblNsCompanion[A, ArrA]
 { final def elemProdSize: Int = 2
 
   /** Apply factory method for creating Arrs of [[ElemDbl2]]s. */
@@ -152,7 +152,7 @@ trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: DataDbl2s[A]] extends DataDblNsC
 }
 
 /** Persists and assists in building [[ArrDblNs]]s. */
-abstract class DataDbl2sPersist[A <: ElemDbl2, M <: DataDbl2s[A]](val typeStr: String) extends DataDblNsPersist[A, M]
+abstract class DataDbl2sPersist[A <: ElemDbl2, M <: SeqDefDbl2s[A]](val typeStr: String) extends DataDblNsPersist[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

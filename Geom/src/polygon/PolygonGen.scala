@@ -4,7 +4,7 @@ import Colour.Black, pWeb._
 
 /** The implementation class for a general [[Polygon]] as opposed to a specific [[Polygon]] such as a [[Square]] or a [[Rectangle]], is encoded as a
  *  sequence of plain 2 dimension (mathematical) vectors. Minimum length 3. Clockwise is the default. Polygon may be altered to include a centre. */
-final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with DataDbl2s[Pt2]
+final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with SeqDefDbl2s[Pt2]
 { override type ThisT = PolygonGen
 
   override def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)

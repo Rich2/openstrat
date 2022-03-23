@@ -15,13 +15,11 @@ trait ArrayDblBacked extends Any
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[ArrDblNs]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait DataDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBacked
-{ type ThisT <: DataDblNs[A]
+trait SeqDefDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBacked
+{ type ThisT <: SeqDefDblNs[A]
   @inline override def arrLen = unsafeArray.length
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
-  //def unsafeCopyFromArray(opArray: Array[Double], offset: Int = 0): Unit = { opArray.copyToArray(arrayUnsafe, offset * elemProdSize); () }
-
 
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(dataLength)
@@ -50,13 +48,11 @@ trait DataDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBack
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
-trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DataDblNs[A]
+trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with SeqDefDblNs[A]
 { type ThisT <: ArrDblNs[A]
 
   /** Not sure about this method. */
   def foreachArr(f: Dbls => Unit): Unit
-
-
 
   def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(dataLength)
@@ -104,7 +100,7 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 }
 
 /** Helper trait for Companion objects of [[ArrDblNs]] classes. */
-trait DataDblNsCompanion[A <: ElemDblN, ArrA <: DataDblNs[A]] extends DataValueNsCompanion[A, ArrA]
+trait DataDblNsCompanion[A <: ElemDblN, ArrA <: SeqDefDblNs[A]] extends DataValueNsCompanion[A, ArrA]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArrayDbl(array: Array[Double]): ArrA
 
@@ -115,7 +111,7 @@ trait DataDblNsCompanion[A <: ElemDblN, ArrA <: DataDblNs[A]] extends DataValueN
 }
 
 /** Persists [[ArrDblNs]]s. */
-trait DataDblNsPersist[A <: ElemDblN, M <: DataDblNs[A]] extends DataValueNsPersist[A, M] with EqT[M]
+trait DataDblNsPersist[A <: ElemDblN, M <: SeqDefDblNs[A]] extends DataValueNsPersist[A, M] with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

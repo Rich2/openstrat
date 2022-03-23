@@ -4,7 +4,7 @@ import annotation.unchecked.uncheckedVariance
 
 /** Base trait for all immutable classes that use a backing Array for efficient storage. This includes immutable sequences [[SeqImut]], but also
  *  polygons and line paths that are specified by data sequences. */
-trait DataImut[+A] extends Any with SqdfGen[A @uncheckedVariance]
+trait DataImut[+A] extends Any with SeqDefGen[A @uncheckedVariance]
 { type ThisT <: DataImut[A]
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[DataImut]] of the this [[SeqImut]]'s final type. */

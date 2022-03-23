@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-class DataGenExtensions[A](val al : SqdfGen[A])
+class DataGenExtensions[A](val al : SeqDefGen[A])
 {
   /** Map this collection of data elements to [[LinePathLike]] class of type BB. */
   def mapLinePath[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =

@@ -58,8 +58,12 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[
  * the type can not be maintained through all affine transformations. */
 object HexParrY
 {
+  /** Apply factory method for the [[HexParrY]] class takes the width and centre point as specification. The centre poit can be specified as a [[Pt2]]
+   *  or 2 [[Double]]s. */
   def apply(width: Double, cen: Pt2 = Pt2Z): HexParrY = apply(width, cen.x, cen .y)
 
+  /** Apply factory method for the [[HexParrY]] class takes the width and centre point as specification. The centre poit can be specified as a [[Pt2]]
+   *  or 2 [[Double]]s. */
   def apply(width: Double, xCen: Double, yCen: Double): HexParrY =
   { val dsq3 = width / 3.sqrt
     val d2sq3: Double = width /(3.sqrt * 2)
