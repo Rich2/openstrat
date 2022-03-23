@@ -22,28 +22,33 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[
   override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
 
+  def mapHexParrY(f: Pt2 => Pt2): HexParrY = HexParrY.fromArray(unsafeMap(f))
+
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
-  override def slateXY(xDelta: Double, yDelta: Double): HexParrY = HexParrY(diameterIn, cen.addXY(xDelta, yDelta))
+  override def slate(delta: Vec2Like): HexParrY = mapHexParrY(_.slate(delta))
+
+  /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
+  override def slateXY(xDelta: Double, yDelta: Double): HexParrY = mapHexParrY(_.xySlate(xDelta, yDelta))
 
   /** Uniform scaling against both X and Y axes 2D geometric transformation on this HexYlign returns a HexYlign. */
-  override def scale(operand: Double): HexParrY = HexParrY(diameterIn * operand, cen.scale(operand))
+  override def scale(operand: Double): HexParrY = mapHexParrY(_.scale(operand))
 
   /** Mirror, reflection 2D geometric transformation of this HexYlign across the X axis, negates Y, returns a HexYlign. */
-  override def negY: HexParrY = HexParrY(diameterIn, cen.negY)
+  override def negY: HexParrY = HexParrY.fromArray(unsafeNegY)
 
   /** Mirror, reflection 2D geometric transformation of this HexYlign across the Y axis, negates X, returns a HexYlign. */
-  override def negX: HexParrY = HexParrY(diameterIn, cen.negX)
+  override def negX: HexParrY = HexParrY.fromArray(unsafeNegX)
 
   /** Rotate 90 degrees positively or anti clockwise  2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 270 degrees
    *  clockwise. */
-  override def rotate90: HexParrX = HexParrX(diameterIn, cen.rotate90)
+  override def rotate90: HexParrX = HexParrX.fromArray(unsafeMap(_.rotate90))
 
   /** Rotate 180 degrees 2D geometric transformation on a HexYlign, returns a HexYlign. */
-  override def rotate180: HexParrY = HexParrY(diameterIn, cen.rotate180)
+  override def rotate180: HexParrY = mapHexParrY(_.rotate180)
 
   /** Rotate 270 degrees positively or anti clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 90 degrees
    *  clockwise. */
-  override def rotate270: HexParrX = HexParrX(diameterIn, cen.rotate270)
+  override def rotate270: HexParrX = HexParrX.fromArray(unsafeMap(_.rotate270))
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes on this HexTlign returns a HexYlign. */
   override def prolign(matrix: ProlignMatrix): HexParrY = HexParrY(diameterIn, cen.prolign(matrix))
@@ -69,6 +74,8 @@ object HexParrY
   }
 
   def unapply(input: HexParrY): Some[(Double, Pt2)] = Some((input.width, input.cen))
+
+  def fromArray(array: Array[Double]): HexParrY = new HexParrY(array)
 
   implicit val persistImplicit: Persist[HexParrY] = Persist2[Double, Pt2, HexParrY]("HexYlign", "width", _.width,"cen", _.cen, apply)
   implicit val slateImplicit: Slate[HexParrY] = (obj: HexParrY, dx: Double, dy: Double) => obj.slateXY(dx, dy)

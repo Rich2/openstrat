@@ -31,6 +31,10 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
 
   /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
    * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
+  override def slate(delta: Vec2Like): HexReg = mapHexReg(_.slate(delta))
+
+  /** Translate geometric transformation on a HexReg returns a HexReg. The return type of this method will be narrowed  further in most descendant
+   * traits / classes. The exceptions being those classes where the centring of the geometry at the origin is part of the type. */
   override def slateXY(xDelta: Double, yDelta: Double): HexReg = mapHexReg(_.addXY(xDelta, yDelta))
 
   /** Uniform scaling against both X and Y axes transformation on a HexReg returning a HexReg. Use the xyScale method for differential scaling. The
@@ -62,17 +66,27 @@ object HexReg
 {
   /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side
    * 4 at the bottom parallel to the X axis and side1 at the top. */
-  def apply(dInner: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): HexReg = HexParrX(dInner, cen).rotate(rotation)
+  def apply(dInner: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): HexReg =
+  {
+    val h2: Double = dInner / 2
+    val dsq3: Double = dInner / 3.sqrt
+    val d2sq3: Double = dInner / (3.sqrt * 2)
+    val array = Array[Double](- d2sq3, h2,
+      d2sq3, h2,
+      dsq3, 0,
+      d2sq3, -h2,
+      -d2sq3, -h2,
+      -dsq3, 0)
+
+    val hr = new HexRegImp(array)
+    hr.rotate(rotation).slate(cen)
+  }
 
   /** Factory method for regular hexagon [[HexReg]]. Takes the inner diameter the rotation and then centre point. A rotation of 0 degrees places side
    * 4 at the bottom parallel to the X axis and side1 at the top. */
   def apply(dInner: Double, rotation: AngleVec, xCen: Double, yCen: Double): HexReg = apply(dInner, rotation, xCen pp yCen)
 
   def fromArray(array: Array[Double]): HexReg = new HexRegImp(array)
-
-  /** Factory method for HexReg, taking 2 points as parameters, the centre of side 4, followed by the centre of side 1. In the default alignment for
-   * a regular hexagon both Y values will be 0. */
-  //def sd4Sd1(sd4Cen: Pt2, sd1Cen: Pt2): HexReg = HexRegImp(sd4Cen.x, sd4Cen.y, sd1Cen.x, sd1Cen.y)
 
   implicit val showImplicit: ShowT[HexReg] = new ShowT[HexReg]
   { override def typeStr: String = "HexReg"
@@ -123,18 +137,5 @@ object HexReg
     override def diameterOut: Double = v5.distTo(v2)
 
     @inline override def diameterIn: Double = diameterOut * 3.sqrt / 2
-  }
-
-  object HexRegImp {
-    /*def apply(sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double) : HexRegImp = {
-      val h = 20 //height / 2
-      val array = Array[Double](20 - h /2, 20 + h,
-        20 + h /2, 20 + h,
-        h, 0,
-        0, 0,
-        0, 0,
-        0, 0)
-      new HexRegImp(array)
-    }*/
   }
 }
