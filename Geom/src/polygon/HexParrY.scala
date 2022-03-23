@@ -2,27 +2,25 @@
 package ostrat; package geom
 
 /** Regular Hexagon where two of the sides are parallel to the Y Axis. This will be the standard Hex for the Tiling module. */
-final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[Double, Pt2] with ElemDbl3
+final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[Double, Pt2]
 { override type ThisT = HexParrY
   override def unsafeFromArray(array: Array[Double]): HexParrY = new HexParrY(array)
 
   override def typeStr = "HexParrY"
-  def width: Double = (v1x - v5x).abs
+  def width: Double = (v1x - v4x).abs
 
   override def name1: String = "width"
   override def name2: String = "cen"
-  override def dbl1: Double = width
-  override def dbl2: Double = cenX
-  override def dbl3: Double = cenY
-  override def diameterIn: Double = width
-  override def height: Double = diameterOut
+  override def diameterIn: Double = (v1x - v4x).abs
+  override def height: Double = (v0y - v3y).abs
+  override def diameterOut: Double = (v0y - v3y).abs
+  override def radiusIn: Double = diameterIn / 2
+  override def radiusOut: Double = diameterOut / 2
   override def show1: Double = width
   override def show2: Pt2 = cen
   override implicit def showT1: ShowT[Double] = ShowT.doublePersistEv
   override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
-
-  override def cen: Pt2 = cenX pp cenY
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
   override def slateXY(xDelta: Double, yDelta: Double): HexParrY = HexParrY(diameterIn, cen.addXY(xDelta, yDelta))
@@ -45,7 +43,7 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[
 
   /** Rotate 270 degrees positively or anti clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 90 degrees
    *  clockwise. */
-  override def rotate270: HexParrY = HexParrY(diameterIn, cen.rotate270)
+  override def rotate270: HexParrX = HexParrX(diameterIn, cen.rotate270)
 
   /** Prolign 2d transformations, similar transformations that retain alignment with the axes on this HexTlign returns a HexYlign. */
   override def prolign(matrix: ProlignMatrix): HexParrY = HexParrY(diameterIn, cen.prolign(matrix))

@@ -106,7 +106,6 @@ trait Polygon5Plus extends Polygon4Plus with DataDbl2s[Pt2]
   /** The Y component of the vertex 4. */
   final def v4y: Double = unsafeArray(9)
 
-  def unsafeArray: Array[Double]
   /** Vertex 4. The default convention is for the vertices to be numbered in a clockwise direction with the vertex 0 immediately clockwise from 12
    *  o'clock. */
   inline final def v4: Pt2 = v4x pp v4y
@@ -139,7 +138,7 @@ trait Polygon6Plus extends Polygon5Plus
   final def v5: Pt2 = v5x pp v5y
 
   /** The X component of the centre or half way point of side 6 of this polygon. */
-  final def sd5CenX: Double = v4x aver v4y
+  final def sd5CenX: Double = v4x aver v5x
 
   /** The Y component of the centre or half way point of side 5 of this polygon. */
   final def sd5CenY: Double = v4y aver v5y

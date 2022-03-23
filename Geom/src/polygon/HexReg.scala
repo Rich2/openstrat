@@ -6,9 +6,9 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
 { type ThisT <: HexReg
   override def typeStr = "HexReg"
 
-  def cenX: Double = (v0x + v3x) / 2
-  def cenY: Double = (v0y + v3y) / 2
-
+  final override def cenX: Double = v0x aver v3x
+  final override def cenY: Double = v0y aver v3y
+  final override def cen: Pt2 = cenX pp cenY
   def mapHexReg(f: Pt2 => Pt2): HexReg = HexReg.fromArray(unsafeMap(f))
 
   //sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double
@@ -16,15 +16,15 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
   def diameterIn: Double
 
   /** The radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a side. */
-  @inline def radiusIn: Double = diameterIn / 2
+  @inline def radiusIn: Double
 
   /** The radius of the outer circle of this regular hexagon. The longer radius length from the centre of the Hexagon to a vertex. Also the length of
    *  the hexagon side. */
-  @inline final def radiusOut: Double = diameterIn / Sqrt3
+  @inline def radiusOut: Double
 
   /** The diameter of the outer circle of this regular hexagon. The longer diameter length from a vertex to the opposite vertex. This lenght is twice
    * the length of the hexagon side. */
-  @inline final def diameterOut: Double = diameterIn * 2 / Sqrt3
+  @inline def diameterOut: Double
 
   /** A Hexagon has 6 vertices. */
   final override def vertsNum: Int = 6
@@ -110,8 +110,19 @@ object HexReg
     override def syntaxDepth: Int = 3
 
     def s1CenRMax: Pt2 = cen + (cen >> sd3Cen) * 2 / Sqrt3
-    @inline override def cen: Pt2 = Pt2(cenX, cenY)
-    @inline override def diameterIn: Double = sd0Cen.distTo(sd3Cen)
+
+    /** The radius of the inner circle of this regular hexagon. The shorter radius from the centre of the hexagon to the centre of a side. */
+    override def radiusIn: Double = diameterOut * 3.sqrt / 4
+
+    /** The radius of the outer circle of this regular hexagon. The longer radius length from the centre of the Hexagon to a vertex. Also the length of
+     * the hexagon side. */
+    override def radiusOut: Double = diameterOut / 2
+
+    /** The diameter of the outer circle of this regular hexagon. The longer diameter length from a vertex to the opposite vertex. This lenght is twice
+     * the length of the hexagon side. */
+    override def diameterOut: Double = v5.distTo(v2)
+
+    @inline override def diameterIn: Double = diameterOut * 3.sqrt / 2
   }
 
   object HexRegImp {

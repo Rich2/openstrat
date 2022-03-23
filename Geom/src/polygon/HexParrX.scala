@@ -5,20 +5,21 @@ package ostrat; package geom
 final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[Double, Pt2]
 { override type ThisT = HexParrX
   override def unsafeFromArray(array: Array[Double]): HexParrX = new HexParrX(array)
-  def height: Double = (v1y - v2y).abs
-  //, val cenX: Double, val cenY: Double
+
   override def typeStr = "HexXlign"
   override def name1: String = "height"
   override def name2: String = "cen"
-  override def diameterIn: Double = height
-  override def width: Double = diameterOut
+  def height: Double = (v1y - v2y).abs
+  override def diameterIn: Double = (v1y - v2y).abs
+  override def diameterOut: Double = v5.distTo(v2)
+  override def width: Double = v5.distTo(v2)
+  override def radiusIn: Double = diameterIn / 2
+  override def radiusOut: Double = diameterOut / 2
   override def show1: Double = height
   override def show2: Pt2 = cen
   override implicit def showT1: ShowT[Double] = ShowT.doublePersistEv
   override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
-
-  override def cen: Pt2 = cenX pp cenY
 
   /** Translate 2D geometric transformation on this HexXlign returns a HexXlign. */
   override def slateXY(xDelta: Double, yDelta: Double): HexParrX = HexParrX(diameterIn, cen.addXY(xDelta, yDelta))
@@ -51,7 +52,7 @@ final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[
  * the type can not be maintained through all affine transformations. */
 object HexParrX
 { /** Apply factory method for HexXlign, Creates a regular hexagon with 2 of its side aligned to the X axis. */
-  def apply(height: Double, cen: Pt2 = Pt2Z): HexParrX = apply(height, cen.x, cen.y)//new HexParrX(height, cen.x, cen.y)
+  def apply(height: Double, cen: Pt2 = Pt2Z): HexParrX = apply(height, cen.x, cen.y)
 
   /** Apply factory method for [[HexParrX]], Creates a regular hexagon with 2 of its side aligned to the Y axis. */
   def apply(height: Double, xCen: Double, yCen: Double): HexParrX = new HexParrX(unsafe(height, xCen, yCen))
@@ -68,13 +69,6 @@ object HexParrX
       xCen - d2sq3, yCen - h2,
       xCen - dsq3, yCen)
   }
-  /*override def v4x: Double = cenX - radiusOut
-  override def v4y: Double = cenY
-  @inline override def v4: Pt2 = Pt2(v4x, v4y)*/
-
-  /*override def v5x: Double = cenX - radiusOut / 2
-  override def v5y: Double = cenY + radiusIn
-  @inline override def v5: Pt2 = Pt2(v5x, v5y)*/
 
   def unapply(input: HexParrX): Some[(Double, Pt2)] = Some((input.height, input.cen))
 
