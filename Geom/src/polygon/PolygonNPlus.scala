@@ -13,12 +13,12 @@ trait Polygon3Plus extends Polygon
       immediately clockwise from 12 o'clock. */
   final def v1x: Double = unsafeArray(2)
 
-  /** The Y component of the v1 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or
-   * immediately clockwise from 12 o'clock. */
+  /** The Y component of the v1 vertex. The default convention is for the vertices to be numbered in a clockwise direction with vertex immediately
+   *  clockwise from 12 o'clock. */
   final def v1y: Double = unsafeArray(3)
 
-  /** The v1 Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or immediately clockwise
-   *  from 12 o'clock. */
+  /** The v1 Vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 1 immediately clockwise from 12
+   *  o'clock. */
   final def v1: Pt2 = v1x pp v1y
 
   /** The X component of the v2 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or
@@ -33,26 +33,16 @@ trait Polygon3Plus extends Polygon
    * from 12 o'clock. */
   final def v2: Pt2 = v2x pp v2y
 
-  /** Polygon side 1 from vertex 1 to vertex 2. */
+  /** Polygon side 1 from vertex 0 to vertex 1. */
   final def side1: LineSeg = LineSeg(v0, v1)
 
-  /** Polygon side 2 from vertex 2 to vertex 3. */
+  /** Polygon side 2 from vertex 1 to vertex 2. */
   final def side2: LineSeg = LineSeg(v1, v2)
 
-  /** The X component of the centre or half way point of side 0 of this polygon. */
-  final def sd0CenX: Double = vLastX aver v0x
-
-  /** The Y component of the centre or half way point of side 0 of this polygon. */
-  final def sd0CenY: Double = vLastY aver v0y
-
-  /** The centre or half way point of side 0 of this polygon. Side 0 starts at the vertex v0 and ends at the vertex v1. This can be thought of as
-   *  vertex 0.5. */
-  final def sd0Cen: Pt2 = sd0CenX pp sd0CenY
-
-  /** The X component of the centre or half way point of side 1 of this polygon. */
+  /** The X component of the centre or half way point of side 1 of this polygon. The midway point between v0 and v1. */
   final def sd1CenX: Double = v0x aver v1x
 
-  /** The Y component of the centre or half way point of side 1 of this polygon. */
+  /** The Y component of the centre or half way point of side 1 of this polygon. the midway point between v1 and v2. */
   final def sd1CenY: Double = v0y aver v1y
 
   /** The centre or half way point of side 1 of this polygon. Side 1 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as
@@ -65,7 +55,7 @@ trait Polygon3Plus extends Polygon
   /** The Y component of the centre or half way point of side 2 of this polygon. */
   final def sd2CenY: Double = v1y aver v2y
 
-  /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v2 vertex and ends at the v3 vertex. This can be thought of as
+  /** The centre or half way point of side 2 of this polygon. Side 2 starts at the v1 vertex and ends at the v2 vertex. This can be thought of as
    *  vertex 2.5. */
   final def sd2Cen: Pt2 = sd2CenX pp sd2CenY
 }

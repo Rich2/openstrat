@@ -73,10 +73,12 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = mapRectangle(_.xyScale(xOperand, yOperand))
 }
 
-/** Companion object fot the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also
+/** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also
  *  contains various factory methods that delegate to the [[Rectangle.RectangleImp]] class. */
 object Rectangle
 {
+  /** apply factory method for rectangle takes the width, height, rotation from alignment with the axes and a centre point. the default value for the
+   * the centre point is the origin. */
   def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Rectangle =
   { val rtVec = rotation.toVec(width / 2)
     val upVec = (rotation + 90.degs).toVec(height / 2)
@@ -92,12 +94,11 @@ object Rectangle
     new RectangleImp(verts.unsafeArray)
   }
 
+  /** Creates Rectangle from 2 vectors and centre point. The 2 vectors are the half axies from the centre point to th e right and to the top. */
   def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle =
   { val verts = Pt2s(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
     new RectangleImp(verts.unsafeArray)
   }
-
-  //def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle = ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
 
   def fromArray(array: Array[Double]): Rectangle = new RectangleImp(array)
 

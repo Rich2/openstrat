@@ -22,6 +22,16 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   /** Polygon side 0 from vertex 0 to vertex 1. */
   final def side0: LineSeg = LineSeg(vLast, v0)
 
+  /** The X component of the centre or half way point of side 0 of this polygon. */
+  final def sd0CenX: Double = vLastX aver v0x
+
+  /** The Y component of the centre or half way point of side 0 of this polygon. */
+  final def sd0CenY: Double = vLastY aver v0y
+
+  /** The centre or half way point of side 0 of this polygon. Side 0 starts at the vertex v0 and ends at the vertex v1. This can be thought of as
+   *  vertex 0.5. */
+  final def sd0Cen: Pt2 = sd0CenX pp sd0CenY
+
   final def xVert(index: Int): Double = unsafeArray(index * 2)
   final def yVert(index: Int): Double = unsafeArray(index * 2 + 1)
 

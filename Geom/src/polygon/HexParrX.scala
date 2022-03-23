@@ -21,6 +21,7 @@ final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[
   override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
 
+  /** maps the vertices of this [[HexParrX]] to a new [[HexparrX]] instance. */
   def mapHexParrX(f: Pt2 => Pt2): HexParrX = HexParrX.fromArray(unsafeMap(f))
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */

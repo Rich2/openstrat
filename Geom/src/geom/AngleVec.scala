@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Angle vector, an angle of rotation. Values may be greater than 360 degrees and less than -360 degrees. Negative values represent clockwise
@@ -12,7 +12,7 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
     case _ =>  degs.str.enParenth
   }
 
-  /** Creates a Vec2 from this Angle for the given scalar magnitude parameter. */
+  /** Creates a Vec2 from this [[AngleVec]] for the given scalar magnitude parameter. */
   def toVec(magnitude: Double): Vec2 = Vec2(math.cos(radians) * magnitude, math.sin(radians) * magnitude)
 
   /** Adds the operand AngleVec to this AngleVec. If you want to add an [[Angle]] to this AngleVec use addTo. */
@@ -58,7 +58,7 @@ class AngleVec private(val milliSecs: Double) extends AngleLike
   @inline def unary_- : AngleVec = AngleVec.radians(- radians)
 }
 
-/** Companion object for AngleVec trait contains factory methods. */
+/** Companion object for [[AngleVec]] trait contains factory methods. */
 object AngleVec
 { /** Creates an angle vector, or an angle of rotation from the value in number of degrees. */
   def apply(degs: Double): AngleVec = new AngleVec(degs * MilliSecsInDeg)

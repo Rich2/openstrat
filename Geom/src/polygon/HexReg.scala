@@ -11,7 +11,6 @@ trait HexReg extends ShapeCentred with Polygon6Plus with ShowDec
   final override def cen: Pt2 = cenX pp cenY
   def mapHexReg(f: Pt2 => Pt2): HexReg = HexReg.fromArray(unsafeMap(f))
 
-  //sd3CenX: Double, sd3CenY: Double, sd0CenX: Double, sd0CenY: Double
   /** The diameter of the inner circle of this regular hexagon. The shorter diameter from the centre of a side to the centre of the opposite side. */
   def diameterIn: Double
 
