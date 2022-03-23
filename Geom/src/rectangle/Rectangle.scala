@@ -83,7 +83,14 @@ object Rectangle
     ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, height)
   }
 
-  def axis1(sd2Cen: Pt2, sd4Cen: Pt2, height: Double): Rectangle =  ??? //new RectangleImp(sd2Cen.x, sd2Cen.y, sd4Cen.x, sd4Cen.y, height)
+  /** Creates a [[Rectangle]] from axis 1. The default for axis 1 is the left right axis. */
+  def axis1(sd4Cen: Pt2, sd2Cen: Pt2, height: Double): Rectangle =
+  { val rtVec: Vec2 = sd4Cen >/> sd2Cen
+    val upVec: Vec2 = rtVec.angle.p90.toVec2(height) / 2
+    val cen = sd4Cen midPt sd2Cen
+    val verts = Pt2s(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
+    new RectangleImp(verts.unsafeArray)
+  }
 
   //def s2s4v1(s2Cen: Pt2, s4Cen: Pt2, v1: Pt2): Rectangle = ??? //new RectangleImp(s2Cen.x, s2Cen.y, s4Cen.x, s4Cen.y, s2Cen.distTo(v1) * 2)
 

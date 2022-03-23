@@ -148,7 +148,7 @@ object Rect
     /** Factory method to create a RectImp from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
      * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
     def cenaV1(cen: Pt2, v1: Pt2): RectImp =
-    { val urVec: Vec2 = v1 - cen
+    { val urVec: Vec2 = v1 >> cen
       val ulVec: Vec2 = urVec.rotate90
       val v0: Pt2 = cen + ulVec
       val v2: Pt2 = cen - ulVec

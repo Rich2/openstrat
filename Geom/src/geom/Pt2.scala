@@ -22,16 +22,20 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
   def +(operand: Vec2): Pt2 = Pt2(x + operand.x, y + operand.y)
 
   /** Subtracts the operand [[Vec2]] 2D vector from this 2D point. Returns a new [[Pt2]]. */
-  def -(operand: Pt2): Vec2 = Vec2(x - operand.x, y - operand.y)
+  def - (operand: Vec2): Pt2 = Pt2(x - operand.x, y - operand.y)
 
   /** Returns the [[Vec2]] 2D vector from the origin to this Pt2. */
   def toVec: Vec2 = Vec2(x, y)
 
-  /** Subtracts the operand 2D point from this 2D point to get the relative Vector. Returns a [[Vec2]]. */
+  /** Subtracts the operand 2D point from this 2D point to get the relative Vector. */
   def <<(startPt: Pt2): Vec2 = Vec2(x - startPt.x, y - startPt.y)
 
-  /** Subtracts this 2D point from the operand 2D point to get the relative Vector. Returns a [[Vec2]]. */
+  /** Subtracts this 2D point from the operand 2D point to get the relative Vector. */
   def >>(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
+
+  /** Subtracts this 2D point from the operand 2D point and halves it to get the relative Vector divided by 2. This is a very common operation when
+   * calculating the distance along an axis and the distance to the centre point is required. Hence the specific method */
+  def >/>(operand: Pt2): Vec2 = Vec2(operand.x - x, operand.y - y)
 
   /** Gives the positive scalar distance between this and the operand Vec2. */
   def distTo(operand: Pt2): Double = (this >> operand).magnitude
@@ -239,7 +243,7 @@ object Pt2
 
   implicit class Pt2Implicit(thisPt: Pt2)
   { def * (operand: Length): PtM2 = PtM2(thisPt.x * operand, thisPt.y * operand)
-    def - (operand: Vec2): Pt2 = Pt2(thisPt.x - operand.x, thisPt.y - operand.y)
+
   }
 
   def circlePt(angle: Double): Pt2 = Pt2(cos(angle), sin(angle))

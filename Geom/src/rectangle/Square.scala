@@ -109,11 +109,11 @@ object Square extends ShapeIcon
   /** Factory object for squares. */
   object SquareImp
   {
-    def sd3sd1(sd3cen: Pt2, sd1cen: Pt2): SquareImp = {
-      val vright: Vec2 = sd1cen - sd3cen
+    def sd3sd1(sd3cen: Pt2, sd1cen: Pt2): SquareImp = ??? /*{
+      val vright: Vec2 = sd1cen >> sd3cen
       val array = Array[Double]()
       new SquareImp(array)
-    }
+    }*/
 
     def sd3sd1(sd3cenX: Double, sd3cenY: Double, sd1cenX: Double, sd1cenY: Double): SquareImp = sd3sd1(Pt2(sd3cenX, sd3cenY), Pt2(sd1cenX, sd1cenY))
   }
