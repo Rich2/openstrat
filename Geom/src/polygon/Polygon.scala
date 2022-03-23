@@ -32,9 +32,6 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
    *  vertex 0.5. */
   final def sd0Cen: Pt2 = sd0CenX pp sd0CenY
 
-  final def xVert(index: Int): Double = unsafeArray(index * 2)
-  final def yVert(index: Int): Double = unsafeArray(index * 2 + 1)
-
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
   final override def vertsForeach[U](f: Pt2 => U): Unit = dataForeach(f)
 
@@ -173,21 +170,20 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): PolygonCompound =
     PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)))
 
-  /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
-   * override the implementation in sub classes. */
-  //def xVert(index: Int): Double = vert(index).x
+  /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
+  def xVert(index: Int): Double = unsafeArray(index * 2)
 
   /** Returns the Y component of the vertex of the given number. Will throw an exception if the vertex index is out of range. For maximum efficiency
    * override the implementation in sub classes. */
-  //def yVert(index: Int): Double = vert(index).y
+  def yVert(index: Int): Double = unsafeArray(index * 2 +1)
 
-  /** The X component of vertex v0, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
+  /** The X component of vertex v0, will throw on a 0 vertices polygon. */
   final def v0x: Double = unsafeArray(0)
 
-  /** The Y component of vertex v1, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
+  /** The Y component of vertex v1, will throw on a 0 vertices polygon.  */
   final def v0y: Double = unsafeArray(1)
 
-  /** Vertex v0, will throw on a 0 vertices polygon. For maximum efficiency override the implementation in sub classes. */
+  /** Vertex v0, will throw on a 0 vertices polygon. */
   final def v0: Pt2 = v0x pp v0y
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
