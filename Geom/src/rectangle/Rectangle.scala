@@ -2,6 +2,7 @@
 package ostrat; package geom
 import pWeb._
 
+/** A 4 sided [[Polygon]]. */
 trait Quadrilateral extends Polygon4Plus
 { type ThisT <: Quadrilateral
   final override def vertsNum: Int = 4

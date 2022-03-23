@@ -144,17 +144,5 @@ object Rect
     }
 
     def fromArray(array: Array[Double]): RectImp = new RectImp(array)
-
-    /** Factory method to create a RectImp from the centre point and the v0 point. The v0 point or vertex is y convention the top left vertex of the
-     * rectangle, but any of the 4 corner vertices will give the correct constructor values. */
-    def cenaV1(cen: Pt2, v1: Pt2): RectImp =
-    { val urVec: Vec2 = v1 >> cen
-      val ulVec: Vec2 = urVec.rotate90
-      val v0: Pt2 = cen + ulVec
-      val v2: Pt2 = cen - ulVec
-      val v3: Pt2 = cen - urVec
-      val array: Array[Double] = Array[Double](v0.x, v0.y, v1.x, v1.y, v2.x, v2.y, v3.x, v3.y)
-      new RectImp(array)
-    }
   }
 }

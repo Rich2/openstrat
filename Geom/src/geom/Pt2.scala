@@ -3,7 +3,8 @@ package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer, Colour.Black
 
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
- *  [[Vec2]] instead. Thanks to René Descartes for this. */
+ *  [[Vec2]] instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points but they
+ *  can be used to translate the point. */
 final class Pt2(val x: Double, val y: Double) extends Vec2Like
 { override def typeStr: String = "Pt2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]

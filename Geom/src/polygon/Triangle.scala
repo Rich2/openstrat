@@ -70,10 +70,6 @@ object Triangle
 		  new TriangleImp(array)
 	  }
 
-		def apply(v0: Pt2, v1: Pt2, v2: Pt2): TriangleImp =  {
-			val array = new Array[Double](6)
-			array(0) = v0.x; array(1) = v0.y; array(2) = v1.x; array(3) = v1.y; array(4) = v2.x; array(5) = v2.y
-			new TriangleImp(array)
-		}
+		def apply(v0: Pt2, v1: Pt2, v2: Pt2): TriangleImp = new TriangleImp(Array[Double](v0.x, v0.y, v1.x, v1.y, v2.x, v2.y))
 	}
 }
