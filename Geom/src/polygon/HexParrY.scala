@@ -23,16 +23,16 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[
   override def syntaxDepth: Int = 3
 
   /** maps the vertices of this [[HexParrY]] to a new [[HexparrY]] instance. */
-  def mapHexParrY(f: Pt2 => Pt2): HexParrY = HexParrY.fromArray(unsafeMap(f))
+  override def vertsTrans(f: Pt2 => Pt2): HexParrY = HexParrY.fromArray(unsafeMap(f))
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
-  override def slate(delta: Vec2Like): HexParrY = mapHexParrY(_.slate(delta))
+  override def slate(delta: Vec2Like): HexParrY = vertsTrans(_.slate(delta))
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
-  override def slateXY(xDelta: Double, yDelta: Double): HexParrY = mapHexParrY(_.xySlate(xDelta, yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): HexParrY = vertsTrans(_.xySlate(xDelta, yDelta))
 
   /** Uniform scaling against both X and Y axes 2D geometric transformation on this HexYlign returns a HexYlign. */
-  override def scale(operand: Double): HexParrY = mapHexParrY(_.scale(operand))
+  override def scale(operand: Double): HexParrY = vertsTrans(_.scale(operand))
 
   /** Mirror, reflection 2D geometric transformation of this HexYlign across the X axis, negates Y, returns a HexYlign. */
   override def negY: HexParrY = HexParrY.fromArray(unsafeNegY)
@@ -45,7 +45,7 @@ final class HexParrY(val unsafeArray: Array[Double]) extends Hexlign with Show2[
   override def rotate90: HexParrX = HexParrX.fromArray(unsafeMap(_.rotate90))
 
   /** Rotate 180 degrees 2D geometric transformation on a HexYlign, returns a HexYlign. */
-  override def rotate180: HexParrY = mapHexParrY(_.rotate180)
+  override def rotate180: HexParrY = vertsTrans(_.rotate180)
 
   /** Rotate 270 degrees positively or anti clockwise 2D geometric transformation on a HexYlign, returns a HexYlign. Equivalent to rotate 90 degrees
    *  clockwise. */

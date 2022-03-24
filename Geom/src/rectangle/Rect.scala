@@ -5,17 +5,17 @@ import pWeb._
 /** A Rectangle aligned to the X and Y axes. */
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 { type ThisT <: Rect
-  def mapRect(f: Pt2 => Pt2): Rect = Rect.fromArray(unsafeMap(f))
+  override def vertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(unsafeMap(f))
   override def alignAngle: AngleVec = Deg0
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slate(offset: Vec2Like): Rect = mapRect(_.slate(offset))
+  override def slate(offset: Vec2Like): Rect = vertsTrans(_.slate(offset))
 
   /** Translate geometric transformation on a Rect returns a Rect. */
-  override def slateXY(xDelta: Double, yDelta: Double): Rect = mapRect(_.xySlate(xDelta,yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): Rect = vertsTrans(_.xySlate(xDelta,yDelta))
 
   /** Uniform scaling transformation on a Rect returns a Rect. */
-  override def scale(operand: Double): Rect = mapRect(_.scale(operand))
+  override def scale(operand: Double): Rect = vertsTrans(_.scale(operand))
 
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negY: Rect = Rect.fromArray(unsafeNegY)
@@ -23,13 +23,13 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
   /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
   override def negX: Rect = Rect.fromArray(unsafeNegX)
 
-  override def rotate90: Rect = mapRect(_.rotate90)
-  override def rotate180: Rect = mapRect(_.rotate180)
-  override def rotate270: Rect = mapRect(_.rotate270)
+  override def rotate90: Rect = vertsTrans(_.rotate90)
+  override def rotate180: Rect = vertsTrans(_.rotate180)
+  override def rotate270: Rect = vertsTrans(_.rotate270)
 
-  override def prolign(matrix: ProlignMatrix): Rect = mapRect(_.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rect = vertsTrans(_.prolign(matrix))
 
-  override def scaleXY(xOperand: Double, yOperand: Double): Rect = mapRect(_.xyScale(xOperand, yOperand))
+  override def scaleXY(xOperand: Double, yOperand: Double): Rect = vertsTrans(_.xyScale(xOperand, yOperand))
 
   override def activeChildren(id: AnyRef, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) %: children)
 
@@ -86,7 +86,7 @@ object Rect
     override def rotate180(obj: Rect): Rect = obj.rotate180
     override def rotate270(obj: Rect): Rect = obj.rotate270
   }
-  
+
   /** Implementation class for Rect, a rectangle aligned to the X and Y axes. */
   final class RectImp(val unsafeArray: Array[Double]) extends Rect
   { type ThisT = RectImp
@@ -121,7 +121,7 @@ object Rect
     /** Mirror, reflection transformation across the X axis on a Rect, returns a Rect. */
     override def negX: RectImp = RectImp.fromArray(unsafeNegX)
 
-    override def prolign(matrix: ProlignMatrix): Rect = mapRect(_.prolign(matrix))
+    override def prolign(matrix: ProlignMatrix): Rect = vertsTrans(_.prolign(matrix))
 
     override def scaleXY(xOperand: Double, yOperand: Double): RectImp = mapRectImp(_.xyScale(xOperand, yOperand))
   }

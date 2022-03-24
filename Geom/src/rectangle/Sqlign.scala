@@ -7,10 +7,8 @@ final class Sqlign private(val unsafeArray: Array[Double]) extends Square with R
 { override type ThisT = Sqlign
   override def typeStr: String = "Sqlign"
   override def unsafeFromArray(array: Array[Double]): Sqlign = new Sqlign(array)
-
+  override def vertsTrans(f: Pt2 => Pt2): Sqlign = Sqlign.fromArray(unsafeMap(f))
   def width: Double = v1x - v0x
-  //def cenX: Double = (v0x + v2x) / 2
-  //def cenY: Double = (v0y + v2y) / 2
   override def name1: String = "width"
   override def name2: String = "cen"
   override def show1: Double = width
@@ -55,6 +53,8 @@ object Sqlign
     val array = Array[Double](xCen - w, yCen + w, xCen + w, yCen + w, xCen + w, yCen - w, xCen - w, yCen - w)
     new Sqlign(array)
   }
+
+  def fromArray(array: Array[Double]) = new Sqlign(array)
 
   implicit val ShowTImplicit: ShowT[Sqlign] = new ShowT[Sqlign]
   { override def typeStr: String = "Sqlign"

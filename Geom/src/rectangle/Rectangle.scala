@@ -15,7 +15,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
 { type ThisT <: Rectangle
   override def typeStr: String = "Rectangle"
 
-  def mapRectangle(f: Pt2 => Pt2): Rectangle = Rectangle.fromArray(unsafeMap(f))
+  override def vertsTrans(f: Pt2 => Pt2): Rectangle = Rectangle.fromArray(unsafeMap(f))
 
   /** The X component of the centre. */
   override def cenX: Double = v0x aver v2x
@@ -47,13 +47,13 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   @inline def diags: LineSegs = LineSegs(diag1, diag2)
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def slate(offset: Vec2Like): Rectangle = mapRectangle(_.slate(offset))
+  override def slate(offset: Vec2Like): Rectangle = vertsTrans(_.slate(offset))
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def slateXY(xDelta: Double, yDelta: Double): Rectangle = mapRectangle(_.xySlate(xDelta, yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): Rectangle = vertsTrans(_.xySlate(xDelta, yDelta))
 
   /** Uniform scaling 2D geometric transformation on a Rectangle returns a Rectangle. */
-  override def scale(operand: Double): Rectangle = mapRectangle(_.scale(operand))
+  override def scale(operand: Double): Rectangle = vertsTrans(_.scale(operand))
 
   /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negY: Rectangle = Rectangle.fromArray(unsafeNegY)
@@ -61,17 +61,17 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   /** Mirror, reflection 2D geometric transformation across the X axis on a Rectangle, returns a Rectangle. */
   override def negX: Rectangle = Rectangle.fromArray(unsafeNegX)
 
-  override def prolign(matrix: ProlignMatrix): Rectangle = mapRectangle(_.prolign(matrix))
+  override def prolign(matrix: ProlignMatrix): Rectangle = vertsTrans(_.prolign(matrix))
 
-  override def rotate90: Rectangle = mapRectangle(_.rotate90)
-  override def rotate180: Rectangle = mapRectangle(_.rotate180)
-  override def rotate270: Rectangle = mapRectangle(_.rotate270)
+  override def rotate90: Rectangle = vertsTrans(_.rotate90)
+  override def rotate180: Rectangle = vertsTrans(_.rotate180)
+  override def rotate270: Rectangle = vertsTrans(_.rotate270)
 
-  override def reflect(lineLike: LineLike): Rectangle = mapRectangle(_.reflect(lineLike))
+  override def reflect(lineLike: LineLike): Rectangle = vertsTrans(_.reflect(lineLike))
 
-  override def rotate(angle: AngleVec): Rectangle = mapRectangle(_.rotate(angle))
+  override def rotate(angle: AngleVec): Rectangle = vertsTrans(_.rotate(angle))
 
-  override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = mapRectangle(_.xyScale(xOperand, yOperand))
+  override def scaleXY(xOperand: Double, yOperand: Double): Rectangle = vertsTrans(_.xyScale(xOperand, yOperand))
 }
 
 /** Companion object for the Rectangle trait. Contains [[Rectangle.RectangleImp]] the implementation class for non specialised rectangles. It also

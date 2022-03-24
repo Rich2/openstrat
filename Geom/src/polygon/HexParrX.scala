@@ -22,16 +22,16 @@ final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[
   override def syntaxDepth: Int = 3
 
   /** maps the vertices of this [[HexParrX]] to a new [[HexparrX]] instance. */
-  def mapHexParrX(f: Pt2 => Pt2): HexParrX = HexParrX.fromArray(unsafeMap(f))
+  override def vertsTrans(f: Pt2 => Pt2): HexParrX = HexParrX.fromArray(unsafeMap(f))
 
   /** Translate 2D geometric transformation on this HexYlign returns a HexYlign. */
-  override def slate(delta: Vec2Like): HexParrX = mapHexParrX(_.slate(delta))
+  override def slate(delta: Vec2Like): HexParrX = vertsTrans(_.slate(delta))
 
   /** Translate 2D geometric transformation on this HexXlign returns a HexXlign. */
-  override def slateXY(xDelta: Double, yDelta: Double): HexParrX = mapHexParrX(_.addXY(xDelta, yDelta))
+  override def slateXY(xDelta: Double, yDelta: Double): HexParrX = vertsTrans(_.addXY(xDelta, yDelta))
 
   /** Uniform scaling against both X and Y axes 2D geometric transformation on this HexXlign returning a HexXlign. */
-  override def scale(operand: Double): HexParrX = mapHexParrX(_.scale(operand))
+  override def scale(operand: Double): HexParrX = vertsTrans(_.scale(operand))
 
   /** Mirror, reflection 2D geometric transformation on this HexXlign across the X axis, negates Y, returns a HexXlign. */
   override def negY: HexParrX = HexParrX.fromArray(unsafeNegY)
@@ -44,7 +44,7 @@ final class HexParrX(val unsafeArray: Array[Double]) extends Hexlign with Show2[
   override def rotate90: HexParrY = HexParrY.fromArray(unsafeMap(_.rotate90))
 
   /** Rotate 180 degrees 2D geometric transformation on this HexXlign across the Y axis, negates X, returns a HexXlign. */
-  override def rotate180: HexParrX = mapHexParrX(_.rotate180)
+  override def rotate180: HexParrX = vertsTrans(_.rotate180)
 
   /** Rotate 270 degrees in a positive or clockwise direction 2D geometric transformation on this HexXlign across the Y axis, negates X, returns a
    *  HexYlign. Note the change in type. Equivalent to a 90 degree negative or clock wise transformation. */

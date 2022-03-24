@@ -6,9 +6,6 @@ package ostrat; package geom
 trait Polygon3Plus extends Polygon
 { type ThisT <: Polygon3Plus
 
-  def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
-  def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)
-
   /** The X component of the v1 vertex. The default convention is for the vertices to be numbered in a clockwise direction with the 0 vertex at or
       immediately clockwise from 12 o'clock. */
   final def v1x: Double = unsafeArray(2)

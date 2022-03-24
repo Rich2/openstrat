@@ -85,6 +85,9 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
     build.buffToBB(buff)
   }
 
+  def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
+  def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)
+
   /** Returns the vertex of the given index. If the index is out of range, it will just circle round the vertices, so for a triangle -1 gives v2, -2
    * gives v1, 3 gives v0, 4 gives v1 etc. It will not throw unlike the unsafeVert method. */
   final def vert(index: Int): Pt2 = unsafeVert(index %% vertsNum)
