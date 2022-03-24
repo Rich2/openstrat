@@ -6,7 +6,7 @@ import Colour.Black
  *  similar to a Polygon which is an Array[Double based collection of just LineSegs. It Uses 6 Doubles for each CurveSeg. The first Double of each
  *  curveSeg is set to Negative Infinity for a LineSeg positive infinity for an ArcSeg, but represents the x component of the first control point for
  *  a BezierSeg. */
-class ShapeGenOld(val unsafeArray: Array[Double]) extends DataDbl7s[CurveTail] with AffinePreserve
+class ShapeGenOld(val unsafeArray: Array[Double]) extends Dbl7SeqDef[CurveTail] with AffinePreserve
 { type ThisT = ShapeGenOld
   def unsafeFromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
   override def typeStr = "Shape"

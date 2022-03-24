@@ -5,8 +5,8 @@ import collection.mutable.ArrayBuffer
 /** A class that can be construct from a fixed number of [[Int]]s can be stored as an Array[Int] of primitive values. */
 trait ElemIntN extends Any with ElemValueN
 
-trait DataIntNs[A <: ElemIntN] extends Any with ValueNSeqDef[A]
-{ type ThisT <: DataIntNs[A]
+trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A]
+{ type ThisT <: IntNSeqDef[A]
 
   /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */
   def unsafeArray: Array[Int]
@@ -27,7 +27,7 @@ trait DataIntNs[A <: ElemIntN] extends Any with ValueNSeqDef[A]
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait ArrIntNs[A <: ElemIntN] extends Any with ArrValueNs[A] with DataIntNs[A]
+trait ArrIntNs[A <: ElemIntN] extends Any with ArrValueNs[A] with IntNSeqDef[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: ArrIntNs[A]
 }
@@ -72,7 +72,7 @@ trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */
-trait DataIntNsPersist[A <: ElemIntN, M <: DataIntNs[A]] extends DataValueNsPersist[A, M]
+trait DataIntNsPersist[A <: ElemIntN, M <: IntNSeqDef[A]] extends DataValueNsPersist[A, M]
 { type VT = Int
   override def fromBuffer(buf: Buff[Int]): M = fromArray(buf.toArray)
   override def newBuffer: Buff[Int] = Buff[Int](0)
@@ -80,7 +80,7 @@ trait DataIntNsPersist[A <: ElemIntN, M <: DataIntNs[A]] extends DataValueNsPers
 
 /** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[ElemIntN]] type of the of the
  *  collection class. */
-trait DataIntNsCompanion[A <: ElemIntN, ArrA <: DataIntNs[A]] extends DataValueNsCompanion[A, ArrA]
+trait DataIntNsCompanion[A <: ElemIntN, ArrA <: IntNSeqDef[A]] extends DataValueNsCompanion[A, ArrA]
 { /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an ArrayBuffer[Int]. */
   def fromBuffer(buff: Buff[Int]): ArrA = fromArray(buff.toArray[Int])
 

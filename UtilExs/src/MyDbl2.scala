@@ -26,7 +26,7 @@ final class MyDbl2s(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2s
 { type ThisT = MyDbl2s
   def typeStr = "Mines"
   def unsafeFromArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
-  override def dataElem(d1: Double, d2: Double): MyDbl2 = MyDbl2(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): MyDbl2 = MyDbl2(d1, d2)
   override def fElemStr: MyDbl2 => String = _.toString
 }
 

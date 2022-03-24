@@ -11,7 +11,7 @@ trait ElemDbl5 extends Any with ElemDblN
   def dbl5: Double
 }
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl5]]s. */
-trait DataDbl5s[A <: ElemDbl5] extends Any with DblNSeqDef[A]
+trait Dbl5SeqDef[A <: ElemDbl5] extends Any with DblNSeqDef[A]
 { /** Method for creating new data elements from 5 [[Double]]s In the case of [[ArrDbl5s]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
@@ -29,7 +29,7 @@ trait DataDbl5s[A <: ElemDbl5] extends Any with DblNSeqDef[A]
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl5]]s. */
-trait ArrDbl5s[A <: ElemDbl5] extends Any with ArrDblNs[A] with DataDbl5s[A]
+trait ArrDbl5s[A <: ElemDbl5] extends Any with ArrDblNs[A] with Dbl5SeqDef[A]
 { def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
   final override def length: Int = unsafeArray.length / 5
   def head1: Double = unsafeArray(0)
@@ -42,7 +42,7 @@ trait ArrDbl5s[A <: ElemDbl5] extends Any with ArrDblNs[A] with DataDbl5s[A]
 }
 
 /** Helper class for companion objects of final [[ArrDbl5s]] classes. */
-abstract class DataDbl5sCompanion[A <: ElemDbl5, ArrA <: DataDbl5s[A]]
+abstract class DataDbl5sCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqDef[A]]
 {
   val factory: Int => ArrA
   def apply(length: Int): ArrA = factory(length)
@@ -99,7 +99,7 @@ abstract class DataDbl5sCompanion[A <: ElemDbl5, ArrA <: DataDbl5s[A]]
 }
 
 /** Both Persists and Builds [[ArrDbl5s]] Collection classes. */
-abstract class DataDbl5sPersist[A <: ElemDbl5, ArrA <: DataDbl5s[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
+abstract class DataDbl5sPersist[A <: ElemDbl5, ArrA <: Dbl5SeqDef[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

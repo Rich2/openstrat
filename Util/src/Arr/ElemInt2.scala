@@ -8,7 +8,7 @@ trait ElemInt2 extends Any with ElemIntN
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemInt2]]s. */
-trait DataInt2s[A <: ElemInt2] extends Any with DataIntNs[A]
+trait Int2SeqDef[A <: ElemInt2] extends Any with IntNSeqDef[A]
 {
   override def elemProdSize: Int = 2
   final override def indexData(index: Int): A = dataElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
@@ -17,7 +17,7 @@ trait DataInt2s[A <: ElemInt2] extends Any with DataIntNs[A]
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt2]]s. */
-trait ArrInt2s[A <: ElemInt2] extends Any with ArrIntNs[A] with DataInt2s[A]
+trait ArrInt2s[A <: ElemInt2] extends Any with ArrIntNs[A] with Int2SeqDef[A]
 { def head1: Int = unsafeArray(0)
   def head2: Int = unsafeArray(1)
   final override def length: Int = unsafeArray.length / 2
@@ -60,7 +60,7 @@ trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
 }
 
 /** Helper class for companion objects of final Int2sArr classes. */
-abstract class DataInt2sCompanion[A <: ElemInt2, ArrA <: DataInt2s[A]] extends DataIntNsCompanion[A, ArrA]
+abstract class DataInt2sCompanion[A <: ElemInt2, ArrA <: Int2SeqDef[A]] extends DataIntNsCompanion[A, ArrA]
 {
   override def elemProdSize: Int = 2
 

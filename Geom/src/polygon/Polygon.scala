@@ -11,7 +11,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   override type SideT = LineSeg
 
   override def fElemStr: Pt2 => String = _.str
-  override def dataElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 
   final def vLastX: Double = unsafeArray(vertsNum - 2)
   final def vLastY: Double = unsafeArray(vertsNum - 1)

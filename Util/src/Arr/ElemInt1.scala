@@ -8,7 +8,7 @@ trait ElemInt1 extends Any with ElemIntN
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[ElemInt1]]s. */
-trait DataInt1s[A <: ElemInt1] extends Any with DataIntNs[A]
+trait Int1SeqDef[A <: ElemInt1] extends Any with IntNSeqDef[A]
 {
   override def elemProdSize: Int = 1
   final override def indexData(index: Int): A = dataElem(unsafeArray(index))
@@ -17,7 +17,7 @@ trait DataInt1s[A <: ElemInt1] extends Any with DataIntNs[A]
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */
-trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A] with DataInt1s[A]
+trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A] with Int1SeqDef[A]
 {
   final override def length: Int = unsafeArray.length
 

@@ -17,8 +17,8 @@ trait LinePathDblNs[A <: ElemDblN] extends  Any with LinePathLike[A] with DblNSe
 trait LinePathDbl2s[A <: ElemDbl2] extends Any with LinePathDblNs[A] with Dbl2SeqDef[A]
 trait LinePathDbl3s[A <: ElemDbl3] extends Any with LinePathDblNs[A] with Dbl3SeqDef[A]
 
-trait LinePathIntNs[A <: ElemIntN] extends  Any with LinePathLike[A] with DataIntNs[A]
-trait LinePathInt2s[A <: ElemInt2] extends Any with LinePathIntNs[A] with DataInt2s[A]
+trait LinePathIntNs[A <: ElemIntN] extends  Any with LinePathLike[A] with IntNSeqDef[A]
+trait LinePathInt2s[A <: ElemInt2] extends Any with LinePathIntNs[A] with Int2SeqDef[A]
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
  * the companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into

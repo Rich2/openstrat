@@ -5,7 +5,7 @@ package ostrat; package geom
  *  prove. It has been created for the intermediary step of converting from [[LinePathLL]]s to [[LinePathMetre]]s on world maps. */
 class LinePathMetre(val unsafeArray: Array[Double]) extends AnyVal with LinePathDbl2s[PtM2]
 { override type ThisT = LinePathMetre
-  override def dataElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
+  override def seqDefElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def unsafeFromArray(array: Array[Double]): LinePathMetre = new LinePathMetre(array)
   override def typeStr: String = "LinePathM3"
   override def fElemStr: PtM2 => String = _.toString

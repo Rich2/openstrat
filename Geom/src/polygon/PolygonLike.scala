@@ -82,7 +82,7 @@ trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with Dbl2Se
 trait PolygonDbl3s[VT <: ElemDbl3] extends Any with PolygonDblNs[VT] with Dbl3SeqDef[VT]
 
 /** A polygon whose elements are defined by [[Inte]]s. */
-trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with DataIntNs[VT]
+trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with IntNSeqDef[VT]
 
 /** A polygon whose elements are defined by 2 [[int]]s. */
-trait PolygonInt2s[VT <: ElemInt2] extends Any with PolygonIntNs[VT] with DataInt2s[VT]
+trait PolygonInt2s[VT <: ElemInt2] extends Any with PolygonIntNs[VT] with Int2SeqDef[VT]

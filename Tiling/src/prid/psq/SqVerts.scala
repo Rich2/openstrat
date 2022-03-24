@@ -2,7 +2,7 @@
 package ostrat; package prid; package psq
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
-trait SqVertsLike extends Any with DataInt2s[SqVert]
+trait SqVertsLike extends Any with Int2SeqDef[SqVert]
 { override def dataElem(i1: Int, i2: Int): SqVert = SqVert.apply(i1, i2)
   override def fElemStr: SqVert => String = _.str
   def vertNum: Int = unsafeArray.length / 2

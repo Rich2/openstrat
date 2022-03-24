@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 /** An object that can be constructed from 6 [[Double]]s. These are used in [[ArrDbl6s]] Array[Double] based collections. */
@@ -12,7 +12,7 @@ trait ElemDbl6 extends Any with ElemDblN
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl6]]s. */
-trait DataDbl6s[A <: ElemDbl6] extends Any with DblNSeqDef[A]
+trait Dbl6SeqDef[A <: ElemDbl6] extends Any with DblNSeqDef[A]
 { def elemProdSize: Int = 6
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 
@@ -23,7 +23,7 @@ trait DataDbl6s[A <: ElemDbl6] extends Any with DblNSeqDef[A]
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl6]]s. */
-trait ArrDbl6s[A <: ElemDbl6] extends Any with ArrDblNs[A] with DataDbl6s[A]
+trait ArrDbl6s[A <: ElemDbl6] extends Any with ArrDblNs[A] with Dbl6SeqDef[A]
 { final override def length: Int = unsafeArray.length / 6
 
   def setElem(index: Int, elem: A): Unit =
@@ -39,7 +39,7 @@ trait ArrDbl6s[A <: ElemDbl6] extends Any with ArrDblNs[A] with DataDbl6s[A]
 }
 
 /** Helper class for companion objects of final [[ArrDbl6s]] classes. */
-abstract class DataDbl6sCompanion[A <: ElemDbl6, ArrA <: DataDbl6s[A]]
+abstract class DataDbl6sCompanion[A <: ElemDbl6, ArrA <: Dbl6SeqDef[A]]
 { val factory: Int => ArrA
   def apply(length: Int): ArrA = factory(length)
 

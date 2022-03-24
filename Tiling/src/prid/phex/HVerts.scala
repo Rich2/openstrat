@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
-trait HVertsLike extends Any with DataInt2s[HVert]
+trait HVertsLike extends Any with Int2SeqDef[HVert]
 { override def dataElem(i1: Int, i2: Int): HVert = HVert.apply(i1, i2)
   override def fElemStr: HVert => String = _.str
   def vertNum: Int = unsafeArray.length / 2

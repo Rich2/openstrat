@@ -14,7 +14,7 @@ trait ElemDbl2 extends Any with ElemDblN
 trait Dbl2SeqDef[A <: ElemDbl2] extends Any with DblNSeqDef[A]
 {
   /** Method for creating new data elements from 2 [[Double]]s In the case of [[ArrDbl2s]] this will be thee type of the elements of the sequence. */
-  def dataElem(d1: Double, d2: Double): A
+  def seqDefElem(d1: Double, d2: Double): A
 
   override def elemProdSize: Int = 2
 
@@ -23,7 +23,7 @@ trait Dbl2SeqDef[A <: ElemDbl2] extends Any with DblNSeqDef[A]
     unsafeArray(2 * index + 1) = elem.dbl2
   }
 
-  override def indexData(index: Int): A = dataElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  override def indexData(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
 
   def elem1sArray: Array[Double] =
   { val res = new Array[Double](dataLength)
@@ -48,7 +48,7 @@ trait Dbl2SeqDef[A <: ElemDbl2] extends Any with DblNSeqDef[A]
   def unsafeMap(f: A => A): Array[Double] = {
     val newArray: Array[Double] = new Array[Double](unsafeArray.length)
     iUntilForeach(0, arrLen, 2){ i =>
-      val newElem = f(dataElem(unsafeArray(i), unsafeArray(i + 1)))
+      val newElem = f(seqDefElem(unsafeArray(i), unsafeArray(i + 1)))
       newArray(i) = newElem.dbl1
       newArray(i + 1) = newElem.dbl2
     }

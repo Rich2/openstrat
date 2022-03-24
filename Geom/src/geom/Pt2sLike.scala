@@ -16,5 +16,5 @@ trait Pt2sLike extends Dbl2SeqDef[Pt2]
     newArray
   }
   override def fElemStr: Pt2 => String = _.str
-  final override def dataElem(d1: Double, d2: Double): Pt2 = Pt2.apply(d1, d2)
+  final override def seqDefElem(d1: Double, d2: Double): Pt2 = Pt2.apply(d1, d2)
 }
