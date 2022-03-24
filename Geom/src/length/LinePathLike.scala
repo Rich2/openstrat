@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** A generalisation of a line path where the type of the points is not resriscted to [[Pt2]]. */
-trait LinePathLike[A] extends Any with DataImut[A]
+trait LinePathLike[A] extends Any with ImutSeqDef[A]
 {
   def map[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.newLinePath(dataLength)
@@ -12,10 +12,10 @@ trait LinePathLike[A] extends Any with DataImut[A]
   }
 }
 
-trait LinePathValueNsData[A <: ElemValueN] extends Any with LinePathLike[A] with DataValueNs[A]
-trait LinePathDblNs[A <: ElemDblN] extends  Any with LinePathLike[A] with SeqDefDblNs[A]
-trait LinePathDbl2s[A <: ElemDbl2] extends Any with LinePathDblNs[A] with SeqDefDbl2s[A]
-trait LinePathDbl3s[A <: ElemDbl3] extends Any with LinePathDblNs[A] with DataDbl3s[A]
+trait LinePathValueNsData[A <: ElemValueN] extends Any with LinePathLike[A] with ValueNSeqDef[A]
+trait LinePathDblNs[A <: ElemDblN] extends  Any with LinePathLike[A] with DblNSeqDef[A]
+trait LinePathDbl2s[A <: ElemDbl2] extends Any with LinePathDblNs[A] with Dbl2SeqDef[A]
+trait LinePathDbl3s[A <: ElemDbl3] extends Any with LinePathDblNs[A] with Dbl3SeqDef[A]
 
 trait LinePathIntNs[A <: ElemIntN] extends  Any with LinePathLike[A] with DataIntNs[A]
 trait LinePathInt2s[A <: ElemInt2] extends Any with LinePathIntNs[A] with DataInt2s[A]
@@ -25,7 +25,7 @@ trait LinePathInt2s[A <: ElemInt2] extends Any with LinePathIntNs[A] with DataIn
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait LinePathBuilder[B, BB <: LinePathLike[B]] extends DataImutBuilder[B, BB]
+trait LinePathBuilder[B, BB <: LinePathLike[B]] extends ImutSeqDefBuilder[B, BB]
 { def newLinePath(length: Int): BB
   def arrSet(arr: BB, index: Int, value: B): Unit
 

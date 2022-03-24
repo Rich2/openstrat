@@ -11,7 +11,7 @@ trait ElemDbl4 extends Any with ElemDblN
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl4]]s. */
-trait DataDbl4s[A <: ElemDbl4] extends Any with SeqDefDblNs[A]
+trait Dbl4SeqDef[A <: ElemDbl4] extends Any with DblNSeqDef[A]
 { /** Method for creating new data elements from 4 [[Double]]s In the case of [[ArrDbl4s]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
@@ -26,7 +26,7 @@ trait DataDbl4s[A <: ElemDbl4] extends Any with SeqDefDblNs[A]
   override def indexData(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl4]]s. */
-trait ArrDbl4s[A <: ElemDbl4] extends Any with ArrDblNs[A] with DataDbl4s[A]
+trait ArrDbl4s[A <: ElemDbl4] extends Any with ArrDblNs[A] with Dbl4SeqDef[A]
 { def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
   def head3: Double = unsafeArray(2)
@@ -60,7 +60,7 @@ trait ArrDbl4sFlatBuilder[B <: ElemDbl4, ArrB <: ArrDbl4s[B]] extends ArrDblNsFl
 }
 
 /** Class for the singleton companion objects of [[ArrDbl4s]] final classes to extend. */
-abstract class DataDbl4sCompanion[A <: ElemDbl4, ArrA <: DataDbl4s[A]]
+abstract class DataDbl4sCompanion[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]]
 {
   val factory: Int => ArrA
   def apply(length: Int): ArrA = factory(length)
@@ -114,7 +114,7 @@ abstract class DataDbl4sCompanion[A <: ElemDbl4, ArrA <: DataDbl4s[A]]
 }
 
 /** Persists [[Dble4Elem] Collection classes. */
-abstract class DataDbl4sPersist[A <: ElemDbl4, ArrA <: DataDbl4s[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
+abstract class DataDbl4sPersist[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

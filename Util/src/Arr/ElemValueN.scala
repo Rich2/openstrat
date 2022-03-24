@@ -9,8 +9,8 @@ trait ElemValueN extends Any with SpecialT
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
  *  classes include both [[SeqImut]s and classes like polygons and lines. */
-trait DataValueNs[A <: ElemValueN] extends Any with DataImut[A]
-{ type ThisT <: DataValueNs[A]
+trait ValueNSeqDef[A <: ElemValueN] extends Any with ImutSeqDef[A]
+{ type ThisT <: ValueNSeqDef[A]
 
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
    *  class. */
@@ -28,7 +28,7 @@ trait DataValueNs[A <: ElemValueN] extends Any with DataImut[A]
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ArrValueNs[A <: ElemValueN] extends Any with SeqImut[A] with DataValueNs[A]
+trait ArrValueNs[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqDef[A]
 { type ThisT <: ArrValueNs[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
@@ -83,7 +83,7 @@ trait ValueNBuff[A <: ElemValueN] extends Any with SeqGen[A]
 }
 
 /** Class to Persist specialised for [[DatValueNs]] cLasses. */
-trait DataValueNsPersist[A <: ElemValueN, M <: DataValueNs[A]] extends PersistCompound[M]
+trait DataValueNsPersist[A <: ElemValueN, M <: ValueNSeqDef[A]] extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT
   def appendtoBuffer(buf: Buff[VT], value: A): Unit
@@ -92,8 +92,8 @@ trait DataValueNsPersist[A <: ElemValueN, M <: DataValueNs[A]] extends PersistCo
   def newBuffer: Buff[VT]
 }
 
-/** Helper trait for companion objects of [[DataValueNs]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
-trait DataValueNsCompanion[A <: ElemValueN, ArrA <: DataValueNs[A]]
+/** Helper trait for companion objects of [[ValueNSeqDef]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
+trait DataValueNsCompanion[A <: ElemValueN, ArrA <: ValueNSeqDef[A]]
 { /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   def uninitialised(length: Int): ArrA
 

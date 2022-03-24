@@ -7,7 +7,7 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait PolygonBuilder[B, +BB <: PolygonLike[B]] extends DataBuilderCommon[BB @uncheckedVariance]
+trait PolygonBuilder[B, +BB <: PolygonLike[B]] extends SeqDefBuilderCommon[BB @uncheckedVariance]
 { type BuffT <: SeqGen[B]
 
   /** Creates a new uninitialised class of type BB.  */
@@ -34,7 +34,7 @@ trait PolygonBuilder[B, +BB <: PolygonLike[B]] extends DataBuilderCommon[BB @unc
   }
 }
 
-trait PolygonBuilderData[B, +BB <: PolygonLikeData[B]] extends PolygonBuilder[B, BB]
+trait PolygonBuilderData[B, +BB <: PolygonLikeSeqDef[B]] extends PolygonBuilder[B, BB]
 
 /** Trait for creating the line path builder instances for the [[PolygonBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */

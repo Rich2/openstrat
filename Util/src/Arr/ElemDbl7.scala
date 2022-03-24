@@ -13,7 +13,7 @@ trait ElemDbl7 extends Any with ElemDblN
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl7]]s. */
-trait DataDbl7s[A <: ElemDbl7] extends Any with SeqDefDblNs[A]
+trait DataDbl7s[A <: ElemDbl7] extends Any with DblNSeqDef[A]
 { def elemProdSize: Int = 7
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 

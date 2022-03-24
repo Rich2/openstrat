@@ -15,8 +15,8 @@ trait ArrayDblBacked extends Any
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[ArrDblNs]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait SeqDefDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBacked
-{ type ThisT <: SeqDefDblNs[A]
+trait DblNSeqDef[A <: ElemDblN] extends Any with ValueNSeqDef[A] with ArrayDblBacked
+{ type ThisT <: DblNSeqDef[A]
   @inline override def arrLen = unsafeArray.length
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
@@ -48,7 +48,7 @@ trait SeqDefDblNs[A <: ElemDblN] extends Any with DataValueNs[A] with ArrayDblBa
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
-trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with SeqDefDblNs[A]
+trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DblNSeqDef[A]
 { type ThisT <: ArrDblNs[A]
 
   /** Not sure about this method. */
@@ -100,7 +100,7 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 }
 
 /** Helper trait for Companion objects of [[ArrDblNs]] classes. */
-trait DataDblNsCompanion[A <: ElemDblN, ArrA <: SeqDefDblNs[A]] extends DataValueNsCompanion[A, ArrA]
+trait DataDblNsCompanion[A <: ElemDblN, ArrA <: DblNSeqDef[A]] extends DataValueNsCompanion[A, ArrA]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArrayDbl(array: Array[Double]): ArrA
 
@@ -111,7 +111,7 @@ trait DataDblNsCompanion[A <: ElemDblN, ArrA <: SeqDefDblNs[A]] extends DataValu
 }
 
 /** Persists [[ArrDblNs]]s. */
-trait DataDblNsPersist[A <: ElemDblN, M <: SeqDefDblNs[A]] extends DataValueNsPersist[A, M] with EqT[M]
+trait DataDblNsPersist[A <: ElemDblN, M <: DblNSeqDef[A]] extends DataValueNsPersist[A, M] with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

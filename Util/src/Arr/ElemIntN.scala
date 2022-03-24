@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** A class that can be construct from a fixed number of [[Int]]s can be stored as an Array[Int] of primitive values. */
 trait ElemIntN extends Any with ElemValueN
 
-trait DataIntNs[A <: ElemIntN] extends Any with DataValueNs[A]
+trait DataIntNs[A <: ElemIntN] extends Any with ValueNSeqDef[A]
 { type ThisT <: DataIntNs[A]
 
   /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */

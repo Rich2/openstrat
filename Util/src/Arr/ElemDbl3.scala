@@ -14,7 +14,7 @@ trait ElemDbl3 extends Any with ElemDblN
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl3]]s. */
-trait DataDbl3s[A <: ElemDbl3] extends Any with SeqDefDblNs[A]
+trait Dbl3SeqDef[A <: ElemDbl3] extends Any with DblNSeqDef[A]
 { /** Method for creating new data elements from 3 [[Double]]s In the case of [[ArrDbl3s]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double): A
 
@@ -28,7 +28,7 @@ trait DataDbl3s[A <: ElemDbl3] extends Any with SeqDefDblNs[A]
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl3]]s. */
-trait ArrDbl3s[A <: ElemDbl3] extends Any with ArrDblNs[A] with DataDbl3s[A]
+trait ArrDbl3s[A <: ElemDbl3] extends Any with ArrDblNs[A] with Dbl3SeqDef[A]
 { final override def length: Int = unsafeArray.length / 3
   def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
@@ -57,7 +57,7 @@ trait Dbl3sArrFlatBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsFl
 }
 
 /** Persists [[ArrDbl3s]]s. */
-abstract class DataDbl3sPersist[A <: ElemDbl3, M <: DataDbl3s[A]](val typeStr: String) extends DataDblNsPersist[A, M]
+abstract class DataDbl3sPersist[A <: ElemDbl3, M <: Dbl3SeqDef[A]](val typeStr: String) extends DataDblNsPersist[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1
@@ -70,7 +70,7 @@ abstract class DataDbl3sPersist[A <: ElemDbl3, M <: DataDbl3s[A]](val typeStr: S
 }
 
 /** Class for the singleton companion objects of [[ArrDbl3s]] final classes to extend. */
-abstract class DataDbl3sCompanion[A <: ElemDbl3, ArrA <: DataDbl3s[A]] extends DataDblNsCompanion[A, ArrA]
+abstract class DataDbl3sCompanion[A <: ElemDbl3, ArrA <: Dbl3SeqDef[A]] extends DataDblNsCompanion[A, ArrA]
 { final override def elemProdSize: Int = 3
 
   def apply(elems: A*): ArrA =

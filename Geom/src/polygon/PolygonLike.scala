@@ -65,21 +65,21 @@ trait PolygonLike[VT] extends Any
   def sidesForeach[U](f: SideT => U): Unit
 }
 
-trait PolygonLikeData[VT] extends Any with PolygonLike[VT] with SeqDefGen[VT]
+trait PolygonLikeSeqDef[VT] extends Any with PolygonLike[VT] with SeqDefGen[VT]
 
-trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLikeData[VT] with DataValueNs[VT]
+trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLikeSeqDef[VT] with ValueNSeqDef[VT]
 { override def vertsForeach[U](f: VT => U): Unit = dataForeach(f)
   override def vertsNum: Int = dataLength
 }
 
 /** A polygon whose elements are defined by [[Double]]s. */
-trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with SeqDefDblNs[VT]
+trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DblNSeqDef[VT]
 
 /** A polygon whose elements are defined by 2 [[Double]]s. */
-trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with SeqDefDbl2s[VT]
+trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with Dbl2SeqDef[VT]
 
 /** A polygon whose elements are defined by 3 [[Double]]s. */
-trait PolygonDbl3s[VT <: ElemDbl3] extends Any with PolygonDblNs[VT] with DataDbl3s[VT]
+trait PolygonDbl3s[VT <: ElemDbl3] extends Any with PolygonDblNs[VT] with Dbl3SeqDef[VT]
 
 /** A polygon whose elements are defined by [[Inte]]s. */
 trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with DataIntNs[VT]

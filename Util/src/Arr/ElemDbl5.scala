@@ -11,7 +11,7 @@ trait ElemDbl5 extends Any with ElemDblN
   def dbl5: Double
 }
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl5]]s. */
-trait DataDbl5s[A <: ElemDbl5] extends Any with SeqDefDblNs[A]
+trait DataDbl5s[A <: ElemDbl5] extends Any with DblNSeqDef[A]
 { /** Method for creating new data elements from 5 [[Double]]s In the case of [[ArrDbl5s]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
