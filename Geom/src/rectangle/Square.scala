@@ -86,7 +86,7 @@ object Square extends ShapeIcon
     @inline override def width: Double = width1
     @inline override def width2: Double = width1
 
-    override def alignAngle: AngleVec = ???
+
 
     override def attribs: Arr[XANumeric] = ???
 

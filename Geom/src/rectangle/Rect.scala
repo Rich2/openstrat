@@ -6,7 +6,6 @@ import pWeb._
 trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 { type ThisT <: Rect
   override def vertsTrans(f: Pt2 => Pt2): Rect = Rect.fromArray(unsafeMap(f))
-  override def alignAngle: AngleVec = Deg0
 
   /** Translate geometric transformation on a Rect returns a Rect. */
   override def slate(offset: Vec2Like): Rect = vertsTrans(_.slate(offset))

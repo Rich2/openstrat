@@ -35,7 +35,8 @@ trait Rectangle extends ShapeCentred with Quadrilateral
   override def fillInt(intValue: Int): RectangleFill = RectangleFill(this, Colour(intValue))
   override def draw(lineColour: Colour, lineWidth: Double): RectangleDraw = RectangleDraw(this, lineWidth, lineColour)
 
-  def alignAngle: AngleVec
+  final def alignAngle: Angle = (v0 >> v1).angle
+
   def widthAttrib: WidthAtt = WidthAtt(width1)
   def heightAttrib: HeightAtt = HeightAtt(width2)
   def xAttrib: XAttrib = XAttrib(v3x)
@@ -145,14 +146,7 @@ object Rectangle
   final class RectangleImp(val unsafeArray: Array[Double]) extends Rectangle//S2S4
   { override type ThisT = RectangleImp
     override def unsafeFromArray(array: Array[Double]): RectangleImp = new RectangleImp(array)
-
-    //val sd1CenX: Double, val sd1CenY: Double, val sd3CenX: Double, val sd3CenY: Double, val width2: Double
     override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))
-
-   // override def productArity: Int = 5
-   // override def productElement(n: Int): Any = ???
-
-    override def alignAngle: AngleVec = ???
   }
 
   object RectangleImp

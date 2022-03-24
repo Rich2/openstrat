@@ -66,6 +66,9 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
   /** Gives the angle of the vector with respect of the origin. */
   def angle: Angle = Angle.radians(angleRadiansPlusMinus)
 
+  /** Gives the angle of the vector with respect of the origin. */
+  def angleVec: AngleVec = AngleVec.radians(angleRadiansPlusMinus)
+
   /** Gives the angle of the vector with respect of the origin for a graphical system where the Y Axis points down. */
   def angleYDown: Angle = Angle.radians(angleRadiansYDownPlusMinus)
 

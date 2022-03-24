@@ -48,12 +48,8 @@ object PhiRectangle
   class PhiRectangleImp(val unsafeArray: Array[Double]) extends PhiRectangle
   { override type ThisT = PhiRectangleImp
     override def unsafeFromArray(array: Array[Double]): PhiRectangleImp = new PhiRectangleImp(array)
-    //xS1Cen: Double, yS1Cen: Double, sd2CenX: Double, sd2CenY: Double
-    //override def cenX: Double = average(xS1Cen, xS1Cen)
-   // override def cenY: Double = average(yS1Cen, yS1Cen)
 
     override def width2: Double = sd0Cen.distTo(sd2Cen)
-    override def alignAngle: AngleVec = sd0Cen.angleFrom(sd2Cen).rotationFrom90
   }
 }
 
@@ -83,11 +79,6 @@ class PhiRect(val unsafeArray: Array[Double]) extends Rect with PhiRectangle
   override def negX: PhiRect = PhiRect(height, cen.negX)
 
   override def prolign(matrix: ProlignMatrix): PhiRect = ??? // PhiRectangle.s1s3(s1Cen.prolign(matrix), s3Cen.prolign(matrix))
-
-  /*override def slateTo(newCen: Pt2): PhiRect =
-  { val v = cen.vecTo(newCen)
-    slate(v.x, v.y)
-  }*/
 }
 
 object PhiRect
