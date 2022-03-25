@@ -96,11 +96,11 @@ object Rectangle
     new RectangleImp(verts.unsafeArray)
   }
 
+  def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle = new RectangleImp(unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen))
+
   /** Creates Rectangle from 2 vectors and centre point. The 2 vectors are the half axies from the centre point to th e right and to the top. */
-  def vecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Rectangle =
-  { val verts = Pt2s(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
-    new RectangleImp(verts.unsafeArray)
-  }
+  def unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Array[Double] =
+    Pt2s(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec).unsafeArray
 
   def fromArray(array: Array[Double]): Rectangle = new RectangleImp(array)
 

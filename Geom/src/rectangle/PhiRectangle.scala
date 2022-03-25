@@ -38,9 +38,10 @@ trait PhiRectangle extends Rectangle
 object PhiRectangle
 {
   def apply(height: Double, rotation: AngleVec, cen: Pt2): PhiRectangle =
-  { val s1Cen: Pt2 = cen + yVec2(height / 2).rotate(rotation)
-    val s3Cen: Pt2 = cen + yVec2(-height / 2).rotate(rotation)
-    ??? //PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
+  { val rtVec = rotation.toVec(height * Phi / 2)
+    val upVec = (rotation + 90.degs).toVec(height / 2)
+    val array = Rectangle.unsafeVecsCen(rtVec, upVec, cen)
+    new PhiRectangleImp(array)
   }
 
   def s1s3(s1Cen: Pt2, s3Cen: Pt2): PhiRectangle = ???//PhiRectangleImp(s1Cen.x, s1Cen.y, s3Cen.x, s3Cen.y)
