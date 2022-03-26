@@ -8,9 +8,19 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
   val grid1 = HGridReg(minCenR, maxCenR, minC1, maxC1)
   val grid2 = HGridReg(minCenR, maxCenR, minC2, maxC2)
 
-  override val grids: Arr[HGrid] = Arr(grid1, grid2)
+  val gridMan1: HGridMan = new HGridMan(grid1){
+    //override def sides: HSides = HSides()
+  }
+
+  val gridMan2: HGridMan = new HGridMan(grid2){
+    override def sides: HSides = grid.sides.filterNot(s => s.c <= grid.leftCenC)
+    override def sideLines: LineSegs = sides.map(_.lineSeg).slateX(xGrid2Offset)
+  }
+
+  override val gridMans: Arr[HGridMan] = Arr(gridMan1, gridMan2)
   val grid1Offset: Vec2 = 0 vv 0
-  val grid2Offset: Vec2 = Vec2(grid1.right - grid2.left - 2, 0)
+  val xGrid2Offset = grid1.right - grid2.left - 2
+  val grid2Offset: Vec2 = Vec2(xGrid2Offset, 0)
 
   override def gridsOffsets: Vec2s = Vec2s(grid1Offset, grid2Offset)
 
@@ -41,9 +51,6 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
   }
 
   override def adjTilesOfTile(tile: HCen): HCens = gridsHCenFold(tile, grid1.adjTilesOfTile(tile), grid2.adjTilesOfTile(tile))
-
-  override def gridSides(gridNum: Int): HSides =
-    gridNumFold(gridNum, grid1.sides,grid2.sides.filterNot(hs => hs.c == grid2.leftCenC | hs.c == (grid2.leftCenC + 2)))
 
   override def gridNumSides(gridNum: Int): Int = gridNumFold(gridNum, grid1.numSides, grid2.numSides - grid2.numTileRows * 2)
 }

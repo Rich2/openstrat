@@ -1,11 +1,18 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
+
+import ostrat.geom.LineSegs
+
+case class HGridMan(grid: HGrid){
+  def sides: HSides = grid.sides
+  def sideLines: LineSegs = sides.map(_.lineSeg)
+}
 
 trait HGridMulti extends HGrider
 {
-  def grids: Arr[HGrid]
-  def numGrids: Int = grids.length
+  def gridMans: Arr[HGridMan]
+  def grids: Arr[HGrid] = gridMans.map(_.grid)
+  def numGrids: Int = gridMans.length
   def gridNumForeach(f: Int => Unit): Unit = iUntilForeach(0, numGrids)(f)
   def gridNumsMap[A, AA <: SeqImut[A]](f: Int => A)(implicit build: ArrBuilder[A, AA]): AA = iUntilMap(0, numGrids)(f)
   def gridNumsFlatMap[AA <: SeqImut[_]](f: Int => AA)(implicit build: ArrFlatBuilder[AA]): AA = iUntilFlatMap(0, numGrids)(f)
@@ -27,32 +34,13 @@ trait HGridMulti extends HGrider
     grids.foreach { gr => gr.iForeach(count)(f); count += gr.numTiles }
   }
 
-  def gridSides(gridNum: Int): HSides
+  def sides: HSides = gridMans.flatMap(_.sides)
+  final def sideLines = gridMans.flatMap(_.sideLines)
   def gridNumSides(gridNum: Int): Int
 
-  override def sides: HSides = gridNumsFlatMap{ n => gridSides(n) }
+  //override def sides: HSides = gridNumsFlatMap{ n => gridSides(n) }
 
   override def numSides: Int = gridNumsFold{(acc, i) => acc + gridNumSides(i) }
 
   override def defaultView(pxScale: Double = 50): HGridView = grids(0).defaultView(pxScale)
-}
-
-trait HGridMultiFlat extends HGridMulti with HGriderFlat
-{
-  def gridsOffsets: Vec2s
-
-  def gridOffsetsForeach(f: (HGrid, Vec2) => Unit): Unit = gridNumForeach{ i => f(grids(i), gridsOffsets(i)) }
-  def gridOffsetsMap[A, AA <: SeqImut[A]](f: (HGrid, Vec2) => A)(implicit build: ArrBuilder[A, AA]): AA = ???
-
-  def gridOffsetsFlatMap[AA <: SeqImut[_]](f: (HGrid, Vec2) => AA)(implicit build: ArrFlatBuilder[AA]): AA =
-  { val buff = build.newBuff()
-    gridOffsetsForeach{ (g, v) => build.buffGrowArr(buff, f(g, v)) }
-    build.buffToBB(buff)
-  }
-
-  override def polygons: Arr[Polygon] = gridOffsetsFlatMap((g, offset) => g.polygons.slate(offset))
-
-  override def activeTiles: Arr[PolygonActive] = gridOffsetsFlatMap{(grid, offset) => grid.map{ hc => hc.polygonReg.slate(offset).active(hc)} }
-
-  override def sideLines: LineSegs = LineSegs()
 }

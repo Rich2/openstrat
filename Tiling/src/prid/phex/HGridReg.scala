@@ -144,7 +144,7 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
     case _ => excep("Invalid row number")
   }
 
-  override def sides: HSides = ???
+  override def sides: HSides = sidesMap(s => s)// HSides()
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */
