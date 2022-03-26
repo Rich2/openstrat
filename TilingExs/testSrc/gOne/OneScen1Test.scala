@@ -34,8 +34,8 @@ object OneScen1Test  extends TestSuite
 
     test("os3")
     { g3.numTiles ==> 8
-      g1.row0sStart ==> 4
-      g1.row0sEnd ==> 8
+      g1.leftRem0CenC ==> 4
+      g1.rightRem0CenC ==> 8
       implicit val grid = os3.grider
       os3.oPlayers(2, 2) ==> None
       os3.oPlayers(4, 4) ==> None

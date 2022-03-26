@@ -12,12 +12,12 @@ object OneScen2Test  extends TestSuite
       g.leftCenC ==> 4
       g.rightCenC ==> 8
       g.numRow0s ==> 2
-      g.bottomRem2Row ==> 2
-      g.topRem2Row ==> 10
+      g.bottomRem2R ==> 2
+      g.topRem2R ==> 10
       g.numRow2s ==> 3
       g.numTileRows ==> 5
-      g.row2sStart ==> 6
-      g.row0sStart ==> 4
+      g.leftrem2CenC ==> 6
+      g.leftRem0CenC ==> 4
 //      g. cRowStart(2) ==> 2
 //      g.cRowLen(2) ==> 3
 //      g.cRowEnd(2) ==> 10

@@ -21,69 +21,69 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
    *  Side and Vertex Arr / Array data. */
   @inline def arrIndex(r: Int, c: Int): Int =
   { val thisRow: Int = r %% 4 match
-    { case 2 => (c - row2sStart) / 4
-      case 0 => (c - row0sStart) / 4
+    { case 2 => (c - leftrem2CenC) / 4
+      case 0 => (c - leftRem0CenC) / 4
     }
-    val r2s: Int = ((r - bottomRem2Row).divRoundUp(4) * row2sTileNum).max0
-    val r0s: Int = ((r - bottomRem0Row).divRoundUp(4) * row0sTileNum).max0
+    val r2s: Int = ((r - bottomRem2R).divRoundUp(4) * row2sTileNum).max0
+    val r0s: Int = ((r - bottomRem0R).divRoundUp(4) * row0sTileNum).max0
     r0s + r2s + thisRow
   }
 
   /** The start minimum or by convention left column or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def row2sStart: Int = leftCenC.roundUpTo(_.div4Rem2)
+  def leftrem2CenC: Int = leftCenC.roundUpTo(_.div4Rem2)
 
   /** The end, maximum or by convention right column coordinate or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def row2sEnd: Int = rightCenC.roundDownTo(_.div4Rem2)
+  def rightRem2CenC: Int = rightCenC.roundDownTo(_.div4Rem2)
 
   /** The number of tiles or tile centres in rows where r.Div4Rem0. */
-  def row0sTileNum = ((row0sEnd - row0sStart + 4) / 4).max(0)
+  def row0sTileNum = ((rightRem0CenC - leftRem0CenC + 4) / 4).max(0)
 
   /** The number of tiles or tile centres in rows where r.Div4Rem2. */
-  def row2sTileNum = ((row2sEnd - row2sStart + 4) / 4).max0
+  def row2sTileNum = ((rightRem2CenC - leftrem2CenC + 4) / 4).max0
 
   /** The starting, minimum or by convention left column coordinate c value for tile centre rows where r.Div4Rem0. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def row0sStart: Int = leftCenC.roundUpTo(_.div4Rem0)
+  def leftRem0CenC: Int = leftCenC.roundUpTo(_.div4Rem0)
 
   /** The end maximum or by convention right column coordinate, or c value for tile centre rows where r.Div4Rem0. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
-  def row0sEnd: Int = rightCenC.roundDownTo(_.div4Rem0)
+  def rightRem0CenC: Int = rightCenC.roundDownTo(_.div4Rem0)
 
   /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem2, r %% 4 == 2. */
-  def bottomRem2Row: Int = bottomCenR.roundUpTo(_.div4Rem2)
+  def bottomRem2R: Int = bottomCenR.roundUpTo(_.div4Rem2)
 
   /** The top, highest or maximum row r value for tile centre rows where r.Div4Rem2, r %% 4 == 2. */
-  def topRem2Row: Int = topCenRow.roundDownTo(_.div4Rem2)
+  def topRem2R: Int = topCenRow.roundDownTo(_.div4Rem2)
 
   /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem0, r %% 4 == 0. */
-  def bottomRem0Row: Int = bottomCenR.roundUpTo(_.div4Rem0)
+  def bottomRem0R: Int = bottomCenR.roundUpTo(_.div4Rem0)
 
   /** The top, highest or maximum row r value for tile centres rows where r.Div4Rem0, r %% 4 == 0. */
-  def topRem0Row: Int = topCenRow.roundDownTo(_.div4Rem0)
+  def topRem0R: Int = topCenRow.roundDownTo(_.div4Rem0)
 
-  override def numRow0s: Int = ((topRem0Row - bottomRem0Row + 4) / 4).max(0)
-  override def numRow2s: Int = ((topRem2Row - bottomRem2Row + 4) / 4).max(0)
+  override def numRow0s: Int = ((topRem0R - bottomRem0R + 4) / 4).max(0)
+  override def numRow2s: Int = ((topRem2R - bottomRem2R + 4) / 4).max(0)
   override def numTiles: Int = numRow2s * row2sTileNum + numRow0s * row0sTileNum
   override def numTileRows: Int = numRow2s + numRow0s
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
   override def rowForeach(r: Int)(f: HCen => Unit): Unit =
-    if(r %% 4 == 2) iToForeach(row2sStart, row2sEnd, 4)(c => f(HCen(r, c)))
-    else iToForeach(row0sStart, row0sEnd, 4)(c => f(HCen(r, c)))
+    if(r %% 4 == 2) iToForeach(leftrem2CenC, rightRem2CenC, 4)(c => f(HCen(r, c)))
+    else iToForeach(leftRem0CenC, rightRem0CenC, 4)(c => f(HCen(r, c)))
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
   override def rowIForeach(r: Int, startCount: Int)(f: (HCen, Int) => Unit): Int =
   {
     var count: Int = startCount
     if (r %% 4 == 2)
-      iToForeach(row2sStart, row2sEnd, 4) { c =>
+      iToForeach(leftrem2CenC, rightRem2CenC, 4) { c =>
         f(HCen(r, c), count)
         count += 1
       }
     else
-      iToForeach(row0sStart, row0sEnd, 4){ c =>
+      iToForeach(leftRem0CenC, rightRem0CenC, 4){ c =>
         f(HCen(r, c), count)
         count += 1
       }
@@ -95,11 +95,11 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
     case (r, c) if r < bottomCenR | r > topCenRow => false
     case (r, c) if r.isOdd => false
 
-    case (r, c) if r.div4Rem0 & (c < row0sStart | c > row0sEnd) => false
+    case (r, c) if r.div4Rem0 & (c < leftRem0CenC | c > rightRem0CenC) => false
     case (r, c) if r.div4Rem0 & c.div4Rem0 => true
     case (r, c) if r.div4Rem0 => false
 
-    case (r, c) if r.div4Rem2 & (c < row2sStart | c > row2sEnd) => false
+    case (r, c) if r.div4Rem2 & (c < leftrem2CenC | c > rightRem2CenC) => false
     case (r, c) if r.div4Rem2 & c.div4Rem2 => true
     case _ => false
   }
@@ -117,12 +117,12 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
   {
-    case y if y == topSideRow & y.div4Rem3 => iToForeach(row2sStart - 1, row2sEnd + 1, 2){ c => f(HSide(y, c)) }
-    case y if y == topSideRow => iToForeach(row0sStart - 1, row0sEnd + 1, 2){ c => f(HSide(y, c)) }
-    case y if y.div4Rem2 => iToForeach(row2sStart - 2, row2sEnd + 2, 4){ c => f(HSide(y, c)) }
-    case y if y.div4Rem0 => iToForeach(row0sStart - 2, row0sEnd + 2, 4){ c => f(HSide(y, c)) }
-    case y if y == bottomSideRow & y.div4Rem1 => iToForeach(row2sStart - 1, row2sEnd + 1, 2){ c => f(HSide(y, c)) }
-    case y if y == bottomSideRow => iToForeach(row0sStart - 1, row0sEnd + 1, 2){ c => f(HSide(y, c)) }
+    case y if y == topSideRow & y.div4Rem3 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSide(y, c)) }
+    case y if y == topSideRow => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSide(y, c)) }
+    case y if y.div4Rem2 => iToForeach(leftrem2CenC - 2, rightRem2CenC + 2, 4){ c => f(HSide(y, c)) }
+    case y if y.div4Rem0 => iToForeach(leftRem0CenC - 2, rightRem0CenC + 2, 4){ c => f(HSide(y, c)) }
+    case y if y == bottomSideRow & y.div4Rem1 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSide(y, c)) }
+    case y if y == bottomSideRow => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSide(y, c)) }
     case y => iToForeach(leftCenC - 1, rightCenC + 1, 2){ c => f(HSide(y, c)) }
   }
 
@@ -132,15 +132,15 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
     case _ => excep("Invalid row number")
   }
 
-  override def rowCenLeft(row: Int): Int = row %% 4 match {
-    case 0 => row0sStart
-    case 2 => row2sStart
+  override def rowLeftCenC(row: Int): Int = row %% 4 match {
+    case 0 => leftRem0CenC
+    case 2 => leftrem2CenC
     case _ => excep("Invalid row number")
   }
 
-  override def rowCenRight(row: Int): Int = row %% 4 match {
-    case 0 => row0sEnd
-    case 2 => row2sEnd
+  override def rowRightCenC(row: Int): Int = row %% 4 match {
+    case 0 => rightRem0CenC
+    case 2 => rightRem2CenC
     case _ => excep("Invalid row number")
   }
 
@@ -151,10 +151,10 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
   override def sideArrIndex(r: Int, c: Int): Int = ???
 
   /** The number of tile sides in the top side row of the hex grid. */
-  def topSideRowNum: Int = ife(topCenRow.div4Rem0, row0sTileNum, row2sTileNum) * 2
+  def topSideR: Int = ife(topCenRow.div4Rem0, row0sTileNum, row2sTileNum) * 2
 
   /** The number of tile sides in the bottom side row of the hex grid. */
-  def bottomSideRowNum: Int = ife(bottomCenR.div4Rem0, row0sTileNum, row2sTileNum) * 2
+  def bottomSideR: Int = ife(bottomCenR.div4Rem0, row0sTileNum, row2sTileNum) * 2
 
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   override def sideRowIndexArray: Array[Int] =

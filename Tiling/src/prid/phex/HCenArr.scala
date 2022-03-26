@@ -35,7 +35,7 @@ class HCenArr[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TileCe
   {
     val tiles: List[A] = tileValues.toSingles
     val endValues = cStart + tiles.length * 4 - 4
-    val rowEnd = grid.rowCenRight(row)
+    val rowEnd = grid.rowRightCenC(row)
     if( rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
     tiles.iForeach { (i, e) =>
       val c = cStart + i * 4
@@ -49,7 +49,7 @@ class HCenArr[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TileCe
   final def setRowPart(row: Int, cStart: Int, numOfCens: Int, tileValue: A)(implicit grid: HGrid): HCen =
   {
     val rightC = cStart + numOfCens * 4 - 4
-    val rowEnd = grid.rowCenRight(row)
+    val rowEnd = grid.rowRightCenC(row)
     if( rowEnd < rightC) debexc(s"Row $row last data column ${rightC} > $rowEnd the grid row end.")
     iToForeach(cStart, rightC, 4) { i =>
       val c = cStart + i
@@ -62,7 +62,7 @@ class HCenArr[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TileCe
   {
     grid.flatMapRows[Arr[HCenRowValue[A]]]{ r => if (grid.cenRowEmpty(r)) Arr()
       else
-      { var currStart: Int = grid.rowCenLeft(r)
+      { var currStart: Int = grid.rowLeftCenC(r)
         var currC: Int = currStart
         var currVal: A = rc(r, currStart)
         var list: List[HCenRowValue[A]] = Nil

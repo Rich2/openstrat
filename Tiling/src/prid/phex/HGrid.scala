@@ -58,10 +58,10 @@ trait HGrid extends Any with TGrid with HGriderFlat
   final def cenRowEmpty(row: Int): Boolean = rowNumTiles(row) == 0
 
   /** The start (or by default left column) of the tile centre of the given row. */
-  def rowCenLeft(row: Int): Int
+  def rowLeftCenC(row: Int): Int
 
   /** The end (or by default right) column number of the tile centre of the given row. */
-  def rowCenRight(row: Int): Int
+  def rowRightCenC(row: Int): Int
 
   override def foreachCenCoord(f: TileCoord => Unit): Unit = foreach(f)
 
