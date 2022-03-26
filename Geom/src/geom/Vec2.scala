@@ -1,7 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import scala.collection.mutable.ArrayBuffer
-import scala.math.{Pi, atan}
+import collection.mutable.ArrayBuffer, math.{Pi, atan}
 
 /** A 2 dimensional vector. This is similar data to [[Pt2]]. The purpose of this separate type is to encode the relative nature of the Vec2 as opposed
  * to the absolute nature of a Pt. So usually you will want and need to add the vector to an absolute point to return to the absolute realm of points.
