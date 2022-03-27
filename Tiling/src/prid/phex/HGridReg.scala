@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 
 /** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
  * where r %% 4 == 0 rows. */
-class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid
+class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid
 {
   final override val numSides: Int =
   { var count = 0
@@ -15,7 +15,7 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
   override def height: Double = top - bottom
 
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
-  override def coordCen: HCenOrSide = HCenOrSide(rCen, cCen)
+  override def coordCen: HCoord = HCoord(rCen, cCen)
 
   /** Gives the index into an Arr / Array of Tile data from its [[HCen]] hex tile centre coordinate. Use sideIndex and vertIndex methods to access
    *  Side and Vertex Arr / Array data. */
@@ -55,13 +55,13 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
   def bottomRem2R: Int = bottomCenR.roundUpTo(_.div4Rem2)
 
   /** The top, highest or maximum row r value for tile centre rows where r.Div4Rem2, r %% 4 == 2. */
-  def topRem2R: Int = topCenRow.roundDownTo(_.div4Rem2)
+  def topRem2R: Int = topCenR.roundDownTo(_.div4Rem2)
 
   /** The bottom, lowest or minimum row r value for tile centre rows where r.Div4Rem0, r %% 4 == 0. */
   def bottomRem0R: Int = bottomCenR.roundUpTo(_.div4Rem0)
 
   /** The top, highest or maximum row r value for tile centres rows where r.Div4Rem0, r %% 4 == 0. */
-  def topRem0R: Int = topCenRow.roundDownTo(_.div4Rem0)
+  def topRem0R: Int = topCenR.roundDownTo(_.div4Rem0)
 
   override def numRow0s: Int = ((topRem0R - bottomRem0R + 4) / 4).max(0)
   override def numRow2s: Int = ((topRem2R - bottomRem2R + 4) / 4).max(0)
@@ -92,7 +92,7 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
 
   def hCenExists(r: Int, c:Int): Boolean = (r, c) match
   {
-    case (r, c) if r < bottomCenR | r > topCenRow => false
+    case (r, c) if r < bottomCenR | r > topCenR => false
     case (r, c) if r.isOdd => false
 
     case (r, c) if r.div4Rem0 & (c < leftRem0CenC | c > rightRem0CenC) => false
@@ -108,7 +108,7 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
 
   /** Combine adjacent tiles of the same value. */
   override def adjTilesOfTile(tile: HCen): HCens = tile.neibs.filter{hc => (hc.r, hc.c) match {
-    case (r, _) if r > topCenRow => false
+    case (r, _) if r > topCenR => false
     case (r, _) if r < bottomCenR => false
     case (_, c) if c > rightCenC => false
     case (_, c) if c < leftCenC => false
@@ -151,10 +151,10 @@ class HGridReg(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val r
   override def sideArrIndex(r: Int, c: Int): Int = ???
 
   /** The number of tile sides in the top side row of the hex grid. */
-  def topSideR: Int = ife(topCenRow.div4Rem0, row0sTileNum, row2sTileNum) * 2
+  def topSideRowlen: Int = ife(topCenR.div4Rem0, row0sTileNum, row2sTileNum) * 2
 
   /** The number of tile sides in the bottom side row of the hex grid. */
-  def bottomSideR: Int = ife(bottomCenR.div4Rem0, row0sTileNum, row2sTileNum) * 2
+  def bottomSideRowLen: Int = ife(bottomCenR.div4Rem0, row0sTileNum, row2sTileNum) * 2
 
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   override def sideRowIndexArray: Array[Int] =

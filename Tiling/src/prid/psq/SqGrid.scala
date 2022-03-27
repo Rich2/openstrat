@@ -6,10 +6,10 @@ import geom._, reflect.ClassTag
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
-class SqGrid(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val rightCenC: Int) extends TGrid
+class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends TGrid
 {
   /** Number of rows of tiles. */
-  override def numTileRows: Int = (topCenRow - bottomCenR + 2).max0 / 2
+  override def numTileRows: Int = (topCenR - bottomCenR + 2).max0 / 2
 
   /** The number of tiles in each tile row. */
   def tileRowLen: Int = (rightCenC - leftCenC + 2).max0 / 2
@@ -17,22 +17,22 @@ class SqGrid(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val rig
   /** The total number of Tiles in the tile Grid. */
   override def numTiles: Int = numTileRows * tileRowLen
 
-  def leftSideCol: Int = leftCenC - 1
-  def rightSideCol: Int = rightCenC + 1
+  final override def rightSideC: Int = rightCenC + 1
+  final override def leftSideC: Int = leftCenC - 1
 
-  override def left: Double = leftSideCol
-  override def right: Double = rightSideCol
+  override def left: Double = leftSideC
+  override def right: Double = rightSideC
   override def top: Double = topSideRow
   override def bottom: Double = bottomSideRow
 
   override def coordCen: SqCenOrSide = SqCenOrSide(rCen, cCen)
   override def yRatio: Double = 1
-  override def yCen: Double = (bottomCenR + topCenRow) / 2
-  override def width: Double = rightSideCol - leftSideCol
+  override def yCen: Double = (bottomCenR + topCenR) / 2
+  override def width: Double = rightSideC - leftSideC
   override def height: Double = topSideRow - bottomSideRow
 
-  def horrSideLines: LineSegs = iToMap(bottomSideRow, topSideRow, 2){ r => LineSeg(leftSideCol, r, rightSideCol, r) }
-  def vertSideLines: LineSegs = iToMap(leftSideCol, rightSideCol, 2){ c => LineSeg(c, bottomSideRow, c, topSideRow) }
+  def horrSideLines: LineSegs = iToMap(bottomSideRow, topSideRow, 2){ r => LineSeg(leftSideC, r, rightSideC, r) }
+  def vertSideLines: LineSegs = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideRow, c, topSideRow) }
   def sideLines: LineSegs = horrSideLines ++ vertSideLines
 
   /** The active tiles without any PaintElems. */
@@ -107,7 +107,7 @@ class SqGrid(val bottomCenR: Int, val topCenRow: Int, val leftCenC: Int, val rig
   final def sqCenExists(sc: SqCen): Boolean = sqCenExists(sc.r, sc.c)
 
   /** Boolean. True if the specified hex centre exists in this hex grid. */
-  def sqCenExists(r: Int, c:Int): Boolean = r.isEven & c.isEven & r >= bottomCenR & r <= topCenRow & c >= leftCenC & c <= rightCenC
+  def sqCenExists(r: Int, c:Int): Boolean = r.isEven & c.isEven & r >= bottomCenR & r <= topCenR & c >= leftCenC & c <= rightCenC
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

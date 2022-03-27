@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-
-import ostrat.geom.LineSegs
+import ostrat.geom._
 
 case class HGridMan(grid: HGrid){
   def sides: HSides = grid.sides

@@ -10,8 +10,11 @@ trait HGrid extends Any with TGrid with HGriderFlat
 {
   final override def left: Double = leftCenC - 2
   final override def right: Double = rightCenC + 2
-  final override def top: Double = topCenRow * yRatio + 4.0/Sqrt3
+  final override def top: Double = topCenR * yRatio + 4.0/Sqrt3
   final override def bottom: Double = bottomCenR * yRatio - 4.0/Sqrt3
+
+  final override def leftSideC: Int = leftCenC - 2
+  final override def rightSideC: Int = leftCenC + 2
 
   /** The number of tile centre rows where r %% 4 == 0.  */
   def numRow0s: Int

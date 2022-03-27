@@ -13,7 +13,13 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
   }
 
   val gridMan2: HGridMan = new HGridMan(grid2){
-    override def sides: HSides = grid.sides.filterNot(s => s.c <= grid.leftCenC)
+    override def sides: HSides = grid.sides.filter {
+      case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.topSideR => true
+      case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.bottomSideR => true
+      case HSide(r, c) if c <= grid.leftCenC => false
+      case _ => true
+    }
+
     override def sideLines: LineSegs = sides.map(_.lineSeg).slateX(xGrid2Offset)
   }
 

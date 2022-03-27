@@ -43,6 +43,11 @@ object HSide
     case _ => excep(s"$r, $c is not a valid Hex edge tile coordinate.")
   }
 
+  def unapply(inp: Any): Option[(Int, Int)] = inp match{
+    case hs: HSide => Some(hs.r, hs.c)
+    case _ => None
+  }
+
   /** Implicit [[ArrBuilder]] type class instance / evidence for [[HSide]] and [[HSides]]. */
   implicit val buildEv: ArrInt2sBuilder[HSide, HSides] = new ArrInt2sBuilder[HSide, HSides]
   { type BuffT = HSideBuff

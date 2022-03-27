@@ -8,7 +8,7 @@ object OneScen2Test  extends TestSuite
   val tests = Tests {
     "test1" -
     { g.bottomCenR ==> 2
-      g.topCenRow ==> 10
+      g.topCenR ==> 10
       g.leftCenC ==> 4
       g.rightCenC ==> 8
       g.numRow0s ==> 2

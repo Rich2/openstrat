@@ -17,7 +17,7 @@ object OneScen3Test  extends TestSuite
 
     { g1.numTileRows ==> 5
       g1.bottomCenR ==> 2
-      g1.topCenRow ==> 10
+      g1.topCenR ==> 10
       g1.leftCenC ==> 2
       g1.rightCenC ==> 10
       g1.numTiles ==> 9
