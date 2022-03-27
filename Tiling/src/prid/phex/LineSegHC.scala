@@ -2,8 +2,6 @@
 package ostrat; package prid; package phex
 import geom._
 
-import scala.collection.mutable.ArrayBuffer
-
 /** A 2d line upon a HexGrid defined by its start and end [[HGrid]] [[HCoord]]s. */
 case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[HCoord] with ElemInt4
 { def int1: Int = r1
@@ -17,6 +15,7 @@ case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[HCo
   /** The end [[HCoord]] point. */
   def endPt: HCoord = HCoord(r2, c2)
 
+  /** Uses the implicit [[HGriderFlat]] parameter to convert from [[HCen]]s to [[Pt2]]s. */
   def lineSeg(implicit grider: HGriderFlat): LineSeg = LineSeg(startPt.toPt2, endPt.toPt2)
 }
 
@@ -29,6 +28,6 @@ object LineSegHC
   implicit val buildEv: ArrInt4sBuilder[LineSegHC, LineSegHCs] = new ArrInt4sBuilder[LineSegHC, LineSegHCs]
   { type BuffT = LineSegHCBuff
     override def fromIntArray(array: Array[Int]): LineSegHCs = new LineSegHCs(array)
-    def fromIntBuffer(inp: ArrayBuffer[Int]): LineSegHCBuff = new LineSegHCBuff(inp)
+    def fromIntBuffer(inp: collection.mutable.ArrayBuffer[Int]): LineSegHCBuff = new LineSegHCBuff(inp)
   }
 }
