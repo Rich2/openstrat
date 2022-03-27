@@ -52,7 +52,7 @@ package object phex
     }
 
     /** Finds the first [[HCen]] in this sequence and performs the side effecting function on it. */
-    def hCenForFirst(f: HCen => Unit): Unit =
+    def findHCenForEach(f: HCen => Unit): Unit =
     { var count = 0
       while (count < thisArr.length) thisArr(count) match
       { case hc: HCen => { f(hc); count = thisArr.length }

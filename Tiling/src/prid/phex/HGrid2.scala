@@ -25,7 +25,7 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
 
   override val gridMans: Arr[HGridMan] = Arr(gridMan1, gridMan2)
   val grid1Offset: Vec2 = 0 vv 0
-  val xGrid2Offset = grid1.right - grid2.left - 2
+  val xGrid2Offset: Double = grid1.right - grid2.left - 2
   val grid2Offset: Vec2 = Vec2(xGrid2Offset, 0)
 
   override def gridsOffsets: Vec2s = Vec2s(grid1Offset, grid2Offset)

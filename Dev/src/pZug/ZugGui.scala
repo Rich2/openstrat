@@ -50,7 +50,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
         }
     }
 
-    case (MiddleButton, AnysHead(HSquad(_, squad)), hits) => hits.hCenForFirst{ hc2 =>
+    case (MiddleButton, AnysHead(HSquad(_, squad)), hits) => hits.findHCenForEach{ hc2 =>
       squad.action = Fire(hc2)
       deb("Fire")
       mainRepaint(frame)
