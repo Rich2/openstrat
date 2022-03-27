@@ -1,6 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, reflect.ClassTag
+import geom._
+import Colour.Black, reflect.ClassTag
 
 /** A grid of Squares. A regular rectangle of squares.
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
@@ -33,7 +34,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
 
   def horrSideLines: LineSegs = iToMap(bottomSideRow, topSideRow, 2){ r => LineSeg(leftSideC, r, rightSideC, r) }
   def vertSideLines: LineSegs = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideRow, c, topSideRow) }
-  def sideLines: LineSegs = horrSideLines ++ vertSideLines
+
 
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())
@@ -102,6 +103,14 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
 
   /** Creates a new [[HCenArrOfBuff]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
   final def newSqCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrOfBuff[A] = SqCenArrOfBuff(numTiles)
+
+  /** The line segments [[LineSeg]]s for the sides of the tiles.
+   *  @group SidesGroup */
+  def sideLines: LineSegs = horrSideLines ++ vertSideLines
+
+  /** This gives the all tile grid lines in a single colour and line width.
+   *  @group SidesGroup  */
+  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LinesDraw = sideLines.draw(lineWidth, colour)
 
   /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
   final def sqCenExists(sc: SqCen): Boolean = sqCenExists(sc.r, sc.c)

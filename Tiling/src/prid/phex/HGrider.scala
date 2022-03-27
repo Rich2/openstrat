@@ -1,12 +1,12 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, reflect.ClassTag
+import geom._, Colour.Black, reflect.ClassTag
 
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
 trait HGrider extends Any with TGrider
 {
   /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
-  override def yRatio: Double = 3.sqrt//(3)
+  override def yRatio: Double = 3.sqrt
 
   /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
   final def hCenExists(hc: HCen): Boolean = hCenExists(hc.r, hc.c)
@@ -107,4 +107,12 @@ trait HGriderFlat extends Any with HGrider with TGriderFlat
   def activeTiles: Arr[PolygonActive]
 
   def hCoordToPt2(hCoord: HCoord): Pt2
+
+  /** The line segments [[LineSeg]]s for the sides of the tiles.
+   *  @group SidesGroup */
+  def sideLines(implicit grider: HGriderFlat): LineSegs
+
+  /** This gives the all tile grid lines in a single colour and line width.
+   *  @group SidesGroup  */
+  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGriderFlat): LinesDraw = sideLines.draw(lineWidth, colour)
 }

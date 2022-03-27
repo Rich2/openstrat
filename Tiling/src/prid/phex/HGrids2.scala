@@ -19,8 +19,6 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
       case HSide(r, c) if c <= grid.leftCenC => false
       case _ => true
     }
-
-    override def sideLines: LineSegs = sides.map(_.lineSeg).slateX(xGrid2Offset)
   }
 
   override val gridMans: Arr[HGridMan] = Arr(gridMan1, gridMan2)
@@ -58,7 +56,8 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
   override def adjTilesOfTile(tile: HCen): HCens = unsafeGridsHCenFold(tile, _.adjTilesOfTile(tile), _.adjTilesOfTile(tile))
 
-  override def findStep(startHC: HCen, endHC: HCen): OptRef[HStep] = unsafeGridsHCenFold(startHC, g1 => g1.findStep(startHC, endHC), g2 => {debvar((startHC, endHC)); g2.findStep(startHC, endHC)})
+  override def findStep(startHC: HCen, endHC: HCen): OptRef[HStep] =
+    unsafeGridsHCenFold(startHC, _.findStep(startHC, endHC), _.findStep(startHC, endHC))
 
   override def gridNumSides(gridNum: Int): Int = gridNumFold(gridNum, grid1.numSides, grid2.numSides - grid2.numTileRows * 2)
 }

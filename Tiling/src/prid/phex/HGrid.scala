@@ -134,7 +134,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
-  override def sideLines: LineSegs = sideCoordLines.map(_.lineSeg)
+  override def sideLines(implicit grider: HGriderFlat): LineSegs = sideCoordLines.map(_.lineSeg)
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */

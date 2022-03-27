@@ -28,14 +28,6 @@ trait TGriderFlat extends Any with TGrider
 
   /** The right most point in the grid where the value of x is maximum. */
   def right: Double
-
-  /** The line segments [[LineSeg]]s for the sides of the tiles.
-   *  @group SidesGroup */
-  def sideLines: LineSegs
-
-  /** This gives the all tile grid lines in a single colour and line width.
-   *  @group SidesGroup  */
-  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LinesDraw = sideLines.draw(lineWidth, colour)
 }
 
 /** A TileGrid is a description of an abstract TileGrid. It contains no data for the elements of any particular TileGrid. The Data for TileGrids is
@@ -180,12 +172,4 @@ trait TGrid extends Any with TGriderFlat
   /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
   def sideRowForeach(f: Int => Unit) : Unit = iToForeach(bottomCenR - 1, topCenR + 1)(f)
-
-  /** The line segments [[LineSeg]]s for the sides of the tiles.
-   *  @group SidesGroup */
-  def sideLines: LineSegs
-
-  /** This gives the all tile grid lines in a single colour and line width.
-   *  @group SidesGroup  */
-  //override def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LinesDraw = sideLines.draw(lineWidth, colour)
 }

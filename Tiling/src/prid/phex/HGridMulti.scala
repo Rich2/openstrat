@@ -4,7 +4,7 @@ import ostrat.geom._
 
 case class HGridMan(grid: HGrid){
   def sides: HSides = grid.sides
-  def sideLines: LineSegs = sides.map(_.lineSeg)
+  def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
 }
 
 trait HGridMulti extends HGrider
@@ -34,7 +34,7 @@ trait HGridMulti extends HGrider
   }
 
   def sides: HSides = gridMans.flatMap(_.sides)
-  final def sideLines = gridMans.flatMap(_.sideLines)
+  def sideLines(implicit grider: HGriderFlat): LineSegs = gridMans.flatMap(_.sideLines)
   def gridNumSides(gridNum: Int): Int
 
   //override def sides: HSides = gridNumsFlatMap{ n => gridSides(n) }

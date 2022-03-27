@@ -8,9 +8,9 @@ trait HStepsTr extends Any
 { def unsafeArray: Array[Int]
   def segsNum: Int = unsafeArray.length
 
-  def segsForeach[U](start: HCen)(f: LineSeg => U): Unit = segsForeach(start.r, start.c)(f)
+  def segsForeach[U](start: HCen)(f: LineSeg => U)(implicit grider: HGriderFlat): Unit = segsForeach(start.r, start.c)(f)
 
-  def segsForeach[U](startR: Int, startC: Int)(f: LineSeg => U): Unit =
+  def segsForeach[U](startR: Int, startC: Int)(f: LineSeg => U)(implicit grider: HGriderFlat): Unit =
   { var count = 0
     var r1 = startR
     var c1 = startC
@@ -34,9 +34,10 @@ trait HStepsTr extends Any
     }
   }
 
-  def segsMap[B, ArrB <: SeqImut[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = segsMap(start.r, start.c)(f)(build)
+  def segsMap[B, ArrB <: SeqImut[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], grider: HGriderFlat): ArrB =
+    segsMap(start.r, start.c)(f)(build, grider)
 
-  def segsMap[B, ArrB <: SeqImut[B]](startR: Int, startC: Int)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  def segsMap[B, ArrB <: SeqImut[B]](startR: Int, startC: Int)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], grider: HGriderFlat): ArrB =
   { val res = build.newArr(segsNum)
     var count = 0
     segsForeach(startR, startC){ s =>

@@ -11,7 +11,7 @@ trait HCenPathTr extends Any
   def start: HCen = HCen(startR, startC)
   def segNum: Int = unsafeArray.length - 2
 
-  def segsForeach[U](f: LineSeg => U): Unit =
+  def segsForeach[U](f: LineSeg => U)(implicit grider: HGriderFlat): Unit =
   { var count = 0
     //var hc1: HCen = start
     var r1 = startR
@@ -36,7 +36,7 @@ trait HCenPathTr extends Any
     }
   }
 
-  def segsMap[B, ArrB <: SeqImut[B]](f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  def segsMap[B, ArrB <: SeqImut[B]](f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], grider: HGriderFlat): ArrB =
   { val res = build.newArr(segNum)
     var count = 0
     segsForeach{ s =>
