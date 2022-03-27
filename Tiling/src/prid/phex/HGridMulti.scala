@@ -4,6 +4,7 @@ import ostrat.geom._
 
 case class HGridMan(grid: HGrid){
   def sides: HSides = grid.sides
+  val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
 }
 
@@ -24,6 +25,8 @@ trait HGridMulti extends HGrider
 
   inline def gridNumsFold[B](f: (B, Int) => B)(implicit ev: DefaultValue[B]): B = gridNumsFold(ev.default)(f)
 
+  def gridNumsSum(f: HGrid => Int): Int = gridNumsFold(0)((acc, el) => acc + f(grids(el)))
+
   override def numTiles: Int = grids.sumBy(_.numTiles)
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
   override def iForeach(f: (HCen, Int) => Unit): Unit = iForeach(0)(f)
@@ -35,11 +38,9 @@ trait HGridMulti extends HGrider
 
   def sides: HSides = gridMans.flatMap(_.sides)
   def sideLines(implicit grider: HGriderFlat): LineSegs = gridMans.flatMap(_.sideLines)
-  def gridNumSides(gridNum: Int): Int
+ // def gridNumSides(gridNum: Int): Int
 
-  //override def sides: HSides = gridNumsFlatMap{ n => gridSides(n) }
-
-  override def numSides: Int = gridNumsFold{(acc, i) => acc + gridNumSides(i) }
+  override def numSides: Int = gridNumsSum{g => g.numSides }
 
   override def defaultView(pxScale: Double = 50): HGridView = grids(0).defaultView(pxScale)
 }

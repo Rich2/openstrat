@@ -63,8 +63,6 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
     case (hc1, hc2) if hc1.c == grid2.rowLeftCenC(hc1.c) & hc2.c == grid1.rowRightCenC(hc1.c) => OptRef(HStepLt)
     case _ => NoRef
   }
-
-  override def gridNumSides(gridNum: Int): Int = gridNumFold(gridNum, grid1.numSides, grid2.numSides - grid2.numTileRows * 2)
 }
 
 object HGrids2
