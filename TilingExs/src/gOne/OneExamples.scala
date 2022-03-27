@@ -33,7 +33,7 @@ object OneScen4 extends OneScenStart
 
 object OneScen5 extends OneScenStart
 {
-  implicit val grider: HGriderFlat = HGrid2(2, 8, 2, 6, 100, 104)
+  implicit val grider: HGriderFlat = HGrids2(2, 8, 2, 6, 100, 104)
   val oPlayers: HCenArrOpt[Player] = grider.newTileArrOpt
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSome(6, 102, PlayerB)

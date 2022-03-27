@@ -2,8 +2,8 @@
 package ostrat; package prid; package phex
 import geom._
 
-/** This class may be removed. Its ofr the development of [[HGrider]]. So just 2 regular grids side by side, to make an easy start on the general problem. */
-final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends HGridMultiFlat
+/** This class may be removed. Its for the development of [[HGrider]]. So just 2 regular grids side by side, to make an easy start on the general problem. */
+final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends HGridMultiFlat
 {
   val grid1 = HGridReg(minCenR, maxCenR, minC1, maxC1)
   val grid2 = HGridReg(minCenR, maxCenR, minC2, maxC2)
@@ -41,13 +41,13 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
     case c if c >= (grid2.leftCenC - 2) & c <= (grid2.rightCenC + 2) => grid2.hCoordToPt2(hCoord) + grid2Offset
   }
 
-  override def arrIndex(r: Int, c: Int): Int = gridsHCenFold(r, c, grid1.arrIndex(r, c), grid1.numTiles + grid2.arrIndex(r, c))
+  override def arrIndex(r: Int, c: Int): Int = unsafeGridsHCenFold(r, c, _.arrIndex(r, c), grid1.numTiles + _.arrIndex(r, c))
 
-  def gridsHCenFold[A](hCen: HCen, if1: => A, if2: A): A = gridsHCenFold(hCen.r, hCen.c, if1, if2)
+  def unsafeGridsHCenFold[A](hCen: HCen, if1: HGrid =>  A, if2: HGrid => A): A = unsafeGridsHCenFold(hCen.r, hCen.c, if1, if2)
 
-  def gridsHCenFold[A](r: Int, c: Int, if1: => A, if2: A): A = (r, c) match
-  { case (r, c) if grid1.hCenExists(r, c) => if1
-    case (r, c) if grid2.hCenExists(r, c) => if2
+  def unsafeGridsHCenFold[A](r: Int, c: Int, if1: HGrid => A, if2: HGrid => A): A = (r, c) match
+  { case (r, c) if grid1.hCenExists(r, c) => if1(grid1)
+    case (r, c) if grid2.hCenExists(r, c) => if2(grid2)
     case (r, c) => excep(s"$r, $c not valid coordinates for this grid.")
   }
 
@@ -56,19 +56,19 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
     case 1 => if2
   }
 
-  override def adjTilesOfTile(tile: HCen): HCens = gridsHCenFold(tile, grid1.adjTilesOfTile(tile), grid2.adjTilesOfTile(tile))
+  override def adjTilesOfTile(tile: HCen): HCens = unsafeGridsHCenFold(tile, _.adjTilesOfTile(tile), _.adjTilesOfTile(tile))
 
-  override def findStep(startHC: HCen, endHC: HCen): OptRef[HStep] = ??? //gridsHCenFold(startHC, )
+  override def findStep(startHC: HCen, endHC: HCen): OptRef[HStep] = unsafeGridsHCenFold(startHC, g1 => g1.findStep(startHC, endHC), g2 => {debvar((startHC, endHC)); g2.findStep(startHC, endHC)})
 
   override def gridNumSides(gridNum: Int): Int = gridNumFold(gridNum, grid1.numSides, grid2.numSides - grid2.numTileRows * 2)
 }
 
-object HGrid2
+object HGrids2
 {
-  def apply(minR: Int, maxR: Int, minC1: Int, maxC1: Int, minC2: Int, maxC2: Int): HGrid2 = minC2 match
+  def apply(minR: Int, maxR: Int, minC1: Int, maxC1: Int, minC2: Int, maxC2: Int): HGrids2 = minC2 match
   { case m2 if m2 >= minC1 & m2 <= maxC1 => excep("Overlapping grids")
     case _ if maxC2 >= minC1 & maxC2 <= maxC1 => excep("Overlapping grids")
     case _ if (maxC1 + minC2).div4Rem0 => excep("Grids do not align. (maxC1 + minC2).div4 == 0")
-    case _ => new HGrid2(minR, maxR, minC1, maxC1, minC2, maxC2)
+    case _ => new HGrids2(minR, maxR, minC1, maxC1, minC2, maxC2)
   }
 }
