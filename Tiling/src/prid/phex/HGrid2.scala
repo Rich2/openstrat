@@ -58,6 +58,8 @@ final class HGrid2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1
 
   override def adjTilesOfTile(tile: HCen): HCens = gridsHCenFold(tile, grid1.adjTilesOfTile(tile), grid2.adjTilesOfTile(tile))
 
+  override def findStep(startHC: HCen, endHC: HCen): OptRef[HStep] = ??? //gridsHCenFold(startHC, )
+
   override def gridNumSides(gridNum: Int): Int = gridNumFold(gridNum, grid1.numSides, grid2.numSides - grid2.numTileRows * 2)
 }
 

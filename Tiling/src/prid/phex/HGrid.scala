@@ -73,6 +73,8 @@ trait HGrid extends Any with TGrid with HGriderFlat
   /** The active tiles without any PaintElems. */
   override def activeTiles: Arr[PolygonActive] = map(_.active())
 
+  override def findStep(startHC: HCen, endHC: HCen): OptRef[HStep] = hcSteps.optFind(_.hCenDelta == endHC - startHC)
+
   def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
   def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCens] = findPathList(startCen, endCen)(fTerrCost).map(_.toImut)

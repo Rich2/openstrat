@@ -42,9 +42,6 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TileCen
   /** Returns a coordinate for this hex along with a step to an adjacent hex. */
   def andStep(hcs: HStep): HexAndStep = HexAndStep(r, c, hcs)
 
-  /** Optionally returns the Step value of the HCen if it is an adjacent HCen else returns the safe null value. */
-  def findStep(operand: HCen)(implicit grider: HGrider): OptRef[HStep] = hcSteps.optFind(_.hCenDelta == operand - this)
-
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 
   def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2Reg, colour)

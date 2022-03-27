@@ -91,6 +91,8 @@ trait HGrider extends Any with TGrider
     res
   }
 
+  def findStep(startHC: HCen, endHC: HCen): OptRef[HStep]
+
   def sides: HSides
   def defaultView(pxScale: Double = 50): HGridView
 }
