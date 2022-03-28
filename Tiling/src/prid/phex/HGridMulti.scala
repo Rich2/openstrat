@@ -2,12 +2,13 @@
 package ostrat; package prid; package phex
 import ostrat.geom._
 
-case class HGridMan(grid: HGrid)
-{
+case class HGridMan(grid: HGrid, arrIndex: Int)
+{ def numTiles: Int = grid.numTiles
   def outSteps(hCen: HCen): Arr[(HStep, HCen)] = Arr()
   def sides: HSides = grid.sides
   val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
+
 }
 
 trait HGridMulti extends HGrider
@@ -15,6 +16,10 @@ trait HGridMulti extends HGrider
   def gridMans: Arr[HGridMan]
   def grids: Arr[HGrid] = gridMans.map(_.grid)
   def numGrids: Int = gridMans.length
+  final def unsafeGetMan(hCen: HCen): HGridMan = unsafeGetMan(hCen.r, hCen.c)
+  def unsafeGetMan(r: Int, c: Int): HGridMan
+  def unsafeGetManFunc[A](hCen: HCen)(f: HGridMan => A): A = f(unsafeGetMan(hCen))
+  def unsafeGetManFunc[A](r: Int, c: Int)(f: HGridMan => A): A = f(unsafeGetMan(r, c))
   def gridNumForeach(f: Int => Unit): Unit = iUntilForeach(0, numGrids)(f)
   def gridNumsMap[A, AA <: SeqImut[A]](f: Int => A)(implicit build: ArrBuilder[A, AA]): AA = iUntilMap(0, numGrids)(f)
   def gridNumsFlatMap[AA <: SeqImut[_]](f: Int => AA)(implicit build: ArrFlatBuilder[AA]): AA = iUntilFlatMap(0, numGrids)(f)
@@ -28,6 +33,7 @@ trait HGridMulti extends HGrider
   inline def gridNumsFold[B](f: (B, Int) => B)(implicit ev: DefaultValue[B]): B = gridNumsFold(ev.default)(f)
 
   def gridNumsSum(f: HGrid => Int): Int = gridNumsFold(0)((acc, el) => acc + f(grids(el)))
+  final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
 
   override def numTiles: Int = grids.sumBy(_.numTiles)
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
@@ -39,6 +45,8 @@ trait HGridMulti extends HGrider
   }
 
   override def unsafeStep(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.r, startCen.c + step.c)
+
+  final override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.arrIndex + man.grid.arrIndex(r, c) }
 
   def sides: HSides = gridMans.flatMap(_.sides)
   def sideLines(implicit grider: HGriderFlat): LineSegs = gridMans.flatMap(_.sideLines)

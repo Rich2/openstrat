@@ -8,11 +8,12 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   val grid1 = HGridReg(minCenR, maxCenR, minC1, maxC1)
   val grid2 = HGridReg(minCenR, maxCenR, minC2, maxC2)
 
-  val gridMan1: HGridMan = new HGridMan(grid1){
+  val gridMan1: HGridMan = new HGridMan(grid1, 0){
     //override def sides: HSides = HSides()
   }
 
-  val gridMan2: HGridMan = new HGridMan(grid2){
+  val gridMan2: HGridMan = new HGridMan(grid2, grid1.numTiles)
+  {
     override def sides: HSides = grid.sides.filter {
       case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.topSideR => true
       case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.bottomSideR => true
@@ -22,6 +23,9 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   }
 
   override val gridMans: Arr[HGridMan] = Arr(gridMan1, gridMan2)
+
+  override def unsafeGetMan(r: Int, c: Int): HGridMan = ife(c <= maxC1, gridMan1, gridMan2)
+
   val grid1Offset: Vec2 = 0 vv 0
   val xGrid2Offset: Double = grid1.right - grid2.left - 2
   val grid2Offset: Vec2 = Vec2(xGrid2Offset, 0)
@@ -32,14 +36,11 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   override def bottom: Double = minCenR * Sqrt3 - 4.0/Sqrt3
   override def left: Double = grid1.left
   override def right: Double = grid1.right + grid2.width - 2
-  override def hCenExists(r: Int, c: Int): Boolean = grid1.hCenExists(r, c) | grid2.hCenExists(r, c)
 
   override def hCoordToPt2(hCoord: HCoord): Pt2 = hCoord.c match
   { case c if c >= (grid1.leftCenC - 2) & c <= (grid1.rightCenC + 2) => grid1.hCoordToPt2(hCoord)
     case c if c >= (grid2.leftCenC - 2) & c <= (grid2.rightCenC + 2) => grid2.hCoordToPt2(hCoord) + grid2Offset
   }
-
-  override def arrIndex(r: Int, c: Int): Int = unsafeGridsHCenFold(r, c, _.arrIndex(r, c), grid1.numTiles + _.arrIndex(r, c))
 
   def unsafeGridsHCenFold[A](hCen: HCen, if1: HGrid =>  A, if2: HGrid => A): A = unsafeGridsHCenFold(hCen.r, hCen.c, if1, if2)
 
