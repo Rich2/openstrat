@@ -4,13 +4,13 @@ import utest._, prid._, phex._, gPlay._
 
 object OneScen1Test  extends TestSuite
 {
-  val os1 = OneScen1
-  val g1 = os1.grider
+  val os1: OneScen1.type = OneScen1
+  val g1: HGridReg = os1.grider
   val os2 = os1.endTurn(Arr())
   val g2 = os2.grider
-  val os3 = os1.endTurn(Arr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))
-  val g3 = os3.grider
-  val os4 = os1.endTurn(Arr((PlayerA, HStepLt)))
+  val os3: OneScen = os1.endTurn(Arr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))
+  val g3: HGriderFlat = os3.grider
+  val os4: OneScen = os1.endTurn(Arr((PlayerA, HStepLt)))
 
   val tests = Tests {
 
@@ -23,14 +23,14 @@ object OneScen1Test  extends TestSuite
       g1.numTiles ==> 8
     }
 
-    test("os2")
+    /*test("os2")
     { g2.numTileRows ==> 3
-      g2.bottomCenRow ==> 2
-      g2.topCenRow ==> 6
-      g2.leftCenCol ==> 2
-      g2.rightCenCol ==> 10
+      g2.bottomCenR ==> 2
+      g2.topCenR ==> 6
+      g2.leftCenC ==> 2
+      g2.rightCenC ==> 10
       g2.numTiles ==> 8
-    }
+    }*/
 
     test("os3")
     { g3.numTiles ==> 8
