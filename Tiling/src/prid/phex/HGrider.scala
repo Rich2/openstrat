@@ -6,7 +6,7 @@ import geom._, Colour.Black, reflect.ClassTag
 trait HGrider extends Any with TGrider
 {
   /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
-  override def yRatio: Double = 3.sqrt
+  final override def yRatio: Double = 3.sqrt
 
   /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
   final def hCenExists(hc: HCen): Boolean = hCenExists(hc.r, hc.c)
@@ -21,7 +21,7 @@ trait HGrider extends Any with TGrider
   @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
-   *  Array data. */
+   *  Array SeqDef data. */
   def arrIndex(r: Int, c: Int): Int
 
   def adjTilesOfTile(tile: HCen): HCens

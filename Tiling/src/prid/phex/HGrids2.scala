@@ -7,9 +7,17 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 {
   val grid1 = HGridReg(minCenR, maxCenR, minC1, maxC1)
   val grid2 = HGridReg(minCenR, maxCenR, minC2, maxC2)
+  val grid2OffsetC: Int = maxC1 - minC2 + 2
+
 
   val gridMan1: HGridMan = new HGridMan(grid1, 0){
     //override def sides: HSides = HSides()
+    override def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] = (r, c) match {
+      case (r, c) if r == maxCenR & (c == maxC1 | c == maxC1 - 2) => Arr((HStepRt, HCen(r, c + grid2OffsetC + 4)), (HStepDR, HCen(r - 2, c + grid2OffsetC + 2)))
+      case (r, c) if r == minCenR & (c == maxC1 | c == maxC1 - 2) => Arr((HStepUR, HCen(r + 2, c + grid2OffsetC + 2)), (HStepRt, HCen(r, c + grid2OffsetC + 4)))
+      case (r, c) if c == maxC1 | c == maxC1 - 2 => Arr((HStepUR, HCen(r + 2, c + grid2OffsetC + 2)), (HStepRt, HCen(r, c + grid2OffsetC + 4)), (HStepDR, HCen(r - 2, c + grid2OffsetC + 2)))
+      case _ => Arr()
+    }
   }
 
   val gridMan2: HGridMan = new HGridMan(grid2, grid1.numTiles)
@@ -27,8 +35,8 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   override def unsafeGetMan(r: Int, c: Int): HGridMan = ife(c <= maxC1, gridMan1, gridMan2)
 
   val grid1Offset: Vec2 = 0 vv 0
-  val xGrid2Offset: Double = grid1.right - grid2.left - 2
-  val grid2Offset: Vec2 = Vec2(xGrid2Offset, 0)
+  //val xGrid2Offset: Double = grid1.right - grid2.left - 2
+  val grid2Offset: Vec2 = Vec2(grid2OffsetC, 0)
 
   override def gridsOffsets: Vec2s = Vec2s(grid1Offset, grid2Offset)
 
