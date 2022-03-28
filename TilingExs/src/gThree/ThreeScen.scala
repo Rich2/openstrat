@@ -48,7 +48,7 @@ trait ThreeScen extends HexGridScen
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
     val oPlayersNew: HCenArrOpt[Lunit] = units.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (units.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.step(backStep), hc2)) }
+    targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (units.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.unsafeStep(backStep), hc2)) }
 
     ThreeScen(turn + 1, grider, terrs, oPlayersNew)
   }

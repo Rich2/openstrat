@@ -31,7 +31,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TileCen
   override def typeStr: String = "HCen"
 
   /** Step to adjacent hex tile. Will throw exception on illegal value. */
-  def step(st: HStep): HCen = HCen(r + st.r, c + st.c)
+  def unsafeStep(st: HStep)(implicit grider: HGrider): HCen = grider.unsafeStep(this, st)// HCen(r + st.r, c + st.c)
 
   /** Step to adjacent hex tile. */
   def stepOpt(st: HStep)(implicit grider: HGrider): Option[HCen] = {

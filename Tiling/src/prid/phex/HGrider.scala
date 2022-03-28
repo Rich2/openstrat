@@ -14,6 +14,8 @@ trait HGrider extends Any with TGrider
   /** Boolean. True if the specified hex centre exists in this hex grid. */
   def hCenExists(r: Int, c:Int): Boolean
 
+  def unsafeStep(startCen: HCen, step: HStep): HCen
+
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)

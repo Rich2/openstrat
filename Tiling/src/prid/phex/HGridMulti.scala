@@ -2,7 +2,9 @@
 package ostrat; package prid; package phex
 import ostrat.geom._
 
-case class HGridMan(grid: HGrid){
+case class HGridMan(grid: HGrid)
+{
+  def outSteps(hCen: HCen): Arr[(HStep, HCen)] = Arr()
   def sides: HSides = grid.sides
   val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
@@ -35,6 +37,8 @@ trait HGridMulti extends HGrider
   { var count = init
     grids.foreach { gr => gr.iForeach(count)(f); count += gr.numTiles }
   }
+
+  override def unsafeStep(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.r, startCen.c + step.c)
 
   def sides: HSides = gridMans.flatMap(_.sides)
   def sideLines(implicit grider: HGriderFlat): LineSegs = gridMans.flatMap(_.sideLines)

@@ -73,6 +73,11 @@ trait HGrid extends Any with TGrid with HGriderFlat
   /** The active tiles without any PaintElems. */
   override def activeTiles: Arr[PolygonActive] = map(_.active())
 
+  override def unsafeStep(startCen: HCen, step: HStep): HCen ={
+    val endCen = HCen(startCen.r + step.r, startCen.c + step.c)
+    if (hCenExists(endCen)) endCen else excep("Illegal end hex in unsafeStep method.")
+  }
+
   override def findStep(startHC: HCen, endHC: HCen): OptRef[HStep] = hcSteps.optFind(_.hCenDelta == endHC - startHC)
 
   def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)

@@ -25,7 +25,7 @@ trait OneScen extends HexGriderFlatScen
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
     val oPlayersNew: HCenArrOpt[Player] = oPlayers.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.step(backStep), hc2)) }
+    targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.unsafeStep(backStep), hc2)) }
 
     OneScen(turn + 1, grider, oPlayersNew)
   }
@@ -39,9 +39,4 @@ object OneScen
     override implicit val grider: HGriderFlat = gridIn
     override def oPlayers: HCenArrOpt[Player] = opIn
   }
-}
-
-/** This trait just puts the value 0 in for the turn. */
-trait OneScenStart extends OneScen
-{ override val turn: Int = 0
 }
