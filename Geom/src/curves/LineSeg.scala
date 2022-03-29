@@ -115,7 +115,7 @@ object LineSeg
   implicit val buildEv: ArrDbl4sBuilder[LineSeg, LineSegs] = new ArrDbl4sBuilder[LineSeg, LineSegs]
   { type BuffT = LineSegBuff
     override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
-    def fromDblBuffer(inp: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(inp)
+    def fromDblBuffer(buffer: Buff[Double]): LineSegBuff = new LineSegBuff(buffer)
   }
 
   implicit def transimplicit: AffineTrans[LineSeg] = (obj: LineSeg, f: Pt2 => Pt2) => LineSeg(f(obj.pStart), f(obj.pEnd))

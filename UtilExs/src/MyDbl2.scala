@@ -18,7 +18,7 @@ object MyDbl2
   implicit val arrBuilderImplicit: ArrDbl2sBuilder[MyDbl2, MyDbl2s] = new ArrDbl2sBuilder[MyDbl2, MyDbl2s]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
-    def fromDblBuffer(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)
+    def fromDblBuffer(buffer: Buff[Double]): MinesBuff = new MinesBuff(buffer)
   }
 }
 

@@ -2,6 +2,8 @@
 package ostrat; package prid; package phex
 import geom._
 
+import scala.collection.mutable.ArrayBuffer
+
 /** A trait for [[HStep]]s. The purpose of the trait rather than a class is to allow the consumer to mix in their own traits. Its not clear whether
  *  this is useful in Scala 3 or its bettter to use union types with the [[HSteps]] class. */
 trait HStepsTr extends Any
@@ -69,4 +71,20 @@ class HSteps(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1s[HStep] wi
 
 object HSteps extends HStepsCompanion[HSteps]
 { override def fromArray(array: Array[Int]): HSteps = new HSteps(array)
+
+  implicit val flatBuilder: ArrFlatBuilder[HSteps] = new ArrInt1sFlatBuilder[HStep, HSteps]
+  { override type BuffT = HStepBuff
+    override def fromIntArray(inp: Array[Int]): HSteps = new HSteps(inp)
+    override def fromIntBuffer(inp: Buff[Int]): HStepBuff = new HStepBuff(inp)
+  }
+}
+
+/** ArrayBuffer based buffer class for Colours. */
+class HStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[HStep]
+{ override def typeStr: String = "HStepBuff"
+  def intToT(i1: Int): HStep = HStep.fromInt(i1)
+}
+
+object HStepBuff
+{ def apply(initLen: Int = 4): HStepBuff = new HStepBuff(new Buff[Int](initLen))
 }

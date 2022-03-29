@@ -7,13 +7,7 @@ sealed trait HStep extends TileStep with ElemInt1
   def hCenDelta: HCen = HCen(r, c)
   def intValue: Int
   def reverse: HStep
-
-  def canEqual(a: Any) = a.isInstanceOf[HStep]
-
-  /*override def equals(that: Any): Boolean = that match
-  { case that: HStep => true//intValue == that.intValue
-    case _ => true//false
-  }*/
+  def canEqual(a: Any): Boolean = a.isInstanceOf[HStep]
 }
 
 object HStep
@@ -26,6 +20,14 @@ object HStep
     case 5 => HStepLt
     case 6 => HStepUL
     case n => excep(s"$n is not a valid HStep")
+  }
+
+  def full: HSteps = HSteps(HStepUR, HStepRt, HStepDR, HStepDL, HStepLt, HStepUL)
+
+  implicit val buildEv: ArrInt1sBuilder[HStep, HSteps] = new ArrInt1sBuilder[HStep, HSteps]
+  { override type BuffT = HStepBuff
+    override def fromIntArray(array: Array[Int]): HSteps = new HSteps(array)
+    override def fromIntBuffer(buffer: Buff[Int]): HStepBuff = new HStepBuff(buffer)
   }
 }
 
@@ -87,6 +89,5 @@ case class HexAndStep(r1: Int, c1: Int, step: HStep)
 }
 
 object HexAndStep
-{
-  def apply(hCen: HCen, step: HStep): HexAndStep = new HexAndStep(hCen.r, hCen.c, step)
+{ def apply(hCen: HCen, step: HStep): HexAndStep = new HexAndStep(hCen.r, hCen.c, step)
 }

@@ -82,7 +82,7 @@ object HCen
   implicit val buildEv: ArrInt2sBuilder[HCen, HCens] = new ArrInt2sBuilder[HCen, HCens]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCens = new HCens(array)
-    override def fromIntBuffer(inp: Buff[Int]): HCenBuff = new HCenBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): HCenBuff = new HCenBuff(buffer)
   }
 
   implicit val linePathbuildEv: LinePathInt2sBuilder[HCen, LinePathHC] = new LinePathInt2sBuilder[HCen, LinePathHC]{

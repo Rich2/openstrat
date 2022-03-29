@@ -59,7 +59,7 @@ object SqCen
   implicit val buildEv: ArrInt2sBuilder[SqCen, SqCens] = new ArrInt2sBuilder[SqCen, SqCens]
   { type BuffT = SqCenBuff
     override def fromIntArray(array: Array[Int]): SqCens = new SqCens(array)
-    override def fromIntBuffer(inp: Buff[Int]): SqCenBuff = new SqCenBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): SqCenBuff = new SqCenBuff(buffer)
   }
 }
 

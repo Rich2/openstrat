@@ -55,6 +55,6 @@ object SqVert
   implicit val sqVertsBuildImplicit: ArrInt2sBuilder[SqVert, SqVerts] = new ArrInt2sBuilder[SqVert, SqVerts]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVerts = new SqVerts(array)
-    override def fromIntBuffer(inp: Buff[Int]): SqVertBuff = new SqVertBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): SqVertBuff = new SqVertBuff(buffer)
   }
 }

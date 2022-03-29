@@ -50,6 +50,6 @@ object Roord
   implicit val roordsBuildImplicit: ArrInt2sBuilder[Roord, Roords] = new ArrInt2sBuilder[Roord, Roords]
   { type BuffT = RoordBuff
     override def fromIntArray(array: Array[Int]): Roords = new Roords(array)
-    override def fromIntBuffer(inp: Buff[Int]): RoordBuff = new RoordBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): RoordBuff = new RoordBuff(buffer)
   }
 }

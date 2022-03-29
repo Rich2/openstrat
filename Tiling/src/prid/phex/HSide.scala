@@ -52,6 +52,6 @@ object HSide
   implicit val buildEv: ArrInt2sBuilder[HSide, HSides] = new ArrInt2sBuilder[HSide, HSides]
   { type BuffT = HSideBuff
     override def fromIntArray(array: Array[Int]): HSides = new HSides(array)
-    override def fromIntBuffer(inp: Buff[Int]): HSideBuff = new HSideBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): HSideBuff = new HSideBuff(buffer)
   }
 }

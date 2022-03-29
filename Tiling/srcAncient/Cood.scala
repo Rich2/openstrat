@@ -60,6 +60,6 @@ object Cood
   implicit val coodsBuildImplicit: ArrInt2sBuilder[Cood, Coods] = new ArrInt2sBuilder[Cood, Coods]
   { type BuffT = CoodBuff
     override def fromIntArray(array: Array[Int]): Coods = new Coods(array)
-    override def fromIntBuffer(inp: Buff[Int]): CoodBuff = new CoodBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): CoodBuff = new CoodBuff(buffer)
   }
 }

@@ -96,7 +96,7 @@ object PtM3
   implicit val builderImplicit: ArrDbl3sBuilder[PtM3, PtMetre3Arr] = new ArrDbl3sBuilder[PtM3, PtMetre3Arr]
   { type BuffT = BuffPtMetre3
     override def fromDblArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
-    def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)
+    def fromDblBuffer(buffer: Buff[Double]): BuffPtMetre3 = new BuffPtMetre3(buffer)
   }
 
   implicit val linePathBuildImplicit: LinePathDbl3sBuilder[PtM3, LinePathMetre3] = new LinePathDbl3sBuilder[PtM3, LinePathMetre3]

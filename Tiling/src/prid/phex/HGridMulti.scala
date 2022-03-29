@@ -12,6 +12,8 @@ case class HGridMan(grid: HGrid, arrIndex: Int)
 
   /** Default implementation may need removal. */
   def adjTilesOfTile(tile: HCen): HCens = grid.adjTilesOfTile(tile)
+
+  //def hCenSteps(hCen: HCen)
 }
 
 trait HGridMulti extends HGrider
@@ -20,10 +22,10 @@ trait HGridMulti extends HGrider
   def grids: Arr[HGrid] = gridMans.map(_.grid)
   def numGrids: Int = gridMans.length
 
-  /** Gets the appriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
+  /** Gets the appropriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
   final def unsafeGetMan(hCen: HCen): HGridMan = unsafeGetMan(hCen.r, hCen.c)
 
-  /** Gets the appriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
+  /** Gets the appropriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
   def unsafeGetMan(r: Int, c: Int): HGridMan
 
   def unsafeGetManFunc[A](hCen: HCen)(f: HGridMan => A): A = f(unsafeGetMan(hCen))
@@ -55,7 +57,7 @@ trait HGridMulti extends HGrider
   }
 
   override def unsafeStep(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.r, startCen.c + step.c)
-
+  def hCenSteps(hCen: HCen): HSteps = ???
   override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
 
   final override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.arrIndex + man.grid.arrIndex(r, c) }

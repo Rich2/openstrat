@@ -37,10 +37,10 @@ trait ArrIntNs[A <: ElemIntN] extends Any with ArrValueNs[A] with IntNSeqDef[A]
  *  ```map(f: A => B): ArrB``` function. */
 trait ArrIntNsBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsBuilder[B, ArrB]
 { type BuffT <:  IntNBuff[B]
-  def fromIntArray(inp: Array[Int]): ArrB
+  def fromIntArray(array: Array[Int]): ArrB
 
   /* Not sure about the return type of this method. */
-  def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
+  def fromIntBuffer(buffer: Buff[Int]): BuffT
   final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)

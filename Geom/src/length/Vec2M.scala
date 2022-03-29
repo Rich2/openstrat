@@ -40,7 +40,7 @@ object Vec2M
   val buildImplicit: ArrBuilder[Vec2M, Vec2MArr] = new ArrDbl2sBuilder[Vec2M, Vec2MArr]
   { override type BuffT = Vec2MBuff
     override def fromDblArray(array: Array[Double]): Vec2MArr = new Vec2MArr(array)
-    override def fromDblBuffer(inp: Buff[Double]): Vec2MBuff = new Vec2MBuff(inp)
+    override def fromDblBuffer(buffer: Buff[Double]): Vec2MBuff = new Vec2MBuff(buffer)
   }
 }
 

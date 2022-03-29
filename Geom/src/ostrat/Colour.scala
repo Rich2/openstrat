@@ -111,9 +111,9 @@ object Colour
 
   implicit val arrBuildImplicit: ArrBuilder[Colour, Colours] = new ArrInt1sBuilder[Colour, Colours]
   { type BuffT = ColourBuff
-    override def fromIntArray(inp: Array[Int]): Colours = new Colours(inp)
+    override def fromIntArray(array: Array[Int]): Colours = new Colours(array)
 
-    override def fromIntBuffer(inp: ArrayBuffer[Int]): ColourBuff = new ColourBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): ColourBuff = new ColourBuff(buffer)
   }
 
   /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */

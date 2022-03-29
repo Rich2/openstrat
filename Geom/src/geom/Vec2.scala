@@ -105,7 +105,7 @@ object Vec2
   implicit val buildImplicit: ArrDbl2sBuilder[Vec2, Vec2s] = new ArrDbl2sBuilder[Vec2, Vec2s]
   { override type BuffT = BuffVec2
     override def fromDblArray(array: Array[Double]): Vec2s = new Vec2s(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffVec2 = new BuffVec2(inp)
+    override def fromDblBuffer(buffer: Buff[Double]): BuffVec2 = new BuffVec2(buffer)
   }
 
   /** implicit [[Persist]] type class instance / evidence for [[Vec2]]s. */
