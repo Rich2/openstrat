@@ -10,12 +10,12 @@ case class HGridMan(grid: HGrid, arrIndex: Int)
   val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
 
-  def hCenSteps(hCen: HCen): HSteps = grid.hCenSteps(hCen)// ++ outSteps(hCen).map(_._1)
+  def hCenSteps(hCen: HCen): HSteps = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_._1)
 
   /** Default implementation may need removal. */
   def adjTilesOfTile(tile: HCen): HCens = grid.adjTilesOfTile(tile)
 
-  //def hCenSteps(hCen: HCen)
+  def findStep(startHC: HCen, endHC: HCen): Option[HStep] = if(grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_._2 == endHC).map(_._1)
 }
 
 trait HGridMulti extends HGrider
@@ -59,8 +59,8 @@ trait HGridMulti extends HGrider
   }
 
   override def unsafeStep(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.r, startCen.c + step.c)
-  def hCenSteps(hCen: HCen): HSteps = ???
-  override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
+  def hCenSteps(hCen: HCen): HSteps = unsafeGetManFunc(hCen)(_.hCenSteps(hCen))
+  override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
 
   final override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.arrIndex + man.grid.arrIndex(r, c) }
 

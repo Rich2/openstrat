@@ -31,22 +31,7 @@ trait ValueNSeqDef[A <: ElemValueN] extends Any with ImutSeqDef[A]
 trait ArrValueNs[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqDef[A]
 { type ThisT <: ArrValueNs[A]
 
-  /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
-   * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++[N <: ArrValueNs[A]](operand: N)(implicit factory: Int => N): N =
-  { val res = factory(dataLength + operand.dataLength)
-    iForeach((i, elem) => res.unsafeSetElem(i, elem))
-    operand.iForeach((i, elem) => res.unsafeSetElem(i + dataLength, elem))
-    res
-  }
 
-  /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
-  def :+[N <: ArrValueNs[A]](operand: A)(implicit factory: Int => N): N =
-  { val res = factory(dataLength + 1)
-    iForeach((i, elem) => res.unsafeSetElem(i, elem))
-    res.unsafeSetElem(dataLength, operand)
-    res
-  }
 
   def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
   { var acc: B = initAcc

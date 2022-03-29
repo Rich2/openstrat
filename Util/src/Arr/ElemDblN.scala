@@ -59,6 +59,23 @@ trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DblNSeqDef[A]
     iForeach({(i, el) => res.unsafeSetElem(dataLength - 1 - i, el)})
     res
   }
+
+  /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
+   * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
+  def ++(operand: ThisT)(implicit build: ArrDblNsBuilder[A, ThisT]): ThisT = {
+    val newArray: Array[Double] = new Array(arrLen + operand.arrLen)
+    unsafeArray.copyToArray(newArray)
+    operand.unsafeArray.copyToArray(newArray, arrLen)
+    build.fromDblArray(newArray)
+  }
+
+  /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
+  /*def :+[N <: ArrValueNs[A]](operand: A)(implicit factory: Int => N): N =
+  { val res = factory(dataLength + 1)
+    iForeach((i, elem) => res.unsafeSetElem(i, elem))
+    res.unsafeSetElem(dataLength, operand)
+    res
+  }*/
 }
 
 /** Trait for creating the sequence builder type class instances for [[ArrDblNs]] final classes. Instances for the [[ArrBuilder]] type class, for

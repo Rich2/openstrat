@@ -30,6 +30,23 @@ trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A]
 trait ArrIntNs[A <: ElemIntN] extends Any with ArrValueNs[A] with IntNSeqDef[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: ArrIntNs[A]
+
+  /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
+   * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
+  def ++(operand: ThisT)(implicit build: ArrIntNsBuilder[A, ThisT]): ThisT = {
+    val newArray: Array[Int] = new Array(arrLen + operand.arrLen)
+    unsafeArray.copyToArray(newArray)
+    operand.unsafeArray.copyToArray(newArray, arrLen)
+    build.fromIntArray(newArray)
+  }
+
+  /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
+  /*def :+[N <: ArrValueNs[A]](operand: A)(implicit factory: Int => N): N =
+  { val res = factory(dataLength + 1)
+    iForeach((i, elem) => res.unsafeSetElem(i, elem))
+    res.unsafeSetElem(dataLength, operand)
+    res
+  }*/
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[ArrIntNs]] final classes. Instances for the [[ArrBuilder]] type class, for classes
