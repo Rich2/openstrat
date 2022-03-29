@@ -263,6 +263,19 @@ package object ostrat
     res
   }
 
+  implicit class StringContextExtensions(sc: StringContext) {
+    /** String interpolator for base 32 numbers. */
+    def t(): Int = sc.parts(0).foldLeft(0){ (acc, ch) =>
+      val newDig: Int = ch match {
+        case d if d.isDigit => d - '0'
+        case l if l >= 'A' & l <= 'N' => l - 'A' + 10
+        case l if l >= 'P' & l <= 'W' => l - 'P' + 24
+        case ch => excep(ch.toString + "is an invalid char for base 32.")
+      }
+      acc * 32 + newDig
+    }
+  }
+
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
   { def app2(prod: ElemDbl2): Unit = { thisBuff.append(prod.dbl1); thisBuff.append(prod.dbl2) }
   }

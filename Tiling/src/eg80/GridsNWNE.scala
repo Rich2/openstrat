@@ -8,8 +8,8 @@ object GridsNWNE extends HGridMulti {
 
   override def gridMans: Arr[HGridMan] = Arr(gridMan1, gridMan1)
 
-  /** value might not be correct. */
-  override def unsafeGetMan(r: Int, c: Int): HGridMan = ife(c <= 0x512, gridMan1, gridMan2)
+  /** Splits [[HCen]] allocation at 0y100 0r 1024. */
+  override def unsafeGetMan(r: Int, c: Int): HGridMan = ife(c < t"100", gridMan1, gridMan2)
 
   override def adjTilesOfTile(tile: HCen): HCens = ???
 
