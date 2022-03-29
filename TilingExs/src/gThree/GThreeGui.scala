@@ -44,8 +44,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
     }
 
     case (RightButton, ArrHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
-     val newM: OptRef[HStep] = grider.findStep(hc1, hc2)
-     // newM.foldDo{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
+     val newM: Option[HStep] = grider.findStep(hc1, hc2)
+      //newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()
     }
 

@@ -26,7 +26,7 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TileCen
   def optStep(operand: SqCen): OptRef[SqStep] = ??? // hcStepSomes.optFind(_.hCen == operand - this)
 
   /** Optionally returns the Step value of the SqCen if it is an adjacent SqCen else returns the safe null value. */
-  def findStep(operand: SqCen): OptRef[SqStep] = scSteps.optFind(_.sqCen == operand - this)
+  def findStep(operand: SqCen): Option[SqStep] = scSteps.optFind(_.sqCen == operand - this)
 
   def -(operand: SqCen): SqCen = SqCen(r - operand.r, c - operand.c)
 

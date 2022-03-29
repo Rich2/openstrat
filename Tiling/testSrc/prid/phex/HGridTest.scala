@@ -8,7 +8,10 @@ object HGridTest extends TestSuite
 
   val tests = Tests {
     test("test1") {
-      g1.findStep(HCen(2, 2), HCen(4, 4)).value ==> Some(HStepUR).value
+      g1.findStep(2, 2, 4, 4) ==> Some(HStepUR)
+      g1.findStep(2, 2, 2, 6) ==> Some(HStepRt)
+      g1.findStep(2, 2, 4, 0) ==> None
+      g1.findStep(2, 2, 0, 4) ==> None
     }
   }
 }

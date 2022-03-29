@@ -94,7 +94,10 @@ trait HGrider extends Any with TGrider
   }
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  def findStep(startHC: HCen, endHC: HCen): OptRef[HStep]
+  final def findStep(startR: Int, startC: Int, endR: Int, endC: Int): Option[HStep] = findStep(HCen(startR, startC), HCen(endR, endC))
+
+  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
+  def findStep(startHC: HCen, endHC: HCen): Option[HStep]
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   def findStepHC(startHC: HCen, step: HStep): OptRef[HCen] = ???

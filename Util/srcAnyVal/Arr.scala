@@ -144,10 +144,10 @@ object Arr
 
   implicit class ArrExtension[A <: AnyRef](thisArr: Arr[A])
   {
-    def optFind(f: A => Boolean): OptRef[A] =
-    { var acc: OptRef[A] = NoRef
+    def optFind(f: A => Boolean): Option[A] =
+    { var acc: Option[A] = None
       var count = 0
-      while (acc == NoRef & count < thisArr.dataLength) if (f(thisArr(count))) acc = OptRef(thisArr(count)) else count += 1
+      while (acc == None & count < thisArr.dataLength) if (f(thisArr(count))) acc = Some(thisArr(count)) else count += 1
       acc
     }
   }

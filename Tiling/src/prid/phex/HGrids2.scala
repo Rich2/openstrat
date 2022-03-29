@@ -65,12 +65,12 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
   override def adjTilesOfTile(tile: HCen): HCens = unsafeGridsHCenFold(tile, _.adjTilesOfTile(tile), _.adjTilesOfTile(tile))
 
-  override def findStep(startHC: HCen, endHC: HCen): OptRef[HStep] = (startHC, endHC) match {
+  override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = (startHC, endHC) match {
     case (shc, ehc) if grid1.hCenExists(shc) & grid1.hCenExists(ehc) => grid1.findStep(shc, ehc)
     case (shc, ehc) if grid2.hCenExists(shc) & grid2.hCenExists(ehc) => grid2.findStep(shc, ehc)
-    case (hc1, hc2) if hc1.c == grid1.rowRightCenC(hc1.c) & hc2.c == grid2.rowLeftCenC(hc1.c) => OptRef(HStepRt)
-    case (hc1, hc2) if hc1.c == grid2.rowLeftCenC(hc1.c) & hc2.c == grid1.rowRightCenC(hc1.c) => OptRef(HStepLt)
-    case _ => NoRef
+    case (hc1, hc2) if hc1.c == grid1.rowRightCenC(hc1.c) & hc2.c == grid2.rowLeftCenC(hc1.c) => Some(HStepRt)
+    case (hc1, hc2) if hc1.c == grid2.rowLeftCenC(hc1.c) & hc2.c == grid1.rowRightCenC(hc1.c) => Some(HStepLt)
+    case _ => None
   }
 }
 
