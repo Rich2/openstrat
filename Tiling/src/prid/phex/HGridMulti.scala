@@ -10,6 +10,8 @@ case class HGridMan(grid: HGrid, arrIndex: Int)
   val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
 
+  def hCenSteps(hCen: HCen): HSteps = grid.hCenSteps(hCen)// ++ outSteps(hCen).map(_._1)
+
   /** Default implementation may need removal. */
   def adjTilesOfTile(tile: HCen): HCens = grid.adjTilesOfTile(tile)
 
