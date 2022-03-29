@@ -15,14 +15,22 @@ trait SqGridMulti extends SqGrider {
   def grids: Arr[SqGrid] = gridMans.map(_.grid)
 }
 
-trait SqGridMultiFlat extends SqGridMulti
+trait SqGridMultiFlat extends SqGridMulti with SqGriderFlat
 
 /** A simple development class of 2 square grids. Probably not a useful class for an application but a stage on the evolution of more exotic classes. */
 final class SqGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends SqGridMultiFlat
 {
-
+  val grid1 = SqGrid(minCenR, maxCenR, minC1, maxC1)
+  val grid2 = SqGrid(minCenR, maxCenR, minC2, maxC2)
   override def gridMans: Arr[SqGridMan] = Arr()
 
-  /** The total number of tile centres in this tile Grid system. */
-  override def numTiles: Int = ???
+  override val numTiles: Int = grid1.numTiles + grid2.numTiles
+  override def top: Double = maxCenR + 1
+  override def bottom: Double = minCenR - 1
+
+  /** The left most point in the grid where x is minimum. */
+  override def left: Double = ???
+
+  /** The right most point in the grid where the value of x is maximum. */
+  override def right: Double = ???
 }

@@ -263,6 +263,7 @@ package object ostrat
     res
   }
 
+  /** Extension class for String interpolation. */
   implicit class StringContextExtensions(sc: StringContext) {
     /** String interpolator for base 32 numbers. */
     def t(): Int = sc.parts(0).foldLeft(0){ (acc, ch) =>

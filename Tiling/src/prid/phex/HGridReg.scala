@@ -11,9 +11,6 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     count
   }
 
-  override def width: Double = right - left
-  override def height: Double = top - bottom
-
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
 

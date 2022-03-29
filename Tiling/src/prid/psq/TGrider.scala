@@ -20,12 +20,15 @@ trait TGriderFlat extends Any with TGrider
   /** The bottom most point in the grid where the value of y is minimum. */
   def bottom: Double
 
-  /** Height of the tile grid from furthest tile edge or vertex to furthest tile edge or vertex. */
-  def height: Double
-
   /** The left most point in the grid where x is minimum. */
   def left: Double
 
   /** The right most point in the grid where the value of x is maximum. */
   def right: Double
+
+  /** Height of the tile grid system from furthest tile edge or vertex to furthest tile edge or vertex. */
+  final def height: Double = top - bottom
+
+  /** Width of the tile grid system from furthest tile edge or vertex to furthest tile edge or vertex. */
+  final def width: Double = right - left
 }

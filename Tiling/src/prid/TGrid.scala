@@ -64,9 +64,6 @@ trait TGrid extends Any with TGriderFlat
   /** The [[TSide]] tile side, with the highest C column coordinate. This places it on the right most points of the grid. */
   def rightSideC: Int
 
-  /** Width of the tile Grid from furthest tile edge to furthest tile edge. */
-  def width: Double
-
   /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
   @inline def xCen: Double = (leftCenC + rightCenC) / 2
 

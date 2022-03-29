@@ -118,9 +118,6 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
     case r if r < bottomCenR => false
     case r => c >= rowLeftCenC(r) & c <= rowRightCenC(r)
   }
-  override def width: Double = (rightCenC - leftCenC + 4) / Sqrt3
-  override def height: Double = topCenR - bottomCenR + 3
-
 }
 
 object HGridIrr
