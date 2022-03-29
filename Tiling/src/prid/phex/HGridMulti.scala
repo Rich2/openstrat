@@ -9,6 +9,9 @@ case class HGridMan(grid: HGrid, arrIndex: Int)
   def sides: HSides = grid.sides
   val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
+
+  /** Default implementation may need removal. */
+  def adjTilesOfTile(tile: HCen): HCens = grid.adjTilesOfTile(tile)
 }
 
 trait HGridMulti extends HGrider
@@ -16,8 +19,13 @@ trait HGridMulti extends HGrider
   def gridMans: Arr[HGridMan]
   def grids: Arr[HGrid] = gridMans.map(_.grid)
   def numGrids: Int = gridMans.length
+
+  /** Gets the appriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
   final def unsafeGetMan(hCen: HCen): HGridMan = unsafeGetMan(hCen.r, hCen.c)
+
+  /** Gets the appriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
   def unsafeGetMan(r: Int, c: Int): HGridMan
+
   def unsafeGetManFunc[A](hCen: HCen)(f: HGridMan => A): A = f(unsafeGetMan(hCen))
   def unsafeGetManFunc[A](r: Int, c: Int)(f: HGridMan => A): A = f(unsafeGetMan(r, c))
   def gridNumForeach(f: Int => Unit): Unit = iUntilForeach(0, numGrids)(f)
@@ -36,7 +44,7 @@ trait HGridMulti extends HGrider
   }
 
   final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
-
+  override def adjTilesOfTile(tile: HCen): HCens = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))
   override def numTiles: Int = grids.sumBy(_.numTiles)
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
   override def iForeach(f: (HCen, Int) => Unit): Unit = iForeach(0)(f)

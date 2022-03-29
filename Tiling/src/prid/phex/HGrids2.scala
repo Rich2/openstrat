@@ -35,7 +35,6 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   override def unsafeGetMan(r: Int, c: Int): HGridMan = ife(c <= maxC1, gridMan1, gridMan2)
 
   val grid1Offset: Vec2 = 0 vv 0
-  //val xGrid2Offset: Double = grid1.right - grid2.left - 2
   val grid2Offset: Vec2 = Vec2(grid2OffsetC, 0)
 
   override def gridsOffsets: Vec2s = Vec2s(grid1Offset, grid2Offset)
@@ -49,21 +48,6 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   { case c if c >= (grid1.leftCenC - 2) & c <= (grid1.rightCenC + 2) => grid1.hCoordToPt2(hCoord)
     case c if c >= (grid2.leftCenC - 2) & c <= (grid2.rightCenC + 2) => grid2.hCoordToPt2(hCoord) + grid2Offset
   }
-
-  def unsafeGridsHCenFold[A](hCen: HCen, if1: HGrid =>  A, if2: HGrid => A): A = unsafeGridsHCenFoldSpecial(hCen.r, hCen.c, if1, if2)
-
-  def unsafeGridsHCenFoldSpecial[A](r: Int, c: Int, if1: HGrid => A, if2: HGrid => A): A = (r, c) match
-  { case (r, c) if grid1.hCenExists(r, c) => if1(grid1)
-    case (r, c) if grid2.hCenExists(r, c) => if2(grid2)
-    case (r, c) => excep(s"$r, $c not valid coordinates for this grid.")
-  }
-
-  def gridNumFold[A](gridNum: Int, if1: => A, if2: A): A = gridNum match
-  { case 0 => if1
-    case 1 => if2
-  }
-
-  override def adjTilesOfTile(tile: HCen): HCens = unsafeGridsHCenFold(tile, _.adjTilesOfTile(tile), _.adjTilesOfTile(tile))
 
   override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = (startHC, endHC) match {
     case (shc, ehc) if grid1.hCenExists(shc) & grid1.hCenExists(ehc) => grid1.findStep(shc, ehc)
