@@ -21,8 +21,13 @@ trait HGridMulti extends HGrider
   def unsafeGetManFunc[A](hCen: HCen)(f: HGridMan => A): A = f(unsafeGetMan(hCen))
   def unsafeGetManFunc[A](r: Int, c: Int)(f: HGridMan => A): A = f(unsafeGetMan(r, c))
   def gridNumForeach(f: Int => Unit): Unit = iUntilForeach(0, numGrids)(f)
-  def gridNumsMap[A, AA <: SeqImut[A]](f: Int => A)(implicit build: ArrBuilder[A, AA]): AA = iUntilMap(0, numGrids)(f)
-  def gridNumsFlatMap[AA <: SeqImut[_]](f: Int => AA)(implicit build: ArrFlatBuilder[AA]): AA = iUntilFlatMap(0, numGrids)(f)
+  def gridMansForeach(f: HGridMan => Unit) = gridMans.foreach(f)
+  def gridMansMap[A, AA <: SeqImut[A]](f: HGridMan => A)(implicit build: ArrBuilder[A, AA]): AA = gridMans.map(f)
+  def gridMansFlatMap[AA <: SeqImut[_]](f: HGridMan => AA)(implicit build: ArrFlatBuilder[AA]): AA = gridMans.flatMap(f)
+
+  def gridMansFold[B](initValue: B)(f: (B, HGridMan) => B): B = gridMans.foldLeft(initValue)(f)
+  inline def gridMansFold[B](f: (B, HGridMan) => B)(implicit ev: DefaultValue[B]): B = gridMansFold(ev.default)(f)
+  def gridMansSum(f: HGridMan => Int): Int = gridMansFold(0)((acc, el) => acc + f(el))
 
   def gridNumsFold[B](initValue: B)(f: (B, Int) => B): B = {
     var acc: B = initValue
@@ -30,9 +35,6 @@ trait HGridMulti extends HGrider
     acc
   }
 
-  inline def gridNumsFold[B](f: (B, Int) => B)(implicit ev: DefaultValue[B]): B = gridNumsFold(ev.default)(f)
-
-  def gridNumsSum(f: HGrid => Int): Int = gridNumsFold(0)((acc, el) => acc + f(grids(el)))
   final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
 
   override def numTiles: Int = grids.sumBy(_.numTiles)
@@ -46,13 +48,15 @@ trait HGridMulti extends HGrider
 
   override def unsafeStep(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.r, startCen.c + step.c)
 
+  override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
+
   final override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.arrIndex + man.grid.arrIndex(r, c) }
 
   def sides: HSides = gridMans.flatMap(_.sides)
   def sideLines(implicit grider: HGriderFlat): LineSegs = gridMans.flatMap(_.sideLines)
  // def gridNumSides(gridNum: Int): Int
 
-  override def numSides: Int = gridNumsSum{g => g.numSides }
+  override def numSides: Int = gridMansSum{g => g.numSides }
 
   override def defaultView(pxScale: Double = 50): HGridView = grids(0).defaultView(pxScale)
 }

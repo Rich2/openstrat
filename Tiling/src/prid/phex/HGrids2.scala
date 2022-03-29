@@ -50,9 +50,9 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
     case c if c >= (grid2.leftCenC - 2) & c <= (grid2.rightCenC + 2) => grid2.hCoordToPt2(hCoord) + grid2Offset
   }
 
-  def unsafeGridsHCenFold[A](hCen: HCen, if1: HGrid =>  A, if2: HGrid => A): A = unsafeGridsHCenFold(hCen.r, hCen.c, if1, if2)
+  def unsafeGridsHCenFold[A](hCen: HCen, if1: HGrid =>  A, if2: HGrid => A): A = unsafeGridsHCenFoldSpecial(hCen.r, hCen.c, if1, if2)
 
-  def unsafeGridsHCenFold[A](r: Int, c: Int, if1: HGrid => A, if2: HGrid => A): A = (r, c) match
+  def unsafeGridsHCenFoldSpecial[A](r: Int, c: Int, if1: HGrid => A, if2: HGrid => A): A = (r, c) match
   { case (r, c) if grid1.hCenExists(r, c) => if1(grid1)
     case (r, c) if grid2.hCenExists(r, c) => if2(grid2)
     case (r, c) => excep(s"$r, $c not valid coordinates for this grid.")

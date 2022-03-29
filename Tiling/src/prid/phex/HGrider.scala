@@ -16,6 +16,15 @@ trait HGrider extends Any with TGrider
 
   def unsafeStep(startCen: HCen, step: HStep): HCen
 
+  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
+  final def findStep(startR: Int, startC: Int, endR: Int, endC: Int): Option[HStep] = findStep(HCen(startR, startC), HCen(endR, endC))
+
+  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
+  def findStep(startHC: HCen, endHC: HCen): Option[HStep]
+
+  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
+  def findStepHC(startHC: HCen, step: HStep): OptRef[HCen] = ???
+
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
@@ -93,14 +102,6 @@ trait HGrider extends Any with TGrider
     res
   }
 
-  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  final def findStep(startR: Int, startC: Int, endR: Int, endC: Int): Option[HStep] = findStep(HCen(startR, startC), HCen(endR, endC))
-
-  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  def findStep(startHC: HCen, endHC: HCen): Option[HStep]
-
-  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  def findStepHC(startHC: HCen, step: HStep): OptRef[HCen] = ???
 
   def sides: HSides
   def defaultView(pxScale: Double = 50): HGridView
