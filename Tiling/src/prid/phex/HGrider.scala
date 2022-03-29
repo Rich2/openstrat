@@ -93,7 +93,11 @@ trait HGrider extends Any with TGrider
     res
   }
 
+  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   def findStep(startHC: HCen, endHC: HCen): OptRef[HStep]
+
+  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
+  def findStepHC(startHC: HCen, step: HStep): OptRef[HCen] = ???
 
   def sides: HSides
   def defaultView(pxScale: Double = 50): HGridView
