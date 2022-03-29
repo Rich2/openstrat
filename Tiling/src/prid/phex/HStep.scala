@@ -7,6 +7,13 @@ sealed trait HStep extends TileStep with ElemInt1
   def hCenDelta: HCen = HCen(r, c)
   def intValue: Int
   def reverse: HStep
+
+  def canEqual(a: Any) = a.isInstanceOf[HStep]
+
+  /*override def equals(that: Any): Boolean = that match
+  { case that: HStep => true//intValue == that.intValue
+    case _ => true//false
+  }*/
 }
 
 object HStep

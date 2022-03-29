@@ -77,7 +77,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
     val endCen = HCen(startCen.r + step.r, startCen.c + step.c)
     if (hCenExists(endCen)) endCen else excep("Illegal end hex in unsafeStep method.")
   }
-
+  override def findStepHC(startHC: HCen, step: HStep): OptRef[HCen] = ???
   override def findStep(startHC: HCen, endHC: HCen): OptRef[HStep] = hcSteps.optFind(_.hCenDelta == endHC - startHC)
 
   def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
