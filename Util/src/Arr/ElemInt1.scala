@@ -17,7 +17,7 @@ trait Int1SeqDef[A <: ElemInt1] extends Any with IntNSeqDef[A]
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */
-trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A] with Int1SeqDef[A]
+trait ArrInt1s[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqDef[A]
 {
   final override def length: Int = unsafeArray.length
 
@@ -50,7 +50,7 @@ trait ArrInt1s[A <: ElemInt1] extends Any with ArrIntNs[A] with Int1SeqDef[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
  *  the B in ```map(f: A => B): ArrB``` function. */
-trait ArrInt1sBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends ArrIntNsBuilder[A, ArrT]
+trait ArrInt1sBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends IntNArrBuilder[A, ArrT]
 { type BuffT <: Int1Buff[A]
 
   final override def elemProdSize: Int = 1
@@ -62,7 +62,7 @@ trait ArrInt1sBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends ArrIntNsBuilde
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ArrInt1sFlatBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends ArrIntNsFlatBuilder[A, ArrT]
+trait ArrInt1sFlatBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends IntNArrFlatBuilder[A, ArrT]
 { type BuffT <: Int1Buff[A]
 
   final override def elemProdSize: Int = 1

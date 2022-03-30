@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from 2 [[Int]]s. These are used in [[ArrInt3s]] Array[Int] based collections. */
+/** An object that can be constructed from 2 [[Int]]s. These are used in [[Int3Arr]] Array[Int] based collections. */
 trait ElemInt3 extends Any with ElemIntN
 { def int1: Int
   def int2: Int
@@ -12,15 +12,17 @@ trait ElemInt3 extends Any with ElemIntN
 trait Int3SeqDef[A <: ElemInt3] extends Any with IntNSeqDef[A]
 {
   override def elemProdSize: Int = 3
-  final override def indexData(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
-  def dataElem(i1: Int, i2: Int, i3: Int): A
+  final override def indexData(index: Int): A = sdElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+
+  /** Creates an element of the defining sequence */
+  def sdElem(i1: Int, i2: Int, i3: Int): A
 
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(3 * index) = elem.int1; unsafeArray(3 * index + 1) = elem.int2
     unsafeArray(3 * index + 2) = elem.int3 }
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt3]]s. */
-trait ArrInt3s[A <: ElemInt3] extends Any with ArrIntNs[A] with Int3SeqDef[A]
+trait Int3Arr[A <: ElemInt3] extends Any with IntNArr[A] with Int3SeqDef[A]
 { def head1: Int = unsafeArray(0)
   def head2: Int = unsafeArray(1)
   def head3: Int = unsafeArray(2)
@@ -30,7 +32,7 @@ trait ArrInt3s[A <: ElemInt3] extends Any with ArrIntNs[A] with Int3SeqDef[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Int3Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int3Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait ArrInt3sBuilder[B <: ElemInt3, ArrB <: ArrInt3s[B]] extends ArrIntNsBuilder[B, ArrB]
+trait Int3ArrBuilder[B <: ElemInt3, ArrB <: Int3Arr[B]] extends IntNArrBuilder[B, ArrB]
 { type BuffT <: Int3Buff[B]
 
   final override def elemProdSize: Int = 3
@@ -48,7 +50,7 @@ trait ArrInt3sBuilder[B <: ElemInt3, ArrB <: ArrInt3s[B]] extends ArrIntNsBuilde
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B a sub class of Int3Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */
-trait ArrInt3sFlatBuilder[B <: ElemInt3, ArrB <: ArrInt3s[B]] extends ArrIntNsFlatBuilder[B, ArrB]
+trait Int3ArrFlatBuilder[B <: ElemInt3, ArrB <: Int3Arr[B]] extends IntNArrFlatBuilder[B, ArrB]
 { type BuffT <: Int3Buff[B]
   final override def elemProdSize: Int = 3
   def newArray(length: Int): Array[Int] = new Array[Int](length * 3)
@@ -56,12 +58,14 @@ trait ArrInt3sFlatBuilder[B <: ElemInt3, ArrB <: ArrInt3s[B]] extends ArrIntNsFl
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt3]]s collections. */
 trait Int3Buff[A <: ElemInt3] extends Any with IntNBuff[A]
-{ type ArrT <: ArrInt3s[A]
+{ type ArrT <: Int3Arr[A]
   override def elemProdSize: Int = 3
   final override def length: Int = unsafeBuffer.length / 3
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3); () }
-  def intsToT(i1: Int, i2: Int, i3: Int): A
-  override def indexData(index: Int): A = intsToT(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
+
+  /** Constructs a defining sequence element from 3 [[Int]]s.  */
+  def sdElem(i1: Int, i2: Int, i3: Int): A
+  override def indexData(index: Int): A = sdElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 3) = value.int1; unsafeBuffer(i * 3 + 1) = value.int2; unsafeBuffer(i * 3 + 2) = value.int3 }
 }
 

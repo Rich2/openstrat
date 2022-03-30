@@ -28,10 +28,8 @@ trait ValueNSeqDef[A <: ElemValueN] extends Any with ImutSeqDef[A]
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ArrValueNs[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqDef[A]
-{ type ThisT <: ArrValueNs[A]
-
-
+trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqDef[A]
+{ type ThisT <: ValueNArr[A]
 
   def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
   { var acc: B = initAcc
@@ -46,21 +44,21 @@ trait ArrValueNs[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqDef[
 
 /** Trait for creating the ArrTBuilder. Instances for the [[ArrBuilder]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ArrValueNsBuilder[B <: ElemValueN, ArrB <: ArrValueNs[B]] extends ArrBuilder[B, ArrB]
+trait ValueNArrBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ArrBuilder[B, ArrB]
 { def elemProdSize: Int
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrValueNs]] final classes. Instances for the [[ArrFlatBuilder] should go in
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNArr]] final classes. Instances for the [[ArrFlatBuilder] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait ArrValueNsFlatBuilder[B <: ElemValueN, ArrB <: ArrValueNs[B]] extends ArrFlatBuilder[ArrB]
+trait ValueNArrFlatBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ArrFlatBuilder[ArrB]
 { def elemProdSize: Int
 }
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
 trait ValueNBuff[A <: ElemValueN] extends Any with SeqGen[A]
-{ type ArrT <: ArrValueNs[A]
+{ type ArrT <: ValueNArr[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit
   def grows(newElems: ArrT): Unit

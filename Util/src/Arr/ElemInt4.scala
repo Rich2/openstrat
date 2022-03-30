@@ -11,7 +11,7 @@ trait ElemInt4 extends Any with ElemIntN
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt4]]s. */
-trait ArrInt4s[A <: ElemInt4] extends Any with ArrIntNs[A]
+trait ArrInt4s[A <: ElemInt4] extends Any with IntNArr[A]
 { override def elemProdSize: Int = 4
   final override def length: Int = unsafeArray.length / 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
@@ -32,7 +32,7 @@ trait ArrInt4s[A <: ElemInt4] extends Any with ArrIntNs[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait ArrInt4sBuilder[B <: ElemInt4, ArrB <: ArrInt4s[B]] extends ArrIntNsBuilder[B, ArrB]
+trait ArrInt4sBuilder[B <: ElemInt4, ArrB <: ArrInt4s[B]] extends IntNArrBuilder[B, ArrB]
 { type BuffT <: Int4Buff[B, ArrB]
 
   final override def elemProdSize: Int = 4

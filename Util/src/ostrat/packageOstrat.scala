@@ -346,7 +346,7 @@ package object ostrat
   implicit class RangeExtensions(range: Range)
   {
     /** product map method maps from a Range to an Array based ProductValues class. */
-    def pMap[B <: ElemValueN , M <: ArrValueNs[B]](f: Int => B)(implicit factory: Int => M): M =
+    def pMap[B <: ElemValueN , M <: ValueNArr[B]](f: Int => B)(implicit factory: Int => M): M =
     { val res = factory(range.size)
       var count: Int = 0
       range.foreach { orig =>

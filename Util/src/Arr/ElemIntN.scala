@@ -27,13 +27,13 @@ trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A]
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait ArrIntNs[A <: ElemIntN] extends Any with ArrValueNs[A] with IntNSeqDef[A]
+trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqDef[A]
 { /** The final type of this Array[Int] backed collection class. */
-  type ThisT <: ArrIntNs[A]
+  type ThisT <: IntNArr[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++(operand: ThisT)(implicit build: ArrIntNsBuilder[A, ThisT]): ThisT = {
+  def ++(operand: ThisT)(implicit build: IntNArrBuilder[A, ThisT]): ThisT = {
     val newArray: Array[Int] = new Array(arrLen + operand.arrLen)
     unsafeArray.copyToArray(newArray)
     operand.unsafeArray.copyToArray(newArray, arrLen)
@@ -49,10 +49,10 @@ trait ArrIntNs[A <: ElemIntN] extends Any with ArrValueNs[A] with IntNSeqDef[A]
   }*/
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[ArrIntNs]] final classes. Instances for the [[ArrBuilder]] type class, for classes
+/** Trait for creating the ArrTBuilder type class instances for [[IntNArr]] final classes. Instances for the [[ArrBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait ArrIntNsBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsBuilder[B, ArrB]
+trait IntNArrBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrBuilder[B, ArrB]
 { type BuffT <:  IntNBuff[B]
   def fromIntArray(array: Array[Int]): ArrB
 
@@ -64,9 +64,9 @@ trait ArrIntNsBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsBuil
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
 }
 
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ArrIntNs]] final classes. Instances for [[ArrFlatBuilder] should go in the
+/** Trait for creating the ArrTFlatBuilder type class instances for [[IntNArr]] final classes. Instances for [[ArrFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ArrIntNsFlatBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNsFlatBuilder[B, ArrB]
+trait IntNArrFlatBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrFlatBuilder[B, ArrB]
 { type BuffT <:  IntNBuff[B]
   def fromIntArray(inp: Array[Int]): ArrB
 
@@ -80,7 +80,7 @@ trait ArrIntNsFlatBuilder[B <: ElemIntN, ArrB <: ArrIntNs[B]] extends ArrValueNs
 
 /** Specialised flat ArrayBuffer[Int] based collection class. */
 trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
-{ type ArrT <: ArrIntNs[A]
+{ type ArrT <: IntNArr[A]
   def unsafeBuffer: ArrayBuffer[Int]
   def toArray: Array[Int] = unsafeBuffer.toArray[Int]
   def grow(newElem: A): Unit

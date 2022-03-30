@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 trait ElemLongN extends Any with ElemValueN
 
 /** Base trait for Array[Long] based collections of Products of Longs. */
-trait ArrLongNs[A <: ElemLongN] extends Any with ArrValueNs[A]
+trait ArrLongNs[A <: ElemLongN] extends Any with ValueNArr[A]
 { def unsafeArray: Array[Long]
   def arrLen: Int = unsafeArray.length
 

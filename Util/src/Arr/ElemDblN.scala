@@ -48,7 +48,7 @@ trait DblNSeqDef[A <: ElemDblN] extends Any with ValueNSeqDef[A] with ArrayDblBa
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
-trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DblNSeqDef[A]
+trait ArrDblNs[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqDef[A]
 { type ThisT <: ArrDblNs[A]
 
   /** Not sure about this method. */
@@ -81,7 +81,7 @@ trait ArrDblNs[A <: ElemDblN] extends Any with ArrValueNs[A] with DblNSeqDef[A]
 /** Trait for creating the sequence builder type class instances for [[ArrDblNs]] final classes. Instances for the [[ArrBuilder]] type class, for
  *  classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait ArrDblNsBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ArrValueNsBuilder[B, ArrB]
+trait ArrDblNsBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ValueNArrBuilder[B, ArrB]
 { type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(buffer: Buff[Double]): BuffT
@@ -95,7 +95,7 @@ trait ArrDblNsBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ArrValueNsBuil
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrDblNs]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ArrDblNsFlatBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ArrValueNsFlatBuilder[B, ArrB]
+trait ArrDblNsFlatBuilder[B <: ElemDblN, ArrB <: ArrDblNs[B]] extends ValueNArrFlatBuilder[B, ArrB]
 { type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
