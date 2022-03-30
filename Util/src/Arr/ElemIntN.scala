@@ -68,10 +68,13 @@ trait IntNArrBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrBuilder
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait IntNArrFlatBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrFlatBuilder[B, ArrB]
 { type BuffT <:  IntNBuff[B]
-  def fromIntArray(inp: Array[Int]): ArrB
 
-  /* Not sure about the return type of this method. */
-  def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
+  /* Constructs an ArrB instance from an [[Array]][Int]. */
+  def fromIntArray(array: Array[Int]): ArrB
+
+  /* Constructs a BuffT instance from an [[ArrayBuffer]][Int]. */
+  def fromIntBuffer(buffer: Buff[Int]): BuffT
+
   //final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)

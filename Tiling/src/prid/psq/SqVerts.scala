@@ -57,7 +57,7 @@ object SqVerts extends DataInt2sCompanion[SqVert, SqVerts]
   implicit val arrArrayImplicit: ArrFlatBuilder[SqVerts] = new ArrInt2sFlatBuilder[SqVert, SqVerts]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVerts = new SqVerts(array)
-    override def fromIntBuffer(inp: Buff[Int]): SqVertBuff = new SqVertBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): SqVertBuff = new SqVertBuff(buffer)
   }
 }
 

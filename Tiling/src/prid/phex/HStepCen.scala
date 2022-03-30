@@ -18,6 +18,12 @@ class HStepCen(val stepInt: Int, val r2: Int, val c2: Int) extends ElemInt3
 object HStepCen
 { def apply(step: HStep, hCen: HCen): HStepCen = new HStepCen(step.intValue, hCen.r, hCen.c)
   def apply(step: HStep, r: Int, c: Int): HStepCen = new HStepCen(step.intValue, r, c)
+
+  implicit val buildEv: Int3ArrBuilder[HStepCen, HStepCenArr] = new Int3ArrBuilder[HStepCen, HStepCenArr]{
+    override type BuffT = HStepCenBuff
+    override def fromIntArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
+    override def fromIntBuffer(buffer: Buff[Int]): HStepCenBuff = new HStepCenBuff(buffer)
+  }
 }
 
 class HStepCenArr(val unsafeArray: Array[Int]) extends Int3Arr[HStepCen]
@@ -26,6 +32,12 @@ class HStepCenArr(val unsafeArray: Array[Int]) extends Int3Arr[HStepCen]
   override def unsafeFromArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
   override def fElemStr: HStepCen => String = _.toString
   override def typeStr: String = "HStepCens"
+
+  implicit val flatBuildEv: Int3ArrFlatBuilder[HStepCen, HStepCenArr] = new Int3ArrFlatBuilder[HStepCen, HStepCenArr]{
+    override type BuffT = HStepCenBuff
+    override def fromIntArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
+    override def fromIntBuffer(buffer: Buff[Int]): HStepCenBuff = new HStepCenBuff(buffer)
+  }
 }
 
 class HStepCenBuff(val unsafeBuffer: ArrayBuffer[Int]) extends Int3Buff[HStepCen]

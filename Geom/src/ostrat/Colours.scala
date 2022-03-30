@@ -38,8 +38,8 @@ object Colours
   def allNamed: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c }
   implicit val arrFlatBuildImplicit: ArrFlatBuilder[Colours] = new ArrInt1sFlatBuilder[Colour, Colours]
   { type BuffT = ColourBuff
-    override def fromIntArray(inp: Array[Int]): Colours = new Colours(inp)
-    override def fromIntBuffer(inp: ArrayBuffer[Int]): ColourBuff = new ColourBuff(inp)
+    override def fromIntArray(array: Array[Int]): Colours = new Colours(array)
+    override def fromIntBuffer(buffer: Buff[Int]): ColourBuff = new ColourBuff(buffer)
   }
 }
 

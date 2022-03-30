@@ -53,7 +53,7 @@ object Roords extends DataInt2sCompanion[Roord, Roords]
   implicit val arrArrayImplicit: ArrFlatBuilder[Roords] = new ArrInt2sFlatBuilder[Roord, Roords]
   { type BuffT = RoordBuff
     override def fromIntArray(array: Array[Int]): Roords = new Roords(array)
-    override def fromIntBuffer(inp: Buff[Int]): RoordBuff = new RoordBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): RoordBuff = new RoordBuff(buffer)
   }
 }
 

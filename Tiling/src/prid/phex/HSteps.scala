@@ -74,8 +74,8 @@ object HSteps extends HStepsCompanion[HSteps]
 
   implicit val flatBuilder: ArrFlatBuilder[HSteps] = new ArrInt1sFlatBuilder[HStep, HSteps]
   { override type BuffT = HStepBuff
-    override def fromIntArray(inp: Array[Int]): HSteps = new HSteps(inp)
-    override def fromIntBuffer(inp: Buff[Int]): HStepBuff = new HStepBuff(inp)
+    override def fromIntArray(array: Array[Int]): HSteps = new HSteps(array)
+    override def fromIntBuffer(buffer: Buff[Int]): HStepBuff = new HStepBuff(buffer)
   }
 }
 

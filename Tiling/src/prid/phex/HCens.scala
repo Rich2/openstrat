@@ -30,7 +30,7 @@ object HCens extends DataInt2sCompanion[HCen, HCens]
   implicit val flatBuilderEv: ArrFlatBuilder[HCens] = new ArrInt2sFlatBuilder[HCen, HCens]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCens = new HCens(array)
-    override def fromIntBuffer(inp: Buff[Int]): HCenBuff = new HCenBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): HCenBuff = new HCenBuff(buffer)
   }
 }
 

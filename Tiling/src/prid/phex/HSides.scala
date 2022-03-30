@@ -30,7 +30,7 @@ object HSides extends DataInt2sCompanion[HSide, HSides]
   implicit val flatBuilderEv: ArrFlatBuilder[HSides] = new ArrInt2sFlatBuilder[HSide, HSides]
   { type BuffT = HSideBuff
     override def fromIntArray(array: Array[Int]): HSides = new HSides(array)
-    override def fromIntBuffer(inp: Buff[Int]): HSideBuff = new HSideBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): HSideBuff = new HSideBuff(buffer)
   }
 }
 

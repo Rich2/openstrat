@@ -53,7 +53,7 @@ object Coods extends DataInt2sCompanion[Cood, Coods]
   implicit val arrArrayImplicit: ArrFlatBuilder[Coods] = new ArrInt2sFlatBuilder[Cood, Coods]
   { type BuffT = CoodBuff
     override def fromIntArray(array: Array[Int]): Coods = new Coods(array)
-    override def fromIntBuffer(inp: Buff[Int]): CoodBuff = new CoodBuff(inp)
+    override def fromIntBuffer(buffer: Buff[Int]): CoodBuff = new CoodBuff(buffer)
   }
 }
 
