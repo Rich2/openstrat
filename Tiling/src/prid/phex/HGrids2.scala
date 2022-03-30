@@ -12,8 +12,8 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
   val gridMan1: HGridMan = new HGridMan(grid1, 0){
     //override def sides: HSides = HSides()
-    override def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] = (r, c) match {
-      case (r, c) if r == maxCenR & (c == maxC1 | c == maxC1 - 2) => Arr((HStepRt, HCen(r, c + grid2OffsetC + 4)), (HStepDR, HCen(r - 2, c + grid2OffsetC + 2)))
+    override def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] = (r, c) match
+    { case (r, c) if r == maxCenR & (c == maxC1 | c == maxC1 - 2) => Arr((HStepRt, HCen(r, c + grid2OffsetC + 4)), (HStepDR, HCen(r - 2, c + grid2OffsetC + 2)))
       case (r, c) if r == minCenR & (c == maxC1 | c == maxC1 - 2) => Arr((HStepUR, HCen(r + 2, c + grid2OffsetC + 2)), (HStepRt, HCen(r, c + grid2OffsetC + 4)))
       case (r, c) if c == maxC1 | c == maxC1 - 2 => Arr((HStepUR, HCen(r + 2, c + grid2OffsetC + 2)), (HStepRt, HCen(r, c + grid2OffsetC + 4)), (HStepDR, HCen(r - 2, c + grid2OffsetC + 2)))
       case _ => Arr()
@@ -27,6 +27,13 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
       case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.bottomSideR => true
       case HSide(r, c) if c <= grid.leftCenC => false
       case _ => true
+    }
+
+    override def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] = (r, c) match
+    { case (r, c) if r == maxCenR & (c == minC2 | c == minC2 + 2) => Arr((HStepLt, HCen(r, c - grid2OffsetC - 4)), (HStepDL, HCen(r - 2, c - grid2OffsetC - 2)))
+      case (r, c) if r == minCenR & (c == minC2 | c == minC2 + 2) => Arr((HStepUL, HCen(r + 2, c - grid2OffsetC - 2)), (HStepLt, HCen(r, c - grid2OffsetC - 4)))
+      case (r, c) if c == minC2 | c == minC2 + 2 => Arr((HStepUL, HCen(r + 2, c - grid2OffsetC - 2)), (HStepLt, HCen(r, c - grid2OffsetC - 4)), (HStepDL, HCen(r - 2, c - grid2OffsetC - 2)))
+      case _ => Arr()
     }
   }
 
@@ -45,13 +52,14 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   override def right: Double = grid1.right + grid2.width - 2
 
   override def hCoordToPt2(hCoord: HCoord): Pt2 = hCoord.c match
-  { case c if c >= (grid1.leftCenC - 2) & c <= (grid1.rightCenC + 2) => grid1.hCoordToPt2(hCoord)
-    case c if c >= (grid2.leftCenC - 2) & c <= (grid2.rightCenC + 2) => grid2.hCoordToPt2(hCoord) + grid2Offset
+  { case c if c >= (grid1.leftCenC - 2) & c <= (grid1.rightCenC + 4) => grid1.hCoordToPt2(hCoord)
+    case c if c >= (grid2.leftCenC - 4) & c <= (grid2.rightCenC + 2) => grid2.hCoordToPt2(hCoord) + grid2Offset
+    case c => excep(c.toString + " out of range in hCoordToPt2")
   }
 
   override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = (startHC, endHC) match {
-    case (shc, ehc) if grid1.hCenExists(shc) & grid1.hCenExists(ehc) => grid1.findStep(shc, ehc)
-    case (shc, ehc) if grid2.hCenExists(shc) & grid2.hCenExists(ehc) => grid2.findStep(shc, ehc)
+    case (shc, ehc) if grid1.hCenExists(shc) => gridMan1.findStep(shc, ehc)// & grid1.hCenExists(ehc) => grid1.findStep(shc, ehc)
+    case (shc, ehc) if grid2.hCenExists(shc) => gridMan2.findStep(shc, ehc)// & grid2.hCenExists(ehc) => grid2.findStep(shc, ehc)
     case (hc1, hc2) if hc1.c == grid1.rowRightCenC(hc1.c) & hc2.c == grid2.rowLeftCenC(hc1.c) => Some(HStepRt)
     case (hc1, hc2) if hc1.c == grid2.rowLeftCenC(hc1.c) & hc2.c == grid1.rowRightCenC(hc1.c) => Some(HStepLt)
     case _ => None
