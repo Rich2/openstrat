@@ -3,9 +3,9 @@ package ostrat; package prid; package phex
 
 /** An immutable Arr of Opt Tile data for a specific hex tile grid [[HGrid]]. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]]
  * coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[HGrid]] hex grid parameter. */
-class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileArrOpt[A]
+class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileArrOpt[A]
 {
-  def clone: HCenArrOpt[A] = new HCenArrOpt[A](unsafeArr.clone)
+  def clone: HCenOptDGrid[A] = new HCenOptDGrid[A](unsafeArr.clone)
 
   /** Sets the Some value of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def unsafeSetSome(r: Int, c: Int, value: A)(implicit grider: HGrider): Unit = unsafeArr(grider.arrIndex(r, c)) = value
@@ -22,17 +22,17 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
   def unsafeSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
-  def setSome(hc: HCen, value: A)(implicit grider: HGrider): HCenArrOpt[A] =
+  def setSome(hc: HCen, value: A)(implicit grider: HGrider): HCenOptDGrid[A] =
   { val newArr = unsafeArr.clone()
     newArr(grider.arrIndex(hc)) = value
-    new HCenArrOpt[A](newArr)
+    new HCenOptDGrid[A](newArr)
   }
 
   /** Creates a new ArrOpt with the specified location set to NoRef. */
-  def setNone(hc: HCen)(implicit grider: HGrider): HCenArrOpt[A] =
+  def setNone(hc: HCen)(implicit grider: HGrider): HCenOptDGrid[A] =
   { val newArr = unsafeArr.clone()
     newArr(grider.arrIndex(hc)) = null.asInstanceOf[A]
-    new HCenArrOpt[A](newArr)
+    new HCenOptDGrid[A](newArr)
   }
 
   /** Moves the object in the array location given by the 1st [[HCen]] to the 2nd [[HCen]], by setting hc2 to the value of hc1 and setting hc1 to
@@ -60,7 +60,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
     build.buffToBB(buff)
   }
 
-  /** Indexes in to this [[HCenArrOpt]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
+  /** Indexes in to this [[HCenOptDGrid]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
   def apply(hc: HCen)(implicit grider: HGrider): Option[A] =
   { if (!grider.hCenExists(hc)) None else
       { val elem = unsafeArr(grider.arrIndex(hc))
@@ -68,7 +68,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
       }
   }
 
-  /** Indexes in to this [[HCenArrOpt]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
+  /** Indexes in to this [[HCenOptDGrid]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
   def apply(r: Int, c: Int)(implicit grider: HGrider): Option[A] = {
     if (!grider.hCenExists(r, c)) None else {
       val elem = unsafeArr(grider.arrIndex(r, c))
@@ -98,9 +98,9 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
     build.buffToBB(buff)
   }
 
-  /** Maps the Somes of this [[HCenArrOpt]] and the Some values of a second HCenArrOpt. Returns an immutable Array based collection of type ArrC, the
+  /** Maps the Somes of this [[HCenOptDGrid]] and the Some values of a second HCenArrOpt. Returns an immutable Array based collection of type ArrC, the
    *  second type parameter. */
-  def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenArrOpt[B])(f: (A, B) => C)(implicit grider: HGrider, build: ArrBuilder[C, ArrC]): ArrC =
+  def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (A, B) => C)(implicit grider: HGrider, build: ArrBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
     grider.foreach { hc =>
@@ -116,7 +116,7 @@ class HCenArrOpt[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileA
 
   /** [[HCen]] with Some values from 2 [[HCenArrOpts]] map to type C. This only maps the values where both collections have Some values. Returns an
    *  immutable Array based collection of type ArrC, the second type parameter. */
-  def hcSome2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenArrOpt[B])(f: (HCen, A, B) => C)(implicit grider: HGrider, build: ArrBuilder[C, ArrC]):
+  def hcSome2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (HCen, A, B) => C)(implicit grider: HGrider, build: ArrBuilder[C, ArrC]):
     ArrC =
   { val buff = build.newBuff()
 

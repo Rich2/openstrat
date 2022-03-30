@@ -5,7 +5,7 @@ import pgui._, prid._, phex._, geom._, gPlay._
 case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapGui("Game Three Gui")
 { statusText = "Welcome to Game Three."
   val scen = scenStart
-  def terrs: HCenArr[Terr] = scen.terrs
+  def terrs: HCenDGrid[Terr] = scen.terrs
   var history: Arr[ThreeScen] = Arr(scen)
   implicit def grider: HGrid = scen.grider
   focus = grider.cenVec
@@ -18,7 +18,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
 
   val rows = terrs.rowCombine
   val hexs = rows.map{ hv => hv.polygonReg.fillActive(hv.value.colour, hv) }
-  def units: HCenArrOpt[Lunit] = scen.units
+  def units: HCenOptDGrid[Lunit] = scen.units
 
   /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
    *  data in the separate terrs array by use of the HCen coordinate.  */

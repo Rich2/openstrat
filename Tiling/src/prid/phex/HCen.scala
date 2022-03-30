@@ -36,8 +36,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TileCen
   /** Step to adjacent hex tile. */
   def stepOpt(st: HStep)(implicit grider: HGrider): Option[HCen] = {
 
-    val target = HCen(r + st.r, c + st.c)
-    ife(grider.hCenExists(target), Some(target), None)
+    /*val target =*/ grider.findStepHC(this, st)//  HCen(r + st.r, c + st.c)
+    //ife(grider.hCenExists(target), Some(target), None)
   }
 
   /** Returns a coordinate for this hex along with a step to an adjacent hex. */

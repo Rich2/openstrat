@@ -10,7 +10,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
   focus = grider.cenVec
 
   var cPScale: Double = grider.fullDisplayScale(mainWidth, mainHeight)
-  val terrs: HCenArr[ZugTerr] = scen.terrs
+  val terrs: HCenDGrid[ZugTerr] = scen.terrs
   val active: Arr[PolygonActive] = grider.map{ hc =>hc.polygonReg.active(hc) }
   val text: Arr[TextGraphic] = terrs.hcMap((hc, t) => hc.decText(14, t.contrastBW))
   val rows: Arr[PolygonFill] = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }

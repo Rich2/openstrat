@@ -17,6 +17,7 @@ object OneLaunch extends GuiLaunchMore
       case 3 => OneScen3
       case 4 => OneScen4
       case 5 => OneScen5
+      case 6 => OneScen6
       case _ => OneScen1
     }
     val oview: EMon[HGridView] = sts.findKeySetting[Int, HGridView](num)

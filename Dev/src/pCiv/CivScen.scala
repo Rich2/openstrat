@@ -6,8 +6,8 @@ import prid._, phex._, pEarth._, pgui._
 trait CivScen  extends HexGridScen
 {
   /** tile terrain. */
-  def terrs: HCenArr[Terrain]
-  val lunits: HCenArrArr[Warrior]
+  def terrs: HCenDGrid[Terrain]
+  val lunits: HCenArrDGrid[Warrior]
 }
 
 /** A Civ scenario state at turn 0. */
@@ -32,10 +32,10 @@ object CivLaunch extends GuiLaunchStd
 object Civ1 extends CivScenStart
 {
   override implicit val grider: HGrid = HGridReg(2, 14, 4, 40)
-  val terrs: HCenArr[Terrain] = grider.newTileArr[Terrain](Plains)
+  val terrs: HCenDGrid[Terrain] = grider.newTileArr[Terrain](Plains)
   terrs.completeRow(12, 20, Hilly, Mountains * 2, Plains * 3)
   terrs.completeRow(4, 4, Hilly * 3, Plains * 7)
-  val lunits: HCenArrArr[Warrior] = grider.newTileArrArr[Warrior]
+  val lunits: HCenArrDGrid[Warrior] = grider.newTileArrArr[Warrior]
   lunits.set(10, 18, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
 }
@@ -44,9 +44,9 @@ object Civ1 extends CivScenStart
 object Civ2 extends CivScenStart
 {
   override implicit val grider: HGrid = HGridReg(2, 8, 4, 20)
-  val terrs: HCenArr[Terrain] = grider.newTileArr[Terrain](Plains)
+  val terrs: HCenDGrid[Terrain] = grider.newTileArr[Terrain](Plains)
   terrs.completeRow(4, 4, Mountains * 3, Plains * 2)
-  val lunits: HCenArrArr[Warrior] = grider.newTileArrArr[Warrior]
+  val lunits: HCenArrDGrid[Warrior] = grider.newTileArrArr[Warrior]
   lunits.set(8, 16, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
 }

@@ -17,11 +17,11 @@ object ThreeLaunch extends GuiLaunchStd
 
 object ThreeScen1 extends ThreeScenStart
 { override implicit val grider: HGrid = HGridReg(2, 8, 2, 18)
-  override val terrs: HCenArr[Terr] = grider.newTileArr[Terr](Plain)
+  override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
   import terrs.{setRowPart => srp}
   srp(6, 2, 2, Water)
   srp(4, 4, 2, Woods)
-  val units: HCenArrOpt[Lunit] = grider.newTileArrOpt
+  val units: HCenOptDGrid[Lunit] = grider.newTileArrOpt
   units.unsafeSetSome(4, 4, Lunit(TeamA, HStepDR))
   units.unsafeSetSomes((4, 8, Lunit(TeamB, HStepLt, HStepDL)), (6, 10, Lunit(TeamA)))
 }
@@ -29,7 +29,7 @@ object ThreeScen1 extends ThreeScenStart
 /** 2nd Scenario of Game Three. Has a larger number of hexs. */
 object ThreeScen2 extends ThreeScenStart
 { override implicit val grider: HGrid = HGridReg(2, 20, 4, 60)
-  override val terrs: HCenArr[Terr] = grider.newTileArr[Terr](Plain)
+  override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
   import terrs.{setRowPart => sr}
   sr(6,6, 4, Water)
   sr(8,4, 5, Water)
@@ -38,7 +38,7 @@ object ThreeScen2 extends ThreeScenStart
   sr(14, 42, 3, Woods)
   sr(16, 44, 3, Woods)
   sr(18, 42, 3, Woods)
-  val units: HCenArrOpt[Lunit] = grider.newTileArrOpt
+  val units: HCenOptDGrid[Lunit] = grider.newTileArrOpt
   units.unsafeSetSome(4, 4, Lunit(TeamA))
 
 }
@@ -46,8 +46,8 @@ object ThreeScen2 extends ThreeScenStart
 /** 3rd Scenario of Game Three. Has a larger number of hexs. */
 object ThreeScen3 extends ThreeScenStart {
   override implicit val grider: HGridReg = HGridReg(2, 6, 2, 10)
-  override val terrs: HCenArr[Terr] = grider.newTileArr[Terr](Plain)
+  override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
 
   import terrs.{completeRow => sr}
-  val units: HCenArrOpt[Lunit] = grider.newTileArrOpt
+  val units: HCenOptDGrid[Lunit] = grider.newTileArrOpt
 }

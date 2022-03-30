@@ -2,8 +2,8 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
-/** An [[HCen]] hex tile centre grid Arr of [[ArrayBuffer]]s corresponding to the centres of an [[HGrid]] hex tile grid. */
-class HCenArrOfBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
+/** A data hex grid of [[HCenBuff]]. An [[HCen]] hex tile centre grid Arr of [[ArrayBuffer]]s corresponding to the centres of an [[HGrid]] hex tile grid. */
+class HCenBuffDGrid[A <: AnyRef](val unsafeArr: Array[Buff[A]])
 { /** Appends value to the array buffer at the given  [[HCen]]vlocation. */
   def appendAt(y: Int, c: Int, value: A)(implicit grider: HGrider): Unit = appendAt(HCen(y, c), value)
 
@@ -15,11 +15,11 @@ class HCenArrOfBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
 }
 
 /** Companion object for the hex (centres) grid Array of [[ArrayBuffer]] classes. */
-object HCenArrOfBuff
-{ /** Apply factory method, creates a new [[HCenArrOfBuff]] a hex grid Arr of ArrayBuffers, all of length 0. */
-  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenArrOfBuff[A] =
+object HCenBuffDGrid
+{ /** Apply factory method, creates a new [[HCenBuffDGrid]] a hex grid Arr of ArrayBuffers, all of length 0. */
+  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenBuffDGrid[A] =
   { val array = new Array[Buff[A]](length)
     iUntilForeach(0, array.length)(array(_) = new Buff[A])
-    new HCenArrOfBuff[A](array)
+    new HCenBuffDGrid[A](array)
   }
 }

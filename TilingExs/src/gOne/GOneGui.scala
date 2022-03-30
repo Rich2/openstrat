@@ -9,16 +9,16 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   var scen = scenStart
   var history: Arr[OneScen] = Arr(scen)
   implicit def grider: HGriderFlat = scen.grider
-  def players: HCenArrOpt[Player] = scen.oPlayers
+  def players: HCenOptDGrid[Player] = scen.oPlayers
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HCenArrOpt[HStep] = grider.newTileArrOpt[HStep]
+  def NoMoves: HCenOptDGrid[HStep] = grider.newTileArrOpt[HStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
-  var moves: HCenArrOpt[HStep] = NoMoves
+  var moves: HCenOptDGrid[HStep] = NoMoves
 
   val urect = Rect(1.4, 1)
 

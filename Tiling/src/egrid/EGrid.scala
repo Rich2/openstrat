@@ -9,4 +9,4 @@ abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
-class EScenBasic(val eGrid: EGridMain, val terrs: HCenArr[WTile])
+class EScenBasic(val eGrid: EGridMain, val terrs: HCenDGrid[WTile])

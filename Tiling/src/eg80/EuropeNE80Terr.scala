@@ -5,10 +5,10 @@ import egrid._, pEarth._, prid._, phex._, WTile._
 /** The new 80 Km grid for North East Europe, 15E to 45E. The c or column offset for 30E is 1536 which is 1G0 in base 32. Current y offset is 300 for
  *  the equator. The Old c offset was 400 so a diff of 1136. */
 object EuropeNE80Terr {
-  def apply(): HCenArr[WTile] =
+  def apply(): HCenDGrid[WTile] =
   {
     implicit val grid: HGridIrr = EGrid80Km.l30(446)
-    val terrs: HCenArr[WTile] = grid.newTileArr[WTile](sea)
+    val terrs: HCenDGrid[WTile] = grid.newTileArr[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
     gs(526, 1136 + 386, taiga * 4, sea * 7)
     gs(524, 1136 + 376, sea, taiga * 5, sea * 8)

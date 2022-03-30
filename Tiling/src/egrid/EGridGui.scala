@@ -10,7 +10,7 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
   var cPScale: Double = viewIn.pxScale
   def metresScale = cPScale / grider.cScale.mMetresNum
 
-  val terrs: HCenArr[WTile] = scen.terrs
+  val terrs: HCenDGrid[WTile] = scen.terrs
   def tiles = grider.map{ hc =>
     val str = grider.hCoordLL(hc).degStr --- hc.rcStr
     hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg)

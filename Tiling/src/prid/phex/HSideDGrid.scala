@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-class HSideArr[A <: AnyRef](val unsafeArr: Array[A])
+class HSideDGrid[A <: AnyRef](val unsafeArr: Array[A])
 {
 
 }

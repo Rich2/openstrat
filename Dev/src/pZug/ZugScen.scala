@@ -7,20 +7,20 @@ trait ZugScen extends HexGridScen
 { origSelf =>
 
   /** tile terrain. */
-  def terrs: HCenArr[ZugTerr]
+  def terrs: HCenDGrid[ZugTerr]
 
   def sTerrs: HSideBooleans
-  val lunits: HCenArrArr[Squad]
+  val lunits: HCenArrDGrid[Squad]
   def setSquadMove(r: Int, c: Int, polity: Polity, steps: HStep*): Unit = {}//lunits.set(r, c, Squad(polity, HSteps(steps :_*)))
 
   def endTurn(): ZugScen = new ZugScen
   {
     /** tile terrain. */
-    override def terrs: HCenArr[ZugTerr] = origSelf.terrs
+    override def terrs: HCenDGrid[ZugTerr] = origSelf.terrs
 
     override def sTerrs: HSideBooleans = origSelf.sTerrs
 
-    override val lunits: HCenArrArr[Squad] = origSelf.lunits
+    override val lunits: HCenArrDGrid[Squad] = origSelf.lunits
 
     override implicit val grider: HGrid = origSelf.grider
 
@@ -38,7 +38,7 @@ trait ZugScenStart extends ZugScen
 /** ZugFuhrer scenario 1. */
 object Zug1 extends ZugScenStart
 { override implicit val grider: HGrid = HGridReg(2, 14, 4, 48)
-  val terrs: HCenArr[ZugTerr] = grider.newTileArr[ZugTerr](Plain)
+  val terrs: HCenDGrid[ZugTerr] = grider.newTileArr[ZugTerr](Plain)
   def cr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.completeRow(yRow, cStart, tileValues :_*)(grider)
   cr(yRow = 12, cStart = 4, WheatField * 2, Plain * 10)
   cr(10, 6, WheatField, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding, Plain * 2)
@@ -51,7 +51,7 @@ object Zug1 extends ZugScenStart
   val wall1: HSides = HSides(14 hs 36, 13 hs 35, 12 hs 34, 11 hs 35, 10 hs 36)
   //sTerrs.setTrues(wall1)
 
-  val lunits: HCenArrArr[Squad] = grider.newTileArrArr[Squad]
+  val lunits: HCenArrDGrid[Squad] = grider.newTileArrArr[Squad]
   setSquadMove(2, 30, Britain, HStepLt, HStepLt)
   lunits.set(10, 38, Squad(Britain, Fire(6 hc 18)))
   setSquadMove(4, 32, Britain, HStepLt, HStepLt)
@@ -75,7 +75,7 @@ object Zug2 extends ZugScenStart
   gs(4, 4, Plain * 4, Lake, Hill, Plain * 3)
   gs(2, 6, Plain * 2, Lake * 2, Hill, Plain * 4)
   val sTerrs: HSideBooleans = grider.newSideBooleans
-  val lunits: HCenArrArr[Squad] = grider.newTileArrArr[Squad]
+  val lunits: HCenArrDGrid[Squad] = grider.newTileArrArr[Squad]
 }
 
 /** ZugFuhrer scenario 3. */

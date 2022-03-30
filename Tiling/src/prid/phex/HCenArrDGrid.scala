@@ -2,8 +2,8 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
-/** A Hex grid array class of [[Arr]]s. */
-class HCenArrArr[A](val unsafeArray: Array[Array[A]])
+/** A Hex grid data class of [[Arr]]s. */
+class HCenArrDGrid[A](val unsafeArray: Array[Array[A]])
 {
   def apply(hc: HCen)(implicit grid: HGrid): Arr[A] = new Arr(unsafeArray(grid.arrIndex(hc)))
   def apply(r: Int, c: Int)(implicit grid: HGrid): Arr[A] = new Arr(unsafeArray(grid.arrIndex(r, c)))

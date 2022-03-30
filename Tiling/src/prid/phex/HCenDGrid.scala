@@ -6,7 +6,7 @@ import reflect.ClassTag
  * ordinary linear sequence array of data. Whether in a game or a non game application the data of the grid tiles is likely to change much more
  * frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data should be set and retrieved
  * through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
-class HCenArr[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TileCenArr[A]
+class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TileCenArr[A]
 {
   def apply(hc: HCen)(implicit grider: HGrider): A = unsafeArray(grider.arrIndex(hc))
   def rc(r: Int, c: Int)(implicit grid: HGrid): A = unsafeArray(grid.arrIndex(r, c))
@@ -107,8 +107,8 @@ class HCenArr[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TileCe
   }
 }
 
-/** Companion object for [[HCenArr]], contains an apply factory method. */
-object HCenArr
-{ /** Apply factory method for [[HCenArr]]s. */
-  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenArr[A] = new HCenArr[A](new Array[A](length))
+/** Companion object for [[HCenDGrid]], contains an apply factory method. */
+object HCenDGrid
+{ /** Apply factory method for [[HCenDGrid]]s. */
+  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenDGrid[A] = new HCenDGrid[A](new Array[A](length))
 }

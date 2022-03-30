@@ -25,7 +25,7 @@ trait HGrider extends Any with TGrider
   def findStep(startHC: HCen, endHC: HCen): Option[HStep]
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  def findStepHC(startHC: HCen, step: HStep): OptRef[HCen] = ???
+  def findStepHC(startHC: HCen, step: HStep): Option[HCen]// = ???
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
@@ -46,8 +46,8 @@ trait HGrider extends Any with TGrider
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
   def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit
 
-  /** Creates a new [[HCenArrOfBuff]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
-  final def newHCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOfBuff[A] = HCenArrOfBuff(numTiles)
+  /** Creates a new [[HCenBuffDGrid]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
+  final def newHCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): HCenBuffDGrid[A] = HCenBuffDGrid(numTiles)
 
   /** Maps over the [[HCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
    *  corresponding to the standard Scala map function of A => B. */
@@ -66,22 +66,22 @@ trait HGrider extends Any with TGrider
   }
 
   /** New immutable Arr of Tile data. */
-  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenArr[A] =
-  { val res = HCenArr[A](numTiles)
+  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenDGrid[A] =
+  { val res = HCenDGrid[A](numTiles)
     res.mutSetAll(value)
     res
   }
 
   /** New immutable Arr of Tile data. */
-  final def newTileArrArr[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrArr[A] =
+  final def newTileArrArr[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrDGrid[A] =
   { val newArray = new Array[Array[A]](numTiles)
     val init: Array[A] = Array()
     iUntilForeach(0, numTiles)(newArray(_) = init)
-    new HCenArrArr[A](newArray)
+    new HCenArrDGrid[A](newArray)
   }
 
   /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrOpt[A] = new HCenArrOpt(new Array[A](numTiles))
+  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenOptDGrid[A] = new HCenOptDGrid(new Array[A](numTiles))
 
   /** The number of Sides in the TileGrid. Needs reimplementing.
    *  @group SidesGroup */

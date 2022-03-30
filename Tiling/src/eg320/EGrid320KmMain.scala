@@ -19,10 +19,10 @@ object EGrid320Km
 
 object Terr00
 {
-  def apply(): HCenArr[WTile] =
+  def apply(): HCenDGrid[WTile] =
   {
     implicit val grid: EGrid320KmMain = EGrid320Km.l0(144)
-    val terrs: HCenArr[WTile] = grid.newTileArr[WTile](sea)
+    val terrs: HCenDGrid[WTile] = grid.newTileArr[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
    // gs(518, 96, taiga)
     terrs
