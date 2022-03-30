@@ -2,10 +2,10 @@
 package ostrat; package prid; package phex
 import ostrat.geom._
 
-case class HGridMan(grid: HGrid, arrIndex: Int)
+abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
 { def numTiles: Int = grid.numTiles
   final def outSteps(hCen: HCen): Arr[(HStep, HCen)] = outSteps(hCen.r, hCen.c)
-  def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] = Arr()
+  def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] //= Arr()
   def sides: HSides = grid.sides
   val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
