@@ -92,20 +92,3 @@ object HCenStep
 { def apply(hCen: HCen, step: HStep): HCenStep = new HCenStep(hCen.r, hCen.c, step.intValue)
   def apply(r: Int, c: Int, step: HStep): HCenStep = new HCenStep(r, c, step.intValue)
 }
-
-/** Hex centre origin and hex step. */
-class HStepCen(val stepInt: Int, val r2: Int, val c2: Int) extends ElemInt3
-{ def step: HStep = HStep.fromInt(stepInt)
-
-  /** The Starting hex centre. */
-  def endHC: HCen = HCen(r2, c2)
-
-  override def int1: Int = stepInt
-  override def int2: Int = r2
-  override def int3: Int = c2
-}
-
-object HStepCen
-{ def apply(step: HStep, hCen: HCen): HStepCen = new HStepCen(step.intValue, hCen.r, hCen.c)
-  def apply(step: HStep, r: Int, c: Int): HStepCen = new HStepCen(step.intValue, r, c)
-}

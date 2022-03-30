@@ -40,8 +40,13 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
     { case (r, c) if r == maxCenR & c == minC2 => Arr((HStepLt, HCen(r, c + grid2OffsetC - 4)), (HStepDL, HCen(r - 2, c + grid2OffsetC - 2)))
       case (r, c) if r == maxCenR & c == minC2 + 2 => Arr((HStepLt, HCen(r, c + grid2OffsetC - 4)))
 
-      case (r, c) if r == minCenR & (c == minC2 | c == minC2 + 2) => Arr((HStepUL, HCen(r + 2, c - grid2OffsetC - 2)), (HStepLt, HCen(r, c - grid2OffsetC - 4)))
-      case (r, c) if c == minC2 | c == minC2 + 2 => Arr((HStepUL, HCen(r + 2, c - grid2OffsetC - 2)), (HStepLt, HCen(r, c - grid2OffsetC - 4)), (HStepDL, HCen(r - 2, c - grid2OffsetC - 2)))
+      case (r, c) if r == minCenR & c == minC2 => Arr((HStepUL, HCen(r + 2, c - grid2OffsetC - 2)), (HStepLt, HCen(r, c - grid2OffsetC - 4)))
+      case (r, c) if r == minCenR & c == minC2 + 2 => Arr((HStepLt, HCen(r, c - grid2OffsetC - 4)))
+
+      case (r, c) if c == minC2 => Arr((HStepUL, HCen(r + 2, c + grid2OffsetC - 2)), (HStepLt, HCen(r, c + grid2OffsetC - 4)),
+        (HStepDL, HCen(r - 2, c + grid2OffsetC - 2)))
+      case (r, c) if c == minC2 + 2 => Arr((HStepLt, HCen(r, c + grid2OffsetC - 4)))
+
       case _ => Arr()
     }
   }
