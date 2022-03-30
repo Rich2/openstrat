@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
+import scala.collection.mutable.ArrayBuffer
+
 /** Hex centre origin and hex step. */
 class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends ElemInt3
 { /** The Starting hex centre. */
@@ -18,7 +20,11 @@ object HCenStep
 { def apply(hCen: HCen, step: HStep): HCenStep = new HCenStep(hCen.r, hCen.c, step.intValue)
   def apply(r: Int, c: Int, step: HStep): HCenStep = new HCenStep(r, c, step.intValue)
 
-  //implicit val
+  implicit val buildEv: Int3ArrBuilder[HCenStep, HCenStepArr] = new Int3ArrBuilder[HCenStep, HCenStepArr]{
+    override type BuffT = HCenStepBuff
+    override def fromIntArray(array: Array[Int]): HCenStepArr = new HCenStepArr(array)
+    override def fromIntBuffer(buffer: Buff[Int]): HCenStepBuff = HCenStepBuff()
+  }
 }
 
 class HCenStepArr(val unsafeArray: Array[Int]) extends Int3Arr[HCenStep]
@@ -38,4 +44,8 @@ class HCenStepBuff(val unsafeBuffer: Buff[Int]) extends Int3Buff[HCenStep]
   override type ArrT = HCenStepArr
   override def typeStr: String = "HCenStepBuff"
   override def sdElem(i1: Int, i2: Int, i3: Int): HCenStep = new HCenStep(i1, i2, i3)
+}
+
+object HCenStepBuff{
+  def apply(initLen: Int = 4) = new HCenStepBuff(new ArrayBuffer[Int](initLen * 3))
 }
