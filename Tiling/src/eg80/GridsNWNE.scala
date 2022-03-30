@@ -4,11 +4,11 @@ import prid._, phex._, egrid._, geom.pglobe._
 
 object GridsNWNE extends HGridMulti {
   val gridMan1 = new HGridMan(EGrid80Km.l0b446, 0)
-  { override def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] = Arr()
+  { override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
   val gridMan2 = new HGridMan(EGrid80Km.l30b446, gridMan1.numTiles)
-  { override def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] = Arr()
+  { override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
   override def gridMans: Arr[HGridMan] = Arr(gridMan1, gridMan1)

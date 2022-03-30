@@ -13,6 +13,11 @@ class HStepCen(val stepInt: Int, val r2: Int, val c2: Int) extends ElemInt3
   override def int1: Int = stepInt
   override def int2: Int = r2
   override def int3: Int = c2
+
+  override def equals(obj: Any): Boolean = obj match {
+    case hsc: HStepCen => stepInt == hsc.stepInt & r2 == hsc.r2 & c2 == hsc.c2
+    case _ => false
+  }
 }
 
 object HStepCen
@@ -36,6 +41,23 @@ class HStepCenArr(val unsafeArray: Array[Int]) extends Int3Arr[HStepCen]
 
 object HStepCenArr extends  Int3SeqDefCompanion[HStepCen, HStepCenArr]
 { override def fromArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
+
+  /** Apply factory method */
+  def apply(elems: (HStep, Int, Int)*): HStepCenArr =
+  { val arrLen: Int = elems.length * 3
+    val array: Array[Int] = new Array[Int](arrLen)
+    var count: Int = 0
+
+    while (count < arrLen)
+    { array(count) = elems(count / 3)._1.intValue
+      count += 1
+      array(count) = elems(count / 3)._2
+      count += 1
+      array(count) = elems(count / 3)._3
+      count += 1
+    }
+    new HStepCenArr(array)
+  }
 
   implicit val flatBuildEv: Int3ArrFlatBuilder[HStepCen, HStepCenArr] = new Int3ArrFlatBuilder[HStepCen, HStepCenArr]{
     override type BuffT = HStepCenBuff

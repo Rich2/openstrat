@@ -19,7 +19,7 @@ object HGridTest extends TestSuite
       g2.unsafeGetMan(4, 4).grid.leftCenC ==> 2
       g2.unsafeGetMan(4, 4).grid.hCenExists(4, 100) ==> false
       g2.unsafeGetMan(4, 4).outSteps(4, 4).length ==> 1
-      g2.unsafeGetMan(4, 4).outSteps(4, 4)(0) ==> (HStepRt, HCen(4, 100))
+      g2.unsafeGetMan(4, 4).outSteps(4, 4)(0) ==> HStepCen(HStepRt, 4, 100)
       g2.findStep(4, 4, 4, 100) ==> Some(HStepRt)
       g2.findStep(6, 6, 6, 102) ==> Some(HStepRt)
     }

@@ -4,19 +4,19 @@ import ostrat.geom._
 
 abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
 { def numTiles: Int = grid.numTiles
-  final def outSteps(hCen: HCen): Arr[(HStep, HCen)] = outSteps(hCen.r, hCen.c)
-  def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] //= Arr()
+  final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
+  def outSteps(r: Int, c: Int): HStepCenArr
   def sides: HSides = grid.sides
   val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
 
-  def hCenSteps(hCen: HCen): HStepArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_._1)
+  def hCenSteps(hCen: HCen): HStepArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 
   /** Default implementation may need removal. */
   def adjTilesOfTile(tile: HCen): HCens = grid.adjTilesOfTile(tile)
 
   def findStep(startHC: HCen, endHC: HCen): Option[HStep] =
-    if(grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_._2 == endHC).map(_._1)
+    if(grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_.endHC == endHC).map(_.step)
 }
 
 trait HGridMulti extends HGrider
