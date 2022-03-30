@@ -13,7 +13,7 @@ trait OneScen extends HexGriderFlatScen
   {
     val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
-    val targets2: HCenArrOfBuff[HexAndStep] = grider.newHCenArrOfBuff
+    val targets2: HCenArrOfBuff[HCenStep] = grider.newHCenArrOfBuff
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
     val targets: HCenArrOfBuff[HStep] = grider.newHCenArrOfBuff

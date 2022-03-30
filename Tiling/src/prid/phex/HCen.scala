@@ -41,7 +41,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TileCen
   }
 
   /** Returns a coordinate for this hex along with a step to an adjacent hex. */
-  def andStep(hcs: HStep): HexAndStep = HexAndStep(r, c, hcs)
+  def andStep(hcs: HStep): HCenStep = HCenStep(r, c, hcs)
 
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 

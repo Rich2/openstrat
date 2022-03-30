@@ -79,15 +79,33 @@ case object HStepUL extends HStep
   override def reverse: HStep = HStepDR
 }
 
-/** Hex centre coordinate and hex step. */
-case class HexAndStep(r1: Int, c1: Int, step: HStep)
+/** Hex centre origin and hex step. */
+class HCenStep(val r1: Int, val c1: Int, val stepInt: Int)
 { /** The Starting hex centre. */
   def hc1: HCen = HCen(r1, c1)
-
+  def step: HStep = HStep.fromInt(stepInt)
   /** The destination hex centre. */
-  def hc2: HCen = HCen(r1 + step.r, c1 + step.c)
+  def endHC(implicit grider: HGrider): HCen = HCen(r1 + step.r, c1 + step.c)
 }
 
-object HexAndStep
-{ def apply(hCen: HCen, step: HStep): HexAndStep = new HexAndStep(hCen.r, hCen.c, step)
+object HCenStep
+{ def apply(hCen: HCen, step: HStep): HCenStep = new HCenStep(hCen.r, hCen.c, step.intValue)
+  def apply(r: Int, c: Int, step: HStep): HCenStep = new HCenStep(r, c, step.intValue)
+}
+
+/** Hex centre origin and hex step. */
+class HStepCen(val stepInt: Int, val r2: Int, val c2: Int) extends ElemInt3
+{ def step: HStep = HStep.fromInt(stepInt)
+
+  /** The Starting hex centre. */
+  def endHC: HCen = HCen(r2, c2)
+
+  override def int1: Int = stepInt
+  override def int2: Int = r2
+  override def int3: Int = c2
+}
+
+object HStepCen
+{ def apply(step: HStep, hCen: HCen): HStepCen = new HStepCen(step.intValue, hCen.r, hCen.c)
+  def apply(step: HStep, r: Int, c: Int): HStepCen = new HStepCen(step.intValue, r, c)
 }
