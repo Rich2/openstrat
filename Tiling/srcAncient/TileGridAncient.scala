@@ -258,7 +258,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
   /** For all Sides call side effecting function on the Tile side's Cood. */
   @inline final def foreachSidesCoodAll(f: Cood => Unit): Unit = foreachSidesXYAll((x, y) => f(Cood(x, y)))
   
-  def foreachSideCoodPDMapAll[A <: ElemValueN, M <: ValueNArr[A]](f: Cood => A)(implicit ev: DataValueNsPersist[A, M]): M =
+  def foreachSideCoodPDMapAll[A <: ElemValueN, M <: ValueNArr[A]](f: Cood => A)(implicit ev: ValueNSeqDefPersist[A, M]): M =
   {
     val acc: ArrayBuffer[ev.VT] = ev.newBuffer
     foreachSidesCoodAll(c => ev.appendtoBuffer(acc, f (c)))      

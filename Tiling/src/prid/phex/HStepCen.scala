@@ -32,6 +32,10 @@ class HStepCenArr(val unsafeArray: Array[Int]) extends Int3Arr[HStepCen]
   override def unsafeFromArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
   override def fElemStr: HStepCen => String = _.toString
   override def typeStr: String = "HStepCens"
+}
+
+object HStepCenArr extends  Int3SeqDefCompanion[HStepCen, HStepCenArr]
+{ override def fromArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
 
   implicit val flatBuildEv: Int3ArrFlatBuilder[HStepCen, HStepCenArr] = new Int3ArrFlatBuilder[HStepCen, HStepCenArr]{
     override type BuffT = HStepCenBuff

@@ -70,7 +70,7 @@ trait Int3Buff[A <: ElemInt3] extends Any with IntNBuff[A]
 }
 
 /** Helper class for companion objects of final Int3sArr classes. */
-abstract class DataInt3sCompanion[A <: ElemInt3, ArrA <: Int3SeqDef[A]] extends DataIntNsCompanion[A, ArrA]
+abstract class Int3SeqDefCompanion[A <: ElemInt3, ArrA <: Int3SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
 {
   override def elemProdSize: Int = 3
 

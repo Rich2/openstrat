@@ -66,7 +66,7 @@ trait ValueNBuff[A <: ElemValueN] extends Any with SeqGen[A]
 }
 
 /** Class to Persist specialised for [[DatValueNs]] cLasses. */
-trait DataValueNsPersist[A <: ElemValueN, M <: ValueNSeqDef[A]] extends PersistCompound[M]
+trait ValueNSeqDefPersist[A <: ElemValueN, M <: ValueNSeqDef[A]] extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT
   def appendtoBuffer(buf: Buff[VT], value: A): Unit
@@ -76,16 +76,16 @@ trait DataValueNsPersist[A <: ElemValueN, M <: ValueNSeqDef[A]] extends PersistC
 }
 
 /** Helper trait for companion objects of [[ValueNSeqDef]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
-trait DataValueNsCompanion[A <: ElemValueN, ArrA <: ValueNSeqDef[A]]
+trait ValueNSeqDefCompanion[A <: ElemValueN, AA <: ValueNSeqDef[A]]
 { /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
-  def uninitialised(length: Int): ArrA
+  def uninitialised(length: Int): AA
 
   /** the product size of the ValueNsArr type's elements. */
   def elemProdSize: Int
 
   /** This method allows you to map from a DataGen to the ArrA type. */
-  final def dataGenMap[T](alb: SeqDefGen[T])(f: T => A): ArrA = {
-    val res = uninitialised(alb.dataLength)
+  final def dataGenMap[T](alb: SeqDefGen[T])(f: T => A): AA =
+  { val res = uninitialised(alb.dataLength)
     var count = 0
     alb.dataForeach { t =>
       res.unsafeSetElem(count, f(t))

@@ -3,7 +3,7 @@ package ostrat
 import Colour._, collection.mutable.ArrayBuffer
 
 /** Specialist Arr, immutable sequence Array[Int] based class for [[Colour]]s. */
-final class Colours(val unsafeArray: Array[Int]) extends AnyVal with ArrInt1s[Colour]
+final class Colours(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[Colour]
 { type ThisT = Colours
   override def unsafeFromArray(array: Array[Int]): Colours = new Colours(array)
   override def typeStr: String = "Colours"
@@ -36,7 +36,7 @@ object Colours
 
   /** All the named colours. */
   def allNamed: Colours = strToValue.mapArr[Colour, Colours]{case (_, c) => c }
-  implicit val arrFlatBuildImplicit: ArrFlatBuilder[Colours] = new ArrInt1sFlatBuilder[Colour, Colours]
+  implicit val arrFlatBuildImplicit: ArrFlatBuilder[Colours] = new Int1ArrFlatBuilder[Colour, Colours]
   { type BuffT = ColourBuff
     override def fromIntArray(array: Array[Int]): Colours = new Colours(array)
     override def fromIntBuffer(buffer: Buff[Int]): ColourBuff = new ColourBuff(buffer)

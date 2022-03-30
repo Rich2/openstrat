@@ -117,7 +117,7 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 }
 
 /** Helper trait for Companion objects of [[ArrDblNs]] classes. */
-trait DataDblNsCompanion[A <: ElemDblN, ArrA <: DblNSeqDef[A]] extends DataValueNsCompanion[A, ArrA]
+trait DataDblNsCompanion[A <: ElemDblN, ArrA <: DblNSeqDef[A]] extends ValueNSeqDefCompanion[A, ArrA]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArrayDbl(array: Array[Double]): ArrA
 
@@ -128,7 +128,7 @@ trait DataDblNsCompanion[A <: ElemDblN, ArrA <: DblNSeqDef[A]] extends DataValue
 }
 
 /** Persists [[ArrDblNs]]s. */
-trait DataDblNsPersist[A <: ElemDblN, M <: DblNSeqDef[A]] extends DataValueNsPersist[A, M] with EqT[M]
+trait DataDblNsPersist[A <: ElemDblN, M <: DblNSeqDef[A]] extends ValueNSeqDefPersist[A, M] with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

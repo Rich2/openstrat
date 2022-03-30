@@ -20,7 +20,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
     val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour, terrs(hc).colour).slate(hc.toPt2Reg)
 
     val actions: GraphicElems = squad.action match
-    { case mv: HSteps => mv.segsMap(hc)(_.draw())
+    { case mv: HStepArr => mv.segsMap(hc)(_.draw())
       case Fire(target) => Arr(LineSegHC(hc, target).lineSeg.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }

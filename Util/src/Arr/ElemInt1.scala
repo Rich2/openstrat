@@ -1,7 +1,7 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from a single [[Int]]. These are used in [[ArrInt1s]] Array[Int] based collections. */
+/** An object that can be constructed from a single [[Int]]. These are used in [[Int1Arr]] Array[Int] based collections. */
 trait ElemInt1 extends Any with ElemIntN
 { def intValue: Int
   @inline def int1 : Int = intValue
@@ -17,7 +17,7 @@ trait Int1SeqDef[A <: ElemInt1] extends Any with IntNSeqDef[A]
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */
-trait ArrInt1s[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqDef[A]
+trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqDef[A]
 {
   final override def length: Int = unsafeArray.length
 
@@ -50,7 +50,7 @@ trait ArrInt1s[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqDef[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
  *  the B in ```map(f: A => B): ArrB``` function. */
-trait ArrInt1sBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends IntNArrBuilder[A, ArrT]
+trait Int1ArrBuilder[A <: ElemInt1, ArrT <: Int1Arr[A]] extends IntNArrBuilder[A, ArrT]
 { type BuffT <: Int1Buff[A]
 
   final override def elemProdSize: Int = 1
@@ -62,7 +62,7 @@ trait ArrInt1sBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends IntNArrBuilder
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ArrInt1sFlatBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends IntNArrFlatBuilder[A, ArrT]
+trait Int1ArrFlatBuilder[A <: ElemInt1, ArrT <: Int1Arr[A]] extends IntNArrFlatBuilder[A, ArrT]
 { type BuffT <: Int1Buff[A]
 
   final override def elemProdSize: Int = 1
@@ -73,7 +73,7 @@ trait ArrInt1sFlatBuilder[A <: ElemInt1, ArrT <: ArrInt1s[A]] extends IntNArrFla
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt1]]s collections. */
 trait Int1Buff[A <: ElemInt1] extends Any with IntNBuff[A]
-{ type ArrT <: ArrInt1s[A]
+{ type ArrT <: Int1Arr[A]
   final override def length: Int = unsafeBuffer.length
   def intToT(value: Int): A
   def indexData(i1: Int): A = intToT(unsafeBuffer(i1))

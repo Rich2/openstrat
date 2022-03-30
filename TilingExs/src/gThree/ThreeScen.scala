@@ -31,7 +31,7 @@ trait ThreeScen extends HexGridScen
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def endTurn(orderList: Arr[(Lunit, HSteps)]): ThreeScen =
+  def endTurn(orderList: Arr[(Lunit, HStepArr)]): ThreeScen =
   {
     val playersKey: Map[Lunit, HCen] = units.keyMap
 

@@ -14,7 +14,7 @@ trait HGrider extends Any with TGrider
   /** Boolean. True if the specified hex centre exists in this hex grid. */
   def hCenExists(r: Int, c:Int): Boolean
 
-  def hCenSteps(hCen: HCen): HSteps
+  def hCenSteps(hCen: HCen): HStepArr
 
   def unsafeStep(startCen: HCen, step: HStep): HCen
 

@@ -60,7 +60,7 @@ trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
 }
 
 /** Helper class for companion objects of final Int2sArr classes. */
-abstract class DataInt2sCompanion[A <: ElemInt2, ArrA <: Int2SeqDef[A]] extends DataIntNsCompanion[A, ArrA]
+abstract class DataInt2sCompanion[A <: ElemInt2, ArrA <: Int2SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
 {
   override def elemProdSize: Int = 2
 

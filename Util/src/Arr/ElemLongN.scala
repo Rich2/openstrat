@@ -26,14 +26,14 @@ trait BuffLongNs[A <: ElemLongN] extends Any with ValueNBuff[A]
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[ArrLongNs]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait LongNsArrBuilders[B <: ElemLongN, ArrB <: ArrLongNs[B]] extends DataValueNsPersist[B, ArrB]
+trait LongNsArrBuilders[B <: ElemLongN, ArrB <: ArrLongNs[B]] extends ValueNSeqDefPersist[B, ArrB]
 { type VT = Long
   override def fromBuffer(buf: Buff[Long]): ArrB = fromArray(buf.toArray)
   override def newBuffer: Buff[Long] = Buff[Long](0)
 }
 
 /** Helper trait for Companion objects of [[ArrLongNs]] classes. */
-trait ArrLongNsCompanion[A <: ElemLongN, ArrA <: ArrLongNs[A]] extends DataValueNsCompanion[A, ArrA]
+trait ArrLongNsCompanion[A <: ElemLongN, ArrA <: ArrLongNs[A]] extends ValueNSeqDefCompanion[A, ArrA]
 { def fromBuffer(buff: Buff[Long]): ArrA = fromArray(buff.toArray[Long])
   //val factory: Int => M
   def fromArray(array: Array[Long]): ArrA
