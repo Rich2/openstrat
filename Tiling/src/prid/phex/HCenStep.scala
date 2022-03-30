@@ -17,6 +17,8 @@ class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends ElemInt3
 object HCenStep
 { def apply(hCen: HCen, step: HStep): HCenStep = new HCenStep(hCen.r, hCen.c, step.intValue)
   def apply(r: Int, c: Int, step: HStep): HCenStep = new HCenStep(r, c, step.intValue)
+
+  //implicit val
 }
 
 class HCenStepArr(val unsafeArray: Array[Int]) extends Int3Arr[HCenStep]
@@ -29,4 +31,11 @@ class HCenStepArr(val unsafeArray: Array[Int]) extends Int3Arr[HCenStep]
 
 object HCenStepArr extends Int3SeqDefCompanion[HCenStep, HCenStepArr]
 { override def fromArray(array: Array[Int]): HCenStepArr = new HCenStepArr(array)
+}
+
+class HCenStepBuff(val unsafeBuffer: Buff[Int]) extends Int3Buff[HCenStep]
+{ override type ThisT = HCenStepBuff
+  override type ArrT = HCenStepArr
+  override def typeStr: String = "HCenStepBuff"
+  override def sdElem(i1: Int, i2: Int, i3: Int): HCenStep = new HCenStep(i1, i2, i3)
 }
