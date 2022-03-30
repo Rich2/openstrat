@@ -13,5 +13,5 @@ object GridsNWNE extends HGridMulti {
 
   override def adjTilesOfTile(tile: HCen): HCens = ???
 
-  override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
+  //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
 }

@@ -13,9 +13,16 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   val gridMan1: HGridMan = new HGridMan(grid1, 0){
     //override def sides: HSides = HSides()
     override def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] = (r, c) match
-    { case (r, c) if r == maxCenR & (c == maxC1 | c == maxC1 - 2) => Arr((HStepRt, HCen(r, c + grid2OffsetC + 4)), (HStepDR, HCen(r - 2, c + grid2OffsetC + 2)))
-      case (r, c) if r == minCenR & (c == maxC1 | c == maxC1 - 2) => Arr((HStepUR, HCen(r + 2, c + grid2OffsetC + 2)), (HStepRt, HCen(r, c + grid2OffsetC + 4)))
-      case (r, c) if c == maxC1 | c == maxC1 - 2 => Arr((HStepUR, HCen(r + 2, c + grid2OffsetC + 2)), (HStepRt, HCen(r, c + grid2OffsetC + 4)), (HStepDR, HCen(r - 2, c + grid2OffsetC + 2)))
+    { case (r, c) if r == maxCenR & c == maxC1 => Arr((HStepRt, HCen(r, c - grid2OffsetC + 4)), (HStepDR, HCen(r - 2, c - grid2OffsetC + 2)))
+      case (r, c) if r == maxCenR & c == maxC1 - 2 => Arr((HStepRt, HCen(r, c - grid2OffsetC + 4)))
+
+      case (r, c) if r == minCenR & c == maxC1 => Arr((HStepUR, HCen(r + 2, c - grid2OffsetC + 2)), (HStepRt, HCen(r, c - grid2OffsetC + 4)))
+      case (r, c) if r == minCenR & c == maxC1 - 2 => Arr((HStepRt, HCen(r, c - grid2OffsetC + 4)))
+
+      case (r, c) if c == maxC1 => Arr((HStepUR, HCen(r + 2, c - grid2OffsetC + 2)), (HStepRt, HCen(r, c - grid2OffsetC + 4)),
+        (HStepDR, HCen(r - 2, c - grid2OffsetC - 2)))
+
+      case (r, c) if c == maxC1 - 2 => Arr((HStepRt, HCen(r, c - grid2OffsetC + 4)))
       case _ => Arr()
     }
   }
@@ -57,13 +64,13 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
     case c => excep(c.toString + " out of range in hCoordToPt2")
   }
 
-  override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = (startHC, endHC) match {
+  /*override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = (startHC, endHC) match {
     case (shc, ehc) if grid1.hCenExists(shc) => gridMan1.findStep(shc, ehc)// & grid1.hCenExists(ehc) => grid1.findStep(shc, ehc)
     case (shc, ehc) if grid2.hCenExists(shc) => gridMan2.findStep(shc, ehc)// & grid2.hCenExists(ehc) => grid2.findStep(shc, ehc)
     case (hc1, hc2) if hc1.c == grid1.rowRightCenC(hc1.c) & hc2.c == grid2.rowLeftCenC(hc1.c) => Some(HStepRt)
     case (hc1, hc2) if hc1.c == grid2.rowLeftCenC(hc1.c) & hc2.c == grid1.rowRightCenC(hc1.c) => Some(HStepLt)
     case _ => None
-  }
+  }*/
 }
 
 object HGrids2

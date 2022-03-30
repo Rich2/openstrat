@@ -15,7 +15,8 @@ case class HGridMan(grid: HGrid, arrIndex: Int)
   /** Default implementation may need removal. */
   def adjTilesOfTile(tile: HCen): HCens = grid.adjTilesOfTile(tile)
 
-  def findStep(startHC: HCen, endHC: HCen): Option[HStep] = if(grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_._2 == endHC).map(_._1)
+  def findStep(startHC: HCen, endHC: HCen): Option[HStep] =
+    if(grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_._2 == endHC).map(_._1)
 }
 
 trait HGridMulti extends HGrider
@@ -60,7 +61,7 @@ trait HGridMulti extends HGrider
 
   override def unsafeStep(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.r, startCen.c + step.c)
   def hCenSteps(hCen: HCen): HSteps = unsafeGetManFunc(hCen)(_.hCenSteps(hCen))
-  override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
+  final override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
 
   final override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.arrIndex + man.grid.arrIndex(r, c) }
 
