@@ -1,8 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** An immutable Arr of Opt Tile data for a specific hex tile grid [[HGrid]]. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]]
- * coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[HGrid]] hex grid parameter. */
+/** A [[HGrider]] data grid of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to the
+ *  index of the Arr. Hence most methods take an implicit [[HGrider]] hex grid parameter. */
 class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileArrOpt[A]
 {
   def clone: HCenOptDGrid[A] = new HCenOptDGrid[A](unsafeArr.clone)

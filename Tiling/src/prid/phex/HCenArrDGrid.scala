@@ -5,15 +5,15 @@ import reflect.ClassTag
 /** A Hex grid data class of [[Arr]]s. */
 class HCenArrDGrid[A](val unsafeArray: Array[Array[A]])
 {
-  def apply(hc: HCen)(implicit grid: HGrid): Arr[A] = new Arr(unsafeArray(grid.arrIndex(hc)))
-  def apply(r: Int, c: Int)(implicit grid: HGrid): Arr[A] = new Arr(unsafeArray(grid.arrIndex(r, c)))
+  def apply(hc: HCen)(implicit grider: HGrider): Arr[A] = new Arr(unsafeArray(grider.arrIndex(hc)))
+  def apply(r: Int, c: Int)(implicit grider: HGrider): Arr[A] = new Arr(unsafeArray(grider.arrIndex(r, c)))
 
-  def set(r: Int, c: Int, value: A)(implicit grid: HGrid, ct: ClassTag[A]): Unit = set(HCen(r, c), value)
+  def set(r: Int, c: Int, value: A)(implicit grider: HGrider, ct: ClassTag[A]): Unit = set(HCen(r, c), value)
 
-  def set(hc: HCen, values: A*)(implicit grid: HGrid, ct: ClassTag[A]): Unit =
+  def set(hc: HCen, values: A*)(implicit grider: HGrider, ct: ClassTag[A]): Unit =
   { val newElem: Array[A] = new Array[A](values.length)
     values.iForeach((i, v) => newElem(i) = v)
-    unsafeArray(grid.arrIndex(hc)) = newElem
+    unsafeArray(grider.arrIndex(hc)) = newElem
   }
 
   def setSame(value: A, hcs: HCen*)(implicit grid: HGrid, ct: ClassTag[A]): Unit = hcs.foreach{ hc => set(hc, value) }
