@@ -2,9 +2,10 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
-/** A data hex grid of [[HCenBuff]]. An [[HCen]] hex tile centre grid Arr of [[ArrayBuffer]]s corresponding to the centres of an [[HGrid]] hex tile grid. */
+/** A [[HGrider]] hex grid system of data buffers. An [[HCen]] hex tile centre grid of [[ArrayBuffer]]s corresponding to the centres of an [[HGrider]]
+ *  hex tile grid system. */
 class HCenBuffDGrid[A <: AnyRef](val unsafeArr: Array[Buff[A]])
-{ /** Appends value to the array buffer at the given  [[HCen]]vlocation. */
+{ /** Appends value to the array buffer at the given [[HCen]] location. */
   def appendAt(y: Int, c: Int, value: A)(implicit grider: HGrider): Unit = appendAt(HCen(y, c), value)
 
   /** Appends value to the array buffer at the given [[HCen]] location. */
