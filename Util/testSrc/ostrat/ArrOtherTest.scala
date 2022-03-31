@@ -18,11 +18,11 @@ object ArrOtherTest extends TestSuite
 
     "test1" -
     { ints1(3) ==> 4
-      ints3.dataLength ==> 7
+      ints3.sdLength ==> 7
       ints3(6) ==> 7
       dbls1(2) ==> 4.5
       dbls2(0) ==> 1.5
-      dbls2.dataLength ==> 4
+      dbls2.sdLength ==> 4
       //dbls3(0) ==> 1.1
       dbls3.length ==> 8
       longs1(4) == 9L
@@ -38,9 +38,9 @@ object ArrOtherTest extends TestSuite
     "Bind" -
     { ints4(1) ==> 21
       ints4(5) ==> 32
-      ints4.dataLength ==> 12
+      ints4.sdLength ==> 12
     //  dbls4(1) ==> 2.5
-      longs2.dataLength ==> 12
+      longs2.sdLength ==> 12
     }
   }
 }

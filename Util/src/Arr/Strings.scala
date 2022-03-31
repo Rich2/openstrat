@@ -9,8 +9,8 @@ class Strings(val unsafeArray: Array[String]) extends AnyVal with SeqImut[String
   override def unsafeSameSize(length: Int): Strings = new Strings(new Array[String](length))
   override def unsafeSetElem(i: Int, value: String): Unit = unsafeArray(i) = value
   override def fElemStr: String => String = s => s
-  override def indexData(index: Int): String = unsafeArray(index)
-  override def dataLength: Int = unsafeArray.length
+  override def sdIndex(index: Int): String = unsafeArray(index)
+  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
 
   /** Make 1 string with separator from this collection of strings. */
@@ -42,9 +42,9 @@ class Strings(val unsafeArray: Array[String]) extends AnyVal with SeqImut[String
   /** Functionally appends the operand [[String]]. This method by the :+ operator, rather than the +- operator alias used for append on [[Arr]] to
    *  avoid confusion with arithmetic operations. */
   def append(op: String): Strings =
-  { val newArray = new Array[String](dataLength + 1)
+  { val newArray = new Array[String](sdLength + 1)
     unsafeArray.copyToArray(newArray)
-    newArray(dataLength) = op
+    newArray(sdLength) = op
     new Strings(newArray)
   }
 
@@ -66,11 +66,11 @@ object Strings
   def apply(input: String*): Strings = new Strings(input.toArray)
 
   implicit val eqImplicit: EqT[Strings] = (a1, a2) =>
-    if(a1.dataLength != a2.dataLength) false
+    if(a1.sdLength != a2.sdLength) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.dataLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.sdLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -87,8 +87,8 @@ object StringsBuild extends ArrBuilder[String, Strings] with ArrFlatBuilder[Stri
 
 class StringsBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with SeqGen[String]
 { override def typeStr: String = "Stringsbuff"
-  override def indexData(index: Int): String = unsafeBuffer(index)
-  override def dataLength: Int = unsafeBuffer.length
+  override def sdIndex(index: Int): String = unsafeBuffer(index)
+  override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: String): Unit = unsafeBuffer(i) = value
   override def fElemStr: String => String = s => s

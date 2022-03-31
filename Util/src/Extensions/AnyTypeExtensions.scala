@@ -15,7 +15,7 @@ class AnyTypeExtensions[A](thisA: A)
 
   def nextFromArr(arr: SeqGen[A]): A =
   { val i: Int = arr.indexOf(thisA)
-    ife(i >= arr.dataLength - 1, arr(0), arr(i + 1))
+    ife(i >= arr.sdLength - 1, arr(0), arr(i + 1))
   }
 
   /** Short hand alternative to a 3 case match statement, throwing an exception id no match. */

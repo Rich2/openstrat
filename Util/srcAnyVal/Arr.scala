@@ -12,9 +12,9 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
   override def unsafeSameSize(length: Int): Arr[A] = new Arr(new Array[AnyRef](length).asInstanceOf[Array[A]])
 
-  override def dataLength: Int = unsafeArr.length
+  override def sdLength: Int = unsafeArr.length
   override def length: Int = unsafeArr.length
-  override def indexData(index: Int): A = unsafeArr(index)
+  override def sdIndex(index: Int): A = unsafeArr(index)
 
   def eqs(other: Any): Boolean = other match {
     case a: Arr[_] => unsafeArr.sameElements(a.unsafeArr)
@@ -50,7 +50,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
   { val n2 = n.max0
-    val newLen: Int = (dataLength - n2).max0
+    val newLen: Int = (sdLength - n2).max0
     val newArray = new Array[A](newLen)
     iUntilForeach(0, newLen)(i => newArray(i) = unsafeArr(i + n2))
     new Arr(newArray)
@@ -59,7 +59,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   /** Returns a new shorter Arr with the last elements removed. */
   def dropRight(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
   { val n2 = n.max0
-    val newLen: Int = (dataLength - n2).max0
+    val newLen: Int = (sdLength - n2).max0
     val newArray = new Array[A](newLen)
     iUntilForeach(0, newLen)(i => newArray(i) = unsafeArr(i))
     new Arr(newArray)
@@ -71,9 +71,9 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   /** Functionally concatenates element to dispatching [[Arr]], allows type widening. Aliased by -+ operator. The '-' character in the operator name
    *  indicates loss of type precision. The ++ appendArr method is preferred when type widening is not required. */
   def appendArr [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](dataLength + op.dataLength)
+  { val newArray = new Array[AA](sdLength + op.sdLength)
     unsafeArr.copyToArray(newArray)
-    op.unsafeArr.copyToArray(newArray, dataLength)
+    op.unsafeArr.copyToArray(newArray, sdLength)
     new Arr(newArray)
   }
 
@@ -81,9 +81,9 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   @inline def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] = append[AA](op)(ct)
   /** Functionally appends an element to dispatching Refs, allows type widening. Aliased by +- operator. */
   def append[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](dataLength + 1)
+  { val newArray = new Array[AA](sdLength + 1)
     unsafeArr.copyToArray(newArray)
-    newArray(dataLength) = op
+    newArray(sdLength) = op
     new Arr(newArray)
   }
 
@@ -92,7 +92,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   @inline def %: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): Arr[AA] = prepend(op)(ct)
   /** Functionally prepends element to array. Aliased by the +: operator. */
   def prepend[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](dataLength + 1)
+  { val newArray = new Array[AA](sdLength + 1)
     newArray(0) = op
     unsafeArr.copyToArray(newArray, 1)
     new Arr(newArray)
@@ -123,7 +123,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 
   def setAll(value: A @uncheckedVariance): Unit =
   { var i = 0
-    while(i < dataLength){unsafeSetElem(i, value); i += 1}
+    while(i < sdLength){unsafeSetElem(i, value); i += 1}
   }
 
   def mapToCurlySyntax: String = ???
@@ -135,10 +135,10 @@ object Arr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
   implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[Arr[A]] = DataGenShowT[A, Arr[A]](evA)
 
-  implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[Arr[A]] = (arr1, arr2) => if (arr1.dataLength != arr2.dataLength) false else
+  implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[Arr[A]] = (arr1, arr2) => if (arr1.sdLength != arr2.sdLength) false else
   { var i = 0
     var res = true
-    while(i < arr1.dataLength & res) if (evA.eqT(arr1(i), arr2(i))) i += 1 else res = false
+    while(i < arr1.sdLength & res) if (evA.eqT(arr1(i), arr2(i))) i += 1 else res = false
     res
   }
 
@@ -147,7 +147,7 @@ object Arr
     def optFind(f: A => Boolean): Option[A] =
     { var acc: Option[A] = None
       var count = 0
-      while (acc == None & count < thisArr.dataLength) if (f(thisArr(count))) acc = Some(thisArr(count)) else count += 1
+      while (acc == None & count < thisArr.sdLength) if (f(thisArr(count))) acc = Some(thisArr(count)) else count += 1
       acc
     }
   }
@@ -167,8 +167,8 @@ class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) e
 /** Not sure if this class is necessary now that Arr takes Any. */
 class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with SeqGen[A]
 { override def typeStr: String = "AnyBuff"
-  override def indexData(index: Int): A = unsafeBuff(index)
-  override def dataLength: Int = unsafeBuff.length
+  override def sdIndex(index: Int): A = unsafeBuff(index)
+  override def sdLength: Int = unsafeBuff.length
   override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuff(i) = value
   override def fElemStr: A => String = _.toString

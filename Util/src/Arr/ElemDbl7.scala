@@ -17,7 +17,7 @@ trait Dbl7SeqDef[A <: ElemDbl7] extends Any with DblNSeqDef[A]
 { def elemProdSize: Int = 7
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
-  def indexData(index: Int): A =
+  def sdIndex(index: Int): A =
   { val offset = 7 * index
 
     dataElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),

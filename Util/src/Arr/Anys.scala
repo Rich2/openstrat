@@ -11,16 +11,16 @@ class Anys(val unsafeArray: Array[Any]) extends AnyVal with SeqImut[Any]
 
   override def typeStr: String = "Anys"
   override def unsafeSameSize(length: Int): Anys = new Anys(new Array[Any](length))
-  override def dataLength: Int = unsafeArray.length
+  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def indexData(index: Int): Any = unsafeArray(index)
+  override def sdIndex(index: Int): Any = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Any): Unit = unsafeArray(i) = value
   override def fElemStr: Any => String = _.toString
 
   def ++ (op: Anys): Anys =
-  { val newArray = new Array[Any](dataLength + op.dataLength)
+  { val newArray = new Array[Any](sdLength + op.sdLength)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, dataLength)
+    op.unsafeArray.copyToArray(newArray, sdLength)
     new Anys(newArray)
   }
 }
@@ -29,11 +29,11 @@ object Anys
 { def apply(input: Any*): Anys = new Anys(input.toArray)
 
   implicit val EqImplicit: EqT[Anys] = (a1, a2) =>
-    if(a1.dataLength != a2.dataLength) false
+    if(a1.sdLength != a2.sdLength) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.dataLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.sdLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -50,8 +50,8 @@ object AnysBuild extends ArrBuilder[Any, Anys] with ArrFlatBuilder[Anys]
 
 class AnysBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with SeqGen[Any]
 { override def typeStr: String = "AnysBuff"
-  override def indexData(index: Int): Any = unsafeBuffer(index)
-  override def dataLength: Int = unsafeBuffer.length
+  override def sdIndex(index: Int): Any = unsafeBuffer(index)
+  override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Any): Unit = unsafeBuffer(i) = value
   override def fElemStr: Any => String = _.toString

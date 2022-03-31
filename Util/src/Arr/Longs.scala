@@ -11,16 +11,16 @@ class Longs(val unsafeArray: Array[Long]) extends AnyVal with SeqImut[Long]
 
   override def typeStr: String = "Longs"
   override def unsafeSameSize(length: Int): Longs = new Longs(new Array[Long](length))
-  override def dataLength: Int = unsafeArray.length
+  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def indexData(index: Int): Long = unsafeArray(index)
+  override def sdIndex(index: Int): Long = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeArray(i) = value
   override def fElemStr: Long => String = _.toString
 
   def ++ (op: Longs): Longs =
-  { val newArray = new Array[Long](dataLength + op.dataLength)
+  { val newArray = new Array[Long](sdLength + op.sdLength)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, dataLength)
+    op.unsafeArray.copyToArray(newArray, sdLength)
     new Longs(newArray)
   }
 }
@@ -29,11 +29,11 @@ object Longs
 { def apply(input: Long*): Longs = new Longs(input.toArray)
 
   implicit val EqImplicit: EqT[Longs] = (a1, a2) =>
-    if(a1.dataLength != a2.dataLength) false
+    if(a1.sdLength != a2.sdLength) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.dataLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.sdLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -50,8 +50,8 @@ object LongsBuild extends ArrBuilder[Long, Longs] with ArrFlatBuilder[Longs]
 
 class LongsBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with SeqGen[Long]
 { override def typeStr: String = "LongsBuff"
-  override def indexData(index: Int): Long = unsafeBuffer(index)
-  override def dataLength: Int = unsafeBuffer.length
+  override def sdIndex(index: Int): Long = unsafeBuffer(index)
+  override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeBuffer(i) = value
   override def fElemStr: Long => String = _.toString

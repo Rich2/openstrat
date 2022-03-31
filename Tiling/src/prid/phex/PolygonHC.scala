@@ -62,7 +62,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with PolygonInt2s[HC
 
   def toPolygon(f: HCoord => Pt2): Polygon =
   {
-    val res = PolygonGen.uninitialised(dataLength)
+    val res = PolygonGen.uninitialised(sdLength)
     dataIForeach((i, hv) => res.unsafeSetElem(i, f(hv)))
     res
   }
@@ -70,7 +70,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with PolygonInt2s[HC
   def combine(operand: PolygonHC): Option[PolygonHC] =
   {
     var starts: Option[(Int, Int)] = None
-    val a = indexData(0)
+    val a = sdIndex(0)
     ???
   }
 

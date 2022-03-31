@@ -13,7 +13,7 @@ class Coods(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[Cood]
   { val tempArr = new Array[Int](unsafeArray.length)
     var count = 0
     var lengthCounter = 0
-    while (count < dataLength)
+    while (count < sdLength)
     {
       if (f(this.apply(count)))
       { tempArr(lengthCounter * 2) = unsafeArray(count * 2)

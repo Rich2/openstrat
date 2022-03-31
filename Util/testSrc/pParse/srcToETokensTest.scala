@@ -47,7 +47,7 @@ object srcToETokensTest extends TestSuite
       assertMatch(" ; .".parseTokens){ case Good(Arr2(SemicolonToken(Sp2), DotToken(Sp4))) => }
       assertMatch("Colour(0xFF000000)".parseTokens){ case Good(Arr4(C1, ParenthOpenToken(_), Nat0xToken(_, "FF000000"), ParenthCloseToken(_))) => }
       assertMatch(et1){case Good(_) => }
-      r1.dataLength ==> 12
+      r1.sdLength ==> 12
       assertMatch(r1){ case ArrHead4(IdentLowerToken(Sp1, "appStr"), AsignToken(_), StringToken(_, "20"), SemicolonToken(_)) => }
     }
 
@@ -64,9 +64,9 @@ object srcToETokensTest extends TestSuite
     "Settings" -
     { assertMatch(st2.parseTokens){ case Good(Arr0()) => }
       assertMatch(et3){case Good(_) => }
-      r3.dataLength ==> 12
+      r3.sdLength ==> 12
       assertMatch(et5){case Good(_) => }
-      r5.dataLength ==> 12
+      r5.sdLength ==> 12
       ro6.length ==> 8
      // assertMatch(r5(4)){ case IdentLowerToken(_, "displayX") => }
     }

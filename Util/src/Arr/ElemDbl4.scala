@@ -23,7 +23,7 @@ trait Dbl4SeqDef[A <: ElemDbl4] extends Any with DblNSeqDef[A]
     unsafeArray(4 * index + 2) = elem.dbl3
     unsafeArray(4 * index + 3) = elem.dbl4
   }
-  override def indexData(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
+  override def sdIndex(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl4]]s. */
 trait Dbl4Arr[A <: ElemDbl4] extends Any with DblNArr[A] with Dbl4SeqDef[A]
@@ -136,7 +136,7 @@ trait Dbl4Buff[A <: ElemDbl4] extends Any with DblNBuff[A]
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4); () }
 
   def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): A
-  override def indexData(index: Int): A = dblsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
+  override def sdIndex(index: Int): A = dblsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
 
   override def unsafeSetElem(i: Int, value: A): Unit =
   { unsafeBuffer(i * 4) = value.dbl1; unsafeBuffer(i * 4 + 1) = value.dbl2; unsafeBuffer(i * 4 + 2) = value.dbl3; unsafeBuffer(i * 4 + 3) = value.dbl4

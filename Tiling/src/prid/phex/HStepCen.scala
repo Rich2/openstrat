@@ -33,7 +33,7 @@ object HStepCen
 
 class HStepCenArr(val unsafeArray: Array[Int]) extends Int3Arr[HStepCen]
 { override type ThisT = HStepCenArr
-  override def sdElem(i1: Int, i2: Int, i3: Int): HStepCen = new HStepCen(i1, i2, i3)
+  override def sdElem(int1: Int, int2: Int, int3: Int): HStepCen = new HStepCen(int1, int2, int3)
   override def unsafeFromArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
   override def fElemStr: HStepCen => String = _.toString
   override def typeStr: String = "HStepCens"

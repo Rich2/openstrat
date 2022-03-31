@@ -11,7 +11,7 @@ trait ElemInt2 extends Any with ElemIntN
 trait Int2SeqDef[A <: ElemInt2] extends Any with IntNSeqDef[A]
 {
   override def elemProdSize: Int = 2
-  final override def indexData(index: Int): A = dataElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  final override def sdIndex(index: Int): A = dataElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
   def dataElem(i1: Int, i2: Int): A
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(2 * index) = elem.int1; unsafeArray(2 * index + 1) = elem.int2 }
 }
@@ -55,7 +55,7 @@ trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
   final override def length: Int = unsafeBuffer.length / 2
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2); () }
   def intsToT(i1: Int, i2: Int): A
-  override def indexData(index: Int): A = intsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
+  override def sdIndex(index: Int): A = intsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 2) = value.int1; unsafeBuffer(i * 2 + 1) = value.int2 }
 }
 

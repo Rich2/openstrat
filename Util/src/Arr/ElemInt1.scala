@@ -11,7 +11,7 @@ trait ElemInt1 extends Any with ElemIntN
 trait Int1SeqDef[A <: ElemInt1] extends Any with IntNSeqDef[A]
 {
   override def elemProdSize: Int = 1
-  final override def indexData(index: Int): A = dataElem(unsafeArray(index))
+  final override def sdIndex(index: Int): A = dataElem(unsafeArray(index))
   def dataElem(intValue: Int): A
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(2 * index) = elem.int1 }
 }
@@ -27,7 +27,7 @@ trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqDef[A]
     var count = 0
     var acc: OptInt = NoInt
     var continue = true
-    while (continue == true & count < dataLength)
+    while (continue == true & count < sdLength)
     {
       if (value.intValue == unsafeArray(count))
       { acc = SomeInt(count)
@@ -40,9 +40,9 @@ trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqDef[A]
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
-  { val newArray = new Array[Int](dataLength + 1)
+  { val newArray = new Array[Int](sdLength + 1)
     unsafeArray.copyToArray(newArray)
-    newArray(dataLength) = op.int1
+    newArray(sdLength) = op.int1
     unsafeFromArray(newArray)
   }
 }
@@ -76,7 +76,7 @@ trait Int1Buff[A <: ElemInt1] extends Any with IntNBuff[A]
 { type ArrT <: Int1Arr[A]
   final override def length: Int = unsafeBuffer.length
   def intToT(value: Int): A
-  def indexData(i1: Int): A = intToT(unsafeBuffer(i1))
+  def sdIndex(i1: Int): A = intToT(unsafeBuffer(i1))
   override def elemProdSize: Int = 1
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1); () }
 

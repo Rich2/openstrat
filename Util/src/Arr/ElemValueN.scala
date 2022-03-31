@@ -23,7 +23,7 @@ trait ValueNSeqDef[A <: ElemValueN] extends Any with ImutSeqDef[A]
   def reverseData: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
-  final override def dataLength: Int = arrLen / elemProdSize
+  final override def sdLength: Int = arrLen / elemProdSize
 }
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
@@ -85,7 +85,7 @@ trait ValueNSeqDefCompanion[A <: ElemValueN, AA <: ValueNSeqDef[A]]
 
   /** This method allows you to map from a DataGen to the ArrA type. */
   final def dataGenMap[T](alb: SeqDefGen[T])(f: T => A): AA =
-  { val res = uninitialised(alb.dataLength)
+  { val res = uninitialised(alb.sdLength)
     var count = 0
     alb.dataForeach { t =>
       res.unsafeSetElem(count, f(t))

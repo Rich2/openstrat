@@ -11,7 +11,7 @@ final class PolygonM(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2
   override def fElemStr: PtM2 => String = _.str
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  @inline override def vert(index: Int): PtM2 = indexData(index)
+  @inline override def vert(index: Int): PtM2 = sdIndex(index)
 
   /** Performs the side effecting function on the [[PtM2]] value of each vertex. */
   override def vertsForeach[U](f: PtM2 => U): Unit =

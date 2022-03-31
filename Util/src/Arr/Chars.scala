@@ -10,18 +10,18 @@ final class Chars(val unsafeArray: Array[Char]) extends AnyVal with SeqImut[Char
 
   override def typeStr: String = "Chars"
   override def unsafeSameSize(length: Int): Chars = new Chars(new Array[Char](length))
-  override def dataLength: Int = unsafeArray.length
+  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def indexData(index: Int): Char = unsafeArray(index)
+  override def sdIndex(index: Int): Char = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Char): Unit = unsafeArray(i) = value
 
   override def fElemStr: Char => String = _.toString
 
   /** Append another Chars collection. */
   def ++ (op: Chars): Chars =
-  { val newArray = new Array[Char](dataLength + op.dataLength)
+  { val newArray = new Array[Char](sdLength + op.sdLength)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, dataLength)
+    op.unsafeArray.copyToArray(newArray, sdLength)
     new Chars(newArray)
   }
 
@@ -50,12 +50,12 @@ class CharsOff(val offset0: Int) extends AnyVal with ArrBaseOff[Char, Chars]
   def drop2: CharsOff = new CharsOff(offset2)
   def drop3: CharsOff = new CharsOff(offset3)
   def drop4: CharsOff = new CharsOff(offset4)
-  def length(implicit chars: Chars): Int = chars.dataLength - offset0
+  def length(implicit chars: Chars): Int = chars.sdLength - offset0
   def span(p: Char => Boolean)(implicit array: Chars): (Chars, CharsOff) =
   {
     var count = 0
     var continue = true
-    while (offset0 + count < array.dataLength & continue)
+    while (offset0 + count < array.sdLength & continue)
     {
       if (p(array(offset0 + count))) count += 1
       else continue = false
@@ -66,7 +66,7 @@ class CharsOff(val offset0: Int) extends AnyVal with ArrBaseOff[Char, Chars]
     (new Chars(newArray), drop(count))
   }
   /** Checks condition against head. Returns false if the collection is empty. */
-  def ifHead(f: Char => Boolean)(implicit chars: Chars) : Boolean = (chars.dataLength > offset0) &
+  def ifHead(f: Char => Boolean)(implicit chars: Chars) : Boolean = (chars.sdLength > offset0) &
     f(chars(offset0))
 }
 
@@ -78,33 +78,33 @@ object CharsOff
 }
 
 /** Extractor for empty immutable heapless iterator for Chars. */
-case object CharsOff0 { def unapply(inp: CharsOff)(implicit chars: Chars): Boolean = chars.dataLength - inp.offset0 <= 0 }
+case object CharsOff0 { def unapply(inp: CharsOff)(implicit chars: Chars): Boolean = chars.sdLength - inp.offset0 <= 0 }
 
 /** Extractor object for immutable heapless iterator for Chars with length == 1. */
 object CharsOff1
 { /** Extractor for immutable heapless iterator for Chars with length == 1. */
-  def unapply(inp: CharsOff)(implicit chars: Chars): Option[Char] = ife(chars.dataLength - inp.offset0 == 1, Some(chars(inp.offset0)), None)
+  def unapply(inp: CharsOff)(implicit chars: Chars): Option[Char] = ife(chars.sdLength - inp.offset0 == 1, Some(chars(inp.offset0)), None)
 }
 
 /** Extractor object for immutable heapless iterator for Chars with length == 2. */
 object CharsOff2
 { /** Extractor for immutable heapless iterator for Chars with length == 2. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char)] =
-    ife(chars.dataLength - inp.offset0 == 2, Some((chars(inp.offset0), chars(inp.offset1))), None)
+    ife(chars.sdLength - inp.offset0 == 2, Some((chars(inp.offset0), chars(inp.offset1))), None)
 }
 
 /** Extractor object for immutable heapless iterator for Chars with length == 3. */
 object CharsOff3
 { /** Extractor for immutable heapless iterator for Chars with length == 3. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char, Char)] =
-    ife(chars.dataLength - inp.offset0 == 3, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2))), None)
+    ife(chars.sdLength - inp.offset0 == 3, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2))), None)
 }
 
 /** Extractor object for immutable heapless iterator for Chars with length == 4. */
 object CharsOff4
 { /** Extractor for immutable heapless iterator for Chars with length == 4. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char, Char, Char)] =
-    ife(chars.dataLength - inp.offset0 == 4, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2), chars(inp.offset3))), None)
+    ife(chars.sdLength - inp.offset0 == 4, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2), chars(inp.offset3))), None)
 }
 
 /** Extractor object for the first element for immutable heapless iterator for Chars with at length >= 1. Use this when you don't care about the
@@ -112,7 +112,7 @@ object CharsOff4
 object CharsOffHead
 { /** Extractor for the first element, for immutable heapless iterator for Chars with length >= 1. Use this when you don't care about the tail. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[Char] =
-  ife(chars.dataLength - inp.offset0 >= 1, Some(chars(inp.offset0)), None)
+  ife(chars.sdLength - inp.offset0 >= 1, Some(chars(inp.offset0)), None)
 }
 
 /** Extractor object for the first 2 elements for immutable heapless iterator for Chars with length >= 2. Use this when you don't care about the
@@ -121,7 +121,7 @@ object CharsOffHead2
 { /** Extractor for the first 2 elements only for immutable heapless iterator for Chars with at least 2 element. Use this when you don't care about
     * the tail. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char)] =
-    ife(chars.dataLength - inp.offset0 >= 2, Some((chars(inp.offset0), chars(inp.offset1))), None)
+    ife(chars.sdLength - inp.offset0 >= 2, Some((chars(inp.offset0), chars(inp.offset1))), None)
 }
 
 /** Extractor object for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the
@@ -130,7 +130,7 @@ object CharsOffHead3
 { /** Extractor for the first 3 elements only for immutable heapless iterator for Chars with at least 3 element. Use this when you don't care about
  * the tail. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char, Char)] =
-    ife(chars.dataLength - inp.offset0 >= 3, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2))), None)
+    ife(chars.sdLength - inp.offset0 >= 3, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2))), None)
 }
 
 /** Extractor object for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the
@@ -138,35 +138,35 @@ object CharsOffHead3
 object CharsOffHead4
 { /** Extractor for the first 3 elements for immutable heapless iterator for Chars with length >= 3. Use this when you don't care about the tail */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, Char, Char, Char)] =
-    ife(chars.dataLength - inp.offset0 >= 4, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2), chars(inp.offset3))), None)
+    ife(chars.sdLength - inp.offset0 >= 4, Some((chars(inp.offset0), chars(inp.offset1), chars(inp.offset2), chars(inp.offset3))), None)
 }
 
 /** Extractor for immutable heapless iterator for Chars with at l element. */
 object CharsOff1Tail
 { /** Extractor for immutable heapless iterator for Chars with at least 1 element. */
   def unapply(inp: CharsOff)(implicit chars: Chars): Option[(Char, CharsOff)] =
-  ife(chars.dataLength - inp.offset0 >= 1, Some((chars(inp.offset0), inp.drop1)), None)
+  ife(chars.sdLength - inp.offset0 >= 1, Some((chars(inp.offset0), inp.drop1)), None)
 }
 
 /** Extractor for immutable heapless iterator for Chars with at least 2 elements. */
 object CharsOff2Tail
 { /** Extractor for immutable heapless iterator for Chars with at least 2 elements. */
   def unapply(inp: CharsOff)(implicit array: Chars): Option[(Char, Char, CharsOff)] =
-    ife(array.dataLength - inp.offset0 >= 2, Some((array(inp.offset0), (array(inp.offset1)), inp.drop2)), None)
+    ife(array.sdLength - inp.offset0 >= 2, Some((array(inp.offset0), (array(inp.offset1)), inp.drop2)), None)
 }
 
 /** Extractor for immutable heapless iterator for Chars with at least 3 elements. */
 object CharsOff3Tail
 { /** Extractor for immutable heapless iterator for Chars with at least 3 elements. */
   def unapply(inp: CharsOff)(implicit array: Chars): Option[(Char, Char, Char, CharsOff)] =
-    ife(array.dataLength - inp.offset0 >= 3, Some((array(inp.offset0), array(inp.offset1), array(inp.offset2), inp.drop3)), None)
+    ife(array.sdLength - inp.offset0 >= 3, Some((array(inp.offset0), array(inp.offset1), array(inp.offset2), inp.drop3)), None)
 }
 
 /** Extractor for immutable heapless iterator for Chars with at least 4 elements. */
 object CharsOff4Tail
 { /** Extractor for immutable heapless iterator for Chars with at least 4 elements. */
   def unapply(inp: CharsOff)(implicit array: Chars): Option[(Char, Char, Char, Char, CharsOff)] =
-  ife(array.dataLength - inp.offset0 >= 4,
+  ife(array.sdLength - inp.offset0 >= 4,
     Some((array(inp.offset0), array(inp.offset1), array(inp.offset2), array(inp.offset3), inp.drop4)),
     None)
 }

@@ -24,7 +24,7 @@ trait Dbl3SeqDef[A <: ElemDbl3] extends Any with DblNSeqDef[A]
   { unsafeArray(3 * index) = elem.dbl1; unsafeArray(3 * index + 1) = elem.dbl2; unsafeArray(3 * index + 2) = elem.dbl3
   }
 
-  override def indexData(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  override def sdIndex(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl3]]s. */
@@ -97,7 +97,7 @@ trait Dbl3Buff[A <: ElemDbl3] extends Any with DblNBuff[A]
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3); () }
 
   def dblsToT(d1: Double, d2: Double, d3: Double): A
-  def indexData(index: Int): A = dblsToT(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
+  def sdIndex(index: Int): A = dblsToT(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
 
   override def unsafeSetElem(i: Int, value: A): Unit =
   { unsafeBuffer(i * 4) = value.dbl1; unsafeBuffer(i * 4 + 1) = value.dbl2; unsafeBuffer(i * 4 + 2) = value.dbl3

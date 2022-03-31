@@ -93,7 +93,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   final def vert(index: Int): Pt2 = unsafeVert(index %% vertsNum)
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  final def unsafeVert(index: Int): Pt2 = indexData(index)
+  final def unsafeVert(index: Int): Pt2 = sdIndex(index)
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the

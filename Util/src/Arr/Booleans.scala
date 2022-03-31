@@ -9,17 +9,17 @@ class Booleans(val unsafeArray: Array[Boolean]) extends AnyVal with SeqImut[Bool
   /** Copy's the backing Array[[Boolean]] to a new Array[char]. End users should rarely have to use this method. */
   override def unsafeSameSize(length: Int): Booleans = new Booleans(new Array[Boolean](length))
   override def typeStr: String = "Booleans"
-  override def dataLength: Int = unsafeArray.length
+  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def indexData(index: Int): Boolean = unsafeArray(index)
+  override def sdIndex(index: Int): Boolean = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeArray(i) = value
   def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Boolean => String = _.toString
 
   def ++ (op: Booleans): Booleans =
-  { val newArray = new Array[Boolean](dataLength + op.dataLength)
+  { val newArray = new Array[Boolean](sdLength + op.sdLength)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, dataLength)
+    op.unsafeArray.copyToArray(newArray, sdLength)
     new Booleans(newArray)
   }
 }
@@ -41,8 +41,8 @@ object BooleansBuild extends ArrBuilder[Boolean, Booleans] with ArrFlatBuilder[B
 
 class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with SeqGen[Boolean]
 { override def typeStr: String = "BooleanBuff"
-  override def indexData(index: Int): Boolean = unsafeBuffer(index)
-  override def dataLength: Int = unsafeBuffer.length
+  override def sdIndex(index: Int): Boolean = unsafeBuffer(index)
+  override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeBuffer(i) = value
   override def fElemStr: Boolean => String = _.toString

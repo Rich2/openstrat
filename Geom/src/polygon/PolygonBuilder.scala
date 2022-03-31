@@ -20,7 +20,7 @@ trait PolygonBuilder[B, +BB <: PolygonLike[B]] extends SeqDefBuilderCommon[BB @u
   def buffContains(buff: BuffT, newElem: B): Boolean =
   { var res = false
     var count = 0
-    while (!res & count < buff.dataLength) if (buff(count) == newElem) res = true else count += 1
+    while (!res & count < buff.sdLength) if (buff(count) == newElem) res = true else count += 1
     res
   }
 

@@ -2,6 +2,7 @@
 package ostrat; package prid; package phex
 import ostrat.geom._
 
+/** [[HGrid]] manager. */
 abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
 { def numTiles: Int = grid.numTiles
   final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
@@ -9,7 +10,6 @@ abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
   def sides: HSides = grid.sides
   val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
-
   def hCenSteps(hCen: HCen): HStepArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 
   /** Default implementation may need removal. */
@@ -18,8 +18,8 @@ abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
   def findStep(startHC: HCen, endHC: HCen): Option[HStep] =
     if(grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_.endHC == endHC).map(_.step)
 
-  def findStepEnd(startHC: HCen, step: HStep): Option[HCen] = {
-    val r1 = grid.findStepHC(startHC, step)
+  def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
+  { val r1 = grid.findStepHC(startHC, step)
     if(r1.nonEmpty) r1 else outSteps(startHC).find(_.step == step).map(_.endHC)
   }
 }

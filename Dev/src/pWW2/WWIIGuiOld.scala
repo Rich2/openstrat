@@ -65,7 +65,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[L
           selected = Anys(newArmy)
           repaintMap()
         }
-        case (AnysHead(army: Army), as) => debvar(as.dataLength)
+        case (AnysHead(army: Army), as) => debvar(as.sdLength)
         case _ =>
       }
 

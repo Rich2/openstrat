@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 trait LinePathLike[A] extends Any with ImutSeqDef[A]
 {
   def map[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
-  { val res = build.newLinePath(dataLength)
+  { val res = build.newLinePath(sdLength)
     dataIForeach((i, p) => res.unsafeSetElem(i, f(p)))
     res
   }
@@ -32,7 +32,7 @@ trait LinePathBuilder[B, BB <: LinePathLike[B]] extends ImutSeqDefBuilder[B, BB]
   def buffContains(buff: BuffT, newElem: B): Boolean =
   { var res = false
     var count = 0
-    while (!res & count < buff.dataLength) if (buff(count) == newElem) res = true else count += 1
+    while (!res & count < buff.sdLength) if (buff(count) == newElem) res = true else count += 1
     res
   }
 

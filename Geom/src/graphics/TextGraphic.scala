@@ -50,7 +50,7 @@ object TextGraphic
 
   def lines(strs: Strings, fontSize: Int = 24, posn: Pt2 = Pt2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
     align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): Arr[TextGraphic] =
-  { val len = strs.dataLength
+  { val len = strs.sdLength
     if(len == 0) Arr()
     else strs.iMap((i, str) => TextGraphic(str, fontSize, posn.addY(((len -1) / 2.0 - i) * fontSize * lineSpacing), fontColour, align, baseLine))
   }

@@ -23,25 +23,25 @@ trait Dbl2SeqDef[A <: ElemDbl2] extends Any with DblNSeqDef[A]
     unsafeArray(2 * index + 1) = elem.dbl2
   }
 
-  override def indexData(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  override def sdIndex(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
 
   def elem1sArray: Array[Double] =
-  { val res = new Array[Double](dataLength)
+  { val res = new Array[Double](sdLength)
     var count = 0
-    while(count < dataLength){ res(count) = unsafeArray(count * 2); count += 1 }
+    while(count < sdLength){ res(count) = unsafeArray(count * 2); count += 1 }
     res
   }
 
   def elem2sArray: Array[Double] =
-  { val res = new Array[Double](dataLength)
+  { val res = new Array[Double](sdLength)
     var count = 0
-    while(count < dataLength){ res(count) = unsafeArray(count * 2 + 1); count += 1 }
+    while(count < sdLength){ res(count) = unsafeArray(count * 2 + 1); count += 1 }
     res
   }
 
   def dataForeachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < dataLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
+    while(count < sdLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
   }
 
   /** Maps the 2 [[Double]]s of each element to a new [[Array]][Double]. */
@@ -82,15 +82,15 @@ trait ArrDbl2s[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqDef[A]
 
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < dataLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
+    while(count < sdLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
   }
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
-  { val newArray = new Array[Double](dataLength + elemProdSize)
+  { val newArray = new Array[Double](sdLength + elemProdSize)
     unsafeArray.copyToArray(newArray)
-    newArray(dataLength) = op.dbl1
-    newArray(dataLength + 1) = op.dbl2
+    newArray(sdLength) = op.dbl1
+    newArray(sdLength + 1) = op.dbl2
     unsafeFromArray(newArray)
   }
 
@@ -170,7 +170,7 @@ trait Dbl2Buff[A <: ElemDbl2] extends Any with DblNBuff[A]
   override def elemProdSize: Int = 2
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2); () }
   def dblsToT(d1: Double, d2: Double): A
-  override def indexData(index: Int): A = dblsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
+  override def sdIndex(index: Int): A = dblsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 2) = value.dbl1; unsafeBuffer(i * 2 + 1) = value.dbl2 }
   override def fElemStr: A => String = _.toString
 }

@@ -12,6 +12,6 @@ trait ArrDbl1s[A <: ElemDbl1] extends Any with DblNArr[A]
 { final override def elemProdSize: Int = 1
   def newElem(dblValue: Double): A
   final override def length: Int = unsafeArray.length
-  final override def indexData(index: Int): A = newElem(unsafeArray(index))
+  final override def sdIndex(index: Int): A = newElem(unsafeArray(index))
   final override def unsafeSetElem(index: Int, elem: A): Unit = unsafeArray(index) = elem.dbl1
 }

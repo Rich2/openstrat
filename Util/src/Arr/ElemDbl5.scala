@@ -16,7 +16,7 @@ trait Dbl5SeqDef[A <: ElemDbl5] extends Any with DblNSeqDef[A]
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
   def elemProdSize: Int = 5
-  def indexData(index: Int): A = dataElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
+  def sdIndex(index: Int): A = dataElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
     unsafeArray(5 * index + 4))
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =

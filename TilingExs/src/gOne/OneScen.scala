@@ -24,7 +24,7 @@ trait OneScen extends HexGriderFlatScen
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
     val oPlayersNew: HCenOptDGrid[Player] = oPlayers.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1(stCenStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(stCenStep.hc1 , hc2)) }
+    targets.foreach{ (hc2, buff) => buff.foreachLen1(stCenStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(stCenStep.startHC , hc2)) }
 
     OneScen(turn + 1, grider, oPlayersNew)
   }

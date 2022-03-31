@@ -3,16 +3,16 @@ package ostrat
 import annotation.unchecked.uncheckedVariance
 
 /** Sequence-defined efficient final classes backed by Arrays, ArrayBuffers etc. Includes actual sequences both mutable and immutable as well as
- *  classes such as polygons and line paths that are defined by sequence data. So for example a Polyogn in the Geom module is defined by a sequence of
+ *  classes such as polygons and line paths that are defined by sequence data. So for example a Polygon in the Geom module is defined by a sequence of
  *  points, but is a different type to the Pt2s class which is the immutable sequence class for 2 dimensional points. includes expandable buffers. */
 trait SeqDefGen[A] extends Any
 {
   /** The number of data elements in this data sequence base class. These collections use underlying mutable Arrays and ArrayBuffers. The length of
    *  the underlying Array will be this number or a multiple of this number. */
-  def dataLength: Int
+  def sdLength: Int
 
   /** Just a handy short cut to give the length of this collection as a string. */
-  def dataLengthStr: String = dataLength.toString
+  def dataLengthStr: String = sdLength.toString
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    *  methods. */
@@ -31,14 +31,14 @@ trait SeqDefGen[A] extends Any
 
   override def toString: String = typeStr + elemsStr
 
-  /** apply method accesses the individual elements of the sequence by 0 based index. */
-  @inline def indexData(index: Int): A
+  /** Accesses the sequence-defined element by a 0 based index. */
+  @inline def sdIndex(index: Int): A
 
   /** Performs a side effecting function on each element of this sequence in order. */
   def dataForeach[U](f: A => U): Unit =
   { var i = 0
-    while(i < dataLength)
-    { f(indexData(i))
+    while(i < sdLength)
+    { f(sdIndex(i))
       i = i + 1
     }
   }
@@ -51,8 +51,8 @@ trait SeqDefGen[A] extends Any
    *  seen for example in fold methods' (accumulator, element) => B signature. */
   def dataIForeach[U](f: (Int, A) => Any): Unit =
   { var i = 0
-    while(i < dataLength)
-    { f(i, indexData(i))
+    while(i < sdLength)
+    { f(i, sdIndex(i))
       i = i + 1
     }
   }
@@ -65,8 +65,8 @@ trait SeqDefGen[A] extends Any
    *  seen for example in fold methods' (accumulator, element) => B signature. */
   def dataIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
   { var i = 0
-    while(i < dataLength)
-    { f(i + initIndex, indexData(i))
+    while(i < sdLength)
+    { f(i + initIndex, sdIndex(i))
       i = i + 1
     }
   }
@@ -74,13 +74,13 @@ trait SeqDefGen[A] extends Any
   /** Foreachs over the tail of the data sequence. */
   def dataTailForeach[U](f: A => U): Unit =
   { var count = 1
-    while(count < dataLength) { f(indexData(count)); count += 1 }
+    while(count < sdLength) { f(sdIndex(count)); count += 1 }
   }
 
   /** Specialised map to an immutable [[SeqImut]] of B. For [[SeqGen]] dataMap is the same as map, but for other structures it will be different, for
    * example a PolygonLike will map to another PolgonLike. */
   def dataMap[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(dataLength)
+  { val res = ev.newArr(sdLength)
     dataIForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
@@ -98,13 +98,13 @@ trait SeqDefGen[A] extends Any
     acc
   }
 
-  def dataLast: A = indexData(dataLength - 1)
+  def dataLast: A = sdIndex(sdLength - 1)
 
   /** Performs a side effecting function on each element of this sequence in reverse order. The function may return Unit. If it does return a non Unit
    *  value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def reverseDataForeach[U](f: A => U): Unit =
-  { var count = dataLength
-    while(count > 0) { count -= 1; f(indexData(count)) }
+  { var count = sdLength
+    while(count > 0) { count -= 1; f(sdIndex(count)) }
   }
 }
 

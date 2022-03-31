@@ -53,7 +53,7 @@ trait CanvasPlatform extends RectCenlign
   final def polygonDraw(pd: PolygonDraw): Unit = onlyIf(pd.vertsNum >= 2, pPolyDraw(pd))
   protected def pPolyDraw(pd: PolygonDraw): Unit
 
-  def linePathDraw(pod: LinePathDraw): Unit = onlyIf(pod.path.dataLength >= 1, pLinePathDraw(pod))
+  def linePathDraw(pod: LinePathDraw): Unit = onlyIf(pod.path.sdLength >= 1, pLinePathDraw(pod))
   protected def pLinePathDraw(pod: LinePathDraw): Unit
    
   def lineSegDraw(ld: LineSegDraw): Unit
@@ -68,10 +68,10 @@ trait CanvasPlatform extends RectCenlign
 
   def lineSegsDraw(lsd: LinesDraw): Unit
    
-  final def shapeGenFill(sgf: ShapeGenFillOld): Unit = onlyIf(sgf.shape.dataLength > 0, pShapeGenFill(sgf))
+  final def shapeGenFill(sgf: ShapeGenFillOld): Unit = onlyIf(sgf.shape.sdLength > 0, pShapeGenFill(sgf))
   protected def pShapeGenFill(sgf: ShapeGenFillOld): Unit
    
-  final def shapeGenDraw(sgd: ShapeGenDrawOld): Unit = onlyIf(sgd.shape.dataLength > 0, pShapeGenDraw(sgd))
+  final def shapeGenDraw(sgd: ShapeGenDrawOld): Unit = onlyIf(sgd.shape.sdLength > 0, pShapeGenDraw(sgd))
   protected def pShapeGenDraw(sgd: ShapeGenDrawOld): Unit
 
   /** Side effecting procedure that fills a circle. Implemented by the target platform. */

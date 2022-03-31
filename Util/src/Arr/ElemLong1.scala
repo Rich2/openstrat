@@ -21,7 +21,7 @@ trait ArrLong1s[A <: ElemLong1] extends Any with ArrLongNs[A]
     var count = 0
     var acc: Option[Int] = None
     var continue = true
-    while (continue == true & count < dataLength)
+    while (continue == true & count < sdLength)
     {
       if (value.intValue == unsafeArray(count))
       { acc = Some(count)

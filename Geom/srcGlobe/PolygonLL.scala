@@ -14,7 +14,7 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongsLike
   //override def toString: String = PolygonLL.persistImplicit.showT(this, Show.Standard, 2, 2)
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  @inline override def vert(index: Int): LatLong = indexData(index)
+  @inline override def vert(index: Int): LatLong = sdIndex(index)
 
   /** Performs the side effecting function on the [[LatLong]] value of each vertex. */
   override def vertsForeach[U](f: LatLong => U): Unit =

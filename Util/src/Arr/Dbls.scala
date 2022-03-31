@@ -7,16 +7,16 @@ class Dbls(val unsafeArray: Array[Double]) extends AnyVal with SeqImut[Double]
 { type ThisT = Dbls
   override def typeStr: String = "Doubles"
   override def unsafeSameSize(length: Int): Dbls = new Dbls(new Array[Double](length))
-  override def dataLength: Int = unsafeArray.length
+  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def indexData(index: Int): Double = unsafeArray(index)
+  override def sdIndex(index: Int): Double = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Double): Unit = unsafeArray(i) = value
   def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
   def ++ (op: Dbls): Dbls =
-  { val newArray = new Array[Double](dataLength + op.dataLength)
+  { val newArray = new Array[Double](sdLength + op.sdLength)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, dataLength)
+    op.unsafeArray.copyToArray(newArray, sdLength)
     new Dbls(newArray)
   }
 }
@@ -26,11 +26,11 @@ object Dbls
 { def apply(input: Double*): Dbls = new Dbls(input.toArray)
 
   implicit val eqImplicit: EqT[Dbls] = (a1, a2) =>
-    if(a1.dataLength != a2.dataLength) false
+    if(a1.sdLength != a2.sdLength) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.dataLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.sdLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -48,8 +48,8 @@ object DblsBuild extends ArrBuilder[Double, Dbls] with ArrFlatBuilder[Dbls]
 /** Compile time wrapped Buffer class for [[Double]]s, used to build[[Dbls]]. */
 class DblsBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with SeqGen[Double]
 { override def typeStr: String = "DblsBuff"
-  override def indexData(index: Int): Double = unsafeBuffer(index)
-  override def dataLength: Int = unsafeBuffer.length
+  override def sdIndex(index: Int): Double = unsafeBuffer(index)
+  override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Double): Unit = unsafeBuffer(i) = value
   override def fElemStr: Double => String = _.toString

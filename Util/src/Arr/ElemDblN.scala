@@ -22,17 +22,17 @@ trait DblNSeqDef[A <: ElemDblN] extends Any with ValueNSeqDef[A] with ArrayDblBa
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
 
   override def reverseData: ThisT =
-  { val res: ThisT = unsafeSameSize(dataLength)
-    dataIForeach({ (i, el) => res.unsafeSetElem(dataLength - 1 - i, el)})
+  { val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el)})
     res
   }
 
   /** Reverses the order of the elements in a new Array[Double] which is returned. */
   def unsafeReverseArray: Array[Double] = {
     val res = new Array[Double](arrLen)
-    iUntilForeach(0, dataLength){ i =>
+    iUntilForeach(0, sdLength){ i =>
       val origIndex = i * elemProdSize
-      val resIndex = (dataLength - i - 1) * elemProdSize
+      val resIndex = (sdLength - i - 1) * elemProdSize
       iUntilForeach(0, elemProdSize){j => res(resIndex + j) = unsafeArray(origIndex + j) }
     }
     res
@@ -55,8 +55,8 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqDef[A]
   def foreachArr(f: Dbls => Unit): Unit
 
   def reverse: ThisT =
-  { val res: ThisT = unsafeSameSize(dataLength)
-    iForeach({(i, el) => res.unsafeSetElem(dataLength - 1 - i, el)})
+  { val res: ThisT = unsafeSameSize(sdLength)
+    iForeach({(i, el) => res.unsafeSetElem(sdLength - 1 - i, el)})
     res
   }
 
@@ -109,7 +109,7 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 { type ArrT <: DblNArr[A]
   def unsafeBuffer: ArrayBuffer[Double]
 
-  def dataLength: Int = unsafeBuffer.length / elemProdSize
+  def sdLength: Int = unsafeBuffer.length / elemProdSize
   def toArray: Array[Double] = unsafeBuffer.toArray[Double]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.unsafeArray); () }

@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from 2 [[Int]]s. These are used in [[Int3Arr]] Array[Int] based collections. */
+/** An object that can be constructed from 3 [[Int]]s. These are used in [[Int3SeqDef]] based collections. */
 trait ElemInt3 extends Any with ElemIntN
 { def int1: Int
   def int2: Int
@@ -10,12 +10,11 @@ trait ElemInt3 extends Any with ElemIntN
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemInt3]]s. */
 trait Int3SeqDef[A <: ElemInt3] extends Any with IntNSeqDef[A]
-{
-  override def elemProdSize: Int = 3
-  final override def indexData(index: Int): A = sdElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+{ override def elemProdSize: Int = 3
+  final override def sdIndex(index: Int): A = sdElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 
-  /** Creates an element of the defining sequence */
-  def sdElem(i1: Int, i2: Int, i3: Int): A
+  /** Creates a sequence-defined element from 3 [[Int]]s. */
+  def sdElem(int1: Int, int2: Int, int3: Int): A
 
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(3 * index) = elem.int1; unsafeArray(3 * index + 1) = elem.int2
     unsafeArray(3 * index + 2) = elem.int3 }
@@ -63,18 +62,17 @@ trait Int3Buff[A <: ElemInt3] extends Any with IntNBuff[A]
   final override def length: Int = unsafeBuffer.length / 3
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3); () }
 
-  /** Constructs a defining sequence element from 3 [[Int]]s.  */
+  /** Constructs a sequence-defined element from 3 [[Int]]s.  */
   def sdElem(i1: Int, i2: Int, i3: Int): A
-  override def indexData(index: Int): A = sdElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
+  override def sdIndex(index: Int): A = sdElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 3) = value.int1; unsafeBuffer(i * 3 + 1) = value.int2; unsafeBuffer(i * 3 + 2) = value.int3 }
 }
 
-/** Helper class for companion objects of final Int3sArr classes. */
+/** Helper class for companion objects of final [[Int3SeqDef]] classes. */
 abstract class Int3SeqDefCompanion[A <: ElemInt3, ArrA <: Int3SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
-{
-  override def elemProdSize: Int = 3
+{ override def elemProdSize: Int = 3
 
-  /** Apply factory method */
+  /** Apply factory method. */
   def apply(elems: A*): ArrA =
   { val arrLen: Int = elems.length * 3
     val res = uninitialised(elems.length)

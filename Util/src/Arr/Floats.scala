@@ -10,17 +10,17 @@ class Floats(val unsafeArray: Array[Float]) extends AnyVal with SeqImut[Float]
   override def unsafeSameSize(length: Int): Floats = new Floats(new Array[Float](length))
 
   override def typeStr: String = "Floats"
-  override def dataLength: Int = unsafeArray.length
+  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def indexData(index: Int): Float = unsafeArray(index)
+  override def sdIndex(index: Int): Float = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeArray(i) = value
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
 
   def ++ (op: Floats): Floats =
-  { val newArray = new Array[Float](dataLength + op.dataLength)
+  { val newArray = new Array[Float](sdLength + op.sdLength)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, dataLength)
+    op.unsafeArray.copyToArray(newArray, sdLength)
     new Floats(newArray)
   }
 }
@@ -30,11 +30,11 @@ object Floats
 
 
   implicit val eqImplicit: EqT[Floats] = (a1, a2) =>
-    if(a1.dataLength != a2.dataLength) false
+    if(a1.sdLength != a2.sdLength) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.dataLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.sdLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -51,8 +51,8 @@ object FloatsBuild extends ArrBuilder[Float, Floats] with ArrFlatBuilder[Floats]
 
 class FloatsBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with SeqGen[Float]
 { override def typeStr: String = "FloatsBuff"
-  override def indexData(index: Int): Float = unsafeBuffer(index)
-  override def dataLength: Int = unsafeBuffer.length
+  override def sdIndex(index: Int): Float = unsafeBuffer(index)
+  override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeBuffer(i) = value
   override def fElemStr: Float => String = _.toString
