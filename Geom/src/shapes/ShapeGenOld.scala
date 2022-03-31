@@ -103,7 +103,7 @@ class ShapeGenOld(val unsafeArray: Array[Double]) extends Dbl7SeqDef[CurveTail] 
   @inline def segLast: CurveTail = dataLast
 }
 
-object ShapeGenOld extends DataDbl7sCompanion[CurveTail, ShapeGenOld]
+object ShapeGenOld extends Dbl7SeqDefCompanion[CurveTail, ShapeGenOld]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   override def fromArrayDbl(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
 }

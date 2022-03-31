@@ -112,7 +112,7 @@ object LineSeg
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 
   /** Implicit instance / evidence for [[ArrBuilder]] type class. */
-  implicit val buildEv: ArrDbl4sBuilder[LineSeg, LineSegs] = new ArrDbl4sBuilder[LineSeg, LineSegs]
+  implicit val buildEv: Dbl4ArrBuilder[LineSeg, LineSegs] = new Dbl4ArrBuilder[LineSeg, LineSegs]
   { type BuffT = LineSegBuff
     override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
     def fromDblBuffer(buffer: Buff[Double]): LineSegBuff = new LineSegBuff(buffer)

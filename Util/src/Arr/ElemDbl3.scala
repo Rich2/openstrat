@@ -28,7 +28,7 @@ trait Dbl3SeqDef[A <: ElemDbl3] extends Any with DblNSeqDef[A]
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl3]]s. */
-trait ArrDbl3s[A <: ElemDbl3] extends Any with ArrDblNs[A] with Dbl3SeqDef[A]
+trait ArrDbl3s[A <: ElemDbl3] extends Any with DblNArr[A] with Dbl3SeqDef[A]
 { final override def length: Int = unsafeArray.length / 3
   def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
@@ -39,7 +39,7 @@ trait ArrDbl3s[A <: ElemDbl3] extends Any with ArrDblNs[A] with Dbl3SeqDef[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ArrDbl3sBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsBuilder[B, ArrB]
+trait ArrDbl3sBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends DblNArrBuilder[B, ArrB]
 { type BuffT <: Dbl3Buff[B]
   final override def elemProdSize = 3
 
@@ -51,7 +51,7 @@ trait ArrDbl3sBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsBuilde
 /** Trait for creating the [[ArrFlatBuilder]] type class instances for [[Dbl3Arr]] final classes. Instances for the  for classes / traits you
  *  control, should go in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait Dbl3sArrFlatBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends ArrDblNsFlatBuilder[B, ArrB]
+trait Dbl3sArrFlatBuilder[B <: ElemDbl3, ArrB <: ArrDbl3s[B]] extends DblNArrFlatBuilder[B, ArrB]
 { type BuffT <: Dbl3Buff[B]
   final override def elemProdSize = 3
 }

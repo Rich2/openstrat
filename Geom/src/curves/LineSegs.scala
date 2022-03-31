@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegs(val unsafeArray: Array[Double]) extends ArrDbl4s[LineSeg] with AffinePreserve
+class LineSegs(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSeg] with AffinePreserve
 { type ThisT = LineSegs
   def unsafeFromArray(array: Array[Double]): LineSegs = new LineSegs(array)
   override def typeStr: String = "Line2s"
@@ -17,7 +17,7 @@ class LineSegs(val unsafeArray: Array[Double]) extends ArrDbl4s[LineSeg] with Af
 }
 
 /** Companion object for the LineSegs class. */
-object LineSegs extends DataDbl4sCompanion[LineSeg, LineSegs]
+object LineSegs extends Dbl4SeqDefCompanion[LineSeg, LineSegs]
 {
   implicit val factory: Int => LineSegs = i => new LineSegs(new Array[Double](i * 4))
 
@@ -28,7 +28,7 @@ object LineSegs extends DataDbl4sCompanion[LineSeg, LineSegs]
   }
 
   /** Implicit instance  /evidence for [[ArrFlatBuilder]] type class instance. */
-  implicit val flatBuildEv: ArrFlatBuilder[LineSegs] = new ArrDbl4sFlatBuilder[LineSeg, LineSegs]
+  implicit val flatBuildEv: ArrFlatBuilder[LineSegs] = new Dbl4ArrFlatBuilder[LineSeg, LineSegs]
   { type BuffT = LineSegBuff
     override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(inp)

@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 4 [[Double]]s. These are used in [[ArrDbl4s]] Array[Double] based collections. */
+/** An object that can be constructed from 4 [[Double]]s. These are used in [[Dbl4Arr]] Array[Double] based collections. */
 trait ElemDbl4 extends Any with ElemDblN
 { def dbl1: Double
   def dbl2: Double
@@ -12,7 +12,7 @@ trait ElemDbl4 extends Any with ElemDblN
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl4]]s. */
 trait Dbl4SeqDef[A <: ElemDbl4] extends Any with DblNSeqDef[A]
-{ /** Method for creating new data elements from 4 [[Double]]s In the case of [[ArrDbl4s]] this will be the type of the elements of the sequence. */
+{ /** Method for creating new data elements from 4 [[Double]]s In the case of [[Dbl4Arr]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
   override def elemProdSize: Int = 4
@@ -26,7 +26,7 @@ trait Dbl4SeqDef[A <: ElemDbl4] extends Any with DblNSeqDef[A]
   override def indexData(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl4]]s. */
-trait ArrDbl4s[A <: ElemDbl4] extends Any with ArrDblNs[A] with Dbl4SeqDef[A]
+trait Dbl4Arr[A <: ElemDbl4] extends Any with DblNArr[A] with Dbl4SeqDef[A]
 { def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
   def head3: Double = unsafeArray(2)
@@ -38,7 +38,7 @@ trait ArrDbl4s[A <: ElemDbl4] extends Any with ArrDblNs[A] with Dbl4SeqDef[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl4]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ArrDbl4sBuilder[B <: ElemDbl4, ArrB <: ArrDbl4s[B]] extends ArrDblNsBuilder[B, ArrB]
+trait Dbl4ArrBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends DblNArrBuilder[B, ArrB]
 { type BuffT <: Dbl4Buff[B]
   final override def elemProdSize = 4
 
@@ -53,14 +53,14 @@ trait ArrDbl4sBuilder[B <: ElemDbl4, ArrB <: ArrDbl4s[B]] extends ArrDblNsBuilde
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl4]]. Instances for
  *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait ArrDbl4sFlatBuilder[B <: ElemDbl4, ArrB <: ArrDbl4s[B]] extends ArrDblNsFlatBuilder[B, ArrB]
+trait Dbl4ArrFlatBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends DblNArrFlatBuilder[B, ArrB]
 { type BuffT <: Dbl4Buff[B]
 
   final override def elemProdSize = 4
 }
 
-/** Class for the singleton companion objects of [[ArrDbl4s]] final classes to extend. */
-abstract class DataDbl4sCompanion[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]]
+/** Class for the singleton companion objects of [[Dbl4SeqDef]] final classes to extend. */
+abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]]
 {
   val factory: Int => ArrA
   def apply(length: Int): ArrA = factory(length)
@@ -128,7 +128,7 @@ abstract class DataDbl4sPersist[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]](val typeSt
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl4]]s collections. */
 trait Dbl4Buff[A <: ElemDbl4] extends Any with DblNBuff[A]
-{ type ArrT <: ArrDbl4s[A]
+{ type ArrT <: Dbl4Arr[A]
   override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4
 

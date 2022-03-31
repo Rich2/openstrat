@@ -73,7 +73,7 @@ trait Dbl2SeqDef[A <: ElemDbl2] extends Any with DblNSeqDef[A]
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl2]]s. */
-trait ArrDbl2s[A <: ElemDbl2] extends Any with ArrDblNs[A] with Dbl2SeqDef[A]
+trait ArrDbl2s[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqDef[A]
 { type ThisT <: ArrDbl2s[A]
   final override def length: Int = unsafeArray.length / 2
   def head1: Double = unsafeArray(0)
@@ -100,7 +100,7 @@ trait ArrDbl2s[A <: ElemDbl2] extends Any with ArrDblNs[A] with Dbl2SeqDef[A]
 /** Trait for creating the ArrTBuilder type class instances for [[ArrDbl2s]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is
  *  called B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait ArrDbl2sBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsBuilder[B, ArrB]
+trait ArrDbl2sBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends DblNArrBuilder[B, ArrB]
 { type BuffT <: Dbl2Buff[B]
   final override def elemProdSize = 2
   override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
@@ -109,7 +109,7 @@ trait ArrDbl2sBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsBuilde
 /** Trait for creating the ArrTFlatBuilder type class instances for [[Dbl2Arr]] final classes. Instances for [[ArrFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because it corresponds to the B in ```map[B](f: A => B)(implicit
  *  build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait ArrDbl2sFlatBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends ArrDblNsFlatBuilder[B, ArrB]
+trait ArrDbl2sFlatBuilder[B <: ElemDbl2, ArrB <: ArrDbl2s[B]] extends DblNArrFlatBuilder[B, ArrB]
 { type BuffT <: Dbl2Buff[B]
   final override def elemProdSize = 2
 }
@@ -151,7 +151,7 @@ trait DataDbl2sCompanion[A <: ElemDbl2, ArrA <: Dbl2SeqDef[A]] extends DataDblNs
   }
 }
 
-/** Persists and assists in building [[ArrDblNs]]s. */
+/** Persists and assists in building [[DblNArr]]s. */
 abstract class DataDbl2sPersist[A <: ElemDbl2, M <: Dbl2SeqDef[A]](val typeStr: String) extends DataDblNsPersist[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
