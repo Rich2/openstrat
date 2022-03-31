@@ -60,12 +60,12 @@ trait Dbl4ArrFlatBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends DblNArrFlatB
 }
 
 /** Class for the singleton companion objects of [[Dbl4SeqDef]] final classes to extend. */
-abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]]
+abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, AA <: Dbl4SeqDef[A]]
 {
-  val factory: Int => ArrA
-  def apply(length: Int): ArrA = factory(length)
+  val factory: Int => AA
+  def apply(length: Int): AA = factory(length)
 
-  def apply(elems: A*): ArrA =
+  def apply(elems: A*): AA =
   { val length = elems.length
     val res = factory(length)
     var count: Int = 0
@@ -80,7 +80,7 @@ abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]]
      res
    }
 
-  def doubles(elems: Double*): ArrA =
+  def doubles(elems: Double*): AA =
   { val arrLen: Int = elems.length
     val res = factory(elems.length / 4)
     var count: Int = 0
@@ -92,7 +92,7 @@ abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]]
     res
   }
 
-  def fromList(list: List[A]): ArrA =
+  def fromList(list: List[A]): AA =
   { val arrLen: Int = list.length * 4
     val res = factory(list.length)
     var count: Int = 0
@@ -114,7 +114,7 @@ abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]]
 }
 
 /** Persists [[Dble4Elem] Collection classes. */
-abstract class DataDbl4sPersist[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
+abstract class Dbl4SeqDefPersist[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

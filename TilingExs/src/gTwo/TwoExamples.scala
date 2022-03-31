@@ -16,14 +16,14 @@ object TwoLaunch extends GuiLaunchStd
 
 object TwoScen1 extends TwoScenStart
 { implicit val grid = SqGrid(2, 6, 2, 8)
-  val oPlayers: SqCenArrOpt[Player] = grid.newTileArrOpt
+  val oPlayers: SqCenOptDGrid[Player] = grid.newTileArrOpt
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 6, PlayerB), (6, 8, PlayerC))
 }
 
 object TwoScen2 extends TwoScenStart
 { implicit val grid = SqGrid(2, 16, 2, 20)
-  val oPlayers: SqCenArrOpt[Player] = grid.newTileArrOpt
+  val oPlayers: SqCenOptDGrid[Player] = grid.newTileArrOpt
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 6, PlayerB), (6, 8, PlayerC))
 }

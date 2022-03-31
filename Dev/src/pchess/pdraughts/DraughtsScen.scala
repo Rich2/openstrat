@@ -3,12 +3,12 @@ package ostrat; package pchess; package pdraughts
 import prid._, psq._
 
 trait DraughtsScen extends ChessLikeScen
-{ def draughts: SqCenArrOpt[Draught]
+{ def draughts: SqCenOptDGrid[Draught]
 }
 
 object DraughtsStart extends DraughtsScen
 { val turn = 0
-  val draughts: SqCenArrOpt[Draught] = grid.newTileArrOpt[Draught]
+  val draughts: SqCenOptDGrid[Draught] = grid.newTileArrOpt[Draught]
   def rowCens(y: Int): SqCens = iToMap(ife(y.div4Rem2, 2, 4), 16, 4){c => SqCen(y, c) }
   iToForeach(2, 6, 2){y => rowCens(y).foreach{r => draughts.unsafeSetSome(r, WhiteMan) } }
   iToForeach(16, 12, -2){y => rowCens(y).foreach{r => draughts.unsafeSetSome(r, BlackMan) } }

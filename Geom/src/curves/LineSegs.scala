@@ -21,7 +21,7 @@ object LineSegs extends Dbl4SeqDefCompanion[LineSeg, LineSegs]
 {
   implicit val factory: Int => LineSegs = i => new LineSegs(new Array[Double](i * 4))
 
-  implicit val persistImplicit: DataDbl4sPersist[LineSeg, LineSegs] = new DataDbl4sPersist[LineSeg, LineSegs]("Line2s")
+  implicit val persistImplicit: Dbl4SeqDefPersist[LineSeg, LineSegs] = new Dbl4SeqDefPersist[LineSeg, LineSegs]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegs = new LineSegs(value)
 
     override def showDecT(obj: LineSegs, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???

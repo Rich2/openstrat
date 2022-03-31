@@ -9,7 +9,7 @@ object PlayerB extends Player("B", Violet)
 
 case class Balls(player: Player, num: Int)
 
-case class AltScen(turn: Int, grid: SqGrid, balls: SqCenArrOpt[Balls])
+case class AltScen(turn: Int, grid: SqGrid, balls: SqCenOptDGrid[Balls])
 {
   //def terrs: TileBooleans
   //def oPlayers: TilesArrOpt[Player]*/

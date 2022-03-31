@@ -57,15 +57,15 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   }
 
   /** New immutable Arr of Tile data. */
-  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenArr[A] =
-  { val res = SqCenArr[A](numTiles)
+  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenDGrid[A] =
+  { val res = SqCenDGrid[A](numTiles)
     //res.mutSetAll(value)
     //res
     res
   }
 
   /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrOpt[A] = new SqCenArrOpt(new Array[A](numTiles))
+  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): SqCenOptDGrid[A] = new SqCenOptDGrid(new Array[A](numTiles))
 
   def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(leftCenC, rightCenC, 2)(c => f(SqCen(r, c)))
 

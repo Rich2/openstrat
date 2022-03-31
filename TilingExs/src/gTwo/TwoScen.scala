@@ -5,7 +5,7 @@ import prid._, psq._, gPlay._
 /** Scenario trait for Game Two. */
 trait TwoScen extends SqGridScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. this is the same as Game one. */
-  def oPlayers: SqCenArrOpt[Player]
+  def oPlayers: SqCenOptDGrid[Player]
 
   def endTurn(orderList: Arr[(Player, SqStep)]): TwoScen =
   {
@@ -21,7 +21,7 @@ trait TwoScen extends SqGridScen
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
-    val oPlayersNew: SqCenArrOpt[Player] = oPlayers.clone
+    val oPlayersNew: SqCenOptDGrid[Player] = oPlayers.clone
     targets.foreach{ (sc2, buff) => buff.partition(_.isNear) match
       { case _ if !(oPlayers.tileNone(sc2)) =>
         case (Arr1(sc), _) => oPlayersNew.unsafeMove(sc2.step(sc), sc2)
@@ -37,10 +37,10 @@ trait TwoScen extends SqGridScen
 /** Companion object for TwoScen trait, contains factory apply method. */
 object TwoScen
 { /** Apply factory method for TwoScen game. */
-  def apply(turnIn: Int, gridIn: SqGrid, opIn: SqCenArrOpt[Player]): TwoScen = new TwoScen
+  def apply(turnIn: Int, gridIn: SqGrid, opIn: SqCenOptDGrid[Player]): TwoScen = new TwoScen
   { override val turn = turnIn
     override implicit val grid: SqGrid = gridIn
-    override def oPlayers: SqCenArrOpt[Player] = opIn
+    override def oPlayers: SqCenOptDGrid[Player] = opIn
   }
 }
 
