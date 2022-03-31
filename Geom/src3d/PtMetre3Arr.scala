@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM]] and[[LinePathMs]] classes are not appropriate. */
-class PtMetre3Arr(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl3s[PtM3]
+class PtMetre3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[PtM3]
 { type ThisT = PtMetre3Arr
   def unsafeFromArray(array: Array[Double]): ThisT = new PtMetre3Arr(array)
   override def typeStr: String = "Metres3s"
@@ -52,10 +52,10 @@ class PtMetre3Arr(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl3s[P
   }
 }
 
-object PtMetre3Arr extends DataDbl3sCompanion[PtM3, PtMetre3Arr]
+object PtMetre3Arr extends Dbl3SeqDefCompanion[PtM3, PtMetre3Arr]
 { override def fromArrayDbl(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
 
-  implicit val flatBuilderImplicit: Dbl3sArrFlatBuilder[PtM3, PtMetre3Arr] = new Dbl3sArrFlatBuilder[PtM3, PtMetre3Arr]
+  implicit val flatBuilderImplicit: Dbl3ArrFlatBuilder[PtM3, PtMetre3Arr] = new Dbl3ArrFlatBuilder[PtM3, PtMetre3Arr]
   { type BuffT = BuffPtMetre3
     override def fromDblArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)

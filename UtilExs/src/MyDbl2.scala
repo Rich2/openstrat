@@ -15,14 +15,14 @@ case class MyDbl2(a: Double, b: Double) extends ElemDbl2
 
 object MyDbl2
 {
-  implicit val arrBuilderImplicit: ArrDbl2sBuilder[MyDbl2, MyDbl2s] = new ArrDbl2sBuilder[MyDbl2, MyDbl2s]
+  implicit val arrBuilderImplicit: Dbl2ArrBuilder[MyDbl2, MyDbl2s] = new Dbl2ArrBuilder[MyDbl2, MyDbl2s]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
     def fromDblBuffer(buffer: Buff[Double]): MinesBuff = new MinesBuff(buffer)
   }
 }
 
-final class MyDbl2s(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2s[MyDbl2]
+final class MyDbl2s(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[MyDbl2]
 { type ThisT = MyDbl2s
   def typeStr = "Mines"
   def unsafeFromArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
@@ -30,9 +30,9 @@ final class MyDbl2s(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2s
   override def fElemStr: MyDbl2 => String = _.toString
 }
 
-object MyDbl2s extends DataDbl2sCompanion[MyDbl2, MyDbl2s]
+object MyDbl2s extends Dbl2SeqDefCompanion[MyDbl2, MyDbl2s]
 {
-  implicit val flatImplicit: ArrFlatBuilder[MyDbl2s] = new ArrDbl2sFlatBuilder[MyDbl2, MyDbl2s]
+  implicit val flatImplicit: ArrFlatBuilder[MyDbl2s] = new Dbl2ArrFlatBuilder[MyDbl2, MyDbl2s]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)
@@ -40,7 +40,7 @@ object MyDbl2s extends DataDbl2sCompanion[MyDbl2, MyDbl2s]
 
   override def fromArrayDbl(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
 
-  implicit val persistImplicit: DataDbl2sPersist[MyDbl2, MyDbl2s] = new DataDbl2sPersist[MyDbl2, MyDbl2s]("Mines")
+  implicit val persistImplicit: Dbl2SeqDefPersist[MyDbl2, MyDbl2s] = new Dbl2SeqDefPersist[MyDbl2, MyDbl2s]("Mines")
   { override def fromArray(value: Array[Double]): MyDbl2s = new MyDbl2s(value)
   }
 }

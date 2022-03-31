@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
  *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
-final class Pt2s(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2sLike with ArrDbl2s[Pt2]
+final class Pt2s(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2sLike with Dbl2Arr[Pt2]
 { type ThisT = Pt2s
   def unsafeFromArray(array: Array[Double]): Pt2s = new Pt2s(array)
   override def typeStr: String = "Pt2s"
@@ -18,15 +18,15 @@ final class Pt2s(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2
 }
 
 /** Companion object for the [[Pt2s]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
-object Pt2s extends DataDbl2sCompanion[Pt2, Pt2s]
+object Pt2s extends Dbl2SeqDefCompanion[Pt2, Pt2s]
 {
   override def fromArrayDbl(array: Array[Double]): Pt2s = new Pt2s(array)
 
-  implicit val persistImplicit: DataDbl2sPersist[Pt2, Pt2s] = new DataDbl2sPersist[Pt2, Pt2s]("Pt2s")
+  implicit val persistImplicit: Dbl2SeqDefPersist[Pt2, Pt2s] = new Dbl2SeqDefPersist[Pt2, Pt2s]("Pt2s")
   { override def fromArray(value: Array[Double]): Pt2s = new Pt2s(value)
   }
 
-  implicit val arrFlatBuilderImplicit: ArrFlatBuilder[Pt2s] =  new ArrDbl2sFlatBuilder[Pt2, Pt2s]
+  implicit val arrFlatBuilderImplicit: ArrFlatBuilder[Pt2s] =  new Dbl2ArrFlatBuilder[Pt2, Pt2s]
   { override type BuffT = BuffPt2
     override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPt2 = new BuffPt2(inp)

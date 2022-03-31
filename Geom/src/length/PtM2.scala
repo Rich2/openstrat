@@ -57,7 +57,7 @@ object PtM2
 
   implicit val PersistImplicit: Persist[PtM2] = new PersistShowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
-  implicit val builderImplicit: ArrDbl2sBuilder[PtM2, PtMetre2Arr] = new ArrDbl2sBuilder[PtM2, PtMetre2Arr]
+  implicit val builderImplicit: Dbl2ArrBuilder[PtM2, PtMetre2Arr] = new Dbl2ArrBuilder[PtM2, PtMetre2Arr]
   { type BuffT = BuffPtMetre2
     override def fromDblArray(array: Array[Double]): PtMetre2Arr = new PtMetre2Arr(array)
     def fromDblBuffer(buffer: Buff[Double]): BuffPtMetre2 = new BuffPtMetre2(buffer)
@@ -77,7 +77,7 @@ object PtM2
 }
 
 /** Specialised immutable Array based collection class for [[PtM2]]s. */
-class PtMetre2Arr(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2s[PtM2]
+class PtMetre2Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[PtM2]
 { type ThisT = PtMetre2Arr
   override def unsafeFromArray(array: Array[Double]): PtMetre2Arr = new PtMetre2Arr(array)
   override def typeStr: String = "Metres2s"
@@ -86,11 +86,11 @@ class PtMetre2Arr(val unsafeArray: Array[Double]) extends AnyVal with ArrDbl2s[P
 }
 
 /** Companion object for the [[PtMetre2Arr]] class. Contains implicit Instance for Persist type class. */
-object PtMetre2Arr extends DataDbl2sCompanion[PtM2, PtMetre2Arr]
+object PtMetre2Arr extends Dbl2SeqDefCompanion[PtM2, PtMetre2Arr]
 {
   override def fromArrayDbl(array: Array[Double]): PtMetre2Arr = new PtMetre2Arr(array)
 
-  implicit val persistImplicit: DataDbl2sPersist[PtM2, PtMetre2Arr] = new DataDbl2sPersist[PtM2, PtMetre2Arr]("Metres2s")
+  implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, PtMetre2Arr] = new Dbl2SeqDefPersist[PtM2, PtMetre2Arr]("Metres2s")
   { override def fromArray(value: Array[Double]): PtMetre2Arr = new PtMetre2Arr(value)
   }
 }

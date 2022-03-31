@@ -56,12 +56,12 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2s
 }
 
 /** Companion object for [[PolygonGen]]. */
-object PolygonGen extends DataDbl2sCompanion[Pt2, PolygonGen]
+object PolygonGen extends Dbl2SeqDefCompanion[Pt2, PolygonGen]
 { override def fromArrayDbl(array: Array[Double]): PolygonGen = new PolygonGen(array)
 
   implicit val eqImplicit: EqT[PolygonGen] = (p1, p2) => EqT.arrayImplicit[Double].eqT(p1.unsafeArray, p2.unsafeArray)
 
-  implicit val persistImplicit: DataDbl2sPersist[Pt2, PolygonGen] = new DataDbl2sPersist[Pt2, PolygonGen]("Polygon")
+  implicit val persistImplicit: Dbl2SeqDefPersist[Pt2, PolygonGen] = new Dbl2SeqDefPersist[Pt2, PolygonGen]("Polygon")
   { override def fromArray(value: Array[Double]): PolygonGen = new PolygonGen(value)
     override def showDecT(obj: PolygonGen, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }

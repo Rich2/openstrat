@@ -162,7 +162,7 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongsLik
   def vertsIForeach[U](f: (Int, LatLong) => U): Unit = dataIForeach(f)
 }
 
-object LinePathLL extends DataDbl2sCompanion[LatLong, LinePathLL]
+object LinePathLL extends Dbl2SeqDefCompanion[LatLong, LinePathLL]
 { override def fromArrayDbl(array: Array[Double]): LinePathLL = new LinePathLL(array)
 
   /** Apply factory method for creating Arrs of [[ElemDbl2]]s. */
