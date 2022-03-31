@@ -2,7 +2,7 @@
 package ostrat; package prid; package psq
 
 /** A square tile step can take 8 values */
-sealed trait SqStep extends TileStep
+sealed trait SqStep extends TStep
 { /** The SqCen that this step would point to if it departed from SqCen(0, 0). */
   def sqCen: SqCen = SqCen(r, c)
 

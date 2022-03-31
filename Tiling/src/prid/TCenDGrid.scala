@@ -2,7 +2,7 @@
 package ostrat; package prid
 
 /** An Array of tile centre data of type A. An appropriate [[SqGrid]] or [[HGrid]] is required to utilise its functionality. */
-trait TileCenArr[A <: AnyRef] extends Any
+trait TCenDGrid[A <: AnyRef] extends Any
 { /** The mutable backing Array. End users should rarely if ever have to access this field */
   def unsafeArray: Array[A]
 
@@ -12,8 +12,8 @@ trait TileCenArr[A <: AnyRef] extends Any
   /** Set all tiles to the given value. */
   final def mutSetAll(value: A): Unit = iUntilForeach(0, length){i => unsafeArray(i) = value }
 
-  /** For each element in the underlying array performs the side effecting function. This method treats the [[TileCenArr]] class like a standard Arr
-   *  or Array. It does not utilise the grid [[TGrid]] from which this [[TileCenArr]] was created. */
+  /** For each element in the underlying array performs the side effecting function. This method treats the [[TCenDGrid]] class like a standard Arr
+   *  or Array. It does not utilise the grid [[TGrid]] from which this [[TCenDGrid]] was created. */
   def foreach[U](f: A => U): Unit = unsafeArray.foreach(f)
 
   /** Each element in the underlying array is mapped by the parameter function to an element of type B. This method treat the [[HCenArr]] class like a

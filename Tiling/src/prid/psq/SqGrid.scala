@@ -90,9 +90,9 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
     count
   }
 
-  override def foreachCenCoord(f: TileCoord => Unit): Unit = foreach(f)
+  override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
 
-  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrBuff[A] = SqCenArrBuff(numTiles)
+  final def newTileBuffArr[A <: AnyRef](implicit ct: ClassTag[A]): SqCenBuffDGrid[A] = SqCenBuffDGrid(numTiles)
 
   /** Creates a new [[HCenArrOfBuff]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
   final def newSqCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrOfBuff[A] = SqCenArrOfBuff(numTiles)

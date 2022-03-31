@@ -6,7 +6,7 @@ import geom._, Colour.Black
  * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
  * So Side 2 on its primary Hex tile goes from Vert 1 to 2 while it is Side 5 on its secondary Hex tile and goes from Vertex 5 to vertex 4
  * So Side 3 on its primary Hex tile goes from Vert 2 to 3 while it is Side 4 on its secondary Hex tile and goes from Vertex 6 to vertex 4 */
-class HSide(val r: Int, val c: Int) extends HCenOrSide with TileSide
+class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
 { override def typeStr: String = "HSide"
 
   /** Returns the Hex coordinate Line segment for this Hex Side.  */

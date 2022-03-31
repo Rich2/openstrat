@@ -16,7 +16,7 @@ package object prid
   implicit class GridSlateScaleExtension[T](value: T)(implicit grid: TGrid, evSlate: Slate[T], evScale: Scale[T])
   {
     /** Translates Vec2s relative to focus and then scales. */
-    def gridCoordScale(focus: TileCoord, scale: Double): T =
+    def gridCoordScale(focus: TCoord, scale: Double): T =
     { val v = -focus.toVecReg
       val a = evSlate.SlateXYT(value, v.x, v.y)
       evScale.scaleT(a, scale)

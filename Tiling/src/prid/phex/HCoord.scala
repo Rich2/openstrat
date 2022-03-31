@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
-trait HCoord extends Any with TileCoord
+trait HCoord extends Any with TCoord
 {
   override def equals(obj: Any): Boolean = obj match {
     case hc: HCoord if r == hc.r & c == hc.c => true
@@ -60,7 +60,7 @@ trait HNotVert extends HCoord
 }
 
 /** Common trait for hex centre and hex side coordinate. The position of these coordinates is proportional, unlike the Hex vertices positions. */
-trait HCenOrSide extends HNotVert with TileCenOrSide
+trait HCenOrSide extends HNotVert with TCenOrSide
 
 /** Companion object for [[HCenOrSide]] trait, contains factory apply method and implicit [[Persist]] instance. */
 object HCenOrSide

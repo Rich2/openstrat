@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import geom._
 
 /** A Square tile centre square grid [[SqGrid]] coordinate. */
-case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TileCen
+case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TCen
 { override def typeStr: String = "Sqcen"
 
   def v1: SqVert = SqVert(1, 1)

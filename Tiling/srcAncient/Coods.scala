@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
 
-/** An array[Int] based collection for Cood. To be replaced by [[prid.TileCoord]]. */
+/** An array[Int] based collection for Cood. To be replaced by [[prid.TCoord]]. */
 class Coods(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[Cood]
 { type ThisT = Coods
   override def fElemStr: Cood => String = _.str

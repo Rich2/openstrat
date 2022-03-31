@@ -2,7 +2,7 @@
 package ostrat; package prid; package psq
 import geom._
 
-trait SqBaseCoord extends Any with TileCoord
+trait SqBaseCoord extends Any with TCoord
 { override def toVecReg: Vec2 = Vec2(c, r)
   override def toPt2Reg: Pt2 = Pt2(c, r)
 }
@@ -19,7 +19,7 @@ object SqCoord
   }
 }
 
-trait SqCenOrSide extends Any with SqCoord with TileCenOrSide
+trait SqCenOrSide extends Any with SqCoord with TCenOrSide
 
 object SqCenOrSide
 {
@@ -32,12 +32,12 @@ object SqCenOrSide
 }
 
 /** A Square tile side square grid [[SqGrid]] coordinate. */
-class SqSide(val r: Int, val c: Int) extends SqCenOrSide with TileSide
+class SqSide(val r: Int, val c: Int) extends SqCenOrSide with TSide
 { override def typeStr: String = "Sqside"
 }
 
 /** A Square tile vertex square grid [[SqGrid]] coordinate. */
-class SqVert private(val bLong: Long) extends AnyVal with SqCoord with TileCoord
+class SqVert private(val bLong: Long) extends AnyVal with SqCoord with TCoord
 { override def typeStr: String = "Sqvert"
   @inline def r: Int = bLong.>>(32).toInt
   @inline def c: Int = bLong.toInt

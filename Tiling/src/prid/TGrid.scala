@@ -41,8 +41,8 @@ trait TGrid extends Any with TGriderFlat
   /** The centre of the hex grid in terms of c column coordinates. */
   def cCen: Int = (leftCenC + rightCenC) / 2
 
-  /** The [[TileCenOrSide]] coordinate centre of this tile grid. */
-  def coordCen: TileCoord
+  /** The [[TCenOrSide]] coordinate centre of this tile grid. */
+  def coordCen: TCoord
 
   /** The bottom or lowest tile side row, r coordinate. */
   @inline final def sideRowBottom: Int = bottomCenR - 1
@@ -99,9 +99,9 @@ trait TGrid extends Any with TGriderFlat
   }
 
   /** Foreach tile centre coordinate. A less strongly typed method than the foreach's in the sub traits. */
-  def foreachCenCoord(f: TileCoord => Unit): Unit
+  def foreachCenCoord(f: TCoord => Unit): Unit
 
-  def mapCenCoords[B, BB <: SeqImut[B]](f: TileCoord => B)(implicit build: ArrBuilder[B, BB]): BB =
+  def mapCenCoords[B, BB <: SeqImut[B]](f: TCoord => B)(implicit build: ArrBuilder[B, BB]): BB =
   { val res = build.newArr(numTiles)
     var count = 0
     foreachCenCoord { tc => res.unsafeSetElem(count, f(tc))

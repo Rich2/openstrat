@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, Colour.Black
 
 /** A Hex tile centre hex grid [[HGrid]] coordinate. */
-class HCen(val r: Int, val c: Int) extends HCenOrSide with TileCen
+class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
 {
   override def equals(that: Any): Boolean = that match {
     case that: HCen if r == that.r & c == that.c => true

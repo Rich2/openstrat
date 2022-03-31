@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import reflect.ClassTag
 
 /** An Array of [[ArrayBuffer]]s corresponding to (the centres of a) Hex tile Grid. */
-class SqCenArrBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
+class SqCenBuffDGrid[A <: AnyRef](val unsafeArr: Array[Buff[A]])
 {
   def appendAt(y: Int, c: Int, value: A)(implicit grid: SqGrid): Unit = appendAt(SqCen(y, c), value)
   def appendAt(hCen: SqCen, value: A)(implicit grid: SqGrid): Unit = unsafeArr(grid.arrIndex(hCen)).append(value)
@@ -11,11 +11,11 @@ class SqCenArrBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
 }
 
 /** Companion object for the Hex (centres) grid Array of ArrayBuffer classes. */
-object SqCenArrBuff
+object SqCenBuffDGrid
 { /** Apply factory method, creates a Hex Grid Array of ArrayBuffers, all of length 0. */
-  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): SqCenArrBuff[A] =
+  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): SqCenBuffDGrid[A] =
   { val array = new Array[Buff[A]](length)
     iUntilForeach(0, array.length)(array(_) = new Buff[A])
-    new SqCenArrBuff[A](array)
+    new SqCenBuffDGrid[A](array)
   }
 }

@@ -2,7 +2,7 @@
 package ostrat; package prid
 
 /** An efficient immutable array of optional values mapped to a [[TGrid]] tile grid. */
-trait TileArrOpt[A <: AnyRef] extends Any
+trait TCenOptDGrid[A <: AnyRef] extends Any
 { /** The underlying mutable backing [[Array]]. it is designated unsafe because it uses [[null]]s for run time efficiency. End users should rarely need to access this directly.  */
   def unsafeArr: Array[A]
 
@@ -10,15 +10,15 @@ trait TileArrOpt[A <: AnyRef] extends Any
   def length: Int = unsafeArr.length
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
-   *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TileArrOpt]] was created. */
-  def map[B, ArrT <: SeqImut[B]](noneValue: => B)(f: A => B)(implicit /*grid: HGrid,*/ build: ArrBuilder[B, ArrT]): ArrT =
+   *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptDGrid]] was created. */
+  def map[B, ArrT <: SeqImut[B]](noneValue: => B)(f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     unsafeArr.foreach{ a => build.buffGrow(buff, if (a == null) noneValue else f(a)) }
     build.buffToBB(buff)
   }
 
   /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
-   *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TileArrOpt]] was created. */
+   *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptDGrid]] was created. */
   def mapSomes[B, ArrT <: SeqImut[B]](f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()

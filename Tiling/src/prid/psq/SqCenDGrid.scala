@@ -4,7 +4,7 @@ import reflect.ClassTag
 
 /** A [[SqGrider]] of immutable [[SqCen]] data, stored for efficiency as a flat [[Array]]. Most methods will rquire the [[SqGrider]] as an implicit
  * parameter. */
-class SqCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TileCenArr[A]
+class SqCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenDGrid[A]
 {
   def apply(sc: SqCen)(implicit grid: SqGrid): A = unsafeArray(grid.arrIndex(sc))
 }

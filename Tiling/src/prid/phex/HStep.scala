@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. */
-sealed trait HStep extends TileStep with ElemInt1
+sealed trait HStep extends TStep with ElemInt1
 { /** The delta [[HCen]] of this step inside a hex grid. */
   def hCenDelta: HCen = HCen(r, c)
   def intValue: Int

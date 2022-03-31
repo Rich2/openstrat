@@ -4,7 +4,7 @@ package ostrat; package prid; package psq
 /** A [[SqGrider]] square gird system of immutable optional [[SqCen]] tile data for a specific square tile grid [[SqGrid]]. This is specialised for
  *  OptRef[A]. The tileGrid can map the [[SqCen]] coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[SqGrid]]
  *  square grid parameter. */
-class SqCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileArrOpt[A]
+class SqCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCenOptDGrid[A]
 {
   def clone: SqCenOptDGrid[A] = new SqCenOptDGrid[A](unsafeArr.clone)
 

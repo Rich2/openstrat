@@ -1,10 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 import geom._
-import ostrat.prid.phex.HGriderFlat
 
 /** A coordinate in a tile grid [[TGrid]]. The row is the first field, the column is the second. */
-trait TileCoord extends Any with ShowElemInt2
+trait TCoord extends Any with ShowElemInt2
 { /** Row number for the coordinate of a tile grid. */
   def r: Int
 
@@ -24,20 +23,20 @@ trait TileCoord extends Any with ShowElemInt2
   def parenthStr: String = rcStr.enParenth
 }
 
-/** Companion object for [[TileCoord]] trait will contain a Show[TCoord] implicit instance in Scala 3, but this produces an error in 2.13.5. */
-object TileCoord
+/** Companion object for [[TCoord]] trait will contain a Show[TCoord] implicit instance in Scala 3, but this produces an error in 2.13.5. */
+object TCoord
 {
   //implicit val showTImplicit: Show2Base32sT[TCoord] = Show2Base32sT[TCoord]("TCoord")
 }
 
 /** A tile centre or a tile side coordinate. */
-trait TileCenOrSide extends Any with TileCoord
+trait TCenOrSide extends Any with TCoord
 
 /** A tile centre coordinate. */
-trait TileCen extends Any with TileCenOrSide
+trait TCen extends Any with TCenOrSide
 
 /** A tile side coordinate. */
-trait TileSide extends Any with TileCenOrSide
+trait TSide extends Any with TCenOrSide
 
 /** A tile vertex coordinate. */
-trait TileVert extends Any with TileCoord
+trait TVert extends Any with TCoord

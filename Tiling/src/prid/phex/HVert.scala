@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._
 
 /** A hex tile vertex coordinate. */
-class HVert private(val bLong: Long) extends AnyVal with HCoord with TileCoord
+class HVert private(val bLong: Long) extends AnyVal with HCoord with TCoord
 { @inline def r: Int = bLong.>>(32).toInt
   @inline def c: Int = bLong.toInt
   override def typeStr: String = "HVert"

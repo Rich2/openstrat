@@ -2,7 +2,7 @@
 package ostrat; package prid
 
 /** A tile step, move or addition, or no move. */
-trait TileStep
+trait TStep
 {/** Row coordinate delta. */
   def r: Int
 

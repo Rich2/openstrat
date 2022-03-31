@@ -66,7 +66,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
   /** The end (or by default right) column number of the tile centre of the given row. */
   def rowRightCenC(row: Int): Int
 
-  override def foreachCenCoord(f: TileCoord => Unit): Unit = foreach(f)
+  override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
 
   override def polygons: Arr[Polygon] = map(_.polygonReg)
 

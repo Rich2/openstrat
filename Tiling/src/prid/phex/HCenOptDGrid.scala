@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 
 /** A [[HGrider]] data grid of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to the
  *  index of the Arr. Hence most methods take an implicit [[HGrider]] hex grid parameter. */
-class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TileArrOpt[A]
+class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCenOptDGrid[A]
 {
   def clone: HCenOptDGrid[A] = new HCenOptDGrid[A](unsafeArr.clone)
 
