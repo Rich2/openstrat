@@ -4,6 +4,11 @@ import prid._, phex._, gPlay._
 
 case class PlayerState(player: Player, steps: HStepArr)
 
+object PlayerState
+{
+  def apply(player: Player, steps: HStep*): PlayerState = PlayerState(player, HStepArr(steps: _*))
+}
+
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
 trait ThreeScen extends HexGriderFlatScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */

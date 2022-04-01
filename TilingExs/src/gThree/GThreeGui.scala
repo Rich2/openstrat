@@ -23,9 +23,9 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   val urect = Rect(1.4, 1)
 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
-  def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, p) => ???
-    //val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
-   // urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+  def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, ps) =>
+    val str = ptScale.scaledStr(170, ps.player.toString + "\n" + hc.strComma, 150, ps.player.charStr + "\n" + hc.strComma, 60, ps.player.charStr)
+    urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(ps.player.colour, HPlayer(hc, ps.player), str, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */

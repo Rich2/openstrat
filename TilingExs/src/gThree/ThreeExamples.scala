@@ -8,8 +8,8 @@ object ThreeScen1 extends ThreeScen
 { override def turn: Int = 0
   implicit val grider: HGridReg = HGridReg(2, 6, 2, 10)
   val oPlayers: HCenOptDGrid[PlayerState] = grider.newTileArrOpt
-  oPlayers.unsafeSetSome(4, 4, PlayerState(PlayerA, HStepArr()))
-  //oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
+  oPlayers.unsafeSetSome(4, 4, PlayerState(PlayerA, HStepDR, HStepRt))
+  oPlayers.unsafeSetSomes((4, 8, PlayerState(PlayerB)), (6, 10, PlayerState(PlayerC)))
 }
 
 /** 2nd example Turn 0 scenario state for Game Three. */
