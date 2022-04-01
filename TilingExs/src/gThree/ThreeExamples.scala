@@ -15,7 +15,7 @@ object ThreeLaunch extends GuiLaunchStd
   }
 }
 
-object ThreeScen1 extends ThreeScenStart
+object ThreeScen1 extends ThreeScen(0)
 { override implicit val grider: HGrid = HGridReg(2, 8, 2, 18)
   override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
   import terrs.{setRowPart => srp}
@@ -27,7 +27,7 @@ object ThreeScen1 extends ThreeScenStart
 }
 
 /** 2nd Scenario of Game Three. Has a larger number of hexs. */
-object ThreeScen2 extends ThreeScenStart
+object ThreeScen2 extends ThreeScen(0)
 { override implicit val grider: HGrid = HGridReg(2, 20, 4, 60)
   override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
   import terrs.{setRowPart => sr}
@@ -44,7 +44,8 @@ object ThreeScen2 extends ThreeScenStart
 }
 
 /** 3rd Scenario of Game Three. Has a larger number of hexs. */
-object ThreeScen3 extends ThreeScenStart {
+object ThreeScen3 extends ThreeScen(0)
+{
   override implicit val grider: HGridReg = HGridReg(2, 6, 2, 10)
   override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
 

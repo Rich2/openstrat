@@ -9,15 +9,14 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
   var history: Arr[ThreeScen] = Arr(scen)
   implicit def grider: HGrid = scen.grider
   focus = grider.cenVec
-  //def players: HCenArrOpt[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
-  var cPScale = grider.fullDisplayScale(mainWidth, mainHeight)
+  var cPScale: Double = grider.fullDisplayScale(mainWidth, mainHeight)
 
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
-  val rows = terrs.rowCombine
-  val hexs = rows.map{ hv => hv.polygonReg.fillActive(hv.value.colour, hv) }
+  val rows: Arr[HCenRowValue[Terr]] = terrs.rowCombine
+  val hexs: Arr[PolygonCompound] = rows.map{ hv => hv.polygonReg.fillActive(hv.value.colour, hv) }
   def units: HCenOptDGrid[Lunit] = scen.units
 
   /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
@@ -43,7 +42,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
       thisTop()
     }
 
-    case (RightButton, ArrHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, AnysHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
      val newM: Option[HStep] = grider.findStep(hc1, hc2)
       //newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()

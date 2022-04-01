@@ -24,7 +24,7 @@ object Lunit
 }
 
 /** Example Game three scenario trait. */
-trait ThreeScen extends HexGridScen
+abstract class ThreeScen(val turn: Int) extends HexGridScen
 { /** tile terrain. */
   def terrs: HCenDGrid[Terr]
   def units: HCenOptDGrid[Lunit]
@@ -56,7 +56,7 @@ trait ThreeScen extends HexGridScen
 
 object ThreeScen
 {
-  def apply(turnNumIn: Int, gridIn: HGrid, terrsIn: HCenDGrid[Terr], unitsIn: HCenOptDGrid[Lunit]): ThreeScen = new ThreeScen {
+  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenDGrid[Terr], unitsIn: HCenOptDGrid[Lunit]): ThreeScen = new ThreeScen(turnNum) {
     /** tile terrain. */
     override def terrs: HCenDGrid[Terr] = terrsIn
 
@@ -65,14 +65,11 @@ object ThreeScen
     /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
      * on flat arrays of data. */
     override implicit val grider: HGrid = gridIn
-
-    /** The turn number. This will normally start at 0. The player will then give their instructions for turn 1. The scenario will take these orders /
-     * instructions and return the new game state at turn 1. */
-    override def turn: Int = turnNumIn
   }
 }
 
 /** Example Game three opening scenario trait. */
+/*
 trait ThreeScenStart extends ThreeScen
 { override def turn: Int = 0
-}
+}*/
