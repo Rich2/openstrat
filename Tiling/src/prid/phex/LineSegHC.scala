@@ -36,7 +36,7 @@ object LineSegHC
  *  common parlance is often just referred to as a line. */
 class LineSegHCArr(val unsafeArray: Array[Int]) extends ArrInt4s[LineSegHC]
 { type ThisT = LineSegHCArr
-  def unsafeFromArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
+  def fromArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
   override def typeStr: String = "Line2s"
   override def fElemStr: LineSegHC => String = _.toString
   //override def toString: String = Line2s.PersistImplict.show(this)

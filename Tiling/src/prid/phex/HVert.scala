@@ -47,7 +47,7 @@ trait HVertSeqDef extends Any with Int2SeqDef[HVert]
 /** An array[Int] based collection for HVert. */
 class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqDef with Int2Arr[HVert]
 { type ThisT = HVertArr
-  override def unsafeFromArray(array: Array[Int]): HVertArr = new HVertArr(array)
+  override def fromArray(array: Array[Int]): HVertArr = new HVertArr(array)
   override def typeStr: String = "HVerts" + foldLeft("")(_ + "; " + _.rcStr)
 
   def toPolygon: PolygonHC = new PolygonHC(unsafeArray)

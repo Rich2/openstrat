@@ -6,7 +6,7 @@ import geom._
 class LinePathHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqDef with LinePathInt2s[HCoord]
 { override type ThisT = LinePathHC
   override def typeStr: String = "LinePathHC"
-  override def unsafeFromArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
+  override def fromArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
 }
 
 

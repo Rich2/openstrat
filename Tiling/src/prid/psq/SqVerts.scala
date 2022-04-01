@@ -11,7 +11,7 @@ trait SqVertsLike extends Any with Int2SeqDef[SqVert]
 /** An array[Int] based collection for SqVert. */
 class SqVerts(val unsafeArray: Array[Int]) extends AnyVal with SqVertsLike with Int2Arr[SqVert]
 { type ThisT = SqVerts
-  override def unsafeFromArray(array: Array[Int]): SqVerts = new SqVerts(array)
+  override def fromArray(array: Array[Int]): SqVerts = new SqVerts(array)
   override def typeStr: String = "SqVerts" + foldLeft("")(_ + "; " + _.rcStr)
 
   //def toPolygon: PolygonSC = new PolygonSC(unsafeArray)

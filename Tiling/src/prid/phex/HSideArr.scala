@@ -6,7 +6,7 @@ class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HSide]
 { type ThisT = HSideArr
   override def sdElem(int1: Int, int2: Int): HSide = HSide(int1, int2)
 
-  override def unsafeFromArray(array: Array[Int]): HSideArr = new HSideArr(array)
+  override def fromArray(array: Array[Int]): HSideArr = new HSideArr(array)
 
   override def typeStr: String = "HSides"
 

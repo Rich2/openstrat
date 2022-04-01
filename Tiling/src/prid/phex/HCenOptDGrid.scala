@@ -42,6 +42,11 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     unsafeArr(grider.arrIndex(hc1)) = null.asInstanceOf[A]
   }
 
+  def unsafeMoveMod(hc1: HCen, hc2: HCen)(f: A => A)(implicit grider: HGrider): Unit =
+  { unsafeArr(grider.arrIndex(hc2)) = f(unsafeArr(grider.arrIndex(hc1)))
+    unsafeArr(grider.arrIndex(hc1)) = null.asInstanceOf[A]
+  }
+
   /** coordinate-foreach-Some. Foreach Some element and its associated [[HCen]] coordinate applies the side effecting parameter function. It ignores
    *  the None values. */
   def hcSomesForeach(f: (HCen, A) => Unit)(implicit grider: HGrider): Unit = grider.foreach { hc =>

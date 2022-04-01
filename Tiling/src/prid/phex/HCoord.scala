@@ -62,7 +62,7 @@ trait HCoordSeqDef extends Any with Int2SeqDef[HCoord]
 class HCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCoord] with HCoordSeqDef
 { type ThisT = HCoordArr
   override def typeStr: String = "HCoords"
-  override def unsafeFromArray(array: Array[Int]): HCoordArr = new HCoordArr(array)
+  override def fromArray(array: Array[Int]): HCoordArr = new HCoordArr(array)
 }
 
 class HCoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[HCoord]

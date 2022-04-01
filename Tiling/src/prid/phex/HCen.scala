@@ -93,7 +93,7 @@ class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
 
   override def sdElem(int1: Int, int2: Int): HCen = HCen(int1, int2)
 
-  override def unsafeFromArray(array: Array[Int]): HCenArr = new HCenArr(array)
+  override def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
 
   override def typeStr: String = "HCens"
 

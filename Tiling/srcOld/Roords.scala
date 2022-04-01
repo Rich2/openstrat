@@ -5,7 +5,7 @@ package ostrat; package pGrid
 class Roords(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[Roord]
 { type ThisT = Roords
   override def fElemStr: Roord => String = _.toString
-  override def unsafeFromArray(array: Array[Int]): Roords = new Roords(array)
+  override def fromArray(array: Array[Int]): Roords = new Roords(array)
   override def typeStr: String = "Roords" + foldLeft("")(_ + "; " + _.ycStr)
   override def sdElem(int1: Int, int2: Int): Roord = Roord.apply(int1, int2)
 

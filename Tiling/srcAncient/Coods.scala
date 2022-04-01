@@ -5,7 +5,7 @@ package ostrat; package pGrid
 class Coods(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[Cood]
 { type ThisT = Coods
   override def fElemStr: Cood => String = _.str
-  override def unsafeFromArray(array: Array[Int]): Coods = new Coods(array)
+  override def fromArray(array: Array[Int]): Coods = new Coods(array)
   override def typeStr: String = "Coods"
   override def sdElem(int1: Int, int2: Int): Cood = Cood.apply(int1, int2)
 

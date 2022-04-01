@@ -2,41 +2,46 @@
 package ostrat; package gThree
 import prid._, phex._, gPlay._
 
-/** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
+case class PlayerState(player: Player, steps: HStepArr)
+
+/** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
 trait ThreeScen extends HexGriderFlatScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
-  def oPlayers: HCenOptDGrid[(Player, HStepArr)]
+  def oPlayers: HCenOptDGrid[PlayerState]
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
-  def endTurn(orderList: Arr[(Player, HStep)]): ThreeScen =
+  def endTurn(orderList: Arr[PlayerState]): ThreeScen =
   {
-    //val playersKey: Map[Player, HCen] = oPlayers.keyMap
+    val playersKey: Map[Player, HCen] = oPlayers.keyMap.map(p => (p._1.player, p._2))
 
     val targets: HCenBuffDGrid[HCenStep] = grider.newHCenArrOfBuff
 
-    /*orderList.foreach { (player: Player, steps: HStep) => steps.
-      val hc1: HCen = playersKey(player)
-      val optTarget: Option[HCen] = hc1.stepOpt(step)
-      optTarget.foreach { target => targets.appendAt(target, HCenStep(hc1, step)) }
-    }*/
+    orderList.foreach { ps =>  ps.steps.ifHead { step =>
+        val hc1: HCen = playersKey(ps.player)
+        val optTarget: Option[HCen] = hc1.stepOpt(step)
+        optTarget.foreach{ target => targets.appendAt(target, HCenStep(hc1, step)) }
+      }
+    }
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
-    //val oPlayersNew: HCenOptDGrid[Player] = oPlayers.clone
-    //targets.foreach{ (hc2, buff) => buff.foreachLen1(stCenStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(stCenStep.startHC , hc2)) }
+    val oPlayersNew: HCenOptDGrid[PlayerState] = oPlayers.clone
+    targets.foreach{ (hc2, buff) => buff.foreachLen1 { stCenStep => if (oPlayers.tileNone(hc2))
+        oPlayersNew.unsafeMoveMod(stCenStep.startHC, hc2) { ps => PlayerState(ps.player, ps.steps.tail) }
+      }
+    }
 
-    //ThreeScen(turn + 1, grider, oPlayersNew)
-    ???
+    ThreeScen(turn + 1, grider, oPlayersNew)
   }
 }
 
 /** Companion object for OneScen trait, contains factory apply method. */
 object ThreeScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGriderFlat, opIn: HCenOptDGrid[Player]): ThreeScen = new ThreeScen
+  def apply(turnIn: Int, gridIn: HGriderFlat, opIn: HCenOptDGrid[PlayerState]): ThreeScen = new ThreeScen
   { override val turn = turnIn
     override implicit val grider: HGriderFlat = gridIn
-    override def oPlayers: HCenOptDGrid[(Player, HStepArr)] = ???//opIn
+    override def oPlayers: HCenOptDGrid[PlayerState] = opIn
   }
 }

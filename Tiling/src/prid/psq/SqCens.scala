@@ -7,7 +7,7 @@ class SqCens(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCen]
 
   override def sdElem(int1: Int, int2: Int): SqCen = SqCen(int1, int2)
 
-  override def unsafeFromArray(array: Array[Int]): SqCens = new SqCens(array)
+  override def fromArray(array: Array[Int]): SqCens = new SqCens(array)
 
   override def typeStr: String = "SqCens"
 

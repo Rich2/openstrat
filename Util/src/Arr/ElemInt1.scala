@@ -43,7 +43,7 @@ trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqDef[A]
   { val newArray = new Array[Int](sdLength + 1)
     unsafeArray.copyToArray(newArray)
     newArray(sdLength) = op.int1
-    unsafeFromArray(newArray)
+    fromArray(newArray)
   }
 }
 

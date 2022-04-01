@@ -80,11 +80,11 @@ case object HStepUL extends HStep
   override def reverse: HStep = HStepDR
 }
 
-class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep] //with HStepsTra
+class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
 { override type ThisT = HStepArr
   override def typeStr: String = "HSteps"
   override def dataElem(intValue: Int): HStep = HStep.fromInt(intValue)
-  override def unsafeFromArray(array: Array[Int]): HStepArr = new HStepArr(array)
+  override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
   override def fElemStr: HStep => String = _.toString
 
   def segsNum: Int = unsafeArray.length

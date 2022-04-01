@@ -24,7 +24,7 @@ object CoodLine
 class CoodLines(val unsafeArray: Array[Int]) extends AnyVal with ArrInt4s[CoodLine]
 { type ThisT = CoodLines
   override def fElemStr: CoodLine => String = _.toString
-  override def unsafeFromArray(array: Array[Int]): CoodLines = new CoodLines(array)
+  override def fromArray(array: Array[Int]): CoodLines = new CoodLines(array)
   override def typeStr: String = "CoodLines"
   override def newElem(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = CoodLine.apply(i1, i2, i3, i4)
   def toLine2s(f: Cood => Pt2): LineSegs = dataMap(_.toLine2(f))

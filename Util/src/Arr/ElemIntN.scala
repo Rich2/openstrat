@@ -11,7 +11,7 @@ trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A]
   /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */
   def unsafeArray: Array[Int]
 
-  def unsafeFromArray(array: Array[Int]): ThisT
+  def fromArray(array: Array[Int]): ThisT
 
   /** The length of the Array[Int] backing array. */
   def arrLen = unsafeArray.length
@@ -22,7 +22,13 @@ trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A]
     res
   }
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
-  final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Int](length * elemProdSize))
+  final override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
+
+  def tail: ThisT = {
+    val newArray = new Array[Int](arrLen - elemProdSize)
+    iUntilForeach(0, arrLen - elemProdSize){i => newArray(i) = unsafeArray(i + elemProdSize) }
+    fromArray(newArray)
+  }
 }
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
