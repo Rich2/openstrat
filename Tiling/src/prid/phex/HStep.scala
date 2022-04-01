@@ -80,10 +80,13 @@ case object HStepUL extends HStep
   override def reverse: HStep = HStepDR
 }
 
-/** A trait for [[HStep]]s. The purpose of the trait rather than a class is to allow the consumer to mix in their own traits. Its not clear whether
- *  this is useful in Scala 3 or its bettter to use union types with the [[HStepArr]] class. */
-trait HStepsTr extends Any
-{ def unsafeArray: Array[Int]
+class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep] //with HStepsTra
+{ override type ThisT = HStepArr
+  override def typeStr: String = "HSteps"
+  override def dataElem(intValue: Int): HStep = HStep.fromInt(intValue)
+  override def unsafeFromArray(array: Array[Int]): HStepArr = new HStepArr(array)
+  override def fElemStr: HStep => String = _.toString
+
   def segsNum: Int = unsafeArray.length
 
   def segsForeach[U](start: HCen)(f: LineSeg => U)(implicit grider: HGriderFlat): Unit = segsForeach(start.r, start.c)(f)
@@ -126,27 +129,15 @@ trait HStepsTr extends Any
   }
 }
 
-trait HStepsCompanion[T <: HStepsTr]
+object HStepArr
 {
-  def fromArray(array: Array[Int]): T
-
-  def apply(steps: HStep*): T =
+  def apply(steps: HStep*): HStepArr =
   { val array = new Array[Int](steps.length)
     steps.iForeach{(i, step) => array(i) = step.intValue }
     fromArray(array)
   }
-}
 
-class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep] with HStepsTr
-{ override type ThisT = HStepArr
-  override def typeStr: String = "HSteps"
-  override def dataElem(intValue: Int): HStep = HStep.fromInt(intValue)
-  override def unsafeFromArray(array: Array[Int]): HStepArr = new HStepArr(array)
-  override def fElemStr: HStep => String = _.toString
-}
-
-object HStepArr extends HStepsCompanion[HStepArr]
-{ override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
+  def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
 
   implicit val flatBuilder: ArrFlatBuilder[HStepArr] = new Int1ArrFlatBuilder[HStep, HStepArr]
   { override type BuffT = HStepBuff
