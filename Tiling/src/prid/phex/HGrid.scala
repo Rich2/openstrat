@@ -89,7 +89,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
 
   def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
-  def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCens] = findPathList(startCen, endCen)(fTerrCost).map(_.toImut)
+  def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCenArr] = findPathList(startCen, endCen)(fTerrCost).map(_.toImut)
 
   /** Finds path from Start hex tile centre to end tile centre given the cost function parameter. */
   def findPathList(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[List[HCen]] =
@@ -103,7 +103,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
       val curr: HNode = open.minBy(_.fCost)
       open = open.filterNot(_ == curr)
       closed ::= curr
-      val neighbs: HCens = adjTilesOfTile(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+      val neighbs: HCenArr = adjTilesOfTile(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
       neighbs.foreach { tile =>
         fTerrCost(curr.tile, tile) match {
           case NoInt =>
@@ -179,7 +179,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
   /** The Hex Sides of the Hex Grid defined in integer constructed [[LineSegHC.]].
    *
    *  @group SidesGroup */
-  def sideCoordLines: LineSegHCs = sidesMap[LineSegHC, LineSegHCs](_.coordLine)
+  def sideCoordLines: LineSegHCArr = sidesMap[LineSegHC, LineSegHCArr](_.coordLine)
 
   def newSideBooleans: HSideBooleans = new HSideBooleans(new Array[Boolean](numSides))
 }

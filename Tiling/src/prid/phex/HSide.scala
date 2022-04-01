@@ -48,10 +48,10 @@ object HSide
     case _ => None
   }
 
-  /** Implicit [[ArrBuilder]] type class instance / evidence for [[HSide]] and [[HSides]]. */
-  implicit val buildEv: ArrInt2sBuilder[HSide, HSides] = new ArrInt2sBuilder[HSide, HSides]
+  /** Implicit [[ArrBuilder]] type class instance / evidence for [[HSide]] and [[HSideArr]]. */
+  implicit val buildEv: Int2ArrBuilder[HSide, HSideArr] = new Int2ArrBuilder[HSide, HSideArr]
   { type BuffT = HSideBuff
-    override def fromIntArray(array: Array[Int]): HSides = new HSides(array)
+    override def fromIntArray(array: Array[Int]): HSideArr = new HSideArr(array)
     override def fromIntBuffer(buffer: Buff[Int]): HSideBuff = new HSideBuff(buffer)
   }
 }

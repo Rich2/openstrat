@@ -18,7 +18,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def v6: HVert = HVert(1, 0)
 
   /** The vertex sequence in [[HVert]] coordinates. This starts with the upper right vertex and proceeds clockwise to the upper vertex. */
-  def verts: HVerts = HCen.vertsOfHex00.map(hv => hv + this)
+  def verts: HVertArr = HCen.vertsOfHex00.map(hv => hv + this)
 
   /** The polygon of this tile, specified in [[HVert]] coordinates. */
   def hVertPolygon: PolygonHC = verts.toPolygon
@@ -48,7 +48,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2Reg, colour)
   def decText(fontSize: Double = 12, colour: Colour = Black) = this.rcStr.toTextGraphic(fontSize, toPt2Reg, colour)
 
-  def neibs: HCens = HCen.neibs00.map(n => HCen(r + n.r, c + n.c))
+  def neibs: HCenArr = HCen.neibs00.map(n => HCen(r + n.r, c + n.c))
 }
 
 /** Companion object of HCen trait, contains HVert values for hex tile 0, 0. As well as apply method and Show implicit. */
@@ -71,17 +71,17 @@ object HCen
   val h00v4: HVert = HVert(-1, -2)
   val h00v5: HVert = HVert(1, -2)
   val h00v6: HVert = HVert(1, 0)
-  val vertsOfHex00: HVerts = HVerts(h00v1, h00v2, h00v3, h00v4, h00v5, h00v6)
+  val vertsOfHex00: HVertArr = HVertArr(h00v1, h00v2, h00v3, h00v4, h00v5, h00v6)
 
-  val neibs00: HCens = HCens(HCen(2, 2), HCen(0, 4), HCen(-2, 2), HCen(-2, -2), HCen(0, -4), HCen(2, -2))
+  val neibs00: HCenArr = HCenArr(HCen(2, 2), HCen(0, 4), HCen(-2, 2), HCen(-2, -2), HCen(0, -4), HCen(2, -2))
 
   /** implicit [[Persist]] instance / evidence for [[HCen]]. */
   implicit val persistEv: Persist[HCen] = new PersistShowInt2[HCen]("HCen", "r", "c", HCen(_, _))
 
-  /** Implicit [[ArrBuilder]] type class instance / evidence for [[HCen]] and [[HCens]]. */
-  implicit val buildEv: ArrInt2sBuilder[HCen, HCens] = new ArrInt2sBuilder[HCen, HCens]
+  /** Implicit [[ArrBuilder]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
+  implicit val buildEv: Int2ArrBuilder[HCen, HCenArr] = new Int2ArrBuilder[HCen, HCenArr]
   { type BuffT = HCenBuff
-    override def fromIntArray(array: Array[Int]): HCens = new HCens(array)
+    override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: Buff[Int]): HCenBuff = new HCenBuff(buffer)
   }
 
@@ -92,21 +92,42 @@ object HCen
   }
 }
 
-/** Not sure about this trait for occupants of a hex tile. */
-trait HexMem[A]
-{ val hc: HCen
-  val value: A
+
+/** An efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates. */
+class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
+{ type ThisT = HCenArr
+
+  override def dataElem(i1: Int, i2: Int): HCen = HCen(i1, i2)
+
+  override def unsafeFromArray(array: Array[Int]): HCenArr = new HCenArr(array)
+
+  override def typeStr: String = "HCens"
+
+  override def fElemStr: HCen => String = _.toString
 }
 
-object HexMem
+/** Companion object for [[HCenArr]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
+object HCenArr extends Int2SeqDefCompanion[HCen, HCenArr]
 {
-  def apply[A](hc: HCen, value: A): HexMem[A] = HexMemImp[A](hc, value)
-  case class HexMemImp[A](hc: HCen, value: A) extends HexMem[A]
+  //override def buff(initialSize: Int): HCenBuff = new HCenBuff(buffInt(initialSize * 2))
+  def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
+
+  implicit object PersistImplicit extends PersistArrInt2s[HCen, HCenArr]("HCens")
+  { override def fromArray(value: Array[Int]): HCenArr = new HCenArr(value)
+
+    override def showDecT(obj: HCenArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+  }
+
+  /** Implicit flatMap builder instance / evidence for [[HCenArr]]. */
+  implicit val flatBuilderEv: ArrFlatBuilder[HCenArr] = new Int2ArrFlatBuilder[HCen, HCenArr]
+  { type BuffT = HCenBuff
+    override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
+    override def fromIntBuffer(buffer: Buff[Int]): HCenBuff = new HCenBuff(buffer)
+  }
 }
 
-trait HexMemShow[A] extends HexMem[A] with Show2[HCen, A]
-{ override def show1: HCen = hc
-  override def name1: String = "hCen"
-  override implicit def showT1: ShowT[HCen] = HCen.persistEv
-  override def show2: A = value
+class HCenBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[HCen]
+{ type ArrT = HCenArr
+  override def typeStr: String = "HCenBuff"
+  override def intsToT(i1: Int, i2: Int): HCen = HCen(i1, i2)
 }

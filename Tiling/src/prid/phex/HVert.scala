@@ -30,9 +30,75 @@ object HVert
 
  // implicit object persistImplicit extends Persist2Ints[HVert]("Rood", "r", "c", apply)
 
-  implicit val hVertsBuildImplicit: ArrInt2sBuilder[HVert, HVerts] = new ArrInt2sBuilder[HVert, HVerts]
+  implicit val hVertsBuildImplicit: Int2ArrBuilder[HVert, HVertArr] = new Int2ArrBuilder[HVert, HVertArr]
   { type BuffT = HVertBuff
-    override def fromIntArray(array: Array[Int]): HVerts = new HVerts(array)
+    override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
     override def fromIntBuffer(buffer: Buff[Int]): HVertBuff = new HVertBuff(buffer)
   }
+}
+
+/** Common trait for [[Hverts]] and [[PolygonHC]] */
+trait HVertSeqDef extends Any with Int2SeqDef[HVert]
+{ override def dataElem(i1: Int, i2: Int): HVert = HVert.apply(i1, i2)
+  override def fElemStr: HVert => String = _.str
+  def vertNum: Int = unsafeArray.length / 2
+}
+
+/** An array[Int] based collection for HVert. */
+class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqDef with Int2Arr[HVert]
+{ type ThisT = HVertArr
+  override def unsafeFromArray(array: Array[Int]): HVertArr = new HVertArr(array)
+  override def typeStr: String = "HVerts" + foldLeft("")(_ + "; " + _.rcStr)
+
+  def toPolygon: PolygonHC = new PolygonHC(unsafeArray)
+  /*def filter(f: HVert => Boolean): HVerts =
+  { val tempArr = new Array[Int](array.length)
+    var count = 0
+    var lengthCounter = 0
+    while (count < length)
+    {
+      if (f(this.apply(count)))
+      { tempArr(lengthCounter * 2) = array(count * 2)
+        tempArr(lengthCounter * 2 + 1) = array(count * 2 + 1)
+        lengthCounter += 1
+      }
+      count += 1
+    }
+    val finalArr = new Array[Int](lengthCounter * 2)
+    count = 0
+    while (count < lengthCounter * 2){ finalArr(count) = tempArr(count); count += 1 }
+    new HVerts(finalArr)
+  }
+
+  def flatMapNoDuplicates(f: HVert => HVerts): HVerts =
+  {
+    val buff = new HVertBuff()
+    foreach{ el =>
+      val newVals = f(el)
+      newVals.foreach{ newVal => if( ! buff.contains(newVal)) buff.grow(newVal) }
+    }
+    new HVerts(buff.toArray)
+  }*/
+}
+
+object HVertArr extends Int2SeqDefCompanion[HVert, HVertArr]
+{ def fromArray(array: Array[Int]): HVertArr = new HVertArr(array)
+
+  implicit object PersistImplicit extends PersistArrInt2s[HVert, HVertArr]("HVerts")
+  { override def fromArray(value: Array[Int]): HVertArr = new HVertArr(value)
+
+    override def showDecT(obj: HVertArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+  }
+
+  implicit val arrArrayImplicit: ArrFlatBuilder[HVertArr] = new Int2ArrFlatBuilder[HVert, HVertArr]
+  { type BuffT = HVertBuff
+    override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
+    override def fromIntBuffer(buffer: Buff[Int]): HVertBuff = new HVertBuff(buffer)
+  }
+}
+
+class HVertBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[HVert]
+{ type ArrT = HVertArr
+  override def typeStr: String = "HVertBuff"
+  override def intsToT(i1: Int, i2: Int): HVert = HVert(i1, i2)
 }

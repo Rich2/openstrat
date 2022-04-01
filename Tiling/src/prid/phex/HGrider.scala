@@ -35,7 +35,7 @@ trait HGrider extends Any with TGrider
    *  Array SeqDef data. */
   def arrIndex(r: Int, c: Int): Int
 
-  def adjTilesOfTile(tile: HCen): HCens
+  def adjTilesOfTile(tile: HCen): HCenArr
 
   /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
   def foreach(f: HCen => Unit): Unit
@@ -105,6 +105,6 @@ trait HGrider extends Any with TGrider
   }
 
 
-  def sides: HSides
+  def sides: HSideArr
   def defaultView(pxScale: Double = 50): HGridView
 }

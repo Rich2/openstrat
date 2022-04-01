@@ -9,7 +9,7 @@ trait SqVertsLike extends Any with Int2SeqDef[SqVert]
 }
 
 /** An array[Int] based collection for SqVert. */
-class SqVerts(val unsafeArray: Array[Int]) extends AnyVal with SqVertsLike with ArrInt2s[SqVert]
+class SqVerts(val unsafeArray: Array[Int]) extends AnyVal with SqVertsLike with Int2Arr[SqVert]
 { type ThisT = SqVerts
   override def unsafeFromArray(array: Array[Int]): SqVerts = new SqVerts(array)
   override def typeStr: String = "SqVerts" + foldLeft("")(_ + "; " + _.rcStr)
@@ -45,7 +45,7 @@ class SqVerts(val unsafeArray: Array[Int]) extends AnyVal with SqVertsLike with 
   }*/
 }
 
-object SqVerts extends DataInt2sCompanion[SqVert, SqVerts]
+object SqVerts extends Int2SeqDefCompanion[SqVert, SqVerts]
 { def fromArray(array: Array[Int]): SqVerts = new SqVerts(array)
 
   implicit object PersistImplicit extends PersistArrInt2s[SqVert, SqVerts]("SqVerts")
@@ -54,7 +54,7 @@ object SqVerts extends DataInt2sCompanion[SqVert, SqVerts]
     override def showDecT(obj: SqVerts, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: ArrFlatBuilder[SqVerts] = new ArrInt2sFlatBuilder[SqVert, SqVerts]
+  implicit val arrArrayImplicit: ArrFlatBuilder[SqVerts] = new Int2ArrFlatBuilder[SqVert, SqVerts]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVerts = new SqVerts(array)
     override def fromIntBuffer(buffer: Buff[Int]): SqVertBuff = new SqVertBuff(buffer)

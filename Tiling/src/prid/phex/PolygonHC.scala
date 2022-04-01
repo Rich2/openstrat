@@ -78,7 +78,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with PolygonInt2s[HC
 }
 
 /** Companion object for the polygon whose vertices are defined by hex tile coordinates [[PolygonHC]] trait. */
-object PolygonHC extends DataInt2sCompanion[HCoord, PolygonHC]
+object PolygonHC extends Int2SeqDefCompanion[HCoord, PolygonHC]
 {
   //override def buff(initialSize: Int): Int2sBuffer[HVert, HVertPolygon] = ???
 

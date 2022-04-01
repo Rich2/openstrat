@@ -48,7 +48,7 @@ object Zug1 extends ZugScenStart
   cr(2, 6, WheatField, Plain * 10)
 
   val sTerrs: HSideBooleans = grider.newSideBooleans
-  val wall1: HSides = HSides(14 hs 36, 13 hs 35, 12 hs 34, 11 hs 35, 10 hs 36)
+  val wall1: HSideArr = HSideArr(14 hs 36, 13 hs 35, 12 hs 34, 11 hs 35, 10 hs 36)
   //sTerrs.setTrues(wall1)
 
   val lunits: HCenArrDGrid[Squad] = grider.newTileArrArr[Squad]

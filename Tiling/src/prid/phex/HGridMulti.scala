@@ -7,13 +7,13 @@ abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
 { def numTiles: Int = grid.numTiles
   final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
   def outSteps(r: Int, c: Int): HStepCenArr
-  def sides: HSides = grid.sides
+  def sides: HSideArr = grid.sides
   val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
   def hCenSteps(hCen: HCen): HStepArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 
   /** Default implementation may need removal. */
-  def adjTilesOfTile(tile: HCen): HCens = grid.adjTilesOfTile(tile)
+  def adjTilesOfTile(tile: HCen): HCenArr = grid.adjTilesOfTile(tile)
 
   def findStep(startHC: HCen, endHC: HCen): Option[HStep] =
     if(grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_.endHC == endHC).map(_.step)
@@ -54,7 +54,7 @@ trait HGridMulti extends HGrider
   }
 
   final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
-  override def adjTilesOfTile(tile: HCen): HCens = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))
+  override def adjTilesOfTile(tile: HCen): HCenArr = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))
   override def numTiles: Int = grids.sumBy(_.numTiles)
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
   override def iForeach(f: (HCen, Int) => Unit): Unit = iForeach(0)(f)
@@ -73,7 +73,7 @@ trait HGridMulti extends HGrider
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   override def findStepHC(startHC: HCen, step: HStep): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
 
-  def sides: HSides = gridMans.flatMap(_.sides)
+  def sides: HSideArr = gridMans.flatMap(_.sides)
   def sideLines(implicit grider: HGriderFlat): LineSegs = gridMans.flatMap(_.sideLines)
  // def gridNumSides(gridNum: Int): Int
 

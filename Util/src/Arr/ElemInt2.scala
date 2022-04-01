@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from 2 [[Int]]s. These are used in [[ArrInt2s]] Array[Int] based collections. */
+/** An object that can be constructed from 2 [[Int]]s. These are used in [[Int2Arr]] Array[Int] based collections. */
 trait ElemInt2 extends Any with ElemIntN
 { def int1: Int
   def int2: Int
@@ -17,7 +17,7 @@ trait Int2SeqDef[A <: ElemInt2] extends Any with IntNSeqDef[A]
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt2]]s. */
-trait ArrInt2s[A <: ElemInt2] extends Any with IntNArr[A] with Int2SeqDef[A]
+trait Int2Arr[A <: ElemInt2] extends Any with IntNArr[A] with Int2SeqDef[A]
 { def head1: Int = unsafeArray(0)
   def head2: Int = unsafeArray(1)
   final override def length: Int = unsafeArray.length / 2
@@ -26,7 +26,7 @@ trait ArrInt2s[A <: ElemInt2] extends Any with IntNArr[A] with Int2SeqDef[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int2Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait ArrInt2sBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends IntNArrBuilder[B, ArrB]
+trait Int2ArrBuilder[B <: ElemInt2, ArrB <: Int2Arr[B]] extends IntNArrBuilder[B, ArrB]
 { type BuffT <: Int2Buff[B]
 
   final override def elemProdSize: Int = 2
@@ -42,7 +42,7 @@ trait ArrInt2sBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends IntNArrBuilder
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */
-trait ArrInt2sFlatBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends IntNArrFlatBuilder[B, ArrB]
+trait Int2ArrFlatBuilder[B <: ElemInt2, ArrB <: Int2Arr[B]] extends IntNArrFlatBuilder[B, ArrB]
 { type BuffT <: Int2Buff[B]
   final override def elemProdSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
@@ -50,7 +50,7 @@ trait ArrInt2sFlatBuilder[B <: ElemInt2, ArrB <: ArrInt2s[B]] extends IntNArrFla
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt2]]s collections. */
 trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
-{ type ArrT <: ArrInt2s[A]
+{ type ArrT <: Int2Arr[A]
   override def elemProdSize: Int = 2
   final override def length: Int = unsafeBuffer.length / 2
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2); () }
@@ -60,7 +60,7 @@ trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
 }
 
 /** Helper class for companion objects of final Int2sArr classes. */
-abstract class DataInt2sCompanion[A <: ElemInt2, ArrA <: Int2SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
+abstract class Int2SeqDefCompanion[A <: ElemInt2, ArrA <: Int2SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
 {
   override def elemProdSize: Int = 2
 

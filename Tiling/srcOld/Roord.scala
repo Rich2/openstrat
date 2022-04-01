@@ -47,7 +47,7 @@ object Roord
   def fromLong(value: Long): Roord = new Roord(value)
   def unapply(rd: Roord): Option[(Int, Int)] = Some((rd.y, rd.c))
 
-  implicit val roordsBuildImplicit: ArrInt2sBuilder[Roord, Roords] = new ArrInt2sBuilder[Roord, Roords]
+  implicit val roordsBuildImplicit: Int2ArrBuilder[Roord, Roords] = new Int2ArrBuilder[Roord, Roords]
   { type BuffT = RoordBuff
     override def fromIntArray(array: Array[Int]): Roords = new Roords(array)
     override def fromIntBuffer(buffer: Buff[Int]): RoordBuff = new RoordBuff(buffer)

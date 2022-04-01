@@ -2,7 +2,7 @@
 package ostrat; package prid; package psq
 
 /** An efficient array[Int] based collection for [[SqCen]]s hex grid centre coordinates. */
-class SqCens(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[SqCen]
+class SqCens(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCen]
 { type ThisT = SqCens
 
   override def dataElem(i1: Int, i2: Int): SqCen = SqCen(i1, i2)
@@ -15,7 +15,7 @@ class SqCens(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[SqCen]
 }
 
 /** Companion object for [[SqCens]] trait efficient array[Int] based collection for [[SqCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
-object SqCens extends DataInt2sCompanion[SqCen, SqCens]
+object SqCens extends Int2SeqDefCompanion[SqCen, SqCens]
 {
   //override def buff(initialSize: Int): SqCenBuff = new SqCenBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): SqCens = new SqCens(array)

@@ -2,7 +2,7 @@
 package ostrat; package pGrid
 
 /** An array[Int] based collection for Cood. To be replaced by [[prid.TCoord]]. */
-class Coods(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[Cood]
+class Coods(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[Cood]
 { type ThisT = Coods
   override def fElemStr: Cood => String = _.str
   override def unsafeFromArray(array: Array[Int]): Coods = new Coods(array)
@@ -39,7 +39,7 @@ class Coods(val unsafeArray: Array[Int]) extends AnyVal with ArrInt2s[Cood]
   }
 }
 
-object Coods extends DataInt2sCompanion[Cood, Coods]
+object Coods extends Int2SeqDefCompanion[Cood, Coods]
 {
   //override def buff(initialSize: Int): CoodBuff = new CoodBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Coods = new Coods(array)
@@ -50,7 +50,7 @@ object Coods extends DataInt2sCompanion[Cood, Coods]
     override def showDecT(obj: Coods, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: ArrFlatBuilder[Coods] = new ArrInt2sFlatBuilder[Cood, Coods]
+  implicit val arrArrayImplicit: ArrFlatBuilder[Coods] = new Int2ArrFlatBuilder[Cood, Coods]
   { type BuffT = CoodBuff
     override def fromIntArray(array: Array[Int]): Coods = new Coods(array)
     override def fromIntBuffer(buffer: Buff[Int]): CoodBuff = new CoodBuff(buffer)

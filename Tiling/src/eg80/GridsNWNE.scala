@@ -16,7 +16,7 @@ object GridsNWNE extends HGridMulti {
   /** Splits [[HCen]] allocation at 0y100 0r 1024. */
   override def unsafeGetMan(r: Int, c: Int): HGridMan = ife(c < t"100", gridMan1, gridMan2)
 
-  override def adjTilesOfTile(tile: HCen): HCens = ???
+  override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
   //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
 }

@@ -23,7 +23,7 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
   }
 
   /** Combine adjacent tiles of the same value. */
-  override def adjTilesOfTile(tile: HCen): HCens = ???
+  override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
@@ -45,7 +45,7 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
     }
   }
 
-  override def sides: HSides = ???
+  override def sides: HSideArr = ???
 
   def cSideRowMin(r: Int): Int = ???
 

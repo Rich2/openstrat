@@ -54,6 +54,23 @@ object HCoord
   }
 }
 
+class HCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCoord] {
+  type ThisT = HCoordArr
+
+  override def unsafeFromArray(array: Array[Int]): HCoordArr = new HCoordArr(array)
+
+  override def typeStr: String = "HCoords" + foldLeft("")(_ + "; " + _.rcStr)
+
+  override def dataElem(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
+
+  override def fElemStr: HCoord => String = _.toString
+}
+
+class HCoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[HCoord]
+{ type ArrT = HCoordArr
+  override def typeStr: String = "HCoordBuff"
+  override def intsToT(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
+}
 trait HNotVert extends HCoord
 { override def toVecReg: Vec2 = Vec2(c, r * Sqrt3)
   override def toPt2Reg: Pt2 = Pt2(c, r  * Sqrt3)

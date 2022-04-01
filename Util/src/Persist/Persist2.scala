@@ -256,8 +256,8 @@ class PersistShowDbl2[R <: ShowDbl2](val typeStr: String, val name1: String, val
 { val opt1: Option[Double] = ife(opt2.nonEmpty, opt1In, None)
 }
 
-/**  Class to persist [[ArrInt2s]] collection classes. */
-abstract class PersistArrInt2s[A <: ElemInt2, M <: ArrInt2s[A]](val typeStr: String) extends DataIntNsPersist[A, M]
+/**  Class to persist [[Int2Arr]] collection classes. */
+abstract class PersistArrInt2s[A <: ElemInt2, M <: Int2Arr[A]](val typeStr: String) extends DataIntNsPersist[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value.int1

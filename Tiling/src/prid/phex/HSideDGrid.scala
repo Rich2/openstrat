@@ -10,6 +10,6 @@ class HSideDGrid[A <: AnyRef](val unsafeArr: Array[A])
  *  used using an [HGrid]] class. For convenience the [[HGrid]] is passed as an implicit parameter. */
 class HSideBooleans(val unsafeArray: Array[Boolean]) extends AnyVal
 {
-  def setTrues(hSides: HSides)(implicit grid: HGrid): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
+  def setTrues(hSides: HSideArr)(implicit grid: HGrid): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
   def setTrues(hSides: HSide*)(implicit grid: HGrid): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
 }

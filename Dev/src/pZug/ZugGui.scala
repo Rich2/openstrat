@@ -41,7 +41,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
       grider.findPath(hc2, newTile)((_, _) => SomeInt(1)).fold[Unit] {
         statusText = "Squad can not move to " + newTile.rcStr
         thisTop()
-      } { (hcs: HCens) =>
+      } { (hcs: HCenArr) =>
           deb("Valid Move " + hcs.toString)
           squad.action = Move(hcs)
           mainRepaint(frame)
