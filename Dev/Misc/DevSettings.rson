@@ -10,7 +10,9 @@ ww2 = { scale = 1; latLong = LatLong(51.5; 0); };
 eGrid = { scen = 1; 1 = HGridView(460, 523; 32); 2 = HGridView(460, 1536; 20); };
 gOne = { scen = 1; 1 = HGridView(4, 6; 80); 2 = HGridView(6, 6; 55); 3 = HGridView(6, 6; 50); 4 = HGridView(7, 20; 40) };
 gTwo = 1;
-gThree = 1;
+gThree = { scen = 1; 1 = HGridView(4, 6; 80); 2 = HGridView(6, 6; 55); 3 = HGridView(6, 6; 50); 4 = HGridView(7, 20; 40) };
+gFour = 1;
+
 zugFuhrer = 1;
 civ = 1;
 chess = {scen = 1 };
