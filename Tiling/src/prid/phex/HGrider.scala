@@ -73,7 +73,7 @@ trait HGrider extends Any with TGrider
   }
 
   /** New immutable Arr of Tile data. */
-  final def newTileArrArr[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrDGrid[A] =
+  final def newTileArrDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrDGrid[A] =
   { val newArray = new Array[Array[A]](numTiles)
     val init: Array[A] = Array()
     iUntilForeach(0, numTiles)(newArray(_) = init)
@@ -81,7 +81,7 @@ trait HGrider extends Any with TGrider
   }
 
   /** New Tile immutable Tile Arr of Opt data values. */
-  final def newTileArrOpt[A <: AnyRef](implicit ct: ClassTag[A]): HCenOptDGrid[A] = new HCenOptDGrid(new Array[A](numTiles))
+  final def newHCenOptDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenOptDGrid[A] = new HCenOptDGrid(new Array[A](numTiles))
 
   /** The number of Sides in the TileGrid. Needs reimplementing.
    *  @group SidesGroup */

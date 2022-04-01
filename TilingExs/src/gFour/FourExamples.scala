@@ -4,14 +4,14 @@ import prid._, phex._, pgui._
 
 object FourLaunch extends GuiLaunchStd
 {
-  override def settingStr: String = "gThree"
+  override def settingStr: String = "gFour"
 
   override def default: (CanvasPlatform => Any, String) = (GFourGui(_, FourScen1), "JavaFx Game Four")
 
   override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match {
-    case 1 => (GFourGui(_, FourScen1), "JavaFx Game Three")
-    case 2 => (GFourGui(_, FourScen2), "JavaFx Game Three")
-    case _ => (GFourGui(_, FourScen1), "JavaFx Game Three")
+    case 1 => (GFourGui(_, FourScen1), "JavaFx Game Four")
+    case 2 => (GFourGui(_, FourScen2), "JavaFx Game Four")
+    case _ => (GFourGui(_, FourScen1), "JavaFx Game Four")
   }
 }
 
@@ -21,7 +21,7 @@ object FourScen1 extends FourScen(0)
   import terrs.{setRowPart => srp}
   srp(6, 2, 2, Water)
   srp(4, 4, 2, Woods)
-  val units: HCenOptDGrid[Lunit] = grider.newTileArrOpt
+  val units: HCenOptDGrid[Lunit] = grider.newHCenOptDGrid
   units.unsafeSetSome(4, 4, Lunit(TeamA, HStepDR))
   units.unsafeSetSomes((4, 8, Lunit(TeamB, HStepLt, HStepDL)), (6, 10, Lunit(TeamA)))
 }
@@ -38,7 +38,7 @@ object FourScen2 extends FourScen(0)
   sr(14, 42, 3, Woods)
   sr(16, 44, 3, Woods)
   sr(18, 42, 3, Woods)
-  val units: HCenOptDGrid[Lunit] = grider.newTileArrOpt
+  val units: HCenOptDGrid[Lunit] = grider.newHCenOptDGrid
   units.unsafeSetSome(4, 4, Lunit(TeamA))
 
 }
@@ -50,5 +50,5 @@ object FourScen3 extends FourScen(0)
   override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
 
   import terrs.{completeRow => sr}
-  val units: HCenOptDGrid[Lunit] = grider.newTileArrOpt
+  val units: HCenOptDGrid[Lunit] = grider.newHCenOptDGrid
 }
