@@ -60,8 +60,8 @@ trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 2) = value.int1; unsafeBuffer(i * 2 + 1) = value.int2 }
 }
 
-/** Helper class for companion objects of final Int2sArr classes. */
-abstract class Int2SeqDefCompanion[A <: ElemInt2, ArrA <: Int2SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
+/** Helper class for companion objects of final [[Int2SeqDef]] classes. */
+trait Int2SeqDefCompanion[A <: ElemInt2, ArrA <: Int2SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
 {
   override def elemProdSize: Int = 2
 

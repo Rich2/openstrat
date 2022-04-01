@@ -129,15 +129,8 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
   }
 }
 
-object HStepArr
-{
-  def apply(steps: HStep*): HStepArr =
-  { val array = new Array[Int](steps.length)
-    steps.iForeach{(i, step) => array(i) = step.intValue }
-    fromArray(array)
-  }
-
-  def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
+object HStepArr extends Int1SeqDefCompanion[HStep, HStepArr]
+{ override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
 
   implicit val flatBuilder: ArrFlatBuilder[HStepArr] = new Int1ArrFlatBuilder[HStep, HStepArr]
   { override type BuffT = HStepBuff

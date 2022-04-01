@@ -84,3 +84,22 @@ trait Int1Buff[A <: ElemInt1] extends Any with IntNBuff[A]
    * methods. */
   override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuffer(i) = value.int1
 }
+
+/** Helper class for companion objects of final [[Int1SeqDef]] classes. */
+trait Int1SeqDefCompanion[A <: ElemInt1, ArrA <: Int1SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
+{
+  override def elemProdSize: Int = 1
+
+  /** Apply factory method */
+  def apply(elems: A*): ArrA =
+  { val arrLen: Int = elems.length
+    val res = uninitialised(elems.length)
+    var count: Int = 0
+
+    while (count < arrLen)
+    { res.unsafeArray(count) = elems(count / 2).int1
+      count += 1
+    }
+    res
+  }
+}
