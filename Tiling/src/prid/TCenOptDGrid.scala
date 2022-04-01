@@ -11,7 +11,7 @@ trait TCenOptDGrid[A <: AnyRef] extends Any
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
    *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptDGrid]] was created. */
-  def map[B, ArrT <: SeqImut[B]](noneValue: => B)(f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  def mapArr[B, ArrT <: SeqImut[B]](noneValue: => B)(f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     unsafeArr.foreach{ a => build.buffGrow(buff, if (a == null) noneValue else f(a)) }
     build.buffToBB(buff)

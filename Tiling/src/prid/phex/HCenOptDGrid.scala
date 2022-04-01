@@ -1,10 +1,18 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
+import reflect.ClassTag
 
 /** A [[HGrider]] data grid of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to the
  *  index of the Arr. Hence most methods take an implicit [[HGrider]] hex grid parameter. */
 class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCenOptDGrid[A]
 {
+  def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): HCenOptDGrid[B] = {
+    val newArray = new Array[B](length)
+    var i = 0
+    while (i < length) { if (unsafeArr(i) != null) newArray(i) = f(unsafeArr(i)); i += 1 }
+    new HCenOptDGrid[B](newArray)
+  }
+
   def clone: HCenOptDGrid[A] = new HCenOptDGrid[A](unsafeArr.clone)
 
   /** Sets the Some value of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */

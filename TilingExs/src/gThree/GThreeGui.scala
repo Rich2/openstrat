@@ -9,12 +9,12 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   var scen = scenStart
   var history: Arr[ThreeScen] = Arr(scen)
   implicit def grider: HGriderFlat = scen.grider
-  def players: HCenOptDGrid[PlayerState] = scen.oPlayers
+  def pStates: HCenOptDGrid[PlayerState] = scen.oPlayers
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HCenOptDGrid[HStep] = grider.newHCenOptDGrid[HStep]
+  def NoMoves: HCenOptDGrid[HStep] = ???//pStates.map[HStepArr](_.steps)// grider.newHCenOptDGrid[HStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
@@ -23,13 +23,13 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   val urect = Rect(1.4, 1)
 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
-  def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, ps) =>
+  def units: Arr[PolygonCompound] = pStates.hcSomesMap { (hc, ps) =>
     val str = ptScale.scaledStr(170, ps.player.toString + "\n" + hc.strComma, 150, ps.player.charStr + "\n" + hc.strComma, 60, ps.player.charStr)
     urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(ps.player.colour, HPlayer(hc, ps.player), str, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
+  def hexStrs: Arr[TextGraphic] = pStates.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles: Arr[PolygonActive] = grider.activeTiles
