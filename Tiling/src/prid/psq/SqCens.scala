@@ -5,7 +5,7 @@ package ostrat; package prid; package psq
 class SqCens(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCen]
 { type ThisT = SqCens
 
-  override def dataElem(i1: Int, i2: Int): SqCen = SqCen(i1, i2)
+  override def sdElem(int1: Int, int2: Int): SqCen = SqCen(int1, int2)
 
   override def unsafeFromArray(array: Array[Int]): SqCens = new SqCens(array)
 

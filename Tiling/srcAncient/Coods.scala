@@ -7,7 +7,7 @@ class Coods(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[Cood]
   override def fElemStr: Cood => String = _.str
   override def unsafeFromArray(array: Array[Int]): Coods = new Coods(array)
   override def typeStr: String = "Coods"
-  override def dataElem(i1: Int, i2: Int): Cood = Cood.apply(i1, i2)
+  override def sdElem(int1: Int, int2: Int): Cood = Cood.apply(int1, int2)
 
   def filter(f: Cood => Boolean): Coods =
   { val tempArr = new Array[Int](unsafeArray.length)

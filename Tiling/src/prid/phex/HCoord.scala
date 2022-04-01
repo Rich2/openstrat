@@ -54,16 +54,15 @@ object HCoord
   }
 }
 
-class HCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCoord] {
-  type ThisT = HCoordArr
+trait HCoordSeqDef extends Any with Int2SeqDef[HCoord]
+{ final override def sdElem(int1: Int, int2: Int): HCoord = HCoord(int1, int2)
+  final override def fElemStr: HCoord => String = _.toString
+}
 
+class HCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCoord] with HCoordSeqDef
+{ type ThisT = HCoordArr
+  override def typeStr: String = "HCoords"
   override def unsafeFromArray(array: Array[Int]): HCoordArr = new HCoordArr(array)
-
-  override def typeStr: String = "HCoords" + foldLeft("")(_ + "; " + _.rcStr)
-
-  override def dataElem(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
-
-  override def fElemStr: HCoord => String = _.toString
 }
 
 class HCoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[HCoord]

@@ -87,7 +87,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
 
   override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ife(hCenExists(startHC) & hCenExists(endHC), hcSteps.optFind(_.hCenDelta == endHC - startHC), None)
 
-  def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
+  //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 
   def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCenArr] = findPathList(startCen, endCen)(fTerrCost).map(_.toImut)
 

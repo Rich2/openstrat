@@ -3,7 +3,14 @@ package ostrat; package prid; package phex
 import geom._
 
 /** A trait for classes of line paths specified by [[[HCen]] hex grid tile centre coordinates. Can't remember why this is a trait. */
-trait HCenPathTr extends Any
+class LinePathHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqDef with LinePathInt2s[HCoord]
+{ override type ThisT = LinePathHC
+  override def typeStr: String = "LinePathHC"
+  override def unsafeFromArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
+}
+
+
+/*trait HCenPathTr extends Any
 {
   def unsafeArray: Array[Int]
   @inline final def startR: Int = unsafeArray(0)
@@ -45,9 +52,9 @@ trait HCenPathTr extends Any
     }
     res
   }
-}
+}*/
 
-trait HCenPathCompanion[T <: HCenPathTr]
+/*trait HCenPathCompanion[T <: HCenPathTr]
 {
   def fromArray(array: Array[Int]): T
   def apply(start: HCen, steps: HStep*): T = apply(start.r, start.c, steps :_*)
@@ -59,13 +66,14 @@ trait HCenPathCompanion[T <: HCenPathTr]
     steps.iForeach{(i, step) => array(i + 2) = step.intValue }
     fromArray(array)
   }
-}
+}*/
 
 /** A line path specified in hex grid centre coordinates. */
+/*
 class LinePathHC(val unsafeArray: Array[Int]) extends AnyVal with HCenPathTr with LinePathInt2s[HCen]
 { override type ThisT = LinePathHC
   override def typeStr: String = "HCenPath"
   override def dataElem(i1: Int, i2: Int): HCen = HCen(i1, i2)
   override def unsafeFromArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
   override def fElemStr: HCen => String = _.toString
-}
+}*/

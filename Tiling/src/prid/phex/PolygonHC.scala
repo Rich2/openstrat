@@ -1,20 +1,17 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with PolygonInt2s[HCoord]
+class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqDef with PolygonInt2s[HCoord]
 { override type ThisT = PolygonHC
   override type SideT = LineSegHC
   override def typeStr: String = "PolygonHC"
   override def unsafeFromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
   def vertNum: Int = unsafeArray.length / 2
 
-  override def dataElem(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
-
-
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  override def vert(index: Int): HCoord = ???
+  override def vert(index: Int): HCoord = sdIndex(index)
 
   /** Performs the side effecting function on the [[HCoord]] value of each vertex. */
   override def vertsForeach[U](f: HCoord => U): Unit =
@@ -54,8 +51,6 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with PolygonInt2s[HC
    * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
    * signature. */
   override def vertsPrevForEach[U](f: (HCoord, HCoord) => U): Unit = ???
-
-  override def fElemStr: HCoord => String = _.toString
 
   /** This applies the index value in a circular manner. So the 6th index of a Hexagon is applied at vertex 0, 7 at 1 and -1 at 5. */
   def circularIndex(inp: Int): Int = inp %% vertNum

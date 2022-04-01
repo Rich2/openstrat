@@ -7,7 +7,7 @@ class Roords(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[Roord]
   override def fElemStr: Roord => String = _.toString
   override def unsafeFromArray(array: Array[Int]): Roords = new Roords(array)
   override def typeStr: String = "Roords" + foldLeft("")(_ + "; " + _.ycStr)
-  override def dataElem(i1: Int, i2: Int): Roord = Roord.apply(i1, i2)
+  override def sdElem(int1: Int, int2: Int): Roord = Roord.apply(int1, int2)
 
   /*def filter(f: Roord => Boolean): Roords =
   { val tempArr = new Array[Int](array.length)

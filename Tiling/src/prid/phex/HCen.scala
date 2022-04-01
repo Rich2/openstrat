@@ -84,12 +84,6 @@ object HCen
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: Buff[Int]): HCenBuff = new HCenBuff(buffer)
   }
-
-  implicit val linePathbuildEv: LinePathInt2sBuilder[HCen, LinePathHC] = new LinePathInt2sBuilder[HCen, LinePathHC]{
-    override type BuffT = HCenBuff
-    override def fromIntArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
-    override def fromIntBuffer(inp: Buff[Int]): HCenBuff = new HCenBuff(inp)
-  }
 }
 
 
@@ -97,7 +91,7 @@ object HCen
 class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
 { type ThisT = HCenArr
 
-  override def dataElem(i1: Int, i2: Int): HCen = HCen(i1, i2)
+  override def sdElem(int1: Int, int2: Int): HCen = HCen(int1, int2)
 
   override def unsafeFromArray(array: Array[Int]): HCenArr = new HCenArr(array)
 

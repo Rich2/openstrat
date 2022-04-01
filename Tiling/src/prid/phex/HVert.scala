@@ -39,7 +39,7 @@ object HVert
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
 trait HVertSeqDef extends Any with Int2SeqDef[HVert]
-{ override def dataElem(i1: Int, i2: Int): HVert = HVert.apply(i1, i2)
+{ override def sdElem(int1: Int, int2: Int): HVert = HVert.apply(int1, int2)
   override def fElemStr: HVert => String = _.str
   def vertNum: Int = unsafeArray.length / 2
 }

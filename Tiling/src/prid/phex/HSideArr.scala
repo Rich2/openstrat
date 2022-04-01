@@ -4,7 +4,7 @@ package ostrat; package prid; package phex
 /** An efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates. */
 class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HSide]
 { type ThisT = HSideArr
-  override def dataElem(i1: Int, i2: Int): HSide = HSide(i1, i2)
+  override def sdElem(int1: Int, int2: Int): HSide = HSide(int1, int2)
 
   override def unsafeFromArray(array: Array[Int]): HSideArr = new HSideArr(array)
 

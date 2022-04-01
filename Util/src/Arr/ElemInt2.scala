@@ -9,11 +9,12 @@ trait ElemInt2 extends Any with ElemIntN
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemInt2]]s. */
 trait Int2SeqDef[A <: ElemInt2] extends Any with IntNSeqDef[A]
-{
-  override def elemProdSize: Int = 2
-  final override def sdIndex(index: Int): A = dataElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
-  def dataElem(i1: Int, i2: Int): A
+{ override def elemProdSize: Int = 2
+  final override def sdIndex(index: Int): A = sdElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(2 * index) = elem.int1; unsafeArray(2 * index + 1) = elem.int2 }
+
+  /** Construct element of the defining sequence from 2 [[Int]]s. */
+  def sdElem(int1: Int, int2: Int): A
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt2]]s. */
