@@ -27,7 +27,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapG
   def moveGraphics: GraphicElems = units.hcSomesMap{ (hc, u) => LineSegHC(hc, hc.unsafeStep(u.cmds(0))).lineSeg.draw(units.unSafeApply(hc).colour)}
 
   /** Creates the turn button and the action to commit on mouse click. */
-  def bTurn = simpleButton("Turn " + (scen.turn + 1).toString){
+  def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
     /*val getOrders = moves.mapSomes(rs => rs)
     scen = scen.doTurn(getOrders)
     moves = NoMoves*/

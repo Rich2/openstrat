@@ -13,7 +13,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec
 
-  /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
+  /** There are no moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenOptDGrid[HStep] = grider.newTileArrOpt[HStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
@@ -44,7 +44,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    val getOrders = players.some2sMap(moves)((player, step) => (player, step))
+    val getOrders: Arr[(Player, HStep)] = players.some2sMap(moves)((player, step) => (player, step))
     scen = scen.endTurn(getOrders)
     moves = NoMoves
     repaint()
