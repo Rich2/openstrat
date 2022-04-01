@@ -1,75 +1,42 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gThree
-import prid._, phex._, Colour._
+import prid._, phex._, gPlay._
 
-sealed trait Terr extends Coloured
-object Water extends Terr { def colour = DarkBlue }
-object Woods extends Terr { def colour = Green }
-object Plain extends Terr { def colour = Wheat }
-
-case class Hold(turns: Int)
-//type Command = HStep | Hold
-case class Team(name: String, colour: Colour) extends Coloured
-object TeamA extends Team("TeamA" , Red)
-object TeamB extends Team("TeamB" , Violet)
-
-class Lunit(val team: Team, val cmds: Arr[HStep] = Arr()) extends Coloured
-{ def colour = team.colour
-  override def toString: String = team.toString
-}
-
-object Lunit
-{ def apply(team: Team, cmds: HStep *): Lunit = new Lunit(team, cmds.toArr)
-  def apply(team: Team, cmds: Arr[HStep]): Lunit = new Lunit(team, cmds)
-}
-
-/** Example Game three scenario trait. */
-abstract class ThreeScen(val turn: Int) extends HexGridScen
-{ /** tile terrain. */
-  def terrs: HCenDGrid[Terr]
-  def units: HCenOptDGrid[Lunit]
+/** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
+trait ThreeScen extends HexGriderFlatScen
+{ /** An optional player can occupy each tile. This is the only tile data in the game. */
+  def oPlayers: HCenOptDGrid[(Player, HStepArr)]
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
-   * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def endTurn(orderList: Arr[(Lunit, HStepArr)]): ThreeScen =
+   * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
+  def endTurn(orderList: Arr[(Player, HStep)]): ThreeScen =
   {
-    val playersKey: Map[Lunit, HCen] = units.keyMap
+    //val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
-    /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    val targets: HCenBuffDGrid[HStep] = grider.newHCenArrOfBuff
+    val targets: HCenBuffDGrid[HCenStep] = grider.newHCenArrOfBuff
 
-    orderList.foreach { case (player, steps) =>  steps.ifHead { step =>
-      val hc1 = playersKey(player)
+    /*orderList.foreach { (player: Player, steps: HStep) => steps.
+      val hc1: HCen = playersKey(player)
       val optTarget: Option[HCen] = hc1.stepOpt(step)
-      optTarget.foreach { target => targets.appendAt(target, step.reverse) }
-      }
-    }
+      optTarget.foreach { target => targets.appendAt(target, HCenStep(hc1, step)) }
+    }*/
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
-    val oPlayersNew: HCenOptDGrid[Lunit] = units.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (units.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.unsafeStep(backStep), hc2)) }
+    //val oPlayersNew: HCenOptDGrid[Player] = oPlayers.clone
+    //targets.foreach{ (hc2, buff) => buff.foreachLen1(stCenStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(stCenStep.startHC , hc2)) }
 
-    ThreeScen(turn + 1, grider, terrs, oPlayersNew)
+    //ThreeScen(turn + 1, grider, oPlayersNew)
+    ???
   }
 }
 
+/** Companion object for OneScen trait, contains factory apply method. */
 object ThreeScen
-{
-  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenDGrid[Terr], unitsIn: HCenOptDGrid[Lunit]): ThreeScen = new ThreeScen(turnNum) {
-    /** tile terrain. */
-    override def terrs: HCenDGrid[Terr] = terrsIn
-
-    override def units: HCenOptDGrid[Lunit] = unitsIn
-
-    /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
-     * on flat arrays of data. */
-    override implicit val grider: HGrid = gridIn
+{ /** Factory apply method for OneScen trait. */
+  def apply(turnIn: Int, gridIn: HGriderFlat, opIn: HCenOptDGrid[Player]): ThreeScen = new ThreeScen
+  { override val turn = turnIn
+    override implicit val grider: HGriderFlat = gridIn
+    override def oPlayers: HCenOptDGrid[(Player, HStepArr)] = ???//opIn
   }
 }
-
-/** Example Game three opening scenario trait. */
-/*
-trait ThreeScenStart extends ThreeScen
-{ override def turn: Int = 0
-}*/

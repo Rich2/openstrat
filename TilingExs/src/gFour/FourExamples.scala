@@ -1,21 +1,21 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gThree
+package ostrat; package gFour
 import prid._, phex._, pgui._
 
-object ThreeLaunch extends GuiLaunchStd
+object FourLaunch extends GuiLaunchStd
 {
   override def settingStr: String = "gThree"
 
-  override def default: (CanvasPlatform => Any, String) = (GThreeGui(_, ThreeScen1), "JavaFx Game Three")
+  override def default: (CanvasPlatform => Any, String) = (GFourGui(_, FourScen1), "JavaFx Game Four")
 
   override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match {
-    case 1 => (GThreeGui(_, ThreeScen1), "JavaFx Game Three")
-    case 2 => (GThreeGui(_, ThreeScen2), "JavaFx Game Three")
-    case _ => (GThreeGui(_, ThreeScen1), "JavaFx Game Three")
+    case 1 => (GFourGui(_, FourScen1), "JavaFx Game Three")
+    case 2 => (GFourGui(_, FourScen2), "JavaFx Game Three")
+    case _ => (GFourGui(_, FourScen1), "JavaFx Game Three")
   }
 }
 
-object ThreeScen1 extends ThreeScen(0)
+object FourScen1 extends FourScen(0)
 { override implicit val grider: HGrid = HGridReg(2, 8, 2, 18)
   override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
   import terrs.{setRowPart => srp}
@@ -26,8 +26,8 @@ object ThreeScen1 extends ThreeScen(0)
   units.unsafeSetSomes((4, 8, Lunit(TeamB, HStepLt, HStepDL)), (6, 10, Lunit(TeamA)))
 }
 
-/** 2nd Scenario of Game Three. Has a larger number of hexs. */
-object ThreeScen2 extends ThreeScen(0)
+/** 2nd Scenario of Game Four. Has a larger number of hexs. */
+object FourScen2 extends FourScen(0)
 { override implicit val grider: HGrid = HGridReg(2, 20, 4, 60)
   override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
   import terrs.{setRowPart => sr}
@@ -43,8 +43,8 @@ object ThreeScen2 extends ThreeScen(0)
 
 }
 
-/** 3rd Scenario of Game Three. Has a larger number of hexs. */
-object ThreeScen3 extends ThreeScen(0)
+/** 3rd Scenario of Game Four. Has a larger number of hexs. */
+object FourScen3 extends FourScen(0)
 {
   override implicit val grider: HGridReg = HGridReg(2, 6, 2, 10)
   override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)

@@ -12,7 +12,7 @@ object Apps
     ("EG", egrid.EGridBasicLaunch),
     ("G1", gOne.OneLaunch),
     ("G2", gTwo.TwoLaunch),
-    ("G3", gThree.ThreeLaunch),
+    ("G4", gFour.FourLaunch),
     ("Z", pZug.ZugLaunch),
     ("CV", pCiv.CivLaunch),
     ("CH", pchess.ChessLaunch),

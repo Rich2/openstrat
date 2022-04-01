@@ -1,12 +1,12 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gThree
+package ostrat; package gFour
 import pgui._, prid._, phex._, geom._, gPlay._
 
-case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen) extends HexMapGui("Game Three Gui")
+case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HexMapGui("Game Three Gui")
 { statusText = "Welcome to Game Three."
   val scen = scenStart
   def terrs: HCenDGrid[Terr] = scen.terrs
-  var history: Arr[ThreeScen] = Arr(scen)
+  var history: Arr[FourScen] = Arr(scen)
   implicit def grider: HGrid = scen.grider
   focus = grider.cenVec
 
