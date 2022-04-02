@@ -14,11 +14,11 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   focus = viewIn.vec
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HCenOptDGrid[HStep] = ???//pStates.map[HStepArr](_.steps)// grider.newHCenOptDGrid[HStep]
+  def NoMoves: HCenOptDGrid[PlayerState] = pStates//.map[HStepArr](_.steps)// grider.newHCenOptDGrid[HStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
-  var moves: HCenOptDGrid[HStep] = NoMoves
+  var moves: HCenOptDGrid[PlayerState] = NoMoves
 
   val urect = Rect(1.4, 1)
 
@@ -63,7 +63,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
 
     case (RightButton, AnysHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = grider.findStep(hc1, hc2)
-      newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
+      //newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()
     }
 
