@@ -97,16 +97,11 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
     var c1 = startC
     var r2: Int = 0
     var c2: Int = 0
+
     while (count < segsNum)
-    { unsafeArray(count) match
-    { case 1 => { r2 = r1 + 2; c2 = c1 + 2 }
-      case 2 => { r2 = r1; c2 = c1 + 4 }
-      case 3 => { r2 = r1 - 2; c2 = c1 + 2 }
-      case 4 => { r2 = r1 - 2; c2 = c1 - 2 }
-      case 5 => { r2 = r1; c2 = c1 - 4 }
-      case 6 => { r2 = r1 + 2; c2 = c1 - 2 }
-      case n => excep(s"$n unexpected integer value.")
-    }
+    { val step =  HStep.fromInt(unsafeArray(count))
+      r2 = r1 + step.r
+      c2 = c1 + step.c
       val hls = LineSegHC(r1, c1, r2, c2)
       f(hls.lineSeg)
       count += 1
