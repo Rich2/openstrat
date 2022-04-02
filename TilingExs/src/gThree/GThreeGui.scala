@@ -38,7 +38,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   val sidesDraw: LinesDraw = grider.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineSegDraw] = ???// moves.hcSomesFlatMap { (hc, ps) => Arr()
+  def moveGraphics: Arr[LineSegDraw] = Arr()// moves.hcSomesFlatMap { (hc, ps) => Arr()
     //LineSegHC(hc, hc.unsafeStep(step)).lineSeg.draw(players.unSafeApply(hc).colour)
   //}
 

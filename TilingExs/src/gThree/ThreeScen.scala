@@ -12,8 +12,8 @@ object PlayerState
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
 trait ThreeScen extends HexGriderFlatScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
-  //def oPlayersSt: HCenOptDGrid[PlayerState]
   def oPlayers: HCenOptDGrid[Player]
+
   def playersData: Map[Player, HStepArr] = Map()
   lazy val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
@@ -21,27 +21,24 @@ trait ThreeScen extends HexGriderFlatScen
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def endTurn(orderList: Map[Player, HStepArr]): ThreeScen =
   {
-    //val playersKey: Map[Player, HCen] = oPlayersSt.keyMap.map(p => (p._1.player, p._2))
-
     val targets: HCenBuffDGrid[HCenStep] = grider.newHCenArrOfBuff
 
-   /* orderList.foreach { ps =>  ps.steps.ifHead { step =>
-        val hc1: HCen = playersKey(ps.player)
+    orderList.foreach { ps =>  ps._2.ifHead { step =>
+        val hc1: HCen = playersKey(ps._1)
         val optTarget: Option[HCen] = hc1.stepOpt(step)
         optTarget.foreach{ target => targets.appendAt(target, HCenStep(hc1, step)) }
       }
-    }*/
+    }
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
-    /*val oPlayersNew: HCenOptDGrid[PlayerState] = oPlayersSt.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1 { stCenStep => if (oPlayersSt.tileNone(hc2))
-        oPlayersNew.unsafeMoveMod(stCenStep.startHC, hc2) { ps => PlayerState(ps.player, ps.steps.tail) }
+    val oPlayersNew: HCenOptDGrid[Player] = oPlayers.clone
+    targets.foreach{ (hc2, buff) => buff.foreachLen1 { stCenStep => if (oPlayers.tileNone(hc2))
+        oPlayersNew.unsafeMoveMod(stCenStep.startHC, hc2) { ps => ps }
       }
-    }*/
+    }
 
-    //ThreeScen(turn + 1, grider, oPlayersNew)
-    ???
+    ThreeScen(turn + 1, grider, oPlayersNew)
   }
 }
 
