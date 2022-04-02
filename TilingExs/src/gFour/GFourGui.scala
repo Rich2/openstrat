@@ -3,7 +3,7 @@ package ostrat; package gFour
 import pgui._, prid._, phex._, geom._, gPlay._
 
 case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HexMapGui("Game Three Gui")
-{ statusText = "Welcome to Game Three."
+{ statusText = "Welcome to Game Four."
   val scen = scenStart
   def terrs: HCenDGrid[Terr] = scen.terrs
   var history: Arr[FourScen] = Arr(scen)
@@ -53,7 +53,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HexMapGui
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(bTurn %: navButtons)
-  statusText = s"Game Three. Scenario has ${grider.numTiles} tiles."
+  statusText = s"Game Four. Scenario has ${grider.numTiles} tiles."
   thisTop()
 
   def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts: GraphicElems).slate(-focus).scale(cPScale)

@@ -9,23 +9,23 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   var scen = scenStart
   var history: Arr[ThreeScen] = Arr(scen)
   implicit def grider: HGriderFlat = scen.grider
-  def pStates: HCenOptDGrid[PlayerState] = scen.oPlayers
+  def pStates: HCenOptDGrid[Player] = scen.oPlayers
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HCenOptDGrid[PlayerState] = pStates//.map[HStepArr](_.steps)// grider.newHCenOptDGrid[HStep]
+  //def NoMoves: Map[PlayerState] = pStates//.map[HStepArr](_.steps)// grider.newHCenOptDGrid[HStep]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
-  var moves: HCenOptDGrid[PlayerState] = NoMoves
+  var moves: Map[Player, HStepArr] = scen.playersData
 
   val urect = Rect(1.4, 1)
 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
-  def units: Arr[PolygonCompound] = pStates.hcSomesMap { (hc, ps) =>
-    val str = ptScale.scaledStr(170, ps.player.toString + "\n" + hc.strComma, 150, ps.player.charStr + "\n" + hc.strComma, 60, ps.player.charStr)
-    urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(ps.player.colour, HPlayer(hc, ps.player), str, 24, 2.0)
+  def units: Arr[PolygonCompound] = pStates.hcSomesMap { (hc, pl) =>
+    val str = ptScale.scaledStr(170, pl.toString + "\n" + hc.strComma, 150, pl.charStr + "\n" + hc.strComma, 60, pl.charStr)
+    urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(pl.colour, HPlayer(hc, pl), str, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
@@ -38,15 +38,15 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   val sidesDraw: LinesDraw = grider.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineSegDraw] = moves.hcSomesFlatMap { (hc, ps) => Arr()
+  def moveGraphics: Arr[LineSegDraw] = ???// moves.hcSomesFlatMap { (hc, ps) => Arr()
     //LineSegHC(hc, hc.unsafeStep(step)).lineSeg.draw(players.unSafeApply(hc).colour)
-  }
+  //}
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
   //  val getOrders: Arr[(Player, HStep)] = players.some2sMap(moves)((player, step) => (player, step))
   //  scen = scen.endTurn(getOrders)
-    moves = NoMoves
+    //moves = NoMoves
     repaint()
     thisTop()
   }
