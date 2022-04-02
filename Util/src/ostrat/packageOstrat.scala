@@ -277,6 +277,19 @@ package object ostrat
     }
   }
 
+  implicit class MapExtensions[K, V](val thisMap: Map[K, V])
+  {
+    def replaceValue(key: K, newValue: V): Map[K, V] = thisMap.map{
+      case (k, _) if k == key => (k, newValue)
+      case p => p
+    }
+
+    def modValue(key: K)(f: V => V): Map[K, V] = thisMap.map{
+      case (k, v) if k == key => (k, f(v))
+      case p => p
+    }
+  }
+
   implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
   { def app2(prod: ElemDbl2): Unit = { thisBuff.append(prod.dbl1); thisBuff.append(prod.dbl2) }
   }

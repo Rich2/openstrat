@@ -30,24 +30,29 @@ trait ThreeScen extends HexGriderFlatScen
       }
     }
 
+    var newData: Map[Player, HStepArr] = orderList
+
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
     val oPlayersNew: HCenOptDGrid[Player] = oPlayers.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1 { stCenStep => if (oPlayers.tileNone(hc2))
-        oPlayersNew.unsafeMoveMod(stCenStep.startHC, hc2) { ps => ps }
+        { oPlayersNew.unsafeMoveMod(stCenStep.startHC, hc2) { ps => ps }
+          newData = newData.modValue(oPlayers(stCenStep.startHC).get)( _.tail)
+        }
       }
     }
 
-    ThreeScen(turn + 1, grider, oPlayersNew)
+    ThreeScen(turn + 1, grider, oPlayersNew, newData)
   }
 }
 
 /** Companion object for OneScen trait, contains factory apply method. */
 object ThreeScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGriderFlat, opIn: HCenOptDGrid[Player]): ThreeScen = new ThreeScen
+  def apply(turnIn: Int, gridIn: HGriderFlat, opIn: HCenOptDGrid[Player], newData: Map[Player, HStepArr]): ThreeScen = new ThreeScen
   { override val turn = turnIn
     override implicit val grider: HGriderFlat = gridIn
     override def oPlayers: HCenOptDGrid[Player] = opIn
+    override def playersData: Map[Player, HStepArr] = newData
   }
 }
