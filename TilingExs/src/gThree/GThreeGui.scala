@@ -9,7 +9,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   var scen = scenStart
   var history: Arr[ThreeScen] = Arr(scen)
   implicit def grider: HGriderFlat = scen.grider
-  def pStates: HCenOptDGrid[Player] = scen.oPlayers
+  def players: HCenOptDGrid[Player] = scen.oPlayers
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec
 
@@ -23,13 +23,13 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   val urect = Rect(1.4, 1)
 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
-  def units: Arr[PolygonCompound] = pStates.hcSomesMap { (hc, pl) =>
+  def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, pl) =>
     val str = ptScale.scaledStr(170, pl.toString + "\n" + hc.strComma, 150, pl.charStr + "\n" + hc.strComma, 60, pl.charStr)
     urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(pl.colour, HPlayer(hc, pl), str, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = pStates.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
+  def hexStrs: Arr[TextGraphic] = players.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles: Arr[PolygonActive] = grider.activeTiles
@@ -38,9 +38,13 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   val sidesDraw: LinesDraw = grider.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineSegDraw] = Arr()// moves.hcSomesFlatMap { (hc, ps) => Arr()
-    //LineSegHC(hc, hc.unsafeStep(step)).lineSeg.draw(players.unSafeApply(hc).colour)
-  //}
+  def moveGraphics: Arr[LineSegDraw] = players.hcSomesFlatMap { (hc, p) =>
+    val hss: HStepArr = moves.withDefault(_ => HStepArr())(p)
+    hss.segsMap(hc) { ls =>
+      ls.draw(players.unSafeApply(hc).colour)//LineSegDraw(hc, hc.unsafeStep(step)).lineSeg.draw(players.unSafeApply(hc).colour)
+    }
+    //Arr[LineSegDraw]()
+  }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
