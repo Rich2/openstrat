@@ -80,11 +80,8 @@ trait ValueNSeqDefCompanion[A <: ElemValueN, AA <: ValueNSeqDef[A]]
 { /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   def uninitialised(length: Int): AA
 
-  /** the product size of the ValueNsArr type's elements. */
-  def elemProdSize: Int
-
   /** This method allows you to map from a DataGen to the ArrA type. */
-  final def dataGenMap[T](alb: SeqDefGen[T])(f: T => A): AA =
+  @deprecated final def deprDataGenMap[T](alb: SeqDefGen[T])(f: T => A): AA =
   { val res = uninitialised(alb.sdLength)
     var count = 0
     alb.dataForeach { t =>
@@ -94,3 +91,5 @@ trait ValueNSeqDefCompanion[A <: ElemValueN, AA <: ValueNSeqDef[A]]
     res
   }
 }
+
+//trait ValueNBuffCompanion[A <: Elem]

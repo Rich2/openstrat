@@ -109,12 +109,15 @@ trait IntNSeqDefPersist[A <: ElemIntN, M <: IntNSeqDef[A]] extends ValueNSeqDefP
 /** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[ElemIntN]] type of the of the
  *  collection class. */
 trait IntNSeqDefCompanion[A <: ElemIntN, ArrA <: IntNSeqDef[A]] extends ValueNSeqDefCompanion[A, ArrA]
-{ /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an ArrayBuffer[Int]. */
+{ /** The number of [[Int]]s that are needed to construct an element of the defining-sequence. */
+  def elemNumInts: Int
+
+  /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an ArrayBuffer[Int]. */
   def fromBuffer(buff: Buff[Int]): ArrA = fromArray(buff.toArray[Int])
 
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an Array[Int]. */
   def fromArray(array: Array[Int]): ArrA
 
   /** returns a collection class of type ArrA, whose backing Array[Int] is uninitialised. */
-  override def uninitialised(length: Int): ArrA = fromArray(new Array[Int](length * elemProdSize))
+  override def uninitialised(length: Int): ArrA = fromArray(new Array[Int](length * elemNumInts))
 }

@@ -63,7 +63,7 @@ trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
 /** Helper class for companion objects of final [[Int2SeqDef]] classes. */
 trait Int2SeqDefCompanion[A <: ElemInt2, ArrA <: Int2SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
 {
-  override def elemProdSize: Int = 2
+  override def elemNumInts: Int = 2
 
   /** Apply factory method */
   def apply(elems: A*): ArrA =

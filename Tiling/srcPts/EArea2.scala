@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._
 
@@ -30,7 +30,7 @@ abstract class EArea2(val name: String, val cen: LatLong, val terr: WTile) exten
 
       case SomeB(curveSegDists) =>
       { val cenXY: Pt2 = eg.latLongToXY(cen)
-        val curveSegs: ShapeGenOld = ShapeGenOld.dataGenMap(curveSegDists)(_.toCurveSeg(eg.trans))// curveSegDists.dataMap(_.toCurveSeg(eg.trans))
+        val curveSegs: ShapeGenOld = ShapeGenOld.deprDataGenMap(curveSegDists)(_.toCurveSeg(eg.trans))// curveSegDists.dataMap(_.toCurveSeg(eg.trans))
         Arr(PolyCurveParentFull.fill(cenXY, curveSegs, this, terr.colour))
       }
 

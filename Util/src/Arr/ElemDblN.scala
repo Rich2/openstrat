@@ -118,11 +118,14 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 
 /** Helper trait for Companion objects of [[DblNArr]] classes. */
 trait DblNSeqDefCompanion[A <: ElemDblN, ArrA <: DblNSeqDef[A]] extends ValueNSeqDefCompanion[A, ArrA]
-{ /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
+{ /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
+  def elemNumDbls: Int
+
+  /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArrayDbl(array: Array[Double]): ArrA
 
   /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
-  override def uninitialised(length: Int): ArrA = fromArrayDbl(new Array[Double](length * elemProdSize))
+  override def uninitialised(length: Int): ArrA = fromArrayDbl(new Array[Double](length * elemNumDbls))
 
   def empty: ArrA = fromArrayDbl(new Array[Double](0))
 }

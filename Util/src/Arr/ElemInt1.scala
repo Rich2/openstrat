@@ -88,7 +88,7 @@ trait Int1Buff[A <: ElemInt1] extends Any with IntNBuff[A]
 /** Helper class for companion objects of final [[Int1SeqDef]] classes. */
 trait Int1SeqDefCompanion[A <: ElemInt1, ArrA <: Int1SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
 {
-  override def elemProdSize: Int = 1
+  override def elemNumInts: Int = 1
 
   /** Apply factory method */
   def apply(elems: A*): ArrA =
