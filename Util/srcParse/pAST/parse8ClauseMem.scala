@@ -1,12 +1,13 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
+import collection.mutable.ArrayBuffer
 
 /** Function object for parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
 object parse8ClauseMem
 { /** Function apply method parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
   def apply(implicit inp: Arr[ClauseMem]): EMon[ClauseMemExpr] =
   {
-    val acc: Buff[ClauseMem] = Buff()
+    val acc: ArrayBuffer[ClauseMem] = Buff()
 
     def loop(rem: ArrOff[ClauseMem]): EArr[ClauseMem] = rem match
     { case ArrOff0() => parse9PrefixPlus(acc.toArr)

@@ -41,24 +41,23 @@ object HCoord
     case _ => new HCoordOther(r, c)
   }
 
-  implicit val arrBuild: Int2ArrBuilder[HCoord, HCoordArr] = new Int2ArrBuilder[HCoord, HCoordArr] {
+  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[ArrBuilder]]. */
+  implicit val arrBuildEv: Int2ArrBuilder[HCoord, HCoordArr] = new Int2ArrBuilder[HCoord, HCoordArr] {
     override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): HCoordArr = new HCoordArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HCoordBuff = HCoordBuff()
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCoordBuff = HCoordBuff()
   }
 
   implicit val persistImplicit: Persist[HCoord] = PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
 
-  //val unshow32Ev: Unshow2[Int, Int, HCoord] = Unshow
-  //val persist32: Persist[HCoord] =
-    //Persist2[Int, Int, HCoord]("HCoord", "r", _.r, "c", _.c, HCoord(_, _))()
-
-  implicit val polygonBuildImplicit: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
+  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[PolygonBuilder]]. */
+  implicit val polygonBuildEv: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
   { override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
     override def fromIntBuffer(inp: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(inp)
   }
 
+  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[LinePathBuilder]]. */
   implicit val linePathBuildEv: LinePathInt2sBuilder[HCoord, LinePathHC] = new LinePathInt2sBuilder[HCoord, LinePathHC]
   { override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
@@ -77,14 +76,14 @@ class HCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCoord]
   override def fromArray(array: Array[Int]): HCoordArr = new HCoordArr(array)
 }
 
-class HCoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[HCoord]
+class HCoordBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[HCoord]
 { type ArrT = HCoordArr
   override def typeStr: String = "HCoordBuff"
   override def intsToT(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
 }
 
 object HCoordBuff extends Int2BuffCompanion[HCoord, HCoordBuff]
-{ override def fromBuffer(buffer: Buff[Int]): HCoordBuff = new HCoordBuff(buffer)
+{ override def fromBuffer(buffer: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(buffer)
 }
 
 trait HNotVert extends HCoord

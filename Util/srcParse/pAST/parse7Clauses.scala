@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
+import collection.mutable.ArrayBuffer
 
 /** Function object parses [[Clause]]s. */
 object parse7Clauses
@@ -9,8 +10,8 @@ object parse7Clauses
 
   def fromOffset(inp: ArrOff[ColonOpMem])(implicit seg: Arr[ColonOpMem]): EMon[ColonMemExpr] =
   {
-    var subAcc: Buff[ClauseMem] = Buff()
-    val acc: Buff[Clause] = Buff()
+    var subAcc: ArrayBuffer[ClauseMem] = Buff()
+    val acc: ArrayBuffer[Clause] = Buff()
     def loop(rem: ArrOff[ColonOpMem]): EMon[ColonMemExpr] = rem match {
 
       case ArrOff0() if acc.isEmpty => parse8ClauseMem(subAcc.toArr)

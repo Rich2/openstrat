@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
+import collection.mutable.ArrayBuffer
 
 /** An efficient array[Int] based collection for [[SqCen]]s hex grid centre coordinates. */
 class SqCens(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCen]
@@ -29,7 +30,7 @@ object SqCens extends Int2SeqDefCompanion[SqCen, SqCens]
   //implicit val arrArrayImplicit: ArrTFlatBuilder[SqCens] = SqCen.hCensBuildImplicit
 }
 
-class SqCenBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[SqCen]
+class SqCenBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[SqCen]
 { type ArrT = SqCens
   override def typeStr: String = "SqCenBuff"
   override def intsToT(i1: Int, i2: Int): SqCen = SqCen(i1, i2)

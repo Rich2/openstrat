@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pglobe._, pGrid._, reflect.ClassTag
+import geom._, pglobe._, pGrid._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker
@@ -71,14 +71,14 @@ class EGridAncient[TileT <: TileAncient, SideT <: TileSideAncient](bounds: Array
   def eGraphicElems(eg: EarthGuiOld, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems):
     GraphicElems =
   {
-    val acc: Buff[GraphicElem] = Buff()
+    val acc: ArrayBuffer[GraphicElem] = Buff()
     foreachTilesCoodAll { tileCood =>
       val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
       val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Arr[GraphicAffineElem]())
       acc ++= newRes.unsafeArr
     }
 
-    val sideAcc: Buff[GraphicElem] = Buff()
+    val sideAcc: ArrayBuffer[GraphicElem] = Buff()
     foreachSidesCoodAll { sideCood =>
       val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
       val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Arr[GraphicAffineElem]())

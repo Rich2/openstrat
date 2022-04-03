@@ -1,12 +1,13 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
+import collection.mutable.ArrayBuffer
 
 /** Function object to parse a brace delineated block. */
 object parse2BraceBlock
 { /** Funton apply method parses input [[Token]]s into a brace syntax block. */
   def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: Arr[Token]): EMon2[BracketedStatements, ArrOff[Token]] =
   {
-    val acc: Buff[BlockMem] = Buff()
+    val acc: ArrayBuffer[BlockMem] = Buff()
     def loop(rem: ArrOff[Token]): EMon2[BracketedStatements, ArrOff[Token]] = rem match
     {
       case ArrOff0() => open.startPosn.bad2("Unclosed Brace")

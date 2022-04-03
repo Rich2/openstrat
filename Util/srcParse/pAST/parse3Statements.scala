@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
+import collection.mutable.ArrayBuffer
 
 /** Function object for parseing [[blockMem]]s to an [[Expr]]. */
 object parse3Statements
@@ -8,8 +9,8 @@ object parse3Statements
    *  "4;" will return a [[Good]] [[Statement]] sequence of one Statement. */
   def apply(implicit inp: Arr[BlockMem]): EMon[Expr] =
   {
-    val acc: Buff[Statement] = Buff()
-    var subAcc: Buff[StatementMem] = Buff()
+    val acc: ArrayBuffer[Statement] = Buff()
+    var subAcc: ArrayBuffer[StatementMem] = Buff()
 
     def loop(rem: ArrOff[BlockMem]): EMon[Expr] = rem match
     {

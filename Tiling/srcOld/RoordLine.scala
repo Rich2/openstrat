@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
-import geom._
+import geom._, collection.mutable.ArrayBuffer
 
 /** A 2d line defined by its start and end TileGrid Roord. */
 case class RoordLine(y1: Int, c1: Int, y2: Int, c2: Int) extends ElemInt4
@@ -32,7 +32,7 @@ class RoordLines(val unsafeArray: Array[Int]) extends AnyVal with ArrInt4s[Roord
   //override def toString: String = RoordLines.PersistImplicit.show(this)
 }
 
-class RoordLinesBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int4Buff[RoordLine, RoordLines]
+class RoordLinesBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int4Buff[RoordLine, RoordLines]
 {// override def unBuff: RoordLines = new RoordLines(toArray)
   override def typeStr: String = "RoordLinesBuff"
   override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): RoordLine = new RoordLine(i1, i2, i3, i4)

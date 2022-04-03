@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import reflect.ClassTag
+import reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** A [[SqCen]] hex tile centre grid Arr of [[ArrayBuffer]]s corresponding to the centres of an [[SqGrid]] square tile grid. */
-class SqCenArrOfBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
+class SqCenArrOfBuff[A <: AnyRef](val unsafeArr: Array[ArrayBuffer[A]])
 { /** Appends value to the array buffer at the given location [[SqCen]] location. */
   def appendAt(y: Int, c: Int, value: A)(implicit grid: SqGrid): Unit = appendAt(SqCen(y, c), value)
 
@@ -18,8 +18,8 @@ class SqCenArrOfBuff[A <: AnyRef](val unsafeArr: Array[Buff[A]])
 object SqCenArrOfBuff
 { /** Apply factory method, creates a new [[SqCenArrOfBuff]] a square grid Arr of ArrayBuffers, all of length 0. */
   def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): SqCenArrOfBuff[A] =
-  { val array = new Array[Buff[A]](length)
-    iUntilForeach(0, array.length)(array(_) = new Buff[A])
+  { val array = new Array[ArrayBuffer[A]](length)
+    iUntilForeach(0, array.length)(array(_) = new ArrayBuffer[A])
     new SqCenArrOfBuff[A](array)
   }
 }

@@ -84,7 +84,7 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqDef[A]
 trait DblNArrBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends ValueNArrBuilder[B, ArrB]
 { type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): ArrB
-  def fromDblBuffer(buffer: Buff[Double]): BuffT
+  def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
   final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)

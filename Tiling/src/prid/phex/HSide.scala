@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, Colour.Black
+import geom._, Colour.Black, collection.mutable.ArrayBuffer
 
 /** A Hex side coordinate in a Hex Grid.
  * So Side 1 on its primary Hex tile goes from Vert 6 to 1 while it is Side 4 on its secondary Hex tile and goes from Vertex 4 to vertex 3
@@ -52,6 +52,6 @@ object HSide
   implicit val buildEv: Int2ArrBuilder[HSide, HSideArr] = new Int2ArrBuilder[HSide, HSideArr]
   { type BuffT = HSideBuff
     override def fromIntArray(array: Array[Int]): HSideArr = new HSideArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HSideBuff = new HSideBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSideBuff = new HSideBuff(buffer)
   }
 }

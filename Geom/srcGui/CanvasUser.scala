@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
-import geom._
+import geom._, collection.mutable.ArrayBuffer
 
 /** So the descendant classes need to set the canv.mouseup field to use the mouse and its equivalents. */
 abstract class CanvasUser(val title: String)
@@ -10,7 +10,7 @@ abstract class CanvasUser(val title: String)
   /** This reverses the order of the GraphicActive List. Method paints objects to screen as side effect. */
   def paintObjs(movedObjs: Arr[GraphicElem]): Arr[GraphicActive] =
   {
-    val activeBuff: Buff[GraphicActive] = Buff()
+    val activeBuff: ArrayBuffer[GraphicActive] = Buff()
     movedObjs.foreach {
       case el: GraphicActiveOld => activeBuff += el
       case _ =>

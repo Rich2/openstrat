@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
+import collection.mutable.ArrayBuffer
 
 /** An array[Int] based collection for Cood. To be replaced by [[prid.TCoord]]. */
 class Coods(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[Cood]
@@ -53,11 +54,11 @@ object Coods extends Int2SeqDefCompanion[Cood, Coods]
   implicit val arrArrayImplicit: ArrFlatBuilder[Coods] = new Int2ArrFlatBuilder[Cood, Coods]
   { type BuffT = CoodBuff
     override def fromIntArray(array: Array[Int]): Coods = new Coods(array)
-    override def fromIntBuffer(buffer: Buff[Int]): CoodBuff = new CoodBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): CoodBuff = new CoodBuff(buffer)
   }
 }
 
-class CoodBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[Cood]
+class CoodBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[Cood]
 { type ArrT = Coods
   override def typeStr: String = "CoodBuff"
   override def intsToT(i1: Int, i2: Int): Cood = Cood(i1, i2)

@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+import scala.collection.mutable.ArrayBuffer
+
 /** A class that can be constructed from a fixed number of homogeneous primitive values such as Ints, Doubles or Longs. The final class can be stored
  *  as *  an Array of primitive values. Note the classes that extend this trait do not extend [[Product]] or its numbered sub traits, because the
  *  logical size of the product may not be the same as the number of primitive values, for example a LineSeg is a product of 2 [[Pt2]]s, but is
@@ -69,10 +71,10 @@ trait ValueNBuff[A <: ElemValueN] extends Any with SeqGen[A]
 trait ValueNSeqDefPersist[A <: ElemValueN, M <: ValueNSeqDef[A]] extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT
-  def appendtoBuffer(buf: Buff[VT], value: A): Unit
+  def appendtoBuffer(buf: ArrayBuffer[VT], value: A): Unit
   def fromArray(value: Array[VT]): M
-  def fromBuffer(buf: Buff[VT]): M
-  def newBuffer: Buff[VT]
+  def fromBuffer(buf: ArrayBuffer[VT]): M
+  def newBuffer: ArrayBuffer[VT]
 }
 
 /** Helper trait for companion objects of [[ValueNSeqDef]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */

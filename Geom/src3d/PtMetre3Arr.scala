@@ -70,5 +70,5 @@ final class BuffPtMetre3(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal w
 
 object BuffPtMetre3
 {
-  def apply(initSize: Int = 4): BuffPtMetre3 = new BuffPtMetre3(new Buff[Double](initSize * 3))
+  def apply(initSize: Int = 4): BuffPtMetre3 = new BuffPtMetre3(new ArrayBuffer[Double](initSize * 3))
 }

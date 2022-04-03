@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import math._, collection.mutable.ArrayBuffer
 
@@ -96,7 +96,7 @@ object PtM3
   implicit val builderImplicit: Dbl3ArrBuilder[PtM3, PtMetre3Arr] = new Dbl3ArrBuilder[PtM3, PtMetre3Arr]
   { type BuffT = BuffPtMetre3
     override def fromDblArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
-    def fromDblBuffer(buffer: Buff[Double]): BuffPtMetre3 = new BuffPtMetre3(buffer)
+    def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(buffer)
   }
 
   implicit val linePathBuildImplicit: LinePathDbl3sBuilder[PtM3, LinePathMetre3] = new LinePathDbl3sBuilder[PtM3, LinePathMetre3]

@@ -1,13 +1,14 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
+import collection.mutable.ArrayBuffer
 
 /** Function object to parse [[ColonExpr]] from [[AssignMem]]s. */
 object parse6ColonExpr
 { /** Function apply method parses [[ColonExpr]] from [[AssignMem]]s. */
   def apply(implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] =
   {
-    val leftAcc: Buff[ColonOpMem] = Buff()
-    val rightAcc: Buff[ColonOpMem] = Buff()
+    val leftAcc: ArrayBuffer[ColonOpMem] = Buff()
+    val rightAcc: ArrayBuffer[ColonOpMem] = Buff()
 
     def rightLoop(rem: ArrOff[AssignMem], leftExpr: ColonMemExpr, ct: ColonToken): EMon[ColonExpr] = rem match {
       case ArrOff0() => parse7Clauses(rightAcc.toArr).map{ r => ColonExpr(leftExpr, ct, r) }

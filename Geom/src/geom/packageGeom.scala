@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import collection.mutable.ArrayBuffer
 
 /** The package name has been chosen to avoid clashing with "geometry" that may be use in other libraries This package contains geometry vectors and
  * graphics. Of particular note are the [[Pt2]], [[GeomElem]] and [[GraphicElem]] class /traits. These are the foundation of the API and the library.
@@ -258,7 +259,7 @@ package object geom
   def displayRowTexts(leftPt: Pt2, textCells: Arr[TextCell], fontSize: Double = 18, margin: Double = 10): Arr[BoundedElem] =
   {
     val y = leftPt.y
-    var acc: Buff[BoundedElem] = Buff()
+    var acc: ArrayBuffer[BoundedElem] = Buff()
     var xAcc: Double = 0
     textCells.foreach{tc =>
       val rLen = tc.textStr.length * fontSize

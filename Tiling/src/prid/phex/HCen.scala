@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, Colour.Black
+import geom._, Colour.Black, collection.mutable.ArrayBuffer
 
 /** A Hex tile centre hex grid [[HGrid]] coordinate. */
 class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
@@ -82,7 +82,7 @@ object HCen
   implicit val buildEv: Int2ArrBuilder[HCen, HCenArr] = new Int2ArrBuilder[HCen, HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HCenBuff = new HCenBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)
   }
 }
 
@@ -116,11 +116,11 @@ object HCenArr extends Int2SeqDefCompanion[HCen, HCenArr]
   implicit val flatBuilderEv: ArrFlatBuilder[HCenArr] = new Int2ArrFlatBuilder[HCen, HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HCenBuff = new HCenBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)
   }
 }
 
-class HCenBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[HCen]
+class HCenBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[HCen]
 { type ArrT = HCenArr
   override def typeStr: String = "HCenBuff"
   override def intsToT(i1: Int, i2: Int): HCen = HCen(i1, i2)

@@ -65,7 +65,7 @@ trait IntNArrBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrBuilder
   def fromIntArray(array: Array[Int]): ArrB
 
   /* Not sure about the return type of this method. */
-  def fromIntBuffer(buffer: Buff[Int]): BuffT
+  def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
   final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
@@ -81,7 +81,7 @@ trait IntNArrFlatBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrFla
   def fromIntArray(array: Array[Int]): ArrB
 
   /* Constructs a BuffT instance from an [[ArrayBuffer]][Int]. */
-  def fromIntBuffer(buffer: Buff[Int]): BuffT
+  def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
 
   //final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
@@ -102,8 +102,8 @@ trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
 /**  Class to persist specialised flat Array[Int] based collections. */
 trait IntNSeqDefPersist[A <: ElemIntN, M <: IntNSeqDef[A]] extends ValueNSeqDefPersist[A, M]
 { type VT = Int
-  override def fromBuffer(buf: Buff[Int]): M = fromArray(buf.toArray)
-  override def newBuffer: Buff[Int] = Buff[Int](0)
+  override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
+  override def newBuffer: ArrayBuffer[Int] = Buff[Int](0)
 }
 
 /** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[ElemIntN]] type of the of the
@@ -113,7 +113,7 @@ trait IntNSeqDefCompanion[A <: ElemIntN, ArrA <: IntNSeqDef[A]] extends ValueNSe
   def elemNumInts: Int
 
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an ArrayBuffer[Int]. */
-  def fromBuffer(buff: Buff[Int]): ArrA = fromArray(buff.toArray[Int])
+  def fromBuffer(buff: ArrayBuffer[Int]): ArrA = fromArray(buff.toArray[Int])
 
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an Array[Int]. */
   def fromArray(array: Array[Int]): ArrA

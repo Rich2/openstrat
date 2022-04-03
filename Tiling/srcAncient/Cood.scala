@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
-import geom._
+import geom._, scala.collection.mutable.ArrayBuffer
 
 /** A Cood represents a 2 dimensional integer coordinate within a tile grid system. This has current been implemented for Hexs and Squares, while
  *  triangles is the third possible regular tile system. A SqGrid Cood represents either a tile centre, a tile side or a tile vertex. This is the same
@@ -60,6 +60,6 @@ object Cood
   implicit val coodsBuildImplicit: Int2ArrBuilder[Cood, Coods] = new Int2ArrBuilder[Cood, Coods]
   { type BuffT = CoodBuff
     override def fromIntArray(array: Array[Int]): Coods = new Coods(array)
-    override def fromIntBuffer(buffer: Buff[Int]): CoodBuff = new CoodBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): CoodBuff = new CoodBuff(buffer)
   }
 }

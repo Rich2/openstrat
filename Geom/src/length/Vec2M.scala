@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -40,7 +40,7 @@ object Vec2M
   val buildImplicit: ArrBuilder[Vec2M, Vec2MArr] = new Dbl2ArrBuilder[Vec2M, Vec2MArr]
   { override type BuffT = Vec2MBuff
     override def fromDblArray(array: Array[Double]): Vec2MArr = new Vec2MArr(array)
-    override def fromDblBuffer(buffer: Buff[Double]): Vec2MBuff = new Vec2MBuff(buffer)
+    override def fromDblBuffer(buffer: ArrayBuffer[Double]): Vec2MBuff = new Vec2MBuff(buffer)
   }
 }
 

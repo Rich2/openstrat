@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package plex
+import collection.mutable.ArrayBuffer
 
 /** Function object for creating an [[EMon]] of Refs of Token from a source. This internally uses a mutable ArrayBuffer, but the mutability is fully
  *  encapsulated. */
@@ -10,7 +11,7 @@ object lexSrc
   /** Max numbers for long and hexadecimal formats needs to be implemented. */
   def apply(charsIn: Array[Char], fileName: String): EArr[Token] =
   { implicit val charArr: Chars = new Chars(charsIn)
-    val acc: Buff[Token] = Buff[Token]()
+    val acc: ArrayBuffer[Token] = Buff[Token]()
 
     implicit class E3Implicit (e3: EMon3[CharsOff, TextPosn, Token])
     { def appendLoop: EArr[Token] = e3.flatMap { (cOff, tp, token) =>

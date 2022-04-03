@@ -28,7 +28,7 @@ object HStep
   implicit val buildEv: Int1ArrBuilder[HStep, HStepArr] = new Int1ArrBuilder[HStep, HStepArr]
   { override type BuffT = HStepBuff
     override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HStepBuff = new HStepBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
   }
 }
 
@@ -126,14 +126,17 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
   def pathHC(startHC: HCen)(implicit grider: HGrider): LinePathHC = {
     val buff: HCoordBuff = HCoordBuff(startHC)
     var i = 0
-    /*while(i < length)
-    foreach{ step =>
-      currHC = grider.unsafeStepEnd(currHC, step)
-      res.unsafeSetElem(i, currHC)
-      i +=1
+    var continue = true
+    var currHC = startHC
+    while(i < length & continue == true) {
+      val optHC: Option[HCen] = grider.findStepEnd(currHC, apply(i))
+      optHC.fold[Unit]{ continue = false}{hc2 =>
+        buff.grow(hc2)
+        currHC = hc2
+        i += 1
+      }
     }
-    res*/
-    LinePathHC.fromBuffer(buff.unsafeBuffer)
+    buff.toLinePath
   }
 }
 
@@ -143,7 +146,7 @@ object HStepArr extends Int1SeqDefCompanion[HStep, HStepArr]
   implicit val flatBuilder: ArrFlatBuilder[HStepArr] = new Int1ArrFlatBuilder[HStep, HStepArr]
   { override type BuffT = HStepBuff
     override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HStepBuff = new HStepBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
   }
 }
 
@@ -154,5 +157,5 @@ class HStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff
 }
 
 object HStepBuff
-{ def apply(initLen: Int = 4): HStepBuff = new HStepBuff(new Buff[Int](initLen))
+{ def apply(initLen: Int = 4): HStepBuff = new HStepBuff(new ArrayBuffer[Int](initLen))
 }

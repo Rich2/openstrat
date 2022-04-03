@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import Colour._, collection.mutable.ArrayBuffer
 
@@ -39,7 +39,7 @@ object Colours
   implicit val arrFlatBuildImplicit: ArrFlatBuilder[Colours] = new Int1ArrFlatBuilder[Colour, Colours]
   { type BuffT = ColourBuff
     override def fromIntArray(array: Array[Int]): Colours = new Colours(array)
-    override def fromIntBuffer(buffer: Buff[Int]): ColourBuff = new ColourBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): ColourBuff = new ColourBuff(buffer)
   }
 }
 
@@ -50,7 +50,7 @@ class ColourBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buf
 }
 
 object ColourBuff {
-  def apply(initLen: Int = 4): ColourBuff = new ColourBuff(new Buff[Int](initLen))
+  def apply(initLen: Int = 4): ColourBuff = new ColourBuff(new ArrayBuffer[Int](initLen))
 }
 
 sealed trait OptColour extends Opt[Colour]

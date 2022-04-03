@@ -29,12 +29,12 @@ trait LongNBuff[A <: ElemLongN] extends Any with ValueNBuff[A]
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait LongNSeqDefPersist[B <: ElemLongN, ArrB <: LongNArr[B]] extends ValueNSeqDefPersist[B, ArrB]
 { type VT = Long
-  override def fromBuffer(buf: Buff[Long]): ArrB = fromArray(buf.toArray)
-  override def newBuffer: Buff[Long] = Buff[Long](0)
+  override def fromBuffer(buf: ArrayBuffer[Long]): ArrB = fromArray(buf.toArray)
+  override def newBuffer: ArrayBuffer[Long] = Buff[Long](0)
 }
 
 /** Helper trait for Companion objects of [[LongNArr]] classes. */
 trait LongNSeqDefCompanion[A <: ElemLongN, ArrA <: LongNSeqDef[A]] extends ValueNSeqDefCompanion[A, ArrA]
-{ def fromBuffer(buff: Buff[Long]): ArrA = fromArray(buff.toArray[Long])
+{ def fromBuffer(buff: ArrayBuffer[Long]): ArrA = fromArray(buff.toArray[Long])
   def fromArray(array: Array[Long]): ArrA
 }

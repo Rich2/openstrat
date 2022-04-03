@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
+import collection.mutable.ArrayBuffer
 
 /** An array[Int] based collection for [[Roord]]. */
 class Roords(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[Roord]
@@ -53,11 +54,11 @@ object Roords extends Int2SeqDefCompanion[Roord, Roords]
   implicit val arrArrayImplicit: ArrFlatBuilder[Roords] = new Int2ArrFlatBuilder[Roord, Roords]
   { type BuffT = RoordBuff
     override def fromIntArray(array: Array[Int]): Roords = new Roords(array)
-    override def fromIntBuffer(buffer: Buff[Int]): RoordBuff = new RoordBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): RoordBuff = new RoordBuff(buffer)
   }
 }
 
-class RoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[Roord]
+class RoordBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[Roord]
 { type ArrT = Roords
   override def typeStr: String = "RoordBuff"
   override def intsToT(i1: Int, i2: Int): Roord = Roord(i1, i2)

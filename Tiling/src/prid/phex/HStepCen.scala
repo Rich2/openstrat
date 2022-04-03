@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-
-import scala.collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 /** Hex centre origin and hex step. */
 class HStepCen(val stepInt: Int, val r2: Int, val c2: Int) extends ElemInt3
@@ -27,7 +26,7 @@ object HStepCen
   implicit val buildEv: Int3ArrBuilder[HStepCen, HStepCenArr] = new Int3ArrBuilder[HStepCen, HStepCenArr]{
     override type BuffT = HStepCenBuff
     override def fromIntArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HStepCenBuff = new HStepCenBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepCenBuff = new HStepCenBuff(buffer)
   }
 }
 
@@ -62,7 +61,7 @@ object HStepCenArr extends  Int3SeqDefCompanion[HStepCen, HStepCenArr]
   implicit val flatBuildEv: Int3ArrFlatBuilder[HStepCen, HStepCenArr] = new Int3ArrFlatBuilder[HStepCen, HStepCenArr]{
     override type BuffT = HStepCenBuff
     override def fromIntArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HStepCenBuff = new HStepCenBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepCenBuff = new HStepCenBuff(buffer)
   }
 }
 

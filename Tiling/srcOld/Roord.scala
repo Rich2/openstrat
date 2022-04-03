@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
-import geom._
+import geom._, collection.mutable.ArrayBuffer
 
 /** A Roord Row-ordinate represents a 2 dimensional integer coordinate within a tile grid system. The row or y value comes first. This is different to
  * a Vec2 or Vec3 where the y vlue comes 2nd after the x valu. This has current been implemented for Hexs and Squares, while triangles is the third
@@ -50,6 +50,6 @@ object Roord
   implicit val roordsBuildImplicit: Int2ArrBuilder[Roord, Roords] = new Int2ArrBuilder[Roord, Roords]
   { type BuffT = RoordBuff
     override def fromIntArray(array: Array[Int]): Roords = new Roords(array)
-    override def fromIntBuffer(buffer: Buff[Int]): RoordBuff = new RoordBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): RoordBuff = new RoordBuff(buffer)
   }
 }

@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._
+import geom._, collection.mutable.ArrayBuffer
 
 trait SqBaseCoord extends Any with TCoord
 { override def toVecReg: Vec2 = Vec2(c, r)
@@ -55,6 +55,6 @@ object SqVert
   implicit val sqVertsBuildImplicit: Int2ArrBuilder[SqVert, SqVerts] = new Int2ArrBuilder[SqVert, SqVerts]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVerts = new SqVerts(array)
-    override def fromIntBuffer(buffer: Buff[Int]): SqVertBuff = new SqVertBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)
   }
 }

@@ -76,5 +76,5 @@ final class BuffVec2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with 
 
 object BuffVec2
 {
-  def empty: BuffVec2 = new BuffVec2(new Buff[Double](4))
+  def empty: BuffVec2 = new BuffVec2(new ArrayBuffer[Double](4))
 }

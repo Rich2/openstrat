@@ -113,7 +113,7 @@ object Colour
   { type BuffT = ColourBuff
     override def fromIntArray(array: Array[Int]): Colours = new Colours(array)
 
-    override def fromIntBuffer(buffer: Buff[Int]): ColourBuff = new ColourBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): ColourBuff = new ColourBuff(buffer)
   }
 
   /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */

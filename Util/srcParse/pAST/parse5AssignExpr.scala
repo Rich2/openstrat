@@ -1,13 +1,14 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pParse; package pAST
+import collection.mutable.ArrayBuffer
 
 /** Function object to parse assignment expressions. */
 object parse5AssignExpr
 { /** Function apply method parses assignment expressions. */
   def apply (implicit inp: Arr[StatementMem]): EMon[Expr] =
   {
-    val leftAcc: Buff[AssignMem] = Buff()
-    val rightAcc: Buff[AssignMem] = Buff()
+    val leftAcc: ArrayBuffer[AssignMem] = Buff()
+    val rightAcc: ArrayBuffer[AssignMem] = Buff()
 
     def leftLoop(rem: ArrOff[StatementMem]): EMon[Expr] = rem match
     { case ArrOff0() => parse6ColonExpr(leftAcc.toArr)

@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pGrid
-import geom._
+import geom._, scala.collection.mutable.ArrayBuffer
 
 /** A 2d line defined by its start and end Tile Cood. */
 case class CoodLine(x1: Int, y1: Int, x2: Int, y2: Int) extends ElemInt4
@@ -31,7 +31,7 @@ class CoodLines(val unsafeArray: Array[Int]) extends AnyVal with ArrInt4s[CoodLi
   //override def toString: String = CoodLines.PersistImplicit.show(this)
 }
 
-class CoodLinesBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int4Buff[CoodLine, CoodLines]
+class CoodLinesBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int4Buff[CoodLine, CoodLines]
 {// override def unBuff: CoodLines = new CoodLines(toArray)
   override def typeStr: String = "CoodLinesBuff"
   override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = new CoodLine(i1, i2, i3, i4)

@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
+import collection.mutable.ArrayBuffer
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
 trait SqVertsLike extends Any with Int2SeqDef[SqVert]
@@ -57,11 +58,11 @@ object SqVerts extends Int2SeqDefCompanion[SqVert, SqVerts]
   implicit val arrArrayImplicit: ArrFlatBuilder[SqVerts] = new Int2ArrFlatBuilder[SqVert, SqVerts]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVerts = new SqVerts(array)
-    override def fromIntBuffer(buffer: Buff[Int]): SqVertBuff = new SqVertBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)
   }
 }
 
-class SqVertBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[SqVert]
+class SqVertBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[SqVert]
 { type ArrT = SqVerts
   override def typeStr: String = "SqVertBuff"
   override def intsToT(i1: Int, i2: Int): SqVert = SqVert(i1, i2)

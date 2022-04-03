@@ -61,5 +61,5 @@ final class BuffPt2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with D
 
 object BuffPt2
 {
-  def empty: BuffPt2 = new BuffPt2(new Buff[Double](4))
+  def empty: BuffPt2 = new BuffPt2(new ArrayBuffer[Double](4))
 }

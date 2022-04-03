@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
+import geom._, collection.mutable.ArrayBuffer
 
 /** A hex tile vertex coordinate. */
 class HVert private(val bLong: Long) extends AnyVal with HCoord with TCoord
@@ -33,7 +33,7 @@ object HVert
   implicit val hVertsBuildImplicit: Int2ArrBuilder[HVert, HVertArr] = new Int2ArrBuilder[HVert, HVertArr]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HVertBuff = new HVertBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVertBuff = new HVertBuff(buffer)
   }
 }
 
@@ -93,11 +93,11 @@ object HVertArr extends Int2SeqDefCompanion[HVert, HVertArr]
   implicit val arrArrayImplicit: ArrFlatBuilder[HVertArr] = new Int2ArrFlatBuilder[HVert, HVertArr]
   { type BuffT = HVertBuff
     override def fromIntArray(array: Array[Int]): HVertArr = new HVertArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HVertBuff = new HVertBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HVertBuff = new HVertBuff(buffer)
   }
 }
 
-class HVertBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[HVert]
+class HVertBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[HVert]
 { type ArrT = HVertArr
   override def typeStr: String = "HVertBuff"
   override def intsToT(i1: Int, i2: Int): HVert = HVert(i1, i2)

@@ -28,7 +28,7 @@ object LineSegHC
   implicit val buildEv: ArrInt4sBuilder[LineSegHC, LineSegHCArr] = new ArrInt4sBuilder[LineSegHC, LineSegHCArr]
   { type BuffT = LineSegHCBuff
     override def fromIntArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
-    def fromIntBuffer(buffer: Buff[Int]): LineSegHCBuff = new LineSegHCBuff(buffer)
+    def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegHCBuff = new LineSegHCBuff(buffer)
   }
 }
 

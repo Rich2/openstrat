@@ -5,7 +5,7 @@
  *   elements, an Either based errors framework and general utilities. */
 package object ostrat
 { import collection.mutable.ArrayBuffer, reflect.ClassTag
-  type Buff[A] = ArrayBuffer[A]
+  //type Buffer[A] = ArrayBuffer[A]
   type EArr[A <: AnyRef] = EMon[Arr[A]]
   type RefsMulti[A <: AnyRef] = Arr[Multiple[A]]
   type ShowEq[A] = ShowT[A] with EqT[A]
@@ -290,7 +290,7 @@ package object ostrat
     }
   }
 
-  implicit class ArrayBufferDoubleExtensions(thisBuff: Buff[Double])
+  implicit class ArrayBufferDoubleExtensions(thisBuff: ArrayBuffer[Double])
   { def app2(prod: ElemDbl2): Unit = { thisBuff.append(prod.dbl1); thisBuff.append(prod.dbl2) }
   }
 
@@ -323,7 +323,7 @@ package object ostrat
   }
 
   /** Needs Changing. */
-  implicit class RefBufferExtensions[A <: AnyRef](thisBuff: Buff[A])
+  implicit class RefBufferExtensions[A <: AnyRef](thisBuff: ArrayBuffer[A])
   { @inline def toArr(implicit ct: ClassTag[A]): Arr[A] = new Arr[A](thisBuff.toArray[A])
     def goodRefs(implicit ct: ClassTag[A]): Good[Arr[A]] = Good(new Arr(thisBuff.toArray))
 
@@ -344,7 +344,7 @@ package object ostrat
   implicit class IterableImplicit[A](thisIter: Iterable[A])(implicit ct: ClassTag[A])
   { /** Converts this Iterable to an immutable Array, Arr. */
     def toArr: Arr[A] =
-    { val buff: Buff[A] = Buff()
+    { val buff: ArrayBuffer[A] = Buff()
       thisIter.foreach(buff.append)
       buff.toArr
     }

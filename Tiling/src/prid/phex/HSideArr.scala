@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
+import collection.mutable.ArrayBuffer
 
 /** An efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates. */
 class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HSide]
@@ -30,11 +31,11 @@ object HSideArr extends Int2SeqDefCompanion[HSide, HSideArr]
   implicit val flatBuilderEv: ArrFlatBuilder[HSideArr] = new Int2ArrFlatBuilder[HSide, HSideArr]
   { type BuffT = HSideBuff
     override def fromIntArray(array: Array[Int]): HSideArr = new HSideArr(array)
-    override def fromIntBuffer(buffer: Buff[Int]): HSideBuff = new HSideBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSideBuff = new HSideBuff(buffer)
   }
 }
 
-class HSideBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with Int2Buff[HSide]
+class HSideBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[HSide]
 { type ArrT = HSideArr
   override def typeStr: String = "HSideBuff"
   override def intsToT(i1: Int, i2: Int): HSide = HSide(i1, i2)

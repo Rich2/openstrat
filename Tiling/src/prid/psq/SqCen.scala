@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._
+import geom._, collection.mutable.ArrayBuffer
 
 /** A Square tile centre square grid [[SqGrid]] coordinate. */
 case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TCen
@@ -59,7 +59,7 @@ object SqCen
   implicit val buildEv: Int2ArrBuilder[SqCen, SqCens] = new Int2ArrBuilder[SqCen, SqCens]
   { type BuffT = SqCenBuff
     override def fromIntArray(array: Array[Int]): SqCens = new SqCens(array)
-    override def fromIntBuffer(buffer: Buff[Int]): SqCenBuff = new SqCenBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqCenBuff = new SqCenBuff(buffer)
   }
 }
 
