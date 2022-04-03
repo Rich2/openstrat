@@ -41,6 +41,12 @@ object HCoord
     case _ => new HCoordOther(r, c)
   }
 
+  implicit val arrBuild: Int2ArrBuilder[HCoord, HCoordArr] = new Int2ArrBuilder[HCoord, HCoordArr] {
+    override type BuffT = HCoordBuff
+    override def fromIntArray(array: Array[Int]): HCoordArr = new HCoordArr(array)
+    override def fromIntBuffer(buffer: Buff[Int]): HCoordBuff = HCoordBuff()
+  }
+
   implicit val persistImplicit: Persist[HCoord] = PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
 
   //val unshow32Ev: Unshow2[Int, Int, HCoord] = Unshow
@@ -71,8 +77,9 @@ class HCoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with In
   override def intsToT(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
 }
 
-object HCoordBuff {
-
+object HCoordBuff
+{
+  def apply(len: Int = 4): HCoordBuff = new HCoordBuff(new Buff[Int](len * 2))
 }
 
 trait HNotVert extends HCoord

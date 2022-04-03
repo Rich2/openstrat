@@ -75,12 +75,12 @@ trait HGrid extends Any with TGrid with HGriderFlat
 
   override def hCenSteps(hCen: HCen): HStepArr = HStep.full.filter(st => hCenExists(hCen.r + st.r, hCen.c + st.c))
 
-  override def unsafeStep(startCen: HCen, step: HStep): HCen ={
+  override def unsafeStepEnd(startCen: HCen, step: HStep): HCen ={
     val endCen = HCen(startCen.r + step.r, startCen.c + step.c)
     if (hCenExists(endCen)) endCen else excep("Illegal end hex in unsafeStep method.")
   }
 
-  override def findStepHC(startHC: HCen, step: HStep): Option[HCen] =
+  override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
   { val endHC = HCen(startHC.r + step.r, startHC.c + step.c)
     if (hCenExists(startHC) & hCenExists(endHC)) Some(endHC) else None
   }

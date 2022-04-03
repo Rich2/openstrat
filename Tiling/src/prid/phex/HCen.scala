@@ -31,12 +31,12 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   override def typeStr: String = "HCen"
 
   /** Step to adjacent hex tile. Will throw exception on illegal value. */
-  def unsafeStep(st: HStep)(implicit grider: HGrider): HCen = grider.unsafeStep(this, st)// HCen(r + st.r, c + st.c)
+  def unsafeStep(st: HStep)(implicit grider: HGrider): HCen = grider.unsafeStepEnd(this, st)// HCen(r + st.r, c + st.c)
 
   /** Step to adjacent hex tile. */
   def stepOpt(st: HStep)(implicit grider: HGrider): Option[HCen] = {
 
-    /*val target =*/ grider.findStepHC(this, st)//  HCen(r + st.r, c + st.c)
+    /*val target =*/ grider.findStepEnd(this, st)//  HCen(r + st.r, c + st.c)
     //ife(grider.hCenExists(target), Some(target), None)
   }
 

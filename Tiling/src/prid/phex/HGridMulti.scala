@@ -19,7 +19,7 @@ abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
     if(grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_.endHC == endHC).map(_.step)
 
   def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
-  { val r1 = grid.findStepHC(startHC, step)
+  { val r1 = grid.findStepEnd(startHC, step)
     if(r1.nonEmpty) r1 else outSteps(startHC).find(_.step == step).map(_.endHC)
   }
 }
@@ -64,14 +64,14 @@ trait HGridMulti extends HGrider
     grids.foreach { gr => gr.iForeach(count)(f); count += gr.numTiles }
   }
 
-  override def unsafeStep(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.r, startCen.c + step.c)
+  override def unsafeStepEnd(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.r, startCen.c + step.c)
   def hCenSteps(hCen: HCen): HStepArr = unsafeGetManFunc(hCen)(_.hCenSteps(hCen))
   final override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
 
   final override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.arrIndex + man.grid.arrIndex(r, c) }
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  override def findStepHC(startHC: HCen, step: HStep): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
+  override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
 
   def sides: HSideArr = gridMans.flatMap(_.sides)
   def sideLines(implicit grider: HGriderFlat): LineSegs = gridMans.flatMap(_.sideLines)

@@ -16,7 +16,9 @@ trait HGrider extends Any with TGrider
 
   def hCenSteps(hCen: HCen): HStepArr
 
-  def unsafeStep(startCen: HCen, step: HStep): HCen
+  def unsafeStepEnd(startCen: HCen, step: HStep): HCen
+
+  //def stepEnd(startCen: HCen, step: HStep): Option[HCen]
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   final def findStep(startR: Int, startC: Int, endR: Int, endC: Int): Option[HStep] = findStep(HCen(startR, startC), HCen(endR, endC))
@@ -25,7 +27,7 @@ trait HGrider extends Any with TGrider
   def findStep(startHC: HCen, endHC: HCen): Option[HStep]
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  def findStepHC(startHC: HCen, step: HStep): Option[HCen]// = ???
+  def findStepEnd(startHC: HCen, step: HStep): Option[HCen]
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
