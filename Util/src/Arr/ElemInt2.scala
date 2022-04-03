@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+import scala.collection.mutable.ArrayBuffer
+
 /** An object that can be constructed from 2 [[Int]]s. These are used in [[Int2Arr]] Array[Int] based collections. */
 trait ElemInt2 extends Any with ElemIntN
 { def int1: Int
@@ -79,4 +81,15 @@ trait Int2SeqDefCompanion[A <: ElemInt2, ArrA <: Int2SeqDef[A]] extends IntNSeqD
     }
     res
   }
+}
+
+trait Int2BuffCompanion[A <: ElemInt2, AA <: Int2Buff[A]] extends IntNBuffCompanion[A, AA]
+{
+  override def apply(elems: A*): AA =
+  { val buffer: ArrayBuffer[Int] =  new ArrayBuffer[Int](elems.length * 2 + 6)
+    elems.foreach{ elem => buffer.append(elem.int1, elem.int2) }
+    fromBuffer(buffer)
+  }
+
+  final override def elemNumInts: Int = 2
 }

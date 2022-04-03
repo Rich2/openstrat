@@ -58,6 +58,12 @@ object HCoord
     override def fromIntArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
     override def fromIntBuffer(inp: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(inp)
   }
+
+  implicit val linePathBuildEv: LinePathInt2sBuilder[HCoord, LinePathHC] = new LinePathInt2sBuilder[HCoord, LinePathHC]
+  { override type BuffT = HCoordBuff
+    override def fromIntArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
+    override def fromIntBuffer(inp: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(inp)
+  }
 }
 
 trait HCoordSeqDef extends Any with Int2SeqDef[HCoord]
@@ -77,9 +83,8 @@ class HCoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with In
   override def intsToT(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
 }
 
-object HCoordBuff
-{
-  def apply(len: Int = 4): HCoordBuff = new HCoordBuff(new Buff[Int](len * 2))
+object HCoordBuff extends Int2BuffCompanion[HCoord, HCoordBuff]
+{ override def fromBuffer(buffer: Buff[Int]): HCoordBuff = new HCoordBuff(buffer)
 }
 
 trait HNotVert extends HCoord

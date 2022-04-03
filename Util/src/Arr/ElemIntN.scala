@@ -121,3 +121,11 @@ trait IntNSeqDefCompanion[A <: ElemIntN, ArrA <: IntNSeqDef[A]] extends ValueNSe
   /** returns a collection class of type ArrA, whose backing Array[Int] is uninitialised. */
   override def uninitialised(length: Int): ArrA = fromArray(new Array[Int](length * elemNumInts))
 }
+
+
+trait IntNBuffCompanion[A <: ElemIntN, AA <: IntNBuff[A]]
+{
+  def apply(elems: A*): AA
+  def elemNumInts: Int
+  def fromBuffer(buffer: ArrayBuffer[Int]): AA
+}

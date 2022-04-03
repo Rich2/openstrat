@@ -91,5 +91,3 @@ trait ValueNSeqDefCompanion[A <: ElemValueN, AA <: ValueNSeqDef[A]]
     res
   }
 }
-
-//trait ValueNBuffCompanion[A <: Elem]

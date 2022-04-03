@@ -124,9 +124,7 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
   }
 
   def pathHC(startHC: HCen)(implicit grider: HGrider): LinePathHC = {
-    val buff: HCoordBuff = HCoordBuff()// LinePathHC.uninitialised(length + 1)
-   // buff res.unsafeSetElem(0, startHC)
-    var currHC = startHC
+    val buff: HCoordBuff = HCoordBuff(startHC)
     var i = 0
     /*while(i < length)
     foreach{ step =>
@@ -135,7 +133,7 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
       i +=1
     }
     res*/
-    ???
+    LinePathHC.fromBuffer(buff.unsafeBuffer)
   }
 }
 
