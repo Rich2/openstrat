@@ -45,7 +45,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   val sidesDraw = grider.sidesDraw()
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: SqCenOptDGrid[SqStep] = grider.newTileArrOpt[SqStep]
+  def NoMoves: SqCenOptDGrid[SqStep] = grider.newSCenOptDGrider[SqStep]
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>

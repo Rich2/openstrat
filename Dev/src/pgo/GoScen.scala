@@ -17,5 +17,5 @@ object WStone extends Stone
 class GoScen
 {
   def grid: SqGrid = SqGrid(2, 38, 2, 38)
-  def stones: SqCenOptDGrid[Stone] = grid.newTileArrOpt[Stone]
+  def stones: SqCenOptDGrid[Stone] = grid.newSCenOptDGrider[Stone]
 }

@@ -122,6 +122,11 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
     }
     res
   }
+
+  def hcPath(startHC: HCen)(implicit grider: HGrider): LinePathHC ={
+    //LineSegHC.
+    ???
+  }
 }
 
 object HStepArr extends Int1SeqDefCompanion[HStep, HStepArr]

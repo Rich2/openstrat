@@ -20,7 +20,7 @@ object AltScen
   def start(r: Int, c: Int): AltScen =
   {
     implicit val grid = SqGrid(2, r * 2, 2, c * 2)
-    val balls = grid.newTileArrOpt[Balls]
+    val balls = grid.newSCenOptDGrider[Balls]
     balls.unsafeSetSome(6, 6, Balls(PlayerA, 2))
     balls.unsafeSetSome(4, 4, Balls(PlayerB, 1))
     AltScen(0, grid, balls)

@@ -70,6 +70,11 @@ class HCoordBuff(val unsafeBuffer: Buff[Int] = buffInt()) extends AnyVal with In
   override def typeStr: String = "HCoordBuff"
   override def intsToT(i1: Int, i2: Int): HCoord = HCoord(i1, i2)
 }
+
+object HCoordBuff {
+
+}
+
 trait HNotVert extends HCoord
 { override def toVecReg: Vec2 = Vec2(c, r * Sqrt3)
   override def toPt2Reg: Pt2 = Pt2(c, r  * Sqrt3)
