@@ -18,12 +18,10 @@ class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HSide]
  *  uninitialised methods. */
 object HSideArr extends Int2SeqDefCompanion[HSide, HSideArr]
 {
-  //override def buff(initialSize: Int): RoordBuff = new RoordBuff(buffInt(initialSize * 2))
-  def fromArray(array: Array[Int]): HSideArr = new HSideArr(array)
+  override def fromArray(array: Array[Int]): HSideArr = new HSideArr(array)
 
-  implicit object PersistImplicit extends PersistArrInt2s[HSide, HSideArr]("HSides")
+  implicit val persistImplicit: PersistArrInt2s[HSide, HSideArr] = new PersistArrInt2s[HSide, HSideArr]("HSides")
   { override def fromArray(value: Array[Int]): HSideArr = new HSideArr(value)
-
     override def showDecT(obj: HSideArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 

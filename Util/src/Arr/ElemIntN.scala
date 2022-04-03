@@ -122,10 +122,13 @@ trait IntNSeqDefCompanion[A <: ElemIntN, ArrA <: IntNSeqDef[A]] extends ValueNSe
   override def uninitialised(length: Int): ArrA = fromArray(new Array[Int](length * elemNumInts))
 }
 
-
+/** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */
 trait IntNBuffCompanion[A <: ElemIntN, AA <: IntNBuff[A]]
-{
+{ /** apply factory method for [[IntNBuff]] final classes */
   def apply(elems: A*): AA
+
+  /** Number of [[Int]]s required to construct an element */
   def elemNumInts: Int
+
   def fromBuffer(buffer: ArrayBuffer[Int]): AA
 }

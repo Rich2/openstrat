@@ -137,3 +137,15 @@ trait DataDblNsPersist[A <: ElemDblN, M <: DblNSeqDef[A]] extends ValueNSeqDefPe
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
   override def eqT(m1: M, m2: M): Boolean = m1.unsafeArray === m2.unsafeArray
 }
+
+
+/** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */
+trait DblNBuffCompanion[A <: ElemDblN, AA <: DblNBuff[A]]
+{ /** apply factory method for [[DblNBuff]] final classes */
+  def apply(elems: A*): AA
+
+  /** Number of [[Double]]s required to construct an element */
+  def elemNumInts: Int
+
+  def fromBuffer(buffer: ArrayBuffer[Double]): AA
+}
