@@ -16,7 +16,7 @@ package object pGrid
   /** Gives a Coods Seq of Cood along a horisonatal line */
   @deprecated def hexSidesHorrAncient(y: Int, xStart: Int, xEnd : Int): Coods =
   { val xs = if (xStart > xEnd) xStart.roundDownToOdd to xEnd.roundUpToOdd by -2 else xStart.roundUpToOdd to xEnd.roundDownToOdd by 2
-    xs.pMap(x => Cood(x, y))     
+    xs.mapArr(x => Cood(x, y))
   }
   
   /** Not sure about this method */

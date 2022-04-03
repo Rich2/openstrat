@@ -31,7 +31,7 @@ package object proord
   /** Gives a Coods Seq of Cood along a horizontal line */
   def hexSidesHorr(y: Int, cStart: Int, cEnd : Int): Roords =
   { val cs: Range = if (cStart > cEnd) cStart.roundDownToOdd to cEnd.roundUpToOdd by -2 else cStart.roundUpToOdd to cEnd.roundDownToOdd by 2
-    cs.pMap(c => Roord(y, c))
+    cs.mapArr(c => Roord(y, c))
   }
 
   implicit class IntGridImplicit(thisInt: Int)

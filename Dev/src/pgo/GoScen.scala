@@ -11,7 +11,7 @@ object BStone extends Stone
 }
 
 object WStone extends Stone
-{ override def colour: Colour = Black
+{ override def colour: Colour = White
 }
 
 class GoScen

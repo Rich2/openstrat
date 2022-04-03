@@ -43,7 +43,7 @@ trait HexGridOld extends TileGridOld
   /** Gives a Coods Seq of Cood along a horisonatal line */
   def SidesHorr(y: Int, xStart: Int, xEnd : Int): Roords =
   { val xs = if (xStart > xEnd) xStart.roundDownToOdd to xEnd.roundUpToOdd by -2 else xStart.roundUpToOdd to xEnd.roundDownToOdd by 2
-    xs.pMap(c => Roord(y, c))
+    xs.mapArr(c => Roord(y, c))
   }
   def findPath(startRoord: Roord, endRoord: Roord)(fTerrCost: (Roord, Roord) => OptInt): Option[List[Roord]] =
   {

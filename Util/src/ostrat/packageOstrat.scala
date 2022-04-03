@@ -358,9 +358,9 @@ package object ostrat
 
   implicit class RangeExtensions(range: Range)
   {
-    /** product map method maps from a Range to an Array based ProductValues class. */
-    def pMap[B <: ElemValueN , M <: ValueNArr[B]](f: Int => B)(implicit factory: Int => M): M =
-    { val res = factory(range.size)
+    /** maps to a [[SeqImut]] rather than a standard Scala collection class. */
+    def mapArr[B <: ElemValueN , M <: SeqImut[B]](f: Int => B)(implicit build: ArrBuilder[B, M]): M =
+    { val res = build.newArr(range.size)
       var count: Int = 0
       range.foreach { orig =>
         val newValue: B = f(orig)

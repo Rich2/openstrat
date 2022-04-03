@@ -11,10 +11,12 @@ trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A]
   /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */
   def unsafeArray: Array[Int]
 
+  /** Constructs the final type of thos [[IntNSeqDef]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
+   * appropriate builder, but it can be useful to access this from the class itself. */
   def fromArray(array: Array[Int]): ThisT
 
   /** The length of the Array[Int] backing array. */
-  def arrLen = unsafeArray.length
+  inline final def arrLen: Int = unsafeArray.length
 
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(sdLength)
@@ -98,7 +100,7 @@ trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */
-trait DataIntNsPersist[A <: ElemIntN, M <: IntNSeqDef[A]] extends ValueNSeqDefPersist[A, M]
+trait IntNSeqDefPersist[A <: ElemIntN, M <: IntNSeqDef[A]] extends ValueNSeqDefPersist[A, M]
 { type VT = Int
   override def fromBuffer(buf: Buff[Int]): M = fromArray(buf.toArray)
   override def newBuffer: Buff[Int] = Buff[Int](0)
@@ -114,5 +116,5 @@ trait IntNSeqDefCompanion[A <: ElemIntN, ArrA <: IntNSeqDef[A]] extends ValueNSe
   def fromArray(array: Array[Int]): ArrA
 
   /** returns a collection class of type ArrA, whose backing Array[Int] is uninitialised. */
-  override implicit def uninitialised(length: Int): ArrA = fromArray(new Array[Int](length * elemProdSize))
+  override def uninitialised(length: Int): ArrA = fromArray(new Array[Int](length * elemProdSize))
 }

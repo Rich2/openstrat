@@ -17,7 +17,7 @@ trait ArrayDblBacked extends Any
  *  well as [[DblNArr]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
 trait DblNSeqDef[A <: ElemDblN] extends Any with ValueNSeqDef[A] with ArrayDblBacked
 { type ThisT <: DblNSeqDef[A]
-  @inline override def arrLen = unsafeArray.length
+  @inline final override def arrLen: Int = unsafeArray.length
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
 
@@ -117,12 +117,12 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 }
 
 /** Helper trait for Companion objects of [[DblNArr]] classes. */
-trait DataDblNsCompanion[A <: ElemDblN, ArrA <: DblNSeqDef[A]] extends ValueNSeqDefCompanion[A, ArrA]
+trait DblNSeqDefCompanion[A <: ElemDblN, ArrA <: DblNSeqDef[A]] extends ValueNSeqDefCompanion[A, ArrA]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
   def fromArrayDbl(array: Array[Double]): ArrA
 
   /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
-  override implicit def uninitialised(length: Int): ArrA = fromArrayDbl(new Array[Double](length * elemProdSize))
+  override def uninitialised(length: Int): ArrA = fromArrayDbl(new Array[Double](length * elemProdSize))
 
   def empty: ArrA = fromArrayDbl(new Array[Double](0))
 }

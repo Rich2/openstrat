@@ -8,7 +8,7 @@ trait ElemLong1 extends Any with ElemLongN
 }
 
 /** A specialised immutable, flat Array[Long] based collection of a type of [[ElemLong1]]s. */
-trait ArrLong1s[A <: ElemLong1] extends Any with ArrLongNs[A]
+trait Long1Arr[A <: ElemLong1] extends Any with LongNArr[A]
 {
   final override def elemProdSize: Int = 1
   def newElem(intValue: Long): A
@@ -34,6 +34,6 @@ trait ArrLong1s[A <: ElemLong1] extends Any with ArrLongNs[A]
 }
 
 /** A specialised flat ArrayBuffer[long] based trait for [[ElemLong1]]s collections. */
-trait BuffLong1s[A <: ElemLong1, ArrA <: ArrLong1s[A]] extends Any with BuffLongNs[A]
+trait Long1Buff[A <: ElemLong1, ArrA <: Long1Arr[A]] extends Any with LongNBuff[A]
 { override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem._1); () }
 }

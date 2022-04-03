@@ -40,7 +40,7 @@ trait Dbl7Arr[A <: ElemDbl7] extends Any with DblNArr[A] with Dbl7SeqDef[A]
 }
 
 /** Helper class for companion objects of final [[Dbl7SeqDef]] sequence-defined classes. */
-abstract class Dbl7SeqDefCompanion[A <: ElemDbl7, ArrA <: Dbl7SeqDef[A]] extends DataDblNsCompanion[A, ArrA]
+abstract class Dbl7SeqDefCompanion[A <: ElemDbl7, ArrA <: Dbl7SeqDef[A]] extends DblNSeqDefCompanion[A, ArrA]
 { override def elemProdSize: Int = 7
   def apply(length: Int): ArrA = uninitialised(length)
 

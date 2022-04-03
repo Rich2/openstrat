@@ -70,7 +70,7 @@ abstract class Dbl3SeqDefPersist[A <: ElemDbl3, M <: Dbl3SeqDef[A]](val typeStr:
 }
 
 /** Class for the singleton companion objects of [[Dbl3seqDef]] final classes to extend. */
-abstract class Dbl3SeqDefCompanion[A <: ElemDbl3, ArrA <: Dbl3SeqDef[A]] extends DataDblNsCompanion[A, ArrA]
+abstract class Dbl3SeqDefCompanion[A <: ElemDbl3, ArrA <: Dbl3SeqDef[A]] extends DblNSeqDefCompanion[A, ArrA]
 { final override def elemProdSize: Int = 3
 
   def apply(elems: A*): ArrA =
