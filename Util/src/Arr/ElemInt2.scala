@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-
-import scala.collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 2 [[Int]]s. These are used in [[Int2Arr]] Array[Int] based collections. */
 trait ElemInt2 extends Any with ElemIntN

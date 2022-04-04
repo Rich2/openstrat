@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._
 
-/** A trait for classes of line paths specified by [[[HCen]] hex grid tile centre coordinates. Can't remember why this is a trait. */
+/** A trait for classes of line paths specified by [[[HCoord]] hex grid tile coordinates. */
 class LinePathHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqDef with LinePathInt2s[HCoord]
 { override type ThisT = LinePathHC
   override def typeStr: String = "LinePathHC"

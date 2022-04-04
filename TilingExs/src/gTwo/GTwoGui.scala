@@ -33,7 +33,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
-  def bTurn = simpleButton("Turn " + (scen.turn + 1).toString){
+  def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
     val getOrders = players.some2sMap(moves)((player, step) => (player, step))//moves.mapSomes(rs => rs)
     scen = scen.endTurn(getOrders)
     moves = NoMoves
@@ -65,7 +65,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen) extends SquareMapGu
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(bTurn %: this.navButtons)
+  def thisTop(): Unit = reTop(bTurn %: navButtons)
   thisTop()
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
 
