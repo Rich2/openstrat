@@ -15,6 +15,7 @@ case class Player(char: Char, colour: Colour) extends Show2[Char, Colour]
   def charStr: String = char.toString
   override def show(style: ShowStyle): String = "Player" + char
   override def syntaxDepth: Int = 1
+  def hSteps(steps: HStep*): (Player, HStepArr) = (this, steps.toImut)
 }
 
 /** Companion object for Player case class contains implicit instance for Persist. */

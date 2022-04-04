@@ -46,7 +46,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
   //  val getOrders: Arr[(Player, HStep)] = players.some2sMap(moves)((player, step) => (player, step))
-  //  scen = scen.endTurn(getOrders)
+    scen = scen.endTurn(moves)
     //moves = NoMoves
     repaint()
     thisTop()
