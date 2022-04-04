@@ -38,16 +38,15 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   def moveGraphics: Arr[LineSegDraw] = players.hcSomesFlatMap { (hc, p) =>
     val hss: HStepArr = moves.withDefault(_ => HStepArr())(p)
     //hss.pathHC(hc).toLinePath
-    hss. segsMap(hc) { ls => ls.draw(players.unSafeApply(hc).colour)//LineSegDraw(hc, hc.unsafeStep(step)).lineSeg.draw(players.unSafeApply(hc).colour)
+    hss.segsMap(hc) { ls => ls.draw(players.unSafeApply(hc).colour)//LineSegDraw(hc, hc.unsafeStep(step)).lineSeg.draw(players.unSafeApply(hc).colour)
     }
     //Arr[LineSegDraw]()
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-  //  val getOrders: Arr[(Player, HStep)] = players.some2sMap(moves)((player, step) => (player, step))
     scen = scen.endTurn(moves)
-    //moves = NoMoves
+    moves = scen.playersData
     repaint()
     thisTop()
   }
@@ -62,9 +61,9 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
       thisTop()
     }
 
-    case (RightButton, AnysHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, AnysHead(HPlayer(hc1, p)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HStep] = grider.findStep(hc1, hc2)
-      //newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
+      newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceValue(p, HStepArr()) } { m => moves = moves.replaceValue(p, HStepArr(m)) }
       repaint()
     }
 
