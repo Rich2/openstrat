@@ -97,7 +97,7 @@ trait Int1SeqDefCompanion[A <: ElemInt1, ArrA <: Int1SeqDef[A]] extends IntNSeqD
     var count: Int = 0
 
     while (count < arrLen)
-    { res.unsafeArray(count) = elems(count / 2).int1
+    { res.unsafeArray(count) = elems(count).int1
       count += 1
     }
     res

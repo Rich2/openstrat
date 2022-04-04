@@ -13,9 +13,6 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec
 
-  /** There are no moves set. The Gui is reset to this state at the start of every turn. */
-  //def NoMoves: Map[PlayerState] = pStates//.map[HStepArr](_.steps)// grider.newHCenOptDGrid[HStep]
-
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
   var moves: Map[Player, HStepArr] = scen.playersData
