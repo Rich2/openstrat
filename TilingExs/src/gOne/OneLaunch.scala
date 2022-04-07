@@ -11,6 +11,7 @@ object OneLaunch extends GuiLaunchMore
   override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen: EMon[Int] = sts.findSetting[Int]("scen")
     val num: Int = oScen.getElse(1)
+    
     val scen: OneScen = num match
     { case 1 => OneScen1
       case 2 => OneScen2
@@ -20,6 +21,7 @@ object OneLaunch extends GuiLaunchMore
       case 6 => OneScen6
       case _ => OneScen1
     }
+    
     val oview: EMon[HGridView] = sts.findKeySetting[Int, HGridView](num)
     (GOneGui(_, scen, oview.getElse(scen.grider.defaultView())), "JavaFx Game One")
   }
