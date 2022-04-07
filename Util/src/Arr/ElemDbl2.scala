@@ -132,26 +132,9 @@ trait Dbl2SeqDefCompanion[A <: ElemDbl2, ArrA <: Dbl2SeqDef[A]] extends DblNSeqD
     }
     res
   }
-
-  def fromList(list: List[A]): ArrA =
-  {
-    val arrLen: Int = list.length * 2
-    val res = uninitialised(list.length)
-    var count: Int = 0
-    var rem = list
-
-    while (count < arrLen)
-    { res.unsafeArray(count) = rem.head.dbl1
-      count += 1
-      res.unsafeArray(count) = rem.head.dbl2
-      count += 1
-      rem = rem.tail
-    }
-    res
-  }
 }
 
-/** Persists and assists in building [[DblNArr]]s. */
+/** Persists and assists in building [[Db2SeqDef]] objectsS. */
 abstract class Dbl2SeqDefPersist[A <: ElemDbl2, M <: Dbl2SeqDef[A]](val typeStr: String) extends DataDblNsPersist[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
