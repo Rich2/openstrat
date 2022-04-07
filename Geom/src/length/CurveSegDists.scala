@@ -6,7 +6,7 @@ class CurveSegDists(val unsafeArray: Array[Double]) extends AnyVal with Dbl7Arr[
 { type ThisT = CurveSegDists
   override def unsafeFromArray(array: Array[Double]): CurveSegDists = new CurveSegDists(array)
   override def typeStr: String = "CurvedSegDists"
-  override def dataElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): DistCurveTail =
+  override def sdElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): DistCurveTail =
     new DistCurveTail(iMatch, d1, d2, d3, d4, d5, d6)
   override def fElemStr: DistCurveTail => String = _.toString
 }

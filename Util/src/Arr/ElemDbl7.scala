@@ -15,12 +15,15 @@ trait ElemDbl7 extends Any with ElemDblN
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl7]]s. */
 trait Dbl7SeqDef[A <: ElemDbl7] extends Any with DblNSeqDef[A]
 { def elemProdSize: Int = 7
-  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
+  def sdElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
+
+  override def seqDefEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
+    (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
 
   def sdIndex(index: Int): A =
   { val offset = 7 * index
 
-    dataElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
+    sdElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
       unsafeArray(offset + 5), unsafeArray(offset + 6))
   }
 

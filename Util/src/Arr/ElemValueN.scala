@@ -20,6 +20,25 @@ trait ValueNSeqDef[A <: ElemValueN] extends Any with ImutSeqDef[A]
   /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
   def arrLen: Int
 
+  def seqDefEq(a1: A, a2: A): Boolean
+
+  /** This method could be made more general. */
+  def findIndex(value: A): OptInt =
+  { var count = 0
+    var acc: OptInt = NoInt
+    var continue = true
+
+    while (continue == true & count < sdLength)
+    {
+      if (seqDefEq(value, sdIndex(count)))
+      { acc = SomeInt(count)
+        continue = false
+      }
+      count += 1
+    }
+    acc
+  }
+
   /** Reverses the order of the elements. */
   def reverseData: ThisT
 

@@ -13,12 +13,12 @@ trait Int1SeqDef[A <: ElemInt1] extends Any with IntNSeqDef[A]
   final override def sdIndex(index: Int): A = dataElem(unsafeArray(index))
   def dataElem(intValue: Int): A
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(index) = elem.int1 }
+  override def seqDefEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */
 trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqDef[A]
 { final override def length: Int = unsafeArray.length
-  override def seqDefEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =

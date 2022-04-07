@@ -24,6 +24,7 @@ trait Dbl2SeqDef[A <: ElemDbl2] extends Any with DblNSeqDef[A]
   }
 
   override def sdIndex(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  override def seqDefEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
   def elem1sArray: Array[Double] =
   { val res = new Array[Double](sdLength)

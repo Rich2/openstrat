@@ -13,11 +13,14 @@ trait ElemDbl5 extends Any with ElemDblN
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl5]]s. */
 trait Dbl5SeqDef[A <: ElemDbl5] extends Any with DblNSeqDef[A]
 { /** Method for creating new data elements from 5 [[Double]]s In the case of [[Dbl5Arr]] this will be the type of the elements of the sequence. */
-  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
+  def sdElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
   def elemProdSize: Int = 5
-  def sdIndex(index: Int): A = dataElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
+  def sdIndex(index: Int): A = sdElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
     unsafeArray(5 * index + 4))
+
+  override def seqDefEq(a1: A, a2: A): Boolean =
+    (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5)
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =
   { unsafeArray(5 * index) = elem.dbl1
