@@ -17,6 +17,8 @@ object SqCoord
     case _ if r.isOdd & c.isOdd => SqSide(r, c)
     case _ => SqVert(r, c)
   }
+
+  implicit val persistImplicit: Persist[SqCoord] = PersistShowInt2[SqCoord]("SqCoord", "r", "c", SqCoord(_, _))
 }
 
 trait SqCenOrSide extends Any with SqCoord with TCenOrSide

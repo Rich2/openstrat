@@ -12,7 +12,7 @@ class SqGridView(val r: Int, val c: Int, val pxScale: Double) extends Show2[SqCo
   inline override def show1: SqCoord = hCoord
   override def name2: String = "pxScale"
   inline override def show2: Double = pxScale
-  override implicit def showT1: ShowT[SqCoord] = ???//SqCoord.persistImplicit
+  override implicit def showT1: ShowT[SqCoord] = SqCoord.persistImplicit
   override implicit def showT2: ShowT[Double] = ShowT.doublePersistEv
   override def syntaxDepth: Int = 3
 }
@@ -23,5 +23,6 @@ object SqGridView
   def apply(sqCoord: SqCoord, pxScale: Double): SqGridView = new SqGridView(sqCoord.r, sqCoord.c, pxScale)
 
   /** Implicit [[Persist]] instance for SqGridView.  */
-  implicit val persistImplicit: PersistShow2[SqCoord, Double, SqGridView] = ???// PersistShow2[SqCoord, Double, SqGridView]("SqGridView", "hCoord", "pxScale", apply(_, _))
+  implicit val persistImplicit: PersistShow2[SqCoord, Double, SqGridView] =
+    PersistShow2[SqCoord, Double, SqGridView]("SqGridView", "hCoord", "pxScale", apply(_, _))
 }
