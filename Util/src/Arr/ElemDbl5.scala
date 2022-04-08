@@ -19,7 +19,7 @@ trait Dbl5SeqDef[A <: ElemDbl5] extends Any with DblNSeqDef[A]
   def sdIndex(index: Int): A = sdElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
     unsafeArray(5 * index + 4))
 
-  override def seqDefEq(a1: A, a2: A): Boolean =
+  override def sdElemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5)
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =

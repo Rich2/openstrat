@@ -16,7 +16,7 @@ trait Dbl6SeqDef[A <: ElemDbl6] extends Any with DblNSeqDef[A]
 { def elemProdSize: Int = 6
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 
-  override def seqDefEq(a1: A, a2: A): Boolean =
+  override def sdElemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
 
   def sdIndex(index: Int): A =

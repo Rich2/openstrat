@@ -17,7 +17,7 @@ trait Int2SeqDef[A <: ElemInt2] extends Any with IntNSeqDef[A]
   /** Construct element of the defining sequence from 2 [[Int]]s. */
   def sdElem(int1: Int, int2: Int): A
 
-  override def seqDefEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt2]]s. */

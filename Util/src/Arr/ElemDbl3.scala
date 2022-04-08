@@ -24,7 +24,7 @@ trait Dbl3SeqDef[A <: ElemDbl3] extends Any with DblNSeqDef[A]
   { unsafeArray(3 * index) = elem.dbl1; unsafeArray(3 * index + 1) = elem.dbl2; unsafeArray(3 * index + 2) = elem.dbl3
   }
 
-  override def seqDefEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
   override def sdIndex(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 

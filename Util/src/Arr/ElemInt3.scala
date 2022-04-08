@@ -16,7 +16,7 @@ trait Int3SeqDef[A <: ElemInt3] extends Any with IntNSeqDef[A]
   /** Creates a sequence-defined element from 3 [[Int]]s. */
   def sdElem(int1: Int, int2: Int, int3: Int): A
 
-  override def seqDefEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
 
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(3 * index) = elem.int1; unsafeArray(3 * index + 1) = elem.int2
     unsafeArray(3 * index + 2) = elem.int3 }

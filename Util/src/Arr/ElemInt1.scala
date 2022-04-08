@@ -13,7 +13,7 @@ trait Int1SeqDef[A <: ElemInt1] extends Any with IntNSeqDef[A]
   final override def sdIndex(index: Int): A = dataElem(unsafeArray(index))
   def dataElem(intValue: Int): A
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(index) = elem.int1 }
-  override def seqDefEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
+  override def sdElemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */

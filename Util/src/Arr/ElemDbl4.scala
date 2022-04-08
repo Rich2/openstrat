@@ -16,7 +16,7 @@ trait Dbl4SeqDef[A <: ElemDbl4] extends Any with DblNSeqDef[A]
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
   override def elemProdSize: Int = 4
-  override def seqDefEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
 
   final override def unsafeSetElem(index: Int, elem: A): Unit =
   { unsafeArray(4 * index) = elem.dbl1
