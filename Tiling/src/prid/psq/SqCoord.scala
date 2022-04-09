@@ -9,6 +9,9 @@ trait SqBaseCoord extends Any with TCoord
 
 /** A square grid integer tile coordinate. */
 trait SqCoord extends Any with SqBaseCoord
+{
+  def view(pxScale: Double = 50): SqGridView = SqGridView(r, c, pxScale)
+}
 
 object SqCoord
 { /** Apply factory method for [[SqCoord]] trait, returns a [[SqCen]], [[SqSide]] or [[SqVert]] depending on the coordinates. */

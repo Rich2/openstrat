@@ -11,6 +11,8 @@ trait SqGrider extends Any with TGrider
   final def newSCenOptDGrider[A <: AnyRef](implicit ct: ClassTag[A]): SqCenOptDGrid[A] = new SqCenOptDGrid(new Array[A](numTiles))
 
   final def newSCenBuffDGrider[A <: AnyRef](implicit ct: ClassTag[A]): SqCenBuffDGrid[A] = SqCenBuffDGrid(numTiles)
+
+  def defaultView(pxScale: Double = 50): SqGridView
 }
 
 /** A system of Square tile grids that is flat within a 2D plane. includes all single [[SqGrid]]s. */

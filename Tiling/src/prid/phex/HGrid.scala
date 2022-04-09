@@ -35,7 +35,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
 
   override def coordCen: HCoord
 
-  def defaultView(pxScale: Double = 50): HGridView = coordCen.view(pxScale)
+  override def defaultView(pxScale: Double = 50): HGridView = coordCen.view(pxScale)
 
   override def hCoordToPt2(hCoord: HCoord): Pt2 = hCoord.toPt2Reg
 

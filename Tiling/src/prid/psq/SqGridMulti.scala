@@ -13,6 +13,7 @@ case class SqGridMan(grid: SqGrid, arrIndex: Int)
 trait SqGridMulti extends SqGrider {
   def gridMans: Arr[SqGridMan]
   def grids: Arr[SqGrid] = gridMans.map(_.grid)
+  override def defaultView(pxScale: Double = 50): SqGridView = grids(0).defaultView(pxScale)
 }
 
 trait SqGridMultiFlat extends SqGridMulti with SqGriderFlat

@@ -24,5 +24,5 @@ object SqGridView
 
   /** Implicit [[Persist]] instance for SqGridView.  */
   implicit val persistImplicit: PersistShow2[SqCoord, Double, SqGridView] =
-    PersistShow2[SqCoord, Double, SqGridView]("SqGridView", "hCoord", "pxScale", apply(_, _))
+    PersistShow2[SqCoord, Double, SqGridView]("SqGridView", "sqCoord", "pxScale", apply(_, _))
 }

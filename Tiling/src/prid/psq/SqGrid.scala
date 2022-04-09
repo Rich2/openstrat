@@ -24,7 +24,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   override def right: Double = rightSideC
   override def top: Double = topSideRow
   override def bottom: Double = bottomSideRow
-  override def coordCen: SqCenOrSide = SqCenOrSide(rCen, cCen)
+  override def coordCen: SqCoord = SqCoord(rCen, cCen)
   override def yCen: Double = (bottomCenR + topCenR) / 2
   def horrSideLines: LineSegs = iToMap(bottomSideRow, topSideRow, 2){ r => LineSeg(leftSideC, r, rightSideC, r) }
   def vertSideLines: LineSegs = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideRow, c, topSideRow) }
@@ -89,7 +89,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
 
   override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
 
-
+  override def defaultView(pxScale: Double = 50): SqGridView = coordCen.view(pxScale)
 
   /** Creates a new [[HCenArrOfBuff]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
   final def newSqCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): SqCenArrOfBuff[A] = SqCenArrOfBuff(numTiles)
