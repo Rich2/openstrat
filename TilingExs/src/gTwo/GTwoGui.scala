@@ -12,7 +12,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   /** The number of pixels / 2 displayed per row height. */
   var cPScale: Double = grider.fullDisplayScale(mainWidth, mainHeight)
 
-  focus = grider.cenVec
+  focus = viewIn.vec//grider.cenVec
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   def tiles: Arr[PolygonActive] = grider.activeTiles
