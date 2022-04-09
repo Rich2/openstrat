@@ -2,7 +2,7 @@
 package ostrat; package prid; package psq
 import geom._
 
-/** A view of a hex grid, currently representing the [[SqCoord]] focus and the pixels/dx scale. */
+/** A view of a square grid, currently representing the [[SqCoord]] focus and the pixels/dx scale. */
 class SqGridView(val r: Int, val c: Int, val pxScale: Double) extends Show2[SqCoord, Double]
 { def hCoord: SqCoord = SqCoord(r, c)
   def vec: Vec2 = hCoord.toVecReg
