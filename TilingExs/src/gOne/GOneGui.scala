@@ -14,11 +14,11 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   focus = viewIn.vec
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HCenOptDGrid[HStep] = grider.newHCenOptDGrid[HStep]
+  def NoMoves: HCenOptDGrid[HDirn] = grider.newHCenOptDGrid[HDirn]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
-  var moves: HCenOptDGrid[HStep] = NoMoves
+  var moves: HCenOptDGrid[HDirn] = NoMoves
 
   val urect = Rect(1.4, 1)
 
@@ -44,7 +44,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    val getOrders: Arr[(Player, HStep)] = players.some2sMap(moves)((player, step) => (player, step))
+    val getOrders: Arr[(Player, HDirn)] = players.some2sMap(moves)((player, step) => (player, step))
     scen = scen.endTurn(getOrders)
     moves = NoMoves
     repaint()
@@ -62,7 +62,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
     }
 
     case (RightButton, AnysHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
-      val newM: Option[HStep] = grider.findStep(hc1, hc2)
+      val newM: Option[HDirn] = grider.findStep(hc1, hc2)
       newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()
     }

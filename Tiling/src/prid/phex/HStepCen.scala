@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** Hex centre origin and hex step. */
 class HStepCen(val stepInt: Int, val r2: Int, val c2: Int) extends ElemInt3
-{ def step: HStep = HStep.fromInt(stepInt)
+{ def step: HDirn = HDirn.fromInt(stepInt)
 
   /** The Starting hex centre. */
   def endHC: HCen = HCen(r2, c2)
@@ -20,8 +20,8 @@ class HStepCen(val stepInt: Int, val r2: Int, val c2: Int) extends ElemInt3
 }
 
 object HStepCen
-{ def apply(step: HStep, hCen: HCen): HStepCen = new HStepCen(step.intValue, hCen.r, hCen.c)
-  def apply(step: HStep, r: Int, c: Int): HStepCen = new HStepCen(step.intValue, r, c)
+{ def apply(step: HDirn, hCen: HCen): HStepCen = new HStepCen(step.intValue, hCen.r, hCen.c)
+  def apply(step: HDirn, r: Int, c: Int): HStepCen = new HStepCen(step.intValue, r, c)
 
   implicit val buildEv: Int3ArrBuilder[HStepCen, HStepCenArr] = new Int3ArrBuilder[HStepCen, HStepCenArr]{
     override type BuffT = HStepCenBuff
@@ -42,7 +42,7 @@ object HStepCenArr extends  Int3SeqDefCompanion[HStepCen, HStepCenArr]
 { override def fromArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
 
   /** Apply factory method */
-  def apply(elems: (HStep, Int, Int)*): HStepCenArr =
+  def apply(elems: (HDirn, Int, Int)*): HStepCenArr =
   { val arrLen: Int = elems.length * 3
     val array: Array[Int] = new Array[Int](arrLen)
     var count: Int = 0

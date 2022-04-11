@@ -3,29 +3,31 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. */
-sealed trait HStep extends TDirn with ElemInt1
+sealed trait HDirn extends TDirnSided with ElemInt1
 { /** The delta [[HCen]] of this step inside a hex grid. */
-  def hCenDelta: HCen = HCen(r, c)
+  def hCenDelta: HCen = HCen(tr, tc)
   def intValue: Int
-  def reverse: HStep
-  def canEqual(a: Any): Boolean = a.isInstanceOf[HStep]
+  def reverse: HDirn
+  def canEqual(a: Any): Boolean = a.isInstanceOf[HDirn]
+
+
 }
 
-object HStep
+object HDirn
 {
-  def fromInt(inp: Int): HStep = inp match {
-    case 1 => HStepUR
-    case 2 => HStepRt
-    case 3 => HStepDR
-    case 4 => HStepDL
+  def fromInt(inp: Int): HDirn = inp match {
+    case 1 => HexUR
+    case 2 => HexRt
+    case 3 => HexDR
+    case 4 => HexDL
     case 5 => HStepLt
     case 6 => HStepUL
     case n => excep(s"$n is not a valid HStep")
   }
 
-  def full: HStepArr = HStepArr(HStepUR, HStepRt, HStepDR, HStepDL, HStepLt, HStepUL)
+  def full: HStepArr = HStepArr(HexUR, HexRt, HexDR, HexDL, HStepLt, HStepUL)
 
-  implicit val buildEv: Int1ArrBuilder[HStep, HStepArr] = new Int1ArrBuilder[HStep, HStepArr]
+  implicit val buildEv: Int1ArrBuilder[HDirn, HStepArr] = new Int1ArrBuilder[HDirn, HStepArr]
   { override type BuffT = HStepBuff
     override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
@@ -33,59 +35,59 @@ object HStep
 }
 
 /** A step upright on a hex tile grid [[HGrid]]. */
-case object HStepUR extends HStep
-{ def r: Int = 2
-  def c: Int = 2
+case object HexUR extends HDirn
+{ def sr: Int = 1
+  def sc: Int = 1
   def intValue = 1
-  override def reverse: HStep = HStepDL
+  override def reverse: HDirn = HexDL
 }
 
 /** A step right on a hex tile grid [[HGrid]]. */
-case object HStepRt extends HStep
-{ def r: Int = 0
-  def c: Int = 4
+case object HexRt extends HDirn
+{ def sr: Int = 0
+  def sc: Int = 2
   def intValue = 2
-  override def reverse: HStep = HStepLt
+  override def reverse: HDirn = HStepLt
 }
 
 /** A step downright on a hex tile grid [[HGrid]]. */
-case object HStepDR extends HStep
-{ def r: Int = -2
-  def c: Int = 2
+case object HexDR extends HDirn
+{ def sr: Int = -1
+  def sc: Int = 1
   def intValue = 3
-  override def reverse: HStep = HStepUL
+  override def reverse: HDirn = HStepUL
 }
 
 /** A step downleft on a hex tile grid [[HGrid]]. */
-case object HStepDL extends HStep
-{ def r: Int = -2
-  def c: Int = -2
+case object HexDL extends HDirn
+{ def sr: Int = -1
+  def sc: Int = -1
   def intValue = 4
-  override def reverse: HStep = HStepUR
+  override def reverse: HDirn = HexUR
 }
 
 /** A step left on a hex tile grid [[HGrid]]. */
-case object HStepLt extends HStep
-{ def r: Int = 0
-  def c: Int = -4
+case object HStepLt extends HDirn
+{ def sr: Int = 0
+  def sc: Int = -2
   def intValue = 5
-  override def reverse: HStep = HStepRt
+  override def reverse: HDirn = HexRt
 }
 
 /** A step upleft on a hex tile grid [[HGrid]]. */
-case object HStepUL extends HStep
-{ def r: Int = 2
-  def c: Int = -2
+case object HStepUL extends HDirn
+{ def sr: Int = 1
+  def sc: Int = -1
   def intValue = 6
-  override def reverse: HStep = HStepDR
+  override def reverse: HDirn = HexDR
 }
 
-class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
+class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
 { override type ThisT = HStepArr
   override def typeStr: String = "HSteps"
-  override def dataElem(intValue: Int): HStep = HStep.fromInt(intValue)
+  override def dataElem(intValue: Int): HDirn = HDirn.fromInt(intValue)
   override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
-  override def fElemStr: HStep => String = _.toString
+  override def fElemStr: HDirn => String = _.toString
 
   def segsNum: Int = unsafeArray.length
 
@@ -99,9 +101,9 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
     var c2: Int = 0
 
     while (count < segsNum)
-    { val step =  HStep.fromInt(unsafeArray(count))
-      r2 = r1 + step.r
-      c2 = c1 + step.c
+    { val step =  HDirn.fromInt(unsafeArray(count))
+      r2 = r1 + step.tr
+      c2 = c1 + step.tc
       val hls = LineSegHC(r1, c1, r2, c2)
       f(hls.lineSeg)
       count += 1
@@ -140,10 +142,10 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HStep]
   }
 }
 
-object HStepArr extends Int1SeqDefCompanion[HStep, HStepArr]
+object HStepArr extends Int1SeqDefCompanion[HDirn, HStepArr]
 { override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
 
-  implicit val flatBuilder: ArrFlatBuilder[HStepArr] = new Int1ArrFlatBuilder[HStep, HStepArr]
+  implicit val flatBuilder: ArrFlatBuilder[HStepArr] = new Int1ArrFlatBuilder[HDirn, HStepArr]
   { override type BuffT = HStepBuff
     override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
@@ -151,9 +153,9 @@ object HStepArr extends Int1SeqDefCompanion[HStep, HStepArr]
 }
 
 /** ArrayBuffer based buffer class for Colours. */
-class HStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[HStep]
+class HStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[HDirn]
 { override def typeStr: String = "HStepBuff"
-  def intToT(i1: Int): HStep = HStep.fromInt(i1)
+  def intToT(i1: Int): HDirn = HDirn.fromInt(i1)
 }
 
 object HStepBuff

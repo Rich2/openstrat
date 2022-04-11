@@ -9,8 +9,8 @@ object HGridTest extends TestSuite
 
   val tests = Tests {
     test("test1") {
-      g1.findStep(2, 2, 4, 4) ==> Some(HStepUR)
-      g1.findStep(2, 2, 2, 6) ==> Some(HStepRt)
+      g1.findStep(2, 2, 4, 4) ==> Some(HexUR)
+      g1.findStep(2, 2, 2, 6) ==> Some(HexRt)
       g1.findStep(2, 2, 4, 0) ==> None
       g1.findStep(2, 2, 0, 4) ==> None
     }
@@ -19,9 +19,9 @@ object HGridTest extends TestSuite
       g2.unsafeGetMan(4, 4).grid.leftCenC ==> 2
       g2.unsafeGetMan(4, 4).grid.hCenExists(4, 100) ==> false
       g2.unsafeGetMan(4, 4).outSteps(4, 4).length ==> 1
-      g2.unsafeGetMan(4, 4).outSteps(4, 4)(0) ==> HStepCen(HStepRt, 4, 100)
-      g2.findStep(4, 4, 4, 100) ==> Some(HStepRt)
-      g2.findStep(6, 6, 6, 102) ==> Some(HStepRt)
+      g2.unsafeGetMan(4, 4).outSteps(4, 4)(0) ==> HStepCen(HexRt, 4, 100)
+      g2.findStep(4, 4, 4, 100) ==> Some(HexRt)
+      g2.findStep(6, 6, 6, 102) ==> Some(HexRt)
     }
   }
 }

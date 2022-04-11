@@ -9,13 +9,13 @@ trait OneScen extends HexGriderFlatScen
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
-  def endTurn(orderList: Arr[(Player, HStep)]): OneScen =
+  def endTurn(orderList: Arr[(Player, HDirn)]): OneScen =
   {
     val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
     val targets: HCenBuffDGrid[HCenStep] = grider.newHCenArrOfBuff
 
-    orderList.foreach { (player: Player, step: HStep) =>
+    orderList.foreach { (player: Player, step: HDirn) =>
       val hc1: HCen = playersKey(player)
       val optTarget: Option[HCen] = hc1.stepOpt(step)
       optTarget.foreach { target => targets.appendAt(target, HCenStep(hc1, step)) }

@@ -73,19 +73,19 @@ trait HGrid extends Any with TGrid with HGriderFlat
   /** The active tiles without any PaintElems. */
   override def activeTiles: Arr[PolygonActive] = map(_.active())
 
-  override def hCenSteps(hCen: HCen): HStepArr = HStep.full.filter(st => hCenExists(hCen.r + st.r, hCen.c + st.c))
+  override def hCenSteps(hCen: HCen): HStepArr = HDirn.full.filter(st => hCenExists(hCen.r + st.tr, hCen.c + st.tc))
 
-  override def unsafeStepEnd(startCen: HCen, step: HStep): HCen ={
-    val endCen = HCen(startCen.r + step.r, startCen.c + step.c)
+  override def unsafeStepEnd(startCen: HCen, step: HDirn): HCen ={
+    val endCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
     if (hCenExists(endCen)) endCen else excep("Illegal end hex in unsafeStep method.")
   }
 
-  override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
-  { val endHC = HCen(startHC.r + step.r, startHC.c + step.c)
+  override def findStepEnd(startHC: HCen, step: HDirn): Option[HCen] =
+  { val endHC = HCen(startHC.r + step.tr, startHC.c + step.tc)
     if (hCenExists(startHC) & hCenExists(endHC)) Some(endHC) else None
   }
 
-  override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ife(hCenExists(startHC) & hCenExists(endHC), hcSteps.optFind(_.hCenDelta == endHC - startHC), None)
+  override def findStep(startHC: HCen, endHC: HCen): Option[HDirn] = ife(hCenExists(startHC) & hCenExists(endHC), hcSteps.optFind(_.hCenDelta == endHC - startHC), None)
 
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
 

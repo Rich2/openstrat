@@ -2,16 +2,16 @@
 package ostrat; package prid; package phex
 import collection.mutable.ArrayBuffer
 
-/** A hex grid step representing the starting [[HCen]] of the step as well as the [[HStep]] singleton object itself. */
+/** A hex grid step representing the starting [[HCen]] of the step as well as the [[HDirn]] singleton object itself. */
 class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends ElemInt3
 { /** The Starting hex centre. */
   def startHC: HCen = HCen(r1, c1)
 
-  /** The [[HStep]] singleton object. */
-  def step: HStep = HStep.fromInt(stepInt)
+  /** The [[HDirn]] singleton object. */
+  def step: HDirn = HDirn.fromInt(stepInt)
 
   /** The destination hex centre. */
-  def endHC(implicit grider: HGrider): HCen = HCen(r1 + step.r, c1 + step.c)
+  def endHC(implicit grider: HGrider): HCen = HCen(r1 + step.tr, c1 + step.tc)
 
   override def int1: Int = r1
   override def int2: Int = c1
@@ -19,8 +19,8 @@ class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends ElemInt3
 }
 
 object HCenStep
-{ def apply(hCen: HCen, step: HStep): HCenStep = new HCenStep(hCen.r, hCen.c, step.intValue)
-  def apply(r: Int, c: Int, step: HStep): HCenStep = new HCenStep(r, c, step.intValue)
+{ def apply(hCen: HCen, step: HDirn): HCenStep = new HCenStep(hCen.r, hCen.c, step.intValue)
+  def apply(r: Int, c: Int, step: HDirn): HCenStep = new HCenStep(r, c, step.intValue)
 
   implicit val buildEv: Int3ArrBuilder[HCenStep, HCenStepArr] = new Int3ArrBuilder[HCenStep, HCenStepArr]{
     override type BuffT = HCenStepBuff

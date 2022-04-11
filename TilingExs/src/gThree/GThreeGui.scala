@@ -62,7 +62,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
     }
 
     case (RightButton, AnysHead(HPlayer(hc1, p)), hits) => hits.findHCenForEach{ hc2 =>
-      val newM: Option[HStep] = grider.findStep(hc1, hc2)
+      val newM: Option[HDirn] = grider.findStep(hc1, hc2)
       newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceValue(p, HStepArr()) } { m => moves = moves.replaceValue(p, HStepArr(m)) }
       repaint()
     }

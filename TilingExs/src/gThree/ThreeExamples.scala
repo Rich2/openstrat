@@ -10,8 +10,8 @@ object ThreeScen1 extends ThreeScen
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 
-  override def playersData: Map[Player, HStepArr] = Map(PlayerA.hSteps(HStepDR, HStepLt), PlayerB.hSteps(HStepDL, HStepRt),
-    PlayerC.hSteps(HStepLt, HStepDR, HStepDL))
+  override def playersData: Map[Player, HStepArr] = Map(PlayerA.hSteps(HexDR, HStepLt), PlayerB.hSteps(HexDL, HexRt),
+    PlayerC.hSteps(HStepLt, HexDR, HexDL))
 }
 
 /** 2nd example Turn 0 scenario state for Game Three. */

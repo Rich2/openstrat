@@ -43,7 +43,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HexMapGui
     }
 
     case (RightButton, AnysHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
-     val newM: Option[HStep] = grider.findStep(hc1, hc2)
+     val newM: Option[HDirn] = grider.findStep(hc1, hc2)
       //newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()
     }

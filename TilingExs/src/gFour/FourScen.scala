@@ -19,7 +19,7 @@ class Lunit(val team: Team, val cmds: HStepArr = HStepArr()) extends Coloured
 }
 
 object Lunit
-{ def apply(team: Team, cmds: HStep *): Lunit = new Lunit(team, cmds.toArr)
+{ def apply(team: Team, cmds: HDirn *): Lunit = new Lunit(team, cmds.toArr)
   def apply(team: Team, cmds: HStepArr): Lunit = new Lunit(team, cmds)
 }
 
@@ -35,8 +35,8 @@ abstract class FourScen(val turn: Int) extends HexGridScen
   {
     val playersKey: Map[Lunit, HCen] = units.keyMap
 
-    /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    val targets: HCenBuffDGrid[HStep] = grider.newHCenArrOfBuff
+    /** A mutable grid of data. The tile data is an Array buffer of [[HDirn]]s, the HStep pointing back to the origin [[HCen]] of the player. */
+    val targets: HCenBuffDGrid[HDirn] = grider.newHCenArrOfBuff
 
     orderList.foreach { case (player, steps) =>  steps.ifHead { step =>
       val hc1 = playersKey(player)
