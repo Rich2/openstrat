@@ -10,6 +10,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
 
   def apply(roord: Roord)(implicit grid: TileGridOld): A = unsafeArr(grid.arrIndex(roord))
   def apply(y: Int, c: Int)(implicit grid: TileGridOld): A = unsafeArr(grid.arrIndex(y, c))
+
   /** Set tile row from the Roord. */
   final def setRow(roord: Roord, tileValues: Multiple[A]*)(implicit grid: TileGridOld): Roord = setRow(roord.y, roord.c, tileValues: _*)(grid)
 
