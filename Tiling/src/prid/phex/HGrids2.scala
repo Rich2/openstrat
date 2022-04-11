@@ -78,6 +78,10 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
     case (hc1, hc2) if hc1.c == grid2.rowLeftCenC(hc1.c) & hc2.c == grid1.rowRightCenC(hc1.c) => Some(HStepLt)
     case _ => None
   }*/
+
+  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
+   * departure and the tile of arrival. */
+  override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
 object HGrids2

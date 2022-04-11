@@ -39,6 +39,52 @@ trait HGrider extends Any with TGrider
 
   def adjTilesOfTile(tile: HCen): HCenArr
 
+  //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
+
+  def findPath(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[HCenArr] = findPathList(startCen, endCen)(fTerrCost).map(_.toArr)
+
+  /** Finds path from Start hex tile centre to end tile centre given the cost function parameter. */
+  def findPathList(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[List[HCen]] =
+  {
+    var open: List[HNode] = HNode(startCen, 0, getHCost(startCen, endCen), NoRef) :: Nil
+    var closed: List[HNode] = Nil
+    var found: Option[HNode] = None
+
+    while (open.nonEmpty & found == None)
+    {
+      val curr: HNode = open.minBy(_.fCost)
+      open = open.filterNot(_ == curr)
+      closed ::= curr
+      val neighbs: HCenArr = adjTilesOfTile(curr.tile).filterNot(tile => closed.exists(_.tile == tile))
+      neighbs.foreach { tile =>
+        fTerrCost(curr.tile, tile) match {
+          case NoInt =>
+          case SomeInt(nc) if closed.exists(_.tile == tile) =>
+          case SomeInt(nc) => {
+            val newGCost = nc + curr.gCost
+
+            open.find(_.tile == tile) match {
+              case Some(node) if newGCost < node.gCost => node.gCost = newGCost; node.parent = OptRef(curr)
+              case Some(_) =>
+              case None =>
+              { val newNode = HNode(tile, newGCost, getHCost(tile, endCen), OptRef(curr))
+                open ::= newNode
+                if (tile == endCen) found = Some(newNode)
+              }
+            }
+          }
+        }
+      }
+    }
+    def loop(acc: List[HCen], curr: HNode): List[HCen] = curr.parent.fld(acc, loop(curr.tile :: acc, _))
+
+    found.map(endNode =>  loop(Nil, endNode))
+  }
+
+  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
+   *  departure and the tile of arrival. */
+  def getHCost(startCen: HCen, endCen: HCen): Int
+
   /** foreachs over each [[HCen]] hex tile centre, applying the side effecting function. */
   def foreach(f: HCen => Unit): Unit
 
@@ -67,9 +113,9 @@ trait HGrider extends Any with TGrider
     build.buffToBB(buff)
   }
 
-  /** New immutable Arr of Tile data. */
+  /** New hex data grid. */
   final def newHCenDGrid[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenDGrid[A] =
-  { val res = HCenDGrid[A](numTiles)
+  { val res: HCenDGrid[A] = HCenDGrid[A](numTiles)
     res.mutSetAll(value)
     res
   }

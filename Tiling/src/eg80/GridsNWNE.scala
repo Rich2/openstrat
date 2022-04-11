@@ -19,4 +19,8 @@ object GridsNWNE extends HGridMulti {
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
   //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
+
+  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
+   * departure and the tile of arrival. */
+  override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
