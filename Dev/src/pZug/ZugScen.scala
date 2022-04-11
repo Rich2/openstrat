@@ -38,7 +38,7 @@ trait ZugScenStart extends ZugScen
 /** ZugFuhrer scenario 1. */
 object Zug1 extends ZugScenStart
 { override implicit val grider: HGrid = HGridReg(2, 14, 4, 48)
-  val terrs: HCenDGrid[ZugTerr] = grider.newTileArr[ZugTerr](Plain)
+  val terrs: HCenDGrid[ZugTerr] = grider.newHCenDGrid[ZugTerr](Plain)
   def cr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.completeRow(yRow, cStart, tileValues :_*)(grider)
   cr(yRow = 12, cStart = 4, WheatField * 2, Plain * 10)
   cr(10, 6, WheatField, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding, Plain * 2)
@@ -51,7 +51,7 @@ object Zug1 extends ZugScenStart
   val wall1: HSideArr = HSideArr(14 hs 36, 13 hs 35, 12 hs 34, 11 hs 35, 10 hs 36)
   //sTerrs.setTrues(wall1)
 
-  val lunits: HCenArrDGrid[Squad] = grider.newTileArrDGrid[Squad]
+  val lunits: HCenArrDGrid[Squad] = grider.newHCenArrDGrid[Squad]
   setSquadMove(2, 30, Britain, HStepLt, HStepLt)
   lunits.set(10, 38, Squad(Britain, Fire(6 hc 18)))
   setSquadMove(4, 32, Britain, HStepLt, HStepLt)
@@ -67,7 +67,7 @@ object Zug1 extends ZugScenStart
 object Zug2 extends ZugScenStart
 {
   override implicit val grider: HGrid = HGridReg(2, 10, 4, 38)
-  val terrs = grider.newTileArr[ZugTerr](Lake)
+  val terrs = grider.newHCenDGrid[ZugTerr](Lake)
   def gs(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.completeRow(yRow, cStart, tileValues :_*)(grider)
   gs(10, 6, Plain * 3, Lake * 3, Plain * 3)
   gs(8, 4 , Plain * 4, Lake * 2, Plain * 3 )
@@ -75,18 +75,18 @@ object Zug2 extends ZugScenStart
   gs(4, 4, Plain * 4, Lake, Hill, Plain * 3)
   gs(2, 6, Plain * 2, Lake * 2, Hill, Plain * 4)
   val sTerrs: HSideBooleans = grider.newSideBooleans
-  val lunits: HCenArrDGrid[Squad] = grider.newTileArrDGrid[Squad]
+  val lunits: HCenArrDGrid[Squad] = grider.newHCenArrDGrid[Squad]
 }
 
 /** ZugFuhrer scenario 3. */
 object Zug3 extends ZugScenStart
 {
   override implicit val grider: HGrid = HGridReg(2, 10, 4, 38)
-  val terrs = grider.newTileArr[ZugTerr](Plain)
+  val terrs = grider.newHCenDGrid[ZugTerr](Plain)
   val sTerrs: HSideBooleans = grider.newSideBooleans
   //sTerrs.gridSetTrues(grid.SidesHorr(7, 5, 37))
 
-  val lunits = grider.newTileArrDGrid[Squad]
+  val lunits = grider.newHCenArrDGrid[Squad]
   lunits.setSame(Squad( Germany), 6 hc 18, 6 hc 30)
   lunits.setSame(Squad(France), 10 hc 14, 10 hc 22, 10 hc 30)
 }

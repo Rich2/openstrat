@@ -129,7 +129,7 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     val buff: HCoordBuff = HCoordBuff(startHC)
     var i = 0
     var continue = true
-    var currHC = startHC
+    var currHC: HCen = startHC
     while(i < length & continue == true) {
       val optHC: Option[HCen] = grider.findStepEnd(currHC, apply(i))
       optHC.fold[Unit]{ continue = false}{hc2 =>

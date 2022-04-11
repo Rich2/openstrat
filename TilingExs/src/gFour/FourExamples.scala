@@ -17,7 +17,7 @@ object FourLaunch extends GuiLaunchStd
 
 object FourScen1 extends FourScen(0)
 { override implicit val grider: HGrid = HGridReg(2, 8, 2, 18)
-  override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
+  override val terrs: HCenDGrid[Terr] = grider.newHCenDGrid[Terr](Plain)
   import terrs.{setRowPart => srp}
   srp(6, 2, 2, Water)
   srp(4, 4, 2, Woods)
@@ -29,7 +29,7 @@ object FourScen1 extends FourScen(0)
 /** 2nd Scenario of Game Four. Has a larger number of hexs. */
 object FourScen2 extends FourScen(0)
 { override implicit val grider: HGrid = HGridReg(2, 20, 4, 60)
-  override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
+  override val terrs: HCenDGrid[Terr] = grider.newHCenDGrid[Terr](Plain)
   import terrs.{setRowPart => sr}
   sr(6,6, 4, Water)
   sr(8,4, 5, Water)
@@ -47,7 +47,7 @@ object FourScen2 extends FourScen(0)
 object FourScen3 extends FourScen(0)
 {
   override implicit val grider: HGridReg = HGridReg(2, 6, 2, 10)
-  override val terrs: HCenDGrid[Terr] = grider.newTileArr[Terr](Plain)
+  override val terrs: HCenDGrid[Terr] = grider.newHCenDGrid[Terr](Plain)
 
   import terrs.{completeRow => sr}
   val units: HCenOptDGrid[Lunit] = grider.newHCenOptDGrid

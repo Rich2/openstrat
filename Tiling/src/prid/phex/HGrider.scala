@@ -68,14 +68,14 @@ trait HGrider extends Any with TGrider
   }
 
   /** New immutable Arr of Tile data. */
-  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenDGrid[A] =
+  final def newHCenDGrid[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenDGrid[A] =
   { val res = HCenDGrid[A](numTiles)
     res.mutSetAll(value)
     res
   }
 
   /** New immutable Arr of Tile data. */
-  final def newTileArrDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrDGrid[A] =
+  final def newHCenArrDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrDGrid[A] =
   { val newArray = new Array[Array[A]](numTiles)
     val init: Array[A] = Array()
     iUntilForeach(0, numTiles)(newArray(_) = init)
@@ -105,7 +105,6 @@ trait HGrider extends Any with TGrider
     }
     res
   }
-
 
   def sides: HSideArr
   def defaultView(pxScale: Double = 50): HGridView

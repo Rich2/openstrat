@@ -57,10 +57,9 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   }
 
   /** New immutable Arr of Tile data. */
-  final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenDGrid[A] =
-  { val res = SqCenDGrid[A](numTiles)
+  final def newSqCenDGrid[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenDGrid[A] =
+  { val res: SqCenDGrid[A] = SqCenDGrid[A](numTiles)
     res.mutSetAll(value)
-    //res
     res
   }
 

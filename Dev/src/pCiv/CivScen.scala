@@ -32,10 +32,10 @@ object CivLaunch extends GuiLaunchStd
 object Civ1 extends CivScenStart
 {
   override implicit val grider: HGrid = HGridReg(2, 14, 4, 40)
-  val terrs: HCenDGrid[Terrain] = grider.newTileArr[Terrain](Plains)
+  val terrs: HCenDGrid[Terrain] = grider.newHCenDGrid[Terrain](Plains)
   terrs.completeRow(12, 20, Hilly, Mountains * 2, Plains * 3)
   terrs.completeRow(4, 4, Hilly * 3, Plains * 7)
-  val lunits: HCenArrDGrid[Warrior] = grider.newTileArrDGrid[Warrior]
+  val lunits: HCenArrDGrid[Warrior] = grider.newHCenArrDGrid[Warrior]
   lunits.set(10, 18, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
 }
@@ -44,9 +44,9 @@ object Civ1 extends CivScenStart
 object Civ2 extends CivScenStart
 {
   override implicit val grider: HGrid = HGridReg(2, 8, 4, 20)
-  val terrs: HCenDGrid[Terrain] = grider.newTileArr[Terrain](Plains)
+  val terrs: HCenDGrid[Terrain] = grider.newHCenDGrid[Terrain](Plains)
   terrs.completeRow(4, 4, Mountains * 3, Plains * 2)
-  val lunits: HCenArrDGrid[Warrior] = grider.newTileArrDGrid[Warrior]
+  val lunits: HCenArrDGrid[Warrior] = grider.newHCenArrDGrid[Warrior]
   lunits.set(8, 16, Warrior(Uruk))
   lunits.set(6, 10, Warrior(Eridu))
 }

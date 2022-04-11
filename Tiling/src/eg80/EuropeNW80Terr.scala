@@ -8,7 +8,7 @@ object EuropeNW80Terr {
   def apply(): HCenDGrid[WTile] =
   {
     implicit val grid: HGridIrr = EGrid80Km.l0(446)
-    val terrs: HCenDGrid[WTile] = grid.newTileArr[WTile](sea)
+    val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
 
     gs(518, 542, taiga)
