@@ -41,6 +41,10 @@ class SqSide(val r: Int, val c: Int) extends SqCenOrSide with TSide
 { override def typeStr: String = "Sqside"
 }
 
+object SqSide{
+  def apply(r: Int, c: Int): SqSide = new SqSide(r, c)
+}
+
 /** A Square tile vertex square grid [[SqGrid]] coordinate. */
 class SqVert private(val bLong: Long) extends AnyVal with SqCoord with TCoord
 { override def typeStr: String = "Sqvert"

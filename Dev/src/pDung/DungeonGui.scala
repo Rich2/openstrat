@@ -10,7 +10,7 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
   val scale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
   var focus: Vec2 = grid.cenVec
   val terrs: SqCenDGrid[DungTerr] = scen.terrs
-  val tiles: GraphicElems = grid.map{ sc => sc.polygonReg.fillTextActive(terrs(sc).colour, sc, sc.rcStr, 16) }
+  val tiles: GraphicElems = grid.map{ sc => sc.polygonReg.fillTextActive(terrs(sc).colour, sc, sc.rcStr, 16, terrs(sc).colour.contrast) }
   val sls: LinesDraw = grid.sidesDraw(Colour.White, 2.0)
  // val players = ??? //scen.characs.mapSomeWithRoords { (r, cp) =>
 //    val poly1: Polygon = Rect(1.5, 1).insVerts(1, -0.25 pp 0.5, 0 pp 0.8, 0.25 pp 0.5).rotate(cp.facing.angle)

@@ -7,6 +7,13 @@ package object psq
   /** The square centre step values. */
   val scSteps: Arr[SqStep] = Arr(SqStepUp, SqStepUR, SqStepRt, SqStepDR, SqStepDn, SqStepDL, SqStepLt, SqStepUL)
 
+  implicit class IntGridImplicit(thisInt: Int)
+  { /** Syntax for succinct [[SqCen]] notation. */
+    def sc (c: Int): SqCen = SqCen(thisInt, c)
+
+    /** Syntax for succinct [[SqSide]] notation. */
+    def ss (c: Int): SqSide = SqSide(thisInt, c)
+  }
   implicit class ArrExtensions(thisArr: Arr[AnyRef])
   { /** Finds the first [[SqCen]] in this sequence */
     def sqCenFind: Option[SqCen] =

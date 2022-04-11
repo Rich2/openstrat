@@ -43,11 +43,13 @@ object Multiple
   implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
 
   implicit class RefsImplicit[A](thisRefs: Arr[Multiple[A]])
-  { def singlesLen: Int = thisRefs.sumBy(_.num)
+  { def numSingles: Int = thisRefs.sumBy(_.num)
   }
 
   implicit class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
-  { def toSinglesList: List[A] = thisSeq.toList.flatMap(_.singlesList)
+  { def numSingles: Int = thisSeq.sumBy(_.num)
+
+    def toSinglesList: List[A] = thisSeq.toList.flatMap(_.singlesList)
 
     def singles[ArrA <: SeqImut[A]](implicit build: ArrBuilder[A, ArrA]): ArrA ={
       val len: Int = thisSeq.sumBy(_.num)
