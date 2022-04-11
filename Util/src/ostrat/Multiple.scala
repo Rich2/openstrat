@@ -62,6 +62,5 @@ object Multiple
       res
     }
     def iForeachSingle(f: (Int, A) => Unit): Unit = toSinglesList.iForeach(f)
-
   }
 }

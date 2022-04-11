@@ -20,18 +20,18 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TCen
   }
 
   /** Step to adjacent hex tile. Will throw exception on illegal value. */
-  def step(st: SqStep): SqCen = SqCen(r + st.r, c + st.c)
+  def step(st: SqDirn): SqCen = SqCen(r + st.r, c + st.c)
 
   /** Optionally returns the Step value of the SqCen if it is an adjacent SqCen. */
-  def optStep(operand: SqCen): OptRef[SqStep] = ??? // hcStepSomes.optFind(_.hCen == operand - this)
+  def optStep(operand: SqCen): OptRef[SqDirn] = ??? // hcStepSomes.optFind(_.hCen == operand - this)
 
   /** Optionally returns the Step value of the SqCen if it is an adjacent SqCen else returns the safe null value. */
-  def findStep(operand: SqCen): Option[SqStep] = scSteps.optFind(_.sqCen == operand - this)
+  def findStep(operand: SqCen): Option[SqDirn] = scSteps.optFind(_.sqCen == operand - this)
 
   def -(operand: SqCen): SqCen = SqCen(r - operand.r, c - operand.c)
 
   /** Step to adjacent hex tile. */
-  def stepOpt(st: SqStep)(implicit grid: SqGrid): Option[SqCen] = {
+  def stepOpt(st: SqDirn)(implicit grid: SqGrid): Option[SqCen] = {
     val target = SqCen(r + st.r, c + st.c)
     ife(grid.sqCenExists(target), Some(target), None)
   }

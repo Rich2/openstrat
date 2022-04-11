@@ -7,8 +7,8 @@ import annotation.unchecked.uncheckedVariance
  *  points, but is a different type to the Pt2s class which is the immutable sequence class for 2 dimensional points. includes expandable buffers. */
 trait SeqDefGen[A] extends Any
 {
-  /** The number of data elements in this data sequence base class. These collections use underlying mutable Arrays and ArrayBuffers. The length of
-   *  the underlying Array will be this number or a multiple of this number. */
+  /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
+   *  underlying Array will be a multiple of this number. */
   def sdLength: Int
 
   /** Just a handy short cut to give the length of this collection as a string. */

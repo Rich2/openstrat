@@ -12,7 +12,7 @@ object Fac2 extends Faction("Fac2", Green)
 class Character(val iden: Char, val faction: Faction) extends ShowSimple // with CoodMover
 { override def typeStr = "Character"
   def colour = faction.colour
-  var facing: SqStep = SqStepUp
+  var facing: SqDirn = SqUp
   val str: String = "Character" -- iden.toString
  // def canMove(tile: DTileOld): Boolean = tile.terr != Wall
   def turnMovePts = 10

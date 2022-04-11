@@ -7,12 +7,12 @@ trait TwoScen extends SqGridScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. this is the same as Game one. */
   def oPlayers: SqCenOptDGrid[Player]
 
-  def endTurn(orderList: Arr[(Player, SqStep)]): TwoScen =
+  def endTurn(orderList: Arr[(Player, SqDirn)]): TwoScen =
   {
     val playersKey: Map[Player, SqCen] = oPlayers.keyMap
 
-    /** A mutable grid of data. The tile data is an Array buffer of [[SqStep]]s, the SqStep pointing back to the origin [[SqCen]] of the player. */
-    val targets: SqCenArrOfBuff[SqStep] = grid.newSqCenArrOfBuff
+    /** A mutable grid of data. The tile data is an Array buffer of [[SqDirn]]s, the SqStep pointing back to the origin [[SqCen]] of the player. */
+    val targets: SqCenArrOfBuff[SqDirn] = grid.newSqCenArrOfBuff
     orderList.foreach { (player, step) =>
       val sc1 = playersKey(player)
       val optTarget: Option[SqCen] = sc1.stepOpt(step)

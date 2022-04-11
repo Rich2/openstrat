@@ -60,17 +60,17 @@ class SqCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
 
   def setColumnDown(startCen: SqCen, tileValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setColumnDown(startCen.c, startCen.r, tileValues: _*)(grid)
 
-  def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqStepNear]*)(implicit grid: SqGrid): SqCen = setTerrPath(startR sc startC, value, dirns:_*)
+  def setTerrPath(startR: Int, startC: Int, value: A, dirns: Multiple[SqDirnPerp]*)(implicit grid: SqGrid): SqCen = setTerrPath(startR sc startC, value, dirns:_*)
 
-  def setTerrPath(startCen: SqCen, value: A, dirns: Multiple[SqStepNear]*)(implicit grid: SqGrid): SqCen =
+  def setTerrPath(startCen: SqCen, value: A, dirns: Multiple[SqDirnPerp]*)(implicit grid: SqGrid): SqCen =
   {
     var curr = startCen
 
     dirns.foreach {
-      case Multiple(SqStepRt, i) => curr = setRow(curr, value * i)
-      case Multiple(SqStepLt, i) => curr = setRowBack(curr, value * i)
-      case Multiple(SqStepUp, i) => curr = setColumn(curr, value * i)
-      case Multiple(SqStepDn, i) => curr = setColumnDown(curr, value * i)
+      case Multiple(SqRt, i) => curr = setRow(curr, value * i)
+      case Multiple(SqLt, i) => curr = setRowBack(curr, value * i)
+      case Multiple(SqUp, i) => curr = setColumn(curr, value * i)
+      case Multiple(SqDn, i) => curr = setColumnDown(curr, value * i)
     }
     curr
   }

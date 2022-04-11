@@ -6,13 +6,13 @@ object SquareTest  extends TestSuite
 {
   val tests = Tests {
     test("test1") {
-      SqStepUR.sqCen ==> SqCen(2, 2)
-      SqStepRt.sqCen ==> SqCen(0, 2)
-      SqStepDR.sqCen ==> SqCen(-2, 2)
-      SqStepDn.sqCen ==> SqCen(-2, 0)
-      SqStepDL.sqCen ==> SqCen(-2, -2)
-      SqStepLt.sqCen ==> SqCen(0, -2)
-      SqStepUL.sqCen ==> SqCen(2, -2)
+      SqUR.sqCen ==> SqCen(2, 2)
+      SqRt.sqCen ==> SqCen(0, 2)
+      SqDR.sqCen ==> SqCen(-2, 2)
+      SqDn.sqCen ==> SqCen(-2, 0)
+      SqDL.sqCen ==> SqCen(-2, -2)
+      SqLt.sqCen ==> SqCen(0, -2)
+      SqUL.sqCen ==> SqCen(2, -2)
     }
   }
 }

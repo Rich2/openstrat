@@ -25,7 +25,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
-  var moves: SqCenOptDGrid[SqStep] = NoMoves
+  var moves: SqCenOptDGrid[SqDirn] = NoMoves
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.scSomesMap { (sc, step) =>
@@ -45,7 +45,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   val sidesDraw = grider.sidesDraw()
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: SqCenOptDGrid[SqStep] = grider.newSCenOptDGrider[SqStep]
+  def NoMoves: SqCenOptDGrid[SqDirn] = grider.newSCenOptDGrider[SqDirn]
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>
@@ -55,7 +55,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
     }
 
     case (RightButton, AnysHead(SPlayer(p, sc1)), hits) => hits.sqCenForFirst{ sc2 =>
-      val newM: Option[SqStep] = sc1.findStep(sc2)
+      val newM: Option[SqDirn] = sc1.findStep(sc2)
       newM.fold{ if (sc1 == sc2) moves = moves.setNone(sc1) }(m => moves = moves.setSome(sc1, m))
       repaint()
     }
