@@ -40,13 +40,6 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   @inline final def arrIndex(sc: SqCen): Int = arrIndex(sc.r, sc.c)
 
   @inline def arrIndex(r: Int, c: Int): Int = (r - bottomCenR) / 2 * tileRowLen + (c - leftCenC) / 2
-  /** New immutable Arr of Tile data. */
-  /*final def newTileArr[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqcenArr[A] =
-  { val res = HcenArr[A](numOfTiles)
-    //res.mutSetAll(value)
-    //res
-    ???
-  }*/
 
   /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
    *  corresponding to the standard Scala map function of A => B. */
@@ -56,7 +49,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
     res
   }
 
-  /** New immutable Arr of Tile data. */
+  /** New Square tile centre data Square grid. */
   final def newSqCenDGrid[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenDGrid[A] =
   { val res: SqCenDGrid[A] = SqCenDGrid[A](numTiles)
     res.mutSetAll(value)

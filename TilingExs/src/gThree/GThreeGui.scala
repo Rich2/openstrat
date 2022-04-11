@@ -38,9 +38,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   def moveGraphics: Arr[LineSegDraw] = players.hcSomesFlatMap { (hc, p) =>
     val hss: HStepArr = moves.withDefault(_ => HStepArr())(p)
     //hss.pathHC(hc).toLinePath
-    hss.segsMap(hc) { ls => ls.draw(players.unSafeApply(hc).colour)//LineSegDraw(hc, hc.unsafeStep(step)).lineSeg.draw(players.unSafeApply(hc).colour)
+    hss.segsMap(hc) { ls => ls.draw(players.unSafeApply(hc).colour)
     }
-    //Arr[LineSegDraw]()
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
