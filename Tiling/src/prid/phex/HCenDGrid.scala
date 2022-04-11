@@ -33,7 +33,7 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    *  thrown if the tile values don't match with the end of the row. */
   final def completeRow(row: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: HGrid): HCen =
   {
-    val tiles: List[A] = tileValues.toSingles
+    val tiles: List[A] = tileValues.toSinglesList
     val endValues = cStart + tiles.length * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")

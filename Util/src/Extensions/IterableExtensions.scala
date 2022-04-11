@@ -22,7 +22,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def headToStringElse(elseString: => String): String = headOnly(elseString, _.toString)
   
   /** Converts to [[SeqImut]] of A. Most commonly an [[Arr]]. Prefer the mapArr method where appropriate which combines the conversion with a map operation. */
-  def toImut[AA <: SeqImut[A]](implicit builder: ArrBuilder[A, AA]): AA =
+  def toArr[AA <: SeqImut[A]](implicit builder: ArrBuilder[A, AA]): AA =
   { val len = thisIter.size
     val res = builder.newArr(len)
     iForeach((i, a) => res.unsafeSetElem(i, a))
@@ -124,8 +124,15 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     acc
   }
 
-  /** Maps to a ArrImut an immutable Array of B. */
+  /** maps to a [[SeqImut]] of B. */
   def mapArr[B, BB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, BB]): BB = ev.iterMap[A](thisIter, f)
+
+  /** flatMaps to a [[SeqImut]] of B. */
+  def flatMapArr[BB <: SeqImut[_]](f: A => BB)(implicit ev: ArrFlatBuilder[BB]): BB ={
+    val buff = ev.newBuff()
+    thisIter.foreach{ el => ev.buffGrowArr(buff, f(el)) }
+    ev.buffToBB(buff)
+  }
 }
 
 /** Extension methods for [[Iterable]][A <: ValueNElem]. */

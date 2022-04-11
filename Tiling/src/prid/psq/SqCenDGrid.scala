@@ -7,6 +7,15 @@ import reflect.ClassTag
 class SqCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenDGrid[A]
 {
   def apply(sc: SqCen)(implicit grid: SqGrid): A = unsafeArray(grid.arrIndex(sc))
+
+  final def setColumn[ArrA <: SeqImut[A]](c: Int, rStart: Int, tileMakers: Multiple[A]*)(implicit grid: SqGrid): SqCen =
+  { tileMakers.iForeachSingle{(i, el) =>
+      val r: Int = rStart + i * 2
+      val index = grid.arrIndex(r, c)
+      unsafeArray(index) =  el
+    }
+    SqCen(rStart + (tileMakers.sumBy(_.num) - 1) * 2, c)
+  }
 }
 
 object SqCenDGrid

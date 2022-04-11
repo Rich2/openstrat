@@ -16,7 +16,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
   /** Note set Row starts with the y (row) parameter. */
   final def setRow(yRow: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: TileGridOld): Roord =
   {
-    val tiles: List[A] = tileValues.toSingles
+    val tiles: List[A] = tileValues.toSinglesList
     tiles.iForeach { (i, e) =>
       val c = cStart + i * grid.cStep
       val dataI = grid.arrIndex(yRow, c)
@@ -40,7 +40,7 @@ class TilesArr[A <: AnyRef](val unsafeArr: Array[A])
   /** Note set RowBack starts with the y (row) parameter */
   final def setRowBack(yRow: Int, cStart: Int, tileMakers: Multiple[A]*)(implicit grid: TileGridOld): Roord =
   {
-    val tiles = tileMakers.toSingles
+    val tiles = tileMakers.toSinglesList
     tiles.iForeach{(i, el) =>
       val c = cStart - i * grid.cStep
       val index = grid.arrIndex(yRow, c)

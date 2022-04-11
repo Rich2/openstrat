@@ -339,20 +339,9 @@ package object ostrat
       new Arr(acc)
     }
   }
-
-  /** Extension class for Iterable. */
-  implicit class IterableImplicit[A](thisIter: Iterable[A])(implicit ct: ClassTag[A])
-  { /** Converts this Iterable to an immutable Array, Arr. */
-    def toArr: Arr[A] =
-    { val buff: ArrayBuffer[A] = Buff()
-      thisIter.foreach(buff.append)
-      buff.toArr
-    }
-  }
   
   implicit class ArrayBufferExtensions[A](thisBuff: ArrayBuffer[A])(implicit ct: ClassTag[A])
-  { def toArr: Arr[A] = new Arr(thisBuff.toArray[A])
-    /** If length of this ArrayBuffer is one, perform side effecting function on the sole element. */
+  { /** If length of this ArrayBuffer is one, perform side effecting function on the sole element. */
     def foreachLen1(f: A => Unit): Unit = if (thisBuff.length == 1) f(thisBuff(0))
   }
 

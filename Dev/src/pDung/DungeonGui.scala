@@ -8,10 +8,11 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
   statusText = "Welcome to Dungeon Gui"
   implicit def grid: SqGrid = scen.grid
   val scale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
+  var focus: Vec2 = grid.cenVec
   val terrs: SqCenDGrid[DungTerr] = scen.terrs
-  val tiles: GraphicElems = ???//grid.map{ r => r.tilePoly.fillTextActive(terrs(r).colour, r.toHexTile, r.ycStr, 16) }
-  //val sls = grid.sidesDraw(2.0)
-  val players = ??? //scen.characs.mapSomeWithRoords { (r, cp) =>
+  val tiles: GraphicElems = grid.map{ sc => sc.polygonReg.fillTextActive(terrs(sc).colour, sc, sc.rcStr, 16) }
+  val sls: LinesDraw = grid.sidesDraw(Colour.White, 2.0)
+ // val players = ??? //scen.characs.mapSomeWithRoords { (r, cp) =>
 //    val poly1: Polygon = Rect(1.5, 1).insVerts(1, -0.25 pp 0.5, 0 pp 0.8, 0.25 pp 0.5).rotate(cp.facing.angle)
 //    val poly2: Polygon = poly1.scale( 0.75).slate(r.gridPt2)
 //    poly2.fillDrawTextActive(cp.charac.colour, cp, cp.charac.iden.toString, 16, 2.0, cp.charac.colour.contrast)
@@ -19,7 +20,7 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
 
   def thisTop(): Unit = reTop(Arr())
   thisTop()
-  def frame: GraphicElems = (tiles /*+% sls ++ players*/)//.gridScale(scale)
+  def frame: GraphicElems = (tiles +% sls /* ++ players*/).slate(-focus).scale(scale)//.gridScale(scale)
   def repaint() = mainRepaint(frame)
   repaint()
 }

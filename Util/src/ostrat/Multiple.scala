@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import annotation.unchecked.uncheckedVariance
 
 /** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. */
 case class Multiple[+A](value: A, num: Int)
@@ -23,8 +24,14 @@ case class Multiple[+A](value: A, num: Int)
   def map[B](f: A => B): Multiple[B] = Multiple[B](f(value), num)
 
   def flatMap[B](f: A => Multiple[B]) =
-  { val res = f(value)
+  { val res: Multiple[B] = f(value)
     Multiple[B](res.value, res.num * num)
+  }
+
+  def toArr[ArrA <: SeqImut[A]@uncheckedVariance](implicit build: ArrBuilder[A, ArrA]@uncheckedVariance): ArrA =
+  { val res: ArrA = build.newArr(num)
+    iUntilForeach(0, num){i => res.unsafeSetElem(i, value)}
+    res
   }
 }
 
@@ -40,7 +47,19 @@ object Multiple
   }
 
   implicit class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
-  { def toSingles: List[A] = thisSeq.toList.flatMap(_.singlesList)
-    def iForeachSingle(f: (Int, A) => Unit) = toSingles.iForeach(f)
+  { def toSinglesList: List[A] = thisSeq.toList.flatMap(_.singlesList)
+
+    def singles[ArrA <: SeqImut[A]](implicit build: ArrBuilder[A, ArrA]): ArrA ={
+      val len: Int = thisSeq.sumBy(_.num)
+      val res = build.newArr(len)
+      var i = 0
+      thisSeq.foreach(m => iUntilForeach(0, m.num){j =>
+        res.unsafeSetElem(i, m.value)
+        i += 1
+      })
+      res
+    }
+    def iForeachSingle(f: (Int, A) => Unit): Unit = toSinglesList.iForeach(f)
+
   }
 }
