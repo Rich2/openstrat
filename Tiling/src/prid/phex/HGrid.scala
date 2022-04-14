@@ -73,7 +73,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
   /** The active tiles without any PaintElems. */
   override def activeTiles: Arr[PolygonActive] = map(_.active())
 
-  override def hCenSteps(hCen: HCen): HStepArr = HDirn.full.filter(st => hCenExists(hCen.r + st.tr, hCen.c + st.tc))
+  override def hCenSteps(hCen: HCen): HDirnArr = HDirn.full.filter(st => hCenExists(hCen.r + st.tr, hCen.c + st.tc))
 
   override def unsafeStepEnd(startCen: HCen, step: HDirn): HCen ={
     val endCen = HCen(startCen.r + step.tr, startCen.c + step.tc)

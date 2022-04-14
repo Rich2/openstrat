@@ -15,7 +15,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
-  var moves: Map[Player, HStepArr] = scen.playersData
+  var moves: Map[Player, HDirnArr] = scen.playersData
 
   val urect = Rect(1.4, 1)
 
@@ -36,7 +36,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = players.hcSomesFlatMap { (hc, p) =>
-    val hss: HStepArr = moves.withDefault(_ => HStepArr())(p)
+    val hss: HDirnArr = moves.withDefault(_ => HDirnArr())(p)
     //hss.pathHC(hc).toLinePath
     hss.segsMap(hc) { ls => ls.draw(players.unSafeApply(hc).colour)
     }
@@ -62,7 +62,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
 
     case (RightButton, AnysHead(HPlayer(hc1, p)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HDirn] = grider.findStep(hc1, hc2)
-      newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceValue(p, HStepArr()) } { m => moves = moves.replaceValue(p, HStepArr(m)) }
+      newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceValue(p, HDirnArr()) } { m => moves = moves.replaceValue(p, HDirnArr(m)) }
       repaint()
     }
 

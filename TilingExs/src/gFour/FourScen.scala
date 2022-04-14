@@ -13,14 +13,14 @@ case class Team(name: String, colour: Colour) extends Coloured
 object TeamA extends Team("TeamA" , Red)
 object TeamB extends Team("TeamB" , Violet)
 
-class Lunit(val team: Team, val cmds: HStepArr = HStepArr()) extends Coloured
+class Lunit(val team: Team, val cmds: HDirnArr = HDirnArr()) extends Coloured
 { def colour = team.colour
   override def toString: String = team.toString
 }
 
 object Lunit
 { def apply(team: Team, cmds: HDirn *): Lunit = new Lunit(team, cmds.toArr)
-  def apply(team: Team, cmds: HStepArr): Lunit = new Lunit(team, cmds)
+  def apply(team: Team, cmds: HDirnArr): Lunit = new Lunit(team, cmds)
 }
 
 /** Example Game four scenario trait. */
@@ -31,7 +31,7 @@ abstract class FourScen(val turn: Int) extends HexGridScen
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def endTurn(orderList: Arr[(Lunit, HStepArr)]): FourScen =
+  def endTurn(orderList: Arr[(Lunit, HDirnArr)]): FourScen =
   {
     val playersKey: Map[Lunit, HCen] = units.keyMap
 

@@ -51,7 +51,7 @@ object France extends Polity
   def colour = Colour.fromInts(125, 255, 255)
 }
 
-type Action = HStepArr | ZugAction
+type Action = HDirnArr | ZugAction
 
 trait ZugAction
 

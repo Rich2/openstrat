@@ -10,7 +10,7 @@ abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
   def sides: HSideArr = grid.sides
   val numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
-  def hCenSteps(hCen: HCen): HStepArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
+  def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 
   /** Default implementation may need removal. */
   def adjTilesOfTile(tile: HCen): HCenArr = grid.adjTilesOfTile(tile)
@@ -65,7 +65,7 @@ trait HGridMulti extends HGrider
   }
 
   override def unsafeStepEnd(startCen: HCen, step: HDirn): HCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
-  def hCenSteps(hCen: HCen): HStepArr = unsafeGetManFunc(hCen)(_.hCenSteps(hCen))
+  def hCenSteps(hCen: HCen): HDirnArr = unsafeGetManFunc(hCen)(_.hCenSteps(hCen))
   final override def findStep(startHC: HCen, endHC: HCen): Option[HDirn] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
 
   final override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.arrIndex + man.grid.arrIndex(r, c) }

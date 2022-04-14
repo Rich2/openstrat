@@ -2,11 +2,11 @@
 package ostrat; package gThree
 import prid._, phex._, gPlay._
 
-case class PlayerState(player: Player, steps: HStepArr)
+case class PlayerState(player: Player, steps: HDirnArr)
 
 object PlayerState
 {
-  def apply(player: Player, steps: HDirn*): PlayerState = PlayerState(player, HStepArr(steps: _*))
+  def apply(player: Player, steps: HDirn*): PlayerState = PlayerState(player, HDirnArr(steps: _*))
 }
 
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
@@ -14,12 +14,12 @@ trait ThreeScen extends HexGriderFlatScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
   def oPlayers: HCenOptDGrid[Player]
 
-  def playersData: Map[Player, HStepArr] = Map()
+  def playersData: Map[Player, HDirnArr] = Map()
   lazy val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
-  def endTurn(orderList: Map[Player, HStepArr]): ThreeScen =
+  def endTurn(orderList: Map[Player, HDirnArr]): ThreeScen =
   {
     val targets: HCenBuffDGrid[HCenStep] = grider.newHCenArrOfBuff
 
@@ -30,7 +30,7 @@ trait ThreeScen extends HexGriderFlatScen
       }
     }
 
-    var newData: Map[Player, HStepArr] = orderList
+    var newData: Map[Player, HDirnArr] = orderList
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
@@ -49,10 +49,10 @@ trait ThreeScen extends HexGriderFlatScen
 /** Companion object for OneScen trait, contains factory apply method. */
 object ThreeScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGriderFlat, opIn: HCenOptDGrid[Player], newData: Map[Player, HStepArr]): ThreeScen = new ThreeScen
+  def apply(turnIn: Int, gridIn: HGriderFlat, opIn: HCenOptDGrid[Player], newData: Map[Player, HDirnArr]): ThreeScen = new ThreeScen
   { override val turn = turnIn
     override implicit val grider: HGriderFlat = gridIn
     override def oPlayers: HCenOptDGrid[Player] = opIn
-    override def playersData: Map[Player, HStepArr] = newData
+    override def playersData: Map[Player, HDirnArr] = newData
   }
 }

@@ -25,11 +25,11 @@ object HDirn
     case n => excep(s"$n is not a valid HStep")
   }
 
-  def full: HStepArr = HStepArr(HexUR, HexRt, HexDR, HexDL, HStepLt, HStepUL)
+  def full: HDirnArr = HDirnArr(HexUR, HexRt, HexDR, HexDL, HStepLt, HStepUL)
 
-  implicit val buildEv: Int1ArrBuilder[HDirn, HStepArr] = new Int1ArrBuilder[HDirn, HStepArr]
+  implicit val buildEv: Int1ArrBuilder[HDirn, HDirnArr] = new Int1ArrBuilder[HDirn, HDirnArr]
   { override type BuffT = HStepBuff
-    override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
+    override def fromIntArray(array: Array[Int]): HDirnArr = new HDirnArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
   }
 }
@@ -82,11 +82,12 @@ case object HStepUL extends HDirn
   override def reverse: HDirn = HexDR
 }
 
-class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
-{ override type ThisT = HStepArr
+/** An Arr of hex step directions. */
+class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
+{ override type ThisT = HDirnArr
   override def typeStr: String = "HSteps"
   override def dataElem(intValue: Int): HDirn = HDirn.fromInt(intValue)
-  override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
+  override def fromArray(array: Array[Int]): HDirnArr = new HDirnArr(array)
   override def fElemStr: HDirn => String = _.toString
 
   def segsNum: Int = unsafeArray.length
@@ -142,12 +143,12 @@ class HStepArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
   }
 }
 
-object HStepArr extends Int1SeqDefCompanion[HDirn, HStepArr]
-{ override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
+object HDirnArr extends Int1SeqDefCompanion[HDirn, HDirnArr]
+{ override def fromArray(array: Array[Int]): HDirnArr = new HDirnArr(array)
 
-  implicit val flatBuilder: ArrFlatBuilder[HStepArr] = new Int1ArrFlatBuilder[HDirn, HStepArr]
+  implicit val flatBuilder: ArrFlatBuilder[HDirnArr] = new Int1ArrFlatBuilder[HDirn, HDirnArr]
   { override type BuffT = HStepBuff
-    override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
+    override def fromIntArray(array: Array[Int]): HDirnArr = new HDirnArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
   }
 }

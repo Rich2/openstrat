@@ -86,7 +86,6 @@ object HCen
   }
 }
 
-
 /** An efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates. */
 class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
 { type ThisT = HCenArr
@@ -98,6 +97,9 @@ class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
   override def typeStr: String = "HCens"
 
   override def fElemStr: HCen => String = _.toString
+
+  /** Converts a sequence of adjacent hex tiles to hex directions. Only call this method if you are certain the tiles are adjacent. */
+  def unsafeToHDirns(implicit grider: HGrider): HDirnArr = ???
 }
 
 /** Companion object for [[HCenArr]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
