@@ -29,13 +29,13 @@ def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtD
   scalaSource := moduleDir.value / "src",
   Compile/scalaSource := moduleDir.value / "src",
   resourceDirectory := moduleDir.value / "res",
-  Test/scalaSource := moduleDir.value / "testSrc",
-  Test/resourceDirectory :=  moduleDir.value / "testRes",
+  Test/scalaSource := moduleDir.value / "Test/testSrc",
+  Test/resourceDirectory :=  moduleDir.value / "Test/res",
 )
 
 def jvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
-  Test/unmanagedSourceDirectories := List(moduleDir.value / "testSrc", (Test/scalaSource).value),
+  Test/unmanagedSourceDirectories := List(moduleDir.value / "Test/src", (Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
 
@@ -53,7 +53,7 @@ lazy val Util = jvmProj("Util").settings(
   name := "RUtil",
   Compile/unmanagedSourceDirectories ++= List("srcAnyVal", "srcParse").map{ str => moduleDir.value / str },
 )
-lazy val UtilExs = jvmProj("Util").dependsOn(Util)
+//lazy val UtilExs = jvmProj("Util").dependsOn(Util)
 
 lazy val UtilJs = jsProj("Util").settings(
   name := "RUtil",
@@ -97,14 +97,14 @@ lazy val Tiling = jvmProj("Tiling").dependsOn(Geom).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",  
 )
 
-lazy val TilingExs = jvmProj("TilingExs").dependsOn(Tiling)
+//lazy val TilingExs = jvmProj("TilingExs").dependsOn(Tiling)
 
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcOld",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
 )
-lazy val TilingExsJs = jsProj("TilingExs").dependsOn(TilingJs)
+//lazy val TilingExsJs = jsProj("TilingExs").dependsOn(TilingJs)
 
 lazy val TilingNat = natProj("Tiling").dependsOn(GeomNat).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
@@ -117,8 +117,10 @@ lazy val EarthAppJs = jsApp("EarthApp").settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
-lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs).settings(
-  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
+lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, Tiling).settings(
+  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _) :::
+    List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
+
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List((Test/resourceDirectory).value),
   Compile/unmanagedResourceDirectories := List(resourceDirectory.value, (ThisBuild/baseDirectory).value / "Dev/User"),
@@ -131,7 +133,7 @@ lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs).settings(
 
 lazy val DevNat = natProj("Dev").dependsOn(TilingNat)
 
-def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs, GeomExsJs, TilingExsJs).settings(
+def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs, GeomExsJs).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src"),
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
