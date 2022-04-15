@@ -11,7 +11,7 @@ trait ZugScen extends HexGridScen
 
   def sTerrs: HSideBooleans
   val lunits: HCenArrDGrid[Squad]
-  def setSquadMove(r: Int, c: Int, polity: Polity, steps: HDirn*): Unit = {}//lunits.set(r, c, Squad(polity, HSteps(steps :_*)))
+  def setSquadMove(r: Int, c: Int, polity: Polity, steps: HDirn*): Unit = lunits.set(r, c, Squad(polity, Move(HCenArr())))
 
   def endTurn(): ZugScen = new ZugScen
   {

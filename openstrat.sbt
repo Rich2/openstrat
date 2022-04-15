@@ -53,7 +53,6 @@ lazy val Util = jvmProj("Util").settings(
   name := "RUtil",
   Compile/unmanagedSourceDirectories ++= List("srcAnyVal", "srcParse").map{ str => moduleDir.value / str },
 )
-//lazy val UtilExs = jvmProj("Util").dependsOn(Util)
 
 lazy val UtilJs = jsProj("Util").settings(
   name := "RUtil",
@@ -86,7 +85,7 @@ lazy val GeomExs = jvmProj("GeomExs").dependsOn(Geom).settings(
 )
 
 lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)
-lazy val GeomExsJs = jsProj("GeomExs").dependsOn(GeomJs).settings(geomSett)
+//lazy val GeomExsJs = jsProj("GeomExs").dependsOn(GeomJs).settings(geomSett)
 lazy val GeomNat = natProj("Geom").dependsOn(UtilNat).settings(geomSett).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/srcNat",
 )
@@ -97,14 +96,11 @@ lazy val Tiling = jvmProj("Tiling").dependsOn(Geom).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",  
 )
 
-//lazy val TilingExs = jvmProj("TilingExs").dependsOn(Tiling)
-
 lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcOld",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
 )
-//lazy val TilingExsJs = jsProj("TilingExs").dependsOn(TilingJs)
 
 lazy val TilingNat = natProj("Tiling").dependsOn(GeomNat).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
@@ -133,8 +129,9 @@ lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, Tiling).settings(
 
 lazy val DevNat = natProj("Dev").dependsOn(TilingNat)
 
-def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs, GeomExsJs).settings(
-  Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src"),
+def jsApp(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs).settings(
+  Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src") :::
+    List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"
