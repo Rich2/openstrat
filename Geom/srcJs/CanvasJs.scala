@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pSJs
 import geom._, pgui._, math.Pi, org.scalajs.dom._
 
@@ -40,7 +40,7 @@ object CanvasJs extends CanvasTopLeft
   }
 
   can.onmouseup = (e: MouseEvent) =>
-  { val rect: ClientRect = can.getBoundingClientRect()
+  { val rect: DOMRect = DOMRect()
     mouseUpTopLeft(e.clientX - rect.left, e.clientY -rect.top, getButton(e))
   }
 
@@ -60,8 +60,8 @@ object CanvasJs extends CanvasTopLeft
     }
   }
 
-  can.onkeyup = (e: raw.KeyboardEvent) => { keyUp(e.key) }
-  can.onkeydown = (e: raw.KeyboardEvent) => { keyDown(e.key) }
+  can.onkeyup = (e: KeyboardEvent) => { keyUp(e.key) }
+  can.onkeydown = (e: KeyboardEvent) => { keyDown(e.key) }
 
   can.asInstanceOf[scalajs.js.Dynamic].onwheel = (e: WheelEvent) =>
   { e.deltaY match
@@ -78,7 +78,7 @@ object CanvasJs extends CanvasTopLeft
   override def getTime: Long = new scala.scalajs.js.Date().getTime().toLong
   override def timeOut(f: () => Unit, millis: Integer): Unit = { window.setTimeout(f, millis.toDouble); () }
    
-  val gc = can.getContext("2d").asInstanceOf[raw.CanvasRenderingContext2D]
+  val gc = can.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
 
   def setFill(f: FillFacet): Unit = f match
   { case c: Colour => gc.fillStyle = c.webStr

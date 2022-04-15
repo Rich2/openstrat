@@ -85,7 +85,6 @@ lazy val GeomExs = jvmProj("GeomExs").dependsOn(Geom).settings(
 )
 
 lazy val GeomJs = jsProj("Geom").dependsOn(UtilJs).settings(geomSett)
-//lazy val GeomExsJs = jsProj("GeomExs").dependsOn(GeomJs).settings(geomSett)
 lazy val GeomNat = natProj("Geom").dependsOn(UtilNat).settings(geomSett).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/srcNat",
 )

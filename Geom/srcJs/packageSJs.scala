@@ -32,7 +32,7 @@ package object pSJs
   
   implicit class ImpHtmlNode(thisNode: Node)
   {
-     def addText(str: String): raw.Text = {
+     def addText(str: String): Text = {
         val t = document.createTextNode(str)
         thisNode.appendChild(t)
         t
