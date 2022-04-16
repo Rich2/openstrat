@@ -11,7 +11,7 @@ class SqCenArrOfBuff[A <: AnyRef](val unsafeArr: Array[ArrayBuffer[A]])
   def appendAt(sqCen: SqCen, value: A)(implicit grid: SqGrid): Unit = unsafeArr(grid.arrIndex(sqCen)).append(value)
 
   /** Foreach's over the [[sqCen]] and the corresponding [[ArrayBuffer]] value. */
-  def foreach(f: (SqCen, AnyBuff[A]) => Unit)(implicit grid: SqGrid): Unit = grid.foreach{ r => f(r, new AnyBuff( unsafeArr(grid.arrIndex(r)))) }
+  def foreach(f: (SqCen, TBuff[A]) => Unit)(implicit grid: SqGrid): Unit = grid.foreach{ r => f(r, new TBuff( unsafeArr(grid.arrIndex(r)))) }
 }
 
 /** Companion object for the square (centres) grid Array of [[ArrayBuffer]] classes. */

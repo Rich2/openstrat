@@ -3,32 +3,32 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Any]]s. */
-class Anys(val unsafeArray: Array[Any]) extends AnyVal with SeqImut[Any]
-{ type ThisT = Anys
+class AnyArr(val unsafeArray: Array[Any]) extends AnyVal with SeqImut[Any]
+{ type ThisT = AnyArr
 
   /** Copy's the backing Array[[Any]] to a new Array[char]. End users should rarely have to use this method. */
   def unsafeArrayCopy(operand: Array[Any], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
 
   override def typeStr: String = "Anys"
-  override def unsafeSameSize(length: Int): Anys = new Anys(new Array[Any](length))
+  override def unsafeSameSize(length: Int): AnyArr = new AnyArr(new Array[Any](length))
   override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
   override def sdIndex(index: Int): Any = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Any): Unit = unsafeArray(i) = value
   override def fElemStr: Any => String = _.toString
 
-  def ++ (op: Anys): Anys =
+  def ++ (op: AnyArr): AnyArr =
   { val newArray = new Array[Any](sdLength + op.sdLength)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, sdLength)
-    new Anys(newArray)
+    new AnyArr(newArray)
   }
 }
 
-object Anys
-{ def apply(input: Any*): Anys = new Anys(input.toArray)
+object AnyArr
+{ def apply(input: Any*): AnyArr = new AnyArr(input.toArray)
 
-  implicit val EqImplicit: EqT[Anys] = (a1, a2) =>
+  implicit val EqImplicit: EqT[AnyArr] = (a1, a2) =>
     if(a1.sdLength != a2.sdLength) false
     else
     { var i = 0
@@ -38,17 +38,17 @@ object Anys
     }
 }
 
-object AnysBuild extends ArrBuilder[Any, Anys] with ArrFlatBuilder[Anys]
-{ type BuffT = AnysBuff
-  override def newArr(length: Int): Anys = new Anys(new Array[Any](length))
-  override def arrSet(arr: Anys, index: Int, value: Any): Unit = arr.unsafeArray(index) = value
-  override def newBuff(length: Int = 4): AnysBuff = new AnysBuff(new ArrayBuffer[Any](length))
-  override def buffGrow(buff: AnysBuff, value: Any): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: AnysBuff, arr: Anys): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
-  override def buffToBB(buff: AnysBuff): Anys = new Anys(buff.unsafeBuffer.toArray)
+object AnyArrBuild extends ArrBuilder[Any, AnyArr] with ArrFlatBuilder[AnyArr]
+{ type BuffT = AnyBuff
+  override def newArr(length: Int): AnyArr = new AnyArr(new Array[Any](length))
+  override def arrSet(arr: AnyArr, index: Int, value: Any): Unit = arr.unsafeArray(index) = value
+  override def newBuff(length: Int = 4): AnyBuff = new AnyBuff(new ArrayBuffer[Any](length))
+  override def buffGrow(buff: AnyBuff, value: Any): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrowArr(buff: AnyBuff, arr: AnyArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: AnyBuff): AnyArr = new AnyArr(buff.unsafeBuffer.toArray)
 }
 
-class AnysBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with SeqGen[Any]
+class AnyBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with SeqGen[Any]
 { override def typeStr: String = "AnysBuff"
   override def sdIndex(index: Int): Any = unsafeBuffer(index)
   override def sdLength: Int = unsafeBuffer.length
@@ -57,7 +57,16 @@ class AnysBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with SeqGen[An
   override def fElemStr: Any => String = _.toString
 }
 
-object AnysHead
+object AnyArrHead
 { /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
-  def unapply(arr: Anys): Option[Any] = ife(arr.nonEmpty, Some(arr(0)), None)
+  def unapply(arr: AnyArr): Option[Any] = ife(arr.nonEmpty, Some(arr(0)), None)
+}
+
+/** Extractor object for Arr[A] of length == 1. Arr[A] is an immutable covariant Array based collection. */
+object AnyArr1
+{ /** Extractor for [[AnyArr]] of length == 1. Arr[A] is an immutable covariant Array based collection. */
+  def unapply(arr: AnyArr): Option[Any] = arr.sdLength match
+  { case 1 => Some(arr(0))
+    case _ => None
+  }
 }

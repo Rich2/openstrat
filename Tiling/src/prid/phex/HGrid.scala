@@ -79,7 +79,7 @@ trait HGrid extends Any with TGrid with HGriderFlat
     val endCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
     if (hCenExists(endCen)) endCen else excep("Illegal end hex in unsafeStep method.")
   }
-
+  def ghj: TBuff[AnyRef] = ???
   override def findStepEnd(startHC: HCen, step: HDirn): Option[HCen] =
   { val endHC = HCen(startHC.r + step.tr, startHC.c + step.tc)
     if (hCenExists(startHC) & hCenExists(endHC)) Some(endHC) else None

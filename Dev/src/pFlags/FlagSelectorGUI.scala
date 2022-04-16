@@ -125,8 +125,8 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
   { case true => isDragging = false
     case false => mouseButton match
     { case LeftButton => clickList match
-      { case ArrHead(MouseButtonCmd(cmd)) => cmd.apply(mouseButton)
-        case ArrHead(flagIndex) =>
+      { case AnyArrHead(MouseButtonCmd(cmd)) => cmd.apply(mouseButton)
+        case AnyArrHead(flagIndex) =>
         { selectedIndex = if (selectedIndex != -1) -1 else flagIndex.toString.toInt
           showGridView(viewIndex)
         } 

@@ -61,7 +61,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
       thisTop()
     }
 
-    case (RightButton, AnysHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, AnyArrHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HDirn] = grider.findStep(hc1, hc2)
       newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()

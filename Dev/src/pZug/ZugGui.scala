@@ -20,7 +20,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
     val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour, terrs(hc).colour).slate(hc.toPt2Reg)
 
     val actions: GraphicElems = squad.action match
-    { case mv: HDirnArr => mv.segsMap(hc)(_.draw())
+    { case mv: Move => mv.dirns.segsMap(hc)(_.draw())
       case Fire(target) => Arr(LineSegHC(hc, target).lineSeg.draw(Red, 2).dashed(20, 20))
       case _ => Arr()
     }
@@ -35,7 +35,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
       thisTop()
     }
 
-    case (RightButton, AnysHead(HSquad(hc2, squad)), AnysHead(newTile: HCen)) =>
+    case (RightButton, AnyArrHead(HSquad(hc2, squad)), AnyArrHead(newTile: HCen)) =>
     {
       deb("Move")
       grider.findPath(hc2, newTile)((_, _) => SomeInt(1)).fold[Unit] {
@@ -50,7 +50,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugF
         }
     }
 
-    case (MiddleButton, AnysHead(HSquad(_, squad)), hits) => hits.findHCenForEach{ hc2 =>
+    case (MiddleButton, AnyArrHead(HSquad(_, squad)), hits) => hits.findHCenForEach{ hc2 =>
       squad.action = Fire(hc2)
       deb("Fire")
       mainRepaint(frame)

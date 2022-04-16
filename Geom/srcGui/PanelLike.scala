@@ -12,7 +12,7 @@ trait PanelLike extends RectCenlign
   var canvObjs: Arr[GraphicElem] = Arr()
 
   /** This method name is inconsistent with mouseUp on the canvas class*/
-  var mouseUp: (MouseButton, Anys, Pt2) => Unit = (_, _, _) => {}
+  var mouseUp: (MouseButton, AnyArr, Pt2) => Unit = (_, _, _) => {}
 
   /** This method name is inconsistent with mousedown on the canvas class */
   var mouseDown: (Pt2, MouseButton, AnyRefs) => Unit = (v, b, s) => {}

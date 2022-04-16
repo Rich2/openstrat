@@ -37,7 +37,7 @@ package object psq
     }
   }
 
-  implicit class AnysExtensions(thisArr: Anys)
+  implicit class AnysExtensions(thisArr: AnyArr)
   { /** Finds the first [[SqCen]] in this sequence */
     def sqCenFind: Option[SqCen] =
     {

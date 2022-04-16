@@ -36,7 +36,7 @@ object ArrBuilder extends ArrBuilderPriority2
   implicit val floatImplicit: ArrBuilder[Float, Floats] = FloatsBuild
   implicit val stringImplicit: ArrBuilder[String, Strings] = StringsBuild
   implicit val booleansImplicit: ArrBuilder[Boolean, Booleans] = BooleansBuild
-  implicit val anyImplicit: ArrBuilder[Any, Anys] = AnysBuild
+  implicit val anyImplicit: ArrBuilder[Any, AnyArr] = AnyArrBuild
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from
@@ -48,5 +48,5 @@ trait ArrBuilderPriority2
   /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
    * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
    * specialist Arr classes. */
-  implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrBuilder[B, Arr[B]] = new AnyBuild[B]
+  implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrBuilder[B, Arr[B]] = new ArrTBuild[B]
 }

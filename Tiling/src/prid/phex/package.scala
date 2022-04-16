@@ -38,7 +38,7 @@ package object phex
     }
   }
 
-  implicit class AnysExtensions(thisArr: Anys)
+  implicit class AnysExtensions(thisArr: AnyArr)
   { /** Finds the first [[HCen]] in this sequence */
     def hCenFind: Option[HCen] =
     {

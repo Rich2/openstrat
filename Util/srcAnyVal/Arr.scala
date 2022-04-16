@@ -154,18 +154,18 @@ object Arr
 }
 
 /** The default Immutable Array based collection builder for the Arr[A] class. */
-class AnyBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrBuilder[B, Arr[B]] with ArrFlatBuilder[Arr[B]]
-{ type BuffT = AnyBuff[B]
+class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrBuilder[B, Arr[B]] with ArrFlatBuilder[Arr[B]]
+{ type BuffT = TBuff[B]
   override def newArr(length: Int): Arr[B] = new Arr(new Array[B](length))
   override def arrSet(arr: Arr[B], index: Int, value: B): Unit = arr.unsafeArr(index) = value
-  override def newBuff(length: Int = 4): AnyBuff[B] = new AnyBuff(new ArrayBuffer[B](length))
-  override def buffGrow(buff: AnyBuff[B], value: B): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: AnyBuff[B], arr: Arr[B]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
-  override def buffToBB(buff: AnyBuff[B]): Arr[B] = new Arr(buff.unsafeBuff.toArray)
+  override def newBuff(length: Int = 4): TBuff[B] = new TBuff(new ArrayBuffer[B](length))
+  override def buffGrow(buff: TBuff[B], value: B): Unit = buff.unsafeBuff.append(value)
+  override def buffGrowArr(buff: TBuff[B], arr: Arr[B]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
+  override def buffToBB(buff: TBuff[B]): Arr[B] = new Arr(buff.unsafeBuff.toArray)
 }
 
 /** Not sure if this class is necessary now that Arr takes Any. */
-class AnyBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with SeqGen[A]
+class TBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with SeqGen[A]
 { override def typeStr: String = "AnyBuff"
   override def sdIndex(index: Int): A = unsafeBuff(index)
   override def sdLength: Int = unsafeBuff.length

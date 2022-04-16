@@ -7,10 +7,11 @@ object CanvasJs extends CanvasTopLeft
 { val can: html.Canvas = document.getElementById("scanv").asInstanceOf[html.Canvas]
   override def width = can.width
   override def height = can.height
+
   def setup() =
   { can.width = (window.innerWidth).max(200).toInt //-20
     can.height = (window.innerHeight).max(200).toInt //-80
-    //tabindex required for canvas to recieve key.Events (now focusable)
+    //tabindex required for canvas to receive key.Events (now focusable)
     can.setAttribute("tabindex","1")
     //give focus to listen for key.Events
     can.focus()

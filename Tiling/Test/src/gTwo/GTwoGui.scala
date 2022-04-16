@@ -54,7 +54,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
       thisTop()
     }
 
-    case (RightButton, AnysHead(SPlayer(p, sc1)), hits) => hits.sqCenForFirst{ sc2 =>
+    case (RightButton, AnyArrHead(SPlayer(p, sc1)), hits) => hits.sqCenForFirst{ sc2 =>
       val newM: Option[SqDirn] = sc1.findStep(sc2)
       newM.fold{ if (sc1 == sc2) moves = moves.setNone(sc1) }(m => moves = moves.setSome(sc1, m))
       repaint()
