@@ -11,9 +11,27 @@ trait TGrider extends Any
   def yRatio: Double
 
   def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT
+
+  def foreachRow(f: Int => Unit): Unit
+
+  /** maps over each row number. */
+  /*final def mapRows[B, BB <: SeqImut[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
+  { val res = build.newArr(numTileRows)
+    var index = 0
+    foreachRow{r => res.unsafeSetElem(index, f(r)); index += 1 }
+    res
+  }
+
+  /** flatMaps over each row number. */
+  final def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
+  { val buff = build.newBuff(numTiles)
+    foreachRow{ r => build.buffGrowArr(buff, f(r)) }
+    build.buffToBB(buff)
+  }*/
 }
 
 trait TGridMulti extends TGrider
-{
-  type GridT <: TGrid
+{ type GridT <: TGrid
+  def grids: Arr[GridT]
+  def foreachRow(f: Int => Unit): Unit = grids.foreach(_.foreachRow(f))
 }

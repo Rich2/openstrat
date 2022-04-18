@@ -25,9 +25,9 @@ abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
 }
 
 trait HGridMulti extends HGrider with TGridMulti
-{ type GridT <: HGrid
+{ final type GridT = HGrid
   def gridMans: Arr[HGridMan]
-  def grids: Arr[HGrid] = gridMans.map(_.grid)
+  final def grids: Arr[HGrid] = gridMans.map(_.grid)
   def numGrids: Int = gridMans.length
 
   /** Gets the appropriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */

@@ -10,9 +10,10 @@ case class SqGridMan(grid: SqGrid, arrIndex: Int)
   //def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
 }
 
-trait SqGridMulti extends SqGrider {
+trait SqGridMulti extends SqGrider with TGridMulti
+{ final type GridT = SqGrid
   def gridMans: Arr[SqGridMan]
-  def grids: Arr[SqGrid] = gridMans.map(_.grid)
+  final def grids: Arr[SqGrid] = gridMans.map(_.grid)
   override def defaultView(pxScale: Double = 50): SqGridView = grids(0).defaultView(pxScale)
 
   def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT = grids.flatMap(_.flatMapRows(f))
