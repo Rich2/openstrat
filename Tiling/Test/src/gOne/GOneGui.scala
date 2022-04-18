@@ -8,7 +8,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   var history: Arr[OneScen] = Arr(scen)
-  implicit def grider: HGriderFlat = scen.grider
+  implicit def grider: HGridSysFlat = scen.grider
   def players: HCenOptDGrid[Player] = scen.oPlayers
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec

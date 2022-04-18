@@ -2,17 +2,17 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag, collection.mutable.ArrayBuffer
 
-/** A [[HGrider]] hex grid system of data buffers. An [[HCen]] hex tile centre grid of [[ArrayBuffer]]s corresponding to the centres of an [[HGrider]]
+/** A [[HGridSys]] hex grid system of data buffers. An [[HCen]] hex tile centre grid of [[ArrayBuffer]]s corresponding to the centres of an [[HGridSys]]
  *  hex tile grid system. */
 class HCenBuffDGrid[A <: AnyRef](val unsafeArr: Array[ArrayBuffer[A]])
 { /** Appends value to the array buffer at the given [[HCen]] location. */
-  def appendAt(y: Int, c: Int, value: A)(implicit grider: HGrider): Unit = appendAt(HCen(y, c), value)
+  def appendAt(y: Int, c: Int, value: A)(implicit grider: HGridSys): Unit = appendAt(HCen(y, c), value)
 
   /** Appends value to the array buffer at the given [[HCen]] location. */
-  def appendAt(hCen: HCen, value: A)(implicit grider: HGrider): Unit = unsafeArr(grider.arrIndex(hCen)).append(value)
+  def appendAt(hCen: HCen, value: A)(implicit grider: HGridSys): Unit = unsafeArr(grider.arrIndex(hCen)).append(value)
 
   /** Foreach's over the [[HCen]] and the corresponding [[ArrayBuffer]] value. */
-  def foreach(f: (HCen, ArrayBuffer[A]) => Unit)(implicit grider: HGrider): Unit = grider.foreach{ r => f(r, unsafeArr(grider.arrIndex(r))) }
+  def foreach(f: (HCen, ArrayBuffer[A]) => Unit)(implicit grider: HGridSys): Unit = grider.foreach{ r => f(r, unsafeArr(grider.arrIndex(r))) }
 }
 
 /** Companion object for the hex (centres) grid Array of [[ArrayBuffer]] classes. */

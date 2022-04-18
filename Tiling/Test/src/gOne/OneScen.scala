@@ -33,9 +33,9 @@ trait OneScen extends HexGriderFlatScen
 /** Companion object for OneScen trait, contains factory apply method. */
 object OneScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGriderFlat, opIn: HCenOptDGrid[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HGridSysFlat, opIn: HCenOptDGrid[Player]): OneScen = new OneScen
   { override val turn = turnIn
-    override implicit val grider: HGriderFlat = gridIn
+    override implicit val grider: HGridSysFlat = gridIn
     override def oPlayers: HCenOptDGrid[Player] = opIn
   }
 }

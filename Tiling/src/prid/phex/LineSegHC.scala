@@ -15,8 +15,8 @@ case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[HCo
   /** The end [[HCoord]] point. */
   def endPt: HCoord = HCoord(r2, c2)
 
-  /** Uses the implicit [[HGriderFlat]] parameter to convert from [[HCen]]s to [[Pt2]]s. */
-  def lineSeg(implicit grider: HGriderFlat): LineSeg = LineSeg(startPt.toPt2, endPt.toPt2)
+  /** Uses the implicit [[HGridSysFlat]] parameter to convert from [[HCen]]s to [[Pt2]]s. */
+  def lineSeg(implicit grider: HGridSysFlat): LineSeg = LineSeg(startPt.toPt2, endPt.toPt2)
 }
 
 /** companion object for [[LineSegHC]] class contains factory apply method. */

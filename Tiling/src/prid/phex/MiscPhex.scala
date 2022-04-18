@@ -3,13 +3,13 @@ package ostrat; package prid; package phex
 
 trait HexGriderScen extends GridTurnScen
 {
-  implicit def grider: HGrider
+  implicit def grider: HGridSys
   def defaultView(pxScale: Double = 50): HGridView = grider.defaultView(pxScale)
 }
 
 trait HexGriderFlatScen extends HexGriderScen
 {
-  implicit override def grider: HGriderFlat
+  implicit override def grider: HGridSysFlat
 }
 
 trait HexGridScen extends HexGriderScen

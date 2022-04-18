@@ -9,7 +9,7 @@ abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
   def outSteps(r: Int, c: Int): HStepCenArr
   def sides: HSideArr = grid.sides
   val numSides: Int = grid.sides.length
-  def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
+  def sideLines(implicit grider: HGridSysFlat): LineSegs = sides.map(_.lineSeg)
   def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 
   /** Default implementation may need removal. */
@@ -24,7 +24,8 @@ abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
   }
 }
 
-trait HGridMulti extends HGrider with TGridMulti
+/** A system of multiple [[HGrid]]s. */
+trait HGridMulti extends HGridSys with TGridMulti
 { final type GridT = HGrid
   def gridMans: Arr[HGridMan]
   final def grids: Arr[HGrid] = gridMans.map(_.grid)
@@ -53,8 +54,8 @@ trait HGridMulti extends HGrider with TGridMulti
     acc
   }
 
-  /** This is not correct. */
-  def rowCombine[A <: AnyRef](data: HCenDGrid[A], indexingGrider: HGrider): Arr[HCenRowValue[A]] = grids.flatMap(_.rowCombine(data, this))
+  /** Combine adjacent elements of data in a row. */
+  def rowCombine[A <: AnyRef](data: HCenDGrid[A], indexingGrider: HGridSys): Arr[HCenRowValue[A]] = grids.flatMap(_.rowCombine(data, this))
 
   final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
   override def adjTilesOfTile(tile: HCen): HCenArr = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))
@@ -77,7 +78,7 @@ trait HGridMulti extends HGrider with TGridMulti
   override def findStepEnd(startHC: HCen, step: HDirn): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
 
   def sides: HSideArr = gridMans.flatMap(_.sides)
-  def sideLines(implicit grider: HGriderFlat): LineSegs = gridMans.flatMap(_.sideLines)
+  def sideLines(implicit grider: HGridSysFlat): LineSegs = gridMans.flatMap(_.sideLines)
  // def gridNumSides(gridNum: Int): Int
 
   override def numSides: Int = gridMansSum{g => g.numSides }

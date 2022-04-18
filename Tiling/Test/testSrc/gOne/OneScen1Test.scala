@@ -9,7 +9,7 @@ object OneScen1Test  extends TestSuite
   val os2 = os1.endTurn(Arr())
   val g2 = os2.grider
   val os3: OneScen = os1.endTurn(Arr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))
-  val g3: HGriderFlat = os3.grider
+  val g3: HGridSysFlat = os3.grider
   val os4: OneScen = os1.endTurn(Arr((PlayerA, HStepLt)))
 
   val tests = Tests {

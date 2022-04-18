@@ -11,7 +11,7 @@ class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends ElemInt3
   def step: HDirn = HDirn.fromInt(stepInt)
 
   /** The destination hex centre. */
-  def endHC(implicit grider: HGrider): HCen = HCen(r1 + step.tr, c1 + step.tc)
+  def endHC(implicit grider: HGridSys): HCen = HCen(r1 + step.tr, c1 + step.tc)
 
   override def int1: Int = r1
   override def int2: Int = c1

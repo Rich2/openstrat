@@ -2,14 +2,14 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
-/** An [[HGrider]] hex tile grid system of [[HCen]] or hex tile data. For efficiency the data is stored as a flat Array. No run time information
+/** An [[HGridSys]] hex tile grid system of [[HCen]] or hex tile data. For efficiency the data is stored as a flat Array. No run time information
  *  distinguishes this from an ordinary linear sequence array of data. Whether in a game or a non game application the data of the grid tiles is
  *  likely to change much more frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data
  *  should be set and retrieved through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
 class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenDGrid[A]
 {
-  def apply(hc: HCen)(implicit grider: HGrider): A = unsafeArray(grider.arrIndex(hc))
-  def rc(r: Int, c: Int)(implicit grid: HGrider): A = unsafeArray(grid.arrIndex(r, c))
+  def apply(hc: HCen)(implicit grider: HGridSys): A = unsafeArray(grider.arrIndex(hc))
+  def rc(r: Int, c: Int)(implicit grid: HGridSys): A = unsafeArray(grid.arrIndex(r, c))
 
   /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
    *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
@@ -58,7 +58,7 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     HCen(row, rightC)
   }
 
-  def rowCombine(implicit grider: HGrider): Arr[HCenRowValue[A]] = grider.rowCombine(this, grider)
+  def rowCombine(implicit grider: HGridSys): Arr[HCenRowValue[A]] = grider.rowCombine(this, grider)
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
@@ -75,7 +75,7 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */
-  def sideFlatMap[BB <: SeqImut[_]](f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit grid: HGrider, build: ArrFlatBuilder[BB]): BB =
+  def sideFlatMap[BB <: SeqImut[_]](f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
     grid.sidesFlatMap{ hs => hs.tiles match
     { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
       case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))

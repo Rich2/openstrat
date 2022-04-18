@@ -23,8 +23,8 @@ trait HCoord extends Any with TCoord
 
   def view(pxScale: Double = 50): HGridView = HGridView(r, c, pxScale)
 
-  /** Uses the implicit [[HGriderFlat]] to convert to [[Pt2]]. */
-  def toPt2(implicit grider: HGriderFlat): Pt2 = grider.hCoordToPt2(this)
+  /** Uses the implicit [[HGridSysFlat]] to convert to [[Pt2]]. */
+  def toPt2(implicit grider: HGridSysFlat): Pt2 = grider.hCoordToPt2(this)
 }
 
 /** Companion object for Hex coordinate trait, contains apply factory method and persist and PolygonBuilder implicit instances. */

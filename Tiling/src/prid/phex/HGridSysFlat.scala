@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._, Colour.Black
 
-trait HGriderFlat extends Any with HGrider with TGriderFlat
+trait HGridSysFlat extends Any with HGridSys with TGriderFlat
 {
   def polygons: Arr[Polygon]
 
@@ -13,9 +13,9 @@ trait HGriderFlat extends Any with HGrider with TGriderFlat
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
-  def sideLines(implicit grider: HGriderFlat): LineSegs
+  def sideLines(implicit grider: HGridSysFlat): LineSegs
 
   /** This gives the all tile grid lines in a single colour and line width.
    *  @group SidesGroup  */
-  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGriderFlat): LinesDraw = sideLines.draw(lineWidth, colour)
+  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSysFlat): LinesDraw = sideLines.draw(lineWidth, colour)
 }

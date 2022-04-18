@@ -40,7 +40,7 @@ object ThreeScen4 extends ThreeScen
 
 object ThreeScen5 extends ThreeScen
 {  override def turn: Int = 0
-  implicit val grider: HGriderFlat = HGrids2(2, 8, 2, 6, 100, 104)
+  implicit val grider: HGridSysFlat = HGrids2(2, 8, 2, 6, 100, 104)
   val oPlayers: HCenOptDGrid[Player] = grider.newHCenOptDGrid
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSome(6, 102, PlayerB)
@@ -49,7 +49,7 @@ object ThreeScen5 extends ThreeScen
 
 object ThreeScen6 extends ThreeScen
 {  override def turn: Int = 0
-  implicit val grider: HGriderFlat = HGrids2(4, 10, 2, 6, 100, 106)
+  implicit val grider: HGridSysFlat = HGrids2(4, 10, 2, 6, 100, 106)
   val oPlayers: HCenOptDGrid[Player] = grider.newHCenOptDGrid
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSome(6, 102, PlayerB)

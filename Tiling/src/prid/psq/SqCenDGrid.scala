@@ -2,7 +2,7 @@
 package ostrat; package prid; package psq
 import reflect.ClassTag
 
-/** A [[SqGrider]] of immutable [[SqCen]] data, stored for efficiency as a flat [[Array]]. Most methods will rquire the [[SqGrider]] as an implicit
+/** A [[SqGridSys]] of immutable [[SqCen]] data, stored for efficiency as a flat [[Array]]. Most methods will rquire the [[SqGridSys]] as an implicit
  * parameter. */
 class SqCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenDGrid[A]
 {

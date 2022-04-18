@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import reflect.ClassTag
 
 /** A system of Square tile grids. Could be a single or multiple grids. */
-trait SqGrider extends Any with TGrider
+trait SqGridSys extends Any with TGridSys
 { /** C coordinates match 1 to 1 to x coordinates for square grids. */
   final override def yRatio: Double = 1
 
@@ -16,4 +16,4 @@ trait SqGrider extends Any with TGrider
 }
 
 /** A system of Square tile grids that is flat within a 2D plane. includes all single [[SqGrid]]s. */
-trait SqGriderFlat extends Any with SqGrider with TGriderFlat
+trait SqGridSysFlat extends Any with SqGridSys with TGriderFlat

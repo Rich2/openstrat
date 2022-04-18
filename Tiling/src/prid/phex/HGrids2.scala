@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._
 
-/** This class may be removed. Its for the development of [[HGrider]]. So just 2 regular grids side by side, to make an easy start on the general problem. */
+/** This class may be removed. Its for the development of [[HGridSys]]. So just 2 regular grids side by side, to make an easy start on the general problem. */
 final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends HGridMultiFlat
 {
   val grid1 = HGridReg(minCenR, maxCenR, minC1, maxC1)

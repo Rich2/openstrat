@@ -2,7 +2,7 @@
 package ostrat; package prid
 
 /** A system of tile grids. Can be a single tile grid or a system of multiple tile grids. */
-trait TGrider extends Any
+trait TGridSys extends Any
 {
   /** The total number of tile centres in this tile Grid system. */
   def numTiles: Int

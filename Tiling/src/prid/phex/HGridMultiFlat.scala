@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._
 
 /** A system of [[HGrid]]s mapped to a 2D flat plane. */
-trait HGridMultiFlat extends HGridMulti with HGriderFlat
+trait HGridMultiFlat extends HGridMulti with HGridSysFlat
 {
   def gridsOffsets: Vec2s
 

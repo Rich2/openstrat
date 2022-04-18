@@ -49,9 +49,9 @@ trait ThreeScen extends HexGriderFlatScen
 /** Companion object for OneScen trait, contains factory apply method. */
 object ThreeScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGriderFlat, opIn: HCenOptDGrid[Player], newData: Map[Player, HDirnArr]): ThreeScen = new ThreeScen
+  def apply(turnIn: Int, gridIn: HGridSysFlat, opIn: HCenOptDGrid[Player], newData: Map[Player, HDirnArr]): ThreeScen = new ThreeScen
   { override val turn = turnIn
-    override implicit val grider: HGriderFlat = gridIn
+    override implicit val grider: HGridSysFlat = gridIn
     override def oPlayers: HCenOptDGrid[Player] = opIn
     override def playersData: Map[Player, HDirnArr] = newData
   }
