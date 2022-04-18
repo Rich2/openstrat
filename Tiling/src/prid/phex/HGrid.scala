@@ -112,15 +112,6 @@ trait HGrid extends Any with TGrid with HGriderFlat
    *  @group */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit
 
-  /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
-   *  @group SidesGroup */
-  final def sidesFlatMap[ArrT <: SeqImut[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
-  {
-    val buff = build.newBuff()// newArr(numSides)
-    sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
-    build.buffToBB(buff)
-  }
-
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline final def sideArrIndex(hc: HSide): Int = sideArrIndex(hc.r, hc.c)

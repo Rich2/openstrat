@@ -152,6 +152,15 @@ trait HGrider extends Any with TGrider
     res
   }
 
+  /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
+   *  @group SidesGroup */
+  final def sidesFlatMap[ArrT <: SeqImut[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
+  {
+    val buff = build.newBuff()// newArr(numSides)
+    sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
+    build.buffToBB(buff)
+  }
+
   def sides: HSideArr
   def defaultView(pxScale: Double = 50): HGridView
 }
