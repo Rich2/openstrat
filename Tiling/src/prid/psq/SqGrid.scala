@@ -79,8 +79,6 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
     count
   }
 
-  override def foreachCenCoord(f: TCoord => Unit): Unit = foreach(f)
-
   override def defaultView(pxScale: Double = 50): SqGridView = coordCen.view(pxScale)
 
   /** Creates a new [[HCenArrOfBuff]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */

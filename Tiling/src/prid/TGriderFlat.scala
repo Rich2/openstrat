@@ -31,4 +31,24 @@ trait TGriderFlat extends Any with TGrider
 
   /** Width of the tile grid system from furthest tile edge or vertex to furthest tile edge or vertex. */
   final def width: Double = right - left
+
+  /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
+  def xCen: Double = left aver right
+
+  /** The centre of this grid in the y axis. For [[SqGrid]]s this will be equal to the cCen [[Int]] value, but this is not the case for [[HGrid]]s. */
+  @inline def yCen: Double = bottom aver top
+
+  /** The centre point as a [[Vec2]]. Not sure why this id implemented here. */
+  def cenVec: Vec2 = Vec2(xCen, yCen)
+
+  def fullDisplayScale(dispWidth: Double, dispHeight: Double, padding: Double = 20): Double =
+  {
+    def adj(inp : Double): Double = inp match
+    { case n if n > 1000 => inp - padding
+      case n if n > 500 => inp - padding * inp / 1000.0
+      case n if n > 10 => n
+      case _ => 10
+    }
+    (adj(dispWidth) / adj(width).max(1)).min(adj(dispHeight) / height.max(1))
+  }
 }

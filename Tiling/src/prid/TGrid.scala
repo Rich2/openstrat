@@ -65,13 +65,9 @@ trait TGrid extends Any with TGriderFlat
   def rightSideC: Int
 
   /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
-  @inline def xCen: Double = (leftCenC + rightCenC) / 2
+  @inline override def xCen: Double = (leftCenC + rightCenC) / 2
 
-  /** The centre of this grid in the y axis. For [[SqGrid]]s this will be equal to the cCen [[Int]] value, but this is not the case for [[HGrid]]s. */
-  @inline def yCen: Double
 
-  /** The centre point as a [[Vec2]]. Not sure why this id implemented here. */
-  def cenVec: Vec2 = Vec2(xCen, yCen)
 
   /** Foreach grid Row y coordinate. */
   final def foreachRow(f: Int => Unit): Unit = iToForeach(bottomCenR, topCenR, 2)(f)
@@ -98,34 +94,8 @@ trait TGrid extends Any with TGriderFlat
     acc
   }
 
-  /** Foreach tile centre coordinate. A less strongly typed method than the foreach's in the sub traits. */
-  def foreachCenCoord(f: TCoord => Unit): Unit
-
-  def mapCenCoords[B, BB <: SeqImut[B]](f: TCoord => B)(implicit build: ArrBuilder[B, BB]): BB =
-  { val res = build.newArr(numTiles)
-    var count = 0
-    foreachCenCoord { tc => res.unsafeSetElem(count, f(tc))
-      count += 1
-    }
-    res
-  }
-
-  def fullDisplayScale(dispWidth: Double, dispHeight: Double, padding: Double = 20): Double =
-  {
-    def adj(inp : Double): Double = inp match
-    { case n if n > 1000 => inp - padding
-      case n if n > 500 => inp - padding * inp / 1000.0
-      case n if n > 10 => n
-      case _ => 10
-    }
-    (adj(dispWidth) / adj(width).max(1)).min(adj(dispHeight) / height.max(1))
-  }
-
   /** The number of Rows of vertices. */
   @inline final def numOfVertRows: Int = ife(numTileRows > 1, numTileRows + 1, 0)
-
-  /** Gives the text graphics for the row and column of each tile centre. */
-  def rcTexts = mapCenCoords(tc => tc.rcStr.toTextGraphic(16, tc.toPt2Reg))
 
   /* SideGroup Methods that operate on tile sides. **********************************************************/
 
