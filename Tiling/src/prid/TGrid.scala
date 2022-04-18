@@ -66,9 +66,7 @@ trait TGrid extends Any with TGriderFlat
 
   /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
   @inline override def xCen: Double = (leftCenC + rightCenC) / 2
-
-
-
+  
   /** Foreach grid Row y coordinate. */
   final def foreachRow(f: Int => Unit): Unit = iToForeach(bottomCenR, topCenR, 2)(f)
 

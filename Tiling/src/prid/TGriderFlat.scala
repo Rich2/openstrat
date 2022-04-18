@@ -2,15 +2,6 @@
 package ostrat; package prid
 import geom._
 
-/** A system of tile grids. Can be a single tile grid or a system of multiple tile grids. */
-trait TGrider extends Any
-{
-  /** The total number of tile centres in this tile Grid system. */
-  def numTiles: Int
-
-  /** the ratio of r => y, when translating from [[TCoord]] tile grid coordinates to [[Pt2]] and [[Vec2]]s. */
-  def yRatio: Double
-}
 
 /** A system of tile grids using a flat 2D geometry. This includes all single tile grids which are considered flat and some systems of multiple tile grids. */
 trait TGriderFlat extends Any with TGrider

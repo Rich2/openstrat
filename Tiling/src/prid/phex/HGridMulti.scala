@@ -24,8 +24,8 @@ abstract class HGridMan(val grid: HGrid, val arrIndex: Int)
   }
 }
 
-trait HGridMulti extends HGrider
-{
+trait HGridMulti extends HGrider with TGridMulti
+{ type GridT <: HGrid
   def gridMans: Arr[HGridMan]
   def grids: Arr[HGrid] = gridMans.map(_.grid)
   def numGrids: Int = gridMans.length
@@ -52,6 +52,8 @@ trait HGridMulti extends HGrider
     gridNumForeach{ el => acc = f(acc, el) }
     acc
   }
+
+  def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT = grids.flatMap(_.flatMapRows(f))
 
   final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
   override def adjTilesOfTile(tile: HCen): HCenArr = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))

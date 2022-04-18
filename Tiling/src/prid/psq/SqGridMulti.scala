@@ -14,6 +14,8 @@ trait SqGridMulti extends SqGrider {
   def gridMans: Arr[SqGridMan]
   def grids: Arr[SqGrid] = gridMans.map(_.grid)
   override def defaultView(pxScale: Double = 50): SqGridView = grids(0).defaultView(pxScale)
+
+  def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT = grids.flatMap(_.flatMapRows(f))
 }
 
 trait SqGridMultiFlat extends SqGridMulti with SqGriderFlat
