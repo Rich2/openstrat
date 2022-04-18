@@ -53,7 +53,8 @@ trait HGridMulti extends HGrider with TGridMulti
     acc
   }
 
-  def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT = grids.flatMap(_.flatMapRows(f))
+  /** This is not correct. */
+  def rowCombine[A <: AnyRef](data: HCenDGrid[A], indexingGrider: HGrider): Arr[HCenRowValue[A]] = grids.flatMap(_.rowCombine(data, this))
 
   final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
   override def adjTilesOfTile(tile: HCen): HCenArr = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))

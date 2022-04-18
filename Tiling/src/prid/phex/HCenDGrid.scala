@@ -9,7 +9,7 @@ import reflect.ClassTag
 class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenDGrid[A]
 {
   def apply(hc: HCen)(implicit grider: HGrider): A = unsafeArray(grider.arrIndex(hc))
-  def rc(r: Int, c: Int)(implicit grid: HGrid): A = unsafeArray(grid.arrIndex(r, c))
+  def rc(r: Int, c: Int)(implicit grid: HGrider): A = unsafeArray(grid.arrIndex(r, c))
 
   /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
    *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
@@ -58,30 +58,7 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     HCen(row, rightC)
   }
 
-  def rowCombine(implicit grid: HGrid): Arr[HCenRowValue[A]] =
-  {
-    grid.flatMapRows[Arr[HCenRowValue[A]]]{ r => if (grid.cenRowEmpty(r)) Arr()
-      else
-      { var currStart: Int = grid.rowLeftCenC(r)
-        var currC: Int = currStart
-        var currVal: A = rc(r, currStart)
-        var list: List[HCenRowValue[A]] = Nil
-        grid.rowForeach(r){hc =>
-          currC = hc.c
-          if (apply(hc) != currVal) {
-            val newHCenRowValue = HCenRowValue(r, currStart, (currC - currStart + 4) / 4, currVal)
-            list :+= newHCenRowValue
-            currVal = apply(hc)
-            currStart = hc.c
-          }
-
-        }
-        val newHCenRowValue = HCenRowValue(r, currStart, (currC - currStart + 4) / 4, currVal)
-        list :+= newHCenRowValue
-        list.toArr
-      }
-    }
-  }
+  def rowCombine(implicit grider: HGrider): Arr[HCenRowValue[A]] = grider.rowCombine(this, grider)
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex

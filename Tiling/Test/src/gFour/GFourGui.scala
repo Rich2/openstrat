@@ -7,7 +7,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HexMapGui
   val scen = scenStart
   def terrs: HCenDGrid[Terr] = scen.terrs
   var history: Arr[FourScen] = Arr(scen)
-  implicit def grider: HGrid = scen.grider
+  implicit def grider: HGriderFlat = scen.grider
   focus = grider.cenVec
 
   /** The number of pixels / 2 displayed per row height. */

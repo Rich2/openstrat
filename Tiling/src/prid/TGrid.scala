@@ -70,21 +70,6 @@ trait TGrid extends Any with TGriderFlat
   /** Foreach grid Row y coordinate. */
   final def foreachRow(f: Int => Unit): Unit = iToForeach(bottomCenR, topCenR, 2)(f)
 
-  /** maps over each row number. */
-  final def mapRows[B, BB <: SeqImut[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
-  { val res = build.newArr(numTileRows)
-    var index = 0
-    foreachRow{r => res.unsafeSetElem(index, f(r)); index += 1 }
-    res
-  }
-
-  /** flatMaps over each row number. */
-  final def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
-  { val buff = build.newBuff(numTiles)
-    foreachRow{ r => build.buffGrowArr(buff, f(r)) }
-    build.buffToBB(buff)
-  }
-
   /** foldLefts over each row number. */
   final def foldRows[B](init: B)(f: (B, Int) => B): B =
   { var acc = init

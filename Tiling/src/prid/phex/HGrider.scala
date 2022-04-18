@@ -36,7 +36,7 @@ trait HGrider extends Any with TGrider
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array SeqDef data. */
   def arrIndex(r: Int, c: Int): Int
-
+  def rowCombine[A <: AnyRef](data: HCenDGrid[A], indexingGrider: HGrider): Arr[HCenRowValue[A]]
   def adjTilesOfTile(tile: HCen): HCenArr
 
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)

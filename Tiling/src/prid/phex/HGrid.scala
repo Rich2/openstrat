@@ -100,6 +100,31 @@ trait HGrid extends Any with TGrid with HGriderFlat
     }
   }
 
+  def rowCombine[A <: AnyRef](data: HCenDGrid[A], indexingGrider: HGrider = this): Arr[HCenRowValue[A]] =
+  {
+    flatMapRows[Arr[HCenRowValue[A]]]{ r => if (cenRowEmpty(r)) Arr()
+    else
+    { var currStart: Int = rowLeftCenC(r)
+      var currC: Int = currStart
+      var currVal: A = data.rc(r, currStart)(indexingGrider)
+      var list: List[HCenRowValue[A]] = Nil
+      rowForeach(r){hc =>
+        currC = hc.c
+        if (data(hc)(indexingGrider) != currVal) {
+          val newHCenRowValue = HCenRowValue(r, currStart, (currC - currStart + 4) / 4, currVal)
+          list :+= newHCenRowValue
+          currVal = data(hc)(indexingGrider)
+          currStart = hc.c
+        }
+
+      }
+      val newHCenRowValue = HCenRowValue(r, currStart, (currC - currStart + 4) / 4, currVal)
+      list :+= newHCenRowValue
+      list.toArr
+    }
+    }
+  }
+
   /* Methods that operate on Hex tile sides. ******************************************************/
 
   override def sideLines(implicit grider: HGriderFlat): LineSegs = sideCoordLines.map(_.lineSeg)

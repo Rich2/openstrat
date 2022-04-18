@@ -10,12 +10,15 @@ trait TGrider extends Any
   /** the ratio of r => y, when translating from [[TCoord]] tile grid coordinates to [[Pt2]] and [[Vec2]]s. */
   def yRatio: Double
 
-  def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT
+  /** Number of rows of tile centres. This will be different to the number of rows of sides and and will be different to the number of rows of
+   *  vertices for HexGrids. */
+  def numTileRows: Int
+  //def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT
 
   def foreachRow(f: Int => Unit): Unit
 
   /** maps over each row number. */
-  /*final def mapRows[B, BB <: SeqImut[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
+  final def mapRows[B, BB <: SeqImut[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
   { val res = build.newArr(numTileRows)
     var index = 0
     foreachRow{r => res.unsafeSetElem(index, f(r)); index += 1 }
@@ -27,11 +30,5 @@ trait TGrider extends Any
   { val buff = build.newBuff(numTiles)
     foreachRow{ r => build.buffGrowArr(buff, f(r)) }
     build.buffToBB(buff)
-  }*/
-}
-
-trait TGridMulti extends TGrider
-{ type GridT <: TGrid
-  def grids: Arr[GridT]
-  def foreachRow(f: Int => Unit): Unit = grids.foreach(_.foreachRow(f))
+  }
 }
