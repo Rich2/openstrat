@@ -8,13 +8,13 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   var history: Arr[OneScen] = Arr(scen)
-  implicit def grider: HGridSysFlat = scen.grider
+  implicit def gridSys: HGridSysFlat = scen.gridSys
   def players: HCenOptDGrid[Player] = scen.oPlayers
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HCenOptDGrid[HDirn] = grider.newHCenOptDGrid[HDirn]
+  def NoMoves: HCenOptDGrid[HDirn] = gridSys.newHCenOptDGrid[HDirn]
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
@@ -32,10 +32,10 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   def hexStrs: Arr[TextGraphic] = players.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val tiles: Arr[PolygonActive] = grider.activeTiles
+  val tiles: Arr[PolygonActive] = gridSys.activeTiles
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw: LinesDraw = grider.sidesDraw()
+  val sidesDraw: LinesDraw = gridSys.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.hcSomesMap { (hc, step) =>
@@ -62,7 +62,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
     }
 
     case (RightButton, AnyArrHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
-      val newM: Option[HDirn] = grider.findStep(hc1, hc2)
+      val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
       newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()
     }

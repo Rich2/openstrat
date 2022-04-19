@@ -7,11 +7,11 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HexMapGui
   val scen = scenStart
   def terrs: HCenDGrid[Terr] = scen.terrs
   var history: Arr[FourScen] = Arr(scen)
-  implicit def grider: HGridSysFlat = scen.grider
-  focus = grider.cenVec
+  implicit def gridSys: HGridSysFlat = scen.gridSys
+  focus = gridSys.cenVec
 
   /** The number of pixels / 2 displayed per row height. */
-  var cPScale: Double = grider.fullDisplayScale(mainWidth, mainHeight)
+  var cPScale: Double = gridSys.fullDisplayScale(mainWidth, mainHeight)
 
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
@@ -44,7 +44,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HexMapGui
     }
 
     case (RightButton, AnyArrHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
-     val newM: Option[HDirn] = grider.findStep(hc1, hc2)
+     val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
       //newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
       repaint()
     }
@@ -54,7 +54,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HexMapGui
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(bTurn %: navButtons)
-  statusText = s"Game Four. Scenario has ${grider.numTiles} tiles."
+  statusText = s"Game Four. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
 
   def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts: GraphicElems).slate(-focus).scale(cPScale)

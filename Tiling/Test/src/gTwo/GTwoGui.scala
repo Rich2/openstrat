@@ -6,16 +6,16 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
 {
   statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
-  implicit def grider: SqGrid = scen.grid
+  implicit def gridSys: SqGrid = scen.grid
   def players: SqCenOptDGrid[Player] = scen.oPlayers
 
   /** The number of pixels / 2 displayed per row height. */
-  var cPScale: Double = grider.fullDisplayScale(mainWidth, mainHeight)
+  var cPScale: Double = gridSys.fullDisplayScale(mainWidth, mainHeight)
 
   focus = viewIn.vec//grider.cenVec
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  def tiles: Arr[PolygonActive] = grider.activeTiles
+  def tiles: Arr[PolygonActive] = gridSys.activeTiles
 
   def lunits: Arr[PolygonCompound] = players.scSomesMap{ (sc, p) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + sc.strComma, 150, p.charStr + "\n" + sc.strComma, 60, p.charStr)
@@ -42,10 +42,10 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   }
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw = grider.sidesDraw()
+  val sidesDraw = gridSys.sidesDraw()
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: SqCenOptDGrid[SqDirn] = grider.newSCenOptDGrider[SqDirn]
+  def NoMoves: SqCenOptDGrid[SqDirn] = gridSys.newSCenOptDGrider[SqDirn]
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>

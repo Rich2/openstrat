@@ -16,20 +16,20 @@ object FourLaunch extends GuiLaunchStd
 }
 
 object FourScen1 extends FourScen(0)
-{ override implicit val grider: HGrid = HGridReg(2, 8, 2, 18)
-  override val terrs: HCenDGrid[Terr] = grider.newHCenDGrid[Terr](Plain)
+{ override implicit val gridSys: HGrid = HGridReg(2, 8, 2, 18)
+  override val terrs: HCenDGrid[Terr] = gridSys.newHCenDGrid[Terr](Plain)
   import terrs.{setRowPart => srp}
   srp(6, 2, 2, Water)
   srp(4, 4, 2, Woods)
-  val units: HCenOptDGrid[Lunit] = grider.newHCenOptDGrid
+  val units: HCenOptDGrid[Lunit] = gridSys.newHCenOptDGrid
   units.unsafeSetSome(4, 4, Lunit(TeamA, HexDR))
   units.unsafeSetSomes((4, 8, Lunit(TeamB, HStepLt, HexDL)), (6, 10, Lunit(TeamA)))
 }
 
 /** 2nd Scenario of Game Four. Has a larger number of hexs. */
 object FourScen2 extends FourScen(0)
-{ override implicit val grider: HGrid = HGridReg(2, 20, 4, 60)
-  override val terrs: HCenDGrid[Terr] = grider.newHCenDGrid[Terr](Plain)
+{ override implicit val gridSys: HGrid = HGridReg(2, 20, 4, 60)
+  override val terrs: HCenDGrid[Terr] = gridSys.newHCenDGrid[Terr](Plain)
   import terrs.{setRowPart => sr}
   sr(6,6, 4, Water)
   sr(8,4, 5, Water)
@@ -38,7 +38,7 @@ object FourScen2 extends FourScen(0)
   sr(14, 42, 3, Woods)
   sr(16, 44, 3, Woods)
   sr(18, 42, 3, Woods)
-  val units: HCenOptDGrid[Lunit] = grider.newHCenOptDGrid
+  val units: HCenOptDGrid[Lunit] = gridSys.newHCenOptDGrid
   units.unsafeSetSome(4, 4, Lunit(TeamA))
 
 }
@@ -46,9 +46,9 @@ object FourScen2 extends FourScen(0)
 /** 3rd Scenario of Game Four. Has a larger number of hexs. */
 object FourScen3 extends FourScen(0)
 {
-  override implicit val grider: HGridReg = HGridReg(2, 6, 2, 10)
-  override val terrs: HCenDGrid[Terr] = grider.newHCenDGrid[Terr](Plain)
+  override implicit val gridSys: HGridReg = HGridReg(2, 6, 2, 10)
+  override val terrs: HCenDGrid[Terr] = gridSys.newHCenDGrid[Terr](Plain)
 
   import terrs.{completeRow => sr}
-  val units: HCenOptDGrid[Lunit] = grider.newHCenOptDGrid
+  val units: HCenOptDGrid[Lunit] = gridSys.newHCenOptDGrid
 }

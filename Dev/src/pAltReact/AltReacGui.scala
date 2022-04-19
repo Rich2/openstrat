@@ -7,16 +7,16 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends Hex
   statusText = "a Welcome alternative to ReactorGui."
 
   var scen = AltScen.start(rows, columns)
-  implicit def grider: SqGrid = scen.grid
-  focus = grider.cenVec
+  implicit def gridSys: SqGrid = scen.grid
+  focus = gridSys.cenVec
   var cPScale: Double = 32
   def balls = scen.balls
 
   /** The number of pixels / 2 displayed per row height. */
-  val scale = grider.fullDisplayScale(mainWidth, mainHeight)
+  val scale = gridSys.fullDisplayScale(mainWidth, mainHeight)
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw = grider.sidesDraw()
+  val sidesDraw = gridSys.sidesDraw()
 
   def ballDisps: GraphicElems = ??? //balls.map
     /*players.mapHcenSomes{ (hc, p) => Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc),

@@ -36,7 +36,7 @@ abstract class FourScen(val turn: Int) extends HexGridScen
     val playersKey: Map[Lunit, HCen] = units.keyMap
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HDirn]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    val targets: HCenBuffDGrid[HDirn] = grider.newHCenArrOfBuff
+    val targets: HCenBuffDGrid[HDirn] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { case (player, steps) =>  steps.ifHead { step =>
       val hc1 = playersKey(player)
@@ -50,7 +50,7 @@ abstract class FourScen(val turn: Int) extends HexGridScen
     val oPlayersNew: HCenOptDGrid[Lunit] = units.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (units.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.unsafeStep(backStep), hc2)) }
 
-    FourScen(turn + 1, grider, terrs, oPlayersNew)
+    FourScen(turn + 1, gridSys, terrs, oPlayersNew)
   }
 }
 
@@ -64,6 +64,6 @@ object FourScen
 
     /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
      * on flat arrays of data. */
-    override implicit val grider: HGrid = gridIn
+    override implicit val gridSys: HGrid = gridIn
   }
 }

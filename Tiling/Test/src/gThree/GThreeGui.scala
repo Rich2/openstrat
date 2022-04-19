@@ -8,7 +8,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   var history: Arr[ThreeScen] = Arr(scen)
-  implicit def grider: HGridSysFlat = scen.grider
+  implicit def gridSys: HGridSysFlat = scen.gridSys
   def players: HCenOptDGrid[Player] = scen.oPlayers
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec
@@ -29,10 +29,10 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
   def hexStrs: Arr[TextGraphic] = players.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val tiles: Arr[PolygonActive] = grider.activeTiles
+  val tiles: Arr[PolygonActive] = gridSys.activeTiles
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw: LinesDraw = grider.sidesDraw()
+  val sidesDraw: LinesDraw = gridSys.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = players.hcSomesFlatMap { (hc, p) =>
@@ -61,7 +61,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridVi
     }
 
     case (RightButton, AnyArrHead(HPlayer(hc1, p)), hits) => hits.findHCenForEach{ hc2 =>
-      val newM: Option[HDirn] = grider.findStep(hc1, hc2)
+      val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
       newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceValue(p, HDirnArr()) } { m => moves = moves.replaceValue(p, HDirnArr(m)) }
       repaint()
     }

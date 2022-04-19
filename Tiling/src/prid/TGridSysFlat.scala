@@ -3,7 +3,7 @@ package ostrat; package prid
 import geom._
 
 /** A system of tile grids using a flat 2D geometry. This includes all single tile grids which are considered flat and some systems of multiple tile grids. */
-trait TGriderFlat extends Any with TGridSys
+trait TGridSysFlat extends Any with TGridSys
 { /** The top most point in the grid where the value of y is maximum. */
   def top: Double
 

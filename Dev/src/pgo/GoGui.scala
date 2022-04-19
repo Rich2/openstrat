@@ -4,7 +4,7 @@ import geom._, prid._, psq._, pgui._
 
 case class GoGui(canv: CanvasPlatform, startScen: GoScen) extends SquareMapGui("Go"){
   /** Tile grid this gui displays. */
-  override def grider: TGriderFlat = startScen.grid
+  override def gridSys: TGridSysFlat = startScen.grid
 
   /** The number of pixels displayed per c column coordinate. */
   override var cPScale: Double = 20

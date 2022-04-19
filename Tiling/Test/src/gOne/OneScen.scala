@@ -13,7 +13,7 @@ trait OneScen extends HexGriderFlatScen
   {
     val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
-    val targets: HCenBuffDGrid[HCenStep] = grider.newHCenArrOfBuff
+    val targets: HCenBuffDGrid[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { (player: Player, step: HDirn) =>
       val hc1: HCen = playersKey(player)
@@ -26,7 +26,7 @@ trait OneScen extends HexGriderFlatScen
     val oPlayersNew: HCenOptDGrid[Player] = oPlayers.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1(stCenStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(stCenStep.startHC , hc2)) }
 
-    OneScen(turn + 1, grider, oPlayersNew)
+    OneScen(turn + 1, gridSys, oPlayersNew)
   }
 }
 
@@ -35,7 +35,7 @@ object OneScen
 { /** Factory apply method for OneScen trait. */
   def apply(turnIn: Int, gridIn: HGridSysFlat, opIn: HCenOptDGrid[Player]): OneScen = new OneScen
   { override val turn = turnIn
-    override implicit val grider: HGridSysFlat = gridIn
+    override implicit val gridSys: HGridSysFlat = gridIn
     override def oPlayers: HCenOptDGrid[Player] = opIn
   }
 }

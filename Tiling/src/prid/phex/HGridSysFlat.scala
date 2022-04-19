@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._, Colour.Black
 
-trait HGridSysFlat extends Any with HGridSys with TGriderFlat
+trait HGridSysFlat extends Any with HGridSys with TGridSysFlat
 {
   def polygons: Arr[Polygon]
 

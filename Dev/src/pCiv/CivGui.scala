@@ -5,12 +5,12 @@ import geom._, prid._, phex._, pgui._
 /** Gui for civilisation  game. */
 case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HexMapGui("Civ Rise Game Gui")
 { statusText = "Welcome to Civ Rise."
-  implicit val grider: HGrid = scen.grider
-  focus = grider.cenVec
-  var cPScale = grider.fullDisplayScale(mainWidth, mainHeight)
-  val sls = grider.sidesDraw()
+  implicit val gridSys: HGrid = scen.gridSys
+  focus = gridSys.cenVec
+  var cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  val sls = gridSys.sidesDraw()
   val terrs = scen.terrs
-  val tiles = grider.map{ hc => hc.polygonReg.fillTextActive(terrs(hc).colour, hc, hc.strComma, 16) }
+  val tiles = gridSys.map{ hc => hc.polygonReg.fillTextActive(terrs(hc).colour, hc, hc.strComma, 16) }
   val lunits = scen.lunits.gridHeadsMap { (hc, lu) =>
     Rectangle.curvedCornersCentred(1.2, 0.8, 0.3, hc.toPt2Reg).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
   }

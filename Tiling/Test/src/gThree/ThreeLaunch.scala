@@ -21,6 +21,6 @@ object ThreeLaunch extends GuiLaunchMore
       case _ => ThreeScen1
     }
     val oview: EMon[HGridView] = sts.findKeySetting[Int, HGridView](num)
-    (GThreeGui(_, scen, oview.getElse(scen.grider.defaultView())), "JavaFx Game Three")
+    (GThreeGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game Three")
   }
 }

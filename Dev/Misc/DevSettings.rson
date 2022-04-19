@@ -12,7 +12,6 @@ gOne = { scen = 1; 1 = HGridView(4, 6; 80); 2 = HGridView(6, 6; 55); 3 = HGridVi
 gTwo = { scen = 1; 1 = SqGridView(4, 5; 80); 2 = SqGridView(9, 11; 40); };
 gThree = { scen = 1; 1 = HGridView(4, 6; 80); 2 = HGridView(6, 6; 55); 3 = HGridView(6, 6; 50); 4 = HGridView(7, 20; 40) };
 gFour = 1;
-
 zugFuhrer = 1;
 civ = 1;
 chess = {scen = 1 };

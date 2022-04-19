@@ -21,7 +21,7 @@ trait ThreeScen extends HexGriderFlatScen
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def endTurn(orderList: Map[Player, HDirnArr]): ThreeScen =
   {
-    val targets: HCenBuffDGrid[HCenStep] = grider.newHCenArrOfBuff
+    val targets: HCenBuffDGrid[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { ps =>  ps._2.ifHead { step =>
         val hc1: HCen = playersKey(ps._1)
@@ -42,7 +42,7 @@ trait ThreeScen extends HexGriderFlatScen
       }
     }
 
-    ThreeScen(turn + 1, grider, oPlayersNew, newData)
+    ThreeScen(turn + 1, gridSys, oPlayersNew, newData)
   }
 }
 
@@ -51,7 +51,7 @@ object ThreeScen
 { /** Factory apply method for OneScen trait. */
   def apply(turnIn: Int, gridIn: HGridSysFlat, opIn: HCenOptDGrid[Player], newData: Map[Player, HDirnArr]): ThreeScen = new ThreeScen
   { override val turn = turnIn
-    override implicit val grider: HGridSysFlat = gridIn
+    override implicit val gridSys: HGridSysFlat = gridIn
     override def oPlayers: HCenOptDGrid[Player] = opIn
     override def playersData: Map[Player, HDirnArr] = newData
   }

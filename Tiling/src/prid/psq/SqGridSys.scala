@@ -16,4 +16,4 @@ trait SqGridSys extends Any with TGridSys
 }
 
 /** A system of Square tile grids that is flat within a 2D plane. includes all single [[SqGrid]]s. */
-trait SqGridSysFlat extends Any with SqGridSys with TGriderFlat
+trait SqGridSysFlat extends Any with SqGridSys with TGridSysFlat
