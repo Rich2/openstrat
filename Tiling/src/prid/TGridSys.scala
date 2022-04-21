@@ -13,8 +13,8 @@ trait TGridSys extends Any
   /** Number of rows of tile centres. This will be different to the number of rows of sides and and will be different to the number of rows of
    *  vertices for HexGrids. */
   def numTileRows: Int
-  //def flatMapRows[ArrT <: SeqImut[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT
 
+  /** For each row of tiles performs side effecting function on the r coordinate of the row. */
   def foreachRow(f: Int => Unit): Unit
 
   /** maps over each row number. */

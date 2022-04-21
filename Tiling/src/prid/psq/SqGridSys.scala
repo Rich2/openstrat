@@ -7,11 +7,13 @@ trait SqGridSys extends Any with TGridSys
 { /** C coordinates match 1 to 1 to x coordinates for square grids. */
   final override def yRatio: Double = 1
 
-  /** New Square tile  immutable Tile Arr of Opt data values. */
+  /** New Square tile data grid for this Square grid system. */
   final def newSCenOptDGrider[A <: AnyRef](implicit ct: ClassTag[A]): SqCenOptDGrid[A] = new SqCenOptDGrid(new Array[A](numTiles))
 
+  /** New Square grid system of collection buffers of data. */
   final def newSCenBuffDGrider[A <: AnyRef](implicit ct: ClassTag[A]): SqCenBuffDGrid[A] = SqCenBuffDGrid(numTiles)
 
+  /** Gives the default view in terms of [[SqCoord]] focus and scaling of this square grid system. */
   def defaultView(pxScale: Double = 50): SqGridView
 }
 
