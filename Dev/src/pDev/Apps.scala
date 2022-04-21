@@ -36,13 +36,6 @@ object Apps
 
     ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
 
-    ("Z1", (pZug.ZugGui(_, pZug.Zug1), "JavaFx Zugfuhrer Z1 Britain")),
-    ("X1", (pZug.ZugGuiOld(_, pZug.Zug1Old), "Old JavaFx Zugfuhrer Z1 Britain")),
-    ("Z2", (pZug.ZugGui(_, pZug.Zug2), "JavaFx Zugfuhrer Z2 Britain")),
-    ("X2", (pZug.ZugGuiOld(_, pZug.Zug2Old), "Old JavaFx Zugfuhrer Z2 Britain")),
-    ("Z3", (pZug.ZugGui(_, pZug.Zug3), "JavaFx Zugfuhrer Z3 France")),
-    ("X3", (pZug.ZugGuiOld(_, pZug.Zug3Old), "Old JavaFx Zugfuhrer Z3 France")),
-
     ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
   )
