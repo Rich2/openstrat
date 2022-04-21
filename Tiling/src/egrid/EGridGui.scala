@@ -11,11 +11,11 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
   def metresScale = cPScale / gridSys.cScale.mMetresNum
 
   val terrs: HCenDGrid[WTile] = scen.terrs
-  def tiles = gridSys.map{ hc =>
+  def tiles: Arr[PolygonCompound] = gridSys.map{ hc =>
     val str = gridSys.hCoordLL(hc).degStr --- hc.rcStr
     hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg)
   }
-  def tileStrs = gridSys.map{ hc =>
+  def tileStrs: Arr[PolygonCompound] = gridSys.map{ hc =>
     val str = hc.rcStr32 --- gridSys.hCoordLL(hc).degStr --- hc.rcStr
     hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, str, 16, terrs(hc).contrastBW)
   }
