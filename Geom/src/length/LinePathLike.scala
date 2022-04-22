@@ -66,10 +66,10 @@ trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblNs[B] ] extends LineP
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
-/** Trait for creating the line path type class instances for [[LinePathDbl2s]] final classes. Instances for the [[LinePathDbl2sBuilder]] type class,
+/** Trait for creating the line path type class instances for [[LinePathDbl2s]] final classes. Instances for the [[LinePathDbl2Builder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait LinePathDbl2sBuilder[B <: ElemDbl2, BB <: LinePathDbl2s[B]] extends LinePathDblNsBuilder[B, BB]
+trait LinePathDbl2Builder[B <: ElemDbl2, BB <: LinePathDbl2s[B]] extends LinePathDblNsBuilder[B, BB]
 { type BuffT <: Dbl2Buff[B]
   final override def elemProdSize = 2
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}

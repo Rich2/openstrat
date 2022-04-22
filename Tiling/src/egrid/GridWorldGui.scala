@@ -1,12 +1,15 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import  pgui._, geom._, prid._, phex._, pEarth._, pglobe._
+import pgui._, geom._, eg80._, prid._, phex._, pEarth._, pglobe._
 
 case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends CmdBarGui("Grid World")
 {
   val northUp = true
   var scale: Length = 12.kMetres
   val focus: LatLong = 0 ll 0
+
+  implicit val grid: EGrid80KmMain = eg80.EGrid80Km.l0b446
+  val gls: LatLongArr = grid.map(hc => grid.hCoordLL(hc))
 
   def repaint(): Unit =
   { val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)

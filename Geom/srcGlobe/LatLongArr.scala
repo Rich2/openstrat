@@ -2,17 +2,17 @@
 package ostrat; package geom; package pglobe
 import collection.mutable.ArrayBuffer
 
-/** A base trait for a sequence of [[LatLong]]s. The final classes are more strongly typed as a [[LinePathLL], a [[PolygonLL]]and [[LatLongs]], for a
+/** A base trait for a sequence of [[LatLong]]s. The final classes are more strongly typed as a [[LinePathLL], a [[PolygonLL]]and [[LatLongArr]], for a
  * a general collection of [[LatLong]] points. */
-trait LatLongsLike extends Any with Dbl2SeqDef[LatLong]
+trait LatLongSeqDef extends Any with Dbl2SeqDef[LatLong]
 { final override def seqDefElem(d1: Double, d2: Double): LatLong = LatLong.milliSecs(d1, d2)
   final override def fElemStr: LatLong => String = _.toString
 }
 
 /** Immutable flat efficient Array[Double] based collection class for [[LatLong]]s. Prefer [[PolygonLL]] or [[LineSegLL]] where applicable. */
-final class LatLongs(val unsafeArray: Array[Double]) extends AnyVal with LatLongsLike with Dbl2Arr[LatLong]
-{ override type ThisT = LatLongs
-  override def unsafeFromArray(array: Array[Double]): LatLongs = new LatLongs(array)
+final class LatLongArr(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqDef with Dbl2Arr[LatLong]
+{ override type ThisT = LatLongArr
+  override def unsafeFromArray(array: Array[Double]): LatLongArr = new LatLongArr(array)
   override def typeStr: String = "LatLongs"
 }
 
