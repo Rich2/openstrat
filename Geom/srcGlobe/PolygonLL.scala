@@ -9,7 +9,9 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongsLike
   type SideT = LineSegLL
   override def unsafeFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
   override def typeStr: String = "PolygonLL"
-  def metres3Default: PolygonM3 = map(_.toMetres3)
+
+  /** maps the vertices of this [[PolygonLike]] from [[LatLong]]s to [[PtM3]]s. */
+  def toMetres3: PolygonM3 = map(_.toMetres3)
 
   //override def toString: String = PolygonLL.persistImplicit.showT(this, Show.Standard, 2, 2)
 

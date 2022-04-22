@@ -6,23 +6,21 @@ case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends CmdBarG
 {
   val northUp = true
   var scale: Length = 12.kMetres
-  val focus = 0 ll 0
+  val focus: LatLong = 0 ll 0
 
   def repaint(): Unit =
   { val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
 
-    val afps: Arr[(EArea2, PolygonM)] = eas.map { a =>
-      val p3s0: PolygonM3 = a.polygonLL.metres3Default
-      val p3s1 = p3s0.fromLatLongFocus(focus)
-      val p3s2: PolygonM3 = ife(northUp, p3s1, p3s1.rotateZ180)
-      val p3s3 = p3s2.earthZPosXYModify
-      (a, p3s3)
-    }
+    val afps: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
 
     val afps2 = afps.filter(_._2.vertsMin3)
     val af0 = afps2.map { pair =>
       val (d, p) = pair
-      p.map(_ / scale).fillActive(d.colour, d)
+      val col = d.terr match{
+        case w: Water => Colour.Blue
+        case _ => Colour.White
+      }
+      p.map(_ / scale).fill(col)//, d)
     }
 
     val af1 = afps2.map { a => a._2.map(_ / scale).draw() }
@@ -32,9 +30,9 @@ case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends CmdBarG
       TextGraphic(d.name, 10, posn, d.colour.contrastBW)
     }
 
-    def seas = earth2DEllipse(scale).fill(Colour.DarkBlue)
+    def seas: EllipseFill = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
-    mainRepaint(seas %: af0 ++ af1 ++ af2)
+    mainRepaint(seas %: af0)// ++ af1)// ++ af2)
   }
 
   repaint()
