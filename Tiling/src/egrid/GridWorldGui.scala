@@ -2,7 +2,7 @@
 package ostrat; package egrid
 import  pgui._, geom._, prid._, phex._, pEarth._, pglobe._
 
-case class GridWorldGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) extends CmdBarGui("Grid World")
+case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends CmdBarGui("Grid World")
 {
   val northUp = true
   var scale: Length = 12.kMetres
