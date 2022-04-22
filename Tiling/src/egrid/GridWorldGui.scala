@@ -2,18 +2,16 @@
 package ostrat; package egrid
 import pgui._, geom._, eg80._, prid._, phex._, pEarth._, pglobe._
 
-case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends CmdBarGui("Grid World")
+case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends GlobeGui("Grid World")
 {
-  val northUp = true
-  var scale: Length = 12.kMetres
-  val focus: LatLong = 0 ll 0
-
+  var scale: Length = 3.2.kMetres
+  var focus: LatLong = 58 ll 0
+  val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
   implicit val grid: EGrid80KmMain = eg80.EGrid80Km.l0b446
   val gls: LatLongArr = grid.map(hc => grid.hCoordLL(hc))
 
   def repaint(): Unit =
-  { val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
-
+  {
     val afps: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
 
     val afps2 = afps.filter(_._2.vertsMin3)
@@ -26,6 +24,9 @@ case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends CmdBarG
       p.map(_ / scale).fill(col)//, d)
     }
 
+    val cens = gls.map(_.toMetres3.fromLatLongFocus(focus))
+    val cens2 = cens.map(v => TextGraphic("Hi", 8, v.xy / scale))
+
     val af1 = afps2.map { a => a._2.map(_ / scale).draw() }
     val af2 = afps2.map { pair =>
       val (d, _) = pair
@@ -35,8 +36,9 @@ case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends CmdBarG
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
-    mainRepaint(seas %: af0)// ++ af1)// ++ af2)
+    mainRepaint(seas %: af0 ++ cens2)// ++ af1)// ++ af2)
   }
-
+  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
+  thisTop()
   repaint()
 }
