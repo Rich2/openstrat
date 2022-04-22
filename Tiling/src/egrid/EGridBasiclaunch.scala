@@ -3,7 +3,7 @@ package ostrat; package egrid
 import pgui._, eg80._, eg320._, prid._, phex._, pParse._
 
 /** object to launch EGrid basic Gui. */
-object EGridBasicLaunch extends GuiLaunchMore
+object EGridLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "eGrid"
 

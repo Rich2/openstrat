@@ -8,13 +8,15 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
   implicit val gridSys: EGridMain = scen.eGrid
   focus = viewIn.vec
   var cPScale: Double = viewIn.pxScale
-  def metresScale = cPScale / gridSys.cScale.mMetresNum
+  def metresScale: Double = cPScale / gridSys.cScale.mMetresNum
 
   val terrs: HCenDGrid[WTile] = scen.terrs
+
   def tiles: Arr[PolygonCompound] = gridSys.map{ hc =>
     val str = gridSys.hCoordLL(hc).degStr --- hc.rcStr
     hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg)
   }
+
   def tileStrs: Arr[PolygonCompound] = gridSys.map{ hc =>
     val str = hc.rcStr32 --- gridSys.hCoordLL(hc).degStr --- hc.rcStr
     hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, str, 16, terrs(hc).contrastBW)
