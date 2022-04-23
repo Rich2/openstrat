@@ -7,12 +7,12 @@ object WW2Launch extends GuiLaunchMore
 {
   override def settingStr: String = "ww2"
 
-  override def default: (CanvasPlatform => Any, String) = (cv => WWIIGuiOld(cv, WW1940, None, None), "World War II")
+  override def default: (CanvasPlatform => Any, String) = (cv => WWIIGuiOld(cv, WW1940Old, None, None), "World War II")
 
   override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
   { val oScale = sts.findSettingPosDbl("scale")
     val scale: Option[Length] = oScale.mapToOption(1.km * _)
     val latLong: EMon[LatLong] =sts.findSetting[LatLong]("latLong")
-    (cv => WWIIGuiOld(cv, WW1940, scale, latLong.toOption), "World War II")
+    (cv => WWIIGuiOld(cv, WW1940Old, scale, latLong.toOption), "World War II")
   }
 }

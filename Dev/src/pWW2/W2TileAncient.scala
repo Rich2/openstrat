@@ -6,7 +6,7 @@ class W2TileAncient(val x: Int, val y: Int, val terr: WTile) extends ETileAncien
 {
   type FromT = WTile
   def fromT: WTile = terr
-  var lunits: Arr[Army] = Arr()
+  var lunits: Arr[ArmyOld] = Arr()
   override def toString: String = W2TileAncient.persistImplicit.strT(this)
 }
 

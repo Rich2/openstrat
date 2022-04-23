@@ -1,7 +1,5 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pWW2
-import geom._
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pWW2
 
 trait Polity extends ShowSimple
 { override def typeStr: String = "Polity"

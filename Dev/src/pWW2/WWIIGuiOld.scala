@@ -3,7 +3,7 @@ package ostrat; package pWW2
 import geom._, pglobe._, pEarth._, pgui._, pStrat._
 
 /** Gui for World War 2 scenarios, uses the deprecated ancient tile system. */
-case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[Length] = None, startFocus: Option[LatLong] = None) extends
+case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScenOld, startScale: Option[Length] = None, startFocus: Option[LatLong] = None) extends
   EarthAllGuiOld("World War II")
 {
   statusText --= "Left click on unit to select, right click to move."
@@ -58,14 +58,14 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScen, startScale: Option[L
       }
 
       case RightButton => (selected, clickList) match
-      { case (AnyArrHead(army: Army), AnyArrHead(newTile: W2TileAncient)) =>
+      { case (AnyArrHead(army: ArmyOld), AnyArrHead(newTile: W2TileAncient)) =>
         { army.tile.lunits = army.tile.lunits.removeFirst(_ == army)
           val newArmy = army.copy(newTile)
           newTile.lunits +%= newArmy
           selected = AnyArr(newArmy)
           repaintMap()
         }
-        case (AnyArrHead(army: Army), as) => debvar(as.sdLength)
+        case (AnyArrHead(army: ArmyOld), as) => debvar(as.sdLength)
         case _ =>
       }
 
