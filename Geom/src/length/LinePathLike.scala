@@ -13,12 +13,12 @@ trait LinePathLike[A] extends Any with ImutSeqDef[A]
 }
 
 trait LinePathValueNsData[A <: ElemValueN] extends Any with LinePathLike[A] with ValueNSeqDef[A]
-trait LinePathDblNs[A <: ElemDblN] extends  Any with LinePathLike[A] with DblNSeqDef[A]
-trait LinePathDbl2s[A <: ElemDbl2] extends Any with LinePathDblNs[A] with Dbl2SeqDef[A]
-trait LinePathDbl3s[A <: ElemDbl3] extends Any with LinePathDblNs[A] with Dbl3SeqDef[A]
+trait LinePathDblN[A <: ElemDblN] extends  Any with LinePathLike[A] with DblNSeqDef[A]
+trait LinePathDbl2[A <: ElemDbl2] extends Any with LinePathDblN[A] with Dbl2SeqDef[A]
+trait LinePathDbl3[A <: ElemDbl3] extends Any with LinePathDblN[A] with Dbl3SeqDef[A]
 
-trait LinePathIntNs[A <: ElemIntN] extends  Any with LinePathLike[A] with IntNSeqDef[A]
-trait LinePathInt2s[A <: ElemInt2] extends Any with LinePathIntNs[A] with Int2SeqDef[A]
+trait LinePathIntN[A <: ElemIntN] extends  Any with LinePathLike[A] with IntNSeqDef[A]
+trait LinePathInt2[A <: ElemInt2] extends Any with LinePathIntN[A] with Int2SeqDef[A]
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
  * the companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into
@@ -48,14 +48,14 @@ trait LinePathBuilder[B, BB <: LinePathLike[B]] extends ImutSeqDefBuilder[B, BB]
 
 /** Trait for creating the line path builder instances for the [[LinePathBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait LinePathValueNsBuilder[B <: ElemValueN, BB <: LinePathLike[B]] extends LinePathBuilder[B, BB]
+trait LinePathValueNBuilder[B <: ElemValueN, BB <: LinePathLike[B]] extends LinePathBuilder[B, BB]
 { def elemProdSize: Int
 }
 
-/** Trait for creating the builder type class instances for [[LinePathDblNs]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
+/** Trait for creating the builder type class instances for [[LinePathDblN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblNs[B] ] extends LinePathValueNsBuilder[B, BB]
+trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblN[B] ] extends LinePathValueNBuilder[B, BB]
 { type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): BB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
@@ -66,29 +66,29 @@ trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblNs[B] ] extends LineP
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
-/** Trait for creating the line path type class instances for [[LinePathDbl2s]] final classes. Instances for the [[LinePathDbl2Builder]] type class,
+/** Trait for creating the line path type class instances for [[LinePathDbl2]] final classes. Instances for the [[LinePathDbl2Builder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait LinePathDbl2Builder[B <: ElemDbl2, BB <: LinePathDbl2s[B]] extends LinePathDblNsBuilder[B, BB]
+trait LinePathDbl2Builder[B <: ElemDbl2, BB <: LinePathDbl2[B]] extends LinePathDblNsBuilder[B, BB]
 { type BuffT <: Dbl2Buff[B]
   final override def elemProdSize = 2
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
 }
 
-/** Trait for creating the line path type class instances for [[LinePathDbl3s]] final classes. Instances for the [[LinePathDbl3sBuilder]] type class,
+/** Trait for creating the line path type class instances for [[LinePathDbl3]] final classes. Instances for the [[LinePathDbl3sBuilder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait LinePathDbl3sBuilder[B <: ElemDbl3, BB <: LinePathDbl3s[B]] extends LinePathDblNsBuilder[B, BB]
+trait LinePathDbl3sBuilder[B <: ElemDbl3, BB <: LinePathDbl3[B]] extends LinePathDblNsBuilder[B, BB]
 { type BuffT <: Dbl3Buff[B]
   final override def elemProdSize = 3
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl3
     arr.unsafeArray(index * 2 + 2) = value.dbl3 }
 }
 
-/** Trait for creating the builder type class instances for [[LinePathIntNs]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
+/** Trait for creating the builder type class instances for [[LinePathIntN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntNs[B] ] extends LinePathValueNsBuilder[B, BB]
+trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntN[B] ] extends LinePathValueNBuilder[B, BB]
 { type BuffT <: IntNBuff[B]
   def fromIntArray(array: Array[Int]): BB
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
@@ -99,10 +99,10 @@ trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntNs[B] ] extends LineP
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
-/** Trait for creating the line path type class instances for [[LinePathInt2s]] final classes. Instances for the [[LinePathInt2sBuilder]] type class,
+/** Trait for creating the line path type class instances for [[LinePathInt2]] final classes. Instances for the [[LinePathInt2sBuilder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemInt2]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait LinePathInt2sBuilder[B <: ElemInt2, BB <: LinePathInt2s[B]] extends LinePathIntNsBuilder[B, BB]
+trait LinePathInt2sBuilder[B <: ElemInt2, BB <: LinePathInt2[B]] extends LinePathIntNsBuilder[B, BB]
 { type BuffT <: Int2Buff[B]
   final override def elemProdSize = 2
   override def arrSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.int1; arr.unsafeArray(index * 2 + 1) = value.int2 }
