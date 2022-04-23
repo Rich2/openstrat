@@ -26,7 +26,9 @@ case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends GlobeGu
 
     val cens = gls.map(_.toMetres3.fromLatLongFocus(focus))
     val cens2 = cens.map(v => TextGraphic("Hi", 8, v.xy / scale))
-
+    val polys = grid.map{hc => hc.hVertPolygon.map(grid.hCoordLL(_)).toMetres3.fromLatLongFocus(focus).map(_.xy)
+    }
+    val polys2 = polys.map( p => p.map(_ / scale).fill(Colour.Gold))
     val af1 = afps2.map { a => a._2.map(_ / scale).draw() }
     val af2 = afps2.map { pair =>
       val (d, _) = pair
@@ -36,7 +38,7 @@ case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends GlobeGu
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
-    mainRepaint(seas %: af0 ++ cens2)// ++ af1)// ++ af2)
+    mainRepaint(seas %: af0 ++ polys2 ++ cens2)// ++ af1)// ++ af2)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()
