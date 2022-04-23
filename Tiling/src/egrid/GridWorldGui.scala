@@ -4,10 +4,11 @@ import pgui._, geom._, eg80._, prid._, phex._, pEarth._, pglobe._
 
 case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends GlobeGui("Grid World")
 {
-  var scale: Length = 3.2.kMetres
+  var scale: Length = 1.kMetres
   var focus: LatLong = 58 ll 0
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
   implicit val grid: EGrid80KmMain = eg80.EGrid80Km.l0b446
+  val terrs = EuropeNW80Terr()
   val gls: LatLongArr = grid.map(hc => grid.hCoordLL(hc))
 
   def repaint(): Unit =
@@ -25,10 +26,17 @@ case class GridWorldGui(canv: CanvasPlatform, viewIn: HGridView) extends GlobeGu
     }
 
     val cens = gls.map(_.toMetres3.fromLatLongFocus(focus))
-    val cens2 = cens.map(v => TextGraphic("Hi", 8, v.xy / scale))
-    val polys = grid.map{hc => hc.hVertPolygon.map(grid.hCoordLL(_)).toMetres3.fromLatLongFocus(focus).map(_.xy)
+    val cens2 = cens.map(v => TextGraphic("Hex", 8, v.xy / scale))
+    val polys = grid.map{hc =>
+      val col = terrs(hc).colour
+      val p = hc.hVertPolygon.map(grid.hCoordLL(_)).toMetres3.fromLatLongFocus(focus).map(_.xy)
+      (p, col)
     }
-    val polys2 = polys.map( p => p.map(_ / scale).fill(Colour.Gold))
+    val polys2 = polys.map{ pair =>
+      val (p, col) = pair
+      p.map(_ / scale).fill(col)
+    }
+
     val af1 = afps2.map { a => a._2.map(_ / scale).draw() }
     val af2 = afps2.map { pair =>
       val (d, _) = pair

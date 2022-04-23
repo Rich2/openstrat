@@ -6,7 +6,7 @@ import geom._, pglobe._, prid._, phex._
 abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, cScale: Length, val rOffset: Int,
   val cOffset: Int) extends EGrid(rBottomCen, EGridMain.getBounds(rBottomCen, rTopCen, rOffset, cOffset, cScale), cScale)
 {
-  def hCoordLL(hc: HCoord): LatLong = EGridMain.hCenToLatLong0(hc.r - rOffset, hc.c - cOffset, 0, cScale)
+  def hCoordLL(hc: HCoord): LatLong = EGridMain.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, /*0,*/ cScale)
 }
 
 /** Functions for Earth tile grids. */
