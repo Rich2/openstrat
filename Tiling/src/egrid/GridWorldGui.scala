@@ -2,12 +2,12 @@
 package ostrat; package egrid
 import pgui._, geom._, eg80._, prid._, phex._, pEarth._, pglobe._
 
-class GridWorldGui(val canv: CanvasPlatform, gridIn: EGrid80KmMain, viewIn: HGridView) extends GlobeGui("Grid World")
+class GridWorldGui(val canv: CanvasPlatform, gridIn: EGridMain, viewIn: HGridView) extends GlobeGui("Grid World")
 {
   var scale: Length = 1.kMetres
   var focus: LatLong = 58 ll 0
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
-  implicit val grid: EGrid80KmMain = gridIn
+  implicit val grid: EGridMain = gridIn
   var view: HGridView = viewIn
 
   val terrs = EuropeNW80Terr()
