@@ -56,5 +56,5 @@ class GridWorldGui(val canv: CanvasPlatform, gridIn: EGridMain, viewIn: HGridVie
 }
 
 object GridWorldGui
-{ def apply(canv: CanvasPlatform, grid: EGrid80KmMain, view: HGridView): GridWorldGui = new GridWorldGui(canv,grid, view)
+{ def apply(canv: CanvasPlatform, grid: EGrid80Main, view: HGridView): GridWorldGui = new GridWorldGui(canv,grid, view)
 }

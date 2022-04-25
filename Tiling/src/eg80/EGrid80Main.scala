@@ -3,29 +3,37 @@ package ostrat; package eg80
 import egrid._, geom.pglobe._
 
 /** A main non-polar grid with a hex span of 80Km */
-class EGrid80KmMain(rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: Int) extends
+class EGrid80Main(rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: Int) extends
   EGridMain(rBottomCen, rTopCen, cenLong, 20000.metres, 300, cOffset)
 
 /** object for creating 80km hex scale earth grids. */
 object EGrid80Km
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
-  def l0(rBottomCen: Int, rTopCen: Int = 540): EGrid80KmMain = new EGrid80KmMain(rBottomCen, rTopCen, 0.east, 512)
+  def l0(rBottomCen: Int, rTopCen: Int = 540): EGrid80Main = new EGrid80Main(rBottomCen, rTopCen, 0.east, 512)
 
   /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 20Km or hex scale 80km. */
-  def l30(rBottomCen: Int, rTopCen: Int = 540): EGrid80KmMain = new EGrid80KmMain(rBottomCen, rTopCen, 30.east,t"1G0"/* 1536*/)
+  def l30(rBottomCen: Int, rTopCen: Int = 540): EGrid80Main = new EGrid80Main(rBottomCen, rTopCen, 30.east,t"1G0"/* 1536*/)
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
-  def l0b446: EGrid80KmMain = new EGrid80KmMain(446, 540, 0.east, 512)
-  def l30b446: EGrid80KmMain = new EGrid80KmMain(446, 540, 30.east, 1536)
+  def l0b446: EGrid80Main = new EGrid80Main(446, 540, 0.east, 512)
+  def l30b446: EGrid80Main = new EGrid80Main(446, 540, 30.east, 1536)
 
   def scen1: EScenBasic ={
-    val grid: EGrid80KmMain = l0(446)
+    val grid: EGrid80Main = l0(446)
     new EScenBasic(grid, EuropeNW80Terr())
   }
 
   def scen2: EScenBasic = {
-    val grid: EGrid80KmMain = l30(446)
+    val grid: EGrid80Main = l30(446)
     new EScenBasic(grid, EuropeNE80Terr())
   }
 }
 
+trait EGrid80MainMan extends EGridMainMan
+{ override val grid: EGrid80Main
+}
+
+trait EGrid80MainMulti extends EGridMainMulti
+{ override val gridMans: Arr[EGrid80MainMan]
+  override val grids: Arr[EGrid80Main] = gridMans.map(_.grid)
+  }
