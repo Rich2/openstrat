@@ -1,12 +1,19 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import prid._, phex._
+import geom.pglobe._, prid._, phex._
 
-trait EGridMainMan extends HGridMan
+trait EGridMainSys extends EGridSys
+{
+
+}
+
+trait EGridMainMan extends EGridMan
 { override val grid: EGridMain
 }
 
-trait EGridMainMulti extends HGridMulti
+trait EGridMainMulti extends EGridMainSys with EGridMulti
 { override val gridMans: Arr[EGridMainMan]
   override val grids: Arr[EGridMain] = gridMans.map(_.grid)
+
+  override def hCoordLL(hc: HCoord): LatLong = ???//grid
 }

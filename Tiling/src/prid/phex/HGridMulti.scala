@@ -10,12 +10,12 @@ trait HGridMulti extends HGridSys with TGridMulti
   def numGrids: Int = gridMans.length
 
   /** Gets the appropriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
-  final def unsafeGetMan(hCen: HCen): HGridMan = unsafeGetMan(hCen.r, hCen.c)
+  final def unsafeGetMan(hc: HCoord): HGridMan = unsafeGetMan(hc.r, hc.c)
 
   /** Gets the appropriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
   def unsafeGetMan(r: Int, c: Int): HGridMan
 
-  def unsafeGetManFunc[A](hCen: HCen)(f: HGridMan => A): A = f(unsafeGetMan(hCen))
+  def unsafeGetManFunc[A](hc: HCoord)(f: HGridMan => A): A = f(unsafeGetMan(hc))
   def unsafeGetManFunc[A](r: Int, c: Int)(f: HGridMan => A): A = f(unsafeGetMan(r, c))
   def gridNumForeach(f: Int => Unit): Unit = iUntilForeach(0, numGrids)(f)
   def gridMansForeach(f: HGridMan => Unit) = gridMans.foreach(f)

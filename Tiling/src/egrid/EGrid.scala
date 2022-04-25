@@ -3,7 +3,8 @@ package ostrat; package egrid
 import pEarth._, prid._, phex._, WTile._
 
 /** A hex grid on the surface of the earth. */
-abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrr(bottomTileRow, unsafeRowsArray)
+abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrr(bottomTileRow, unsafeRowsArray) with
+  EGridSys
 {
 
 }
