@@ -2,7 +2,7 @@
 package ostrat; package pAltReact
 import pgui._, prid._, psq._, geom._
 
-case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends HexMapGui("Alternative Reactor")
+case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends HGridFlatGui("Alternative Reactor")
 {
   statusText = "a Welcome alternative to ReactorGui."
 

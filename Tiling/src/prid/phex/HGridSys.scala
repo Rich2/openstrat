@@ -13,7 +13,7 @@ trait HGridSys extends Any with TGridSys
 
   /** Boolean. True if the specified hex centre exists in this hex grid. */
   def hCenExists(r: Int, c:Int): Boolean
-
+  def coordCen: HCoord
   def hCenSteps(hCen: HCen): HDirnArr
 
   def unsafeStepEnd(startCen: HCen, step: HDirn): HCen

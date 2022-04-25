@@ -2,9 +2,20 @@
 package ostrat; package prid
 import geom._, pgui._
 
-abstract class TileMapGui(title: String) extends CmdBarGui(title)
+abstract class TGridGui(title: String) extends CmdBarGui(title)
 { /** Tile grid system this gui displays. */
-  def gridSys: TGridSysFlat
+  def gridSys: TGridSys
+
+  /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
+  def thisTop(): Unit
+
+  def frame: GraphicElems
+  def repaint(): Unit = mainRepaint(frame)
+}
+
+abstract class TGridFlatGui(title: String) extends TGridGui(title)
+{ /** Tile grid system this gui displays. */
+  override def gridSys: TGridSysFlat
 
   /** The number of pixels displayed per c column coordinate. */
   var cPScale: Double
@@ -15,10 +26,7 @@ abstract class TileMapGui(title: String) extends CmdBarGui(title)
   var focus: Vec2 = Vec2(0, 0)
 
   def tilePScaleStr = s"scale = ${ptScale.str2} pixels per tile"
-  /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit
-  def frame: GraphicElems
-  def repaint(): Unit = mainRepaint(frame)
+
 
   def zoomIn: PolygonCompound = clickButton("+"){_ =>
     cPScale *= 1.1
@@ -62,10 +70,14 @@ abstract class TileMapGui(title: String) extends CmdBarGui(title)
   def navButtons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 }
 
-abstract class HexMapGui(title: String) extends TileMapGui(title)
+abstract class HGridGui(title: String) extends TGridGui(title)
+{ override def gridSys: phex.HGridSys
+}
+
+abstract class HGridFlatGui(title: String) extends TGridFlatGui(title)
 { override def ptScale: Double = cPScale * 4
 }
 
-abstract class SquareMapGui(title: String) extends TileMapGui(title)
+abstract class SquareMapGui(title: String) extends TGridFlatGui(title)
 { override def ptScale: Double = cPScale * 2
 }

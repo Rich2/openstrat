@@ -2,11 +2,11 @@
 package ostrat; package egrid
 import  pgui._, geom._, prid._, phex._, pEarth._
 
-case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) extends HexMapGui("North West Europe Gui")
+case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) extends HGridGui("North West Europe Gui")
 {
   statusText = "Welcome to the new EGrids"
-  implicit val gridSys: EGridMain = scen.eGrid
-  focus = viewIn.vec
+  implicit val gridSys: EGridMainSys = scen.eGrid
+  //focus = viewIn.vec
   var cPScale: Double = viewIn.pxScale
   def metresScale: Double = cPScale / gridSys.cScale.mMetresNum
 
@@ -22,8 +22,8 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
     hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, str, 16, terrs(hc).contrastBW)
   }
 
-  def thisTop(): Unit = reTop(navButtons)
-  def frame: GraphicElems = ife(metresScale > 1400, tileStrs,tiles).slate(-focus).scale(cPScale)
+  def thisTop(): Unit = reTop(Arr())//navButtons)
+  def frame: GraphicElems = ife(metresScale > 1400, tileStrs,tiles)/*.slate(-focus)*/.scale(cPScale)
   repaint()
   thisTop()
 }

@@ -2,7 +2,7 @@
 package ostrat; package gFour
 import pgui._, prid._, phex._, geom._, gPlay._
 
-case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HexMapGui("Game Three Gui")
+case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridFlatGui("Game Three Gui")
 { statusText = "Welcome to Game Four."
   val scen = scenStart
   def terrs: HCenDGrid[Terr] = scen.terrs

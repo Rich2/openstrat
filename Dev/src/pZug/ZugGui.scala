@@ -3,7 +3,7 @@ package ostrat; package pZug
 import pgui._, prid._, phex._, geom._, Colour._, pStrat._
 
 /** Graphical User Interface for ZugFuhrer game. */
-case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HexMapGui("ZugFuhrer Gui")
+case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridFlatGui("ZugFuhrer Gui")
 {
   var scen = scenIn
   implicit def gridSys: HGrid = scen.gridSys
