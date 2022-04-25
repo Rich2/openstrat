@@ -2,13 +2,18 @@
 package ostrat; package eg80
 import prid._, phex._, egrid._, geom.pglobe._
 
-object GridsNWNE extends HGridMulti {
-  val gridMan1 = new HGridMan(EGrid80Km.l0b446, 0)
-  { override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
+object GridsNWNE extends HGridMulti
+{
+  val gridMan1 = new HGridMan
+  { override val grid: HGrid = EGrid80Km.l0b446
+    override val arrIndex: Int = 0
+    override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
-  val gridMan2 = new HGridMan(EGrid80Km.l30b446, gridMan1.numTiles)
-  { override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
+  val gridMan2 = new HGridMan
+  { override val grid: HGrid = EGrid80Km.l30b446
+    override val arrIndex: Int = gridMan1.numTiles
+    override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
   override def gridMans: Arr[HGridMan] = Arr(gridMan1, gridMan1)
