@@ -3,7 +3,7 @@ package ostrat; package egrid
 import geom.pglobe._, prid._, phex._
 
 trait EGridSys extends HGridSys
-{
+{ def cScale: Length
   def hCoordLL(hc: HCoord): LatLong
 }
 
@@ -12,8 +12,8 @@ trait EGridMan extends HGridMan
 }
 
 trait EGridMulti extends EGridSys with HGridMulti
-{ override val gridMans: Arr[EGridMan]
+{ override type GridT = EGrid
+  override type ManT = EGridMan
   override val grids: Arr[EGrid] = gridMans.map(_.grid)
-
-  override def hCoordLL(hc: HCoord): LatLong = ???//grid
+  override def hCoordLL(hc: HCoord): LatLong = unsafeGetManFunc(hc)(_.grid.hCoordLL(hc))
 }

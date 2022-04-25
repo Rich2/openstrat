@@ -4,7 +4,8 @@ import geom._, pglobe._, prid._, phex._
 
 /** One of the main hex grids for the earth not a polar grid.  ((rTopCen - rBottomCen + 2) / 2).max0 */
 abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, cScale: Length, val rOffset: Int,
-  val cOffset: Int) extends EGrid(rBottomCen, EGridMain.getBounds(rBottomCen, rTopCen, rOffset, cOffset, cScale), cScale)
+  val cOffset: Int) extends EGrid(rBottomCen, EGridMain.getBounds(rBottomCen, rTopCen, rOffset, cOffset, cScale), cScale) with
+  EGridMainSys
 {
   def hCoordLL(hc: HCoord): LatLong = EGridMain.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, /*0,*/ cScale)
 }

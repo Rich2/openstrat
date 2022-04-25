@@ -4,27 +4,28 @@ import ostrat.geom._
 
 /** A system of multiple [[HGrid]]s. */
 trait HGridMulti extends HGridSys with TGridMulti
-{ final type GridT = HGrid
-  def gridMans: Arr[HGridMan]
-  def grids: Arr[HGrid] = gridMans.map(_.grid)
+{ type GridT <: HGrid
+  type ManT <: HGridMan
+  def gridMans: Arr[ManT]
+  def grids: Arr[GridT] = gridMans.map(_.grid).asInstanceOf[Arr[GridT]]
   def numGrids: Int = gridMans.length
 
   /** Gets the appropriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
-  final def unsafeGetMan(hc: HCoord): HGridMan = unsafeGetMan(hc.r, hc.c)
+  final def unsafeGetMan(hc: HCoord): ManT = unsafeGetMan(hc.r, hc.c)
 
   /** Gets the appropriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
-  def unsafeGetMan(r: Int, c: Int): HGridMan
+  def unsafeGetMan(r: Int, c: Int): ManT
 
-  def unsafeGetManFunc[A](hc: HCoord)(f: HGridMan => A): A = f(unsafeGetMan(hc))
-  def unsafeGetManFunc[A](r: Int, c: Int)(f: HGridMan => A): A = f(unsafeGetMan(r, c))
+  def unsafeGetManFunc[A](hc: HCoord)(f: ManT => A): A = f(unsafeGetMan(hc))
+  def unsafeGetManFunc[A](r: Int, c: Int)(f: ManT => A): A = f(unsafeGetMan(r, c))
   def gridNumForeach(f: Int => Unit): Unit = iUntilForeach(0, numGrids)(f)
-  def gridMansForeach(f: HGridMan => Unit) = gridMans.foreach(f)
-  def gridMansMap[A, AA <: SeqImut[A]](f: HGridMan => A)(implicit build: ArrBuilder[A, AA]): AA = gridMans.map(f)
-  def gridMansFlatMap[AA <: SeqImut[_]](f: HGridMan => AA)(implicit build: ArrFlatBuilder[AA]): AA = gridMans.flatMap(f)
+  def gridMansForeach(f: ManT => Unit) = gridMans.foreach(f)
+  def gridMansMap[A, AA <: SeqImut[A]](f: ManT => A)(implicit build: ArrBuilder[A, AA]): AA = gridMans.map(f)
+  def gridMansFlatMap[AA <: SeqImut[_]](f: ManT => AA)(implicit build: ArrFlatBuilder[AA]): AA = gridMans.flatMap(f)
 
-  def gridMansFold[B](initValue: B)(f: (B, HGridMan) => B): B = gridMans.foldLeft(initValue)(f)
-  inline def gridMansFold[B](f: (B, HGridMan) => B)(implicit ev: DefaultValue[B]): B = gridMansFold(ev.default)(f)
-  def gridMansSum(f: HGridMan => Int): Int = gridMansFold(0)((acc, el) => acc + f(el))
+  def gridMansFold[B](initValue: B)(f: (B, ManT) => B): B = gridMans.foldLeft(initValue)(f)
+  inline def gridMansFold[B](f: (B, ManT) => B)(implicit ev: DefaultValue[B]): B = gridMansFold(ev.default)(f)
+  def gridMansSum(f: ManT => Int): Int = gridMansFold(0)((acc, el) => acc + f(el))
 
   def gridNumsFold[B](initValue: B)(f: (B, Int) => B): B = {
     var acc: B = initValue

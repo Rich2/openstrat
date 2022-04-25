@@ -2,9 +2,14 @@
 package ostrat; package eg80
 import egrid._, geom.pglobe._
 
+trait EGrid80Sys extends EGridSys
+{
+  override val cScale: Length = 80.kMetres
+}
+
 /** A main non-polar grid with a hex span of 80Km */
 class EGrid80Main(rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: Int) extends
-  EGridMain(rBottomCen, rTopCen, cenLong, 20000.metres, 300, cOffset)
+  EGridMain(rBottomCen, rTopCen, cenLong, 20000.metres, 300, cOffset) with EGrid80Sys
 
 /** object for creating 80km hex scale earth grids. */
 object EGrid80Km
@@ -33,7 +38,7 @@ trait EGrid80MainMan extends EGridMainMan
 { override val grid: EGrid80Main
 }
 
-trait EGrid80MainMulti extends EGridMainMulti
+trait EGrid80MainMulti extends EGridMainMulti with EGrid80Sys
 { override val gridMans: Arr[EGrid80MainMan]
   override val grids: Arr[EGrid80Main] = gridMans.map(_.grid)
   }

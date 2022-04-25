@@ -4,7 +4,7 @@ import geom._
 
 /** This class may be removed. Its for the development of [[HGridSys]]. So just 2 regular grids side by side, to make an easy start on the general problem. */
 final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends HGridMultiFlat
-{
+{ type ManT = HGridMan
   val grid1 = HGridReg(minCenR, maxCenR, minC1, maxC1)
   val grid2 = HGridReg(minCenR, maxCenR, minC2, maxC2)
   val grid2OffsetC: Int = maxC1 - minC2 + 2
