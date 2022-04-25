@@ -82,6 +82,11 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
       case (_, c2) => f1(hs, apply(c2))
     }
   }
+
+  def ++ (operand: HCenDGrid[A])(implicit ct: ClassTag[A]): HCenDGrid[A] = {
+    val newArray = Array.concat(unsafeArray, operand.unsafeArray)
+    new HCenDGrid[A](newArray)
+  }
 }
 
 /** Companion object for [[HCenDGrid]], contains an apply factory method. */

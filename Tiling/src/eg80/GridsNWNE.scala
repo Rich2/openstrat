@@ -29,3 +29,8 @@ object GridsNWNE extends EGrid80MainMulti
    * departure and the tile of arrival. */
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
+
+object ScenNWNE extends EScenBasic(GridsNWNE, EuropeNW80Terr() ++ EuropeNE80Terr())
+{
+
+}

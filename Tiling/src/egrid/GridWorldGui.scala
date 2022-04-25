@@ -1,16 +1,16 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import pgui._, geom._, eg80._, prid._, phex._, pEarth._, pglobe._
+import pgui._, geom._, prid._, phex._, pEarth._, pglobe._
 
-class GridWorldGui(val canv: CanvasPlatform, gridIn: EGridMain, viewIn: HGridView) extends GlobeGui("Grid World")
+class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridView) extends GlobeGui("Grid World")
 {
   var scale: Length = 1.kMetres
   var focus: LatLong = 58 ll 0
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
-  implicit val grid: EGridMain = gridIn
+  implicit val grid: EGridMainSys = scenIn.eGrid
   var view: HGridView = viewIn
 
-  val terrs = EuropeNW80Terr()
+  val terrs: HCenDGrid[WTile] = scenIn.terrs
   val gls: LatLongArr = grid.map(hc => grid.hCoordLL(hc))
 
   def repaint(): Unit =
@@ -56,5 +56,5 @@ class GridWorldGui(val canv: CanvasPlatform, gridIn: EGridMain, viewIn: HGridVie
 }
 
 object GridWorldGui
-{ def apply(canv: CanvasPlatform, grid: EGrid80Main, view: HGridView): GridWorldGui = new GridWorldGui(canv,grid, view)
+{ def apply(canv: CanvasPlatform, grid: EScenBasic/* EGrid80Main*/, view: HGridView): GridWorldGui = new GridWorldGui(canv,grid, view)
 }

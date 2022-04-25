@@ -6,6 +6,9 @@ trait EGridSys extends HGridSys
 { def cScale: Length
   def hCoordLL(hc: HCoord): LatLong
 }
+/** A hex grid on the surface of the earth. */
+abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrr(bottomTileRow, unsafeRowsArray) with
+  EGridSys
 
 trait EGridMan extends HGridMan
 { override val grid: EGrid
@@ -17,3 +20,6 @@ trait EGridMulti extends EGridSys with HGridMulti
   override val grids: Arr[EGrid] = gridMans.map(_.grid)
   override def hCoordLL(hc: HCoord): LatLong = unsafeGetManFunc(hc)(_.grid.hCoordLL(hc))
 }
+
+/** A basic EGrid scenario, containing grid and basic terrain data. */
+class EScenBasic(val eGrid: EGridMainSys, val terrs: HCenDGrid[pEarth.WTile])
