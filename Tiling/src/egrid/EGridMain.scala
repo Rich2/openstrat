@@ -7,7 +7,28 @@ abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, 
   val cOffset: Int) extends EGrid(rBottomCen, EGridMain.getBounds(rBottomCen, rTopCen, rOffset, cOffset, cScale), cScale) with
   EGridMainSys
 {
-  def hCoordLL(hc: HCoord): LatLong = EGridMain.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, cScale).addLong(cenLong)
+  def hCoordMiddleLL(hc: HCoord): LatLong = EGridMain.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, cScale).addLong(cenLong)
+  def hCoordLL(hc: HCoord): LatLong = hc.c match{
+    case c if c == rowRightCoordC(hc.r) =>
+    { val rt = hCoordMiddleLL(hc)
+      val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r)))
+      val rtLong = rt.longMilliSecs
+      val ltLong = (lt.long + 30.east).milliSecs
+      val longMilliSecs = rtLong aver ltLong
+      LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
+    }
+    case c if c == rowLeftCoordC(hc.r) =>
+    { val lt = hCoordMiddleLL(hc)
+      val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r)))
+      val ltLong = lt.longMilliSecs
+      val rtLong = (rt.long - 30.east).milliSecs
+      val longMilliSecs = ltLong aver rtLong
+      LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
+    }
+
+    case _ => hCoordMiddleLL(hc)
+  }
+
 }
 
 /** Functions for Earth tile grids. */

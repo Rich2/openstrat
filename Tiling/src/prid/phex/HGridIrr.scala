@@ -35,8 +35,8 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
       if (rowNumTiles(r) > 0) f(HSide(r, rowRightCenC(r) + 2))
     }
 
-    case r if r == sideRowBottom => rowForeach(r + 1){ hc => f(HSide(r, hc.c - 1)); f(HSide(r, hc.c + 1)) }
-    case r if r == sideRowTop => rowForeach(r - 1){ hc => f(HSide(r, hc.c - 1)); f(HSide(r, hc.c + 1)) }
+    case r if r == bottomSideR => rowForeach(r + 1){ hc => f(HSide(r, hc.c - 1)); f(HSide(r, hc.c + 1)) }
+    case r if r == topSideR => rowForeach(r - 1){ hc => f(HSide(r, hc.c - 1)); f(HSide(r, hc.c + 1)) }
 
     case r =>
     { val start = rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) - 1

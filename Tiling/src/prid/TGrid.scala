@@ -44,12 +44,6 @@ trait TGrid extends Any with TGridSysFlat
   /** The [[TCenOrSide]] coordinate centre of this tile grid. */
   def coordCen: TCoord
 
-  /** The bottom or lowest tile side row, r coordinate. */
-  @inline final def sideRowBottom: Int = bottomCenR - 1
-
-  /** The top of highest tile side row, r coordinate. */
-  @inline def sideRowTop: Int = topCenR + 1
-
   /** The minimum or lowest tile centre column c coordinate in the whole tile grid. This is called c rather than x because in hex grids [[HGrid]]s
    *  there is not a 1 to 1 ratio from column coordinate to the x value in a [[Pt2]]. */
   def leftCenC: Int
