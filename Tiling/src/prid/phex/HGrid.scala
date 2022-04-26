@@ -66,6 +66,20 @@ trait HGrid extends Any with TGrid with HGridSysFlat
   /** The end (or by default right) column number of the tile centre of the given row. */
   def rowRightCenC(row: Int): Int
 
+  def rowRightCoordC(row: Int): Int = (row %% 4) match {
+    case 0 | 2 => rowRightCenC(row) + 2
+    case _ if row == topSideR => rowRightCenC(row - 1) + 2
+    case _ if row == bottomSideR => rowRightCenC(row + 1) + 2
+    case _ => rowRightCenC(row - 1).max(rowRightCenC(row + 1)) + 2
+  }
+
+  def rowLeftCoordC(row: Int): Int = (row %% 4) match {
+    case 0 | 2 => rowLeftCenC(row) - 2
+    case _ if row == topSideR => rowLeftCenC(row - 1) - 2
+    case _ if row == bottomSideR => rowLeftCenC(row + 1) - 2
+    case _ => rowLeftCenC(row - 1).min(rowLeftCenC(row + 1)) - 2
+  }
+
   override def polygons: Arr[Polygon] = map(_.polygonReg)
 
   /** The active tiles without any PaintElems. */
