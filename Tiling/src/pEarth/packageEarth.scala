@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import geom._, pglobe._, pGrid._
 
@@ -15,7 +15,7 @@ package object pEarth
 {
    /** The North-South divide between Area1s and Grids at 45 degrees north approx. */
    val divN45 = 45.27369792435918.north
-   //import HexGrid._
+
    /** Returns a function for a specific EGrid to convert from gridVec to Latlong */
    def fVec2ToLatLongReg(refLong: Longitude, scale: Length, xOffset: Int, yOffset: Int = 0): Pt2 => LatLong = inp =>
       {
@@ -33,25 +33,5 @@ package object pEarth
          val lat: Double = d2.y / EarthPolarRadius         
          val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
          LatLong.radians(lat, refLong.radians + longDelta)
-      }   
-   
-   /** Not necessarily used */   
-   def vec2ToLatLong0(inp: Pt2, refLong: Longitude, scale: Length, yOffset: Int = 0): LatLong =
-   {
-      val vOffset = HexGridAncient.coodToVec2(0, yOffset)
-      val d2: PtM2 = (inp - vOffset).toMetres(scale)
-      val lat: Double = d2.y / EarthPolarRadius         
-      val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
-      LatLong.radians(lat, refLong.radians + longDelta)
-   }
-   
-   /** Not necessarily used */
-   def  coodToLatLong0(inp: Cood, scale: Length, yOffset: Int = 0): LatLong =
-   {
-      val adj: Pt2 = HexGridAncient.coodToVec2(inp.subY(yOffset))
-      val d2: PtM2 = adj.toMetres(scale)
-      val lat = d2.y / EarthPolarRadius         
-      val longDelta: Double =   d2.x / (EarthEquatorialRadius * math.cos(lat))
-      LatLong.radians(lat, longDelta)
-   }
+      }
 }

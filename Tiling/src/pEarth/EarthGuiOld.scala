@@ -76,7 +76,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   }
 
   def leftCmd: MouseCmd = mb => setFocus(focus.subLong(distDelta(mb)))
-  def rightCmd: MouseCmd = mb => { focus = focus.addLong(distDelta(mb)); updateView() }
+  def rightCmd: MouseCmd = mb => { focus = focus.addLongVec(distDelta(mb)); updateView() }
   def downCmd: MouseCmd = mb => { addLat(-distDelta(mb)); updateView() }
   def upCmd: MouseCmd = mb => { addLat(distDelta(mb)); updateView() }
   def invCmd: MouseCmd = mb => {focusUp = !focusUp; repaintMap() }

@@ -44,6 +44,6 @@ abstract class GlobeGui(title: String) extends CmdBarGui(title)
     focus = ife(northUp, focus.subLat(delta.degs), focus.addLat(delta.degs))
     northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
   }
-  def goEast: PolygonCompound = goDirn("\u2192"){ delta => focus = ife(northUp, focus.addLong(delta.degs), focus.subLong(delta.degs)) }
-  def goWest: PolygonCompound = goDirn("\u2190"){ delta => focus = ife(northUp, focus.subLong(delta.degs), focus.addLong(delta.degs)) }
+  def goEast: PolygonCompound = goDirn("\u2192"){ delta => focus = ife(northUp, focus.addLongVec(delta.degs), focus.subLong(delta.degs)) }
+  def goWest: PolygonCompound = goDirn("\u2190"){ delta => focus = ife(northUp, focus.subLong(delta.degs), focus.addLongVec(delta.degs)) }
 }

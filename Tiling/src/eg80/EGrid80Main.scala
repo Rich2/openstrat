@@ -40,5 +40,5 @@ trait EGrid80MainMan extends EGridMainMan
 
 trait EGrid80MainMulti extends EGridMainMulti with EGrid80Sys
 { override val gridMans: Arr[EGrid80MainMan]
-  override val grids: Arr[EGrid80Main] = gridMans.map(_.grid)
-  }
+  //override val grids: Arr[GridTid80Main] = gridMans.map(_.grid)
+}

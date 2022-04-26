@@ -4,8 +4,9 @@ import geom._, pglobe._, pGrid._, reflect.ClassTag
 
 /** 80km hexs. deltaX in HexCood 1 = 20km */   
 class EGrid80KmAncient[TileT <: TileAncient, SideT <: TileSideAncient](bounds: Array[Int], name: String, cenLong: Longitude, xOffset: Int,
-                                                                       xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
-   EGridAncient[TileT, SideT](bounds, name, cenLong, EGrid80KmAncient.scale, xOffset, EGrid80KmAncient.yOffset, xTileMin, xTileMax, yTileMin, yTileMax, turnNum)
+  xTileMin: Int, xTileMax: Int, yTileMin: Int, yTileMax: Int, turnNum: Int)(implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends
+  EGridAncient[TileT, SideT](bounds, name, cenLong, EGrid80KmAncient.scale, xOffset, EGrid80KmAncient.yOffset, xTileMin, xTileMax, yTileMin, yTileMax,
+  turnNum)
 {
    foreachTileRowAll{y =>
       val pair = EGrid80KmAncient.tileRowMaxX(y, xOffset)

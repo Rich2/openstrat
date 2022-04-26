@@ -4,14 +4,15 @@ import pgui._, geom._, prid._, phex._, pEarth._, pglobe._
 
 class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridView) extends GlobeGui("Grid World")
 {
-  var scale: Length = 1.kMetres
-  var focus: LatLong = 58 ll 0
-  val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
-  implicit val grid: EGridMainSys = scenIn.eGrid
   var view: HGridView = viewIn
+  var scale: Length = 2.kMetres
+  var focus: LatLong = 65 ll 0
+  val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
+  implicit val gridSys: EGridMainSys = scenIn.eGrid
+
 
   val terrs: HCenDGrid[WTile] = scenIn.terrs
-  val gls: LatLongArr = grid.map(hc => grid.hCoordLL(hc))
+  val gls: LatLongArr = gridSys.map{hc => gridSys.hCoordLL(hc)}
 
   def repaint(): Unit =
   {
@@ -27,11 +28,18 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
       p.map(_ / scale).fill(col)//, d)
     }
 
-    val cens = gls.map(_.toMetres3.fromLatLongFocus(focus))
-    val cens2 = cens.map(v => TextGraphic("Hex", 8, v.xy / scale))
-    val polys = grid.map{hc =>
+    def cenTexts = ife(scale <= 1.km, optTexts, Arr[GraphicElem]())
+
+    def optTexts = gridSys.flatMap { hc =>
+      val gls: LatLong = gridSys.hCoordLL(hc)
+      val g2 = gls.toMetres3.fromLatLongFocus(focus)
+      val strs: Strings = Strings(hc.rcStr32, gls.degStr, hc.strComma)
+      TextGraphic.lines(strs, 10, g2.xy / scale, Colour.White)
+    }
+
+    val polys = gridSys.map{ hc =>
       val col = terrs(hc).colour
-      val p = hc.hVertPolygon.map(grid.hCoordLL(_)).toMetres3.fromLatLongFocus(focus).map(_.xy)
+      val p = hc.hVertPolygon.map(gridSys.hCoordLL(_)).toMetres3.fromLatLongFocus(focus).map(_.xy)
       (p, col)
     }
     val polys2 = polys.map{ pair =>
@@ -48,7 +56,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
-    mainRepaint(seas %: af0 ++ polys2 ++ cens2)// ++ af1)// ++ af2)
+    mainRepaint(seas %: af0 ++ polys2 ++ cenTexts)// ++ af1)// ++ af2)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()

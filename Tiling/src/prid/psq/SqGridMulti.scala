@@ -15,7 +15,7 @@ case class SqGridMan(grid: SqGrid, arrIndex: Int)
 trait SqGridMulti extends SqGridSys with TGridMulti
 { final type GridT = SqGrid
   def gridMans: Arr[SqGridMan]
-  final def grids: Arr[SqGrid] = gridMans.map(_.grid)
+  final lazy val grids: Arr[SqGrid] = gridMans.map(_.grid)
   override def defaultView(pxScale: Double = 50): SqGridView = grids(0).defaultView(pxScale)
 }
 

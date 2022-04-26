@@ -7,7 +7,7 @@ abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, 
   val cOffset: Int) extends EGrid(rBottomCen, EGridMain.getBounds(rBottomCen, rTopCen, rOffset, cOffset, cScale), cScale) with
   EGridMainSys
 {
-  def hCoordLL(hc: HCoord): LatLong = EGridMain.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, /*0,*/ cScale)
+  def hCoordLL(hc: HCoord): LatLong = EGridMain.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, cScale).addLong(cenLong)
 }
 
 /** Functions for Earth tile grids. */

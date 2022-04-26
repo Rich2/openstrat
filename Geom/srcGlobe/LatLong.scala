@@ -52,17 +52,23 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   /** Subtract the [[AngleVec]] delta parameter from the latitude. */
   def subLat(delta: AngleVec): LatLong = addLat(-delta)
 
+  /** Add the [[Longitude]] delta parameter to the longitude. */
+  def addLong(delta: Longitude): LatLong = addLongMilliSeca(delta.milliSecs)
+
   /** Add the [[AngleVec]] delta parameter to the longitude. */
-  def addLong(delta: AngleVec): LatLong = {
-    val long1 = longMilliSecs + delta.milliSecs
+  def addLongVec(delta: AngleVec): LatLong = addLongMilliSeca(delta.milliSecs)
+
+  /** Add the delta parameter to the longitude. */
+  def addLongMilliSeca(delta: Double): LatLong = {
+    val long1 = longMilliSecs + delta
     val long2 = long1 %+- MilliSecsIn360Degs
     LatLong.milliSecs(latMilliSecs, long2)
   }
 
   /** Subtract the [[AngleVec]] delta parameter from the longitude. */
-  def subLong(delta: AngleVec): LatLong = addLong(-delta)
+  def subLong(delta: AngleVec): LatLong = addLongVec(-delta)
 
-  def addLongDegs(degsDelta: Double): LatLong = addLong(degsDelta.degs)
+  def addLongDegs(degsDelta: Double): LatLong = addLongVec(degsDelta.degs)
   def subLongDegs(degsDelta: Double): LatLong = addLongDegs(-degsDelta)
 
   /** Get the XY point from a focus with latitude 0 */

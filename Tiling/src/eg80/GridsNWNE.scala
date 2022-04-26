@@ -16,7 +16,10 @@ object GridsNWNE extends EGrid80MainMulti
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
-  override val gridMans: Arr[EGrid80MainMan] = Arr(gridMan1, gridMan1)
+  override val gridMans: Arr[EGrid80MainMan] = Arr(gridMan1, gridMan2)
+
+  /** The grids of this tile gird system. */
+  override val grids: Arr[EGrid] = gridMans.map(_.grid)
 
   /** Splits [[HCen]] allocation at 0y100 0r 1024. */
   override def unsafeGetMan(r: Int, c: Int): EGridMan = ife(c < t"100", gridMan1, gridMan2)

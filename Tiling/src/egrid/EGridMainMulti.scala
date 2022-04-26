@@ -13,7 +13,5 @@ trait EGridMainMan extends EGridMan
 
 trait EGridMainMulti extends EGridMainSys with EGridMulti
 { override val gridMans: Arr[EGridMainMan]
-  override val grids: Arr[EGridMain] = gridMans.map(_.grid)
-
-  override def hCoordLL(hc: HCoord): LatLong = ???//grid
+  override def hCoordLL(hc: HCoord): LatLong = unsafeGetManFunc(hc)(_.grid.hCoordLL(hc))
 }

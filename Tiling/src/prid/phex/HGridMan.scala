@@ -10,7 +10,7 @@ trait HGridMan
   final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
   def outSteps(r: Int, c: Int): HStepCenArr
   def sides: HSideArr = grid.sides
-  val numSides: Int = grid.sides.length
+  def numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGridSysFlat): LineSegs = sides.map(_.lineSeg)
   def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 

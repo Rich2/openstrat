@@ -7,16 +7,21 @@ trait HGridMulti extends HGridSys with TGridMulti
 { type GridT <: HGrid
   type ManT <: HGridMan
   def gridMans: Arr[ManT]
-  def grids: Arr[GridT] = gridMans.map(_.grid).asInstanceOf[Arr[GridT]]
   def numGrids: Int = gridMans.length
 
   override def coordCen: HCoord = grids(0).coordCen
 
-  /** Gets the appropriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
+  /** Gets the appropriate [[HGridMan]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
   final def unsafeGetMan(hc: HCoord): ManT = unsafeGetMan(hc.r, hc.c)
 
-  /** Gets the appropriate [[HGridMan]] for the [[HCen]]. Throws if HCen doesn't exist. */
+  /** Gets the appropriate [[HGridMan]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
   def unsafeGetMan(r: Int, c: Int): ManT
+
+  /** Gets the appropriate [[HGrid]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
+  def unsafeGetGrid(r: Int, c: Int): GridT = unsafeGetMan(r, c).grid.asInstanceOf[GridT]
+
+  /** Gets the appropriate [[HGrid]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
+  final def unsafeGetGrid(hc: HCoord): GridT = unsafeGetMan(hc.r, hc.c).grid.asInstanceOf[GridT]
 
   def unsafeGetManFunc[A](hc: HCoord)(f: ManT => A): A = f(unsafeGetMan(hc))
   def unsafeGetManFunc[A](r: Int, c: Int)(f: ManT => A): A = f(unsafeGetMan(r, c))
