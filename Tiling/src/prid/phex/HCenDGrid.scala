@@ -18,15 +18,27 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
 
   /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
-   *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
-   *  => B signature. */
-  def hcMap[B, BB <: SeqImut[B]](f: (HCen, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
+   *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
+   *  element) => B signature. */
+  def hcMap[B, BB <: SeqImut[B]](f: (HCen, A) => B)(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
   { val res = build.newArr(length)
     grid.iForeach{ (hc, i) =>
       val newElem = f(hc, apply(hc))
       res.unsafeSetElem(i, newElem)
     }
     res
+  }
+
+  /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
+   *  function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
+   *  element) => B signature. */
+  def hcFlatMap[BB <: SeqImut[_]](f: (HCen, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
+  { val buff = build.newBuff()
+    grid.iForeach{ (hc, i) =>
+      val newElems = f(hc, apply(hc))
+      build.buffGrowArr(buff, newElems)
+    }
+    build.buffToBB(buff)
   }
 
   /** Completes the given row from the given starting c column value to the end of the row. An exception is
