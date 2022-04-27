@@ -4,14 +4,11 @@ import pgui._, geom._, prid._, phex._, pEarth._, pglobe._
 
 class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridView) extends GlobeGui("Grid World")
 {
-  //def view: HGridView = HGridView()
-
-
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
   implicit val gridSys: EGridMainSys = scenIn.eGrid
   var scale: Length = gridSys.cScale / viewIn.pxScale
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
-
+  //def view: HGridView = HGridView()
   val terrs: HCenDGrid[WTile] = scenIn.terrs
   val gls: LatLongArr = gridSys.map{hc => gridSys.hCoordLL(hc)}
 
@@ -26,7 +23,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
         case w: Water => Colour.Blue
         case _ => Colour.White
       }
-      p.map(_ / scale).fill(col)//, d)
+      p.map(_ / scale).fill(col)
     }
 
     def cenTexts = ife(scale <= 1.km, optTexts, Arr[GraphicElem]())
