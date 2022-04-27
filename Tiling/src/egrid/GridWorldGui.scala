@@ -5,10 +5,11 @@ import pgui._, geom._, prid._, phex._, pEarth._, pglobe._
 class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridView) extends GlobeGui("Grid World")
 {
   //def view: HGridView = HGridView()
-  var scale: Length = 20.km / viewIn.pxScale
+
 
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
   implicit val gridSys: EGridMainSys = scenIn.eGrid
+  var scale: Length = gridSys.cScale / viewIn.pxScale
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
 
   val terrs: HCenDGrid[WTile] = scenIn.terrs
