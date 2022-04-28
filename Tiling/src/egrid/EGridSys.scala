@@ -3,7 +3,10 @@ package ostrat; package egrid
 import geom.pglobe._, prid._, phex._
 
 trait EGridSys extends HGridSys
-{ def cScale: Length
+{ /** The length of one column coordinate deltat */
+  def cScale: Length
+
+  /** hex coordinate to latiutde and longitude. */
   def hCoordLL(hc: HCoord): LatLong
 }
 /** A hex grid on the surface of the earth. */

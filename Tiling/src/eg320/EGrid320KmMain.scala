@@ -4,7 +4,7 @@ import egrid._, geom.pglobe._, pEarth._, prid._, phex._, WTile._
 
 /** A main non-polar grid with a hex span of 320Km */
 class EGrid320KmMain (rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: Int) extends
-  EGridMain(rBottomCen, rTopCen, cenLong, 80000.metres, 100, cOffset)
+  EGridMain(rBottomCen, rTopCen, cenLong, 80.kMetres, 100, cOffset)
 
 /** object for creating 80km hex scale earth grids. */
 object EGrid320Km
