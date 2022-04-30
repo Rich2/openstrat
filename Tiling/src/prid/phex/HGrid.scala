@@ -80,6 +80,16 @@ trait HGrid extends Any with TGrid with HGridSysFlat
     case _ => rowLeftCenC(row - 1).min(rowLeftCenC(row + 1)) - 2
   }
 
+  def rightVertRowC(row: Int, c: Int): Int = (row %% 4) match {
+    case 0 | 2 => rowRightCenC(row) + 2
+    case _ if row == topSideR & c.div4Rem2 => rowRightCenC(row - 1) + 2
+    case _ if row == topSideR & c.div4Rem0 => rowRightCenC(row - 1)
+    case _ if row == bottomSideR & c.div4Rem2 => rowRightCenC(row + 1) + 2
+    case _ if row == bottomSideR & c.div4Rem0 => rowRightCenC(row + 1)
+    case _ if c.div4Rem2 => rowRightCenC(row - 1).max(rowRightCenC(row + 1)) + 2
+    case _ => rowRightCenC(row - 1).max(rowRightCenC(row + 1))
+  }
+
   override def polygons: Arr[Polygon] = map(_.polygonReg)
 
   /** The active tiles without any PaintElems. */
