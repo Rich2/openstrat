@@ -66,28 +66,63 @@ trait HGrid extends Any with TGrid with HGridSysFlat
   /** The end (or by default right) column number of the tile centre of the given row. */
   def rowRightCenC(row: Int): Int
 
-  def rowRightCoordC(row: Int): Int = (row %% 4) match {
+  /*def rowRightCoordC(row: Int): Int = (row %% 4) match {
     case 0 | 2 => rowRightCenC(row) + 2
     case _ if row == topSideR => rowRightCenC(row - 1) + 2
     case _ if row == bottomSideR => rowRightCenC(row + 1) + 2
     case _ => rowRightCenC(row - 1).max(rowRightCenC(row + 1)) + 2
-  }
+  }*/
 
-  def rowLeftCoordC(row: Int): Int = (row %% 4) match {
+  /*def rowLeftCoordC(row: Int): Int = (row %% 4) match {
     case 0 | 2 => rowLeftCenC(row) - 2
     case _ if row == topSideR => rowLeftCenC(row - 1) - 2
     case _ if row == bottomSideR => rowLeftCenC(row + 1) - 2
     case _ => rowLeftCenC(row - 1).min(rowLeftCenC(row + 1)) - 2
+  }*/
+
+  def rowRightCoordC(row: Int, c: Int): Int = (row %% 4, c %% 4) match
+  { //sides
+    case (1, 3) | (3, 1) if row == topSideR => rowRightCenC(row - 1) - 2
+    case (1, 1) | (3, 3) if row == topSideR => rowRightCenC(row - 1) + 2
+    case (1, 3) | (3, 1) if row == bottomSideR => rowRightCenC(row + 1) + 2
+    case (1, 1) | (3, 3) if row == bottomSideR => rowRightCenC(row + 1) - 2
+    case (1, 3) | (3, 1) => (rowRightCenC(row + 1) + 2) max (rowRightCenC(row - 1) - 2)
+    case (1, 1) | (3, 3) => (rowRightCenC(row + 1) - 2) max (rowRightCenC(row - 1) + 2)
+    case (2, 0) | (0, 2) => rowRightCenC(row) + 2
+
+    //centres
+    case (0, 0) | (2, 2) => rowRightCenC(row)
+
+    //verts
+    case (1, 2) | (3, 0) if row == topSideR => rowRightCenC(row - 1) + 2
+    case (1, 0) | (3, 2) if row == topSideR => rowRightCenC(row - 1)
+    case (1, 2) | (3, 0) if row == bottomSideR => rowRightCenC(row + 1)
+    case (1, 0) | (3, 2) if row == bottomSideR => rowRightCenC(row + 1) + 2
+    case (1, 2) | (3, 0) => (rowRightCenC(row - 1) + 2) max rowRightCenC(row + 1)
+    case _ => rowRightCenC(row - 1) max (rowRightCenC(row + 1) + 2)
   }
 
-  def rightVertRowC(row: Int, c: Int): Int = (row %% 4) match {
-    case 0 | 2 => rowRightCenC(row) + 2
-    case _ if row == topSideR & c.div4Rem2 => rowRightCenC(row - 1) + 2
-    case _ if row == topSideR & c.div4Rem0 => rowRightCenC(row - 1)
-    case _ if row == bottomSideR & c.div4Rem2 => rowRightCenC(row + 1) + 2
-    case _ if row == bottomSideR & c.div4Rem0 => rowRightCenC(row + 1)
-    case _ if c.div4Rem2 => rowRightCenC(row - 1).max(rowRightCenC(row + 1)) + 2
-    case _ => rowRightCenC(row - 1).max(rowRightCenC(row + 1))
+  def rowLeftCoordC(row: Int, c: Int): Int = (row %% 4, c %% 4) match
+  { //Sides
+    case (1, 3) | (3, 1) if row == topSideR => rowLeftCenC(row - 1) - 2
+    case (1, 1) | (3, 3) if row == topSideR => rowLeftCenC(row - 1) + 2
+    case (1, 3) | (3, 1) if row == bottomSideR => rowLeftCenC(row + 1) + 2
+    case (1, 1) | (3, 3) if row == bottomSideR => rowLeftCenC(row + 1) - 2
+    case (1, 3) | (3, 1) => (rowLeftCenC(row + 1) + 2) min (rowLeftCenC(row - 1) - 2)
+    case (1, 1) | (3, 3) => (rowLeftCenC(row + 1) - 2) min (rowLeftCenC(row - 1) + 2)
+    case (2, 0) | (0, 2) => rowLeftCenC(row) - 2
+
+    //centres
+    case (0, 0) | (2, 2) => rowLeftCenC(row)
+
+    //verts
+    case (1, 2) | (3, 0) if row == topSideR => rowLeftCenC(row - 1) - 2
+    case (1, 0) | (3, 2) if row == topSideR => rowLeftCenC(row - 1)
+    case (1, 2) | (3, 0) if row == bottomSideR => rowLeftCenC(row + 1)
+    case (1, 0) | (3, 2) if row == bottomSideR => rowLeftCenC(row + 1) - 2
+
+    case (1, 2) | (3, 0) => (rowLeftCenC(row - 1) - 2) min rowLeftCenC(row + 1)
+    case _ => rowLeftCenC(row - 1) min (rowLeftCenC(row + 1) - 2)
   }
 
   override def polygons: Arr[Polygon] = map(_.polygonReg)

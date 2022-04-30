@@ -8,18 +8,22 @@ abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, 
   EGridMainSys
 {
   def hCoordMiddleLL(hc: HCoord): LatLong = EGridMain.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, cScale).addLong(cenLong)
-  def hCoordLL(hc: HCoord): LatLong = hc.c match{
-    case c if c == rowRightCoordC(hc.r) =>
+  def hCoordLL(hc: HCoord): LatLong = hc.c match
+  {
+    case _ if hc.isCen => hCoordMiddleLL(hc)
+    //case c if hc.r.isOdd & c.isEven => hCoordMiddleLL(hc)
+
+    case c if c == rowRightCoordC(hc.r, c) =>
     { val rt = hCoordMiddleLL(hc)
-      val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r)))
+      val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, c)))
       val rtLong = rt.longMilliSecs
       val ltLong = (lt.long + 30.east).milliSecs
       val longMilliSecs = rtLong aver ltLong
       LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
     }
-    case c if c == rowLeftCoordC(hc.r) =>
+    case c if c == rowLeftCoordC(hc.r, c) =>
     { val lt = hCoordMiddleLL(hc)
-      val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r)))
+      val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r, c)))
       val ltLong = lt.longMilliSecs
       val rtLong = (rt.long - 30.east).milliSecs
       val longMilliSecs = ltLong aver rtLong

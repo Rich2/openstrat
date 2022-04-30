@@ -25,6 +25,8 @@ trait HCoord extends Any with TCoord
 
   /** Uses the implicit [[HGridSysFlat]] to convert to [[Pt2]]. */
   def toPt2(implicit grider: HGridSysFlat): Pt2 = grider.hCoordToPt2(this)
+
+  def isCen: Boolean = (r.div4Rem0 & c.div4Rem0) | (r.div4Rem2 & c.div4Rem2)
 }
 
 /** Companion object for Hex coordinate trait, contains apply factory method and persist and PolygonBuilder implicit instances. */
