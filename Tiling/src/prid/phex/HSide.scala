@@ -10,7 +10,7 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
 { override def typeStr: String = "HSide"
 
   /** Returns the Hex coordinate Line segment for this Hex Side.  */
-  def coordLine: LineSegHC = r %% 4 match
+  def lineSegHC: LineSegHC = r %% 4 match
   { case 3 => LineSegHC(r, c - 1, r, c + 1)
     case 0 | 2 => LineSegHC(r + 1, c, r - 1, c)
     case 1 => LineSegHC(r, c + 1, r, c - 1)
@@ -27,7 +27,7 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
   }
 
   /** Returns a [[LineSeg]] for a regular Hex tile grid. */
-  def lineSeg(implicit grider: HGridSysFlat): LineSeg = coordLine.lineSeg
+  def lineSeg(implicit grider: HGridSysFlat): LineSeg = lineSegHC.lineSeg
 
   /** Draws a [[LineSeg]], returning a [[LineSegDraw]] for a regular Hex tile grid. */
   def draw(colour: Colour= Black, lineWidth: Double = 2)(implicit grider: HGridSysFlat) : LineSegDraw = lineSeg.draw(colour, lineWidth)

@@ -175,7 +175,7 @@ trait HGrid extends Any with TGrid with HGridSysFlat
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
-  override def sideLines(implicit grider: HGridSysFlat): LineSegs = sideCoordLines.map(_.lineSeg)
+  override def sideLines(implicit grider: HGridSysFlat): LineSegArr = sideLineSegHCs.map(_.lineSeg)
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
@@ -199,7 +199,7 @@ trait HGrid extends Any with TGrid with HGridSysFlat
   /** The Hex Sides of the Hex Grid defined in integer constructed [[LineSegHC.]].
    *
    *  @group SidesGroup */
-  def sideCoordLines: LineSegHCArr = sidesMap[LineSegHC, LineSegHCArr](_.coordLine)
+
 
   def newSideBooleans: HSideBooleans = new HSideBooleans(new Array[Boolean](numSides))
 }

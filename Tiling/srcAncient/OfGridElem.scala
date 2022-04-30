@@ -35,7 +35,7 @@ trait OfTile[TileT <: TileAncient, SideT <: TileSideAncient, GridT <: TileGridAn
   def vertCoods: Coods = grid.vertCoodsOfTile(cood)
   def vertDispVecs: Polygon
   def cen: Pt2
-  def ownSideLines: LineSegs
+  def ownSideLines: LineSegArr
 }
 
 trait OfSide[TileT <: TileAncient, SideT <: TileSideAncient, GridT <: TileGridAncient[TileT, SideT]] extends OfGridElem[TileT, SideT, GridT]

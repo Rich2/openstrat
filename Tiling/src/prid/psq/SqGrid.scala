@@ -26,8 +26,8 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   override def bottom: Double = bottomSideRow
   override def coordCen: SqCoord = SqCoord(rCen, cCen)
   override def yCen: Double = (bottomCenR + topCenR) / 2
-  def horrSideLines: LineSegs = iToMap(bottomSideRow, topSideRow, 2){ r => LineSeg(leftSideC, r, rightSideC, r) }
-  def vertSideLines: LineSegs = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideRow, c, topSideRow) }
+  def horrSideLines: LineSegArr = iToMap(bottomSideRow, topSideRow, 2){ r => LineSeg(leftSideC, r, rightSideC, r) }
+  def vertSideLines: LineSegArr = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideRow, c, topSideRow) }
 
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())
@@ -86,7 +86,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
-  def sideLines: LineSegs = horrSideLines ++ vertSideLines
+  def sideLines: LineSegArr = horrSideLines ++ vertSideLines
 
   /** This gives the all tile grid lines in a single colour and line width.
    *  @group SidesGroup  */

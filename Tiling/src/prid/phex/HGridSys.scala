@@ -163,4 +163,7 @@ trait HGridSys extends Any with TGridSys
 
   def sides: HSideArr
   def defaultView(pxScale: Double = 50): HGridView
+
+  /** The line segments of the sides defined in [[HCoord]] vertices.  */
+  def sideLineSegHCs: LineSegHCArr = sidesMap[LineSegHC, LineSegHCArr](_.lineSegHC)
 }

@@ -4,37 +4,37 @@ import collection.mutable.ArrayBuffer
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegs(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSeg] with AffinePreserve
-{ type ThisT = LineSegs
-  def unsafeFromArray(array: Array[Double]): LineSegs = new LineSegs(array)
-  override def typeStr: String = "Line2s"
+class LineSegArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSeg] with AffinePreserve
+{ type ThisT = LineSegArr
+  def unsafeFromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
+  override def typeStr: String = "LineSegArr"
   override def fElemStr: LineSeg => String = _.str
   //override def toString: String = Line2s.PersistImplict.show(this)
   override def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
-  override def ptsTrans(f: Pt2 => Pt2): LineSegs = dataMap(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
+  override def ptsTrans(f: Pt2 => Pt2): LineSegArr = dataMap(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
 
   def draw(lineWidth: Double, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)
 }
 
 /** Companion object for the LineSegs class. */
-object LineSegs extends Dbl4SeqDefCompanion[LineSeg, LineSegs]
+object LineSegArr extends Dbl4SeqDefCompanion[LineSeg, LineSegArr]
 {
-  implicit val factory: Int => LineSegs = i => new LineSegs(new Array[Double](i * 4))
+  implicit val factory: Int => LineSegArr = i => new LineSegArr(new Array[Double](i * 4))
 
-  implicit val persistImplicit: Dbl4SeqDefPersist[LineSeg, LineSegs] = new Dbl4SeqDefPersist[LineSeg, LineSegs]("Line2s")
-  { override def fromArray(value: Array[Double]): LineSegs = new LineSegs(value)
+  implicit val persistImplicit: Dbl4SeqDefPersist[LineSeg, LineSegArr] = new Dbl4SeqDefPersist[LineSeg, LineSegArr]("Line2s")
+  { override def fromArray(value: Array[Double]): LineSegArr = new LineSegArr(value)
 
-    override def showDecT(obj: LineSegs, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDecT(obj: LineSegArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  /** Implicit instance  /evidence for [[ArrFlatBuilder]] type class instance. */
-  implicit val flatBuildEv: ArrFlatBuilder[LineSegs] = new Dbl4ArrFlatBuilder[LineSeg, LineSegs]
+  /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
+  implicit val flatBuildEv: ArrFlatBuilder[LineSegArr] = new Dbl4ArrFlatBuilder[LineSeg, LineSegArr]
   { type BuffT = LineSegBuff
-    override def fromDblArray(array: Array[Double]): LineSegs = new LineSegs(array)
+    override def fromDblArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
     def fromDblBuffer(inp: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(inp)
   }
 
-  implicit val transImplicit: AffineTrans[LineSegs] = (obj, f) => obj.dataMap(_.ptsTrans(f))
+  implicit val transImplicit: AffineTrans[LineSegArr] = (obj, f) => obj.dataMap(_.ptsTrans(f))
 }
 
 /** Efficient expandable buffer for Line2s. */

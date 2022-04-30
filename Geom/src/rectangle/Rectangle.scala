@@ -45,7 +45,7 @@ trait Rectangle extends ShapeCentred with Quadrilateral
 
   def diag1: LineSeg = LineSeg(v2, v0)
   def diag2: LineSeg = LineSeg(v3, v1)
-  @inline def diags: LineSegs = LineSegs(diag1, diag2)
+  @inline def diags: LineSegArr = LineSegArr(diag1, diag2)
 
   /** Translate 2D geometric transformation on a Rectangle returns a Rectangle. */
   override def slate(offset: Vec2Like): Rectangle = vertsTrans(_.slate(offset))

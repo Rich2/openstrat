@@ -13,7 +13,7 @@ trait HGridSysFlat extends Any with HGridSys with TGridSysFlat
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
-  def sideLines(implicit grider: HGridSysFlat): LineSegs
+  def sideLines(implicit grider: HGridSysFlat): LineSegArr
 
   /** This gives the all tile grid lines in a single colour and line width.
    *  @group SidesGroup  */

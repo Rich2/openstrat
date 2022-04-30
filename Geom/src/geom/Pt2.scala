@@ -201,7 +201,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
 
   /** Not sure about this method */
   def drawCross(armLength: Double, lineColour: Colour, lineWidth: Double): LinesDraw =
-    LineSegs.doubles(x - armLength, y, x + armLength, y,
+    LineSegArr.doubles(x - armLength, y, x + armLength, y,
     x, y - armLength, x, y + armLength).draw(lineWidth, lineColour)
 
   //def alignMatrix(matrix: AlignMatrix): Pt2 = Pt2(x * matrix.xFactor, y * matrix.yFactor) + matrix.vDelta
