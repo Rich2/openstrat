@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pZug
+package ostrat; package pzug
 import prid._, phex._
 
 /** ZugFuhrer scenario turn state. */
@@ -37,15 +37,15 @@ trait ZugScenStart extends ZugScen
 
 /** ZugFuhrer scenario 1. */
 object Zug1 extends ZugScenStart
-{ override implicit val gridSys: HGrid = HGridReg(2, 14, 4, 48)
+{ override implicit val gridSys: HGrid = HGridReg(2, 14, 2, 48)
   val terrs: HCenDGrid[ZugTerr] = gridSys.newHCenDGrid[ZugTerr](Plain)
   def cr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.completeRow(yRow, cStart, tileValues :_*)(gridSys)
   cr(yRow = 12, cStart = 4, WheatField * 2, Plain * 10)
-  cr(10, 6, WheatField, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding, Plain * 2)
+  cr(10, 2, WheatField * 2, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding, Plain * 2)
   cr(8, 4, WheatField * 3, StoneBuilding * 1, WheatField * 2, Lake, Plain * 5)
-  cr(6, 6, WheatField, Plain * 2, StoneBuilding, Plain, Lake, Plain * 5)
+  cr(6, 2, WheatField * 2, Plain * 2, StoneBuilding, Plain, Lake, Plain * 5)
   cr(4, 4, WheatField * 2, Plain * 10)
-  cr(2, 6, WheatField, Plain * 10)
+  cr(2, 2, WheatField * 2, Plain * 10)
 
   val sTerrs: HSideBooleans = gridSys.newSideBooleans
   val wall1: HSideArr = HSideArr(14 hs 36, 13 hs 35, 12 hs 34, 11 hs 35, 10 hs 36)

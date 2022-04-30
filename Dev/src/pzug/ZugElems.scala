@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pZug
+package ostrat; package pzug
 import prid._, phex._
 
 case class Squad(polity: Polity, var action: ZugAction = NoAction) extends Coloured

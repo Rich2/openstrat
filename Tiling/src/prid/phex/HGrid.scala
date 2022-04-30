@@ -66,20 +66,9 @@ trait HGrid extends Any with TGrid with HGridSysFlat
   /** The end (or by default right) column number of the tile centre of the given row. */
   def rowRightCenC(row: Int): Int
 
-  /*def rowRightCoordC(row: Int): Int = (row %% 4) match {
-    case 0 | 2 => rowRightCenC(row) + 2
-    case _ if row == topSideR => rowRightCenC(row - 1) + 2
-    case _ if row == bottomSideR => rowRightCenC(row + 1) + 2
-    case _ => rowRightCenC(row - 1).max(rowRightCenC(row + 1)) + 2
-  }*/
-
-  /*def rowLeftCoordC(row: Int): Int = (row %% 4) match {
-    case 0 | 2 => rowLeftCenC(row) - 2
-    case _ if row == topSideR => rowLeftCenC(row - 1) - 2
-    case _ if row == bottomSideR => rowLeftCenC(row + 1) - 2
-    case _ => rowLeftCenC(row - 1).min(rowLeftCenC(row + 1)) - 2
-  }*/
-
+  /** The end (or by default right) column number of the hex coordinate row. So note that for the pruposes of this method 2, 2 is not considered to be
+   * in the smae row as 2, 1 and 2, 3, although they have the same c number. Similarly Cen 2, 2 is not condsidered to be in the same row as sides 2, 0
+   * and 2, 6. */
   def rowRightCoordC(row: Int, c: Int): Int = (row %% 4, c %% 4) match
   { //sides
     case (1, 3) | (3, 1) if row == topSideR => rowRightCenC(row - 1) - 2

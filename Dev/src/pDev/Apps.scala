@@ -15,7 +15,7 @@ object Apps
     ("G3", gThree.ThreeLaunch),
     ("G4", gFour.FourLaunch),
     ("Go", pgo.GoLaunch),
-    ("Z", pZug.ZugLaunch),
+    ("Z", pzug.ZugLaunch),
     ("CV", pCiv.CivLaunch),
     ("CH", pchess.ChessLaunch),
   )
