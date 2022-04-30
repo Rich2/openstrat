@@ -9,7 +9,6 @@ class LineSegArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSeg] with A
   def unsafeFromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
   override def typeStr: String = "LineSegArr"
   override def fElemStr: LineSeg => String = _.str
-  //override def toString: String = Line2s.PersistImplict.show(this)
   override def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
   override def ptsTrans(f: Pt2 => Pt2): LineSegArr = dataMap(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
 

@@ -87,7 +87,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   /** From focus parameter, converts to 3D metre coordinates. */
   def fromFocusMetres(focus: LatLong): PtM3 = focus.subLong(longVec).toMetres3.xRotateRadians(-latRadians)
 
-  def fromFocusLineDist3(inp: LineSegLL): LineSegMetre3 = LineSegMetre3(
+  def fromFocusLineDist3(inp: LineSegLL): LineSegM3 = LineSegM3(
     inp.startPt.subLong(longVec).toMetres3.xRotateRadians(-latRadians),
     inp.endPt.subLong(longVec).toMetres3.xRotateRadians(-latRadians))
 

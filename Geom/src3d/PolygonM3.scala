@@ -6,7 +6,7 @@ package ostrat; package geom
  *  maps. */
 final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with PolygonDbl3s[PtM3]
 { override type ThisT = PolygonM3
-  override type SideT = LineSegMetre3
+  override type SideT = LineSegM3
   override def dataElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
   override def unsafeFromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
   override def typeStr: String = "PolygonMetre3"
@@ -66,7 +66,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 
   def toXY: PolygonM = map(_.xy)
 
-  override def sidesForeach[U](f: LineSegMetre3 => U): Unit = ??? //if (vertsNum >= 2)
+  override def sidesForeach[U](f: LineSegM3 => U): Unit = ??? //if (vertsNum >= 2)
 }
 
 /** Companion object for [[PolygonM3]]. Contains apply factory method fromArrayDbl and Persist Implicit. */

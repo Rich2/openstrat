@@ -2,8 +2,8 @@
 package ostrat; package geom
 
 /** A line segment in 3 dimensional space specified in metres. A straight line between two points in 3D. */
-class LineSegMetre3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Double, yEndMs: Double, zEndMs: Double) extends
-  LineSegLike[PtM3] with ElemDbl6
+class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Double, yEndMs: Double, zEndMs: Double) extends LineSegLike[PtM3] with
+  ElemDbl6
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
   def startPt: PtM3 = new PtM3(xStartMs, yStartMs, zStartMs)
@@ -25,9 +25,9 @@ class LineSegMetre3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs
   def toXY: LineSegMetre = new LineSegMetre(xStartMs, yStartMs, xEndMs, yEndMs)
 }
 
-/** Companion object for [[LineSegMetre3]] trait contains apply factory method. */
-object LineSegMetre3
+/** Companion object for [[LineSegM3]] trait contains apply factory method. */
+object LineSegM3
 {
-   def apply(pStart: PtM3, pEnd: PtM3): LineSegMetre3 = new LineSegMetre3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
+   def apply(pStart: PtM3, pEnd: PtM3): LineSegM3 = new LineSegM3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
        pEnd.xMetres, pEnd.yMetres, pEnd.zMetres)
 }

@@ -47,6 +47,8 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
       p.map(_ / scale).fill(col)
     }
 
+    val lines = gridSys.sideLineLLs// sideLineSegHCs.map(lsh => LineSegLL(gridSys.hCoordLL(lsh.startPt), gridSys.hCoordLL(lsh.endPt)))
+
     val irrLines = irr1.map { a => a._2.map(_ / scale).draw(White) }
 
     val irrNames = irr1.map { pair =>
