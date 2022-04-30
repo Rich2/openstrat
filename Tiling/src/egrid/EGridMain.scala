@@ -23,7 +23,7 @@ abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, 
       val ltLong = lt.longMilliSecs
       val rtLong = (rt.long - 30.east).milliSecs
       val longMilliSecs = ltLong aver rtLong
-      LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
+      LatLong.milliSecs(lt.latMilliSecs, longMilliSecs)
     }
 
     case _ => hCoordMiddleLL(hc)
