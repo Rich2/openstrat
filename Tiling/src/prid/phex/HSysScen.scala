@@ -2,19 +2,21 @@
 package ostrat; package prid; package phex
 
 /** Scenario based on a [[HGrid]] system. */
-trait HexGridSysScen extends GridTurnScen
+trait HSysScen
 {
   implicit def gridSys: HGridSys
   def defaultView(pxScale: Double = 50): HGridView = gridSys.defaultView(pxScale)
 }
 
 /** Scenario based on a falt 2D [[HGrid]] system. */
-trait HexGriderFlatScen extends HexGridSysScen
+trait HFlatScen extends HSysScen
 {
   implicit override def gridSys: HGridSysFlat
 }
 
-trait HexGridScen extends HexGridSysScen
+trait HFlatTurnScen extends HFlatScen with GridTurnScen
+
+trait HGridScen extends HFlatScen
 { /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
    *  on flat arrays of data. */
   implicit override def gridSys: HGrid

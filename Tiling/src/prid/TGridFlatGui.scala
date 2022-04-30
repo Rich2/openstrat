@@ -67,6 +67,7 @@ abstract class TGridFlatGui(title: String) extends TGridGui(title)
     val newY: Double = (v.y - d).max(gridSys.bottom)
     Vec2(v.x, newY)
   }
+
   def navButtons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 }
 

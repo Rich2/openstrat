@@ -10,7 +10,7 @@ object PlayerState
 }
 
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
-trait ThreeScen extends HexGriderFlatScen
+trait ThreeScen extends HFlatTurnScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
   def oPlayers: HCenOptDGrid[Player]
 

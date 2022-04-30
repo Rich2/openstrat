@@ -11,9 +11,9 @@ object EGrid320Km
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
   def l0(rBottomCen: Int, rTopCen: Int = 160): EGrid320KmMain = new EGrid320KmMain(rBottomCen, rTopCen, 0.east, 100)
 
-  def scen1: EScenBasic = {
-    val grid: EGridMain = l0(138)
-    new EScenBasic(grid, Terr00())
+  def scen1: EScenBasicFlat =
+  { val grid: EGridMain = l0(138)
+    EScenBasicFlat(grid, Terr00())
   }
 }
 

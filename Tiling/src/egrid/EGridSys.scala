@@ -24,4 +24,18 @@ trait EGridMulti extends EGridSys with HGridMulti
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
-class EScenBasic(val eGrid: EGridMainSys, val terrs: HCenDGrid[pEarth.WTile])
+trait EScenBasic extends HSysScen
+{
+  def gridSys: EGridMainSys
+  def terrs: HCenDGrid[pEarth.WTile]
+}
+
+/** A basic EGrid scenario, containing grid and basic terrain data. */
+object EScenBasic
+{
+  def apply(gridSys: EGridMainSys, terrs: HCenDGrid[pEarth.WTile]): EScenBasic = new EScenBasicImp(gridSys, terrs)
+
+  class EScenBasicImp(val gridSys: EGridMainSys, val terrs: HCenDGrid[pEarth.WTile]) extends EScenBasic
+}
+
+case class EScenBasicFlat(gridSys: EGridMain, terrs: HCenDGrid[pEarth.WTile]) extends EScenBasic

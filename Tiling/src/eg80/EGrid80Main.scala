@@ -22,14 +22,14 @@ object EGrid80Km
   def l0b446: EGrid80Main = new EGrid80Main(446, 540, 0.east, 512)
   def l30b446: EGrid80Main = new EGrid80Main(446, 540, 30.east, 1536)
 
-  def scen1: EScenBasic =
+  def scen1: EScenBasicFlat =
   { val grid: EGrid80Main = l0(446)
-    new EScenBasic(grid, EuropeNW80Terr())
+    EScenBasicFlat(grid, EuropeNW80Terr())
   }
 
-  def scen2: EScenBasic =
+  def scen2: EScenBasicFlat =
   { val grid: EGrid80Main = l30(446)
-    new EScenBasic(grid, EuropeNE80Terr())
+    EScenBasicFlat(grid, EuropeNE80Terr())
   }
 }
 

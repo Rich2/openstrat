@@ -24,7 +24,7 @@ object Lunit
 }
 
 /** Example Game four scenario trait. */
-abstract class FourScen(val turn: Int) extends HexGridScen
+abstract class FourScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
   def terrs: HCenDGrid[Terr]
   def units: HCenOptDGrid[Lunit]

@@ -3,7 +3,7 @@ package ostrat; package pzug
 import prid._, phex._
 
 /** ZugFuhrer scenario turn state. */
-trait ZugScen extends HexGridScen
+trait ZugScen extends HFlatTurnScen
 { origSelf =>
 
   /** tile terrain. */
@@ -22,7 +22,7 @@ trait ZugScen extends HexGridScen
 
     override val lunits: HCenArrDGrid[Squad] = origSelf.lunits
 
-    override implicit val gridSys: HGrid = origSelf.gridSys
+    override implicit val gridSys: HGridSysFlat = origSelf.gridSys
 
     /** The turn number. This will normally start at 0. The player will then give their instructions for turn 1. The scenario will take these orders /
      * instructions and return the new game state at turn 1. */

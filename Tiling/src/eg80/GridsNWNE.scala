@@ -1,6 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import prid._, phex._, egrid._
+import prid._
+import phex._
+import egrid._
+import ostrat.pEarth.WTile
 
 object GridsNWNE extends EGrid80MainMulti
 {
@@ -33,7 +36,7 @@ object GridsNWNE extends EGrid80MainMulti
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object ScenNWNE extends EScenBasic(GridsNWNE, EuropeNW80Terr() ++ EuropeNE80Terr())
-{
-
+object ScenNWNE extends EScenBasic
+{ override def gridSys: EGridMainSys = GridsNWNE
+  override def terrs: HCenDGrid[WTile] = EuropeNW80Terr() ++ EuropeNE80Terr()
 }

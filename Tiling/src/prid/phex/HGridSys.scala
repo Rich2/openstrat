@@ -156,7 +156,7 @@ trait HGridSys extends Any with TGridSys
    *  @group SidesGroup */
   final def sidesFlatMap[ArrT <: SeqImut[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   {
-    val buff = build.newBuff()// newArr(numSides)
+    val buff = build.newBuff()
     sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToBB(buff)
   }

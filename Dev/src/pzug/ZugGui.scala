@@ -6,7 +6,7 @@ import pgui._, prid._, phex._, geom._, Colour._, pStrat._
 case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridFlatGui("ZugFuhrer Gui")
 {
   var scen = scenIn
-  implicit def gridSys: HGrid = scen.gridSys
+  implicit def gridSys: HGridSysFlat = scen.gridSys
   focus = gridSys.cenVec
 
   var cPScale: Double = gridSys.fullDisplayScale(mainWidth, mainHeight)
@@ -67,6 +67,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridFlatGui("Z
     repaint()
     thisTop()
   }
+
   statusText = "Welcome to ZugFuher"
   def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   thisTop()
