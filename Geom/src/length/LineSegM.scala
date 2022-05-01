@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** A 2 dimensional line segment measured in metres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2 dimensional flat
  *  surface. */
-class LineSegMetre(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double, yEndMetres: Double) extends LineSegLike[PtM2]
+class LineSegM(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double, yEndMetres: Double) extends LineSegLike[PtM2]
 { def xStart: Length = Length(xStartMetres)
   def yStart: Length = Length(yStartMetres)
   def xEnd: Length = Length(xEndMetres)
@@ -13,8 +13,8 @@ class LineSegMetre(xStartMetres: Double, yStartMetres: Double, xEndMetres: Doubl
   def toLine2(f: PtM2 => Pt2): LineSeg = LineSeg(f(startPt), f(endPt))
 }
 
-object LineSegMetre
+object LineSegM
 {
-  def apply(startDist2: PtM2, endDist2: PtM2): LineSegMetre =
-    new LineSegMetre(startDist2.xMetresNum, startDist2.yMetresNum, endDist2.xMetresNum, endDist2.yMetresNum)
+  def apply(startDist2: PtM2, endDist2: PtM2): LineSegM =
+    new LineSegM(startDist2.xMetresNum, startDist2.yMetresNum, endDist2.xMetresNum, endDist2.yMetresNum)
 }

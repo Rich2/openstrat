@@ -4,7 +4,7 @@ package ostrat; package geom
 /* A polygon using distances measured in [[Length]] or metres rather than scalars. */
 final class PolygonM(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[PtM2] with PolygonDbl2s[PtM2]
 { type ThisT = PolygonM
-  type SideT = LineSegMetre
+  type SideT = LineSegM
   def unsafeFromArray(array: Array[Double]): PolygonM = new PolygonM(array)
   override def typeStr: String = "PolygonMs"
   override def seqDefElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
@@ -52,7 +52,7 @@ final class PolygonM(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr
    * signature. */
   override def vertsPrevForEach[U](f: (PtM2, PtM2) => U): Unit = ???
 
-  override def sidesForeach[U](f: LineSegMetre => U): Unit = ???
+  override def sidesForeach[U](f: LineSegM => U): Unit = ???
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */

@@ -22,7 +22,7 @@ class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Do
   def yEnd: Length = Length(yEndMs)
   def zEnd: Length = Length(zEndMs)
   def zsPos: Boolean = zStart.pos && zEnd.pos
-  def toXY: LineSegMetre = new LineSegMetre(xStartMs, yStartMs, xEndMs, yEndMs)
+  def toXY: LineSegM = new LineSegM(xStartMs, yStartMs, xEndMs, yEndMs)
 }
 
 /** Companion object for [[LineSegM3]] trait contains apply factory method. */
