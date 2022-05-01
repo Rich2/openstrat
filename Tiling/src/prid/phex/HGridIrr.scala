@@ -45,7 +45,7 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
     }
   }
 
-  override def sides: HSideArr = ???
+  override def sides: HSideArr = sidesMap(hs => hs)
 
   def cSideRowMin(r: Int): Int = ???
 
