@@ -57,7 +57,7 @@ final class PolygonM(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
 object PolygonM extends Dbl2SeqDefCompanion[PtM2, PolygonM]
-{ override def fromArrayDbl(array: Array[Double]): PolygonM = new PolygonM(array)
+{ override def fromArray(array: Array[Double]): PolygonM = new PolygonM(array)
 
   implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, PolygonM] = new Dbl2SeqDefPersist[PtM2, PolygonM]("PolygonMs")
   { override def fromArray(value: Array[Double]): PolygonM = new PolygonM(value)

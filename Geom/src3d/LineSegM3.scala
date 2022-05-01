@@ -1,5 +1,7 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+
+import scala.collection.mutable.ArrayBuffer
 
 /** A line segment in 3 dimensional space specified in metres. A straight line between two points in 3D. */
 class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Double, yEndMs: Double, zEndMs: Double) extends LineSegLike[PtM3] with
@@ -30,4 +32,43 @@ object LineSegM3
 {
    def apply(pStart: PtM3, pEnd: PtM3): LineSegM3 = new LineSegM3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
        pEnd.xMetres, pEnd.yMetres, pEnd.zMetres)
+}
+
+/** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
+ *  common parlance is often just referred to as a line. */
+class LineSegM3Arr(val unsafeArray: Array[Double]) extends Dbl6Arr[LineSegM3]
+{ type ThisT = LineSegM3Arr
+  def unsafeFromArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
+  override def typeStr: String = "LineSegM3Arr"
+  override def fElemStr: LineSegM3 => String = _.toString
+
+  override def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegM3 =
+    new LineSegM3(d1, d2, d3, d4, d5, d6)
+}
+
+/** Companion object for the LineSegM3s class. */
+object LineSegM3Arr extends Dbl6SeqDefCompanion[LineSegM3, LineSegM3Arr]
+{
+  override def fromArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
+
+  /*implicit val persistImplicit: Dbl6SeqDefPersist[LineSegM3, LineSegM3Arr] = new Dbl4SeqDefPersist[LineSegM3, LineSegM3Arr]("Line2s")
+  { override def fromArray(value: Array[Double]): LineSegM3Arr = new LineSegM3Arr(value)
+
+    override def showDecT(obj: LineSegM3Arr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+
+  }*/
+
+  /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
+  implicit val flatBuildEv: ArrFlatBuilder[LineSegM3Arr] = new Dbl6ArrFlatBuilder[LineSegM3, LineSegM3Arr]
+  { type BuffT = LineSegM3Buff
+    override def fromDblArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
+    def fromDblBuffer(inp: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(inp)
+  }
+}
+
+/** Efficient expandable buffer for [[LineSegM3]]s. */
+class LineSegM3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl6Buff[LineSegM3]
+{ override def typeStr: String = "LineSegM3Buff"
+  override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): LineSegM3 =
+    new LineSegM3(d1, d2, d3, d4, d5, d6)
 }

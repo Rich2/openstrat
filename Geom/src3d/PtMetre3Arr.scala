@@ -53,7 +53,7 @@ class PtMetre3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[Pt
 }
 
 object PtMetre3Arr extends Dbl3SeqDefCompanion[PtM3, PtMetre3Arr]
-{ override def fromArrayDbl(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
+{ override def fromArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
 
   implicit val flatBuilderImplicit: Dbl3ArrFlatBuilder[PtM3, PtMetre3Arr] = new Dbl3ArrFlatBuilder[PtM3, PtMetre3Arr]
   { type BuffT = BuffPtMetre3

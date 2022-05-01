@@ -40,15 +40,12 @@ class LineSegMArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSegM]
   override def typeStr: String = "LineSegMArr"
   override def fElemStr: LineSegM => String = _.toString
   override def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM = new LineSegM(d1, d2, d3, d4)
-  //override def ptsTrans(f: Pt2 => Pt2): LineSegMArr = dataMap(orig => LineSegM(f(orig.pStart), f(orig.pEnd)))
-
-  //def draw(lineWidth: Double, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)
 }
 
 /** Companion object for the LineSegMs class. */
 object LineSegMArr extends Dbl4SeqDefCompanion[LineSegM, LineSegMArr]
 {
-  implicit val factory: Int => LineSegMArr = i => new LineSegMArr(new Array[Double](i * 4))
+  override def fromArray(array: Array[Double]): LineSegMArr = new LineSegMArr(array)
 
   implicit val persistImplicit: Dbl4SeqDefPersist[LineSegM, LineSegMArr] = new Dbl4SeqDefPersist[LineSegM, LineSegMArr]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegMArr = new LineSegMArr(value)

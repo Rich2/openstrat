@@ -64,7 +64,7 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqDe
 
 /** Companion object for the [[PolygonLL]] class. */
 object PolygonLL extends Dbl2SeqDefCompanion[LatLong, PolygonLL]
-{ override def fromArrayDbl(array: Array[Double]): PolygonLL = new PolygonLL(array)
+{ override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
   implicit val persistImplicit: Dbl2SeqDefPersist[LatLong, PolygonLL] = new Dbl2SeqDefPersist[LatLong, PolygonLL]("PolygonLL")
   { override def fromArray(value: Array[Double]): PolygonLL = new PolygonLL(value)

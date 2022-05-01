@@ -71,7 +71,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 
 /** Companion object for [[PolygonM3]]. Contains apply factory method fromArrayDbl and Persist Implicit. */
 object PolygonM3 extends Dbl3SeqDefCompanion[PtM3, PolygonM3]
-{ override def fromArrayDbl(array: Array[Double]): PolygonM3 = new PolygonM3(array)
+{ override def fromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 
   //implicit flat: Polygon
 

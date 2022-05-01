@@ -28,7 +28,7 @@ trait RectCenlign extends Rectangularlign
   @inline final override def yBottomLeft: Double = cenY - height / 2
   @inline final override def bottomLeft: Pt2 = Pt2(xBottomLeft, yBottomLeft)
 
-  def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LinesDraw = LineSegArr.doubles(
+  def crossHairs(lineWidth: Double = 1, lineColour: Colour = Black): LinesDraw = LineSegArr.fromDbls(
     left, 0, right, 0,
     0, top, 0, bottom).draw(lineWidth, lineColour)
 

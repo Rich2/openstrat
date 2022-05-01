@@ -44,60 +44,49 @@ trait Dbl5Arr[A <: ElemDbl5] extends Any with DblNArr[A] with Dbl5SeqDef[A]
   def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
 }
 
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /
+ *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl5]]. The first type parameter is called B, because to
+ *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait Dbl5ArrBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrBuilder[B, ArrB]
+{ type BuffT <: Dbl5Buff[B]
+  final override def elemProdSize = 5
+
+  override def arrSet(arr: ArrB, index: Int, value: B): Unit =
+  { arr.unsafeArray(index * 5) = value.dbl1
+    arr.unsafeArray(index * 5 + 1) = value.dbl2
+    arr.unsafeArray(index * 5 + 2) = value.dbl3
+    arr.unsafeArray(index * 5 + 3) = value.dbl4
+    arr.unsafeArray(index * 5 + 4) = value.dbl5
+  }
+}
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl5]]. Instances for
+ *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
+ *  in ```map(f: A => B): ArrB``` function. */
+trait Dbl5ArrFlatBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrFlatBuilder[B, ArrB]
+{ type BuffT <: Dbl5Buff[B]
+  final override def elemProdSize = 5
+}
+
 /** Helper class for companion objects of final [[Dbl5SeqDef]] classes. */
-abstract class Dbl5SeqDefCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqDef[A]]
-{
-  val factory: Int => ArrA
-  def apply(length: Int): ArrA = factory(length)
+abstract class Dbl5SeqDefCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqDef[A]] extends DblNSeqDefCompanion[A, ArrA]
+{ override def elemNumDbls: Int = 5
 
   def apply(elems: A*): ArrA =
   { val length = elems.length
-    val res = factory(length)
+    val array = new Array[Double](length)
     var count: Int = 0
 
     while (count < length)
-    { res.unsafeArray(count * 5) = elems(count).dbl1
-      res.unsafeArray(count * 5 + 1) = elems(count).dbl2
-      res.unsafeArray(count * 5 + 2) = elems(count).dbl3
-      res.unsafeArray(count * 5 + 3) = elems(count).dbl4
-      res.unsafeArray(count * 5 + 4) = elems(count).dbl5
+    { array(count * 5) = elems(count).dbl1
+      array(count * 5 + 1) = elems(count).dbl2
+      array(count * 5 + 2) = elems(count).dbl3
+      array(count * 5 + 3) = elems(count).dbl4
+      array(count * 5 + 4) = elems(count).dbl5
       count += 1
     }
-    res
-  }
 
-  def doubles(elems: Double*): ArrA =
-  { val arrLen: Int = elems.length
-    val res = factory(elems.length / 5)
-    var count: Int = 0
-
-    while (count < arrLen)
-    { res.unsafeArray(count) = elems(count)
-      count += 1
-    }
-    res
-  }
-
-  def fromList(list: List[A]): ArrA =
-  { val arrLen: Int = list.length * 5
-    val res = factory(list.length)
-    var count: Int = 0
-    var rem = list
-
-    while (count < arrLen)
-    { res.unsafeArray(count) = rem.head.dbl1
-      count += 1
-      res.unsafeArray(count) = rem.head.dbl2
-      count += 1
-      res.unsafeArray(count) = rem.head.dbl3
-      count += 1
-      res.unsafeArray(count) = rem.head.dbl4
-      count += 1
-      res.unsafeArray(count) = rem.head.dbl5
-      count += 1
-      rem = rem.tail
-    }
-    res
+    fromArray(array)
   }
 }
 
@@ -113,4 +102,24 @@ abstract class DataDbl5sPersist[A <: ElemDbl5, ArrA <: Dbl5SeqDef[A]](val typeSt
   }
 
   override def syntaxDepthT(obj: ArrA): Int = 3
+}
+
+/** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl5]]s collections. */
+trait Dbl5Buff[A <: ElemDbl5] extends Any with DblNBuff[A]
+{ type ArrT <: Dbl5Arr[A]
+  override def elemProdSize: Int = 5
+  final override def length: Int = unsafeBuffer.length / 5
+
+  /** Grows the buffer by a single element. */
+  override def grow(newElem: A): Unit =
+  { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4).append(newElem.dbl5); () }
+
+  def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
+  override def sdIndex(index: Int): A = dblsToT(unsafeBuffer(index * 5), unsafeBuffer(index * 5 + 1), unsafeBuffer(index * 5 + 2),
+    unsafeBuffer(index * 5 + 3), unsafeBuffer(index * 5 + 4))
+
+  override def unsafeSetElem(i: Int, value: A): Unit =
+  { unsafeBuffer(i * 5) = value.dbl1; unsafeBuffer(i * 5 + 1) = value.dbl2; unsafeBuffer(i * 5 + 2) = value.dbl3
+    unsafeBuffer(i * 5 + 3) = value.dbl4; unsafeBuffer(i * 5 + 3) = value.dbl5
+  }
 }

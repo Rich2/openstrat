@@ -61,14 +61,11 @@ trait Dbl4ArrFlatBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends DblNArrFlatB
 }
 
 /** Class for the singleton companion objects of [[Dbl4SeqDef]] final classes to extend. */
-abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, AA <: Dbl4SeqDef[A]]
+abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, AA <: Dbl4SeqDef[A]] extends DblNSeqDefCompanion[A, AA]
 {
-  val factory: Int => AA
-  def apply(length: Int): AA = factory(length)
-
   def apply(elems: A*): AA =
   { val length = elems.length
-    val res = factory(length)
+    val res = uninitialised(length)
     var count: Int = 0
 
     while (count < length)
@@ -81,37 +78,7 @@ abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, AA <: Dbl4SeqDef[A]]
      res
    }
 
-  def doubles(elems: Double*): AA =
-  { val arrLen: Int = elems.length
-    val res = factory(elems.length / 4)
-    var count: Int = 0
-
-    while (count < arrLen)
-    { res.unsafeArray(count) = elems(count)
-      count += 1
-    }
-    res
-  }
-
-  def fromList(list: List[A]): AA =
-  { val arrLen: Int = list.length * 4
-    val res = factory(list.length)
-    var count: Int = 0
-    var rem = list
-
-    while (count < arrLen)
-    { res.unsafeArray(count) = rem.head.dbl1
-      count += 1
-      res.unsafeArray(count) = rem.head.dbl2
-      count += 1
-      res.unsafeArray(count) = rem.head.dbl3
-      count += 1
-      res.unsafeArray(count) = rem.head.dbl4
-      count += 1
-      rem = rem.tail
-    }
-    res
-  }
+  override def elemNumDbls: Int = 4
 }
 
 /** Persists [[Dble4Elem] Collection classes. */
@@ -130,14 +97,13 @@ abstract class Dbl4SeqDefPersist[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]](val typeS
 /** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl4]]s collections. */
 trait Dbl4Buff[A <: ElemDbl4] extends Any with DblNBuff[A]
 { type ArrT <: Dbl4Arr[A]
+  def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): A
   override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4
-
-  /** Grows the buffer by a single element. */
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4); () }
 
-  def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): A
-  override def sdIndex(index: Int): A = dblsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
+  override def sdIndex(index: Int): A =
+    dblsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
 
   override def unsafeSetElem(i: Int, value: A): Unit =
   { unsafeBuffer(i * 4) = value.dbl1; unsafeBuffer(i * 4 + 1) = value.dbl2; unsafeBuffer(i * 4 + 2) = value.dbl3; unsafeBuffer(i * 4 + 3) = value.dbl4

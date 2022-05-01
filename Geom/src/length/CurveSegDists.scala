@@ -13,5 +13,5 @@ class CurveSegDists(val unsafeArray: Array[Double]) extends AnyVal with Dbl7Arr[
 
 object CurveSegDists extends Dbl7SeqDefCompanion[DistCurveTail, CurveSegDists]
 { /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
-  override def fromArrayDbl(array: Array[Double]): CurveSegDists = new CurveSegDists(array)
+  override def fromArray(array: Array[Double]): CurveSegDists = new CurveSegDists(array)
 }

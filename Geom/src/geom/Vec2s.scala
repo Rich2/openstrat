@@ -35,7 +35,7 @@ final class Vec2s(val unsafeArray: Array[Double]) extends /*AffinePreserve with*
 /** Companion object for the [[Vec2s]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
 object Vec2s extends Dbl2SeqDefCompanion[Vec2, Vec2s]
 {
-  override def fromArrayDbl(array: Array[Double]): Vec2s = new Vec2s(array)
+  override def fromArray(array: Array[Double]): Vec2s = new Vec2s(array)
 
   implicit val persistImplicit: Dbl2SeqDefPersist[Vec2, Vec2s] = new Dbl2SeqDefPersist[Vec2, Vec2s]("Vec2s")
   { override def fromArray(value: Array[Double]): Vec2s = new Vec2s(value)
