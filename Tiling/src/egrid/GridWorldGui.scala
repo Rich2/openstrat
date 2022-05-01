@@ -49,9 +49,9 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
     }
 
     val lines = gridSys.sideLineM3s
-    val lines2 = lines.map(ls => LineSegM3(ls.startPt.fromLatLongFocus(focus), ls.endPt.fromLatLongFocus(focus)))
+    val lines2 = lines.fromLatLongFocus(focus)
     val lines3 = lines2.filter(_.zsPos)
-    val lines4 = lines3.map { ls => LineSeg(ls.startPt.xy / scale, ls.endPt.xy / scale).draw(White) }
+    val lines4 = lines3.map(_.xyLineSeg(scale).draw(White))
     def lines5 = ifGScale(5, lines4)
 
     val irrLines = irr1.map { a => a._2.map(_ / scale).draw(White) }

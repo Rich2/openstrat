@@ -23,7 +23,12 @@ class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Do
   def yEnd: Length = Length(yEndMs)
   def zEnd: Length = Length(zEndMs)
   def zsPos: Boolean = zStart.pos && zEnd.pos
-  def toXY: LineSegM = new LineSegM(xStartMs, yStartMs, xEndMs, yEndMs)
+
+  /** Takes the X and Y components. */
+  def xy: LineSegM = new LineSegM(xStartMs, yStartMs, xEndMs, yEndMs)
+
+  /** Scales the X and Y components to a scalar though the operand scaling length. */
+  def xyLineSeg(scale: Length): LineSeg = LineSeg(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)
 }
 
 /** Companion object for [[LineSegM3]] trait contains apply factory method. */
@@ -37,6 +42,20 @@ object LineSegM3
   { type BuffT = LineSegM3Buff
     override def fromDblArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
     def fromDblBuffer(buffer: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(buffer)
+  }
+
+  implicit val rotateM3TEv: RotateM3T[LineSegM3] = new RotateM3T[LineSegM3] {
+    /** Rotate around the X axis, viewed from positive X. A positive angle is anti clockwise. */
+    override def rotateXT(obj: LineSegM3, angle: AngleVec): LineSegM3 = LineSegM3(obj.startPt.rotateX(angle), obj.endPt.rotateX(angle))
+
+    /** Rotates this vector around the Y axis, viewed form positive Y through the given angle around the origin. */
+    override def rotateYT(obj: LineSegM3, angle: AngleVec): LineSegM3 = LineSegM3(obj.startPt.rotateY(angle), obj.endPt.rotateY(angle))
+
+    /** Rotate around the Z axis, viewed from positive Z. A positive angle is anti clockwise. */
+    override def rotateZT(obj: LineSegM3, angle: AngleVec): LineSegM3 = LineSegM3(obj.startPt.rotateZ(angle), obj.endPt.rotateZ(angle))
+
+    /** Rotate 180 degrees around the Z axis. */
+    override def rotateZ180T(obj: LineSegM3): LineSegM3 = LineSegM3(obj.startPt.rotateZ180, obj.endPt.rotateZ180)
   }
 }
 

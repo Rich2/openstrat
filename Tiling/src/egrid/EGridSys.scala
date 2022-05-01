@@ -10,7 +10,7 @@ trait EGridSys extends HGridSys
   def hCoordLL(hc: HCoord): LatLong
 
   def sideLineLLs: LineSegLLArr = sideLineSegHCs.map(lsh => LineSegLL(hCoordLL(lsh.startPt), hCoordLL(lsh.endPt)))
-  def sideLineM3s = sideLineLLs.map(lsh => LineSegM3(lsh.startPt.toMetres3, lsh.endPt.toMetres3))
+  def sideLineM3s: LineSegM3Arr = sideLineLLs.map(lsh => LineSegM3(lsh.startPt.toMetres3, lsh.endPt.toMetres3))
 }
 /** A hex grid on the surface of the earth. */
 abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrr(bottomTileRow, unsafeRowsArray) with

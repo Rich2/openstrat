@@ -11,7 +11,6 @@ class LineSegM(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double, y
   def yEnd: Length = Length(yEndMetres)
   def startPt: PtM2 = PtM2(xStart, yStart)
   def endPt: PtM2 = PtM2(xEnd, yEnd)
-  def toLine2(f: PtM2 => Pt2): LineSeg = LineSeg(f(startPt), f(endPt))
 
   override def dbl1: Double = xStartMetres
   override def dbl2: Double = yStartMetres
@@ -23,6 +22,11 @@ object LineSegM
 {
   def apply(startDist2: PtM2, endDist2: PtM2): LineSegM =
     new LineSegM(startDist2.xMetresNum, startDist2.yMetresNum, endDist2.xMetresNum, endDist2.yMetresNum)
+
+  implicit class LineSegMExtensions(val thisSeg: LineSegM)
+  {
+    def /(operand: Length): LineSeg = LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
+  }
 
   /** Implicit instance / evidence for [[ArrBuilder]] type class. */
   implicit val buildEv: Dbl4ArrBuilder[LineSegM, LineSegMArr] = new Dbl4ArrBuilder[LineSegM, LineSegMArr]
