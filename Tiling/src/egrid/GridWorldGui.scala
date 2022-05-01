@@ -8,6 +8,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
   implicit val gridSys: EGridMainSys = scenIn.gridSys
   var scale: Length = gridSys.cScale / viewIn.pxScale
   def gScale: Double = gridSys.cScale / scale
+  def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, Arr[GraphicElem]())
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
   //def view: HGridView = HGridView()
   val terrs: HCenDGrid[WTile] = scenIn.terrs
@@ -27,7 +28,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
       p.map(_ / scale).fill(col)
     }
 
-    def rcTexts = ife(gScale >= 17, optTexts, Arr[GraphicElem]())
+    def rcTexts = ifGScale(17, optTexts)
 
     def optTexts = terrs.hcFlatMap{ (hc, terr) =>
       val gls: LatLong = gridSys.hCoordLL(hc)
@@ -47,7 +48,11 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
       p.map(_ / scale).fill(col)
     }
 
-    val lines = gridSys.sideLineLLs// sideLineSegHCs.map(lsh => LineSegLL(gridSys.hCoordLL(lsh.startPt), gridSys.hCoordLL(lsh.endPt)))
+    val lines = gridSys.sideLineM3s
+    val lines2 = lines.map(ls => LineSegM3(ls.startPt.fromLatLongFocus(focus), ls.endPt.fromLatLongFocus(focus)))
+    val lines3 = lines2.filter(_.zsPos)
+    val lines4 = lines3.map { ls => LineSeg(ls.startPt.xy / scale, ls.endPt.xy / scale).draw(White) }
+    def lines5 = ifGScale(5, lines4)
 
     val irrLines = irr1.map { a => a._2.map(_ / scale).draw(White) }
 
@@ -59,7 +64,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames ++ hexs2 ++ rcTexts ++ irrLines)
+    mainRepaint(seas %: irrFills ++ irrNames ++ hexs2 ++ lines5 ++ rcTexts ++ irrLines)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()

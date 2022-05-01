@@ -8,10 +8,10 @@ abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, 
   EGridMainSys
 {
   def hCoordMiddleLL(hc: HCoord): LatLong = EGridMain.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, cScale).addLong(cenLong)
+
   def hCoordLL(hc: HCoord): LatLong = hc.c match
   {
     case _ if hc.isCen => hCoordMiddleLL(hc)
-    //case c if hc.r.isOdd & c.isEven => hCoordMiddleLL(hc)
 
     case c if c == rowRightCoordC(hc.r, c) =>
     { val rt = hCoordMiddleLL(hc)
@@ -21,6 +21,7 @@ abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLong: Longitude, 
       val longMilliSecs = rtLong aver ltLong
       LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
     }
+
     case c if c == rowLeftCoordC(hc.r, c) =>
     { val lt = hCoordMiddleLL(hc)
       val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r, c)))

@@ -1,9 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom.pglobe._
-import ostrat.geom.LineSegM3
-import prid._
-import phex._
+import geom._, pglobe._, prid._, phex._
 
 trait EGridSys extends HGridSys
 { /** The length of one column coordinate delta */
@@ -13,7 +10,7 @@ trait EGridSys extends HGridSys
   def hCoordLL(hc: HCoord): LatLong
 
   def sideLineLLs: LineSegLLArr = sideLineSegHCs.map(lsh => LineSegLL(hCoordLL(lsh.startPt), hCoordLL(lsh.endPt)))
-  //def sideLineM3s = sideLineLLs.map(lsh => LineSegMetre3(lsh.startPt.toMetres3, lsh.endPt.toMetres3))
+  def sideLineM3s = sideLineLLs.map(lsh => LineSegM3(lsh.startPt.toMetres3, lsh.endPt.toMetres3))
 }
 /** A hex grid on the surface of the earth. */
 abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrr(bottomTileRow, unsafeRowsArray) with

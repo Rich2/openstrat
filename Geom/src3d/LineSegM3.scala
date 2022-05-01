@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-
-import scala.collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 /** A line segment in 3 dimensional space specified in metres. A straight line between two points in 3D. */
 class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Double, yEndMs: Double, zEndMs: Double) extends LineSegLike[PtM3] with
@@ -32,6 +31,13 @@ object LineSegM3
 {
    def apply(pStart: PtM3, pEnd: PtM3): LineSegM3 = new LineSegM3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
        pEnd.xMetres, pEnd.yMetres, pEnd.zMetres)
+
+  /** Implicit instance / evidence for [[ArrBuilder]] for [[LineSegM3]], [[LineSegM3Arr]] type class. */
+  implicit val buildEv: Dbl6ArrBuilder[LineSegM3, LineSegM3Arr] = new Dbl6ArrBuilder[LineSegM3, LineSegM3Arr]
+  { type BuffT = LineSegM3Buff
+    override def fromDblArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
+    def fromDblBuffer(buffer: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(buffer)
+  }
 }
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
