@@ -13,7 +13,7 @@ trait HGridMan
   def numSides: Int = grid.sides.length
   def sideLines(implicit grider: HGridSysFlat): LineSegArr = sides.map(_.lineSeg)
   def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
-  def offset: Vec2 = Vec2(0, 0)
+  def offset: Vec2
 
   /** Default implementation may need removal. */
   def adjTilesOfTile(tile: HCen): HCenArr = grid.adjTilesOfTile(tile)

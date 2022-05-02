@@ -9,6 +9,8 @@ trait HGridMulti extends HGridSys with TGridMulti
   def gridMans: Arr[ManT]
   def numGrids: Int = gridMans.length
 
+  override def hCoordToPt2(hCoord: HCoord): Pt2 = unsafeGetManFunc(hCoord)(m => m.grid.hCoordToPt2(hCoord) + m.offset)
+
   override def coordCen: HCoord = grids(0).coordCen
 
   /** Gets the appropriate [[HGridMan]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */

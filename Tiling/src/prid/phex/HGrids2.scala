@@ -16,6 +16,8 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   { override val grid: HGrid = grid1
     override val arrIndex: Int = 0
 
+    override def offset: Vec2 = Vec2(0, 0)
+
     //override def sides: HSides = HSides()
     override def outSteps(r: Int, c: Int): HStepCenArr = (r, c) match
     { case (r, c) if r == maxCenR & c == maxC1 => HStepCenArr((HexRt, r, c - grid2OffsetC + 4), (HexDR, r - 2, c - grid2OffsetC + 2))
@@ -35,7 +37,7 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   val gridMan2: HGridMan = new HGridMan
   { override val grid: HGrid = grid2
     override val arrIndex: Int = grid1.numTiles
-
+    override def offset: Vec2 = Vec2(maxC1 - minC2 + 2, 0)
     override def sides: HSideArr = grid.sides.filter {
       case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.topSideR => true
       case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.bottomSideR => true

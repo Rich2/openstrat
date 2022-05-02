@@ -1,6 +1,10 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import prid._, phex._, egrid._, pEarth._
+import prid._
+import phex._
+import egrid._
+import ostrat.geom.Vec2
+import pEarth._
 
 object GridsNWNE extends EGrid80MainMulti
 {
@@ -8,12 +12,15 @@ object GridsNWNE extends EGrid80MainMulti
   { override val grid: EGrid80Main = EGrid80Km.l0b446
     override val arrIndex: Int = 0
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
+
+    override def offset: Vec2 = Vec2(0, 0)
   }
 
   val gridMan2: EGrid80MainMan = new EGrid80MainMan
   { override val grid: EGrid80Main = EGrid80Km.l30b446
     override val arrIndex: Int = gridMan1.numTiles
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
+    override def offset: Vec2 = Vec2(0, 40)
   }
 
   override val gridMans: Arr[EGrid80MainMan] = Arr(gridMan1, gridMan2)
