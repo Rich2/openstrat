@@ -137,7 +137,7 @@ trait HGridSys extends Any with TGridSys
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
-  def sidesForeach(f: HSide => Unit): Unit = sides.foreach(f)
+  def sidesForeach(f: HSide => Unit): Unit //= sides.foreach(f)
 
   /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
    *  @group SidesGroup */
@@ -162,6 +162,9 @@ trait HGridSys extends Any with TGridSys
   }
 
   def sides: HSideArr
+
+  //def o
+
   def defaultView(pxScale: Double = 50): HGridView
 
   /** The line segments of the sides defined in [[HCoord]] vertices.  */

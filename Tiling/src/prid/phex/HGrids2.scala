@@ -12,7 +12,6 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
   val grid2OffsetC: Int = maxC1 - minC2 + 2
 
-
   val gridMan1: HGridMan = new HGridMan
   { override val grid: HGrid = grid1
     override val arrIndex: Int = 0
@@ -90,6 +89,8 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
    * departure and the tile of arrival. */
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
+
+  override def sidesForeach(f: HSide => Unit): Unit = { grid1.sidesForeach(f); grid2.sidesForeach(f) }
 }
 
 object HGrids2

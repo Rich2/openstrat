@@ -181,9 +181,13 @@ trait HGrid extends Any with TGrid with HGridSysFlat
    * @group SidesGroup */
   final override def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(r => rowForeachSide(r)(f))
 
+  final def innerSidesForeach(f: HSide => Unit): Unit = sideRowForeach(r => rowForeachInnerSide(r)(f))
+
   /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter.
    *  @group */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit
+
+  def rowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */

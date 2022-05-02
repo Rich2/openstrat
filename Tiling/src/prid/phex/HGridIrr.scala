@@ -45,6 +45,19 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
     }
   }
 
+  override def rowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
+  {
+    case r if r.isEven => iToForeach(rowLeftCenC(r) + 2, rowRightCenC(r) -2, 4){ c => f(HSide(r, c)) }
+    case r if r == bottomSideR =>
+    case r if r == topSideR =>
+
+    case r =>
+    { val start = rowLeftCenC(r - 1).max(rowLeftCenC(r + 1)) - 1
+      val end = rowRightCenC(r - 1).min(rowRightCenC(r + 1)) + 1
+      iToForeach(start, end, 2){ c => f(HSide(r, c)) }
+    }
+  }
+
   override def sides: HSideArr = sidesMap(hs => hs)
 
   def cSideRowMin(r: Int): Int = ???

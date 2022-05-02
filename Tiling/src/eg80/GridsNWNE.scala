@@ -1,9 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import prid._
-import phex._
-import egrid._
-import ostrat.pEarth.WTile
+import prid._, phex._, egrid._, pEarth._
 
 object GridsNWNE extends EGrid80MainMulti
 {

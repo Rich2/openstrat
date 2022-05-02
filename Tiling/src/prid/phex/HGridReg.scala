@@ -113,14 +113,21 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   }}
 
   override def rowForeachSide(r: Int)(f: HSide => Unit): Unit = r match
-  {
-    case y if y == topSideRow & y.div4Rem3 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSide(y, c)) }
+  { case y if y == topSideRow & y.div4Rem3 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSide(y, c)) }
     case y if y == topSideRow => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSide(y, c)) }
     case y if y.div4Rem2 => iToForeach(leftrem2CenC - 2, rightRem2CenC + 2, 4){ c => f(HSide(y, c)) }
     case y if y.div4Rem0 => iToForeach(leftRem0CenC - 2, rightRem0CenC + 2, 4){ c => f(HSide(y, c)) }
     case y if y == bottomSideRow & y.div4Rem1 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSide(y, c)) }
     case y if y == bottomSideRow => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSide(y, c)) }
     case y => iToForeach(leftCenC - 1, rightCenC + 1, 2){ c => f(HSide(y, c)) }
+  }
+
+  override def rowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
+  { case y if y == topSideRow =>
+    case y if y == bottomSideRow =>
+    case y if y.div4Rem2 => iToForeach(leftrem2CenC + 2, rightRem2CenC - 2, 4){ c => f(HSide(y, c)) }
+    case y if y.div4Rem0 => iToForeach(leftRem0CenC + 2, rightRem0CenC - 2, 4){ c => f(HSide(y, c)) }
+    case y => iToForeach(leftCenC + 1, rightCenC - 1, 2){ c => f(HSide(y, c)) }
   }
 
   override def rowNumTiles(row: Int): Int = row %% 4 match {

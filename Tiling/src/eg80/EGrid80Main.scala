@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import egrid._, geom.pglobe._
+import egrid._
+import geom.pglobe._
+import ostrat.prid.phex.HSide
 
 trait EGrid80Sys extends EGridSys
 { override val cScale: Length = 20.kMetres
@@ -39,5 +41,5 @@ trait EGrid80MainMan extends EGridMainMan
 
 trait EGrid80MainMulti extends EGridMainMulti with EGrid80Sys
 { override val gridMans: Arr[EGrid80MainMan]
-  //override val grids: Arr[GridTid80Main] = gridMans.map(_.grid)
+  override def sidesForeach(f: HSide => Unit): Unit = grids.foreach(_.sidesForeach(f))
 }
