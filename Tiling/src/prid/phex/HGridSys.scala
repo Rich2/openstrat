@@ -137,7 +137,9 @@ trait HGridSys extends Any with TGridSys
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
-  def sidesForeach(f: HSide => Unit): Unit //= sides.foreach(f)
+  def sidesForeach(f: HSide => Unit): Unit
+
+  def innerSidesForeach(f: HSide => Unit): Unit
 
   /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
    *  @group SidesGroup */
@@ -150,6 +152,14 @@ trait HGridSys extends Any with TGridSys
       count += 1
     }
     res
+  }
+
+  /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
+   *  @group SidesGroup */
+  final def innerSidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  { val buff = build.newBuff()
+    sidesForeach{hs => build.buffGrow(buff, f(hs)) }
+    build.buffToBB(buff)
   }
 
   /** maps over each Hex Side's coordinate [[HSide]] in the given Row.

@@ -87,6 +87,15 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */
+  def innerSidesMap[B, BB <: SeqImut[B]](f1: (HSide, A) => B, f2: (HSide, A, A) => B)(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
+    grid.innerSidesMap{ hs => hs.tiles match
+    { case (c1, c2)  => f2(hs, apply(c1), apply(c2))
+    }
+  }
+
+  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
+   *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
+   *  tile data values. */
   def sideFlatMap[BB <: SeqImut[_]](f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
     grid.sidesFlatMap{ hs => hs.tiles match
     { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))

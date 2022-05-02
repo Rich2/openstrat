@@ -91,6 +91,8 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 
   override def sidesForeach(f: HSide => Unit): Unit = { grid1.sidesForeach(f); grid2.sidesForeach(f) }
+
+  override def innerSidesForeach(f: HSide => Unit): Unit = { grid1.innerSidesForeach(f); grid2.innerSidesForeach(f) }
 }
 
 object HGrids2
