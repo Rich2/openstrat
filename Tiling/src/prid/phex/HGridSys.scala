@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import reflect.ClassTag
+import geom._, reflect.ClassTag
 
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
 trait HGridSys extends Any with TGridSys
@@ -28,7 +28,7 @@ trait HGridSys extends Any with TGridSys
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   def findStepEnd(startHC: HCen, step: HDirn): Option[HCen]
-
+  def hCoordToPt2(hCoord: HCoord): Pt2
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
