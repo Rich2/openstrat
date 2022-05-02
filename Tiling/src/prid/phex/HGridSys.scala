@@ -140,6 +140,7 @@ trait HGridSys extends Any with TGridSys
   def sidesForeach(f: HSide => Unit): Unit
 
   def innerSidesForeach(f: HSide => Unit): Unit
+  def outerSidesForeach(f: HSide => Unit): Unit
 
   /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
    *  @group SidesGroup */

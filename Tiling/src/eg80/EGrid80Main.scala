@@ -41,4 +41,5 @@ trait EGrid80MainMulti extends EGridMainMulti with EGrid80Sys
 { override val gridMans: Arr[EGrid80MainMan]
   override def sidesForeach(f: HSide => Unit): Unit = grids.foreach(_.sidesForeach(f))
   override def innerSidesForeach(f: HSide => Unit): Unit = grids.foreach(_.innerSidesForeach(f))
+  override def outerSidesForeach(f: HSide => Unit): Unit = grids.foreach(_.outerSidesForeach(f))
 }

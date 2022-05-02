@@ -130,6 +130,8 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     case y => iToForeach(leftCenC + 1, rightCenC - 1, 2){ c => f(HSide(y, c)) }
   }
 
+  //def
+
   override def rowNumTiles(row: Int): Int = row %% 4 match {
     case 0 => row0sTileNum
     case 2 => row2sTileNum

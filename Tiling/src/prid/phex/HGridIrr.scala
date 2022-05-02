@@ -60,6 +60,10 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
 
   override def sides: HSideArr = sidesMap(hs => hs)
 
+  override def outerSidesForeach(f: HSide => Unit): Unit =
+  {
+  }
+
   def cSideRowMin(r: Int): Int = ???
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
