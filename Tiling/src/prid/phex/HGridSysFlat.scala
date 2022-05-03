@@ -4,11 +4,6 @@ import geom._, Colour.Black
 
 trait HGridSysFlat extends Any with HGridSys with TGridSysFlat
 {
-  def polygons: Arr[Polygon]
-
-  /** The active tiles without any PaintElems. */
-  def activeTiles: Arr[PolygonActive]
-
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
   def sideLines(implicit grider: HGridSysFlat): LineSegArr

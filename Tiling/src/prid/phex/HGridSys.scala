@@ -131,6 +131,11 @@ trait HGridSys extends Any with TGridSys
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newHCenOptDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenOptDGrid[A] = new HCenOptDGrid(new Array[A](numTiles))
 
+  def polygons: Arr[Polygon]
+
+  /** The active tiles without any PaintElems. */
+  def activeTiles: Arr[PolygonActive]
+
   /** The number of Sides in the TileGrid. Needs reimplementing.
    *  @group SidesGroup */
   def numSides: Int
