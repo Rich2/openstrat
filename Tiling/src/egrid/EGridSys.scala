@@ -41,4 +41,4 @@ object EScenBasic
   class EScenBasicImp(val gridSys: EGridMainSys, val terrs: HCenDGrid[pEarth.WTile]) extends EScenBasic
 }
 
-case class EScenBasicFlat(gridSys: EGridMain, terrs: HCenDGrid[pEarth.WTile]) extends EScenBasic
+//case class EScenBasicFlat(gridSys: EGridMain, terrs: HCenDGrid[pEarth.WTile]) extends EScenBasic

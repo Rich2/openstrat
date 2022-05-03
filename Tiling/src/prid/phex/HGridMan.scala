@@ -11,7 +11,7 @@ trait HGridMan
   def outSteps(r: Int, c: Int): HStepCenArr
   def sides: HSideArr = grid.sides
   def numSides: Int = grid.sides.length
-  def sideLines(implicit grider: HGridSysFlat): LineSegArr = sides.map(_.lineSeg)
+  def sideLines(implicit grider: HGridSys): LineSegArr = sides.map(_.lineSeg)
   def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
   def offset: Vec2
 

@@ -3,9 +3,9 @@ package ostrat; package pCiv
 import geom._, prid._, phex._, pgui._
 
 /** Gui for civilisation  game. */
-case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridFlatGui("Civ Rise Game Gui")
+case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ Rise Game Gui")
 { statusText = "Welcome to Civ Rise."
-  implicit val gridSys: HGridSysFlat = scen.gridSys
+  implicit val gridSys: HGridSys = scen.gridSys
   focus = gridSys.cenVec
   var cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   val sls = gridSys.sidesDraw()

@@ -180,11 +180,11 @@ trait HGridSys extends Any with TGridSys
   def sides: HSideArr
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
-  def sideLines(implicit grider: HGridSysFlat): LineSegArr
+  def sideLines(implicit grider: HGridSys): LineSegArr
 
   /** This gives the all tile grid lines in a single colour and line width.
    *  @group SidesGroup  */
-  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSysFlat): LinesDraw = sideLines.draw(lineWidth, colour)
+  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSys): LinesDraw = sideLines.draw(lineWidth, colour)
   //def o
 
   def defaultView(pxScale: Double = 50): HGridView

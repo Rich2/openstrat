@@ -2,9 +2,9 @@
 package ostrat; package pgo
 import geom._, prid._, psq._, pgui._
 
-case class GoGui(canv: CanvasPlatform, startScen: GoScen) extends SquareMapGui("Go"){
+case class GoGui(canv: CanvasPlatform, startScen: GoScen) extends SqSysGui("Go"){
   /** Tile grid this gui displays. */
-  override def gridSys: TGridSysFlat = startScen.grid
+  override def gridSys: TGridSys = startScen.grid
 
   /** The number of pixels displayed per c column coordinate. */
   override var cPScale: Double = 20

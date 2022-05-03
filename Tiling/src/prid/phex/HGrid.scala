@@ -6,7 +6,7 @@ import geom._
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */
-trait HGrid extends Any with TGrid with HGridSysFlat
+trait HGrid extends Any with TGrid with HGridSys
 {
   final override def left: Double = leftCenC - 2
   final override def right: Double = rightCenC + 2
@@ -175,7 +175,7 @@ trait HGrid extends Any with TGrid with HGridSysFlat
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
-  override def sideLines(implicit grider: HGridSysFlat): LineSegArr = sideLineSegHCs.map(_.lineSeg)
+  override def sideLines(implicit grider: HGridSys): LineSegArr = sideLineSegHCs.map(_.lineSeg)
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */

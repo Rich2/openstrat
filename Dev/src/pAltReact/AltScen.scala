@@ -1,7 +1,6 @@
-/* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pAltReact
-import geom._, prid._, psq._, Colour._
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pAltReact
+import prid._, psq._, Colour._
 
 case class Player(str: String, colour: Colour)
 object PlayerA extends Player("A", Red)

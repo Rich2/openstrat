@@ -20,10 +20,10 @@ trait SqGridMulti extends SqGridSys with TGridMulti
 }
 
 /** A system of [[SqGrid]]s in a flat 2D plane. Trait has no metods at the moment, unlike the corresponding [[HGridMulti]]. */
-trait SqGridMultiFlat extends SqGridMulti with SqGridSysFlat
+//trait SqGridMultiFlat extends SqGridMulti with SqGridSysFlat
 
 /** A simple development class of 2 square grids. Probably not a useful class for an application but a stage on the evolution of more exotic classes. */
-final class SqGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends SqGridMultiFlat
+final class SqGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends SqGridMulti
 {
   val grid1 = SqGrid(minCenR, maxCenR, minC1, maxC1)
   val grid2 = SqGrid(minCenR, maxCenR, minC2, maxC2)

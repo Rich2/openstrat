@@ -3,7 +3,7 @@ package ostrat; package gOne
 import prid._, phex._, gPlay._
 
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
-trait OneScen extends HFlatTurnScen
+trait OneScen extends HSysTurnScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
   def oPlayers: HCenOptDGrid[Player]
 
@@ -33,9 +33,9 @@ trait OneScen extends HFlatTurnScen
 /** Companion object for OneScen trait, contains factory apply method. */
 object OneScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGridSysFlat, opIn: HCenOptDGrid[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptDGrid[Player]): OneScen = new OneScen
   { override val turn = turnIn
-    override implicit val gridSys: HGridSysFlat = gridIn
+    override implicit val gridSys: HGridSys = gridIn
     override def oPlayers: HCenOptDGrid[Player] = opIn
   }
 }

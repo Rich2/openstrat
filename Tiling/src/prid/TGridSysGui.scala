@@ -2,7 +2,7 @@
 package ostrat; package prid
 import geom._, pgui._
 
-abstract class TGridGui(title: String) extends CmdBarGui(title)
+abstract class TGridSysGui(title: String) extends CmdBarGui(title)
 { /** Tile grid system this gui displays. */
   def gridSys: TGridSys
 
@@ -11,11 +11,6 @@ abstract class TGridGui(title: String) extends CmdBarGui(title)
 
   def frame: GraphicElems
   def repaint(): Unit = mainRepaint(frame)
-}
-
-abstract class TGridFlatGui(title: String) extends TGridGui(title)
-{ /** Tile grid system this gui displays. */
-  override def gridSys: TGridSysFlat
 
   /** The number of pixels displayed per c column coordinate. */
   var cPScale: Double
@@ -69,16 +64,4 @@ abstract class TGridFlatGui(title: String) extends TGridGui(title)
   }
 
   def navButtons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
-}
-
-abstract class HGridGui(title: String) extends TGridGui(title)
-{ override def gridSys: phex.HGridSys
-}
-
-abstract class HGridFlatGui(title: String) extends TGridFlatGui(title)
-{ override def ptScale: Double = cPScale * 4
-}
-
-abstract class SquareMapGui(title: String) extends TGridFlatGui(title)
-{ override def ptScale: Double = cPScale * 2
 }

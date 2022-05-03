@@ -3,7 +3,7 @@ package ostrat; package pCiv
 import prid._, phex._, pEarth._, pgui._
 
 /** A Civ scenario turn state. */
-trait CivScen  extends HFlatTurnScen
+trait CivScen  extends HSysTurnScen
 {
   /** tile terrain. */
   def terrs: HCenDGrid[Terrain]

@@ -10,7 +10,7 @@ object PlayerState
 }
 
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
-trait ThreeScen extends HFlatTurnScen
+trait ThreeScen extends HSysTurnScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
   def oPlayers: HCenOptDGrid[Player]
 
@@ -49,9 +49,9 @@ trait ThreeScen extends HFlatTurnScen
 /** Companion object for OneScen trait, contains factory apply method. */
 object ThreeScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGridSysFlat, opIn: HCenOptDGrid[Player], newData: Map[Player, HDirnArr]): ThreeScen = new ThreeScen
+  def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptDGrid[Player], newData: Map[Player, HDirnArr]): ThreeScen = new ThreeScen
   { override val turn = turnIn
-    override implicit val gridSys: HGridSysFlat = gridIn
+    override implicit val gridSys: HGridSys = gridIn
     override def oPlayers: HCenOptDGrid[Player] = opIn
     override def playersData: Map[Player, HDirnArr] = newData
   }

@@ -16,6 +16,3 @@ trait SqGridSys extends Any with TGridSys
   /** Gives the default view in terms of [[SqCoord]] focus and scaling of this square grid system. */
   def defaultView(pxScale: Double = 50): SqGridView
 }
-
-/** A system of Square tile grids that is flat within a 2D plane. includes all single [[SqGrid]]s. */
-trait SqGridSysFlat extends Any with SqGridSys with TGridSysFlat

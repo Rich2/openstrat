@@ -2,10 +2,10 @@
 package ostrat; package egrid
 import  pgui._, geom._, prid._, phex._, pEarth._
 
-case class EGridGui(canv: CanvasPlatform, scen: EScenBasicFlat, viewIn: HGridView) extends HGridFlatGui("North West Europe Gui")
+case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) extends HGridSysGui("North West Europe Gui")
 {
   statusText = "Welcome to the new EGrids"
-  implicit val gridSys: EGridMain = scen.gridSys
+  implicit val gridSys: EGridMainSys = scen.gridSys
   focus = viewIn.vec
   var cPScale: Double = viewIn.pxScale
   def metresScale: Double = cPScale / gridSys.cScale.mMetresNum

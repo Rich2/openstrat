@@ -15,7 +15,7 @@ object EGridLaunch extends GuiLaunchMore
 
     val oview: EMon[HGridView] = sts.findKeySetting[Int, HGridView](num)
 
-    def egg(scen: EScenBasicFlat): (CanvasPlatform => Any, String) =
+    def egg(scen: EScenBasic): (CanvasPlatform => Any, String) =
       (EGridGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), "JavaFx EGrid80Km.scen1")
 
     def gwg(scen: EScenBasic): (CanvasPlatform => Any, String) =

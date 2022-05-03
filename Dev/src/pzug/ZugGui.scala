@@ -3,10 +3,10 @@ package ostrat; package pzug
 import pgui._, prid._, phex._, geom._, Colour._, pStrat._
 
 /** Graphical User Interface for ZugFuhrer game. */
-case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridFlatGui("ZugFuhrer Gui")
+case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("ZugFuhrer Gui")
 {
   var scen = scenIn
-  implicit def gridSys: HGridSysFlat = scen.gridSys
+  implicit def gridSys: HGridSys = scen.gridSys
   focus = gridSys.cenVec
 
   var cPScale: Double = gridSys.fullDisplayScale(mainWidth, mainHeight)

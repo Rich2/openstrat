@@ -3,12 +3,12 @@ package ostrat; package gThree
 import pgui._, geom._, prid._, phex._, gPlay._
 
 /** Graphical user interface for GThree example game. */
-case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridView) extends HGridFlatGui("Game Three Gui")
+case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGridView) extends HGridSysGui("Game Three Gui")
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   var history: Arr[ThreeScen] = Arr(scen)
-  implicit def gridSys: HGridSysFlat = scen.gridSys
+  implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptDGrid[Player] = scen.oPlayers
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec

@@ -3,12 +3,12 @@ package ostrat; package gOne
 import pgui._, geom._, prid._, phex._, gPlay._
 
 /** Graphical user interface for GOne example game. */
-case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) extends HGridFlatGui("Game One Gui")
+case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) extends HGridSysGui("Game One Gui")
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
   var history: Arr[OneScen] = Arr(scen)
-  implicit def gridSys: HGridSysFlat = scen.gridSys
+  implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptDGrid[Player] = scen.oPlayers
   var cPScale: Double = viewIn.pxScale
   focus = viewIn.vec

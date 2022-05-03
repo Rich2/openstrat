@@ -17,7 +17,7 @@ import geom._
  *  @groupdesc SidesGroup Methods that operate on the tile sides of the grid. Remember a TileGrid object contains no data about the sides or the
  *             boundaries of the tiles.
  *  @groupprio SidesGroup 1010 */
-trait TGrid extends Any with TGridSysFlat
+trait TGrid extends Any with TGridSys
 {
   /** Number of rows of tile centres. This will be different to the number of rows of sides and and will be different to the number of rows of
    *  vertices for HexGrids. */
