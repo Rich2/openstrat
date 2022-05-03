@@ -67,8 +67,6 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   val grid1Offset: Vec2 = 0 vv 0
   val grid2Offset: Vec2 = Vec2(grid2OffsetC, 0)
 
-  override def gridsOffsets: Vec2s = Vec2s(grid1Offset, grid2Offset)
-
   override def top: Double = maxCenR * Sqrt3 + 4.0/Sqrt3
   override def bottom: Double = minCenR * Sqrt3 - 4.0/Sqrt3
   override def left: Double = grid1.left

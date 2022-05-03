@@ -9,8 +9,6 @@ trait HGridSysFlat extends Any with HGridSys with TGridSysFlat
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive]
 
-
-
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
   def sideLines(implicit grider: HGridSysFlat): LineSegArr
