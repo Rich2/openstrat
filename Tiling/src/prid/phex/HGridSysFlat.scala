@@ -2,3 +2,9 @@
 package ostrat; package prid; package phex
 
 trait HGridSysFlat extends Any with HGridSys with TGridSysFlat
+
+/** A system of [[HGrid]]s mapped to a 2D flat plane. */
+trait HGridMultiFlat extends HGridMulti with HGridSysFlat
+{
+
+}
