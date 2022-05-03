@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
+import geom._
 
 /** A system of tile grids. Can be a single tile grid or a system of multiple tile grids. */
 trait TGridSys extends Any
@@ -31,4 +32,31 @@ trait TGridSys extends Any
     foreachRow{ r => build.buffGrowArr(buff, f(r)) }
     build.buffToBB(buff)
   }
+
+  /** The top most point in the grid where the value of y is maximum. */
+  def top: Double
+
+  /** The bottom most point in the grid where the value of y is minimum. */
+  def bottom: Double
+
+  /** The left most point in the grid where x is minimum. */
+  def left: Double
+
+  /** The right most point in the grid where the value of x is maximum. */
+  def right: Double
+
+  /** Height of the tile grid system from furthest tile edge or vertex to furthest tile edge or vertex. */
+  final def height: Double = top - bottom
+
+  /** Width of the tile grid system from furthest tile edge or vertex to furthest tile edge or vertex. */
+  final def width: Double = right - left
+
+  /** The centre of this grid in the X axis. this will be equal to the cCen [[Int]] value. */
+  def xCen: Double = left aver right
+
+  /** The centre of this grid in the y axis. For [[SqGrid]]s this will be equal to the cCen [[Int]] value, but this is not the case for [[HGrid]]s. */
+  @inline def yCen: Double = bottom aver top
+
+  /** The centre point as a [[Vec2]]. Not sure why this id implemented here. */
+  def cenVec: Vec2 = Vec2(xCen, yCen)
 }

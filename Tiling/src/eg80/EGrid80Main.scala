@@ -42,4 +42,15 @@ trait EGrid80MainMulti extends EGridMainMulti with EGrid80Sys
   override def sidesForeach(f: HSide => Unit): Unit = grids.foreach(_.sidesForeach(f))
   override def innerSidesForeach(f: HSide => Unit): Unit = grids.foreach(_.innerSidesForeach(f))
   override def outerSidesForeach(f: HSide => Unit): Unit = grids.foreach(_.outerSidesForeach(f))
+  /** The top most point in the grid where the value of y is maximum. */
+  def top: Double = ???
+
+  /** The bottom most point in the grid where the value of y is minimum. */
+  def bottom: Double = ???
+
+  /** The left most point in the grid where x is minimum. */
+  def left: Double = ???
+
+  /** The right most point in the grid where the value of x is maximum. */
+  def right: Double = ???
 }
