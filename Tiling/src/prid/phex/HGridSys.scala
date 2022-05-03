@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, reflect.ClassTag
+import geom._, reflect.ClassTag, Colour.Black
 
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
 trait HGridSys extends Any with TGridSys
@@ -178,7 +178,13 @@ trait HGridSys extends Any with TGridSys
   }
 
   def sides: HSideArr
+  /** The line segments [[LineSeg]]s for the sides of the tiles.
+   *  @group SidesGroup */
+  def sideLines(implicit grider: HGridSysFlat): LineSegArr
 
+  /** This gives the all tile grid lines in a single colour and line width.
+   *  @group SidesGroup  */
+  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSysFlat): LinesDraw = sideLines.draw(lineWidth, colour)
   //def o
 
   def defaultView(pxScale: Double = 50): HGridView
