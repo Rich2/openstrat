@@ -9,9 +9,10 @@ trait HGridMan
   def numTiles: Int = grid.numTiles
   final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
   def outSteps(r: Int, c: Int): HStepCenArr
-  def sides: HSideArr = grid.sides
+  //def sides: HSideArr = grid.sides
   def numSides: Int = grid.sides.length
-  def sideLines(implicit grider: HGridSys): LineSegArr = sides.map(_.lineSeg)
+  def sidesForeach(f: HSide => Unit): Unit
+  //def sideLines(implicit grider: HGridSys): LineSegArr = sides.map(_.lineSeg)
   def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
   def offset: Vec2
 

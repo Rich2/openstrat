@@ -18,7 +18,8 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
     override def offset: Vec2 = Vec2(0, 0)
 
-    //override def sides: HSides = HSides()
+    override def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach(f)
+
     override def outSteps(r: Int, c: Int): HStepCenArr = (r, c) match
     { case (r, c) if r == maxCenR & c == maxC1 => HStepCenArr((HexRt, r, c - grid2OffsetC + 4), (HexDR, r - 2, c - grid2OffsetC + 2))
       case (r, c) if r == maxCenR & c == maxC1 - 2 => HStepCenArr((HexRt, r, c - grid2OffsetC + 4))
@@ -38,11 +39,13 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   { override val grid: HGrid = grid2
     override val arrIndex: Int = grid1.numTiles
     override def offset: Vec2 = Vec2(maxC1 - minC2 + 2, 0)
-    override def sides: HSideArr = grid.sides.filter {
-      case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.topSideR => true
-      case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.bottomSideR => true
-      case HSide(r, c) if c <= grid.leftCenC => false
-      case _ => true
+
+    def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach { hs => hs match
+      { case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.topSideR => f(hs)
+        case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.bottomSideR => f(hs)
+        case HSide(r, c) if c <= grid.leftCenC =>
+        case _ => f(hs)
+      }
     }
 
     override def outSteps(r: Int, c: Int): HStepCenArr = (r, c) match
