@@ -48,7 +48,7 @@ trait HGridMulti extends HGridSys with TGridMulti
 
   final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
   override def adjTilesOfTile(tile: HCen): HCenArr = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))
-  override def numTiles: Int = grids.sumBy(_.numTiles)
+  //override def numTiles: Int = grids.sumBy(_.numTiles)
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
   override def iForeach(f: (HCen, Int) => Unit): Unit = iForeach(0)(f)
 
@@ -66,8 +66,6 @@ trait HGridMulti extends HGridSys with TGridMulti
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   override def findStepEnd(startHC: HCen, step: HDirn): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
 
-  def sides: HSideArr = gridMans.flatMap(_.sides)
-  //def sideLines(implicit grider: HGridSys): LineSegArr = gridMans.flatMap(_.sideLines)
  // def gridNumSides(gridNum: Int): Int
 
   override def numSides: Int = gridMansSum{g => g.numSides }

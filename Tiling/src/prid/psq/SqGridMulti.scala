@@ -17,6 +17,8 @@ trait SqGridMulti extends SqGridSys with TGridMulti
   def gridMans: Arr[SqGridMan]
   final lazy val grids: Arr[SqGrid] = gridMans.map(_.grid)
   override def defaultView(pxScale: Double = 50): SqGridView = grids(0).defaultView(pxScale)
+
+  override def foreach(f: SqCen => Unit): Unit = grids.foreach(_.foreach(f))
 }
 
 /** A system of [[SqGrid]]s in a flat 2D plane. Trait has no metods at the moment, unlike the corresponding [[HGridMulti]]. */
@@ -29,7 +31,7 @@ final class SqGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val max
   val grid2 = SqGrid(minCenR, maxCenR, minC2, maxC2)
   override def gridMans: Arr[SqGridMan] = Arr()
 
-  override val numTiles: Int = grid1.numTiles + grid2.numTiles
+  //override val numTiles: Int = grid1.numTiles + grid2.numTiles
   override def top: Double = maxCenR + 1
   override def bottom: Double = minCenR - 1
 

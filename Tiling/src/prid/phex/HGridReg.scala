@@ -62,7 +62,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
 
   override def numRow0s: Int = ((topRem0R - bottomRem0R + 4) / 4).max(0)
   override def numRow2s: Int = ((topRem2R - bottomRem2R + 4) / 4).max(0)
-  override def numTiles: Int = numRow2s * row2sTileNum + numRow0s * row0sTileNum
+  //override def numTiles: Int = numRow2s * row2sTileNum + numRow0s * row0sTileNum
   override def numTileRows: Int = numRow2s + numRow0s
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
@@ -149,8 +149,6 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     case 2 => rightRem2CenC
     case _ => excep("Invalid row number")
   }
-
-  override def sides: HSideArr = sidesMap(s => s)// HSides()
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */

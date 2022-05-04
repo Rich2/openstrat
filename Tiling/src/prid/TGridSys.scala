@@ -6,7 +6,7 @@ import geom._
 trait TGridSys extends Any
 {
   /** The total number of tile centres in this tile Grid system. */
-  def numTiles: Int
+  lazy val numTiles: Int
 
   /** the ratio of r => y, when translating from [[TCoord]] tile grid coordinates to [[Pt2]] and [[Vec2]]s. */
   def yRatio: Double

@@ -5,6 +5,12 @@ import geom._, reflect.ClassTag, Colour.Black
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
 trait HGridSys extends Any with TGridSys
 {
+  final override lazy val numTiles: Int =
+  { var i = 0
+    foreach(_ => i += 1)
+    i
+  }
+
   /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
   final override def yRatio: Double = 3.sqrt
 
@@ -29,6 +35,7 @@ trait HGridSys extends Any with TGridSys
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   def findStepEnd(startHC: HCen, step: HDirn): Option[HCen]
   def hCoordToPt2(hCoord: HCoord): Pt2
+
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
   @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
@@ -143,7 +150,6 @@ trait HGridSys extends Any with TGridSys
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
   def sidesForeach(f: HSide => Unit): Unit
-
   def innerSidesForeach(f: HSide => Unit): Unit
   def outerSidesForeach(f: HSide => Unit): Unit
 
@@ -160,42 +166,47 @@ trait HGridSys extends Any with TGridSys
     res
   }
 
-  /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
-   *  @group SidesGroup */
+  /** maps over each the grid systems inner side's coordinate [[HSide]]. */
   final def innerSidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     innerSidesForeach{hs => build.buffGrow(buff, f(hs)) }
     build.buffToBB(buff)
   }
 
-  /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
-   *  @group SidesGroup */
+  /** flatMaps over each Hex Side's coordinate [[HSide]]. */
   final def sidesFlatMap[ArrT <: SeqImut[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
-  {
-    val buff = build.newBuff()
+  { val buff = build.newBuff()
     sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToBB(buff)
   }
 
-  def sides: HSideArr
+  /** maps over each Hex Side's coordinate [[HSide]] in the given Row. */
+  final def innerSidesFlatMap[ArrT <: SeqImut[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
+  { val buff = build.newBuff()
+    innerSidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
+    build.buffToBB(buff)
+  }
 
-  /** This gives the all tile grid lines in a single colour and line width. */
-  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSys): LinesDraw = sideLines.draw(lineWidth, colour)
-
-  def defaultView(pxScale: Double = 50): HGridView
+  final def sides: HSideArr = sidesMap(hs => hs)
 
   /** The line segments of the sides defined in [[HCoord]] vertices. */
   def sideLineSegHCs: LineSegHCArr = sidesMap[LineSegHC, LineSegHCArr](_.lineSegHC)
+  /** The line segments of the inner sides defined in [[HCoord]] vertices. */
+
+  def innerSideLineSegHCs: LineSegHCArr = innerSidesMap[LineSegHC, LineSegHCArr](_.lineSegHC)
 
   /** The line segments [[LineSeg]]s for the sides of the tiles. */
   final def sideLines(implicit grider: HGridSys): LineSegArr = sideLineSegHCs.map(_.lineSeg)
 
-  /** The line segments of the inner sides defined in [[HCoord]] vertices. */
-  def innerSideLineSegHCs: LineSegHCArr = innerSidesMap[LineSegHC, LineSegHCArr](_.lineSegHC)
-
   /** The line segments [[LineSeg]]s for the inner sides. */
   final def innerSideLines(implicit grider: HGridSys): LineSegArr = innerSideLineSegHCs.map(_.lineSeg)
 
+  /** This gives the all tile grid lines in a single colour and line width. */
+  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSys): LinesDraw = sideLines.draw(lineWidth, colour)
+
   /** Draws the inner side lines in a single colour and line width. */
-  final def innerSidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSys): LinesDraw = innerSideLines.draw(lineWidth, colour)
+  final def innerSidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSys): LinesDraw =
+    innerSideLines.draw(lineWidth, colour)
+
+  def defaultView(pxScale: Double = 50): HGridView
 }

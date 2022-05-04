@@ -14,9 +14,6 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   /** The number of tiles in each tile row. */
   def tileRowLen: Int = (rightCenC - leftCenC + 2).max0 / 2
 
-  /** The total number of Tiles in the tile Grid. */
-  override def numTiles: Int = numTileRows * tileRowLen
-
   final override def rightSideC: Int = rightCenC + 1
   final override def leftSideC: Int = leftCenC - 1
 
@@ -45,7 +42,8 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
    *  corresponding to the standard Scala map function of A => B. */
   final def map[B, ArrB <: SeqImut[B]](f: SqCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
   { val res = build.newArr(numTiles)
-    iForeach((sqCen, i) => res.unsafeSetElem(i, f(sqCen)))
+    var i = 0
+    foreach{sqCen => res.unsafeSetElem(i, f(sqCen)); i += 1 }
     res
   }
 
@@ -59,16 +57,6 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(leftCenC, rightCenC, 2)(c => f(SqCen(r, c)))
 
   def foreach(f: SqCen => Unit): Unit = foreachRow(rowForeach(_)(f))
-
-  final def iForeach(f: (SqCen, Int) => Unit): Unit =
-  { var i: Int = 0
-    foreachRow{ r => i = rowIForeach(r, i)(f) }
-  }
-
-  final def iForeach(startCount: Int)(f: (SqCen, Int) => Unit): Unit =
-  { var i: Int = startCount
-    foreachRow{r => i = rowIForeach(r, i)(f) }
-  }
 
   def rowIForeach(r: Int, startCount: Int)(f: (SqCen, Int) => Unit): Int =
   { var count = startCount
