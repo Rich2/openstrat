@@ -6,10 +6,10 @@ object OneScen1Test  extends TestSuite
 {
   val os1: OneScen1.type = OneScen1
   val g1: HGridReg = os1.gridSys
-  val os2 = os1.endTurn(Arr())
-  val g2 = os2.gridSys
+  val os2: OneScen = os1.endTurn(Arr())
+  val g2: HGridSys = os2.gridSys
   val os3: OneScen = os1.endTurn(Arr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))
-  val g3: HGridSysFlat = os3.gridSys
+  val g3: HGridSys = os3.gridSys
   val os4: OneScen = os1.endTurn(Arr((PlayerA, HStepLt)))
 
   val tests = Tests {
@@ -31,6 +31,7 @@ object OneScen1Test  extends TestSuite
       g2.rightCenC ==> 10
       g2.numTiles ==> 8
     }*/
+
 
     test("os3")
     { g3.numTiles ==> 8

@@ -9,7 +9,7 @@ trait HGridMan
   def numTiles: Int = grid.numTiles
   final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
   def outSteps(r: Int, c: Int): HStepCenArr
-  //def sides: HSideArr = grid.sides
+  def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
   def numSides: Int = grid.sides.length
   def sidesForeach(f: HSide => Unit): Unit
   //def sideLines(implicit grider: HGridSys): LineSegArr = sides.map(_.lineSeg)

@@ -20,6 +20,8 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
     override def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach(f)
 
+    override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
+
     override def outSteps(r: Int, c: Int): HStepCenArr = (r, c) match
     { case (r, c) if r == maxCenR & c == maxC1 => HStepCenArr((HexRt, r, c - grid2OffsetC + 4), (HexDR, r - 2, c - grid2OffsetC + 2))
       case (r, c) if r == maxCenR & c == maxC1 - 2 => HStepCenArr((HexRt, r, c - grid2OffsetC + 4))
