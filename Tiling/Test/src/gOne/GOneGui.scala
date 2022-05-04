@@ -35,7 +35,10 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   val tiles: Arr[PolygonActive] = gridSys.activeTiles
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw: LinesDraw = gridSys.sidesDraw()
+  val sidesDraw: LinesDraw = gridSys.sidesDraw(Colour.Gold)
+
+  /** Draws the tiles sides (or edges). */
+  val innerSidesDraw: LinesDraw = gridSys.innerSidesDraw()
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.hcSomesMap { (hc, step) =>
@@ -72,6 +75,6 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
   thisTop()
 
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
-  def frame: GraphicElems = (tiles +% sidesDraw ++ units ++ hexStrs).slate(-focus).scale(cPScale) ++ moveGraphics2
+  def frame: GraphicElems = (tiles +% sidesDraw +% innerSidesDraw ++ units ++ hexStrs).slate(-focus).scale(cPScale) ++ moveGraphics2
   repaint()
 }

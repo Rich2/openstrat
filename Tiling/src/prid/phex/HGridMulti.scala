@@ -67,7 +67,7 @@ trait HGridMulti extends HGridSys with TGridMulti
   override def findStepEnd(startHC: HCen, step: HDirn): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
 
   def sides: HSideArr = gridMans.flatMap(_.sides)
-  def sideLines(implicit grider: HGridSys): LineSegArr = gridMans.flatMap(_.sideLines)
+  //def sideLines(implicit grider: HGridSys): LineSegArr = gridMans.flatMap(_.sideLines)
  // def gridNumSides(gridNum: Int): Int
 
   override def numSides: Int = gridMansSum{g => g.numSides }
