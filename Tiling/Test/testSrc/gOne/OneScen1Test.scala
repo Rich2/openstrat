@@ -23,14 +23,18 @@ object OneScen1Test  extends TestSuite
       g1.numTiles ==> 8
     }
 
-    /*test("os2")
-    { g2.numTileRows ==> 3
-      g2.bottomCenR ==> 2
-      g2.topCenR ==> 6
-      g2.leftCenC ==> 2
-      g2.rightCenC ==> 10
+    val huns: Ints = g1.map(hc => hc.r * 10 + hc.c)
+    val sh: Ints = g1.sidesMap(hc => hc.r * 10 + hc.c)
+    val sha = sh.take(17)
+    test("os2")
+    {
+      (huns ===  Ints(22, 26, 30, 44, 48, 62, 66, 70)) ==> true
+      sh(10) ==> 31
+      (sha === Ints(11, 13, 15, 17, 19, 21, 20, 24, 28, 32, 31, 33, 35, 37, 39, 41, 42)) ==> true
+      g2.numTileRows ==> 3
+
       g2.numTiles ==> 8
-    }*/
+    }
 
 
     test("os3")

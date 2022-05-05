@@ -67,6 +67,13 @@ final class Ints(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
 
   /** Drops the the head of this sequence. If the seqeunce is already empty returns an empty [[Ints] sequence. */
   inline def drop1: Ints = drop(1)
+
+  def take(n: Int): Ints = if (n >= length) this
+  else {
+    val newArray = new Array[Int](n)
+    unsafeArray.copyToArray(newArray)
+    new Ints(newArray)
+  }
 }
 
 /** Companion object for the [[Ints]] claas an immutable efficient [[Array]] backed sequence for class [[Int]]s. Contains apply factory method and
