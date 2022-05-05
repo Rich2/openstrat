@@ -90,5 +90,9 @@ trait TGrid extends Any with TGridSys
 
   /** Foreachs over each Row of Sides. Users will not normally need to use this method directly.
    *  @group SidesGroup */
-  def sideRowForeach(f: Int => Unit) : Unit = iToForeach(bottomCenR - 1, topCenR + 1)(f)
+  def sideRowsForeach(f: Int => Unit) : Unit = iToForeach(bottomCenR - 1, topCenR + 1)(f)
+
+  /** Foreachs over each inner row of Sides. Users will not normally need to use this method directly.
+   *  @group SidesGroup */
+  def innerSideRowsForeach(f: Int => Unit) : Unit = iToForeach(bottomCenR, topCenR)(f)
 }

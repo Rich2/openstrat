@@ -173,17 +173,16 @@ trait HGrid extends Any with TGrid with HGridSys
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
-  final override def sidesForeach(f: HSide => Unit): Unit = sideRowForeach(r => rowForeachSide(r)(f))
+  final override def sidesForeach(f: HSide => Unit): Unit = sideRowsForeach(r => rowForeachSide(r)(f))
 
-  final def innerSidesForeach(f: HSide => Unit): Unit = sideRowForeach(r => rowForeachInnerSide(r)(f))
+  final def innerSidesForeach(f: HSide => Unit): Unit = innerSideRowsForeach(r => rowForeachInnerSide(r)(f))
 
   def outerSidesForeach(f: HSide => Unit): Unit = {
     if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSide(topSideR, c)))
     if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSide(bottomSideR, c)))
   }
 
-  /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter.
-   *  @group */
+  /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter. */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit
 
   def rowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
