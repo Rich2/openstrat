@@ -105,12 +105,6 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
   /** Foreachs over each tile centre of the specified row applying the side effecting function to the [[HCen]]. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit = iToForeach(rowLeftCenC(r), rowRightCenC(r), 4){ c => f(HCen(r, c))}
 
-  override def rowIForeach(r: Int, initCount: Int = 0)(f: (HCen, Int) => Unit): Int = {
-    var count = initCount
-    iToForeach(rowLeftCenC(r), rowRightCenC(r), 4){ c => f(HCen(r, c), count); count += 1 }
-    count
-  }
-
   /** The start (or by default left column) of the tile centre of the given row. Will throw on illegal values. */
   override def rowLeftCenC(row: Int): Int = row match
   { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowStart method.")

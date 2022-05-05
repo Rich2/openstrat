@@ -70,23 +70,6 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     if(r %% 4 == 2) iToForeach(leftrem2CenC, rightRem2CenC, 4)(c => f(HCen(r, c)))
     else iToForeach(leftRem0CenC, rightRem0CenC, 4)(c => f(HCen(r, c)))
 
-  /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
-  override def rowIForeach(r: Int, startCount: Int)(f: (HCen, Int) => Unit): Int =
-  {
-    var count: Int = startCount
-    if (r %% 4 == 2)
-      iToForeach(leftrem2CenC, rightRem2CenC, 4) { c =>
-        f(HCen(r, c), count)
-        count += 1
-      }
-    else
-      iToForeach(leftRem0CenC, rightRem0CenC, 4){ c =>
-        f(HCen(r, c), count)
-        count += 1
-      }
-    count
-  }
-
   def hCenExists(r: Int, c:Int): Boolean = (r, c) match
   {
     case (r, c) if r < bottomCenR | r > topCenR => false

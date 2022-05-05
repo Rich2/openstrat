@@ -29,10 +29,6 @@ trait HGrid extends Any with TGrid with HGridSys
    *  TileGrid so it can take the specific narrow [[HCen]] parameter to the foreach function. */
   def rowForeach(r: Int)(f: HCen => Unit): Unit
 
-  /** Carries out the procedure function on each [[HCen]] hex tile centre coordinate and an index counter in the given tile row. This method is
-   *  defined here rather than on TileGrid so it can take the specific narrow [[HCen]] parameter to the foreach function. */
-  def rowIForeach(r: Int, count: Int = 0)(f: (HCen, Int) => Unit): Int
-
   override def coordCen: HCoord
 
   override def defaultView(pxScale: Double = 50): HGridView = coordCen.view(pxScale)
@@ -47,14 +43,14 @@ trait HGrid extends Any with TGrid with HGridSys
 
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
   final override def iForeach(f: (HCen, Int) => Unit): Unit =
-  { var count: Int = 0
-    foreachRow{r => count = rowIForeach(r, count)(f) }
+  { var i: Int = 0
+    foreachRow(r => rowForeach(r){hc => f(hc, i); i += 1 })
   }
 
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
   final override def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit =
-  { var count: Int = init
-    foreachRow{r => count = rowIForeach(r, count)(f) }
+  { var i: Int = init
+    foreachRow(r => rowForeach(r){hc => f(hc, i); i += 1 })
   }
 
   /** Is the specified tile centre row empty? */
@@ -202,11 +198,6 @@ trait HGrid extends Any with TGrid with HGridSys
 
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   def sideRowIndexArray: Array[Int]
-
-  /** The Hex Sides of the Hex Grid defined in integer constructed [[LineSegHC.]].
-   *
-   *  @group SidesGroup */
-
 
   def newSideBooleans: HSideBooleans = new HSideBooleans(new Array[Boolean](numSides))
 }
