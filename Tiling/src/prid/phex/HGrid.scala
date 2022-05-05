@@ -184,7 +184,8 @@ trait HGrid extends Any with TGrid with HGridSys
 
   /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter. */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit
-
+  def topRowForeachSide(f: HSide => Unit): Unit
+  def bottomRowForeachSide(f: HSide => Unit): Unit
   def rowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array

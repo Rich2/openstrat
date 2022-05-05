@@ -127,6 +127,12 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
     case r if r < bottomCenR => false
     case r => c >= rowLeftCenC(r) & c <= rowRightCenC(r)
   }
+
+  override def topRowForeachSide(f: HSide => Unit): Unit =
+    iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2){ c => f(HSide(topSideRow, c)) }
+
+  override def bottomRowForeachSide(f: HSide => Unit): Unit =
+    iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSide(bottomSideRow, c)) }
 }
 
 object HGridIrr
