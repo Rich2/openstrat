@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
-trait HCoord extends Any with TCoord
+trait HCoord extends Any with TCoord with Ordered[HCoord]
 {
   override def equals(obj: Any): Boolean = obj match {
     case hc: HCoord if r == hc.r & c == hc.c => true
@@ -17,6 +17,18 @@ trait HCoord extends Any with TCoord
     val f = 1
     val result1 = (prime * f) + r
     prime * result1 + c * 17
+  }
+
+  override def compare(that: HCoord): Int = r match
+  { case r if r > that.r => 1
+    case r if r < that.r => -1
+    case r if r.isOdd & c.div4Rem0 & that.c.div4 != 0 => 1
+    case r if r.isOdd & c.isOdd & that.c.div4Rem2 => 1
+    case r if that.r.isOdd & that.c.div4Rem0 & c.div4 != 0 => -1
+    case r if that.r.isOdd & that.c.isOdd & c.div4Rem2 => -1
+    case _ if c > that.c => 1
+    case _ if c < that.c => -1
+    case _ => 0
   }
 
   def subR(rDelta: Int): HCoord = HCoord(r -rDelta, c)
