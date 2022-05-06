@@ -175,7 +175,7 @@ trait HGrid extends Any with TGrid with HGridSys
    * @group SidesGroup */
   final override def sidesForeach(f: HSide => Unit): Unit = sideRowsForeach(r => rowForeachSide(r)(f))
 
-  final def innerSidesForeach(f: HSide => Unit): Unit = innerSideRowsForeach(r => rowForeachInnerSide(r)(f))
+  final def innerSidesForeach(f: HSide => Unit): Unit = innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
 
   def outerSidesForeach(f: HSide => Unit): Unit = {
     if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSide(topSideR, c)))
@@ -191,9 +191,7 @@ trait HGrid extends Any with TGrid with HGridSys
   def bottomRowForeachSide(f: HSide => Unit): Unit =
     iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSide(bottomSideRow, c)) }
 
-
-  //def bottomRowForeachSide(f: HSide => Unit): Unit
-  def rowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
+  def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */

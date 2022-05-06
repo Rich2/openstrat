@@ -42,7 +42,7 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
     }
   }
 
-  override def rowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
+  override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
   {
     case r if r.isEven => iToForeach(rowLeftCenC(r) + 2, rowRightCenC(r) -2, 4){ c => f(HSide(r, c)) }
     case r if r == bottomSideR =>

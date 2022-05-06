@@ -105,9 +105,9 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     case r => iToForeach(leftCenC - 1, rightCenC + 1, 2){ c => f(HSide(r, c)) }
   }
 
-  override def rowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
-  { case r if r == topSideRow =>
-    case r if r == bottomSideRow =>
+  override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
+  { case r if r >= topSideRow => excep(r.str + " is not an inner row.")
+    case r if r <= bottomSideRow => excep(r.str + " is not an inner row.")
     case r if r.div4Rem2 => iToForeach(leftrem2CenC + 2, rightRem2CenC - 2, 4){ c => f(HSide(r, c)) }
     case r if r.div4Rem0 => iToForeach(leftRem0CenC + 2, rightRem0CenC - 2, 4){ c => f(HSide(r, c)) }
     case r => iToForeach(leftCenC + 1, rightCenC - 1, 2){ c => f(HSide(r, c)) }
