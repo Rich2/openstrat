@@ -13,9 +13,6 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
 
   final override def topCenR: Int = bottomCenR + numTileRows * 2 - 2
 
-  /** The total number of hex tiles in the tile Grid. This is determined from the unsafeRowsArray */
-  //final override def numTiles: Int = iUntilFoldInt(0, unsafeRowsArray.length, 2)((acc, i) => acc + unsafeRowsArray(i))
-
   final override val numSides: Int =
   { var count = 0
     sidesForeach(r => count += 1)
@@ -127,12 +124,6 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
     case r if r < bottomCenR => false
     case r => c >= rowLeftCenC(r) & c <= rowRightCenC(r)
   }
-
-  override def topRowForeachSide(f: HSide => Unit): Unit =
-    iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2){ c => f(HSide(topSideRow, c)) }
-
-  override def bottomRowForeachSide(f: HSide => Unit): Unit =
-    iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSide(bottomSideRow, c)) }
 }
 
 object HGridIrr
