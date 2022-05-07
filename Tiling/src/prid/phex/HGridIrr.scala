@@ -13,12 +13,6 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
 
   final override def topCenR: Int = bottomCenR + numTileRows * 2 - 2
 
-  final override val numSides: Int =
-  { var count = 0
-    sidesForeach(r => count += 1)
-    count
-  }
-
   /** Combine adjacent tiles of the same value. */
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 

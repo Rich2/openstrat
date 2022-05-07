@@ -25,6 +25,7 @@ object OneScen1Test  extends TestSuite
 
     val hexs: Ints = g1.map(hc => hc.r * 10 + hc.c)
     val sh: Ints = g1.sidesMap(hc => hc.r * 10 + hc.c)
+    //val isd = g1.innerSides
     //val sha = sh.take(35)
     test("os2")
     {

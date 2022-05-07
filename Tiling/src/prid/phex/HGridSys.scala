@@ -11,6 +11,27 @@ trait HGridSys extends Any with TGridSys
     i
   }
 
+  /** The number of sides in the hex grid system. */
+  final lazy val numSides: Int =
+  { var i = 0
+    sidesForeach(_ => i += 1)
+    i
+  }
+
+  /** The number of inner sides in the hex grid system. */
+  final lazy val numInnerSides: Int =
+  { var i = 0
+    innerSidesForeach(_ => i += 1)
+    i
+  }
+
+  /** The number of outer sides in the hex grid system. */
+  final lazy val numOuterSides: Int =
+  { var i = 0
+    innerSidesForeach(_ => i += 1)
+    i
+  }
+
   /** The conversion factor for c column tile grid coordinates. 1.0 / sqrt(3). */
   final override def yRatio: Double = 3.sqrt
 
@@ -143,34 +164,34 @@ trait HGridSys extends Any with TGridSys
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive]
 
-  /** The number of Sides in the TileGrid. Needs reimplementing.
-   *  @group SidesGroup */
-  def numSides: Int
-
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
   def sidesForeach(f: HSide => Unit): Unit
   def innerSidesForeach(f: HSide => Unit): Unit
   def outerSidesForeach(f: HSide => Unit): Unit
 
-  /** maps over each Hex Side's coordinate [[HSide]] in the given Row.
-   *  @group SidesGroup */
+  /** maps over each Hex Side's coordinate [[HSide]] in the hex grid system. */
   final def sidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
-  {
-    val res: ArrT = build.newArr(numSides)
-    var count = 0
-    sidesForeach{hs =>
-      res.unsafeSetElem(count, f(hs))
-      count += 1
-    }
+  { val res: ArrT = build.newArr(numSides)
+    var i = 0
+    sidesForeach{hs => res.unsafeSetElem(i, f(hs)); i += 1 }
     res
   }
 
   /** maps over each the grid systems inner side's coordinate [[HSide]]. */
   final def innerSidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
-  { val buff = build.newBuff()
-    innerSidesForeach{hs => build.buffGrow(buff, f(hs)) }
-    build.buffToBB(buff)
+  { val res: ArrT = build.newArr(numInnerSides)
+    var i = 0
+    innerSidesForeach{hs => res.unsafeSetElem(i, f(hs)); i += 1 }
+    res
+  }
+
+  /** maps over each the grid systems outer side's coordinate [[HSide]]. */
+  final def outerSidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  { val res: ArrT = build.newArr(numInnerSides)
+    var i = 0
+    innerSidesForeach{hs => res.unsafeSetElem(i, f(hs)); i += 1 }
+    res
   }
 
   /** flatMaps over each Hex Side's coordinate [[HSide]]. */

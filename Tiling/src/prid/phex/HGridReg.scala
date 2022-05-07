@@ -5,12 +5,6 @@ package ostrat; package prid; package phex
  * where r %% 4 == 0 rows. */
 class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid
 {
-  final override val numSides: Int =
-  { var count = 0
-    sidesForeach(r => count += 1)
-    count
-  }
-
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
 

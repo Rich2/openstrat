@@ -66,9 +66,5 @@ trait HGridMulti extends HGridSys with TGridMulti
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   override def findStepEnd(startHC: HCen, step: HDirn): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
 
- // def gridNumSides(gridNum: Int): Int
-
-  override def numSides: Int = gridMansSum{g => g.numSides }
-
   override def defaultView(pxScale: Double = 50): HGridView = grids(0).defaultView(pxScale)
 }
