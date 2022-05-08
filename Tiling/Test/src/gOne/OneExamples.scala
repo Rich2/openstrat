@@ -52,3 +52,11 @@ object OneScen6 extends OneScen
   oPlayers.unsafeSetSome(6, 102, PlayerB)
   oPlayers.unsafeSetSome(10, 102, PlayerC)
 }
+
+/** 3rd example Turn 0 scenario state for Game One. */
+object OneScen7 extends OneScen
+{ override def turn: Int = 0
+  implicit val gridSys: HGrid = HGridIrr(10, (3, 6), (1, 8), (4, 2), (2, 4), (1, 6))
+  val oPlayers: HCenOptDGrid[Player] = gridSys.newHCenOptDGrid
+  oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
+}

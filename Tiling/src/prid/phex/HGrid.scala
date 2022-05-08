@@ -177,14 +177,7 @@ trait HGrid extends Any with TGrid with HGridSys
 
   final def innerSidesForeach(f: HSide => Unit): Unit = innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
 
-  def outerSidesForeach(f: HSide => Unit): Unit = {
-    if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSide(bottomSideR, c)))
-    iToForeach(bottomCenR, topCenR){r => r match{
-      case r if r.isEven => { f(HSide(r, rowLeftCenC(r) -2)); f(HSide(r, rowRightCenC(r) + 2)) }
-      case _ =>
-    }}
-    if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSide(topSideR, c)))
-  }
+  def outerSidesForeach(f: HSide => Unit): Unit
 
   /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter. */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit

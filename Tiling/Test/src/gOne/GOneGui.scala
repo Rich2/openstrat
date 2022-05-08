@@ -42,6 +42,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGridView) 
 
   /** Draws the tiles sides (or edges). */
   def outerSidesDraw: LinesDraw = gridSys.outerSidesDraw(Colour.Gold)
+  debvar(gridSys.numInnerSides)
   debvar(gridSys.numOuterSides)
 
   /** This is the graphical display of the planned move orders. */

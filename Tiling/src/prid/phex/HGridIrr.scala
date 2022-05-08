@@ -51,7 +51,24 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
 
   override def outerSidesForeach(f: HSide => Unit): Unit =
   {
-  }
+    if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSide(bottomSideR, c)))
+    iToForeach(bottomCenR, topCenR){r => r match{
+      case r if r.isEven => { f(HSide(r, rowLeftCenC(r) -2)); f(HSide(r, rowRightCenC(r) + 2)) }
+      case r => {
+        val bLeft = rowLeftCenC(r - 1)
+        val uLeft = rowLeftCenC(r + 1)
+        val leftStart = bLeft.min(uLeft) - 1
+        val leftEnd = bLeft.max(uLeft) - 3
+        iToForeach(leftStart, leftEnd, 2){c => f(HSide(r, c)) }
+        val bRight = rowRightCenC(r - 1)
+        val uRight = rowRightCenC(r + 1)
+        val rightEnd = bRight.max(uRight) + 1
+        val rightStart = bRight.min(uRight) + 3
+        iToForeach(rightStart, rightEnd, 2){c => f(HSide(r, c)) }
+      }
+    }}
+    if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSide(topSideR, c)))
+}
 
   def cSideRowMin(r: Int): Int = ???
 
@@ -122,16 +139,16 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
 
 object HGridIrr
 {
-  def apply(rMax: Int, cMinMaxs: (Int, Int) *): HGridIrr =
-  { val array = new Array[Int](cMinMaxs.length * 2)
-    val len = cMinMaxs.length
+  /** Takes the top row number followed by pairs of the number of tiles in the row ad the tile centre start coordinate. */
+  def apply(rMax: Int, cLenMins: (Int, Int) *): HGridIrr =
+  { val array = new Array[Int](cLenMins.length * 2)
+    val len = cLenMins.length
     val rMin = rMax - (len - 1) * 2
     iUntilForeach(0, len){ i =>
-      val (rLen, cMin) = cMinMaxs(len - 1 - i)
+      val (rLen, cMin) = cLenMins(len - 1 - i)
       array(i * 2) = rLen
       array(i * 2 + 1) = cMin
     }
-    val arrayLen = array.length
     new HGridIrr(rMin, array)
   }
 }

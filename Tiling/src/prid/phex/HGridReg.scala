@@ -146,9 +146,19 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     }
     array
   }
+
+  override def outerSidesForeach(f: HSide => Unit): Unit =
+  {
+    if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSide(bottomSideR, c)))
+    iToForeach(bottomCenR, topCenR){r => r match{
+      case r if r.isEven => { f(HSide(r, rowLeftCenC(r) - 2)); f(HSide(r, rowRightCenC(r) + 2)) }
+      case r => { f(HSide(r, leftCenC - 1)); f(HSide(r, rightCenC + 1)) }
+    }}
+    if(rowNumTiles(topCenR) > 0) iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2)(c => f(HSide(topSideR, c)))
+  }
 }
 
-/** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */
+/** Companion object for the HGridReg class. Contains an apply method that corrects the r and Y minimum and maximum values. */
 object HGridReg
 {
   /** Corrects the X and Y minimum and maximum values. */
