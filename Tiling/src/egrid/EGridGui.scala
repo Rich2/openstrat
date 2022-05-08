@@ -7,7 +7,7 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
   statusText = "Welcome to the new EGrids"
   implicit val gridSys: EGridMainSys = scen.gridSys
   focus = viewIn.vec
-  var cPScale: Double = viewIn.pxScale
+  override var cPScale: Double = viewIn.pxScale
   def metresScale: Double = cPScale / gridSys.cScale.mMetresNum
 
   val terrs: HCenDGrid[WTile] = scen.terrs
@@ -19,11 +19,11 @@ case class EGridGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) e
 
   def tileStrs: Arr[PolygonCompound] = gridSys.map{ hc =>
     val str = hc.rcStr32 --- gridSys.hCoordLL(hc).degStr --- hc.rcStr
-    hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, str, 16, terrs(hc).contrastBW)
+    hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, str, 12, terrs(hc).contrastBW)
   }
 
   def thisTop(): Unit = reTop(navButtons)
-  def frame: GraphicElems = ife(metresScale > 1400, tileStrs,tiles).slate(-focus).scale(cPScale)
+  def frame: GraphicElems = ife(cPScale > 25, tileStrs,tiles).slate(-focus).scale(cPScale)
   repaint()
   thisTop()
 }

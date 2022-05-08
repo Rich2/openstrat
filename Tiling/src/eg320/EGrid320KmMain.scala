@@ -10,16 +10,14 @@ class EGrid320KmMain (rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset
 object EGrid320Km
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
   def l0(rBottomCen: Int, rTopCen: Int = 160): EGrid320KmMain = new EGrid320KmMain(rBottomCen, rTopCen, 0.east, 100)
+  def l30(rBottomCen: Int, rTopCen: Int = 160): EGrid320KmMain = new EGrid320KmMain(rBottomCen, rTopCen, 30.east, 200)
 
   def scen1: EScenBasic =
   { val grid: EGridMain = l0(138)
-    EScenBasic(grid, Terr00())
+    EScenBasic(grid, terr0())
   }
-}
 
-object Terr00
-{
-  def apply(): HCenDGrid[WTile] =
+  def terr0(): HCenDGrid[WTile] =
   {
     implicit val grid: EGrid320KmMain = EGrid320Km.l0(138)
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
