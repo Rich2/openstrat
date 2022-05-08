@@ -22,6 +22,15 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
     override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
 
+    override def outerSidesForeach(f: HSide => Unit): Unit =
+    { grid.bottomRowForeachSide(f)
+      iToForeach(grid.bottomCenR, grid.topCenR){
+        case r if r.isEven => f(HSide(r, grid.rowLeftCenC(r) - 2))
+        case r => f(HSide(r, grid.leftCenC - 1))
+      }
+      grid.topRowForeachSide(f)
+    }
+
     override def outSteps(r: Int, c: Int): HStepCenArr = (r, c) match
     { case (r, c) if r == maxCenR & c == maxC1 => HStepCenArr((HexRt, r, c - grid2OffsetC + 4), (HexDR, r - 2, c - grid2OffsetC + 2))
       case (r, c) if r == maxCenR & c == maxC1 - 2 => HStepCenArr((HexRt, r, c - grid2OffsetC + 4))
@@ -48,6 +57,16 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
         case HSide(r, c) if c <= grid.leftCenC =>
         case _ => f(hs)
       }
+    }
+    override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
+
+    override def outerSidesForeach(f: HSide => Unit): Unit =
+    { grid.bottomRowForeachSide(f)
+      iToForeach(grid.bottomCenR, grid.topCenR){
+        case r if r.isEven => f(HSide(r, grid.rowRightCenC(r) + 2))
+        case r => f(HSide(r, grid.rightCenC + 1))
+      }
+      grid.topRowForeachSide(f)
     }
 
     override def outSteps(r: Int, c: Int): HStepCenArr = (r, c) match
@@ -94,12 +113,6 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
    * departure and the tile of arrival. */
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
-
-  override def sidesForeach(f: HSide => Unit): Unit = { grid1.sidesForeach(f); grid2.sidesForeach(f) }
-
-  override def innerSidesForeach(f: HSide => Unit): Unit = { grid1.innerSidesForeach(f); grid2.innerSidesForeach(f) }
-
-  override def outerSidesForeach(f: HSide => Unit): Unit = { grid1.outerSidesForeach(f); grid2.outerSidesForeach(f) }
 }
 
 object HGrids2

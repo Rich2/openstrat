@@ -10,6 +10,8 @@ object GridsNWNE extends EGrid80MainMulti
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
     override def offset: Vec2 = Vec2(0, 0)
     override def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach(f)
+    override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
+    override def outerSidesForeach(f: HSide => Unit): Unit = grid.outerSidesForeach(f)
   }
 
   val gridMan2: EGrid80MainMan = new EGrid80MainMan
@@ -18,6 +20,8 @@ object GridsNWNE extends EGrid80MainMulti
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
     override def offset: Vec2 = Vec2(0, 40)
     override def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach(f)
+    override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
+    override def outerSidesForeach(f: HSide => Unit): Unit = grid.outerSidesForeach(f)
   }
 
   override val gridMans: Arr[EGrid80MainMan] = Arr(gridMan1, gridMan2)
