@@ -51,13 +51,13 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
     override val arrIndex: Int = grid1.numTiles
     override def offset: Vec2 = Vec2(maxC1 - minC2 + 2, 0)
 
-    def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach { hs => hs match
-      { case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.topSideR => f(hs)
-        case HSide(r, c) if c == grid.leftSideC + 1 & r == grid.bottomSideR => f(hs)
-        case HSide(r, c) if c <= grid.leftCenC =>
-        case _ => f(hs)
-      }
+    def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach{
+      case hs if hs.c == grid.leftSideC + 1 & hs.r == grid.topSideR => f(hs)
+      case hs if hs.c == grid.leftSideC + 1 & hs.r == grid.bottomSideR => f(hs)
+      case hs if hs.c <= grid.leftCenC =>
+      case hs => f(hs)
     }
+
     override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
 
     override def outerSidesForeach(f: HSide => Unit): Unit =
