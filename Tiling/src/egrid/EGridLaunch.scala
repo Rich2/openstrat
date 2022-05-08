@@ -22,10 +22,12 @@ object EGridLaunch extends GuiLaunchMore
       (GridWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), "JavaFx EGrid80Km.scen1")
 
     num match
-    { case 0 => gwg(EGrid320Km.scen1)
+    {
       case 1 => gwg(EGrid80Km.scen1)
       case 2 => gwg(EGrid80Km.scen2)
       case 3 => gwg(ScenNWNE)
+      case 10 => gwg(EGrid320Km.scen1)
+      case 11 => gwg(EGrid320Km.scen2)
 
       case 51 => egg(EGrid80Km.scen1)
       case 52 => egg(EGrid80Km.scen2)

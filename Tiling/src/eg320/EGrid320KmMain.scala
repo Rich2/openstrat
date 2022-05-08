@@ -17,6 +17,11 @@ object EGrid320Km
     EScenBasic(grid, terr0())
   }
 
+  def scen2: EScenBasic =
+  { val grid: EGridMain = l30(138)
+    EScenBasic(grid, terr30())
+  }
+
   def terr0(): HCenDGrid[WTile] =
   {
     implicit val grid: EGrid320KmMain = EGrid320Km.l0(138)
@@ -28,6 +33,24 @@ object EGrid320Km
     gs(142, 94, plain, plain, sea, plain * 2)
     gs(140, 96, plain * 5)
     gs(138, 98, plain * 5)
+    terrs
+  }
+
+  def terr30(): HCenDGrid[WTile] =
+  {
+    implicit val grid: EGrid320KmMain = EGrid320Km.l30(138)
+    val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
+    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
+    gs(156, 196, taiga * 2, sea)
+    gs(154, 194, taiga * 3, sea)
+    gs(152, 200, taiga, sea, taiga)
+    gs(150, 198, taiga * 3)
+    gs(148, 192, taiga, sea, taiga * 3)
+    gs(146, 198, taiga * 4)
+    gs(144, 196, plain * 4)
+    gs(142, 190, plain * 6)
+    gs(140, 192, plain * 6)
+    gs(138, 190, mtain * 2, hills, plain * 4)
     terrs
   }
 }
