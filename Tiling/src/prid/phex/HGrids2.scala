@@ -13,7 +13,7 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   val grid2OffsetC: Int = maxC1 - minC2 + 2
 
   val gridMan1: HGridMan = new HGridMan
-  { override val grid: HGrid = grid1
+  { override val grid: HGridReg = grid1
     override val arrIndex: Int = 0
 
     override def offset: Vec2 = Vec2(0, 0)
@@ -47,7 +47,7 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   }
 
   val gridMan2: HGridMan = new HGridMan
-  { override val grid: HGrid = grid2
+  { override val grid: HGridReg = grid2
     override val arrIndex: Int = grid1.numTiles
     override def offset: Vec2 = Vec2(maxC1 - minC2 + 2, 0)
 
@@ -58,7 +58,15 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
       case hs => f(hs)
     }
 
-    override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
+    override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
+
+    def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
+    { case r if r >= grid.topSideRow => excep(r.str + " is not an inner row.")
+      case r if r <= grid.bottomSideRow => excep(r.str + " is not an inner row.")
+      case r if r.div4Rem2 => iToForeach(grid.leftrem2CenC -2, grid.rightRem2CenC - 2, 4){ c => f(HSide(r, c)) }
+      case r if r.div4Rem0 => iToForeach(grid.leftRem0CenC - 2, grid.rightRem0CenC - 2, 4){ c => f(HSide(r, c)) }
+      case r => iToForeach(grid.leftCenC - 1, grid.rightCenC - 1, 2){ c => f(HSide(r, c)) }
+    }
 
     override def outerSidesForeach(f: HSide => Unit): Unit =
     { grid.bottomRowForeachSide(f)
