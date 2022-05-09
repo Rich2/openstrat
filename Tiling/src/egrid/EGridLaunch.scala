@@ -28,6 +28,7 @@ object EGridLaunch extends GuiLaunchMore
       case 3 => gwg(ScenNWNE)
       case 10 => gwg(EGrid320Km.scen1)
       case 11 => gwg(EGrid320Km.scen2)
+      case 12 => gwg(EGrid320Km.scen3)
 
       case 51 => egg(EGrid80Km.scen1)
       case 52 => egg(EGrid80Km.scen2)
