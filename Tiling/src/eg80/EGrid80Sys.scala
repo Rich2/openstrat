@@ -13,7 +13,7 @@ class EGrid80Main(rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: In
 /** object for creating 80km hex scale earth grids. */
 object EGrid80Km
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
-  def l0(rBottomCen: Int, rTopCen: Int = 540): EGrid80Main = new EGrid80Main(rBottomCen, rTopCen, 0.east, 512)
+  def l0(rBottomCen: Int, rTopCen: Int = 540): EGrid80Main = new EGrid80Main(rBottomCen, rTopCen, 0.east, t"G0"/* 512 */)
 
   /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 20Km or hex scale 80km. */
   def l30(rBottomCen: Int, rTopCen: Int = 540): EGrid80Main = new EGrid80Main(rBottomCen, rTopCen, 30.east,t"1G0"/* 1536*/)

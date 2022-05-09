@@ -23,6 +23,7 @@ trait EGridMainManHead extends EGridMainMan
         val uLeft = grid.rowLeftCenC(r + 1)
         val leftStart = bLeft.min(uLeft) - 1
         val leftEnd = bLeft.max(uLeft) - 3
+        iToForeach(leftStart, leftEnd, 2){c => f(HSide(r, c)) }
       }
     }}
     if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSide(grid.topSideR, c)))
