@@ -38,6 +38,7 @@ trait EScenBasic extends HSysScen
 {
   def gridSys: EGridMainSys
   def terrs: HCenDGrid[pEarth.WTile]
+  def title: String = "EScenBasic"
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
@@ -47,5 +48,3 @@ object EScenBasic
 
   class EScenBasicImp(val gridSys: EGridMainSys, val terrs: HCenDGrid[pEarth.WTile]) extends EScenBasic
 }
-
-//case class EScenBasicFlat(gridSys: EGridMain, terrs: HCenDGrid[pEarth.WTile]) extends EScenBasic

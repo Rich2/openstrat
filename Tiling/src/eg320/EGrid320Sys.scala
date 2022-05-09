@@ -7,5 +7,5 @@ trait EGrid320Sys extends EGridSys
 }
 
 trait EGrid320MainMulti extends EGridMainMulti with EGrid320Sys
-{ override def hcDelta: Int = 100
+{ override def hcDelta: Int = 1024
 }

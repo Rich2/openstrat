@@ -28,7 +28,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
       p.map(_ / scale).fill(col)
     }
 
-    def rcTexts = ifGScale(18.5, optTexts)
+    def rcTexts = ifGScale(10, optTexts)
 
     def optTexts = terrs.hcFlatMap{ (hc, terr) =>
       val gls: LatLong = gridSys.hCoordLL(hc)
