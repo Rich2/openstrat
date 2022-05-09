@@ -51,14 +51,14 @@ object EGrid320Km
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
     gs(156, 148, taiga * 2, sea)
     gs(154, 146, taiga * 3, sea)
-//    gs(152, 200, taiga, sea, taiga)
-//    gs(150, 198, taiga * 3)
-//    gs(148, 192, taiga, sea, taiga * 3)
-//    gs(146, 198, taiga * 4)
-//    gs(144, 196, plain * 4)
-//    gs(142, 190, plain * 6)
-//    gs(140, 192, plain * 6)
-//    gs(138, 190, mtain * 2, hills, plain * 4)
+    gs(152, 152, taiga, sea, taiga)
+    gs(150, 150, taiga * 3)
+    gs(148, 144, taiga, sea, taiga * 3)
+    gs(146, 150, taiga * 4)
+    gs(144, 148, plain * 4)
+    gs(142, 142, plain * 6)
+    gs(140, 144, plain * 6)
+    gs(138, 142, mtain * 2, hills, plain * 4)
     terrs
   }
 
@@ -67,12 +67,12 @@ object EGrid320Km
     implicit val grid: EGrid320Main = EGrid320Km.l60(138)
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](taiga)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
-    gs(160, 304, sea)
-    gs(158, 302, sea, taiga)
-    gs(156, 296, sea * 2, taiga)
-    gs(142, 290, plain * 6)
-    gs(140, 292, plain * 6)
-    gs(138, 290, plain * 7)
+    gs(160, 256, sea)
+    gs(158, 254, sea, taiga)
+    gs(156, 248, sea * 2, taiga)
+    gs(142, 242, plain * 6)
+    gs(140, 244, plain * 6)
+    gs(138, 242, plain * 7)
     terrs
   }
 }
