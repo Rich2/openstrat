@@ -3,7 +3,7 @@ package ostrat; package eg320
 import egrid._
 
 trait EGrid320Sys extends EGridSys
-{ override val cScale: Length = 20.kMetres
+{ override val cScale: Length = 80.kMetres
 }
 
 trait EGrid320MainMulti extends EGridMainMulti with EGrid320Sys

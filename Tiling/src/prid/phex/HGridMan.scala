@@ -13,6 +13,7 @@ trait HGridMan
   def outerSidesForeach(f: HSide => Unit): Unit
   def numSides: Int = grid.sides.length
   def sidesForeach(f: HSide => Unit): Unit
+
   //def sideLines(implicit grider: HGridSys): LineSegArr = sides.map(_.lineSeg)
   def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
   def offset: Vec2

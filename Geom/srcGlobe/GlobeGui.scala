@@ -16,15 +16,15 @@ abstract class GlobeGui(title: String) extends CmdBarGui(title)
   def long: Longitude = focus.long
   def thisTop(): Unit
 
-  def zoomIn: PolygonCompound = clickButton("+"){_ =>
-    scale /= 1.1
+  def zoomIn: PolygonCompound = clickButton("+"){b =>
+    scale /= b.apply(1.1, 1.3, 2, 1)
     repaint()
     statusText = scaleStr
     thisTop()
   }
 
-  def zoomOut: PolygonCompound = clickButton("-"){_ =>
-    scale *= 1.1
+  def zoomOut: PolygonCompound = clickButton("-"){b =>
+    scale *= b.apply(1.1, 1.3, 2, 1)
     repaint()
     statusText = scaleStr
     thisTop()

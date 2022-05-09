@@ -13,7 +13,8 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
   //def view: HGridView = HGridView()
   val terrs: HCenDGrid[WTile] = scenIn.terrs
   val gls: LatLongArr = gridSys.map{hc => gridSys.hCoordLL(hc)}
-
+  debvar(gridSys.numSides)
+  debvar(gridSys.numInnerSides + gridSys.numOuterSides)
   def repaint(): Unit =
   {
     val irr0: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
@@ -28,7 +29,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
       p.map(_ / scale).fill(col)
     }
 
-    def rcTexts = ifGScale(10, optTexts)
+    def rcTexts = ifGScale(20.5, optTexts)
 
     def optTexts = terrs.hcFlatMap{ (hc, terr) =>
       val gls: LatLong = gridSys.hCoordLL(hc)
@@ -61,16 +62,18 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
     def outers5 = ifGScale(4, outers4)
 
     val irrLines = irr1.map { a => a._2.map(_ / scale).draw(White) }
+    def irrLines2 = ifGScale(2, irrLines)
 
     val irrNames = irr1.map { pair =>
       val (d, _) = pair
       val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
       TextGraphic(d.name, 12, posn, d.colour.contrastBW)
     }
+    def irrNames2 = ifGScale(4, irrNames)
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames ++ hexs2 ++ lines5 ++ outers5 ++ rcTexts ++ irrLines)
+    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ lines5 ++ outers5 ++ rcTexts ++ irrLines2)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()

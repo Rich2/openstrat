@@ -9,7 +9,7 @@ object GridsNWNE80 extends EGrid80MainMulti
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
-  val gridMan2: EGridMainMan = new EGridMainManLast
+  val gridMan2: EGridMainMan = new EGridMainLastMan
   { override val grid: EGrid80Main = EGrid80Km.l30b446
     override val arrIndex: Int = gridMan1.numTiles
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()

@@ -6,10 +6,25 @@ trait EGridMainMan extends EGridMan
 { override val grid: EGridMain
 }
 
-trait EGridMainManHead extends EGridMainMan
+trait EGridMainNotLastMan extends EGridMainMan
+{
+  override def sidesForeach(f: HSide => Unit): Unit = {
+    grid.bottomRowForeachSide(f)
+    iToForeach(grid.bottomCenR, grid.topCenR){
+      case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) -2, 4){c => f(HSide(r, c)) }
+      case r => {
+        val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
+        val rs = grid.rowRightCenC(r - 1).min(grid.rowRightCenC(r + 1)) + 1
+        iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
+      }
+    }
+    grid.topRowForeachSide(f)
+  }
+}
+
+trait EGridMainManHead extends EGridMainNotLastMan
 { override val arrIndex: Int = 0
   override def offset: Vec2 = Vec2(0, 0)
-  override def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach(f)
 
   override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = grid.innerRowForeachInnerSide(r)(f)
 
@@ -30,9 +45,45 @@ trait EGridMainManHead extends EGridMainMan
   }
 }
 
-trait EGridMainManLast extends EGridMainMan
-{ override def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach(f)
-  override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = grid.innerRowForeachInnerSide(r)(f)
+trait EGridMainNotHeadMan extends EGridMainMan
+{
+  override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
+  {
+    case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) -2, 4){ c => f(HSide(r, c)) }
+    case r if r == grid.bottomSideR =>
+    case r if r == grid.topSideR =>
+
+    case r =>
+    { val start = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
+      val end = grid.rowRightCenC(r - 1).min(grid.rowRightCenC(r + 1)) + 1
+      iToForeach(start, end, 2){ c => f(HSide(r, c)) }
+    }
+  }
+}
+
+trait EGridMainMiddleMan extends EGridMainNotLastMan with EGridMainNotHeadMan
+{
+  override def outerSidesForeach(f: HSide => Unit): Unit =
+  {
+    if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
+    if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSide(grid.topSideR, c)))
+  }
+}
+
+trait EGridMainLastMan extends EGridMainNotHeadMan
+{
+  override def sidesForeach(f: HSide => Unit): Unit =
+  { grid.bottomRowForeachSide(f)
+    iToForeach(grid.bottomCenR, grid.topCenR){
+      case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
+      case r => {
+        val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
+        val rs = grid.rowRightCenC(r - 1).max(grid.rowRightCenC(r + 1)) + 1
+        iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
+      }
+    }
+    grid.topRowForeachSide(f)
+}
 
   override def outerSidesForeach(f: HSide => Unit): Unit =
   {
