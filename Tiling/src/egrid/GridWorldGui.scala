@@ -34,7 +34,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
       val gls: LatLong = gridSys.hCoordLL(hc)
       val g2 = gls.toMetres3.fromLatLongFocus(focus)
       val strs: Strings = Strings(hc.rcStr32, gls.degStr, hc.strComma)
-      TextGraphic.lines(strs, 10, g2.xy / scale, terr.contrastBW)
+      TextGraphic.lines(strs, 12, g2.xy / scale, terr.contrastBW)
     }
 
     val hexs1 = gridSys.map{ hc =>
@@ -48,7 +48,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
       p.map(_ / scale).fill(col)
     }
 
-    val lines = gridSys.sideLineM3s
+    val lines = gridSys.innerSideLineM3s
     val lines2 = lines.fromLatLongFocus(focus)
     val lines3 = lines2.filter(_.zsPos)
     val lines4 = lines3.map(_.xyLineSeg(scale).draw(White))
@@ -65,7 +65,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
     val irrNames = irr1.map { pair =>
       val (d, _) = pair
       val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
-      TextGraphic(d.name, 10, posn, d.colour.contrastBW)
+      TextGraphic(d.name, 12, posn, d.colour.contrastBW)
     }
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)

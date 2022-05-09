@@ -2,13 +2,11 @@
 package ostrat; package eg80
 import prid._, phex._, egrid._, geom._, pEarth._
 
-object GridsNWNE extends EGrid80MainMulti
+object GridsNWNE80 extends EGrid80MainMulti
 {
   val gridMan1: EGridMainManHead = new EGridMainManHead
   { override val grid: EGrid80Main = EGrid80Km.l0b446
-
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
-
   }
 
   val gridMan2: EGridMainMan = new EGridMainManLast
@@ -23,8 +21,6 @@ object GridsNWNE extends EGrid80MainMulti
   /** The grids of this tile gird system. */
   override val grids: Arr[EGrid] = gridMans.map(_.grid)
 
-  /** Splits [[HCen]] allocation at 0y100 0r 1024. */
-  override def unsafeGetMan(r: Int, c: Int): EGridMan = ife(c < t"100", gridMan1, gridMan2)
 
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
@@ -35,7 +31,7 @@ object GridsNWNE extends EGrid80MainMulti
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object ScenNWNE extends EScenBasic
-{ override def gridSys: EGridMainSys = GridsNWNE
+object ScenNWNE80 extends EScenBasic
+{ override def gridSys: EGridMainSys = GridsNWNE80
   override def terrs: HCenDGrid[WTile] = EuropeNW80Terr() ++ EuropeNE80Terr()
 }

@@ -34,3 +34,5 @@ object EGrid80Km
 }
 
 trait EGrid80MainMulti extends EGridMainMulti with EGrid80Sys
+{ override def hcDelta: Int = 1024
+}
