@@ -181,7 +181,7 @@ trait HGrid extends Any with TGrid with HGridSys
 
   /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter. */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit
-  //def topRowForeachSide(f: HSide => Unit): Unit
+
   def topRowForeachSide(f: HSide => Unit): Unit =
     iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2){ c => f(HSide(topSideRow, c)) }
 

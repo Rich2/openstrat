@@ -54,6 +54,12 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
     val lines4 = lines3.map(_.xyLineSeg(scale).draw(White))
     def lines5 = ifGScale(5, lines4)
 
+    val outers = gridSys.outerSideLineM3s
+    val outers2 = outers.fromLatLongFocus(focus)
+    val outers3 = outers2.filter(_.zsPos)
+    val outers4 = outers3.map(_.xyLineSeg(scale).draw(Gold, 3))
+    def outers5 = ifGScale(5, outers4)
+
     val irrLines = irr1.map { a => a._2.map(_ / scale).draw(White) }
 
     val irrNames = irr1.map { pair =>
@@ -64,7 +70,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames ++ hexs2 ++ lines5 ++ rcTexts ++ irrLines)
+    mainRepaint(seas %: irrFills ++ irrNames ++ hexs2 ++ lines5 ++ outers5 ++ rcTexts ++ irrLines)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()
@@ -72,5 +78,5 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
 }
 
 object GridWorldGui
-{ def apply(canv: CanvasPlatform, grid: EScenBasic/* EGrid80Main*/, view: HGridView): GridWorldGui = new GridWorldGui(canv,grid, view)
+{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGridView): GridWorldGui = new GridWorldGui(canv,grid, view)
 }

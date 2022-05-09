@@ -211,7 +211,7 @@ trait HGridSys extends Any with TGridSys
   final def sides: HSideArr = sidesMap(hs => hs)
 
   /** The line segments of the sides defined in [[HCoord]] vertices. */
-  def sideLineSegHCs: LineSegHCArr = sidesMap[LineSegHC, LineSegHCArr](_.lineSegHC)
+  def sideLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
   /** The line segments of the inner sides defined in [[HCoord]] vertices. */
 
   def innerSideLineSegHCs: LineSegHCArr = innerSidesMap[LineSegHC, LineSegHCArr](_.lineSegHC)

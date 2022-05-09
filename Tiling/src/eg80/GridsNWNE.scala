@@ -4,27 +4,21 @@ import prid._, phex._, egrid._, geom._, pEarth._
 
 object GridsNWNE extends EGrid80MainMulti
 {
-  val gridMan1: EGrid80MainMan = new EGrid80MainMan
+  val gridMan1: EGridMainManHead = new EGridMainManHead
   { override val grid: EGrid80Main = EGrid80Km.l0b446
-    override val arrIndex: Int = 0
+
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
-    override def offset: Vec2 = Vec2(0, 0)
-    override def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach(f)
-    override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
-    override def outerSidesForeach(f: HSide => Unit): Unit = grid.outerSidesForeach(f)
+
   }
 
-  val gridMan2: EGrid80MainMan = new EGrid80MainMan
+  val gridMan2: EGridMainMan = new EGridMainManLast
   { override val grid: EGrid80Main = EGrid80Km.l30b446
     override val arrIndex: Int = gridMan1.numTiles
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
     override def offset: Vec2 = Vec2(0, 40)
-    override def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach(f)
-    override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
-    override def outerSidesForeach(f: HSide => Unit): Unit = grid.outerSidesForeach(f)
   }
 
-  override val gridMans: Arr[EGrid80MainMan] = Arr(gridMan1, gridMan2)
+  override val gridMans: Arr[EGridMainMan] = Arr(gridMan1, gridMan2)
 
   /** The grids of this tile gird system. */
   override val grids: Arr[EGrid] = gridMans.map(_.grid)
