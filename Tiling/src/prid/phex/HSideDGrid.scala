@@ -20,14 +20,19 @@ final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with 
       i += 1
     }
   }
+  def truesMap[B, ArrB <: SeqImut[B]](f: HSide => B)(implicit gridSys: HGridSys, build: ArrBuilder[B, ArrB]): ArrB = truesMap(gridSys)(f)(build)
 
-  def truesMap[B, ArrB <: SeqImut[B]](f: HSide => B)(implicit gridSys: HGridSys, build: ArrBuilder[B, ArrB]): ArrB ={
-    var i = 0
-    val res = build.newArr(gridSys.numSides)
-    //gridSys.sidesForeach{}
-    res
+  def truesMap[B, ArrB <: SeqImut[B]](gridSys: HGridSys)(f: HSide => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  { var i = 0
+    val buff = build.newBuff()
+    gridSys.sidesForeach{hs =>
+     // if (unsafeArray(i))
+        build.buffGrow(buff, f(hs))
+      i += 1
+    }
+    build.buffToBB(buff)
   }
 
-  def setTrues(hSides: HSideArr)(implicit grid: HGrid): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
-  def setTrues(hSides: HSide*)(implicit grid: HGrid): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
+  def setTrues(hSides: HSideArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
+  def setTrues(hSides: HSide*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
 }
