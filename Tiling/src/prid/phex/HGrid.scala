@@ -201,7 +201,7 @@ trait HGrid extends Any with TGrid with HGridSys
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   def sideRowIndexArray: Array[Int]
 
-  def newSideBooleans: HSideBooleans = new HSideBooleans(new Array[Boolean](numSides))
+  def newSideBooleans: HSideBoolDGrid = new HSideBoolDGrid(new Array[Boolean](numSides))
 }
 
 /** Hex grid path finding node. */

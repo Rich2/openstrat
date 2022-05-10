@@ -3,23 +3,28 @@ package ostrat
 import scala.collection.mutable.ArrayBuffer
 
 trait BooleanSeqDef extends Any with ImutSeqDef[Boolean]
-{
+{ type ThisT <: BooleanSeqDef
   def unsafeArray: Array[Boolean]
+
+  /** Constructs a new instance of the final type / class from an [[Array]][Boolean]. */
+  def fromArray(array: Array[Boolean]): ThisT
+
+  override final def sdLength: Int = unsafeArray.length
+  override final def sdIndex(index: Int): Boolean = unsafeArray(index)
+  override final def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeArray(i) = value
+  override final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
+
+  def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
+  override def fElemStr: Boolean => String = _.toString
 }
 
 /** An immutable efficient Array[Boolean] backed sequence class for [[Boolean]]s. */
-class BooleanArr(val unsafeArray: Array[Boolean]) extends AnyVal with SeqImut[Boolean] with BooleanSeqDef
+final class BooleanArr(val unsafeArray: Array[Boolean]) extends AnyVal with SeqImut[Boolean] with BooleanSeqDef
 { type ThisT = BooleanArr
-
-  /** Copy's the backing Array[[Boolean]] to a new Array[char]. End users should rarely have to use this method. */
-  override def unsafeSameSize(length: Int): BooleanArr = new BooleanArr(new Array[Boolean](length))
   override def typeStr: String = "Booleans"
-  override def sdLength: Int = unsafeArray.length
+  override def fromArray(array: Array[Boolean]): BooleanArr = new BooleanArr(array)
+
   override def length: Int = unsafeArray.length
-  override def sdIndex(index: Int): Boolean = unsafeArray(index)
-  override def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeArray(i) = value
-  def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
-  override def fElemStr: Boolean => String = _.toString
 
   def ++ (op: BooleanArr): BooleanArr =
   { val newArray = new Array[Boolean](sdLength + op.sdLength)
