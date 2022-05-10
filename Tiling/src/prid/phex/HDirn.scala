@@ -9,8 +9,6 @@ sealed trait HDirn extends TDirnSided with ElemInt1
   def intValue: Int
   def reverse: HDirn
   def canEqual(a: Any): Boolean = a.isInstanceOf[HDirn]
-
-
 }
 
 object HDirn

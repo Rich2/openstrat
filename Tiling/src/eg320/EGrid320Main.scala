@@ -39,7 +39,7 @@ object EGrid320Km
     gs(146, 460 + 50, hills, sea * 2, plain)
     gs(144, 460 + 48, plain, sea * 2, plain)
     gs(142, 460 + 46, plain, plain, sea, plain * 2)
-    gs(140, 460 + 48, plain * 5)
+    gs(140, 516, plain * 3)
     gs(138, 460 + 50, plain * 5)
     terrs
   }
