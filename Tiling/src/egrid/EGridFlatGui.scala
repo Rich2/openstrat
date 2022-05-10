@@ -2,7 +2,7 @@
 package ostrat; package egrid
 import  pgui._, geom._, prid._, phex._, pEarth._
 
-case class EGridFlatGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGridView) extends HGridSysGui("North West Europe Gui")
+case class EGridFlatGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGView) extends HGridSysGui("North West Europe Gui")
 {
   statusText = "Welcome to the new EGrids"
   implicit val gridSys: EGridMainSys = scen.gridSys

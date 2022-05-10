@@ -33,7 +33,7 @@ trait HCoord extends Any with TCoord with Ordered[HCoord]
 
   def subR(rDelta: Int): HCoord = HCoord(r -rDelta, c)
 
-  def view(pxScale: Double = 50): HGridView = HGridView(r, c, pxScale)
+  def view(pxScale: Double = 50): HGView = HGView(r, c, pxScale)
 
   /** Uses the implicit [[HGridSysFlat]] to convert to [[Pt2]]. */
   def toPt2(implicit grider: HGridSys): Pt2 = grider.hCoordToPt2(this)

@@ -2,7 +2,7 @@
 package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
-class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridView) extends GlobeGui("Grid World")
+class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView) extends GlobeGui("Grid World")
 {
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
   implicit val gridSys: EGridMainSys = scenIn.gridSys
@@ -81,5 +81,5 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGridVi
 }
 
 object GridWorldGui
-{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGridView): GridWorldGui = new GridWorldGui(canv,grid, view)
+{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView): GridWorldGui = new GridWorldGui(canv,grid, view)
 }

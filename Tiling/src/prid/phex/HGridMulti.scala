@@ -66,7 +66,7 @@ trait HGridMulti extends HGridSys with TGridMulti
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   override def findStepEnd(startHC: HCen, step: HDirn): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
 
-  override def defaultView(pxScale: Double = 50): HGridView = grids(0).defaultView(pxScale)
+  override def defaultView(pxScale: Double = 50): HGView = grids(0).defaultView(pxScale)
   override final def sidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.sidesForeach(f))
   override final def innerSidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.innerSidesForeach(f))
   override final def outerSidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))

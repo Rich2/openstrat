@@ -237,5 +237,5 @@ trait HGridSys extends Any with TGridSys
   final def outerSidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSys): LinesDraw =
     outerSideLines.draw(lineWidth, colour)
 
-  def defaultView(pxScale: Double = 50): HGridView
+  def defaultView(pxScale: Double = 50): HGView
 }

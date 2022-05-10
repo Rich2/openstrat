@@ -23,7 +23,7 @@ object OneLaunch extends GuiLaunchMore
       case _ => OneScen1
     }
     
-    val oview: EMon[HGridView] = sts.findKeySetting[Int, HGridView](num)
+    val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
     (GOneGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game One")
   }
 }

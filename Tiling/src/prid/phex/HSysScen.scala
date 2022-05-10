@@ -9,7 +9,7 @@ abstract class HGridSysGui(title: String) extends TGridSysGui(title)
 /** Scenario based on a [[HGrid]] system. */
 trait HSysScen
 { implicit def gridSys: HGridSys
-  def defaultView(pxScale: Double = 50): HGridView = gridSys.defaultView(pxScale)
+  def defaultView(pxScale: Double = 50): HGView = gridSys.defaultView(pxScale)
 }
 
 trait HSysTurnScen extends HSysScen with GridTurnScen
