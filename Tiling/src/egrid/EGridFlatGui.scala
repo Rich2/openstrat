@@ -2,23 +2,22 @@
 package ostrat; package egrid
 import  pgui._, geom._, prid._, phex._, pEarth._
 
-case class EGridFlatGui(canv: CanvasPlatform, scen: EScenBasic, viewIn: HGView) extends HGridSysGui("North West Europe Gui")
+case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) extends HGridSysGui("North West Europe Gui")
 {
   statusText = "Welcome to the new EGrids"
-  implicit val gridSys: EGridMainSys = scen.gridSys
+  implicit val gridSys: HGridSys = scen.gridSys
   focus = viewIn.vec
   override var cPScale: Double = viewIn.pxScale
-  def metresScale: Double = cPScale / gridSys.cScale.mMetresNum
-
+  //def metresScale: Double = cPScale / gridSys.cScale.mMetresNum
   val terrs: HCenDGrid[WTile] = scen.terrs
 
   def tiles: Arr[PolygonCompound] = gridSys.map{ hc =>
-    val str = gridSys.hCoordLL(hc).degStr --- hc.rcStr
+    val str = /*gridSys.hCoordLL(hc).degStr --- */ hc.rcStr
     hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg)
   }
 
   def tileStrs: Arr[PolygonCompound] = gridSys.map{ hc =>
-    val str = hc.rcStr32 --- gridSys.hCoordLL(hc).degStr --- hc.rcStr
+    val str = hc.rcStr32 /* --- gridSys.hCoordLL(hc).degStr */ --- hc.rcStr
     hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, str, 12, terrs(hc).contrastBW)
   }
 
