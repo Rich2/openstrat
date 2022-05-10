@@ -33,12 +33,15 @@ trait EGridMulti extends EGridSys with HGridMulti
   override def hCoordLL(hc: HCoord): LatLong = unsafeGetManFunc(hc)(_.grid.hCoordLL(hc))
 }
 
+trait EScenFlat extends HSysScen
+{ def terrs: HCenDGrid[pEarth.WTile]
+  def title: String = "EScenFlat"
+}
+
 /** A basic EGrid scenario, containing grid and basic terrain data. */
-trait EScenBasic extends HSysScen
-{
-  def gridSys: EGridMainSys
-  def terrs: HCenDGrid[pEarth.WTile]
-  def title: String = "EScenBasic"
+trait EScenBasic extends EScenFlat
+{ override def gridSys: EGridMainSys
+  override def title: String = "EScenBasic"
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */

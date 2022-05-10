@@ -33,5 +33,5 @@ object GridsNWNE320 extends EGrid320MainMulti
 
 object ScenNWNE320 extends EScenBasic
 { override def gridSys: EGridMainSys = GridsNWNE320
-  override def terrs: HCenDGrid[WTile] = EGrid320Km.terr0() ++ EGrid320Km.terr30()
+  override def terrs: HCenDGrid[WTile] = Terr0() ++ EGrid320Km.terr30()
 }
