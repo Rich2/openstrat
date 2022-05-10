@@ -5,31 +5,24 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
 /** The immutable Array based class for types without there own specialised [[SeqImut]] collection classes. It Inherits the standard foreach, map,
  *  flatMap and fold and their variations' methods from ArrayLike. As it stands in Scala 3.0.2-RC1 the Graphics module will not build for Scala3 for
  *  the Javascript target. */
-final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal with SeqImut[A]
-{ type ThisT = Arr[A]@uncheckedVariance
+final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with SeqImut[A] with RefsImutSeqDef[A]
+{ type ThisT = Arr[A] @uncheckedVariance
   override def typeStr: String = "Arr"
-
-  /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
-  override def unsafeSameSize(length: Int): Arr[A] = new Arr(new Array[AnyRef](length).asInstanceOf[Array[A]])
-
-  override def sdLength: Int = unsafeArr.length
-  override def length: Int = unsafeArr.length
-  override def sdIndex(index: Int): A = unsafeArr(index)
+  override def fromArray(array: Array[A] @uncheckedVariance): Arr[A] = new Arr(array)
+  override def length: Int = unsafeArray.length
 
   def eqs(other: Any): Boolean = other match {
-    case a: Arr[_] => unsafeArr.sameElements(a.unsafeArr)
+    case a: Arr[_] => unsafeArray.sameElements(a.unsafeArray)
     case _ => false
   }
 
   /** Same map. Maps from this Arr[A] to a new Arr[A]. */
   def smap(f: A => A @uncheckedVariance): Arr[A] =
-  { val newArray: Array[A] = unsafeArr.clone()
+  { val newArray: Array[A] = unsafeArray.clone()
     iForeach({(i, el) => newArray(i) = f(el) })
     new Arr[A](newArray)
   }
 
-  override def fElemStr: A @uncheckedVariance => String = _.toString
-  def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArr(i) = value
 
   /** Returns a new shorter Arr with the head element removed. */
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] = drop(1)
@@ -45,14 +38,14 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
 
   /** Copies the backing Array to the operand Array. */
   def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
-  { unsafeArr.copyToArray(unsafeArr, offset, copyLength); () }
+  { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
 
   /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
   { val n2 = n.max0
     val newLen: Int = (sdLength - n2).max0
     val newArray = new Array[A](newLen)
-    iUntilForeach(0, newLen)(i => newArray(i) = unsafeArr(i + n2))
+    iUntilForeach(0, newLen)(i => newArray(i) = unsafeArray(i + n2))
     new Arr(newArray)
   }
 
@@ -61,7 +54,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   { val n2 = n.max0
     val newLen: Int = (sdLength - n2).max0
     val newArray = new Array[A](newLen)
-    iUntilForeach(0, newLen)(i => newArray(i) = unsafeArr(i))
+    iUntilForeach(0, newLen)(i => newArray(i) = unsafeArray(i))
     new Arr(newArray)
   }
 
@@ -72,8 +65,8 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
    *  indicates loss of type precision. The ++ appendArr method is preferred when type widening is not required. */
   def appendArr [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
   { val newArray = new Array[AA](sdLength + op.sdLength)
-    unsafeArr.copyToArray(newArray)
-    op.unsafeArr.copyToArray(newArray, sdLength)
+    unsafeArray.copyToArray(newArray)
+    op.unsafeArray.copyToArray(newArray, sdLength)
     new Arr(newArray)
   }
 
@@ -82,7 +75,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   /** Functionally appends an element to dispatching Refs, allows type widening. Aliased by +- operator. */
   def append[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
   { val newArray = new Array[AA](sdLength + 1)
-    unsafeArr.copyToArray(newArray)
+    unsafeArray.copyToArray(newArray)
     newArray(sdLength) = op
     new Arr(newArray)
   }
@@ -94,7 +87,7 @@ final class Arr[+A](val unsafeArr: Array[A] @uncheckedVariance) extends AnyVal w
   def prepend[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
   { val newArray = new Array[AA](sdLength + 1)
     newArray(0) = op
-    unsafeArr.copyToArray(newArray, 1)
+    unsafeArray.copyToArray(newArray, 1)
     new Arr(newArray)
   }
 
@@ -157,10 +150,10 @@ object Arr
 class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrBuilder[B, Arr[B]] with ArrFlatBuilder[Arr[B]]
 { type BuffT = TBuff[B]
   override def newArr(length: Int): Arr[B] = new Arr(new Array[B](length))
-  override def arrSet(arr: Arr[B], index: Int, value: B): Unit = arr.unsafeArr(index) = value
+  override def arrSet(arr: Arr[B], index: Int, value: B): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): TBuff[B] = new TBuff(new ArrayBuffer[B](length))
   override def buffGrow(buff: TBuff[B], value: B): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: TBuff[B], arr: Arr[B]): Unit = buff.unsafeBuff.addAll(arr.unsafeArr)
+  override def buffGrowArr(buff: TBuff[B], arr: Arr[B]): Unit = buff.unsafeBuff.addAll(arr.unsafeArray)
   override def buffToBB(buff: TBuff[B]): Arr[B] = new Arr(buff.unsafeBuff.toArray)
 }
 

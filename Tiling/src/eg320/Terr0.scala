@@ -1,6 +1,10 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._, prid._, phex._, WTile._
+import pEarth._
+import prid._
+import phex._
+import WTile._
+import ostrat.egrid.EScenFlat
 
 object Terr0
 {
@@ -27,9 +31,16 @@ object Terr0
     iToForeach(regGrid.bottomCenR, regGrid.topCenR, 2) { r =>
       iToForeach(regGrid.rowLeftCenC(r), regGrid.rowRightCenC(r), 4) { c =>
         val value = apply().rc(r, c)(EGrid320Km.l0(138))
-        //newTerrs
+        newTerrs.set(r, c, value)(regGrid)
       }
     }
     newTerrs
+  }
+
+  def regScen: EScenFlat = new EScenFlat {
+    override implicit def gridSys: HGridSys = regGrid
+    override def terrs: HCenDGrid[WTile] = regTerrs
+
+
   }
 }

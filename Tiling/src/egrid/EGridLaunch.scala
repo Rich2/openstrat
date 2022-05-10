@@ -15,7 +15,7 @@ object EGridLaunch extends GuiLaunchMore
 
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
 
-    def egg(scen: EScenBasic): (CanvasPlatform => Any, String) =
+    def egg(scen: EScenFlat): (CanvasPlatform => Any, String) =
       (EGridFlatGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), "JavaFx " + scen.title)
 
     def gwg(scen: EScenBasic): (CanvasPlatform => Any, String) =
@@ -35,6 +35,7 @@ object EGridLaunch extends GuiLaunchMore
 
       case 51 => egg(EGrid80Km.scen1)
       case 52 => egg(EGrid80Km.scen2)
+      case 53 => egg(Terr0.regScen)
       case 61 => egg(EGrid320Km.scen1)
       case _ => egg(EGrid80Km.scen1)
     }
