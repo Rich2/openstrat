@@ -6,7 +6,7 @@ import reflect.ClassTag
  *  distinguishes this from an ordinary linear sequence array of data. Whether in a game or a non game application the data of the grid tiles is
  *  likely to change much more frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data
  *  should be set and retrieved through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
-class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenDGrid[A] with RefsImutSeqDef[A]
+class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenDGrid[A]
 { override type ThisT = HCenDGrid[A]
   override def typeStr: String = "HCenDGrid"
   def apply(hc: HCen)(implicit grider: HGridSys): A = unsafeArray(grider.arrIndex(hc))

@@ -40,7 +40,5 @@ object Terr0
   def regScen: EScenFlat = new EScenFlat {
     override implicit def gridSys: HGridSys = regGrid
     override def terrs: HCenDGrid[WTile] = regTerrs
-
-
   }
 }

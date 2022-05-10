@@ -23,7 +23,6 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
     new Arr[A](newArray)
   }
 
-
   /** Returns a new shorter Arr with the head element removed. */
   @inline def drop1(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] = drop(1)
 
