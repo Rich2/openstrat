@@ -38,7 +38,9 @@ object Terr0
   }
 
   def regScen: EScenFlat = new EScenFlat {
-    override implicit def gridSys: HGridSys = regGrid
-    override def terrs: HCenDGrid[WTile] = regTerrs
+    override implicit val gridSys: HGridSys = regGrid
+    override val terrs: HCenDGrid[WTile] = regTerrs
+    override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
+    //sTerrs.setTrues(142, 508)
   }
 }

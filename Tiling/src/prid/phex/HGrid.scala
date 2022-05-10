@@ -190,13 +190,7 @@ trait HGrid extends Any with TGrid with HGridSys
 
   def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
-   *  data. */
-  @inline final def sideArrIndex(hc: HSide): Int = sideArrIndex(hc.r, hc.c)
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
-   *  Array data. */
-  def sideArrIndex(r: Int, c: Int): Int
 
   /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
   def sideRowIndexArray: Array[Int]

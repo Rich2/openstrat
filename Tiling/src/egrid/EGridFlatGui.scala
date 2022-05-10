@@ -10,6 +10,7 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   override var cPScale: Double = viewIn.pxScale
   //def metresScale: Double = cPScale / gridSys.cScale.mMetresNum
   val terrs: HCenDGrid[WTile] = scen.terrs
+  val sTerrs: HSideBoolDGrid = scen.sTerrs
 
   def tiles: Arr[PolygonCompound] = gridSys.map{ hc =>
     val str = /*gridSys.hCoordLL(hc).degStr --- */ hc.rcStr

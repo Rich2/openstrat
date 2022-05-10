@@ -164,6 +164,14 @@ trait HGridSys extends Any with TGridSys
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive]
 
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
+   *  data. */
+  @inline final def sideArrIndex(hc: HSide): Int = sideArrIndex(hc.r, hc.c)
+
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
+   *  Array data. */
+  def sideArrIndex(r: Int, c: Int): Int
+
   /** foreach Hex side's coordinate HSide, calls the effectfull function.
    * @group SidesGroup */
   def sidesForeach(f: HSide => Unit): Unit
@@ -236,6 +244,8 @@ trait HGridSys extends Any with TGridSys
   /** Draws the inner side lines in a single colour and line width. */
   final def outerSidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSys): LinesDraw =
     outerSideLines.draw(lineWidth, colour)
+
+  def newSideBools: HSideBoolDGrid = new HSideBoolDGrid(new Array[Boolean](numSides))
 
   def defaultView(pxScale: Double = 50): HGView
 }

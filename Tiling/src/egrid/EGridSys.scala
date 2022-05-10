@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, pglobe._, prid._, phex._
+import geom._, pglobe._, prid._, phex._, pEarth._
 
 trait EGridSys extends HGridSys
 { /** The length of one column coordinate delta */
@@ -34,7 +34,8 @@ trait EGridMulti extends EGridSys with HGridMulti
 }
 
 trait EScenFlat extends HSysScen
-{ def terrs: HCenDGrid[pEarth.WTile]
+{ def terrs: HCenDGrid[WTile]
+  def sTerrs: HSideBoolDGrid
   def title: String = "EScenFlat"
 }
 
@@ -47,7 +48,7 @@ trait EScenBasic extends EScenFlat
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 object EScenBasic
 {
-  def apply(gridSys: EGridMainSys, terrs: HCenDGrid[pEarth.WTile]): EScenBasic = new EScenBasicImp(gridSys, terrs)
+  def apply(gridSys: EGridMainSys, terrs: HCenDGrid[WTile]): EScenBasic = new EScenBasicImp(gridSys, terrs, gridSys.newSideBools)
 
-  class EScenBasicImp(val gridSys: EGridMainSys, val terrs: HCenDGrid[pEarth.WTile]) extends EScenBasic
+  class EScenBasicImp(val gridSys: EGridMainSys, val terrs: HCenDGrid[WTile], val sTerrs: HSideBoolDGrid) extends EScenBasic
 }
