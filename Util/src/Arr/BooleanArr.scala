@@ -2,12 +2,17 @@
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
+trait BooleanSeqDef extends Any with ImutSeqDef[Boolean]
+{
+  def unsafeArray: Array[Boolean]
+}
+
 /** An immutable efficient Array[Boolean] backed sequence class for [[Boolean]]s. */
-class Booleans(val unsafeArray: Array[Boolean]) extends AnyVal with SeqImut[Boolean]
-{ type ThisT = Booleans
+class BooleanArr(val unsafeArray: Array[Boolean]) extends AnyVal with SeqImut[Boolean] with BooleanSeqDef
+{ type ThisT = BooleanArr
 
   /** Copy's the backing Array[[Boolean]] to a new Array[char]. End users should rarely have to use this method. */
-  override def unsafeSameSize(length: Int): Booleans = new Booleans(new Array[Boolean](length))
+  override def unsafeSameSize(length: Int): BooleanArr = new BooleanArr(new Array[Boolean](length))
   override def typeStr: String = "Booleans"
   override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
@@ -16,27 +21,27 @@ class Booleans(val unsafeArray: Array[Boolean]) extends AnyVal with SeqImut[Bool
   def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Boolean => String = _.toString
 
-  def ++ (op: Booleans): Booleans =
+  def ++ (op: BooleanArr): BooleanArr =
   { val newArray = new Array[Boolean](sdLength + op.sdLength)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, sdLength)
-    new Booleans(newArray)
+    new BooleanArr(newArray)
   }
 }
 
-object Booleans
-{ def apply(input: Boolean*): Booleans = new Booleans(input.toArray)
-  def ofLength(length: Int): Booleans = new Booleans(new Array[Boolean](length))
+object BooleanArr
+{ def apply(input: Boolean*): BooleanArr = new BooleanArr(input.toArray)
+  def ofLength(length: Int): BooleanArr = new BooleanArr(new Array[Boolean](length))
 }
 
-object BooleansBuild extends ArrBuilder[Boolean, Booleans] with ArrFlatBuilder[Booleans]
+object BooleansBuild extends ArrBuilder[Boolean, BooleanArr] with ArrFlatBuilder[BooleanArr]
 { type BuffT = BooleanBuff
-  override def newArr(length: Int): Booleans = new Booleans(new Array[Boolean](length))
-  override def arrSet(arr: Booleans, index: Int, value: Boolean): Unit = arr.unsafeArray(index) = value
+  override def newArr(length: Int): BooleanArr = new BooleanArr(new Array[Boolean](length))
+  override def arrSet(arr: BooleanArr, index: Int, value: Boolean): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): BooleanBuff = new BooleanBuff(new ArrayBuffer[Boolean](length))
   override def buffGrow(buff: BooleanBuff, value: Boolean): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: BooleanBuff, arr: Booleans): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
-  override def buffToBB(buff: BooleanBuff): Booleans = new Booleans(buff.unsafeBuffer.toArray)
+  override def buffGrowArr(buff: BooleanBuff, arr: BooleanArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: BooleanBuff): BooleanArr = new BooleanArr(buff.unsafeBuffer.toArray)
 }
 
 class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with SeqGen[Boolean]

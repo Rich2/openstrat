@@ -11,7 +11,6 @@ trait ImutSeqDef[+A] extends Any with SeqDefGen[A @uncheckedVariance]
   def unsafeSameSize(length: Int): ThisT
 }
 
-
 trait RefsImutSeqDef[+A] extends Any with ImutSeqDef[A]
 { type ThisT <: RefsImutSeqDef[A]
   def unsafeArray: Array[A] @uncheckedVariance

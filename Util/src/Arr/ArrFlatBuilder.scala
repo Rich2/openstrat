@@ -13,7 +13,7 @@ object ArrFlatBuilder extends ArrFlatBuilderLowPriority
   implicit val dblsImplicit: ArrFlatBuilder[Dbls] = DblsBuild
   implicit val longsImplicit: ArrFlatBuilder[Longs] = LongsBuild
   implicit val floatImplicit: ArrFlatBuilder[Floats] = FloatsBuild
-  implicit val booleansImplicit: ArrFlatBuilder[Booleans] = BooleansBuild
+  implicit val booleansImplicit: ArrFlatBuilder[BooleanArr] = BooleansBuild
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. */

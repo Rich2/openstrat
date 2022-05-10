@@ -35,7 +35,7 @@ object ArrBuilder extends ArrBuilderPriority2
   implicit val longImplicit: ArrBuilder[Long, Longs] = LongsBuild
   implicit val floatImplicit: ArrBuilder[Float, Floats] = FloatsBuild
   implicit val stringImplicit: ArrBuilder[String, Strings] = StringsBuild
-  implicit val booleansImplicit: ArrBuilder[Boolean, Booleans] = BooleansBuild
+  implicit val booleansImplicit: ArrBuilder[Boolean, BooleanArr] = BooleansBuild
   implicit val anyImplicit: ArrBuilder[Any, AnyArr] = AnyArrBuild
 }
 
