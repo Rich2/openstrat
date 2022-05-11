@@ -20,11 +20,11 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   override def left: Double = leftSideC
   override def right: Double = rightSideC
   override def top: Double = topSideRow
-  override def bottom: Double = bottomSideRow
+  override def bottom: Double = bottomSideR
   override def coordCen: SqCoord = SqCoord(rCen, cCen)
   override def yCen: Double = (bottomCenR + topCenR) / 2
-  def horrSideLines: LineSegArr = iToMap(bottomSideRow, topSideRow, 2){ r => LineSeg(leftSideC, r, rightSideC, r) }
-  def vertSideLines: LineSegArr = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideRow, c, topSideRow) }
+  def horrSideLines: LineSegArr = iToMap(bottomSideR, topSideRow, 2){ r => LineSeg(leftSideC, r, rightSideC, r) }
+  def vertSideLines: LineSegArr = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideR, c, topSideRow) }
 
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive] = map(_.active())

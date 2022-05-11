@@ -32,9 +32,6 @@ trait TGrid extends Any with TGridSys
   /** The top or highest centre row, r coordinate. */
   final def topSideR: Int = topCenR + 1
 
-  /** The bottom or lowest tile side row, r coordinate. */
-  final def bottomSideR: Int = bottomCenR - 1
-
   /** The centre of the hex grid in terms of r row coordinates. */
   def rCen: Int = (bottomCenR + topCenR) / 2
 
@@ -82,7 +79,7 @@ trait TGrid extends Any with TGridSys
 
   /** The bottom, lowest or minimum Side Row of this TileGrid. The r value, the row number value.
    *  @group SidesGroup */
-  @inline final def bottomSideRow: Int = bottomCenR - 1
+  @inline final def bottomSideR: Int = bottomCenR - 1
 
   /** The top, highest or maximum Side Row of this TileGrid. The r value, the row number.
    *  @group SidesGroup*/

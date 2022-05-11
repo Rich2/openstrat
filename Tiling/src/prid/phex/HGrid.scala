@@ -186,7 +186,7 @@ trait HGrid extends Any with TGrid with HGridSys
     iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2){ c => f(HSide(topSideRow, c)) }
 
   def bottomRowForeachSide(f: HSide => Unit): Unit =
-    iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSide(bottomSideRow, c)) }
+    iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSide(bottomSideR, c)) }
 
   def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
 

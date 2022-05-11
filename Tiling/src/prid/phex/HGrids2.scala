@@ -62,7 +62,7 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
     def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
     { case r if r >= grid.topSideRow => excep(r.str + " is not an inner row.")
-      case r if r <= grid.bottomSideRow => excep(r.str + " is not an inner row.")
+      case r if r <= grid.bottomSideR => excep(r.str + " is not an inner row.")
       case r if r.div4Rem2 => iToForeach(grid.leftrem2CenC -2, grid.rightRem2CenC - 2, 4){ c => f(HSide(r, c)) }
       case r if r.div4Rem0 => iToForeach(grid.leftRem0CenC - 2, grid.rightRem0CenC - 2, 4){ c => f(HSide(r, c)) }
       case r => iToForeach(grid.leftCenC - 1, grid.rightCenC - 1, 2){ c => f(HSide(r, c)) }

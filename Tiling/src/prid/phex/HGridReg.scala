@@ -94,14 +94,14 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     case r if r == topSideRow => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSide(r, c)) }
     case r if r.div4Rem2 => iToForeach(leftrem2CenC - 2, rightRem2CenC + 2, 4){ c => f(HSide(r, c)) }
     case r if r.div4Rem0 => iToForeach(leftRem0CenC - 2, rightRem0CenC + 2, 4){ c => f(HSide(r, c)) }
-    case r if r == bottomSideRow & r.div4Rem1 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSide(r, c)) }
-    case r if r == bottomSideRow => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSide(r, c)) }
+    case r if r == bottomSideR & r.div4Rem1 => iToForeach(leftrem2CenC - 1, rightRem2CenC + 1, 2){ c => f(HSide(r, c)) }
+    case r if r == bottomSideR => iToForeach(leftRem0CenC - 1, rightRem0CenC + 1, 2){ c => f(HSide(r, c)) }
     case r => iToForeach(leftCenC - 1, rightCenC + 1, 2){ c => f(HSide(r, c)) }
   }
 
   override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
   { case r if r >= topSideRow => excep(r.str + " is not an inner row.")
-    case r if r <= bottomSideRow => excep(r.str + " is not an inner row.")
+    case r if r <= bottomSideR => excep(r.str + " is not an inner row.")
     case r if r.div4Rem2 => iToForeach(leftrem2CenC + 2, rightRem2CenC - 2, 4){ c => f(HSide(r, c)) }
     case r if r.div4Rem0 => iToForeach(leftRem0CenC + 2, rightRem0CenC - 2, 4){ c => f(HSide(r, c)) }
     case r => iToForeach(leftCenC + 1, rightCenC - 1, 2){ c => f(HSide(r, c)) }
@@ -127,7 +127,22 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */
-  override def sideArrIndex(r: Int, c: Int): Int = 10
+  override def sideArrIndex(r: Int, c: Int): Int =
+  { val cDelta = r match {
+      case r if r == topSideR  & (r - 1).div4Rem0 => c - leftCenC.roundUpTo(_.div4Rem0) + 1
+      case r if r == topSideR => c - leftCenC.roundUpTo(_.div4Rem2) + 1
+      case r if r == bottomSideR & (r + 1).div4Rem0 => c - leftCenC.roundUpTo(_.div4Rem0) + 1
+      case r if r == bottomSideR => c - leftCenC.roundUpTo(_.div4Rem2) + 1
+      case r if r.isEven => (c - rowLeftCenC(r) + 2) / 2
+      case r => c - leftCenC + 1
+    }
+    val ic = cDelta / 2
+    val ir = r match {
+      case r if r == bottomSideR => 0
+      case r => bottomSideRowLen
+    }
+    ir + ic
+  }
 
   /** The number of tile sides in the top side row of the hex grid. */
   def topSideRowlen: Int = ife(topCenR.div4Rem0, row0sTileNum, row2sTileNum) * 2
@@ -141,7 +156,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     val array = new Array[Int](numOfSideRows)
     var count = 0
     sideRowsForeach{y =>
-      array(y - bottomSideRow) = count
+      array(y - bottomSideR) = count
       rowForeachSide(y)(_ => count += 1)
     }
     array
