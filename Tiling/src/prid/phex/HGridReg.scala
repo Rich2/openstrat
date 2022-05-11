@@ -128,8 +128,8 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */
   override def sideArrIndex(r: Int, c: Int): Int =
-  { val cDelta = r match {
-      case r if r == topSideR  & (r - 1).div4Rem0 => c - leftCenC.roundUpTo(_.div4Rem0) + 1
+  { val cDelta = r match
+    { case r if r == topSideR  & (r - 1).div4Rem0 => c - leftCenC.roundUpTo(_.div4Rem0) + 1
       case r if r == topSideR => c - leftCenC.roundUpTo(_.div4Rem2) + 1
       case r if r == bottomSideR & (r + 1).div4Rem0 => c - leftCenC.roundUpTo(_.div4Rem0) + 1
       case r if r == bottomSideR => c - leftCenC.roundUpTo(_.div4Rem2) + 1
@@ -137,11 +137,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
       case r => c - leftCenC + 1
     }
     val ic = cDelta / 2
-    val ir = r match {
-      case r if r == bottomSideR => 0
-      case r => bottomSideRowLen
-    }
-    ir + ic
+    sideRowIndexArray(r - bottomSideR) + ic
   }
 
   /** The number of tile sides in the top side row of the hex grid. */

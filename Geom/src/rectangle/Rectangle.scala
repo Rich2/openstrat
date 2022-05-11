@@ -124,7 +124,7 @@ object Rectangle
 
   def fromAxis(centreLine: LineSeg, height: Double): PolygonGen =
   { val hAngle: Angle = centreLine.angle
-    val offset = hAngle.toVec2(height * 0.5)
+    val offset = (hAngle + 90.degs).toVec2(height * 0.5)
     PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 

@@ -17,8 +17,9 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
     hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg)
   }
 
-  def sides = sTerrs.truesMap{hs =>
-    Rectangle.fromAxisRatio(hs.lineSeg, 0.3).fill(Colour.Green)
+  def sides: GraphicElems = sTerrs.truesMap{hs =>
+    //Rect(0.4, 0.3, hs.toPt2).fill(Colour.Red)
+    Rectangle.fromAxisRatio(hs.lineSeg, 1.3).slate(hs.toPt2).fill(Colour.Red)
   }
 
   def tileStrs: Arr[PolygonCompound] = gridSys.map{ hc =>
@@ -27,7 +28,7 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   }
 
   def thisTop(): Unit = reTop(navButtons)
-  def frame: GraphicElems = (ife(cPScale > 25, tileStrs,tiles) ++ sides).slate(-focus).scale(cPScale)
+  def frame: GraphicElems = ife(cPScale > 25, tileStrs ++ sides, tiles).slate(-focus).scale(cPScale)
   repaint()
   thisTop()
 }

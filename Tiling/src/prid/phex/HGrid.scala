@@ -182,6 +182,25 @@ trait HGrid extends Any with TGrid with HGridSys
   /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter. */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit
 
+  def rowNumSides(r:Int): Int = {
+    var i = 0
+    rowForeachSide(r){_ => i += 1}
+    i
+  }
+
+  val sideIndexArr: Array[Int] =
+  { val array = new Array[Int](topSideR - bottomSideR + 1)
+    array(0) = 0
+    var i = 0
+    var acc = 0
+    iUntilForeach(bottomSideR, topSideR){ r =>
+      i += 1
+      acc += rowNumSides(r)
+      array(i) = acc
+    }
+    array
+  }
+
   def topRowForeachSide(f: HSide => Unit): Unit =
     iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2){ c => f(HSide(topSideRow, c)) }
 

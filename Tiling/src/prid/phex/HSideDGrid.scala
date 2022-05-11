@@ -27,6 +27,7 @@ final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with 
     val buff = build.newBuff()
     gridSys.sidesForeach{hs =>
      // if (unsafeArray(i))
+      deb("trues")
         build.buffGrow(buff, f(hs))
       i += 1
     }
