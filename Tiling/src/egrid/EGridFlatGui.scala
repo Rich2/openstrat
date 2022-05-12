@@ -11,24 +11,15 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   //def metresScale: Double = cPScale / gridSys.cScale.mMetresNum
   val terrs: HCenDGrid[WTile] = scen.terrs
   val sTerrs: HSideBoolDGrid = scen.sTerrs
-
-  def tiles: Arr[PolygonCompound] = gridSys.map{ hc =>
-    val str = /*gridSys.hCoordLL(hc).degStr --- */ hc.rcStr
-    hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg)
-  }
-
-  def sides: GraphicElems = sTerrs.truesMap{hs =>
-    //Rect(0.4, 0.3, hs.toPt2).fill(Colour.Red)
-    Rectangle.fromAxisRatio(hs.lineSeg, 1.3).slate(hs.toPt2).fill(Colour.Red)
-  }
+  def tiles: Arr[PolygonCompound] = gridSys.map{ hc => hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg) }
+  def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSeg, 0.3).fill(Colour.DarkBlue) }
 
   def tileStrs: Arr[PolygonCompound] = gridSys.map{ hc =>
-    val str = hc.rcStr32 /* --- gridSys.hCoordLL(hc).degStr */ --- hc.rcStr
-    hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, str, 12, terrs(hc).contrastBW)
+    hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, hc.rcStr32 --- hc.rcStr, 12, terrs(hc).contrastBW)
   }
 
   def thisTop(): Unit = reTop(navButtons)
-  def frame: GraphicElems = ife(cPScale > 25, tileStrs ++ sides, tiles).slate(-focus).scale(cPScale)
+  def frame: GraphicElems = (ife(cPScale > 25, tileStrs, tiles) ++ sides).slate(-focus).scale(cPScale)
   repaint()
   thisTop()
 }

@@ -41,6 +41,6 @@ object Terr0
     override implicit val gridSys: HGridSys = regGrid
     override val terrs: HCenDGrid[WTile] = regTerrs
     override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
-    sTerrs.setTrues(HSide(142, 508))
+    sTerrs.setTruesInts((142, 508), (143, 507))
   }
 }
