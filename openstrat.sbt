@@ -51,7 +51,7 @@ def natProj(name: String) = baseProj(name, name + "Nat").enablePlugins(ScalaNati
 
 lazy val Util = jvmProj("Util").settings(
   name := "RUtil",
-  Compile/unmanagedSourceDirectories ++= List("srcAnyVal", "srcParse").map{ str => moduleDir.value / str },
+  Compile/unmanagedSourceDirectories ++= List("srcArr", "srcParse").map{ str => moduleDir.value / str },
 )
 
 lazy val UtilJs = jsProj("Util").settings(
@@ -59,7 +59,7 @@ lazy val UtilJs = jsProj("Util").settings(
   Compile/unmanagedSourceDirectories += moduleDir.value / "srcParse",
 
   Compile / sourceGenerators += Def.task {
-    val str = scala.io.Source.fromFile("Util/srcAnyVal/Arr.scala").mkString
+    val str = scala.io.Source.fromFile("Util/srcArr/Arr.scala").mkString
     val str2 = str.replaceAll("AnyVal with ", "")
     val arr = (Compile / sourceManaged).value / "Js" / "Arr.scala"
     IO.write(arr, str2)
@@ -68,7 +68,7 @@ lazy val UtilJs = jsProj("Util").settings(
 )
 
 lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(
-  Compile/unmanagedSourceDirectories ++= List("srcAnyVal", "srcParse").map{ str => moduleDir.value / str },
+  Compile/unmanagedSourceDirectories ++= List("srcArr", "srcParse").map{ str => moduleDir.value / str },
 )
 
 def geomSett = List(
@@ -158,7 +158,7 @@ bothDoc :=
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.flatMap(s =>
-    List(s + "/srcJvm")) ::: List("Util/srcAnyVal", "Geom/srcFx", "Dev/srcFx")).map(s => baseDir.value / s),
+    List(s + "/srcJvm")) ::: List("Util/srcArr", "Geom/srcFx", "Dev/srcFx")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
@@ -171,7 +171,7 @@ lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlug
   Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.map(_ + "/srcJs")).map(s => baseDir.value / s),
 
   Compile / sourceGenerators += Def.task {
-    val str = scala.io.Source.fromFile("Util/srcAnyVal/Arr.scala").mkString
+    val str = scala.io.Source.fromFile("Util/srcArr/Arr.scala").mkString
     val str2 = str.replaceAll("AnyVal with ", "")
     val arr = (Compile / sourceManaged).value / "Js" / "Arr.scala"
     IO.write(arr, str2)
