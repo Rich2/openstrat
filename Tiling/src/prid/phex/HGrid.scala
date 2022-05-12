@@ -201,6 +201,17 @@ trait HGrid extends Any with TGrid with HGridSys
     array
   }
 
+  /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
+  lazy val sideRowIndexArray: Array[Int] =
+  { val array = new Array[Int](numOfSideRows)
+    var count = 0
+    sideRowsForeach{y =>
+      array(y - bottomSideR) = count
+      rowForeachSide(y)(_ => count += 1)
+    }
+    array
+  }
+
   def topRowForeachSide(f: HSide => Unit): Unit =
     iToForeach(rowLeftCenC(topCenR) - 1, rowRightCenC(topCenR) + 1, 2){ c => f(HSide(topSideRow, c)) }
 
@@ -208,12 +219,6 @@ trait HGrid extends Any with TGrid with HGridSys
     iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSide(bottomSideR, c)) }
 
   def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
-
-
-
-  /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
-  def sideRowIndexArray: Array[Int]
-
   def newSideBooleans: HSideBoolDGrid = new HSideBoolDGrid(new Array[Boolean](numSides))
 }
 

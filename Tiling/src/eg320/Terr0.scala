@@ -20,8 +20,8 @@ object Terr0
     terrs
   }
 
-  def sTerrs(): HSideBoolDGrid = {
-    implicit val grid: EGrid320Main = EGrid320Km.l0(138)
+  def sTerrs(): HSideBoolDGrid =
+  { implicit val grid: EGrid320Main = EGrid320Km.l0(138)
     val sTerrs = grid.newSideBools
     sTerrs.setTruesInts((142, 508), (143, 507))
     sTerrs

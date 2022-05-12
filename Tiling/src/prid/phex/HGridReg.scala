@@ -146,18 +146,6 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   /** The number of tile sides in the bottom side row of the hex grid. */
   def bottomSideRowLen: Int = ife(bottomCenR.div4Rem0, row0sTileNum, row2sTileNum) * 2
 
-  /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
-  override def sideRowIndexArray: Array[Int] =
-  {
-    val array = new Array[Int](numOfSideRows)
-    var count = 0
-    sideRowsForeach{y =>
-      array(y - bottomSideR) = count
-      rowForeachSide(y)(_ => count += 1)
-    }
-    array
-  }
-
   override def outerSidesForeach(f: HSide => Unit): Unit =
   {
     if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSide(bottomSideR, c)))

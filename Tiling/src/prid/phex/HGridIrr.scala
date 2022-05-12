@@ -74,26 +74,16 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */
-  override def sideArrIndex(r: Int, c: Int): Int = sideRowIndexArray(r - bottomSideR) + (c - cSideRowMin(r)) / r.ifEvenElse(4, 2)
-
-  /** An Array of index values into an Array of Side data. 1 Int value for the start index of each Row. */
-  val sideRowIndexArray: Array[Int] = new Array[Int](0)
-  /*{
-    val res = new Array[Int](rSideMax - rSideMin + 1)
-    var count = 0
-    iUntilForeach(0, numOfSideRows){ i =>
-      res(i) = count
-      val y = rSideMin + i
-      val rowLen: Int = y match {
-        case y if y == rSideMax => (cRowEnd(y - 1) - cRowStart(y - 1)) / 2 + 2
-        case y if y == ySideMin => (cRowEnd(y + 1) - cRowStart(y + 1)) / 2 + 2
-        case y if y.isEven => (cRowEnd(y) - cRowStart(y)) / 4 + 2
-        case y => (cRowEnd(y - 1).max(cRowEnd(y + 1)) - cRowStart(y - 1).min(cRowStart(y + 1))) / 2 + 2
-      }
-      count += rowLen.atMost0
+  override def sideArrIndex(r: Int, c: Int): Int =
+  { val cDelta = r match
+    { case r if r == topSideR => c - rowLeftCenC(r - 1) + 1
+      case r if r == bottomSideR => c - rowLeftCenC(r + 1) + 1
+      case r if r.isEven => (c - rowLeftCenC(r) + 2) / 2
+      case r => c - rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) + 1
     }
-    res
-  }*/
+    val ic = cDelta / 2
+    sideRowIndexArray(r - bottomSideR) + ic
+  }
 
   override def leftCenC: Int = foldRows(Int.MaxValue - 1)((acc, r) => acc.min(rowLeftCenC(r)))
   override def rightCenC: Int = foldRows(Int.MinValue )((acc, r) => acc.max(rowRightCenC(r)))
