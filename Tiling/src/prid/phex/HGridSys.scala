@@ -148,6 +148,12 @@ trait HGridSys extends Any with TGridSys
     res
   }
 
+  def newHCenDSubGrid[A <: AnyRef](superGrid: HGridSys, superData: HCenDGrid[A])(implicit ct: ClassTag[A]): HCenDGrid[A] ={
+    val dArray: Array[A] = new Array[A](numTiles)
+    foreach{hc => dArray(arrIndex(hc)) = superData(hc)(superGrid)}
+    new HCenDGrid(dArray)
+  }
+
   /** New immutable Arr of Tile data. */
   final def newHCenArrDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrDGrid[A] =
   { val newArray = new Array[Array[A]](numTiles)

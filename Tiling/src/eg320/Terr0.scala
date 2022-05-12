@@ -29,16 +29,7 @@ object Terr0
 
   def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
 
-  def regTerrs: HCenDGrid[WTile] =
-  { val newTerrs = regGrid.newHCenDGrid[WTile](sea)
-    iToForeach(regGrid.bottomCenR, regGrid.topCenR, 2) { r =>
-      iToForeach(regGrid.rowLeftCenC(r), regGrid.rowRightCenC(r), 4) { c =>
-        val value = apply().rc(r, c)(EGrid320Km.l0(138))
-        newTerrs.set(r, c, value)(regGrid)
-      }
-    }
-    newTerrs
-  }
+  def regTerrs: HCenDGrid[WTile] = regGrid.newHCenDSubGrid(EGrid320Km.l0(138), apply())
 
   def regScen: EScenFlat = new EScenFlat {
     override implicit val gridSys: HGridSys = regGrid
