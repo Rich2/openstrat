@@ -24,12 +24,12 @@ object EGrid80Km
 
   def scen1: EScenBasic =
   { val grid: EGrid80Main = l0(446)
-    EScenBasic(grid, EuropeNW80Terr())
+    EScenBasic(grid, EuropeNW80Terr(), grid.newSideBools)
   }
 
   def scen2: EScenBasic =
   { val grid: EGrid80Main = l30(446)
-    EScenBasic(grid, EuropeNE80Terr())
+    EScenBasic(grid, EuropeNE80Terr(), grid.newSideBools)
   }
 }
 

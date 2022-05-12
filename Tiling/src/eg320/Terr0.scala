@@ -1,10 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._
-import prid._
-import phex._
-import WTile._
-import ostrat.egrid.EScenFlat
+import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr0
 {
@@ -22,6 +18,13 @@ object Terr0
     gs(140, 516, plain * 3)
     gs(138, 460 + 50, plain * 5)
     terrs
+  }
+
+  def sTerrs(): HSideBoolDGrid = {
+    implicit val grid: EGrid320Main = EGrid320Km.l0(138)
+    val sTerrs = grid.newSideBools
+    sTerrs.setTruesInts((142, 508), (143, 507))
+    sTerrs
   }
 
   def regGrid: HGridReg = HGridReg(138, 148, 504, 520)

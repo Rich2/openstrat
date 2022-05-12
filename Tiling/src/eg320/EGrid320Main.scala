@@ -15,20 +15,18 @@ object EGrid320Km
 
   def scen1: EScenBasic =
   { val grid: EGridMain = l0(138)
-    EScenBasic(grid, Terr0())
+    EScenBasic(grid, Terr0(), Terr0.sTerrs())
   }
 
   def scen2: EScenBasic =
   { val grid: EGridMain = l30(138)
-    EScenBasic(grid, terr30())
+    EScenBasic(grid, terr30(), grid.newSideBools)
   }
 
   def scen3: EScenBasic =
   { val grid: EGridMain = l60(138)
-    EScenBasic(grid, terr60())
+    EScenBasic(grid, terr60(), grid.newSideBools)
   }
-
-
 
   def terr30(): HCenDGrid[WTile] =
   {

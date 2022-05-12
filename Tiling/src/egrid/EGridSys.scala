@@ -48,7 +48,7 @@ trait EScenBasic extends EScenFlat
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 object EScenBasic
 {
-  def apply(gridSys: EGridMainSys, terrs: HCenDGrid[WTile]): EScenBasic = new EScenBasicImp(gridSys, terrs, gridSys.newSideBools)
+  def apply(gridSys: EGridMainSys, terrs: HCenDGrid[WTile], sTerrs: HSideBoolDGrid): EScenBasic = new EScenBasicImp(gridSys, terrs, sTerrs)
 
   class EScenBasicImp(val gridSys: EGridMainSys, val terrs: HCenDGrid[WTile], val sTerrs: HSideBoolDGrid) extends EScenBasic
 }
