@@ -33,9 +33,6 @@ object Grid320S0E2 extends EGrid320MainMulti
 
   //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
 
-  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
-   * departure and the tile of arrival. */
-  override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
 object Scen320S0E2 extends EScenBasic
