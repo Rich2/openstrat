@@ -6,25 +6,21 @@ object GridsNWNE80 extends EGrid80MainMulti
 { ThisSys =>
 
   override def cGridDelta: Double = 40
-  override val grids: Arr[EGrid] = Arr(EGrid80Km.l0b446, EGrid80Km.l30b446)
+  override val grids: Arr[EGridMain] = Arr(EGrid80Km.l0b446, EGrid80Km.l30b446)
 
   val gridMan0: EGridMainManHead = new EGridMainManHead
   { override def sys: EGridMainMulti = ThisSys
-    override val grid: EGridMain = EGrid80Km.l0b446
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
   val gridMan1: EGridMainMan = new EGridMainLastMan
   { override def sys: EGridMainMulti = ThisSys
     override val seqInd: Int = 1
-    override val grid: EGridMain = EGrid80Km.l30b446
 
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
   override val gridMans: Arr[EGridMainMan] = Arr(gridMan0, gridMan1)
-
-
 
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 

@@ -3,8 +3,9 @@ package ostrat; package egrid
 import geom._, prid._, phex._
 
 trait EGridMainMan extends EGridMan
-{ override val grid: EGridMain
+{ //override val grid: EGridMain
   def seqInd: Int
+  final override lazy val grid: EGridMain = sys.grids(seqInd)// EGrid80Km.l0b446
   def sys: EGridMainMulti
   final override def offset: Vec2 = Vec2(0, sys.cGridDelta * seqInd)
   final override def arrIndex: Int = grid.numTiles * seqInd

@@ -22,7 +22,7 @@ abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale
   EGridSys
 
 trait EGridMan extends HGridMan
-{ override val grid: EGrid
+{ override def grid: EGrid
   def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
   final def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
 }

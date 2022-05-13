@@ -1,22 +1,20 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import prid._, phex._, egrid._, geom._, pEarth._
+import prid._, phex._, egrid._, pEarth._
 
 object Grid320S0E2 extends EGrid320MainMulti
 { ThisSys =>
 
   override def cGridDelta: Double = 40
 
-  override val grids: Arr[EGrid] = Arr(EGrid320Km.l0(), EGrid320Km.l30(), EGrid320Km.l60())
+  override val grids: Arr[EGridMain] = Arr(EGrid320Km.l0(), EGrid320Km.l30(), EGrid320Km.l60())
   val gridMan0: EGridMainManHead = new EGridMainManHead
   { override def sys: EGridMainMulti = ThisSys
-    override val grid: EGrid320Main = EGrid320Km.l0()
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
   val gridMan1: EGridMainMan = new EGridMainMiddleMan
   { override def sys: EGridMainMulti = ThisSys
-    override val grid: EGrid320Main = EGrid320Km.l30()
     override def seqInd: Int = 1
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
@@ -24,7 +22,6 @@ object Grid320S0E2 extends EGrid320MainMulti
   val gridMan2: EGridMainMan = new EGridMainLastMan
   { override def sys: EGridMainMulti = ThisSys
     override def seqInd: Int = 2
-    override val grid: EGrid320Main = EGrid320Km.l60()
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 

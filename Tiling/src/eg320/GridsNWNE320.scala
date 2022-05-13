@@ -5,26 +5,21 @@ import prid._, phex._, egrid._, geom._, pEarth._
 object GridsNWNE320 extends EGrid320MainMulti
 { ThisSys =>
 
+  override val grids: Arr[EGridMain] = Arr(EGrid320Km.l0(), EGrid320Km.l30())
   override def cGridDelta: Double = 40
 
   val gridMan1: EGridMainManHead = new EGridMainManHead
   { override def sys: EGridMainMulti = ThisSys
-    override val grid: EGrid320Main = EGrid320Km.l0()
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
   val gridMan2: EGridMainMan = new EGridMainLastMan
   { override def sys: EGridMainMulti = ThisSys
-    override val grid: EGrid320Main = EGrid320Km.l30()
     override def seqInd: Int = 1
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
   override val gridMans: Arr[EGridMainMan] = Arr(gridMan1, gridMan2)
-
-  override val grids: Arr[EGrid] = gridMans.map(_.grid)
-
-
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
   //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???

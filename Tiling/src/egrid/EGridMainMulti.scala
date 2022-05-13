@@ -5,7 +5,10 @@ import geom._, pglobe._, prid._, phex._
 trait EGridMainSys extends EGridSys
 
 trait EGridMainMulti extends EGridMainSys with EGridMulti
-{ override val gridMans: Arr[EGridMainMan]
+{
+  override def grids: Arr[EGridMain]
+
+  override val gridMans: Arr[EGridMainMan]
   def cGridDelta: Double
   /** The Delta in c form Grid to Grid. */
   def hcDelta: Int
