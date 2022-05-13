@@ -3,22 +3,25 @@ package ostrat; package eg320
 import prid._, phex._, egrid._, geom._, pEarth._
 
 object GridsNWNE320 extends EGrid320MainMulti
-{
+{ ThisSys =>
+
+  override def cGridDelta: Double = 40
+
   val gridMan1: EGridMainManHead = new EGridMainManHead
-  { override val grid: EGrid320Main = EGrid320Km.l0()
+  { override def sys: EGridMainMulti = ThisSys
+    override val grid: EGrid320Main = EGrid320Km.l0()
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
   val gridMan2: EGridMainMan = new EGridMainLastMan
-  { override val grid: EGrid320Main = EGrid320Km.l30()
-    override val arrIndex: Int = gridMan1.numTiles
+  { override def sys: EGridMainMulti = ThisSys
+    override val grid: EGrid320Main = EGrid320Km.l30()
+    override def seqInd: Int = 1
     override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
-    override def offset: Vec2 = Vec2(0, 40)
   }
 
   override val gridMans: Arr[EGridMainMan] = Arr(gridMan1, gridMan2)
 
-  /** The grids of this tile gird system. */
   override val grids: Arr[EGrid] = gridMans.map(_.grid)
 
 

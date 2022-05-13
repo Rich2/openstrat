@@ -6,7 +6,7 @@ trait TGridMulti extends TGridSys
 { /** The type of the tile grids within this tile grid system. */
   type GridT <: TGrid
 
-  /** The grids of this tile gird system. */
+  /** The grids of this tile grid system. */
   def grids: Arr[GridT]
 
   override def foreachRow(f: Int => Unit): Unit = grids.foreach(_.foreachRow(f))

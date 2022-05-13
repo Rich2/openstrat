@@ -9,7 +9,7 @@ earth = { scale = 12; latitude = 0; longitude = 0; };
 ww2 = { scale = 1; latLong = LatLong(51.5; 0); };
 
 eGrid = { scen = 1; 0 = HGView(150, 100; 25); 1 = HGView(460, 523; 32); 2 = HGView(460, 1536; 20); 3 = HGView(452, 560; 20);
-  10 = HGView(149, 512; 26); 11 = HGView(149, 1536; 23); 12 = HGView(149, 2560; 23); 13 = HGView(148, 520; 10);
+  10 = HGView(149, 512; 26); 11 = HGView(149, 1536; 23); 12 = HGView(149, 2560; 23); 13 = HGView(149, 520; 21);
   14 = HGView(150, 1536; 22); 51 = HGView(478, 512; 10); 53 = HGView(143, 512; 40); 61 = HGView(146, 508; 20); };
 
 gOne = { scen = 1; 1 = HGView(4, 6; 80); 2 = HGView(6, 6; 55); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };

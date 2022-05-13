@@ -4,6 +4,10 @@ import geom._, prid._, phex._
 
 trait EGridMainMan extends EGridMan
 { override val grid: EGridMain
+  def seqInd: Int
+  def sys: EGridMainMulti
+  final override def offset: Vec2 = Vec2(0, sys.cGridDelta * seqInd)
+  final override def arrIndex: Int = grid.numTiles * seqInd
 }
 
 trait EGridMainNotLastMan extends EGridMainMan
@@ -23,8 +27,8 @@ trait EGridMainNotLastMan extends EGridMainMan
 }
 
 trait EGridMainManHead extends EGridMainNotLastMan
-{ override val arrIndex: Int = 0
-  override def offset: Vec2 = Vec2(0, 0)
+{
+  override def seqInd: Int = 0
 
   override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = grid.innerRowForeachInnerSide(r)(f)
 

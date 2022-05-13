@@ -5,7 +5,7 @@ import ostrat.geom._
 /** [[HGrid]] manager. */
 trait HGridMan
 { val grid: HGrid
-  val arrIndex: Int
+  def arrIndex: Int
   def numTiles: Int = grid.numTiles
   final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
   def outSteps(r: Int, c: Int): HStepCenArr
