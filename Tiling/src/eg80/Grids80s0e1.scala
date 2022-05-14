@@ -7,6 +7,7 @@ object Grids80s0e1 extends EGrid80MainMulti
 
   override def cGridDelta: Double = 40
   override val grids: Arr[EGridMain] = Arr(EGrid80.l0b446, EGrid80.l30b446)
+  override def headGridInt: Int = 0
 
   val gridMan0: EGridMainMan = new EGridMainMan
   { override def sys: EGridMainMulti = ThisSys

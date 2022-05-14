@@ -11,6 +11,9 @@ trait EGridMainMulti extends EGridMainSys with EGridMulti
   override val gridMans: Arr[EGridMainMan]
   def cGridDelta: Double
 
+  /** The longitude Int for the head grid. */
+  def headGridInt: Int
+
   /** The Delta in c form Grid to Grid. */
   final def hcDelta: Int = 1024
 
@@ -19,5 +22,5 @@ trait EGridMainMulti extends EGridMainSys with EGridMulti
   def bottom: Double = grids(0).bottom
   def left: Double = grids(0).left
   def right: Double = grids.last.right
-  override def unsafeGetMan(r: Int, c: Int): EGridMan = gridMans(c  / hcDelta)
+  override def unsafeGetMan(r: Int, c: Int): EGridMan = gridMans((c  / hcDelta - headGridInt) %% 12)
 }

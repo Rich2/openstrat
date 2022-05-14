@@ -13,14 +13,7 @@ object Terr320W30
     gs(158, 11774, ice * 2, sea)
     gs(156, 11772, ice * 2, sea)
     gs(154, 11770, ice, tundra, sea * 2)
-//    gs(152, 11770, ice * taiga)
-//    gs(150, 460 + 58, taiga)
-//    gs(148, 460 + 56, taiga * 2)
-//    gs(146, 460 + 50, hills, sea * 2, plain)
-//    gs(144, 460 + 48, plain, sea * 2, plain)
-//    gs(142, 460 + 46, plain, plain, sea, plain * 2)
-//    gs(140, 516, plain * 3)
-//    gs(138, 460 + 50, plain * 5)
+    gs(152, 11780, hills * 2)
     terrs
   }
 

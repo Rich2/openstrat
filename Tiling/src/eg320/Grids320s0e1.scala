@@ -6,6 +6,7 @@ object Grids320s0e1 extends EGrid320MainMulti
 { ThisSys =>
 
   override val grids: Arr[EGridMain] = Arr(EGrid320.e0(), EGrid320.e30())
+  override def headGridInt: Int = 0
   override def cGridDelta: Double = 40
 
   val gridMan1: EGridMainMan = new EGridMainMan
