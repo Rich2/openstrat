@@ -8,21 +8,19 @@ object Grid320S0E2 extends EGrid320MainMulti
   override def cGridDelta: Double = 40
 
   override val grids: Arr[EGridMain] = Arr(EGrid320Km.l0(), EGrid320Km.l30(), EGrid320Km.l60())
-  val gridMan0: EGridMainManHead = new EGridMainManHead
+  val gridMan0: EGridMainMan = new EGridMainMan
   { override def sys: EGridMainMulti = ThisSys
-    override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
+    override def seqInd: Int = 0
   }
 
-  val gridMan1: EGridMainMan = new EGridMainMiddleMan
+  val gridMan1: EGridMainMan = new EGridMainMan
   { override def sys: EGridMainMulti = ThisSys
     override def seqInd: Int = 1
-    override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
-  val gridMan2: EGridMainMan = new EGridMainLastMan
+  val gridMan2: EGridMainMan = new EGridMainMan
   { override def sys: EGridMainMulti = ThisSys
     override def seqInd: Int = 2
-    override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
   }
 
   override val gridMans: Arr[EGridMainMan] = Arr(gridMan0, gridMan1, gridMan2)
