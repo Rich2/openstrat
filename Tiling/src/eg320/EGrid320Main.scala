@@ -9,7 +9,7 @@ class EGrid320Main (rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: 
 /** object for creating earth grids with 320km hexs, with a c scale of 80km. */
 object EGrid320
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
-  def w30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen,  30.west, t"BG0" /* 11776 */)
+  def w30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen,Longitude.degs(-1 * 30), t"BG0" /* 11776 */)
   def e0(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen, Longitude.degs(0 * 30), t"G0" /* 512 */)
   def e30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen,  Longitude.degs(1 * 30), t"1G0" /* 1536 */)
   def e60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen, Longitude.degs(2 * 30), t"2G0" /* 2560 */)

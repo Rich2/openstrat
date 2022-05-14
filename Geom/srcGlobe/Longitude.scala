@@ -48,10 +48,12 @@ object Longitude
   /** Factory method for creating [[Longitude]] from the value defined in one thousands of a second of a degree. A positive value creates a western
    *  value, a negative value creates an eastern value. Values beyond 180 degrees East and from 180 degrees West loop around. */
   def milliSecs(milliSecondsValue: Double): Longitude =
-  { val l1 = milliSecondsValue.abs %% MilliSecsIn360Degs
-    val l2 = ife(milliSecondsValue < 0, -l1, l1)
-    val l3 = ife2(l2 > MilliSecsIn180Degs, - MilliSecsIn360Degs + l2, l2 <= -MilliSecsIn180Degs, MilliSecsIn360Degs + l2, l2)
-    new Longitude(l3)
+  { val millis = milliSecondsValue % MilliSecsIn360Degs match{
+      case m0 if m0 > MilliSecsIn180Degs => - MilliSecsIn360Degs + m0
+      case m0 if m0 <= -MilliSecsIn180Degs => MilliSecsIn360Degs + m0
+      case m0 => m0
+    }
+    new Longitude(millis)
   }
 
   implicit val showTEv: ShowT[Longitude] = ShowShowT("Longitude")
