@@ -7,30 +7,31 @@ class EGrid320Main (rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: 
   EGridMain(rBottomCen, rTopCen, cenLong, 80.kMetres, 100, cOffset)
 
 /** object for creating earth grids with 320km hexs, with a c scale of 80km. */
-object EGrid320Km
+object EGrid320
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
-  def l0(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen, 0.east, t"G0" /* 512 */)
-  def l30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen, 30.east, t"1G0" /* 1536 */)
-  def l60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen, 60.east, t"2G0" /* 2560 */)
+  def w30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen,  Longitude.degs(-1 * 30), t"BG0" /* 11776 */)
+  def e0(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen, Longitude.degs(0 * 30), t"G0" /* 512 */)
+  def e30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen,  Longitude.degs(1 * 30), t"1G0" /* 1536 */)
+  def e60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Main = new EGrid320Main(rBottomCen, rTopCen, Longitude.degs(2 * 30), t"2G0" /* 2560 */)
 
-  def scen1: EScenBasic =
-  { val grid: EGridMain = l0(138)
-    EScenBasic(grid, Terr0(), Terr0.sTerrs())
+  def scen0: EScenBasic =
+  { val grid: EGridMain = e0(138)
+    EScenBasic(grid, Terr320E0(), Terr320E0.sTerrs())
   }
 
-  def scen2: EScenBasic =
-  { val grid: EGridMain = l30(138)
+  def scen1: EScenBasic =
+  { val grid: EGridMain = e30(138)
     EScenBasic(grid, terr30(), grid.newSideBools)
   }
 
-  def scen3: EScenBasic =
-  { val grid: EGridMain = l60(138)
+  def scen2: EScenBasic =
+  { val grid: EGridMain = e60(138)
     EScenBasic(grid, terr60(), grid.newSideBools)
   }
 
   def terr30(): HCenDGrid[WTile] =
   {
-    implicit val grid: EGrid320Main = EGrid320Km.l30(138)
+    implicit val grid: EGrid320Main = EGrid320.e30(138)
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
     gs(156, 1384 + 148, taiga * 2, sea)
@@ -48,7 +49,7 @@ object EGrid320Km
 
   def terr60(): HCenDGrid[WTile] =
   {
-    implicit val grid: EGrid320Main = EGrid320Km.l60(138)
+    implicit val grid: EGrid320Main = EGrid320.e60(138)
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](taiga)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
     gs(160, 2308 + 256, sea)

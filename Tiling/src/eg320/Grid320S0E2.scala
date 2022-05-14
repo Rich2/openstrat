@@ -7,7 +7,7 @@ object Grid320S0E2 extends EGrid320MainMulti
 
   override def cGridDelta: Double = 40
 
-  override val grids: Arr[EGridMain] = Arr(EGrid320Km.l0(), EGrid320Km.l30(), EGrid320Km.l60())
+  override val grids: Arr[EGridMain] = Arr(EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
   val gridMan0: EGridMainMan = new EGridMainMan
   { override def sys: EGridMainMulti = ThisSys
     override def seqInd: Int = 0
@@ -32,6 +32,6 @@ object Grid320S0E2 extends EGrid320MainMulti
 
 object Scen320S0E2 extends EScenBasic
 { override val gridSys: EGridMainSys = Grid320S0E2
-  override val terrs: HCenDGrid[WTile] = Terr0() ++ EGrid320Km.terr30() ++ EGrid320Km.terr60()
+  override val terrs: HCenDGrid[WTile] = Terr320E0() ++ EGrid320.terr30() ++ EGrid320.terr60()
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }

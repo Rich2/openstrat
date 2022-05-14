@@ -2,11 +2,11 @@
 package ostrat; package eg320
 import pEarth._, prid._, phex._, WTile._, egrid._
 
-object Terr0
+object Terr320E0
 {
   def apply(): HCenDGrid[WTile] =
   {
-    implicit val grid: EGrid320Main = EGrid320Km.l0(138)
+    implicit val grid: EGrid320Main = EGrid320.e0(138)
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
     gs(152, 460 + 60, taiga)
@@ -21,7 +21,7 @@ object Terr0
   }
 
   def sTerrs(): HSideBoolDGrid =
-  { implicit val grid: EGrid320Main = EGrid320Km.l0(138)
+  { implicit val grid: EGrid320Main = EGrid320.e0(138)
     val sTerrs = grid.newSideBools
     sTerrs.setTruesInts((142, 508), (143, 507))
     sTerrs
@@ -29,7 +29,7 @@ object Terr0
 
   def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
 
-  def regTerrs: HCenDGrid[WTile] = regGrid.newHCenDSubGrid(EGrid320Km.l0(138), apply())
+  def regTerrs: HCenDGrid[WTile] = regGrid.newHCenDSubGrid(EGrid320.e0(138), apply())
 
   def regScen: EScenFlat = new EScenFlat {
     override implicit val gridSys: HGridSys = regGrid

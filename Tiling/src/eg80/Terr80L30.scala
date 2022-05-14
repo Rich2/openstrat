@@ -7,7 +7,7 @@ import pEarth._, prid._, phex._, WTile._
 object Terr80L30 {
   def apply(): HCenDGrid[WTile] =
   {
-    implicit val grid: HGridIrr = EGrid80.l30(446)
+    implicit val grid: HGridIrr = EGrid80.e30(446)
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
     gs(526, 1136 + 386, taiga * 4, sea * 7)

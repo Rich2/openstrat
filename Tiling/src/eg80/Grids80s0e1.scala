@@ -2,7 +2,7 @@
 package ostrat; package eg80
 import prid._, phex._, egrid._, geom._, pEarth._
 
-object GridsNWNE80 extends EGrid80MainMulti
+object Grids80s0e1 extends EGrid80MainMulti
 { ThisSys =>
 
   override def cGridDelta: Double = 40
@@ -29,8 +29,8 @@ object GridsNWNE80 extends EGrid80MainMulti
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object ScenNWNE80 extends EScenBasic
-{ override val gridSys: EGridMainSys = GridsNWNE80
+object Scen80s0s1 extends EScenBasic
+{ override val gridSys: EGridMainSys = Grids80s0e1
   override val terrs: HCenDGrid[WTile] = Terr80L0() ++ Terr80L30()
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }

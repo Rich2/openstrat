@@ -2,10 +2,10 @@
 package ostrat; package eg320
 import prid._, phex._, egrid._, geom._, pEarth._
 
-object GridsNWNE320 extends EGrid320MainMulti
+object Grids320s0e1 extends EGrid320MainMulti
 { ThisSys =>
 
-  override val grids: Arr[EGridMain] = Arr(EGrid320Km.l0(), EGrid320Km.l30())
+  override val grids: Arr[EGridMain] = Arr(EGrid320.e0(), EGrid320.e30())
   override def cGridDelta: Double = 40
 
   val gridMan1: EGridMainMan = new EGridMainMan
@@ -28,8 +28,8 @@ object GridsNWNE320 extends EGrid320MainMulti
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object ScenNWNE320 extends EScenBasic
-{ override val gridSys: EGridMainSys = GridsNWNE320
-  override val terrs: HCenDGrid[WTile] = Terr0() ++ EGrid320Km.terr30()
+object Scen320s0e1 extends EScenBasic
+{ override val gridSys: EGridMainSys = Grids320s0e1
+  override val terrs: HCenDGrid[WTile] = Terr320E0() ++ EGrid320.terr30()
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }

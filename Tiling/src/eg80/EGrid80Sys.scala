@@ -13,22 +13,22 @@ class EGrid80Main(rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: In
 /** object for creating 80km hex scale earth grids. */
 object EGrid80
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
-  def l0(rBottomCen: Int, rTopCen: Int = 540): EGrid80Main = new EGrid80Main(rBottomCen, rTopCen, 0.east, t"G0"/* 512 */)
+  def e0(rBottomCen: Int, rTopCen: Int = 540): EGrid80Main = new EGrid80Main(rBottomCen, rTopCen, 0.east, t"G0"/* 512 */)
 
   /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 20Km or hex scale 80km. */
-  def l30(rBottomCen: Int, rTopCen: Int = 540): EGrid80Main = new EGrid80Main(rBottomCen, rTopCen, 30.east,t"1G0"/* 1536*/)
+  def e30(rBottomCen: Int, rTopCen: Int = 540): EGrid80Main = new EGrid80Main(rBottomCen, rTopCen, 30.east,t"1G0"/* 1536*/)
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
   def l0b446: EGrid80Main = new EGrid80Main(446, 540, 0.east, 512)
   def l30b446: EGrid80Main = new EGrid80Main(446, 540, 30.east, 1536)
 
-  def scen1: EScenBasic =
-  { val grid: EGrid80Main = l0(446)
+  def scen0: EScenBasic =
+  { val grid: EGrid80Main = e0(446)
     EScenBasic(grid, Terr80L0(), grid.newSideBools)
   }
 
-  def scen2: EScenBasic =
-  { val grid: EGrid80Main = l30(446)
+  def scen1: EScenBasic =
+  { val grid: EGrid80Main = e30(446)
     EScenBasic(grid, Terr80L30(), grid.newSideBools)
   }
 }
