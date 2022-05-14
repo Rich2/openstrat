@@ -1,13 +1,13 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import egrid._, pEarth._, prid._, phex._, WTile._
+import pEarth._, prid._, phex._, WTile._
 
-/** The new 80 Km grid for North West Europe. The c or column offset is 512 which is G0 in base 32. The c offset for North East Europe will be 1536 or
- * 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
-object EuropeNW80Terr {
+/** 80 Km tile width grid ventred on the Greenwich meridian, 0E form 15W to 15E. Covers North West Europe. The c or column offset is 512 which is G0
+ *  in base 32. The c offset for North East Europe will be 1536 or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
+object Terr80L0 {
   def apply(): HCenDGrid[WTile] =
   {
-    implicit val grid: HGridIrr = EGrid80Km.l0(446)
+    implicit val grid: HGridIrr = EGrid80.l0(446)
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
 

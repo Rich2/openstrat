@@ -10,8 +10,9 @@ trait EGridMainMulti extends EGridMainSys with EGridMulti
 
   override val gridMans: Arr[EGridMainMan]
   def cGridDelta: Double
+
   /** The Delta in c form Grid to Grid. */
-  def hcDelta: Int
+  final def hcDelta: Int = 1024
 
   override def hCoordLL(hc: HCoord): LatLong = unsafeGetManFunc(hc)(_.grid.hCoordLL(hc))
   def top: Double = grids(0).top

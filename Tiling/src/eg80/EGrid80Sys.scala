@@ -11,7 +11,7 @@ class EGrid80Main(rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: In
   EGridMain(rBottomCen, rTopCen, cenLong, 20000.metres, 300, cOffset) with EGrid80Sys
 
 /** object for creating 80km hex scale earth grids. */
-object EGrid80Km
+object EGrid80
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
   def l0(rBottomCen: Int, rTopCen: Int = 540): EGrid80Main = new EGrid80Main(rBottomCen, rTopCen, 0.east, t"G0"/* 512 */)
 
@@ -24,15 +24,13 @@ object EGrid80Km
 
   def scen1: EScenBasic =
   { val grid: EGrid80Main = l0(446)
-    EScenBasic(grid, EuropeNW80Terr(), grid.newSideBools)
+    EScenBasic(grid, Terr80L0(), grid.newSideBools)
   }
 
   def scen2: EScenBasic =
   { val grid: EGrid80Main = l30(446)
-    EScenBasic(grid, EuropeNE80Terr(), grid.newSideBools)
+    EScenBasic(grid, Terr80L30(), grid.newSideBools)
   }
 }
 
 trait EGrid80MainMulti extends EGridMainMulti with EGrid80Sys
-{ override def hcDelta: Int = 1024
-}

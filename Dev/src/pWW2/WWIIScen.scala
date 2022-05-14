@@ -5,5 +5,5 @@ import ostrat.eg80._
 /** World War 2 scenario. */
 trait WW2Scen
 {
-  implicit val grid: EGrid80Main = EGrid80Km.l0b446
+  implicit val grid: EGrid80Main = EGrid80.l0b446
 }

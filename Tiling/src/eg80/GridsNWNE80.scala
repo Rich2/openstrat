@@ -6,7 +6,7 @@ object GridsNWNE80 extends EGrid80MainMulti
 { ThisSys =>
 
   override def cGridDelta: Double = 40
-  override val grids: Arr[EGridMain] = Arr(EGrid80Km.l0b446, EGrid80Km.l30b446)
+  override val grids: Arr[EGridMain] = Arr(EGrid80.l0b446, EGrid80.l30b446)
 
   val gridMan0: EGridMainMan = new EGridMainMan
   { override def sys: EGridMainMulti = ThisSys
@@ -31,6 +31,6 @@ object GridsNWNE80 extends EGrid80MainMulti
 
 object ScenNWNE80 extends EScenBasic
 { override val gridSys: EGridMainSys = GridsNWNE80
-  override val terrs: HCenDGrid[WTile] = EuropeNW80Terr() ++ EuropeNE80Terr()
+  override val terrs: HCenDGrid[WTile] = Terr80L0() ++ Terr80L30()
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }

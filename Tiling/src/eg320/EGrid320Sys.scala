@@ -7,9 +7,7 @@ trait EGrid320Sys extends EGridSys
 }
 
 trait EGrid320MainMulti extends EGridMainMulti with EGrid320Sys
-{ override def hcDelta: Int = 1024
-
-  /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
+{ /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
    * departure and the tile of arrival. */
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }

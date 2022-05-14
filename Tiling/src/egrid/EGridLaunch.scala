@@ -7,7 +7,7 @@ object EGridLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "eGrid"
 
-  override def default: (CanvasPlatform => Any, String) = (cv => EGridFlatGui(cv, EGrid80Km.scen1, EGrid80Km.scen1.gridSys.coordCen.view()), "JavaFx Eath 80KM Grid")
+  override def default: (CanvasPlatform => Any, String) = (cv => EGridFlatGui(cv, EGrid80.scen1, EGrid80.scen1.gridSys.coordCen.view()), "JavaFx Eath 80KM Grid")
 
   override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen: EMon[Int] = sts.findSetting[Int]("scen")
@@ -23,8 +23,8 @@ object EGridLaunch extends GuiLaunchMore
 
     num match
     {
-      case 1 => gwg(EGrid80Km.scen1)
-      case 2 => gwg(EGrid80Km.scen2)
+      case 1 => gwg(EGrid80.scen1)
+      case 2 => gwg(EGrid80.scen2)
       case 3 => gwg(ScenNWNE80)
 
       case 10 => gwg(EGrid320Km.scen1)
@@ -33,11 +33,11 @@ object EGridLaunch extends GuiLaunchMore
       case 13 => gwg(ScenNWNE320)
       case 14 => gwg(Scen320S0E2)
 
-      case 51 => egg(EGrid80Km.scen1)
-      case 52 => egg(EGrid80Km.scen2)
+      case 51 => egg(EGrid80.scen1)
+      case 52 => egg(EGrid80.scen2)
       case 53 => egg(Terr0.regScen)
       case 61 => egg(EGrid320Km.scen1)
-      case _ => egg(EGrid80Km.scen1)
+      case _ => egg(EGrid80.scen1)
     }
   }
 }
