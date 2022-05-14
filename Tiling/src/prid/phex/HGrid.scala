@@ -78,6 +78,9 @@ trait HGrid extends Any with TGrid with HGridSys
     //centres
     case (0, 0) | (2, 2) => rowRightCenC(row)
 
+    //others
+    case (0 | 2, 1 | 3) => rowRightCenC(row)
+
     //verts
     case (1, 2) | (3, 0) if row == topSideR => rowRightCenC(row - 1) + 2
     case (1, 0) | (3, 2) if row == topSideR => rowRightCenC(row - 1)
@@ -99,6 +102,9 @@ trait HGrid extends Any with TGrid with HGridSys
 
     //centres
     case (0, 0) | (2, 2) => rowLeftCenC(row)
+
+    //others
+    case (0 | 2, 1 | 3) => rowLeftCenC(row)
 
     //verts
     case (1, 2) | (3, 0) if row == topSideR => rowLeftCenC(row - 1) - 2
