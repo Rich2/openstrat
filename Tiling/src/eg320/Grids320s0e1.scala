@@ -30,6 +30,6 @@ object Grids320s0e1 extends EGrid320MainMulti
 
 object Scen320s0e1 extends EScenBasic
 { override val gridSys: EGridMainSys = Grids320s0e1
-  override val terrs: HCenDGrid[WTile] = Terr320E0() ++ EGrid320.terr30()
+  override val terrs: HCenDGrid[WTile] = Terr320E0() ++ Terr320E30()
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }

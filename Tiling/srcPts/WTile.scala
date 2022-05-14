@@ -29,6 +29,7 @@ object WTile
   val desert : WTile = Land(Plains, Desert)
   val jungle : WTile = Land(Plains, Jungle)
   val taiga : WTile = Land(Plains, Taiga)
+  val tundra : WTile = Land(Plains, Tundra)
   val ice : WTile = Land(Plains, IceCap)
   val sice: WTile = SeaIce
   val sea: WTile = Ocean
@@ -64,8 +65,11 @@ class Land(val terr: Terrain, val biome: Biome) extends WTile
 
   def colour: Colour = terr match
   { case Plains => biome.colour
-    case Hilly if biome == Forrest => Olive
-    case Hilly => Chocolate
+
+    case Hilly => biome match
+    { case Forrest => Olive
+      case _ => Chocolate
+    }
     case Mountains => Gray
   }
 }
@@ -136,6 +140,11 @@ object SeaIce extends WTile
 case object Taiga extends Biome
 { override def str = "Taiga"
   override def colour = DarkCyan
+}
+
+case object Tundra extends Biome
+{ override def str = "Tundra"
+  override def colour = RebeccaPurple
 }
 
 /*class Coastal(val vertOffs: HVertOffs) extends Water with HVertOffsTr { def str = "Ocean"}

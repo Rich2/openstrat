@@ -9,7 +9,11 @@ object Terr320W30
     implicit val grid: EGrid320Main = EGrid320.w30(138)
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
-//    gs(152, 460 + 60, taiga)
+    gs(160, 11776, ice, sea)
+    gs(158, 11774, ice * 2, sea)
+    gs(156, 11772, ice * 2, sea)
+    gs(154, 11770, ice, tundra, sea * 2)
+//    gs(152, 11770, ice * taiga)
 //    gs(150, 460 + 58, taiga)
 //    gs(148, 460 + 56, taiga * 2)
 //    gs(146, 460 + 50, hills, sea * 2, plain)
