@@ -7,20 +7,20 @@ trait EGrid160Sys extends EGridSys
 }
 
 /** A main non-polar grid with a hex span of 80Km */
-class EGrid160Main(rBottomCen: Int, rTopCen: Int, cenLong: Longitude, cOffset: Int) extends
-  EGridMain(rBottomCen, rTopCen, cenLong, 20000.metres, 300, cOffset) with EGrid160Sys
+class EGrid160Main(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, cOffset: Int) extends
+  EGridMain(rBottomCen, rTopCen, cenLongInt, 20000.metres, 300, cOffset) with EGrid160Sys
 
 /** object for creating 160km hex scale earth grids. */
 object EGrid160Km
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 160km. */
-  def es0(rBottomCen: Int, rTopCen: Int = 540): EGrid160Main = new EGrid160Main(rBottomCen, rTopCen, 0.east, t"G0"/* 512 */)
+  def es0(rBottomCen: Int, rTopCen: Int = 540): EGrid160Main = new EGrid160Main(rBottomCen, rTopCen, 0, t"G0"/* 512 */)
 
   /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 20Km or hex scale 160km. */
-  def e30(rBottomCen: Int, rTopCen: Int = 540): EGrid160Main = new EGrid160Main(rBottomCen, rTopCen, 30.east,t"1G0"/* 1536*/)
+  def e30(rBottomCen: Int, rTopCen: Int = 540): EGrid160Main = new EGrid160Main(rBottomCen, rTopCen, 30,t"1G0"/* 1536*/)
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 160km. */
-  def e0b446: EGrid160Main = new EGrid160Main(446, 540, 0.east, 512)
-  def e30b446: EGrid160Main = new EGrid160Main(446, 540, 30.east, 1536)
+  def e0b446: EGrid160Main = new EGrid160Main(446, 540, 0, 512)
+  def e30b446: EGrid160Main = new EGrid160Main(446, 540, 30, 1536)
 
   /*def scen: EScenBasic =
   { val grid: EGrid160Main = e0(446)
