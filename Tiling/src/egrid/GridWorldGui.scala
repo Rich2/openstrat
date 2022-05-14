@@ -12,6 +12,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
   //def view: HGridView = HGridView()
   val terrs: HCenDGrid[WTile] = scenIn.terrs
+  val sTerrs: HSideBoolDGrid = scenIn.sTerrs
   val gls: LatLongArr = gridSys.map{hc => gridSys.hCoordLL(hc)}
   debvar(gridSys.numSides)
   debvar(gridSys.numInnerSides + gridSys.numOuterSides)
@@ -49,11 +50,14 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
       p.map(_ / scale).fill(col)
     }
 
-    val lines = gridSys.innerSideLineM3s
-    val lines2 = lines.fromLatLongFocus(focus)
-    val lines3 = lines2.filter(_.zsPos)
-    val lines4 = lines3.map(_.xyLineSeg(scale).draw(White))
-    def lines5 = ifGScale(5, lines4)
+    def lines = gridSys.innerSideLineM3s
+    def lines2 = lines.fromLatLongFocus(focus)
+    def lines3 = lines2.filter(_.zsPos)
+    def lines4: LineSegArr = lines3.map(_.xyLineSeg(scale))
+    def lines5 = lines3.map(_.xyLineSeg(scale).draw(White))
+    def lines6 = ifGScale(5, lines5)
+
+    def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSeg, 0.3).fill(Colour.DarkBlue) }
 
     val outers = gridSys.outerSideLineM3s
     val outers2 = outers.fromLatLongFocus(focus)
@@ -73,7 +77,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ lines5 ++ outers5 ++ rcTexts ++ irrLines2)
+    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ lines6 ++ outers5 ++ rcTexts ++ irrLines2)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()
