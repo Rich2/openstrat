@@ -21,4 +21,11 @@ object Terr320E30
     gs(138, 1384 + 142, mtain * 2, hills, plain * 4)
     terrs
   }
+
+  def sTerrs(): HSideBoolDGrid =
+  { implicit val grid: EGrid320Main = EGrid320.e30(138)
+    val sTerrs = grid.newSideBools
+    //sTerrs.setTruesInts((142, 508), (143, 507))
+    sTerrs
+  }
 }

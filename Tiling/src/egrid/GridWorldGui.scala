@@ -53,14 +53,24 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
     def lines = gridSys.innerSideLineM3s
     def lines2 = lines.fromLatLongFocus(focus)
     def lines3 = lines2.filter(_.zsPos)
-    def lines4: LineSegArr = lines3.map(_.xyLineSeg(scale))
+    //def lines4: LineSegArr = lines3.map(_.xyLineSeg(scale))
     def lines5 = lines3.map(_.xyLineSeg(scale).draw(White))
     def lines6 = ifGScale(5, lines5)
 
-    def sides0: Arr[(HSide, LineSegLL)] = gridSys.sidesMap{sd => (sd, sd.lineSegHC.map(gridSys.hCoordLL(_)))}
-    def sides1: Arr[(HSide, LineSegM3)] = sides0.map{(sc, ls) => (sc, ls.map(_.toMetres3))}
+//    def sides0: Arr[(HSide, LineSegLL)] = gridSys.sidesMap{ sd => (sd, sd.lineSegHC.map(gridSys.hCoordLL(_))) }
+//    def sides1: Arr[(HSide, LineSegM3)] = sides0.map{ (sc, ls) => (sc, ls.map(_.toMetres3)) }
+//    def sides2: Arr[(HSide, LineSegM3)] = sides1.map{ (sc, ls) => (sc, ls.map(_.fromLatLongFocus(focus))) }
+//    def sides3: Arr[(HSide, LineSegM3)] = sides2.filter((sc, ls) => ls.zsPos)
+//    def sides4: Arr[(HSide, LineSeg)] = sides3.map{ (sc, ls) => (sc, ls.map(_.xy / scale)) }
 
-    def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSeg, 0.3).fill(Colour.DarkBlue) }
+    val sides0 = sTerrs.truesMap(_.lineSegHC.map(gridSys.hCoordLL(_)))
+    def sides1: LineSegM3Arr = sides0.map{ _.map(_.toMetres3) }
+    def sides2: LineSegM3Arr = sides1.map{ _.map(_.fromLatLongFocus(focus)) }
+    def sides3: LineSegM3Arr = sides2.filter(_.zsPos)
+    def sides4: LineSegArr = sides3.map{ _.map(_.xy / scale) }
+    def sides: GraphicElems = sides4.map{ ls  => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
+    deb(sides(0).toString)
+    debvar(sides.length)
 
     val outers = gridSys.outerSideLineM3s
     val outers2 = outers.fromLatLongFocus(focus)
@@ -80,7 +90,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ lines6 ++ outers5 ++ rcTexts ++ irrLines2)
+    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ sides ++ lines6 ++ outers5 ++ rcTexts ++ irrLines2)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()

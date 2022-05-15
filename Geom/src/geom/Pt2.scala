@@ -286,6 +286,8 @@ object Pt2
     override def buffToBB(buff: BuffPt2): PolygonGen = ???
   }
 
+  implicit val lineSegBuildEv: LineSegBuilder[Pt2, LineSeg] = LineSeg(_, _)
+
   implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)
   implicit val scaleImplicit: Scale[Pt2] = (obj: Pt2, operand: Double) => obj.scale(operand)
   implicit val rotateImplicit: Rotate[Pt2] = (obj: Pt2, angle: AngleVec) => obj.rotate(angle)
