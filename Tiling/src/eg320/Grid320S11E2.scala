@@ -31,9 +31,6 @@ object Grid320S11E2 extends EGrid320MainMulti
   override val gridMans: Arr[EGridMainMan] = Arr(gridMan0, gridMan1, gridMan2, gridMan3)
 
   override def headGridInt: Int = 11
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
-
-  //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
 }
 
 object Scen320S11E2 extends EScenBasic

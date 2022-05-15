@@ -33,4 +33,8 @@ object EGrid160Km
   }*/
 }
 
+object EGrid160Main
+{ def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid160Main(rBottomCen, rTopCen, cenLongInt)
+}
+
 trait EGrid160MainMulti extends EGridMainMulti with EGrid160Sys

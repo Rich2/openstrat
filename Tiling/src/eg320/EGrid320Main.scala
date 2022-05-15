@@ -6,6 +6,10 @@ import egrid._, geom.pglobe._, pEarth._, prid._, phex._, WTile._
 class EGrid320Main (rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
   EGridMain(rBottomCen, rTopCen, cenLongInt, 80.kMetres, 100)
 
+object EGrid320Main{
+  def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid320Main(rBottomCen, rTopCen, cenLongInt)
+}
+
 /** object for creating earth grids with 320km hexs, with a c scale of 80km. */
 object EGrid320
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */

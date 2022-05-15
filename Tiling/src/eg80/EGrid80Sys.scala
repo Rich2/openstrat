@@ -24,7 +24,7 @@ object EGrid80
 
   def scen0: EScenBasic =
   { val grid: EGrid80Main = e0(446)
-    EScenBasic(grid, Terr80L0(), grid.newSideBools)
+    EScenBasic(grid, Terr80E0(), grid.newSideBools)
   }
 
   def scen1: EScenBasic =

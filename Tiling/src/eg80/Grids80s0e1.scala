@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import prid._, phex._, egrid._, geom._, pEarth._
+import prid._, phex._, egrid._, pEarth._
 
 object Grids80s0e1 extends EGrid80MainMulti
 { ThisSys =>
@@ -32,6 +32,6 @@ object Grids80s0e1 extends EGrid80MainMulti
 
 object Scen80s0s1 extends EScenBasic
 { override val gridSys: EGridMainSys = Grids80s0e1
-  override val terrs: HCenDGrid[WTile] = Terr80L0() ++ Terr80L30()
+  override val terrs: HCenDGrid[WTile] = Terr80E0() ++ Terr80L30()
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }
