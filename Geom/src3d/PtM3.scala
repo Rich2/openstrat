@@ -93,9 +93,9 @@ object PtM3
   //implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
   var counter = 0
 
-  implicit val builderImplicit: Dbl3ArrBuilder[PtM3, PtMetre3Arr] = new Dbl3ArrBuilder[PtM3, PtMetre3Arr]
+  implicit val builderImplicit: Dbl3ArrBuilder[PtM3, PtM3Arr] = new Dbl3ArrBuilder[PtM3, PtM3Arr]
   { type BuffT = BuffPtMetre3
-    override def fromDblArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
+    override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(buffer)
   }
 
@@ -110,4 +110,6 @@ object PtM3
     override def fromDblArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)
   }
+
+  implicit val lineSegBuildEv: LineSegBuilder[PtM3, LineSegM3] = LineSegM3(_, _)
 }

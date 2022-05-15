@@ -75,7 +75,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def xyLat0: Pt2 = Pt2(longRadians.sine * latRadians.sine, latRadians.sine)
 
   def polyToGlobedArea(inp: PolygonLL): OptEither[PtMetre2Arr, CurveSegDists] =
-  { val d3s: PtMetre3Arr = inp.dataMap(el => fromFocusMetres(el))
+  { val d3s: PtM3Arr = inp.dataMap(el => fromFocusMetres(el))
     d3s.earthZPositive
   }
 
@@ -173,4 +173,6 @@ object LatLong
     override def fromDblArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffLatLong = new BuffLatLong(inp)
   }
+
+  implicit val lineSegEv: LineSegBuilder[LatLong, LineSegLL] = LineSegLL(_, _)
 }

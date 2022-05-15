@@ -57,6 +57,9 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
     def lines5 = lines3.map(_.xyLineSeg(scale).draw(White))
     def lines6 = ifGScale(5, lines5)
 
+    def sides0: Arr[(HSide, LineSegLL)] = gridSys.sidesMap{sd => (sd, sd.lineSegHC.map(gridSys.hCoordLL(_)))}
+    def sides1: Arr[(HSide, LineSegM3)] = sides0.map{(sc, ls) => (sc, ls.map(_.toMetres3))}
+
     def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSeg, 0.3).fill(Colour.DarkBlue) }
 
     val outers = gridSys.outerSideLineM3s

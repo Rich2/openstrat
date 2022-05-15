@@ -9,13 +9,13 @@ trait EGridSys extends HGridSys
   /** hex coordinate to latiutde and longitude. */
   def hCoordLL(hc: HCoord): LatLong
 
-  def sideLineLLs: LineSegLLArr = sideLineSegHCs.map(lsh => LineSegLL(hCoordLL(lsh.startPt), hCoordLL(lsh.endPt)))
-  def innerSideLineLLs: LineSegLLArr = innerSideLineSegHCs.map(lsh => LineSegLL(hCoordLL(lsh.startPt), hCoordLL(lsh.endPt)))
-  def outerSideLineLLs: LineSegLLArr = outerSideLineSegHCs.map(lsh => LineSegLL(hCoordLL(lsh.startPt), hCoordLL(lsh.endPt)))
+  def sideLineLLs: LineSegLLArr = sideLineSegHCs.map(_.map(hCoordLL(_)))
+  def innerSideLineLLs: LineSegLLArr = innerSideLineSegHCs.map(_.map(hCoordLL(_)))
+  def outerSideLineLLs: LineSegLLArr = outerSideLineSegHCs.map(_.map(hCoordLL(_)))
 
-  def sideLineM3s: LineSegM3Arr = sideLineLLs.map(lsh => LineSegM3(lsh.startPt.toMetres3, lsh.endPt.toMetres3))
-  def innerSideLineM3s: LineSegM3Arr = innerSideLineLLs.map(lsh => LineSegM3(lsh.startPt.toMetres3, lsh.endPt.toMetres3))
-  def outerSideLineM3s: LineSegM3Arr = outerSideLineLLs.map(lsh => LineSegM3(lsh.startPt.toMetres3, lsh.endPt.toMetres3))
+  def sideLineM3s: LineSegM3Arr = sideLineLLs.map(_.map(_.toMetres3))
+  def innerSideLineM3s: LineSegM3Arr = innerSideLineLLs.map(_.map(_.toMetres3))
+  def outerSideLineM3s: LineSegM3Arr = outerSideLineLLs.map(_.map(_.toMetres3))
 }
 /** A hex grid on the surface of the earth. */
 abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrr(bottomTileRow, unsafeRowsArray) with

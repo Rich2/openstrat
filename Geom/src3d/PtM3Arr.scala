@@ -1,11 +1,11 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM]] and[[LinePathMs]] classes are not appropriate. */
-class PtMetre3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[PtM3]
-{ type ThisT = PtMetre3Arr
-  def unsafeFromArray(array: Array[Double]): ThisT = new PtMetre3Arr(array)
+class PtM3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[PtM3]
+{ type ThisT = PtM3Arr
+  def unsafeFromArray(array: Array[Double]): ThisT = new PtM3Arr(array)
   override def typeStr: String = "Metres3s"
   override def fElemStr: PtM3 => String = _ => "Undefined" //_.str
   override def dataElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
@@ -52,12 +52,12 @@ class PtMetre3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[Pt
   }
 }
 
-object PtMetre3Arr extends Dbl3SeqDefCompanion[PtM3, PtMetre3Arr]
-{ override def fromArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
+object PtM3Arr extends Dbl3SeqDefCompanion[PtM3, PtM3Arr]
+{ override def fromArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
 
-  implicit val flatBuilderImplicit: Dbl3ArrFlatBuilder[PtM3, PtMetre3Arr] = new Dbl3ArrFlatBuilder[PtM3, PtMetre3Arr]
+  implicit val flatBuilderImplicit: Dbl3ArrFlatBuilder[PtM3, PtM3Arr] = new Dbl3ArrFlatBuilder[PtM3, PtM3Arr]
   { type BuffT = BuffPtMetre3
-    override def fromDblArray(array: Array[Double]): PtMetre3Arr = new PtMetre3Arr(array)
+    override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)
   }
 }
