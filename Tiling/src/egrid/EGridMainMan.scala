@@ -4,8 +4,8 @@ import geom._, prid._, phex._
 
 trait EGridMainMan extends EGridMan
 { def seqInd: Int
-  final override lazy val grid: EGridMain = sys.grids(seqInd)
-  def sys: EGridMainMulti
+  final override lazy val grid: EGridWarm = sys.grids(seqInd)
+  def sys: EGridWarmMulti
   final override def offset: Vec2 = Vec2(0, sys.cGridDelta * seqInd)
   final override def arrIndex: Int = grid.numTiles * seqInd
 

@@ -2,11 +2,13 @@
 package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
-trait EGridMainSys extends EGridSys
+/** A hex grid system consisting of 1 or more non polar [[EGrid]]s. */
+trait EGridWarmSys extends EGridSys
 
-trait EGridMainMulti extends EGridMainSys with EGridMulti
+/** A hex grid system consisting of multiple non polar [[EGrid]]s. */
+trait EGridWarmMulti extends EGridWarmSys with EGridMulti
 {
-  override def grids: Arr[EGridMain]
+  override def grids: Arr[EGridWarm]
 
   override val gridMans: Arr[EGridMainMan]
   def cGridDelta: Double
@@ -14,7 +16,7 @@ trait EGridMainMulti extends EGridMainSys with EGridMulti
   /** The longitude Int for the head grid. */
   def headGridInt: Int
 
-  /** The Delta in c form Grid to Grid. */
+  /** The Delta in c from Grid to Grid. */
   final def hcDelta: Int = 1024
 
   override def hCoordLL(hc: HCoord): LatLong = unsafeGetManFunc(hc)(_.grid.hCoordLL(hc))

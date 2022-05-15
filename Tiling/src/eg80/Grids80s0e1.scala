@@ -2,20 +2,20 @@
 package ostrat; package eg80
 import prid._, phex._, egrid._, pEarth._
 
-object Grids80s0e1 extends EGrid80MainMulti
+object Grids80s0e1 extends EGrid80WarmMulti
 { ThisSys =>
 
   override def cGridDelta: Double = 40
-  override val grids: Arr[EGridMain] = Arr(EGrid80.l0b446, EGrid80.l30b446)
+  override val grids: Arr[EGridWarm] = Arr(EGrid80.l0b446, EGrid80.l30b446)
   override def headGridInt: Int = 0
 
   val gridMan0: EGridMainMan = new EGridMainMan
-  { override def sys: EGridMainMulti = ThisSys
+  { override def sys: EGridWarmMulti = ThisSys
     override def seqInd: Int = 0
   }
 
   val gridMan1: EGridMainMan = new EGridMainMan
-  { override def sys: EGridMainMulti = ThisSys
+  { override def sys: EGridWarmMulti = ThisSys
     override val seqInd: Int = 1
   }
 
@@ -31,7 +31,7 @@ object Grids80s0e1 extends EGrid80MainMulti
 }
 
 object Scen80s0s1 extends EScenBasic
-{ override val gridSys: EGridMainSys = Grids80s0e1
+{ override val gridSys: EGridWarmSys = Grids80s0e1
   override val terrs: HCenDGrid[WTile] = Terr80E0() ++ Terr80L30()
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }

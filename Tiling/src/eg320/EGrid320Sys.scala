@@ -6,7 +6,7 @@ trait EGrid320Sys extends EGridSys
 { override val cScale: Length = 80.kMetres
 }
 
-trait EGrid320MainMulti extends EGridMainMulti with EGrid320Sys {
+trait EGrid320WarmMulti extends EGridWarmMulti with EGrid320Sys {
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
   //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
@@ -16,14 +16,14 @@ trait EGrid320MainMulti extends EGridMainMulti with EGrid320Sys {
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object EGrid320MainMulti{
-  def apply(rBottomCen: Int = 138, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid320MainMulti = new EGrid320MainMulti
+object EGrid320WarmMulti{
+  def apply(rBottomCen: Int = 138, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid320WarmMulti = new EGrid320WarmMulti
   {
-    override def grids: Arr[EGridMain] = startLong match {
-      case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid320Main(rBottomCen, rTopCen, i))
+    override def grids: Arr[EGridWarm] = startLong match {
+      case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid320Warm(rBottomCen, rTopCen, i))
       case sl => {
         val len = endLong - startLong + 13
-        iUntilMap(0, len)(i => EGrid320Main(rBottomCen, rTopCen, (i + startLong) %% 12))
+        iUntilMap(0, len)(i => EGrid320Warm(rBottomCen, rTopCen, (i + startLong) %% 12))
       }
     }
 

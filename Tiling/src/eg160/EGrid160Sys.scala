@@ -7,20 +7,20 @@ trait EGrid160Sys extends EGridSys
 }
 
 /** A main non-polar grid with a hex span of 80Km */
-class EGrid160Main(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
-  EGridMain(rBottomCen, rTopCen, cenLongInt, 20000.metres, 300) with EGrid160Sys
+class EGrid160Warm(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
+  EGridWarm(rBottomCen, rTopCen, cenLongInt, 20000.metres, 300) with EGrid160Sys
 
 /** object for creating 160km hex scale earth grids. */
 object EGrid160Km
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 160km. */
-  def es0(rBottomCen: Int, rTopCen: Int = 540): EGrid160Main = new EGrid160Main(rBottomCen, rTopCen, 0)
+  def es0(rBottomCen: Int, rTopCen: Int = 540): EGrid160Warm = new EGrid160Warm(rBottomCen, rTopCen, 0)
 
   /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 20Km or hex scale 160km. */
-  def e30(rBottomCen: Int, rTopCen: Int = 540): EGrid160Main = new EGrid160Main(rBottomCen, rTopCen, 30)
+  def e30(rBottomCen: Int, rTopCen: Int = 540): EGrid160Warm = new EGrid160Warm(rBottomCen, rTopCen, 30)
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 160km. */
-  def e0b446: EGrid160Main = new EGrid160Main(446, 540, 0)
-  def e30b446: EGrid160Main = new EGrid160Main(446, 540, 30)
+  def e0b446: EGrid160Warm = new EGrid160Warm(446, 540, 0)
+  def e30b446: EGrid160Warm = new EGrid160Warm(446, 540, 30)
 
   /*def scen: EScenBasic =
   { val grid: EGrid160Main = e0(446)
@@ -33,8 +33,8 @@ object EGrid160Km
   }*/
 }
 
-object EGrid160Main
-{ def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid160Main(rBottomCen, rTopCen, cenLongInt)
+object EGrid160Warm
+{ def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid160Warm(rBottomCen, rTopCen, cenLongInt)
 }
 
-trait EGrid160MainMulti extends EGridMainMulti with EGrid160Sys
+trait EGrid160WarmMulti extends EGridWarmMulti with EGrid160Sys

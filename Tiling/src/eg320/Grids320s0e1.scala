@@ -2,20 +2,20 @@
 package ostrat; package eg320
 import prid._, phex._, egrid._, geom._, pEarth._
 
-object Grids320s0e1 extends EGrid320MainMulti
+object Grids320s0e1 extends EGrid320WarmMulti
 { ThisSys =>
 
-  override val grids: Arr[EGridMain] = Arr(EGrid320.e0(), EGrid320.e30())
+  override val grids: Arr[EGridWarm] = Arr(EGrid320.e0(), EGrid320.e30())
   override def headGridInt: Int = 0
   override def cGridDelta: Double = 40
 
   val gridMan1: EGridMainMan = new EGridMainMan
-  { override def sys: EGridMainMulti = ThisSys
+  { override def sys: EGridWarmMulti = ThisSys
     override def seqInd: Int = 0
   }
 
   val gridMan2: EGridMainMan = new EGridMainMan
-  { override def sys: EGridMainMulti = ThisSys
+  { override def sys: EGridWarmMulti = ThisSys
     override def seqInd: Int = 1
   }
 
@@ -30,7 +30,7 @@ object Grids320s0e1 extends EGrid320MainMulti
 }
 
 object Scen320s0e1 extends EScenBasic
-{ override val gridSys: EGridMainSys = Grids320s0e1
+{ override val gridSys: EGridWarmSys = Grids320s0e1
   override val terrs: HCenDGrid[WTile] = Terr320E0() ++ Terr320E30()
   override val sTerrs: HSideBoolDGrid = new HSideBoolDGrid(Terr320E0.sTerrs().unsafeArray ++ Terr320E30.sTerrs().unsafeArray)//gridSys.newSideBools
 }

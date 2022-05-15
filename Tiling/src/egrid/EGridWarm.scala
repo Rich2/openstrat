@@ -3,14 +3,13 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
 /** One of the main hex grids for the earth not a polar grid.  ((rTopCen - rBottomCen + 2) / 2).max0 */
-abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLongInt: Int, cScale: Length, val rOffset: Int) extends
-  EGrid(rBottomCen, EGridMain.getBounds(rBottomCen, rTopCen, rOffset, (cenLongInt %% 12) * 1024 + 512, cScale), cScale) with
-  EGridMainSys
+abstract class EGridWarm(rBottomCen: Int, rTopCen: Int, val cenLongInt: Int, cScale: Length, val rOffset: Int) extends
+  EGrid(rBottomCen, EGridWarm.getBounds(rBottomCen, rTopCen, rOffset, (cenLongInt %% 12) * 1024 + 512, cScale), cScale) with EGridWarmSys
 {
   def cOffset: Int = (cenLongInt %% 12) * 1024 + 512
   def cenLong: Longitude = Longitude.degs(cenLongInt * 30)
 
-  def hCoordMiddleLL(hc: HCoord): LatLong = EGridMain.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, cScale).addLong(cenLong)
+  def hCoordMiddleLL(hc: HCoord): LatLong = EGridWarm.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, cScale).addLong(cenLong)
 
   def hCoordLL(hc: HCoord): LatLong = hc.c match
   {
@@ -40,7 +39,7 @@ abstract class EGridMain(rBottomCen: Int, rTopCen: Int, val cenLongInt: Int, cSc
 }
 
 /** Functions for Earth tile grids. */
-object EGridMain
+object EGridWarm
 { /** The key method to get the longitude delta for c based from 0° longitude. */
   def hCenToLatLong0(inp: HCoord, cOffset: Int, cScale: Length): LatLong = hCenToLatLong0(inp.r, inp.c, cOffset, cScale)
 

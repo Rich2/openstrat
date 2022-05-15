@@ -6,7 +6,7 @@ object Terr320E30
 {
   def apply(): HCenDGrid[WTile] =
   {
-    implicit val grid: EGrid320Main = EGrid320.e30(138)
+    implicit val grid: EGrid320Warm = EGrid320.e30(138)
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
     gs(156, 1384 + 148, taiga * 2, sea)
@@ -23,7 +23,7 @@ object Terr320E30
   }
 
   def sTerrs(): HSideBoolDGrid =
-  { implicit val grid: EGrid320Main = EGrid320.e30(138)
+  { implicit val grid: EGrid320Warm = EGrid320.e30(138)
     val sTerrs = grid.newSideBools
     //sTerrs.setTruesInts((142, 508), (143, 507))
     sTerrs

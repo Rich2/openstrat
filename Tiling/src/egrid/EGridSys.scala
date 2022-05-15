@@ -21,18 +21,6 @@ trait EGridSys extends HGridSys
 abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrr(bottomTileRow, unsafeRowsArray) with
   EGridSys
 
-trait EGridMan extends HGridMan
-{ override def grid: EGrid
-  def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
-  final def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
-}
-
-trait EGridMulti extends EGridSys with HGridMulti
-{ override type GridT = EGrid
-  override type ManT = EGridMan
-  override def hCoordLL(hc: HCoord): LatLong = unsafeGetManFunc(hc)(_.grid.hCoordLL(hc))
-}
-
 trait EScenFlat extends HSysScen
 { def terrs: HCenDGrid[WTile]
   def sTerrs: HSideBoolDGrid
@@ -41,14 +29,14 @@ trait EScenFlat extends HSysScen
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 trait EScenBasic extends EScenFlat
-{ override def gridSys: EGridMainSys
+{ override def gridSys: EGridWarmSys
   override def title: String = "EScenBasic"
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 object EScenBasic
 {
-  def apply(gridSys: EGridMainSys, terrs: HCenDGrid[WTile], sTerrs: HSideBoolDGrid): EScenBasic = new EScenBasicImp(gridSys, terrs, sTerrs)
+  def apply(gridSys: EGridWarmSys, terrs: HCenDGrid[WTile], sTerrs: HSideBoolDGrid): EScenBasic = new EScenBasicImp(gridSys, terrs, sTerrs)
 
-  class EScenBasicImp(val gridSys: EGridMainSys, val terrs: HCenDGrid[WTile], val sTerrs: HSideBoolDGrid) extends EScenBasic
+  class EScenBasicImp(val gridSys: EGridWarmSys, val terrs: HCenDGrid[WTile], val sTerrs: HSideBoolDGrid) extends EScenBasic
 }
