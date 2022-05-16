@@ -43,17 +43,20 @@ object AsiaEastPts
   val khabarovsk = 55 ll 134.73
   val udaMouth = 54.72 ll 135.28
   val khab10 = 54.64 ll 136.81
+  val khab15 = 54.28 ll 139.75
   val khab20 = 53.29 ll 141.42
   val khab30 = 48.46 ll 140.16
+  val primorsky10 = 45.82 ll 137.68
   val nakhodka = 42.69 ll 133.14
   val vladivostok = 43.17 ll 132.00
+  val kaima = 40.84 ll 129.71
   val chongpyong = degs(39.74, 127.46)
   val busan = degs(35.19, 129.19)
   val jindo = degs(34.39, 126.14)
   val ryongyon = degs(38.12, 124.78)
   val jinzhou = degs(40.93, 121.22)
 
-  val ceAsia: EArea2 = EArea2("CEAsia", degs(47, 115), plain, khabarovsk, udaMouth, khab10, khab20, khab30, nakhodka, vladivostok,
+  val ceAsia: EArea2 = EArea2("CEAsia", degs(47, 115), plain, khabarovsk, udaMouth, khab10, khab15, khab20, khab30, primorsky10, nakhodka, vladivostok, kaima,
     chongpyong, busan, jindo, ryongyon, jinzhou, binhai, AsiaWestPts.cAsiaSE,  RusNorth.cAsiaNE)
    
   val krasnoyarsk = 77.43 ll 103.99
@@ -78,20 +81,48 @@ object AsiaEastPts
   val neAsia: EArea2 = EArea2("NEAsia", degs(64, 113), taiga, krasnoyarsk, kras10, kras20, khatangaMouth, khat10, sakha10, anabarMouth,
     bulunsky10, dunayNorth, bulunsky20, bukhta, sakha20, sakha30, sakha40, ustYansky, okhotsky, khabarovsk, RusNorth.cAsiaNE, RusNorth.nRusNE)
 
+  val sakha43 = 72.11 ll 149.64
   val sundrunMouth = 70.81 ll 152.56
+  val sakha45 = 71.07 ll 157.19
+  val sakha48 = 70.26 ll 160.11
   val sakha50 = 69.82 ll 159.7
+  val chukotka10 = 69.47 ll 166.93
+  val chukotka20 = 70.03 ll 168.49
+  val chukotka30 = 69.86 ll 176.12
   val iultinsky10 = 67.38 ll -174.97
   val eSiberia = 66.07 ll  -170.24
 
   val seProvidensky = 64.29 ll -173.08
   val iultinsky20 = 66.18 ll -179.61
-  val sKamchatka = degs(51.20, 156.89)
-  val wKamchatka = degs(55.97, 155.67)
-  val penzhinsky = degs(62.76, 164.60)
-  val okhotsky2 = degs(59.42, 142.17)
+  val anadyrMouth = 64.74 ll 177.58
+  val anadyrsky10 = 62.29 ll 179.11
+  val anadyrsky20 = 62.44 ll 176.63
+  val kamchatka10 = 59.96 ll 170.31
+  val kamchatka20 = 60.05 ll 163.82
+  val nachikiMouth = 57.84 ll 162.14
+  val kamchatka30 = 57.79 ll 163.25
+  val sKamchatka = 51.20 ll 156.89
+  val wKamchatka = 55.97 ll 155.67
+  val kamchatka40 = 60.42 ll 161.95
+  val kamchatka50 = 60.91 ll 163.78
 
-  val feAsia: EArea2 = EArea2("FEAsia", degs(66.22,159.68), taiga, ustYansky, sundrunMouth, sakha50, iultinsky10, eSiberia, seProvidensky, iultinsky20, sKamchatka,
-     wKamchatka, penzhinsky, okhotsky2, okhotsky)
+  val penzhinsky = 62.76 ll 164.60
+  val kamchatka55 = 62.55 ll 163.26
+  val magadan5 = 60.60 ll 160.17
+  val magadan7 = 61.94 ll 160.37
+  val magadan10 = 61.81 ll 157.48
+  val magadan15 = 59.88 ll 154.19
+  val magadan20 = 59.19 ll 155.17
+  val magadan25 = 58.86 ll 151.39
+  val magadan30 = 59.61 ll 151.37
+  val magadan40 = 59.24 ll 148.93
+  val okhotaMouth = 59.33 ll 143.07
+  val okhotsky2 = 59.42 ll 142.17
+
+  val feAsia: EArea2 = EArea2("FEAsia", degs(66.22,159.68), taiga, ustYansky, sakha43, sundrunMouth, sakha45, sakha48, sakha50, chukotka10,
+    chukotka20, chukotka30, iultinsky10, eSiberia,
+    seProvidensky, iultinsky20, anadyrMouth, anadyrsky10, anadyrsky20, kamchatka10, kamchatka20, nachikiMouth, kamchatka30, sKamchatka,
+    wKamchatka, kamchatka40, kamchatka50, penzhinsky, kamchatka55, magadan5, magadan7, magadan10, magadan15, magadan20, magadan25, magadan30, magadan40, okhotaMouth, okhotsky2, okhotsky)
 
   val sakhalinN = 54.38 ll 142.73
   val sakhalinW = 49.07 ll 144.37
