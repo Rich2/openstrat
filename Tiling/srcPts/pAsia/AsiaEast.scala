@@ -6,7 +6,7 @@ import geom._, pglobe._, LatLong._, WTile._, pPts.RusNorth, pPts.AsiaWestPts
 object AsiaEast extends EArea1("Asia", 60 ll 100)
 { import AsiaEastPts._
   //override val gridMaker = E80Empty
-  override val a2Arr = Arr(seAsia, ceAsia, neAsia, feAsia, japan)
+  override val a2Arr = Arr(seAsia, ceAsia, neAsia, feAsia, sakhalin, japan)
 }
 
 object AsiaEastPts
@@ -41,36 +41,67 @@ object AsiaEastPts
     AsiaWestPts.indiaNE,  AsiaWestPts.cAsiaSE)
      
   val khabarovsk = 55 ll 134.73
+  val udaMouth = 54.72 ll 135.28
+  val khab10 = 54.64 ll 136.81
+  val khab20 = 53.29 ll 141.42
+  val khab30 = 48.46 ll 140.16
+  val nakhodka = 42.69 ll 133.14
+  val vladivostok = 43.17 ll 132.00
   val chongpyong = degs(39.74, 127.46)
   val busan = degs(35.19, 129.19)
   val jindo = degs(34.39, 126.14)
   val ryongyon = degs(38.12, 124.78)
   val jinzhou = degs(40.93, 121.22)
 
-  val ceAsia: EArea2 = EArea2("CEAsia", degs(47, 115), plain, khabarovsk, chongpyong, busan, jindo, ryongyon, jinzhou, binhai,
-     AsiaWestPts.cAsiaSE,  RusNorth.cAsiaNE)
+  val ceAsia: EArea2 = EArea2("CEAsia", degs(47, 115), plain, khabarovsk, udaMouth, khab10, khab20, khab30, nakhodka, vladivostok,
+    chongpyong, busan, jindo, ryongyon, jinzhou, binhai, AsiaWestPts.cAsiaSE,  RusNorth.cAsiaNE)
    
-  val krasnoyarsk = degs(77.43, 103.99)
+  val krasnoyarsk = 77.43 ll 103.99
+  val kras10 = 76.62 ll 112.46
+  val kras20 = 75.38 ll 113.69
+  val khatangaMouth = 73.21 ll 106.23
+  val khat10 = 74.02 ll 110.26
+  val sakha10 = 74.00 ll 112.83
+  val anabarMouth = 73.55 ll 113.51
+  val bulunsky10 = 72.85 ll 122.47
+  val dunayNorth = 73.93 ll 124.68
+  val bulunsky20 = 73.08 ll 129.27
+
   val farAsiaW = 141.6.east
-  val bukhta = degs(70.70, 131.07)
+  val bukhta = 70.70 ll 131.07
+  val sakha20 = 71.94 ll 132.77
+  val sakha30 = 71.36 ll 134.38
+  val sakha40 = 71.96 ll 138.71
   val ustYansky = 72.81.north * farAsiaW
   val okhotsky = 58.73.north * farAsiaW
 
-  val neAsia: EArea2 = EArea2("NEAsia", degs(64, 113), taiga, krasnoyarsk, bukhta, ustYansky, okhotsky, khabarovsk,
-     RusNorth.cAsiaNE/*, AsiaWestPts.kazakNE*/, RusNorth.nRusNE)
-   
-  val sakha = degs(69.82, 159.7)
-  val iultinsky = degs(67.38, -174.97)
-  val eSiberia = degs(66.07, -170.24)
-  val seProvidensky = degs(64.29, -173.08)
+  val neAsia: EArea2 = EArea2("NEAsia", degs(64, 113), taiga, krasnoyarsk, kras10, kras20, khatangaMouth, khat10, sakha10, anabarMouth,
+    bulunsky10, dunayNorth, bulunsky20, bukhta, sakha20, sakha30, sakha40, ustYansky, okhotsky, khabarovsk, RusNorth.cAsiaNE, RusNorth.nRusNE)
+
+  val sundrunMouth = 70.81 ll 152.56
+  val sakha50 = 69.82 ll 159.7
+  val iultinsky10 = 67.38 ll -174.97
+  val eSiberia = 66.07 ll  -170.24
+
+  val seProvidensky = 64.29 ll -173.08
+  val iultinsky20 = 66.18 ll -179.61
   val sKamchatka = degs(51.20, 156.89)
   val wKamchatka = degs(55.97, 155.67)
   val penzhinsky = degs(62.76, 164.60)
   val okhotsky2 = degs(59.42, 142.17)
 
-  val feAsia: EArea2 = EArea2("FEAsia", degs(66.22,159.68), taiga, ustYansky, sakha, iultinsky, eSiberia, seProvidensky, sKamchatka,
+  val feAsia: EArea2 = EArea2("FEAsia", degs(66.22,159.68), taiga, ustYansky, sundrunMouth, sakha50, iultinsky10, eSiberia, seProvidensky, iultinsky20, sKamchatka,
      wKamchatka, penzhinsky, okhotsky2, okhotsky)
-  
+
+  val sakhalinN = 54.38 ll 142.73
+  val sakhalinW = 49.07 ll 144.37
+  val poronayask = 49.21 ll 143.09
+  val sakhalinS = 45.89 ll 142.08
+  val pogibi = 52.22 ll 141.64
+  val sakhalinNE = 53.39 ll 141.70
+
+  val sakhalin: EArea2 = EArea2("Sakhalin", 50.94 ll 142.90, taiga, sakhalinN, sakhalinW, poronayask, sakhalinS, pogibi, sakhalinNE)
+
   val sKyshu = degs(31.08, 130.75)
   val neKyushu = degs(33.34, 129.45)
   val kashiwazaki = degs(37.37, 138.55)

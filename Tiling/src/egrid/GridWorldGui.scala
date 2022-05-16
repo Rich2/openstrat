@@ -69,8 +69,6 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
     def sides3: LineSegM3Arr = sides2.filter(_.zsPos)
     def sides4: LineSegArr = sides3.map{ _.map(_.xy / scale) }
     def sides: GraphicElems = sides4.map{ ls  => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
-    deb(sides(0).toString)
-    debvar(sides.length)
 
     val outers = gridSys.outerSideLineM3s
     val outers2 = outers.fromLatLongFocus(focus)
