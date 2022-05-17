@@ -8,6 +8,7 @@ object Grid320S11E2 extends EGrid320WarmMulti
   override def cGridDelta: Double = 40
 
   override val grids: Arr[EGridWarm] = Arr(EGrid320.w30(), EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
+
   val gridMan0: EGridMainMan = new EGridMainMan
   { override def sys: EGridWarmMulti = ThisSys
     override def seqInd: Int = 0

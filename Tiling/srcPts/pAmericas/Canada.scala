@@ -26,21 +26,47 @@ object CentralCanada extends EArea2("Central Canada", 56.0 ll -98.0, taiga)
 object EastCanada extends EArea2("East Canada", degs(53.71, -70), taiga)
 { val hudsonBayMouthE: LatLong = 62.57 ll -77.99
   val ungavaW: LatLong = 61.04 ll -69.56
+  val koksoakMouth = 58.90 ll -69.38
   val ungavaS: LatLong = 58.26 ll -67.45
-
+  val katavik50 = 58.82 ll -66.44
   val ungavaE: LatLong = 60.49 ll -64.74
+  val labrador50 = 54.54 ll -57.30
+  val labrador60 = 52.10 ll -55.72
   val labradorE: LatLong = 52.42 ll -56.05
-  val newFoundlandE: LatLong = 47.52 ll -52.64
+  val labrador70 = 50.27 ll -59.91
+  val madeleine = 49.25 ll -65.36
+  val septlles = 50.23 ll -66.37
+  val pointeMonts = 49.32 ll -67.38
+  val capRosiers = 48.86 ll -64.20
+  val gasconsEst = 48.21 ll -64.78
+  val scoudoucMouth = 46.22 ll -64.55
   val eNovaScotia: LatLong = 46.16 ll -59.86
+  val novaScotiaS = 43.43 ll -65.61
 
   //val e49th = deg(49, -64.41) Removed as Newfoundland is the close
   val maineE = degs(44.87, -66.93)
 
-  val eCanadaCoast = LinePathLL(ungavaE, labradorE, newFoundlandE, eNovaScotia)
+  val eCanadaCoast = LinePathLL(ungavaE, labrador50, labrador60, labradorE, labrador70, septlles, pointeMonts, madeleine, capRosiers, gasconsEst, scoudoucMouth, eNovaScotia, novaScotiaS)
 
-  override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++ LinePathLL(CentralCanada.jamesBayS, hudsonBayMouthE, ungavaW, ungavaS) ++
+  override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++ LinePathLL(CentralCanada.jamesBayS, hudsonBayMouthE, ungavaW, koksoakMouth, ungavaS, katavik50) ++
     eCanadaCoast +% maineE ++ LakeOntario.canadaCoast ++! LakeErie.eastCanadaCoast
 }
+
+object NewFoundland extends EArea2("Newfoundland", 48.72 ll -56.16, taiga)
+{
+
+
+  val north = 51.63 ll -55.43
+  val pollardsPoint = 49.75 ll -56.92
+  val p10 = 50.15 ll -56.16
+  val p20 = 49.25 ll -53.47
+  val east: LatLong = 47.52 ll -52.64
+  val southWest = 47.62 ll -59.30
+  val capGeorge = 48.46 ll -59.27
+  val savageCove = 51.33 ll -56.70
+  override def polygonLL: PolygonLL = PolygonLL(north, pollardsPoint, p10, p20, east, southWest, capGeorge, savageCove)
+}
+
 
 object LakeSuperior extends EArea2("Lake Superior", 47.5 ll -88, lake)
 { val east: LatLong = 46.52 ll -84.61

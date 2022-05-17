@@ -144,7 +144,7 @@ case object Taiga extends Biome
 
 case object Tundra extends Biome
 { override def str = "Tundra"
-  override def colour = RebeccaPurple
+  override def colour = LightCyan
 }
 
 /*class Coastal(val vertOffs: HVertOffs) extends Water with HVertOffsTr { def str = "Ocean"}

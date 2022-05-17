@@ -5,6 +5,7 @@ import geom._, pglobe._, LatLong._, WTile._
 object PolarNorth extends EArea1("NPole", 89.5 ll 0)
 { val sGreenland = degs(59.87, -43.95)
   val swGreenland = degs(60.82, -48.07)
+  val aasiaat = 68.68 ll -53.00
   val pt1 = 75.73 ll -58.98
   val wGreenland = degs(78.20, -72.77)
   val nwGreenland = degs(80.33, -67.27)
@@ -13,7 +14,7 @@ object PolarNorth extends EArea1("NPole", 89.5 ll 0)
   val semersooq = degs(70.03, -23.07)
   val kulusuk = 65.53 ll -37.05
    
-  val greenland: EArea2 = EArea2("Greenland", degs(75, -42), ice, sGreenland, swGreenland, pt1, wGreenland, nwGreenland,
+  val greenland: EArea2 = EArea2("Greenland", degs(75, -42), ice, sGreenland, swGreenland, aasiaat, pt1, wGreenland, nwGreenland,
      nGreenland, neGreenland, semersooq, kulusuk)
    
   val artic: EArea2 = EArea2("Artic", degs(89.9, 0), ice, WestCanada.nwAlaska, AsiaEastPts.iultinsky10, AsiaEastPts.krasnoyarsk,
