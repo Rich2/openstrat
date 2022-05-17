@@ -2,10 +2,10 @@
 package ostrat; package egrid
 import geom._, prid._, phex._
 
-trait EGridMainMan extends EGridMan
-{ def seqInd: Int
+case class EGridMainMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
+{
   final override lazy val grid: EGridWarm = sys.grids(seqInd)
-  def sys: EGridWarmMulti
+
   final override def offset: Vec2 = Vec2(0, sys.cGridDelta * seqInd)
   final override def arrIndex: Int = grid.numTiles * seqInd
 

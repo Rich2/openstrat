@@ -8,23 +8,7 @@ object Grid320S0E2 extends EGrid320WarmMulti
   override val grids: Arr[EGridWarm] = Arr(EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
   override def headGridInt: Int = 0
   override def cGridDelta: Double = 40
-
-  val gridMan0: EGridMainMan = new EGridMainMan
-  { override def sys: EGridWarmMulti = ThisSys
-    override def seqInd: Int = 0
-  }
-
-  val gridMan1: EGridMainMan = new EGridMainMan
-  { override def sys: EGridWarmMulti = ThisSys
-    override def seqInd: Int = 1
-  }
-
-  val gridMan2: EGridMainMan = new EGridMainMan
-  { override def sys: EGridWarmMulti = ThisSys
-    override def seqInd: Int = 2
-  }
-
-  override val gridMans: Arr[EGridMainMan] = Arr(gridMan0, gridMan1, gridMan2)
+  override val gridMans: Arr[EGridMainMan] = iToMap(0, 2)(EGridMainMan(_, ThisSys))
 
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
