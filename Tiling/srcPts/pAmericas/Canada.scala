@@ -2,29 +2,81 @@
 package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._
 
-object WestCanada extends EArea2("West Canada", degs(64.051, -129.98), taiga)
-{ val w49th: LatLong = 49 ll -125.66
-  val yakut: LatLong = 59.93 ll -141.03
-  val swAlaska: LatLong = 60.50 ll -164.55
-  val nwAlaska: LatLong = 70.11 ll -161.87
-  val east = 110.west
-  val northEast: LatLong = 72.97.north * east
-  val southEast: LatLong = 49.north * east
-  override def polygonLL: PolygonLL = PolygonLL(w49th, yakut, swAlaska, nwAlaska, northEast, southEast)
+object Alaska extends EArea2("Alaska", 66.33 ll -151.16, taiga)
+{  val northEast = 69.45 ll -141
+  val yakut10: LatLong = 59.93 ll -141.03
+  val southWest: LatLong = 60.50 ll -164.55
+  val northWest: LatLong = 70.11 ll -161.87
+  val p10 = 70.11 ll -143.20
+
+  override def polygonLL: PolygonLL = PolygonLL(northEast, yakut10, southWest, northWest, p10)
 }
 
-object CentralCanada extends EArea2("Central Canada", 56.0 ll -98.0, taiga)
-{ val nwPass: LatLong = 69.5 ll -82.82
+object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, taiga)
+{
+
+  val yakut50 = 60 ll -139.60
+  val yakut10 = 68.90 ll -136.53
+  val inuvik10 = 70.56 ll -128.00
+  val nunavut10 = 69.00 ll -115.80
+  val raeMouth = 67.92 ll -115.34
+  val nunavut15 = 67.68 ll -101.53
+  val nunavut17 = 68.55 ll -97.80
+  val nunavut25 = 68.05 ll -94.76
+  val nunavut30 = 69.32 ll -94.23
+  val nunavut40 = 71.39 ll -96.17
+  val somersetNW = 73.99 ll -95.28
+  val somersetNE = 73.91 ll -90.18
+  val nunavut60 = 70.17 ll -91.57
+  val nunavut80 = 67.21 ll -87.19
+  val nwPass: LatLong = 69.5 ll -82.82
+  val navut20 = 67.45 ll -81.21
+  val naujaat10 = 66.35 ll - 83.41
+  val naujaat20 = 66.16 ll - 85.86
+  val hudsonBay60W = 60 ll -94.82
+
+  override def polygonLL: PolygonLL = PolygonLL(yakut50, Alaska.yakut10, Alaska.northEast, yakut10, inuvik10, nunavut10, raeMouth, nunavut15,
+    nunavut17, nunavut25, nunavut30, nunavut40, somersetNW, somersetNE, nunavut60, nunavut80, nwPass, navut20, naujaat10, naujaat20, hudsonBay60W)
+}
+
+object SouthWestCanada extends EArea2("SouthWest Canada", 55 ll-110, taiga)
+{ val wUsaNE = 50 ll -98
+  val w49th: LatLong = 49 ll -125.66
   val eggIsland : LatLong= 59.91 ll -94.85
+  val nelsonMouth = 57.09 ll -92.47
+  override def polygonLL: PolygonLL = PolygonLL(wUsaNE, w49th, NorthWestCanada.yakut50, NorthWestCanada.hudsonBay60W, eggIsland, nelsonMouth)
+}
+
+object VictoriaIsland extends EArea2("Victoria Island", 70.65 ll -109.36, tundra)
+{
+  val stefanssonN = 73.75 ll -105.29
+  val vic5 = 71.12 ll -104.60
+  val vic10 = 70.21 ll -101.34
+  val southEast = 69.00 ll -101.79
+  val southWest = 68.46 ll -113.21
+  val vic30 = 69.22 ll -113.69
+  val pointCaen = 69.30 ll -115.95
+  val vic40 = 71.60 ll -118.90
+  val northWest = 73.36 ll -114.57
+  override def polygonLL: PolygonLL = PolygonLL(stefanssonN, vic5, vic10, southEast, southWest, vic30, pointCaen, vic40, northWest)
+}
+
+object CentralCanada extends EArea2("Central Canada", 52.37 ll -86.94, taiga)
+{
   val jamesBayNW: LatLong = 55.07 ll -82.31
+  val attapiskatMouth = 52.97 ll -82.26
+  val moosoneeMouth = 51.36 ll -80.40
   val jamesBayS: LatLong = 51.14 ll -79.79
 
-  override def polygonLL: PolygonLL = LinePathLL(WestCanada.southEast, WestCanada.northEast, nwPass, eggIsland, jamesBayNW, jamesBayS) ++
+  override def polygonLL: PolygonLL = LinePathLL(SouthWestCanada.wUsaNE, SouthWestCanada.nelsonMouth, jamesBayNW, attapiskatMouth, moosoneeMouth, jamesBayS) ++
     LakeHuron.centralCanadaCoast ++! LakeSuperior.canadaCoast
 }
 
 object EastCanada extends EArea2("East Canada", degs(53.71, -70), taiga)
-{ val hudsonBayMouthE: LatLong = 62.57 ll -77.99
+{ val eastMainMouth = 52.24 ll -78.56
+  val jamesBayMouthEast = 54.63 ll -79.74
+  val hudsonBayEast = 56.46 ll -76.52
+  val hudsonBayMouthE: LatLong = 62.57 ll -77.99
   val ungavaW: LatLong = 61.04 ll -69.56
   val koksoakMouth = 58.90 ll -69.38
   val ungavaS: LatLong = 58.26 ll -67.45
@@ -48,14 +100,12 @@ object EastCanada extends EArea2("East Canada", degs(53.71, -70), taiga)
 
   val eCanadaCoast = LinePathLL(ungavaE, labrador50, labrador60, labradorE, labrador70, septlles, pointeMonts, madeleine, capRosiers, gasconsEst, scoudoucMouth, eNovaScotia, novaScotiaS)
 
-  override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++ LinePathLL(CentralCanada.jamesBayS, hudsonBayMouthE, ungavaW, koksoakMouth, ungavaS, katavik50) ++
+  override val polygonLL: PolygonLL = LakeHuron.eastCanadaCoast ++ LinePathLL(CentralCanada.jamesBayS, eastMainMouth, jamesBayMouthEast, hudsonBayEast, hudsonBayMouthE, ungavaW, koksoakMouth, ungavaS, katavik50) ++
     eCanadaCoast +% maineE ++ LakeOntario.canadaCoast ++! LakeErie.eastCanadaCoast
 }
 
 object NewFoundland extends EArea2("Newfoundland", 48.72 ll -56.16, taiga)
 {
-
-
   val north = 51.63 ll -55.43
   val pollardsPoint = 49.75 ll -56.92
   val p10 = 50.15 ll -56.16

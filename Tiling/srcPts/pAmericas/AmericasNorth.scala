@@ -18,7 +18,7 @@ object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
 
 object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
 { import AmericasNorth._
-  override def polygonLL: PolygonLL = LinePathLL(galveston, wUsaNE) ++ LakeSuperior.usCoast ++ LakeHuron.pineMouth ++ LakeMichigan.coast ++
+  override def polygonLL: PolygonLL = LinePathLL(galveston, SouthWestCanada.wUsaNE) ++ LakeSuperior.usCoast ++ LakeHuron.pineMouth ++ LakeMichigan.coast ++
     LakeHuron.usCoastSouth  ++ LakeErie.usCoast ++ LakeOntario.usCoast ++!
     (EastCanada.maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint, montague)
 }
@@ -31,7 +31,7 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
   val cAmericaNW= cAmericaN ll -105.97
   val sanDiego = degs(32.57, -117.11)
   val humboldt = 40.44 ll -124.40
-  val wUsaNE = 50 ll -98
+
   val ensenada = 31.74 ll -116.73
   val seFlorida = degs(25.34, -80.39)
   val swFlorida = degs(25.19, -81.13)
@@ -41,7 +41,7 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
 
   val montague = 31.70 ll -114.71
 
-  lazy val wUsa = EArea2("United States\nwest", degs(40.0, -108.0), desert, sanDiego, humboldt, WestCanada.w49th, WestCanada.southEast, wUsaNE,
+  lazy val wUsa = EArea2("United States\nwest", degs(40.0, -108.0), desert, sanDiego, humboldt, SouthWestCanada.w49th, SouthWestCanada.wUsaNE,
     galveston, rockyPoint, montague)
 
   val cabotPulmo = 23.37 ll -109.44
@@ -83,5 +83,5 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
   val cuba = EArea2("Cuba", 21.97 ll -78.96, jungle, wCuba, havana, eCuba, cabotCruz, yara, surgidero)
 
   val lakes = Arr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
-  override val a2Arr: Arr[EArea2] = lakes ++ Arr(wUsa, UsaEast, WestCanada, CentralCanada, EastCanada, NewFoundland, baja, cAmerica, cuba)
+  override val a2Arr: Arr[EArea2] = lakes ++ Arr(wUsa, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, VictoriaIsland, EastCanada, NewFoundland, baja, cAmerica, cuba)
 }
