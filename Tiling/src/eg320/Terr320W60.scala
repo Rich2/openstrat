@@ -11,9 +11,9 @@ object Terr320W60
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
     gs(160, 10756, ice)
     gs(158, 10754, ice * 2)
-    gs(156, 10756, ice)
-    gs(154, 10758, ice)
-    gs(152, 10760, ice)
+    gs(156, 10748, tundra, sea, ice)
+    gs(154, 10746, tundra * 2, sea, ice)
+    gs(152, 10748, tundra, sea * 2, ice)
     gs(150, 10758, tundra)
     gs(148, 10744, taiga, sea * 4)
     gs(146, 10746, taiga * 2, sea * 3)
