@@ -3,7 +3,38 @@ package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._
 
 object PolarNorth extends EArea1("NPole", 89.5 ll 0)
-{ val sGreenland = degs(59.87, -43.95)
+{
+  val long0 =  82 ll 0
+  val long15 =  82 ll 15
+  val long30 =  82 ll 30
+  val long45 =  82 ll 45
+  val long60 =  82 ll 60
+  val long75 =  82 ll 75
+  val long90 =  82 ll 90
+  val long105 =  82 ll 105
+  val long120 =  82 ll 120
+  val long135 =  82 ll 135
+  val long150 =  82 ll 150
+  val long165 =  82 ll 165
+  val long180 =  82 ll 180
+  val long195 =  82 ll 195
+  val long210 =  82 ll 210
+  val long225 =  82 ll 225
+  val long240 =  82 ll 240
+  val long255 =  82 ll 255
+  val long270 =  82 ll 270
+  val long285 =  82 ll 285
+
+  val Artic: EArea2 = EArea2("Artic", 89.9 ll 0, ice,
+    long0, long15, long30, long45, long60, long75, long90, long105, long120, long135, long150, long165, long180, long195, long210, long225, long240,
+    long255, long270, long285, Greenland.nwGreenland, Greenland.nGreenland, Greenland.neGreenland)
+
+  override val a2Arr: Arr[EArea2] = Arr(Greenland, Artic, Svalbard, Nordauslandet)
+}
+
+object Greenland extends EArea2("Greenland", degs(75, -42), ice){
+
+  val sGreenland = degs(59.87, -43.95)
   val swGreenland = degs(60.82, -48.07)
   val aasiaat = 68.68 ll -53.00
   val pt1 = 75.73 ll -58.98
@@ -13,14 +44,10 @@ object PolarNorth extends EArea1("NPole", 89.5 ll 0)
   val neGreenland = degs(81.44, -11.77)
   val semersooq = degs(70.03, -23.07)
   val kulusuk = 65.53 ll -37.05
-   
-  val greenland: EArea2 = EArea2("Greenland", degs(75, -42), ice, sGreenland, swGreenland, aasiaat, pt1, wGreenland, nwGreenland,
-     nGreenland, neGreenland, semersooq, kulusuk)
-   
-  val artic: EArea2 = EArea2("Artic", degs(89.9, 0), ice, Alaska.northWest, AsiaEastPts.iultinsky10, AsiaEastPts.krasnoyarsk,
-     degs(81.21, 15.83), semersooq, neGreenland, nGreenland, nwGreenland)
-  
-  override val a2Arr: Arr[EArea2] = Arr(greenland, artic, Svalbard, Nordauslandet)
+
+
+  override def polygonLL: PolygonLL = PolygonLL(sGreenland, swGreenland, aasiaat, pt1, wGreenland, nwGreenland,
+    nGreenland, neGreenland, semersooq, kulusuk)
 }
 
 object Svalbard extends EArea2("Svalbard", 78.94 ll 17.78, ice)

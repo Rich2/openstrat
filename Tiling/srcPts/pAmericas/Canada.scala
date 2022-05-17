@@ -6,10 +6,18 @@ object Alaska extends EArea2("Alaska", 66.33 ll -151.16, taiga)
 {  val northEast = 69.45 ll -141
   val yakut10: LatLong = 59.93 ll -141.03
   val southWest: LatLong = 60.50 ll -164.55
+  val p33 = 61.60 ll -166.18
+  val koyuk = 64.93 ll -161.19
+  val p40 = 64.65 ll -166.39
+  val capeDouglas = 65.0 ll -166.70
+  val teller = 65.26 ll -166.36
+  val imurukMouth = 65.23 ll -166.04
+  val brevig = 65.34 ll -166.50
+  val west = 65.66 ll -168.11
   val northWest: LatLong = 70.11 ll -161.87
   val p10 = 70.11 ll -143.20
 
-  override def polygonLL: PolygonLL = PolygonLL(northEast, yakut10, southWest, northWest, p10)
+  override def polygonLL: PolygonLL = PolygonLL(northEast, yakut10, southWest, p33, koyuk, p40, capeDouglas, teller, imurukMouth, brevig, west, northWest, p10)
 }
 
 object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, taiga)

@@ -20,6 +20,7 @@ object EGrid320
   def e90(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 3)
   def e120(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 4)
   def e150(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 5)
+  def e180(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 6)
   def w90(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 9)
   def w60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 10)
   def w30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen,11)
@@ -52,6 +53,11 @@ object EGrid320
   def scen5: EScenBasic =
   { val grid: EGridWarm = e150(138)
     EScenBasic(grid, Terr320E150(), grid.newSideBools)
+  }
+
+  def scen6: EScenBasic =
+  { val grid: EGridWarm = e180(138)
+    EScenBasic(grid, Terr320E180(), grid.newSideBools)
   }
 
   def scen9: EScenBasic =

@@ -88,6 +88,10 @@ object AsiaEastPts
   val sakha50 = 69.82 ll 159.7
   val chukotka10 = 69.47 ll 166.93
   val chukotka20 = 70.03 ll 168.49
+  val chukatka21 = 69.87 ll 169.42
+  val chukatka24 = 69.21 ll 168.31
+  val chukatka27 = 69.04 ll 171.05
+  val chukatka29 = 70.09 ll 170.61
   val chukotka30 = 69.86 ll 176.12
   val iultinsky10 = 67.38 ll -174.97
   val eSiberia = 66.07 ll  -170.24
@@ -120,7 +124,7 @@ object AsiaEastPts
   val okhotsky2 = 59.42 ll 142.17
 
   val feAsia: EArea2 = EArea2("FEAsia", degs(66.22,159.68), taiga, ustYansky, sakha43, sundrunMouth, sakha45, sakha48, sakha50, chukotka10,
-    chukotka20, chukotka30, iultinsky10, eSiberia,
+    chukotka20, chukatka21, chukatka24, chukatka27, chukatka29, chukotka30, iultinsky10, eSiberia,
     seProvidensky, iultinsky20, anadyrMouth, anadyrsky10, anadyrsky20, kamchatka10, kamchatka20, nachikiMouth, kamchatka30, sKamchatka,
     wKamchatka, kamchatka40, kamchatka50, penzhinsky, kamchatka55, magadan5, magadan7, magadan10, magadan15, magadan20, magadan25, magadan30, magadan40, okhotaMouth, okhotsky2, okhotsky)
 
