@@ -8,7 +8,7 @@ object Grids80s0e1 extends EGrid80WarmMulti
   override def cGridDelta: Double = 40
   override val grids: Arr[EGridWarm] = Arr(EGrid80.l0b446, EGrid80.l30b446)
   override def headGridInt: Int = 0
-  override val gridMans: Arr[EGridMainMan] = iToMap(0, 1)(EGridMainMan(_, ThisSys))
+  override val gridMans: Arr[EGridWarmMan] = iToMap(0, 1)(EGridWarmMan(_, ThisSys))
 
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 

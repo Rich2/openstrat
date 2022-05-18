@@ -10,7 +10,7 @@ trait EGridWarmMulti extends EGridWarmSys with EGridMulti
 {
   override def grids: Arr[EGridWarm]
 
-  override val gridMans: Arr[EGridMainMan]
+  override val gridMans: Arr[EGridWarmMan]
   def cGridDelta: Double
 
   /** The longitude Int for the head grid. */

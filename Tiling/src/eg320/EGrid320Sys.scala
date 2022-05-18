@@ -27,7 +27,7 @@ object EGrid320WarmMulti{
       }
     }
 
-    override val gridMans: Arr[EGridMainMan] = ???
+    override val gridMans: Arr[EGridWarmMan] = ???
 
     override def cGridDelta: Double = ???
 

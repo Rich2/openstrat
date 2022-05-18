@@ -14,18 +14,18 @@ object EGrid320Warm
 object EGrid320
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
 
-  def e0(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 0)
-  def e30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen,  1)
-  def e60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 2)
-  def e90(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 3)
-  def e120(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 4)
-  def e150(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 5)
-  def e180(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 6)
-  def w150(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 7)
-  def w120(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 8)
-  def w90(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 9)
-  def w60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen, 10)
-  def w30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = new EGrid320Warm(rBottomCen, rTopCen,11)
+  def e0(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 0)
+  def e30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen,  1)
+  def e60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 2)
+  def e90(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 3)
+  def e120(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 4)
+  def e150(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 5)
+  def e180(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 6)
+  def w150(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 7)
+  def w120(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 8)
+  def w90(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 9)
+  def w60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 10)
+  def w30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen,11)
 
   def scen0: EScenBasic =
   { val grid: EGridWarm = e0(138)

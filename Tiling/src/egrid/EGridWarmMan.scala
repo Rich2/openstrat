@@ -2,7 +2,7 @@
 package ostrat; package egrid
 import geom._, prid._, phex._
 
-case class EGridMainMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
+case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
 {
   final override lazy val grid: EGridWarm = sys.grids(seqInd)
 
