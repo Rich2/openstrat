@@ -41,7 +41,7 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
 
   val montague = 31.70 ll -114.71
 
-  lazy val wUsa = EArea2("United States\nwest", degs(40.0, -108.0), desert, sanDiego, humboldt, SouthWestCanada.w49th, SouthWestCanada.wUsaNE,
+  lazy val wUsa = EArea2("United States\nwest", 40.0 ll -108.0, desert, sanDiego, humboldt, SouthWestCanada.w49th, SouthWestCanada.wUsaNE,
     galveston, rockyPoint, montague)
 
   val cabotPulmo = 23.37 ll -109.44

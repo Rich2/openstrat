@@ -38,6 +38,7 @@ object EGridLaunch extends GuiLaunchMore
       case 24 => gwg(EGrid320.scen4)
       case 25 => gwg(EGrid320.scen5)
       case 26 => gwg(EGrid320.scen6)
+      case 27 => gwg(EGrid320.scen7)
       case 28 => gwg(EGrid320.scen8)
       case 29 => gwg(EGrid320.scen9)
       case 30 => gwg(EGrid320.scen10)

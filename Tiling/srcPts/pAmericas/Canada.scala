@@ -69,11 +69,14 @@ object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, taig
 object SouthWestCanada extends EArea2("SouthWest Canada", 55 ll-110, taiga)
 { val wUsaNE = 50 ll -98
   val w49th: LatLong = 49 ll -125.66
+  val vancouverNW = 50.77 ll -128.38
+  val p50 = 54.71 ll -132.81
   val eggIsland : LatLong= 59.91 ll -94.85
+
   val churchillMouth = 58.79 ll -94.20
   val manitoba10 = 58.75 ll -93.24
   val nelsonMouth = 57.09 ll -92.47
-  override def polygonLL: PolygonLL = PolygonLL(wUsaNE, w49th, NorthWestCanada.yakut50, NorthWestCanada.hudsonBay60W, eggIsland, churchillMouth, manitoba10, nelsonMouth)
+  override def polygonLL: PolygonLL = PolygonLL(wUsaNE, w49th, vancouverNW, p50, NorthWestCanada.yakut50, NorthWestCanada.hudsonBay60W, eggIsland, churchillMouth, manitoba10, nelsonMouth)
 }
 
 object BanksIsland extends EArea2("Banks Island", 73.12 ll -121.13, tundra)
