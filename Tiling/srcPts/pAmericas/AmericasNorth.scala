@@ -84,6 +84,6 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
 
   val lakes = Arr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
   override val a2Arr: Arr[EArea2] = lakes ++
-    Arr(wUsa, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
+    Arr(wUsa, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
     NewFoundland, baja, cAmerica, cuba)
 }
