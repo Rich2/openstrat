@@ -9,7 +9,7 @@ case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
   final override def offset: Vec2 = Vec2(0, sys.cGridDelta * seqInd)
   final override def arrIndex: Int = grid.numTiles * seqInd
 
-  override def sidesForeach(f: HSide => Unit): Unit = if(seqInd == sys.grids.length -1)
+  override def sidesForeach(f: HSide => Unit): Unit = if(seqInd == sys.grids.length -1 & sys.grids.length != 12)
   { grid.bottomRowForeachSide(f)
     iToForeach(grid.bottomCenR, grid.topCenR){
       case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
@@ -36,7 +36,7 @@ case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
 
   override def outerSidesForeach(f: HSide => Unit): Unit = seqInd match
   {
-    case 0 =>
+    case 0 if sys.grids.length != 12 =>
     { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
       iToForeach(grid.bottomCenR, grid.topCenR){r => r match{
         case r if r.isEven => f(HSide(r, grid.rowLeftCenC(r) -2))
@@ -51,12 +51,7 @@ case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
       if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSide(grid.topSideR, c)))
     }
 
-    case n if n < sys.grids.length - 1 =>
-    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
-      if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSide(grid.topSideR, c)))
-    }
-
-    case _ =>
+    case n if n == sys.grids.length - 1 & sys.grids.length != 12 =>
     { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
       iToForeach(grid.bottomCenR, grid.topCenR){r => r match{
         case r if r.isEven => f(HSide(r, grid.rowRightCenC(r) + 2))
@@ -70,9 +65,14 @@ case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
       }}
       if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSide(grid.topSideR, c)))
     }
+
+    case _ =>
+    { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
+      if(grid.rowNumTiles(grid.topCenR) > 0) iToForeach(grid.rowLeftCenC(grid.topCenR) - 1, grid.rowRightCenC(grid.topCenR) + 1, 2)(c => f(HSide(grid.topSideR, c)))
+    }
   }
 
-  override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = if (seqInd == 0) grid.innerRowForeachInnerSide(r)(f)
+  override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = if (seqInd == 0 & sys.grids.length != 12) grid.innerRowForeachInnerSide(r)(f)
   else r match
   {
     case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) -2, 4){ c => f(HSide(r, c)) }
