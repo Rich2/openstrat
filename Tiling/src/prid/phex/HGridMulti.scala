@@ -73,4 +73,5 @@ trait HGridMulti extends HGridSys with TGridMulti
   override final def sidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.sidesForeach(f))
   override final def innerSidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.innerSidesForeach(f))
   override final def outerSidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
+  //def sideDataFromGrids[A <: AnyRef](sideDataGrids: HSideArr): Unit = newHSi
 }
