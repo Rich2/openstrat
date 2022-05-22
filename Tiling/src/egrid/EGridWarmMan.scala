@@ -9,29 +9,27 @@ case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
   final override def offset: Vec2 = Vec2(0, sys.cGridDelta * seqInd)
   final override def arrIndex: Int = grid.numTiles * seqInd
 
-  override def sidesForeach(f: HSide => Unit): Unit = if(seqInd == sys.grids.length -1 & sys.grids.length != 12)
+  override def sidesForeach(f: HSide => Unit): Unit =
   { grid.bottomRowForeachSide(f)
-    iToForeach(grid.bottomCenR, grid.topCenR){
-      case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
-      case r => {
-        val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
-        val rs = grid.rowRightCenC(r - 1).max(grid.rowRightCenC(r + 1)) + 1
-        iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
-      }
-    }
+    iToForeach(grid.bottomCenR, grid.topCenR)(innerSideRowForeachSide(_)(f))
     grid.topRowForeachSide(f)
   }
-  else {
-    grid.bottomRowForeachSide(f)
-    iToForeach(grid.bottomCenR, grid.topCenR){
-      case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) -2, 4){c => f(HSide(r, c)) }
-      case r => {
-        val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
-        val rs = grid.rowRightCenC(r - 1).min(grid.rowRightCenC(r + 1)) + 1
-        iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
-      }
+
+  def innerSideRowForeachSide(r: Int)(f: HSide => Unit): Unit = if(seqInd == sys.grids.length -1 & sys.grids.length != 12) r match {
+    case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
+    case r => {
+      val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
+      val rs = grid.rowRightCenC(r - 1).max(grid.rowRightCenC(r + 1)) + 1
+      iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
     }
-    grid.topRowForeachSide(f)
+  }
+  else r match {
+    case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) -2, 4){c => f(HSide(r, c)) }
+    case r => {
+      val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
+      val rs = grid.rowRightCenC(r - 1).min(grid.rowRightCenC(r + 1)) + 1
+      iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
+    }
   }
 
   override def outerSidesForeach(f: HSide => Unit): Unit = seqInd match
@@ -87,4 +85,18 @@ case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
   }
 
   final override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
+
+
+  /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
+  lazy val sideRowIndexArray: Array[Int] =
+  { val array = new Array[Int](grid.numOfSideRows)
+    array(0) = 0
+    var count = 0
+    grid.bottomRowForeachSide{_ => count += 1}
+    grid.innerSideRowsForeach{ r =>
+      innerSideRowForeachSide(r){_ => count += 1}
+      array(r - grid.bottomSideR) = count
+    }
+    array
+  }
 }
