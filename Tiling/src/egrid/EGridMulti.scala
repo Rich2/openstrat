@@ -13,4 +13,5 @@ trait EGridMan extends HGridMan
 { override def grid: EGrid
   def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
   final def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
+
 }

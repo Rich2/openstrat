@@ -4,7 +4,12 @@ import ostrat.geom._
 
 /** [[HGrid]] manager. */
 trait HGridMan
-{ def grid: HGrid
+{ /** The grid that this object manages for the [[HGridMulti]]. */
+  def grid: HGrid
+
+  /** The position of this grid manager and grid within the grid sequence of the [[HGridMulti]]. */
+  def thisInd: Int
+
   def arrIndex: Int
   def numTiles: Int = grid.numTiles
   final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)

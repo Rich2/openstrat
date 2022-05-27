@@ -25,4 +25,6 @@ trait EGridWarmMulti extends EGridWarmSys with EGridMulti
   def left: Double = grids(0).left
   def right: Double = grids.last.right
   override def unsafeGetMan(r: Int, c: Int): EGridMan = gridMans((c  / hcDelta - headGridInt) %% 12)
+
+  //override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.s
 }

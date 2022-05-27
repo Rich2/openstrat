@@ -2,12 +2,12 @@
 package ostrat; package egrid
 import geom._, prid._, phex._
 
-case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
+case class EGridWarmMan(thisInd: Int, sys: EGridWarmMulti) extends EGridMan
 {
-  final override lazy val grid: EGridWarm = sys.grids(seqInd)
+  final override lazy val grid: EGridWarm = sys.grids(thisInd)
 
-  final override def offset: Vec2 = Vec2(0, sys.cGridDelta * seqInd)
-  final override def arrIndex: Int = grid.numTiles * seqInd
+  final override def offset: Vec2 = Vec2(0, sys.cGridDelta * thisInd)
+  final override def arrIndex: Int = grid.numTiles * thisInd
 
   override def sidesForeach(f: HSide => Unit): Unit =
   { grid.bottomRowForeachSide(f)
@@ -15,11 +15,11 @@ case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
     grid.topRowForeachSide(f)
   }
 
-  def innerSideRowForeachSide(r: Int)(f: HSide => Unit): Unit = if(seqInd == sys.grids.length -1 & sys.grids.length != 12) r match {
+  def innerSideRowForeachSide(r: Int)(f: HSide => Unit): Unit = if(thisInd == sys.grids.length -1 & sys.grids.length != 12) r match {
     case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
     case r => {
-      val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
-      val rs = grid.rowRightCenC(r - 1).max(grid.rowRightCenC(r + 1)) + 1
+      val ls: Int = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
+      val rs: Int = grid.rowRightCenC(r - 1).max(grid.rowRightCenC(r + 1)) + 1
       iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
     }
   }
@@ -32,7 +32,7 @@ case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
     }
   }
 
-  override def outerSidesForeach(f: HSide => Unit): Unit = seqInd match
+  override def outerSidesForeach(f: HSide => Unit): Unit = thisInd match
   {
     case 0 if sys.grids.length != 12 =>
     { if(grid.rowNumTiles(grid.bottomCenR) > 0) iToForeach(grid.rowLeftCenC(grid.bottomCenR) - 1, grid.rowRightCenC(grid.bottomCenR) + 1, 2)(c => f(HSide(grid.bottomSideR, c)))
@@ -70,7 +70,7 @@ case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
     }
   }
 
-  override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = if (seqInd == 0 & sys.grids.length != 12) grid.innerRowForeachInnerSide(r)(f)
+  override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = if (thisInd == 0 & sys.grids.length != 12) grid.innerRowForeachInnerSide(r)(f)
   else r match
   {
     case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) -2, 4){ c => f(HSide(r, c)) }
@@ -86,8 +86,7 @@ case class EGridWarmMan(seqInd: Int, sys: EGridWarmMulti) extends EGridMan
 
   final override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
 
-
-  /** Array of indexs for Side data Arrs giving the index value for the start of each side row. */
+  /** Array of indexes for Side data Arrs giving the index value for the start of each side row. */
   lazy val sideRowIndexArray: Array[Int] =
   { val array = new Array[Int](grid.numOfSideRows)
     array(0) = 0
