@@ -9,24 +9,24 @@ case class EGridWarmMan(thisInd: Int, sys: EGridWarmMulti) extends EGridMan
   final override def offset: Vec2 = Vec2(0, sys.cGridDelta * thisInd)
   final override def arrIndex: Int = grid.numTiles * thisInd
 
-  override def sidesForeach(f: HSide => Unit): Unit =
-  { grid.bottomRowForeachSide(f)
-    iToForeach(grid.bottomCenR, grid.topCenR)(innerSideRowForeachSide(_)(f))
-    grid.topRowForeachSide(f)
-  }
+  override def sidesForeach(f: HSide => Unit): Unit = iToForeach(grid.bottomCenR, grid.topCenR)(rowSidesForeach(_)(f))
 
-  def innerSideRowForeachSide(r: Int)(f: HSide => Unit): Unit = if(thisInd == sys.grids.length -1 & sys.grids.length != 12) r match {
-    case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
-    case r => {
-      val ls: Int = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
+  def rowSidesForeach(r: Int)(f: HSide => Unit): Unit = r match
+  { case r if r == grid.topSideR | r ==grid.bottomSideR => grid.rowForeachSide(r)(f)
+
+    case r if r.isEven & (thisInd == sys.grids.length - 1) & sys.grids.length != 12 =>
+      iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
+
+    case r  if (thisInd == sys.grids.length -1) & sys.grids.length != 12 =>
+    { val ls: Int = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
       val rs: Int = grid.rowRightCenC(r - 1).max(grid.rowRightCenC(r + 1)) + 1
       iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
     }
-  }
-  else r match {
+
     case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) -2, 4){c => f(HSide(r, c)) }
-    case r => {
-      val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
+
+    case r =>
+    { val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
       val rs = grid.rowRightCenC(r - 1).min(grid.rowRightCenC(r + 1)) + 1
       iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
     }
@@ -70,7 +70,7 @@ case class EGridWarmMan(thisInd: Int, sys: EGridWarmMulti) extends EGridMan
     }
   }
 
-  override def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = if (thisInd == 0 & sys.grids.length != 12) grid.innerRowForeachInnerSide(r)(f)
+  override def innerRowInnerSidesForeach(r: Int)(f: HSide => Unit): Unit = if (thisInd == 0 & sys.grids.length != 12) grid.innerRowForeachInnerSide(r)(f)
   else r match
   {
     case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) -2, 4){ c => f(HSide(r, c)) }
@@ -93,7 +93,7 @@ case class EGridWarmMan(thisInd: Int, sys: EGridWarmMulti) extends EGridMan
     var count = 0
     grid.bottomRowForeachSide{_ => count += 1}
     grid.innerSideRowsForeach{ r =>
-      innerSideRowForeachSide(r){_ => count += 1}
+      rowSidesForeach(r){_ => count += 1}
       array(r - grid.bottomSideR) = count
     }
     array

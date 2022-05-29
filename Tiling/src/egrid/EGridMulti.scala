@@ -11,7 +11,7 @@ trait EGridMulti extends EGridSys with HGridMulti
 
 trait EGridMan extends HGridMan
 { override def grid: EGrid
-  def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
-  final def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
+  def innerRowInnerSidesForeach(r: Int)(f: HSide => Unit): Unit
+  final def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowInnerSidesForeach(r)(f))
 
 }
