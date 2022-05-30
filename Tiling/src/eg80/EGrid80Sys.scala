@@ -22,14 +22,14 @@ object EGrid80
   def l0b446: EGrid80Warm = new EGrid80Warm(446, 540, 0)
   def l30b446: EGrid80Warm = new EGrid80Warm(446, 540, 1)
 
-  def scen0: EScenBasic =
+  def scen0: EScenWarm =
   { val grid: EGrid80Warm = e0(446)
-    EScenBasic(grid, Terr80E0(), grid.newSideBools)
+    EScenWarm(grid, Terr80E0(), grid.newSideBools)
   }
 
-  def scen1: EScenBasic =
+  def scen1: EScenWarm =
   { val grid: EGrid80Warm = e30(446)
-    EScenBasic(grid, Terr80L30(), grid.newSideBools)
+    EScenWarm(grid, Terr80L30(), grid.newSideBools)
   }
 }
 

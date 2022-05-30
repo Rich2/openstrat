@@ -15,7 +15,7 @@ object Grid320S0E2 extends EGrid320WarmMulti
   //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
 }
 
-object Scen320S0E2 extends EScenBasic
+object Scen320S0E2 extends EScenWarm
 { override val gridSys: EGridWarmSys = Grid320S0E2
   override val terrs: HCenDGrid[WTile] = Terr320E0() ++ Terr320E30() ++ Terr320E60()
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools

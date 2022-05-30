@@ -27,63 +27,63 @@ object EGrid320
   def w60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 10)
   def w30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen,11)
 
-  def scen0: EScenBasic =
+  def scen0: EScenWarm =
   { val grid: EGridWarm = e0(138)
-    EScenBasic(grid, Terr320E0(), Terr320E0.sTerrs())
+    EScenWarm(grid, Terr320E0(), Terr320E0.sTerrs())
   }
 
-  def scen1: EScenBasic =
+  def scen1: EScenWarm =
   { val grid: EGridWarm = e30(138)
-    EScenBasic(grid, Terr320E30(), grid.newSideBools)
+    EScenWarm(grid, Terr320E30(), grid.newSideBools)
   }
 
-  def scen2: EScenBasic =
+  def scen2: EScenWarm =
   { val grid: EGridWarm = e60(138)
-    EScenBasic(grid, Terr320E60(), grid.newSideBools)
+    EScenWarm(grid, Terr320E60(), grid.newSideBools)
   }
 
-  def scen3: EScenBasic =
+  def scen3: EScenWarm =
   { val grid: EGridWarm = e90(138)
-    EScenBasic(grid, Terr320E90(), grid.newSideBools)
+    EScenWarm(grid, Terr320E90(), grid.newSideBools)
   }
 
-  def scen4: EScenBasic =
+  def scen4: EScenWarm =
   { val grid: EGridWarm = e120(138)
-    EScenBasic(grid, Terr320E120(), grid.newSideBools)
+    EScenWarm(grid, Terr320E120(), grid.newSideBools)
   }
 
-  def scen5: EScenBasic =
+  def scen5: EScenWarm =
   { val grid: EGridWarm = e150(138)
-    EScenBasic(grid, Terr320E150(), grid.newSideBools)
+    EScenWarm(grid, Terr320E150(), grid.newSideBools)
   }
 
-  def scen6: EScenBasic =
+  def scen6: EScenWarm =
   { val grid: EGridWarm = e180(138)
-    EScenBasic(grid, Terr320E180(), grid.newSideBools)
+    EScenWarm(grid, Terr320E180(), grid.newSideBools)
   }
 
-  def scen7: EScenBasic =
+  def scen7: EScenWarm =
   { val grid: EGridWarm = w150(138)
-    EScenBasic(grid, Terr320W150(), grid.newSideBools)
+    EScenWarm(grid, Terr320W150(), grid.newSideBools)
   }
 
-  def scen8: EScenBasic =
+  def scen8: EScenWarm =
   { val grid: EGridWarm = w120(138)
-    EScenBasic(grid, Terr320W120(), grid.newSideBools)
+    EScenWarm(grid, Terr320W120(), grid.newSideBools)
   }
 
-  def scen9: EScenBasic =
+  def scen9: EScenWarm =
   { val grid: EGridWarm = w90(138)
-    EScenBasic(grid, Terr320W90(), grid.newSideBools)
+    EScenWarm(grid, Terr320W90(), grid.newSideBools)
   }
 
-  def scen10: EScenBasic =
+  def scen10: EScenWarm =
   { val grid: EGridWarm = w60(138)
-    EScenBasic(grid, Terr320W60(), grid.newSideBools)
+    EScenWarm(grid, Terr320W60(), grid.newSideBools)
   }
 
-  def scen11: EScenBasic =
+  def scen11: EScenWarm =
   { val grid: EGridWarm = w30(138)
-    EScenBasic(grid, Terr320W30(), grid.newSideBools)
+    EScenWarm(grid, Terr320W30(), grid.newSideBools)
   }
 }

@@ -18,7 +18,7 @@ object EGridLaunch extends GuiLaunchMore
     def egg(scen: EScenFlat): (CanvasPlatform => Any, String) =
       (EGridFlatGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), "JavaFx " + scen.title)
 
-    def gwg(scen: EScenBasic): (CanvasPlatform => Any, String) =
+    def gwg(scen: EScenWarm): (CanvasPlatform => Any, String) =
       (GridWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), "JavaFx " + scen.title)
 
     num match
