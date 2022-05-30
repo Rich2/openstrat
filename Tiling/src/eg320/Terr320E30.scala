@@ -23,7 +23,7 @@ object Terr320E30 extends WarmTerrs
     res
   }
 
-  def apply() = terrs
+  //def apply() = terrs
 
   def sTerrs(): HSideBoolDGrid =
   { val sTerrs = grid.newSideBools

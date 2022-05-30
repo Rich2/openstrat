@@ -1,12 +1,12 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._, prid._, phex._, WTile._
+import pEarth._, prid._, phex._, WTile._, egrid._
 
-object Terr320E120
-{
-  def apply(): HCenDGrid[WTile] =
+object Terr320E120 extends WarmTerrs
+{implicit val grid: EGrid320Warm = EGrid320.e120(138)
+  override val terrs: HCenDGrid[WTile] =
   {
-    implicit val grid: EGrid320Warm = EGrid320.e120(138)
+
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](taiga)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
     gs(160, 4608, sea * 2)
@@ -18,4 +18,6 @@ object Terr320E120
     gs(138, 4598, plain * 5, taiga * 2)
     terrs
   }
+
+  override def sTerrs(): HSideBoolDGrid = ???
 }
