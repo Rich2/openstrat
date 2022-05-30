@@ -35,7 +35,11 @@ final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with 
     build.buffToBB(buff)
   }
 
-  def set(hs: HSide, value: Boolean)(implicit grid: HGridSys): Unit = { unsafeArray(grid.sideArrIndex(hs)) = value }
+  def set(hs: HSide, value: Boolean)(implicit grid: HGridSys): Unit = {
+    val i = grid.sideArrIndex(hs)
+    if (i >= unsafeArray.length) deb(s"$hs")
+    unsafeArray(i) = value
+  }
   def set(r: Int, c: Int, value: Boolean)(implicit grid: HGridSys): Unit = { unsafeArray(grid.sideArrIndex(r, c)) = value }
   def setTrues(hSides: HSideArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
   def setTrues(hSides: HSide*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)

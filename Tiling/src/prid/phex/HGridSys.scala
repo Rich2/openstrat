@@ -15,7 +15,7 @@ trait HGridSys extends Any with TGridSys
   final lazy val numSides: Int =
   { var i = 0
     sidesForeach(_ => i += 1)
-    i + 14
+    i
   }
 
   /** The number of inner sides in the hex grid system. */

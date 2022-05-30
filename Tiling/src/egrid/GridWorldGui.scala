@@ -92,7 +92,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ sides ++ lines6 ++ outers5 ++ rcTexts ++ irrLines2)
+    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ lines6 ++ outers5 ++ rcTexts ++ irrLines2 ++ sides)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()

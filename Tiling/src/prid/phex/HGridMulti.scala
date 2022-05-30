@@ -83,9 +83,10 @@ trait HGridMulti extends HGridSys with TGridMulti
   override final def outerSidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
 
   def sideBoolsFromGrids[A <: AnyRef](sideDataGrids: Arr[HSideBoolDGrid]): HSideBoolDGrid =
-  { val res = newSideBools
+  { val res = new HSideBoolDGrid(new Array[Boolean](numSides + 5))//newSideBools
     gridMansForeach{ m => m.sidesForeach{ hs =>
-        val value: Boolean = sideDataGrids(m.thisInd).apply(hs)(m.grid)
+        val dGrid: HSideBoolDGrid = sideDataGrids(m.thisInd)
+        val value: Boolean = dGrid.apply(hs)(m.grid)
         res.set(hs, value)(ThisMulti)
       }
     }

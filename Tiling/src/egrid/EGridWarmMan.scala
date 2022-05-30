@@ -9,21 +9,21 @@ case class EGridWarmMan(thisInd: Int, sys: EGridWarmMulti) extends EGridMan
   final override def offset: Vec2 = Vec2(0, sys.cGridDelta * thisInd)
   final override def indexStart: Int = grid.numTiles * thisInd
 
-  override def sidesForeach(f: HSide => Unit): Unit = iToForeach(grid.bottomCenR, grid.topCenR)(rowSidesForeach(_)(f))
+  override def sidesForeach(f: HSide => Unit): Unit = iToForeach(grid.bottomCenR - 1, grid.topCenR + 1)(rowSidesForeach(_)(f))
 
   def rowSidesForeach(r: Int)(f: HSide => Unit): Unit = r match
   { case r if r == grid.topSideR | r ==grid.bottomSideR => grid.rowForeachSide(r)(f)
 
     case r if r.isEven & (thisInd == sys.grids.length - 1) & sys.grids.length != 12 =>
-      iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
+      iToForeach(grid.rowLeftSideC(r), grid.rowRightCenC(r) + 2, 4){c => f(HSide(r, c)) }
 
-    case r  if (thisInd == sys.grids.length -1) & sys.grids.length != 12 =>
-    { val ls: Int = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
+    case r if r.isEven => iToForeach(grid.rowLeftSideC(r), grid.rowRightCenC(r) - 2, 4){c => f(HSide(r, c)) }
+
+    case r  if (thisInd == sys.grids.length - 1) & sys.grids.length != 12 =>
+    { val ls: Int = grid.rowLeftSideC(r)
       val rs: Int = grid.rowRightCenC(r - 1).max(grid.rowRightCenC(r + 1)) + 1
       iToForeach(ls, rs, 2)(c => f(HSide(r, c)))
     }
-
-    case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) -2, 4){c => f(HSide(r, c)) }
 
     case r =>
     { val ls = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
@@ -84,6 +84,8 @@ case class EGridWarmMan(thisInd: Int, sys: EGridWarmMulti) extends EGridMan
     }
   }
 
+  override def sideArrIndex(r: Int, c : Int): Int = sideRowIndexArray(r - grid.bottomSideR) + ife(r.isEven, (c - grid.leftSideC) / 4,(c - grid.leftSideC) / 2)
+
   final override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
 
   /** Array of indexes for Side data Arrs giving the index value for the start of each side row. */
@@ -93,9 +95,10 @@ case class EGridWarmMan(thisInd: Int, sys: EGridWarmMulti) extends EGridMan
     var count = 0
     grid.bottomRowForeachSide{_ => count += 1}
     grid.innerSideRowsForeach{ r =>
-      rowSidesForeach(r){_ => count += 1}
       array(r - grid.bottomSideR) = count
+      rowSidesForeach(r){_ => count += 1}
     }
+    array(grid.topSideR - grid.bottomSideR) = count
     array
   }
 }

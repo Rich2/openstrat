@@ -226,6 +226,13 @@ trait HGrid extends Any with TGrid with HGridSys
 
   def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
   def newSideBooleans: HSideBoolDGrid = new HSideBoolDGrid(new Array[Boolean](numSides))
+
+  def rowLeftSideC(r: Int): Int = r match
+  { case r if r == topSideR => rowLeftCenC(topCenR) - 1
+    case r if r == bottomSideR => rowLeftCenC(bottomCenR) - 1
+    case r if r.isEven => rowLeftCenC(r) - 2
+    case r => rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) - 1
+  }
 }
 
 /** Hex grid path finding node. */
