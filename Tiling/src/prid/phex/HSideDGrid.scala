@@ -37,3 +37,7 @@ final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with 
   def setTrues(hSides: HSide*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
   def setTruesInts(hSides: (Int, Int)*)(implicit grid: HGridSys): Unit = hSides.foreach(p => unsafeArray(grid.sideArrIndex(p._1, p._2)) = true)
 }
+
+object HSideBoolDGrid
+{ def uniinitialised(length: Int) = new HSideBoolDGrid(new Array[Boolean](length))
+}

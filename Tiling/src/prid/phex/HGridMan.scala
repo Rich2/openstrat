@@ -18,8 +18,16 @@ trait HGridMan
   def outSteps(r: Int, c: Int): HStepCenArr
   def innerSidesForeach(f: HSide => Unit): Unit
   def outerSidesForeach(f: HSide => Unit): Unit
-  def numSides: Int = grid.sides.length
+  def numSides: Int = sidesFold((acc, _) => acc + 1)
   def sidesForeach(f: HSide => Unit): Unit
+
+  def sidesFold[A](init: A)(f: (A, HSide) => A): A =
+  { var acc: A = init
+    sidesForeach{hs => acc = f(acc, hs) }
+    acc
+  }
+
+  def sidesFold[A](f: (A, HSide) => A)(implicit ev: DefaultValue[A]): A = sidesFold(ev.default)(f)
 
   //def sideLines(implicit grider: HGridSys): LineSegArr = sides.map(_.lineSeg)
   def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
