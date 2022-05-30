@@ -6,7 +6,7 @@ object Terr320E0 extends WarmTerrs
 {
   implicit val grid: EGrid320Warm = EGrid320.e0(138)
 
-  def apply(): HCenDGrid[WTile] =
+  def terrs: HCenDGrid[WTile] =
   {
     val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
@@ -21,9 +21,10 @@ object Terr320E0 extends WarmTerrs
     terrs
   }
 
+  def apply(): HCenDGrid[WTile] = terrs
+
   def sTerrs(): HSideBoolDGrid =
-  { //implicit val grid: EGrid320Warm = EGrid320.e0(138)
-    val sTerrs = grid.newSideBools
+  { val sTerrs = grid.newSideBools
     sTerrs.setTruesInts((142, 508), (143, 507))
     sTerrs
   }

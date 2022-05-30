@@ -5,5 +5,6 @@ import prid._, phex._, pEarth._
 trait WarmTerrs
 {
   implicit val grid: EGridWarm
-  def apply(): HCenDGrid[WTile]
+  def terrs: HCenDGrid[WTile]
+  def sTerrs(): HSideBoolDGrid
 }
