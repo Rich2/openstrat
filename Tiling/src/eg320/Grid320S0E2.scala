@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import prid._, phex._, egrid._, pEarth._
+import prid._, phex._, egrid._
 
 object Grid320S0E2 extends EGrid320WarmMulti
 { ThisSys =>
@@ -17,6 +17,6 @@ object Grid320S0E2 extends EGrid320WarmMulti
 
 object Scen320S0E2 extends EScenWarm
 { override val gridSys: EGridWarmSys = Grid320S0E2
-  override val terrs: HCenDGrid[WTile] = Terr320E0.terrs ++ Terr320E30.terrs ++ Terr320E60.terrs
+  override def warms: Arr[WarmTerrs] = Arr(Terr320E0, Terr320E30, Terr320E60)
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }
