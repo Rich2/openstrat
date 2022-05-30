@@ -4,9 +4,9 @@ import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr320E30 extends WarmTerrs
 {
-  implicit val grid: EGrid320Warm = EGrid320.e30(138)
+  override implicit val grid: EGrid320Warm = EGrid320.e30(138)
 
-  val terrs: HCenDGrid[WTile] =
+  override val terrs: HCenDGrid[WTile] =
   {
     val res: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
@@ -23,9 +23,7 @@ object Terr320E30 extends WarmTerrs
     res
   }
 
-  //def apply() = terrs
-
-  def sTerrs(): HSideBoolDGrid =
+  val sTerrs: HSideBoolDGrid =
   { val sTerrs = grid.newSideBools
     //sTerrs.setTruesInts((142, 508), (143, 507))
     sTerrs

@@ -3,12 +3,12 @@ package ostrat; package eg320
 import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr320E120 extends WarmTerrs
-{implicit val grid: EGrid320Warm = EGrid320.e120(138)
-  override val terrs: HCenDGrid[WTile] =
-  {
+{
+  implicit val grid: EGrid320Warm = EGrid320.e120(138)
 
-    val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](taiga)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
+  override val terrs: HCenDGrid[WTile] =
+  { val res: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](taiga)
+    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
     gs(160, 4608, sea * 2)
     gs(158, 4606, taiga * 2, sea)
 //    gs(156, 2308 + 248, sea * 2, taiga)
@@ -16,8 +16,12 @@ object Terr320E120 extends WarmTerrs
 //    gs(142, 2308 + 242, plain * 6)
 //    gs(140, 2308 + 244, plain * 6)
     gs(138, 4598, plain * 5, taiga * 2)
-    terrs
+    res
   }
 
-  override def sTerrs(): HSideBoolDGrid = ???
+  override val sTerrs: HSideBoolDGrid =
+  { val sTerrs = grid.newSideBools
+    //sTerrs.setTruesInts((142, 508), (143, 507))
+    sTerrs
+  }
 }
