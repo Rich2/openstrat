@@ -17,6 +17,6 @@ object Grid320S0E2 extends EGrid320WarmMulti
 
 object Scen320S0E2 extends EScenWarm
 { override val gridSys: EGridWarmSys = Grid320S0E2
-  override val terrs: HCenDGrid[WTile] = Terr320E0() ++ Terr320E30() ++ Terr320E60()
+  override val terrs: HCenDGrid[WTile] = Terr320E0.terrs ++ Terr320E30.terrs ++ Terr320E60.terrs
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }

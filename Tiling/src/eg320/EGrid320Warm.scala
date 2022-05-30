@@ -29,7 +29,7 @@ object EGrid320
 
   def scen0: EScenWarm =
   { val grid: EGridWarm = e0(138)
-    EScenWarm(grid, Terr320E0(), Terr320E0.sTerrs())
+    EScenWarm(grid, Terr320E0.terrs, Terr320E0.sTerrs())
   }
 
   def scen1: EScenWarm =
@@ -39,7 +39,7 @@ object EGrid320
 
   def scen2: EScenWarm =
   { val grid: EGridWarm = e60(138)
-    EScenWarm(grid, Terr320E60(), grid.newSideBools)
+    EScenWarm(grid, Terr320E60.terrs, grid.newSideBools)
   }
 
   def scen3: EScenWarm =

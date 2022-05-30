@@ -14,7 +14,7 @@ object Grid320S10E5 extends EGrid320WarmMulti
 
 object Scen320S10E5 extends EScenWarm
 { override val gridSys: EGridWarmSys = Grid320S10E5
-  override val terrs: HCenDGrid[WTile] = Terr320W60() ++ Terr320W30() ++ Terr320E0() ++ Terr320E30() ++ Terr320E60() ++ Terr320E90() ++ Terr320E120() ++ Terr320E150()
+  override val terrs: HCenDGrid[WTile] = Terr320W60() ++ Terr320W30() ++ Terr320E0.terrs ++ Terr320E30.terrs ++ Terr320E60.terrs ++ Terr320E90() ++ Terr320E120() ++ Terr320E150()
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }
 
@@ -29,7 +29,7 @@ object Grid320S0E11 extends EGrid320WarmMulti
 
 object Scen320S0E11 extends EScenWarm
 { override val gridSys: EGridWarmSys = Grid320S0E11
-  override val terrs: HCenDGrid[WTile] = Terr320E0() ++ Terr320E30() ++ Terr320E60() ++ Terr320E90() ++ Terr320E120() ++ Terr320E150() ++
+  override val terrs: HCenDGrid[WTile] = Terr320E0.terrs ++ Terr320E30() ++ Terr320E60.terrs ++ Terr320E90() ++ Terr320E120() ++ Terr320E150() ++
     Terr320E180() ++ Terr320W150() ++ Terr320W120() ++ Terr320W90() ++ Terr320W60() ++ Terr320W30()
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }

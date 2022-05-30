@@ -1,6 +1,12 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, pglobe._, prid._, phex._, pEarth._
+import geom._
+import pglobe._
+import prid._
+import phex._
+import pEarth._
+
+import scala.reflect.ClassTag
 
 trait EGridSys extends HGridSys
 { /** The length of one column coordinate delta */
@@ -31,6 +37,7 @@ trait EScenFlat extends HSysScen
 trait EScenWarm extends EScenFlat
 { override def gridSys: EGridWarmSys
   override def title: String = "EScenBasic"
+  def warms(implicit ct: ClassTag[WarmTerrs]): Arr[WarmTerrs] = Arr()
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
