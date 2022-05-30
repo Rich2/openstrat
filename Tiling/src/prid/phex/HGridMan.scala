@@ -10,7 +10,9 @@ trait HGridMan
   /** The position of this grid manager and grid within the grid sequence of the [[HGridMulti]]. */
   def thisInd: Int
 
-  def arrIndex: Int
+  /** The tile data array index start for this grid manager. */
+  def indexStart: Int
+
   def numTiles: Int = grid.numTiles
   final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
   def outSteps(r: Int, c: Int): HStepCenArr

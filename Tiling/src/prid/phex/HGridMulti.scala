@@ -61,7 +61,7 @@ trait HGridMulti extends HGridSys with TGridMulti
   def hCenSteps(hCen: HCen): HDirnArr = unsafeGetManFunc(hCen)(_.hCenSteps(hCen))
   final override def findStep(startHC: HCen, endHC: HCen): Option[HDirn] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
 
-  override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.arrIndex + man.grid.arrIndex(r, c) }
+  override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.indexStart + man.grid.arrIndex(r, c) }
 
   /** Temporary implementation. */
   override def sideArrIndex(r: Int, c: Int): Int = 0
