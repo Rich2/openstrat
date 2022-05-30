@@ -1,14 +1,14 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._, prid._, phex._, WTile._
+import pEarth._, prid._, phex._, WTile._, egrid._
 
-object Terr320W60
+object Terr320W60 extends WarmTerrs
 {
-  def apply(): HCenDGrid[WTile] =
-  {
-    implicit val grid: EGrid320Warm = EGrid320.w60(138)
-    val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
+  implicit val grid: EGrid320Warm = EGrid320.w60(138)
+
+  override val terrs: HCenDGrid[WTile] =
+  { val res: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
+    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
     gs(160, 10756, ice)
     gs(158, 10754, ice * 2)
     gs(156, 10748, tundra, sea, ice)
@@ -21,6 +21,13 @@ object Terr320W60
     gs(142, 10742, taiga * 4, sea * 2)
     gs(140, 10744, taiga, sea * 2, taiga, sea * 2)
     gs(138, 10742, taiga * 2, sea, taiga * 2, sea * 2)
-    terrs
+    res
+  }
+
+  override val sTerrs: HSideBoolDGrid =
+  { implicit val grid: EGrid320Warm = EGrid320.e0(138)
+    val sTerrs = grid.newSideBools
+    //sTerrs.setTruesInts((142, 508), (143, 507))
+    sTerrs
   }
 }
