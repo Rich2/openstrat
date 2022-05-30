@@ -4,7 +4,8 @@ import pEarth._, prid._, phex._, WTile._
 
 /** 80 Km tile width grid ventred on the Greenwich meridian, 0E form 15W to 15E. Covers North West Europe. The c or column offset is 512 which is G0
  *  in base 32. The c offset for North East Europe will be 1536 or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
-object Terr80E0 {
+object Terr80E0
+{
   def apply(): HCenDGrid[WTile] =
   {
     implicit val grid: HGridIrr = EGrid80.e0(446)

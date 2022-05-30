@@ -13,7 +13,11 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
   //def view: HGridView = HGridView()
   val terrs: HCenDGrid[WTile] = scenIn.terrs
   val sTerrs: HSideBoolDGrid = scenIn.sTerrs
-  val gls: LatLongArr = gridSys.map{hc => gridSys.hCoordLL(hc)}
+  val gls: LatLongArr = gridSys.map{hc => gridSys.hCoordLL(hc) }
+  gridSys match {
+    case hgm: HGridMulti => debvar(hgm.grids(0).numSides)
+    case _ => deb("Single grid")
+  }
   debvar(gridSys.numSides)
   debvar(gridSys.numInnerSides + gridSys.numOuterSides)
   def repaint(): Unit =

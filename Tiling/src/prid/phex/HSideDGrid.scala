@@ -13,6 +13,8 @@ final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with 
   override def typeStr: String = "HSideBoolDGrid"
   override def fromArray(array: Array[Boolean]): HSideBoolDGrid = new HSideBoolDGrid(array)
 
+  def apply(hs: HSide)(implicit gridSys: HGridSys): Boolean = unsafeArray(gridSys.sideArrIndex(hs))
+
   def truesForeach(f: HSide => Unit)(implicit gridSys: HGridSys): Unit = {
     var i = 0
     gridSys.sidesForeach{hs =>
@@ -33,6 +35,8 @@ final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with 
     build.buffToBB(buff)
   }
 
+  def set(hs: HSide, value: Boolean)(implicit grid: HGridSys): Unit = { unsafeArray(grid.sideArrIndex(hs)) = value }
+  def set(r: Int, c: Int, value: Boolean)(implicit grid: HGridSys): Unit = { unsafeArray(grid.sideArrIndex(r, c)) = value }
   def setTrues(hSides: HSideArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
   def setTrues(hSides: HSide*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
   def setTruesInts(hSides: (Int, Int)*)(implicit grid: HGridSys): Unit = hSides.foreach(p => unsafeArray(grid.sideArrIndex(p._1, p._2)) = true)

@@ -4,7 +4,9 @@ import geom._
 
 /** This class may be removed. Its for the development of [[HGridSys]]. So just 2 regular grids side by side, to make an easy start on the general problem. */
 final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends HGridMulti
-{ type ManT = HGridMan
+{ This2 =>
+  type ManT = HGridMan
+
   type GridT = HGrid
   val grid1 = HGridReg(minCenR, maxCenR, minC1, maxC1)
   val grid2 = HGridReg(minCenR, maxCenR, minC2, maxC2)
@@ -13,7 +15,8 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   val grid2OffsetC: Int = maxC1 - minC2 + 2
 
   val gridMan1: HGridMan = new HGridMan
-  { override val grid: HGridReg = grid1
+  { override val sys = This2
+    override val grid: HGridReg = grid1
     override def thisInd: Int = 0
     override val indexStart: Int = 0
 
@@ -48,7 +51,8 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   }
 
   val gridMan2: HGridMan = new HGridMan
-  { override val grid: HGridReg = grid2
+  { override val sys = This2
+    override val grid: HGridReg = grid2
     def thisInd: Int = 1
     override val indexStart: Int = grid1.numTiles
     override def offset: Vec2 = Vec2(maxC1 - minC2 + 2, 0)

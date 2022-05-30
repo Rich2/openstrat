@@ -4,7 +4,9 @@ import ostrat.geom._
 
 /** [[HGrid]] manager. */
 trait HGridMan
-{ /** The grid that this object manages for the [[HGridMulti]]. */
+{ def sys: HGridMulti
+
+  /** The grid that this object manages for the [[HGridMulti]]. */
   def grid: HGrid
 
   /** The position of this grid manager and grid within the grid sequence of the [[HGridMulti]]. */
@@ -16,6 +18,12 @@ trait HGridMan
   def numTiles: Int = grid.numTiles
   final def outSteps(hCen: HCen): HStepCenArr = outSteps(hCen.r, hCen.c)
   def outSteps(r: Int, c: Int): HStepCenArr
+
+  def sideArrIndex(r: Int, c : Int): Int = grid.sideArrIndex(r, c)
+
+  lazy val sideIndexStart: Int =
+    ife(thisInd == 0, 0, sys.gridMans(thisInd - 1).sideIndexStart + sys.gridMans(thisInd - 1).numSides)
+
   def innerSidesForeach(f: HSide => Unit): Unit
   def outerSidesForeach(f: HSide => Unit): Unit
   def numSides: Int = sidesFold((acc, _) => acc + 1)
@@ -29,7 +37,6 @@ trait HGridMan
 
   def sidesFold[A](f: (A, HSide) => A)(implicit ev: DefaultValue[A]): A = sidesFold(ev.default)(f)
 
-  //def sideLines(implicit grider: HGridSys): LineSegArr = sides.map(_.lineSeg)
   def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
   def offset: Vec2
 

@@ -4,7 +4,8 @@ import ostrat.geom._
 
 /** A system of multiple [[HGrid]]s. */
 trait HGridMulti extends HGridSys with TGridMulti
-{ type GridT <: HGrid
+{ ThisMulti =>
+  type GridT <: HGrid
   type ManT <: HGridMan
   def gridMans: Arr[ManT]
   def numGrids: Int = gridMans.length
@@ -61,10 +62,17 @@ trait HGridMulti extends HGridSys with TGridMulti
   def hCenSteps(hCen: HCen): HDirnArr = unsafeGetManFunc(hCen)(_.hCenSteps(hCen))
   final override def findStep(startHC: HCen, endHC: HCen): Option[HDirn] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
 
+  /*lazy val gridIndexArray: Array[Int] =
+  { val res = new Array[Int](numGrids)
+    var acc = 0
+    grids.iForeach{(i, g) => res(i) = acc; acc += g.numTiles }
+    res
+  }*/
+
   override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.indexStart + man.grid.arrIndex(r, c) }
 
   /** Temporary implementation. */
-  override def sideArrIndex(r: Int, c: Int): Int = 0
+  final override def sideArrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.sideIndexStart + man.sideArrIndex(r, c) }
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   override def findStepEnd(startHC: HCen, step: HDirn): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
@@ -73,8 +81,14 @@ trait HGridMulti extends HGridSys with TGridMulti
   override final def sidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.sidesForeach(f))
   override final def innerSidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.innerSidesForeach(f))
   override final def outerSidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
-  def sideBoolsFromGrids[A <: AnyRef](sideDataGrids: HSideArr): Unit ={
-    val res = newSideBools
-    gridMansForeach{m => m.sidesForeach(???) }
+
+  def sideBoolsFromGrids[A <: AnyRef](sideDataGrids: Arr[HSideBoolDGrid]): HSideBoolDGrid =
+  { val res = newSideBools
+    gridMansForeach{ m => m.sidesForeach{ hs =>
+        val value: Boolean = sideDataGrids(m.thisInd).apply(hs)(m.grid)
+        res.set(hs, value)(ThisMulti)
+      }
+    }
+    res
   }
 }
