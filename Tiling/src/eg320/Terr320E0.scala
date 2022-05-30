@@ -4,7 +4,7 @@ import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr320E0 extends WarmTerrs
 {
-  implicit val grid: EGrid320Warm = EGrid320.e0(138)
+  override implicit val grid: EGrid320Warm = EGrid320.e0(138)
 
   override val terrs: HCenDGrid[WTile] =
   {
@@ -22,9 +22,9 @@ object Terr320E0 extends WarmTerrs
   }
 
   override val sTerrs: HSideBoolDGrid =
-  { val sTerrs = grid.newSideBools
-    sTerrs.setTruesInts((142, 508), (143, 507))
-    sTerrs
+  { val res = grid.newSideBools
+    res.setTruesInts((142, 508), (143, 507))
+    res
   }
 
   def regGrid: HGridReg = HGridReg(138, 148, 504, 520)

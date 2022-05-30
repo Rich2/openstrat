@@ -4,11 +4,10 @@ import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr320E150 extends WarmTerrs
 {
-  implicit val grid: EGrid320Warm = EGrid320.e150(138)
+  override implicit val grid: EGrid320Warm = EGrid320.e150(138)
 
   override val terrs: HCenDGrid[WTile] =
-  {
-    val res: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
+  { val res: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
 //    gs(160, 4608, sea * 2)
     gs(158, 5630, tundra, sea * 2)
@@ -26,8 +25,8 @@ object Terr320E150 extends WarmTerrs
   }
 
   override val sTerrs: HSideBoolDGrid =
-  { val sTerrs = grid.newSideBools
-    //sTerrs.setTruesInts((142, 508), (143, 507))
-    sTerrs
+  { val res = grid.newSideBools
+    //res.setTruesInts((142, 508), (143, 507))
+    res
   }
 }
