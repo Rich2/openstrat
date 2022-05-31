@@ -17,13 +17,22 @@ object Jutland extends EArea2("Jutland", 56.29 ll 9.33, plain)
   val hevring = 56.52 ll 10.41
   val grenaa = 56.53 ll 10.83
   val kirkeskov = 55.63 ll 9.86
-   
-  val funenN = 55.62 ll 10.30
-  val nyborg = 55.29 ll 10.85
+  val skaerbaek = 55.51 ll 9.64
+
+
   val lubeck = 53.97 ll 10.84
    
   val polygonLL = PolygonLL(swJutland, sanktPeterOrding, blavandshuk, ferring, hanstholm,
-      slettestrand, hirtshals, wSkivern, skagen, albaek, hevring, grenaa, kirkeskov, funenN, nyborg, lubeck)
+      slettestrand, hirtshals, wSkivern, skagen, albaek, hevring, grenaa, kirkeskov, skaerbaek, lubeck)
+}
+
+object Funen extends EArea2("Funen", 55.27 ll 10.39, plain)
+{ val funenN = 55.62 ll 10.30
+  val nyborg = 55.29 ll 10.85
+  val dovnsKlint = 54.72 ll 10.69
+  val torohuse = 55.24 ll 9.89
+
+  val polygonLL = PolygonLL(funenN, nyborg, dovnsKlint, torohuse)
 }
 
 object Zealand extends EArea2("Zealand", 55.58 ll 11.90, plain)
