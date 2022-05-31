@@ -24,7 +24,7 @@ chess = {scen = 1 };
 /* Change the  number to change the app on next run.
   ("L", learn.Lessons),
   ("W2", pWW2.WW2Launch),
-  ("WM", pEarth.IrrLaunch),
+  ("EA", pEarth.IrrLaunch),
   ("EG", egrid.EGridBasicLaunch),
   ("G1", gOne.OneLaunch),
   ("G2", gTwo.TwoLaunch),
