@@ -24,7 +24,7 @@ object EGrid80
 
   def scen0: EScenWarm =
   { val grid: EGrid80Warm = e0(446)
-    EScenWarm(grid, Terr80E0(), grid.newSideBools)
+    EScenWarm(grid, Terr80E0.terrs, Terr80E0.sTerrs)
   }
 
   def scen1: EScenWarm =
