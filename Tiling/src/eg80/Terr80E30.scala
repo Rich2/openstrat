@@ -1,15 +1,16 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import pEarth._, prid._, phex._, WTile._
+import pEarth._, prid._, phex._, WTile._, egrid._
 
 /** The 80 Km grid centred on 30E for 15E to 45E, covers North East Europe. The c or column offset for 30E is 1536 which is 1G0 in base 32. Current y offset is 300 for
  *  the equator. The Old c offset was 400 so a diff of 1136. */
-object Terr80L30 {
-  def apply(): HCenDGrid[WTile] =
-  {
-    implicit val grid: HGridIrr = EGrid80.e30(446)
-    val terrs: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { terrs.completeRow(r, cStart, tileValues :_*); () }
+object Terr80E30  extends WarmTerrs
+{
+  override implicit val grid: EGrid80Warm = EGrid80.e30(446)
+
+  override val terrs: HCenDGrid[WTile] =
+  { val res: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
+    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
     gs(526, 1136 + 386, taiga * 4, sea * 7)
     gs(524, 1136 + 376, sea, taiga * 5, sea * 8)
     gs(522, 1136 + 374, sea, taiga * 8, sea * 5)
@@ -51,6 +52,12 @@ object Terr80L30 {
     gs(450, 1136 + 346, hills, plain * 5, hills * 3, mtain *2, hills * 3, plain * 7, sea, plain * 6)
     gs(448, 1136 + 348, hills, plain, hills, plain * 3, hills * 3, mtain, hills, plain * 3, sea * 2, plain * 2, sea * 3, plain * 7)
     gs(446, 1136 + 346, hills * 2, plain * 4, mtain * 4, hills * 1, plain * 3, sea * 3, plain * 3, sea, plain * 8)
-    terrs
+    res
+  }
+
+  override val sTerrs: HSideBoolDGrid =
+  { val res = grid.newSideBools
+    res.setTruesInts((505, 1553))//, (463, 517), (476, 546))//, (145, 521), (146, 520))
+    res
   }
 }
