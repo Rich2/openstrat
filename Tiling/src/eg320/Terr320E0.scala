@@ -23,7 +23,7 @@ object Terr320E0 extends WarmTerrs
 
   override val sTerrs: HSideBoolDGrid =
   { val res = grid.newSideBools
-    res.setTruesInts((142, 508), (143, 507), (144, 522), (145, 521), (146, 520))
+    res.setTruesInts((142, 508), (143, 507), (144, 522), (145, 521))
     res
   }
 

@@ -1,12 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._
-import pglobe._
-import prid._
-import phex._
-import pEarth._
-
-import scala.reflect.ClassTag
+import geom._, pglobe._, prid._, phex._, pEarth._
 
 trait EGridSys extends HGridSys
 { /** The length of one column coordinate delta */
@@ -37,8 +31,6 @@ trait EScenFlat extends HSysScen
 trait EScenWarm extends EScenFlat
 { override def gridSys: EGridWarmSys
   override def title: String = "EScenBasic"
-  def warms: Arr[WarmTerrs] = Arr()
-  override def terrs: HCenDGrid[WTile] = warms.tailfold(warms(0).terrs)(_ ++ _.terrs)
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
@@ -51,4 +43,7 @@ object EScenWarm
 
 trait EScenWarmMulti extends EScenWarm{
   override def gridSys: EGridWarmMulti
+  def warms: Arr[WarmTerrs]
+  override final lazy val terrs: HCenDGrid[WTile] = warms.tailfold(warms(0).terrs)(_ ++ _.terrs)
+  override final lazy val sTerrs: HSideBoolDGrid = gridSys.sideBoolsFromGrids(warms.map(_.sTerrs))
 }

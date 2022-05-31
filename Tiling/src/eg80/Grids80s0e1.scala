@@ -19,9 +19,7 @@ object Grids80s0e1 extends EGrid80WarmMulti
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object Scen80s0s1 extends EScenWarm
-{ override val gridSys: EGridWarmSys = Grids80s0e1
+object Scen80s0s1 extends EScenWarmMulti
+{ override val gridSys: EGrid80WarmMulti = Grids80s0e1
   override val warms: Arr[WarmTerrs] = Arr(Terr80E0, Terr80E30)
-  override val terrs: HCenDGrid[WTile] = Terr80E0.terrs ++ Terr80E30.terrs
-  override val sTerrs: HSideBoolDGrid = Terr80E30.sTerrs
 }

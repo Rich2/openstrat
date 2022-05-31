@@ -84,7 +84,7 @@ case class EGridWarmMan(thisInd: Int, sys: EGridWarmMulti) extends EGridMan
     }
   }
 
-  override def sideArrIndex(r: Int, c : Int): Int = sideRowIndexArray(r - grid.bottomSideR) + ife(r.isEven, (c - grid.leftSideC) / 4,(c - grid.leftSideC) / 2)
+  override def sideArrIndex(r: Int, c : Int): Int = sideRowIndexArray(r - grid.bottomSideR) + ife(r.isEven, (c - grid.rowLeftSideC(r)) / 4,(c - grid.rowLeftSideC(r)) / 2)
 
   final override def outSteps(r: Int, c: Int): HStepCenArr = HStepCenArr()
 
