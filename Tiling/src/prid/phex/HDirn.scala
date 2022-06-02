@@ -13,8 +13,8 @@ sealed trait HDirn extends TDirnSided with ElemInt1
 
 object HDirn
 {
-  def fromInt(inp: Int): HDirn = inp match {
-    case 1 => HexUR
+  def fromInt(inp: Int): HDirn = inp match
+  { case 1 => HexUR
     case 2 => HexRt
     case 3 => HexDR
     case 4 => HexDL

@@ -1,11 +1,19 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-sealed trait HVOptOffset extends ElemInt1
+class HVOffset private (val intValue: Int) extends AnyVal with ElemInt1
 {
-  def delta: Int
+  def dirn1: HDirn = HDirn.fromInt(intValue % 8)
+  def delta1: Int = intValue % 128 / 8 - 6
+  def dirn2: HDirn = HDirn.fromInt(intValue % 1024 / 128)
+  def delta2: Int = intValue % 16384 / 1024
+  def dirn3: HDirn = HDirn.fromInt(intValue % 131072 / 16384)
+  def delta3: Int = intValue % 2097152 / 132072
 }
 
+//trait HVOffset0 extends HVOffset
+
+/*
 object HVNoOffset extends HVOptOffset
 { override def intValue: Int = 0
   override def delta: Int = 0
@@ -78,4 +86,4 @@ class HOptOffsetArr(val unsafeArray: Array[Int]) extends Int1Arr[HVOptOffset]
       case _ => HVNoOffset
     }
   }
-}
+}*/
