@@ -28,9 +28,9 @@ object Grid320S0E11 extends EGrid320WarmMulti
   override def headGridInt: Int = 0
 }
 
-object Scen320S0E11 extends EScenWarm
-{ override val gridSys: EGridWarmSys = Grid320S0E11
-  override val terrs: HCenDGrid[WTile] = Terr320E0.terrs ++ Terr320E30.terrs ++ Terr320E60.terrs ++ Terr320E90.terrs ++ Terr320E120.terrs ++
-    Terr320E150.terrs ++ Terr320E180.terrs ++ Terr320W150.terrs ++ Terr320W120.terrs ++ Terr320W90.terrs ++ Terr320W60.terrs ++ Terr320W30.terrs
-  override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
+object Scen320S0E11 extends EScenWarmMulti
+{ override val gridSys: EGridWarmMulti = Grid320S0E11
+
+  override val warms: Arr[WarmTerrs] = Arr(Terr320E0, Terr320E30, Terr320E60, Terr320E90, Terr320E120, Terr320E150, Terr320E180, Terr320W150,
+    Terr320W120, Terr320W90, Terr320W60, Terr320W30)
 }
