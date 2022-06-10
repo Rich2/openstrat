@@ -20,6 +20,10 @@ object Terr160E0 extends WarmTerrs
     gs(292, 504, hills * 2, sea * 5, plain)
     gs(290, 506, hills, sea * 4, plain, sea, plain)
     gs(288, 500, plain, hills, plain, sea * 4, plain, sea)
+    gs(286, 498, plain, sea * 2, plain, sea * 3, plain * 3)
+    gs(284, 496, plain * 2, hills, plain * 2, sea * 2, plain * 4)
+    gs(282, 506, hills, plain * 8)
+    gs(280, 504, hills, sea * 2, plain * 6)
     res
   }
 
