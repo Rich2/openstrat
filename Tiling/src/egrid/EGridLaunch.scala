@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import pgui._, eg80._, eg320._, prid._, phex._, pParse._
+import pgui._, eg80._, eg160._, eg320._, prid._, phex._, pParse._
 
 /** object to launch EGrid basic Gui. */
 object EGridLaunch extends GuiLaunchMore
@@ -49,6 +49,8 @@ object EGridLaunch extends GuiLaunchMore
       case 34 => gwg(Scen320S11E2)
       case 35 => gwg(Scen320S10E5)
       case 36 => gwg(Scen320S0E11)
+
+      case 40 => gwg(EGrid160.scen0)
 
       case _ => egg(EGrid80.scen0)
     }
