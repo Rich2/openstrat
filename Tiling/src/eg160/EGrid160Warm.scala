@@ -34,56 +34,56 @@ object EGrid160
 
 //  def scen1: EScenWarm =
 //  { val grid: EGridWarm = e30(276)
-//    EScenWarm(grid, Terr160E30.terrs, grid.newSideBools)
+//    EScenWarm(grid, Terr160E30.terrs, )
 //  }
 //
 //  def scen2: EScenWarm =
 //  { val grid: EGridWarm = e60(276)
-//    EScenWarm(grid, Terr160E60.terrs, grid.newSideBools)
+//    EScenWarm(grid, Terr160E60.terrs, )
 //  }
 //
 //  def scen3: EScenWarm =
 //  { val grid: EGridWarm = e90(276)
-//    EScenWarm(grid, Terr160E90.terrs, grid.newSideBools)
+//    EScenWarm(grid, Terr160E90.terrs, )
 //  }
 //
 //  def scen4: EScenWarm =
 //  { val grid: EGridWarm = e120(276)
-//    EScenWarm(grid, Terr160E120.terrs, grid.newSideBools)
+//    EScenWarm(grid, Terr160E120.terrs, )
 //  }
 //
 //  def scen5: EScenWarm =
 //  { val grid: EGridWarm = e150(276)
-//    EScenWarm(grid, Terr160E150.terrs, grid.newSideBools)
+//    EScenWarm(grid, Terr160E150.terrs, )
 //  }
 //
 //  def scen6: EScenWarm =
 //  { val grid: EGridWarm = e180(276)
-//    EScenWarm(grid, Terr160E180.terrs, grid.newSideBools)
+//    EScenWarm(grid, Terr160E180.terrs, )
 //  }
 //
 //  def scen7: EScenWarm =
 //  { val grid: EGridWarm = w150(276)
-//    EScenWarm(grid, Terr160W150.terrs, grid.newSideBools)
+//    EScenWarm(grid, Terr160W150.terrs, )
 //  }
 //
 //  def scen8: EScenWarm =
 //  { val grid: EGridWarm = w120(276)
-//    EScenWarm(grid, Terr160W120.terrs, grid.newSideBools)
+//    EScenWarm(grid, Terr160W120.terrs, )
 //  }
 //
 //  def scen9: EScenWarm =
 //  { val grid: EGridWarm = w90(276)
-//    EScenWarm(grid, Terr160W90.terrs, grid.newSideBools)
+//    EScenWarm(grid, Terr160W90.terrs, )
 //  }
 //
 //  def scen10: EScenWarm =
 //  { val grid: EGridWarm = w60(276)
-//    EScenWarm(grid, Terr160W60.terrs, grid.newSideBools)
+//    EScenWarm(grid, Terr160W60.terrs, )
 //  }
-//
-//  def scen11: EScenWarm =
-//  { val grid: EGridWarm = w30(276)
-//    EScenWarm(grid, Terr160W30.terrs, grid.newSideBools)
-//  }
+
+  def scen11: EScenWarm =
+  { val grid: EGridWarm = w30(276)
+    EScenWarm(grid, Terr160W30.terrs,Terr160W30.sTerrs)
+  }
 }
