@@ -16,7 +16,7 @@ object Terr160E0 extends WarmTerrs
 //    gs(146, 460 + 50, hills, sea * 2, plain)
 //    gs(144, 460 + 48, plain, sea * 2, plain)
 //    gs(142, 460 + 46, plain, plain, sea, plain * 2)
-//    gs(140, 516, plain * 3)
+    gs(294, 522, hills, sea, taiga)
     gs(292, 504, hills * 2, sea * 5, plain)
     gs(290, 506, hills, sea * 4, plain, sea, plain)
     gs(288, 500, plain, hills, plain, sea * 4, plain, sea)
@@ -24,8 +24,8 @@ object Terr160E0 extends WarmTerrs
     gs(284, 496, plain * 2, hills, plain * 2, sea * 2, plain * 4)
     gs(282, 506, hills, plain * 8)
     gs(280, 504, hills, sea * 2, plain * 6)
-    gs(278, 506, plain * 9)
-    gs(276, 508, plain * 4, mtain * 5)
+    gs(278, 506, plain * 5, hills, plain * 2, hills)
+    gs(276, 508, plain * 4, hills * 2, mtain * 3)
     res
   }
 
