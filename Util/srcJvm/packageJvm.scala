@@ -3,7 +3,7 @@ package ostrat
 import pParse._
 
 /** This package is for JavaFx code.*/
-package object pFx
+package object pjvm
 { val userHomeDir: String = System.getProperty("user.home")
   val yourDir: String = userHomeDir -/- "AppData/Local/OpenStratData"
 
@@ -47,4 +47,30 @@ package object pFx
 
   /** Attempts to load the value of a setting of the specified name from a file, in case of failure returns the else default value. */
   def settFromFileElse[A: Unshow](settingStr: String, fileName: String, elseValue: A): A = settFromFile[A](settingStr, fileName).getElse(elseValue)
+
+  /** Writes the String given in the second parameter to the full path and filename given by the first name. Returns a successful message on
+   * success. */
+  def fileWrite(path: String, fileName: String, str: String): EMon[String] =
+  { import java.io._
+    var eStr: String = ""
+    var opw: Option[FileWriter] = None
+    try {
+      new File(path).mkdir()
+      opw = Some(new FileWriter(new File(path -/- fileName)))
+      opw.get.write(str)
+    }
+
+    catch { case e: Throwable => eStr = e.toString }
+    finally{ opw.foreach(_.close()) }
+    if (eStr == "") Good("Successfully written file to " + path -/- fileName) else Bad(Strings(eStr))
+  }
+
+  def homeWrite(dir: String, fileName: String, str: String): EMon[String] =
+  { val h = System.getProperty("user.home")
+    fileWrite(h -/- dir , fileName, str)
+  }
+
+  /** Function object apply method to get statements from a Java build resource. */
+  def statementsFromResource(fileName: String): EMon[pParse.Statements] =
+    eTry(io.Source.fromResource(fileName).toArray).flatMap(pParse.srcToEStatements(_, fileName))
 }

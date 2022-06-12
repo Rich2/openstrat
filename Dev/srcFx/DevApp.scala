@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
-import javafx._, stage._, scene._, canvas._, pParse._, pDev._
+import pjvm._, javafx._, stage._, scene._, canvas._, pParse._, pDev._
 
 /** Name should possibly be DevAppFx. */
 object DevApp

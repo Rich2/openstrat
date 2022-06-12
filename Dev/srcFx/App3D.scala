@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
-import javafx.scene._, javafx.stage._, canvas._
+import pjvm._, javafx.scene._, javafx.stage._, canvas._
 
 object App3D
 {
