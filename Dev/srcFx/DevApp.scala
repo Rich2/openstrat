@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFx
-import pjvm._, javafx._, stage._, scene._, canvas._, pParse._, pDev._
+import pjvm._, pgui._, javafx._, stage._, scene._, canvas._, pParse._, pDev._
 
 /** Name should possibly be DevAppFx. */
 object DevApp
@@ -23,7 +23,8 @@ class AppStart extends application.Application
     val eExpr: EMon[pParse.AssignMemExpr] = findDevSettingExpr("appSet")
     val pair = eExpr match {
       case Good(it: IdentifierToken) => if (Apps.idMap.contains(it.srcStr))
-        { val launch = Apps.idMap(it.srcStr)
+        { val launch: GuiLaunch = Apps.idMap(it.srcStr)
+          val fSett = statementsFromResource( launch.settingStr + ".rson")
           val eSett = findDevSettingExpr(launch.settingStr)
           eSett.fold(launch.default)(launch(_))
         }
