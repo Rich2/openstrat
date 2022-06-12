@@ -56,8 +56,8 @@ trait BlockRaw
 trait BlockStatements extends ExprSeqNonEmpty
 { def statements: Arr[Statement]
   def exprs: Arr[ColonMemExpr] = statements.map(_.expr).asInstanceOf[Arr[ColonMemExpr]]
-  def startMem = statements.head
-  def endMem = statements.last
+  def startMem: Statement = statements.head
+  def endMem: Statement = statements.last
 }
 
 case class FileStatements(statements: Arr[Statement]) extends BlockStatements

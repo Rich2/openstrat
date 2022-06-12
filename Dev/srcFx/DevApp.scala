@@ -24,8 +24,8 @@ class AppStart extends application.Application
     val pair = eExpr match {
       case Good(it: IdentifierToken) => if (Apps.idMap.contains(it.srcStr))
         { val launch: GuiLaunch = Apps.idMap(it.srcStr)
-          val fSett = statementsFromResource( launch.settingStr + ".rson")
-          val eSett = findDevSettingExpr(launch.settingStr)
+          val fSett = fileStatementsFromResource( launch.settingStr + ".rson")
+          val eSett = fSett.goodOrOther(findDevSettingExpr(launch.settingStr))
           eSett.fold(launch.default)(launch(_))
         }
         else { deb(s"${it.srcStr} is not a recognised app identifier"); Apps.default }

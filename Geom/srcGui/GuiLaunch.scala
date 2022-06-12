@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pgui
 import pParse._
 
@@ -17,7 +17,7 @@ case class GuiLaunchSimple(settingStr: String, default: (CanvasPlatform => Any, 
 trait GuiLaunchMore extends GuiLaunch
 {
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) = expr match {
-    case BracketedStatements(sts, _, _, _) => fromStatments(sts)
+    case bls: BlockStatements => fromStatments(bls.statements)
     case _ => fromStatments(Arr())
   }
 

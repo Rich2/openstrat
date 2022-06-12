@@ -73,4 +73,7 @@ package object pjvm
   /** Function object apply method to get statements from a Java build resource. */
   def statementsFromResource(fileName: String): EMon[Arr[Statement]] =
     eTry(io.Source.fromResource(fileName).toArray).flatMap(pParse.srcToEStatements(_, fileName))
+
+  /** Function object apply method to get FileStatements from a Java build resource. */
+  def fileStatementsFromResource(fileName: String): EMon[FileStatements] = statementsFromResource(fileName).map(FileStatements(_))
 }
