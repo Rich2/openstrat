@@ -4,7 +4,7 @@ import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr160W30 extends WarmTerrs
 {
-  override implicit val grid: EGrid160Warm = EGrid160.e0(276)
+  override implicit val grid: EGrid160Warm = EGrid160.w30(276)
 
   override val terrs: HCenDGrid[WTile] =
   {
@@ -18,7 +18,7 @@ object Terr160W30 extends WarmTerrs
 //    gs(142, 460 + 46, plain, plain, sea, plain * 2)
 //    gs(294, 522, hills, sea, taiga)
 //    gs(292, 504, hills * 2, sea * 5, plain)
-//    gs(290, 506, hills, sea * 4, plain, sea, plain)
+    gs(306, 11762, ice * 2, sea * 4, hills * 2)
 //    gs(288, 500, plain, hills, plain, sea * 4, plain, sea)
 //    gs(286, 498, plain, sea * 2, plain, sea * 3, plain * 3)
 //    gs(284, 496, plain * 2, hills, plain * 2, sea * 2, plain * 4)
