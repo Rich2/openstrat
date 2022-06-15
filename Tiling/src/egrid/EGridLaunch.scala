@@ -52,6 +52,7 @@ object EGridLaunch extends GuiLaunchMore
 
       case 40 => gwg(EGrid160.scen0)
       case 51 => gwg(EGrid160.scen11)
+      case 52 => gwg(EGrid160.scen0)
 
       case _ => egg(EGrid80.scen0)
     }
