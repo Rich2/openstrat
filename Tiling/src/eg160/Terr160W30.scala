@@ -18,13 +18,10 @@ object Terr160W30 extends WarmTerrs
     gs(310, 11766, ice * 4, sea * 3)
     gs(308, 11764, ice * 3, sea * 5)
     gs(306, 11762, ice * 2, sea * 4, hills * 2)
-//    gs(288, 500, plain, hills, plain, sea * 4, plain, sea)
-//    gs(286, 498, plain, sea * 2, plain, sea * 3, plain * 3)
-//    gs(284, 496, plain * 2, hills, plain * 2, sea * 2, plain * 4)
-//    gs(282, 506, hills, plain * 8)
-//    gs(280, 504, hills, sea * 2, plain * 6)
-//    gs(278, 506, plain * 5, hills, plain * 2, hills)
-//    gs(276, 508, plain * 4, hills * 2, mtain * 3)
+    gs(304, 11764, ice, sea * 4, tundra * 3)
+    gs(302, 11762, ice, sea * 5, tundra * 3)
+    gs(300, 11760, tundra, sea * 8)
+    gs(298, 11758, tundra, sea * 9)
     res
   }
 

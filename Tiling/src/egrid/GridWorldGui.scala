@@ -14,12 +14,14 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
   val terrs: HCenDGrid[WTile] = scenIn.terrs
   val sTerrs: HSideBoolDGrid = scenIn.sTerrs
   val gls: LatLongArr = gridSys.map{hc => gridSys.hCoordLL(hc) }
-  gridSys match {
-    case hgm: HGridMulti => debvar(hgm.grids(0).numSides)
-    case _ => deb("Single grid")
+
+  val g0Str: String = gridSys match {
+    case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
+    case _ => "Single grid"
   }
-  debvar(gridSys.numSides)
-  debvar(gridSys.numInnerSides + gridSys.numOuterSides)
+  val sideError = gridSys.numSides - gridSys.numInnerSides - gridSys.numOuterSides
+  deb(s"In: ${gridSys.numInnerSides}, out: ${gridSys.numOuterSides}, total: ${gridSys.numSides}, error: $sideError, $g0Str" )
+
   def repaint(): Unit =
   {
     val irr0: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
