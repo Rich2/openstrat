@@ -34,56 +34,56 @@ object EGrid320
 
   def scen1: EScenWarm =
   { val grid: EGridWarm = e30(138)
-    EScenWarm(grid, Terr320E30.terrs, Terr320E30.sTerrs, "320km 0E")
+    EScenWarm(grid, Terr320E30.terrs, Terr320E30.sTerrs, "320km 30E")
   }
 
   def scen2: EScenWarm =
   { val grid: EGridWarm = e60(138)
-    EScenWarm(grid, Terr320E60.terrs, grid.newSideBools)
+    EScenWarm(grid, Terr320E60.terrs, Terr320E60.sTerrs, "320km 60E")
   }
 
   def scen3: EScenWarm =
   { val grid: EGridWarm = e90(138)
-    EScenWarm(grid, Terr320E90.terrs, grid.newSideBools)
+    EScenWarm(grid, Terr320E90.terrs, Terr320E90.sTerrs, "320km 90E")
   }
 
   def scen4: EScenWarm =
   { val grid: EGridWarm = e120(138)
-    EScenWarm(grid, Terr320E120.terrs, grid.newSideBools)
+    EScenWarm(grid, Terr320E120.terrs, Terr320E120.sTerrs, "320km 120E")
   }
 
   def scen5: EScenWarm =
   { val grid: EGridWarm = e150(138)
-    EScenWarm(grid, Terr320E150.terrs, grid.newSideBools)
+    EScenWarm(grid, Terr320E150.terrs, Terr320E150.sTerrs, "320km 150E")
   }
 
   def scen6: EScenWarm =
   { val grid: EGridWarm = e180(138)
-    EScenWarm(grid, Terr320E180.terrs, grid.newSideBools)
+    EScenWarm(grid, Terr320E180.terrs, Terr320E180.sTerrs, "320km 180E")
   }
 
   def scen7: EScenWarm =
   { val grid: EGridWarm = w150(138)
-    EScenWarm(grid, Terr320W150.terrs, grid.newSideBools)
+    EScenWarm(grid, Terr320W150.terrs, Terr320W150.sTerrs, "320km 150W")
   }
 
   def scen8: EScenWarm =
   { val grid: EGridWarm = w120(138)
-    EScenWarm(grid, Terr320W120.terrs, grid.newSideBools)
+    EScenWarm(grid, Terr320W120.terrs, Terr320W120.sTerrs, "320km 120W")
   }
 
   def scen9: EScenWarm =
   { val grid: EGridWarm = w90(138)
-    EScenWarm(grid, Terr320W90.terrs, grid.newSideBools)
+    EScenWarm(grid, Terr320W90.terrs, Terr320W90.sTerrs, "320km 90W")
   }
 
   def scen10: EScenWarm =
   { val grid: EGridWarm = w60(138)
-    EScenWarm(grid, Terr320W60.terrs, grid.newSideBools)
+    EScenWarm(grid, Terr320W60.terrs, Terr320W60.sTerrs, "320km 60W")
   }
 
   def scen11: EScenWarm =
   { val grid: EGridWarm = w30(138)
-    EScenWarm(grid, Terr320W30.terrs, grid.newSideBools)
+    EScenWarm(grid, Terr320W30.terrs, Terr320W30.sTerrs, "320km 30W")
   }
 }
