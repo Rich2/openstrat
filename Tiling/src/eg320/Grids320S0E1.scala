@@ -2,7 +2,7 @@
 package ostrat; package eg320
 import prid._, phex._, egrid._, pEarth._
 
-object Grids320s0e1 extends EGrid320WarmMulti
+object Grids320S0E1 extends EGrid320WarmMulti
 { ThisSys =>
 
   override val grids: Arr[EGridWarm] = Arr(EGrid320.e0(), EGrid320.e30())
@@ -19,7 +19,7 @@ object Grids320s0e1 extends EGrid320WarmMulti
 }
 
 object Scen320s0e1 extends EScenWarmMulti
-{ override val gridSys: EGrid320WarmMulti = Grids320s0e1
+{ override val gridSys: EGrid320WarmMulti = Grids320S0E1
   override val warms: Arr[WarmTerrs] = Arr(Terr320E0, Terr320E30)
   override val title: String = "320km 0E - 30E"
 }
