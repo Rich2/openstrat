@@ -30,15 +30,15 @@ trait EScenFlat extends HSysScen
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 trait EScenWarm extends EScenFlat
 { override def gridSys: EGridWarmSys
-  override def title: String = "EScenBasic"
+  override def title: String = "EScenWarm"
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 object EScenWarm
 {
-  def apply(gridSys: EGridWarmSys, terrs: HCenDGrid[WTile], sTerrs: HSideBoolDGrid): EScenWarm = new EScenWarmImp(gridSys, terrs, sTerrs)
+  def apply(gridSys: EGridWarmSys, terrs: HCenDGrid[WTile], sTerrs: HSideBoolDGrid, title: String = "EScenWarm"): EScenWarm = new EScenWarmImp(gridSys, terrs, sTerrs, title)
 
-  class EScenWarmImp(val gridSys: EGridWarmSys, override val terrs: HCenDGrid[WTile], val sTerrs: HSideBoolDGrid) extends EScenWarm
+  class EScenWarmImp(val gridSys: EGridWarmSys, override val terrs: HCenDGrid[WTile], val sTerrs: HSideBoolDGrid, override val title: String = "EScenWarm") extends EScenWarm
 }
 
 trait EScenWarmMulti extends EScenWarm{

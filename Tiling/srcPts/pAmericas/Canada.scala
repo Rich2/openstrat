@@ -21,9 +21,7 @@ object Alaska extends EArea2("Alaska", 66.33 ll -151.16, taiga)
 }
 
 object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, taiga)
-{
-
-  val yakut50 = 60 ll -139.60
+{ val yakut50 = 60 ll -139.60
   val yakut10 = 68.90 ll -136.53
   val inuvik10 = 70.56 ll -128.00
   val nunavut10 = 69.00 ll -115.80
