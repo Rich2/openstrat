@@ -29,7 +29,8 @@ object EGrid160
 
   def scen0: EScenWarm =
   { val grid: EGridWarm = e0(276)
-    EScenWarm(grid, Terr160E0.terrs, Terr160E0.sTerrs)
+    EScenWarm(grid, Terr160E0.terrs, Terr160E0.sTerrs, "!60km 0E")
+
   }
 
 //  def scen1: EScenWarm =

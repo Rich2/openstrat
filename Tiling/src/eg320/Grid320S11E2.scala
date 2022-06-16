@@ -14,4 +14,5 @@ object Scen320S11E2 extends EScenWarm
 { override val gridSys: EGridWarmSys = Grid320S11E2
   override val terrs: HCenDGrid[WTile] = Terr320W30.terrs ++ Terr320E0.terrs ++ Terr320E30.terrs ++ Terr320E60.terrs
   override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
+  override val title: String = "320km 30W - 60E"
 }

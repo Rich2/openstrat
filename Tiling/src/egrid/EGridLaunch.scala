@@ -43,7 +43,7 @@ object EGridLaunch extends GuiLaunchMore
       case 16 => Scen320S0E11
 
       case 20 => EGrid160.scen0
-      case 21 => EGrid160.scen11
+      case 31 => EGrid160.scen11
 
       case 32 => EGrid160.scen0
 
