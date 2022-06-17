@@ -6,6 +6,7 @@ trait EGrid320Sys extends EGridSys
 { override val cScale: Length = 80.kMetres
 }
 
+/** Grid systems for 320km [[EGrid]]s. */
 trait EGrid320WarmMulti extends EGridWarmMulti with EGrid320Sys {
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
@@ -13,7 +14,7 @@ trait EGrid320WarmMulti extends EGridWarmMulti with EGrid320Sys {
 
   /** H cost for A* path finding. To move 1 tile has a cost 2. This is because the G cost or actual cost is the sum of the terrain cost of tile of
    * departure and the tile of arrival. */
-  override def getHCost(startCen: HCen, endCen: HCen): Int = ???
+  final override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
 object EGrid320WarmMulti{
