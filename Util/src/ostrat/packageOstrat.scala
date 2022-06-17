@@ -197,6 +197,13 @@ package object ostrat
     acc
   }
 
+  /** foreachs over a range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
+  def iLoopToForeach(loopEnd: Int, loopStart: Int = 0)(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
+  { if (iTo == iFrom & iStep == 0) throw excep("Loop step can not be 0.")
+    var i: Int = iFrom
+    while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
+  }
+
   /** Folds over a range of Ints to an Int. From the start value until (while index is less than)
    *  the end value in integer steps. Default step value is 1. */
   def iUntilFoldInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
