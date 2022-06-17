@@ -197,11 +197,24 @@ package object ostrat
     acc
   }
 
-  /** foreachs over a range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
+  /** foreachs over a looped range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
   def iLoopToForeach(loopEnd: Int, loopStart: Int = 0)(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iTo == iFrom & iStep == 0) throw excep("Loop step can not be 0.")
+
     var i: Int = iFrom
-    while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
+    var continue = true
+    if(iStep > 0) while(continue)
+    { f(i)
+      if (i < iTo & (i + iStep) > iTo) continue = false
+      i += iStep
+      if (i > loopEnd) i = loopStart + i - loopEnd
+    }
+    else while(continue)
+    { f(i)
+      if (i > iTo & (i + iStep) < iTo) continue = false
+      i += iStep
+      if (i < loopStart) i = loopEnd + i - loopStart
+    }
   }
 
   /** Folds over a range of Ints to an Int. From the start value until (while index is less than)

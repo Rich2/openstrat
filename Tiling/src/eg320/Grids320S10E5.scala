@@ -14,7 +14,7 @@ object Grids320S10E5 extends EGrid320WarmMulti
 
 object Scen320S10E5 extends EScenWarmMulti
 { override val gridSys: EGridWarmMulti = Grids320S10E5
-  override val warms : Arr[WarmTerrs]= Arr(Terr320W60, Terr320W30, Terr320E0, Terr320E30, Terr320E60, Terr320E90, Terr320E120, Terr320E150)
+  override val warms : Arr[WarmTerrs]=  Arr(Terr320W60, Terr320W30, Terr320E0, Terr320E30, Terr320E60, Terr320E90, Terr320E120, Terr320E150)
   override val title: String = "320km 60W - 150E"
 //  override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
 }
