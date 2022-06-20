@@ -17,7 +17,8 @@ trait EGrid320WarmMulti extends EGridWarmMulti with EGrid320Sys {
   final override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object EGrid320WarmMulti{
+object EGrid320WarmMulti
+{
   def apply(rBottomCen: Int = 138, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid320WarmMulti = new EGrid320WarmMulti
   {
     override def grids: Arr[EGridWarm] = startLong match {

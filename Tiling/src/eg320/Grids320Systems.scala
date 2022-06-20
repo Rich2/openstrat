@@ -21,12 +21,10 @@ object Scen320s0e1 extends EScenWarmMulti
 
 /** 3 Grid system for 0E, 30E and 60E. */
 object Grids320S0E2 extends EGrid320WarmMulti
-{ ThisSys =>
-
-  override val grids: Arr[EGridWarm] = Arr(EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
+{ override val grids: Arr[EGridWarm] = Arr(EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
   override def headGridInt: Int = 0
   override def cGridDelta: Double = 40
-  override val gridMans: Arr[EGridWarmMan] = iToMap(0, 2)(EGridWarmMan(_, ThisSys))
+  override val gridMans: Arr[EGridWarmMan] = iToMap(0, 2)(EGridWarmMan(_, this))
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
