@@ -231,10 +231,11 @@ package object ostrat
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
     iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => f(i, j)}}
 
+  /** 2 dimensional from-until-step foreach loop. Throws on non termination. i is the index for the outer loop. j is the index for the inner loop*/
   def ijUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
     ijToForeach(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(jFrom, ife(iStep > 0, jUntil - 1, jUntil + 1), jStep)(f)
 
-  /** 2 dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
+  /** 2 dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
    * From the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
   def ijToMap[A, AA <: SeqImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => A)
                                   (implicit ev: ArrBuilder[A, AA]): AA =

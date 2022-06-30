@@ -28,13 +28,14 @@ object Grids320S0E2 extends EGrid320WarmMulti
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
-/** Scenario for 3 Grid system for 0E, 30E and 60E */
+/** Scenario for 3 320km grid system for 0E, 30E and 60E */
 object Scen320S0E2 extends EScenWarmMulti
 { override val gridSys: EGrid320WarmMulti = Grids320S0E2
   override def warms: Arr[WarmTerrs] = Arr(Terr320E0, Terr320E30, Terr320E60)
   override val title: String = "320km 0E - 60E"
 }
 
+/** Scenario for 4 320km grid system for 30W 0E, 30E and 60E. */
 object Grids320S11E2 extends EGrid320WarmMulti
 { ThisSys =>
   override def cGridDelta: Double = 40
