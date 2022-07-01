@@ -22,11 +22,11 @@ object ArrRefTest extends TestSuite
     val myBArr1: Arr[MyB] = Arr(MyB(4), MyB(5))
     val myTArr1: Arr[MyT] = myAArr1 ++ myBArr1
     val ints1 = myTArr1.map(_.i * 10)
-    val ints2: Ints = Ints(5, 6, 7)
+    val ints2: IntArr = IntArr(5, 6, 7)
     val myTArr2: Arr[MyT] = ints2.flatMap(i => Arr(MyA(i), MyB(i)))
     val myRefs1 = ints2.map(MyA(_))
     val refs2: Arr[MyA] = ints2.map(MyA(_))
-    val ints3: Ints = refs2.map(_.i)
+    val ints3: IntArr = refs2.map(_.i)
 
     test("map")
     { myAArr1(2) ==> MyA(3)

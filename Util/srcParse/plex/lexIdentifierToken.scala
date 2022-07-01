@@ -4,7 +4,7 @@ package ostrat; package pParse; package plex
 /** Function object to parse identifier token. If successful it passes back, the remaining chars pointer, the test position and the token. */
 object lexIdentifierToken
 { /** Function apply method to parse identifier token. If successful it passes back, the remaining chars pointer, the test position and the token. */
-  def apply(remOff: CharsOff, tpStart: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
+  def apply(remOff: CharsOff, tpStart: TextPosn)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, Token] =
   {
     //val acc: StringBuffer = new StringBuffer()
 

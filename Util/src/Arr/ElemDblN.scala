@@ -52,7 +52,7 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqDef[A]
 { type ThisT <: DblNArr[A]
 
   /** Not sure about this method. */
-  def foreachArr(f: Dbls => Unit): Unit
+  def foreachArr(f: DblArr => Unit): Unit
 
   def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(sdLength)

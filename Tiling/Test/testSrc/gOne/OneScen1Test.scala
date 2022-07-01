@@ -23,15 +23,15 @@ object OneScen1Test  extends TestSuite
       g1.numTiles ==> 8
     }
 
-    val hexs: Ints = g1.map(hc => hc.r * 10 + hc.c)
-    val sh: Ints = g1.sidesMap(hc => hc.r * 10 + hc.c)
+    val hexs: IntArr = g1.map(hc => hc.r * 10 + hc.c)
+    val sh: IntArr = g1.sidesMap(hc => hc.r * 10 + hc.c)
     //val isd = g1.innerSides
     //val sha = sh.take(35)
     test("os2")
     {
-      (hexs ===  Ints(22, 26, 30, 44, 48, 62, 66, 70)) ==> true
+      (hexs ===  IntArr(22, 26, 30, 44, 48, 62, 66, 70)) ==> true
       sh(10) ==> 31
-      (sh === Ints(11, 13, 15, 17, 19, 21, 20, 24, 28, 32, 31, 33, 35, 37, 39, 41, 42, 46, 50, 51, 53, 55, 57, 59, 61, 60, 64, 68, 72,
+      (sh === IntArr(11, 13, 15, 17, 19, 21, 20, 24, 28, 32, 31, 33, 35, 37, 39, 41, 42, 46, 50, 51, 53, 55, 57, 59, 61, 60, 64, 68, 72,
         71, 73, 75, 77, 79, 81)) ==> true
       g2.numTileRows ==> 3
 

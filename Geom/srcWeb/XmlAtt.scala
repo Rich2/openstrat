@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWeb
 
-/** An XML / HTML attribute, has a name and a value [[Strings]]. */
+/** An XML / HTML attribute, has a name and a value [[StringArr]]. */
 trait XmlAtt
 { def name: String
   def valueStr: String

@@ -7,7 +7,7 @@ abstract class EArea2(val name: String, val cen: LatLong, val terr: WTile) exten
 {
   override def toString = name.appendCommas(terr.toString)
 
-  def aStrs: Strings = Strings(name)
+  def aStrs: StringArr = StringArr(name)
 
   def textScale: Length = 15000.metres
 

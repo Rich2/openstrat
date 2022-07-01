@@ -117,8 +117,8 @@ package object ostrat
   /** Not sure about this method. */
   def parseErr(fp: TextPosn, detail: String): String = fp.fileName -- fp.lineNum.toString + ", " + fp.linePosn.toString + ": " + detail
 
-  def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](Strings(parseErr(fs.startPosn, detail)))
-  def badNone[B](detail: String): Bad[B] = Bad[B](Strings(detail))
+  def bad1[B](fs: TextSpan, detail: String): Bad[B] = Bad[B](StringArr(parseErr(fs.startPosn, detail)))
+  def badNone[B](detail: String): Bad[B] = Bad[B](StringArr(detail))
 
   def eTry[A](res: => A): EMon[A] =
     try Good[A](res) catch { case scala.util.control.NonFatal(e) => TextPosn("Java Exception", 1, 1).bad(e.getMessage) }
@@ -254,17 +254,9 @@ package object ostrat
     ev.buffToBB(buff)
   }
 
-  /** Folds over a range of Ints to an Int. From the start value to (while index is less than or equal to) the end value in integer steps. Default
-   *  step value is 1. Throws on non termination. */
-  def iToFoldInt(iFrom: Int, iTo: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
-  { var acc = accInit
-    iToForeach(iFrom, iTo, iStep){ i => acc = f(acc, i) }
-    acc
-  }
-
   /** Folds over a range of Ints to an Int, adding the return [[Int]] value to the accumulator. From the start value to (while index is less than or
    *  equal to) the end value in integer steps. Default step value is 1. Throws on non termination. */
-  def iToFoldSumInt(iFrom: Int, iTo: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
+  def iToIntSum(iFrom: Int, iTo: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
   { var acc = accInit
     iToForeach(iFrom, iTo, iStep){ i => acc += f(i) }
     acc
@@ -290,18 +282,10 @@ package object ostrat
     }
   }
 
-  /** Folds over a range of Ints to an Int. From the start value until (while index is less than)
-   *  the end value in integer steps. Default step value is 1. */
-  def iUntilFoldInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
-  { var acc = accInit
-    iUntilForeach(iFrom, iUntil, iStep){ i => acc = f(acc, i) }
-    acc
-  }
-
   /** Folds over a range of Ints to an Int adding the return [[Int]] value to the accumulator. From the start value until (while index is less than)
    *  the end value in integer steps. Default step value is 1. */
-  def iUntilFoldSumInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
-    iToFoldSumInt(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep, accInit)(f)
+  def iUntilIntSum(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
+    iToIntSum(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep, accInit)(f)
 
   /** 2 dimensional from-to-step foreach loop. Throws on non termination. */
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =

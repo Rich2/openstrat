@@ -9,10 +9,10 @@ trait ArrFlatBuilder[ArrB <: SeqImut[_]] extends SeqDefBuilderCommon[ArrB]
 
 /** Companion object for ArrTFlatBuilder, contains implicit instances for atomic value classes. */
 object ArrFlatBuilder extends ArrFlatBuilderLowPriority
-{ implicit val intsImplicit: ArrFlatBuilder[Ints] = IntsBuild
-  implicit val dblsImplicit: ArrFlatBuilder[Dbls] = DblsBuild
-  implicit val longsImplicit: ArrFlatBuilder[Longs] = LongsBuild
-  implicit val floatImplicit: ArrFlatBuilder[Floats] = FloatsBuild
+{ implicit val intsImplicit: ArrFlatBuilder[IntArr] = IntsBuild
+  implicit val dblsImplicit: ArrFlatBuilder[DblArr] = DblsBuild
+  implicit val longsImplicit: ArrFlatBuilder[LongArr] = LongsBuild
+  implicit val floatImplicit: ArrFlatBuilder[FloatArr] = FloatsBuild
   implicit val booleansImplicit: ArrFlatBuilder[BooleanArr] = BooleansBuild
 }
 

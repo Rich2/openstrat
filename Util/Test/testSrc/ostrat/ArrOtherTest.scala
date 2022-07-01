@@ -6,15 +6,15 @@ import utest._
 object ArrOtherTest extends TestSuite
 {
   val tests = Tests {
-    val ints1 = Ints(1, 2, 3, 4)
-    val ints2 = Ints(5, 6, 7)
+    val ints1 = IntArr(1, 2, 3, 4)
+    val ints2 = IntArr(5, 6, 7)
     val ints3 = ints1 ++ ints2
-    val dbls1 = Dbls(1.5, 3, 4.5, 6)
+    val dbls1 = DblArr(1.5, 3, 4.5, 6)
     val dbls2 = ints1.map(_ * 1.5)
-    val dbls3: Dbls = ints1.flatToIterableMap[Double, Dbls] { a => List(a + 0.1, a + 0.2) }
+    val dbls3: DblArr = ints1.flatToIterableMap[Double, DblArr] { a => List(a + 0.1, a + 0.2) }
     //debvar(dbls3)
-    val longs1 = Longs(2, 4, 6) ++ Longs(8, 9)
-    val pre1 = Ints(2, 3, 4).prepend(1)
+    val longs1 = LongArr(2, 4, 6) ++ LongArr(8, 9)
+    val pre1 = IntArr(2, 3, 4).prepend(1)
 
     "test1" -
     { ints1(3) ==> 4
@@ -30,9 +30,9 @@ object ArrOtherTest extends TestSuite
       pre1(3) ==> 4
     }
 
-    val ints4 = ints1.flatMap(a => Ints(a + 10, a + 20, a + 30))
+    val ints4 = ints1.flatMap(a => IntArr(a + 10, a + 20, a + 30))
 
-    val longs2 = ints1.flatMap(a => Longs(a + 100, a + 200, a + 300))
+    val longs2 = ints1.flatMap(a => LongArr(a + 100, a + 200, a + 300))
     //val dbls4 = ints2.flatMap(i => Dbls(i, i * 0.5))
 
     "Bind" -

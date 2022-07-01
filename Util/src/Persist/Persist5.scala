@@ -12,7 +12,7 @@ trait TypeStr5Plus[A1, A2, A3, A4, A5] extends Any with TypeStr4Plus[A1, A2, A3,
 }
 
 trait TypeStr5[A1, A2, A3, A4, A5] extends Any with TypeStr5Plus[A1, A2, A3, A4, A5]
-{ override def paramNames: Strings = Strings(name1, name2, name3, name4, name5)
+{ override def paramNames: StringArr = StringArr(name1, name2, name3, name4, name5)
   override def numParams: Int = 5
 }
 
@@ -42,8 +42,8 @@ object Show5T
     final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))).
       max(ev4.syntaxDepthT(fArg4(obj))).max(ev5.syntaxDepthT(fArg5(obj))) + 1
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings =
-      Strings(ev1.showT(fArg1(obj), way), ev2.showT(fArg2(obj), way), ev3.showT(fArg3(obj), way), ev4.showT(fArg4(obj), way),
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr =
+      StringArr(ev1.showT(fArg1(obj), way), ev2.showT(fArg2(obj), way), ev3.showT(fArg3(obj), way), ev4.showT(fArg4(obj), way),
         ev5.showT(fArg5(obj), way))
   }
 }
@@ -68,7 +68,7 @@ trait Unshow5[A1, A2, A3, A4, A5, R] extends UnshowN[R] with TypeStr5Plus[A1, A2
   implicit def ev4: Unshow[A4]
   implicit def ev5: Unshow[A5]
 
-  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints): EMon[R] =
+  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
     val e1: EMon[A1] = ife(len > pSeq(0), ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), ev2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)

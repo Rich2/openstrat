@@ -15,7 +15,7 @@ case class Nat0xToken(startPosn: TextPosn, digitsStr: String) extends NatStdToke
 object Nat0xToken
 {
   /** Function for parsing explicit Hexadecimal Token, one that begins with the characters '0x'. */
-  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
+  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, Token] =
   {
     def loop(rem: CharsOff, strAcc: String, intAcc: Long): EMon3[CharsOff, TextPosn, Nat0xToken] = rem match
     { case CharsOff0() => Good3(rem, tp.right(strAcc.length + 2), Nat0xToken(tp, strAcc))

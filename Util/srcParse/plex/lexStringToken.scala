@@ -4,7 +4,7 @@ package ostrat; package pParse; package plex
 /** Function object that parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first. */
 object lexStringToken
 { /** Parses String (with RSON syntax) searching for the String terminator. Returns error if end of file found first. */
-  def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, StringToken] =
+  def apply(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, StringToken] =
   {
     val strAcc: StringBuilder = new StringBuilder()
 

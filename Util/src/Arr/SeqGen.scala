@@ -211,7 +211,7 @@ trait SeqGen[+A] extends Any with SeqDefGen[A @uncheckedVariance]
   { val acc = ev.newBuff()
     var continue = true
     var count = 0
-    var errs: Strings = Strings()
+    var errs: StringArr = StringArr()
     while(count < sdLength & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToBB(acc)), Bad(errs))
@@ -221,7 +221,7 @@ trait SeqGen[+A] extends Any with SeqDefGen[A @uncheckedVariance]
   { var acc: List[B] = Nil
     var continue = true
     var count = 0
-    var errs: Strings = Strings()
+    var errs: StringArr = StringArr()
     while(count < sdLength & continue == true)
       f(apply(count)).foldErrs { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(acc.reverse), Bad(errs))

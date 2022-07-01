@@ -34,7 +34,7 @@ trait Dbl3Arr[A <: ElemDbl3] extends Any with DblNArr[A] with Dbl3SeqDef[A]
   def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
   def head3: Double = unsafeArray(2)
-  def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3)))
+  def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3)))
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /

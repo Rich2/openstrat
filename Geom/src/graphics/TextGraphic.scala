@@ -48,7 +48,7 @@ object TextGraphic
   def xy(str: String, fontSize: Double = 24, xPosn: Double, yPosn: Double, colour: Colour = Black, align: TextAlign = CenAlign,
     baseLine: BaseLine = BaseLine.Middle) = new TextGraphic(str, fontSize, xPosn, yPosn, colour, align, baseLine)
 
-  def lines(strs: Strings, fontSize: Int = 24, posn: Pt2 = Pt2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
+  def lines(strs: StringArr, fontSize: Int = 24, posn: Pt2 = Pt2Z, fontColour: Colour = Black, lineSpacing: Double = 1,
     align: TextAlign = CenAlign, baseLine: BaseLine = BaseLine.Alphabetic): Arr[TextGraphic] =
   { val len = strs.sdLength
     if(len == 0) Arr()

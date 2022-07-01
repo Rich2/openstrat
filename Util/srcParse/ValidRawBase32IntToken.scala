@@ -6,7 +6,7 @@ trait ValidBase32IntToken extends ValidIntToken
 {
   def asBase32Int: Int =
   { var acc = 0
-    implicit val chars: Chars = digitsStr.toChars
+    implicit val chars: CharArr = digitsStr.toChars
 
     def loop(rem: CharsOff): Int = rem match
     {

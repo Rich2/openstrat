@@ -41,7 +41,7 @@ trait Dbl5Arr[A <: ElemDbl5] extends Any with DblNArr[A] with Dbl5SeqDef[A]
   def head4: Double = unsafeArray(3)
   def head5: Double = unsafeArray(4)
 
-  def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
+  def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /

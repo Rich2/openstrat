@@ -10,7 +10,7 @@ object lexSrc
 
   /** Max numbers for long and hexadecimal formats needs to be implemented. */
   def apply(charsIn: Array[Char], fileName: String): EArr[Token] =
-  { implicit val charArr: Chars = new Chars(charsIn)
+  { implicit val charArr: CharArr = new CharArr(charsIn)
     val acc: ArrayBuffer[Token] = Buff[Token]()
 
     implicit class E3Implicit (e3: EMon3[CharsOff, TextPosn, Token])

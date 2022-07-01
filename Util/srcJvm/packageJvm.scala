@@ -62,7 +62,7 @@ package object pjvm
 
     catch { case e: Throwable => eStr = e.toString }
     finally{ opw.foreach(_.close()) }
-    if (eStr == "") Good("Successfully written file to " + path -/- fileName) else Bad(Strings(eStr))
+    if (eStr == "") Good("Successfully written file to " + path -/- fileName) else Bad(StringArr(eStr))
   }
 
   def homeWrite(dir: String, fileName: String, str: String): EMon[String] =

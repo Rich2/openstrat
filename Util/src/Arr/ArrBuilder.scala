@@ -30,11 +30,11 @@ trait ArrBuilder[B, ArrB <: SeqImut[B]] extends ImutSeqDefBuilder[B, ArrB]
 
 /** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */
 object ArrBuilder extends ArrBuilderPriority2
-{ implicit val intsImplicit: ArrBuilder[Int, Ints] = IntsBuild
-  implicit val doublesImplicit: ArrBuilder[Double, Dbls] = DblsBuild
-  implicit val longImplicit: ArrBuilder[Long, Longs] = LongsBuild
-  implicit val floatImplicit: ArrBuilder[Float, Floats] = FloatsBuild
-  implicit val stringImplicit: ArrBuilder[String, Strings] = StringsBuild
+{ implicit val intsImplicit: ArrBuilder[Int, IntArr] = IntsBuild
+  implicit val doublesImplicit: ArrBuilder[Double, DblArr] = DblsBuild
+  implicit val longImplicit: ArrBuilder[Long, LongArr] = LongsBuild
+  implicit val floatImplicit: ArrBuilder[Float, FloatArr] = FloatsBuild
+  implicit val stringImplicit: ArrBuilder[String, StringArr] = StringsBuild
   implicit val booleansImplicit: ArrBuilder[Boolean, BooleanArr] = BooleansBuild
   implicit val anyImplicit: ArrBuilder[Any, AnyArr] = AnyArrBuild
 }

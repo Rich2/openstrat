@@ -3,11 +3,11 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for Floats. */
-class Floats(val unsafeArray: Array[Float]) extends AnyVal with SeqImut[Float]
-{ type ThisT = Floats
+class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with SeqImut[Float]
+{ type ThisT = FloatArr
 
   /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */
-  override def unsafeSameSize(length: Int): Floats = new Floats(new Array[Float](length))
+  override def unsafeSameSize(length: Int): FloatArr = new FloatArr(new Array[Float](length))
 
   override def typeStr: String = "Floats"
   override def sdLength: Int = unsafeArray.length
@@ -17,19 +17,19 @@ class Floats(val unsafeArray: Array[Float]) extends AnyVal with SeqImut[Float]
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
 
-  def ++ (op: Floats): Floats =
+  def ++ (op: FloatArr): FloatArr =
   { val newArray = new Array[Float](sdLength + op.sdLength)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, sdLength)
-    new Floats(newArray)
+    new FloatArr(newArray)
   }
 }
 
-object Floats
-{ def apply(input: Float*): Floats = new Floats(input.toArray)
+object FloatArr
+{ def apply(input: Float*): FloatArr = new FloatArr(input.toArray)
 
 
-  implicit val eqImplicit: EqT[Floats] = (a1, a2) =>
+  implicit val eqImplicit: EqT[FloatArr] = (a1, a2) =>
     if(a1.sdLength != a2.sdLength) false
     else
     { var i = 0
@@ -39,14 +39,14 @@ object Floats
     }
 }
 
-object FloatsBuild extends ArrBuilder[Float, Floats] with ArrFlatBuilder[Floats]
+object FloatsBuild extends ArrBuilder[Float, FloatArr] with ArrFlatBuilder[FloatArr]
 { type BuffT = FloatsBuff
-  override def newArr(length: Int): Floats = new Floats(new Array[Float](length))
-  override def arrSet(arr: Floats, index: Int, value: Float): Unit = arr.unsafeArray(index) = value
+  override def newArr(length: Int): FloatArr = new FloatArr(new Array[Float](length))
+  override def arrSet(arr: FloatArr, index: Int, value: Float): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): FloatsBuff = new FloatsBuff(new ArrayBuffer[Float](length))
   override def buffGrow(buff: FloatsBuff, value: Float): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: FloatsBuff, arr: Floats): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
-  override def buffToBB(buff: FloatsBuff): Floats = new Floats(buff.unsafeBuffer.toArray)
+  override def buffGrowArr(buff: FloatsBuff, arr: FloatArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: FloatsBuff): FloatArr = new FloatArr(buff.unsafeBuffer.toArray)
 }
 
 class FloatsBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with SeqGen[Float]

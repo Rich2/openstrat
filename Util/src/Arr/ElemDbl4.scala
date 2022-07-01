@@ -33,7 +33,7 @@ trait Dbl4Arr[A <: ElemDbl4] extends Any with DblNArr[A] with Dbl4SeqDef[A]
   def head3: Double = unsafeArray(2)
   def head4: Double = unsafeArray(3)
   final override def length: Int = unsafeArray.length / 4
-  override def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
+  override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /

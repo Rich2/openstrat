@@ -4,7 +4,7 @@ import pParse._
 
 trait TypeStrN extends Any with TypeStr
 { /** Sequence of the names of parameter constituents of this class. */
-  def paramNames: Strings// = Strings(name1, name2)
+  def paramNames: StringArr// = Strings(name1, name2)
 
   /** Number of parameter constituents of this class. */
   def numParams: Int
@@ -24,9 +24,9 @@ trait ShowNT[R] extends ShowCompoundT[R] with ShowT[R]
     }
   }
 
-  def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings
+  def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr
 
-  def strs(obj: R, way: ShowStyle): Strings = strDecs(obj, way, -1)
+  def strs(obj: R, way: ShowStyle): StringArr = strDecs(obj, way, -1)
 
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = strDecs(obj, ShowCommas, maxPlaces).mkStr("; ")
@@ -41,12 +41,12 @@ trait ShowNT[R] extends ShowCompoundT[R] with ShowT[R]
 }
 
 trait ShowShowNT[R <: ShowN] extends ShowNT[R] with ShowShowT[R]
-{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = obj.showElemStrDecs(way, maxPlaces)
+{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr = obj.showElemStrDecs(way, maxPlaces)
 }
 
 trait UnshowN[R] extends Unshow[R] with TypeStrN
 {
-  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints): EMon[R]
+  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: IntArr): EMon[R]
 
   final override def fromExpr(expr: Expr): EMon[R] = expr match
   { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
@@ -57,10 +57,10 @@ trait UnshowN[R] extends Unshow[R] with TypeStrN
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
   final def fromExprSeq(exprs: Arr[Expr]): EMon[R] =
-    if(exprs.length > numParams) Bad(Strings(exprs.length.toString + " parameters for 2 parameter constructor."))
+    if(exprs.length > numParams) Bad(StringArr(exprs.length.toString + " parameters for 2 parameter constructor."))
     else
     {
-      def exprsLoop(i: Int, usedNames: Strings): EMon[R] =
+      def exprsLoop(i: Int, usedNames: StringArr): EMon[R] =
         if (i >= exprs.length)
           if (i >= numParams) fromSortedExprs(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
           else exprsLoop(i + 1, usedNames :+ paramNames.find(u => !usedNames.exists(_ == u)).get)
@@ -71,6 +71,6 @@ trait UnshowN[R] extends Unshow[R] with TypeStrN
           case AsignExprName(name) => exprsLoop(i + 1, usedNames :+ name)
           case _ => exprsLoop(i + 1, usedNames :+ paramNames.find(u => !usedNames.exists(_ == u)).get)
         }
-      exprsLoop(0, Strings())
+      exprsLoop(0, StringArr())
   }
 }

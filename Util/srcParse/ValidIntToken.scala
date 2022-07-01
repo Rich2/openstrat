@@ -75,7 +75,7 @@ trait RawIntDeciToken extends IntStdToken with ValidRawHexaIntToken
   /** gets the natural integer value part from this token interpreting it as a standard Base10 notation. */
   def getAbsoluteIntStd: Int =
   { var acc = 0
-    implicit val chars: Chars = digitsStr.toChars
+    implicit val chars: CharArr = digitsStr.toChars
 
     def loop(rem: CharsOff): Int = rem match
     { case CharsOff0() => acc
@@ -93,7 +93,7 @@ trait RawIntDeciToken extends IntStdToken with ValidRawHexaIntToken
 case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken with RawIntDeciToken with NatStdToken with DigitSeqsCode
 { override def exprName: String = "Decimal"
   override def digitsStr: String = srcStr
-  override def digitSeqs: Strings = Strings(digitsStr)
+  override def digitSeqs: StringArr = StringArr(digitsStr)
   inline override def getIntStd: Int = getAbsoluteIntStd
 
   override def trail: String = ???

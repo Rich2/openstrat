@@ -12,7 +12,7 @@ trait TypeStr3Plus[A1, A2, A3] extends Any with TypeStr2Plus[A1, A2]
 }
 
 trait TypeStr3[A1, A2, A3] extends Any with TypeStr3Plus[A1, A2, A3]
-{ override def paramNames: Strings = Strings(name1, name2, name3)
+{ override def paramNames: StringArr = StringArr(name1, name2, name3)
   override def numParams: Int = 3
 }
 
@@ -44,13 +44,13 @@ trait Show3[A1, A2, A3] extends Any with ShowN with TypeStr3[A1, A2, A3]
   /** The [[ShowT]] type class instance for the 3rd element of this 3 element Show product. */
   def showT3: ShowT[A3]
 
-  override def paramNames: Strings = Strings(name1, name2, name3)
-  override def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr, showT3.typeStr)
+  override def paramNames: StringArr = StringArr(name1, name2, name3)
+  override def elemTypeNames: StringArr = StringArr(showT1.typeStr, showT2.typeStr, showT3.typeStr)
 
-  override def showElemStrs(way: ShowStyle): Strings = Strings(showT1.showT(show1, way), showT2.showT(show2, way), showT3.showT(show3, way))
+  override def showElemStrs(way: ShowStyle): StringArr = StringArr(showT1.showT(show1, way), showT2.showT(show2, way), showT3.showT(show3, way))
 
 
-  override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0),
+  override def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StringArr = StringArr(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0),
     showT3.showDecT(show3, way, decimalPlaces, 0))
 }
 
@@ -90,8 +90,8 @@ object Show3T
 
     override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))) + 1
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings =
-      Strings(ev1.showDecT(fArg1(obj),way, maxPlaces), ev2.showDecT(fArg2(obj),way, maxPlaces), ev3.showDecT(fArg3(obj),way, maxPlaces))
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr =
+      StringArr(ev1.showDecT(fArg1(obj),way, maxPlaces), ev2.showDecT(fArg2(obj),way, maxPlaces), ev3.showDecT(fArg3(obj),way, maxPlaces))
   }
 }
 
@@ -125,7 +125,7 @@ trait Unshow3[A1, A2, A3, R] extends UnshowN[R] with TypeStr3[A1, A2, A3]
   /** Method fpr creating a value of type R from values A1, A2, A3. */
   def newT: (A1, A2, A3) => R
 
-  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints): EMon[R] =
+  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
     val e1: EMon[A1] = ife(len > pSeq(0), ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), ev2.fromSettingOrExpr(name2, sortedExprs(pSeq(1))), opt2.toEMon)
@@ -172,7 +172,7 @@ object Persist3
     val defaultNum = ife3(opt3.isEmpty, 0, opt2.isEmpty, 1, opt1.isEmpty, 2, 3)
     override def syntaxDepthT(obj: R): Int = ???
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = ???
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr = ???
   }
 }
 

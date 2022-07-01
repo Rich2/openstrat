@@ -5,15 +5,15 @@ package ostrat
  * which externally acts on an object of the specified type to create its String representations. For your own types ShowProduct is preferred over
  * [[ShowNT]]. */
 trait ShowN extends Any with ShowDec
-{ /** A [[Strings]] Arr of the element names of this Show Product class. */
-  def paramNames: Strings
+{ /** A [[StringArr]] Arr of the element names of this Show Product class. */
+  def paramNames: StringArr
 
-  /** A [[Strings]] Arr of the element type names of this Show Product class. */
-  def elemTypeNames: Strings
+  /** A [[StringArr]] Arr of the element type names of this Show Product class. */
+  def elemTypeNames: StringArr
 
   override def str: String = show(ShowStandard)
 
-  /** A [[Strings]] Arr collection  of the show methods return values of the elements of this Show Product class. */
+  /** A [[StringArr]] Arr collection  of the show methods return values of the elements of this Show Product class. */
   //def showElemStrs(way: ShowStyle): Strings
 
   def showSemisNames: String =
@@ -37,10 +37,10 @@ trait ShowN extends Any with ShowDec
     }
   }
 
-  /** A [[Strings]] Arr collection  of the show methods return values of the elements of this Show Product class. */
-  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): Strings
+  /** A [[StringArr]] Arr collection  of the show methods return values of the elements of this Show Product class. */
+  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StringArr
 
-  def showElemStrs(way: ShowStyle): Strings = showElemStrDecs(way, -1)
+  def showElemStrs(way: ShowStyle): StringArr = showElemStrDecs(way, -1)
 
   def showSemisNameDecs(maxPlaces: Int = -1, minPlaces: Int = 0): String =
     paramNames.zipMap(showElemStrDecs(ShowStandard, maxPlaces))((n, s) => n + " = " + s).mkStr("; ")

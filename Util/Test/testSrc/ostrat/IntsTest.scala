@@ -4,8 +4,8 @@ import utest._
 
 object IntsTest extends TestSuite
 {
-  val irb0 =Ints(4).removeIndex(0) === Ints()
-  val irb1 =Ints(-5, 2, 40, -89).removeIndex(2) === Ints(-5, 2, -89)
+  val irb0 =IntArr(4).removeIndex(0) === IntArr()
+  val irb1 =IntArr(-5, 2, 40, -89).removeIndex(2) === IntArr(-5, 2, -89)
 
   val tests = Tests {
     test("Remove") {

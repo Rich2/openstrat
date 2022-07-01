@@ -197,8 +197,8 @@ class StringImplicit(val thisString: String) extends AnyVal
     }
   }
   
-  /** Converts this String to an immutable Array based collection of [[Chars]]. */
-  def toChars: Chars = new Chars(thisString.toCharArray)
+  /** Converts this String to an immutable Array based collection of [[CharArr]]. */
+  def toChars: CharArr = new CharArr(thisString.toCharArray)
   
   /** Replaces the reserved HTML characters with their corresponding entities, in order to display XML code as text. Eg '>' is replaced by "&gt;". */
   def htmlReservedSubstitute: String = toChars.foldLeft(""){ (acc, el) => acc + el.htmlReservedSubstituion }

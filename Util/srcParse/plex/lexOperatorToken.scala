@@ -5,7 +5,7 @@ package ostrat; package pParse; package plex
 object lexOperatorToken
 {
   /** Not sure if this is fully fixed. Parses an operator. Operators can have multiple charachters in RSON. */
-  def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
+  def apply(remOff: CharsOff, tp: TextPosn)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, Token] =
   {
     var acc: String = ""
     def loop(remOff: CharsOff, tp: TextPosn): EMon3[CharsOff, TextPosn, Token] = remOff match

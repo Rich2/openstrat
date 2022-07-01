@@ -5,7 +5,7 @@ package ostrat; package pParse; package plex
  * parsed with this function object. Raw hex and trigdual numbers can be encoded as alpha numeric identity tokens. */
 object lexRawNumberToken
 {
-  def apply(rem: CharsOff, tp: TextPosn, str:String, isNeg: Boolean)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =  rem match
+  def apply(rem: CharsOff, tp: TextPosn, str:String, isNeg: Boolean)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, Token] =  rem match
   { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, str + d.toString, isNeg)
     case CharsOff2Tail('.', d, tail) if d.isDigit => parseDeciFrac(tail, tp, str, d.toString, isNeg)
     case CharsOff1Tail(HexaUpperChar(l), tail) => parseHexaToken(tail, tp, str + l.toString, isNeg)
@@ -18,7 +18,7 @@ object lexRawNumberToken
 
 object parseHexaToken
 {
-  def apply(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] = rem match
+  def apply(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, Token] = rem match
   { case CharsOff1Tail(d, tail) if d.isDigit | (d <= 'F' && d >= 'A') => parseHexaToken(tail, tp, str + d.toString, isNeg)
     case CharsOff1Tail(l, tail) if (l <= 'G' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, l.toString, isNeg)
     case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed raw hexadecimal token.")
@@ -29,7 +29,7 @@ object parseHexaToken
 
 object parseBase32
 {
-  def apply(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, ValidRawBase32IntToken]= rem match
+  def apply(rem: CharsOff, tp: TextPosn, str: String, isNeg: Boolean)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, ValidRawBase32IntToken]= rem match
   { case CharsOff1Tail(l, tail) if l.isDigit | (l <= 'A' && l >= 'G') | (l <= 'W' && l >= 'P') => parseBase32(tail, tp, l.toString, isNeg)
     case CharsOffHead(LetterOrUnderscoreChar(l)) => tp.bad3("Badly formed raw Base 32 token.")
     case _ if isNeg => Good3(rem, tp.addStr(str), RawBase32NegToken(tp, str))
@@ -39,7 +39,7 @@ object parseBase32
 
 object parseDeciFrac
 {
-  def apply (rem: CharsOff, tp: TextPosn, seq1: String, seq2: String, isNeg: Boolean)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] = rem match
+  def apply (rem: CharsOff, tp: TextPosn, seq1: String, seq2: String, isNeg: Boolean)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, Token] = rem match
   { case CharsOff1Tail(d, tail) if d.isDigit => apply(tail, tp, seq1, seq2 + d.toString, isNeg)
     case _ => {
       val token = ife(isNeg, DeciFracNegToken(tp, seq1, seq2, ""), DeciFracPosToken(tp, seq1, seq2, ""))

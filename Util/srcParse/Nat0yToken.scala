@@ -14,7 +14,7 @@ case class Nat0yToken(startPosn: TextPosn, digitsStr: String) extends IntStdToke
 object Nat0yToken
 {
   /** Function for parsing explicit Hexadecimal Token, one that begins with the charchters '0y'. */
-  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: Chars): EMon3[CharsOff, TextPosn, Token] =
+  def parse(rem: CharsOff, tp: TextPosn)(implicit charArr: CharArr): EMon3[CharsOff, TextPosn, Token] =
   {
     def loop(rem: CharsOff, strAcc: String): EMon3[CharsOff, TextPosn, Nat0yToken] = rem match
     { case CharsOff0() => Good3(rem, tp.right(strAcc.length + 2), Nat0yToken(tp, strAcc))

@@ -3,32 +3,32 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Long]]s. */
-class Longs(val unsafeArray: Array[Long]) extends AnyVal with SeqImut[Long]
-{ type ThisT = Longs
+class LongArr(val unsafeArray: Array[Long]) extends AnyVal with SeqImut[Long]
+{ type ThisT = LongArr
 
   /** Copy's the backing Array[[Long]] to a new Array[char]. End users should rarely have to use this method. */
   def unsafeArrayCopy(operand: Array[Long], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
 
   override def typeStr: String = "Longs"
-  override def unsafeSameSize(length: Int): Longs = new Longs(new Array[Long](length))
+  override def unsafeSameSize(length: Int): LongArr = new LongArr(new Array[Long](length))
   override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
   override def sdIndex(index: Int): Long = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeArray(i) = value
   override def fElemStr: Long => String = _.toString
 
-  def ++ (op: Longs): Longs =
+  def ++ (op: LongArr): LongArr =
   { val newArray = new Array[Long](sdLength + op.sdLength)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, sdLength)
-    new Longs(newArray)
+    new LongArr(newArray)
   }
 }
 
-object Longs
-{ def apply(input: Long*): Longs = new Longs(input.toArray)
+object LongArr
+{ def apply(input: Long*): LongArr = new LongArr(input.toArray)
 
-  implicit val EqImplicit: EqT[Longs] = (a1, a2) =>
+  implicit val EqImplicit: EqT[LongArr] = (a1, a2) =>
     if(a1.sdLength != a2.sdLength) false
     else
     { var i = 0
@@ -38,14 +38,14 @@ object Longs
     }
 }
 
-object LongsBuild extends ArrBuilder[Long, Longs] with ArrFlatBuilder[Longs]
+object LongsBuild extends ArrBuilder[Long, LongArr] with ArrFlatBuilder[LongArr]
 { type BuffT = LongsBuff
-  override def newArr(length: Int): Longs = new Longs(new Array[Long](length))
-  override def arrSet(arr: Longs, index: Int, value: Long): Unit = arr.unsafeArray(index) = value
+  override def newArr(length: Int): LongArr = new LongArr(new Array[Long](length))
+  override def arrSet(arr: LongArr, index: Int, value: Long): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): LongsBuff = new LongsBuff(new ArrayBuffer[Long](length))
   override def buffGrow(buff: LongsBuff, value: Long): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: LongsBuff, arr: Longs): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
-  override def buffToBB(buff: LongsBuff): Longs = new Longs(buff.unsafeBuffer.toArray)
+  override def buffGrowArr(buff: LongsBuff, arr: LongArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: LongsBuff): LongArr = new LongArr(buff.unsafeBuffer.toArray)
 }
 
 class LongsBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with SeqGen[Long]

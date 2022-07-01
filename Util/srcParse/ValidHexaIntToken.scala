@@ -6,7 +6,7 @@ trait ValidHexaIntToken extends ValidIntToken
 {
   def asHexaInt: Int =
   { var acc = 0
-    implicit val chars: Chars = digitsStr.toChars
+    implicit val chars: CharArr = digitsStr.toChars
 
     def loop(rem: CharsOff): Int = rem match
     { case CharsOff0() => acc

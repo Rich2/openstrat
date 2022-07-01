@@ -17,7 +17,7 @@ object PersistTest extends TestSuite
   object TestObjA extends TestClass("TestObjA")
   object TestObjB extends TestClass("TestObjB")
   
-  case class My2(ints: Ints, myStr: String)
+  case class My2(ints: IntArr, myStr: String)
  
   object My2
   { //implicit val persist: Unshow[My2] = Persist2[Ints, String, My2]("My2", "ints", _.ints, "myStr", _.myStr, apply)
@@ -31,7 +31,7 @@ object PersistTest extends TestSuite
     val abSeq = Seq(TestObjA, TestObjB)
     val abRefs = Arr(TestObjA, TestObjB)
     val sStr = "Seq[TestClass](TestObjA; TestObjB)"
-    val mc = My2(Ints(7, 8, 9), "hi")
+    val mc = My2(IntArr(7, 8, 9), "hi")
     
     "Show Other" -
     {

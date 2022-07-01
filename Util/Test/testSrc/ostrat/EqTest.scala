@@ -12,7 +12,7 @@ object EqTest extends TestSuite
       assert(d1 * 3 === 1.0 )
       assert(List(4, 5) === List(4, 5))
       assert(List(6, -10, 2) === List(6, -10, 2))
-      assert(Ints(3,4,5) !==( Ints(3,4,5,6)))
+      assert(IntArr(3,4,5) !==( IntArr(3,4,5,6)))
       assert(Array(-2, -68, 45) === Array(-2, -68, 45))
     }
 

@@ -39,7 +39,7 @@ trait Dbl6Arr[A <: ElemDbl6] extends Any with DblNArr[A] with Dbl6SeqDef[A]
   def head1: Double = unsafeArray(0); def head2: Double = unsafeArray(1); def head3: Double = unsafeArray(2); def head4: Double = unsafeArray(3)
   def head5: Double = unsafeArray(4); def head6: Double = unsafeArray(5)
 
-  def foreachArr(f: Dbls => Unit): Unit = foreach(el => f(Dbls(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6)))
+  def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6)))
 }
 
 /** Helper class for companion objects of final [[Dbl6SeqDef]] classes. */

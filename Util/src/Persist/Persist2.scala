@@ -21,7 +21,7 @@ trait TypeStr2Plus[A1, A2] extends Any with TypeStrN
 /** A base trait for [[Show2]] and [[UnShow2]]. It is not a base trait for  [[Show2T]], as [[ShowShow2T]] classes do not need this data, as they can
  *  delegate to the [[Show2]] object to implement their interfaces. */
 trait TypeStr2[A1, A2] extends Any with TypeStr2Plus[A1, A2]
-{ override def paramNames: Strings = Strings(name1, name2)
+{ override def paramNames: StringArr = StringArr(name1, name2)
   override def numParams: Int = 2
 }
 
@@ -50,9 +50,9 @@ trait Show2[A1, A2] extends Any with ShowN with TypeStr2[A1, A2]
   /** The ShowT type class instance for the 2nd element of this 2 element product. */
   def showT2: ShowT[A2]
 
-  override def paramNames: Strings = Strings(name1, name2)
-  def elemTypeNames: Strings = Strings(showT1.typeStr, showT2.typeStr)
-  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): Strings = Strings(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0))
+  override def paramNames: StringArr = StringArr(name1, name2)
+  def elemTypeNames: StringArr = StringArr(showT1.typeStr, showT2.typeStr)
+  def showElemStrDecs(way: ShowStyle, decimalPlaces: Int): StringArr = StringArr(showT1.showDecT(show1, way, decimalPlaces, 0), showT2.showDecT(show2, way, decimalPlaces, 0))
 
   def el1Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT1.showDecT(show1, style, maxPlaces, maxPlaces): String
   def el2Show(style: ShowStyle = ShowStandard, maxPlaces: Int = -1): String = showT2.showDecT(show2, style, maxPlaces, maxPlaces): String
@@ -109,8 +109,8 @@ object Show2T
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
     override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))) + 1
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings =
-      Strings(ev1.showDecT(fArg1(obj), way, maxPlaces, 0), ev2.showDecT(fArg2(obj), way, maxPlaces, 0))
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr =
+      StringArr(ev1.showDecT(fArg1(obj), way, maxPlaces, 0), ev2.showDecT(fArg2(obj), way, maxPlaces, 0))
   }
 }
 
@@ -123,7 +123,7 @@ class Show2TExtensions[A1, A2, -T](ev: Show2T[A1, A2, T], thisVal: T)
 
 /** Type class trait for Showing [[Show2]] objects. */
 trait ShowShow2T[A1, A2, R <: Show2[A1, A2]] extends Show2T[A1, A2, R] with ShowShowT[R]
-{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = obj.showElemStrDecs(way, maxPlaces)
+{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr = obj.showElemStrDecs(way, maxPlaces)
   override def fArg1: R => A1 = _.show1
   override def fArg2: R => A2 = _.show2
 }
@@ -178,7 +178,7 @@ trait Unshow2[A1, A2, R] extends UnshowN[R] with TypeStr2[A1, A2]
 
   def newT: (A1, A2) => R
 
-  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: Ints): EMon[R] =
+  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: IntArr): EMon[R] =
   { val len: Int = sortedExprs.length
     val r0: EMon[A1] = ife(len > pSeq(0), ev1.fromSettingOrExpr(name1, sortedExprs(pSeq(0))), opt1.toEMon)
     def e2: EMon[A2] = ife(len > pSeq(1), ev2.fromSettingOrExpr(name2,sortedExprs(pSeq(1))), opt2.toEMon)
@@ -214,7 +214,7 @@ object Persist2
     val opt2: Option[A2] = None, opt1In: Option[A1] = None)(implicit val ev1: Persist[A1], val ev2: Persist[A2]) extends Persist2[A1, A2, R]
   { val opt1: Option[A1] = ife(opt2.nonEmpty, opt1In, None)
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): Strings = ???
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr = ???
 
     /** Simple values such as Int, String, Double have a syntax depth of one. A Tuple3[String, Int, Double] has a depth of 2. Not clear whether this
      * should always be determined at compile time or if sometimes it should be determined at runtime. */

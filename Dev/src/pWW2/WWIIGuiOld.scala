@@ -22,7 +22,7 @@ case class WWIIGuiOld(canv: CanvasPlatform, scen: WWIIScenOld, startScale: Optio
       val textOrUnit: GraphicElems = ifScaleCObjs(110, tile.lunits match
         { case s if tScale > 68 & s.nonEmpty => Arr(UnitCounters.infantry(32, s.head, s.head.colour,tile.colour).slate(cen))
           case _ =>
-          { val strs: Strings = Strings(cood.base32, cenLL.degStr, cood.yxStr)
+          { val strs: StringArr = StringArr(cood.base32, cenLL.degStr, cood.yxStr)
             TextGraphic.lines(strs, 10, cen, colour.contrastBW)
           }
         }

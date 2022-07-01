@@ -10,7 +10,7 @@ final class Angles(val unsafeArray: Array[Double]) extends AnyVal with Dbl1Arr[A
   override def fElemStr: Angle => String = _.toString
 
   /** Not sure about this method. */
-  override def foreachArr(f: Dbls => Unit): Unit = ???
+  override def foreachArr(f: DblArr => Unit): Unit = ???
 }
 
 /** Companion object for [[Angles]] class. */

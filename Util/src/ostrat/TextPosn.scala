@@ -30,11 +30,11 @@ object TextPosn
   implicit class TextPosnImplicit(thisTP: TextPosn)
   {
     def parseErr(detail: String): String = thisTP.fileName -- thisTP.lineNum.toString + ", " + thisTP.linePosn.toString + ": " + detail
-    def bad[A](message: String): Bad[A] = new Bad[A](Strings(parseErr(message)))
-    def notImplemented[A] = new Bad[A](Strings(parseErr("Not implemented.")))
-    def bad2[A1, A2](message: String): Bad2[A1, A2] = new Bad2[A1, A2](Strings(parseErr(message)))
-    def bad3[A1, A2, A3](message: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](Strings(parseErr(message)))
-    def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](Strings(parseErr("Not implemented.")))
+    def bad[A](message: String): Bad[A] = new Bad[A](StringArr(parseErr(message)))
+    def notImplemented[A] = new Bad[A](StringArr(parseErr("Not implemented.")))
+    def bad2[A1, A2](message: String): Bad2[A1, A2] = new Bad2[A1, A2](StringArr(parseErr(message)))
+    def bad3[A1, A2, A3](message: String): Bad3[A1, A2, A3] = new Bad3[A1, A2, A3](StringArr(parseErr(message)))
+    def notImplemented3[A1, A2, A3] = new Bad3[A1, A2, A3](StringArr(parseErr("Not implemented.")))
   }
   
   implicit val TextPosnShow: Show3T[String, Int, Int, TextPosn] = Show3T[String, Int, Int, TextPosn](
