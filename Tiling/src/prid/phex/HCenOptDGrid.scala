@@ -27,7 +27,7 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   /** Mutates the value ot the specified location to None. */
   def unsafeSetNone(hc: HCen)(implicit grider: HGridSys): Unit = unsafeArr(grider.arrIndex(hc)) = null.asInstanceOf[A]
 
-  def unsafeSetAll(value: A): Unit = iUntilForeach(0, length)(unsafeArr(_) = value)
+  def unsafeSetAll(value: A): Unit = iUntilForeach(length)(unsafeArr(_) = value)
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
   def setSome(hc: HCen, value: A)(implicit grider: HGridSys): HCenOptDGrid[A] =

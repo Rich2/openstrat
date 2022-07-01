@@ -44,7 +44,7 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
   { val n2 = n.max0
     val newLen: Int = (sdLength - n2).max0
     val newArray = new Array[A](newLen)
-    iUntilForeach(0, newLen)(i => newArray(i) = unsafeArray(i + n2))
+    iUntilForeach(newLen)(i => newArray(i) = unsafeArray(i + n2))
     new Arr(newArray)
   }
 
@@ -53,7 +53,7 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
   { val n2 = n.max0
     val newLen: Int = (sdLength - n2).max0
     val newArray = new Array[A](newLen)
-    iUntilForeach(0, newLen)(i => newArray(i) = unsafeArray(i))
+    iUntilForeach(newLen)(i => newArray(i) = unsafeArray(i))
     new Arr(newArray)
   }
 

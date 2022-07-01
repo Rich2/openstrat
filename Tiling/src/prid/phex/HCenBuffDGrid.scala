@@ -20,7 +20,7 @@ object HCenBuffDGrid
 { /** Apply factory method, creates a new [[HCenBuffDGrid]] a hex grid Arr of ArrayBuffers, all of length 0. */
   def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenBuffDGrid[A] =
   { val array = new Array[ArrayBuffer[A]](length)
-    iUntilForeach(0, array.length)(array(_) = new ArrayBuffer[A])
+    iUntilForeach(array.length)(array(_) = new ArrayBuffer[A])
     new HCenBuffDGrid[A](array)
   }
 }

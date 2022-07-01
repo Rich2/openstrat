@@ -8,7 +8,7 @@ object Grids320S0E1 extends EGrid320WarmMulti
   override val grids: Arr[EGridWarm] = Arr(EGrid320.e0(), EGrid320.e30())
   override def headGridInt: Int = 0
   override def cGridDelta: Double = 40
-  override val gridMans: Arr[EGridWarmMan] = iToMap(0, 1)(EGridWarmMan(_, ThisSys))
+  override val gridMans: Arr[EGridWarmMan] = iToMap(1)(EGridWarmMan(_, ThisSys))
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
@@ -24,7 +24,7 @@ object Grids320S0E2 extends EGrid320WarmMulti
 { override val grids: Arr[EGridWarm] = Arr(EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
   override def headGridInt: Int = 0
   override def cGridDelta: Double = 40
-  override val gridMans: Arr[EGridWarmMan] = iToMap(0, 2)(EGridWarmMan(_, this))
+  override val gridMans: Arr[EGridWarmMan] = iToMap(2)(EGridWarmMan(_, this))
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
@@ -40,7 +40,7 @@ object Grids320S11E2 extends EGrid320WarmMulti
 { ThisSys =>
   override def cGridDelta: Double = 40
   override val grids: Arr[EGridWarm] = Arr(EGrid320.w30(), EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
-  override val gridMans: Arr[EGridWarmMan] = iToMap(0, 3)(EGridWarmMan(_, ThisSys))
+  override val gridMans: Arr[EGridWarmMan] = iToMap(3)(EGridWarmMan(_, ThisSys))
   override def headGridInt: Int = 11
 }
 
@@ -58,7 +58,7 @@ object Grids320S10E5 extends EGrid320WarmMulti
 
   override def cGridDelta: Double = 40
   override val grids: Arr[EGridWarm] = Arr(EGrid320.w60(), EGrid320.w30(), EGrid320.e0(), EGrid320.e30(), EGrid320.e60(), EGrid320.e90(), EGrid320.e120(), EGrid320.e150())
-  override val gridMans: Arr[EGridWarmMan] = iToMap(0, 7)(EGridWarmMan(_, ThisSys))
+  override val gridMans: Arr[EGridWarmMan] = iToMap(7)(EGridWarmMan(_, ThisSys))
 
   override def headGridInt: Int = 10
 }
@@ -73,8 +73,8 @@ object Scen320S10E5 extends EScenWarmMulti
 object Grids320S0E11 extends EGrid320WarmMulti
 { ThisSys =>
   override def cGridDelta: Double = 40
-  override val grids: Arr[EGridWarm] = iUntilMap(0, 12)(EGrid320Warm(138, 160, _))
-  override val gridMans: Arr[EGridWarmMan] = iUntilMap(0, 12)(EGridWarmMan(_, ThisSys))
+  override val grids: Arr[EGridWarm] = iUntilMap(12)(EGrid320Warm(138, 160, _))
+  override val gridMans: Arr[EGridWarmMan] = iUntilMap(12)(EGridWarmMan(_, ThisSys))
   override def headGridInt: Int = 0
 }
 

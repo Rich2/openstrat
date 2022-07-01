@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver, w0d. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFlags
 import geom._, Colour._
 
@@ -26,7 +26,7 @@ trait Flag
        - i.toDouble / colours.length).fill(colour) }
 
   /** Equal height horizontal bands. width ratio should normally be greater than 1.0 */
-  def topToBottomRepeat(numBands: Int, colours: Colour*): GraphicElems = iUntilMap(0, numBands){ i =>
+  def topToBottomRepeat(numBands: Int, colours: Colour*): GraphicElems = iUntilMap(numBands){ i =>
     val r1 = Rect.tl(ratio, 1.0 / numBands, -ratio / 2 pp + 0.5)
     val r2 = r1.slateXY(0, - i.toDouble / numBands)
     r2.fill(colours(i %% colours.length))
@@ -176,9 +176,9 @@ object India extends Flag
     BezierTail(-0.75 pp 0.4867, -0.754 pp 0.4533, -0.754 pp 0.4533), LineTail(-0.75 pp 0.3833),
     LineTail(-0.75 pp 0.3833)).slateXY(0.75, -0.5).fill(Colour(0xFF000080))
     
-    val spokes = iToMap(0,23){i => spoke.rotate(Deg30/2*i)}
+    val spokes = iToMap(23){i => spoke.rotate(Deg30/2*i)}
     val rimNotch = Circle(0.875/75, 0, -17.5/150).rotate(Deg30/4).fill(Colour(0xFF000080))
-    val rimNotches = iToMap(0,23){i => rimNotch.rotate(Deg30/2*i)}
+    val rimNotches = iToMap(23){i => rimNotch.rotate(Deg30/2*i)}
     val outerCircle = Circle(20.0/75).fill(Colour(0xFF000080))
     val middleCircle = Circle(17.5/75).fill(Colour(0xFFFFFFFF))
     val innerCircle = Circle(3.5/75).fill(Colour(0xFF000080))

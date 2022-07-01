@@ -30,10 +30,10 @@ trait DblNSeqDef[A <: ElemDblN] extends Any with ValueNSeqDef[A] with ArrayDblBa
   /** Reverses the order of the elements in a new Array[Double] which is returned. */
   def unsafeReverseArray: Array[Double] = {
     val res = new Array[Double](arrLen)
-    iUntilForeach(0, sdLength){ i =>
+    iUntilForeach(sdLength){ i =>
       val origIndex = i * elemProdSize
       val resIndex = (sdLength - i - 1) * elemProdSize
-      iUntilForeach(0, elemProdSize){j => res(resIndex + j) = unsafeArray(origIndex + j) }
+      iUntilForeach(elemProdSize){j => res(resIndex + j) = unsafeArray(origIndex + j) }
     }
     res
   }

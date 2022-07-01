@@ -61,7 +61,7 @@ class CharsOff(val offset0: Int) extends AnyVal with ArrBaseOff[Char, Chars]
       else continue = false
     }
     val newArray: Array[Char] = new Array[Char](count)
-    iUntilForeach(0, count){i =>
+    iUntilForeach(count){i =>
       newArray(i) = array(offset0 + i)}
     (new Chars(newArray), drop(count))
   }

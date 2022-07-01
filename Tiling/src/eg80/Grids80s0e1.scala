@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import prid._, phex._, egrid._, pEarth._
+import prid._, phex._, egrid._
 
 object Grids80s0e1 extends EGrid80WarmMulti
 { ThisSys =>
@@ -8,7 +8,7 @@ object Grids80s0e1 extends EGrid80WarmMulti
   override def cGridDelta: Double = 40
   override val grids: Arr[EGridWarm] = Arr(EGrid80.l0b446, EGrid80.l30b446)
   override def headGridInt: Int = 0
-  override val gridMans: Arr[EGridWarmMan] = iToMap(0, 1)(EGridWarmMan(_, ThisSys))
+  override val gridMans: Arr[EGridWarmMan] = iToMap(1)(EGridWarmMan(_, ThisSys))
 
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 

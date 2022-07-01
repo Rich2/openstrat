@@ -5,7 +5,7 @@ import ostrat._, geom._, pgui._, Colour._
 /** This is a temporary lesson: whilst Arcs get fixed. */
 case class CArcExs(canv: CanvasPlatform) extends CanvasNoPanels("Arc Test")
 {
-  val myStuff: GraphicElems = iToFlatMap(0, 374) { index =>
+  val myStuff: GraphicElems = iToFlatMap(374) { index =>
     val x = -600 + (index % 25) * 50
     val y = 325 - (index / 25) * 45
 

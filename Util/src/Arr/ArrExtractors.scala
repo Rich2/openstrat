@@ -149,7 +149,7 @@ class ArrOff[A](val offset0: Int) extends AnyVal with ArrBaseOff[A, Arr[A]]
       else continue = false
     }
     val newArray: Array[A] = new Array[A](count)
-    iUntilForeach(0, count){i =>
+    iUntilForeach(count){i =>
       newArray(i) = arr(offset0 + i)}
     (new Arr(newArray), drop(count))
   }

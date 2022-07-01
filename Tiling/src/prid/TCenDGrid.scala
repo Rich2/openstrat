@@ -10,7 +10,7 @@ trait TCenDGrid[A <: AnyRef] extends Any with RefsImutSeqDef[A]
   final def length: Int = unsafeArray.length
 
   /** Set all tiles to the given value. */
-  final def mutSetAll(value: A): Unit = iUntilForeach(0, length){i => unsafeArray(i) = value }
+  final def mutSetAll(value: A): Unit = iUntilForeach(length){i => unsafeArray(i) = value }
 
   /** For each element in the underlying array performs the side effecting function. This method treats the [[TCenDGrid]] class like a standard Arr
    *  or Array. It does not utilise the grid [[TGrid]] from which this [[TCenDGrid]] was created. */

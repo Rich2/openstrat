@@ -22,7 +22,7 @@ trait SeqImut[+A] extends Any with SeqGen[A] with ImutSeqDef[A]
   { case -1 => returnThis
     case n =>
     { val newArr = unsafeSameSize(sdLength - 1)
-      iUntilForeach(0, n)(i => newArr.unsafeSetElem(i, apply(i)))
+      iUntilForeach(n)(i => newArr.unsafeSetElem(i, apply(i)))
       iUntilForeach(n + 1, sdLength)(i => newArr.unsafeSetElem(i - 1, apply(i)))
       newArr
     }

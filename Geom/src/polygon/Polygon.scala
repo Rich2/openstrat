@@ -103,7 +103,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
 
   def dropVert(v: Int): Polygon = {
     val res = PolygonGen.uninitialised(vertsNum - 1)
-    iUntilForeach(0, v){i => res.unsafeSetElem(i, vert(i)) }
+    iUntilForeach(v){i => res.unsafeSetElem(i, vert(i)) }
     iUntilForeach(v + 1, vertsNum){i => res.unsafeSetElem(i - 1, vert(i)) }
     res
   }
@@ -299,7 +299,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =
   { val res = PolygonGen.uninitialised(vertsNum + 1)
-    iUntilForeach(0,insertionPoint - 1){ i => res.unsafeSetElem(i, vert(i)) }
+    iUntilForeach(insertionPoint - 1){ i => res.unsafeSetElem(i, vert(i)) }
     res.unsafeSetElem(insertionPoint, newVec)
     iUntilForeach(insertionPoint, vertsNum){ i => res.unsafeSetElem(i + 1, vert(i)) }
     res
@@ -308,9 +308,9 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   /** Insert vertices before the specified insertion vertex. */
   def insVerts(insertionPoint: Int, newVecs: Pt2 *): Polygon =
   { val res = PolygonGen.uninitialised(vertsNum + newVecs.length)
-    iUntilForeach(0, insertionPoint){ i => res.unsafeSetElem(i, vert(i)) }
+    iUntilForeach(insertionPoint){ i => res.unsafeSetElem(i, vert(i)) }
     newVecs.iForeach((i, elem) => res.unsafeSetElem(insertionPoint + i, elem))
-    iUntilForeach(insertionPoint,vertsNum){ i => res.unsafeSetElem(i + newVecs.length, vert(i)) }
+    iUntilForeach(insertionPoint, vertsNum){ i => res.unsafeSetElem(i + newVecs.length, vert(i)) }
     res
   }
 

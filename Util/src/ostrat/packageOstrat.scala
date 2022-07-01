@@ -149,10 +149,20 @@ package object ostrat
     while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
   }
 
+  /** foreachs over a range of integers from 0 to the given parameter in steps of 1. Throws on non termination. */
+  def iToForeach(iTo: Int)(f: Int => Unit): Unit =
+  { var i: Int = 0
+    while(i <= iTo) { f(i); i += 1 }
+  }
+
   /** foreachs over a range of integers from parameter 1 until parameter 2 (while index is less than) in steps of parameter 3. Throws on non
    *  termination. */
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit =
     iToForeach(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
+
+  /** foreachs over a range of integers from 0 until the parameter in steps of 1. Throws on non termination. */
+  def iUntilForeach(iUntil: Int)(f: Int => Unit): Unit =
+    iToForeach(iUntil - 1)(f)
 
   /** maps over a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps.
    *  Default step value is 1. */
@@ -164,20 +174,47 @@ package object ostrat
     res
   }
 
+  /** maps over a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps.
+   *  Default step value is 1. */
+  def iToMap[A, AA <: SeqImut[A]](iTo: Int)(f: Int => A)(implicit ev: ArrBuilder[A, AA]): AA =
+  { val iLen = (iTo + 1).max(0)
+    val res: AA = ev.newArr(iLen)
+    var index = 0
+    iToForeach(iTo){ count => ev.arrSet(res, index, f(count)); index += 1  }
+    res
+  }
+
   /** Maps a range of Ints to an ArrImut[A]. From the start value until (while index is less than) the end value in integer steps. Default step value
    *  is 1. Throws on non termination. */
   def iUntilMap[A, AA <: SeqImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuilder[A, AA]): AA =
     iToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
 
+  /** Maps a range of Ints to an ArrImut[A]. From the start value until (while index is less than) the end value in integer steps. Default step value
+   *  is 1. Throws on non termination. */
+  def iUntilMap[A, AA <: SeqImut[A]](iUntil: Int)(f: Int => A)(implicit ev: ArrBuilder[A, AA]): AA =
+    iToMap[A, AA](iUntil - 1)(f)
+
   /** flatMaps over a range of Ints to an ArrBase[A]. From the start value until (while index is less than) the end value in integer steps.
    *  Default step value is 1. Throws on non termination. */
-  def iUntilFlatMap[AA <: SeqImut[_]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA = iUntilFlatMap[AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
+  //def iUntilFlatMap[AA <: SeqImut[_]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA = iUntilFlatMap[AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
+
+  /** flatMaps over a range of Ints to an ArrBase[A]. From the start value until (while index is less than) the end value in integer steps.
+   *  Default step value is 1. Throws on non termination. */
+  //def iUntilFlatMap[AA <: SeqImut[_]](iUntil: Int)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA = iUntilFlatMap[AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
 
   /** flatMaps over a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps.
    *  Default step value is 1. Throws on non termination. */
   def iToFlatMap[AA <: SeqImut[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iFrom, iTo, iStep){ i => ev.buffGrowArr(buff, f(i)) }
+    ev.buffToBB(buff)
+  }
+
+  /** flatMaps over a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps.
+   *  Default step value is 1. Throws on non termination. */
+  def iToFlatMap[AA <: SeqImut[_]](iTo: Int)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA =
+  { val buff = ev.newBuff()
+    iToForeach(iTo){ i => ev.buffGrowArr(buff, f(i)) }
     ev.buffToBB(buff)
   }
 
@@ -269,7 +306,7 @@ package object ostrat
   /** 2 dimensional map function.  i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
    * From the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */
   def ijkToMap[A, AA <: SeqImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(kFrom: Int, kTo: Int, kStep: Int = 1)
-                                   (f: (Int, Int, Int) => A)(implicit ev: ArrBuilder[A, AA]): AA =
+    (f: (Int, Int, Int) => A)(implicit ev: ArrBuilder[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val kLen = (kTo - kFrom + kStep).max(0) / jStep

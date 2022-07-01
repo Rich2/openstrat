@@ -25,7 +25,7 @@ object EGrid320WarmMulti
       case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid320Warm(rBottomCen, rTopCen, i))
       case sl => {
         val len = endLong - startLong + 13
-        iUntilMap(0, len)(i => EGrid320Warm(rBottomCen, rTopCen, (i + startLong) %% 12))
+        iUntilMap(len)(i => EGrid320Warm(rBottomCen, rTopCen, (i + startLong) %% 12))
       }
     }
 

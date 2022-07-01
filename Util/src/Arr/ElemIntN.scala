@@ -29,7 +29,7 @@ trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A]
 
   def tail: ThisT = {
     val newArray = new Array[Int](arrLen - elemProdSize)
-    iUntilForeach(0, arrLen - elemProdSize){i => newArray(i) = unsafeArray(i + elemProdSize) }
+    iUntilForeach(arrLen - elemProdSize){i => newArray(i) = unsafeArray(i + elemProdSize) }
     fromArray(newArray)
   }
 }

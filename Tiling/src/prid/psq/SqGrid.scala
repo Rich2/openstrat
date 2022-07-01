@@ -60,7 +60,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
 
   def rowIForeach(r: Int, startCount: Int)(f: (SqCen, Int) => Unit): Int =
   { var count = startCount
-    iUntilForeach(0, tileRowLen) { deltaC =>
+    iUntilForeach(tileRowLen) { deltaC =>
       f(SqCen(r, leftCenC + deltaC * 2), count)
       count += 1
     }

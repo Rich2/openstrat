@@ -133,7 +133,7 @@ object HGridIrr
   { val array = new Array[Int](cLenMins.length * 2)
     val len = cLenMins.length
     val rMin = rMax - (len - 1) * 2
-    iUntilForeach(0, len){ i =>
+    iUntilForeach(len){ i =>
       val (rLen, cMin) = cLenMins(len - 1 - i)
       array(i * 2) = rLen
       array(i * 2 + 1) = cMin

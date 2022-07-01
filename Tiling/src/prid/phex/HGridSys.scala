@@ -158,7 +158,7 @@ trait HGridSys extends Any with TGridSys
   final def newHCenArrDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrDGrid[A] =
   { val newArray = new Array[Array[A]](numTiles)
     val init: Array[A] = Array()
-    iUntilForeach(0, numTiles)(newArray(_) = init)
+    iUntilForeach(numTiles)(newArray(_) = init)
     new HCenArrDGrid[A](newArray)
   }
 

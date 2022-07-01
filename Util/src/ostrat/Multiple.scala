@@ -30,7 +30,7 @@ case class Multiple[+A](value: A, num: Int)
 
   def toArr[ArrA <: SeqImut[A]@uncheckedVariance](implicit build: ArrBuilder[A, ArrA]@uncheckedVariance): ArrA =
   { val res: ArrA = build.newArr(num)
-    iUntilForeach(0, num){i => res.unsafeSetElem(i, value)}
+    iUntilForeach(num){i => res.unsafeSetElem(i, value)}
     res
   }
 }
@@ -55,7 +55,7 @@ object Multiple
       val len: Int = thisSeq.sumBy(_.num)
       val res = build.newArr(len)
       var i = 0
-      thisSeq.foreach(m => iUntilForeach(0, m.num){j =>
+      thisSeq.foreach(m => iUntilForeach(m.num){j =>
         res.unsafeSetElem(i, m.value)
         i += 1
       })

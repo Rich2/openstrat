@@ -53,7 +53,7 @@ final class Ints(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
   /** Removes the Int element at the given index, will throw exception if out of range. */
   def removeIndex(index: Int): Ints =
   { val newArray = new Array[Int](length - 1)
-    iUntilForeach(0, index){i => newArray(i) = apply(i) }
+    iUntilForeach(index){i => newArray(i) = apply(i) }
     iUntilForeach(index + 1, length){i => newArray(i - 1) = apply(i) }
     new Ints(newArray)
   }
