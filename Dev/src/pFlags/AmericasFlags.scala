@@ -1,6 +1,5 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat
-package pFlags
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pFlags
 import geom._, Colour._
 
 object UnitedStates extends Flag
