@@ -285,7 +285,10 @@ package object ostrat
   /** Folds over a range of Ints to an Int adding the return [[Int]] value to the accumulator. From the start value until (while index is less than)
    *  the end value in integer steps. Default step value is 1. */
   def iUntilIntSum(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: Int => Int): Int =
-    iToIntSum(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep, accInit)(f)
+  { var acc = accInit
+    iUntilForeach(iFrom, iUntil, iStep){ i => acc += f(i) }
+    acc
+  }
 
   /** 2 dimensional from-to-step foreach loop. Throws on non termination. */
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =

@@ -2,6 +2,7 @@
 package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
+/** Displays grids on world as well as land masss outlines. */
 class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) extends GlobeGui("Grid World")
 {
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)

@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._, prid._, phex._, WTile._, egrid._
+import pEarth._, prid._, phex._, WTile._
 
 object Terr320W90 extends Warm320Terrs
 {
