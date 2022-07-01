@@ -142,29 +142,44 @@ package object ostrat
     res
   }
 
-  /** foreachs over a range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
+  /** Foreachs over a range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. Method name over loaded
+   * with a first parameter list of a single iTo parameter, where iFrom is 0 and iStep is 1. */
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
-  { if (iTo == iFrom & iStep == 0) throw excep("Loop step can not be 0.")
+  { if (iTo != iFrom & iStep == 0) throw excep("Loop step can not be 0.")
+    if (iTo > iFrom & iStep < 0) throw excep(s"Loop will not reach $iTo and terminate starting at $iFrom with a step value of $iStep.")
+    if (iTo < iFrom & iStep > 0) throw excep(s"Loop will not reach $iTo and terminate starting at $iFrom with a step value of $iStep.")
     var i: Int = iFrom
     while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
   }
 
-  /** foreachs over a range of integers from 0 to the given parameter in steps of 1. Throws on non termination. */
+  /** Foreachs over a range of integers from 0 to the given parameter in steps of 1. Throws on non termination. Method name over loaded with a range
+   *  of integers from parameter 1 to parameter 2 in steps of parameter 3. */
   def iToForeach(iTo: Int)(f: Int => Unit): Unit =
-  { var i: Int = 0
+  { if (iTo < 0) throw excep("Loop will not terminate with positive step.")
+    var i: Int = 0
     while(i <= iTo) { f(i); i += 1 }
   }
 
-  /** foreachs over a range of integers from parameter 1 until parameter 2 (while index is less than) in steps of parameter 3. Throws on non
-   *  termination. */
+  /** Foreachs over a range of integers from parameter 1 until parameter 2 in steps of parameter 3. Throws on non termination. Method name over loaded
+   * with a first parameter list of a single iTo parameter, where iFrom is 0 and iStep is 1. Method name over loaded with a first parameter list of a
+   * single iUntil parameter, where iFrom is 0 and iStep is 1. */
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit =
-    iToForeach(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
+  { if (iStep == 0) throw excep("Loop step can not be 0.")
+    if (iUntil > iFrom & iStep < 0) throw excep(s"Loop will not reach $iUntil and terminate starting at $iFrom with a step value of $iStep.")
+    if (iUntil < iFrom & iStep > 0) throw excep(s"Loop will not reach $iUntil and terminate starting at $iFrom with a step value of $iStep.")
+    var i: Int = iFrom
+    while(ife(iStep > 0, i < iUntil, i > iUntil)) { f(i); i += iStep }
+  }
 
-  /** foreachs over a range of integers from 0 until the parameter in steps of 1. Throws on non termination. */
+  /** Foreachs over a range of integers from 0 until the parameter in steps of 1. Throws on non termination. Method name over loaded with a range
+   *  of integers from parameter 1 until parameter 2 in steps of parameter 3. */
   def iUntilForeach(iUntil: Int)(f: Int => Unit): Unit =
-    iToForeach(iUntil - 1)(f)
+  { if (iUntil < 0) throw excep(s"Loop will not reach $iUntil and terminate with positive step.")
+    var i: Int = 0
+    while(i < iUntil) { f(i); i += 1 }
+  }
 
-  /** maps over a range of Ints to an ArrBase[A]. From the start value to (while index is less than or equal to) the end value in integer steps.
+  /** Maps over a range of Ints returning a [[SeqImut]][A]. From the iFrom parameter value to the iTo parameter value in integer steps.
    *  Default step value is 1. */
   def iToMap[A, AA <: SeqImut[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuilder[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
@@ -187,12 +202,22 @@ package object ostrat
   /** Maps a range of Ints to an ArrImut[A]. From the start value until (while index is less than) the end value in integer steps. Default step value
    *  is 1. Throws on non termination. */
   def iUntilMap[A, AA <: SeqImut[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrBuilder[A, AA]): AA =
-    iToMap[A, AA](iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(f)
+  { val iLen = (iUntil - iFrom).max(0) / iStep
+    val res: AA = ev.newArr(iLen)
+    var index = 0
+    iUntilForeach(iFrom, iUntil, iStep){ count => ev.arrSet(res, index, f(count)); index += 1  }
+    res
+  }
 
   /** Maps a range of Ints to an ArrImut[A]. From the start value until (while index is less than) the end value in integer steps. Default step value
    *  is 1. Throws on non termination. */
   def iUntilMap[A, AA <: SeqImut[A]](iUntil: Int)(f: Int => A)(implicit ev: ArrBuilder[A, AA]): AA =
-    iToMap[A, AA](iUntil - 1)(f)
+  { val iLen = (iUntil).max(0)
+    val res: AA = ev.newArr(iLen)
+    var index = 0
+    iUntilForeach(iUntil){ count => ev.arrSet(res, index, f(count)); index += 1  }
+    res
+  }
 
   /** flatMaps over a range of Ints to an ArrBase[A]. From the start value until (while index is less than) the end value in integer steps.
    *  Default step value is 1. Throws on non termination. */
@@ -257,7 +282,10 @@ package object ostrat
   /** Folds over a range of Ints to an Int. From the start value until (while index is less than)
    *  the end value in integer steps. Default step value is 1. */
   def iUntilFoldInt(iFrom: Int, iUntil: Int, iStep: Int = 1, accInit: Int = 0)(f: (Int, Int) => Int): Int =
-    iToFoldInt(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep, accInit)(f)
+  { var acc = accInit
+    iUntilForeach(iFrom, iUntil, iStep){ i => acc = f(acc, i) }
+    acc
+  }
 
   /** Folds over a range of Ints to an Int adding the return [[Int]] value to the accumulator. From the start value until (while index is less than)
    *  the end value in integer steps. Default step value is 1. */
