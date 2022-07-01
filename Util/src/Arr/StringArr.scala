@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** Immutable Array based class for Strings. */
+/** Immutable Array based class for [[String]]s. */
 class StringArr(val unsafeArray: Array[String]) extends AnyVal with SeqImut[String]
 { override type ThisT = StringArr
   override def typeStr: String = "Strings"

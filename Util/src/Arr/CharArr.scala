@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** Efficient immutable Array based collection for Chars. */
+/** Efficient immutable Array based collection for [[Char]]s. */
 final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with SeqImut[Char]
 { type ThisT = CharArr
 

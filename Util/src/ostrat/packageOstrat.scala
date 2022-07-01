@@ -262,7 +262,7 @@ package object ostrat
     acc
   }
 
-  /** foreachs over a looped range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
+  /** Foreachs over a looped range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. */
   def iLoopToForeach(loopEnd: Int, loopStart: Int = 0)(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iTo == iFrom & iStep == 0) throw excep("Loop step can not be 0.")
 
@@ -291,9 +291,17 @@ package object ostrat
   def ijToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(jFrom: Int, jTo: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
     iToForeach(iFrom, iTo, iStep){ i => iToForeach(jFrom, jTo, jStep){ j => f(i, j)}}
 
+  /** 2 dimensional from 0-to-step foreach loop. Throws on non termination. */
+  def ijToForeach(iTo: Int)(jTo: Int)(f: (Int, Int) => Unit): Unit =
+    iToForeach(iTo){ i => iToForeach(jTo){ j => f(i, j)}}
+
   /** 2 dimensional from-until-step foreach loop. Throws on non termination. i is the index for the outer loop. j is the index for the inner loop*/
   def ijUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
-    ijToForeach(iFrom, ife(iStep > 0, iUntil - 1, iUntil + 1), iStep)(jFrom, ife(iStep > 0, jUntil - 1, jUntil + 1), jStep)(f)
+    iUntilForeach(iFrom, iUntil, iStep){ i => iUntilForeach(jFrom, jUntil, jStep){ j => f(i, j)}}
+
+  /** 2 dimensional from-until-step foreach loop. Throws on non termination. i is the index for the outer loop. j is the index for the inner loop*/
+  def ijUntilForeach(iUntil: Int)(jUntil: Int)(f: (Int, Int) => Unit): Unit =
+    iUntilForeach(iUntil){ i => iUntilForeach(jUntil){ j => f(i, j)}}
 
   /** 2 dimensional map function. i is the index for the outer loop. j is the index for the inner loop. maps over 2 ranges of Ints to an ArrBase[A].
    * From the start value to (while index is less than or equal to) the end value in integer steps. Default step values are 1. */

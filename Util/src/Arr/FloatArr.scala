@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** Immutable Array based class for Floats. */
+/** Immutable Array based class for [[Float]]s. */
 class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with SeqImut[Float]
 { type ThisT = FloatArr
 
