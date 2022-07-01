@@ -46,7 +46,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
     radioGroups.foreach(rdgp => config = config ++ rdgp.toGraphicElems())
     val composition:GraphicElems = Arr(Rect(width, height, 0 pp 0).fill(Colour(0xFF181818)), gameBtn("new game", (mb: MouseButton) => { deb("3") })) ++ config ++ getCurrentPlayerIndicator()
     repaint(composition)
-    ijUntilForeach(0, rows)(0, cols){ (r, c) =>
+    ijUntilForeach(rows)(cols){ (r, c) =>
       val index = c+cols*r
       drawBalls(size*c pp size*r, aDefaultGame.cellColors(index), index)
     }

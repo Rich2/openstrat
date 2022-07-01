@@ -32,7 +32,8 @@ case class ReactorGame(aRows: Int = 8, aCols: Int = 10, aPlayers:Array[Colour] =
     popBallQueue = Array.fill[Int](rows*cols)(0)
     winner = Black
     setGameState(aGameState)
-    ijUntilForeach(0, rows)(0, cols){ (r, c) =>
+
+    ijUntilForeach(rows)(cols){ (r, c) =>
       val index:Int = c + cols * r
       cellNeighbours(index) = new Array(0)
       cellSites(index) = new Array(0)

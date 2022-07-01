@@ -295,11 +295,13 @@ package object ostrat
   def ijToForeach(iTo: Int)(jTo: Int)(f: (Int, Int) => Unit): Unit =
     iToForeach(iTo){ i => iToForeach(jTo){ j => f(i, j)}}
 
-  /** 2 dimensional from-until-step foreach loop. Throws on non termination. i is the index for the outer loop. j is the index for the inner loop*/
+  /** 2 dimensional from-until-step foreach loop. Throws on non termination. i is the index for the outer loop. j is the index for the inner loop.
+   *  The method name is overloaded with a variant that takes single iUntil and jUntil parameters where the loop starts at 0 and has a step of 1. */
   def ijUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(jFrom: Int, jUntil: Int, jStep: Int = 1)(f: (Int, Int) => Unit): Unit =
     iUntilForeach(iFrom, iUntil, iStep){ i => iUntilForeach(jFrom, jUntil, jStep){ j => f(i, j)}}
 
-  /** 2 dimensional from-until-step foreach loop. Throws on non termination. i is the index for the outer loop. j is the index for the inner loop*/
+  /** 2 dimensional from-until-step foreach loop. Throws on non termination. i is the index for the outer loop. j is the index for the inner loop. The
+   *  method name is overloaded with a variant that takes 3 parameters for the i and j loops.*/
   def ijUntilForeach(iUntil: Int)(jUntil: Int)(f: (Int, Int) => Unit): Unit =
     iUntilForeach(iUntil){ i => iUntilForeach(jUntil){ j => f(i, j)}}
 
