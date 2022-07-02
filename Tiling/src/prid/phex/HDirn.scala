@@ -2,8 +2,26 @@
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
+sealed trait HDirnOpt
+
+object HDirnOpt
+{
+  def fromInt(inp: Int): HDirnOpt = inp match
+  {
+    case 1 => HexUR
+    case 2 => HexRt
+    case 3 => HexDR
+    case 4 => HexDL
+    case 5 => HStepLt
+    case 6 => HStepUL
+    case n => HDirnNone
+  }
+}
+
+case object HDirnNone extends HDirnOpt
+
 /** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. */
-sealed trait HDirn extends TDirnSided with ElemInt1
+sealed trait HDirn extends TDirnSided with ElemInt1 with HDirnOpt
 { /** The delta [[HCen]] of this step inside a hex grid. */
   def hCenDelta: HCen = HCen(tr, tc)
   def intValue: Int

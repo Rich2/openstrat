@@ -2,8 +2,10 @@
 package ostrat; package prid; package phex
 
 class HVOffset private (val intValue: Int) extends AnyVal with ElemInt1
-{
+{ /** bits 2 - 0 */
   def dirn1: HDirn = HDirn.fromInt(intValue % 8)
+
+  /** bits 6 to 3 values 0 t0 15 => -6 to 9  */
   def delta1: Int = intValue % 128 / 8 - 6
   def dirn2: HDirn = HDirn.fromInt(intValue % 1024 / 128)
   def delta2: Int = intValue % 16384 / 1024
