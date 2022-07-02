@@ -12,6 +12,29 @@ package object ostrat
   type AnyRefs = Arr[AnyRef]
   type Not[T] = { type L[U] = U NotSubTypeOf T }
 
+  val TwoPower0: Int = 1
+  val TwoPower1: Int = 2
+  val TwoPower2: Int = 4
+  val TwoPower3: Int = 8
+  val TwoPower4: Int = 16
+  val TwoPower5: Int = 32
+  val TwoPower6: Int = 64
+  val TwoPower7: Int = 128
+  val TwoPower8: Int = 256
+  val TwoPower9: Int = 512
+  val TwoPower10: Int = 1024
+  val TwoPower11: Int = 2048
+  val TwoPower12: Int = 4096
+  val TwoPower13: Int = 8192
+  val TwoPower14: Int = 16384
+  val TwoPower15: Int = 32768
+  val TwoPower16: Int = 65536
+  val TwoPower17: Int = 131072
+  val TwoPower18: Int = 262144
+  val TwoPower19: Int = 524288
+  val TwoPower20: Int = 524288
+  val TwoPower21: Int = 1048576
+
   /** The tangent of 30 degrees or π/6 radians. */
   val Tan30: Double = 0.57735026919
 

@@ -3,14 +3,14 @@ package ostrat; package prid; package phex
 
 class HVOffset private (val intValue: Int) extends AnyVal with ElemInt1
 { /** bits 2 - 0 */
-  def dirn1: HDirn = HDirn.fromInt(intValue % 8)
+  def dirn1: HDirnOpt = HDirnOpt.fromInt(intValue % TwoPower3)
 
   /** bits 6 to 3 values 0 t0 15 => -6 to 9  */
-  def delta1: Int = intValue % 128 / 8 - 6
-  def dirn2: HDirn = HDirn.fromInt(intValue % 1024 / 128)
-  def delta2: Int = intValue % 16384 / 1024
-  def dirn3: HDirn = HDirn.fromInt(intValue % 131072 / 16384)
-  def delta3: Int = intValue % 2097152 / 132072
+  def delta1: Int = intValue % TwoPower7 / TwoPower3 - 6
+  def dirn2: HDirnOpt = HDirnOpt.fromInt(intValue % TwoPower10 / TwoPower7)
+  def delta2: Int = intValue % TwoPower14 / TwoPower10
+  def dirn3: HDirnOpt = HDirnOpt.fromInt(intValue % TwoPower17 / TwoPower14)
+  def delta3: Int = intValue % TwoPower21 / TwoPower17
 }
 
 //trait HVOffset0 extends HVOffset

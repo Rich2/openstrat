@@ -170,11 +170,11 @@ trait HGridSys extends Any with TGridSys
   /** The active tiles without any PaintElems. */
   def activeTiles: Arr[PolygonActive]
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
-   *  data. */
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
+   *  Arr / Array data. */
   @inline final def sideArrIndex(hc: HSide): Int = sideArrIndex(hc.r, hc.c)
 
-  /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
+  /** Gives the index into an Arr / Array of side data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array data. */
   def sideArrIndex(r: Int, c: Int): Int
 
@@ -254,4 +254,12 @@ trait HGridSys extends Any with TGridSys
   def newSideBools: HSideBoolDGrid = new HSideBoolDGrid(new Array[Boolean](numSides))
 
   def defaultView(pxScale: Double = 50): HGView
+
+  /** Gives the index into an Arr / Array of Tile data from its tile [[HVert]]. Use arrIndex and sideArrIndex methods to access tile centre and side
+   *  Arr / Array data. */
+  @inline final def vertArrIndex(hc: HSide): Int = vertArrIndex(hc.r, hc.c)
+
+  /** Gives the index into an Arr / Array of side data from its tile [[HVert]]. Use arrIndex and vertIndex methods to access tile centre and side Arr
+   *  / Array data. */
+  def vertArrIndex(r: Int, c: Int): Int = ???
 }
