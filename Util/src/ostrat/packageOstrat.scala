@@ -146,8 +146,6 @@ package object ostrat
    * with a first parameter list of a single iTo parameter, where iFrom is 0 and iStep is 1. */
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iTo != iFrom & iStep == 0) throw excep("Loop step can not be 0.")
-    if (iTo > iFrom & iStep < 0) throw excep(s"Loop will not reach $iTo and terminate starting at $iFrom with a step value of $iStep.")
-    if (iTo < iFrom & iStep > 0) throw excep(s"Loop will not reach $iTo and terminate starting at $iFrom with a step value of $iStep.")
     var i: Int = iFrom
     while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
   }
@@ -165,8 +163,6 @@ package object ostrat
    * single iUntil parameter, where iFrom is 0 and iStep is 1. */
   def iUntilForeach(iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iStep == 0) throw excep("Loop step can not be 0.")
-    if (iUntil > iFrom & iStep < 0) throw excep(s"Loop will not reach $iUntil and terminate starting at $iFrom with a step value of $iStep.")
-    if (iUntil < iFrom & iStep > 0) throw excep(s"Loop will not reach $iUntil and terminate starting at $iFrom with a step value of $iStep.")
     var i: Int = iFrom
     while(ife(iStep > 0, i < iUntil, i > iUntil)) { f(i); i += iStep }
   }

@@ -2,6 +2,8 @@
 package ostrat; package pWW2
 import pEarth._
 
+
+
 case class ArmyOld(tile: W2TileAncient, polity: Polity) extends Coloured
 {
   def colour = polity.colour

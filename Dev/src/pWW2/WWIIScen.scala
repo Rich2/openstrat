@@ -7,3 +7,14 @@ trait WW2Scen
 {
   implicit val grid: EGrid80Warm = EGrid80.l0b446
 }
+
+case class Army(polity: Polity) extends Coloured
+{
+  def colour = polity.colour
+  override def toString = "Army" + (polity.toString).enParenth
+
+  override def equals(other: Any): Boolean = other match
+  { case that: Army => polity == that.polity
+    case _ => false
+  }
+}
