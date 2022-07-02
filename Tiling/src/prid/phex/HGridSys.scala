@@ -222,12 +222,13 @@ trait HGridSys extends Any with TGridSys
     build.buffToBB(buff)
   }
 
+  /** The [[HSide]] hex side coordinates. */
   final def sides: HSideArr = sidesMap(hs => hs)
 
   /** The line segments of the sides defined in [[HCoord]] vertices. */
   def sideLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
-  /** The line segments of the inner sides defined in [[HCoord]] vertices. */
 
+  /** The line segments of the inner sides defined in [[HCoord]] vertices. */
   def innerSideLineSegHCs: LineSegHCArr = innerSidesMap[LineSegHC, LineSegHCArr](_.lineSegHC)
   def outerSideLineSegHCs: LineSegHCArr = outerSidesMap[LineSegHC, LineSegHCArr](_.lineSegHC)
 
@@ -261,5 +262,5 @@ trait HGridSys extends Any with TGridSys
 
   /** Gives the index into an Arr / Array of side data from its tile [[HVert]]. Use arrIndex and vertIndex methods to access tile centre and side Arr
    *  / Array data. */
-  def vertArrIndex(r: Int, c: Int): Int = ???
+  def vertArrIndex(r: Int, c: Int): Int = 0
 }
