@@ -8,7 +8,7 @@ lessons = A1;
 earth = { scale = 12; latitude = 0; longitude = 0; };
 ww2 = { scale = 1; latLong = LatLong(51.5; 0); };
 eGrid = { scen = 1; flat = false; };
-gOne = { scen = 1; 1 = HGView(4, 6; 80); 2 = HGView(6, 6; 55); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };
+gOne = { scen = 1; 1 = HGView(4, 6; 80); 2 = HGView(6, 6; 52); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };
 gTwo = { scen = 1; 1 = SqGridView(4, 5; 80); 2 = SqGridView(9, 11; 40); };
 gThree = { scen = 1; 1 = HGView(4, 6; 80); 2 = HGView(6, 6; 55); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };
 gFour = 1;
