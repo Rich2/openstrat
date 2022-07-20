@@ -4,7 +4,7 @@ import geom._, pglobe._, prid._, phex._
 
 /** One of the main hex grids for the earth not a polar grid.  ((rTopCen - rBottomCen + 2) / 2).max0 */
 abstract class EGridWarm(rBottomCen: Int, rTopCen: Int, val cenLongInt: Int, cScale: Length, val rOffset: Int) extends
-  EGrid(rBottomCen, EGridWarm.getBounds(rBottomCen, rTopCen, rOffset, (cenLongInt %% 12) * 1024 + 512, cScale), cScale) with EGridWarmSys
+  EGrid(rBottomCen, EGridWarm.getBounds(rBottomCen, rTopCen, rOffset, (cenLongInt %% 12) * 1024 + 512, cScale), cScale), EGridWarmSys
 {
   def cOffset: Int = (cenLongInt %% 12) * 1024 + 512
   def cenLong: Longitude = Longitude.degs(cenLongInt * 30)
@@ -35,7 +35,6 @@ abstract class EGridWarm(rBottomCen: Int, rTopCen: Int, val cenLongInt: Int, cSc
 
     case _ => hCoordMiddleLL(hc)
   }
-
 }
 
 /** Functions for Earth tile grids. */
