@@ -1,6 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import pglobe._, collection.mutable.ArrayBuffer, math._
+import /*pglobe._,*/ collection.mutable.ArrayBuffer, math._
 
 /** A 2 dimensional point specified in [[Length]] as units rather than pure scalar numbers. */
 final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends ShowElemDbl2
@@ -36,7 +36,7 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends ShowEle
   }
 
   /** Currently not working for angles greater than Pi / 2 */
-  def toLatLong: LatLong = LatLong.radians(math.asin(y / EarthPolarRadius), math.asin(x / EarthEquatorialRadius))
+  //def toLatLong: LatLong = LatLong.radians(math.asin(y / EarthPolarRadius), math.asin(x / EarthEquatorialRadius))
 
   def xPos: Boolean = x.pos
   def xNeg: Boolean = x.neg

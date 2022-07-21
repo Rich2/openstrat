@@ -72,8 +72,8 @@ lazy val UtilNat = natProj("Util").enablePlugins(ScalaNativePlugin).settings(
 )
 
 def geomSett = List(
-  Compile/unmanagedSourceDirectories ++= List("src3d", "srcWeb", "srcGui", "srcGlobe").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
-  Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/testSrcGlobe",
+  Compile/unmanagedSourceDirectories ++= List("src3d", "srcWeb", "srcGui").map(s => (ThisBuild/baseDirectory).value / "Geom" / s),
+  //Test/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/testSrcGlobe",
 )
 
 lazy val Geom = jvmProj("Geom").dependsOn(Util).settings(geomSett).settings(
@@ -89,7 +89,9 @@ lazy val GeomNat = natProj("Geom").dependsOn(UtilNat).settings(geomSett).setting
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/srcNat",
 )
 
-lazy val Tiling = jvmProj("Tiling").dependsOn(Geom).settings(
+lazy val Globe = jvmProj("Globe").dependsOn(Geom)
+
+lazy val Tiling = jvmProj("Tiling").dependsOn(Globe).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
   //Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcOld",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",  
