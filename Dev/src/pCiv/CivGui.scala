@@ -7,7 +7,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 { statusText = "Welcome to Civ Rise."
   implicit val gridSys: HGridSys = scen.gridSys
   focus = gridSys.cenVec
-  var cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   val sls = gridSys.sidesDraw()
   val terrs = scen.terrs
   val tiles = gridSys.map{ hc => hc.polygonReg.fillTextActive(terrs(hc).colour, hc, hc.strComma, 16) }

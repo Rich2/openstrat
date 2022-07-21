@@ -7,7 +7,7 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   statusText = "Welcome to the new EGrids"
   implicit val gridSys: HGridSys = scen.gridSys
   focus = viewIn.vec
-  override var cPScale: Double = viewIn.pxScale
+  cPScale = viewIn.pxScale
   //def metresScale: Double = cPScale / gridSys.cScale.mMetresNum
   val terrs: HCenDGrid[WTile] = scen.terrs
   val sTerrs: HSideBoolDGrid = scen.sTerrs

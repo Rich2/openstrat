@@ -13,7 +13,7 @@ abstract class TGridSysGui(title: String) extends CmdBarGui(title)
   def repaint(): Unit = mainRepaint(frame)
 
   /** The number of pixels displayed per c column coordinate. */
-  var cPScale: Double
+  var cPScale: Double = 40
 
   /** Pixels per Tile. The number of pixels from a side of a tile to the opposite side of the tile. */
   def ptScale: Double

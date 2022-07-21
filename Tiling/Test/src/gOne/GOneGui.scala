@@ -10,7 +10,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   var history: Arr[OneScen] = Arr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptDGrid[Player] = scen.oPlayers
-  var cPScale: Double = viewIn.pxScale
+  cPScale = viewIn.pxScale
   focus = viewIn.vec
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */

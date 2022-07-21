@@ -10,7 +10,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   var history: Arr[ThreeScen] = Arr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptDGrid[Player] = scen.oPlayers
-  var cPScale: Double = viewIn.pxScale
+  cPScale = viewIn.pxScale
   focus = viewIn.vec
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those

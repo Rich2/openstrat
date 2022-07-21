@@ -3,16 +3,12 @@ package ostrat; package gTwo
 import pgui._, prid._, psq._, geom._, gPlay._
 
 case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView) extends SqSysGui("Game Two Gui")
-{
-  statusText = "Let click on Player to select. Right click on adjacent square to set move."
+{ statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
   implicit def gridSys: SqGrid = scen.grid
   def players: SqCenOptDGrid[Player] = scen.oPlayers
-
-  /** The number of pixels / 2 displayed per row height. */
-  var cPScale: Double = gridSys.fullDisplayScale(mainWidth, mainHeight)
-
-  focus = viewIn.vec//grider.cenVec
+  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  focus = viewIn.vec
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   def tiles: Arr[PolygonActive] = gridSys.activeTiles

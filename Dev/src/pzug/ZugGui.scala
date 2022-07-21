@@ -8,8 +8,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   var scen = scenIn
   implicit def gridSys: HGridSys = scen.gridSys
   focus = gridSys.cenVec
-
-  var cPScale: Double = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   val terrs: HCenDGrid[ZugTerr] = scen.terrs
   val active: Arr[PolygonActive] = gridSys.map{ hc =>hc.polygonReg.active(hc) }
   val text: Arr[TextGraphic] = terrs.hcMap((hc, t) => hc.decText(14, t.contrastBW))
