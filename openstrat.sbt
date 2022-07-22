@@ -35,14 +35,14 @@ def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtD
 
 def jvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
-  Test/unmanagedSourceDirectories := List(moduleDir.value / "Test/src", (Test/scalaSource).value),
-  Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
+  Test/unmanagedSourceDirectories := List(moduleDir.value / "TestSrc", (Test/scalaSource).value),
+  Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
 )
 
 def exsJvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Exs").settings(
-  Compile/unmanagedSourceDirectories := List("ExsSrc").map(moduleDir.value / _),
-  Test/unmanagedSourceDirectories := List(moduleDir.value / "testSrc", (Test/scalaSource).value),
-  Test/unmanagedResourceDirectories := List(moduleDir.value / "exsRes", (Test/resourceDirectory).value),
+  Compile/unmanagedSourceDirectories := List("ExsSrc", "ExsSrcJvm").map(moduleDir.value / _),
+  Test/unmanagedSourceDirectories := List(moduleDir.value / "TestSrc", (Test/scalaSource).value),
+  Test/unmanagedResourceDirectories := List(moduleDir.value / "ExsRes", (Test/resourceDirectory).value),
 )
 
 def jsProj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
@@ -85,7 +85,7 @@ lazy val Geom = jvmProj("Geom").dependsOn(Util).settings(geomSett).settings(
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1" withSources(),
 )
 
-lazy val GeomExs = jvmProj("GeomExs").dependsOn(Geom).settings(
+lazy val GeomExs = exsJvmProj("Geom").dependsOn(Geom).settings(
   Compile/mainClass:= Some("learn.LsE1App"),
 )
 
@@ -118,7 +118,7 @@ lazy val TilingNat = natProj("Tiling").dependsOn(GeomNat).settings(
 )
 
 lazy val EarthAppJs = jsApp("EarthApp").settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcEarthApp",
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/JsSrcApp",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
