@@ -39,6 +39,12 @@ def jvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr).settings(
   Test/unmanagedResourceDirectories := List(moduleDir.value / "testRes", (Test/resourceDirectory).value),
 )
 
+def exsJvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Exs").settings(
+  Compile/unmanagedSourceDirectories := List("exsSrc").map(moduleDir.value / _),
+  Test/unmanagedSourceDirectories := List(moduleDir.value / "testSrc", (Test/scalaSource).value),
+  Test/unmanagedResourceDirectories := List(moduleDir.value / "exsRes", (Test/resourceDirectory).value),
+)
+
 def jsProj(name: String) = baseProj(name, name + "Js").enablePlugins(ScalaJSPlugin).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJs").map(moduleDir.value / _),
   libraryDependencies += ("org.scala-js" %%% "scalajs-dom" % "2.1.0") withSources(),
@@ -96,6 +102,10 @@ lazy val Tiling = jvmProj("Tiling").dependsOn(Globe).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",  
 )
 
+lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling).settings(
+)
+
+
 lazy val TilingJs = jsProj("Tiling").dependsOn(GlobeJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
@@ -112,7 +122,7 @@ lazy val EarthAppJs = jsApp("EarthApp").settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
-lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, Tiling).settings(
+lazy val Dev = jvmProj("Dev").dependsOn(GeomExs, TilingExs).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _) :::
     List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
