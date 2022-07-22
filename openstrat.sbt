@@ -29,8 +29,8 @@ def baseProj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtD
   scalaSource := moduleDir.value / "src",
   Compile/scalaSource := moduleDir.value / "src",
   resourceDirectory := moduleDir.value / "res",
-  Test/scalaSource := moduleDir.value / "Test/testSrc",
-  Test/resourceDirectory :=  moduleDir.value / "Test/res",
+  Test/scalaSource := moduleDir.value / "TestSrc",
+  Test/resourceDirectory :=  moduleDir.value / "TestRes",
 )
 
 def jvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr).settings(
@@ -40,7 +40,7 @@ def jvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr).settings(
 )
 
 def exsJvmProj(srcsStr: String) = baseProj(srcsStr, srcsStr + "Exs").settings(
-  Compile/unmanagedSourceDirectories := List("exsSrc").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List("ExsSrc").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List(moduleDir.value / "testSrc", (Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "exsRes", (Test/resourceDirectory).value),
 )
