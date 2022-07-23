@@ -26,7 +26,6 @@ def proj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/"
   moduleDir := baseDir.value / srcsStr,
   libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.10" % "test" withSources(),
   testFrameworks += new TestFramework("utest.runner.Framework"),
-  resourceDirectory := moduleDir.value / "res",
   Test/scalaSource := moduleDir.value / "TestSrc",
   Test/resourceDirectory :=  moduleDir.value / "TestRes",
 )
@@ -38,15 +37,16 @@ def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, srcsStr).settings
 
 def mainJvmProj(srcsStr: String) = mainProj(srcsStr, srcsStr).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _),
-  Test/unmanagedSourceDirectories := List(moduleDir.value / "TestSrc", (Test/scalaSource).value),
+  Test/unmanagedSourceDirectories := List(moduleDir.value / "ExsSrc", (Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
+  resourceDirectory := moduleDir.value / "res",
 )
 
 def exsJvmProj(srcsStr: String) = proj(srcsStr, srcsStr + "Exs").settings(
   scalaSource := moduleDir.value / "ExsSrc",
   Compile/scalaSource := moduleDir.value / "ExsSrc",
   Compile/unmanagedSourceDirectories := List("ExsSrc", "ExsSrcJvm").map(moduleDir.value / _),
-  Test/unmanagedSourceDirectories := List(moduleDir.value / "TestSrc", (Test/scalaSource).value),
+  resourceDirectory := moduleDir.value / "ExsRes",
   Test/unmanagedResourceDirectories := List(moduleDir.value / "ExsRes", (Test/resourceDirectory).value),
 )
 
