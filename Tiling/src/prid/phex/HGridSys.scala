@@ -239,7 +239,7 @@ trait HGridSys extends Any with TGridSys
   final def innerSideLines: LineSegArr = innerSideLineSegHCs.map(_.lineSeg(this))
 
   /** The line segments [[LineSeg]]s for the inner sides. */
-  final def outerSideLines(implicit grider: HGridSys): LineSegArr = outerSideLineSegHCs.map(_.lineSeg)
+  final def outerSideLines: LineSegArr = outerSideLineSegHCs.map(_.lineSeg(this))
 
   /** This gives the all tile grid lines in a single colour and line width. */
   final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LinesDraw = sideLines.draw(lineWidth, colour)
