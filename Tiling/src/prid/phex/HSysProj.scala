@@ -14,5 +14,5 @@ final case class HProjFlat(gridSys: HGridSys) extends HSysProj
 
   var cPScale: Double = 10
   var focus: Vec2 = Vec2(0, 0)
-  override def sides: LineSegArr = ???
+  override def sides: LineSegArr = ???//gridSys.innerSidesDraw()
 }
