@@ -12,7 +12,8 @@ class LineSegArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSeg] with A
   override def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
   override def ptsTrans(f: Pt2 => Pt2): LineSegArr = dataMap(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
 
-  def draw(lineWidth: Double, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)
+  /** Draws the sides with the given width and colour. */
+  def draw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)
 }
 
 /** Companion object for the LineSegs class. */

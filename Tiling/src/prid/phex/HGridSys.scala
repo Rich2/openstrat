@@ -245,7 +245,7 @@ trait HGridSys extends Any with TGridSys
   final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LinesDraw = sideLines.draw(lineWidth, colour)
 
   /** Draws the inner side lines in a single colour and line width. */
-  final def innerSidesDraw(colour: Colour = Black, lineWidth: Double = 2.0)(implicit grider: HGridSys): LinesDraw =
+  final def innerSidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LinesDraw =
     innerSideLines.draw(lineWidth, colour)
 
   /** Draws the inner side lines in a single colour and line width. */
