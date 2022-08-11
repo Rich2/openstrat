@@ -5,6 +5,8 @@ import geom._, reflect.ClassTag, Colour.Black
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
 trait HGridSys extends Any with TGridSys
 {
+  def projection: HSysProjection = HProjectionFlat(this)
+
   final override lazy val numTiles: Int =
   { var i = 0
     foreach(_ => i += 1)

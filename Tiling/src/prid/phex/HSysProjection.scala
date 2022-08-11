@@ -8,12 +8,3 @@ trait HSysProjection
   def gridSys: GridT
   def sides: LineSegArr
 }
-
-final case class HProjectionFlat(gridSys: HGridSys) extends HSysProjection
-{ type GridT = HGridSys
-
-  var cPScale: Double = 10
-  var focus: Vec2 = Vec2(0, 0)
-  override def sides: LineSegArr = gridSys.sideLines
-  def sidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = sides.draw(lineWidth, colour)
-}
