@@ -1,11 +1,11 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, reflect.ClassTag, Colour.Black
+import geom._, reflect.ClassTag, pgui._, Colour.Black
 
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
 trait HGridSys extends Any with TGridSys
 {
-  def projection: HSysProjection = HProjectionFlat(this)
+  def projection: Panel => HSysProjection = HProjectionFlat(this, _)
 
   final override lazy val numTiles: Int =
   { var i = 0

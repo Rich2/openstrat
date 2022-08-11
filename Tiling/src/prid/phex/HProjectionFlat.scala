@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._, pgui._
 
-final case class HProjectionFlat(gridSys: HGridSys) extends HSysProjection
+final case class HProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSysProjection
 { type GridT = HGridSys
 
   var cPScale: Double = 10
@@ -10,16 +10,17 @@ final case class HProjectionFlat(gridSys: HGridSys) extends HSysProjection
   override def sides: LineSegArr = gridSys.sideLines.slate(-focus).scale(cPScale)
   def sidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = sides.draw(lineWidth, colour)
 
+  def frame: GraphicElems = ???
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
     cPScale *= 1.1
-    //repaint()
+    panel.repaint(frame)
     //statusText = tilePScaleStr
     //thisTop()
   }
 
   def zoomOut: PolygonCompound = clickButton("-") { _ =>
     cPScale /= 1.1
-    //repaint()
+    panel.repaint(frame)
     //statusText = tilePScaleStr
     //thisTop()
   }
