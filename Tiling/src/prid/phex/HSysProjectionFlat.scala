@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._, pgui._
 
-final case class HProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSysProjection
+final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSysProjection
 { type GridT = HGridSys
 
   var cPScale: Double = 10
