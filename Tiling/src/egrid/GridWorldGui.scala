@@ -12,6 +12,10 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
   def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, Arr[GraphicElem]())
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
   //def view: HGridView = HGridView()
+
+  val proj = gridSys.projection(mainPanel)
+  proj.setView(viewIn)
+
   val terrs: HCenDGrid[WTile] = scenIn.terrs
   val sTerrs: HSideBoolDGrid = scenIn.sTerrs
   val gls: LatLongArr = gridSys.map{hc => gridSys.hCoordLL(hc) }

@@ -22,8 +22,11 @@ final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with 
       i += 1
     }
   }
+
+  /** Maps the true values to a [[SeqImut]][B]. */
   def truesMap[B, ArrB <: SeqImut[B]](f: HSide => B)(implicit gridSys: HGridSys, build: ArrBuilder[B, ArrB]): ArrB = truesMap(gridSys)(f)(build)
 
+  /** Maps the true values to a [[SeqImut]][B]. */
   def truesMap[B, ArrB <: SeqImut[B]](gridSys: HGridSys)(f: HSide => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
   { var i = 0
     val buff = build.newBuff()
