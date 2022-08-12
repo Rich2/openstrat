@@ -11,6 +11,15 @@ final case class HProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSysPr
   override def innerSides: LineSegArr = gridSys.innerSideLines.slate(-focus).scale(cPScale)
   override def outerSides: LineSegArr = gridSys.outerSideLines.slate(-focus).scale(cPScale)
 
+  override def setView(view: Any): Unit = view match
+  {
+    case hv: HGView => {
+      cPScale = hv.pxScale
+      focus = hv.vec
+    }
+    case d: Double => cPScale = d
+    case _ =>
+  }
 
   def frame: GraphicElems = ???
   def zoomIn: PolygonCompound = clickButton("+") { _ =>

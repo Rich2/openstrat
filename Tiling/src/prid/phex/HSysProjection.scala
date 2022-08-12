@@ -13,4 +13,5 @@ trait HSysProjection
   def innerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = innerSides.draw(lineWidth, colour)
   def outerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = outerSides.draw(lineWidth, colour)
   def panel: Panel
+  def setView(view: Any): Unit = {}
 }

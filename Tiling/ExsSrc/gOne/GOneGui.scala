@@ -12,6 +12,8 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   def players: HCenOptDGrid[Player] = scen.oPlayers
   cPScale = viewIn.pxScale
   focus = viewIn.vec
+  val proj = gridSys.projection(mainPanel)
+  proj.setView(viewIn)
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenOptDGrid[HDirn] = gridSys.newHCenOptDGrid[HDirn]
@@ -41,7 +43,8 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   def innerSidesDraw: LinesDraw = gridSys.innerSidesDraw()
 
   /** Draws the tiles sides (or edges). */
-  def outerSidesDraw: LinesDraw = gridSys.outerSidesDraw(Colour.Gold)
+  def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
+    //gridSys.outerSidesDraw(Colour.Gold).slate(-focus).scale(cPScale)
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.hcSomesMap { (hc, step) =>
@@ -78,6 +81,6 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   thisTop()
 
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
-  def frame: GraphicElems = (tiles +% outerSidesDraw +% innerSidesDraw ++ units ++ hexStrs).slate(-focus).scale(cPScale) ++ moveGraphics2
+  def frame: GraphicElems = (tiles +% innerSidesDraw ++ units ++ hexStrs).slate(-focus).scale(cPScale) +% outerSidesDraw ++ moveGraphics2
   repaint()
 }
