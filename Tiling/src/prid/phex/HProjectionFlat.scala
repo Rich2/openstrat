@@ -8,7 +8,9 @@ final case class HProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSysPr
   var cPScale: Double = 10
   var focus: Vec2 = Vec2(0, 0)
   override def sides: LineSegArr = gridSys.sideLines.slate(-focus).scale(cPScale)
-  def sidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = sides.draw(lineWidth, colour)
+  override def innerSides: LineSegArr = gridSys.innerSideLines.slate(-focus).scale(cPScale)
+  override def outerSides: LineSegArr = gridSys.outerSideLines.slate(-focus).scale(cPScale)
+
 
   def frame: GraphicElems = ???
   def zoomIn: PolygonCompound = clickButton("+") { _ =>

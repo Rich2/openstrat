@@ -16,7 +16,7 @@ trait HSysScen
 trait HSysTurnScen extends HSysScen with GridTurnScen
 
 trait HGridScen extends HSysScen
-{ /** This gives the structure of the hex grid system. It contains no data about the elements of the grid. But it allows the scenario to create and operate
-   *  on flat arrays of data. */
+{ /** This gives the structure of the hex grid system. It contains no data about the elements of the grid. But it allows the scenario to create and
+   * operate on flat arrays of data. */
   implicit override def gridSys: HGrid
 }
