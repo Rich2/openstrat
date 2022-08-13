@@ -1,11 +1,12 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, prid._, phex._, pgui._
+import geom._, prid._, phex._, pglobe._, pgui._
 
 case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProjection
 {
   override type GridT = EGridSys
-
+  var focus: LatLong = 0 ll 0//gridSys.hCoordLL(viewIn.hCoord)
+  var scale: Length = 20.km
 //  val sides0 = sTerrs.truesMap(_.lineSegHC.map(gridSys.hCoordLL(_)))
 //
 //  def sides1: LineSegM3Arr = sides0.map {
@@ -28,5 +29,9 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 
   override def innerSides: LineSegArr = ???
 
-  override def outerSides: LineSegArr = ???
+  val outers = gridSys.outerSideLineM3s
+  def outers2 = outers.fromLatLongFocus(focus)
+  def outers3 = outers2.filter(_.zsPos)
+  def outerSides: LineSegArr = outers3.map(_.xyLineSeg(scale))//.draw(Colour.Gold, 3)
+  //override def outerSides: LineSegArr = ???
 }

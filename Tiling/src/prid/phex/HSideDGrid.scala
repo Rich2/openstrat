@@ -6,8 +6,8 @@ class HSideDGrid[A <: AnyRef](val unsafeArr: Array[A])
 
 }
 
-/** Boolean data corresponding to the sides of a hex grid, stored using an underlying Array[Boolean]. Thhese classes should be created, initalised and
- *  used using an [HGrid]] class. For convenience the [[HGrid]] is passed as an implicit parameter. */
+/** Boolean data corresponding to the sides of a [[HGridSys]] hex grid system , stored using an underlying Array[Boolean]. Thhese classes should be
+ *  created, initalised and used using an [HGrid]] class. For convenience the [[HGrid]] is passed as an implicit parameter. */
 final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with BooleanSeqDef
 { override type ThisT = HSideBoolDGrid
   override def typeStr: String = "HSideBoolDGrid"
