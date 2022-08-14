@@ -85,7 +85,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
     val outers2 = outers.fromLatLongFocus(focus)
     val outers3 = outers2.filter(_.zsPos)
     val outers4 = outers3.map(_.xyLineSeg(scale).draw(Gold, 3))
-    def outers5 = ifGScale(4, outers4)
+    def outers5 = Arr(proj.outerSidesDraw(3, Gold))//  ifGScale(4, outers4)
 
     val irrLines = irr1.map { a => a._2.map(_ / scale).draw(White) }
     def irrLines2 = ifGScale(2, irrLines)

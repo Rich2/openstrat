@@ -5,8 +5,18 @@ import geom._, prid._, phex._, pglobe._, pgui._
 case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProjection
 {
   override type GridT = EGridSys
-  var focus: LatLong = 0 ll 0//gridSys.hCoordLL(viewIn.hCoord)
-  var scale: Length = 20.km
+  var focus: LatLong = 0 ll 0
+  var scale: Length = 4.km
+  def gScale: Double = gridSys.cScale / scale
+
+  override def setView(view: Any): Unit = view match {
+    case hv: HGView => {
+      scale = gridSys.cScale / hv.pxScale
+      focus = gridSys.hCoordLL(hv.hCoord)
+    }
+    //case d: Double => cPScale = d
+    case _ =>
+  }
 //  val sides0 = sTerrs.truesMap(_.lineSegHC.map(gridSys.hCoordLL(_)))
 //
 //  def sides1: LineSegM3Arr = sides0.map {
