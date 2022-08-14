@@ -38,6 +38,8 @@ final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with 
     build.buffToBB(buff)
   }
 
+  def trueHSides(implicit gridSys: HGridSys): HSideArr = truesMap(hs => hs)
+
   def set(hs: HSide, value: Boolean)(implicit grid: HGridSys): Unit = {
     val i = grid.sideArrIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")

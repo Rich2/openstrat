@@ -74,18 +74,10 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 //    def sides3: Arr[(HSide, LineSegM3)] = sides2.filter((sc, ls) => ls.zsPos)
 //    def sides4: Arr[(HSide, LineSeg)] = sides3.map{ (sc, ls) => (sc, ls.map(_.xy / scale)) }
 
-    val sides0 = sTerrs.truesMap(_.lineSegHC.map(gridSys.hCoordLL(_)))
-    def sides1: LineSegM3Arr = sides0.map{ _.map(_.toMetres3) }
-    def sides2: LineSegM3Arr = sides1.map{ _.map(_.fromLatLongFocus(focus)) }
-    def sides3: LineSegM3Arr = sides2.filter(_.zsPos)
-    def sides4: LineSegArr = sides3.map{ _.map(_.xy / scale) }
-    def sides: GraphicElems = sides4.map{ ls  => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
+    def straits: LineSegArr =  proj.transHSides(sTerrs.trueHSides)
+    def straitsDraw: GraphicElems = straits.map{ ls  => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
 
-    val outers = gridSys.outerSideLineM3s
-    val outers2 = outers.fromLatLongFocus(focus)
-    val outers3 = outers2.filter(_.zsPos)
-    val outers4 = outers3.map(_.xyLineSeg(scale).draw(Gold, 3))
-    def outers5 = Arr(proj.outerSidesDraw(3, Gold))//  ifGScale(4, outers4)
+    def outerLines = proj.outerSidesDraw(3, Gold)//  ifGScale(4, outers4)
 
     val irrLines = irr1.map { a => a._2.map(_ / scale).draw(White) }
     def irrLines2 = ifGScale(2, irrLines)
@@ -99,7 +91,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ lines6 ++ outers5 ++ rcTexts ++ irrLines2 ++ sides)
+    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ lines6 +% outerLines ++ rcTexts ++ irrLines2 ++ straitsDraw)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()

@@ -35,13 +35,19 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 
   //def sides: GraphicElems = sides4.map { ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
 
-  override def sides: LineSegArr = ???
+  override def sides: LineSegArr = transLineSegM3Arr(gridSys.sideLineM3s)
+  override def innerSides: LineSegArr = transLineSegM3Arr(gridSys.innerSideLineM3s)
+  def outerSides: LineSegArr = transLineSegM3Arr(gridSys.outerSideLineM3s)
 
-  override def innerSides: LineSegArr = ???
+  def transHSides(inp: HSideArr): LineSegArr = {
+    val lls: LineSegLLArr = inp.map(_.lineSegHC.map(gridSys.hCoordLL(_)))
+    val m3s = lls.map(_.map(_.toMetres3))
+    transLineSegM3Arr(m3s)
+  }
 
-  val outers = gridSys.outerSideLineM3s
-  def outers2 = outers.fromLatLongFocus(focus)
-  def outers3 = outers2.filter(_.zsPos)
-  def outerSides: LineSegArr = outers3.map(_.xyLineSeg(scale))//.draw(Colour.Gold, 3)
-  //override def outerSides: LineSegArr = ???
+  def transLineSegM3Arr(inp: LineSegM3Arr): LineSegArr ={
+    val rotated = inp.fromLatLongFocus(focus)
+    val visible = rotated.filter(_.zsPos)
+    visible.map(_.xyLineSeg(scale))
+  }
 }
