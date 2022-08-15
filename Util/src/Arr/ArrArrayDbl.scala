@@ -2,8 +2,10 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
+
 trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with SeqImut[A]
-{ def unsafeArrayOfArrays: Array[Array[Double]]
+{
+  def unsafeArrayOfArrays: Array[Array[Double]]
   def sdLength: Int = unsafeArrayOfArrays.length
   def unsafeFromArrayArray(array: Array[Array[Double]]): ThisT
   final def unsafeSameSize(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Double]](length))
@@ -11,7 +13,7 @@ trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with SeqImut[A]
 }
 
 /** This is the builder for Arrays Arrays of Double. It is not the builder for Arrays of Double.  */
-trait ArrArrayDblBuild[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends ArrBuilder[A, ArrT]
+/*trait ArrArrayDblBuild[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends ArrBuilder[A, ArrT]
 { @inline def fromArray(array: Array[Array[Double]]): ArrT
   type BuffT <: ArrayDoubleBuff[A]
   @inline override def newArr(length: Int): ArrT = fromArray(new Array[Array[Double]](length))
@@ -39,3 +41,4 @@ trait ArrayDoubleBuff[A <: ArrayDblBacked] extends Any with SeqGen[A]
   def unsafeBuff: ArrayBuffer[Array[Double]]
   override def sdLength: Int = unsafeBuff.length
 }
+*/

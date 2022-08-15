@@ -2,10 +2,12 @@
 package ostrat; package prid; package phex
 import geom._, pgui._
 
-/** Hex grid system projection. */
+/** Hex grid system graphics projection. */
 trait HSysProjection
 { type GridT <: HGridSys
   def gridSys: GridT
+
+  def tiles: Polygon = ???
 
   /** The visible hex sides. */
   def sides: LineSegArr
@@ -29,5 +31,7 @@ trait HSysProjection
   def outerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = outerSides.draw(lineWidth, colour)
 
   def panel: Panel
-  def setView(view: Any): Unit = {}
+
+  /** Set the perpective, The position of the view. the rotation and the scale. */
+  def setView(view: Any): Unit
 }

@@ -52,27 +52,14 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
     val hexs1 = gridSys.map{ hc =>
       val col = terrs(hc).colour
-      val p = hc.hVertPolygon.map(gridSys.hCoordLL(_)).toMetres3.fromLatLongFocus(focus).map(_.xy)
+      val p = hc.hVertPolygon.map(gridSys.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)//.map(_.xy)
       (p, col)
     }
 
-    val hexs2 = hexs1.map{ pair =>
-      val (p, col) = pair
-      p.map(_ / scale).fill(col)
-    }
+    val hexs2 = hexs1.map{ (p, col: Colour) => p.map(_.xy / scale).fill(col) }
 
-    def lines = gridSys.innerSideLineM3s
-    def lines2 = lines.fromLatLongFocus(focus)
-    def lines3 = lines2.filter(_.zsPos)
-    //def lines4: LineSegArr = lines3.map(_.xyLineSeg(scale))
-    def lines5 = lines3.map(_.xyLineSeg(scale).draw(White))
-    def lines6 = ifGScale(5, lines5)
-
-//    def sides0: Arr[(HSide, LineSegLL)] = gridSys.sidesMap{ sd => (sd, sd.lineSegHC.map(gridSys.hCoordLL(_))) }
-//    def sides1: Arr[(HSide, LineSegM3)] = sides0.map{ (sc, ls) => (sc, ls.map(_.toMetres3)) }
-//    def sides2: Arr[(HSide, LineSegM3)] = sides1.map{ (sc, ls) => (sc, ls.map(_.fromLatLongFocus(focus))) }
-//    def sides3: Arr[(HSide, LineSegM3)] = sides2.filter((sc, ls) => ls.zsPos)
-//    def sides4: Arr[(HSide, LineSeg)] = sides3.map{ (sc, ls) => (sc, ls.map(_.xy / scale)) }
+    def innerSides = proj.innerSidesDraw(2, White) //lines3.map(_.xyLineSeg(scale).draw(White))
+    def innerSidesDraw = ifGScale(5, Arr(innerSides))
 
     def straits: LineSegArr =  proj.transHSides(sTerrs.trueHSides)
     def straitsDraw: GraphicElems = straits.map{ ls  => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
@@ -91,7 +78,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ lines6 +% outerLines ++ rcTexts ++ irrLines2 ++ straitsDraw)
+    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines2 ++ straitsDraw)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()
