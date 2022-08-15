@@ -3,12 +3,12 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** Specialised Array based immutable collection class for [[Polygon]]s.  */
-final class PolygonArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends AnyVal with ArrayDblArr[PolygonGen]
+final class PolygonArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends AnyVal with ArrayDblArr[Polygon]
 { override type ThisT = PolygonArr
   override def typeStr: String = "PolygonArr"
   override def unsafeFromArrayArray(aad: Array[Array[Double]]): PolygonArr = new PolygonArr(aad)
   override def apply(index: Int): PolygonGen = new PolygonGen(unsafeArrayOfArrays(index))
-  override def fElemStr: PolygonGen => String = _.str
+  override def fElemStr: Polygon => String = _.toString
 
   override def sdIndex(index: Int): PolygonGen = new PolygonGen(unsafeArrayOfArrays(index))
 }
@@ -28,19 +28,23 @@ object PolygonArr
     new PolygonArr(array)
   }
 
-  implicit val eqImplicit: EqT[PolygonArr] = ArrArrayDblEq[PolygonGen, PolygonArr]
+  implicit val eqImplicit: EqT[PolygonArr] = ArrArrayDblEq[Polygon, PolygonArr]
 }
 
-class PolygonBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDoubleBuff[PolygonGen]
+class PolygonBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDoubleBuff[Polygon]
 {
   override type ThisT = PolygonBuff
   override def typeStr: String = "PolygonBuff"
  // override def apply(index: Int): PolygonGen = new PolygonGen(unsafeBuff(index))
 
   override def length: Int = unsafeBuff.length
-  override def unsafeSetElem(i: Int, value: PolygonGen): Unit = unsafeBuff(i) = value.unsafeArray
+  override def unsafeSetElem(i: Int, value: Polygon): Unit = unsafeBuff(i) = value.unsafeArray
 
-  override def fElemStr: PolygonGen => String = ???
+  override def fElemStr: Polygon => String = ???
 
-  override def sdIndex(index: Int): PolygonGen = ???
+  override def sdIndex(index: Int): Polygon = ???
+}
+
+object PolygonBuff{
+  def apply(initLen: Int = 4): PolygonBuff = new PolygonBuff(new ArrayBuffer[Array[Double]](initLen))
 }

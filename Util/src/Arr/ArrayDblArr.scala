@@ -22,6 +22,7 @@ trait ArrayDblArrBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends Ar
   override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuff.toArray)
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuff.append(value.unsafeArray); () }
   override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuff.addAll(arr.unsafeArrayOfArrays); () }
+  //override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = arr.unsafeArrayOfArrays.foreach{array => buff.unsafeBuff.append(array) }
 }
 
 class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends EqT[ArrT]
