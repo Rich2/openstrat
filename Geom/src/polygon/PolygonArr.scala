@@ -5,16 +5,12 @@ import collection.mutable.ArrayBuffer
 /** Specialised Array based immutable collection class for [[Polygon]]s.  */
 final class PolygonArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends AnyVal with ArrayDblArr[PolygonGen]
 { override type ThisT = PolygonArr
-  override def typeStr: String = "Polygons"
+  override def typeStr: String = "PolygonArr"
   override def unsafeFromArrayArray(aad: Array[Array[Double]]): PolygonArr = new PolygonArr(aad)
   override def apply(index: Int): PolygonGen = new PolygonGen(unsafeArrayOfArrays(index))
   override def fElemStr: PolygonGen => String = _.str
 
-  /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[SeqDefGen]][A]. */
-  override def length: Int = ???
-
-  /** Accesses the sequence-defined element by a 0 based index. */
-  override def sdIndex(index: Int): PolygonGen = ???
+  override def sdIndex(index: Int): PolygonGen = new PolygonGen(unsafeArrayOfArrays(index))
 }
 
 /** Companion object for the [[PolygonArr]] class. */
@@ -32,7 +28,7 @@ object PolygonArr
     new PolygonArr(array)
   }
 
-  //implicit val eqImplicit: Eq[PolygonArr] = ArrArrayDblEq[PolygonGen, PolygonArr]
+  implicit val eqImplicit: EqT[PolygonArr] = ArrArrayDblEq[PolygonGen, PolygonArr]
 }
 
 class PolygonBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDoubleBuff[PolygonGen]

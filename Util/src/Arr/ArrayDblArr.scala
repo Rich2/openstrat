@@ -5,14 +5,15 @@ import collection.mutable.ArrayBuffer
 trait ArrayDblArr[A <: ArrayDblBacked] extends Any with SeqImut[A]
 {
   def unsafeArrayOfArrays: Array[Array[Double]]
-  def sdLength: Int = unsafeArrayOfArrays.length
+  override def length: Int = unsafeArrayOfArrays.length
+  override def sdLength: Int = unsafeArrayOfArrays.length
   def unsafeFromArrayArray(array: Array[Array[Double]]): ThisT
   final def unsafeSameSize(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Double]](length))
   def unsafeSetElem(i: Int, value: A): Unit = unsafeArrayOfArrays(i) = value.unsafeArray
 }
 
 /** This is the builder for Arrays Arrays of Double. It is not the builder for Arrays of Double.  */
-trait ArrayDblArrBuild[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends ArrBuilder[A, ArrT]
+trait ArrayDblArrBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends ArrBuilder[A, ArrT]
 { @inline def fromArray(array: Array[Array[Double]]): ArrT
   type BuffT <: ArrayDoubleBuff[A]
   @inline override def newArr(length: Int): ArrT = fromArray(new Array[Array[Double]](length))

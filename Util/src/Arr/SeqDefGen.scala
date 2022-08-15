@@ -3,8 +3,9 @@ package ostrat
 import annotation.unchecked.uncheckedVariance
 
 /** Sequence-defined efficient final classes backed by Arrays, ArrayBuffers etc. Includes actual sequences both mutable and immutable as well as
- *  classes such as polygons and line paths that are defined by sequence data. So for example a Polygon in the Geom module is defined by a sequence of
- *  points, but is a different type to the Pt2s class which is the immutable sequence class for 2 dimensional points. includes expandable buffers. */
+ *  classes such as polygons and line paths that are defined by a sequence of data elements. So for example a Polygon in the Geom module is defined by
+ *  a sequence of points, but is a different type to the Pt2s class which is the immutable sequence class for 2 dimensional points. includes
+ *  expandable buffers. */
 trait SeqDefGen[A] extends Any
 {
   /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
@@ -31,7 +32,7 @@ trait SeqDefGen[A] extends Any
 
   override def toString: String = typeStr + elemsStr
 
-  /** Accesses the sequence-defined element by a 0 based index. */
+  /** Accesses the defining sequence element by a 0 based index. */
   @inline def sdIndex(index: Int): A
 
   /** Performs a side effecting function on each element of this sequence in order. */
