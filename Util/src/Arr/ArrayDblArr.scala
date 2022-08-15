@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with SeqImut[A]
+trait ArrayDblArr[A <: ArrayDblBacked] extends Any with SeqImut[A]
 {
   def unsafeArrayOfArrays: Array[Array[Double]]
   def sdLength: Int = unsafeArrayOfArrays.length
@@ -12,7 +12,7 @@ trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with SeqImut[A]
 }
 
 /** This is the builder for Arrays Arrays of Double. It is not the builder for Arrays of Double.  */
-/*trait ArrArrayDblBuild[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends ArrBuilder[A, ArrT]
+trait ArrayDblArrBuild[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends ArrBuilder[A, ArrT]
 { @inline def fromArray(array: Array[Array[Double]]): ArrT
   type BuffT <: ArrayDoubleBuff[A]
   @inline override def newArr(length: Int): ArrT = fromArray(new Array[Array[Double]](length))
@@ -23,7 +23,7 @@ trait ArrArrayDbl[A <: ArrayDblBacked] extends Any with SeqImut[A]
   override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuff.addAll(arr.unsafeArrayOfArrays); () }
 }
 
-class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends EqT[ArrT]
+class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends EqT[ArrT]
 {
   override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.sdLength != a2.sdLength) false
     else a1.iForAll((i, el1) =>  el1.unsafeArray === a2(i).unsafeArray)
@@ -31,7 +31,7 @@ class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]] extends EqT[Arr
 
 object ArrArrayDblEq
 {
-  def apply[A <: ArrayDblBacked, ArrT <: ArrArrayDbl[A]]: ArrArrayDblEq[A, ArrT] = new ArrArrayDblEq[A, ArrT]
+  def apply[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]]: ArrArrayDblEq[A, ArrT] = new ArrArrayDblEq[A, ArrT]
 }
 
 /** This is a buffer class for Arrays of Double. It is not a Buffer class for Arrays. */
@@ -40,4 +40,3 @@ trait ArrayDoubleBuff[A <: ArrayDblBacked] extends Any with SeqGen[A]
   def unsafeBuff: ArrayBuffer[Array[Double]]
   override def sdLength: Int = unsafeBuff.length
 }
-*/

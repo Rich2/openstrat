@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-//import collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 /** Specialised Array based immutable collection class for [[Polygon]]s.  */
-/*final class PolygonArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends AnyVal with ArrArrayDbl[PolygonGen]
+final class PolygonArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends AnyVal with ArrayDblArr[PolygonGen]
 { override type ThisT = PolygonArr
   override def typeStr: String = "Polygons"
   override def unsafeFromArrayArray(aad: Array[Array[Double]]): PolygonArr = new PolygonArr(aad)
@@ -15,26 +15,36 @@ package ostrat; package geom
 
   /** Accesses the sequence-defined element by a 0 based index. */
   override def sdIndex(index: Int): PolygonGen = ???
-}*/
+}
 
 /** Companion object for the [[PolygonArr]] class. */
-/*object PolygonArr
+object PolygonArr
 {
-  def apply(input: PolygonGen*): Polygons =
+  def apply(input: PolygonGen*): PolygonArr =
   {
     val array: Array[Array[Double]] = new Array[Array[Double]](input.length)
     var count = 0
 
     while (count < input.length)
-    { array(count) = input(count).arrayUnsafe
+    { array(count) = input(count).unsafeArray
       count += 1
     }
-    new Polygons(array)
+    new PolygonArr(array)
   }
 
-  implicit val eqImplicit: Eq[Polygons] = ArrArrayDblEq[PolygonGen, Polygons]
+  //implicit val eqImplicit: Eq[PolygonArr] = ArrArrayDblEq[PolygonGen, PolygonArr]
 }
 
 class PolygonBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDoubleBuff[PolygonGen]
-{ def apply(index: Int): PolygonGen = new PolygonGen(unsafeBuff(index))
-}*/
+{
+  override type ThisT = PolygonBuff
+  override def typeStr: String = "PolygonBuff"
+ // override def apply(index: Int): PolygonGen = new PolygonGen(unsafeBuff(index))
+
+  override def length: Int = unsafeBuff.length
+  override def unsafeSetElem(i: Int, value: PolygonGen): Unit = unsafeBuff(i) = value.unsafeArray
+
+  override def fElemStr: PolygonGen => String = ???
+
+  override def sdIndex(index: Int): PolygonGen = ???
+}
