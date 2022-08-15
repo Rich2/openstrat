@@ -44,10 +44,10 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
     def rcTexts = ifGScale(20.5, optTexts)
 
     def optTexts = terrs.hcFlatMap{ (hc, terr) =>
-      val gls: LatLong = gridSys.hCoordLL(hc)
-      val g2 = gls.toMetres3.fromLatLongFocus(focus)
-      val strs: StringArr = StringArr(hc.rcStr32, gls.degStr, hc.strComma)
-      TextGraphic.lines(strs, 12, g2.xy / scale, terr.contrastBW)
+      proj.transCoord(hc).foldToGraphics{ pt =>
+        val strs: StringArr = StringArr(hc.rcStr32).appendOption(proj.hCoordOptStr(hc)) +% hc.strComma
+        TextGraphic.lines(strs, 12, pt, terr.contrastBW)
+      }
     }
 
     val hexs1 = gridSys.map{ hc =>

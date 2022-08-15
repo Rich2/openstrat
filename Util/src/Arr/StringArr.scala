@@ -38,7 +38,7 @@ class StringArr(val unsafeArray: Array[String]) extends AnyVal with SeqImut[Stri
   }
 
   /** Alias for append. Functionally appends the operand [[String]]. */
-  @inline def :+(op: String): StringArr = append(op)
+  @inline def +%(op: String): StringArr = append(op)
   /** Functionally appends the operand [[String]]. This method by the :+ operator, rather than the +- operator alias used for append on [[Arr]] to
    *  avoid confusion with arithmetic operations. */
   def append(op: String): StringArr =
@@ -47,6 +47,12 @@ class StringArr(val unsafeArray: Array[String]) extends AnyVal with SeqImut[Stri
     newArray(sdLength) = op
     new StringArr(newArray)
   }
+
+  def appendOption(optElem: Option[String]): StringArr =
+    optElem.fld(this, this +% _)
+
+  def appendsOption(optElem: Option[StringArr]): StringArr =
+    optElem.fld(this, ++ _)
 
   /** Finds the index of the first [[String]] element that fulfills the predicate parameter or returns -1. */
   def findIndex(f: String => Boolean): Int =

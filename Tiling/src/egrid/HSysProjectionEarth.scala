@@ -37,10 +37,10 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 
   override def sides: LineSegArr = transLineSegM3Arr(gridSys.sideLineM3s)
   override def innerSides: LineSegArr = transLineSegM3Arr(gridSys.innerSideLineM3s)
-  def outerSides: LineSegArr = transLineSegM3Arr(gridSys.outerSideLineM3s)
+  override def outerSides: LineSegArr = transLineSegM3Arr(gridSys.outerSideLineM3s)
 
-  def transHSides(inp: HSideArr): LineSegArr = {
-    val lls: LineSegLLArr = inp.map(_.lineSegHC.map(gridSys.hCoordLL(_)))
+  override def transHSides(inp: HSideArr): LineSegArr =
+  { val lls: LineSegLLArr = inp.map(_.lineSegHC.map(gridSys.hCoordLL(_)))
     val m3s = lls.map(_.map(_.toMetres3))
     transLineSegM3Arr(m3s)
   }
@@ -50,4 +50,13 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     val visible = rotated.filter(_.zsPos)
     visible.map(_.xyLineSeg(scale))
   }
+
+  override def transCoord(hc: HCoord): Option[Pt2] =
+  { val m3 = gridSys.hCoordLL(hc).toMetres3
+    val rotated = m3.fromLatLongFocus(focus)
+    val opt = ife(rotated.zPos, Some(rotated.xy), None)
+    opt.map(_ / scale)
+  }
+
+  override def hCoordOptStr(hc: HCoord): Option[String] = Some(gridSys.hCoordLL(hc).degStr)
 }

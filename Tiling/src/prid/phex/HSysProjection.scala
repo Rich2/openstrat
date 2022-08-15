@@ -21,6 +21,10 @@ trait HSysProjection
   /** transforms and filters out non visible [[HSide]]s. */
   def transHSides(inp: HSideArr): LineSegArr
 
+  def transCoord(hc: HCoord): Option[Pt2]
+
+  def hCoordOptStr(hc: HCoord): Option[String] = None
+
   /** Draws visible hex sides. */
   def sidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = sides.draw(lineWidth, colour)
 

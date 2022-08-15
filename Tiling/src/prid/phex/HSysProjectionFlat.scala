@@ -11,6 +11,8 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
   override def innerSides: LineSegArr = gridSys.innerSideLines.slate(-focus).scale(cPScale)
   override def outerSides: LineSegArr = gridSys.outerSideLines.slate(-focus).scale(cPScale)
 
+  override def transCoord(hc: HCoord): Option[Pt2] = ???
+
   override def transHSides(inp: HSideArr): LineSegArr = ???//.slate(-focus).scale(cPScale)
 
   override def setView(view: Any): Unit = view match

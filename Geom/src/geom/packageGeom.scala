@@ -152,6 +152,12 @@ package object geom
         case Some(a) => f(a)
         case None => (Seq(), Seq())
      }
+
+    /** folds to [[GraphicElems]], an empty Array in the case of none, an Arr of 1 [[GraphicElem]] in the case of [[Some]]. */
+    def foldToGraphic(f: A => GraphicElem): GraphicElems = thisOption.fld(Arr(), a => Arr(f(a)))
+
+    /** folds to [[GraphicElems]], an empty Array in the case of none, the result of the function in the case of [[Some]]. */
+    def foldToGraphics(f: A => GraphicElems): GraphicElems = thisOption.fld(Arr(), f(_))
   }
 
   implicit class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
