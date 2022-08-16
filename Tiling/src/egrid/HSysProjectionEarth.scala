@@ -45,8 +45,8 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     transLineSegM3Arr(m3s)
   }
 
-  def transLineSegM3Arr(inp: LineSegM3Arr): LineSegArr ={
-    val rotated = inp.fromLatLongFocus(focus)
+  def transLineSegM3Arr(inp: LineSegM3Arr): LineSegArr =
+  { val rotated = inp.fromLatLongFocus(focus)
     val visible = rotated.filter(_.zsPos)
     visible.map(_.xyLineSeg(scale))
   }
@@ -56,6 +56,14 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     val rotated = m3.fromLatLongFocus(focus)
     val opt = ife(rotated.zPos, Some(rotated.xy), None)
     opt.map(_ / scale)
+  }
+
+  def transTile(hc: HCen): Option[Polygon] = {
+    val p1 = hc.hVertPolygon.map(gridSys.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
+    //val m3 = gridSys.hCoordLL(hc).toMetres3
+    //val rotated = m3.fromLatLongFocus(focus)
+    val opt = ife(p1.vert(0).zPos, Some(p1.map(_.xy)), None)
+    opt.map(_.map(_ / scale))
   }
 
   override def hCoordOptStr(hc: HCoord): Option[String] = Some(gridSys.hCoordLL(hc).degStr)
