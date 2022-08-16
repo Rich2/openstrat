@@ -50,13 +50,17 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
       }
     }
 
-    val hexs1 = gridSys.map{ hc =>
-      val col = terrs(hc).colour
-      val p = hc.hVertPolygon.map(gridSys.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)//.map(_.xy)
-      (p, col)
-    }
+//    val hexs1 = gridSys.map{ hc =>
+//      val col = terrs(hc).colour
+//      val p = hc.hVertPolygon.map(gridSys.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)//.map(_.xy)
+//      (p, col)
+//    }
+//
+//    val hexs2 = hexs1.map{ (p, col: Colour) => p.map(_.xy / scale).fill(col) }
 
-    val hexs2 = hexs1.map{ (p, col: Colour) => p.map(_.xy / scale).fill(col) }
+    val hexs3 = gridSys.flatMap{ hc =>
+      proj.transTile(hc).foldToGraphic{ poly =>poly.fill(terrs(hc).colour) }
+    }
 
     def innerSides = proj.innerSidesDraw(2, White) //lines3.map(_.xyLineSeg(scale).draw(White))
     def innerSidesDraw = ifGScale(5, Arr(innerSides))
@@ -78,7 +82,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs2 ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines2 ++ straitsDraw)
+    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs3 ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines2 ++ straitsDraw)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()

@@ -58,10 +58,8 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     opt.map(_ / scale)
   }
 
-  def transTile(hc: HCen): Option[Polygon] = {
+  override def transTile(hc: HCen): Option[Polygon] = {
     val p1 = hc.hVertPolygon.map(gridSys.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
-    //val m3 = gridSys.hCoordLL(hc).toMetres3
-    //val rotated = m3.fromLatLongFocus(focus)
     val opt = ife(p1.vert(0).zPos, Some(p1.map(_.xy)), None)
     opt.map(_.map(_ / scale))
   }

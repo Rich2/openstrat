@@ -21,6 +21,7 @@ trait HSysProjection
   /** transforms and filters out non visible [[HSide]]s. */
   def transHSides(inp: HSideArr): LineSegArr
 
+  def transTile(hc: HCen): Option[Polygon]
   def transCoord(hc: HCoord): Option[Pt2]
 
   def hCoordOptStr(hc: HCoord): Option[String] = None
