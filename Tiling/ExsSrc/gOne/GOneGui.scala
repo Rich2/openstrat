@@ -25,9 +25,10 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   val urect = Rect(1.4, 1)
 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
-  def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, p) =>
+  def units: Arr[PolygonCompound] = players.hcSomesOptMap { (hc, p) => proj.transCoord(hc).map { pt =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
-    urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+    urect.scale(120).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+  }
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
@@ -41,11 +42,9 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
 
   /** Draws the tiles sides (or edges). */
   def innerSidesDraw: LinesDraw = proj.innerSidesDraw()
-  //def innerSidesDraw: LinesDraw = gridSys.innerSidesDraw()
 
   /** Draws the tiles sides (or edges). */
   def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
-    //gridSys.outerSidesDraw(Colour.Gold).slate(-focus).scale(cPScale)
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.hcSomesMap { (hc, step) =>
@@ -62,7 +61,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn) ++ proj.buttons ++ navButtons)
+  def thisTop(): Unit = reTop(Arr(bTurn) ++ proj.buttons)
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   {
@@ -83,7 +82,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   thisTop()
 
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
-  def frame: GraphicElems = (tiles ++ units ++ hexStrs).slate(-focus).scale(cPScale) +% innerSidesDraw +% outerSidesDraw ++ moveGraphics2
+  def frame: GraphicElems = (tiles).slate(-focus).scale(cPScale) ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics2 ++ hexStrs
   proj.getFrame = () => frame
   proj.setStatusText = {str =>
     statusText = str

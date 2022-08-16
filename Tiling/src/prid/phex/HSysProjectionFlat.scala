@@ -45,5 +45,33 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     setStatusText(tilePScaleStr)
   }
 
-  override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut)
+  def focusAdj(uniStr: String)(f: (Vec2, Double) => Vec2): PolygonCompound = clickButton(uniStr) { butt =>
+    val delta = butt(1, 10, 100, 0)
+    focus = f(focus, cPScale * delta / 40)
+    panel.repaint(getFrame())
+    setStatusText(focus.strSemi(2, 2))
+  }
+
+  def focusLeft: PolygonCompound = focusAdj("\u2190") { (v, d) =>
+    val newX: Double = (v.x - d).max(gridSys.left)
+    Vec2(newX, v.y)
+  }
+
+  def focusRight: PolygonCompound = focusAdj("\u2192") { (v, d) =>
+    val newX: Double = (v.x + d).min(gridSys.right)
+    Vec2(newX, v.y)
+  }
+
+  def focusUp: PolygonCompound = focusAdj("\u2191") { (v, d) =>
+    val newY: Double = (v.y + d).min(gridSys.top)
+    Vec2(v.x, newY)
+  }
+
+  def focusDown: PolygonCompound = focusAdj("\u2193") { (v, d) =>
+    val newY: Double = (v.y - d).max(gridSys.bottom)
+    Vec2(v.x, newY)
+  }
+
+  val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
+  //override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut)
 }

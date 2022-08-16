@@ -111,6 +111,17 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
+  /** [[HCen]] with Some optMap. map the Some values of this HcenArrOpt, with the respective [[HCen]] coordinate to type B, the first type parameter
+   *  B. Returns an immutable Array based collection of type ArrT, the second type parameter. */
+  def hcSomesOptMap[B, ArrB <: SeqImut[B]](f: (HCen, A) => Option[B])(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
+    grider.foreach { hc =>
+      val a: A = unsafeArr(grider.arrIndex(hc))
+      if (a != null) { f(hc, a).foreach(build.buffGrow(buff, _)) }
+    }
+    build.buffToBB(buff)
+  }
+
   /** Maps the Somes of this [[HCenOptDGrid]] and the Some values of a second HCenArrOpt. Returns an immutable Array based collection of type ArrC, the
    *  second type parameter. */
   def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (A, B) => C)(implicit grider: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
