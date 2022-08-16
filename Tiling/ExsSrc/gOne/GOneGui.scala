@@ -37,10 +37,11 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   val tiles: Arr[PolygonActive] = gridSys.activeTiles
 
   /** Draws the tiles sides (or edges). */
-  def sidesDraw: LinesDraw = gridSys.sidesDraw(Colour.Gold)
+  def sidesDraw: LinesDraw = proj.sidesDraw()
 
   /** Draws the tiles sides (or edges). */
-  def innerSidesDraw: LinesDraw = gridSys.innerSidesDraw()
+  def innerSidesDraw: LinesDraw = proj.innerSidesDraw()
+  //def innerSidesDraw: LinesDraw = gridSys.innerSidesDraw()
 
   /** Draws the tiles sides (or edges). */
   def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
@@ -61,9 +62,10 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn) ++ navButtons)
+  def thisTop(): Unit = reTop(Arr(bTurn) ++ proj.buttons ++ navButtons)
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  {
     case (LeftButton, _, cl) => {
       selected = cl
       statusText = selected.headFoldToString("Nothing Selected")
@@ -81,6 +83,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   thisTop()
 
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
-  def frame: GraphicElems = (tiles +% innerSidesDraw ++ units ++ hexStrs).slate(-focus).scale(cPScale) +% outerSidesDraw ++ moveGraphics2
+  def frame: GraphicElems = (tiles ++ units ++ hexStrs).slate(-focus).scale(cPScale) +% innerSidesDraw +% outerSidesDraw ++ moveGraphics2
+  proj.frame = () => frame
   repaint()
 }

@@ -58,7 +58,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 //
 //    val hexs2 = hexs1.map{ (p, col: Colour) => p.map(_.xy / scale).fill(col) }
 
-    val hexs3 = gridSys.flatMap{ hc =>
+    val tiles = gridSys.flatMap{ hc =>
       proj.transTile(hc).foldToGraphic{ poly =>poly.fill(terrs(hc).colour) }
     }
 
@@ -82,7 +82,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames2 ++ hexs3 ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines2 ++ straitsDraw)
+    mainRepaint(seas %: irrFills ++ irrNames2 ++ tiles ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines2 ++ straitsDraw)
   }
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
   thisTop()

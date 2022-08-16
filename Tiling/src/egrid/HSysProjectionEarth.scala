@@ -17,6 +17,21 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     //case d: Double => cPScale = d
     case _ =>
   }
+
+  def zoomIn: PolygonCompound = clickButton("+") { _ =>
+    scale *= 1.1
+    //panel.repaint(frame)
+    //statusText = tilePScaleStr
+    //thisTop()
+  }
+
+  def zoomOut: PolygonCompound = clickButton("-") { _ =>
+    scale /= 1.1
+    //panel.repaint(frame)
+    //statusText = tilePScaleStr
+    //thisTop()
+  }
+  override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut)
 //  val sides0 = sTerrs.truesMap(_.lineSegHC.map(gridSys.hCoordLL(_)))
 //
 //  def sides1: LineSegM3Arr = sides0.map {

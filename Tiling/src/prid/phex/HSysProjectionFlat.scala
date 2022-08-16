@@ -27,18 +27,20 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     case _ =>
   }
 
-  def frame: GraphicElems = ???
+
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
     cPScale *= 1.1
-    panel.repaint(frame)
+    panel.repaint(frame())
     //statusText = tilePScaleStr
     //thisTop()
   }
 
   def zoomOut: PolygonCompound = clickButton("-") { _ =>
     cPScale /= 1.1
-    panel.repaint(frame)
+    panel.repaint(frame())
     //statusText = tilePScaleStr
     //thisTop()
   }
+
+  override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut)
 }
