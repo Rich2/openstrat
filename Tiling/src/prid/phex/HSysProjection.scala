@@ -25,7 +25,9 @@ trait HSysProjection
 
   def transTile(hc: HCen): Option[Polygon]
   def transCoord(hc: HCoord): Option[Pt2]
+  def transLineSeg(seg: LineSegHC): Option[LineSeg]
 
+  /** Produces optional data about the HCoord. for example on a world projection it can give the latitude and longitude. */
   def hCoordOptStr(hc: HCoord): Option[String] = None
 
   /** Draws visible hex sides. */

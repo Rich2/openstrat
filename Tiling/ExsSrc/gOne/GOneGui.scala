@@ -26,9 +26,9 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
   def units: Arr[PolygonCompound] = players.hcSomesOptMap { (hc, p) => proj.transCoord(hc).map { pt =>
-    val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
-    urect.scale(120).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
-  }
+      val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
+      urect.scale(120).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+    }
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
@@ -47,8 +47,8 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineSegDraw] = moves.hcSomesMap { (hc, step) =>
-    LineSegHC(hc, hc.unsafeStep(step)).lineSeg.draw(players.unSafeApply(hc).colour)
+  def moveGraphics: GraphicElems = moves.hcSomesOptFlatMap { (hc, step) =>
+    proj.transLineSeg(LineSegHC(hc, hc.unsafeStep(step))).map(_.draw(players.unSafeApply(hc).colour).arrow)
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
@@ -81,8 +81,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   }
   thisTop()
 
-  def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
-  def frame: GraphicElems = (tiles).slate(-focus).scale(cPScale) ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics2 ++ hexStrs
+  def frame: GraphicElems = (tiles).slate(-focus).scale(cPScale) ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs
   proj.getFrame = () => frame
   proj.setStatusText = {str =>
     statusText = str
