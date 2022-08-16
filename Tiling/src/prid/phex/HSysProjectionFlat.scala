@@ -5,13 +5,19 @@ import geom._, pgui._
 final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSysProjection
 { type GridT = HGridSys
 
-  var cPScale: Double = 10
+  /** The number of pixels per column unit. */
+  var cPScale: Double = 40
+
+  /** The number of pixels per tile from side to opposite side. */
+  def tileScale: Double = cPScale * 4
+
+  def tilePScaleStr = s"scale = ${tileScale.str2} pixels per tile"
   var focus: Vec2 = Vec2(0, 0)
   override def sides: LineSegArr = gridSys.sideLines.slate(-focus).scale(cPScale)
   override def innerSides: LineSegArr = gridSys.innerSideLines.slate(-focus).scale(cPScale)
   override def outerSides: LineSegArr = gridSys.outerSideLines.slate(-focus).scale(cPScale)
 
-  override def transCoord(hc: HCoord): Option[Pt2] = ???
+  override def transCoord(hc: HCoord): Option[Pt2] = Some(gridSys.hCoordToPt2(hc).slate(-focus).scale(cPScale))
 
   override def transTile(hc: HCen): Option[Polygon] = ???
 
@@ -27,19 +33,16 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     case _ =>
   }
 
-
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
     cPScale *= 1.1
-    panel.repaint(frame())
-    //statusText = tilePScaleStr
-    //thisTop()
+    panel.repaint(getFrame())
+    setStatusText(tilePScaleStr)
   }
 
   def zoomOut: PolygonCompound = clickButton("-") { _ =>
     cPScale /= 1.1
-    panel.repaint(frame())
-    //statusText = tilePScaleStr
-    //thisTop()
+    panel.repaint(getFrame())
+    setStatusText(tilePScaleStr)
   }
 
   override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut)

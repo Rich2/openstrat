@@ -43,24 +43,14 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
     def rcTexts = ifGScale(20.5, optTexts)
 
-    def optTexts = terrs.hcFlatMap{ (hc, terr) =>
-      proj.transCoord(hc).foldToGraphics{ pt =>
+    def optTexts = terrs.hcOptFlatMap{ (hc, terr) =>
+      proj.transCoord(hc).map{ pt =>
         val strs: StringArr = StringArr(hc.rcStr32).appendOption(proj.hCoordOptStr(hc)) +% hc.strComma
         TextGraphic.lines(strs, 12, pt, terr.contrastBW)
       }
     }
 
-//    val hexs1 = gridSys.map{ hc =>
-//      val col = terrs(hc).colour
-//      val p = hc.hVertPolygon.map(gridSys.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)//.map(_.xy)
-//      (p, col)
-//    }
-//
-//    val hexs2 = hexs1.map{ (p, col: Colour) => p.map(_.xy / scale).fill(col) }
-
-    val tiles = gridSys.flatMap{ hc =>
-      proj.transTile(hc).foldToGraphic{ poly =>poly.fill(terrs(hc).colour) }
-    }
+    val tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
 
     def innerSides = proj.innerSidesDraw(2, White) //lines3.map(_.xyLineSeg(scale).draw(White))
     def innerSidesDraw = ifGScale(5, Arr(innerSides))

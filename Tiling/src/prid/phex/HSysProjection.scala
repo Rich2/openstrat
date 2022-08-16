@@ -6,7 +6,8 @@ import geom._, pgui._
 trait HSysProjection
 { type GridT <: HGridSys
   def gridSys: GridT
-  var frame: () => GraphicElems = () => Arr()
+  var getFrame: () => GraphicElems = () => Arr()
+  var setStatusText: String => Unit = s => {}
   val buttons: Arr[PolygonCompound]
   def tiles: Polygon = ???
 

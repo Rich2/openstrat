@@ -31,7 +31,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
+  def hexStrs: Arr[TextGraphic] = players.hcNonesOptMap{ hc => proj.transCoord(hc).map(TextGraphic(hc.strComma, 20, _)) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles: Arr[PolygonActive] = gridSys.activeTiles
@@ -84,6 +84,10 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
 
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
   def frame: GraphicElems = (tiles ++ units ++ hexStrs).slate(-focus).scale(cPScale) +% innerSidesDraw +% outerSidesDraw ++ moveGraphics2
-  proj.frame = () => frame
+  proj.getFrame = () => frame
+  proj.setStatusText = {str =>
+    statusText = str
+    thisTop()
+  }
   repaint()
 }

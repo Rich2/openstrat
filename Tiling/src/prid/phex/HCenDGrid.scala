@@ -44,6 +44,17 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     build.buffToBB(buff)
   }
 
+  /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
+   * function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
+   * element) => B signature. */
+  def hcOptFlatMap[BB <: SeqImut[_]](f: (HCen, A) => Option[BB])(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB = {
+    val buff = build.newBuff()
+    grid.iForeach { (hc, i) =>
+      f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
+    }
+    build.buffToBB(buff)
+  }
+
   /** Completes the given row from the given starting c column value to the end of the row. An exception is
    *  thrown if the tile values don't match with the end of the row. */
   final def completeRow(row: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: HGrid): HCen =

@@ -159,6 +159,20 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
+  /** maps the [[HCen]] Coordinate values to an Option of type B, but only where the element is a None value. It collects the Some values returned by
+   *  the parameter function. Returns an immutable Array based collection of type ArrB, the second type parameter. */
+  def hcNonesOptMap[B, ArrB <: SeqImut[B]](f: HCen => Option[B])(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB = {
+    val buff = build.newBuff()
+
+    grider.foreach { r =>
+      val a: A = unsafeArr(grider.arrIndex(r))
+      if (a == null) {
+        f(r).foreach(build.buffGrow(buff, _))
+      }
+    }
+    build.buffToBB(buff)
+  }
+
   /** [[HCen]] with element flatMap, but only coordinates where there some value. Maps and flattens each [[HCen]] coordinate with its associated
    * element of type A. It ignores the None values. Note the function signature follows the foreach based convention of putting the collection element
    * 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */

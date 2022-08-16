@@ -135,6 +135,14 @@ trait HGridSys extends Any with TGridSys
     res
   }
 
+  /** Maps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
+   * TileGrid structure is lost in the flatMap operation. */
+  final def optMap[B, ArrB <: SeqImut[B]](f: HCen => Option[B])(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+    val buff = build.newBuff(numTiles)
+    foreach { hCen => f(hCen).foreach(build.buffGrow(buff, _)) }
+    build.buffToBB(buff)
+  }
+
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    *  TileGrid structure is lost in the flatMap operation. */
   final def flatMap[ArrT <: SeqImut[_]](f: HCen => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
