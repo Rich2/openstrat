@@ -23,9 +23,10 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     case _ =>
   }
 
-  override def tiles: PolygonArr = gridSys.map(_.polygonReg).slate(-focus).scale(cPScale)
+  override def tiles: PolygonArr = gridSys.map(_.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(cPScale))
 
-  override def tileActives: Arr[PolygonActive] = gridSys.map(hc => hc.polygonReg.slate(-focus).scale(cPScale).active(hc))
+  override def tileActives: Arr[PolygonActive] =
+    gridSys.map(hc => hc.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(cPScale).active(hc))
   override def sides: LineSegArr = gridSys.sideLines.slate(-focus).scale(cPScale)
   override def innerSides: LineSegArr = gridSys.innerSideLines.slate(-focus).scale(cPScale)
   override def outerSides: LineSegArr = gridSys.outerSideLines.slate(-focus).scale(cPScale)

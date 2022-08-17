@@ -27,7 +27,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
   def units: Arr[PolygonCompound] = players.someHCOptMap { (p, hc) => proj.transCoord(hc).map { pt =>
       val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
-      urect.scale(120).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+      urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
     }
   }
 
