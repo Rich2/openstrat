@@ -35,7 +35,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   def hexStrs: Arr[TextGraphic] = players.noneHCOptMap{ hc => proj.transCoord(hc).map(TextGraphic(hc.strComma, 20, _)) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val tiles: Arr[PolygonActive] = gridSys.activeTiles
+  val tiles: Arr[PolygonActive] = gridSys.activeTiles//proj.tiles.map(_.active)//
 
   /** Draws the tiles sides (or edges). */
   def sidesDraw: LinesDraw = proj.sidesDraw()
