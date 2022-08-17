@@ -249,7 +249,7 @@ trait HGridSys extends Any with TGridSys
   final def innerSideLines: LineSegArr = innerSideLineSegHCs.map(_.lineSeg(this))
 
   /** The line segments [[LineSeg]]s for the inner sides. */
-  final def outerSideLines: LineSegArr = outerSideLineSegHCs.map(_.lineSeg(this))
+ // final def outerSideLines: LineSegArr = outerSideLineSegHCs.map(_.lineSeg(this))
 
   def newSideBools: HSideBoolDGrid = new HSideBoolDGrid(new Array[Boolean](numSides))
 

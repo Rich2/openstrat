@@ -29,7 +29,7 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     gridSys.map(hc => hc.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(cPScale).active(hc))
   override def sides: LineSegArr = gridSys.sideLines.slate(-focus).scale(cPScale)
   override def innerSides: LineSegArr = gridSys.innerSideLines.slate(-focus).scale(cPScale)
-  override def outerSides: LineSegArr = gridSys.outerSideLines.slate(-focus).scale(cPScale)
+  override def outerSides: LineSegArr = gridSys.outerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
 
   override def transCoord(hc: HCoord): Option[Pt2] = Some(gridSys.hCoordToPt2(hc).slate(-focus).scale(cPScale))
   override def transTile(hc: HCen): Option[Polygon] = Some(hc.polygonReg)
