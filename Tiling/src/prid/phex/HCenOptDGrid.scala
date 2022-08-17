@@ -63,7 +63,7 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   }
 
   /** Coordinate-map. Maps the this Arr of Opt values, with their respective [[HCen]] coordinates to an Arr of type B. */
-  def mapHCen[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (HCen, A) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrT]): ArrT =
+  def hcMap[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (HCen, A) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     grider.foreach { hc =>
       val a = unsafeArr(grider.arrIndex(hc))
@@ -122,14 +122,14 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
-  /** Maps the Somes of this [[HCenOptDGrid]] and the Some values of a second HCenArrOpt. Returns an immutable Array based collection of type ArrC, the
-   *  second type parameter. */
-  def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (A, B) => C)(implicit grider: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
+  /** Maps the Somes of this [[HCenOptDGrid]] and the Some values of a second [[HCenOptDGrid]]. Returns an immutable Array based collection of type
+   *  ArrC, the second type parameter. */
+  def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (A, B) => C)(implicit gridSys: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
-    grider.foreach { hc =>
-      val a: A = unsafeArr(grider.arrIndex(hc))
-      val b: B = optArrB.unsafeArr(grider.arrIndex(hc))
+    gridSys.foreach { hc =>
+      val a: A = unsafeArr(gridSys.arrIndex(hc))
+      val b: B = optArrB.unsafeArr(gridSys.arrIndex(hc))
       if(a != null & b != null)
       { val newVal = f(a, b)
         build.buffGrow(buff, newVal)

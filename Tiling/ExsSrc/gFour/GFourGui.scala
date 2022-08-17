@@ -20,7 +20,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
 
   /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
    *  data in the separate terrs array by use of the HCen coordinate.  */
-  def unitOrTexts: GraphicElems = units.mapHCen{hc => hc.decText(14, terrs(hc).contrastBW) } { (hc, p) =>
+  def unitOrTexts: GraphicElems = units.hcMap{ hc => hc.decText(14, terrs(hc).contrastBW) } { (hc, p) =>
     Rect(1.6, 1.2, hc.toPt2Reg).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
   def moveGraphics: GraphicElems = units.hcSomesMap{ (hc, u) => LineSegHC(hc, hc.unsafeStep(u.cmds(0))).lineSeg.draw(units.unSafeApply(hc).colour)}
