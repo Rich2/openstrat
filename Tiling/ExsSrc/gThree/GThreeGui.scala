@@ -20,13 +20,13 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   val urect = Rect(1.4, 1)
 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
-  def units: Arr[PolygonCompound] = players.hcSomesMap { (hc, pl) =>
+  def units: Arr[PolygonCompound] = players.someHCMap { (pl, hc) =>
     val str = ptScale.scaledStr(170, pl.toString + "\n" + hc.strComma, 150, pl.charStr + "\n" + hc.strComma, 60, pl.charStr)
     urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(pl.colour, HPlayer(hc, pl), str, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.hcNonesMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
+  def hexStrs: Arr[TextGraphic] = players.noneHCMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles: Arr[PolygonActive] = gridSys.activeTiles
@@ -35,9 +35,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   val sidesDraw: LinesDraw = gridSys.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineSegDraw] = players.hcSomesFlatMap { (hc, p) =>
+  def moveGraphics: Arr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
     val hss: HDirnArr = moves.withDefault(_ => HDirnArr())(p)
-    //hss.pathHC(hc).toLinePath
     hss.segsMap(hc) { ls => ls.draw(players.unSafeApply(hc).colour)
     }
   }

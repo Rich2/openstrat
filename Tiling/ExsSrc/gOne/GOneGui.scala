@@ -25,14 +25,14 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   val urect = Rect(1.4, 1)
 
   /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
-  def units: Arr[PolygonCompound] = players.hcSomesOptMap { (hc, p) => proj.transCoord(hc).map { pt =>
+  def units: Arr[PolygonCompound] = players.someHCOptMap { (p, hc) => proj.transCoord(hc).map { pt =>
       val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
       urect.scale(120).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
     }
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.hcNonesOptMap{ hc => proj.transCoord(hc).map(TextGraphic(hc.strComma, 20, _)) }
+  def hexStrs: Arr[TextGraphic] = players.noneHCOptMap{ hc => proj.transCoord(hc).map(TextGraphic(hc.strComma, 20, _)) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles: Arr[PolygonActive] = gridSys.activeTiles
@@ -47,13 +47,13 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: GraphicElems = moves.hcSomesOptFlatMap { (hc, step) =>
+  def moveGraphics: GraphicElems = moves.someHCOptFlatMap { (step, hc) =>
     proj.transLineSeg(LineSegHC(hc, hc.unsafeStep(step))).map(_.draw(players.unSafeApply(hc).colour).arrow)
   }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    val getOrders: Arr[(Player, HDirn)] = players.some2sMap(moves)((player, step) => (player, step))
+    val getOrders: Arr[(Player, HDirn)] = players.zipSomesMap(moves)((player, step) => (player, step))
     scen = scen.endTurn(getOrders)
     moves = NoMoves
     repaint()

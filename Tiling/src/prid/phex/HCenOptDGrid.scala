@@ -55,19 +55,19 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     unsafeArr(grider.arrIndex(hc1)) = null.asInstanceOf[A]
   }
 
-  /** coordinate-foreach-Some. Foreach Some element and its associated [[HCen]] coordinate applies the side effecting parameter function. It ignores
-   *  the None values. */
-  def hcSomesForeach(f: (HCen, A) => Unit)(implicit grider: HGridSys): Unit = grider.foreach { hc =>
+  /** Drops the [[None]] values. Foreach value of the [[Some]] with the corresponding [[HCen]] applies the side effecting parameter function. */
+  def someHCForeach(f: (A, HCen) => Unit)(implicit grider: HGridSys): Unit = grider.foreach { hc =>
     val a = unsafeArr(grider.arrIndex(hc))
-    if (a != null) f(hc, a)
+    if (a != null) f(a, hc)
   }
 
-  /** Coordinate-map. Maps the this Arr of Opt values, with their respective [[HCen]] coordinates to an Arr of type B. */
-  def hcMap[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (HCen, A) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrT]): ArrT =
+  /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
+   * for the [[Some]] values. */
+  def mapHC[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     grider.foreach { hc =>
       val a = unsafeArr(grider.arrIndex(hc))
-      if (a != null) build.buffGrow(buff, fSome(hc, a))
+      if (a != null) build.buffGrow(buff, fSome(a, hc))
       else { val newVal = fNone(hc); build.buffGrow(buff, newVal) }
     }
     build.buffToBB(buff)
@@ -95,36 +95,35 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
   def tileNone(hc: HCen)(implicit grider: HGridSys): Boolean = unsafeArr(grider.arrIndex(hc)) == null
 
-
-  /** [[HCen]] with Some map. map the Some values of this HcenArrOpt, with the respective [[HCen]] coordinate to type B, the first type parameter B.
-   *  Returns an immutable Array based collection of type ArrT, the second type parameter. */
-  def hcSomesMap[B, ArrB <: SeqImut[B]](f: (HCen, A) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
+  /** Drops the [[None]] values. Maps the [[Some]]'s value with the corresponding [[HCen]] to value of type B. Returns a [[Seqimut]] of length between
+   * 0 and the length of this [[HCenOptDGrid]]. */
+  def someHCMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
     grider.foreach { hc =>
       val a: A = unsafeArr(grider.arrIndex(hc))
       if(a != null)
-      { val newVal = f(hc, a)
+      { val newVal = f(a, hc)
         build.buffGrow(buff, newVal)
       }
     }
     build.buffToBB(buff)
   }
 
-  /** [[HCen]] with Some optMap. map the Some values of this HcenArrOpt, with the respective [[HCen]] coordinate to type B, the first type parameter
-   *  B. Returns an immutable Array based collection of type ArrT, the second type parameter. */
-  def hcSomesOptMap[B, ArrB <: SeqImut[B]](f: (HCen, A) => Option[B])(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
+  /** Drops the None values mapping the [[Some]]'s value with the [[HCen]] to an option value, collecting the values of the [[Some]]s returned by the
+   *  function. Returns a [[Seqimut]] of length 0 to the length of this [[HCenOptDGrid]]. */
+  def someHCOptMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => Option[B])(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     grider.foreach { hc =>
       val a: A = unsafeArr(grider.arrIndex(hc))
-      if (a != null) { f(hc, a).foreach(build.buffGrow(buff, _)) }
+      if (a != null) { f(a, hc).foreach(build.buffGrow(buff, _)) }
     }
     build.buffToBB(buff)
   }
 
-  /** Maps the Somes of this [[HCenOptDGrid]] and the Some values of a second [[HCenOptDGrid]]. Returns an immutable Array based collection of type
-   *  ArrC, the second type parameter. */
-  def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (A, B) => C)(implicit gridSys: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
+  /** Uses this and a second [[HCenOptDGrid]] of type B. Drops all values where either or both [[HCenOptDGrid]] have [[None]] values. Maps the
+   *  corresponding values of the [[Some]]s to type C. Returns a [[SeqImut]] of length bwteen 0 na d the length of the original [[HCenOptDGrid]]s. */
+  def zipSomesMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (A, B) => C)(implicit gridSys: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
@@ -138,26 +137,26 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
-  /** [[HCen]] with Some values from 2 [[HCenArrOpts]] map to type C. This only maps the values where both collections have Some values. Returns an
-   *  immutable Array based collection of type ArrC, the second type parameter. */
-  def hcSome2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (HCen, A, B) => C)(implicit grider: HGridSys, build: ArrBuilder[C, ArrC]):
-    ArrC =
+  /** Uses this and a second [[HCenOptDGrid]] of type B, combining corresponding pairs of [[Some]] values with the corresponding [[HCen]] and apping
+   * to a value of type C. Returns a [[SeqImut]] with a length between 0 and the length of the original [[HCenOptDGtid]] data grids. */
+  def zipSomesHCMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (A, B, HCen) => C)(
+    implicit grider: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
     grider.foreach { hc =>
       val a: A = unsafeArr(grider.arrIndex(hc))
       val b: B = optArrB.unsafeArr(grider.arrIndex(hc))
       if(a != null)
-      { val newVal = f(hc, a, b)
+      { val newVal = f(a, b, hc)
         build.buffGrow(buff, newVal)
       }
     }
     build.buffToBB(buff)
   }
 
-  /** maps the [[HCen]] Coordinate values to type B, but only where the element is a None value. Returns an immutable Array based collection of type
-   *  ArrB, the second type parameter. */
-  def hcNonesMap[B, ArrB <: SeqImut[B]](f: HCen => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
+  /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to type B. Returns
+   *  a [[SeqImut]] of length between 0 and the length of this [[HCenOptDGrid]]. */
+  def noneHCMap[B, ArrB <: SeqImut[B]](f: HCen => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
     grider.foreach { r =>
@@ -170,9 +169,9 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
-  /** maps the [[HCen]] Coordinate values to an Option of type B, but only where the element is a None value. It collects the Some values returned by
-   *  the parameter function. Returns an immutable Array based collection of type ArrB, the second type parameter. */
-  def hcNonesOptMap[B, ArrB <: SeqImut[B]](f: HCen => Option[B])(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB = {
+  /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to an [[option]][B]. Collects only the values of the [[Some]]s
+   *  returned by the function .Returns a [[SeqImut]] of lenght between 0 and the length of this [[HCenOptDGrid]]. */
+  def noneHCOptMap[B, ArrB <: SeqImut[B]](f: HCen => Option[B])(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff()
 
     grider.foreach { r =>
@@ -184,31 +183,29 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
-  /** [[HCen]] with element flatMap, but only coordinates where there some value. Maps and flattens each [[HCen]] coordinate with its associated
-   * element of type A. It ignores the None values. Note the function signature follows the foreach based convention of putting the collection element
-   * 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
-  def hcSomesFlatMap[ArrT <: SeqImut[_]](f: (HCen, A) => ArrT)(implicit grider: HGridSys, build: ArrFlatBuilder[ArrT]): ArrT =
+  /** Drops the [[None]] values flatMaps the value of the [[Some]] with the corresponding [[HCen]] to a [[Seqimut]]. */
+  def someHCFlatMap[ArrT <: SeqImut[_]](f: (A, HCen) => ArrT)(implicit grider: HGridSys, build: ArrFlatBuilder[ArrT]): ArrT =
   {
     val buff = build.newBuff()
     grider.foreach { hc =>
       val a = unsafeArr(grider.arrIndex(hc))
       if(a != null)
-      { val newVal = f(hc, a)
+      { val newVal = f(a, hc)
         build.buffGrowArr(buff, newVal)
       }
     }
     build.buffToBB(buff)
   }
 
-  /** [[HCen]] with Some optFlatMap. flatMap the Some values of this HcenArrOpt, with the respective [[HCen]] coordinate to type Option[ArrB]. Returns
-   * an immutable Array based collection of type ArrB. */
-  def hcSomesOptFlatMap[ArrB <: SeqImut[_]](f: (HCen, A) => Option[ArrB])(implicit grider: HGridSys, build: ArrFlatBuilder[ArrB]): ArrB = {
+  /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[HCen]] to an [[option]] of a [[SeqImut]], collects only the
+   *  [[Some]]'s values returned by the function. */
+  def someHCOptFlatMap[ArrB <: SeqImut[_]](f: (A, HCen) => Option[ArrB])(implicit grider: HGridSys, build: ArrFlatBuilder[ArrB]): ArrB = {
     val buff = build.newBuff()
 
     grider.foreach { hc =>
       val a: A = unsafeArr(grider.arrIndex(hc))
       if (a != null) {
-        f(hc, a).foreach(build.buffGrowArr(buff, _))
+        f(a, hc).foreach(build.buffGrowArr(buff, _))
       }
     }
     build.buffToBB(buff)
@@ -216,13 +213,13 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   def keyMap(implicit grider: HGridSys): Map[A, HCen] =
   { val build = Map.newBuilder[A, HCen]
-    hcSomesForeach((p, hc) => build.addOne(hc, p))
+    someHCForeach((p, hc) => build.addOne(p, hc))
     build.result
   }
 
   def find(value: A)(implicit grider: HGridSys): Option[HCen] =
   { var res: Option[HCen] = None
-    hcSomesForeach{ (hc, a) => if (value == a) res = Some(hc)}
+    someHCForeach{ (a, hc) => if (value == a) res = Some(hc)}
     res
   }
 }
