@@ -12,6 +12,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def players: HCenOptDGrid[Player] = scen.oPlayers
   cPScale = viewIn.cPScale
   focus = viewIn.vec
+  val proj = gridSys.projection(mainPanel)
+  proj.setView(viewIn)
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
@@ -32,7 +34,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   val tiles: Arr[PolygonActive] = gridSys.activeTiles
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw: LinesDraw = gridSys.sidesDraw()
+  val sidesDraw: LinesDraw = proj.sidesDraw()//gridSys.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>

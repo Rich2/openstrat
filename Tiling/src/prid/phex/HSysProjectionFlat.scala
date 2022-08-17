@@ -6,7 +6,7 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
 { type GridT = HGridSys
 
   /** The number of pixels per column unit. */
-  var cPScale: Double = 40
+  var cPScale: Double = gridSys.fullDisplayScale(panel.width, panel.height)
 
   /** The number of pixels per tile from side to opposite side. */
   def tileScale: Double = cPScale * 4

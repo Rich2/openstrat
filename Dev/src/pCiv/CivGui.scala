@@ -8,7 +8,11 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
   implicit val gridSys: HGridSys = scen.gridSys
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
-  val sls = gridSys.sidesDraw()
+  val proj = gridSys.projection(mainPanel)
+  //def view: HGView()
+  //proj.setView(viewIn)
+
+  val sls = proj.sidesDraw()
   val terrs = scen.terrs
   val tiles = gridSys.map{ hc => hc.polygonReg.fillTextActive(terrs(hc).colour, hc, hc.strComma, 16) }
   val lunits = scen.lunits.gridHeadsMap { (hc, lu) =>
@@ -17,6 +21,6 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
 
   def thisTop(): Unit = reTop(navButtons)
   thisTop()
-  def frame: GraphicElems = (tiles +% sls ++ lunits).slate(-focus).scale(cPScale)
+  def frame: GraphicElems = (tiles ++ lunits).slate(-focus).scale(cPScale) +% sls
   repaint()
 }
