@@ -10,7 +10,7 @@ trait HSysProjection
   var setStatusText: String => Unit = s => {}
   val buttons: Arr[PolygonCompound]
   def tiles: PolygonArr
-
+  def tileActives: Arr[PolygonActive]
   /** The visible hex sides. */
   def sides: LineSegArr
 
