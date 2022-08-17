@@ -239,17 +239,10 @@ trait HGridSys extends Any with TGridSys
   def sideLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
 
   /** The line segments of the inner sides defined in [[HCoord]] vertices. */
-  def innerSideLineSegHCs: LineSegHCArr = innerSidesMap[LineSegHC, LineSegHCArr](_.lineSegHC)
-  def outerSideLineSegHCs: LineSegHCArr = outerSidesMap[LineSegHC, LineSegHCArr](_.lineSegHC)
+  def innerSideLineSegHCs: LineSegHCArr = innerSidesMap(_.lineSegHC)
 
-  /** The line segments [[LineSeg]]s for the sides of the tiles. */
-  final def sideLines: LineSegArr = sideLineSegHCs.map(_.lineSeg(this))
-
-  /** The line segments [[LineSeg]]s for the inner sides. */
-  final def innerSideLines: LineSegArr = innerSideLineSegHCs.map(_.lineSeg(this))
-
-  /** The line segments [[LineSeg]]s for the inner sides. */
- // final def outerSideLines: LineSegArr = outerSideLineSegHCs.map(_.lineSeg(this))
+  /** The line segments of the outer sides defined in [[HCoord]] vertices. */
+  def outerSideLineSegHCs: LineSegHCArr = outerSidesMap(_.lineSegHC)
 
   def newSideBools: HSideBoolDGrid = new HSideBoolDGrid(new Array[Boolean](numSides))
 
