@@ -12,26 +12,28 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
   def tileScale: Double = cPScale * 4
 
   def tilePScaleStr = s"scale = ${tileScale.str2} pixels per tile"
-  var focus: Vec2 = Vec2(0, 0)
-  override def sides: LineSegArr = gridSys.sideLines.slate(-focus).scale(cPScale)
-  override def innerSides: LineSegArr = gridSys.innerSideLines.slate(-focus).scale(cPScale)
-  override def outerSides: LineSegArr = gridSys.outerSideLines.slate(-focus).scale(cPScale)
+  var focus: Vec2 = gridSys.defaultView(cPScale).vec// Vec2(0, 0)
 
-  override def transCoord(hc: HCoord): Option[Pt2] = Some(gridSys.hCoordToPt2(hc).slate(-focus).scale(cPScale))
-  override def transTile(hc: HCen): Option[Polygon] = ???
-  override def transLineSeg(seg: LineSegHC): Option[LineSeg] = transCoord(seg.startPt).map2(transCoord(seg.endPt)){(p1, p2) => LineSeg(p1, p2) }
-
-  override def transHSides(inp: HSideArr): LineSegArr = ???//.slate(-focus).scale(cPScale)
-
-  override def setView(view: Any): Unit = view match
-  {
+  override def setView(view: Any): Unit = view match {
     case hv: HGView => {
-      cPScale = hv.pxScale
+      cPScale = hv.cPScale
       focus = hv.vec
     }
     case d: Double => cPScale = d
     case _ =>
   }
+
+  override def sides: LineSegArr = gridSys.sideLines.slate(-focus).scale(cPScale)
+  override def innerSides: LineSegArr = gridSys.innerSideLines.slate(-focus).scale(cPScale)
+  override def outerSides: LineSegArr = gridSys.outerSideLines.slate(-focus).scale(cPScale)
+
+  override def transCoord(hc: HCoord): Option[Pt2] = Some(gridSys.hCoordToPt2(hc).slate(-focus).scale(cPScale))
+  override def transTile(hc: HCen): Option[Polygon] = Some(hc.polygonReg)
+  override def transLineSeg(seg: LineSegHC): Option[LineSeg] = transCoord(seg.startPt).map2(transCoord(seg.endPt)){(p1, p2) => LineSeg(p1, p2) }
+
+  override def transHSides(inp: HSideArr): LineSegArr = ???//.slate(-focus).scale(cPScale)
+
+
 
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
     cPScale *= 1.1

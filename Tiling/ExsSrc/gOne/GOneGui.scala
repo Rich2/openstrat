@@ -10,7 +10,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   var history: Arr[OneScen] = Arr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptDGrid[Player] = scen.oPlayers
-  cPScale = viewIn.pxScale
+  cPScale = viewIn.cPScale
   focus = viewIn.vec
   val proj = gridSys.projection(mainPanel)
   proj.setView(viewIn)

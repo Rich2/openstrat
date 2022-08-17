@@ -11,7 +11,7 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 
   override def setView(view: Any): Unit = view match {
     case hv: HGView => {
-      scale = gridSys.cScale / hv.pxScale
+      scale = gridSys.cScale / hv.cPScale
       focus = gridSys.hCoordLL(hv.hCoord)
     }
     //case d: Double => cPScale = d

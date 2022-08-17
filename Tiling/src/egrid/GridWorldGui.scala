@@ -7,7 +7,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 {
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
   implicit val gridSys: EGridWarmSys = scenIn.gridSys
-  var scale: Length = gridSys.cScale / viewIn.pxScale
+  var scale: Length = gridSys.cScale / viewIn.cPScale
   def gScale: Double = gridSys.cScale / scale
   def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, Arr[GraphicElem]())
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
