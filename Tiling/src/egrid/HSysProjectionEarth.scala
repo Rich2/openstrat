@@ -49,7 +49,7 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 //  }
 
   //def sides: GraphicElems = sides4.map { ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
-
+  override def tiles: PolygonArr = ???
   override def sides: LineSegArr = transLineSegM3Arr(gridSys.sideLineM3s)
   override def innerSides: LineSegArr = transLineSegM3Arr(gridSys.innerSideLineM3s)
   override def outerSides: LineSegArr = transLineSegM3Arr(gridSys.outerSideLineM3s)

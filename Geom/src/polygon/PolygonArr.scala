@@ -29,6 +29,25 @@ object PolygonArr
   }
 
   implicit val eqImplicit: EqT[PolygonArr] = ArrArrayDblEq[Polygon, PolygonArr]
+
+  implicit val slateImplicit: Slate[PolygonArr] = (obj: PolygonArr, dx: Double, dy: Double) => obj.map(_.slateXY(dx, dy))
+  implicit val scaleImplicit: Scale[PolygonArr] = (obj: PolygonArr, operand: Double) => obj.map(_.scale(operand))
+  implicit val rotateImplicit: Rotate[PolygonArr] = (obj: PolygonArr, angle: AngleVec) => obj.map(_.rotate(angle))
+  implicit val prolignImplicit: Prolign[PolygonArr] = (obj, matrix) => obj.map(_.prolign(matrix))
+  implicit val XYScaleImplicit: ScaleXY[PolygonArr] = (obj, xOperand, yOperand) => obj.map(_.scaleXY(xOperand, yOperand))
+  implicit val reflectImplicit: Reflect[PolygonArr] = (obj: PolygonArr, lineLike: LineLike) => obj.map(_.reflect(lineLike))
+
+  implicit val reflectAxesImplicit: TransAxes[PolygonArr] = new TransAxes[PolygonArr] {
+    override def negYT(obj: PolygonArr): PolygonArr = obj.negY
+
+    override def negXT(obj: PolygonArr): PolygonArr = obj.negX
+
+    override def rotate90(obj: PolygonArr): PolygonArr = obj.rotate90
+
+    override def rotate180(obj: PolygonArr): PolygonArr = obj.rotate180
+
+    override def rotate270(obj: PolygonArr): PolygonArr = obj.rotate270
+  }
 }
 
 class PolygonBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDoubleBuff[Polygon]

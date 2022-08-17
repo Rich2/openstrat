@@ -9,7 +9,7 @@ trait HSysProjection
   var getFrame: () => GraphicElems = () => Arr()
   var setStatusText: String => Unit = s => {}
   val buttons: Arr[PolygonCompound]
-  def tiles: Polygon = ???
+  def tiles: PolygonArr
 
   /** The visible hex sides. */
   def sides: LineSegArr
