@@ -21,20 +21,27 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   val urect = Rect(1.4, 1)
 
-  /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
-  def units: Arr[PolygonCompound] = players.someHCMap { (pl, hc) =>
-    val str = ptScale.scaledStr(170, pl.toString + "\n" + hc.strComma, 150, pl.charStr + "\n" + hc.strComma, 60, pl.charStr)
-    urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(pl.colour, HPlayer(hc, pl), str, 24, 2.0)
+  def units: Arr[PolygonCompound] = players.someHCOptMap { (p, hc) =>
+    proj.transCoord(hc).map { pt =>
+      val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
+      urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
+    }
   }
 
+  /** We could of used the mapHCen method and produced the units and the hexstrs graphics at the same time, but its easier to keep them separate. */
+  /*def units: Arr[PolygonCompound] = players.someHCMap { (pl, hc) =>
+    val str = ptScale.scaledStr(170, pl.toString + "\n" + hc.strComma, 150, pl.charStr + "\n" + hc.strComma, 60, pl.charStr)
+    urect.scale(1.5).slate(hc.toPt2).fillDrawTextActive(pl.colour, HPlayer(hc, pl), str, 24, 2.0)
+  }*/
+
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.noneHCMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
+  def hexStrs: Arr[TextGraphic] = players.noneHCOptMap{ hc => proj.transCoord(hc).map(TextGraphic(hc.strComma, 20, _)) }//players.noneHCMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val tiles: Arr[PolygonActive] = proj.tileActives//gridSys.activeTiles
+  def tiles: Arr[PolygonActive] = proj.tileActives//gridSys.activeTiles
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw: LinesDraw = proj.sidesDraw()
+  def sidesDraw: LinesDraw = proj.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
@@ -42,6 +49,11 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     hss.segsMap(hc) { ls => ls.draw(players.unSafeApply(hc).colour)
     }
   }
+
+  /** This is the graphical display of the planned move orders. */
+  /*def moveGraphics: GraphicElems = moves.someHCOptFlatMap { (step, hc) =>
+    proj.transLineSeg(LineSegHC(hc, hc.unsafeStep(step))).map(_.draw(players.unSafeApply(hc).colour).arrow)
+  }*/
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
@@ -52,7 +64,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn) ++ navButtons)
+  def thisTop(): Unit = reTop(Arr(bTurn) ++ proj.buttons)//reTop(Arr(bTurn) ++ navButtons)
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {
@@ -72,6 +84,11 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   thisTop()
 
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
-  def frame: GraphicElems = tiles ++ (units ++ hexStrs).slate(-focus).scale(cPScale) +% sidesDraw ++ moveGraphics2
+  def frame: GraphicElems = tiles ++ units ++ hexStrs +% sidesDraw ++ moveGraphics2
+  proj.getFrame = () => frame
+  proj.setStatusText = { str =>
+    statusText = str
+    thisTop()
+  }
   repaint()
 }
