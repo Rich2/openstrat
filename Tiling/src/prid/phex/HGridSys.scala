@@ -175,8 +175,6 @@ trait HGridSys extends Any with TGridSys
   /** New Tile immutable Tile Arr of Opt data values. */
   final def newHCenOptDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenOptDGrid[A] = new HCenOptDGrid(new Array[A](numTiles))
 
-  def polygons: Arr[Polygon]
-
   /** Gives the index into an Arr / Array of Tile data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
    *  Arr / Array data. */
   @inline final def sideArrIndex(hc: HSide): Int = sideArrIndex(hc.r, hc.c)

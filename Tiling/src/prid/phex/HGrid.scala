@@ -116,8 +116,6 @@ trait HGrid extends Any with TGrid with HGridSys
     case _ => rowLeftCenC(row - 1) min (rowLeftCenC(row + 1) - 2)
   }
 
-  override def polygons: Arr[Polygon] = map(_.polygonReg)
-
   override def hCenSteps(hCen: HCen): HDirnArr = HDirn.full.filter(st => hCenExists(hCen.r + st.tr, hCen.c + st.tc))
 
   override def unsafeStepEnd(startCen: HCen, step: HDirn): HCen ={

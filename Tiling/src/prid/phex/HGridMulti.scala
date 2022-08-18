@@ -42,7 +42,6 @@ trait HGridMulti extends HGridSys with TGridMulti
     gridNumForeach{ el => acc = f(acc, el) }
     acc
   }
-  override def polygons: Arr[Polygon] = gridMans.flatMap(m => m.grid.polygons.slate(m.offset))
 
   /** Combine adjacent elements of data in a row. */
   def rowCombine[A <: AnyRef](data: HCenDGrid[A], indexingGrider: HGridSys): Arr[HCenRowValue[A]] = grids.flatMap(_.rowCombine(data, this))
