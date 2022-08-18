@@ -108,9 +108,9 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
 
   def segsNum: Int = unsafeArray.length
 
-  def segsForeach[U](start: HCen)(f: LineSeg => U)(implicit grider: HGridSys): Unit = segsForeach(start.r, start.c)(f)
+  def oldSegsForeach[U](start: HCen)(f: LineSeg => U)(implicit grider: HGridSys): Unit = oldSegsForeach(start.r, start.c)(f)
 
-  def segsForeach[U](startR: Int, startC: Int)(f: LineSeg => U)(implicit grider: HGridSys): Unit =
+  def oldSegsForeach[U](startR: Int, startC: Int)(f: LineSeg => U)(implicit grider: HGridSys): Unit =
   { var count = 0
     var r1 = startR
     var c1 = startC
@@ -122,20 +122,20 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
       r2 = r1 + step.tr
       c2 = c1 + step.tc
       val hls = LineSegHC(r1, c1, r2, c2)
-      f(hls.lineSeg)
+      f(hls.oldLineSeg)
       count += 1
       r1 = r2
       c1 = c2
     }
   }
 
-  def segsMap[B, ArrB <: SeqImut[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], grider: HGridSys): ArrB =
-    segsMap(start.r, start.c)(f)(build, grider)
+  def segsMap[B, ArrB <: SeqImut[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], gridSys: HGridSys): ArrB =
+    segsMap(start.r, start.c)(f)(build, gridSys)
 
   def segsMap[B, ArrB <: SeqImut[B]](startR: Int, startC: Int)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], grider: HGridSys): ArrB =
   { val res = build.newArr(segsNum)
     var count = 0
-    segsForeach(startR, startC){ s =>
+    oldSegsForeach(startR, startC){ s =>
       res.unsafeSetElem(count, f(s))
       count += 1
     }

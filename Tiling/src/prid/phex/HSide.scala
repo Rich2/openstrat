@@ -27,7 +27,7 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
   }
 
   /** Returns a [[LineSeg]] for a regular Hex tile grid. */
-  def lineSeg(implicit grider: HGridSys): LineSeg = lineSegHC.lineSeg
+  def lineSeg(implicit grider: HGridSys): LineSeg = lineSegHC.oldLineSeg
 
   /** Draws a [[LineSeg]], returning a [[LineSegDraw]] for a regular Hex tile grid. */
   def draw(colour: Colour= Black, lineWidth: Double = 2)(implicit grider: HGridSys) : LineSegDraw = lineSeg.draw(colour, lineWidth)
