@@ -9,10 +9,13 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   implicit def gridSys: HGridSys = scen.gridSys
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  val proj = gridSys.projection(mainPanel)
+  //proj.setView(viewIn)
+
   val terrs: HCenDGrid[ZugTerr] = scen.terrs
-  val active: Arr[PolygonActive] = gridSys.map{ hc =>hc.polygonReg.active(hc) }
+  val active: Arr[PolygonActive] = proj.tileActives
   val text: Arr[TextGraphic] = terrs.hcMap((hc, t) => hc.decText(14, t.contrastBW))
-  val rows: Arr[PolygonFill] = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
+  val polyFills: Arr[PolygonFill] = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
   def lunits: GraphicElems = scen.lunits.gridHeadsFlatMap{ (hc, squad) =>
@@ -70,6 +73,6 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   statusText = "Welcome to ZugFuher"
   def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   thisTop()
-  def frame: GraphicElems = (rows ++ lines ++ active ++ text ++ lunits).slate(-focus).scale(cPScale)
+  def frame: GraphicElems = (polyFills ++ lines ++ text ++ lunits).slate(-focus).scale(cPScale) ++ active
   mainRepaint(frame)
 }
