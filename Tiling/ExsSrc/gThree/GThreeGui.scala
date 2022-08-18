@@ -46,14 +46,9 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
     val hss: HDirnArr = moves.withDefault(_ => HDirnArr())(p)
-    hss.oldSegsMap(hc) { ls => ls.draw(players.unSafeApply(hc).colour)
+    hss.segsMap(hc, proj.transLineSeg) { ls => ls.draw(players.unSafeApply(hc).colour)
     }
   }
-
-  /** This is the graphical display of the planned move orders. */
-  /*def moveGraphics: GraphicElems = moves.someHCOptFlatMap { (step, hc) =>
-    proj.transLineSeg(LineSegHC(hc, hc.unsafeStep(step))).map(_.draw(players.unSafeApply(hc).colour).arrow)
-  }*/
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
@@ -83,8 +78,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   }
   thisTop()
 
-  def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
-  def frame: GraphicElems = tiles ++ units ++ hexStrs +% sidesDraw ++ moveGraphics2
+  def frame: GraphicElems = tiles ++ units ++ hexStrs +% sidesDraw ++ moveGraphics
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
     statusText = str

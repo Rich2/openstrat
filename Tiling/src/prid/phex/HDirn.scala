@@ -129,9 +129,9 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     }
   }
 
-  def segsForeach[U](start: HCen, fHcToPt2: HCoord => Pt2)(f: LineSeg => U): Unit = segsForeach(start.r, start.c, fHcToPt2)(f)
+  def segsForeach[U](start: HCen, trans: LineSegHC => Option[LineSeg])(f: LineSeg => U): Unit = segsForeach(start.r, start.c, trans)(f)
 
-  def segsForeach[U](startR: Int, startC: Int, fHcToPt2: HCoord => Pt2)(f: LineSeg => U): Unit = {
+  def segsForeach[U](startR: Int, startC: Int, trans: LineSegHC => Option[LineSeg])(f: LineSeg => U): Unit = {
     var count = 0
     var r1 = startR
     var c1 = startC
@@ -143,7 +143,7 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
       r2 = r1 + step.tr
       c2 = c1 + step.tc
       val hls = LineSegHC(r1, c1, r2, c2)
-      f(hls.map(fHcToPt2))//oldLineSeg)
+      trans(hls).foreach(f)
       count += 1
       r1 = r2
       c1 = c2
@@ -163,12 +163,13 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     res
   }
 
-  def segsMap[B, ArrB <: SeqImut[B]](start: HCen, fHcToPt2: HCoord => Pt2)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = segsMap(start.r, start.c, fHcToPt2)(f)(build)
+  def segsMap[B, ArrB <: SeqImut[B]](start: HCen, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+    segsMap(start.r, start.c, trans)(f)(build)
 
-  def segsMap[B, ArrB <: SeqImut[B]](startR: Int, startC: Int, fHcToPt2: HCoord => Pt2)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
-    val res = build.newArr(segsNum)
+  def segsMap[B, ArrB <: SeqImut[B]](startR: Int, startC: Int, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  { val res = build.newArr(segsNum)
     var count = 0
-    segsForeach(startR, startC, fHcToPt2) { s =>
+    segsForeach(startR, startC, trans) { s =>
       res.unsafeSetElem(count, f(s))
       count += 1
     }
