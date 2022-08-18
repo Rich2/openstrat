@@ -129,13 +129,46 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     }
   }
 
-  def segsMap[B, ArrB <: SeqImut[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], gridSys: HGridSys): ArrB =
-    segsMap(start.r, start.c)(f)(build, gridSys)
+  def segsForeach[U](start: HCen, fHcToPt2: HCoord => Pt2)(f: LineSeg => U): Unit = segsForeach(start.r, start.c, fHcToPt2)(f)
 
-  def segsMap[B, ArrB <: SeqImut[B]](startR: Int, startC: Int)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], grider: HGridSys): ArrB =
+  def segsForeach[U](startR: Int, startC: Int, fHcToPt2: HCoord => Pt2)(f: LineSeg => U): Unit = {
+    var count = 0
+    var r1 = startR
+    var c1 = startC
+    var r2: Int = 0
+    var c2: Int = 0
+
+    while (count < segsNum) {
+      val step = HDirn.fromInt(unsafeArray(count))
+      r2 = r1 + step.tr
+      c2 = c1 + step.tc
+      val hls = LineSegHC(r1, c1, r2, c2)
+      f(hls.map(fHcToPt2))//oldLineSeg)
+      count += 1
+      r1 = r2
+      c1 = c2
+    }
+  }
+
+  def oldSegsMap[B, ArrB <: SeqImut[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], gridSys: HGridSys): ArrB =
+    oldSegsMap(start.r, start.c)(f)(build, gridSys)
+
+  def oldSegsMap[B, ArrB <: SeqImut[B]](startR: Int, startC: Int)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], grider: HGridSys): ArrB =
   { val res = build.newArr(segsNum)
     var count = 0
     oldSegsForeach(startR, startC){ s =>
+      res.unsafeSetElem(count, f(s))
+      count += 1
+    }
+    res
+  }
+
+  def segsMap[B, ArrB <: SeqImut[B]](start: HCen, fHcToPt2: HCoord => Pt2)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = segsMap(start.r, start.c, fHcToPt2)(f)(build)
+
+  def segsMap[B, ArrB <: SeqImut[B]](startR: Int, startC: Int, fHcToPt2: HCoord => Pt2)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+    val res = build.newArr(segsNum)
+    var count = 0
+    segsForeach(startR, startC, fHcToPt2) { s =>
       res.unsafeSetElem(count, f(s))
       count += 1
     }
