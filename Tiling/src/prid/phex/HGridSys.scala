@@ -177,9 +177,6 @@ trait HGridSys extends Any with TGridSys
 
   def polygons: Arr[Polygon]
 
-  /** The active tiles without any PaintElems. */
-  def activeTiles: Arr[PolygonActive]
-
   /** Gives the index into an Arr / Array of Tile data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
    *  Arr / Array data. */
   @inline final def sideArrIndex(hc: HSide): Int = sideArrIndex(hc.r, hc.c)

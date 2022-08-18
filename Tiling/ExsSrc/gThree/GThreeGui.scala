@@ -31,10 +31,10 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def hexStrs: Arr[TextGraphic] = players.noneHCMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val tiles: Arr[PolygonActive] = gridSys.activeTiles
+  val tiles: Arr[PolygonActive] = proj.tileActives//gridSys.activeTiles
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw: LinesDraw = proj.sidesDraw()//gridSys.sidesDraw()
+  val sidesDraw: LinesDraw = proj.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
@@ -72,6 +72,6 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   thisTop()
 
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
-  def frame: GraphicElems = (tiles +% sidesDraw ++ units ++ hexStrs).slate(-focus).scale(cPScale) ++ moveGraphics2
+  def frame: GraphicElems = tiles ++ (units ++ hexStrs).slate(-focus).scale(cPScale) +% sidesDraw ++ moveGraphics2
   repaint()
 }

@@ -43,7 +43,7 @@ trait HGridMulti extends HGridSys with TGridMulti
     acc
   }
   override def polygons: Arr[Polygon] = gridMans.flatMap(m => m.grid.polygons.slate(m.offset))
-  override def activeTiles: Arr[PolygonActive] = gridMans.flatMap{m => m.grid.map{ hc => hc.polygonReg.slate(m.offset).active(hc)}}
+
   /** Combine adjacent elements of data in a row. */
   def rowCombine[A <: AnyRef](data: HCenDGrid[A], indexingGrider: HGridSys): Arr[HCenRowValue[A]] = grids.flatMap(_.rowCombine(data, this))
 
