@@ -20,9 +20,15 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
   def units: HCenOptDGrid[Lunit] = scen.units
 
   /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
+   * data in the separate terrs array by use of the HCen coordinate. */
+  def unitOrTexts: GraphicElems = units.hcMap { hc => hc.oldDecText(14, terrs(hc).contrastBW) } { (p, hc) =>
+    Rect(1.6, 1.2, hc.toPt2Reg).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0)
+  }
+
+  /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
    *  data in the separate terrs array by use of the HCen coordinate.  */
-  def unitOrTexts: GraphicElems = units.hcMap{ hc => hc.oldDecText(14, terrs(hc).contrastBW) } { (p, hc) =>
-    Rect(1.6, 1.2, hc.toPt2Reg).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
+//  def unitOrTexts: GraphicElems = units.projHcMap(proj){ (pt, hc) => pt.textAt(hc.rcStr,14, terrs(hc).contrastBW) } { (p, pt, hc) =>
+//    Rect(1.6, 1.2, pt).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
   def moveGraphics: GraphicElems = units.someHCMap{ (u, hc) => LineSegHC(hc, hc.unsafeStep(u.cmds(0))).oldLineSeg.draw(units.unSafeApply(hc).colour)}
 
@@ -56,6 +62,6 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
   statusText = s"Game Four. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts: GraphicElems).slate(-focus).scale(cPScale)
+  def frame: GraphicElems = (hexs ++ lines ++ unitOrTexts).slate(-focus).scale(cPScale)
   repaint()
 }

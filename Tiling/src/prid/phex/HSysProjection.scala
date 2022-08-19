@@ -12,6 +12,8 @@ trait HSysProjection
   def tiles: PolygonArr
   def tileActives: Arr[PolygonActive]
 
+  def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = ???
+
   /** The visible hex sides. */
   def sides: LineSegArr
 

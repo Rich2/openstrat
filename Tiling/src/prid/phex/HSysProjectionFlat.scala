@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, pgui._
+import geom._, pgui._, collection.mutable.ArrayBuffer
 
 final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSysProjection
 { type GridT = HGridSys
@@ -27,6 +27,13 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
 
   override def tileActives: Arr[PolygonActive] =
     gridSys.map(hc => hc.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(cPScale).active(hc))
+
+  override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = {
+    val buff = new ArrayBuffer[GraphicElem]
+    gridSys.foreach{hc => transCoord(hc).foreach(pt => buff.append(f(pt, hc))) }
+    new Arr[GraphicElem](buff.toArray)
+  }
+
   override def sides: LineSegArr = gridSys.sideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
   override def innerSides: LineSegArr = gridSys.innerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
   override def outerSides: LineSegArr = gridSys.outerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)

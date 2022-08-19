@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import reflect.ClassTag
+import geom._, reflect.ClassTag
 
 /** A [[HGridSys]] data grid of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to the
  *  index of the Arr. Hence most methods take an implicit [[HGridSys]] hex grid parameter. */
@@ -75,17 +75,11 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
    * for the [[Some]] values. */
-  /*def projHcMap[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrT]): ArrT = {
-    val buff = build.newBuff()
-    grider.foreach { hc =>
-      val a = unsafeArr(grider.arrIndex(hc))
-      if (a != null) build.buffGrow(buff, fSome(a, hc))
-      else {
-        val newVal = fNone(hc); build.buffGrow(buff, newVal)
-      }
+  def projHcMap(proj: HSysProjection)(fNone: => (Pt2, HCen) => GraphicElem)(fSome: (A, Pt2, HCen) => GraphicElem): GraphicElems =
+    proj.hCenMap{ (pt, hc) =>
+      val a = unsafeArr(proj.gridSys.arrIndex(hc))
+      ife(a != null, fSome(a, pt, hc), fNone(pt, hc))
     }
-    build.buffToBB(buff)
-  }*/
 
   /** Indexes in to this [[HCenOptDGrid]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
   def apply(hc: HCen)(implicit grider: HGridSys): Option[A] =
