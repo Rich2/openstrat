@@ -14,7 +14,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
 
   val terrs: HCenDGrid[ZugTerr] = scen.terrs
   val active: Arr[PolygonActive] = proj.tileActives
-  val text: Arr[TextGraphic] = terrs.hcMap((hc, t) => hc.decText(14, t.contrastBW))
+  val text: Arr[TextGraphic] = terrs.hcOptMap((hc, t) => proj.transCoord(hc).map(_.textAt(hc.rcStr, 14, t.contrastBW)))
   val polyFills: Arr[PolygonFill] = terrs.rowCombine.map{ hv => hv.polygonReg.fill(hv.value.colour) }
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
@@ -73,6 +73,6 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   statusText = "Welcome to ZugFuher"
   def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
   thisTop()
-  def frame: GraphicElems = (polyFills ++ lines ++ text ++ lunits).slate(-focus).scale(cPScale) ++ active
+  def frame: GraphicElems = (polyFills ++ lines ++ lunits).slate(-focus).scale(cPScale) ++ active ++ text
   mainRepaint(frame)
 }

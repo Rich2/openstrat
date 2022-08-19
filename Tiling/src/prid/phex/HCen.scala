@@ -45,8 +45,8 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
 
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 
-  def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2Reg, colour)
-  def decText(fontSize: Double = 12, colour: Colour = Black) = this.rcStr.toTextGraphic(fontSize, toPt2Reg, colour)
+ // def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2Reg, colour)
+  def oldDecText(fontSize: Double = 12, colour: Colour = Black) = this.rcStr.toTextGraphic(fontSize, toPt2Reg, colour)
 
   def neibs: HCenArr = HCen.neibs00.map(n => HCen(r + n.r, c + n.c))
 }

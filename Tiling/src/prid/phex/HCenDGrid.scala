@@ -32,6 +32,14 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     res
   }
 
+  def hcOptMap[B, BB <: SeqImut[B]](f: (HCen, A) => Option[B])(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB = {
+    val buff = build.newBuff()
+    grid.iForeach { (hc, i) =>
+      f(hc, apply(hc)).foreach(build.buffGrow(buff, _))
+    }
+    build.buffToBB(buff)
+  }
+
   /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
    *  function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    *  element) => B signature. */
