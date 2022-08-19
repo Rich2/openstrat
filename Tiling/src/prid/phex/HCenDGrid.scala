@@ -32,10 +32,12 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     res
   }
 
-  def hcOptMap[B, BB <: SeqImut[B]](f: (HCen, A) => Option[B])(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB = {
-    val buff = build.newBuff()
+  /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
+   * [[SeqImut]] will be between 0 and the lengthof this [[HCenDGrid]]. */
+  def hcOptMap[B, BB <: SeqImut[B]](f: (A, HCen) => Option[B])(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
+  { val buff = build.newBuff()
     grid.iForeach { (hc, i) =>
-      f(hc, apply(hc)).foreach(build.buffGrow(buff, _))
+      f(apply(hc), hc).foreach(build.buffGrow(buff, _))
     }
     build.buffToBB(buff)
   }
