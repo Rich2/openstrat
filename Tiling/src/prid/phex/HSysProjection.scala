@@ -11,6 +11,7 @@ trait HSysProjection
   val buttons: Arr[PolygonCompound]
   def tiles: PolygonArr
   def tileActives: Arr[PolygonActive]
+
   /** The visible hex sides. */
   def sides: LineSegArr
 

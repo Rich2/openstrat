@@ -63,7 +63,7 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
    * for the [[Some]] values. */
-  def mapHC[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrT]): ArrT =
+  def hcMap[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     grider.foreach { hc =>
       val a = unsafeArr(grider.arrIndex(hc))
@@ -72,6 +72,20 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     }
     build.buffToBB(buff)
   }
+
+  /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
+   * for the [[Some]] values. */
+  /*def projHcMap[B, ArrT <: SeqImut[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrT]): ArrT = {
+    val buff = build.newBuff()
+    grider.foreach { hc =>
+      val a = unsafeArr(grider.arrIndex(hc))
+      if (a != null) build.buffGrow(buff, fSome(a, hc))
+      else {
+        val newVal = fNone(hc); build.buffGrow(buff, newVal)
+      }
+    }
+    build.buffToBB(buff)
+  }*/
 
   /** Indexes in to this [[HCenOptDGrid]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
   def apply(hc: HCen)(implicit grider: HGridSys): Option[A] =

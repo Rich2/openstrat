@@ -10,7 +10,8 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
   implicit def gridSys: HGridSys = scen.gridSys
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
-
+  val proj = gridSys.projection(mainPanel)
+  //proj.setView(viewIn)
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
   val rows: Arr[HCenRowValue[Terr]] = terrs.rowCombine
@@ -20,7 +21,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
 
   /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
    *  data in the separate terrs array by use of the HCen coordinate.  */
-  def unitOrTexts: GraphicElems = units.mapHC{ hc => hc.oldDecText(14, terrs(hc).contrastBW) } { (p, hc) =>
+  def unitOrTexts: GraphicElems = units.hcMap{ hc => hc.oldDecText(14, terrs(hc).contrastBW) } { (p, hc) =>
     Rect(1.6, 1.2, hc.toPt2Reg).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
   def moveGraphics: GraphicElems = units.someHCMap{ (u, hc) => LineSegHC(hc, hc.unsafeStep(u.cmds(0))).oldLineSeg.draw(units.unSafeApply(hc).colour)}
