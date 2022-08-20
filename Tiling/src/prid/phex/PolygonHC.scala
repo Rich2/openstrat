@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
+import geom._, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
 class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqDef with PolygonInt2s[HCoord]
@@ -80,26 +80,27 @@ object PolygonHC extends Int2SeqDefCompanion[HCoord, PolygonHC]
   override def fromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
 }
 
-class PolygonHCArr(arrayOfArrays:Array[Array[Int]]) extends SeqImut[PolygonHC]{
-  override type ThisT = PolygonHCArr
+class PolygonHCArr(unsafeArrayOfArrays:Array[Array[Int]]) extends SeqImut[PolygonHC]
+{ override type ThisT = PolygonHCArr
   override def typeStr: String = "PolygonHCArr"
-
-
   override def unsafeSameSize(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
-
-  /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[SeqDefGen]][A]. */
-  override def length: Int = ???
-
-  /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
-   * underlying Array will be a multiple of this number. */
-  override def sdLength: Int = ???
-
-  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
-   * methods. */
-  override def unsafeSetElem(i: Int, value: PolygonHC): Unit = ???
-
+  override def length: Int = unsafeArrayOfArrays.length
+  override def sdLength: Int = unsafeArrayOfArrays.length
+  override def unsafeSetElem(i: Int, value: PolygonHC): Unit = unsafeArrayOfArrays(i) = value.unsafeArray
   override def fElemStr: PolygonHC => String = _.toString
+  override def sdIndex(index: Int): PolygonHC = new PolygonHC(unsafeArrayOfArrays(index))
+}
 
-  /** Accesses the defining sequence element by a 0 based index. */
-  override def sdIndex(index: Int): PolygonHC = ???
+class PolygonHCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal with SeqGen[PolygonHC]
+{ override type ThisT = PolygonHCBuff
+  override def typeStr: String = "PolygonHCBuff"
+  override def length: Int = unsafeBuff.length
+  override def unsafeSetElem(i: Int, value: PolygonHC): Unit = unsafeBuff(i) = value.unsafeArray
+  override def fElemStr: PolygonHC => String = _.toString
+  override def sdLength: Int = unsafeBuff.length
+  override def sdIndex(index: Int): PolygonHC = new PolygonHC(unsafeBuff(index))
+}
+
+object PolygonHCBuff
+{ def apply(initLen: Int = 4): PolygonHCBuff = new PolygonHCBuff(new ArrayBuffer[Array[Int]](initLen))
 }
