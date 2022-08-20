@@ -2,7 +2,7 @@
 package ostrat; package p305
 import geom._, pglobe._, pgui._, pEarth._
 
-case class BC305Gui(canv: CanvasPlatform, scen: BcScen) extends EarthGuiOld("BC 305")
+case class BC305Gui(canv: CanvasPlatform, scen: BcScenOld) extends EarthGuiOld("BC 305")
 {
   override def saveNamePrefix = "BC305"
   override def scaleMax: Length = 14000.km / mapPanelDiameter

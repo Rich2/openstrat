@@ -26,7 +26,7 @@ object Apps
     ("Y4", (pspace.PlanetsGui(_), "JavaFx Planets")),
     ("Y6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
-    ("Y9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
+    ("Y9", (p305.BC305Gui(_, p305.Bc1Old), "BC 305")),
     ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
     ("Y11", (pchess.pdraughts.DraughtsGui(_, pchess.pdraughts.DraughtsStart), "Draughts")),
     ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),

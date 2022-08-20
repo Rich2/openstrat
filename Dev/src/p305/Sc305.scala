@@ -2,10 +2,10 @@
 package ostrat; package p305
 import pEarth._
 
-class BcScen extends OldWorldMap[BcTileAncient, ESideOnyAncient](BcTileAncient.apply, ESideOnyAncient.apply)
+class BcScenOld extends OldWorldMap[BcTileAncient, ESideOnyAncient](BcTileAncient.apply, ESideOnyAncient.apply)
 { val fLegion: (BcTileAncient, Polity) => Unit = (tile, p: Polity) => { tile.lunits = Legion(p, tile.cood) :: tile.lunits }
 }
 
-object Bc1 extends BcScen
+object Bc1Old extends BcScenOld
 { fTiles[Polity](fLegion, (198, 466, Rome), (210, 458, Macedon))
 }
