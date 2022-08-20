@@ -79,3 +79,27 @@ object PolygonHC extends Int2SeqDefCompanion[HCoord, PolygonHC]
 
   override def fromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
 }
+
+class PolygonHCArr(arrayOfArrays:Array[Array[Int]]) extends SeqImut[PolygonHC]{
+  override type ThisT = PolygonHCArr
+  override def typeStr: String = "PolygonHCArr"
+
+
+  override def unsafeSameSize(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
+
+  /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[SeqDefGen]][A]. */
+  override def length: Int = ???
+
+  /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
+   * underlying Array will be a multiple of this number. */
+  override def sdLength: Int = ???
+
+  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  override def unsafeSetElem(i: Int, value: PolygonHC): Unit = ???
+
+  override def fElemStr: PolygonHC => String = _.toString
+
+  /** Accesses the defining sequence element by a 0 based index. */
+  override def sdIndex(index: Int): PolygonHC = ???
+}

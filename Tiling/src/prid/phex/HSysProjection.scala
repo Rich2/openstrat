@@ -14,6 +14,8 @@ trait HSysProjection
 
   def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = ???
 
+  //def hcPolyArrTrans()
+
   /** The visible hex sides. */
   def sides: LineSegArr
 
