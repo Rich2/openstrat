@@ -74,13 +74,20 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqDef wi
 
 /** Companion object for the polygon whose vertices are defined by hex tile coordinates [[PolygonHC]] trait. */
 object PolygonHC extends Int2SeqDefCompanion[HCoord, PolygonHC]
-{
-  //override def buff(initialSize: Int): Int2sBuffer[HVert, HVertPolygon] = ???
+{ override def fromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
 
-  override def fromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
+  implicit val arrBuildImplicit: ArrBuilder[PolygonHC, PolygonHCArr] = new ArrBuilder[PolygonHC, PolygonHCArr] {
+    override type BuffT = PolygonHCBuff
+    override def newBuff(length: Int): PolygonHCBuff = PolygonHCBuff(length)
+    override def newArr(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
+    override def arrSet(arr: PolygonHCArr, index: Int, value: PolygonHC): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
+    override def buffGrow(buff: PolygonHCBuff, value: PolygonHC): Unit = buff.unsafeBuff.append(value.unsafeArray)
+    override def buffGrowArr(buff: PolygonHCBuff, arr: PolygonHCArr): Unit = arr.foreach(p => buff.unsafeBuff.append(p.unsafeArray))
+    override def buffToBB(buff: PolygonHCBuff): PolygonHCArr = new PolygonHCArr(buff.unsafeBuff.toArray)
+  }
 }
 
-class PolygonHCArr(unsafeArrayOfArrays:Array[Array[Int]]) extends SeqImut[PolygonHC]
+class PolygonHCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends SeqImut[PolygonHC]
 { override type ThisT = PolygonHCArr
   override def typeStr: String = "PolygonHCArr"
   override def unsafeSameSize(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
