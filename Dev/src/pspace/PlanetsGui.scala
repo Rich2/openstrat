@@ -20,7 +20,7 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")// with
   /** Translates an array of map points to an array of Canvas Display positions */
   def arrCanv(inp: PtMetre2Arr): Polygon = inp.mapPolygon(toCanv(_))
 
-  final def repaintMap(): Unit = mapPanel.repaint( mapObjs)
+  final def repaintMap(): Unit = mapPanel.repaint(mapObjs)
 
   def reFocus(newFocus: PtM2): Unit =
   { mapFocus = newFocus

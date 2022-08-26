@@ -11,10 +11,10 @@ trait HSysProjection
   val buttons: Arr[PolygonCompound]
   def tiles: PolygonArr
   def tileActives: Arr[PolygonActive]
-
+  var gChild: HGridSys
   def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = ???
 
-  //def hcPolyArrTrans()
+  //def hcPolyArrTrans(inp: PolygonHCArr)
 
   /** The visible hex sides. */
   def sides: LineSegArr
