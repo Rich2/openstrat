@@ -11,6 +11,7 @@ abstract class CanvasUser(val title: String)
   def paintObjs(movedObjs: Arr[GraphicElem]): Arr[GraphicActive] =
   {
     val activeBuff: ArrayBuffer[GraphicActive] = Buff()
+
     movedObjs.foreach {
       case el: GraphicActiveOld => activeBuff += el
       case _ =>
