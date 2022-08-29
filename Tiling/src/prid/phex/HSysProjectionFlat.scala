@@ -23,7 +23,11 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     case _ =>
   }
 
-  var gChild: HGridSys = gridSys
+  var gChild: HGridSys = setGChid
+  def setGChid : HGridSys =  gridSys match {
+    case hg: HGrid => hg
+    case hs => hs
+  }
   //def window = panel
 
   override def tiles: PolygonArr = gridSys.map(_.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(cPScale))
