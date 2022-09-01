@@ -22,14 +22,14 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   val urect = Rect(1.4, 1)
 
   def units: Arr[PolygonCompound] = players.someHCOptMap { (p, hc) =>
-    proj.transCoord(hc).map { pt =>
+    proj.transOptCoord(hc).map { pt =>
       val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
       urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
     }
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.noneHCOptMap{ hc => proj.transCoord(hc).map(TextGraphic(hc.strComma, 20, _)) }//players.noneHCMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
+  def hexStrs: Arr[TextGraphic] = players.noneHCOptMap{ hc => proj.transOptCoord(hc).map(TextGraphic(hc.strComma, 20, _)) }//players.noneHCMap(hc => TextGraphic(hc.strComma, 20, hc.toPt2))
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   def tiles: Arr[PolygonActive] = proj.tileActives

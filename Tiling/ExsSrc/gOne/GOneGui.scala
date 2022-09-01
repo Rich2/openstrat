@@ -12,7 +12,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   def players: HCenOptDGrid[Player] = scen.oPlayers
   cPScale = viewIn.cPScale
   focus = viewIn.vec
-  val proj = gridSys.projection(mainPanel)
+  implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
@@ -24,14 +24,19 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
 
   val urect = Rect(1.4, 1)
 
-  def units: Arr[PolygonCompound] = players.someHCOptMap { (p, hc) => proj.transCoord(hc).map { pt =>
+  /*def units2: Arr[PolygonCompound] = players.someHCOptMap { (p, hc) => proj.transOptCoord(hc).map { pt =>
       val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
       urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
     }
+  }*/
+
+  def units: Arr[PolygonCompound] = players.projSomeHCPtMap { (p, hc, pt) =>
+    val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
+    urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.noneHCOptMap{ hc => proj.transCoord(hc).map(TextGraphic(hc.strComma, 20, _)) }
+  def hexStrs: Arr[TextGraphic] = players.noneHCOptMap{ hc => proj.transOptCoord(hc).map(TextGraphic(hc.strComma, 20, _)) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val tiles: Arr[PolygonActive] = proj.tileActives

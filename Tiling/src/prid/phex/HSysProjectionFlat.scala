@@ -37,7 +37,7 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
 
   override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = {
     val buff = new ArrayBuffer[GraphicElem]
-    gridSys.foreach{hc => transCoord(hc).foreach(pt => buff.append(f(pt, hc))) }
+    gridSys.foreach{hc => transOptCoord(hc).foreach(pt => buff.append(f(pt, hc))) }
     new Arr[GraphicElem](buff.toArray)
   }
 
@@ -45,9 +45,11 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
   override def innerSides: LineSegArr = gridSys.innerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
   override def outerSides: LineSegArr = gridSys.outerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
 
-  override def transCoord(hc: HCoord): Option[Pt2] = Some(gridSys.hCoordToPt2(hc).slate(-focus).scale(cPScale))
+  override def transOptCoord(hc: HCoord): Option[Pt2] = Some(gridSys.hCoordToPt2(hc).slate(-focus).scale(cPScale))
+  override def transCoord(hc: HCoord): Pt2 = gridSys.hCoordToPt2(hc).slate(-focus).scale(cPScale)
+
   override def transTile(hc: HCen): Option[Polygon] = Some(hc.polygonReg)
-  override def transLineSeg(seg: LineSegHC): Option[LineSeg] = transCoord(seg.startPt).map2(transCoord(seg.endPt)){(p1, p2) => LineSeg(p1, p2) }
+  override def transLineSeg(seg: LineSegHC): Option[LineSeg] = transOptCoord(seg.startPt).map2(transOptCoord(seg.endPt)){ (p1, p2) => LineSeg(p1, p2) }
 
   override def transHSides(inp: HSideArr): LineSegArr = ???//.slate(-focus).scale(cPScale)
 

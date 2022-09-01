@@ -44,7 +44,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
     def rcTexts = ifGScale(20.5, optTexts)
 
     def optTexts = terrs.hcOptFlatMap{ (hc, terr) =>
-      proj.transCoord(hc).map{ pt =>
+      proj.transOptCoord(hc).map{ pt =>
         val strs: StringArr = StringArr(hc.rcStr32).appendOption(proj.hCoordOptStr(hc)) +% hc.strComma
         TextGraphic.lines(strs, 12, pt, terr.contrastBW)
       }

@@ -129,6 +129,34 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
+  def projSomeHCMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
+    projSomeHCMap(proj)(f)(build)
+
+  def projSomeHCMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: (A, HCen) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+    val buff = build.newBuff()
+    proj.gChild.foreach { hc =>
+      val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
+      if (a != null) {
+        build.buffGrow(buff, f(a, hc))
+      }
+    }
+    build.buffToBB(buff)
+  }
+
+  def projSomeHCPtMap[B, ArrB <: SeqImut[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
+    projSomeHCPtMap(proj)(f)(build)
+
+  def projSomeHCPtMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+    val buff = build.newBuff()
+    proj.gChild.foreach { hc =>
+      val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
+      if (a != null) {
+        build.buffGrow(buff, f(a, hc, proj.transCoord(hc)))
+      }
+    }
+    build.buffToBB(buff)
+  }
+
   /** Uses this and a second [[HCenOptDGrid]] of type B. Drops all values where either or both [[HCenOptDGrid]] have [[None]] values. Maps the
    *  corresponding values of the [[Some]]s to type C. Returns a [[SeqImut]] of length bwteen 0 na d the length of the original [[HCenOptDGrid]]s. */
   def zipSomesMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (A, B) => C)(implicit gridSys: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =

@@ -29,7 +29,11 @@ trait HSysProjection
   def transHSides(inp: HSideArr): LineSegArr
 
   def transTile(hc: HCen): Option[Polygon]
-  def transCoord(hc: HCoord): Option[Pt2]
+  def transOptCoord(hc: HCoord): Option[Pt2]
+
+  /** only use for projection's known [[HCoord]]s. */
+  def transCoord(hc: HCoord): Pt2
+
   def transLineSeg(seg: LineSegHC): Option[LineSeg]
 
   /** Produces optional data about the HCoord. for example on a world projection it can give the latitude and longitude. */

@@ -14,7 +14,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
 
   val terrs: HCenDGrid[ZugTerr] = scen.terrs
   val active: Arr[PolygonActive] = proj.tileActives
-  val text: Arr[TextGraphic] = terrs.hcOptMap((t, hc) => proj.transCoord(hc).map(_.textAt(hc.rcStr, 14, t.contrastBW)))
+  val text: Arr[TextGraphic] = terrs.hcOptMap((t, hc) => proj.transOptCoord(hc).map(_.textAt(hc.rcStr, 14, t.contrastBW)))
 
   val polyFills: Arr[PolygonFill] =
     terrs.rowCombine.map{ (hcrv: HCenRowValue[ZugTerr]) => hcrv.hVertPolygon.toPolygon(_.toPt2Reg).fill(hcrv.value.colour) }

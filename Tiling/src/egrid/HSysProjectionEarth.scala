@@ -74,11 +74,17 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     visible.map(_.xyLineSeg(scale))
   }
 
-  override def transCoord(hc: HCoord): Option[Pt2] =
+  override def transOptCoord(hc: HCoord): Option[Pt2] =
   { val m3 = gridSys.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
     val opt = ife(rotated.zPos, Some(rotated.xy), None)
     opt.map(_ / scale)
+  }
+
+  override def transCoord(hc: HCoord): Pt2 = {
+    val m3 = gridSys.hCoordLL(hc).toMetres3
+    val rotated = m3.fromLatLongFocus(focus)
+    rotated.xy / scale
   }
 
   override def transTile(hc: HCen): Option[Polygon] = {
