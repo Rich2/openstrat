@@ -4,7 +4,7 @@ import utest._
 
 object HGridTest extends TestSuite
 {
-  val g1: HGridReg = HGridReg(2, 6, 2, 10)
+  val g1: HGridRegOrig = HGridRegOrig(2, 6, 2, 10)
   val g2: HGrids2 = HGrids2(2, 8, 2, 6, 100, 104)
 
   val tests = Tests {

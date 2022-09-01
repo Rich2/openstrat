@@ -8,15 +8,15 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   type ManT = HGridMan
 
   type GridT = HGrid
-  val grid1 = HGridReg(minCenR, maxCenR, minC1, maxC1)
-  val grid2 = HGridReg(minCenR, maxCenR, minC2, maxC2)
+  val grid1 = HGridRegOrig(minCenR, maxCenR, minC1, maxC1)
+  val grid2 = HGridRegOrig(minCenR, maxCenR, minC2, maxC2)
   override def grids: Arr[HGrid] = Arr(grid1, grid2)
 
   val grid2OffsetC: Int = maxC1 - minC2 + 2
 
   val gridMan1: HGridMan = new HGridMan
   { override val sys = This2
-    override val grid: HGridReg = grid1
+    override val grid: HGridRegOrig = grid1
     override def thisInd: Int = 0
     override val indexStart: Int = 0
 
@@ -52,7 +52,7 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
   val gridMan2: HGridMan = new HGridMan
   { override val sys = This2
-    override val grid: HGridReg = grid2
+    override val grid: HGridRegOrig = grid2
     def thisInd: Int = 1
     override val indexStart: Int = grid1.numTiles
     override def offset: Vec2 = Vec2(maxC1 - minC2 + 2, 0)

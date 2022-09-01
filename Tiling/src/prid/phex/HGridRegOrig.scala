@@ -1,24 +1,11 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
- * where r %% 4 == 0 rows. */
-class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid
+
+trait HGridReg extends HGrid
 {
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
-
-  /** Gives the index into an Arr / Array of Tile data from its [[HCen]] hex tile centre coordinate. Use sideIndex and vertIndex methods to access
-   *  Side and Vertex Arr / Array data. */
-  @inline def arrIndex(r: Int, c: Int): Int =
-  { val thisRow: Int = r %% 4 match
-    { case 2 => (c - leftrem2CenC) / 4
-      case 0 => (c - leftRem0CenC) / 4
-    }
-    val r2s: Int = ((r - bottomRem2R).divRoundUp(4) * row2sTileNum).max0
-    val r0s: Int = ((r - bottomRem0R).divRoundUp(4) * row0sTileNum).max0
-    r0s + r2s + thisRow
-  }
 
   /** The start minimum or by convention left column or c value for tile centre rows where r.Div4Rem2. This property is only available on
    * regular hex grids [[HGrid]]s, as this value is not fixed on irregular hex grids. */
@@ -55,17 +42,18 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   def topRem0R: Int = topCenR.roundDownTo(_.div4Rem0)
 
   override def numRow0s: Int = ((topRem0R - bottomRem0R + 4) / 4).max(0)
+
   override def numRow2s: Int = ((topRem2R - bottomRem2R + 4) / 4).max(0)
+
   //override def numTiles: Int = numRow2s * row2sTileNum + numRow0s * row0sTileNum
   override def numTileRows: Int = numRow2s + numRow0s
 
   /** foreachs over each Tile's Roord in the given Row. The row is specified by its r value. */
   override def rowForeach(r: Int)(f: HCen => Unit): Unit =
-    if(r %% 4 == 2) iToForeach(leftrem2CenC, rightRem2CenC, 4)(c => f(HCen(r, c)))
+    if (r %% 4 == 2) iToForeach(leftrem2CenC, rightRem2CenC, 4)(c => f(HCen(r, c)))
     else iToForeach(leftRem0CenC, rightRem0CenC, 4)(c => f(HCen(r, c)))
 
-  def hCenExists(r: Int, c:Int): Boolean = (r, c) match
-  {
+  def hCenExists(r: Int, c: Int): Boolean = (r, c) match {
     case (r, c) if r < bottomCenR | r > topCenR => false
     case (r, c) if r.isOdd => false
 
@@ -77,6 +65,25 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     case (r, c) if r.div4Rem2 & c.div4Rem2 => true
     case _ => false
   }
+
+}
+
+/** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
+ * where r %% 4 == 0 rows. */
+class HGridRegOrig(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGridReg
+{
+  /** Gives the index into an Arr / Array of Tile data from its [[HCen]] hex tile centre coordinate. Use sideIndex and vertIndex methods to access
+   *  Side and Vertex Arr / Array data. */
+  @inline def arrIndex(r: Int, c: Int): Int =
+  { val thisRow: Int = r %% 4 match
+    { case 2 => (c - leftrem2CenC) / 4
+      case 0 => (c - leftRem0CenC) / 4
+    }
+    val r2s: Int = ((r - bottomRem2R).divRoundUp(4) * row2sTileNum).max0
+    val r0s: Int = ((r - bottomRem0R).divRoundUp(4) * row0sTileNum).max0
+    r0s + r2s + thisRow
+  }
+
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
@@ -158,10 +165,10 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
 }
 
 /** Companion object for the HGridReg class. Contains an apply method that corrects the r and Y minimum and maximum values. */
-object HGridReg
+object HGridRegOrig
 {
   /** Corrects the X and Y minimum and maximum values. */
-  def apply(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): HGridReg =
+  def apply(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): HGridRegOrig =
   {
     val rMin = rTileMin.roundUpToEven
     val rMax = rTileMax.roundDownToEven
@@ -179,6 +186,6 @@ object HGridReg
       case _ => cTileMax.roundDownToEven
     }
 
-    new HGridReg(rMin, rMax, cMin, cMax)
+    new HGridRegOrig(rMin, rMax, cMin, cMax)
   }
 }

@@ -7,7 +7,7 @@ package ostrat; package prid; package phex
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param yTileMin         The y value for the bottom tile row of the TileGrid
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid
+class HGridIrrOrig(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid
 {
   final val numTileRows: Int = unsafeRowsArray.length / 2
 
@@ -126,10 +126,10 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
   }
 }
 
-object HGridIrr
+object HGridIrrOrig
 {
   /** Takes the top row number followed by pairs of the number of tiles in the row ad the tile centre start coordinate. */
-  def apply(rMax: Int, cLenMins: (Int, Int) *): HGridIrr =
+  def apply(rMax: Int, cLenMins: (Int, Int) *): HGridIrrOrig =
   { val array = new Array[Int](cLenMins.length * 2)
     val len = cLenMins.length
     val rMin = rMax - (len - 1) * 2
@@ -138,6 +138,6 @@ object HGridIrr
       array(i * 2) = rLen
       array(i * 2 + 1) = cMin
     }
-    new HGridIrr(rMin, array)
+    new HGridIrrOrig(rMin, array)
   }
 }
