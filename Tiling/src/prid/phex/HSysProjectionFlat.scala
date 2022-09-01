@@ -25,7 +25,7 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
 
   var gChild: HGridSys = setGChid
   def setGChid : HGridSys =  gridSys match {
-    case hg: HGrid => hg
+    case hg: HGridRegOrig => HGridRegOrig(hg.bottomCenR, hg.topCenR, hg.leftCenC, hg.rightCenC)
     case hs => hs
   }
   //def window = panel
