@@ -12,7 +12,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def players: HCenOptDGrid[Player] = scen.oPlayers
   cPScale = viewIn.cPScale
   focus = viewIn.vec
-  val proj = gridSys.projection(mainPanel)
+  implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
@@ -21,11 +21,9 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   val urect = Rect(1.4, 1)
 
-  def units: Arr[PolygonCompound] = players.someHCOptMap { (p, hc) =>
-    proj.transOptCoord(hc).map { pt =>
-      val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
-      urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
-    }
+  def units: Arr[PolygonCompound] = players.projSomeHCPtMap{ (p, hc, pt) =>
+    val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
+    urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */

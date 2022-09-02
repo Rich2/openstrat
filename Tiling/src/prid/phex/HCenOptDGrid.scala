@@ -120,14 +120,14 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Drops the None values mapping the [[Some]]'s value with the [[HCen]] to an option value, collecting the values of the [[Some]]s returned by the
    *  function. Returns a [[Seqimut]] of length 0 to the length of this [[HCenOptDGrid]]. */
-  def someHCOptMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => Option[B])(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
+  /*def someHCOptMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => Option[B])(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     grider.foreach { hc =>
       val a: A = unsafeArr(grider.arrIndex(hc))
       if (a != null) { f(a, hc).foreach(build.buffGrow(buff, _)) }
     }
     build.buffToBB(buff)
-  }
+  }*/
 
   def projSomeHCMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
     projSomeHCMap(proj)(f)(build)
