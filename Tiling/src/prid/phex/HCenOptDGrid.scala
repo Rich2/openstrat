@@ -120,15 +120,6 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Drops the None values mapping the [[Some]]'s value with the [[HCen]] to an option value, collecting the values of the [[Some]]s returned by the
    *  function. Returns a [[Seqimut]] of length 0 to the length of this [[HCenOptDGrid]]. */
-  /*def someHCOptMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => Option[B])(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
-  { val buff = build.newBuff()
-    grider.foreach { hc =>
-      val a: A = unsafeArr(grider.arrIndex(hc))
-      if (a != null) { f(a, hc).foreach(build.buffGrow(buff, _)) }
-    }
-    build.buffToBB(buff)
-  }*/
-
   def projSomeHCMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
     projSomeHCMap(proj)(f)(build)
 
@@ -205,15 +196,34 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
-  /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to an [[option]][B]. Collects only the values of the [[Some]]s
-   *  returned by the function .Returns a [[SeqImut]] of lenght between 0 and the length of this [[HCenOptDGrid]]. */
-  def noneHCOptMap[B, ArrB <: SeqImut[B]](f: HCen => Option[B])(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB = {
+  /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to a B. Returns a [[SeqImut]] of lenght between 0 and the length of
+   *  this [[HCenOptDGrid]]. */
+  def projNoneHCMap[B, ArrB <: SeqImut[B]](f: HCen => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB = projNoneHCMap(proj)(f)
+
+  /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to a B. Returns a [[SeqImut]] of lenght between 0 and the length of
+   * this [[HCenOptDGrid]]. */
+  def projNoneHCMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: HCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff()
 
-    grider.foreach { r =>
-      val a: A = unsafeArr(grider.arrIndex(r))
+    proj.gChild.foreach { hc =>
+      val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
       if (a == null) {
-        f(r).foreach(build.buffGrow(buff, _))
+        build.buffGrow(buff, f(hc))
+      }
+    }
+    build.buffToBB(buff)
+  }
+
+  def projNoneHCPtMap[B, ArrB <: SeqImut[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
+    projNoneHCPtMap(proj)(f)
+
+  def projNoneHCPtMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+    val buff = build.newBuff()
+
+    proj.gChild.foreach { hc =>
+      val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
+      if (a == null) {
+        build.buffGrow(buff, f(hc, proj.transCoord(hc)))
       }
     }
     build.buffToBB(buff)
