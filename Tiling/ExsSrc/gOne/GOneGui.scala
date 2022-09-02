@@ -25,11 +25,11 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
 
   val urect = Rect(1.4, 1)
 
-  /*def units2: Arr[PolygonCompound] = players.someHCOptMap { (p, hc) => proj.transOptCoord(hc).map { pt =>
+  def units2: Arr[PolygonCompound] = players.someHCOptMap { (p, hc) => proj.transOptCoord(hc).map { pt =>
       val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
       urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
     }
-  }*/
+  }
 
   def units: Arr[PolygonCompound] = players.projSomeHCPtMap { (p, hc, pt) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
