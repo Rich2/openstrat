@@ -5,7 +5,7 @@ import utest._, prid._, phex._, gPlay._
 object OneScen1Test  extends TestSuite
 {
   val os1: OneScen1.type = OneScen1
-  val g1: HGridRegOrig = os1.gridSys
+  val g1: HGridReg = os1.gridSys
   val os2: OneScen = os1.endTurn(Arr())
   val g2: HGridSys = os2.gridSys
   val os3: OneScen = os1.endTurn(Arr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))

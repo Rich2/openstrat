@@ -5,7 +5,7 @@ import prid._, phex._, gPlay._
 /** 1st example Turn 0 scenario state for Game One. */
 object OneScen1 extends OneScen
 { override def turn: Int = 0
-  implicit val gridSys: HGridRegOrig = HGridRegOrig(2, 6, 2, 10)
+  implicit val gridSys: HGridReg = HGridReg(2, 6, 2, 10)
   val oPlayers: HCenOptDGrid[Player] = gridSys.newHCenOptDGrid
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
@@ -14,7 +14,7 @@ object OneScen1 extends OneScen
 /** 2nd example Turn 0 scenario state for Game One. */
 object OneScen2 extends OneScen
 { override def turn: Int = 0
-  implicit val gridSys: HGridRegOrig = HGridRegOrig(2, 10, 4, 8)
+  implicit val gridSys: HGridReg = HGridReg(2, 10, 4, 8)
   val oPlayers: HCenOptDGrid[Player] = gridSys.newHCenOptDGrid
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (8, 4, PlayerB), (6, 6, PlayerC))
 }
@@ -29,10 +29,10 @@ object OneScen3 extends OneScen
 
 object OneScen4 extends OneScen
 { override def turn: Int = 0
-  implicit val gridSys: HGridRegOrig = HGridRegOrig(2, 12, 2, 60)
+  implicit val gridSys: HGridReg = HGridReg(2, 12, 2, 60)
   val oPlayers: HCenOptDGrid[Player] = gridSys.newHCenOptDGrid
-  oPlayers.unsafeSetSome(4, 4, PlayerA)
-  oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
+  oPlayers.unsafeSetSome(6, 38, PlayerA)
+  oPlayers.unsafeSetSomes((4, 40, PlayerB), (6, 42, PlayerC))
 }
 
 object OneScen5 extends OneScen

@@ -27,7 +27,7 @@ object Terr320E0 extends Warm320Terrs
     res
   }
 
-  def regGrid: HGridRegOrig = HGridRegOrig(138, 148, 504, 520)
+  def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
 
   def regTerrs: HCenDGrid[WTile] = regGrid.newHCenDSubGrid(EGrid320.e0(138), terrs)
 

@@ -18,14 +18,22 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     case hv: HGView => {
       cPScale = hv.cPScale
       focus = hv.vec
+      gChild = setGChid
     }
     case d: Double => cPScale = d
     case _ =>
   }
 
   var gChild: HGridSys = setGChid
-  def setGChid : HGridSys =  gridSys match {
-    case hg: HGridRegOrig => HGridRegOrig(hg.bottomCenR, hg.topCenR, hg.leftCenC, hg.rightCenC)
+
+  def setGChid : HGridSys =  gridSys match
+  { case hg: HGridReg =>
+    { val rt1 = (focus.x + panel.right / cPScale).toInt + 2
+      val rt = hg.rightCenC.min(rt1)
+      debvar(rt)
+      HGridReg(hg.bottomCenR, hg.topCenR, hg.leftCenC, rt)
+    }
+
     case hs => hs
   }
   //def window = panel

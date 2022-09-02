@@ -1,8 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-
-trait HGridReg extends HGrid
+/** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
+ * where r %% 4 == 0 rows. */
+class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGrid//Reg
 {
   /** The [[HCenOrSide]] coordinate centre for this hex grid. */
   override def coordCen: HCoord = HCoord(rCen, cCen)
@@ -66,12 +67,6 @@ trait HGridReg extends HGrid
     case _ => false
   }
 
-}
-
-/** A Regular hex grid where the tile rows have the same length, except the tile rows where r %% 4 == 2 may differ in length by 1 from tile rows
- * where r %% 4 == 0 rows. */
-class HGridRegOrig(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int) extends HGridReg
-{
   /** Gives the index into an Arr / Array of Tile data from its [[HCen]] hex tile centre coordinate. Use sideIndex and vertIndex methods to access
    *  Side and Vertex Arr / Array data. */
   @inline def arrIndex(r: Int, c: Int): Int =
@@ -165,10 +160,10 @@ class HGridRegOrig(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val
 }
 
 /** Companion object for the HGridReg class. Contains an apply method that corrects the r and Y minimum and maximum values. */
-object HGridRegOrig
+object HGridReg
 {
   /** Corrects the X and Y minimum and maximum values. */
-  def apply(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): HGridRegOrig =
+  def apply(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): HGridReg =
   {
     val rMin = rTileMin.roundUpToEven
     val rMax = rTileMax.roundDownToEven
@@ -186,6 +181,6 @@ object HGridRegOrig
       case _ => cTileMax.roundDownToEven
     }
 
-    new HGridRegOrig(rMin, rMax, cMin, cMax)
+    new HGridReg(rMin, rMax, cMin, cMax)
   }
 }

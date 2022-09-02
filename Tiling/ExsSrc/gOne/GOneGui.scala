@@ -14,6 +14,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   focus = viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
+  //debvar(proj.v)
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenOptDGrid[HDirn] = gridSys.newHCenOptDGrid[HDirn]
