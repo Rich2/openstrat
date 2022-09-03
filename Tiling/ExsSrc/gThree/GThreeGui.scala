@@ -38,7 +38,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
     val hss: HDirnArr = moves.withDefault(_ => HDirnArr())(p)
-    hss.segsMap(hc, proj.transLineSeg) { ls => ls.draw(players.unSafeApply(hc).colour)
+    hss.segsMap(hc, proj.transOptLineSeg) { ls => ls.draw(players.unSafeApply(hc).colour)
     }
   }
 

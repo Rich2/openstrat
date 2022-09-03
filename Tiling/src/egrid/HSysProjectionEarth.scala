@@ -65,7 +65,7 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     transLineSegM3Arr(m3s)
   }
 
-  override def transLineSeg(seg: LineSegHC): Option[LineSeg] = ???
+  override def transOptLineSeg(seg: LineSegHC): Option[LineSeg] = ???
 
 
   def transLineSegM3Arr(inp: LineSegM3Arr): LineSegArr =
