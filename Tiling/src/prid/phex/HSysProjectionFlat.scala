@@ -41,20 +41,20 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
   }
   //def window = panel
 
-  override def tiles: PolygonArr = gridSys.map(_.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(cPScale))
+  override def tiles: PolygonArr = gChild.map(_.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(cPScale))
 
   override def tileActives: Arr[PolygonActive] =
-    gridSys.map(hc => hc.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(cPScale).active(hc))
+    gChild.map(hc => hc.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(cPScale).active(hc))
 
   override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = {
     val buff = new ArrayBuffer[GraphicElem]
-    gridSys.foreach{hc => transOptCoord(hc).foreach(pt => buff.append(f(pt, hc))) }
+    gChild.foreach{hc => transOptCoord(hc).foreach(pt => buff.append(f(pt, hc))) }
     new Arr[GraphicElem](buff.toArray)
   }
 
-  override def sides: LineSegArr = gridSys.sideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
-  override def innerSides: LineSegArr = gridSys.innerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
-  override def outerSides: LineSegArr = gridSys.outerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
+  override def sides: LineSegArr = gChild.sideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
+  override def innerSides: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
+  override def outerSides: LineSegArr = gChild.outerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(cPScale)
 
   override def transOptCoord(hc: HCoord): Option[Pt2] = Some(gridSys.hCoordToPt2(hc).slate(-focus).scale(cPScale))
   override def transCoord(hc: HCoord): Pt2 = gridSys.hCoordToPt2(hc).slate(-focus).scale(cPScale)
