@@ -2,8 +2,8 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
-/** A [[HGridSys]] data grid of [[Arr]]s of [[HCen]] data. */
-class HCenArrDGrid[A](val unsafeArray: Array[Array[A]])
+/** A [[HGridSys]] [[HCen]] data layer of [[Arr]]s. */
+class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
 {
   def apply(hc: HCen)(implicit grider: HGridSys): Arr[A] = new Arr(unsafeArray(grider.arrIndex(hc)))
   def apply(r: Int, c: Int)(implicit grider: HGridSys): Arr[A] = new Arr(unsafeArray(grider.arrIndex(r, c)))

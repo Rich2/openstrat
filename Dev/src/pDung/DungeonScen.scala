@@ -6,14 +6,14 @@ import prid._, psq._
 
 trait DungeonScen
 { implicit def grid: SqGrid
-  def terrs: SqCenDGrid[DungTerr]
+  def terrs: SqCenLayer[DungTerr]
   def characs: SqCenOptDGrid[Character]
   def posn(charac: Character, y: Int, c: Int, face: SqDirn): Unit = ???// characs.mutSetSome(y, c, CharacPosn(charac, y, c, face))
 }
 
 object Dungeon1 extends DungeonScen
 { implicit val grid: SqGrid = SqGrid(4, 26, 2, 46)
-  val terrs: SqCenDGrid[DungTerr] = grid.newSqCenDGrid[DungTerr](Wall)
+  val terrs: SqCenLayer[DungTerr] = grid.newSqCenDGrid[DungTerr](Wall)
   terrs.setColumn(22, 8,  Open * 2)
   terrs.setTerrPath(6, 4, Open, SqRt * 11, SqUp * 4, SqLt * 5, SqUp * 3, SqRt * 7, SqDn * 7)
   terrs.setRect(18, 24, 16, 36, Open)

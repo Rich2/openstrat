@@ -4,10 +4,10 @@ import reflect.ClassTag
 
 /** A [[SqGridSys]] of immutable [[SqCen]] data, stored for efficiency as a flat [[Array]]. Most methods will rquire the [[SqGridSys]] as an implicit
  * parameter. */
-class SqCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenDGrid[A]
-{ override type ThisT = SqCenDGrid[A]
+class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenLayer[A]
+{ override type ThisT = SqCenLayer[A]
   override def typeStr: String = "SqCenDGrid"
-  override def fromArray(array: Array[A]): SqCenDGrid[A] = new SqCenDGrid[A](array)
+  override def fromArray(array: Array[A]): SqCenLayer[A] = new SqCenLayer[A](array)
   def apply(sc: SqCen)(implicit grid: SqGrid): A = unsafeArray(grid.arrIndex(sc))
 
   /** Set tile row from the [[SqCen]]. */
@@ -82,6 +82,6 @@ class SqCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
     ijToForeach(yFrom, yTo, 2)(cFrom, cTo, 2) { (y, c) => unsafeArray(grid.arrIndex(y, c)) =  tileValue }
 }
 
-object SqCenDGrid
-{ def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): SqCenDGrid[A] = new SqCenDGrid[A](new Array[A](length))
+object SqCenLayer
+{ def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): SqCenLayer[A] = new SqCenLayer[A](new Array[A](length))
 }

@@ -145,7 +145,7 @@ trait HGrid extends Any with TGrid with HGridSys
     }
   }
 
-  def rowCombine[A <: AnyRef](data: HCenDGrid[A], indexingGrider: HGridSys = this): Arr[HCenRowValue[A]] =
+  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys = this): Arr[HCenRowValue[A]] =
   {
     flatMapRows[Arr[HCenRowValue[A]]]{ r => if (cenRowEmpty(r)) Arr()
     else
@@ -220,7 +220,7 @@ trait HGrid extends Any with TGrid with HGridSys
     iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2){ c => f(HSide(bottomSideR, c)) }
 
   def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit
-  def newSideBooleans: HSideBoolDGrid = new HSideBoolDGrid(new Array[Boolean](numSides))
+  def newSideBooleans: HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](numSides))
 
   def rowLeftSideC(r: Int): Int = r match
   { case r if r == topSideR => rowLeftCenC(topCenR) - 1

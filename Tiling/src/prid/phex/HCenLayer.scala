@@ -6,14 +6,14 @@ import reflect.ClassTag
  *  distinguishes this from an ordinary linear sequence array of data. Whether in a game or a non game application the data of the grid tiles is
  *  likely to change much more frequently than the size, shape, structure of the grid. The compiler knows this is hex grid array and hence the data
  *  should be set and retrieved through the [[HGrid]] hex grid. So nearly all the methods take the [[HGrid]] as an implicit parameter. */
-class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenDGrid[A]
-{ override type ThisT = HCenDGrid[A]
+class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenLayer[A]
+{ override type ThisT = HCenLayer[A]
   override def typeStr: String = "HCenDGrid"
   def apply(hc: HCen)(implicit grider: HGridSys): A = unsafeArray(grider.arrIndex(hc))
   def rc(r: Int, c: Int)(implicit grid: HGridSys): A = unsafeArray(grid.arrIndex(r, c))
   def set(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.arrIndex(hc)) = value }
   def set(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.arrIndex(r, c)) = value }
-  override def fromArray(array: Array[A]): HCenDGrid[A] = new HCenDGrid[A](array)
+  override def fromArray(array: Array[A]): HCenLayer[A] = new HCenLayer[A](array)
 
   /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
    *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
@@ -33,7 +33,7 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   }
 
   /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
-   * [[SeqImut]] will be between 0 and the lengthof this [[HCenDGrid]]. */
+   * [[SeqImut]] will be between 0 and the lengthof this [[HCenLayer]]. */
   def hcOptMap[B, BB <: SeqImut[B]](f: (A, HCen) => Option[B])(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach { (hc, i) =>
@@ -128,14 +128,14 @@ class HCenDGrid[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     }
   }
 
-  def ++ (operand: HCenDGrid[A])(implicit ct: ClassTag[A]): HCenDGrid[A] = {
+  def ++(operand: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] = {
     val newArray = Array.concat(unsafeArray, operand.unsafeArray)
-    new HCenDGrid[A](newArray)
+    new HCenLayer[A](newArray)
   }
 }
 
-/** Companion object for [[HCenDGrid]], contains an apply factory method. */
-object HCenDGrid
-{ /** Apply factory method for [[HCenDGrid]]s. */
-  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenDGrid[A] = new HCenDGrid[A](new Array[A](length))
+/** Companion object for [[HCenLayer]], contains an apply factory method. */
+object HCenLayer
+{ /** Apply factory method for [[HCenLayer]]s. */
+  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenLayer[A] = new HCenLayer[A](new Array[A](length))
 }

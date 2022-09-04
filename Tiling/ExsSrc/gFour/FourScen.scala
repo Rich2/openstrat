@@ -26,7 +26,7 @@ object Lunit
 /** Example Game four scenario trait. */
 abstract class FourScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
-  def terrs: HCenDGrid[Terr]
+  def terrs: HCenLayer[Terr]
   def units: HCenOptLayer[Lunit]
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
@@ -36,7 +36,7 @@ abstract class FourScen(val turn: Int) extends HGridScen
     val playersKey: Map[Lunit, HCen] = units.keyMap
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HDirn]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    val targets: HCenBuffDGrid[HDirn] = gridSys.newHCenArrOfBuff
+    val targets: HCenBuffLayer[HDirn] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { case (player, steps) =>  steps.ifHead { step =>
       val hc1 = playersKey(player)
@@ -56,9 +56,9 @@ abstract class FourScen(val turn: Int) extends HGridScen
 
 object FourScen
 {
-  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenDGrid[Terr], unitsIn: HCenOptLayer[Lunit]): FourScen = new FourScen(turnNum) {
+  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenLayer[Terr], unitsIn: HCenOptLayer[Lunit]): FourScen = new FourScen(turnNum) {
     /** tile terrain. */
-    override def terrs: HCenDGrid[Terr] = terrsIn
+    override def terrs: HCenLayer[Terr] = terrsIn
 
     override def units: HCenOptLayer[Lunit] = unitsIn
 

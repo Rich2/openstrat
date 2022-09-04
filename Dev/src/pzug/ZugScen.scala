@@ -7,20 +7,20 @@ trait ZugScen extends HSysTurnScen
 { origSelf =>
 
   /** tile terrain. */
-  def terrs: HCenDGrid[ZugTerr]
+  def terrs: HCenLayer[ZugTerr]
 
-  def sTerrs: HSideBoolDGrid
-  val lunits: HCenArrDGrid[Squad]
+  def sTerrs: HSideBoolLayer
+  val lunits: HCenArrLayer[Squad]
   def setSquadMove(r: Int, c: Int, polity: Polity, steps: HDirn*): Unit = lunits.set(r, c, Squad(polity, Move(HDirnArr(steps:_*))))
 
   def endTurn(): ZugScen = new ZugScen
   {
     /** tile terrain. */
-    override def terrs: HCenDGrid[ZugTerr] = origSelf.terrs
+    override def terrs: HCenLayer[ZugTerr] = origSelf.terrs
 
-    override def sTerrs: HSideBoolDGrid = origSelf.sTerrs
+    override def sTerrs: HSideBoolLayer = origSelf.sTerrs
 
-    override val lunits: HCenArrDGrid[Squad] = origSelf.lunits
+    override val lunits: HCenArrLayer[Squad] = origSelf.lunits
 
     override implicit val gridSys: HGridSys = origSelf.gridSys
 
@@ -38,7 +38,7 @@ trait ZugScenStart extends ZugScen
 /** ZugFuhrer scenario 1. */
 object Zug1 extends ZugScenStart
 { override implicit val gridSys: HGrid = HGridReg(2, 14, 2, 48)
-  val terrs: HCenDGrid[ZugTerr] = gridSys.newHCenDGrid[ZugTerr](Plain)
+  val terrs: HCenLayer[ZugTerr] = gridSys.newHCenDGrid[ZugTerr](Plain)
   def cr(yRow: Int, cStart: Int, tileValues: Multiple[ZugTerr]*) = terrs.completeRow(yRow, cStart, tileValues :_*)(gridSys)
   cr(yRow = 12, cStart = 4, WheatField * 2, Plain * 10)
   cr(10, 2, WheatField * 2, Plain * 2, StoneBuilding, Plain * 4, WoodBuilding, Plain * 2)
@@ -47,11 +47,11 @@ object Zug1 extends ZugScenStart
   cr(4, 4, WheatField * 2, Plain * 10)
   cr(2, 2, WheatField * 2, Plain * 10)
 
-  val sTerrs: HSideBoolDGrid = gridSys.newSideBooleans
+  val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
   val wall1: HSideArr = HSideArr(14 hs 36, 13 hs 35, 12 hs 34, 11 hs 35, 10 hs 36)
   //sTerrs.setTrues(wall1)
 
-  val lunits: HCenArrDGrid[Squad] = gridSys.newHCenArrDGrid[Squad]
+  val lunits: HCenArrLayer[Squad] = gridSys.newHCenArrDGrid[Squad]
   setSquadMove(2, 30, Britain, HStepLt, HStepLt)
   lunits.set(10, 38, Squad(Britain, Fire(6 hc 18)))
   setSquadMove(4, 32, Britain, HStepLt, HStepLt)
@@ -74,8 +74,8 @@ object Zug2 extends ZugScenStart
   gs(6, 6 , Plain * 4, Lake, Plain * 4)
   gs(4, 4, Plain * 4, Lake, Hill, Plain * 3)
   gs(2, 6, Plain * 2, Lake * 2, Hill, Plain * 4)
-  val sTerrs: HSideBoolDGrid = gridSys.newSideBooleans
-  val lunits: HCenArrDGrid[Squad] = gridSys.newHCenArrDGrid[Squad]
+  val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
+  val lunits: HCenArrLayer[Squad] = gridSys.newHCenArrDGrid[Squad]
 }
 
 /** ZugFuhrer scenario 3. */
@@ -83,7 +83,7 @@ object Zug3 extends ZugScenStart
 {
   override implicit val gridSys: HGrid = HGridReg(2, 10, 4, 38)
   val terrs = gridSys.newHCenDGrid[ZugTerr](Plain)
-  val sTerrs: HSideBoolDGrid = gridSys.newSideBooleans
+  val sTerrs: HSideBoolLayer = gridSys.newSideBooleans
   //sTerrs.gridSetTrues(grid.SidesHorr(7, 5, 37))
 
   val lunits = gridSys.newHCenArrDGrid[Squad]

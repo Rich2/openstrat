@@ -6,9 +6,9 @@ object Terr160E0 extends WarmTerrs
 {
   override implicit val grid: EGrid160Warm = EGrid160.e0(276)
 
-  override val terrs: HCenDGrid[WTile] =
+  override val terrs: HCenLayer[WTile] =
   {
-    val res: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
+    val res: HCenLayer[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
 //    gs(152, 460 + 60, taiga)
 //    gs(150, 460 + 58, taiga)
@@ -29,7 +29,7 @@ object Terr160E0 extends WarmTerrs
     res
   }
 
-  override val sTerrs: HSideBoolDGrid =
+  override val sTerrs: HSideBoolLayer =
   { val res = grid.newSideBools
     //res.setTruesInts((142, 508), (143, 507), (144, 522), (145, 521))
     res
@@ -37,12 +37,12 @@ object Terr160E0 extends WarmTerrs
 
   def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
 
-  def regTerrs: HCenDGrid[WTile] = regGrid.newHCenDSubGrid(EGrid160.e0(138), terrs)
+  def regTerrs: HCenLayer[WTile] = regGrid.newHCenDSubGrid(EGrid160.e0(138), terrs)
 
   def regScen: EScenFlat = new EScenFlat {
     override implicit val gridSys: HGridSys = regGrid
-    override val terrs: HCenDGrid[WTile] = regTerrs
-    override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
+    override val terrs: HCenLayer[WTile] = regTerrs
+    override val sTerrs: HSideBoolLayer = gridSys.newSideBools
     sTerrs.setTruesInts((142, 508), (143, 507))
   }
 }

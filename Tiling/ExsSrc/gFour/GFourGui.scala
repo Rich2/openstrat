@@ -5,7 +5,7 @@ import pgui._, prid._, phex._, geom._, gPlay._
 case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysGui("Game Three Gui")
 { statusText = "Welcome to Game Four."
   val scen = scenStart
-  def terrs: HCenDGrid[Terr] = scen.terrs
+  def terrs: HCenLayer[Terr] = scen.terrs
   var history: Arr[FourScen] = Arr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   focus = gridSys.cenVec

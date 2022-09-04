@@ -16,8 +16,8 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
   val proj = gridSys.projection(mainPanel)
   proj.setView(viewIn)
 
-  val terrs: HCenDGrid[WTile] = scenIn.terrs
-  val sTerrs: HSideBoolDGrid = scenIn.sTerrs
+  val terrs: HCenLayer[WTile] = scenIn.terrs
+  val sTerrs: HSideBoolLayer = scenIn.sTerrs
   val gls: LatLongArr = gridSys.map{hc => gridSys.hCoordLL(hc) }
 
   val g0Str: String = gridSys match {

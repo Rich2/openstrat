@@ -44,7 +44,7 @@ trait HGridMulti extends HGridSys with TGridMulti
   }
 
   /** Combine adjacent elements of data in a row. */
-  def rowCombine[A <: AnyRef](data: HCenDGrid[A], indexingGrider: HGridSys): Arr[HCenRowValue[A]] = grids.flatMap(_.rowCombine(data, this))
+  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys): Arr[HCenRowValue[A]] = grids.flatMap(_.rowCombine(data, this))
 
   final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
   override def adjTilesOfTile(tile: HCen): HCenArr = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))
@@ -81,10 +81,10 @@ trait HGridMulti extends HGridSys with TGridMulti
   override final def innerSidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.innerSidesForeach(f))
   override final def outerSidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
 
-  def sideBoolsFromGrids[A <: AnyRef](sideDataGrids: Arr[HSideBoolDGrid]): HSideBoolDGrid =
+  def sideBoolsFromGrids[A <: AnyRef](sideDataGrids: Arr[HSideBoolLayer]): HSideBoolLayer =
   { val res = newSideBools
     gridMansForeach{ m => m.sidesForeach{ hs =>
-        val dGrid: HSideBoolDGrid = sideDataGrids(m.thisInd)
+        val dGrid: HSideBoolLayer = sideDataGrids(m.thisInd)
         val value: Boolean = dGrid.apply(hs)(m.grid)
         res.set(hs, value)(ThisMulti)
       }

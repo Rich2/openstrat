@@ -6,8 +6,8 @@ object Terr320E150 extends Warm320Terrs
 {
   override implicit val grid: EGrid320Warm = EGrid320.e150(138)
 
-  override val terrs: HCenDGrid[WTile] =
-  { val res: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
+  override val terrs: HCenLayer[WTile] =
+  { val res: HCenLayer[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
 //    gs(160, 4608, sea * 2)
     gs(158, 5630, tundra, sea * 2)
@@ -24,7 +24,7 @@ object Terr320E150 extends Warm320Terrs
     res
   }
 
-  override val sTerrs: HSideBoolDGrid =
+  override val sTerrs: HSideBoolLayer =
   { val res = grid.newSideBools
     //res.setTruesInts((142, 508), (143, 507))
     res

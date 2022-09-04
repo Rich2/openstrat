@@ -66,7 +66,7 @@ trait HGridSys extends Any with TGridSys
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array SeqDef data. */
   def arrIndex(r: Int, c: Int): Int
-  def rowCombine[A <: AnyRef](data: HCenDGrid[A], indexingGrider: HGridSys): Arr[HCenRowValue[A]]
+  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys): Arr[HCenRowValue[A]]
   def adjTilesOfTile(tile: HCen): HCenArr
 
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
@@ -124,8 +124,8 @@ trait HGridSys extends Any with TGridSys
   /** foreachs with index over each [[HCen]] hex tile centre, apply the side effecting function. */
   def iForeach(init: Int)(f: (HCen, Int) => Unit): Unit
 
-  /** Creates a new [[HCenBuffDGrid]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
-  final def newHCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): HCenBuffDGrid[A] = HCenBuffDGrid(numTiles)
+  /** Creates a new [[HCenBuffLayer]] An [[HCen] hex tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
+  final def newHCenArrOfBuff[A <: AnyRef](implicit ct: ClassTag[A]): HCenBuffLayer[A] = HCenBuffLayer(numTiles)
 
   /** Maps over the [[HCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
    *  corresponding to the standard Scala map function of A => B. */
@@ -152,24 +152,24 @@ trait HGridSys extends Any with TGridSys
   }
 
   /** New hex data grid. */
-  final def newHCenDGrid[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenDGrid[A] =
-  { val res: HCenDGrid[A] = HCenDGrid[A](numTiles)
+  final def newHCenDGrid[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenLayer[A] =
+  { val res: HCenLayer[A] = HCenLayer[A](numTiles)
     res.mutSetAll(value)
     res
   }
 
-  def newHCenDSubGrid[A <: AnyRef](superGrid: HGridSys, superData: HCenDGrid[A])(implicit ct: ClassTag[A]): HCenDGrid[A] ={
+  def newHCenDSubGrid[A <: AnyRef](superGrid: HGridSys, superData: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] ={
     val dArray: Array[A] = new Array[A](numTiles)
     foreach{hc => dArray(arrIndex(hc)) = superData(hc)(superGrid)}
-    new HCenDGrid(dArray)
+    new HCenLayer(dArray)
   }
 
   /** New immutable Arr of Tile data. */
-  final def newHCenArrDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrDGrid[A] =
+  final def newHCenArrDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrLayer[A] =
   { val newArray = new Array[Array[A]](numTiles)
     val init: Array[A] = Array()
     iUntilForeach(numTiles)(newArray(_) = init)
-    new HCenArrDGrid[A](newArray)
+    new HCenArrLayer[A](newArray)
   }
 
   /** New Tile immutable Tile Arr of Opt data values. */
@@ -239,7 +239,7 @@ trait HGridSys extends Any with TGridSys
   /** The line segments of the outer sides defined in [[HCoord]] vertices. */
   def outerSideLineSegHCs: LineSegHCArr = outerSidesMap(_.lineSegHC)
 
-  def newSideBools: HSideBoolDGrid = new HSideBoolDGrid(new Array[Boolean](numSides))
+  def newSideBools: HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](numSides))
 
   def defaultView(pxScale: Double = 50): HGView
 

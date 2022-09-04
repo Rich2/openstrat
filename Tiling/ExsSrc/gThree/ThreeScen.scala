@@ -21,7 +21,7 @@ trait ThreeScen extends HSysTurnScen
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def endTurn(orderList: Map[Player, HDirnArr]): ThreeScen =
   {
-    val targets: HCenBuffDGrid[HCenStep] = gridSys.newHCenArrOfBuff
+    val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { ps =>  ps._2.ifHead { step =>
         val hc1: HCen = playersKey(ps._1)

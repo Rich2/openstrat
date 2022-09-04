@@ -8,9 +8,9 @@ object Terr80E0 extends WarmTerrs
 {
   implicit val grid: EGrid80Warm = EGrid80.e0(446)
 
-  override val terrs: HCenDGrid[WTile] =
+  override val terrs: HCenLayer[WTile] =
   {
-    val res: HCenDGrid[WTile] = grid.newHCenDGrid[WTile](sea)
+    val res: HCenLayer[WTile] = grid.newHCenDGrid[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
 
     gs(518, 542, taiga)
@@ -53,7 +53,7 @@ object Terr80E0 extends WarmTerrs
     res
   }
 
-  override val sTerrs: HSideBoolDGrid =
+  override val sTerrs: HSideBoolLayer =
   { val res = grid.newSideBools
     res.setTruesInts((477, 493), (463, 517), (476, 546))//, (145, 521), (146, 520))
     res

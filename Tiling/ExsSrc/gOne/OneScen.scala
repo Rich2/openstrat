@@ -13,7 +13,7 @@ trait OneScen extends HSysTurnScen
   {
     val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
-    val targets: HCenBuffDGrid[HCenStep] = gridSys.newHCenArrOfBuff
+    val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { (player: Player, step: HDirn) =>
       val hc1: HCen = playersKey(player)

@@ -9,8 +9,8 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   focus = viewIn.vec
   cPScale = viewIn.cPScale
   //def metresScale: Double = cPScale / gridSys.cScale.mMetresNum
-  val terrs: HCenDGrid[WTile] = scen.terrs
-  val sTerrs: HSideBoolDGrid = scen.sTerrs
+  val terrs: HCenLayer[WTile] = scen.terrs
+  val sTerrs: HSideBoolLayer = scen.sTerrs
   def tiles: Arr[PolygonCompound] = gridSys.map{ hc => hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg) }
   def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSeg, 0.3).fill(Colour.DarkBlue) }
 

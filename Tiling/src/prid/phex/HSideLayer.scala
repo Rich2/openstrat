@@ -1,17 +1,17 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-class HSideDGrid[A <: AnyRef](val unsafeArr: Array[A])
+class HSideLayer[A <: AnyRef](val unsafeArr: Array[A])
 {
 
 }
 
 /** Boolean data corresponding to the sides of a [[HGridSys]] hex grid system , stored using an underlying Array[Boolean]. Thhese classes should be
  *  created, initalised and used using an [HGrid]] class. For convenience the [[HGrid]] is passed as an implicit parameter. */
-final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with BooleanSeqDef
-{ override type ThisT = HSideBoolDGrid
+final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with BooleanSeqDef
+{ override type ThisT = HSideBoolLayer
   override def typeStr: String = "HSideBoolDGrid"
-  override def fromArray(array: Array[Boolean]): HSideBoolDGrid = new HSideBoolDGrid(array)
+  override def fromArray(array: Array[Boolean]): HSideBoolLayer = new HSideBoolLayer(array)
 
   def apply(hs: HSide)(implicit gridSys: HGridSys): Boolean = unsafeArray(gridSys.sideArrIndex(hs))
 
@@ -51,6 +51,6 @@ final class HSideBoolDGrid(val unsafeArray: Array[Boolean]) extends AnyVal with 
   def setTruesInts(hSides: (Int, Int)*)(implicit grid: HGridSys): Unit = hSides.foreach(p => unsafeArray(grid.sideArrIndex(p._1, p._2)) = true)
 }
 
-object HSideBoolDGrid
-{ def uniinitialised(length: Int) = new HSideBoolDGrid(new Array[Boolean](length))
+object HSideBoolLayer
+{ def uniinitialised(length: Int) = new HSideBoolLayer(new Array[Boolean](length))
 }

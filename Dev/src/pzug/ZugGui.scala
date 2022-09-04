@@ -12,7 +12,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   val proj = gridSys.projection(mainPanel)
   //proj.setView(viewIn)
 
-  val terrs: HCenDGrid[ZugTerr] = scen.terrs
+  val terrs: HCenLayer[ZugTerr] = scen.terrs
   val active: Arr[PolygonActive] = proj.tileActives
   val text: Arr[TextGraphic] = terrs.hcOptMap((t, hc) => proj.transOptCoord(hc).map(_.textAt(hc.rcStr, 14, t.contrastBW)))
 

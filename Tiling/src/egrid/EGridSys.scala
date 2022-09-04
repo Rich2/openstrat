@@ -25,8 +25,8 @@ abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale
   EGridSys
 
 trait EScenFlat extends HSysScen
-{ def terrs: HCenDGrid[WTile]
-  def sTerrs: HSideBoolDGrid
+{ def terrs: HCenLayer[WTile]
+  def sTerrs: HSideBoolLayer
   def title: String = "EScenFlat"
 }
 
@@ -39,14 +39,14 @@ trait EScenWarm extends EScenFlat
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 object EScenWarm
 {
-  def apply(gridSys: EGridWarmSys, terrs: HCenDGrid[WTile], sTerrs: HSideBoolDGrid, title: String = "EScenWarm"): EScenWarm = new EScenWarmImp(gridSys, terrs, sTerrs, title)
+  def apply(gridSys: EGridWarmSys, terrs: HCenLayer[WTile], sTerrs: HSideBoolLayer, title: String = "EScenWarm"): EScenWarm = new EScenWarmImp(gridSys, terrs, sTerrs, title)
 
-  class EScenWarmImp(val gridSys: EGridWarmSys, override val terrs: HCenDGrid[WTile], val sTerrs: HSideBoolDGrid, override val title: String = "EScenWarm") extends EScenWarm
+  class EScenWarmImp(val gridSys: EGridWarmSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer, override val title: String = "EScenWarm") extends EScenWarm
 }
 
 trait EScenWarmMulti extends EScenWarm{
   override def gridSys: EGridWarmMulti
   def warms: Arr[WarmTerrs]
-  override final lazy val terrs: HCenDGrid[WTile] = warms.tailfold(warms(0).terrs)(_ ++ _.terrs)
-  override final lazy val sTerrs: HSideBoolDGrid = gridSys.sideBoolsFromGrids(warms.map(_.sTerrs))
+  override final lazy val terrs: HCenLayer[WTile] = warms.tailfold(warms(0).terrs)(_ ++ _.terrs)
+  override final lazy val sTerrs: HSideBoolLayer = gridSys.sideBoolsFromGrids(warms.map(_.sTerrs))
 }
