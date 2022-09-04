@@ -35,6 +35,7 @@ trait HSysProjection
   def transCoord(hc: HCoord): Pt2
 
   def transOptLineSeg(seg: LineSegHC): Option[LineSeg]
+  def transLineSeg(seg: LineSegHC): LineSeg
 
   /** Produces optional data about the HCoord. for example on a world projection it can give the latitude and longitude. */
   def hCoordOptStr(hc: HCoord): Option[String] = None

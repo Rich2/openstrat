@@ -12,7 +12,7 @@ object PlayerState
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */
 trait ThreeScen extends HSysTurnScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
-  def oPlayers: HCenOptDGrid[Player]
+  def oPlayers: HCenOptLayer[Player]
 
   def playersData: Map[Player, HDirnArr] = Map()
   lazy val playersKey: Map[Player, HCen] = oPlayers.keyMap
@@ -34,7 +34,7 @@ trait ThreeScen extends HSysTurnScen
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
-    val oPlayersNew: HCenOptDGrid[Player] = oPlayers.clone
+    val oPlayersNew: HCenOptLayer[Player] = oPlayers.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1 { stCenStep => if (oPlayers.tileNone(hc2))
         { oPlayersNew.unsafeMoveMod(stCenStep.startHC, hc2) { ps => ps }
           newData = newData.modValue(oPlayers(stCenStep.startHC).get)( _.tail)
@@ -49,10 +49,10 @@ trait ThreeScen extends HSysTurnScen
 /** Companion object for OneScen trait, contains factory apply method. */
 object ThreeScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptDGrid[Player], newData: Map[Player, HDirnArr]): ThreeScen = new ThreeScen
+  def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptLayer[Player], newData: Map[Player, HDirnArr]): ThreeScen = new ThreeScen
   { override val turn = turnIn
     override implicit val gridSys: HGridSys = gridIn
-    override def oPlayers: HCenOptDGrid[Player] = opIn
+    override def oPlayers: HCenOptLayer[Player] = opIn
     override def playersData: Map[Player, HDirnArr] = newData
   }
 }

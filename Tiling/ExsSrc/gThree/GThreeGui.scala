@@ -9,7 +9,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   var scen = scenStart
   var history: Arr[ThreeScen] = Arr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
-  def players: HCenOptDGrid[Player] = scen.oPlayers
+  def players: HCenOptLayer[Player] = scen.oPlayers
   cPScale = viewIn.cPScale
   focus = viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)

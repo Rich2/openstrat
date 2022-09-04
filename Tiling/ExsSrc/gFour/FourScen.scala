@@ -27,7 +27,7 @@ object Lunit
 abstract class FourScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
   def terrs: HCenDGrid[Terr]
-  def units: HCenOptDGrid[Lunit]
+  def units: HCenOptLayer[Lunit]
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
@@ -47,7 +47,7 @@ abstract class FourScen(val turn: Int) extends HGridScen
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
-    val oPlayersNew: HCenOptDGrid[Lunit] = units.clone
+    val oPlayersNew: HCenOptLayer[Lunit] = units.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (units.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.unsafeStep(backStep), hc2)) }
 
     FourScen(turn + 1, gridSys, terrs, oPlayersNew)
@@ -56,11 +56,11 @@ abstract class FourScen(val turn: Int) extends HGridScen
 
 object FourScen
 {
-  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenDGrid[Terr], unitsIn: HCenOptDGrid[Lunit]): FourScen = new FourScen(turnNum) {
+  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenDGrid[Terr], unitsIn: HCenOptLayer[Lunit]): FourScen = new FourScen(turnNum) {
     /** tile terrain. */
     override def terrs: HCenDGrid[Terr] = terrsIn
 
-    override def units: HCenOptDGrid[Lunit] = unitsIn
+    override def units: HCenOptLayer[Lunit] = unitsIn
 
     /** This gives the structure of the hex grid. It contains no data about the elements of the grid. But it allows the scenario to create and operate
      * on flat arrays of data. */

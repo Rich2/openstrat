@@ -2,18 +2,18 @@
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
-/** A [[HGridSys]] data grid of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to the
- *  index of the Arr. Hence most methods take an implicit [[HGridSys]] hex grid parameter. */
-class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCenOptDGrid[A]
+/** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to
+ *  the index of the Arr. Hence most methods take an implicit [[HGridSys]] hex grid parameter. */
+class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCenOptDGrid[A]
 {
-  def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): HCenOptDGrid[B] = {
+  def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): HCenOptLayer[B] = {
     val newArray = new Array[B](length)
     var i = 0
     while (i < length) { if (unsafeArr(i) != null) newArray(i) = f(unsafeArr(i)); i += 1 }
-    new HCenOptDGrid[B](newArray)
+    new HCenOptLayer[B](newArray)
   }
 
-  def clone: HCenOptDGrid[A] = new HCenOptDGrid[A](unsafeArr.clone)
+  def clone: HCenOptLayer[A] = new HCenOptLayer[A](unsafeArr.clone)
 
   /** Sets the Some value of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def unsafeSetSome(r: Int, c: Int, value: A)(implicit grider: HGridSys): Unit = unsafeArr(grider.arrIndex(r, c)) = value
@@ -30,17 +30,17 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   def unsafeSetAll(value: A): Unit = iUntilForeach(length)(unsafeArr(_) = value)
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
-  def setSome(hc: HCen, value: A)(implicit grider: HGridSys): HCenOptDGrid[A] =
+  def setSome(hc: HCen, value: A)(implicit grider: HGridSys): HCenOptLayer[A] =
   { val newArr = unsafeArr.clone()
     newArr(grider.arrIndex(hc)) = value
-    new HCenOptDGrid[A](newArr)
+    new HCenOptLayer[A](newArr)
   }
 
   /** Creates a new ArrOpt with the specified location set to NoRef. */
-  def setNone(hc: HCen)(implicit grider: HGridSys): HCenOptDGrid[A] =
+  def setNone(hc: HCen)(implicit grider: HGridSys): HCenOptLayer[A] =
   { val newArr = unsafeArr.clone()
     newArr(grider.arrIndex(hc)) = null.asInstanceOf[A]
-    new HCenOptDGrid[A](newArr)
+    new HCenOptLayer[A](newArr)
   }
 
   /** Moves the object in the array location given by the 1st [[HCen]] to the 2nd [[HCen]], by setting hc2 to the value of hc1 and setting hc1 to
@@ -81,7 +81,7 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
       ife(a != null, fSome(a, pt, hc), fNone(pt, hc))
     }
 
-  /** Indexes in to this [[HCenOptDGrid]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
+  /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
   def apply(hc: HCen)(implicit grider: HGridSys): Option[A] =
   { if (!grider.hCenExists(hc)) None else
       { val elem = unsafeArr(grider.arrIndex(hc))
@@ -89,7 +89,7 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
       }
   }
 
-  /** Indexes in to this [[HCenOptDGrid]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
+  /** Indexes in to this [[HCenOptLayer]] using the tile centre coordinate, either passed as an [[HCen]] or as row and column [[Int values]]. */
   def apply(r: Int, c: Int)(implicit grider: HGridSys): Option[A] = {
     if (!grider.hCenExists(r, c)) None else {
       val elem = unsafeArr(grider.arrIndex(r, c))
@@ -104,7 +104,7 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   def tileNone(hc: HCen)(implicit grider: HGridSys): Boolean = unsafeArr(grider.arrIndex(hc)) == null
 
   /** Drops the [[None]] values. Maps the [[Some]]'s value with the corresponding [[HCen]] to value of type B. Returns a [[Seqimut]] of length between
-   * 0 and the length of this [[HCenOptDGrid]]. */
+   * 0 and the length of this [[HCenOptLayer]]. */
   def someHCMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
@@ -119,7 +119,7 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   }
 
   /** Drops the None values mapping the [[Some]]'s value with the [[HCen]] to an option value, collecting the values of the [[Some]]s returned by the
-   *  function. Returns a [[Seqimut]] of length 0 to the length of this [[HCenOptDGrid]]. */
+   *  function. Returns a [[Seqimut]] of length 0 to the length of this [[HCenOptLayer]]. */
   def projSomeHCMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
     projSomeHCMap(proj)(f)(build)
 
@@ -148,9 +148,9 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
-  /** Uses this and a second [[HCenOptDGrid]] of type B. Drops all values where either or both [[HCenOptDGrid]] have [[None]] values. Maps the
-   *  corresponding values of the [[Some]]s to type C. Returns a [[SeqImut]] of length bwteen 0 na d the length of the original [[HCenOptDGrid]]s. */
-  def zipSomesMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (A, B) => C)(implicit gridSys: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
+  /** Uses this and a second [[HCenOptLayer]] of type B. Drops all values where either or both [[HCenOptLayer]] have [[None]] values. Maps the
+   *  corresponding values of the [[Some]]s to type C. Returns a [[SeqImut]] of length bwteen 0 na d the length of the original [[HCenOptLayer]]s. */
+  def zipSomesMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptLayer[B])(f: (A, B) => C)(implicit gridSys: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
@@ -164,9 +164,9 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
-  /** Uses this and a second [[HCenOptDGrid]] of type B, combining corresponding pairs of [[Some]] values with the corresponding [[HCen]] and apping
+  /** Uses this and a second [[HCenOptLayer]] of type B, combining corresponding pairs of [[Some]] values with the corresponding [[HCen]] and apping
    * to a value of type C. Returns a [[SeqImut]] with a length between 0 and the length of the original [[HCenOptDGtid]] data grids. */
-  def zipSomesHCMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptDGrid[B])(f: (A, B, HCen) => C)(
+  def zipSomesHCMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: HCenOptLayer[B])(f: (A, B, HCen) => C)(
     implicit grider: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
@@ -182,7 +182,7 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   }
 
   /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to type B. Returns
-   *  a [[SeqImut]] of length between 0 and the length of this [[HCenOptDGrid]]. */
+   *  a [[SeqImut]] of length between 0 and the length of this [[HCenOptLayer]]. */
   def noneHCMap[B, ArrB <: SeqImut[B]](f: HCen => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
@@ -197,11 +197,11 @@ class HCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   }
 
   /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to a B. Returns a [[SeqImut]] of lenght between 0 and the length of
-   *  this [[HCenOptDGrid]]. */
+   *  this [[HCenOptLayer]]. */
   def projNoneHCMap[B, ArrB <: SeqImut[B]](f: HCen => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB = projNoneHCMap(proj)(f)
 
   /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to a B. Returns a [[SeqImut]] of lenght between 0 and the length of
-   * this [[HCenOptDGrid]]. */
+   * this [[HCenOptLayer]]. */
   def projNoneHCMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: HCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff()
 

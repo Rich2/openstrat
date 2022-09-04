@@ -17,7 +17,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
   val rows: Arr[HCenRowValue[Terr]] = terrs.rowCombine
   debvar(rows.length)
   val hexs: Arr[PolygonCompound] = rows.map{ hv => hv.polygonReg.fillActive(hv.value.colour, hv) }
-  def units: HCenOptDGrid[Lunit] = scen.units
+  def units: HCenOptLayer[Lunit] = scen.units
 
   /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
    * data in the separate terrs array by use of the HCen coordinate. */

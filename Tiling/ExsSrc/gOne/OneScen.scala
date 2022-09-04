@@ -5,7 +5,7 @@ import prid._, phex._, gPlay._
 /** A scenario turn or state for Game One. Consists of just a turn number and a tile Grid. Each tile can contain a single player or can be empty. */
 trait OneScen extends HSysTurnScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
-  def oPlayers: HCenOptDGrid[Player]
+  def oPlayers: HCenOptLayer[Player]
 
   /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
@@ -23,7 +23,7 @@ trait OneScen extends HSysTurnScen
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
      * isolates mutation to within the method. */
-    val oPlayersNew: HCenOptDGrid[Player] = oPlayers.clone
+    val oPlayersNew: HCenOptLayer[Player] = oPlayers.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1(stCenStep => if (oPlayers.tileNone(hc2)) oPlayersNew.unsafeMove(stCenStep.startHC , hc2)) }
 
     OneScen(turn + 1, gridSys, oPlayersNew)
@@ -33,9 +33,9 @@ trait OneScen extends HSysTurnScen
 /** Companion object for OneScen trait, contains factory apply method. */
 object OneScen
 { /** Factory apply method for OneScen trait. */
-  def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptDGrid[Player]): OneScen = new OneScen
+  def apply(turnIn: Int, gridIn: HGridSys, opIn: HCenOptLayer[Player]): OneScen = new OneScen
   { override val turn = turnIn
     override implicit val gridSys: HGridSys = gridIn
-    override def oPlayers: HCenOptDGrid[Player] = opIn
+    override def oPlayers: HCenOptLayer[Player] = opIn
   }
 }
