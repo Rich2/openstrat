@@ -6,7 +6,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
 { statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
   implicit def gridSys: SqGrid = scen.grid
-  def players: SqCenOptDGrid[Player] = scen.oPlayers
+  def players: SqCenOptLayer[Player] = scen.oPlayers
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   focus = viewIn.vec
 
@@ -21,7 +21,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
-  var moves: SqCenOptDGrid[SqDirn] = NoMoves
+  var moves: SqCenOptLayer[SqDirn] = NoMoves
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: Arr[LineSegDraw] = moves.scSomesMap { (sc, step) =>
@@ -41,7 +41,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   val sidesDraw = gridSys.sidesDraw()
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: SqCenOptDGrid[SqDirn] = gridSys.newSCenOptDGrider[SqDirn]
+  def NoMoves: SqCenOptLayer[SqDirn] = gridSys.newSCenOptDGrider[SqDirn]
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>

@@ -4,9 +4,9 @@ package ostrat; package prid; package psq
 /** A [[SqGridSys]] square gird system of immutable optional [[SqCen]] tile data for a specific square tile grid [[SqGrid]]. This is specialised for
  *  OptRef[A]. The tileGrid can map the [[SqCen]] coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[SqGrid]]
  *  square grid parameter. */
-class SqCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCenOptDGrid[A]
+class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCenOptDGrid[A]
 {
-  def clone: SqCenOptDGrid[A] = new SqCenOptDGrid[A](unsafeArr.clone)
+  def clone: SqCenOptLayer[A] = new SqCenOptLayer[A](unsafeArr.clone)
 
   /** Sets the Some value of the square tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def unsafeSetSome(y: Int, c: Int, value: A)(implicit grid: SqGrid): Unit = unsafeArr(grid.arrIndex(y, c)) = value
@@ -18,17 +18,17 @@ class SqCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
   def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: SqGrid): Unit = triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
-  def setSome(sc: SqCen, value: A)(implicit grid: SqGrid): SqCenOptDGrid[A] =
+  def setSome(sc: SqCen, value: A)(implicit grid: SqGrid): SqCenOptLayer[A] =
   { val newArr = unsafeArr.clone()
     newArr(grid.arrIndex(sc)) = value
-    new SqCenOptDGrid[A](newArr)
+    new SqCenOptLayer[A](newArr)
   }
 
   /** Creates a new ArrOpt with the specified location set to NoRef. */
-  def setNone(hc: SqCen)(implicit grid: SqGrid): SqCenOptDGrid[A] =
+  def setNone(hc: SqCen)(implicit grid: SqGrid): SqCenOptLayer[A] =
   { val newArr = unsafeArr.clone()
     newArr(grid.arrIndex(hc)) = null.asInstanceOf[A]
-    new SqCenOptDGrid[A](newArr)
+    new SqCenOptLayer[A](newArr)
   }
 
   /** The tile is a None at the given hex grid centre coordinate [[HCen]]. */
@@ -53,7 +53,7 @@ class SqCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
   }
 
 
-  /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptDGrid]] to type B, the first type parameter. Returns
+  /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
    *  an immutable Array based collection of type ArrT, the second type parameter. */
   def cMapNones[B, ArrT <: SeqImut[B]](f: SqCen => B)(implicit grid: SqGrid, build: ArrBuilder[B, ArrT]): ArrT =
   {
@@ -83,7 +83,7 @@ class SqCenOptDGrid[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
 
   /** Maps the Somes of this [[HCenArrOpt]] and the Some values of a second HCenArrOpt. Returns an immutable Array based collection of type ArrC, the
    *  second type parameter. */
-  def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: SqCenOptDGrid[B])(f: (A, B) => C)(implicit grid: SqGrid, build: ArrBuilder[C, ArrC]): ArrC =
+  def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: SqCenOptLayer[B])(f: (A, B) => C)(implicit grid: SqGrid, build: ArrBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
     grid.foreach { hc =>

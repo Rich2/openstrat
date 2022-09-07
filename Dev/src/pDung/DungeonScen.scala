@@ -7,7 +7,7 @@ import prid._, psq._
 trait DungeonScen
 { implicit def grid: SqGrid
   def terrs: SqCenLayer[DungTerr]
-  def characs: SqCenOptDGrid[Character]
+  def characs: SqCenOptLayer[Character]
   def posn(charac: Character, y: Int, c: Int, face: SqDirn): Unit = ???// characs.mutSetSome(y, c, CharacPosn(charac, y, c, face))
 }
 

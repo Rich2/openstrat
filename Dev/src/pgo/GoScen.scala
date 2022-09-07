@@ -14,7 +14,7 @@ object WStone extends Stone
 { override def colour: Colour = White
 }
 
-class GoScen(val grid: SqGrid, val stones: SqCenOptDGrid[Stone])
+class GoScen(val grid: SqGrid, val stones: SqCenOptLayer[Stone])
 
 object GoScen{
   def apply() ={

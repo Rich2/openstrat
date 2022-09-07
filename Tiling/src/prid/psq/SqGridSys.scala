@@ -10,10 +10,7 @@ trait SqGridSys extends Any with TGridSys
   final override def yRatio: Double = 1
 
   /** New Square tile data grid for this Square grid system. */
-  final def newSCenOptDGrider[A <: AnyRef](implicit ct: ClassTag[A]): SqCenOptDGrid[A] = new SqCenOptDGrid(new Array[A](numTiles))
-
-  /** New Square grid system of collection buffers of data. */
-  final def newSCenBuffDGrider[A <: AnyRef](implicit ct: ClassTag[A]): SqCenBuffDGrid[A] = SqCenBuffDGrid(numTiles)
+  final def newSCenOptDGrider[A <: AnyRef](implicit ct: ClassTag[A]): SqCenOptLayer[A] = new SqCenOptLayer(new Array[A](numTiles))
 
   /** Gives the default view in terms of [[SqCoord]] focus and scaling of this square grid system. */
   def defaultView(pxScale: Double = 50): SqGridView

@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** A [[SqCen]] hex tile centre grid Arr of [[ArrayBuffer]]s corresponding to the centres of an [[SqGrid]] square tile grid. */
-class SqCenArrOfBuff[A <: AnyRef](val unsafeArr: Array[ArrayBuffer[A]])
+class SqCenBuffLayer[A <: AnyRef](val unsafeArr: Array[ArrayBuffer[A]])
 { /** Appends value to the array buffer at the given location [[SqCen]] location. */
   def appendAt(y: Int, c: Int, value: A)(implicit grid: SqGrid): Unit = appendAt(SqCen(y, c), value)
 
@@ -15,11 +15,11 @@ class SqCenArrOfBuff[A <: AnyRef](val unsafeArr: Array[ArrayBuffer[A]])
 }
 
 /** Companion object for the square (centres) grid Array of [[ArrayBuffer]] classes. */
-object SqCenArrOfBuff
-{ /** Apply factory method, creates a new [[SqCenArrOfBuff]] a square grid Arr of ArrayBuffers, all of length 0. */
-  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): SqCenArrOfBuff[A] =
+object SqCenBuffLayer
+{ /** Apply factory method, creates a new [[SqCenBuffLayer]] a square grid Arr of ArrayBuffers, all of length 0. */
+  def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): SqCenBuffLayer[A] =
   { val array = new Array[ArrayBuffer[A]](length)
     iUntilForeach(array.length)(array(_) = new ArrayBuffer[A])
-    new SqCenArrOfBuff[A](array)
+    new SqCenBuffLayer[A](array)
   }
 }
