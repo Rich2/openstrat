@@ -3,8 +3,8 @@
 val versionStr = "0.3.1snap"
 ThisBuild/version := versionStr
 name := "OpenStrat"
-val scalaMajor = "3.1"
-val scalaMinor = "3"
+val scalaMajor = "3.2"
+val scalaMinor = "0"
 ThisBuild/organization := "com.richstrat"
 ThisBuild/autoAPIMappings := true
 
@@ -30,7 +30,7 @@ def proj(srcsStr: String, nameStr: String) = Project(nameStr, file("Dev/SbtDir/"
   Test/resourceDirectory :=  moduleDir.value / "TestRes",
 )
 
-def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, srcsStr).settings(
+def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings(
   scalaSource := moduleDir.value / "src",
   Compile/scalaSource := moduleDir.value / "src",
 )
@@ -143,7 +143,7 @@ lazy val DevNat = natProj("Dev").dependsOn(TilingNat)
 
 def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src") :::
-    List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
+    List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"
