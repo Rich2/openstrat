@@ -18,7 +18,7 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     case _ =>
   }
 
-  var gChild: HGridSys = ???
+  var gChild: HGridSys = gridSys
 
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
     scale *= 1.1
