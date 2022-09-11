@@ -13,7 +13,7 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
 
   def tilePScaleStr = s"scale = ${tileScale.str2} pixels per tile"
   var focus: Vec2 = gridSys.defaultView(cPScale).vec
-
+  def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(cPScale >= minScale, elems, Arr[GraphicElem]())
   override def setView(view: Any): Unit = view match {
     case hv: HGView => {
       cPScale = hv.cPScale

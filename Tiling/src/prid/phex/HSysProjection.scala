@@ -7,6 +7,7 @@ trait HSysProjection
 { type GridT <: HGridSys
   def gridSys: GridT
   var getFrame: () => GraphicElems = () => Arr()
+  def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems
   var setStatusText: String => Unit = s => {}
   val buttons: Arr[PolygonCompound]
   def tiles: PolygonArr

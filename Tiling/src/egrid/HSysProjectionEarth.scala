@@ -48,7 +48,7 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     val delta: Int = b.apply(1, 10, 60, 0)
     f(delta)
     panel.repaint(getFrame())//repaint()
-    //statusText = s"focus $focus"
+    setStatusText(s"focus $focus")
     //thisTop()
   }
 

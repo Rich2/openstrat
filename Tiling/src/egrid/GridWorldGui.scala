@@ -32,7 +32,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
       case ep: HSysProjectionEarth => ep.irrFills//Lines2
       case _ => Arr()
     }
-    def rcTexts = ifGScale(20.5, optTexts)
+    def rcTexts = proj.ifGScale(20.5, optTexts)
 
     def optTexts = terrs.hcOptFlatMap{ (hc, terr) =>
       proj.transOptCoord(hc).map{ pt =>
@@ -40,11 +40,12 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
         TextGraphic.lines(strs, 12, pt, terr.contrastBW)
       }
     }
+    def optTexts2 = ifGScale(5, optTexts)
 
     def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
 
-    def innerSides = proj.innerSidesDraw(2, White) //lines3.map(_.xyLineSeg(scale).draw(White))
-    def innerSidesDraw = ifGScale(5, Arr(innerSides))
+    def innerSidesDraw = proj.innerSidesDraw(2, White)
+    def innerSidesDraw2 = ifGScale(5, Arr(innerSidesDraw))
 
     def straits: LineSegArr =  proj.transHSides(sTerrs.trueHSides)
     def straitsDraw: GraphicElems = straits.map{ ls  => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
@@ -65,7 +66,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
       case ep: HSysProjectionEarth => ep.irrNames2
       case _ => Arr()
     }
-    seas ++ irrFills ++ irrNames ++ tiles ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines ++ straitsDraw
+    seas ++ irrFills ++ irrNames ++ tiles ++ innerSidesDraw2 +% outerLines ++ rcTexts ++ irrLines ++ straitsDraw
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
