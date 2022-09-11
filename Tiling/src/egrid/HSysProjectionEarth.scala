@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, prid._, phex._, pglobe._, pgui._
+import geom._, prid._, phex._, pglobe._, pgui._, pEarth._, Colour._
 
 case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProjection
 {
@@ -9,6 +9,9 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
   var scale: Length = 4.km
   def gScale: Double = gridSys.cScale / scale
 
+  //def gScale: Double = gridSys.cScale / scale
+
+  def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, Arr[GraphicElem]())
   override def setView(view: Any): Unit = view match {
     case hv: HGView => {
       scale = gridSys.cScale / hv.cPScale
@@ -22,7 +25,7 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 
   def setGChid : HGridSys =  gridSys
 
-  def zoomIn: PolygonCompound = clickButton("+") { _ =>
+  def zoomOut: PolygonCompound = clickButton("-") { _ =>
     scale *= 1.1
     panel.repaint(getFrame())
     //setStatusText(tilePScaleStr)
@@ -31,7 +34,7 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     //thisTop()
   }
 
-  def zoomOut: PolygonCompound = clickButton("-") { _ =>
+  def zoomIn: PolygonCompound = clickButton("+") { _ =>
     scale /= 1.1
     panel.repaint(getFrame())
     //setStatusText(tilePScaleStr)
@@ -102,5 +105,21 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 
   override def hCoordOptStr(hc: HCoord): Option[String] = Some(gridSys.hCoordLL(hc).degStr)
 
+  val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
+  def irr0: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, true))// northUp))
+  def irr1: Arr[(EArea2, PolygonM)] = irr0.filter(_._2.vertsMin3)
+
+  def irrFills = irr1.map { pair =>
+    val (d, p) = pair
+    val col = d.terr match {
+      case w: Water => BlueViolet
+      case _ => Colour.LightPink
+    }
+    p.map(_ / scale).fill(col)
+  }
+
+  def irrLines = irr1.map { a => a._2.map(_ / scale).draw(White) }
+
+  def irrLines2 = ifGScale(2, irrLines)
   //val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 }

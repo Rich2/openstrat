@@ -32,15 +32,10 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
     val irr0: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
     val irr1 = irr0.filter(_._2.vertsMin3)
 
-    val irrFills = irr1.map { pair =>
-      val (d, p) = pair
-      val col = d.terr match{
-        case w: Water => BlueViolet
-        case _ => Colour.LightPink
-      }
-      p.map(_ / scale).fill(col)
+    def irrFills: GraphicElems = proj match {
+      case ep: HSysProjectionEarth => ep.irrFills//Lines2
+      case _ => Arr()
     }
-
     def rcTexts = ifGScale(20.5, optTexts)
 
     def optTexts = terrs.hcOptFlatMap{ (hc, terr) =>
@@ -60,9 +55,6 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
     def outerLines = proj.outerSidesDraw(3, Gold)//  ifGScale(4, outers4)
 
-    val irrLines = irr1.map { a => a._2.map(_ / scale).draw(White) }
-    def irrLines2 = ifGScale(2, irrLines)
-
     val irrNames = irr1.map { pair =>
       val (d, _) = pair
       val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
@@ -70,9 +62,17 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
     }
     def irrNames2 = ifGScale(4, irrNames)
 
-    def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
+    def seas: GraphicElems = proj match{
+      case ep: HSysProjectionEarth => Arr(earth2DEllipse(ep.scale).fill(LightBlue))
+      case _ => Arr()
+    }
 
-    seas %: irrFills ++ irrNames2 ++ tiles ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines2 ++ straitsDraw
+    def irrLines: GraphicElems = proj match{
+      case ep: HSysProjectionEarth => ep.irrLines2
+      case _ => Arr()
+    }
+
+    seas ++ irrFills ++ irrNames2 ++ tiles ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines ++ straitsDraw
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast) ++ proj.buttons)
