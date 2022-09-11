@@ -20,8 +20,12 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 
   var gChild: HGridSys = gridSys
 
+  def setGChid : HGridSys =  gridSys
+
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
     scale *= 1.1
+    panel.repaint(getFrame())
+    //setStatusText(tilePScaleStr)
     //panel.repaint(frame)
     //statusText = tilePScaleStr
     //thisTop()
@@ -29,11 +33,13 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 
   def zoomOut: PolygonCompound = clickButton("-") { _ =>
     scale /= 1.1
+    panel.repaint(getFrame())
+    //setStatusText(tilePScaleStr)
     //panel.repaint(frame)
     //statusText = tilePScaleStr
     //thisTop()
   }
-  override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut)
+  override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut)//, focusLeft, focusRight, focusUp, focusDown)
 //  val sides0 = sTerrs.truesMap(_.lineSegHC.map(gridSys.hCoordLL(_)))
 //
 //  def sides1: LineSegM3Arr = sides0.map {
@@ -95,4 +101,6 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
   }
 
   override def hCoordOptStr(hc: HCoord): Option[String] = Some(gridSys.hCoordLL(hc).degStr)
+
+  //val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 }

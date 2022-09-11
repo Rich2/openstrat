@@ -27,7 +27,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
   val sideError = gridSys.numSides - gridSys.numInnerSides - gridSys.numOuterSides
   deb(s"In: ${gridSys.numInnerSides}, out: ${gridSys.numOuterSides}, total: ${gridSys.numSides}, error: $sideError, $g0Str" )
 
-  def repaint(): Unit =
+  def frame: Arr[GraphicElem] =
   {
     val irr0: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
     val irr1 = irr0.filter(_._2.vertsMin3)
@@ -50,7 +50,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
       }
     }
 
-    val tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
+    def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
 
     def innerSides = proj.innerSidesDraw(2, White) //lines3.map(_.xyLineSeg(scale).draw(White))
     def innerSidesDraw = ifGScale(5, Arr(innerSides))
@@ -72,9 +72,16 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(LightBlue)
 
-    mainRepaint(seas %: irrFills ++ irrNames2 ++ tiles ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines2 ++ straitsDraw)
+    seas %: irrFills ++ irrNames2 ++ tiles ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines2 ++ straitsDraw
   }
-  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
+  def repaint(): Unit = mainRepaint(frame)
+  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast) ++ proj.buttons)
+
+  proj.getFrame = () => frame
+  proj.setStatusText = { str =>
+   // statusText = str
+    thisTop()
+  }
   thisTop()
   repaint()
 }
