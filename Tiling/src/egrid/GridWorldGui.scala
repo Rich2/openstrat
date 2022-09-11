@@ -18,7 +18,6 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
   val terrs: HCenLayer[WTile] = scenIn.terrs
   val sTerrs: HSideBoolLayer = scenIn.sTerrs
-  val gls: LatLongArr = gridSys.map{hc => gridSys.hCoordLL(hc) }
 
   val g0Str: String = gridSys match {
     case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
@@ -29,9 +28,6 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
   def frame: Arr[GraphicElem] =
   {
-    val irr0: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
-    val irr1 = irr0.filter(_._2.vertsMin3)
-
     def irrFills: GraphicElems = proj match {
       case ep: HSysProjectionEarth => ep.irrFills//Lines2
       case _ => Arr()
@@ -55,13 +51,6 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
 
     def outerLines = proj.outerSidesDraw(3, Gold)//  ifGScale(4, outers4)
 
-    val irrNames = irr1.map { pair =>
-      val (d, _) = pair
-      val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
-      TextGraphic(d.name, 12, posn, d.colour.contrastBW)
-    }
-    def irrNames2 = ifGScale(4, irrNames)
-
     def seas: GraphicElems = proj match{
       case ep: HSysProjectionEarth => Arr(earth2DEllipse(ep.scale).fill(LightBlue))
       case _ => Arr()
@@ -72,10 +61,14 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) 
       case _ => Arr()
     }
 
-    seas ++ irrFills ++ irrNames2 ++ tiles ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines ++ straitsDraw
+    def irrNames: GraphicElems = proj match {
+      case ep: HSysProjectionEarth => ep.irrNames2
+      case _ => Arr()
+    }
+    seas ++ irrFills ++ irrNames ++ tiles ++ innerSidesDraw +% outerLines ++ rcTexts ++ irrLines ++ straitsDraw
   }
   def repaint(): Unit = mainRepaint(frame)
-  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast) ++ proj.buttons)
+  def thisTop(): Unit = reTop(proj.buttons)
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

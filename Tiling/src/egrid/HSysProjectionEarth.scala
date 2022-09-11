@@ -42,7 +42,32 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     //statusText = tilePScaleStr
     //thisTop()
   }
-  override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut)//, focusLeft, focusRight, focusUp, focusDown)
+
+
+  def goDirn(str: String)(f: Double => Unit): PolygonCompound = clickButton(str) { b =>
+    val delta: Int = b.apply(1, 10, 60, 0)
+    f(delta)
+    panel.repaint(getFrame())//repaint()
+    //statusText = s"focus $focus"
+    //thisTop()
+  }
+
+  def goNorth: PolygonCompound = goDirn("\u2191") { delta =>
+    val newLat: Double = focus.latDegs + ife(true/* northUp */, delta, -delta)
+    focus = ife(true/* northUp */, focus.addLat(delta.degs), focus.subLat(delta.degs))
+    // northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
+  }
+
+  def goSouth: PolygonCompound = goDirn("\u2193") { delta =>
+    val newLat: Double = focus.latDegs + ife(true/* northUp */, -delta, delta)
+    focus = ife(true/* northUp */, focus.subLat(delta.degs), focus.addLat(delta.degs))
+    //northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
+  }
+
+  def goEast: PolygonCompound = goDirn("\u2192") { delta => focus = ife(true/* northUp */, focus.addLongVec(delta.degs), focus.subLong(delta.degs)) }
+
+  def goWest: PolygonCompound = goDirn("\u2190") { delta => focus = ife(true/* northUp */, focus.subLong(delta.degs), focus.addLongVec(delta.degs)) }
+  override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast)//, focusLeft, focusRight, focusUp, focusDown)
 //  val sides0 = sTerrs.truesMap(_.lineSegHC.map(gridSys.hCoordLL(_)))
 //
 //  def sides1: LineSegM3Arr = sides0.map {
@@ -118,8 +143,17 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
     p.map(_ / scale).fill(col)
   }
 
-  def irrLines = irr1.map { a => a._2.map(_ / scale).draw(White) }
+  def irrLines: Arr[PolygonDraw] = irr1.map { a => a._2.map(_ / scale).draw(White) }
 
-  def irrLines2 = ifGScale(2, irrLines)
+  def irrLines2: GraphicElems = ifGScale(2, irrLines)
+
+  def irrNames: Arr[TextGraphic] = irr1.map { pair =>
+    val (d, _) = pair
+    val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
+    TextGraphic(d.name, 12, posn, d.colour.contrastBW)
+  }
+
+  def irrNames2: GraphicElems = ifGScale(4, irrNames)
+
   //val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 }
