@@ -5,9 +5,9 @@ package ostrat; package prid; package phex
  *  this Array is twice the number of tile rows in the grid. Each row from lowest to highest has two values length of the row in the number of tile
  *  centres [[HCen]]s and the rTileMin coordinate for the row.
  * @constructor creates a new HexGridIrr with a defined grid.
- * @param yTileMin         The y value for the bottom tile row of the TileGrid
+ * @param bottomCenR The r value for the bottom tile row of the TileGrid.
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */
-class HGridIrrOrig(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid
+class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGrid
 {
   final val numTileRows: Int = unsafeRowsArray.length / 2
 
@@ -126,10 +126,10 @@ class HGridIrrOrig(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends
   }
 }
 
-object HGridIrrOrig
+object HGridIrr
 {
   /** Takes the top row number followed by pairs of the number of tiles in the row ad the tile centre start coordinate. */
-  def apply(rMax: Int, cLenMins: (Int, Int) *): HGridIrrOrig =
+  def apply(rMax: Int, cLenMins: (Int, Int) *): HGridIrr =
   { val array = new Array[Int](cLenMins.length * 2)
     val len = cLenMins.length
     val rMin = rMax - (len - 1) * 2
@@ -138,6 +138,6 @@ object HGridIrrOrig
       array(i * 2) = rLen
       array(i * 2 + 1) = cMin
     }
-    new HGridIrrOrig(rMin, array)
+    new HGridIrr(rMin, array)
   }
 }

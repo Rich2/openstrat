@@ -25,7 +25,7 @@ object ThreeScen2 extends ThreeScen
 /** 3rd example Turn 0 scenario state for Game Three. */
 object ThreeScen3 extends ThreeScen
 { override def turn: Int = 0
-  implicit val gridSys: HGrid = HGridIrrOrig(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
+  implicit val gridSys: HGrid = HGridIrr(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptDGrid
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
 }

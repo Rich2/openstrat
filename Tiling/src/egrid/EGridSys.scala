@@ -21,7 +21,7 @@ trait EGridSys extends HGridSys
   def outerSideLineM3s: LineSegM3Arr = outerSideLineLLs.map(_.map(_.toMetres3))
 }
 /** A hex grid on the surface of the earth. */
-abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrrOrig(bottomTileRow, unsafeRowsArray) with
+abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrr(bottomTileRow, unsafeRowsArray) with
   EGridSys
 
 trait EScenFlat extends HSysScen

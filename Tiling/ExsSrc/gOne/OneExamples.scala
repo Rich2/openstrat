@@ -22,7 +22,7 @@ object OneScen2 extends OneScen
 /** 3rd example Turn 0 scenario state for Game One. */
 object OneScen3 extends OneScen
 { override def turn: Int = 0
-  implicit val gridSys: HGrid = HGridIrrOrig(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
+  implicit val gridSys: HGrid = HGridIrr(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptDGrid
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
 }
@@ -56,7 +56,7 @@ object OneScen6 extends OneScen
 /** 3rd example Turn 0 scenario state for Game One. */
 object OneScen7 extends OneScen
 { override def turn: Int = 0
-  implicit val gridSys: HGrid = HGridIrrOrig(10, (3, 6), (1, 8), (4, 2), (2, 4), (1, 6))
+  implicit val gridSys: HGrid = HGridIrr(10, (3, 6), (1, 8), (4, 2), (2, 4), (1, 6))
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptDGrid
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
 }
