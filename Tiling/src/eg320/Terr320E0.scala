@@ -27,12 +27,20 @@ object Terr320E0 extends Warm320Terrs
     res
   }
 
-  def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
+  def regGrid = EGrid320Warm.reg(138, 148, 0, 504, 520)
+  //HGridReg(138, 148, 504, 520)
 
   def regTerrs: HCenLayer[WTile] = regGrid.newHCenSubLayer(EGrid320.e0(138), terrs)
 
   def regScen: EScenFlat = new EScenFlat {
     override implicit val gridSys: HGridSys = regGrid
+    override val terrs: HCenLayer[WTile] = regTerrs
+    override val sTerrs: HSideBoolLayer = gridSys.newSideBools
+    sTerrs.setTruesInts((142, 508), (143, 507))
+  }
+
+  def regScenGlobe: EScenWarm = new EScenWarm  {
+    override implicit val gridSys: EGrid320Warm = regGrid
     override val terrs: HCenLayer[WTile] = regTerrs
     override val sTerrs: HSideBoolLayer = gridSys.newSideBools
     sTerrs.setTruesInts((142, 508), (143, 507))

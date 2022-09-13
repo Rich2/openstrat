@@ -3,6 +3,25 @@ package ostrat; package eg320
 import egrid._
 
 /** A main non-polar grid with a hex span of 320Km */
+class EGrid320Warm(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
+  EGridWarm(rBottomCen, rTopCen, cenLongInt, 80.kMetres, 100, rowArray)
+
+object EGrid320Warm {
+  def reg(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, leftC: Int, rightC: Int): EGrid320Warm = {
+    val array = new Array[Int](rTopCen - rBottomCen + 2)
+    val bot = rBottomCen.roundUpToEven
+    val top = rTopCen.roundDownToEven
+    iToForeach(bot, top, 2){r =>
+      val (lc, rc) = ife(r.div4Rem0, (leftC.roundUpTo(_.div4Rem0), rightC.roundDownTo(_.div4Rem0)),
+        (leftC.roundUpTo(_.div4Rem2), rightC.roundDownTo(_.div4Rem2)))
+      array(r - rBottomCen) = (rc - lc + 4) / 4
+      array(r - rBottomCen + 1) = lc
+    }
+    new EGrid320Warm(rBottomCen, rTopCen, cenLongInt, array)
+  }
+}
+
+/** A main non-polar grid with a hex span of 320Km */
 class EGrid320WarmFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
   EGridWarmFull(rBottomCen, rTopCen, cenLongInt, 80.kMetres, 100)
 
