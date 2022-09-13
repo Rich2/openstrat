@@ -4,7 +4,7 @@ import egrid._
 
 /** A main non-polar grid with a hex span of 160Km */
 class EGrid160Warm (rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
-  EGridWarm(rBottomCen, rTopCen, cenLongInt, 40.kMetres, 200)
+  EGridWarmFull(rBottomCen, rTopCen, cenLongInt, 40.kMetres, 200)
 
 object EGrid160Warm
 { def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid160Warm(rBottomCen, rTopCen, cenLongInt)
@@ -28,7 +28,7 @@ object EGrid160
   def w30(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160Warm = EGrid160Warm(rBottomCen, rTopCen,11)
 
   def scen0: EScenWarm =
-  { val grid: EGridWarm = e0(276)
+  { val grid: EGridWarmFull = e0(276)
     EScenWarm(grid, Terr160E0.terrs, Terr160E0.sTerrs, "!60km 0E")
   }
 
@@ -83,7 +83,7 @@ object EGrid160
 //  }
 
   def scen11: EScenWarm =
-  { val grid: EGridWarm = w30(276)
+  { val grid: EGridWarmFull = w30(276)
     EScenWarm(grid, Terr160W30.terrs,Terr160W30.sTerrs)
   }
 }

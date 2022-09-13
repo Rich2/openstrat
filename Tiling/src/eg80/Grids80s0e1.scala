@@ -6,7 +6,7 @@ object Grids80s0e1 extends EGrid80WarmMulti
 { ThisSys =>
 
   override def cGridDelta: Double = 40
-  override val grids: Arr[EGridWarm] = Arr(EGrid80.l0b446, EGrid80.l30b446)
+  override val grids: Arr[EGridWarmFull] = Arr(EGrid80.l0b446, EGrid80.l30b446)
   override def headGridInt: Int = 0
   override val gridMans: Arr[EGridWarmMan] = iToMap(1)(EGridWarmMan(_, ThisSys))
 

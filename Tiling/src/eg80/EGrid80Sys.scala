@@ -8,7 +8,7 @@ trait EGrid80Sys extends EGridSys
 
 /** A main non-polar grid with a hex span of 80Km */
 class EGrid80Warm(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
-  EGridWarm(rBottomCen, rTopCen, cenLongInt, 20000.metres, 300) with EGrid80Sys
+  EGridWarmFull(rBottomCen, rTopCen, cenLongInt, 20000.metres, 300) with EGrid80Sys
 
 /** object for creating 80km hex scale earth grids. */
 object EGrid80

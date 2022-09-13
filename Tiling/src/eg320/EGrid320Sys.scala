@@ -21,7 +21,7 @@ object EGrid320WarmMulti
 {
   def apply(rBottomCen: Int = 138, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid320WarmMulti = new EGrid320WarmMulti
   {
-    override def grids: Arr[EGridWarm] = startLong match {
+    override def grids: Arr[EGridWarmFull] = startLong match {
       case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid320Warm(rBottomCen, rTopCen, i))
       case sl => {
         val len = endLong - startLong + 13

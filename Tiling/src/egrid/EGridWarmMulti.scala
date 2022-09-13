@@ -8,7 +8,7 @@ trait EGridWarmSys extends EGridSys
 /** A hex grid system consisting of multiple non polar [[EGrid]]s. */
 trait EGridWarmMulti extends EGridWarmSys with EGridMulti
 {
-  override def grids: Arr[EGridWarm]
+  override def grids: Arr[EGridWarmFull]
 
   override val gridMans: Arr[EGridWarmMan]
   def cGridDelta: Double

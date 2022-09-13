@@ -4,7 +4,7 @@ import egrid._
 
 /** A main non-polar grid with a hex span of 320Km */
 class EGrid320Warm (rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
-  EGridWarm(rBottomCen, rTopCen, cenLongInt, 80.kMetres, 100)
+  EGridWarmFull(rBottomCen, rTopCen, cenLongInt, 80.kMetres, 100)
 
 object EGrid320Warm
 { def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid320Warm(rBottomCen, rTopCen, cenLongInt)
@@ -33,62 +33,62 @@ object EGrid320
   def w30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen,11)
 
   def scen0: EScenWarm =
-  { val grid: EGridWarm = e0(138)
+  { val grid: EGridWarmFull = e0(138)
     EScenWarm(grid, Terr320E0.terrs, Terr320E0.sTerrs, "320km 0E")
   }
 
   def scen1: EScenWarm =
-  { val grid: EGridWarm = e30(138)
+  { val grid: EGridWarmFull = e30(138)
     EScenWarm(grid, Terr320E30.terrs, Terr320E30.sTerrs, "320km 30E")
   }
 
   def scen2: EScenWarm =
-  { val grid: EGridWarm = e60(138)
+  { val grid: EGridWarmFull = e60(138)
     EScenWarm(grid, Terr320E60.terrs, Terr320E60.sTerrs, "320km 60E")
   }
 
   def scen3: EScenWarm =
-  { val grid: EGridWarm = e90(138)
+  { val grid: EGridWarmFull = e90(138)
     EScenWarm(grid, Terr320E90.terrs, Terr320E90.sTerrs, "320km 90E")
   }
 
   def scen4: EScenWarm =
-  { val grid: EGridWarm = e120(138)
+  { val grid: EGridWarmFull = e120(138)
     EScenWarm(grid, Terr320E120.terrs, Terr320E120.sTerrs, "320km 120E")
   }
 
   def scen5: EScenWarm =
-  { val grid: EGridWarm = e150(138)
+  { val grid: EGridWarmFull = e150(138)
     EScenWarm(grid, Terr320E150.terrs, Terr320E150.sTerrs, "320km 150E")
   }
 
   def scen6: EScenWarm =
-  { val grid: EGridWarm = e180(138)
+  { val grid: EGridWarmFull = e180(138)
     EScenWarm(grid, Terr320E180.terrs, Terr320E180.sTerrs, "320km 180E")
   }
 
   def scen7: EScenWarm =
-  { val grid: EGridWarm = w150(138)
+  { val grid: EGridWarmFull = w150(138)
     EScenWarm(grid, Terr320W150.terrs, Terr320W150.sTerrs, "320km 150W")
   }
 
   def scen8: EScenWarm =
-  { val grid: EGridWarm = w120(138)
+  { val grid: EGridWarmFull = w120(138)
     EScenWarm(grid, Terr320W120.terrs, Terr320W120.sTerrs, "320km 120W")
   }
 
   def scen9: EScenWarm =
-  { val grid: EGridWarm = w90(138)
+  { val grid: EGridWarmFull = w90(138)
     EScenWarm(grid, Terr320W90.terrs, Terr320W90.sTerrs, "320km 90W")
   }
 
   def scen10: EScenWarm =
-  { val grid: EGridWarm = w60(138)
+  { val grid: EGridWarmFull = w60(138)
     EScenWarm(grid, Terr320W60.terrs, Terr320W60.sTerrs, "320km 60W")
   }
 
   def scen11: EScenWarm =
-  { val grid: EGridWarm = w30(138)
+  { val grid: EGridWarmFull = w30(138)
     EScenWarm(grid, Terr320W30.terrs, Terr320W30.sTerrs, "320km 30W")
   }
 }
