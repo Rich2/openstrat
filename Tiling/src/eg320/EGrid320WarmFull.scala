@@ -3,34 +3,34 @@ package ostrat; package eg320
 import egrid._
 
 /** A main non-polar grid with a hex span of 320Km */
-class EGrid320Warm (rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
+class EGrid320WarmFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
   EGridWarmFull(rBottomCen, rTopCen, cenLongInt, 80.kMetres, 100)
 
-object EGrid320Warm
-{ def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid320Warm(rBottomCen, rTopCen, cenLongInt)
+object EGrid320WarmFull
+{ def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid320WarmFull(rBottomCen, rTopCen, cenLongInt)
 }
 
-/** Terrain data grid for [[EGrid320Warm]]s. */
+/** Terrain data grid for [[EGrid320WarmFull]]s. */
 trait Warm320Terrs extends WarmTerrs
-{ override implicit val grid: EGrid320Warm
+{ override implicit val grid: EGrid320WarmFull
 }
 
 /** object for creating earth grids with 320km hexs, with a c scale of 80km. */
 object EGrid320
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
 
-  def e0(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 0)
-  def e30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen,  1)
-  def e60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 2)
-  def e90(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 3)
-  def e120(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 4)
-  def e150(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 5)
-  def e180(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 6)
-  def w150(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 7)
-  def w120(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 8)
-  def w90(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 9)
-  def w60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen, 10)
-  def w30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320Warm = EGrid320Warm(rBottomCen, rTopCen,11)
+  def e0(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen, 0)
+  def e30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen,  1)
+  def e60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen, 2)
+  def e90(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen, 3)
+  def e120(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen, 4)
+  def e150(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen, 5)
+  def e180(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen, 6)
+  def w150(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen, 7)
+  def w120(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen, 8)
+  def w90(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen, 9)
+  def w60(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen, 10)
+  def w30(rBottomCen: Int = 138, rTopCen: Int = 160): EGrid320WarmFull = EGrid320WarmFull(rBottomCen, rTopCen,11)
 
   def scen0: EScenWarm =
   { val grid: EGridWarmFull = e0(138)
