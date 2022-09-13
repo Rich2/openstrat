@@ -8,7 +8,7 @@ object Terr160W30 extends WarmTerrs
 
   override val terrs: HCenLayer[WTile] =
   {
-    val res: HCenLayer[WTile] = grid.newHCenDGrid[WTile](sea)
+    val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
     gs(320, 11768, ice * 4, sea)
     gs(318, 11770, ice * 4, sea)
@@ -33,7 +33,7 @@ object Terr160W30 extends WarmTerrs
 
   def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
 
-  def regTerrs: HCenLayer[WTile] = regGrid.newHCenDSubGrid(EGrid160.e0(138), terrs)
+  def regTerrs: HCenLayer[WTile] = regGrid.newHCenSubLayer(EGrid160.e0(138), terrs)
 
   def regScen: EScenFlat = new EScenFlat {
     override implicit val gridSys: HGridSys = regGrid

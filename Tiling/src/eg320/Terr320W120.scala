@@ -7,7 +7,7 @@ object Terr320W120 extends Warm320Terrs
   override implicit val grid: EGrid320Warm = EGrid320.w120(138)
 
   override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenDGrid[WTile](taiga)
+  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](taiga)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
     gs(160, 8704, sea * 2)
     gs(158, 8702, tundra * 3)

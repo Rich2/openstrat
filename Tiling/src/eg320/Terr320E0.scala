@@ -8,7 +8,7 @@ object Terr320E0 extends Warm320Terrs
 
   override val terrs: HCenLayer[WTile] =
   {
-    val res: HCenLayer[WTile] = grid.newHCenDGrid[WTile](sea)
+    val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
     gs(152, 460 + 60, taiga)
     gs(150, 460 + 58, taiga)
@@ -29,7 +29,7 @@ object Terr320E0 extends Warm320Terrs
 
   def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
 
-  def regTerrs: HCenLayer[WTile] = regGrid.newHCenDSubGrid(EGrid320.e0(138), terrs)
+  def regTerrs: HCenLayer[WTile] = regGrid.newHCenSubLayer(EGrid320.e0(138), terrs)
 
   def regScen: EScenFlat = new EScenFlat {
     override implicit val gridSys: HGridSys = regGrid

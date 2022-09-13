@@ -151,29 +151,30 @@ trait HGridSys extends Any with TGridSys
     build.buffToBB(buff)
   }
 
-  /** New hex data grid. */
-  final def newHCenDGrid[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenLayer[A] =
+  /** New hex tile data layer. */
+  final def newHCenLayer[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): HCenLayer[A] =
   { val res: HCenLayer[A] = HCenLayer[A](numTiles)
     res.mutSetAll(value)
     res
   }
 
-  def newHCenDSubGrid[A <: AnyRef](superGrid: HGridSys, superData: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] ={
-    val dArray: Array[A] = new Array[A](numTiles)
-    foreach{hc => dArray(arrIndex(hc)) = superData(hc)(superGrid)}
+  /** Creates new data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
+  def newHCenSubLayer[A <: AnyRef](superGrid: HGridSys, superLayer: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] =
+  { val dArray: Array[A] = new Array[A](numTiles)
+    foreach{hc => dArray(arrIndex(hc)) = superLayer(hc)(superGrid)}
     new HCenLayer(dArray)
   }
 
-  /** New immutable Arr of Tile data. */
-  final def newHCenArrDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrLayer[A] =
+  /** New hex tile data layer of [[Arr]][A]. */
+  final def newHCenArrLayer[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrLayer[A] =
   { val newArray = new Array[Array[A]](numTiles)
     val init: Array[A] = Array()
     iUntilForeach(numTiles)(newArray(_) = init)
     new HCenArrLayer[A](newArray)
   }
 
-  /** New Tile immutable Tile Arr of Opt data values. */
-  final def newHCenOptDGrid[A <: AnyRef](implicit ct: ClassTag[A]): HCenOptLayer[A] = new HCenOptLayer(new Array[A](numTiles))
+  /** New hex tile data layer of optional data for this [[HGridSys]]. */
+  final def newHCenOptLayer[A <: AnyRef](implicit ct: ClassTag[A]): HCenOptLayer[A] = new HCenOptLayer(new Array[A](numTiles))
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
    *  Arr / Array data. */

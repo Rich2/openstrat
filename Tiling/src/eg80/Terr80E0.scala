@@ -10,7 +10,7 @@ object Terr80E0 extends WarmTerrs
 
   override val terrs: HCenLayer[WTile] =
   {
-    val res: HCenLayer[WTile] = grid.newHCenDGrid[WTile](sea)
+    val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
 
     gs(518, 542, taiga)
