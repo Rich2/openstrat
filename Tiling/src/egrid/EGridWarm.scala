@@ -3,7 +3,7 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
 abstract class EGridWarm(rBottomCen: Int, rTopCen: Int, val cenLongInt: Int, cScale: Length, val rOffset: Int, rowArray: Array[Int]) extends
-  EGrid(rBottomCen, rowArray, cScale) with EGridWarmSys
+  EGrid(rBottomCen, rowArray, cScale)
 {
   def cOffset: Int = (cenLongInt %% 12) * 1024 + 512
 

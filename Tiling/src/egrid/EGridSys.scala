@@ -20,6 +20,7 @@ trait EGridSys extends HGridSys
   def innerSideLineM3s: LineSegM3Arr = innerSideLineLLs.map(_.map(_.toMetres3))
   def outerSideLineM3s: LineSegM3Arr = outerSideLineLLs.map(_.map(_.toMetres3))
 }
+
 /** A hex grid on the surface of the earth. */
 abstract class EGrid(bottomTileRow: Int, unsafeRowsArray: Array[Int], val cScale: Length) extends HGridIrr(bottomTileRow, unsafeRowsArray) with
   EGridSys
@@ -32,16 +33,16 @@ trait EScenFlat extends HSysScen
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 trait EScenWarm extends EScenFlat
-{ override def gridSys: EGridWarmSys
+{ override def gridSys: EGridSys
   override def title: String = "EScenWarm"
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 object EScenWarm
 {
-  def apply(gridSys: EGridWarmSys, terrs: HCenLayer[WTile], sTerrs: HSideBoolLayer, title: String = "EScenWarm"): EScenWarm = new EScenWarmImp(gridSys, terrs, sTerrs, title)
+  def apply(gridSys: EGridSys, terrs: HCenLayer[WTile], sTerrs: HSideBoolLayer, title: String = "EScenWarm"): EScenWarm = new EScenWarmImp(gridSys, terrs, sTerrs, title)
 
-  class EScenWarmImp(val gridSys: EGridWarmSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer, override val title: String = "EScenWarm") extends EScenWarm
+  class EScenWarmImp(val gridSys: EGridSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer, override val title: String = "EScenWarm") extends EScenWarm
 }
 
 trait EScenWarmMulti extends EScenWarm{

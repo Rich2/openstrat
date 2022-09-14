@@ -6,7 +6,7 @@ import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenWarm, viewIn: HGView) extends GlobeGui("Grid World")
 {
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
-  implicit val gridSys: EGridWarmSys = scenIn.gridSys
+  implicit val gridSys: EGridSys = scenIn.gridSys
   var scale: Length = gridSys.cScale / viewIn.cPScale
   def gScale: Double = gridSys.cScale / scale
   def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, Arr[GraphicElem]())
