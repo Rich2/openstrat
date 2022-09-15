@@ -3,7 +3,7 @@ package ostrat; package eg320
 import egrid._
 
 /** A main non-polar grid with a hex span of 320Km */
-class EGrid320Warm(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
+abstract class EGrid320Warm(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
   EGridWarm(rBottomCen, rTopCen, cenLongInt, 80.kMetres, 100, rowArray)
 
 object EGrid320Warm {
@@ -17,8 +17,14 @@ object EGrid320Warm {
       array(r - rBottomCen) = (rc - lc + 4) / 4
       array(r - rBottomCen + 1) = lc
     }
-    new EGrid320Warm(rBottomCen, rTopCen, cenLongInt, array)
+    new EGrid320WarmPart(rBottomCen, rTopCen, cenLongInt, array)
   }
+}
+
+class EGrid320WarmPart(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
+  EGrid320Warm(rBottomCen, rTopCen, cenLongInt, rowArray) with EGridWarmPart
+{
+  override val fullGrid: EGrid320WarmFull = EGrid320WarmFull.fullBounds(cenLongInt)
 }
 
 /** A main non-polar grid with a hex span of 320Km */
@@ -27,6 +33,12 @@ class EGrid320WarmFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
 
 object EGrid320WarmFull
 { def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid320WarmFull(rBottomCen, rTopCen, cenLongInt)
+
+  val fullBounds: Array[EGrid320WarmFull] = {
+    val array = new Array[EGrid320WarmFull](12)
+    iUntilForeach(0, 12) { i => array(i) = EGrid320WarmFull(40, 160, i) }
+    array
+  }
 }
 
 /** Terrain data grid for [[EGrid320WarmFull]]s. */

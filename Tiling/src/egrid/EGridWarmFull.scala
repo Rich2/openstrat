@@ -1,10 +1,36 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
+import geom._, pglobe._, prid._, phex._
 
 /** One of the main hex grids for the earth not a polar grid. The gris in this class span the full 30 degrees longitude. */
 abstract class EGridWarmFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, cScale: Length, rOffset: Int) extends
   EGridWarm(rBottomCen, rTopCen, cenLongInt, cScale, rOffset,
-    EGridWarmFull.getBounds(rBottomCen, rTopCen, rOffset, (cenLongInt %% 12) * 1024 + 512, cScale))// with EGridWarmSys
+    EGridWarmFull.getBounds(rBottomCen, rTopCen, rOffset, (cenLongInt %% 12) * 1024 + 512, cScale))
+{
+  override def hCoordLL(hc: HCoord): LatLong = hc.c match {
+    case _ if hc.isCen => hCoordMiddleLL(hc)
+
+    case c if c == rowRightCoordC(hc.r, c) => {
+      val rt = hCoordMiddleLL(hc)
+      val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, c)))
+      val rtLong = rt.longMilliSecs
+      val ltLong = (lt.long + 30.east).milliSecs
+      val longMilliSecs = rtLong aver ltLong
+      LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
+    }
+
+    case c if c == rowLeftCoordC(hc.r, c) => {
+      val lt = hCoordMiddleLL(hc)
+      val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r, c)))
+      val ltLong = lt.longMilliSecs
+      val rtLong = (rt.long - 30.east).milliSecs
+      val longMilliSecs = ltLong aver rtLong
+      LatLong.milliSecs(lt.latMilliSecs, longMilliSecs)
+    }
+
+    case _ => hCoordMiddleLL(hc)
+  }
+}
 
 /** Functions for Earth tile grids. */
 object EGridWarmFull

@@ -11,29 +11,7 @@ abstract class EGridWarm(rBottomCen: Int, rTopCen: Int, val cenLongInt: Int, cSc
 
   def hCoordMiddleLL(hc: HCoord): LatLong = EGridWarm.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, cScale).addLong(cenLong)
 
-  def hCoordLL(hc: HCoord): LatLong = hc.c match {
-    case _ if hc.isCen => hCoordMiddleLL(hc)
-
-    case c if c == rowRightCoordC(hc.r, c) => {
-      val rt = hCoordMiddleLL(hc)
-      val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, c)))
-      val rtLong = rt.longMilliSecs
-      val ltLong = (lt.long + 30.east).milliSecs
-      val longMilliSecs = rtLong aver ltLong
-      LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
-    }
-
-    case c if c == rowLeftCoordC(hc.r, c) => {
-      val lt = hCoordMiddleLL(hc)
-      val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r, c)))
-      val ltLong = lt.longMilliSecs
-      val rtLong = (rt.long - 30.east).milliSecs
-      val longMilliSecs = ltLong aver rtLong
-      LatLong.milliSecs(lt.latMilliSecs, longMilliSecs)
-    }
-
-    case _ => hCoordMiddleLL(hc)
-  }
+  def hCoordLL(hc: HCoord): LatLong
 }
 
 object EGridWarm{
@@ -69,5 +47,34 @@ object EGridWarm{
   def cDelta(r: Int, c: Int, cScale: Length): Double = {
     val ll = hCenToLatLong0(HCoord(r, c), 0, cScale)
     ll.longDegs
+  }
+}
+
+trait EGridWarmPart extends EGridWarm
+{
+  def fullGrid: EGridWarmFull
+
+  override def hCoordLL(hc: HCoord): LatLong = hc.c match {
+    case _ if hc.isCen => hCoordMiddleLL(hc)
+
+    case c if c == fullGrid.rowRightCoordC(hc.r, c) => {
+      val rt = hCoordMiddleLL(hc)
+      val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, c)))
+      val rtLong = rt.longMilliSecs
+      val ltLong = (lt.long + 30.east).milliSecs
+      val longMilliSecs = rtLong aver ltLong
+      LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
+    }
+
+    case c if c == fullGrid.rowLeftCoordC(hc.r, c) => {
+      val lt = hCoordMiddleLL(hc)
+      val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r, c)))
+      val ltLong = lt.longMilliSecs
+      val rtLong = (rt.long - 30.east).milliSecs
+      val longMilliSecs = ltLong aver rtLong
+      LatLong.milliSecs(lt.latMilliSecs, longMilliSecs)
+    }
+
+    case _ => hCoordMiddleLL(hc)
   }
 }
