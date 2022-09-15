@@ -4,7 +4,7 @@ import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr320E0 extends Warm320Terrs
 {
-  override implicit val grid: EGrid320WarmFull = EGrid320.e0(138)
+  override implicit val grid: EGrid320LongFull = EGrid320.e0(138)
 
   override val terrs: HCenLayer[WTile] =
   {
@@ -27,7 +27,7 @@ object Terr320E0 extends Warm320Terrs
     res
   }
 
-  def regGrid = EGrid320Warm.reg(138, 148, 0, 504, 520)
+  def regGrid = EGrid320Long.reg(138, 148, 0, 504, 520)
   //HGridReg(138, 148, 504, 520)
 
   def regTerrs: HCenLayer[WTile] = regGrid.newHCenSubLayer(EGrid320.e0(138), terrs)
@@ -40,7 +40,7 @@ object Terr320E0 extends Warm320Terrs
   }
 
   def regScenGlobe: EScenWarm = new EScenWarm  {
-    override implicit val gridSys: EGrid320Warm = regGrid
+    override implicit val gridSys: EGrid320Long = regGrid
     override val terrs: HCenLayer[WTile] = regTerrs
     override val sTerrs: HSideBoolLayer = gridSys.newSideBools
     sTerrs.setTruesInts((142, 508), (143, 507))

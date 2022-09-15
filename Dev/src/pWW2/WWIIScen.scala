@@ -5,7 +5,7 @@ import ostrat.eg80._
 /** World War 2 scenario. */
 trait WW2Scen
 {
-  implicit val grid: EGrid80Warm = EGrid80.l0b446
+  implicit val grid: EGrid80Long = EGrid80.l0b446
 }
 
 case class Army(polity: Polity) extends Coloured

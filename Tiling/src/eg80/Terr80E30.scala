@@ -6,7 +6,7 @@ import pEarth._, prid._, phex._, WTile._, egrid._
  *  the equator. The Old c offset was 400 so a diff of 1136. */
 object Terr80E30  extends WarmTerrs
 {
-  override implicit val grid: EGrid80Warm = EGrid80.e30(446)
+  override implicit val grid: EGrid80Long = EGrid80.e30(446)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)

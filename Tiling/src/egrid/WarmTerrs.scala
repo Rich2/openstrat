@@ -3,7 +3,7 @@ package ostrat; package egrid
 import prid._, phex._, pEarth._
 
 trait WarmTerrs
-{ implicit val grid: EGridWarmFull
+{ implicit val grid: EGridLongFull
   def terrs: HCenLayer[WTile]
   def sTerrs: HSideBoolLayer
 }

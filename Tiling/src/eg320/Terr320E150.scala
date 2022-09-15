@@ -4,7 +4,7 @@ import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr320E150 extends Warm320Terrs
 {
-  override implicit val grid: EGrid320WarmFull = EGrid320.e150(138)
+  override implicit val grid: EGrid320LongFull = EGrid320.e150(138)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)

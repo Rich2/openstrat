@@ -5,7 +5,7 @@ import geom._, pglobe._, prid._, phex._
 /** A hex grid system consisting of multiple non polar [[EGrid]]s. */
 trait EGridWarmMulti extends EGridSys with EGridMulti
 {
-  override def grids: Arr[EGridWarmFull]
+  override def grids: Arr[EGridLongFull]
 
   override val gridMans: Arr[EGridWarmMan]
   def cGridDelta: Double

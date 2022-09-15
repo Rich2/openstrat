@@ -3,9 +3,9 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
 /** One of the main hex grids for the earth not a polar grid. The gris in this class span the full 30 degrees longitude. */
-abstract class EGridWarmFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, cScale: Length, rOffset: Int) extends
-  EGridWarm(rBottomCen, rTopCen, cenLongInt, cScale, rOffset,
-    EGridWarmFull.getBounds(rBottomCen, rTopCen, rOffset, (cenLongInt %% 12) * 1024 + 512, cScale))
+abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, cScale: Length, rOffset: Int) extends
+  EGridLong(rBottomCen, rTopCen, cenLongInt, cScale, rOffset,
+    EGridLongFull.getBounds(rBottomCen, rTopCen, rOffset, (cenLongInt %% 12) * 1024 + 512, cScale))
 {
   override def hCoordLL(hc: HCoord): LatLong = hc.c match {
     case _ if hc.isCen => hCoordMiddleLL(hc)
@@ -33,18 +33,18 @@ abstract class EGridWarmFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, cSc
 }
 
 /** Functions for Earth tile grids. */
-object EGridWarmFull
+object EGridLongFull
 {
   /** Returns the min and max columns of a tile row in an EGrid80Km grid for a given y (latitude) with a given c offset. */
   def tileRowMinMaxC(r: Int, rOffset: Int, cOffset: Int, cScale: Length): (Int, Int) =
   {
     val startC: Int = ife(r %% 4 == 0, 0, 2)
-    val hexDelta: Double = EGridWarm.cDelta(r - rOffset, 4, cScale)
+    val hexDelta: Double = EGridLong.cDelta(r - rOffset, 4, cScale)
     val margin = 15 - hexDelta
 
     def loop(cAcc: Int): (Int, Int) =
     {
-      val longDegsAcc: Double = EGridWarm.cDelta(r - rOffset, cAcc, cScale)
+      val longDegsAcc: Double = EGridLong.cDelta(r - rOffset, cAcc, cScale)
       val overlapRatio = (longDegsAcc - margin) / hexDelta
       val res: (Int, Int) = longDegsAcc match {
         case lds if (lds < margin) => loop(cAcc + 4)

@@ -5,7 +5,7 @@ import prid._, phex._, egrid._
 /** 2 Grid system for 0E and 30E */
 object Grids320S0E1 extends EGrid320WarmMulti
 { ThisSys =>
-  override val grids: Arr[EGridWarmFull] = Arr(EGrid320.e0(), EGrid320.e30())
+  override val grids: Arr[EGridLongFull] = Arr(EGrid320.e0(), EGrid320.e30())
   override def headGridInt: Int = 0
   override def cGridDelta: Double = 40
   override val gridMans: Arr[EGridWarmMan] = iToMap(1)(EGridWarmMan(_, ThisSys))
@@ -21,7 +21,7 @@ object Scen320s0e1 extends EScenWarmMulti
 
 /** 3 Grid system for 0E, 30E and 60E. */
 object Grids320S0E2 extends EGrid320WarmMulti
-{ override val grids: Arr[EGridWarmFull] = Arr(EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
+{ override val grids: Arr[EGridLongFull] = Arr(EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
   override def headGridInt: Int = 0
   override def cGridDelta: Double = 40
   override val gridMans: Arr[EGridWarmMan] = iToMap(2)(EGridWarmMan(_, this))
@@ -39,7 +39,7 @@ object Scen320S0E2 extends EScenWarmMulti
 object Grids320S11E2 extends EGrid320WarmMulti
 { ThisSys =>
   override def cGridDelta: Double = 40
-  override val grids: Arr[EGridWarmFull] = Arr(EGrid320.w30(), EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
+  override val grids: Arr[EGridLongFull] = Arr(EGrid320.w30(), EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
   override val gridMans: Arr[EGridWarmMan] = iToMap(3)(EGridWarmMan(_, ThisSys))
   override def headGridInt: Int = 11
 }
@@ -57,7 +57,7 @@ object Grids320S10E5 extends EGrid320WarmMulti
 { ThisSys =>
 
   override def cGridDelta: Double = 40
-  override val grids: Arr[EGridWarmFull] = Arr(EGrid320.w60(), EGrid320.w30(), EGrid320.e0(), EGrid320.e30(), EGrid320.e60(), EGrid320.e90(), EGrid320.e120(), EGrid320.e150())
+  override val grids: Arr[EGridLongFull] = Arr(EGrid320.w60(), EGrid320.w30(), EGrid320.e0(), EGrid320.e30(), EGrid320.e60(), EGrid320.e90(), EGrid320.e120(), EGrid320.e150())
   override val gridMans: Arr[EGridWarmMan] = iToMap(7)(EGridWarmMan(_, ThisSys))
 
   override def headGridInt: Int = 10
@@ -73,7 +73,7 @@ object Scen320S10E5 extends EScenWarmMulti
 object Grids320S0E11 extends EGrid320WarmMulti
 { ThisSys =>
   override def cGridDelta: Double = 40
-  override val grids: Arr[EGridWarmFull] = iUntilMap(12)(EGrid320WarmFull(138, 160, _))
+  override val grids: Arr[EGridLongFull] = iUntilMap(12)(EGrid320LongFull(138, 160, _))
   override val gridMans: Arr[EGridWarmMan] = iUntilMap(12)(EGridWarmMan(_, ThisSys))
   override def headGridInt: Int = 0
 }

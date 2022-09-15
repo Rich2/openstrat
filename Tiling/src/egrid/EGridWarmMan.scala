@@ -4,7 +4,7 @@ import geom._, prid._, phex._
 
 case class EGridWarmMan(thisInd: Int, sys: EGridWarmMulti) extends EGridMan
 {
-  final override lazy val grid: EGridWarmFull = sys.grids(thisInd)
+  final override lazy val grid: EGridLongFull = sys.grids(thisInd)
 
   final override def offset: Vec2 = Vec2(0, sys.cGridDelta * thisInd)
   final override def indexStart: Int = grid.numTiles * thisInd
