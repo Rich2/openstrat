@@ -3,7 +3,7 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
 /** A hex grid system consisting of multiple non polar [[EGrid]]s. */
-trait EGridWarmMulti extends EGridSys with EGridMulti
+trait EGridLongMulti extends EGridSys with EGridMulti
 {
   override def grids: Arr[EGridLongFull]
 

@@ -33,4 +33,4 @@ object EGrid80
   }
 }
 
-trait EGrid80WarmMulti extends EGridWarmMulti with EGrid80Sys
+trait EGrid80LongMulti extends EGridLongMulti with EGrid80Sys

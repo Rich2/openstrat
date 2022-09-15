@@ -7,7 +7,7 @@ trait EGrid320Sys extends EGridSys
 }
 
 /** Grid systems for 320km [[EGrid]]s. */
-trait EGrid320WarmMulti extends EGridWarmMulti with EGrid320Sys {
+trait EGrid320LongMulti extends EGridLongMulti with EGrid320Sys {
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
   //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
@@ -17,9 +17,9 @@ trait EGrid320WarmMulti extends EGridWarmMulti with EGrid320Sys {
   final override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object EGrid320WarmMulti
+object EGrid320LongMulti
 {
-  def apply(rBottomCen: Int = 138, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid320WarmMulti = new EGrid320WarmMulti
+  def apply(rBottomCen: Int = 138, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid320LongMulti = new EGrid320LongMulti
   {
     override def grids: Arr[EGridLongFull] = startLong match {
       case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid320LongFull(rBottomCen, rTopCen, i))

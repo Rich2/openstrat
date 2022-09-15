@@ -37,4 +37,4 @@ object EGrid160Warm
 { def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid160Warm(rBottomCen, rTopCen, cenLongInt)
 }*/
 
-trait EGrid160WarmMulti extends EGridWarmMulti with EGrid160Sys
+trait EGrid160LongMulti extends EGridLongMulti with EGrid160Sys

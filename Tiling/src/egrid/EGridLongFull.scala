@@ -2,7 +2,7 @@
 package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
-/** One of the main hex grids for the earth not a polar grid. The gris in this class span the full 30 degrees longitude. */
+/** An earth grid covering a full 30 degree longitude range for the non polar regions. */
 abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, cScale: Length, rOffset: Int) extends
   EGridLong(rBottomCen, rTopCen, cenLongInt, cScale, rOffset,
     EGridLongFull.getBounds(rBottomCen, rTopCen, rOffset, (cenLongInt %% 12) * 1024 + 512, cScale))

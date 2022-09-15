@@ -2,7 +2,7 @@
 package ostrat; package eg80
 import prid._, phex._, egrid._
 
-object Grids80s0e1 extends EGrid80WarmMulti
+object Grids80s0e1 extends EGrid80LongMulti
 { ThisSys =>
 
   override def cGridDelta: Double = 40
@@ -20,6 +20,6 @@ object Grids80s0e1 extends EGrid80WarmMulti
 }
 
 object Scen80s0s1 extends EScenWarmMulti
-{ override val gridSys: EGrid80WarmMulti = Grids80s0e1
+{ override val gridSys: EGrid80LongMulti = Grids80s0e1
   override val warms: Arr[WarmTerrs] = Arr(Terr80E0, Terr80E30)
 }
