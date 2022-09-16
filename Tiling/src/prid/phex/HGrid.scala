@@ -2,7 +2,7 @@
 package ostrat; package prid; package phex
 import geom._
 
-/** A grid of Hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
+/** A grid of hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
  *  @groupprio SidesGroup 1010 */

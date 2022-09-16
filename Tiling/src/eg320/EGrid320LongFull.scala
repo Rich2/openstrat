@@ -2,7 +2,7 @@
 package ostrat; package eg320
 import egrid._
 
-/** A main non-polar grid with a hex span of 320Km */
+/** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 320Km */
 abstract class EGrid320Long(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
   EGridLong(rBottomCen, rTopCen, cenLongInt, 80.kMetres, 100, rowArray)
 
