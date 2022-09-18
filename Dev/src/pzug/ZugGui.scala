@@ -9,7 +9,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   implicit def gridSys: HGridSys = scen.gridSys
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
-  val proj = gridSys.projection(mainPanel)
+  implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   //proj.setView(viewIn)
 
   val terrs: HCenLayer[ZugTerr] = scen.terrs
@@ -74,8 +74,13 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   }
 
   statusText = "Welcome to ZugFuher"
-  def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut))
+  def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut) ++ proj.buttons)
   thisTop()
   def frame: GraphicElems = (polyFills ++ lines ++ lunits).slate(-focus).scale(cPScale) ++ active ++ text
+  proj.getFrame = () => frame
+  proj.setStatusText = { str =>
+    statusText = str
+    thisTop()
+  }
   mainRepaint(frame)
 }

@@ -51,7 +51,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn) ++ proj.buttons)//reTop(Arr(bTurn) ++ navButtons)
+  def thisTop(): Unit = reTop(Arr(bTurn) ++ proj.buttons)
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {
