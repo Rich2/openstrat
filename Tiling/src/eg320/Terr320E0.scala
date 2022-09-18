@@ -39,7 +39,7 @@ object Terr320E0 extends Warm320Terrs
     sTerrs.setTruesInts((142, 508), (143, 507))
   }
 
-  def regScenGlobe: EScenWarm = new EScenWarm  {
+  def regScenGlobe: EScenBasic = new EScenBasic  {
     override implicit val gridSys: EGrid320Long = regGrid
     override val terrs: HCenLayer[WTile] = regTerrs
     override val sTerrs: HSideBoolLayer = gridSys.newSideBools

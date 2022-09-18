@@ -18,7 +18,7 @@ object EGridLaunch extends GuiLaunchMore
     def egg(scen: EScenFlat): (CanvasPlatform => Any, String) =
       (EGridFlatGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), scen.title + " Flat JavaFx")
 
-    def gwg(scen: EScenWarm): (CanvasPlatform => Any, String) =
+    def gwg(scen: EScenBasic): (CanvasPlatform => Any, String) =
       (GridWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), scen.title + " Globe JavaFx")
 
     val scen: EScenFlat = num match
@@ -56,7 +56,7 @@ object EGridLaunch extends GuiLaunchMore
       case _ => EGrid80.scen0
     }
     scen match {
-      case s: EScenWarm if !flat => gwg(s)
+      case s: EScenBasic if !flat => gwg(s)
       case s => egg(s)
     }
   }

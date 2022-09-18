@@ -27,9 +27,9 @@ object EGrid160
   def w60(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160Long = EGrid160Long(rBottomCen, rTopCen, 10)
   def w30(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160Long = EGrid160Long(rBottomCen, rTopCen,11)
 
-  def scen0: EScenWarm =
+  def scen0: EScenBasic =
   { val grid: EGridLongFull = e0(276)
-    EScenWarm(grid, Terr160E0.terrs, Terr160E0.sTerrs, "!60km 0E")
+    EScenBasic(grid, Terr160E0.terrs, Terr160E0.sTerrs, "!60km 0E")
   }
 
 //  def scen1: EScenWarm =
@@ -82,8 +82,8 @@ object EGrid160
 //    EScenWarm(grid, Terr160W60.terrs, )
 //  }
 
-  def scen11: EScenWarm =
+  def scen11: EScenBasic =
   { val grid: EGridLongFull = w30(276)
-    EScenWarm(grid, Terr160W30.terrs,Terr160W30.sTerrs)
+    EScenBasic(grid, Terr160W30.terrs,Terr160W30.sTerrs)
   }
 }

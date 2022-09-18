@@ -5,9 +5,9 @@ import geom._, pglobe._, prid._, phex._
 /** A hex grid system consisting of multiple non polar [[EGrid]]s. */
 trait EGridLongMulti extends EGridSys with EGridMulti
 {
-  override def grids: Arr[EGridLongFull]
+  override def grids: Arr[EGridLong]
 
-  override val gridMans: Arr[EGridWarmMan]
+  override val gridMans: Arr[EGridLongMan]
   def cGridDelta: Double
 
   /** The longitude Int for the head grid. */

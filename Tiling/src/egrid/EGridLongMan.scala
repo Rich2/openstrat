@@ -2,9 +2,10 @@
 package ostrat; package egrid
 import geom._, prid._, phex._
 
-case class EGridWarmMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
+/** Manages an [[EGridLong]]. */
+case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
 {
-  final override lazy val grid: EGridLongFull = sys.grids(thisInd)
+  final override lazy val grid: EGridLong = sys.grids(thisInd)
 
   final override def offset: Vec2 = Vec2(0, sys.cGridDelta * thisInd)
   final override def indexStart: Int = grid.numTiles * thisInd

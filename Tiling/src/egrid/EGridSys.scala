@@ -32,20 +32,20 @@ trait EScenFlat extends HSysScen
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
-trait EScenWarm extends EScenFlat
+trait EScenBasic extends EScenFlat
 { override def gridSys: EGridSys
   override def title: String = "EScenWarm"
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
-object EScenWarm
+object EScenBasic
 {
-  def apply(gridSys: EGridSys, terrs: HCenLayer[WTile], sTerrs: HSideBoolLayer, title: String = "EScenWarm"): EScenWarm = new EScenWarmImp(gridSys, terrs, sTerrs, title)
+  def apply(gridSys: EGridSys, terrs: HCenLayer[WTile], sTerrs: HSideBoolLayer, title: String = "EScenWarm"): EScenBasic = new EScenWarmImp(gridSys, terrs, sTerrs, title)
 
-  class EScenWarmImp(val gridSys: EGridSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer, override val title: String = "EScenWarm") extends EScenWarm
+  class EScenWarmImp(val gridSys: EGridSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer, override val title: String = "EScenWarm") extends EScenBasic
 }
 
-trait EScenWarmMulti extends EScenWarm{
+trait EScenWarmMulti extends EScenBasic{
   override def gridSys: EGridLongMulti
   def warms: Arr[WarmTerrs]
   override final lazy val terrs: HCenLayer[WTile] = warms.tailfold(warms(0).terrs)(_ ++ _.terrs)
