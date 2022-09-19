@@ -42,7 +42,7 @@ object EGrid320LongFull
 }
 
 /** Terrain data grid for [[EGrid320LongFull]]s. */
-trait Warm320Terrs extends WarmTerrs
+trait Long320Terrs extends LongTerrs
 { override implicit val grid: EGrid320LongFull
 }
 

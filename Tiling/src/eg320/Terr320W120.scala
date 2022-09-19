@@ -2,7 +2,7 @@
 package ostrat; package eg320
 import pEarth._, prid._, phex._, WTile._
 
-object Terr320W120 extends Warm320Terrs
+object Terr320W120 extends Long320Terrs
 {
   override implicit val grid: EGrid320LongFull = EGrid320.w120(138)
 

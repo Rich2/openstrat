@@ -2,7 +2,8 @@
 package ostrat; package egrid
 import prid._, phex._, pEarth._
 
-trait WarmTerrs
+/** Contains Earth longitude range grid, [[WTile]] layer and a [[Boolean]] tile side data layer. */
+trait LongTerrs
 { implicit val grid: EGridLongFull
   def terrs: HCenLayer[WTile]
   def sTerrs: HSideBoolLayer

@@ -21,5 +21,5 @@ object Grids80s0e1 extends EGrid80LongMulti
 
 object Scen80s0s1 extends EScenWarmMulti
 { override val gridSys: EGrid80LongMulti = Grids80s0e1
-  override val warms: Arr[WarmTerrs] = Arr(Terr80E0, Terr80E30)
+  override val warms: Arr[LongTerrs] = Arr(Terr80E0, Terr80E30)
 }

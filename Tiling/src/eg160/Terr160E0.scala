@@ -2,7 +2,7 @@
 package ostrat; package eg160
 import pEarth._, prid._, phex._, WTile._, egrid._
 
-object Terr160E0 extends WarmTerrs
+object Terr160E0 extends LongTerrs
 {
   override implicit val grid: EGrid160Long = EGrid160.e0(276)
 

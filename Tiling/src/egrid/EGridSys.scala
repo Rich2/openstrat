@@ -47,7 +47,7 @@ object EScenBasic
 
 trait EScenWarmMulti extends EScenBasic{
   override def gridSys: EGridLongMulti
-  def warms: Arr[WarmTerrs]
+  def warms: Arr[LongTerrs]
   override final lazy val terrs: HCenLayer[WTile] = warms.tailfold(warms(0).terrs)(_ ++ _.terrs)
   override final lazy val sTerrs: HSideBoolLayer = gridSys.sideBoolsFromGrids(warms.map(_.sTerrs))
 }
