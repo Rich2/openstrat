@@ -45,9 +45,9 @@ object EScenBasic
   class EScenWarmImp(val gridSys: EGridSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer, override val title: String = "EScenWarm") extends EScenBasic
 }
 
-trait EScenWarmMulti extends EScenBasic{
+trait EScenLongMulti extends EScenBasic{
   override def gridSys: EGridLongMulti
-  def warms: Arr[LongTerrs]
-  override final lazy val terrs: HCenLayer[WTile] = warms.tailfold(warms(0).terrs)(_ ++ _.terrs)
-  override final lazy val sTerrs: HSideBoolLayer = gridSys.sideBoolsFromGrids(warms.map(_.sTerrs))
+  def longs: Arr[LongTerrs]
+  override final lazy val terrs: HCenLayer[WTile] = longs.tailfold(longs(0).terrs)(_ ++ _.terrs)
+  override final lazy val sTerrs: HSideBoolLayer = gridSys.sideBoolsFromGrids(longs.map(_.sTerrs))
 }
