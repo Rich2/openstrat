@@ -2,7 +2,7 @@
 package ostrat; package gThree
 import pgui._, geom._, prid._, phex._, gPlay._
 
-/** Graphical user interface for GThree example game. */
+/** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */
 case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."

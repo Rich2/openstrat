@@ -3,15 +3,10 @@ package ostrat; package prid; package phex
 import geom._, pgui._
 
 /** Hex grid system graphics projection. */
-trait HSysProjection
+trait HSysProjection extends TSysProjection
 { type GridT <: HGridSys
-  def gridSys: GridT
-  var getFrame: () => GraphicElems = () => Arr()
-  def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems
-  var setStatusText: String => Unit = s => {}
-  val buttons: Arr[PolygonCompound]
-  def tiles: PolygonArr
-  def tileActives: Arr[PolygonActive]
+
+
   var gChild: HGridSys
   def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = ???
 

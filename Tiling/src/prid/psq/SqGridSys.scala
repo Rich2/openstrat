@@ -1,10 +1,13 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import reflect.ClassTag
+import pgui._, reflect.ClassTag
 
 /** A system of Square tile grids. Could be a single or multiple grids. */
 trait SqGridSys extends Any with TGridSys
-{ def foreach(f: SqCen => Unit): Unit
+{
+  def projection: Panel => SqSysProjection = SqSysProjectionFlat(this, _)
+
+  def foreach(f: SqCen => Unit): Unit
 
   /** C coordinates match 1 to 1 to x coordinates for square grids. */
   final override def yRatio: Double = 1

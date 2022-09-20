@@ -9,6 +9,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   def players: SqCenOptLayer[Player] = scen.oPlayers
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   focus = viewIn.vec
+  implicit val proj: SqSysProjection = gridSys.projection(mainPanel)
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   def tiles: Arr[PolygonActive] = gridSys.activeTiles
