@@ -19,4 +19,13 @@ trait TSysProjection
   def tiles: PolygonArr
 
   def tileActives: Arr[PolygonActive]
+
+  /** The visible hex sides. */
+  def sides: LineSegArr
+
+  /** The visible inner hex sides. */
+  def innerSides: LineSegArr
+
+  /** The visible outer hex sides. */
+  def outerSides: LineSegArr
 }

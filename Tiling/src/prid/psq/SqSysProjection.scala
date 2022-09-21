@@ -17,4 +17,13 @@ case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysPr
   override def tiles: PolygonArr = PolygonArr()
 
   override def tileActives: Arr[PolygonActive] = Arr()
+
+  /** The visible hex sides. */
+  override def sides: LineSegArr = LineSegArr()
+
+  /** The visible inner hex sides. */
+  override def innerSides: LineSegArr = LineSegArr()
+
+  /** The visible outer hex sides. */
+  override def outerSides: LineSegArr = LineSegArr()
 }

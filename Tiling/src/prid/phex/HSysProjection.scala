@@ -12,14 +12,7 @@ trait HSysProjection extends TSysProjection
 
   //def hcPolyArrTrans(inp: PolygonHCArr)
 
-  /** The visible hex sides. */
-  def sides: LineSegArr
 
-  /** The visible inner hex sides. */
-  def innerSides: LineSegArr
-
-  /** The visible outer hex sides. */
-  def outerSides: LineSegArr
 
   /** transforms and filters out non visible [[HSide]]s. */
   def transHSides(inp: HSideArr): LineSegArr
