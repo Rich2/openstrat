@@ -67,3 +67,10 @@ object OneScen8 extends OneScen
   implicit val gridSys: HGridReg = HGridReg(4, 2, 4, 2)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
 }
+
+/** 8th example Turn 0 scenario state for Game One. An empty irregular grid containing no hex tiles. */
+object OneScen9 extends OneScen
+{ override def turn: Int = 0
+  implicit val gridSys: HGrid = HGridIrr(2)
+  val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
+}

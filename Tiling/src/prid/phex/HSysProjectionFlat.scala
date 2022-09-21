@@ -25,23 +25,25 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
   var gChild: HGridSys = getGChild
   def setGChild: Unit = gChild = getGChild
 
-  def getGChild : HGridSys =  gridSys match
-  { case hg: HGridReg =>
+  def getGChild : HGridSys = {
+    def newBottom: Int = (focus.y / Sqrt3 + panel.bottom / pixRScale - 1).round.toInt.roundUpToEven
+    val newTop: Int = (focus.y / Sqrt3 + panel.top / pixRScale + 1).round.toInt.roundDownToEven
+    val newLeft: Int = (focus.x + panel.left / pixCScale - 2).round.toInt.roundUpToEven
+    val newRight: Int = (focus.x + panel.right / pixCScale + 2).round.toInt.roundDownToEven
+
+    gridSys match
     {
-      val bt1 = (focus.y / Sqrt3 + panel.bottom / pixRScale - 1).round.toInt
-      val bt = hg.bottomCenR.max(bt1).roundUpToEven
-      val tp1 = (focus.y / Sqrt3 + panel.top / pixRScale + 1).round.toInt
-      val tp = hg.topCenR.min(tp1).roundDownToEven
-      val lt1 = (focus.x + panel.left / pixCScale).round.toInt - 2
-      val lt = hg.leftCenC.max(lt1)
-      val rt1 = (focus.x + panel.right / pixCScale).round.toInt + 2
-      val rt = hg.rightCenC.min(rt1)
-
-      deb(s"bt: $bt, tp: $tp, lt: $lt, rt: $rt")
-      HGridReg(bt, tp, lt, rt)
+      case hg: HGridReg =>
+      { val bt = hg.bottomCenR.max(newBottom)
+        val tp = hg.topCenR.min(newTop)
+        val lt = hg.leftCenC.max(newLeft)
+        val rt = hg.rightCenC.min(newRight)
+        deb(s"bt: $bt, tp: $tp, lt: $lt, rt: $rt")
+        HGridReg(bt, tp, lt, rt)
+      }
+      case hi: HGridIrr => hi
+      case hs => hs
     }
-
-    case hs => hs
   }
 
   override def tiles: PolygonArr = gChild.map(_.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(pixCScale))
