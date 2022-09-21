@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
-import ostrat.geom._
+import geom._, pgui._
 
 /** Tile system graphical projection. */
 trait TSysProjection
@@ -9,6 +9,7 @@ trait TSysProjection
 
   def gridSys: GridT
 
+  def panel: Panel
   var getFrame: () => GraphicElems = () => Arr()
 
   def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems
@@ -28,17 +29,4 @@ trait TSysProjection
 
   /** The visible outer hex sides. */
   def outerSides: LineSegArr
-}
-
-trait TSysProjectionFlat extends TSysProjection
-{
-  /** The number of pixels per column unit. */
-  var pixCScale: Double
-
-  /** The number of pixels per tile from side to opposite side. */
-  def pixTileScale: Double
-
-  var focus: Vec2
-
-  def pixTileScaleStr = s"scale = ${pixTileScale.str2} pixels per tile"
 }

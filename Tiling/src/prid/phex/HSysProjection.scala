@@ -38,7 +38,6 @@ trait HSysProjection extends TSysProjection
   /** Draws visible outer hex sides. */
   def outerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = outerSides.draw(lineWidth, colour)
 
-  def panel: Panel
 
   /** Set the perpective, The position of the view. the rotation and the scale. */
   def setView(view: Any): Unit

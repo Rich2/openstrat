@@ -14,7 +14,11 @@ case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysPr
   var focus: Vec2 = gridSys.defaultView(pixCScale).vec
   override def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ???
 
-  override val buttons: Arr[PolygonCompound] = Arr()
+  var gChild: SqGridSys = getGChild
+
+  def getGChild: SqGridSys = gridSys
+
+  def setGChild: Unit = gChild = getGChild
 
   override def tiles: PolygonArr = PolygonArr()
 

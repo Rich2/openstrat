@@ -15,15 +15,16 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     case hv: HGView =>
     { pixCScale = hv.cPScale
       focus = hv.vec
-      gChild = setGChid
+      gChild = getGChild
     }
     case d: Double => pixCScale = d
     case _ =>
   }
 
-  var gChild: HGridSys = setGChid
+  var gChild: HGridSys = getGChild
+  def setGChild: Unit = gChild = getGChild
 
-  def setGChid : HGridSys =  gridSys match
+  def getGChild : HGridSys =  gridSys match
   { case hg: HGridReg =>
     {
       val lt1 = (focus.x + panel.left / pixCScale).toInt - 2
@@ -40,7 +41,6 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
 
     case hs => hs
   }
-  //def window = panel
 
   override def tiles: PolygonArr = gChild.map(_.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(pixCScale))
 
@@ -68,48 +68,4 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
   override def transLineSeg(seg: LineSegHC): LineSeg = seg.map(transCoord)
 
   override def transHSides(inp: HSideArr): LineSegArr = ???//.slate(-focus).scale(cPScale)
-
-  def zoomIn: PolygonCompound = clickButton("+") { _ =>
-    pixCScale *= 1.1
-    setGChid
-    panel.repaint(getFrame())
-    setStatusText(pixTileScaleStr)
-  }
-
-  def zoomOut: PolygonCompound = clickButton("-") { _ =>
-    pixCScale /= 1.1
-    setGChid
-    panel.repaint(getFrame())
-    setStatusText(pixTileScaleStr)
-  }
-
-  def focusAdj(uniStr: String)(f: (Vec2, Double) => Vec2): PolygonCompound = clickButton(uniStr) { butt =>
-    val delta = butt(1, 10, 100, 0)
-    focus = f(focus, pixCScale * delta / 40)
-    setGChid
-    panel.repaint(getFrame())
-    setStatusText(focus.strSemi(2, 2))
-  }
-
-  def focusLeft: PolygonCompound = focusAdj("\u2190") { (v, d) =>
-    val newX: Double = (v.x - d).max(gridSys.left)
-    Vec2(newX, v.y)
-  }
-
-  def focusRight: PolygonCompound = focusAdj("\u2192") { (v, d) =>
-    val newX: Double = (v.x + d).min(gridSys.right)
-    Vec2(newX, v.y)
-  }
-
-  def focusUp: PolygonCompound = focusAdj("\u2191") { (v, d) =>
-    val newY: Double = (v.y + d).min(gridSys.top)
-    Vec2(v.x, newY)
-  }
-
-  def focusDown: PolygonCompound = focusAdj("\u2193") { (v, d) =>
-    val newY: Double = (v.y - d).max(gridSys.bottom)
-    Vec2(v.x, newY)
-  }
-
-  val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 }
