@@ -4,8 +4,11 @@ import geom._, pgui._
 
 trait TSysProjectionFlat extends TSysProjection
 {
-  /** The number of pixels per column unit. */
+  /** The number of pixels per tile grid column unit. */
   var pixCScale: Double
+
+  /** The number of pixels per tile grid row unit. */
+  def pixRScale: Double
 
   /** The number of pixels per tile from side to opposite side. */
   def pixTileScale: Double

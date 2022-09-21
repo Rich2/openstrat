@@ -5,7 +5,8 @@ import geom._, pgui._, collection.mutable.ArrayBuffer
 final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSysProjection with TSysProjectionFlat
 { type GridT = HGridSys
   var pixCScale: Double = gridSys.fullDisplayScale(panel.width, panel.height)
-  def pixTileScale: Double = pixCScale * 4
+  override def pixRScale: Double = pixCScale * Sqrt3
+  override def pixTileScale: Double = pixCScale * 4
 
   var focus: Vec2 = gridSys.defaultView(pixCScale).vec
   def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixCScale >= minScale, elems, Arr[GraphicElem]())
@@ -27,14 +28,15 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
   def getGChild : HGridSys =  gridSys match
   { case hg: HGridReg =>
     {
-      val lt1 = (focus.x + panel.left / pixCScale).toInt - 2
+      val bt1 = (focus.y / Sqrt3 + panel.bottom / pixRScale - 1).round.toInt
+      val bt = hg.bottomCenR.max(bt1).roundUpToEven
+      val tp1 = (focus.y / Sqrt3 + panel.top / pixRScale + 1).round.toInt
+      val tp = hg.topCenR.min(tp1).roundDownToEven
+      val lt1 = (focus.x + panel.left / pixCScale).round.toInt - 2
       val lt = hg.leftCenC.max(lt1)
-      val rt1 = (focus.x + panel.right / pixCScale).toInt + 2
+      val rt1 = (focus.x + panel.right / pixCScale).round.toInt + 2
       val rt = hg.rightCenC.min(rt1)
-      val bt1 = (focus.y + panel.bottom / pixCScale).toInt - 2
-      val bt = hg.bottomCenR.max(bt1)
-      val tp1 = (focus.y + panel.top / pixCScale).toInt + 2
-      val tp = hg.topCenR.min(tp1)
+
       deb(s"bt: $bt, tp: $tp, lt: $lt, rt: $rt")
       HGridReg(bt, tp, lt, rt)
     }

@@ -10,7 +10,8 @@ case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysPr
 {
   type GridT = SqGridSys
   var pixCScale: Double = gridSys.fullDisplayScale(panel.width, panel.height)
-  def pixTileScale: Double = pixCScale * 2
+  override def pixTileScale: Double = pixCScale * 2
+  override def pixRScale: Double = pixCScale
   var focus: Vec2 = gridSys.defaultView(pixCScale).vec
   override def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ???
 
