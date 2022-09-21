@@ -29,3 +29,16 @@ trait TSysProjection
   /** The visible outer hex sides. */
   def outerSides: LineSegArr
 }
+
+trait TSysProjectionFlat extends TSysProjection
+{
+  /** The number of pixels per column unit. */
+  var pixCScale: Double
+
+  /** The number of pixels per tile from side to opposite side. */
+  def pixTileScale: Double
+
+  var focus: Vec2
+
+  def pixTileScaleStr = s"scale = ${pixTileScale.str2} pixels per tile"
+}

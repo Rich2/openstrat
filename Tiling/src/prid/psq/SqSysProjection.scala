@@ -6,10 +6,12 @@ trait SqSysProjection extends TSysProjection
 { type GridT <: SqGridSys
 }
 
-case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysProjection
+case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
 {
   type GridT = SqGridSys
-
+  var pixCScale: Double = gridSys.fullDisplayScale(panel.width, panel.height)
+  def pixTileScale: Double = pixCScale * 2
+  var focus: Vec2 = gridSys.defaultView(pixCScale).vec
   override def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ???
 
   override val buttons: Arr[PolygonCompound] = Arr()
