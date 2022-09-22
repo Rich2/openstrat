@@ -41,7 +41,11 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
         deb(s"bt: $bt, tp: $tp, lt: $lt, rt: $rt")
         HGridReg(bt, tp, lt, rt)
       }
-      case hi: HGridIrr => hi
+      case hgi: HGridIrr => hgi.numTileRows match
+      { case n if n <= 0 => hgi
+        case _ if newTop < hgi.bottomCenR | newBottom > hgi.topCenR | newLeft > hgi.rightCenC | newRight < hgi.leftCenC => HGridIrr(hgi.topCenR)
+        case _ => hgi
+      }
       case hs => hs
     }
   }
