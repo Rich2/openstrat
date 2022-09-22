@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 
 /** An irregular hex grid, where the rows have different lengths and irregular start row coordinates. This is backed by an Array[Int]. The length of
  *  this Array is twice the number of tile rows in the grid. Each row from lowest to highest has two values length of the row in the number of tile
- *  centres [[HCen]]s and the rTileMin coordinate for the row.
+ *  centres [[HCen]]s and the cTileMin coordinate for the row.
  * @constructor creates a new HexGridIrr with a defined grid.
  * @param bottomCenR The r value for the bottom tile row of the TileGrid.
  * @param tileRowsStartEnd the Array contains 2 values per Tile Row, the cStart Tile and the cEnd Tile */

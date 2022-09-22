@@ -44,7 +44,26 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
       case hgi: HGridIrr => hgi.numTileRows match
       { case n if n <= 0 => hgi
         case _ if newTop < hgi.bottomCenR | newBottom > hgi.topCenR | newLeft > hgi.rightCenC | newRight < hgi.leftCenC => HGridIrr(hgi.topCenR)
-        case _ => hgi
+        case _ => {
+          val bottom = hgi.bottomCenR.max(newBottom)
+          val top = hgi.topCenR.min(newTop)
+          val numRows = (top - bottom + 2) / 2
+          val newArray = new Array[Int](numRows * 2)
+          var i = 0
+          iToForeach(bottom, top, 2){ r =>
+            val rowLeft0 = hgi.rowLeftCenC(r).max(newLeft)
+            val rowLeft = ife(r.div4Rem0, rowLeft0.roundUpTo(_.div4Rem0), rowLeft0.roundUpTo(_.div4Rem2))
+            val rowRight0 = hgi.rowRightCenC(r).min(newRight)
+            val rowRight = ife(r.div4Rem0, rowRight0.roundDownTo(_.div4Rem0), rowRight0.roundDownTo(_.div4Rem2))
+            val rowLen = ((rowRight - rowLeft) / 4 + 1).max(0)
+            newArray(i) = rowLen
+            i += 1
+            newArray(i) = rowLeft
+            i += 1
+          }
+          new HGridIrr(bottom, newArray)
+          //hgi
+        }
       }
       case hs => hs
     }
