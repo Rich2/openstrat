@@ -36,7 +36,7 @@ def mainProj(srcsStr: String, nameStr: String) = proj(srcsStr, nameStr).settings
 )
 
 def mainJvmProj(srcsStr: String) = mainProj(srcsStr, srcsStr).settings(
-  Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "srcFx").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _),
   Test/unmanagedSourceDirectories := List(moduleDir.value / "ExsSrc", (Test/scalaSource).value),
   Test/unmanagedResourceDirectories := List(moduleDir.value / "TestRes", (Test/resourceDirectory).value),
   resourceDirectory := moduleDir.value / "res",
@@ -126,7 +126,7 @@ lazy val EarthAppJs = jsApp("EarthApp").settings(
 )
 
 lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, TilingExs).settings(
-  Compile/unmanagedSourceDirectories := List("src", "srcJvm", "srcFx").map(moduleDir.value / _) :::
+  Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
     List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
