@@ -56,8 +56,8 @@ def jsProj(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlug
 )
 
 def natProj(name: String) = mainProj(name, name + "Nat").enablePlugins(ScalaNativePlugin).settings(
-  Compile/unmanagedSourceDirectories := List("src", "srcNat", "Exs/src").map(moduleDir.value / _),
-  Compile/resourceDirectories := List("res", "resNat").map(moduleDir.value / _),
+  Compile/unmanagedSourceDirectories := List("src", "NatSrc", "Exs/src").map(moduleDir.value / _),
+  Compile/resourceDirectories := List("res", "NatRes").map(moduleDir.value / _),
 )
 
 lazy val Util = mainJvmProj("Util").settings(
@@ -157,9 +157,9 @@ lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories +=
 lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/Bc305App")
 lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/PlanetsApp")
 
-val moduleDirs: List[String] = List("Util", "UtilExs", "Geom", "GeomExs", "Tiling", "TilingExs", "Dev")
-val specDirs: List[String] = List("Geom/src3d", "Geom/srcGlobe", "Geom/srcGui", "Geom/srcWeb", "Tiling/srcPts")
-val CommonDirs: List[String] = moduleDirs.map(_ + "/src") ::: specDirs
+val moduleDirs: List[String] = List("Util", "UtilExs", "Geom", "GeomExs", "Globe", "Tiling", "TilingExs", "Dev")
+val specDirs: List[String] = List("Util/srcParse", "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Tiling/srcPts", "Tiling/srcAncient")
+val CommonDirs: List[String] = moduleDirs.flatMap(m => List(m + "/src", m + "/ExsSrc")) ::: specDirs
 
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")
 bothDoc :=
@@ -171,7 +171,7 @@ bothDoc :=
 lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).settings(
   name := "OpenStrat",
   Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.flatMap(s =>
-    List(s + "/srcJvm")) ::: List("Util/srcArr", "Geom/srcFx", "Dev/srcFx")).map(s => baseDir.value / s),
+    List(s + "/JvmSrc")) ::: List("Util/srcArr", "Geom/JvmFxSrc", "Dev/JvmFxSrc")).map(s => baseDir.value / s),
   autoAPIMappings := true,
   apiURL := Some(url("https://richstrat.com/api/")),
   libraryDependencies += "org.openjfx" % "javafx-controls" % "15.0.1",
