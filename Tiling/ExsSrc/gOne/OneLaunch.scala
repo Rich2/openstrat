@@ -22,6 +22,7 @@ object OneLaunch extends GuiLaunchMore
       case 7 => OneScen7
       case 8 => OneScen8
       case 9 => OneScen9
+      case 10 => OneScen10
       case _ => OneScen1
     }
     

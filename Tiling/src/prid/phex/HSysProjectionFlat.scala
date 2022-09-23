@@ -2,6 +2,7 @@
 package ostrat; package prid; package phex
 import geom._, pgui._, collection.mutable.ArrayBuffer
 
+/** Projects [[HGridSys]] on to a flat surface for 2D graphics. Like all projections attempts to remove tiles that can't be seen. */
 final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSysProjection with TSysProjectionFlat
 { type GridT = HGridSys
   var pixCScale: Double = gridSys.fullDisplayScale(panel.width, panel.height)
@@ -61,8 +62,9 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
             newArray(i) = rowLeft
             i += 1
           }
-          new HGridIrr(bottom, newArray)
-          //hgi
+          val newGrid = new HGridIrr(bottom, newArray)
+          debvar(newGrid.numTiles)
+          newGrid
         }
       }
       case hs => hs
