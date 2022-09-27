@@ -1,13 +1,25 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import pgui._, reflect.ClassTag
+import geom._, pgui._, reflect.ClassTag
 
 /** A system of Square tile grids. Could be a single or multiple grids. */
 trait SqGridSys extends Any with TGridSys
 {
   def projection: Panel => SqSysProjection = SqSysProjectionFlat(this, _)
-
+  def arrIndex(sc: SqCen): Int
   def foreach(f: SqCen => Unit): Unit
+
+  /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
+   * corresponding to the standard Scala map function of A => B. */
+  final def map[B, ArrB <: SeqImut[B]](f: SqCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+    val res = build.newArr(numTiles)
+    var i = 0
+    foreach { sqCen => res.unsafeSetElem(i, f(sqCen)); i += 1 }
+    res
+  }
+
+  /** The active tiles without any PaintElems. */
+  def activeTiles: Arr[PolygonActive] = map(_.active())
 
   /** C coordinates match 1 to 1 to x coordinates for square grids. */
   final override def yRatio: Double = 1

@@ -6,13 +6,10 @@ import geom._, pgui._
 trait HSysProjection extends TSysProjection
 { type GridT <: HGridSys
 
-
   var gChild: HGridSys
   def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = ???
 
   //def hcPolyArrTrans(inp: PolygonHCArr)
-
-
 
   /** transforms and filters out non visible [[HSide]]s. */
   def transHSides(inp: HSideArr): LineSegArr

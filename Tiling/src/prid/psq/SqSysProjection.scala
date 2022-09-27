@@ -22,6 +22,7 @@ case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysPr
   def setGChild: Unit = gChild = getGChild
 
   override def tiles: PolygonArr = PolygonArr()
+  //gChild.map(_.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(pixCScale))
 
   override def tileActives: Arr[PolygonActive] = Arr()
 

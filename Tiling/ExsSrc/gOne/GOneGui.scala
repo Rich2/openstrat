@@ -33,7 +33,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   def hexStrs: Arr[TextGraphic] = players.projNoneHCPtMap{ (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val tiles: Arr[PolygonActive] = proj.tileActives
+  val actives: Arr[PolygonActive] = proj.tileActives
 
   /** Draws the tiles sides (or edges). */
   def sidesDraw: LinesDraw = proj.sidesDraw()
@@ -79,7 +79,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   }
   thisTop()
 
-  def frame: GraphicElems = tiles ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs
+  def frame: GraphicElems = actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs
   proj.getFrame = () => frame
   proj.setStatusText = {str =>
     statusText = str

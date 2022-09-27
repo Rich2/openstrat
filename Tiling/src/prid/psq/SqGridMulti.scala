@@ -31,6 +31,8 @@ final class SqGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val max
   val grid2 = SqGrid(minCenR, maxCenR, minC2, maxC2)
   override def gridMans: Arr[SqGridMan] = Arr()
 
+  override def arrIndex(sc: SqCen): Int = ???
+
   //override val numTiles: Int = grid1.numTiles + grid2.numTiles
   override def top: Double = maxCenR + 1
   override def bottom: Double = minCenR - 1

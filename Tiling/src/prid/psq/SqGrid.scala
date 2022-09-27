@@ -26,9 +26,6 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   def horrSideLines: LineSegArr = iToMap(bottomSideR, topSideRow, 2){ r => LineSeg(leftSideC, r, rightSideC, r) }
   def vertSideLines: LineSegArr = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideR, c, topSideRow) }
 
-  /** The active tiles without any PaintElems. */
-  def activeTiles: Arr[PolygonActive] = map(_.active())
-
   /** Fills all the tiles with the same given parameter [[Colour]]. Not sure how useful this method is. */
   def fillTiles(colour: Colour): Arr[PolygonFill] = map(_.fill(colour))
 
@@ -37,15 +34,6 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   @inline final def arrIndex(sc: SqCen): Int = arrIndex(sc.r, sc.c)
 
   @inline def arrIndex(r: Int, c: Int): Int = (r - bottomCenR) / 2 * tileRowLen + (c - leftCenC) / 2
-
-  /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
-   *  corresponding to the standard Scala map function of A => B. */
-  final def map[B, ArrB <: SeqImut[B]](f: SqCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
-  { val res = build.newArr(numTiles)
-    var i = 0
-    foreach{sqCen => res.unsafeSetElem(i, f(sqCen)); i += 1 }
-    res
-  }
 
   /** New Square tile centre data Square grid. */
   final def newSqCenDGrid[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenLayer[A] =
