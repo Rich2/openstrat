@@ -1,7 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, pgui._, pglobe._, prid._, phex._, pEarth._
+import geom._, prid._, phex._, pEarth._
 
+/** These scenarios require a [[WTile]] layer but not an [[EGridSys]]. */
 trait EScenFlat extends HSysScen
 { def terrs: HCenLayer[WTile]
   def sTerrs: HSideBoolLayer
@@ -27,4 +28,11 @@ trait EScenLongMulti extends EScenBasic{
   def longs: Arr[LongTerrs]
   override final lazy val terrs: HCenLayer[WTile] = longs.tailfold(longs(0).terrs)(_ ++ _.terrs)
   override final lazy val sTerrs: HSideBoolLayer = gridSys.sideBoolsFromGrids(longs.map(_.sTerrs))
+}
+
+/** Contains Earth longitude range grid, [[WTile]] layer and a [[Boolean]] tile side data layer. */
+trait LongTerrs
+{ implicit val grid: EGridLongFull
+  def terrs: HCenLayer[WTile]
+  def sTerrs: HSideBoolLayer
 }
