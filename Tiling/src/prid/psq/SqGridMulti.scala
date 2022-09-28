@@ -14,8 +14,8 @@ case class SqGridMan(grid: SqGrid, arrIndex: Int)
 /** A system of [[SqGrid]]s. */
 trait SqGridMulti extends SqGridSys with TGridMulti
 { final type GridT = SqGrid
-  def gridMans: Arr[SqGridMan]
-  final lazy val grids: Arr[SqGrid] = gridMans.map(_.grid)
+  //def gridMans: Arr[SqGridMan]
+  //final lazy val grids: Arr[SqGrid] = gridMans.map(_.grid)
   override def defaultView(pxScale: Double = 50): SqGridView = grids(0).defaultView(pxScale)
 
   override def foreach(f: SqCen => Unit): Unit = grids.foreach(_.foreach(f))
@@ -29,9 +29,12 @@ final class SqGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val max
 {
   val grid1 = SqGrid(minCenR, maxCenR, minC1, maxC1)
   val grid2 = SqGrid(minCenR, maxCenR, minC2, maxC2)
-  override def gridMans: Arr[SqGridMan] = Arr()
+  //override def gridMans: Arr[SqGridMan] = Arr()
 
   override def arrIndex(sc: SqCen): Int = ???
+
+  /** The grids of this tile grid system. */
+  override def grids: Arr[SqGrid] = ???
 
   //override val numTiles: Int = grid1.numTiles + grid2.numTiles
   override def top: Double = maxCenR + 1
