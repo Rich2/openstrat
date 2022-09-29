@@ -32,6 +32,7 @@ final class SqGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val max
   //override def gridMans: Arr[SqGridMan] = Arr()
 
   override def arrIndex(sc: SqCen): Int = ???
+  override def arrIndex(r: Int, c: Int): Int = ???
 
   /** The grids of this tile grid system. */
   override def grids: Arr[SqGrid] = ???

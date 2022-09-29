@@ -9,13 +9,13 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
   def clone: SqCenOptLayer[A] = new SqCenOptLayer[A](unsafeArr.clone)
 
   /** Sets the Some value of the square tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def unsafeSetSome(y: Int, c: Int, value: A)(implicit grid: SqGrid): Unit = unsafeArr(grid.arrIndex(y, c)) = value
+  def unsafeSetSome(r: Int, c: Int, value: A)(implicit gSys: SqGridSys): Unit = unsafeArr(gSys.arrIndex(r, c)) = value
 
   /** Sets the Some value of the hex tile data at the specified [[SqCen]] coordinate. This is an imperative mutating operation. */
-  def unsafeSetSome(sc: SqCen, value: A)(implicit grid: SqGrid): Unit = unsafeArr(grid.arrIndex(sc)) = value
+  def unsafeSetSome(sc: SqCen, value: A)(implicit gSys: SqGridSys): Unit = unsafeArr(gSys.arrIndex(sc)) = value
 
   /** Sets the Some values of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
-  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grid: SqGrid): Unit = triples.foreach(t => unsafeArr(grid.arrIndex(t._1, t._2)) = t._3)
+  def unsafeSetSomes(triples: (Int, Int, A)*)(implicit gSys: SqGridSys): Unit = triples.foreach(t => unsafeArr(gSys.arrIndex(t._1, t._2)) = t._3)
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
   def setSome(sc: SqCen, value: A)(implicit gSys: SqGridSys): SqCenOptLayer[A] =
