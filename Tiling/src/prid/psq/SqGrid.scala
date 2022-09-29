@@ -79,13 +79,11 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
 object SqGrid
 {
   /** Corrects the X and Y minimum and maximum values. */
-  def apply(rTileMin: Int, rTileMax: Int, cTileMin: Int, cTileMax: Int): SqGrid =
-  {
-    val rMin = rTileMin.roundUpToEven
-    val rMax = rTileMax.roundDownToEven
-    val cMin = cTileMin.roundUpToEven
-    val cMax = cTileMax.roundDownToEven
-
+  def apply(bottomCenR: Int, topCenR: Int, leftCenC: Int, rightCenC: Int): SqGrid =
+  { val rMin = bottomCenR.roundUpToEven
+    val rMax = topCenR.roundDownToEven
+    val cMin = leftCenC.roundUpToEven
+    val cMax = rightCenC.roundDownToEven
     new SqGrid(rMin, rMax, cMin, cMax)
   }
 }
