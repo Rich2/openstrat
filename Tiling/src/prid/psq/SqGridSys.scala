@@ -8,6 +8,8 @@ trait SqGridSys extends Any with TGridSys
   def projection: Panel => SqSysProjection = SqSysProjectionFlat(this, _)
   def arrIndex(sc: SqCen): Int
   def arrIndex(r: Int, c: Int): Int
+
+  def sqCoordToPt2(sqCoord: SqCoord): Pt2
   def foreach(f: SqCen => Unit): Unit
 
   /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,

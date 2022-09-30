@@ -12,7 +12,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   implicit val proj: SqSysProjection = gridSys.projection(mainPanel)
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  def actives: Arr[PolygonActive] = gridSys.activeTiles// proj.tileActives//
+  def actives: Arr[PolygonActive] = //gridSys.activeTiles
+    proj.tileActives
 
   def lunits: Arr[PolygonCompound] = players.scSomesMap{ (sc, p) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + sc.strComma, 150, p.charStr + "\n" + sc.strComma, 60, p.charStr)

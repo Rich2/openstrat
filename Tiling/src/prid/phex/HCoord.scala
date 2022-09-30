@@ -84,12 +84,14 @@ trait HCoordSeqDef extends Any with Int2SeqDef[HCoord]
   final override def fElemStr: HCoord => String = _.toString
 }
 
+/** Specialised sequence class for [[HCoord]]. */
 class HCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCoord] with HCoordSeqDef
 { type ThisT = HCoordArr
   override def typeStr: String = "HCoords"
   override def fromArray(array: Array[Int]): HCoordArr = new HCoordArr(array)
 }
 
+/** Specialised sequence buffer class for [[HCoord]]. */
 class HCoordBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[HCoord]
 { type ArrT = HCoordArr
   override def typeStr: String = "HCoordBuff"

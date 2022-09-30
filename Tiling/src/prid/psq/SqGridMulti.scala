@@ -15,7 +15,7 @@ case class SqGridMan(grid: SqGrid, arrIndex: Int)
 trait SqGridMulti extends SqGridSys with TGridMulti
 { final type GridT = SqGrid
   //def gridMans: Arr[SqGridMan]
-  //final lazy val grids: Arr[SqGrid] = gridMans.map(_.grid)
+  //final lazy val grids: Arr[SqGridAlt] = gridMans.map(_.grid)
   override def defaultView(pxScale: Double = 50): SqGridView = grids(0).defaultView(pxScale)
 
   override def foreach(f: SqCen => Unit): Unit = grids.foreach(_.foreach(f))
@@ -25,7 +25,7 @@ trait SqGridMulti extends SqGridSys with TGridMulti
 //trait SqGridMultiFlat extends SqGridMulti with SqGridSysFlat
 
 /** A simple development class of 2 square grids. Probably not a useful class for an application but a stage on the evolution of more exotic classes. */
-final class SqGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends SqGridMulti
+final class SqGridsAdjPair(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends SqGridMulti
 {
   val grid1 = SqGrid(minCenR, maxCenR, minC1, maxC1)
   val grid2 = SqGrid(minCenR, maxCenR, minC2, maxC2)
@@ -35,7 +35,7 @@ final class SqGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val max
   override def arrIndex(r: Int, c: Int): Int = ???
 
   /** The grids of this tile grid system. */
-  override def grids: Arr[SqGrid] = ???
+  override def grids: Arr[SqGrid] = Arr(grid1, grid2)
 
   //override val numTiles: Int = grid1.numTiles + grid2.numTiles
   override def top: Double = maxCenR + 1

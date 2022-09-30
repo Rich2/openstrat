@@ -13,11 +13,10 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TCen
 
 
   /** The vertex sequence in [[HVert]] coordinates. This starts with the upper right vertex and proceeds clockwise to the upper vertex. */
-  def verts: SqVerts =
-  {
-    val res: SqVerts = SqCen.vertsOfSq00.map(sv => sv + this)
-    res
-  }
+  def verts: SqVertArr = SqCen.vertsOfSq00.map(sv => sv + this)
+
+  /** The polygon of this tile, specified in [[HVert]] coordinates. */
+  def sqVertPolygon: PolygonSqC = verts.toPolygon
 
   /** Step to adjacent hex tile. Will throw exception on illegal value. */
   def step(st: SqDirn): SqCen = SqCen(r + st.tr, c + st.tc)
@@ -53,7 +52,7 @@ object SqCen
   val s00v3: SqVert = SqVert(-1, -1)
   val s00v4: SqVert = SqVert(1, -1)
 
-  val vertsOfSq00: SqVerts = SqVerts(s00v1, s00v2, s00v3, s00v4)
+  val vertsOfSq00: SqVertArr = SqVertArr(s00v1, s00v2, s00v3, s00v4)
 
   /** Implicit [[ArrBuilder]] type class instance / evidence for [[SqCen]] and [[SqCens]]. */
   implicit val buildEv: Int2ArrBuilder[SqCen, SqCens] = new Int2ArrBuilder[SqCen, SqCens]

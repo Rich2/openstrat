@@ -24,46 +24,25 @@ object SqCoord
   implicit val persistImplicit: Persist[SqCoord] = PersistShowInt2[SqCoord]("SqCoord", "r", "c", SqCoord(_, _))
 }
 
-trait SqCenOrSide extends Any with SqCoord with TCenOrSide
-
-object SqCenOrSide
-{
-  def apply(r: Int, c:Int): SqCenOrSide = r match {
-    case r if r.isEven & c.isEven => new SqCen(r, c)
-    case r if r.isEven => new SqSide(r, c)
-    case r if c.isEven => new SqSide(r, c)
-    case _ => debexc(s"$r, $c is not a valid SqCenOrSide coordinate it is a SqVert Square grid vertex coordinate.")
-  }
+trait SqCoordSeqDef extends Any with Int2SeqDef[SqCoord]
+{ final override def sdElem(int1: Int, int2: Int): SqCoord = SqCoord(int1, int2)
+  final override def fElemStr: SqCoord => String = _.toString
 }
 
-/** A Square tile side square grid [[SqGrid]] coordinate. */
-class SqSide(val r: Int, val c: Int) extends SqCenOrSide with TSide
-{ override def typeStr: String = "Sqside"
+/** Specialised sequence class for [[SqCoord]]. */
+class SqCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCoord] with SqCoordSeqDef
+{ type ThisT = SqCoordArr
+  override def typeStr: String = "SqCoords"
+  override def fromArray(array: Array[Int]): SqCoordArr = new SqCoordArr(array)
 }
 
-object SqSide{
-  def apply(r: Int, c: Int): SqSide = new SqSide(r, c)
+/** Specialised sequence buffer class for [[SqCoord]]. */
+class SqCoordBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[SqCoord]
+{ type ArrT = SqCoordArr
+  override def typeStr: String = "SqCoordBuff"
+  override def intsToT(i1: Int, i2: Int): SqCoord = SqCoord(i1, i2)
 }
 
-/** A Square tile vertex square grid [[SqGrid]] coordinate. */
-class SqVert private(val bLong: Long) extends AnyVal with SqCoord with TCoord
-{ override def typeStr: String = "Sqvert"
-  @inline def r: Int = bLong.>>(32).toInt
-  @inline def c: Int = bLong.toInt
-
-  def + (sqCen: SqCen): SqVert = SqVert(r + sqCen.r, c + sqCen.c)
-}
-
-/** Companion object for [[SqVert]] trait. Contains [[ShowT]] and builder implicit instances. */
-object SqVert
-{ val showTImplicit: ShowT[SqVert] = ShowShowInt2T("Sqvert", "r", "c")
-  def apply(r: Int, c: Int): SqVert = if (r.isOdd & c.isOdd)
-    new SqVert(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
-  else excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
-
-  implicit val sqVertsBuildImplicit: Int2ArrBuilder[SqVert, SqVerts] = new Int2ArrBuilder[SqVert, SqVerts]
-  { type BuffT = SqVertBuff
-    override def fromIntArray(array: Array[Int]): SqVerts = new SqVerts(array)
-    override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)
-  }
+object SqCoordBuff extends Int2BuffCompanion[SqCoord, SqCoordBuff]
+{ override def fromBuffer(buffer: ArrayBuffer[Int]): SqCoordBuff = new SqCoordBuff(buffer)
 }

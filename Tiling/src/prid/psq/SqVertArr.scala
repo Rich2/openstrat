@@ -3,18 +3,18 @@ package ostrat; package prid; package psq
 import collection.mutable.ArrayBuffer
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
-trait SqVertsLike extends Any with Int2SeqDef[SqVert]
+trait SqVertSeqDef extends Any with Int2SeqDef[SqVert]
 { override def sdElem(int1: Int, int2: Int): SqVert = SqVert.apply(int1, int2)
   override def fElemStr: SqVert => String = _.str
   def vertNum: Int = unsafeArray.length / 2
 }
 
 /** An array[Int] based collection for SqVert. */
-class SqVerts(val unsafeArray: Array[Int]) extends AnyVal with SqVertsLike with Int2Arr[SqVert]
-{ type ThisT = SqVerts
-  override def fromArray(array: Array[Int]): SqVerts = new SqVerts(array)
+class SqVertArr(val unsafeArray: Array[Int]) extends AnyVal with SqVertSeqDef with Int2Arr[SqVert]
+{ type ThisT = SqVertArr
+  override def fromArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
   override def typeStr: String = "SqVerts" + foldLeft("")(_ + "; " + _.rcStr)
-
+  def toPolygon: PolygonSqC = new PolygonSqC(unsafeArray)
   //def toPolygon: PolygonSC = new PolygonSC(unsafeArray)
   /*def filter(f: SqVert => Boolean): SqVerts =
   { val tempArr = new Array[Int](array.length)
@@ -46,24 +46,24 @@ class SqVerts(val unsafeArray: Array[Int]) extends AnyVal with SqVertsLike with 
   }*/
 }
 
-object SqVerts extends Int2SeqDefCompanion[SqVert, SqVerts]
-{ def fromArray(array: Array[Int]): SqVerts = new SqVerts(array)
+object SqVertArr extends Int2SeqDefCompanion[SqVert, SqVertArr]
+{ def fromArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
 
-  implicit object PersistImplicit extends PersistArrInt2s[SqVert, SqVerts]("SqVerts")
-  { override def fromArray(value: Array[Int]): SqVerts = new SqVerts(value)
+  implicit object PersistImplicit extends PersistArrInt2s[SqVert, SqVertArr]("SqVerts")
+  { override def fromArray(value: Array[Int]): SqVertArr = new SqVertArr(value)
 
-    override def showDecT(obj: SqVerts, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
+    override def showDecT(obj: SqVertArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: ArrFlatBuilder[SqVerts] = new Int2ArrFlatBuilder[SqVert, SqVerts]
+  implicit val arrArrayImplicit: ArrFlatBuilder[SqVertArr] = new Int2ArrFlatBuilder[SqVert, SqVertArr]
   { type BuffT = SqVertBuff
-    override def fromIntArray(array: Array[Int]): SqVerts = new SqVerts(array)
+    override def fromIntArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)
   }
 }
 
 class SqVertBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[SqVert]
-{ type ArrT = SqVerts
+{ type ArrT = SqVertArr
   override def typeStr: String = "SqVertBuff"
   override def intsToT(i1: Int, i2: Int): SqVert = SqVert(i1, i2)
 }

@@ -3,7 +3,7 @@ package ostrat; package pGrid
 import geom._, scala.collection.mutable.ArrayBuffer
 
 /** A Cood represents a 2 dimensional integer coordinate within a tile grid system. This has current been implemented for Hexs and Squares, while
- *  triangles is the third possible regular tile system. A SqGrid Cood represents either a tile centre, a tile side or a tile vertex. This is the same
+ *  triangles is the third possible regular tile system. A SqGridAlt Cood represents either a tile centre, a tile side or a tile vertex. This is the same
  *  for a Hex Grid except that not all values are legal Cood values on a HexGrid. This system allows river and naval units to move along the tile
  *  sides. The axis are named xi and yi to distinguish them from the x and y of a Vec2. On a Hex grid there is not a simple 1 to 1 mapping between the
  *  Cood components and the Vec2 components. */
