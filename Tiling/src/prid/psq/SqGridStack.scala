@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
+import ostrat.geom.Pt2
 
 class SqGridStack(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rightCenC: Int, val numLevels: Int, val rOffset: Int) extends SqGridMulti
 {
@@ -22,6 +23,8 @@ class SqGridStack(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val 
 
   /** The right most point in the grid where the value of x is maximum. */
   override def right: Double = ???
+
+  override def sqCoordToPt2(sqCoord: SqCoord): Pt2 = ???
 }
 
 object SqGridStack

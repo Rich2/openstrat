@@ -38,4 +38,7 @@ trait SqGridSys extends Any with TGridSys
     foreach(_ => i += 1)
     i
   }
+
+  /** The line segments of the sides defined in [[SqCoord]] vertices. */
+  //def sideLineSegSqCs: LineSegSqCArr = sidesMap(_.lineSegSqC)
 }

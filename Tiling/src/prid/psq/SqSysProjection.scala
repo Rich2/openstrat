@@ -28,6 +28,7 @@ case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysPr
 
   /** The visible hex sides. */
   override def sides: LineSegArr = LineSegArr()
+    //gChild.sideLineSegSqCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(pixCScale)
 
   /** The visible inner hex sides. */
   override def innerSides: LineSegArr = LineSegArr()

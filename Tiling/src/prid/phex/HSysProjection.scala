@@ -26,16 +26,6 @@ trait HSysProjection extends TSysProjection
   /** Produces optional data about the HCoord. for example on a world projection it can give the latitude and longitude. */
   def hCoordOptStr(hc: HCoord): Option[String] = None
 
-  /** Draws visible hex sides. */
-  def sidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = sides.draw(lineWidth, colour)
-
-  /** Draws visible inner hex sides. */
-  def innerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = innerSides.draw(lineWidth, colour)
-
-  /** Draws visible outer hex sides. */
-  def outerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = outerSides.draw(lineWidth, colour)
-
-
   /** Set the perpective, The position of the view. the rotation and the scale. */
   def setView(view: Any): Unit
 }
