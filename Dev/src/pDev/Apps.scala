@@ -25,18 +25,14 @@ object Apps
     ("Y2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
     ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
     ("Y4", (pspace.PlanetsGui(_), "JavaFx Planets")),
-    ("Y6", (pDung.DungeonGui(_, pDung.Dungeon1), "JavaFx Dungeon")),
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
     ("Y9", (p305.BC305Gui(_, p305.Bc1Old), "BC 305")),
     ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
     ("Y11", (pchess.pdraughts.DraughtsGui(_, pchess.pdraughts.DraughtsStart), "Draughts")),
     ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
     ("Y14", (pReactor.ReactorGUI(_), "reactor")),
-
     ("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
-
     ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
-
     ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
   )
