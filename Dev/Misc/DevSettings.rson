@@ -26,6 +26,7 @@ chess = {scen = 1 };
   ("G3", gThree.ThreeLaunch),
   ("Go", pgo.GoLaunch),
   ("Z", pZug.ZugLaunch),
+  ("DG", pDung.DungLaunch),
   ("CV", pCiv.CivLaunch),
   ("CH", pchess.ChessLaunch),
 */
