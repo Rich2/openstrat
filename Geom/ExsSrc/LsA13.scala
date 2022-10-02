@@ -9,7 +9,7 @@ case class LsA13(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A13")
   val ry = 4
   val scale = 85
   val sq = Sqlign(2)
-  val sq2 = Square(0.6, 45.degs)
+  val sq2 = Square(0.6, 45.degsVec)
   val s1 = ijToMap(-rx, rx, 2)(-ry, ry, 2){(x, y) =>
     val col = ife((x/2).isEven & (y/2).isEven | (x/2).isOdd & (y/2).isOdd, Red, Orange)
     sq.slateXY(x, y).fill(col)

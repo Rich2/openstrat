@@ -95,8 +95,8 @@ object Angle {
     def - (operand: Angle): AngleVec = AngleVec.milliSecs(thisAngle.milliSecs - operand.milliSecs)
   }
 
-  val up: Angle = 90.angle
-  val right: Angle = 0.angle
-  val down: Angle = -90.angle
-  val left: Angle = 180.angle
+  val up: Angle = 90.degs
+  val right: Angle = 0.degs
+  val down: Angle = -90.degs
+  val left: Angle = 180.degs
 }

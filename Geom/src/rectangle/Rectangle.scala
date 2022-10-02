@@ -83,7 +83,7 @@ object Rectangle
    * the centre point is the origin. */
   def apply(width: Double, height: Double, rotation: AngleVec, cen: Pt2 = Pt2Z): Rectangle =
   { val rtVec = rotation.toVec(width / 2)
-    val upVec = (rotation + 90.degs).toVec(height / 2)
+    val upVec = (rotation + 90.degsVec).toVec(height / 2)
     vecsCen(rtVec, upVec, cen)
   }
 
@@ -124,7 +124,7 @@ object Rectangle
 
   def fromAxis(centreLine: LineSeg, height: Double): PolygonGen =
   { val hAngle: Angle = centreLine.angle
-    val offset = (hAngle + 90.degs).toVec2(height * 0.5)
+    val offset = (hAngle + 90.degsVec).toVec2(height * 0.5)
     PolygonGen(centreLine.pStart + offset, centreLine.pEnd + offset, centreLine.pEnd - offset, centreLine.pStart - offset)
   }
 

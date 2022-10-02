@@ -30,7 +30,7 @@ case object SqUp extends SqDirnPerp
 { def sr: Int = 1
   def sc: Int = 0
   override def reverse: SqDirn = SqDn
-  override def angle: Angle = 90.angle
+  override def angle: Angle = 90.degs
 }
 
 /** An rightward step / move / addition of one square tile in a square tile grid. Increases the column coordinate by 2 */
@@ -38,7 +38,7 @@ case object SqRt extends SqDirnPerp
 { def sr: Int = 0
   def sc: Int = 1
   override def reverse: SqDirn = SqLt
-  override def angle: Angle = 0.angle
+  override def angle: Angle = 0.degs
 }
 
 /** An downward step / move / addition of one square tile in a square tile grid. */
@@ -46,7 +46,7 @@ case object SqDn extends SqDirnPerp
 { def sr: Int = -1
   def sc: Int = 0
   override def reverse: SqDirn = SqUp
-  override def angle: Angle = -90.angle
+  override def angle: Angle = -90.degs
 }
 
 /** An upward of one square tile in a square tile grid. */
@@ -54,7 +54,7 @@ case object SqLt extends SqDirnPerp
 { def sr: Int = 0
   def sc: Int = -1
   override def reverse: SqDirn = SqRt
-  override def angle: Angle = 180.angle
+  override def angle: Angle = 180.degs
 }
 
 /** A non-diagonal square tile Step can take 4 values. */
@@ -68,7 +68,7 @@ case object SqUR extends SqDirnDiag
 { def tr: Int = 2
   def tc: Int = 2
   override def reverse: SqDirn = SqDR
-  override def angle: Angle = 45.angle
+  override def angle: Angle = 45.degs
 }
 
 /** Down Right square tile step. */
@@ -76,7 +76,7 @@ case object SqDR extends SqDirnDiag
 { def tr: Int = -2
   def tc: Int = 2
   override def reverse: SqDirn = SqUL
-  override def angle: Angle = -45.angle
+  override def angle: Angle = -45.degs
 }
 
 /** Down Left square tile step. */
@@ -84,7 +84,7 @@ case object SqDL extends SqDirnDiag
 { def tr: Int = -2
   def tc: Int = -2
   override def reverse: SqDirn = SqUR
-  override def angle: Angle = -135.angle
+  override def angle: Angle = -135.degs
 }
 
 /** Up Left square tile step. */
@@ -92,7 +92,7 @@ case object SqUL extends SqDirnDiag
 { def tr: Int = 2
   def tc: Int = -2
   override def reverse: SqDirn = SqDR
-  override def angle: Angle = 135.angle
+  override def angle: Angle = 135.degs
 }
 
 case class SqAndStep(r1: Int, c1: Int, step: SqDirn)

@@ -54,19 +54,19 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 
   def goNorth: PolygonCompound = goDirn("\u2191") { delta =>
     val newLat: Double = focus.latDegs + ife(true/* northUp */, delta, -delta)
-    focus = ife(true/* northUp */, focus.addLat(delta.degs), focus.subLat(delta.degs))
+    focus = ife(true/* northUp */, focus.addLat(delta.degsVec), focus.subLat(delta.degsVec))
     // northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
   }
 
   def goSouth: PolygonCompound = goDirn("\u2193") { delta =>
     val newLat: Double = focus.latDegs + ife(true/* northUp */, -delta, delta)
-    focus = ife(true/* northUp */, focus.subLat(delta.degs), focus.addLat(delta.degs))
+    focus = ife(true/* northUp */, focus.subLat(delta.degsVec), focus.addLat(delta.degsVec))
     //northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
   }
 
-  def goEast: PolygonCompound = goDirn("\u2192") { delta => focus = ife(true/* northUp */, focus.addLongVec(delta.degs), focus.subLong(delta.degs)) }
+  def goEast: PolygonCompound = goDirn("\u2192") { delta => focus = ife(true/* northUp */, focus.addLongVec(delta.degsVec), focus.subLong(delta.degsVec)) }
 
-  def goWest: PolygonCompound = goDirn("\u2190") { delta => focus = ife(true/* northUp */, focus.subLong(delta.degs), focus.addLongVec(delta.degs)) }
+  def goWest: PolygonCompound = goDirn("\u2190") { delta => focus = ife(true/* northUp */, focus.subLong(delta.degsVec), focus.addLongVec(delta.degsVec)) }
   override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast)//, focusLeft, focusRight, focusUp, focusDown)
 //  val sides0 = sTerrs.truesMap(_.lineSegHC.map(gridSys.hCoordLL(_)))
 //

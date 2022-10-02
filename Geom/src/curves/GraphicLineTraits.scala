@@ -11,7 +11,7 @@ case class LineSegDraw(curveSeg: LineSeg, width: Double, colour: Colour) extends
   override def rendToCanvas(cp: CanvasPlatform): Unit = cp.lineSegDraw(this)
   def startPt: Pt2 = xStart pp yStart
   def endPt: Pt2 = xEnd pp yEnd
-  def arrow: GraphicElems = Arrow.paint(startPt, endPt, 30.degs, 20, colour, width)
+  def arrow: GraphicElems = Arrow.paint(startPt, endPt, 30.degsVec, 20, colour, width)
 }
 
 object LineSegDraw

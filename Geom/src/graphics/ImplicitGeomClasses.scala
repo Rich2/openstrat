@@ -15,10 +15,15 @@ class IntGeomImplicit(thisInt: Int)
   @inline def vv(y: Double): Vec2 = Vec2(thisInt, y)
 
   /** Converts this Int into an absolute angle of the given degrees from 0 until 360 degrees. */
-  def angle: Angle = Angle(thisInt)
+  def degs: Angle = Angle(thisInt)
 
-  /** Converts this Int into an [[AngleVec]] an angle of rotation for any positive or negative value of Int. */
-  def degs: AngleVec = AngleVec(thisInt)
+  /** Degrees rotation anti clockwise. Converts this Int into an [[AngleVec]] a positive angle of rotation. Can return values greater than 360 degrees
+   *  and less than -360 degrees. */
+  def degsVec: AngleVec = AngleVec(thisInt)
+
+  /** Degrees rotation clockwise. Converts this Int into an [[AngleVec]] a negative angle of rotation. Can return values greater than 360 degrees and
+   *  less than -360 degrees. */
+  def degsClk: AngleVec = AngleVec(-thisInt)
 }
 
 /** Extension methods class for [[Double]], for the geom package. */
@@ -35,10 +40,15 @@ class DoubleImplicitGeom(thisDouble: Double)
   def radians: Angle = Angle.radians(thisDouble)
 
   /** Converts this Double into an absolute angle of the given degrees from 0 until 360 degrees. */
-  def angle: Angle = Angle(thisDouble)
+  def degs: Angle = Angle(thisDouble)
 
-  /** Converts this Double into an [[AngleVec]] an angle of rotation from - infinity to + infinity. */
-  def degs: AngleVec = AngleVec(thisDouble)
+  /** Degrees rotation anti clockwise. Converts this Double into an [[AngleVec]] a positive angle of rotation. Can return values greater than 360
+   *  degrees and less than -360 degrees. */
+  def degsVec: AngleVec = AngleVec(thisDouble)
+
+  /** Degrees rotation clockwise. Converts this Double into an [[AngleVec]] a negative angle of rotation. Can return values greater than 360 degrees
+   * and less than -360 degrees. */
+  def degsClk: AngleVec = AngleVec(-thisDouble)
 
   def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
   def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)

@@ -19,9 +19,9 @@ object Arrow
     val mainLine = LineSeg(startPt, endPt)
     val hl2 = hypLength.min(mainLine.length / 2)
     val ang: Angle = mainLine.angle
-    val leftAng: Angle = ang + 180.degs - headAngle
+    val leftAng: Angle = ang + 180.degsVec - headAngle
     val leftVert: Pt2 = endPt + leftAng.toVec2(hl2)
-    val rightAng: Angle = ang + 180.degs + headAngle
+    val rightAng: Angle = ang + 180.degsVec + headAngle
     val rightVert: Pt2 = endPt + rightAng.toVec2(hl2)
     (leftVert, rightVert)
   }

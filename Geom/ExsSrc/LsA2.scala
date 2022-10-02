@@ -6,9 +6,9 @@ import ostrat._, geom._, pgui._, Colour._
 case class LsA2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A2")
 {
   val sq0 = Sqlign(100).fill(Red)
-  val sq1 = Square(100 / 2.sqrt, 45.degs).fill(Pink)
+  val sq1 = Square(100 / 2.sqrt, 45.degsVec).fill(Pink)
   val sq2 = Sqlign(100, -100, 100).fill(Orange)
-  val sq3 = Square(100, 20.degs, -200, 100).fill(Colour.Sienna)
+  val sq3 = Square(100, 20.degsVec, -200, 100).fill(Colour.Sienna)
   val rg: RectangleFill = Rect(200, 100, 100, 50).fill(Green)
   val rd: RectangleDraw = Rect(200, 100, 100, 160).draw()
   val pr: Polygon = Polygon(100 pp -100, 385 pp -100, 385 pp -200, 100 pp -200)

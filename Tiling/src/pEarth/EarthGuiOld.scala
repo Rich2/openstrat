@@ -36,7 +36,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def latLongToDist3(ll: LatLong): PtM3 = focus.fromFocusMetres(ll)
   def latLongLineToDist3(inp: LineSegLL): LineSegM3 = focus.fromFocusLineDist3(inp)
     
-  def distDelta(mb: MouseButton): AngleVec = (mb(1, 5, 25, 0) * ifInvScale / 7.km).degs
+  def distDelta(mb: MouseButton): AngleVec = (mb(1, 5, 25, 0) * ifInvScale / 7.km).degsVec
   def scaleDelta(mb: MouseButton): Double = mb(1.2, 1.8, 3, 1)  
   def inCmd = (mb: MouseButton) => { scale = (scale / scaleDelta(mb)).max(scaleMin); updateView() }
   def outCmd = (mb: MouseButton) => { scale = (scale * scaleDelta(mb)).min(scaleMax); updateView() }

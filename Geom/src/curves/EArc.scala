@@ -42,7 +42,7 @@ trait EArc extends EllipseBased with CurveSeg
   def counter: Int
 
   def angleDelta: AngleVec = counter match
-  { case 0 => 0.degs
+  { case 0 => 0.degsVec
     case c if c > 0  => startAngle.deltaPosTo(endAngle).addDegs((c - 1) * 360)
     case c => startAngle.deltaNegTo(endAngle).addDegs((c + 1) * 360)
   }

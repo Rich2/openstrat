@@ -12,8 +12,8 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def show2: Double = longDegs
   override def dbl1: Double = latMilliSecs
   override def dbl2: Double = longMilliSecs
-  def latVec: AngleVec = latDegs.degs
-  def longVec: AngleVec = longDegs.degs
+  def latVec: AngleVec = latDegs.degsVec
+  def longVec: AngleVec = longDegs.degsVec
   override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)
   def persistName = "LatLong"
   def persistMems = Seq(latRadians, longRadians)
@@ -68,7 +68,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   /** Subtract the [[AngleVec]] delta parameter from the longitude. */
   def subLong(delta: AngleVec): LatLong = addLongVec(-delta)
 
-  def addLongDegs(degsDelta: Double): LatLong = addLongVec(degsDelta.degs)
+  def addLongDegs(degsDelta: Double): LatLong = addLongVec(degsDelta.degsVec)
   def subLongDegs(degsDelta: Double): LatLong = addLongDegs(-degsDelta)
 
   /** Get the XY point from a focus with latitude 0 */

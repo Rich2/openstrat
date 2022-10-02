@@ -39,14 +39,14 @@ abstract class GlobeGui(title: String) extends CmdBarGui(title)
   }
   def goNorth: PolygonCompound = goDirn("\u2191"){ delta =>
     val newLat: Double = focus.latDegs + ife(northUp, delta , -delta)
-    focus = ife(northUp, focus.addLat(delta.degs), focus.subLat(delta.degs))
+    focus = ife(northUp, focus.addLat(delta.degsVec), focus.subLat(delta.degsVec))
     northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
   }
   def goSouth: PolygonCompound = goDirn("\u2193"){ delta =>
     val newLat: Double = focus.latDegs + ife(northUp, -delta, delta)
-    focus = ife(northUp, focus.subLat(delta.degs), focus.addLat(delta.degs))
+    focus = ife(northUp, focus.subLat(delta.degsVec), focus.addLat(delta.degsVec))
     northUp = ife(newLat > 90 | newLat < -90, !northUp, northUp)
   }
-  def goEast: PolygonCompound = goDirn("\u2192"){ delta => focus = ife(northUp, focus.addLongVec(delta.degs), focus.subLong(delta.degs)) }
-  def goWest: PolygonCompound = goDirn("\u2190"){ delta => focus = ife(northUp, focus.subLong(delta.degs), focus.addLongVec(delta.degs)) }
+  def goEast: PolygonCompound = goDirn("\u2192"){ delta => focus = ife(northUp, focus.addLongVec(delta.degsVec), focus.subLong(delta.degsVec)) }
+  def goWest: PolygonCompound = goDirn("\u2190"){ delta => focus = ife(northUp, focus.subLong(delta.degsVec), focus.addLongVec(delta.degsVec)) }
 }

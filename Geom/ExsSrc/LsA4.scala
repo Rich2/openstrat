@@ -24,7 +24,7 @@ case class LsA4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A4")
   val c3d = c3.draw(Violet)
   val c4 = c3.slateXY(-25, 0).addRotations(-1)
   val c4d = c4.draw(Turquoise)
-  val c4Text = c4.cen.textArrow("C4 Centre", 135.angle, 150, Turquoise)
+  val c4Text = c4.cen.textArrow("C4 Centre", 135.degs, 150, Turquoise)
   val e1St = 400 pp 0
   val e1StArrow = e1St.textArrow("E1 Start, positive or anti clockwise arc", Ang30, 25, Red)
   val e1Cen = 200 pp 0

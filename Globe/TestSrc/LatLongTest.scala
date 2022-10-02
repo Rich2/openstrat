@@ -7,22 +7,22 @@ object LatLongTest extends TestSuite
   val tests = Tests {
     val ll1: LatLong = 44 ll 46
     val ll2 = 43 ll 45
-    val ll3 = ll2.subLong(226.degs)
+    val ll3 = ll2.subLong(226.degsVec)
     
     test("AddLongitude")
     { assert(ll1.latDegs =~ 44)
       assert(ll1.longDegs =~ 46)
-      assert(ll1.addLongVec(4.degs).longDegs =~ 50)
-      assert(ll1.addLongVec(43.degs).longDegs =~ 89)
-      assert(ll1.addLongVec(45.degs).longDegs =~ 91)
-      assert(ll1.addLongVec(133.degs).longDegs =~ 179)
-      assert(ll1.addLongVec(135.degs).longDegs =~ -179)
-      assert(ll1.addLongVec(175.degs).longDegs =~ -139)
+      assert(ll1.addLongVec(4.degsVec).longDegs =~ 50)
+      assert(ll1.addLongVec(43.degsVec).longDegs =~ 89)
+      assert(ll1.addLongVec(45.degsVec).longDegs =~ 91)
+      assert(ll1.addLongVec(133.degsVec).longDegs =~ 179)
+      assert(ll1.addLongVec(135.degsVec).longDegs =~ -179)
+      assert(ll1.addLongVec(175.degsVec).longDegs =~ -139)
 
-      assert(ll2.subLong(40.degs).longDegs =~ 5)
-      assert(ll2.subLong(80.degs).longDegs =~ -35)
-      assert(ll2.subLong(180.degs).longDegs =~ -135)
-      assert(ll2.subLong(224.degs).longDegs =~ -179)
+      assert(ll2.subLong(40.degsVec).longDegs =~ 5)
+      assert(ll2.subLong(80.degsVec).longDegs =~ -35)
+      assert(ll2.subLong(180.degsVec).longDegs =~ -135)
+      assert(ll2.subLong(224.degsVec).longDegs =~ -179)
       assert(ll3.longDegs =~ 179)
     }
 

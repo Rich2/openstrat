@@ -39,7 +39,7 @@ object PhiRectangle
 {
   def apply(height: Double, rotation: AngleVec, cen: Pt2): PhiRectangle =
   { val rtVec = rotation.toVec(height * Phi / 2)
-    val upVec = (rotation + 90.degs).toVec(height / 2)
+    val upVec = (rotation + 90.degsVec).toVec(height / 2)
     val array = Rectangle.unsafeVecsCen(rtVec, upVec, cen)
     new PhiRectangleImp(array)
   }
