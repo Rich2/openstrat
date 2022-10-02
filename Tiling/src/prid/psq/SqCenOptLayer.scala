@@ -18,6 +18,9 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
   def unsafeSetSomes(triples: (Int, Int, A)*)(implicit gSys: SqGridSys): Unit = triples.foreach(t => unsafeArr(gSys.arrIndex(t._1, t._2)) = t._3)
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
+  def setSome(r: Int, c: Int, value: A)(implicit gSys: SqGridSys): SqCenOptLayer[A] = setSome(SqCen(r, c), value)
+
+  /** Creates a new ArrOpt with the specified location set to the specified value. */
   def setSome(sc: SqCen, value: A)(implicit gSys: SqGridSys): SqCenOptLayer[A] =
   { val newArr = unsafeArr.clone()
     newArr(gSys.arrIndex(sc)) = value

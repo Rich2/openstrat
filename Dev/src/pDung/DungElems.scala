@@ -6,13 +6,12 @@ sealed class Faction(val str: String, val colour: Colour) extends ShowSimple
 { override def typeStr: String = "Faction"
 }
 
-object Fac1 extends Faction("Fac1", Orange)
-object Fac2 extends Faction("Fac2", Green)
+object Fact1 extends Faction("Fac1", Orange)
+object Fact2 extends Faction("Fac2", Green)
 
 class Character(val iden: Char, val faction: Faction) extends ShowSimple // with CoodMover
 { override def typeStr = "Character"
   def colour = faction.colour
-  var facing: SqDirn = SqUp
   val str: String = "Character" -- iden.toString
  // def canMove(tile: DTileOld): Boolean = tile.terr != Wall
   def turnMovePts = 10
@@ -20,8 +19,10 @@ class Character(val iden: Char, val faction: Faction) extends ShowSimple // with
   def resetMovePts(): Unit = movePts = turnMovePts
 }
 
-object CharacA extends Character('A', Fac1)
-object CharacB extends Character('B', Fac1)
+object CharacA extends Character('A', Fact1)
+object CharacB extends Character('B', Fact1)
 
-object CharacY extends Character('Y', Fac2)
-object CharacZ extends Character('Z', Fac2)
+object CharacY extends Character('Y', Fact2)
+object CharacZ extends Character('Z', Fact2)
+
+case class CharacState(charac: Character, facing: SqDirn)

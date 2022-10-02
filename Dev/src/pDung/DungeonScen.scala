@@ -2,13 +2,11 @@
 package ostrat; package pDung
 import prid._, psq._
 
-//case class CharacPosn(charac: Character, y: Int, c: Int, facing: SqStep)
-
 trait DungeonScen
 { implicit def grid: SqGrid
   def terrs: SqCenLayer[DungTerr]
-  def characs: SqCenOptLayer[Character]
-  def posn(charac: Character, y: Int, c: Int, face: SqDirn): Unit = ???// characs.mutSetSome(y, c, CharacPosn(charac, y, c, face))
+  def characs: SqCenOptLayer[CharacState]
+  def posn(charac: Character, r: Int, c: Int, face: SqDirn): Unit = characs.setSome(r, c, CharacState(charac, face))
 }
 
 object Dungeon1 extends DungeonScen
@@ -18,9 +16,9 @@ object Dungeon1 extends DungeonScen
   terrs.setTerrPath(6, 4, Open, SqRt * 11, SqUp * 4, SqLt * 5, SqUp * 3, SqRt * 7, SqDn * 7)
   terrs.setRect(18, 24, 16, 36, Open)
 
-  val characs = grid.newSCenOptDGrider[Character]
-//  posn(CharacA, 8, 22, SFaceUp)
-//  posn(CharacB, 24, 18, SFaceRt)
-//  posn(CharacY, 24, 22, SFaceUR)
-//  posn(CharacZ, 12, 18, SFaceLt)
+  val characs = grid.newSCenOptDGrider[CharacState]
+  posn(CharacA, 8, 22, SqUp)
+  posn(CharacB, 24, 18, SqRt)
+  posn(CharacY, 24, 22, SqUR)
+  posn(CharacZ, 12, 18, SqLt)
 }
