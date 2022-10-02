@@ -26,6 +26,8 @@ class SqGridStack(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val 
 
   override def sqCoordToPt2(sqCoord: SqCoord): Pt2 = ???
 
+  override def sqCenExists(r: Int, c: Int): Boolean = ???
+
   override def sideLines: LineSegArr = ???
 }
 

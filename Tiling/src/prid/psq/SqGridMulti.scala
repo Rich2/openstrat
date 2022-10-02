@@ -50,5 +50,7 @@ final class SqGridsAdjPair(val minCenR: Int, val maxCenR: Int, val minC1: Int, v
 
   override def sqCoordToPt2(sqCoord: SqCoord): Pt2 = ???
 
+  override def sqCenExists(r: Int, c: Int): Boolean = ???
+
   override def sideLines: LineSegArr = ???
 }

@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
 /** A Square tile centre square grid [[SqGrid]] coordinate. */
-case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TCen
+case class SqCen(r: Int, c: Int) extends SqCenOrSide with TCen
 { override def typeStr: String = "Sqcen"
 
   def v1: SqVert = SqVert(1, 1)
@@ -11,11 +11,10 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TCen
   def v3: SqVert = SqVert(-1, -1)
   def v4: SqVert = SqVert(-1, -2)
 
-
-  /** The vertex sequence in [[HVert]] coordinates. This starts with the upper right vertex and proceeds clockwise to the upper vertex. */
+  /** The vertex sequence in [[SqVert]] coordinates. This starts with the upper right vertex and proceeds clockwise to the upper vertex. */
   def verts: SqVertArr = SqCen.vertsOfSq00.map(sv => sv + this)
 
-  /** The polygon of this tile, specified in [[HVert]] coordinates. */
+  /** The polygon of this tile, specified in [[SqVert]] coordinates. */
   def sqVertPolygon: PolygonSqC = verts.toPolygon
 
   /** Step to adjacent hex tile. Will throw exception on illegal value. */
@@ -30,9 +29,9 @@ case class SqCen(val r: Int, val c: Int) extends SqCenOrSide with TCen
   def -(operand: SqCen): SqCen = SqCen(r - operand.r, c - operand.c)
 
   /** Step to adjacent hex tile. */
-  def stepOpt(st: SqDirn)(implicit grid: SqGrid): Option[SqCen] = {
+  def stepOpt(st: SqDirn)(implicit gridSys: SqGridSys): Option[SqCen] = {
     val target = SqCen(r + st.tr, c + st.tc)
-    ife(grid.sqCenExists(target), Some(target), None)
+    ife(gridSys.sqCenExists(target), Some(target), None)
   }
 
   /** The polygon of this hex tile if it is part of a regular grid. */

@@ -9,6 +9,8 @@ case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui
   implicit def gSys: SqGridSys = scen.gSys
   val scale: Double = gSys.fullDisplayScale(mainWidth, mainHeight)
   var focus: Vec2 = gSys.cenVec
+  implicit val proj: SqSysProjection = gSys.projection(mainPanel)
+
   val terrs: SqCenLayer[DungTerr] = scen.terrs
   val tiles: GraphicElems = gSys.map{ sc => sc.polygonReg.fillTextActive(terrs(sc).colour, sc, sc.rcStr, 16, terrs(sc).colour.contrast) }
   def sls: LinesDraw = gSys.sidesDraw(Colour.White, 2.0)

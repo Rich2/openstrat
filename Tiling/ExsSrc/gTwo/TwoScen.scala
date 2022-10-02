@@ -12,7 +12,7 @@ trait TwoScen extends SqGridScen
     val playersKey: Map[Player, SqCen] = oPlayers.keyMap
 
     /** A mutable grid of data. The tile data is an Array buffer of [[SqDirn]]s, the SqStep pointing back to the origin [[SqCen]] of the player. */
-    val targets: SqCenBuffLayer[SqDirn] = grid.newSqCenBuffLayer
+    val targets: SqCenBuffLayer[SqDirn] = gSys.newSqCenBuffLayer
     orderList.foreach { (player, step) =>
       val sc1 = playersKey(player)
       val optTarget: Option[SqCen] = sc1.stepOpt(step)
@@ -30,16 +30,16 @@ trait TwoScen extends SqGridScen
       }
     }
 
-    TwoScen(turn + 1, grid, oPlayersNew)
+    TwoScen(turn + 1, gSys, oPlayersNew)
   }
 }
 
 /** Companion object for TwoScen trait, contains factory apply method. */
 object TwoScen
 { /** Apply factory method for TwoScen game. */
-  def apply(turnIn: Int, gridIn: SqGrid, opIn: SqCenOptLayer[Player]): TwoScen = new TwoScen
+  def apply(turnIn: Int, gSysIn: SqGridSys, opIn: SqCenOptLayer[Player]): TwoScen = new TwoScen
   { override val turn = turnIn
-    override implicit val grid: SqGrid = gridIn
+    override implicit val gSys: SqGridSys = gSysIn
     override def oPlayers: SqCenOptLayer[Player] = opIn
   }
 }

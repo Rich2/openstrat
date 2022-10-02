@@ -6,7 +6,7 @@ object ChessBoard extends SqGrid(2, 16, 2, 16)
 
 trait ChessLikeScen extends SqGridScen
 { def turn: Int
-  implicit val grid: ChessBoard.type = ChessBoard
+  implicit val gSys: ChessBoard.type = ChessBoard
   def playerSeg: Player = ife(turn.isOdd, PWhite, PBlack)
 }
 
@@ -19,7 +19,7 @@ object ChessStart extends ChessScen
 {
   val turn = 0
 
-  val pieces: SqCenOptLayer[PPiece] = grid.newSCenOptDGrider[PPiece]
+  val pieces: SqCenOptLayer[PPiece] = gSys.newSCenOptDGrider[PPiece]
   val rp = Arr(Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook)
   rp.iForeach({(i, p) => pieces.unsafeSetSome(2, i * 2 + 2, PPiece(PWhite, p)) })
   iToForeach(2, 16, 2)(c => pieces.unsafeSetSome(4, c, PPiece(PWhite, Pawn)))

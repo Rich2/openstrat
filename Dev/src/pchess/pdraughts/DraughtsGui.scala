@@ -4,7 +4,7 @@ import geom._, pgui._, Colour._, prid._, psq._
 
 case class DraughtsGui(canv: CanvasPlatform, scen: DraughtsScen) extends CmdBarGui("Draughts")
 {
-  implicit def grid: SqGrid = scen.grid
+  implicit def grid: SqGrid = scen.gSys
   statusText = "Welcome to Draughts Gui"
   val darkSquareColour = Brown
   val lightSquareColour = Pink
