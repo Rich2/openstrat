@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import ostrat.geom.Pt2
+import ostrat.geom.{LineSegArr, Pt2}
 
 /** Square grid manager to be used n cojunction with the [[SqGridMulti]] trait. */
 case class SqGridMan(grid: SqGrid, arrIndex: Int)
@@ -49,4 +49,6 @@ final class SqGridsAdjPair(val minCenR: Int, val maxCenR: Int, val minC1: Int, v
   override def right: Double = ???
 
   override def sqCoordToPt2(sqCoord: SqCoord): Pt2 = ???
+
+  override def sideLines: LineSegArr = ???
 }

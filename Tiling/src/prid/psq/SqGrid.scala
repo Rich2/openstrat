@@ -37,13 +37,6 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
 
   @inline def arrIndex(r: Int, c: Int): Int = (r - bottomCenR) / 2 * tileRowLen + (c - leftCenC) / 2
 
-  /** New Square tile centre data Square grid. */
-  final def newSqCenDGrid[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenLayer[A] =
-  { val res: SqCenLayer[A] = SqCenLayer[A](numTiles)
-    res.mutSetAll(value)
-    res
-  }
-
   def rowForeach(r: Int)(f: SqCen => Unit): Unit = iToForeach(leftCenC, rightCenC, 2)(c => f(SqCen(r, c)))
 
   def foreach(f: SqCen => Unit): Unit = foreachRow(rowForeach(_)(f))
@@ -64,11 +57,9 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
 
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
-  def sideLines: LineSegArr = horrSideLines ++ vertSideLines
+  override def sideLines: LineSegArr = horrSideLines ++ vertSideLines
 
-  /** This gives the all tile grid lines in a single colour and line width.
-   *  @group SidesGroup  */
-  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LinesDraw = sideLines.draw(lineWidth, colour)
+
 
   /** Boolean. True if the [[HCen]] hex centre exists in this hex grid. */
   final def sqCenExists(sc: SqCen): Boolean = sqCenExists(sc.r, sc.c)

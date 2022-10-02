@@ -8,7 +8,7 @@ class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
 { override type ThisT = SqCenLayer[A]
   override def typeStr: String = "SqCenDGrid"
   override def fromArray(array: Array[A]): SqCenLayer[A] = new SqCenLayer[A](array)
-  def apply(sc: SqCen)(implicit grid: SqGrid): A = unsafeArray(grid.arrIndex(sc))
+  def apply(sc: SqCen)(implicit gSys: SqGridSys): A = unsafeArray(gSys.arrIndex(sc))
 
   /** Set tile row from the [[SqCen]]. */
   final def setRow(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRow(startCen.r, startCen.c, multiValues: _*)(grid)

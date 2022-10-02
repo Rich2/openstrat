@@ -6,12 +6,12 @@ import pgui._, prid._, psq._, geom._
 case class DungeonGui(canv: CanvasPlatform, scen: DungeonScen) extends CmdBarGui("Dungeon Gui")
 {
   statusText = "Welcome to Dungeon Gui"
-  implicit def grid: SqGrid = scen.grid
-  val scale: Double = grid.fullDisplayScale(mainWidth, mainHeight)
-  var focus: Vec2 = grid.cenVec
+  implicit def gSys: SqGridSys = scen.gSys
+  val scale: Double = gSys.fullDisplayScale(mainWidth, mainHeight)
+  var focus: Vec2 = gSys.cenVec
   val terrs: SqCenLayer[DungTerr] = scen.terrs
-  val tiles: GraphicElems = grid.map{ sc => sc.polygonReg.fillTextActive(terrs(sc).colour, sc, sc.rcStr, 16, terrs(sc).colour.contrast) }
-  def sls: LinesDraw = grid.sidesDraw(Colour.White, 2.0)
+  val tiles: GraphicElems = gSys.map{ sc => sc.polygonReg.fillTextActive(terrs(sc).colour, sc, sc.rcStr, 16, terrs(sc).colour.contrast) }
+  def sls: LinesDraw = gSys.sidesDraw(Colour.White, 2.0)
   def players: Arr[PolygonCompound] = scen.characs.scSomesMap{ (sqc, cs) =>
     val poly1: Polygon = Rect(1.5, 1).insVerts(1, -0.25 pp 0.5, 0 pp 0.8, 0.25 pp 0.5).rotate(cs.facing.angle - Angle.up)
     val poly2: Polygon = poly1.scale( 0.75).slate(sqc.toPt2Reg)

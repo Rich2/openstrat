@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, pgui._, reflect.ClassTag
+import geom._, pgui._, reflect.ClassTag, Colour.Black
 
 /** A system of Square tile grids. Could be a single or multiple grids. */
 trait SqGridSys extends Any with TGridSys
@@ -39,6 +39,20 @@ trait SqGridSys extends Any with TGridSys
     i
   }
 
+  /** New Square tile centre data Square grid. */
+  final def newSqCenDGrid[A <: AnyRef](value: A)(implicit ct: ClassTag[A]): SqCenLayer[A] = {
+    val res: SqCenLayer[A] = SqCenLayer[A](numTiles)
+    res.mutSetAll(value)
+    res
+  }
+
+
+  def sideLines: LineSegArr
+
+  /** This gives the all tile grid lines in a single colour and line width.
+   *
+   * @group SidesGroup */
+  final def sidesDraw(colour: Colour = Black, lineWidth: Double = 2.0): LinesDraw = sideLines.draw(lineWidth, colour)
   /** The line segments of the sides defined in [[SqCoord]] vertices. */
   //def sideLineSegSqCs: LineSegSqCArr = sidesMap(_.lineSegSqC)
 }
