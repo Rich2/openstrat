@@ -84,8 +84,8 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
     if (a != null) f(sc, a)
   }
 
-  /** Maps the Somes of this [[HCenArrOpt]] and the Some values of a second HCenArrOpt. Returns an immutable Array based collection of type ArrC, the
-   *  second type parameter. */
+  /** Maps the Somes of this [[HCenArrOpt]] and the Some values of a second [[SqCenOptLayer]]. Returns an immutable Array based collection of type
+   *  ArrC, the second type parameter. */
   def some2sMap[B <: AnyRef, C, ArrC <: SeqImut[C]](optArrB: SqCenOptLayer[B])(f: (A, B) => C)(implicit gSys: SqGridSys, build: ArrBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 

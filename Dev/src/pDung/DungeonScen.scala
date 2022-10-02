@@ -6,7 +6,7 @@ trait DungeonScen
 { implicit def grid: SqGrid
   def terrs: SqCenLayer[DungTerr]
   def characs: SqCenOptLayer[CharacState]
-  def posn(charac: Character, r: Int, c: Int, face: SqDirn): Unit = characs.setSome(r, c, CharacState(charac, face))
+  def posn(charac: Character, r: Int, c: Int, face: SqDirn): Unit = characs.unsafeSetSome(r, c, CharacState(charac, face))
 }
 
 object Dungeon1 extends DungeonScen
@@ -16,7 +16,7 @@ object Dungeon1 extends DungeonScen
   terrs.setTerrPath(6, 4, Open, SqRt * 11, SqUp * 4, SqLt * 5, SqUp * 3, SqRt * 7, SqDn * 7)
   terrs.setRect(18, 24, 16, 36, Open)
 
-  val characs = grid.newSCenOptDGrider[CharacState]
+  val characs: SqCenOptLayer[CharacState] = grid.newSCenOptDGrider[CharacState]
   posn(CharacA, 8, 22, SqUp)
   posn(CharacB, 24, 18, SqRt)
   posn(CharacY, 24, 22, SqUR)

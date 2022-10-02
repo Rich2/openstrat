@@ -89,4 +89,14 @@ object Angle {
 
   implicit val eqTImplicit: EqT[Angle] = (a1, a2) => a1.milliSecs == a2.milliSecs
   implicit val approxTImplicit: ApproxAngleT[Angle] = (a1, a2, precsion) => a1 =~ (a2, precsion)
+
+  implicit class ExtensionImplicts(thisAngle: Angle)
+  {
+    def - (operand: Angle): AngleVec = AngleVec.milliSecs(thisAngle.milliSecs - operand.milliSecs)
+  }
+
+  val up: Angle = 90.angle
+  val right: Angle = 0.angle
+  val down: Angle = -90.angle
+  val left: Angle = 180.angle
 }
