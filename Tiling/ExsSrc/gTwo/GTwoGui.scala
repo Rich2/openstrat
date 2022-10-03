@@ -63,10 +63,16 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(bTurn %: navButtons)
+  def thisTop(): Unit = reTop(bTurn %: proj.buttons ++ navButtons)
   thisTop()
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
 
   def frame: GraphicElems = actives ++ (lunits +% sidesDraw ++ css).slate(-focus).scale(cPScale) ++ moveGraphics2
+
+  proj.getFrame = () => frame
+  proj.setStatusText = { str =>
+    statusText = str
+    thisTop()
+  }
   repaint()
 }
