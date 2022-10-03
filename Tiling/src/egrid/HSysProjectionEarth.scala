@@ -89,9 +89,9 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 
   override def tileActives: Arr[PolygonActive] = ???
 
-  override def sides: LineSegArr = transLineSegM3Arr(gridSys.sideLineM3s)
-  override def innerSides: LineSegArr = transLineSegM3Arr(gridSys.innerSideLineM3s)
-  override def outerSides: LineSegArr = transLineSegM3Arr(gridSys.outerSideLineM3s)
+  override def sideLines: LineSegArr = transLineSegM3Arr(gridSys.sideLineM3s)
+  override def innerSideLines: LineSegArr = transLineSegM3Arr(gridSys.innerSideLineM3s)
+  override def outerSideLines: LineSegArr = transLineSegM3Arr(gridSys.outerSideLineM3s)
 
   override def transHSides(inp: HSideArr): LineSegArr =
   { val lls: LineSegLLArr = inp.map(_.lineSegHC.map(gridSys.hCoordLL(_)))

@@ -16,7 +16,7 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends SqS
   val scale = gridSys.fullDisplayScale(mainWidth, mainHeight)
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw = gridSys.sidesDraw()
+  val sidesDraw: GraphicElem = ???//gridSys.sidesDraw()
 
   def ballDisps: GraphicElems = ??? //balls.map
     /*players.mapHcenSomes{ (hc, p) => Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc),

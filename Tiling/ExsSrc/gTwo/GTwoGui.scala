@@ -40,7 +40,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   }
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw = gridSys.sidesDraw()
+  val sidesDraw = proj.sidesDraw()// gridSys.sidesLines.Draw()
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: SqCenOptLayer[SqDirn] = gridSys.newSCenOptDGrider[SqDirn]

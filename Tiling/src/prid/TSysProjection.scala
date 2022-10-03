@@ -22,20 +22,20 @@ trait TSysProjection
   def tileActives: Arr[PolygonActive]
 
   /** The visible hex sides. */
-  def sides: LineSegArr
+  def sideLines: LineSegArr
 
   /** The visible inner hex sides. */
-  def innerSides: LineSegArr
+  def innerSideLines: LineSegArr
 
   /** The visible outer hex sides. */
-  def outerSides: LineSegArr
+  def outerSideLines: LineSegArr
 
   /** Draws visible hex sides. */
-  def sidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = sides.draw(lineWidth, colour)
+  def sidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = sideLines.draw(lineWidth, colour)
 
   /** Draws visible inner hex sides. */
-  def innerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = innerSides.draw(lineWidth, colour)
+  def innerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = innerSideLines.draw(lineWidth, colour)
 
   /** Draws visible outer hex sides. */
-  def outerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = outerSides.draw(lineWidth, colour)
+  def outerSidesDraw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = outerSideLines.draw(lineWidth, colour)
 }

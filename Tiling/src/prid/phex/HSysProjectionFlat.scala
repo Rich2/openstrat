@@ -82,9 +82,9 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     new Arr[GraphicElem](buff.toArray)
   }
 
-  override def sides: LineSegArr = gChild.sideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
-  override def innerSides: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
-  override def outerSides: LineSegArr = gChild.outerSideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
+  override def sideLines: LineSegArr = gChild.sideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
+  override def innerSideLines: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
+  override def outerSideLines: LineSegArr = gChild.outerSideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
 
   override def transOptCoord(hc: HCoord): Option[Pt2] = Some(gridSys.flatHCoordToPt2(hc).slate(-focus).scale(pixCScale))
   override def transCoord(hc: HCoord): Pt2 = gridSys.flatHCoordToPt2(hc).slate(-focus).scale(pixCScale)
