@@ -5,6 +5,7 @@ import geom._, pgui._
 trait SqSysProjection extends TSysProjection
 { type GridT <: SqGridSys
   var gChild: SqGridSys
+  def foreach(f: SqCen => Unit): Unit = gChild.foreach(f)
 }
 
 case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
