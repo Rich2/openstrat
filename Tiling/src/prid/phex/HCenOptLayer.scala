@@ -75,7 +75,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
    * for the [[Some]] values. */
-  def projHcMap(proj: HSysProjection)(fNone: => (Pt2, HCen) => GraphicElem)(fSome: (A, Pt2, HCen) => GraphicElem): GraphicElems =
+  def projHcMap(proj: HSysProjection)(fNone: (Pt2, HCen) => GraphicElem)(fSome: (A, Pt2, HCen) => GraphicElem): GraphicElems =
     proj.hCenMap{ (pt, hc) =>
       val a = unsafeArr(proj.gridSys.arrIndex(hc))
       ife(a != null, fSome(a, pt, hc), fNone(pt, hc))
