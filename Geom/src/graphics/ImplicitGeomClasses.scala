@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** Extension methods class for Int, for the geom package. */
+/** Extension methods class for [[Int]], for the geom package. */
 class IntGeomImplicit(thisInt: Int)
 {
   def ° : Angle = Angle(thisInt)
@@ -24,6 +24,9 @@ class IntGeomImplicit(thisInt: Int)
   /** Degrees rotation clockwise. Converts this Int into an [[AngleVec]] a negative angle of rotation. Can return values greater than 360 degrees and
    *  less than -360 degrees. */
   def degsClk: AngleVec = AngleVec(-thisInt)
+
+  /** Multiplication of a 2 dimensional vector by this scalar [[Int]]. */
+  def *(operand: Vec2): Vec2 = new Vec2(thisInt * operand.x, thisInt * operand.y)
 }
 
 /** Extension methods class for [[Double]], for the geom package. */
@@ -50,6 +53,6 @@ class DoubleImplicitGeom(thisDouble: Double)
    * and less than -360 degrees. */
   def degsClk: AngleVec = AngleVec(-thisDouble)
 
-  def * (operand: Pt2): Pt2 = new Pt2(thisDouble * operand.x, thisDouble * operand.y)
+  /** Multiplication of a 2 dimensional vector by this scalar [[Double]]. */
   def * (operand: Vec2): Vec2 = new Vec2(thisDouble * operand.x, thisDouble * operand.y)
 }
