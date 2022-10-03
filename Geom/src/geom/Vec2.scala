@@ -54,9 +54,9 @@ class Vec2(val x: Double, val y: Double) extends Vec2Like with ApproxDbl
   /** Rotates this vector through the given angle around the origin. */
   def rotate(a: AngleVec): Vec2 = a match
   { case Deg0 => this
-    case Deg90 => rotate90
-    case Deg180 => rotate180
-    case Deg270 => rotate270
+    case DegVec90 => rotate90
+    case DegVec180 => rotate180
+    case DegVec270 => rotate270
     case a => Vec2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
   }
 

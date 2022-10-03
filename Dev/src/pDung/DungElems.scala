@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDung
-import geom._, Colour._, prid._, psq._
+import Colour._, prid._, psq._
 
 sealed class Faction(val str: String, val colour: Colour) extends ShowSimple
 { override def typeStr: String = "Faction"

@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** Angle of inclination. Its particularly important not to use this class to represent Latitudes as the Angle class has a normal range 0 <= a < 360
@@ -91,12 +91,19 @@ object Angle {
   implicit val approxTImplicit: ApproxAngleT[Angle] = (a1, a2, precsion) => a1 =~ (a2, precsion)
 
   implicit class ExtensionImplicts(thisAngle: Angle)
-  {
+  { /** Subtracting one angle of iclination from another returns an angle of rotation. */
     def - (operand: Angle): AngleVec = AngleVec.milliSecs(thisAngle.milliSecs - operand.milliSecs)
   }
 
+  /** 90 degrees angle of inclination. */
   val up: Angle = 90.degs
+
+  /** 0 degrees angle of inclination. */
   val right: Angle = 0.degs
+
+  /** 270 degrees angle of inclination. */
   val down: Angle = -90.degs
+
+  /** 180 degrees angle of inclination. */
   val left: Angle = 180.degs
 }

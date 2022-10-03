@@ -176,10 +176,13 @@ package object geom
   val Ang30: Angle = Angle(30)
 
   /** An absolute angle of 45 degrees or Pi/4 radians. */
-  val Ang45: Angle = Angle(60)
+  val Ang45: Angle = Angle(45)
 
   /** An absolute angle of 60 degrees or Pi/3 radians. */
   val Ang60: Angle = Angle(60)
+
+  /** 90 degrees anti-clockwise or + Pi/2 radians */
+  val Ang90: Angle = Angle(90)
 
   /** An absolute angle of 120 degrees or 2 Pi/3 radians. */
   val Ang120: Angle = Angle(120)
@@ -200,50 +203,52 @@ package object geom
   val Ang330: Angle = Angle(330)
 
   /** 15 degrees anti-clockwise or + Pi/12 radians */
-  val Deg15: AngleVec = AngleVec(15)
+  val DegVec15: AngleVec = AngleVec(15)
 
   /** 25 degrees anti-clockwise or +25 degrees. */
-  val Deg25: AngleVec = AngleVec(25)
-
+  val DegVec25: AngleVec = AngleVec(25)
 
   /** 30 degrees anti-clockwise or + Pi/6 radians */
-  val Deg30: AngleVec = AngleVec(30)
+  val DegVec30: AngleVec = AngleVec(30)
+
   /** 36 degrees anti-clockwise or + Pi/5 radians */
-  val Deg36: AngleVec = AngleVec(36)
+  val DegVec36: AngleVec = AngleVec(36)
+
   /** 45 degrees anti-clockwise or + Pi/4 radians */
-  val Deg45: AngleVec = AngleVec(45)
+  val DegVec45: AngleVec = AngleVec(45)
+
   /** 60 degrees anti-clockwise or + Pi/3 radians */
-  val Deg60: AngleVec  = AngleVec(60)
+  val DegVec60: AngleVec  = AngleVec(60)
+
   /** 72 degrees anti-clockwise or + Pi2/5 radians */
-  val Deg72: AngleVec = AngleVec(72)
+  val DegVec72: AngleVec = AngleVec(72)
 
   /** 90 degrees anti-clockwise or + Pi/2 radians */
-  val Deg90: AngleVec = AngleVec(90)
-
-  /** 90 degrees anti-clockwise or + Pi/2 radians */
-  val Ang90: Angle = Angle(90)
+  val DegVec90: AngleVec = AngleVec(90)
 
   /** 120 degrees anti-clockwise or + 2 * Pi/3 radians */
-  val Deg120: AngleVec = AngleVec(120)
+  val DegVec120: AngleVec = AngleVec(120)
+
   /** 135 degrees anti-clockwise or + 3 * Pi/4 radians */
-  val Deg135: AngleVec = AngleVec(135)
+  val DegVec135: AngleVec = AngleVec(135)
+
   /** 150 degrees anti-clockwise or + 5 * Pi/6 radians */
-  val Deg150: AngleVec = AngleVec(150)
+  val DegVec150: AngleVec = AngleVec(150)
 
   /** 180 degrees or Pi radians */
-  val Deg180: AngleVec = AngleVec(180)
+  val DegVec180: AngleVec = AngleVec(180)
 
   /** 210 degrees or Pi radians */
-  val Deg210: AngleVec = AngleVec(210)
+  val DegVec210: AngleVec = AngleVec(210)
 
   /** 240 degrees or Pi radians */
-  val Deg240: AngleVec = AngleVec(240)
+  val DegVec240: AngleVec = AngleVec(240)
 
   /** 270 degrees or Pi radians */
-  val Deg270: AngleVec = AngleVec(270)
+  val DegVec270: AngleVec = AngleVec(270)
 
   /** 300 degrees or Pi radians */
-  val Deg300: AngleVec = AngleVec(300)
+  val DegVec300: AngleVec = AngleVec(300)
 
   def displayRowGraphics(leftPt: Pt2, actives: Arr[GraphicBounded], margin: Double = 10): Arr[GraphicBounded] =
     actives.mapWithAcc(leftPt.x + margin)((x, head) => (head.slateX(x + head.boundingWidth / 2), x + head.boundingWidth + margin))

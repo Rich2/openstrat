@@ -33,10 +33,10 @@ case class LsA12(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A12")
   val h6 = HexReg(220, Deg0, -gap, -270)
   val h6d = hexGraphics(h6, IndianRed)
 
-  val h7 = HexReg(220, Deg45, 0, -270)
+  val h7 = HexReg(220, DegVec45, 0, -270)
   val h7d = hexGraphics(h7, Turquoise)
 
-  val h8 = HexReg(220, Deg90, gap, -270)
+  val h8 = HexReg(220, DegVec90, gap, -270)
   val h8d = hexGraphics(h8, Colour.GoldenRod)
 
   repaint(htv ++ hts +% hd +% c1 +% c2 ++ hc +% h3d ++ h4d ++ h5d ++ h6d ++ h7d ++ h8d)

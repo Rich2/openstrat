@@ -16,6 +16,7 @@ sealed trait SqDirn extends TDirn
   /** Is an UpRight / DownRight / DownLeft / UPLeft step. */
   def isDiag: Boolean
 
+  /** The angle of inclination of this square grid direction. */
   def angle: Angle
 }
 

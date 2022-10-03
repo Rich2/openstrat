@@ -5,9 +5,9 @@ package ostrat; package geom
 trait AxisFree extends GeomElem
 { type ThisT <: AxisFree
   override def rotate(angle: AngleVec): ThisT
-  override def rotate90: ThisT = rotate(Deg90)
-  override def rotate180: ThisT = rotate(Deg180)
-  override def rotate270: ThisT = rotate(Deg270)
+  override def rotate90: ThisT = rotate(DegVec90)
+  override def rotate180: ThisT = rotate(DegVec180)
+  override def rotate270: ThisT = rotate(DegVec270)
   override def reflect(lineLike: LineLike): ThisT
   override def negX: ThisT = reflect(YAxis)
   override def negY: ThisT = reflect(XAxis)

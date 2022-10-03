@@ -105,7 +105,7 @@ object CommonShapesInFlags extends Flag
 
     //hexagram
     Star3().scale(0.15).slate(0.6 pp 0.3).draw(Blue, 1.5),
-    Star3().scale(0.15).rotate(Deg180).slate(0.6 pp 0.3).draw(Blue, 1.5),
+    Star3().scale(0.15).rotate(DegVec180).slate(0.6 pp 0.3).draw(Blue, 1.5),
 
     //crescent
     Circle(0.225, -0.6, -0.3).fill(Red),
@@ -176,9 +176,9 @@ object India extends Flag
     BezierTail(-0.75 pp 0.4867, -0.754 pp 0.4533, -0.754 pp 0.4533), LineTail(-0.75 pp 0.3833),
     LineTail(-0.75 pp 0.3833)).slateXY(0.75, -0.5).fill(Colour(0xFF000080))
     
-    val spokes = iToMap(23){i => spoke.rotate(Deg30/2*i)}
-    val rimNotch = Circle(0.875/75, 0, -17.5/150).rotate(Deg30/4).fill(Colour(0xFF000080))
-    val rimNotches = iToMap(23){i => rimNotch.rotate(Deg30/2*i)}
+    val spokes = iToMap(23){i => spoke.rotate(DegVec30/2*i)}
+    val rimNotch = Circle(0.875/75, 0, -17.5/150).rotate(DegVec30/4).fill(Colour(0xFF000080))
+    val rimNotches = iToMap(23){i => rimNotch.rotate(DegVec30/2*i)}
     val outerCircle = Circle(20.0/75).fill(Colour(0xFF000080))
     val middleCircle = Circle(17.5/75).fill(Colour(0xFFFFFFFF))
     val innerCircle = Circle(3.5/75).fill(Colour(0xFF000080))

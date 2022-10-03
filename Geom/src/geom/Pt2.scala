@@ -153,9 +153,9 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
   /** Rotates this vector through the given angle around the origin. */
   def rotate(a: AngleVec): Pt2 = a match
   { case Deg0 => this
-    case Deg90 => rotate90
-    case Deg180 => rotate180
-    case Deg270 => rotate270
+    case DegVec90 => rotate90
+    case DegVec180 => rotate180
+    case DegVec270 => rotate270
     case a => Pt2(x * a.cos - y * a.sin, x * a.sin + y * a.cos)
   }
 
@@ -171,9 +171,9 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like
     val rel: Vec2 = this << centre
     val rel2: Vec2 = a match {
       case Deg0 => rel
-      case Deg90 => rel.rotate90
-      case Deg180 => rel.rotate180
-      case Deg270 => rel.rotate270
+      case DegVec90 => rel.rotate90
+      case DegVec180 => rel.rotate180
+      case DegVec270 => rel.rotate270
       case a => Vec2(rel.x * a.cos - rel.y * a.sin, rel.x * a.sin + rel.y * a.cos)
     }
     centre + rel2
