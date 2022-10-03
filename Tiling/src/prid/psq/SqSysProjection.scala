@@ -29,7 +29,7 @@ case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysPr
     gChild.map(hc => hc.sqVertPolygon.map(gridSys.sqCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
 
   /** The visible hex sides. */
-  override def sides: LineSegArr = LineSegArr()
+  override def sides: LineSegArr = gChild.sideLines.slate(-focus).scale(pixCScale)//LineSegArr()
     //gChild.sideLineSegSqCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(pixCScale)
 
   /** The visible inner hex sides. */
