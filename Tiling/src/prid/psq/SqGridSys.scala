@@ -9,7 +9,12 @@ trait SqGridSys extends Any with TGridSys
   def arrIndex(sc: SqCen): Int
   def arrIndex(r: Int, c: Int): Int
 
-  def sqCoordToPt2(sqCoord: SqCoord): Pt2
+  /** Gives a flat projection of [[SqCoord]]s to [[Pt2]]s. For a simple singular [[SqGrid]] system this is all that is required to translate between
+   * grid coordinates and standard 2 dimensional space. For multi grids it provides a simple way to display all the tiles in the grid system, but a
+   * more complex projection may be required for fully meaningful display representation. For Example world grid systems and multi layer square tile
+   * games will require their own specialist projections. */
+  def flatSqCoordToPt2(sqCoord: SqCoord): Pt2
+
   def foreach(f: SqCen => Unit): Unit
 
   /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,

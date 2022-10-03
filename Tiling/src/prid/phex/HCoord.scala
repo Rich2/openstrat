@@ -36,7 +36,7 @@ trait HCoord extends Any with TCoord with Ordered[HCoord]
   def view(pxScale: Double = 50): HGView = HGView(r, c, pxScale)
 
   /** Uses the implicit [[HGridSysFlat]] to convert to [[Pt2]]. */
-  def toPt2(implicit grider: HGridSys): Pt2 = grider.hCoordToPt2(this)
+  def toPt2(implicit grider: HGridSys): Pt2 = grider.flatHCoordToPt2(this)
 
   def isCen: Boolean = (r.div4Rem0 & c.div4Rem0) | (r.div4Rem2 & c.div4Rem2)
 }

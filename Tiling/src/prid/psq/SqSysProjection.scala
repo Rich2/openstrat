@@ -23,10 +23,10 @@ case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysPr
 
   def setGChild: Unit = gChild = getGChild
 
-  override def tiles: PolygonArr = gChild.map(_.sqVertPolygon.map(gridSys.sqCoordToPt2(_)).slate(-focus).scale(pixCScale))
+  override def tiles: PolygonArr = gChild.map(_.sqVertPolygon.map(gridSys.flatSqCoordToPt2(_)).slate(-focus).scale(pixCScale))
 
   override def tileActives: Arr[PolygonActive] =
-    gChild.map(hc => hc.sqVertPolygon.map(gridSys.sqCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
+    gChild.map(hc => hc.sqVertPolygon.map(gridSys.flatSqCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
 
   /** The visible hex sides. */
   override def sides: LineSegArr = gChild.sideLines.slate(-focus).scale(pixCScale)//LineSegArr()

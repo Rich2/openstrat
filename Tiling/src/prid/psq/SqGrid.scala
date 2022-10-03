@@ -14,7 +14,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   /** The number of tiles in each tile row. */
   def tileRowLen: Int = (rightCenC - leftCenC + 2).max0 / 2
 
-  override def sqCoordToPt2(sqCoord: SqCoord): Pt2 = Pt2(sqCoord.c, sqCoord.r)
+  override def flatSqCoordToPt2(sqCoord: SqCoord): Pt2 = Pt2(sqCoord.c, sqCoord.r)
 
   final override def rightSideC: Int = rightCenC + 1
   final override def leftSideC: Int = leftCenC - 1

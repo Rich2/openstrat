@@ -71,10 +71,10 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     }
   }
 
-  override def tiles: PolygonArr = gChild.map(_.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(pixCScale))
+  override def tiles: PolygonArr = gChild.map(_.hVertPolygon.map(gridSys.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale))
 
   override def tileActives: Arr[PolygonActive] =
-    gChild.map(hc => hc.hVertPolygon.map(gridSys.hCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
+    gChild.map(hc => hc.hVertPolygon.map(gridSys.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
 
   override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = {
     val buff = new ArrayBuffer[GraphicElem]
@@ -82,12 +82,12 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     new Arr[GraphicElem](buff.toArray)
   }
 
-  override def sides: LineSegArr = gChild.sideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(pixCScale)
-  override def innerSides: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(pixCScale)
-  override def outerSides: LineSegArr = gChild.outerSideLineSegHCs.map(_.map(gridSys.hCoordToPt2(_))).slate(-focus).scale(pixCScale)
+  override def sides: LineSegArr = gChild.sideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
+  override def innerSides: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
+  override def outerSides: LineSegArr = gChild.outerSideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
 
-  override def transOptCoord(hc: HCoord): Option[Pt2] = Some(gridSys.hCoordToPt2(hc).slate(-focus).scale(pixCScale))
-  override def transCoord(hc: HCoord): Pt2 = gridSys.hCoordToPt2(hc).slate(-focus).scale(pixCScale)
+  override def transOptCoord(hc: HCoord): Option[Pt2] = Some(gridSys.flatHCoordToPt2(hc).slate(-focus).scale(pixCScale))
+  override def transCoord(hc: HCoord): Pt2 = gridSys.flatHCoordToPt2(hc).slate(-focus).scale(pixCScale)
 
   override def transTile(hc: HCen): Option[Polygon] = Some(hc.polygonReg)
 

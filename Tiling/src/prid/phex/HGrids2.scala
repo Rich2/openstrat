@@ -110,9 +110,9 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   override def left: Double = grid1.left
   override def right: Double = grid1.right + grid2.width - 2
 
-  override def hCoordToPt2(hCoord: HCoord): Pt2 = hCoord.c match
-  { case c if c >= (grid1.leftCenC - 2) & c <= (grid1.rightCenC + 4) => grid1.hCoordToPt2(hCoord)
-    case c if c >= (grid2.leftCenC - 4) & c <= (grid2.rightCenC + 2) => grid2.hCoordToPt2(hCoord) + grid2Offset
+  override def flatHCoordToPt2(hCoord: HCoord): Pt2 = hCoord.c match
+  { case c if c >= (grid1.leftCenC - 2) & c <= (grid1.rightCenC + 4) => grid1.flatHCoordToPt2(hCoord)
+    case c if c >= (grid2.leftCenC - 4) & c <= (grid2.rightCenC + 2) => grid2.flatHCoordToPt2(hCoord) + grid2Offset
     case c => excep(c.toString + " out of range in hCoordToPt2")
   }
 

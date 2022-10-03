@@ -33,7 +33,7 @@ trait HGrid extends Any with TGrid with HGridSys
 
   override def defaultView(pxScale: Double = 50): HGView = coordCen.view(pxScale)
 
-  override def hCoordToPt2(hCoord: HCoord): Pt2 = hCoord.toPt2Reg
+  override def flatHCoordToPt2(hCoord: HCoord): Pt2 = hCoord.toPt2Reg
 
   /** The centre of the hex grid along the Y axis after the yRatio has been applied to the r row value. */
   final override def yCen: Double = rCen * yRatio

@@ -48,7 +48,7 @@ final class SqGridsAdjPair(val minCenR: Int, val maxCenR: Int, val minC1: Int, v
   /** The right most point in the grid where the value of x is maximum. */
   override def right: Double = ???
 
-  override def sqCoordToPt2(sqCoord: SqCoord): Pt2 = ???
+  override def flatSqCoordToPt2(sqCoord: SqCoord): Pt2 = ???
 
   override def sqCenExists(r: Int, c: Int): Boolean = ???
 
