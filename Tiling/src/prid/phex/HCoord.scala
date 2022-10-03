@@ -92,7 +92,7 @@ class HCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCoord]
 }
 
 /** Specialised sequence buffer class for [[HCoord]]. */
-class HCoordBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[HCoord]
+class HCoordBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[HCoord]
 { type ArrT = HCoordArr
   override def typeStr: String = "HCoordBuff"
   override def intsToT(i1: Int, i2: Int): HCoord = HCoord(i1, i2)

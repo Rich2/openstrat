@@ -122,7 +122,7 @@ object HCenArr extends Int2SeqDefCompanion[HCen, HCenArr]
   }
 }
 
-class HCenBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[HCen]
+class HCenBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[HCen]
 { type ArrT = HCenArr
   override def typeStr: String = "HCenBuff"
   override def intsToT(i1: Int, i2: Int): HCen = HCen(i1, i2)

@@ -120,18 +120,18 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Drops the None values mapping the [[Some]]'s value with the [[HCen]] to an option value, collecting the values of the [[Some]]s returned by the
    *  function. Returns a [[Seqimut]] of length 0 to the length of this [[HCenOptLayer]]. */
-  def projSomeHCMap[B, ArrB <: SeqImut[B]](f: (A, HCen) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
-    projSomeHCMap(proj)(f)(build)
+  def projSomeHCMap(f: (A, HCen) => GraphicElem)(implicit proj: HSysProjection): GraphicElems = projSomeHCMap(proj)(f)
 
-  def projSomeHCMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: (A, HCen) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
-    val buff = build.newBuff()
+  def projSomeHCMap(proj: HSysProjection)(f: (A, HCen) => GraphicElem): GraphicElems =
+  {
+    val buff = BuffGraphic()
     proj.gChild.foreach { hc =>
       val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
       if (a != null) {
-        build.buffGrow(buff, f(a, hc))
+        buff.append(f(a, hc))
       }
     }
-    build.buffToBB(buff)
+    buff.toArr
   }
 
   def projSomeHCPtMap[B, ArrB <: SeqImut[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =

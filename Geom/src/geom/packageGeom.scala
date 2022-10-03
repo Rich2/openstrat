@@ -16,6 +16,9 @@ package object geom
   /** A [[Vec2]] along the Y Axis, whose X component = 0. */
   def yVec2(y: Double): Vec2 = Vec2(0, y)
 
+  /** Constructs a new [[ArrayBuffer]] of [[GraphicElem]]. */
+  @inline def BuffGraphic(initialLength: Int = 5): ArrayBuffer[GraphicElem] = new ArrayBuffer[GraphicElem](initialLength)
+
   implicit def dataGenExtension[A](value: SeqDefGen[A]): DataGenExtensions[A] = new DataGenExtensions[A](value)
 
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)

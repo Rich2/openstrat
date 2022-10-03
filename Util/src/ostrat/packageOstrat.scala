@@ -131,9 +131,14 @@ package object ostrat
 
   @inline def Buffer[A](inp: A*): ArrayBuffer[A] = ArrayBuffer[A](inp :_*)
 
+  /** Constructs a new [[ArrayBuffer]][A]. */
+  @inline def Buff[A <: AnyRef](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
 
-  @inline def Buff[A](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
-  @inline def buffInt(initialLength: Int = 5): ArrayBuffer[Int] = new ArrayBuffer[Int](initialLength)
+  /** Constructs a new [[ArrayBuffer]][Int]. */
+  @inline def BuffInt(initialLength: Int = 5): ArrayBuffer[Int] = new ArrayBuffer[Int](initialLength)
+
+  /** Constructs a new [[ArrayBuffer]][Long]. */
+  @inline def BuffLong(initialLength: Int = 5): ArrayBuffer[Long] = new ArrayBuffer[Long](initialLength)
 
   type RefTag[A] = AnyRef with reflect.ClassTag[A]
 
@@ -479,7 +484,9 @@ package object ostrat
 
   /** Needs Changing. */
   implicit class RefBufferExtensions[A <: AnyRef](thisBuff: ArrayBuffer[A])
-  { @inline def toArr(implicit ct: ClassTag[A]): Arr[A] = new Arr[A](thisBuff.toArray[A])
+  { /** Converts this ArrayBuffer straight to an [[Arr]]. */
+    @inline def toArr(implicit ct: ClassTag[A]): Arr[A] = new Arr[A](thisBuff.toArray[A])
+
     def goodRefs(implicit ct: ClassTag[A]): Good[Arr[A]] = Good(new Arr(thisBuff.toArray))
 
     def toReverseRefs(implicit ct: ClassTag[A]): Arr[A] =

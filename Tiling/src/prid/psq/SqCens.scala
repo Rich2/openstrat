@@ -30,7 +30,7 @@ object SqCens extends Int2SeqDefCompanion[SqCen, SqCens]
   //implicit val arrArrayImplicit: ArrTFlatBuilder[SqCens] = SqCen.hCensBuildImplicit
 }
 
-class SqCenBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[SqCen]
+class SqCenBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[SqCen]
 { type ArrT = SqCens
   override def typeStr: String = "SqCenBuff"
   override def intsToT(i1: Int, i2: Int): SqCen = SqCen(i1, i2)

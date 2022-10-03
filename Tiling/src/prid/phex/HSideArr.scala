@@ -33,7 +33,7 @@ object HSideArr extends Int2SeqDefCompanion[HSide, HSideArr]
   }
 }
 
-class HSideBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[HSide]
+class HSideBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[HSide]
 { type ArrT = HSideArr
   override def typeStr: String = "HSideBuff"
   override def intsToT(i1: Int, i2: Int): HSide = HSide(i1, i2)

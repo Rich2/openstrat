@@ -104,7 +104,7 @@ trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
 trait IntNSeqDefPersist[A <: ElemIntN, M <: IntNSeqDef[A]] extends ValueNSeqDefPersist[A, M]
 { type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Int] = Buff[Int](0)
+  override def newBuffer: ArrayBuffer[Int] = BuffInt(0)
 }
 
 /** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[ElemIntN]] type of the of the

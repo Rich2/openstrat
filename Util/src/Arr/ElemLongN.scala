@@ -30,7 +30,7 @@ trait LongNBuff[A <: ElemLongN] extends Any with ValueNBuff[A]
 trait LongNSeqDefPersist[B <: ElemLongN, ArrB <: LongNArr[B]] extends ValueNSeqDefPersist[B, ArrB]
 { type VT = Long
   override def fromBuffer(buf: ArrayBuffer[Long]): ArrB = fromArray(buf.toArray)
-  override def newBuffer: ArrayBuffer[Long] = Buff[Long](0)
+  override def newBuffer: ArrayBuffer[Long] = BuffLong(0)
 }
 
 /** Helper trait for Companion objects of [[LongNArr]] classes. */

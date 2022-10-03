@@ -97,7 +97,7 @@ object HVertArr extends Int2SeqDefCompanion[HVert, HVertArr]
   }
 }
 
-class HVertBuff(val unsafeBuffer: ArrayBuffer[Int] = buffInt()) extends AnyVal with Int2Buff[HVert]
+class HVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[HVert]
 { type ArrT = HVertArr
   override def typeStr: String = "HVertBuff"
   override def intsToT(i1: Int, i2: Int): HVert = HVert(i1, i2)
