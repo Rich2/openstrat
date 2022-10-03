@@ -134,18 +134,18 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     buff.toArr
   }
 
-  def projSomeHCPtMap[B, ArrB <: SeqImut[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
-    projSomeHCPtMap(proj)(f)(build)
+  def projSomeHCPtMap(f: (A, HCen, Pt2) => GraphicElem)(implicit proj: HSysProjection): GraphicElems = projSomeHCPtMap(proj)(f)
 
-  def projSomeHCPtMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
-    val buff = build.newBuff()
+  def projSomeHCPtMap(proj: HSysProjection)(f: (A, HCen, Pt2) => GraphicElem): GraphicElems = {
+    val buff = BuffGraphic()
     proj.gChild.foreach { hc =>
       val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
       if (a != null) {
-        build.buffGrow(buff, f(a, hc, proj.transCoord(hc)))
+        val res = f(a, hc, proj.transCoord(hc))
+        buff.append(res)
       }
     }
-    build.buffToBB(buff)
+    buff.toArr
   }
 
   /** Uses this and a second [[HCenOptLayer]] of type B. Drops all values where either or both [[HCenOptLayer]] have [[None]] values. Maps the

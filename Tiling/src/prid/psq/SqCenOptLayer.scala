@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, collection.mutable.ArrayBuffer
+import geom._
 
 /** A [[SqGridSys]] square gird system of immutable optional [[SqCen]] tile data for a specific square tile grid [[SqGrid]]. This is specialised for
  *  OptRef[A]. The tileGrid can map the [[SqCen]] coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[SqGrid]]
@@ -90,7 +90,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
   /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
    * an immutable Array based collection of type ArrT, the second type parameter. */
   /*def projNoneScMap[B, ArrT <: SeqImut[B]](proj: SqSysProjection)(f: SqCen => B): GraphicElems = {
-    val buff = new ArrayBuffer[GraphicElem](4)// build.newBuff()
+    val buff = BuffGraphic()// build.newBuff()
     proj.foreach { r =>
       val a: A = unsafeArr(gridSys.arrIndex(r))
       if (a == null) {
@@ -98,7 +98,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToBB(buff)
+    buff.toArr
   }*/
 
   /** Moves the object in the array location given by HCen1 to HCen2, by setting H2 to the value of h1 and setting H1 to null. */
