@@ -27,7 +27,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.projNoneHCPtMap{ (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
+  def hexStrs: Arr[TextGraphic] = players.projNoneHcPtMap{ (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   def tiles: Arr[PolygonActive] = proj.tileActives

@@ -63,10 +63,10 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
 
   def projSomeSqCMap[B, ArrB <: SeqImut[B]](proj: SqSysProjection)(f: (A, SqCen) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff()
-    proj.gChild.foreach { hc =>
-      val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
+    proj.gChild.foreach { sc =>
+      val a: A = unsafeArr(proj.gridSys.arrIndex(sc))
       if (a != null) {
-        build.buffGrow(buff, f(a, hc))
+        build.buffGrow(buff, f(a, sc))
       }
     }
     build.buffToBB(buff)
@@ -89,17 +89,21 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
 
   /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
    * an immutable Array based collection of type ArrT, the second type parameter. */
-  /*def projNoneScMap[B, ArrT <: SeqImut[B]](proj: SqSysProjection)(f: SqCen => B): GraphicElems = {
-    val buff = BuffGraphic()// build.newBuff()
+  def projNoneScMap(f: SqCen => GraphicElem)(implicit proj: SqSysProjection): GraphicElems = projNoneScMap(proj)(f)
+
+  /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
+   * an immutable Array based collection of type ArrT, the second type parameter. */
+  def projNoneScMap(proj: SqSysProjection)(f: SqCen => GraphicElem): GraphicElems =
+  { val buff = BuffGraphic()
     proj.foreach { r =>
-      val a: A = unsafeArr(gridSys.arrIndex(r))
+      val a: A = unsafeArr(proj.gridSys.arrIndex(r))
       if (a == null) {
         val newVal = f(r)
-        build.buffGrow(buff, newVal)
+        buff.append(newVal)
       }
     }
     buff.toArr
-  }*/
+  }
 
   /** Moves the object in the array location given by HCen1 to HCen2, by setting H2 to the value of h1 and setting H1 to null. */
   def mutMove(s1: SqCen, s2: SqCen)(implicit gridSys: SqGridSys): Unit =

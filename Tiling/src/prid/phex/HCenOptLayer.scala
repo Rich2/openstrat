@@ -214,10 +214,10 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
-  def projNoneHCPtMap[B, ArrB <: SeqImut[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
-    projNoneHCPtMap(proj)(f)
+  def projNoneHcPtMap[B, ArrB <: SeqImut[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
+    projNoneHcPtMap(proj)(f)
 
-  def projNoneHCPtMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+  def projNoneHcPtMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff()
 
     proj.gChild.foreach { hc =>
