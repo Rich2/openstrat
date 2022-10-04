@@ -2,9 +2,8 @@
 package ostrat; package prid; package psq
 import geom._
 
-/** A [[SqGridSys]] square gird system of immutable optional [[SqCen]] tile data for a specific square tile grid [[SqGrid]]. This is specialised for
- *  OptRef[A]. The tileGrid can map the [[SqCen]] coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[SqGrid]]
- *  square grid parameter. */
+/** A layer of immutable optional [[SqCen]] data for a [[SqGridSys]] square grid system, This is specialised for OptRef[A]. The tileGrid can map the
+ *  [[SqCen]] coordinate of the tile to the index of the Arr. Hence most methods take an implicit [[SqGridSys]] square grid system parameter. */
 class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCenOptDGrid[A]
 {
   def clone: SqCenOptLayer[A] = new SqCenOptLayer[A](unsafeArr.clone)
@@ -89,20 +88,20 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
 
   /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
    * an immutable Array based collection of type ArrT, the second type parameter. */
-  def projNoneScMap(f: SqCen => GraphicElem)(implicit proj: SqSysProjection): GraphicElems = projNoneScMap(proj)(f)
+  def projNoneScPtMap[B, ArrB <: SeqImut[B]](f: SqCen => B)(implicit proj: SqSysProjection, build: ArrBuilder[B, ArrB]): ArrB = projNoneScPtMap(proj)(f)
 
   /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
    * an immutable Array based collection of type ArrT, the second type parameter. */
-  def projNoneScMap(proj: SqSysProjection)(f: SqCen => GraphicElem): GraphicElems =
-  { val buff = BuffGraphic()
+  def projNoneScPtMap[B, ArrB <: SeqImut[B]](proj: SqSysProjection)(f: SqCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
     proj.foreach { r =>
       val a: A = unsafeArr(proj.gridSys.arrIndex(r))
       if (a == null) {
         val newVal = f(r)
-        buff.append(newVal)
+        build.buffGrow(buff, newVal)
       }
     }
-    buff.toArr
+    build.buffToBB(buff)
   }
 
   /** Moves the object in the array location given by HCen1 to HCen2, by setting H2 to the value of h1 and setting H1 to null. */

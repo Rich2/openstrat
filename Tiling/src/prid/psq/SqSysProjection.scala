@@ -6,6 +6,9 @@ trait SqSysProjection extends TSysProjection
 { type GridT <: SqGridSys
   var gChild: SqGridSys
   def foreach(f: SqCen => Unit): Unit = gChild.foreach(f)
+
+  /** only use for projection's known [[SqCoord]]s. */
+  def transCoord(sc: SqCoord): Pt2
 }
 
 case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
@@ -18,10 +21,9 @@ case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysPr
   override def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ???
 
   var gChild: SqGridSys = getGChild
-
   def getGChild: SqGridSys = gridSys
-
   def setGChild: Unit = gChild = getGChild
+  override def transCoord(sc: SqCoord): Pt2 = (gridSys.flatSqCoordToPt2(sc) - focus).scale(pixCScale)
 
   override def tiles: PolygonArr = gChild.map(_.sqVertPolygon.map(gridSys.flatSqCoordToPt2(_)).slate(-focus).scale(pixCScale))
 
