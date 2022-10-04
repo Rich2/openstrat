@@ -63,6 +63,9 @@ trait SqGridSys extends Any with TGridSys
 
   def sideLines: LineSegArr
 
+  /** The line segments of the sides defined in [[SqCoord]] vertices. */
+  //def sideLineSegSqCs: LineSegSqCArr = sidesMap(_.lineSegSqC)
+
   /** This gives the all tile grid lines in a single colour and line width.
    *
    * @group SidesGroup */
