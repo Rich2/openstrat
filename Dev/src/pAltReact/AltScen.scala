@@ -7,6 +7,9 @@ object PlayerA extends Player("A", Red)
 object PlayerB extends Player("B", Violet)
 
 case class Balls(player: Player, num: Int)
+{
+  def colour: Colour = player.colour
+}
 
 case class AltScen(turn: Int, grid: SqGrid, balls: SqCenOptLayer[Balls])
 {

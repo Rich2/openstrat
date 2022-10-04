@@ -10,17 +10,15 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends SqS
   implicit def gridSys: SqGrid = scen.grid
   focus = gridSys.cenVec
   cPScale = 32
-  def balls = scen.balls
+  def balls: SqCenOptLayer[Balls] = scen.balls
 
   /** The number of pixels / 2 displayed per row height. */
   val scale = gridSys.fullDisplayScale(mainWidth, mainHeight)
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw: GraphicElem = ???//gridSys.sidesDraw()
+  val sidesDraw: GraphicElem = gridSys.sidesDraw()
 
-  def ballDisps: GraphicElems = ??? //balls.map
-    /*players.mapHcenSomes{ (hc, p) => Rect(0.9, 0.6, hc.toPt2).fillDrawTextActive(p.colour, HPlayer(p, hc),
-    p.toString + "\n" + hc.rcStr, 24, 2.0) }*/
+  def ballDisps: GraphicElems = balls.scSomesMap{ (sc, bs) => TextGraphic(bs.num.toString, 18, sc.toPt2Reg, bs.colour) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn = simpleButton("Turn " + (scen.turn + 1).toString){
@@ -34,7 +32,7 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends SqS
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(Arr(bTurn))
   thisTop()
-  def frame: GraphicElems = Arr(sidesDraw).slate(-focus).scale(cPScale)// ++ moveGraphics2
+  def frame: GraphicElems = (ballDisps +% sidesDraw).slate(-focus).scale(cPScale)// ++ moveGraphics2
   //(tiles +- sidesDraw ++ roardTexts ++ lunits ).gridScale(scale)
   repaint()
 }
