@@ -19,7 +19,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
     Rect(1.2, 0.8, sc.toPt2Reg).fillDrawTextActive(p.colour, SPlayer(p, sc), str, 24, 2.0)  }
 
   /** Not sure why this is called css. */
-  def css = players.projNoneScPtMap(sc => TextGraphic(sc.rcStr, 20, sc.toPt2Reg))
+  def css: Arr[TextGraphic] = players.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */

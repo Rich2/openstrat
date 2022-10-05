@@ -88,16 +88,16 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
 
   /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
    * an immutable Array based collection of type ArrT, the second type parameter. */
-  def projNoneScPtMap[B, ArrB <: SeqImut[B]](f: SqCen => B)(implicit proj: SqSysProjection, build: ArrBuilder[B, ArrB]): ArrB = projNoneScPtMap(proj)(f)
+  def projNoneScPtMap[B, ArrB <: SeqImut[B]](f: (SqCen, Pt2) => B)(implicit proj: SqSysProjection, build: ArrBuilder[B, ArrB]): ArrB = projNoneScPtMap(proj)(f)
 
   /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
    * an immutable Array based collection of type ArrT, the second type parameter. */
-  def projNoneScPtMap[B, ArrB <: SeqImut[B]](proj: SqSysProjection)(f: SqCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  def projNoneScPtMap[B, ArrB <: SeqImut[B]](proj: SqSysProjection)(f: (SqCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
-    proj.foreach { r =>
-      val a: A = unsafeArr(proj.gridSys.arrIndex(r))
+    proj.foreach { sc =>
+      val a: A = unsafeArr(proj.gridSys.arrIndex(sc))
       if (a == null) {
-        val newVal = f(r)
+        val newVal = f(sc, proj.transCoord(sc))
         build.buffGrow(buff, newVal)
       }
     }
@@ -110,9 +110,9 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
     unsafeArr(gridSys.arrIndex(s1)) = null.asInstanceOf[A]
   }
 
-  /** coordinate-foreach-Some. Foreach Some element and its associated [[HCen]] coordinate applies the side effecting parameter function. It ignores
+  /** coordinate-foreach-Some. Foreach Some element and its associated [[SqCen]] coordinate applies the side effecting parameter function. It ignores
    *  the None values. */
-  def scSomesForeach(f: (SqCen, A) => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach { sc =>
+  def someScForeach(f: (SqCen, A) => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach { sc =>
     val a = unsafeArr(gridSys.arrIndex(sc))
     if (a != null) f(sc, a)
   }
@@ -135,7 +135,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
 
   def keyMap(implicit gridSys: SqGridSys): Map[A, SqCen] =
   { val build = Map.newBuilder[A, SqCen]
-    scSomesForeach((p, hc) => build.addOne(hc, p))
+    someScForeach((p, hc) => build.addOne(hc, p))
     build.result
   }
 
