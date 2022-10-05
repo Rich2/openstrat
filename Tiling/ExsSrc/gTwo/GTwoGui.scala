@@ -14,9 +14,9 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   def actives: Arr[PolygonActive] = proj.tileActives
 
-  def lunits: Arr[PolygonCompound] = players.scSomesMap{ (sc, pl) =>
+  def lunits: Arr[PolygonCompound] = players.projSomeScPtMap { (pl, sc, pt) =>
     val str = ptScale.scaledStr(170, pl.toString + "\n" + sc.strComma, 150, pl.charStr + "\n" + sc.strComma, 60, pl.charStr)
-    Rect(1.2, 0.8, sc.toPt2Reg).fillDrawTextActive(pl.colour, SPlayer(pl, sc), str, 24, 2.0)  }
+    Rect(80, 60, pt).fillDrawTextActive(pl.colour, SPlayer(pl, sc), str, 24, 2.0)  }
 
   /** Not sure why this is called css. */
   def css: Arr[TextGraphic] = players.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
@@ -67,7 +67,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   thisTop()
   def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
 
-  def frame: GraphicElems = actives ++ (lunits).slate(-focus).scale(cPScale) +% sidesDraw ++ css ++ moveGraphics2
+  def frame: GraphicElems = actives ++ lunits +% sidesDraw ++ css ++ moveGraphics2
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
