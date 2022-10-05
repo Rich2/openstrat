@@ -21,7 +21,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   val urect = Rect(1.4, 1)
 
-  def units: GraphicElems = players.projSomeHCPtMap{ (p, hc, pt) =>
+  def units: GraphicElems = players.projSomeHcPtMap{ (p, hc, pt) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, p.charStr + "\n" + hc.strComma, 60, p.charStr)
     urect.scale(80).slate(pt).fillDrawTextActive(p.colour, HPlayer(hc, p), str, 24, 2.0)
   }

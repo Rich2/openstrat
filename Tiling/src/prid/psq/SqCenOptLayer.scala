@@ -57,10 +57,10 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
 
   /** Drops the None values mapping the [[Some]]'s value with the [[SqCen]] to an option value, collecting the values of the [[Some]]s returned by the
    * function. Returns a [[Seqimut]] of length 0 to the length of this [[SqCenOptLayer]]. */
-  def projSomeSqCMap[B, ArrB <: SeqImut[B]](f: (A, SqCen) => B)(implicit proj: SqSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
-    projSomeSqCMap(proj)(f)(build)
+  def projSomeScMap[B, ArrB <: SeqImut[B]](f: (A, SqCen) => B)(implicit proj: SqSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
+    projSomeScMap(proj)(f)(build)
 
-  def projSomeSqCMap[B, ArrB <: SeqImut[B]](proj: SqSysProjection)(f: (A, SqCen) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+  def projSomeScMap[B, ArrB <: SeqImut[B]](proj: SqSysProjection)(f: (A, SqCen) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff()
     proj.gChild.foreach { sc =>
       val a: A = unsafeArr(proj.gridSys.arrIndex(sc))

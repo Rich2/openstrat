@@ -134,9 +134,10 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     buff.toArr
   }
 
-  def projSomeHCPtMap(f: (A, HCen, Pt2) => GraphicElem)(implicit proj: HSysProjection): GraphicElems = projSomeHCPtMap(proj)(f)
+  /** Uses projection to map the Some data value with the [[HCen]] and the [[Pt2]]. */
+  def projSomeHcPtMap(f: (A, HCen, Pt2) => GraphicElem)(implicit proj: HSysProjection): GraphicElems = projSomeHcPtMap(proj)(f)
 
-  def projSomeHCPtMap(proj: HSysProjection)(f: (A, HCen, Pt2) => GraphicElem): GraphicElems = {
+  def projSomeHcPtMap(proj: HSysProjection)(f: (A, HCen, Pt2) => GraphicElem): GraphicElems = {
     val buff = BuffGraphic()
     proj.gChild.foreach { hc =>
       val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
