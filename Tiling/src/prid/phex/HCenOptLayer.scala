@@ -134,19 +134,23 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     buff.toArr
   }
 
-  /** Uses projection to map the Some data value with the [[HCen]] and the [[Pt2]]. */
-  def projSomeHcPtMap(f: (A, HCen, Pt2) => GraphicElem)(implicit proj: HSysProjection): GraphicElems = projSomeHcPtMap(proj)(f)
+  /** Uses projection to map the Some data value with the corresponing [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
+   *  most cases B will be a [[GraphicElem]] or a subtype. */
+  def projSomeHcPtMap[B, ArrB <: SeqImut[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
+    projSomeHcPtMap(proj)(f)
 
-  def projSomeHcPtMap(proj: HSysProjection)(f: (A, HCen, Pt2) => GraphicElem): GraphicElems = {
-    val buff = BuffGraphic()
+  /** Uses projection to map the Some data value with the corresponing [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
+   * most cases B will be a [[GraphicElem]] or a subtype. */
+  def projSomeHcPtMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
       if (a != null) {
         val res = f(a, hc, proj.transCoord(hc))
-        buff.append(res)
+        build.buffGrow(buff, res)
       }
     }
-    buff.toArr
+    build.buffToBB(buff)
   }
 
   /** Uses this and a second [[HCenOptLayer]] of type B. Drops all values where either or both [[HCenOptLayer]] have [[None]] values. Maps the
