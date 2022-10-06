@@ -43,22 +43,22 @@ trait TSysProjectionFlat extends TSysProjection
   }
 
   def focusLeft: PolygonCompound = focusAdj("\u2190") { (v, d) =>
-    val newX: Double = (v.x - d).max(gridSys.left)
+    val newX: Double = (v.x - d).max(parent.left)
     Vec2(newX, v.y)
   }
 
   def focusRight: PolygonCompound = focusAdj("\u2192") { (v, d) =>
-    val newX: Double = (v.x + d).min(gridSys.right)
+    val newX: Double = (v.x + d).min(parent.right)
     Vec2(newX, v.y)
   }
 
   def focusUp: PolygonCompound = focusAdj("\u2191") { (v, d) =>
-    val newY: Double = (v.y + d).min(gridSys.top)
+    val newY: Double = (v.y + d).min(parent.top)
     Vec2(v.x, newY)
   }
 
   def focusDown: PolygonCompound = focusAdj("\u2193") { (v, d) =>
-    val newY: Double = (v.y - d).max(gridSys.bottom)
+    val newY: Double = (v.y - d).max(parent.bottom)
     Vec2(v.x, newY)
   }
 }

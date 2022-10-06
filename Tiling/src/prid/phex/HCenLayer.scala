@@ -94,7 +94,9 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     HCen(row, rightC)
   }
 
-  def rowCombine(implicit grider: HGridSys): Arr[HCenRowValue[A]] = grider.rowCombine(this, grider)
+  def rowsCombine(implicit grider: HGridSys): Arr[HCenRowValue[A]] = grider.rowCombine(this, grider)
+
+  def projRowsCombine(implicit proj: HSysProjection): Arr[HCenRowValue[A]] = proj.gChild.rowCombine(this, proj.parent)
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex

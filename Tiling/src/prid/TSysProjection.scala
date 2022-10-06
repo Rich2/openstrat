@@ -4,21 +4,28 @@ import geom._, pgui._
 
 /** Tile system graphical projection. */
 trait TSysProjection
-{
+{ /** The type of the grid system this projects from. */
   type GridT <: TGridSys
 
-  def gridSys: GridT
+  /** The parent grid system of the scenario, from which the this projection projects from. */
+  def parent: GridT
 
+  /** The panel this projection outputs to. */
   def panel: Panel
+
+  /** Gives the projector access to the scenarios tile graphic creation. */
   var getFrame: () => GraphicElems = () => Arr()
 
+  /** Filters the [[GraphicElem]]s away if the grid scale is too small to display the elements satisfactorily.  */
   def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems
 
   var setStatusText: String => Unit = s => {}
   val buttons: Arr[PolygonCompound]
 
-  def tiles: PolygonArr
+  /** Projected [[Polygon]]s of the tiles. */
+  def tilePolygons: PolygonArr
 
+  /** Active projected [[Polygon]]s of the tiles. */
   def tileActives: Arr[PolygonActive]
 
   /** The visible hex sides. */

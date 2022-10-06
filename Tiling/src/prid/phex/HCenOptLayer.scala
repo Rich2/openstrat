@@ -77,7 +77,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
    * for the [[Some]] values. */
   def projHcMap(proj: HSysProjection)(fNone: (Pt2, HCen) => GraphicElem)(fSome: (A, Pt2, HCen) => GraphicElem): GraphicElems =
     proj.hCenMap{ (pt, hc) =>
-      val a = unsafeArr(proj.gridSys.arrIndex(hc))
+      val a = unsafeArr(proj.parent.arrIndex(hc))
       ife(a != null, fSome(a, pt, hc), fNone(pt, hc))
     }
 
@@ -126,7 +126,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   {
     val buff = BuffGraphic()
     proj.gChild.foreach { hc =>
-      val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
+      val a: A = unsafeArr(proj.parent.arrIndex(hc))
       if (a != null) {
         buff.append(f(a, hc))
       }
@@ -144,7 +144,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   def projSomeHcPtMap[B, ArrB <: SeqImut[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
-      val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
+      val a: A = unsafeArr(proj.parent.arrIndex(hc))
       if (a != null) {
         val res = f(a, hc, proj.transCoord(hc))
         build.buffGrow(buff, res)
@@ -208,7 +208,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     val buff = build.newBuff()
 
     proj.gChild.foreach { hc =>
-      val a: A = unsafeArr(proj.gridSys.arrIndex(hc))
+      val a: A = unsafeArr(proj.parent.arrIndex(hc))
       if (a == null) {
         build.buffGrow(buff, f(hc, proj.transCoord(hc)))
       }

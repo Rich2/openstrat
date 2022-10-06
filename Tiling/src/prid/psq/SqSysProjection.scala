@@ -11,24 +11,24 @@ trait SqSysProjection extends TSysProjection
   def transCoord(sc: SqCoord): Pt2
 }
 
-case class SqSysProjectionFlat(gridSys: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
+case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
 {
   type GridT = SqGridSys
-  var pixCScale: Double = gridSys.fullDisplayScale(panel.width, panel.height)
+  var pixCScale: Double = parent.fullDisplayScale(panel.width, panel.height)
   override def pixTileScale: Double = pixCScale * 2
   override def pixRScale: Double = pixCScale
-  var focus: Vec2 = gridSys.defaultView(pixCScale).vec
+  var focus: Vec2 = parent.defaultView(pixCScale).vec
   override def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ???
 
   var gChild: SqGridSys = getGChild
-  def getGChild: SqGridSys = gridSys
+  def getGChild: SqGridSys = parent
   def setGChild: Unit = gChild = getGChild
-  override def transCoord(sc: SqCoord): Pt2 = (gridSys.flatSqCoordToPt2(sc) - focus).scale(pixCScale)
+  override def transCoord(sc: SqCoord): Pt2 = (parent.flatSqCoordToPt2(sc) - focus).scale(pixCScale)
 
-  override def tiles: PolygonArr = gChild.map(_.sqVertPolygon.map(gridSys.flatSqCoordToPt2(_)).slate(-focus).scale(pixCScale))
+  override def tilePolygons: PolygonArr = gChild.map(_.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixCScale))
 
   override def tileActives: Arr[PolygonActive] =
-    gChild.map(hc => hc.sqVertPolygon.map(gridSys.flatSqCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
+    gChild.map(hc => hc.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
 
   /** The visible hex sides. */
   override def sideLines: LineSegArr = gChild.sideLines.slate(-focus).scale(pixCScale)//LineSegArr()

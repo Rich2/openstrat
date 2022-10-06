@@ -63,7 +63,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
   def projSomeScPtMap[B, ArrB <: SeqImut[B]](proj: SqSysProjection)(f: (A, SqCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { sc =>
-      val a: A = unsafeArr(proj.gridSys.arrIndex(sc))
+      val a: A = unsafeArr(proj.parent.arrIndex(sc))
       if (a != null) {
         build.buffGrow(buff, f(a, sc, proj.transCoord(sc)))
       }
@@ -95,7 +95,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
   def projNoneScPtMap[B, ArrB <: SeqImut[B]](proj: SqSysProjection)(f: (SqCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.foreach { sc =>
-      val a: A = unsafeArr(proj.gridSys.arrIndex(sc))
+      val a: A = unsafeArr(proj.parent.arrIndex(sc))
       if (a == null) {
         val newVal = f(sc, proj.transCoord(sc))
         build.buffGrow(buff, newVal)

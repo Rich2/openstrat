@@ -2,28 +2,28 @@
 package ostrat; package egrid
 import geom._, prid._, phex._, pglobe._, pgui._, pEarth._, Colour._
 
-case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProjection
+case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProjection
 {
   override type GridT = EGridSys
   var focus: LatLong = 0 ll 0
   var scale: Length = 4.km
-  def gScale: Double = gridSys.cScale / scale
+  def gScale: Double = parent.cScale / scale
 
   //def gScale: Double = gridSys.cScale / scale
 
   def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, Arr[GraphicElem]())
   override def setView(view: Any): Unit = view match {
     case hv: HGView => {
-      scale = gridSys.cScale / hv.cPScale
-      focus = gridSys.hCoordLL(hv.hCoord)
+      scale = parent.cScale / hv.cPScale
+      focus = parent.hCoordLL(hv.hCoord)
     }
     //case d: Double => cPScale = d
     case _ =>
   }
 
-  var gChild: HGridSys = gridSys
+  var gChild: HGridSys = parent
 
-  def setGChid : HGridSys =  gridSys
+  def setGChid : HGridSys =  parent
 
   def zoomOut: PolygonCompound = clickButton("-") { _ =>
     scale *= 1.1
@@ -85,16 +85,16 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
 //  }
 
   //def sides: GraphicElems = sides4.map { ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
-  override def tiles: PolygonArr = ???
+  override def tilePolygons: PolygonArr = ???
 
   override def tileActives: Arr[PolygonActive] = ???
 
-  override def sideLines: LineSegArr = transLineSegM3Arr(gridSys.sideLineM3s)
-  override def innerSideLines: LineSegArr = transLineSegM3Arr(gridSys.innerSideLineM3s)
-  override def outerSideLines: LineSegArr = transLineSegM3Arr(gridSys.outerSideLineM3s)
+  override def sideLines: LineSegArr = transLineSegM3Arr(parent.sideLineM3s)
+  override def innerSideLines: LineSegArr = transLineSegM3Arr(parent.innerSideLineM3s)
+  override def outerSideLines: LineSegArr = transLineSegM3Arr(parent.outerSideLineM3s)
 
   override def transHSides(inp: HSideArr): LineSegArr =
-  { val lls: LineSegLLArr = inp.map(_.lineSegHC.map(gridSys.hCoordLL(_)))
+  { val lls: LineSegLLArr = inp.map(_.lineSegHC.map(parent.hCoordLL(_)))
     val m3s = lls.map(_.map(_.toMetres3))
     transLineSegM3Arr(m3s)
   }
@@ -110,25 +110,25 @@ case class HSysProjectionEarth(gridSys: EGridSys, panel: Panel) extends HSysProj
   }
 
   override def transOptCoord(hc: HCoord): Option[Pt2] =
-  { val m3 = gridSys.hCoordLL(hc).toMetres3
+  { val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
     val opt = ife(rotated.zPos, Some(rotated.xy), None)
     opt.map(_ / scale)
   }
 
   override def transCoord(hc: HCoord): Pt2 = {
-    val m3 = gridSys.hCoordLL(hc).toMetres3
+    val m3 = parent.hCoordLL(hc).toMetres3
     val rotated = m3.fromLatLongFocus(focus)
     rotated.xy / scale
   }
 
   override def transTile(hc: HCen): Option[Polygon] = {
-    val p1 = hc.hVertPolygon.map(gridSys.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
+    val p1 = hc.hVertPolygon.map(parent.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
     val opt = ife(p1.vert(0).zPos, Some(p1.map(_.xy)), None)
     opt.map(_.map(_ / scale))
   }
 
-  override def hCoordOptStr(hc: HCoord): Option[String] = Some(gridSys.hCoordLL(hc).degStr)
+  override def hCoordOptStr(hc: HCoord): Option[String] = Some(parent.hCoordLL(hc).degStr)
 
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
   def irr0: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, true))// northUp))

@@ -14,7 +14,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
   //proj.setView(viewIn)
   val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
 
-  val rows: Arr[HCenRowValue[Terr]] = terrs.rowCombine
+  val rows: Arr[HCenRowValue[Terr]] = terrs.rowsCombine
   debvar(rows.length)
   val hexs: Arr[PolygonCompound] = rows.map{ hv => hv.polygonReg.fillActive(hv.value.colour, hv) }
   def units: HCenOptLayer[Lunit] = scen.units

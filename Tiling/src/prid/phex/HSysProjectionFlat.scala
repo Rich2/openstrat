@@ -3,13 +3,13 @@ package ostrat; package prid; package phex
 import geom._, pgui._, collection.mutable.ArrayBuffer
 
 /** Projects [[HGridSys]] on to a flat surface for 2D graphics. Like all projections attempts to remove tiles that can't be seen. */
-final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSysProjection with TSysProjectionFlat
+final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSysProjection with TSysProjectionFlat
 { type GridT = HGridSys
-  var pixCScale: Double = gridSys.fullDisplayScale(panel.width, panel.height)
+  var pixCScale: Double = parent.fullDisplayScale(panel.width, panel.height)
   override def pixRScale: Double = pixCScale * Sqrt3
   override def pixTileScale: Double = pixCScale * 4
 
-  var focus: Vec2 = gridSys.defaultView(pixCScale).vec
+  var focus: Vec2 = parent.defaultView(pixCScale).vec
   def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixCScale >= minScale, elems, Arr[GraphicElem]())
 
   override def setView(view: Any): Unit = view match
@@ -32,7 +32,7 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     val newLeft: Int = (focus.x + panel.left / pixCScale - 2).round.toInt.roundUpToEven
     val newRight: Int = (focus.x + panel.right / pixCScale + 2).round.toInt.roundDownToEven
 
-    gridSys match
+    parent match
     {
       case hg: HGridReg =>
       { val bt = hg.bottomCenR.max(newBottom)
@@ -71,10 +71,10 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     }
   }
 
-  override def tiles: PolygonArr = gChild.map(_.hVertPolygon.map(gridSys.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale))
+  override def tilePolygons: PolygonArr = gChild.map(_.hVertPolygon.map(parent.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale))
 
   override def tileActives: Arr[PolygonActive] =
-    gChild.map(hc => hc.hVertPolygon.map(gridSys.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
+    gChild.map(hc => hc.hVertPolygon.map(parent.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
 
   override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = {
     val buff = new ArrayBuffer[GraphicElem]
@@ -82,12 +82,12 @@ final case class HSysProjectionFlat(gridSys: HGridSys, panel: Panel) extends HSy
     new Arr[GraphicElem](buff.toArray)
   }
 
-  override def sideLines: LineSegArr = gChild.sideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
-  override def innerSideLines: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
-  override def outerSideLines: LineSegArr = gChild.outerSideLineSegHCs.map(_.map(gridSys.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
+  override def sideLines: LineSegArr = gChild.sideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
+  override def innerSideLines: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
+  override def outerSideLines: LineSegArr = gChild.outerSideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
 
-  override def transOptCoord(hc: HCoord): Option[Pt2] = Some(gridSys.flatHCoordToPt2(hc).slate(-focus).scale(pixCScale))
-  override def transCoord(hc: HCoord): Pt2 = gridSys.flatHCoordToPt2(hc).slate(-focus).scale(pixCScale)
+  override def transOptCoord(hc: HCoord): Option[Pt2] = Some(parent.flatHCoordToPt2(hc).slate(-focus).scale(pixCScale))
+  override def transCoord(hc: HCoord): Pt2 = parent.flatHCoordToPt2(hc).slate(-focus).scale(pixCScale)
 
   override def transTile(hc: HCen): Option[Polygon] = Some(hc.polygonReg)
 
