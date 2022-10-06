@@ -130,6 +130,18 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     }
   }
 
+  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
+   * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
+   * tile data values. */
+  def projSideFlatMap[BB <: SeqImut[_]](proj: HSysProjection)(f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
+    proj.gChild.sidesFlatMap { hs =>
+      hs.tiles match {
+        case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f2(hs, apply(c1)(proj.parent), apply(c2)(proj.parent))
+        case (c1, _) if proj.gChild.hCenExists(c1) => f1(hs, apply(c1)(proj.parent))
+        case (_, c2) => f1(hs, apply(c2)(proj.parent))
+      }
+    }
+
   def ++(operand: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] = {
     val newArray = Array.concat(unsafeArray, operand.unsafeArray)
     new HCenLayer[A](newArray)
