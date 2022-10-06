@@ -148,7 +148,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
   /** The number of tile sides in the bottom side row of the hex grid. */
   def bottomSideRowLen: Int = ife(bottomCenR.div4Rem0, row0sTileNum, row2sTileNum) * 2
 
-  override def outerSidesForeach(f: HSide => Unit): Unit = if (topCenR >= bottomCenR)
+  override def edgesForeach(f: HSide => Unit): Unit = if (topCenR >= bottomCenR)
   {
     if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSide(bottomSideR, c)))
     iToForeach(bottomCenR, topCenR){r => r match{

@@ -176,9 +176,9 @@ trait HGrid extends Any with TGrid with HGridSys
    * @group SidesGroup */
   final override def sidesForeach(f: HSide => Unit): Unit = sideRowsForeach(r => rowForeachSide(r)(f))
 
-  final def innerSidesForeach(f: HSide => Unit): Unit = innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
+  final def linksForeach(f: HSide => Unit): Unit = innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
 
-  def outerSidesForeach(f: HSide => Unit): Unit
+  def edgesForeach(f: HSide => Unit): Unit
 
   /** Calls the Foreach procedure on every Hex Side in the row given by the input parameter. */
   def rowForeachSide(r: Int)(f: HSide => Unit): Unit

@@ -110,11 +110,10 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
       }
     }
 
-  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
-   *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
-   *  tile data values. */
-  def innerSidesMap[B, BB <: SeqImut[B]](f: (HSide, A, A) => B)(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
-    grid.innerSidesMap{ hs => hs.tiles match
+  /** Maps the links or inner sides to an immutable Array, using the data of this HCenArr. It takes a function for the links or inner sides of the
+   *  grid that takes the [[HSide]] and the two adjacent hex tile data values. */
+  def linksMap[B, BB <: SeqImut[B]](f: (HSide, A, A) => B)(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
+    grid.linksMap{ hs => hs.tiles match
     { case (c1, c2)  => f(hs, apply(c1), apply(c2))
     }
   }

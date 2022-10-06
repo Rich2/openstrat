@@ -24,7 +24,7 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
     override def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach(f)
 
-    override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSidesForeach(f)
+    override def innerSidesForeach(f: HSide => Unit): Unit = grid.linksForeach(f)
 
     override def outerSidesForeach(f: HSide => Unit): Unit =
     { grid.bottomRowForeachSide(f)

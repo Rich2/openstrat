@@ -48,7 +48,7 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
     }
   }
 
-  override def outerSidesForeach(f: HSide => Unit): Unit = if (numTileRows > 0)
+  override def edgesForeach(f: HSide => Unit): Unit = if (numTileRows > 0)
   {
     if(rowNumTiles(bottomCenR) > 0) iToForeach(rowLeftCenC(bottomCenR) - 1, rowRightCenC(bottomCenR) + 1, 2)(c => f(HSide(bottomSideR, c)))
     iToForeach(bottomCenR, topCenR){r => r match{

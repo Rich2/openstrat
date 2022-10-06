@@ -23,14 +23,14 @@ trait HGridSys extends Any with TGridSys
   /** The number of inner sides in the hex grid system. */
   final lazy val numInnerSides: Int =
   { var i = 0
-    innerSidesForeach(_ => i += 1)
+    linksForeach(_ => i += 1)
     i
   }
 
   /** The number of outer sides in the hex grid system. */
   final lazy val numOuterSides: Int =
   { var i = 0
-    outerSidesForeach(_ => i += 1)
+    edgesForeach(_ => i += 1)
     i
   }
 
@@ -189,11 +189,14 @@ trait HGridSys extends Any with TGridSys
    *  Array data. */
   def sideArrIndex(r: Int, c: Int): Int
 
-  /** foreach Hex side's coordinate HSide, calls the effectfull function.
-   * @group SidesGroup */
+  /** foreach Hex side's coordinate HSide, calls the effectual function. */
   def sidesForeach(f: HSide => Unit): Unit
-  def innerSidesForeach(f: HSide => Unit): Unit
-  def outerSidesForeach(f: HSide => Unit): Unit
+
+  /** foreach hex link / inner side's coordinate HSide, calls the effectual function. */
+  def linksForeach(f: HSide => Unit): Unit
+
+  /** foreach hex edge / outer side's coordinate HSide, calls the effectual function. */
+  def edgesForeach(f: HSide => Unit): Unit
 
   /** maps over each Hex Side's coordinate [[HSide]] in the hex grid system. */
   final def sidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
@@ -203,19 +206,19 @@ trait HGridSys extends Any with TGridSys
     res
   }
 
-  /** maps over each the grid systems inner side's coordinate [[HSide]]. */
-  final def innerSidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  /** maps over each the grid systems link / inner side's coordinate [[HSide]]. */
+  final def linksMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
   { val res: ArrT = build.newArr(numInnerSides)
     var i = 0
-    innerSidesForeach{hs => res.unsafeSetElem(i, f(hs)); i += 1 }
+    linksForeach{ hs => res.unsafeSetElem(i, f(hs)); i += 1 }
     res
   }
 
   /** maps over each the grid systems outer side's coordinate [[HSide]]. */
-  final def outerSidesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  final def edgesMap[B, ArrT <: SeqImut[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
   { val res: ArrT = build.newArr(numOuterSides)
     var i = 0
-    outerSidesForeach{hs => res.unsafeSetElem(i, f(hs)); i += 1 }
+    edgesForeach{ hs => res.unsafeSetElem(i, f(hs)); i += 1 }
     res
   }
 
@@ -229,7 +232,7 @@ trait HGridSys extends Any with TGridSys
   /** flatMaps  over each inner hex Side's coordinate [[HSide]].. */
   final def innerSidesFlatMap[ArrT <: SeqImut[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff()
-    innerSidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
+    linksForeach{ hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToBB(buff)
   }
 
@@ -240,10 +243,10 @@ trait HGridSys extends Any with TGridSys
   def sideLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
 
   /** The line segments of the inner sides defined in [[HCoord]] vertices. */
-  def innerSideLineSegHCs: LineSegHCArr = innerSidesMap(_.lineSegHC)
+  def innerSideLineSegHCs: LineSegHCArr = linksMap(_.lineSegHC)
 
   /** The line segments of the outer sides defined in [[HCoord]] vertices. */
-  def outerSideLineSegHCs: LineSegHCArr = outerSidesMap(_.lineSegHC)
+  def outerSideLineSegHCs: LineSegHCArr = edgesMap(_.lineSegHC)
 
   def newSideBools: HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](numSides))
 
