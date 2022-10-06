@@ -26,6 +26,24 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
     case _ => excep("Invalid hex side.")
   }
 
+  def tile1: HCen = r %% 4 match
+  { case 0 | 2 => HCen(r, c - 2)
+    case 1 if c.div4Rem3 => HCen(r - 1, c + 1)
+    case 3 if c %% 4 == 1 => HCen(r - 1, c + 1)
+    case 1 if c %% 4 == 1 => HCen(r - 1, c - 1)
+    case 3 if c %% 4 == 3 => HCen(r - 1, c - 1)
+    case _ => excep("Invalid hex side.")
+  }
+
+  def tile2: HCen = r %% 4 match
+  { case 0 | 2 => HCen(r, c + 2)
+    case 1 if c.div4Rem3 => HCen(r + 1, c - 1)
+    case 3 if c %% 4 == 1 => HCen(r + 1, c - 1)
+    case 1 if c %% 4 == 1 => HCen(r + 1, c + 1)
+    case 3 if c %% 4 == 3 => HCen(r + 1, c + 1)
+    case _ => excep("Invalid hex side.")
+  }
+
   /** Returns a [[LineSeg]] for a regular Hex tile grid. */
   def lineSeg(implicit grider: HGridSys): LineSeg = lineSegHC.oldLineSeg
 
