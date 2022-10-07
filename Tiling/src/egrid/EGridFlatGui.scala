@@ -12,7 +12,7 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
   def tiles: Arr[PolygonCompound] = gridSys.map{ hc => hc.polygonReg.fillActive(terrs(hc).colour, hc.polygonReg) }
-  def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSeg, 0.3).fill(Colour.DarkBlue) }
+  def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSegDepr, 0.3).fill(Colour.DarkBlue) }
 
   def tileStrs: Arr[PolygonCompound] = gridSys.map{ hc =>
     hc.polygonReg.fillTextActive(terrs(hc).colour, hc.polygonReg, hc.rcStr32 --- hc.rcStr, 12, terrs(hc).contrastBW)

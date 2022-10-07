@@ -19,7 +19,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   val polyFills: Arr[PolygonFill] =
     terrs.rowsCombine.map{ (hcrv: HCenRowValue[ZugTerr]) => hcrv.hVertPolygon.toPolygon(_.toPt2Reg).fill(hcrv.value.colour) }
 
-  val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
+  val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.drawDepr()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.drawDepr(t1.contrastBW)), Arr()))
 
   def lunits: GraphicElems = scen.lunits.gridHeadsFlatMap{ (hc, squad) =>
     val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour, terrs(hc).colour).slate(hc.toPt2Reg)

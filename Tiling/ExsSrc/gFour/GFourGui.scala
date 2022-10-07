@@ -13,7 +13,8 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   //proj.setView(viewIn)
   val lines: Arr[LineSegDraw] = //terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
-    terrs.linksFlatMap{(hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr[LineSegDraw]()) }
+    //terrs.linksFlatMap{(hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr[LineSegDraw]()) }
+    terrs.projLinksOptMap{(hs, t1, t2 ) => ife(t1 == t2, Some(hs.drawDepr(t1.contrastBW)), None) }
 
   val rows: Arr[HCenRowValue[Terr]] = terrs.rowsCombine
   debvar(rows.length)
@@ -26,7 +27,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
     Rect(1.6, 1.2, hc.toPt2Reg).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0)
   }
 
-  def unitRects: Arr[PolygonCompound] = units.projSomeHcPtMap { (p, hc, pt) =>
+  def unitGraphics: Arr[PolygonCompound] = units.projSomeHcPtMap { (p, hc, pt) =>
     Rect(160, 120, pt).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
   def texts: Arr[TextGraphic] = units.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.rcStr, 14, terrs(hc).contrastBW) }
@@ -63,6 +64,6 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
   statusText = s"Game Four. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = (hexs ++ lines).slate(-focus).scale(cPScale) ++ unitRects ++ texts
+  def frame: GraphicElems = (hexs ++ lines).slate(-focus).scale(cPScale) ++ unitGraphics ++ texts
   repaint()
 }
