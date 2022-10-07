@@ -230,7 +230,7 @@ trait HGridSys extends Any with TGridSys
   }
 
   /** flatMaps  over each inner hex Side's coordinate [[HSide]].. */
-  final def innerSidesFlatMap[ArrT <: SeqImut[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
+  final def linksFlatMap[ArrT <: SeqImut[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff()
     linksForeach{ hs => build.buffGrowArr(buff, f(hs)) }
     build.buffToBB(buff)
