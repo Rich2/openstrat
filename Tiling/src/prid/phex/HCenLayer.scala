@@ -130,7 +130,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     }
   }
 
-  /** FlatMaps the links / innerss sides to an immutable Array, using the data of this HCenArr. It takes a function, that takes the [[HSide]] and the
+  /** FlatMaps the links / inner sides to an immutable Array, using the data of this HCenArr. It takes a function, that takes the [[HSide]] and the
    *  two adjacent hex tile data values. */
   def linksFlatMap[BB <: SeqImut[_]](f: (HSide, A, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
     grid.linksFlatMap { hs => f(hs, apply(hs.tile1), apply(hs.tile2)) }
@@ -156,42 +156,22 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
-  def projLinksFlatMap[BB <: SeqImut[_]](proj: HSysProjection)(f2: (HSide, A, A) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
-    proj.gChild.linksFlatMap { hs =>
-      hs.tiles match {
-        case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f2(hs, apply(proj.parent, c1), apply(proj.parent, c2))
-      }
-    }
+  def projLinksFlatMap[BB <: SeqImut[_]](proj: HSysProjection)(f: (HSide, A, A) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
+    proj.gChild.linksFlatMap { hs => f(hs, apply(proj.parent, hs.tile1), apply(proj.parent, hs.tile2)) }
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
-  /*def projLinksOptMap[B, BB <: SeqImut[B]](f2: (HSide, A, A) => Option[B])(implicit proj: HSysProjection, build: ArrBuilder[B, BB]): BB =
-    projLinksOptMap(proj)(f2)
+  def projLinksLineOptMap[B, BB <: SeqImut[B]](f: (LineSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: ArrBuilder[B, BB]): BB =
+    projLinksLineOptMap(proj)(f)
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
-  def projLinksOptMap[B, BB <: SeqImut[B]](proj: HSysProjection)(f2: (HSide, A, A) => Option[B])(implicit build: ArrBuilder[B, BB]): BB =
+  def projLinksLineOptMap[B, BB <: SeqImut[B]](proj: HSysProjection)(f: (LineSeg, A, A) => Option[B])(implicit build: ArrBuilder[B, BB]): BB =
     proj.gChild.linksOptMap { hs =>
       hs.tiles match {
-        case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f2(hs, apply(proj.parent, c1), apply(proj.parent, c2))
-      }
-    }*/
-
-  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
-   * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
-   * tile data values. */
-  def projLinksLineOptMap[B, BB <: SeqImut[B]](f2: (LineSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: ArrBuilder[B, BB]): BB =
-    projLinksLineOptMap(proj)(f2)
-
-  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
-   * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
-   * tile data values. */
-  def projLinksLineOptMap[B, BB <: SeqImut[B]](proj: HSysProjection)(f2: (LineSeg, A, A) => Option[B])(implicit build: ArrBuilder[B, BB]): BB =
-    proj.gChild.linksOptMap { hs =>
-      hs.tiles match {
-        case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f2(hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))
+        case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f(hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))
       }
     }
 
