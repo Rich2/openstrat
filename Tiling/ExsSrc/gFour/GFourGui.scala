@@ -13,7 +13,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   //proj.setView(viewIn)
   val lines: Arr[LineSegDraw] = //terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
-    terrs.innerSidesFlatMap{(hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr[LineSegDraw]()) }
+    terrs.linksFlatMap{(hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr[LineSegDraw]()) }
 
   val rows: Arr[HCenRowValue[Terr]] = terrs.rowsCombine
   debvar(rows.length)
