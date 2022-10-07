@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import reflect.ClassTag
+import geom._, reflect.ClassTag
 
 /** An [[HGridSys]] hex tile grid system of [[HCen]] or hex tile data. For efficiency the data is stored as a flat Array. No run time information
  *  distinguishes this from an ordinary linear sequence array of data. Whether in a game or a non game application the data of the grid tiles is
@@ -166,7 +166,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
-  def projLinksOptMap[B, BB <: SeqImut[B]](f2: (HSide, A, A) => Option[B])(implicit proj: HSysProjection, build: ArrBuilder[B, BB]): BB =
+  /*def projLinksOptMap[B, BB <: SeqImut[B]](f2: (HSide, A, A) => Option[B])(implicit proj: HSysProjection, build: ArrBuilder[B, BB]): BB =
     projLinksOptMap(proj)(f2)
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
@@ -176,6 +176,22 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     proj.gChild.linksOptMap { hs =>
       hs.tiles match {
         case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f2(hs, apply(proj.parent, c1), apply(proj.parent, c2))
+      }
+    }*/
+
+  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
+   * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
+   * tile data values. */
+  def projLinksLineOptMap[B, BB <: SeqImut[B]](f2: (LineSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: ArrBuilder[B, BB]): BB =
+    projLinksLineOptMap(proj)(f2)
+
+  /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
+   * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
+   * tile data values. */
+  def projLinksLineOptMap[B, BB <: SeqImut[B]](proj: HSysProjection)(f2: (LineSeg, A, A) => Option[B])(implicit build: ArrBuilder[B, BB]): BB =
+    proj.gChild.linksOptMap { hs =>
+      hs.tiles match {
+        case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f2(hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))
       }
     }
 

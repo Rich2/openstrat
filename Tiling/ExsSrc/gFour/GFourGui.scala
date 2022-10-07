@@ -2,19 +2,21 @@
 package ostrat; package gFour
 import pgui._, prid._, phex._, geom._, gPlay._
 
-case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysGui("Game Three Gui")
+case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
 { statusText = "Welcome to Game Four."
   val scen = scenStart
   def terrs: HCenLayer[Terr] = scen.terrs
   var history: Arr[FourScen] = Arr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
-  focus = gridSys.cenVec
-  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
+  cPScale = viewIn.cPScale
+  focus = viewIn.vec
+//  focus = gridSys.cenVec
+//  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
-  //proj.setView(viewIn)
+  proj.setView(viewIn)
   val lines: Arr[LineSegDraw] = //terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
     //terrs.linksFlatMap{(hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr[LineSegDraw]()) }
-    terrs.projLinksOptMap{(hs, t1, t2 ) => ife(t1 == t2, Some(hs.drawDepr(t1.contrastBW)), None) }
+    terrs.projLinksLineOptMap{(ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
   val rows: Arr[HCenRowValue[Terr]] = terrs.rowsCombine
   debvar(rows.length)
@@ -64,6 +66,6 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen) extends HGridSysG
   statusText = s"Game Four. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = (hexs ++ lines).slate(-focus).scale(cPScale) ++ unitGraphics ++ texts
+  def frame: GraphicElems = (hexs).slate(-focus).scale(cPScale) ++ lines ++ unitGraphics ++ texts
   repaint()
 }

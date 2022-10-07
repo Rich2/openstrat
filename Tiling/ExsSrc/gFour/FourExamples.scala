@@ -1,17 +1,25 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gFour
-import prid._, phex._, pgui._
+import prid._, phex._, pgui._, pParse._
 
-object FourLaunch extends GuiLaunchStd
+object FourLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "gFour"
 
-  override def default: (CanvasPlatform => Any, String) = (GFourGui(_, FourScen1), "JavaFx Game Four")
+  override def default: (CanvasPlatform => Any, String) = (GFourGui(_, FourScen1, FourScen1.defaultView()), "JavaFx Game Four")
 
-  override def launch(s2: Int, s3: String): (CanvasPlatform => Any, String) = s2 match {
-    case 1 => (GFourGui(_, FourScen1), "JavaFx Game Four")
-    case 2 => (GFourGui(_, FourScen2), "JavaFx Game Four")
-    case _ => (GFourGui(_, FourScen1), "JavaFx Game Four")
+  override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) = {
+    val oScen: EMon[Int] = sts.findSetting[Int]("scen")
+    val num: Int = oScen.getElse(1)
+
+    val scen: FourScen = num match {
+      case 1 => FourScen1
+      case 2 => FourScen2
+      case _ => FourScen1
+    }
+
+    val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
+    (GFourGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game Four")
   }
 }
 
