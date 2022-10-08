@@ -10,18 +10,13 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
   implicit def gridSys: HGridSys = scen.gridSys
   cPScale = viewIn.cPScale
   focus = viewIn.vec
-//  focus = gridSys.cenVec
-//  cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
-  val lines: Arr[LineSegDraw] = //terrs.sideFlatMap((hs, _) => Arr(hs.draw()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr()))
-    //terrs.linksFlatMap{(hs, t1, t2 ) => ife(t1 == t2, Arr(hs.draw(t1.contrastBW)), Arr[LineSegDraw]()) }
-    terrs.projLinksLineOptMap{(ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
+  def lines: Arr[LineSegDraw] = terrs.projLinksLineOptMap{(ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
   val rows: Arr[HCenRowValue[Terr]] = terrs.rowsCombine
   debvar(rows.length)
-  //val hexs: Arr[PolygonCompound] = rows.map{ hv => hv.polygonReg.fillActive(hv.value.colour, hv) }
-  val hexs2 = terrs.projRowsCombine.map{ hv => hv.hVertPolygon.map(proj.transCoord).fillActive(hv.value.colour, hv) }
+  def hexs = terrs.projRowsCombine.map{ hv => hv.hVertPolygon.map(proj.transCoord).fillActive(hv.value.colour, hv) }
   def units: HCenOptLayer[Lunit] = scen.units
 
   /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
@@ -63,10 +58,16 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(bTurn %: navButtons)
+  def thisTop(): Unit = reTop(bTurn %: proj.buttons)// navButtons)
   statusText = s"Game Four. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = hexs2/*).slate(-focus).scale(cPScale)*/ ++ lines ++ unitGraphics ++ texts
+  def frame: GraphicElems = hexs/*).slate(-focus).scale(cPScale)*/ ++ lines ++ unitGraphics ++ texts
+
+  proj.getFrame = () => frame
+  proj.setStatusText = { str =>
+    statusText = str
+    thisTop()
+  }
   repaint()
 }
