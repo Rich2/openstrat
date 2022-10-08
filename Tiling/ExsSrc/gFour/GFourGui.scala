@@ -20,7 +20,8 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
 
   val rows: Arr[HCenRowValue[Terr]] = terrs.rowsCombine
   debvar(rows.length)
-  val hexs: Arr[PolygonCompound] = rows.map{ hv => hv.polygonReg.fillActive(hv.value.colour, hv) }
+  //val hexs: Arr[PolygonCompound] = rows.map{ hv => hv.polygonReg.fillActive(hv.value.colour, hv) }
+  val hexs2 = terrs.projRowsCombine.map{ hv => hv.hVertPolygon.map(proj.transCoord).fillActive(hv.value.colour, hv) }
   def units: HCenOptLayer[Lunit] = scen.units
 
   /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
@@ -66,6 +67,6 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
   statusText = s"Game Four. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = (hexs).slate(-focus).scale(cPScale) ++ lines ++ unitGraphics ++ texts
+  def frame: GraphicElems = hexs2/*).slate(-focus).scale(cPScale)*/ ++ lines ++ unitGraphics ++ texts
   repaint()
 }
