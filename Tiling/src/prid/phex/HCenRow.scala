@@ -41,5 +41,5 @@ case class HCenRow(r: Int, c: Int, num: Int) extends HCenRowLike
 
 case class HCenRowTuple[A](r: Int, c: Int, num: Int, value: A) extends HCenRowLike
 {
-  def polygonHCTuple: PolygonHCTuple[A] = new PolygonHCTuple[A](setHVertArray, value)
+  def polygonHCTuple: PolygonHCPair[A] = new PolygonHCPair[A](setHVertArray, value)
 }
