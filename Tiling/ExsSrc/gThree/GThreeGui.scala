@@ -30,7 +30,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def hexStrs: Arr[TextGraphic] = players.projNoneHcPtMap{ (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  def tiles: Arr[PolygonActive] = proj.tileActives
+  def actives: Arr[PolygonActive] = proj.tileActives
 
   /** Draws the tiles sides (or edges). */
   def sidesDraw: LinesDraw = proj.sidesDraw()
@@ -70,7 +70,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   }
   thisTop()
 
-  def frame: GraphicElems = tiles ++ units ++ hexStrs +% sidesDraw ++ moveGraphics
+  def frame: GraphicElems = actives ++ units ++ hexStrs +% sidesDraw ++ moveGraphics
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
     statusText = str

@@ -14,17 +14,13 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
   proj.setView(viewIn)
   def lines: Arr[LineSegDraw] = terrs.projLinksLineOptMap{(ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
-  //val rows: Arr[HCenRowTuple[Terr]] = terrs.rowsCombine
-  //debvar(rows.length)
-  //def hexs = terrs.projRowsCombine.map{ hv => hv.hVertPolygon.map(proj.transCoord).fillActive(hv.value.colour, hv) }
-  def hexs = terrs.projRowsCombinePolygons.map{ pt => pt.polygon.fillActive(pt.val1.colour, pt) }
-  def units: HCenOptLayer[Lunit] = scen.units
+  def terrPolys: Arr[PolygonFill] = terrs.projRowsCombinePolygons.map{ pt => pt.polygon.fill(pt.val1.colour) }
+  debvar(terrPolys.length)
 
-  /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
-   * data in the separate terrs array by use of the HCen coordinate. */
-  def unitOrTexts: GraphicElems = units.hcMap { hc => hc.oldDecText(14, terrs(hc).contrastBW) } { (p, hc) =>
-    Rect(1.6, 1.2, hc.toPt2Reg).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0)
-  }
+  /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
+  def actives: Arr[PolygonActive] = proj.tileActives
+
+  def units: HCenOptLayer[Lunit] = scen.units
 
   def unitGraphics: Arr[PolygonCompound] = units.projSomeHcPtMap { (p, hc, pt) =>
     Rect(160, 120, pt).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
@@ -63,7 +59,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
   statusText = s"Game Four. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = hexs/*).slate(-focus).scale(cPScale)*/ ++ lines ++ unitGraphics ++ texts
+  def frame: GraphicElems = terrPolys/*).slate(-focus).scale(cPScale)*/ ++ actives ++ lines ++ unitGraphics ++ texts
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
