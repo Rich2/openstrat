@@ -125,5 +125,5 @@ object PolygonHCBuff
 class PolygonHCTuple[A](val unsafeArray: Array[Int], val1: A)
 {
   def polgonHC: PolygonHC = new PolygonHC(unsafeArray)
-  def polygonTuple(f: HCoord => Pt2): PolygonTuple[A] = new PolygonTuple[A](polgonHC.toPolygon(f).unsafeArray, val1)
+  def polygonTuple(f: HCoord => Pt2): PolygonPair[A] = new PolygonPair[A](polgonHC.toPolygon(f).unsafeArray, val1)
 }

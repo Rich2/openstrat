@@ -4,8 +4,6 @@ import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[DblNArr]] Array[Double] based collections. */
 trait ElemDblN extends Any with ElemValueN
-{ //def defaultDelta: Double = 1e-12
-}
 
 /** Trait for Array[Double] backed classes. The purpose of this trait is to allow for collections of this class to be stored with their underlying
  * Array[Double]s. */

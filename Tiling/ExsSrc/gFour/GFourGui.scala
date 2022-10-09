@@ -14,7 +14,7 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
   proj.setView(viewIn)
   def lines: Arr[LineSegDraw] = terrs.projLinksLineOptMap{(ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
-  def terrPolys: Arr[PolygonFill] = terrs.projRowsCombinePolygons.map{ pt => pt.polygon.fill(pt.val1.colour) }
+  def terrPolys: Arr[PolygonFill] = terrs.projRowsCombinePolygons.map{ pt => pt.polygon.fill(pt.a2.colour) }
   debvar(terrPolys.length)
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */

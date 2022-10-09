@@ -5,16 +5,19 @@ import collection.mutable.ArrayBuffer
 /** A class that can be construct from a fixed number of [[Int]]s can be stored as an Array[Int] of primitive values. */
 trait ElemIntN extends Any with ElemValueN
 
-trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A]
-{ type ThisT <: IntNSeqDef[A]
-
-  /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */
+/** Trait for Array[Int] backed classes. The purpose of this trait is to allow for collections of this class to be stored with their underlying
+ * Array[Int]s. */
+trait ArrayIntBacked extends Any
+{ /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */
   def unsafeArray: Array[Int]
+}
+
+trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A] with ArrayIntBacked
+{ type ThisT <: IntNSeqDef[A]
 
   /** Constructs the final type of thos [[IntNSeqDef]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
    * appropriate builder, but it can be useful to access this from the class itself. */
   def fromArray(array: Array[Int]): ThisT
-
 
   /** The length of the Array[Int] backing array. */
   inline final def arrLen: Int = unsafeArray.length
