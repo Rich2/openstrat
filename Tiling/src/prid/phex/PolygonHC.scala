@@ -55,10 +55,20 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqDef wi
   /** This applies the index value in a circular manner. So the 6th index of a Hexagon is applied at vertex 0, 7 at 1 and -1 at 5. */
   def circularIndex(inp: Int): Int = inp %% vertNum
 
-  def toPolygon(f: HCoord => Pt2): Polygon =
-  {
+  def toPolygon(f: HCoord => Pt2): Polygon = new PolygonGen(toPolygonArray(f))
+  /*{
     val res = PolygonGen.uninitialised(sdLength)
     dataIForeach((i, hv) => res.unsafeSetElem(i, f(hv)))
+    res
+  }*/
+
+  def toPolygonArray(f: HCoord => Pt2): Array[Double] =
+  { val res = new Array[Double](sdLength * 2)
+    dataIForeach{(i, hv) =>
+      val newVal = f(hv)
+      res(i * 2) = newVal.dbl1
+      res(i * 2 + 1) = newVal.dbl2
+    }
     res
   }
 
@@ -110,4 +120,10 @@ class PolygonHCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal with
 
 object PolygonHCBuff
 { def apply(initLen: Int = 4): PolygonHCBuff = new PolygonHCBuff(new ArrayBuffer[Array[Int]](initLen))
+}
+
+class PolygonHCTuple[A](val unsafeArray: Array[Int], val1: A)
+{
+  def polgonHC: PolygonHC = new PolygonHC(unsafeArray)
+  def polygonTuple(f: HCoord => Pt2): PolygonTuple[A] = new PolygonTuple[A](polgonHC.toPolygon(f).unsafeArray, val1)
 }

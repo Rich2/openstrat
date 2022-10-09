@@ -33,10 +33,13 @@ trait HCenRowLike
   }
 
   /** The polygon of this HCenRow of tiles if it is part of a regular grid. */
-  def polygonReg: Polygon = hVertPolygon.toPolygon(_.toPt2Reg)
+  //def polygonReg: Polygon = hVertPolygon.toPolygon(_.toPt2Reg)
 }
 
 /** A row or a segment a row of Hex tiles in a grid. The start / left centre HexGrid coordinate and the number of tiles in the row.. */
 case class HCenRow(r: Int, c: Int, num: Int) extends HCenRowLike
 
-case class HCenRowValue[A](r: Int, c: Int, num: Int, value: A) extends HCenRowLike
+case class HCenRowTuple[A](r: Int, c: Int, num: Int, value: A) extends HCenRowLike
+{
+  def polygonHCTuple: PolygonHCTuple[A] = new PolygonHCTuple[A](setHVertArray, value)
+}

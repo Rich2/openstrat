@@ -14,9 +14,10 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
   proj.setView(viewIn)
   def lines: Arr[LineSegDraw] = terrs.projLinksLineOptMap{(ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
-  val rows: Arr[HCenRowValue[Terr]] = terrs.rowsCombine
-  debvar(rows.length)
-  def hexs = terrs.projRowsCombine.map{ hv => hv.hVertPolygon.map(proj.transCoord).fillActive(hv.value.colour, hv) }
+  //val rows: Arr[HCenRowTuple[Terr]] = terrs.rowsCombine
+  //debvar(rows.length)
+  //def hexs = terrs.projRowsCombine.map{ hv => hv.hVertPolygon.map(proj.transCoord).fillActive(hv.value.colour, hv) }
+  def hexs = terrs.projRowsCombinePolygons.map{ pt => pt.polygon.fillActive(pt.val1.colour, pt) }
   def units: HCenOptLayer[Lunit] = scen.units
 
   /** Uses the mapHCen method on units. This takes two functions, the first for when there is no unit in the hex tile. Note how we can access the
