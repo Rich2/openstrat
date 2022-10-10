@@ -8,7 +8,7 @@ final class PolygonPair[A2](val unsafeArray: Array[Double], val a2: A2) extends 
 }
 
 object PolygonPair {
-  implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrBuilder[PolygonPair[A2], PolygonPairArr[A2]] = new PolygonPairBuild[A2]
+  implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrBuilder[PolygonPair[A2], PolygonPairArr[A2]] = new PolygonPairBuilder[A2]
 }
 
 final class PolygonPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends PolygonDblsLikePairArr[Pt2, Polygon, A2, PolygonPair[A2]]
@@ -22,7 +22,7 @@ final class PolygonPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Ar
   override def polygonArr: PolygonArr = new PolygonArr(arrayArrayDbl)
 }
 
-final class PolygonPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends ArrBuilder[PolygonPair[A2], PolygonPairArr[A2]]
+final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends ArrBuilder[PolygonPair[A2], PolygonPairArr[A2]]
 { override type BuffT = PolygonPairBuff[A2]
   override def newArr(length: Int): PolygonPairArr[A2] = new PolygonPairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 

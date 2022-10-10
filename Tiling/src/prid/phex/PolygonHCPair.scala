@@ -5,7 +5,7 @@ import geom._, annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 class PolygonHCPair[A2](val unsafeArray: Array[Int], val a2: A2)extends PolygonLikePair[HCoord, PolygonHC, A2]// with SpecialT
 {
   def polygon: PolygonHC = new PolygonHC(unsafeArray)
-  def polygonTuple(f: HCoord => Pt2): PolygonPair[A2] = new PolygonPair[A2](polygon.toPolygon(f).unsafeArray, a2)
+  def polygonPair(f: HCoord => Pt2): PolygonPair[A2] = new PolygonPair[A2](polygon.toPolygon(f).unsafeArray, a2)
 }
 
 object PolygonHCPair {

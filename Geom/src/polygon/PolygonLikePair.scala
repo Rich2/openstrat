@@ -22,7 +22,7 @@ trait PolygonLikePairArr[VT, PT <: PolygonLike[VT], A2, PPT <: PolygonLikePair[V
 trait PolygonLikePairArrBuilder[VB, PB <: PolygonLike[VB], A2, PPB <: PolygonLikePair[VB, PB, A2], ArrB <: PolygonLikePairArr[VB, PB, A2, PPB]]
 {
   def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB
-  def polygonBuilder: PolygonBuilder[VB, PB]
+  //def polygonBuilder: PolygonBuilder[VB, PB]
 }
 
 trait PolygonDblsPair[VT <: ElemDblN, PT <: PolygonLike[VT], A2] extends PolygonLikePair[VT, PT, A2]
