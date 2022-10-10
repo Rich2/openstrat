@@ -12,13 +12,15 @@ object PolygonHCPair {
   implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrBuilder[PolygonHCPair[A2], PolygonHCPairArr[A2]] = new PolygonHCPairBuild[A2]
 }
 
-final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Array: Array[A2]) extends SeqDefPairArr[A2, PolygonHCPair[A2]]
+final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Array: Array[A2]) extends PolygonLikePairArr[HCoord, PolygonHC, A2, PolygonHCPair[A2]]
 { override type ThisT = PolygonHCPairArr[A2]
   override def unsafeSameSize(length: Int): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](new Array[Array[Int]](arrayArrayInt.length), a2Array)
   override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { arrayArrayInt(i) = value.unsafeArray; a2Array(i) = value.a2 }
   override def fElemStr: PolygonHCPair[A2] => String = _.toString
   override def typeStr: String = "PolygonHCPairArray"
   override def sdIndex(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](arrayArrayInt(index), a2Array(index))
+
+  override def polygonArr: PolygonHCArr = new PolygonHCArr(arrayArrayInt)
 }
 
 final class PolygonHCPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends ArrBuilder[PolygonHCPair[A2], PolygonHCPairArr[A2]]
