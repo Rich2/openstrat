@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom; package pglobe
+import geom._, collection.mutable.ArrayBuffer
 
 /** A latitude-longitude polygon. A quasi polygon where the points are stored as points of latitude and longitude.Once the points are converted into a
 *  view, ie into pixel positions an actual polygon can be drawn or filled as desired. Do not create Polygons that span an arc of greater than 90
@@ -73,4 +74,29 @@ object PolygonLL extends Dbl2SeqDefCompanion[LatLong, PolygonLL]
   implicit val llTransImplicit: LLTrans[PolygonLL] = new LLTrans[PolygonLL] {
     override def fLLTrans(orig: PolygonLL, f: LatLong => LatLong): PolygonLL = orig.map(f)
   }
+}
+
+class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends SeqImut[PolygonLL]
+{ override type ThisT = PolygonLLArr
+  override def typeStr: String = "PolygonLLArr"
+  override def unsafeSameSize(length: Int): PolygonLLArr = new PolygonLLArr(new Array[Array[Double]](length))
+  override def length: Int = unsafeArrayOfArrays.length
+  override def sdLength: Int = unsafeArrayOfArrays.length
+  override def unsafeSetElem(i: Int, value: PolygonLL): Unit = unsafeArrayOfArrays(i) = value.unsafeArray
+  override def fElemStr: PolygonLL => String = _.toString
+  override def sdIndex(index: Int): PolygonLL = new PolygonLL(unsafeArrayOfArrays(index))
+}
+
+class PolygonLLBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with SeqGen[PolygonLL]
+{ override type ThisT = PolygonLLBuff
+  override def typeStr: String = "PolygonLLBuff"
+  override def length: Int = unsafeBuff.length
+  override def unsafeSetElem(i: Int, value: PolygonLL): Unit = unsafeBuff(i) = value.unsafeArray
+  override def fElemStr: PolygonLL => String = _.toString
+  override def sdLength: Int = unsafeBuff.length
+  override def sdIndex(index: Int): PolygonLL = new PolygonLL(unsafeBuff(index))
+}
+
+object PolygonLLBuff
+{ def apply(initLen: Int = 4): PolygonLLBuff = new PolygonLLBuff(new ArrayBuffer[Array[Double]](initLen))
 }

@@ -1,9 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
-
-import collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import geom._, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
 class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqDef with PolygonInt2s[HCoord]
