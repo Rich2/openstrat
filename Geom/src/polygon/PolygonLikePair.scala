@@ -24,17 +24,17 @@ trait PolygonLikePairArrBuilder[VB, PB <: PolygonLike[VB], A2, PPB <: PolygonLik
   def polygonBuilder: PolygonBuilder[VB, PB]
 }
 
-trait PolygonDblsLikePair[VT <: ElemDblN, PT <: PolygonLike[VT], A2] extends PolygonLikePair[VT, PT, A2]
+trait PolygonDblsPair[VT <: ElemDblN, PT <: PolygonLike[VT], A2] extends PolygonLikePair[VT, PT, A2]
 {
   def unsafeArray: Array[Double]
 }
 
-trait PolygonDblsLikePairArr[VT <: ElemDblN, PT <: PolygonLike[VT], A2, PPT <: PolygonDblsLikePair[VT, PT, A2]] extends PolygonLikePairArr[VT, PT, A2, PPT]
+trait PolygonDblsLikePairArr[VT <: ElemDblN, PT <: PolygonLike[VT], A2, PPT <: PolygonDblsPair[VT, PT, A2]] extends PolygonLikePairArr[VT, PT, A2, PPT]
 {
   def arrayArrayDbl: Array[Array[Double]]
 }
 
-trait PolygonDblsLikePairArrBuilder[VB <: ElemDblN, PB <: PolygonLike[VB], A2, PPB <: PolygonDblsLikePair[VB, PB, A2],
+trait PolygonDblsLikePairArrBuilder[VB <: ElemDblN, PB <: PolygonLike[VB], A2, PPB <: PolygonDblsPair[VB, PB, A2],
   ArrB <: PolygonDblsLikePairArr[VB, PB, A2, PPB]] extends PolygonLikePairArrBuilder[VB, PB, A2, PPB, ArrB]
 {
   override def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB = ???// fromArrayArrayDbl(newPolygonArr.arrayArrayDbl, a2Arr)
