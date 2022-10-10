@@ -20,7 +20,7 @@ final class PolygonPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Ar
   override def typeStr: String = "PolygonPairArray"
   override def sdIndex(index: Int): PolygonPair[A2] = new PolygonPair[A2](arrayArrayDbl(index), a2Array(index))
 
-  override def polygonArr: Arr[Polygon] = arrayArrayDbl.mapArr (new PolygonGen(_))
+  def polygonArr: PolygonArr = new PolygonArr(arrayArrayDbl)// ???// arrayArrayDbl.mapArr (new PolygonGen(_))
 }
 
 final class PolygonPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends ArrBuilder[PolygonPair[A2], PolygonPairArr[A2]]
