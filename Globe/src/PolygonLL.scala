@@ -5,7 +5,7 @@ import geom._, collection.mutable.ArrayBuffer
 /** A latitude-longitude polygon. A quasi polygon where the points are stored as points of latitude and longitude.Once the points are converted into a
 *  view, ie into pixel positions an actual polygon can be drawn or filled as desired. Do not create Polygons that span an arc of greater than 90
 *  degrees as this may break the algorithms. preferably keep the arcs significantly smaller. */
-class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqDef with PolygonDbl2s[LatLong]
+class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqDef with PolygonDbl2s[LatLong] with ElemArrayDbl
 { type ThisT = PolygonLL
   type SideT = LineSegLL
   override def unsafeFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
@@ -67,6 +67,22 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqDe
 object PolygonLL extends Dbl2SeqDefCompanion[LatLong, PolygonLL]
 { override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
+  implicit val arrBuildImplicit: ArrBuilder[PolygonLL, PolygonLLArr] = new ArrBuilder[PolygonLL, PolygonLLArr] {
+    override type BuffT = PolygonLLBuff
+
+    override def newBuff(length: Int): PolygonLLBuff = PolygonLLBuff(length)
+
+    override def newArr(length: Int): PolygonLLArr = new PolygonLLArr(new Array[Array[Double]](length))
+
+    override def arrSet(arr: PolygonLLArr, index: Int, value: PolygonLL): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
+
+    override def buffGrow(buff: PolygonLLBuff, value: PolygonLL): Unit = buff.unsafeBuff.append(value.unsafeArray)
+
+    override def buffGrowArr(buff: PolygonLLBuff, arr: PolygonLLArr): Unit = arr.foreach(p => buff.unsafeBuff.append(p.unsafeArray))
+
+    override def buffToBB(buff: PolygonLLBuff): PolygonLLArr = new PolygonLLArr(buff.unsafeBuff.toArray)
+  }
+
   implicit val persistImplicit: Dbl2SeqDefPersist[LatLong, PolygonLL] = new Dbl2SeqDefPersist[LatLong, PolygonLL]("PolygonLL")
   { override def fromArray(value: Array[Double]): PolygonLL = new PolygonLL(value)
   }
@@ -76,15 +92,12 @@ object PolygonLL extends Dbl2SeqDefCompanion[LatLong, PolygonLL]
   }
 }
 
-class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends SeqImut[PolygonLL]
+class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonLL]
 { override type ThisT = PolygonLLArr
   override def typeStr: String = "PolygonLLArr"
-  override def unsafeSameSize(length: Int): PolygonLLArr = new PolygonLLArr(new Array[Array[Double]](length))
-  override def length: Int = unsafeArrayOfArrays.length
-  override def sdLength: Int = unsafeArrayOfArrays.length
-  override def unsafeSetElem(i: Int, value: PolygonLL): Unit = unsafeArrayOfArrays(i) = value.unsafeArray
   override def fElemStr: PolygonLL => String = _.toString
   override def sdIndex(index: Int): PolygonLL = new PolygonLL(unsafeArrayOfArrays(index))
+  override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)
 }
 
 class PolygonLLBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with SeqGen[PolygonLL]

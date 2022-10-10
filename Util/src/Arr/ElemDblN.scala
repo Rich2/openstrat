@@ -5,12 +5,6 @@ import collection.mutable.ArrayBuffer
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[DblNArr]] Array[Double] based collections. */
 trait ElemDblN extends Any with ElemValueN
 
-/** Trait for Array[Double] backed classes. The purpose of this trait is to allow for collections of this class to be stored with their underlying
- * Array[Double]s. */
-trait ArrayDblBacked extends Any
-{ def unsafeArray: Array[Double]
-}
-
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[DblNArr]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
 trait DblNSeqDef[A <: ElemDblN] extends Any with ValueNSeqDef[A] with ArrayDblBacked
