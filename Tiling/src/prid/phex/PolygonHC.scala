@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqDef with PolygonInt2s[HCoord]
+class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqDef with PolygonInt2s[HCoord] with ElemArrayInt
 { override type ThisT = PolygonHC
   override type SideT = LineSegHC
   override def typeStr: String = "PolygonHC"
@@ -97,24 +97,19 @@ object PolygonHC extends Int2SeqDefCompanion[HCoord, PolygonHC]
   }
 }
 
-class PolygonHCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends SeqImut[PolygonHC]
+class PolygonHCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends ArrayIntArr[PolygonHC]
 { override type ThisT = PolygonHCArr
   override def typeStr: String = "PolygonHCArr"
-  override def unsafeSameSize(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
-  override def length: Int = unsafeArrayOfArrays.length
-  override def sdLength: Int = unsafeArrayOfArrays.length
-  override def unsafeSetElem(i: Int, value: PolygonHC): Unit = unsafeArrayOfArrays(i) = value.unsafeArray
   override def fElemStr: PolygonHC => String = _.toString
   override def sdIndex(index: Int): PolygonHC = new PolygonHC(unsafeArrayOfArrays(index))
+  override def unsafeFromArrayArray(array: Array[Array[Int]]): PolygonHCArr = new PolygonHCArr(array)
 }
 
-class PolygonHCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal with SeqGen[PolygonHC]
+class PolygonHCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal with ArrayIntBuff[PolygonHC]
 { override type ThisT = PolygonHCBuff
   override def typeStr: String = "PolygonHCBuff"
-  override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: PolygonHC): Unit = unsafeBuff(i) = value.unsafeArray
   override def fElemStr: PolygonHC => String = _.toString
-  override def sdLength: Int = unsafeBuff.length
   override def sdIndex(index: Int): PolygonHC = new PolygonHC(unsafeBuff(index))
 }
 

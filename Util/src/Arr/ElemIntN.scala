@@ -5,13 +5,6 @@ import collection.mutable.ArrayBuffer
 /** A class that can be construct from a fixed number of [[Int]]s can be stored as an Array[Int] of primitive values. */
 trait ElemIntN extends Any with ElemValueN
 
-/** Trait for Array[Int] backed classes. The purpose of this trait is to allow for collections of this class to be stored with their underlying
- * Array[Int]s. */
-trait ArrayIntBacked extends Any
-{ /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */
-  def unsafeArray: Array[Int]
-}
-
 trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A] with ArrayIntBacked
 { type ThisT <: IntNSeqDef[A]
 

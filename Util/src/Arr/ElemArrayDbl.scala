@@ -31,7 +31,6 @@ trait ArrayDblArrBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends Ar
   type BuffT <: ArrayDblBuff[A]
   @inline override def newArr(length: Int): ArrT = fromArray(new Array[Array[Double]](length))
   override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
-  //override def buffNew(length: Int = 4): DblsArrayBuff[A] = new DblsArrayBuff[A](new ArrayBuffer[Array[Double]]((length)))
   override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuff.toArray)
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuff.append(value.unsafeArray); () }
   override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuff.addAll(arr.unsafeArrayOfArrays); () }
@@ -39,20 +38,17 @@ trait ArrayDblArrBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends Ar
 }
 
 class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends EqT[ArrT]
-{
-  override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.sdLength != a2.sdLength) false
+{ override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.sdLength != a2.sdLength) false
   else a1.iForAll((i, el1) =>  el1.unsafeArray === a2(i).unsafeArray)
 }
 
 object ArrArrayDblEq
-{
-  def apply[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]]: ArrArrayDblEq[A, ArrT] = new ArrArrayDblEq[A, ArrT]
+{ def apply[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]]: ArrArrayDblEq[A, ArrT] = new ArrArrayDblEq[A, ArrT]
 }
 
 /** This is a buffer class for Arrays of Double. It is not a Buffer class for Arrays. */
 trait ArrayDblBuff[A <: ArrayDblBacked] extends Any with SeqGen[A]
-{ //override def apply(index: Int): AArray[Double] = unsafeBuff(index)
-  def unsafeBuff: ArrayBuffer[Array[Double]]
+{ def unsafeBuff: ArrayBuffer[Array[Double]]
   override final def sdLength: Int = unsafeBuff.length
   override final def length: Int = unsafeBuff.length
 }
