@@ -2,7 +2,8 @@
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-final class PolygonPair[A2](val unsafeArray: Array[Double], val a2: A2) extends SeqDefPair[A2] with SpecialT
+
+final class PolygonPair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblsLikePair[Pt2, Polygon, A2]
 {
   def polygon: Polygon = new PolygonGen(unsafeArray)
 }
@@ -11,13 +12,15 @@ object PolygonPair {
   implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrBuilder[PolygonPair[A2], PolygonPairArr[A2]] = new PolygonPairBuild[A2]
 }
 
-final class PolygonPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends SeqDefPairArr[A2, PolygonPair[A2]]
+final class PolygonPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends PolygonDblsLikePairArr[Pt2, Polygon, A2, PolygonPair[A2]]
 { override type ThisT = PolygonPairArr[A2]
   override def unsafeSameSize(length: Int): PolygonPairArr[A2] = new PolygonPairArr[A2](new Array[Array[Double]](arrayArrayDbl.length), a2Array)
   override def unsafeSetElem(i: Int, value: PolygonPair[A2]): Unit = { arrayArrayDbl(i) = value.unsafeArray; a2Array(i) = value.a2 }
   override def fElemStr: PolygonPair[A2] => String = _.toString
   override def typeStr: String = "PolygonPairArray"
   override def sdIndex(index: Int): PolygonPair[A2] = new PolygonPair[A2](arrayArrayDbl(index), a2Array(index))
+
+  override def polygonArr: Arr[Polygon] = arrayArrayDbl.mapArr (new PolygonGen(_))
 }
 
 final class PolygonPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends ArrBuilder[PolygonPair[A2], PolygonPairArr[A2]]

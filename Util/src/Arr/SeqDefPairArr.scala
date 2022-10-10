@@ -3,7 +3,7 @@ package ostrat
 import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** An element that pairs a [[SeqDef]] with a second value. */
-trait SeqDefPair[A2]
+trait SeqDefPair[A2] extends SpecialT
 
 /** A sequence of [[SeqDefPair]]s stored in 2 [[Array]]s for efficiency. */
 trait SeqDefPairArr[A2, A <: SeqDefPair[A2]] extends SeqImut[A]

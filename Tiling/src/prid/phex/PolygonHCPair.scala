@@ -2,10 +2,10 @@
 package ostrat; package prid; package phex
 import geom._, annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-class PolygonHCPair[A2](val unsafeArray: Array[Int], val a2: A2)extends SeqDefPair[A2] with SpecialT
+class PolygonHCPair[A2](val unsafeArray: Array[Int], val a2: A2)extends PolygonLikePair[HCoord, PolygonHC, A2]// with SpecialT
 {
-  def polgonHC: PolygonHC = new PolygonHC(unsafeArray)
-  def polygonTuple(f: HCoord => Pt2): PolygonPair[A2] = new PolygonPair[A2](polgonHC.toPolygon(f).unsafeArray, a2)
+  def polygon: PolygonHC = new PolygonHC(unsafeArray)
+  def polygonTuple(f: HCoord => Pt2): PolygonPair[A2] = new PolygonPair[A2](polygon.toPolygon(f).unsafeArray, a2)
 }
 
 object PolygonHCPair {
