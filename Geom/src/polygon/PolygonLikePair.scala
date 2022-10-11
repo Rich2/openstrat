@@ -21,7 +21,9 @@ trait PolygonLikePairArrBuilder[B1V, B1 <: PolygonLike[B1V], ArrB1 <: SeqImut[B1
   ArrB <: PolygonLikePairArr[B1V, B1, B2, B]] extends PairArrBuilder[B1, B2, B, ArrB]
 {
   def polygonBuilder: PolygonBuilder[B1V, B1]
+
   def single1Builder: ArrBuilder[B1, ArrB1]
+
   def pairBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
 }
 

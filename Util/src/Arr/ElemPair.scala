@@ -18,4 +18,7 @@ trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends SeqGen[A]
   override def sdLength: Int = a2Buff.length
 }
 
-trait PairArrBuilder[A1, A2, A <: ElemPair[A1, A2], ArrA <: SeqImut[A]] extends ArrBuilder[A, ArrA]
+trait PairArrBuilder[B1, B2, B <: ElemPair[B1, B2], ArrB <: SeqImut[B]] extends ArrBuilder[B, ArrB]
+{
+
+}
