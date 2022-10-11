@@ -39,8 +39,8 @@ trait PolygonDblsLikePairArr[A1V <: ElemDblN, A1 <: PolygonLike[A1V], A2, A <: P
   def arrayArrayDbl: Array[Array[Double]]
 }
 
-trait PolygonDblsLikePairArrBuilder[VB <: ElemDblN, B1 <: PolygonLike[VB], ArrC <: SeqImut[B1], A2, PPB <: PolygonDblsPair[VB, B1, A2],
-  ArrB <: PolygonDblsLikePairArr[VB, B1, A2, PPB]] extends PolygonLikePairArrBuilder[VB, B1, ArrC, A2, PPB, ArrB]
+trait PolygonDblsLikePairArrBuilder[B1V <: ElemDblN, B1 <: PolygonLike[B1V], ArrB1 <: SeqImut[B1], A2, B <: PolygonDblsPair[B1V, B1, A2],
+  ArrB <: PolygonDblsLikePairArr[B1V, B1, A2, B]] extends PolygonLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]
 {
  // override def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB = ???// fromArrayArrayDbl(newPolygonArr.arrayArrayDbl, a2Arr)
   def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Arr: Arr[A2]): ArrB
