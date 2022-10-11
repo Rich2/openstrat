@@ -11,17 +11,21 @@ trait PolygonLikePairArr[VT, PT <: PolygonLike[VT], A2, PPT <: PolygonLikePair[V
 {
   def polygonArr: SeqImut[PT]
 
-  def polygonMapPair[VB, PB <: PolygonLike[VB], A2, PPB <: PolygonLikePair[VB, PB, A2], ArrB <: PolygonLikePairArr[VB, PB, A2, PPB]](f: VT => VB)(
-    implicit build: PolygonLikePairArrBuilder[VB, PB, A2, PPB, ArrB]): ArrB = {
-
-    //polygonArr.map(f)
-    ???
+  def polygonMapPair[VB <: ElemValueN, PB <: PolygonLike[VB], ArrC <: SeqImut[PB], PPB <: PolygonLikePair[VB, PB, A2],
+    ArrB <: PolygonLikePairArr[VB, PB, A2, PPB]](f: VT => VB)(implicit build: PolygonLikePairArrBuilder[VB, PB, ArrC, A2, PPB, ArrB]): ArrB =
+  {
+    val polygons = polygonArr.map(p => p.map[VB, PB](f)(build.polygonBuilder))(build.singleBuilder)
+    build.pairBuilder(polygons, a2Array)
   }
 }
 
-trait PolygonLikePairArrBuilder[VB, PB <: PolygonLike[VB], A2, PPB <: PolygonLikePair[VB, PB, A2], ArrB <: PolygonLikePairArr[VB, PB, A2, PPB]]
+trait PolygonLikePairArrBuilder[VB, PB <: PolygonLike[VB], ArrB <: SeqImut[PB], A2, PPB <: PolygonLikePair[VB, PB, A2],
+  ArrPB <: PolygonLikePairArr[VB, PB, A2, PPB]] extends ArrBuilder[PPB, ArrPB]
 {
-  def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB
+  def polygonBuilder: PolygonBuilder[VB, PB]
+  def singleBuilder: ArrBuilder[PB, ArrB]
+  def pairBuilder(polygonArr: ArrB, a2s: Array[A2]): ArrPB
+  //def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB
   //def polygonBuilder: PolygonBuilder[VB, PB]
 }
 
@@ -35,9 +39,9 @@ trait PolygonDblsLikePairArr[VT <: ElemDblN, PT <: PolygonLike[VT], A2, PPT <: P
   def arrayArrayDbl: Array[Array[Double]]
 }
 
-trait PolygonDblsLikePairArrBuilder[VB <: ElemDblN, PB <: PolygonLike[VB], A2, PPB <: PolygonDblsPair[VB, PB, A2],
-  ArrB <: PolygonDblsLikePairArr[VB, PB, A2, PPB]] extends PolygonLikePairArrBuilder[VB, PB, A2, PPB, ArrB]
+trait PolygonDblsLikePairArrBuilder[VB <: ElemDblN, PB <: PolygonLike[VB], ArrC <: SeqImut[PB], A2, PPB <: PolygonDblsPair[VB, PB, A2],
+  ArrB <: PolygonDblsLikePairArr[VB, PB, A2, PPB]] extends PolygonLikePairArrBuilder[VB, PB, ArrC, A2, PPB, ArrB]
 {
-  override def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB = ???// fromArrayArrayDbl(newPolygonArr.arrayArrayDbl, a2Arr)
+ // override def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB = ???// fromArrayArrayDbl(newPolygonArr.arrayArrayDbl, a2Arr)
   def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Arr: Arr[A2]): ArrB
 }
