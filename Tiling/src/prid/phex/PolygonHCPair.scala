@@ -2,12 +2,15 @@
 package ostrat; package prid; package phex
 import geom._, annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
+/** A [[PolygonHC]], a Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
 class PolygonHCPair[A2](val unsafeArray: Array[Int], val a2: A2)extends PolygonLikePair[HCoord, PolygonHC, A2]// with SpecialT
 {
   def polygon: PolygonHC = new PolygonHC(unsafeArray)
   def polygonPair(f: HCoord => Pt2): PolygonPair[A2] = new PolygonPair[A2](polygon.toPolygon(f).unsafeArray, a2)
 }
 
+/** Companion object for a [[PolygonHC]], a Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. Contains implicit
+ * build instance for [[PolygonHCPArr]]. */
 object PolygonHCPair {
   implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrBuilder[PolygonHCPair[A2], PolygonHCPairArr[A2]] = new PolygonHCPairBuild[A2]
 }
