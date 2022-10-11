@@ -15,6 +15,7 @@ object PolygonHCPair {
   implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrBuilder[PolygonHCPair[A2], PolygonHCPairArr[A2]] = new PolygonHCPairBuild[A2]
 }
 
+/** An Arr of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
 final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Array: Array[A2]) extends PolygonLikePairArr[HCoord, PolygonHC, A2, PolygonHCPair[A2]]
 { override type ThisT = PolygonHCPairArr[A2]
   override def unsafeSameSize(length: Int): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](new Array[Array[Int]](arrayArrayInt.length), a2Array)
@@ -26,6 +27,7 @@ final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Arr
   override def polygonArr: PolygonHCArr = new PolygonHCArr(arrayArrayInt)
 }
 
+/** A builder for ann Arr of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
 final class PolygonHCPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends ArrBuilder[PolygonHCPair[A2], PolygonHCPairArr[A2]]
 { override type BuffT = PolygonHCPairBuff[A2]
   override def newArr(length: Int): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](new Array[Array[Int]](length), new Array[A2](length))
@@ -39,6 +41,7 @@ final class PolygonHCPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def buffToBB(buff: PolygonHCPairBuff[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](buff.arrayIntBuff.toArray, buff.a2Buff.toArray)
 }
 
+/** A buffer of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
 class PolygonHCPairBuff[A2](val arrayIntBuff: ArrayBuffer[Array[Int]], val a2Buff: ArrayBuffer[A2]) extends PairBuff[PolygonHC, A2, PolygonHCPair[A2]]
 { override type ThisT = PolygonHCPairBuff[A2]
   override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { arrayIntBuff(i) = value.unsafeArray; a2Buff(i) = value.a2 }
