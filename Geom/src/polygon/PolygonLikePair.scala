@@ -1,32 +1,28 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-trait PolygonLikePair[VT, A1 <: PolygonLike[VT], A2] extends SeqDefPair[A1, A2]
-{
-  def polygon: A1
+trait PolygonLikePair[VT, A1 <: PolygonLike[VT], A2] extends ElemPair[A1, A2]
+{ def polygon: A1
 }
 
-trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A2, A <: PolygonLikePair[A1V, A1, A2]] extends SeqDefPairArr[A1, A2, A]
+trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A2, A <: PolygonLikePair[A1V, A1, A2]] extends PairArr[A1, A2, A]
 {
   def polygonArr: SeqImut[A1]
 
   def polygonMapPair[B1V <: ElemValueN, B1 <: PolygonLike[B1V], ArrB1 <: SeqImut[B1], B <: PolygonLikePair[B1V, B1, A2],
     ArrB <: PolygonLikePairArr[B1V, B1, A2, B]](f: A1V => B1V)(implicit build: PolygonLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]): ArrB =
   {
-    val polygons = polygonArr.map(p => p.map[B1V, B1](f)(build.polygonBuilder))(build.singleBuilder)
+    val polygons = polygonArr.map(p => p.map[B1V, B1](f)(build.polygonBuilder))(build.single1Builder)
     build.pairBuilder(polygons, a2Array)
   }
 }
 
-trait PolygonLikePairArrBuilder[B1V, B1 <: PolygonLike[B1V], ArrB1 <: SeqImut[B1], A2, B <: PolygonLikePair[B1V, B1, A2],
-  ArrB <: PolygonLikePairArr[B1V, B1, A2, B]] extends ArrBuilder[B, ArrB]
+trait PolygonLikePairArrBuilder[B1V, B1 <: PolygonLike[B1V], ArrB1 <: SeqImut[B1], B2, B <: PolygonLikePair[B1V, B1, B2],
+  ArrB <: PolygonLikePairArr[B1V, B1, B2, B]] extends PairArrBuilder[B1, B2, B, ArrB]
 {
   def polygonBuilder: PolygonBuilder[B1V, B1]
-  def singleBuilder: ArrBuilder[B1, ArrB1]
-  def pairBuilder(polygonArr: ArrB1, a2s: Array[A2]): ArrB
-  //def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB
-  //def polygonBuilder: PolygonBuilder[VB, PB]
+  def single1Builder: ArrBuilder[B1, ArrB1]
+  def pairBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
 }
 
 trait PolygonDblsPair[A1V <: ElemDblN, A1 <: PolygonLike[A1V], A2] extends PolygonLikePair[A1V, A1, A2]

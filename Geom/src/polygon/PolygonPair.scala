@@ -38,7 +38,7 @@ final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[
 
   override def polygonBuilder: PolygonBuilder[Pt2, Polygon] = Pt2.polygonBuildImplicit
 
-  override def singleBuilder: ArrBuilder[Polygon, PolygonArr] = Polygon.arrBuildImplicit
+  override def single1Builder: ArrBuilder[Polygon, PolygonArr] = Polygon.arrBuildImplicit
 
   override def pairBuilder(polygonArr: PolygonArr, a2s: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](polygonArr.unsafeArrayOfArrays, a2s)
 }
