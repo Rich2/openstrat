@@ -1,5 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import geom._, collection.mutable.ArrayBuffer
 
 /* A polygon using distances measured in [[Length]] or metres rather than scalars. */
 final class PolygonM(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[PtM2] with PolygonDbl2s[PtM2]
@@ -62,4 +63,24 @@ object PolygonM extends Dbl2SeqDefCompanion[PtM2, PolygonM]
   implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, PolygonM] = new Dbl2SeqDefPersist[PtM2, PolygonM]("PolygonMs")
   { override def fromArray(value: Array[Double]): PolygonM = new PolygonM(value)
   }
+}
+
+class PolygonMArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonM]
+{ override type ThisT = PolygonMArr
+  override def typeStr: String = "PolygonMArr"
+  override def fElemStr: PolygonM => String = _.toString
+  override def sdIndex(index: Int): PolygonM = new PolygonM(unsafeArrayOfArrays(index))
+  override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonMArr = new PolygonMArr(array)
+}
+
+class PolygonMBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonM]
+{ override type ThisT = PolygonMBuff
+  override def typeStr: String = "PolygonMBuff"
+  override def unsafeSetElem(i: Int, value: PolygonM): Unit = unsafeBuff(i) = value.unsafeArray
+  override def fElemStr: PolygonM => String = _.toString
+  override def sdIndex(index: Int): PolygonM = new PolygonM(unsafeBuff(index))
+}
+
+object PolygonMBuff
+{ def apply(initLen: Int = 4): PolygonMBuff = new PolygonMBuff(new ArrayBuffer[Array[Double]](initLen))
 }

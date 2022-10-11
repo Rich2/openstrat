@@ -15,19 +15,21 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   val scaleMax: Length = 100.kMetres
   var focus: LatLong = startFocus.sget
 
+  val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
+
+  val eaPms: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
+
   def repaint(): Unit =
-  { val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
+  {
 
-    val afps: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
-
-    val afps2 = afps.filter(_._2.vertsMin3)
-    val af0 = afps2.map { pair =>
+    val eaPms2: Arr[(EArea2, PolygonM)] = eaPms.filter(_._2.vertsMin3)
+    val af0 = eaPms2.map { pair =>
       val (d, p) = pair
       p.map(_ / scale).fillActive(d.colour, d)
     }
 
-    val af1 = afps2.map { a => a._2.map(_ / scale).draw() }
-    val af2 = afps2.map { pair =>
+    val af1 = eaPms2.map { a => a._2.map(_ / scale).draw() }
+    val af2 = eaPms2.map { pair =>
       val (d, _) = pair
       val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
       TextGraphic(d.name, 10, posn, d.colour.contrastBW)
