@@ -97,6 +97,14 @@ trait SeqGen[+A] extends Any with SeqDefGen[A @uncheckedVariance]
     res
   }
 
+  /** Specialised map to an immutable [[SeqImut]] of B. Applies the supplied function to every
+   * element of this sequence. */
+  def mapPair[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
+    val res = ev.newArr(sdLength)
+    iForeach((i, a) => ev.arrSet(res, i, f(a)))
+    res
+  }
+
   /** Index with element map. Applies the parameter function to the index and each respective element of this sequence. The function returns an
    * element of type B and the method as a whole returns the specialised [[SeqImut]] of type B. The method has 2 versions / name overloads. The
    * default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first

@@ -18,6 +18,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
 
   val eaPms: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
+  val eaPms2: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
 
   def repaint(): Unit =
   {
