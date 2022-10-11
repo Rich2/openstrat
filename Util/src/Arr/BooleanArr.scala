@@ -2,7 +2,7 @@
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
-trait BooleanSeqDef extends Any with ImutSeqDef[Boolean]
+trait BooleanSeqDef extends Any with SeqDefImut[Boolean]
 { type ThisT <: BooleanSeqDef
   def unsafeArray: Array[Boolean]
 

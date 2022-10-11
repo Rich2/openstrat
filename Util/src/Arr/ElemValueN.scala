@@ -10,7 +10,7 @@ trait ElemValueN extends Any with SpecialT
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
  *  classes include both [[SeqImut]s and classes like polygons and lines. */
-trait ValueNSeqDef[A <: ElemValueN] extends Any with ImutSeqDef[A]
+trait ValueNSeqDef[A <: ElemValueN] extends Any with SeqDefImut[A]
 { type ThisT <: ValueNSeqDef[A]
 
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
