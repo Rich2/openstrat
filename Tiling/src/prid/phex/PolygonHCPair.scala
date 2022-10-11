@@ -36,7 +36,7 @@ final class PolygonHCPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def buffToBB(buff: PolygonHCPairBuff[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](buff.arrayIntBuff.toArray, buff.a2Buff.toArray)
 }
 
-class PolygonHCPairBuff[A2](val arrayIntBuff: ArrayBuffer[Array[Int]], val a2Buff: ArrayBuffer[A2]) extends PairBuff[A2, PolygonHCPair[A2]]
+class PolygonHCPairBuff[A2](val arrayIntBuff: ArrayBuffer[Array[Int]], val a2Buff: ArrayBuffer[A2]) extends PairBuff[PolygonHC, A2, PolygonHCPair[A2]]
 { override type ThisT = PolygonHCPairBuff[A2]
   override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { arrayIntBuff(i) = value.unsafeArray; a2Buff(i) = value.a2 }
   override def fElemStr: PolygonHCPair[A2] => String = _.toString

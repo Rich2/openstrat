@@ -33,7 +33,7 @@ final class PolygonMPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[S
   override def buffToBB(buff: PolygonMPairBuff[A2]): PolygonMPairArr[A2] = new PolygonMPairArr[A2](buff.arrayDoubleBuff.toArray, buff.a2Buff.toArray)
 }
 
-class PolygonMPairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buff: ArrayBuffer[A2]) extends PairBuff[A2, PolygonMPair[A2]]
+class PolygonMPairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buff: ArrayBuffer[A2]) extends PairBuff[PolygonM, A2, PolygonMPair[A2]]
 { override type ThisT = PolygonMPairBuff[A2]
   override def unsafeSetElem(i: Int, value: PolygonMPair[A2]): Unit = { arrayDoubleBuff(i) = value.unsafeArray; a2Buff(i) = value.a2 }
   override def fElemStr: PolygonMPair[A2] => String = _.toString

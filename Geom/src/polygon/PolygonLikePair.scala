@@ -2,45 +2,45 @@
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-trait PolygonLikePair[VT, PT <: PolygonLike[VT], A2] extends SeqDefPair[A2]
+trait PolygonLikePair[VT, A1 <: PolygonLike[VT], A2] extends SeqDefPair[A1, A2]
 {
-  def polygon: PT
+  def polygon: A1
 }
 
-trait PolygonLikePairArr[VT, PT <: PolygonLike[VT], A2, PPT <: PolygonLikePair[VT, PT, A2]] extends SeqDefPairArr[A2, PPT]
+trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A2, A <: PolygonLikePair[A1V, A1, A2]] extends SeqDefPairArr[A1, A2, A]
 {
-  def polygonArr: SeqImut[PT]
+  def polygonArr: SeqImut[A1]
 
-  def polygonMapPair[VB <: ElemValueN, PB <: PolygonLike[VB], ArrC <: SeqImut[PB], PPB <: PolygonLikePair[VB, PB, A2],
-    ArrB <: PolygonLikePairArr[VB, PB, A2, PPB]](f: VT => VB)(implicit build: PolygonLikePairArrBuilder[VB, PB, ArrC, A2, PPB, ArrB]): ArrB =
+  def polygonMapPair[B1V <: ElemValueN, B1 <: PolygonLike[B1V], ArrB1 <: SeqImut[B1], B <: PolygonLikePair[B1V, B1, A2],
+    ArrB <: PolygonLikePairArr[B1V, B1, A2, B]](f: A1V => B1V)(implicit build: PolygonLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]): ArrB =
   {
-    val polygons = polygonArr.map(p => p.map[VB, PB](f)(build.polygonBuilder))(build.singleBuilder)
+    val polygons = polygonArr.map(p => p.map[B1V, B1](f)(build.polygonBuilder))(build.singleBuilder)
     build.pairBuilder(polygons, a2Array)
   }
 }
 
-trait PolygonLikePairArrBuilder[VB, PB <: PolygonLike[VB], ArrB <: SeqImut[PB], A2, PPB <: PolygonLikePair[VB, PB, A2],
-  ArrPB <: PolygonLikePairArr[VB, PB, A2, PPB]] extends ArrBuilder[PPB, ArrPB]
+trait PolygonLikePairArrBuilder[B1V, B1 <: PolygonLike[B1V], ArrB1 <: SeqImut[B1], A2, B <: PolygonLikePair[B1V, B1, A2],
+  ArrB <: PolygonLikePairArr[B1V, B1, A2, B]] extends ArrBuilder[B, ArrB]
 {
-  def polygonBuilder: PolygonBuilder[VB, PB]
-  def singleBuilder: ArrBuilder[PB, ArrB]
-  def pairBuilder(polygonArr: ArrB, a2s: Array[A2]): ArrPB
+  def polygonBuilder: PolygonBuilder[B1V, B1]
+  def singleBuilder: ArrBuilder[B1, ArrB1]
+  def pairBuilder(polygonArr: ArrB1, a2s: Array[A2]): ArrB
   //def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB
   //def polygonBuilder: PolygonBuilder[VB, PB]
 }
 
-trait PolygonDblsPair[VT <: ElemDblN, PT <: PolygonLike[VT], A2] extends PolygonLikePair[VT, PT, A2]
+trait PolygonDblsPair[A1V <: ElemDblN, A1 <: PolygonLike[A1V], A2] extends PolygonLikePair[A1V, A1, A2]
 {
   def unsafeArray: Array[Double]
 }
 
-trait PolygonDblsLikePairArr[VT <: ElemDblN, PT <: PolygonLike[VT], A2, PPT <: PolygonDblsPair[VT, PT, A2]] extends PolygonLikePairArr[VT, PT, A2, PPT]
+trait PolygonDblsLikePairArr[A1V <: ElemDblN, A1 <: PolygonLike[A1V], A2, A <: PolygonDblsPair[A1V, A1, A2]] extends PolygonLikePairArr[A1V, A1, A2, A]
 {
   def arrayArrayDbl: Array[Array[Double]]
 }
 
-trait PolygonDblsLikePairArrBuilder[VB <: ElemDblN, PB <: PolygonLike[VB], ArrC <: SeqImut[PB], A2, PPB <: PolygonDblsPair[VB, PB, A2],
-  ArrB <: PolygonDblsLikePairArr[VB, PB, A2, PPB]] extends PolygonLikePairArrBuilder[VB, PB, ArrC, A2, PPB, ArrB]
+trait PolygonDblsLikePairArrBuilder[VB <: ElemDblN, B1 <: PolygonLike[VB], ArrC <: SeqImut[B1], A2, PPB <: PolygonDblsPair[VB, B1, A2],
+  ArrB <: PolygonDblsLikePairArr[VB, B1, A2, PPB]] extends PolygonLikePairArrBuilder[VB, B1, ArrC, A2, PPB, ArrB]
 {
  // override def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB = ???// fromArrayArrayDbl(newPolygonArr.arrayArrayDbl, a2Arr)
   def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Arr: Arr[A2]): ArrB
