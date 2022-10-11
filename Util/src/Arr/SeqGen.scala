@@ -6,11 +6,11 @@ import annotation.unchecked.uncheckedVariance, collection.immutable._
  *  wrap the platform Array and buffer classes. So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable
  *  Array to produce an immutable array, and a ArrBuff that wraps an ArrayBuffer. Currently this just in a standard ArrayBuffer. Where A is a compound
  *  value types or an AnyVal type. */
-trait SeqGen[+A] extends Any with SeqDefGen[A @uncheckedVariance]
+trait SeqGen[+A] extends Any with SeqDef[A @uncheckedVariance]
 { /** The final type of this object. */
   type ThisT <: SeqGen[A]
 
-  /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[SeqDefGen]][A]. */
+  /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[SeqDef]][A]. */
   def length: Int
 
   /** Method for keeping the typer happy when returning this as an instance of ThisT. */

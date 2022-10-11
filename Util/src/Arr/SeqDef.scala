@@ -6,14 +6,14 @@ import annotation.unchecked.uncheckedVariance
  *  classes such as polygons and line paths that are defined by a sequence of data elements. So for example a Polygon in the Geom module is defined by
  *  a sequence of points, but is a different type to the Pt2s class which is the immutable sequence class for 2 dimensional points. includes
  *  expandable buffers. */
-trait SeqDefGen[A] extends Any
+trait SeqDef[A] extends Any
 {
   /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
    *  underlying Array will be a multiple of this number. */
   def sdLength: Int
 
   /** Just a handy short cut to give the length of this collection as a string. */
-  def dataLengthStr: String = sdLength.toString
+  def sdLengthStr: String = sdLength.toString
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    *  methods. */
@@ -110,7 +110,7 @@ trait SeqDefGen[A] extends Any
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
-class DataGenShowT[A, R <: SeqDefGen[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+class DataGenShowT[A, R <: SeqDef[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =

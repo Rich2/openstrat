@@ -19,7 +19,7 @@ package object geom
   /** Constructs a new [[ArrayBuffer]] of [[GraphicElem]]. */
   @inline def BuffGraphic(initialLength: Int = 5): ArrayBuffer[GraphicElem] = new ArrayBuffer[GraphicElem](initialLength)
 
-  implicit def dataGenExtension[A](value: SeqDefGen[A]): DataGenExtensions[A] = new DataGenExtensions[A](value)
+  implicit def dataGenExtension[A](value: SeqDef[A]): DataGenExtensions[A] = new DataGenExtensions[A](value)
 
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
   implicit def slateToExtensions[T](value: T)(implicit ev: Slate[T]): SlateExtensions[T] = new SlateExtensions[T](value, ev)

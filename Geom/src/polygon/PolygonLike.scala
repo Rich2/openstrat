@@ -65,7 +65,7 @@ trait PolygonLike[VT] extends Any
   def sidesForeach[U](f: SideT => U): Unit
 }
 
-trait PolygonLikeSeqDef[VT] extends Any with PolygonLike[VT] with SeqDefGen[VT]
+trait PolygonLikeSeqDef[VT] extends Any with PolygonLike[VT] with SeqDef[VT]
 
 trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLikeSeqDef[VT] with ValueNSeqDef[VT]
 { override def vertsForeach[U](f: VT => U): Unit = dataForeach(f)
