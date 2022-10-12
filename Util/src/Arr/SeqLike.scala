@@ -94,16 +94,6 @@ trait SeqLike[A] extends Any
     res
   }
 
-  /** foldLeft over the tail of the data sequence. */
-  def dataTailfold[B](initial: B)(f: (B, A) => B) =
-  { var acc: B = initial
-    dataTailForeach(a => acc = f(acc, a))
-    acc
-  }
-
-  def dataLast: A = sdIndex(sdLength - 1)
-
-
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */

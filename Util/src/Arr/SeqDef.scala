@@ -19,6 +19,16 @@ trait SeqDef[+A] extends Any with SeqLike[A @uncheckedVariance]
       count -= 1; f(sdIndex(count))
     }
   }
+
+  /** Last element of the defining sequence. */
+  def dsLast: A = sdIndex(sdLength - 1)
+
+  /** FoldLeft over the tail of the defining sequence. */
+  def dsTailfold[B](initial: B)(f: (B, A) => B) = {
+    var acc: B = initial
+    dataTailForeach(a => acc = f(acc, a))
+    acc
+  }
 }
 
 trait RefsSeqDefImut[+A] extends Any with SeqDef[A]

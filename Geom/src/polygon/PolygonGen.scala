@@ -27,10 +27,10 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2s
   }
 
   def eq(obj: PolygonGen): Boolean = unsafeArray.sameElements(obj.unsafeArray)
-  def minX: Double = dataTailfold(v0.x)((acc, el) => acc.min(el.x))
-  def maxX: Double = dataTailfold(v0.x)((acc, el) => acc.max(el.x))
-  def minY: Double = dataTailfold(v0.y)((acc, el) => acc.min(el.y))
-  def maxY: Double = dataTailfold(v0.y)((acc, el) => acc.max(el.y))
+  def minX: Double = dsTailfold(v0.x)((acc, el) => acc.min(el.x))
+  def maxX: Double = dsTailfold(v0.x)((acc, el) => acc.max(el.x))
+  def minY: Double = dsTailfold(v0.y)((acc, el) => acc.min(el.y))
+  def maxY: Double = dsTailfold(v0.y)((acc, el) => acc.max(el.y))
   def width: Double = maxX - minX
   def height: Double = maxY - minY
 
