@@ -10,7 +10,7 @@ object PolygonM3Pair
 {
   def apply[A2](poly: PolygonM3, a2: A2): PolygonM3Pair[A2] = new PolygonM3Pair[A2](poly.unsafeArray, a2)
 
-  implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrBuilder[PolygonM3Pair[A2], PolygonM3PairArr[A2]] = new PolygonM3PairBuild[A2]
+
 }
 
 final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends PolygonLikePairArr[PtM3, PolygonM3, A2, PolygonM3Pair[A2]]
@@ -23,7 +23,8 @@ final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
   override def polygonArr: PolygonM3Arr = new PolygonM3Arr(arrayArrayDbl)
 }
 
-final class PolygonM3PairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends ArrBuilder[PolygonM3Pair[A2], PolygonM3PairArr[A2]]
+final class PolygonM3PairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
+  PolygonLikePairArrBuilder[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2], PolygonM3PairArr[A2]]
 { override type BuffT = PolygonM3PairBuff[A2]
   override def newArr(length: Int): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
@@ -34,6 +35,16 @@ final class PolygonM3PairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def buffGrowArr(buff: PolygonM3PairBuff[A2], arr: PolygonM3PairArr[A2]): Unit = ???
   override def newBuff(length: Int): PolygonM3PairBuff[A2] = new PolygonM3PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToBB(buff: PolygonM3PairBuff[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](buff.arrayDoubleBuff.toArray, buff.a2Buff.toArray)
+
+  /** Builder for the first element of the pair of type B1, in this case a [[PolygonLike]]. The return type has been narrowed as it is needed for the
+   * polygonMapPair method on [[PolygonLikePairArr]]. */
+  override def b1Builder: PolygonLikeBuilder[PtM3, PolygonM3] = PtM3.polygonBuildImplicit
+
+  /** Builder for an Arr of the first element of the pair. */
+  override def b1ArrBuilder: ArrBuilder[PolygonM3, PolygonM3Arr] = PolygonM3.arrBuildImplicit
+
+  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
+  override def pairArrBuilder(polygonArr: PolygonM3Arr, a2s: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](polygonArr.unsafeArrayOfArrays, a2s)
 }
 
 class PolygonM3PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buff: ArrayBuffer[A2]) extends SeqDefPairBuff[PolygonM3, A2, PolygonM3Pair[A2]]

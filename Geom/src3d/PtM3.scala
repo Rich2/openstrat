@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import math._, collection.mutable.ArrayBuffer
+import math._
+import collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 /** 3 dimensional point specified using metres [[Length]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
  *  confusion with the LL ending which is short for Latitude-longitude. */
@@ -98,6 +100,10 @@ object PtM3
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(buffer)
   }
+
+  /** Implicit instance for the [[PolygonM3Pair]] builder. This has to go in the [[PtM3]] companion object so it can be found by an A => B function
+   * where PtM3 is the type B parameter. */
+  implicit def pairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonM3PairBuild[A2] = new PolygonM3PairBuild[A2]
 
   implicit val linePathBuildImplicit: LinePathDbl3sBuilder[PtM3, LinePathMetre3] = new LinePathDbl3sBuilder[PtM3, LinePathMetre3]
   { override type BuffT = BuffPtMetre3

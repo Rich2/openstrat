@@ -1,6 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
  *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM]]s on world
@@ -89,6 +90,9 @@ object PolygonM3 extends Dbl3SeqDefCompanion[PtM3, PolygonM3]
 
     override def buffToBB(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuff.toArray)
   }
+
+
+
   implicit val persistImplicit: Dbl3SeqDefPersist[PtM3, PolygonM3] = new Dbl3SeqDefPersist[PtM3, PolygonM3]("PolygonMs3")
   { override def fromArray(value: Array[Double]): PolygonM3 = new PolygonM3(value)
   }
