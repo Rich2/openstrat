@@ -18,12 +18,13 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
 
   val eaPms: Arr[(EArea2, PolygonM)] = eas.map(_.withPolygonM(focus, northUp))
-  val eaPms2: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
+  val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
+  //val ps2 = ps1.polygonMapPair(_.toMetres3)
 
   def repaint(): Unit =
   {
     val eaPms3: Arr[(EArea2, PolygonM)] = eaPms.filter(_._2.vertsMin3)
-    val activeFills = eaPms3.map { pair =>
+    val activeFills: Arr[PolygonCompound] = eaPms3.map { pair =>
       val (d, p) = pair
       p.map(_ / scale).fillActive(d.colour, d)
     }

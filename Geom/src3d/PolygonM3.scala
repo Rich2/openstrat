@@ -4,7 +4,7 @@ package ostrat; package geom
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
  *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM]]s on world
  *  maps. */
-final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with PolygonDbl3s[PtM3]
+final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with PolygonLike[PtM3] with PolygonDbl3s[PtM3]
 { override type ThisT = PolygonM3
   override type SideT = LineSegM3
   override def dataElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
