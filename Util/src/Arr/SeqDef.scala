@@ -9,6 +9,16 @@ trait SeqDef[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
   def unsafeSameSize(length: Int): ThisT
+
+  /** Performs a side effecting function on each element of the defining-sequence in reverse order. The function may return Unit. If it does return a
+   *  non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method
+   *  users. */
+  def dsReverseForeach[U](f: A => U): Unit = {
+    var count = sdLength
+    while (count > 0) {
+      count -= 1; f(sdIndex(count))
+    }
+  }
 }
 
 trait RefsSeqDefImut[+A] extends Any with SeqDef[A]

@@ -103,12 +103,7 @@ trait SeqLike[A] extends Any
 
   def dataLast: A = sdIndex(sdLength - 1)
 
-  /** Performs a side effecting function on each element of this sequence in reverse order. The function may return Unit. If it does return a non Unit
-   *  value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
-  def reverseDataForeach[U](f: A => U): Unit =
-  { var count = sdLength
-    while(count > 0) { count -= 1; f(sdIndex(count)) }
-  }
+
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
