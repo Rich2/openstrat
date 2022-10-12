@@ -1,30 +1,27 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-trait PolygonLikePair[VT, A1 <: PolygonLike[VT], A2] extends ElemPair[A1, A2]
+trait PolygonLikePair[VT, A1 <: PolygonLike[VT], A2] extends ElemSeqDefPair[A1, A2]
 { def polygon: A1
 }
 
-trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A2, A <: PolygonLikePair[A1V, A1, A2]] extends PairArr[A1, A2, A]
+trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A2, A <: PolygonLikePair[A1V, A1, A2]] extends SeqDefPairArr[A1, A2, A]
 {
   def polygonArr: SeqImut[A1]
 
   def polygonMapPair[B1V <: ElemValueN, B1 <: PolygonLike[B1V], ArrB1 <: SeqImut[B1], B <: PolygonLikePair[B1V, B1, A2],
     ArrB <: PolygonLikePairArr[B1V, B1, A2, B]](f: A1V => B1V)(implicit build: PolygonLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]): ArrB =
   {
-    val polygons = polygonArr.map(p => p.map[B1V, B1](f)(build.polygonBuilder))(build.single1Builder)
-    build.pairBuilder(polygons, a2Array)
+    val polygons = polygonArr.map(p => p.map[B1V, B1](f)(build.b1Builder))(build.b1ArrBuilder)
+    build.pairArrBuilder(polygons, a2Array)
   }
 }
 
 trait PolygonLikePairArrBuilder[B1V, B1 <: PolygonLike[B1V], ArrB1 <: SeqImut[B1], B2, B <: PolygonLikePair[B1V, B1, B2],
-  ArrB <: PolygonLikePairArr[B1V, B1, B2, B]] extends PairArrBuilder[B1, B2, B, ArrB]
-{
-  def polygonBuilder: PolygonBuilder[B1V, B1]
-
-  def single1Builder: ArrBuilder[B1, ArrB1]
-
-  def pairBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
+  ArrB <: PolygonLikePairArr[B1V, B1, B2, B]] extends SeqDefPairArrBuilder[B1V, B1, ArrB1, B2, B, ArrB]
+{ /** Builder for the first element of the pair of type B1, in this case a [[PolygonLike]]. The return type has been narrowed as it is needed for the
+   * polygonMapPair method on [[PolygonLikePairArr]]. */
+  override def b1Builder: PolygonLikeBuilder[B1V, B1]
 }
 
 trait PolygonDblsPair[A1V <: ElemDblN, A1 <: PolygonLike[A1V], A2] extends PolygonLikePair[A1V, A1, A2]

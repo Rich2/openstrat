@@ -64,7 +64,7 @@ object HCoord
 
   implicit val persistImplicit: Persist[HCoord] = PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
 
-  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[PolygonBuilder]]. */
+  /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[PolygonLikeBuilder]]. */
   implicit val polygonBuildEv: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
   { override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): PolygonHC = new PolygonHC(array)

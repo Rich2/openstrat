@@ -25,7 +25,7 @@ trait LinePathInt2[A <: ElemInt2] extends Any with LinePathIntN[A] with Int2SeqD
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait LinePathBuilder[B, BB <: LinePathLike[B]] extends ImutSeqDefBuilder[B, BB]
+trait LinePathBuilder[B, BB <: LinePathLike[B]] extends SeqDefImutBuilder[B, BB]
 { def newLinePath(length: Int): BB
   def arrSet(arr: BB, index: Int, value: B): Unit
 

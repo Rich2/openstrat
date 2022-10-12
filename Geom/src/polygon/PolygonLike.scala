@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
  *  scalar values of the standard [[Polygon]].
  *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a
  *            [[PolygonM3]] it would be a [[PtM3]]. */
-trait PolygonLike[VT] extends Any with SeqDef[VT]
+trait PolygonLike[VT] extends Any with SeqDefImut[VT]
 {
   type SideT <: LineSegLike[VT]
 
@@ -35,7 +35,7 @@ trait PolygonLike[VT] extends Any with SeqDef[VT]
   def vertsFold[B](init: B)(f: (B, VT) => B): B
 
   /** Map this collection of data elements to PolygonLike class of type BB. */
-  def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonBuilder[B, BB]): BB =
+  def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeBuilder[B, BB]): BB =
   {
     val res = build.newPolygonT(vertsNum)
     vertsIForeach((i, a) => build.arrSet(res, i, f(a)))

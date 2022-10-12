@@ -12,7 +12,7 @@ class DataGenExtensions[A](val al : SeqDef[A])
   }
 
   /** Map this collection of data elements to [[PolygonLike]] class of type BB. */
-  def mapPolygon[B <: ElemValueN, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonBuilder[B, BB]): BB =
+  def mapPolygon[B <: ElemValueN, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeBuilder[B, BB]): BB =
   { val res = build.newPolygonT(al.sdLength)
     al.dataIForeach((i, a) => build.arrSet(res, i, f(a)))
     res
@@ -24,7 +24,7 @@ class DataGenExtensions[A](val al : SeqDef[A])
     res
   }
 
-  def toPolygon[AA <: PolygonLike[A]](implicit build: PolygonBuilder[A, AA]): AA =
+  def toPolygon[AA <: PolygonLike[A]](implicit build: PolygonLikeBuilder[A, AA]): AA =
   { val res = build.newPolygonT(al.sdLength)
     al.dataIForeach((i, a) => build.arrSet(res, i, a))
     res
