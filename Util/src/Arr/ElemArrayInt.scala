@@ -48,7 +48,7 @@ object ArrArrayIntEq
 }
 
 /** This is a buffer class for Arrays of Int. It is not a Buffer class for Arrays. */
-trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with SeqGen[A]
+trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Sequ[A]
 { def unsafeBuff: ArrayBuffer[Array[Int]]
   override final def sdLength: Int = unsafeBuff.length
   override final def length: Int = unsafeBuff.length

@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** A generalisation of a line path where the type of the points is not resriscted to [[Pt2]]. */
-trait LinePathLike[A] extends Any with SeqDefImut[A]
+trait LinePathLike[A] extends Any with SeqDef[A]
 {
   def map[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.newLinePath(sdLength)

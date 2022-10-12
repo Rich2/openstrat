@@ -49,7 +49,7 @@ object FloatsBuild extends ArrBuilder[Float, FloatArr] with ArrFlatBuilder[Float
   override def buffToBB(buff: FloatsBuff): FloatArr = new FloatArr(buff.unsafeBuffer.toArray)
 }
 
-class FloatsBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with SeqGen[Float]
+class FloatsBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with Sequ[Float]
 { override def typeStr: String = "FloatsBuff"
   override def sdIndex(index: Int): Float = unsafeBuffer(index)
   override def sdLength: Int = unsafeBuffer.length

@@ -91,7 +91,7 @@ object StringsBuild extends ArrBuilder[String, StringArr] with ArrFlatBuilder[St
   override def buffToBB(buff: StringsBuff): StringArr = new StringArr(buff.unsafeBuffer.toArray)
 }
 
-class StringsBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with SeqGen[String]
+class StringsBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Sequ[String]
 { override def typeStr: String = "Stringsbuff"
   override def sdIndex(index: Int): String = unsafeBuffer(index)
   override def sdLength: Int = unsafeBuffer.length

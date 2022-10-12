@@ -48,7 +48,7 @@ object LongsBuild extends ArrBuilder[Long, LongArr] with ArrFlatBuilder[LongArr]
   override def buffToBB(buff: LongsBuff): LongArr = new LongArr(buff.unsafeBuffer.toArray)
 }
 
-class LongsBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with SeqGen[Long]
+class LongsBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with Sequ[Long]
 { override def typeStr: String = "LongsBuff"
   override def sdIndex(index: Int): Long = unsafeBuffer(index)
   override def sdLength: Int = unsafeBuffer.length

@@ -90,7 +90,7 @@ object EMon
     ShowSum2("EMon", Good.GoodShowImplicit(ev),
       Bad.BadShowImplicit(ev))
 
-  implicit class EMonSeqGen[A, S <: SeqGen[A]](thisES: EMon[S])
+  implicit class EMonSeqGen[A, S <: Sequ[A]](thisES: EMon[S])
   {
     /** Method on EMon[SeqGen[A]]. If this is good, the sequence is mapped with a function from A to EMon[B]. If that mapping produces on Good value,
      * the unique Good value is returned.*/

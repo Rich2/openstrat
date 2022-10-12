@@ -105,7 +105,7 @@ object IntsBuild extends ArrBuilder[Int, IntArr] with ArrFlatBuilder[IntArr]
 }
 
 /** ArrayBuffer class for [[IntArr]]. End users should rarely have need to use this class */
-class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with SeqGen[Int]
+class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Sequ[Int]
 { override def typeStr: String = "IntBuff"
   override def sdIndex(index: Int): Int = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length

@@ -6,11 +6,11 @@ import annotation.unchecked.uncheckedVariance, collection.immutable._
  *  wrap the platform Array and buffer classes. So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable
  *  Array to produce an immutable array, and a ArrBuff that wraps an ArrayBuffer. Currently this just in a standard ArrayBuffer. Where A is a compound
  *  value types or an AnyVal type. */
-trait SeqGen[+A] extends Any with SeqDef[A @uncheckedVariance]
+trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 { /** The final type of this object. */
-  type ThisT <: SeqGen[A]
+  type ThisT <: Sequ[A]
 
-  /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[SeqDef]][A]. */
+  /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[SeqLike]][A]. */
   def length: Int
 
   /** Method for keeping the typer happy when returning this as an instance of ThisT. */
@@ -40,7 +40,7 @@ trait SeqGen[+A] extends Any with SeqDef[A @uncheckedVariance]
   /** Folds over the non existence / existence of a last element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the last element. */
   def lastFold[B](noLast: => B)(ifLast: A => B): B = ife(sdLength >= 1, ifLast(last), noLast)
 
-  /** if this [[SeqGen]] is nonEmpty performs the side effecting function on the head. If empty procedure is applied. */
+  /** if this [[Sequ]] is nonEmpty performs the side effecting function on the head. If empty procedure is applied. */
   def ifHead[U](f: A => U): Unit = if(sdLength >= 1) f(apply(0))
 
   /** Applies an index to this ArrayLike collection which cycles back to element 0, when it reaches the end of the collection. Accepts even negative
@@ -175,7 +175,7 @@ trait SeqGen[+A] extends Any with SeqDef[A @uncheckedVariance]
 
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
    * function from type A and type B to type C. */
-  def zipMap[B, C, ArrC <: SeqImut[C]](operator: SeqGen[B])(f: (A, B) => C)(implicit ev: ArrBuilder[C, ArrC]): ArrC =
+  def zipMap[B, C, ArrC <: SeqImut[C]](operator: Sequ[B])(f: (A, B) => C)(implicit ev: ArrBuilder[C, ArrC]): ArrC =
   { val newLen = sdLength.min(operator.sdLength)
     val res = ev.newArr(newLen)
     var count = 0
@@ -189,7 +189,7 @@ trait SeqGen[+A] extends Any with SeqDef[A @uncheckedVariance]
 
   /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
    *  the specialised map function from type A and type B and type C to type D. */
-  def zipMap2[B, C, D, ArrD <: SeqImut[D]](operator1: SeqGen[B], operator2: SeqGen[C])(f: (A, B, C) => D)(implicit ev: ArrBuilder[D, ArrD]): ArrD =
+  def zipMap2[B, C, D, ArrD <: SeqImut[D]](operator1: Sequ[B], operator2: Sequ[C])(f: (A, B, C) => D)(implicit ev: ArrBuilder[D, ArrD]): ArrD =
   { val newLen = sdLength.min(operator1.sdLength).min(operator2.sdLength)
     val res = ev.newArr(newLen)
     var count = 0

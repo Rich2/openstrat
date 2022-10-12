@@ -6,7 +6,7 @@ trait SeqDefBuilderCommon[BB]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compile time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
-  type BuffT <: SeqGen[_]
+  type BuffT <: Sequ[_]
 
   def newBuff(length: Int = 4): BuffT
 
@@ -17,9 +17,9 @@ trait SeqDefBuilderCommon[BB]
   def buffToBB(buff: BuffT): BB
 }
 
-trait SeqDefImutBuilder[B, BB <: SeqDefImut[B]] extends SeqDefBuilderCommon[BB]
+trait SeqDefImutBuilder[B, BB <: SeqDef[B]] extends SeqDefBuilderCommon[BB]
 { /** The type of the buffer used for building the target compound class BB. */
-  type BuffT <: SeqGen[B]
+  type BuffT <: Sequ[B]
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit

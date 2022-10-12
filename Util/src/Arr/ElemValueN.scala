@@ -10,7 +10,7 @@ trait ElemValueN extends Any with SpecialT
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
  *  classes include both [[SeqImut]s and classes like polygons and lines. */
-trait ValueNSeqDef[A <: ElemValueN] extends Any with SeqDefImut[A]
+trait ValueNSeqDef[A <: ElemValueN] extends Any with SeqDef[A]
 { type ThisT <: ValueNSeqDef[A]
 
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
@@ -79,7 +79,7 @@ trait ValueNArrFlatBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ArrFla
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
-trait ValueNBuff[A <: ElemValueN] extends Any with SeqGen[A]
+trait ValueNBuff[A <: ElemValueN] extends Any with Sequ[A]
 { type ArrT <: ValueNArr[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit
@@ -103,7 +103,7 @@ trait ValueNSeqDefCompanion[A <: ElemValueN, AA <: ValueNSeqDef[A]]
   def uninitialised(length: Int): AA
 
   /** This method allows you to map from a DataGen to the ArrA type. */
-  @deprecated final def deprDataGenMap[T](alb: SeqDef[T])(f: T => A): AA =
+  @deprecated final def deprDataGenMap[T](alb: SeqLike[T])(f: T => A): AA =
   { val res = uninitialised(alb.sdLength)
     var count = 0
     alb.dataForeach { t =>

@@ -2,7 +2,7 @@
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
-trait BooleanSeqDef extends Any with SeqDefImut[Boolean]
+trait BooleanSeqDef extends Any with SeqDef[Boolean]
 { type ThisT <: BooleanSeqDef
   def unsafeArray: Array[Boolean]
 
@@ -49,7 +49,7 @@ object BooleansBuild extends ArrBuilder[Boolean, BooleanArr] with ArrFlatBuilder
   override def buffToBB(buff: BooleanBuff): BooleanArr = new BooleanArr(buff.unsafeBuffer.toArray)
 }
 
-class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with SeqGen[Boolean]
+class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with Sequ[Boolean]
 { override def typeStr: String = "BooleanBuff"
   override def sdIndex(index: Int): Boolean = unsafeBuffer(index)
   override def sdLength: Int = unsafeBuffer.length

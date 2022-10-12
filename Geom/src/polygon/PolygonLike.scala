@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
  *  scalar values of the standard [[Polygon]].
  *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a
  *            [[PolygonM3]] it would be a [[PtM3]]. */
-trait PolygonLike[VT] extends Any with SeqDefImut[VT]
+trait PolygonLike[VT] extends Any with SeqDef[VT]
 {
   type SideT <: LineSegLike[VT]
 
@@ -65,7 +65,7 @@ trait PolygonLike[VT] extends Any with SeqDefImut[VT]
   def sidesForeach[U](f: SideT => U): Unit
 }
 
-trait PolygonLikeSeqDef[VT] extends Any with PolygonLike[VT] with SeqDef[VT]
+trait PolygonLikeSeqDef[VT] extends Any with PolygonLike[VT] with SeqLike[VT]
 
 trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLikeSeqDef[VT] with ValueNSeqDef[VT]
 { override def vertsForeach[U](f: VT => U): Unit = dataForeach(f)

@@ -13,7 +13,7 @@ class AnyTypeExtensions[A](thisA: A)
   /** Extension method on any type creates Multiple class of that type. */
   def *(operand: Int): Multiple[A] = Multiple(thisA, operand)
 
-  def nextFromArr(arr: SeqGen[A]): A =
+  def nextFromArr(arr: Sequ[A]): A =
   { val i: Int = arr.indexOf(thisA)
     ife(i >= arr.sdLength - 1, arr(0), arr(i + 1))
   }

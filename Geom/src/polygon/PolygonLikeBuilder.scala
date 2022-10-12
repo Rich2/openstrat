@@ -8,7 +8,7 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
 trait PolygonLikeBuilder[B, +BB <: PolygonLike[B]] extends SeqDefImutBuilder[B, BB @uncheckedVariance]
-{ type BuffT <: SeqGen[B]
+{ type BuffT <: Sequ[B]
 
   /** Creates a new uninitialised class of type BB.  */
   def newPolygonT(length: Int): BB

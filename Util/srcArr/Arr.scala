@@ -157,7 +157,7 @@ class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) 
 }
 
 /** Not sure if this class is necessary now that Arr takes Any. */
-class TBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with SeqGen[A]
+class TBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with Sequ[A]
 { override def typeStr: String = "AnyBuff"
   override def sdIndex(index: Int): A = unsafeBuff(index)
   override def sdLength: Int = unsafeBuff.length
