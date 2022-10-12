@@ -42,13 +42,13 @@ abstract class EArea2(val name: String, val cen: LatLong, val terr: WTile) exten
     }
   }
 
-  /** Returns a pair of this [[EArea2]] and the [[PolygonM]] from the given focus and orientation. The polygonM only has points form the side side of
+  /** Returns a pair of this [[EArea2]] and the [[PolygonM2]] from the given focus and orientation. The polygonM only has points form the side side of
    *  the earth that faces the focus.  */
-  def withPolygonM(focus: LatLong, northUp: Boolean): (EArea2, PolygonM) =
+  def withPolygonM(focus: LatLong, northUp: Boolean): (EArea2, PolygonM2) =
   { val p3s0: PolygonM3 = polygonLL.toMetres3
     val p3s1: PolygonM3 = p3s0.fromLatLongFocus(focus)
     val p3s2: PolygonM3 = ife(northUp, p3s1, p3s1.rotateZ180)
-    val p3s3: PolygonM = p3s2.earthZPosXYModify
+    val p3s3: PolygonM2 = p3s2.earthZPosXYModify
     (this, p3s3)
   }
 }

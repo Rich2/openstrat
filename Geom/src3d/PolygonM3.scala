@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 import scala.reflect.ClassTag
 
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
- *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM]]s on world
+ *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2]]s on world
  *  maps. */
 final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with PolygonLike[PtM3] with PolygonDbl3s[PtM3]
 { override type ThisT = PolygonM3
@@ -13,7 +13,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   override def unsafeFromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
   override def typeStr: String = "PolygonMetre3"
   override def fElemStr: PtM3 => String = _.toString
-  def xyPlane: PolygonM = map(_.xy)
+  def xyPlane: PolygonM2 = map(_.xy)
 
   /** All vertices have a non negative Z component. */
   def zNonNeg: Boolean = vertsForAll(_.zMetres >= 0)
@@ -66,7 +66,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
     }
   }
 
-  def toXY: PolygonM = map(_.xy)
+  def toXY: PolygonM2 = map(_.xy)
 
   override def sidesForeach[U](f: LineSegM3 => U): Unit = ??? //if (vertsNum >= 2)
 }

@@ -42,7 +42,8 @@ final class PolygonHCPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[
 }
 
 /** A buffer of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
-class PolygonHCPairBuff[A2](val arrayIntBuff: ArrayBuffer[Array[Int]], val a2Buff: ArrayBuffer[A2]) extends SeqDefPairBuff[PolygonHC, A2, PolygonHCPair[A2]]
+class PolygonHCPairBuff[A2](val arrayIntBuff: ArrayBuffer[Array[Int]], val a2Buff: ArrayBuffer[A2]) extends
+  SeqDefPairBuff[HCoord, PolygonHC, A2, PolygonHCPair[A2]]
 { override type ThisT = PolygonHCPairBuff[A2]
   override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { arrayIntBuff(i) = value.unsafeArray; a2Buff(i) = value.a2 }
   override def fElemStr: PolygonHCPair[A2] => String = _.toString

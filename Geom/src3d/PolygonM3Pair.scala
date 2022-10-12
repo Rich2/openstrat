@@ -47,7 +47,8 @@ final class PolygonM3PairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def pairArrBuilder(polygonArr: PolygonM3Arr, a2s: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](polygonArr.unsafeArrayOfArrays, a2s)
 }
 
-class PolygonM3PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buff: ArrayBuffer[A2]) extends SeqDefPairBuff[PolygonM3, A2, PolygonM3Pair[A2]]
+class PolygonM3PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buff: ArrayBuffer[A2]) extends
+  SeqDefPairBuff[PtM3, PolygonM3, A2, PolygonM3Pair[A2]]
 { override type ThisT = PolygonM3PairBuff[A2]
   override def unsafeSetElem(i: Int, value: PolygonM3Pair[A2]): Unit = { arrayDoubleBuff(i) = value.unsafeArray; a2Buff(i) = value.a2 }
   override def fElemStr: PolygonM3Pair[A2] => String = _.toString

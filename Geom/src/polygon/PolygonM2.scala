@@ -1,12 +1,12 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import geom._, collection.mutable.ArrayBuffer
+import collection.mutable.ArrayBuffer
 
 /* A polygon using distances measured in [[Length]] or metres rather than scalars. */
-final class PolygonM(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[PtM2] with PolygonDbl2s[PtM2]
-{ type ThisT = PolygonM
+final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr[PtM2] with PolygonDbl2s[PtM2]
+{ type ThisT = PolygonM2
   type SideT = LineSegM
-  def unsafeFromArray(array: Array[Double]): PolygonM = new PolygonM(array)
+  def unsafeFromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
   override def typeStr: String = "PolygonMs"
   override def seqDefElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def fElemStr: PtM2 => String = _.str
@@ -57,30 +57,30 @@ final class PolygonM(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Arr
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
-object PolygonM extends Dbl2SeqDefCompanion[PtM2, PolygonM]
-{ override def fromArray(array: Array[Double]): PolygonM = new PolygonM(array)
+object PolygonM2 extends Dbl2SeqDefCompanion[PtM2, PolygonM2]
+{ override def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 
-  implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, PolygonM] = new Dbl2SeqDefPersist[PtM2, PolygonM]("PolygonMs")
-  { override def fromArray(value: Array[Double]): PolygonM = new PolygonM(value)
+  implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, PolygonM2] = new Dbl2SeqDefPersist[PtM2, PolygonM2]("PolygonMs")
+  { override def fromArray(value: Array[Double]): PolygonM2 = new PolygonM2(value)
   }
 }
 
-class PolygonMArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonM]
-{ override type ThisT = PolygonMArr
+class PolygonM2Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonM2]
+{ override type ThisT = PolygonM2Arr
   override def typeStr: String = "PolygonMArr"
-  override def fElemStr: PolygonM => String = _.toString
-  override def sdIndex(index: Int): PolygonM = new PolygonM(unsafeArrayOfArrays(index))
-  override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonMArr = new PolygonMArr(array)
+  override def fElemStr: PolygonM2 => String = _.toString
+  override def sdIndex(index: Int): PolygonM2 = new PolygonM2(unsafeArrayOfArrays(index))
+  override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonM2Arr = new PolygonM2Arr(array)
 }
 
-class PolygonMBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonM]
-{ override type ThisT = PolygonMBuff
+class PolygonM2Buff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonM2]
+{ override type ThisT = PolygonM2Buff
   override def typeStr: String = "PolygonMBuff"
-  override def unsafeSetElem(i: Int, value: PolygonM): Unit = unsafeBuff(i) = value.unsafeArray
-  override def fElemStr: PolygonM => String = _.toString
-  override def sdIndex(index: Int): PolygonM = new PolygonM(unsafeBuff(index))
+  override def unsafeSetElem(i: Int, value: PolygonM2): Unit = unsafeBuff(i) = value.unsafeArray
+  override def fElemStr: PolygonM2 => String = _.toString
+  override def sdIndex(index: Int): PolygonM2 = new PolygonM2(unsafeBuff(index))
 }
 
-object PolygonMBuff
-{ def apply(initLen: Int = 4): PolygonMBuff = new PolygonMBuff(new ArrayBuffer[Array[Double]](initLen))
+object PolygonM2Buff
+{ def apply(initLen: Int = 4): PolygonM2Buff = new PolygonM2Buff(new ArrayBuffer[Array[Double]](initLen))
 }

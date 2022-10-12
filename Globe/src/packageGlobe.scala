@@ -14,15 +14,15 @@ package object pglobe
   implicit class PolygonMetre3PglobeExtension (thisPoly: PolygonM3)
   {
     /** Method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
-    def earthZPosXYModify: PolygonM = thisPoly.vertsFold(0)((acc, v) => ife(v.zNeg, acc, acc + 1)) match
+    def earthZPosXYModify: PolygonM2 = thisPoly.vertsFold(0)((acc, v) => ife(v.zNeg, acc, acc + 1)) match
     { case n if n == thisPoly.vertsNum => thisPoly.toXY
-      case 0 => PolygonM.empty
-      case _ if thisPoly.vertsNum < 2 => PolygonM.empty
+      case 0 => PolygonM2.empty
+      case _ if thisPoly.vertsNum < 2 => PolygonM2.empty
       case _ => thisPoly.earthZPosXYModifyInefficient
     }
 
     /** Internal method for converting polygons on a globes surface to a 2D flat view. Will probably be replaced. */
-    def earthZPosXYModifyInefficient: PolygonM =
+    def earthZPosXYModifyInefficient: PolygonM2 =
     { val buff = BuffPtMetre2()
       thisPoly.vertsPrevForEach((prev, v) => (v.zPos) match
         {
