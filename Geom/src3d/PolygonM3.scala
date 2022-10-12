@@ -1,5 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
+import collection.mutable.ArrayBuffer
 
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
  *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM]]s on world
@@ -73,8 +74,21 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 object PolygonM3 extends Dbl3SeqDefCompanion[PtM3, PolygonM3]
 { override def fromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 
-  //implicit flat: Polygon
+  implicit val arrBuildImplicit: ArrBuilder[PolygonM3, PolygonM3Arr] = new ArrBuilder[PolygonM3, PolygonM3Arr] {
+    override type BuffT = PolygonM3Buff
 
+    override def newBuff(length: Int): PolygonM3Buff = PolygonM3Buff(length)
+
+    override def newArr(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))
+
+    override def arrSet(arr: PolygonM3Arr, index: Int, value: PolygonM3): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
+
+    override def buffGrow(buff: PolygonM3Buff, value: PolygonM3): Unit = buff.unsafeBuff.append(value.unsafeArray)
+
+    override def buffGrowArr(buff: PolygonM3Buff, arr: PolygonM3Arr): Unit = arr.foreach(p => buff.unsafeBuff.append(p.unsafeArray))
+
+    override def buffToBB(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuff.toArray)
+  }
   implicit val persistImplicit: Dbl3SeqDefPersist[PtM3, PolygonM3] = new Dbl3SeqDefPersist[PtM3, PolygonM3]("PolygonMs3")
   { override def fromArray(value: Array[Double]): PolygonM3 = new PolygonM3(value)
   }
@@ -85,4 +99,23 @@ object PolygonM3 extends Dbl3SeqDefCompanion[PtM3, PolygonM3]
     override def rotateZT(obj: PolygonM3, angle: AngleVec): PolygonM3 = obj.map(pt => pt.rotateZ(angle))
     override def rotateZ180T(obj: PolygonM3): PolygonM3 = obj.map(pt => pt.rotateZ180)
   }
+}
+class PolygonM3Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonM3]
+{ override type ThisT = PolygonM3Arr
+  override def typeStr: String = "PolygonM3Arr"
+  override def fElemStr: PolygonM3 => String = _.toString
+  override def sdIndex(index: Int): PolygonM3 = new PolygonM3(unsafeArrayOfArrays(index))
+  override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonM3Arr = new PolygonM3Arr(array)
+}
+
+class PolygonM3Buff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonM3]
+{ override type ThisT = PolygonM3Buff
+  override def typeStr: String = "PolygonM3Buff"
+  override def unsafeSetElem(i: Int, value: PolygonM3): Unit = unsafeBuff(i) = value.unsafeArray
+  override def fElemStr: PolygonM3 => String = _.toString
+  override def sdIndex(index: Int): PolygonM3 = new PolygonM3(unsafeBuff(index))
+}
+
+object PolygonM3Buff
+{ def apply(initLen: Int = 4): PolygonM3Buff = new PolygonM3Buff(new ArrayBuffer[Array[Double]](initLen))
 }
