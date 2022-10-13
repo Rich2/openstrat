@@ -11,34 +11,54 @@ trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayInt
   /** Constructs the final type of thos [[IntNSeqDef]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
    * appropriate builder, but it can be useful to access this from the class itself. */
   def fromArray(array: Array[Int]): ThisT
+
+  /** The length of the Array[Int] backing array. */
+  def dsLen: Int = unsafeArray.length
+
+  /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
+  final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 }
 
 trait IntNSeqDef[A <: ElemIntN] extends Any with IntNSeqLike[A] with ValueNSeqDef[A] with ArrayIntBacked
 { type ThisT <: IntNSeqDef[A]
-
-  /** The length of the Array[Int] backing array. */
-  inline final def dsLen: Int = unsafeArray.length
 
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(sdLength)
     dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el)})
     res
   }
-  /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
-  final override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 
-  def tail: ThisT = {
+
+  /*def tail: ThisT = {
     val newArray = new Array[Int](dsLen - elemProdSize)
     iUntilForeach(dsLen - elemProdSize){i => newArray(i) = unsafeArray(i + elemProdSize) }
     fromArray(newArray)
-  }
+  }*/
 }
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqDef[A]
+trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: IntNArr[A]
+
+  /** The length of the Array[Int] backing array. */
+  //def dsLen: Int = unsafeArray.length
+
+  def reverse: ThisT = {
+    val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    res
+  }
+
+  /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
+  //final override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
+
+  def tail: ThisT = {
+    val newArray = new Array[Int](dsLen - elemProdSize)
+    iUntilForeach(dsLen - elemProdSize) { i => newArray(i) = unsafeArray(i + elemProdSize) }
+    fromArray(newArray)
+  }
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */

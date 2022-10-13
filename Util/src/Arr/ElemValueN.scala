@@ -33,7 +33,6 @@ trait ValueNSeqDef[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqDe
   override def sdLength: Int = dsLen / elemProdSize
 }
 
-
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
 trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqLike[A]
