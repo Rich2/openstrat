@@ -8,18 +8,14 @@ trait ElemInt1 extends Any with ElemIntN
 }
 
 trait Int1SeqLike[A <: ElemInt1] extends Any with IntNSeqLike[A]
-{
-  override def elemProdSize: Int = 1
+{ override def elemProdSize: Int = 1
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(index) = elem.int1 }
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[ElemInt1]]s. */
 trait Int1SeqDef[A <: ElemInt1] extends Any with Int1SeqLike[A] with IntNSeqDef[A]
-{
-  final override def sdIndex(index: Int): A = dataElem(unsafeArray(index))
+{ final override def sdIndex(index: Int): A = dataElem(unsafeArray(index))
   def dataElem(intValue: Int): A
-
-
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */

@@ -5,9 +5,14 @@ import collection.mutable.ArrayBuffer
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[DblNArr]] Array[Double] based collections. */
 trait ElemDblN extends Any with ElemValueN
 
+trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDblBacked
+{
+
+}
+
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[DblNArr]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait DblNSeqDef[A <: ElemDblN] extends Any with ValueNSeqDef[A] with ArrayDblBacked
+trait DblNSeqDef[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqDef[A]
 { type ThisT <: DblNSeqDef[A]
   @inline final override def dsLen: Int = unsafeArray.length
   def unsafeFromArray(array: Array[Double]): ThisT
