@@ -103,7 +103,7 @@ class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
 }
 
 /** Companion object for [[HCenArr]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
-object HCenArr extends Int2SeqDefCompanion[HCen, HCenArr]
+object HCenArr extends Int2SeqLikeCompanion[HCen, HCenArr]
 {
   //override def buff(initialSize: Int): HCenBuff = new HCenBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)

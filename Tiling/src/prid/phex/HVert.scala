@@ -81,7 +81,7 @@ class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqDef with
   }*/
 }
 
-object HVertArr extends Int2SeqDefCompanion[HVert, HVertArr]
+object HVertArr extends Int2SeqLikeCompanion[HVert, HVertArr]
 { def fromArray(array: Array[Int]): HVertArr = new HVertArr(array)
 
   implicit object PersistImplicit extends PersistArrInt2s[HVert, HVertArr]("HVerts")

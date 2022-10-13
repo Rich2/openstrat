@@ -16,7 +16,7 @@ class SqCens(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCen]
 }
 
 /** Companion object for [[SqCens]] trait efficient array[Int] based collection for [[SqCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */
-object SqCens extends Int2SeqDefCompanion[SqCen, SqCens]
+object SqCens extends Int2SeqLikeCompanion[SqCen, SqCens]
 {
   //override def buff(initialSize: Int): SqCenBuff = new SqCenBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): SqCens = new SqCens(array)

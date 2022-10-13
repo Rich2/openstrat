@@ -11,6 +11,12 @@ trait ElemInt3 extends Any with ElemIntN
 trait Int3SeqLike[A <: ElemInt3] extends Any with IntNSeqLike[A]
 {
   override def elemProdSize: Int = 3
+
+  final override def unsafeSetElem(index: Int, elem: A): Unit = {
+    unsafeArray(3 * index) = elem.int1;
+    unsafeArray(3 * index + 1) = elem.int2
+    unsafeArray(3 * index + 2) = elem.int3
+  }
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemInt3]]s. */
@@ -22,9 +28,6 @@ trait Int3SeqDef[A <: ElemInt3] extends Any with Int3SeqLike[A] with IntNSeqDef[
   def sdElem(int1: Int, int2: Int, int3: Int): A
 
   override def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
-
-  final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(3 * index) = elem.int1; unsafeArray(3 * index + 1) = elem.int2
-    unsafeArray(3 * index + 2) = elem.int3 }
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt3]]s. */

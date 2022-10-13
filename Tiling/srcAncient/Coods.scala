@@ -40,7 +40,7 @@ class Coods(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[Cood]
   }
 }
 
-object Coods extends Int2SeqDefCompanion[Cood, Coods]
+object Coods extends Int2SeqLikeCompanion[Cood, Coods]
 {
   //override def buff(initialSize: Int): CoodBuff = new CoodBuff(buffInt(initialSize * 2))
   def fromArray(array: Array[Int]): Coods = new Coods(array)

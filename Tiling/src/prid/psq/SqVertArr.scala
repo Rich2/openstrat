@@ -46,7 +46,7 @@ class SqVertArr(val unsafeArray: Array[Int]) extends AnyVal with SqVertSeqDef wi
   }*/
 }
 
-object SqVertArr extends Int2SeqDefCompanion[SqVert, SqVertArr]
+object SqVertArr extends Int2SeqLikeCompanion[SqVert, SqVertArr]
 { def fromArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
 
   implicit object PersistImplicit extends PersistArrInt2s[SqVert, SqVertArr]("SqVerts")

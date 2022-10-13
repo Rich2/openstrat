@@ -16,7 +16,7 @@ class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HSide]
 
 /** Companion object for [[HSideArr]] trait efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates, contains factory apply and
  *  uninitialised methods. */
-object HSideArr extends Int2SeqDefCompanion[HSide, HSideArr]
+object HSideArr extends Int2SeqLikeCompanion[HSide, HSideArr]
 {
   override def fromArray(array: Array[Int]): HSideArr = new HSideArr(array)
 

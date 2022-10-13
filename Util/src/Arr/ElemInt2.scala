@@ -19,7 +19,6 @@ trait Int2SeqDef[A <: ElemInt2] extends Any with Int2SeqLike[A] with IntNSeqDef[
 {
   final override def sdIndex(index: Int): A = sdElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
 
-
   /** Construct element of the defining sequence from 2 [[Int]]s. */
   def sdElem(int1: Int, int2: Int): A
 
@@ -70,7 +69,7 @@ trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
 }
 
 /** Helper class for companion objects of final [[Int2SeqDef]] classes. */
-trait Int2SeqDefCompanion[A <: ElemInt2, ArrA <: Int2SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
+trait Int2SeqLikeCompanion[A <: ElemInt2, ArrA <: Int2SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
 {
   override def elemNumInts: Int = 2
 

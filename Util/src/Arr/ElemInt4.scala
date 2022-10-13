@@ -14,6 +14,13 @@ trait Int4SeqLike[A <: ElemInt4] extends Any with IntNSeqLike[A]
 {
   override def elemProdSize: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
+
+  override def unsafeSetElem(index: Int, elem: A): Unit = {
+    unsafeArray(4 * index) = elem.int1;
+    unsafeArray(4 * index + 1) = elem.int2
+    unsafeArray(4 * index + 2) = elem.int3
+    unsafeArray(4 * index + 3) = elem.int4
+  }
 }
 
 trait Int4SeqDef[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNSeqDef[A]
@@ -22,23 +29,19 @@ trait Int4SeqDef[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNSeqDef[
 
   override def sdIndex(index: Int): A =
     newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
-
-  override def unsafeSetElem(index: Int, elem: A): Unit =
-  { unsafeArray(4 * index) = elem.int1;
-    unsafeArray(4 * index + 1) = elem.int2
-    unsafeArray(4 * index + 2) = elem.int3
-    unsafeArray(4 * index + 3) = elem.int4
-  }
-
-  def head1: Int = unsafeArray(0)
-  def head2: Int = unsafeArray(1)
-  def head3: Int = unsafeArray(2)
-  def head4: Int = unsafeArray(3)
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt4]]s. */
 trait ArrInt4s[A <: ElemInt4] extends Any with Int4SeqDef[A] with IntNArr[A]
 { final override def length: Int = unsafeArray.length / 4
+
+  def head1: Int = unsafeArray(0)
+
+  def head2: Int = unsafeArray(1)
+
+  def head3: Int = unsafeArray(2)
+
+  def head4: Int = unsafeArray(3)
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrBuilder]] type
