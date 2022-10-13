@@ -34,7 +34,7 @@ trait LongNSeqDefPersist[B <: ElemLongN, ArrB <: LongNArr[B]] extends ValueNSeqL
 }
 
 /** Helper trait for Companion objects of [[LongNArr]] classes. */
-trait LongNSeqDefCompanion[A <: ElemLongN, ArrA <: LongNSeqDef[A]] extends ValueNSeqDefCompanion[A, ArrA]
+trait LongNSeqDefCompanion[A <: ElemLongN, ArrA <: LongNSeqDef[A]] extends ValueNSeqLikeCompanion[A, ArrA]
 { def fromBuffer(buff: ArrayBuffer[Long]): ArrA = fromArray(buff.toArray[Long])
   def fromArray(array: Array[Long]): ArrA
 }

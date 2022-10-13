@@ -112,7 +112,7 @@ trait ValueNSeqLikePersist[A <: ElemValueN, M <: ValueNSeqLike[A]] extends Persi
 }
 
 /** Helper trait for companion objects of [[ValueNSeqDef]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
-trait ValueNSeqDefCompanion[A <: ElemValueN, AA <: ValueNSeqDef[A]]
+trait ValueNSeqLikeCompanion[A <: ElemValueN, AA <: ValueNSeqLike[A]]
 { /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   def uninitialised(length: Int): AA
 
