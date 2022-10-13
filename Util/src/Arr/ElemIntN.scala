@@ -28,7 +28,6 @@ trait IntNSeqDef[A <: ElemIntN] extends Any with IntNSeqLike[A] with ValueNSeqDe
     res
   }
 
-
   /*def tail: ThisT = {
     val newArray = new Array[Int](dsLen - elemProdSize)
     iUntilForeach(dsLen - elemProdSize){i => newArray(i) = unsafeArray(i + elemProdSize) }

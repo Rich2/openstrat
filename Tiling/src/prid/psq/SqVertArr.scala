@@ -3,14 +3,14 @@ package ostrat; package prid; package psq
 import collection.mutable.ArrayBuffer
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
-trait SqVertSeqDef extends Any with Int2SeqDef[SqVert]
-{ override def sdElem(int1: Int, int2: Int): SqVert = SqVert.apply(int1, int2)
+trait SqVertSeqLike extends Any with Int2SeqLike[SqVert]
+{ override def newElem(int1: Int, int2: Int): SqVert = SqVert.apply(int1, int2)
   override def fElemStr: SqVert => String = _.str
   def vertNum: Int = unsafeArray.length / 2
 }
 
 /** An array[Int] based collection for SqVert. */
-class SqVertArr(val unsafeArray: Array[Int]) extends AnyVal with SqVertSeqDef with Int2Arr[SqVert]
+class SqVertArr(val unsafeArray: Array[Int]) extends AnyVal with SqVertSeqLike with Int2Arr[SqVert]
 { type ThisT = SqVertArr
   override def fromArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
   override def typeStr: String = "SqVerts" + foldLeft("")(_ + "; " + _.rcStr)

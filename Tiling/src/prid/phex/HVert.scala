@@ -38,14 +38,14 @@ object HVert
 }
 
 /** Common trait for [[Hverts]] and [[PolygonHC]] */
-trait HVertSeqDef extends Any with Int2SeqDef[HVert]
-{ override def sdElem(int1: Int, int2: Int): HVert = HVert.apply(int1, int2)
+trait HVertSeqLike extends Any with Int2SeqLike[HVert]
+{ override def newElem(int1: Int, int2: Int): HVert = HVert.apply(int1, int2)
   override def fElemStr: HVert => String = _.str
   def vertNum: Int = unsafeArray.length / 2
 }
 
 /** An array[Int] based collection for HVert. */
-class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqDef with Int2Arr[HVert]
+class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqLike with Int2Arr[HVert]
 { type ThisT = HVertArr
   override def fromArray(array: Array[Int]): HVertArr = new HVertArr(array)
   override def typeStr: String = "HVerts" + foldLeft("")(_ + "; " + _.rcStr)

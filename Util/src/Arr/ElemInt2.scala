@@ -12,12 +12,13 @@ trait Int2SeqLike[A <: ElemInt2] extends Any with IntNSeqLike[A]
 {
   override def elemProdSize: Int = 2
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(2 * index) = elem.int1; unsafeArray(2 * index + 1) = elem.int2 }
+  def newElem(i1: Int, i2: Int): A
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemInt2]]s. */
 trait Int2SeqDef[A <: ElemInt2] extends Any with Int2SeqLike[A] with IntNSeqDef[A]
 {
-  final override def sdIndex(index: Int): A = sdElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  override def sdIndex(index: Int): A = sdElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
 
   /** Construct element of the defining sequence from 2 [[Int]]s. */
   def sdElem(int1: Int, int2: Int): A
@@ -26,10 +27,18 @@ trait Int2SeqDef[A <: ElemInt2] extends Any with Int2SeqLike[A] with IntNSeqDef[
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt2]]s. */
-trait Int2Arr[A <: ElemInt2] extends Any with IntNArr[A] with Int2SeqDef[A]
+trait Int2Arr[A <: ElemInt2] extends Any with IntNArr[A] with Int2SeqLike[A]
 { def head1: Int = unsafeArray(0)
   def head2: Int = unsafeArray(1)
   final override def length: Int = unsafeArray.length / 2
+  final override def sdIndex(index: Int): A = newElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
+
+  override def reverseData: ThisT = {
+    val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    res
+  }
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrBuilder]] type

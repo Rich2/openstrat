@@ -9,6 +9,7 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqDef 
   override def typeStr: String = "PolygonSqC"
   override def fromArray(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
   def vertNum: Int = unsafeArray.length / 2
+  override def sdElem(int1: Int, int2: Int): SqCoord = SqCoord(int1, int2)
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
   override def vert(index: Int): SqCoord = sdIndex(index)

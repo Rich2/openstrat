@@ -24,13 +24,15 @@ object SqCoord
   implicit val persistImplicit: Persist[SqCoord] = PersistShowInt2[SqCoord]("SqCoord", "r", "c", SqCoord(_, _))
 }
 
-trait SqCoordSeqDef extends Any with Int2SeqDef[SqCoord]
-{ final override def sdElem(int1: Int, int2: Int): SqCoord = SqCoord(int1, int2)
+trait SqCoordSeqLike extends Any with Int2SeqLike[SqCoord]
+{ final override def newElem(int1: Int, int2: Int): SqCoord = SqCoord(int1, int2)
   final override def fElemStr: SqCoord => String = _.toString
 }
 
+trait SqCoordSeqDef extends Any with SqCoordSeqLike with Int2SeqDef[SqCoord]
+
 /** Specialised sequence class for [[SqCoord]]. */
-class SqCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCoord] with SqCoordSeqDef
+class SqCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCoord] with SqCoordSeqLike
 { type ThisT = SqCoordArr
   override def typeStr: String = "SqCoords"
   override def fromArray(array: Array[Int]): SqCoordArr = new SqCoordArr(array)

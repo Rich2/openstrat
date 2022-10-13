@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** An efficient array[Int] based collection for [[HSide]]s hex grid centre coordinates. */
 class HSideArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HSide]
 { type ThisT = HSideArr
-  override def sdElem(int1: Int, int2: Int): HSide = HSide(int1, int2)
+  override def newElem(int1: Int, int2: Int): HSide = HSide(int1, int2)
 
   override def fromArray(array: Array[Int]): HSideArr = new HSideArr(array)
 

@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 class SqCens(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCen]
 { type ThisT = SqCens
 
-  override def sdElem(int1: Int, int2: Int): SqCen = SqCen(int1, int2)
+  override def newElem(int1: Int, int2: Int): SqCen = SqCen(int1, int2)
 
   override def fromArray(array: Array[Int]): SqCens = new SqCens(array)
 

@@ -90,7 +90,7 @@ object HCen
 class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
 { type ThisT = HCenArr
 
-  override def sdElem(int1: Int, int2: Int): HCen = HCen(int1, int2)
+  override def newElem(int1: Int, int2: Int): HCen = HCen(int1, int2)
 
   override def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
 

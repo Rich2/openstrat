@@ -12,7 +12,7 @@ trait LinePathLike[A] extends Any with SeqDef[A]
   }
 }
 
-trait LinePathValueNsData[A <: ElemValueN] extends Any with LinePathLike[A] with ValueNSeqDef[A]
+//trait LinePathValueNsData[A <: ElemValueN] extends Any with LinePathLike[A] with ValueNSeqDef[A]
 trait LinePathDblN[A <: ElemDblN] extends  Any with LinePathLike[A] with DblNSeqDef[A]
 trait LinePathDbl2[A <: ElemDbl2] extends Any with LinePathDblN[A] with Dbl2SeqDef[A]
 trait LinePathDbl3[A <: ElemDbl3] extends Any with LinePathDblN[A] with Dbl3SeqDef[A]
