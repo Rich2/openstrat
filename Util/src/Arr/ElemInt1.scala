@@ -68,7 +68,7 @@ trait Int1Buff[A <: ElemInt1] extends Any with IntNBuff[A]
 }
 
 /** Helper class for companion objects of final [[Int1SeqDef]] classes. */
-trait Int1SeqDefCompanion[A <: ElemInt1, ArrA <: Int1SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
+trait Int1SeqDefCompanion[A <: ElemInt1, ArrA <: Int1SeqDef[A]] extends IntNSeqLikeCompanion[A, ArrA]
 {
   override def elemNumInts: Int = 1
 

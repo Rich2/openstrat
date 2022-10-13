@@ -71,7 +71,7 @@ trait Int3Buff[A <: ElemInt3] extends Any with IntNBuff[A]
 }
 
 /** Helper class for companion objects of final [[Int3SeqDef]] classes. */
-abstract class Int3SeqDefCompanion[A <: ElemInt3, ArrA <: Int3SeqDef[A]] extends IntNSeqDefCompanion[A, ArrA]
+abstract class Int3SeqDefCompanion[A <: ElemInt3, ArrA <: Int3SeqDef[A]] extends IntNSeqLikeCompanion[A, ArrA]
 { override def elemNumInts: Int = 3
 
   /** Apply factory method. */
