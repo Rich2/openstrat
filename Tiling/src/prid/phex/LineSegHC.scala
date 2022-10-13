@@ -44,10 +44,8 @@ class LineSegHCArr(val unsafeArray: Array[Int]) extends Int4Arr[LineSegHC]
 }
 
 /** Companion object for the LineSegHCs class. */
-object LineSegHCArr extends ArrInt4sCompanion[LineSegHC, LineSegHCArr]
+object LineSegHCArr extends Int4ArrCompanion[LineSegHC, LineSegHCArr]
 {
-  val factory: Int => LineSegHCArr = i => new LineSegHCArr(new Array[Int](i * 4))
-
   /*implicit val persistImplicit: DataInt4sPersist[LineSegHC, LineSegHCs] = new DataDbl4sPersist[LineSegHC, LineSegHCs]("Line2s")
   { override def fromArray(value: Array[Int]): LineSegHCs = new LineSegHCs(value)
 
@@ -61,6 +59,9 @@ object LineSegHCArr extends ArrInt4sCompanion[LineSegHC, LineSegHCArr]
   }*/
 
   //implicit val transImplicit: AffineTrans[LineSegHCs] = (obj, f) => obj.dataMap(_.ptsTrans(f))
+
+  /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an Array[Int]. */
+  override def fromArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
 
   override def buff(initialSize: Int): Int4Buff[LineSegHC, LineSegHCArr] = ???
 }

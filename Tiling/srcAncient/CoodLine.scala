@@ -37,11 +37,13 @@ class CoodLinesBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyV
   override def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = new CoodLine(i1, i2, i3, i4)
 }
 
-object CoodLines extends ArrInt4sCompanion[CoodLine, CoodLines]
-{ implicit val factory: Int => CoodLines = i => new CoodLines(new Array[Int](i * 4))
+object CoodLines extends Int4ArrCompanion[CoodLine, CoodLines]
+{
+  override def fromArray(array: Array[Int]): CoodLines = new CoodLines(array)
+
   override def buff(initialSize: Int): CoodLinesBuff = new CoodLinesBuff(BuffInt(initialSize * 4))
 
-  implicit val PersistImplicit: ArrInt4sPersist[CoodLine, CoodLines] = new ArrInt4sPersist[CoodLine, CoodLines]("CoodLines")
+  implicit val PersistImplicit: Int4SeqLikePersist[CoodLine, CoodLines] = new Int4SeqLikePersist[CoodLine, CoodLines]("CoodLines")
   { override def fromArray(value: Array[Int]): CoodLines = new CoodLines(value)
 
     override def showDecT(obj: CoodLines, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???

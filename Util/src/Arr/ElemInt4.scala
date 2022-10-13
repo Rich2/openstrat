@@ -83,13 +83,14 @@ trait Int4Buff[A <: ElemInt4, M <: Int4Arr[A]] extends Any with IntNBuff[A]
 }
 
 /** Class for the singleton companion objects of [[Int4Arr]] final classes to extend. */
-abstract class ArrInt4sCompanion[A <: ElemInt4, M <: Int4Arr[A]]
-{ val factory: Int => M
+abstract class Int4ArrCompanion[A <: ElemInt4, M <: Int4Arr[A]] extends IntNSeqLikeCompanion[A, M]
+{ override def elemNumInts: Int = 4
+
   def buff(initialSize: Int): Int4Buff[A, M]
 
   def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4
-    val res = factory(elems.length)
+    val res = uninitialised(elems.length)
     var count: Int = 0
     while (count < arrLen)
     {
@@ -107,7 +108,7 @@ abstract class ArrInt4sCompanion[A <: ElemInt4, M <: Int4Arr[A]]
 }
 
 /**  Class to persist specialised flat Array[Int] based [[Int4Arr]] collection classes. */
-abstract class ArrInt4sPersist[B <: ElemInt4, ArrB <: Int4Arr[B]](val typeStr: String) extends IntNSeqLikePersist[B, ArrB]
+abstract class Int4SeqLikePersist[B <: ElemInt4, ArrB <: Int4Arr[B]](val typeStr: String) extends IntNSeqLikePersist[B, ArrB]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: B): Unit =
   { buf += value.int1
