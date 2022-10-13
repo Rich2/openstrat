@@ -10,10 +10,15 @@ trait ElemInt4 extends Any with ElemIntN
   def int4: Int
 }
 
-trait Int4SeqDef[A <: ElemInt4] extends Any with IntNSeqDef[A]
-{ override def elemProdSize: Int = 4
+trait Int4SeqLike[A <: ElemInt4] extends Any with IntNSeqLike[A]
+{
+  override def elemProdSize: Int = 4
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
-  override def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
+}
+
+trait Int4SeqDef[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNSeqDef[A]
+{
+  def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
 
   override def sdIndex(index: Int): A =
     newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
