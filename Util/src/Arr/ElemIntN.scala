@@ -121,7 +121,7 @@ trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */
-trait IntNSeqDefPersist[A <: ElemIntN, M <: IntNSeqDef[A]] extends ValueNSeqDefPersist[A, M]
+trait IntNSeqDefPersist[A <: ElemIntN, M <: IntNSeqDef[A]] extends ValueNSeqLikePersist[A, M]
 { type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Int] = BuffInt(0)

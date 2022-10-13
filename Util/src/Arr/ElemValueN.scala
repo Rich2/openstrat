@@ -102,7 +102,7 @@ trait ValueNBuff[A <: ElemValueN] extends Any with Sequ[A]
 }
 
 /** Class to Persist specialised for [[DatValueNs]] cLasses. */
-trait ValueNSeqDefPersist[A <: ElemValueN, M <: ValueNSeqDef[A]] extends PersistCompound[M]
+trait ValueNSeqLikePersist[A <: ElemValueN, M <: ValueNSeqLike[A]] extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT
   def appendtoBuffer(buf: ArrayBuffer[VT], value: A): Unit
