@@ -37,7 +37,7 @@ class HCenStepArr(val unsafeArray: Array[Int]) extends Int3Arr[HCenStep]
   override def fElemStr: HCenStep => String = _.toString
 }
 
-object HCenStepArr extends Int3SeqDefCompanion[HCenStep, HCenStepArr]
+object HCenStepArr extends Int3SeqLikeCompanion[HCenStep, HCenStepArr]
 { override def fromArray(array: Array[Int]): HCenStepArr = new HCenStepArr(array)
 
   implicit val flatBuildEv: Int3ArrFlatBuilder[HCenStep, HCenStepArr] = new Int3ArrFlatBuilder[HCenStep, HCenStepArr]{

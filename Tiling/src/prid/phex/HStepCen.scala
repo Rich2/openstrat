@@ -38,7 +38,7 @@ class HStepCenArr(val unsafeArray: Array[Int]) extends Int3Arr[HStepCen]
   override def typeStr: String = "HStepCens"
 }
 
-object HStepCenArr extends  Int3SeqDefCompanion[HStepCen, HStepCenArr]
+object HStepCenArr extends  Int3SeqLikeCompanion[HStepCen, HStepCenArr]
 { override def fromArray(array: Array[Int]): HStepCenArr = new HStepCenArr(array)
 
   /** Apply factory method */

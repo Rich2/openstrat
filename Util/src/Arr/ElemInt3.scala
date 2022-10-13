@@ -8,9 +8,14 @@ trait ElemInt3 extends Any with ElemIntN
   def int3: Int
 }
 
+trait Int3SeqLike[A <: ElemInt3] extends Any with IntNSeqLike[A]
+{
+  override def elemProdSize: Int = 3
+}
+
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemInt3]]s. */
-trait Int3SeqDef[A <: ElemInt3] extends Any with IntNSeqDef[A]
-{ override def elemProdSize: Int = 3
+trait Int3SeqDef[A <: ElemInt3] extends Any with Int3SeqLike[A] with IntNSeqDef[A]
+{
   final override def sdIndex(index: Int): A = sdElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 
   /** Creates a sequence-defined element from 3 [[Int]]s. */
@@ -71,7 +76,7 @@ trait Int3Buff[A <: ElemInt3] extends Any with IntNBuff[A]
 }
 
 /** Helper class for companion objects of final [[Int3SeqDef]] classes. */
-abstract class Int3SeqDefCompanion[A <: ElemInt3, ArrA <: Int3SeqDef[A]] extends IntNSeqLikeCompanion[A, ArrA]
+abstract class Int3SeqLikeCompanion[A <: ElemInt3, ArrA <: Int3SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
 { override def elemNumInts: Int = 3
 
   /** Apply factory method. */
