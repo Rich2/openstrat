@@ -193,7 +193,7 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
   }
 }
 
-object HDirnArr extends Int1SeqDefCompanion[HDirn, HDirnArr]
+object HDirnArr extends Int1SeqLikeCompanion[HDirn, HDirnArr]
 { override def fromArray(array: Array[Int]): HDirnArr = new HDirnArr(array)
 
   implicit val flatBuilder: ArrFlatBuilder[HDirnArr] = new Int1ArrFlatBuilder[HDirn, HDirnArr]
