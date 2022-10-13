@@ -25,7 +25,7 @@ object LineSegSqC
   def apply(hCoord1: SqCoord, hCoord2: SqCoord): LineSegSqC = new LineSegSqC(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)
 
   /** Implicit instance / evidence for [[ArrBuilder]] type class. */
-  implicit val buildEv: ArrInt4sBuilder[LineSegSqC, LineSegSqCArr] = new ArrInt4sBuilder[LineSegSqC, LineSegSqCArr]
+  implicit val buildEv: Int4ArrBuilder[LineSegSqC, LineSegSqCArr] = new Int4ArrBuilder[LineSegSqC, LineSegSqCArr]
   { type BuffT = LineSegSqCBuff
     override def fromIntArray(array: Array[Int]): LineSegSqCArr = new LineSegSqCArr(array)
     def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegSqCBuff = new LineSegSqCBuff(buffer)
@@ -34,7 +34,7 @@ object LineSegSqC
 
 /** Compact immutable Array[Int] based collection class for [[LineSegSqC]]s. LineSegSqC is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegSqCArr(val unsafeArray: Array[Int]) extends ArrInt4s[LineSegSqC]
+class LineSegSqCArr(val unsafeArray: Array[Int]) extends Int4Arr[LineSegSqC]
 { type ThisT = LineSegSqCArr
   def fromArray(array: Array[Int]): LineSegSqCArr = new LineSegSqCArr(array)
   override def typeStr: String = "Line2s"

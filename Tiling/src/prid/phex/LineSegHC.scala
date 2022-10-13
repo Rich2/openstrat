@@ -25,7 +25,7 @@ object LineSegHC
   def apply(hCoord1: HCoord, hCoord2: HCoord): LineSegHC = new LineSegHC(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)
 
   /** Implicit instance / evidence for [[ArrBuilder]] type class. */
-  implicit val buildEv: ArrInt4sBuilder[LineSegHC, LineSegHCArr] = new ArrInt4sBuilder[LineSegHC, LineSegHCArr]
+  implicit val buildEv: Int4ArrBuilder[LineSegHC, LineSegHCArr] = new Int4ArrBuilder[LineSegHC, LineSegHCArr]
   { type BuffT = LineSegHCBuff
     override def fromIntArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
     def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegHCBuff = new LineSegHCBuff(buffer)
@@ -34,7 +34,7 @@ object LineSegHC
 
 /** Compact immutable Array[Int] based collection class for [[LineSegHC]]s. LineSegHC is the library's term for a mathematical straight line segment, but what in
  *  common parlance is often just referred to as a line. */
-class LineSegHCArr(val unsafeArray: Array[Int]) extends ArrInt4s[LineSegHC]
+class LineSegHCArr(val unsafeArray: Array[Int]) extends Int4Arr[LineSegHC]
 { type ThisT = LineSegHCArr
   def fromArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
   override def typeStr: String = "Line2s"

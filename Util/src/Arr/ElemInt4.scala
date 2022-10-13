@@ -2,7 +2,7 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** An object that can be constructed from 4 [[Int]]s. These are used in [[ArrInt4s]] Array[Int] based collections. */
+/** An object that can be constructed from 4 [[Int]]s. These are used in [[Int4Arr]] Array[Int] based collections. */
 trait ElemInt4 extends Any with ElemIntN
 { def int1: Int
   def int2: Int
@@ -32,22 +32,30 @@ trait Int4SeqDef[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNSeqDef[
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt4]]s. */
-trait ArrInt4s[A <: ElemInt4] extends Any with Int4SeqDef[A] with IntNArr[A]
+trait Int4Arr[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNArr[A]
 { final override def length: Int = unsafeArray.length / 4
 
+  override def sdIndex(index: Int): A =
+    newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
+
+  def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
+
+  override def reverseData: ThisT = {
+    val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    res
+  }
+
   def head1: Int = unsafeArray(0)
-
   def head2: Int = unsafeArray(1)
-
   def head3: Int = unsafeArray(2)
-
   def head4: Int = unsafeArray(3)
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait ArrInt4sBuilder[B <: ElemInt4, ArrB <: ArrInt4s[B]] extends IntNArrBuilder[B, ArrB]
+trait Int4ArrBuilder[B <: ElemInt4, ArrB <: Int4Arr[B]] extends IntNArrBuilder[B, ArrB]
 { type BuffT <: Int4Buff[B, ArrB]
 
   final override def elemProdSize: Int = 4
@@ -62,7 +70,7 @@ trait ArrInt4sBuilder[B <: ElemInt4, ArrB <: ArrInt4s[B]] extends IntNArrBuilder
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt4]]s collections. */
-trait Int4Buff[A <: ElemInt4, M <: ArrInt4s[A]] extends Any with IntNBuff[A]
+trait Int4Buff[A <: ElemInt4, M <: Int4Arr[A]] extends Any with IntNBuff[A]
 { override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
@@ -74,8 +82,8 @@ trait Int4Buff[A <: ElemInt4, M <: ArrInt4s[A]] extends Any with IntNBuff[A]
   }
 }
 
-/** Class for the singleton companion objects of [[ArrInt4s]] final classes to extend. */
-abstract class ArrInt4sCompanion[A <: ElemInt4, M <: ArrInt4s[A]]
+/** Class for the singleton companion objects of [[Int4Arr]] final classes to extend. */
+abstract class ArrInt4sCompanion[A <: ElemInt4, M <: Int4Arr[A]]
 { val factory: Int => M
   def buff(initialSize: Int): Int4Buff[A, M]
 
@@ -98,8 +106,8 @@ abstract class ArrInt4sCompanion[A <: ElemInt4, M <: ArrInt4s[A]]
   }
 }
 
-/**  Class to persist specialised flat Array[Int] based [[ArrInt4s]] collection classes. */
-abstract class ArrInt4sPersist[B <: ElemInt4, ArrB <: ArrInt4s[B]](val typeStr: String) extends IntNSeqLikePersist[B, ArrB]
+/**  Class to persist specialised flat Array[Int] based [[Int4Arr]] collection classes. */
+abstract class ArrInt4sPersist[B <: ElemInt4, ArrB <: Int4Arr[B]](val typeStr: String) extends IntNSeqLikePersist[B, ArrB]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: B): Unit =
   { buf += value.int1
