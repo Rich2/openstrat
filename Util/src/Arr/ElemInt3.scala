@@ -10,6 +10,8 @@ trait ElemInt3 extends Any with ElemIntN
 
 trait Int3SeqLike[A <: ElemInt3] extends Any with IntNSeqLike[A]
 {
+  def newElem(i1: Int, i2: Int, i3: Int): A
+
   override def elemProdSize: Int = 3
 
   final override def unsafeSetElem(index: Int, elem: A): Unit = {
@@ -31,11 +33,19 @@ trait Int3SeqDef[A <: ElemInt3] extends Any with Int3SeqLike[A] with IntNSeqDef[
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt3]]s. */
-trait Int3Arr[A <: ElemInt3] extends Any with IntNArr[A] with Int3SeqDef[A]
+trait Int3Arr[A <: ElemInt3] extends Any with IntNArr[A] with Int3SeqLike[A]
 { def head1: Int = unsafeArray(0)
   def head2: Int = unsafeArray(1)
   def head3: Int = unsafeArray(2)
   final override def length: Int = unsafeArray.length / 3
+
+  override def reverseData: ThisT = {
+    val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    res
+  }
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
+  final override def sdIndex(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int3Arr]] final classes. Instances for the [[ArrBuilder]] type

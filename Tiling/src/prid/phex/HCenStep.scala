@@ -32,7 +32,7 @@ object HCenStep
 class HCenStepArr(val unsafeArray: Array[Int]) extends Int3Arr[HCenStep]
 { override type ThisT = HCenStepArr
   override def typeStr: String = "HCenStepArr"
-  override def sdElem(int1: Int, int2: Int, int3: Int): HCenStep = new HCenStep(int1, int2, int3)
+  override def newElem(int1: Int, int2: Int, int3: Int): HCenStep = new HCenStep(int1, int2, int3)
   override def fromArray(array: Array[Int]): HCenStepArr = new HCenStepArr(array)
   override def fElemStr: HCenStep => String = _.toString
 }
