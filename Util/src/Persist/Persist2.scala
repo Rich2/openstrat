@@ -257,7 +257,7 @@ class PersistShowDbl2[R <: ShowDbl2](val typeStr: String, val name1: String, val
 }
 
 /**  Class to persist [[Int2Arr]] collection classes. */
-abstract class PersistArrInt2s[A <: ElemInt2, M <: Int2Arr[A]](val typeStr: String) extends IntNSeqDefPersist[A, M]
+abstract class PersistArrInt2s[A <: ElemInt2, M <: Int2Arr[A]](val typeStr: String) extends IntNSeqLikePersist[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value.int1

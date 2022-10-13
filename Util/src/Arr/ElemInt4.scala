@@ -91,7 +91,7 @@ abstract class ArrInt4sCompanion[A <: ElemInt4, M <: ArrInt4s[A]]
 }
 
 /**  Class to persist specialised flat Array[Int] based [[ArrInt4s]] collection classes. */
-abstract class ArrInt4sPersist[B <: ElemInt4, ArrB <: ArrInt4s[B]](val typeStr: String) extends IntNSeqDefPersist[B, ArrB]
+abstract class ArrInt4sPersist[B <: ElemInt4, ArrB <: ArrInt4s[B]](val typeStr: String) extends IntNSeqLikePersist[B, ArrB]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: B): Unit =
   { buf += value.int1
