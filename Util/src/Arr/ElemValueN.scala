@@ -8,17 +8,20 @@ import collection.mutable.ArrayBuffer
  *  composed from 4 [[Double]] values. */
 trait ElemValueN extends Any with SpecialT
 
+trait ValueNSeqLike[A <: ElemValueN] extends Any with SeqLike[A]
+{ type ThisT <: ValueNSeqLike[A]
+  /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
+   * class. */
+  def elemProdSize: Int
+}
+
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
  *  classes include both [[SeqImut]s and classes like polygons and lines. */
-trait ValueNSeqDef[A <: ElemValueN] extends Any with SeqDef[A]
+trait ValueNSeqDef[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqDef[A]
 { type ThisT <: ValueNSeqDef[A]
 
-  /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
-   *  class. */
-  def elemProdSize: Int
-
   /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
-  def arrLen: Int
+  def dsLen: Int
 
   /** Checks if 2 values of the defining sequence are equal. */
   def sdElemEq(a1: A, a2: A): Boolean
@@ -27,7 +30,7 @@ trait ValueNSeqDef[A <: ElemValueN] extends Any with SeqDef[A]
   def reverseData: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
-  final override def sdLength: Int = arrLen / elemProdSize
+  final override def sdLength: Int = dsLen / elemProdSize
 }
 
 
@@ -35,6 +38,9 @@ trait ValueNSeqDef[A <: ElemValueN] extends Any with SeqDef[A]
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
 trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqDef[A]
 { type ThisT <: ValueNArr[A]
+
+  /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
+  def dsLen: Int
 
   def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
   { var acc: B = initAcc

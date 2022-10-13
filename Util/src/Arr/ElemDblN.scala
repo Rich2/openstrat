@@ -9,7 +9,7 @@ trait ElemDblN extends Any with ElemValueN
  *  well as [[DblNArr]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
 trait DblNSeqDef[A <: ElemDblN] extends Any with ValueNSeqDef[A] with ArrayDblBacked
 { type ThisT <: DblNSeqDef[A]
-  @inline final override def arrLen: Int = unsafeArray.length
+  @inline final override def dsLen: Int = unsafeArray.length
   def unsafeFromArray(array: Array[Double]): ThisT
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
 
@@ -21,7 +21,7 @@ trait DblNSeqDef[A <: ElemDblN] extends Any with ValueNSeqDef[A] with ArrayDblBa
 
   /** Reverses the order of the elements in a new Array[Double] which is returned. */
   def unsafeReverseArray: Array[Double] = {
-    val res = new Array[Double](arrLen)
+    val res = new Array[Double](dsLen)
     iUntilForeach(sdLength){ i =>
       val origIndex = i * elemProdSize
       val resIndex = (sdLength - i - 1) * elemProdSize
@@ -33,7 +33,7 @@ trait DblNSeqDef[A <: ElemDblN] extends Any with ValueNSeqDef[A] with ArrayDblBa
   /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
   def appendArray(appendProductsLength: Int): Array[Double] =
   {
-    val acc = new Array[Double](arrLen + appendProductsLength * elemProdSize)
+    val acc = new Array[Double](dsLen + appendProductsLength * elemProdSize)
     unsafeArray.copyToArray(acc)
     acc
   }
@@ -55,9 +55,9 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqDef[A]
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++(operand: ThisT)(implicit build: DblNArrBuilder[A, ThisT]): ThisT = {
-    val newArray: Array[Double] = new Array(arrLen + operand.arrLen)
+    val newArray: Array[Double] = new Array(dsLen + operand.dsLen)
     unsafeArray.copyToArray(newArray)
-    operand.unsafeArray.copyToArray(newArray, arrLen)
+    operand.unsafeArray.copyToArray(newArray, dsLen)
     build.fromDblArray(newArray)
   }
 

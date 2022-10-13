@@ -5,15 +5,19 @@ import collection.mutable.ArrayBuffer
 /** A class that can be construct from a fixed number of [[Int]]s can be stored as an Array[Int] of primitive values. */
 trait ElemIntN extends Any with ElemValueN
 
-trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A] with ArrayIntBacked
-{ type ThisT <: IntNSeqDef[A]
+trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayIntBacked {
+  type ThisT <: IntNSeqLike[A]
 
   /** Constructs the final type of thos [[IntNSeqDef]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
    * appropriate builder, but it can be useful to access this from the class itself. */
   def fromArray(array: Array[Int]): ThisT
+}
+
+trait IntNSeqDef[A <: ElemIntN] extends Any with IntNSeqLike[A] with ValueNSeqDef[A] with ArrayIntBacked
+{ type ThisT <: IntNSeqDef[A]
 
   /** The length of the Array[Int] backing array. */
-  inline final def arrLen: Int = unsafeArray.length
+  inline final def dsLen: Int = unsafeArray.length
 
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(sdLength)
@@ -24,8 +28,8 @@ trait IntNSeqDef[A <: ElemIntN] extends Any with ValueNSeqDef[A] with ArrayIntBa
   final override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 
   def tail: ThisT = {
-    val newArray = new Array[Int](arrLen - elemProdSize)
-    iUntilForeach(arrLen - elemProdSize){i => newArray(i) = unsafeArray(i + elemProdSize) }
+    val newArray = new Array[Int](dsLen - elemProdSize)
+    iUntilForeach(dsLen - elemProdSize){i => newArray(i) = unsafeArray(i + elemProdSize) }
     fromArray(newArray)
   }
 }
@@ -39,9 +43,9 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqDef[A]
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++(operand: ThisT)(implicit build: IntNArrBuilder[A, ThisT]): ThisT = {
-    val newArray: Array[Int] = new Array(arrLen + operand.arrLen)
+    val newArray: Array[Int] = new Array(dsLen + operand.dsLen)
     unsafeArray.copyToArray(newArray)
-    operand.unsafeArray.copyToArray(newArray, arrLen)
+    operand.unsafeArray.copyToArray(newArray, dsLen)
     build.fromIntArray(newArray)
   }
 

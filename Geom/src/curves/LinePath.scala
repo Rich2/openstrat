@@ -30,7 +30,7 @@ class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2sL
    * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
   def yMirrorClose: PolygonGen =
   { val acc: Array[Double] = appendArray(sdLength)
-    var count = arrLen
+    var count = dsLen
 
     dsReverseForeach { orig =>
       acc(count) = - orig.x
