@@ -10,6 +10,7 @@ trait ElemInt1 extends Any with ElemIntN
 trait Int1SeqLike[A <: ElemInt1] extends Any with IntNSeqLike[A]
 {
   override def elemProdSize: Int = 1
+  final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(index) = elem.int1 }
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[ElemInt1]]s. */
@@ -17,12 +18,12 @@ trait Int1SeqDef[A <: ElemInt1] extends Any with Int1SeqLike[A] with IntNSeqDef[
 {
   final override def sdIndex(index: Int): A = dataElem(unsafeArray(index))
   def dataElem(intValue: Int): A
-  final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(index) = elem.int1 }
-  override def sdElemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
+
+
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */
-trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqDef[A]
+trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqLike[A]
 { final override def length: Int = unsafeArray.length
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
@@ -32,6 +33,10 @@ trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqDef[A]
     newArray(sdLength) = op.int1
     fromArray(newArray)
   }
+
+  def newElem(intValue: Int): A
+  final override def sdIndex(index: Int): A = newElem(unsafeArray(index))
+  override def sdElemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrBuilder]] type

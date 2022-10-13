@@ -102,7 +102,7 @@ case object HStepUL extends HDirn
 class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
 { override type ThisT = HDirnArr
   override def typeStr: String = "HSteps"
-  override def dataElem(intValue: Int): HDirn = HDirn.fromInt(intValue)
+  override def newElem(intValue: Int): HDirn = HDirn.fromInt(intValue)
   override def fromArray(array: Array[Int]): HDirnArr = new HDirnArr(array)
   override def fElemStr: HDirn => String = _.toString
 

@@ -7,7 +7,7 @@ final class Colours(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[Col
 { type ThisT = Colours
   override def fromArray(array: Array[Int]): Colours = new Colours(array)
   override def typeStr: String = "Colours"
-  override def dataElem(intValue: Int): Colour = Colour(intValue)
+  override def newElem(intValue: Int): Colour = Colour(intValue)
   override def fElemStr: Colour => String = _.str
 }
 
