@@ -30,17 +30,26 @@ trait ValueNSeqDef[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqDe
   def reverseData: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
-  final override def sdLength: Int = dsLen / elemProdSize
+  override def sdLength: Int = dsLen / elemProdSize
 }
 
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqDef[A]
+trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqLike[A]
 { type ThisT <: ValueNArr[A]
 
   /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
   def dsLen: Int
+
+  /** Checks if 2 values of the defining sequence are equal. */
+  def sdElemEq(a1: A, a2: A): Boolean
+
+  /** Reverses the order of the elements of the defining sequence. */
+  def reverseData: ThisT
+
+  /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
+  override def sdLength: Int = dsLen / elemProdSize
 
   def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
   { var acc: B = initAcc
