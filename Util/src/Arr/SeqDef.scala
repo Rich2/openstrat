@@ -10,6 +10,21 @@ trait SeqDef[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
   def unsafeSameSize(length: Int): ThisT
 
+  /** Specialised map to an immutable [[SeqImut]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for
+   * example a PolygonLike will map to another PolgonLike. */
+  def dataMap[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
+    val res = ev.newArr(sdLength)
+    dataIForeach((i, a) => ev.arrSet(res, i, f(a)))
+    res
+  }
+
+  /** defining -sequence fold. */
+  def dataFold[B](initVal: B)(f: (B, A) => B): B = {
+    var res = initVal
+    dataForeach(a => res = f(res, a))
+    res
+  }
+
   /** Performs a side effecting function on each element of the defining-sequence in reverse order. The function may return Unit. If it does return a
    *  non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method
    *  users. */
@@ -29,6 +44,9 @@ trait SeqDef[+A] extends Any with SeqLike[A @uncheckedVariance]
     dataTailForeach(a => acc = f(acc, a))
     acc
   }
+
+  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
+  override def elemsStr: String = dataMap(fElemStr).mkString("; ").enParenth
 }
 
 trait RefsSeqDefImut[+A] extends Any with SeqDef[A]

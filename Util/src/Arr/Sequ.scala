@@ -517,4 +517,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     foreach{a => if (f(a)) build.buffGrow(buff1, a) else build.buffGrow(buff2,a) }
     (build.buffToBB(buff1), build.buffToBB(buff2) )
   }
+
+  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
+  override def elemsStr: String = map(fElemStr).mkString("; ").enParenth
 }

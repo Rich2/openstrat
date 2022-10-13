@@ -30,7 +30,7 @@ trait SeqLike[A] extends Any
   def typeStr: String
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  final def elemsStr: String = dataMap(fElemStr).mkString("; ").enParenth
+  def elemsStr: String// = dataMap(fElemStr).mkString("; ").enParenth
 
   override def toString: String = typeStr + elemsStr
 
@@ -79,25 +79,10 @@ trait SeqLike[A] extends Any
   { var count = 1
     while(count < sdLength) { f(sdIndex(count)); count += 1 }
   }
-
-  /** Specialised map to an immutable [[SeqImut]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for
-   * example a PolygonLike will map to another PolgonLike. */
-  def dataMap[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(sdLength)
-    dataIForeach((i, a) => ev.arrSet(res, i, f(a)))
-    res
-  }
-
-  def dataFold[B](initVal: B)(f: (B, A) => B): B =
-  { var res = initVal
-    dataForeach(a => res = f(res, a))
-    res
-  }
-
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
-class DataGenShowT[A, R <: SeqLike[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+class DataGenShowT[A, R <: SeqDef[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
