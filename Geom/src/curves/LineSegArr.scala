@@ -10,7 +10,7 @@ class LineSegArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSeg] with A
   override def typeStr: String = "LineSegArr"
   override def fElemStr: LineSeg => String = _.str
   override def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
-  override def ptsTrans(f: Pt2 => Pt2): LineSegArr = dataMap(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
+  override def ptsTrans(f: Pt2 => Pt2): LineSegArr = map(orig => LineSeg(f(orig.pStart), f(orig.pEnd)))
 
   /** Draws the sides with the given width and colour. */
   def draw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)
@@ -34,7 +34,7 @@ object LineSegArr extends Dbl4SeqLikeCompanion[LineSeg, LineSegArr]
     def fromDblBuffer(inp: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(inp)
   }
 
-  implicit val transImplicit: AffineTrans[LineSegArr] = (obj, f) => obj.dataMap(_.ptsTrans(f))
+  implicit val transImplicit: AffineTrans[LineSegArr] = (obj, f) => obj.map(_.ptsTrans(f))
 }
 
 /** Efficient expandable buffer for Line2s. */

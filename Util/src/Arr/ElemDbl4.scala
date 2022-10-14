@@ -31,13 +31,26 @@ trait Dbl4SeqDef[A <: ElemDbl4] extends Any with Dbl4SeqLike[A] with DblNSeqDef[
   override def sdIndex(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl4]]s. */
-trait Dbl4Arr[A <: ElemDbl4] extends Any with DblNArr[A] with Dbl4SeqDef[A]
+trait Dbl4Arr[A <: ElemDbl4] extends Any with DblNArr[A] with Dbl4SeqLike[A]
 { def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
   def head3: Double = unsafeArray(2)
   def head4: Double = unsafeArray(3)
   final override def length: Int = unsafeArray.length / 4
   override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
+
+  /** Method for creating new data elements from 4 [[Double]]s In the case of [[Dbl4Arr]] this will be the type of the elements of the sequence. */
+  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
+
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
+
+  override def sdIndex(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
+
+  override def reverseData: ThisT = {
+    val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    res
+  }
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /
