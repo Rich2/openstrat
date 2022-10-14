@@ -34,7 +34,7 @@ trait PolygonLikeBuilder[B, +BB <: PolygonLike[B]] extends SeqDefImutBuilder[B, 
   }
 }
 
-trait PolygonBuilderData[B, +BB <: PolygonLikeSeqDef[B]] extends PolygonLikeBuilder[B, BB]
+trait PolygonBuilderData[B, +BB <: PolygonLike[B]] extends PolygonLikeBuilder[B, BB]
 
 /** Trait for creating the line path builder instances for the [[PolygonLikeBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
