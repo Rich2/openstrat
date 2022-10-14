@@ -36,7 +36,7 @@ class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2sL
   { val acc: Array[Double] = appendArray(sdLength)
     var count = unsafeLength
 
-    dsReverseForeach { orig =>
+    ssReverseForeach { orig =>
       acc(count) = - orig.x
       acc(count + 1) = orig.y
       count += 2

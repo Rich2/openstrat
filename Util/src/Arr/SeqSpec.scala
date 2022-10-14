@@ -65,27 +65,27 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** spwcifying -sequence fold. */
-  def dataFold[B](initVal: B)(f: (B, A) => B): B = {
+  def ssFold[B](initVal: B)(f: (B, A) => B): B = {
     var res = initVal
     ssForeach(a => res = f(res, a))
     res
   }
 
-  /** Performs a side effecting function on each element of the spwcifying-sequence in reverse order. The function may return Unit. If it does return a
+  /** Performs a side effecting function on each element of the specifying-sequence in reverse order. The function may return Unit. If it does return a
    *  non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method
    *  users. */
-  def dsReverseForeach[U](f: A => U): Unit = {
+  def ssReverseForeach[U](f: A => U): Unit = {
     var count = sdLength
     while (count > 0) {
       count -= 1; f(ssIndex(count))
     }
   }
 
-  /** Last element of the spwcifying sequence. */
-  def dsLast: A = ssIndex(sdLength - 1)
+  /** Last element of the specifying sequence. */
+  def ssLast: A = ssIndex(sdLength - 1)
 
   /** FoldLeft over the tail of the specifying sequence. */
-  def dsTailfold[B](initial: B)(f: (B, A) => B) = {
+  def ssTailFold[B](initial: B)(f: (B, A) => B) = {
     var acc: B = initial
     ssTailForeach(a => acc = f(acc, a))
     acc
@@ -113,7 +113,7 @@ trait RefsSeqSpecImut[+A] extends Any with SeqSpec[A]
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
 class SeqDefShowT[A, R <: SeqSpec[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
-  override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
+  override def syntaxDepthT(obj: R): Int = obj.ssFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
     typeStr + evA.typeStr.enSquare + obj.ssMap(a => evA.showDecT(a, style, maxPlaces, minPlaces))
 }
