@@ -10,6 +10,13 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Accesses the spwcifying sequence element by a 0 based index. */
   @inline def ssIndex(index: Int): A
 
+  /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
+   * underlying Array will be a multiple of this number. */
+  def sdLength: Int
+
+  /** Just a handy short cut to give the length of this collection as a string. */
+  def sdLengthStr: String = sdLength.toString
+
   /** Performs a side effecting function on each element of the specifying sequence in order. */
   def ssForeach[U](f: A => U): Unit =
   { var i = 0

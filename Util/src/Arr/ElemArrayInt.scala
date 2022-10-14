@@ -20,7 +20,6 @@ trait ArrayIntArr[A <: ArrayIntBacked] extends Any with SeqImut[A]
 { type ThisT <: ArrayIntArr[A]
   def unsafeArrayOfArrays: Array[Array[Int]]
   override final def length: Int = unsafeArrayOfArrays.length
-  override final def sdLength: Int = unsafeArrayOfArrays.length
   def unsafeFromArrayArray(array: Array[Array[Int]]): ThisT
   final def unsafeSameSize(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Int]](length))
   final def unsafeSetElem(i: Int, value: A): Unit = unsafeArrayOfArrays(i) = value.unsafeArray
@@ -39,7 +38,7 @@ trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends Ar
 }
 
 class ArrArrayIntEq[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends EqT[ArrT]
-{ override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.sdLength != a2.sdLength) false
+{ override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.length != a2.length) false
 else a1.iForAll((i, el1) =>  el1.unsafeArray === a2(i).unsafeArray)
 }
 
@@ -50,7 +49,6 @@ object ArrArrayIntEq
 /** This is a buffer class for Arrays of Int. It is not a Buffer class for Arrays. */
 trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Sequ[A]
 { def unsafeBuff: ArrayBuffer[Array[Int]]
-  override final def sdLength: Int = unsafeBuff.length
   override final def length: Int = unsafeBuff.length
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */

@@ -17,7 +17,7 @@ class PtM3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[PtM3]
   {
     existsCount(_.z.pos) match
     { case 0 => NoOptEither
-    case n if n == sdLength => SomeA(map(_.xy))
+    case n if n == length => SomeA(map(_.xy))
     case n => NoOptEither
       //      {
       //        var els: List[Either[Dist2, Dist2]] = lMap {

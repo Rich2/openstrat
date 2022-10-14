@@ -46,7 +46,7 @@ trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqLike[
   def reverse: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
-  override def sdLength: Int = unsafeLength / elemProdSize
+  override def length: Int = unsafeLength / elemProdSize
 
   def foldWithPrevious[B](initPrevious: A, initAcc: B)(f: (B, A, A) => B): B =
   { var acc: B = initAcc
@@ -64,7 +64,7 @@ trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqLike[
     var acc: OptInt = NoInt
     var continue = true
 
-    while (continue == true & count < sdLength)
+    while (continue == true & count < length)
     {
       if (elemEq(value, apply(count)))
       { acc = SomeInt(count)

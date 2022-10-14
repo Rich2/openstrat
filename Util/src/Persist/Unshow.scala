@@ -31,9 +31,9 @@ trait Unshow[+T] extends TypeStr
   /** Finds value of this UnShow type, returns error if more than one match. */
   def findUniqueTFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: Arr[Statement])(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance):
     EMon[T] = valuesFromStatements(sts) match
-  { case s if s.sdLength == 0 => TextPosn.emptyError("No values of type found")
-    case s if s.sdLength == 1 => Good(s.head)
-    case s3 => sts.startPosn.bad(s3.sdLength.toString -- "values of" -- typeStr -- "found.")
+  { case s if s.length == 0 => TextPosn.emptyError("No values of type found")
+    case s if s.length == 1 => Good(s.head)
+    case s3 => sts.startPosn.bad(s3.length.toString -- "values of" -- typeStr -- "found.")
   }
 
   /** Finds an identifier setting with a value of the type of this UnShow instance from a [Statement]. */

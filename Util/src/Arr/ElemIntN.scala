@@ -48,8 +48,8 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
   //final override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 
   override final def reverse: ThisT = {
-    val res: ThisT = unsafeSameSize(sdLength)
-    iForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    val res: ThisT = unsafeSameSize(length)
+    iForeach({ (i, el) => res.unsafeSetElem(length - 1 - i, el) })
     res
   }
 
@@ -116,7 +116,7 @@ trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
   def toArray: Array[Int] = unsafeBuffer.toArray[Int]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.unsafeArray); () }
-  override def sdLength = unsafeBuffer.length / elemProdSize
+  override def length = unsafeBuffer.length / elemProdSize
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   override def unsafeSameSize(length: Int): ThisT = ???

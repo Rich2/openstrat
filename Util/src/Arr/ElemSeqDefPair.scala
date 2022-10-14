@@ -10,7 +10,6 @@ trait SeqDefPairArr[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqDefPair[A1E, A1, A2
 { //def a1Arr: SeqImut[A1] = ???
   def a2Array: Array[A2]
   override def length: Int = a2Array.length
-  override def sdLength: Int = a2Array.length
 
   /** Maps this to a new [PolygonLikePairArr]] by mapping a1s to new [[SeqSpec]]s of type B1 leaving the second parts of the pairs
    * unchanged. */
@@ -24,7 +23,6 @@ trait SeqDefPairArr[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqDefPair[A1E, A1, A2
 trait SeqDefPairBuff[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqDefPair[A1E, A1, A2]] extends Sequ[A]
 { def a2Buff: ArrayBuffer[A2]
   override def length: Int = a2Buff.length
-  override def sdLength: Int = a2Buff.length
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   override def unsafeSameSize(length: Int): ThisT = ???

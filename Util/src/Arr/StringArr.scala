@@ -10,7 +10,6 @@ class StringArr(val unsafeArray: Array[String]) extends AnyVal with SeqImut[Stri
   override def unsafeSetElem(i: Int, value: String): Unit = unsafeArray(i) = value
   override def fElemStr: String => String = s => s
   override def apply(index: Int): String = unsafeArray(index)
-  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
 
   /** Make 1 string with separator from this collection of strings. */
@@ -42,9 +41,9 @@ class StringArr(val unsafeArray: Array[String]) extends AnyVal with SeqImut[Stri
   /** Functionally appends the operand [[String]]. This method by the :+ operator, rather than the +- operator alias used for append on [[Arr]] to
    *  avoid confusion with arithmetic operations. */
   def append(op: String): StringArr =
-  { val newArray = new Array[String](sdLength + 1)
+  { val newArray = new Array[String](length + 1)
     unsafeArray.copyToArray(newArray)
-    newArray(sdLength) = op
+    newArray(length) = op
     new StringArr(newArray)
   }
 
@@ -72,11 +71,11 @@ object StringArr
   def apply(input: String*): StringArr = new StringArr(input.toArray)
 
   implicit val eqImplicit: EqT[StringArr] = (a1, a2) =>
-    if(a1.sdLength != a2.sdLength) false
+    if(a1.length != a2.length) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.sdLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.length & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -94,7 +93,6 @@ object StringsBuild extends ArrBuilder[String, StringArr] with ArrFlatBuilder[St
 class StringsBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Sequ[String]
 { override def typeStr: String = "Stringsbuff"
   override def apply(index: Int): String = unsafeBuffer(index)
-  override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: String): Unit = unsafeBuffer(i) = value
   override def fElemStr: String => String = s => s

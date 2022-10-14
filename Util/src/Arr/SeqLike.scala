@@ -6,19 +6,13 @@ import annotation.unchecked.uncheckedVariance
  *  classes such as polygons and line paths that are defined by a sequence of data elements. So for example a Polygon in the Geom module is defined by
  *  a sequence of points, but is a different type to the Pt2s class which is the immutable sequence class for 2 dimensional points. includes
  *  expandable buffers. */
-trait SeqLike[+A] extends Any {
-  /** Gives the final type of this class. */
+trait SeqLike[+A] extends Any
+{ /** Gives the final type of this class. */
   type ThisT <: SeqLike[A]
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   def unsafeSameSize(length: Int): ThisT
 
-  /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
-   * underlying Array will be a multiple of this number. */
-  def sdLength: Int
-
-  /** Just a handy short cut to give the length of this collection as a string. */
-  def sdLengthStr: String = sdLength.toString
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
@@ -36,5 +30,4 @@ trait SeqLike[+A] extends Any {
   def elemsStr: String // = dataMap(fElemStr).mkString("; ").enParenth
 
   override def toString: String = typeStr + elemsStr
-
 }

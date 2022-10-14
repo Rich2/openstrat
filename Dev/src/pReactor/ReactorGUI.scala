@@ -201,7 +201,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
           canv.timeOut(() => doAnimation(), animationDuration)
       }
     }
-    case (LeftButton, cl, v) if (cl.sdLength > 0) =>
+    case (LeftButton, cl, v) if (cl.length > 0) =>
     { if (cl(0).isInstanceOf[Checkbox])
       { cl(0).asInstanceOf[Checkbox].clicked()
         composeGUI()
@@ -211,8 +211,8 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
       } else newGame()
     }
     case (LeftButton, cl, _) => debvar(cl)
-    case (MiddleButton, cl, v) if (cl.sdLength > 0) => loadGame()
-    case (RightButton, cl, v) if (cl.sdLength > 0) => saveGame()
+    case (MiddleButton, cl, v) if (cl.length > 0) => loadGame()
+    case (RightButton, cl, v) if (cl.length > 0) => saveGame()
     case (_, _, _) => deb("uncaptured clicky")
   }
 

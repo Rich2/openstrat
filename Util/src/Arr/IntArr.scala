@@ -11,7 +11,6 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
   override def unsafeSameSize(length: Int): IntArr = new IntArr(new Array[Int](length))
 
   override def typeStr: String = "Ints"
-  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Int = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Int): Unit = unsafeArray(i) = value
@@ -23,9 +22,9 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
 
   /** Functionally appends the operand Ints. Aliased by the ++ operator. */
   def appendInts(op: IntArr): IntArr =
-  { val newArray = new Array[Int](sdLength + op.sdLength)
+  { val newArray = new Array[Int](length + op.length)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, sdLength)
+    op.unsafeArray.copyToArray(newArray, length)
     new IntArr(newArray)
   }
 
@@ -34,9 +33,9 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
   /** Functionally appends the operand Int. This method by the :+ operator, rather than the +- operator alias used for append on Refs to avoid
    *  confusion with arithmetic operations. */
   def append(op: Int): IntArr =
-  { val newArray = new Array[Int](sdLength + 1)
+  { val newArray = new Array[Int](length + 1)
     unsafeArray.copyToArray(newArray)
-    newArray(sdLength) = op
+    newArray(length) = op
     new IntArr(newArray)
   }
 
@@ -44,7 +43,7 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
   @inline def +:(op: Int): IntArr = prepend(op)
   /** Functionally prepends the operand [[Int]]. */
   def prepend(op: Int): IntArr =
-  { val newArray = new Array[Int](sdLength + 1)
+  { val newArray = new Array[Int](length + 1)
     newArray(0) = op
     unsafeArray.copyToArray(newArray, 1)
     new IntArr(newArray)
@@ -84,11 +83,11 @@ object IntArr
   implicit val showImplicit: ShowT[IntArr] = ???// DataGenShowT[Int, IntArr](ShowT.intPersistEv)
 
   implicit val eqImplicit: EqT[IntArr] = (a1, a2) =>
-    if(a1.sdLength != a2.sdLength) false
+    if(a1.length != a2.length) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.sdLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.length & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -109,7 +108,6 @@ class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Sequ[Int]
 { override def typeStr: String = "IntBuff"
   override def apply(index: Int): Int = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
-  override def sdLength: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Int): Unit = unsafeBuffer(i) = value
   override def fElemStr: Int => String = _.toString
   def grow(newElem: Int): Unit = unsafeBuffer.append(newElem)

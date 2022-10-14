@@ -162,7 +162,6 @@ class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) 
 final class TBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with Sequ[A]
 { override def typeStr: String = "AnyBuff"
   override def apply(index: Int): A = unsafeBuff(index)
-  override def sdLength: Int = unsafeBuff.length
   override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuff(i) = value
   override def fElemStr: A => String = _.toString

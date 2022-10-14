@@ -7,16 +7,15 @@ class DblArr(val unsafeArray: Array[Double]) extends AnyVal with SeqImut[Double]
 { type ThisT = DblArr
   override def typeStr: String = "Doubles"
   override def unsafeSameSize(length: Int): DblArr = new DblArr(new Array[Double](length))
-  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Double = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Double): Unit = unsafeArray(i) = value
   def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
   def ++ (op: DblArr): DblArr =
-  { val newArray = new Array[Double](sdLength + op.sdLength)
+  { val newArray = new Array[Double](length + op.length)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, sdLength)
+    op.unsafeArray.copyToArray(newArray, length)
     new DblArr(newArray)
   }
 }
@@ -26,11 +25,11 @@ object DblArr
 { def apply(input: Double*): DblArr = new DblArr(input.toArray)
 
   implicit val eqImplicit: EqT[DblArr] = (a1, a2) =>
-    if(a1.sdLength != a2.sdLength) false
+    if(a1.length != a2.length) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.sdLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.length & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -49,7 +48,6 @@ object DblsBuild extends ArrBuilder[Double, DblArr] with ArrFlatBuilder[DblArr]
 class DblsBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Sequ[Double]
 { override def typeStr: String = "DblsBuff"
   override def apply(index: Int): Double = unsafeBuffer(index)
-  override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Double): Unit = unsafeBuffer(i) = value
   override def fElemStr: Double => String = _.toString

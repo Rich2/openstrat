@@ -82,7 +82,7 @@ trait Dbl2Arr[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqLike[A]
 
   def foreachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
-    while(count < sdLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
+    while(count < length) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
   }
 
   override def apply(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
@@ -91,10 +91,10 @@ trait Dbl2Arr[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqLike[A]
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
-  { val newArray = new Array[Double](sdLength + elemProdSize)
+  { val newArray = new Array[Double](length + elemProdSize)
     unsafeArray.copyToArray(newArray)
-    newArray(sdLength) = op.dbl1
-    newArray(sdLength + 1) = op.dbl2
+    newArray(length) = op.dbl1
+    newArray(length + 1) = op.dbl2
     unsafeFromArray(newArray)
   }
 

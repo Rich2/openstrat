@@ -93,7 +93,6 @@ class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends SeqImut[P
   override def typeStr: String = "PolygonSqCArr"
   override def unsafeSameSize(length: Int): PolygonSqCArr = new PolygonSqCArr(new Array[Array[Int]](length))
   override def length: Int = unsafeArrayOfArrays.length
-  override def sdLength: Int = unsafeArrayOfArrays.length
   override def unsafeSetElem(i: Int, value: PolygonSqC): Unit = unsafeArrayOfArrays(i) = value.unsafeArray
   override def fElemStr: PolygonSqC => String = _.toString
   override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeArrayOfArrays(index))
@@ -105,7 +104,6 @@ class PolygonSqCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal wit
   override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: PolygonSqC): Unit = unsafeBuff(i) = value.unsafeArray
   override def fElemStr: PolygonSqC => String = _.toString
-  override def sdLength: Int = unsafeBuff.length
   override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeBuff(index))
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */

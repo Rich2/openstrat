@@ -64,8 +64,8 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
   }*/
 
   def reverse: ThisT =
-  { val res: ThisT = unsafeSameSize(sdLength)
-    iForeach({(i, el) => res.unsafeSetElem(sdLength - 1 - i, el)})
+  { val res: ThisT = unsafeSameSize(length)
+    iForeach({(i, el) => res.unsafeSetElem(length - 1 - i, el)})
     res
   }
 
@@ -121,7 +121,7 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   override def unsafeSameSize(length: Int): ThisT = ???
 
-  def sdLength: Int = unsafeBuffer.length / elemProdSize
+  def length: Int = unsafeBuffer.length / elemProdSize
   def toArray: Array[Double] = unsafeBuffer.toArray[Double]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.unsafeArray); () }

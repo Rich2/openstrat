@@ -26,9 +26,9 @@ trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqLike[A]
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
-  { val newArray = new Array[Int](sdLength + 1)
+  { val newArray = new Array[Int](length + 1)
     unsafeArray.copyToArray(newArray)
-    newArray(sdLength) = op.int1
+    newArray(length) = op.int1
     fromArray(newArray)
   }
 

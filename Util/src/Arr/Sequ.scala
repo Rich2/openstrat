@@ -13,6 +13,9 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[SeqLike]][A]. */
   def length: Int
 
+  /** Just a handy short cut to give the length of this collection as a string. */
+  def lenStr: String = length.toString
+
   /** Method for keeping the typer happy when returning this as an instance of ThisT. */
   @inline def returnThis: ThisT = this.asInstanceOf[ThisT]
 
@@ -26,35 +29,35 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   @inline def head: A = apply(0)
 
   /** The last element of this sequence. */
-  @inline def last: A = apply(sdLength - 1)
+  @inline def last: A = apply(length - 1)
 
   /** Is this sequence empty? */
-  @inline def empty: Boolean = sdLength <= 0
+  @inline def empty: Boolean = length <= 0
 
   /** Is this sequence non empty? */
-  @inline def nonEmpty: Boolean = sdLength > 0
+  @inline def nonEmpty: Boolean = length > 0
 
   /** Folds over the non existence / existence of a head element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the head element. */
-  def headFold[B](noHead: => B)(ifHead: A => B): B = ife(sdLength >= 1, ifHead(head), noHead)
+  def headFold[B](noHead: => B)(ifHead: A => B): B = ife(length >= 1, ifHead(head), noHead)
 
   /** Folds over the non existence / existence of a head element. If the sequence is nonEmpty applies toString to head element else returns the noHead parameter string. */
-  def headFoldToString[B](noHead: => String): String = ife(sdLength >= 1, apply(0).toString, noHead)
+  def headFoldToString[B](noHead: => String): String = ife(length >= 1, apply(0).toString, noHead)
 
   /** Folds over the non existence / existence of a last element. The first parameter is a value for an empty sequence, the second parameter passed as a separate parameter list is a function on the last element. */
-  def lastFold[B](noLast: => B)(ifLast: A => B): B = ife(sdLength >= 1, ifLast(last), noLast)
+  def lastFold[B](noLast: => B)(ifLast: A => B): B = ife(length >= 1, ifLast(last), noLast)
 
   /** if this [[Sequ]] is nonEmpty performs the side effecting function on the head. If empty procedure is applied. */
-  def ifHead[U](f: A => U): Unit = if(sdLength >= 1) f(apply(0))
+  def ifHead[U](f: A => U): Unit = if(length >= 1) f(apply(0))
 
   /** Applies an index to this ArrayLike collection which cycles back to element 0, when it reaches the end of the collection. Accepts even negative
    * integers as an index value without throwing an exception. */
-  @inline def cycleGet(index: Int): A = apply(index %% sdLength)
+  @inline def cycleGet(index: Int): A = apply(index %% length)
 
   /** Performs a side effecting function on each element of this sequence in order. The function may return Unit. If it does return a non Unit value
    *  it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def foreach[U](f: A => U): Unit =
   { var count = 0
-    while(count < sdLength)
+    while(count < length)
     { f(apply(count))
       count = count + 1
     }
@@ -69,7 +72,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def iForeach[U](f: (Int, A) => U): Unit =
   { var count = 0
     var i: Int = 0
-    while(count < sdLength )
+    while(count < length )
     { f(i, apply(count))
       count+= 1
       i += 1
@@ -85,7 +88,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def iForeach[U](startIndex: Int)(f: (Int, A) => U): Unit =
   { var count = 0
     var i: Int = startIndex
-    while(count < sdLength )
+    while(count < length )
     { f(i, apply(count))
       count+= 1
       i += 1
@@ -95,7 +98,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Specialised map to an immutable [[SeqImut]] of B. Applies the supplied function to every
    *  element of this sequence. */
   def map[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(sdLength)
+  { val res = ev.newArr(length)
     iForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
@@ -103,7 +106,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Specialised map to an immutable [[SeqImut]] of B. Applies the supplied function to every
    * element of this sequence. */
   def mapPair[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
-    val res = ev.newArr(sdLength)
+    val res = ev.newArr(length)
     iForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
@@ -115,7 +118,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. This method should be overridden in sub
    * classes. */
   def iMap[B, ArrB <: SeqImut[B]](f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(sdLength)
+  { val res = ev.newArr(length)
     iForeach((i, a) => ev.arrSet(res, i, f(i, a)))
     res
   }
@@ -127,7 +130,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should be overridden in sub
    * classes. */
   def iMap[B, ArrB <: SeqImut[B]](startindex: Int)(f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(sdLength)
+  { val res = ev.newArr(length)
     iForeach(startindex)((i, a) => ev.arrSet(res, i, f(i, a)))
     res
   }
@@ -151,7 +154,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def iFlatMap[ArrB <: SeqImut[_]](f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var i: Int = 0
-    while (i < sdLength)
+    while (i < length)
     { val newArr = f(i, apply(i));
       build.buffGrowArr(buff, newArr)
       i += 1
@@ -168,7 +171,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def iFlatMap[ArrB <: SeqImut[_]](iInit: Int)(f: (Int, A) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
   { val buff: build.BuffT = build.newBuff()
     var count: Int = 0
-    while (count < sdLength)
+    while (count < length)
     { val newElems = f(count + iInit, apply(count))
       build.buffGrowArr(buff, newElems)
       count += 1
@@ -179,7 +182,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
    * function from type A and type B to type C. */
   def zipMap[B, C, ArrC <: SeqImut[C]](operator: Sequ[B])(f: (A, B) => C)(implicit ev: ArrBuilder[C, ArrC]): ArrC =
-  { val newLen = sdLength.min(operator.sdLength)
+  { val newLen = length.min(operator.length)
     val res = ev.newArr(newLen)
     var count = 0
     while(count < newLen)
@@ -193,7 +196,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
    *  the specialised map function from type A and type B and type C to type D. */
   def zipMap2[B, C, D, ArrD <: SeqImut[D]](operator1: Sequ[B], operator2: Sequ[C])(f: (A, B, C) => D)(implicit ev: ArrBuilder[D, ArrD]): ArrD =
-  { val newLen = sdLength.min(operator1.sdLength).min(operator2.sdLength)
+  { val newLen = length.min(operator1.length).min(operator2.length)
     val res = ev.newArr(newLen)
     var count = 0
     while(count < newLen)
@@ -208,7 +211,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    *  (accumulator, element) => B signature. */
   def mapWithAcc[B, ArrB <: SeqImut[B], C](initC: C)(f: (C, A) => (B, C))(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(sdLength)
+  { val res = ev.newArr(length)
     var accC: C = initC
     iForeach({ (i, a) =>
           val (newB, newC) = f(accC, a)
@@ -223,7 +226,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     var continue = true
     var count = 0
     var errs: StringArr = StringArr()
-    while(count < sdLength & continue == true)
+    while(count < length & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToBB(acc)), Bad(errs))
   }
@@ -233,16 +236,16 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     var continue = true
     var count = 0
     var errs: StringArr = StringArr()
-    while(count < sdLength & continue == true)
+    while(count < length & continue == true)
       f(apply(count)).foldErrs { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(acc.reverse), Bad(errs))
   }
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
   def map2To1[B, ArrB <: SeqImut[B]](f: (A, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(sdLength)
+  { val res = ev.newArr(length)
     var count = 0
-    while (count + 1  < sdLength)
+    while (count + 1  < length)
     {  ev.arrSet(res, count, f(apply(count), apply(count + 1)))
       count += 2
     }
@@ -269,7 +272,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Maps over a function from A to any Iterable and flattens the result into an [[Arr]][A]. */
   def flatToIterableMap[B, ArrB <: SeqImut[B]](f: A => Iterable[B])(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val buff = ev.newBuff(sdLength)
+  { val buff = ev.newBuff(length)
     foreach(a => ev.buffGrowIter(buff, f(a)))
     ev.buffToBB(buff)
   }
@@ -290,7 +293,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def indexOf(elem: A @uncheckedVariance): Int =
   { var result = -1
     var count  = 0
-    while (count < sdLength & result == -1)
+    while (count < length & result == -1)
     { if (elem == apply(count)) result = count
     else count += 1
     }
@@ -301,7 +304,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def indexWhere(f: A => Boolean): Int =
   { var count = 0
     var result = -1
-    while(count < sdLength & result == -1)
+    while(count < length & result == -1)
     { if(f(apply(count))) result = count
       count += 1
     }
@@ -311,14 +314,14 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Foreachs over the tail of this sequence. */
   def tailForeach[U](f: A => U): Unit =
   { var count = 1
-    while(count < sdLength) { f(apply(count)); count += 1 }
+    while(count < length) { f(apply(count)); count += 1 }
   }
 
   /** Performs a side effecting function on each element of this sequence excluding the last. The function may return Unit. If it does return a non
    *  Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def initForeach[U](f: A => U): Unit =
   { var count = 0
-    while(count < sdLength - 1)
+    while(count < length - 1)
     { f(apply(count))
       count += 1
     }
@@ -343,14 +346,14 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Performs a side effecting function on each element of this sequence in reverse order. The function may return Unit. If it does return a non Unit
    *  value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
   def reverseForeach[U](f: A => U): Unit =
-  { var count = sdLength
+  { var count = length
     while(count > 0) { count -= 1; f(apply(count)) }
   }
 
   /** Note the function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold
    *  methods' (accumulator, element) => B signature. */
   def reverseIForeach[U](f: (Int, A) => U): Unit =
-  { var count = sdLength
+  { var count = length
     while(count > 0) { count -= 1; f(count, apply(count)) }
   }
 
@@ -358,7 +361,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def forAll(p: (A) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
-    while (acc & count < sdLength) if (p(apply(count))) count += 1 else acc = false
+    while (acc & count < length) if (p(apply(count))) count += 1 else acc = false
     acc
   }
 
@@ -367,7 +370,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def iForAll(p: (Int, A) => Boolean): Boolean =
   { var acc: Boolean = true
     var count = 0
-    while (acc & count < sdLength) if (p(count, apply(count))) count += 1 else acc = false
+    while (acc & count < length) if (p(count, apply(count))) count += 1 else acc = false
     acc
   }
 
@@ -376,7 +379,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def contains[A1 >: A](elem: A1): Boolean =
   { var count = 0
     var res = false
-    while (res == false & count < sdLength){ if (elem == apply(count)) res = true; count += 1 }
+    while (res == false & count < length){ if (elem == apply(count)) res = true; count += 1 }
     res
   }
 
@@ -404,10 +407,10 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Not sure about this method. */
-  def mkString(separator: String): String = ife(sdLength == 0, "",
+  def mkString(separator: String): String = ife(length == 0, "",
     { var acc = head.toString
       var count = 1
-      while(count < sdLength)
+      while(count < length)
       { acc += separator + apply(count).toString
         count += 1
       }
@@ -497,7 +500,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   {
     var count = 0
     var res: Option[A] = None
-    while (count < sdLength & res.isEmpty)
+    while (count < length & res.isEmpty)
     {
       val el = apply(count)
       if (f(el)) res = Some(el)

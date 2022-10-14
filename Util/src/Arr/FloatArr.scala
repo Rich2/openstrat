@@ -10,7 +10,6 @@ class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with SeqImut[Float]
   override def unsafeSameSize(length: Int): FloatArr = new FloatArr(new Array[Float](length))
 
   override def typeStr: String = "Floats"
-  override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Float = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeArray(i) = value
@@ -18,9 +17,9 @@ class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with SeqImut[Float]
   override def fElemStr: Float => String = _.toString
 
   def ++ (op: FloatArr): FloatArr =
-  { val newArray = new Array[Float](sdLength + op.sdLength)
+  { val newArray = new Array[Float](length + op.length)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, sdLength)
+    op.unsafeArray.copyToArray(newArray, length)
     new FloatArr(newArray)
   }
 }
@@ -30,11 +29,11 @@ object FloatArr
 
 
   implicit val eqImplicit: EqT[FloatArr] = (a1, a2) =>
-    if(a1.sdLength != a2.sdLength) false
+    if(a1.length != a2.length) false
     else
     { var i = 0
       var acc = true
-      while (i < a1.sdLength & acc) if (a1(i) == a2(i)) i += 1 else acc = false
+      while (i < a1.length & acc) if (a1(i) == a2(i)) i += 1 else acc = false
       acc
     }
 }
@@ -52,7 +51,6 @@ object FloatsBuild extends ArrBuilder[Float, FloatArr] with ArrFlatBuilder[Float
 class FloatsBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with Sequ[Float]
 { override def typeStr: String = "FloatsBuff"
   override def apply(index: Int): Float = unsafeBuffer(index)
-  override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeBuffer(i) = value
   override def fElemStr: Float => String = _.toString
