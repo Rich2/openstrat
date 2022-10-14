@@ -35,7 +35,7 @@ trait Dbl6SeqSpec[A <: ElemDbl6] extends Any with Dbl6SeqLike[A] with DblNSeqSpe
   /** Constructs an element of the defining-sequence from 6 [[Double]]s. */
   def dsElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 
-  def sdIndex(index: Int): A = {
+  def ssIndex(index: Int): A = {
     val offset = index * 6
     dsElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3),
       unsafeArray(offset + 4), unsafeArray(offset + 5))

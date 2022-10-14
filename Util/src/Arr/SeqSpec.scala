@@ -7,36 +7,37 @@ import annotation.unchecked.uncheckedVariance
 trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 { type ThisT <: SeqSpec[A]
 
-  /** Accesses the defining sequence element by a 0 based index. */
-  @inline def sdIndex(index: Int): A
+  /** Accesses the spwcifying sequence element by a 0 based index. */
+  @inline def ssIndex(index: Int): A
 
-  /** Performs a side effecting function on each element of this sequence in order. */
-  def dataForeach[U](f: A => U): Unit = {
-    var i = 0
+  /** Performs a side effecting function on each element of the specifying sequence in order. */
+  def ssForeach[U](f: A => U): Unit =
+  { var i = 0
     while (i < sdLength) {
-      f(sdIndex(i))
+      f(ssIndex(i))
       i = i + 1
     }
   }
 
-  /** Foreachs over the tail of the data sequence. */
-  def dataTailForeach[U](f: A => U): Unit = {
-    var count = 1
+  /** Foreachs over the tail of the specifying sequence. Performs a side effecting function on each element of the tail of the specifying sequence in
+   *  order. */
+  def ssTailForeach[U](f: A => U): Unit =
+  { var count = 1
     while (count < sdLength) {
-      f(sdIndex(count)); count += 1
+      f(ssIndex(count)); count += 1
     }
   }
 
-  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of the data sequence. It takes a
-   * function as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just
-   * to avoid warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for
-   * the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set
-   * the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as
-   * seen for example in fold methods' (accumulator, element) => B signature. */
-  def dataIForeach[U](f: (Int, A) => Any): Unit = {
-    var i = 0
+  /** Index with foreach on the the specifying sequence elements. Performs a side effecting function on the index and each element of the specifying
+   * sequence. It takes a function as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type
+   * parameter is there just to avoid warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads.
+   * The default start for the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first
+   * parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection
+   * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
+  def ssIForeach[U](f: (Int, A) => Any): Unit =
+  { var i = 0
     while (i < sdLength) {
-      f(i, sdIndex(i))
+      f(i, ssIndex(i))
       i = i + 1
     }
   }
@@ -47,51 +48,51 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    * the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set
    * the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as
    * seen for example in fold methods' (accumulator, element) => B signature. */
-  def dataIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit = {
+  def ssIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit = {
     var i = 0
     while (i < sdLength) {
-      f(i + initIndex, sdIndex(i))
+      f(i + initIndex, ssIndex(i))
       i = i + 1
     }
   }
 
   /** Specialised map to an immutable [[SeqImut]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for
    * example a PolygonLike will map to another PolgonLike. */
-  def dataMap[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
+  def ssMap[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
     val res = ev.newArr(sdLength)
-    dataIForeach((i, a) => ev.arrSet(res, i, f(a)))
+    ssIForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
 
-  /** defining -sequence fold. */
+  /** spwcifying -sequence fold. */
   def dataFold[B](initVal: B)(f: (B, A) => B): B = {
     var res = initVal
-    dataForeach(a => res = f(res, a))
+    ssForeach(a => res = f(res, a))
     res
   }
 
-  /** Performs a side effecting function on each element of the defining-sequence in reverse order. The function may return Unit. If it does return a
+  /** Performs a side effecting function on each element of the spwcifying-sequence in reverse order. The function may return Unit. If it does return a
    *  non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method
    *  users. */
   def dsReverseForeach[U](f: A => U): Unit = {
     var count = sdLength
     while (count > 0) {
-      count -= 1; f(sdIndex(count))
+      count -= 1; f(ssIndex(count))
     }
   }
 
-  /** Last element of the defining sequence. */
-  def dsLast: A = sdIndex(sdLength - 1)
+  /** Last element of the spwcifying sequence. */
+  def dsLast: A = ssIndex(sdLength - 1)
 
-  /** FoldLeft over the tail of the defining sequence. */
+  /** FoldLeft over the tail of the specifying sequence. */
   def dsTailfold[B](initial: B)(f: (B, A) => B) = {
     var acc: B = initial
-    dataTailForeach(a => acc = f(acc, a))
+    ssTailForeach(a => acc = f(acc, a))
     acc
   }
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  override def elemsStr: String = dataMap(fElemStr).mkString("; ").enParenth
+  override def elemsStr: String = ssMap(fElemStr).mkString("; ").enParenth
 }
 
 trait RefsSeqSpecImut[+A] extends Any with SeqSpec[A]
@@ -106,7 +107,7 @@ trait RefsSeqSpecImut[+A] extends Any with SeqSpec[A]
   override final def sdLength: Int = unsafeArray.length
   override final def fElemStr: A @uncheckedVariance => String = _.toString
   override final def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArray(i) = value
-  override final def sdIndex(index: Int): A = unsafeArray(index)
+  override final def ssIndex(index: Int): A = unsafeArray(index)
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
@@ -114,5 +115,5 @@ class SeqDefShowT[A, R <: SeqSpec[A]](val evA: ShowT[A]) extends ShowTSeqLike[A,
 {
   override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-    typeStr + evA.typeStr.enSquare + obj.dataMap(a => evA.showDecT(a, style, maxPlaces, minPlaces))
+    typeStr + evA.typeStr.enSquare + obj.ssMap(a => evA.showDecT(a, style, maxPlaces, minPlaces))
 }

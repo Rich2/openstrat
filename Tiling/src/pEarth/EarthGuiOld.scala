@@ -26,7 +26,7 @@ abstract class EarthGuiOld(title: String) extends UnfixedMapGui(title)
   def loadView(): Unit = canv.fromFileFindForeach(saveName, newView => setView(newView))   
   @inline def polyToGlobedArea(latLongs: PolygonLL): OptEither[PtMetre2Arr, CurveSegDists] = focus.polyToGlobedArea(latLongs)
   def latLongToDist2(ll: LatLong): PtM2 = focus.fromFocusDist2(ll)
-  @inline def polyToDist2s(latLongs: PolygonLL): PtMetre2Arr =  latLongs.dataMap(focus.fromFocusDist2)
+  @inline def polyToDist2s(latLongs: PolygonLL): PtMetre2Arr =  latLongs.ssMap(focus.fromFocusDist2)
   val trans: PtM2 => Pt2 = _ / ifInvScale
  //  val transSeq: Dist2s => Vec2s = _.map(trans)
   /** Seems to have a bug */

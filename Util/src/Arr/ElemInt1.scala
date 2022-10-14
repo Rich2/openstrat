@@ -14,8 +14,10 @@ trait Int1SeqLike[A <: ElemInt1] extends Any with IntNSeqLike[A]
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[ElemInt1]]s. */
 trait Int1SeqSpec[A <: ElemInt1] extends Any with Int1SeqLike[A] with IntNSeqSpec[A]
-{ final override def sdIndex(index: Int): A = dataElem(unsafeArray(index))
-  def dataElem(intValue: Int): A
+{ final override def ssIndex(index: Int): A = ssElem(unsafeArray(index))
+
+  /** Constructs an element of the specifing sequence from an [[Int]] value. */
+  def ssElem(intValue: Int): A
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */

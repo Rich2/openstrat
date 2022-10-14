@@ -33,10 +33,10 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   final def sd0Cen: Pt2 = sd0CenX pp sd0CenY
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
-  final override def vertsForeach[U](f: Pt2 => U): Unit = dataForeach(f)
+  final override def vertsForeach[U](f: Pt2 => U): Unit = ssForeach(f)
 
   /** Performs the side effecting function on the [[Pt2]] value of each vertex. */
-  final def vertsTailForeach[U](f: Pt2 => U): Unit = dataTailForeach(f)
+  final def vertsTailForeach[U](f: Pt2 => U): Unit = ssTailForeach(f)
 
   /** Foreach vertex excluding vertex 1, perform the side effecting function on the Tuple2 of the x and y values of the vertex. For maximum efficiency
    * override the implementation in sub classes. */
@@ -93,7 +93,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   final def vert(index: Int): Pt2 = unsafeVert(index %% vertsNum)
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  final def unsafeVert(index: Int): Pt2 = sdIndex(index)
+  final def unsafeVert(index: Int): Pt2 = ssIndex(index)
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the

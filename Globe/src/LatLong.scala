@@ -75,7 +75,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def xyLat0: Pt2 = Pt2(longRadians.sine * latRadians.sine, latRadians.sine)
 
   def polyToGlobedArea(inp: PolygonLL): OptEither[PtMetre2Arr, CurveSegDists] =
-  { val d3s: PtM3Arr = inp.dataMap(el => fromFocusMetres(el))
+  { val d3s: PtM3Arr = inp.ssMap(el => fromFocusMetres(el))
     d3s.earthZPositive
   }
 

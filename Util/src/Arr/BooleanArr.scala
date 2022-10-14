@@ -10,7 +10,7 @@ trait BooleanSeqSpec extends Any with SeqSpec[Boolean]
   def fromArray(array: Array[Boolean]): ThisT
 
   override final def sdLength: Int = unsafeArray.length
-  override final def sdIndex(index: Int): Boolean = unsafeArray(index)
+  override final def ssIndex(index: Int): Boolean = unsafeArray(index)
   override final def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeArray(i) = value
   override final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
 

@@ -9,7 +9,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
   override def typeStr: String = "PolygonHC"
   override def fromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
   def vertNum: Int = unsafeArray.length / 2
-  override def vert(index: Int): HCoord = sdIndex(index)
+  override def vert(index: Int): HCoord = ssIndex(index)
 
   /** Performs the side effecting function on the [[HCoord]] value of each vertex. */
   override def vertsForeach[U](f: HCoord => U): Unit =
@@ -62,7 +62,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
 
   def toPolygonArray(f: HCoord => Pt2): Array[Double] =
   { val res = new Array[Double](sdLength * 2)
-    dataIForeach{(i, hv) =>
+    ssIForeach{ (i, hv) =>
       val newVal = f(hv)
       res(i * 2) = newVal.dbl1
       res(i * 2 + 1) = newVal.dbl2
@@ -73,7 +73,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
   def combine(operand: PolygonHC): Option[PolygonHC] =
   {
     var starts: Option[(Int, Int)] = None
-    val a = sdIndex(0)
+    val a = ssIndex(0)
     ???
   }
 

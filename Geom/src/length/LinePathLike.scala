@@ -7,7 +7,7 @@ trait LinePathLike[A] extends Any with SeqSpec[A]
 {
   def map[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.newLinePath(sdLength)
-    dataIForeach((i, p) => res.unsafeSetElem(i, f(p)))
+    ssIForeach((i, p) => res.unsafeSetElem(i, f(p)))
     res
   }
 }

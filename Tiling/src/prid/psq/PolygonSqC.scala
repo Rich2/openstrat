@@ -12,7 +12,7 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
   override def sdElem(int1: Int, int2: Int): SqCoord = SqCoord(int1, int2)
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  override def vert(index: Int): SqCoord = sdIndex(index)
+  override def vert(index: Int): SqCoord = ssIndex(index)
 
   /** Performs the side effecting function on the [[SqCoord]] value of each vertex. */
   override def vertsForeach[U](f: SqCoord => U): Unit =
@@ -59,14 +59,14 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
   def toPolygon(f: SqCoord => Pt2): Polygon =
   {
     val res = PolygonGen.uninitialised(sdLength)
-    dataIForeach((i, hv) => res.unsafeSetElem(i, f(hv)))
+    ssIForeach((i, hv) => res.unsafeSetElem(i, f(hv)))
     res
   }
 
   def combine(operand: PolygonSqC): Option[PolygonSqC] =
   {
     var starts: Option[(Int, Int)] = None
-    val a = sdIndex(0)
+    val a = ssIndex(0)
     ???
   }
 

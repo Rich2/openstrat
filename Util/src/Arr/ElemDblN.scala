@@ -26,7 +26,7 @@ trait DblNSeqSpec[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqS
 
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(sdLength)
-    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el)})
+    ssIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el)})
     res
   }
 
