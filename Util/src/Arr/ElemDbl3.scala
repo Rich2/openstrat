@@ -31,12 +31,25 @@ trait Dbl3SeqDef[A <: ElemDbl3] extends Any with Dbl3SeqLike[A] with DblNSeqDef[
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl3]]s. */
-trait Dbl3Arr[A <: ElemDbl3] extends Any with DblNArr[A] with Dbl3SeqDef[A]
+trait Dbl3Arr[A <: ElemDbl3] extends Any with DblNArr[A] with Dbl3SeqLike[A]
 { final override def length: Int = unsafeArray.length / 3
   def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
   def head3: Double = unsafeArray(2)
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3)))
+
+  /** Method for creating new data elements from 3 [[Double]]s In the case of [[Dbl3Arr]] this will be the type of the elements of the sequence. */
+  def dataElem(d1: Double, d2: Double, d3: Double): A
+
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
+
+  override def sdIndex(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+
+  override def reverseData: ThisT = {
+    val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    res
+  }
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /
