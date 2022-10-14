@@ -12,7 +12,7 @@ class LinePathMetre3(val unsafeArray: Array[Double]) extends AnyVal with LinePat
   override def fElemStr: PtM3 => String = _.toString
 }
 /** Companion object for LinePathM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */
-object LinePathMetre3 extends Dbl3SeqDefCompanion[PtM3, LinePathMetre3]
+object LinePathMetre3 extends Dbl3SeqLikeCompanion[PtM3, LinePathMetre3]
 { override def fromArray(array: Array[Double]): LinePathMetre3 = new LinePathMetre3(array)
 
   implicit val persistImplicit: Dbl3SeqDefPersist[PtM3, LinePathMetre3] = new Dbl3SeqDefPersist[PtM3, LinePathMetre3]("LinePathMs3")

@@ -13,16 +13,18 @@ trait ElemDbl3 extends Any with ElemDblN
     dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta) & dbl3.=~(that.dbl3, delta)
 }
 
+trait Dbl3SeqLike[A <: ElemDbl3] extends Any with DblNSeqLike[A]
+{ override def elemProdSize = 3
+
+  override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(3 * index) = elem.dbl1; unsafeArray(3 * index + 1) = elem.dbl2
+    unsafeArray(3 * index + 2) = elem.dbl3 }
+}
+
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl3]]s. */
-trait Dbl3SeqDef[A <: ElemDbl3] extends Any with DblNSeqDef[A]
+trait Dbl3SeqDef[A <: ElemDbl3] extends Any with Dbl3SeqLike[A] with DblNSeqDef[A]
 { /** Method for creating new data elements from 3 [[Double]]s In the case of [[Dbl3Arr]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double): A
 
-  override def elemProdSize = 3
-
-  override def unsafeSetElem(index: Int, elem: A): Unit =
-  { unsafeArray(3 * index) = elem.dbl1; unsafeArray(3 * index + 1) = elem.dbl2; unsafeArray(3 * index + 2) = elem.dbl3
-  }
 
   override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
   override def sdIndex(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
@@ -70,8 +72,8 @@ abstract class Dbl3SeqDefPersist[A <: ElemDbl3, M <: Dbl3SeqDef[A]](val typeStr:
   override def showDecT(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
 }
 
-/** Class for the singleton companion objects of [[Dbl3seqDef]] final classes to extend. */
-abstract class Dbl3SeqDefCompanion[A <: ElemDbl3, ArrA <: Dbl3SeqDef[A]] extends DblNSeqLikeCompanion[A, ArrA]
+/** Class for the singleton companion objects of [[Dbl3seqLike]] final classes to extend. */
+abstract class Dbl3SeqLikeCompanion[A <: ElemDbl3, ArrA <: Dbl3SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
 { final override def elemNumDbls: Int = 3
 
   def apply(elems: A*): ArrA =
