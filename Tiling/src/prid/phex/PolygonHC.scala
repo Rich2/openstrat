@@ -61,7 +61,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
   }*/
 
   def toPolygonArray(f: HCoord => Pt2): Array[Double] =
-  { val res = new Array[Double](sdLength * 2)
+  { val res = new Array[Double](ssLength * 2)
     ssIForeach{ (i, hv) =>
       val newVal = f(hv)
       res(i * 2) = newVal.dbl1

@@ -12,15 +12,12 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
    * underlying Array will be a multiple of this number. */
-  def sdLength: Int
-
-  /** Just a handy short cut to give the length of this collection as a string. */
-  def sdLengthStr: String = sdLength.toString
+  def ssLength: Int
 
   /** Performs a side effecting function on each element of the specifying sequence in order. */
   def ssForeach[U](f: A => U): Unit =
   { var i = 0
-    while (i < sdLength) {
+    while (i < ssLength) {
       f(ssIndex(i))
       i = i + 1
     }
@@ -30,7 +27,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    *  order. */
   def ssTailForeach[U](f: A => U): Unit =
   { var count = 1
-    while (count < sdLength) {
+    while (count < ssLength) {
       f(ssIndex(count)); count += 1
     }
   }
@@ -43,7 +40,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. */
   def ssIForeach[U](f: (Int, A) => Any): Unit =
   { var i = 0
-    while (i < sdLength) {
+    while (i < ssLength) {
       f(i, ssIndex(i))
       i = i + 1
     }
@@ -57,7 +54,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    * seen for example in fold methods' (accumulator, element) => B signature. */
   def ssIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit = {
     var i = 0
-    while (i < sdLength) {
+    while (i < ssLength) {
       f(i + initIndex, ssIndex(i))
       i = i + 1
     }
@@ -66,7 +63,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Specialised map to an immutable [[SeqImut]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for
    * example a PolygonLike will map to another PolgonLike. */
   def ssMap[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
-    val res = ev.newArr(sdLength)
+    val res = ev.newArr(ssLength)
     ssIForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
@@ -82,14 +79,14 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    *  non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method
    *  users. */
   def ssReverseForeach[U](f: A => U): Unit = {
-    var count = sdLength
+    var count = ssLength
     while (count > 0) {
       count -= 1; f(ssIndex(count))
     }
   }
 
   /** Last element of the specifying sequence. */
-  def ssLast: A = ssIndex(sdLength - 1)
+  def ssLast: A = ssIndex(ssLength - 1)
 
   /** FoldLeft over the tail of the specifying sequence. */
   def ssTailFold[B](initial: B)(f: (B, A) => B) = {
@@ -111,14 +108,14 @@ trait RefsSeqSpecImut[+A] extends Any with SeqSpec[A]
   /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
   override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[AnyRef](length).asInstanceOf[Array[A]])
 
-  override final def sdLength: Int = unsafeArray.length
+  override final def ssLength: Int = unsafeArray.length
   override final def fElemStr: A @uncheckedVariance => String = _.toString
   override final def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArray(i) = value
   override final def ssIndex(index: Int): A = unsafeArray(index)
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
-class SeqDefShowT[A, R <: SeqSpec[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+class SeqLikeShowT[A, R <: SeqSpec[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.ssFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =

@@ -14,9 +14,9 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
 
   /** Concatenate [[LatLong]] element returning a new [[LinePathLL]]. An immutable append. Aliased by +% operator. */
   def concatElem (newElem: LatLong): LinePathLL =
-  { val res = LinePathLL.uninitialised(sdLength + 1)
+  { val res = LinePathLL.uninitialised(ssLength + 1)
     ssIForeach{ (i, ll) => res.unsafeSetElem(i, ll) }
-    res.unsafeSetElem(sdLength, newElem)
+    res.unsafeSetElem(ssLength, newElem)
     res
   }
 
@@ -25,7 +25,7 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
 
   /** Prepends element, returning a new [[LatLong]]. Aliased by %: operator. */
   def prepend (newElem: LatLong): LinePathLL =
-  { val res = LinePathLL.uninitialised(sdLength + 1)
+  { val res = LinePathLL.uninitialised(ssLength + 1)
     res.unsafeSetElem(0, newElem)
     ssIForeach{ (i, ll) => res.unsafeSetElem(i + 1, ll) }
     res
@@ -36,9 +36,9 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
 
   /** Concatenate elements of the operand [[LinePathLL]] returning a new [[LinePathLL]]. An immutable append. Aliased by ++ operator. */
   def concat (operand: LinePathLL): LinePathLL =
-  { val res = LinePathLL.uninitialised(sdLength + operand.sdLength)
+  { val res = LinePathLL.uninitialised(ssLength + operand.ssLength)
     ssIForeach{ (i, ll) => res.unsafeSetElem(i, ll) }
-    operand.ssIForeach(sdLength) { (i, ll) => res.unsafeSetElem(i, ll) }
+    operand.ssIForeach(ssLength) { (i, ll) => res.unsafeSetElem(i, ll) }
     res
   }
 
@@ -47,9 +47,9 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
 
   /** Concatenate repeat [[LatLong]] elements returning a new [[LinePathLL]]. An immutable append. Aliased by ++ operator. */
   def concat (elems: LatLong *): LinePathLL =
-  { val res = LinePathLL.uninitialised(sdLength + elems.length)
+  { val res = LinePathLL.uninitialised(ssLength + elems.length)
     ssIForeach{ (i, ll) => res.unsafeSetElem(i, ll) }
-    elems.iForeach(sdLength){ (i, ll) => res.unsafeSetElem(i, ll) }
+    elems.iForeach(ssLength){ (i, ll) => res.unsafeSetElem(i, ll) }
     res
   }
 
@@ -63,9 +63,9 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
    *  The purpose of the concatenate reversed methods is for [[PolygonLL]]s with shared [[LinePathLL]]s. To allow both polygons to keep their points
    *  with the clockwise convention. */
   def concatReverse (operand: LinePathLL): LinePathLL =
-  { val res = LinePathLL.uninitialised(sdLength + operand.sdLength)
+  { val res = LinePathLL.uninitialised(ssLength + operand.ssLength)
     ssIForeach{ (i, ll) => res.unsafeSetElem(i, ll) }
-    operand.reverse.ssIForeach(sdLength) { (i, ll) => res.unsafeSetElem(i, ll) }
+    operand.reverse.ssIForeach(ssLength) { (i, ll) => res.unsafeSetElem(i, ll) }
     res
   }
 
@@ -77,9 +77,9 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
 
   /** Concatenates the operand [[LatLong]] and closes into a [[PolyonLL]]. */
   def concatClose(newElem: LatLong): PolygonLL =
-  { val res = PolygonLL.uninitialised(sdLength + 1)
+  { val res = PolygonLL.uninitialised(ssLength + 1)
     unsafeArray.copyToArray(res.unsafeArray)
-    res.unsafeSetElem(sdLength, newElem)
+    res.unsafeSetElem(ssLength, newElem)
     res
   }
 
@@ -88,7 +88,7 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
 
   /** Prepend the left hand operand element and close into a [[PolygonLL]].  */
   def prependClose(newElem: LatLong): PolygonLL =
-  { val res = PolygonLL.uninitialised(sdLength + 1)
+  { val res = PolygonLL.uninitialised(ssLength + 1)
     res.unsafeSetElem(0, newElem)
     ssIForeach{ (i, ll) => res.unsafeSetElem(i + 1, ll) }
     res
@@ -99,9 +99,9 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
 
   /** Concatenate the operand [[LatLong]]s and closes the line path into a [[PolyognLL]]. */
   def concatClose(newElems: LatLong*): PolygonLL =
-  { val res = PolygonLL.uninitialised(sdLength + newElems.length)
+  { val res = PolygonLL.uninitialised(ssLength + newElems.length)
     unsafeArray.copyToArray(res.unsafeArray)
-    newElems.iForeach((i, ll) => res.unsafeSetElem(sdLength + i, ll))
+    newElems.iForeach((i, ll) => res.unsafeSetElem(ssLength + i, ll))
     res
   }
 
@@ -110,9 +110,9 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
 
   /** Concatenate the operand [[LinePathLL]] and closes the line path into a [[PolyognLL]]. */
   def concatClose(operand: LinePathLL): PolygonLL =
-  { val res = PolygonLL.uninitialised(sdLength + operand.sdLength)
+  { val res = PolygonLL.uninitialised(ssLength + operand.ssLength)
     unsafeArray.copyToArray(res.unsafeArray)
-    operand.vertsIForeach{ (i, ll) => res.unsafeSetElem(sdLength + i, ll) }
+    operand.vertsIForeach{ (i, ll) => res.unsafeSetElem(ssLength + i, ll) }
     res
   }
 
@@ -148,13 +148,13 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
   /** Creates a new backing Array[Double] with the elements of this [[LinePathLL]], with the elements of the operand
    * minus the head and last element of the operand. */
   def arrayAppendTailInit(operand: LinePathLL): Array[Double] =
-  { val array = new Array[Double]((sdLength + (operand.sdLength - 2).max(0)) * 2)
+  { val array = new Array[Double]((ssLength + (operand.ssLength - 2).max(0)) * 2)
     unsafeArray.copyToArray(array)
-    iUntilForeach(2, operand.unsafeLength - 2) { i => array(sdLength * 2 + i - 2) = operand.unsafeArray(i) }
+    iUntilForeach(2, operand.unsafeLength - 2) { i => array(ssLength * 2 + i - 2) = operand.unsafeArray(i) }
     array
   }
 
-  def vertsNum: Int = sdLength
+  def vertsNum: Int = ssLength
 
   /** Performs the side effecting function on the [[LatLong]] value of each vertex. */
   def vertsForeach[U](f: LatLong => U): Unit = ssForeach(f)

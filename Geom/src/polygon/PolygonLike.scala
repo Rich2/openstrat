@@ -67,7 +67,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
 
 trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with ValueNSeqSpec[VT]
 { override def vertsForeach[U](f: VT => U): Unit = ssForeach(f)
-  override def vertsNum: Int = sdLength
+  override def vertsNum: Int = ssLength
 }
 
 /** A polygon whose elements are defined by [[Double]]s. */

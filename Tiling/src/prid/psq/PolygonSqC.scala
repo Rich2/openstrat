@@ -58,7 +58,7 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
 
   def toPolygon(f: SqCoord => Pt2): Polygon =
   {
-    val res = PolygonGen.uninitialised(sdLength)
+    val res = PolygonGen.uninitialised(ssLength)
     ssIForeach((i, hv) => res.unsafeSetElem(i, f(hv)))
     res
   }

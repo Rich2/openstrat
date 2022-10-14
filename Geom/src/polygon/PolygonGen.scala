@@ -36,19 +36,19 @@ final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2s
 
   /** Insert vertex. */
   override def insVert(insertionPoint: Int, newVec: Pt2): PolygonGen =
-  { val res = PolygonGen.uninitialised(sdLength + 1)
+  { val res = PolygonGen.uninitialised(ssLength + 1)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, ssIndex(i)))
     res.unsafeSetElem(insertionPoint, newVec)
-    (insertionPoint until sdLength).foreach(i => res.unsafeSetElem(i + 1, ssIndex(i)))
+    (insertionPoint until ssLength).foreach(i => res.unsafeSetElem(i + 1, ssIndex(i)))
     res
   }
 
   /** Insert vertices */
   override def insVerts(insertionPoint: Int, newVecs: Pt2 *): PolygonGen =
-  { val res = PolygonGen.uninitialised(sdLength + newVecs.length)
+  { val res = PolygonGen.uninitialised(ssLength + newVecs.length)
     (0 until insertionPoint).foreach(i => res.unsafeSetElem(i, ssIndex(i)))
     newVecs.iForeach((i, elem) => res.unsafeSetElem(insertionPoint + i, elem))
-    (insertionPoint until sdLength).foreach(i => res.unsafeSetElem(i + newVecs.length, ssIndex(i)))
+    (insertionPoint until ssLength).foreach(i => res.unsafeSetElem(i + newVecs.length, ssIndex(i)))
     res
   }
 

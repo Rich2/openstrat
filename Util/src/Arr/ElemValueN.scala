@@ -30,7 +30,7 @@ trait ValueNSeqSpec[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqS
   def reverseData: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
-  override def sdLength: Int = unsafeLength / elemProdSize
+  override def ssLength: Int = unsafeLength / elemProdSize
 }
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous

@@ -55,7 +55,7 @@ trait Unshow[+T] extends TypeStr
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect{ case g @ Good(_) => g } match
     { case Arr1(t) => t
       case Arr0() => sts.startPosn.bad(settingStr -- typeStr -- "Setting not found.")
-      case s3 => sts.startPosn.bad(s3.sdLength.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
+      case s3 => sts.startPosn.bad(s3.ssLength.toString -- "settings of" -- settingStr -- "of" -- typeStr -- "not found.")
     }
   }
 
@@ -66,7 +66,7 @@ trait Unshow[+T] extends TypeStr
     case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect{ case g @ Good(_) => g } match
     { case Arr1(t) => t
       case Arr0() => sts.startPosn.bad(settingCode.toString -- typeStr -- "Setting not found.")
-      case s3 => sts.startPosn.bad(s3.sdLength.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
+      case s3 => sts.startPosn.bad(s3.ssLength.toString -- "settings of" -- settingCode.toString -- "of" -- typeStr -- "not found.")
     }
   }
 }

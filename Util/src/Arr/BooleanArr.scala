@@ -9,7 +9,7 @@ trait BooleanSeqSpec extends Any with SeqSpec[Boolean]
   /** Constructs a new instance of the final type / class from an [[Array]][Boolean]. */
   def fromArray(array: Array[Boolean]): ThisT
 
-  override final def sdLength: Int = unsafeArray.length
+  override final def ssLength: Int = unsafeArray.length
   override final def ssIndex(index: Int): Boolean = unsafeArray(index)
   override final def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeArray(i) = value
   override final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
@@ -27,9 +27,9 @@ final class BooleanArr(val unsafeArray: Array[Boolean]) extends AnyVal with SeqI
   override def length: Int = unsafeArray.length
 
   def ++ (op: BooleanArr): BooleanArr =
-  { val newArray = new Array[Boolean](sdLength + op.sdLength)
+  { val newArray = new Array[Boolean](ssLength + op.ssLength)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, sdLength)
+    op.unsafeArray.copyToArray(newArray, ssLength)
     new BooleanArr(newArray)
   }
 

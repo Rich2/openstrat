@@ -44,7 +44,7 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
   /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
   { val n2 = n.max0
-    val newLen: Int = (sdLength - n2).max0
+    val newLen: Int = (ssLength - n2).max0
     val newArray = new Array[A](newLen)
     iUntilForeach(newLen)(i => newArray(i) = unsafeArray(i + n2))
     new Arr(newArray)
@@ -53,7 +53,7 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
   /** Returns a new shorter Arr with the last elements removed. */
   def dropRight(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): Arr[A] =
   { val n2 = n.max0
-    val newLen: Int = (sdLength - n2).max0
+    val newLen: Int = (ssLength - n2).max0
     val newArray = new Array[A](newLen)
     iUntilForeach(newLen)(i => newArray(i) = unsafeArray(i))
     new Arr(newArray)
@@ -65,9 +65,9 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
   /** Functionally concatenates element to dispatching [[Arr]], allows type widening. Aliased by -+ operator. The '-' character in the operator name
    *  indicates loss of type precision. The ++ appendArr method is preferred when type widening is not required. */
   def appendArr [AA >: A](op: Arr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](sdLength + op.sdLength)
+  { val newArray = new Array[AA](ssLength + op.ssLength)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, sdLength)
+    op.unsafeArray.copyToArray(newArray, ssLength)
     new Arr(newArray)
   }
 
@@ -75,9 +75,9 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
   @inline def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] = append[AA](op)(ct)
   /** Functionally appends an element to dispatching Refs, allows type widening. Aliased by +- operator. */
   def append[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](sdLength + 1)
+  { val newArray = new Array[AA](ssLength + 1)
     unsafeArray.copyToArray(newArray)
-    newArray(sdLength) = op
+    newArray(ssLength) = op
     new Arr(newArray)
   }
 
@@ -86,7 +86,7 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
   @inline def %: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): Arr[AA] = prepend(op)(ct)
   /** Functionally prepends element to array. Aliased by the +: operator. */
   def prepend[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): Arr[AA] =
-  { val newArray = new Array[AA](sdLength + 1)
+  { val newArray = new Array[AA](ssLength + 1)
     newArray(0) = op
     unsafeArray.copyToArray(newArray, 1)
     new Arr(newArray)
@@ -117,7 +117,7 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
 
   def setAll(value: A @uncheckedVariance): Unit =
   { var i = 0
-    while(i < sdLength){unsafeSetElem(i, value); i += 1}
+    while(i < ssLength){unsafeSetElem(i, value); i += 1}
   }
 
   def mapToCurlySyntax: String = ???
@@ -127,12 +127,12 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
  * extends AnyRef. */
 object Arr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
-  implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[Arr[A]] = SeqDefShowT[A, Arr[A]](evA)
+  implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[Arr[A]] = SeqLikeShowT[A, Arr[A]](evA)
 
-  implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[Arr[A]] = (arr1, arr2) => if (arr1.sdLength != arr2.sdLength) false else
+  implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[Arr[A]] = (arr1, arr2) => if (arr1.ssLength != arr2.ssLength) false else
   { var i = 0
     var res = true
-    while(i < arr1.sdLength & res) if (evA.eqT(arr1(i), arr2(i))) i += 1 else res = false
+    while(i < arr1.ssLength & res) if (evA.eqT(arr1(i), arr2(i))) i += 1 else res = false
     res
   }
 
@@ -141,7 +141,7 @@ object Arr
     def optFind(f: A => Boolean): Option[A] =
     { var acc: Option[A] = None
       var count = 0
-      while (acc == None & count < thisArr.sdLength) if (f(thisArr(count))) acc = Some(thisArr(count)) else count += 1
+      while (acc == None & count < thisArr.ssLength) if (f(thisArr(count))) acc = Some(thisArr(count)) else count += 1
       acc
     }
   }

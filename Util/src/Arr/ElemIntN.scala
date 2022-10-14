@@ -23,8 +23,8 @@ trait IntNSeqSpec[A <: ElemIntN] extends Any with IntNSeqLike[A] with ValueNSeqS
 { type ThisT <: IntNSeqSpec[A]
 
   override def reverseData: ThisT =
-  { val res: ThisT = unsafeSameSize(sdLength)
-    ssIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el)})
+  { val res: ThisT = unsafeSameSize(ssLength)
+    ssIForeach({ (i, el) => res.unsafeSetElem(ssLength - 1 - i, el)})
     res
   }
 

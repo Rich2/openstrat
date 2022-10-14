@@ -30,9 +30,9 @@ object ArrRefTest extends TestSuite
 
     test("map")
     { myAArr1(2) ==> MyA(3)
-      myTArr1.sdLength ==> 5
+      myTArr1.ssLength ==> 5
       ints1(4) ==> 50
-      myTArr2.sdLength ==> 6
+      myTArr2.ssLength ==> 6
       myTArr2(0) ==> MyA(5)
       myTArr2(5) ==> MyB(7)
       myRefs1(1) ==> MyA(6)

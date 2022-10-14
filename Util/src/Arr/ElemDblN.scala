@@ -25,17 +25,17 @@ trait DblNSeqSpec[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqS
 
 
   override def reverseData: ThisT =
-  { val res: ThisT = unsafeSameSize(sdLength)
-    ssIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el)})
+  { val res: ThisT = unsafeSameSize(ssLength)
+    ssIForeach({ (i, el) => res.unsafeSetElem(ssLength - 1 - i, el)})
     res
   }
 
   /** Reverses the order of the elements in a new Array[Double] which is returned. */
   def unsafeReverseArray: Array[Double] = {
     val res = new Array[Double](unsafeLength)
-    iUntilForeach(sdLength){ i =>
+    iUntilForeach(ssLength){ i =>
       val origIndex = i * elemProdSize
-      val resIndex = (sdLength - i - 1) * elemProdSize
+      val resIndex = (ssLength - i - 1) * elemProdSize
       iUntilForeach(elemProdSize){j => res(resIndex + j) = unsafeArray(origIndex + j) }
     }
     res
