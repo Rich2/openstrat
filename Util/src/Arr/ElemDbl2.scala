@@ -116,7 +116,7 @@ trait Dbl2ArrFlatBuilder[B <: ElemDbl2, ArrB <: Dbl2Arr[B]] extends DblNArrFlatB
 }
 
 /** Class for the singleton companion objects of [[Dbl2Arr]] final classes to extend. */
-trait Dbl2SeqDefCompanion[A <: ElemDbl2, AA <: Dbl2SeqDef[A]] extends DblNSeqDefCompanion[A, AA]
+trait Dbl2SeqDefCompanion[A <: ElemDbl2, AA <: Dbl2SeqDef[A]] extends DblNSeqLikeCompanion[A, AA]
 { final def elemNumDbls: Int = 2
 
   /** Apply factory method for creating Arrs of [[ElemDbl2]]s. */

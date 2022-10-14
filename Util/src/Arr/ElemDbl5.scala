@@ -69,7 +69,7 @@ trait Dbl5ArrFlatBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrFlatB
 }
 
 /** Helper class for companion objects of final [[Dbl5SeqDef]] classes. */
-abstract class Dbl5SeqDefCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqDef[A]] extends DblNSeqDefCompanion[A, ArrA]
+abstract class Dbl5SeqDefCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqDef[A]] extends DblNSeqLikeCompanion[A, ArrA]
 { override def elemNumDbls: Int = 5
 
   def apply(elems: A*): ArrA =

@@ -43,7 +43,7 @@ trait Dbl6Arr[A <: ElemDbl6] extends Any with DblNArr[A] with Dbl6SeqDef[A]
 }
 
 /** Helper class for companion objects of final [[Dbl6SeqDef]] classes. */
-abstract class Dbl6SeqDefCompanion[A <: ElemDbl6, ArrA <: Dbl6SeqDef[A]] extends DblNSeqDefCompanion[A, ArrA]
+abstract class Dbl6SeqDefCompanion[A <: ElemDbl6, ArrA <: Dbl6SeqDef[A]] extends DblNSeqLikeCompanion[A, ArrA]
 {
   override def elemNumDbls: Int = 6
 

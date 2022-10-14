@@ -114,7 +114,7 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 }
 
 /** Helper trait for Companion objects of [[DblNArr]] classes. */
-trait DblNSeqDefCompanion[A <: ElemDblN, AA <: DblNSeqDef[A]] extends ValueNSeqLikeCompanion[A, AA]
+trait DblNSeqLikeCompanion[A <: ElemDblN, AA <: DblNSeqLike[A]] extends ValueNSeqLikeCompanion[A, AA]
 { /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
   def elemNumDbls: Int
 

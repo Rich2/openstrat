@@ -12,9 +12,24 @@ trait ElemDbl7 extends Any with ElemDblN
   def dbl7: Double
 }
 
+trait Dbl7SeqLike[A <: ElemDbl7] extends Any with DblNSeqLike[A]{
+  def elemProdSize: Int = 7
+
+  override def unsafeSetElem(index: Int, elem: A): Unit = {
+    val offset = 7 * index;
+    unsafeArray(offset) = elem.dbl1;
+    unsafeArray(offset + 1) = elem.dbl2;
+    unsafeArray(offset + 2) = elem.dbl3;
+    unsafeArray(offset + 3) = elem.dbl4
+    unsafeArray(offset + 4) = elem.dbl5;
+    unsafeArray(offset + 5) = elem.dbl6;
+    unsafeArray(offset + 6) = elem.dbl7
+  }
+}
+
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl7]]s. */
-trait Dbl7SeqDef[A <: ElemDbl7] extends Any with DblNSeqDef[A]
-{ def elemProdSize: Int = 7
+trait Dbl7SeqDef[A <: ElemDbl7] extends Any with Dbl7SeqLike[A] with DblNSeqDef[A]
+{
   def sdElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
   override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
@@ -25,12 +40,6 @@ trait Dbl7SeqDef[A <: ElemDbl7] extends Any with DblNSeqDef[A]
 
     sdElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
       unsafeArray(offset + 5), unsafeArray(offset + 6))
-  }
-
-  override def unsafeSetElem(index: Int, elem: A): Unit =
-  { val offset = 7 * index;
-    unsafeArray(offset) = elem.dbl1; unsafeArray(offset + 1) = elem.dbl2; unsafeArray(offset + 2) = elem.dbl3; unsafeArray(offset + 3) = elem.dbl4
-    unsafeArray(offset + 4) = elem.dbl5; unsafeArray(offset + 5) = elem.dbl6; unsafeArray(offset + 6) = elem.dbl7
   }
 }
 
@@ -43,7 +52,7 @@ trait Dbl7Arr[A <: ElemDbl7] extends Any with DblNArr[A] with Dbl7SeqDef[A]
 }
 
 /** Helper class for companion objects of final [[Dbl7SeqDef]] sequence-defined classes. */
-abstract class Dbl7SeqDefCompanion[A <: ElemDbl7, ArrA <: Dbl7SeqDef[A]] extends DblNSeqDefCompanion[A, ArrA]
+abstract class Dbl7SeqDefCompanion[A <: ElemDbl7, ArrA <: Dbl7SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
 { override def elemNumDbls: Int = 7
   def apply(length: Int): ArrA = uninitialised(length)
 
