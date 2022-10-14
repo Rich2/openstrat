@@ -22,7 +22,7 @@ trait Dbl4SeqLike[A <: ElemDbl4] extends Any with DblNSeqLike[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl4]]s. */
-trait Dbl4SeqDef[A <: ElemDbl4] extends Any with Dbl4SeqLike[A] with DblNSeqDef[A]
+trait Dbl4SeqSpec[A <: ElemDbl4] extends Any with Dbl4SeqLike[A] with DblNSeqSpec[A]
 { /** Method for creating new data elements from 4 [[Double]]s In the case of [[Dbl4Arr]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
@@ -71,7 +71,7 @@ trait Dbl4ArrFlatBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends DblNArrFlatB
   final override def elemProdSize = 4
 }
 
-/** Class for the singleton companion objects of [[Dbl4SeqDef]] final classes to extend. */
+/** Class for the singleton companion objects of [[Dbl4SeqSpec]] final classes to extend. */
 abstract class Dbl4SeqLikeCompanion[A <: ElemDbl4, AA <: Dbl4SeqLike[A]] extends DblNSeqLikeCompanion[A, AA]
 {
   def apply(elems: A*): AA =

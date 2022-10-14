@@ -57,6 +57,6 @@ class DblsBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Sequ[D
   /** The final type of this object. */
   override type ThisT = DblsBuff
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   override def unsafeSameSize(length: Int): DblsBuff = ???
 }

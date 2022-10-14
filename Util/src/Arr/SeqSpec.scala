@@ -2,10 +2,10 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
-/** Base trait for all immutable classes that use a backing Array for efficient storage. This includes immutable sequences [[SeqImut]], but also
- *  polygons and line paths that are specified by data sequences. */
-trait SeqDef[+A] extends Any with SeqLike[A @uncheckedVariance]
-{ type ThisT <: SeqDef[A]
+/** Sequence specified objects. An immutable class that can be specified by a sequence of elements. Uses a backing Array for efficient storage.
+ *  Exasmples include  polygons and line paths that can be specified by a sequence of points. */
+trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
+{ type ThisT <: SeqSpec[A]
 
   /** Accesses the defining sequence element by a 0 based index. */
   @inline def sdIndex(index: Int): A
@@ -94,8 +94,8 @@ trait SeqDef[+A] extends Any with SeqLike[A @uncheckedVariance]
   override def elemsStr: String = dataMap(fElemStr).mkString("; ").enParenth
 }
 
-trait RefsSeqDefImut[+A] extends Any with SeqDef[A]
-{ type ThisT <: RefsSeqDefImut[A]
+trait RefsSeqSpecImut[+A] extends Any with SeqSpec[A]
+{ type ThisT <: RefsSeqSpecImut[A]
   def unsafeArray: Array[A] @uncheckedVariance
 
   def fromArray(array: Array[A] @uncheckedVariance): ThisT
@@ -110,7 +110,7 @@ trait RefsSeqDefImut[+A] extends Any with SeqDef[A]
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
-class SeqDefShowT[A, R <: SeqDef[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+class SeqDefShowT[A, R <: SeqSpec[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =

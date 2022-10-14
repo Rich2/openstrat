@@ -8,7 +8,7 @@ trait ElemIntN extends Any with ElemValueN
 trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayIntBacked {
   type ThisT <: IntNSeqLike[A]
 
-  /** Constructs the final type of thos [[IntNSeqDef]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
+  /** Constructs the final type of thos [[IntNSeqSpec]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
    * appropriate builder, but it can be useful to access this from the class itself. */
   def fromArray(array: Array[Int]): ThisT
 
@@ -19,8 +19,8 @@ trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayInt
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 }
 
-trait IntNSeqDef[A <: ElemIntN] extends Any with IntNSeqLike[A] with ValueNSeqDef[A] with ArrayIntBacked
-{ type ThisT <: IntNSeqDef[A]
+trait IntNSeqSpec[A <: ElemIntN] extends Any with IntNSeqLike[A] with ValueNSeqSpec[A] with ArrayIntBacked
+{ type ThisT <: IntNSeqSpec[A]
 
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(sdLength)
@@ -118,7 +118,7 @@ trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
   override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.unsafeArray); () }
   override def sdLength = unsafeBuffer.length / elemProdSize
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   override def unsafeSameSize(length: Int): ThisT = ???
 }
 

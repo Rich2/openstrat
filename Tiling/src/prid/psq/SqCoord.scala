@@ -29,7 +29,7 @@ trait SqCoordSeqLike extends Any with Int2SeqLike[SqCoord]
   final override def fElemStr: SqCoord => String = _.toString
 }
 
-trait SqCoordSeqDef extends Any with SqCoordSeqLike with Int2SeqDef[SqCoord]
+trait SqCoordSeqSpec extends Any with SqCoordSeqLike with Int2SeqSpec[SqCoord]
 
 /** Specialised sequence class for [[SqCoord]]. */
 class SqCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCoord] with SqCoordSeqLike

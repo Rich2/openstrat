@@ -2,8 +2,8 @@
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
-trait BooleanSeqDef extends Any with SeqDef[Boolean]
-{ type ThisT <: BooleanSeqDef
+trait BooleanSeqSpec extends Any with SeqSpec[Boolean]
+{ type ThisT <: BooleanSeqSpec
   def unsafeArray: Array[Boolean]
 
   /** Constructs a new instance of the final type / class from an [[Array]][Boolean]. */
@@ -19,7 +19,7 @@ trait BooleanSeqDef extends Any with SeqDef[Boolean]
 }
 
 /** An immutable efficient Array[Boolean] backed sequence class for [[Boolean]]s. */
-final class BooleanArr(val unsafeArray: Array[Boolean]) extends AnyVal with SeqImut[Boolean] with BooleanSeqDef
+final class BooleanArr(val unsafeArray: Array[Boolean]) extends AnyVal with SeqImut[Boolean] with BooleanSeqSpec
 { type ThisT = BooleanArr
   override def typeStr: String = "Booleans"
   override def fromArray(array: Array[Boolean]): BooleanArr = new BooleanArr(array)
@@ -62,6 +62,6 @@ class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with Se
   /** The final type of this object. */
   override type ThisT = BooleanBuff
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   override def unsafeSameSize(length: Int): BooleanBuff = ???
 }

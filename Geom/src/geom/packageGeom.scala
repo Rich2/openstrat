@@ -20,7 +20,7 @@ package object geom
   @inline def BuffGraphic(initialLength: Int = 5): ArrayBuffer[GraphicElem] = new ArrayBuffer[GraphicElem](initialLength)
 
   implicit def sequExtension[A](value: Sequ[A]): SequExtensions[A] = new SequExtensions[A](value)
-  implicit def seqDefExtension[A](value: SeqDef[A]): SeqDefExtensions[A] = new SeqDefExtensions[A](value)
+  implicit def seqDefExtension[A](value: SeqSpec[A]): SeqDefExtensions[A] = new SeqDefExtensions[A](value)
 
   implicit def transSimToExtension[T](value: T)(implicit ev: TransSim[T]): TransSimExtension[T] = new TransSimExtension[T](value, ev)
   implicit def slateToExtensions[T](value: T)(implicit ev: Slate[T]): SlateExtensions[T] = new SlateExtensions[T](value, ev)

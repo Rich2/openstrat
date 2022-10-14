@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from 3 [[Int]]s. These are used in [[Int3SeqDef]] based collections. */
+/** An object that can be constructed from 3 [[Int]]s. These are used in [[Int3SeqSpec]] based collections. */
 trait ElemInt3 extends Any with ElemIntN
 { def int1: Int
   def int2: Int
@@ -22,7 +22,7 @@ trait Int3SeqLike[A <: ElemInt3] extends Any with IntNSeqLike[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemInt3]]s. */
-trait Int3SeqDef[A <: ElemInt3] extends Any with Int3SeqLike[A] with IntNSeqDef[A]
+trait Int3SeqSpec[A <: ElemInt3] extends Any with Int3SeqLike[A] with IntNSeqSpec[A]
 {
   final override def sdIndex(index: Int): A = sdElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 
@@ -83,7 +83,7 @@ trait Int3Buff[A <: ElemInt3] extends Any with IntNBuff[A]
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 3) = value.int1; unsafeBuffer(i * 3 + 1) = value.int2; unsafeBuffer(i * 3 + 2) = value.int3 }
 }
 
-/** Helper class for companion objects of final [[Int3SeqDef]] classes. */
+/** Helper class for companion objects of final [[Int3SeqSpec]] classes. */
 abstract class Int3SeqLikeCompanion[A <: ElemInt3, ArrA <: Int3SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
 { override def elemNumInts: Int = 3
 

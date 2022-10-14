@@ -5,7 +5,7 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
 /** The immutable Array based class for types without there own specialised [[SeqImut]] collection classes. It Inherits the standard foreach, map,
  *  flatMap and fold and their variations' methods from ArrayLike. As it stands in Scala 3.0.2-RC1 the Graphics module will not build for Scala3 for
  *  the Javascript target. */
-final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with SeqImut[A] with RefsSeqDefImut[A]
+final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with SeqImut[A] with RefsSeqSpecImut[A]
 { type ThisT = Arr[A] @uncheckedVariance
   override def typeStr: String = "Arr"
   override def fromArray(array: Array[A] @uncheckedVariance): Arr[A] = new Arr(array)
@@ -170,6 +170,6 @@ final class TBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with Sequ[A]
   /** The final type of this object. */
   override type ThisT = TBuff[A]
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   override def unsafeSameSize(length: Int): TBuff[A] = ???
 }

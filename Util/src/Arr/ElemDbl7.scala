@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-/** An object that can be constructed from 7 [[Double]]s. These are used in [[Dbl7SeqDef]] classes including [[Dbl7Arr]] sequence collections. */
+/** An object that can be constructed from 7 [[Double]]s. These are used in [[Dbl7SeqSpec]] classes including [[Dbl7Arr]] sequence collections. */
 trait ElemDbl7 extends Any with ElemDblN
 { def dbl1: Double
   def dbl2: Double
@@ -33,7 +33,7 @@ trait Dbl7SeqLike[A <: ElemDbl7] extends Any with DblNSeqLike[A]{
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl7]]s. */
-trait Dbl7SeqDef[A <: ElemDbl7] extends Any with Dbl7SeqLike[A] with DblNSeqDef[A]
+trait Dbl7SeqSpec[A <: ElemDbl7] extends Any with Dbl7SeqLike[A] with DblNSeqSpec[A]
 {
 
 
@@ -64,7 +64,7 @@ trait Dbl7Arr[A <: ElemDbl7] extends Any with DblNArr[A] with Dbl7SeqLike[A]
     (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
 }
 
-/** Helper class for companion objects of final [[Dbl7SeqDef]] sequence-defined classes. */
+/** Helper class for companion objects of final [[Dbl7SeqSpec]] sequence-defined classes. */
 abstract class Dbl7SeqDefCompanion[A <: ElemDbl7, ArrA <: Dbl7SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
 { override def elemNumDbls: Int = 7
   def apply(length: Int): ArrA = uninitialised(length)

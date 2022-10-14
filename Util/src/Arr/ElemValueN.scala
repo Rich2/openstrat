@@ -20,8 +20,8 @@ trait ValueNSeqLike[A <: ElemValueN] extends Any with SeqLike[A]
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
  *  classes include both [[SeqImut]s and classes like polygons and lines. */
-trait ValueNSeqDef[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqDef[A]
-{ type ThisT <: ValueNSeqDef[A]
+trait ValueNSeqSpec[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqSpec[A]
+{ type ThisT <: ValueNSeqSpec[A]
 
   /** Checks if 2 values of the defining sequence are equal. */
   def sdElemEq(a1: A, a2: A): Boolean
@@ -109,7 +109,7 @@ trait ValueNSeqLikePersist[A <: ElemValueN, M <: ValueNSeqLike[A]] extends Persi
   def newBuffer: ArrayBuffer[VT]
 }
 
-/** Helper trait for companion objects of [[ValueNSeqDef]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
+/** Helper trait for companion objects of [[ValueNSeqSpec]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
 trait ValueNSeqLikeCompanion[A <: ElemValueN, AA <: ValueNSeqLike[A]]
 { /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   def uninitialised(length: Int): AA

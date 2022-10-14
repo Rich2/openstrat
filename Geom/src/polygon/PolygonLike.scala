@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
  *  scalar values of the standard [[Polygon]].
  *  @tparam VT The type of the vertices in this polygon like trait. For a standard [[Polygon]] this will be a [[Pt2]], but for example for a
  *            [[PolygonM3]] it would be a [[PtM3]]. */
-trait PolygonLike[VT] extends Any with SeqDef[VT]
+trait PolygonLike[VT] extends Any with SeqSpec[VT]
 {
   type SideT <: LineSegLike[VT]
 
@@ -65,22 +65,22 @@ trait PolygonLike[VT] extends Any with SeqDef[VT]
   def sidesForeach[U](f: SideT => U): Unit
 }
 
-trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with ValueNSeqDef[VT]
+trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with ValueNSeqSpec[VT]
 { override def vertsForeach[U](f: VT => U): Unit = dataForeach(f)
   override def vertsNum: Int = sdLength
 }
 
 /** A polygon whose elements are defined by [[Double]]s. */
-trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DblNSeqDef[VT]
+trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DblNSeqSpec[VT]
 
 /** A polygon whose elements are defined by 2 [[Double]]s. */
-trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with Dbl2SeqDef[VT]
+trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with Dbl2SeqSpec[VT]
 
 /** A polygon whose elements are defined by 3 [[Double]]s. */
-trait PolygonDbl3s[VT <: ElemDbl3] extends Any with PolygonDblNs[VT] with Dbl3SeqDef[VT]
+trait PolygonDbl3s[VT <: ElemDbl3] extends Any with PolygonDblNs[VT] with Dbl3SeqSpec[VT]
 
 /** A polygon whose elements are defined by [[Inte]]s. */
-trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with IntNSeqDef[VT]
+trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with IntNSeqSpec[VT]
 
 /** A polygon whose elements are defined by 2 [[int]]s. */
-trait PolygonInt2s[VT <: ElemInt2] extends Any with PolygonIntNs[VT] with Int2SeqDef[VT]
+trait PolygonInt2s[VT <: ElemInt2] extends Any with PolygonIntNs[VT] with Int2SeqSpec[VT]

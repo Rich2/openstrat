@@ -84,7 +84,7 @@ trait HCoordSeqLike extends Any with Int2SeqLike[HCoord]
   final override def fElemStr: HCoord => String = _.toString
 }
 
-trait HCoordSeqDef extends Any with HCoordSeqLike with Int2SeqDef[HCoord]
+trait HCoordSeqSpec extends Any with HCoordSeqLike with Int2SeqSpec[HCoord]
 { override def sdElem(int1: Int, int2: Int): HCoord = HCoord(int1, int2)
 }
 

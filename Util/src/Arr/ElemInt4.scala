@@ -23,7 +23,7 @@ trait Int4SeqLike[A <: ElemInt4] extends Any with IntNSeqLike[A]
   }
 }
 
-trait Int4SeqDef[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNSeqDef[A]
+trait Int4SeqSpec[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNSeqSpec[A]
 {
   def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
 

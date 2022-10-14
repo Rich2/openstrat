@@ -16,7 +16,7 @@ trait Dbl2SeqLike[A <: ElemDbl2] extends Any with DblNSeqLike[A]
 }
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[ElemDbl2]]s. */
-trait Dbl2SeqDef[A <: ElemDbl2] extends Any with Dbl2SeqLike[A] with DblNSeqDef[A]
+trait Dbl2SeqSpec[A <: ElemDbl2] extends Any with Dbl2SeqLike[A] with DblNSeqSpec[A]
 {
   /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the sequence. */
   def seqDefElem(d1: Double, d2: Double): A

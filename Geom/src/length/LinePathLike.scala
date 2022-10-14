@@ -3,7 +3,7 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** A generalisation of a line path where the type of the points is not resriscted to [[Pt2]]. */
-trait LinePathLike[A] extends Any with SeqDef[A]
+trait LinePathLike[A] extends Any with SeqSpec[A]
 {
   def map[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.newLinePath(sdLength)
@@ -13,12 +13,12 @@ trait LinePathLike[A] extends Any with SeqDef[A]
 }
 
 //trait LinePathValueNsData[A <: ElemValueN] extends Any with LinePathLike[A] with ValueNSeqDef[A]
-trait LinePathDblN[A <: ElemDblN] extends  Any with LinePathLike[A] with DblNSeqDef[A]
-trait LinePathDbl2[A <: ElemDbl2] extends Any with LinePathDblN[A] with Dbl2SeqDef[A]
-trait LinePathDbl3[A <: ElemDbl3] extends Any with LinePathDblN[A] with Dbl3SeqDef[A]
+trait LinePathDblN[A <: ElemDblN] extends  Any with LinePathLike[A] with DblNSeqSpec[A]
+trait LinePathDbl2[A <: ElemDbl2] extends Any with LinePathDblN[A] with Dbl2SeqSpec[A]
+trait LinePathDbl3[A <: ElemDbl3] extends Any with LinePathDblN[A] with Dbl3SeqSpec[A]
 
-trait LinePathIntN[A <: ElemIntN] extends  Any with LinePathLike[A] with IntNSeqDef[A]
-trait LinePathInt2[A <: ElemInt2] extends Any with LinePathIntN[A] with Int2SeqDef[A]
+trait LinePathIntN[A <: ElemIntN] extends  Any with LinePathLike[A] with IntNSeqSpec[A]
+trait LinePathInt2[A <: ElemInt2] extends Any with LinePathIntN[A] with Int2SeqSpec[A]
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
  * the companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into

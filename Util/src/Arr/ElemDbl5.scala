@@ -24,7 +24,7 @@ trait Dbl5SeqLike[A <: ElemDbl5] extends Any with DblNSeqLike[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl5]]s. */
-trait Dbl5SeqDef[A <: ElemDbl5] extends Any with Dbl5SeqLike[A] with DblNSeqDef[A]
+trait Dbl5SeqSpec[A <: ElemDbl5] extends Any with Dbl5SeqLike[A] with DblNSeqSpec[A]
 { /** Method for creating new data elements from 5 [[Double]]s In the case of [[Dbl5Arr]] this will be the type of the elements of the sequence. */
   def sdElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
@@ -73,7 +73,7 @@ trait Dbl5ArrFlatBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrFlatB
   final override def elemProdSize = 5
 }
 
-/** Helper class for companion objects of final [[Dbl5SeqDef]] classes. */
+/** Helper class for companion objects of final [[Dbl5SeqSpec]] classes. */
 abstract class Dbl5SeqLikeCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
 { override def elemNumDbls: Int = 5
 
@@ -96,7 +96,7 @@ abstract class Dbl5SeqLikeCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqLike[A]] exten
 }
 
 /** Both Persists and Builds [[Dbl5Arr]] Collection classes. */
-abstract class DataDbl5sPersist[A <: ElemDbl5, ArrA <: Dbl5SeqDef[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
+abstract class DataDbl5sPersist[A <: ElemDbl5, ArrA <: Dbl5SeqSpec[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

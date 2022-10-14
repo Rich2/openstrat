@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqDef with PolygonInt2s[SqCoord]
+class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec with PolygonInt2s[SqCoord]
 { override type ThisT = PolygonSqC
   override type SideT = LineSegSqC
   override def typeStr: String = "PolygonSqC"
@@ -108,7 +108,7 @@ class PolygonSqCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal wit
   override def sdLength: Int = unsafeBuff.length
   override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeBuff(index))
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   override def unsafeSameSize(length: Int): PolygonSqCBuff = ???
 }
 

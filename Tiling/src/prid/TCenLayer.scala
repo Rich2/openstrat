@@ -2,7 +2,7 @@
 package ostrat; package prid
 
 /** An Array of tile centre data of type A. An appropriate [[SqGrid]] or [[HGrid]] is required to utilise its functionality. */
-trait TCenLayer[A <: AnyRef] extends Any with RefsSeqDefImut[A]
+trait TCenLayer[A <: AnyRef] extends Any with RefsSeqSpecImut[A]
 { /** The mutable backing Array. End users should rarely if ever have to access this field */
   def unsafeArray: Array[A]
 

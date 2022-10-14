@@ -60,6 +60,6 @@ class FloatsBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with Sequ[
   /** The final type of this object. */
   override type ThisT = FloatsBuff
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   override def unsafeSameSize(length: Int): FloatsBuff = ???
 }

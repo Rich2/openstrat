@@ -5,13 +5,13 @@ import collection.mutable.ArrayBuffer
 /** A class that can be constructed from a fixed number of [[Long]]s. It can be stored as an Array[Long] of primitive values. */
 trait ElemLongN extends Any with ElemValueN
 
-trait LongNSeqDef[A <: ElemLongN] extends Any with ValueNSeqDef[A]
+trait LongNSeqSpec[A <: ElemLongN] extends Any with ValueNSeqSpec[A]
 { def unsafeArray: Array[Long]
   final def unsafeLength: Int = unsafeArray.length
 }
 
 /** Base trait for Array[Long] based collections of Products of Longs. */
-trait LongNArr[A <: ElemLongN] extends Any with LongNSeqDef[A] with ValueNArr[A]
+trait LongNArr[A <: ElemLongN] extends Any with LongNSeqSpec[A] with ValueNArr[A]
 {
 }
 
@@ -34,7 +34,7 @@ trait LongNSeqDefPersist[B <: ElemLongN, ArrB <: LongNArr[B]] extends ValueNSeqL
 }
 
 /** Helper trait for Companion objects of [[LongNArr]] classes. */
-trait LongNSeqDefCompanion[A <: ElemLongN, ArrA <: LongNSeqDef[A]] extends ValueNSeqLikeCompanion[A, ArrA]
+trait LongNSeqDefCompanion[A <: ElemLongN, ArrA <: LongNSeqSpec[A]] extends ValueNSeqLikeCompanion[A, ArrA]
 { def fromBuffer(buff: ArrayBuffer[Long]): ArrA = fromArray(buff.toArray[Long])
   def fromArray(array: Array[Long]): ArrA
 }

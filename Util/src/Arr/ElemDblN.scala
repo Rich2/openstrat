@@ -19,8 +19,8 @@ trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDbl
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[DblNArr]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait DblNSeqDef[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqDef[A]
-{ type ThisT <: DblNSeqDef[A]
+trait DblNSeqSpec[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqSpec[A]
+{ type ThisT <: DblNSeqSpec[A]
 
 
 
@@ -118,7 +118,7 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 { type ArrT <: DblNArr[A]
   def unsafeBuffer: ArrayBuffer[Double]
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
   override def unsafeSameSize(length: Int): ThisT = ???
 
   def sdLength: Int = unsafeBuffer.length / elemProdSize

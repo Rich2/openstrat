@@ -27,7 +27,7 @@ trait Dbl6SeqLike[A <: ElemDbl6] extends Any with DblNSeqLike[A]
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl6]]s. */
-trait Dbl6SeqDef[A <: ElemDbl6] extends Any with Dbl6SeqLike[A] with DblNSeqDef[A]
+trait Dbl6SeqSpec[A <: ElemDbl6] extends Any with Dbl6SeqLike[A] with DblNSeqSpec[A]
 {
   override def sdElemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
@@ -63,7 +63,7 @@ trait Dbl6Arr[A <: ElemDbl6] extends Any with DblNArr[A] with Dbl6SeqLike[A]
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
 }
 
-/** Helper class for companion objects of final [[Dbl6SeqDef]] classes. */
+/** Helper class for companion objects of final [[Dbl6SeqSpec]] classes. */
 abstract class Dbl6SeqLikeCompanion[A <: ElemDbl6, ArrA <: Dbl6SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
 {
   override def elemNumDbls: Int = 6
