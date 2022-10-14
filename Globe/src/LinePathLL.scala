@@ -117,7 +117,7 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
   }
 
   /** Reverses the line path so its end point becomes its start point. */
-  def reverse: LinePathLL = reverseData
+  def reverse: LinePathLL = ssReverse
 
   /** Reverses this [[LinePathLL]] and closes it returning a [[PolygonLL]] */
   def reverseClose: PolygonLL = new PolygonLL(unsafeReverseArray)

@@ -4,9 +4,6 @@ import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[DblNArr]] Array[Double] based collections. */
 trait ElemDblN extends Any with ElemValueN
-{
-
-}
 
 trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDblBacked
 {
@@ -22,17 +19,15 @@ trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDbl
 trait DblNSeqSpec[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqSpec[A]
 { type ThisT <: DblNSeqSpec[A]
 
-
-
-  override def reverseData: ThisT =
+  override def ssReverse: ThisT =
   { val res: ThisT = unsafeSameSize(ssLength)
     ssIForeach({ (i, el) => res.unsafeSetElem(ssLength - 1 - i, el)})
     res
   }
 
   /** Reverses the order of the elements in a new Array[Double] which is returned. */
-  def unsafeReverseArray: Array[Double] = {
-    val res = new Array[Double](unsafeLength)
+  def unsafeReverseArray: Array[Double] =
+  { val res = new Array[Double](unsafeLength)
     iUntilForeach(ssLength){ i =>
       val origIndex = i * elemProdSize
       val resIndex = (ssLength - i - 1) * elemProdSize
@@ -43,8 +38,7 @@ trait DblNSeqSpec[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqS
 
   /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
   def appendArray(appendProductsLength: Int): Array[Double] =
-  {
-    val acc = new Array[Double](unsafeLength + appendProductsLength * elemProdSize)
+  { val acc = new Array[Double](unsafeLength + appendProductsLength * elemProdSize)
     unsafeArray.copyToArray(acc)
     acc
   }
@@ -57,13 +51,7 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
   /** Not sure about this method. */
   def foreachArr(f: DblArr => Unit): Unit
 
-  /*override final def reverse: ThisT = {
-    val res: ThisT = unsafeSameSize(sdLength)
-    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
-    res
-  }*/
-
-  def reverse: ThisT =
+  final def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(length)
     iForeach({(i, el) => res.unsafeSetElem(length - 1 - i, el)})
     res
@@ -77,14 +65,6 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
     operand.unsafeArray.copyToArray(newArray, unsafeLength)
     build.fromDblArray(newArray)
   }
-
-  /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
-  /*def :+[N <: ArrValueNs[A]](operand: A)(implicit factory: Int => N): N =
-  { val res = factory(dataLength + 1)
-    iForeach((i, elem) => res.unsafeSetElem(i, elem))
-    res.unsafeSetElem(dataLength, operand)
-    res
-  }*/
 }
 
 /** Trait for creating the sequence builder type class instances for [[DblNArr]] final classes. Instances for the [[ArrBuilder]] type class, for

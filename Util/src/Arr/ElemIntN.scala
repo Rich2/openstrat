@@ -8,8 +8,8 @@ trait ElemIntN extends Any with ElemValueN
 trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayIntBacked {
   type ThisT <: IntNSeqLike[A]
 
-  /** Constructs the final type of thos [[IntNSeqSpec]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or the
-   * appropriate builder, but it can be useful to access this from the class itself. */
+  /** Constructs the final type of these [[IntNSeqLike]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or
+   *  the appropriate builder, but it can be useful to access this from the class itself. */
   def fromArray(array: Array[Int]): ThisT
 
   /** The length of the Array[Int] backing array. */
@@ -22,17 +22,11 @@ trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayInt
 trait IntNSeqSpec[A <: ElemIntN] extends Any with IntNSeqLike[A] with ValueNSeqSpec[A] with ArrayIntBacked
 { type ThisT <: IntNSeqSpec[A]
 
-  override def reverseData: ThisT =
+  override def ssReverse: ThisT =
   { val res: ThisT = unsafeSameSize(ssLength)
     ssIForeach({ (i, el) => res.unsafeSetElem(ssLength - 1 - i, el)})
     res
   }
-
-  /*def tail: ThisT = {
-    val newArray = new Array[Int](dsLen - elemProdSize)
-    iUntilForeach(dsLen - elemProdSize){i => newArray(i) = unsafeArray(i + elemProdSize) }
-    fromArray(newArray)
-  }*/
 }
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
@@ -41,20 +35,14 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: IntNArr[A]
 
-  /** The length of the Array[Int] backing array. */
-  //def dsLen: Int = unsafeArray.length
-
-  /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
-  //final override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
-
-  override final def reverse: ThisT = {
-    val res: ThisT = unsafeSameSize(length)
+  override final def reverse: ThisT =
+  { val res: ThisT = unsafeSameSize(length)
     iForeach({ (i, el) => res.unsafeSetElem(length - 1 - i, el) })
     res
   }
 
-  def tail: ThisT = {
-    val newArray = new Array[Int](unsafeLength - elemProdSize)
+  def tail: ThisT =
+  { val newArray = new Array[Int](unsafeLength - elemProdSize)
     iUntilForeach(unsafeLength - elemProdSize) { i => newArray(i) = unsafeArray(i + elemProdSize) }
     fromArray(newArray)
   }
@@ -67,14 +55,6 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
     operand.unsafeArray.copyToArray(newArray, unsafeLength)
     build.fromIntArray(newArray)
   }
-
-  /** Appends an element to a new ProductValue collection of type N with the same type of Elements. */
-  /*def :+[N <: ArrValueNs[A]](operand: A)(implicit factory: Int => N): N =
-  { val res = factory(dataLength + 1)
-    iForeach((i, elem) => res.unsafeSetElem(i, elem))
-    res.unsafeSetElem(dataLength, operand)
-    res
-  }*/
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[IntNArr]] final classes. Instances for the [[ArrBuilder]] type class, for classes
@@ -103,7 +83,6 @@ trait IntNArrFlatBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrFla
   /* Constructs a BuffT instance from an [[ArrayBuffer]][Int]. */
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
 
-  //final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
