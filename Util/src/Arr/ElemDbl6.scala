@@ -11,9 +11,24 @@ trait ElemDbl6 extends Any with ElemDblN
   def dbl6: Double
 }
 
+trait Dbl6SeqLike[A <: ElemDbl6] extends Any with DblNSeqLike[A]
+{
+  def elemProdSize: Int = 6
+
+  def unsafeSetElem(index: Int, elem: A): Unit = {
+    val offset = index * 6
+    unsafeArray(offset) = elem.dbl1;
+    unsafeArray(offset + 1) = elem.dbl2;
+    unsafeArray(offset + 2) = elem.dbl3;
+    unsafeArray(offset + 3) = elem.dbl4
+    unsafeArray(offset + 4) = elem.dbl5;
+    unsafeArray(offset + 5) = elem.dbl6
+  }
+}
+
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl6]]s. */
-trait Dbl6SeqDef[A <: ElemDbl6] extends Any with DblNSeqDef[A]
-{ def elemProdSize: Int = 6
+trait Dbl6SeqDef[A <: ElemDbl6] extends Any with Dbl6SeqLike[A] with DblNSeqDef[A]
+{
   def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 
   override def sdElemEq(a1: A, a2: A): Boolean =
@@ -30,12 +45,6 @@ trait Dbl6SeqDef[A <: ElemDbl6] extends Any with DblNSeqDef[A]
 trait Dbl6Arr[A <: ElemDbl6] extends Any with DblNArr[A] with Dbl6SeqDef[A]
 { final override def length: Int = unsafeArray.length / 6
 
-  def unsafeSetElem(index: Int, elem: A): Unit =
-  { val offset = index * 6
-    unsafeArray(offset) = elem.dbl1; unsafeArray(offset + 1) = elem.dbl2; unsafeArray(offset + 2) = elem.dbl3; unsafeArray(offset + 3) = elem.dbl4
-    unsafeArray(offset + 4) = elem.dbl5; unsafeArray(offset + 5) = elem.dbl6
-  }
-
   def head1: Double = unsafeArray(0); def head2: Double = unsafeArray(1); def head3: Double = unsafeArray(2); def head4: Double = unsafeArray(3)
   def head5: Double = unsafeArray(4); def head6: Double = unsafeArray(5)
 
@@ -43,7 +52,7 @@ trait Dbl6Arr[A <: ElemDbl6] extends Any with DblNArr[A] with Dbl6SeqDef[A]
 }
 
 /** Helper class for companion objects of final [[Dbl6SeqDef]] classes. */
-abstract class Dbl6SeqDefCompanion[A <: ElemDbl6, ArrA <: Dbl6SeqDef[A]] extends DblNSeqLikeCompanion[A, ArrA]
+abstract class Dbl6SeqLikeCompanion[A <: ElemDbl6, ArrA <: Dbl6SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
 {
   override def elemNumDbls: Int = 6
 
