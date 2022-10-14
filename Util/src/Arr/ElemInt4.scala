@@ -40,12 +40,6 @@ trait Int4Arr[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNArr[A]
 
   def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
 
-  override def reverseData: ThisT = {
-    val res: ThisT = unsafeSameSize(sdLength)
-    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
-    res
-  }
-
   def head1: Int = unsafeArray(0)
   def head2: Int = unsafeArray(1)
   def head3: Int = unsafeArray(2)

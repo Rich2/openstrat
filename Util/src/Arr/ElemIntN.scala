@@ -49,7 +49,7 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
   //final override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 
-  override def reverseData: ThisT = {
+  override final def reverseData: ThisT = {
     val res: ThisT = unsafeSameSize(sdLength)
     dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
     res
