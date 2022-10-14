@@ -23,10 +23,10 @@ trait ValueNSeqLike[A <: ElemValueN] extends Any with SeqLike[A]
 trait ValueNSeqSpec[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqSpec[A]
 { type ThisT <: ValueNSeqSpec[A]
 
-  /** Checks if 2 values of the defining sequence are equal. */
-  def sdElemEq(a1: A, a2: A): Boolean
+  /** Checks if 2 values of the specifying sequence are equal. */
+  def ssElemEq(a1: A, a2: A): Boolean
 
-  /** Reverses the order of the elements of the defining sequence. */
+  /** Reverses the order of the elements of the specifying sequence. */
   def reverseData: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
@@ -38,11 +38,10 @@ trait ValueNSeqSpec[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqS
 trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqLike[A]
 { type ThisT <: ValueNArr[A]
 
-
-  /** Checks if 2 values of the defining sequence are equal. */
+  /** Checks if 2 values of the specifying sequence are equal. */
   def elemEq(a1: A, a2: A): Boolean
 
-  /** Reverses the order of the elements of the defining sequence. */
+  /** Reverses the order of the elements of the specifying sequence. */
   def reverse: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
@@ -113,15 +112,4 @@ trait ValueNSeqLikePersist[A <: ElemValueN, M <: ValueNSeqLike[A]] extends Persi
 trait ValueNSeqLikeCompanion[A <: ElemValueN, AA <: ValueNSeqLike[A]]
 { /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
   def uninitialised(length: Int): AA
-
-  /** This method allows you to map from a DataGen to the ArrA type. */
-  /*@deprecated final def deprDataGenMap[T](alb: SeqLike[T])(f: T => A): AA =
-  { val res = uninitialised(alb.sdLength)
-    var count = 0
-    alb.dataForeach { t =>
-      res.unsafeSetElem(count, f(t))
-      count += 1
-    }
-    res
-  }*/
 }

@@ -29,7 +29,7 @@ trait Dbl6SeqLike[A <: ElemDbl6] extends Any with DblNSeqLike[A]
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl6]]s. */
 trait Dbl6SeqSpec[A <: ElemDbl6] extends Any with Dbl6SeqLike[A] with DblNSeqSpec[A]
 {
-  override def sdElemEq(a1: A, a2: A): Boolean =
+  override def ssElemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
 
   /** Constructs an element of the defining-sequence from 6 [[Double]]s. */

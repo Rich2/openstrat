@@ -11,7 +11,11 @@ class ShapeGenOld(val unsafeArray: Array[Double]) extends Dbl7SeqSpec[CurveTail]
   def unsafeFromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
   override def typeStr = "Shape"
   override def fElemStr: CurveTail => String = _.toString
-  override def sdElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
+
+  /** Checks if 2 values of the specifying sequence are equal. */
+  override def ssElemEq(a1: CurveTail, a2: CurveTail): Boolean = ???
+
+  override def ssElem(iMatch: Double, d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): CurveTail =
     CurveTail(iMatch, d1, d2, d3, d4, d5, d6)
 
   def ptsTrans(f: Pt2 => Pt2): ShapeGenOld =

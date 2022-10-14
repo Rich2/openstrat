@@ -22,9 +22,6 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Accesses the defining sequence element by a 0 based index. */
   @inline def apply(index: Int): A
 
-  /** apply method accesses the individual elements of the sequence by 0 based index. */
- // @inline def apply(index: Int): A = apply(index)
-
   /** The first element of this sequence. */
   @inline def head: A = apply(0)
 

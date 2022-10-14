@@ -15,7 +15,7 @@ trait ElemDbl7 extends Any with ElemDblN
 trait Dbl7SeqLike[A <: ElemDbl7] extends Any with DblNSeqLike[A]{
   def elemProdSize: Int = 7
 
-  def sdElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
+  def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
   override def unsafeSetElem(index: Int, elem: A): Unit = {
     val offset = 7 * index;
@@ -42,7 +42,7 @@ trait Dbl7SeqSpec[A <: ElemDbl7] extends Any with Dbl7SeqLike[A] with DblNSeqSpe
 
   def ssIndex(index: Int): A =
   { val offset = 7 * index
-    sdElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
+    ssElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
       unsafeArray(offset + 5), unsafeArray(offset + 6))
   }
 }
@@ -56,7 +56,7 @@ trait Dbl7Arr[A <: ElemDbl7] extends Any with DblNArr[A] with Dbl7SeqLike[A]
 
   def apply(index: Int): A =
   { val offset = 7 * index
-    sdElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
+    ssElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
       unsafeArray(offset + 5), unsafeArray(offset + 6))
   }
   

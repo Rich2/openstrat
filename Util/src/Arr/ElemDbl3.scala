@@ -26,7 +26,7 @@ trait Dbl3SeqSpec[A <: ElemDbl3] extends Any with Dbl3SeqLike[A] with DblNSeqSpe
   def dataElem(d1: Double, d2: Double, d3: Double): A
 
 
-  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
+  override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
   override def ssIndex(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 

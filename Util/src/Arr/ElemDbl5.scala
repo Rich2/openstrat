@@ -32,7 +32,7 @@ trait Dbl5SeqSpec[A <: ElemDbl5] extends Any with Dbl5SeqLike[A] with DblNSeqSpe
   def ssIndex(index: Int): A = sdElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
     unsafeArray(5 * index + 4))
 
-  override def sdElemEq(a1: A, a2: A): Boolean =
+  override def ssElemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5)
 }
 

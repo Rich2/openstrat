@@ -29,7 +29,7 @@ trait Int3SeqSpec[A <: ElemInt3] extends Any with Int3SeqLike[A] with IntNSeqSpe
   /** Creates a sequence-defined element from 3 [[Int]]s. */
   def sdElem(int1: Int, int2: Int, int3: Int): A
 
-  override def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
+  override def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt3]]s. */
