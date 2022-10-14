@@ -45,7 +45,7 @@ trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqLike[
   def sdElemEq(a1: A, a2: A): Boolean
 
   /** Reverses the order of the elements of the defining sequence. */
-  def reverseData: ThisT
+  def reverse: ThisT
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
   override def sdLength: Int = dsLen / elemProdSize
