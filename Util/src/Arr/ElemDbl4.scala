@@ -10,20 +10,24 @@ trait ElemDbl4 extends Any with ElemDblN
   def dbl4: Double
 }
 
-/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl4]]s. */
-trait Dbl4SeqDef[A <: ElemDbl4] extends Any with DblNSeqDef[A]
-{ /** Method for creating new data elements from 4 [[Double]]s In the case of [[Dbl4Arr]] this will be the type of the elements of the sequence. */
-  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
+trait Dbl4SeqLike[A <: ElemDbl4] extends Any with DblNSeqLike[A]
+{ override def elemProdSize: Int = 4
 
-  override def elemProdSize: Int = 4
-  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
-
-  final override def unsafeSetElem(index: Int, elem: A): Unit =
-  { unsafeArray(4 * index) = elem.dbl1
+  final override def unsafeSetElem(index: Int, elem: A): Unit = {
+    unsafeArray(4 * index) = elem.dbl1
     unsafeArray(4 * index + 1) = elem.dbl2
     unsafeArray(4 * index + 2) = elem.dbl3
     unsafeArray(4 * index + 3) = elem.dbl4
   }
+}
+
+/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl4]]s. */
+trait Dbl4SeqDef[A <: ElemDbl4] extends Any with Dbl4SeqLike[A] with DblNSeqDef[A]
+{ /** Method for creating new data elements from 4 [[Double]]s In the case of [[Dbl4Arr]] this will be the type of the elements of the sequence. */
+  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
+
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
+
   override def sdIndex(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl4]]s. */
@@ -61,7 +65,7 @@ trait Dbl4ArrFlatBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends DblNArrFlatB
 }
 
 /** Class for the singleton companion objects of [[Dbl4SeqDef]] final classes to extend. */
-abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, AA <: Dbl4SeqDef[A]] extends DblNSeqLikeCompanion[A, AA]
+abstract class Dbl4SeqLikeCompanion[A <: ElemDbl4, AA <: Dbl4SeqLike[A]] extends DblNSeqLikeCompanion[A, AA]
 {
   def apply(elems: A*): AA =
   { val length = elems.length
@@ -82,7 +86,7 @@ abstract class Dbl4SeqDefCompanion[A <: ElemDbl4, AA <: Dbl4SeqDef[A]] extends D
 }
 
 /** Persists [[Dble4Elem] Collection classes. */
-abstract class Dbl4SeqDefPersist[A <: ElemDbl4, ArrA <: Dbl4SeqDef[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
+abstract class Dbl4SeqLikePersist[A <: ElemDbl4, ArrA <: Dbl4SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1

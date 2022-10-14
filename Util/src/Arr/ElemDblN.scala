@@ -145,7 +145,7 @@ trait DblNSeqLikeCompanion[A <: ElemDblN, AA <: DblNSeqLike[A]] extends ValueNSe
 }
 
 /** Persists [[DblNArr]]s. */
-trait DataDblNsPersist[A <: ElemDblN, M <: DblNSeqDef[A]] extends ValueNSeqLikePersist[A, M] with EqT[M]
+trait DataDblNsPersist[A <: ElemDblN, M <: DblNSeqLike[A]] extends ValueNSeqLikePersist[A, M] with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)

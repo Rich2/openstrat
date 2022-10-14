@@ -17,11 +17,11 @@ class LineSegArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSeg] with A
 }
 
 /** Companion object for the LineSegs class. */
-object LineSegArr extends Dbl4SeqDefCompanion[LineSeg, LineSegArr]
+object LineSegArr extends Dbl4SeqLikeCompanion[LineSeg, LineSegArr]
 {
   override def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
 
-  implicit val persistImplicit: Dbl4SeqDefPersist[LineSeg, LineSegArr] = new Dbl4SeqDefPersist[LineSeg, LineSegArr]("Line2s")
+  implicit val persistImplicit: Dbl4SeqLikePersist[LineSeg, LineSegArr] = new Dbl4SeqLikePersist[LineSeg, LineSegArr]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegArr = new LineSegArr(value)
 
     override def showDecT(obj: LineSegArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
