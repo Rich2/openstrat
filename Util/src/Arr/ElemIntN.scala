@@ -49,7 +49,7 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
 
   override final def reverse: ThisT = {
     val res: ThisT = unsafeSameSize(sdLength)
-    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    iForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
     res
   }
 

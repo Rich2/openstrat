@@ -57,17 +57,17 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
   /** Not sure about this method. */
   def foreachArr(f: DblArr => Unit): Unit
 
-  override final def reverse: ThisT = {
+  /*override final def reverse: ThisT = {
     val res: ThisT = unsafeSameSize(sdLength)
     dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
     res
-  }
+  }*/
 
-  /*def reverse: ThisT =
+  def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(sdLength)
     iForeach({(i, el) => res.unsafeSetElem(sdLength - 1 - i, el)})
     res
-  }*/
+  }
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */

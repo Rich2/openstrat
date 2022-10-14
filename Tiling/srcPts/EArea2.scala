@@ -31,12 +31,13 @@ abstract class EArea2(val name: String, val cen: LatLong, val terr: WTile) exten
         (vis1 ++ vis2 ++ vis3)
       }
 
-      case SomeB(curveSegDists) =>
-      {
+      case SomeB(curveSegDists) => Arr()
+      /*{
         val cenXY: Pt2 = eg.latLongToXY(cen)
-        val curveSegs: ShapeGenOld = ShapeGenOld.deprDataGenMap(curveSegDists)(_.toCurveSeg(eg.trans)) // curveSegDists.dataMap(_.toCurveSeg(eg.trans))
+        val curveSegs: ShapeGenOld = curveSegDists.map(_.toCurveSeg(eg.trans))
+          ShapeGenOld.deprDataGenMap(curveSegDists)(_.toCurveSeg(eg.trans))
         Arr(PolyCurveParentFull.fill(cenXY, curveSegs, this, terr.colour))
-      }
+      }*/
 
       case NoOptEither => Arr()
     }

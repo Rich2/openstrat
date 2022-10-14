@@ -7,6 +7,50 @@ import annotation.unchecked.uncheckedVariance
 trait SeqDef[+A] extends Any with SeqLike[A @uncheckedVariance]
 { type ThisT <: SeqDef[A]
 
+  /** Performs a side effecting function on each element of this sequence in order. */
+  def dataForeach[U](f: A => U): Unit = {
+    var i = 0
+    while (i < sdLength) {
+      f(sdIndex(i))
+      i = i + 1
+    }
+  }
+
+  /** Foreachs over the tail of the data sequence. */
+  def dataTailForeach[U](f: A => U): Unit = {
+    var count = 1
+    while (count < sdLength) {
+      f(sdIndex(count)); count += 1
+    }
+  }
+
+  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of the data sequence. It takes a
+   * function as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just
+   * to avoid warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for
+   * the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set
+   * the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as
+   * seen for example in fold methods' (accumulator, element) => B signature. */
+  def dataIForeach[U](f: (Int, A) => Any): Unit = {
+    var i = 0
+    while (i < sdLength) {
+      f(i, sdIndex(i))
+      i = i + 1
+    }
+  }
+
+  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of the data sequence. It takes a
+   * function as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just
+   * to avoid warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for
+   * the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set
+   * the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as
+   * seen for example in fold methods' (accumulator, element) => B signature. */
+  def dataIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit = {
+    var i = 0
+    while (i < sdLength) {
+      f(i + initIndex, sdIndex(i))
+      i = i + 1
+    }
+  }
 
   /** Specialised map to an immutable [[SeqImut]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for
    * example a PolygonLike will map to another PolgonLike. */

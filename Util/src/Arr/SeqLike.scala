@@ -6,82 +6,40 @@ import annotation.unchecked.uncheckedVariance
  *  classes such as polygons and line paths that are defined by a sequence of data elements. So for example a Polygon in the Geom module is defined by
  *  a sequence of points, but is a different type to the Pt2s class which is the immutable sequence class for 2 dimensional points. includes
  *  expandable buffers. */
-trait SeqLike[+A] extends Any
-{ /** Gives the final type of this class. */
+trait SeqLike[+A] extends Any {
+  /** Gives the final type of this class. */
   type ThisT <: SeqLike[A]
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
   def unsafeSameSize(length: Int): ThisT
 
   /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
-   *  underlying Array will be a multiple of this number. */
+   * underlying Array will be a multiple of this number. */
   def sdLength: Int
 
   /** Just a handy short cut to give the length of this collection as a string. */
   def sdLengthStr: String = sdLength.toString
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
-   *  methods. */
-  def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit
+   * methods. */
+  def unsafeSetElem(i: Int, value: A@uncheckedVariance): Unit
 
   /** Sets / mutates elements in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory methods. */
-  def unsafeSetElems(index: Int, elems: A @uncheckedVariance *): Unit = elems.iForeach(index){ (i, a) => unsafeSetElem(i, a) }
+  def unsafeSetElems(index: Int, elems: A@uncheckedVariance*): Unit = elems.iForeach(index) { (i, a) => unsafeSetElem(i, a) }
 
-  def fElemStr: A @uncheckedVariance => String
+  def fElemStr: A@uncheckedVariance => String
 
   /** String specifying the type of this object. */
   def typeStr: String
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  def elemsStr: String// = dataMap(fElemStr).mkString("; ").enParenth
+  def elemsStr: String // = dataMap(fElemStr).mkString("; ").enParenth
 
   override def toString: String = typeStr + elemsStr
 
   /** Accesses the defining sequence element by a 0 based index. */
   @inline def sdIndex(index: Int): A
 
-  /** Performs a side effecting function on each element of this sequence in order. */
-  def dataForeach[U](f: A => U): Unit =
-  { var i = 0
-    while(i < sdLength)
-    { f(sdIndex(i))
-      i = i + 1
-    }
-  }
-
-  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of the data sequence. It takes a
-   *  function as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just
-   *  to avoid warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for
-   *  the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set
-   *  the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as
-   *  seen for example in fold methods' (accumulator, element) => B signature. */
-  def dataIForeach[U](f: (Int, A) => Any): Unit =
-  { var i = 0
-    while(i < sdLength)
-    { f(i, sdIndex(i))
-      i = i + 1
-    }
-  }
-
-  /** Index with foreach on the data elements. Performs a side effecting function on the index and each element of the data sequence. It takes a
-   *  function as a parameter. The function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just
-   *  to avoid warnings about discarded values and can be ignored by method users. The method has 2 versions / name overloads. The default start for
-   *  the index is 0 if just the function parameter is passed. The second version name overload takes an [[Int]] for the first parameter list, to set
-   *  the start value of the index. Note the function signature follows the foreach based convention of putting the collection element 2nd or last as
-   *  seen for example in fold methods' (accumulator, element) => B signature. */
-  def dataIForeach[U](initIndex: Int)(f: (Int, A) => U): Unit =
-  { var i = 0
-    while(i < sdLength)
-    { f(i + initIndex, sdIndex(i))
-      i = i + 1
-    }
-  }
-
-  /** Foreachs over the tail of the data sequence. */
-  def dataTailForeach[U](f: A => U): Unit =
-  { var count = 1
-    while(count < sdLength) { f(sdIndex(count)); count += 1 }
-  }
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */

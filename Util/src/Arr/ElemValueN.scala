@@ -117,7 +117,7 @@ trait ValueNSeqLikeCompanion[A <: ElemValueN, AA <: ValueNSeqLike[A]]
   def uninitialised(length: Int): AA
 
   /** This method allows you to map from a DataGen to the ArrA type. */
-  @deprecated final def deprDataGenMap[T](alb: SeqLike[T])(f: T => A): AA =
+  /*@deprecated final def deprDataGenMap[T](alb: SeqLike[T])(f: T => A): AA =
   { val res = uninitialised(alb.sdLength)
     var count = 0
     alb.dataForeach { t =>
@@ -125,5 +125,5 @@ trait ValueNSeqLikeCompanion[A <: ElemValueN, AA <: ValueNSeqLike[A]]
       count += 1
     }
     res
-  }
+  }*/
 }
