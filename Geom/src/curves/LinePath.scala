@@ -12,7 +12,11 @@ class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2sL
   @inline def xStart: Double = unsafeArray(0)
   @inline def yStart: Double = unsafeArray(1)
   @inline def pStart: Pt2 = Pt2(xStart, yStart)
- 
+
+
+  /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the sequence. */
+  override def seqDefElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+
   def ptsTrans(f: Pt2 => Pt2): LinePath =  new LinePath(arrTrans(f))
 
 

@@ -13,8 +13,13 @@ final class Pt2s(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2
   @inline def toPolygon: PolygonGen = new PolygonGen(unsafeArray)
   @inline def toLinePath: LinePath = new LinePath(unsafeArray)
 
+  /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the sequence. */
+  override def seqDefElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
+
   /** Geometric transformation by the function from a 2 dimensional Vector value to a 2 dimensional vector value. */
   def ptsTrans(f: Pt2 => Pt2): Pt2s =  new Pt2s(arrTrans(f))
+
+
 }
 
 /** Companion object for the [[Pt2s]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */

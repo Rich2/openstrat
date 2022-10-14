@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** The purpose of this trait is to provide the helper method for Vec2 transformations. */
-trait Pt2sLike extends Dbl2SeqDef[Pt2]
+trait Pt2sLike extends Dbl2SeqLike[Pt2]
 { def arrTrans(f: Pt2 => Pt2): Array[Double] =
   { val newArray = new Array[Double](unsafeArray.length)
     var count = 0
@@ -16,5 +16,5 @@ trait Pt2sLike extends Dbl2SeqDef[Pt2]
     newArray
   }
   override def fElemStr: Pt2 => String = _.str
-  final override def seqDefElem(d1: Double, d2: Double): Pt2 = Pt2.apply(d1, d2)
+  //final override def seqDefElem(d1: Double, d2: Double): Pt2 = Pt2.apply(d1, d2)
 }

@@ -73,7 +73,7 @@ trait Dbl2SeqDef[A <: ElemDbl2] extends Any with Dbl2SeqLike[A] with DblNSeqDef[
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl2]]s. */
-trait Dbl2Arr[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqDef[A]
+trait Dbl2Arr[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqLike[A]
 { type ThisT <: Dbl2Arr[A]
   final override def length: Int = unsafeArray.length / 2
   def head1: Double = unsafeArray(0)
@@ -85,6 +85,15 @@ trait Dbl2Arr[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqDef[A]
     while(count < sdLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
   }
 
+  override def reverseData: ThisT = {
+    val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    res
+  }
+  override def sdIndex(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
+
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =
   { val newArray = new Array[Double](sdLength + elemProdSize)
@@ -94,6 +103,8 @@ trait Dbl2Arr[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqDef[A]
     unsafeFromArray(newArray)
   }
 
+  /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the sequence. */
+  def seqDefElem(d1: Double, d2: Double): A
   override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2)))
 }
 
