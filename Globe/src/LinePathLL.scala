@@ -150,7 +150,7 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqD
   def arrayAppendTailInit(operand: LinePathLL): Array[Double] =
   { val array = new Array[Double]((sdLength + (operand.sdLength - 2).max(0)) * 2)
     unsafeArray.copyToArray(array)
-    iUntilForeach(2, operand.dsLen - 2) { i => array(sdLength * 2 + i - 2) = operand.unsafeArray(i) }
+    iUntilForeach(2, operand.unsafeLength - 2) { i => array(sdLength * 2 + i - 2) = operand.unsafeArray(i) }
     array
   }
 

@@ -13,7 +13,7 @@ trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayInt
   def fromArray(array: Array[Int]): ThisT
 
   /** The length of the Array[Int] backing array. */
-  def dsLen: Int = unsafeArray.length
+  def unsafeLength: Int = unsafeArray.length
 
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
@@ -54,17 +54,17 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
   }
 
   def tail: ThisT = {
-    val newArray = new Array[Int](dsLen - elemProdSize)
-    iUntilForeach(dsLen - elemProdSize) { i => newArray(i) = unsafeArray(i + elemProdSize) }
+    val newArray = new Array[Int](unsafeLength - elemProdSize)
+    iUntilForeach(unsafeLength - elemProdSize) { i => newArray(i) = unsafeArray(i + elemProdSize) }
     fromArray(newArray)
   }
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++(operand: ThisT)(implicit build: IntNArrBuilder[A, ThisT]): ThisT = {
-    val newArray: Array[Int] = new Array(dsLen + operand.dsLen)
+    val newArray: Array[Int] = new Array(unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)
-    operand.unsafeArray.copyToArray(newArray, dsLen)
+    operand.unsafeArray.copyToArray(newArray, unsafeLength)
     build.fromIntArray(newArray)
   }
 

@@ -47,7 +47,7 @@ trait Dbl2SeqDef[A <: ElemDbl2] extends Any with Dbl2SeqLike[A] with DblNSeqDef[
   /** Maps the 2 [[Double]]s of each element to a new [[Array]][Double]. */
   def unsafeMap(f: A => A): Array[Double] = {
     val newArray: Array[Double] = new Array[Double](unsafeArray.length)
-    iUntilForeach(0, dsLen, 2){ i =>
+    iUntilForeach(0, unsafeLength, 2){ i =>
       val newElem = f(seqDefElem(unsafeArray(i), unsafeArray(i + 1)))
       newArray(i) = newElem.dbl1
       newArray(i + 1) = newElem.dbl2
@@ -58,16 +58,16 @@ trait Dbl2SeqDef[A <: ElemDbl2] extends Any with Dbl2SeqLike[A] with DblNSeqDef[
   /** Maps the 1st [[Double]] of each element to a new [[Array]][Double], copies the 2nd elements. */
   def unsafeD1Map(f: Double => Double): Array[Double] = {
     val newArray: Array[Double] = new Array[Double](unsafeArray.length)
-    iUntilForeach(0, dsLen, 2){ i => newArray(i) = f(unsafeArray(i)) }
-    iUntilForeach(1, dsLen, 2){ i => newArray(i) = unsafeArray(i) }
+    iUntilForeach(0, unsafeLength, 2){ i => newArray(i) = f(unsafeArray(i)) }
+    iUntilForeach(1, unsafeLength, 2){ i => newArray(i) = unsafeArray(i) }
     newArray
   }
 
   /** Maps the 2nd [[Double]] of each element with the parameter function to a new [[Array]][Double], copies the 1st [[Double]] of each element. */
   def unsafeD2Map(f: Double => Double): Array[Double] = {
     val newArray: Array[Double] = new Array[Double](unsafeArray.length)
-    iUntilForeach(0, dsLen, 2){ i => newArray(i) = unsafeArray(i) }
-    iUntilForeach(1, dsLen, 2){ i => newArray(i) = f(unsafeArray(i)) }
+    iUntilForeach(0, unsafeLength, 2){ i => newArray(i) = unsafeArray(i) }
+    iUntilForeach(1, unsafeLength, 2){ i => newArray(i) = f(unsafeArray(i)) }
     newArray
   }
 }
@@ -87,7 +87,7 @@ trait Dbl2Arr[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqLike[A]
 
   override def apply(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
 
-  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
+  override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
   def append(op: A): ThisT =

@@ -7,7 +7,7 @@ trait ElemLongN extends Any with ElemValueN
 
 trait LongNSeqDef[A <: ElemLongN] extends Any with ValueNSeqDef[A]
 { def unsafeArray: Array[Long]
-  final def dsLen: Int = unsafeArray.length
+  final def unsafeLength: Int = unsafeArray.length
 }
 
 /** Base trait for Array[Long] based collections of Products of Longs. */

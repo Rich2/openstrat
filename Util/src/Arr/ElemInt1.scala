@@ -32,7 +32,7 @@ trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqLike[A]
 
   def newElem(intValue: Int): A
   final override def apply(index: Int): A = newElem(unsafeArray(index))
-  override def sdElemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
+  override def elemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrBuilder]] type

@@ -14,7 +14,7 @@ trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDbl
 
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
 
-  @inline final def dsLen: Int = unsafeArray.length
+  @inline final def unsafeLength: Int = unsafeArray.length
 }
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
@@ -32,7 +32,7 @@ trait DblNSeqDef[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqDe
 
   /** Reverses the order of the elements in a new Array[Double] which is returned. */
   def unsafeReverseArray: Array[Double] = {
-    val res = new Array[Double](dsLen)
+    val res = new Array[Double](unsafeLength)
     iUntilForeach(sdLength){ i =>
       val origIndex = i * elemProdSize
       val resIndex = (sdLength - i - 1) * elemProdSize
@@ -44,7 +44,7 @@ trait DblNSeqDef[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqDe
   /** Builder helper method that provides a longer array, with the underlying array copied into the new extended Array.  */
   def appendArray(appendProductsLength: Int): Array[Double] =
   {
-    val acc = new Array[Double](dsLen + appendProductsLength * elemProdSize)
+    val acc = new Array[Double](unsafeLength + appendProductsLength * elemProdSize)
     unsafeArray.copyToArray(acc)
     acc
   }
@@ -72,9 +72,9 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
   def ++(operand: ThisT)(implicit build: DblNArrBuilder[A, ThisT]): ThisT = {
-    val newArray: Array[Double] = new Array(dsLen + operand.dsLen)
+    val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)
-    operand.unsafeArray.copyToArray(newArray, dsLen)
+    operand.unsafeArray.copyToArray(newArray, unsafeLength)
     build.fromDblArray(newArray)
   }
 

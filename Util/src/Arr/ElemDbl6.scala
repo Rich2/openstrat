@@ -59,7 +59,7 @@ trait Dbl6Arr[A <: ElemDbl6] extends Any with DblNArr[A] with Dbl6SeqLike[A]
 
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6)))
 
-  override def sdElemEq(a1: A, a2: A): Boolean =
+  override def elemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
 }
 
