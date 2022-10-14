@@ -71,7 +71,6 @@ abstract class Dbl6SeqLikeCompanion[A <: ElemDbl6, ArrA <: Dbl6SeqLike[A]] exten
   }
 }
 
-
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl6Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl6]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */

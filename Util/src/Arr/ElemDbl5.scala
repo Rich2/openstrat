@@ -10,25 +10,30 @@ trait ElemDbl5 extends Any with ElemDblN
   def dbl4: Double
   def dbl5: Double
 }
-/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl5]]s. */
-trait Dbl5SeqDef[A <: ElemDbl5] extends Any with DblNSeqDef[A]
-{ /** Method for creating new data elements from 5 [[Double]]s In the case of [[Dbl5Arr]] this will be the type of the elements of the sequence. */
-  def sdElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
-  def elemProdSize: Int = 5
-  def sdIndex(index: Int): A = sdElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
-    unsafeArray(5 * index + 4))
+trait Dbl5SeqLike[A <: ElemDbl5] extends Any with DblNSeqLike[A]
+{ def elemProdSize: Int = 5
 
-  override def sdElemEq(a1: A, a2: A): Boolean =
-    (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5)
-
-  final override def unsafeSetElem(index: Int, elem: A): Unit =
-  { unsafeArray(5 * index) = elem.dbl1
+  final override def unsafeSetElem(index: Int, elem: A): Unit = {
+    unsafeArray(5 * index) = elem.dbl1
     unsafeArray(5 * index + 1) = elem.dbl2
     unsafeArray(5 * index + 2) = elem.dbl3
     unsafeArray(5 * index + 3) = elem.dbl4
     unsafeArray(5 * index + 4) = elem.dbl5
   }
+}
+
+/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl5]]s. */
+trait Dbl5SeqDef[A <: ElemDbl5] extends Any with Dbl5SeqLike[A] with DblNSeqDef[A]
+{ /** Method for creating new data elements from 5 [[Double]]s In the case of [[Dbl5Arr]] this will be the type of the elements of the sequence. */
+  def sdElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
+
+
+  def sdIndex(index: Int): A = sdElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
+    unsafeArray(5 * index + 4))
+
+  override def sdElemEq(a1: A, a2: A): Boolean =
+    (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5)
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl5]]s. */
@@ -69,7 +74,7 @@ trait Dbl5ArrFlatBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrFlatB
 }
 
 /** Helper class for companion objects of final [[Dbl5SeqDef]] classes. */
-abstract class Dbl5SeqDefCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqDef[A]] extends DblNSeqLikeCompanion[A, ArrA]
+abstract class Dbl5SeqLikeCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
 { override def elemNumDbls: Int = 5
 
   def apply(elems: A*): ArrA =
