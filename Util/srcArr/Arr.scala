@@ -16,6 +16,8 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
     case _ => false
   }
 
+  override def apply(index: Int): A = unsafeArray(index)
+
   /** Same map. Maps from this Arr[A] to a new Arr[A]. */
   def smap(f: A => A @uncheckedVariance): Arr[A] =
   { val newArray: Array[A] = unsafeArray.clone()
@@ -125,7 +127,7 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
  * extends AnyRef. */
 object Arr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
-  implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[Arr[A]] = DataGenShowT[A, Arr[A]](evA)
+  implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[Arr[A]] = SeqDefShowT[A, Arr[A]](evA)
 
   implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[Arr[A]] = (arr1, arr2) => if (arr1.sdLength != arr2.sdLength) false else
   { var i = 0
@@ -159,7 +161,7 @@ class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) 
 /** Not sure if this class is necessary now that Arr takes Any. */
 final class TBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with Sequ[A]
 { override def typeStr: String = "AnyBuff"
-  override def sdIndex(index: Int): A = unsafeBuff(index)
+  override def apply(index: Int): A = unsafeBuff(index)
   override def sdLength: Int = unsafeBuff.length
   override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuff(i) = value

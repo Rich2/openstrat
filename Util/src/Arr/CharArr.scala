@@ -12,7 +12,7 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with SeqImut[Ch
   override def unsafeSameSize(length: Int): CharArr = new CharArr(new Array[Char](length))
   override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def sdIndex(index: Int): Char = unsafeArray(index)
+  override def apply(index: Int): Char = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Char): Unit = unsafeArray(i) = value
 
   override def fElemStr: Char => String = _.toString

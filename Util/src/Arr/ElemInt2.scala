@@ -31,7 +31,7 @@ trait Int2Arr[A <: ElemInt2] extends Any with IntNArr[A] with Int2SeqLike[A]
 { def head1: Int = unsafeArray(0)
   def head2: Int = unsafeArray(1)
   final override def length: Int = unsafeArray.length / 2
-  final override def sdIndex(index: Int): A = newElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  final override def apply(index: Int): A = newElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
   override def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
 
 }
@@ -68,7 +68,7 @@ trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
   final override def length: Int = unsafeBuffer.length / 2
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2); () }
   def intsToT(i1: Int, i2: Int): A
-  override def sdIndex(index: Int): A = intsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
+  override def apply(index: Int): A = intsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 2) = value.int1; unsafeBuffer(i * 2 + 1) = value.int2 }
 }
 

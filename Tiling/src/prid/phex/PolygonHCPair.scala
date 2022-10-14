@@ -22,7 +22,7 @@ final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Arr
   override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { arrayArrayInt(i) = value.unsafeArray; a2Array(i) = value.a2 }
   override def fElemStr: PolygonHCPair[A2] => String = _.toString
   override def typeStr: String = "PolygonHCPairArray"
-  override def sdIndex(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](arrayArrayInt(index), a2Array(index))
+  override def apply(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](arrayArrayInt(index), a2Array(index))
 
   override def polygonArr: PolygonHCArr = new PolygonHCArr(arrayArrayInt)
 }
@@ -48,5 +48,5 @@ class PolygonHCPairBuff[A2](val arrayIntBuff: ArrayBuffer[Array[Int]], val a2Buf
   override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { arrayIntBuff(i) = value.unsafeArray; a2Buff(i) = value.a2 }
   override def fElemStr: PolygonHCPair[A2] => String = _.toString
   override def typeStr: String = "PolygonHCPairBuff"
-  override def sdIndex(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](arrayIntBuff(index), a2Buff(index))
+  override def apply(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](arrayIntBuff(index), a2Buff(index))
 }

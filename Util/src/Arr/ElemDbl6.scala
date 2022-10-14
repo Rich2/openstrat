@@ -24,14 +24,6 @@ trait Dbl6SeqLike[A <: ElemDbl6] extends Any with DblNSeqLike[A]
     unsafeArray(offset + 4) = elem.dbl5;
     unsafeArray(offset + 5) = elem.dbl6
   }
-
-  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
-
-  def sdIndex(index: Int): A = {
-    val offset = index * 6
-    dataElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3),
-      unsafeArray(offset + 4), unsafeArray(offset + 5))
-  }
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl6]]s. */
@@ -39,11 +31,28 @@ trait Dbl6SeqDef[A <: ElemDbl6] extends Any with Dbl6SeqLike[A] with DblNSeqDef[
 {
   override def sdElemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
+
+  /** Constructs an element of the defining-sequence from 6 [[Double]]s. */
+  def dsElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
+
+  def sdIndex(index: Int): A = {
+    val offset = index * 6
+    dsElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3),
+      unsafeArray(offset + 4), unsafeArray(offset + 5))
+  }
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl6]]s. */
 trait Dbl6Arr[A <: ElemDbl6] extends Any with DblNArr[A] with Dbl6SeqLike[A]
 { final override def length: Int = unsafeArray.length / 6
+
+  def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
+
+  def apply(index: Int): A = {
+    val offset = index * 6
+    newElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3),
+      unsafeArray(offset + 4), unsafeArray(offset + 5))
+  }
 
   def head1: Double = unsafeArray(0); def head2: Double = unsafeArray(1); def head3: Double = unsafeArray(2); def head4: Double = unsafeArray(3)
   def head5: Double = unsafeArray(4); def head6: Double = unsafeArray(5)
@@ -111,7 +120,7 @@ trait Dbl6Buff[A <: ElemDbl6] extends Any with DblNBuff[A]
   { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4).append(newElem.dbl5).append(newElem.dbl6); () }
 
   def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
-  override def sdIndex(index: Int): A = dblsToT(unsafeBuffer(index * 6), unsafeBuffer(index * 6 + 1), unsafeBuffer(index * 6 + 2),
+  override def apply(index: Int): A = dblsToT(unsafeBuffer(index * 6), unsafeBuffer(index * 6 + 1), unsafeBuffer(index * 6 + 2),
     unsafeBuffer(index * 6 + 3), unsafeBuffer(index * 6 + 4), unsafeBuffer(index * 6 + 5))
 
   override def unsafeSetElem(i: Int, value: A): Unit =

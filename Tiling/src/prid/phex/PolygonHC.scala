@@ -99,7 +99,7 @@ class PolygonHCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends ArrayIntAr
 { override type ThisT = PolygonHCArr
   override def typeStr: String = "PolygonHCArr"
   override def fElemStr: PolygonHC => String = _.toString
-  override def sdIndex(index: Int): PolygonHC = new PolygonHC(unsafeArrayOfArrays(index))
+  override def apply(index: Int): PolygonHC = new PolygonHC(unsafeArrayOfArrays(index))
   override def unsafeFromArrayArray(array: Array[Array[Int]]): PolygonHCArr = new PolygonHCArr(array)
 }
 
@@ -108,7 +108,7 @@ class PolygonHCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal with
   override def typeStr: String = "PolygonHCBuff"
   override def unsafeSetElem(i: Int, value: PolygonHC): Unit = unsafeBuff(i) = value.unsafeArray
   override def fElemStr: PolygonHC => String = _.toString
-  override def sdIndex(index: Int): PolygonHC = new PolygonHC(unsafeBuff(index))
+  override def apply(index: Int): PolygonHC = new PolygonHC(unsafeBuff(index))
 }
 
 object PolygonHCBuff

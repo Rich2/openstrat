@@ -44,7 +44,7 @@ trait Dbl4Arr[A <: ElemDbl4] extends Any with DblNArr[A] with Dbl4SeqLike[A]
 
   override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
 
-  override def sdIndex(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
+  override def apply(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /
@@ -113,7 +113,7 @@ trait Dbl4Buff[A <: ElemDbl4] extends Any with DblNBuff[A]
   final override def length: Int = unsafeBuffer.length / 4
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4); () }
 
-  override def sdIndex(index: Int): A =
+  override def apply(index: Int): A =
     dblsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
 
   override def unsafeSetElem(i: Int, value: A): Unit =

@@ -32,6 +32,8 @@ final class BooleanArr(val unsafeArray: Array[Boolean]) extends AnyVal with SeqI
     op.unsafeArray.copyToArray(newArray, sdLength)
     new BooleanArr(newArray)
   }
+
+  override def apply(index: Int): Boolean = unsafeArray(index)
 }
 
 object BooleanArr
@@ -51,7 +53,7 @@ object BooleansBuild extends ArrBuilder[Boolean, BooleanArr] with ArrFlatBuilder
 
 class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with Sequ[Boolean]
 { override def typeStr: String = "BooleanBuff"
-  override def sdIndex(index: Int): Boolean = unsafeBuffer(index)
+  override def apply(index: Int): Boolean = unsafeBuffer(index)
   override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeBuffer(i) = value

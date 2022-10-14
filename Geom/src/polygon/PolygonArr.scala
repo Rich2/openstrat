@@ -9,8 +9,6 @@ final class PolygonArr(val unsafeArrayOfArrays: Array[Array[Double]]) extends An
   override def unsafeFromArrayArray(aad: Array[Array[Double]]): PolygonArr = new PolygonArr(aad)
   override def apply(index: Int): PolygonGen = new PolygonGen(unsafeArrayOfArrays(index))
   override def fElemStr: Polygon => String = _.toString
-
-  override def sdIndex(index: Int): PolygonGen = new PolygonGen(unsafeArrayOfArrays(index))
 }
 
 /** Companion object for the [[PolygonArr]] class. */
@@ -61,7 +59,7 @@ class PolygonBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal wit
 
   override def fElemStr: Polygon => String = ???
 
-  override def sdIndex(index: Int): Polygon = ???
+  override def apply(index: Int): Polygon = ???
 }
 
 object PolygonBuff{

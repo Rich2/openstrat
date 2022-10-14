@@ -43,7 +43,7 @@ trait Dbl3Arr[A <: ElemDbl3] extends Any with DblNArr[A] with Dbl3SeqLike[A]
 
   override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
 
-  override def sdIndex(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  override def apply(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /
@@ -107,7 +107,7 @@ trait Dbl3Buff[A <: ElemDbl3] extends Any with DblNBuff[A]
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3); () }
 
   def dblsToT(d1: Double, d2: Double, d3: Double): A
-  def sdIndex(index: Int): A = dblsToT(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
+  def apply(index: Int): A = dblsToT(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
 
   override def unsafeSetElem(i: Int, value: A): Unit =
   { unsafeBuffer(i * 4) = value.dbl1; unsafeBuffer(i * 4 + 1) = value.dbl2; unsafeBuffer(i * 4 + 2) = value.dbl3

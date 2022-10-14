@@ -13,7 +13,7 @@ class LongArr(val unsafeArray: Array[Long]) extends AnyVal with SeqImut[Long]
   override def unsafeSameSize(length: Int): LongArr = new LongArr(new Array[Long](length))
   override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def sdIndex(index: Int): Long = unsafeArray(index)
+  override def apply(index: Int): Long = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeArray(i) = value
   override def fElemStr: Long => String = _.toString
 
@@ -50,7 +50,7 @@ object LongsBuild extends ArrBuilder[Long, LongArr] with ArrFlatBuilder[LongArr]
 
 class LongsBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with Sequ[Long]
 { override def typeStr: String = "LongsBuff"
-  override def sdIndex(index: Int): Long = unsafeBuffer(index)
+  override def apply(index: Int): Long = unsafeBuffer(index)
   override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeBuffer(i) = value

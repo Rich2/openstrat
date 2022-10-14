@@ -68,7 +68,7 @@ trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqLike[
 
     while (continue == true & count < sdLength)
     {
-      if (sdElemEq(value, sdIndex(count)))
+      if (sdElemEq(value, apply(count)))
       { acc = SomeInt(count)
         continue = false
       }

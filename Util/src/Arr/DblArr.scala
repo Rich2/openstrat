@@ -9,7 +9,7 @@ class DblArr(val unsafeArray: Array[Double]) extends AnyVal with SeqImut[Double]
   override def unsafeSameSize(length: Int): DblArr = new DblArr(new Array[Double](length))
   override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def sdIndex(index: Int): Double = unsafeArray(index)
+  override def apply(index: Int): Double = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Double): Unit = unsafeArray(i) = value
   def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
@@ -48,7 +48,7 @@ object DblsBuild extends ArrBuilder[Double, DblArr] with ArrFlatBuilder[DblArr]
 /** Compile time wrapped Buffer class for [[Double]]s, used to build[[DblArr]]. */
 class DblsBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Sequ[Double]
 { override def typeStr: String = "DblsBuff"
-  override def sdIndex(index: Int): Double = unsafeBuffer(index)
+  override def apply(index: Int): Double = unsafeBuffer(index)
   override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Double): Unit = unsafeBuffer(i) = value

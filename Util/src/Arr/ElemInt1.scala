@@ -31,7 +31,7 @@ trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqLike[A]
   }
 
   def newElem(intValue: Int): A
-  final override def sdIndex(index: Int): A = newElem(unsafeArray(index))
+  final override def apply(index: Int): A = newElem(unsafeArray(index))
   override def sdElemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 }
 
@@ -64,7 +64,7 @@ trait Int1Buff[A <: ElemInt1] extends Any with IntNBuff[A]
 { type ArrT <: Int1Arr[A]
   final override def length: Int = unsafeBuffer.length
   def intToT(value: Int): A
-  def sdIndex(i1: Int): A = intToT(unsafeBuffer(i1))
+  def apply(i1: Int): A = intToT(unsafeBuffer(i1))
   override def elemProdSize: Int = 1
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1); () }
 

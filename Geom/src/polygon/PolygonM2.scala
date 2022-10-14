@@ -69,7 +69,7 @@ class PolygonM2Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDb
 { override type ThisT = PolygonM2Arr
   override def typeStr: String = "PolygonMArr"
   override def fElemStr: PolygonM2 => String = _.toString
-  override def sdIndex(index: Int): PolygonM2 = new PolygonM2(unsafeArrayOfArrays(index))
+  override def apply(index: Int): PolygonM2 = new PolygonM2(unsafeArrayOfArrays(index))
   override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonM2Arr = new PolygonM2Arr(array)
 }
 
@@ -78,7 +78,7 @@ class PolygonM2Buff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal w
   override def typeStr: String = "PolygonMBuff"
   override def unsafeSetElem(i: Int, value: PolygonM2): Unit = unsafeBuff(i) = value.unsafeArray
   override def fElemStr: PolygonM2 => String = _.toString
-  override def sdIndex(index: Int): PolygonM2 = new PolygonM2(unsafeBuff(index))
+  override def apply(index: Int): PolygonM2 = new PolygonM2(unsafeBuff(index))
 }
 
 object PolygonM2Buff

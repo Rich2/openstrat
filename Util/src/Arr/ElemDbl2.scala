@@ -85,7 +85,7 @@ trait Dbl2Arr[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqLike[A]
     while(count < sdLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
   }
 
-  override def sdIndex(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  override def apply(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
 
   override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
@@ -159,7 +159,7 @@ trait Dbl2Buff[A <: ElemDbl2] extends Any with DblNBuff[A]
   override def elemProdSize: Int = 2
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2); () }
   def dblsToT(d1: Double, d2: Double): A
-  override def sdIndex(index: Int): A = dblsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
+  override def apply(index: Int): A = dblsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 2) = value.dbl1; unsafeBuffer(i * 2 + 1) = value.dbl2 }
   override def fElemStr: A => String = _.toString
 }

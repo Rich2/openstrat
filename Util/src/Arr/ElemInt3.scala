@@ -40,7 +40,7 @@ trait Int3Arr[A <: ElemInt3] extends Any with IntNArr[A] with Int3SeqLike[A]
   final override def length: Int = unsafeArray.length / 3
 
   override def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
-  final override def sdIndex(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  final override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int3Arr]] final classes. Instances for the [[ArrBuilder]] type
@@ -79,7 +79,7 @@ trait Int3Buff[A <: ElemInt3] extends Any with IntNBuff[A]
 
   /** Constructs a sequence-defined element from 3 [[Int]]s.  */
   def sdElem(i1: Int, i2: Int, i3: Int): A
-  override def sdIndex(index: Int): A = sdElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
+  override def apply(index: Int): A = sdElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 3) = value.int1; unsafeBuffer(i * 3 + 1) = value.int2; unsafeBuffer(i * 3 + 2) = value.int3 }
 }
 

@@ -16,8 +16,11 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Method for keeping the typer happy when returning this as an instance of ThisT. */
   @inline def returnThis: ThisT = this.asInstanceOf[ThisT]
 
+  /** Accesses the defining sequence element by a 0 based index. */
+  @inline def apply(index: Int): A
+
   /** apply method accesses the individual elements of the sequence by 0 based index. */
-  @inline def apply(index: Int): A = sdIndex(index)
+ // @inline def apply(index: Int): A = apply(index)
 
   /** The first element of this sequence. */
   @inline def head: A = apply(0)

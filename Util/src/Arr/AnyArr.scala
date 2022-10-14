@@ -13,7 +13,7 @@ class AnyArr(val unsafeArray: Array[Any]) extends AnyVal with SeqImut[Any]
   override def unsafeSameSize(length: Int): AnyArr = new AnyArr(new Array[Any](length))
   override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def sdIndex(index: Int): Any = unsafeArray(index)
+  override def apply(index: Int): Any = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Any): Unit = unsafeArray(i) = value
   override def fElemStr: Any => String = _.toString
 
@@ -50,7 +50,7 @@ object AnyArrBuild extends ArrBuilder[Any, AnyArr] with ArrFlatBuilder[AnyArr]
 
 class AnyBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with Sequ[Any]
 { override def typeStr: String = "AnysBuff"
-  override def sdIndex(index: Int): Any = unsafeBuffer(index)
+  override def apply(index: Int): Any = unsafeBuffer(index)
   override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Any): Unit = unsafeBuffer(i) = value

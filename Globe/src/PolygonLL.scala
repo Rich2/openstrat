@@ -96,7 +96,7 @@ class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDb
 { override type ThisT = PolygonLLArr
   override def typeStr: String = "PolygonLLArr"
   override def fElemStr: PolygonLL => String = _.toString
-  override def sdIndex(index: Int): PolygonLL = new PolygonLL(unsafeArrayOfArrays(index))
+  override def apply(index: Int): PolygonLL = new PolygonLL(unsafeArrayOfArrays(index))
   override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)
 }
 
@@ -105,7 +105,7 @@ class PolygonLLBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal w
   override def typeStr: String = "PolygonLLBuff"
   override def unsafeSetElem(i: Int, value: PolygonLL): Unit = unsafeBuff(i) = value.unsafeArray
   override def fElemStr: PolygonLL => String = _.toString
-  override def sdIndex(index: Int): PolygonLL = new PolygonLL(unsafeBuff(index))
+  override def apply(index: Int): PolygonLL = new PolygonLL(unsafeBuff(index))
 }
 
 object PolygonLLBuff

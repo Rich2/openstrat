@@ -54,7 +54,7 @@ trait Dbl7Arr[A <: ElemDbl7] extends Any with DblNArr[A] with Dbl7SeqLike[A]
   final override def length: Int = unsafeArray.length / 7
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6, el.dbl7)))
 
-  def sdIndex(index: Int): A =
+  def apply(index: Int): A =
   { val offset = 7 * index
     sdElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
       unsafeArray(offset + 5), unsafeArray(offset + 6))

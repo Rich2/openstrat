@@ -13,7 +13,7 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
   override def typeStr: String = "Ints"
   override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def sdIndex(index: Int): Int = unsafeArray(index)
+  override def apply(index: Int): Int = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Int): Unit = unsafeArray(i) = value
   def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
@@ -107,7 +107,7 @@ object IntsBuild extends ArrBuilder[Int, IntArr] with ArrFlatBuilder[IntArr]
 /** ArrayBuffer class for [[IntArr]]. End users should rarely have need to use this class */
 class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Sequ[Int]
 { override def typeStr: String = "IntBuff"
-  override def sdIndex(index: Int): Int = unsafeBuffer(index)
+  override def apply(index: Int): Int = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
   override def sdLength: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Int): Unit = unsafeBuffer(i) = value

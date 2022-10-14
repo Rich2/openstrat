@@ -35,7 +35,7 @@ trait Int4SeqDef[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNSeqDef[
 trait Int4Arr[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNArr[A]
 { final override def length: Int = unsafeArray.length / 4
 
-  override def sdIndex(index: Int): A =
+  override def apply(index: Int): A =
     newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 
   def sdElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
@@ -69,7 +69,7 @@ trait Int4Buff[A <: ElemInt4, M <: Int4Arr[A]] extends Any with IntNBuff[A]
   final override def length: Int = unsafeBuffer.length / 4
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
   def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
-  override def sdIndex(index: Int): A = intsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
+  override def apply(index: Int): A = intsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
 
   override def unsafeSetElem(i: Int, value: A): Unit =
   { unsafeBuffer(i * 4) = value.int1; unsafeBuffer(i * 4 + 1) = value.int2; unsafeBuffer(i * 4 + 2) = value.int3; unsafeBuffer(i * 4 + 3) = value.int4

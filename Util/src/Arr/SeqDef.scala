@@ -7,6 +7,9 @@ import annotation.unchecked.uncheckedVariance
 trait SeqDef[+A] extends Any with SeqLike[A @uncheckedVariance]
 { type ThisT <: SeqDef[A]
 
+  /** Accesses the defining sequence element by a 0 based index. */
+  @inline def sdIndex(index: Int): A
+
   /** Performs a side effecting function on each element of this sequence in order. */
   def dataForeach[U](f: A => U): Unit = {
     var i = 0
@@ -104,4 +107,12 @@ trait RefsSeqDefImut[+A] extends Any with SeqDef[A]
   override final def fElemStr: A @uncheckedVariance => String = _.toString
   override final def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArray(i) = value
   override final def sdIndex(index: Int): A = unsafeArray(index)
+}
+
+/** [[ShowT] type class for showing [[DataGen]][A] objects. */
+class SeqDefShowT[A, R <: SeqDef[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+{
+  override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
+  override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+    typeStr + evA.typeStr.enSquare + obj.dataMap(a => evA.showDecT(a, style, maxPlaces, minPlaces))
 }

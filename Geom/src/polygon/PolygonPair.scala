@@ -17,7 +17,7 @@ final class PolygonPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Ar
   override def unsafeSetElem(i: Int, value: PolygonPair[A2]): Unit = { arrayArrayDbl(i) = value.unsafeArray; a2Array(i) = value.a2 }
   override def fElemStr: PolygonPair[A2] => String = _.toString
   override def typeStr: String = "PolygonPairArray"
-  override def sdIndex(index: Int): PolygonPair[A2] = new PolygonPair[A2](arrayArrayDbl(index), a2Array(index))
+  override def apply(index: Int): PolygonPair[A2] = new PolygonPair[A2](arrayArrayDbl(index), a2Array(index))
 
   override def polygonArr: PolygonArr = new PolygonArr(arrayArrayDbl)
 }
@@ -48,5 +48,5 @@ class PolygonPairBuff[A2](val arrayDblBuff: ArrayBuffer[Array[Double]], val a2Bu
   override def unsafeSetElem(i: Int, value: PolygonPair[A2]): Unit = { arrayDblBuff(i) = value.unsafeArray; a2Buff(i) = value.a2 }
   override def fElemStr: PolygonPair[A2] => String = _.toString
   override def typeStr: String = "PolygonPairBuff"
-  override def sdIndex(index: Int): PolygonPair[A2] = new PolygonPair[A2](arrayDblBuff(index), a2Buff(index))
+  override def apply(index: Int): PolygonPair[A2] = new PolygonPair[A2](arrayDblBuff(index), a2Buff(index))
 }

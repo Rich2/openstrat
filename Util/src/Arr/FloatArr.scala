@@ -12,7 +12,7 @@ class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with SeqImut[Float]
   override def typeStr: String = "Floats"
   override def sdLength: Int = unsafeArray.length
   override def length: Int = unsafeArray.length
-  override def sdIndex(index: Int): Float = unsafeArray(index)
+  override def apply(index: Int): Float = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeArray(i) = value
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
@@ -51,7 +51,7 @@ object FloatsBuild extends ArrBuilder[Float, FloatArr] with ArrFlatBuilder[Float
 
 class FloatsBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with Sequ[Float]
 { override def typeStr: String = "FloatsBuff"
-  override def sdIndex(index: Int): Float = unsafeBuffer(index)
+  override def apply(index: Int): Float = unsafeBuffer(index)
   override def sdLength: Int = unsafeBuffer.length
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeBuffer(i) = value

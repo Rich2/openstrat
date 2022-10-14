@@ -37,15 +37,4 @@ trait SeqLike[+A] extends Any {
 
   override def toString: String = typeStr + elemsStr
 
-  /** Accesses the defining sequence element by a 0 based index. */
-  @inline def sdIndex(index: Int): A
-
-}
-
-/** [[ShowT] type class for showing [[DataGen]][A] objects. */
-class DataGenShowT[A, R <: SeqDef[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
-{
-  override def syntaxDepthT(obj: R): Int = obj.dataFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
-  override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-    typeStr + evA.typeStr.enSquare + obj.dataMap(a => evA.showDecT(a, style, maxPlaces, minPlaces))
 }
