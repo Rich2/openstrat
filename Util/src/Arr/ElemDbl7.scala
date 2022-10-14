@@ -15,6 +15,8 @@ trait ElemDbl7 extends Any with ElemDblN
 trait Dbl7SeqLike[A <: ElemDbl7] extends Any with DblNSeqLike[A]{
   def elemProdSize: Int = 7
 
+  def sdElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
+
   override def unsafeSetElem(index: Int, elem: A): Unit = {
     val offset = 7 * index;
     unsafeArray(offset) = elem.dbl1;
@@ -25,30 +27,47 @@ trait Dbl7SeqLike[A <: ElemDbl7] extends Any with DblNSeqLike[A]{
     unsafeArray(offset + 5) = elem.dbl6;
     unsafeArray(offset + 6) = elem.dbl7
   }
+
+  def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
+    (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl7]]s. */
 trait Dbl7SeqDef[A <: ElemDbl7] extends Any with Dbl7SeqLike[A] with DblNSeqDef[A]
 {
-  def sdElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
-  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
-    (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
+
+//  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
+//    (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
 
   def sdIndex(index: Int): A =
   { val offset = 7 * index
-
     sdElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
       unsafeArray(offset + 5), unsafeArray(offset + 6))
   }
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl7]]s. */
-trait Dbl7Arr[A <: ElemDbl7] extends Any with DblNArr[A] with Dbl7SeqDef[A]
+trait Dbl7Arr[A <: ElemDbl7] extends Any with DblNArr[A] with Dbl7SeqLike[A]
 { def head1: Double = unsafeArray(0); def head2: Double = unsafeArray(1); def head3: Double = unsafeArray(2); def head4: Double = unsafeArray(3)
   def head5: Double = unsafeArray(4); def head6: Double = unsafeArray(5); def head7: Double = unsafeArray(6)
   final override def length: Int = unsafeArray.length / 7
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6, el.dbl7)))
+
+  def sdIndex(index: Int): A =
+  { val offset = 7 * index
+    sdElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3), unsafeArray(offset + 4),
+      unsafeArray(offset + 5), unsafeArray(offset + 6))
+  }
+
+  override def reverseData: ThisT = {
+    val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    res
+  }
+  
+  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
+    (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
 }
 
 /** Helper class for companion objects of final [[Dbl7SeqDef]] sequence-defined classes. */
