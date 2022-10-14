@@ -27,7 +27,7 @@ class CoodLines(val unsafeArray: Array[Int]) extends AnyVal with Int4Arr[CoodLin
   override def fromArray(array: Array[Int]): CoodLines = new CoodLines(array)
   override def typeStr: String = "CoodLines"
   override def newElem(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = CoodLine.apply(i1, i2, i3, i4)
-  def toLine2s(f: Cood => Pt2): LineSegArr = dataMap(_.toLine2(f))
+  def toLine2s(f: Cood => Pt2): LineSegArr = map(_.toLine2(f))
   //override def toString: String = CoodLines.PersistImplicit.show(this)
 }
 

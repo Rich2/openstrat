@@ -7,7 +7,9 @@ trait ElemDblN extends Any with ElemValueN
 
 trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDblBacked
 {
+  def unsafeFromArray(array: Array[Double]): ThisT
 
+  final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
 }
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
@@ -15,8 +17,7 @@ trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDbl
 trait DblNSeqDef[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqDef[A]
 { type ThisT <: DblNSeqDef[A]
   @inline final override def dsLen: Int = unsafeArray.length
-  def unsafeFromArray(array: Array[Double]): ThisT
-  final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
+
 
   override def reverseData: ThisT =
   { val res: ThisT = unsafeSameSize(sdLength)
@@ -45,7 +46,7 @@ trait DblNSeqDef[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqDe
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
-trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqDef[A]
+trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
 { type ThisT <: DblNArr[A]
 
   /** Not sure about this method. */
@@ -105,6 +106,9 @@ trait DblNArrFlatBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends ValueNArrFla
 trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 { type ArrT <: DblNArr[A]
   def unsafeBuffer: ArrayBuffer[Double]
+
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  override def unsafeSameSize(length: Int): ThisT = ???
 
   def sdLength: Int = unsafeBuffer.length / elemProdSize
   def toArray: Array[Double] = unsafeBuffer.toArray[Double]

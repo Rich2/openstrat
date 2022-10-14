@@ -17,7 +17,7 @@ trait SeqDefBuilderCommon[BB]
   def buffToBB(buff: BuffT): BB
 }
 
-trait SeqDefImutBuilder[B, BB <: SeqDef[B]] extends SeqDefBuilderCommon[BB]
+trait SeqLikeImutBuilder[B, BB <: SeqLike[B]] extends SeqDefBuilderCommon[BB]
 { /** The type of the buffer used for building the target compound class BB. */
   type BuffT <: Sequ[B]
 

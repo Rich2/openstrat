@@ -107,6 +107,9 @@ class PolygonSqCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal wit
   override def fElemStr: PolygonSqC => String = _.toString
   override def sdLength: Int = unsafeBuff.length
   override def sdIndex(index: Int): PolygonSqC = new PolygonSqC(unsafeBuff(index))
+
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  override def unsafeSameSize(length: Int): PolygonSqCBuff = ???
 }
 
 object PolygonSqCBuff

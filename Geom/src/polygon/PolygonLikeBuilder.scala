@@ -7,7 +7,7 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait PolygonLikeBuilder[B, +BB <: PolygonLike[B]] extends SeqDefImutBuilder[B, BB @uncheckedVariance]
+trait PolygonLikeBuilder[B, +BB <: PolygonLike[B]] extends SeqLikeImutBuilder[B, BB @uncheckedVariance]
 { type BuffT <: Sequ[B]
 
   /** Creates a new uninitialised class of type BB.  */

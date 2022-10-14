@@ -25,11 +25,14 @@ trait SeqDefPairBuff[A1E, A1 <: SeqDef[A1E], A2, A <: ElemSeqDefPair[A1E, A1, A2
 { def a2Buff: ArrayBuffer[A2]
   override def length: Int = a2Buff.length
   override def sdLength: Int = a2Buff.length
+
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  override def unsafeSameSize(length: Int): ThisT = ???
 }
 
 trait SeqDefPairArrBuilder[B1E, B1 <: SeqDef[B1E], ArrB1 <: SeqImut[B1], B2, B <: ElemSeqDefPair[B1E, B1, B2], ArrB <: SeqImut[B]] extends ArrBuilder[B, ArrB]
 { /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
-  def b1Builder: SeqDefImutBuilder[B1E, B1]
+  def b1Builder: SeqLikeImutBuilder[B1E, B1]
 
   /** Builder for an Arr of the first element of the pair. */
   def b1ArrBuilder: ArrBuilder[B1, ArrB1]

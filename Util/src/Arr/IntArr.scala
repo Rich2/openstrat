@@ -81,7 +81,7 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with SeqImut[Int]
 object IntArr
 { def apply(input: Int*): IntArr = new IntArr(input.toArray)
 
-  implicit val showImplicit: ShowT[IntArr] = DataGenShowT[Int, IntArr](ShowT.intPersistEv)
+  implicit val showImplicit: ShowT[IntArr] = ???// DataGenShowT[Int, IntArr](ShowT.intPersistEv)
 
   implicit val eqImplicit: EqT[IntArr] = (a1, a2) =>
     if(a1.sdLength != a2.sdLength) false
@@ -115,6 +115,12 @@ class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Sequ[Int]
   def grow(newElem: Int): Unit = unsafeBuffer.append(newElem)
   def growArray(operand: Array[Int]): Unit = unsafeBuffer.appendAll(operand)
   def toInts: IntArr = new IntArr(unsafeBuffer.toArray)
+
+  /** The final type of this object. */
+  override type ThisT = IntBuff
+
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  override def unsafeSameSize(length: Int): IntBuff = ???
 }
 
 object IntBuff

@@ -7,8 +7,6 @@ import annotation.unchecked.uncheckedVariance
 trait SeqDef[+A] extends Any with SeqLike[A @uncheckedVariance]
 { type ThisT <: SeqDef[A]
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
-  def unsafeSameSize(length: Int): ThisT
 
   /** Specialised map to an immutable [[SeqImut]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for
    * example a PolygonLike will map to another PolgonLike. */

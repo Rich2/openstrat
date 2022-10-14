@@ -157,11 +157,17 @@ class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) 
 }
 
 /** Not sure if this class is necessary now that Arr takes Any. */
-class TBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with Sequ[A]
+final class TBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with Sequ[A]
 { override def typeStr: String = "AnyBuff"
   override def sdIndex(index: Int): A = unsafeBuff(index)
   override def sdLength: Int = unsafeBuff.length
   override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuff(i) = value
   override def fElemStr: A => String = _.toString
+
+  /** The final type of this object. */
+  override type ThisT = TBuff[A]
+
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  override def unsafeSameSize(length: Int): TBuff[A] = ???
 }

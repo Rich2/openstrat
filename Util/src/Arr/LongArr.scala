@@ -55,4 +55,10 @@ class LongsBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with Sequ[Lo
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeBuffer(i) = value
   override def fElemStr: Long => String = _.toString
+
+  /** The final type of this object. */
+  override type ThisT = LongsBuff
+
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqDef]] of the this [[SeqImut]]'s final type. */
+  override def unsafeSameSize(length: Int): LongsBuff = ???
 }

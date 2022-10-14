@@ -75,12 +75,12 @@ object HexGridAncient
   /** Verts start at Up and follow clockwise */
   val vertCoodsOfTile00: Coods = Coods(0 cc 1,  2 cc 1,  2 cc -1,  0 cc -1,  -2 cc -1,  -2 cc 1)
   def vertCoodsOfTile(x: Int, y: Int): Coods = vertCoodsOfTile(x cc y)
-  def vertCoodsOfTile(tileCood: Cood): Coods = vertCoodsOfTile00.dataMap(_ + tileCood)
+  def vertCoodsOfTile(tileCood: Cood): Coods = vertCoodsOfTile00.map(_ + tileCood)
   val sideCoodsOfTile00: Coods = Coods(1 cc 1, 2 cc 0, 1 cc -1, -1  cc -1, -2 cc 0, -1 cc 1)
   //val sideCoodsOfTile00List: List[Cood] = Coods(1 cc 1, 2 cc 0, 1 cc -1, -1  cc -1, -2 cc 0, -1 cc 1)
-  def sideCoodsOfTile(tileCood: Cood): Coods = sideCoodsOfTile00.dataMap(tileCood + _)
-  val adjTileCoodsOfTile00: Coods = sideCoodsOfTile00.dataMap(_ * 2)
-  def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.dataMap(tileCood + _)
+  def sideCoodsOfTile(tileCood: Cood): Coods = sideCoodsOfTile00.map(tileCood + _)
+  val adjTileCoodsOfTile00: Coods = sideCoodsOfTile00.map(_ * 2)
+  def adjTileCoodsOfTile(tileCood: Cood): Coods = adjTileCoodsOfTile00.map(tileCood + _)
 
   def sideCoodToLine(sideCood: Cood): LineSeg = sideCoodToCoodLine(sideCood).toLine2(coodToVec2)
   def sideCoodToCoodLine(sideCood: Cood): CoodLine = sideCoodToCoodLine(sideCood.xi, sideCood.yi)

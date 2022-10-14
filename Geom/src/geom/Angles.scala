@@ -11,6 +11,9 @@ final class Angles(val unsafeArray: Array[Double]) extends AnyVal with Dbl1Arr[A
 
   /** Not sure about this method. */
   override def foreachArr(f: DblArr => Unit): Unit = ???
+
+  /** The total  number of atomic values, Ints, Doubles, Longs etc in the backing Array. */
+  override def dsLen: Int = ???
 }
 
 /** Companion object for [[Angles]] class. */

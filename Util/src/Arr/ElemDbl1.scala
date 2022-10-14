@@ -15,4 +15,10 @@ trait Dbl1Arr[A <: ElemDbl1] extends Any with DblNArr[A]
   final override def sdIndex(index: Int): A = newElem(unsafeArray(index))
   final override def unsafeSetElem(index: Int, elem: A): Unit = unsafeArray(index) = elem.dbl1
   override def sdElemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
+
+  override def reverseData: ThisT = {
+    val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    res
+  }
 }
