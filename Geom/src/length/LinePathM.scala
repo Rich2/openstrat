@@ -11,7 +11,7 @@ class LinePathM(val unsafeArray: Array[Double]) extends AnyVal with LinePathDbl2
   override def fElemStr: PtM2 => String = _.toString
 }
 /** Companion object for LinePathM3s. Contains apply factory method fromArrayDbl and Persist Implicit. */
-object LinePathM extends Dbl2SeqDefCompanion[PtM2, LinePathM]
+object LinePathM extends Dbl2SeqLikeCompanion[PtM2, LinePathM]
 { override def fromArray(array: Array[Double]): LinePathM = new LinePathM(array)
 
   implicit val persistImplicit: Dbl2SeqDefPersist[PtM2, LinePathM] = new Dbl2SeqDefPersist[PtM2, LinePathM]("LinePathM")

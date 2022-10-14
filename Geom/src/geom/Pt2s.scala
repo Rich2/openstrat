@@ -18,7 +18,7 @@ final class Pt2s(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2
 }
 
 /** Companion object for the [[Pt2s]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
-object Pt2s extends Dbl2SeqDefCompanion[Pt2, Pt2s]
+object Pt2s extends Dbl2SeqLikeCompanion[Pt2, Pt2s]
 {
   override def fromArray(array: Array[Double]): Pt2s = new Pt2s(array)
 

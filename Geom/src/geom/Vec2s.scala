@@ -33,7 +33,7 @@ final class Vec2s(val unsafeArray: Array[Double]) extends /*AffinePreserve with*
 }
 
 /** Companion object for the [[Vec2s]] sequence class. Contains factory apply method and implicit instances for a number of type classes. */
-object Vec2s extends Dbl2SeqDefCompanion[Vec2, Vec2s]
+object Vec2s extends Dbl2SeqLikeCompanion[Vec2, Vec2s]
 {
   override def fromArray(array: Array[Double]): Vec2s = new Vec2s(array)
 

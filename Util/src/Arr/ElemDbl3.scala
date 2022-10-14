@@ -60,7 +60,7 @@ trait Dbl3ArrFlatBuilder[B <: ElemDbl3, ArrB <: Dbl3Arr[B]] extends DblNArrFlatB
 }
 
 /** Persists [[Dbl3SeqDef]]s. */
-abstract class Dbl3SeqDefPersist[A <: ElemDbl3, M <: Dbl3SeqDef[A]](val typeStr: String) extends DataDblNsPersist[A, M]
+abstract class Dbl3SeqDefPersist[A <: ElemDbl3, M <: Dbl3SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1
