@@ -24,31 +24,41 @@ trait Dbl6SeqLike[A <: ElemDbl6] extends Any with DblNSeqLike[A]
     unsafeArray(offset + 4) = elem.dbl5;
     unsafeArray(offset + 5) = elem.dbl6
   }
+
+  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
+
+  def sdIndex(index: Int): A = {
+    val offset = index * 6
+    dataElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3),
+      unsafeArray(offset + 4), unsafeArray(offset + 5))
+  }
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl6]]s. */
 trait Dbl6SeqDef[A <: ElemDbl6] extends Any with Dbl6SeqLike[A] with DblNSeqDef[A]
 {
-  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
-
   override def sdElemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
-
-  def sdIndex(index: Int): A =
-  { val offset = index * 6
-    dataElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3),
-      unsafeArray(offset + 4),unsafeArray(offset + 5))
-  }
 }
 
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl6]]s. */
-trait Dbl6Arr[A <: ElemDbl6] extends Any with DblNArr[A] with Dbl6SeqDef[A]
+trait Dbl6Arr[A <: ElemDbl6] extends Any with DblNArr[A] with Dbl6SeqLike[A]
 { final override def length: Int = unsafeArray.length / 6
 
   def head1: Double = unsafeArray(0); def head2: Double = unsafeArray(1); def head3: Double = unsafeArray(2); def head4: Double = unsafeArray(3)
   def head5: Double = unsafeArray(4); def head6: Double = unsafeArray(5)
 
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5, el.dbl6)))
+
+  override def sdElemEq(a1: A, a2: A): Boolean =
+    (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
+
+  override def reverseData: ThisT = {
+    val res: ThisT = unsafeSameSize(sdLength)
+    dataIForeach({ (i, el) => res.unsafeSetElem(sdLength - 1 - i, el) })
+    res
+  }
+
 }
 
 /** Helper class for companion objects of final [[Dbl6SeqDef]] classes. */
