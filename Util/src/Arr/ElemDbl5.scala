@@ -25,11 +25,12 @@ trait Dbl5SeqLike[A <: ElemDbl5] extends Any with DblNSeqLike[A]
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl5]]s. */
 trait Dbl5SeqSpec[A <: ElemDbl5] extends Any with Dbl5SeqLike[A] with DblNSeqSpec[A]
-{ /** Method for creating new data elements from 5 [[Double]]s In the case of [[Dbl5Arr]] this will be the type of the elements of the sequence. */
-  def sdElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
+{  /** Method for creating new specifying sequence elements from 5 [[Double]]s In the case of [[Dbl5Arr]] this will be the type of the elements of the
+   * sequence. */
+  def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double): A
 
 
-  def ssIndex(index: Int): A = sdElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
+  def ssIndex(index: Int): A = ssElem(unsafeArray(5 * index), unsafeArray(5 * index + 1), unsafeArray(5 * index + 2), unsafeArray(5 * index + 3),
     unsafeArray(5 * index + 4))
 
   override def ssElemEq(a1: A, a2: A): Boolean =

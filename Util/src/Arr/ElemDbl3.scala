@@ -25,7 +25,6 @@ trait Dbl3SeqSpec[A <: ElemDbl3] extends Any with Dbl3SeqLike[A] with DblNSeqSpe
 { /** Method for creating new data elements from 3 [[Double]]s In the case of [[Dbl3Arr]] this will be the type of the elements of the sequence. */
   def dataElem(d1: Double, d2: Double, d3: Double): A
 
-
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
   override def ssIndex(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
@@ -39,11 +38,11 @@ trait Dbl3Arr[A <: ElemDbl3] extends Any with DblNArr[A] with Dbl3SeqLike[A]
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3)))
 
   /** Method for creating new data elements from 3 [[Double]]s In the case of [[Dbl3Arr]] this will be the type of the elements of the sequence. */
-  def dataElem(d1: Double, d2: Double, d3: Double): A
+  def newElem(d1: Double, d2: Double, d3: Double): A
 
   override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
 
-  override def apply(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /

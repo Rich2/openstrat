@@ -24,11 +24,11 @@ trait Dbl4SeqLike[A <: ElemDbl4] extends Any with DblNSeqLike[A]
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl4]]s. */
 trait Dbl4SeqSpec[A <: ElemDbl4] extends Any with Dbl4SeqLike[A] with DblNSeqSpec[A]
 { /** Method for creating new data elements from 4 [[Double]]s In the case of [[Dbl4Arr]] this will be the type of the elements of the sequence. */
-  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
+  def ssElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
 
-  override def ssIndex(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
+  override def ssIndex(index: Int): A = ssElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 /** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl4]]s. */
 trait Dbl4Arr[A <: ElemDbl4] extends Any with DblNArr[A] with Dbl4SeqLike[A]
@@ -40,11 +40,11 @@ trait Dbl4Arr[A <: ElemDbl4] extends Any with DblNArr[A] with Dbl4SeqLike[A]
   override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4)))
 
   /** Method for creating new data elements from 4 [[Double]]s In the case of [[Dbl4Arr]] this will be the type of the elements of the sequence. */
-  def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): A
+  def newElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
   override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
 
-  override def apply(index: Int): A = dataElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
+  override def apply(index: Int): A = newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /

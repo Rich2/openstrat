@@ -32,12 +32,12 @@ trait Dbl6SeqSpec[A <: ElemDbl6] extends Any with Dbl6SeqLike[A] with DblNSeqSpe
   override def ssElemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
 
-  /** Constructs an element of the defining-sequence from 6 [[Double]]s. */
-  def dsElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
+  /** Constructs an element of the specifying-sequence from 6 [[Double]]s. */
+  def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 
   def ssIndex(index: Int): A = {
     val offset = index * 6
-    dsElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3),
+    ssElem(unsafeArray(offset), unsafeArray(offset + 1), unsafeArray(offset + 2), unsafeArray(offset + 3),
       unsafeArray(offset + 4), unsafeArray(offset + 5))
   }
 }

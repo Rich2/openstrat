@@ -34,7 +34,7 @@ class LineSegLLArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSegLL]
   def unsafeFromArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
   override def typeStr: String = "LineSegLLArr"
   override def fElemStr: LineSegLL => String = _.toString
-  override def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegLL = new LineSegLL(d1, d2, d3, d4)
+  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegLL = new LineSegLL(d1, d2, d3, d4)
   //override def ptsTrans(f: Pt2 => Pt2): LineSegLLArr = dataMap(orig => LineSegLL(f(orig.pStart), f(orig.pEnd)))
 
   //def draw(lineWidth: Double, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)

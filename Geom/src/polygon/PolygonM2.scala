@@ -8,7 +8,7 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Se
   type SideT = LineSegM
   def unsafeFromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
   override def typeStr: String = "PolygonMs"
-  override def seqDefElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
+  override def ssElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def fElemStr: PtM2 => String = _.str
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */

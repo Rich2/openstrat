@@ -24,10 +24,10 @@ trait Int3SeqLike[A <: ElemInt3] extends Any with IntNSeqLike[A]
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemInt3]]s. */
 trait Int3SeqSpec[A <: ElemInt3] extends Any with Int3SeqLike[A] with IntNSeqSpec[A]
 {
-  final override def ssIndex(index: Int): A = sdElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  final override def ssIndex(index: Int): A = ssElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 
   /** Creates a sequence-defined element from 3 [[Int]]s. */
-  def sdElem(int1: Int, int2: Int, int3: Int): A
+  def ssElem(int1: Int, int2: Int, int3: Int): A
 
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
 }

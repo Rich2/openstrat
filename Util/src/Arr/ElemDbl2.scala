@@ -17,12 +17,12 @@ trait Dbl2SeqLike[A <: ElemDbl2] extends Any with DblNSeqLike[A]
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[ElemDbl2]]s. */
 trait Dbl2SeqSpec[A <: ElemDbl2] extends Any with Dbl2SeqLike[A] with DblNSeqSpec[A]
-{
-  /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the sequence. */
-  def seqDefElem(d1: Double, d2: Double): A
+{ /** Method for creating new specifying sequence elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the
+   *  sequence. */
+  def ssElem(d1: Double, d2: Double): A
 
 
-  override def ssIndex(index: Int): A = seqDefElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  override def ssIndex(index: Int): A = ssElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
   def elem1sArray: Array[Double] =
@@ -39,7 +39,7 @@ trait Dbl2SeqSpec[A <: ElemDbl2] extends Any with Dbl2SeqLike[A] with DblNSeqSpe
     res
   }
 
-  def dataForeachPairTail[U](f: (Double, Double) => U): Unit =
+  def ssForeachPairTail[U](f: (Double, Double) => U): Unit =
   { var count = 1
     while(count < ssLength) { f(unsafeArray(count * 2), unsafeArray(count * 2 + 1)); count += 1 }
   }
@@ -48,7 +48,7 @@ trait Dbl2SeqSpec[A <: ElemDbl2] extends Any with Dbl2SeqLike[A] with DblNSeqSpe
   def unsafeMap(f: A => A): Array[Double] = {
     val newArray: Array[Double] = new Array[Double](unsafeArray.length)
     iUntilForeach(0, unsafeLength, 2){ i =>
-      val newElem = f(seqDefElem(unsafeArray(i), unsafeArray(i + 1)))
+      val newElem = f(ssElem(unsafeArray(i), unsafeArray(i + 1)))
       newArray(i) = newElem.dbl1
       newArray(i + 1) = newElem.dbl2
     }

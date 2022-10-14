@@ -9,7 +9,7 @@ trait LatLongSeqLike extends Any with Dbl2SeqLike[LatLong]
 /** A base trait for a sequence of [[LatLong]]s. The final classes are more strongly typed as a [[LinePathLL], a [[PolygonLL]]and [[LatLongArr]], for a
  * a general collection of [[LatLong]] points. */
 trait LatLongSeqSpec extends Any with LatLongSeqLike with Dbl2SeqSpec[LatLong]
-{ final override def seqDefElem(d1: Double, d2: Double): LatLong = LatLong.milliSecs(d1, d2)
+{ final override def ssElem(d1: Double, d2: Double): LatLong = LatLong.milliSecs(d1, d2)
 }
 
 /** Immutable flat efficient Array[Double] based collection class for [[LatLong]]s. Prefer [[PolygonLL]] or [[LineSegLL]] where applicable. */

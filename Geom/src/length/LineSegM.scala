@@ -43,7 +43,7 @@ class LineSegMArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSegM]
   def unsafeFromArray(array: Array[Double]): LineSegMArr = new LineSegMArr(array)
   override def typeStr: String = "LineSegMArr"
   override def fElemStr: LineSegM => String = _.toString
-  override def dataElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM = new LineSegM(d1, d2, d3, d4)
+  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM = new LineSegM(d1, d2, d3, d4)
 }
 
 /** Companion object for the LineSegMs class. */

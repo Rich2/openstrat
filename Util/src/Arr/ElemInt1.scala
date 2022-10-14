@@ -54,11 +54,8 @@ trait Int1ArrBuilder[A <: ElemInt1, ArrT <: Int1Arr[A]] extends IntNArrBuilder[A
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Int1ArrFlatBuilder[A <: ElemInt1, ArrT <: Int1Arr[A]] extends IntNArrFlatBuilder[A, ArrT]
 { type BuffT <: Int1Buff[A]
-
   final override def elemProdSize: Int = 1
   def newArray(length: Int): Array[Int] = new Array[Int](length)
-  //final override def arrSet(arr: ArrT, index: Int, value: A): Unit =  arr.arrayUnsafe(index) = value.int1
-  //override def buffGrow(buff: BuffT, value: A): Unit = { buff.buffer.append(value.int1); () }
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt1]]s collections. */
