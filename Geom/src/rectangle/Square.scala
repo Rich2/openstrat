@@ -81,7 +81,7 @@ object Square extends ShapeIcon
   final class SquareImp(val unsafeArray: Array[Double]) extends Square
   { override type ThisT = SquareImp
 
-    override def unsafeFromArray(array: Array[Double]): SquareImp = new SquareImp(array)
+    override def fromArray(array: Array[Double]): SquareImp = new SquareImp(array)
 
     @inline override def width: Double = width1
     @inline override def width2: Double = width1

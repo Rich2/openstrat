@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** Collection class for [[Pt3]]s. Only use this if the more specific [[PolygonM2]] and[[LinePathMs]] classes are not appropriate. */
 class PtM3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[PtM3]
 { type ThisT = PtM3Arr
-  def unsafeFromArray(array: Array[Double]): ThisT = new PtM3Arr(array)
+  def fromArray(array: Array[Double]): ThisT = new PtM3Arr(array)
   override def typeStr: String = "Metres3s"
   override def fElemStr: PtM3 => String = _ => "Undefined" //_.str
   override def newElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)

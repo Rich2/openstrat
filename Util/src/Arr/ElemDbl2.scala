@@ -96,7 +96,7 @@ trait Dbl2Arr[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqLike[A]
     unsafeArray.copyToArray(newArray)
     newArray(length) = op.dbl1
     newArray(length + 1) = op.dbl2
-    unsafeFromArray(newArray)
+    fromArray(newArray)
   }
 
   /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the sequence. */

@@ -13,6 +13,7 @@ trait ElemDbl7 extends Any with ElemDblN
   def dbl7: Double
 }
 
+/** A class that can be encoded by a sequence of 7 [[Double]]s. Includes [[Dbl7Arr]]s and [[Dbl7SeqSpec]] */
 trait Dbl7SeqLike[A <: ElemDbl7] extends Any with DblNSeqLike[A]
 { def elemProdSize: Int = 7
 

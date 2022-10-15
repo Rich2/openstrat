@@ -15,7 +15,7 @@ trait TriangleIsos extends Triangle
 final case class TriangleIsosGen(unsafeArray: Array[Double]) extends TriangleIsos with AxisFree
 {	type ThisT = TriangleIsosGen
 
-  override def unsafeFromArray(array: Array[Double]): TriangleIsosGen = new TriangleIsosGen(array)
+  override def fromArray(array: Array[Double]): TriangleIsosGen = new TriangleIsosGen(array)
   override def vertsTrans(f: Pt2 => Pt2): TriangleIsosGen = ???
 
   override def attribs: RArr[XANumeric] = ???

@@ -111,7 +111,7 @@ object HexReg
   final class HexRegImp(val unsafeArray: Array[Double]) extends HexReg with Show2[Pt2, Pt2]
   { override type ThisT = HexRegImp
 
-    override def unsafeFromArray(array: Array[Double]): HexRegImp = new HexRegImp(array)
+    override def fromArray(array: Array[Double]): HexRegImp = new HexRegImp(array)
 
     override def name1: String = "sd4Cen"
     override def name2: String = "sd1Cen"

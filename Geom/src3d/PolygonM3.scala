@@ -10,7 +10,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 { override type ThisT = PolygonM3
   override type SideT = LineSegM3
   override def dataElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
-  override def unsafeFromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
+  override def fromArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
   override def typeStr: String = "PolygonMetre3"
   override def fElemStr: PtM3 => String = _.toString
   def xyPlane: PolygonM2 = map(_.xy)

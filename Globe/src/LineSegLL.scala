@@ -31,7 +31,7 @@ object LineSegLL
  *  common parlance is often just referred to as a line. */
 class LineSegLLArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSegLL]
 { type ThisT = LineSegLLArr
-  def unsafeFromArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
+  def fromArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
   override def typeStr: String = "LineSegLLArr"
   override def fElemStr: LineSegLL => String = _.toString
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegLL = new LineSegLL(d1, d2, d3, d4)

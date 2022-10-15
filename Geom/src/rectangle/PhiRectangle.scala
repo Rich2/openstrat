@@ -48,7 +48,7 @@ object PhiRectangle
 
   class PhiRectangleImp(val unsafeArray: Array[Double]) extends PhiRectangle
   { override type ThisT = PhiRectangleImp
-    override def unsafeFromArray(array: Array[Double]): PhiRectangleImp = new PhiRectangleImp(array)
+    override def fromArray(array: Array[Double]): PhiRectangleImp = new PhiRectangleImp(array)
 
     override def width2: Double = sd0Cen.distTo(sd2Cen)
   }
@@ -56,7 +56,7 @@ object PhiRectangle
 
 class PhiRect(val unsafeArray: Array[Double]) extends Rect with PhiRectangle
 { override type ThisT = PhiRect
-  override def unsafeFromArray(array: Array[Double]): PhiRect = new PhiRect(array)
+  override def fromArray(array: Array[Double]): PhiRect = new PhiRect(array)
 
   override def typeStr: String = "PhiRect"
 
@@ -91,7 +91,7 @@ object PhiRect
 /** Not sure what this class is. */
 final class PhiRectY(val unsafeArray: Array[Double]) extends Rect with PhiRectangle
 { override type ThisT = PhiRectY
-  override def unsafeFromArray(array: Array[Double]): PhiRectY = new PhiRectY(array)
+  override def fromArray(array: Array[Double]): PhiRectY = new PhiRectY(array)
   override def typeStr: String = "PhiRectY"
 
   def width: Double = ???

@@ -147,7 +147,7 @@ object Rectangle
   /** A rectangle class that has position and may not be aligned to the X and Y axes. */
   final class RectangleImp(val unsafeArray: Array[Double]) extends Rectangle//S2S4
   { override type ThisT = RectangleImp
-    override def unsafeFromArray(array: Array[Double]): RectangleImp = new RectangleImp(array)
+    override def fromArray(array: Array[Double]): RectangleImp = new RectangleImp(array)
     override def vertsTrans(f: Pt2 => Pt2): RectangleImp = RectangleImp.s2s4v1(f(sd1Cen), f(sd3Cen), f(v0))
   }
 

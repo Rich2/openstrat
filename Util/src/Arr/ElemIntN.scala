@@ -60,8 +60,7 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
   }
 
   final def filter(f: A => Boolean): ThisT =
-  { val buff = new ArrayBuffer[Int](8)
-    var i = 0
+  { val buff = new ArrayBuffer[Int](4 * elemProdSize)
     foreach { a => if (f(a)) intBufferAppend(buff, a) }
     fromArray(buff.toArray)
   }

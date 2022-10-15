@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
  *  [[Polygon]] class and [[LinePath]] class should not entail a runtime cost. */
 final class Vec2s(val unsafeArray: Array[Double]) extends /*AffinePreserve with*/ Dbl2Arr[Vec2]
 { type ThisT = Vec2s
-  def unsafeFromArray(array: Array[Double]): Vec2s = new Vec2s(array)
+  def fromArray(array: Array[Double]): Vec2s = new Vec2s(array)
   override def typeStr: String = "Vec2s"
 
   @inline def lengthFull: Int = unsafeArray.length / 2

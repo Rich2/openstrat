@@ -90,7 +90,7 @@ object Rect
   final class RectImp(val unsafeArray: Array[Double]) extends Rect
   { type ThisT = RectImp
 
-    override def unsafeFromArray(array: Array[Double]): RectImp = new RectImp(array)
+    override def fromArray(array: Array[Double]): RectImp = new RectImp(array)
 
     override def typeStr: String = "Rect"
     def mapRectImp(f: Pt2 => Pt2): RectImp = RectImp.fromArray(unsafeMap(f))

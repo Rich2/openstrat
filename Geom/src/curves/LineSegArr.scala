@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
  *  segment, but what in common parlance is often just referred to as a line. */
 class LineSegArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSeg] with AffinePreserve
 { type ThisT = LineSegArr
-  def unsafeFromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
+  def fromArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
   override def typeStr: String = "LineSegArr"
   override def fElemStr: LineSeg => String = _.str
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)

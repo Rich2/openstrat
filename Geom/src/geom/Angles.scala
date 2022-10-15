@@ -6,7 +6,7 @@ final class Angles(val unsafeArray: Array[Double]) extends AnyVal with Dbl1Arr[A
 { override type ThisT = Angles
   override def typeStr: String = "Angles"
   override def newElem(dblValue: Double): Angle = Angle.secs(dblValue)
-  override def unsafeFromArray(array: Array[Double]): Angles = new Angles(array)
+  override def fromArray(array: Array[Double]): Angles = new Angles(array)
   override def fElemStr: Angle => String = _.toString
 
   /** Not sure about this method. */

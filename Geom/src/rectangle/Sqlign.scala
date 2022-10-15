@@ -6,7 +6,7 @@ import pWeb._
 final class Sqlign private(val unsafeArray: Array[Double]) extends Square with Rect with Show2[Double, Pt2]
 { override type ThisT = Sqlign
   override def typeStr: String = "Sqlign"
-  override def unsafeFromArray(array: Array[Double]): Sqlign = new Sqlign(array)
+  override def fromArray(array: Array[Double]): Sqlign = new Sqlign(array)
   override def vertsTrans(f: Pt2 => Pt2): Sqlign = Sqlign.fromArray(unsafeMap(f))
   def width: Double = v1x - v0x
   override def name1: String = "width"

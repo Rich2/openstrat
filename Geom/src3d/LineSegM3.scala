@@ -63,7 +63,7 @@ object LineSegM3
  *  common parlance is often just referred to as a line. */
 class LineSegM3Arr(val unsafeArray: Array[Double]) extends Dbl6Arr[LineSegM3]
 { type ThisT = LineSegM3Arr
-  def unsafeFromArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
+  def fromArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
   override def typeStr: String = "LineSegM3Arr"
   override def fElemStr: LineSegM3 => String = _.toString
 

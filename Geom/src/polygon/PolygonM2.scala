@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Dbl2SeqSpec[PtM2] with PolygonDbl2s[PtM2]
 { type ThisT = PolygonM2
   type SideT = LineSegM
-  def unsafeFromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
+  def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
   override def typeStr: String = "PolygonMs"
   override def ssElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def fElemStr: PtM2 => String = _.str

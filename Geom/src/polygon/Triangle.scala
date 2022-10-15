@@ -53,7 +53,7 @@ object Triangle
 
 	final class TriangleImp(val unsafeArray: Array[Double]) extends Triangle with AffinePreserve
 	{ override type ThisT = TriangleImp
-		override def unsafeFromArray(array: Array[Double]): TriangleImp = new TriangleImp(unsafeArray)
+		override def fromArray(array: Array[Double]): TriangleImp = new TriangleImp(unsafeArray)
 
 		override def vertsTrans(f: Pt2 => Pt2): TriangleImp = TriangleImp(f(v0), f(v1), f(v2))
 

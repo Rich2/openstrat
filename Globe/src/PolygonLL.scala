@@ -8,7 +8,7 @@ import geom._, collection.mutable.ArrayBuffer
 class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSpec with PolygonDbl2s[LatLong] with ElemArrayDbl
 { type ThisT = PolygonLL
   type SideT = LineSegLL
-  override def unsafeFromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
+  override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
   override def typeStr: String = "PolygonLL"
 
   /** maps the vertices of this [[PolygonLike]] from [[LatLong]]s to [[PtM3]]s. */

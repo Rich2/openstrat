@@ -7,7 +7,7 @@ final class TriangleEqui(val unsafeArray: Array[Double]) extends TriangleIsos wi
 { type ThisT = TriangleEqui
 
   override def typeStr: String = "TriangleEqui"
-  override def unsafeFromArray(array: Array[Double]): TriangleEqui = new TriangleEqui(array)
+  override def fromArray(array: Array[Double]): TriangleEqui = new TriangleEqui(array)
 
   override def height: Double = ???
   override def attribs: RArr[XANumeric] = ???

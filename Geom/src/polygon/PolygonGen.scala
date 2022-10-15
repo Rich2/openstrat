@@ -7,7 +7,7 @@ import Colour.Black, pWeb._
 final class PolygonGen(val unsafeArray: Array[Double]) extends Polygon with Pt2sLike with AffinePreserve with Dbl2SeqSpec[Pt2]
 { override type ThisT = PolygonGen
 
-  override def unsafeFromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
+  override def fromArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
   override def typeStr: String = "Polygon"
   override def vertsNum: Int = unsafeArray.length / 2
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)

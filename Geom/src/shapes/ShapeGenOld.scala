@@ -8,7 +8,7 @@ import Colour.Black
  *  a BezierSeg. */
 class ShapeGenOld(val unsafeArray: Array[Double]) extends Dbl7SeqSpec[CurveTail] with AffinePreserve
 { type ThisT = ShapeGenOld
-  def unsafeFromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
+  def fromArray(array: Array[Double]): ShapeGenOld = new ShapeGenOld(array)
   override def typeStr = "Shape"
   override def fElemStr: CurveTail => String = _.toString
 

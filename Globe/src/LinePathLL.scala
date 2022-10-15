@@ -6,7 +6,7 @@ package ostrat; package geom; package pglobe
  *  degrees as this may break the algorithms. */
 class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSpec with LinePathDbl2[LatLong]
 { override type ThisT = LinePathLL
-  override def unsafeFromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
+  override def fromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
   override def typeStr: String = "LinePathLL"
 
   /** Alias for concatElem. Concatenate [[LatLong]] element, returning a new [[LinePathLL]]. An immutable append. */

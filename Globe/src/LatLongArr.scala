@@ -15,7 +15,7 @@ trait LatLongSeqSpec extends Any with LatLongSeqLike with Dbl2SeqSpec[LatLong]
 /** Immutable flat efficient Array[Double] based collection class for [[LatLong]]s. Prefer [[PolygonLL]] or [[LineSegLL]] where applicable. */
 final class LatLongArr(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqLike with Dbl2Arr[LatLong]
 { override type ThisT = LatLongArr
-  override def unsafeFromArray(array: Array[Double]): LatLongArr = new LatLongArr(array)
+  override def fromArray(array: Array[Double]): LatLongArr = new LatLongArr(array)
   override def typeStr: String = "LatLongs"
 
   /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the sequence. */
