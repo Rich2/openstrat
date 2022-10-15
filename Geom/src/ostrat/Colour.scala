@@ -10,7 +10,7 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with ElemInt1
   /** The fill attribute for SVG. */
   def fillAttrib: FillAttrib = FillAttrib(this)
   
-  override def attribs: Arr[XmlAtt] = Arr(fillAttrib)
+  override def attribs: RArr[XmlAtt] = RArr(fillAttrib)
   @inline final override def intValue: Int = argbValue 
   def webStr: String = "#" + rgbHexStr + alpha.hexStr2
   def svgStr: String = Colour.valueToStr.get(this).fold(hexStr)(_.toLowerCase)
@@ -121,7 +121,7 @@ object Colour
   def fromInts(red: Int, green: Int, blue: Int, a: Int = 255): Colour = Colour(a * 256 * 256 * 256 + red * 256 * 256 + green * 256 + blue)
   def blackOrWhite(b: Boolean): Colour = if (b) Black else White
 
-  def pairs: Arr[(Colour, Colour)] = ???
+  def pairs: RArr[(Colour, Colour)] = ???
   
    /** named colors & values following CSS Color Module Level 4 - though names are UpperCamelCase here
        - plus 4 non standard colors: BrightSkyBlue, DarkYellow, LemonLime, LightRed*/

@@ -28,7 +28,7 @@ case class LsD2(canv: CanvasPlatform) extends CanvasNoPanels("Lesson D2")
   val t7 = tStr.findType[Pt2]
   val t8 = tStr.dblAtStsIndex(0)
 
-  val topStrs = Arr(t1, t2, t3, t4, t5, t6, t7, t8).map(_.toString)
+  val topStrs = RArr(t1, t2, t3, t4, t5, t6, t7, t8).map(_.toString)
   val topBlock = MText(200, topStrs)
   
   val arr = Array(4, 5, 6)

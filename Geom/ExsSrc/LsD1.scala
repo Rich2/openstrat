@@ -31,5 +31,5 @@ object SText
 }
 
 object MText
-{ def apply(y: Double, strs: StringArr): Arr[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 pp y, align = LeftAlign)
+{ def apply(y: Double, strs: StringArr): RArr[TextGraphic]  = TextGraphic.lines(strs, lineSpacing = 1.5, posn = -250 pp y, align = LeftAlign)
 }

@@ -36,5 +36,5 @@ object AmericasSouth extends EArea1("SAmericas", -6.52 ll -62.28)
   val SouthAmericaEast = EArea2("South America\neast", degs(-10.04, -45.81), jungle, nwSAmericaEN, nAmapa, amazonMouthS, paraiba, sSAmericaNE,
     nwSAmericaES)
 
-  override val a2Arr: Arr[EArea2] = Arr(SouthAmericaSouth, SouthAmericaWest, SouthAmericaEast)
+  override val a2Arr: RArr[EArea2] = RArr(SouthAmericaSouth, SouthAmericaWest, SouthAmericaEast)
 }

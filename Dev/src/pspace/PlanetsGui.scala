@@ -75,11 +75,11 @@ case class PlanetsGui(val canv: CanvasPlatform) extends MapGui("Planets")// with
     paused = !paused; reTop(cmds)
   }
    
-  def cmds: Arr[GraphicBounded] = Arr(bZoomIn, bZoomOut, pause) ++ sunPlus9.map(fBut)
+  def cmds: RArr[GraphicBounded] = RArr(bZoomIn, bZoomOut, pause) ++ sunPlus9.map(fBut)
   reTop(cmds)
   
   canv.startFrame((el, st) => out(el, st))
-  def mapObjs: Arr[CircleFill] = sunPlus9.map(_.paint(elapsed))
+  def mapObjs: RArr[CircleFill] = sunPlus9.map(_.paint(elapsed))
   
   def out(elapsedIn: Integer, startTime: Integer): Unit =
   { elapsed = elapsedIn

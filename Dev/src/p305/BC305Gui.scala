@@ -13,7 +13,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScenOld) extends EarthGuiOld("
   val minLat = 0.north
   //def focus: LatLong = lat * long
 
-  val tops: Arr[EArea1] = EarthAreas.oldWorld
+  val tops: RArr[EArea1] = EarthAreas.oldWorld
 //   override def eTop(): Unit = reTop(Seq(bIn, bOut, bLeft, bRight,
 //         bDown, bUp, bInv, status))
 //   /** 4 methods below are incorrect */
@@ -42,7 +42,7 @@ case class BC305Gui(canv: CanvasPlatform, scen: BcScenOld) extends EarthGuiOld("
       ifScaleCObjs(60, side.terr match
         {
           case SideNone => ifTiles((t1, t2) => t1.colour == t2.colour, (t1, _) => vertDispLine.draw(t1.colour.contrastBW, 1))
-          case Straitsold => Arr(vertDispLine.draw(Colour.Blue, 6))
+          case Straitsold => RArr(vertDispLine.draw(Colour.Blue, 6))
         })
    }   
          

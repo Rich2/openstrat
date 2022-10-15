@@ -25,11 +25,11 @@ trait Unshow[+T] extends TypeStr
   }
 
   /** Produces an ArrImut of the UnShow type from Statements (Refs[Statement]. */
-  def valuesFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: Arr[Statement])(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance): ArrT =
+  def valuesFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance): ArrT =
     sts.mapCollectGoods(fromStatement)(arrBuild)
 
   /** Finds value of this UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: Arr[Statement])(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance):
+  def findUniqueTFromStatements[ArrT <: SeqImut[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance):
     EMon[T] = valuesFromStatements(sts) match
   { case s if s.length == 0 => TextPosn.emptyError("No values of type found")
     case s if s.length == 1 => Good(s.head)
@@ -49,7 +49,7 @@ trait Unshow[+T] extends TypeStr
   }
 
   /** Finds an identifier setting with a value type of this UnShow instance from an Arr[Statement]. */
-  def settingFromStatements(sts: Arr[Statement], settingStr: String): EMon[T] = sts match
+  def settingFromStatements(sts: RArr[Statement], settingStr: String): EMon[T] = sts match
   { case Arr0() => TextPosn.emptyError("No Statements")
     case Arr1(st1) => settingTFromStatement(settingStr, st1)
     case s2 => sts.map(settingTFromStatement(settingStr, _)).collect{ case g @ Good(_) => g } match
@@ -60,7 +60,7 @@ trait Unshow[+T] extends TypeStr
   }
 
   /** Finds a key setting with Key type KT of the type of this UnShow instance from an Arr[Statement]. */
-  def keySettingFromStatements[KT](sts: Arr[Statement], settingCode: KT)(implicit evST: Unshow[KT]): EMon[T] = sts match
+  def keySettingFromStatements[KT](sts: RArr[Statement], settingCode: KT)(implicit evST: Unshow[KT]): EMon[T] = sts match
   { case Arr0() => TextPosn.emptyError("No Statements")
     case Arr1(st1) => keySettingFromStatement(settingCode, st1)
     case s2 => sts.map(keySettingFromStatement(settingCode, _)).collect{ case g @ Good(_) => g } match

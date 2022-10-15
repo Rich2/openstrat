@@ -57,7 +57,7 @@ object PapuaNewGuinea extends Flag
     val starLarge = ShapeGenOld(LineTail(-0.3326 pp 0.1901), LineTail(-0.3724 pp 0.06216), LineTail(-0.2676 pp 0.14), LineTail(-0.3976 pp 0.14),
       LineTail(-0.2928 pp 0.06076), LineTail(-0.3326 pp 0.1901)).fill(Colour(0xFFFFFFFF))
 
-    Arr(
+    RArr(
       base,
       topRightTriangle,
       bird,

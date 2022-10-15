@@ -12,7 +12,7 @@ case class ColourGen(canv: CanvasPlatform) extends CanvasNoPanels("Colour Genera
    (255 * fac).toInt
   }
   
-  val cols: Arr[(PolygonCompound, TextGraphic)] = ijkToMap(0, n)(0, n)(0, n) { (r, g, b) =>
+  val cols: RArr[(PolygonCompound, TextGraphic)] = ijkToMap(0, n)(0, n)(0, n) { (r, g, b) =>
     val r1 = intMaker(r)
     val g1 = intMaker(g)
     val b1 = intMaker(b)
@@ -24,7 +24,7 @@ case class ColourGen(canv: CanvasPlatform) extends CanvasNoPanels("Colour Genera
    
   val cols2 = cols.iFlatMap{ (i, pair) =>
     val offset = - 35 * i
-    Arr(pair._1.slateY(offset), pair._2.slateY(offset))
+    RArr(pair._1.slateY(offset), pair._2.slateY(offset))
   }
   repaint(cols2)
 }

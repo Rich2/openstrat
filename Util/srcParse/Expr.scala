@@ -25,17 +25,17 @@ trait CompoundClauseMemExpr extends CompoundExpr with ClauseMemExpr// with TextS
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeq extends ColonMemExpr
-{ def exprs: Arr[Expr]
+{ def exprs: RArr[Expr]
 }
 
 /** An ExprSeq can be a sequence of Statements or a Sequence of Clauses. */
 trait ExprSeqNonEmpty extends CompoundClauseMemExpr with ExprSeq
-{ def exprs: Arr[AssignMemExpr]
+{ def exprs: RArr[AssignMemExpr]
 }
 
 object ExprSeqNonEmpty
 {
-  def unapply(inp: Any): Option[Arr[Expr]] = inp match {
+  def unapply(inp: Any): Option[RArr[Expr]] = inp match {
     case esne: ExprSeqNonEmpty => Some(esne.exprs)
     case _ => None
   }
@@ -48,40 +48,40 @@ trait ClauseMemExprToken extends ClauseMemExpr with ClauseMemToken
 }
 
 trait BlockRaw
-{ def statements: Arr[Statement]
+{ def statements: RArr[Statement]
   def startMem = statements.head
   def endMem = statements.last
 }
 
 trait BlockStatements extends ExprSeqNonEmpty
-{ def statements: Arr[Statement]
-  def exprs: Arr[ColonMemExpr] = statements.map(_.expr).asInstanceOf[Arr[ColonMemExpr]]
+{ def statements: RArr[Statement]
+  def exprs: RArr[ColonMemExpr] = statements.map(_.expr).asInstanceOf[RArr[ColonMemExpr]]
   def startMem: Statement = statements.head
   def endMem: Statement = statements.last
 }
 
-case class FileStatements(statements: Arr[Statement]) extends BlockStatements
+case class FileStatements(statements: RArr[Statement]) extends BlockStatements
 { def exprName: String = "FileStatements"
 }
 
-case class StringStatements(statements: Arr[Statement]) extends BlockStatements
+case class StringStatements(statements: RArr[Statement]) extends BlockStatements
 { def exprName: String = "StringStatements"
 }
 
-case class ClausesExpr(clauses: Arr[Clause]) extends ExprSeqNonEmpty
-{ override def exprs: Arr[ClauseMemExpr] = clauses.map(_.expr)
+case class ClausesExpr(clauses: RArr[Clause]) extends ExprSeqNonEmpty
+{ override def exprs: RArr[ClauseMemExpr] = clauses.map(_.expr)
   def startMem = exprs.head
   def endMem = exprs.last
   override def exprName: String = "Claused Expr"
 }
 
-case class UnimplementedExpr(bMems: Arr[BlockMem]) extends CompoundClauseMemExpr
+case class UnimplementedExpr(bMems: RArr[BlockMem]) extends CompoundClauseMemExpr
 { def startMem = bMems.head
   def endMem = bMems.last
   override def exprName: String = "UnimplementedExpr"
 }
 
-case class AlphaBracketExpr(name: IdentifierToken, blocks: Arr[BracketedStatements]) extends CompoundClauseMemExpr
+case class AlphaBracketExpr(name: IdentifierToken, blocks: RArr[BracketedStatements]) extends CompoundClauseMemExpr
 { def startMem = name
   def endMem = blocks.last
   override def exprName: String = "AlphaBracketExpr"
@@ -115,7 +115,7 @@ case class ColonExpr(left: ColonMemExpr, asToken: ColonToken, right : ColonMemEx
   override def exprName: String = "ColonExpr"
 }
 
-case class SpacedExpr(exprs: Arr[ColonMemExpr]) extends CompoundClauseMemExpr
+case class SpacedExpr(exprs: RArr[ColonMemExpr]) extends CompoundClauseMemExpr
 { override def startMem = exprs(0)
   override def endMem = exprs.last
   override def exprName: String = "SpacedExprs"

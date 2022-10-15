@@ -6,26 +6,26 @@ case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) e
 { statusText = "Welcome to Game Four."
   val scen = scenStart
   def terrs: HCenLayer[Terr] = scen.terrs
-  var history: Arr[FourScen] = Arr(scen)
+  var history: RArr[FourScen] = RArr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   cPScale = viewIn.cPScale
   focus = viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
-  def lines: Arr[LineSegDraw] = terrs.projLinksLineOptMap{(ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
+  def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap{ (ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
-  def terrPolys: Arr[PolygonFill] = terrs.projRowsCombinePolygons.map{ pt => pt.polygon.fill(pt.a2.colour) }
+  def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map{ pt => pt.polygon.fill(pt.a2.colour) }
   debvar(terrPolys.length)
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  def actives: Arr[PolygonActive] = proj.tileActives
+  def actives: RArr[PolygonActive] = proj.tileActives
 
   def units: HCenOptLayer[Lunit] = scen.units
 
-  def unitGraphics: Arr[PolygonCompound] = units.projSomeHcPtMap { (p, hc, pt) =>
+  def unitGraphics: RArr[PolygonCompound] = units.projSomeHcPtMap { (p, hc, pt) =>
     Rect(160, 120, pt).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
-  def texts: Arr[TextGraphic] = units.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.rcStr, 14, terrs(hc).contrastBW) }
+  def texts: RArr[TextGraphic] = units.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.rcStr, 14, terrs(hc).contrastBW) }
 
   def moveGraphics: GraphicElems = units.someHCMap{ (u, hc) => LineSegHC(hc, hc.unsafeStep(u.cmds(0))).oldLineSeg.draw(units.unSafeApply(hc).colour)}
 

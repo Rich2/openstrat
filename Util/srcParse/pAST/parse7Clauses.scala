@@ -5,10 +5,10 @@ import collection.mutable.ArrayBuffer
 /** Function object parses [[Clause]]s. */
 object parse7Clauses
 {
-  /** Function apply method parses [[Clause]]s. Assumes input [[Arr]] is not empty. */
-  def apply (implicit seg: Arr[ColonOpMem]): EMon[ColonMemExpr] = fromOffset(seg.offset0)
+  /** Function apply method parses [[Clause]]s. Assumes input [[RArr]] is not empty. */
+  def apply (implicit seg: RArr[ColonOpMem]): EMon[ColonMemExpr] = fromOffset(seg.offset0)
 
-  def fromOffset(inp: ArrOff[ColonOpMem])(implicit seg: Arr[ColonOpMem]): EMon[ColonMemExpr] =
+  def fromOffset(inp: ArrOff[ColonOpMem])(implicit seg: RArr[ColonOpMem]): EMon[ColonMemExpr] =
   {
     var subAcc: ArrayBuffer[ClauseMem] = Buff()
     val acc: ArrayBuffer[Clause] = Buff()

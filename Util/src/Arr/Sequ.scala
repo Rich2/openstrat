@@ -267,7 +267,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     acc.reverse
   }
 
-  /** Maps over a function from A to any Iterable and flattens the result into an [[Arr]][A]. */
+  /** Maps over a function from A to any Iterable and flattens the result into an [[RArr]][A]. */
   def flatToIterableMap[B, ArrB <: SeqImut[B]](f: A => Iterable[B])(implicit ev: ArrBuilder[B, ArrB]): ArrB =
   { val buff = ev.newBuff(length)
     foreach(a => ev.buffGrowIter(buff, f(a)))

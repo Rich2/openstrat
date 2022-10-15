@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** Function object to parse [[ColonExpr]] from [[AssignMem]]s. */
 object parse6ColonExpr
 { /** Function apply method parses [[ColonExpr]] from [[AssignMem]]s. */
-  def apply(implicit seg: Arr[AssignMem]): EMon[AssignMemExpr] =
+  def apply(implicit seg: RArr[AssignMem]): EMon[AssignMemExpr] =
   {
     val leftAcc: ArrayBuffer[ColonOpMem] = Buff()
     val rightAcc: ArrayBuffer[ColonOpMem] = Buff()

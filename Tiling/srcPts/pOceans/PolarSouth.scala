@@ -9,5 +9,5 @@ object PolarSouth extends EArea1("PolarSouth", -89.9 ll 0)
     -82.6 ll -60.61, -80.31 ll -33.72, -78.61 ll -35.65/* db */, -72.27 ll -10.51)
    
    //override val gridMaker = E80Empty       
-   override val a2Arr: Arr[EArea2] = Arr(antartica)
+   override val a2Arr: RArr[EArea2] = RArr(antartica)
 }

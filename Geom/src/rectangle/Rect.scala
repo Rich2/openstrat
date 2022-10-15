@@ -30,7 +30,7 @@ trait Rect extends Rectangle with Rectangularlign with ShapeOrdinaled
 
   override def scaleXY(xOperand: Double, yOperand: Double): Rect = vertsTrans(_.xyScale(xOperand, yOperand))
 
-  override def activeChildren(id: AnyRef, children: GraphicElems): RectCompound = RectCompound(this, Arr(), active(id) %: children)
+  override def activeChildren(id: AnyRef, children: GraphicElems): RectCompound = RectCompound(this, RArr(), active(id) %: children)
 
   override def fill(fillColour: Colour): RectangleFill = RectFill(this, fillColour)
   override def fillInt(intValue: Int): RectFill = RectFill(this, Colour(intValue))
@@ -63,7 +63,7 @@ object Rect
    *  the bottom centre of the Rect at the origin. */
   def bCen(width: Double, height: Double, bottomCentre: Pt2 = Pt2Z): Rect = RectImp(width, height, bottomCentre.x, bottomCentre.y + height / 2)
 
-  def cross(width: Double, height: Double, barWidth: Double): Arr[Polygon] = Arr(apply(width, barWidth), apply(barWidth, height))
+  def cross(width: Double, height: Double, barWidth: Double): RArr[Polygon] = RArr(apply(width, barWidth), apply(barWidth, height))
 
   def goldenRatio(height: Double): Rectangle = apply(Phi * height, height)
 
@@ -103,7 +103,7 @@ object Rect
     override def width1: Double = width
     override def width2: Double = height
 
-    override def attribs: Arr[XANumeric] = ???
+    override def attribs: RArr[XANumeric] = ???
 
     /** Translate geometric transformation on a RectImp returns a RectImp. */
     override def slateXY(xDelta: Double, yDelta: Double): RectImp = mapRectImp(_.xySlate(xDelta, yDelta))

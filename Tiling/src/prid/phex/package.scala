@@ -5,7 +5,7 @@ package ostrat; package prid
 package object phex
 {
   /** The hex centre step values. */
-  val hcSteps: Arr[HDirn] = Arr(HexUR, HexRt, HexDR, HexDL, HStepLt, HStepUL)
+  val hcSteps: RArr[HDirn] = RArr(HexUR, HexRt, HexDR, HexDL, HStepLt, HStepUL)
 
   /** phex package extensions for Int. */
   implicit class IntGridImplicit(thisInt: Int)

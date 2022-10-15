@@ -29,9 +29,9 @@ abstract class FourScen(val turn: Int) extends HGridScen
   def terrs: HCenLayer[Terr]
   def units: HCenOptLayer[Lunit]
 
-  /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
+  /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def endTurn(orderList: Arr[(Lunit, HDirnArr)]): FourScen =
+  def endTurn(orderList: RArr[(Lunit, HDirnArr)]): FourScen =
   {
     val playersKey: Map[Lunit, HCen] = units.keyMap
 

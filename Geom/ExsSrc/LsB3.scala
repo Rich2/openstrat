@@ -8,7 +8,7 @@ case class LsB3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson B3")
   timedRepaint{e =>
     val e2 = e % 5000
     val e3 = 5000 - e2
-    Arr(
+    RArr(
       Rect(200, 100).slateX(e3 / 4 - 600).fill(Colour.fromInts(0, 255 * e2 / 5000, 255 * e3 / 5000)),
       Rect(200, 100).slateX(e2 / 4 - 600).fill(Colour.fromInts(255* e3 / 5000, 255 * e2 /5000, 0 ,  128))
     )

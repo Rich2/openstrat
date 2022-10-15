@@ -13,7 +13,7 @@ trait Flag
 
   def compound(evObj: AnyRef = this): PolygonCompound =
   { val rect = Rect(ratio, 1)
-    PolygonCompound(rect, Arr(), apply() +% rect.active(evObj))
+    PolygonCompound(rect, RArr(), apply() +% rect.active(evObj))
   }
 
   /** Equal width vertical bands. width ratio should normally be greater than 1.0 */
@@ -38,7 +38,7 @@ object PlainFlagMaker
   def apply(colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
   { override def name: String = colour.str + " Flag"
     override def ratio: Double = ratioIn
-    override def apply(): GraphicElems = Arr(rect.fill(colour))
+    override def apply(): GraphicElems = RArr(rect.fill(colour))
   }
 }
 
@@ -47,7 +47,7 @@ object TextFlagMaker
   def apply(str: String, colour: Colour, ratioIn: Double = 1.5): Flag = new Flag
   { override def name: String = str + " Flag"
     override def ratio: Double = ratioIn
-    override def apply(): GraphicElems = Arr(rect.fill(colour), TextGraphic(str, 40, Pt2Z))
+    override def apply(): GraphicElems = RArr(rect.fill(colour), TextGraphic(str, 40, Pt2Z))
   }
 }
 
@@ -66,7 +66,7 @@ object Chad extends Flag
 object China extends Flag
 { val name = "China"
   val ratio = 1.5
-  def apply(): GraphicElems = Arr(Rect(1.5, 1).fill(Red),
+  def apply(): GraphicElems = RArr(Rect(1.5, 1).fill(Red),
     Rect.tl(0.75, 0.5, - 0.75 pp 0.5).fill(DarkBlue))
 }
 
@@ -76,21 +76,21 @@ object Japan extends Flag
   def apply(): GraphicElems =
   { val rw = rect.fill(White)
     val circ = Circle(0.6).fill(Colour.fromInts(188, 0,45))
-    Arr(rw, circ)
+    RArr(rw, circ)
   }
 }
 
 object WhiteFlag extends Flag
 { val name = "White"
   val ratio = 1.5
-  def apply(): GraphicElems = Arr(Rect(1.5, 1).fill(White))
+  def apply(): GraphicElems = RArr(Rect(1.5, 1).fill(White))
 }
   
 object CommonShapesInFlags extends Flag
 { val name = "CommonShapesInFlags"
   val ratio = 1.5
 
-  def apply(): GraphicElems = Arr(
+  def apply(): GraphicElems = RArr(
     Rect(1.5, 1).fill(White),
 
     //off centre cross
@@ -123,7 +123,7 @@ object Iraq extends Flag
 { val name = "Iraq"
   val ratio = 1.5
   def apply(): GraphicElems =
-  { topToBottom(Colour(0xFFce1126), White, Black) ++ Arr(
+  { topToBottom(Colour(0xFFce1126), White, Black) ++ RArr(
       ShapeGenOld(LineTail(-0.34 pp 0.2997), BezierTail(-0.3409 pp 0.3002, -0.3419 pp 0.301, -0.3423 pp 0.3015),
         BezierTail(-0.3428 pp 0.3022, -0.3425 pp 0.3022, -0.3403 pp 0.3016), BezierTail(-0.3365 pp 0.3006, -0.334 pp 0.301, -0.3315 pp 0.3031),
         LineTail(-0.3293 pp 0.3049), LineTail(-0.3268 pp 0.3036), BezierTail(-0.3254 pp 0.3029, -0.3239 pp 0.3024, -0.3234 pp 0.3025),
@@ -182,6 +182,6 @@ object India extends Flag
     val outerCircle = Circle(20.0/75).fill(Colour(0xFF000080))
     val middleCircle = Circle(17.5/75).fill(Colour(0xFFFFFFFF))
     val innerCircle = Circle(3.5/75).fill(Colour(0xFF000080))
-    topToBottom(Colour(0xFFFF9933), White, Colour(0xFF138808)) ++ Arr(outerCircle, middleCircle, innerCircle) ++ spokes ++ rimNotches
+    topToBottom(Colour(0xFFFF9933), White, Colour(0xFF138808)) ++ RArr(outerCircle, middleCircle, innerCircle) ++ spokes ++ rimNotches
   }
 }

@@ -11,7 +11,7 @@ object LsA3a
   val rf2 = r2.fill(Colour.Gray)
   val c1 = Circle(100).fill(Green)
   val c1d = c1.scale2.toDraw()
-  val circles = Arr(r1f, rf2, Circle(100, 0, 200).fill(Violet), Circle(100, 200, 0).fill(SandyBrown), Circle(100, 0, -200).fill(Turquoise), c1d)
+  val circles = RArr(r1f, rf2, Circle(100, 0, 200).fill(Violet), Circle(100, 200, 0).fill(SandyBrown), Circle(100, 0, -200).fill(Turquoise), c1d)
   
   val arr = circles
 }

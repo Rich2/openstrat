@@ -30,7 +30,7 @@ case class AltReacGui(canv: CanvasPlatform, rows: Int, columns: Int) extends SqS
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn))
+  def thisTop(): Unit = reTop(RArr(bTurn))
   thisTop()
   def frame: GraphicElems = (ballDisps +% sidesDraw).slate(-focus).scale(cPScale)// ++ moveGraphics2
   //(tiles +- sidesDraw ++ roardTexts ++ lunits ).gridScale(scale)

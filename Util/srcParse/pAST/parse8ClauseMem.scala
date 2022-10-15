@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** Function object for parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
 object parse8ClauseMem
 { /** Function apply method parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
-  def apply(implicit inp: Arr[ClauseMem]): EMon[ClauseMemExpr] =
+  def apply(implicit inp: RArr[ClauseMem]): EMon[ClauseMemExpr] =
   {
     val acc: ArrayBuffer[ClauseMem] = Buff()
 
@@ -13,7 +13,7 @@ object parse8ClauseMem
     { case ArrOff0() => parse9PrefixPlus(acc.toArr)
 
       case ArrOff2Tail(at: IdentifierToken, bb: BracketedStatements, t2) => {
-        val abe = AlphaBracketExpr(at, Arr(bb))
+        val abe = AlphaBracketExpr(at, RArr(bb))
         acc.append(abe)
         loop(t2)
       }

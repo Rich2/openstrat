@@ -7,7 +7,7 @@ class SqGridStack(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val 
  // override def gridMans: Arr[SqGridMan] = ???
 
   /** The grids of this tile grid system. */
-  override val grids: Arr[SqGrid] = iUntilMap(0, numLevels)(l => new SqGrid(rOffset + bottomCenR, rOffset + topCenR, leftCenC, rightCenC))
+  override val grids: RArr[SqGrid] = iUntilMap(0, numLevels)(l => new SqGrid(rOffset + bottomCenR, rOffset + topCenR, leftCenC, rightCenC))
 
   override def arrIndex(sc: SqCen): Int = ???
   override def arrIndex(r: Int, c: Int): Int = ???

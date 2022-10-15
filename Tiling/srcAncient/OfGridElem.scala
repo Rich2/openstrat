@@ -18,14 +18,14 @@ trait OfGridElem[TileT <: TileAncient, SideT <: TileSideAncient, GridT <: TileGr
   def tScale: Double = psc * grid.xStep
 
   /** If the scale is equal or greater than the parameter value return the GraphicElems of the second parameter else return an empty Arr. */
-  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElems): GraphicElems = if (tScale >= ifScale) cObjs else Arr()
+  def ifScaleCObjs(ifScale: Double, cObjs: => GraphicElems): GraphicElems = if (tScale >= ifScale) cObjs else RArr()
 
-  def ifScaleCObj(ifScale: Double, cObj: GraphicElem *): GraphicElems = if (tScale > ifScale) cObj.toArr else Arr()
+  def ifScaleCObj(ifScale: Double, cObj: GraphicElem *): GraphicElems = if (tScale > ifScale) cObj.toArr else RArr()
 
-  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: GraphicElem *): GraphicElems = if (tScale > ifScale && b) cObjs.toArr else Arr()
+  def ifScaleIfCObj(ifScale: Double, b: Boolean, cObjs: GraphicElem *): GraphicElems = if (tScale > ifScale && b) cObjs.toArr else RArr()
 
   def ifScaleOptObjs[A >: Null <: AnyRef](ifScale: Double, eA: OptRef[A])(f: A => GraphicElems): GraphicElems =
-    if (tScale < ifScale) Arr() else eA.fld(Arr(), f(_))
+    if (tScale < ifScale) RArr() else eA.fld(RArr(), f(_))
 }
 
 /** I am happy with the fundamental concept behind the OfTile traits, documentation later */
@@ -44,9 +44,9 @@ trait OfSide[TileT <: TileAncient, SideT <: TileSideAncient, GridT <: TileGridAn
   def coodsLine: CoodLine = grid.vertCoodLineOfSide(cood)
   def vertDispLine: LineSeg = coodsLine.toLine2(coodToDispVec2)
 
-  def ifTiles[A <: AnyRef](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A)(implicit ct: ClassTag[A]): Arr[A] =
+  def ifTiles[A <: AnyRef](f: (TileT, TileT) => Boolean, fA: (TileT, TileT) => A)(implicit ct: ClassTag[A]): RArr[A] =
     grid.optSidesTiles(cood) match
-  { case (Some(t1), Some(t2)) => if (f(t1, t2)) Arr(fA(t1, t2)) else Arr()
-    case _ => Arr()
+  { case (Some(t1), Some(t2)) => if (f(t1, t2)) RArr(fA(t1, t2)) else RArr()
+    case _ => RArr()
   }
 }

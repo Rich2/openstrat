@@ -7,7 +7,7 @@ trait TwoScen extends SqGridScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. this is the same as Game one. */
   def oPlayers: SqCenOptLayer[Player]
 
-  def endTurn(orderList: Arr[(Player, SqDirn)]): TwoScen =
+  def endTurn(orderList: RArr[(Player, SqDirn)]): TwoScen =
   {
     val playersKey: Map[Player, SqCen] = oPlayers.keyMap
 

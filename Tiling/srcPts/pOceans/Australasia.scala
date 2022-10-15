@@ -139,5 +139,5 @@ object Australasia extends EArea1("Australasia", -23 ll 130)
   // override val grids = Seq()//AustraliaGrid) 
   // override val gridMaker = E80Empty
    
-  override val a2Arr: Arr[EArea2] = Arr(sumatra, borneo, sulawesi, javaIsland, newGuinea, australia, newZealandNIsland, newZealandSIsland)
+  override val a2Arr: RArr[EArea2] = RArr(sumatra, borneo, sulawesi, javaIsland, newGuinea, australia, newZealandNIsland, newZealandSIsland)
 }

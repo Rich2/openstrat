@@ -11,7 +11,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   //def gScale: Double = gridSys.cScale / scale
 
-  def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, Arr[GraphicElem]())
+  def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
   override def setView(view: Any): Unit = view match {
     case hv: HGView => {
       scale = parent.cScale / hv.cPScale
@@ -67,7 +67,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   def goEast: PolygonCompound = goDirn("\u2192") { delta => focus = ife(true/* northUp */, focus.addLongVec(delta.degsVec), focus.subLong(delta.degsVec)) }
 
   def goWest: PolygonCompound = goDirn("\u2190") { delta => focus = ife(true/* northUp */, focus.subLong(delta.degsVec), focus.addLongVec(delta.degsVec)) }
-  override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast)//, focusLeft, focusRight, focusUp, focusDown)
+  override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast)//, focusLeft, focusRight, focusUp, focusDown)
 //  val sides0 = sTerrs.truesMap(_.lineSegHC.map(gridSys.hCoordLL(_)))
 //
 //  def sides1: LineSegM3Arr = sides0.map {
@@ -87,7 +87,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   //def sides: GraphicElems = sides4.map { ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
   override def tilePolygons: PolygonArr = ???
 
-  override def tileActives: Arr[PolygonActive] = ???
+  override def tileActives: RArr[PolygonActive] = ???
 
   override def sideLines: LineSegArr = transLineSegM3Arr(parent.sideLineM3s)
   override def innerSideLines: LineSegArr = transLineSegM3Arr(parent.innerSideLineM3s)
@@ -130,9 +130,9 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   override def hCoordOptStr(hc: HCoord): Option[String] = Some(parent.hCoordLL(hc).degStr)
 
-  val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
-  def irr0: Arr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM(focus, true))// northUp))
-  def irr1: Arr[(EArea2, PolygonM2)] = irr0.filter(_._2.vertsMin3)
+  val eas: RArr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
+  def irr0: RArr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM(focus, true))// northUp))
+  def irr1: RArr[(EArea2, PolygonM2)] = irr0.filter(_._2.vertsMin3)
 
   def irrFills = irr1.map { pair =>
     val (d, p) = pair
@@ -143,11 +143,11 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
     p.map(_ / scale).fill(col)
   }
 
-  def irrLines: Arr[PolygonDraw] = irr1.map { a => a._2.map(_ / scale).draw(White) }
+  def irrLines: RArr[PolygonDraw] = irr1.map { a => a._2.map(_ / scale).draw(White) }
 
   def irrLines2: GraphicElems = ifGScale(2, irrLines)
 
-  def irrNames: Arr[TextGraphic] = irr1.map { pair =>
+  def irrNames: RArr[TextGraphic] = irr1.map { pair =>
     val (d, _) = pair
     val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
     TextGraphic(d.name, 12, posn, d.colour.contrastBW)

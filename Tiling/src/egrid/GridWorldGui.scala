@@ -5,11 +5,11 @@ import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 /** Displays grids on world as well as land masss outlines. */
 class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView) extends GlobeGui("Grid World")
 {
-  val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
+  val eas: RArr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
   implicit val gridSys: EGridSys = scenIn.gridSys
   var scale: Length = gridSys.cScale / viewIn.cPScale
   def gScale: Double = gridSys.cScale / scale
-  def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, Arr[GraphicElem]())
+  def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
   //def view: HGridView = HGridView()
 
@@ -26,11 +26,11 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
   val sideError = gridSys.numSides - gridSys.numInnerSides - gridSys.numOuterSides
   deb(s"In: ${gridSys.numInnerSides}, out: ${gridSys.numOuterSides}, total: ${gridSys.numSides}, error: $sideError, $g0Str" )
 
-  def frame: Arr[GraphicElem] =
+  def frame: RArr[GraphicElem] =
   {
     def irrFills: GraphicElems = proj match {
       case ep: HSysProjectionEarth => ep.irrFills//Lines2
-      case _ => Arr()
+      case _ => RArr()
     }
     def rcTexts = proj.ifGScale(20.5, optTexts)
 
@@ -45,7 +45,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
     def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
 
     def innerSidesDraw = proj.innerSidesDraw(2, White)
-    def innerSidesDraw2 = ifGScale(5, Arr(innerSidesDraw))
+    def innerSidesDraw2 = ifGScale(5, RArr(innerSidesDraw))
 
     def straits: LineSegArr =  proj.transHSides(sTerrs.trueHSides)
     def straitsDraw: GraphicElems = straits.map{ ls  => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
@@ -53,18 +53,18 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
     def outerLines = proj.outerSidesDraw(3, Gold)//  ifGScale(4, outers4)
 
     def seas: GraphicElems = proj match{
-      case ep: HSysProjectionEarth => Arr(earth2DEllipse(ep.scale).fill(LightBlue))
-      case _ => Arr()
+      case ep: HSysProjectionEarth => RArr(earth2DEllipse(ep.scale).fill(LightBlue))
+      case _ => RArr()
     }
 
     def irrLines: GraphicElems = proj match{
       case ep: HSysProjectionEarth => ep.irrLines2
-      case _ => Arr()
+      case _ => RArr()
     }
 
     def irrNames: GraphicElems = proj match {
       case ep: HSysProjectionEarth => ep.irrNames2
-      case _ => Arr()
+      case _ => RArr()
     }
     seas ++ irrFills ++ irrNames ++ tiles ++ innerSidesDraw2 +% outerLines ++ rcTexts ++ irrLines ++ straitsDraw
   }

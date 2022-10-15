@@ -23,17 +23,17 @@ case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Explori
 
   var controlEndOffset = 0 vv 150
   
-  val bezierPoints = Arr(startPoint, endPoint, controlStart, controlEnd)
+  val bezierPoints = RArr(startPoint, endPoint, controlStart, controlEnd)
 
   val quadraticStart = DragCircle(50 pp  0, Red)
   val quadraticEnd = DragCircle(150 pp  0, Red)
   val quadraticControl = DragCircle(100 pp -150, Gray)
-  val quadraticBezierPoints = Arr(quadraticStart, quadraticEnd, quadraticControl)
+  val quadraticBezierPoints = RArr(quadraticStart, quadraticEnd, quadraticControl)
 
   /** when one of the bezier points is being dragged, this will indicate which */
   var theDragee: Option[DragCircle] = None 
   
-  val allBezierPoints = Arr(startPoint, endPoint, controlStart, controlEnd, quadraticStart, quadraticEnd, quadraticControl)
+  val allBezierPoints = RArr(startPoint, endPoint, controlStart, controlEnd, quadraticStart, quadraticEnd, quadraticControl)
 
   drawBezier()
 
@@ -52,7 +52,7 @@ case class LsC7(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C7: Explori
     /** this holds the syntax required to draw the current bezier  (NB: replace ; with , ) */
     val txt = TextGraphic("BezierDraw(" + startPoint.loc + ", " + controlStart.loc + ", " + controlEnd.loc + ", " + endPoint.loc + ", 2, Green)", 18, 0 pp 300, Green)
     
-    val elementsToPaint = dragCircles ++ Arr(txt, startControlLine, endControlLine, bezier)
+    val elementsToPaint = dragCircles ++ RArr(txt, startControlLine, endControlLine, bezier)
 
     val quadraticBezier = Bezier(quadraticStart.loc, quadraticControl.loc, quadraticControl.loc, quadraticEnd.loc).draw(Blue, 2)
     val quadraticDragCircles = quadraticBezierPoints.map(dc => Circle(circleRadius, dc.loc).fill(dc.color))

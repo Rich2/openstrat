@@ -23,10 +23,10 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   var computerPlayers = Array(Red, Green, Yellow, Blue)
   val computerPlayer = new ComputerPlayer(aDefaultGame)
 
-  val player1Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 220, true), RadioOption(true, "COMPUTER", -180 pp 200, true)), 1)
-  val player2Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 160, true), RadioOption(true, "COMPUTER", -180 pp 140, true)), 1)
-  val player3Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 100, true), RadioOption(true, "COMPUTER", -180 pp 80, true)), 1)
-  val player4Options = RadioGroup(Arr(RadioOption(false, "HUMAN", -180 pp 40, true), RadioOption(true, "COMPUTER", -180 pp 20, true)), 1)
+  val player1Options = RadioGroup(RArr(RadioOption(false, "HUMAN", -180 pp 220, true), RadioOption(true, "COMPUTER", -180 pp 200, true)), 1)
+  val player2Options = RadioGroup(RArr(RadioOption(false, "HUMAN", -180 pp 160, true), RadioOption(true, "COMPUTER", -180 pp 140, true)), 1)
+  val player3Options = RadioGroup(RArr(RadioOption(false, "HUMAN", -180 pp 100, true), RadioOption(true, "COMPUTER", -180 pp 80, true)), 1)
+  val player4Options = RadioGroup(RArr(RadioOption(false, "HUMAN", -180 pp 40, true), RadioOption(true, "COMPUTER", -180 pp 20, true)), 1)
 
   val player1 = Checkbox(true, "PLAYER 1", -200 pp 240, true, (player1:Checkbox) => { player1Options.setEnabled(player1.isSelected) }, myColor = Red)
   val player2 = Checkbox(true, "PLAYER 2", -200 pp 180, true, (player2:Checkbox) => { player2Options.setEnabled(player2.isSelected) }, myColor = Green)
@@ -41,10 +41,10 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   newGame()
 
   def composeGUI():Unit =
-  { var config:GraphicElems = Arr()
+  { var config:GraphicElems = RArr()
     checkboxes.foreach(chkbx => config = config ++ chkbx.toGraphicElems())
     radioGroups.foreach(rdgp => config = config ++ rdgp.toGraphicElems())
-    val composition:GraphicElems = Arr(Rect(width, height, 0 pp 0).fill(Colour(0xFF181818)), gameBtn("new game", (mb: MouseButton) => { deb("3") })) ++ config ++ getCurrentPlayerIndicator()
+    val composition:GraphicElems = RArr(Rect(width, height, 0 pp 0).fill(Colour(0xFF181818)), gameBtn("new game", (mb: MouseButton) => { deb("3") })) ++ config ++ getCurrentPlayerIndicator()
     repaint(composition)
     ijUntilForeach(rows)(cols){ (r, c) =>
       val index = c+cols*r
@@ -183,7 +183,7 @@ case class ReactorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Reactor")
   { var totals = Map("Red"->0, "Yellow"->0, "Green"->0, "Blue"->0, "Black"->0)
     for(i <-0 to aDefaultGame.cellColors.length-1) totals(aDefaultGame.cellColors(i).toString) = totals(aDefaultGame.cellColors(i).toString) + aDefaultGame.cellCounts(i)
     // Array(Red,Yellow,Green,Blue).
-    Arr(Rect.bl(size/4, 2*totals("Red"), -3*size/4 pp 0).fill(Red), TextGraphic(totals("Red").toString, 7, -5*size/8 pp 7*size/8-size, White),
+    RArr(Rect.bl(size/4, 2*totals("Red"), -3*size/4 pp 0).fill(Red), TextGraphic(totals("Red").toString, 7, -5*size/8 pp 7*size/8-size, White),
         Rect.bl(size/4, 2*totals("Green"), -4*size/4 pp 0).fill(Green), TextGraphic(totals("Green").toString, 7, -7*size/8 pp 7*size/8-size, White),
         Rect.bl(size/4, 2*totals("Yellow"), -5*size/4 pp 0).fill(Yellow), TextGraphic(totals("Yellow").toString, 7, -9*size/8 pp 7*size/8-size, White),
         Rect.bl(size/4, 2*totals("Blue"), -6*size/4 pp 0).fill(Blue), TextGraphic(totals("Blue").toString, 7, -11*size/8 pp 7*size/8-size, White),

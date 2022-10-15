@@ -6,10 +6,10 @@
 package object ostrat
 { import collection.mutable.ArrayBuffer, reflect.ClassTag
   //type Buffer[A] = ArrayBuffer[A]
-  type EArr[A <: AnyRef] = EMon[Arr[A]]
-  type RefsMulti[A <: AnyRef] = Arr[Multiple[A]]
+  type EArr[A <: AnyRef] = EMon[RArr[A]]
+  type RefsMulti[A <: AnyRef] = RArr[Multiple[A]]
   type ShowEq[A] = ShowT[A] with EqT[A]
-  type AnyRefs = Arr[AnyRef]
+  type AnyRefs = RArr[AnyRef]
   type Not[T] = { type L[U] = U NotSubTypeOf T }
 
   val TwoPower0: Int = 1
@@ -484,12 +484,12 @@ package object ostrat
 
   /** Needs Changing. */
   implicit class RefBufferExtensions[A <: AnyRef](thisBuff: ArrayBuffer[A])
-  { /** Converts this ArrayBuffer straight to an [[Arr]]. */
-    @inline def toArr(implicit ct: ClassTag[A]): Arr[A] = new Arr[A](thisBuff.toArray[A])
+  { /** Converts this ArrayBuffer straight to an [[RArr]]. */
+    @inline def toArr(implicit ct: ClassTag[A]): RArr[A] = new RArr[A](thisBuff.toArray[A])
 
-    def goodRefs(implicit ct: ClassTag[A]): Good[Arr[A]] = Good(new Arr(thisBuff.toArray))
+    def goodRefs(implicit ct: ClassTag[A]): Good[RArr[A]] = Good(new RArr(thisBuff.toArray))
 
-    def toReverseRefs(implicit ct: ClassTag[A]): Arr[A] =
+    def toReverseRefs(implicit ct: ClassTag[A]): RArr[A] =
     { val len = thisBuff.length
       val acc: Array[A] = new Array[A](len)
       var count = 0
@@ -498,7 +498,7 @@ package object ostrat
       { acc(count) = thisBuff(len - 1 - count)
         count += 1
       }
-      new Arr(acc)
+      new RArr(acc)
     }
   }
   

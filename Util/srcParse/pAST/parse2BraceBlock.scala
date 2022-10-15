@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** Function object to parse a brace delineated block. */
 object parse2BraceBlock
 { /** Funton apply method parses input [[Token]]s into a brace syntax block. */
-  def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: Arr[Token]): EMon2[BracketedStatements, ArrOff[Token]] =
+  def apply(rem: ArrOff[Token], open: BracketOpen)(implicit arr: RArr[Token]): EMon2[BracketedStatements, ArrOff[Token]] =
   {
     val acc: ArrayBuffer[BlockMem] = Buff()
     def loop(rem: ArrOff[Token]): EMon2[BracketedStatements, ArrOff[Token]] = rem match

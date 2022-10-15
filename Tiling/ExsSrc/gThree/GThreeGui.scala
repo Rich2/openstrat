@@ -7,7 +7,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
-  var history: Arr[ThreeScen] = Arr(scen)
+  var history: RArr[ThreeScen] = RArr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptLayer[Player] = scen.oPlayers
   cPScale = viewIn.cPScale
@@ -27,16 +27,16 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.projNoneHcPtMap{ (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
+  def hexStrs: RArr[TextGraphic] = players.projNoneHcPtMap{ (hc, pt) => TextGraphic(hc.strComma, 20, pt) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  def actives: Arr[PolygonActive] = proj.tileActives
+  def actives: RArr[PolygonActive] = proj.tileActives
 
   /** Draws the tiles sides (or edges). */
   def sidesDraw: LinesDraw = proj.sidesDraw()
 
   /** This is the graphical display of the planned move orders. */
-  def moveGraphics: Arr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
+  def moveGraphics: RArr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
     val hss: HDirnArr = moves.withDefault(_ => HDirnArr())(p)
     hss.segsMap(hc, proj.transOptLineSeg) { ls => ls.draw(players.unSafeApply(hc).colour)
     }
@@ -51,7 +51,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn) ++ proj.buttons)
+  def thisTop(): Unit = reTop(RArr(bTurn) ++ proj.buttons)
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {

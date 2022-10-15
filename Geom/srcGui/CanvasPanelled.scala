@@ -5,7 +5,7 @@ import geom._
 /** A canvas divided up into panels. Each panel is clipped and has its own origin. */
 abstract class CanvasPanelled(title: String) extends CanvasUser(title)
 {
-  var panels: Arr[Panel] = Arr()
+  var panels: RArr[Panel] = RArr()
   
   def addPanel(clipPoly: Polygon, cover: Boolean = true): Panel =
   { val newPanel = Panel(this, clipPoly, cover)
@@ -28,7 +28,7 @@ abstract class CanvasPanelled(title: String) extends CanvasUser(title)
     canv.gcSave()
     canv.clip(clipPoly)
     canv.polygonFill(clipPoly.fill(panel.backColour))
-    val movedObjs: Arr[GraphicElem] = panel.canvObjs.slate(panel.clipVec)
+    val movedObjs: RArr[GraphicElem] = panel.canvObjs.slate(panel.clipVec)
     panel.actives = paintObjs(movedObjs)
     canv.gcRestore()
   }   

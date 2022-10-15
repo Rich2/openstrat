@@ -5,7 +5,7 @@ import pEarth._
 case class NTileAncient(x: Int, y: Int, terr: WTile) extends ETileAncient
 { type FromT = WTile
   def fromT = terr
-  var lunits: Arr[Corps] = Arr()
+  var lunits: RArr[Corps] = RArr()
 }
 
 object NTileAncient

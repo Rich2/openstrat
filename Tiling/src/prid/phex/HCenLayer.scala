@@ -95,9 +95,9 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     HCen(row, rightC)
   }
 
-  def rowsCombine(implicit grider: HGridSys): Arr[HCenRowTuple[A]] = grider.rowCombine(this, grider)
+  def rowsCombine(implicit grider: HGridSys): RArr[HCenRowTuple[A]] = grider.rowCombine(this, grider)
 
-  def projRowsCombine(implicit proj: HSysProjection): Arr[HCenRowTuple[A]] = proj.gChild.rowCombine(this, proj.parent)
+  def projRowsCombine(implicit proj: HSysProjection): RArr[HCenRowTuple[A]] = proj.gChild.rowCombine(this, proj.parent)
 
   def projRowsCombinePolygonHCs(implicit proj: HSysProjection, ct: ClassTag[A]): PolygonHCPairArr[A] = projRowsCombine.map(_.polygonHCTuple)
 

@@ -5,7 +5,7 @@ package ostrat; package geom
 object Cross
 {
   /** Temporary start. */
- def apply(scale: Double = 1, cen: Pt2 = Pt2Z): Arr[LineSegDraw] =
+ def apply(scale: Double = 1, cen: Pt2 = Pt2Z): RArr[LineSegDraw] =
  { val lh = LineSeg(-10 pp 0, 10 pp 0)
    val rh =  LineSeg(0 pp 10, 0 pp -10)
    LineSegArr(lh, rh)map(_.scale(scale).slate(cen).draw(lineWidth = 2))

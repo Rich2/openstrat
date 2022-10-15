@@ -9,7 +9,7 @@ case class LsC4(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C4")
   val r2 = r0.slateXY(300, 300)
   val r3 = r0.slateXY(300, -300)
   val r4 = r0.slateXY(-300, -300)
-  val rArr = Arr(r1, r2, r3, r4)
+  val rArr = RArr(r1, r2, r3, r4)
   var colour = Red
   def gArr = rArr.map(r => r.fillActive(colour, r.cenPt))
   val textPosn = 0 pp 0

@@ -17,7 +17,7 @@ trait SSPrimaryBody extends SSBody
 trait Planet extends SSPrimaryBody
 { val avSunDist: Length
   trait Moon extends SSBody
-  def moons: Arr[Moon] = Arr()
+  def moons: RArr[Moon] = RArr()
 }
 
 /** The Sun, the Star of our solar system. */

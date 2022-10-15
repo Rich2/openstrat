@@ -7,9 +7,9 @@ trait OneScen extends HSysTurnScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. */
   def oPlayers: HCenOptLayer[Player]
 
-  /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
+  /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
-  def endTurn(orderList: Arr[(Player, HDirn)]): OneScen =
+  def endTurn(orderList: RArr[(Player, HDirn)]): OneScen =
   {
     val playersKey: Map[Player, HCen] = oPlayers.keyMap
 

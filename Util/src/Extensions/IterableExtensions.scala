@@ -21,7 +21,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   /** If the collection is nonEmpty, return head of list convert to string or return the defualt string. */
   def headToStringElse(elseString: => String): String = headOnly(elseString, _.toString)
   
-  /** Converts to [[SeqImut]] of A. Most commonly an [[Arr]]. Prefer the mapArr method where appropriate which combines the conversion with a map operation. */
+  /** Converts to [[SeqImut]] of A. Most commonly an [[RArr]]. Prefer the mapArr method where appropriate which combines the conversion with a map operation. */
   def toArr[AA <: SeqImut[A]](implicit builder: ArrBuilder[A, AA]): AA =
   { val len = thisIter.size
     val res = builder.newArr(len)

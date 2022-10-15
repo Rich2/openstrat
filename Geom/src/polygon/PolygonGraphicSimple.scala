@@ -15,7 +15,7 @@ trait PolygonGraphicSimple extends PolygonGraphic with ShapeGraphicSimple
 
   override def reflect(lineLike: LineLike): PolygonGraphicSimple
 
-  override def nonShapeAttribs: Arr[XmlAtt] = ???
+  override def nonShapeAttribs: RArr[XmlAtt] = ???
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): PolygonGraphicSimple

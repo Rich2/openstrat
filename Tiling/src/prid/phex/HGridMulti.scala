@@ -7,7 +7,7 @@ trait HGridMulti extends HGridSys with TGridMulti
 { ThisMulti =>
   type GridT <: HGrid
   type ManT <: HGridMan
-  def gridMans: Arr[ManT]
+  def gridMans: RArr[ManT]
   def numGrids: Int = gridMans.length
 
   override def flatHCoordToPt2(hCoord: HCoord): Pt2 = unsafeGetManFunc(hCoord)(m => m.grid.flatHCoordToPt2(hCoord) + m.offset)
@@ -44,7 +44,7 @@ trait HGridMulti extends HGridSys with TGridMulti
   }
 
   /** Combine adjacent elements of data in a row. */
-  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys): Arr[HCenRowTuple[A]] = grids.flatMap(_.rowCombine(data, this))
+  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys): RArr[HCenRowTuple[A]] = grids.flatMap(_.rowCombine(data, this))
 
   final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
   override def adjTilesOfTile(tile: HCen): HCenArr = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))
@@ -81,7 +81,7 @@ trait HGridMulti extends HGridSys with TGridMulti
   override final def linksForeach(f: HSide => Unit): Unit = gridMans.foreach(_.innerSidesForeach(f))
   override final def edgesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
 
-  def sideBoolsFromGrids[A <: AnyRef](sideDataGrids: Arr[HSideBoolLayer]): HSideBoolLayer =
+  def sideBoolsFromGrids[A <: AnyRef](sideDataGrids: RArr[HSideBoolLayer]): HSideBoolLayer =
   { val res = newSideBools
     gridMansForeach{ m => m.sidesForeach{ hs =>
         val dGrid: HSideBoolLayer = sideDataGrids(m.thisInd)

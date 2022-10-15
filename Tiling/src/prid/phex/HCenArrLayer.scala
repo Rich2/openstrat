@@ -2,11 +2,11 @@
 package ostrat; package prid; package phex
 import reflect.ClassTag
 
-/** A [[HGridSys]] [[HCen]] data layer of [[Arr]]s. */
+/** A [[HGridSys]] [[HCen]] data layer of [[RArr]]s. */
 class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
 {
-  def apply(hc: HCen)(implicit grider: HGridSys): Arr[A] = new Arr(unsafeArray(grider.arrIndex(hc)))
-  def apply(r: Int, c: Int)(implicit grider: HGridSys): Arr[A] = new Arr(unsafeArray(grider.arrIndex(r, c)))
+  def apply(hc: HCen)(implicit grider: HGridSys): RArr[A] = new RArr(unsafeArray(grider.arrIndex(hc)))
+  def apply(r: Int, c: Int)(implicit grider: HGridSys): RArr[A] = new RArr(unsafeArray(grider.arrIndex(r, c)))
 
   def set(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = set(HCen(r, c), value)
 
@@ -34,7 +34,7 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
   {
     val buff = build.newBuff()
     grider.foreach { r =>
-      val el:Arr[A] = apply(r)
+      val el:RArr[A] = apply(r)
       if (el.ssLength >= 1) build. buffGrow(buff, f(r, el(0)))
     }
     build.buffToBB(buff)
@@ -45,7 +45,7 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
   {
     val buff = build.newBuff()
     grider.foreach { r =>
-      val el:Arr[A] = apply(r)
+      val el:RArr[A] = apply(r)
       if (el.ssLength >= 1) build.buffGrowArr(buff, f(r, el(0)))
     }
     build.buffToBB(buff)

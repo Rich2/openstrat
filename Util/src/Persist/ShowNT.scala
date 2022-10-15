@@ -46,7 +46,7 @@ trait ShowShowNT[R <: ShowN] extends ShowNT[R] with ShowShowT[R]
 
 trait UnshowN[R] extends Unshow[R] with TypeStrN
 {
-  protected def fromSortedExprs(sortedExprs: Arr[Expr], pSeq: IntArr): EMon[R]
+  protected def fromSortedExprs(sortedExprs: RArr[Expr], pSeq: IntArr): EMon[R]
 
   final override def fromExpr(expr: Expr): EMon[R] = expr match
   { case AlphaBracketExpr(IdentUpperToken(_, typeName), Arr1(ParenthBlock(sts, _, _))) if typeStr == typeName => fromExprSeq(sts.map(_.expr))
@@ -56,7 +56,7 @@ trait UnshowN[R] extends Unshow[R] with TypeStrN
   }
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
-  final def fromExprSeq(exprs: Arr[Expr]): EMon[R] =
+  final def fromExprSeq(exprs: RArr[Expr]): EMon[R] =
     if(exprs.length > numParams) Bad(StringArr(exprs.length.toString + " parameters for 2 parameter constructor."))
     else
     {

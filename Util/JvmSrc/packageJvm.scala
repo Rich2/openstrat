@@ -8,7 +8,7 @@ package object pjvm
   val yourDir: String = userHomeDir -/- "AppData/Local/OpenStratData"
 
   /** The resource folders and hence the developer settings folder are set in the build tool Sbt and Mill. They are not set in the code. */
-  lazy val devSettingsStatements: EMon[Arr[Statement]] = statementsFromResource("DevSettings.rson")
+  lazy val devSettingsStatements: EMon[RArr[Statement]] = statementsFromResource("DevSettings.rson")
 
   /** Find a setting of the given name and and return its Expr from the file DevSettings.rson. */
   def findDevSettingExpr(settingStr: String): EMon[AssignMemExpr] = devSettingsStatements.flatMap(_.findSettingExpr(settingStr))
@@ -71,7 +71,7 @@ package object pjvm
   }
 
   /** Function object apply method to get statements from a Java build resource. */
-  def statementsFromResource(fileName: String): EMon[Arr[Statement]] =
+  def statementsFromResource(fileName: String): EMon[RArr[Statement]] =
     eTry(io.Source.fromResource(fileName).toArray).flatMap(pParse.srcToEStatements(_, fileName))
 
   /** Function object apply method to get FileStatements from a Java build resource. */

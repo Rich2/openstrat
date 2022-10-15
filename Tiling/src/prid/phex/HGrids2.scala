@@ -10,7 +10,7 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   type GridT = HGrid
   val grid1 = HGridReg(minCenR, maxCenR, minC1, maxC1)
   val grid2 = HGridReg(minCenR, maxCenR, minC2, maxC2)
-  override def grids: Arr[HGrid] = Arr(grid1, grid2)
+  override def grids: RArr[HGrid] = RArr(grid1, grid2)
 
   val grid2OffsetC: Int = maxC1 - minC2 + 2
 
@@ -98,7 +98,7 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
     }
   }
 
-  override val gridMans: Arr[HGridMan] = Arr(gridMan1, gridMan2)
+  override val gridMans: RArr[HGridMan] = RArr(gridMan1, gridMan2)
 
   override def unsafeGetMan(r: Int, c: Int): HGridMan = ife(c <= maxC1, gridMan1, gridMan2)
 

@@ -7,9 +7,9 @@ trait PanelLike extends RectCenlign
 { var backColour: Colour = Colour.White
 
   /** The active objects registered with this [[PanelLike]]. */
-  var actives: Arr[GraphicActive] = Arr()
+  var actives: RArr[GraphicActive] = RArr()
 
-  var canvObjs: Arr[GraphicElem] = Arr()
+  var canvObjs: RArr[GraphicElem] = RArr()
 
   /** This method name is inconsistent with mouseUp on the canvas class*/
   var mouseUp: (MouseButton, AnyArr, Pt2) => Unit = (_, _, _) => {}

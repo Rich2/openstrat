@@ -9,13 +9,13 @@ object UnitCounters
   { val rect: Rect = Rect(1.5 * scale, scale)
     val linesColour = fillColour.contrast2(backgroundColour)
     val subj = rect.fillDrawActive(fillColour, evObj, 1, linesColour)
-    subj.addChildren(Arr(rect.diags.draw(1, linesColour)))
+    subj.addChildren(RArr(rect.diags.draw(1, linesColour)))
   }
 
   def cavalry(scale: Double, evObj: AnyRef, fillColour: Colour, backgroundColour: Colour): PolygonCompound =
   { val rect: Rect = Rect(1.5 * scale, scale)
     val linesColour = fillColour.contrast2(backgroundColour)
     val subj = rect.fillDrawActive(fillColour, evObj, 1, linesColour)
-    subj.addChildren(Arr(rect.diag1.draw(linesColour, 1)))
+    subj.addChildren(RArr(rect.diag1.draw(linesColour, 1)))
   }
 }

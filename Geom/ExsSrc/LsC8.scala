@@ -20,7 +20,7 @@ case class LsC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More sh
   val cCen = Drag(0 pp 150, Violet)
   val cRad = Drag(-70 pp 150, Orange)
   
-  val pts = Arr(p1, p2, c1, c2, cCen, cRad)
+  val pts = RArr(p1, p2, c1, c2, cCen, cRad)
 
   /** when one of the bezier points is being dragged, this will indicate which */
   var theDragee: Option[Drag] = None 
@@ -38,7 +38,7 @@ case class LsC8(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C8: More sh
     val circ = Circle(cRad.v.distTo(cCen.v), cCen.v).draw(Blue, 2.0)
     val ell = Ellipse(200, 100).fill(SeaGreen)
 
-    val elementsToPaint = cds ++ Arr(cl1, cl2, ell, circ, ell)
+    val elementsToPaint = cds ++ RArr(cl1, cl2, ell, circ, ell)
 
     repaint(elementsToPaint)
   }

@@ -21,5 +21,5 @@ abstract class UnfixedMapGui(title: String) extends MapGui(title)
   val bDown: PolygonCompound = clickButton("Dn")(downCmd)
   val bRight: PolygonCompound = clickButton("Rt")(rightCmd)
    
-  val guButs: Arr[PolygonCompound] = Arr(bIn, bOut, bLeft, bRight, bDown, bUp)
+  val guButs: RArr[PolygonCompound] = RArr(bIn, bOut, bLeft, bRight, bDown, bUp)
 }

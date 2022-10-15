@@ -16,7 +16,7 @@ final class Sqlign private(val unsafeArray: Array[Double]) extends Square with R
   override implicit def showT1: ShowT[Double] = ShowT.doublePersistEv
   override implicit def showT2: ShowT[Pt2] = Pt2.persistImplicit
   override def syntaxDepth: Int = 3
-  override def attribs: Arr[XANumeric] = ???
+  override def attribs: RArr[XANumeric] = ???
   override def width1 = width
   override def width2: Double = width
   override def height: Double = width

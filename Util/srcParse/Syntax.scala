@@ -3,7 +3,7 @@ package ostrat; package pParse
 
 trait Syntax
 {
-  def outLines(indent: Int)(implicit prefs: SyntaxPrefs): Arr[String]
+  def outLines(indent: Int)(implicit prefs: SyntaxPrefs): RArr[String]
   def out(implicit prefs: SyntaxPrefs): String = outLines(0)(prefs).foldLeft("")(_ + '\n' + _)
 }
 

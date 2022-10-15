@@ -35,16 +35,16 @@ trait EllipseCompound extends ShapeCompound with EllipseGraphic
 /** Companion object for the [[EllipseCompound]] trait contains factory apply method and implicit instances for the 2D geometric transformations.  */
 object EllipseCompound
 {
-  def apply(shape: Ellipse, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()): EllipseCompound =
+  def apply(shape: Ellipse, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()): EllipseCompound =
     new EllipseCompoundImplement(shape, facets, children)
 
   /** The implementation class for a general ellipse that is not defined as a circle. Most users will not need to interact with this class. It been
    * created non anonymously because the type might be useful for certain specialised performance usecases. */
-  final case class EllipseCompoundImplement(shape: Ellipse, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends
+  final case class EllipseCompoundImplement(shape: Ellipse, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends
     EllipseCompound with AxisFree
   {
     override type ThisT = EllipseCompoundImplement
-    override def attribs: Arr[XmlAtt] = ???
+    override def attribs: RArr[XmlAtt] = ???
 
     override def svgStr: String = ???
 

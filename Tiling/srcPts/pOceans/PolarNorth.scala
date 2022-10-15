@@ -29,7 +29,7 @@ object PolarNorth extends EArea1("NPole", 89.5 ll 0)
     long0, long15, long30, long45, long60, long75, long90, long105, long120, long135, long150, long165, long180, long195, long210, long225, long240,
     long255, long270, long285, Greenland.nwGreenland, Greenland.nGreenland, Greenland.neGreenland)
 
-  override val a2Arr: Arr[EArea2] = Arr(Greenland, Artic, Svalbard, Nordauslandet)
+  override val a2Arr: RArr[EArea2] = RArr(Greenland, Artic, Svalbard, Nordauslandet)
 }
 
 object Greenland extends EArea2("Greenland", degs(75, -42), ice){

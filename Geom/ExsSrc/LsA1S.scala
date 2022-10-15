@@ -5,7 +5,7 @@ import ostrat._, geom._, pgui._, Colour._, pWeb._
 object LsA1 extends GraphicsA
 { val title = "Lesson A1"
 
-  val output = Arr(
+  val output = RArr(
     Circle(100, 0, 0).fill(SeaGreen),
     Circle(70, 50, 80).fill(Orange),
     Circle(80, 300, 0).fill(Red),
@@ -13,7 +13,7 @@ object LsA1 extends GraphicsA
     Circle(40, 0, -220).fill(DarkGoldenRod),
   )
 
-  val head = HtmlHead(Arr(HtmlTitle("Lesson A1")))
+  val head = HtmlHead(RArr(HtmlTitle("Lesson A1")))
   val bodyStr =
     """<h1>Lesson A1</h1>
       |<p>This lesson covers Circles and Ellipses. As with the other lessons there will be a summary for those familiar with Scala and anumber of step

@@ -24,9 +24,9 @@ case class British(var posn: Pt2) extends Company
 }
 
 trait BScen
-{ val lunits: Arr[Company]
+{ val lunits: RArr[Company]
 }
 
 object Nap1 extends BScen
-{ val lunits = Arr(French(Pt2(0, - 200)), British(Pt2(0, 200)))
+{ val lunits = RArr(French(Pt2(0, - 200)), British(Pt2(0, 200)))
 }

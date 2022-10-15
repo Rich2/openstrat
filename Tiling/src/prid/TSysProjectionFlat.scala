@@ -18,7 +18,7 @@ trait TSysProjectionFlat extends TSysProjection
 
   def pixTileScaleStr = s"scale = ${pixTileScale.str2} pixels per tile"
 
-  final override val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
+  final override val buttons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 
   def zoomIn: PolygonCompound = clickButton("+") { _ =>
     pixCScale *= 1.1

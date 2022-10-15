@@ -58,7 +58,7 @@ object srcToETokensTest extends TestSuite
     val st4 = "\n End of Comment. */"
     val st5 = st1 + "\n" + st2 + st4
     val et5 = st5.parseTokens
-    implicit val r5: Arr[Token] = et5.get
+    implicit val r5: RArr[Token] = et5.get
     val ro6: ArrOff[Token] = r5.offset(4)
 
     "Settings" -

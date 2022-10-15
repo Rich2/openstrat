@@ -10,7 +10,7 @@ final class TriangleEqui(val unsafeArray: Array[Double]) extends TriangleIsos wi
   override def unsafeFromArray(array: Array[Double]): TriangleEqui = new TriangleEqui(array)
 
   override def height: Double = ???
-  override def attribs: Arr[XANumeric] = ???
+  override def attribs: RArr[XANumeric] = ???
   override def vertsTrans(f: Pt2 => Pt2): TriangleEqui = ???
 
   override def rotate(angle: AngleVec): TriangleEqui = ???

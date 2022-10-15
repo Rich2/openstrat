@@ -152,5 +152,5 @@ object CanvElem
  * elements. */
 trait NoCanvElem extends GraphicElem
 { /** This method converts this non standard graphic element into [[CanvElem]]s that can be processed by the [[pCanv.CanvasPlatform]]. */
-  def canvElems: Arr[CanvElem]
+  def canvElems: RArr[CanvElem]
 }

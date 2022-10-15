@@ -11,7 +11,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   override def draw(lineColour: Colour = Black, lineWidth: Double): EllipseDraw = EllipseDraw(this, lineColour, lineWidth)
 
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): GraphicElem =
-    EllipseCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)))
+    EllipseCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
 
   final override def cen: Pt2 = cenX pp cenY
 
@@ -39,7 +39,7 @@ trait Ellipse extends EllipseBased with ShapeCentred
   def cyAttrib: XANumeric = XANumeric("cy", cenY)
   def rxAttrib: XANumeric = XANumeric("rx", radius1)
   def ryAttrib: XANumeric = XANumeric("ry", radius2)
-  def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
+  def attribs: RArr[XANumeric] = RArr(cxAttrib, cyAttrib, rxAttrib, ryAttrib)
   def boundingRect: BoundingRect
 
   def fTrans(f: Pt2 => Pt2): Ellipse = Ellipse.cenAxes1axes4(f(cen), f(axesPt1), f(axesPt4))

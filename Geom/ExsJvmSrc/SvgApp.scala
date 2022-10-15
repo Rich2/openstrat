@@ -7,13 +7,13 @@ object SvgApp extends App
 { val cof1 = Circle(80).fill(Orange).svgInline  
   val cof2 = Circle(120).fill(Red).svgInline
   val cof3 = Circle(80, 80, 50).fill(Gold).svgInline
-  val cof4 = Arr(Circle(100, -50, 50).fill(Pink), Circle(100, 50, -50).fill(Colour.LightBlue)).svgInline()
+  val cof4 = RArr(Circle(100, -50, 50).fill(Pink), Circle(100, 50, -50).fill(Colour.LightBlue)).svgInline()
   val e1 = Ellipse(90, 60)
   val ef1 = e1.fill(DarkMagenta).svgInline
   val ef2 = e1.rotate15.fill(Colour.BurlyWood).svgInline
   val s3 = "<svg><circle cx=75 cy=75 r=75 fill=orange /><circle cx=225 cy=75 r=75 fill=violet /><circle cx=300 cy=75 r=25 fill=red /></svg>"  
   val s3Sub = s3.htmlReservedSubstitute
-  val ef3 = Arr(Circle(75, 75, 0).fill(Orange), Circle(75, 225, 0).fill(Violet), Circle(25, 300, 0).fill(Red)).svgInline()
+  val ef3 = RArr(Circle(75, 75, 0).fill(Orange), Circle(75, 225, 0).fill(Violet), Circle(25, 300, 0).fill(Red)).svgInline()
   
   val bodyStr: String = 
     s"""<p>So this is some relatively simple HTML. The formatting of this example has deliberately been kept simple. For that reason no CSS has been

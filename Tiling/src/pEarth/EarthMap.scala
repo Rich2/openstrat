@@ -5,7 +5,7 @@ import pGrid._, reflect.ClassTag
 /** An all world map, parametrised by Tile and Tile side types. */
 class EarthAllMap[TileT <: TileAncient, SideT <: TileSideAncient](fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
   (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
-{ override val tops: Arr[EArea1] = EarthAreas.allTops
+{ override val tops: RArr[EArea1] = EarthAreas.allTops
 }
 
 class OldWorldMap[TileT <: TileAncient, SideT <: TileSideAncient](val fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
@@ -21,17 +21,17 @@ class OldWorldMap[TileT <: TileAncient, SideT <: TileSideAncient](val fTile: (In
     val newTile = f(oldTile, Cood(tr._1, tr._2), tr._3)
     setTile(tr._1, tr._2, newTile)
   }
-  val tops: Arr[EArea1] = EarthAreas.oldWorld
-  val grids: Arr[EGridAncient[TileT, SideT]] = EarthAreas.grids.map(_.apply[TileT, SideT](fTile, fSide, evTile, evSide))
+  val tops: RArr[EArea1] = EarthAreas.oldWorld
+  val grids: RArr[EGridAncient[TileT, SideT]] = EarthAreas.grids.map(_.apply[TileT, SideT](fTile, fSide, evTile, evSide))
   grids(0).rightGrid = Some(grids(1))
 }
 
 /** Object for irregular areas and hexagonal tile grids to represent the Earths surface. */
 object EarthAreas
 { import pPts._, pEurope._
-  val oldWorld: Arr[EArea1] = Arr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, NorthAtantic)
-  val newWorld: Arr[EArea1] = Arr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricanTrangle)
-  val grids: Arr[EGridMaker] = Arr(EuropeNWGridAncient, EuropeNEGridAncient)
+  val oldWorld: RArr[EArea1] = RArr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, NorthAtantic)
+  val newWorld: RArr[EArea1] = RArr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricanTrangle)
+  val grids: RArr[EGridMaker] = RArr(EuropeNWGridAncient, EuropeNEGridAncient)
 
-  def allTops: Arr[EArea1] =  oldWorld ++ newWorld
+  def allTops: RArr[EArea1] =  oldWorld ++ newWorld
 }

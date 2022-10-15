@@ -72,7 +72,7 @@ lazy val UtilJs = jsProj("Util").settings(
   Compile / sourceGenerators += Def.task {
     val str = scala.io.Source.fromFile("Util/srcArr/Arr.scala").mkString
     val str2 = str.replaceAll("AnyVal with ", "")
-    val arr = (Compile / sourceManaged).value / "Js" / "Arr.scala"
+    val arr = (Compile / sourceManaged).value / "Js" / "RArr.scala"
     IO.write(arr, str2)
     Seq(arr)
   }.taskValue,
@@ -186,7 +186,7 @@ lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlug
   Compile / sourceGenerators += Def.task {
     val str = scala.io.Source.fromFile("Util/srcArr/Arr.scala").mkString
     val str2 = str.replaceAll("AnyVal with ", "")
-    val arr = (Compile / sourceManaged).value / "Js" / "Arr.scala"
+    val arr = (Compile / sourceManaged).value / "Js" / "RArr.scala"
     IO.write(arr, str2)
     Seq(arr)
   }.taskValue,

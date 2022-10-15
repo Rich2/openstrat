@@ -6,7 +6,7 @@ import geom._, pglobe._, LatLong._, WTile._
 object AfricanTrangle extends EArea1("African Triangle", -16.14 ll 24.36)
 { type A2Type = EArea2
   import AfricaSouthernPts._
-  override val a2Arr: Arr[EArea2] = Arr(LakeVictoria, LakeTanganyika, southernAfrica, CentralAfricaWest, centralAfricaEast, madagascar)
+  override val a2Arr: RArr[EArea2] = RArr(LakeVictoria, LakeTanganyika, southernAfrica, CentralAfricaWest, centralAfricaEast, madagascar)
 }
 
 /** Lake Victoria. */

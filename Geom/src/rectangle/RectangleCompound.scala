@@ -5,7 +5,7 @@ import pWeb._
 /** A compound graphic for rectangles. */
 trait RectangleCompound extends PolygonCompound with RectangleGraphic
 {
-  override def attribs: Arr[XmlAtt] = ???
+  override def attribs: RArr[XmlAtt] = ???
 
   override def svgStr: String = ???
 
@@ -43,14 +43,14 @@ trait RectangleCompound extends PolygonCompound with RectangleGraphic
  * Rectangles and an apply factor method that delegats to it. */
 object RectangleCompound
 {
-  def apply(shape: Rectangle, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) : RectangleCompound =
+  def apply(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) : RectangleCompound =
     new RectangleCompoundImp(shape, facets, children)
 
-  case class RectangleCompoundImp(shape: Rectangle, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends RectangleCompound with
+  case class RectangleCompoundImp(shape: Rectangle, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends RectangleCompound with
     AxisFree
   {
     override type ThisT = RectangleCompoundImp
-    override def attribs: Arr[XmlAtt] = ???
+    override def attribs: RArr[XmlAtt] = ???
 
     override def svgStr: String = ???
 

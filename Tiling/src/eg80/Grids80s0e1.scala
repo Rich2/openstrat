@@ -6,9 +6,9 @@ object Grids80s0e1 extends EGrid80LongMulti
 { ThisSys =>
 
   override def cGridDelta: Double = 40
-  override val grids: Arr[EGridLongFull] = Arr(EGrid80.l0b446, EGrid80.l30b446)
+  override val grids: RArr[EGridLongFull] = RArr(EGrid80.l0b446, EGrid80.l30b446)
   override def headGridInt: Int = 0
-  override val gridMans: Arr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
+  override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
 
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
@@ -21,5 +21,5 @@ object Grids80s0e1 extends EGrid80LongMulti
 
 object Scen80s0s1 extends EScenLongMulti
 { override val gridSys: EGrid80LongMulti = Grids80s0e1
-  override val longs: Arr[LongTerrs] = Arr(Terr80E0, Terr80E30)
+  override val longs: RArr[LongTerrs] = RArr(Terr80E0, Terr80E30)
 }

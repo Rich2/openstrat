@@ -63,5 +63,5 @@ abstract class TGridSysGui(title: String) extends CmdBarGui(title)
     Vec2(v.x, newY)
   }
 
-  def navButtons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
+  def navButtons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 }

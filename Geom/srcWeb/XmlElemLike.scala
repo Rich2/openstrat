@@ -5,8 +5,8 @@ package ostrat; package pWeb
 trait XmlElemLike extends XCon
 { /** The XML /HTML tag String. A tag is a markup construct that begins with < and ends with > */
   def tag: String
-  def attribs: Arr[XmlAtt]
-  def contents: Arr[XCon]
+  def attribs: RArr[XmlAtt]
+  def contents: RArr[XCon]
 
   def attribsOut: String = ife(attribs.empty, "", " " + attribs.foldStr(_.str, " ") + " ")
   def openAtts: String = "<" + tag + attribsOut

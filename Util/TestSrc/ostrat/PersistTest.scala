@@ -29,7 +29,7 @@ object PersistTest extends TestSuite
     val str1: String = "I am a String"
     val str1Std: String = "\"I am a String\""
     val abSeq = Seq(TestObjA, TestObjB)
-    val abRefs = Arr(TestObjA, TestObjB)
+    val abRefs = RArr(TestObjA, TestObjB)
     val sStr = "Seq[TestClass](TestObjA; TestObjB)"
     val mc = My2(IntArr(7, 8, 9), "hi")
     

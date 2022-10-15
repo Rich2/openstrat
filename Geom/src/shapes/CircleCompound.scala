@@ -3,11 +3,11 @@ package ostrat; package geom
 import pWeb._
 
 /** Compound Circle Graphic class. */
-case class CircleCompound(shape: Circle, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends EllipseCompound with
+case class CircleCompound(shape: Circle, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends EllipseCompound with
   CircleGraphic with AxisFree
 {
   override type ThisT = CircleCompound
-  override def attribs: Arr[XmlAtt] = ???
+  override def attribs: RArr[XmlAtt] = ???
 
   override def rendToCanvas(cp: pgui.CanvasPlatform): Unit = facets.foreach {
     case c: Colour => cp.circleFill(CircleFill(shape, c))

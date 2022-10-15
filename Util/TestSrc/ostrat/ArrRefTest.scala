@@ -18,14 +18,14 @@ object ArrRefTest extends TestSuite
   }
 
   val tests = Tests {
-    val myAArr1: Arr[MyA] = Arr(MyA(1), MyA(2), MyA(3))
-    val myBArr1: Arr[MyB] = Arr(MyB(4), MyB(5))
-    val myTArr1: Arr[MyT] = myAArr1 ++ myBArr1
+    val myAArr1: RArr[MyA] = RArr(MyA(1), MyA(2), MyA(3))
+    val myBArr1: RArr[MyB] = RArr(MyB(4), MyB(5))
+    val myTArr1: RArr[MyT] = myAArr1 ++ myBArr1
     val ints1 = myTArr1.map(_.i * 10)
     val ints2: IntArr = IntArr(5, 6, 7)
-    val myTArr2: Arr[MyT] = ints2.flatMap(i => Arr(MyA(i), MyB(i)))
+    val myTArr2: RArr[MyT] = ints2.flatMap(i => RArr(MyA(i), MyB(i)))
     val myRefs1 = ints2.map(MyA(_))
-    val refs2: Arr[MyA] = ints2.map(MyA(_))
+    val refs2: RArr[MyA] = ints2.map(MyA(_))
     val ints3: IntArr = refs2.map(_.i)
 
     test("map")
@@ -43,10 +43,10 @@ object ArrRefTest extends TestSuite
     val b1 = MyB(3)
     val b2 = MyB(7)
     val b3 = MyB(7)
-    val arr1: Arr[MyT] = Arr(a1, b1, b2)
-    val arr2: Arr[MyT] = Arr(a1, b1, b2)
-    val arr3: Arr[MyT] = Arr(a1, b1, b3)
-    val arr4: Arr[MyT] = Arr(a1, b2, b3)
+    val arr1: RArr[MyT] = RArr(a1, b1, b2)
+    val arr2: RArr[MyT] = RArr(a1, b1, b2)
+    val arr3: RArr[MyT] = RArr(a1, b1, b3)
+    val arr4: RArr[MyT] = RArr(a1, b2, b3)
     test("Equality")
     {
       (arr1 === arr2) ==> true

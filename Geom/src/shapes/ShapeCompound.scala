@@ -5,12 +5,12 @@ package geom
 /** A shape based compound graphic. */
 trait ShapeCompound extends ShapeGraphic with NoCanvElem
 { 
-  def facets: Arr[GraphicFacet]
+  def facets: RArr[GraphicFacet]
 
-  override def canvElems: Arr[CanvElem] = ???
+  override def canvElems: RArr[CanvElem] = ???
   
   /** The [[ShapeCompound]] type will be widened at a later point. */
-  def children: Arr[GraphicElem]
+  def children: RArr[GraphicElem]
 
   /** 2D geometric translation transformation on this ShapeCompound, returns a ShapeCompound. Return type may be narrowed in sub class /traits. */
   override def slateXY(xDelta: Double, yDelta: Double): ShapeCompound

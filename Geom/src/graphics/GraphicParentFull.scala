@@ -8,9 +8,9 @@ trait GraphicParentFull extends GraphicAffineElem with GraphicActiveSim with Gra
   def cen: Pt2
 
   /** The type of children can probably be widened in the future. */
-  def children: Arr[GraphicAffineElem]
+  def children: RArr[GraphicAffineElem]
 
-  def addElems(newElems: Arr[GraphicAffineElem]): ThisT
-  def addElem(newElem: GraphicAffineElem): ThisT = addElems(Arr(newElem))
+  def addElems(newElems: RArr[GraphicAffineElem]): ThisT
+  def addElem(newElem: GraphicAffineElem): ThisT = addElems(RArr(newElem))
   def mutObj(newObj: AnyRef): ThisT
 }

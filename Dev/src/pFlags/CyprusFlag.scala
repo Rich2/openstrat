@@ -255,7 +255,7 @@ object Cyprus extends Flag
       BezierTail(-0.2581 pp -0.1778, -0.2584 pp -0.1781, -0.2586 pp -0.1782), BezierTail(-0.2589 pp -0.1783, -0.2591 pp -0.1784, -0.2594 pp -0.1784),
       LineTail(-0.2593 pp -0.1784)).fill(Colour(0xFF4e5b31))
 
-    Arr[GraphicElem](background, cMap,
+    RArr[GraphicElem](background, cMap,
       leaf01, leaf02, leaf03, leaf04, leaf05, leaf06, leaf07, leaf08, leaf09, leaf10, leaf11, leaf12, leaf13, leaf14, leaf15, leaf16, leaf17, leaf18,
       leaf01.negX, leaf02.negX, leaf03.negX, leaf04.negX, leaf05.negX, leaf06.negX, leaf07.negX, leaf08.negX, leaf09.negX, leaf10.negX,
       leaf11.negX, leaf12.negX, leaf13.negX, leaf14.negX, leaf15.negX, leaf16.negX, leaf17.negX, leaf18.negX

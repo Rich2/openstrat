@@ -17,7 +17,7 @@ trait ThreeScen extends HSysTurnScen
   def playersData: Map[Player, HDirnArr] = Map()
   lazy val playersKey: Map[Player, HCen] = oPlayers.keyMap
 
-  /** Resolves turn. Takes a list [[Arr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
+  /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def endTurn(orderList: Map[Player, HDirnArr]): ThreeScen =
   {

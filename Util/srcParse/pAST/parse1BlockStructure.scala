@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 object parse1BlockStructure
 {
   /** Function apply method to parse the brace delineated block syntax structure from the input [[Token]] sequence. */
-  def apply(implicit tokens: Arr[Token]): EArr[BlockMem] =
+  def apply(implicit tokens: RArr[Token]): EArr[BlockMem] =
   {
     val acc: ArrayBuffer[BlockMem] = Buff()
 

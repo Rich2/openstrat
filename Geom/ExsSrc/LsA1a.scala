@@ -4,7 +4,7 @@ import ostrat._, geom._, pgui._, Colour._
 
 object LsA1a
 {
-  val arr = Arr(
+  val arr = RArr(
     Circle(200, 0, 0).fill(SeaGreen),
     Circle(140, 50, 80).fill(Orange),
     Circle(160, 300, 0).fill(Red),

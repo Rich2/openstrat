@@ -5,7 +5,7 @@ import geom._, pglobe._, pPts.RusNorth, pPts.AsiaWestPts
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
 object AsiaWest  extends EArea1("AsiaWest", 20.18 ll -0.65)
 { import AsiaWestPts._
-   override val a2Arr = Arr(arabia, persia, iraq, kazak, RusNorth, india, sriLanka, himalayas, centralAsia, severny)
+   override val a2Arr = RArr(arabia, persia, iraq, kazak, RusNorth, india, sriLanka, himalayas, centralAsia, severny)
    //override val gridMaker = E80Empty
    //override val grids = Seq()//AsiaWestGrid())   
 }

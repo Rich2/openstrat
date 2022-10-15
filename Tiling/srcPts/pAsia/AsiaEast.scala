@@ -6,7 +6,7 @@ import geom._, pglobe._, LatLong._, WTile._, pPts.RusNorth, pPts.AsiaWestPts
 object AsiaEast extends EArea1("Asia", 60 ll 100)
 { import AsiaEastPts._
   //override val gridMaker = E80Empty
-  override val a2Arr = Arr(seAsia, ceAsia, neAsia, feAsia, sakhalin, japan)
+  override val a2Arr = RArr(seAsia, ceAsia, neAsia, feAsia, sakhalin, japan)
 }
 
 object AsiaEastPts

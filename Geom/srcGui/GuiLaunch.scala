@@ -18,10 +18,10 @@ trait GuiLaunchMore extends GuiLaunch
 {
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) = expr match {
     case bls: BlockStatements => fromStatments(bls.statements)
-    case _ => fromStatments(Arr())
+    case _ => fromStatments(RArr())
   }
 
-  def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String)
+  def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String)
 }
 
 /** A convenience trait for launching Apps that takes an [[Int]] and an Identifier as its settings. */

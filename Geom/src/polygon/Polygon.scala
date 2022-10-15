@@ -165,13 +165,13 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
     acc
   }
 
-  override def attribs: Arr[XANumeric] = ???
+  override def attribs: RArr[XANumeric] = ???
   override def fill(fillColour: Colour): PolygonFill = PolygonFill(this, fillColour)
   override def fillInt(intValue: Int): PolygonFill = PolygonFill(this, Colour(intValue))
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): PolygonDraw = PolygonDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): PolygonCompound =
-    PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)))
+    PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)))
 
   /** Returns the X component of the vertex of the given number. Will throw an exception if the vertex index is out of range. */
   def xVert(index: Int): Double = unsafeArray(index * 2)
@@ -264,37 +264,37 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonLik
   }
 
   def active(id: AnyRef): PolygonActive = PolygonActive(this, id)
-  def activeChildren(id: AnyRef, children: GraphicElems): PolygonCompound = PolygonCompound(this, Arr(), active(id) %: children)
+  def activeChildren(id: AnyRef, children: GraphicElems): PolygonCompound = PolygonCompound(this, RArr(), active(id) %: children)
 
   def fillActive(fillColour: Colour, pointerID: AnyRef): PolygonCompound =
-    PolygonCompound(this, Arr(fillColour), Arr(PolygonActive(this, pointerID)))
+    PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerID)))
 
   def drawActive(lineColour: Colour = Black, lineWidth: Double = 2, pointerID: AnyRef): PolygonCompound =
-    PolygonCompound(this, Arr(DrawFacet(lineColour, lineWidth)), Arr(PolygonActive(this, pointerID)))
+    PolygonCompound(this, RArr(DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
 
   /** Creates a PolygonCompound graphic that is active with a simple 1 colour fill and has a draw graphic for the Polygon. The default values for the
    * draw area line width of 2 and a colour of Black. */
   def fillActiveDraw(fillColour: Colour, pointerID: AnyRef, lineColour: Colour = Black, lineWidth: Double = 2): PolygonCompound =
-    PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)), Arr(PolygonActive(this, pointerID)))
+    PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
 
   def fillDrawActive(fillColour: Colour, pointerID: AnyRef, lineWidth: Double, lineColour: Colour = Black): PolygonCompound =
-    PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)), Arr(PolygonActive(this, pointerID)))
+    PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(PolygonActive(this, pointerID)))
 
   def fillDrawText(fillColour: Colour, str: String, fontSize: Int = 24, lineColour: Colour = Black, lineWidth: Double = 2.0): PolygonCompound =
-    PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)), Arr(TextGraphic(str, fontSize, cenDefault)))
+    PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr(TextGraphic(str, fontSize, cenDefault)))
 
   def parentFillText(pointerID: Any, fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, align: TextAlign = CenAlign):
-  PolygonCompound = PolygonCompound(this, Arr(fillColour, TextFacet(str, textColour)), Arr())
+  PolygonCompound = PolygonCompound(this, RArr(fillColour, TextFacet(str, textColour)), RArr())
 
   def fillDrawTextActive(fillColour: Colour, pointerID: AnyRef, str: String, fontSize: Int = 24, lineWidth: Double, lineColour: Colour = Black,
-    align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)),
-    Arr(TextGraphic(str, fontSize, cenDefault, Black, align), PolygonActive(this, pointerID)))
+    align: TextAlign = CenAlign): PolygonCompound = PolygonCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)),
+    RArr(TextGraphic(str, fontSize, cenDefault, Black, align), PolygonActive(this, pointerID)))
 
   def fillText(fillColour: Colour, str: String, fontSize: Int = 10, textColour: Colour = Black, layer: Int = 0): PolygonCompound =
-    PolygonCompound(this, Arr(fillColour), Arr(TextGraphic(str, fontSize, cenDefault, textColour)))
+    PolygonCompound(this, RArr(fillColour), RArr(TextGraphic(str, fontSize, cenDefault, textColour)))
 
   def fillTextActive(fillColour: Colour, pointerEv: AnyRef, str: String, fontSize: Int = 24, fontColour: Colour = Black, align: TextAlign = CenAlign):
-    PolygonCompound = PolygonCompound(this, Arr(fillColour), Arr(PolygonActive(this, pointerEv), TextGraphic(str, fontSize, cenDefault, fontColour, align)))
+    PolygonCompound = PolygonCompound(this, RArr(fillColour), RArr(PolygonActive(this, pointerEv), TextGraphic(str, fontSize, cenDefault, fontColour, align)))
 
   /** Insert vertex. */
   def insVert(insertionPoint: Int, newVec: Pt2): Polygon =

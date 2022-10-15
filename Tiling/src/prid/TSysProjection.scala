@@ -14,19 +14,19 @@ trait TSysProjection
   def panel: Panel
 
   /** Gives the projector access to the scenarios tile graphic creation. */
-  var getFrame: () => GraphicElems = () => Arr()
+  var getFrame: () => GraphicElems = () => RArr()
 
   /** Filters the [[GraphicElem]]s away if the grid scale is too small to display the elements satisfactorily.  */
   def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems
 
   var setStatusText: String => Unit = s => {}
-  val buttons: Arr[PolygonCompound]
+  val buttons: RArr[PolygonCompound]
 
   /** Projected [[Polygon]]s of the tiles. */
   def tilePolygons: PolygonArr
 
   /** Active projected [[Polygon]]s of the tiles. */
-  def tileActives: Arr[PolygonActive]
+  def tileActives: RArr[PolygonActive]
 
   /** The visible hex sides. */
   def sideLines: LineSegArr

@@ -17,7 +17,7 @@ object Belgium extends Flag
 trait EnglandLike extends Flag
 { def ratio = 2
   def englishRed: Colour = Colour.fromInts(204, 0, 0)
-  def redCross: Arr[PolygonFill] = Rect.cross(2, 1, 0.2).map(_.fill(englishRed))
+  def redCross: RArr[PolygonFill] = Rect.cross(2, 1, 0.2).map(_.fill(englishRed))
   def common = rect.fill(White) %: redCross
 }
 
@@ -60,12 +60,12 @@ object UnitedKingdom extends EnglandLike
       1 pp 0.5,
       xDiag pp ywc)
 
-    val reds1 = Arr(r1, r2).map(_.fill(englishRed))
-    val reds = reds1.flatMap(e => Arr(e, e.negY.negX))
+    val reds1 = RArr(r1, r2).map(_.fill(englishRed))
+    val reds = reds1.flatMap(e => RArr(e, e.negY.negX))
 
     val blues = {
-      val l1 = Arr(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
-      l1.flatMap(b => Arr(b, b.negY, b.negX, b.negY.negX))
+      val l1 = RArr(b1, b2).map(_.fill(Colour.fromInts(0, 0, 102)))
+      l1.flatMap(b => RArr(b, b.negY, b.negX, b.negY.negX))
     }
     common ++ blues ++ reds
   }
@@ -110,7 +110,7 @@ object Russia extends Flag
 object USSR extends Flag
 { val name = "USSR"
   val ratio = 1.5
-  def apply(): GraphicElems = Arr(
+  def apply(): GraphicElems = RArr(
     Rect(ratio, 1).fill(Red),
     Star5().scale(0.4).fill(Gold)
   )
@@ -123,15 +123,15 @@ object Swastika extends Flag
   { val poly = Rect(ratio, 1)
     val bar = Rect.bCen(0.1, 0.2).fill(Black)
     val arm = Rect.tl(6.0 / 20, 0.1, -1.0 / 20 pp 0.25).fill(Black)
-    val cross = Arr(bar, arm).rotate45.flatMap(_.rotateQuadrants)
-    Arr(poly.fill(Red), Circle(6.0 / 8).fill(White)) ++ cross
+    val cross = RArr(bar, arm).rotate45.flatMap(_.rotateQuadrants)
+    RArr(poly.fill(Red), Circle(6.0 / 8).fill(White)) ++ cross
   }
 }
 
 object CzechRepublic extends Flag
 { val name = "Czech Republic"
   val ratio = 1.5
-  def apply(): GraphicElems = Arr(
+  def apply(): GraphicElems = RArr(
     Rect(ratio, 1).fill(White),
     Rect(ratio, 0.5).slate(0 pp -0.25).fill(Colour(0xFFD7141A)),
     Triangle(-ratio / 2 pp 0.5, -ratio / 2 pp -0.5, 0 pp 0).fill(Colour(0xFF11457E))
@@ -141,7 +141,7 @@ object CzechRepublic extends Flag
 object CCCP extends Flag
 { val name = "CCCP"
   val ratio = 2.0
-  def apply(): GraphicElems = Arr(
+  def apply(): GraphicElems = RArr(
     //background
     Rect(ratio, 1).fill(Colour(0xFFCC0000)),
     //hammer

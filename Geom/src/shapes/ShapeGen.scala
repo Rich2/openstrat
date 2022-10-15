@@ -13,7 +13,7 @@ class ShapeGen(val unsafeArray: Array[CurveSeg]) extends Shape with AxisFree
 
   override def draw(lineColour: Colour = Black, lineWidth: Double = 2): ShapeDraw = ???
 
-  override def attribs: Arr[XANumeric] = ???
+  override def attribs: RArr[XANumeric] = ???
 
   /** Translate 2D geometric transformation on a ShapeGen returns a Shape. The Return type will be narrowed in sub traits / classes. */
   override def slateXY(xDelta: Double, yDelta: Double): ShapeGen = new ShapeGen(unsafeArray.SlateXY(xDelta, yDelta))

@@ -9,7 +9,7 @@ case class LsC3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson C3")
   val r2: PolygonCompound = r.slate(300 pp 300)
   val r3: PolygonCompound = r.slate(300 pp - 300)
   val r4: PolygonCompound = r.slate(-300 pp - 300)
-  val rList = Arr(r1, r2, r3, r4)
+  val rList = RArr(r1, r2, r3, r4)
   val textPosn = 0 pp 0
   val startText = TextGraphic("Please click on the screen.", 28, textPosn)
   repaint(rList +% startText)

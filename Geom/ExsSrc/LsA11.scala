@@ -33,11 +33,11 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
   
   val cnf = CircleFill(cn, Violet)
   val cn1 = cn.slate(20 pp 50)
-  val na = Arr(cl2, cn)
+  val na = RArr(cl2, cn)
 
   val na1 = na.SlateXY(20, 20)
 
-  val ca: Arr[GeomElem] = Arr(sq, cn)
+  val ca: RArr[GeomElem] = RArr(sq, cn)
   val ca2 = ca.SlateXY(20, 20)
   
   val la = List(sq, cn)
@@ -45,15 +45,15 @@ case class LsA11(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A11: Refle
   val na2 = na1.scale(20)
   
   val cab = cn
-  val cc = Arr(cn, cab)
+  val cc = RArr(cn, cab)
   val cc1 = cc.SlateXY(2, 3)
 
-  val a1 = Arr(r2, cl2)
+  val a1 = RArr(r2, cl2)
   
   val e1 = Ellipse(50, 30)
-  val ee = Arr(e1, cn)
+  val ee = RArr(e1, cn)
 
 
-  val aa = Arr(ccl1, ccl1r, r1, r1r)
+  val aa = RArr(ccl1, ccl1r, r1, r1r)
   repaint(aa ++ c1 ++ c1r +% cd1 +% cd2 +% cd3 +% rStr +% rStr2 +% redLine)
 }

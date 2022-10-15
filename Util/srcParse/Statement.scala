@@ -32,7 +32,7 @@ sealed trait Statement extends TextSpan
 object Statement
 {
   /** Extension class for Arr[Statement]. */
-  implicit class arrImplicit(statements: Arr[Statement]) extends TextSpan
+  implicit class arrImplicit(statements: RArr[Statement]) extends TextSpan
   { private def ifEmptyTextPosn: TextPosn = TextPosn("Empty Statement Seq", 0, 0)
     def startPosn = statements.headFold(ifEmptyTextPosn)(_.startPosn)
     def endPosn = statements.lastFold(ifEmptyTextPosn)(_.endPosn)
@@ -67,31 +67,31 @@ object Statement
      *  use elseValue. */
     def findTypeElse[A](elseValue: A)(implicit ev: Unshow[A]): A = findUniqueT[A].getElse(elseValue)
 
-    /** Extension method tries to get value of specified type from the statement at the specified index of this [[Arr]][Statement]. */
+    /** Extension method tries to get value of specified type from the statement at the specified index of this [[RArr]][Statement]. */
     def typeAtIndex[A](index: Int)(implicit ev: Unshow[A]): EMon[A] =
       ife(statements.length > index, ev.fromStatement(statements(index)), badNone("No statement at given index."))
 
-    /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    /** Extension methods tries to get an [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def intAtIndex(index: Int): EMon[Int] =
       ife(statements.length > index, Unshow.intEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
-    /** Extension methods tries to get a natural non negative [[Int]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    /** Extension methods tries to get a natural non negative [[Int]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def natAtIndex(index: Int): EMon[Int] =
       ife(statements.length > index, Unshow.natEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
-    /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    /** Extension methods tries to get a [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def dblAtIndex(index: Int): EMon[Double] =
       ife(statements.length > index, Unshow.doubleEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
-    /** Extension methods tries to get a positive, non negative [[Double]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    /** Extension methods tries to get a positive, non negative [[Double]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def posDblAtIndex(index: Int): EMon[Double] =
       ife(statements.length > index, Unshow.posDoubleEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
-    /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    /** Extension methods tries to get an [[Boolean]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def boolAtIndex(index: Int): EMon[Boolean] =
       ife(statements.length > index, Unshow.booleanEv.fromStatement(statements(index)), badNone("No statement at given index."))
 
-    /** Extension methods tries to get an [[Long]] value from the statement at the specified index of this [[Arr]][Statement]. */
+    /** Extension methods tries to get an [[Long]] value from the statement at the specified index of this [[RArr]][Statement]. */
     def longAtIndex(index: Int): EMon[Long] =
       ife(statements.length > index, Unshow.longEv.fromStatement(statements(index)), badNone("No statement at given index."))
 

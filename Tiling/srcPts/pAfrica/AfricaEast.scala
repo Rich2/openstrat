@@ -4,7 +4,7 @@ import geom._, pglobe._, LatLong._, WTile._
 
 object AfricaEast extends EArea1("AfricaEast", 18.19 ll 24.46)
 { //override val gridMaker = E80Empty// AfricaEastGrid
-  override val a2Arr: Arr[EArea2] = Arr(SaharaEast, EastAfricaSouth ,Peloponnese)
+  override val a2Arr: RArr[EArea2] = RArr(SaharaEast, EastAfricaSouth ,Peloponnese)
 }
 
 //object AfricaEastGrid extends EGridMaker

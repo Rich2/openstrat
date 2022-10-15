@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** This is a compound graphic based on a Rect shape. A rectangle aligned to the X and Y axes.  */
-case class RectCompound(shape: Rect, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends RectGraphic with RectangleCompound
+case class RectCompound(shape: Rect, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends RectGraphic with RectangleCompound
 {
   //override def attribs: Arr[XmlAtt] = ???
 

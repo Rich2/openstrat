@@ -99,7 +99,7 @@ package object geom
 
   val EarthAvDiameter: Length = 12742000.metres
   val EarthAvRadius: Length = EarthAvDiameter / 2
-  type GraphicElems = Arr[GraphicElem]
+  type GraphicElems = RArr[GraphicElem]
 
   implicit def intToImplicitGeom(thisInt: Int): IntGeomImplicit = new IntGeomImplicit(thisInt)
   implicit def doubleToImplicitGeom(thisDouble: Double): DoubleImplicitGeom = new DoubleImplicitGeom(thisDouble)
@@ -254,10 +254,10 @@ package object geom
   /** 300 degrees or Pi radians */
   val DegVec300: AngleVec = AngleVec(300)
 
-  def displayRowGraphics(leftPt: Pt2, actives: Arr[GraphicBounded], margin: Double = 10): Arr[GraphicBounded] =
+  def displayRowGraphics(leftPt: Pt2, actives: RArr[GraphicBounded], margin: Double = 10): RArr[GraphicBounded] =
     actives.mapWithAcc(leftPt.x + margin)((x, head) => (head.slateX(x + head.boundingWidth / 2), x + head.boundingWidth + margin))
     
-  def displayRowTexts(leftPt: Pt2, textCells: Arr[TextCell], fontSize: Double = 18, margin: Double = 10): Arr[BoundedElem] =
+  def displayRowTexts(leftPt: Pt2, textCells: RArr[TextCell], fontSize: Double = 18, margin: Double = 10): RArr[BoundedElem] =
   {
     val y = leftPt.y
     var acc: ArrayBuffer[BoundedElem] = Buff()

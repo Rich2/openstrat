@@ -33,7 +33,7 @@ trait BlockMemToken extends BlockMem with Token
 trait AssignMemExprToken extends Token with AssignMemExpr
 
 trait EmptyExprToken extends BlockMemToken with ClauseMemExprToken with ExprSeq
-{ override def exprs: Arr[Expr] = Arr()
+{ override def exprs: RArr[Expr] = RArr()
 }
 
 case class SemicolonToken(startPosn: TextPosn) extends EmptyExprToken

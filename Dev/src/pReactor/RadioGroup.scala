@@ -3,7 +3,7 @@ package ostrat; package pReactor
 import geom._
 
 /** Controls a collection of RadioOptions */
-case class RadioGroup(radioOptions:Arr[RadioOption], aSelectedIndex:Int)
+case class RadioGroup(radioOptions:RArr[RadioOption], aSelectedIndex:Int)
 { var selected = radioOptions(aSelectedIndex)
 
   def clicked(targetReference:RadioOption): Unit =
@@ -18,7 +18,7 @@ case class RadioGroup(radioOptions:Arr[RadioOption], aSelectedIndex:Int)
   def setEnabled(newState:Boolean): Unit = radioOptions.foreach(radio => radio.isEnabled = newState)
 
   def toGraphicElems(): GraphicElems =
-  { var ret:Arr[GraphicElem] = Arr()
+  { var ret:RArr[GraphicElem] = RArr()
     radioOptions.foreach(radio => { ret = radio.toGraphicElems(this) ++ ret })
     ret
   }

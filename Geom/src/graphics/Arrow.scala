@@ -11,7 +11,7 @@ object Arrow
   {
     val mainLine = LineSeg(startPt, endPt)
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)
-    Arr(mainLine.draw(colour, lineWidth), Triangle(leftVert, endPt, rightVert).fill(colour))
+    RArr(mainLine.draw(colour, lineWidth), Triangle(leftVert, endPt, rightVert).fill(colour))
   }
   
   def headVerts(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = DegVec25, hypLength: Double = 20): (Pt2, Pt2) =
@@ -27,11 +27,11 @@ object Arrow
   }
   
   def apply(startPt: Pt2, endPt: Pt2, headAngle: AngleVec = DegVec25, hypLength: Double = 25, lineWidth: Double = 2,
-            lineColour: Colour = Colour.Black): Arr[GraphicElem] =
+            lineColour: Colour = Colour.Black): RArr[GraphicElem] =
   {    
     val (leftVert, rightVert) = headVerts(startPt, endPt, headAngle, hypLength)
     val shaft = LineSegDraw(startPt, endPt, lineColour, lineWidth)
     val head = PolygonGen(rightVert, leftVert, endPt).fill(lineColour)
-    Arr(shaft, head)
+    RArr(shaft, head)
   }
 }

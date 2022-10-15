@@ -7,7 +7,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
-  var history: Arr[OneScen] = Arr(scen)
+  var history: RArr[OneScen] = RArr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptLayer[Player] = scen.oPlayers
   cPScale = viewIn.cPScale
@@ -30,10 +30,10 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   }
 
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
-  def hexStrs: Arr[TextGraphic] = players.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.strComma, 20) }
+  def hexStrs: RArr[TextGraphic] = players.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.strComma, 20) }
 
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
-  val actives: Arr[PolygonActive] = proj.tileActives
+  val actives: RArr[PolygonActive] = proj.tileActives
 
   /** Draws the tiles sides (or edges). */
   def sidesDraw: LinesDraw = proj.sidesDraw()
@@ -51,7 +51,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    val getOrders: Arr[(Player, HDirn)] = players.zipSomesMap(moves)((player, step) => (player, step))
+    val getOrders: RArr[(Player, HDirn)] = players.zipSomesMap(moves)((player, step) => (player, step))
     scen = scen.endTurn(getOrders)
     moves = NoMoves
     repaint()
@@ -59,7 +59,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(Arr(bTurn) ++ proj.buttons)
+  def thisTop(): Unit = reTop(RArr(bTurn) ++ proj.buttons)
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   {

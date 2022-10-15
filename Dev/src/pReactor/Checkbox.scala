@@ -14,10 +14,10 @@ case class Checkbox(aIsSelected:Boolean = false, labelText:String = "", loc:Pt2 
     isEnabled = aIsEnabled
     val ink = if (isEnabled) myColor else Grey
 
-    var ret:GraphicElems = Arr(TextGraphic(labelText, defaultSize, loc.addX(defaultSize), ink, LeftAlign))
-    if (isSelected) ret = ret ++ Arr(Rect(defaultSize - 4, defaultSize - 4, loc).fill(ink))
-    if (isEnabled) ret ++ Arr(Rect(defaultSize, defaultSize, loc).drawActive(ink, 1, this))
-    else ret ++ Arr(Rect(defaultSize, defaultSize, loc).draw(ink, 1))
+    var ret:GraphicElems = RArr(TextGraphic(labelText, defaultSize, loc.addX(defaultSize), ink, LeftAlign))
+    if (isSelected) ret = ret ++ RArr(Rect(defaultSize - 4, defaultSize - 4, loc).fill(ink))
+    if (isEnabled) ret ++ RArr(Rect(defaultSize, defaultSize, loc).drawActive(ink, 1, this))
+    else ret ++ RArr(Rect(defaultSize, defaultSize, loc).draw(ink, 1))
   }
 
   def clicked() =

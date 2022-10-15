@@ -145,9 +145,9 @@ trait HGrid extends Any with TGrid with HGridSys
     }
   }
 
-  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys = this): Arr[HCenRowTuple[A]] =
+  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys = this): RArr[HCenRowTuple[A]] =
   {
-    flatMapRows[Arr[HCenRowTuple[A]]]{ r => if (cenRowEmpty(r)) Arr()
+    flatMapRows[RArr[HCenRowTuple[A]]]{ r => if (cenRowEmpty(r)) RArr()
     else
     { var currStart: Int = rowLeftCenC(r)
       var currC: Int = currStart

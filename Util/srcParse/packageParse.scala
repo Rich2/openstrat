@@ -17,7 +17,7 @@ package ostrat
  *  programming wizards in languages such as Scala, Haskell and Idris. */
 package object pParse
 { /** type alias for Arr[Token] .*/
-  type Tokens = Arr[Token]
+  type Tokens = RArr[Token]
 
   /** Returns an EMon of a sequence of Statements from a file. This uses the fromString method. Non fatal exceptions or if the file doesn't exist
    *   will be returned as errors. */
@@ -36,14 +36,14 @@ package object pParse
   }
 
   /** Tries to parse a sequence of [[Token]]s to [[Statement]]s. */
-  def tokensToStatements(tokens: Arr[Token]): EArr[Statement] = pAST.parse1BlockStructure(tokens).flatMap{ g => blockMemsToStatements(g)}
+  def tokensToStatements(tokens: RArr[Token]): EArr[Statement] = pAST.parse1BlockStructure(tokens).flatMap{ g => blockMemsToStatements(g)}
 
   /** Tries to parse a sequence of block members [[BlockMem]]s to a squence of [[Statement]]s. */
-  def blockMemsToStatements(inp: Arr[BlockMem]): EArr[Statement] = pAST.parse3Statements(inp).map{
+  def blockMemsToStatements(inp: RArr[BlockMem]): EArr[Statement] = pAST.parse3Statements(inp).map{
     case StringStatements(sts) => sts
-    case e => Arr(NonEmptyStatement(e, NoRef))
+    case e => RArr(NonEmptyStatement(e, NoRef))
   }
 
   /** Tries to parse a sequence of tokens to an expression [[Expr]]. */
-  def tokensToExpr(tokens: Arr[Token]): EMon[Expr] = pAST.parse1BlockStructure(tokens).flatMap{ g => pAST.parse3Statements(g)}
+  def tokensToExpr(tokens: RArr[Token]): EMon[Expr] = pAST.parse1BlockStructure(tokens).flatMap{ g => pAST.parse3Statements(g)}
 }

@@ -7,7 +7,7 @@ case class SqGridMan(grid: SqGrid, arrIndex: Int)
 { def numTiles: Int = grid.numTiles
   //final def outSteps(hCen: SqCen): Arr[(HStep, HCen)] = outSteps(hCen.r, hCen.c)
   //def outSteps(r: Int, c: Int): Arr[(HStep, HCen)] = Arr()
-  def sides: Arr[SqSide] = ??? // grid.sides
+  def sides: RArr[SqSide] = ??? // grid.sides
   //val numSides: Int = grid.sides.length
   //def sideLines(implicit grider: HGriderFlat): LineSegs = sides.map(_.lineSeg)
 }
@@ -36,7 +36,7 @@ final class SqGridsAdjPair(val minCenR: Int, val maxCenR: Int, val minC1: Int, v
   override def arrIndex(r: Int, c: Int): Int = ???
 
   /** The grids of this tile grid system. */
-  override def grids: Arr[SqGrid] = Arr(grid1, grid2)
+  override def grids: RArr[SqGrid] = RArr(grid1, grid2)
 
   //override val numTiles: Int = grid1.numTiles + grid2.numTiles
   override def top: Double = maxCenR + 1

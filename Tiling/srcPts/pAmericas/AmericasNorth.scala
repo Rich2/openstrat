@@ -82,8 +82,8 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
   val surgidero = 22.68 ll -82.29
   val cuba = EArea2("Cuba", 21.97 ll -78.96, jungle, wCuba, havana, eCuba, cabotCruz, yara, surgidero)
 
-  val lakes = Arr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
-  override val a2Arr: Arr[EArea2] = lakes ++
-    Arr(wUsa, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
+  val lakes = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
+  override val a2Arr: RArr[EArea2] = lakes ++
+    RArr(wUsa, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
     NewFoundland, baja, cAmerica, cuba)
 }

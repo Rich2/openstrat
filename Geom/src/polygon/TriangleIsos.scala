@@ -18,7 +18,7 @@ final case class TriangleIsosGen(unsafeArray: Array[Double]) extends TriangleIso
   override def unsafeFromArray(array: Array[Double]): TriangleIsosGen = new TriangleIsosGen(array)
   override def vertsTrans(f: Pt2 => Pt2): TriangleIsosGen = ???
 
-  override def attribs: Arr[XANumeric] = ???
+  override def attribs: RArr[XANumeric] = ???
 
   override def rotate(angle: AngleVec): TriangleIsosGen = ???
 

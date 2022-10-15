@@ -19,7 +19,7 @@ abstract class CanvasNoPanels(title: String) extends CanvasUser(title) with Pane
   def repaints(elems: GraphicElem*): Unit = { canvObjs = elems.toArr; refresh() }
 
   /** Repaints the canvas, takes a Refs collection as parameter. */
-  def repaint(elems: Arr[GraphicElem]): Unit = { canvObjs = elems; refresh() }
+  def repaint(elems: RArr[GraphicElem]): Unit = { canvObjs = elems; refresh() }
 
   /** This function is to create a display that changes over time. So you pass in a function from the time elapsed in milliseconds to the Arr of
    * [[GraphicElem]]s that you want to display at that time point. */

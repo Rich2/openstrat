@@ -4,5 +4,5 @@ import geom._, pglobe._, pGrid._, reflect.ClassTag
 
 object AfricaWest extends EArea1("WAfrica", 20 ll 40)
 { type A2Type = EArea2
-  override val a2Arr: Arr[EArea2] = Arr(Canarias, Sicily, Majorca, SaharaWest, AfricaWestPts.westAfricaSouth)
+  override val a2Arr: RArr[EArea2] = RArr(Canarias, Sicily, Majorca, SaharaWest, AfricaWestPts.westAfricaSouth)
 }

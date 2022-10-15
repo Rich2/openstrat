@@ -5,7 +5,7 @@ import scala.collection.mutable.ArrayBuffer
 /** Function object, seems to parse prefix operators. */
 object parse9PrefixPlus
 { /** Seems to parse prefix operators. Function object apply method. */
-  def apply(implicit refs: Arr[ClauseMem]): EArr[ClauseMem] =
+  def apply(implicit refs: RArr[ClauseMem]): EArr[ClauseMem] =
   {
     val acc: ArrayBuffer[ClauseMem] = Buff()
 

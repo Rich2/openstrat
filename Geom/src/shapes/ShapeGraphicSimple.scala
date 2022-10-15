@@ -5,8 +5,8 @@ import pWeb._
 
 trait ShapeGraphicSimple extends ShapeGraphic with GraphicSimple
 {
-  def nonShapeAttribs: Arr[XmlAtt]
-  final override def attribs: Arr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
+  def nonShapeAttribs: RArr[XmlAtt]
+  final override def attribs: RArr[XmlAtt] = shapeAttribs ++ nonShapeAttribs
 
   /** Translate geometric transformation. */
   override def slateXY(xDelta: Double, yDelta: Double): ShapeGraphicSimple

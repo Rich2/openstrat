@@ -7,7 +7,7 @@ object TwoLaunch extends GuiLaunchMore
   override def settingStr: String = "gTwo"
 
   override def default: (CanvasPlatform => Any, String) = (GTwoGui(_, TwoScen1, TwoScen1.defaultView()), "JavaFx Game Two")
-  override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) = {
+  override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) = {
     val oScen: EMon[Int] = sts.findSetting[Int]("scen")
     val num: Int = oScen.getElse(1)
 

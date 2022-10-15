@@ -15,9 +15,9 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   val scaleMax: Length = 100.kMetres
   var focus: LatLong = startFocus.sget
 
-  val eas: Arr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
+  val eas: RArr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
 
-  val eaPms: Arr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM(focus, northUp))
+  val eaPms: RArr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM(focus, northUp))
   val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
 
   /** This compiles without type annotation. */
@@ -27,14 +27,14 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   {
     val ps3 = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
 
-    val eaPms3: Arr[(EArea2, PolygonM2)] = eaPms.filter(_._2.vertsMin3)
-    val activeFills: Arr[PolygonCompound] = eaPms3.map { pair =>
+    val eaPms3: RArr[(EArea2, PolygonM2)] = eaPms.filter(_._2.vertsMin3)
+    val activeFills: RArr[PolygonCompound] = eaPms3.map { pair =>
       val (d, p) = pair
       p.map(_ / scale).fillActive(d.colour, d)
     }
 
-    val sideLines: Arr[PolygonDraw] = eaPms3.map { a => a._2.map(_ / scale).draw() }
-    val texts: Arr[TextGraphic] = eaPms3.map { pair =>
+    val sideLines: RArr[PolygonDraw] = eaPms3.map { a => a._2.map(_ / scale).draw() }
+    val texts: RArr[TextGraphic] = eaPms3.map { pair =>
       val (d, _) = pair
       val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
       TextGraphic(d.name, 10, posn, d.colour.contrastBW)
@@ -57,7 +57,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   }
   canv.onScroll = b => { scale = ife(b, (scale / 1.2).max(scaleMin), (scale * 1.2).min(scaleMax)); repaint() }
 
-  def thisTop(): Unit = reTop(Arr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
+  def thisTop(): Unit = reTop(RArr(zoomIn, zoomOut, goNorth, goSouth, goWest, goEast))
 
   repaint()
   thisTop()

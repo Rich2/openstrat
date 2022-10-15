@@ -42,15 +42,15 @@ final case class Circle(diameter: Double, cenX: Double, cenY: Double) extends El
   override def fill(fillColour: Colour): CircleFill = CircleFill(this, fillColour)
   override def fillInt(intValue: Int): CircleFill = CircleFill(this, Colour(intValue))
 
-  def fillRadial(cenColour: Colour, outerColour: Colour): CircleCompound = CircleCompound(this, Arr(FillRadial(cenColour, outerColour)), Arr())
+  def fillRadial(cenColour: Colour, outerColour: Colour): CircleCompound = CircleCompound(this, RArr(FillRadial(cenColour, outerColour)), RArr())
   
   override def draw(lineColour: Colour = Colour.Black, lineWidth: Double = 2): CircleDraw = CircleDraw(this, lineWidth, lineColour)
 
   override def fillDraw(fillColour: Colour, lineColour: Colour, lineWidth: Double): CircleCompound =
-    CircleCompound(this, Arr(fillColour, DrawFacet(lineColour, lineWidth)), Arr())
+    CircleCompound(this, RArr(fillColour, DrawFacet(lineColour, lineWidth)), RArr())
   
   def rAttrib: XANumeric = XANumeric("r", radius)
-  override def attribs: Arr[XANumeric] = Arr(cxAttrib, cyAttrib, rAttrib)
+  override def attribs: RArr[XANumeric] = RArr(cxAttrib, cyAttrib, rAttrib)
 
   private[this] def rr2: Double = diameter * 2.sqrt
   override def topRight: Pt2 = Pt2(rr2, rr2)

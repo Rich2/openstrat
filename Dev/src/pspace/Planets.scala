@@ -25,7 +25,7 @@ object Earth extends Planet
   { override val name: String = "The Moon"
   }
 
-  override val moons: Arr[TheMoon.type] = Arr(TheMoon)
+  override val moons: RArr[TheMoon.type] = RArr(TheMoon)
 }
 
 /** The planet <a href="https://en.wikipedia.org/wiki/Mars_(planet)">Mars</a>. */

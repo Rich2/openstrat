@@ -7,9 +7,9 @@ import pWeb._
 trait ShapeGraphic extends GraphicBounded
 { def shape: Shape
   override def boundingRect: BoundingRect = shape.boundingRect
-  def attribs: Arr[XmlAtt]
+  def attribs: RArr[XmlAtt]
   def svgStr: String
-  def shapeAttribs: Arr[XmlAtt] = shape.attribs
+  def shapeAttribs: RArr[XmlAtt] = shape.attribs
   final def svgInline: String = SvgSvgElem(shape.boundingRect.minX, shape.boundingRect.minY, shape.boundingRect.width, shape.boundingRect.height,
         svgJustElem).out(0, 150)
   def svgOut(indent: Int = 0, linePosn: Int = 0, lineLen: Int = 150): String = svgJustElem.out(indent, lineLen)
@@ -50,7 +50,7 @@ trait ShapeGraphic extends GraphicBounded
 /** Companion object for the ShapeGraphic class. */
 object ShapeGraphic
 {
-  implicit class ArrImplicit(val thisArr: Arr[ShapeGraphic])
+  implicit class ArrImplicit(val thisArr: RArr[ShapeGraphic])
   {
     def svgList: String = thisArr.foldLeft("")(_ + "\n" + _.svgStr)
 

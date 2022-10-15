@@ -12,5 +12,5 @@ case class GoGui(canv: CanvasPlatform, startScen: GoScen) extends SqSysGui("Go")
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   override def thisTop(): Unit = reTop(bTurn %: navButtons)
   thisTop()
-  override def frame: GraphicElems = Arr()
+  override def frame: GraphicElems = RArr()
 }

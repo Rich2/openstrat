@@ -27,7 +27,7 @@ trait SqGridSys extends Any with TGridSys
   }
 
   /** The active tiles without any PaintElems. */
-  def activeTiles: Arr[PolygonActive] = map(_.active())
+  def activeTiles: RArr[PolygonActive] = map(_.active())
 
   /** C coordinates match 1 to 1 to x coordinates for square grids. */
   final override def yRatio: Double = 1

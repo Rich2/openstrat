@@ -22,7 +22,7 @@ object EGrid320LongMulti
 {
   def apply(rBottomCen: Int = 138, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid320LongMulti = new EGrid320LongMulti
   {
-    override def grids: Arr[EGridLongFull] = startLong match {
+    override def grids: RArr[EGridLongFull] = startLong match {
       case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid320LongFull(rBottomCen, rTopCen, i))
       case sl => {
         val len = endLong - startLong + 13
@@ -30,7 +30,7 @@ object EGrid320LongMulti
       }
     }
 
-    override val gridMans: Arr[EGridLongMan] = ???
+    override val gridMans: RArr[EGridLongMan] = ???
 
     override def cGridDelta: Double = ???
 

@@ -25,31 +25,31 @@ object HtmlPage
 }
 
 /** HTML title element. */
-case class HtmlTitle(str: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlUnvoid
+case class HtmlTitle(str: String, attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
 { override def tag = "title"
-  override def contents: Arr[XCon] = Arr(str.xCon)
+  override def contents: RArr[XCon] = RArr(str.xCon)
   override def out(indent: Int, maxLineLen: Int): String = indent.spaces + "<title>" + str + "</title>"
 }
 
 /** The "html" HTML element */
-case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: Arr[XmlAtt] = Arr()) extends HtmlUnvoid
+case class HtmlHtml(head: HtmlHead, body: HtmlBody, attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
 { def tag: String = "html"
-  override def contents = Arr(head, body)
+  override def contents = RArr(head, body)
   def out(indent: Int, maxLineLen: Int): String = openTag2 + head.out(0, 150) + "\n\n" + body.out(0, 150) + n2CloseTag
 }
 
 /** The HTML body element. */
 case class HtmlBody(contentStr: String) extends HtmlUnvoid
 { override def tag: String = "body"
-  override def contents: Arr[XCon] = Arr(contentStr.xCon)
+  override def contents: RArr[XCon] = RArr(contentStr.xCon)
   def out(indent: Int, maxLineLen: Int): String = openTag1 + contents.foldStr(_.out(0, 150), "\n") + n1CloseTag
-  override def attribs: Arr[XmlAtt] = Arr()
+  override def attribs: RArr[XmlAtt] = RArr()
 }
 
 /** An HTML code element. */
-case class HtmlCode(contentStr: String, attribs: Arr[XmlAtt] = Arr()) extends HtmlUnvoid
+case class HtmlCode(contentStr: String, attribs: RArr[XmlAtt] = RArr()) extends HtmlUnvoid
 { override def tag: String = "code"
-  override def contents: Arr[XCon] = Arr(contentStr.xCon)
+  override def contents: RArr[XCon] = RArr(contentStr.xCon)
   override def out(indent: Int = 0, maxLineLen: Int = 150): String = openUnclosed + contentStr + closeTag
 }
 

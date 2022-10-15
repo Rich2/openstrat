@@ -13,21 +13,21 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   //proj.setView(viewIn)
 
   val terrs: HCenLayer[ZugTerr] = scen.terrs
-  val active: Arr[PolygonActive] = proj.tileActives
-  val text: Arr[TextGraphic] = terrs.hcOptMap((t, hc) => proj.transOptCoord(hc).map(_.textAt(hc.rcStr, 14, t.contrastBW)))
+  val active: RArr[PolygonActive] = proj.tileActives
+  val text: RArr[TextGraphic] = terrs.hcOptMap((t, hc) => proj.transOptCoord(hc).map(_.textAt(hc.rcStr, 14, t.contrastBW)))
 
-  val polyFills: Arr[PolygonFill] =
+  val polyFills: RArr[PolygonFill] =
     terrs.rowsCombine.map{ (hcrv: HCenRowTuple[ZugTerr]) => hcrv.hVertPolygon.toPolygon(_.toPt2Reg).fill(hcrv.value.colour) }
 
-  val lines: Arr[LineSegDraw] = terrs.sideFlatMap((hs, _) => Arr(hs.drawDepr()), (hs, t1, t2 ) => ife(t1 == t2, Arr(hs.drawDepr(t1.contrastBW)), Arr()))
+  val lines: RArr[LineSegDraw] = terrs.sideFlatMap((hs, _) => RArr(hs.drawDepr()), (hs, t1, t2 ) => ife(t1 == t2, RArr(hs.drawDepr(t1.contrastBW)), RArr()))
 
   def lunits: GraphicElems = scen.lunits.gridHeadsFlatMap{ (hc, squad) =>
     val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour, terrs(hc).colour).slate(hc.toPt2Reg)
 
     val actions: GraphicElems = squad.action match
     { case mv: Move => mv.dirns.oldSegsMap(hc)(_.draw())
-      case Fire(target) => Arr(LineSegHC(hc, target).oldLineSeg.draw(Red, 2).dashed(20, 20))
-      case _ => Arr()
+      case Fire(target) => RArr(LineSegHC(hc, target).oldLineSeg.draw(Red, 2).dashed(20, 20))
+      case _ => RArr()
     }
     actions +% uc
   }
@@ -74,7 +74,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   }
 
   statusText = "Welcome to ZugFuher"
-  def thisTop(): Unit = reTop(Arr(bTurn, zoomIn, zoomOut) ++ proj.buttons)
+  def thisTop(): Unit = reTop(RArr(bTurn, zoomIn, zoomOut) ++ proj.buttons)
   thisTop()
   def frame: GraphicElems = (polyFills ++ lines ++ lunits).slate(-focus).scale(cPScale) ++ active ++ text
   proj.getFrame = () => frame

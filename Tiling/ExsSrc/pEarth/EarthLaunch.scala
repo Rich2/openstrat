@@ -8,7 +8,7 @@ object EarthBasicLaunch extends GuiLaunchMore
   override def settingStr: String = "earth"
   override def default: (CanvasPlatform => Any, String) = (cv => EarthBasicGui.apply(cv), "JavaFx Earth")
 
-  override def fromStatments(sts: Arr[Statement]): (CanvasPlatform => Any, String) =
+  override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val oScale = sts.findSetting[Double]("scale")
     val scale: Option[Length] = oScale.mapToOption(1.km * _)
     val oLat: EMon[Double] = sts.findSettingDbl("latitude")

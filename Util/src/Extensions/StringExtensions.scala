@@ -159,7 +159,7 @@ class StringImplicit(val thisString: String) extends AnyVal
     s1 + "." + s2a
   }
   
-  def toTokens: EMon[Arr[pParse.Token]] = pParse.stringToTokens(thisString)
+  def toTokens: EMon[RArr[pParse.Token]] = pParse.stringToTokens(thisString)
 
   /** Appends strings with a comma and space separator */
   def appendCommas(extraStrings: String*): String = extraStrings.foldLeft(thisString)(_ + ", " + _)

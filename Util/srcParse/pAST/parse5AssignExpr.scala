@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /** Function object to parse assignment expressions. */
 object parse5AssignExpr
 { /** Function apply method parses assignment expressions. */
-  def apply (implicit inp: Arr[StatementMem]): EMon[Expr] =
+  def apply (implicit inp: RArr[StatementMem]): EMon[Expr] =
   {
     val leftAcc: ArrayBuffer[AssignMem] = Buff()
     val rightAcc: ArrayBuffer[AssignMem] = Buff()
@@ -21,7 +21,7 @@ object parse5AssignExpr
       case ArrOff1Tail(h, tail) => debexc(h.toString + " is not AssignMemExpr.")
     }
 
-    def rightLoop(rem: ArrOff[StatementMem])(implicit seg: Arr[StatementMem]): EMon[AssignMemExpr] = rem match
+    def rightLoop(rem: ArrOff[StatementMem])(implicit seg: RArr[StatementMem]): EMon[AssignMemExpr] = rem match
     { case ArrOff0() => parse6ColonExpr(rightAcc.toArr)
       case ArrOffHead(at: AsignToken) => bad1(at, "Prefix operator not followed by expression")
       case ArrOff1Tail(am: AssignMem, tail) => { rightAcc.append(am); rightLoop(tail) }

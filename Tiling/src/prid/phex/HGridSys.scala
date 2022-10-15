@@ -71,7 +71,7 @@ trait HGridSys extends Any with TGridSys
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array SeqDef data. */
   def arrIndex(r: Int, c: Int): Int
-  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys): Arr[HCenRowTuple[A]]
+  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys): RArr[HCenRowTuple[A]]
   def adjTilesOfTile(tile: HCen): HCenArr
 
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)
@@ -170,7 +170,7 @@ trait HGridSys extends Any with TGridSys
     new HCenLayer(dArray)
   }
 
-  /** New hex tile data layer of [[Arr]][A]. */
+  /** New hex tile data layer of [[RArr]][A]. */
   final def newHCenArrLayer[A <: AnyRef](implicit ct: ClassTag[A]): HCenArrLayer[A] =
   { val newArray = new Array[Array[A]](numTiles)
     val init: Array[A] = Array()

@@ -20,7 +20,7 @@ object ChessStart extends ChessScen
   val turn = 0
 
   val pieces: SqCenOptLayer[PPiece] = gSys.newSCenOptDGrider[PPiece]
-  val rp = Arr(Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook)
+  val rp = RArr(Rook, Knight, Bishop, King, Queen, Bishop, Knight, Rook)
   rp.iForeach({(i, p) => pieces.unsafeSetSome(2, i * 2 + 2, PPiece(PWhite, p)) })
   iToForeach(2, 16, 2)(c => pieces.unsafeSetSome(4, c, PPiece(PWhite, Pawn)))
   rp.iForeach({(i, p) => pieces.unsafeSetSome(16, i * 2 + 2, PPiece(PBlack, p)) })

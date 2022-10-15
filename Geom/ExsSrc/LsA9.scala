@@ -10,7 +10,7 @@ case class LsA9(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A9")
   val pt1 = 500 pp - 400
   val sh1 = ShapeGenOld(LineTail(Pt2Z), LineTail(200 pp 0), BezierTail(300 pp 300, 350 pp 100, pt1), LineTail(100 pp -200))
   
-  def stuff = Arr(
+  def stuff = RArr(
          bd(-100 pp 200, 300 pp 400, Green),
          bd(-150 pp -50, 250 pp 350, Violet),
          bd(-250 pp 50, 200 pp 400, Orange),

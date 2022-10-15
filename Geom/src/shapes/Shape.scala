@@ -9,7 +9,7 @@ trait Shape extends Fillable with BoundedElem
   override def fill(fillColour: Colour): ShapeFill
   override def fillInt(intValue: Int): ShapeFill
   def draw(lineColour: Colour = Black, lineWidth: Double = 2): ShapeDraw
-  def attribs: Arr[XANumeric]
+  def attribs: RArr[XANumeric]
   
   /** This canEqual override allow the comparison of [[Shape]]s. */
   def canEqual(that: Any): Boolean = that match

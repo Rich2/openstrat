@@ -4,7 +4,7 @@ import geom._, pglobe._, WTile._
 
 /** The North Atlantic. The seas and the land of the north Atlantic. */
 object NorthAtantic extends EArea1("NAtlantic", 60 ll -30)
-{ override val a2Arr: Arr[EArea2] = Arr(Iceland)
+{ override val a2Arr: RArr[EArea2] = RArr(Iceland)
 }
 
 object Iceland extends EArea2("Iceland", 64.78 ll -18.07, taiga)

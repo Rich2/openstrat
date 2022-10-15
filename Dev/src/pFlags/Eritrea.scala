@@ -86,6 +86,6 @@ object Eritrea extends Flag
       BezierTail(-0.7038 pp -0.1648, -0.7425 pp -0.1461, -0.7589 pp -0.1657), BezierTail(-0.7322 pp -0.1718, -0.7109 pp -0.1789, -0.6937 pp -0.1902),
       BezierTail(-0.6688 pp -0.2213, -0.6216 pp -0.2349, -0.5395 pp -0.2383), LineTail(-0.5395 pp -0.2383)).fill(Colour(0xFFffc726))
     
-    Arr(greenRectangle, blueRectangle, redTriangle, olive)
+    RArr(greenRectangle, blueRectangle, redTriangle, olive)
   }
 }

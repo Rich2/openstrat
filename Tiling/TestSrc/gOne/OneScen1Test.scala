@@ -6,11 +6,11 @@ object OneScen1Test  extends TestSuite
 {
   val os1: OneScen1.type = OneScen1
   val g1: HGridReg = os1.gridSys
-  val os2: OneScen = os1.endTurn(Arr())
+  val os2: OneScen = os1.endTurn(RArr())
   val g2: HGridSys = os2.gridSys
-  val os3: OneScen = os1.endTurn(Arr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))
+  val os3: OneScen = os1.endTurn(RArr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))
   val g3: HGridSys = os3.gridSys
-  val os4: OneScen = os1.endTurn(Arr((PlayerA, HStepLt)))
+  val os4: OneScen = os1.endTurn(RArr((PlayerA, HStepLt)))
 
   val tests = Tests {
 

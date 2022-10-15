@@ -13,9 +13,9 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
     case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
   }
 
-  override def canvElems: Arr[CanvElem] = ???
+  override def canvElems: RArr[CanvElem] = ???
   
-  override def attribs: Arr[XmlAtt] = ???
+  override def attribs: RArr[XmlAtt] = ???
 
   override def svgStr: String = ???
 
@@ -54,14 +54,14 @@ trait PolygonCompound extends ShapeCompound with PolygonGraphic
 
   override def shearY(operand: Double): PolygonCompound = ??? //PolygonCompound(shape.xShear(operand), facets, children.yShear(operand))
 
-  def addChildren(newChildren: Arr[GraphicElem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
+  def addChildren(newChildren: RArr[GraphicElem]): PolygonCompound = PolygonCompound(shape, facets, children ++ newChildren)
 }
 
 /** Companion object for the PolygonCompound trait contains factory apply method and implicit instances for the 2D geometric transformation type
  * classes. */
 object PolygonCompound
 {
-  def apply(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()): PolygonCompound =
+  def apply(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()): PolygonCompound =
     new PolygonCompoundImp(shape, facets, children)
 
   //implicit val showTImplicit: Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound] = Show3T[Polygon, Arr[GraphicFacet], Arr[GraphicElem], PolygonCompound]()
@@ -87,7 +87,7 @@ object PolygonCompound
   }
 
   /** A compound polygon based Graphic. May contain multiple facets and child graphic members. */
-  case class PolygonCompoundImp(shape: Polygon, facets: Arr[GraphicFacet], children: Arr[GraphicElem] = Arr()) extends PolygonCompound with
+  case class PolygonCompoundImp(shape: Polygon, facets: RArr[GraphicFacet], children: RArr[GraphicElem] = RArr()) extends PolygonCompound with
     AxisFree
   {
     override type ThisT = PolygonCompoundImp
@@ -99,7 +99,7 @@ object PolygonCompound
       case sf => deb("Unrecognised ShapeFacet: " + sf.toString)
     }
 
-    override def attribs: Arr[XmlAtt] = ???
+    override def attribs: RArr[XmlAtt] = ???
 
     override def svgStr: String = ???
 

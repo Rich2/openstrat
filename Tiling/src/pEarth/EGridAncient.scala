@@ -73,14 +73,14 @@ class EGridAncient[TileT <: TileAncient, SideT <: TileSideAncient](bounds: Array
     val acc: ArrayBuffer[GraphicElem] = Buff()
     foreachTilesCoodAll { tileCood =>
       val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
-      val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), Arr[GraphicAffineElem]())
+      val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), RArr[GraphicAffineElem]())
       acc ++= newRes.unsafeArray
     }
 
     val sideAcc: ArrayBuffer[GraphicElem] = Buff()
     foreachSidesCoodAll { sideCood =>
       val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
-      val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), Arr[GraphicAffineElem]())
+      val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), RArr[GraphicAffineElem]())
       sideAcc ++= newRes.unsafeArray
     }
     (acc ++ sideAcc).toArr

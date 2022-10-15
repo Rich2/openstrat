@@ -15,13 +15,13 @@ abstract class CmdBarGui(title: String) extends CanvasPanelled(title)
   def textBox(str: String, cmd: AnyRef) = Rect(40, 25).fillDrawTextActive(Gray, cmd, str, 15, 2, White, LeftAlign)
 
   val mainPanel: Panel = addPanel(Rect.bl(canv.width, canv.height - barThickness, canv.bottomLeft))
-  def mainRepaint(els: Arr[GraphicElem]): Unit = mainPanel.repaint(els)
+  def mainRepaint(els: RArr[GraphicElem]): Unit = mainPanel.repaint(els)
   def mainRepaints(els: GraphicElem*): Unit = mainPanel.repaints(els: _*)
   def mainWidth: Double = mainPanel.width
   def mainHeight: Double = mainPanel.height
 
   /**  repaints the top command bar */
-  def reTop(commands: Arr[GraphicBounded]): Unit =
+  def reTop(commands: RArr[GraphicBounded]): Unit =
   {
     val a = displayRowGraphics(topBar.cenLeft, commands)
     val sp = ife(a.empty, topBar.cenLeft,a.last.boundingRect.cen.addX(80))

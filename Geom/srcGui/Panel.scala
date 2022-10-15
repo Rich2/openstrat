@@ -18,7 +18,7 @@ case class Panel(private val outerCanv: CanvasPanelled, clipPoly: Polygon, cover
   def width = clipPoly.boundingWidth
   def height = clipPoly.boundingHeight
 
-  def repaint(elems: Arr[GraphicElem]): Unit = { canvObjs = elems; outerCanv.refreshPanel(this) }
+  def repaint(elems: RArr[GraphicElem]): Unit = { canvObjs = elems; outerCanv.refreshPanel(this) }
   def repaints(elems: GraphicElem*): Unit = repaint(elems.toArr)
 }
 

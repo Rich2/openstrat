@@ -29,7 +29,7 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   def vertSideLines: LineSegArr = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideR, c, topSideRow) }
 
   /** Fills all the tiles with the same given parameter [[Colour]]. Not sure how useful this method is. */
-  def fillTiles(colour: Colour): Arr[PolygonFill] = map(_.fill(colour))
+  def fillTiles(colour: Colour): RArr[PolygonFill] = map(_.fill(colour))
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[SqCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */

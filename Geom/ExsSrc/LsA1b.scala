@@ -4,7 +4,7 @@ import ostrat._, geom._, pgui._, Colour._
 
 case class LsA1b(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A1b")
 {
-  val cs = Arr(
+  val cs = RArr(
     Circle(200).draw(SeaGreen),
     Circle(140, 50, 80).draw(Orange, 4),
     Circle(160, 300, 0).fillRadial(Green, Red),

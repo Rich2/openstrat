@@ -3,7 +3,7 @@ package ostrat; package geom; package pExs
 import pWeb._
 
 object PageA1 extends learn.LessonPage
-{ val head = HtmlHead(Arr(HtmlTitle("Lesson A1")))
+{ val head = HtmlHead(RArr(HtmlTitle("Lesson A1")))
   val bodyStr =
     """<h1>Lesson A1</h1>
       |<p>This lesson covers Circles and Ellipses. As with the other lessons there will be a summary for those familiar with Scala and anumber of step

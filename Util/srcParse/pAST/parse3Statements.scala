@@ -7,7 +7,7 @@ object parse3Statements
 {
   /** Tries to Parses a sequence of block members to an [[Expr]]. So an original String of "4' will return a [[Good]] natural integer expression. but
    *  "4;" will return a [[Good]] [[Statement]] sequence of one Statement. */
-  def apply(implicit inp: Arr[BlockMem]): EMon[Expr] =
+  def apply(implicit inp: RArr[BlockMem]): EMon[Expr] =
   {
     val acc: ArrayBuffer[Statement] = Buff()
     var subAcc: ArrayBuffer[StatementMem] = Buff()

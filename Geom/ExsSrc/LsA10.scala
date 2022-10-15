@@ -11,6 +11,6 @@ case class LsA10(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A10")
   val arr1 = Arrow(cen0, cen1)
   val cen2 = x1 pp y2
   val arr2 = Arrow(cen0, cen2)
-  def stuff = Arr(rect.slate(cen0).draw(), rect.slate(cen1).draw(), rect.slate(cen2).draw()) ++ arr1 ++ arr2
+  def stuff = RArr(rect.slate(cen0).draw(), rect.slate(cen1).draw(), rect.slate(cen2).draw()) ++ arr1 ++ arr2
    repaint(stuff)
 }
