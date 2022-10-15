@@ -8,8 +8,8 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
    * tail value */
   def headOnly[B](ifEmpty: => B, fNonEmpty: A => B): B = if (thisArray.length == 0) ifEmpty else fNonEmpty(thisArray(0))
 
-  /** maps to a [[SeqImut]] of B. */
-  def mapArr[B, BB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, BB]): BB ={
+  /** maps to a [[Arr]] of B. */
+  def mapArr[B, BB <: Arr[B]](f: A => B)(implicit ev: ArrBuilder[B, BB]): BB ={
     val res = ev.newArr(thisArray.length)
     iForeach{(a, i) => res.unsafeSetElem(i, f(a)) }
     res

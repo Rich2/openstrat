@@ -14,7 +14,7 @@ object Scale
 {
   implicit def transSimerImplicit[T <: SimilarPreserve]: Scale[T] = (obj, operand) => obj.scale(operand).asInstanceOf[T]
 
-  implicit def arrImplicit[A, AA <: SeqImut[A]](implicit build: ArrBuilder[A, AA], ev: Scale[A]): Scale[AA] =
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: ArrBuilder[A, AA], ev: Scale[A]): Scale[AA] =
     (obj, offset) => obj.map(ev.scaleT(_, offset))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: Scale[A]): Scale[F[A]] =

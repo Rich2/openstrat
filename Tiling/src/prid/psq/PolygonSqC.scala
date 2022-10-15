@@ -31,7 +31,7 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
     }
   }
 
-  override def vertsMap[B, ArrB <: SeqImut[B]](f: SqCoord => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: SqCoord => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
   { val res = builder.newArr(vertsNum)
     var count = 0
     vertsForeach{ v =>
@@ -88,7 +88,7 @@ object PolygonSqC extends Int2SeqLikeCompanion[SqCoord, PolygonSqC]
   }
 }
 
-class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends SeqImut[PolygonSqC]
+class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends Arr[PolygonSqC]
 { override type ThisT = PolygonSqCArr
   override def typeStr: String = "PolygonSqCArr"
   override def unsafeSameSize(length: Int): PolygonSqCArr = new PolygonSqCArr(new Array[Array[Int]](length))
@@ -106,7 +106,7 @@ class PolygonSqCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal wit
   override def fElemStr: PolygonSqC => String = _.toString
   override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeBuff(index))
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   override def unsafeSameSize(length: Int): PolygonSqCBuff = ???
 }
 

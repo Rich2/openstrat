@@ -1,7 +1,7 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
-trait ArrBaseOff[A, ArrT <: SeqImut[A]] extends Any
+trait ArrBaseOff[A, ArrT <: Arr[A]] extends Any
 { def offset0: Int
   @inline def apply(index: Int)(implicit arr: ArrT): A
   def lenStr(implicit arr: ArrT): String = length.toString

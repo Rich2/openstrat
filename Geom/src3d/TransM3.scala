@@ -11,7 +11,7 @@ trait TransM3[T]
 /** Companion object for the [[TransM3]][T] type class, contains implicit instances for collections and other container classes. */
 object TransM3
 {
-  implicit def arrImplicit[A, AA <: SeqImut[A]](implicit build: ArrBuilder[A, AA], ev: TransM3[A]): TransM3[AA] =
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: ArrBuilder[A, AA], ev: TransM3[A]): TransM3[AA] =
     (obj, f) => obj.map(ev.trans3T(_, f))
 
   implicit def functorImplicit[A, F[_]](implicit evF: Functor[F], evA: TransM3[A]): TransM3[F[A]] =

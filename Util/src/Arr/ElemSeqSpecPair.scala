@@ -6,7 +6,7 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
 trait ElemSeqSpecPair[A1E, A1 <: SeqSpec[A1E], A2] extends SpecialT
 
 /** A sequence of [[ElemSeqSpecPair]]s stored in 2 [[Array]]s for efficiency. */
-trait SeqSpecPairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Sequ[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends SeqImut[A]
+trait SeqSpecPairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Sequ[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends Arr[A]
 { //def a1Arr: SeqImut[A1] = ???
   def a2Array: Array[A2]
   override def length: Int = a2Array.length
@@ -33,11 +33,11 @@ trait SeqSpecPairBuff[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqSpecPair[A1E, A1,
 { def a2Buff: ArrayBuffer[A2]
   override def length: Int = a2Buff.length
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   override def unsafeSameSize(length: Int): ThisT = ???
 }
 
-trait SeqSpecPairArrBuilder[B1E, B1 <: SeqSpec[B1E], ArrB1 <: SeqImut[B1], B2, B <: ElemSeqSpecPair[B1E, B1, B2], ArrB <: SeqImut[B]] extends ArrBuilder[B, ArrB]
+trait SeqSpecPairArrBuilder[B1E, B1 <: SeqSpec[B1E], ArrB1 <: Arr[B1], B2, B <: ElemSeqSpecPair[B1E, B1, B2], ArrB <: Arr[B]] extends ArrBuilder[B, ArrB]
 { /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
   def b1Builder: SeqLikeImutBuilder[B1E, B1]
 

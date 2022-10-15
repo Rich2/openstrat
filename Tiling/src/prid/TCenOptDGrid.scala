@@ -11,7 +11,7 @@ trait TCenOptDGrid[A <: AnyRef] extends Any
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
    *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptDGrid]] was created. */
-  def mapArr[B, ArrT <: SeqImut[B]](noneValue: => B)(f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  def mapArr[B, ArrT <: Arr[B]](noneValue: => B)(f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     unsafeArr.foreach{ a => build.buffGrow(buff, if (a == null) noneValue else f(a)) }
     build.buffToBB(buff)
@@ -19,7 +19,7 @@ trait TCenOptDGrid[A <: AnyRef] extends Any
 
   /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
    *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptDGrid]] was created. */
-  def mapSomes[B, ArrT <: SeqImut[B]](f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  def mapSomes[B, ArrT <: Arr[B]](f: A => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()
     unsafeArr.foreach { a =>
@@ -32,7 +32,7 @@ trait TCenOptDGrid[A <: AnyRef] extends Any
   }
 
   /** Returns an ArrBase[A] of type ArrA filtered to the Some values. */
-  def somesArr[ArrA <: SeqImut[A]](implicit build: ArrBuilder[A, ArrA]): ArrA =
+  def somesArr[ArrA <: Arr[A]](implicit build: ArrBuilder[A, ArrA]): ArrA =
   { val buff = build.newBuff()
     unsafeArr.foreach { a => if (a != null) build.buffGrow(buff, a) }
     build.buffToBB(buff)

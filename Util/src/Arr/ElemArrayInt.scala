@@ -16,7 +16,7 @@ trait ElemArrayInt extends Any// with SpecialT
 }
 
 /** Base trait for collections of elements that are based on [[array]][Int]s, backed by an underlying Array[Array[Int]]. */
-trait ArrayIntArr[A <: ArrayIntBacked] extends Any with SeqImut[A]
+trait ArrayIntArr[A <: ArrayIntBacked] extends Any with Arr[A]
 { type ThisT <: ArrayIntArr[A]
   def unsafeArrayOfArrays: Array[Array[Int]]
   override final def length: Int = unsafeArrayOfArrays.length
@@ -51,6 +51,6 @@ trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Sequ[A]
 { def unsafeBuff: ArrayBuffer[Array[Int]]
   override final def length: Int = unsafeBuff.length
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   override def unsafeSameSize(length: Int): ThisT = ???
 }

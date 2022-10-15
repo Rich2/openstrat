@@ -98,7 +98,7 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 { type ArrT <: DblNArr[A]
   def unsafeBuffer: ArrayBuffer[Double]
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   override def unsafeSameSize(length: Int): ThisT = ???
 
   def length: Int = unsafeBuffer.length / elemProdSize

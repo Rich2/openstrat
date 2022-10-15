@@ -10,7 +10,7 @@ trait SeqLike[+A] extends Any
 { /** Gives the final type of this class. */
   type ThisT <: SeqLike[A]
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   def unsafeSameSize(length: Int): ThisT
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory

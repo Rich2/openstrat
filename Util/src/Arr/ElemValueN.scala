@@ -19,7 +19,7 @@ trait ValueNSeqLike[A <: ElemValueN] extends Any with SeqLike[A]
 }
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
- *  classes include both [[SeqImut]s and classes like polygons and lines. */
+ *  classes include both [[Arr]s and classes like polygons and lines. */
 trait ValueNSeqSpec[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqSpec[A]
 { type ThisT <: ValueNSeqSpec[A]
 
@@ -35,7 +35,7 @@ trait ValueNSeqSpec[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqS
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ValueNArr[A <: ElemValueN] extends Any with SeqImut[A] with ValueNSeqLike[A]
+trait ValueNArr[A <: ElemValueN] extends Any with Arr[A] with ValueNSeqLike[A]
 { type ThisT <: ValueNArr[A]
 
   /** Checks if 2 values of the specifying sequence are equal. */

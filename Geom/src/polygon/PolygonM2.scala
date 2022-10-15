@@ -31,7 +31,7 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Dbl2Se
     }
   }
 
-  override def vertsMap[B, ArrB <: SeqImut[B]](f: PtM2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: PtM2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
   { val res = builder.newArr(vertsNum)
     var count = 0
     vertsForeach{ v =>

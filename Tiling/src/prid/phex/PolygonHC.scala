@@ -28,7 +28,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
     }
   }
 
-  override def vertsMap[B, ArrB <: SeqImut[B]](f: HCoord => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: HCoord => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
   { val res = builder.newArr(vertsNum)
     var count = 0
     vertsForeach{ v =>

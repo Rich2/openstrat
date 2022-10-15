@@ -28,7 +28,7 @@ case class Multiple[+A](value: A, num: Int)
     Multiple[B](res.value, res.num * num)
   }
 
-  def toArr[ArrA <: SeqImut[A]@uncheckedVariance](implicit build: ArrBuilder[A, ArrA]@uncheckedVariance): ArrA =
+  def toArr[ArrA <: Arr[A]@uncheckedVariance](implicit build: ArrBuilder[A, ArrA]@uncheckedVariance): ArrA =
   { val res: ArrA = build.newArr(num)
     iUntilForeach(num){i => res.unsafeSetElem(i, value)}
     res
@@ -51,7 +51,7 @@ object Multiple
 
     def toSinglesList: List[A] = thisSeq.toList.flatMap(_.singlesList)
 
-    def singles[ArrA <: SeqImut[A]](implicit build: ArrBuilder[A, ArrA]): ArrA ={
+    def singles[ArrA <: Arr[A]](implicit build: ArrBuilder[A, ArrA]): ArrA ={
       val len: Int = thisSeq.sumBy(_.num)
       val res = build.newArr(len)
       var i = 0

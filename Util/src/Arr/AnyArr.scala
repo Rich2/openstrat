@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Any]]s. */
-class AnyArr(val unsafeArray: Array[Any]) extends AnyVal with SeqImut[Any]
+class AnyArr(val unsafeArray: Array[Any]) extends AnyVal with Arr[Any]
 { type ThisT = AnyArr
 
   /** Copy's the backing Array[[Any]] to a new Array[char]. End users should rarely have to use this method. */
@@ -57,7 +57,7 @@ class AnyBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with Sequ[Any]
   /** The final type of this object. */
   override type ThisT = AnyBuff
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   override def unsafeSameSize(length: Int): AnyBuff = ???
 }
 

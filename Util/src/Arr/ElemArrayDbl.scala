@@ -15,7 +15,7 @@ trait ElemArrayDbl extends Any// with SpecialT
 }
 
 /** Base trait for collections of elements that are based on [[array]][Double]s, backed by an underlying Array[Array[Double]]. */
-trait ArrayDblArr[A <: ArrayDblBacked] extends Any with SeqImut[A]
+trait ArrayDblArr[A <: ArrayDblBacked] extends Any with Arr[A]
 { type ThisT <: ArrayDblArr[A]
   def unsafeArrayOfArrays: Array[Array[Double]]
   override final def length: Int = unsafeArrayOfArrays.length
@@ -50,6 +50,6 @@ trait ArrayDblBuff[A <: ArrayDblBacked] extends Any with Sequ[A]
 { def unsafeBuff: ArrayBuffer[Array[Double]]
   override final def length: Int = unsafeBuff.length
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   override def unsafeSameSize(length: Int): ThisT = ???
 }

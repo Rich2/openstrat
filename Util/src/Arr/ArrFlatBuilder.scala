@@ -5,7 +5,7 @@ import reflect.ClassTag, scala.annotation.unused
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
  *  you control should go in the companion object of BB. This is different from the related [[ArrBuilder]][BB] type class where the instance
  *  should go into the B companion object. */
-trait ArrFlatBuilder[ArrB <: SeqImut[_]] extends SeqDefBuilderCommon[ArrB]
+trait ArrFlatBuilder[ArrB <: Arr[_]] extends SeqDefBuilderCommon[ArrB]
 
 /** Companion object for ArrTFlatBuilder, contains implicit instances for atomic value classes. */
 object ArrFlatBuilder extends ArrFlatBuilderLowPriority

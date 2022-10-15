@@ -60,9 +60,9 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
     }
   }
 
-  /** Specialised map to an immutable [[SeqImut]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for
+  /** Specialised map to an immutable [[Arr]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for
    * example a PolygonLike will map to another PolgonLike. */
-  def ssMap[B, ArrB <: SeqImut[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
+  def ssMap[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
     val res = ev.newArr(ssLength)
     ssIForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
@@ -123,7 +123,7 @@ class SeqSpecShowT[A, R <: SeqSpec[A]](val evA: ShowT[A]) extends ShowTSeqLike[A
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
-class ArrShowT[A, R <: SeqImut[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+class ArrShowT[A, R <: Arr[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =

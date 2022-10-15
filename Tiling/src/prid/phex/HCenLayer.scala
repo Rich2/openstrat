@@ -24,7 +24,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** [[HCen]] with map. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the function
    *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    *  element) => B signature. */
-  def hcMap[B, BB <: SeqImut[B]](f: (HCen, A) => B)(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
+  def hcMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
   { val res = build.newArr(length)
     grid.iForeach{ (hc, i) =>
       val newElem = f(hc, apply(hc))
@@ -34,8 +34,8 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   }
 
   /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
-   * [[SeqImut]] will be between 0 and the lengthof this [[HCenLayer]]. */
-  def hcOptMap[B, BB <: SeqImut[B]](f: (A, HCen) => Option[B])(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
+   * [[Arr]] will be between 0 and the lengthof this [[HCenLayer]]. */
+  def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach { (hc, i) =>
       f(apply(hc), hc).foreach(build.buffGrow(buff, _))
@@ -46,7 +46,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
    *  function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    *  element) => B signature. */
-  def hcFlatMap[BB <: SeqImut[_]](f: (HCen, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
+  def hcFlatMap[BB <: Arr[_]](f: (HCen, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
   { val buff = build.newBuff()
     grid.iForeach{ (hc, i) =>
       val newElems = f(hc, apply(hc))
@@ -58,7 +58,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
    * function signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    * element) => B signature. */
-  def hcOptFlatMap[BB <: SeqImut[_]](f: (HCen, A) => Option[BB])(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB = {
+  def hcOptFlatMap[BB <: Arr[_]](f: (HCen, A) => Option[BB])(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB = {
     val buff = build.newBuff()
     grid.iForeach { (hc, i) =>
       f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
@@ -108,7 +108,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */
-  def sideMap[B, BB <: SeqImut[B]](f1: (HSide, A) => B, f2: (HSide, A, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
+  def sideMap[B, BB <: Arr[B]](f1: (HSide, A) => B, f2: (HSide, A, A) => B)(implicit grid: HGrid, build: ArrBuilder[B, BB]): BB =
     grid.sidesMap{ hs => hs.tiles match
       {
         case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
@@ -119,7 +119,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   /** Maps the links or inner sides to an immutable Array, using the data of this HCenArr. It takes a function for the links or inner sides of the
    *  grid that takes the [[HSide]] and the two adjacent hex tile data values. */
-  def linksMap[B, BB <: SeqImut[B]](f: (HSide, A, A) => B)(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
+  def linksMap[B, BB <: Arr[B]](f: (HSide, A, A) => B)(implicit grid: HGridSys, build: ArrBuilder[B, BB]): BB =
     grid.linksMap{ hs => hs.tiles match
     { case (c1, c2)  => f(hs, apply(c1), apply(c2))
     }
@@ -128,7 +128,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */
-  def sideFlatMap[BB <: SeqImut[_]](f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
+  def sideFlatMap[BB <: Arr[_]](f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
     grid.sidesFlatMap{ hs => hs.tiles match
     { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
       case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
@@ -138,13 +138,13 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   /** FlatMaps the links / inner sides to an immutable Array, using the data of this HCenArr. It takes a function, that takes the [[HSide]] and the
    *  two adjacent hex tile data values. */
-  def linksFlatMap[BB <: SeqImut[_]](f: (HSide, A, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
+  def linksFlatMap[BB <: Arr[_]](f: (HSide, A, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
     grid.linksFlatMap { hs => f(hs, apply(hs.tile1), apply(hs.tile2)) }
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
-  def projSideFlatMap[BB <: SeqImut[_]](proj: HSysProjection)(f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
+  def projSideFlatMap[BB <: Arr[_]](proj: HSysProjection)(f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
     proj.gChild.sidesFlatMap { hs =>
       hs.tiles match {
         case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f2(hs, apply(proj.parent, c1), apply(proj.parent, c2))
@@ -156,25 +156,25 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
-  def projLinksFlatMap[BB <: SeqImut[_]](f2: (HSide, A, A) => BB)(implicit proj: HSysProjection, build: ArrFlatBuilder[BB]): BB =
+  def projLinksFlatMap[BB <: Arr[_]](f2: (HSide, A, A) => BB)(implicit proj: HSysProjection, build: ArrFlatBuilder[BB]): BB =
     projLinksFlatMap(proj)(f2)
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
-  def projLinksFlatMap[BB <: SeqImut[_]](proj: HSysProjection)(f: (HSide, A, A) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
+  def projLinksFlatMap[BB <: Arr[_]](proj: HSysProjection)(f: (HSide, A, A) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
     proj.gChild.linksFlatMap { hs => f(hs, apply(proj.parent, hs.tile1), apply(proj.parent, hs.tile2)) }
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
-  def projLinksLineOptMap[B, BB <: SeqImut[B]](f: (LineSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: ArrBuilder[B, BB]): BB =
+  def projLinksLineOptMap[B, BB <: Arr[B]](f: (LineSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: ArrBuilder[B, BB]): BB =
     projLinksLineOptMap(proj)(f)
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
-  def projLinksLineOptMap[B, BB <: SeqImut[B]](proj: HSysProjection)(f: (LineSeg, A, A) => Option[B])(implicit build: ArrBuilder[B, BB]): BB =
+  def projLinksLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (LineSeg, A, A) => Option[B])(implicit build: ArrBuilder[B, BB]): BB =
     proj.gChild.linksOptMap { hs =>
       hs.tiles match {
         case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f(hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))

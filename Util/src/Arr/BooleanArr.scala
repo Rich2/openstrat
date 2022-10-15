@@ -19,7 +19,7 @@ trait BooleanSeqSpec extends Any with SeqSpec[Boolean]
 }
 
 /** An immutable efficient Array[Boolean] backed sequence class for [[Boolean]]s. */
-final class BooleanArr(val unsafeArray: Array[Boolean]) extends AnyVal with SeqImut[Boolean] with BooleanSeqSpec
+final class BooleanArr(val unsafeArray: Array[Boolean]) extends AnyVal with Arr[Boolean] with BooleanSeqSpec
 { type ThisT = BooleanArr
   override def typeStr: String = "Booleans"
   override def fromArray(array: Array[Boolean]): BooleanArr = new BooleanArr(array)
@@ -61,6 +61,6 @@ class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with Se
   /** The final type of this object. */
   override type ThisT = BooleanBuff
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[SeqImut]]'s final type. */
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   override def unsafeSameSize(length: Int): BooleanBuff = ???
 }

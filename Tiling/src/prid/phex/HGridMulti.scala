@@ -30,8 +30,8 @@ trait HGridMulti extends HGridSys with TGridMulti
   def unsafeGetManFunc[A](r: Int, c: Int)(f: ManT => A): A = f(unsafeGetMan(r, c))
   def gridNumForeach(f: Int => Unit): Unit = iUntilForeach(numGrids)(f)
   def gridMansForeach(f: ManT => Unit) = gridMans.foreach(f)
-  def gridMansMap[A, AA <: SeqImut[A]](f: ManT => A)(implicit build: ArrBuilder[A, AA]): AA = gridMans.map(f)
-  def gridMansFlatMap[AA <: SeqImut[_]](f: ManT => AA)(implicit build: ArrFlatBuilder[AA]): AA = gridMans.flatMap(f)
+  def gridMansMap[A, AA <: Arr[A]](f: ManT => A)(implicit build: ArrBuilder[A, AA]): AA = gridMans.map(f)
+  def gridMansFlatMap[AA <: Arr[_]](f: ManT => AA)(implicit build: ArrFlatBuilder[AA]): AA = gridMans.flatMap(f)
 
   def gridMansFold[B](initValue: B)(f: (B, ManT) => B): B = gridMans.foldLeft(initValue)(f)
   inline def gridMansFold[B](f: (B, ManT) => B)(implicit ev: DefaultValue[B]): B = gridMansFold(ev.default)(f)

@@ -38,7 +38,7 @@ class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
   final def setRowBack(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRowBack(startCen.r, startCen.c, multiValues: _*)(grid)
 
   /** Set part column of data. */
-  final def setColumn[ArrA <: SeqImut[A]](c: Int, rStart: Int, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen =
+  final def setColumn[ArrA <: Arr[A]](c: Int, rStart: Int, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen =
   {
     multiValues.iForeachSingle{(i, el) =>
       val r: Int = rStart + i * 2
