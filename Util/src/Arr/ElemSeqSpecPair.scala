@@ -6,7 +6,7 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
 trait ElemSeqSpecPair[A1E, A1 <: SeqSpec[A1E], A2] extends SpecialT
 
 /** A sequence of [[ElemSeqSpecPair]]s stored in 2 [[Array]]s for efficiency. */
-trait SeqDefPairArr[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends SeqImut[A]
+trait SeqSpecPairArr[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends SeqImut[A]
 { //def a1Arr: SeqImut[A1] = ???
   def a2Array: Array[A2]
   override def length: Int = a2Array.length
@@ -20,6 +20,7 @@ trait SeqDefPairArr[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqSpecPair[A1E, A1, A
   }*/
 }
 
+/** A buffer of [[ElemSeqSpecPair]]s stored in 2 [[ArrayBuffer]]s for efficiency. */
 trait SeqSpecPairBuff[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends Sequ[A]
 { def a2Buff: ArrayBuffer[A2]
   override def length: Int = a2Buff.length

@@ -5,7 +5,7 @@ trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends ElemSeqSpecPair[A
 { def polygon: A1
 }
 
-trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A2, A <: PolygonLikePair[A1V, A1, A2]] extends SeqDefPairArr[A1V, A1, A2, A]
+trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A2, A <: PolygonLikePair[A1V, A1, A2]] extends SeqSpecPairArr[A1V, A1, A2, A]
 {
   def polygonArr: SeqImut[A1]
 
