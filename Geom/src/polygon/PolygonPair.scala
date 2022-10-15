@@ -2,7 +2,7 @@
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-final class PolygonPair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblsPair[Pt2, Polygon, A2]
+final class PolygonPair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonLikeDblsPair[Pt2, Polygon, A2]
 {
   def polygon: Polygon = new PolygonGen(unsafeArray)
 }
@@ -20,7 +20,9 @@ final class PolygonPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Ar
   override def typeStr: String = "PolygonPairArray"
   override def apply(index: Int): PolygonPair[A2] = new PolygonPair[A2](arrayArrayDbl(index), a2Array(index))
 
-  override def polygonArr: PolygonArr = new PolygonArr(arrayArrayDbl)
+  override def a1Arr: PolygonArr = new PolygonArr(arrayArrayDbl)
+  override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](array1, array2)
+  override def a1Buff: PolygonBuff = PolygonBuff()
 }
 
 final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
@@ -35,12 +37,8 @@ final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def buffGrowArr(buff: PolygonPairBuff[A2], arr: PolygonPairArr[A2]): Unit = ???
   override def newBuff(length: Int): PolygonPairBuff[A2] = new PolygonPairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToBB(buff: PolygonPairBuff[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](buff.arrayDblBuff.toArray, buff.a2Buff.toArray)
-
-
   override def b1Builder: PolygonLikeBuilder[Pt2, Polygon] = Pt2.polygonBuildImplicit
-
   override def b1ArrBuilder: ArrBuilder[Polygon, PolygonArr] = Polygon.arrBuildImplicit
-
   override def pairArrBuilder(polygonArr: PolygonArr, a2s: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](polygonArr.unsafeArrayOfArrays, a2s)
 }
 

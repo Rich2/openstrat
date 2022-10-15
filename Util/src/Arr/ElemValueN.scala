@@ -31,6 +31,16 @@ trait ValueNSeqSpec[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqS
 
   /** The number of product elements in this collection. For example in a [[PolygonImp], this is the number of [[Pt2]]s in the [[Polygon]] */
   override def ssLength: Int = unsafeLength / elemProdSize
+
+  def ssForAll(f: A => Boolean): Boolean =
+  { var res = true
+    var i = 0
+    while (i < ssLength & res)
+    { if (!f(ssIndex(i))) res = false
+      i += 1
+    }
+  res
+  }
 }
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous

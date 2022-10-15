@@ -71,16 +71,16 @@ trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with Valu
 }
 
 /** A polygon whose elements are defined by [[Double]]s. */
-trait PolygonDblNs[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DblNSeqSpec[VT]
+trait PolygonDblN[VT <: ElemDblN] extends Any with PolygonValueN[VT] with DblNSeqSpec[VT]
 
 /** A polygon whose elements are defined by 2 [[Double]]s. */
-trait PolygonDbl2s[VT <: ElemDbl2] extends Any with PolygonDblNs[VT] with Dbl2SeqSpec[VT]
+trait PolygonDbl2[VT <: ElemDbl2] extends Any with PolygonDblN[VT] with Dbl2SeqSpec[VT]
 
 /** A polygon whose elements are defined by 3 [[Double]]s. */
-trait PolygonDbl3s[VT <: ElemDbl3] extends Any with PolygonDblNs[VT] with Dbl3SeqSpec[VT]
+trait PolygonDbl3[VT <: ElemDbl3] extends Any with PolygonDblN[VT] with Dbl3SeqSpec[VT]
 
 /** A polygon whose elements are defined by [[Inte]]s. */
-trait PolygonIntNs[VT <: ElemIntN] extends Any with PolygonValueN[VT] with IntNSeqSpec[VT]
+trait PolygonIntN[VT <: ElemIntN] extends Any with PolygonValueN[VT] with IntNSeqSpec[VT]
 
 /** A polygon whose elements are defined by 2 [[int]]s. */
-trait PolygonInt2s[VT <: ElemInt2] extends Any with PolygonIntNs[VT] with Int2SeqSpec[VT]
+trait PolygonInt2[VT <: ElemInt2] extends Any with PolygonIntN[VT] with Int2SeqSpec[VT]

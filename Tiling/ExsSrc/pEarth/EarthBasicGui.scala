@@ -22,7 +22,9 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
 
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
-  //val pss3 = ps2.filter(_.)
+  debvar(ps2.length)
+  val ps5 = ps2.filterOn1(_.zAllNonNeg)
+  debvar(ps5.length)
   def repaint(): Unit =
   {
     val ps3 = ps2.polygonMapToPair(_.fromLatLongFocus(focus))

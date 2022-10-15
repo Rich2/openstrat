@@ -7,7 +7,7 @@ trait ElemSeqSpecPair[A1E, A1 <: SeqSpec[A1E], A2] extends SpecialT
 
 /** A sequence of [[ElemSeqSpecPair]]s stored in 2 [[Array]]s for efficiency. */
 trait SeqSpecPairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends Arr[A]
-{ def a1Arr: A1Arr = ???
+{ //def a1Arr: A1Arr = ???
   def a2Array: Array[A2]
   override def length: Int = a2Array.length
  //def newA1Buff: Buff

@@ -18,7 +18,7 @@ trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDbl
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[DblNArr]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait DblNSeqSpec[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqSpec[A]
+trait DblNSeqSpec[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqSpec[A] with ArrayDblBacked
 { type ThisT <: DblNSeqSpec[A]
 
   override def ssReverse: ThisT =

@@ -13,6 +13,7 @@ trait ElemDbl6 extends Any with ElemDblN
   def dbl6: Double
 }
 
+/** Sequence like class whose elements or sequence specifying elements [[ElemDbl6]] can be constructed from 6 [[Double]]s. */
 trait Dbl6SeqLike[A <: ElemDbl6] extends Any with DblNSeqLike[A]
 {
   def elemProdSize: Int = 6
