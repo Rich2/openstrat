@@ -17,22 +17,14 @@ trait Dbl6SeqLike[A <: ElemDbl6] extends Any with DblNSeqLike[A]
 {
   def elemProdSize: Int = 6
 
-  def unsafeSetElem(index: Int, elem: A): Unit = {
-    val offset = index * 6
-    unsafeArray(offset) = elem.dbl1;
-    unsafeArray(offset + 1) = elem.dbl2;
-    unsafeArray(offset + 2) = elem.dbl3;
-    unsafeArray(offset + 3) = elem.dbl4
-    unsafeArray(offset + 4) = elem.dbl5;
-    unsafeArray(offset + 5) = elem.dbl6
+  def unsafeSetElem(index: Int, elem: A): Unit =
+  { val offset = index * 6
+    unsafeArray(offset) = elem.dbl1; unsafeArray(offset + 1) = elem.dbl2; unsafeArray(offset + 2) = elem.dbl3; unsafeArray(offset + 3) = elem.dbl4
+    unsafeArray(offset + 4) = elem.dbl5; unsafeArray(offset + 5) = elem.dbl6
   }
 
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = {
-    buffer.append(elem.dbl1);
-    buffer.append(elem.dbl2)
-    buffer.append(elem.dbl3)
-    buffer.append(elem.dbl4)
-    buffer.append(elem.dbl5)
+  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit =
+  { buffer.append(elem.dbl1); buffer.append(elem.dbl2); buffer.append(elem.dbl3); buffer.append(elem.dbl4); buffer.append(elem.dbl5)
     buffer.append(elem.dbl6)
   }
 }
@@ -102,12 +94,8 @@ trait Dbl6ArrBuilder[B <: ElemDbl6, ArrB <: Dbl6Arr[B]] extends DblNArrBuilder[B
   final override def elemProdSize = 6
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
-  { arr.unsafeArray(index * 6) = value.dbl1
-    arr.unsafeArray(index * 6 + 1) = value.dbl2
-    arr.unsafeArray(index * 6 + 2) = value.dbl3
-    arr.unsafeArray(index * 6 + 3) = value.dbl4
-    arr.unsafeArray(index * 6 + 4) = value.dbl5
-    arr.unsafeArray(index * 6 + 5) = value.dbl6
+  { arr.unsafeArray(index * 6) = value.dbl1; arr.unsafeArray(index * 6 + 1) = value.dbl2; arr.unsafeArray(index * 6 + 2) = value.dbl3
+    arr.unsafeArray(index * 6 + 3) = value.dbl4; arr.unsafeArray(index * 6 + 4) = value.dbl5; arr.unsafeArray(index * 6 + 5) = value.dbl6
   }
 }
 

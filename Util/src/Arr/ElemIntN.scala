@@ -52,8 +52,8 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++(operand: ThisT)(implicit build: IntNArrBuilder[A, ThisT]): ThisT = {
-    val newArray: Array[Int] = new Array(unsafeLength + operand.unsafeLength)
+  def ++(operand: ThisT)(implicit build: IntNArrBuilder[A, ThisT]): ThisT =
+  { val newArray: Array[Int] = new Array(unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)
     operand.unsafeArray.copyToArray(newArray, unsafeLength)
     build.fromIntArray(newArray)

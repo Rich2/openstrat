@@ -6,7 +6,7 @@ package ostrat; package geom
 class LinePathMetre3(val unsafeArray: Array[Double]) extends AnyVal with LinePathDbl3[PtM3]
 {
   override type ThisT = LinePathMetre3
-  override def dataElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
+  override def ssElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
   override def fromArray(array: Array[Double]): LinePathMetre3 = new LinePathMetre3(array)
   override def typeStr: String = "LinePathM3"
   override def fElemStr: PtM3 => String = _.toString

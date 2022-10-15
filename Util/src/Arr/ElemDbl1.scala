@@ -8,7 +8,7 @@ trait ElemDbl1 extends Any with ElemDblN
   def dblsEqual(that: ElemDbl1): Boolean = dbl1 == that.dbl1
 }
 
-/** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl1]]s. */
+/** A specialised immutable sequence, flat Array[Double] based collection of a type of [[ElemDbl1]]s. */
 trait Dbl1Arr[A <: ElemDbl1] extends Any with DblNArr[A]
 { final override def elemProdSize: Int = 1
   def newElem(dblValue: Double): A

@@ -13,6 +13,7 @@ trait ElemDbl3 extends Any with ElemDblN
     dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta) & dbl3.=~(that.dbl3, delta)
 }
 
+/** A Sequence like class of [[ElemDbl3]] elements that can be constructed from 3 [[Double]]s. */
 trait Dbl3SeqLike[A <: ElemDbl3] extends Any with DblNSeqLike[A]
 { override def elemProdSize = 3
 
@@ -25,11 +26,11 @@ trait Dbl3SeqLike[A <: ElemDbl3] extends Any with DblNSeqLike[A]
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl3]]s. */
 trait Dbl3SeqSpec[A <: ElemDbl3] extends Any with Dbl3SeqLike[A] with DblNSeqSpec[A]
-{ /** Method for creating new data elements from 3 [[Double]]s In the case of [[Dbl3Arr]] this will be the type of the elements of the sequence. */
-  def dataElem(d1: Double, d2: Double, d3: Double): A
+{ /** Method for creating new elements of the specifying-sequence from 3 [[Double]]s. */
+  def ssElem(d1: Double, d2: Double, d3: Double): A
 
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
-  override def ssIndex(index: Int): A = dataElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  override def ssIndex(index: Int): A = ssElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
 /** A specialised immutable, flat Array[Double] based sequence of a type of [[ElemDbl3]]s. */
@@ -40,11 +41,10 @@ trait Dbl3Arr[A <: ElemDbl3] extends Any with DblNArr[A] with Dbl3SeqLike[A]
   def head3: Double = unsafeArray(2)
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3)))
 
-  /** Method for creating new data elements from 3 [[Double]]s In the case of [[Dbl3Arr]] this will be the type of the elements of the sequence. */
+  /** Method for creating new elements from 3 [[Double]]s. */
   def newElem(d1: Double, d2: Double, d3: Double): A
 
   override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
-
   override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
@@ -70,13 +70,7 @@ trait Dbl3ArrFlatBuilder[B <: ElemDbl3, ArrB <: Dbl3Arr[B]] extends DblNArrFlatB
 
 /** Persists [[Dbl3SeqSpec]]s. */
 abstract class Dbl3SeqDefPersist[A <: ElemDbl3, M <: Dbl3SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
-{
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
-  { buf += value.dbl1
-    buf += value.dbl2
-    buf += value.dbl3
-  }
-
+{ override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = { buf += value.dbl1; buf += value.dbl2; buf += value.dbl3 }
   override def syntaxDepthT(obj: M): Int = 3
   override def showDecT(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ""
 }

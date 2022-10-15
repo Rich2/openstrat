@@ -14,21 +14,13 @@ trait ElemDbl5 extends Any with ElemDblN
 trait Dbl5SeqLike[A <: ElemDbl5] extends Any with DblNSeqLike[A]
 { def elemProdSize: Int = 5
 
-  final override def unsafeSetElem(index: Int, elem: A): Unit = {
-    unsafeArray(5 * index) = elem.dbl1
-    unsafeArray(5 * index + 1) = elem.dbl2
-    unsafeArray(5 * index + 2) = elem.dbl3
-    unsafeArray(5 * index + 3) = elem.dbl4
-    unsafeArray(5 * index + 4) = elem.dbl5
+  final override def unsafeSetElem(index: Int, elem: A): Unit =
+  { unsafeArray(5 * index) = elem.dbl1; unsafeArray(5 * index + 1) = elem.dbl2; unsafeArray(5 * index + 2) = elem.dbl3
+    unsafeArray(5 * index + 3) = elem.dbl4; unsafeArray(5 * index + 4) = elem.dbl5
   }
 
-  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = {
-    buffer.append(elem.dbl1);
-    buffer.append(elem.dbl2)
-    buffer.append(elem.dbl3)
-    buffer.append(elem.dbl4)
-    buffer.append(elem.dbl5)
-  }
+  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2)
+    buffer.append(elem.dbl3); buffer.append(elem.dbl4); buffer.append(elem.dbl5) }
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl5]]s. */
@@ -66,11 +58,8 @@ trait Dbl5ArrBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrBuilder[B
   final override def elemProdSize = 5
 
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
-  { arr.unsafeArray(index * 5) = value.dbl1
-    arr.unsafeArray(index * 5 + 1) = value.dbl2
-    arr.unsafeArray(index * 5 + 2) = value.dbl3
-    arr.unsafeArray(index * 5 + 3) = value.dbl4
-    arr.unsafeArray(index * 5 + 4) = value.dbl5
+  { arr.unsafeArray(index * 5) = value.dbl1; arr.unsafeArray(index * 5 + 1) = value.dbl2; arr.unsafeArray(index * 5 + 2) = value.dbl3
+    arr.unsafeArray(index * 5 + 3) = value.dbl4;  arr.unsafeArray(index * 5 + 4) = value.dbl5
   }
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrBuilder]] type
@@ -92,11 +81,8 @@ abstract class Dbl5SeqLikeCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqLike[A]] exten
     var count: Int = 0
 
     while (count < length)
-    { array(count * 5) = elems(count).dbl1
-      array(count * 5 + 1) = elems(count).dbl2
-      array(count * 5 + 2) = elems(count).dbl3
-      array(count * 5 + 3) = elems(count).dbl4
-      array(count * 5 + 4) = elems(count).dbl5
+    { array(count * 5) = elems(count).dbl1; array(count * 5 + 1) = elems(count).dbl2; array(count * 5 + 2) = elems(count).dbl3
+      array(count * 5 + 3) = elems(count).dbl4; array(count * 5 + 4) = elems(count).dbl5
       count += 1
     }
 
@@ -107,13 +93,8 @@ abstract class Dbl5SeqLikeCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqLike[A]] exten
 /** Both Persists and Builds [[Dbl5Arr]] Collection classes. */
 abstract class DataDbl5sPersist[A <: ElemDbl5, ArrA <: Dbl5SeqSpec[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
 {
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
-  { buf += value.dbl1
-    buf += value.dbl2
-    buf += value.dbl3
-    buf += value.dbl4
-    buf += value.dbl5
-  }
+  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = { buf += value.dbl1; buf += value.dbl2; buf += value.dbl3; buf += value.dbl4
+    buf += value.dbl5 }
 
   override def syntaxDepthT(obj: ArrA): Int = 3
 }

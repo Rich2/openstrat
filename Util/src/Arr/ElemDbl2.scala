@@ -10,6 +10,7 @@ trait ElemDbl2 extends Any with ElemDblN
   def dblsApprox(that: ElemDbl2, delta: Double = 1e-12): Boolean = dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta)
 }
 
+/** A Sequence like class of [[ElemDbl2]] elements that can be constructed from 2 [[Double]]s. */
 trait Dbl2SeqLike[A <: ElemDbl2] extends Any with DblNSeqLike[A]
 { override def elemProdSize: Int = 2
   override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(2 * index) = elem.dbl1; unsafeArray(2 * index + 1) = elem.dbl2 }
@@ -127,8 +128,7 @@ trait Dbl2SeqLikeCompanion[A <: ElemDbl2, AA <: Dbl2SeqLike[A]] extends DblNSeqL
 
   /** Apply factory method for creating Arrs of [[ElemDbl2]]s. */
   def apply(elems: A*): AA =
-  {
-    val length = elems.length
+  { val length = elems.length
     val res = uninitialised(length)
     var count: Int = 0
 
@@ -143,12 +143,7 @@ trait Dbl2SeqLikeCompanion[A <: ElemDbl2, AA <: Dbl2SeqLike[A]] extends DblNSeqL
 
 /** Persists and assists in building [[Db2SeqDef]] objectsS. */
 abstract class Dbl2SeqDefPersist[A <: ElemDbl2, M <: Dbl2SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]
-{
-  override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
-  { buf += value.dbl1
-    buf += value.dbl2
-  }
-
+{ override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit = { buf += value.dbl1; buf += value.dbl2 }
   override def syntaxDepthT(obj: M): Int = 3
   override def showDecT(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = typeStr //+ obj.dataF Map(_.toString).toString
 }
