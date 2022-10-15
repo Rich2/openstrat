@@ -2,7 +2,7 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
-/** Base trait for specialised immutable sequences. "Arr" is the prescript for all immutable collection classes backed by underlying Arrays. The final
+/** Base trait for specialised immutable sequences. "Arr" is the prescript for all immutable sequence classes backed by underlying Arrays. The final
  *  classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage. A lot of the time this is a compile time wrapper with
  *  no boxing run cost. */
 trait Arr[+A] extends Any with Sequ[A] with SeqLike[A]

@@ -157,7 +157,7 @@ lazy val Y1783Js = jsApp("Y1783").settings(Compile/unmanagedSourceDirectories +=
 lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/Bc305App")
 lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/PlanetsApp")
 
-val moduleDirs: List[String] = List("Util", "UtilExs", "Geom", "GeomExs", "Globe", "Tiling", "TilingExs", "Dev")
+val moduleDirs: List[String] = List("Util", "Geom", "Globe", "Tiling", "Dev")
 val specDirs: List[String] = List("Util/srcParse", "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Tiling/srcPts", "Tiling/srcAncient")
 val CommonDirs: List[String] = moduleDirs.flatMap(m => List(m + "/src", m + "/ExsSrc")) ::: specDirs
 
@@ -181,7 +181,7 @@ lazy val DocMain = (project in file("Dev/SbtDir/DocMain")).settings(sett3).setti
 
 lazy val DocJs = (project in file("Dev/SbtDir/DocJs")).enablePlugins(ScalaJSPlugin).settings(sett3).settings(
   name := "OpenStrat",
-  Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.map(_ + "/srcJs")).map(s => baseDir.value / s),
+  Compile/unmanagedSourceDirectories := (CommonDirs ::: moduleDirs.map(_ + "/JsSrc") ::: List("Dev/JsAppSrc")).map(s => baseDir.value / s),
 
   Compile / sourceGenerators += Def.task {
     val str = scala.io.Source.fromFile("Util/srcRArr/RArr.scala").mkString
