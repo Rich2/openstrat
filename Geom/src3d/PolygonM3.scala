@@ -84,11 +84,11 @@ object PolygonM3 extends Dbl3SeqLikeCompanion[PtM3, PolygonM3]
 
     override def arrSet(arr: PolygonM3Arr, index: Int, value: PolygonM3): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
 
-    override def buffGrow(buff: PolygonM3Buff, value: PolygonM3): Unit = buff.unsafeBuff.append(value.unsafeArray)
+    override def buffGrow(buff: PolygonM3Buff, value: PolygonM3): Unit = buff.unsafeBuffer.append(value.unsafeArray)
 
-    override def buffGrowArr(buff: PolygonM3Buff, arr: PolygonM3Arr): Unit = arr.foreach(p => buff.unsafeBuff.append(p.unsafeArray))
+    override def buffGrowArr(buff: PolygonM3Buff, arr: PolygonM3Arr): Unit = arr.foreach(p => buff.unsafeBuffer.append(p.unsafeArray))
 
-    override def buffToBB(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuff.toArray)
+    override def buffToBB(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuffer.toArray)
   }
 
 
@@ -112,12 +112,12 @@ class PolygonM3Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDb
   override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonM3Arr = new PolygonM3Arr(array)
 }
 
-class PolygonM3Buff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonM3]
+class PolygonM3Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonM3]
 { override type ThisT = PolygonM3Buff
   override def typeStr: String = "PolygonM3Buff"
-  override def unsafeSetElem(i: Int, value: PolygonM3): Unit = unsafeBuff(i) = value.unsafeArray
+  override def unsafeSetElem(i: Int, value: PolygonM3): Unit = unsafeBuffer(i) = value.unsafeArray
   override def fElemStr: PolygonM3 => String = _.toString
-  override def apply(index: Int): PolygonM3 = new PolygonM3(unsafeBuff(index))
+  override def apply(index: Int): PolygonM3 = new PolygonM3(unsafeBuffer(index))
 }
 
 object PolygonM3Buff

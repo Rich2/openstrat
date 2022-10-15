@@ -17,12 +17,12 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
 
   val eas: RArr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
 
-  val eaPms: RArr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM(focus, northUp))
+  val eaPms: RArr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM2(focus, northUp))
   val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
 
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
-
+  //val pss3 = ps2.filter(_.)
   def repaint(): Unit =
   {
     val ps3 = ps2.polygonMapToPair(_.fromLatLongFocus(focus))

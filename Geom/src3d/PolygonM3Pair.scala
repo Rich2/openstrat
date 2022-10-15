@@ -9,8 +9,6 @@ class PolygonM3Pair[A2](val unsafeArray: Array[Double], val a2: A2) extends Poly
 object PolygonM3Pair
 {
   def apply[A2](poly: PolygonM3, a2: A2): PolygonM3Pair[A2] = new PolygonM3Pair[A2](poly.unsafeArray, a2)
-
-
 }
 
 final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends
@@ -22,6 +20,20 @@ final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
   override def typeStr: String = "PolygonM3PairArray"
   override def apply(index: Int): PolygonM3Pair[A2] = new PolygonM3Pair[A2](arrayArrayDbl(index), a2Array(index))
   override def polygonArr: PolygonM3Arr = new PolygonM3Arr(arrayArrayDbl)
+
+  def filter(f: PolygonM3 => Boolean)(implicit ct: ClassTag[A2]): PolygonM3PairArr[A2] =
+    { val buff1 = PolygonM3Buff()
+      val buff2 = new ArrayBuffer[A2]()
+      var i = 0
+      a1Arr.foreach{(a1: PolygonM3) =>
+        if (f(a1)){
+          buff1.grow(a1)
+          buff2.append(a2Array(i))
+        }
+        i += 1
+      }
+      new PolygonM3PairArr[A2](buff1.arrayArrayDbl, buff2.toArray)
+    }
 }
 
 final class PolygonM3PairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends

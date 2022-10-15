@@ -30,9 +30,9 @@ trait ArrayDblArrBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends Ar
   type BuffT <: ArrayDblBuff[A]
   @inline override def newArr(length: Int): ArrT = fromArray(new Array[Array[Double]](length))
   override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
-  override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuff.toArray)
-  override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuff.append(value.unsafeArray); () }
-  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuff.addAll(arr.unsafeArrayOfArrays); () }
+  override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuffer.toArray)
+  override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }
+  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArrayOfArrays); () }
   //override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = arr.unsafeArrayOfArrays.foreach{array => buff.unsafeBuff.append(array) }
 }
 
@@ -47,9 +47,13 @@ object ArrArrayDblEq
 
 /** This is a buffer class for Arrays of Double. It is not a Buffer class for Arrays. */
 trait ArrayDblBuff[A <: ArrayDblBacked] extends Any with Sequ[A]
-{ def unsafeBuff: ArrayBuffer[Array[Double]]
-  override final def length: Int = unsafeBuff.length
+{ def unsafeBuffer: ArrayBuffer[Array[Double]]
+  override final def length: Int = unsafeBuffer.length
+
+  def grow(elem: A): Unit = unsafeBuffer.append(elem.unsafeArray)
 
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   override def unsafeSameSize(length: Int): ThisT = ???
+
+  def arrayArrayDbl: Array[Array[Double]] = unsafeBuffer.toArray
 }

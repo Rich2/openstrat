@@ -48,14 +48,14 @@ object PolygonArr
   }
 }
 
-class PolygonBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[Polygon]
+class PolygonBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[Polygon]
 {
   override type ThisT = PolygonBuff
   override def typeStr: String = "PolygonBuff"
  // override def apply(index: Int): PolygonGen = new PolygonGen(unsafeBuff(index))
 
 
-  override def unsafeSetElem(i: Int, value: Polygon): Unit = unsafeBuff(i) = value.unsafeArray
+  override def unsafeSetElem(i: Int, value: Polygon): Unit = unsafeBuffer(i) = value.unsafeArray
 
   override def fElemStr: Polygon => String = ???
 

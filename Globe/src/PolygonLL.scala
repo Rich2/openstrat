@@ -76,11 +76,11 @@ object PolygonLL extends Dbl2SeqLikeCompanion[LatLong, PolygonLL]
 
     override def arrSet(arr: PolygonLLArr, index: Int, value: PolygonLL): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
 
-    override def buffGrow(buff: PolygonLLBuff, value: PolygonLL): Unit = buff.unsafeBuff.append(value.unsafeArray)
+    override def buffGrow(buff: PolygonLLBuff, value: PolygonLL): Unit = buff.unsafeBuffer.append(value.unsafeArray)
 
-    override def buffGrowArr(buff: PolygonLLBuff, arr: PolygonLLArr): Unit = arr.foreach(p => buff.unsafeBuff.append(p.unsafeArray))
+    override def buffGrowArr(buff: PolygonLLBuff, arr: PolygonLLArr): Unit = arr.foreach(p => buff.unsafeBuffer.append(p.unsafeArray))
 
-    override def buffToBB(buff: PolygonLLBuff): PolygonLLArr = new PolygonLLArr(buff.unsafeBuff.toArray)
+    override def buffToBB(buff: PolygonLLBuff): PolygonLLArr = new PolygonLLArr(buff.unsafeBuffer.toArray)
   }
 
   implicit val persistImplicit: Dbl2SeqDefPersist[LatLong, PolygonLL] = new Dbl2SeqDefPersist[LatLong, PolygonLL]("PolygonLL")
@@ -100,12 +100,12 @@ class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDb
   override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)
 }
 
-class PolygonLLBuff(val unsafeBuff: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonLL]
+class PolygonLLBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonLL]
 { override type ThisT = PolygonLLBuff
   override def typeStr: String = "PolygonLLBuff"
-  override def unsafeSetElem(i: Int, value: PolygonLL): Unit = unsafeBuff(i) = value.unsafeArray
+  override def unsafeSetElem(i: Int, value: PolygonLL): Unit = unsafeBuffer(i) = value.unsafeArray
   override def fElemStr: PolygonLL => String = _.toString
-  override def apply(index: Int): PolygonLL = new PolygonLL(unsafeBuff(index))
+  override def apply(index: Int): PolygonLL = new PolygonLL(unsafeBuffer(index))
 }
 
 object PolygonLLBuff

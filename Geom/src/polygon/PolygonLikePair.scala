@@ -5,7 +5,7 @@ trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends ElemSeqSpecPair[A
 { def polygon: A1
 }
 
-trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A1Arr <: Sequ[A1], A2, A <: PolygonLikePair[A1V, A1, A2]] extends
+trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A1Arr <: Arr[A1], A2, A <: PolygonLikePair[A1V, A1, A2]] extends
   SeqSpecPairArr[A1V, A1, A1Arr, A2, A]
 {
   def polygonArr: Arr[A1]
@@ -31,7 +31,7 @@ trait PolygonDblsPair[A1V <: ElemDblN, A1 <: PolygonLike[A1V], A2] extends Polyg
   def unsafeArray: Array[Double]
 }
 
-trait PolygonDblsLikePairArr[A1V <: ElemDblN, A1 <: PolygonLike[A1V], ArrA1 <: Sequ[A1], A2, A <: PolygonDblsPair[A1V, A1, A2]] extends
+trait PolygonDblsLikePairArr[A1V <: ElemDblN, A1 <: PolygonLike[A1V], ArrA1 <: Arr[A1], A2, A <: PolygonDblsPair[A1V, A1, A2]] extends
   PolygonLikePairArr[A1V, A1, ArrA1, A2, A]
 {
   def arrayArrayDbl: Array[Array[Double]]
