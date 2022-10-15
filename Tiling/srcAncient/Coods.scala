@@ -10,7 +10,7 @@ class Coods(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[Cood]
   override def typeStr: String = "Coods"
   override def newElem(int1: Int, int2: Int): Cood = Cood.apply(int1, int2)
 
-  def filter(f: Cood => Boolean): Coods =
+  /*def filter(f: Cood => Boolean): Coods =
   { val tempArr = new Array[Int](unsafeArray.length)
     var count = 0
     var lengthCounter = 0
@@ -28,7 +28,7 @@ class Coods(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[Cood]
     while (count < lengthCounter * 2){ finalArr(count) = tempArr(count); count += 1 }
     new Coods(finalArr)
   }
-
+*/
   def flatMapNoDuplicates(f: Cood => Coods): Coods =
   {
     val buff = new CoodBuff()

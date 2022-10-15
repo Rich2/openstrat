@@ -16,7 +16,8 @@ object PolygonHCPair {
 }
 
 /** An Arr of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
-final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Array: Array[A2]) extends PolygonLikePairArr[HCoord, PolygonHC, A2, PolygonHCPair[A2]]
+final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Array: Array[A2]) extends
+  PolygonLikePairArr[HCoord, PolygonHC, PolygonHCArr, A2, PolygonHCPair[A2]]
 { override type ThisT = PolygonHCPairArr[A2]
   override def unsafeSameSize(length: Int): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](new Array[Array[Int]](arrayArrayInt.length), a2Array)
   override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { arrayArrayInt(i) = value.unsafeArray; a2Array(i) = value.a2 }

@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+import scala.collection.mutable.ArrayBuffer
+
 /** An object that can be constructed from 3 [[Int]]s. These are used in [[Int3SeqSpec]] based collections. */
 trait ElemInt3 extends Any with ElemIntN
 { def int1: Int
@@ -19,6 +21,9 @@ trait Int3SeqLike[A <: ElemInt3] extends Any with IntNSeqLike[A]
     unsafeArray(3 * index + 1) = elem.int2
     unsafeArray(3 * index + 2) = elem.int3
   }
+
+  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
+    buffer.append(elem.int3) }
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[ElemInt3]]s. */

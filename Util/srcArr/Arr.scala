@@ -127,7 +127,7 @@ final class Arr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal
  * extends AnyRef. */
 object Arr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): Arr[A] = new Arr(input.toArray)
-  implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[Arr[A]] = SeqLikeShowT[A, Arr[A]](evA)
+  implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[Arr[A]] = SeqSpecShowT[A, Arr[A]](evA)
 
   implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[Arr[A]] = (arr1, arr2) => if (arr1.ssLength != arr2.ssLength) false else
   { var i = 0

@@ -6,18 +6,26 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
 trait ElemSeqSpecPair[A1E, A1 <: SeqSpec[A1E], A2] extends SpecialT
 
 /** A sequence of [[ElemSeqSpecPair]]s stored in 2 [[Array]]s for efficiency. */
-trait SeqSpecPairArr[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends SeqImut[A]
+trait SeqSpecPairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Sequ[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends SeqImut[A]
 { //def a1Arr: SeqImut[A1] = ???
   def a2Array: Array[A2]
   override def length: Int = a2Array.length
 
+  /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
+  def a1Builder: SeqLikeImutBuilder[A1E, A1] = ???
   /** Maps this to a new [PolygonLikePairArr]] by mapping a1s to new [[SeqSpec]]s of type B1 leaving the second parts of the pairs
    * unchanged. */
+
   /*def a1MapToPair[B1V <: ElemValueN, B1 <: SeqDef[B1V], ArrB1 <: SeqImut[B1], B <: ElemSeqDefPair[B1V, B1, A2],
     ArrB <: SeqDefPairArr[B1V, B1, A2, B]](f: A1E => B1V)(implicit build: SeqDefPairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]): ArrB = {
     val seqDefs = a1Arr.map(p => p.map[B1V, B1](f)(build.b1Builder))(build.b1ArrBuilder)
     build.pairArrBuilder(seqDefs, a2Array)
   }*/
+
+  def filter(): SeqSpecPairArr[A1E, A1, A1Arr, A2, A] ={
+    val new1s = a1Builder.newBuff()
+    ???
+  }
 }
 
 /** A buffer of [[ElemSeqSpecPair]]s stored in 2 [[ArrayBuffer]]s for efficiency. */

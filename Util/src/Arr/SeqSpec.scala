@@ -115,9 +115,17 @@ trait RefsSeqSpecImut[+A] extends Any with SeqSpec[A]
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
-class SeqLikeShowT[A, R <: SeqSpec[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+class SeqSpecShowT[A, R <: SeqSpec[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.ssFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
     typeStr + evA.typeStr.enSquare + obj.ssMap(a => evA.showDecT(a, style, maxPlaces, minPlaces))
+}
+
+/** [[ShowT] type class for showing [[DataGen]][A] objects. */
+class ArrShowT[A, R <: SeqImut[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+{
+  override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
+  override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+    typeStr + evA.typeStr.enSquare + obj.map(a => evA.showDecT(a, style, maxPlaces, minPlaces))
 }

@@ -17,6 +17,8 @@ trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayInt
 
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
+
+  def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit
 }
 
 trait IntNSeqSpec[A <: ElemIntN] extends Any with IntNSeqLike[A] with ValueNSeqSpec[A] with ArrayIntBacked
@@ -54,6 +56,13 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
     unsafeArray.copyToArray(newArray)
     operand.unsafeArray.copyToArray(newArray, unsafeLength)
     build.fromIntArray(newArray)
+  }
+
+  final def filter(f: A => Boolean): ThisT = {
+    val buff = new ArrayBuffer[Int](8)
+    var i = 0
+    foreach { a => if (f(a)) intBufferAppend(buff, a) }
+    fromArray(buff.toArray)
   }
 }
 

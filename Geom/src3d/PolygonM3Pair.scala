@@ -13,7 +13,8 @@ object PolygonM3Pair
 
 }
 
-final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends PolygonLikePairArr[PtM3, PolygonM3, A2, PolygonM3Pair[A2]]
+final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends
+  PolygonLikePairArr[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2]]
 { override type ThisT = PolygonM3PairArr[A2]
   override def unsafeSameSize(length: Int): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](new Array[Array[Double]](arrayArrayDbl.length), a2Array)
   override def unsafeSetElem(i: Int, value: PolygonM3Pair[A2]): Unit = { arrayArrayDbl(i) = value.unsafeArray; a2Array(i) = value.a2 }

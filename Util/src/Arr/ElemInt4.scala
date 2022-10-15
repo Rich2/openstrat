@@ -21,6 +21,9 @@ trait Int4SeqLike[A <: ElemInt4] extends Any with IntNSeqLike[A]
     unsafeArray(4 * index + 2) = elem.int3
     unsafeArray(4 * index + 3) = elem.int4
   }
+
+  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
+    buffer.append(elem.int3); buffer.append(elem.int4) }
 }
 
 trait Int4SeqSpec[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNSeqSpec[A]

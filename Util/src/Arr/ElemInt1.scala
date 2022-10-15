@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from a single [[Int]]. These are used in [[Int1Arr]] Array[Int] based collections. */
 trait ElemInt1 extends Any with ElemIntN
@@ -10,6 +11,7 @@ trait ElemInt1 extends Any with ElemIntN
 trait Int1SeqLike[A <: ElemInt1] extends Any with IntNSeqLike[A]
 { override def elemProdSize: Int = 1
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(index) = elem.int1 }
+  override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1) }
 }
 
 /** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[ElemInt1]]s. */
