@@ -13,6 +13,7 @@ trait ElemDbl2 extends Any with ElemDblN
 trait Dbl2SeqLike[A <: ElemDbl2] extends Any with DblNSeqLike[A]
 { override def elemProdSize: Int = 2
   override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(2 * index) = elem.dbl1; unsafeArray(2 * index + 1) = elem.dbl2 }
+  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A) : Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2) }
 }
 
 /** A sequence-defined specialised immutable, flat Array[Double] based trait defined by a sequence of a type of [[ElemDbl2]]s. */

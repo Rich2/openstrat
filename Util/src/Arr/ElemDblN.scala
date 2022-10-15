@@ -6,12 +6,15 @@ import collection.mutable.ArrayBuffer
 trait ElemDblN extends Any with ElemValueN
 
 trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDblBacked
-{
-  def unsafeFromArray(array: Array[Double]): ThisT
+{ def unsafeFromArray(array: Array[Double]): ThisT
+
+  /** Utility method to append element on to an [[ArrayBuffer]][Double]. End users should rarely need to use this method. */
+  def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit
 
   final override def unsafeSameSize(length: Int): ThisT = unsafeFromArray(new Array[Double](length * elemProdSize))
-
   @inline final def unsafeLength: Int = unsafeArray.length
+
+
 }
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As

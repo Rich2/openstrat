@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+import scala.collection.mutable.ArrayBuffer
+
 /** An object that can be constructed from 6 [[Double]]s. These are used in [[Dbl6Arr]] Array[Double] based collections. */
 trait ElemDbl6 extends Any with ElemDblN
 { def dbl1: Double
@@ -23,6 +25,15 @@ trait Dbl6SeqLike[A <: ElemDbl6] extends Any with DblNSeqLike[A]
     unsafeArray(offset + 3) = elem.dbl4
     unsafeArray(offset + 4) = elem.dbl5;
     unsafeArray(offset + 5) = elem.dbl6
+  }
+
+  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = {
+    buffer.append(elem.dbl1);
+    buffer.append(elem.dbl2)
+    buffer.append(elem.dbl3)
+    buffer.append(elem.dbl4)
+    buffer.append(elem.dbl5)
+    buffer.append(elem.dbl6)
   }
 }
 

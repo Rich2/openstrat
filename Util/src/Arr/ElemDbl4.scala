@@ -19,6 +19,13 @@ trait Dbl4SeqLike[A <: ElemDbl4] extends Any with DblNSeqLike[A]
     unsafeArray(4 * index + 2) = elem.dbl3
     unsafeArray(4 * index + 3) = elem.dbl4
   }
+
+  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = {
+    buffer.append(elem.dbl1);
+    buffer.append(elem.dbl2)
+    buffer.append(elem.dbl3)
+    buffer.append(elem.dbl4)
+  }
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl4]]s. */

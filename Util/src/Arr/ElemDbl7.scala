@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 7 [[Double]]s. These are used in [[Dbl7SeqSpec]] classes including [[Dbl7Arr]] sequence collections. */
 trait ElemDbl7 extends Any with ElemDblN
@@ -12,24 +13,17 @@ trait ElemDbl7 extends Any with ElemDblN
   def dbl7: Double
 }
 
-trait Dbl7SeqLike[A <: ElemDbl7] extends Any with DblNSeqLike[A]{
-  def elemProdSize: Int = 7
+trait Dbl7SeqLike[A <: ElemDbl7] extends Any with DblNSeqLike[A]
+{ def elemProdSize: Int = 7
 
-
-
-  override def unsafeSetElem(index: Int, elem: A): Unit = {
-    val offset = 7 * index;
-    unsafeArray(offset) = elem.dbl1;
-    unsafeArray(offset + 1) = elem.dbl2;
-    unsafeArray(offset + 2) = elem.dbl3;
-    unsafeArray(offset + 3) = elem.dbl4
-    unsafeArray(offset + 4) = elem.dbl5;
-    unsafeArray(offset + 5) = elem.dbl6;
-    unsafeArray(offset + 6) = elem.dbl7
+  override def unsafeSetElem(index: Int, elem: A): Unit =
+  { val offset = 7 * index;
+    unsafeArray(offset) = elem.dbl1; unsafeArray(offset + 1) = elem.dbl2; unsafeArray(offset + 2) = elem.dbl3; unsafeArray(offset + 3) = elem.dbl4
+    unsafeArray(offset + 4) = elem.dbl5; unsafeArray(offset + 5) = elem.dbl6; unsafeArray(offset + 6) = elem.dbl7
   }
 
-  def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
-    (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
+  override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2)
+    buffer.append(elem.dbl3); buffer.append(elem.dbl4); buffer.append(elem.dbl5); buffer.append(elem.dbl6); }
 }
 
 /** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl7]]s. */
@@ -37,8 +31,8 @@ trait Dbl7SeqSpec[A <: ElemDbl7] extends Any with Dbl7SeqLike[A] with DblNSeqSpe
 {
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double, d7: Double): A
 
-//  override def sdElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
-//    (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
+  def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) &
+    (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6) & (a1.dbl7 == a2.dbl7)
 
   def ssIndex(index: Int): A =
   { val offset = 7 * index
