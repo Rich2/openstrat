@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-
+import geom._, pglobe._
 /** This package has been deprecated. It is being replaced by the [[prid]] package.
  *
  * This package works with hexagonal and Square tile grids. The tile objects themselves will not in the general case the contain grid coordinates,
@@ -35,5 +35,20 @@ package object pGrid
     def cc (y: Int): Cood = Cood(thisInt, y)
   }
 
+  /** Returns a function for a specific EGrid to convert from gridVec to Latlong */
+  def fVec2ToLatLongReg(refLong: Longitude, scale: Length, xOffset: Int, yOffset: Int = 0): Pt2 => LatLong = inp => {
+    val vOffset = HexGridAncient.coodToVec2(xOffset, yOffset)
+    val d2: PtM2 = (inp - vOffset).toMetres(scale)
+    val lat: Double = d2.y / EarthPolarRadius
+    val longDelta: Double = d2.x / (EarthEquatorialRadius * math.cos(lat))
+    LatLong.radians(lat, refLong.radians + longDelta)
+  }
 
+  def vec2ToLatLongReg(inp: Pt2, refLong: Longitude, scale: Length, xOffset: Int, yOffset: Int = 0): LatLong = {
+    val vOffset = HexGridAncient.coodToVec2(xOffset, yOffset)
+    val d2: PtM2 = (inp - vOffset).toMetres(scale)
+    val lat: Double = d2.y / EarthPolarRadius
+    val longDelta: Double = d2.x / (EarthEquatorialRadius * math.cos(lat))
+    LatLong.radians(lat, refLong.radians + longDelta)
+  }
 }
