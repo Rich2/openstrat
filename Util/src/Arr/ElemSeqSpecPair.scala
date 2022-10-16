@@ -10,9 +10,16 @@ trait ElemSeqSpecPair[A1E, A1 <: SeqSpec[A1E], A2] extends SpecialT
 
 /** A sequence of [[ElemSeqSpecPair]]s stored in 2 [[Array]]s for efficiency. */
 trait SeqSpecPairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends Arr[A]
-{ //def a1Arr: A1Arr = ???
+{ def a1Arr: A1Arr
   def a2Array: Array[A2]
+  def a2Arr: RArr[A2] = new RArr[A2](a2Array)
   override def length: Int = a2Array.length
+
+  /** Maps the first component of the pairs, dropping the second. */
+  def a1Map[B, ArrB <: Arr[B]](f: A1 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a1Arr.map(f)
+
+  /** Maps the second component of the pairs, dropping the first. */
+  def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a2Arr.map(f)
 
   /** Needs rewriting. */
   def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = map(p => f(p.a1, p.a2))

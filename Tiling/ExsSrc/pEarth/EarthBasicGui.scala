@@ -17,34 +17,29 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
 
   val eas: RArr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
 
-  val eaPms: RArr[(EArea2, PolygonM2)] = eas.map(_.withPolygonM2(focus, northUp))
   val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
 
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
   debvar(ps2.length)
 
-
   def repaint(): Unit =
-  {
-    val ps3 = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
-    val ps4 = ps3.filterOn1(_.zAllNonNeg)
+  { val ps3: PolygonM3PairArr[EArea2] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
+    val ps4: PolygonM3PairArr[EArea2] = ps3.filterOn1(_.zAllNonNeg)
     debvar(ps4.length)
-    val ps5 = ps4.polygonMapToPair(_.xy)
-    val activeFills2 = ps5.pairMap((p, a2) => p.map(_ / scale).fillActive(a2.colour, a2))
-    val eaPms3: RArr[(EArea2, PolygonM2)] = eaPms.filter(_._2.vertsMin3)
-    val activeFills: RArr[PolygonCompound] = eaPms3.map {case (d, p) => p.map(_ / scale).fillActive(d.colour, d) }
+    val ps5: PolygonM2PairArr[EArea2] = ps4.polygonMapToPair(_.xy)
+    val activeFills: RArr[PolygonCompound] = ps5.pairMap((p, a2) => p.map(_ / scale).fillActive(a2.colour, a2))
 
-    val sideLines: RArr[PolygonDraw] = eaPms3.map { a => a._2.map(_ / scale).draw() }
-    val texts: RArr[TextGraphic] = eaPms3.map { pair =>
-      val (d, _) = pair
+    val sideLines: RArr[PolygonDraw] = ps5.a1Map { _.map(_ / scale).draw() }
+
+    val texts: RArr[TextGraphic] = ps5.a2Map { d =>
       val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
       TextGraphic(d.name, 10, posn, d.colour.contrastBW)
     }
 
-    def seas = earth2DEllipse(scale).fill(Colour.DarkBlue)
+    def seas: EllipseFill = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
-    mainRepaint(seas %: activeFills2 ++ sideLines ++ texts)
+    mainRepaint(seas %: activeFills ++ sideLines ++ texts)
   }
 
 

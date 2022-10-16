@@ -9,8 +9,6 @@ trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends ElemSeqSpecPair[A
 trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A1Arr <: Arr[A1], A2, A <: PolygonLikePair[A1V, A1, A2]] extends
   SeqSpecPairArr[A1V, A1, A1Arr, A2, A]
 {
-  def a1Arr: Arr[A1]
-
   /** Maps this to a new [PolygonLikePairArr]] by mapping [[PolygonLike]]s to new [[PolygonLike]]s of type B1 leaving the second parts of the pairs
    * unchanged. */
   def polygonMapToPair[B1V <: ElemValueN, B1 <: PolygonLike[B1V], ArrB1 <: Arr[B1], B <: PolygonLikePair[B1V, B1, A2],
