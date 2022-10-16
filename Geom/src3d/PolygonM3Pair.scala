@@ -3,7 +3,7 @@ package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 class PolygonM3Pair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblsPair[PtM3, PolygonM3, A2] with SpecialT {
-  override def polygon: PolygonM3 = new PolygonM3(unsafeArray)
+  override def a1: PolygonM3 = new PolygonM3(unsafeArray)
 }
 
 object PolygonM3Pair

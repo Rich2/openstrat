@@ -3,7 +3,7 @@ package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 class PolygonM2Pair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblsPair[PtM2, PolygonM2, A2]{
-  override def polygon: PolygonM2 = new PolygonM2(unsafeArray)
+  override def a1: PolygonM2 = new PolygonM2(unsafeArray)
 }
 
 object PolygonM2Pair {
@@ -38,13 +38,13 @@ final class PolygonM2PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
 
   /** Builder for the first element of the pair of type B1, in this case a [[PolygonLike]]. The return type has been narrowed as it is needed for the
    * polygonMapPair method on [[PolygonLikePairArr]]. */
-  override def b1Builder: PolygonLikeBuilder[PtM2, PolygonM2] = ???
+  override def b1Builder: PolygonLikeBuilder[PtM2, PolygonM2] = PtM2.polygonBuildImplicit
 
   /** Builder for an Arr of the first element of the pair. */
-  override def b1ArrBuilder: ArrBuilder[PolygonM2, PolygonM2Arr] = ???
+  override def b1ArrBuilder: ArrBuilder[PolygonM2, PolygonM2Arr] = PolygonM2.arrBuildImplicit
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
-  override def pairArrBuilder(polygonArr: PolygonM2Arr, a2s: Array[A2]): PolygonM2PairArr[A2] = ???
+  override def pairArrBuilder(polygonArr: PolygonM2Arr, a2s: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](polygonArr.unsafeArrayOfArrays, a2s)
 }
 
 class PolygonM2PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buff: ArrayBuffer[A2]) extends SeqSpecPairBuff[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]

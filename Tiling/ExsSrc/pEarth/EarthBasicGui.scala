@@ -30,12 +30,10 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
     val ps3 = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
     val ps4 = ps3.filterOn1(_.zAllNonNeg)
     debvar(ps4.length)
-   // val ps5 = ps4.polygonMapToPair(_.xy)
+    val ps5 = ps4.polygonMapToPair(_.xy)
+    val activeFills2 = ps5.pairMap((p, a2) => p.map(_ / scale).fillActive(a2.colour, a2))
     val eaPms3: RArr[(EArea2, PolygonM2)] = eaPms.filter(_._2.vertsMin3)
-    val activeFills: RArr[PolygonCompound] = eaPms3.map { pair =>
-      val (d, p) = pair
-      p.map(_ / scale).fillActive(d.colour, d)
-    }
+    val activeFills: RArr[PolygonCompound] = eaPms3.map {case (d, p) => p.map(_ / scale).fillActive(d.colour, d) }
 
     val sideLines: RArr[PolygonDraw] = eaPms3.map { a => a._2.map(_ / scale).draw() }
     val texts: RArr[TextGraphic] = eaPms3.map { pair =>
@@ -46,7 +44,7 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
 
     def seas = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
-    mainRepaint(seas %: activeFills ++ sideLines ++ texts)
+    mainRepaint(seas %: activeFills2 ++ sideLines ++ texts)
   }
 
 

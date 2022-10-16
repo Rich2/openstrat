@@ -4,12 +4,18 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
 
 /** An element that pairs a [[SeqSpec]] with a second value. */
 trait ElemSeqSpecPair[A1E, A1 <: SeqSpec[A1E], A2] extends SpecialT
+{ def a1: A1
+  def a2: A2
+}
 
 /** A sequence of [[ElemSeqSpecPair]]s stored in 2 [[Array]]s for efficiency. */
 trait SeqSpecPairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends Arr[A]
 { //def a1Arr: A1Arr = ???
   def a2Array: Array[A2]
   override def length: Int = a2Array.length
+
+  /** Needs rewriting. */
+  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = map(p => f(p.a1, p.a2))
  //def newA1Buff: Buff
 
   /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */

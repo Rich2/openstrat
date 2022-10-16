@@ -1,11 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-
-import scala.collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends ElemSeqSpecPair[A1V, A1, A2]
-{ def polygon: A1
+{ //def a1: A1
 }
 
 trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A1Arr <: Arr[A1], A2, A <: PolygonLikePair[A1V, A1, A2]] extends

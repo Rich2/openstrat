@@ -4,7 +4,7 @@ import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 final class PolygonPair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblsPair[Pt2, Polygon, A2]
 {
-  def polygon: Polygon = new PolygonGen(unsafeArray)
+  def a1: Polygon = new PolygonGen(unsafeArray)
 }
 
 object PolygonPair {
