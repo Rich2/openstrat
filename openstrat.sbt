@@ -102,6 +102,7 @@ lazy val GeomNat = natProj("Geom").dependsOn(UtilNat).settings(geomSett).setting
 lazy val Globe = mainJvmProj("Globe").dependsOn(Geom).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Globe/srcPts",
 )
+lazy val GlobeExs = exsJvmProj("Globe").dependsOn(Globe)
 
 lazy val GlobeJs = jsProj("Globe").dependsOn(GeomJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Globe/srcPts",
@@ -131,7 +132,7 @@ lazy val EarthAppJs = jsApp("EarthApp").settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, TilingExs).settings(
+lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, GlobeExs, TilingExs).settings(
   Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
     List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
