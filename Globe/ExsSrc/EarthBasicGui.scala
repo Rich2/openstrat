@@ -7,7 +7,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn : Option[EarthView] = None
   GlobeGui("The Earth in irregular tiles")
 {
   statusText = "Welcome to world map, constructed from irregular areas."
-
+  debvar(viewIn)
   /** Scale in km / pixel */
   var scale: Length = viewIn.map(_.scale).getOrElse(12.kMetres)
 

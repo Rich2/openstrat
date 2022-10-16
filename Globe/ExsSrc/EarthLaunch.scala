@@ -17,7 +17,7 @@ object EarthBasicLaunch extends GuiLaunchMore
     val oLong: EMon[Double] = sts.findSettingDbl("longitude")
     debvar(oLong)
     val oll = oLat.flatMap2ToOption[Double, LatLong](oLong, (la, lo) => LatLong.degs(la, lo))
-    //val oview: EMon[EarthView] = sts.findKeySetting[EarthView]
-    (cv => EarthBasicGui(cv), "JavaFx Earth")
+    val oview: EMon[EarthView] = sts.findUniqueT[EarthView]
+    (cv => EarthBasicGui(cv, oview.toOption), "JavaFx Earth")
   }
 }
