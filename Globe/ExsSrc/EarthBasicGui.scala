@@ -3,17 +3,17 @@ package ostrat; package pEarth
 import geom._, pglobe._, pgui._
 
 /** Basic map of the Earth using irregular areas / tiles. */
-case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None, startFocus: Option[LatLong] = None) extends
+case class EarthBasicGui(canv: CanvasPlatform, viewIn : Option[EarthView] = None) extends
   GlobeGui("The Earth in irregular tiles")
 {
   statusText = "Welcome to world map, constructed from irregular areas."
 
   /** Scale in km / pixel */
-  var scale: Length = startScale.getOrElse(12.kMetres)
+  var scale: Length = viewIn.map(_.scale).getOrElse(12.kMetres)
 
   val scaleMin: Length = 0.2.kMetres
   val scaleMax: Length = 100.kMetres
-  var focus: LatLong = startFocus.sget
+  var focus: LatLong = viewIn.map(_.latLong).getOrElse(LatLong0)// startFocus.sget
 
   val eas: RArr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
 

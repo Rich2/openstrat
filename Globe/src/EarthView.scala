@@ -1,6 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth
-import geom._, pglobe._
+package ostrat; package geom; package pglobe
 
 /** A view of the Earth. Currently North can only be up or down. */
 case class EarthView (latLong: LatLong, scale: Length, up: Boolean)
