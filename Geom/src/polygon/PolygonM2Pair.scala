@@ -2,16 +2,16 @@
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-class PolygonM2Pair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonLikeDblsPair[PtM2, PolygonM2, A2]{
+class PolygonM2Pair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblsPair[PtM2, PolygonM2, A2]{
   override def polygon: PolygonM2 = new PolygonM2(unsafeArray)
 }
 
 object PolygonM2Pair {
-  implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrBuilder[PolygonM2Pair[A2], PolygonM2PairArr[A2]] = new PolygonM2PairBuild[A2]
+  implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrBuilder[PolygonM2Pair[A2], PolygonM2PairArr[A2]] = new PolygonM2PairBuilder[A2]
 }
 
 final class PolygonM2PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends
-  PolygonLikePairArr[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2]]
+  PolygonDblsPairArr[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2]]
 { override type ThisT = PolygonM2PairArr[A2]
   override def unsafeSameSize(length: Int): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](new Array[Array[Double]](arrayArrayDbl.length), a2Array)
   override def unsafeSetElem(i: Int, value: PolygonM2Pair[A2]): Unit = { arrayArrayDbl(i) = value.unsafeArray; a2Array(i) = value.a2 }
@@ -19,9 +19,12 @@ final class PolygonM2PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
   override def typeStr: String = "PolygonMPairArray"
   override def apply(index: Int): PolygonM2Pair[A2] = new PolygonM2Pair[A2](arrayArrayDbl(index), a2Array(index))
   override def a1Arr: PolygonM2Arr = new PolygonM2Arr(arrayArrayDbl)
+  override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](array1, array2)
+  override def a1Buff: ArrayDblBuff[PolygonM2] = PolygonM2Buff()
 }
 
-final class PolygonM2PairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends ArrBuilder[PolygonM2Pair[A2], PolygonM2PairArr[A2]]
+final class PolygonM2PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
+  PolygonLikePairArrBuilder[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2], PolygonM2PairArr[A2]]
 { override type BuffT = PolygonM2PairBuff[A2]
   override def newArr(length: Int): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
@@ -32,6 +35,16 @@ final class PolygonM2PairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def buffGrowArr(buff: PolygonM2PairBuff[A2], arr: PolygonM2PairArr[A2]): Unit = ???
   override def newBuff(length: Int): PolygonM2PairBuff[A2] = new PolygonM2PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToBB(buff: PolygonM2PairBuff[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](buff.arrayDoubleBuff.toArray, buff.a2Buff.toArray)
+
+  /** Builder for the first element of the pair of type B1, in this case a [[PolygonLike]]. The return type has been narrowed as it is needed for the
+   * polygonMapPair method on [[PolygonLikePairArr]]. */
+  override def b1Builder: PolygonLikeBuilder[PtM2, PolygonM2] = ???
+
+  /** Builder for an Arr of the first element of the pair. */
+  override def b1ArrBuilder: ArrBuilder[PolygonM2, PolygonM2Arr] = ???
+
+  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
+  override def pairArrBuilder(polygonArr: PolygonM2Arr, a2s: Array[A2]): PolygonM2PairArr[A2] = ???
 }
 
 class PolygonM2PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buff: ArrayBuffer[A2]) extends SeqSpecPairBuff[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]

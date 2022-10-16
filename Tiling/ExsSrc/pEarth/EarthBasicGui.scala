@@ -23,12 +23,14 @@ case class EarthBasicGui(canv: CanvasPlatform, startScale: Option[Length] = None
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
   debvar(ps2.length)
-  val ps5 = ps2.filterOn1(_.zAllNonNeg)
-  debvar(ps5.length)
+
+
   def repaint(): Unit =
   {
     val ps3 = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
-
+    val ps4 = ps3.filterOn1(_.zAllNonNeg)
+    debvar(ps4.length)
+   // val ps5 = ps4.polygonMapToPair(_.xy)
     val eaPms3: RArr[(EArea2, PolygonM2)] = eaPms.filter(_._2.vertsMin3)
     val activeFills: RArr[PolygonCompound] = eaPms3.map { pair =>
       val (d, p) = pair

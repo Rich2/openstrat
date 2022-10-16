@@ -1,6 +1,8 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import collection.mutable.ArrayBuffer, math._
+import collection.mutable.ArrayBuffer
+import math._
+import scala.reflect.ClassTag
 
 /** A 2 dimensional point specified in [[Length]] as units rather than pure scalar numbers. */
 final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends ShowElemDbl2
@@ -74,6 +76,10 @@ object PtM2
     override def fromDblArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre2 = new BuffPtMetre2(inp)
   }
+
+  /** Implicit instance for the [[PolygonM2Pair]] builder. This has to go in the [[PtM2]] companion object so it can be found by an A => B function
+   * where PtM2 is the type B parameter. */
+  implicit def pairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonM2PairBuilder[A2] = new PolygonM2PairBuilder[A2]
 }
 
 /** Specialised immutable Array based collection class for [[PtM2]]s. */

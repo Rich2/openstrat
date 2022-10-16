@@ -103,7 +103,7 @@ object PtM3
 
   /** Implicit instance for the [[PolygonM3Pair]] builder. This has to go in the [[PtM3]] companion object so it can be found by an A => B function
    * where PtM3 is the type B parameter. */
-  implicit def pairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonM3PairBuild[A2] = new PolygonM3PairBuild[A2]
+  implicit def pairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonM3PairBuilder[A2] = new PolygonM3PairBuilder[A2]
 
   implicit val linePathBuildImplicit: LinePathDbl3sBuilder[PtM3, LinePathMetre3] = new LinePathDbl3sBuilder[PtM3, LinePathMetre3]
   { override type BuffT = BuffPtMetre3

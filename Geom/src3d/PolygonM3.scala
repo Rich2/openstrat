@@ -91,8 +91,6 @@ object PolygonM3 extends Dbl3SeqLikeCompanion[PtM3, PolygonM3]
     override def buffToBB(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuffer.toArray)
   }
 
-
-
   implicit val persistImplicit: Dbl3SeqDefPersist[PtM3, PolygonM3] = new Dbl3SeqDefPersist[PtM3, PolygonM3]("PolygonMs3")
   { override def fromArray(value: Array[Double]): PolygonM3 = new PolygonM3(value)
   }

@@ -2,7 +2,7 @@
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-class PolygonM3Pair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonLikeDblsPair[PtM3, PolygonM3, A2] with SpecialT {
+class PolygonM3Pair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblsPair[PtM3, PolygonM3, A2] with SpecialT {
   override def polygon: PolygonM3 = new PolygonM3(unsafeArray)
 }
 
@@ -12,7 +12,7 @@ object PolygonM3Pair
 }
 
 final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends
-  PolygonDblsLikePairArr[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2]]
+  PolygonDblsPairArr[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2]]
 { override type ThisT = PolygonM3PairArr[A2]
   override def unsafeSameSize(length: Int): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](new Array[Array[Double]](arrayArrayDbl.length), a2Array)
   override def unsafeSetElem(i: Int, value: PolygonM3Pair[A2]): Unit = { arrayArrayDbl(i) = value.unsafeArray; a2Array(i) = value.a2 }
@@ -38,7 +38,7 @@ final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
   }
 }
 
-final class PolygonM3PairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
+final class PolygonM3PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
   PolygonLikePairArrBuilder[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2], PolygonM3PairArr[A2]]
 { override type BuffT = PolygonM3PairBuff[A2]
   override def newArr(length: Int): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
