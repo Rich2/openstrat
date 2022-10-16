@@ -1,12 +1,8 @@
 /* Copyright 2018 Richard Oliver. Licensed under Apache Licence version 2.0 */
-package ostrat
-package pWW2
-import pEarth._
+package ostrat; package pWW2
+import pGrid._
 
 case class W2SideAncient(x: Int, y: Int, terr: SideTerr) extends ESideAncient
-{
-  
-}
 
 object W2SideAncient
 {

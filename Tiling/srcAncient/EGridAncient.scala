@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth
-import geom._, pglobe._, pGrid._, reflect.ClassTag, collection.mutable.ArrayBuffer
+package ostrat; package pGrid
+import geom._, pglobe._, pEarth._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** Not sure whether the "fTile: (Int, Int, Terrain) => TileT" should be implicit. Will change with multiple implicit parameter lists */
 trait EGridMaker

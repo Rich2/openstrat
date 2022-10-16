@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWW2
-import pEarth._
+import pEarth._, pGrid._
 
 class W2TileAncient(val x: Int, val y: Int, val terr: WTile) extends ETileAncient
 {

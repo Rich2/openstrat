@@ -1,6 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package p1783
-import geom._, pglobe._, pEarth._, pgui._, pStrat._
+import geom._, pglobe._, pEarth._, pgui._, pStrat._, pGrid._
 
 case class Y1783GuiOld(canv: CanvasPlatform, scen: NapScen) extends EarthAllGuiOld("1783")
 {

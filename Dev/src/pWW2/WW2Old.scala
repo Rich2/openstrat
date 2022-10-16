@@ -1,8 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pWW2
-import pEarth._
-
-
+import pEarth._, pGrid._
 
 case class ArmyOld(tile: W2TileAncient, polity: Polity) extends Coloured
 {

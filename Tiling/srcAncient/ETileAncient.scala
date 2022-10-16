@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth
-import pGrid._
+package ostrat; package pGrid
+import pEarth._
 
 trait ETileAncient extends ColouredTileAncient
 { def terr: WTile

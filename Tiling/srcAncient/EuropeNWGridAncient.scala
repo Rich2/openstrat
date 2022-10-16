@@ -1,11 +1,11 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth//; package pEurope
-import geom._, pglobe._, pGrid._, WTile._, reflect.ClassTag
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pGrid
+import geom._, pglobe._, pEarth._, WTile._, reflect.ClassTag
 
 object EuropeNWGridAncient extends EGridMaker
 {
   def apply[TileT <: TileAncient, SideT <: TileSideAncient](implicit fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT,
-                                                            evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGrid80KmAncient[TileT, SideT] =
+    evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGrid80KmAncient[TileT, SideT] =
   {
     val grid: EGFarNorth[TileT, SideT] = new EGFarNorth[TileT, SideT]("WEurope", 0.east, xOffset = 200, xTileMin = 114, xTileMax = 286)
     grid.setTilesAll(Ocean)(fTile)
