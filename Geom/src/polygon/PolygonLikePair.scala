@@ -2,12 +2,12 @@
 package ostrat; package geom
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends ElemSeqSpecPair[A1V, A1, A2]
+trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends ElemSeqLikePair[A1V, A1, A2]
 { //def a1: A1
 }
 
 trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A1Arr <: Arr[A1], A2, A <: PolygonLikePair[A1V, A1, A2]] extends
-  SeqSpecPairArr[A1V, A1, A1Arr, A2, A]
+  SeqLikePairArr[A1V, A1, A1Arr, A2, A]
 {
   /** Maps this to a new [PolygonLikePairArr]] by mapping [[PolygonLike]]s to new [[PolygonLike]]s of type B1 leaving the second parts of the pairs
    * unchanged. */
