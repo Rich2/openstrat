@@ -99,11 +99,19 @@ lazy val GeomNat = natProj("Geom").dependsOn(UtilNat).settings(geomSett).setting
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Geom/srcNat",
 )
 
-lazy val Globe = mainJvmProj("Globe").dependsOn(Geom)
-lazy val GlobeJs = jsProj("Globe").dependsOn(GeomJs)
+lazy val Globe = mainJvmProj("Globe").dependsOn(Geom).settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Globe/srcPts",
+)
+
+lazy val GlobeJs = jsProj("Globe").dependsOn(GeomJs).settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Globe/srcPts",
+)
+
+lazy val GlobeNat = natProj("Globe").dependsOn(GeomNat).settings(
+  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
+)
 
 lazy val Tiling = mainJvmProj("Tiling").dependsOn(Globe).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",  
 )
 
@@ -114,9 +122,7 @@ lazy val TilingJs = jsProj("Tiling").dependsOn(GlobeJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
 )
 
-lazy val TilingNat = natProj("Tiling").dependsOn(GeomNat).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcOld",
+lazy val TilingNat = natProj("Tiling").dependsOn(GlobeNat).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
 )
 
@@ -158,7 +164,7 @@ lazy val Bc305Js = jsApp("Bc305").settings(Compile/unmanagedSourceDirectories +=
 lazy val PlanetsJs = jsApp("Planets").settings(Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Dev/JsAppsSrc/PlanetsApp")
 
 val moduleDirs: List[String] = List("Util", "Geom", "Globe", "Tiling", "Dev")
-val specDirs: List[String] = List("Util/srcParse", "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Tiling/srcPts", "Tiling/srcAncient")
+val specDirs: List[String] = List("Util/srcParse", "Geom/src3d", "Geom/srcGui", "Geom/srcWeb", "Globe/srcPts", "Tiling/srcAncient")
 val CommonDirs: List[String] = moduleDirs.flatMap(m => List(m + "/src", m + "/ExsSrc")) ::: specDirs
 
 lazy val bothDoc = taskKey[Unit]("Aims to be a task to aid building ScalaDocs")

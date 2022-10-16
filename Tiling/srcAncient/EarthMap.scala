@@ -22,6 +22,6 @@ class OldWorldMap[TileT <: TileAncient, SideT <: TileSideAncient](val fTile: (In
     setTile(tr._1, tr._2, newTile)
   }
   val tops: RArr[EArea1] = EarthAreas.oldWorld
-  val grids: RArr[EGridAncient[TileT, SideT]] = EarthAreas.grids.map(_.apply[TileT, SideT](fTile, fSide, evTile, evSide))
+  val grids: RArr[EGridAncient[TileT, SideT]] = RArr(EuropeNWGridAncient, EuropeNEGridAncient).map(_.apply[TileT, SideT](fTile, fSide, evTile, evSide))
   grids(0).rightGrid = Some(grids(1))
 }
