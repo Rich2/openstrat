@@ -2,11 +2,15 @@
 package ostrat
 import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
+trait ElemPair[A1, A2] extends Any
+
 /** An element that pairs a [[SeqSpec]] with a second value. */
-trait ElemSeqLikePair[A1E, A1 <: SeqLike[A1E], A2] extends SpecialT
+trait ElemSeqLikePair[A1E, A1 <: SeqLike[A1E], A2] extends ElemPair[A1, A2] with SpecialT
 { def a1: A1
   def a2: A2
 }
+
+trait PairArr[A1, A1Arr, A2, A <: ElemPair[A1, A2]]
 
 /** A sequence of [[ElemSeqLikePair]]s stored in 2 [[Array]]s for efficiency. */
 trait SeqLikePairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends Arr[A]
