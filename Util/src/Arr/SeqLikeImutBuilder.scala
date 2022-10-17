@@ -2,7 +2,7 @@
 package ostrat
 
 /** A Common base trait for [[Arrbuilder]], [[ArrFlatBuilder]] and other builders like Polygon and  LinePath builders. */
-trait SeqDefBuilderCommon[BB]
+trait SeqLikeBuilderCommon[BB]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compile time wrapped Arraybuffer inheriting from
       BuffProdHomo. */
@@ -17,7 +17,7 @@ trait SeqDefBuilderCommon[BB]
   def buffToBB(buff: BuffT): BB
 }
 
-trait SeqLikeImutBuilder[B, BB <: SeqLike[B]] extends SeqDefBuilderCommon[BB]
+trait SeqLikeImutBuilder[B, BB <: SeqLike[B]] extends SeqLikeBuilderCommon[BB]
 { /** The type of the buffer used for building the target compound class BB. */
   type BuffT <: Sequ[B]
 

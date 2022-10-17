@@ -31,3 +31,5 @@ trait LineSegDblsPairArr[VT <: ElemDblN, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1]
   def a1ArrayDbl: Array[Double]
   def fromArrays(a1Arr: Array[Double], a2Arr: Array[A2]): ThisT
 }
+
+//trait LinSeDblsPairArrBuilder[]
