@@ -175,5 +175,5 @@ object LatLong
   }
 
   implicit def polygonLLPairbuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonLLPairBuilder[A2] = new PolygonLLPairBuilder[A2]
-  implicit val lineSegEv: LineSegBuilder[LatLong, LineSegLL] = LineSegLL(_, _)
+  implicit val lineSegEv: LineSegLikeBuilder[LatLong, LineSegLL] = LineSegLL(_, _)
 }

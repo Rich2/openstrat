@@ -22,6 +22,13 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
 }
 
 trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Arr[B]] extends ArrBuilder[B, ArrB]
+{
+  /** Builder for an Arr of the first element of the pair. */
+  def b1ArrBuilder: ArrBuilder[B1, ArrB1]
+
+  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
+  def pairArrBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
+}
 
 /** A sequence of [[ElemSeqLikePair]]s stored in 2 [[Array]]s for efficiency. */
 trait SeqLikePairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends PairArr[A1, A1Arr, A2, A]
@@ -49,10 +56,4 @@ trait SeqSpecPairArrBuilder[B1E, B1 <: SeqSpec[B1E], ArrB1 <: Arr[B1], B2, B <: 
   PairArrBuilder[B1, ArrB1, B2, B, ArrB]
 { /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
   def b1Builder: SeqLikeImutBuilder[B1E, B1]
-
-  /** Builder for an Arr of the first element of the pair. */
-  def b1ArrBuilder: ArrBuilder[B1, ArrB1]
-
-  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
-  def pairArrBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
 }

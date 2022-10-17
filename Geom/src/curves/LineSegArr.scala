@@ -48,16 +48,16 @@ class LineSegPair[A2](val startX: Double, val startY: Double, val endX: Double, 
   override def a1: LineSeg = new LineSeg(startX, startY, endX, endY)
 }
 
-final class LineSegArrPair[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends LineSegDblsPairArr[Pt2, LineSeg, LineSegArr, A2, LineSegPair[A2]]
+final class LineSegPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends LineSegDblsPairArr[Pt2, LineSeg, LineSegArr, A2, LineSegPair[A2]]
 {
-  override type ThisT = LineSegArrPair[A2]
+  override type ThisT = LineSegPairArr[A2]
   override def typeStr: String = "LineSeqArrPair"
   override def a1Arr: LineSegArr = new LineSegArr(a1ArrayDbl)
 
   override def apply(index: Int): LineSegPair[A2] =
     new LineSegPair[A2](a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
 
-  override def fromArrays(a1Arr: Array[Double], a2Array: Array[A2]): LineSegArrPair[A2] = new LineSegArrPair[A2](a1Arr, a2Array)
+  override def fromArrays(a1Arr: Array[Double], a2Array: Array[A2]): LineSegPairArr[A2] = new LineSegPairArr[A2](a1Arr, a2Array)
 
   override def unsafeSetElem(i: Int, value: LineSegPair[A2]): Unit = { a1ArrayDbl(i * 4) = value.startX; a1ArrayDbl(i * 4 + 1) = value.startY
     a1ArrayDbl(i * 4 + 2) = value.endX; a1ArrayDbl(i * 4 + 3) = value.endY
@@ -66,3 +66,34 @@ final class LineSegArrPair[A2](val a1ArrayDbl: Array[Double], val a2Array: Array
 
   override def fElemStr: LineSegPair[A2] => String = _.toString
 }
+
+/*
+final class LineSegArrPairBuilder[A2] extends LineSegLikePairArrBuilder[Pt2, LineSeg, LineSegArr, A2, LineSegPair[A2], LineSegPairArr[A2]]
+{
+  override type BuffT = LineSegBuff
+
+  /** Builder for the first element of the pair of type B1, in this case a [[LineSegLike]]. The return type has been narrowed as it is needed for the
+   * polygonMapPair method on [[LineSegLikePairArr]]. */
+  override def b1Builder: LineSegLikeBuilder[Pt2, LineSeg] = ???
+
+  /** Builder for an Arr of the first element of the pair. */
+  override def b1ArrBuilder: ArrBuilder[LineSeg, LineSegArr] = LineSeg.buildEv
+
+  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
+  override def pairArrBuilder(polygonArr: LineSegArr, a2s: Array[A2]): LineSegPairArr[A2] = ???
+
+  override def newArr(length: Int): LineSegPairArr[A2] = ???
+
+  override def arrSet(arr: LineSegPairArr[A2], index: Int, value: LineSegPair[A2]): Unit = ???
+
+  /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
+  override def buffGrow(buff: LineSegBuff, value: LineSegPair[A2]): Unit = ???
+
+  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
+  override def buffGrowArr(buff: LineSegBuff, arr: LineSegPairArr[A2]): Unit = ???
+
+  override def newBuff(length: Int): LineSegBuff = ???
+
+  /** converts a the buffer type to the target compound class. */
+  override def buffToBB(buff: LineSegBuff): LineSegPairArr[A2] = ???
+}*/
