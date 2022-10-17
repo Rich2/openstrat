@@ -15,7 +15,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   val scaleMax: Length = 100.kMetres
   var focus: LatLong = viewIn.latLong
 
-  val eas: RArr[EArea2] = EarthAreas.allTops.flatMap(_.a2Arr)
+  val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
 
   val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
 

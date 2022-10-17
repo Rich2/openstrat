@@ -5,7 +5,7 @@ import pEarth._, reflect.ClassTag
 /** An all world map, parametrised by Tile and Tile side types. */
 class EarthAllMap[TileT <: TileAncient, SideT <: TileSideAncient](fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
   (implicit evTile: ClassTag[TileT], evSide: ClassTag[SideT]) extends OldWorldMap[TileT, SideT](fTile, fSide)(evTile, evSide)
-{ override val tops: RArr[EArea1] = EarthAreas.allTops
+{ override val tops: RArr[EArea1] = earthAllAreas
 }
 
 class OldWorldMap[TileT <: TileAncient, SideT <: TileSideAncient](val fTile: (Int, Int, WTile) => TileT, fSide: (Int, Int, SideTerr) => SideT)
@@ -21,7 +21,7 @@ class OldWorldMap[TileT <: TileAncient, SideT <: TileSideAncient](val fTile: (In
     val newTile = f(oldTile, Cood(tr._1, tr._2), tr._3)
     setTile(tr._1, tr._2, newTile)
   }
-  val tops: RArr[EArea1] = EarthAreas.oldWorld
+  val tops: RArr[EArea1] = oldWorldAreas
   val grids: RArr[EGridAncient[TileT, SideT]] = RArr(EuropeNWGridAncient, EuropeNEGridAncient).map(_.apply[TileT, SideT](fTile, fSide, evTile, evSide))
   grids(0).rightGrid = Some(grids(1))
 }
