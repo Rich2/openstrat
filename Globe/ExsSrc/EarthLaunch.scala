@@ -9,15 +9,14 @@ object EarthBasicLaunch extends GuiLaunchMore
   override def default: (CanvasPlatform => Any, String) = (cv => EarthBasicGui.apply(cv), "JavaFx Earth")
 
   override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
-  { val oScale = sts.findSetting[Double]("scale")
-    val scale: Option[Length] = oScale.mapToOption(1.km * _)
-    val oLat: EMon[Double] = sts.findSettingDbl("latitude")
-    sts.foreach(println)
-    debvar(oLat)
-    val oLong: EMon[Double] = sts.findSettingDbl("longitude")
-    debvar(oLong)
-    val oll = oLat.flatMap2ToOption[Double, LatLong](oLong, (la, lo) => LatLong.degs(la, lo))
-    val oview: EMon[EarthView] = sts.findUniqueT[EarthView]
-    (cv => EarthBasicGui(cv, oview.toOption), "JavaFx Earth")
+  {
+    def multisett: EarthView = {
+      val scale = sts.findSettingElse[Double]("scale", 10)
+      val lat: Double = sts.findSettingElse("latitude", 40)
+      val long: Double = sts.findSettingElse("longitude", 10)
+      EarthView(lat ll long, scale * 1.km, true)
+    }
+    val view = sts.findUniqueT[EarthView].getElse(multisett)
+    (cv => EarthBasicGui(cv, view), "JavaFx Earth")
   }
 }
