@@ -5,7 +5,7 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
  *  [[Vec2]] instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points but they
  *  can be used to translate the point. */
-final class Pt2(val x: Double, val y: Double) extends Vec2Like
+final class Pt2(val x: Double, val y: Double) extends Vec2Like with Point
 { override def typeStr: String = "Pt2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
 
@@ -307,4 +307,8 @@ object Pt2
   { override def shearXT(obj: Pt2, yFactor: Double): Pt2 = obj.xShear(yFactor)
     override def shearYT(obj: Pt2, xFactor: Double): Pt2 = obj.yShear(xFactor)
   }
+}
+
+class Pt2Pair[A2](val x: Double, val y: Double, val a2: A2) extends PointPair[Pt2, A2]
+{ override def a1: Pt2 = Pt2(x, y)
 }
