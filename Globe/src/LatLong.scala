@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
-final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with ShowDbl2 with ElemDbl2 with ApproxDbl
+final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with ShowDbl2 with PointDbl2 with ApproxDbl
 { override def typeStr: String = "LatLong"
   override def name1: String = "lat"
   override def name2: String = "long"
@@ -16,7 +16,7 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
   def longVec: AngleVec = longDegs.degsVec
   override def toString: String = "LatLong".appendParenthSemis(latDegStr, longDegStr)
   def persistName = "LatLong"
-  def persistMems = Seq(latRadians, longRadians)
+  def persistMems: Seq[Double] = Seq(latRadians, longRadians)
   override def canEqual(other: Any): Boolean = other.isInstanceOf[LatLong]
 
   override def approx(that: Any, precision: Double): Boolean = that match
