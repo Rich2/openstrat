@@ -21,3 +21,13 @@ trait LineSegBuilder[VT, ST <: LineSegLike[VT]]
 {
   def newSeg(vStart: VT, vEnd: VT): ST
 }
+
+trait LineSegLikePair[VT, A1 <: LineSegLike[VT], A2] extends ElemPair[A1, A2]
+
+trait LineSegLikePairArr[VT, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: LineSegLikePair[VT, A1, A2]] extends PairArr[A1, ArrA1, A2, A]
+
+trait LineSegDblsPairArr[VT <: ElemDblN, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: LineSegLikePair[VT, A1, A2]] extends LineSegLikePairArr[VT, A1, ArrA1, A2, A]
+{ type ThisT <: LineSegDblsPairArr[VT, A1, ArrA1, A2, A]
+  def a1ArrayDbl: Array[Double]
+  def fromArrays(a1Arr: Array[Double], a2Arr: Array[A2]): ThisT
+}

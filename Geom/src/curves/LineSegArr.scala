@@ -43,6 +43,27 @@ class LineSegBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl
   override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
 }
 
-class LineSegPair[A2](lineSeg: LineSeg, a2: A2)
+class LineSegPair[A2](lineSeg: LineSeg, a2: A2) extends LineSegLikePair[Pt2, LineSeg, A2]
 
-//class LineSegArrPair[A2](val a1Array: Array[Double], val a2Array: Array[A2]) extends SeqLikePairArr[LineSeg, LineSegArr, LineSegPair[A2]]
+final class LineSegArrPair[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends LineSegDblsPairArr[Pt2, LineSeg, LineSegArr, A2, LineSegPair[A2]]
+{
+  override type ThisT = LineSegArrPair[A2]
+  override def typeStr: String = "LineSeqArrPair"
+
+  /** The length of this Sequence. This will have the same value as the dataLength property inherited from [[SeqLike]][A]. */
+  override def length: Int = ???
+
+  /** Accesses the defining sequence element by a 0 based index. */
+  override def apply(index: Int): LineSegPair[A2] = ???
+
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
+  override def unsafeSameSize(length: Int): LineSegArrPair[A2] = ???
+
+  override def fromArrays(a1Arr: Array[Double], a2Array: Array[A2]): LineSegArrPair[A2] = new LineSegArrPair[A2](a1Arr, a2Array)
+
+  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  override def unsafeSetElem(i: Int, value: LineSegPair[A2]): Unit = ???
+
+  override def fElemStr: LineSegPair[A2] => String = ???
+}
