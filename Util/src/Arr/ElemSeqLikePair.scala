@@ -10,10 +10,10 @@ trait ElemSeqLikePair[A1E, A1 <: SeqLike[A1E], A2] extends ElemPair[A1, A2] with
   def a2: A2
 }
 
-trait PairArr[A1, A1Arr, A2, A <: ElemPair[A1, A2]]
+trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
 
 /** A sequence of [[ElemSeqLikePair]]s stored in 2 [[Array]]s for efficiency. */
-trait SeqLikePairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends Arr[A]
+trait SeqLikePairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends PairArr[A1, A1Arr, A2, A]
 { def a1Arr: A1Arr
   def a2Array: Array[A2]
   def a2Arr: RArr[A2] = new RArr[A2](a2Array)

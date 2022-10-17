@@ -1,8 +1,8 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
 /** All leaf classes of this type that will preserve their types for all the Similar 2D geometrical transformations. */
-trait SimilarPreserve extends ProlignPreserve
+trait SimilarPreserve extends Any with ProlignPreserve
 { type ThisT <: SimilarPreserve
   override def negY: ThisT = ptsTrans(_.negY)
   override def negX: ThisT = ptsTrans(_.negX)
