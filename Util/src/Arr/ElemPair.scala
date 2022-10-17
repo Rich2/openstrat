@@ -3,6 +3,9 @@ package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
 trait ElemPair[A1, A2] extends Any
+{ def a1: A1
+  def a2: A2
+}
 
 /** An element that pairs a [[SeqSpec]] with a second value. */
 trait ElemSeqLikePair[A1E, A1 <: SeqLike[A1E], A2] extends ElemPair[A1, A2] with SpecialT
@@ -11,16 +14,18 @@ trait ElemSeqLikePair[A1E, A1 <: SeqLike[A1E], A2] extends ElemPair[A1, A2] with
 }
 
 trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
+{
+  def a1Arr: A1Arr
+  def a2Array: Array[A2]
+  def a2Arr: RArr[A2] = new RArr[A2](a2Array)
+  override final def length: Int = a2Array.length
+}
 
 trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Arr[B]] extends ArrBuilder[B, ArrB]
 
 /** A sequence of [[ElemSeqLikePair]]s stored in 2 [[Array]]s for efficiency. */
 trait SeqLikePairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends PairArr[A1, A1Arr, A2, A]
-{ def a1Arr: A1Arr
-  def a2Array: Array[A2]
-  def a2Arr: RArr[A2] = new RArr[A2](a2Array)
-  override def length: Int = a2Array.length
-
+{
   /** Maps the first component of the pairs, dropping the second. */
   def a1Map[B, ArrB <: Arr[B]](f: A1 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a1Arr.map(f)
 
