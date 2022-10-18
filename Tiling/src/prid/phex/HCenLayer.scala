@@ -16,6 +16,9 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   def set(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.arrIndex(r, c)) = value }
   override def fromArray(array: Array[A]): HCenLayer[A] = new HCenLayer[A](array)
 
+  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
+  override def elemsStr: String = "Not implemented"
+
   /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
    *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
    *  => B signature.  */

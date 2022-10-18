@@ -10,6 +10,9 @@ class SqCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCe
   override def fromArray(array: Array[A]): SqCenLayer[A] = new SqCenLayer[A](array)
   def apply(sc: SqCen)(implicit gSys: SqGridSys): A = unsafeArray(gSys.arrIndex(sc))
 
+  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
+  override def elemsStr: String = "Not implemented"
+
   /** Set tile row from the [[SqCen]]. */
   final def setRow(startCen: SqCen, multiValues: Multiple[A]*)(implicit grid: SqGrid): SqCen = setRow(startCen.r, startCen.c, multiValues: _*)(grid)
 

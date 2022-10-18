@@ -5,7 +5,7 @@ import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.m
 /** The immutable Array based class for types without there own specialised [[Arr]] collection classes. It Inherits the standard foreach, map,
  *  flatMap and fold and their variations' methods from ArrayLike. As it stands in Scala 3.0.2-RC1 the Graphics module will not build for Scala3 for
  *  the Javascript target. */
-final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrCloneable[A] with RefsSeqSpecImut[A]
+final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrCloneable[A] with RefsSeqLike[A]
 { type ThisT = RArr[A] @uncheckedVariance
   override def typeStr: String = "Arr"
   override def fromArray(array: Array[A] @uncheckedVariance): RArr[A] = new RArr(array)
@@ -40,6 +40,9 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   /** Copies the backing Array to the operand Array. */
   def unsafeArrayCopy(operand: Array[A] @uncheckedVariance, offset: Int, copyLength: Int): Unit =
   { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
+
+  /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
+  override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[AnyRef](length).asInstanceOf[Array[A]])
 
   /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
@@ -127,7 +130,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
  * extends AnyRef. */
 object RArr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
-  implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[RArr[A]] = SeqSpecShowT[A, RArr[A]](evA)
+  implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[RArr[A]] = ArrShowT[A, RArr[A]](evA)
 
   implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[RArr[A]] = (arr1, arr2) => if (arr1.ssLength != arr2.ssLength) false else
   { var i = 0

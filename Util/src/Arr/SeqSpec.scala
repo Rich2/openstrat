@@ -99,19 +99,18 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   override def elemsStr: String = ssMap(fElemStr).mkString("; ").enParenth
 }
 
-trait RefsSeqSpecImut[+A] extends Any with SeqSpec[A]
-{ type ThisT <: RefsSeqSpecImut[A]
+trait RefsSeqLike[+A] extends Any with SeqLike[A]
+{ type ThisT <: RefsSeqLike[A]
   def unsafeArray: Array[A] @uncheckedVariance
 
   def fromArray(array: Array[A] @uncheckedVariance): ThisT
 
-  /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
-  def unsafeSameSize(length: Int): ThisT = fromArray(new Array[AnyRef](length).asInstanceOf[Array[A]])
 
-  override final def ssLength: Int = unsafeArray.length
+
+ /* override*/ final def ssLength: Int = unsafeArray.length
   override final def fElemStr: A @uncheckedVariance => String = _.toString
   override final def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArray(i) = value
-  override final def ssIndex(index: Int): A = unsafeArray(index)
+  /*override */final def ssIndex(index: Int): A = unsafeArray(index)
 }
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
