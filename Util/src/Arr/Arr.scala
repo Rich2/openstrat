@@ -19,8 +19,11 @@ trait Arr[+A] extends Any with Sequ[A]
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach(index){(i, a) => unsafeSetElem(i, a) }
 }
 
-trait ArrCloneable[+A] extends Any with Arr[A] with SeqLikeCloneable[A]
+trait ArrCloneable[+A] extends Any with Arr[A]
 {
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
+  def unsafeSameSize(length: Int): ThisT
+
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match {
     case -1 => returnThis
     case n => {

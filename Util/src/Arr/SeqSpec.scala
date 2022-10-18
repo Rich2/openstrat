@@ -4,10 +4,10 @@ import annotation.unchecked.uncheckedVariance
 
 /** Sequence specified objects. An immutable class that can be specified by a sequence of elements. Uses a backing Array for efficient storage.
  *  Exasmples include  polygons and line paths that can be specified by a sequence of points. */
-trait SeqSpec[+A] extends Any with SeqLikeCloneable[A @uncheckedVariance]
+trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 { type ThisT <: SeqSpec[A]
 
-  /** Accesses the spwcifying sequence element by a 0 based index. */
+  /** Accesses the specifying sequence element by a 0 based index. */
   @inline def ssIndex(index: Int): A
 
   /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
