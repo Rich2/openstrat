@@ -97,7 +97,7 @@ trait Int2BuffCompanion[A <: ElemInt2, AA <: Int2Buff[A]] extends IntNBuffCompan
 {
   override def apply(elems: A*): AA =
   { val buffer: ArrayBuffer[Int] =  new ArrayBuffer[Int](elems.length * 2 + 6)
-    elems.foreach{ elem => buffer.append(elem.int1, elem.int2) }
+    elems.foreach{ elem => buffer.append(elem.int1); buffer.append(elem.int2) }
     fromBuffer(buffer)
   }
 
