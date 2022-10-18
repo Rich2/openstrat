@@ -28,7 +28,7 @@ trait SeqLike[+A] extends Any
   override def toString: String = typeStr + elemsStr
 }
 
-trait SeqLikeNotPair[+A] extends Any with SeqLike[A]
+trait SeqLikeCloneable[+A] extends Any with SeqLike[A]
 {
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   def unsafeSameSize(length: Int): ThisT

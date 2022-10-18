@@ -3,7 +3,7 @@ package ostrat
 import scala.collection.mutable.ArrayBuffer
 
 /** An immutable Array based class for Doubles. */
-class DblArr(val unsafeArray: Array[Double]) extends AnyVal with ArrNotPair[Double]
+class DblArr(val unsafeArray: Array[Double]) extends AnyVal with ArrCloneable[Double]
 { type ThisT = DblArr
   override def typeStr: String = "Doubles"
   override def unsafeSameSize(length: Int): DblArr = new DblArr(new Array[Double](length))

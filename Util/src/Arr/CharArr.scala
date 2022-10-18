@@ -2,7 +2,7 @@
 package ostrat
 
 /** Efficient immutable Array based collection for [[Char]]s. */
-final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNotPair[Char]
+final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrCloneable[Char]
 { type ThisT = CharArr
 
   /** Copy's the backing Array[[Char]] to a new Array[char]. End users should rarely have to use this method */

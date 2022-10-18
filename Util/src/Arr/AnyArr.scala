@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Any]]s. */
-class AnyArr(val unsafeArray: Array[Any]) extends AnyVal with ArrNotPair[Any]
+class AnyArr(val unsafeArray: Array[Any]) extends AnyVal with ArrCloneable[Any]
 { type ThisT = AnyArr
 
   /** Copy's the backing Array[[Any]] to a new Array[char]. End users should rarely have to use this method. */
