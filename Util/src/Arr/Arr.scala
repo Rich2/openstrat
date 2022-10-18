@@ -17,14 +17,14 @@ trait Arr[+A] extends Any with Sequ[A]
   def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(length -1, value)
 
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach(index){(i, a) => unsafeSetElem(i, a) }
+}
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
-  def unsafeSameSize(length: Int): ThisT
-
-  def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
-  { case -1 => returnThis
-    case n =>
-    { val newArr = unsafeSameSize(length - 1)
+trait ArrNotPair[+A] extends Any with Arr[A] with SeqLikeNotPair[A]
+{
+  def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match {
+    case -1 => returnThis
+    case n => {
+      val newArr = unsafeSameSize(length - 1)
       iUntilForeach(n)(i => newArr.unsafeSetElem(i, apply(i)))
       iUntilForeach(n + 1, length)(i => newArr.unsafeSetElem(i - 1, apply(i)))
       newArr
@@ -32,12 +32,12 @@ trait Arr[+A] extends Any with Sequ[A]
   }
 
   /** Replaces all instances of the old value with the new value. */
-  def replace(oldValue: A @uncheckedVariance, newValue: A@uncheckedVariance): ThisT =
-  { val newArr = unsafeSameSize(length)
+  def replace(oldValue: A@uncheckedVariance, newValue: A@uncheckedVariance): ThisT = {
+    val newArr = unsafeSameSize(length)
     var count = 0
 
-    while (count < length)
-    { val orig = apply(count)
+    while (count < length) {
+      val orig = apply(count)
       val finalVal = ife(orig == oldValue, newValue, orig)
       newArr.unsafeSetElem(count, finalVal)
       count += 1
@@ -46,12 +46,12 @@ trait Arr[+A] extends Any with Sequ[A]
   }
 
   /** Replaces all instances of the old value that fulfill predicate with the new value. */
-  def replaceAll(pred: A => Boolean, newValue: A@uncheckedVariance): ThisT =
-  { val newArr = unsafeSameSize(length)
+  def replaceAll(pred: A => Boolean, newValue: A@uncheckedVariance): ThisT = {
+    val newArr = unsafeSameSize(length)
     var count = 0
 
-    while (count < length)
-    { val orig = apply(count)
+    while (count < length) {
+      val orig = apply(count)
       val finalVal = ife(pred(orig), newValue, orig)
       newArr.unsafeSetElem(count, finalVal)
       count += 1
@@ -60,12 +60,12 @@ trait Arr[+A] extends Any with Sequ[A]
   }
 
   /** Modifies all instances of the old value that fulfill predicate, with a new value by applying the parameter function. */
-  def modifyAll(pred: A => Boolean, fNewValue: A => A @uncheckedVariance): ThisT =
-  { val newArr = unsafeSameSize(length)
+  def modifyAll(pred: A => Boolean, fNewValue: A => A@uncheckedVariance): ThisT = {
+    val newArr = unsafeSameSize(length)
     var count = 0
 
-    while (count < length)
-    { val orig = apply(count)
+    while (count < length) {
+      val orig = apply(count)
       val finalVal = ife(pred(orig), fNewValue(orig), orig)
       newArr.unsafeSetElem(count, finalVal)
       count += 1

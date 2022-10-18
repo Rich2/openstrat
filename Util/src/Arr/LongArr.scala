@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Long]]s. */
-class LongArr(val unsafeArray: Array[Long]) extends AnyVal with Arr[Long]
+class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNotPair[Long]
 { type ThisT = LongArr
 
   /** Copy's the backing Array[[Long]] to a new Array[char]. End users should rarely have to use this method. */

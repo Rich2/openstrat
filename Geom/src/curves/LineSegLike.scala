@@ -48,7 +48,6 @@ trait LineSegDblsPairArr[VT <: ElemDblN, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1]
 { type ThisT <: LineSegDblsPairArr[VT, A1, ArrA1, A2, A]
   def a1ArrayDbl: Array[Double]
   def fromArrays(a1Arr: Array[Double], a2Arr: Array[A2]): ThisT
-  override final def unsafeSameSize(length: Int): ThisT = fromArrays(new Array[Double](a1ArrayDbl.length), a2Array)
 }
 
 //trait LinSeDblsPairArrBuilder[]

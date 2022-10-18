@@ -14,7 +14,6 @@ object PolygonPair {
 final class PolygonPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends
   PolygonDblsPairArr[Pt2, Polygon, PolygonArr, A2, PolygonPair[A2]]
 { override type ThisT = PolygonPairArr[A2]
-  override def unsafeSameSize(length: Int): PolygonPairArr[A2] = new PolygonPairArr[A2](new Array[Array[Double]](arrayArrayDbl.length), a2Array)
   override def unsafeSetElem(i: Int, value: PolygonPair[A2]): Unit = { arrayArrayDbl(i) = value.unsafeArray; a2Array(i) = value.a2 }
   override def fElemStr: PolygonPair[A2] => String = _.toString
   override def typeStr: String = "PolygonPairArray"

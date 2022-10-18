@@ -91,7 +91,6 @@ object PolygonSqC extends Int2SeqLikeCompanion[SqCoord, PolygonSqC]
 class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends Arr[PolygonSqC]
 { override type ThisT = PolygonSqCArr
   override def typeStr: String = "PolygonSqCArr"
-  override def unsafeSameSize(length: Int): PolygonSqCArr = new PolygonSqCArr(new Array[Array[Int]](length))
   override def length: Int = unsafeArrayOfArrays.length
   override def unsafeSetElem(i: Int, value: PolygonSqC): Unit = unsafeArrayOfArrays(i) = value.unsafeArray
   override def fElemStr: PolygonSqC => String = _.toString

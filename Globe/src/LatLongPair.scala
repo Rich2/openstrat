@@ -15,8 +15,5 @@ class LatLongPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) 
 
   override def newPair(dbl1: Double, dbl2: Double, a2: A2): LatLongPair[A2] = new LatLongPair[A2](dbl1, dbl2, a2)
 
-  /** needs restricting. */
-  override def unsafeSameSize(length: Int): LatLongPairArr[A2] = ???
-
   override def fElemStr: LatLongPair[A2] => String = _.toString
 }
