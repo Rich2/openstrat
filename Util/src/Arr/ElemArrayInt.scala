@@ -50,7 +50,4 @@ object ArrArrayIntEq
 trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Sequ[A]
 { def unsafeBuff: ArrayBuffer[Array[Int]]
   override final def length: Int = unsafeBuff.length
-
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
-  override def unsafeSameSize(length: Int): ThisT = ???
 }

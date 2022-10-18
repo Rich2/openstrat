@@ -105,9 +105,6 @@ trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.unsafeArray); () }
   override def length = unsafeBuffer.length / elemProdSize
-
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
-  override def unsafeSameSize(length: Int): ThisT = ???
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */

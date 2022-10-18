@@ -12,7 +12,7 @@ trait BooleanSeqSpec extends Any with SeqSpec[Boolean]
   override final def ssLength: Int = unsafeArray.length
   override final def ssIndex(index: Int): Boolean = unsafeArray(index)
   override final def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeArray(i) = value
-  override final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
+  def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
 
   def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Boolean => String = _.toString
@@ -60,7 +60,4 @@ class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with Se
 
   /** The final type of this object. */
   override type ThisT = BooleanBuff
-
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
-  override def unsafeSameSize(length: Int): BooleanBuff = ???
 }

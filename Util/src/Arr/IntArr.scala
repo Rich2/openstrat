@@ -116,9 +116,6 @@ class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Sequ[Int]
 
   /** The final type of this object. */
   override type ThisT = IntBuff
-
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
-  override def unsafeSameSize(length: Int): IntBuff = ???
 }
 
 object IntBuff

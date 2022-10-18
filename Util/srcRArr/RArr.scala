@@ -168,7 +168,4 @@ final class TBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with Sequ[A]
 
   /** The final type of this object. */
   override type ThisT = TBuff[A]
-
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
-  override def unsafeSameSize(length: Int): TBuff[A] = ???
 }

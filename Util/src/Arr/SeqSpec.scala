@@ -106,7 +106,7 @@ trait RefsSeqSpecImut[+A] extends Any with SeqSpec[A]
   def fromArray(array: Array[A] @uncheckedVariance): ThisT
 
   /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
-  override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[AnyRef](length).asInstanceOf[Array[A]])
+  def unsafeSameSize(length: Int): ThisT = fromArray(new Array[AnyRef](length).asInstanceOf[Array[A]])
 
   override final def ssLength: Int = unsafeArray.length
   override final def fElemStr: A @uncheckedVariance => String = _.toString

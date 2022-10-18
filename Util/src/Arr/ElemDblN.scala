@@ -12,7 +12,7 @@ trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDbl
   /** Utility method to append element on to an [[ArrayBuffer]][Double]. End users should rarely need to use this method. */
   def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit
 
-  final override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))
+  def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Double](length * elemProdSize))
   @inline final def unsafeLength: Int = unsafeArray.length
 }
 
@@ -105,9 +105,6 @@ trait DblNArrFlatBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends ValueNArrFla
 trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 { type ArrT <: DblNArr[A]
   def unsafeBuffer: ArrayBuffer[Double]
-
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
-  override def unsafeSameSize(length: Int): ThisT = ???
 
   def length: Int = unsafeBuffer.length / elemProdSize
   def toArray: Array[Double] = unsafeBuffer.toArray[Double]

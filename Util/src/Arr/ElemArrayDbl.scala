@@ -52,8 +52,5 @@ trait ArrayDblBuff[A <: ArrayDblBacked] extends Any with Sequ[A]
 
   def grow(elem: A): Unit = unsafeBuffer.append(elem.unsafeArray)
 
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
-  override def unsafeSameSize(length: Int): ThisT = ???
-
   def arrayArrayDbl: Array[Array[Double]] = unsafeBuffer.toArray
 }

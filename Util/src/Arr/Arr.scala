@@ -5,7 +5,7 @@ import annotation.unchecked.uncheckedVariance
 /** Base trait for specialised immutable sequences. "Arr" is the prescript for all immutable sequence classes backed by underlying Arrays. The final
  *  classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage. A lot of the time this is a compile time wrapper with
  *  no boxing run cost. */
-trait Arr[+A] extends Any with Sequ[A] with SeqLike[A]
+trait Arr[+A] extends Any with Sequ[A]
 { override type ThisT <: Arr[A]
 
   /** Sets / mutates the head element in the Arr. This method should rarely be needed by end users, but is used by initialisation and factory
@@ -17,6 +17,9 @@ trait Arr[+A] extends Any with Sequ[A] with SeqLike[A]
   def unsafeSetLast(value: A @uncheckedVariance): Unit = unsafeSetElem(length -1, value)
 
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach(index){(i, a) => unsafeSetElem(i, a) }
+
+  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
+  def unsafeSameSize(length: Int): ThisT
 
   def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
   { case -1 => returnThis

@@ -56,9 +56,6 @@ class AnyBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with Sequ[Any]
 
   /** The final type of this object. */
   override type ThisT = AnyBuff
-
-  /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
-  override def unsafeSameSize(length: Int): AnyBuff = ???
 }
 
 object AnyArrHead
