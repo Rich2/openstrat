@@ -4,14 +4,8 @@ import collection.mutable.ArrayBuffer
 
 /** Trait for Array[Double] backed classes. The purpose of this trait is to allow for collections of this class to be stored with their underlying
  * Array[Double]s. */
-trait ArrayDblBacked extends Any
+trait ArrayDblBacked extends Any// with SpecialT
 { def unsafeArray: Array[Double]
-}
-
-/** Not sure if this class is needed. */
-trait ElemArrayDbl extends Any// with SpecialT
-{
-  def unsafeArray: Array[Double]
 }
 
 /** Base trait for collections of elements that are based on [[array]][Double]s, backed by an underlying Array[Array[Double]]. */
