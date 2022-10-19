@@ -44,7 +44,7 @@ object Statement
       case sts => sts.map(st => st.settingExpr(settingStr)).collect{ case g @ Good(_) => g } match
       { case Arr1(t) => t
         case Arr0() => sts.startPosn.bad(settingStr -- "Setting not found.")
-        case s3 => sts.startPosn.bad(s3.ssLength.toString -- "settings of" -- settingStr -- "not found.")
+        case s3 => sts.startPosn.bad(s3.length.toString -- "settings of" -- settingStr -- "not found.")
       }
     }
 

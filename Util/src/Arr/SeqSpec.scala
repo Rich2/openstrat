@@ -105,9 +105,6 @@ trait RefsSeqLike[+A] extends Any with SeqLike[A]
 
   def fromArray(array: Array[A] @uncheckedVariance): ThisT
 
-
-
- /* override*/ final def ssLength: Int = unsafeArray.length
   override final def fElemStr: A @uncheckedVariance => String = _.toString
   override final def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArray(i) = value
   /*override */final def ssIndex(index: Int): A = unsafeArray(index)

@@ -47,7 +47,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
   { val n2 = n.max0
-    val newLen: Int = (ssLength - n2).max0
+    val newLen: Int = (length - n2).max0
     val newArray = new Array[A](newLen)
     iUntilForeach(newLen)(i => newArray(i) = unsafeArray(i + n2))
     new RArr(newArray)
@@ -56,7 +56,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   /** Returns a new shorter Arr with the last elements removed. */
   def dropRight(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
   { val n2 = n.max0
-    val newLen: Int = (ssLength - n2).max0
+    val newLen: Int = (length - n2).max0
     val newArray = new Array[A](newLen)
     iUntilForeach(newLen)(i => newArray(i) = unsafeArray(i))
     new RArr(newArray)
@@ -68,9 +68,9 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   /** Functionally concatenates element to dispatching [[RArr]], allows type widening. Aliased by -+ operator. The '-' character in the operator name
    *  indicates loss of type precision. The ++ appendArr method is preferred when type widening is not required. */
   def appendArr [AA >: A](op: RArr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
-  { val newArray = new Array[AA](ssLength + op.ssLength)
+  { val newArray = new Array[AA](length + op.length)
     unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, ssLength)
+    op.unsafeArray.copyToArray(newArray, length)
     new RArr(newArray)
   }
 
@@ -78,9 +78,9 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   @inline def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] = append[AA](op)(ct)
   /** Functionally appends an element to dispatching Refs, allows type widening. Aliased by +- operator. */
   def append[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
-  { val newArray = new Array[AA](ssLength + 1)
+  { val newArray = new Array[AA](length + 1)
     unsafeArray.copyToArray(newArray)
-    newArray(ssLength) = op
+    newArray(length) = op
     new RArr(newArray)
   }
 
@@ -89,7 +89,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   @inline def %: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): RArr[AA] = prepend(op)(ct)
   /** Functionally prepends element to array. Aliased by the +: operator. */
   def prepend[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
-  { val newArray = new Array[AA](ssLength + 1)
+  { val newArray = new Array[AA](length + 1)
     newArray(0) = op
     unsafeArray.copyToArray(newArray, 1)
     new RArr(newArray)
@@ -120,7 +120,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
 
   def setAll(value: A @uncheckedVariance): Unit =
   { var i = 0
-    while(i < ssLength){unsafeSetElem(i, value); i += 1}
+    while(i < length){unsafeSetElem(i, value); i += 1}
   }
 
   def mapToCurlySyntax: String = ???
@@ -132,10 +132,10 @@ object RArr
 { def apply[A](input: A*)(implicit ct: ClassTag[A]): RArr[A] = new RArr(input.toArray)
   implicit def showImplicit[A](implicit evA: ShowT[A]): ShowT[RArr[A]] = ArrShowT[A, RArr[A]](evA)
 
-  implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[RArr[A]] = (arr1, arr2) => if (arr1.ssLength != arr2.ssLength) false else
+  implicit def eqTImplcit[A](implicit evA: EqT[A]): EqT[RArr[A]] = (arr1, arr2) => if (arr1.length != arr2.length) false else
   { var i = 0
     var res = true
-    while(i < arr1.ssLength & res) if (evA.eqT(arr1(i), arr2(i))) i += 1 else res = false
+    while(i < arr1.length & res) if (evA.eqT(arr1(i), arr2(i))) i += 1 else res = false
     res
   }
 
@@ -144,7 +144,7 @@ object RArr
     def optFind(f: A => Boolean): Option[A] =
     { var acc: Option[A] = None
       var count = 0
-      while (acc == None & count < thisArr.ssLength) if (f(thisArr(count))) acc = Some(thisArr(count)) else count += 1
+      while (acc == None & count < thisArr.length) if (f(thisArr(count))) acc = Some(thisArr(count)) else count += 1
       acc
     }
   }

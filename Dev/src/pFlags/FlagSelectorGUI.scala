@@ -1,4 +1,4 @@
-/* Copyright 2021 w0d. Licensed under Apache Licence version 2.0. */
+/* Copyright 2021 - 2022 w0d. Licensed under Apache Licence version 2.0. */
 package ostrat; package pFlags
 import geom._, pgui._, Colour._
 
@@ -20,7 +20,7 @@ case class FlagSelectorGUI (canv: CanvasPlatform) extends CanvasNoPanels("Flags 
    Chad, China, England, France, Germany, Germany1871, Italy, Ireland, Japan, Russia, USSR, Swastika, UnitedKingdom, UnitedStates, WhiteFlag,
    CommonShapesInFlags)
 
-  val itemCount: Int = listOfFlags.ssLength // 224 //
+  val itemCount: Int = listOfFlags.length // 224 //
   val itemsPerRow: Int = 5  //  columns
   val itemsPerCol: Int = 3  //  rows
   val itemsPerPage: Int = itemsPerRow * itemsPerCol
