@@ -16,7 +16,7 @@ case class LsA3(canv: CanvasPlatform) extends CanvasNoPanels("Lesson A3")
 
   val c1d = c1.scale2.toDraw()
   val circles = RArr(c1, Circle(100, 0, 200).fill(Violet), Circle(100, 200, 0).fill(SandyBrown), Circle(100, 0, -200).fill(Turquoise), c1d)
-  val crosses =  Pt2s(0 pp 0, -100 pp 0, 100 pp 0, 0 pp 100).flatMap(v => Cross(1, v))
+  val crosses =  Pt2Arr(0 pp 0, -100 pp 0, 100 pp 0, 0 pp 100).flatMap(v => Cross(1, v))
 
   val el1 = Ellipse(200, 100, -300 pp 0).fill(Red)
   val el2 = Ellipse(50, 100, 150 pp 200).fill(Colour.BurlyWood)

@@ -16,7 +16,7 @@ object VecsTest extends TestSuite
     val v21 = 4 pp 4
     val v22 = -2.2 pp -6.7
     val v23 = -2.2 pp 0
-    val vs0 = Pt2s(v21, v22, v23)
+    val vs0 = Pt2Arr(v21, v22, v23)
     val v31 = -2.4 pp 54.6 pp 34.7
     val v32 = 4 pp -5 pp 0
    // val v2s: LinePath = v1s :+ v21

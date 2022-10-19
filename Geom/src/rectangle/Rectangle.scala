@@ -92,7 +92,7 @@ object Rectangle
   { val rtVec: Vec2 = sd4Cen >/> sd2Cen
     val upVec: Vec2 = rtVec.angle.p90.toVec2(height) / 2
     val cen = sd4Cen midPt sd2Cen
-    val verts = Pt2s(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
+    val verts = Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec)
     new RectangleImp(verts.unsafeArray)
   }
 
@@ -100,7 +100,7 @@ object Rectangle
 
   /** Creates Rectangle from 2 vectors and centre point. The 2 vectors are the half axies from the centre point to th e right and to the top. */
   def unsafeVecsCen(rtVec: Vec2, upVec: Vec2, cen: Pt2): Array[Double] =
-    Pt2s(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec).unsafeArray
+    Pt2Arr(cen -rtVec + upVec, cen + rtVec + upVec, cen + rtVec - upVec, cen -rtVec - upVec).unsafeArray
 
   def fromArray(array: Array[Double]): Rectangle = new RectangleImp(array)
 

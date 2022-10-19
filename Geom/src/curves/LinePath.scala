@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
-class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2sLike with LinePathDbl2[Pt2]
+class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2SeqLike with LinePathDbl2[Pt2]
 { type ThisT = LinePath
   def fromArray(array: Array[Double]): LinePath = new LinePath(array)
   override def typeStr: String = "LinePath"

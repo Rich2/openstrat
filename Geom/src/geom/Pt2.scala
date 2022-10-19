@@ -5,7 +5,7 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
  *  [[Vec2]] instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points but they
  *  can be used to translate the point. */
-final class Pt2(val x: Double, val y: Double) extends Vec2Like with Point
+final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
 { override def typeStr: String = "Pt2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
 
@@ -256,9 +256,9 @@ object Pt2
   implicit val eqTImplicit: EqT[Pt2] = (pt1, pt2) => pt1.x == pt2.x & pt1.y == pt2.y
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
-  implicit val buildImplicit: Dbl2ArrBuilder[Pt2, Pt2s] = new Dbl2ArrBuilder[Pt2, Pt2s]
+  implicit val buildImplicit: Dbl2ArrBuilder[Pt2, Pt2Arr] = new Dbl2ArrBuilder[Pt2, Pt2Arr]
   { override type BuffT = BuffPt2
-    override def fromDblArray(array: Array[Double]): Pt2s = new Pt2s(array)
+    override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffPt2 = new BuffPt2(buffer)
   }
 
@@ -307,8 +307,4 @@ object Pt2
   { override def shearXT(obj: Pt2, yFactor: Double): Pt2 = obj.xShear(yFactor)
     override def shearYT(obj: Pt2, xFactor: Double): Pt2 = obj.yShear(xFactor)
   }
-}
-
-class Pt2Pair[A2](val x: Double, val y: Double, val a2: A2) extends PointPair[Pt2, A2]
-{ override def a1: Pt2 = Pt2(x, y)
 }

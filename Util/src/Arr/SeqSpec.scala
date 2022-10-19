@@ -99,7 +99,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   override def elemsStr: String = ssMap(fElemStr).mkString("; ").enParenth
 }
 
-/** [[ShowT] type class for showing [[DataGen]][A] objects. */
+/** [[ShowT] type class for showing [[SeqSpec]][A] objects. */
 class SeqSpecShowT[A, R <: SeqSpec[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.ssFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))

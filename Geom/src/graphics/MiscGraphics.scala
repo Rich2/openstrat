@@ -6,7 +6,7 @@ object Star5
   val classicRatio = 0.382
 
   def apply(ratio: Double = classicRatio): Polygon =
-  { val l2: Pt2s = Pt2s(Pt2(0, 1), Pt2(0, ratio).rotateDegs(36))
+  { val l2: Pt2Arr = Pt2Arr(Pt2(0, 1), Pt2(0, ratio).rotateDegs(36))
     iToFlatMap(4)(i => l2.rotate(-DegVec72 * i)).toPolygon
   }
 
@@ -28,7 +28,7 @@ object Star7
   val classicRatio = 0.692
 
   def apply(ratio: Double = classicRatio): Polygon =
-  { val l2: Pt2s = Pt2s(Pt2(0, 1), Pt2(0, ratio).rotateClkDegs(180 / 7))
+  { val l2: Pt2Arr = Pt2Arr(Pt2(0, 1), Pt2(0, ratio).rotateClkDegs(180 / 7))
     iToFlatMap(6)(i => l2.rotate(AngleVec(-360 / 7) * i)).toPolygon
   }
   
@@ -49,7 +49,7 @@ object Star3
 object Pentagram
 {
   def apply(): PolygonGen =
-  { val l2: Pt2s = Pt2s(Pt2(0, 1), Pt2(0, -1).rotateClkDegs(36))
+  { val l2: Pt2Arr = Pt2Arr(Pt2(0, 1), Pt2(0, -1).rotateClkDegs(36))
     iToFlatMap(4)(i => l2.rotate(-DegVec72 * i)).toPolygon
   }
 
