@@ -2,10 +2,19 @@
 package ostrat
 import annotation._, unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
+/** This is a common trait for [[RArr]] and tiling data layer calsses in the Tiling module. */
+trait RefsSeqLike[+A] extends Any with SeqLike[A]
+{ type ThisT <: RefsSeqLike[A]
+  def unsafeArray: Array[A] @uncheckedVariance
+  def fromArray(array: Array[A] @uncheckedVariance): ThisT
+  override final def fElemStr: A @uncheckedVariance => String = _.toString
+  override final def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArray(i) = value
+}
+
 /** The immutable Array based class for types without there own specialised [[Arr]] collection classes. It Inherits the standard foreach, map,
  *  flatMap and fold and their variations' methods from ArrayLike. As it stands in Scala 3.0.2-RC1 the Graphics module will not build for Scala3 for
  *  the Javascript target. */
-final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrCloneable[A] with RefsSeqLike[A]
+final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrSingle[A] with RefsSeqLike[A]
 { type ThisT = RArr[A] @uncheckedVariance
   override def typeStr: String = "Arr"
   override def fromArray(array: Array[A] @uncheckedVariance): RArr[A] = new RArr(array)

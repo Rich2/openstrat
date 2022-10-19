@@ -19,7 +19,7 @@ trait Arr[+A] extends Any with Sequ[A]
   def unsafeSetElemSeq(index: Int, elems: Iterable[A] @uncheckedVariance): Unit = elems.iForeach(index){(i, a) => unsafeSetElem(i, a) }
 }
 
-trait ArrCloneable[+A] extends Any with Arr[A]
+trait ArrSingle[+A] extends Any with Arr[A]
 {
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   def unsafeSameSize(length: Int): ThisT
@@ -75,4 +75,12 @@ trait ArrCloneable[+A] extends Any with Arr[A]
     }
     newArr
   }
+}
+
+/** [[ShowT] type class for showing [[DataGen]][A] objects. */
+class ArrShowT[A, R <: Arr[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
+{
+  override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
+  override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
+    typeStr + evA.typeStr.enSquare + obj.map(a => evA.showDecT(a, style, maxPlaces, minPlaces))
 }

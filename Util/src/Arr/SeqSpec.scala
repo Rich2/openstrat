@@ -3,7 +3,7 @@ package ostrat
 import annotation.unchecked.uncheckedVariance
 
 /** Sequence specified objects. An immutable class that can be specified by a sequence of elements. Uses a backing Array for efficient storage.
- *  Exasmples include  polygons and line paths that can be specified by a sequence of points. */
+ *  Examples include  polygons and line paths that can be specified by a sequence of points. */
 trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
 { type ThisT <: SeqSpec[A]
 
@@ -61,14 +61,14 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Specialised map to an immutable [[Arr]] of B. For [[Sequ]] dataMap is the same as map, but for other structures it will be different, for
-   * example a PolygonLike will map to another PolgonLike. */
+   * example a PolygonLike will map to another PolygonLike. */
   def ssMap[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
     val res = ev.newArr(ssLength)
     ssIForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
 
-  /** spwcifying -sequence fold. */
+  /** specifying -sequence fold. */
   def ssFold[B](initVal: B)(f: (B, A) => B): B = {
     var res = initVal
     ssForeach(a => res = f(res, a))
@@ -99,29 +99,10 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
   override def elemsStr: String = ssMap(fElemStr).mkString("; ").enParenth
 }
 
-trait RefsSeqLike[+A] extends Any with SeqLike[A]
-{ type ThisT <: RefsSeqLike[A]
-  def unsafeArray: Array[A] @uncheckedVariance
-
-  def fromArray(array: Array[A] @uncheckedVariance): ThisT
-
-  override final def fElemStr: A @uncheckedVariance => String = _.toString
-  override final def unsafeSetElem(i: Int, value: A @uncheckedVariance): Unit = unsafeArray(i) = value
-  /*override */final def ssIndex(index: Int): A = unsafeArray(index)
-}
-
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
 class SeqSpecShowT[A, R <: SeqSpec[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
 {
   override def syntaxDepthT(obj: R): Int = obj.ssFold(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
     typeStr + evA.typeStr.enSquare + obj.ssMap(a => evA.showDecT(a, style, maxPlaces, minPlaces))
-}
-
-/** [[ShowT] type class for showing [[DataGen]][A] objects. */
-class ArrShowT[A, R <: Arr[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
-{
-  override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
-  override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
-    typeStr + evA.typeStr.enSquare + obj.map(a => evA.showDecT(a, style, maxPlaces, minPlaces))
 }
