@@ -7,4 +7,10 @@ abstract class EArea1(val name: String, val cen: LatLong) extends GeographicSymb
 { def neighbs: RArr[EArea1] = RArr()
   def a2Arr: RArr[EArea2]
   def disp2(eg: EarthGuiOld): GraphicElems = a2Arr.flatMap(_.display(eg))
+  val places: RArr[Place] = RArr()
+}
+
+class Place(val latMilliSecs: Double, val longMilliSecs: Double, val name: String)
+{
+  def latlong: LatLong = LatLong.milliSecs(latMilliSecs, longMilliSecs)
 }

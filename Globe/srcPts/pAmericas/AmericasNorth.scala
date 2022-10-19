@@ -23,14 +23,21 @@ object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
     (EastCanada.maineE, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint)
 }
 
+object UsaWest extends EArea2 ("United States\nwest", 40.0 ll - 108.0, desert)
+{ import AmericasNorth._
+
+  val sanDiego = 32.57 ll -117.11
+  val humboldt = 40.44 ll -124.40
+  override def polygonLL: PolygonLL = PolygonLL(sanDiego, humboldt, SouthWestCanada.w49th, SouthWestCanada.wUsaNE, galveston, rockyPoint, montague)
+}
+
 object AmericasNorth extends EArea1("North America", 49 ll -100)
 { /** Camden County Georgia USA */
   val NAtlanticSW = 31 ll  -81.47
 
   val cAmericaN =  22.8.north
   val cAmericaNW= cAmericaN ll -105.97
-  val sanDiego = degs(32.57, -117.11)
-  val humboldt = 40.44 ll -124.40
+
 
   val ensenada = 31.74 ll -116.73
   val seFlorida = degs(25.34, -80.39)
@@ -41,13 +48,10 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
 
   val montague = 31.70 ll -114.71
 
-  lazy val wUsa = EArea2("United States\nwest", 40.0 ll -108.0, desert, sanDiego, humboldt, SouthWestCanada.w49th, SouthWestCanada.wUsaNE,
-    galveston, rockyPoint, montague)
-
   val cabotPulmo = 23.37 ll -109.44
   val sanLucas = 22.87 ll -109.91
   val wBaja = 27.84 ll -115.07
-  val baja = EArea2("Baja", 27.80 ll -113.31, plain, sanDiego, montague, cabotPulmo, sanLucas, wBaja)
+  val baja = EArea2("Baja", 27.80 ll -113.31, plain, UsaWest.sanDiego, montague, cabotPulmo, sanLucas, wBaja)
 
   val mariato = degs(7.22, -80.88)
   val quebrada = degs(8.04, -82.88)
@@ -84,6 +88,6 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
 
   val lakes = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
   override val a2Arr: RArr[EArea2] = lakes ++
-    RArr(wUsa, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
+    RArr(UsaWest, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
     NewFoundland, baja, cAmerica, cuba)
 }
