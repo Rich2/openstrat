@@ -67,17 +67,19 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
 }
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */
-trait DblNPairCompanion[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1, A2], AA <: DblNPairArr[A1, ArrA1, A2, A]]
-{ /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
+trait DblNPairArrCompanion[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A <: ElemDblNPair[A1, _], AA <: DblNPairArr[A1, ArrA1, _, _]]
+{ def apply[A2](pairs: A*)(implicit ct: ClassTag[A2]): AA
+
+  /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
   def elemNumDbls: Int
 
   /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
-  def fromArrays(a1Array: Array[Double], a2Array: Array[A2]): AA
+  def fromArrays[A2](a1Array: Array[Double], a2Array: Array[A2]): AA
 
   /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
-  def uninitialised(length: Int)(implicit ct: ClassTag[A2]): AA = fromArrays(new Array[Double](length * elemNumDbls), new Array[A2](length))
+  def uninitialised[A2](length: Int)(implicit ct: ClassTag[A2]): AA = fromArrays(new Array[Double](length * elemNumDbls), new Array[A2](length))
 
-  def empty(implicit ct: ClassTag[A2]): AA = fromArrays(new Array[Double](0), new Array[A2](0))
+  def empty[A2](implicit ct: ClassTag[A2]): AA = fromArrays(new Array[Double](0), new Array[A2](0))
 }
 
 trait ElemDbl2Pair[A1 <: ElemDbl2, A2] extends ElemDblNPair[A1, A2]
@@ -97,5 +99,24 @@ trait Dbl2PairArr[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1], A2, A <: ElemDbl2Pair[A1
   { a1ArrayDbl(i * 2) = value.a1Dbl1;
     a1ArrayDbl(i * 2 + 1) = value.a1Dbl2
     a2Array(i) = value.a2
+  }
+}
+
+trait Dbl2PairArrCompanion[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1], A <: ElemDbl2Pair[A1, _], AA <: Dbl2PairArr[A1, ArrA1, _, _]] extends
+  DblNPairArrCompanion[A1, ArrA1, A, AA]
+{
+  override def elemNumDbls: Int = 2
+
+  override def apply[A2](pairs: A*)(implicit ct: ClassTag[A2]): AA = {
+    val dblsArray = new Array[Double](pairs.length * 2)
+    val a2Array = new Array[A2](pairs.length)
+    var i = 0
+    pairs.foreach{p =>
+      dblsArray(i * 2) = p.a1Dbl1
+      dblsArray(i * 2 + 1) = p.a1Dbl2
+     // a2Array(i) = p.a2
+      i += 1
+    }
+    fromArrays(dblsArray, a2Array)
   }
 }

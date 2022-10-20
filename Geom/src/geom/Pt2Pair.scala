@@ -14,3 +14,5 @@ class Pt2PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2])exten
   override def a1Arr: Pt2Arr = new Pt2Arr(a1ArrayDbl)
   override def fElemStr: Pt2Pair[A2] => String = _.toString
 }
+
+//object Pt2PairArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr, A2, Pt2Pair[A2]]
