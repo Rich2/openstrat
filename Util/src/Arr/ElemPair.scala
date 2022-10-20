@@ -10,11 +10,25 @@ trait ElemPair[A1, A2] extends Any
 }
 
 trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
-{
-  def a1Arr: A1Arr
+{ def a1Arr: A1Arr
   def a2Array: Array[A2]
   def a2Arr: RArr[A2] = new RArr[A2](a2Array)
   override final def length: Int = a2Array.length
+
+  /** Maps the first component of the pairs, dropping the second. */
+  def a1Map[B, ArrB <: Arr[B]](f: A1 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a1Arr.map(f)
+
+  /** Maps the second component of the pairs, dropping the first. */
+  def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a2Arr.map(f)
+
+  /** Needs rewriting. */
+  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = map(p => f(p.a1, p.a2))
+
+  def mapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => B1)(implicit
+    build: PairArrBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
+  { val b1Arr: ArrB1 = a1Arr.map(f)(build.b1ArrBuilder)
+    build.pairArrBuilder(b1Arr, a2Array)
+  }
 }
 
 trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Arr[B]] extends ArrBuilder[B, ArrB]
@@ -34,16 +48,6 @@ trait ElemSeqSpecPair[A1E, A1 <: SeqSpec[A1E], A2] extends ElemPair[A1, A2] with
 
 /** A sequence of [[ElemSeqSpecPair]]s stored in 2 [[Array]]s for efficiency. */
 trait SeqSpecPairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends PairArr[A1, A1Arr, A2, A]
-{
-  /** Maps the first component of the pairs, dropping the second. */
-  def a1Map[B, ArrB <: Arr[B]](f: A1 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a1Arr.map(f)
-
-  /** Maps the second component of the pairs, dropping the first. */
-  def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a2Arr.map(f)
-
-  /** Needs rewriting. */
-  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = map(p => f(p.a1, p.a2))
-}
 
 /** A buffer of [[ElemSeqSpecPair]]s stored in 2 [[ArrayBuffer]]s for efficiency. */
 trait SeqSpecPairBuff[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends Sequ[A]
