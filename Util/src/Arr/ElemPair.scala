@@ -57,15 +57,16 @@ trait SeqSpecPairArrBuilder[B1E, B1 <: SeqSpec[B1E], ArrB1 <: Arr[B1], B2, B <: 
   def b1Builder: SeqLikeImutBuilder[B1E, B1]
 }
 
-trait ElemDblNPair[A1 <: ElemDblN, A2] extends ElemPair[A1, A2] with ElemDblN
+trait ElemDblNPair[A1 <: ElemDblN, A2] extends ElemPair[A1, A2]
 
 trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
-{ /** The backing Array for the first elements of the pairs. */
+{ type ThisT <: DblNPairArr[A1, ArrA1, A2, A]
+
+  /** The backing Array for the first elements of the pairs. */
   def a1ArrayDbl: Array[Double]
 }
 
-/** Helper trait for Companion objects of [[DblNArr]] classes. */
-
+/** Helper trait for Companion objects of [[DblNPairArr]] classes. */
 trait DblNPairCompanion[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1, A2], AA <: DblNPairArr[A1, ArrA1, A2, A]]
 { /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
   def elemNumDbls: Int
@@ -77,4 +78,24 @@ trait DblNPairCompanion[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNP
   def uninitialised(length: Int)(implicit ct: ClassTag[A2]): AA = fromArrays(new Array[Double](length * elemNumDbls), new Array[A2](length))
 
   def empty(implicit ct: ClassTag[A2]): AA = fromArrays(new Array[Double](0), new Array[A2](0))
+}
+
+trait ElemDbl2Pair[A1 <: ElemDbl2, A2] extends ElemDblNPair[A1, A2]
+{ def a1Dbl1: Double
+  def a1Dbl2: Double
+}
+
+trait Dbl2PairArr[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1], A2, A <: ElemDbl2Pair[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
+{ type ThisT <: Dbl2PairArr[A1, ArrA1, A2, A]
+
+  /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
+  def newPair(dbl1: Double, dbl2: Double, a2: A2): A
+
+  override final def apply(index: Int): A = newPair(a1ArrayDbl(index * 2), a1ArrayDbl(index * 2 + 1), a2Array(index))
+
+  override final def unsafeSetElem(i: Int, value: A): Unit =
+  { a1ArrayDbl(i * 2) = value.a1Dbl1;
+    a1ArrayDbl(i * 2 + 1) = value.a1Dbl2
+    a2Array(i) = value.a2
+  }
 }
