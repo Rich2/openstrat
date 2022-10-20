@@ -27,3 +27,9 @@ trait SeqLike[+A] extends Any
 
   override def toString: String = typeStr + elemsStr
 }
+
+/** Helper trait for companion objects of [[SeqLike]] classes. */
+trait SeqLikeCompanion[A <: ElemValueN, AA <: SeqLike[A]]
+{ /** returns a [[SeqLike]] collection class of type AA, whose backing Array(s) is / are uninitialised. */
+  def uninitialised(length: Int): AA
+}

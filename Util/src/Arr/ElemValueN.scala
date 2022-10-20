@@ -117,9 +117,3 @@ trait ValueNSeqLikePersist[A <: ElemValueN, M <: ValueNSeqLike[A]] extends Persi
   def fromBuffer(buf: ArrayBuffer[VT]): M
   def newBuffer: ArrayBuffer[VT]
 }
-
-/** Helper trait for companion objects of [[ValueNSeqSpec]] classes. These are flat Array[Int], Array[Double] etc, flat collection classes. */
-trait ValueNSeqLikeCompanion[A <: ElemValueN, AA <: ValueNSeqLike[A]]
-{ /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
-  def uninitialised(length: Int): AA
-}

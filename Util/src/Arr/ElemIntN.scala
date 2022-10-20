@@ -116,7 +116,7 @@ trait IntNSeqLikePersist[A <: ElemIntN, M <: IntNSeqLike[A]] extends ValueNSeqLi
 
 /** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[ElemIntN]] type of the of the
  *  collection class. */
-trait IntNSeqLikeCompanion[A <: ElemIntN, ArrA <: IntNSeqLike[A]] extends ValueNSeqLikeCompanion[A, ArrA]
+trait IntNSeqLikeCompanion[A <: ElemIntN, ArrA <: IntNSeqLike[A]] extends SeqLikeCompanion[A, ArrA]
 { /** The number of [[Int]]s that are needed to construct an element of the defining-sequence. */
   def elemNumInts: Int
 

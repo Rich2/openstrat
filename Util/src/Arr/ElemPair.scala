@@ -54,3 +54,36 @@ trait SeqSpecPairArrBuilder[B1E, B1 <: SeqSpec[B1E], ArrB1 <: Arr[B1], B2, B <: 
 { /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
   def b1Builder: SeqLikeImutBuilder[B1E, B1]
 }
+
+
+/** Helper trait for Companion objects of [[DblNArr]] classes. */
+/*
+trait DblNPairCompanion[A <: ElemDblN, AA <: DblNSeqLike[A]] extends SeqLikeCompanion[A, AA]
+{ /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
+  def elemNumDbls: Int
+
+  /** Method to create the final object from the backing Array[Double]. End users should rarely have to use this method. */
+  def fromArray(array: Array[Double]): AA
+
+  /** returns a collection class of type ArrA, whose backing Array is uninitialised. */
+  override def uninitialised(length: Int): AA = fromArray(new Array[Double](length * elemNumDbls))
+
+  def empty: AA = fromArray(new Array[Double](0))
+
+  /** Factory method for creating the sequence defined object from raw double values. This will throw if the number of parameter [[Doubles]] is
+   *  incorrect. */
+  def fromDbls(elems: Double*): AA =
+  { val arrLen: Int = elems.length
+    if (arrLen % elemNumDbls != 0) excep(
+      s"$arrLen Double values is not a correct number for the creation of this objects defining sequence, must be a multiple of $elemNumDbls")
+
+    val array = Array[Double](elems.length)
+    var count: Int = 0
+
+    while (count < arrLen)
+    { array(count) = elems(count)
+      count += 1
+    }
+    fromArray(array)
+  }
+}*/
