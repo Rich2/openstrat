@@ -1,12 +1,10 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import math._
-import collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** 3 dimensional point specified using metres [[Length]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
  *  confusion with the LL ending which is short for Latitude-longitude. */
-final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends ElemDbl3
+final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends PointDbl3
 { def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetres.str2, yMetres.str2, zMetres.str2)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]

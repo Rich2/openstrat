@@ -110,3 +110,45 @@ trait Dbl2PairArrCompanion[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1]] extends DblNPai
     (dblsArray, a2Array)
   }
 }
+
+
+trait ElemDbl3Pair[A1 <: ElemDbl3, A2] extends ElemDblNPair[A1, A2]
+{ def a1Dbl1: Double
+  def a1Dbl2: Double
+  def a1Dbl3: Double
+}
+
+trait Dbl3PairArr[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1], A2, A <: ElemDbl3Pair[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
+{ type ThisT <: Dbl3PairArr[A1, ArrA1, A2, A]
+
+  /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
+  def newPair(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): A
+
+  override final def apply(index: Int): A = newPair(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2), a2Array(index))
+
+  override final def unsafeSetElem(i: Int, value: A): Unit =
+  { a1ArrayDbl(i * 3) = value.a1Dbl1;
+    a1ArrayDbl(i * 3 + 1) = value.a1Dbl2
+    a1ArrayDbl(i * 3 + 2) = value.a1Dbl3
+    a2Array(i) = value.a2
+  }
+}
+
+trait Dbl3PairArrCompanion[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]
+{
+  override def elemNumDbls: Int = 3
+
+  def seqToArrays[A2](pairs: Seq[ElemDbl3Pair[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
+  {  val dblsArray = new Array[Double](pairs.length * 3)
+    val a2Array = new Array[A2](pairs.length)
+    var i = 0
+    pairs.foreach{p =>
+      dblsArray(i * 3) = p.a1Dbl1
+      dblsArray(i * 3 + 1) = p.a1Dbl2
+      dblsArray(i * 3 + 2) = p.a1Dbl3
+      a2Array(i) = p.a2
+      i += 1
+    }
+    (dblsArray, a2Array)
+  }
+}
