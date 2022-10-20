@@ -18,6 +18,9 @@ class LatLongPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) 
   override def fElemStr: LatLongPair[A2] => String = _.toString
 }
 
-object LatLongPairArr {
-
+object LatLongPairArr extends Dbl2PairArrCompanion [LatLong, LatLongArr]{
+  def apply[A2](pairs: LatLongPair[A2]*)(implicit ct: ClassTag[A2]): LatLongPairArr[A2] =
+  { val arrays = seqToArrays(pairs)
+    new LatLongPairArr[A2](arrays._1, arrays._2)
+  }
 }
