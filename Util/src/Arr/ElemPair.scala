@@ -40,6 +40,12 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
   def pairArrBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
 }
 
+trait PairArrBuffer[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends Any with Sequ[B]
+{ def grow(newElem: B): Unit
+  def grows(newElems: ArrB): Unit
+  override def fElemStr: B => String = _.toString
+}
+
 /** An element that pairs a [[SeqSpec]] with a second value. */
 trait ElemSeqSpecPair[A1E, A1 <: SeqSpec[A1E], A2] extends ElemPair[A1, A2] with SpecialT
 { def a1: A1
@@ -68,6 +74,11 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
 
   /** The backing Array for the first elements of the pairs. */
   def a1ArrayDbl: Array[Double]
+}
+
+trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblNPair[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]]
+{
+
 }
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */

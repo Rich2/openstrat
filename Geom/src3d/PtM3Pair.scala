@@ -12,3 +12,5 @@ class PtM3PairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) ext
   override def a1Arr: PtM3Arr = new PtM3Arr(a1ArrayDbl)
   override def fElemStr: PtM3Pair[A2] => String = _.toString
 }
+
+//class PtM3PairArrBuider[A2] extends PairArrBuilder[PtM3, PtM3Arr, A2, PtM3Pair[A2], PtM3PairArr[A2]]

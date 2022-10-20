@@ -152,7 +152,6 @@ trait DataDblNsPersist[A <: ElemDblN, M <: DblNSeqLike[A]] extends ValueNSeqLike
   override def eqT(m1: M, m2: M): Boolean = m1.unsafeArray === m2.unsafeArray
 }
 
-
 /** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */
 trait DblNBuffCompanion[A <: ElemDblN, AA <: DblNBuff[A]]
 { /** apply factory method for [[DblNBuff]] final classes */
