@@ -8,9 +8,9 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
 { def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetres.str2, yMetres.str2, zMetres.str2)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
-  def dbl1 = xMetres
-  def dbl2 = yMetres
-  def dbl3 = zMetres
+  def dbl1: Double = xMetres
+  def dbl2: Double = yMetres
+  def dbl3: Double = zMetres
   def x: Length = Length(xMetres)
   def y: Length = Length(yMetres)
   def z: Length = Length(zMetres)

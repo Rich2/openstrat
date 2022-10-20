@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-
-import scala.reflect.ClassTag
+import reflect.ClassTag
 
 class Pt2Pair[A2](val x: Double, val y: Double, val a2: A2) extends PointDbl2Pair[Pt2, A2]
 { override def a1Dbl1: Double = x
