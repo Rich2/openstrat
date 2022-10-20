@@ -1,12 +1,13 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pglobe._, pgui._
+import geom._
+import ostrat.pEarth.pPts.UsaWest
+import pglobe._
+import pgui._
 
 /** Basic map of the Earth using irregular areas / tiles. */
-case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends
-  GlobeGui("The Earth in irregular tiles")
-{
-  statusText = "Welcome to world map, constructed from irregular areas."
+case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
+{  statusText = "Welcome to world map, constructed from irregular areas."
   debvar(viewIn)
   /** Scale in km / pixel */
   var scale: Length = viewIn.scale
@@ -18,6 +19,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
 
   val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
+  val lc1 = UsaWest.locations
 
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)

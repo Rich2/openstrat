@@ -19,3 +19,13 @@ object LocationLL
 {
   def apply(name: String, latDegs: Double, longDegs: Double): LocationLL = new LocationLL(latDegs.degsToMilliSecs, longDegs.degsToMilliSecs, name)
 }
+
+class LocationLLArr(a1ArrayDbl: Array[Double], a2Array: Array[String]) extends Pt2PairArr[String](a1ArrayDbl, a2Array)
+
+object LocationLLArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
+{
+  def apply(pairs: LocationLL*): LocationLLArr =
+  { val arrays = seqToArrays(pairs)
+    new LocationLLArr(arrays._1, arrays._2)
+  }
+}
