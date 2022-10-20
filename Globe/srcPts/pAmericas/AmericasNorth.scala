@@ -29,6 +29,12 @@ object UsaWest extends EArea2 ("United States\nwest", 40.0 ll - 108.0, desert)
   val sanDiego = 32.57 ll -117.11
   val humboldt = 40.44 ll -124.40
   override def polygonLL: PolygonLL = PolygonLL(sanDiego, humboldt, SouthWestCanada.w49th, SouthWestCanada.wUsaNE, galveston, rockyPoint, montague)
+
+  val lasVegas = LocationLL("Las Vegas", 36.17, -115.14)
+  val denver = LocationLL("Denver", 39.74, -105)
+  val losAngeles = LocationLL("Los Angeles", 34.05, -118.24)
+
+  //val locations = LatLongPairArr
 }
 
 object AmericasNorth extends EArea1("North America", 49 ll -100)
