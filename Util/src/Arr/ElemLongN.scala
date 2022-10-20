@@ -34,7 +34,10 @@ trait LongNSeqDefPersist[B <: ElemLongN, ArrB <: LongNArr[B]] extends ValueNSeqL
 }
 
 /** Helper trait for Companion objects of [[LongNArr]] classes. */
-trait LongNSeqDefCompanion[A <: ElemLongN, ArrA <: LongNSeqSpec[A]] extends SeqLikeCompanion[A, ArrA]
+trait LongNSeqDefCompanion[A <: ElemLongN, ArrA <: LongNSeqSpec[A]]// extends SeqLikeCompanion[A, ArrA]
 { def fromBuffer(buff: ArrayBuffer[Long]): ArrA = fromArray(buff.toArray[Long])
   def fromArray(array: Array[Long]): ArrA
+
+  /** returns a [[SeqLike]] collection class of type AA, whose backing Array(s) is / are uninitialised. */
+  def uninitialised(length: Int): ArrA
 }

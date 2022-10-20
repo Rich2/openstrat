@@ -116,18 +116,18 @@ trait IntNSeqLikePersist[A <: ElemIntN, M <: IntNSeqLike[A]] extends ValueNSeqLi
 
 /** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[ElemIntN]] type of the of the
  *  collection class. */
-trait IntNSeqLikeCompanion[A <: ElemIntN, ArrA <: IntNSeqLike[A]] extends SeqLikeCompanion[A, ArrA]
+trait IntNSeqLikeCompanion[A <: ElemIntN, AA <: IntNSeqLike[A]]
 { /** The number of [[Int]]s that are needed to construct an element of the defining-sequence. */
   def elemNumInts: Int
 
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an ArrayBuffer[Int]. */
-  def fromBuffer(buff: ArrayBuffer[Int]): ArrA = fromArray(buff.toArray[Int])
+  def fromBuffer(buff: ArrayBuffer[Int]): AA = fromArray(buff.toArray[Int])
 
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an Array[Int]. */
-  def fromArray(array: Array[Int]): ArrA
+  def fromArray(array: Array[Int]): AA
 
   /** returns a collection class of type ArrA, whose backing Array[Int] is uninitialised. */
-  override def uninitialised(length: Int): ArrA = fromArray(new Array[Int](length * elemNumInts))
+  def uninitialised(length: Int): AA = fromArray(new Array[Int](length * elemNumInts))
 }
 
 /** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */

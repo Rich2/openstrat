@@ -3,11 +3,11 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A [[PolygonLike]] object paired with an object of type A2.]] */
-trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends ElemSeqLikePair[A1V, A1, A2]
+trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends ElemSeqSpecPair[A1V, A1, A2]
 
 /** An [[Arr]] of [[PolygonLikePair]]s stored efficiently allowing maping between different [[PolygonLike]] types while keeping the A2 values unchanged. */
 trait PolygonLikePairArr[A1V, A1 <: PolygonLike[A1V], A1Arr <: Arr[A1], A2, A <: PolygonLikePair[A1V, A1, A2]] extends
-  SeqLikePairArr[A1V, A1, A1Arr, A2, A]
+  SeqSpecPairArr[A1V, A1, A1Arr, A2, A]
 {
   /** Maps this to a new [PolygonLikePairArr]] by mapping [[PolygonLike]]s to new [[PolygonLike]]s of type B1 leaving the second parts of the pairs
    * unchanged. */
@@ -25,15 +25,15 @@ trait PolygonLikePairArrBuilder[B1V, B1 <: PolygonLike[B1V], ArrB1 <: Arr[B1], B
   override def b1Builder: PolygonLikeBuilder[B1V, B1]
 }
 
-trait PolygonDblsPair[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], A2] extends PolygonLikePair[A1V, A1, A2]
+trait PolygonDblNPair[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], A2] extends PolygonLikePair[A1V, A1, A2]
 {
   def unsafeArray: Array[Double]
 }
 
-trait PolygonDblsPairArr[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], ArrA1 <: Arr[A1], A2, A <: PolygonDblsPair[A1V, A1, A2]] extends
+trait PolygonDblNPairArr[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], ArrA1 <: Arr[A1], A2, A <: PolygonDblNPair[A1V, A1, A2]] extends
   PolygonLikePairArr[A1V, A1, ArrA1, A2, A]
 {
-  type ThisT <: PolygonDblsPairArr[A1V, A1, ArrA1, A2, A]
+  type ThisT <: PolygonDblNPairArr[A1V, A1, ArrA1, A2, A]
   def arrayArrayDbl: Array[Array[Double]]
   def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): ThisT// = ???
   def a1Buff: ArrayDblBuff[A1]// = ???
@@ -54,8 +54,8 @@ trait PolygonDblsPairArr[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], ArrA1 <: Arr[A
   }
 }
 
-trait PolygonDblsLikePairArrBuilder[B1V <: ElemDblN, B1 <: PolygonDblN[B1V], ArrB1 <: Arr[B1], A2, B <: PolygonDblsPair[B1V, B1, A2],
-  ArrB <: PolygonDblsPairArr[B1V, B1, ArrB1, A2, B]] extends PolygonLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]
+trait PolygonDblsLikePairArrBuilder[B1V <: ElemDblN, B1 <: PolygonDblN[B1V], ArrB1 <: Arr[B1], A2, B <: PolygonDblNPair[B1V, B1, A2],
+  ArrB <: PolygonDblNPairArr[B1V, B1, ArrB1, A2, B]] extends PolygonLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]
 {
  // override def newArr(newPolygonArr: Arr[PB], a2Arr: Arr[A2]): ArrB = ???// fromArrayArrayDbl(newPolygonArr.arrayArrayDbl, a2Arr)
   def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Arr: RArr[A2]): ArrB

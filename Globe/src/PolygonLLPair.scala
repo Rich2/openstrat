@@ -2,7 +2,7 @@
 package ostrat; package geom; package pglobe
 import geom._, annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-class PolygonLLPair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblsPair[LatLong, PolygonLL, A2] with SpecialT {
+class PolygonLLPair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblNPair[LatLong, PolygonLL, A2] with SpecialT {
   override def a1: PolygonLL = new PolygonLL(unsafeArray)
 }
 

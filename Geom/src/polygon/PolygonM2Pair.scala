@@ -2,7 +2,7 @@
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-class PolygonM2Pair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblsPair[PtM2, PolygonM2, A2]{
+class PolygonM2Pair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblNPair[PtM2, PolygonM2, A2]{
   override def a1: PolygonM2 = new PolygonM2(unsafeArray)
 }
 
@@ -11,7 +11,7 @@ object PolygonM2Pair {
 }
 
 final class PolygonM2PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends
-  PolygonDblsPairArr[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2]]
+  PolygonDblNPairArr[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2]]
 { override type ThisT = PolygonM2PairArr[A2]
   override def unsafeSetElem(i: Int, value: PolygonM2Pair[A2]): Unit = { arrayArrayDbl(i) = value.unsafeArray; a2Array(i) = value.a2 }
   override def fElemStr: PolygonM2Pair[A2] => String = _.toString
