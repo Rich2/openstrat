@@ -40,8 +40,9 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
   def pairArrBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
 }
 
-trait PairArrBuffer[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends Any with Sequ[B]
-{ def grow(newElem: B): Unit
+trait PairArrBuffer[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2]] extends Any with Sequ[B]
+{ type ArrB <: PairArr[B1, ArrB1, B2, B]
+  def grow(newElem: B): Unit
   def grows(newElems: ArrB): Unit
   override def fElemStr: B => String = _.toString
 }
