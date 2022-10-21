@@ -17,7 +17,10 @@ trait SeqLikeBuilderCommon[BB]
   def buffToBB(buff: BuffT): BB
 }
 
-trait SeqLikeImutBuilder[B, BB <: SeqLike[B]] extends SeqLikeBuilderCommon[BB]
-{ /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
+/** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
+ * operations where the type of the element of the [[SeqLike]] that the builder is constructed may not be known at the point of dispatch. */
+trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeBuilderCommon[BB]
+{ type BuffT <: Buff[B]
+  /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
 }

@@ -104,8 +104,9 @@ object IntsBuild extends ArrBuilder[Int, IntArr] with ArrFlatBuilder[IntArr]
 }
 
 /** ArrayBuffer class for [[IntArr]]. End users should rarely have need to use this class */
-class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Sequ[Int]
-{ override def typeStr: String = "IntBuff"
+class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Buff[Int]
+{ override type ThisT = IntBuff
+  override def typeStr: String = "IntBuff"
   override def apply(index: Int): Int = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Int): Unit = unsafeBuffer(i) = value
@@ -113,9 +114,6 @@ class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Sequ[Int]
   def grow(newElem: Int): Unit = unsafeBuffer.append(newElem)
   def growArray(operand: Array[Int]): Unit = unsafeBuffer.appendAll(operand)
   def toInts: IntArr = new IntArr(unsafeBuffer.toArray)
-
-  /** The final type of this object. */
-  override type ThisT = IntBuff
 }
 
 object IntBuff

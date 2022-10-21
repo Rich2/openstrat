@@ -97,13 +97,15 @@ class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends Arr[Polyg
   override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeArrayOfArrays(index))
 }
 
-class PolygonSqCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal with Sequ[PolygonSqC]
+class PolygonSqCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal with Buff[PolygonSqC]
 { override type ThisT = PolygonSqCBuff
   override def typeStr: String = "PolygonSqCBuff"
   override def length: Int = unsafeBuff.length
   override def unsafeSetElem(i: Int, value: PolygonSqC): Unit = unsafeBuff(i) = value.unsafeArray
   override def fElemStr: PolygonSqC => String = _.toString
   override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeBuff(index))
+
+  override def grow(newElem: PolygonSqC): Unit = ???
 }
 
 object PolygonSqCBuff

@@ -51,7 +51,7 @@ object BooleansBuild extends ArrBuilder[Boolean, BooleanArr] with ArrFlatBuilder
   override def buffToBB(buff: BooleanBuff): BooleanArr = new BooleanArr(buff.unsafeBuffer.toArray)
 }
 
-class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with Sequ[Boolean]
+class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with Buff[Boolean]
 { override def typeStr: String = "BooleanBuff"
   override def apply(index: Int): Boolean = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
@@ -60,4 +60,6 @@ class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with Se
 
   /** The final type of this object. */
   override type ThisT = BooleanBuff
+
+  override def grow(newElem: Boolean): Unit = ???
 }

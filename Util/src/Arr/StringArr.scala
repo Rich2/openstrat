@@ -90,15 +90,15 @@ object StringsBuild extends ArrBuilder[String, StringArr] with ArrFlatBuilder[St
   override def buffToBB(buff: StringsBuff): StringArr = new StringArr(buff.unsafeBuffer.toArray)
 }
 
-class StringsBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Sequ[String]
-{ override def typeStr: String = "Stringsbuff"
+class StringsBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buff[String]
+{   override type ThisT = StringsBuff
+
+  override def typeStr: String = "Stringsbuff"
   override def apply(index: Int): String = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: String): Unit = unsafeBuffer(i) = value
   override def fElemStr: String => String = s => s
-
-  /** The final type of this object. */
-  override type ThisT = StringsBuff
+  override def grow(newElem: String): Unit = unsafeBuffer.append(newElem)
 }
 
 object StringsBuff

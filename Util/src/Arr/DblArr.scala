@@ -45,7 +45,7 @@ object DblsBuild extends ArrBuilder[Double, DblArr] with ArrFlatBuilder[DblArr]
 }
 
 /** Compile time wrapped Buffer class for [[Double]]s, used to build[[DblArr]]. */
-class DblsBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Sequ[Double]
+class DblsBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Buff[Double]
 { override def typeStr: String = "DblsBuff"
   override def apply(index: Int): Double = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
@@ -54,4 +54,6 @@ class DblsBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Sequ[D
 
   /** The final type of this object. */
   override type ThisT = DblsBuff
+
+  override def grow(newElem: Double): Unit = ???
 }

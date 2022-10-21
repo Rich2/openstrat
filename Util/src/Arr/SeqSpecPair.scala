@@ -20,5 +20,5 @@ trait SeqSpecPairBuff[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqSpecPair[A1E, A1,
 trait SeqSpecPairArrBuilder[B1E, B1 <: SeqSpec[B1E], ArrB1 <: Arr[B1], B2, B <: ElemSeqSpecPair[B1E, B1, B2], ArrB <: Arr[B]] extends
   PairArrBuilder[B1, ArrB1, B2, B, ArrB]
 { /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
-  def b1Builder: SeqLikeImutBuilder[B1E, B1]
+  def b1Builder: SeqLikeMapBuilder[B1E, B1]
 }

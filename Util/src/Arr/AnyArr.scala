@@ -47,15 +47,14 @@ object AnyArrBuild extends ArrBuilder[Any, AnyArr] with ArrFlatBuilder[AnyArr]
   override def buffToBB(buff: AnyBuff): AnyArr = new AnyArr(buff.unsafeBuffer.toArray)
 }
 
-class AnyBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with Sequ[Any]
-{ override def typeStr: String = "AnysBuff"
+final class AnyBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with Buff[Any]
+{ override type ThisT = AnyBuff
+  override def typeStr: String = "AnysBuff"
   override def apply(index: Int): Any = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Any): Unit = unsafeBuffer(i) = value
   override def fElemStr: Any => String = _.toString
-
-  /** The final type of this object. */
-  override type ThisT = AnyBuff
+  override def grow(newElem: Any): Unit = unsafeBuffer.append(newElem)
 }
 
 object AnyArrHead

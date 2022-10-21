@@ -47,7 +47,9 @@ object ArrArrayIntEq
 }
 
 /** This is a buffer class for Arrays of Int. It is not a Buffer class for Arrays. */
-trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Sequ[A]
+trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Buff[A]
 { def unsafeBuff: ArrayBuffer[Array[Int]]
   override final def length: Int = unsafeBuff.length
+
+  override def grow(newElem: A): Unit = ???
 }

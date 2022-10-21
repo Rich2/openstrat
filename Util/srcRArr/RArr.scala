@@ -165,19 +165,19 @@ class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) 
   override def newArr(length: Int): RArr[B] = new RArr(new Array[B](length))
   override def arrSet(arr: RArr[B], index: Int, value: B): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): TBuff[B] = new TBuff(new ArrayBuffer[B](length))
-  override def buffGrow(buff: TBuff[B], value: B): Unit = buff.unsafeBuff.append(value)
-  override def buffGrowArr(buff: TBuff[B], arr: RArr[B]): Unit = buff.unsafeBuff.addAll(arr.unsafeArray)
-  override def buffToBB(buff: TBuff[B]): RArr[B] = new RArr(buff.unsafeBuff.toArray)
+  override def buffGrow(buff: TBuff[B], value: B): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrowArr(buff: TBuff[B], arr: RArr[B]): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: TBuff[B]): RArr[B] = new RArr(buff.unsafeBuffer.toArray)
 }
 
 /** Not sure if this class is necessary now that Arr takes Any. */
-final class TBuff[A](val unsafeBuff: ArrayBuffer[A]) extends AnyVal with Sequ[A]
+final class TBuff[A](val unsafeBuffer: ArrayBuffer[A]) extends AnyVal with Buff[A]
 { override def typeStr: String = "AnyBuff"
-  override def apply(index: Int): A = unsafeBuff(index)
-  override def length: Int = unsafeBuff.length
-  override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuff(i) = value
+  override def apply(index: Int): A = unsafeBuffer(index)
+  override def length: Int = unsafeBuffer.length
+  override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuffer(i) = value
   override def fElemStr: A => String = _.toString
-
+  override def grow(newElem: A): Unit = unsafeBuffer.append(newElem)
   /** The final type of this object. */
   override type ThisT = TBuff[A]
 }
