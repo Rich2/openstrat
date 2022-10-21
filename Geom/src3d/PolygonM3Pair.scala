@@ -21,20 +21,6 @@ final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
   override def a1Arr: PolygonM3Arr = new PolygonM3Arr(arrayArrayDbl)
   override def a1Buff: ArrayDblBuff[PolygonM3] = PolygonM3Buff()
   override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](array1, array2)
-
-  override  def filterOn1(f: PolygonM3 => Boolean)(implicit ct: ClassTag[A2]): PolygonM3PairArr[A2] =
-  { val buff1 = PolygonM3Buff()
-    val buff2 = new ArrayBuffer[A2]()
-    var i = 0
-    a1Arr.foreach{ (a1: PolygonM3) =>
-      if (f(a1)){
-        buff1.grow(a1)
-        buff2.append(a2Array(i))
-      }
-      i += 1
-    }
-    new PolygonM3PairArr[A2](buff1.arrayArrayDbl, buff2.toArray)
-  }
 }
 
 final class PolygonM3PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends

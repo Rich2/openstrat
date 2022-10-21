@@ -36,10 +36,10 @@ trait PolygonDblNPairArr[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], ArrA1 <: Arr[A
   type ThisT <: PolygonDblNPairArr[A1V, A1, ArrA1, A2, A]
   def arrayArrayDbl: Array[Array[Double]]
   def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): ThisT// = ???
-  def a1Buff: ArrayDblBuff[A1]// = ???
-  //f a1Arr: ArrA1 //= fromArrays(arrayArrayDbl)
-  def filterOn1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT = {
-    val buff1 = a1Buff//PolygonM3Buff()
+  def a1Buff: ArrayDblBuff[A1]
+
+  def filterOn1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
+  { val buff1 = a1Buff
     val buff2 = new ArrayBuffer[A2]()
     var i = 0
     a1Arr.foreach { a1 =>
@@ -49,8 +49,7 @@ trait PolygonDblNPairArr[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], ArrA1 <: Arr[A
       }
       i += 1
     }
-    //new PolygonM3PairArr[A2](buff1.arrayArrayDbl, buff2.toArray)
-    ???
+    fromArrays(buff1.arrayArrayDbl, buff2.toArray)
   }
 }
 
