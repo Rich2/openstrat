@@ -81,7 +81,6 @@ object PolygonM3 extends Dbl3SeqLikeCompanion[PtM3, PolygonM3]
     override def newArr(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))
     override def arrSet(arr: PolygonM3Arr, index: Int, value: PolygonM3): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
     override def buffGrow(buff: PolygonM3Buff, value: PolygonM3): Unit = buff.unsafeBuffer.append(value.unsafeArray)
-    override def buffGrowArr(buff: PolygonM3Buff, arr: PolygonM3Arr): Unit = arr.foreach(p => buff.unsafeBuffer.append(p.unsafeArray))
     override def buffToBB(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuffer.toArray)
   }
 

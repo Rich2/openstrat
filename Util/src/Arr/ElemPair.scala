@@ -44,7 +44,7 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
   def b1ArrBuilder: ArrBuilder[B1, ArrB1]
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
-  def pairArrBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
+  def pairArrBuilder(b1Arr: ArrB1, a2s: Array[B2]): ArrB
 }
 
 trait ElemDblNPair[A1 <: ElemDblN, A2] extends ElemPair[A1, A2]
@@ -114,7 +114,6 @@ trait Dbl2PairBuff[A1 <: ElemDbl2, A2, A <: ElemDbl2Pair[A1, A2]] extends DblNPa
 trait Dbl2PairArrBuilder[B1 <: ElemDbl2, ArrB1 <: Dbl2Arr[B1], B2, B <: ElemDbl2Pair[B1, B2], ArrB <: Dbl2PairArr[B1, ArrB1, B2, B]] extends
   DblNPairArrBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl2PairBuff[B1, B2, B]
-
 }
 
 trait Dbl2PairArrCompanion[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]
@@ -177,6 +176,12 @@ trait Dbl3PairBuff[A1 <: ElemDbl3, A2, A <: ElemDbl3Pair[A1, A2]] extends DblNPa
     a1DblBuffer(i * 3 + 2) = value.a1Dbl3
     a2Buffer(i) = value.a2
   }
+}
+
+trait Dbl3PairArrBuilder[B1 <: ElemDbl3, ArrB1 <: Dbl3Arr[B1], B2, B <: ElemDbl3Pair[B1, B2], ArrB <: Dbl3PairArr[B1, ArrB1, B2, B]] extends
+  DblNPairArrBuilder[B1, ArrB1, B2, B, ArrB]
+{ type BuffT <: Dbl3PairBuff[B1, B2, B]
+  inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
 trait Dbl3PairArrCompanion[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]

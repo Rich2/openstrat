@@ -33,8 +33,6 @@ trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends Ar
   override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
   override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuffer.toArray)
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }
-  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArrayOfArrays); () }
-  //override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = arr.unsafeArrayOfArrays.foreach{array => buff.unsafeBuff.append(array) }
 }
 
 class ArrArrayIntEq[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends EqT[ArrT]

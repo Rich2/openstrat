@@ -40,7 +40,6 @@ object DblArrBuilder extends ArrBuilder[Double, DblArr] with ArrFlatBuilder[DblA
   override def arrSet(arr: DblArr, index: Int, value: Double): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): DblBuff = new DblBuff(new ArrayBuffer[Double](length))
   override def buffGrow(buff: DblBuff, value: Double): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: DblBuff, arr: DblArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
   override def buffToBB(buff: DblBuff): DblArr = new DblArr(buff.unsafeBuffer.toArray)
 }
 

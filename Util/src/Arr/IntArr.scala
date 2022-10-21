@@ -99,7 +99,6 @@ object IntArrBuilder extends ArrBuilder[Int, IntArr] with ArrFlatBuilder[IntArr]
   override def arrSet(arr: IntArr, index: Int, value: Int): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](length))
   override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: IntBuff, arr: IntArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
   override def buffToBB(buff: IntBuff): IntArr = new IntArr(buff.unsafeBuffer.toArray)
 }
 

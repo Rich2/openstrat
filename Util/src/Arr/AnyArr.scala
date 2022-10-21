@@ -43,7 +43,6 @@ object AnyArrBuild extends ArrBuilder[Any, AnyArr] with ArrFlatBuilder[AnyArr]
   override def arrSet(arr: AnyArr, index: Int, value: Any): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): AnyBuff = new AnyBuff(new ArrayBuffer[Any](length))
   override def buffGrow(buff: AnyBuff, value: Any): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: AnyBuff, arr: AnyArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
   override def buffToBB(buff: AnyBuff): AnyArr = new AnyArr(buff.unsafeBuffer.toArray)
 }
 

@@ -166,7 +166,6 @@ class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) 
   override def arrSet(arr: RArr[B], index: Int, value: B): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): TBuff[B] = new TBuff(new ArrayBuffer[B](length))
   override def buffGrow(buff: TBuff[B], value: B): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: TBuff[B], arr: RArr[B]): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
   override def buffToBB(buff: TBuff[B]): RArr[B] = new RArr(buff.unsafeBuffer.toArray)
 }
 

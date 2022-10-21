@@ -86,7 +86,6 @@ object StringArrBuilder extends ArrBuilder[String, StringArr] with ArrFlatBuilde
   override def arrSet(arr: StringArr, index: Int, value: String): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](length))
   override def buffGrow(buff: StringBuff, value: String): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: StringBuff, arr: StringArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
   override def buffToBB(buff: StringBuff): StringArr = new StringArr(buff.unsafeBuffer.toArray)
 }
 

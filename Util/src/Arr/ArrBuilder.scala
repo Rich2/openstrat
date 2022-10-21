@@ -26,6 +26,8 @@ trait ArrBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
     inp.foreach(a => buffGrow(buff, f(a)))
     buffToBB(buff)
   }
+
+  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = arr.foreach(buff.grow)
 }
 
 /** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */

@@ -78,8 +78,6 @@ object PolygonLL extends Dbl2SeqLikeCompanion[LatLong, PolygonLL]
 
     override def buffGrow(buff: PolygonLLBuff, value: PolygonLL): Unit = buff.unsafeBuffer.append(value.unsafeArray)
 
-    override def buffGrowArr(buff: PolygonLLBuff, arr: PolygonLLArr): Unit = arr.foreach(p => buff.unsafeBuffer.append(p.unsafeArray))
-
     override def buffToBB(buff: PolygonLLBuff): PolygonLLArr = new PolygonLLArr(buff.unsafeBuffer.toArray)
   }
 

@@ -44,7 +44,6 @@ object FloatArrBuilder extends ArrBuilder[Float, FloatArr] with ArrFlatBuilder[F
   override def arrSet(arr: FloatArr, index: Int, value: Float): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): FloatBuff = new FloatBuff(new ArrayBuffer[Float](length))
   override def buffGrow(buff: FloatBuff, value: Float): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: FloatBuff, arr: FloatArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
   override def buffToBB(buff: FloatBuff): FloatArr = new FloatArr(buff.unsafeBuffer.toArray)
 }
 

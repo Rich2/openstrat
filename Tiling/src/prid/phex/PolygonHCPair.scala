@@ -36,7 +36,6 @@ final class PolygonHCPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   { arr.arrayArrayInt(index) = value.unsafeArray ; arr.a2Array(index) = value.a2 }
 
   override def buffGrow(buff: PolygonHCPairBuff[A2], value: PolygonHCPair[A2]): Unit = ???
-  override def buffGrowArr(buff: PolygonHCPairBuff[A2], arr: PolygonHCPairArr[A2]): Unit = ???
   override def newBuff(length: Int): PolygonHCPairBuff[A2] = new PolygonHCPairBuff[A2](new ArrayBuffer[Array[Int]](4), new ArrayBuffer[A2](4))
   override def buffToBB(buff: PolygonHCPairBuff[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](buff.arrayIntBuff.toArray, buff.a2Buffer.toArray)
 }

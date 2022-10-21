@@ -90,7 +90,6 @@ object PolygonHC extends Int2SeqLikeCompanion[HCoord, PolygonHC]
     override def newArr(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
     override def arrSet(arr: PolygonHCArr, index: Int, value: PolygonHC): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
     override def buffGrow(buff: PolygonHCBuff, value: PolygonHC): Unit = buff.unsafeBuffer.append(value.unsafeArray)
-    override def buffGrowArr(buff: PolygonHCBuff, arr: PolygonHCArr): Unit = arr.foreach(p => buff.unsafeBuffer.append(p.unsafeArray))
     override def buffToBB(buff: PolygonHCBuff): PolygonHCArr = new PolygonHCArr(buff.unsafeBuffer.toArray)
   }
 }

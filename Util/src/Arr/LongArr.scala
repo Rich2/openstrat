@@ -43,7 +43,6 @@ object LongArrBuilder extends ArrBuilder[Long, LongArr] with ArrFlatBuilder[Long
   override def arrSet(arr: LongArr, index: Int, value: Long): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): LongBuff = new LongBuff(new ArrayBuffer[Long](length))
   override def buffGrow(buff: LongBuff, value: Long): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: LongBuff, arr: LongArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
   override def buffToBB(buff: LongBuff): LongArr = new LongArr(buff.unsafeBuffer.toArray)
 }
 

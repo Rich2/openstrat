@@ -85,7 +85,6 @@ trait DblNArrBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends ValueNArrBuilder
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
   final override def newArr(length: Int): ArrB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
-  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
