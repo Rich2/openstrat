@@ -30,7 +30,7 @@ final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Arr
 /** A builder for ann Arr of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
 final class PolygonHCPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends ArrBuilder[PolygonHCPair[A2], PolygonHCPairArr[A2]]
 { override type BuffT = PolygonHCPairBuff[A2]
-  override def newArr(length: Int): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](new Array[Array[Int]](length), new Array[A2](length))
+  override def arrUninitialised(length: Int): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](new Array[Array[Int]](length), new Array[A2](length))
 
   override def arrSet(arr: PolygonHCPairArr[A2], index: Int, value: PolygonHCPair[A2]): Unit =
   { arr.arrayArrayInt(index) = value.unsafeArray ; arr.a2Array(index) = value.a2 }

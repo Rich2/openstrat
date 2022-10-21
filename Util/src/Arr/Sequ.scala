@@ -95,7 +95,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every
    *  element of this sequence. */
   def map[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(length)
+  { val res = ev.arrUninitialised(length)
     iForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
@@ -103,7 +103,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every
    * element of this sequence. */
   def mapPair[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
-    val res = ev.newArr(length)
+    val res = ev.arrUninitialised(length)
     iForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
   }
@@ -115,7 +115,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. This method should be overridden in sub
    * classes. */
   def iMap[B, ArrB <: Arr[B]](f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(length)
+  { val res = ev.arrUninitialised(length)
     iForeach((i, a) => ev.arrSet(res, i, f(i, a)))
     res
   }
@@ -127,7 +127,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should be overridden in sub
    * classes. */
   def iMap[B, ArrB <: Arr[B]](startindex: Int)(f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(length)
+  { val res = ev.arrUninitialised(length)
     iForeach(startindex)((i, a) => ev.arrSet(res, i, f(i, a)))
     res
   }
@@ -180,7 +180,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * function from type A and type B to type C. */
   def zipMap[B, C, ArrC <: Arr[C]](operator: Sequ[B])(f: (A, B) => C)(implicit ev: ArrBuilder[C, ArrC]): ArrC =
   { val newLen = length.min(operator.length)
-    val res = ev.newArr(newLen)
+    val res = ev.arrUninitialised(newLen)
     var count = 0
     while(count < newLen)
     { val newElem = f(apply(count), operator.apply(count))
@@ -194,7 +194,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    *  the specialised map function from type A and type B and type C to type D. */
   def zipMap2[B, C, D, ArrD <: Arr[D]](operator1: Sequ[B], operator2: Sequ[C])(f: (A, B, C) => D)(implicit ev: ArrBuilder[D, ArrD]): ArrD =
   { val newLen = length.min(operator1.length).min(operator2.length)
-    val res = ev.newArr(newLen)
+    val res = ev.arrUninitialised(newLen)
     var count = 0
     while(count < newLen)
     { val newElem = f(apply(count), operator1.apply(count), operator2.apply(count))
@@ -208,7 +208,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    *  (accumulator, element) => B signature. */
   def mapWithAcc[B, ArrB <: Arr[B], C](initC: C)(f: (C, A) => (B, C))(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(length)
+  { val res = ev.arrUninitialised(length)
     var accC: C = initC
     iForeach({ (i, a) =>
           val (newB, newC) = f(accC, a)
@@ -240,7 +240,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
   def map2To1[B, ArrB <: Arr[B]](f: (A, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
-  { val res = ev.newArr(length)
+  { val res = ev.arrUninitialised(length)
     var count = 0
     while (count + 1  < length)
     {  ev.arrSet(res, count, f(apply(count), apply(count + 1)))

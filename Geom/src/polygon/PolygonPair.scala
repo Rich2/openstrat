@@ -27,7 +27,7 @@ final class PolygonPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Ar
 final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
   PolygonLikePairArrBuilder[Pt2, Polygon, PolygonArr, A2, PolygonPair[A2], PolygonPairArr[A2]]
 { override type BuffT = PolygonPairBuff[A2]
-  override def newArr(length: Int): PolygonPairArr[A2] = new PolygonPairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
+  override def arrUninitialised(length: Int): PolygonPairArr[A2] = new PolygonPairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
   override def arrSet(arr: PolygonPairArr[A2], index: Int, value: PolygonPair[A2]): Unit =
   { arr.arrayArrayDbl(index) = value.unsafeArray ; arr.a2Array(index) = value.a2 }
@@ -37,7 +37,7 @@ final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def buffToBB(buff: PolygonPairBuff[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](buff.arrayDblBuff.toArray, buff.a2Buffer.toArray)
   override def b1Builder: PolygonLikeBuilder[Pt2, Polygon] = Pt2.polygonBuildImplicit
   override def b1ArrBuilder: ArrBuilder[Polygon, PolygonArr] = Polygon.arrBuildImplicit
-  override def pairArrBuilder(b1Arr: PolygonArr, a2s: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](b1Arr.unsafeArrayOfArrays, a2s)
+  override def pairArrBuilder(b1Arr: PolygonArr, b2s: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
 }
 
 class PolygonPairBuff[A2](val arrayDblBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqSpecPairBuff[Pt2, Polygon, A2, PolygonPair[A2]]

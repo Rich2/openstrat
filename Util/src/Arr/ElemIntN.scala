@@ -75,7 +75,7 @@ trait IntNArrBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrBuilder
 
   /* Not sure about the return type of this method. */
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
-  final override def newArr(length: Int): ArrB = fromIntArray(new Array[Int](length * elemProdSize))
+  final override def arrUninitialised(length: Int): ArrB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
 }

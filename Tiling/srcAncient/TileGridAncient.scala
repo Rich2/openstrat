@@ -105,7 +105,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
   /** Map all Tiles to Array[B] with function. */
   final def tilesMapAll[B, BB <: Arr[B]](f: TileT => B)(implicit build: ArrBuilder[B, BB]): BB =
   {
-    val res = build.newArr(tileNum)
+    val res = build.arrUninitialised(tileNum)
     val count = 0
     while (count < tileNum)
     {

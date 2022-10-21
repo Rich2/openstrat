@@ -154,7 +154,7 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     oldSegsMap(start.r, start.c)(f)(build, gridSys)
 
   def oldSegsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], grider: HGridSys): ArrB =
-  { val res = build.newArr(segsNum)
+  { val res = build.arrUninitialised(segsNum)
     var count = 0
     oldSegsForeach(startR, startC){ s =>
       res.unsafeSetElem(count, f(s))
@@ -167,7 +167,7 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     segsMap(start.r, start.c, trans)(f)(build)
 
   def segsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
-  { val res = build.newArr(segsNum)
+  { val res = build.arrUninitialised(segsNum)
     var count = 0
     segsForeach(startR, startC, trans) { s =>
       res.unsafeSetElem(count, f(s))

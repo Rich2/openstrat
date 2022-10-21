@@ -24,7 +24,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   /** Converts to [[Arr]] of A. Most commonly an [[RArr]]. Prefer the mapArr method where appropriate which combines the conversion with a map operation. */
   def toArr[AA <: Arr[A]](implicit builder: ArrBuilder[A, AA]): AA =
   { val len = thisIter.size
-    val res = builder.newArr(len)
+    val res = builder.arrUninitialised(len)
     iForeach((i, a) => res.unsafeSetElem(i, a))
     res
   }

@@ -128,7 +128,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonDbl
   /** maps over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sidesMap[A, AA <: Arr[A]](f: LineSeg => A)(implicit build: ArrBuilder[A, AA]): AA =
   { var count = 0
-    val res = build.newArr(vertsNum)
+    val res = build.arrUninitialised(vertsNum)
     while (count < vertsNum)
     { res.unsafeSetElem(count, f(side(count + 1)))
       count += 1
@@ -139,7 +139,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with PolygonDbl
   /** maps with a integer counter over the sides or edges of the Polygon These are of type [[LineSeg]]. */
   def sidesIMap[A, AA <: Arr[A]](initCount: Int = 0)(f: (LineSeg, Int) => A)(implicit build: ArrBuilder[A, AA]): AA =
   { var count = 0
-    val res = build.newArr(vertsNum)
+    val res = build.arrUninitialised(vertsNum)
     while (count < vertsNum)
     { res.unsafeSetElem(count, f(side(count + 1), count + initCount))
       count += 1

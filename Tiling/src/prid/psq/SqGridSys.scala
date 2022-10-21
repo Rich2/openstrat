@@ -20,7 +20,7 @@ trait SqGridSys extends Any with TGridSys
   /** Maps over the [[SqCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
    * corresponding to the standard Scala map function of A => B. */
   final def map[B, ArrB <: Arr[B]](f: SqCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
-    val res = build.newArr(numTiles)
+    val res = build.arrUninitialised(numTiles)
     var i = 0
     foreach { sqCen => res.unsafeSetElem(i, f(sqCen)); i += 1 }
     res

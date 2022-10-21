@@ -38,7 +38,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   }
 
   override def vertsMap[B, ArrB <: Arr[B]](f: PtM3 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
-  { val res = builder.newArr(vertsNum)
+  { val res = builder.arrUninitialised(vertsNum)
     var count = 0
     vertsForeach{ v =>
       builder.arrSet(res, count, f(v))
@@ -78,7 +78,7 @@ object PolygonM3 extends Dbl3SeqLikeCompanion[PtM3, PolygonM3]
   implicit val arrBuildImplicit: ArrBuilder[PolygonM3, PolygonM3Arr] = new ArrBuilder[PolygonM3, PolygonM3Arr] {
     override type BuffT = PolygonM3Buff
     override def newBuff(length: Int): PolygonM3Buff = PolygonM3Buff(length)
-    override def newArr(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))
+    override def arrUninitialised(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))
     override def arrSet(arr: PolygonM3Arr, index: Int, value: PolygonM3): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
     override def buffGrow(buff: PolygonM3Buff, value: PolygonM3): Unit = buff.unsafeBuffer.append(value.unsafeArray)
     override def buffToBB(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuffer.toArray)

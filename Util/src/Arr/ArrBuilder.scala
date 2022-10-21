@@ -8,7 +8,9 @@ import reflect.ClassTag, annotation.unused
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
 trait ArrBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
-{ def newArr(length: Int): ArrB
+{ /** Creates a new uninitialised [[Arr]] of type ArrB of thegiven length. */
+  def arrUninitialised(length: Int): ArrB
+
   def arrSet(arr: ArrB, index: Int, value: B): Unit
 
   def buffContains(buff: BuffT, newElem: B): Boolean =

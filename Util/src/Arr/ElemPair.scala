@@ -44,7 +44,7 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
   def b1ArrBuilder: ArrBuilder[B1, ArrB1]
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
-  def pairArrBuilder(b1Arr: ArrB1, a2s: Array[B2]): ArrB
+  def pairArrBuilder(b1Arr: ArrB1, b2s: Array[B2]): ArrB
 }
 
 trait ElemDblNPair[A1 <: ElemDblN, A2] extends ElemPair[A1, A2]
@@ -64,6 +64,12 @@ trait DblNPairBuff[A1 <: ElemDblN, A2, A <: ElemDblNPair[A1, A2]] extends PairBu
 trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblNPair[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
   PairArrBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, B]
+  implicit def b2CT: ClassTag[B2]
+  def a1DblNum: Int
+  def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): BuffT
+  def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): ArrB
+  final override def arrUninitialised(length: Int): ArrB = arrFromArrays(new Array[Double](length * a1DblNum), new Array[B2](length))
+  final override def newBuff(length: Int): BuffT = buffFromBuffers(new ArrayBuffer[Double](length * a1DblNum), new ArrayBuffer[B2](length))
 }
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */
@@ -114,6 +120,13 @@ trait Dbl2PairBuff[A1 <: ElemDbl2, A2, A <: ElemDbl2Pair[A1, A2]] extends DblNPa
 trait Dbl2PairArrBuilder[B1 <: ElemDbl2, ArrB1 <: Dbl2Arr[B1], B2, B <: ElemDbl2Pair[B1, B2], ArrB <: Dbl2PairArr[B1, ArrB1, B2, B]] extends
   DblNPairArrBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl2PairBuff[B1, B2, B]
+  final override def a1DblNum: Int = 2
+
+  final override def arrSet(arr: ArrB, index: Int, value: B): Unit = {
+    arr.a1ArrayDbl(index * 3) = value.a1Dbl1
+    arr.a1ArrayDbl(index * 3 + 1) = value.a1Dbl2
+    arr.a2Array(index) = value.a2
+  }
 }
 
 trait Dbl2PairArrCompanion[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]
@@ -170,8 +183,8 @@ trait Dbl3PairBuff[A1 <: ElemDbl3, A2, A <: ElemDbl3Pair[A1, A2]] extends DblNPa
     a2Buffer.append(newElem.a2)
   }
 
-  override final def unsafeSetElem(i: Int, value: A): Unit = {
-    a1DblBuffer(i * 3) = value.a1Dbl1
+  override final def unsafeSetElem(i: Int, value: A): Unit =
+  { a1DblBuffer(i * 3) = value.a1Dbl1
     a1DblBuffer(i * 3 + 1) = value.a1Dbl2
     a1DblBuffer(i * 3 + 2) = value.a1Dbl3
     a2Buffer(i) = value.a2
@@ -181,7 +194,16 @@ trait Dbl3PairBuff[A1 <: ElemDbl3, A2, A <: ElemDbl3Pair[A1, A2]] extends DblNPa
 trait Dbl3PairArrBuilder[B1 <: ElemDbl3, ArrB1 <: Dbl3Arr[B1], B2, B <: ElemDbl3Pair[B1, B2], ArrB <: Dbl3PairArr[B1, ArrB1, B2, B]] extends
   DblNPairArrBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl3PairBuff[B1, B2, B]
+
+  final override def a1DblNum: Int = 3
   inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
+
+  final override def arrSet(arr: ArrB, index: Int, value: B): Unit = {
+    arr.a1ArrayDbl(index * 3) = value.a1Dbl1
+    arr.a1ArrayDbl(index * 3 + 1) = value.a1Dbl2
+    arr.a1ArrayDbl(index * 3 + 2) = value.a1Dbl3
+    arr.a2Array(index) = value.a2
+  }
 }
 
 trait Dbl3PairArrCompanion[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]
