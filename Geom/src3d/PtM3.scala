@@ -93,15 +93,17 @@ object PtM3
   //implicit object Metres3Persist extends Persist3[Metres, Metres, Metres, Metres3]("Metres3", "x", _.x, "y", _.y, "z", _.z, apply)
   var counter = 0
 
-  implicit val builderImplicit: Dbl3ArrBuilder[PtM3, PtM3Arr] = new Dbl3ArrBuilder[PtM3, PtM3Arr]
+  implicit val arrBuilderImplicit: Dbl3ArrBuilder[PtM3, PtM3Arr] = new Dbl3ArrBuilder[PtM3, PtM3Arr]
   { type BuffT = BuffPtMetre3
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(buffer)
   }
 
+  implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtM3PairArrBuider[B2] = new PtM3PairArrBuider[B2]
+
   /** Implicit instance for the [[PolygonM3Pair]] builder. This has to go in the [[PtM3]] companion object so it can be found by an A => B function
    * where PtM3 is the type B parameter. */
-  implicit def pairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonM3PairBuilder[A2] = new PolygonM3PairBuilder[A2]
+  implicit def polygonPairBuilderImplicit[A2](implicit ct: ClassTag[A2]): PolygonM3PairBuilder[A2] = new PolygonM3PairBuilder[A2]
 
   implicit val linePathBuildImplicit: LinePathDbl3sBuilder[PtM3, LinePathMetre3] = new LinePathDbl3sBuilder[PtM3, LinePathMetre3]
   { override type BuffT = BuffPtMetre3

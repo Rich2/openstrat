@@ -19,7 +19,8 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
 
   val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
-  val lc1 = UsaWest.locations
+  val lc1: LocationLLArr = UsaWest.locations
+  val lc2 = lc1.mapOnA1(_.toMetres3)
 
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
@@ -38,6 +39,8 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
       val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
       TextGraphic(d.name, 10, posn, d.colour.contrastBW)
     }
+
+    //val locs = lc2.filterOn1
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
