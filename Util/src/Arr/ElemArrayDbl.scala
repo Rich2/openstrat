@@ -43,8 +43,6 @@ object ArrArrayDblEq
 trait ArrayDblBuff[A <: ArrayDblBacked] extends Any with Buff[A]
 { def unsafeBuffer: ArrayBuffer[Array[Double]]
   override final def length: Int = unsafeBuffer.length
-
   def grow(elem: A): Unit = unsafeBuffer.append(elem.unsafeArray)
-
   def arrayArrayDbl: Array[Array[Double]] = unsafeBuffer.toArray
 }

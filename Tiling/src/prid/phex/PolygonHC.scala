@@ -89,9 +89,9 @@ object PolygonHC extends Int2SeqLikeCompanion[HCoord, PolygonHC]
     override def newBuff(length: Int): PolygonHCBuff = PolygonHCBuff(length)
     override def newArr(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
     override def arrSet(arr: PolygonHCArr, index: Int, value: PolygonHC): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
-    override def buffGrow(buff: PolygonHCBuff, value: PolygonHC): Unit = buff.unsafeBuff.append(value.unsafeArray)
-    override def buffGrowArr(buff: PolygonHCBuff, arr: PolygonHCArr): Unit = arr.foreach(p => buff.unsafeBuff.append(p.unsafeArray))
-    override def buffToBB(buff: PolygonHCBuff): PolygonHCArr = new PolygonHCArr(buff.unsafeBuff.toArray)
+    override def buffGrow(buff: PolygonHCBuff, value: PolygonHC): Unit = buff.unsafeBuffer.append(value.unsafeArray)
+    override def buffGrowArr(buff: PolygonHCBuff, arr: PolygonHCArr): Unit = arr.foreach(p => buff.unsafeBuffer.append(p.unsafeArray))
+    override def buffToBB(buff: PolygonHCBuff): PolygonHCArr = new PolygonHCArr(buff.unsafeBuffer.toArray)
   }
 }
 
@@ -103,12 +103,12 @@ class PolygonHCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends ArrayIntAr
   override def unsafeFromArrayArray(array: Array[Array[Int]]): PolygonHCArr = new PolygonHCArr(array)
 }
 
-class PolygonHCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal with ArrayIntBuff[PolygonHC]
+class PolygonHCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal with ArrayIntBuff[PolygonHC]
 { override type ThisT = PolygonHCBuff
   override def typeStr: String = "PolygonHCBuff"
-  override def unsafeSetElem(i: Int, value: PolygonHC): Unit = unsafeBuff(i) = value.unsafeArray
+  override def unsafeSetElem(i: Int, value: PolygonHC): Unit = unsafeBuffer(i) = value.unsafeArray
   override def fElemStr: PolygonHC => String = _.toString
-  override def apply(index: Int): PolygonHC = new PolygonHC(unsafeBuff(index))
+  override def apply(index: Int): PolygonHC = new PolygonHC(unsafeBuffer(index))
 }
 
 object PolygonHCBuff

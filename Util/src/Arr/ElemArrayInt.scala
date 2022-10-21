@@ -31,9 +31,9 @@ trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends Ar
   type BuffT <: ArrayIntBuff[A]
   @inline override def newArr(length: Int): ArrT = fromArray(new Array[Array[Int]](length))
   override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
-  override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuff.toArray)
-  override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuff.append(value.unsafeArray); () }
-  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuff.addAll(arr.unsafeArrayOfArrays); () }
+  override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuffer.toArray)
+  override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }
+  override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArrayOfArrays); () }
   //override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = arr.unsafeArrayOfArrays.foreach{array => buff.unsafeBuff.append(array) }
 }
 
@@ -48,8 +48,7 @@ object ArrArrayIntEq
 
 /** This is a buffer class for Arrays of Int. It is not a Buffer class for Arrays. */
 trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Buff[A]
-{ def unsafeBuff: ArrayBuffer[Array[Int]]
-  override final def length: Int = unsafeBuff.length
-
-  override def grow(newElem: A): Unit = ???
+{ def unsafeBuffer: ArrayBuffer[Array[Int]]
+  override final def length: Int = unsafeBuffer.length
+  override def grow(newElem: A): Unit = unsafeBuffer.append(newElem.unsafeArray)
 }
