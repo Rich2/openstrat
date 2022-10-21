@@ -34,26 +34,23 @@ object DblArr
     }
 }
 
-object DblsBuild extends ArrBuilder[Double, DblArr] with ArrFlatBuilder[DblArr]
-{ type BuffT = DblsBuff
+object DblArrBuilder extends ArrBuilder[Double, DblArr] with ArrFlatBuilder[DblArr]
+{ type BuffT = DblBuff
   override def newArr(length: Int): DblArr = new DblArr(new Array[Double](length))
   override def arrSet(arr: DblArr, index: Int, value: Double): Unit = arr.unsafeArray(index) = value
-  override def newBuff(length: Int = 4): DblsBuff = new DblsBuff(new ArrayBuffer[Double](length))
-  override def buffGrow(buff: DblsBuff, value: Double): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: DblsBuff, arr: DblArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
-  override def buffToBB(buff: DblsBuff): DblArr = new DblArr(buff.unsafeBuffer.toArray)
+  override def newBuff(length: Int = 4): DblBuff = new DblBuff(new ArrayBuffer[Double](length))
+  override def buffGrow(buff: DblBuff, value: Double): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrowArr(buff: DblBuff, arr: DblArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: DblBuff): DblArr = new DblArr(buff.unsafeBuffer.toArray)
 }
 
-/** Compile time wrapped Buffer class for [[Double]]s, used to build[[DblArr]]. */
-class DblsBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Buff[Double]
-{ override def typeStr: String = "DblsBuff"
+/** Compile time wrapped Buff class for [[Double]]s, used to build [[DblArr]]. */
+class DblBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Buff[Double]
+{ override type ThisT = DblBuff
+  override def typeStr: String = "DblsBuff"
   override def apply(index: Int): Double = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Double): Unit = unsafeBuffer(i) = value
   override def fElemStr: Double => String = _.toString
-
-  /** The final type of this object. */
-  override type ThisT = DblsBuff
-
-  override def grow(newElem: Double): Unit = ???
+  override def grow(newElem: Double): Unit = unsafeBuffer.append(newElem)
 }

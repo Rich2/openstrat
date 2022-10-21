@@ -172,12 +172,11 @@ class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) 
 
 /** Not sure if this class is necessary now that Arr takes Any. */
 final class TBuff[A](val unsafeBuffer: ArrayBuffer[A]) extends AnyVal with Buff[A]
-{ override def typeStr: String = "AnyBuff"
+{ override type ThisT = TBuff[A]
+  override def typeStr: String = "AnyBuff"
   override def apply(index: Int): A = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuffer(i) = value
   override def fElemStr: A => String = _.toString
   override def grow(newElem: A): Unit = unsafeBuffer.append(newElem)
-  /** The final type of this object. */
-  override type ThisT = TBuff[A]
 }

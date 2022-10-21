@@ -30,12 +30,12 @@ trait ArrBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
 
 /** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */
 object ArrBuilder extends ArrBuilderPriority2
-{ implicit val intsImplicit: ArrBuilder[Int, IntArr] = IntsBuild
-  implicit val doublesImplicit: ArrBuilder[Double, DblArr] = DblsBuild
-  implicit val longImplicit: ArrBuilder[Long, LongArr] = LongsBuild
-  implicit val floatImplicit: ArrBuilder[Float, FloatArr] = FloatsBuild
-  implicit val stringImplicit: ArrBuilder[String, StringArr] = StringsBuild
-  implicit val booleansImplicit: ArrBuilder[Boolean, BooleanArr] = BooleansBuild
+{ implicit val intsImplicit: ArrBuilder[Int, IntArr] = IntArrBuilder
+  implicit val doublesImplicit: ArrBuilder[Double, DblArr] = DblArrBuilder
+  implicit val longImplicit: ArrBuilder[Long, LongArr] = LongArrBuilder
+  implicit val floatImplicit: ArrBuilder[Float, FloatArr] = FloatArrBuilder
+  implicit val stringImplicit: ArrBuilder[String, StringArr] = StringArrBuilder
+  implicit val booleansImplicit: ArrBuilder[Boolean, BooleanArr] = BooleanArrBuilder
   implicit val anyImplicit: ArrBuilder[Any, AnyArr] = AnyArrBuild
 }
 

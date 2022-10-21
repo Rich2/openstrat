@@ -38,25 +38,22 @@ object FloatArr
     }
 }
 
-object FloatsBuild extends ArrBuilder[Float, FloatArr] with ArrFlatBuilder[FloatArr]
-{ type BuffT = FloatsBuff
+object FloatArrBuilder extends ArrBuilder[Float, FloatArr] with ArrFlatBuilder[FloatArr]
+{ type BuffT = FloatBuff
   override def newArr(length: Int): FloatArr = new FloatArr(new Array[Float](length))
   override def arrSet(arr: FloatArr, index: Int, value: Float): Unit = arr.unsafeArray(index) = value
-  override def newBuff(length: Int = 4): FloatsBuff = new FloatsBuff(new ArrayBuffer[Float](length))
-  override def buffGrow(buff: FloatsBuff, value: Float): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: FloatsBuff, arr: FloatArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
-  override def buffToBB(buff: FloatsBuff): FloatArr = new FloatArr(buff.unsafeBuffer.toArray)
+  override def newBuff(length: Int = 4): FloatBuff = new FloatBuff(new ArrayBuffer[Float](length))
+  override def buffGrow(buff: FloatBuff, value: Float): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrowArr(buff: FloatBuff, arr: FloatArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: FloatBuff): FloatArr = new FloatArr(buff.unsafeBuffer.toArray)
 }
 
-class FloatsBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with Buff[Float]
-{ override def typeStr: String = "FloatsBuff"
+class FloatBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with Buff[Float]
+{ override type ThisT = FloatBuff
+  override def typeStr: String = "FloatsBuff"
   override def apply(index: Int): Float = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeBuffer(i) = value
   override def fElemStr: Float => String = _.toString
-
-  /** The final type of this object. */
-  override type ThisT = FloatsBuff
-
-  override def grow(newElem: Float): Unit = ???
+  override def grow(newElem: Float): Unit = unsafeBuffer.append(newElem)
 }

@@ -80,18 +80,18 @@ object StringArr
     }
 }
 
-object StringsBuild extends ArrBuilder[String, StringArr] with ArrFlatBuilder[StringArr]
-{ type BuffT = StringsBuff
+object StringArrBuilder extends ArrBuilder[String, StringArr] with ArrFlatBuilder[StringArr]
+{ type BuffT = StringBuff
   override def newArr(length: Int): StringArr = new StringArr(new Array[String](length))
   override def arrSet(arr: StringArr, index: Int, value: String): Unit = arr.unsafeArray(index) = value
-  override def newBuff(length: Int = 4): StringsBuff = new StringsBuff(new ArrayBuffer[String](length))
-  override def buffGrow(buff: StringsBuff, value: String): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: StringsBuff, arr: StringArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
-  override def buffToBB(buff: StringsBuff): StringArr = new StringArr(buff.unsafeBuffer.toArray)
+  override def newBuff(length: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](length))
+  override def buffGrow(buff: StringBuff, value: String): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrowArr(buff: StringBuff, arr: StringArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: StringBuff): StringArr = new StringArr(buff.unsafeBuffer.toArray)
 }
 
-class StringsBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buff[String]
-{   override type ThisT = StringsBuff
+class StringBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buff[String]
+{   override type ThisT = StringBuff
 
   override def typeStr: String = "Stringsbuff"
   override def apply(index: Int): String = unsafeBuffer(index)
@@ -101,6 +101,6 @@ class StringsBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buf
   override def grow(newElem: String): Unit = unsafeBuffer.append(newElem)
 }
 
-object StringsBuff
-{ def apply(startSize: Int = 4): StringsBuff = new StringsBuff(new ArrayBuffer[String](startSize))
+object StringBuff
+{ def apply(startSize: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](startSize))
 }

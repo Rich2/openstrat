@@ -37,18 +37,18 @@ object LongArr
     }
 }
 
-object LongsBuild extends ArrBuilder[Long, LongArr] with ArrFlatBuilder[LongArr]
-{ type BuffT = LongsBuff
+object LongArrBuilder extends ArrBuilder[Long, LongArr] with ArrFlatBuilder[LongArr]
+{ type BuffT = LongBuff
   override def newArr(length: Int): LongArr = new LongArr(new Array[Long](length))
   override def arrSet(arr: LongArr, index: Int, value: Long): Unit = arr.unsafeArray(index) = value
-  override def newBuff(length: Int = 4): LongsBuff = new LongsBuff(new ArrayBuffer[Long](length))
-  override def buffGrow(buff: LongsBuff, value: Long): Unit = buff.unsafeBuffer.append(value)
-  override def buffGrowArr(buff: LongsBuff, arr: LongArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
-  override def buffToBB(buff: LongsBuff): LongArr = new LongArr(buff.unsafeBuffer.toArray)
+  override def newBuff(length: Int = 4): LongBuff = new LongBuff(new ArrayBuffer[Long](length))
+  override def buffGrow(buff: LongBuff, value: Long): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrowArr(buff: LongBuff, arr: LongArr): Unit = buff.unsafeBuffer.addAll(arr.unsafeArray)
+  override def buffToBB(buff: LongBuff): LongArr = new LongArr(buff.unsafeBuffer.toArray)
 }
 
-class LongsBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with Buff[Long]
-{ override type ThisT = LongsBuff
+class LongBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with Buff[Long]
+{ override type ThisT = LongBuff
   override def typeStr: String = "LongsBuff"
   override def apply(index: Int): Long = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length

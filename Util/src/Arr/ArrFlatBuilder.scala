@@ -9,11 +9,11 @@ trait ArrFlatBuilder[ArrB <: Arr[_]] extends SeqLikeBuilderCommon[ArrB]
 
 /** Companion object for ArrTFlatBuilder, contains implicit instances for atomic value classes. */
 object ArrFlatBuilder extends ArrFlatBuilderLowPriority
-{ implicit val intsImplicit: ArrFlatBuilder[IntArr] = IntsBuild
-  implicit val dblsImplicit: ArrFlatBuilder[DblArr] = DblsBuild
-  implicit val longsImplicit: ArrFlatBuilder[LongArr] = LongsBuild
-  implicit val floatImplicit: ArrFlatBuilder[FloatArr] = FloatsBuild
-  implicit val booleansImplicit: ArrFlatBuilder[BooleanArr] = BooleansBuild
+{ implicit val intsImplicit: ArrFlatBuilder[IntArr] = IntArrBuilder
+  implicit val dblsImplicit: ArrFlatBuilder[DblArr] = DblArrBuilder
+  implicit val longsImplicit: ArrFlatBuilder[LongArr] = LongArrBuilder
+  implicit val floatImplicit: ArrFlatBuilder[FloatArr] = FloatArrBuilder
+  implicit val booleansImplicit: ArrFlatBuilder[BooleanArr] = BooleanArrBuilder
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. */

@@ -41,7 +41,7 @@ object BooleanArr
   def ofLength(length: Int): BooleanArr = new BooleanArr(new Array[Boolean](length))
 }
 
-object BooleansBuild extends ArrBuilder[Boolean, BooleanArr] with ArrFlatBuilder[BooleanArr]
+object BooleanArrBuilder extends ArrBuilder[Boolean, BooleanArr] with ArrFlatBuilder[BooleanArr]
 { type BuffT = BooleanBuff
   override def newArr(length: Int): BooleanArr = new BooleanArr(new Array[Boolean](length))
   override def arrSet(arr: BooleanArr, index: Int, value: Boolean): Unit = arr.unsafeArray(index) = value
@@ -52,14 +52,11 @@ object BooleansBuild extends ArrBuilder[Boolean, BooleanArr] with ArrFlatBuilder
 }
 
 class BooleanBuff(val unsafeBuffer: ArrayBuffer[Boolean]) extends AnyVal with Buff[Boolean]
-{ override def typeStr: String = "BooleanBuff"
+{ override type ThisT = BooleanBuff
+  override def typeStr: String = "BooleanBuff"
   override def apply(index: Int): Boolean = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
   override def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeBuffer(i) = value
   override def fElemStr: Boolean => String = _.toString
-
-  /** The final type of this object. */
-  override type ThisT = BooleanBuff
-
-  override def grow(newElem: Boolean): Unit = ???
+  override def grow(newElem: Boolean): Unit = unsafeBuffer.append(newElem)
 }
