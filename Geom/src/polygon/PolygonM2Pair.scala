@@ -33,7 +33,7 @@ final class PolygonM2PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
   override def buffGrow(buff: PolygonM2PairBuff[A2], value: PolygonM2Pair[A2]): Unit = ???
   override def buffGrowArr(buff: PolygonM2PairBuff[A2], arr: PolygonM2PairArr[A2]): Unit = ???
   override def newBuff(length: Int): PolygonM2PairBuff[A2] = new PolygonM2PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
-  override def buffToBB(buff: PolygonM2PairBuff[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](buff.arrayDoubleBuff.toArray, buff.a2Buff.toArray)
+  override def buffToBB(buff: PolygonM2PairBuff[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](buff.arrayDoubleBuff.toArray, buff.a2Buffer.toArray)
 
   /** Builder for the first element of the pair of type B1, in this case a [[PolygonLike]]. The return type has been narrowed as it is needed for the
    * polygonMapPair method on [[PolygonLikePairArr]]. */
@@ -46,10 +46,14 @@ final class PolygonM2PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
   override def pairArrBuilder(polygonArr: PolygonM2Arr, a2s: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](polygonArr.unsafeArrayOfArrays, a2s)
 }
 
-class PolygonM2PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buff: ArrayBuffer[A2]) extends SeqSpecPairBuff[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]
+class PolygonM2PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqSpecPairBuff[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]
 { override type ThisT = PolygonM2PairBuff[A2]
-  override def unsafeSetElem(i: Int, value: PolygonM2Pair[A2]): Unit = { arrayDoubleBuff(i) = value.unsafeArray; a2Buff(i) = value.a2 }
+  override def unsafeSetElem(i: Int, value: PolygonM2Pair[A2]): Unit = { arrayDoubleBuff(i) = value.unsafeArray; a2Buffer(i) = value.a2 }
   override def fElemStr: PolygonM2Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonMPairBuff"
-  override def apply(index: Int): PolygonM2Pair[A2] = new PolygonM2Pair[A2](arrayDoubleBuff(index), a2Buff(index))
+  override def apply(index: Int): PolygonM2Pair[A2] = new PolygonM2Pair[A2](arrayDoubleBuff(index), a2Buffer(index))
+
+  override def grow(newElem: PolygonM2Pair[A2]): Unit = ???
+
+  override def grows(newElems: Arr[PolygonM2Pair[A2]]): Unit = ???
 }

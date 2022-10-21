@@ -38,15 +38,19 @@ final class PolygonHCPairBuild[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def buffGrow(buff: PolygonHCPairBuff[A2], value: PolygonHCPair[A2]): Unit = ???
   override def buffGrowArr(buff: PolygonHCPairBuff[A2], arr: PolygonHCPairArr[A2]): Unit = ???
   override def newBuff(length: Int): PolygonHCPairBuff[A2] = new PolygonHCPairBuff[A2](new ArrayBuffer[Array[Int]](4), new ArrayBuffer[A2](4))
-  override def buffToBB(buff: PolygonHCPairBuff[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](buff.arrayIntBuff.toArray, buff.a2Buff.toArray)
+  override def buffToBB(buff: PolygonHCPairBuff[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](buff.arrayIntBuff.toArray, buff.a2Buffer.toArray)
 }
 
 /** A buffer of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
-class PolygonHCPairBuff[A2](val arrayIntBuff: ArrayBuffer[Array[Int]], val a2Buff: ArrayBuffer[A2]) extends
+class PolygonHCPairBuff[A2](val arrayIntBuff: ArrayBuffer[Array[Int]], val a2Buffer: ArrayBuffer[A2]) extends
   SeqSpecPairBuff[HCoord, PolygonHC, A2, PolygonHCPair[A2]]
 { override type ThisT = PolygonHCPairBuff[A2]
-  override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { arrayIntBuff(i) = value.unsafeArray; a2Buff(i) = value.a2 }
+  override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { arrayIntBuff(i) = value.unsafeArray; a2Buffer(i) = value.a2 }
   override def fElemStr: PolygonHCPair[A2] => String = _.toString
   override def typeStr: String = "PolygonHCPairBuff"
-  override def apply(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](arrayIntBuff(index), a2Buff(index))
+  override def apply(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](arrayIntBuff(index), a2Buffer(index))
+
+  override def grow(newElem: PolygonHCPair[A2]): Unit = ???
+
+  override def grows(newElems: Arr[PolygonHCPair[A2]]): Unit = ???
 }

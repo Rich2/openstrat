@@ -1,8 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._
-import collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 trait ElemPair[A1, A2] extends Any
 { def a1: A1
@@ -31,45 +29,24 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   }
 }
 
-/** Builder for [[ElemPair]]s. As with all builders, we use B as the type parameter, because builders are nearly always used with some kind of map /
- * flatMap methods where B corresponds to the map function f: A => B. */
-trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Arr[B]] extends ArrBuilder[B, ArrB]
-{
-  /** Builder for an Arr of the first element of the pair. */
-  def b1ArrBuilder: ArrBuilder[B1, ArrB1]
-
-  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
-  def pairArrBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
-}
-
 trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends Any with Sequ[A]
 { def a2Buffer: ArrayBuffer[A2]
   override def length: Int = a2Buffer.length
   def grow(newElem: A): Unit
   def grows(newElems: Arr[A]): Unit
   override def fElemStr: A => String = _.toString
-
 }
 
-/** An element that pairs a [[SeqSpec]] with a second value. */
-trait ElemSeqSpecPair[A1E, A1 <: SeqSpec[A1E], A2] extends ElemPair[A1, A2] with SpecialT
-{ def a1: A1
-  def a2: A2
-}
+/** Builder for [[ElemPair]]s. As with all builders, we use B as the type parameter, because builders are nearly always used with some kind of map /
+ * flatMap methods where B corresponds to the map function f: A => B. */
+trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Arr[B]] extends ArrBuilder[B, ArrB]
+{ type BuffT <: PairBuff[B1, B2, B]
 
-/** A sequence of [[ElemSeqSpecPair]]s stored in 2 [[Array]]s for efficiency. */
-trait SeqSpecPairArr[A1E, A1 <: SeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends PairArr[A1, A1Arr, A2, A]
+  /** Builder for an Arr of the first element of the pair. */
+  def b1ArrBuilder: ArrBuilder[B1, ArrB1]
 
-/** A buffer of [[ElemSeqSpecPair]]s stored in 2 [[ArrayBuffer]]s for efficiency. */
-trait SeqSpecPairBuff[A1E, A1 <: SeqSpec[A1E], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends Sequ[A]
-{ def a2Buff: ArrayBuffer[A2]
-  override def length: Int = a2Buff.length
-}
-
-trait SeqSpecPairArrBuilder[B1E, B1 <: SeqSpec[B1E], ArrB1 <: Arr[B1], B2, B <: ElemSeqSpecPair[B1E, B1, B2], ArrB <: Arr[B]] extends
-  PairArrBuilder[B1, ArrB1, B2, B, ArrB]
-{ /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
-  def b1Builder: SeqLikeImutBuilder[B1E, B1]
+  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
+  def pairArrBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
 }
 
 trait ElemDblNPair[A1 <: ElemDblN, A2] extends ElemPair[A1, A2]
@@ -81,15 +58,16 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
   def a1ArrayDbl: Array[Double]
 }
 
-trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblNPair[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]]
-{ type BuffT <: DblNPairBuff[B1, B2, B]
-
-}
-
 trait DblNPairBuff[A1 <: ElemDblN, A2, A <: ElemDblNPair[A1, A2]] extends PairBuff[A1, A2, A]
 { def a1DblBuffer: ArrayBuffer[Double]
   override final def grows(newElems: Arr[A]): Unit = newElems.foreach(grow)
 }
+
+trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblNPair[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
+  PairArrBuilder[B1, ArrB1, B2, B, ArrB]
+{ type BuffT <: DblNPairBuff[B1, B2, B]
+}
+
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */
 trait DblNPairArrCompanion[A1 <: ElemDblN, ArrA1 <: DblNArr[A1]]
@@ -134,6 +112,11 @@ trait Dbl2PairBuff[A1 <: ElemDbl2, A2, A <: ElemDbl2Pair[A1, A2]] extends DblNPa
     a1DblBuffer(i * 3 + 1) = value.a1Dbl2
     a2Buffer(i) = value.a2
   }
+}
+
+trait Dbl2PairArrBuilder[B1 <: ElemDbl2, ArrB1 <: Dbl2Arr[B1], B2, B <: ElemDbl2Pair[B1, B2], ArrB <: Dbl2PairArr[B1, ArrB1, B2, B]] extends
+  DblNPairArrBuilder[B1, ArrB1, B2, B, ArrB]
+{ type BuffT <: Dbl2PairBuff[B1, B2, B]
 }
 
 trait Dbl2PairArrCompanion[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]

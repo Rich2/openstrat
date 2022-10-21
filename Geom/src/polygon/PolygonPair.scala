@@ -35,16 +35,20 @@ final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def buffGrow(buff: PolygonPairBuff[A2], value: PolygonPair[A2]): Unit = ???
   override def buffGrowArr(buff: PolygonPairBuff[A2], arr: PolygonPairArr[A2]): Unit = ???
   override def newBuff(length: Int): PolygonPairBuff[A2] = new PolygonPairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
-  override def buffToBB(buff: PolygonPairBuff[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](buff.arrayDblBuff.toArray, buff.a2Buff.toArray)
+  override def buffToBB(buff: PolygonPairBuff[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](buff.arrayDblBuff.toArray, buff.a2Buffer.toArray)
   override def b1Builder: PolygonLikeBuilder[Pt2, Polygon] = Pt2.polygonBuildImplicit
   override def b1ArrBuilder: ArrBuilder[Polygon, PolygonArr] = Polygon.arrBuildImplicit
   override def pairArrBuilder(polygonArr: PolygonArr, a2s: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](polygonArr.unsafeArrayOfArrays, a2s)
 }
 
-class PolygonPairBuff[A2](val arrayDblBuff: ArrayBuffer[Array[Double]], val a2Buff: ArrayBuffer[A2]) extends SeqSpecPairBuff[Pt2, Polygon, A2, PolygonPair[A2]]
+class PolygonPairBuff[A2](val arrayDblBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqSpecPairBuff[Pt2, Polygon, A2, PolygonPair[A2]]
 { override type ThisT = PolygonPairBuff[A2]
-  override def unsafeSetElem(i: Int, value: PolygonPair[A2]): Unit = { arrayDblBuff(i) = value.unsafeArray; a2Buff(i) = value.a2 }
+  override def unsafeSetElem(i: Int, value: PolygonPair[A2]): Unit = { arrayDblBuff(i) = value.unsafeArray; a2Buffer(i) = value.a2 }
   override def fElemStr: PolygonPair[A2] => String = _.toString
   override def typeStr: String = "PolygonPairBuff"
-  override def apply(index: Int): PolygonPair[A2] = new PolygonPair[A2](arrayDblBuff(index), a2Buff(index))
+  override def apply(index: Int): PolygonPair[A2] = new PolygonPair[A2](arrayDblBuff(index), a2Buffer(index))
+
+  override def grow(newElem: PolygonPair[A2]): Unit = ???
+
+  override def grows(newElems: Arr[PolygonPair[A2]]): Unit = ???
 }
