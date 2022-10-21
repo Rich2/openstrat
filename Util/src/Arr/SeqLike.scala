@@ -27,3 +27,9 @@ trait SeqLike[+A] extends Any
 
   override def toString: String = typeStr + elemsStr
 }
+
+/** Base traits for all specialist Array buffer classes */
+trait Buff[A] extends Any with Sequ[A]
+{ def grow(newElem: A): Unit
+  def grows(newElems: Arr[A]): Unit = newElems.foreach(grow)
+}

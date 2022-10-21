@@ -18,12 +18,6 @@ trait SeqLikeBuilderCommon[BB]
 }
 
 trait SeqLikeImutBuilder[B, BB <: SeqLike[B]] extends SeqLikeBuilderCommon[BB]
-{ /** The type of the buffer used for building the target compound class BB. */
-  type BuffT <: Sequ[B]
-
-  /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
+{ /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
-
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: BB): Unit
 }

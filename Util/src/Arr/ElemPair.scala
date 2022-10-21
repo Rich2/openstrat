@@ -29,11 +29,9 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   }
 }
 
-trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends Any with Sequ[A]
+trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends Any with Buff[A]
 { def a2Buffer: ArrayBuffer[A2]
   override def length: Int = a2Buffer.length
-  def grow(newElem: A): Unit
-  def grows(newElems: Arr[A]): Unit
   override def fElemStr: A => String = _.toString
 }
 
@@ -67,7 +65,6 @@ trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblN
   PairArrBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, B]
 }
-
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */
 trait DblNPairArrCompanion[A1 <: ElemDblN, ArrA1 <: DblNArr[A1]]
@@ -117,6 +114,7 @@ trait Dbl2PairBuff[A1 <: ElemDbl2, A2, A <: ElemDbl2Pair[A1, A2]] extends DblNPa
 trait Dbl2PairArrBuilder[B1 <: ElemDbl2, ArrB1 <: Dbl2Arr[B1], B2, B <: ElemDbl2Pair[B1, B2], ArrB <: Dbl2PairArr[B1, ArrB1, B2, B]] extends
   DblNPairArrBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl2PairBuff[B1, B2, B]
+
 }
 
 trait Dbl2PairArrCompanion[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]
