@@ -43,9 +43,12 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
 }
 
 trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends Any with Sequ[A]
-{ def grow(newElem: A): Unit
+{ def a2Buffer: ArrayBuffer[A2]
+  override def length: Int = a2Buffer.length
+  def grow(newElem: A): Unit
   def grows(newElems: Arr[A]): Unit
   override def fElemStr: A => String = _.toString
+
 }
 
 /** An element that pairs a [[SeqSpec]] with a second value. */
@@ -79,11 +82,14 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
 }
 
 trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblNPair[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]]
-{
+{ type BuffT <: DblNPairBuff[B1, B2, B]
 
 }
 
 trait DblNPairBuff[A1 <: ElemDblN, A2, A <: ElemDblNPair[A1, A2]] extends PairBuff[A1, A2, A]
+{ def a1DblBuffer: ArrayBuffer[Double]
+  override final def grows(newElems: Arr[A]): Unit = newElems.foreach(grow)
+}
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */
 trait DblNPairArrCompanion[A1 <: ElemDblN, ArrA1 <: DblNArr[A1]]
@@ -109,6 +115,24 @@ trait Dbl2PairArr[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1], A2, A <: ElemDbl2Pair[A1
   { a1ArrayDbl(i * 2) = value.a1Dbl1;
     a1ArrayDbl(i * 2 + 1) = value.a1Dbl2
     a2Array(i) = value.a2
+  }
+}
+
+trait Dbl2PairBuff[A1 <: ElemDbl2, A2, A <: ElemDbl2Pair[A1, A2]] extends DblNPairBuff[A1, A2, A]
+{ /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
+  def newElem(dbl1: Double, dbl2: Double, a2: A2): A
+  inline final override def apply(index: Int): A = newElem(a1DblBuffer (index * 2), a1DblBuffer(index * 2 + 1), a2Buffer(index))
+
+  override final def grow(newElem: A): Unit =
+  { a1DblBuffer.append(newElem.a1Dbl1)
+    a1DblBuffer.append(newElem.a1Dbl2)
+    a2Buffer.append(newElem.a2)
+  }
+
+  override final def unsafeSetElem(i: Int, value: A): Unit =
+  { a1DblBuffer(i * 3) = value.a1Dbl1
+    a1DblBuffer(i * 3 + 1) = value.a1Dbl2
+    a2Buffer(i) = value.a2
   }
 }
 
@@ -150,6 +174,27 @@ trait Dbl3PairArr[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1], A2, A <: ElemDbl3Pair[A1
     a1ArrayDbl(i * 3 + 1) = value.a1Dbl2
     a1ArrayDbl(i * 3 + 2) = value.a1Dbl3
     a2Array(i) = value.a2
+  }
+}
+
+trait Dbl3PairBuff[A1 <: ElemDbl3, A2, A <: ElemDbl3Pair[A1, A2]] extends DblNPairBuff[A1, A2, A]
+{ /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
+  def newElem(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): A
+
+  inline final override def apply(index: Int): A = newElem(a1DblBuffer (index * 3), a1DblBuffer(index * 3 + 1), a1DblBuffer(index * 3 + 2), a2Buffer(index))
+
+  override final def grow(newElem: A): Unit =
+  { a1DblBuffer.append(newElem.a1Dbl1)
+    a1DblBuffer.append(newElem.a1Dbl2)
+    a1DblBuffer.append(newElem.a1Dbl3)
+    a2Buffer.append(newElem.a2)
+  }
+
+  override final def unsafeSetElem(i: Int, value: A): Unit = {
+    a1DblBuffer(i * 3) = value.a1Dbl1
+    a1DblBuffer(i * 3 + 1) = value.a1Dbl2
+    a1DblBuffer(i * 3 + 2) = value.a1Dbl3
+    a2Buffer(i) = value.a2
   }
 }
 
