@@ -82,9 +82,9 @@ object PolygonSqC extends Int2SeqLikeCompanion[SqCoord, PolygonSqC]
     override def newBuff(length: Int): PolygonSqCBuff = PolygonSqCBuff(length)
     override def newArr(length: Int): PolygonSqCArr = new PolygonSqCArr(new Array[Array[Int]](length))
     override def arrSet(arr: PolygonSqCArr, index: Int, value: PolygonSqC): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
-    override def buffGrow(buff: PolygonSqCBuff, value: PolygonSqC): Unit = buff.unsafeBuff.append(value.unsafeArray)
-    override def buffGrowArr(buff: PolygonSqCBuff, arr: PolygonSqCArr): Unit = arr.foreach(p => buff.unsafeBuff.append(p.unsafeArray))
-    override def buffToBB(buff: PolygonSqCBuff): PolygonSqCArr = new PolygonSqCArr(buff.unsafeBuff.toArray)
+    override def buffGrow(buff: PolygonSqCBuff, value: PolygonSqC): Unit = buff.unsafeBuffer.append(value.unsafeArray)
+    override def buffGrowArr(buff: PolygonSqCBuff, arr: PolygonSqCArr): Unit = arr.foreach(p => buff.unsafeBuffer.append(p.unsafeArray))
+    override def buffToBB(buff: PolygonSqCBuff): PolygonSqCArr = new PolygonSqCArr(buff.unsafeBuffer.toArray)
   }
 }
 
@@ -97,15 +97,12 @@ class PolygonSqCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends Arr[Polyg
   override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeArrayOfArrays(index))
 }
 
-class PolygonSqCBuff(val unsafeBuff: ArrayBuffer[Array[Int]]) extends AnyVal with Buff[PolygonSqC]
+class PolygonSqCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal with ArrayIntBuff[PolygonSqC]
 { override type ThisT = PolygonSqCBuff
   override def typeStr: String = "PolygonSqCBuff"
-  override def length: Int = unsafeBuff.length
-  override def unsafeSetElem(i: Int, value: PolygonSqC): Unit = unsafeBuff(i) = value.unsafeArray
+  override def unsafeSetElem(i: Int, value: PolygonSqC): Unit = unsafeBuffer(i) = value.unsafeArray
   override def fElemStr: PolygonSqC => String = _.toString
-  override def apply(index: Int): PolygonSqC = new PolygonSqC(unsafeBuff(index))
-
-  override def grow(newElem: PolygonSqC): Unit = ???
+  override def fromArrayInt(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
 }
 
 object PolygonSqCBuff

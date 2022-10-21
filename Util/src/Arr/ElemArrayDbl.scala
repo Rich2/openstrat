@@ -27,7 +27,6 @@ trait ArrayDblArrBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends Ar
   override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuffer.toArray)
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }
   override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArrayOfArrays); () }
-  //override def buffGrowArr(buff: BuffT, arr: ArrT): Unit = arr.unsafeArrayOfArrays.foreach{array => buff.unsafeBuff.append(array) }
 }
 
 class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends EqT[ArrT]
@@ -41,8 +40,13 @@ object ArrArrayDblEq
 
 /** This is a buffer class for Arrays of Double. It is not a Buffer class for Arrays. */
 trait ArrayDblBuff[A <: ArrayDblBacked] extends Any with Buff[A]
-{ def unsafeBuffer: ArrayBuffer[Array[Double]]
+{ /** Constructs an lement of this [[Buff]] from an [[Array]][Double]. */
+  def fromArrayDbl(array: Array[Double]): A
+
+  def unsafeBuffer: ArrayBuffer[Array[Double]]
   override final def length: Int = unsafeBuffer.length
   def grow(elem: A): Unit = unsafeBuffer.append(elem.unsafeArray)
   def arrayArrayDbl: Array[Array[Double]] = unsafeBuffer.toArray
+  final override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuffer(i) = value.unsafeArray
+  inline final override def apply(index: Int): A = fromArrayDbl(unsafeBuffer(index))
 }

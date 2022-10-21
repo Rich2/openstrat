@@ -21,6 +21,7 @@ trait SeqLikeBuilderCommon[BB]
  * operations where the type of the element of the [[SeqLike]] that the builder is constructed may not be known at the point of dispatch. */
 trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeBuilderCommon[BB]
 { type BuffT <: Buff[B]
+
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
 }
