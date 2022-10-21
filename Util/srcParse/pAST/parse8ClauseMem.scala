@@ -7,7 +7,7 @@ object parse8ClauseMem
 { /** Function apply method parsing [[ClauseMem]]s into [[ClauseMemExpr]]. */
   def apply(implicit inp: RArr[ClauseMem]): EMon[ClauseMemExpr] =
   {
-    val acc: ArrayBuffer[ClauseMem] = Buff()
+    val acc: ArrayBuffer[ClauseMem] = Buffer()
 
     def loop(rem: ArrOff[ClauseMem]): EArr[ClauseMem] = rem match
     { case ArrOff0() => parse9PrefixPlus(acc.toArr)

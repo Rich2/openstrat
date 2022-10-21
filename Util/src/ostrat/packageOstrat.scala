@@ -129,16 +129,18 @@ package object ostrat
   def readInt: Int = readT[Int]
   def readDouble: Double = readT[Double]
 
+  /** Shortcut method to create [[ArrayBuffer]] with initial values. Buffer or buffer references the standard library's [[ArrayBuffer]] where as buff
+   *  or Buff is used to reference openstrat variable length mutable collection classes. */
   @inline def Buffer[A](inp: A*): ArrayBuffer[A] = ArrayBuffer[A](inp :_*)
 
   /** Constructs a new [[ArrayBuffer]][A]. */
-  @inline def Buff[A <: AnyRef](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
+  @inline def Buffer[A <: AnyRef](initialLength: Int = 5): ArrayBuffer[A] = new ArrayBuffer[A](initialLength)
 
   /** Constructs a new [[ArrayBuffer]][Int]. */
   @inline def BuffInt(initialLength: Int = 5): ArrayBuffer[Int] = new ArrayBuffer[Int](initialLength)
 
   /** Constructs a new [[ArrayBuffer]][Long]. */
-  @inline def BuffLong(initialLength: Int = 5): ArrayBuffer[Long] = new ArrayBuffer[Long](initialLength)
+  @inline def BufferLong(initialLength: Int = 5): ArrayBuffer[Long] = new ArrayBuffer[Long](initialLength)
 
   type RefTag[A] = AnyRef with reflect.ClassTag[A]
 

@@ -7,8 +7,8 @@ object parse6ColonExpr
 { /** Function apply method parses [[ColonExpr]] from [[AssignMem]]s. */
   def apply(implicit seg: RArr[AssignMem]): EMon[AssignMemExpr] =
   {
-    val leftAcc: ArrayBuffer[ColonOpMem] = Buff()
-    val rightAcc: ArrayBuffer[ColonOpMem] = Buff()
+    val leftAcc: ArrayBuffer[ColonOpMem] = Buffer()
+    val rightAcc: ArrayBuffer[ColonOpMem] = Buffer()
 
     def rightLoop(rem: ArrOff[AssignMem], leftExpr: ColonMemExpr, ct: ColonToken): EMon[ColonExpr] = rem match {
       case ArrOff0() => parse7Clauses(rightAcc.toArr).map{ r => ColonExpr(leftExpr, ct, r) }

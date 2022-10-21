@@ -7,7 +7,7 @@ object parse9PrefixPlus
 { /** Seems to parse prefix operators. Function object apply method. */
   def apply(implicit refs: RArr[ClauseMem]): EArr[ClauseMem] =
   {
-    val acc: ArrayBuffer[ClauseMem] = Buff()
+    val acc: ArrayBuffer[ClauseMem] = Buffer()
 
     def loop(rem: ArrOff[ClauseMem]): EArr[ClauseMem] = rem match
     { case ArrOff0() => Good(acc).map(_.toArr)

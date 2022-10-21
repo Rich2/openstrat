@@ -7,8 +7,8 @@ object parse5AssignExpr
 { /** Function apply method parses assignment expressions. */
   def apply (implicit inp: RArr[StatementMem]): EMon[Expr] =
   {
-    val leftAcc: ArrayBuffer[AssignMem] = Buff()
-    val rightAcc: ArrayBuffer[AssignMem] = Buff()
+    val leftAcc: ArrayBuffer[AssignMem] = Buffer()
+    val rightAcc: ArrayBuffer[AssignMem] = Buffer()
 
     def leftLoop(rem: ArrOff[StatementMem]): EMon[Expr] = rem match
     { case ArrOff0() => parse6ColonExpr(leftAcc.toArr)

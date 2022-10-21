@@ -10,7 +10,7 @@ object parse4Statement
   def apply(memsIn: RArr[StatementMem], optSemi: OptRef[SemicolonToken]): EMon[Statement] =
   {
     implicit val inp = memsIn
-    val acc: ArrayBuffer[StatementMem] = Buff()
+    val acc: ArrayBuffer[StatementMem] = Buffer()
 
     def loop(rem: ArrOff[StatementMem]): EMon[Statement] =
       rem.headFold(parse5AssignExpr(acc.toArr).map(g => NonEmptyStatement(g, optSemi))){ (em, tail) =>

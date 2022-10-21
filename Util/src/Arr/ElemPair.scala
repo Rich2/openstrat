@@ -31,6 +31,8 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   }
 }
 
+/** Builder for [[ElemPair]]s. As with all builders, we use B as the type parameter, because builders are nearly always used with some kind of map /
+ * flatMap methods where B corresponds to the map function f: A => B. */
 trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Arr[B]] extends ArrBuilder[B, ArrB]
 {
   /** Builder for an Arr of the first element of the pair. */
@@ -40,11 +42,10 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
   def pairArrBuilder(polygonArr: ArrB1, a2s: Array[B2]): ArrB
 }
 
-trait PairArrBuffer[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2]] extends Any with Sequ[B]
-{ type ArrB <: PairArr[B1, ArrB1, B2, B]
-  def grow(newElem: B): Unit
-  def grows(newElems: ArrB): Unit
-  override def fElemStr: B => String = _.toString
+trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends Any with Sequ[A]
+{ def grow(newElem: A): Unit
+  def grows(newElems: Arr[A]): Unit
+  override def fElemStr: A => String = _.toString
 }
 
 /** An element that pairs a [[SeqSpec]] with a second value. */
@@ -81,6 +82,8 @@ trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblN
 {
 
 }
+
+trait DblNPairBuff[A1 <: ElemDblN, A2, A <: ElemDblNPair[A1, A2]] extends PairBuff[A1, A2, A]
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */
 trait DblNPairArrCompanion[A1 <: ElemDblN, ArrA1 <: DblNArr[A1]]

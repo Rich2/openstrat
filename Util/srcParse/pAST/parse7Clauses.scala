@@ -10,8 +10,8 @@ object parse7Clauses
 
   def fromOffset(inp: ArrOff[ColonOpMem])(implicit seg: RArr[ColonOpMem]): EMon[ColonMemExpr] =
   {
-    var subAcc: ArrayBuffer[ClauseMem] = Buff()
-    val acc: ArrayBuffer[Clause] = Buff()
+    var subAcc: ArrayBuffer[ClauseMem] = Buffer()
+    val acc: ArrayBuffer[Clause] = Buffer()
     def loop(rem: ArrOff[ColonOpMem]): EMon[ColonMemExpr] = rem match {
 
       case ArrOff0() if acc.isEmpty => parse8ClauseMem(subAcc.toArr)
@@ -21,7 +21,7 @@ object parse7Clauses
 
       case ArrOff1Tail(ct: CommaToken, tail) => parse8ClauseMem(subAcc.toArr).flatMap{ expr =>
         acc.append(Clause(expr, OptRef(ct)))
-        subAcc = Buff()
+        subAcc = Buffer()
         loop(tail)
       }
       case ArrOff1Tail(cm: ClauseMem, tail) => { subAcc.append(cm); loop(tail)}

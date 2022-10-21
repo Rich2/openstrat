@@ -70,14 +70,14 @@ class EGridAncient[TileT <: TileAncient, SideT <: TileSideAncient](bounds: Array
   def eGraphicElems(eg: EarthGuiOld, fDisp: (OfETile[TileT, SideT]) => GraphicElems, sDisp: (OfESide[TileT, SideT]) => GraphicElems):
     GraphicElems =
   {
-    val acc: ArrayBuffer[GraphicElem] = Buff()
+    val acc: ArrayBuffer[GraphicElem] = Buffer()
     foreachTilesCoodAll { tileCood =>
       val tog = new OfETile[TileT, SideT](eg, thisEGrid, getTile(tileCood))
       val newRes: GraphicElems = ife(tog.cenFacing, fDisp(tog), RArr[GraphicAffineElem]())
       acc ++= newRes.unsafeArray
     }
 
-    val sideAcc: ArrayBuffer[GraphicElem] = Buff()
+    val sideAcc: ArrayBuffer[GraphicElem] = Buffer()
     foreachSidesCoodAll { sideCood =>
       val tog = new OfESide[TileT, SideT](eg, thisEGrid, getSide(sideCood))
       val newRes: GraphicElems = ife(tog.sideCenFacing, sDisp(tog), RArr[GraphicAffineElem]())

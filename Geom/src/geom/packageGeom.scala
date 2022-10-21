@@ -260,7 +260,7 @@ package object geom
   def displayRowTexts(leftPt: Pt2, textCells: RArr[TextCell], fontSize: Double = 18, margin: Double = 10): RArr[BoundedElem] =
   {
     val y = leftPt.y
-    var acc: ArrayBuffer[BoundedElem] = Buff()
+    var acc: ArrayBuffer[BoundedElem] = Buffer()
     var xAcc: Double = 0
     textCells.foreach{tc =>
       val rLen = tc.textStr.length * fontSize

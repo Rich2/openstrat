@@ -10,7 +10,7 @@ abstract class CanvasUser(val title: String)
   /** This reverses the order of the GraphicActive List. Method paints objects to screen as side effect. */
   def paintObjs(movedObjs: RArr[GraphicElem]): RArr[GraphicActive] =
   {
-    val activeBuff: ArrayBuffer[GraphicActive] = Buff()
+    val activeBuff: ArrayBuffer[GraphicActive] = Buffer()
 
     movedObjs.foreach {
       case el: GraphicActiveOld => activeBuff += el

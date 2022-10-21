@@ -9,8 +9,8 @@ object parse3Statements
    *  "4;" will return a [[Good]] [[Statement]] sequence of one Statement. */
   def apply(implicit inp: RArr[BlockMem]): EMon[Expr] =
   {
-    val acc: ArrayBuffer[Statement] = Buff()
-    var subAcc: ArrayBuffer[StatementMem] = Buff()
+    val acc: ArrayBuffer[Statement] = Buffer()
+    var subAcc: ArrayBuffer[StatementMem] = Buffer()
 
     def loop(rem: ArrOff[BlockMem]): EMon[Expr] = rem match
     {
@@ -21,7 +21,7 @@ object parse3Statements
 
       case ArrOff1Tail(st: SemicolonToken, tail) => parse4Statement(subAcc.toArr, OptRef(st)).flatMap{ g =>
         acc.append(g)
-        subAcc = Buff()
+        subAcc = Buffer()
         loop(tail)
       }
 
