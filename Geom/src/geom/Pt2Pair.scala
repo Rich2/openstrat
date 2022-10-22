@@ -2,6 +2,7 @@
 package ostrat; package geom
 import reflect.ClassTag, collection.mutable.ArrayBuffer
 
+/** A [[Pt2]] pair class. The main urpose of this type is to be an lement of a [[Pt2PairArr]]. */
 class Pt2Pair[A2](val x: Double, val y: Double, val a2: A2) extends PointDbl2Pair[Pt2, A2]
 { override def a1Dbl1: Double = x
   override def a1Dbl2: Double = y
@@ -25,12 +26,14 @@ object Pt2PairArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
   }
 }
 
+/** Buffer for [[Pt2Pair]]s. */
 class Pt2PairBuff[A2](val a1DblBuffer: ArrayBuffer[Double], val a2Buffer: ArrayBuffer[A2]) extends Dbl2PairBuff[Pt2, A2, Pt2Pair[A2]]
 { override type ThisT = Pt2PairBuff[A2]
   override def typeStr: String = "Pt2PairBuff"
   override def newElem(dbl1: Double, dbl2: Double, a2: A2): Pt2Pair[A2] = new Pt2Pair[A2](dbl1, dbl2, a2)
 }
 
+/** Builder for [[Pt2PairArr]]s. */
 class Pt2PairArrBuider[A2](implicit val b2CT: ClassTag[A2]) extends Dbl2PairArrBuilder[Pt2, Pt2Arr, A2, Pt2Pair[A2], Pt2PairArr[A2]]
 { override type BuffT = Pt2PairBuff[A2]
   override def b1ArrBuilder: ArrBuilder[Pt2, Pt2Arr] = Pt2.arrBuilderImplicit
