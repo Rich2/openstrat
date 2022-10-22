@@ -54,6 +54,22 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
 
   /** The backing Array for the first elements of the pairs. */
   def a1ArrayDbl: Array[Double]
+
+  def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): ThisT = ???
+
+  def filterOnA1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
+  {
+    val a1Buffer = new ArrayBuffer[Double]()
+    val a2Buffer = new ArrayBuffer[A2]()
+    foreach{ p =>
+      if (f(p.a1))
+      { p.a1.DblForeach(a1Buffer.append(_))
+        a2Buffer.append(p.a2)
+      }
+    }
+    newFromArrays(a1Buffer.toArray, a2Buffer.toArray)
+  }
+
 }
 
 trait DblNPairBuff[A1 <: ElemDblN, A2, A <: ElemDblNPair[A1, A2]] extends PairBuff[A1, A2, A]

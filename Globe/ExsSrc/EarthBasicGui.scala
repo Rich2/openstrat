@@ -1,9 +1,6 @@
 /* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._
-import ostrat.pEarth.pPts.UsaWest
-import pglobe._
-import pgui._
+import geom._, pEarth._, pPts._, pglobe._, pgui._
 
 /** Basic map of the Earth using irregular areas / tiles. */
 case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
@@ -40,7 +37,11 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
       TextGraphic(d.name, 10, posn, d.colour.contrastBW)
     }
 
-    //val locs = lc2.filterOn1
+    val locs1 = lc2.mapOnA1(_.fromLatLongFocus(focus))
+    val locs2 = locs1.filterOnA1(_.zPos)
+    val locsLen = locs2.length
+    debvar(locsLen)
+    //val locs3 = locs2.mapOnA1(_.xy / scale)
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(Colour.DarkBlue)
 

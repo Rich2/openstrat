@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import math._, collection.mutable.ArrayBuffer, Colour.Black
+import math._, collection.mutable.ArrayBuffer, Colour.Black, reflect.ClassTag
 
 /** A 2 dimensional point. Pt2s can be transformed through the 2D geometric transformations. If you wish to encode a relative position then use a
  *  [[Vec2]] instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points but they
@@ -261,6 +261,7 @@ object Pt2
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffPt2 = new BuffPt2(buffer)
   }
+  //implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): Pt2PairArrBuider[B2] = new PtM3PairArrBuider[B2]
 
   implicit val linePathBuildImplicit: LinePathDbl2Builder[Pt2, LinePath] = new LinePathDbl2Builder[Pt2, LinePath]
   { override type BuffT = BuffPt2
