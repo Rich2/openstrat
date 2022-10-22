@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[DblNArr]] Array[Double] based collections. */
 trait ElemDblN extends Any with ElemValueN
-{
+{ /** Performs the side effecting function on each [[Double]] in this Product element. */
   def DblForeach(f: Double => Unit): Unit
 }
 

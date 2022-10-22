@@ -11,16 +11,16 @@ abstract class EArea1(val name: String, val cen: LatLong) extends GeographicSymb
 }
 
 class LocationLL(latMilliSecs: Double, longMilliSecs: Double, nameIn: String) extends LatLongPair[String](latMilliSecs, longMilliSecs, nameIn)
-{
-  def name: String = a2
+{ def name: String = a2
 }
 
 object LocationLL
-{
-  def apply(name: String, latDegs: Double, longDegs: Double): LocationLL = new LocationLL(latDegs.degsToMilliSecs, longDegs.degsToMilliSecs, name)
+{ def apply(name: String, latDegs: Double, longDegs: Double): LocationLL = new LocationLL(latDegs.degsToMilliSecs, longDegs.degsToMilliSecs, name)
 }
 
 class LocationLLArr(a1ArrayDbl: Array[Double], a2Array: Array[String]) extends LatLongPairArr[String](a1ArrayDbl, a2Array)
+{ override def newFromArrays(a1Array: Array[Double], a2Array: Array[String]): LatLongPairArr[String] = new LocationLLArr(a1Array, a2Array)
+}
 
 object LocationLLArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
 {
