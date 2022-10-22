@@ -41,11 +41,12 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
     val locs2 = locs1.filterOnA1(_.zPos)
     val locsLen = locs2.length
     debvar(locsLen)
-    //val locs3 = locs2.mapOnA1(_.xy / scale)
+    val locs3 = locs2.mapOnA1(_.xy / scale)
+    val locTexts = locs3.map(p => p.a1.textAt(p.a2, 10, Colour.Red))
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(Colour.DarkBlue)
 
-    mainRepaint(seas %: activeFills ++ sideLines ++ texts)
+    mainRepaint(seas %: activeFills ++ sideLines ++ texts ++ locTexts)
   }
 
 

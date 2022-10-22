@@ -11,6 +11,8 @@ trait ElemDbl6 extends Any with ElemDblN
   def dbl4: Double
   def dbl5: Double
   def dbl6: Double
+
+  override def DblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3); f(dbl4); f(dbl5); f(dbl6) }
 }
 
 /** Sequence like class whose elements or sequence specifying elements [[ElemDbl6]] can be constructed from 6 [[Double]]s. */

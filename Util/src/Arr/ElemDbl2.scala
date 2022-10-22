@@ -8,6 +8,7 @@ trait ElemDbl2 extends Any with ElemDblN
   def dbl2: Double
   def dblsEqual(that: ElemDbl2): Boolean = dbl1 == that.dbl1 & dbl2 == that.dbl2
   def dblsApprox(that: ElemDbl2, delta: Double = 1e-12): Boolean = dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta)
+  override def DblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2) }
 }
 
 /** A Sequence like class of [[ElemDbl2]] elements that can be constructed from 2 [[Double]]s. */

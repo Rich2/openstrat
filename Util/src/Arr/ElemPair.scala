@@ -55,11 +55,10 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
   /** The backing Array for the first elements of the pairs. */
   def a1ArrayDbl: Array[Double]
 
-  def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): ThisT = ???
+  def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): ThisT
 
   def filterOnA1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
-  {
-    val a1Buffer = new ArrayBuffer[Double]()
+  { val a1Buffer = new ArrayBuffer[Double]()
     val a2Buffer = new ArrayBuffer[A2]()
     foreach{ p =>
       if (f(p.a1))
@@ -86,6 +85,7 @@ trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblN
   def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): ArrB
   final override def arrUninitialised(length: Int): ArrB = arrFromArrays(new Array[Double](length * a1DblNum), new Array[B2](length))
   final override def newBuff(length: Int): BuffT = buffFromBuffers(new ArrayBuffer[Double](length * a1DblNum), new ArrayBuffer[B2](length))
+  inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */
@@ -212,7 +212,6 @@ trait Dbl3PairArrBuilder[B1 <: ElemDbl3, ArrB1 <: Dbl3Arr[B1], B2, B <: ElemDbl3
 { type BuffT <: Dbl3PairBuff[B1, B2, B]
 
   final override def a1DblNum: Int = 3
-  inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 
   final override def arrSet(arr: ArrB, index: Int, value: B): Unit = {
     arr.a1ArrayDbl(index * 3) = value.a1Dbl1

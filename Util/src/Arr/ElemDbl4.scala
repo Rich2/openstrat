@@ -8,6 +8,8 @@ trait ElemDbl4 extends Any with ElemDblN
   def dbl2: Double
   def dbl3: Double
   def dbl4: Double
+
+  override def DblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3); f(dbl4) }
 }
 
 trait Dbl4SeqLike[A <: ElemDbl4] extends Any with DblNSeqLike[A]
