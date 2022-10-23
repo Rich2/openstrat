@@ -2,11 +2,17 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
+/** These classes are for use in [[PairArr]]s. */
 trait ElemPair[A1, A2] extends Any
 { def a1: A1
   def a2: A2
 }
 
+/** An [[Arr]] of pairs [[ElemPair]]. These classees allow convenient methods to map and filter on just one component of the pair. They and their
+ *  associated [[PairArrBuilder]] and [[PairBuff]] classes also allow for efficient storage by using 2 Arrays of the components of the pairs rather
+ *  than one array of the pairs. It is particularly designed for efficient maoOnA1 operations, where we want to map over the first part of the pair
+ *  while leaving the second component of the oair unchanged. So sub traits and classes specialise on a1 the first component of the pair. There are no
+ *  filterMap methods. You must map then filter. */
 trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
 { def a1Arr: A1Arr
   def a2Array: Array[A2]
@@ -47,6 +53,29 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
   def pairArrBuilder(b1Arr: ArrB1, b2s: Array[B2]): ArrB
 }
 
+trait ElemIntNPair[A1 <: ElemIntN, A2] extends ElemPair[A1, A2]
+
+trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: ElemIntNPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
+{ type ThisT <: IntNPairArr[A1, ArrA1, A2, A]
+
+  /** The backing Array for the first elements of the pairs. */
+  def a1ArrayInt: Array[Int]
+
+  def newFromArrays(a1Array: Array[Int], a2Array: Array[A2]): ThisT
+
+  def filterOnA1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
+  { val a1Buffer = new ArrayBuffer[Int]()
+    val a2Buffer = new ArrayBuffer[A2]()
+    foreach{ p =>
+      if (f(p.a1))
+      { p.a1.intForeach(a1Buffer.append(_))
+        a2Buffer.append(p.a2)
+      }
+    }
+    newFromArrays(a1Buffer.toArray, a2Buffer.toArray)
+  }
+}
+
 trait ElemDblNPair[A1 <: ElemDblN, A2] extends ElemPair[A1, A2]
 
 trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
@@ -62,13 +91,12 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
     val a2Buffer = new ArrayBuffer[A2]()
     foreach{ p =>
       if (f(p.a1))
-      { p.a1.DblForeach(a1Buffer.append(_))
+      { p.a1.dblForeach(a1Buffer.append(_))
         a2Buffer.append(p.a2)
       }
     }
     newFromArrays(a1Buffer.toArray, a2Buffer.toArray)
   }
-
 }
 
 trait DblNPairBuff[A1 <: ElemDblN, A2, A <: ElemDblNPair[A1, A2]] extends PairBuff[A1, A2, A]

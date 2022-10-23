@@ -4,6 +4,9 @@ import collection.mutable.ArrayBuffer
 
 /** A class that can be construct from a fixed number of [[Int]]s can be stored as an Array[Int] of primitive values. */
 trait ElemIntN extends Any with ElemValueN
+{ /** Performs the side effecting function on each [[Double]] in this Product element. */
+  def intForeach(f: Int => Unit): Unit
+}
 
 trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayIntBacked {
   type ThisT <: IntNSeqLike[A]

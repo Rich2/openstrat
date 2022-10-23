@@ -6,6 +6,7 @@ import collection.mutable.ArrayBuffer
 trait ElemInt1 extends Any with ElemIntN
 { def intValue: Int
   @inline def int1 : Int = intValue
+  override def intForeach(f: Int => Unit): Unit = { f(int1) }
 }
 
 trait Int1SeqLike[A <: ElemInt1] extends Any with IntNSeqLike[A]

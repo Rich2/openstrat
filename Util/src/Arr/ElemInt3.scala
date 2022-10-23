@@ -8,6 +8,8 @@ trait ElemInt3 extends Any with ElemIntN
 { def int1: Int
   def int2: Int
   def int3: Int
+
+  override def intForeach(f: Int => Unit): Unit = { f(int1); f(int2); f(int3) }
 }
 
 trait Int3SeqLike[A <: ElemInt3] extends Any with IntNSeqLike[A]

@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 trait ElemDbl1 extends Any with ElemDblN
 { def dbl1: Double
   def dblsEqual(that: ElemDbl1): Boolean = dbl1 == that.dbl1
-  override def DblForeach(f: Double => Unit): Unit = { f(dbl1) }
+  override def dblForeach(f: Double => Unit): Unit = { f(dbl1) }
 }
 
 /** A specialised immutable sequence, flat Array[Double] based collection of a type of [[ElemDbl1]]s. */

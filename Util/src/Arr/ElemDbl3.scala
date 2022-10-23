@@ -12,7 +12,7 @@ trait ElemDbl3 extends Any with ElemDblN
   def dblsApprox(that: ElemDbl3, delta: Double = 1e-12): Boolean =
     dbl1.=~(that.dbl1, delta) & dbl2.=~(that.dbl2, delta) & dbl3.=~(that.dbl3, delta)
 
-  override def DblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3) }
+  override def dblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3) }
 }
 
 /** A Sequence like class of [[ElemDbl3]] elements that can be constructed from 3 [[Double]]s. */
