@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
+import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 trait ElemDblNPair[A1 <: ElemDblN, A2] extends ElemPair[A1, A2]
 
