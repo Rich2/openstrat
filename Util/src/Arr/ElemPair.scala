@@ -69,11 +69,11 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
   def pairArrBuilder(b1Arr: ArrB1, b2s: Array[B2]): ArrB
 
-  type A1BuffT <: Buff[B1]
+  type B1BuffT <: Buff[B1]
 
-  def newB1Buff(): A1BuffT = ???
+  def newB1Buff(): B1BuffT
 
-  def b1BuffGrow(buff: A1BuffT, newElem: B1): Unit = ???
+  def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = ???
 
-  def fromBuff(a1Buff : A1BuffT, b2s: Array[B2]): ArrB = ???
+  def fromBuff(a1Buff : B1BuffT, b2s: Array[B2]): ArrB = ???
 }

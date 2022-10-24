@@ -48,9 +48,9 @@ object Pt2Arr extends Dbl2SeqLikeCompanion[Pt2, Pt2Arr]
   }
 
   implicit val arrFlatBuilderImplicit: ArrFlatBuilder[Pt2Arr] =  new Dbl2ArrFlatBuilder[Pt2, Pt2Arr]
-  { override type BuffT = BuffPt2
+  { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPt2 = new BuffPt2(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
   implicit val slateImplicit: Slate[Pt2Arr] = (obj: Pt2Arr, dx: Double, dy: Double) => obj.slateXY(dx, dy)
@@ -75,12 +75,12 @@ object Pt2Arr extends Dbl2SeqLikeCompanion[Pt2, Pt2Arr]
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt2]]s collections. */
-final class BuffPt2(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[Pt2]
+final class Pt2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[Pt2]
 { override def typeStr: String = "BuffPt2"
   def dblsToT(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }
 
-object BuffPt2
-{
-  def empty: BuffPt2 = new BuffPt2(new ArrayBuffer[Double](4))
+object Pt2Buff
+{ def apply(n: Int = 4): Pt2Buff = new Pt2Buff(new ArrayBuffer[Double](n * 2))
+  def empty: Pt2Buff = new Pt2Buff(new ArrayBuffer[Double](4))
 }

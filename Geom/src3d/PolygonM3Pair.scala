@@ -46,7 +46,7 @@ final class PolygonM3PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
   override def pairArrBuilder(b1Arr: PolygonM3Arr, b2s: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
 
-  override type A1BuffT = PolygonM3Buff
+  override type B1BuffT = PolygonM3Buff
 
   override def newB1Buff(): PolygonM3Buff = PolygonM3Buff()
 

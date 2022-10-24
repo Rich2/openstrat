@@ -257,35 +257,35 @@ object Pt2
   implicit val approxTImplicit: ApproxT[Double, Pt2] = Approx2DblsT[Pt2](_.x, _.y)
 
   implicit val arrBuilderImplicit: Dbl2ArrBuilder[Pt2, Pt2Arr] = new Dbl2ArrBuilder[Pt2, Pt2Arr]
-  { override type BuffT = BuffPt2
+  { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
-    override def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffPt2 = new BuffPt2(buffer)
+    override def fromDblBuffer(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
   }
 
   implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): Pt2PairArrBuider[B2] = new Pt2PairArrBuider[B2]
 
   implicit val linePathBuildImplicit: LinePathDbl2Builder[Pt2, LinePath] = new LinePathDbl2Builder[Pt2, LinePath]
-  { override type BuffT = BuffPt2
+  { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): LinePath = new LinePath(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPt2 = new BuffPt2(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
   implicit val polygonBuildImplicit: PolygonLikeBuilder[Pt2, Polygon] = new PolygonLikeBuilder[Pt2, PolygonGen]
-  { override type BuffT = BuffPt2
+  { override type BuffT = Pt2Buff
 
     override def newPolygonT(length: Int): PolygonGen = PolygonGen.uninitialised(length)
 
     override def arrSet(arr: PolygonGen, index: Int, value: Pt2): Unit = arr.unsafeSetElem(index, value)
 
     /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
-    override def buffGrow(buff: BuffPt2, value: Pt2): Unit = buff.grow(value)
+    override def buffGrow(buff: Pt2Buff, value: Pt2): Unit = buff.grow(value)
 
     /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-    override def buffGrowArr(buff: BuffPt2, arr: PolygonGen): Unit = ???
+    override def buffGrowArr(buff: Pt2Buff, arr: PolygonGen): Unit = ???
 
-    override def newBuff(length: Int): BuffPt2 = BuffPt2.empty
+    override def newBuff(length: Int): Pt2Buff = Pt2Buff.empty
 
-    override def buffToBB(buff: BuffPt2): PolygonGen = ???
+    override def buffToBB(buff: Pt2Buff): PolygonGen = ???
   }
 
   implicit val lineSegBuildEv: LineSegLikeBuilder[Pt2, LineSeg] = LineSeg(_, _)

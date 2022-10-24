@@ -7,9 +7,7 @@ class PolygonLLPair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends Polyg
 }
 
 object PolygonLLPair
-{
-  def apply[A2](poly: PolygonLL, a2: A2): PolygonLLPair[A2] = new PolygonLLPair[A2](poly.unsafeArray, a2)
-
+{ def apply[A2](poly: PolygonLL, a2: A2): PolygonLLPair[A2] = new PolygonLLPair[A2](poly.unsafeArray, a2)
 }
 
 final class PolygonLLPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends
@@ -20,17 +18,16 @@ final class PolygonLLPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
   override def typeStr: String = "PolygonLLPairArray"
   override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](arrayArrayDbl(index), a2Array(index))
   override def a1Arr: PolygonLLArr = new PolygonLLArr(arrayArrayDbl)
-
-  override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonLLPairArr[A2] = ???
-
+  override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](array1, array2)
   override def a1Buff: ArrayDblBuff[PolygonLL] = ???
 
-  override def a1FromArrayDbl(array: Array[Double]): PolygonLL = ???
+  override def a1FromArrayDbl(array: Array[Double]): PolygonLL = new PolygonLL(array)
 }
 
 final class PolygonLLPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
   PolygonLikePairArrBuilder[LatLong, PolygonLL, PolygonLLArr, A2, PolygonLLPair[A2], PolygonLLPairArr[A2]]
 { override type BuffT = PolygonLLPairBuff[A2]
+  override type B1BuffT = PolygonLLBuff
   override def arrUninitialised(length: Int): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
   override def arrSet(arr: PolygonLLPairArr[A2], index: Int, value: PolygonLLPair[A2]): Unit =
@@ -49,6 +46,8 @@ final class PolygonLLPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
   override def pairArrBuilder(b1Arr: PolygonLLArr, b2s: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
+
+  override def newB1Buff(): PolygonLLBuff = PolygonLLBuff()
 }
 
 class PolygonLLPairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends
