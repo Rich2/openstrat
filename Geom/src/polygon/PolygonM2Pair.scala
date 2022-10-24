@@ -2,7 +2,7 @@
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-class PolygonM2Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDblNPair[PtM2, PolygonM2, A2]{
+class PolygonM2Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDbl2Pair[PtM2, PolygonM2, A2]{
   override def a1: PolygonM2 = new PolygonM2(a1ArrayDbl)
 }
 
@@ -11,7 +11,7 @@ object PolygonM2Pair {
 }
 
 final class PolygonM2PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends
-  PolygonLikeDblNPairArr[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2]]
+  PolygonLikeDbl2PairArr[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2]]
 { override type ThisT = PolygonM2PairArr[A2]
   override def unsafeSetElem(i: Int, value: PolygonM2Pair[A2]): Unit = { arrayArrayDbl(i) = value.a1ArrayDbl; a2Array(i) = value.a2 }
   override def fElemStr: PolygonM2Pair[A2] => String = _.toString
@@ -24,7 +24,7 @@ final class PolygonM2PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
 }
 
 final class PolygonM2PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
-  PolygonLikePairArrBuilder[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2], PolygonM2PairArr[A2]]
+  PolygonLikeDblNPairArrBuilder[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2], PolygonM2PairArr[A2]]
 { override type BuffT = PolygonM2PairBuff[A2]
   override type B1BuffT = PolygonM2Buff
   override def arrUninitialised(length: Int): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
@@ -48,7 +48,7 @@ final class PolygonM2PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
 
   override def newB1Buff(): PolygonM2Buff = PolygonM2Buff()
 
-  override def b1BuffGrow(buff: PolygonM2Buff, newElem: PolygonM2): Unit = ???
+  override def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Arr: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](arrayArrayDbl, a2Arr)
 }
 
 class PolygonM2PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqSpecPairBuff[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]

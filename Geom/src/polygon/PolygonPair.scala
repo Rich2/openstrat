@@ -33,14 +33,17 @@ final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def arrSet(arr: PolygonPairArr[A2], index: Int, value: PolygonPair[A2]): Unit =
   { arr.arrayArrayDbl(index) = value.a1ArrayDbl ; arr.a2Array(index) = value.a2 }
 
-  override def buffGrow(buff: PolygonPairBuff[A2], value: PolygonPair[A2]): Unit = ???
+  //override def buffGrow(buff: PolygonPairBuff[A2], value: PolygonPair[A2]): Unit = ???
   override def newBuff(length: Int): PolygonPairBuff[A2] = PolygonPairBuff(length)
   override def buffToBB(buff: PolygonPairBuff[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](buff.arrayDblBuff.toArray, buff.a2Buffer.toArray)
   override def b1Builder: PolygonLikeBuilder[Pt2, Polygon] = Pt2.polygonBuildImplicit
   override def b1ArrBuilder: ArrBuilder[Polygon, PolygonArr] = Polygon.arrBuildImplicit
   override def pairArrBuilder(b1Arr: PolygonArr, b2s: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
   override def newB1Buff(): PolygonBuff = PolygonBuff()
-  override def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Arr: RArr[A2]): PolygonPairArr[A2] = fromArrayArrayDbl(arrayArrayDbl, a2Arr)
+  override def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Arr: Array[A2]): PolygonPairArr[A2] = fromArrayArrayDbl(arrayArrayDbl, a2Arr)
+
+  /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
+  override def buffGrow(buff: PolygonPairBuff[A2], value: PolygonPair[A2]): Unit = buff.grow(value)
 }
 
 class PolygonPairBuff[A2](val arrayDblBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqSpecPairBuff[Pt2, Polygon, A2, PolygonPair[A2]]
