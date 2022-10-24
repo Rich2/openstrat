@@ -43,7 +43,7 @@ class LineSegBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl
   override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
 }
 
-class LineSegPair[A2](val startX: Double, val startY: Double, val endX: Double, val endY: Double, val a2: A2) extends LineSegLikePair[Pt2, LineSeg, A2]
+class LineSegPair[A2](val startX: Double, val startY: Double, val endX: Double, val endY: Double, val a2: A2) extends LineSegLikeDblNPair[Pt2, LineSeg, A2]
 {
   override def a1: LineSeg = new LineSeg(startX, startY, endX, endY)
 }
@@ -65,6 +65,10 @@ final class LineSegPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array
   }
 
   override def fElemStr: LineSegPair[A2] => String = _.toString
+
+  override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): LineSegPairArr[A2] = new LineSegPairArr[A2](a1Array, a2Array)
+
+  override def a1Index(index: Int): LineSeg = ???
 }
 
 /*

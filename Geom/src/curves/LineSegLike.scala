@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A class that is like a LineSeg, includes [[LineSeg]] and [[LineSegM]]. The trait takes the type parameter of the vertex. */
-trait LineSegLike[VT]
+trait LineSegLike[VT] extends ElemValueN
 {
   /** The start point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
    * [[PtM2]] for a [[LineSegM]]. */
@@ -44,10 +44,13 @@ trait LineSegLikePairArrBuilder[B1V, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B
   def b1Builder: LineSegLikeBuilder[B1V, B1]
 }
 
-trait LineSegDblsPairArr[VT <: ElemDblN, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: LineSegLikePair[VT, A1, A2]] extends LineSegLikePairArr[VT, A1, ArrA1, A2, A]
+trait LineSegLikeDblN[VT <: ElemDblN] extends LineSegLike[VT] with ElemDblN
+
+trait LineSegLikeDblNPair[VT <: ElemDblN, A1 <: LineSegLikeDblN[VT], A2] extends LineSegLikePair[VT, A1, A2] with ElemDblNPair[A1, A2]
+
+trait LineSegDblsPairArr[VT <: ElemDblN, A1 <: LineSegLikeDblN[VT], ArrA1 <: DblNArr[A1], A2, A <: LineSegLikeDblNPair[VT, A1, A2]] extends
+  LineSegLikePairArr[VT, A1, ArrA1, A2, A] with DblNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: LineSegDblsPairArr[VT, A1, ArrA1, A2, A]
   def a1ArrayDbl: Array[Double]
   def fromArrays(a1Arr: Array[Double], a2Arr: Array[A2]): ThisT
 }
-
-//trait LinSeDblsPairArrBuilder[]

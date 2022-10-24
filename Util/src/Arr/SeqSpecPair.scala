@@ -22,3 +22,13 @@ trait SeqSpecPairArrBuilder[B1E, B1 <: SeqSpec[B1E], ArrB1 <: Arr[B1], B2, B <: 
 { /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
   def b1Builder: SeqLikeMapBuilder[B1E, B1]
 }
+
+trait SeqSpecDblNPair[A1E <: ElemDblN, A1 <: DblNSeqSpec[A1E], A2] extends ElemSeqSpecPair[A1E, A1, A2]
+
+trait SeqSpecDblNPairArr[A1E <: ElemDblN, A1 <: DblNSeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends
+  SeqSpecPairArr[A1E, A1, A1Arr, A2, A]
+{
+  def a1FromArrayDbl(array: Array[Double]): A1
+  def arrayArrayDbl: Array[Array[Double]]
+  override def a1Index(index: Int): A1 = a1FromArrayDbl(arrayArrayDbl(index))
+}

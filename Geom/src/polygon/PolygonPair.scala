@@ -18,10 +18,10 @@ final class PolygonPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Ar
   override def fElemStr: PolygonPair[A2] => String = _.toString
   override def typeStr: String = "PolygonPairArray"
   override def apply(index: Int): PolygonPair[A2] = new PolygonPair[A2](arrayArrayDbl(index), a2Array(index))
-
   override def a1Arr: PolygonArr = new PolygonArr(arrayArrayDbl)
   override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](array1, array2)
   override def a1Buff: PolygonBuff = PolygonBuff()
+  override def a1FromArrayDbl(array: Array[Double]): Polygon = new PolygonGen(array)
 }
 
 final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends

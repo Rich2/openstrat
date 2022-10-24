@@ -25,6 +25,8 @@ final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Arr
   override def apply(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](arrayArrayInt(index), a2Array(index))
 
   override def a1Arr: PolygonHCArr = new PolygonHCArr(arrayArrayInt)
+
+  override def a1Index(index: Int): PolygonHC = ???
 }
 
 /** A builder for ann Arr of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */

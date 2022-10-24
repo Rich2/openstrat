@@ -56,19 +56,19 @@ object PtM3Arr extends Dbl3SeqLikeCompanion[PtM3, PtM3Arr]
 { override def fromArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
 
   implicit val flatBuilderImplicit: Dbl3ArrFlatBuilder[PtM3, PtM3Arr] = new Dbl3ArrFlatBuilder[PtM3, PtM3Arr]
-  { type BuffT = BuffPtMetre3
+  { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
   }
 }
 
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt3]]s collections. */
-final class BuffPtMetre3(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl3Buff[PtM3]
+final class PtM3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl3Buff[PtM3]
 { override def typeStr: String = "BuffPtMetre3"
   def dblsToT(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
 }
 
-object BuffPtMetre3
+object PtM3Buff
 {
-  def apply(initSize: Int = 4): BuffPtMetre3 = new BuffPtMetre3(new ArrayBuffer[Double](initSize * 3))
+  def apply(initSize: Int = 4): PtM3Buff = new PtM3Buff(new ArrayBuffer[Double](initSize * 3))
 }

@@ -13,13 +13,19 @@ object PolygonLLPair
 }
 
 final class PolygonLLPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends
-  PolygonLikePairArr[LatLong, PolygonLL, PolygonLLArr, A2, PolygonLLPair[A2]]
+  PolygonDblNPairArr[LatLong, PolygonLL, PolygonLLArr, A2, PolygonLLPair[A2]]
 { override type ThisT = PolygonLLPairArr[A2]
   override def unsafeSetElem(i: Int, value: PolygonLLPair[A2]): Unit = { arrayArrayDbl(i) = value.unsafeArray; a2Array(i) = value.a2 }
   override def fElemStr: PolygonLLPair[A2] => String = _.toString
   override def typeStr: String = "PolygonLLPairArray"
   override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](arrayArrayDbl(index), a2Array(index))
   override def a1Arr: PolygonLLArr = new PolygonLLArr(arrayArrayDbl)
+
+  override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonLLPairArr[A2] = ???
+
+  override def a1Buff: ArrayDblBuff[PolygonLL] = ???
+
+  override def a1FromArrayDbl(array: Array[Double]): PolygonLL = ???
 }
 
 final class PolygonLLPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends

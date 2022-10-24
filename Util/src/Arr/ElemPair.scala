@@ -28,6 +28,9 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   /** Needs rewriting. */
   def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = map(p => f(p.a1, p.a2))
 
+  def a1Index(index: Int): A1
+  def a2Index(index: Int): A2 = a2Array(index)
+
   def mapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => B1)(implicit
     build: PairArrBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val b1Arr: ArrB1 = a1Arr.map(f)(build.b1ArrBuilder)

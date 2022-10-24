@@ -21,6 +21,7 @@ final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
   override def a1Arr: PolygonM3Arr = new PolygonM3Arr(arrayArrayDbl)
   override def a1Buff: ArrayDblBuff[PolygonM3] = PolygonM3Buff()
   override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](array1, array2)
+  override def a1FromArrayDbl(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 }
 
 final class PolygonM3PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends

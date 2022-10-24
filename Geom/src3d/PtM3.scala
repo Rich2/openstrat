@@ -94,9 +94,9 @@ object PtM3
   var counter = 0
 
   implicit val arrBuilderImplicit: Dbl3ArrBuilder[PtM3, PtM3Arr] = new Dbl3ArrBuilder[PtM3, PtM3Arr]
-  { type BuffT = BuffPtMetre3
+  { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
-    def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(buffer)
+    def fromDblBuffer(buffer: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(buffer)
   }
 
   implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtM3PairArrBuider[B2] = new PtM3PairArrBuider[B2]
@@ -106,15 +106,15 @@ object PtM3
   implicit def polygonPairBuilderImplicit[A2](implicit ct: ClassTag[A2]): PolygonM3PairBuilder[A2] = new PolygonM3PairBuilder[A2]
 
   implicit val linePathBuildImplicit: LinePathDbl3sBuilder[PtM3, LinePathMetre3] = new LinePathDbl3sBuilder[PtM3, LinePathMetre3]
-  { override type BuffT = BuffPtMetre3
+  { override type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): LinePathMetre3 = new LinePathMetre3(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
   }
 
   implicit val polygonBuildImplicit: PolygonDbl3sBuilder[PtM3, PolygonM3] = new PolygonDbl3sBuilder[PtM3, PolygonM3]
-  { override type BuffT = BuffPtMetre3
+  { override type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PolygonM3 = new PolygonM3(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffPtMetre3 = new BuffPtMetre3(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
   }
 
   implicit val lineSegBuildEv: LineSegLikeBuilder[PtM3, LineSegM3] = LineSegM3(_, _)

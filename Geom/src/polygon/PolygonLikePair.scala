@@ -25,13 +25,13 @@ trait PolygonLikePairArrBuilder[B1V, B1 <: PolygonLike[B1V], ArrB1 <: Arr[B1], B
   override def b1Builder: PolygonLikeBuilder[B1V, B1]
 }
 
-trait PolygonDblNPair[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], A2] extends PolygonLikePair[A1V, A1, A2]
+trait PolygonDblNPair[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], A2] extends PolygonLikePair[A1V, A1, A2] with SeqSpecDblNPair[A1V, A1, A2]
 {
   def unsafeArray: Array[Double]
 }
 
 trait PolygonDblNPairArr[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], ArrA1 <: Arr[A1], A2, A <: PolygonDblNPair[A1V, A1, A2]] extends
-  PolygonLikePairArr[A1V, A1, ArrA1, A2, A]
+  PolygonLikePairArr[A1V, A1, ArrA1, A2, A] with SeqSpecDblNPairArr[A1V, A1, ArrA1, A2, A]
 {
   type ThisT <: PolygonDblNPairArr[A1V, A1, ArrA1, A2, A]
   def arrayArrayDbl: Array[Array[Double]]

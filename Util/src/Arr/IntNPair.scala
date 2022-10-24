@@ -66,6 +66,10 @@ trait Int2PairArr[A1 <: ElemInt2, ArrA1 <: Int2Arr[A1], A2, A <: ElemInt2Pair[A1
     a1ArrayInt(i * 2 + 1) = value.a1Int2
     a2Array(i) = value.a2
   }
+
+  def newA1(int1: Double, int2: Double): A1
+
+  override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1))
 }
 
 trait Int2PairBuff[A1 <: ElemInt2, A2, A <: ElemInt2Pair[A1, A2]] extends IntNPairBuff[A1, A2, A]
@@ -136,6 +140,10 @@ trait Int3PairArr[A1 <: ElemInt3, ArrA1 <: Int3Arr[A1], A2, A <: ElemInt3Pair[A1
     a1ArrayInt(i * 3 + 2) = value.a1Int3
     a2Array(i) = value.a2
   }
+
+  def newA1(int1: Double, int2: Double, int3: Double): A1
+
+  override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2))
 }
 
 trait Int3PairBuff[A1 <: ElemInt3, A2, A <: ElemInt3Pair[A1, A2]] extends IntNPairBuff[A1, A2, A]

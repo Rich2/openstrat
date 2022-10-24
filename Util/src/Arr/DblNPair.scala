@@ -67,6 +67,9 @@ trait Dbl2PairArr[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1], A2, A <: ElemDbl2Pair[A1
     a1ArrayDbl(i * 2 + 1) = value.a1Dbl2
     a2Array(i) = value.a2
   }
+
+  def newA1(dbl1: Double, dbl2: Double): A1
+  override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1))
 }
 
 trait Dbl2PairBuff[A1 <: ElemDbl2, A2, A <: ElemDbl2Pair[A1, A2]] extends DblNPairBuff[A1, A2, A]
@@ -128,6 +131,9 @@ trait Dbl3PairArr[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1], A2, A <: ElemDbl3Pair[A1
 
   /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def newPair(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): A
+
+  def newA1(dbl1: Double, dbl2: Double, dbl3: Double): A1
+  override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2))
 
   override final def apply(index: Int): A = newPair(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2), a2Array(index))
 
