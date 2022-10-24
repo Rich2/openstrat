@@ -32,3 +32,13 @@ trait SeqSpecDblNPairArr[A1E <: ElemDblN, A1 <: DblNSeqSpec[A1E], A1Arr <: Arr[A
   def arrayArrayDbl: Array[Array[Double]]
   override def a1Index(index: Int): A1 = a1FromArrayDbl(arrayArrayDbl(index))
 }
+
+trait SeqSpecIntNPair[A1E <: ElemIntN, A1 <: IntNSeqSpec[A1E], A2] extends ElemSeqSpecPair[A1E, A1, A2]
+
+trait SeqSpecIntNPairArr[A1E <: ElemIntN, A1 <: IntNSeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends
+  SeqSpecPairArr[A1E, A1, A1Arr, A2, A]
+{
+  def a1FromArrayInt(array: Array[Int]): A1
+  def arrayArrayInt: Array[Array[Int]]
+  override def a1Index(index: Int): A1 = a1FromArrayInt(arrayArrayInt(index))
+}

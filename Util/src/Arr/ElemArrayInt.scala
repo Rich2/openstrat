@@ -46,11 +46,12 @@ object ArrArrayIntEq
 
 /** This is a buffer class for Arrays of Int. It is not a Buffer class for Arrays. */
 trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Buff[A]
-{ /** Constructs an lement of this [[Buff]] from an [[Array]][Int]. */
+{ /** Constructs an element of this [[Buff]] from an [[Array]][Int]. */
   def fromArrayInt(array: Array[Int]): A
 
   def unsafeBuffer: ArrayBuffer[Array[Int]]
   override final def length: Int = unsafeBuffer.length
   final override def grow(newElem: A): Unit = unsafeBuffer.append(newElem.unsafeArray)
   inline final override def apply(index: Int): A = fromArrayInt(unsafeBuffer(index))
+  def arrayArrayInt: Array[Array[Int]] = unsafeBuffer.toArray
 }

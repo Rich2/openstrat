@@ -2,8 +2,8 @@
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
-class PolygonM3Pair[A2](val unsafeArray: Array[Double], val a2: A2) extends PolygonDblNPair[PtM3, PolygonM3, A2] with SpecialT {
-  override def a1: PolygonM3 = new PolygonM3(unsafeArray)
+class PolygonM3Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDblNPair[PtM3, PolygonM3, A2] with SpecialT {
+  override def a1: PolygonM3 = new PolygonM3(a1ArrayDbl)
 }
 
 object PolygonM3Pair
@@ -12,9 +12,9 @@ object PolygonM3Pair
 }
 
 final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2Array: Array[A2]) extends
-  PolygonDblNPairArr[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2]]
+  PolygonLikeDblNPairArr[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2]]
 { override type ThisT = PolygonM3PairArr[A2]
-  override def unsafeSetElem(i: Int, value: PolygonM3Pair[A2]): Unit = { arrayArrayDbl(i) = value.unsafeArray; a2Array(i) = value.a2 }
+  override def unsafeSetElem(i: Int, value: PolygonM3Pair[A2]): Unit = { arrayArrayDbl(i) = value.a1ArrayDbl; a2Array(i) = value.a2 }
   override def fElemStr: PolygonM3Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonM3PairArray"
   override def apply(index: Int): PolygonM3Pair[A2] = new PolygonM3Pair[A2](arrayArrayDbl(index), a2Array(index))
@@ -30,7 +30,7 @@ final class PolygonM3PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
   override def arrUninitialised(length: Int): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
   override def arrSet(arr: PolygonM3PairArr[A2], index: Int, value: PolygonM3Pair[A2]): Unit =
-  { arr.arrayArrayDbl(index) = value.unsafeArray ; arr.a2Array(index) = value.a2 }
+  { arr.arrayArrayDbl(index) = value.a1ArrayDbl ; arr.a2Array(index) = value.a2 }
 
   override def buffGrow(buff: PolygonM3PairBuff[A2], value: PolygonM3Pair[A2]): Unit = ???
   override def newBuff(length: Int): PolygonM3PairBuff[A2] = new PolygonM3PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
@@ -58,7 +58,7 @@ final class PolygonM3PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
 class PolygonM3PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends
   SeqSpecPairBuff[PtM3, PolygonM3, A2, PolygonM3Pair[A2]]
 { override type ThisT = PolygonM3PairBuff[A2]
-  override def unsafeSetElem(i: Int, value: PolygonM3Pair[A2]): Unit = { arrayDoubleBuff(i) = value.unsafeArray; a2Buffer(i) = value.a2 }
+  override def unsafeSetElem(i: Int, value: PolygonM3Pair[A2]): Unit = { arrayDoubleBuff(i) = value.a1ArrayDbl; a2Buffer(i) = value.a2 }
   override def fElemStr: PolygonM3Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonM3PairBuff"
   override def apply(index: Int): PolygonM3Pair[A2] = new PolygonM3Pair[A2](arrayDoubleBuff(index), a2Buffer(index))
