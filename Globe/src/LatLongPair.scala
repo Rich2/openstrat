@@ -16,6 +16,8 @@ class LatLongPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) 
   override def newPair(dbl1: Double, dbl2: Double, a2: A2): LatLongPair[A2] = new LatLongPair[A2](dbl1, dbl2, a2)
 
   override def fElemStr: LatLongPair[A2] => String = _.toString
+
+  override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): LatLongPairArr[A2] = new LatLongPairArr[A2](a1ArrayDbl, a2Array)
 }
 
 object LatLongPairArr extends Dbl2PairArrCompanion [LatLong, LatLongArr]{

@@ -33,6 +33,20 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   { val b1Arr: ArrB1 = a1Arr.map(f)(build.b1ArrBuilder)
     build.pairArrBuilder(b1Arr, a2Array)
   }
+
+  def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
+    build: PairArrBuilder[B1, ArrB1, A2, B, ArrB], ct: ClassTag[A2]): ArrB =
+  {
+    val a1Buff = build.newB1Buff()
+    val a2Buff = new ArrayBuffer[A2]()
+    foreach{ pair =>
+      f(pair.a1).foreach{ poly =>
+        build.b1BuffGrow(a1Buff, poly)
+        a2Buff.append(pair.a2)
+      }
+    }
+    build.fromBuff(a1Buff, a2Buff.toArray)
+  }
 }
 
 trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends Any with Buff[A]
@@ -51,4 +65,12 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
   def pairArrBuilder(b1Arr: ArrB1, b2s: Array[B2]): ArrB
+
+  type A1BuffT <: Buff[B1]
+
+  def newB1Buff(): A1BuffT = ???
+
+  def b1BuffGrow(buff: A1BuffT, newElem: B1): Unit = ???
+
+  def fromBuff(a1Buff : A1BuffT, b2s: Array[B2]): ArrB = ???
 }
