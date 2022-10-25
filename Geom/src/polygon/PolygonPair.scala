@@ -44,6 +44,8 @@ final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   override def buffGrow(buff: PolygonPairBuff[A2], value: PolygonPair[A2]): Unit = buff.grow(value)
+
+  override def fromBuff(a1Buff: PolygonBuff, b2s: ArrayBuffer[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](a1Buff.arrayArrayDbl, b2s.toArray)
 }
 
 class PolygonPairBuff[A2](val arrayDblBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqSpecPairBuff[Pt2, Polygon, A2, PolygonPair[A2]]

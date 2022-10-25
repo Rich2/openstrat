@@ -50,6 +50,8 @@ final class PolygonLLPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
   override def newB1Buff(): PolygonLLBuff = PolygonLLBuff()
 
   override def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](arrayArrayDbl, a2Array)
+
+  override def fromBuff(a1Buff: PolygonLLBuff, b2s: ArrayBuffer[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](a1Buff.arrayArrayDbl, b2s.toArray)
 }
 
 class PolygonLLPairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends

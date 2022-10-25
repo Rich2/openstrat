@@ -50,7 +50,7 @@ final class PolygonM3PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
 
   override def newB1Buff(): PolygonM3Buff = PolygonM3Buff()
 
-  override def fromBuff(a1Buff: PolygonM3Buff, b2s: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](a1Buff.unsafeBuffer.toArray, b2s)
+  override def fromBuff(a1Buff: PolygonM3Buff, b2s: ArrayBuffer[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](a1Buff.unsafeBuffer.toArray, b2s.toArray)
 
   override def b1BuffGrow(buff: PolygonM3Buff, newElem: PolygonM3): Unit = buff.grow(newElem)
 }

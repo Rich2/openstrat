@@ -49,6 +49,8 @@ final class PolygonM2PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
   override def newB1Buff(): PolygonM2Buff = PolygonM2Buff()
 
   override def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](arrayArrayDbl, a2Array)
+
+  override def fromBuff(a1Buff: PolygonM2Buff, b2s: ArrayBuffer[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](a1Buff.arrayArrayDbl, b2s.toArray)
 }
 
 class PolygonM2PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqSpecPairBuff[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]

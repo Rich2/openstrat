@@ -42,7 +42,7 @@ trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblN
   final override def newBuff(length: Int): BuffT = buffFromBuffers(new ArrayBuffer[Double](length * a1DblNum), new ArrayBuffer[B2](length))
   inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 
-  override def fromBuff(a1Buff: B1BuffT, b2s: Array[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s)
+  override def fromBuff(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */

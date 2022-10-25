@@ -48,7 +48,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
         a2Buff.append(pair.a2)
       }
     }
-    build.fromBuff(a1Buff, a2Buff.toArray)
+    build.fromBuff(a1Buff, a2Buff)
   }
 }
 
@@ -75,5 +75,5 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
 
   def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit
 
-  def fromBuff(a1Buff : B1BuffT, b2s: Array[B2]): ArrB = ???
+  def fromBuff(a1Buff : B1BuffT, b2s: ArrayBuffer[B2]): ArrB
 }

@@ -34,5 +34,5 @@ class PtM3PairArrBuider[A2](implicit val b2CT: ClassTag[A2]) extends Dbl3PairArr
 
   override def newB1Buff(): PtM3Buff = PtM3Buff()
 
-  override def fromBuff(a1Buff: B1BuffT, b2s: Array[A2]): PtM3PairArr[A2] = new PtM3PairArr[A2](a1Buff.toArray, b2s)
+  override def fromBuff(a1Buff: B1BuffT, b2s: ArrayBuffer[A2]): PtM3PairArr[A2] = new PtM3PairArr[A2](a1Buff.toArray, b2s.toArray)
 }
