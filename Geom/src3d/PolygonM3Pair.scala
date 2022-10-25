@@ -19,7 +19,7 @@ final class PolygonM3PairArr[A2](val a1ArrayArrayDbl: Array[Array[Double]], val 
   override def typeStr: String = "PolygonM3PairArray"
   override def apply(index: Int): PolygonM3Pair[A2] = new PolygonM3Pair[A2](a1ArrayArrayDbl(index), a2Array(index))
   override def a1Arr: PolygonM3Arr = new PolygonM3Arr(a1ArrayArrayDbl)
-  override def a1Buff: ArrayDblBuff[PolygonM3] = PolygonM3Buff()
+//  override def a1Buff: ArrayDblBuff[PolygonM3] = PolygonM3Buff()
   override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](array1, array2)
   override def a1FromArrayDbl(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 }

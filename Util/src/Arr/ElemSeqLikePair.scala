@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer, reflect.ClassTag
+import collection.mutable.ArrayBuffer
 
 /** An element that pairs a [[SeqSpec]] with a second value. */
 trait ElemSeqLikePair[A1E, A1 <: SeqLike[A1E], A2] extends ElemPair[A1, A2] with SpecialT
@@ -33,21 +33,6 @@ trait SeqLikeDblNPairArr[A1E <: ElemDblN, A1 <: DblNSeqLike[A1E], A1Arr <: Arr[A
   def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): ThisT
 
   override def a1Index(index: Int): A1 = a1FromArrayDbl(a1ArrayArrayDbl(index))
-  def a1Buff: ArrayDblBuff[A1]
-
-  def filterOn1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT = {
-    val buff1 = a1Buff
-    val buff2 = new ArrayBuffer[A2]()
-    var i = 0
-    a1Arr.foreach { a1 =>
-      if (f(a1)) {
-        buff1.grow(a1)
-        buff2.append(a2Array(i))
-      }
-      i += 1
-    }
-    fromArrays(buff1.arrayArrayDbl, buff2.toArray)
-  }
 }
 
 trait SeqLikeDblNPairArrBuilder[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPair[B1E, B1, B2], ArrB <: Arr[B]] extends
@@ -69,20 +54,5 @@ trait SeqLikeIntNPairArr[A1E <: ElemIntN, A1 <: IntNSeqSpec[A1E], A1Arr <: Arr[A
   def a1FromArrayInt(array: Array[Int]): A1
   def arrayArrayInt: Array[Array[Int]]
   def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): ThisT
-  def a1Buff: ArrayIntBuff[A1]
   override def a1Index(index: Int): A1 = a1FromArrayInt(arrayArrayInt(index))
-
-  def filterOn1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
-  { val buff1 = a1Buff
-    val buff2 = new ArrayBuffer[A2]()
-    var i = 0
-    a1Arr.foreach { a1 =>
-      if (f(a1)) {
-        buff1.grow(a1)
-        buff2.append(a2Array(i))
-      }
-      i += 1
-    }
-    fromArrays(buff1.arrayArrayInt, buff2.toArray)
-  }
 }

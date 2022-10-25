@@ -24,7 +24,6 @@ final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Arr
   override def apply(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](arrayArrayInt(index), a2Array(index))
   override def a1Arr: PolygonHCArr = new PolygonHCArr(arrayArrayInt)
   override def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](array1, array2)
-  override def a1Buff: ArrayIntBuff[PolygonHC] = PolygonHCBuff()
   override def a1FromArrayInt(array: Array[Int]): PolygonHC = new PolygonHC(array)
 }
 

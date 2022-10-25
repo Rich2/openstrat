@@ -1,6 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A [[PolygonLike]] object paired with an object of type A2.]] */
 trait PolygonLikePair[A1V, A1 <: PolygonLike[A1V], A2] extends ElemSeqLikePair[A1V, A1, A2]

@@ -19,7 +19,6 @@ final class PolygonM2PairArr[A2](val a1ArrayArrayDbl: Array[Array[Double]], val 
   override def apply(index: Int): PolygonM2Pair[A2] = new PolygonM2Pair[A2](a1ArrayArrayDbl(index), a2Array(index))
   override def a1Arr: PolygonM2Arr = new PolygonM2Arr(a1ArrayArrayDbl)
   override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](array1, array2)
-  override def a1Buff: ArrayDblBuff[PolygonM2] = PolygonM2Buff()
   override def a1FromArrayDbl(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 }
 

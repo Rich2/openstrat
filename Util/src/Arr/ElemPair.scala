@@ -4,11 +4,14 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** These classes are for use in [[PairArr]]s. */
 trait ElemPair[A1, A2] extends Any
-{ def a1: A1
+{ /** The first component of this pair. */
+  def a1: A1
+
+  /** The second component of this pair. */
   def a2: A2
 }
 
-/** An [[Arr]] of pairs [[ElemPair]]. These classees allow convenient methods to map and filter on just one component of the pair. They and their
+/** An [[Arr]] of pairs [[ElemPair]]. These classes allow convenient methods to map and filter on just one component of the pair. They and their
  *  associated [[PairArrBuilder]] and [[PairBuff]] classes also allow for efficient storage by using 2 Arrays of the components of the pairs rather
  *  than one array of the pairs. It is particularly designed for efficient maoOnA1 operations, where we want to map over the first part of the pair
  *  while leaving the second component of the pair unchanged. So sub traits and classes specialise on a1 the first component of the pair. There are no
@@ -72,6 +75,20 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
       }
     }
     build.fromBuffs(a1Buff, a2Buff)
+  }
+
+  def filterOnA1(f: A1 => Boolean)(implicit build: PairArrBuilder[A1, A1Arr, A2, A, ThisT], ct: ClassTag[A2]): ThisT =
+  { val buff1 = build.newB1Buff()
+    val buff2 = new ArrayBuffer[A2]()
+    var i = 0
+    a1Arr.foreach { a1 =>
+      if (f(a1)) {
+        buff1.grow(a1)
+        buff2.append(a2Array(i))
+      }
+      i += 1
+    }
+    build.fromBuffs(buff1, buff2)
   }
 
   final override def length: Int = a2Array.length
