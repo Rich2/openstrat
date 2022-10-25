@@ -83,6 +83,12 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
     case a if a == DegVec270 => rotateZ270
     case a => PtM3(x * a.cos - y * a.sin, x * a.sin + y * a.cos, z)
   }
+
+  /** The distance in the XY plane from an operand [[PtM2]], the default being from the origin. */
+  def xyLengthFrom(operand: PtM2 = PtM2.origin): Length = {
+    val sq = xMetres.squared + yMetres.squared
+    Length(sq.sqrt)
+  }
 }
 
 /** Companion object for the [[PtM3] class. the 3D point measure in metres length. */

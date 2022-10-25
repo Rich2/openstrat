@@ -91,8 +91,11 @@ object Angle {
   implicit val approxTImplicit: ApproxAngleT[Angle] = (a1, a2, precsion) => a1 =~ (a2, precsion)
 
   implicit class ExtensionImplicts(thisAngle: Angle)
-  { /** Subtracting one angle of iclination from another returns an angle of rotation. */
+  { /** Subtracting one angle of inclination from another angle of inclination returns an angle of rotation. */
     def - (operand: Angle): AngleVec = AngleVec.milliSecs(thisAngle.milliSecs - operand.milliSecs)
+
+    def toPtM2(operand: Length): PtM2 = PtM2(operand * thisAngle.cos, operand * thisAngle.sin)
+    def toPtM3(operand: Length, zValue: Length = 0.metres): PtM3 = PtM3(operand * thisAngle.cos, operand * thisAngle.sin, zValue)
   }
 
   /** 90 degrees angle of inclination. */

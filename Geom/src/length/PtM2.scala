@@ -53,6 +53,8 @@ object PtM2
 
   def apply(x: Length, y: Length): PtM2 = new PtM2(x.metresNum, y.metresNum)
 
+  def origin: PtM2 = new PtM2(0, 0)
+
   implicit class Metres2Implicit(thisMetres2: PtM2)
   { def / (operator: Length): Pt2 = Pt2(thisMetres2.x.metresNum/ operator.metresNum, thisMetres2.y.metresNum / operator.metresNum)
   }

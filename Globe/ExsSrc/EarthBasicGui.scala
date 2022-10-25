@@ -25,18 +25,22 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   def repaint(): Unit =
   { val ps3: PolygonM3PairArr[EArea2] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
 
-    val ps4 = ps3.optMapOnA1 {
-      case p if p.zAllNonNeg => Some(p)
+    val ps4: PolygonM2PairArr[EArea2] = ps3.optMapOnA1 {
+      case p if p.zAllNonNeg => Some(p.map(_.xy))
       case p if p.zAllNeg => None
-      case p => Some(p)
+      case p => {
+        val newPoly = p.map { case v if v.zNeg => (v.xy / v.xyLengthFrom()).toMetres(EarthAvRadius)
+          case v => v.xy
+        }
+        Some(newPoly)
+      }
     }
 
-    val ps5: PolygonM2PairArr[EArea2] = ps4.polygonMapToPair(_.xy)
-    val activeFills: RArr[PolygonCompound] = ps5.pairMap((p, a2) => p.map(_ / scale).fillActive(a2.colour, a2))
+    val activeFills: RArr[PolygonCompound] = ps4.pairMap((p, a2) => p.map(_ / scale).fillActive(a2.colour, a2))
 
-    val sideLines: RArr[PolygonDraw] = ps5.a1Map { _.map(_ / scale).draw() }
+    val sideLines: RArr[PolygonDraw] = ps4.a1Map { _.map(_ / scale).draw() }
 
-    val areaNames: RArr[TextGraphic] = ps5.a2Map { d =>
+    val areaNames: RArr[TextGraphic] = ps4.a2Map { d =>
       val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
       TextGraphic(d.name, 10, posn, d.colour.contrastBW)
     }
