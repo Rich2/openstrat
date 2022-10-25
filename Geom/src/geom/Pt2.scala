@@ -288,6 +288,10 @@ object Pt2
     override def buffToBB(buff: Pt2Buff): PolygonGen = ???
   }
 
+  /** Implicit instance for the [[PolygonPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function
+   * where Pt2 is the type B parameter. */
+  implicit def polygonPairBuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonPairBuilder[A2] = new PolygonPairBuilder[A2]
+
   implicit val lineSegBuildEv: LineSegLikeBuilder[Pt2, LineSeg] = LineSeg(_, _)
 
   implicit val slateImplicit: Slate[Pt2] = (obj: Pt2, dx: Double, dy: Double) => obj.xySlate(dx, dy)

@@ -9,6 +9,9 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   /** Scale in km / pixel */
   var scale: Length = viewIn.scale
 
+  /** Scale accounting for whether the display has north up or down. */
+  def dirnScale: Length = ife(northUp, scale, -scale)
+
   val scaleMin: Length = 0.2.kMetres
   val scaleMax: Length = 100.kMetres
   var focus: LatLong = viewIn.latLong
@@ -36,12 +39,14 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
       }
     }
 
-    val activeFills: RArr[PolygonCompound] = ps4.pairMap((p, a2) => p.map(_ / scale).fillActive(a2.colour, a2))
+    val ps5 = ps4.polygonMapToPair{ p => p / dirnScale }
 
-    val sideLines: RArr[PolygonDraw] = ps4.a1Map { _.map(_ / scale).draw() }
+    val activeFills: RArr[PolygonCompound] = ps5.pairMap((p, a2) => p.fillActive(a2.colour, a2))
+
+    val sideLines: RArr[PolygonDraw] = ps5.a1Map { _.draw() }
 
     val areaNames: RArr[TextGraphic] = ps4.a2Map { d =>
-      val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / scale
+      val posn = d.cen.toMetres3.fromLatLongFocus(focus).xy / dirnScale
       TextGraphic(d.name, 10, posn, d.colour.contrastBW)
     }
 
