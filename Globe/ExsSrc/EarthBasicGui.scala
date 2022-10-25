@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pEarth._, pPts._, pglobe._, pgui._
 
@@ -21,18 +21,16 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
-  debvar(ps2.length)
 
   def repaint(): Unit =
   { val ps3: PolygonM3PairArr[EArea2] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
-    val ps4: PolygonM3PairArr[EArea2] = ps3.filterOnA1(_.zAllNonNeg)
-    val ps4a = ps3.optMapOnA1 {
+
+    val ps4 = ps3.optMapOnA1 {
       case p if p.zAllNonNeg => Some(p)
       case p if p.zAllNeg => None
       case p => Some(p)
     }
 
-    debvar(ps4a.length)
     val ps5: PolygonM2PairArr[EArea2] = ps4.polygonMapToPair(_.xy)
     val activeFills: RArr[PolygonCompound] = ps5.pairMap((p, a2) => p.map(_ / scale).fillActive(a2.colour, a2))
 
@@ -45,11 +43,6 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     val locs1 = lc2.mapOnA1(_.fromLatLongFocus(focus))
     val locs2 = locs1.filterOnA1(_.zPos)
-
-
-
-    val locsLen = locs2.length
-    debvar(locsLen)
     val locs3 = locs2.mapOnA1(_.xy / scale)
     val locTexts = locs3.map(p => p.a1.textAt(p.a2, 10, Colour.Red))
 
@@ -57,7 +50,6 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
     mainRepaint(seas %: activeFills ++ sideLines ++ texts ++ locTexts)
   }
-
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {

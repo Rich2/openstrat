@@ -77,6 +77,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
     build.fromBuffs(a1Buff, a2Buff)
   }
 
+  /** filters this sequence using a predicate upon the A1 components of the pairs. */
   def filterOnA1(f: A1 => Boolean)(implicit build: PairArrBuilder[A1, A1Arr, A2, A, ThisT], ct: ClassTag[A2]): ThisT =
   { val buff1 = build.newB1Buff()
     val buff2 = new ArrayBuffer[A2]()
