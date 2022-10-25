@@ -42,7 +42,7 @@ final class PolygonPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   override def buffGrow(buff: PolygonPairBuff[A2], value: PolygonPair[A2]): Unit = buff.grow(value)
 }
 
-class PolygonPairBuff[A2](val arrayDblBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqSpecPairBuff[Pt2, Polygon, A2, PolygonPair[A2]]
+class PolygonPairBuff[A2](val arrayDblBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqLikePairBuff[Pt2, Polygon, A2, PolygonPair[A2]]
 { override type ThisT = PolygonPairBuff[A2]
   override def unsafeSetElem(i: Int, value: PolygonPair[A2]): Unit = { arrayDblBuff(i) = value.a1ArrayDbl; a2Buffer(i) = value.a2 }
   override def fElemStr: PolygonPair[A2] => String = _.toString

@@ -45,7 +45,7 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
 }
 
 class PolygonLLPairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends
-  SeqSpecPairBuff[LatLong, PolygonLL, A2, PolygonLLPair[A2]]
+  SeqLikePairBuff[LatLong, PolygonLL, A2, PolygonLLPair[A2]]
 { override type ThisT = PolygonLLPairBuff[A2]
   override def unsafeSetElem(i: Int, value: PolygonLLPair[A2]): Unit = { arrayDoubleBuff(i) = value.a1ArrayDbl; a2Buffer(i) = value.a2 }
   override def fElemStr: PolygonLLPair[A2] => String = _.toString
