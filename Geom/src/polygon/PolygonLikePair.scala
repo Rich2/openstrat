@@ -31,25 +31,7 @@ trait PolygonLikeDblNPair[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], A2] extends P
 
 trait PolygonLikeDblNPairArr[A1V <: ElemDblN, A1 <: PolygonDblN[A1V], ArrA1 <: Arr[A1], A2, A <: PolygonLikeDblNPair[A1V, A1, A2]] extends
   PolygonLikePairArr[A1V, A1, ArrA1, A2, A] with SeqSpecDblNPairArr[A1V, A1, ArrA1, A2, A]
-{
-  type ThisT <: PolygonLikeDblNPairArr[A1V, A1, ArrA1, A2, A]
-
-  def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): ThisT
-  def a1Buff: ArrayDblBuff[A1]
-
-  def filterOn1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
-  { val buff1 = a1Buff
-    val buff2 = new ArrayBuffer[A2]()
-    var i = 0
-    a1Arr.foreach { a1 =>
-      if (f(a1)) {
-        buff1.grow(a1)
-        buff2.append(a2Array(i))
-      }
-      i += 1
-    }
-    fromArrays(buff1.arrayArrayDbl, buff2.toArray)
-  }
+{ type ThisT <: PolygonLikeDblNPairArr[A1V, A1, ArrA1, A2, A]
 }
 
 trait PolygonLikeDblNPairArrBuilder[B1V <: ElemDblN, B1 <: PolygonDblN[B1V], ArrB1 <: Arr[B1], A2, B <: PolygonLikeDblNPair[B1V, B1, A2],
@@ -67,25 +49,7 @@ trait PolygonLikeIntNPair[A1V <: ElemIntN, A1 <: PolygonIntN[A1V], A2] extends P
 
 trait PolygonLikeIntNPairArr[A1V <: ElemIntN, A1 <: PolygonIntN[A1V], ArrA1 <: Arr[A1], A2, A <: PolygonLikeIntNPair[A1V, A1, A2]] extends
   PolygonLikePairArr[A1V, A1, ArrA1, A2, A] with SeqSpecIntNPairArr[A1V, A1, ArrA1, A2, A]
-{
-  type ThisT <: PolygonLikeIntNPairArr[A1V, A1, ArrA1, A2, A]
-  def arrayArrayInt: Array[Array[Int]]
-  def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): ThisT// = ???
-  def a1Buff: ArrayIntBuff[A1]
-
-  def filterOn1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
-  { val buff1 = a1Buff
-    val buff2 = new ArrayBuffer[A2]()
-    var i = 0
-    a1Arr.foreach { a1 =>
-      if (f(a1)) {
-        buff1.grow(a1)
-        buff2.append(a2Array(i))
-      }
-      i += 1
-    }
-    fromArrays(buff1.arrayArrayInt, buff2.toArray)
-  }
+{ type ThisT <: PolygonLikeIntNPairArr[A1V, A1, ArrA1, A2, A]
 }
 
 trait PolygonIntsLikePairArrBuilder[B1V <: ElemIntN, B1 <: PolygonIntN[B1V], ArrB1 <: Arr[B1], A2, B <: PolygonLikeIntNPair[B1V, B1, A2],

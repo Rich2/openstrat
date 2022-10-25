@@ -27,10 +27,27 @@ trait SeqSpecDblNPair[A1E <: ElemDblN, A1 <: DblNSeqSpec[A1E], A2] extends ElemS
 
 trait SeqSpecDblNPairArr[A1E <: ElemDblN, A1 <: DblNSeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends
   SeqSpecPairArr[A1E, A1, A1Arr, A2, A]
-{
+{ type ThisT <: SeqSpecDblNPairArr[A1E, A1, A1Arr, A2, A]
   def a1FromArrayDbl(array: Array[Double]): A1
   def a1ArrayArrayDbl: Array[Array[Double]]
+  def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): ThisT
+
   override def a1Index(index: Int): A1 = a1FromArrayDbl(a1ArrayArrayDbl(index))
+  def a1Buff: ArrayDblBuff[A1]
+
+  def filterOn1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT = {
+    val buff1 = a1Buff
+    val buff2 = new ArrayBuffer[A2]()
+    var i = 0
+    a1Arr.foreach { a1 =>
+      if (f(a1)) {
+        buff1.grow(a1)
+        buff2.append(a2Array(i))
+      }
+      i += 1
+    }
+    fromArrays(buff1.arrayArrayDbl, buff2.toArray)
+  }
 }
 
 trait SeqSpecDblNPairArrBuilder[B1E <: ElemDblN, B1 <: DblNSeqSpec[B1E], ArrB1 <: Arr[B1], B2, B <: SeqSpecDblNPair[B1E, B1, B2], ArrB <: Arr[B]] extends
@@ -48,8 +65,24 @@ trait SeqSpecIntNPair[A1E <: ElemIntN, A1 <: IntNSeqSpec[A1E], A2] extends ElemS
 
 trait SeqSpecIntNPairArr[A1E <: ElemIntN, A1 <: IntNSeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqSpecPair[A1E, A1, A2]] extends
   SeqSpecPairArr[A1E, A1, A1Arr, A2, A]
-{
+{ type ThisT <: SeqSpecIntNPairArr[A1E, A1, A1Arr, A2, A]
   def a1FromArrayInt(array: Array[Int]): A1
   def arrayArrayInt: Array[Array[Int]]
+  def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): ThisT
+  def a1Buff: ArrayIntBuff[A1]
   override def a1Index(index: Int): A1 = a1FromArrayInt(arrayArrayInt(index))
+
+  def filterOn1(f: A1 => Boolean)(implicit ct: ClassTag[A2]): ThisT =
+  { val buff1 = a1Buff
+    val buff2 = new ArrayBuffer[A2]()
+    var i = 0
+    a1Arr.foreach { a1 =>
+      if (f(a1)) {
+        buff1.grow(a1)
+        buff2.append(a2Array(i))
+      }
+      i += 1
+    }
+    fromArrays(buff1.arrayArrayInt, buff2.toArray)
+  }
 }
