@@ -11,26 +11,48 @@ trait ElemPair[A1, A2] extends Any
 /** An [[Arr]] of pairs [[ElemPair]]. These classees allow convenient methods to map and filter on just one component of the pair. They and their
  *  associated [[PairArrBuilder]] and [[PairBuff]] classes also allow for efficient storage by using 2 Arrays of the components of the pairs rather
  *  than one array of the pairs. It is particularly designed for efficient maoOnA1 operations, where we want to map over the first part of the pair
- *  while leaving the second component of the oair unchanged. So sub traits and classes specialise on a1 the first component of the pair. There are no
+ *  while leaving the second component of the pair unchanged. So sub traits and classes specialise on a1 the first component of the pair. There are no
  *  filterMap methods. You must map then filter. */
 trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
-{ def a1Arr: A1Arr
+{ /** Returns the specialist sequence collection for the A1s. Probably not required most of the time but the method is included for completeness.  */
+  def a1Arr: A1Arr
+
+  /** The Array for the A2 components of the pairs. */
   def a2Array: Array[A2]
-  def a2Arr: RArr[A2] = new RArr[A2](a2Array)
-  override final def length: Int = a2Array.length
+
+  /** Returns an [[RArr]] of the A2s, even if a better more specialist collection equists for the type. Probably not required most of the time but the
+   *  method is included for completeness.  */
+  def a2RArr: RArr[A2] = new RArr[A2](a2Array)
+
+  /** Returns the specialist sequence collection for the A2s, as determined by implicit look up. Probably not required most of the time but the method
+   *  is included for completeness.  */
+  def a2Arr[A2Arr <: Arr[A2]](implicit build: ArrBuilder[A2, A2Arr]): A2Arr = a2Array.mapArr(a2 => a2)
 
   /** Maps the first component of the pairs, dropping the second. */
   def a1Map[B, ArrB <: Arr[B]](f: A1 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a1Arr.map(f)
 
   /** Maps the second component of the pairs, dropping the first. */
-  def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a2Arr.map(f)
+  def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a2Array.mapArr(f)
 
-  /** Needs rewriting. */
-  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = map(p => f(p.a1, p.a2))
+  /** Just a map method that avoids unnecessarily constructing the pairs and takes a function from the components. */
+  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB ={
+    var i = 0
+    val res = builder.arrUninitialised(length)
+    while(i < length)
+    { val newB = f(a1Index(i), a2Index(i))
+      res.unsafeSetElem(i, newB)
+      i += 1
+    }
+    res
+  }
 
+  /** Indexs the first component of the pair. */
   def a1Index(index: Int): A1
+
+  /** Indexs the second component of the pair. */
   def a2Index(index: Int): A2 = a2Array(index)
 
+  /** Maps the sequence of pairs to a new sequence of pairs, but leaving the second component of the pairs unchanged. */
   def mapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => B1)(implicit
     build: PairArrBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val b1Arr: ArrB1 = a1Arr.map(f)(build.b1ArrBuilder)
@@ -38,7 +60,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   }
 
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old correponding A2
-   * values to make the new pairs of type B1, A2.  */
+   * values to make the new pairs of type [[ElemPair]][B1, A2].  */
   def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
     build: PairArrBuilder[B1, ArrB1, A2, B, ArrB], ct: ClassTag[A2]): ArrB =
   { val a1Buff = build.newB1Buff()
@@ -51,6 +73,8 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
     }
     build.fromBuffs(a1Buff, a2Buff)
   }
+
+  final override def length: Int = a2Array.length
 }
 
 /** An efficient [[Buff]] for [[ElemPair]]s where the components are stored in separate buffers. */
