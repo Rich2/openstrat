@@ -24,7 +24,7 @@ final class PolygonLLPairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
   override def a1FromArrayDbl(array: Array[Double]): PolygonLL = new PolygonLL(array)
 }
 
-final class PolygonLLPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
+final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
   PolygonLikeDblNPairArrBuilder[LatLong, PolygonLL, PolygonLLArr, A2, PolygonLLPair[A2], PolygonLLPairArr[A2]]
 { override type BuffT = PolygonLLPairBuff[A2]
   override type B1BuffT = PolygonLLBuff
@@ -51,7 +51,7 @@ final class PolygonLLPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
 
   override def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](arrayArrayDbl, a2Array)
 
-  override def fromBuff(a1Buff: PolygonLLBuff, b2s: ArrayBuffer[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](a1Buff.arrayArrayDbl, b2s.toArray)
+  override def fromBuffs(a1Buff: PolygonLLBuff, b2s: ArrayBuffer[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](a1Buff.arrayArrayDbl, b2s.toArray)
 }
 
 class PolygonLLPairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends

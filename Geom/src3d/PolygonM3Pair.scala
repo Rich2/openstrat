@@ -24,7 +24,7 @@ final class PolygonM3PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
   override def a1FromArrayDbl(array: Array[Double]): PolygonM3 = new PolygonM3(array)
 }
 
-final class PolygonM3PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
+final class PolygonM3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
   PolygonLikePairArrBuilder[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2], PolygonM3PairArr[A2]]
 { override type BuffT = PolygonM3PairBuff[A2]
   override def arrUninitialised(length: Int): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
@@ -50,7 +50,7 @@ final class PolygonM3PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
 
   override def newB1Buff(): PolygonM3Buff = PolygonM3Buff()
 
-  override def fromBuff(a1Buff: PolygonM3Buff, b2s: ArrayBuffer[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](a1Buff.unsafeBuffer.toArray, b2s.toArray)
+  override def fromBuffs(a1Buff: PolygonM3Buff, b2s: ArrayBuffer[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](a1Buff.unsafeBuffer.toArray, b2s.toArray)
 
   override def b1BuffGrow(buff: PolygonM3Buff, newElem: PolygonM3): Unit = buff.grow(newElem)
 }

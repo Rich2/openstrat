@@ -23,7 +23,7 @@ final class PolygonM2PairArr[A2](val arrayArrayDbl: Array[Array[Double]], val a2
   override def a1FromArrayDbl(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 }
 
-final class PolygonM2PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
+final class PolygonM2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unused notB: Not[SpecialT]#L[A2]) extends
   PolygonLikeDblNPairArrBuilder[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2], PolygonM2PairArr[A2]]
 { override type BuffT = PolygonM2PairBuff[A2]
   override type B1BuffT = PolygonM2Buff
@@ -50,7 +50,7 @@ final class PolygonM2PairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: No
 
   override def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](arrayArrayDbl, a2Array)
 
-  override def fromBuff(a1Buff: PolygonM2Buff, b2s: ArrayBuffer[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](a1Buff.arrayArrayDbl, b2s.toArray)
+  override def fromBuffs(a1Buff: PolygonM2Buff, b2s: ArrayBuffer[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](a1Buff.arrayArrayDbl, b2s.toArray)
 }
 
 class PolygonM2PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqSpecPairBuff[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]

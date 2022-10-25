@@ -34,7 +34,7 @@ trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblN
   PairArrBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, B]
   type B1BuffT <: DblNBuff[B1]
-  implicit def b2CT: ClassTag[B2]
+  implicit def b2ClassTag: ClassTag[B2]
   def a1DblNum: Int
   def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): BuffT
   def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): ArrB
@@ -42,7 +42,7 @@ trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblN
   final override def newBuff(length: Int): BuffT = buffFromBuffers(new ArrayBuffer[Double](length * a1DblNum), new ArrayBuffer[B2](length))
   inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 
-  override def fromBuff(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
+  override def fromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */
