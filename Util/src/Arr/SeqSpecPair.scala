@@ -29,16 +29,19 @@ trait SeqSpecDblNPairArr[A1E <: ElemDblN, A1 <: DblNSeqSpec[A1E], A1Arr <: Arr[A
   SeqSpecPairArr[A1E, A1, A1Arr, A2, A]
 {
   def a1FromArrayDbl(array: Array[Double]): A1
-  def arrayArrayDbl: Array[Array[Double]]
-  override def a1Index(index: Int): A1 = a1FromArrayDbl(arrayArrayDbl(index))
+  def a1ArrayArrayDbl: Array[Array[Double]]
+  override def a1Index(index: Int): A1 = a1FromArrayDbl(a1ArrayArrayDbl(index))
 }
 
 trait SeqSpecDblNPairArrBuilder[B1E <: ElemDblN, B1 <: DblNSeqSpec[B1E], ArrB1 <: Arr[B1], B2, B <: SeqSpecDblNPair[B1E, B1, B2], ArrB <: Arr[B]] extends
   SeqSpecPairArrBuilder[B1E, B1, ArrB1, B2, B, ArrB]
 {
-  type B1BuffT <: Buff[B1]
+  type B1BuffT <: ArrayDblBuff[B1]
+  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
 
-  override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.grow(newElem)
+  def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[B2]): ArrB
+
+  final override def fromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = fromArrays(a1Buff.arrayArrayDbl, b2s.toArray)
 }
 
 trait SeqSpecIntNPair[A1E <: ElemIntN, A1 <: IntNSeqSpec[A1E], A2] extends ElemSeqSpecPair[A1E, A1, A2]
