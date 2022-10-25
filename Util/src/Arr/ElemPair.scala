@@ -37,10 +37,11 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
     build.pairArrBuilder(b1Arr, a2Array)
   }
 
+  /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old correponding A2
+   * values to make the new pairs of type B1, A2.  */
   def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
     build: PairArrBuilder[B1, ArrB1, A2, B, ArrB], ct: ClassTag[A2]): ArrB =
-  {
-    val a1Buff = build.newB1Buff()
+  { val a1Buff = build.newB1Buff()
     val a2Buff = new ArrayBuffer[A2]()
     foreach{ pair =>
       f(pair.a1).foreach{ poly =>
@@ -52,6 +53,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   }
 }
 
+/** An efficient [[Buff]] for [[ElemPair]]s where the components are stored in separate buffers. */
 trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends Any with Buff[A]
 { def a2Buffer: ArrayBuffer[A2]
   override def length: Int = a2Buffer.length
