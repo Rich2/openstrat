@@ -36,21 +36,11 @@ final class PolygonM2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override def newBuff(length: Int): PolygonM2PairBuff[A2] = new PolygonM2PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToBB(buff: PolygonM2PairBuff[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](buff.arrayDoubleBuff.toArray, buff.a2Buffer.toArray)
 
-  /** Builder for the first element of the pair of type B1, in this case a [[PolygonLike]]. The return type has been narrowed as it is needed for the
-   * polygonMapPair method on [[PolygonLikePairArr]]. */
   override def b1Builder: PolygonLikeBuilder[PtM2, PolygonM2] = PtM2.polygonBuildImplicit
-
-  /** Builder for an Arr of the first element of the pair. */
   override def b1ArrBuilder: ArrBuilder[PolygonM2, PolygonM2Arr] = PolygonM2.arrBuildImplicit
-
-  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
   override def pairArrBuilder(b1Arr: PolygonM2Arr, b2s: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
-
   override def newB1Buff(): PolygonM2Buff = PolygonM2Buff()
-
-  override def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](arrayArrayDbl, a2Array)
-
-  override def fromBuffs(a1Buff: PolygonM2Buff, b2s: ArrayBuffer[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](a1Buff.arrayArrayDbl, b2s.toArray)
+  override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](arrayArrayDbl, a2Array)
 }
 
 class PolygonM2PairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqSpecPairBuff[PtM2, PolygonM2, A2, PolygonM2Pair[A2]]

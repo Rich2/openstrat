@@ -56,9 +56,9 @@ trait PolygonLikeDblNPairArrBuilder[B1V <: ElemDblN, B1 <: PolygonDblN[B1V], Arr
   ArrB <: PolygonLikeDblNPairArr[B1V, B1, ArrB1, A2, B]] extends PolygonLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB] //with Arraydb
 {
   type B1BuffT <: ArrayDblBuff[B1]
-  def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): ArrB
+  def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): ArrB
 
-  //override def fromBuff(a1Buff: B1BuffT, b2s: ArrayBuffer[A2]): ArrB = fromArrayArrayDbl(a1Buff.arrayArrayDbl, b2s.toArray)
+  final override def fromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[A2]): ArrB = fromArrays(a1Buff.arrayArrayDbl, b2s.toArray)
 
   override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
 }
