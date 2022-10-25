@@ -40,7 +40,7 @@ final class PolygonPairBuilder[A2](implicit ct: ClassTag[A2], @unused notB: Not[
   override def b1ArrBuilder: ArrBuilder[Polygon, PolygonArr] = Polygon.arrBuildImplicit
   override def pairArrBuilder(b1Arr: PolygonArr, b2s: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
   override def newB1Buff(): PolygonBuff = PolygonBuff()
-  override def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Arr: Array[A2]): PolygonPairArr[A2] = fromArrayArrayDbl(arrayArrayDbl, a2Arr)
+  override def fromArrayArrayDbl(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonPairArr[A2] = fromArrayArrayDbl(arrayArrayDbl, a2Array)
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   override def buffGrow(buff: PolygonPairBuff[A2], value: PolygonPair[A2]): Unit = buff.grow(value)
