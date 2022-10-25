@@ -33,7 +33,7 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
 
   override def buffGrow(buff: PolygonLLPairBuff[A2], value: PolygonLLPair[A2]): Unit = ???
   override def newBuff(length: Int): PolygonLLPairBuff[A2] = new PolygonLLPairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
-  override def buffToBB(buff: PolygonLLPairBuff[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](buff.arrayDoubleBuff.toArray, buff.a2Buffer.toArray)
+  override def buffToBB(buff: PolygonLLPairBuff[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](buff.a1Buffer.toArray, buff.a2Buffer.toArray)
 
   override def b1Builder: PolygonLikeBuilder[LatLong, PolygonLL] = LatLong.polygonBuildImplicit
   override def b1ArrBuilder: ArrBuilder[PolygonLL, PolygonLLArr] = PolygonLL.arrBuildImplicit
@@ -42,15 +42,12 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](arrayArrayDbl, a2Array)
 }
 
-class PolygonLLPairBuff[A2](val arrayDoubleBuff: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends
-  SeqLikePairBuff[LatLong, PolygonLL, A2, PolygonLLPair[A2]]
+class PolygonLLPairBuff[A2](val a1Buffer: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends
+  SeqLikeDblNPairBuff[LatLong, PolygonLL, A2, PolygonLLPair[A2]]
 { override type ThisT = PolygonLLPairBuff[A2]
-  override def unsafeSetElem(i: Int, value: PolygonLLPair[A2]): Unit = { arrayDoubleBuff(i) = value.a1ArrayDbl; a2Buffer(i) = value.a2 }
+  override def unsafeSetElem(i: Int, value: PolygonLLPair[A2]): Unit = { a1Buffer(i) = value.a1ArrayDbl; a2Buffer(i) = value.a2 }
   override def fElemStr: PolygonLLPair[A2] => String = _.toString
   override def typeStr: String = "PolygonLLPairBuff"
-  override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](arrayDoubleBuff(index), a2Buffer(index))
-
-  override def grow(newElem: PolygonLLPair[A2]): Unit = ???
-
+  override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](a1Buffer(index), a2Buffer(index))
   override def grows(newElems: Arr[PolygonLLPair[A2]]): Unit = ???
 }

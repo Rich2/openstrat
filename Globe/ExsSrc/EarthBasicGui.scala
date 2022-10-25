@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pEarth._, pPts._, pglobe._, pgui._
+import geom._, pPts._, pglobe._, pgui._
 
 /** Basic map of the Earth using irregular areas / tiles. */
 case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")

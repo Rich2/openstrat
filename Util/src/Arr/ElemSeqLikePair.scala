@@ -35,15 +35,23 @@ trait SeqLikeDblNPairArr[A1E <: ElemDblN, A1 <: DblNSeqLike[A1E], A1Arr <: Arr[A
   override def a1Index(index: Int): A1 = a1FromArrayDbl(a1ArrayArrayDbl(index))
 }
 
+trait SeqLikeDblNPairBuff[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], B2, B <: SeqLikeDblNPair[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
+{ def a1Buffer: ArrayBuffer[Array[Double]]
+  final override def grow(newElem: B): Unit = { a1Buffer.append(newElem.a1.unsafeArray); a2Buffer.append(newElem.a2) }
+}
+
 trait SeqLikeDblNPairArrBuilder[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPair[B1E, B1, B2], ArrB <: Arr[B]] extends
   SeqLikePairArrBuilder[B1E, B1, ArrB1, B2, B, ArrB]
-{
+{ type BuffT <: SeqLikeDblNPairBuff[B1E, B1, B2, B]
   type B1BuffT <: ArrayDblBuff[B1]
   final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
 
   def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[B2]): ArrB
 
   final override def fromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = fromArrays(a1Buff.arrayArrayDbl, b2s.toArray)
+
+  /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
+  override def buffGrow(buff: BuffT, value: B): Unit = ???
 }
 
 trait SeqLikeIntNPair[A1E <: ElemIntN, A1 <: IntNSeqLike[A1E], A2] extends ElemSeqLikePair[A1E, A1, A2]
