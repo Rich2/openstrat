@@ -28,10 +28,9 @@ final class PolygonM2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override type B1BuffT = PolygonM2Buff
   override def arrUninitialised(length: Int): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
-  override def arrSet(arr: PolygonM2PairArr[A2], index: Int, value: PolygonM2Pair[A2]): Unit =
-  { arr.a1ArrayArrayDbl(index) = value.a1ArrayDbl ; arr.a2Array(index) = value.a2 }
+  override def arrSet(arr: PolygonM2PairArr[A2], index: Int, value: PolygonM2Pair[A2]): Unit = { arr.a1ArrayArrayDbl(index) = value.a1ArrayDbl
+    arr.a2Array(index) = value.a2 }
 
-  override def buffGrow(buff: PolygonM2PairBuff[A2], value: PolygonM2Pair[A2]): Unit = ???
   override def newBuff(length: Int): PolygonM2PairBuff[A2] = new PolygonM2PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToBB(buff: PolygonM2PairBuff[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](buff.a1Buffer.toArray, buff.a2Buffer.toArray)
 

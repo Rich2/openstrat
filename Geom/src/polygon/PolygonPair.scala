@@ -39,7 +39,6 @@ final class PolygonPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   override def pairArrBuilder(b1Arr: PolygonArr, b2s: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
   override def newB1Buff(): PolygonBuff = PolygonBuff()
   override def fromArrays(arrayArrayDbl: Array[Array[Double]], a2Array: Array[A2]): PolygonPairArr[A2] = fromArrays(arrayArrayDbl, a2Array)
-  override def buffGrow(buff: PolygonPairBuff[A2], value: PolygonPair[A2]): Unit = buff.grow(value)
 }
 
 class PolygonPairBuff[A2](val a1Buffer: ArrayBuffer[Array[Double]], val a2Buffer: ArrayBuffer[A2]) extends SeqLikeDblNPairBuff[Pt2, Polygon, A2, PolygonPair[A2]]

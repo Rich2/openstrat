@@ -31,7 +31,6 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override def arrSet(arr: PolygonLLPairArr[A2], index: Int, value: PolygonLLPair[A2]): Unit =
   { arr.a1ArrayArrayDbl(index) = value.a1ArrayDbl ; arr.a2Array(index) = value.a2 }
 
-  override def buffGrow(buff: PolygonLLPairBuff[A2], value: PolygonLLPair[A2]): Unit = ???
   override def newBuff(length: Int): PolygonLLPairBuff[A2] = new PolygonLLPairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToBB(buff: PolygonLLPairBuff[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](buff.a1Buffer.toArray, buff.a2Buffer.toArray)
 
