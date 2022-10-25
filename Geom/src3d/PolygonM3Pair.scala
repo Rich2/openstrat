@@ -32,7 +32,6 @@ final class PolygonM3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override def arrSet(arr: PolygonM3PairArr[A2], index: Int, value: PolygonM3Pair[A2]): Unit =
   { arr.a1ArrayArrayDbl(index) = value.a1ArrayDbl ; arr.a2Array(index) = value.a2 }
 
-  //override def buffGrow(buff: PolygonM3PairBuff[A2], value: PolygonM3Pair[A2]): Unit = ???
   override def newBuff(length: Int): PolygonM3PairBuff[A2] = new PolygonM3PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToBB(buff: PolygonM3PairBuff[A2]): PolygonM3PairArr[A2] = new PolygonM3PairArr[A2](buff.a1Buffer.toArray, buff.a2Buffer.toArray)
 
@@ -50,5 +49,4 @@ class PolygonM3PairBuff[A2](val a1Buffer: ArrayBuffer[Array[Double]], val a2Buff
   override def fElemStr: PolygonM3Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonM3PairBuff"
   override def apply(index: Int): PolygonM3Pair[A2] = new PolygonM3Pair[A2](a1Buffer(index), a2Buffer(index))
-  override def grows(newElems: Arr[PolygonM3Pair[A2]]): Unit = ???
 }

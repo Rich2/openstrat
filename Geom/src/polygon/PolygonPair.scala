@@ -48,7 +48,6 @@ class PolygonPairBuff[A2](val a1Buffer: ArrayBuffer[Array[Double]], val a2Buffer
   override def fElemStr: PolygonPair[A2] => String = _.toString
   override def typeStr: String = "PolygonPairBuff"
   override def apply(index: Int): PolygonPair[A2] = new PolygonPair[A2](a1Buffer(index), a2Buffer(index))
-  override def grows(newElems: Arr[PolygonPair[A2]]): Unit = ???
 }
 
 object PolygonPairBuff
