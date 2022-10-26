@@ -78,17 +78,23 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
   }
 }
 
-trait DblNSeqLikeCommonBuilder[BB] extends ValueNCommonBuilder[BB]
+trait DblNSeqLikeCommonBuilder[BB] extends ValueNSeqLikeCommonBuilder[BB]
+
+trait DblNSeqLikeMapBuilder[B, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
+{
+  def fromDblArray(array: Array[Double]): BB
+  final override def arrUninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
+}
 
 /** Trait for creating the sequence builder type class instances for [[DblNArr]] final classes. Instances for the [[ArrMapBuilder]] type class, for
  *  classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeCommonBuilder[ArrB] with ValueNArrMapBuilder[B, ArrB]
+trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
 { type BuffT <: DblNBuff[B]
-  def fromDblArray(array: Array[Double]): ArrB
+
   def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
-  final override def arrUninitialised(length: Int): ArrB = fromDblArray(new Array[Double](length * elemProdSize))
+
   final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
@@ -96,7 +102,7 @@ trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeCo
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNArr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNArrFlatBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends ValueNCommonBuilder[ArrB] with ValueNArrFlatBuilder[B, ArrB]
+trait DblNArrFlatBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends ValueNSeqLikeCommonBuilder[ArrB] with ValueNArrFlatBuilder[B, ArrB]
 { type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT

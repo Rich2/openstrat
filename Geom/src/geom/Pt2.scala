@@ -270,10 +270,12 @@ object Pt2
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
-  implicit val polygonBuildImplicit: PolygonLikeMapBuilder[Pt2, Polygon] = new PolygonLikeMapBuilder[Pt2, PolygonGen]
+  implicit val polygonBuildImplicit: PolygonLikeMapBuilder[Pt2, Polygon] = new PolygonLikeMapBuilder[Pt2, PolygonGen] with Dbl2SeqLikeMapBuilder[Pt2, PolygonGen]
   { override type BuffT = Pt2Buff
 
     override def newPolygonT(length: Int): PolygonGen = PolygonGen.uninitialised(length)
+
+    override def fromDblArray(array: Array[Double]): PolygonGen = ???
 
     override def arrSet(arr: PolygonGen, index: Int, value: Pt2): Unit = arr.unsafeSetElem(index, value)
 

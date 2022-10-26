@@ -25,6 +25,9 @@ trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
+
+  /** Creates a new uninitialised [[Arr]] of type ArrB of thegiven length. */
+  def arrUninitialised(length: Int): BB
 }
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
@@ -33,8 +36,7 @@ trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
 trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
-{ /** Creates a new uninitialised [[Arr]] of type ArrB of thegiven length. */
-  def arrUninitialised(length: Int): ArrB
+{
 
   def arrSet(arr: ArrB, index: Int, value: B): Unit
 
