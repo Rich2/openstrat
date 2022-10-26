@@ -24,10 +24,10 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   }
 
   /** Maps the true values to a [[Arr]][B]. */
-  def truesMap[B, ArrB <: Arr[B]](f: HSide => B)(implicit gridSys: HGridSys, build: ArrBuilder[B, ArrB]): ArrB = truesMap(gridSys)(f)(build)
+  def truesMap[B, ArrB <: Arr[B]](f: HSide => B)(implicit gridSys: HGridSys, build: ArrMapBuilder[B, ArrB]): ArrB = truesMap(gridSys)(f)(build)
 
   /** Maps the true values to a [[Arr]][B]. */
-  def truesMap[B, ArrB <: Arr[B]](gridSys: HGridSys)(f: HSide => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  def truesMap[B, ArrB <: Arr[B]](gridSys: HGridSys)(f: HSide => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { var i = 0
     val buff = build.newBuff()
     gridSys.sidesForeach{hs =>

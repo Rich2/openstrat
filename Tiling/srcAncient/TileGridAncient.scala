@@ -103,7 +103,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
   }
 
   /** Map all Tiles to Array[B] with function. */
-  final def tilesMapAll[B, BB <: Arr[B]](f: TileT => B)(implicit build: ArrBuilder[B, BB]): BB =
+  final def tilesMapAll[B, BB <: Arr[B]](f: TileT => B)(implicit build: ArrMapBuilder[B, BB]): BB =
   {
     val res = build.arrUninitialised(tileNum)
     val count = 0
@@ -116,7 +116,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
     res
   }
 
-  def tilesFlatMapAll[B, BB <: Arr[B]](f: TileT => BB)(implicit build: ArrBuilder[B, BB]): BB =
+  def tilesFlatMapAll[B, BB <: Arr[B]](f: TileT => BB)(implicit build: ArrMapBuilder[B, BB]): BB =
   {
     val acc = build.newBuff()
     foreachTilesCoodAll{ tileCood =>
@@ -173,7 +173,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
     acc.toArrOld
   }*/
 
-  final def tilesMapOptionAll[A, AA <: Arr[A]](f: TileT => Option[A])(implicit build: ArrBuilder[A, AA]): AA =
+  final def tilesMapOptionAll[A, AA <: Arr[A]](f: TileT => Option[A])(implicit build: ArrMapBuilder[A, AA]): AA =
   { val buff = build.newBuff()
     foreachTileAll { t =>
       f(t) match {

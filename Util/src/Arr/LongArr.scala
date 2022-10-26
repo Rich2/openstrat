@@ -37,7 +37,7 @@ object LongArr
     }
 }
 
-object LongArrBuilder extends ArrBuilder[Long, LongArr] with ArrFlatBuilder[LongArr]
+object LongArrBuilder extends ArrMapBuilder[Long, LongArr] with ArrFlatBuilder[LongArr]
 { type BuffT = LongBuff
   override def arrUninitialised(length: Int): LongArr = new LongArr(new Array[Long](length))
   override def arrSet(arr: LongArr, index: Int, value: Long): Unit = arr.unsafeArray(index) = value

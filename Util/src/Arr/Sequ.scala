@@ -94,7 +94,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every
    *  element of this sequence. */
-  def map[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def map[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = ev.arrUninitialised(length)
     iForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
@@ -102,7 +102,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every
    * element of this sequence. */
-  def mapPair[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB = {
+  def mapPair[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB = {
     val res = ev.arrUninitialised(length)
     iForeach((i, a) => ev.arrSet(res, i, f(a)))
     res
@@ -114,7 +114,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection
    * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. This method should be overridden in sub
    * classes. */
-  def iMap[B, ArrB <: Arr[B]](f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def iMap[B, ArrB <: Arr[B]](f: (Int, A) => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = ev.arrUninitialised(length)
     iForeach((i, a) => ev.arrSet(res, i, f(i, a)))
     res
@@ -126,7 +126,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * parameter list, to set the start value of the index. Note the function signature follows the foreach based convention of putting the collection
    * element 2nd or last as seen for example in fold methods' (accumulator, element) => B signature. Ideally this method should be overridden in sub
    * classes. */
-  def iMap[B, ArrB <: Arr[B]](startindex: Int)(f: (Int, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def iMap[B, ArrB <: Arr[B]](startindex: Int)(f: (Int, A) => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = ev.arrUninitialised(length)
     iForeach(startindex)((i, a) => ev.arrSet(res, i, f(i, a)))
     res
@@ -178,7 +178,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
    * function from type A and type B to type C. */
-  def zipMap[B, C, ArrC <: Arr[C]](operator: Sequ[B])(f: (A, B) => C)(implicit ev: ArrBuilder[C, ArrC]): ArrC =
+  def zipMap[B, C, ArrC <: Arr[C]](operator: Sequ[B])(f: (A, B) => C)(implicit ev: ArrMapBuilder[C, ArrC]): ArrC =
   { val newLen = length.min(operator.length)
     val res = ev.arrUninitialised(newLen)
     var count = 0
@@ -192,7 +192,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Takes a second collection and third collections as parameters and zips the elements of this collection and the operand collections and applies
    *  the specialised map function from type A and type B and type C to type D. */
-  def zipMap2[B, C, D, ArrD <: Arr[D]](operator1: Sequ[B], operator2: Sequ[C])(f: (A, B, C) => D)(implicit ev: ArrBuilder[D, ArrD]): ArrD =
+  def zipMap2[B, C, D, ArrD <: Arr[D]](operator1: Sequ[B], operator2: Sequ[C])(f: (A, B, C) => D)(implicit ev: ArrMapBuilder[D, ArrD]): ArrD =
   { val newLen = length.min(operator1.length).min(operator2.length)
     val res = ev.arrUninitialised(newLen)
     var count = 0
@@ -207,7 +207,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   /* Maps from A to B like normal map,but has an additional accumulator of type C that is discarded once the traversal is completed. Note the function
    * signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'
    *  (accumulator, element) => B signature. */
-  def mapWithAcc[B, ArrB <: Arr[B], C](initC: C)(f: (C, A) => (B, C))(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def mapWithAcc[B, ArrB <: Arr[B], C](initC: C)(f: (C, A) => (B, C))(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = ev.arrUninitialised(length)
     var accC: C = initC
     iForeach({ (i, a) =>
@@ -218,7 +218,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  def eMap[B, ArrB <: Arr[B]](f: A => EMon[B])(implicit ev: ArrBuilder[B, ArrB]): EMon[ArrB] =
+  def eMap[B, ArrB <: Arr[B]](f: A => EMon[B])(implicit ev: ArrMapBuilder[B, ArrB]): EMon[ArrB] =
   { val acc = ev.newBuff()
     var continue = true
     var count = 0
@@ -239,7 +239,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** map 2 elements of A to 1 element of B. Ignores the last element on a collection of odd numbered length. */
-  def map2To1[B, ArrB <: Arr[B]](f: (A, A) => B)(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def map2To1[B, ArrB <: Arr[B]](f: (A, A) => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = ev.arrUninitialised(length)
     var count = 0
     while (count + 1  < length)
@@ -249,13 +249,13 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  def filter[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuilder[A, ArrA] @uncheckedVariance): ArrA =
+  def filter[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrMapBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => onlyIf(f(a), ev.buffGrow(buff, a)))
     ev.buffToBB(buff)
   }
 
-  def filterNot[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrBuilder[A, ArrA] @uncheckedVariance): ArrA =
+  def filterNot[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrMapBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => onlyIf(!f(a), ev.buffGrow(buff, a)))
     ev.buffToBB(buff)
@@ -268,7 +268,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Maps over a function from A to any Iterable and flattens the result into an [[RArr]][A]. */
-  def flatToIterableMap[B, ArrB <: Arr[B]](f: A => Iterable[B])(implicit ev: ArrBuilder[B, ArrB]): ArrB =
+  def flatToIterableMap[B, ArrB <: Arr[B]](f: A => Iterable[B])(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = ev.newBuff(length)
     foreach(a => ev.buffGrowIter(buff, f(a)))
     ev.buffToBB(buff)
@@ -430,7 +430,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** Collects values of B by applying partial function to only those elements of A, for which the PartialFunction is defined. */
-  def collect[B, BB <: Arr[B]](pf: PartialFunction[A, B])(implicit ev: ArrBuilder[B, BB]): BB =
+  def collect[B, BB <: Arr[B]](pf: PartialFunction[A, B])(implicit ev: ArrMapBuilder[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach{a => if (pf.isDefinedAt(a)) ev.buffGrow(acc, pf(a)) }
     ev.buffToBB(acc)
@@ -448,7 +448,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   }
 
   /** maps from A to EMon[B], collects the good values. */
-  def mapCollectGoods[B, BB <: Arr[B]](f: A => EMon[B])(implicit ev: ArrBuilder[B, BB]): BB =
+  def mapCollectGoods[B, BB <: Arr[B]](f: A => EMon[B])(implicit ev: ArrMapBuilder[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach(f(_).forGood(ev.buffGrow(acc, _)))
     ev.buffToBB(acc)
@@ -514,7 +514,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  def partition[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit build: ArrBuilder[A, ArrA] @uncheckedVariance): (ArrA, ArrA) =
+  def partition[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit build: ArrMapBuilder[A, ArrA] @uncheckedVariance): (ArrA, ArrA) =
   { val buff1: build.BuffT = build.newBuff()
     val buff2: build.BuffT = build.newBuff()
     foreach{a => if (f(a)) build.buffGrow(buff1, a) else build.buffGrow(buff2,a) }

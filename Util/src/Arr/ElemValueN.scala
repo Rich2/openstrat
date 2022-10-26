@@ -85,9 +85,9 @@ trait ValueNArr[A <: ElemValueN] extends Any with ArrSingle[A] with ValueNSeqLik
   }
 }
 
-/** Trait for creating the ArrTBuilder. Instances for the [[ArrBuilder]] type class, for classes / traits you control, should go in the companion
+/** Trait for creating the ArrTBuilder. Instances for the [[ArrMapBuilder]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNArrBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ArrBuilder[B, ArrB]
+trait ValueNArrBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ArrMapBuilder[B, ArrB]
 { type BuffT <: ValueNBuff[B]
   def elemProdSize: Int
 }

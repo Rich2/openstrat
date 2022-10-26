@@ -19,7 +19,7 @@ trait ArrayDblArr[A <: ArrayDblBacked] extends Any with Arr[A]
 }
 
 /** This is the builder for Arrays Arrays of Double. It is not the builder for Arrays of Double.  */
-trait ArrayDblArrBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends ArrBuilder[A, ArrT]
+trait ArrayDblArrBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends ArrMapBuilder[A, ArrT]
 { @inline def fromArray(array: Array[Array[Double]]): ArrT
   type BuffT <: ArrayDblBuff[A]
   @inline override def arrUninitialised(length: Int): ArrT = fromArray(new Array[Array[Double]](length))

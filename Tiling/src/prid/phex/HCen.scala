@@ -78,7 +78,7 @@ object HCen
   /** implicit [[Persist]] instance / evidence for [[HCen]]. */
   implicit val persistEv: Persist[HCen] = new PersistShowInt2[HCen]("HCen", "r", "c", HCen(_, _))
 
-  /** Implicit [[ArrBuilder]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
+  /** Implicit [[ArrMapBuilder]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
   implicit val buildEv: Int2ArrBuilder[HCen, HCenArr] = new Int2ArrBuilder[HCen, HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)

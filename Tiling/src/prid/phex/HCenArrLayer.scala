@@ -30,7 +30,7 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
   //    def prepends(value : A, roords: Roord*)(implicit grid: TileGridOld): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
 
   /** flatMaps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
-  def gridHeadsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grider: HGridSys, build: ArrBuilder[B, BB]): BB =
+  def gridHeadsMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, BB]): BB =
   {
     val buff = build.newBuff()
     grider.foreach { r =>

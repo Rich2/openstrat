@@ -24,7 +24,7 @@ object LineSegHC
 { /** Factory apply method to create a hex coordinate line segment a [[LineSegHC]] from the start and end hex coordinates [[HCoord]]s. */
   def apply(hCoord1: HCoord, hCoord2: HCoord): LineSegHC = new LineSegHC(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)
 
-  /** Implicit instance / evidence for [[ArrBuilder]] type class. */
+  /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
   implicit val buildEv: Int4ArrBuilder[LineSegHC, LineSegHCArr] = new Int4ArrBuilder[LineSegHC, LineSegHCArr]
   { type BuffT = LineSegHCBuff
     override def fromIntArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)

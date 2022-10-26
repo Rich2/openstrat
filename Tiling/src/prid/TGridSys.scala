@@ -19,7 +19,7 @@ trait TGridSys extends Any
   def foreachRow(f: Int => Unit): Unit
 
   /** maps over each row number. */
-  final def mapRows[B, BB <: Arr[B]](f: Int => B)(implicit build: ArrBuilder[B, BB]): BB =
+  final def mapRows[B, BB <: Arr[B]](f: Int => B)(implicit build: ArrMapBuilder[B, BB]): BB =
   { val res = build.arrUninitialised(numTileRows)
     var index = 0
     foreachRow{r => res.unsafeSetElem(index, f(r)); index += 1 }

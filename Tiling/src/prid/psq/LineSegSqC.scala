@@ -24,7 +24,7 @@ object LineSegSqC
 { /** Factory apply method to create a hex coordinate line segment a [[LineSegSqC]] from the start and end hex coordinates [[SqCoord]]s. */
   def apply(hCoord1: SqCoord, hCoord2: SqCoord): LineSegSqC = new LineSegSqC(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)
 
-  /** Implicit instance / evidence for [[ArrBuilder]] type class. */
+  /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
   implicit val buildEv: Int4ArrBuilder[LineSegSqC, LineSegSqCArr] = new Int4ArrBuilder[LineSegSqC, LineSegSqCArr]
   { type BuffT = LineSegSqCBuff
     override def fromIntArray(array: Array[Int]): LineSegSqCArr = new LineSegSqCArr(array)

@@ -31,16 +31,16 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
 
   /** Returns the specialist sequence collection for the A2s, as determined by implicit look up. Probably not required most of the time but the method
    *  is included for completeness.  */
-  def a2Arr[A2Arr <: Arr[A2]](implicit build: ArrBuilder[A2, A2Arr]): A2Arr = a2Array.mapArr(a2 => a2)
+  def a2Arr[A2Arr <: Arr[A2]](implicit build: ArrMapBuilder[A2, A2Arr]): A2Arr = a2Array.mapArr(a2 => a2)
 
   /** Maps the first component of the pairs, dropping the second. */
-  def a1Map[B, ArrB <: Arr[B]](f: A1 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a1Arr.map(f)
+  def a1Map[B, ArrB <: Arr[B]](f: A1 => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = a1Arr.map(f)
 
   /** Maps the second component of the pairs, dropping the first. */
-  def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB = a2Array.mapArr(f)
+  def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = a2Array.mapArr(f)
 
   /** Just a map method that avoids unnecessarily constructing the pairs and takes a function from the components. */
-  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB ={
+  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB ={
     var i = 0
     val res = builder.arrUninitialised(length)
     while(i < length)
@@ -106,11 +106,11 @@ trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends Any with Buff[A]
 
 /** Builder for [[ElemPair]]s. As with all builders, we use B as the type parameter, because builders are nearly always used with some kind of map /
  * flatMap methods where B corresponds to the map function f: A => B. */
-trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends ArrBuilder[B, ArrB]
+trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends ArrMapBuilder[B, ArrB]
 { type BuffT <: PairBuff[B1, B2, B]
 
   /** Builder for an Arr of the first element of the pair. */
-  def b1ArrBuilder: ArrBuilder[B1, ArrB1]
+  def b1ArrBuilder: ArrMapBuilder[B1, ArrB1]
 
   implicit def b2ClassTag: ClassTag[B2]
 

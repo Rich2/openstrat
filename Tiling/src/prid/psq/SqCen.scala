@@ -53,7 +53,7 @@ object SqCen
 
   val vertsOfSq00: SqVertArr = SqVertArr(s00v1, s00v2, s00v3, s00v4)
 
-  /** Implicit [[ArrBuilder]] type class instance / evidence for [[SqCen]] and [[SqCens]]. */
+  /** Implicit [[ArrMapBuilder]] type class instance / evidence for [[SqCen]] and [[SqCens]]. */
   implicit val buildEv: Int2ArrBuilder[SqCen, SqCens] = new Int2ArrBuilder[SqCen, SqCens]
   { type BuffT = SqCenBuff
     override def fromIntArray(array: Array[Int]): SqCens = new SqCens(array)

@@ -150,10 +150,10 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     }
   }
 
-  def oldSegsMap[B, ArrB <: Arr[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], gridSys: HGridSys): ArrB =
+  def oldSegsMap[B, ArrB <: Arr[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB], gridSys: HGridSys): ArrB =
     oldSegsMap(start.r, start.c)(f)(build, gridSys)
 
-  def oldSegsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB], grider: HGridSys): ArrB =
+  def oldSegsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB], grider: HGridSys): ArrB =
   { val res = build.arrUninitialised(segsNum)
     var count = 0
     oldSegsForeach(startR, startC){ s =>
@@ -163,10 +163,10 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     res
   }
 
-  def segsMap[B, ArrB <: Arr[B]](start: HCen, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  def segsMap[B, ArrB <: Arr[B]](start: HCen, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
     segsMap(start.r, start.c, trans)(f)(build)
 
-  def segsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  def segsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = build.arrUninitialised(segsNum)
     var count = 0
     segsForeach(startR, startC, trans) { s =>

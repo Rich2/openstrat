@@ -25,11 +25,11 @@ trait Unshow[+T] extends TypeStr
   }
 
   /** Produces an ArrImut of the UnShow type from Statements (Refs[Statement]. */
-  def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance): ArrT =
+  def valuesFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: ArrMapBuilder[T, ArrT] @uncheckedVariance): ArrT =
     sts.mapCollectGoods(fromStatement)(arrBuild)
 
   /** Finds value of this UnShow type, returns error if more than one match. */
-  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: ArrBuilder[T, ArrT] @uncheckedVariance):
+  def findUniqueTFromStatements[ArrT <: Arr[T] @uncheckedVariance](sts: RArr[Statement])(implicit arrBuild: ArrMapBuilder[T, ArrT] @uncheckedVariance):
     EMon[T] = valuesFromStatements(sts) match
   { case s if s.length == 0 => TextPosn.emptyError("No values of type found")
     case s if s.length == 1 => Good(s.head)

@@ -80,7 +80,7 @@ object StringArr
     }
 }
 
-object StringArrBuilder extends ArrBuilder[String, StringArr] with ArrFlatBuilder[StringArr]
+object StringArrBuilder extends ArrMapBuilder[String, StringArr] with ArrFlatBuilder[StringArr]
 { type BuffT = StringBuff
   override def arrUninitialised(length: Int): StringArr = new StringArr(new Array[String](length))
   override def arrSet(arr: StringArr, index: Int, value: String): Unit = arr.unsafeArray(index) = value

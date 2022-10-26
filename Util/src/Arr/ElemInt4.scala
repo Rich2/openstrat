@@ -51,7 +51,7 @@ trait Int4Arr[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNArr[A]
   def head4: Int = unsafeArray(3)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrBuilder]] type
+/** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait Int4ArrBuilder[B <: ElemInt4, ArrB <: Int4Arr[B]] extends IntNArrBuilder[B, ArrB]

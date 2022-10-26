@@ -7,7 +7,7 @@ import reflect.ClassTag, annotation.unused
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait ArrBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
+trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
 { /** Creates a new uninitialised [[Arr]] of type ArrB of thegiven length. */
   def arrUninitialised(length: Int): ArrB
 
@@ -33,14 +33,14 @@ trait ArrBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
 }
 
 /** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */
-object ArrBuilder extends ArrBuilderPriority2
-{ implicit val intsImplicit: ArrBuilder[Int, IntArr] = IntArrBuilder
-  implicit val doublesImplicit: ArrBuilder[Double, DblArr] = DblArrBuilder
-  implicit val longImplicit: ArrBuilder[Long, LongArr] = LongArrBuilder
-  implicit val floatImplicit: ArrBuilder[Float, FloatArr] = FloatArrBuilder
-  implicit val stringImplicit: ArrBuilder[String, StringArr] = StringArrBuilder
-  implicit val booleansImplicit: ArrBuilder[Boolean, BooleanArr] = BooleanArrBuilder
-  implicit val anyImplicit: ArrBuilder[Any, AnyArr] = AnyArrBuild
+object ArrMapBuilder extends ArrBuilderPriority2
+{ implicit val intsImplicit: ArrMapBuilder[Int, IntArr] = IntArrBuilder
+  implicit val doublesImplicit: ArrMapBuilder[Double, DblArr] = DblArrBuilder
+  implicit val longImplicit: ArrMapBuilder[Long, LongArr] = LongArrBuilder
+  implicit val floatImplicit: ArrMapBuilder[Float, FloatArr] = FloatArrBuilder
+  implicit val stringImplicit: ArrMapBuilder[String, StringArr] = StringArrBuilder
+  implicit val booleansImplicit: ArrMapBuilder[Boolean, BooleanArr] = BooleanArrBuilder
+  implicit val anyImplicit: ArrMapBuilder[Any, AnyArr] = AnyArrBuild
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. Traits that extend SpecialT are excluded from
@@ -52,5 +52,5 @@ trait ArrBuilderPriority2
   /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
    * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
    * specialist Arr classes. */
-  implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrBuilder[B, RArr[B]] = new ArrTBuild[B]
+  implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrMapBuilder[B, RArr[B]] = new ArrTBuild[B]
 }

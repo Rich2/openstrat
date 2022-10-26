@@ -134,7 +134,7 @@ trait HGridSys extends Any with TGridSys
 
   /** Maps over the [[HCen]] hex centre tile coordinates. B is used rather than A as a type parameter, as this method maps from HCen => B,
    *  corresponding to the standard Scala map function of A => B. */
-  final def map[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  final def map[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = build.arrUninitialised(numTiles)
     iForeach((hCen, i) => res.unsafeSetElem(i, f(hCen)))
     res
@@ -142,7 +142,7 @@ trait HGridSys extends Any with TGridSys
 
   /** Maps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
    * TileGrid structure is lost in the flatMap operation. */
-  final def optMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+  final def optMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff(numTiles)
     foreach { hCen => f(hCen).foreach(build.buffGrow(buff, _)) }
     build.buffToBB(buff)
@@ -199,7 +199,7 @@ trait HGridSys extends Any with TGridSys
   def edgesForeach(f: HSide => Unit): Unit
 
   /** maps over each Hex Side's coordinate [[HSide]] in the hex grid system. */
-  final def sidesMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  final def sidesMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: ArrMapBuilder[B, ArrT]): ArrT =
   { val res: ArrT = build.arrUninitialised(numSides)
     var i = 0
     sidesForeach{hs => res.unsafeSetElem(i, f(hs)); i += 1 }
@@ -207,7 +207,7 @@ trait HGridSys extends Any with TGridSys
   }
 
   /** maps over each the grid systems link / inner side's coordinate [[HSide]]. */
-  final def linksMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  final def linksMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: ArrMapBuilder[B, ArrT]): ArrT =
   { val res: ArrT = build.arrUninitialised(numInnerSides)
     var i = 0
     linksForeach{ hs => res.unsafeSetElem(i, f(hs)); i += 1 }
@@ -215,7 +215,7 @@ trait HGridSys extends Any with TGridSys
   }
 
   /** maps over each the grid systems outer side's coordinate [[HSide]]. */
-  final def edgesMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: ArrBuilder[B, ArrT]): ArrT =
+  final def edgesMap[B, ArrT <: Arr[B]](f: HSide => B)(implicit build: ArrMapBuilder[B, ArrT]): ArrT =
   { val res: ArrT = build.arrUninitialised(numOuterSides)
     var i = 0
     edgesForeach{ hs => res.unsafeSetElem(i, f(hs)); i += 1 }
@@ -237,7 +237,7 @@ trait HGridSys extends Any with TGridSys
   }
 
   /** OptMaps over each inner hex Side's coordinate [[HSide]]. */
-  final def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+  final def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff()
     linksForeach { hs => f(hs).foreach(build.buffGrow(buff, _)) }
     build.buffToBB(buff)

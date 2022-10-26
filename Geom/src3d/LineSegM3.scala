@@ -37,7 +37,7 @@ object LineSegM3
    def apply(pStart: PtM3, pEnd: PtM3): LineSegM3 = new LineSegM3(pStart.xMetres, pStart.yMetres, pStart.zMetres,
        pEnd.xMetres, pEnd.yMetres, pEnd.zMetres)
 
-  /** Implicit instance / evidence for [[ArrBuilder]] for [[LineSegM3]], [[LineSegM3Arr]] type class. */
+  /** Implicit instance / evidence for [[ArrMapBuilder]] for [[LineSegM3]], [[LineSegM3Arr]] type class. */
   implicit val buildEv: Dbl6ArrBuilder[LineSegM3, LineSegM3Arr] = new Dbl6ArrBuilder[LineSegM3, LineSegM3Arr]
   { type BuffT = LineSegM3Buff
     override def fromDblArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)

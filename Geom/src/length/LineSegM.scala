@@ -28,7 +28,7 @@ object LineSegM
     def /(operand: Length): LineSeg = LineSeg(thisSeg.startPt / operand, thisSeg.endPt / operand)
   }
 
-  /** Implicit instance / evidence for [[ArrBuilder]] type class. */
+  /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
   implicit val buildEv: Dbl4ArrBuilder[LineSegM, LineSegMArr] = new Dbl4ArrBuilder[LineSegM, LineSegMArr]
   { type BuffT = LineSegMBuff
     override def fromDblArray(array: Array[Double]): LineSegMArr = new LineSegMArr(array)

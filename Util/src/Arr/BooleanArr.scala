@@ -41,7 +41,7 @@ object BooleanArr
   def ofLength(length: Int): BooleanArr = new BooleanArr(new Array[Boolean](length))
 }
 
-object BooleanArrBuilder extends ArrBuilder[Boolean, BooleanArr] with ArrFlatBuilder[BooleanArr]
+object BooleanArrBuilder extends ArrMapBuilder[Boolean, BooleanArr] with ArrFlatBuilder[BooleanArr]
 { type BuffT = BooleanBuff
   override def arrUninitialised(length: Int): BooleanArr = new BooleanArr(new Array[Boolean](length))
   override def arrSet(arr: BooleanArr, index: Int, value: Boolean): Unit = arr.unsafeArray(index) = value

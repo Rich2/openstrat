@@ -32,7 +32,7 @@ object TransAxes
     override def rotate270(obj: T): T = obj.rotate270.asInstanceOf[T]
   }
 
-  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: ArrBuilder[A, AA], evA: TransAxes[A]): TransAxes[AA] = new TransAxes[AA]
+  implicit def arrImplicit[A, AA <: Arr[A]](implicit build: ArrMapBuilder[A, AA], evA: TransAxes[A]): TransAxes[AA] = new TransAxes[AA]
   { override def negYT(obj: AA): AA = obj.map(evA.negYT(_))
     override def negXT(obj: AA): AA = obj.map(evA.negXT(_))
     override def rotate90(obj: AA): AA = obj.map(evA.rotate90)

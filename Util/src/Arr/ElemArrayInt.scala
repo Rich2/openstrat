@@ -26,7 +26,7 @@ trait ArrayIntArr[A <: ArrayIntBacked] extends Any with Arr[A]
 }
 
 /** This is the builder for Arrays Arrays of Int. It is not the builder for Arrays of Int.  */
-trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends ArrBuilder[A, ArrT]
+trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends ArrMapBuilder[A, ArrT]
 { @inline def fromArray(array: Array[Array[Int]]): ArrT
   type BuffT <: ArrayIntBuff[A]
   @inline override def arrUninitialised(length: Int): ArrT = fromArray(new Array[Array[Int]](length))

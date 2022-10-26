@@ -37,7 +37,7 @@ object AnyArr
     }
 }
 
-object AnyArrBuild extends ArrBuilder[Any, AnyArr] with ArrFlatBuilder[AnyArr]
+object AnyArrBuild extends ArrMapBuilder[Any, AnyArr] with ArrFlatBuilder[AnyArr]
 { type BuffT = AnyBuff
   override def arrUninitialised(length: Int): AnyArr = new AnyArr(new Array[Any](length))
   override def arrSet(arr: AnyArr, index: Int, value: Any): Unit = arr.unsafeArray(index) = value

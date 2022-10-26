@@ -63,7 +63,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
    * for the [[Some]] values. */
-  def hcMap[B, ArrT <: Arr[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrT]): ArrT =
+  def hcMap[B, ArrT <: Arr[B]](fNone: => HCen => B)(fSome: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     grider.foreach { hc =>
       val a = unsafeArr(grider.arrIndex(hc))
@@ -105,7 +105,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Drops the [[None]] values. Maps the [[Some]]'s value with the corresponding [[HCen]] to value of type B. Returns a [[Seqimut]] of length between
    * 0 and the length of this [[HCenOptLayer]]. */
-  def someHCMap[B, ArrB <: Arr[B]](f: (A, HCen) => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
+  def someHCMap[B, ArrB <: Arr[B]](f: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
     grider.foreach { hc =>
@@ -136,12 +136,12 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Uses projection to map the Some data value with the corresponing [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    *  most cases B will be a [[GraphicElem]] or a subtype. */
-  def projSomeHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
+  def projSomeHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
     projSomeHcPtMap(proj)(f)
 
   /** Uses projection to map the Some data value with the corresponing [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
-  def projSomeHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB =
+  def projSomeHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
     proj.gChild.foreach { hc =>
       val a: A = unsafeArr(proj.parent.arrIndex(hc))
@@ -155,7 +155,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Uses this and a second [[HCenOptLayer]] of type B. Drops all values where either or both [[HCenOptLayer]] have [[None]] values. Maps the
    *  corresponding values of the [[Some]]s to type C. Returns a [[Arr]] of length bwteen 0 na d the length of the original [[HCenOptLayer]]s. */
-  def zipSomesMap[B <: AnyRef, C, ArrC <: Arr[C]](optArrB: HCenOptLayer[B])(f: (A, B) => C)(implicit gridSys: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
+  def zipSomesMap[B <: AnyRef, C, ArrC <: Arr[C]](optArrB: HCenOptLayer[B])(f: (A, B) => C)(implicit gridSys: HGridSys, build: ArrMapBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
     gridSys.foreach { hc =>
@@ -172,7 +172,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
   /** Uses this and a second [[HCenOptLayer]] of type B, combining corresponding pairs of [[Some]] values with the corresponding [[HCen]] and apping
    * to a value of type C. Returns a [[Arr]] with a length between 0 and the length of the original [[HCenOptDGtid]] data grids. */
   def zipSomesHCMap[B <: AnyRef, C, ArrC <: Arr[C]](optArrB: HCenOptLayer[B])(f: (A, B, HCen) => C)(
-    implicit grider: HGridSys, build: ArrBuilder[C, ArrC]): ArrC =
+    implicit grider: HGridSys, build: ArrMapBuilder[C, ArrC]): ArrC =
   { val buff = build.newBuff()
 
     grider.foreach { hc =>
@@ -188,7 +188,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
 
   /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to type B. Returns
    *  a [[Arr]] of length between 0 and the length of this [[HCenOptLayer]]. */
-  def noneHCMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit grider: HGridSys, build: ArrBuilder[B, ArrB]): ArrB =
+  def noneHCMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
     grider.foreach { r =>
@@ -201,10 +201,10 @@ class HCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TCe
     build.buffToBB(buff)
   }
 
-  def projNoneHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrBuilder[B, ArrB]): ArrB =
+  def projNoneHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
     projNoneHcPtMap(proj)(f)
 
-  def projNoneHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: ArrBuilder[B, ArrB]): ArrB = {
+  def projNoneHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff()
 
     proj.gChild.foreach { hc =>

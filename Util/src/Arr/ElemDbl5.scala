@@ -52,7 +52,7 @@ trait Dbl5Arr[A <: ElemDbl5] extends Any with DblNArr[A] with Dbl5SeqLike[A]
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrBuilder]] type class, for classes /
+/** Trait for creating the ArrTBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl5]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Dbl5ArrBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrBuilder[B, ArrB]
@@ -64,7 +64,7 @@ trait Dbl5ArrBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrBuilder[B
     arr.unsafeArray(index * 5 + 3) = value.dbl4;  arr.unsafeArray(index * 5 + 4) = value.dbl5
   }
 }
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrBuilder]] type
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl5]]. Instances for
  *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */

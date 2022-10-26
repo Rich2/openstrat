@@ -38,7 +38,7 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
   }
 
   /** Maps the [[LatLong]] values of each vertex to an immutable Array like sequence of type B. */
-  override def vertsMap[B, ArrB <: Arr[B]](f: LatLong => B)(implicit builder: ArrBuilder[B, ArrB]): ArrB =
+  override def vertsMap[B, ArrB <: Arr[B]](f: LatLong => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = builder.arrUninitialised(vertsNum)
     var count = 0
     vertsForeach{ v =>
@@ -67,7 +67,7 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
 object PolygonLL extends Dbl2SeqLikeCompanion[LatLong, PolygonLL]
 { override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
-  implicit val arrBuildImplicit: ArrBuilder[PolygonLL, PolygonLLArr] = new ArrBuilder[PolygonLL, PolygonLLArr] {
+  implicit val arrBuildImplicit: ArrMapBuilder[PolygonLL, PolygonLLArr] = new ArrMapBuilder[PolygonLL, PolygonLLArr] {
     override type BuffT = PolygonLLBuff
 
     override def newBuff(length: Int): PolygonLLBuff = PolygonLLBuff(length)
