@@ -156,7 +156,7 @@ object LatLong
   implicit val persistImplict: Persist[LatLong] = new PersistShowDbl2[LatLong]("LatLong", "lat", "long", LatLong.degs)
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
-  implicit val arrBuildImplicit: Dbl2ArrBuilder[LatLong, LatLongArr] = new Dbl2ArrBuilder[LatLong, LatLongArr]
+  implicit val arrBuildImplicit: Dbl2ArrMapBuilder[LatLong, LatLongArr] = new Dbl2ArrMapBuilder[LatLong, LatLongArr]
   { override type BuffT = BuffLatLong
     override def fromDblArray(array: Array[Double]): LatLongArr = new LatLongArr(array)
     override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffLatLong = new BuffLatLong(inp)

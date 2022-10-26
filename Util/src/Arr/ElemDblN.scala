@@ -70,7 +70,7 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++(operand: ThisT)(implicit build: DblNArrBuilder[A, ThisT]): ThisT = {
+  def ++(operand: ThisT)(implicit build: DblNArrMapBuilder[A, ThisT]): ThisT = {
     val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)
     operand.unsafeArray.copyToArray(newArray, unsafeLength)
@@ -81,7 +81,7 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
 /** Trait for creating the sequence builder type class instances for [[DblNArr]] final classes. Instances for the [[ArrMapBuilder]] type class, for
  *  classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait DblNArrBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends ValueNArrBuilder[B, ArrB]
+trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends ValueNArrMapBuilder[B, ArrB]
 { type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): ArrB
   def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffT
@@ -112,7 +112,7 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
   def toArray: Array[Double] = unsafeBuffer.toArray[Double]
   def grow(newElem: A): Unit
   override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.unsafeArray); () }
-  def toArr(implicit build: DblNArrBuilder[A, ArrT]): ArrT = build.fromDblArray(unsafeBuffer.toArray)
+  def toArr(implicit build: DblNArrMapBuilder[A, ArrT]): ArrT = build.fromDblArray(unsafeBuffer.toArray)
 }
 
 /** Helper trait for Companion objects of [[DblNArr]] classes. */

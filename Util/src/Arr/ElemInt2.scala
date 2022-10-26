@@ -41,7 +41,7 @@ trait Int2Arr[A <: ElemInt2] extends Any with IntNArr[A] with Int2SeqLike[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int2Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int2ArrBuilder[B <: ElemInt2, ArrB <: Int2Arr[B]] extends IntNArrBuilder[B, ArrB]
+trait Int2ArrMapBuilder[B <: ElemInt2, ArrB <: Int2Arr[B]] extends IntNArrMapBuilder[B, ArrB]
 { type BuffT <: Int2Buff[B]
 
   final override def elemProdSize: Int = 2

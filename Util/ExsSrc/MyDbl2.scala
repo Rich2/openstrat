@@ -15,7 +15,7 @@ case class MyDbl2(a: Double, b: Double) extends ElemDbl2
 
 object MyDbl2
 {
-  implicit val arrBuilderImplicit: Dbl2ArrBuilder[MyDbl2, MyDbl2s] = new Dbl2ArrBuilder[MyDbl2, MyDbl2s]
+  implicit val arrBuilderImplicit: Dbl2ArrMapBuilder[MyDbl2, MyDbl2s] = new Dbl2ArrMapBuilder[MyDbl2, MyDbl2s]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
     def fromDblBuffer(buffer: ArrayBuffer[Double]): MinesBuff = new MinesBuff(buffer)

@@ -29,7 +29,7 @@ object LineSegM
   }
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
-  implicit val buildEv: Dbl4ArrBuilder[LineSegM, LineSegMArr] = new Dbl4ArrBuilder[LineSegM, LineSegMArr]
+  implicit val buildEv: Dbl4ArrMapBuilder[LineSegM, LineSegMArr] = new Dbl4ArrMapBuilder[LineSegM, LineSegMArr]
   { type BuffT = LineSegMBuff
     override def fromDblArray(array: Array[Double]): LineSegMArr = new LineSegMArr(array)
     def fromDblBuffer(buffer: ArrayBuffer[Double]): LineSegMBuff = new LineSegMBuff(buffer)

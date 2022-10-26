@@ -59,7 +59,7 @@ object PtM2
 
   implicit val PersistImplicit: Persist[PtM2] = new PersistShowDbl2[PtM2]("Metres2", "x", "y", new PtM2(_, _))
 
-  implicit val builderImplicit: Dbl2ArrBuilder[PtM2, PtMetre2Arr] = new Dbl2ArrBuilder[PtM2, PtMetre2Arr]
+  implicit val builderImplicit: Dbl2ArrMapBuilder[PtM2, PtMetre2Arr] = new Dbl2ArrMapBuilder[PtM2, PtMetre2Arr]
   { type BuffT = BuffPtMetre2
     override def fromDblArray(array: Array[Double]): PtMetre2Arr = new PtMetre2Arr(array)
     def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffPtMetre2 = new BuffPtMetre2(buffer)

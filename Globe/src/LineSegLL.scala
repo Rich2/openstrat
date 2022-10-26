@@ -19,7 +19,7 @@ object LineSegLL
 { def apply(startPt: LatLong, endPt: LatLong): LineSegLL = new LineSegLL(startPt.latSecs, startPt.longSecs, endPt.latSecs, endPt.longSecs)
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
-  implicit val buildEv: Dbl4ArrBuilder[LineSegLL, LineSegLLArr] = new Dbl4ArrBuilder[LineSegLL, LineSegLLArr]
+  implicit val buildEv: Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr] = new Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr]
   { type BuffT = LineSegLLBuff
     override def fromDblArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
     def fromDblBuffer(buffer: ArrayBuffer[Double]): LineSegLLBuff = new LineSegLLBuff(buffer)

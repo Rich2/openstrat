@@ -53,7 +53,7 @@ trait Int3Arr[A <: ElemInt3] extends Any with IntNArr[A] with Int3SeqLike[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Int3Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int3Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int3ArrBuilder[B <: ElemInt3, ArrB <: Int3Arr[B]] extends IntNArrBuilder[B, ArrB]
+trait Int3ArrMapBuilder[B <: ElemInt3, ArrB <: Int3Arr[B]] extends IntNArrMapBuilder[B, ArrB]
 { type BuffT <: Int3Buff[B]
 
   final override def elemProdSize: Int = 3

@@ -43,7 +43,7 @@ object HDirn
 
   def full: HDirnArr = HDirnArr(HexUR, HexRt, HexDR, HexDL, HStepLt, HStepUL)
 
-  implicit val buildEv: Int1ArrBuilder[HDirn, HDirnArr] = new Int1ArrBuilder[HDirn, HDirnArr]
+  implicit val buildEv: Int1ArrMapBuilder[HDirn, HDirnArr] = new Int1ArrMapBuilder[HDirn, HDirnArr]
   { override type BuffT = HStepBuff
     override def fromIntArray(array: Array[Int]): HDirnArr = new HDirnArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)

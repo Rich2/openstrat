@@ -55,7 +55,7 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
 
   /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
    * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++(operand: ThisT)(implicit build: IntNArrBuilder[A, ThisT]): ThisT =
+  def ++(operand: ThisT)(implicit build: IntNArrMapBuilder[A, ThisT]): ThisT =
   { val newArray: Array[Int] = new Array(unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)
     operand.unsafeArray.copyToArray(newArray, unsafeLength)
@@ -72,7 +72,7 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
 /** Trait for creating the ArrTBuilder type class instances for [[IntNArr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait IntNArrBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrBuilder[B, ArrB]
+trait IntNArrMapBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrMapBuilder[B, ArrB]
 { type BuffT <:  IntNBuff[B]
   def fromIntArray(array: Array[Int]): ArrB
 

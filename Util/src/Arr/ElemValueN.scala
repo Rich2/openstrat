@@ -85,20 +85,6 @@ trait ValueNArr[A <: ElemValueN] extends Any with ArrSingle[A] with ValueNSeqLik
   }
 }
 
-/** Trait for creating the ArrTBuilder. Instances for the [[ArrMapBuilder]] type class, for classes / traits you control, should go in the companion
- *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNArrBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ArrMapBuilder[B, ArrB]
-{ type BuffT <: ValueNBuff[B]
-  def elemProdSize: Int
-}
-
-/** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNArr]] final classes. Instances for the [[ArrFlatBuilder] should go in
- *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
- *  function. */
-trait ValueNArrFlatBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ArrFlatBuilder[ArrB]
-{ def elemProdSize: Int
-}
-
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
 trait ValueNBuff[A <: ElemValueN] extends Any with Buff[A]
@@ -108,6 +94,21 @@ trait ValueNBuff[A <: ElemValueN] extends Any with Buff[A]
   def grows(newElems: ArrT): Unit
   override def fElemStr: A => String = _.toString
 }
+
+trait ValueNCommonBuilder[BB] extends SeqLikeCommonBuilder[BB]
+{ def elemProdSize: Int
+}
+
+/** Trait for creating the ArrTBuilder. Instances for the [[ArrMapBuilder]] type class, for classes / traits you control, should go in the companion
+ *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait ValueNArrMapBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ValueNCommonBuilder[ArrB] with ArrMapBuilder[B, ArrB]
+{ type BuffT <: ValueNBuff[B]
+}
+
+/** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNArr]] final classes. Instances for the [[ArrFlatBuilder] should go in
+ *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
+ *  function. */
+trait ValueNArrFlatBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ValueNCommonBuilder[ArrB] with ArrFlatBuilder[ArrB]
 
 /** Class to Persist specialised for [[DatValueNs]] cLasses. */
 trait ValueNSeqLikePersist[A <: ElemValueN, M <: ValueNSeqLike[A]] extends PersistCompound[M]

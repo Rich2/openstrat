@@ -39,7 +39,7 @@ object SqVert
     new SqVert(r.toLong.<<(32) | (c & 0xFFFFFFFFL))
   else excep(s"$r, $c is not a valid Hex vertex tile coordinate.")
 
-  implicit val sqVertsBuildImplicit: Int2ArrBuilder[SqVert, SqVertArr] = new Int2ArrBuilder[SqVert, SqVertArr]
+  implicit val sqVertsBuildImplicit: Int2ArrMapBuilder[SqVert, SqVertArr] = new Int2ArrMapBuilder[SqVert, SqVertArr]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)

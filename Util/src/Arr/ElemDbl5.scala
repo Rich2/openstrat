@@ -55,7 +55,7 @@ trait Dbl5Arr[A <: ElemDbl5] extends Any with DblNArr[A] with Dbl5SeqLike[A]
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl5]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl5ArrBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrBuilder[B, ArrB]
+trait Dbl5ArrMapBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl5Buff[B]
   final override def elemProdSize = 5
 
