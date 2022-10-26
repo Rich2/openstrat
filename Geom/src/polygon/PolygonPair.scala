@@ -34,7 +34,7 @@ final class PolygonPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   { arr.a1ArrayArrayDbl(index) = value.a1ArrayDbl ; arr.a2Array(index) = value.a2 }
   override def newBuff(length: Int): PolygonPairBuff[A2] = PolygonPairBuff(length)
   override def buffToBB(buff: PolygonPairBuff[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](buff.a1Buffer.toArray, buff.a2Buffer.toArray)
-  override def b1Builder: PolygonLikeBuilder[Pt2, Polygon] = Pt2.polygonBuildImplicit
+  override def b1Builder: PolygonLikeMapBuilder[Pt2, Polygon] = Pt2.polygonBuildImplicit
   override def b1ArrBuilder: ArrMapBuilder[Polygon, PolygonArr] = Polygon.arrBuildImplicit
   override def pairArrBuilder(b1Arr: PolygonArr, b2s: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
   override def newB1Buff(): PolygonBuff = PolygonBuff()

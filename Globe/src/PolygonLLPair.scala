@@ -34,7 +34,7 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override def newBuff(length: Int): PolygonLLPairBuff[A2] = new PolygonLLPairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))
   override def buffToBB(buff: PolygonLLPairBuff[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](buff.a1Buffer.toArray, buff.a2Buffer.toArray)
 
-  override def b1Builder: PolygonLikeBuilder[LatLong, PolygonLL] = LatLong.polygonBuildImplicit
+  override def b1Builder: PolygonLikeMapBuilder[LatLong, PolygonLL] = LatLong.polygonBuildImplicit
   override def b1ArrBuilder: ArrMapBuilder[PolygonLL, PolygonLLArr] = PolygonLL.arrBuildImplicit
   override def pairArrBuilder(b1Arr: PolygonLLArr, b2s: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](b1Arr.unsafeArrayOfArrays, b2s)
   override def newB1Buff(): PolygonLLBuff = PolygonLLBuff()

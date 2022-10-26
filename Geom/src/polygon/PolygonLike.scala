@@ -35,7 +35,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
   def vertsFold[B](init: B)(f: (B, VT) => B): B
 
   /** Map this collection of data elements to PolygonLike class of type BB. */
-  def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeBuilder[B, BB]): BB =
+  def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
   {
     val res = build.newPolygonT(vertsNum)
     vertsIForeach((i, a) => build.arrSet(res, i, f(a)))

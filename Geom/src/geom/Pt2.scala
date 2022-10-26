@@ -270,7 +270,7 @@ object Pt2
     override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
-  implicit val polygonBuildImplicit: PolygonLikeBuilder[Pt2, Polygon] = new PolygonLikeBuilder[Pt2, PolygonGen]
+  implicit val polygonBuildImplicit: PolygonLikeMapBuilder[Pt2, Polygon] = new PolygonLikeMapBuilder[Pt2, PolygonGen]
   { override type BuffT = Pt2Buff
 
     override def newPolygonT(length: Int): PolygonGen = PolygonGen.uninitialised(length)
