@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pPts._, pglobe._, pgui._
+import geom._, pPts._, pglobe._, pgui._, Colour._
 
 /** Basic map of the Earth using irregular areas / tiles. */
 case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
@@ -19,7 +19,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
 
   val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
-  val lc1: LocationLLArr = UsaWest.locations
+  val lc1: LocationLLArr = UsaWest.locations//eas.flatMap(_.locations)
   val lc2 = lc1.mapOnA1(_.toMetres3)
 
   /** This compiles without type annotation. */
@@ -53,9 +53,11 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
     val locs1 = lc2.mapOnA1(_.fromLatLongFocus(focus))
     val locs2 = locs1.filterOnA1(_.zPos)
     val locs3 = locs2.mapOnA1(_.xy / scale)
-    val locTexts = locs3.map(p => p.a1.textAt(p.a2, 10, Colour.Red))
 
-    def seas: EllipseFill = earth2DEllipse(scale).fill(Colour.DarkBlue)
+    val locTexts = locs3.map{p => val col = p.a2.level match {case 1 => DarkGreen; case 2 => DarkBlue; case 3 => Pink}
+      p.a1.textAt(p.a2.name, 10, col)}
+
+    def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)
 
     mainRepaint(seas %: activeFills ++ sideLines ++ areaNames ++ locTexts)
   }

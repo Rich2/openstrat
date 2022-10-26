@@ -10,16 +10,20 @@ abstract class EArea1(val name: String, val cen: LatLong) extends GeographicSymb
   val places: RArr[LocationLL] = RArr()
 }
 
-class LocationLL(latMilliSecs: Double, longMilliSecs: Double, nameIn: String) extends LatLongPair[String](latMilliSecs, longMilliSecs, nameIn)
-{ def name: String = a2
+case class Place(name: String, level: Int)
+
+class LocationLL(latMilliSecs: Double, longMilliSecs: Double, nameIn: String, level: Int) extends
+  LatLongPair[Place](latMilliSecs, longMilliSecs, Place(nameIn, level))
+{ def name: String = a2.name
 }
 
 object LocationLL
-{ def apply(name: String, latDegs: Double, longDegs: Double): LocationLL = new LocationLL(latDegs.degsToMilliSecs, longDegs.degsToMilliSecs, name)
+{ def apply(name: String, latDegs: Double, longDegs: Double, level: Int): LocationLL =
+    new LocationLL(latDegs.degsToMilliSecs, longDegs.degsToMilliSecs, name, level)
 }
 
-class LocationLLArr(a1ArrayDbl: Array[Double], a2Array: Array[String]) extends LatLongPairArr[String](a1ArrayDbl, a2Array)
-{ override def newFromArrays(a1Array: Array[Double], a2Array: Array[String]): LatLongPairArr[String] = new LocationLLArr(a1Array, a2Array)
+class LocationLLArr(a1ArrayDbl: Array[Double], a2Array: Array[Place]) extends LatLongPairArr[Place](a1ArrayDbl, a2Array)
+{ override def newFromArrays(a1Array: Array[Double], a2Array: Array[Place]): LatLongPairArr[Place] = new LocationLLArr(a1Array, a2Array)
 
   override def newA1(dbl1: Double, dbl2: Double): LatLong = LatLong.milliSecs(dbl1, dbl2)
 }

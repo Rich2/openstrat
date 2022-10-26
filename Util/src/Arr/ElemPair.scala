@@ -17,7 +17,9 @@ trait ElemPair[A1, A2] extends Any
  *  while leaving the second component of the pair unchanged. So sub traits and classes specialise on a1 the first component of the pair. There are no
  *  filterMap methods. You must map then filter. */
 trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
-{ /** Returns the specialist sequence collection for the A1s. Probably not required most of the time but the method is included for completeness.  */
+{ type ThisT <: PairArr[A1, A1Arr, A2, A]
+
+  /** Returns the specialist sequence collection for the A1s. Probably not required most of the time but the method is included for completeness.  */
   def a1Arr: A1Arr
 
   /** The Array for the A2 components of the pairs. */
@@ -104,7 +106,7 @@ trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends Any with Buff[A]
 
 /** Builder for [[ElemPair]]s. As with all builders, we use B as the type parameter, because builders are nearly always used with some kind of map /
  * flatMap methods where B corresponds to the map function f: A => B. */
-trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Arr[B]] extends ArrBuilder[B, ArrB]
+trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends ArrBuilder[B, ArrB]
 { type BuffT <: PairBuff[B1, B2, B]
 
   /** Builder for an Arr of the first element of the pair. */
@@ -122,4 +124,9 @@ trait PairArrBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: Ar
   def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit
 
   def fromBuffs(a1Buff : B1BuffT, b2s: ArrayBuffer[B2]): ArrB
+}
+
+trait PairArrFlatBuilder[B2, ArrB <: PairArr[_, _, B2, _]] extends ArrFlatBuilder[ArrB]
+{
+
 }

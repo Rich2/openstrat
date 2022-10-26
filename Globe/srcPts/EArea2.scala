@@ -13,6 +13,8 @@ abstract class EArea2(val name: String, val cen: LatLong, val terr: WTile) exten
   /** A quasi polygon on the earths surface defined in [[LatLong]]s. */
   def polygonLL: PolygonLL
 
+  def locations: LocationLLArr = LocationLLArr()
+
   def display(eg: EarthGuiOld): GraphicElems =
   {
     eg.polyToGlobedArea(polygonLL) match

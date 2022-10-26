@@ -17,7 +17,7 @@ trait SeqLikePairBuff[A1E, A1 <: SeqLike[A1E], A2, A <: ElemSeqLikePair[A1E, A1,
   override def length: Int = a2Buffer.length
 }
 
-trait SeqLikePairArrBuilder[B1E, B1 <: SeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: ElemSeqLikePair[B1E, B1, B2], ArrB <: Arr[B]] extends
+trait SeqLikePairArrBuilder[B1E, B1 <: SeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: ElemSeqLikePair[B1E, B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends
   PairArrBuilder[B1, ArrB1, B2, B, ArrB]
 { /** Builder for the first element of the pair of type B1. This method will need to be overwritten to a narrow type. */
   def b1Builder: SeqLikeMapBuilder[B1E, B1]
@@ -43,7 +43,7 @@ trait SeqLikeDblNPairBuff[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], B2, B <: SeqL
   final override def grows(newElems: Arr[B]): Unit = newElems.foreach(grow)
 }
 
-trait SeqLikeDblNPairArrBuilder[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPair[B1E, B1, B2], ArrB <: Arr[B]] extends
+trait SeqLikeDblNPairArrBuilder[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPair[B1E, B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends
   SeqLikePairArrBuilder[B1E, B1, ArrB1, B2, B, ArrB]
 { type BuffT <: SeqLikeDblNPairBuff[B1E, B1, B2, B]
   type B1BuffT <: ArrayDblBuff[B1]
@@ -76,7 +76,7 @@ trait SeqLikeIntNPairBuff[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], B2, B <: SeqL
   final override def grows(newElems: Arr[B]): Unit = newElems.foreach(grow)
 }
 
-trait SeqLikeIntNPairArrBuilder[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPair[B1E, B1, B2], ArrB <: Arr[B]] extends
+trait SeqLikeIntNPairArrBuilder[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPair[B1E, B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends
   SeqLikePairArrBuilder[B1E, B1, ArrB1, B2, B, ArrB]
 { type BuffT <: SeqLikeIntNPairBuff[B1E, B1, B2, B]
   type B1BuffT <: ArrayIntBuff[B1]
