@@ -75,6 +75,7 @@ trait IntNSeqLikeMapBuilder[B, BB <: SeqLike[B]] extends IntNSeqLikeCommonBuilde
 {
   def fromIntArray(array: Array[Int]): BB
   final override def arrUninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
+
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[IntNArr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes

@@ -24,9 +24,6 @@ trait PolygonLikeMapBuilder[B, +BB <: PolygonLike[B]] extends SeqLikeMapBuilder[
     res
   }
 
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
-  def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
-
   def iterMap[A](inp: Iterable[A], f: A => B): BB =
   { val buff = newBuff()
     inp.foreach(a => buffGrow(buff, f(a)))

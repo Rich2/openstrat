@@ -2,25 +2,27 @@
 package ostrat
 import reflect.ClassTag, annotation.unused
 
-/** A Common base trait for [[Arrbuilder]], [[ArrFlatBuilder]] and other builders like Polygon and  LinePath builders. */
 trait SeqLikeCommonBuilder[BB]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compile time wrapped Arraybuffer inheriting from
-      BuffProdHomo. */
-  type BuffT <: Sequ[_]
+   *  BuffProdHomo. */
+  type BuffT <: Buff[_]
 
   def newBuff(length: Int = 4): BuffT
-
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: BB): Unit
 
   /** converts a the buffer type to the target compound class. */
   def buffToBB(buff: BuffT): BB
 }
 
+/** A Common base trait for [[Arrbuilder]], [[ArrFlatBuilder]] and other builders like Polygon and  LinePath builders. */
+trait SeqLikeCommonishBuilder[BB] extends SeqLikeCommonBuilder[BB]
+{ /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
+  def buffGrowArr(buff: BuffT, arr: BB): Unit
+}
+
 /** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
  * operations where the type of the element of the [[SeqLike]] that the builder is constructed may not be known at the point of dispatch. */
-trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
+trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonishBuilder[BB]
 { type BuffT <: Buff[B]
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
@@ -28,6 +30,9 @@ trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
 
   /** Creates a new uninitialised [[Arr]] of type ArrB of thegiven length. */
   def arrUninitialised(length: Int): BB
+
+  /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
+  def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
 }
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
@@ -37,7 +42,6 @@ trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
  * used directly by end users. */
 trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
 {
-
   def arrSet(arr: ArrB, index: Int, value: B): Unit
 
   def buffContains(buff: BuffT, newElem: B): Boolean =
@@ -47,8 +51,6 @@ trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
     res
   }
 
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
-  def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
 
   def iterMap[A](inp: Iterable[A], f: A => B): ArrB =
   { val buff = newBuff()
@@ -82,7 +84,7 @@ trait ArrBuilderPriority2
   implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrMapBuilder[B, RArr[B]] = new ArrTBuild[B]
 }
 
-trait SeqLikeFlatBuilder[BB] extends SeqLikeCommonBuilder[BB]
+trait SeqLikeFlatBuilder[BB] extends SeqLikeCommonishBuilder[BB]
 
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
  *  you control should go in the companion object of BB. This is different from the related [[ArrMapBuilder]][BB] type class where the instance
@@ -106,4 +108,10 @@ trait ArrFlatBuilderLowPriority
  * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
  * specialist Arr classes. */
   implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ElemValueN]#L[A]): ArrFlatBuilder[RArr[A]] = new ArrTBuild[A]
+}
+
+trait SeqSpecFlatBuilder[ArrB <: Arr[_], BB <: SeqSpec[_]] extends SeqLikeCommonBuilder[BB]
+{
+  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
+  def buffGrowArr(buff: BuffT, arr: BB): Unit
 }

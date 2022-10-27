@@ -36,9 +36,6 @@ trait LinePathBuilder[B, BB <: LinePathLike[B]] extends SeqLikeMapBuilder[B, BB]
     res
   }
 
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
-  def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
-
   def iterMap[A](inp: Iterable[A], f: A => B): BB =
   { val buff = newBuff()
     inp.foreach(a => buffGrow(buff, f(a)))
@@ -86,9 +83,8 @@ trait LinePathDbl3sBuilder[B <: ElemDbl3, BB <: LinePathDbl3[B]] extends LinePat
 /** Trait for creating the builder type class instances for [[LinePathIntN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntN[B] ] extends LinePathValueNBuilder[B, BB]
+trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntN[B] ] extends LinePathValueNBuilder[B, BB] with IntNSeqLikeMapBuilder[B, BB]
 { type BuffT <: IntNBuff[B]
-  def fromIntArray(array: Array[Int]): BB
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def newLinePath(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
