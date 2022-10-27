@@ -95,7 +95,7 @@ trait ValueNBuff[A <: ElemValueN] extends Any with Buff[A]
   override def fElemStr: A => String = _.toString
 }
 
-trait ValueNSeqLikeCommonBuilder[BB] extends SeqLikeCommonishBuilder[BB]
+trait ValueNSeqLikeCommonBuilder[BB] extends SeqLikeCommonBuilder[BB]
 { def elemProdSize: Int
 }
 

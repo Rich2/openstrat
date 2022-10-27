@@ -50,7 +50,7 @@ trait Dbl3Arr[A <: ElemDbl3] extends Any with DblNArr[A] with Dbl3SeqLike[A]
   override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
-trait Dbl3SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends DblNSeqLikeMapBuilder[B, BB]
+trait Dbl3SeqLikeMapBuilder[B <: ElemDbl3, BB <: SeqLike[B]] extends DblNSeqLikeMapBuilder[B, BB]
 {
   final override def elemProdSize = 3
 }

@@ -80,8 +80,8 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
 
 trait DblNSeqLikeCommonBuilder[BB] extends ValueNSeqLikeCommonBuilder[BB]
 
-trait DblNSeqLikeMapBuilder[B, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
-{
+trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
+{type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): BB
   final override def arrUninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
 }
@@ -90,7 +90,7 @@ trait DblNSeqLikeMapBuilder[B, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBuil
  *  classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
-{ type BuffT <: DblNBuff[B]
+{
 
   def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
