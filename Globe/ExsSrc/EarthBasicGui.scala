@@ -54,7 +54,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
     val locs2 = locs1.filterOnA1(_.zPos)
     val locs3 = locs2.mapOnA1(_.xy / scale)
 
-    val locTexts = locs3.map{p => val col = p.a2.level match {case 1 => DarkGreen; case 2 => DarkBlue; case 3 => Pink}
+    val locTexts = locs3.map{p => val col = p.a2.level match {case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink}
       p.a1.textAt(p.a2.name, 10, col)}
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)

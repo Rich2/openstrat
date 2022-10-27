@@ -15,15 +15,15 @@ trait SeqLikeCommonBuilder[BB]
   def buffToBB(buff: BuffT): BB
 }
 
-/** Base trait for all [[SeqLike]] builders excluding flatMap SeqSpec builders. */
-trait SeqLikeCommonishBuilder[BB] extends SeqLikeCommonBuilder[BB]
+/** Base trait for map and flatMap [[Arr]] builders. Its only method is the buffGrowArr method. Not sure if [[ArrMapBuilder]]s need it. */
+trait ArrBuilder[ArrB] extends SeqLikeCommonBuilder[ArrB]
 { /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: BB): Unit
+  def buffGrowArr(buff: BuffT, arr: ArrB): Unit
 }
 
 /** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
  * operations where the type of the element of the [[SeqLike]] that the builder is constructed may not be known at the point of dispatch. */
-trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonishBuilder[BB]
+trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
 { type BuffT <: Buff[B]
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
@@ -41,7 +41,7 @@ trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonishBuilder[BB]
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
+trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB] with ArrBuilder[ArrB]
 {
   def arrSet(arr: ArrB, index: Int, value: B): Unit
 
@@ -85,12 +85,12 @@ trait ArrBuilderPriority2
   implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrMapBuilder[B, RArr[B]] = new ArrTBuild[B]
 }
 
-trait SeqLikeFlatBuilder[BB] extends SeqLikeCommonishBuilder[BB]
+trait SeqLikeFlatBuilder[BB] extends ArrBuilder[BB]
 
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
  *  you control should go in the companion object of BB. This is different from the related [[ArrMapBuilder]][BB] type class where the instance
  *  should go into the B companion object. */
-trait ArrFlatBuilder[ArrB <: Arr[_]] extends SeqLikeFlatBuilder[ArrB]
+trait ArrFlatBuilder[ArrB <: Arr[_]] extends SeqLikeFlatBuilder[ArrB] with ArrBuilder[ArrB]
 
 /** Companion object for ArrTFlatBuilder, contains implicit instances for atomic value classes. */
 object ArrFlatBuilder extends ArrFlatBuilderLowPriority

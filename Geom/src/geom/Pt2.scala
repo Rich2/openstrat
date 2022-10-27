@@ -283,7 +283,7 @@ object Pt2
     override def buffGrow(buff: Pt2Buff, value: Pt2): Unit = buff.grow(value)
 
     /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-    override def buffGrowArr(buff: Pt2Buff, arr: PolygonGen): Unit = ???
+  //  override def buffGrowArr(buff: Pt2Buff, arr: PolygonGen): Unit = ???
 
     override def newBuff(length: Int): Pt2Buff = Pt2Buff.empty
 

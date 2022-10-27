@@ -49,7 +49,7 @@ trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblN[B] ] extends PolygonV
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
   final override def newPolygonT(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuffer.toArray)
-  final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
+  //final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
@@ -82,7 +82,7 @@ trait PolygonIntNsBuilder[B <: ElemIntN, BB <: PolygonIntN[B] ] extends PolygonV
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def newPolygonT(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
-  final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
+  //final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
