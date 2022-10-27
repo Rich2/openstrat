@@ -61,7 +61,6 @@ trait Dbl3SeqLikeMapBuilder[B <: ElemDbl3, BB <: SeqLike[B]] extends DblNSeqLike
 trait Dbl3ArrMapBuilder[B <: ElemDbl3, ArrB <: Dbl3Arr[B]] extends Dbl3SeqLikeMapBuilder[B, ArrB] with DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl3Buff[B]
 
-
   override def arrSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl2; arr.unsafeArray(index * 3 + 2) = value.dbl3
   }

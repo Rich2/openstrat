@@ -2,6 +2,7 @@
 package ostrat
 import reflect.ClassTag, annotation.unused
 
+/** Base trait for all [[SeqLike]] builders, both map builders and flatMap builders. */
 trait SeqLikeCommonBuilder[BB]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compile time wrapped Arraybuffer inheriting from
@@ -14,7 +15,7 @@ trait SeqLikeCommonBuilder[BB]
   def buffToBB(buff: BuffT): BB
 }
 
-/** A Common base trait for [[Arrbuilder]], [[ArrFlatBuilder]] and other builders like Polygon and  LinePath builders. */
+/** Base trait for all [[SeqLike]] builders excluding flatMap SeqSpec builders. */
 trait SeqLikeCommonishBuilder[BB] extends SeqLikeCommonBuilder[BB]
 { /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: BB): Unit
