@@ -15,7 +15,8 @@ trait SeqLikeCommonBuilder[BB]
   def buffToBB(buff: BuffT): BB
 }
 
-/** Base trait for map and flatMap [[Arr]] builders. Its only method is the buffGrowArr method. Not sure if [[ArrMapBuilder]]s need it. */
+/** Base trait for map and flatMap [[Arr]] builders. Its only method is the buffGrowArr method. Not sure if [[ArrMapBuilder]]s need it, but might as
+ * well leave it in, as it adds no extra requirements to the map builder. */
 trait ArrBuilder[ArrB] extends SeqLikeCommonBuilder[ArrB]
 { /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrB): Unit
@@ -29,7 +30,7 @@ trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   def buffGrow(buff: BuffT, value: B): Unit
 
-  /** Creates a new uninitialised [[Arr]] of type ArrB of thegiven length. */
+  /** Creates a new uninitialised [[Arr]] of type ArrB of the given length. */
   def arrUninitialised(length: Int): BB
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
