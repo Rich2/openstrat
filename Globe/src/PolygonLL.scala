@@ -83,6 +83,8 @@ object PolygonLL extends Dbl2SeqLikeCompanion[LatLong, PolygonLL]
   }
 }
 
+/** An [[Arr]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an Array of Arrays
+ *  of Doubles. */
 class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonLL]
 { override type ThisT = PolygonLLArr
   override def typeStr: String = "PolygonLLArr"
@@ -91,6 +93,8 @@ class PolygonLLArr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDb
   override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)
 }
 
+/** An [[Buff]] of [[PolygonLL]]s, quasi polygons where the vertices are defined by latitude and longitude. Stored for efficiency as an ArrayBuffer of
+ *  Arrays of Doubles. */
 class PolygonLLBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonLL]
 { override type ThisT = PolygonLLBuff
   override def typeStr: String = "PolygonLLBuff"
