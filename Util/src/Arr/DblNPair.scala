@@ -13,9 +13,9 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
   def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): ThisT
 }
 
-trait DblNPairBuff[A1 <: ElemDblN, A2, A <: ElemDblNPair[A1, A2]] extends PairBuff[A1, A2, A]
+trait DblNPairBuff[B1 <: ElemDblN, B2, B <: ElemDblNPair[B1, B2]] extends PairBuff[B1, B2, B]
 { def a1DblBuffer: ArrayBuffer[Double]
-  override final def grows(newElems: Arr[A]): Unit = newElems.foreach(grow)
+  override final def grows(newElems: Arr[B]): Unit = newElems.foreach(grow)
 }
 
 trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblNPair[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
@@ -139,20 +139,20 @@ trait Dbl3PairArr[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1], A2, A <: ElemDbl3Pair[A1
   }
 }
 
-trait Dbl3PairBuff[A1 <: ElemDbl3, A2, A <: ElemDbl3Pair[A1, A2]] extends DblNPairBuff[A1, A2, A]
+trait Dbl3PairBuff[B1 <: ElemDbl3, B2, B <: ElemDbl3Pair[B1, B2]] extends DblNPairBuff[B1, B2, B]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
-  def newElem(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): A
+  def newElem(dbl1: Double, dbl2: Double, dbl3: Double, a2: B2): B
 
-  inline final override def apply(index: Int): A = newElem(a1DblBuffer (index * 3), a1DblBuffer(index * 3 + 1), a1DblBuffer(index * 3 + 2), a2Buffer(index))
+  inline final override def apply(index: Int): B = newElem(a1DblBuffer (index * 3), a1DblBuffer(index * 3 + 1), a1DblBuffer(index * 3 + 2), a2Buffer(index))
 
-  override final def grow(newElem: A): Unit =
+  override final def grow(newElem: B): Unit =
   { a1DblBuffer.append(newElem.a1Dbl1)
     a1DblBuffer.append(newElem.a1Dbl2)
     a1DblBuffer.append(newElem.a1Dbl3)
     a2Buffer.append(newElem.a2)
   }
 
-  override final def unsafeSetElem(i: Int, value: A): Unit =
+  override final def unsafeSetElem(i: Int, value: B): Unit =
   { a1DblBuffer(i * 3) = value.a1Dbl1
     a1DblBuffer(i * 3 + 1) = value.a1Dbl2
     a1DblBuffer(i * 3 + 2) = value.a1Dbl3

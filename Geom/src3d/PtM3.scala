@@ -105,7 +105,7 @@ object PtM3
     def fromDblBuffer(buffer: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(buffer)
   }
 
-  implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtM3PairArrBuider[B2] = new PtM3PairArrBuider[B2]
+  implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): PtM3PairArrMapBuilder[B2] = new PtM3PairArrMapBuilder[B2]
 
   /** Implicit instance for the [[PolygonM3Pair]] builder. This has to go in the [[PtM3]] companion object so it can be found by an A => B function
    * where PtM3 is the type B parameter. */

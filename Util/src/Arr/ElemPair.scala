@@ -97,11 +97,12 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   final override def length: Int = a2Array.length
 }
 
-/** An efficient [[Buff]] for [[ElemPair]]s where the components are stored in separate buffers. */
-trait PairBuff[A1, A2, A <: ElemPair[A1, A2]] extends Any with Buff[A]
-{ def a2Buffer: ArrayBuffer[A2]
+/** An efficient [[Buff]] for [[ElemPair]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
+ * because these [[Buff]]s will normally be used with map(f: A => B) and flatMap(f: A => M[B]) type methods. */
+trait PairBuff[B1, B2, B <: ElemPair[B1, B2]] extends Any with Buff[B]
+{ def a2Buffer: ArrayBuffer[B2]
   override def length: Int = a2Buffer.length
-  override def fElemStr: A => String = _.toString
+  override def fElemStr: B => String = _.toString
 }
 
 /** Builder for [[ElemPair]]s. As with all builders, we use B as the type parameter, because builders are nearly always used with some kind of map /

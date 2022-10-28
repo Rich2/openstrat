@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._
 
@@ -33,5 +33,17 @@ object LocationLLArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
   def apply(pairs: LocationLL*): LocationLLArr =
   { val arrays = seqToArrays(pairs)
     new LocationLLArr(arrays._1, arrays._2)
+  }
+
+  implicit val flatArrBuilderImplicit: ArrFlatBuilder[LocationLLArr] = new ArrFlatBuilder[LocationLLArr]
+  { override type BuffT = LatLongPairBuff[Place]
+
+    /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
+    override def buffGrowArr(buff: LatLongPairBuff[Place], arr: LocationLLArr): Unit = ???
+
+    override def newBuff(length: Int): LatLongPairBuff[Place] = ???
+
+    /** converts a the buffer type to the target compound class. */
+    override def buffToBB(buff: LatLongPairBuff[Place]): LocationLLArr = ???
   }
 }

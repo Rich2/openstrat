@@ -156,14 +156,14 @@ abstract class Dbl2SeqDefPersist[A <: ElemDbl2, M <: Dbl2SeqLike[A]](val typeStr
   override def showDecT(obj: M, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = typeStr //+ obj.dataF Map(_.toString).toString
 }
 
-/** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl2]]s collections. */
-trait Dbl2Buff[A <: ElemDbl2] extends Any with DblNBuff[A]
-{ type ArrT <: Dbl2Arr[A]
+/** [[Buff]] class for building [[ElemDbl2]]s collections. */
+trait Dbl2Buff[B <: ElemDbl2] extends Any with DblNBuff[B]
+{ type ArrT <: Dbl2Arr[B]
   final override def length: Int = unsafeBuffer.length / 2
-  override def elemProdSize: Int = 2
-  override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2); () }
-  def dblsToT(d1: Double, d2: Double): A
-  override def apply(index: Int): A = dblsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
-  override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 2) = value.dbl1; unsafeBuffer(i * 2 + 1) = value.dbl2 }
-  override def fElemStr: A => String = _.toString
+  final override def elemProdSize: Int = 2
+  final override def grow(newElem: B): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2); () }
+  def dblsToT(d1: Double, d2: Double): B
+  override def apply(index: Int): B = dblsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
+  final override def unsafeSetElem(i: Int, value: B): Unit = { unsafeBuffer(i * 2) = value.dbl1; unsafeBuffer(i * 2 + 1) = value.dbl2 }
+  override def fElemStr: B => String = _.toString
 }

@@ -28,3 +28,22 @@ object LatLongPairArr extends Dbl2PairArrCompanion [LatLong, LatLongArr]{
     new LatLongPairArr[A2](arrays._1, arrays._2)
   }
 }
+
+class LatLongPairBuff[B2](val a1DblBuffer: ArrayBuffer[Double], val a2Buffer: ArrayBuffer[B2]) extends Dbl2PairBuff[LatLong, B2, LatLongPair[B2]]
+{ override type ThisT = LatLongPairBuff[B2]
+  override def typeStr: String = "LatLongPairBuff"
+  override def newElem(dbl1: Double, dbl2: Double, a2: B2): LatLongPair[B2] = new LatLongPair[B2](dbl1, dbl2, a2)
+}
+
+/** Map builder for [[LatLongPairArr]]s. */
+class LatLongPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends Dbl2PairArrBuilder[LatLong, LatLongArr, B2, LatLongPair[B2], LatLongPairArr[B2]]
+{ override type BuffT = LatLongPairBuff[B2]
+  override type B1BuffT = LatLongBuff
+  override def b1ArrBuilder: ArrMapBuilder[LatLong, LatLongArr] = LatLong.arrMapBuilderImplicit
+  override def pairArrBuilder(b1Arr: LatLongArr, b2s: Array[B2]): LatLongPairArr[B2] = new LatLongPairArr[B2](b1Arr.unsafeArray, b2s)
+  override def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): LatLongPairArr[B2] = new LatLongPairArr[B2](a1ArrayDbl, a2Array)
+  override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): LatLongPairBuff[B2] = new LatLongPairBuff[B2](a1Buffer, a2Buffer)
+  override def buffToBB(buff: LatLongPairBuff[B2]): LatLongPairArr[B2] = new LatLongPairArr[B2](buff.a1DblBuffer.toArray, buff.a2Buffer.toArray)
+  override def newB1Buff(): LatLongBuff = LatLongBuff()
+  override def fromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): LatLongPairArr[B2] = new LatLongPairArr[B2](a1Buff.toArray, b2s.toArray)
+}

@@ -156,22 +156,22 @@ object LatLong
   implicit val persistImplict: Persist[LatLong] = new PersistShowDbl2[LatLong]("LatLong", "lat", "long", LatLong.degs)
   implicit val eqTImplicit: EqT[LatLong] = Eq2DblsT(_.dbl1, _.dbl2)
 
-  implicit val arrBuildImplicit: Dbl2ArrMapBuilder[LatLong, LatLongArr] = new Dbl2ArrMapBuilder[LatLong, LatLongArr]
-  { override type BuffT = BuffLatLong
+  implicit val arrMapBuilderImplicit: Dbl2ArrMapBuilder[LatLong, LatLongArr] = new Dbl2ArrMapBuilder[LatLong, LatLongArr]
+  { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LatLongArr = new LatLongArr(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffLatLong = new BuffLatLong(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
   implicit val linePathBuildImplicit: LinePathDbl2Builder[LatLong, LinePathLL] = new LinePathDbl2Builder[LatLong, LinePathLL]
-  { override type BuffT = BuffLatLong
+  { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffLatLong = new BuffLatLong(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
   implicit val polygonBuildImplicit: PolygonDbl2sBuilder[LatLong, PolygonLL] = new PolygonDbl2sBuilder[LatLong, PolygonLL]
-  { override type BuffT = BuffLatLong
+  { override type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): BuffLatLong = new BuffLatLong(inp)
+    override def fromDblBuffer(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
   }
 
   implicit def polygonLLPairbuildImplicit[A2](implicit ct: ClassTag[A2]): PolygonLLPairBuilder[A2] = new PolygonLLPairBuilder[A2]

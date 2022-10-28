@@ -20,7 +20,7 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
 
   val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
   val lc1: LocationLLArr = UsaWest.locations//eas.flatMap(_.locations)
-  val lc2 = lc1.mapOnA1(_.toMetres3)
+  val lc2: PtM3PairArr[Place] = lc1.mapOnA1(_.toMetres3)
 
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
@@ -50,9 +50,9 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
       TextGraphic(d.name, 10, posn, d.colour.contrastBW)
     }
 
-    val locs1 = lc2.mapOnA1(_.fromLatLongFocus(focus))
-    val locs2 = locs1.filterOnA1(_.zPos)
-    val locs3 = locs2.mapOnA1(_.xy / scale)
+    val locs1: PtM3PairArr[Place] = lc2.mapOnA1(_.fromLatLongFocus(focus))
+    val locs2: PtM3PairArr[Place] = locs1.filterOnA1(_.zPos)
+    val locs3: Pt2PairArr[Place] = locs2.mapOnA1(_.xy / scale)
 
     val locTexts = locs3.map{p => val col = p.a2.level match {case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink}
       p.a1.textAt(p.a2.name, 10, col)}
