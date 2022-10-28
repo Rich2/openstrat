@@ -67,18 +67,11 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
 object PolygonLL extends Dbl2SeqLikeCompanion[LatLong, PolygonLL]
 { override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
-  implicit val arrBuildImplicit: ArrMapBuilder[PolygonLL, PolygonLLArr] = new ArrMapBuilder[PolygonLL, PolygonLLArr] {
-    override type BuffT = PolygonLLBuff
-
+  /** Implicit instance to build specialist sequences of [[PolygonLL]]s for map and related methods. */
+  implicit val arrMapBuildImplicit: ArrMapBuilder[PolygonLL, PolygonLLArr] = new ArrayDblArrMapBuilder[PolygonLL, PolygonLLArr]
+  { override type BuffT = PolygonLLBuff
     override def newBuff(length: Int): PolygonLLBuff = PolygonLLBuff(length)
-
-    override def arrUninitialised(length: Int): PolygonLLArr = new PolygonLLArr(new Array[Array[Double]](length))
-
-    override def arrSet(arr: PolygonLLArr, index: Int, value: PolygonLL): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
-
-    override def buffGrow(buff: PolygonLLBuff, value: PolygonLL): Unit = buff.unsafeBuffer.append(value.unsafeArray)
-
-    override def buffToBB(buff: PolygonLLBuff): PolygonLLArr = new PolygonLLArr(buff.unsafeBuffer.toArray)
+    override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)
   }
 
   implicit val persistImplicit: Dbl2SeqDefPersist[LatLong, PolygonLL] = new Dbl2SeqDefPersist[LatLong, PolygonLL]("PolygonLL")

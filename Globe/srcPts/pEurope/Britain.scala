@@ -86,5 +86,8 @@ object England extends EArea2("England",  52.73 ll -1.26, plain)
    val polygonLL = PolygonLL(penzance, trevoseHead, nwDevon, parrettMouth, chepstow, stDavids, anglesey, liverpool,
          kentMouth, sBarrow, stBeesHead, solwayMouth,  tyneMouth, scarborough, flamborough, holbeach, ouseMouth,
          hunstanton, cromer, horsey, lowestoft, foulness, nwGrain, nekent, dover, ventnor,
-         bournemouth, swanage, ePortland, charmouth, exeMouth, startPeninsular, stAustell, lizard)         
+         bournemouth, swanage, ePortland, charmouth, exeMouth, startPeninsular, stAustell, lizard)
+
+   val london: LocationLL = LocationLL("London", 51.51, - 0.13, 1)
+   override val locations: LocationLLArr = LocationLLArr(london)
 }

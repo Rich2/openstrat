@@ -326,9 +326,9 @@ object Polygon
 
   def uninitialised(length: Int): Polygon = new PolygonGen(new Array[Double](length * 2))
 
-  implicit val arrBuildImplicit: ArrMapBuilder[Polygon, PolygonArr] = new ArrayDblArrBuilder[Polygon, PolygonArr]
+  implicit val arrBuildImplicit: ArrMapBuilder[Polygon, PolygonArr] = new ArrayDblArrMapBuilder[Polygon, PolygonArr]
   { override type BuffT = PolygonBuff
-    override def fromArray(array: Array[Array[Double]]): PolygonArr = new PolygonArr(array)
+    override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonArr = new PolygonArr(array)
     override def newBuff(length: Int): PolygonBuff = PolygonBuff(length)
   }
 

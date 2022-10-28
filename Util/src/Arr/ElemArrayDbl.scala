@@ -18,14 +18,15 @@ trait ArrayDblArr[A <: ArrayDblBacked] extends Any with Arr[A]
   final def unsafeSetElem(i: Int, value: A): Unit = unsafeArrayOfArrays(i) = value.unsafeArray
 }
 
-/** This is the builder for Arrays Arrays of Double. It is not the builder for Arrays of Double.  */
-trait ArrayDblArrBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends ArrMapBuilder[A, ArrT]
-{ @inline def fromArray(array: Array[Array[Double]]): ArrT
+/** This is the map builder for Arrays of Arrays of Double. It is not to be confused with the builder for Arrays of Double. It requires 3 memebers to
+ * be implemented in the final type BuffT, newBuff and fromArrayArrayDbl. */
+trait ArrayDblArrMapBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends ArrMapBuilder[A, ArrT]
+{ @inline def fromArrayArrayDbl(array: Array[Array[Double]]): ArrT
   type BuffT <: ArrayDblBuff[A]
-  @inline override def arrUninitialised(length: Int): ArrT = fromArray(new Array[Array[Double]](length))
-  override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
-  override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuffer.toArray)
-  override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }
+  @inline final override def arrUninitialised(length: Int): ArrT = fromArrayArrayDbl(new Array[Array[Double]](length))
+  final override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
+  final override def buffToBB(buff: BuffT): ArrT = fromArrayArrayDbl(buff.unsafeBuffer.toArray)
+  final override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }
 }
 
 class ArrArrayDblEq[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends EqT[ArrT]
