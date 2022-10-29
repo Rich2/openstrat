@@ -79,10 +79,11 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
 }
 
 trait DblNSeqLikeCommonBuilder[BB] extends ValueNSeqLikeCommonBuilder[BB]
+{ def fromDblArray(array: Array[Double]): BB
+}
 
-trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
-{type BuffT <: DblNBuff[B]
-  def fromDblArray(array: Array[Double]): BB
+trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: SeqLike[B]] extends DblNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
+{ type BuffT <: DblNBuff[B]
   final override def arrUninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
 }
 
@@ -91,7 +92,6 @@ trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: SeqLike[B]] extends ValueNSeqLi
  *  ```map(f: A => B): ArrB``` function. */
 trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
 {
-
   def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
 
@@ -102,9 +102,8 @@ trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeMa
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNArr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNArrFlatBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends ValueNSeqLikeCommonBuilder[ArrB] with ValueNArrFlatBuilder[B, ArrB]
+trait DblNArrFlatBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeCommonBuilder[ArrB] with ValueNArrFlatBuilder[B, ArrB]
 { type BuffT <: DblNBuff[B]
-  def fromDblArray(array: Array[Double]): ArrB
   def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = buffFromBufferDbl(new ArrayBuffer[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
