@@ -55,7 +55,7 @@ object LineSegLLArr extends Dbl4SeqLikeCompanion[LineSegLL, LineSegLLArr]
   implicit val flatBuildEv: ArrFlatBuilder[LineSegLLArr] = new Dbl4ArrFlatBuilder[LineSegLL, LineSegLLArr]
   { type BuffT = LineSegLLBuff
     override def fromDblArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
-    def fromDblBuffer(inp: ArrayBuffer[Double]): LineSegLLBuff = new LineSegLLBuff(inp)
+    def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegLLBuff = new LineSegLLBuff(inp)
   }
 
   //implicit val transImplicit: AffineTrans[LineSegLLArr] = (obj, f) => obj.dataMap(_.ptsTrans(f))

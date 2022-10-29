@@ -35,7 +35,7 @@ object MyDbl2s extends Dbl2SeqLikeCompanion[MyDbl2, MyDbl2s]
   implicit val flatImplicit: ArrFlatBuilder[MyDbl2s] = new Dbl2ArrFlatBuilder[MyDbl2, MyDbl2s]
   { type BuffT = MinesBuff
     override def fromDblArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)
-    def fromDblBuffer(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)
+    def buffFromBufferDbl(inp: ArrayBuffer[Double]): MinesBuff = new MinesBuff(inp)
   }
 
   override def fromArray(array: Array[Double]): MyDbl2s = new MyDbl2s(array)

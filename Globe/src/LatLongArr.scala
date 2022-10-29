@@ -22,6 +22,14 @@ final class LatLongArr(val unsafeArray: Array[Double]) extends AnyVal with LatLo
   override def seqDefElem(d1: Double, d2: Double): LatLong = LatLong.milliSecs(d1, d2)
 }
 
+object LatLongArr{
+  implicit val arrFlatBuilderImplicit: Dbl2ArrFlatBuilder[LatLong, LatLongArr] = new Dbl2ArrFlatBuilder[LatLong, LatLongArr]
+  { type BuffT = LatLongBuff
+    override def fromDblArray(array: Array[Double]): LatLongArr = new LatLongArr(array)
+    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)
+  }
+}
+
 /** A specialised flat ArrayBuffer[Double] based class for [[LatLong]]s collections. */
 final class LatLongBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[LatLong]
 { override def typeStr: String = "LatLongBuff"

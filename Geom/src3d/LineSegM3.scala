@@ -87,7 +87,7 @@ object LineSegM3Arr extends Dbl6SeqLikeCompanion[LineSegM3, LineSegM3Arr]
   implicit val flatBuildEv: ArrFlatBuilder[LineSegM3Arr] = new Dbl6ArrFlatBuilder[LineSegM3, LineSegM3Arr]
   { type BuffT = LineSegM3Buff
     override def fromDblArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
-    def fromDblBuffer(inp: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(inp)
+    def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(inp)
   }
 }
 

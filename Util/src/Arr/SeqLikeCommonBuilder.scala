@@ -44,6 +44,7 @@ trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
  * used directly by end users. */
 trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB] with ArrBuilder[ArrB]
 {
+  /** Sets the value in an [[Arr]] of type ArrB. This is usually used in conjunction with uninitialised method. */
   def arrSet(arr: ArrB, index: Int, value: B): Unit
 
   def buffContains(buff: BuffT, newElem: B): Boolean =

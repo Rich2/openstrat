@@ -50,7 +50,7 @@ object Pt2Arr extends Dbl2SeqLikeCompanion[Pt2, Pt2Arr]
   implicit val arrFlatBuilderImplicit: ArrFlatBuilder[Pt2Arr] =  new Dbl2ArrFlatBuilder[Pt2, Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
+    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
   implicit val slateImplicit: Slate[Pt2Arr] = (obj: Pt2Arr, dx: Double, dy: Double) => obj.slateXY(dx, dy)
