@@ -100,6 +100,14 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
+  /** A map operation where the return type of the [[SeqLike]] is explicitly given by the the first parameter. */
+  def mapTo[B, BB <: SeqLike[B]](build: SeqLikeMapBuilder[B, BB])(f: A => B): BB =
+  { val res = build.arrUninitialised(length)
+    var i = 0
+    foreach{ el => res.unsafeSetElem(i, f(el)); i += 1 }
+    res
+  }
+
   /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every
    * element of this sequence. */
   def mapPair[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB = {
