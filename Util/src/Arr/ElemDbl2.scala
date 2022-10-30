@@ -106,9 +106,9 @@ trait Dbl2Arr[A <: ElemDbl2] extends Any with DblNArr[A] with Dbl2SeqLike[A]
   override def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2)))
 }
 
-trait Dbl2SeqLikeCommonBuilder[BB] extends DblNSeqLikeCommonBuilder[BB]
+trait Dbl2SeqLikeCommonBuilder[BB <: Dbl2SeqLike[_]] extends DblNSeqLikeCommonBuilder[BB]
 
-trait Dbl2SeqLikeMapBuilder[B <: ElemDbl2, BB <: SeqLike[B]] extends Dbl2SeqLikeCommonBuilder[BB] with DblNSeqLikeMapBuilder[B, BB]
+trait Dbl2SeqLikeMapBuilder[B <: ElemDbl2, BB <: Dbl2SeqLike[B]] extends Dbl2SeqLikeCommonBuilder[BB] with DblNSeqLikeMapBuilder[B, BB]
 {
   final override def elemProdSize = 2
 }

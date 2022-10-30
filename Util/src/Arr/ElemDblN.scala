@@ -50,7 +50,7 @@ trait DblNSeqSpec[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqS
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
-trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
+trait DblNArr[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNArr[A]
 { type ThisT <: DblNArr[A]
 
   /** Not sure about this method. */
@@ -78,8 +78,10 @@ trait DblNArr[A <: ElemDblN] extends Any with ValueNArr[A] with DblNSeqLike[A]
   }
 }
 
-trait DblNSeqLikeCommonBuilder[BB] extends ValueNSeqLikeCommonBuilder[BB]
-{ def fromDblArray(array: Array[Double]): BB
+/** A builder for all [[SeqLike]] classes that can be constructed from an Array of Doubles. */
+trait DblNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuilder[BB]
+{ type BuffT <: DblNBuff[_]
+  def fromDblArray(array: Array[Double]): BB
 }
 
 trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: SeqLike[B]] extends DblNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
