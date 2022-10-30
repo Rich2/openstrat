@@ -78,6 +78,18 @@ trait DblNArr[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNArr[A]
   }
 }
 
+/** Specialised flat ArrayBuffer[Double] based collection class. */
+trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
+{ type ArrT <: DblNArr[A]
+  def unsafeBuffer: ArrayBuffer[Double]
+
+  def length: Int = unsafeBuffer.length / elemProdSize
+  def toArray: Array[Double] = unsafeBuffer.toArray[Double]
+  def grow(newElem: A): Unit
+  override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.unsafeArray); () }
+  def toArr(implicit build: DblNArrMapBuilder[A, ArrT]): ArrT = build.fromDblArray(unsafeBuffer.toArray)
+}
+
 /** A builder for all [[SeqLike]] classes that can be constructed from an Array of Doubles. */
 trait DblNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuilder[BB]
 { type BuffT <: DblNBuff[_]
@@ -110,18 +122,6 @@ trait DblNArrFlatBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeC
   final override def newBuff(length: Int = 4): BuffT = buffFromBufferDbl(new ArrayBuffer[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
-}
-
-/** Specialised flat ArrayBuffer[Double] based collection class. */
-trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
-{ type ArrT <: DblNArr[A]
-  def unsafeBuffer: ArrayBuffer[Double]
-
-  def length: Int = unsafeBuffer.length / elemProdSize
-  def toArray: Array[Double] = unsafeBuffer.toArray[Double]
-  def grow(newElem: A): Unit
-  override def grows(newElems: ArrT): Unit = { unsafeBuffer.addAll(newElems.unsafeArray); () }
-  def toArr(implicit build: DblNArrMapBuilder[A, ArrT]): ArrT = build.fromDblArray(unsafeBuffer.toArray)
 }
 
 /** Helper trait for Companion objects of [[DblNArr]] classes. */
