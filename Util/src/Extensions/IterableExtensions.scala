@@ -79,7 +79,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def iFlatMap[B, BB <: Arr[B]](f: (Int, A) => BB)(implicit build: ArrMapBuilder[B, BB]): BB =
   { var i = 0
     val buff: build.BuffT = build.newBuff()
-    thisIter.foreach{ el => build.buffGrowArr(buff, f(i, el)); i += 1 }
+    thisIter.foreach{ el => f(i, el).foreach(buff.grow); i += 1 }
     build.buffToBB(buff)
   }
 
@@ -87,7 +87,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def iFlatMap[B, BB <: Arr[B]](count: Int)(f: (Int, A) => BB)(implicit build: ArrMapBuilder[B, BB]): BB =
   { var i = count
     val buff: build.BuffT = build.newBuff()
-    thisIter.foreach{ el => build.buffGrowArr(buff, f(i, el)); i += 1 }
+    thisIter.foreach{ el => f(i, el).foreach(buff.grow); i += 1 }
     build.buffToBB(buff)
   }
 

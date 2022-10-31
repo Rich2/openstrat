@@ -104,8 +104,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
 
   /** Map all Tiles to Array[B] with function. */
   final def tilesMapAll[B, BB <: Arr[B]](f: TileT => B)(implicit build: ArrMapBuilder[B, BB]): BB =
-  {
-    val res = build.arrUninitialised(tileNum)
+  { val res = build.arrUninitialised(tileNum)
     val count = 0
     while (count < tileNum)
     {
@@ -117,20 +116,18 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
   }
 
   def tilesFlatMapAll[B, BB <: Arr[B]](f: TileT => BB)(implicit build: ArrMapBuilder[B, BB]): BB =
-  {
-    val acc = build.newBuff()
+  { val acc = build.newBuff()
     foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: BB = f(tile)
-      build.buffGrowArr(acc, newRes)
+      newRes.foreach(acc.grow)
     }
     build.buffToBB(acc)
   }
   
   /** Map all Tiles to an List with function and flatten into Single List. */
   def tilesFlatMapListAll[R: ClassTag](f: TileT => List[R]): List[R] =
-  {
-    var acc: List[R] = Nil
+  { var acc: List[R] = Nil
     foreachTilesCoodAll{ tileCood =>
       val tile = getTile(tileCood)
       val newRes: List[R] = f(tile)

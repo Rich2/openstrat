@@ -44,6 +44,9 @@ object AnyArrBuild extends ArrMapBuilder[Any, AnyArr] with ArrFlatBuilder[AnyArr
   override def newBuff(length: Int = 4): AnyBuff = new AnyBuff(new ArrayBuffer[Any](length))
   override def buffGrow(buff: AnyBuff, value: Any): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: AnyBuff): AnyArr = new AnyArr(buff.unsafeBuffer.toArray)
+
+  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
+  override def buffGrowArr(buff: AnyBuff, arr: AnyArr): Unit = buff.grows(arr)
 }
 
 final class AnyBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with Buff[Any]

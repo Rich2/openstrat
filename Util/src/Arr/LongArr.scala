@@ -44,6 +44,9 @@ object LongArrBuilder extends ArrMapBuilder[Long, LongArr] with ArrFlatBuilder[L
   override def newBuff(length: Int = 4): LongBuff = new LongBuff(new ArrayBuffer[Long](length))
   override def buffGrow(buff: LongBuff, value: Long): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: LongBuff): LongArr = new LongArr(buff.unsafeBuffer.toArray)
+
+  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
+  override def buffGrowArr(buff: LongBuff, arr: LongArr): Unit = buff.grows(arr)
 }
 
 class LongBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with Buff[Long]

@@ -15,13 +15,6 @@ trait SeqLikeCommonBuilder[BB]
   def buffToBB(buff: BuffT): BB
 }
 
-/** Base trait for map and flatMap [[Arr]] builders. Its only method is the buffGrowArr method. Not sure if [[ArrMapBuilder]]s need it, but might as
- * well leave it in, as it adds no extra requirements to the map builder. */
-trait ArrBuilder[ArrB] extends SeqLikeCommonBuilder[ArrB]
-{ /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  def buffGrowArr(buff: BuffT, arr: ArrB): Unit
-}
-
 /** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
  * operations where the type of the element of the [[SeqLike]] that the builder is constructed may not be known at the point of dispatch. */
 trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
@@ -42,7 +35,7 @@ trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
  * the BB companion object. The type parameter is named B rather than A, because normally this will be found by an implicit in the context of a
  * function from A => B or A => M[B]. The methods of this trait mutate and therefore must be used with care. Where ever possible they should not be
  * used directly by end users. */
-trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB] with ArrBuilder[ArrB]
+trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
 {
   /** Sets the value in an [[Arr]] of type ArrB. This is usually used in conjunction with uninitialised method. */
   def arrSet(arr: ArrB, index: Int, value: B): Unit
@@ -60,8 +53,6 @@ trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB] with A
     inp.foreach(a => buffGrow(buff, f(a)))
     buffToBB(buff)
   }
-
-  final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = arr.foreach(buff.grow)
 }
 
 /** The companion object for ArrBuild contains implicit ArrBuild instances for common types. */
@@ -87,12 +78,15 @@ trait ArrBuilderPriority2
   implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrMapBuilder[B, RArr[B]] = new ArrTBuild[B]
 }
 
-trait SeqLikeFlatBuilder[BB] extends ArrBuilder[BB]
+trait SeqLikeFlatBuilder[BB] extends  SeqLikeCommonBuilder[BB]// ArrBuilder[BB]
 
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
  *  you control should go in the companion object of BB. This is different from the related [[ArrMapBuilder]][BB] type class where the instance
  *  should go into the B companion object. */
-trait ArrFlatBuilder[ArrB <: Arr[_]] extends SeqLikeFlatBuilder[ArrB] with ArrBuilder[ArrB]
+trait ArrFlatBuilder[ArrB <: Arr[_]] extends SeqLikeFlatBuilder[ArrB] //with ArrBuilder[ArrB]
+{ /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
+  def buffGrowArr(buff: BuffT, arr: ArrB): Unit
+}
 
 /** Companion object for ArrTFlatBuilder, contains implicit instances for atomic value classes. */
 object ArrFlatBuilder extends ArrFlatBuilderLowPriority
