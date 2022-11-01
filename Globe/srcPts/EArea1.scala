@@ -1,6 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pglobe._
+import geom._
+import pglobe._
+
+import scala.reflect.ClassTag
 
 /** A first level area of the Earth, a large area such as North West Europe. */
 abstract class EArea1(val name: String, val cen: LatLong) extends GeographicSymbolKey
@@ -35,15 +38,25 @@ object LocationLLArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
     new LocationLLArr(arrays._1, arrays._2)
   }
 
-  implicit val flatArrBuilderImplicit: ArrFlatBuilder[LocationLLArr] = new ArrFlatBuilder[LocationLLArr]
-  { override type BuffT = LatLongPairBuff[Place]
+  implicit val flatArrBuilderImplicit: DblNPairArrFlatBuilder[LatLong, LatLongArr, Place, LocationLLArr] =
+    new DblNPairArrFlatBuilder[LatLong, LatLongArr, Place, LocationLLArr] {
+      override type BuffT = LatLongPairBuff[Place]
+      override type B1BuffT = LatLongBuff
 
-    /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-    override def buffGrowArr(buff: LatLongPairBuff[Place], arr: LocationLLArr): Unit = ???
+      /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
+      override def buffGrowArr(buff: LatLongPairBuff[Place], arr: LocationLLArr): Unit = ???
 
-    override def newBuff(length: Int): LatLongPairBuff[Place] = LatLongPairBuff()
+      /** ClassTag for building Arrays and ArrayBuffers of B2s. */
+      override implicit def b2ClassTag: ClassTag[Place] = implicitly[ClassTag[Place]]
 
-    /** converts a the buffer type to the target compound class. */
-    override def buffToBB(buff: LatLongPairBuff[Place]): LocationLLArr = ???
-  }
+      override def newB1Buff(): LatLongBuff = ???
+
+      /** Expands / appends the B1 [[Buff]] with a songle element of B1. */
+      override def b1BuffGrow(buff: LatLongBuff, newElem: LatLong): Unit = ???
+
+      override def newBuff(length: Int): LatLongPairBuff[Place] = ???
+
+      /** converts a the buffer type to the target compound class. */
+      override def buffToBB(buff: LatLongPairBuff[Place]): LocationLLArr = ???
+    }
 }
