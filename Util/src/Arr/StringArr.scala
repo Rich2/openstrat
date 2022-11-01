@@ -87,9 +87,7 @@ object StringArrBuilder extends ArrMapBuilder[String, StringArr] with ArrFlatBui
   override def newBuff(length: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](length))
   override def buffGrow(buff: StringBuff, value: String): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: StringBuff): StringArr = new StringArr(buff.unsafeBuffer.toArray)
-
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  override def buffGrowArr(buff: StringBuff, arr: StringArr): Unit = buff.grows(arr)
+  override def buffGrowArr(buff: StringBuff, arr: StringArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
 class StringBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buff[String]

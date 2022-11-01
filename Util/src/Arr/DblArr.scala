@@ -41,7 +41,7 @@ object DblArrBuilder extends ArrMapBuilder[Double, DblArr] with ArrFlatBuilder[D
   override def newBuff(length: Int = 4): DblBuff = new DblBuff(new ArrayBuffer[Double](length))
   override def buffGrow(buff: DblBuff, value: Double): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: DblBuff): DblArr = new DblArr(buff.unsafeBuffer.toArray)
-  override def buffGrowArr(buff: DblBuff, arr: DblArr): Unit = buff.grows(arr)
+  override def buffGrowArr(buff: DblBuff, arr: DblArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
 /** Compile time wrapped Buff class for [[Double]]s, used to build [[DblArr]]. */

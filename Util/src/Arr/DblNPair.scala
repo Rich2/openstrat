@@ -15,7 +15,7 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
 
 trait DblNPairBuff[B1 <: ElemDblN, B2, B <: ElemDblNPair[B1, B2]] extends PairBuff[B1, B2, B]
 { def a1DblBuffer: ArrayBuffer[Double]
-  override final def grows(newElems: Arr[B]): Unit = newElems.foreach(grow)
+  final def growArr(newElems: Arr[B]): Unit = newElems.foreach(grow)
 }
 
 trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblNPair[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends

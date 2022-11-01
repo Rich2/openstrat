@@ -100,9 +100,7 @@ object IntArrBuilder extends ArrMapBuilder[Int, IntArr] with ArrFlatBuilder[IntA
   override def newBuff(length: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](length))
   override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: IntBuff): IntArr = new IntArr(buff.unsafeBuffer.toArray)
-
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  override def buffGrowArr(buff: IntBuff, arr: IntArr): Unit = buff.grows(arr)
+  override def buffGrowArr(buff: IntBuff, arr: IntArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
 /** ArrayBuffer class for [[IntArr]]. End users should rarely have need to use this class */

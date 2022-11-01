@@ -39,14 +39,13 @@ object AnyArr
 
 object AnyArrBuild extends ArrMapBuilder[Any, AnyArr] with ArrFlatBuilder[AnyArr]
 { type BuffT = AnyBuff
+
   override def arrUninitialised(length: Int): AnyArr = new AnyArr(new Array[Any](length))
   override def arrSet(arr: AnyArr, index: Int, value: Any): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): AnyBuff = new AnyBuff(new ArrayBuffer[Any](length))
   override def buffGrow(buff: AnyBuff, value: Any): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: AnyBuff): AnyArr = new AnyArr(buff.unsafeBuffer.toArray)
-
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  override def buffGrowArr(buff: AnyBuff, arr: AnyArr): Unit = buff.grows(arr)
+  override def buffGrowArr(buff: AnyBuff, arr: AnyArr): Unit = arr.foreach(el => buff.unsafeBuffer.append(el))
 }
 
 final class AnyBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with Buff[Any]
@@ -57,6 +56,7 @@ final class AnyBuff(val unsafeBuffer: ArrayBuffer[Any]) extends AnyVal with Buff
   override def unsafeSetElem(i: Int, value: Any): Unit = unsafeBuffer(i) = value
   override def fElemStr: Any => String = _.toString
   override def grow(newElem: Any): Unit = unsafeBuffer.append(newElem)
+  def growArr(newArr: AnyArr): Unit = newArr.unsafeArray.foreach(el => unsafeBuffer.append(el))
 }
 
 object AnyArrHead

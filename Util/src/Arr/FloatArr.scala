@@ -45,9 +45,7 @@ object FloatArrBuilder extends ArrMapBuilder[Float, FloatArr] with ArrFlatBuilde
   override def newBuff(length: Int = 4): FloatBuff = new FloatBuff(new ArrayBuffer[Float](length))
   override def buffGrow(buff: FloatBuff, value: Float): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: FloatBuff): FloatArr = new FloatArr(buff.unsafeBuffer.toArray)
-
-  /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  override def buffGrowArr(buff: FloatBuff, arr: FloatArr): Unit = buff.grows(arr)
+  override def buffGrowArr(buff: FloatBuff, arr: FloatArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
 class FloatBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with Buff[Float]

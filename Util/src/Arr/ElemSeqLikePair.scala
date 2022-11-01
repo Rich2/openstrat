@@ -40,7 +40,7 @@ trait SeqLikeDblNPairArr[A1E <: ElemDblN, A1 <: DblNSeqLike[A1E], A1Arr <: Arr[A
 trait SeqLikeDblNPairBuff[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], B2, B <: SeqLikeDblNPair[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
 { def a1Buffer: ArrayBuffer[Array[Double]]
   final override def grow(newElem: B): Unit = { a1Buffer.append(newElem.a1ArrayDbl); a2Buffer.append(newElem.a2) }
-  final override def grows(newElems: Arr[B]): Unit = newElems.foreach(grow)
+  final def grows(newElems: Arr[B]): Unit = newElems.foreach(grow)
 }
 
 trait SeqLikeDblNPairArrBuilder[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPair[B1E, B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends
@@ -73,7 +73,7 @@ trait SeqLikeIntNPairArr[A1E <: ElemIntN, A1 <: IntNSeqSpec[A1E], A1Arr <: Arr[A
 trait SeqLikeIntNPairBuff[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], B2, B <: SeqLikeIntNPair[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
 { def a1Buffer: ArrayBuffer[Array[Int]]
   final override def grow(newElem: B): Unit = { a1Buffer.append(newElem.a1ArrayInt); a2Buffer.append(newElem.a2) }
-  final override def grows(newElems: Arr[B]): Unit = newElems.foreach(grow)
+  final def grows(newElems: Arr[B]): Unit = newElems.foreach(grow)
 }
 
 trait SeqLikeIntNPairArrBuilder[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPair[B1E, B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends

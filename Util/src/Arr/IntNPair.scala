@@ -27,7 +27,7 @@ trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: ElemIntNPair[A1
 
 trait IntNPairBuff[A1 <: ElemIntN, A2, A <: ElemIntNPair[A1, A2]] extends PairBuff[A1, A2, A]
 { def a1IntBuffer: ArrayBuffer[Int]
-  override final def grows(newElems: Arr[A]): Unit = newElems.foreach(grow)
+  final def grows(newElems: Arr[A]): Unit = newElems.foreach(grow)
 }
 
 trait IntNPairArrBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: ElemIntNPair[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
