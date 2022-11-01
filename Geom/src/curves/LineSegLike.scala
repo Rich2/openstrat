@@ -1,15 +1,15 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** A class that is like a LineSeg, includes [[LineSeg]] and [[LineSegM]]. The trait takes the type parameter of the vertex. */
+/** A class that is like a LineSeg, includes [[LineSeg]] and [[LineSegM2]]. The trait takes the type parameter of the vertex. */
 trait LineSegLike[VT] extends ElemValueN
 {
   /** The start point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
-   * [[PtM2]] for a [[LineSegM]]. */
+   * [[PtM2]] for a [[LineSegM2]]. */
   def startPt: VT
 
   /** The end point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
-   * [[PtM2]] for a [[LineSegM]]. */
+   * [[PtM2]] for a [[LineSegM2]]. */
   def endPt: VT
 
   def map[VB, LB <: LineSegLike[VB]](f: VT => VB)(implicit build: LineSegLikeBuilder[VB, LB]) = build.newSeg(f(startPt), f(endPt))
@@ -54,3 +54,7 @@ trait LineSegDblsPairArr[VT <: ElemDblN, A1 <: LineSegLikeDblN[VT], ArrA1 <: Dbl
   def a1ArrayDbl: Array[Double]
   def fromArrays(a1Arr: Array[Double], a2Arr: Array[A2]): ThisT
 }
+
+trait LineSegLikeDbl4[VT <: ElemDbl2] extends LineSegLikeDblN[VT] with ElemDbl4
+
+trait LineSegLikeDbl6[VT <: ElemDbl3] extends LineSegLikeDblN[VT] with ElemDbl6

@@ -3,8 +3,11 @@ package ostrat; package geom
 import math._
 
 /** A 3 dimensional point. Right-handed coordinate system is the default. */
-final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like
-{ override def typeStr: String = "Pt3"
+final class Pt3(val x: Double, val y: Double, val z: Double) extends PointDbl3 with Vec3Like
+{ override type ThisT = Pt3
+  override type LineSegT = LineSeg3
+
+  override def typeStr: String = "Pt3"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt3]
 
   override def approx(that: Any, precision: Double): Boolean = that match
@@ -44,6 +47,12 @@ final class Pt3(val x: Double, val y: Double, val z: Double) extends Vec3Like
     val ang1 = ang0 + rotation
     Pt3(x, sin(ang1) * scalar, cos(ang1) * scalar)
   }
+
+  /** [[LineSeg3]] from this point to the parameter point. */
+  override def lineSegTo(endPt: Pt3): LineSeg3 = LineSeg3(this, endPt)
+
+  /** [[LinSeg3]] from the parameter point to this point. */
+  override def lineSegFrom(startPt: Pt3): LineSeg3 = LineSeg3(startPt, this)
 }
 
 /** Companion object for [[Pt3]] class. Contains apply, unapply factory methods and Persist type class instance. */

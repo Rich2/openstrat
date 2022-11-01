@@ -5,7 +5,7 @@ import collection.mutable.ArrayBuffer
 /* A polygon using distances measured in [[Length]] or metres rather than scalars. */
 final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with PolygonDbl2[PtM2]
 { type ThisT = PolygonM2
-  type SideT = LineSegM
+  type SideT = LineSegM2
   def fromArray(array: Array[Double]): PolygonM2 = new PolygonM2(array)
   override def typeStr: String = "PolygonMs"
   override def ssElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
@@ -53,7 +53,7 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
    * signature. */
   override def vertsPrevForEach[U](f: (PtM2, PtM2) => U): Unit = ???
 
-  override def sidesForeach[U](f: LineSegM => U): Unit = ???
+  override def sidesForeach[U](f: LineSegM2 => U): Unit = ???
 }
 
 /** The companion object for PolygonDist. Provides an implicit builder. */
