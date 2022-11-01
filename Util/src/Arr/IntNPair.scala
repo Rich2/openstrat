@@ -75,18 +75,18 @@ trait Int2PairArr[A1 <: ElemInt2, ArrA1 <: Int2Arr[A1], A2, A <: ElemInt2Pair[A1
 trait Int2PairBuff[A1 <: ElemInt2, A2, A <: ElemInt2Pair[A1, A2]] extends IntNPairBuff[A1, A2, A]
 { /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, a2: A2): A
-  inline final override def apply(index: Int): A = newElem(a1IntBuffer (index * 2), a1IntBuffer(index * 2 + 1), a2Buffer(index))
+  inline final override def apply(index: Int): A = newElem(a1IntBuffer (index * 2), a1IntBuffer(index * 2 + 1), b2Buffer(index))
 
   override final def grow(newElem: A): Unit =
   { a1IntBuffer.append(newElem.a1Int1)
     a1IntBuffer.append(newElem.a1Int2)
-    a2Buffer.append(newElem.a2)
+    b2Buffer.append(newElem.a2)
   }
 
   override final def unsafeSetElem(i: Int, value: A): Unit =
   { a1IntBuffer(i * 3) = value.a1Int1
     a1IntBuffer(i * 3 + 1) = value.a1Int2
-    a2Buffer(i) = value.a2
+    b2Buffer(i) = value.a2
   }
 }
 
@@ -150,20 +150,20 @@ trait Int3PairBuff[A1 <: ElemInt3, A2, A <: ElemInt3Pair[A1, A2]] extends IntNPa
 { /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, int3: Int, a2: A2): A
 
-  inline final override def apply(index: Int): A = newElem(a1IntBuffer (index * 3), a1IntBuffer(index * 3 + 1), a1IntBuffer(index * 3 + 2), a2Buffer(index))
+  inline final override def apply(index: Int): A = newElem(a1IntBuffer (index * 3), a1IntBuffer(index * 3 + 1), a1IntBuffer(index * 3 + 2), b2Buffer(index))
 
   override final def grow(newElem: A): Unit =
   { a1IntBuffer.append(newElem.a1Int1)
     a1IntBuffer.append(newElem.a1Int2)
     a1IntBuffer.append(newElem.a1Int3)
-    a2Buffer.append(newElem.a2)
+    b2Buffer.append(newElem.a2)
   }
 
   override final def unsafeSetElem(i: Int, value: A): Unit =
   { a1IntBuffer(i * 3) = value.a1Int1
     a1IntBuffer(i * 3 + 1) = value.a1Int2
     a1IntBuffer(i * 3 + 2) = value.a1Int3
-    a2Buffer(i) = value.a2
+    b2Buffer(i) = value.a2
   }
 }
 

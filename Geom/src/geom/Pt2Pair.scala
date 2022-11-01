@@ -29,7 +29,7 @@ object Pt2PairArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
 }
 
 /** Buffer for [[Pt2Pair]]s. */
-class Pt2PairBuff[A2](val a1DblBuffer: ArrayBuffer[Double], val a2Buffer: ArrayBuffer[A2]) extends Dbl2PairBuff[Pt2, A2, Pt2Pair[A2]]
+class Pt2PairBuff[A2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[A2]) extends Dbl2PairBuff[Pt2, A2, Pt2Pair[A2]]
 { override type ThisT = Pt2PairBuff[A2]
   override def typeStr: String = "Pt2PairBuff"
   override def newElem(dbl1: Double, dbl2: Double, a2: A2): Pt2Pair[A2] = new Pt2Pair[A2](dbl1, dbl2, a2)
@@ -43,6 +43,6 @@ class Pt2PairArrBuider[A2](implicit val b2ClassTag: ClassTag[A2]) extends Dbl2Pa
   override def pairArrBuilder(b1Arr: Pt2Arr, b2s: Array[A2]): Pt2PairArr[A2] = new Pt2PairArr[A2](b1Arr.unsafeArray, b2s)
   override def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[A2]): Pt2PairArr[A2] = new Pt2PairArr[A2](a1ArrayDbl, a2Array)
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[A2]): Pt2PairBuff[A2] = new Pt2PairBuff[A2](a1Buffer, a2Buffer)
-  override def buffToBB(buff: Pt2PairBuff[A2]): Pt2PairArr[A2] = new Pt2PairArr[A2](buff.a1DblBuffer.toArray, buff.a2Buffer.toArray)
+  override def buffToBB(buff: Pt2PairBuff[A2]): Pt2PairArr[A2] = new Pt2PairArr[A2](buff.b1DblBuffer.toArray, buff.b2Buffer.toArray)
   override def newB1Buff(): Pt2Buff = Pt2Buff()
 }

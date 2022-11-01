@@ -100,8 +100,10 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
 /** An efficient [[Buff]] for [[ElemPair]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
  * because these [[Buff]]s will normally be used with map(f: A => B) and flatMap(f: A => M[B]) type methods. */
 trait PairBuff[B1, B2, B <: ElemPair[B1, B2]] extends Any with Buff[B]
-{ def a2Buffer: ArrayBuffer[B2]
-  override def length: Int = a2Buffer.length
+{ /** ArrayBuffer for the B2 components of the pairs. */
+  def b2Buffer: ArrayBuffer[B2]
+
+  override def length: Int = b2Buffer.length
   override def fElemStr: B => String = _.toString
 }
 

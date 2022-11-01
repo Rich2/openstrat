@@ -14,8 +14,11 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
 }
 
 trait DblNPairBuff[B1 <: ElemDblN, B2, B <: ElemDblNPair[B1, B2]] extends PairBuff[B1, B2, B]
-{ def a1DblBuffer: ArrayBuffer[Double]
-  final def growArr(newElems: Arr[B]): Unit = newElems.foreach(grow)
+{ /** The backing buffer for the B1 components. */
+  def b1DblBuffer: ArrayBuffer[Double]
+
+  final def growArr(newElems: DblNPairArr[B1, _, B2, B]): Unit = { newElems.a1ArrayDbl.foreach(b1DblBuffer.append(_))
+    newElems.a2Array.foreach(b2Buffer.append(_)) }
 }
 
 trait DblNPairArrBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblNPair[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
@@ -66,18 +69,18 @@ trait Dbl2PairArr[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1], A2, A <: ElemDbl2Pair[A1
 trait Dbl2PairBuff[A1 <: ElemDbl2, A2, A <: ElemDbl2Pair[A1, A2]] extends DblNPairBuff[A1, A2, A]
 { /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
   def newElem(dbl1: Double, dbl2: Double, a2: A2): A
-  inline final override def apply(index: Int): A = newElem(a1DblBuffer (index * 2), a1DblBuffer(index * 2 + 1), a2Buffer(index))
+  inline final override def apply(index: Int): A = newElem(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
 
   override final def grow(newElem: A): Unit =
-  { a1DblBuffer.append(newElem.a1Dbl1)
-    a1DblBuffer.append(newElem.a1Dbl2)
-    a2Buffer.append(newElem.a2)
+  { b1DblBuffer.append(newElem.a1Dbl1)
+    b1DblBuffer.append(newElem.a1Dbl2)
+    b2Buffer.append(newElem.a2)
   }
 
   override final def unsafeSetElem(i: Int, value: A): Unit =
-  { a1DblBuffer(i * 3) = value.a1Dbl1
-    a1DblBuffer(i * 3 + 1) = value.a1Dbl2
-    a2Buffer(i) = value.a2
+  { b1DblBuffer(i * 3) = value.a1Dbl1
+    b1DblBuffer(i * 3 + 1) = value.a1Dbl2
+    b2Buffer(i) = value.a2
   }
 }
 
@@ -143,20 +146,20 @@ trait Dbl3PairBuff[B1 <: ElemDbl3, B2, B <: ElemDbl3Pair[B1, B2]] extends DblNPa
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def newElem(dbl1: Double, dbl2: Double, dbl3: Double, a2: B2): B
 
-  inline final override def apply(index: Int): B = newElem(a1DblBuffer (index * 3), a1DblBuffer(index * 3 + 1), a1DblBuffer(index * 3 + 2), a2Buffer(index))
+  inline final override def apply(index: Int): B = newElem(b1DblBuffer (index * 3), b1DblBuffer(index * 3 + 1), b1DblBuffer(index * 3 + 2), b2Buffer(index))
 
   override final def grow(newElem: B): Unit =
-  { a1DblBuffer.append(newElem.a1Dbl1)
-    a1DblBuffer.append(newElem.a1Dbl2)
-    a1DblBuffer.append(newElem.a1Dbl3)
-    a2Buffer.append(newElem.a2)
+  { b1DblBuffer.append(newElem.a1Dbl1)
+    b1DblBuffer.append(newElem.a1Dbl2)
+    b1DblBuffer.append(newElem.a1Dbl3)
+    b2Buffer.append(newElem.a2)
   }
 
   override final def unsafeSetElem(i: Int, value: B): Unit =
-  { a1DblBuffer(i * 3) = value.a1Dbl1
-    a1DblBuffer(i * 3 + 1) = value.a1Dbl2
-    a1DblBuffer(i * 3 + 2) = value.a1Dbl3
-    a2Buffer(i) = value.a2
+  { b1DblBuffer(i * 3) = value.a1Dbl1
+    b1DblBuffer(i * 3 + 1) = value.a1Dbl2
+    b1DblBuffer(i * 3 + 2) = value.a1Dbl3
+    b2Buffer(i) = value.a2
   }
 }
 
