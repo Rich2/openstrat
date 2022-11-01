@@ -6,7 +6,9 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black, reflect.ClassTag
  *  [[Vec2]] instead. Thanks to René Descartes for this. [[Vec2]]s can be added and subtracted from points. Points can not be added to points but they
  *  can be used to translate the point. */
 final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
-{ override def typeStr: String = "Pt2"
+{ override type ThisT = Pt2
+  override type LineSegT = LineSeg
+  override def typeStr: String = "Pt2"
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Pt2]
 
   override def approx(that: Any, precision: Double): Boolean = that match
@@ -139,10 +141,10 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
   @inline def rotate270: Pt2 = Pt2(y, -x)
 
   /** Line segment [[LineSeg]] from this point to the parameter point. */
-  def lineTo(pt2: Pt2): LineSeg = LineSeg(this, pt2)
+  def lineSegTo(endPt: Pt2): LineSeg = LineSeg(this, endPt)
 
   /** Line segment [[LineSeg]] from the parameter point to this point. */
-  def lineFrom(pt2: Pt2): LineSeg = LineSeg(pt2, this)
+  def lineSegFrom(startPt: Pt2): LineSeg = LineSeg(startPt, this)
 
   /** Line segment from this point to along the given angle for the given magnitude to point 2. */
   def angleToLine(angle: Angle, magnitude: Double): LineSeg = LineSeg(this, this + angle.toVec2(magnitude))

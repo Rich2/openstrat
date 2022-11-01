@@ -5,7 +5,9 @@ import math._, collection.mutable.ArrayBuffer, reflect.ClassTag
 /** 3 dimensional point specified using metres [[Length]] as units rather than pure numbers. The Letter M was used rather L for Length to avoid
  *  confusion with the LL ending which is short for Latitude-longitude. */
 final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) extends PointDbl3
-{ def typeStr: String = "Metres3"
+{ override type ThisT = PtM3
+  override type LineSegT = LineSegM3
+  def typeStr: String = "Metres3"
   override def toString: String = typeStr.appendParenthSemis(xMetres.str2, yMetres.str2, zMetres.str2)
   //override def canEqual(other: Any): Boolean = other.isInstanceOf[Metres3]
   def dbl1: Double = xMetres
@@ -89,6 +91,9 @@ final class PtM3(val xMetres: Double, val yMetres: Double, val zMetres: Double) 
     val sq = xMetres.squared + yMetres.squared
     Length(sq.sqrt)
   }
+
+  override def lineSegTo(endPt: PtM3): LineSegM3 = LineSegM3(this, endPt)
+  override def lineSegFrom(startPt: PtM3): LineSegM3 = LineSegM3(startPt, this)
 }
 
 /** Companion object for the [[PtM3] class. the 3D point measure in metres length. */

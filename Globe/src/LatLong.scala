@@ -5,7 +5,9 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 /** A value of latitude and longitude stored for the earth, stored in arc seconds. The constructor is private as instances will rarely be constructed
  * from arc second values. "ll" and "LL" will be used as an abbreviation for LatLong in method names.  */
 final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double) extends LatLongBase with ShowDbl2 with PointDbl2 with ApproxDbl
-{ override def typeStr: String = "LatLong"
+{ override type ThisT = LatLong
+  override type LineSegT = LineSegLL
+  override def typeStr: String = "LatLong"
   override def name1: String = "lat"
   override def name2: String = "long"
   def show1: Double = latDegs
@@ -109,6 +111,9 @@ final class LatLong private(val latMilliSecs: Double, val longMilliSecs: Double)
     val clat = latRadians.cos.abs
     PtM3(longSine * equatorialRadius * clat, latSine * polarRadius, longCos * equatorialRadius * clat)
   }
+
+  override def lineSegTo(endPt: LatLong): LineSegLL = LineSegLL(this, endPt)
+  override def lineSegFrom(startPt: LatLong): LineSegLL = LineSegLL(startPt, this)
 }
 
 /** Companion object for the [[LatLong]] class. Contains factory methods for the creation of LatLong s.  */

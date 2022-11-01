@@ -1,9 +1,20 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import math._, collection.mutable.ArrayBuffer, Colour.Black
 
 /** A point in a space. So [[Pt2]]s are points in 2D space. [[Pt3]]s are points in 3D space. */
 trait Point extends Any
+{ /** The type of this point for the purposes of LineSegT. May not be the final type. */
+  type ThisT <: Point
+
+  /** The type of [[LineSegLike]] that this [[Point]] can start or ends. */
+  type LineSegT <: LineSegLike[ThisT]
+
+  /** [[LineSegLike]] from this point to the parameter point. */
+  def lineSegTo(endPt: ThisT): LineSegT
+
+  /** [[LinSegLike]] from the parameter point to this point. */
+  def lineSegFrom(startPt: ThisT): LineSegT
+}
 
 trait PointSeqLike[PT <: Point] extends SeqLike[PT]
 

@@ -67,5 +67,5 @@ object DashedLineDraw
     "colour", _.colour, apply)*/
 
   def array(pStart: Pt2, pEnd: Pt2, lineWidth: Double, dashArr: Array[Double], colour: Colour = Black): DashedLineDraw =
-    new DashedLineDraw(pStart.lineTo(pEnd), lineWidth, colour, dashArr)
+    new DashedLineDraw(pStart.lineSegTo(pEnd), lineWidth, colour, dashArr)
 }

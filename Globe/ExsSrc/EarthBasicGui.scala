@@ -19,13 +19,19 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
 
   val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
-  //val lc1: LocationLLArr = UsaWest.places
-  val lc1a: LocationLLArr = eas.flatMap(_.places)
-
-  val lc2: PtM3PairArr[Place] = lc1a.mapOnA1(_.toMetres3)
+  val lc1: LocationLLArr = eas.flatMap(_.places)
+  val lc2: PtM3PairArr[Place] = lc1.mapOnA1(_.toMetres3)
 
   /** This compiles without type annotation. */
   val ps2: PolygonM3PairArr[EArea2] = ps1.polygonMapToPair(_.toMetres3)
+
+  import pEurope._
+  val london = England.london.a1
+  val paris = Frankia.paris.a1
+  val berlin = Germania.berlin.a1
+  val conns1 = LineSegLLArr(london.lineSegTo(paris), paris.lineSegTo(berlin))
+  val conns2 = conns1.map(_.map(_.toMetres3))
+
 
   def repaint(): Unit =
   { val ps3: PolygonM3PairArr[EArea2] = ps2.polygonMapToPair(_.fromLatLongFocus(focus))
@@ -56,12 +62,17 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
     val locs2: PtM3PairArr[Place] = locs1.filterOnA1(_.zPos)
     val locs3: Pt2PairArr[Place] = locs2.mapOnA1(_.xy / scale)
 
-    val locTexts = locs3.map{p => val col = p.a2.level match {case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink}
-      p.a1.textAt(p.a2.name, 10, col)}
+    val locTexts = locs3.map{ p => val col = p.a2.level match { case 1 => DarkBlue; case 2 => DarkGreen; case 3 => Pink }
+      p.a1.textAt(p.a2.name, 10, col) }
+
+    val conns3 = conns2.map(_.fromLatLongFocus(focus))
+    val conns4 = conns3.filter(_.zsPos)
+    val conns5 = conns4.map(_.xy / scale)
+    val conns6 = conns5.draw(2, Orange)
 
     def seas: EllipseFill = earth2DEllipse(scale).fill(DarkBlue)
 
-    mainRepaint(seas %: activeFills ++ sideLines ++ areaNames ++ locTexts)
+    mainRepaint(seas %: activeFills ++ sideLines.+%(conns6) ++ areaNames ++ locTexts)
   }
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {

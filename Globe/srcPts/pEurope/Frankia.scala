@@ -37,14 +37,16 @@ object Frankia extends EArea2("Frankia", 47.28 ll 1.93, plain)
   val calais = 50.93 ll 1.74
   val belgianCoast = 51.09 ll 2.54
 
-  //val f1 = 49.42 ll 6.54
   val basel = 47.56 ll 7.58
   val bourgeEnBresse = 46.20 ll 5.22
-
 
   val polygonLL = PolygonLL(southEast, southWest, sLAmelie, royan, laCoubre, laRochelle, niortaise, sablesdOlonne, vilaineMouth, penmarch, brest,
     landunvez, pleubian, yffiniac, capFrehel, pointeDuGrouin, vildeLaMarine, avranches,
     cabaneVauban, auderville, gatteville, carentan, cabourg,villierville, seineMouth,
     wLeHavre, capAntifer, cayeux, capGrisNez, calais, belgianCoast,
     basel, bourgeEnBresse)
+
+  val paris: LocationLL = LocationLL("Paris", 48.86, 2.35, 1)
+
+  override val places: LocationLLArr = LocationLLArr(paris)
 }

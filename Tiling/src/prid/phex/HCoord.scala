@@ -3,8 +3,16 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
-trait HCoord extends Any with TCoord with Ordered[HCoord]
-{
+trait HCoord extends Any with TCoord with Point with Ordered[HCoord]
+{ override type ThisT = HCoord
+  override type LineSegT = LineSegHC
+
+  /** [[LineSegHC]] from this [[HCoord]] to the parameter [[HCoord]]. */
+  override def lineSegTo(endPt: HCoord): LineSegHC = LineSegHC(this, endPt)
+
+  /** [[LinSegHC]] from the parameter [[HCoord]] to this [[HCoord]]. */
+  override def lineSegFrom(startPt: HCoord): LineSegHC = LineSegHC(startPt, this)
+
   override def equals(obj: Any): Boolean = obj match {
     case hc: HCoord if r == hc.r & c == hc.c => true
     case _ => false

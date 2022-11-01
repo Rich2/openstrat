@@ -14,6 +14,10 @@ object Germania extends EArea2("Germania", 50.50 ll 11.11, plain)
       
    val polygonLL = PolygonLL(Frankia.belgianCoast, eBelgianCoast, wMiddleburg, eemshaven, neNetherlands, cuxhaven,
          Jutland.swJutland, Jutland.lubeck, swinoujscie, Alpsland.vienna, Alpsland.steyr, Frankia.basel)
+
+   val berlin: LocationLL = LocationLL("Berlin", 52.52, 13.41, 1)
+
+   override val places: LocationLLArr = LocationLLArr(berlin)
 }
 
 object Alpsland extends EArea2("Alpsland", 45.93 ll 10.49, mtain)
