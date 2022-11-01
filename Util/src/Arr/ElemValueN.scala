@@ -99,8 +99,8 @@ trait ValueNSeqLikeCommonBuilder[BB] extends SeqLikeCommonBuilder[BB]
 { def elemProdSize: Int
 }
 
+/** Map builder for [[ValueNSeqLike]] classes. */
 trait ValueNSeqLikeMapBuilder[B, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
-
 
 /** Trait for creating the ArrTBuilder. Instances for the [[ArrMapBuilder]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */

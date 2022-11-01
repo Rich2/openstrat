@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** Array[Double] based collection class for a LinePath. Conversion to and from the Vec2s class and Polygon class should not entail a runtime
  *  cost. */
-class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2SeqLike with LinePathDbl2[Pt2]
+class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2SeqSpec with LinePathDbl2[Pt2]
 { type ThisT = LinePath
   def fromArray(array: Array[Double]): LinePath = new LinePath(array)
   override def typeStr: String = "LinePath"
@@ -13,12 +13,7 @@ class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2Se
   @inline def yStart: Double = unsafeArray(1)
   @inline def pStart: Pt2 = Pt2(xStart, yStart)
 
-
-  /** Method for creating new data elements from 2 [[Double]]s In the case of [[Dbl2Arr]] this will be thee type of the elements of the sequence. */
-  override def ssElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
-
   def ptsTrans(f: Pt2 => Pt2): LinePath =  new LinePath(arrTrans(f))
-
 
   def vertsTailForeach(f: (Double, Double) => Unit): Unit =
   { var count = 1
@@ -30,7 +25,7 @@ class LinePath(val unsafeArray: Array[Double]) extends AffinePreserve with Pt2Se
   
   def draw(lineWidth: Double = 2, colour: Colour = Colour.Black): LinePathDraw = LinePathDraw(this, lineWidth, colour)
 
-  /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symetrical across the y Axis polygons, with
+  /** Closes the line Path into a Polygon, by mirroring across the yAxis. This is useful for describing symmetrical across the y Axis polygons, with
    * the minimum number of points. The implementation is efficient, but is logical equivalent of myVec2s ++ myVec2s.reverse.negX. */
   def yMirrorClose: PolygonGen =
   { val acc: Array[Double] = appendArray(ssLength)

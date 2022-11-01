@@ -5,17 +5,23 @@ import math._, collection.mutable.ArrayBuffer, Colour.Black
 /** A point in a space. So [[Pt2]]s are points in 2D space. [[Pt3]]s are points in 3D space. */
 trait Point extends Any
 
+trait PointSeqLike[PT <: Point] extends SeqLike[PT]
+
 trait PointPair[A1 <: Point, A2] extends ElemPair[A1, A2]
 
 trait PointPairArr[A1 <: Point, ArrA1 <: Arr[A1], A2, A <: PointPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
 
 trait PointDblN extends Any with Point with ElemDblN
 
+trait PointDblNSeqLike[PT <: PointDblN] extends PointSeqLike[PT]
+
 trait PointDblNPair[A1 <: PointDblN, A2] extends PointPair[A1, A2] with ElemDblNPair[A1, A2]
 
 trait PointDblNPairArr[A1 <: PointDblN, ArrA1 <: DblNArr[A1], A2, A <: PointDblNPair[A1, A2]] extends PointPairArr[A1, ArrA1, A2, A] with DblNPairArr[A1, ArrA1, A2, A]
 
 trait PointDbl2 extends Any with PointDblN with ElemDbl2
+
+trait PointDbl2SeqLike[PT <: PointDbl2] extends PointDblNSeqLike[PT]
 
 trait PointDbl2Pair[A1 <: PointDbl2, A2] extends PointDblNPair[A1, A2] with ElemDbl2Pair[A1, A2]
 

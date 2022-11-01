@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._
 
@@ -26,15 +26,15 @@ object AmericasSouth extends EArea1("SAmericas", -6.52 ll -62.28)
   val bahiaSolano10 = 6.55 ll -77.32
 
   val nColumbia = 12.19 ll -71.27
-  val caracas = degs(11, -71)
+  val caracas = 11 ll -71
   val nwSAmericaEN = 6.77.north * nwAmericaE
 
   val SouthAmericaWest: EArea2 = EArea2("South America\nwest", degs(-5.0, -70.0), jungle,
      sSAmericaNW, nChile, nPeru, bahiaSolano10, AmericasNorth.sePanama, AmericasNorth.nePanama, nColumbia, caracas, nwSAmericaEN, nwSAmericaES)
 
-  val nAmapa = degs(4.39, -51.51)
-  val amazonMouthS = degs(-0.18, -49.3)
-  val paraiba = degs(-7.15, -34.82)
+  val nAmapa = 4.39 ll -51.51
+  val amazonMouthS = -0.18 ll -49.3
+  val paraiba = -7.15 ll -34.82
 
   val SouthAmericaEast = EArea2("South America\neast", degs(-10.04, -45.81), jungle, nwSAmericaEN, nAmapa, amazonMouthS, paraiba, sSAmericaNE,
     nwSAmericaES)

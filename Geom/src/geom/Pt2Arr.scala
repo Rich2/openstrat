@@ -3,21 +3,25 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
 /** The purpose of this trait is to provide the helper method for Vec2 transformations. */
-trait Pt2SeqLike extends Dbl2SeqLike[Pt2]
-{ def arrTrans(f: Pt2 => Pt2): Array[Double] =
-{ val newArray = new Array[Double](unsafeArray.length)
-  var count = 0
-  while (count < unsafeArray.length)
-  {
-    val newVec = f(unsafeArray(count) pp unsafeArray(count + 1))
-    newArray(count) = newVec.x
-    newArray(count + 1) = newVec.y
-    count += 2
+trait Pt2SeqLike extends PointDbl2SeqLike[Pt2] with Dbl2SeqLike[Pt2]
+{
+  def arrTrans(f: Pt2 => Pt2): Array[Double] =
+  { val newArray = new Array[Double](unsafeArray.length)
+    var count = 0
+    while (count < unsafeArray.length)
+    {
+      val newVec = f(unsafeArray(count) pp unsafeArray(count + 1))
+      newArray(count) = newVec.x
+      newArray(count + 1) = newVec.y
+      count += 2
+    }
+    newArray
   }
-  newArray
+  final override def fElemStr: Pt2 => String = _.str
 }
-  override def fElemStr: Pt2 => String = _.str
-  //final override def seqDefElem(d1: Double, d2: Double): Pt2 = Pt2.apply(d1, d2)
+
+trait Pt2SeqSpec extends Pt2SeqLike with Dbl2SeqSpec[Pt2]
+{ final override def ssElem(d1: Double, d2: Double): Pt2 = Pt2(d1, d2)
 }
 
 /** The default Array[Double] based collection class for [[Pt2]]s. Use Polygon or LinePath to represent those structures. Conversion to and from
