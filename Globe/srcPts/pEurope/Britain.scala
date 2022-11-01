@@ -89,5 +89,5 @@ object England extends EArea2("England",  52.73 ll -1.26, plain)
          bournemouth, swanage, ePortland, charmouth, exeMouth, startPeninsular, stAustell, lizard)
 
    val london: LocationLL = LocationLL("London", 51.51, - 0.13, 1)
-   override val locations: LocationLLArr = LocationLLArr(london)
+   override val places: LocationLLArr = LocationLLArr(london)
 }

@@ -37,7 +37,7 @@ object UsaWest extends EArea2 ("United States\nwest", 40.0 ll - 108.0, desert)
   val denver = LocationLL("Denver", 39.74, -105, 2)
   val losAngeles = LocationLL("Los Angeles", 34.05, -118.24, 1)
 
-  override val locations: LocationLLArr = LocationLLArr(lasVegas, denver, losAngeles)
+  override val places: LocationLLArr = LocationLLArr(lasVegas, denver, losAngeles)
 }
 
 object AmericasNorth extends EArea1("North America", 49 ll -100)

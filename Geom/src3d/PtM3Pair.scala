@@ -30,7 +30,6 @@ class PtM3PairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends D
   override def pairArrBuilder(b1Arr: PtM3Arr, b2s: Array[B2]): PtM3PairArr[B2] = new PtM3PairArr[B2](b1Arr.unsafeArray, b2s)
   override def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): PtM3PairArr[B2] = new PtM3PairArr[B2](a1ArrayDbl, a2Array)
   override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): PtM3PairBuff[B2] = new PtM3PairBuff[B2](a1Buffer, a2Buffer)
-  override def buffToBB(buff: PtM3PairBuff[B2]): PtM3PairArr[B2] = new PtM3PairArr[B2](buff.b1DblBuffer.toArray, buff.b2Buffer.toArray)
   override def newB1Buff(): PtM3Buff = PtM3Buff()
   override def fromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): PtM3PairArr[B2] = new PtM3PairArr[B2](a1Buff.toArray, b2s.toArray)
 }

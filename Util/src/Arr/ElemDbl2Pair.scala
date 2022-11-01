@@ -54,8 +54,6 @@ trait Dbl2PairArrMapBuilder[B1 <: ElemDbl2, ArrB1 <: Dbl2Arr[B1], B2, B <: ElemD
     arr.a1ArrayDbl(index * 3 + 1) = value.a1Dbl2
     arr.a2Array(index) = value.a2
   }
-
-  override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = { buff.unsafeBuffer.append(newElem.dbl1); buff.unsafeBuffer.append(newElem.dbl2) }
 }
 
 trait Dbl2PairArrCompanion[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]

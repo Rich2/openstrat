@@ -1,16 +1,13 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._
-import pglobe._
-
-import scala.reflect.ClassTag
+import geom._, pglobe._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A first level area of the Earth, a large area such as North West Europe. */
 abstract class EArea1(val name: String, val cen: LatLong) extends GeographicSymbolKey
 { def neighbs: RArr[EArea1] = RArr()
   def a2Arr: RArr[EArea2]
   def disp2(eg: EarthGuiOld): GraphicElems = a2Arr.flatMap(_.display(eg))
-  val places: RArr[LocationLL] = RArr()
+  def places: LocationLLArr = a2Arr.flatMap(_.places)
 }
 
 case class Place(name: String, level: Int)
@@ -38,25 +35,16 @@ object LocationLLArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
     new LocationLLArr(arrays._1, arrays._2)
   }
 
-  implicit val flatArrBuilderImplicit: DblNPairArrFlatBuilder[LatLong, LatLongArr, Place, LocationLLArr] =
-    new DblNPairArrFlatBuilder[LatLong, LatLongArr, Place, LocationLLArr] {
-      override type BuffT = LatLongPairBuff[Place]
-      override type B1BuffT = LatLongBuff
+  implicit def flatArrBuilderImplicit(implicit ct: ClassTag[Place]): DblNPairArrFlatBuilder[LatLong, LatLongArr, Place, LocationLLArr] =
+  new DblNPairArrFlatBuilder[LatLong, LatLongArr, Place, LocationLLArr]
+  { override type BuffT = LatLongPairBuff[Place]
+    override type B1BuffT = LatLongBuff
+    override implicit def b2ClassTag: ClassTag[Place] = ct
+    override def newB1Buff(): LatLongBuff = LatLongBuff()
 
-      /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-      override def buffGrowArr(buff: LatLongPairBuff[Place], arr: LocationLLArr): Unit = ???
+    override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[Place]): LatLongPairBuff[Place] =
+      new LatLongPairBuff[Place](a1Buffer, a2Buffer)
 
-      /** ClassTag for building Arrays and ArrayBuffers of B2s. */
-      override implicit def b2ClassTag: ClassTag[Place] = implicitly[ClassTag[Place]]
-
-      override def newB1Buff(): LatLongBuff = ???
-
-      /** Expands / appends the B1 [[Buff]] with a songle element of B1. */
-      override def b1BuffGrow(buff: LatLongBuff, newElem: LatLong): Unit = ???
-
-      override def newBuff(length: Int): LatLongPairBuff[Place] = ???
-
-      /** converts a the buffer type to the target compound class. */
-      override def buffToBB(buff: LatLongPairBuff[Place]): LocationLLArr = ???
-    }
+    override def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[Place]): LocationLLArr = new LocationLLArr(a1ArrayDbl, a2Array)
+  }
 }
