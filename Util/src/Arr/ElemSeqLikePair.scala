@@ -9,7 +9,7 @@ trait ElemSeqLikePair[A1E, A1 <: SeqLike[A1E], A2] extends ElemPair[A1, A2] with
 }
 
 /** A sequence of [[ElemSeqLikePair]]s stored in 2 [[Array]]s for efficiency. */
-trait SeqSpecPairArr[A1E, A1 <: SeqLike[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends PairArr[A1, A1Arr, A2, A]
+trait SeqLikePairArr[A1E, A1 <: SeqLike[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends PairArr[A1, A1Arr, A2, A]
 
 /** A buffer of [[ElemSeqLikePair]]s stored in 2 [[ArrayBuffer]]s for efficiency. */
 trait SeqLikePairBuff[A1E, A1 <: SeqLike[A1E], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends PairBuff[A1, A2, A]
@@ -29,7 +29,7 @@ trait SeqLikeDblNPair[A1E <: ElemDblN, A1 <: DblNSeqLike[A1E], A2] extends ElemS
 }
 
 trait SeqLikeDblNPairArr[A1E <: ElemDblN, A1 <: DblNSeqLike[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends
-  SeqSpecPairArr[A1E, A1, A1Arr, A2, A]
+  SeqLikePairArr[A1E, A1, A1Arr, A2, A]
 { type ThisT <: SeqLikeDblNPairArr[A1E, A1, A1Arr, A2, A]
   def a1FromArrayDbl(array: Array[Double]): A1
   def a1ArrayArrayDbl: Array[Array[Double]]
@@ -61,19 +61,24 @@ trait SeqLikeIntNPair[A1E <: ElemIntN, A1 <: IntNSeqLike[A1E], A2] extends ElemS
   def a1ArrayInt: Array[Int]
 }
 
-trait SeqLikeIntNPairArr[A1E <: ElemIntN, A1 <: IntNSeqSpec[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends
-  SeqSpecPairArr[A1E, A1, A1Arr, A2, A]
+trait SeqLikeIntNPairArr[A1E <: ElemIntN, A1 <: IntNSeqLike[A1E], A1Arr <: Arr[A1], A2, A <: ElemSeqLikePair[A1E, A1, A2]] extends
+  SeqLikePairArr[A1E, A1, A1Arr, A2, A]
 { type ThisT <: SeqLikeIntNPairArr[A1E, A1, A1Arr, A2, A]
+
+  /** The backing Array for the A1 components. */
+  def a1Array: Array[Array[Int]]
+
   def a1FromArrayInt(array: Array[Int]): A1
-  def arrayArrayInt: Array[Array[Int]]
   def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): ThisT
-  override def a1Index(index: Int): A1 = a1FromArrayInt(arrayArrayInt(index))
+  override def a1Index(index: Int): A1 = a1FromArrayInt(a1Array(index))
 }
 
 trait SeqLikeIntNPairBuff[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], B2, B <: SeqLikeIntNPair[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
 { def a1Buffer: ArrayBuffer[Array[Int]]
   final override def grow(newElem: B): Unit = { a1Buffer.append(newElem.a1ArrayInt); a2Buffer.append(newElem.a2) }
-  final def grows(newElems: Arr[B]): Unit = newElems.foreach(grow)
+
+  final def growArr(newPairArr: SeqLikeIntNPairArr[B1E, B1, _, B2, B]): Unit = { newPairArr.a1Array.foreach(a1Buffer.append(_))
+    newPairArr.a2Array.foreach(a2Buffer.append(_)) }
 }
 
 trait SeqLikeIntNPairArrBuilder[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPair[B1E, B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends

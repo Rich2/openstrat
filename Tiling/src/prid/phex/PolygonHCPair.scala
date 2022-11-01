@@ -15,14 +15,14 @@ object PolygonHCPair {
 }
 
 /** An Arr of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
-final class PolygonHCPairArr[A2](val arrayArrayInt: Array[Array[Int]], val a2Array: Array[A2]) extends
+final class PolygonHCPairArr[A2](val a1Array: Array[Array[Int]], val a2Array: Array[A2]) extends
   PolygonLikeIntNPairArr[HCoord, PolygonHC, PolygonHCArr, A2, PolygonHCPair[A2]]
 { override type ThisT = PolygonHCPairArr[A2]
-  override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { arrayArrayInt(i) = value.a1ArrayInt; a2Array(i) = value.a2 }
+  override def unsafeSetElem(i: Int, value: PolygonHCPair[A2]): Unit = { a1Array(i) = value.a1ArrayInt; a2Array(i) = value.a2 }
   override def fElemStr: PolygonHCPair[A2] => String = _.toString
   override def typeStr: String = "PolygonHCPairArray"
-  override def apply(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](arrayArrayInt(index), a2Array(index))
-  override def a1Arr: PolygonHCArr = new PolygonHCArr(arrayArrayInt)
+  override def apply(index: Int): PolygonHCPair[A2] = new PolygonHCPair[A2](a1Array(index), a2Array(index))
+  override def a1Arr: PolygonHCArr = new PolygonHCArr(a1Array)
   override def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](array1, array2)
   override def a1FromArrayInt(array: Array[Int]): PolygonHC = new PolygonHC(array)
 }
@@ -35,7 +35,7 @@ final class PolygonHCPairBuild[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   override def arrUninitialised(length: Int): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](new Array[Array[Int]](length), new Array[A2](length))
 
   override def arrSet(arr: PolygonHCPairArr[A2], index: Int, value: PolygonHCPair[A2]): Unit =
-  { arr.arrayArrayInt(index) = value.a1ArrayInt ; arr.a2Array(index) = value.a2 }
+  { arr.a1Array(index) = value.a1ArrayInt ; arr.a2Array(index) = value.a2 }
 
   override def newBuff(length: Int): PolygonHCPairBuff[A2] = new PolygonHCPairBuff[A2](new ArrayBuffer[Array[Int]](4), new ArrayBuffer[A2](4))
   override def buffToBB(buff: PolygonHCPairBuff[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](buff.a1Buffer.toArray, buff.a2Buffer.toArray)
