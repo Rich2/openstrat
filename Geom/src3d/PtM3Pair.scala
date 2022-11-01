@@ -23,7 +23,7 @@ class PtM3PairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: Array
 }
 
 /** Map builder for [[PtM3PairArr]]s. */
-class PtM3PairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends Dbl3PairArrBuilder[PtM3, PtM3Arr, B2, PtM3Pair[B2], PtM3PairArr[B2]]
+class PtM3PairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends Dbl3PairArrMapBuilder[PtM3, PtM3Arr, B2, PtM3Pair[B2], PtM3PairArr[B2]]
 { override type BuffT = PtM3PairBuff[B2]
   override type B1BuffT = PtM3Buff
   override def b1ArrBuilder: ArrMapBuilder[PtM3, PtM3Arr] = PtM3.arrBuilderImplicit

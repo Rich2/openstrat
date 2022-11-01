@@ -38,7 +38,7 @@ trait LineSegLikePairArr[VT, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: L
 }
 
 trait LineSegLikePairArrBuilder[B1V, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B2, B <: LineSegLikePair[B1V, B1, B2],
-  ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, B2, B]] extends PairArrBuilder[B1, ArrB1, B2, B, ArrB]
+  ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, B2, B]] extends PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { /** Builder for the first element of the pair of type B1, in this case a [[LineSegLike]]. The return type has been narrowed as it is needed for the
  * polygonMapPair method on [[LineSegLikePairArr]]. */
   def b1Builder: LineSegLikeBuilder[B1V, B1]

@@ -31,7 +31,7 @@ trait IntNPairBuff[A1 <: ElemIntN, A2, A <: ElemIntNPair[A1, A2]] extends PairBu
 }
 
 trait IntNPairArrBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: ElemIntNPair[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
-  PairArrBuilder[B1, ArrB1, B2, B, ArrB]
+  PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: IntNPairBuff[B1, B2, B]
   implicit def b2ClassTag: ClassTag[B2]
   def a1IntNum: Int

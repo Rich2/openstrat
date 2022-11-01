@@ -19,7 +19,9 @@ case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40,
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
 
   val ps1: PolygonLLPairArr[EArea2] = eas.map(ea => PolygonLLPair[EArea2](ea.polygonLL, ea))
-  val lc1: LocationLLArr = UsaWest.locations//eas.flatMap(_.locations)
+  val lc1: LocationLLArr = UsaWest.locations
+  //val lc1a = eas.flatMap(_.locations)
+
   val lc2: PtM3PairArr[Place] = lc1.mapOnA1(_.toMetres3)
 
   /** This compiles without type annotation. */

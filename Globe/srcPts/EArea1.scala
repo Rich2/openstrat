@@ -41,7 +41,7 @@ object LocationLLArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
     /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
     override def buffGrowArr(buff: LatLongPairBuff[Place], arr: LocationLLArr): Unit = ???
 
-    override def newBuff(length: Int): LatLongPairBuff[Place] = ???
+    override def newBuff(length: Int): LatLongPairBuff[Place] = LatLongPairBuff()
 
     /** converts a the buffer type to the target compound class. */
     override def buffToBB(buff: LatLongPairBuff[Place]): LocationLLArr = ???
