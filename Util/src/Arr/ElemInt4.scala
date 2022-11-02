@@ -55,7 +55,7 @@ trait Int4Arr[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNArr[A]
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait Int4ArrMapBuilder[B <: ElemInt4, ArrB <: Int4Arr[B]] extends IntNArrMapBuilder[B, ArrB]
-{ type BuffT <: Int4Buff[B, ArrB]
+{ type BuffT <: Int4Buff[B]
 
   final override def elemProdSize: Int = 4
   def newArray(length: Int): Array[Int] = new Array[Int](length * 4)
@@ -69,7 +69,7 @@ trait Int4ArrMapBuilder[B <: ElemInt4, ArrB <: Int4Arr[B]] extends IntNArrMapBui
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt4]]s collections. */
-trait Int4Buff[A <: ElemInt4, M <: Int4Arr[A]] extends Any with IntNBuff[A]
+trait Int4Buff[A <: ElemInt4] extends Any with IntNBuff[A]
 { override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
@@ -85,7 +85,7 @@ trait Int4Buff[A <: ElemInt4, M <: Int4Arr[A]] extends Any with IntNBuff[A]
 abstract class Int4ArrCompanion[A <: ElemInt4, M <: Int4Arr[A]] extends IntNSeqLikeCompanion[A, M]
 { override def elemNumInts: Int = 4
 
-  def buff(initialSize: Int): Int4Buff[A, M]
+  def buff(initialSize: Int): Int4Buff[A]
 
   def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4

@@ -63,11 +63,11 @@ object LineSegSqCArr extends Int4ArrCompanion[LineSegSqC, LineSegSqCArr]
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an Array[Int]. */
   override def fromArray(array: Array[Int]): LineSegSqCArr = new LineSegSqCArr(array)
 
-  override def buff(initialSize: Int): Int4Buff[LineSegSqC, LineSegSqCArr] = ???
+  override def buff(initialSize: Int): Int4Buff[LineSegSqC] = ???
 }
 
 /** Efficient expandable buffer for Line2s. */
-class LineSegSqCBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int4Buff[LineSegSqC, LineSegSqCArr]
+class LineSegSqCBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int4Buff[LineSegSqC]
 { override def typeStr: String = "Line2sBuff"
   override def intsToT(d1: Int, d2: Int, d3: Int, d4: Int): LineSegSqC = new LineSegSqC(d1, d2, d3, d4)
 }

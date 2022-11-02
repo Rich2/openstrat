@@ -58,3 +58,7 @@ trait LineSegDblsPairArr[VT <: ElemDblN, A1 <: LineSegLikeDblN[VT], ArrA1 <: Dbl
 trait LineSegLikeDbl4[VT <: ElemDbl2] extends LineSegLikeDblN[VT] with ElemDbl4
 
 trait LineSegLikeDbl6[VT <: ElemDbl3] extends LineSegLikeDblN[VT] with ElemDbl6
+
+trait LineSegLikeIntN[VT <: ElemIntN] extends LineSegLike[VT] with ElemIntN
+
+trait LineSegLikeInt4[VT <: ElemInt2] extends LineSegLikeIntN[VT] with ElemInt4

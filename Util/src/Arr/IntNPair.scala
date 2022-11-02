@@ -26,11 +26,11 @@ trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: ElemIntNPair[A1
 }
 
 trait IntNPairBuff[A1 <: ElemIntN, A2, A <: ElemIntNPair[A1, A2]] extends PairBuff[A1, A2, A]
-{ def a1IntBuffer: ArrayBuffer[Int]
+{ def b1IntBuffer: ArrayBuffer[Int]
   final def grows(newElems: Arr[A]): Unit = newElems.foreach(grow)
 }
 
-trait IntNPairArrBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: ElemIntNPair[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
+trait IntNPairArrMapBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: ElemIntNPair[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
   PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: IntNPairBuff[B1, B2, B]
   implicit def b2ClassTag: ClassTag[B2]
@@ -75,23 +75,23 @@ trait Int2PairArr[A1 <: ElemInt2, ArrA1 <: Int2Arr[A1], A2, A <: ElemInt2Pair[A1
 trait Int2PairBuff[A1 <: ElemInt2, A2, A <: ElemInt2Pair[A1, A2]] extends IntNPairBuff[A1, A2, A]
 { /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, a2: A2): A
-  inline final override def apply(index: Int): A = newElem(a1IntBuffer (index * 2), a1IntBuffer(index * 2 + 1), b2Buffer(index))
+  inline final override def apply(index: Int): A = newElem(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))
 
   override final def grow(newElem: A): Unit =
-  { a1IntBuffer.append(newElem.a1Int1)
-    a1IntBuffer.append(newElem.a1Int2)
+  { b1IntBuffer.append(newElem.a1Int1)
+    b1IntBuffer.append(newElem.a1Int2)
     b2Buffer.append(newElem.a2)
   }
 
   override final def unsafeSetElem(i: Int, value: A): Unit =
-  { a1IntBuffer(i * 3) = value.a1Int1
-    a1IntBuffer(i * 3 + 1) = value.a1Int2
+  { b1IntBuffer(i * 3) = value.a1Int1
+    b1IntBuffer(i * 3 + 1) = value.a1Int2
     b2Buffer(i) = value.a2
   }
 }
 
-trait Int2PairArrBuilder[B1 <: ElemInt2, ArrB1 <: Int2Arr[B1], B2, B <: ElemInt2Pair[B1, B2], ArrB <: Int2PairArr[B1, ArrB1, B2, B]] extends
-  IntNPairArrBuilder[B1, ArrB1, B2, B, ArrB]
+trait Int2PairArrMapBuilder[B1 <: ElemInt2, ArrB1 <: Int2Arr[B1], B2, B <: ElemInt2Pair[B1, B2], ArrB <: Int2PairArr[B1, ArrB1, B2, B]] extends
+  IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int2PairBuff[B1, B2, B]
   final override def a1IntNum: Int = 2
 
@@ -150,25 +150,25 @@ trait Int3PairBuff[A1 <: ElemInt3, A2, A <: ElemInt3Pair[A1, A2]] extends IntNPa
 { /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, int3: Int, a2: A2): A
 
-  inline final override def apply(index: Int): A = newElem(a1IntBuffer (index * 3), a1IntBuffer(index * 3 + 1), a1IntBuffer(index * 3 + 2), b2Buffer(index))
+  inline final override def apply(index: Int): A = newElem(b1IntBuffer (index * 3), b1IntBuffer(index * 3 + 1), b1IntBuffer(index * 3 + 2), b2Buffer(index))
 
   override final def grow(newElem: A): Unit =
-  { a1IntBuffer.append(newElem.a1Int1)
-    a1IntBuffer.append(newElem.a1Int2)
-    a1IntBuffer.append(newElem.a1Int3)
+  { b1IntBuffer.append(newElem.a1Int1)
+    b1IntBuffer.append(newElem.a1Int2)
+    b1IntBuffer.append(newElem.a1Int3)
     b2Buffer.append(newElem.a2)
   }
 
   override final def unsafeSetElem(i: Int, value: A): Unit =
-  { a1IntBuffer(i * 3) = value.a1Int1
-    a1IntBuffer(i * 3 + 1) = value.a1Int2
-    a1IntBuffer(i * 3 + 2) = value.a1Int3
+  { b1IntBuffer(i * 3) = value.a1Int1
+    b1IntBuffer(i * 3 + 1) = value.a1Int2
+    b1IntBuffer(i * 3 + 2) = value.a1Int3
     b2Buffer(i) = value.a2
   }
 }
 
-trait Int3PairArrBuilder[B1 <: ElemInt3, ArrB1 <: Int3Arr[B1], B2, B <: ElemInt3Pair[B1, B2], ArrB <: Int3PairArr[B1, ArrB1, B2, B]] extends
-  IntNPairArrBuilder[B1, ArrB1, B2, B, ArrB]
+trait Int3PairArrMapBuilder[B1 <: ElemInt3, ArrB1 <: Int3Arr[B1], B2, B <: ElemInt3Pair[B1, B2], ArrB <: Int3PairArr[B1, ArrB1, B2, B]] extends
+  IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int3PairBuff[B1, B2, B]
 
   final override def a1IntNum: Int = 3
