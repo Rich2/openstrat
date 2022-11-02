@@ -2,15 +2,20 @@
 package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
-trait SqBaseCoord extends Any with TCoord
-{ override def toVecReg: Vec2 = Vec2(c, r)
-  override def toPt2Reg: Pt2 = Pt2(c, r)
-}
-
 /** A square grid integer tile coordinate. */
-trait SqCoord extends Any with SqBaseCoord
-{
+trait SqCoord extends Any with TCoord
+{ override type ThisT = SqCoord
+  override type LineSegT = LineSegSC
+
   def view(pxScale: Double = 50): SqGridView = SqGridView(r, c, pxScale)
+  override def toVecReg: Vec2 = Vec2(c, r)
+  override def toPt2Reg: Pt2 = Pt2(c, r)
+
+  /** [[LineSegSC]] from this point to the parameter point. */
+  override def lineSegTo(endPt: SqCoord): LineSegSC = LineSegSC(this, endPt)
+
+  /** [[LinSegLike]] from the parameter point to this point. */
+  override def lineSegFrom(startPt: SqCoord): LineSegSC = LineSegSC(startPt, this)
 }
 
 object SqCoord

@@ -3,7 +3,7 @@ package ostrat; package prid
 import geom._
 
 /** A coordinate in a tile grid [[TGrid]]. The row is the first field, the column is the second. */
-trait TCoord extends Any with ShowElemInt2
+trait TCoord extends Any with Point with ShowElemInt2
 { /** Row number for the coordinate of a tile grid. */
   def r: Int
 

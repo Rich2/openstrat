@@ -27,7 +27,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: RArr[LineSegDraw] = moves.scSomesMap { (sc, step) =>
-    LineSegSC(sc, sc.step(step)).lineSeg.draw(players.unSafeApply(sc).colour)
+    LineSegSC(sc, sc.step(step)).oldLineSeg.draw(players.unSafeApply(sc).colour)
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

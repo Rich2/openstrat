@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom;
 
 /** This package is for global geometry. */
@@ -58,8 +58,7 @@ package object pglobe
   }
 
   implicit class LatLongGlobeExtensions(val thisPt: PtM3)
-  {
-    def fromLatLongFocus(focus: LatLong): PtM3 = thisPt.rotateY(-focus.longVec).rotateX(-focus.latVec)
+  { def fromLatLongFocus(focus: LatLong): PtM3 = thisPt.rotateY(-focus.longVec).rotateX(-focus.latVec)
   }
 
   implicit class RotateM3GlobeExtensions[T](val thisT: T)(implicit ev: RotateM3T[T])

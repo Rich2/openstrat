@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 
-/** A point in a space. So [[Pt2]]s are points in 2D space. [[Pt3]]s are points in 3D space. */
+/** A point in a space. So [[Pt2]]s are points in 2D space. [[Pt3]]s are points in 3D space. LatLongs are points in a 2D curved space. */
 trait Point extends Any
 { /** The type of this point for the purposes of LineSegT. May not be the final type. */
   type ThisT <: Point

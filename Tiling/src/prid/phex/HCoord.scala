@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A coordinate with in a Hex grid. It may be a Hex tile centre [[HCen]], a HexSide [[HSide]] or Hex tile vertice [[HVert]]. */
-trait HCoord extends Any with TCoord with Point with Ordered[HCoord]
+trait HCoord extends Any with TCoord with Ordered[HCoord]
 { override type ThisT = HCoord
   override type LineSegT = LineSegHC
 

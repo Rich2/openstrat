@@ -10,16 +10,17 @@ case class LineSegSC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[SqC
   def _3: Int = r2
   def _4: Int = c2
 
-  /** The start [[HCoord]] point. */
+  /** The start [[SqCoord]] point. */
   def startPt: SqCoord = SqCoord(r1, c1)
 
-  /** The end [[HCoord]] point. */
+  /** The end [[SqCoord]] point. */
   def endPt: SqCoord = SqCoord(r2, c2)
 
-  def lineSeg: LineSeg = LineSeg(startPt.toPt2Reg, endPt.toPt2Reg)
+  /** Method needs removing. */
+  def oldLineSeg: LineSeg = LineSeg(startPt.toPt2Reg, endPt.toPt2Reg)
 }
 
 object LineSegSC
-{ /** Factory apply method to create a hex coordinate line segment a [[LineSegHC]] from the start and end hex coordinates [[HCoord]]s. */
+{ /** Factory apply method to create a hex coordinate line segment a [[LineSegSqC]] from the start and end hex coordinates [[SqCoord]]s. */
   def apply(scCoord1: SqCoord, scCoord2: SqCoord): LineSegSC = new LineSegSC(scCoord1.r, scCoord1.c, scCoord2.r, scCoord2.c)
 }
