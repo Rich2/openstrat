@@ -3,17 +3,17 @@ package ostrat; package prid; package psq
 import geom._
 
 /** A 2d line upon a HexGrid defined by its start and end [[sqGrid]] [[SqCoord]]s. */
-case class LineSegSC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLikeInt4[SqCoord]
-{ def int1: Int = r1
-  def int2: Int = c1
-  def int3: Int = r2
-  def int4: Int = c2
+case class LineSegSC(int1: Int, int2: Int, int3: Int, int4: Int) extends LineSegLikeInt4[SqCoord]
+{ def startR: Int = int1
+  def startC: Int = int2
+  def endR: Int = int3
+  def endC: Int = int4
 
   /** The start [[SqCoord]] point. */
-  def startPt: SqCoord = SqCoord(r1, c1)
+  override def startPt: SqCoord = SqCoord(startR, startC)
 
   /** The end [[SqCoord]] point. */
-  def endPt: SqCoord = SqCoord(r2, c2)
+  override def endPt: SqCoord = SqCoord(endR, endC)
 
   /** Method needs removing. */
   def oldLineSeg: LineSeg = LineSeg(startPt.toPt2Reg, endPt.toPt2Reg)
