@@ -56,10 +56,11 @@ trait SqGridSys extends Any with TGridSys
     res
   }
 
-
   /** Creates a new [[SqCenBuffLayer]]. A [[SqCen] square tile centre corresponding Arr of empty [[ArrayBuffer]]s of the given or inferred type. */
   final def newSqCenBuffLayer[A <: AnyRef](implicit ct: ClassTag[A]): SqCenBuffLayer[A] = SqCenBuffLayer(numTiles)
 
+  /** foreach Hex side's coordinate HSide, calls the effectual function. */
+  def sidesForeach(f: SqSide => Unit): Unit = ???
 
   def sideLines: LineSegArr
 

@@ -28,6 +28,8 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   def horrSideLines: LineSegArr = iToMap(bottomSideR, topSideRow, 2){ r => LineSeg(leftSideC, r, rightSideC, r) }
   def vertSideLines: LineSegArr = iToMap(leftSideC, rightSideC, 2){ c => LineSeg(c, bottomSideR, c, topSideRow) }
 
+  override def sidesForeach(f: SqSide => Unit): Unit = iToForeach(bottomSideR, topSideRow){r => }
+
   /** Fills all the tiles with the same given parameter [[Colour]]. Not sure how useful this method is. */
   def fillTiles(colour: Colour): RArr[PolygonFill] = map(_.fill(colour))
 
@@ -55,9 +57,6 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
   /** The line segments [[LineSeg]]s for the sides of the tiles.
    *  @group SidesGroup */
   override def sideLines: LineSegArr = horrSideLines ++ vertSideLines
-
-
-
 
 
   /** Boolean. True if the specified hex centre exists in this hex grid. */
