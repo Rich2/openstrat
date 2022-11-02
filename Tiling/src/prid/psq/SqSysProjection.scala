@@ -7,6 +7,14 @@ trait SqSysProjection extends TSysProjection
   var gChild: SqGridSys
   def foreach(f: SqCen => Unit): Unit = gChild.foreach(f)
 
+  def sidesForeach(f: SqSide => Unit): Unit = gChild.sidesForeach(f)
+
+  def sidesMap[B, ArrB <: Arr[B]](f: SqSide => B)(implicit build: ArrMapBuilder[B, ArrB]) =
+  { val buff = build.newBuff()
+    sidesForeach{ss => buff.grow(f(ss))}
+    build.buffToBB(buff)
+  }
+
   /** only use for projection's known [[SqCoord]]s. */
   def transCoord(sc: SqCoord): Pt2
 }

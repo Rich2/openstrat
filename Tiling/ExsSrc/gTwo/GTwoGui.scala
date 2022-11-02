@@ -2,6 +2,7 @@
 package ostrat; package gTwo
 import pgui._, prid._, psq._, geom._, gPlay._
 
+/** Graphical user interface for Game Two. */
 case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView) extends SqSysGui("Game Two Gui")
 { statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
@@ -40,7 +41,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   }
 
   /** Draws the tiles sides (or edges). */
-  val sidesDraw = proj.sidesDraw()
+  def sidesDraw: LinesDraw = proj.sidesDraw()
 
   /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: SqCenOptLayer[SqDirn] = gridSys.newSCenOptDGrider[SqDirn]
