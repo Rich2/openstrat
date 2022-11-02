@@ -1,7 +1,6 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
 
 /** A quasi Polygon specified in 3D metre points. This is not a proper polygon as the points do not have to lie within the same plane. I'm not
  *  sure how useful this class will prove. It has been created for the intermediary step of converting from [[LatLongs]]s to [[PolygonM2]]s on world
@@ -97,6 +96,8 @@ object PolygonM3 extends Dbl3SeqLikeCompanion[PtM3, PolygonM3]
     override def rotateZ180T(obj: PolygonM3): PolygonM3 = obj.map(pt => pt.rotateZ180)
   }
 }
+
+/** Specialised [[Arr]] class for [[PolygonM3]]s. Polygon in a 3D space measured in metres. */
 class PolygonM3Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDblArr[PolygonM3]
 { override type ThisT = PolygonM3Arr
   override def typeStr: String = "PolygonM3Arr"
@@ -105,6 +106,7 @@ class PolygonM3Arr(val unsafeArrayOfArrays:Array[Array[Double]]) extends ArrayDb
   override def unsafeFromArrayArray(array: Array[Array[Double]]): PolygonM3Arr = new PolygonM3Arr(array)
 }
 
+/** Specialised [[Buff]] class for [[PolygonM3]]s. Polygon in a 3D space measured in metres. */
 class PolygonM3Buff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal with ArrayDblBuff[PolygonM3]
 { override type ThisT = PolygonM3Buff
   override def typeStr: String = "PolygonM3Buff"

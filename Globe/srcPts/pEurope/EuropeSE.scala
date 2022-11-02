@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
@@ -43,7 +43,7 @@ object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)
   val polygonLL: PolygonLL = PolygonLL(henichesk, kerch, crimeaS, crimeaW, crimeaNW)
 }
 
-object Ukraine extends EArea2("Ukraine", 50 ll 24, plain)
+object Ukraine extends EArea2("Ukraine", 49 ll 34, plain)
 { val caspianWLat = 44.53.north
   val asiaMinorNM = caspianWLat ll 38.09
   val caspianW = caspianWLat ll 46.65

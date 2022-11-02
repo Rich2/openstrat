@@ -18,6 +18,8 @@ class LineSegM2(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double, 
   override def dbl4: Double = yEndMetres
 }
 
+/** Companion object for line segments in a 2 dimensional space measured in metres. Conatains an apply method, an implicit ArrMap builder instance and
+ * an extension method. */
 object LineSegM2
 {
   def apply(startDist2: PtM2, endDist2: PtM2): LineSegM2 =
@@ -36,8 +38,8 @@ object LineSegM2
   }
 }
 
-/** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
- *  common parlance is often just referred to as a line. */
+/** Compact immutable Array[Double] based collection class for [[LineSegM2]]s. A mathematical
+ *  straight line segment measured in metres. */
 class LineSegM2Arr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSegM2]
 { type ThisT = LineSegM2Arr
   def fromArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)

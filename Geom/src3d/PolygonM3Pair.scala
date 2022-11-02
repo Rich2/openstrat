@@ -7,8 +7,7 @@ class PolygonM3Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends Polyg
 }
 
 object PolygonM3Pair
-{
-  def apply[A2](poly: PolygonM3, a2: A2): PolygonM3Pair[A2] = new PolygonM3Pair[A2](poly.unsafeArray, a2)
+{ def apply[A2](poly: PolygonM3, a2: A2): PolygonM3Pair[A2] = new PolygonM3Pair[A2](poly.unsafeArray, a2)
 }
 
 final class PolygonM3PairArr[A2](val a1Array: Array[Array[Double]], val a2Array: Array[A2]) extends
