@@ -25,7 +25,7 @@ class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Do
   def zsPos: Boolean = zStart.pos && zEnd.pos
 
   /** Takes the X and Y components. */
-  def xy: LineSegM = new LineSegM(xStartMs, yStartMs, xEndMs, yEndMs)
+  def xy: LineSegM2 = new LineSegM2(xStartMs, yStartMs, xEndMs, yEndMs)
 
   /** Scales the X and Y components to a scalar though the operand scaling length. */
   def xyLineSeg(scale: Length): LineSeg = LineSeg(xStart / scale, yStart / scale, xEnd / scale, yEnd / scale)

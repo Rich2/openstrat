@@ -3,8 +3,10 @@ package ostrat; package geom
 import collection.mutable.ArrayBuffer, math._, reflect.ClassTag
 
 /** A 2 dimensional point specified in [[Length]] as units rather than pure scalar numbers. */
-final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends ShowElemDbl2
-{ override def typeStr: String = "Pt2M"
+final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends PointDbl2 with ShowElemDbl2
+{ override type ThisT = PtM2
+  override type LineSegT = LineSegM2
+  override def typeStr: String = "Pt2M"
   override def name1: String = "x"
   override def name2: String = "y"
   def x: Length = Length(xMetresNum)
@@ -42,6 +44,12 @@ final class PtM2(val xMetresNum: Double, val yMetresNum: Double) extends ShowEle
   def xNeg: Boolean = x.neg
   def yPos: Boolean = y.pos
   def yNeg: Boolean = y.neg
+
+  /** [[LineSegM2]] from this point to the parameter point. */
+  override def lineSegTo(endPt: PtM2): LineSegM2 = LineSegM2(this, endPt)
+
+  /** [[LinSegM]] from the parameter point to this point. */
+  override def lineSegFrom(startPt: PtM2): LineSegM2 = LineSegM2(startPt, this)
 }
 
 /** Companion object for [[PtM2]] class contains factory methods. */
