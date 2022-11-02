@@ -31,7 +31,7 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
     LineSegSC(sc, sc.step(step)).oldLineSeg.draw(players.unSafeApply(sc).colour)
   }
 
-  //def mg2 = moves.scSomesMap{ (sc, step) => }
+  //def mg2 = moves.scSomesMap{ (sc, step) => new LineSegSCPair()}
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){

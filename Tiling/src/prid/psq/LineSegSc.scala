@@ -24,16 +24,10 @@ object LineSegSC
   def apply(scCoord1: SqCoord, scCoord2: SqCoord): LineSegSC = new LineSegSC(scCoord1.r, scCoord1.c, scCoord2.r, scCoord2.c)
 }
 
-class LineSegSCPair[A2](val r1: Int, val c1: Int, val r2: Int, val c2: Int, val a2: A2) extends ElemInt4Pair[LineSegSC, A2]
+class LineSegSCPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a1Int4: Int, val a2: A2) extends ElemInt4Pair[LineSegSC, A2]
 {
-  override def a1Int1: Int = ???
-
-  override def a1Int2: Int = ???
-
-  override def a1Int3: Int = ???
-
-  override def a1Int4: Int = ???
+  //val r1: Int, val c1: Int, val r2: Int, val c2: Int
 
   /** The first component of this pair. */
-  override def a1: LineSegSC = ???
+  override def a1: LineSegSC = new LineSegSC(a1Int1, a1Int2, a1Int3, a1Int4)
 }
