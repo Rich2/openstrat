@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._, collection.mutable.ArrayBuffer
+import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A 2d line upon a HexGrid defined by its start and end [[SqGrid]] [[SqCoord]]s. */
 case class LineSegSC(int1: Int, int2: Int, int3: Int, int4: Int) extends LineSegLikeInt4[SqCoord]
@@ -30,6 +30,8 @@ object LineSegSC
     override def fromIntArray(array: Array[Int]): LineSegSCArr = new LineSegSCArr(array)
     def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegSCBuff = new LineSegSCBuff(buffer)
   }
+
+  implicit def pairArrMapBuilderEv[B2](implicit ct: ClassTag[B2]): LineSegSCPairArrMapBuilder[B2] = new LineSegSCPairArrMapBuilder[B2]
 }
 
 /** Compact immutable Array[Int] based collection class for [[LineSegSC]]s. LineSegSqC is the library's term for a mathematical straight line segment, but what in
