@@ -25,7 +25,7 @@ object LineSegSC
   def apply(hCoord1: SqCoord, hCoord2: SqCoord): LineSegSC = new LineSegSC(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
-  implicit val buildEv: Int4ArrMapBuilder[LineSegSC, LineSegSCArr] = new Int4ArrMapBuilder[LineSegSC, LineSegSCArr]
+  implicit val arrMapBuilderEv: Int4ArrMapBuilder[LineSegSC, LineSegSCArr] = new Int4ArrMapBuilder[LineSegSC, LineSegSCArr]
   { type BuffT = LineSegSCBuff
     override def fromIntArray(array: Array[Int]): LineSegSCArr = new LineSegSCArr(array)
     def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegSCBuff = new LineSegSCBuff(buffer)
