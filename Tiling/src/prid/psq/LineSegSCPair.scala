@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import scala.collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 class LineSegSCPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a1Int4: Int, val a2: A2) extends ElemInt4Pair[LineSegSC, A2]
 { /** The first component of this pair. */
@@ -41,8 +40,7 @@ class LineSegSCPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends Int4Pair
   /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
   override def fromBuffs(a1Buff: LineSegSCBuff, b2s: ArrayBuffer[B2]): LineSegSCPairArr[B2] = ???
 
-  /** Constructs a new empty [[Buff]] for the B1 components of the pairs. */
-  override def newB1Buff(): LineSegSCBuff = ???
+  override def newB1Buff(): LineSegSCBuff = LineSegSCBuff()
 
   /** Expands / appends the B1 [[Buff]] with a songle element of B1. */
   override def b1BuffGrow(buff: LineSegSCBuff, newElem: LineSegSC): Unit = ???

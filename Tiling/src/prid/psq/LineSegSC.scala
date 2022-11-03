@@ -71,3 +71,7 @@ class LineSegSCBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int4
 { override def typeStr: String = "Line2sBuff"
   override def intsToT(d1: Int, d2: Int, d3: Int, d4: Int): LineSegSC = new LineSegSC(d1, d2, d3, d4)
 }
+
+object LineSegSCBuff
+{ def apply(initLen: Int = 4): LineSegSCBuff = new LineSegSCBuff(new ArrayBuffer[Int](initLen * 4))
+}
