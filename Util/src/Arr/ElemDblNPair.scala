@@ -25,15 +25,17 @@ trait DblNPAirArrCommonBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, ArrB <:
 PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, _]
   type B1BuffT <: DblNBuff[B1]
-  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = newElem.dblForeach(buff.unsafeBuffer.append(_))
 
-  def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): BuffT
-
+  /** Constructs the [[Arr]] class from an [[Array]][Double] object for the first components of the pairs and an [[Array]][B2] for the second
+   *  components of the pairs. */
   def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): ArrB
 
-  final override def newBuff(length: Int): BuffT = buffFromBuffers(new ArrayBuffer[Double](length), new ArrayBuffer[B2](length))
+  /** Constructs the [[Buff]] class from an [[ArrayBuffer]][Double] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the
+   * second components of the pairs. */
+  def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): BuffT
 
-  /** converts a the buffer type to the target compound class. */
+  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = newElem.dblForeach(buff.unsafeBuffer.append(_))
+  final override def newBuff(length: Int): BuffT = buffFromBuffers(new ArrayBuffer[Double](length), new ArrayBuffer[B2](length))
   final override def buffToBB(buff: BuffT): ArrB = arrFromArrays(buff.b1DblBuffer.toArray, buff.b2Buffer.toArray)
 }
 
