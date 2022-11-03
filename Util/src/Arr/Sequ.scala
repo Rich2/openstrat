@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.unchecked.uncheckedVariance, collection.immutable._
+import annotation.unchecked.uncheckedVariance, collection.immutable._, reflect.ClassTag
 
 /** This the base trait for all efficient sequence collections based on Array like classes, Arrays, ArrayBuffers etc. The final classes compile time
  *  wrap the platform Array and buffer classes. So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable
@@ -108,12 +108,12 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     res
   }
 
-  /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every
-   * element of this sequence. */
-  def mapPair[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB = {
-    val res = ev.arrUninitialised(length)
-    iForeach((i, a) => ev.arrSet(res, i, f(a)))
-    res
+  /** Specialised map to an immutable [[PairArr]] of B. Applies the supplied function to every element of this sequence. */
+  def mapPair[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]](f1: A => B1)(f2: A => B2)(
+  implicit build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB], ct: ClassTag[B2]): ArrB =
+  { val b1Res = map(f1)( build.b1ArrBuilder)
+    val b2Array = mapArray(f2)
+    build.pairArrBuilder(b1Res, b2Array)
   }
 
   /** Index with element map. Applies the parameter function to the index and each respective element of this sequence. The function returns an
@@ -234,6 +234,14 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     while(count < length & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToBB(acc)), Bad(errs))
+  }
+
+  /** Maps to an Array. */
+  def mapArray[B](f: A => B)(implicit ct: ClassTag[B]): Array[B] =
+  { val res = new Array[B](length)
+    var i = 0
+    foreach{ a => res(i) = f(a); i += 1 }
+    res
   }
 
   def eMapList[B](f: A => EMon[B]): EMon[List[B]] =
