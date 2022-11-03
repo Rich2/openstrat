@@ -76,7 +76,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
         a2Buff.append(pair.a2)
       }
     }
-    build.fromBuffs(a1Buff, a2Buff)
+    build.arrFromBuffs(a1Buff, a2Buff)
   }
 
   /** filters this sequence using a predicate upon the A1 components of the pairs. */
@@ -91,7 +91,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
       }
       i += 1
     }
-    build.fromBuffs(buff1, buff2)
+    build.arrFromBuffs(buff1, buff2)
   }
 
   final override def length: Int = a2Array.length
@@ -138,7 +138,7 @@ trait PairArrMapBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <:
   def pairArrBuilder(b1Arr: ArrB1, b2s: Array[B2]): ArrB
 
   /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
-  def fromBuffs(a1Buff : B1BuffT, b2s: ArrayBuffer[B2]): ArrB
+  def arrFromBuffs(a1Buff : B1BuffT, b2s: ArrayBuffer[B2]): ArrB
 }
 
 trait PairArrFlatBuilder[B1, ArrB1 <: Arr[B1], B2, ArrB <: PairArr[B1, ArrB1, B2, _]] extends PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with

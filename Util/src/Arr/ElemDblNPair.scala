@@ -43,13 +43,12 @@ trait DblNPairArrMapBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemD
 DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, B]
 
+  /** The number of [[Double]]s required to construct the first component of the pairs. */
   def a1DblNum: Int
 
   final override def arrUninitialised(length: Int): ArrB = arrFromArrays(new Array[Double](length * a1DblNum), new Array[B2](length))
-
   inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
-
-  override def fromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
+  final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
 trait DblNPairArrFlatBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends

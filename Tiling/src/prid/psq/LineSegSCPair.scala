@@ -12,7 +12,6 @@ class LineSegSCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) e
   override def typeStr: String = "LineSegSCPair"
   override def a1Arr: LineSegSCArr = new LineSegSCArr(a1ArrayInt)
   override def newPair(int1: Int, int2: Int, int3: Int, int4: Int, a2: A2): LineSegSCPair[A2] = new LineSegSCPair[A2](int1, int2, int3, int4, a2)
-
   override def newA1(int1: Int, int2: Int, int3: Int, int4: Int): LineSegSC = new LineSegSC(int1, int2, int3, int4)
   override def newFromArrays(a1Array: Array[Int], a2Array: Array[A2]): LineSegSCPairArr[A2] = new LineSegSCPairArr[A2](a1Array, a2Array)
   override def fElemStr: LineSegSCPair[A2] => String = _.toString
@@ -29,22 +28,9 @@ class LineSegSCPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends Int4Pair
   override type BuffT = LineSegSCPairBuff[B2]
   override type B1BuffT = LineSegSCBuff
   override implicit def b2ClassTag: ClassTag[B2] = ct
-
-  override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): LineSegSCPairBuff[B2] = ???
-
-  override def arrFromArrays(a1ArrayInt: Array[Int], a2Array: Array[B2]): LineSegSCPairArr[B2] = ???
-
+  override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): LineSegSCPairBuff[B2] = new LineSegSCPairBuff[B2](a1Buffer, a2Buffer)
+  override def arrFromArrays(a1ArrayInt: Array[Int], a2Array: Array[B2]): LineSegSCPairArr[B2] = new LineSegSCPairArr[B2](a1ArrayInt, a2Array)
   override def b1ArrBuilder: ArrMapBuilder[LineSegSC, LineSegSCArr] = LineSegSC.arrMapBuilderEv
   override def pairArrBuilder(b1Arr: LineSegSCArr, b2s: Array[B2]): LineSegSCPairArr[B2] = new LineSegSCPairArr[B2](b1Arr.unsafeArray, b2s)
-
-  /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
-  override def fromBuffs(a1Buff: LineSegSCBuff, b2s: ArrayBuffer[B2]): LineSegSCPairArr[B2] = ???
-
   override def newB1Buff(): LineSegSCBuff = LineSegSCBuff()
-
-  /** Expands / appends the B1 [[Buff]] with a songle element of B1. */
-  override def b1BuffGrow(buff: LineSegSCBuff, newElem: LineSegSC): Unit = ???
-
-  /** converts a the buffer type to the target compound class. */
-  override def buffToBB(buff: LineSegSCPairBuff[B2]): LineSegSCPairArr[B2] = ???
 }

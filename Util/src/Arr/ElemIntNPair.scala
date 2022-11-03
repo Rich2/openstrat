@@ -35,16 +35,35 @@ trait IntNPairBuff[B1 <: ElemIntN, B2, B <: ElemIntNPair[B1, B2]] extends PairBu
   }
 }
 
-trait IntNPairArrMapBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: ElemIntNPair[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
-  PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
-{ type BuffT <: IntNPairBuff[B1, B2, B]
-  implicit def b2ClassTag: ClassTag[B2]
-  def a1IntNum: Int
-  def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
+trait IntNPAirArrCommonBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, ArrB <: IntNPairArr[B1, ArrB1, B2, _]] extends
+  PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
+{ type BuffT <: IntNPairBuff[B1, B2, _]
+  type B1BuffT <: IntNBuff[B1]
+
+  /** Constructs the [[Arr]] class from an [[Array]][Int] object for the first components of the pairs and an [[Array]][B2] for the second
+   *  components of the pairs. */
   def arrFromArrays(a1ArrayInt: Array[Int], a2Array: Array[B2]): ArrB
+
+  /** Constructs the [[Buff]] class from an [[ArrayBuffer]][Int] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the
+   * second components of the pairs. */
+  def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
+
+  final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = newElem.intForeach(buff.unsafeBuffer.append(_))
+  final override def newBuff(length: Int): BuffT = buffFromBuffers(new ArrayBuffer[Int](length), new ArrayBuffer[B2](length))
+  final override def buffToBB(buff: BuffT): ArrB = arrFromArrays(buff.b1IntBuffer.toArray, buff.b2Buffer.toArray)
+}
+
+trait IntNPairArrMapBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: ElemIntNPair[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
+  IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
+{ type BuffT <: IntNPairBuff[B1, B2, B]
+
+  /** The number of [[Int]]s required to construct the first component of the pairs. */
+  def a1IntNum: Int
+
+  def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
   final override def arrUninitialised(length: Int): ArrB = arrFromArrays(new Array[Int](length * a1IntNum), new Array[B2](length))
-  final override def newBuff(length: Int): BuffT = buffFromBuffers(new ArrayBuffer[Int](length * a1IntNum), new ArrayBuffer[B2](length))
   inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
+  final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
 /** Helper trait for Companion objects of [[IntNPairArr]] classes. */
@@ -72,7 +91,7 @@ trait Int2PairArr[A1 <: ElemInt2, ArrA1 <: Int2Arr[A1], A2, A <: ElemInt2Pair[A1
     a2Array(i) = value.a2
   }
 
-  def newA1(int1: Double, int2: Double): A1
+  def newA1(int1: Int, int2: Int): A1
 
   override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1))
 }
@@ -146,7 +165,7 @@ trait Int3PairArr[A1 <: ElemInt3, ArrA1 <: Int3Arr[A1], A2, A <: ElemInt3Pair[A1
     a2Array(i) = value.a2
   }
 
-  def newA1(int1: Double, int2: Double, int3: Double): A1
+  def newA1(int1: Int, int2: Int, int3: Int): A1
 
   override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2))
 }
