@@ -15,7 +15,7 @@ trait Int4PairArr[A1 <: ElemInt4, ArrA1 <: Int4Arr[A1], A2, A <: ElemInt4Pair[A1
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newPair(int1: Int, int2: Int, int3: Int, Int4: Int, a2: A2): A
 
-  def newA1(int1: Int, int2: Int, int3: Int, Int4: Int): A1
+  def newA1(int1: Int, int2: Int, int3: Int, int4: Int): A1
   override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3))
 
   override final def apply(index: Int): A =
