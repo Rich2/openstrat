@@ -2,6 +2,8 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
+/** Pair where the first component is an [[ElemInt4]]. This allows these pair elements to be stored efficently in [[Int4PAirArr]]s, where the first
+ * [[ElemInt4]] components are backed bya single [[Array]][Int]. */
 trait ElemInt4Pair[A1 <: ElemInt4, A2] extends ElemIntNPair[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int

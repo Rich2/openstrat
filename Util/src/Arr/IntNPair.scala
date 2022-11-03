@@ -25,12 +25,12 @@ trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: ElemIntNPair[A1
   }
 }
 
+/** Specialised efficient [[Buff]] classes for accumulating pairs where the first component of the pair is and [[ElemIntN]]. */
 trait IntNPairBuff[B1 <: ElemIntN, B2, B <: ElemIntNPair[B1, B2]] extends PairBuff[B1, B2, B]
 { def b1IntBuffer: ArrayBuffer[Int]
-  final def grows(newElems: Arr[B]): Unit = newElems.foreach(grow)
 
-  final def growArr(newElems: IntNPairArr[B1, _, B2, B]): Unit = {
-    newElems.a1ArrayInt.foreach(b1IntBuffer.append(_))
+  final def growArr(newElems: IntNPairArr[B1, _, B2, B]): Unit =
+  { newElems.a1ArrayInt.foreach(b1IntBuffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_))
   }
 }

@@ -2,6 +2,8 @@
 package ostrat; package geom
 import annotation._, reflect.ClassTag, collection.mutable.ArrayBuffer
 
+/** Speccialised effeicnet class for pairs where the first ocmponent of the pair is a [[PolygonM3]], a polygon in £d space poits specified in metre
+ * scales. */
 class PolygonM3Pair[A2](val a1ArrayDbl: Array[Double], val a2: A2) extends PolygonLikeDblNPair[PtM3, PolygonM3, A2] with SpecialT {
   override def a1: PolygonM3 = new PolygonM3(a1ArrayDbl)
 }
