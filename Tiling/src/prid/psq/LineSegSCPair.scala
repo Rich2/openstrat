@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
+import scala.collection.mutable.ArrayBuffer
 
 class LineSegSCPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a1Int4: Int, val a2: A2) extends ElemInt4Pair[LineSegSC, A2]
 { /** The first component of this pair. */
@@ -15,4 +16,11 @@ class LineSegSCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) e
   override def newA1(int1: Int, int2: Int, int3: Int, int4: Int): LineSegSC = new LineSegSC(int1, int2, int3, int4)
   override def newFromArrays(a1Array: Array[Int], a2Array: Array[A2]): LineSegSCPairArr[A2] = new LineSegSCPairArr[A2](a1Array, a2Array)
   override def fElemStr: LineSegSCPair[A2] => String = _.toString
+}
+
+/** Specialised {{Buff]] class for [[LineSegSCPair]]s, that uses two backing [[ArrayBuffer]]s. */
+class LineSegSCPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends Int4PairBuff[LineSegSC, B2, LineSegSCPair[B2]]
+{ override type ThisT = LineSegSCPairBuff[B2]
+  override def typeStr: String = "LineSegSCPairBuff"
+  override def newElem(int1: Int, int2: Int, int3: Int, int4: Int, a2: B2): LineSegSCPair[B2] = new LineSegSCPair[B2](int1, int2, int3, int4, a2)
 }
