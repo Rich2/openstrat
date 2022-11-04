@@ -18,9 +18,9 @@ trait Int4PairArr[A1 <: ElemInt4, ArrA1 <: Int4Arr[A1], A2, A <: ElemInt4Pair[A1
   def newPair(int1: Int, int2: Int, int3: Int, Int4: Int, a2: A2): A
 
   def newA1(int1: Int, int2: Int, int3: Int, int4: Int): A1
-  override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3))
+  final override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3))
 
-  override final def apply(index: Int): A =
+  final override def apply(index: Int): A =
     newPair(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3), a2Array(index))
 
   override final def unsafeSetElem(i: Int, value: A): Unit =
