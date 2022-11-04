@@ -62,17 +62,6 @@ final class LineSegPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array
   override def typeStr: String = "LineSeqArrPair"
   override def a1Arr: LineSegArr = new LineSegArr(a1ArrayDbl)
 
-  //override def apply(index: Int): LineSegPair[A2] =
-  //  new LineSegPair[A2](a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
-
-  override def fromArrays(a1Arr: Array[Double], a2Array: Array[A2]): LineSegPairArr[A2] = new LineSegPairArr[A2](a1Arr, a2Array)
-
-  /*override def unsafeSetElem(i: Int, value: LineSegPair[A2]): Unit = { a1ArrayDbl(i * 4) = value.startX; a1ArrayDbl(i * 4 + 1) = value.startY
-    a1ArrayDbl(i * 4 + 2) = value.endX; a1ArrayDbl(i * 4 + 3) = value.endY
-    a2Array(i) = value.a2
-  }*/
-
-
   /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   override def newPair(dbl1: Double, dbl2: Double, dbl3: Double, Dbl4: Double, a2: A2): LineSegPair[A2] = ???
 
