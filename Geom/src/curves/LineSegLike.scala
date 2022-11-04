@@ -15,7 +15,9 @@ trait LineSegLike[VT] extends ElemValueN
   def map[VB, LB <: LineSegLike[VB]](f: VT => VB)(implicit build: LineSegLikeBuilder[VB, LB]) = build.newSeg(f(startPt), f(endPt))
 }
 
-trait LineSegLikeArr[A <: LineSeg] extends Any with Arr[A]
+trait LineSegLikeArr[VT, A <: LineSegLike[VT]] extends Any with Arr[A]
+
+trait LineSegLikeBuff[VT, B <: LineSegLike[VT]]
 
 trait LineSegLikeBuilder[VT, ST <: LineSegLike[VT]]
 {
