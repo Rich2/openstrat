@@ -3,15 +3,14 @@ package ostrat; package geom; package pglobe
 import collection.mutable.ArrayBuffer
 
 /** A 2 dimensional line segment defined in units of latitude and longitude rather than scalars in X and Y. A line on the service of the earth. */
-final case class LineSegLL(startSecsLat: Double, startSecsLong: Double, endSecsLat: Double, endSecsLong: Double) extends
-  LineSegLike[LatLong] with ElemDbl4
-{ def startPt: LatLong = LatLong.secs(startSecsLat, startSecsLong)
+final case class LineSegLL(val dbl1: Double, val dbl2: Double, val dbl3: Double, val dbl4: Double) extends LineSegLikeDbl4[LatLong]
+{
+  inline def startSecsLat: Double = dbl1
+  inline def startSecsLong: Double = dbl2
+  inline def endSecsLat: Double = dbl3
+  inline def endSecsLong: Double = dbl4
+  def startPt: LatLong = LatLong.secs(startSecsLat, startSecsLong)
   def endPt: LatLong = LatLong.secs(endSecsLat, endSecsLong)
-
-  override def dbl1: Double = startSecsLat
-  override def dbl2: Double = startSecsLong
-  override def dbl3: Double = endSecsLat
-  override def dbl4: Double = endSecsLong
 }
 
 /** Companion object for the [[LineSegLL]] class. */
@@ -34,9 +33,6 @@ class LineSegLLArr(val unsafeArray: Array[Double]) extends Dbl4Arr[LineSegLL]
   override def typeStr: String = "LineSegLLArr"
   override def fElemStr: LineSegLL => String = _.toString
   override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegLL = new LineSegLL(d1, d2, d3, d4)
-  //override def ptsTrans(f: Pt2 => Pt2): LineSegLLArr = dataMap(orig => LineSegLL(f(orig.pStart), f(orig.pEnd)))
-
-  //def draw(lineWidth: Double, colour: Colour = Colour.Black): LinesDraw = LinesDraw(this, lineWidth, colour)
 }
 
 /** Companion object for the LineSegLLs class. */
