@@ -40,19 +40,33 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
   def unSafeApply(sc: SqCen)(implicit gridSys: SqGridSys): A = unsafeArr(gridSys.arrIndex(sc))
 
+
+  def somesForeach(f: A => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach { sc =>
+    val a: A = unsafeArr(gridSys.arrIndex(sc))
+    if (a != null) f(a)
+  }
+
+  def somesLen: Int =
+  { var res = 0
+    unsafeArr.foreach(a => if (a != null) res += 1)
+    res
+  }
+
   /** [[SqCen]] with Some map. Maps the Some values of this [[SqCenArrOpt]], with the respective [[SqCen]] coordinate to type B, the first type
    *  parameter B.  Returns an immutable Array based collection of type ArrT, the second type parameter. */
   def scSomesMap[B, ArrB <: Arr[B]](f: (SqCen, A) => B)(implicit gridSys: SqGridSys, build: ArrMapBuilder[B, ArrB]): ArrB =
-  { val buff = build.newBuff()
+  { val len = somesLen
+    val res = build.arrUninitialised(len)
+    var i = 0
 
     gridSys.foreach { sc =>
       val a: A = unsafeArr(gridSys.arrIndex(sc))
       if(a != null)
       { val newVal = f(sc, a)
-        build.buffGrow(buff, newVal)
+        res.unsafeSetElem(i, newVal)
       }
     }
-    build.buffToBB(buff)
+    res
   }
 
   /** Drops the None values mapping the [[Some]]'s value with the [[SqCen]] to an option value, collecting the values of the [[Some]]s returned by the
