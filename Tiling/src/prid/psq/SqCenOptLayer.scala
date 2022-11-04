@@ -64,9 +64,30 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
       if(a != null)
       { val newVal = f(sc, a)
         res.unsafeSetElem(i, newVal)
+        i += 1
       }
+
     }
     res
+  }
+
+  def scSomesMapPair[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]](f1: (SqCen, A) => B1)(f2: (SqCen, A) => B2)(
+  implicit gridSys: SqGridSys, build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB =
+  { val len = somesLen
+    val res1 = build.b1Uninitialised(len)
+    val res2 = new Array[B2](len)(build.b2ClassTag)
+    var i = 0
+
+    gridSys.foreach { sc =>
+      val a: A = unsafeArr(gridSys.arrIndex(sc))
+      if (a != null) {
+        val new1 = f1(sc, a)
+        res1.unsafeSetElem(i, new1)
+        res2(i) = f2(sc, a)
+        i += 1
+      }
+    }
+    build.arrFromArrAndArray(res1, res2)
   }
 
   /** Drops the None values mapping the [[Some]]'s value with the [[SqCen]] to an option value, collecting the values of the [[Some]]s returned by the

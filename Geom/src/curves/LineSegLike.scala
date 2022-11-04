@@ -33,7 +33,7 @@ trait LineSegLikePairArr[VT, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: L
   def lineSegMapToPair[B1V <: ElemValueN, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B <: LineSegLikePair[B1V, B1, A2],
     ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, A2, B]](f: VT => B1V)(implicit build: LineSegLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]): ArrB =
   { val lineSegs = a1Arr.map(p => p.map[B1V, B1](f)(build.b1Builder))(build.b1ArrBuilder)
-    build.pairArrBuilder(lineSegs, a2Array)
+    build.arrFromArrAndArray(lineSegs, a2Array)
   }
 }
 

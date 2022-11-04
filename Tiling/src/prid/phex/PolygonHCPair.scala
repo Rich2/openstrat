@@ -50,7 +50,7 @@ final class PolygonHCPairBuild[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   override def b1ArrBuilder: ArrMapBuilder[PolygonHC, PolygonHCArr] = ???
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. Pun intended */
-  override def pairArrBuilder(b1Arr: PolygonHCArr, b2s: Array[A2]): PolygonHCPairArr[A2] = ???
+  override def arrFromArrAndArray(b1Arr: PolygonHCArr, b2s: Array[A2]): PolygonHCPairArr[A2] = ???
 
   override def newB1Buff(): PolygonHCBuff = PolygonHCBuff()
 }

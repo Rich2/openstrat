@@ -61,7 +61,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   def mapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => B1)(implicit
     build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val b1Arr: ArrB1 = a1Arr.map(f)(build.b1ArrBuilder)
-    build.pairArrBuilder(b1Arr, a2Array)
+    build.arrFromArrAndArray(b1Arr, a2Array)
   }
 
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old correponding A2
@@ -134,8 +134,10 @@ trait PairArrMapBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <:
   /** Builder for an Arr of the first element of the pair. */
   def b1ArrBuilder: ArrMapBuilder[B1, ArrB1]
 
+  final def b1Uninitialised(length: Int): ArrB1 = b1ArrBuilder.arrUninitialised(length)
+
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
-  def pairArrBuilder(b1Arr: ArrB1, b2s: Array[B2]): ArrB
+  def arrFromArrAndArray(b1Arr: ArrB1, b2s: Array[B2]): ArrB
 
   /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
   def arrFromBuffs(a1Buff : B1BuffT, b2s: ArrayBuffer[B2]): ArrB
