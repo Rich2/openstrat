@@ -2,6 +2,7 @@
 package ostrat; package prid; package psq
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
+/** [[SqCood]] defined [[LineSegLike]] [[ElemPair]]. */
 class LineSegSCPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a1Int4: Int, val a2: A2) extends ElemInt4Pair[LineSegSC, A2]
 { /** The first component of this pair. */
   override def a1: LineSegSC = new LineSegSC(a1Int1, a1Int2, a1Int3, a1Int4)
@@ -17,7 +18,7 @@ class LineSegSCPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) e
   override def fElemStr: LineSegSCPair[A2] => String = _.toString
 }
 
-/** Specialised {{Buff]] class for [[LineSegSCPair]]s, that uses two backing [[ArrayBuffer]]s. */
+/** Specialised [[Buff]] class for [[LineSegSCPair]]s, that uses two backing [[ArrayBuffer]]s. */
 class LineSegSCPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends Int4PairBuff[LineSegSC, B2, LineSegSCPair[B2]]
 { override type ThisT = LineSegSCPairBuff[B2]
   override def typeStr: String = "LineSegSCPairBuff"

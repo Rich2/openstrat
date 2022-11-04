@@ -22,41 +22,15 @@ trait LineSegLikeBuilder[VT, ST <: LineSegLike[VT]]
   def newSeg(vStart: VT, vEnd: VT): ST
 }
 
-/** A [[LineSegLike]] object paired with an object of type A2.]] */
-trait LineSegLikePair[VT, A1 <: LineSegLike[VT], A2] extends ElemPair[A1, A2]
-
-/** An [[Arr]] of [[LineSegLikePair]]s stored efficiently allowing maping between different [[LineSegLike]] types while keeping the A2 values unchanged. */
-trait LineSegLikePairArr[VT, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: LineSegLikePair[VT, A1, A2]] extends PairArr[A1, ArrA1, A2, A]
-{
-  /** Maps this to a new [LineSegLikePairArr]] by mapping [[LineSegLike]]s to new [[LineSegLike]]s of type B1 leaving the second parts of the pairs
-   * unchanged. */
-  def lineSegMapToPair[B1V <: ElemValueN, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B <: LineSegLikePair[B1V, B1, A2],
-    ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, A2, B]](f: VT => B1V)(implicit build: LineSegLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]): ArrB =
-  { val lineSegs = a1Arr.map(p => p.map[B1V, B1](f)(build.b1Builder))(build.b1ArrBuilder)
-    build.arrFromArrAndArray(lineSegs, a2Array)
-  }
-}
-
-trait LineSegLikePairArrBuilder[B1V, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B2, B <: LineSegLikePair[B1V, B1, B2],
-  ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, B2, B]] extends PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
-{ /** Builder for the first element of the pair of type B1, in this case a [[LineSegLike]]. The return type has been narrowed as it is needed for the
- * polygonMapPair method on [[LineSegLikePairArr]]. */
-  def b1Builder: LineSegLikeBuilder[B1V, B1]
-}
-
+/** A line segment where the start and end points are defined in [[ElemDblN]] vertices. */
 trait LineSegLikeDblN[VT <: ElemDblN] extends LineSegLike[VT] with ElemDblN
 
-trait LineSegLikeDblNPair[VT <: ElemDblN, A1 <: LineSegLikeDblN[VT], A2] extends LineSegLikePair[VT, A1, A2] with ElemDblNPair[A1, A2]
-
-trait LineSegDblsPairArr[VT <: ElemDblN, A1 <: LineSegLikeDblN[VT], ArrA1 <: DblNArr[A1], A2, A <: LineSegLikeDblNPair[VT, A1, A2]] extends
-  LineSegLikePairArr[VT, A1, ArrA1, A2, A] with DblNPairArr[A1, ArrA1, A2, A]
-{ type ThisT <: LineSegDblsPairArr[VT, A1, ArrA1, A2, A]
-  def a1ArrayDbl: Array[Double]
-  def fromArrays(a1Arr: Array[Double], a2Arr: Array[A2]): ThisT
-}
-
+/** A line segment where the start and end points are defined in [[ElemDbl2]] vertices. Theis will be the case for the classic 2D space line segment
+ * a 2D line segment specified in metres and a line segment specified in latitude and longitude. */
 trait LineSegLikeDbl4[VT <: ElemDbl2] extends LineSegLikeDblN[VT] with ElemDbl4
 
+/** A line segment where the start and end points are defined in [[ElemDbl3]] vertices. Theis will be the case for 3D space line segment and 3D line
+ *  segment specified in metres. */
 trait LineSegLikeDbl6[VT <: ElemDbl3] extends LineSegLikeDblN[VT] with ElemDbl6
 
 trait LineSegLikeIntN[VT <: ElemIntN] extends LineSegLike[VT] with ElemIntN
