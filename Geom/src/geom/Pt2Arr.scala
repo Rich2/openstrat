@@ -51,7 +51,7 @@ object Pt2Arr extends Dbl2SeqLikeCompanion[Pt2, Pt2Arr]
   { override def fromArray(value: Array[Double]): Pt2Arr = new Pt2Arr(value)
   }
 
-  implicit val arrFlatBuilderImplicit: ArrFlatBuilder[Pt2Arr] =  new Dbl2ArrFlatBuilder[Pt2, Pt2Arr]
+  implicit val arrFlatBuilderImplicit: ArrFlatBuilder[Pt2Arr] =  new Dbl2ArrFlatBuilder[Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)

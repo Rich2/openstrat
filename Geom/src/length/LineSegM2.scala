@@ -61,7 +61,7 @@ object LineSegM2Arr extends Dbl4SeqLikeCompanion[LineSegM2, LineSegM2Arr]
   }
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
-  implicit val flatBuildEv: ArrFlatBuilder[LineSegM2Arr] = new Dbl4ArrFlatBuilder[LineSegM2, LineSegM2Arr]
+  implicit val flatBuildEv: ArrFlatBuilder[LineSegM2Arr] = new Dbl4ArrFlatBuilder[LineSegM2Arr]
   { type BuffT = LineSegM2Buff
     override def fromDblArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
     def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegM2Buff = new LineSegM2Buff(inp)

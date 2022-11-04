@@ -23,7 +23,7 @@ final class LatLongArr(val unsafeArray: Array[Double]) extends AnyVal with LatLo
 }
 
 object LatLongArr{
-  implicit val arrFlatBuilderImplicit: Dbl2ArrFlatBuilder[LatLong, LatLongArr] = new Dbl2ArrFlatBuilder[LatLong, LatLongArr]
+  implicit val arrFlatBuilderImplicit: Dbl2ArrFlatBuilder[LatLongArr] = new Dbl2ArrFlatBuilder[LatLongArr]
   { type BuffT = LatLongBuff
     override def fromDblArray(array: Array[Double]): LatLongArr = new LatLongArr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): LatLongBuff = new LatLongBuff(inp)

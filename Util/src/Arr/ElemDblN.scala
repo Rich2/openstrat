@@ -118,8 +118,8 @@ trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeMa
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNArr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait DblNArrFlatBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeCommonBuilder[ArrB] with ValueNArrFlatBuilder[B, ArrB]
-{ type BuffT <: DblNBuff[B]
+trait DblNArrFlatBuilder[ArrB <: DblNArr[_]] extends DblNSeqLikeCommonBuilder[ArrB] with ValueNArrFlatBuilder[ArrB]
+{ type BuffT <: DblNBuff[_]
   def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = buffFromBufferDbl(new ArrayBuffer[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)

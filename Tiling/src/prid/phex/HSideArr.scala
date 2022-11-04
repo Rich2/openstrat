@@ -26,7 +26,7 @@ object HSideArr extends Int2SeqLikeCompanion[HSide, HSideArr]
   }
 
   /** Implicit flatMap builder instance / evidence for [[HSideArr]]. */
-  implicit val flatBuilderEv: ArrFlatBuilder[HSideArr] = new Int2ArrFlatBuilder[HSide, HSideArr]
+  implicit val flatBuilderEv: ArrFlatBuilder[HSideArr] = new Int2ArrFlatBuilder[HSideArr]
   { type BuffT = HSideBuff
     override def fromIntArray(array: Array[Int]): HSideArr = new HSideArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HSideBuff = new HSideBuff(buffer)

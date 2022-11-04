@@ -69,8 +69,8 @@ trait Dbl3ArrMapBuilder[B <: ElemDbl3, ArrB <: Dbl3Arr[B]] extends Dbl3SeqLikeMa
 /** Trait for creating the [[ArrFlatBuilder]] type class instances for [[Dbl3Arr]] final classes. Instances for the  for classes / traits you
  *  control, should go in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait Dbl3ArrFlatBuilder[B <: ElemDbl3, ArrB <: Dbl3Arr[B]] extends DblNArrFlatBuilder[B, ArrB]
-{ type BuffT <: Dbl3Buff[B]
+trait Dbl3ArrFlatBuilder[ArrB <: Dbl3Arr[_]] extends DblNArrFlatBuilder[ArrB]
+{ type BuffT <: Dbl3Buff[_]
   final override def elemProdSize = 3
 }
 

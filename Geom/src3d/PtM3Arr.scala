@@ -55,7 +55,7 @@ class PtM3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[PtM3]
 object PtM3Arr extends Dbl3SeqLikeCompanion[PtM3, PtM3Arr]
 { override def fromArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
 
-  implicit val arrFlatBuilderImplicit: Dbl3ArrFlatBuilder[PtM3, PtM3Arr] = new Dbl3ArrFlatBuilder[PtM3, PtM3Arr]
+  implicit val arrFlatBuilderImplicit: Dbl3ArrFlatBuilder[PtM3Arr] = new Dbl3ArrFlatBuilder[PtM3Arr]
   { type BuffT = PtM3Buff
     override def fromDblArray(array: Array[Double]): PtM3Arr = new PtM3Arr(array)
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)

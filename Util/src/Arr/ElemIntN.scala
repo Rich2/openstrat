@@ -96,8 +96,8 @@ trait IntNArrMapBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends IntNSeqLikeMa
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[IntNArr]] final classes. Instances for [[ArrFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait IntNArrFlatBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends ValueNArrFlatBuilder[B, ArrB]
-{ type BuffT <:  IntNBuff[B]
+trait IntNArrFlatBuilder[ArrB <: IntNArr[_]] extends ValueNArrFlatBuilder[ArrB]
+{ type BuffT <:  IntNBuff[_]
 
   /* Constructs an ArrB instance from an [[Array]][Int]. */
   def fromIntArray(array: Array[Int]): ArrB

@@ -111,7 +111,7 @@ trait ValueNArrMapBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ValueNS
 /** Trait for creating the ArrTFlatBuilder type class instances for [[ValueNArr]] final classes. Instances for the [[ArrFlatBuilder] should go in
  *  the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB```
  *  function. */
-trait ValueNArrFlatBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ValueNSeqLikeCommonBuilder[ArrB] with ArrFlatBuilder[ArrB]
+trait ValueNArrFlatBuilder[ArrB <: ValueNArr[_]] extends ValueNSeqLikeCommonBuilder[ArrB] with ArrFlatBuilder[ArrB]
 
 /** Class to Persist specialised for [[DatValueNs]] cLasses. */
 trait ValueNSeqLikePersist[A <: ElemValueN, M <: ValueNSeqLike[A]] extends PersistCompound[M]

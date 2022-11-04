@@ -115,7 +115,7 @@ object HCenArr extends Int2SeqLikeCompanion[HCen, HCenArr]
   }
 
   /** Implicit flatMap builder instance / evidence for [[HCenArr]]. */
-  implicit val flatBuilderEv: ArrFlatBuilder[HCenArr] = new Int2ArrFlatBuilder[HCen, HCenArr]
+  implicit val flatBuilderEv: Int2ArrFlatBuilder[HCenArr] = new Int2ArrFlatBuilder[HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)

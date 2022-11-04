@@ -55,7 +55,7 @@ object SqVertArr extends Int2SeqLikeCompanion[SqVert, SqVertArr]
     override def showDecT(obj: SqVertArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
-  implicit val arrArrayImplicit: ArrFlatBuilder[SqVertArr] = new Int2ArrFlatBuilder[SqVert, SqVertArr]
+  implicit val arrArrayImplicit: ArrFlatBuilder[SqVertArr] = new Int2ArrFlatBuilder[SqVertArr]
   { type BuffT = SqVertBuff
     override def fromIntArray(array: Array[Int]): SqVertArr = new SqVertArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqVertBuff = new SqVertBuff(buffer)

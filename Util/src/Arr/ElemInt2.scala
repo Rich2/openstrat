@@ -59,8 +59,8 @@ trait Int2ArrMapBuilder[B <: ElemInt2, ArrB <: Int2Arr[B]] extends IntNArrMapBui
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */
-trait Int2ArrFlatBuilder[B <: ElemInt2, ArrB <: Int2Arr[B]] extends IntNArrFlatBuilder[B, ArrB]
-{ type BuffT <: Int2Buff[B]
+trait Int2ArrFlatBuilder[ArrB <: Int2Arr[_]] extends IntNArrFlatBuilder[ArrB]
+{ type BuffT <: Int2Buff[_]
   final override def elemProdSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
 }

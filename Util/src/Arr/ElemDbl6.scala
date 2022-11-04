@@ -106,8 +106,8 @@ trait Dbl6ArrMapBuilder[B <: ElemDbl6, ArrB <: Dbl6Arr[B]] extends DblNArrMapBui
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl6]]. Instances for
  *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl6ArrFlatBuilder[B <: ElemDbl6, ArrB <: Dbl6Arr[B]] extends DblNArrFlatBuilder[B, ArrB]
-{ type BuffT <: Dbl6Buff[B]
+trait Dbl6ArrFlatBuilder[ArrB <: Dbl6Arr[_]] extends DblNArrFlatBuilder[ArrB]
+{ type BuffT <: Dbl6Buff[_]
   final override def elemProdSize = 6
 }
 
