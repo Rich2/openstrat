@@ -44,7 +44,6 @@ object LineSegLLArr extends Dbl4SeqLikeCompanion[LineSegLL, LineSegLLArr]
   { override def fromArray(value: Array[Double]): LineSegLLArr = new LineSegLLArr(value)
 
     override def showDecT(obj: LineSegLLArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
-
   }
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
@@ -62,3 +61,10 @@ class LineSegLLBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with L
 { override def typeStr: String = "Line2sBuff"
   override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): LineSegLL = new LineSegLL(d1, d2, d3, d4)
 }
+
+trait LineSegLLArrCommonBuilder extends DblNSeqLikeCommonBuilder[LineSegLLArr]
+{
+
+}
+
+class LineSegArrFlatBuilder
