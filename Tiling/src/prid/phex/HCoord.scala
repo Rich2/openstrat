@@ -75,6 +75,9 @@ object HCoord
   /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[PolygonLikeMapBuilder]]. */
   implicit val polygonBuildEv: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
   { override type BuffT = HCoordBuff
+
+    override def newBuff(length: Int): HCoordBuff = ???
+
     override def fromIntArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
     override def fromIntBuffer(inp: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(inp)
   }

@@ -84,7 +84,7 @@ trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntN[B] ] extends LinePa
   final override def newLinePath(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
   //final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
-  final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
+  //final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
 /** Trait for creating the line path type class instances for [[LinePathInt2]] final classes. Instances for the [[LinePathInt2sBuilder]] type class,

@@ -71,7 +71,8 @@ trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
 
 trait IntNSeqLikeCommonBuilder[BB] extends ValueNSeqLikeCommonBuilder[BB]
 {
-
+  /* Not sure about the return type of this method. */
+  def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
 }
 
 trait IntNSeqLikeMapBuilder[B <: ElemIntN, BB <: IntNSeqLike[B]] extends IntNSeqLikeCommonBuilder[BB] with ValueNSeqLikeMapBuilder[B, BB]
@@ -91,10 +92,6 @@ trait IntNSeqLikeMapBuilder[B <: ElemIntN, BB <: IntNSeqLike[B]] extends IntNSeq
  *  ```map(f: A => B): ArrB``` function. */
 trait IntNArrMapBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
 {
-
-  /* Not sure about the return type of this method. */
-  def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
-
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
 }

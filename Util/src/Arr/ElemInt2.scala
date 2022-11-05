@@ -48,6 +48,8 @@ trait Int2SeqLikeMapBuilder[B <: ElemInt2, BB <: Int2SeqLike[B]] extends Int2Seq
   { arr.unsafeArray(index * 2) = value.int1;
     arr.unsafeArray(index * 2 + 1) = value.int2
   }
+
+  final override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2); () }
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrMapBuilder]] type
@@ -58,11 +60,6 @@ trait Int2ArrMapBuilder[B <: ElemInt2, ArrB <: Int2Arr[B]] extends Int2SeqLikeMa
 
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
 
- /* override def indexSet(arr: ArrB, index: Int, value: B): Unit =
-  { arr.unsafeArray(index * 2) = value.int1; arr.unsafeArray(index * 2 + 1) = value.int2
-  }*/
-
-  override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2); () }
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrMapBuilder]] type

@@ -63,10 +63,7 @@ trait PolygonDbl3sBuilder[B <: ElemDbl3, BB <: PolygonDbl3[B]] extends PolygonDb
 trait PolygonIntNsBuilder[B <: ElemIntN, BB <: PolygonIntN[B] ] extends PolygonValueNsBuilder[B, BB]
 { type BuffT <: IntNBuff[B]
   def fromIntArray(array: Array[Int]): BB
-  def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
-  final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
-  final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
 /** Trait for creating the line path type class instances for [[PolygonInt2]] final classes. Instances for the [[PolygonInt2sBuilder]] type class,
