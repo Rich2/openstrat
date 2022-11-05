@@ -26,7 +26,7 @@ trait Int4SeqLike[A <: ElemInt4] extends Any with IntNSeqLike[A]
 
 trait Int4SeqSpec[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNSeqSpec[A]
 {
-  def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
+  final def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
 
   override def ssIndex(index: Int): A =
     newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))

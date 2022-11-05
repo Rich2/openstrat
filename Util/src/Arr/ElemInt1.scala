@@ -10,7 +10,7 @@ trait ElemInt1 extends Any with ElemIntN
 }
 
 trait Int1SeqLike[A <: ElemInt1] extends Any with IntNSeqLike[A]
-{ override def elemProdSize: Int = 1
+{ final override def elemProdSize: Int = 1
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(index) = elem.int1 }
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1) }
 }
@@ -37,28 +37,7 @@ trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqLike[A]
 
   def newElem(intValue: Int): A
   final override def apply(index: Int): A = newElem(unsafeArray(index))
-  override def elemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
-}
-
-/** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrMapBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
- *  the B in ```map(f: A => B): ArrB``` function. */
-trait Int1ArrMapBuilder[A <: ElemInt1, ArrT <: Int1Arr[A]] extends IntNArrMapBuilder[A, ArrT]
-{ type BuffT <: Int1Buff[A]
-
-  final override def elemProdSize: Int = 1
-  def newArray(length: Int): Array[Int] = new Array[Int](length)
-  final override def indexSet(seqLike: ArrT, index: Int, value: A): Unit =  seqLike.unsafeArray(index) = value.int1
-  override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.int1); () }
-}
-
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrMapBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
- *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Int1ArrFlatBuilder[ArrT <: Int1Arr[_]] extends IntNArrFlatBuilder[ArrT]
-{ type BuffT <: Int1Buff[_]
-  final override def elemProdSize: Int = 1
-  def newArray(length: Int): Array[Int] = new Array[Int](length)
+  final override def elemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt1]]s collections. */
@@ -75,13 +54,33 @@ trait Int1Buff[A <: ElemInt1] extends Any with IntNBuff[A]
   override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuffer(i) = value.int1
 }
 
+trait Int1ArrCommonBuilder[ArrB <: Int1Arr[_]] extends IntNSeqLikeCommonBuilder[ArrB]
+{ type BuffT <: Int1Buff[_]
+  final override def elemProdSize: Int = 1
+}
+
+/** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrMapBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
+ *  the B in ```map(f: A => B): ArrB``` function. */
+trait Int1ArrMapBuilder[A <: ElemInt1, ArrT <: Int1Arr[A]] extends Int1ArrCommonBuilder[ArrT] with IntNArrMapBuilder[A, ArrT]
+{ type BuffT <: Int1Buff[A]
+  final override def indexSet(seqLike: ArrT, index: Int, value: A): Unit =  seqLike.unsafeArray(index) = value.int1
+  final override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.int1); () }
+}
+
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrMapBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
+ *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
+trait Int1ArrFlatBuilder[ArrT <: Int1Arr[_]] extends Int1ArrCommonBuilder[ArrT] with IntNArrFlatBuilder[ArrT]
+
+
 /** Helper class for companion objects of final [[Int1SeqSpec]] classes. */
 trait Int1SeqLikeCompanion[A <: ElemInt1, ArrA <: Int1SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
 {
-  override def elemNumInts: Int = 1
+  final override def elemNumInts: Int = 1
 
   /** Apply factory method */
-  def apply(elems: A*): ArrA =
+  final def apply(elems: A*): ArrA =
   { val arrLen: Int = elems.length
     val res = uninitialised(elems.length)
     var count: Int = 0
