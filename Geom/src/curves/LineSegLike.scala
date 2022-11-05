@@ -12,19 +12,19 @@ trait LineSegLike[VT] extends ElemValueN
    * [[PtM2]] for a [[LineSegM2]]. */
   def endPt: VT
 
-  def map[VB, LB <: LineSegLike[VB]](f: VT => VB)(implicit build: LineSegLikeBuilder[VB, LB]) = build.newSeg(f(startPt), f(endPt))
+  def map[VB, LB <: LineSegLike[VB]](f: VT => VB)(implicit build: LineSegLikeMapBuilder[VB, LB]) = build.newSeg(f(startPt), f(endPt))
 }
 
 trait LineSegLikeArr[VT, A <: LineSegLike[VT]] extends Any with Arr[A]
 
 trait LineSegLikeBuff[VT, B <: LineSegLike[VT]] extends Any
 
-trait LineSegLikeBuilder[VT, ST <: LineSegLike[VT]]
+/** Builder for [[LineSegLike]] map operations. Note this is a builder for [[LineSegLike]] not a [[LineSegLikeArr]] so unlike most builders it does
+ * not inherit from [[SeqLikeCommonBuilder]]. */
+trait LineSegLikeMapBuilder[VT, ST <: LineSegLike[VT]]
 {
   def newSeg(vStart: VT, vEnd: VT): ST
 }
-
-trait LineSegLikeArrCommonBuilder[BB <: LineSegLikeArr[_, _]] extends SeqLikeCommonBuilder[BB]
 
 /** A line segment where the start and end points are defined in [[ElemDblN]] vertices. */
 trait LineSegLikeDblN[VT <: ElemDblN] extends LineSegLike[VT] with ElemDblN
@@ -33,18 +33,13 @@ trait LineSegLikeDblNArr[VT <: ElemDblN, A <: LineSegLikeDblN[VT]] extends Any w
 
 trait LineSegLikeDblNBuff[VT <: ElemDblN, A <: LineSegLikeDblN[VT]] extends Any with LineSegLikeBuff[VT, A] with DblNBuff[A]
 
-trait LineSegLikeDBlNArrCommonBuilder[BB <: LineSegLikeDblNArr[_, _]] extends LineSegLikeArrCommonBuilder[BB] with DblNSeqLikeCommonBuilder[BB]
-{
-  type BuffT <: DblNBuff[_]
-}
-
 /** A line segment where the start and end points are defined in [[ElemDbl2]] vertices. Theis will be the case for the classic 2D space line segment
  * a 2D line segment specified in metres and a line segment specified in latitude and longitude. */
 trait LineSegLikeDbl4[VT <: ElemDbl2] extends LineSegLikeDblN[VT] with ElemDbl4
 
 trait LineSegLikeDbl4Arr[VT <: ElemDbl2, A <: LineSegLikeDbl4[VT]] extends Any with LineSegLikeDblNArr[VT, A] with Dbl4Arr[A]
 
-trait LineSegLikeDbl4Buff[VT <: ElemDbl2, A <: LineSegLikeDbl4[VT]] extends Any with LineSegLikeDblNBuff[VT, A] with Dbl4Buff[A]
+//trait LineSegLikeDbl4Buff[VT <: ElemDbl2, A <: LineSegLikeDbl4[VT]] extends Any with LineSegLikeDblNBuff[VT, A] with Dbl4Buff[A]
 
 /** A line segment where the start and end points are defined in [[ElemDbl3]] vertices. Theis will be the case for 3D space line segment and 3D line
  *  segment specified in metres. */

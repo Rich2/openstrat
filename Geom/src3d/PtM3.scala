@@ -128,5 +128,5 @@ object PtM3
     override def buffFromBufferDbl(inp: ArrayBuffer[Double]): PtM3Buff = new PtM3Buff(inp)
   }
 
-  implicit val lineSegBuildEv: LineSegLikeBuilder[PtM3, LineSegM3] = LineSegM3(_, _)
+  implicit val lineSegBuildEv: LineSegLikeMapBuilder[PtM3, LineSegM3] = LineSegM3(_, _)
 }
