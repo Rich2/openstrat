@@ -281,9 +281,6 @@ object Pt2
 
     override def arrSet(arr: PolygonGen, index: Int, value: Pt2): Unit = arr.unsafeSetElem(index, value)
 
-    /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
-    override def buffGrow(buff: Pt2Buff, value: Pt2): Unit = buff.grow(value)
-
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
   }
 

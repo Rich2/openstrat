@@ -42,7 +42,7 @@ trait PolygonValueNsBuilder[B <: ElemValueN, BB <: PolygonValueN[B]] extends Pol
  *  ```map(f: A => B): ArrB``` function. */
 trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblN[B] ] extends PolygonValueNsBuilder[B, BB] with DblNSeqLikeCommonBuilder[BB]
 { final override def newPolygonT(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
-  final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
+  //final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
 /** Trait for creating the line path type class instances for [[PolygonDbl2]] final classes. Instances for the [[PolygonDbl2sBuilder]] type class,
