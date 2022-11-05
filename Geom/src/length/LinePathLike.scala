@@ -45,19 +45,16 @@ trait LinePathBuilder[B, BB <: LinePathLike[B]] extends SeqLikeMapBuilder[B, BB]
 
 /** Trait for creating the line path builder instances for the [[LinePathBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait LinePathValueNBuilder[B <: ElemValueN, BB <: LinePathLike[B]] extends LinePathBuilder[B, BB]
-{ def elemProdSize: Int
-}
+trait LinePathValueNBuilder[B <: ElemValueN, BB <: LinePathLike[B]] extends LinePathBuilder[B, BB] with ValueNSeqLikeCommonBuilder[BB]
 
 /** Trait for creating the builder type class instances for [[LinePathDblN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblN[B] ] extends LinePathValueNBuilder[B, BB]
+trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblN[B] ] extends LinePathValueNBuilder[B, BB] with DblNSeqLikeCommonBuilder[BB]
 { type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): BB
   def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffT
   final override def newLinePath(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
-  final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuffer.toArray)
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 

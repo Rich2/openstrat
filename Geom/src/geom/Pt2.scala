@@ -284,8 +284,6 @@ object Pt2
     /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
     override def buffGrow(buff: Pt2Buff, value: Pt2): Unit = buff.grow(value)
 
-    override def buffToBB(buff: Pt2Buff): PolygonGen = new PolygonGen(buff.unsafeBuffer.toArray)
-
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
   }
 

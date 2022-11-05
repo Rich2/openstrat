@@ -35,18 +35,13 @@ trait PolygonBuilderData[B, +BB <: PolygonLike[B]] extends PolygonLikeMapBuilder
 
 /** Trait for creating the line path builder instances for the [[PolygonLikeMapBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait PolygonValueNsBuilder[B <: ElemValueN, BB <: PolygonValueN[B]] extends PolygonBuilderData[B, BB]
-{ def elemProdSize: Int
-}
+trait PolygonValueNsBuilder[B <: ElemValueN, BB <: PolygonValueN[B]] extends PolygonBuilderData[B, BB] with ValueNSeqLikeCommonBuilder[BB]
 
 /** Trait for creating the builder type class instances for [[PolygonDblN]] final classes. Instances for the [[PolygonLikeMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblN[B] ] extends PolygonValueNsBuilder[B, BB] with DblNSeqLikeCommonBuilder[BB]
-{ type BuffT <: DblNBuff[B]
-  def fromDblArray(array: Array[Double]): BB
-  final override def newPolygonT(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
-  final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuffer.toArray)
+{ final override def newPolygonT(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
