@@ -3,7 +3,7 @@ package ostrat; package geom
 
 /** A generalisation of a line path where the type of the points is not resriscted to [[Pt2]]. */
 trait LinePathLike[A] extends Any with SeqSpec[A]
-{
+{ /** maps to a [[LinePathLike]]. This map operates on a single [[LinePathLike]] its not to be confused with a map on Arr of [[LinePathLike]]s. */
   def map[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.uninitialised(ssLength)
     ssIForeach((i, p) => res.unsafeSetElem(i, f(p)))

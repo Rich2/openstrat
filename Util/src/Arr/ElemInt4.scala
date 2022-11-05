@@ -13,16 +13,12 @@ trait ElemInt4 extends Any with ElemIntN
 }
 
 trait Int4SeqLike[A <: ElemInt4] extends Any with IntNSeqLike[A]
-{
-  override def elemProdSize: Int = 4
+{ final override def elemProdSize: Int = 4
+
   def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
 
-  override def unsafeSetElem(index: Int, elem: A): Unit = {
-    unsafeArray(4 * index) = elem.int1;
-    unsafeArray(4 * index + 1) = elem.int2
-    unsafeArray(4 * index + 2) = elem.int3
-    unsafeArray(4 * index + 3) = elem.int4
-  }
+  override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(4 * index) = elem.int1; unsafeArray(4 * index + 1) = elem.int2
+    unsafeArray(4 * index + 2) = elem.int3; unsafeArray(4 * index + 3) = elem.int4 }
 
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
     buffer.append(elem.int3); buffer.append(elem.int4) }
@@ -51,43 +47,50 @@ trait Int4Arr[A <: ElemInt4] extends Any with Int4SeqLike[A] with IntNArr[A]
   def head4: Int = unsafeArray(3)
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrMapBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
- *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int4ArrMapBuilder[B <: ElemInt4, ArrB <: Int4Arr[B]] extends IntNArrMapBuilder[B, ArrB]
-{ type BuffT <: Int4Buff[B]
-
-  final override def elemProdSize: Int = 4
-  def newArray(length: Int): Array[Int] = new Array[Int](length * 4)
-
-  final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit =
-  { seqLike.unsafeArray(index * 4) = value.int1; seqLike.unsafeArray(index * 4 + 1) = value.int2; seqLike.unsafeArray(index * 4 + 2) = value.int3
-    seqLike.unsafeArray(index * 4 + 3) = value.int4 }
-
-  override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2)
-    buff.unsafeBuffer.append(value.int3); buff.unsafeBuffer.append(value.int4); () }
-}
-
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt4]]s collections. */
 trait Int4Buff[A <: ElemInt4] extends Any with IntNBuff[A]
 { override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4
-  override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
-  def intsToT(i1: Int, i2: Int, i3: Int, i4: Int): A
-  override def apply(index: Int): A = intsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
+  final override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
+  def intsToElem(i1: Int, i2: Int, i3: Int, i4: Int): A
 
-  override def unsafeSetElem(i: Int, value: A): Unit =
-  { unsafeBuffer(i * 4) = value.int1; unsafeBuffer(i * 4 + 1) = value.int2; unsafeBuffer(i * 4 + 2) = value.int3; unsafeBuffer(i * 4 + 3) = value.int4
-  }
+  final override def apply(index: Int): A =
+    intsToElem(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
+
+  final override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 4) = value.int1; unsafeBuffer(i * 4 + 1) = value.int2
+    unsafeBuffer(i * 4 + 2) = value.int3; unsafeBuffer(i * 4 + 3) = value.int4 }
 }
+
+trait Int4SeqLikeCommonBuilder[BB <: Int4SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]
+{ type BuffT <: Int4Buff[_]
+  final override def elemProdSize: Int = 4
+}
+
+trait Int4SeqLikeMapBuilder[B <: ElemInt4, BB <: Int4SeqLike[B]] extends Int4SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
+{ type BuffT <: Int4Buff[B]
+
+  final override def indexSet(seqLike: BB, index: Int, value: B): Unit = { seqLike.unsafeArray(index * 4) = value.int1
+    seqLike.unsafeArray(index * 4 + 1) = value.int2; seqLike.unsafeArray(index * 4 + 2) = value.int3; seqLike.unsafeArray(index * 4 + 3) = value.int4
+  }
+
+  final override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2)
+    buff.unsafeBuffer.append(value.int3); buff.unsafeBuffer.append(value.int4); () }
+}
+
+/** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrMapBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int4Elem,
+ *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
+trait Int4ArrMapBuilder[B <: ElemInt4, ArrB <: Int4Arr[B]] extends Int4SeqLikeMapBuilder[B, ArrB] with IntNArrMapBuilder[B, ArrB]
+
+trait Int4ArrFlatBuilder[ArrB <: Int4Arr[_]] extends Int4SeqLikeCommonBuilder[ArrB] with IntNArrFlatBuilder[ArrB]
 
 /** Class for the singleton companion objects of [[Int4Arr]] final classes to extend. */
 abstract class Int4ArrCompanion[A <: ElemInt4, M <: Int4Arr[A]] extends IntNSeqLikeCompanion[A, M]
-{ override def elemNumInts: Int = 4
+{ final override def elemNumInts: Int = 4
 
   def buff(initialSize: Int): Int4Buff[A]
 
-  def apply(elems: A*): M =
+  final def apply(elems: A*): M =
   { val arrLen: Int = elems.length * 4
     val res = uninitialised(elems.length)
     var count: Int = 0
@@ -108,13 +111,6 @@ abstract class Int4ArrCompanion[A <: ElemInt4, M <: Int4Arr[A]] extends IntNSeqL
 
 /**  Class to persist specialised flat Array[Int] based [[Int4Arr]] collection classes. */
 abstract class Int4SeqLikePersist[B <: ElemInt4, ArrB <: Int4Arr[B]](val typeStr: String) extends IntNSeqLikePersist[B, ArrB]
-{
-  override def appendtoBuffer(buf: ArrayBuffer[Int], value: B): Unit =
-  { buf += value.int1
-    buf += value.int2
-    buf += value.int3
-    buf += value.int4
-  }
-
-  override def syntaxDepthT(obj: ArrB): Int = 3
+{ override def syntaxDepthT(obj: ArrB): Int = 3
+  override def appendtoBuffer(buf: ArrayBuffer[Int], value: B): Unit = { buf += value.int1; buf += value.int2; buf += value.int3; buf += value.int4 }
 }
