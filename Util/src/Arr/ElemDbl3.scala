@@ -46,32 +46,32 @@ trait Dbl3Arr[A <: ElemDbl3] extends Any with DblNArr[A] with Dbl3SeqLike[A]
   /** Method for creating new elements from 3 [[Double]]s. */
   def newElem(d1: Double, d2: Double, d3: Double): A
 
-  override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
-  override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
+  final override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
-trait Dbl3SeqLikeMapBuilder[B <: ElemDbl3, BB <: Dbl3SeqLike[B]] extends DblNSeqLikeMapBuilder[B, BB]
-{ final override def elemProdSize = 3
+trait Dbl3SeqLikeCommonBuilder[BB <: Dbl3SeqLike[_]] extends DblNSeqLikeCommonBuilder[BB]
+{ type BuffT <: Dbl3Buff[_]
+  final override def elemProdSize = 3
+}
+
+trait Dbl3SeqLikeMapBuilder[B <: ElemDbl3, BB <: Dbl3SeqLike[B]] extends Dbl3SeqLikeCommonBuilder[BB] with DblNSeqLikeMapBuilder[B, BB]
+{ type BuffT <: Dbl3Buff[B]
+
+  final override def indexSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 3) = value.dbl1
+    arr.unsafeArray(index * 3 + 1) = value.dbl2; arr.unsafeArray(index * 3 + 2) = value.dbl3 }
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Dbl3ArrMapBuilder[B <: ElemDbl3, ArrB <: Dbl3Arr[B]] extends Dbl3SeqLikeMapBuilder[B, ArrB] with DblNArrMapBuilder[B, ArrB]
-{ type BuffT <: Dbl3Buff[B]
 
-  override def indexSet(arr: ArrB, index: Int, value: B): Unit =
-  { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl2; arr.unsafeArray(index * 3 + 2) = value.dbl3
-  }
-}
 
 /** Trait for creating the [[ArrFlatBuilder]] type class instances for [[Dbl3Arr]] final classes. Instances for the  for classes / traits you
  *  control, should go in the companion object of the ArrT final class. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait Dbl3ArrFlatBuilder[ArrB <: Dbl3Arr[_]] extends DblNArrFlatBuilder[ArrB]
-{ type BuffT <: Dbl3Buff[_]
-  final override def elemProdSize = 3
-}
+trait Dbl3ArrFlatBuilder[ArrB <: Dbl3Arr[_]] extends Dbl3SeqLikeCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 
 /** Persists [[Dbl3SeqSpec]]s. */
 abstract class Dbl3SeqDefPersist[A <: ElemDbl3, M <: Dbl3SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, M]

@@ -69,18 +69,13 @@ trait LinePathDbl2Builder[B <: ElemDbl2, BB <: LinePathDbl2[B]] extends LinePath
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait LinePathDbl3sBuilder[B <: ElemDbl3, BB <: LinePathDbl3[B]] extends LinePathDblNsBuilder[B, BB] with Dbl3SeqLikeMapBuilder[B, BB]
-{ type BuffT <: Dbl3Buff[B]
-  override def indexSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl3
-    arr.unsafeArray(index * 2 + 2) = value.dbl3 }
-}
 
 /** Trait for creating the builder type class instances for [[LinePathIntN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait LinePathIntNsBuilder[B <: ElemIntN, BB <: LinePathIntN[B] ] extends LinePathValueNBuilder[B, BB] with IntNSeqLikeMapBuilder[B, BB]
 { type BuffT <: IntNBuff[B]
-  def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
-  //final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
+
   final override def newLinePath(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
 }
 
