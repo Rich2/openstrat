@@ -78,12 +78,12 @@ trait ArrBuilderPriority2
   implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrMapBuilder[B, RArr[B]] = new ArrTBuild[B]
 }
 
-trait SeqLikeFlatBuilder[BB] extends  SeqLikeCommonBuilder[BB]// ArrBuilder[BB]
+//trait SeqLikeFlatBuilder[BB] extends  SeqLikeCommonBuilder[BB]// ArrBuilder[BB]
 
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
  *  you control should go in the companion object of BB. This is different from the related [[ArrMapBuilder]][BB] type class where the instance
  *  should go into the B companion object. */
-trait ArrFlatBuilder[ArrB <: Arr[_]] extends SeqLikeFlatBuilder[ArrB] //with ArrBuilder[ArrB]
+trait ArrFlatBuilder[ArrB <: Arr[_]] extends SeqLikeCommonBuilder[ArrB] //with ArrBuilder[ArrB]
 { /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrB): Unit
 }

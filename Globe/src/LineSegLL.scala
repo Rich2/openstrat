@@ -18,7 +18,7 @@ object LineSegLL
 { def apply(startPt: LatLong, endPt: LatLong): LineSegLL = new LineSegLL(startPt.dbl1, startPt.dbl2, endPt.dbl1, endPt.dbl2)
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
-  implicit val buildEv: Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr] = new LineSegArrMapBuilder
+  implicit val buildEv: Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr] = new LineSegLLArrMapBuilder
 }
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
@@ -42,7 +42,7 @@ object LineSegLLArr extends Dbl4SeqLikeCompanion[LineSegLL, LineSegLLArr]
   }
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
-  implicit val flatBuildEv: ArrFlatBuilder[LineSegLLArr] = new LineSegArrFlatBuilder
+  implicit val flatBuildEv: ArrFlatBuilder[LineSegLLArr] = new LineSegArrLLFlatBuilder
 }
 
 /** Efficient expandable buffer for Line2s. */
@@ -57,5 +57,5 @@ trait LineSegLLArrCommonBuilder extends Dbl4ArrCommonBuilder[LineSegLLArr]
   final def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegLLBuff = new LineSegLLBuff(inp)
 }
 
-class LineSegArrMapBuilder extends LineSegLLArrCommonBuilder with Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr]
-class LineSegArrFlatBuilder extends LineSegLLArrCommonBuilder with Dbl4ArrFlatBuilder[LineSegLLArr]
+class LineSegLLArrMapBuilder extends LineSegLLArrCommonBuilder with Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr]
+class LineSegArrLLFlatBuilder extends LineSegLLArrCommonBuilder with Dbl4ArrFlatBuilder[LineSegLLArr]

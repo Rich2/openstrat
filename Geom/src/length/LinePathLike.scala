@@ -56,10 +56,8 @@ trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblN[B] ] extends LinePa
 { type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): BB
   def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffT
-  final override def newBuff(length: Int = 4): BuffT = buffFromBufferDbl(new ArrayBuffer[Double](length * elemProdSize))
   final override def newLinePath(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuffer.toArray)
- // final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 

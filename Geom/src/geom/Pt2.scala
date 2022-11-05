@@ -277,21 +277,16 @@ object Pt2
 
     override def newPolygonT(length: Int): PolygonGen = PolygonGen.uninitialised(length)
 
-    override def fromDblArray(array: Array[Double]): PolygonGen = ???
+    override def fromDblArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
 
     override def arrSet(arr: PolygonGen, index: Int, value: Pt2): Unit = arr.unsafeSetElem(index, value)
 
     /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
     override def buffGrow(buff: Pt2Buff, value: Pt2): Unit = buff.grow(value)
 
-    /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
-  //  override def buffGrowArr(buff: Pt2Buff, arr: PolygonGen): Unit = ???
+    override def buffToBB(buff: Pt2Buff): PolygonGen = new PolygonGen(buff.unsafeBuffer.toArray)
 
-    override def newBuff(length: Int): Pt2Buff = Pt2Buff.empty
-
-    override def buffToBB(buff: Pt2Buff): PolygonGen = ???
-
-    override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = ???
+    override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
   }
 
   /** Implicit instance for the [[PolygonPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function

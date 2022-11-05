@@ -45,7 +45,6 @@ trait PolygonValueNsBuilder[B <: ElemValueN, BB <: PolygonValueN[B]] extends Pol
 trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblN[B] ] extends PolygonValueNsBuilder[B, BB] with DblNSeqLikeCommonBuilder[BB]
 { type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): BB
-  final override def newBuff(length: Int = 4): BuffT = buffFromBufferDbl(new ArrayBuffer[Double](length * elemProdSize))
   final override def newPolygonT(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuffer.toArray)
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
