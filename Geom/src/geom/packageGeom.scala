@@ -156,7 +156,7 @@ package object geom
     def toLinePath[AA <: LinePathLike[A]](implicit builder: LinePathBuilder[A, AA]): AA =
     {
       val len = thisIter.size
-      val res = builder.newLinePath(len)
+      val res = builder.uninitialised(len)
       thisIter.iForeach((i, a) => res.unsafeSetElem(i, a))
       res
     }

@@ -80,7 +80,7 @@ object HCoord
   }
 
   /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[LinePathBuilder]]. */
-  implicit val linePathBuildEv: LinePathInt2sBuilder[HCoord, LinePathHC] = new LinePathInt2sBuilder[HCoord, LinePathHC]
+  implicit val linePathMapBuildEv: LinePathInt2MapBuilder[HCoord, LinePathHC] = new LinePathInt2MapBuilder[HCoord, LinePathHC]
   { override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): LinePathHC = new LinePathHC(array)
     override def fromIntBuffer(inp: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(inp)
