@@ -28,11 +28,7 @@ object LineSegArr extends Dbl4SeqLikeCompanion[LineSeg, LineSegArr]
   }
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
-  implicit val flatBuildEv: ArrFlatBuilder[LineSegArr] = new Dbl4ArrFlatBuilder[LineSegArr]
-  { type BuffT = LineSegBuff
-    override def fromDblArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
-    def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(inp)
-  }
+  implicit val flatBuildEv: ArrFlatBuilder[LineSegArr] = new LineSegArrFlatBuilder
 
   implicit val transImplicit: AffineTrans[LineSegArr] = (obj, f) => obj.map(_.ptsTrans(f))
 }
@@ -42,6 +38,16 @@ class LineSegBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Lin
 { override def typeStr: String = "Line2sBuff"
   override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
 }
+
+trait LineSegArrCommonBuilder extends Dbl4ArrCommonBuilder[LineSegArr] {
+  type BuffT = LineSegBuff
+
+  override def fromDblArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
+
+  def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(inp)
+}
+
+class LineSegArrFlatBuilder extends LineSegArrCommonBuilder with Dbl4ArrFlatBuilder[LineSegArr]//LineSegLikeArr
 
 class LineSegPair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a1Dbl3: Double, val a1Dbl4: Double, val a2: A2) extends LineSegLikeDbl4Pair[Pt2, LineSeg, A2]
 { inline def startX: Double = a1Dbl1

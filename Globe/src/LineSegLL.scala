@@ -58,5 +58,4 @@ trait LineSegLLArrCommonBuilder extends Dbl4ArrCommonBuilder[LineSegLLArr]
 }
 
 class LineSegArrMapBuilder extends LineSegLLArrCommonBuilder with Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr]
-
 class LineSegArrFlatBuilder extends LineSegLLArrCommonBuilder with Dbl4ArrFlatBuilder[LineSegLLArr]
