@@ -71,7 +71,7 @@ trait Dbl4ArrFlatBuilder[ArrB <: Dbl4Arr[_]] extends Dbl4ArrCommonBuilder[ArrB] 
 /** Class for the singleton companion objects of [[Dbl4SeqSpec]] final classes to extend. */
 abstract class Dbl4SeqLikeCompanion[A <: ElemDbl4, AA <: Dbl4SeqLike[A]] extends DblNSeqLikeCompanion[A, AA]
 {
-  def apply(elems: A*): AA =
+  final def apply(elems: A*): AA =
   { val length = elems.length
     val res = uninitialised(length)
     var count: Int = 0

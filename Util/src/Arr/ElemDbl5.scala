@@ -52,12 +52,18 @@ trait Dbl5Arr[A <: ElemDbl5] extends Any with DblNArr[A] with Dbl5SeqLike[A]
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
 }
 
+trait Dbl5SeqLikeCommonBuilder[BB <: Dbl5SeqLike[_]] extends DblNSeqLikeCommonBuilder[BB]
+{
+  type BuffT <: Dbl5Buff[_]
+
+  final override def elemProdSize: Int = 5
+}
+
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl5]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl5ArrMapBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrMapBuilder[B, ArrB]
+trait Dbl5ArrMapBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends Dbl5SeqLikeCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl5Buff[B]
-  final override def elemProdSize = 5
 
   override def indexSet(seqLike: ArrB, index: Int, value: B): Unit =
   { seqLike.unsafeArray(index * 5) = value.dbl1; seqLike.unsafeArray(index * 5 + 1) = value.dbl2; seqLike.unsafeArray(index * 5 + 2) = value.dbl3
@@ -68,10 +74,7 @@ trait Dbl5ArrMapBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrMapBui
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl5]]. Instances for
  *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl5ArrFlatBuilder[ArrB <: Dbl5Arr[_]] extends DblNArrFlatBuilder[ArrB]
-{ type BuffT <: Dbl5Buff[_]
-  final override def elemProdSize = 5
-}
+trait Dbl5ArrFlatBuilder[ArrB <: Dbl5Arr[_]] extends Dbl5SeqLikeCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 
 /** Helper class for companion objects of final [[Dbl5SeqSpec]] classes. */
 abstract class Dbl5SeqLikeCompanion[A <: ElemDbl5, ArrA <: Dbl5SeqLike[A]] extends DblNSeqLikeCompanion[A, ArrA]
