@@ -63,7 +63,7 @@ class OptionExtensions[A](thisOption: Option[A])
 
   def toArr[AA <: Arr[A]](implicit build: ArrMapBuilder[A, AA]): AA = thisOption.fold(build.uninitialised(0)){ a =>
     val res = build.uninitialised(1)
-    build.arrSet(res, 0, a)
+    build.indexSet(res, 0, a)
     res
   }
 

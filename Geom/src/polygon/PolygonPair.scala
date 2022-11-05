@@ -30,7 +30,7 @@ final class PolygonPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   override type B1BuffT = PolygonBuff
   override def uninitialised(length: Int): PolygonPairArr[A2] = new PolygonPairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
-  override def arrSet(arr: PolygonPairArr[A2], index: Int, value: PolygonPair[A2]): Unit =
+  override def indexSet(arr: PolygonPairArr[A2], index: Int, value: PolygonPair[A2]): Unit =
   { arr.a1Array(index) = value.a1ArrayDbl ; arr.a2Array(index) = value.a2 }
   override def newBuff(length: Int): PolygonPairBuff[A2] = PolygonPairBuff(length)
   override def buffToBB(buff: PolygonPairBuff[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)

@@ -50,9 +50,8 @@ trait Dbl3Arr[A <: ElemDbl3] extends Any with DblNArr[A] with Dbl3SeqLike[A]
   override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
-trait Dbl3SeqLikeMapBuilder[B <: ElemDbl3, BB <: SeqLike[B]] extends DblNSeqLikeMapBuilder[B, BB]
-{
-  final override def elemProdSize = 3
+trait Dbl3SeqLikeMapBuilder[B <: ElemDbl3, BB <: Dbl3SeqLike[B]] extends DblNSeqLikeMapBuilder[B, BB]
+{ final override def elemProdSize = 3
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl3Arr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes /
@@ -61,7 +60,7 @@ trait Dbl3SeqLikeMapBuilder[B <: ElemDbl3, BB <: SeqLike[B]] extends DblNSeqLike
 trait Dbl3ArrMapBuilder[B <: ElemDbl3, ArrB <: Dbl3Arr[B]] extends Dbl3SeqLikeMapBuilder[B, ArrB] with DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl3Buff[B]
 
-  override def arrSet(arr: ArrB, index: Int, value: B): Unit =
+  override def indexSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.unsafeArray(index * 3) = value.dbl1; arr.unsafeArray(index * 3 + 1) = value.dbl2; arr.unsafeArray(index * 3 + 2) = value.dbl3
   }
 }

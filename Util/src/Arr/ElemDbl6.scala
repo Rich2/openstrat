@@ -96,7 +96,7 @@ trait Dbl6ArrMapBuilder[B <: ElemDbl6, ArrB <: Dbl6Arr[B]] extends DblNArrMapBui
 { type BuffT <: Dbl6Buff[B]
   final override def elemProdSize = 6
 
-  override def arrSet(arr: ArrB, index: Int, value: B): Unit =
+  override def indexSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.unsafeArray(index * 6) = value.dbl1; arr.unsafeArray(index * 6 + 1) = value.dbl2; arr.unsafeArray(index * 6 + 2) = value.dbl3
     arr.unsafeArray(index * 6 + 3) = value.dbl4; arr.unsafeArray(index * 6 + 4) = value.dbl5; arr.unsafeArray(index * 6 + 5) = value.dbl6
   }

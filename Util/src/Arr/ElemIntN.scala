@@ -8,8 +8,8 @@ trait ElemIntN extends Any with ElemValueN
   def intForeach(f: Int => Unit): Unit
 }
 
-trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayIntBacked {
-  type ThisT <: IntNSeqLike[A]
+trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayIntBacked
+{ type ThisT <: IntNSeqLike[A]
 
   /** Constructs the final type of these [[IntNSeqLike]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or
    *  the appropriate builder, but it can be useful to access this from the class itself. */
@@ -74,11 +74,16 @@ trait IntNSeqLikeCommonBuilder[BB] extends ValueNSeqLikeCommonBuilder[BB]
 
 }
 
-trait IntNSeqLikeMapBuilder[B <: ElemIntN, BB <: SeqLike[B]] extends IntNSeqLikeCommonBuilder[BB] with ValueNSeqLikeMapBuilder[B, BB]
+trait IntNSeqLikeMapBuilder[B <: ElemIntN, BB <: IntNSeqLike[B]] extends IntNSeqLikeCommonBuilder[BB] with ValueNSeqLikeMapBuilder[B, BB]
 {
   def fromIntArray(array: Array[Int]): BB
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   type BuffT <:  IntNBuff[B]
+
+  /*final override def indexSet(arr: BB, index: Int, value: B): Unit = {
+    var ii = 0
+    value.intForeach { d => arr.unsafeArray(index * elemProdSize + ii); ii += 1 }
+  }*/
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[IntNArr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes

@@ -99,10 +99,15 @@ trait DblNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuil
   final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuffer.toArray)
 }
 
-trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: SeqLike[B]] extends DblNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
+trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: DblNSeqLike[B]] extends DblNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
 { type BuffT <: DblNBuff[B]
   final override def uninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffGrow(buff: BuffT, value: B): Unit = value.dblForeach(buff.unsafeBuffer.append(_))
+
+  override def indexSet(arr: BB, index: Int, value: B): Unit =
+  { var ii = 0
+    value.dblForeach {d => arr.unsafeArray(index * elemProdSize + ii); ii += 1}
+  }
 }
 
 trait DblNArrCommonBuilder[ArrB <: DblNArr[_]] extends DblNSeqLikeCommonBuilder[ArrB]

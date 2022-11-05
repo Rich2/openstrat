@@ -37,7 +37,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
   def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
   {
     val res = build.uninitialised(vertsNum)
-    vertsIForeach((i, a) => build.arrSet(res, i, f(a)))
+    vertsIForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 

@@ -37,7 +37,7 @@ object DblArr
 object DblArrBuilder extends ArrMapBuilder[Double, DblArr] with ArrFlatBuilder[DblArr]
 { type BuffT = DblBuff
   override def uninitialised(length: Int): DblArr = new DblArr(new Array[Double](length))
-  override def arrSet(arr: DblArr, index: Int, value: Double): Unit = arr.unsafeArray(index) = value
+  override def indexSet(arr: DblArr, index: Int, value: Double): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): DblBuff = new DblBuff(new ArrayBuffer[Double](length))
   override def buffGrow(buff: DblBuff, value: Double): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: DblBuff): DblArr = new DblArr(buff.unsafeBuffer.toArray)

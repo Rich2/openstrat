@@ -30,7 +30,7 @@ trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends Ar
 { @inline def fromArray(array: Array[Array[Int]]): ArrT
   type BuffT <: ArrayIntBuff[A]
   @inline override def uninitialised(length: Int): ArrT = fromArray(new Array[Array[Int]](length))
-  override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
+  override def indexSet(arr: ArrT, index: Int, value: A): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
   override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuffer.toArray)
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }
 }

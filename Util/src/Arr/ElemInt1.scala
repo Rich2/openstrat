@@ -48,7 +48,7 @@ trait Int1ArrMapBuilder[A <: ElemInt1, ArrT <: Int1Arr[A]] extends IntNArrMapBui
 
   final override def elemProdSize: Int = 1
   def newArray(length: Int): Array[Int] = new Array[Int](length)
-  final override def arrSet(arr: ArrT, index: Int, value: A): Unit =  arr.unsafeArray(index) = value.int1
+  final override def indexSet(arr: ArrT, index: Int, value: A): Unit =  arr.unsafeArray(index) = value.int1
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.int1); () }
 }
 

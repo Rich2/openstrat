@@ -64,7 +64,7 @@ trait SeqSpec[+A] extends Any with SeqLike[A @uncheckedVariance]
    * example a PolygonLike will map to another PolygonLike. */
   def ssMap[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB = {
     val res = ev.uninitialised(ssLength)
-    ssIForeach((i, a) => ev.arrSet(res, i, f(a)))
+    ssIForeach((i, a) => ev.indexSet(res, i, f(a)))
     res
   }
 

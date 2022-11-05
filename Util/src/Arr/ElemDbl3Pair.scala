@@ -54,7 +54,7 @@ trait Dbl3PairArrMapBuilder[B1 <: ElemDbl3, ArrB1 <: Dbl3Arr[B1], B2, B <: ElemD
   override type B1BuffT <: Dbl3Buff[B1]
   final override def a1DblNum: Int = 3
 
-  final override def arrSet(arr: ArrB, index: Int, value: B): Unit = {
+  final override def indexSet(arr: ArrB, index: Int, value: B): Unit = {
     arr.a1ArrayDbl(index * 3) = value.a1Dbl1
     arr.a1ArrayDbl(index * 3 + 1) = value.a1Dbl2
     arr.a1ArrayDbl(index * 3 + 2) = value.a1Dbl3

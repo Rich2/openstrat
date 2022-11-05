@@ -35,7 +35,7 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
   { val res = builder.uninitialised(vertsNum)
     var count = 0
     vertsForeach{ v =>
-      builder.arrSet(res, count, f(v))
+      builder.indexSet(res, count, f(v))
       count += 1
     }
     res
@@ -81,7 +81,7 @@ object PolygonSqC extends Int2SeqLikeCompanion[SqCoord, PolygonSqC]
     override type BuffT = PolygonSqCBuff
     override def newBuff(length: Int): PolygonSqCBuff = PolygonSqCBuff(length)
     override def uninitialised(length: Int): PolygonSqCArr = new PolygonSqCArr(new Array[Array[Int]](length))
-    override def arrSet(arr: PolygonSqCArr, index: Int, value: PolygonSqC): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
+    override def indexSet(arr: PolygonSqCArr, index: Int, value: PolygonSqC): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
     override def buffGrow(buff: PolygonSqCBuff, value: PolygonSqC): Unit = buff.unsafeBuffer.append(value.unsafeArray)
     override def buffToBB(buff: PolygonSqCBuff): PolygonSqCArr = new PolygonSqCArr(buff.unsafeBuffer.toArray)
   }

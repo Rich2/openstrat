@@ -58,7 +58,7 @@ trait Int3ArrMapBuilder[B <: ElemInt3, ArrB <: Int3Arr[B]] extends IntNArrMapBui
   final override def elemProdSize: Int = 3
   def newArray(length: Int): Array[Int] = new Array[Int](length * 3)
 
-  final override def arrSet(arr: ArrB, index: Int, value: B): Unit =
+  final override def indexSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.unsafeArray(index * 3) = value.int1; arr.unsafeArray(index * 3 + 1) = value.int2; arr.unsafeArray(index * 3 + 2) = value.int3
   }
 

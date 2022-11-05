@@ -96,7 +96,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    *  element of this sequence. */
   def map[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
-    iForeach((i, a) => ev.arrSet(res, i, f(a)))
+    iForeach((i, a) => ev.indexSet(res, i, f(a)))
     res
   }
 
@@ -124,7 +124,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * classes. */
   def iMap[B, ArrB <: Arr[B]](f: (Int, A) => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
-    iForeach((i, a) => ev.arrSet(res, i, f(i, a)))
+    iForeach((i, a) => ev.indexSet(res, i, f(i, a)))
     res
   }
 
@@ -136,7 +136,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
    * classes. */
   def iMap[B, ArrB <: Arr[B]](startindex: Int)(f: (Int, A) => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
   { val res = ev.uninitialised(length)
-    iForeach(startindex)((i, a) => ev.arrSet(res, i, f(i, a)))
+    iForeach(startindex)((i, a) => ev.indexSet(res, i, f(i, a)))
     res
   }
 
@@ -192,7 +192,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     var count = 0
     while(count < newLen)
     { val newElem = f(apply(count), operator.apply(count))
-      ev.arrSet(res, count, newElem)
+      ev.indexSet(res, count, newElem)
       count += 1
     }
     res
@@ -206,7 +206,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     var count = 0
     while(count < newLen)
     { val newElem = f(apply(count), operator1.apply(count), operator2.apply(count))
-      ev.arrSet(res, count, newElem)
+      ev.indexSet(res, count, newElem)
       count += 1
     }
     res
@@ -259,7 +259,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   { val res = ev.uninitialised(length)
     var count = 0
     while (count + 1  < length)
-    {  ev.arrSet(res, count, f(apply(count), apply(count + 1)))
+    {  ev.indexSet(res, count, f(apply(count), apply(count + 1)))
       count += 2
     }
     res

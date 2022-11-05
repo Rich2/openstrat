@@ -35,7 +35,7 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   { val res = builder.uninitialised(vertsNum)
     var count = 0
     vertsForeach{ v =>
-      builder.arrSet(res, count, f(v))
+      builder.indexSet(res, count, f(v))
       count += 1
     }
     res
@@ -69,7 +69,7 @@ object PolygonM2 extends Dbl2SeqLikeCompanion[PtM2, PolygonM2]
 
     override def newBuff(length: Int): PolygonM2Buff = PolygonM2Buff(length)
     override def uninitialised(length: Int): PolygonM2Arr = new PolygonM2Arr(new Array[Array[Double]](length))
-    override def arrSet(arr: PolygonM2Arr, index: Int, value: PolygonM2): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
+    override def indexSet(arr: PolygonM2Arr, index: Int, value: PolygonM2): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
     override def buffGrow(buff: PolygonM2Buff, value: PolygonM2): Unit = buff.unsafeBuffer.append(value.unsafeArray)
     override def buffToBB(buff: PolygonM2Buff): PolygonM2Arr = new PolygonM2Arr(buff.unsafeBuffer.toArray)
   }

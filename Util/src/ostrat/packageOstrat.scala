@@ -166,7 +166,7 @@ package object ostrat
     @inline def i: Double = iFrom + count * iStep
 
     while(i <= iTo)
-    { ev.arrSet(res, count, f(i))
+    { ev.indexSet(res, count, f(i))
       count += 1
     }
     res
@@ -212,7 +212,7 @@ package object ostrat
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
     var index = 0
-    iToForeach(iFrom, iTo, iStep){ count => ev.arrSet(res, index, f(count)); index += 1  }
+    iToForeach(iFrom, iTo, iStep){ count => ev.indexSet(res, index, f(count)); index += 1  }
     res
   }
 
@@ -222,7 +222,7 @@ package object ostrat
   { val iLen = (iTo + 1).max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0
-    iToForeach(iTo){ count => ev.arrSet(res, index, f(count)); index += 1  }
+    iToForeach(iTo){ count => ev.indexSet(res, index, f(count)); index += 1  }
     res
   }
 
@@ -232,7 +232,7 @@ package object ostrat
   { val iLen = (iUntil - iFrom).max(0) / iStep
     val res: AA = ev.uninitialised(iLen)
     var index = 0
-    iUntilForeach(iFrom, iUntil, iStep){ count => ev.arrSet(res, index, f(count)); index += 1  }
+    iUntilForeach(iFrom, iUntil, iStep){ count => ev.indexSet(res, index, f(count)); index += 1  }
     res
   }
 
@@ -242,7 +242,7 @@ package object ostrat
   { val iLen = (iUntil).max(0)
     val res: AA = ev.uninitialised(iLen)
     var index = 0
-    iUntilForeach(iUntil){ count => ev.arrSet(res, index, f(count)); index += 1  }
+    iUntilForeach(iUntil){ count => ev.indexSet(res, index, f(count)); index += 1  }
     res
   }
 
@@ -345,7 +345,7 @@ package object ostrat
     var arrIndex = 0
 
     ijToForeach(iFrom, iTo, iStep)(jFrom, jTo, jStep){ (i, j) =>
-      ev.arrSet(res, arrIndex, f(i, j))
+      ev.indexSet(res, arrIndex, f(i, j))
       arrIndex += 1
     }
     res
@@ -362,7 +362,7 @@ package object ostrat
     var arrIndex = 0
 
     ijToForeach(iTo)(jTo){ (i, j) =>
-      ev.arrSet(res, arrIndex, f(i, j))
+      ev.indexSet(res, arrIndex, f(i, j))
       arrIndex += 1
     }
     res
@@ -379,7 +379,7 @@ package object ostrat
     var arrIndex = 0
 
     ijUntilForeach(iFrom, iUntil, iStep)(jFrom, jUntil, jStep){ (i, j) =>
-      ev.arrSet(res, arrIndex, f(i, j))
+      ev.indexSet(res, arrIndex, f(i, j))
       arrIndex += 1
     }
     res
@@ -396,7 +396,7 @@ package object ostrat
     var arrIndex = 0
 
     ijUntilForeach(iUntil)(jUntil){ (i, j) =>
-      ev.arrSet(res, arrIndex, f(i, j))
+      ev.indexSet(res, arrIndex, f(i, j))
       arrIndex += 1
     }
     res
@@ -419,7 +419,7 @@ package object ostrat
     var arrIndex = 0
 
     ijkToForeach(iFrom, iTo, iStep)(jFrom, jTo, jStep)(kFrom, kTo, kStep){ (i, j, k) =>
-      ev.arrSet(res, arrIndex, f(i, j, k))
+      ev.indexSet(res, arrIndex, f(i, j, k))
       arrIndex += 1
     }
     res

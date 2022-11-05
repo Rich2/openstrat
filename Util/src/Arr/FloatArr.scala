@@ -41,7 +41,7 @@ object FloatArr
 object FloatArrBuilder extends ArrMapBuilder[Float, FloatArr] with ArrFlatBuilder[FloatArr]
 { type BuffT = FloatBuff
   override def uninitialised(length: Int): FloatArr = new FloatArr(new Array[Float](length))
-  override def arrSet(arr: FloatArr, index: Int, value: Float): Unit = arr.unsafeArray(index) = value
+  override def indexSet(arr: FloatArr, index: Int, value: Float): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): FloatBuff = new FloatBuff(new ArrayBuffer[Float](length))
   override def buffGrow(buff: FloatBuff, value: Float): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: FloatBuff): FloatArr = new FloatArr(buff.unsafeBuffer.toArray)

@@ -96,7 +96,7 @@ object IntArr
 object IntArrBuilder extends ArrMapBuilder[Int, IntArr] with ArrFlatBuilder[IntArr]
 { type BuffT = IntBuff
   override def uninitialised(length: Int): IntArr = new IntArr(new Array[Int](length))
-  override def arrSet(arr: IntArr, index: Int, value: Int): Unit = arr.unsafeArray(index) = value
+  override def indexSet(arr: IntArr, index: Int, value: Int): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](length))
   override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: IntBuff): IntArr = new IntArr(buff.unsafeBuffer.toArray)

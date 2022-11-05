@@ -110,7 +110,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
     {
       val tile = arr(count)
       val newRes: B = f(tile)
-      build.arrSet(res, count, newRes)
+      build.indexSet(res, count, newRes)
     }
     res
   }

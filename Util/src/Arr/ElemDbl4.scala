@@ -59,7 +59,7 @@ trait Dbl4ArrCommonBuilder[ArrB <: Dbl4Arr[_]] extends DblNArrCommonBuilder[ArrB
 trait Dbl4ArrMapBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl4Buff[B]
 
-  final override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.unsafeArray(index * 4) = value.dbl1; arr.unsafeArray(index * 4 + 1) = value.dbl2
+  final override def indexSet(arr: ArrB, index: Int, value: B): Unit = { arr.unsafeArray(index * 4) = value.dbl1; arr.unsafeArray(index * 4 + 1) = value.dbl2
     arr.unsafeArray(index * 4 + 2) = value.dbl3; arr.unsafeArray(index * 4 + 3) = value.dbl4 }
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrMapBuilder]] type

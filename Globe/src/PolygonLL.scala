@@ -42,7 +42,7 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
   { val res = builder.uninitialised(vertsNum)
     var count = 0
     vertsForeach{ v =>
-      builder.arrSet(res, count, f(v))
+      builder.indexSet(res, count, f(v))
       count += 1
     }
     res

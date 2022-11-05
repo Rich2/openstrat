@@ -38,20 +38,30 @@ trait Int2Arr[A <: ElemInt2] extends Any with IntNArr[A] with Int2SeqLike[A]
 
 }
 
-trait Int2SeqLikeMapBuilder[B <: ElemInt2, BB <: SeqLike[B]] extends IntNSeqLikeMapBuilder[B, BB]
+trait Int2SeqLikeCommonBuilder[BB] extends IntNSeqLikeCommonBuilder[BB]
+{
+  final override def elemProdSize: Int = 2
+}
+trait Int2SeqLikeMapBuilder[B <: ElemInt2, BB <: Int2SeqLike[B]] extends Int2SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
+{
+  final override def indexSet(arr: BB, index: Int, value: B): Unit =
+  { arr.unsafeArray(index * 2) = value.int1;
+    arr.unsafeArray(index * 2 + 1) = value.int2
+  }
+}
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int2Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int2ArrMapBuilder[B <: ElemInt2, ArrB <: Int2Arr[B]] extends IntNArrMapBuilder[B, ArrB]
+trait Int2ArrMapBuilder[B <: ElemInt2, ArrB <: Int2Arr[B]] extends Int2SeqLikeMapBuilder[B, ArrB] with IntNArrMapBuilder[B, ArrB]
 { type BuffT <: Int2Buff[B]
 
-  final override def elemProdSize: Int = 2
   def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
 
-  final override def arrSet(arr: ArrB, index: Int, value: B): Unit =
+ /* override def indexSet(arr: ArrB, index: Int, value: B): Unit =
   { arr.unsafeArray(index * 2) = value.int1; arr.unsafeArray(index * 2 + 1) = value.int2
-  }
+  }*/
+
   override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2); () }
 }
 

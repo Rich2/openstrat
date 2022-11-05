@@ -279,7 +279,7 @@ object Pt2
 
     override def fromDblArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
 
-    override def arrSet(arr: PolygonGen, index: Int, value: Pt2): Unit = arr.unsafeSetElem(index, value)
+    override def indexSet(arr: PolygonGen, index: Int, value: Pt2): Unit = arr.unsafeSetElem(index, value)
 
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
   }
