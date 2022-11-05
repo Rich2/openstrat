@@ -28,7 +28,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    *  signature follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator,
    *  element) => B signature. */
   def hcMap[B, BB <: Arr[B]](f: (HCen, A) => B)(implicit grid: HGridSys, build: ArrMapBuilder[B, BB]): BB =
-  { val res = build.arrUninitialised(length)
+  { val res = build.uninitialised(length)
     grid.iForeach{ (hc, i) =>
       val newElem = f(hc, apply(hc))
       res.unsafeSetElem(i, newElem)

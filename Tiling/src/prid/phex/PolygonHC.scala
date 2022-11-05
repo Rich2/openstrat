@@ -29,7 +29,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
   }
 
   override def vertsMap[B, ArrB <: Arr[B]](f: HCoord => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB =
-  { val res = builder.arrUninitialised(vertsNum)
+  { val res = builder.uninitialised(vertsNum)
     var count = 0
     vertsForeach{ v =>
       builder.arrSet(res, count, f(v))
@@ -87,7 +87,7 @@ object PolygonHC extends Int2SeqLikeCompanion[HCoord, PolygonHC]
   implicit val arrBuildImplicit: ArrMapBuilder[PolygonHC, PolygonHCArr] = new ArrMapBuilder[PolygonHC, PolygonHCArr] {
     override type BuffT = PolygonHCBuff
     override def newBuff(length: Int): PolygonHCBuff = PolygonHCBuff(length)
-    override def arrUninitialised(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
+    override def uninitialised(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
     override def arrSet(arr: PolygonHCArr, index: Int, value: PolygonHC): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
     override def buffGrow(buff: PolygonHCBuff, value: PolygonHC): Unit = buff.unsafeBuffer.append(value.unsafeArray)
     override def buffToBB(buff: PolygonHCBuff): PolygonHCArr = new PolygonHCArr(buff.unsafeBuffer.toArray)

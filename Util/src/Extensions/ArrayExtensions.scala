@@ -10,7 +10,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
 
   /** maps to a [[Arr]] of B. */
   def mapArr[B, BB <: Arr[B]](f: A => B)(implicit ev: ArrMapBuilder[B, BB]): BB ={
-    val res = ev.arrUninitialised(thisArray.length)
+    val res = ev.uninitialised(thisArray.length)
     iForeach{(a, i) => res.unsafeSetElem(i, f(a)) }
     res
   }

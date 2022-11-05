@@ -24,7 +24,7 @@ trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
   def buffGrow(buff: BuffT, value: B): Unit
 
   /** Creates a new uninitialised [[Arr]] of type ArrB of the given length. */
-  def arrUninitialised(length: Int): BB
+  def uninitialised(length: Int): BB
 
   /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))

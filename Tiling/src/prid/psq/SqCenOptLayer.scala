@@ -56,7 +56,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
    *  parameter B.  Returns an immutable Array based collection of type ArrT, the second type parameter. */
   def scSomesMap[B, ArrB <: Arr[B]](f: (SqCen, A) => B)(implicit gridSys: SqGridSys, build: ArrMapBuilder[B, ArrB]): ArrB =
   { val len = somesLen
-    val res = build.arrUninitialised(len)
+    val res = build.uninitialised(len)
     var i = 0
 
     gridSys.foreach { sc =>

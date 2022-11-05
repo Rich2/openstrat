@@ -29,7 +29,7 @@ case class Multiple[+A](value: A, num: Int)
   }
 
   def toArr[ArrA <: Arr[A]@uncheckedVariance](implicit build: ArrMapBuilder[A, ArrA]@uncheckedVariance): ArrA =
-  { val res: ArrA = build.arrUninitialised(num)
+  { val res: ArrA = build.uninitialised(num)
     iUntilForeach(num){i => res.unsafeSetElem(i, value)}
     res
   }
@@ -53,7 +53,7 @@ object Multiple
 
     def singles[ArrA <: Arr[A]](implicit build: ArrMapBuilder[A, ArrA]): ArrA ={
       val len: Int = thisSeq.sumBy(_.num)
-      val res = build.arrUninitialised(len)
+      val res = build.uninitialised(len)
       var i = 0
       thisSeq.foreach(m => iUntilForeach(m.num){j =>
         res.unsafeSetElem(i, m.value)

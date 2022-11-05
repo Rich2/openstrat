@@ -161,7 +161,7 @@ package object ostrat
   /** Not sure if this correct. This might throw on iStep = 0. */
   def iDblToMap[A, AA <: Arr[A]](iFrom: Double, iTo: Double, iStep: Double = 1)(f: Double => A)(implicit ev: ArrMapBuilder[A, AA]): AA =
   { val iLen = (iTo - iFrom + 1).min(0) / iStep
-    val res: AA = ev.arrUninitialised(iLen.toInt)
+    val res: AA = ev.uninitialised(iLen.toInt)
     var count = 0
     @inline def i: Double = iFrom + count * iStep
 
@@ -210,7 +210,7 @@ package object ostrat
    *  iStep is 1.  */
   def iToMap[A, AA <: Arr[A]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrMapBuilder[A, AA]): AA =
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
-    val res: AA = ev.arrUninitialised(iLen)
+    val res: AA = ev.uninitialised(iLen)
     var index = 0
     iToForeach(iFrom, iTo, iStep){ count => ev.arrSet(res, index, f(count)); index += 1  }
     res
@@ -220,7 +220,7 @@ package object ostrat
    *  loaded with a range of integers from parameter 1 to parameter 2 in steps of parameter 3. */
   def iToMap[A, AA <: Arr[A]](iTo: Int)(f: Int => A)(implicit ev: ArrMapBuilder[A, AA]): AA =
   { val iLen = (iTo + 1).max(0)
-    val res: AA = ev.arrUninitialised(iLen)
+    val res: AA = ev.uninitialised(iLen)
     var index = 0
     iToForeach(iTo){ count => ev.arrSet(res, index, f(count)); index += 1  }
     res
@@ -230,7 +230,7 @@ package object ostrat
    *  on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and iStep is 1. */
   def iUntilMap[A, AA <: Arr[A]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrMapBuilder[A, AA]): AA =
   { val iLen = (iUntil - iFrom).max(0) / iStep
-    val res: AA = ev.arrUninitialised(iLen)
+    val res: AA = ev.uninitialised(iLen)
     var index = 0
     iUntilForeach(iFrom, iUntil, iStep){ count => ev.arrSet(res, index, f(count)); index += 1  }
     res
@@ -240,7 +240,7 @@ package object ostrat
    *  name over loaded with a range of integers from parameter 1 until parameter 2 in steps of parameter 3. */
   def iUntilMap[A, AA <: Arr[A]](iUntil: Int)(f: Int => A)(implicit ev: ArrMapBuilder[A, AA]): AA =
   { val iLen = (iUntil).max(0)
-    val res: AA = ev.arrUninitialised(iLen)
+    val res: AA = ev.uninitialised(iLen)
     var index = 0
     iUntilForeach(iUntil){ count => ev.arrSet(res, index, f(count)); index += 1  }
     res
@@ -341,7 +341,7 @@ package object ostrat
   { val iLen = (iTo - iFrom + iStep).max(0) / iStep
     val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val arrLen = iLen * jLen
-    val res = ev.arrUninitialised(arrLen)
+    val res = ev.uninitialised(arrLen)
     var arrIndex = 0
 
     ijToForeach(iFrom, iTo, iStep)(jFrom, jTo, jStep){ (i, j) =>
@@ -358,7 +358,7 @@ package object ostrat
   { val iLen = (iTo + 1).max(0)
     val jLen = (jTo + 1).max(0)
     val arrLen = iLen * jLen
-    val res = ev.arrUninitialised(arrLen)
+    val res = ev.uninitialised(arrLen)
     var arrIndex = 0
 
     ijToForeach(iTo)(jTo){ (i, j) =>
@@ -375,7 +375,7 @@ package object ostrat
   { val iLen = (iUntil - iFrom).max(0) / iStep
     val jLen = (jUntil - jFrom).max(0) / jStep
     val arrLen = iLen * jLen
-    val res = ev.arrUninitialised(arrLen)
+    val res = ev.uninitialised(arrLen)
     var arrIndex = 0
 
     ijUntilForeach(iFrom, iUntil, iStep)(jFrom, jUntil, jStep){ (i, j) =>
@@ -392,7 +392,7 @@ package object ostrat
   { val iLen = (iUntil).max(0)
     val jLen = (jUntil).max(0)
     val arrLen = iLen * jLen
-    val res = ev.arrUninitialised(arrLen)
+    val res = ev.uninitialised(arrLen)
     var arrIndex = 0
 
     ijUntilForeach(iUntil)(jUntil){ (i, j) =>
@@ -415,7 +415,7 @@ package object ostrat
     val jLen = (jTo - jFrom + jStep).max(0) / jStep
     val kLen = (kTo - kFrom + kStep).max(0) / jStep
     val arrLen = iLen * jLen * kLen
-    val res = ev.arrUninitialised(arrLen)
+    val res = ev.uninitialised(arrLen)
     var arrIndex = 0
 
     ijkToForeach(iFrom, iTo, iStep)(jFrom, jTo, jStep)(kFrom, kTo, kStep){ (i, j, k) =>
@@ -513,7 +513,7 @@ package object ostrat
   {
     /** maps to a [[Arr]] rather than a standard Scala collection class. */
     def mapArr[B <: ElemValueN , M <: Arr[B]](f: Int => B)(implicit build: ArrMapBuilder[B, M]): M =
-    { val res = build.arrUninitialised(range.size)
+    { val res = build.uninitialised(range.size)
       var count: Int = 0
       range.foreach { orig =>
         val newValue: B = f(orig)

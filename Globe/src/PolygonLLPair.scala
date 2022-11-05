@@ -26,7 +26,7 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   PolygonLikeDblNPairArrBuilder[LatLong, PolygonLL, PolygonLLArr, A2, PolygonLLPair[A2], PolygonLLPairArr[A2]]
 { override type BuffT = PolygonLLPairBuff[A2]
   override type B1BuffT = PolygonLLBuff
-  override def arrUninitialised(length: Int): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
+  override def uninitialised(length: Int): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
   override def arrSet(arr: PolygonLLPairArr[A2], index: Int, value: PolygonLLPair[A2]): Unit =
   { arr.a1Array(index) = value.a1ArrayDbl ; arr.a2Array(index) = value.a2 }

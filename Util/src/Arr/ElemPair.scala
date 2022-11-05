@@ -42,7 +42,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   /** Just a map method that avoids unnecessarily constructing the pairs and takes a function from the components. */
   def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB ={
     var i = 0
-    val res = builder.arrUninitialised(length)
+    val res = builder.uninitialised(length)
     while(i < length)
     { val newB = f(a1Index(i), a2Index(i))
       res.unsafeSetElem(i, newB)
@@ -134,7 +134,7 @@ trait PairArrMapBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <:
   /** Builder for an Arr of the first element of the pair. */
   def b1ArrBuilder: ArrMapBuilder[B1, ArrB1]
 
-  final def b1Uninitialised(length: Int): ArrB1 = b1ArrBuilder.arrUninitialised(length)
+  final def b1Uninitialised(length: Int): ArrB1 = b1ArrBuilder.uninitialised(length)
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
   def arrFromArrAndArray(b1Arr: ArrB1, b2s: Array[B2]): ArrB

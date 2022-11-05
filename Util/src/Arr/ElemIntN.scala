@@ -77,7 +77,7 @@ trait IntNSeqLikeCommonBuilder[BB] extends ValueNSeqLikeCommonBuilder[BB]
 trait IntNSeqLikeMapBuilder[B <: ElemIntN, BB <: SeqLike[B]] extends IntNSeqLikeCommonBuilder[BB] with ValueNSeqLikeMapBuilder[B, BB]
 {
   def fromIntArray(array: Array[Int]): BB
-  final override def arrUninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
+  final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   type BuffT <:  IntNBuff[B]
 }
 

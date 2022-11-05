@@ -61,7 +61,7 @@ trait IntNPairArrMapBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: ElemI
   def a1IntNum: Int
 
   def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
-  final override def arrUninitialised(length: Int): ArrB = arrFromArrays(new Array[Int](length * a1IntNum), new Array[B2](length))
+  final override def uninitialised(length: Int): ArrB = arrFromArrays(new Array[Int](length * a1IntNum), new Array[B2](length))
   inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }

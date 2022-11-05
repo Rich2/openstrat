@@ -46,7 +46,7 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, 
   /** The number of [[Double]]s required to construct the first component of the pairs. */
   def a1DblNum: Int
 
-  final override def arrUninitialised(length: Int): ArrB = arrFromArrays(new Array[Double](length * a1DblNum), new Array[B2](length))
+  final override def uninitialised(length: Int): ArrB = arrFromArrays(new Array[Double](length * a1DblNum), new Array[B2](length))
   inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }

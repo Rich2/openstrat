@@ -101,7 +101,7 @@ trait DblNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuil
 
 trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: SeqLike[B]] extends DblNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
 { type BuffT <: DblNBuff[B]
-  final override def arrUninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
+  final override def uninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffGrow(buff: BuffT, value: B): Unit = value.dblForeach(buff.unsafeBuffer.append(_))
 }
 

@@ -23,7 +23,7 @@ trait ArrayDblArr[A <: ArrayDblBacked] extends Any with Arr[A]
 trait ArrayDblArrMapBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends ArrMapBuilder[A, ArrT]
 { @inline def fromArrayArrayDbl(array: Array[Array[Double]]): ArrT
   type BuffT <: ArrayDblBuff[A]
-  @inline final override def arrUninitialised(length: Int): ArrT = fromArrayArrayDbl(new Array[Array[Double]](length))
+  @inline final override def uninitialised(length: Int): ArrT = fromArrayArrayDbl(new Array[Array[Double]](length))
   final override def arrSet(arr: ArrT, index: Int, value: A): Unit = arr.unsafeArrayOfArrays(index) = value.unsafeArray
   final override def buffToBB(buff: BuffT): ArrT = fromArrayArrayDbl(buff.unsafeBuffer.toArray)
   final override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }

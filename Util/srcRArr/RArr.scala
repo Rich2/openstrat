@@ -162,7 +162,7 @@ object RArr
 /** The default Immutable Array based collection builder for the Arr[A] class. */
 class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrMapBuilder[B, RArr[B]] with ArrFlatBuilder[RArr[B]]
 { type BuffT = TBuff[B]
-  override def arrUninitialised(length: Int): RArr[B] = new RArr(new Array[B](length))
+  override def uninitialised(length: Int): RArr[B] = new RArr(new Array[B](length))
   override def arrSet(arr: RArr[B], index: Int, value: B): Unit = arr.unsafeArray(index) = value
   override def newBuff(length: Int = 4): TBuff[B] = new TBuff(new ArrayBuffer[B](length))
   override def buffGrow(buff: TBuff[B], value: B): Unit = buff.unsafeBuffer.append(value)

@@ -13,7 +13,7 @@ class SeqDefExtensions[A](val al : SeqSpec[A])
 
   /** Map this collection of data elements to [[PolygonLike]] class of type BB. */
   def mapPolygon[B <: ElemValueN, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
-  { val res = build.newPolygonT(al.ssLength)
+  { val res = build.uninitialised(al.ssLength)
     al.ssIForeach((i, a) => build.arrSet(res, i, f(a)))
     res
   }
@@ -25,7 +25,7 @@ class SeqDefExtensions[A](val al : SeqSpec[A])
   }
 
   def toPolygon[AA <: PolygonLike[A]](implicit build: PolygonLikeMapBuilder[A, AA]): AA =
-  { val res = build.newPolygonT(al.ssLength)
+  { val res = build.uninitialised(al.ssLength)
     al.ssIForeach((i, a) => build.arrSet(res, i, a))
     res
   }
@@ -43,7 +43,7 @@ class SequExtensions[A](val al : Sequ[A])
 
   /** Map this collection of data elements to [[PolygonLike]] class of type BB. */
   def mapPolygon[B <: ElemValueN, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
-  { val res = build.newPolygonT(al.length)
+  { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.arrSet(res, i, f(a)))
     res
   }
@@ -55,7 +55,7 @@ class SequExtensions[A](val al : Sequ[A])
   }
 
   def toPolygon[AA <: PolygonLike[A]](implicit build: PolygonLikeMapBuilder[A, AA]): AA =
-  { val res = build.newPolygonT(al.length)
+  { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.arrSet(res, i, a))
     res
   }

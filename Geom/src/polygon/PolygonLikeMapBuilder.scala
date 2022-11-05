@@ -10,8 +10,6 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
 trait PolygonLikeMapBuilder[B, +BB <: PolygonLike[B]] extends SeqLikeMapBuilder[B, BB @uncheckedVariance]
 { type BuffT <: Buff[B]
 
-  /** Creates a new uninitialised class of type BB.  */
-  def newPolygonT(length: Int): BB
   def arrSet(arr: BB @uncheckedVariance, index: Int, value: B): Unit
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
@@ -41,9 +39,6 @@ trait PolygonValueNsBuilder[B <: ElemValueN, BB <: PolygonValueN[B]] extends Pol
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
 trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblN[B] ] extends PolygonValueNsBuilder[B, BB] with DblNSeqLikeCommonBuilder[BB]
-{ final override def newPolygonT(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
-  //final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
-}
 
 /** Trait for creating the line path type class instances for [[PolygonDbl2]] final classes. Instances for the [[PolygonDbl2sBuilder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is called
@@ -72,9 +67,7 @@ trait PolygonIntNsBuilder[B <: ElemIntN, BB <: PolygonIntN[B] ] extends PolygonV
   def fromIntArray(array: Array[Int]): BB
   def fromIntBuffer(inp: ArrayBuffer[Int]): BuffT
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
-  final override def newPolygonT(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
-  //final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 

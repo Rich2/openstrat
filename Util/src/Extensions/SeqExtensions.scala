@@ -66,7 +66,7 @@ class SeqExtensions[A](thisSeq: Seq[A])
 
   /** Specialised map to an immutable ArrImut for type B. */
   def mapSpec[B, BB <: Arr[B]](f: A => B)(implicit ev: ArrMapBuilder[B, BB]): BB =
-  { val res = ev.arrUninitialised(thisSeq.length)
+  { val res = ev.uninitialised(thisSeq.length)
     var count: Int = 0
     thisSeq.foreach { orig =>
       val newValue: B = f(orig)
@@ -78,7 +78,7 @@ class SeqExtensions[A](thisSeq: Seq[A])
 
   /** Converts this sequence to a specialised ArrImut for the type. */
   def valueProducts[AA <: Arr[A]](implicit ev: ArrMapBuilder[A, AA]): AA =
-  { val res = ev.arrUninitialised(thisSeq.length)
+  { val res = ev.uninitialised(thisSeq.length)
     var count: Int = 0
     thisSeq.foreach { orig => res.unsafeSetElem(count, orig); count += 1 }
     res

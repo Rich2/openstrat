@@ -55,7 +55,6 @@ trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblN[B] ] extends LinePa
   def fromDblArray(array: Array[Double]): BB
   def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffT
   final override def newLinePath(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
- // final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
 /** Trait for creating the line path type class instances for [[LinePathDbl2]] final classes. Instances for the [[LinePathDbl2Builder]] type class,
