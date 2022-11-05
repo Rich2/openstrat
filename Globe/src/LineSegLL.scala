@@ -18,11 +18,7 @@ object LineSegLL
 { def apply(startPt: LatLong, endPt: LatLong): LineSegLL = new LineSegLL(startPt.dbl1, startPt.dbl2, endPt.dbl1, endPt.dbl2)
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
-  implicit val buildEv: Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr] = new Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr]
-  { type BuffT = LineSegLLBuff
-    override def fromDblArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
-    def fromDblBuffer(buffer: ArrayBuffer[Double]): LineSegLLBuff = new LineSegLLBuff(buffer)
-  }
+  implicit val buildEv: Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr] = new LineSegArrMapBuilder
 }
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. LineSeg is the library's term for a mathematical straight line segment, but what in
@@ -42,18 +38,11 @@ object LineSegLLArr extends Dbl4SeqLikeCompanion[LineSegLL, LineSegLLArr]
 
   implicit val persistImplicit: Dbl4SeqLikePersist[LineSegLL, LineSegLLArr] = new Dbl4SeqLikePersist[LineSegLL, LineSegLLArr]("Line2s")
   { override def fromArray(value: Array[Double]): LineSegLLArr = new LineSegLLArr(value)
-
     override def showDecT(obj: LineSegLLArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
-  implicit val flatBuildEv: ArrFlatBuilder[LineSegLLArr] = new Dbl4ArrFlatBuilder[LineSegLLArr]
-  { type BuffT = LineSegLLBuff
-    override def fromDblArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
-    def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegLLBuff = new LineSegLLBuff(inp)
-  }
-
-  //implicit val transImplicit: AffineTrans[LineSegLLArr] = (obj, f) => obj.dataMap(_.ptsTrans(f))
+  implicit val flatBuildEv: ArrFlatBuilder[LineSegLLArr] = new LineSegArrFlatBuilder
 }
 
 /** Efficient expandable buffer for Line2s. */
@@ -62,9 +51,12 @@ class LineSegLLBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with L
   override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): LineSegLL = new LineSegLL(d1, d2, d3, d4)
 }
 
-trait LineSegLLArrCommonBuilder extends DblNSeqLikeCommonBuilder[LineSegLLArr]
-{
-
+trait LineSegLLArrCommonBuilder extends Dbl4ArrCommonBuilder[LineSegLLArr]
+{ type BuffT = LineSegLLBuff
+  final override def fromDblArray(array: Array[Double]): LineSegLLArr = new LineSegLLArr(array)
+  final def buffFromBufferDbl(inp: ArrayBuffer[Double]): LineSegLLBuff = new LineSegLLBuff(inp)
 }
 
-class LineSegArrFlatBuilder
+class LineSegArrMapBuilder extends LineSegLLArrCommonBuilder with Dbl4ArrMapBuilder[LineSegLL, LineSegLLArr]
+
+class LineSegArrFlatBuilder extends LineSegLLArrCommonBuilder with Dbl4ArrFlatBuilder[LineSegLLArr]

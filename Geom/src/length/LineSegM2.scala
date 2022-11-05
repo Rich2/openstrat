@@ -34,7 +34,7 @@ object LineSegM2
   implicit val buildEv: Dbl4ArrMapBuilder[LineSegM2, LineSegM2Arr] = new Dbl4ArrMapBuilder[LineSegM2, LineSegM2Arr]
   { type BuffT = LineSegM2Buff
     override def fromDblArray(array: Array[Double]): LineSegM2Arr = new LineSegM2Arr(array)
-    def fromDblBuffer(buffer: ArrayBuffer[Double]): LineSegM2Buff = new LineSegM2Buff(buffer)
+    def buffFromBufferDbl(buffer: ArrayBuffer[Double]): LineSegM2Buff = new LineSegM2Buff(buffer)
   }
 }
 

@@ -94,6 +94,7 @@ trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
 trait DblNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuilder[BB]
 { type BuffT <: DblNBuff[_]
   def fromDblArray(array: Array[Double]): BB
+  def buffFromBufferDbl(buffer: ArrayBuffer[Double]): BuffT
 }
 
 trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: SeqLike[B]] extends DblNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
@@ -108,9 +109,7 @@ trait DblNArrCommonBuilder[ArrB <: DblNArr[_]] extends DblNSeqLikeCommonBuilder[
  *  ```map(f: A => B): ArrB``` function. */
 trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
 {
-  def fromDblBuffer(buffer: ArrayBuffer[Double]): BuffT
-  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
-
+  final override def newBuff(length: Int = 4): BuffT = buffFromBufferDbl(new ArrayBuffer[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
@@ -120,7 +119,6 @@ trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeMa
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait DblNArrFlatBuilder[ArrB <: DblNArr[_]] extends DblNSeqLikeCommonBuilder[ArrB] with ValueNArrFlatBuilder[ArrB]
 { type BuffT <: DblNBuff[_]
-  def buffFromBufferDbl(inp: ArrayBuffer[Double]): BuffT
   final override def newBuff(length: Int = 4): BuffT = buffFromBufferDbl(new ArrayBuffer[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromDblArray(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }

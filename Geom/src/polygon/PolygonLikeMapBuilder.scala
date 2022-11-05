@@ -42,14 +42,12 @@ trait PolygonValueNsBuilder[B <: ElemValueN, BB <: PolygonValueN[B]] extends Pol
 /** Trait for creating the builder type class instances for [[PolygonDblN]] final classes. Instances for the [[PolygonLikeMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblN[B] ] extends PolygonValueNsBuilder[B, BB]
+trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblN[B] ] extends PolygonValueNsBuilder[B, BB] with DblNSeqLikeCommonBuilder[BB]
 { type BuffT <: DblNBuff[B]
   def fromDblArray(array: Array[Double]): BB
-  def fromDblBuffer(inp: ArrayBuffer[Double]): BuffT
-  final override def newBuff(length: Int = 4): BuffT = fromDblBuffer(new ArrayBuffer[Double](length * elemProdSize))
+  final override def newBuff(length: Int = 4): BuffT = buffFromBufferDbl(new ArrayBuffer[Double](length * elemProdSize))
   final override def newPolygonT(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffToBB(buff: BuffT): BB = fromDblArray(buff.unsafeBuffer.toArray)
-  //final override def buffGrowArr(buff: BuffT, arr: BB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
   final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 

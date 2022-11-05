@@ -41,7 +41,7 @@ object LineSegM3
   implicit val buildEv: Dbl6ArrMapBuilder[LineSegM3, LineSegM3Arr] = new Dbl6ArrMapBuilder[LineSegM3, LineSegM3Arr]
   { type BuffT = LineSegM3Buff
     override def fromDblArray(array: Array[Double]): LineSegM3Arr = new LineSegM3Arr(array)
-    def fromDblBuffer(buffer: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(buffer)
+    def buffFromBufferDbl(buffer: ArrayBuffer[Double]): LineSegM3Buff = new LineSegM3Buff(buffer)
   }
 
   implicit val rotateM3TEv: RotateM3T[LineSegM3] = new RotateM3T[LineSegM3] {

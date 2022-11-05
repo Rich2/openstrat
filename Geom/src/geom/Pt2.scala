@@ -261,7 +261,7 @@ object Pt2
   implicit val arrBuilderImplicit: Dbl2ArrMapBuilder[Pt2, Pt2Arr] = new Dbl2ArrMapBuilder[Pt2, Pt2Arr]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): Pt2Arr = new Pt2Arr(array)
-    override def fromDblBuffer(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
+    override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
   }
 
   implicit def pairArrBuiderImplicit[B2](implicit ct: ClassTag[B2]): Pt2PairArrMapBuider[B2] = new Pt2PairArrMapBuider[B2]
@@ -269,7 +269,7 @@ object Pt2
   implicit val linePathBuildImplicit: LinePathDbl2Builder[Pt2, LinePath] = new LinePathDbl2Builder[Pt2, LinePath]
   { override type BuffT = Pt2Buff
     override def fromDblArray(array: Array[Double]): LinePath = new LinePath(array)
-    override def fromDblBuffer(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
+    override def buffFromBufferDbl(inp: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(inp)
   }
 
   implicit val polygonBuildImplicit: PolygonLikeMapBuilder[Pt2, Polygon] = new PolygonLikeMapBuilder[Pt2, PolygonGen] with Dbl2SeqLikeMapBuilder[Pt2, PolygonGen]
@@ -290,6 +290,8 @@ object Pt2
     override def newBuff(length: Int): Pt2Buff = Pt2Buff.empty
 
     override def buffToBB(buff: Pt2Buff): PolygonGen = ???
+
+    override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = ???
   }
 
   /** Implicit instance for the [[PolygonPair]] builder. This has to go in the [[Pt2]] companion object so it can be found by an A => B function

@@ -48,26 +48,25 @@ trait Dbl4Arr[A <: ElemDbl4] extends Any with DblNArr[A] with Dbl4SeqLike[A]
     newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
 
-trait Dbl4ArrCommonBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends DblNArrCommonBuilder[ArrB]
+trait Dbl4ArrCommonBuilder[ArrB <: Dbl4Arr[_]] extends DblNArrCommonBuilder[ArrB]
+{ type BuffT <: Dbl4Buff[_]
+  final override def elemProdSize = 4
+}
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl4]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl4ArrMapBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends DblNArrMapBuilder[B, ArrB]
-{ type BuffT <: Dbl4Buff[B]
-  final override def elemProdSize = 4
-
-  override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.unsafeArray(index * 4) = value.dbl1; arr.unsafeArray(index * 4 + 1) = value.dbl2
+trait Dbl4ArrMapBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
+{
+  type BuffT <: Dbl4Buff[B]
+  final override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.unsafeArray(index * 4) = value.dbl1; arr.unsafeArray(index * 4 + 1) = value.dbl2
     arr.unsafeArray(index * 4 + 2) = value.dbl3; arr.unsafeArray(index * 4 + 3) = value.dbl4 }
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl4]]. Instances for
  *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl4ArrFlatBuilder[ArrB <: Dbl4Arr[_]] extends DblNArrFlatBuilder[ArrB]
-{ type BuffT <: Dbl4Buff[_]
-  final override def elemProdSize = 4
-}
+trait Dbl4ArrFlatBuilder[ArrB <: Dbl4Arr[_]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 
 /** Class for the singleton companion objects of [[Dbl4SeqSpec]] final classes to extend. */
 abstract class Dbl4SeqLikeCompanion[A <: ElemDbl4, AA <: Dbl4SeqLike[A]] extends DblNSeqLikeCompanion[A, AA]
