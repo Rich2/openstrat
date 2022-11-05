@@ -119,10 +119,10 @@ trait Int2PairArrMapBuilder[B1 <: ElemInt2, ArrB1 <: Int2Arr[B1], B2, B <: ElemI
 { type BuffT <: Int2PairBuff[B1, B2, B]
   final override def a1IntNum: Int = 2
 
-  final override def indexSet(arr: ArrB, index: Int, value: B): Unit = {
-    arr.a1ArrayInt(index * 3) = value.a1Int1
-    arr.a1ArrayInt(index * 3 + 1) = value.a1Int2
-    arr.a2Array(index) = value.a2
+  final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = {
+    seqLike.a1ArrayInt(index * 3) = value.a1Int1
+    seqLike.a1ArrayInt(index * 3 + 1) = value.a1Int2
+    seqLike.a2Array(index) = value.a2
   }
 }
 
@@ -197,11 +197,11 @@ trait Int3PairArrMapBuilder[B1 <: ElemInt3, ArrB1 <: Int3Arr[B1], B2, B <: ElemI
 
   final override def a1IntNum: Int = 3
 
-  final override def indexSet(arr: ArrB, index: Int, value: B): Unit = {
-    arr.a1ArrayInt(index * 3) = value.a1Int1
-    arr.a1ArrayInt(index * 3 + 1) = value.a1Int2
-    arr.a1ArrayInt(index * 3 + 2) = value.a1Int3
-    arr.a2Array(index) = value.a2
+  final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = {
+    seqLike.a1ArrayInt(index * 3) = value.a1Int1
+    seqLike.a1ArrayInt(index * 3 + 1) = value.a1Int2
+    seqLike.a1ArrayInt(index * 3 + 2) = value.a1Int3
+    seqLike.a2Array(index) = value.a2
   }
 }
 

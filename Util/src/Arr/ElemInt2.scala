@@ -44,9 +44,9 @@ trait Int2SeqLikeCommonBuilder[BB] extends IntNSeqLikeCommonBuilder[BB]
 }
 trait Int2SeqLikeMapBuilder[B <: ElemInt2, BB <: Int2SeqLike[B]] extends Int2SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
 { type BuffT <: Int2Buff[B]
-  final override def indexSet(arr: BB, index: Int, value: B): Unit =
-  { arr.unsafeArray(index * 2) = value.int1;
-    arr.unsafeArray(index * 2 + 1) = value.int2
+  final override def indexSet(seqLike: BB, index: Int, value: B): Unit =
+  { seqLike.unsafeArray(index * 2) = value.int1;
+    seqLike.unsafeArray(index * 2 + 1) = value.int2
   }
 
   final override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2); () }

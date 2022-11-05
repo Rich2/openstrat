@@ -41,7 +41,7 @@ object AnyArrBuild extends ArrMapBuilder[Any, AnyArr] with ArrFlatBuilder[AnyArr
 { type BuffT = AnyBuff
 
   override def uninitialised(length: Int): AnyArr = new AnyArr(new Array[Any](length))
-  override def indexSet(arr: AnyArr, index: Int, value: Any): Unit = arr.unsafeArray(index) = value
+  override def indexSet(seqLike: AnyArr, index: Int, value: Any): Unit = seqLike.unsafeArray(index) = value
   override def newBuff(length: Int = 4): AnyBuff = new AnyBuff(new ArrayBuffer[Any](length))
   override def buffGrow(buff: AnyBuff, value: Any): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: AnyBuff): AnyArr = new AnyArr(buff.unsafeBuffer.toArray)

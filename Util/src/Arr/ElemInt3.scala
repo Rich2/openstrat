@@ -49,33 +49,6 @@ trait Int3Arr[A <: ElemInt3] extends Any with IntNArr[A] with Int3SeqLike[A]
   final override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 }
 
-/** Trait for creating the ArrTBuilder type class instances for [[Int3Arr]] final classes. Instances for the [[ArrMapBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int3Elem,
- *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
-trait Int3ArrMapBuilder[B <: ElemInt3, ArrB <: Int3Arr[B]] extends IntNArrMapBuilder[B, ArrB]
-{ type BuffT <: Int3Buff[B]
-
-  final override def elemProdSize: Int = 3
-  def newArray(length: Int): Array[Int] = new Array[Int](length * 3)
-
-  final override def indexSet(arr: ArrB, index: Int, value: B): Unit =
-  { arr.unsafeArray(index * 3) = value.int1; arr.unsafeArray(index * 3 + 1) = value.int2; arr.unsafeArray(index * 3 + 2) = value.int3
-  }
-
-  override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2)
-    buff.unsafeBuffer.append(value.int3); () }
-}
-
-/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int3Arr]] final classes. Instances for the [[ArrMapBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
- *  object the ArrT final class. The first type parameter is called B a sub class of Int3Elem, because to corresponds to the B in the
- *  ```map(f: A => B): ArrB``` function. */
-trait Int3ArrFlatBuilder[ArrB <: Int3Arr[_]] extends IntNArrFlatBuilder[ArrB]
-{ type BuffT <: Int3Buff[_]
-  final override def elemProdSize: Int = 3
-  def newArray(length: Int): Array[Int] = new Array[Int](length * 3)
-}
-
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt3]]s collections. */
 trait Int3Buff[A <: ElemInt3] extends Any with IntNBuff[A]
 { type ArrT <: Int3Arr[A]
@@ -89,12 +62,38 @@ trait Int3Buff[A <: ElemInt3] extends Any with IntNBuff[A]
   override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 3) = value.int1; unsafeBuffer(i * 3 + 1) = value.int2; unsafeBuffer(i * 3 + 2) = value.int3 }
 }
 
+trait Int3SeqLikeCommonBuilder[BB <: Int3SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]
+{ type BuffT <: Int3Buff[_]
+  final override def elemProdSize: Int = 3
+}
+
+trait Int3SeqLikeMapBuilder[B <: ElemInt3, BB <: Int3SeqLike[B]] extends Int3SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
+{ type BuffT <: Int3Buff[B]
+
+  final override def indexSet(seqLike: BB, index: Int, value: B): Unit = { seqLike.unsafeArray(index * 3) = value.int1
+    seqLike.unsafeArray(index * 3 + 1) = value.int2; seqLike.unsafeArray(index * 3 + 2) = value.int3 }
+
+  final override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2)
+    buff.unsafeBuffer.append(value.int3); () }
+}
+
+/** Trait for creating the ArrTBuilder type class instances for [[Int3Arr]] final classes. Instances for the [[ArrMapBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int3Elem,
+ *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
+trait Int3ArrMapBuilder[B <: ElemInt3, ArrB <: Int3Arr[B]] extends Int3SeqLikeMapBuilder[B, ArrB] with IntNArrMapBuilder[B, ArrB]
+
+/** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int3Arr]] final classes. Instances for the [[ArrMapBuilder]] type
+ *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
+ *  object the ArrT final class. The first type parameter is called B a sub class of Int3Elem, because to corresponds to the B in the
+ *  ```map(f: A => B): ArrB``` function. */
+trait Int3ArrFlatBuilder[ArrB <: Int3Arr[_]] extends Int3SeqLikeCommonBuilder[ArrB] with IntNArrFlatBuilder[ArrB]
+
 /** Helper class for companion objects of final [[Int3SeqSpec]] classes. */
 abstract class Int3SeqLikeCompanion[A <: ElemInt3, ArrA <: Int3SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
 { override def elemNumInts: Int = 3
 
   /** Apply factory method. */
-  def apply(elems: A*): ArrA =
+  final def apply(elems: A*): ArrA =
   { val arrLen: Int = elems.length * 3
     val res = uninitialised(elems.length)
     var count: Int = 0

@@ -83,7 +83,7 @@ object StringArr
 object StringArrBuilder extends ArrMapBuilder[String, StringArr] with ArrFlatBuilder[StringArr]
 { type BuffT = StringBuff
   override def uninitialised(length: Int): StringArr = new StringArr(new Array[String](length))
-  override def indexSet(arr: StringArr, index: Int, value: String): Unit = arr.unsafeArray(index) = value
+  override def indexSet(seqLike: StringArr, index: Int, value: String): Unit = seqLike.unsafeArray(index) = value
   override def newBuff(length: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](length))
   override def buffGrow(buff: StringBuff, value: String): Unit = buff.unsafeBuffer.append(value)
   override def buffToBB(buff: StringBuff): StringArr = new StringArr(buff.unsafeBuffer.toArray)

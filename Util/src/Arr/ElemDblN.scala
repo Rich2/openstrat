@@ -104,9 +104,9 @@ trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: DblNSeqLike[B]] extends DblNSeq
   final override def uninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffGrow(buff: BuffT, value: B): Unit = value.dblForeach(buff.unsafeBuffer.append(_))
 
-  override def indexSet(arr: BB, index: Int, value: B): Unit =
+  override def indexSet(seqLike: BB, index: Int, value: B): Unit =
   { var ii = 0
-    value.dblForeach {d => arr.unsafeArray(index * elemProdSize + ii); ii += 1}
+    value.dblForeach {d => seqLike.unsafeArray(index * elemProdSize + ii); ii += 1}
   }
 }
 

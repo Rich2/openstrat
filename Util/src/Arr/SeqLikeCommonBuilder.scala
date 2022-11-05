@@ -29,8 +29,8 @@ trait SeqLikeMapBuilder[B, BB <: SeqLike[B]] extends SeqLikeCommonBuilder[BB]
   /** A mutable operation that extends the ArrayBuffer with the elements of the Iterable operand. */
   def buffGrowIter(buff: BuffT, values: Iterable[B]): Unit = values.foreach(buffGrow(buff, _))
 
-  /** Sets the value in an [[Arr]] of type ArrB. This is usually used in conjunction with uninitialised method. */
-  def indexSet(arr: BB, index: Int, value: B): Unit
+  /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */
+  def indexSet(seqLike: BB, index: Int, value: B): Unit
 }
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in

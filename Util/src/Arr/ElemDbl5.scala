@@ -59,9 +59,9 @@ trait Dbl5ArrMapBuilder[B <: ElemDbl5, ArrB <: Dbl5Arr[B]] extends DblNArrMapBui
 { type BuffT <: Dbl5Buff[B]
   final override def elemProdSize = 5
 
-  override def indexSet(arr: ArrB, index: Int, value: B): Unit =
-  { arr.unsafeArray(index * 5) = value.dbl1; arr.unsafeArray(index * 5 + 1) = value.dbl2; arr.unsafeArray(index * 5 + 2) = value.dbl3
-    arr.unsafeArray(index * 5 + 3) = value.dbl4;  arr.unsafeArray(index * 5 + 4) = value.dbl5
+  override def indexSet(seqLike: ArrB, index: Int, value: B): Unit =
+  { seqLike.unsafeArray(index * 5) = value.dbl1; seqLike.unsafeArray(index * 5 + 1) = value.dbl2; seqLike.unsafeArray(index * 5 + 2) = value.dbl3
+    seqLike.unsafeArray(index * 5 + 3) = value.dbl4;  seqLike.unsafeArray(index * 5 + 4) = value.dbl5
   }
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrMapBuilder]] type

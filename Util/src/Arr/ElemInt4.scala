@@ -60,9 +60,9 @@ trait Int4ArrMapBuilder[B <: ElemInt4, ArrB <: Int4Arr[B]] extends IntNArrMapBui
   final override def elemProdSize: Int = 4
   def newArray(length: Int): Array[Int] = new Array[Int](length * 4)
 
-  final override def indexSet(arr: ArrB, index: Int, value: B): Unit =
-  { arr.unsafeArray(index * 4) = value.int1; arr.unsafeArray(index * 4 + 1) = value.int2; arr.unsafeArray(index * 4 + 2) = value.int3
-    arr.unsafeArray(index * 4 + 3) = value.int4 }
+  final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit =
+  { seqLike.unsafeArray(index * 4) = value.int1; seqLike.unsafeArray(index * 4 + 1) = value.int2; seqLike.unsafeArray(index * 4 + 2) = value.int3
+    seqLike.unsafeArray(index * 4 + 3) = value.int4 }
 
   override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2)
     buff.unsafeBuffer.append(value.int3); buff.unsafeBuffer.append(value.int4); () }
