@@ -73,18 +73,18 @@ trait IntNSeqLikeCommonBuilder[BB] extends ValueNSeqLikeCommonBuilder[BB]
 {
   /* Not sure about the return type of this method. */
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
+
+  final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
 trait IntNSeqLikeMapBuilder[B <: ElemIntN, BB <: IntNSeqLike[B]] extends IntNSeqLikeCommonBuilder[BB] with ValueNSeqLikeMapBuilder[B, BB]
-{
+{ type BuffT <:  IntNBuff[B]
   def fromIntArray(array: Array[Int]): BB
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
-  type BuffT <:  IntNBuff[B]
 
-  /*final override def indexSet(arr: BB, index: Int, value: B): Unit = {
-    var ii = 0
-    value.intForeach { d => arr.unsafeArray(index * elemProdSize + ii); ii += 1 }
-  }*/
+
+  final override def buffToBB(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
+
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[IntNArr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes
@@ -92,13 +92,12 @@ trait IntNSeqLikeMapBuilder[B <: ElemIntN, BB <: IntNSeqLike[B]] extends IntNSeq
  *  ```map(f: A => B): ArrB``` function. */
 trait IntNArrMapBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
 {
-  final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
-  final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
+  //final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[IntNArr]] final classes. Instances for [[ArrFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait IntNArrFlatBuilder[ArrB <: IntNArr[_]] extends ValueNArrFlatBuilder[ArrB]
+trait IntNArrFlatBuilder[ArrB <: IntNArr[_]] extends IntNSeqLikeCommonBuilder[ArrB] with ValueNArrFlatBuilder[ArrB]
 { type BuffT <:  IntNBuff[_]
 
   /* Constructs an ArrB instance from an [[Array]][Int]. */
@@ -107,7 +106,7 @@ trait IntNArrFlatBuilder[ArrB <: IntNArr[_]] extends ValueNArrFlatBuilder[ArrB]
   /* Constructs a BuffT instance from an [[ArrayBuffer]][Int]. */
   def fromIntBuffer(buffer: ArrayBuffer[Int]): BuffT
 
-  final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
+  //final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
   final override def buffToBB(buff: BuffT): ArrB = fromIntArray(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { buff.unsafeBuffer.addAll(arr.unsafeArray); () }
 }

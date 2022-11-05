@@ -60,15 +60,9 @@ trait PolygonDbl3sBuilder[B <: ElemDbl3, BB <: PolygonDbl3[B]] extends PolygonDb
 /** Trait for creating the builder type class instances for [[PolygonDblN]] final classes. Instances for the [[PolygonLikeMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait PolygonIntNsBuilder[B <: ElemIntN, BB <: PolygonIntN[B] ] extends PolygonValueNsBuilder[B, BB]
-{ type BuffT <: IntNBuff[B]
-  def fromIntArray(array: Array[Int]): BB
-  final override def buffToBB(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
-}
+trait PolygonIntNsBuilder[B <: ElemIntN, BB <: PolygonIntN[B] ] extends PolygonValueNsBuilder[B, BB] with IntNSeqLikeMapBuilder[B, BB]
 
 /** Trait for creating the line path type class instances for [[PolygonInt2]] final classes. Instances for the [[PolygonInt2sBuilder]] type class,
  *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemInt2]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait PolygonInt2sBuilder[B <: ElemInt2, BB <: PolygonInt2[B]] extends PolygonIntNsBuilder[B, BB] with Int2SeqLikeMapBuilder[B, BB]
-{ type BuffT <: Int2Buff[B]
-}

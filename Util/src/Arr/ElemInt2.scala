@@ -39,11 +39,11 @@ trait Int2Arr[A <: ElemInt2] extends Any with IntNArr[A] with Int2SeqLike[A]
 }
 
 trait Int2SeqLikeCommonBuilder[BB] extends IntNSeqLikeCommonBuilder[BB]
-{
+{ type BuffT <: Int2Buff[_]
   final override def elemProdSize: Int = 2
 }
 trait Int2SeqLikeMapBuilder[B <: ElemInt2, BB <: Int2SeqLike[B]] extends Int2SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
-{
+{ type BuffT <: Int2Buff[B]
   final override def indexSet(arr: BB, index: Int, value: B): Unit =
   { arr.unsafeArray(index * 2) = value.int1;
     arr.unsafeArray(index * 2 + 1) = value.int2
@@ -56,21 +56,12 @@ trait Int2SeqLikeMapBuilder[B <: ElemInt2, BB <: Int2SeqLike[B]] extends Int2Seq
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int2Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */
 trait Int2ArrMapBuilder[B <: ElemInt2, ArrB <: Int2Arr[B]] extends Int2SeqLikeMapBuilder[B, ArrB] with IntNArrMapBuilder[B, ArrB]
-{ type BuffT <: Int2Buff[B]
-
-  def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
-
-}
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B a sub class of Int2Elem, because to corresponds to the B in the
  *  ```map(f: A => B): ArrB``` function. */
-trait Int2ArrFlatBuilder[ArrB <: Int2Arr[_]] extends IntNArrFlatBuilder[ArrB]
-{ type BuffT <: Int2Buff[_]
-  final override def elemProdSize: Int = 2
-  def newArray(length: Int): Array[Int] = new Array[Int](length * 2)
-}
+trait Int2ArrFlatBuilder[ArrB <: Int2Arr[_]] extends Int2SeqLikeCommonBuilder[ArrB] with IntNArrFlatBuilder[ArrB]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt2]]s collections. */
 trait Int2Buff[A <: ElemInt2] extends Any with IntNBuff[A]
