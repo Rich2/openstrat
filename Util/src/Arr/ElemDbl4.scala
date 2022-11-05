@@ -57,8 +57,8 @@ trait Dbl4ArrCommonBuilder[ArrB <: Dbl4Arr[_]] extends DblNArrCommonBuilder[ArrB
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl4]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
 trait Dbl4ArrMapBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
-{
-  type BuffT <: Dbl4Buff[B]
+{ type BuffT <: Dbl4Buff[B]
+
   final override def arrSet(arr: ArrB, index: Int, value: B): Unit = { arr.unsafeArray(index * 4) = value.dbl1; arr.unsafeArray(index * 4 + 1) = value.dbl2
     arr.unsafeArray(index * 4 + 2) = value.dbl3; arr.unsafeArray(index * 4 + 3) = value.dbl4 }
 }

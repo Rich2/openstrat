@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import collection.mutable.ArrayBuffer, Colour.Black
+import Colour.Black
 
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
@@ -112,11 +112,7 @@ object LineSeg
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
-  implicit val buildEv: Dbl4ArrMapBuilder[LineSeg, LineSegArr] = new Dbl4ArrMapBuilder[LineSeg, LineSegArr]
-  { type BuffT = LineSegBuff
-    override def fromDblArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
-    def buffFromBufferDbl(buffer: ArrayBuffer[Double]): LineSegBuff = new LineSegBuff(buffer)
-  }
+  implicit val buildEv: LineSegArrMapBuilder = new LineSegArrMapBuilder
 
   implicit def transimplicit: AffineTrans[LineSeg] = (obj: LineSeg, f: Pt2 => Pt2) => LineSeg(f(obj.pStart), f(obj.pEnd))
 }
