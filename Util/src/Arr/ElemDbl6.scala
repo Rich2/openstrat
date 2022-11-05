@@ -89,12 +89,16 @@ abstract class Dbl6SeqLikeCompanion[A <: ElemDbl6, ArrA <: Dbl6SeqLike[A]] exten
   }
 }
 
+trait Dbl6SeqLikeCommonBuilder[BB <: Dbl6Arr[_]] extends DblNSeqLikeCommonBuilder[BB]
+{ type BuffT <: Dbl6Buff[_]
+  final override def elemProdSize = 6
+}
+
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl6Arr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes /
  *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl6]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl6ArrMapBuilder[B <: ElemDbl6, ArrB <: Dbl6Arr[B]] extends DblNArrMapBuilder[B, ArrB]
+trait Dbl6ArrMapBuilder[B <: ElemDbl6, ArrB <: Dbl6Arr[B]] extends Dbl6SeqLikeCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl6Buff[B]
-  final override def elemProdSize = 6
 
   override def indexSet(seqLike: ArrB, index: Int, value: B): Unit =
   { seqLike.unsafeArray(index * 6) = value.dbl1; seqLike.unsafeArray(index * 6 + 1) = value.dbl2; seqLike.unsafeArray(index * 6 + 2) = value.dbl3
@@ -106,10 +110,7 @@ trait Dbl6ArrMapBuilder[B <: ElemDbl6, ArrB <: Dbl6Arr[B]] extends DblNArrMapBui
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl6]]. Instances for
  *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
-trait Dbl6ArrFlatBuilder[ArrB <: Dbl6Arr[_]] extends DblNArrFlatBuilder[ArrB]
-{ type BuffT <: Dbl6Buff[_]
-  final override def elemProdSize = 6
-}
+trait Dbl6ArrFlatBuilder[ArrB <: Dbl6Arr[_]] extends Dbl6SeqLikeCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 
 /** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl4]]s collections. */
 trait Dbl6Buff[A <: ElemDbl6] extends Any with DblNBuff[A]
