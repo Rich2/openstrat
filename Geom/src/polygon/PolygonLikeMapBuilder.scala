@@ -43,7 +43,7 @@ trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonDblN[B] ] extends PolygonV
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait PolygonDbl2sBuilder[B <: ElemDbl2, BB <: PolygonDbl2[B]] extends PolygonDblNsBuilder[B, BB] with Dbl2SeqLikeMapBuilder[B, BB]
 { type BuffT <: Dbl2Buff[B]
-  override def indexSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
+  //override def indexSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
 }
 
 /** Trait for creating the line path type class instances for [[PolygonDbl3]] final classes. Instances for the [[PolygonDbl3sBuilder]] type class,

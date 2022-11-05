@@ -274,13 +274,7 @@ object Pt2
 
   implicit val polygonBuildImplicit: PolygonLikeMapBuilder[Pt2, Polygon] = new PolygonLikeMapBuilder[Pt2, PolygonGen] with Dbl2SeqLikeMapBuilder[Pt2, PolygonGen]
   { override type BuffT = Pt2Buff
-
-    //override def uninitialised(length: Int): PolygonGen = PolygonGen.uninitialised(length)
-
     override def fromDblArray(array: Array[Double]): PolygonGen = new PolygonGen(array)
-
-    override def indexSet(arr: PolygonGen, index: Int, value: Pt2): Unit = arr.unsafeSetElem(index, value)
-
     override def buffFromBufferDbl(buffer: ArrayBuffer[Double]): Pt2Buff = new Pt2Buff(buffer)
   }
 

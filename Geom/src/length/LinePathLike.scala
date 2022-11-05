@@ -62,7 +62,7 @@ trait LinePathDblNsBuilder[B <: ElemDblN, BB <: LinePathDblN[B] ] extends LinePa
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
 trait LinePathDbl2Builder[B <: ElemDbl2, BB <: LinePathDbl2[B]] extends LinePathDblNsBuilder[B, BB] with Dbl2SeqLikeMapBuilder[B, BB]
 { type BuffT <: Dbl2Buff[B]
-  override def indexSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
+  //override def indexSet(arr: BB, index: Int, value: B): Unit = { arr.unsafeArray(index * 2) = value.dbl1; arr.unsafeArray(index * 2 + 1) = value.dbl2}
 }
 
 /** Trait for creating the line path type class instances for [[LinePathDbl3]] final classes. Instances for the [[LinePathDbl3sBuilder]] type class,
