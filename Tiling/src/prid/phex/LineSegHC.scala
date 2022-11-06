@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A 2d line upon a HexGrid defined by its start and end [[HGrid]] [[HCoord]]s. */
-case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLike[HCoord] with ElemInt4
+case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLikeInt4[HCoord] with ElemInt4
 { def int1: Int = r1
   def int2: Int = c1
   def int3: Int = r2
@@ -25,7 +25,7 @@ object LineSegHC
   def apply(hCoord1: HCoord, hCoord2: HCoord): LineSegHC = new LineSegHC(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
-  implicit val buildEv: LineSegHCMapBuilder = new LineSegHCMapBuilder
+  implicit val arrMapBuilderEv: LineSegHCMapBuilder = new LineSegHCMapBuilder
 }
 
 /** Compact immutable Array[Int] based collection class for [[LineSegHC]]s. LineSegHC is the library's term for a mathematical straight line segment, but what in
@@ -61,6 +61,10 @@ object LineSegHCArr extends Int4ArrCompanion[LineSegHC, LineSegHCArr]
 class LineSegHCBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int4Buff[LineSegHC]
 { override def typeStr: String = "Line2sBuff"
   override def intsToElem(d1: Int, d2: Int, d3: Int, d4: Int): LineSegHC = new LineSegHC(d1, d2, d3, d4)
+}
+
+object LineSegHCBuff
+{ def apply(initLen: Int = 4): LineSegHCBuff = new LineSegHCBuff(new ArrayBuffer[Int](initLen * 4))
 }
 
 class LineSegHCMapBuilder extends Int4ArrMapBuilder[LineSegHC, LineSegHCArr]

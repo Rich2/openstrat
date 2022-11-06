@@ -19,6 +19,13 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
   override def elemsStr: String = "Not implemented"
 
+  def somesLen: Int = {
+    var res = 0
+    unsafeArray.foreach(a => if (a != null) res += 1)
+    res
+  }
+
+
   /** [[HCen]] with foreach. Applies the side effecting function to the [[HCen]] coordinate with its respective element. Note the function signature
    *  follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
    *  => B signature.  */
@@ -67,6 +74,25 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
       f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
     }
     build.buffToBB(buff)
+  }
+
+  def scSomesMapPair[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]](f1: (HCen, A) => B1)(f2: (HCen, A) => B2)(
+    implicit gridSys: HGridSys, build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB = {
+    val len = somesLen
+    val res1 = build.b1Uninitialised(len)
+    val res2 = new Array[B2](len)(build.b2ClassTag)
+    var i = 0
+
+    gridSys.foreach { sc =>
+      val a: A = unsafeArray(gridSys.arrIndex(sc))
+      if (a != null) {
+        val new1 = f1(sc, a)
+        res1.unsafeSetElem(i, new1)
+        res2(i) = f2(sc, a)
+        i += 1
+      }
+    }
+    build.arrFromArrAndArray(res1, res2)
   }
 
   /** Completes the given row from the given starting c column value to the end of the row. An exception is
