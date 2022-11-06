@@ -28,11 +28,11 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: RArr[LineSegDraw] = moves.scSomesMap { (sc, step) =>
-    LineSegSC(sc, sc.step(step)).oldLineSeg.draw(players.unSafeApply(sc).colour)
+    LineSegSC(sc, sc.stepTo(step)).map(proj.transCoord(_)).draw(players.unSafeApply(sc).colour)
   }
 
-  def mg2: RArr[LineSegSCPair[Colour]] = moves.scSomesMap{ (sc, step) => new LineSegSCPair(sc.r, sc.c, sc.r + step.tr, sc.c + step.tc, players.unSafeApply(sc).colour)}
-  //def mg2: LineSegSCPairArr[Colour] = moves.scSomesMapPair{ (sc, step) => sc}{ (sc, step) => players.unSafeApply(sc).colour}
+  def mg2: LineSegSCPairArr[Colour] = moves.scSomesMapPair{ (sc, step) => sc.segStepTo(step)}{ (sc, _) => players.unSafeApply(sc).colour}
+
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
@@ -69,8 +69,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
   thisTop()
-  def moveGraphics2: GraphicElems = moveGraphics.slate(-focus).scale(cPScale).flatMap(_.arrow)
 
+  def moveGraphics2: GraphicElems = moveGraphics.flatMap(_.arrow)
   def frame: GraphicElems = actives ++ lunits +% sidesDraw ++ css ++ moveGraphics2
 
   proj.getFrame = () => frame
