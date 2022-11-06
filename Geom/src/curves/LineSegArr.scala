@@ -56,6 +56,10 @@ class LineSegPair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a1Dbl3: Double
   override def a1: LineSeg = new LineSeg(startX, startY, endX, endY)
 }
 
+object LineSegPair{
+  def apply[A2](ls: LineSeg, a2: A2): LineSegPair[A2] = new LineSegPair[A2](ls.dbl1, ls.dbl2, ls.dbl3, ls.dbl4, a2)
+}
+
 final class LineSegPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends LineSegLikeDbl4PairArr[Pt2, LineSeg, LineSegArr, A2, LineSegPair[A2]]
 { override type ThisT = LineSegPairArr[A2]
   override def typeStr: String = "LineSeqArrPair"
@@ -65,3 +69,5 @@ final class LineSegPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array
   override def fElemStr: LineSegPair[A2] => String = _.toString
   override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): LineSegPairArr[A2] = new LineSegPairArr[A2](a1Array, a2Array)
 }
+
+//class LineSegPairBuff[B2]() extends PairBuff[B2]
