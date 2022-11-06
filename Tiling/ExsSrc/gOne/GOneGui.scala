@@ -46,7 +46,7 @@ case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) ext
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: GraphicElems = moves.someHCOptFlatMap { (step, hc) =>
-    proj.transOptLineSeg(LineSegHC(hc, hc.unsafeStep(step))).map(_.draw(players.unSafeApply(hc).colour).arrow)
+    proj.transOptLineSeg(hc.segStepTo(step)).map(_.draw(players.unSafeApply(hc).colour).arrow)
   }
 
   /** Creates the turn button and the action to commit on mouse click. */

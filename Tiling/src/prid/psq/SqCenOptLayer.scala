@@ -40,7 +40,6 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
   /** Accesses element from Refs Arr. Only use this method where you are certain it is not null, or the consumer can deal with the null. */
   def unSafeApply(sc: SqCen)(implicit gridSys: SqGridSys): A = unsafeArr(gridSys.arrIndex(sc))
 
-
   def somesForeach(f: A => Unit)(implicit gridSys: SqGridSys): Unit = gridSys.foreach { sc =>
     val a: A = unsafeArr(gridSys.arrIndex(sc))
     if (a != null) f(a)
@@ -88,6 +87,20 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArr: Array[A]) extends AnyVal with TC
       }
     }
     build.arrFromArrAndArray(res1, res2)
+  }
+
+  /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[HCen]] to an [[option]] of a [[Arr]], collects only the
+   * [[Some]]'s values returned by the function. */
+  def someSCOptFlatMap[ArrB <: Arr[_]](f: (A, SqCen) => Option[ArrB])(implicit grider: SqGridSys, build: ArrFlatBuilder[ArrB]): ArrB = {
+    val buff = build.newBuff()
+
+    grider.foreach { hc =>
+      val a: A = unsafeArr(grider.arrIndex(hc))
+      if (a != null) {
+        f(a, hc).foreach(build.buffGrowArr(buff, _))
+      }
+    }
+    build.buffToBB(buff)
   }
 
   /** Drops the None values mapping the [[Some]]'s value with the [[SqCen]] to an option value, collecting the values of the [[Some]]s returned by the

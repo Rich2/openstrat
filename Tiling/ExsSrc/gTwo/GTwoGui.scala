@@ -26,9 +26,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
    *  those moves. This data is state for the Gui. */
   var moves: SqCenOptLayer[SqDirn] = NoMoves
 
-  /** This is the graphical display of the planned move orders. */
-  def moveGraphics: RArr[LineSegDraw] = moves.scSomesMap { (sc, step) =>
-    LineSegSC(sc, sc.stepTo(step)).map(proj.transCoord(_)).draw(players.unSafeApply(sc).colour)
+  def moveGraphics: GraphicElems = moves.someSCOptFlatMap { (step, sc) =>
+    proj.transOptLineSeg(sc.segStepTo(step)).map(_.draw(players.unSafeApply(sc).colour).arrow)
   }
 
   def mg2: LineSegSCPairArr[Colour] = moves.scSomesMapPair{ (sc, step) => sc.segStepTo(step)}{ (sc, _) => players.unSafeApply(sc).colour}
@@ -70,8 +69,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
   thisTop()
 
-  def moveGraphics2: GraphicElems = moveGraphics.flatMap(_.arrow)
-  def frame: GraphicElems = actives ++ lunits +% sidesDraw ++ css ++ moveGraphics2
+
+  def frame: GraphicElems = actives ++ lunits +% sidesDraw ++ css ++ moveGraphics
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

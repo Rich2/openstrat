@@ -43,6 +43,9 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   /** Returns a coordinate for this hex along with a step to an adjacent hex. */
   def andStep(hcs: HDirn): HCenStep = HCenStep(r, c, hcs)
 
+  /** Returns the [[LineSegHC]], a line segment specified in [[HCoord]]s, given by the step. */
+  def segStepTo(st: HDirn): LineSegHC = new LineSegHC(r, c, r + st.tr, c + st.tc)
+
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 
  // def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2Reg, colour)

@@ -17,6 +17,8 @@ trait SqSysProjection extends TSysProjection
 
   /** only use for projection's known [[SqCoord]]s. */
   def transCoord(sc: SqCoord): Pt2
+  def transOptCoord(sc: SqCoord): Option[Pt2] = ???
+  def transOptLineSeg(seg: LineSegSC): Option[LineSeg] = ???
 }
 
 case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysProjection with TSysProjectionFlat
@@ -32,7 +34,7 @@ case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysPro
   def getGChild: SqGridSys = parent
   def setGChild: Unit = gChild = getGChild
   override def transCoord(sc: SqCoord): Pt2 = (parent.flatSqCoordToPt2(sc) - focus).scale(pixCScale)
-
+  override def transOptCoord(sc: SqCoord): Option[Pt2] = Some(parent.flatSqCoordToPt2(sc).slate(-focus).scale(pixCScale))
   override def tilePolygons: PolygonArr = gChild.map(_.sqVertPolygon.map(parent.flatSqCoordToPt2(_)).slate(-focus).scale(pixCScale))
 
   override def tileActives: RArr[PolygonActive] =
@@ -47,4 +49,7 @@ case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysPro
 
   /** The visible outer hex sides. */
   override def outerSideLines: LineSegArr = LineSegArr()
+
+  override def transOptLineSeg(seg: LineSegSC): Option[LineSeg] =
+    transOptCoord(seg.startPt).map2(transOptCoord(seg.endPt)) { (p1, p2) => LineSeg(p1, p2) }
 }

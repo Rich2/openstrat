@@ -21,7 +21,7 @@ case class SqCen(r: Int, c: Int) extends SqCenOrSide with TCen
   def stepTo(st: SqDirn): SqCen = SqCen(r + st.tr, c + st.tc)
 
   /** Returns the [[LineSegSC]], a line segment specified in [[SqCoord]]s, given by the step. */
-  def segStepTo(st: SqDirn): LineSegSC = LineSegSC(this, SqCen(r + st.tr, c + st.tc))
+  def segStepTo(st: SqDirn): LineSegSC = new LineSegSC(r, c, r + st.tr, c + st.tc)
 
   /** Optionally returns the Step value of the SqCen if it is an adjacent SqCen. */
   def optStep(operand: SqCen): OptRef[SqDirn] = ??? // hcStepSomes.optFind(_.hCen == operand - this)
