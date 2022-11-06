@@ -5,7 +5,7 @@ import geom._, collection.mutable.ArrayBuffer
 /** A latitude-longitude polygon. A quasi polygon where the points are stored as points of latitude and longitude.Once the points are converted into a
 *  view, ie into pixel positions an actual polygon can be drawn or filled as desired. Do not create Polygons that span an arc of greater than 90
 *  degrees as this may break the algorithms. preferably keep the arcs significantly smaller. */
-class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSpec with PolygonDbl2[LatLong]
+class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSpec with PolygonLikeDbl2[LatLong]
 { type ThisT = PolygonLL
   type SideT = LineSegLL
   override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
@@ -68,7 +68,7 @@ object PolygonLL extends Dbl2SeqLikeCompanion[LatLong, PolygonLL]
 { override def fromArray(array: Array[Double]): PolygonLL = new PolygonLL(array)
 
   /** Implicit instance to build specialist sequences of [[PolygonLL]]s for map and related methods. */
-  implicit val arrMapBuildImplicit: ArrMapBuilder[PolygonLL, PolygonLLArr] = new ArrayDblArrMapBuilder[PolygonLL, PolygonLLArr]
+  implicit val arrMapBuildImplicit: ArrayDblArrMapBuilder[PolygonLL, PolygonLLArr]  = new ArrayDblArrMapBuilder[PolygonLL, PolygonLLArr]
   { override type BuffT = PolygonLLBuff
     override def newBuff(length: Int): PolygonLLBuff = PolygonLLBuff(length)
     override def fromArrayArrayDbl(array: Array[Array[Double]]): PolygonLLArr = new PolygonLLArr(array)

@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec with PolygonInt2[HCoord] with ElemArrayInt
+class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec with PolygonLikeInt2[HCoord] with ElemArrayInt
 { override type ThisT = PolygonHC
   override type SideT = LineSegHC
   override def typeStr: String = "PolygonHC"

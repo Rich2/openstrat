@@ -137,13 +137,13 @@ package object geom
   }
 
   implicit class BuffDblExtensionsImplicit[A <: ElemDblN](val thisBuff: DblNBuff[A])
-  { /** Extension method to create Polygons from [[DblNBuff]]. Takes an implicit [[PolygonDblNsBuilder]] parameter to return the [[PolygonDblN]] */
-    def toPolygon[PT <: PolygonDblN[A]](implicit build: PolygonDblNsBuilder[A, PT]): PT = build.fromDblArray(thisBuff.unsafeBuffer.toArray)
+  { /** Extension method to create Polygons from [[DblNBuff]]. Takes an implicit [[PolygonDblNsBuilder]] parameter to return the [[PolygonLikeDblN]] */
+    def toPolygon[PT <: PolygonLikeDblN[A]](implicit build: PolygonDblNsBuilder[A, PT]): PT = build.fromDblArray(thisBuff.unsafeBuffer.toArray)
   }
 
   implicit class BuffIntExtensionsImplicit[A <: ElemIntN](val thisBuff: IntNBuff[A])
-  { /** Extension method to create Polygons from [[IntNBuff]]. Takes an implicit [[PolygonIntNsBuilder]] parameter to return the [[PolygonIntN]] */
-    def toPolygon[PT <: PolygonIntN[A]](implicit build: PolygonIntNsBuilder[A, PT]): PT = build.fromIntArray(thisBuff.unsafeBuffer.toArray)
+  { /** Extension method to create Polygons from [[IntNBuff]]. Takes an implicit [[PolygonIntNsBuilder]] parameter to return the [[PolygonLikeIntN]] */
+    def toPolygon[PT <: PolygonLikeIntN[A]](implicit build: PolygonIntNsBuilder[A, PT]): PT = build.fromIntArray(thisBuff.unsafeBuffer.toArray)
   }
 
   implicit class MetreExtensionsImplicit(thisMetres: Length)

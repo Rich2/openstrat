@@ -3,7 +3,7 @@ package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec with PolygonInt2[SqCoord]
+class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec with PolygonLikeInt2[SqCoord]
 { override type ThisT = PolygonSqC
   override type SideT = LineSegSC
   override def typeStr: String = "PolygonSqC"

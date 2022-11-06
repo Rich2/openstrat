@@ -31,8 +31,6 @@ trait LineSegLikeDblN[VT <: ElemDblN] extends LineSegLike[VT] with ElemDblN
 
 trait LineSegLikeDblNArr[VT <: ElemDblN, A <: LineSegLikeDblN[VT]] extends Any with LineSegLikeArr[VT, A] with DblNArr[A]
 
-//trait LineSegLikeDblNBuff[VT <: ElemDblN, A <: LineSegLikeDblN[VT]] extends Any with LineSegLikeBuff[VT, A] with DblNBuff[A]
-
 /** A line segment where the start and end points are defined in [[ElemDbl2]] vertices. Theis will be the case for the classic 2D space line segment
  * a 2D line segment specified in metres and a line segment specified in latitude and longitude. */
 trait LineSegLikeDbl4[VT <: ElemDbl2] extends LineSegLikeDblN[VT] with ElemDbl4
