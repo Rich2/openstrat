@@ -2,7 +2,8 @@
 package ostrat; package gOne
 import pgui._, geom._, prid._, phex._, gPlay._
 
-/** Graphical user interface for GOne example game. */
+/** Graphical user interface for Game One example game. Each player can move one hex tile step. Any move to a tile already containing a player or that
+ *  one more than one player is attempting to move to fails. */
 case class GOneGui(canv: CanvasPlatform, scenStart: OneScen, viewIn: HGView) extends HGridSysGui("Game One Gui")
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
