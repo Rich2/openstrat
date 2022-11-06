@@ -31,7 +31,8 @@ case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView)
     proj.transOptLineSeg(sc.segStepTo(step)).map(_.draw(players.unSafeApply(sc).colour).arrow)
   }
 
-  def mg2: LineSegSCPairArr[Colour] = moves.scSomesMapPair{ (sc, step) => sc.segStepTo(step)}{ (sc, _) => players.unSafeApply(sc).colour}
+  /** This is left in as an example for more coplex games with multi step orders. */
+  def mg2: LineSegSCPairArr[Colour] = moves.scSomesMapPair{ (sc, step) => sc.segStepTo(step)}{ (sc, _) => players.unSafeApply(sc).colour }
 
 
   /** Creates the turn button and the action to commit on mouse click. */

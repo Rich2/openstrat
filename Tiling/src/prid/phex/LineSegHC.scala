@@ -25,11 +25,7 @@ object LineSegHC
   def apply(hCoord1: HCoord, hCoord2: HCoord): LineSegHC = new LineSegHC(hCoord1.r, hCoord1.c, hCoord2.r, hCoord2.c)
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
-  implicit val buildEv: Int4ArrMapBuilder[LineSegHC, LineSegHCArr] = new Int4ArrMapBuilder[LineSegHC, LineSegHCArr]
-  { type BuffT = LineSegHCBuff
-    override def fromIntArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
-    def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegHCBuff = new LineSegHCBuff(buffer)
-  }
+  implicit val buildEv: LineSegHCMapBuilder = new LineSegHCMapBuilder
 }
 
 /** Compact immutable Array[Int] based collection class for [[LineSegHC]]s. LineSegHC is the library's term for a mathematical straight line segment, but what in
@@ -52,11 +48,6 @@ object LineSegHCArr extends Int4ArrCompanion[LineSegHC, LineSegHCArr]
     override def showDecT(obj: LineSegHCs, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }*/
 
-  /*implicit val arrArrBuildImplicit: ArrFlatBuilder[LineSegHCs] = new ArrInt4sFlatBuilder[LineSegHC, LineSegHCs]
-  { type BuffT = LineSegHCBuff
-    override def fromIntArray(array: Array[Int]): LineSegHCs = new LineSegHCs(array)
-    def fromDblBuffer(inp: ArrayBuffer[Int]): LineSegHCBuff = new LineSegHCBuff(inp)
-  }*/
 
   //implicit val transImplicit: AffineTrans[LineSegHCs] = (obj, f) => obj.dataMap(_.ptsTrans(f))
 
@@ -70,4 +61,10 @@ object LineSegHCArr extends Int4ArrCompanion[LineSegHC, LineSegHCArr]
 class LineSegHCBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int4Buff[LineSegHC]
 { override def typeStr: String = "Line2sBuff"
   override def intsToElem(d1: Int, d2: Int, d3: Int, d4: Int): LineSegHC = new LineSegHC(d1, d2, d3, d4)
+}
+
+class LineSegHCMapBuilder extends Int4ArrMapBuilder[LineSegHC, LineSegHCArr]
+{ type BuffT = LineSegHCBuff
+  override def fromIntArray(array: Array[Int]): LineSegHCArr = new LineSegHCArr(array)
+  def fromIntBuffer(buffer: ArrayBuffer[Int]): LineSegHCBuff = new LineSegHCBuff(buffer)
 }
