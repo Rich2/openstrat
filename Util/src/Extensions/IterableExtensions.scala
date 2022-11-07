@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
+import scala.collection.mutable.ArrayBuffer
+
 /** Extension methods for [[Iterable]][A]. */
 class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
 { /** This method and "fHead" removes the need for headOption in the majority of case. Use fHead when are interested in the tail value */
@@ -135,12 +137,19 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** flatMaps to a [[Arr]] of B. */
-  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], BB <: PairArr[B1, ArrB1, B2, B]](f1: A => ArrB1)(f2: Array[B2])(implicit ev: PairArrMapBuilder[B1, ArrB1, B2, B, BB]): BB = ???
-  /*{
-    val buff = ev.newBuff()
-    thisIter.foreach { el => ev.buffGrowArr(buff, f(el)) }
-    ev.buffToBB(buff)
-  }*/
+  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], BB <: PairArr[B1, ArrB1, B2, B]](f1: A => ArrB1)(f2: A => B2)(
+    implicit build: PairArrMapBuilder[B1, ArrB1, B2, B, BB]): BB =
+  {
+    val buffer1 = build.newB1Buff()
+    val buffer2 = new ArrayBuffer[B2]()
+    thisIter.foreach{ a =>
+      val b1 = f1(a)
+        b1.foreach(buffer1.grow)
+      val b2 = f2(a)
+      iUntilForeach(0, b1.length)(_ => buffer2.append(b2))
+    }
+    build.arrFromBuffs(buffer1, buffer2)
+  }
 }
 
 /** Extension methods for [[Iterable]][A <: ValueNElem]. */
