@@ -133,6 +133,14 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     thisIter.foreach{ el => ev.buffGrowArr(buff, f(el)) }
     ev.buffToBB(buff)
   }
+
+  /** flatMaps to a [[Arr]] of B. */
+  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], BB <: PairArr[B1, ArrB1, B2, B]](f1: A => ArrB1)(f2: Array[B2])(implicit ev: PairArrMapBuilder[B1, ArrB1, B2, B, BB]): BB = ???
+  /*{
+    val buff = ev.newBuff()
+    thisIter.foreach { el => ev.buffGrowArr(buff, f(el)) }
+    ev.buffToBB(buff)
+  }*/
 }
 
 /** Extension methods for [[Iterable]][A <: ValueNElem]. */
