@@ -33,7 +33,7 @@ abstract class FourScen(val turn: Int) extends HGridScen
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
   def endTurn(orderList: RArr[(Lunit, HDirnArr)]): FourScen =
   {
-    val playersKey: Map[Lunit, HCen] = units.keyMap
+    val playersKey: Map[Lunit, HCen] = units.SomesKeyMap
 
     /** A mutable grid of data. The tile data is an Array buffer of [[HDirn]]s, the HStep pointing back to the origin [[HCen]] of the player. */
     val targets: HCenBuffLayer[HDirn] = gridSys.newHCenArrOfBuff

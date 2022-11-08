@@ -11,7 +11,7 @@ trait OneScen extends HSysTurnScen
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def endTurn(orderList: RArr[(Player, HDirn)]): OneScen =
   {
-    val playersKey: Map[Player, HCen] = oPlayers.keyMap
+    val playersKey: Map[Player, HCen] = oPlayers.SomesKeyMap
 
     val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 

@@ -15,8 +15,7 @@ trait ThreeScen extends HSysTurnScen
   def oPlayers: HCenOptLayer[Player]
 
   def playersData: Map[Player, HDirnArr] = Map()
-  lazy val playersKeyOld: Map[Player, HCen] = oPlayers.keyMap
-  lazy val playersKey: HCenPairArr[Player] = oPlayers.keyMapAlt
+  lazy val playersKey: HCenPairArr[Player] = oPlayers.somePairArr
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
@@ -25,12 +24,12 @@ trait ThreeScen extends HSysTurnScen
     val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { ps =>  ps._2.ifHead { step =>
-      val hc1: HCen = playersKey.a1ByA2(ps._1)
-       // val hc1: HCen = playersKeyOld(ps._1)
-        val optTarget: Option[HCen] = hc1.stepOpt(step)
-        optTarget.foreach{ target => targets.appendAt(target, HCenStep(hc1, step)) }
-      }
+      //val hc1: HCen = playersKey.a1ByA2(ps._1)
+      val hc1: HCen = oPlayers.get(ps._1)
+      val optTarget: Option[HCen] = hc1.stepOpt(step)
+       optTarget.foreach{ target => targets.appendAt(target, HCenStep(hc1, step)) }
     }
+  }
 
     var newData: Map[Player, HDirnArr] = orderList
 

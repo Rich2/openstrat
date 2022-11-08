@@ -244,13 +244,14 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     build.buffToBB(buff)
   }
 
-  def keyMap(implicit grider: HGridSys): Map[A, HCen] =
+  def SomesKeyMap(implicit grider: HGridSys): Map[A, HCen] =
   { val build = Map.newBuilder[A, HCen]
     someHCForeach((p, hc) => build.addOne(p, hc))
     build.result
   }
 
-  def keyMapAlt(implicit grider: HGridSys, build: HCenPairArrMapBuilder[A]): HCenPairArr[A] =
+  /** Returns an [[HCenPairArr]] of the Some values. */
+  def somePairArr(implicit grider: HGridSys, build: HCenPairArrMapBuilder[A]): HCenPairArr[A] =
   { val buff = build.newBuff()
     someHCForeach((p, hc) => buff.grow(hc, p))
     build.buffToBB(buff)
@@ -261,4 +262,6 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     someHCForeach{ (a, hc) => if (value == a) res = Some(hc)}
     res
   }
+
+  def get(value: A)(implicit grider: HGridSys): HCen = find(value).get
 }
