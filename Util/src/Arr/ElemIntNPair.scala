@@ -110,6 +110,12 @@ trait Int2PairBuff[A1 <: ElemInt2, A2, A <: ElemInt2Pair[A1, A2]] extends IntNPa
     b2Buffer.append(newElem.a2)
   }
 
+  def grow(newA1: A1, newA2: A2): Unit =
+  { b1IntBuffer.append(newA1.int1)
+    b1IntBuffer.append(newA1.int2)
+    b2Buffer.append(newA2)
+  }
+
   override final def unsafeSetElem(i: Int, value: A): Unit =
   { b1IntBuffer(i * 3) = value.a1Int1
     b1IntBuffer(i * 3 + 1) = value.a1Int2

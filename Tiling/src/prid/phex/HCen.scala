@@ -140,6 +140,10 @@ class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends ElemInt
 { override def a1: HCen = HCen(a1Int1, a1Int2)
 }
 
+object HCenPair
+{ def apply[A2](hc: HCen, a2: A2): HCenPair[A2] = new HCenPair[A2](hc.int1, hc.int2, a2)
+}
+
 class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int2PairArr[HCen, HCenArr, A2, HCenPair[A2]]
 { override type ThisT = HCenPairArr[A2]
   override def typeStr: String = "HCenPairArr"
