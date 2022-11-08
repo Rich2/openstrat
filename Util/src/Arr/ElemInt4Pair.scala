@@ -56,10 +56,17 @@ trait Int4PairBuff[B1 <: ElemInt4, B2, B <: ElemInt4Pair[B1, B2]] extends IntNPa
   }
 }
 
+trait Int4PairArrCommonBuilder[B1 <: ElemInt4, ArrB1 <: Int4Arr[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
+IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
+{ type BuffT <: Int4PairBuff[B1, B2, _]
+  type B1BuffT <: Int4Buff[B1]
+
+}
+
 trait Int4PairArrMapBuilder[B1 <: ElemInt4, ArrB1 <: Int4Arr[B1], B2, B <: ElemInt4Pair[B1, B2], ArrB <: Int4PairArr[B1, ArrB1, B2, B]] extends
-  IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
+Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int4PairBuff[B1, B2, B]
-  override type B1BuffT <: Int4Buff[B1]
+
   final override def a1IntNum: Int = 4
 
   final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = {
