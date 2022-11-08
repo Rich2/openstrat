@@ -54,8 +54,14 @@ trait Dbl4PairBuff[B1 <: ElemDbl4, B2, B <: ElemDbl4Pair[B1, B2]] extends DblNPa
   }
 }
 
+trait Dbl4PairArrCommonBuilder[B1 <: ElemDbl4, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: Dbl4PairArr[B1, ArrB1, B2, _]] extends
+DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
+{ type BuffT <: Dbl4PairBuff[B1, B2, _]
+
+}
+
 trait Dbl4PairArrMapBuilder[B1 <: ElemDbl4, ArrB1 <: Dbl4Arr[B1], B2, B <: ElemDbl4Pair[B1, B2], ArrB <: Dbl4PairArr[B1, ArrB1, B2, B]] extends
-  DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
+Dbl4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl4PairBuff[B1, B2, B]
   override type B1BuffT <: Dbl4Buff[B1]
   final override def a1DblNum: Int = 4
