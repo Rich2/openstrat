@@ -91,18 +91,16 @@ object HCen
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)
   }
+
+  implicit def pairArrMapBuilder[B2](implicit ct: ClassTag[B2]): HCenPairArrMapBuilder[B2] = new HCenPairArrMapBuilder[B2]
 }
 
 /** An efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates. */
 class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
 { type ThisT = HCenArr
-
   override def newElem(int1: Int, int2: Int): HCen = HCen(int1, int2)
-
   override def fromArray(array: Array[Int]): HCenArr = new HCenArr(array)
-
   override def typeStr: String = "HCens"
-
   override def fElemStr: HCen => String = _.toString
 
   /** Converts a sequence of adjacent hex tiles to hex directions. Only call this method if you are certain the tiles are adjacent. */
@@ -117,7 +115,6 @@ object HCenArr extends Int2SeqLikeCompanion[HCen, HCenArr]
 
   implicit object PersistImplicit extends PersistArrInt2s[HCen, HCenArr]("HCens")
   { override def fromArray(value: Array[Int]): HCenArr = new HCenArr(value)
-
     override def showDecT(obj: HCenArr, way: ShowStyle, maxPlaces: Int, minPlaces: Int): String = ???
   }
 
