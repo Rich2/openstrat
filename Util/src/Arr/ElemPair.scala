@@ -25,7 +25,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   /** The Array for the A2 components of the pairs. */
   def a2Array: Array[A2]
 
-  /** Returns an [[RArr]] of the A2s, even if a better more specialist collection equists for the type. Probably not required most of the time but the
+  /** Returns an [[RArr]] of the A2s, even if a better more specialist collection exists for the type. Probably not required most of the time but the
    *  method is included for completeness.  */
   def a2RArr: RArr[A2] = new RArr[A2](a2Array)
 
@@ -51,10 +51,10 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
     res
   }
 
-  /** Indexs the first component of the pair. */
+  /** Indexes the first component of the pair. */
   def a1Index(index: Int): A1
 
-  /** Indexs the second component of the pair. */
+  /** Indexes the second component of the pair. */
   def a2Index(index: Int): A2 = a2Array(index)
 
   /** Maps the sequence of pairs to a new sequence of pairs, but leaving the second component of the pairs unchanged. */
@@ -95,6 +95,19 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   }
 
   final override def length: Int = a2Array.length
+
+  def a1ByA2(key: A2): A1 = {
+    var i = 0
+    var res: Option[A1] = None
+    while(i < length & res == None){
+      if (a2Index(i) == key) res = Some(a1Index(i))
+      i += 1
+    }
+    res match {
+      case Some(a1) => a1
+      case None => excep("Not found")
+    }
+  }
 }
 
 /** An efficient [[Buff]] for [[ElemPair]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used

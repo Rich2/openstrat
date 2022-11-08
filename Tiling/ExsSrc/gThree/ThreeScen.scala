@@ -25,7 +25,8 @@ trait ThreeScen extends HSysTurnScen
     val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { ps =>  ps._2.ifHead { step =>
-        val hc1: HCen = playersKeyOld(ps._1)
+      val hc1: HCen = playersKey.a1ByA2(ps._1)
+       // val hc1: HCen = playersKeyOld(ps._1)
         val optTarget: Option[HCen] = hc1.stepOpt(step)
         optTarget.foreach{ target => targets.appendAt(target, HCenStep(hc1, step)) }
       }
