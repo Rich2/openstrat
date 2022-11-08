@@ -1,6 +1,10 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, Colour.Black, collection.mutable.ArrayBuffer
+import geom._
+import Colour.Black
+
+import collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 /** A Hex tile centre hex grid [[HGrid]] coordinate. */
 class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
@@ -82,7 +86,7 @@ object HCen
   implicit val persistEv: Persist[HCen] = new PersistShowInt2[HCen]("HCen", "r", "c", HCen(_, _))
 
   /** Implicit [[ArrMapBuilder]] type class instance / evidence for [[HCen]] and [[HCenArr]]. */
-  implicit val buildEv: Int2ArrMapBuilder[HCen, HCenArr] = new Int2ArrMapBuilder[HCen, HCenArr]
+  implicit val arrMapBuilderEv: Int2ArrMapBuilder[HCen, HCenArr] = new Int2ArrMapBuilder[HCen, HCenArr]
   { type BuffT = HCenBuff
     override def fromIntArray(array: Array[Int]): HCenArr = new HCenArr(array)
     override def fromIntBuffer(buffer: ArrayBuffer[Int]): HCenBuff = new HCenBuff(buffer)
@@ -131,6 +135,10 @@ class HCenBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal wi
   override def intsToT(i1: Int, i2: Int): HCen = HCen(i1, i2)
 }
 
+object HCenBuff
+{ def apply(length: Int = 4): HCenBuff = new HCenBuff(new ArrayBuffer[Int](length * 2))
+}
+
 class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends ElemInt2Pair[HCen, A2]
 { override def a1: HCen = HCen(a1Int1, a1Int2)
 }
@@ -143,4 +151,20 @@ class HCenPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extend
   override def newA1(int1: Int, int2: Int): HCen = HCen(int1, int2)
   override def a1Arr: HCenArr = new HCenArr(a1ArrayInt)
   override def fElemStr: HCenPair[A2] => String = _.toString
+}
+
+class HCenPairBuff[B2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[B2]) extends Int2PairBuff[HCen, B2, HCenPair[B2]]
+{ override type ThisT = HCenPairBuff[B2]
+  override def typeStr: String = "HCenPairBuff"
+  override def newElem(int1: Int, int2: Int, a2: B2): HCenPair[B2] = new HCenPair[B2](int1, int2, a2)
+}
+
+class HCenPairArrMapBuilder[B2](implicit ct: ClassTag[B2]) extends Int2PairArrMapBuilder[HCen, HCenArr, B2, HCenPair[B2], HCenPairArr[B2]]
+{ override type BuffT = HCenPairBuff[B2]
+  override type B1BuffT = HCenBuff
+  override implicit val b2ClassTag: ClassTag[B2] = ct
+  override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): HCenPairBuff[B2] = new HCenPairBuff[B2](a1Buffer, a2Buffer)
+  override def b1ArrBuilder: ArrMapBuilder[HCen, HCenArr] = HCen.arrMapBuilderEv
+  override def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): HCenPairArr[B2] = new HCenPairArr[B2](b1ArrayInt, b2Array)
+  override def newB1Buff(): HCenBuff = HCenBuff()
 }

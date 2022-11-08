@@ -42,7 +42,7 @@ trait IntNPAirArrCommonBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, ArrB <:
 
   /** Constructs the [[Arr]] class from an [[Array]][Int] object for the first components of the pairs and an [[Array]][B2] for the second
    *  components of the pairs. */
-  def arrFromArrays(a1ArrayInt: Array[Int], a2Array: Array[B2]): ArrB
+  def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): ArrB
 
   /** Constructs the [[Buff]] class from an [[ArrayBuffer]][Int] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the
    * second components of the pairs. */
@@ -59,6 +59,9 @@ trait IntNPairArrMapBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: ElemI
 
   /** The number of [[Int]]s required to construct the first component of the pairs. */
   def a1IntNum: Int
+
+  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
+  final override def arrFromArrAndArray(b1Arr: ArrB1, b2s: Array[B2]): ArrB = arrFromArrays(b1Arr.unsafeArray, b2s)
 
   def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
   final override def uninitialised(length: Int): ArrB = arrFromArrays(new Array[Int](length * a1IntNum), new Array[B2](length))
