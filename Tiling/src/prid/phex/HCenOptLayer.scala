@@ -250,6 +250,12 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     build.result
   }
 
+  /*def keyMapAlt(implicit grider: HGridSys): Int2PairArr[HCen, A] = {
+    val build = Map.newBuilder[A, HCen]
+    someHCForeach((p, hc) => build.addOne(p, hc))
+    build.result
+  }*/
+
   def find(value: A)(implicit grider: HGridSys): Option[HCen] =
   { var res: Option[HCen] = None
     someHCForeach{ (a, hc) => if (value == a) res = Some(hc)}
