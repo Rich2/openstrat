@@ -46,7 +46,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     moves.flatMapArr{p1 => p1._2.segsMap(scen.oPlayers.get(p1._1), proj.transOptLineSeg(_))(ls => LineSegPair(ls, p1._1.colour)) }
 
 //  def mg2 =
-//    moves.flatMapPairArr { p1 => p1._2.segsMap(scen.playersKey(p1._1), proj.transOptLineSeg(_))(ls => LineSegPair(ls, p1._1.colour)) }
+//    moves.flatMapPairArr { p1 => p1._2.segsMap(scen.oPlayers.get(p1._1), proj.transOptLineSeg(_))(ls => LineSegPair(ls, p1._1.colour)) }
 
 //  def mg2: LineSegHCPairArr[Colour] = moves.scSomesMapPair{ (sc, step) => sc.segStepTo(step)}{ (sc, _) => players.unSafeApply(sc).colour }
 

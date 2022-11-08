@@ -70,4 +70,10 @@ final class LineSegPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array
   override def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): LineSegPairArr[A2] = new LineSegPairArr[A2](a1Array, a2Array)
 }
 
-//class LineSegPairBuff[B2]() extends PairBuff[B2]
+class LineSegPairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: ArrayBuffer[B2]) extends Dbl4PairBuff[LineSeg, B2, LineSegPair[B2]]
+{ override type ThisT = LineSegPairBuff[B2]
+  override def typeStr: String = "LineSegPairBuff"
+
+  override def newElem(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: B2): LineSegPair[B2] =
+    new LineSegPair[B2](dbl1, dbl2, dbl3, dbl4, a2)
+}

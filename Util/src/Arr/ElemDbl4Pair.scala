@@ -32,7 +32,7 @@ trait Dbl4PairArr[A1 <: ElemDbl4, ArrA1 <: Dbl4Arr[A1], A2, A <: ElemDbl4Pair[A1
 
 trait Dbl4PairBuff[B1 <: ElemDbl4, B2, B <: ElemDbl4Pair[B1, B2]] extends DblNPairBuff[B1, B2, B]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
-  def newElem(dbl1: Double, dbl2: Double, dbl3: Double, Dbl4: Double, a2: B2): B
+  def newElem(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: B2): B
 
   inline final override def apply(index: Int): B =
     newElem(b1DblBuffer (index * 4), b1DblBuffer(index * 4 + 1), b1DblBuffer(index * 4 + 2), b1DblBuffer(index * 4 + 3), b2Buffer(index))
