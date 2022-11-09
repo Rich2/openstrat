@@ -129,27 +129,6 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     }
   }
 
-  def segsForeach[U](start: HCen, trans: LineSegHC => Option[LineSeg])(f: LineSeg => U): Unit = segsForeach(start.r, start.c, trans)(f)
-
-  def segsForeach[U](startR: Int, startC: Int, trans: LineSegHC => Option[LineSeg])(f: LineSeg => U): Unit = {
-    var count = 0
-    var r1 = startR
-    var c1 = startC
-    var r2: Int = 0
-    var c2: Int = 0
-
-    while (count < segsNum) {
-      val step = HDirn.fromInt(unsafeArray(count))
-      r2 = r1 + step.tr
-      c2 = c1 + step.tc
-      val hls = LineSegHC(r1, c1, r2, c2)
-      trans(hls).foreach(f)
-      count += 1
-      r1 = r2
-      c1 = c2
-    }
-  }
-
   def segHCsForeach(start: HCen)(f: LineSegHC => Unit): Unit = segHCsForeach(start.r, start.c)(f)
 
   def segHCsForeach(startR: Int, startC: Int)(f: LineSegHC => Unit): Unit = {
@@ -184,32 +163,6 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     res
   }
 
-  /** maps the [[LineSegHC]]s from this [[HDirnArr]] to an [[Arr]] of Bs. It takes the starting [[HCen]] to convert the relative [[HDirn]]s to
-   * absolute [[LineSegHC]]s, then takes the trans function to filter and translate to Line Segs and then maps from LineSeg to B. */
-  /*def segsMap[B, ArrB <: Arr[B]](start: HCen, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
-    segsMap(start.r, start.c, trans)(f)(build)
-
-  def segsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
-  { val res = build.uninitialised(segsNum)
-    var count = 0
-    segsForeach(startR, startC, trans) { s =>
-      res.unsafeSetElem(count, f(s))
-      count += 1
-    }
-    res
-  }*/
-
-  def lineSegs(startHC: HCen, trans: LineSegHC => Option[LineSeg]): LineSegArr = lineSegs(startHC.r, startHC.c, trans)
-
-  def lineSegs(startR: Int, startC: Int, trans: LineSegHC => Option[LineSeg]): LineSegArr = {
-    val res = LineSegArr.uninitialised(segsNum) //build.uninitialised(segsNum)
-    var count = 0
-    segsForeach(startR, startC, trans) { s =>
-      res.unsafeSetElem(count, s)
-      count += 1
-    }
-    res
-  }
 
   def projLineSegs(startCen: HCen, proj: HSysProjection): LineSegArr = projLineSegs(startCen. r, startCen.c, proj)
 
