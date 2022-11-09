@@ -75,6 +75,9 @@ Dbl4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  DblNPairArrMapBuilder[B1, Ar
   }
 }
 
+trait Dbl4PairArrFlatBuilder[B1 <: ElemDbl4, ArrB1 <: Dbl4Arr[B1], B2, ArrB <: Dbl4PairArr[B1, ArrB1, B2, _]] extends
+  Dbl4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with DblNPairArrFlatBuilder[B1, ArrB1, B2, ArrB]
+
 trait Dbl4PairArrCompanion[A1 <: ElemDbl4, ArrA1 <: Dbl4Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]
 {
   override def elemNumDbls: Int = 4
