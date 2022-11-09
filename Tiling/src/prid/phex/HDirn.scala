@@ -165,7 +165,7 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
 
   /** maps the [[LineSegHC]]s from this [[HDirnArr]] to an [[Arr]] of Bs. It takes the starting [[HCen]] to convert the relative [[HDirn]]s to
    * absolute [[LineSegHC]]s, then takes the trans function to filter and translate to Line Segs and then maps from LineSeg to B. */
-  def segsMap[B, ArrB <: Arr[B]](start: HCen, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  /*def segsMap[B, ArrB <: Arr[B]](start: HCen, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
     segsMap(start.r, start.c, trans)(f)(build)
 
   def segsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int, trans: LineSegHC => Option[LineSeg])(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
@@ -176,7 +176,7 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
       count += 1
     }
     res
-  }
+  }*/
 
   def lineSegs(startHC: HCen, trans: LineSegHC => Option[LineSeg]): LineSegArr = lineSegs(startHC.r, startHC.c, trans)
 

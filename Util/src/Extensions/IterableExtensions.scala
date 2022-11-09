@@ -136,8 +136,23 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     ev.buffToBB(buff)
   }
 
-  /** flatMaps to a [[Arr]] of B. */
-  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: PairArr[B1, ArrB1, B2, _]](f1: A => ArrB1, f2: A => B2)(
+  /** flatMaps to a [[PairArr]] of B1 and B2. */
+  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: PairArr[B1, ArrB1, B2, _]](f: A => BB)(
+  implicit build: PairArrFlatBuilder[B1, ArrB1, B2, BB]): BB = ???
+  /*{ val buff1 = build.newB1Buff()
+    val buffer2 = new ArrayBuffer[B2]()
+    thisIter.foreach { a =>
+      val b = f(a)
+      b.foreach { p =>
+        buff1.grow(p.a1)
+        buffer2.append(p.a2)
+      }
+    }
+    build.arrFromBuffs(buff1, buffer2)
+  }*/
+
+  /** flatMaps to a [[PairArr]] of B1 and B2. */
+  /*def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: PairArr[B1, ArrB1, B2, _]](f1: A => ArrB1, f2: A => B2)(
     implicit build: PairArrFlatBuilder[B1, ArrB1, B2, BB]): BB =
   {
     val buffer1 = build.newB1Buff()
@@ -149,7 +164,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
       iUntilForeach(0, b1.length)(_ => buffer2.append(b2))
     }
     build.arrFromBuffs(buffer1, buffer2)
-  }
+  }*/
 }
 
 /** Extension methods for [[Iterable]][A <: ValueNElem]. */
