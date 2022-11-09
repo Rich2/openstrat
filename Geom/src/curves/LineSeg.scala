@@ -112,7 +112,7 @@ object LineSeg
   implicit val eqTImplicit: EqT[LineSeg] = Eq2T[Pt2, Pt2, LineSeg](_.pStart, _.pEnd)
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
-  implicit val buildEv: LineSegArrMapBuilder = new LineSegArrMapBuilder
+  implicit val arrMapbuilderEv: LineSegArrMapBuilder = new LineSegArrMapBuilder
 
   implicit def transimplicit: AffineTrans[LineSeg] = (obj: LineSeg, f: Pt2 => Pt2) => LineSeg(f(obj.pStart), f(obj.pEnd))
 }

@@ -42,9 +42,9 @@ object LocationLLArr extends Dbl2PairArrCompanion[Pt2, Pt2Arr]
     override implicit def b2ClassTag: ClassTag[Place] = ct
     override def newB1Buff(): LatLongBuff = LatLongBuff()
 
-    override def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[Place]): LatLongPairBuff[Place] =
-      new LatLongPairBuff[Place](a1Buffer, a2Buffer)
+    override def buffFromBuffers(b1Buffer: ArrayBuffer[Double], b2Buffer: ArrayBuffer[Place]): LatLongPairBuff[Place] =
+      new LatLongPairBuff[Place](b1Buffer, b2Buffer)
 
-    override def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[Place]): LocationLLArr = new LocationLLArr(a1ArrayDbl, a2Array)
+    override def arrFromArrays(b1ArrayDbl: Array[Double], b2Array: Array[Place]): LocationLLArr = new LocationLLArr(b1ArrayDbl, b2Array)
   }
 }

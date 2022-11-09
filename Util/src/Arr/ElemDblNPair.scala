@@ -28,15 +28,16 @@ PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
 
   /** Constructs the [[Arr]] class from an [[Array]][Double] object for the first components of the pairs and an [[Array]][B2] for the second
    *  components of the pairs. */
-  def arrFromArrays(a1ArrayDbl: Array[Double], a2Array: Array[B2]): ArrB
+  def arrFromArrays(b1ArrayDbl: Array[Double], b2Array: Array[B2]): ArrB
 
   /** Constructs the [[Buff]] class from an [[ArrayBuffer]][Double] object for the first components of the pairs and an [[ArrayBuffer]][B2] for the
    * second components of the pairs. */
-  def buffFromBuffers(a1Buffer: ArrayBuffer[Double], a2Buffer: ArrayBuffer[B2]): BuffT
+  def buffFromBuffers(b1Buffer: ArrayBuffer[Double], b2Buffer: ArrayBuffer[B2]): BuffT
 
   final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = newElem.dblForeach(buff.unsafeBuffer.append(_))
   final override def newBuff(length: Int): BuffT = buffFromBuffers(new ArrayBuffer[Double](length), new ArrayBuffer[B2](length))
   final override def buffToBB(buff: BuffT): ArrB = arrFromArrays(buff.b1DblBuffer.toArray, buff.b2Buffer.toArray)
+  final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
 trait DblNPairArrMapBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblNPair[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
@@ -48,7 +49,6 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, 
 
   final override def uninitialised(length: Int): ArrB = arrFromArrays(new Array[Double](length * a1DblNum), new Array[B2](length))
   inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
-  final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
 trait DblNPairArrFlatBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends

@@ -1,6 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 /** Compact immutable Array[Double] based collection class for [[LineSeg]]s. [[LineSeg]] is the library's term for a mathematical straight line
  *  segment, but what in common parlance is often just referred to as a line. */
@@ -39,6 +40,10 @@ class LineSegBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl
   override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): LineSeg = new LineSeg(d1, d2, d3, d4)
 }
 
+object LineSegBuff
+{ def apply(length: Int = 4): LineSegBuff = new LineSegBuff(new ArrayBuffer[Double](length))
+}
+
 trait LineSegArrCommonBuilder extends Dbl4ArrCommonBuilder[LineSegArr]
 { type BuffT = LineSegBuff
   override def fromDblArray(array: Array[Double]): LineSegArr = new LineSegArr(array)
@@ -56,8 +61,8 @@ class LineSegPair[A2](val a1Dbl1: Double, val a1Dbl2: Double, val a1Dbl3: Double
   override def a1: LineSeg = new LineSeg(startX, startY, endX, endY)
 }
 
-object LineSegPair{
-  def apply[A2](ls: LineSeg, a2: A2): LineSegPair[A2] = new LineSegPair[A2](ls.dbl1, ls.dbl2, ls.dbl3, ls.dbl4, a2)
+object LineSegPair
+{ def apply[A2](ls: LineSeg, a2: A2): LineSegPair[A2] = new LineSegPair[A2](ls.dbl1, ls.dbl2, ls.dbl3, ls.dbl4, a2)
 }
 
 final class LineSegPairArr[A2](val a1ArrayDbl: Array[Double], val a2Array: Array[A2]) extends LineSegLikeDbl4PairArr[Pt2, LineSeg, LineSegArr, A2, LineSegPair[A2]]
@@ -76,4 +81,30 @@ class LineSegPairBuff[B2](val b1DblBuffer: ArrayBuffer[Double], val b2Buffer: Ar
 
   override def newElem(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: B2): LineSegPair[B2] =
     new LineSegPair[B2](dbl1, dbl2, dbl3, dbl4, a2)
+}
+
+trait LineSegPairArrCommonBuilder[B2] extends Dbl4PairArrCommonBuilder[LineSeg, LineSegArr, B2, LineSegPairArr[B2]]
+{ override type BuffT = LineSegPairBuff[B2]
+  override type B1BuffT = LineSegBuff
+  override def newB1Buff(): LineSegBuff = LineSegBuff()
+  override def arrFromArrays(b1ArrayDbl: Array[Double], b2Array: Array[B2]): LineSegPairArr[B2] = new LineSegPairArr[B2](b1ArrayDbl, b2Array)
+
+  override def buffFromBuffers(b1Buffer: ArrayBuffer[Double], b2Buffer: ArrayBuffer[B2]): LineSegPairBuff[B2] =
+    new LineSegPairBuff[B2](b1Buffer, b2Buffer)
+
+
+}
+
+class LineSegPairArrMapBuilder[B2] extends LineSegPairArrCommonBuilder[B2] with
+Dbl4PairArrMapBuilder[LineSeg, LineSegArr, B2, LineSegPair[B2], LineSegPairArr[B2]]
+{
+  override def b1ArrBuilder: ArrMapBuilder[LineSeg, LineSegArr] = LineSeg.arrMapbuilderEv
+
+  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
+  override def arrFromArrAndArray(b1Arr: LineSegArr, b2s: Array[B2]): LineSegPairArr[B2] = ???
+
+
+
+  /** ClassTag for building Arrays and ArrayBuffers of B2s. */
+  override implicit def b2ClassTag: ClassTag[B2] = ???
 }
