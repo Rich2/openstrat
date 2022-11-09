@@ -25,7 +25,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
     val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour, terrs(hc).colour).slate(hc.toPt2Reg)
 
     val actions: GraphicElems = squad.action match
-    { case mv: Move => mv.dirns.oldSegsMap(hc)(_.draw())
+    { case mv: Move => mv.dirns.segHCsMap(hc)(_.oldLineSeg.draw())
       case Fire(target) => RArr(LineSegHC(hc, target).oldLineSeg.draw(Red, 2).dashed(20, 20))
       case _ => RArr()
     }
