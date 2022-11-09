@@ -143,8 +143,8 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
 
   def projLineSegs(startCen: HCen, proj: HSysProjection): LineSegArr = projLineSegs(startCen. r, startCen.c, proj)
 
-  def projLineSegs(startR: Int, startC: Int, proj: HSysProjection): LineSegArr = {
-    val res = LineSegArr.uninitialised(segsNum)
+  def projLineSegs(startR: Int, startC: Int, proj: HSysProjection): LineSegArr =
+  { val res = LineSegArr.uninitialised(segsNum)
     var count = 0
     segHCsForeach(startR, startC) { lh =>
       val ols = proj.transOptLineSeg(lh)
