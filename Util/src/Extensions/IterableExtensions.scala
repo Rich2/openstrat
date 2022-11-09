@@ -137,8 +137,8 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** flatMaps to a [[Arr]] of B. */
-  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], BB <: PairArr[B1, ArrB1, B2, B]](f1: A => ArrB1)(f2: A => B2)(
-    implicit build: PairArrMapBuilder[B1, ArrB1, B2, B, BB]): BB =
+  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: PairArr[B1, ArrB1, B2, _]](f1: A => ArrB1, f2: A => B2)(
+    implicit build: PairArrFlatBuilder[B1, ArrB1, B2, BB]): BB =
   {
     val buffer1 = build.newB1Buff()
     val buffer2 = new ArrayBuffer[B2]()

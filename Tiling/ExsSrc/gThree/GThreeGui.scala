@@ -42,12 +42,12 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     }
   }
 
+
   def mg1: RArr[LineSegPair[Colour]] =
-    moves.flatMapArr{p1 => p1._2.segsMap(scen.oPlayers.get(p1._1), proj.transOptLineSeg(_))(ls => LineSegPair(ls, p1._1.colour)) }
+    moves.flatMapArr{p => p._2.lineSegs(scen.oPlayers.get(p._1), proj.transOptLineSeg(_)).map(ls => LineSegPair(ls, p._1.colour)) }
 
-//  def mg2 =
-//    moves.flatMapPairArr { p1 => p1._2.segsMap(scen.oPlayers.get(p1._1), proj.transOptLineSeg(_))(ls => LineSegPair(ls, p1._1.colour)) }
-
+  def mg2 =
+    moves.flatMapPairArr[LineSeg, LineSegArr, Colour, LineSegPairArr[Colour]](p => p._2.lineSegs(scen.oPlayers.get(p._1), proj.transOptLineSeg(_)), p => p._1.colour)
 //  def mg2: LineSegHCPairArr[Colour] = moves.scSomesMapPair{ (sc, step) => sc.segStepTo(step)}{ (sc, _) => players.unSafeApply(sc).colour }
 
   /** Creates the turn button and the action to commit on mouse click. */
