@@ -7,7 +7,7 @@ abstract class EArea1(val name: String, val cen: LatLong) extends GeographicSymb
 { def neighbs: RArr[EArea1] = RArr()
   def a2Arr: RArr[EArea2]
   def disp2(eg: EarthGuiOld): GraphicElems = a2Arr.flatMap(_.display(eg))
-  def places: LocationLLArr = a2Arr.flatMap(_.places)
+  def places: LocationLLArr = a2Arr.flatMap(_.places)(LocationLLArr.flatArrBuilderImplicit)
 }
 
 case class Place(name: String, level: Int)

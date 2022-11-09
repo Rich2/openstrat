@@ -150,6 +150,27 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     }
   }
 
+  def segHCsForeach(start: HCen)(f: LineSegHC => Unit): Unit = segHCsForeach(start.r, start.c)(f)
+
+  def segHCsForeach(startR: Int, startC: Int)(f: LineSegHC => Unit): Unit = {
+    var count = 0
+    var r1 = startR
+    var c1 = startC
+    var r2: Int = 0
+    var c2: Int = 0
+
+    while (count < segsNum) {
+      val step = HDirn.fromInt(unsafeArray(count))
+      r2 = r1 + step.tr
+      c2 = c1 + step.tc
+      val hls = LineSegHC(r1, c1, r2, c2)
+      f(hls)
+      count += 1
+      r1 = r2
+      c1 = c2
+    }
+  }
+
   def oldSegsMap[B, ArrB <: Arr[B]](start: HCen)(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB], gridSys: HGridSys): ArrB =
     oldSegsMap(start.r, start.c)(f)(build, gridSys)
 
@@ -185,6 +206,19 @@ class HDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[HDirn]
     var count = 0
     segsForeach(startR, startC, trans) { s =>
       res.unsafeSetElem(count, s)
+      count += 1
+    }
+    res
+  }
+
+  def projLineSegs(startCen: HCen, proj: HSysProjection): LineSegArr = projLineSegs(startCen. r, startCen.c, proj)
+
+  def projLineSegs(startR: Int, startC: Int, proj: HSysProjection): LineSegArr = {
+    val res = LineSegArr.uninitialised(segsNum)
+    var count = 0
+    segHCsForeach(startR, startC) { lh =>
+      val ols = proj.transOptLineSeg(lh)
+      ols.foreach(res.unsafeSetElem(count, _))
       count += 1
     }
     res

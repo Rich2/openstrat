@@ -46,7 +46,12 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def mg1: RArr[LineSegPair[Colour]] =
     moves.flatMapArr{p => p._2.lineSegs(scen.oPlayers.get(p._1), proj.transOptLineSeg(_)).map(ls => LineSegPair(ls, p._1.colour)) }
 
+  def mg1a: RArr[LineSegPair[Colour]] =
+    moves.flatMapArr { p => p._2.projLineSegs(scen.oPlayers.get(p._1), proj).map(ls => LineSegPair(ls, p._1.colour)) }
+
   def mg1b: LineSegPairArr[Colour] = moves.flatMapPairArr{p => p._2.lineSegs(scen.oPlayers.get(p._1), proj.transOptLineSeg(_)).map(ls => LineSegPair(ls, p._1.colour)) }
+
+  def mg1c: LineSegPairArr[Colour] = moves.flatMapPairArr{p => p._2.projLineSegs(scen.oPlayers.get(p._1), proj).map(ls => LineSegPair(ls, p._1.colour)) }
 
  // def mg2 =
    // moves.flatMapPairArr[LineSeg, LineSegArr, Colour, LineSegPairArr[Colour]](p => p._2.lineSegs(scen.oPlayers.get(p._1), proj.transOptLineSeg(_)), p => p._1.colour)
