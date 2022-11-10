@@ -154,9 +154,8 @@ trait PairArrMapBuilder[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <:
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
   def arrFromArrAndArray(b1Arr: ArrB1, b2s: Array[B2]): ArrB
-
-
 }
 
+/** [[ArrFlatbuilder]] for [[ElemPair]]s. */
 trait PairArrFlatBuilder[B1, ArrB1 <: Arr[B1], B2, ArrB <: PairArr[B1, ArrB1, B2, _]] extends PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with
   ArrFlatBuilder[ArrB]

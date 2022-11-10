@@ -15,6 +15,8 @@ trait ThreeScen extends HSysTurnScen
   def oPlayers: HCenOptLayer[Player]
 
   def playersData: Map[Player, HDirnArr] = Map()
+
+  //def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr()
   lazy val playersKey: HCenPairArr[Player] = oPlayers.somePairArr
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
