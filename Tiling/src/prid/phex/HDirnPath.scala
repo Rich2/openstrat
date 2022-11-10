@@ -1,6 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import ostrat.geom._
+
+import scala.reflect.ClassTag
 //import collection.mutable.ArrayBuffer
 
 /** A path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
@@ -58,8 +60,8 @@ class HDirnPathArr(val unsafeArrayOfArrays: Array[Array[Int]]) extends ArrayIntB
   override def fElemStr: HDirnPath => String = _.toString
 }
 
-object HDirnPathPairArr {
-  def apply[A2](a2: A2, StartCen: HCen, steps: HDirn*): HDirnPathPairArr[A2] = ???
+object HDirnPathArr {
+  def apply[A2](a2: A2, StartCen: HCen, steps: HDirn*): HDirnPathArr = ???
 }
 
 /** An [[ElemPair]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
@@ -76,4 +78,8 @@ class HDirnPathPairArr[A2](val a1Arrays: Array[Array[Int]], val a2Array: Array[A
   inline override def a1Arr: HDirnPathArr = new HDirnPathArr(a1Arrays)
   override def fElemStr: HDirnPathPair[A2] => String = _.toString
   override def elemFromComponents(a1: Array[Int], a2: A2): HDirnPathPair[A2] = new HDirnPathPair(a1, a2)
+}
+
+object HDirnPathPairArr{
+  def apply[A2](elems: HDirnPathPair[A2]*)(implicit ct: ClassTag[A2]): HDirnPathPairArr[A2] = new HDirnPathPairArr[A2](new Array[Array[Int]](0), new Array[A2](0))
 }
