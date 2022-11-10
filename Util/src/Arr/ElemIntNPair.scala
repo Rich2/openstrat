@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
  *  of these elements [[Arr]]s of them can be be stored as and reconstructed from a single Array[Int] of primitive values */
 trait ElemIntNPair[A1 <: ElemIntN, A2] extends ElemPair[A1, A2]
 
-/** [[PairArr]] where the first */
+/** An [[Arr]] of [[ElemPair]]s where the first component is an [[ElemIntN]]. */
 trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: ElemIntNPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
 { type ThisT <: IntNPairArr[A1, ArrA1, A2, A]
 

@@ -18,6 +18,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
   var moves: Map[Player, HDirnArr] = scen.playersData
+  var movesNew: HDirnPathPairArr[Player] = scen.playerOrders
 
   val urect = Rect(1.4, 1)
 
@@ -38,6 +39,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: RArr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
     val hss: HDirnArr = moves.withDefault(_ => HDirnArr())(p)
+    //val res = movesNew.
     hss.projLineSegs(hc, proj).map { ls => ls.draw(players.unSafeApply(hc).colour)
     }
   }
@@ -45,8 +47,8 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def mg1a: RArr[LineSegPair[Colour]] =
     moves.flatMapArr { p => p._2.projLineSegs(scen.oPlayers.get(p._1), proj).map(ls => LineSegPair(ls, p._1.colour)) }
 
-  def mg1c: LineSegPairArr[Colour] = moves.flatMapPairArr{p => p._2.projLineSegs(scen.oPlayers.get(p._1), proj).map(ls => LineSegPair(ls, p._1.colour)) }
-
+  def mg1b: LineSegPairArr[Colour] =
+    moves.flatMapPairArr{p => p._2.projLineSegs(scen.oPlayers.get(p._1), proj).map(ls => LineSegPair(ls, p._1.colour)) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
