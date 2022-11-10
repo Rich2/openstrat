@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
 /** A polygon with the vertices defined by hex tile coordinates  [[HCoord]]s. */
-class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec with PolygonLikeInt2[HCoord] with ElemArrayInt
+class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec with PolygonLikeInt2[HCoord] with ArrayIntBacked
 { override type ThisT = PolygonHC
   override type SideT = LineSegHC
   override def typeStr: String = "PolygonHC"
@@ -94,7 +94,7 @@ object PolygonHC extends Int2SeqLikeCompanion[HCoord, PolygonHC]
   }
 }
 
-class PolygonHCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends ArrayIntArr[PolygonHC]
+class PolygonHCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends ArrayIntBackedArr[PolygonHC]
 { override type ThisT = PolygonHCArr
   override def typeStr: String = "PolygonHCArr"
   override def fElemStr: PolygonHC => String = _.toString

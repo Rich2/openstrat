@@ -2,8 +2,11 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
+/** Pair element where the first element is an [[ElemIntN]]A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length
+ *  of these elements [[Arr]]s of them can be be stored as and reconstructed from a single Array[Int] of primitive values */
 trait ElemIntNPair[A1 <: ElemIntN, A2] extends ElemPair[A1, A2]
 
+/** [[PairArr]] where the first */
 trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: ElemIntNPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
 { type ThisT <: IntNPairArr[A1, ArrA1, A2, A]
 

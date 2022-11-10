@@ -9,15 +9,9 @@ trait ArrayIntBacked extends Any
   def unsafeArray: Array[Int]
 }
 
-/** Not sure if this class is needed. */
-trait ElemArrayInt extends Any// with SpecialT
-{
-  def unsafeArray: Array[Int]
-}
-
 /** Base trait for collections of elements that are based on [[array]][Int]s, backed by an underlying Array[Array[Int]]. */
-trait ArrayIntArr[A <: ArrayIntBacked] extends Any with Arr[A]
-{ type ThisT <: ArrayIntArr[A]
+trait ArrayIntBackedArr[A <: ArrayIntBacked] extends Any with Arr[A]
+{ type ThisT <: ArrayIntBackedArr[A]
   def unsafeArrayOfArrays: Array[Array[Int]]
   override final def length: Int = unsafeArrayOfArrays.length
   def unsafeFromArrayArray(array: Array[Array[Int]]): ThisT
@@ -26,7 +20,7 @@ trait ArrayIntArr[A <: ArrayIntBacked] extends Any with Arr[A]
 }
 
 /** This is the builder for Arrays Arrays of Int. It is not the builder for Arrays of Int.  */
-trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends ArrMapBuilder[A, ArrT]
+trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntBackedArr[A]] extends ArrMapBuilder[A, ArrT]
 { @inline def fromArray(array: Array[Array[Int]]): ArrT
   type BuffT <: ArrayIntBuff[A]
   @inline override def uninitialised(length: Int): ArrT = fromArray(new Array[Array[Int]](length))
@@ -35,13 +29,13 @@ trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends Ar
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }
 }
 
-class ArrArrayIntEq[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]] extends EqT[ArrT]
+class ArrArrayIntEq[A <: ArrayIntBacked, ArrT <: ArrayIntBackedArr[A]] extends EqT[ArrT]
 { override def eqT(a1: ArrT, a2: ArrT): Boolean = if (a1.length != a2.length) false
 else a1.iForAll((i, el1) =>  el1.unsafeArray === a2(i).unsafeArray)
 }
 
 object ArrArrayIntEq
-{ def apply[A <: ArrayIntBacked, ArrT <: ArrayIntArr[A]]: ArrArrayIntEq[A, ArrT] = new ArrArrayIntEq[A, ArrT]
+{ def apply[A <: ArrayIntBacked, ArrT <: ArrayIntBackedArr[A]]: ArrArrayIntEq[A, ArrT] = new ArrArrayIntEq[A, ArrT]
 }
 
 /** This is a buffer class for Arrays of Int. It is not a Buffer class for Arrays. */
@@ -54,4 +48,28 @@ trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Buff[A]
   final override def grow(newElem: A): Unit = unsafeBuffer.append(newElem.unsafeArray)
   inline final override def apply(index: Int): A = fromArrayInt(unsafeBuffer(index))
   def arrayArrayInt: Array[Array[Int]] = unsafeBuffer.toArray
+}
+
+
+trait ArrayIntBackedPair[A1 <: ArrayIntBacked, A2] extends ElemPair[A1, A2]
+{ /** The backing Array of Ints for A1 component. */
+  def a1ArrayInt: Array[Int]
+}
+
+trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: ArrayIntBackedPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
+{ /** The backing Array for the A1 components. */
+  def a1Arrays: Array[Array[Int]]
+
+  /** Constructs an A1 form an Array[Int]. */
+  def a1FromArrayInt(array: Array[Int]): A1
+
+  /** Constructs the final class from an Array of Arrays of Ints and an Array[A2]. */
+  def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): ThisT
+
+  /** Constructs a [[ElemPair]] from an Array[Int and an A2 value. */
+  def elemFromComponents(a1: Array[Int], a2: A2): A
+
+  final override def a1Index(index: Int): A1 = a1FromArrayInt(a1Arrays(index))
+  final override def unsafeSetElem(i: Int, value: A): Unit = { a1Arrays(i) = value.a1ArrayInt; a2Array(i) = value.a2 }
+  final override def apply(index: Int): A = elemFromComponents(a1Arrays(index), a2Array(index))
 }

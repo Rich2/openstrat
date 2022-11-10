@@ -2,7 +2,8 @@
 package ostrat
 import collection.mutable.ArrayBuffer
 
-/** A class that can be construct from a fixed number of [[Int]]s can be stored as an Array[Int] of primitive values. */
+/** A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length of these elements they can be be stored as and
+ * reconstructed from a single Array[Int] of primitive values. */
 trait ElemIntN extends Any with ElemValueN
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def intForeach(f: Int => Unit): Unit
