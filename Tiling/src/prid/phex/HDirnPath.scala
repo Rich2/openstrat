@@ -60,13 +60,25 @@ class HDirnPathArr(val unsafeArrayOfArrays: Array[Array[Int]]) extends ArrayIntB
   override def fElemStr: HDirnPath => String = _.toString
 }
 
-object HDirnPathArr {
-  def apply[A2](a2: A2, StartCen: HCen, steps: HDirn*): HDirnPathArr = ???
+object HDirnPathArr
+{ def apply[A2](paths: HDirnPath*): HDirnPathArr = ???
 }
 
 /** An [[ElemPair]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
 class HDirnPathPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayIntBackedPair[HDirnPath, A2]
 { override def a1: HDirnPath = new HDirnPath(a1ArrayInt)
+}
+
+object HDirnPathPair{
+
+  def apply[A2](a2: A2, startCen: HCen, steps: HDirn*): HDirnPathPair[A2] = apply[A2](a2,startCen.r, startCen.c, steps:_*)
+  def apply[A2](a2: A2, startR: Int, startC: Int, steps: HDirn*): HDirnPathPair[A2] =
+  { val array: Array[Int] = new Array[Int](2 + steps.length)
+    array(0) = startR
+    array(1) = startC
+    steps.iForeach(2){ (i, dn) => array(i) = dn.intValue}
+    new HDirnPathPair[A2](array, a2)
+  }
 }
 
 /** A [[PairArr]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
