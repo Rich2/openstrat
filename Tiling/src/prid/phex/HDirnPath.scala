@@ -103,6 +103,13 @@ class HDirnPathPairArr[A2](val a1Arrays: Array[Array[Int]], val a2Array: Array[A
   override def elemFromComponents(a1: Array[Int], a2: A2): HDirnPathPair[A2] = new HDirnPathPair(a1, a2)
 }
 
-object HDirnPathPairArr{
-  def apply[A2](elems: HDirnPathPair[A2]*)(implicit ct: ClassTag[A2]): HDirnPathPairArr[A2] = new HDirnPathPairArr[A2](new Array[Array[Int]](0), new Array[A2](0))
+object HDirnPathPairArr
+{
+  def apply[A2](elems: HDirnPathPair[A2]*)(implicit ct: ClassTag[A2]): HDirnPathPairArr[A2] =
+  { val len = elems.length
+    val res = new HDirnPathPairArr[A2](new Array[Array[Int]](len), new Array[A2](len))
+    var i = 0
+    while (i < len){ res.a1Arrays(i) = elems(i).a1ArrayInt; res.a2Array(i) = elems(i).a2; i += 1 }
+    res
+  }
 }

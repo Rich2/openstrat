@@ -39,8 +39,8 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   /** Maps the second component of the pairs, dropping the first. */
   def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = a2Array.mapArr(f)
 
-  def pairForeach(f: (A1, A2) => Unit): Unit = {
-    var i = 0
+  def pairForeach(f: (A1, A2) => Unit): Unit =
+  { var i = 0
     while (i < length){ f(a1Index(i), a2Index(i)); i += 1 }
   }
 

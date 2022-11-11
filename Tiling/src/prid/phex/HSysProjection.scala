@@ -28,7 +28,7 @@ trait HSysProjection extends TSysProjection
   /** Produces optional data about the HCoord. for example on a world projection it can give the latitude and longitude. */
   def hCoordOptStr(hc: HCoord): Option[String] = None
 
-  /** Set the perpective, The position of the view. the rotation and the scale. */
+  /** Set the perspective, The position of the view. the rotation and the scale. */
   def setView(view: Any): Unit
 
   def transLineSegPairs[A2](inp: LineSegHCPairArr[A2])(implicit ct: ClassTag[A2]): LineSegPairArr[A2] = inp.optMapOnA1(transOptLineSeg(_))

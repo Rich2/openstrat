@@ -39,7 +39,7 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
         val tp = hg.topCenR.min(newTop)
         val lt = hg.leftCenC.max(newLeft)
         val rt = hg.rightCenC.min(newRight)
-        deb(s"bt: $bt, tp: $tp, lt: $lt, rt: $rt")
+        //deb(s"bt: $bt, tp: $tp, lt: $lt, rt: $rt")
         HGridReg(bt, tp, lt, rt)
       }
       case hgi: HGridIrr => hgi.numTileRows match

@@ -40,10 +40,11 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def moveGraphics: RArr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
     val hss: HDirnArr = moves.withDefault(_ => HDirnArr())(p)
 
-    val lps1 = movesNew.flatMapOnA1(path => path.segHCs)
+    val lps1 = movesNew.flatMapOnA1{path => path.segHCs }
+
     val lps2 = proj.transLineSegPairs(lps1)
-    hss.projLineSegs(hc, proj).map { ls => ls.draw(players.unSafeApply(hc).colour)
-    }
+    lps2.pairMap((ls, p) => ls.draw(p.colour))
+    //hss.projLineSegs(hc, proj).map { ls => ls.draw(players.unSafeApply(hc).colour) }
   }
 
   def mg1a: RArr[LineSegPair[Colour]] =
