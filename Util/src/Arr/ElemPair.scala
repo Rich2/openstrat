@@ -116,6 +116,9 @@ trait PairBuff[B1, B2, B <: ElemPair[B1, B2]] extends Any with Buff[B]
 { /** ArrayBuffer for the B2 components of the pairs. */
   def b2Buffer: ArrayBuffer[B2]
 
+  /** Grows a [[PairBuff]] by adding the elements of the pair to the b1 and b2 buffers. */
+  def pairGrow(b1: B1, b2: B2): Unit
+
   override def length: Int = b2Buffer.length
   override def fElemStr: B => String = _.toString
 }

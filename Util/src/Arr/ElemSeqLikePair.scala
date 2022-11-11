@@ -48,6 +48,8 @@ trait SeqLikeDblNPairBuff[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], B2, B <: SeqL
 
   final def growArr(newElems: SeqLikeDblNPairArr[B1E, B1, _, B2, B]): Unit = { newElems.a1Array.foreach(b1Buffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_)) }
+
+  final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.unsafeArray); b2Buffer.append(b2) }
 }
 
 trait SeqLikeDblNPairArrBuilder[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeDblNPair[B1E, B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends
@@ -72,11 +74,13 @@ trait SeqLikeIntNPairArr[A1E <: ElemIntN, A1 <: IntNSeqLike[A1E], ArrA1 <: Arr[A
 }
 
 trait SeqLikeIntNPairBuff[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], B2, B <: SeqLikeIntNPair[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
-{ def a1Buffer: ArrayBuffer[Array[Int]]
-  final override def grow(newElem: B): Unit = { a1Buffer.append(newElem.a1ArrayInt); b2Buffer.append(newElem.a2) }
+{ def b1Buffer: ArrayBuffer[Array[Int]]
+  final override def grow(newElem: B): Unit = { b1Buffer.append(newElem.a1ArrayInt); b2Buffer.append(newElem.a2) }
 
-  final def growArr(newPairArr: SeqLikeIntNPairArr[B1E, B1, _, B2, B]): Unit = { newPairArr.a1Arrays.foreach(a1Buffer.append(_))
+  final def growArr(newPairArr: SeqLikeIntNPairArr[B1E, B1, _, B2, B]): Unit = { newPairArr.a1Arrays.foreach(b1Buffer.append(_))
     newPairArr.a2Array.foreach(b2Buffer.append(_)) }
+
+  final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.unsafeArray); b2Buffer.append(b2) }
 }
 
 trait SeqLikeIntNPairArrBuilder[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPair[B1E, B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends
@@ -89,5 +93,5 @@ trait SeqLikeIntNPairArrBuilder[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], ArrB1 <
 
   final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = fromArrays(a1Buff.arrayArrayInt, b2s.toArray)
-  final override def buffGrow(buff: BuffT, value: B): Unit = { buff.a1Buffer.append(value.a1ArrayInt); buff.b2Buffer.append(value.a2) }
+  final override def buffGrow(buff: BuffT, value: B): Unit = { buff.b1Buffer.append(value.a1ArrayInt); buff.b2Buffer.append(value.a2) }
 }

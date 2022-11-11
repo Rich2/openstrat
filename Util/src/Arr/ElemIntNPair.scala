@@ -36,6 +36,8 @@ trait IntNPairBuff[B1 <: ElemIntN, B2, B <: ElemIntNPair[B1, B2]] extends PairBu
   { newElems.a1ArrayInt.foreach(b1IntBuffer.append(_))
     newElems.a2Array.foreach(b2Buffer.append(_))
   }
+
+  final override def pairGrow(b1: B1, b2: B2): Unit = { b1.intForeach(b1IntBuffer.append(_)); b2Buffer.append(b2) }
 }
 
 trait IntNPAirArrCommonBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, ArrB <: IntNPairArr[B1, ArrB1, B2, _]] extends
