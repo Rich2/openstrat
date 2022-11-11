@@ -145,7 +145,7 @@ trait HGridSys extends Any with TGridSys
   final def optMap[B, ArrB <: Arr[B]](f: HCen => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff(numTiles)
     foreach { hCen => f(hCen).foreach(build.buffGrow(buff, _)) }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** flatMaps from all hex tile centre coordinates to an Arr of type ArrT. The elements of this array can not be accessed from this grid class as the
@@ -153,7 +153,7 @@ trait HGridSys extends Any with TGridSys
   final def flatMap[ArrT <: Arr[_]](f: HCen => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     foreach{ hCen => build.buffGrowArr(buff, f(hCen))}
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** New hex tile data layer. */
@@ -226,21 +226,21 @@ trait HGridSys extends Any with TGridSys
   final def sidesFlatMap[ArrT <: Arr[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff()
     sidesForeach{hs => build.buffGrowArr(buff, f(hs)) }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** flatMaps  over each inner hex Side's coordinate [[HSide]].. */
   final def linksFlatMap[ArrT <: Arr[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff()
     linksForeach{ hs => build.buffGrowArr(buff, f(hs)) }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** OptMaps over each inner hex Side's coordinate [[HSide]]. */
   final def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
     val buff = build.newBuff()
     linksForeach { hs => f(hs).foreach(build.buffGrow(buff, _)) }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** The [[HSide]] hex side coordinates. */

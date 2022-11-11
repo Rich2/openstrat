@@ -12,7 +12,7 @@ trait SqSysProjection extends TSysProjection
   def sidesMap[B, ArrB <: Arr[B]](f: SqSide => B)(implicit build: ArrMapBuilder[B, ArrB]) =
   { val buff = build.newBuff()
     sidesForeach{ss => buff.grow(f(ss))}
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** only use for projection's known [[SqCoord]]s. */

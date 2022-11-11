@@ -75,7 +75,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val buff = build.newBuff()
     pairForeach{ (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2
@@ -84,14 +84,14 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val buff = build.newBuff()
     pairForeach{ (a1, a2) =>  f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** filters this sequence using a predicate upon the A1 components of the pairs. */
   def filterOnA1(f: A1 => Boolean)(implicit build: PairArrMapBuilder[A1, A1Arr, A2, A, ThisT]): ThisT =
   { val buff = build.newBuff()
     pairForeach { (a1, a2) => if (f(a1)) buff.pairGrow(a1, a2) }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   final override def length: Int = a2Array.length

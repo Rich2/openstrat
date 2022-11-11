@@ -99,7 +99,7 @@ object IntArrBuilder extends ArrMapBuilder[Int, IntArr] with ArrFlatBuilder[IntA
   override def indexSet(seqLike: IntArr, index: Int, value: Int): Unit = seqLike.unsafeArray(index) = value
   override def newBuff(length: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](length))
   override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuffer.append(value)
-  override def buffToBB(buff: IntBuff): IntArr = new IntArr(buff.unsafeBuffer.toArray)
+  override def buffToSeqLike(buff: IntBuff): IntArr = new IntArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: IntBuff, arr: IntArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 

@@ -252,7 +252,7 @@ package object ostrat
   def iToFlatMap[AA <: Arr[_]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iFrom, iTo, iStep){ i => ev.buffGrowArr(buff, f(i)) }
-    ev.buffToBB(buff)
+    ev.buffToSeqLike(buff)
   }
 
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 to the iTo parameter value steps of 1. Throws on non termination.Method name
@@ -260,7 +260,7 @@ package object ostrat
   def iToFlatMap[AA <: Arr[_]](iTo: Int)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA =
   { val buff = ev.newBuff()
     iToForeach(iTo){ i => ev.buffGrowArr(buff, f(i)) }
-    ev.buffToBB(buff)
+    ev.buffToSeqLike(buff)
   }
 
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value until the iUntil paraemter value in integer steps of
@@ -269,7 +269,7 @@ package object ostrat
   def iUntilFlatMap[AA <: Arr[_]](iFrom: Int, iUntil: Int, iStep: Int = 1)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA =
   { val buff = ev.newBuff()
     iUntilForeach(iFrom, iUntil, iStep){ i => ev.buffGrowArr(buff, f(i)) }
-    ev.buffToBB(buff)
+    ev.buffToSeqLike(buff)
   }
 
   /** FlatMaps over a range of Ints returning a [[Arr]][A]. From 0 until the iUntil parameter value in integer steps of 1. Throws on non
@@ -277,7 +277,7 @@ package object ostrat
   def iUntilFlatMap[AA <: Arr[_]](iUntil: Int)(f: Int => AA)(implicit ev: ArrFlatBuilder[AA]): AA =
   { val buff = ev.newBuff()
     iUntilForeach(iUntil){ i => ev.buffGrowArr(buff, f(i)) }
-    ev.buffToBB(buff)
+    ev.buffToSeqLike(buff)
   }
 
   /** Folds over a range of Ints to an Int, adding the return [[Int]] value to the accumulator. From the start value to (while index is less than or

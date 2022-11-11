@@ -147,7 +147,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
       val newVals = f(a)
       ev.buffGrowArr(buff, newVals)
     }
-    ev.buffToBB(buff)
+    ev.buffToSeqLike(buff)
   }
 
   /** Index with element flatMap. Applies the parameter function to the index and each respective element of this sequence. The function returns a
@@ -164,7 +164,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
       build.buffGrowArr(buff, newArr)
       i += 1
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Index with element flatMap. Applies the parameter function to the index and each respective element of this sequence. The function returns a
@@ -181,7 +181,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
       build.buffGrowArr(buff, newElems)
       count += 1
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Takes a second collection as a parameter and zips the elements of this collection and the operand collection and applies the specialised map
@@ -233,7 +233,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
     var errs: StringArr = StringArr()
     while(count < length & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
-    ife(continue, Good(ev.buffToBB(acc)), Bad(errs))
+    ife(continue, Good(ev.buffToSeqLike(acc)), Bad(errs))
   }
 
   /** Maps to an Array. */
@@ -268,13 +268,13 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def filter[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrMapBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => onlyIf(f(a), ev.buffGrow(buff, a)))
-    ev.buffToBB(buff)
+    ev.buffToSeqLike(buff)
   }
 
   def filterNot[ArrA <: Arr[A] @uncheckedVariance](f: A => Boolean)(implicit ev: ArrMapBuilder[A, ArrA] @uncheckedVariance): ArrA =
   { val buff = ev.newBuff()
     foreach(a => onlyIf(!f(a), ev.buffGrow(buff, a)))
-    ev.buffToBB(buff)
+    ev.buffToSeqLike(buff)
   }
 
   def filterToList(f: A => Boolean): List[A] =
@@ -287,7 +287,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def flatToIterableMap[B, ArrB <: Arr[B]](f: A => Iterable[B])(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = ev.newBuff(length)
     foreach(a => ev.buffGrowIter(buff, f(a)))
-    ev.buffToBB(buff)
+    ev.buffToSeqLike(buff)
   }
 
   /** Folds over this sequence starting with the initial value */
@@ -449,7 +449,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def collect[B, BB <: Arr[B]](pf: PartialFunction[A, B])(implicit ev: ArrMapBuilder[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach{a => if (pf.isDefinedAt(a)) ev.buffGrow(acc, pf(a)) }
-    ev.buffToBB(acc)
+    ev.buffToSeqLike(acc)
   }
 
   /** Takes a function from A to EMon[B]. If the function applied to eqch element produces a single Good, it is returned else returns [[Bad]]. */
@@ -467,7 +467,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   def mapCollectGoods[B, BB <: Arr[B]](f: A => EMon[B])(implicit ev: ArrMapBuilder[B, BB]): BB =
   { val acc = ev.newBuff()
     foreach(f(_).forGood(ev.buffGrow(acc, _)))
-    ev.buffToBB(acc)
+    ev.buffToSeqLike(acc)
   }
 
   /** Gives the maximum value of this sequence according to the implicit ordering type class instance, which can be passed explicitly. */
@@ -534,7 +534,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   { val buff1: build.BuffT = build.newBuff()
     val buff2: build.BuffT = build.newBuff()
     foreach{a => if (f(a)) build.buffGrow(buff1, a) else build.buffGrow(buff2,a) }
-    (build.buffToBB(buff1), build.buffToBB(buff2) )
+    (build.buffToSeqLike(buff1), build.buffToSeqLike(buff2) )
   }
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */

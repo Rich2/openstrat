@@ -86,7 +86,7 @@ object StringArrBuilder extends ArrMapBuilder[String, StringArr] with ArrFlatBui
   override def indexSet(seqLike: StringArr, index: Int, value: String): Unit = seqLike.unsafeArray(index) = value
   override def newBuff(length: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](length))
   override def buffGrow(buff: StringBuff, value: String): Unit = buff.unsafeBuffer.append(value)
-  override def buffToBB(buff: StringBuff): StringArr = new StringArr(buff.unsafeBuffer.toArray)
+  override def buffToSeqLike(buff: StringBuff): StringArr = new StringArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: StringBuff, arr: StringArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 

@@ -60,14 +60,14 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   override def vertsMap[B, ArrB <: Arr[B]](f: Pt2 => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val acc = build.newBuff()
     vertsForeach{ v => build.buffGrow(acc, f(v)) }
-    build.buffToBB(acc)
+    build.buffToSeqLike(acc)
   }
 
   /** flatMap to an immutable Arr. */
   def vertsFlatMap[BB <: Arr[_]](f: Pt2 => BB)(implicit build: ArrFlatBuilder[BB]): BB =
   { val buff: build.BuffT = build.newBuff()
     vertsForeach(v => build.buffGrowArr(buff, f(v)))
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** flatMap with index to an immutable Arr. */
@@ -79,7 +79,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
       build.buffGrowArr(buff, newElems)
       count += 1
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
@@ -153,7 +153,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
       build.buffGrowArr(buff, newElems)
       count += 1
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   def sidesFold[A](init: A)(f: (A, LineSeg) => A): A =

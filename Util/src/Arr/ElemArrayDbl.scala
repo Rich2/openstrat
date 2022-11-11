@@ -25,7 +25,7 @@ trait ArrayDblArrMapBuilder[A <: ArrayDblBacked, ArrT <: ArrayDblArr[A]] extends
   type BuffT <: ArrayDblBuff[A]
   @inline final override def uninitialised(length: Int): ArrT = fromArrayArrayDbl(new Array[Array[Double]](length))
   final override def indexSet(seqLike: ArrT, index: Int, value: A): Unit = seqLike.unsafeArrayOfArrays(index) = value.unsafeArray
-  final override def buffToBB(buff: BuffT): ArrT = fromArrayArrayDbl(buff.unsafeBuffer.toArray)
+  final override def buffToSeqLike(buff: BuffT): ArrT = fromArrayArrayDbl(buff.unsafeBuffer.toArray)
   final override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }
 }
 

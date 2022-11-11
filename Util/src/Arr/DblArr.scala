@@ -40,7 +40,7 @@ object DblArrBuilder extends ArrMapBuilder[Double, DblArr] with ArrFlatBuilder[D
   override def indexSet(seqLike: DblArr, index: Int, value: Double): Unit = seqLike.unsafeArray(index) = value
   override def newBuff(length: Int = 4): DblBuff = new DblBuff(new ArrayBuffer[Double](length))
   override def buffGrow(buff: DblBuff, value: Double): Unit = buff.unsafeBuffer.append(value)
-  override def buffToBB(buff: DblBuff): DblArr = new DblArr(buff.unsafeBuffer.toArray)
+  override def buffToSeqLike(buff: DblBuff): DblArr = new DblArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: DblBuff, arr: DblArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 

@@ -100,7 +100,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
         f(a, hc).foreach(build.buffGrowArr(buff, _))
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Drops the None values mapping the [[Some]]'s value with the [[SqCen]] to an option value, collecting the values of the [[Some]]s returned by the
@@ -116,7 +116,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
         build.buffGrow(buff, f(a, sc, proj.transCoord(sc)))
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
@@ -131,7 +131,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Coordinate map Nones. Map the None values respective [[SqCen]] coordinates of this [[SqCenOptLayer]] to type B, the first type parameter. Returns
@@ -149,7 +149,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Moves the object in the array location given by HCen1 to HCen2, by setting H2 to the value of h1 and setting H1 to null. */
@@ -178,7 +178,7 @@ class SqCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with 
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   def keyMap(implicit gridSys: SqGridSys): Map[A, SqCen] =

@@ -65,7 +65,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   { var i = 0
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{el => build.buffGrow(buff, f(i, el)); i += 1 }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Specialised index with map to an immutable ArrBase of B. Note the function signature follows the foreach based convention of putting the
@@ -74,7 +74,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   { var i = count
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{el => build.buffGrow(buff, f(el, i)); i += 1 }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** flatMaps over a traversable (collection / sequence) with a counter */
@@ -82,7 +82,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   { var i = 0
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{ el => f(i, el).foreach(buff.grow); i += 1 }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** flatMaps over a traversable (collection / sequence) with a counter */
@@ -90,7 +90,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   { var i = count
     val buff: build.BuffT = build.newBuff()
     thisIter.foreach{ el => f(i, el).foreach(buff.grow); i += 1 }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   def iForall(f: (Int, A) => Boolean): Boolean =
@@ -133,7 +133,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   def flatMapArr[BB <: Arr[_]](f: A => BB)(implicit ev: ArrFlatBuilder[BB]): BB ={
     val buff = ev.newBuff()
     thisIter.foreach{ el => ev.buffGrowArr(buff, f(el)) }
-    ev.buffToBB(buff)
+    ev.buffToSeqLike(buff)
   }
 
   /** flatMaps to a [[PairArr]] of B1 and B2. */

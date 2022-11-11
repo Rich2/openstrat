@@ -50,7 +50,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     grid.iForeach { (hc, i) =>
       f(apply(hc), hc).foreach(build.buffGrow(buff, _))
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** [[HCen]] with flatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
@@ -62,7 +62,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
       val newElems = f(hc, apply(hc))
       build.buffGrowArr(buff, newElems)
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** [[HCen]] with optFlatmap. Applies the function to each [[HCen]] coordinate with the corresponding element in the underlying array. Note the
@@ -73,7 +73,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     grid.iForeach { (hc, i) =>
       f(hc, apply(hc)).foreach(build.buffGrowArr(buff, _))
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   def scSomesMapPair[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]](f1: (HCen, A) => B1)(f2: (HCen, A) => B2)(

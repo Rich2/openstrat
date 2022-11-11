@@ -122,7 +122,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
       val newRes: BB = f(tile)
       newRes.foreach(acc.grow)
     }
-    build.buffToBB(acc)
+    build.buffToSeqLike(acc)
   }
   
   /** Map all Tiles to an List with function and flatten into Single List. */
@@ -178,7 +178,7 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
         case Some(a) => build.buffGrow(buff, a)
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   final def tilesMapOptionListAll[A](f: TileT => Option[A]): List[A] =

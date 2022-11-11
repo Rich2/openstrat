@@ -166,7 +166,7 @@ class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) 
   override def indexSet(seqLike: RArr[B], index: Int, value: B): Unit = seqLike.unsafeArray(index) = value
   override def newBuff(length: Int = 4): TBuff[B] = new TBuff(new ArrayBuffer[B](length))
   override def buffGrow(buff: TBuff[B], value: B): Unit = buff.unsafeBuffer.append(value)
-  override def buffToBB(buff: TBuff[B]): RArr[B] = new RArr(buff.unsafeBuffer.toArray)
+  override def buffToSeqLike(buff: TBuff[B]): RArr[B] = new RArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: TBuff[B], arr: RArr[B]): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 

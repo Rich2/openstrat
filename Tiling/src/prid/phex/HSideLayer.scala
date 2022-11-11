@@ -35,7 +35,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
         build.buffGrow(buff, f(hs))
       i += 1
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   def trueHSides(implicit gridSys: HGridSys): HSideArr = truesMap(hs => hs)

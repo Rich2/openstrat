@@ -38,7 +38,7 @@ trait Int2Arr[A <: ElemInt2] extends Any with IntNArr[A] with Int2SeqLike[A]
 
 }
 
-trait Int2SeqLikeCommonBuilder[BB] extends IntNSeqLikeCommonBuilder[BB]
+trait Int2SeqLikeCommonBuilder[BB <: SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]
 { type BuffT <: Int2Buff[_]
   final override def elemProdSize: Int = 2
 }

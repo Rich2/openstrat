@@ -25,7 +25,7 @@ trait ArrayIntArrBuilder[A <: ArrayIntBacked, ArrT <: ArrayIntBackedArr[A]] exte
   type BuffT <: ArrayIntBuff[A]
   @inline override def uninitialised(length: Int): ArrT = fromArray(new Array[Array[Int]](length))
   override def indexSet(seqLike: ArrT, index: Int, value: A): Unit = seqLike.unsafeArrayOfArrays(index) = value.unsafeArray
-  override def buffToBB(buff: BuffT): ArrT = fromArray(buff.unsafeBuffer.toArray)
+  override def buffToSeqLike(buff: BuffT): ArrT = fromArray(buff.unsafeBuffer.toArray)
   override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.unsafeArray); () }
 }
 

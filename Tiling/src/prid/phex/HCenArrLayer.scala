@@ -37,7 +37,7 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
       val el:RArr[A] = apply(r)
       if (el.length >= 1) build. buffGrow(buff, f(r, el(0)))
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** flatMaps over the the first element of each tile's data Array. Ignores empty arrays and subsequent elements. */
@@ -48,6 +48,6 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
       val el:RArr[A] = apply(r)
       if (el.length >= 1) build.buffGrowArr(buff, f(r, el(0)))
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 }

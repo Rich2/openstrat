@@ -3,7 +3,7 @@ package ostrat
 import reflect.ClassTag, annotation.unused
 
 /** Base trait for all [[SeqLike]] builders, both map builders and flatMap builders. */
-trait SeqLikeCommonBuilder[BB]
+trait SeqLikeCommonBuilder[BB <: SeqLike[_]]
 {
   /** BuffT can be inbuilt Jvm type like ArrayBuffer[Int] for B = Int and BB = Ints, or it can be a compile time wrapped Arraybuffer inheriting from
    *  BuffProdHomo. */
@@ -12,7 +12,7 @@ trait SeqLikeCommonBuilder[BB]
   def newBuff(length: Int = 4): BuffT
 
   /** converts a the buffer type to the target compound class. */
-  def buffToBB(buff: BuffT): BB
+  def buffToSeqLike(buff: BuffT): BB
 }
 
 /** Builder trait for map operations. This has the additional method of buffGrow(buff: BuffT, value: B): Unit. This method is not required for flatMap
@@ -51,7 +51,7 @@ trait ArrMapBuilder[B, ArrB <: Arr[B]] extends SeqLikeMapBuilder[B, ArrB]
   def iterMap[A](inp: Iterable[A], f: A => B): ArrB =
   { val buff = newBuff()
     inp.foreach(a => buffGrow(buff, f(a)))
-    buffToBB(buff)
+    buffToSeqLike(buff)
   }
 }
 

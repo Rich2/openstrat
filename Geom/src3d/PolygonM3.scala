@@ -82,7 +82,7 @@ object PolygonM3 extends Dbl3SeqLikeCompanion[PtM3, PolygonM3]
     override def uninitialised(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))
     override def indexSet(seqLike: PolygonM3Arr, index: Int, value: PolygonM3): Unit = seqLike.unsafeArrayOfArrays(index) = value.unsafeArray
     override def buffGrow(buff: PolygonM3Buff, value: PolygonM3): Unit = buff.unsafeBuffer.append(value.unsafeArray)
-    override def buffToBB(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuffer.toArray)
+    override def buffToSeqLike(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuffer.toArray)
   }
 
   implicit val persistImplicit: Dbl3SeqDefPersist[PtM3, PolygonM3] = new Dbl3SeqDefPersist[PtM3, PolygonM3]("PolygonMs3")

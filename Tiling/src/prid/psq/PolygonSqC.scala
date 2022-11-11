@@ -83,7 +83,7 @@ object PolygonSqC extends Int2SeqLikeCompanion[SqCoord, PolygonSqC]
     override def uninitialised(length: Int): PolygonSqCArr = new PolygonSqCArr(new Array[Array[Int]](length))
     override def indexSet(seqLike: PolygonSqCArr, index: Int, value: PolygonSqC): Unit = seqLike.unsafeArrayOfArrays(index) = value.unsafeArray
     override def buffGrow(buff: PolygonSqCBuff, value: PolygonSqC): Unit = buff.unsafeBuffer.append(value.unsafeArray)
-    override def buffToBB(buff: PolygonSqCBuff): PolygonSqCArr = new PolygonSqCArr(buff.unsafeBuffer.toArray)
+    override def buffToSeqLike(buff: PolygonSqCBuff): PolygonSqCArr = new PolygonSqCArr(buff.unsafeBuffer.toArray)
   }
 }
 

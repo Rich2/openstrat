@@ -47,7 +47,7 @@ object BooleanArrBuilder extends ArrMapBuilder[Boolean, BooleanArr] with ArrFlat
   override def indexSet(seqLike: BooleanArr, index: Int, value: Boolean): Unit = seqLike.unsafeArray(index) = value
   override def newBuff(length: Int = 4): BooleanBuff = new BooleanBuff(new ArrayBuffer[Boolean](length))
   override def buffGrow(buff: BooleanBuff, value: Boolean): Unit = buff.unsafeBuffer.append(value)
-  override def buffToBB(buff: BooleanBuff): BooleanArr = new BooleanArr(buff.unsafeBuffer.toArray)
+  override def buffToSeqLike(buff: BooleanBuff): BooleanArr = new BooleanArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: BooleanBuff, arr: BooleanArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 

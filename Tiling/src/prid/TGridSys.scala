@@ -30,7 +30,7 @@ trait TGridSys extends Any
   final def flatMapRows[ArrT <: Arr[_]](f: Int => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff(numTiles)
     foreachRow{ r => build.buffGrowArr(buff, f(r)) }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** The top most point in the grid where the value of y is maximum. */

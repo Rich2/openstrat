@@ -70,7 +70,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
       if (a != null) build.buffGrow(buff, fSome(a, hc))
       else { val newVal = fNone(hc); build.buffGrow(buff, newVal) }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Maps the option values with the corresponding [[HCen]] to type B. Hence it takes two functions as parameters one for the [[None]] values and one
@@ -115,7 +115,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Drops the None values mapping the [[Some]]'s value with the [[HCen]] to an option value, collecting the values of the [[Some]]s returned by the
@@ -150,7 +150,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
         build.buffGrow(buff, res)
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Uses this and a second [[HCenOptLayer]] of type B. Drops all values where either or both [[HCenOptLayer]] have [[None]] values. Maps the
@@ -166,7 +166,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Uses this and a second [[HCenOptLayer]] of type B, combining corresponding pairs of [[Some]] values with the corresponding [[HCen]] and apping
@@ -183,7 +183,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Drops the [[Some]] values. Maps the corresponding [[HCen]] for the [[None]] to type B. Returns
@@ -198,7 +198,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
         build.buffGrow(buff, newVal)
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   def projNoneHcPtMap[B, ArrB <: Arr[B]](f: (HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
@@ -213,7 +213,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
         build.buffGrow(buff, f(hc, proj.transCoord(hc)))
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Drops the [[None]] values flatMaps the value of the [[Some]] with the corresponding [[HCen]] to a [[Seqimut]]. */
@@ -227,7 +227,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
         build.buffGrowArr(buff, newVal)
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[HCen]] to an [[option]] of a [[Arr]], collects only the
@@ -241,7 +241,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
         f(a, hc).foreach(build.buffGrowArr(buff, _))
       }
     }
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   def SomesKeyMap(implicit grider: HGridSys): Map[A, HCen] =
@@ -254,7 +254,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   def somePairArr(implicit grider: HGridSys, build: HCenPairArrMapBuilder[A]): HCenPairArr[A] =
   { val buff = build.newBuff()
     someHCForeach((p, hc) => buff.grow(hc, p))
-    build.buffToBB(buff)
+    build.buffToSeqLike(buff)
   }
 
   def find(value: A)(implicit grider: HGridSys): Option[HCen] =

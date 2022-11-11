@@ -44,7 +44,7 @@ object AnyArrBuild extends ArrMapBuilder[Any, AnyArr] with ArrFlatBuilder[AnyArr
   override def indexSet(seqLike: AnyArr, index: Int, value: Any): Unit = seqLike.unsafeArray(index) = value
   override def newBuff(length: Int = 4): AnyBuff = new AnyBuff(new ArrayBuffer[Any](length))
   override def buffGrow(buff: AnyBuff, value: Any): Unit = buff.unsafeBuffer.append(value)
-  override def buffToBB(buff: AnyBuff): AnyArr = new AnyArr(buff.unsafeBuffer.toArray)
+  override def buffToSeqLike(buff: AnyBuff): AnyArr = new AnyArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: AnyBuff, arr: AnyArr): Unit = arr.foreach(el => buff.unsafeBuffer.append(el))
 }
 
