@@ -68,6 +68,7 @@ object HDirnPathArr
 /** An [[ElemPair]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
 class HDirnPathPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayIntBackedPair[HDirnPath, A2]
 { override def a1: HDirnPath = new HDirnPath(a1ArrayInt)
+  def path: HDirnPath = new HDirnPath(a1ArrayInt)
 }
 
 object HDirnPathPair
