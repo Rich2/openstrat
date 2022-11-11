@@ -71,8 +71,8 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
 
   /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArr]] of [[ElemPair]][B1, A2]. Then flattens
    * these new [[PairArr]]s to make a single [[PairArr]] */
-  def flatMapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => ArrB1)(implicit
-  build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
+  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairArr[B1, ArrB1, A2, _]](f: A1 => ArrB1)(implicit
+  build: PairArrFlatBuilder[B1, ArrB1, A2,  ArrB]): ArrB =
   { val buff = build.newBuff()
     pairForeach{ (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
     build.buffToSeqLike(buff)

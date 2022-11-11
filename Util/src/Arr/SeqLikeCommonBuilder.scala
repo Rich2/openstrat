@@ -9,6 +9,7 @@ trait SeqLikeCommonBuilder[BB <: SeqLike[_]]
    *  BuffProdHomo. */
   type BuffT <: Buff[_]
 
+  /** Creates a new empty [[Buff]] with a default capacity of 4 elements. */
   def newBuff(length: Int = 4): BuffT
 
   /** converts a the buffer type to the target compound class. */

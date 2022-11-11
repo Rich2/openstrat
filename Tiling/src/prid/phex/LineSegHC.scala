@@ -1,6 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer
+import geom._
+
+import collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 /** A 2d line upon a HexGrid defined by its start and end [[HGrid]] [[HCoord]]s. */
 case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLikeInt4[HCoord] with ElemInt4
@@ -26,6 +29,8 @@ object LineSegHC
 
   /** Implicit instance / evidence for [[ArrMapBuilder]] type class. */
   implicit val arrMapBuilderEv: LineSegHCMapBuilder = new LineSegHCMapBuilder
+
+  implicit def pairArrMapBuider[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrMapBuilder[B2] = new LineSegHCPairArrMapBuilder[B2]
 }
 
 /** Compact immutable Array[Int] based collection class for [[LineSegHC]]s. LineSegHC is the library's term for a mathematical straight line segment, but what in
@@ -42,6 +47,8 @@ class LineSegHCArr(val unsafeArray: Array[Int]) extends Int4Arr[LineSegHC]
 /** Companion object for the LineSegHCs class. */
 object LineSegHCArr extends Int4ArrCompanion[LineSegHC, LineSegHCArr]
 {
+  implicit def pairArrFlatBuider[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrFlatBuilder[B2] = new LineSegHCPairArrFlatBuilder[B2]
+
   /*implicit val persistImplicit: DataInt4sPersist[LineSegHC, LineSegHCs] = new DataDbl4sPersist[LineSegHC, LineSegHCs]("Line2s")
   { override def fromArray(value: Array[Int]): LineSegHCs = new LineSegHCs(value)
 

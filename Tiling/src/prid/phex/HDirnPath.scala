@@ -32,6 +32,13 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
     }
   }
 
+  def segHCs: LineSegHCArr =
+  { val res = LineSegHCArr.uninitialised(segsNum)
+    var i = 0
+    segHCsForeach{ s => res.unsafeSetElem(i, s); i += 1 }
+    res
+  }
+
   def segHCsMap[B, ArrB <: Arr[B]](f: LineSegHC => B)(implicit build: ArrMapBuilder[B, ArrB], grider: HGridSys): ArrB =
   { val res = build.uninitialised(segsNum)
     var count = 0
