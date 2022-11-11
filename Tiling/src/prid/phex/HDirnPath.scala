@@ -60,6 +60,7 @@ class HDirnPathArr(val unsafeArrayOfArrays: Array[Array[Int]]) extends ArrayIntB
   override def fElemStr: HDirnPath => String = _.toString
 }
 
+/** Companion object for [[HDirnPathArr]] contains factory apply method. */
 object HDirnPathArr
 { def apply[A2](paths: HDirnPath*): HDirnPathArr = ???
 }
@@ -69,9 +70,11 @@ class HDirnPathPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayInt
 { override def a1: HDirnPath = new HDirnPath(a1ArrayInt)
 }
 
-object HDirnPathPair{
-
+object HDirnPathPair
+{ /** Factory apply method with alternative name overload where start row and colum passed separately. */
   def apply[A2](a2: A2, startCen: HCen, steps: HDirn*): HDirnPathPair[A2] = apply[A2](a2,startCen.r, startCen.c, steps:_*)
+
+  /** Factory apply method with alternative name overload where [[HCen]] passes as single parameter. */
   def apply[A2](a2: A2, startR: Int, startC: Int, steps: HDirn*): HDirnPathPair[A2] =
   { val array: Array[Int] = new Array[Int](2 + steps.length)
     array(0) = startR
