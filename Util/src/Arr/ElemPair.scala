@@ -67,7 +67,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2
    * values to make the new pairs of type [[ElemPair]][B1, A2].  */
   def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
-    build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB], ct: ClassTag[A2]): ArrB =
+    build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val a1Buff = build.newB1Buff()
     val a2Buff = new ArrayBuffer[A2]()
     foreach{ pair =>
@@ -80,7 +80,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   }
 
   /** filters this sequence using a predicate upon the A1 components of the pairs. */
-  def filterOnA1(f: A1 => Boolean)(implicit build: PairArrMapBuilder[A1, A1Arr, A2, A, ThisT], ct: ClassTag[A2]): ThisT =
+  def filterOnA1(f: A1 => Boolean)(implicit build: PairArrMapBuilder[A1, A1Arr, A2, A, ThisT]): ThisT =
   { val buff1 = build.newB1Buff()
     val buff2 = new ArrayBuffer[A2]()
     var i = 0
