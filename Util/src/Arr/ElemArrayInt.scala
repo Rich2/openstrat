@@ -1,6 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 /** Trait for Array[Int] backed classes. The purpose of this trait is to allow for collections of this class to be stored with their underlying
  * Array[Int]s. */
@@ -72,4 +73,16 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
   final override def a1Index(index: Int): A1 = a1FromArrayInt(a1Arrays(index))
   final override def unsafeSetElem(i: Int, value: A): Unit = { a1Arrays(i) = value.a1ArrayInt; a2Array(i) = value.a2 }
   final override def apply(index: Int): A = elemFromComponents(a1Arrays(index), a2Array(index))
+}
+
+trait ArrayIntBackedPairArrCompanion[A1 <: ArrayIntBacked]
+{
+  def elemsToArrays[A2, ArrA](elems: Seq[ArrayIntBackedPair[A1, A2]], f: (Array[Array[Int]], Array[A2]) => ArrA)(implicit ct: ClassTag[A2]):  ArrA =
+  { val len = elems.length
+    val a1Arrays: Array[Array[Int]] = new Array[Array[Int]](len)
+    val a2Array: Array[A2] = new Array[A2](len)
+    var i = 0
+    while (i < len) { a1Arrays(i) = elems(i).a1ArrayInt; a2Array(i) = elems(i).a2; i += 1 }
+    f(a1Arrays, a2Array)
+  }
 }
