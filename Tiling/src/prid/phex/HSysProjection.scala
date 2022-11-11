@@ -2,6 +2,8 @@
 package ostrat; package prid; package phex
 import geom._
 
+import scala.reflect.ClassTag
+
 /** Hex grid system graphics projection. */
 trait HSysProjection extends TSysProjection
 { type GridT <: HGridSys
@@ -28,4 +30,6 @@ trait HSysProjection extends TSysProjection
 
   /** Set the perpective, The position of the view. the rotation and the scale. */
   def setView(view: Any): Unit
+
+  def transLineSegPairs[A2](inp: LineSegHCPairArr[A2])(implicit ct: ClassTag[A2]): LineSegPairArr[A2] = inp.optMapOnA1(transOptLineSeg(_))
 }

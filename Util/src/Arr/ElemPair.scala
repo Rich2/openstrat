@@ -64,7 +64,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
     build.arrFromArrAndArray(b1Arr, a2Array)
   }
 
-  /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old correponding A2
+  /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2
    * values to make the new pairs of type [[ElemPair]][B1, A2].  */
   def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
     build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB], ct: ClassTag[A2]): ArrB =
