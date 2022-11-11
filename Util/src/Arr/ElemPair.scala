@@ -39,6 +39,11 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   /** Maps the second component of the pairs, dropping the first. */
   def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = a2Array.mapArr(f)
 
+  def pairForeach(f: (A1, A2) => Unit): Unit = {
+    var i = 0
+    while (i < length){ f(a1Index(i), a2Index(i)); i += 1 }
+  }
+
   /** Just a map method that avoids unnecessarily constructing the pairs and takes a function from the components. */
   def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB ={
     var i = 0
@@ -59,9 +64,18 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
 
   /** Maps the sequence of pairs to a new sequence of pairs, but leaving the second component of the pairs unchanged. */
   def mapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => B1)(implicit
-    build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
+  build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val b1Arr: ArrB1 = a1Arr.map(f)(build.b1ArrBuilder)
     build.arrFromArrAndArray(b1Arr, a2Array)
+  }
+
+  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArr]] of [[ElemPair]][B1, A2]. Then flattens
+   * these new [[PairArr]]s to make a single [[PairArr]] */
+  def flatMapOnA1[B1, ArrB1 <: Arr[B1], B <: ElemPair[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => ArrB1)(implicit
+  build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
+  { val buff = build.newBuff()
+    pairForeach{ (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
+    build.buffToBB(buff)
   }
 
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2
