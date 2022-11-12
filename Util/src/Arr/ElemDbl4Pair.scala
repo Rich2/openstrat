@@ -28,6 +28,8 @@ trait Dbl4PairArr[A1 <: ElemDbl4, ArrA1 <: Dbl4Arr[A1], A2, A <: ElemDbl4Pair[A1
     a1ArrayDbl(i * 4 + 3) = value.a1Dbl4
     a2Array(i) = value.a2
   }
+
+  override def a1NumDbl: Int = 4
 }
 
 trait Dbl4PairBuff[B1 <: ElemDbl4, B2, B <: ElemDbl4Pair[B1, B2]] extends DblNPairBuff[B1, B2, B]

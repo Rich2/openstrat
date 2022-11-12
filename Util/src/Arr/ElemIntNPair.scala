@@ -10,6 +10,9 @@ trait ElemIntNPair[A1 <: ElemIntN, A2] extends ElemPair[A1, A2]
 trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: ElemIntNPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
 { type ThisT <: IntNPairArr[A1, ArrA1, A2, A]
 
+  /** The number of [[Int]]s required to construct the first component of the pairs. */
+  def a1IntNum: Int
+
   /** The backing Array for the first elements of the pairs. */
   def a1ArrayInt: Array[Int]
 
@@ -26,6 +29,8 @@ trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: ElemIntNPair[A1
     }
     newFromArrays(a1Buffer.toArray, a2Buffer.toArray)
   }
+
+  final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Int](length *a1IntNum), new Array[A2](length))
 }
 
 /** Specialised efficient [[Buff]] classes for accumulating pairs where the first component of the pair is and [[ElemIntN]]. */

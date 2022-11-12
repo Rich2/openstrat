@@ -22,7 +22,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
   /** Returns the specialist sequence collection for the A1s. Probably not required most of the time but the method is included for completeness.  */
   def a1Arr: A1Arr
 
-  /** The Array for the A2 components of the pairs. */
+  /** The Array for the A2 components of the pairs. Should be rarely reuired by end user. The a2Arr and the a2RArr methods are generally preferred.  */
   def a2Array: Array[A2]
 
   /** Returns an [[RArr]] of the A2s, even if a better more specialist collection exists for the type. Probably not required most of the time but the
@@ -96,20 +96,24 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
 
   final override def length: Int = a2Array.length
 
-  def a1ByA2(key: A2): A1 = {
-    var i = 0
+  /** Treats this [[PairArr]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. */
+  def a1ByA2(key: A2): A1 =
+  { var i = 0
     var res: Option[A1] = None
     while(i < length & res == None){
       if (a2Index(i) == key) res = Some(a1Index(i))
       i += 1
     }
-    res match {
-      case Some(a1) => a1
-      case None => excep("Not found")
+    res match
+    { case Some(a1) => a1
+      case None => excep(s"The a2: A2 of value $key was not found")
     }
   }
 
   def replaceA1Value(key: A2, newValue: A1): ThisT = ???
+
+  /** Returns a new uninitialised [[PairArr]] of the same final type. */
+  def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT
 }
 
 /** An efficient [[Buff]] for [[ElemPair]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used

@@ -23,6 +23,7 @@ trait Dbl2PairArr[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1], A2, A <: ElemDbl2Pair[A1
 
   def newA1(dbl1: Double, dbl2: Double): A1
   override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1))
+  override def a1NumDbl: Int = 2
 }
 
 trait Dbl2PairBuff[A1 <: ElemDbl2, A2, A <: ElemDbl2Pair[A1, A2]] extends DblNPairBuff[A1, A2, A]

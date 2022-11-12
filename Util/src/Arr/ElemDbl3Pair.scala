@@ -25,6 +25,8 @@ trait Dbl3PairArr[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1], A2, A <: ElemDbl3Pair[A1
     a1ArrayDbl(i * 3 + 2) = value.a1Dbl3
     a2Array(i) = value.a2
   }
+
+  override def a1NumDbl: Int = 3
 }
 
 trait Dbl3PairBuff[B1 <: ElemDbl3, B2, B <: ElemDbl3Pair[B1, B2]] extends DblNPairBuff[B1, B2, B]

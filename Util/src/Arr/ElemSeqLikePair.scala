@@ -1,6 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 /** An element that pairs a [[SeqSpec]] with a second value. */
 trait ElemSeqLikePair[A1E, A1 <: SeqLike[A1E], A2] extends ElemPair[A1, A2] with SpecialT
@@ -38,6 +39,9 @@ trait SeqLikeDblNPairArr[A1E <: ElemDblN, A1 <: DblNSeqLike[A1E], A1Arr <: Arr[A
 
   def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): ThisT
   override def a1Index(index: Int): A1 = a1FromArrayDbl(a1Array(index))
+
+  /** Returns a new uninitialised [[PairArr]] of the same final type. */
+  override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = fromArrays(new Array[Array[Double]](length), new Array[A2](length))
 }
 
 trait SeqLikeDblNPairBuff[B1E <: ElemDblN, B1 <: DblNSeqLike[B1E], B2, B <: SeqLikeDblNPair[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
@@ -70,7 +74,7 @@ trait SeqLikeIntNPair[A1E <: ElemIntN, A1 <: IntNSeqLike[A1E], A2] extends ElemS
 trait SeqLikeIntNPairArr[A1E <: ElemIntN, A1 <: IntNSeqLike[A1E], ArrA1 <: Arr[A1], A2, A <: SeqLikeIntNPair[A1E, A1, A2]] extends
   SeqLikePairArr[A1E, A1, ArrA1, A2, A] with ArrayIntBackedPairArr[A1, ArrA1, A2, A]
 { type ThisT <: SeqLikeIntNPairArr[A1E, A1, ArrA1, A2, A]
-
+  //override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = fromArrays(new Array[Array[Int]](length), new Array[A2](length))
 }
 
 trait SeqLikeIntNPairBuff[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], B2, B <: SeqLikeIntNPair[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]

@@ -26,6 +26,7 @@ trait Int3PairArr[A1 <: ElemInt3, ArrA1 <: Int3Arr[A1], A2, A <: ElemInt3Pair[A1
   def newA1(int1: Int, int2: Int, int3: Int): A1
 
   override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2))
+  override def a1IntNum: Int = 3
 }
 
 trait Int3PairBuff[A1 <: ElemInt3, A2, A <: ElemInt3Pair[A1, A2]] extends IntNPairBuff[A1, A2, A]

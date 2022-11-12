@@ -7,6 +7,8 @@ trait ElemDblNPair[A1 <: ElemDblN, A2] extends ElemPair[A1, A2]
 trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
 { type ThisT <: DblNPairArr[A1, ArrA1, A2, A]
 
+  def a1NumDbl: Int
+
   /** The backing Array for the first elements of the pairs. */
   def a1ArrayDbl: Array[Double]
 
@@ -16,6 +18,8 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
 
     ???
   }
+
+  final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Double](length *a1NumDbl), new Array[A2](length))
 }
 
 trait DblNPairBuff[B1 <: ElemDblN, B2, B <: ElemDblNPair[B1, B2]] extends PairBuff[B1, B2, B]
