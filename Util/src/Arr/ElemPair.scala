@@ -108,6 +108,8 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
       case None => excep("Not found")
     }
   }
+
+  def replaceA1Value(key: A2, newValue: A1): ThisT = ???
 }
 
 /** An efficient [[Buff]] for [[ElemPair]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used

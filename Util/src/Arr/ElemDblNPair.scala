@@ -11,6 +11,11 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
   def a1ArrayDbl: Array[Double]
 
   def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): ThisT
+
+  override def replaceA1Value(key: A2, newValue: A1): ThisT = {
+
+    ???
+  }
 }
 
 trait DblNPairBuff[B1 <: ElemDblN, B2, B <: ElemDblNPair[B1, B2]] extends PairBuff[B1, B2, B]
