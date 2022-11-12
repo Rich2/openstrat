@@ -150,7 +150,7 @@ lazy val DevNat = natProj("Dev").dependsOn(TilingNat)
 
 def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src") :::
-    List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
+    List("Geom", "Globe", "Tiling").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
     "io.github.cquiroz" %%% "scala-java-time-tzdb" % "2.4.0-M1"
