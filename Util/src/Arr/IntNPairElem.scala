@@ -4,10 +4,10 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Pair element where the first element is an [[ElemIntN]]A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length
  *  of these elements [[Arr]]s of them can be be stored as and reconstructed from a single Array[Int] of primitive values */
-trait ElemIntNPair[A1 <: ElemIntN, A2] extends ElemPair[A1, A2]
+trait IntNPairElem[A1 <: ElemIntN, A2] extends ElemPair[A1, A2]
 
 /** An [[Arr]] of [[ElemPair]]s where the first component is an [[ElemIntN]]. */
-trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: ElemIntNPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
+trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
 { type ThisT <: IntNPairArr[A1, ArrA1, A2, A]
 
   /** The number of [[Int]]s required to construct the first component of the pairs. */
@@ -31,10 +31,11 @@ trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: ElemIntNPair[A1
   }
 
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Int](length *a1IntNum), new Array[A2](length))
+
 }
 
 /** Specialised efficient [[Buff]] classes for accumulating pairs where the first component of the pair is and [[ElemIntN]]. */
-trait IntNPairBuff[B1 <: ElemIntN, B2, B <: ElemIntNPair[B1, B2]] extends PairBuff[B1, B2, B]
+trait IntNPairBuff[B1 <: ElemIntN, B2, B <: IntNPairElem[B1, B2]] extends PairBuff[B1, B2, B]
 { def b1IntBuffer: ArrayBuffer[Int]
 
   final def growArr(newElems: IntNPairArr[B1, _, B2, B]): Unit =
@@ -64,7 +65,7 @@ trait IntNPAirArrCommonBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, ArrB <:
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
-trait IntNPairArrMapBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: ElemIntNPair[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
+trait IntNPairArrMapBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: IntNPairElem[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
   IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: IntNPairBuff[B1, B2, B]
 

@@ -119,7 +119,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
     res
   }
 
-
+  def unsafeSetA1(index: Int, value: A1): Unit = ???
 
   def replaceA1Value(key: A2, newValue: A1)(implicit a2ClassTag: ClassTag[A2]): ThisT = ???
 

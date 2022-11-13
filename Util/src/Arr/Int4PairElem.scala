@@ -4,7 +4,7 @@ import reflect.ClassTag
 
 /** Pair where the first component is an [[ElemInt4]]. This allows these pair elements to be stored efficently in [[Int4PAirArr]]s, where the first
  * [[ElemInt4]] components are backed bya single [[Array]][Int]. */
-trait ElemInt4Pair[A1 <: ElemInt4, A2] extends ElemIntNPair[A1, A2]
+trait Int4PairElem[A1 <: ElemInt4, A2] extends IntNPairElem[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int
   def a1Int3: Int
@@ -12,7 +12,7 @@ trait ElemInt4Pair[A1 <: ElemInt4, A2] extends ElemIntNPair[A1, A2]
 }
 
 /** An [[Arr]] of [[ElemPair]]s where the first component is an [[ElemInt4]]. */
-trait Int4PairArr[A1 <: ElemInt4, ArrA1 <: Int4Arr[A1], A2, A <: ElemInt4Pair[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
+trait Int4PairArr[A1 <: ElemInt4, ArrA1 <: Int4Arr[A1], A2, A <: Int4PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: Int4PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
@@ -24,16 +24,13 @@ trait Int4PairArr[A1 <: ElemInt4, ArrA1 <: Int4Arr[A1], A2, A <: ElemInt4Pair[A1
   final override def apply(index: Int): A =
     newPair(a1ArrayInt(index * 4), a1ArrayInt(index * 4 + 1), a1ArrayInt(index * 4 + 2), a1ArrayInt(index * 4 + 3), a2Array(index))
 
-  override final def unsafeSetElem(i: Int, value: A): Unit =
-  { a1ArrayInt(i * 4) = value.a1Int1;
-    a1ArrayInt(i * 4 + 1) = value.a1Int2
-    a1ArrayInt(i * 4 + 2) = value.a1Int3
-    a1ArrayInt(i * 4 + 3) = value.a1Int4
-    a2Array(i) = value.a2
-  }
+  override final def unsafeSetElem(i: Int, value: A): Unit = { unsafeSetA1(i, value.a1);  a2Array(i) = value.a2 }
+
+  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInt(index * 4) = value.int1; a1ArrayInt(index * 4 + 1) = value.int2
+    a1ArrayInt(index * 4 + 2) = value.int3; a1ArrayInt(index * 4 + 2) = value.int3 }
 }
 
-trait Int4PairBuff[B1 <: ElemInt4, B2, B <: ElemInt4Pair[B1, B2]] extends IntNPairBuff[B1, B2, B]
+trait Int4PairBuff[B1 <: ElemInt4, B2, B <: Int4PairElem[B1, B2]] extends IntNPairBuff[B1, B2, B]
 { /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, int3: Int, int4: Int, a2: B2): B
 
@@ -64,7 +61,7 @@ IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
 
 }
 
-trait Int4PairArrMapBuilder[B1 <: ElemInt4, ArrB1 <: Int4Arr[B1], B2, B <: ElemInt4Pair[B1, B2], ArrB <: Int4PairArr[B1, ArrB1, B2, B]] extends
+trait Int4PairArrMapBuilder[B1 <: ElemInt4, ArrB1 <: Int4Arr[B1], B2, B <: Int4PairElem[B1, B2], ArrB <: Int4PairArr[B1, ArrB1, B2, B]] extends
 Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int4PairBuff[B1, B2, B]
 
@@ -86,7 +83,7 @@ trait Int4PairArrCompanion[A1 <: ElemInt4, ArrA1 <: Int4Arr[A1]] extends IntNPai
 {
   override def elemNumInts: Int = 4
 
-  def seqToArrays[A2](pairs: Seq[ElemInt4Pair[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[Int4PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 4)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

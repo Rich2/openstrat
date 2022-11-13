@@ -28,14 +28,14 @@ trait LineSegLikePairArrBuilder[B1V, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B
   def b1Builder: LineSegLikeMapBuilder[B1V, B1]
 }
 
-trait LineSegLikeIntNPair[VT <: ElemIntN, A1 <: LineSegLikeIntN[VT], A2] extends LineSegLikePair[VT, A1, A2] with ElemIntNPair[A1, A2]
+trait LineSegLikeIntNPair[VT <: ElemIntN, A1 <: LineSegLikeIntN[VT], A2] extends LineSegLikePair[VT, A1, A2] with IntNPairElem[A1, A2]
 
 trait LineSegLikeIntNPairArr[VT <: ElemIntN, A1 <: LineSegLikeIntN[VT], ArrA1 <: IntNArr[A1], A2, A <: LineSegLikeIntNPair[VT, A1, A2]] extends
   LineSegLikePairArr[VT, A1, ArrA1, A2, A] with IntNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A]
 }
 
-trait LineSegLikeInt4Pair[VT <: ElemInt2, A1 <: LineSegLikeInt4[VT], A2] extends LineSegLikeIntNPair[VT, A1, A2] with ElemInt4Pair[A1, A2]
+trait LineSegLikeInt4Pair[VT <: ElemInt2, A1 <: LineSegLikeInt4[VT], A2] extends LineSegLikeIntNPair[VT, A1, A2] with Int4PairElem[A1, A2]
 
 trait LineSegLikeInt4PairArr[VT <: ElemInt2, A1 <: LineSegLikeInt4[VT], ArrA1 <: Int4Arr[A1], A2, A <: LineSegLikeInt4Pair[VT, A1, A2]] extends
 LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A] with Int4PairArr[A1, ArrA1, A2, A]

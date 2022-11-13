@@ -2,13 +2,13 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait ElemInt3Pair[A1 <: ElemInt3, A2] extends ElemIntNPair[A1, A2]
+trait Int3PairElem[A1 <: ElemInt3, A2] extends IntNPairElem[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int
   def a1Int3: Int
 }
 
-trait Int3PairArr[A1 <: ElemInt3, ArrA1 <: Int3Arr[A1], A2, A <: ElemInt3Pair[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
+trait Int3PairArr[A1 <: ElemInt3, ArrA1 <: Int3Arr[A1], A2, A <: Int3PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: Int3PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
@@ -27,9 +27,11 @@ trait Int3PairArr[A1 <: ElemInt3, ArrA1 <: Int3Arr[A1], A2, A <: ElemInt3Pair[A1
 
   override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2))
   override def a1IntNum: Int = 3
+
+  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInt(index * 3) = value.int1; a1ArrayInt(index * 3 + 1) = value.int2; a1ArrayInt(index * 3 + 2) = value.int3 }
 }
 
-trait Int3PairBuff[A1 <: ElemInt3, A2, A <: ElemInt3Pair[A1, A2]] extends IntNPairBuff[A1, A2, A]
+trait Int3PairBuff[A1 <: ElemInt3, A2, A <: Int3PairElem[A1, A2]] extends IntNPairBuff[A1, A2, A]
 { /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, int3: Int, a2: A2): A
 
@@ -50,7 +52,7 @@ trait Int3PairBuff[A1 <: ElemInt3, A2, A <: ElemInt3Pair[A1, A2]] extends IntNPa
   }
 }
 
-trait Int3PairArrMapBuilder[B1 <: ElemInt3, ArrB1 <: Int3Arr[B1], B2, B <: ElemInt3Pair[B1, B2], ArrB <: Int3PairArr[B1, ArrB1, B2, B]] extends
+trait Int3PairArrMapBuilder[B1 <: ElemInt3, ArrB1 <: Int3Arr[B1], B2, B <: Int3PairElem[B1, B2], ArrB <: Int3PairArr[B1, ArrB1, B2, B]] extends
   IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int3PairBuff[B1, B2, B]
 
@@ -68,7 +70,7 @@ trait Int3PairArrCompanion[A1 <: ElemInt3, ArrA1 <: Int3Arr[A1]] extends IntNPai
 {
   override def elemNumInts: Int = 3
 
-  def seqToArrays[A2](pairs: Seq[ElemInt3Pair[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[Int3PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 3)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

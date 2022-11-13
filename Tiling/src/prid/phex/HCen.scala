@@ -136,7 +136,7 @@ object HCenBuff
 { def apply(length: Int = 4): HCenBuff = new HCenBuff(new ArrayBuffer[Int](length * 2))
 }
 
-class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends ElemInt2Pair[HCen, A2]
+class HCenPair[A2](val a1Int1: Int, val a1Int2: Int, val a2: A2) extends Int2PairElem[HCen, A2]
 { override def a1: HCen = HCen(a1Int1, a1Int2)
 }
 
