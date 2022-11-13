@@ -2,34 +2,35 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait ElemDbl3Pair[A1 <: ElemDbl3, A2] extends ElemDblNPair[A1, A2]
+trait Dbl3PairElem[A1 <: ElemDbl3, A2] extends DblNPairElem[A1, A2]
 { def a1Dbl1: Double
   def a1Dbl2: Double
   def a1Dbl3: Double
 }
 
-trait Dbl3PairArr[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1], A2, A <: ElemDbl3Pair[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
+trait Dbl3PairArr[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1], A2, A <: Dbl3PairElem[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: Dbl3PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def newPair(dbl1: Double, dbl2: Double, dbl3: Double, a2: A2): A
 
+  /** Constructs an object of type A1 type from 3 [[Double]]s.  */
   def newA1(dbl1: Double, dbl2: Double, dbl3: Double): A1
-  override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2))
 
+  final override def a1NumDbl: Int = 3
+  final override def a1Index(index: Int): A1 = newA1(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2))
   override final def apply(index: Int): A = newPair(a1ArrayDbl(index * 3), a1ArrayDbl(index * 3 + 1), a1ArrayDbl(index * 3 + 2), a2Array(index))
 
-  override final def unsafeSetElem(i: Int, value: A): Unit =
-  { a1ArrayDbl(i * 3) = value.a1Dbl1;
-    a1ArrayDbl(i * 3 + 1) = value.a1Dbl2
+  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayDbl(index * 3) = value.dbl1; a1ArrayDbl(index * 3 + 1) = value.dbl2
+    a1ArrayDbl(index * 3 + 2) = value.dbl3 }
+
+  final override def unsafeSetElem(i: Int, value: A): Unit = { a1ArrayDbl(i * 3) = value.a1Dbl1; a1ArrayDbl(i * 3 + 1) = value.a1Dbl2
     a1ArrayDbl(i * 3 + 2) = value.a1Dbl3
     a2Array(i) = value.a2
   }
-
-  override def a1NumDbl: Int = 3
 }
 
-trait Dbl3PairBuff[B1 <: ElemDbl3, B2, B <: ElemDbl3Pair[B1, B2]] extends DblNPairBuff[B1, B2, B]
+trait Dbl3PairBuff[B1 <: ElemDbl3, B2, B <: Dbl3PairElem[B1, B2]] extends DblNPairBuff[B1, B2, B]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def newElem(dbl1: Double, dbl2: Double, dbl3: Double, a2: B2): B
 
@@ -50,7 +51,7 @@ trait Dbl3PairBuff[B1 <: ElemDbl3, B2, B <: ElemDbl3Pair[B1, B2]] extends DblNPa
   }
 }
 
-trait Dbl3PairArrMapBuilder[B1 <: ElemDbl3, ArrB1 <: Dbl3Arr[B1], B2, B <: ElemDbl3Pair[B1, B2], ArrB <: Dbl3PairArr[B1, ArrB1, B2, B]] extends
+trait Dbl3PairArrMapBuilder[B1 <: ElemDbl3, ArrB1 <: Dbl3Arr[B1], B2, B <: Dbl3PairElem[B1, B2], ArrB <: Dbl3PairArr[B1, ArrB1, B2, B]] extends
   DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl3PairBuff[B1, B2, B]
   override type B1BuffT <: Dbl3Buff[B1]
@@ -68,7 +69,7 @@ trait Dbl3PairArrCompanion[A1 <: ElemDbl3, ArrA1 <: Dbl3Arr[A1]] extends DblNPai
 {
   override def elemNumDbls: Int = 3
 
-  def seqToArrays[A2](pairs: Seq[ElemDbl3Pair[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[Dbl3PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
   {  val dblsArray = new Array[Double](pairs.length * 3)
     val a2Array = new Array[A2](pairs.length)
     var i = 0

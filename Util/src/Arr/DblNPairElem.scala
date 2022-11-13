@@ -2,9 +2,9 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait ElemDblNPair[A1 <: ElemDblN, A2] extends ElemPair[A1, A2]
+trait DblNPairElem[A1 <: ElemDblN, A2] extends ElemPair[A1, A2]
 
-trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
+trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: DblNPairElem[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
 { type ThisT <: DblNPairArr[A1, ArrA1, A2, A]
 
   def a1NumDbl: Int
@@ -26,7 +26,7 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Double](length *a1NumDbl), new Array[A2](length))
 }
 
-trait DblNPairBuff[B1 <: ElemDblN, B2, B <: ElemDblNPair[B1, B2]] extends PairBuff[B1, B2, B]
+trait DblNPairBuff[B1 <: ElemDblN, B2, B <: DblNPairElem[B1, B2]] extends PairBuff[B1, B2, B]
 { /** The backing buffer for the B1 components. */
   def b1DblBuffer: ArrayBuffer[Double]
 
@@ -55,7 +55,7 @@ PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
-trait DblNPairArrMapBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: ElemDblNPair[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
+trait DblNPairArrMapBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: DblNPairElem[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
 DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, B]
 

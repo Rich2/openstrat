@@ -26,7 +26,7 @@ trait PointDblN extends Any with Point with ElemDblN
 
 trait PointDblNSeqLike[PT <: PointDblN] extends PointSeqLike[PT]
 
-trait PointDblNPair[A1 <: PointDblN, A2] extends PointPair[A1, A2] with ElemDblNPair[A1, A2]
+trait PointDblNPair[A1 <: PointDblN, A2] extends PointPair[A1, A2] with DblNPairElem[A1, A2]
 
 trait PointDblNPairArr[A1 <: PointDblN, ArrA1 <: DblNArr[A1], A2, A <: PointDblNPair[A1, A2]] extends PointPairArr[A1, ArrA1, A2, A] with DblNPairArr[A1, ArrA1, A2, A]
 
@@ -34,7 +34,7 @@ trait PointDbl2 extends Any with PointDblN with ElemDbl2
 
 trait PointDbl2SeqLike[PT <: PointDbl2] extends PointDblNSeqLike[PT]
 
-trait PointDbl2Pair[A1 <: PointDbl2, A2] extends PointDblNPair[A1, A2] with ElemDbl2Pair[A1, A2]
+trait PointDbl2Pair[A1 <: PointDbl2, A2] extends PointDblNPair[A1, A2] with Dbl2PairElem[A1, A2]
 
 trait PointDbl2PairArr[A1 <: PointDbl2, ArrA1 <: Dbl2Arr[A1], A2, A <: PointDbl2Pair[A1, A2]] extends PointDblNPairArr[A1, ArrA1, A2, A] with
   Dbl2PairArr[A1, ArrA1, A2, A]
@@ -43,7 +43,7 @@ trait PointDbl2PairArr[A1 <: PointDbl2, ArrA1 <: Dbl2Arr[A1], A2, A <: PointDbl2
 
 trait PointDbl3 extends Any with PointDblN with ElemDbl3
 
-trait PointDbl3Pair[A1 <: PointDbl3, A2] extends PointDblNPair[A1, A2] with ElemDbl3Pair[A1, A2]
+trait PointDbl3Pair[A1 <: PointDbl3, A2] extends PointDblNPair[A1, A2] with Dbl3PairElem[A1, A2]
 
 trait PointDbl3PairArr[A1 <: PointDbl3, ArrA1 <: Dbl3Arr[A1], A2, A <: PointDbl3Pair[A1, A2]] extends PointDblNPairArr[A1, ArrA1, A2, A] with
   Dbl3PairArr[A1, ArrA1, A2, A]

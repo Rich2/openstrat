@@ -2,14 +2,14 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait ElemDbl4Pair[A1 <: ElemDbl4, A2] extends ElemDblNPair[A1, A2]
+trait Dbl4PairElem[A1 <: ElemDbl4, A2] extends DblNPairElem[A1, A2]
 { def a1Dbl1: Double
   def a1Dbl2: Double
   def a1Dbl3: Double
   def a1Dbl4: Double
 }
 
-trait Dbl4PairArr[A1 <: ElemDbl4, ArrA1 <: Dbl4Arr[A1], A2, A <: ElemDbl4Pair[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
+trait Dbl4PairArr[A1 <: ElemDbl4, ArrA1 <: Dbl4Arr[A1], A2, A <: Dbl4PairElem[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: Dbl4PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
@@ -21,6 +21,9 @@ trait Dbl4PairArr[A1 <: ElemDbl4, ArrA1 <: Dbl4Arr[A1], A2, A <: ElemDbl4Pair[A1
   override final def apply(index: Int): A =
     newPair(a1ArrayDbl(index * 4), a1ArrayDbl(index * 4 + 1), a1ArrayDbl(index * 4 + 2), a1ArrayDbl(index * 4 + 3), a2Array(index))
 
+  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayDbl(index * 4) = value.dbl1; a1ArrayDbl(index * 4 + 1) = value.dbl2
+    a1ArrayDbl(index * 4 + 2) = value.dbl3; a1ArrayDbl(index * 4 + 3) = value.dbl4 }
+
   override final def unsafeSetElem(i: Int, value: A): Unit =
   { a1ArrayDbl(i * 4) = value.a1Dbl1;
     a1ArrayDbl(i * 4 + 1) = value.a1Dbl2
@@ -30,9 +33,11 @@ trait Dbl4PairArr[A1 <: ElemDbl4, ArrA1 <: Dbl4Arr[A1], A2, A <: ElemDbl4Pair[A1
   }
 
   override def a1NumDbl: Int = 4
+
+
 }
 
-trait Dbl4PairBuff[B1 <: ElemDbl4, B2, B <: ElemDbl4Pair[B1, B2]] extends DblNPairBuff[B1, B2, B]
+trait Dbl4PairBuff[B1 <: ElemDbl4, B2, B <: Dbl4PairElem[B1, B2]] extends DblNPairBuff[B1, B2, B]
 { /** Constructs new pair element from 3 [[Double]]s and a third parameter of type A2. */
   def newElem(dbl1: Double, dbl2: Double, dbl3: Double, dbl4: Double, a2: B2): B
 
@@ -62,7 +67,7 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
 
 }
 
-trait Dbl4PairArrMapBuilder[B1 <: ElemDbl4, ArrB1 <: Dbl4Arr[B1], B2, B <: ElemDbl4Pair[B1, B2], ArrB <: Dbl4PairArr[B1, ArrB1, B2, B]] extends
+trait Dbl4PairArrMapBuilder[B1 <: ElemDbl4, ArrB1 <: Dbl4Arr[B1], B2, B <: Dbl4PairElem[B1, B2], ArrB <: Dbl4PairArr[B1, ArrB1, B2, B]] extends
 Dbl4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl4PairBuff[B1, B2, B]
   override type B1BuffT <: Dbl4Buff[B1]
@@ -84,7 +89,7 @@ trait Dbl4PairArrCompanion[A1 <: ElemDbl4, ArrA1 <: Dbl4Arr[A1]] extends DblNPai
 {
   override def elemNumDbls: Int = 4
 
-  def seqToArrays[A2](pairs: Seq[ElemDbl4Pair[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
+  def seqToArrays[A2](pairs: Seq[Dbl4PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
   {  val dblsArray = new Array[Double](pairs.length * 4)
     val a2Array = new Array[A2](pairs.length)
     var i = 0
