@@ -14,10 +14,14 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: ElemDblNPair[A1
 
   def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): ThisT
 
-  override def replaceA1Value(key: A2, newValue: A1): ThisT = {
-
-    ???
-  }
+  /*override def replaceA1Value(key: A2, newValue: A1)(implicit a2ClassTag: ClassTag[A2]): ThisT =
+  { val res = newFromArrays(new Array[Double](length * a1NumDbl), new Array[A2](length))
+    var i = 0
+    pairForeach{ (a1, a2) =>
+      if (key == a2) res.unsafeSetElem()
+    }
+    res
+  }*/
 
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Double](length *a1NumDbl), new Array[A2](length))
 }

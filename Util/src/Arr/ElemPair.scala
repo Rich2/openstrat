@@ -110,7 +110,18 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
     }
   }
 
-  def replaceA1Value(key: A2, newValue: A1): ThisT = ???
+  def getA2Index(key: A2): Int = findA2Index(key).get
+
+  def findA2Index(key: A2): Option[Int] =
+  { var i = 0
+    var res: Option[Int] = None
+    while (res == None & i < length ) if (key == a2Array(i)) res = Some(i) else i += 1
+    res
+  }
+
+
+
+  def replaceA1Value(key: A2, newValue: A1)(implicit a2ClassTag: ClassTag[A2]): ThisT = ???
 
   /** Returns a new uninitialised [[PairArr]] of the same final type. */
   def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT
