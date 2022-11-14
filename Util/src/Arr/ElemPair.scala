@@ -119,8 +119,10 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: ElemPair[A1, A2]] extends Arr[A]
     res
   }
 
-  def unsafeSetA1(index: Int, value: A1): Unit = ???
+  def unsafeSetA1(index: Int, value: A1): Unit// = ???
 
+  /** Returns a copy of this [[PairArr]] where the A1 component is replaced for any pairs where the A2 value matches the given parameter. this method
+   * treats the [[PairArr]] as a Scala [[Map]] class with the A2s as the keys and the A1s as the values. */
   def replaceA1Value(key: A2, newValue: A1)(implicit a2ClassTag: ClassTag[A2]): ThisT = ???
 
   /** Returns a new uninitialised [[PairArr]] of the same final type. */

@@ -76,6 +76,8 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
 
   /** Returns a new uninitialised [[PairArr]] of the same final type. */
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = fromArrays(new Array[Array[Int]](length), new Array[A2](length))
+
+  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1Arrays(index) = value.unsafeArray }
 }
 
 trait ArrayIntBackedPairArrCompanion[A1 <: ArrayIntBacked]
