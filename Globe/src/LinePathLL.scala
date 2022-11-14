@@ -165,7 +165,7 @@ class LinePathLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqS
 object LinePathLL extends Dbl2SeqLikeCompanion[LatLong, LinePathLL]
 { override def fromArray(array: Array[Double]): LinePathLL = new LinePathLL(array)
 
-  /** Apply factory method for creating Arrs of [[ElemDbl2]]s. */
+  /** Apply factory method for creating Arrs of [[Dbl2Elem]]s. */
   override def apply(elems: LatLong*): LinePathLL =
   {
     val length = elems.length

@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** A line segment in 3 dimensional space specified in metres. A straight line between two points in 3D. */
 class LineSegM3(xStartMs: Double, yStartMs: Double, zStartMs: Double, xEndMs: Double, yEndMs: Double, zEndMs: Double) extends LineSegLike[PtM3] with
-  ElemDbl6
+  Dbl6Elem
 { def typeStr: String = "LineDist3"
   //def str: String = persist2(pStart, pEnd)
   def startPt: PtM3 = new PtM3(xStartMs, yStartMs, zStartMs)

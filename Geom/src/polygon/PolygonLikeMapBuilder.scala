@@ -18,17 +18,17 @@ trait PolygonValueNsBuilder[B <: ElemValueN, BB <: PolygonValueN[B]] extends Pol
 /** Trait for creating the builder type class instances for [[PolygonLikeDblN]] final classes. Instances for the [[PolygonLikeMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait PolygonDblNsBuilder[B <: ElemDblN, BB <: PolygonLikeDblN[B] ] extends PolygonValueNsBuilder[B, BB] with DblNSeqLikeCommonBuilder[BB]
+trait PolygonDblNsBuilder[B <: DblNElem, BB <: PolygonLikeDblN[B] ] extends PolygonValueNsBuilder[B, BB] with DblNSeqLikeCommonBuilder[BB]
 
 /** Trait for creating the line path type class instances for [[PolygonLikeDbl2]] final classes. Instances for the [[PolygonDbl2sBuilder]] type class,
- *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is called
+ *  for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait PolygonDbl2sBuilder[B <: ElemDbl2, BB <: PolygonLikeDbl2[B]] extends PolygonDblNsBuilder[B, BB] with Dbl2SeqLikeMapBuilder[B, BB]
+trait PolygonDbl2sBuilder[B <: Dbl2Elem, BB <: PolygonLikeDbl2[B]] extends PolygonDblNsBuilder[B, BB] with Dbl2SeqLikeMapBuilder[B, BB]
 
 /** Trait for creating the line path type class instances for [[PolygonLikeDbl3]] final classes. Instances for the [[PolygonDbl3sBuilder]] type class,
- *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called
+ *  for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait PolygonDbl3sBuilder[B <: ElemDbl3, BB <: PolygonLikeDbl3[B]] extends PolygonDblNsBuilder[B, BB] with Dbl3SeqLikeMapBuilder[B, BB]
+trait PolygonDbl3sBuilder[B <: Dbl3Elem, BB <: PolygonLikeDbl3[B]] extends PolygonDblNsBuilder[B, BB] with Dbl3SeqLikeMapBuilder[B, BB]
 { type BuffT <: Dbl3Buff[B]
 
   /*override def indexSet(arr: BB, index: Int, value: B): Unit =

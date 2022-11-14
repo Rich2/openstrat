@@ -5,7 +5,7 @@ package ostrat; package geom
  *  degrees, while Latitudes have a normal range +- 90 degrees. Unlike [[AngleVec]] this class has no multiply or divide, * or / methods. It has add
  *  and subtract, + and - methods, but these take [[AngleVec]]s as operands not other Angles. To Add,subtract or scale angles of inclination would
  *  make no sense. */
-final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike with Ordered[Angle] with ElemDbl1
+final class Angle private(val milliSecs: Double) extends AnyVal with AngleLike with Ordered[Angle] with Dbl1Elem
 { override def typeStr: String = "Angle"
 
   /** Intended to be a multiple parameter comprehensive Show method. Intended to be paralleled by showT method on [[ShowT]] type class instances. */

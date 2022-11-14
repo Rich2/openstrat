@@ -81,10 +81,10 @@ trait ShowDbl2 extends Any with Show2[Double, Double]
   final override def syntaxDepth: Int = 2
 }
 
-/** Trait for Show for product of 2 Doubles that is also an [[ElemDbl2]]. This trait is implemented directly by the type in question, unlike the
+/** Trait for Show for product of 2 Doubles that is also an [[Dbl2Elem]]. This trait is implemented directly by the type in question, unlike the
  *  corresponding [[ShowShowDbl2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2T]]. */
-trait ShowElemDbl2 extends Any with ShowDbl2 with ElemDbl2
+trait ShowElemDbl2 extends Any with ShowDbl2 with Dbl2Elem
 { final override def dbl1: Double = show1
   final override def dbl2: Double = show2
 }

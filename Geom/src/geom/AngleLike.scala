@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** Base trait for [[Angle]], [[AngleVec]], [[Latitude]] and [[Longitude]]. */
-trait AngleLike extends Any with ShowDec with ApproxAngle with ElemDbl1
+trait AngleLike extends Any with ShowDec with ApproxAngle with Dbl1Elem
 { /** The angle expressed in thousandths of an arc second of a degree. */
   def milliSecs: Double
 

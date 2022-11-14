@@ -21,7 +21,7 @@ trait Int2PairArr[A1 <: ElemInt2, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1
   def newA1(int1: Int, int2: Int): A1
 
   final override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 2), a1ArrayInt(index * 2 + 1))
-  final override def a1IntNum: Int = 2
+  final override def a1NumInt: Int = 2
 
   final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInt(index * 2) = value.int1; a1ArrayInt(index * 2 + 1) = value.int1 }
 }

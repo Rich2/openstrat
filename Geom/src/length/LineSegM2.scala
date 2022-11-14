@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** A 2 dimensional line segment measured in metres, equivalent of the [[LineSeg]] class. A straight line between two points on a 2 dimensional flat
  *  surface. */
-class LineSegM2(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double, yEndMetres: Double) extends LineSegLikeDbl4[PtM2] with ElemDbl4
+class LineSegM2(xStartMetres: Double, yStartMetres: Double, xEndMetres: Double, yEndMetres: Double) extends LineSegLikeDbl4[PtM2] with Dbl4Elem
 { def xStart: Length = Length(xStartMetres)
   def yStart: Length = Length(yStartMetres)
   def xEnd: Length = Length(xEndMetres)

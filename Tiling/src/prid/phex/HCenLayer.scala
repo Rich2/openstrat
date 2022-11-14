@@ -76,7 +76,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     build.buffToSeqLike(buff)
   }
 
-  def scSomesMapPair[B1, ArrB1 <: Arr[B1], B2, B <: ElemPair[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]](f1: (HCen, A) => B1)(f2: (HCen, A) => B2)(
+  def scSomesMapPair[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]](f1: (HCen, A) => B1)(f2: (HCen, A) => B2)(
     implicit gridSys: HGridSys, build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB = {
     val len = somesLen
     val res1 = build.b1Uninitialised(len)

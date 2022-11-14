@@ -15,12 +15,12 @@ object PolygonHCPair {
 }
 
 /** An Arr of  [[PolygonHC]] pairs. A Polygon with the vertices defined in [[HCoord]]s paired with an object of type A2. */
-final class PolygonHCPairArr[A2](val a1Arrays: Array[Array[Int]], val a2Array: Array[A2]) extends
+final class PolygonHCPairArr[A2](val a1ArrayInts: Array[Array[Int]], val a2Array: Array[A2]) extends
   PolygonLikeIntNPairArr[HCoord, PolygonHC, PolygonHCArr, A2, PolygonHCPair[A2]]
 { override type ThisT = PolygonHCPairArr[A2]
   override def fElemStr: PolygonHCPair[A2] => String = _.toString
   override def typeStr: String = "PolygonHCPairArray"
-  override def a1Arr: PolygonHCArr = new PolygonHCArr(a1Arrays)
+  override def a1Arr: PolygonHCArr = new PolygonHCArr(a1ArrayInts)
   override def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](array1, array2)
   override def a1FromArrayInt(array: Array[Int]): PolygonHC = new PolygonHC(array)
   override def elemFromComponents(a1: Array[Int], a2: A2): PolygonHCPair[A2] = new PolygonHCPair[A2](a1, a2)
@@ -34,7 +34,7 @@ final class PolygonHCPairBuild[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   override def uninitialised(length: Int): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](new Array[Array[Int]](length), new Array[A2](length))
 
   override def indexSet(seqLike: PolygonHCPairArr[A2], index: Int, value: PolygonHCPair[A2]): Unit =
-  { seqLike.a1Arrays(index) = value.a1ArrayInt ; seqLike.a2Array(index) = value.a2 }
+  { seqLike.a1ArrayInts(index) = value.a1ArrayInt ; seqLike.a2Array(index) = value.a2 }
 
   override def newBuff(length: Int): PolygonHCPairBuff[A2] = new PolygonHCPairBuff[A2](new ArrayBuffer[Array[Int]](4), new ArrayBuffer[A2](4))
   override def buffToSeqLike(buff: PolygonHCPairBuff[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)

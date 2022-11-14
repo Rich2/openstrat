@@ -136,7 +136,7 @@ package object geom
                 baseLine: BaseLine = BaseLine.Alphabetic): TextGraphic = TextGraphic(thisString, fontSize, posn, colour, align, baseLine)
   }
 
-  implicit class BuffDblExtensionsImplicit[A <: ElemDblN](val thisBuff: DblNBuff[A])
+  implicit class BuffDblExtensionsImplicit[A <: DblNElem](val thisBuff: DblNBuff[A])
   { /** Extension method to create Polygons from [[DblNBuff]]. Takes an implicit [[PolygonDblNsBuilder]] parameter to return the [[PolygonLikeDblN]] */
     def toPolygon[PT <: PolygonLikeDblN[A]](implicit build: PolygonDblNsBuilder[A, PT]): PT = build.fromDblArray(thisBuff.unsafeBuffer.toArray)
   }

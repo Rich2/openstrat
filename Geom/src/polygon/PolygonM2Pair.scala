@@ -10,14 +10,14 @@ object PolygonM2Pair {
   implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrMapBuilder[PolygonM2Pair[A2], PolygonM2PairArr[A2]] = new PolygonM2PairBuilder[A2]
 }
 
-final class PolygonM2PairArr[A2](val a1Array: Array[Array[Double]], val a2Array: Array[A2]) extends
+final class PolygonM2PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends
   PolygonLikeDbl2PairArr[PtM2, PolygonM2, PolygonM2Arr, A2, PolygonM2Pair[A2]]
 { override type ThisT = PolygonM2PairArr[A2]
-  override def unsafeSetElem(i: Int, value: PolygonM2Pair[A2]): Unit = { a1Array(i) = value.a1ArrayDbl; a2Array(i) = value.a2 }
+  override def unsafeSetElem(i: Int, value: PolygonM2Pair[A2]): Unit = { a1ArrayDbls(i) = value.a1ArrayDbl; a2Array(i) = value.a2 }
   override def fElemStr: PolygonM2Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonMPairArray"
-  override def apply(index: Int): PolygonM2Pair[A2] = new PolygonM2Pair[A2](a1Array(index), a2Array(index))
-  override def a1Arr: PolygonM2Arr = new PolygonM2Arr(a1Array)
+  override def apply(index: Int): PolygonM2Pair[A2] = new PolygonM2Pair[A2](a1ArrayDbls(index), a2Array(index))
+  override def a1Arr: PolygonM2Arr = new PolygonM2Arr(a1ArrayDbls)
   override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](array1, array2)
   override def a1FromArrayDbl(array: Array[Double]): PolygonM2 = new PolygonM2(array)
 }
@@ -28,7 +28,7 @@ final class PolygonM2PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
   override type B1BuffT = PolygonM2Buff
   override def uninitialised(length: Int): PolygonM2PairArr[A2] = new PolygonM2PairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
-  override def indexSet(seqLike: PolygonM2PairArr[A2], index: Int, value: PolygonM2Pair[A2]): Unit = { seqLike.a1Array(index) = value.a1ArrayDbl
+  override def indexSet(seqLike: PolygonM2PairArr[A2], index: Int, value: PolygonM2Pair[A2]): Unit = { seqLike.a1ArrayDbls(index) = value.a1ArrayDbl
     seqLike.a2Array(index) = value.a2 }
 
   override def newBuff(length: Int): PolygonM2PairBuff[A2] = new PolygonM2PairBuff[A2](new ArrayBuffer[Array[Double]](4), new ArrayBuffer[A2](4))

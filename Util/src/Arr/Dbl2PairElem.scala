@@ -2,12 +2,12 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait Dbl2PairElem[A1 <: ElemDbl2, A2] extends DblNPairElem[A1, A2]
+trait Dbl2PairElem[A1 <: Dbl2Elem, A2] extends DblNPairElem[A1, A2]
 { def a1Dbl1: Double
   def a1Dbl2: Double
 }
 
-trait Dbl2PairArr[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1], A2, A <: Dbl2PairElem[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
+trait Dbl2PairArr[A1 <: Dbl2Elem, ArrA1 <: Dbl2Arr[A1], A2, A <: Dbl2PairElem[A1, A2]] extends DblNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: Dbl2PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
@@ -24,7 +24,7 @@ trait Dbl2PairArr[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1], A2, A <: Dbl2PairElem[A1
   final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayDbl(index * 2) = value.dbl1; a1ArrayDbl(index * 2 + 1) = value.dbl2 }
 }
 
-trait Dbl2PairBuff[A1 <: ElemDbl2, A2, A <: Dbl2PairElem[A1, A2]] extends DblNPairBuff[A1, A2, A]
+trait Dbl2PairBuff[A1 <: Dbl2Elem, A2, A <: Dbl2PairElem[A1, A2]] extends DblNPairBuff[A1, A2, A]
 { /** Constructs new pair element from 2 [[Double]]s and a third parameter of type A2. */
   def newElem(dbl1: Double, dbl2: Double, a2: A2): A
   inline final override def apply(index: Int): A = newElem(b1DblBuffer (index * 2), b1DblBuffer(index * 2 + 1), b2Buffer(index))
@@ -42,7 +42,7 @@ trait Dbl2PairBuff[A1 <: ElemDbl2, A2, A <: Dbl2PairElem[A1, A2]] extends DblNPa
   }
 }
 
-trait Dbl2PairArrMapBuilder[B1 <: ElemDbl2, ArrB1 <: Dbl2Arr[B1], B2, B <: Dbl2PairElem[B1, B2], ArrB <: Dbl2PairArr[B1, ArrB1, B2, B]] extends
+trait Dbl2PairArrMapBuilder[B1 <: Dbl2Elem, ArrB1 <: Dbl2Arr[B1], B2, B <: Dbl2PairElem[B1, B2], ArrB <: Dbl2PairArr[B1, ArrB1, B2, B]] extends
   DblNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Dbl2PairBuff[B1, B2, B]
   override type B1BuffT <: Dbl2Buff[B1]
@@ -55,7 +55,7 @@ trait Dbl2PairArrMapBuilder[B1 <: ElemDbl2, ArrB1 <: Dbl2Arr[B1], B2, B <: Dbl2P
   }
 }
 
-trait Dbl2PairArrCompanion[A1 <: ElemDbl2, ArrA1 <: Dbl2Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]
+trait Dbl2PairArrCompanion[A1 <: Dbl2Elem, ArrA1 <: Dbl2Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]
 {
   override def elemNumDbls: Int = 2
 

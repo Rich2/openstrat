@@ -3,12 +3,12 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[DblNArr]] Array[Double] based collections. */
-trait ElemDblN extends Any with ElemValueN
+trait DblNElem extends Any with ElemValueN
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def dblForeach(f: Double => Unit): Unit
 }
 
-trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDblBacked
+trait DblNSeqLike[A <: DblNElem] extends Any with ValueNSeqLike[A] with ArrayDblBacked
 { type ThisT <: DblNSeqLike[A]
   def fromArray(array: Array[Double]): ThisT
 
@@ -21,7 +21,7 @@ trait DblNSeqLike[A <: ElemDblN] extends Any with ValueNSeqLike[A] with ArrayDbl
 
 /** Base trait for classes that are defined by collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. As
  *  well as [[DblNArr]] classes this is also the base trait for classes like polygons that are defined by a collection of points. */
-trait DblNSeqSpec[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqSpec[A] with ArrayDblBacked
+trait DblNSeqSpec[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNSeqSpec[A] with ArrayDblBacked
 { type ThisT <: DblNSeqSpec[A]
 
   override def ssReverse: ThisT =
@@ -50,7 +50,7 @@ trait DblNSeqSpec[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNSeqS
 }
 
 /** Base trait for collections of elements that are products of [[Double]]s, backed by an underlying Array[Double]. */
-trait DblNArr[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNArr[A]
+trait DblNArr[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNArr[A]
 { type ThisT <: DblNArr[A]
 
   /** Not sure about this method. */
@@ -79,7 +79,7 @@ trait DblNArr[A <: ElemDblN] extends Any with DblNSeqLike[A] with ValueNArr[A]
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait DblNBuff[A <: ElemDblN] extends Any with ValueNBuff[A]
+trait DblNBuff[A <: DblNElem] extends Any with ValueNBuff[A]
 { type ArrT <: DblNArr[A]
   def unsafeBuffer: ArrayBuffer[Double]
 
@@ -99,7 +99,7 @@ trait DblNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuil
   final override def buffToSeqLike(buff: BuffT): BB = fromDblArray(buff.unsafeBuffer.toArray)
 }
 
-trait DblNSeqLikeMapBuilder[B <: ElemDblN, BB <: DblNSeqLike[B]] extends DblNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
+trait DblNSeqLikeMapBuilder[B <: DblNElem, BB <: DblNSeqLike[B]] extends DblNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
 { type BuffT <: DblNBuff[B]
   final override def uninitialised(length: Int): BB = fromDblArray(new Array[Double](length * elemProdSize))
   final override def buffGrow(buff: BuffT, value: B): Unit = value.dblForeach(buff.unsafeBuffer.append(_))
@@ -115,7 +115,7 @@ trait DblNArrCommonBuilder[ArrB <: DblNArr[_]] extends DblNSeqLikeCommonBuilder[
 /** Trait for creating the sequence builder type class instances for [[DblNArr]] final classes. Instances for the [[ArrMapBuilder]] type class, for
  *  classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait DblNArrMapBuilder[B <: ElemDblN, ArrB <: DblNArr[B]] extends DblNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
+trait DblNArrMapBuilder[B <: DblNElem, ArrB <: DblNArr[B]] extends DblNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[DblNArr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
@@ -126,7 +126,7 @@ trait DblNArrFlatBuilder[ArrB <: DblNArr[_]] extends DblNSeqLikeCommonBuilder[Ar
 }
 
 /** Helper trait for Companion objects of [[DblNArr]] classes. */
-trait DblNSeqLikeCompanion[A <: ElemDblN, AA <: DblNSeqLike[A]]// extends SeqLikeCompanion[A, AA]
+trait DblNSeqLikeCompanion[A <: DblNElem, AA <: DblNSeqLike[A]]// extends SeqLikeCompanion[A, AA]
 { /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
   def elemNumDbls: Int
 
@@ -157,7 +157,7 @@ trait DblNSeqLikeCompanion[A <: ElemDblN, AA <: DblNSeqLike[A]]// extends SeqLik
 }
 
 /** Persists [[DblNArr]]s. */
-trait DataDblNsPersist[A <: ElemDblN, M <: DblNSeqLike[A]] extends ValueNSeqLikePersist[A, M] with EqT[M]
+trait DataDblNsPersist[A <: DblNElem, M <: DblNSeqLike[A]] extends ValueNSeqLikePersist[A, M] with EqT[M]
 { type VT = Double
   override def fromBuffer(buf: ArrayBuffer[Double]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Double] = new ArrayBuffer[Double](0)
@@ -165,7 +165,7 @@ trait DataDblNsPersist[A <: ElemDblN, M <: DblNSeqLike[A]] extends ValueNSeqLike
 }
 
 /** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */
-trait DblNBuffCompanion[A <: ElemDblN, AA <: DblNBuff[A]]
+trait DblNBuffCompanion[A <: DblNElem, AA <: DblNBuff[A]]
 { /** apply factory method for [[DblNBuff]] final classes */
   def apply(elems: A*): AA
 

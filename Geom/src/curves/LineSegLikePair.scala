@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A [[LineSegLike]] object paired with an object of type A2.]] */
-trait LineSegLikePair[VT, A1 <: LineSegLike[VT], A2] extends ElemPair[A1, A2]
+trait LineSegLikePair[VT, A1 <: LineSegLike[VT], A2] extends PairElem[A1, A2]
 
 /** An [[Arr]] of [[LineSegLikePair]]s stored efficiently allowing maping between different [[LineSegLike]] types while keeping the A2 values unchanged. */
 trait LineSegLikePairArr[VT, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: LineSegLikePair[VT, A1, A2]] extends PairArr[A1, ArrA1, A2, A]
@@ -39,17 +39,17 @@ trait LineSegLikeInt4Pair[VT <: ElemInt2, A1 <: LineSegLikeInt4[VT], A2] extends
 
 trait LineSegLikeInt4PairArr[VT <: ElemInt2, A1 <: LineSegLikeInt4[VT], ArrA1 <: Int4Arr[A1], A2, A <: LineSegLikeInt4Pair[VT, A1, A2]] extends
 LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A] with Int4PairArr[A1, ArrA1, A2, A]
-{ final override def a1IntNum: Int = 4
+{ final override def a1NumInt: Int = 4
 }
 
-trait LineSegLikeDblNPair[VT <: ElemDblN, A1 <: LineSegLikeDblN[VT], A2] extends LineSegLikePair[VT, A1, A2] with DblNPairElem[A1, A2]
+trait LineSegLikeDblNPair[VT <: DblNElem, A1 <: LineSegLikeDblN[VT], A2] extends LineSegLikePair[VT, A1, A2] with DblNPairElem[A1, A2]
 
-trait LineSegLikeDblNPairArr[VT <: ElemDblN, A1 <: LineSegLikeDblN[VT], ArrA1 <: DblNArr[A1], A2, A <: LineSegLikeDblNPair[VT, A1, A2]] extends
+trait LineSegLikeDblNPairArr[VT <: DblNElem, A1 <: LineSegLikeDblN[VT], ArrA1 <: DblNArr[A1], A2, A <: LineSegLikeDblNPair[VT, A1, A2]] extends
   LineSegLikePairArr[VT, A1, ArrA1, A2, A] with DblNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: LineSegLikeDblNPairArr[VT, A1, ArrA1, A2, A]
 }
 
-trait LineSegLikeDbl4Pair[VT <: ElemDbl2, A1 <: LineSegLikeDbl4[VT], A2] extends LineSegLikeDblNPair[VT, A1, A2] with Dbl4PairElem[A1, A2]
+trait LineSegLikeDbl4Pair[VT <: Dbl2Elem, A1 <: LineSegLikeDbl4[VT], A2] extends LineSegLikeDblNPair[VT, A1, A2] with Dbl4PairElem[A1, A2]
 
-trait LineSegLikeDbl4PairArr[VT <: ElemDbl2, A1 <: LineSegLikeDbl4[VT], ArrA1 <: Dbl4Arr[A1], A2, A <: LineSegLikeDbl4Pair[VT, A1, A2]] extends
+trait LineSegLikeDbl4PairArr[VT <: Dbl2Elem, A1 <: LineSegLikeDbl4[VT], ArrA1 <: Dbl4Arr[A1], A2, A <: LineSegLikeDbl4Pair[VT, A1, A2]] extends
   LineSegLikeDblNPairArr[VT, A1, ArrA1, A2, A] with Dbl4PairArr[A1, ArrA1, A2, A]

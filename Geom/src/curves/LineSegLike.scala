@@ -26,22 +26,22 @@ trait LineSegLikeMapBuilder[VT, ST <: LineSegLike[VT]]
   def newSeg(vStart: VT, vEnd: VT): ST
 }
 
-/** A line segment where the start and end points are defined in [[ElemDblN]] vertices. */
-trait LineSegLikeDblN[VT <: ElemDblN] extends LineSegLike[VT] with ElemDblN
+/** A line segment where the start and end points are defined in [[DblNElem]] vertices. */
+trait LineSegLikeDblN[VT <: DblNElem] extends LineSegLike[VT] with DblNElem
 
-trait LineSegLikeDblNArr[VT <: ElemDblN, A <: LineSegLikeDblN[VT]] extends Any with LineSegLikeArr[VT, A] with DblNArr[A]
+trait LineSegLikeDblNArr[VT <: DblNElem, A <: LineSegLikeDblN[VT]] extends Any with LineSegLikeArr[VT, A] with DblNArr[A]
 
-/** A line segment where the start and end points are defined in [[ElemDbl2]] vertices. Theis will be the case for the classic 2D space line segment
+/** A line segment where the start and end points are defined in [[Dbl2Elem]] vertices. Theis will be the case for the classic 2D space line segment
  * a 2D line segment specified in metres and a line segment specified in latitude and longitude. */
-trait LineSegLikeDbl4[VT <: ElemDbl2] extends LineSegLikeDblN[VT] with ElemDbl4
+trait LineSegLikeDbl4[VT <: Dbl2Elem] extends LineSegLikeDblN[VT] with Dbl4Elem
 
-trait LineSegLikeDbl4Arr[VT <: ElemDbl2, A <: LineSegLikeDbl4[VT]] extends Any with LineSegLikeDblNArr[VT, A] with Dbl4Arr[A]
+trait LineSegLikeDbl4Arr[VT <: Dbl2Elem, A <: LineSegLikeDbl4[VT]] extends Any with LineSegLikeDblNArr[VT, A] with Dbl4Arr[A]
 
-/** A line segment where the start and end points are defined in [[ElemDbl3]] vertices. Theis will be the case for 3D space line segment and 3D line
+/** A line segment where the start and end points are defined in [[Dbl3Elem]] vertices. Theis will be the case for 3D space line segment and 3D line
  *  segment specified in metres. */
-trait LineSegLikeDbl6[VT <: ElemDbl3] extends LineSegLikeDblN[VT] with ElemDbl6
+trait LineSegLikeDbl6[VT <: Dbl3Elem] extends LineSegLikeDblN[VT] with Dbl6Elem
 
-trait LineSegLikeDbl6Arr[VT <: ElemDbl3, A <: LineSegLikeDbl6[VT]] extends Any with LineSegLikeDblNArr[VT, A] with Dbl6Arr[A]
+trait LineSegLikeDbl6Arr[VT <: Dbl3Elem, A <: LineSegLikeDbl6[VT]] extends Any with LineSegLikeDblNArr[VT, A] with Dbl6Arr[A]
 
 trait LineSegLikeIntN[VT <: ElemIntN] extends LineSegLike[VT] with ElemIntN
 

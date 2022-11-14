@@ -11,9 +11,9 @@ trait LinePathLike[A] extends Any with SeqSpec[A]
   }
 }
 
-trait LinePathDblN[A <: ElemDblN] extends  Any with LinePathLike[A] with DblNSeqSpec[A]
-trait LinePathDbl2[A <: ElemDbl2] extends Any with LinePathDblN[A] with Dbl2SeqSpec[A]
-trait LinePathDbl3[A <: ElemDbl3] extends Any with LinePathDblN[A] with Dbl3SeqSpec[A]
+trait LinePathDblN[A <: DblNElem] extends  Any with LinePathLike[A] with DblNSeqSpec[A]
+trait LinePathDbl2[A <: Dbl2Elem] extends Any with LinePathDblN[A] with Dbl2SeqSpec[A]
+trait LinePathDbl3[A <: Dbl3Elem] extends Any with LinePathDblN[A] with Dbl3SeqSpec[A]
 
 trait LinePathIntN[A <: ElemIntN] extends  Any with LinePathLike[A] with IntNSeqSpec[A]
 trait LinePathInt2[A <: ElemInt2] extends Any with LinePathIntN[A] with Int2SeqSpec[A]
@@ -32,17 +32,17 @@ trait LinePathValueNBuilder[B <: ElemValueN, BB <: LinePathLike[B]] extends Line
 /** Trait for creating the builder type class instances for [[LinePathDblN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait LinePathDblNMapBuilder[B <: ElemDblN, BB <: LinePathDblN[B] ] extends LinePathValueNBuilder[B, BB] with DblNSeqLikeMapBuilder[B, BB]
+trait LinePathDblNMapBuilder[B <: DblNElem, BB <: LinePathDblN[B] ] extends LinePathValueNBuilder[B, BB] with DblNSeqLikeMapBuilder[B, BB]
 
 /** Trait for creating the line path type class instances for [[LinePathDbl2]] final classes. Instances for the [[LinePathDbl2Builder]] type class,
- *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl2]]. The first type parameter is called
+ *  for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl2Elem]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait LinePathDbl2Builder[B <: ElemDbl2, BB <: LinePathDbl2[B]] extends LinePathDblNMapBuilder[B, BB] with Dbl2SeqLikeMapBuilder[B, BB]
+trait LinePathDbl2Builder[B <: Dbl2Elem, BB <: LinePathDbl2[B]] extends LinePathDblNMapBuilder[B, BB] with Dbl2SeqLikeMapBuilder[B, BB]
 
 /** Trait for creating the line path type class instances for [[LinePathDbl3]] final classes. Instances for the [[LinePathDbl3MapBuilder]] type class,
- *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl3]]. The first type parameter is called
+ *  for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl3Elem]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait LinePathDbl3MapBuilder[B <: ElemDbl3, BB <: LinePathDbl3[B]] extends LinePathDblNMapBuilder[B, BB] with Dbl3SeqLikeMapBuilder[B, BB]
+trait LinePathDbl3MapBuilder[B <: Dbl3Elem, BB <: LinePathDbl3[B]] extends LinePathDblNMapBuilder[B, BB] with Dbl3SeqLikeMapBuilder[B, BB]
 
 /** Trait for creating the builder type class instances for [[LinePathIntN]] final classes. Instances for the [[LinePathBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in

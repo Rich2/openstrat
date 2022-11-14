@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 4 [[Double]]s. These are used in [[Dbl4Arr]] Array[Double] based collections. */
-trait ElemDbl4 extends Any with ElemDblN
+trait Dbl4Elem extends Any with DblNElem
 { def dbl1: Double
   def dbl2: Double
   def dbl3: Double
@@ -12,7 +12,7 @@ trait ElemDbl4 extends Any with ElemDblN
   override def dblForeach(f: Double => Unit): Unit = { f(dbl1); f(dbl2); f(dbl3); f(dbl4) }
 }
 
-trait Dbl4SeqLike[A <: ElemDbl4] extends Any with DblNSeqLike[A]
+trait Dbl4SeqLike[A <: Dbl4Elem] extends Any with DblNSeqLike[A]
 { override def elemProdSize: Int = 4
 
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(4 * index) = elem.dbl1; unsafeArray(4 * index + 1) = elem.dbl2
@@ -22,16 +22,16 @@ trait Dbl4SeqLike[A <: ElemDbl4] extends Any with DblNSeqLike[A]
     buffer.append(elem.dbl3); buffer.append(elem.dbl4) }
 }
 
-/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[ElemDbl4]]s. */
-trait Dbl4SeqSpec[A <: ElemDbl4] extends Any with Dbl4SeqLike[A] with DblNSeqSpec[A]
+/** A specialised immutable, flat Array[Double] based trait defined by data sequence of a type of [[Dbl4Elem]]s. */
+trait Dbl4SeqSpec[A <: Dbl4Elem] extends Any with Dbl4SeqLike[A] with DblNSeqSpec[A]
 { /** Method for creating new elements of the specifying sequence from 4 [[Double]]s. */
   def ssElem(d1: Double, d2: Double, d3: Double, d4: Double): A
 
   override def ssElemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4)
   override def ssIndex(index: Int): A = ssElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 }
-/** A specialised immutable, flat Array[Double] based collection of a type of [[ElemDbl4]]s. */
-trait Dbl4Arr[A <: ElemDbl4] extends Any with DblNArr[A] with Dbl4SeqLike[A]
+/** A specialised immutable, flat Array[Double] based collection of a type of [[Dbl4Elem]]s. */
+trait Dbl4Arr[A <: Dbl4Elem] extends Any with DblNArr[A] with Dbl4SeqLike[A]
 { def head1: Double = unsafeArray(0)
   def head2: Double = unsafeArray(1)
   def head3: Double = unsafeArray(2)
@@ -54,22 +54,22 @@ trait Dbl4ArrCommonBuilder[ArrB <: Dbl4Arr[_]] extends DblNArrCommonBuilder[ArrB
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes /
- *  traits you control, should go in the companion object of type B, which will extend [[ElemDbl4]]. The first type parameter is called B, because to
+ *  traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. The first type parameter is called B, because to
  *  corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait Dbl4ArrMapBuilder[B <: ElemDbl4, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
+trait Dbl4ArrMapBuilder[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl4Buff[B]
 
   final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = { seqLike.unsafeArray(index * 4) = value.dbl1; seqLike.unsafeArray(index * 4 + 1) = value.dbl2
     seqLike.unsafeArray(index * 4 + 2) = value.dbl3; seqLike.unsafeArray(index * 4 + 3) = value.dbl4 }
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrMapBuilder]] type
- *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[ElemDbl4]]. Instances for
+ *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for
  *  [[ArrFlatBuilder] should go in the companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B
  *  in ```map(f: A => B): ArrB``` function. */
 trait Dbl4ArrFlatBuilder[ArrB <: Dbl4Arr[_]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrFlatBuilder[ArrB]
 
 /** Class for the singleton companion objects of [[Dbl4SeqSpec]] final classes to extend. */
-abstract class Dbl4SeqLikeCompanion[A <: ElemDbl4, AA <: Dbl4SeqLike[A]] extends DblNSeqLikeCompanion[A, AA]
+abstract class Dbl4SeqLikeCompanion[A <: Dbl4Elem, AA <: Dbl4SeqLike[A]] extends DblNSeqLikeCompanion[A, AA]
 {
   final def apply(elems: A*): AA =
   { val length = elems.length
@@ -88,7 +88,7 @@ abstract class Dbl4SeqLikeCompanion[A <: ElemDbl4, AA <: Dbl4SeqLike[A]] extends
 }
 
 /** Persists [[Dble4Elem] Collection classes. */
-abstract class Dbl4SeqLikePersist[A <: ElemDbl4, ArrA <: Dbl4SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
+abstract class Dbl4SeqLikePersist[A <: Dbl4Elem, ArrA <: Dbl4SeqLike[A]](val typeStr: String) extends DataDblNsPersist[A, ArrA]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Double], value: A): Unit =
   { buf += value.dbl1; buf += value.dbl2; buf += value.dbl3; buf += value.dbl4 }
@@ -96,8 +96,8 @@ abstract class Dbl4SeqLikePersist[A <: ElemDbl4, ArrA <: Dbl4SeqLike[A]](val typ
   override def syntaxDepthT(obj: ArrA): Int = 3
 }
 
-/** A specialised flat ArrayBuffer[Double] based trait for [[ElemDbl4]]s collections. */
-trait Dbl4Buff[A <: ElemDbl4] extends Any with DblNBuff[A]
+/** A specialised flat ArrayBuffer[Double] based trait for [[Dbl4Elem]]s collections. */
+trait Dbl4Buff[A <: Dbl4Elem] extends Any with DblNBuff[A]
 { type ArrT <: Dbl4Arr[A]
   def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): A
   override def elemProdSize: Int = 4

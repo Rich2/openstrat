@@ -2,9 +2,9 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait DblNPairElem[A1 <: ElemDblN, A2] extends ElemPair[A1, A2]
+trait DblNPairElem[A1 <: DblNElem, A2] extends PairElem[A1, A2]
 
-trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: DblNPairElem[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
+trait DblNPairArr[A1 <: DblNElem, ArrA1 <: DblNArr[A1], A2, A <: DblNPairElem[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
 { type ThisT <: DblNPairArr[A1, ArrA1, A2, A]
 
   def a1NumDbl: Int
@@ -14,19 +14,19 @@ trait DblNPairArr[A1 <: ElemDblN, ArrA1 <: DblNArr[A1], A2, A <: DblNPairElem[A1
 
   def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): ThisT
 
-  /*override def replaceA1Value(key: A2, newValue: A1)(implicit a2ClassTag: ClassTag[A2]): ThisT =
-  { val res = newFromArrays(new Array[Double](length * a1NumDbl), new Array[A2](length))
+  override def replaceA1Value(key: A2, newValue: A1): ThisT =
+  { val newA1s = new Array[Double](length * a1NumDbl)
+    a1ArrayDbl.copyToArray(newA1s)
+    val res = newFromArrays(newA1s, a2Array)
     var i = 0
-    pairForeach{ (a1, a2) =>
-      if (key == a2) res.unsafeSetElem()
-    }
+    while(i < length){ if (key == a2Index(i)) res.unsafeSetA1(i, newValue); i += 1 }
     res
-  }*/
+  }
 
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Double](length *a1NumDbl), new Array[A2](length))
 }
 
-trait DblNPairBuff[B1 <: ElemDblN, B2, B <: DblNPairElem[B1, B2]] extends PairBuff[B1, B2, B]
+trait DblNPairBuff[B1 <: DblNElem, B2, B <: DblNPairElem[B1, B2]] extends PairBuff[B1, B2, B]
 { /** The backing buffer for the B1 components. */
   def b1DblBuffer: ArrayBuffer[Double]
 
@@ -36,7 +36,7 @@ trait DblNPairBuff[B1 <: ElemDblN, B2, B <: DblNPairElem[B1, B2]] extends PairBu
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1.dblForeach(b1DblBuffer.append(_)); b2Buffer.append(b2) }
 }
 
-trait DblNPAirArrCommonBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
+trait DblNPAirArrCommonBuilder[B1 <: DblNElem, ArrB1 <: DblNArr[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
 PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, _]
   type B1BuffT <: DblNBuff[B1]
@@ -55,7 +55,7 @@ PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
-trait DblNPairArrMapBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, B <: DblNPairElem[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
+trait DblNPairArrMapBuilder[B1 <: DblNElem, ArrB1 <: DblNArr[B1], B2, B <: DblNPairElem[B1, B2], ArrB <: DblNPairArr[B1, ArrB1, B2, B]] extends
 DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: DblNPairBuff[B1, B2, B]
 
@@ -66,7 +66,7 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, 
   inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
-trait DblNPairArrFlatBuilder[B1 <: ElemDblN, ArrB1 <: DblNArr[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
+trait DblNPairArrFlatBuilder[B1 <: DblNElem, ArrB1 <: DblNArr[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends
 DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrFlatBuilder[B1, ArrB1, B2, ArrB]
 {
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { arr.a1ArrayDbl.foreach(buff.b1DblBuffer.append(_))
@@ -74,7 +74,7 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrFlatBuilder[B1, ArrB1,
 }
 
 /** Helper trait for Companion objects of [[DblNPairArr]] classes. */
-trait DblNPairArrCompanion[A1 <: ElemDblN, ArrA1 <: DblNArr[A1]]
+trait DblNPairArrCompanion[A1 <: DblNElem, ArrA1 <: DblNArr[A1]]
 {
   /** The number of [[Double]] values that are needed to construct an element of the defining-sequence. */
   def elemNumDbls: Int

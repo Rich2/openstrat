@@ -4,14 +4,14 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Pair element where the first element is an [[ElemIntN]]A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length
  *  of these elements [[Arr]]s of them can be be stored as and reconstructed from a single Array[Int] of primitive values */
-trait IntNPairElem[A1 <: ElemIntN, A2] extends ElemPair[A1, A2]
+trait IntNPairElem[A1 <: ElemIntN, A2] extends PairElem[A1, A2]
 
-/** An [[Arr]] of [[ElemPair]]s where the first component is an [[ElemIntN]]. */
+/** An [[Arr]] of [[PairElem]]s where the first component is an [[ElemIntN]]. */
 trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
 { type ThisT <: IntNPairArr[A1, ArrA1, A2, A]
 
   /** The number of [[Int]]s required to construct the first component of the pairs. */
-  def a1IntNum: Int
+  def a1NumInt: Int
 
   /** The backing Array for the first elements of the pairs. */
   def a1ArrayInt: Array[Int]
@@ -30,8 +30,18 @@ trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1
     newFromArrays(a1Buffer.toArray, a2Buffer.toArray)
   }
 
-  final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Int](length *a1IntNum), new Array[A2](length))
+  final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Int](length *a1NumInt), new Array[A2](length))
 
+  override def replaceA1Value(key: A2, newValue: A1): ThisT =
+  { val newA1s = new Array[Int](length * a1NumInt)
+    a1ArrayInt.copyToArray(newA1s)
+    val res = newFromArrays(newA1s, a2Array)
+    var i = 0
+    while (i < length) {
+      if (key == a2Index(i)) res.unsafeSetA1(i, newValue); i += 1
+    }
+    res
+  }
 }
 
 /** Specialised efficient [[Buff]] classes for accumulating pairs where the first component of the pair is and [[ElemIntN]]. */

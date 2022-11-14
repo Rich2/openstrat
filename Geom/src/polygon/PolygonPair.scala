@@ -11,14 +11,14 @@ object PolygonPair {
   implicit def buildImplicit[A2](implicit ct: ClassTag[A2]): ArrMapBuilder[PolygonPair[A2], PolygonPairArr[A2]] = new PolygonPairBuilder[A2]
 }
 
-final class PolygonPairArr[A2](val a1Array: Array[Array[Double]], val a2Array: Array[A2]) extends
+final class PolygonPairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends
   PolygonLikeDbl2PairArr[Pt2, Polygon, PolygonArr, A2, PolygonPair[A2]]
 { override type ThisT = PolygonPairArr[A2]
-  override def unsafeSetElem(i: Int, value: PolygonPair[A2]): Unit = { a1Array(i) = value.a1ArrayDbl; a2Array(i) = value.a2 }
+  override def unsafeSetElem(i: Int, value: PolygonPair[A2]): Unit = { a1ArrayDbls(i) = value.a1ArrayDbl; a2Array(i) = value.a2 }
   override def fElemStr: PolygonPair[A2] => String = _.toString
   override def typeStr: String = "PolygonPairArray"
-  override def apply(index: Int): PolygonPair[A2] = new PolygonPair[A2](a1Array(index), a2Array(index))
-  override def a1Arr: PolygonArr = new PolygonArr(a1Array)
+  override def apply(index: Int): PolygonPair[A2] = new PolygonPair[A2](a1ArrayDbls(index), a2Array(index))
+  override def a1Arr: PolygonArr = new PolygonArr(a1ArrayDbls)
   override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](array1, array2)
  // override def a1Buff: PolygonBuff = PolygonBuff()
   override def a1FromArrayDbl(array: Array[Double]): Polygon = new PolygonGen(array)
@@ -31,7 +31,7 @@ final class PolygonPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   override def uninitialised(length: Int): PolygonPairArr[A2] = new PolygonPairArr[A2](new Array[Array[Double]](length), new Array[A2](length))
 
   override def indexSet(seqLike: PolygonPairArr[A2], index: Int, value: PolygonPair[A2]): Unit =
-  { seqLike.a1Array(index) = value.a1ArrayDbl ; seqLike.a2Array(index) = value.a2 }
+  { seqLike.a1ArrayDbls(index) = value.a1ArrayDbl ; seqLike.a2Array(index) = value.a2 }
   override def newBuff(length: Int): PolygonPairBuff[A2] = PolygonPairBuff(length)
   override def buffToSeqLike(buff: PolygonPairBuff[A2]): PolygonPairArr[A2] = new PolygonPairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
   override def b1Builder: PolygonLikeMapBuilder[Pt2, Polygon] = Pt2.polygonMapBuildEv
