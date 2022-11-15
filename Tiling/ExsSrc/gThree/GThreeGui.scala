@@ -17,8 +17,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
-  var moves: Map[Player, HDirnArr] = scen.playersData
-  var movesNew: HDirnPathPairArr[Player] = scen.playerOrders
+  var moves: HDirnPathPairArr[Player] = scen.playerOrders
 
   val urect = Rect(1.4, 1)
 
@@ -38,25 +37,15 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: RArr[LineSegDraw] = players.someHCFlatMap { (p, hc) =>
-    val hss: HDirnArr = moves.withDefault(_ => HDirnArr())(p)
-
-    val lps1 = movesNew.flatMapOnA1{path => path.segHCs }
-
+    val lps1 = moves.flatMapOnA1{path => path.segHCs }
     val lps2 = proj.transLineSegPairs(lps1)
     lps2.pairMap((ls, p) => ls.draw(p.colour))
-    //hss.projLineSegs(hc, proj).map { ls => ls.draw(players.unSafeApply(hc).colour) }
   }
-
-  def mg1a: RArr[LineSegPair[Colour]] =
-    moves.flatMapArr { p => p._2.projLineSegs(scen.oPlayers.get(p._1), proj).map(ls => LineSegPair(ls, p._1.colour)) }
-
-  def mg1b: LineSegPairArr[Colour] =
-    moves.flatMapPairArr{p => p._2.projLineSegs(scen.oPlayers.get(p._1), proj).map(ls => LineSegPair(ls, p._1.colour)) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
     scen = scen.endTurn(moves)
-    moves = scen.playersData
+    moves = scen.playerOrders
     repaint()
     thisTop()
   }
@@ -73,8 +62,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
     case (RightButton, AnyArrHead(HPlayer(hc1, p)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
-      newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceValue(p, HDirnArr()) } { m => moves = moves.replaceValue(p, HDirnArr(m)) }
-      newM.fold[Unit]{ if (hc1 == hc2) movesNew = movesNew.replaceA1Value(p, HDirnPath(hc1)) } { m => movesNew = movesNew.replaceA1Value(p, HDirnPath(hc1, m)) }
+      newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceA1Value(p, HDirnPath(hc1)) } { m => moves = moves.replaceA1Value(p, HDirnPath(hc1, m)) }
       repaint()
     }
 

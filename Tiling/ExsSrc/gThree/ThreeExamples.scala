@@ -10,9 +10,6 @@ object ThreeScen1 extends ThreeScen
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 
-  override def playersData: Map[Player, HDirnArr] = Map(PlayerA.hSteps(HexDR, HStepLt), PlayerB.hSteps(HexDL, HexRt),
-    PlayerC.hSteps(HStepLt, HexDR, HexDL))
-
   override def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr[Player](PlayerA.hPath(4, 4, HexDR, HStepLt),
     PlayerB.hPath(4, 8, HexDL, HexRt), PlayerC.hPath(6, 10, HStepLt, HexDR, HexDL))
 }

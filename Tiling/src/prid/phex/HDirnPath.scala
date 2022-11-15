@@ -8,7 +8,15 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
   def startR: Int = unsafeArray(0)
   def startC: Int = unsafeArray(1)
   def startCen = HCen(unsafeArray(0), unsafeArray(1))
-  def segsNum: Int = unsafeArray.length - 2
+  def length: Int = unsafeArray.length - 2
+  def head: HDirn = HDirn.fromInt(unsafeArray(2))
+  def tail: HDirnPath = {
+    val newArray = new Array[Int]((length - 1).max0 + 2)
+    newArray(0) = unsafeArray(0)
+    newArray(1) = unsafeArray(1)
+    iUntilForeach(1, length)(i => newArray(i + 1) = unsafeArray(i + 2))
+    new HDirnPath(newArray)
+  }
 
   def segHCsForeach(f: LineSegHC => Unit): Unit =
   { var count = 0
@@ -17,7 +25,7 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
     var r2: Int = 0
     var c2: Int = 0
 
-    while (count < segsNum)
+    while (count < length)
     { val step = HDirn.fromInt(unsafeArray(count + 2))
       r2 = r1 + step.tr
       c2 = c1 + step.tc
@@ -30,21 +38,21 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
   }
 
   def segHCs: LineSegHCArr =
-  { val res = LineSegHCArr.uninitialised(segsNum)
+  { val res = LineSegHCArr.uninitialised(length)
     var i = 0
     segHCsForeach{ s => res.unsafeSetElem(i, s); i += 1 }
     res
   }
 
   def segHCsMap[B, ArrB <: Arr[B]](f: LineSegHC => B)(implicit build: ArrMapBuilder[B, ArrB], grider: HGridSys): ArrB =
-  { val res = build.uninitialised(segsNum)
+  { val res = build.uninitialised(length)
     var count = 0
     segHCsForeach{ s => res.unsafeSetElem(count, f(s)); count += 1 }
     res
   }
 
   def projLineSegs(implicit proj: HSysProjection): LineSegArr =
-  { val res = LineSegArr.uninitialised(segsNum)
+  { val res = LineSegArr.uninitialised(length)
     var count = 0
     segHCsForeach{ lh =>
       val ols = proj.transOptLineSeg(lh)
@@ -57,8 +65,8 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
 
 object HDirnPath
 {
-  def apply(startCen: HCen, steps: HDirn*): HDirnPath = {
-    val array = new Array[Int](steps.length + 2)
+  def apply(startCen: HCen, steps: HDirn*): HDirnPath =
+  { val array = new Array[Int](steps.length + 2)
     array(0) = startCen.int1
     array(1) = startCen.int2
     steps.iForeach{(i, d) => array(i + 2) = d.intValue }
