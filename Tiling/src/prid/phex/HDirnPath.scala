@@ -1,9 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import ostrat.geom._
-
-import scala.reflect.ClassTag
-//import collection.mutable.ArrayBuffer
+import ostrat.geom._, reflect.ClassTag
 
 /** A path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
 class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
@@ -56,6 +53,10 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
     }
     res
   }
+}
+
+object HDirnPath{
+  def apply(startCen: HCen, steps: HDirn*): HDirnPath = ???
 }
 
 /** An [[Arr]] of paths consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */

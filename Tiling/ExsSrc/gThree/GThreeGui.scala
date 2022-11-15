@@ -74,6 +74,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
     case (RightButton, AnyArrHead(HPlayer(hc1, p)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
       newM.fold[Unit]{ if (hc1 == hc2) moves = moves.replaceValue(p, HDirnArr()) } { m => moves = moves.replaceValue(p, HDirnArr(m)) }
+      newM.fold[Unit]{ if (hc1 == hc2) movesNew = movesNew.replaceA1Value(p, HDirnPath(hc1)) } { m => movesNew = movesNew.replaceA1Value(p, HDirnPath(hc1, m)) }
       repaint()
     }
 
