@@ -3,28 +3,28 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from a single [[Int]]. These are used in [[Int1Arr]] Array[Int] based collections. */
-trait ElemInt1 extends Any with ElemIntN
+trait Int1Elem extends Any with IntNElem
 { def intValue: Int
   @inline def int1 : Int = intValue
   override def intForeach(f: Int => Unit): Unit = { f(int1) }
 }
 
-trait Int1SeqLike[A <: ElemInt1] extends Any with IntNSeqLike[A]
+trait Int1SeqLike[A <: Int1Elem] extends Any with IntNSeqLike[A]
 { final override def elemProdSize: Int = 1
   final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(index) = elem.int1 }
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1) }
 }
 
-/** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[ElemInt1]]s. */
-trait Int1SeqSpec[A <: ElemInt1] extends Any with Int1SeqLike[A] with IntNSeqSpec[A]
+/** A specialised immutable, flat Array[Int] based trait defined by a data sequence of a type of [[Int1Elem]]s. */
+trait Int1SeqSpec[A <: Int1Elem] extends Any with Int1SeqLike[A] with IntNSeqSpec[A]
 { final override def ssIndex(index: Int): A = ssElem(unsafeArray(index))
 
   /** Constructs an element of the specifing sequence from an [[Int]] value. */
   def ssElem(intValue: Int): A
 }
 
-/** A specialised immutable, flat Array[Int] based collection of a type of [[ElemInt1]]s. */
-trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqLike[A]
+/** A specialised immutable, flat Array[Int] based collection of a type of [[Int1Elem]]s. */
+trait Int1Arr[A <: Int1Elem] extends Any with IntNArr[A] with Int1SeqLike[A]
 { final override def length: Int = unsafeArray.length
 
   /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
@@ -40,8 +40,8 @@ trait Int1Arr[A <: ElemInt1] extends Any with IntNArr[A] with Int1SeqLike[A]
   final override def elemEq(a1: A, a2: A): Boolean = a1.int1 == a2.int1
 }
 
-/** A specialised flat ArrayBuffer[Int] based trait for [[ElemInt1]]s collections. */
-trait Int1Buff[A <: ElemInt1] extends Any with IntNBuff[A]
+/** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
+trait Int1Buff[A <: Int1Elem] extends Any with IntNBuff[A]
 { type ArrT <: Int1Arr[A]
   final override def length: Int = unsafeBuffer.length
   def intToT(value: Int): A
@@ -62,7 +62,7 @@ trait Int1ArrCommonBuilder[ArrB <: Int1Arr[_]] extends IntNSeqLikeCommonBuilder[
 /** Trait for creating the ArrTBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to
  *  the B in ```map(f: A => B): ArrB``` function. */
-trait Int1ArrMapBuilder[A <: ElemInt1, ArrT <: Int1Arr[A]] extends Int1ArrCommonBuilder[ArrT] with IntNArrMapBuilder[A, ArrT]
+trait Int1ArrMapBuilder[A <: Int1Elem, ArrT <: Int1Arr[A]] extends Int1ArrCommonBuilder[ArrT] with IntNArrMapBuilder[A, ArrT]
 { type BuffT <: Int1Buff[A]
   final override def indexSet(seqLike: ArrT, index: Int, value: A): Unit =  seqLike.unsafeArray(index) = value.int1
   final override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.int1); () }
@@ -75,7 +75,7 @@ trait Int1ArrFlatBuilder[ArrT <: Int1Arr[_]] extends Int1ArrCommonBuilder[ArrT] 
 
 
 /** Helper class for companion objects of final [[Int1SeqSpec]] classes. */
-trait Int1SeqLikeCompanion[A <: ElemInt1, ArrA <: Int1SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
+trait Int1SeqLikeCompanion[A <: Int1Elem, ArrA <: Int1SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
 {
   final override def elemNumInts: Int = 1
 

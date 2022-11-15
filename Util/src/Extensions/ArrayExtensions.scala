@@ -37,7 +37,7 @@ class ArrayExtensions[A](val thisArray: Array[A]) extends AnyVal
 }
 
 /** Extension methods for Array[A <: ValueNElem] class */
-class ArrayValueNElemExtensions[A <: ElemValueN](val thisArray: Array[A]) extends AnyVal
+class ArrayValueNElemExtensions[A <: ValueNElem](val thisArray: Array[A]) extends AnyVal
 {
   def valueProducts[B <: ValueNArr[A]](implicit factory: Int => B): B = {
     val length = thisArray.length

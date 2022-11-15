@@ -78,15 +78,15 @@ trait SeqLikeDblNPairArrBuilder[B1E <: DblNElem, B1 <: DblNSeqLike[B1E], ArrB1 <
   final override def buffGrow(buff: BuffT, value: B): Unit = { buff.b1Buffer.append(value.a1ArrayDbl); buff.b2Buffer.append(value.a2) }
 }
 
-trait SeqLikeIntNPairElem[A1E <: ElemIntN, A1 <: IntNSeqLike[A1E], A2] extends SeqLikePairElem[A1E, A1, A2] with ArrayIntBackedPair[A1, A2]
+trait SeqLikeIntNPairElem[A1E <: IntNElem, A1 <: IntNSeqLike[A1E], A2] extends SeqLikePairElem[A1E, A1, A2] with ArrayIntBackedPair[A1, A2]
 
-trait SeqLikeIntNPairArr[A1E <: ElemIntN, A1 <: IntNSeqLike[A1E], ArrA1 <: Arr[A1], A2, A <: SeqLikeIntNPairElem[A1E, A1, A2]] extends
+trait SeqLikeIntNPairArr[A1E <: IntNElem, A1 <: IntNSeqLike[A1E], ArrA1 <: Arr[A1], A2, A <: SeqLikeIntNPairElem[A1E, A1, A2]] extends
   SeqLikePairArr[A1E, A1, ArrA1, A2, A] with ArrayIntBackedPairArr[A1, ArrA1, A2, A]
 { type ThisT <: SeqLikeIntNPairArr[A1E, A1, ArrA1, A2, A]
   //override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = fromArrays(new Array[Array[Int]](length), new Array[A2](length))
 }
 
-trait SeqLikeIntNPairBuff[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
+trait SeqLikeIntNPairBuff[B1E <: IntNElem, B1 <: IntNSeqLike[B1E], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]
 { def b1Buffer: ArrayBuffer[Array[Int]]
   final override def grow(newElem: B): Unit = { b1Buffer.append(newElem.a1ArrayInt); b2Buffer.append(newElem.a2) }
 
@@ -96,7 +96,7 @@ trait SeqLikeIntNPairBuff[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], B2, B <: SeqL
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1.unsafeArray); b2Buffer.append(b2) }
 }
 
-trait SeqLikeIntNPairArrBuilder[B1E <: ElemIntN, B1 <: IntNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends
+trait SeqLikeIntNPairArrBuilder[B1E <: IntNElem, B1 <: IntNSeqLike[B1E], ArrB1 <: Arr[B1], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends
   SeqLikePairArrBuilder[B1E, B1, ArrB1, B2, B, ArrB]
 { type BuffT <: SeqLikeIntNPairBuff[B1E, B1, B2, B]
   type B1BuffT <: ArrayIntBuff[B1]

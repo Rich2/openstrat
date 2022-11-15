@@ -4,12 +4,12 @@ import collection.mutable.ArrayBuffer
 
 /** A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length of these elements they can be be stored as and
  * reconstructed from a single Array[Int] of primitive values. */
-trait ElemIntN extends Any with ElemValueN
+trait IntNElem extends Any with ValueNElem
 { /** Performs the side effecting function on each [[Double]] in this Product element. */
   def intForeach(f: Int => Unit): Unit
 }
 
-trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayIntBacked
+trait IntNSeqLike[A <: IntNElem] extends Any with ValueNSeqLike[A] with ArrayIntBacked
 { type ThisT <: IntNSeqLike[A]
 
   /** Constructs the final type of these [[IntNSeqLike]] from an [[Array]][Int]. Mostly you will access this capability from the companion object or
@@ -26,7 +26,7 @@ trait IntNSeqLike[A <: ElemIntN] extends Any with ValueNSeqLike[A] with ArrayInt
   def intBufferAppend(buffer: ArrayBuffer[Int], elem: A): Unit
 }
 
-trait IntNSeqSpec[A <: ElemIntN] extends Any with IntNSeqLike[A] with ValueNSeqSpec[A] with ArrayIntBacked
+trait IntNSeqSpec[A <: IntNElem] extends Any with IntNSeqLike[A] with ValueNSeqSpec[A] with ArrayIntBacked
 { type ThisT <: IntNSeqSpec[A]
 
   override def ssReverse: ThisT =
@@ -38,7 +38,7 @@ trait IntNSeqSpec[A <: ElemIntN] extends Any with IntNSeqLike[A] with ValueNSeqS
 
 /** An immutable collection of Elements that inherit from a Product of an Atomic value: Double, Int, Long or Float. They are stored with a backing
  * Array[Int] They are named ProductInts rather than ProductIs because that name can easlily be confused with ProductI1s. */
-trait IntNArr[A <: ElemIntN] extends Any with ValueNArr[A] with IntNSeqLike[A]
+trait IntNArr[A <: IntNElem] extends Any with ValueNArr[A] with IntNSeqLike[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: IntNArr[A]
 
@@ -77,7 +77,7 @@ trait IntNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuil
   final override def newBuff(length: Int = 4): BuffT = fromIntBuffer(new ArrayBuffer[Int](length * elemProdSize))
 }
 
-trait IntNSeqLikeMapBuilder[B <: ElemIntN, BB <: IntNSeqLike[B]] extends IntNSeqLikeCommonBuilder[BB] with ValueNSeqLikeMapBuilder[B, BB]
+trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: IntNSeqLike[B]] extends IntNSeqLikeCommonBuilder[BB] with ValueNSeqLikeMapBuilder[B, BB]
 { type BuffT <:  IntNBuff[B]
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
@@ -86,7 +86,7 @@ trait IntNSeqLikeMapBuilder[B <: ElemIntN, BB <: IntNSeqLike[B]] extends IntNSeq
 /** Trait for creating the ArrTBuilder type class instances for [[IntNArr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait IntNArrMapBuilder[B <: ElemIntN, ArrB <: IntNArr[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
+trait IntNArrMapBuilder[B <: IntNElem, ArrB <: IntNArr[B]] extends IntNSeqLikeMapBuilder[B, ArrB] with ValueNArrMapBuilder[B, ArrB]
 
 /** Trait for creating the ArrTFlatBuilder type class instances for [[IntNArr]] final classes. Instances for [[ArrFlatBuilder] should go in the
  *  companion object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
@@ -96,7 +96,7 @@ trait IntNArrFlatBuilder[ArrB <: IntNArr[_]] extends IntNSeqLikeCommonBuilder[Ar
 }
 
 /** Specialised flat ArrayBuffer[Int] based collection class. */
-trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
+trait IntNBuff[A <: IntNElem] extends Any with ValueNBuff[A]
 { type ArrT <: IntNArr[A]
   def unsafeBuffer: ArrayBuffer[Int]
   def toArray: Array[Int] = unsafeBuffer.toArray[Int]
@@ -106,15 +106,15 @@ trait IntNBuff[A <: ElemIntN] extends Any with ValueNBuff[A]
 }
 
 /**  Class to persist specialised flat Array[Int] based collections. */
-trait IntNSeqLikePersist[A <: ElemIntN, M <: IntNSeqLike[A]] extends ValueNSeqLikePersist[A, M]
+trait IntNSeqLikePersist[A <: IntNElem, M <: IntNSeqLike[A]] extends ValueNSeqLikePersist[A, M]
 { type VT = Int
   override def fromBuffer(buf: ArrayBuffer[Int]): M = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Int] = BuffInt(0)
 }
 
-/** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[ElemIntN]] type of the of the
+/** Helper trait for Companion objects of [[IntNArr]] collection classes, where the type parameter ArrA is the [[IntNElem]] type of the of the
  *  collection class. */
-trait IntNSeqLikeCompanion[A <: ElemIntN, AA <: IntNSeqLike[A]]
+trait IntNSeqLikeCompanion[A <: IntNElem, AA <: IntNSeqLike[A]]
 { /** The number of [[Int]]s that are needed to construct an element of the defining-sequence. */
   def elemNumInts: Int
 
@@ -129,7 +129,7 @@ trait IntNSeqLikeCompanion[A <: ElemIntN, AA <: IntNSeqLike[A]]
 }
 
 /** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */
-trait IntNBuffCompanion[A <: ElemIntN, AA <: IntNBuff[A]]
+trait IntNBuffCompanion[A <: IntNElem, AA <: IntNBuff[A]]
 { /** apply factory method for [[IntNBuff]] final classes */
   def apply(elems: A*): AA
 

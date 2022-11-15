@@ -34,7 +34,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
   def vertsFold[B](init: B)(f: (B, VT) => B): B
 
   /** Map this collection of data elements to PolygonLike class of type BB. */
-  def map[B <: ElemValueN, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
+  def map[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
   {
     val res = build.uninitialised(vertsNum)
     vertsIForeach((i, a) => build.indexSet(res, i, f(a)))
@@ -64,7 +64,7 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
   def sidesForeach[U](f: SideT => U): Unit
 }
 
-trait PolygonValueN[VT <: ElemValueN] extends Any with PolygonLike[VT] with ValueNSeqSpec[VT]
+trait PolygonValueN[VT <: ValueNElem] extends Any with PolygonLike[VT] with ValueNSeqSpec[VT]
 { override def vertsForeach[U](f: VT => U): Unit = ssForeach(f)
   override def vertsNum: Int = ssLength
 }
@@ -79,7 +79,7 @@ trait PolygonLikeDbl2[VT <: Dbl2Elem] extends Any with PolygonLikeDblN[VT] with 
 trait PolygonLikeDbl3[VT <: Dbl3Elem] extends Any with PolygonLikeDblN[VT] with Dbl3SeqSpec[VT]
 
 /** A polygon whose elements are defined by [[Inte]]s. */
-trait PolygonLikeIntN[VT <: ElemIntN] extends Any with PolygonValueN[VT] with IntNSeqSpec[VT]
+trait PolygonLikeIntN[VT <: IntNElem] extends Any with PolygonValueN[VT] with IntNSeqSpec[VT]
 
 /** A polygon whose elements are defined by 2 [[int]]s. */
-trait PolygonLikeInt2[VT <: ElemInt2] extends Any with PolygonLikeIntN[VT] with Int2SeqSpec[VT]
+trait PolygonLikeInt2[VT <: Int2Elem] extends Any with PolygonLikeIntN[VT] with Int2SeqSpec[VT]

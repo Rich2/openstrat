@@ -6,9 +6,9 @@ import collection.mutable.ArrayBuffer
  *  as *  an Array of primitive values. Note the classes that extend this trait do not extend [[Product]] or its numbered sub traits, because the
  *  logical size of the product may not be the same as the number of primitive values, for example a LineSeg is a product of 2 [[Pt2]]s, but is
  *  composed from 4 [[Double]] values. */
-trait ElemValueN extends Any with SpecialT
+trait ValueNElem extends Any with SpecialT
 
-trait ValueNSeqLike[A <: ElemValueN] extends Any with SeqLike[A]
+trait ValueNSeqLike[A <: ValueNElem] extends Any with SeqLike[A]
 { type ThisT <: ValueNSeqLike[A]
   /** The number of atomic values, Ints, Doubles, Longs etc that specify / construct an element of this immutable flat Array based collection
    * class. */
@@ -20,7 +20,7 @@ trait ValueNSeqLike[A <: ElemValueN] extends Any with SeqLike[A]
 
 /** An immutable trait defined by  a collection of homogeneous value products. The underlying array is Array[Double], Array[Int] etc. The descendant
  *  classes include both [[Arr]s and classes like polygons and lines. */
-trait ValueNSeqSpec[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqSpec[A]
+trait ValueNSeqSpec[A <: ValueNElem] extends Any with ValueNSeqLike[A] with SeqSpec[A]
 { type ThisT <: ValueNSeqSpec[A]
 
   /** Checks if 2 values of the specifying sequence are equal. */
@@ -45,7 +45,7 @@ trait ValueNSeqSpec[A <: ElemValueN] extends Any with ValueNSeqLike[A] with SeqS
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ValueNArr[A <: ElemValueN] extends Any with ArrSingle[A] with ValueNSeqLike[A]
+trait ValueNArr[A <: ValueNElem] extends Any with ArrSingle[A] with ValueNSeqLike[A]
 { type ThisT <: ValueNArr[A]
 
   /** Checks if 2 values of the specifying sequence are equal. */
@@ -87,7 +87,7 @@ trait ValueNArr[A <: ElemValueN] extends Any with ArrSingle[A] with ValueNSeqLik
 
 /** Specialised flat arraybuffer based collection class, where the underlying ArrayBuffer element is an atomic value like [[Int]], [[Double]] or
  *  [[Long]]. */
-trait ValueNBuff[A <: ElemValueN] extends Any with Buff[A]
+trait ValueNBuff[A <: ValueNElem] extends Any with Buff[A]
 { type ArrT <: ValueNArr[A]
   def elemProdSize: Int
   def grow(newElem: A): Unit
@@ -104,7 +104,7 @@ trait ValueNSeqLikeMapBuilder[B, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBu
 
 /** Trait for creating the ArrTBuilder. Instances for the [[ArrMapBuilder]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait ValueNArrMapBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ValueNSeqLikeMapBuilder[B, ArrB] with ArrMapBuilder[B, ArrB]
+trait ValueNArrMapBuilder[B <: ValueNElem, ArrB <: ValueNArr[B]] extends ValueNSeqLikeMapBuilder[B, ArrB] with ArrMapBuilder[B, ArrB]
 { type BuffT <: ValueNBuff[B]
 }
 
@@ -114,7 +114,7 @@ trait ValueNArrMapBuilder[B <: ElemValueN, ArrB <: ValueNArr[B]] extends ValueNS
 trait ValueNArrFlatBuilder[ArrB <: ValueNArr[_]] extends ValueNSeqLikeCommonBuilder[ArrB] with ArrFlatBuilder[ArrB]
 
 /** Class to Persist specialised for [[DatValueNs]] cLasses. */
-trait ValueNSeqLikePersist[A <: ElemValueN, M <: ValueNSeqLike[A]] extends PersistCompound[M]
+trait ValueNSeqLikePersist[A <: ValueNElem, M <: ValueNSeqLike[A]] extends PersistCompound[M]
 { /** Atomic Value type normally Double or Int. */
   type VT
   def appendtoBuffer(buf: ArrayBuffer[VT], value: A): Unit

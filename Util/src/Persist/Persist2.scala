@@ -65,7 +65,7 @@ trait Show2[A1, A2] extends Any with ShowN with TypeStr2[A1, A2]
 /** Trait for Show for product of 2 Ints that is also an ElemInt2. This trait is implemented directly by the type in question, unlike the
  *  corresponding [[ShowShowInt2T]] trait which externally acts on an object of the specified type to create its String representations. For your own
  *  types ShowProduct is preferred over [[Show2T]]. */
-trait ShowElemInt2 extends Any with Show2[Int, Int] with ElemInt2
+trait ShowElemInt2 extends Any with Show2[Int, Int] with Int2Elem
 { final override implicit def showT1: ShowT[Int] = ShowT.intPersistEv
   final override implicit def showT2: ShowT[Int] = ShowT.intPersistEv
   final override def syntaxDepth: Int = 2
@@ -257,7 +257,7 @@ class PersistShowDbl2[R <: ShowDbl2](val typeStr: String, val name1: String, val
 }
 
 /**  Class to persist [[Int2Arr]] collection classes. */
-abstract class PersistArrInt2s[A <: ElemInt2, M <: Int2Arr[A]](val typeStr: String) extends IntNSeqLikePersist[A, M]
+abstract class PersistArrInt2s[A <: Int2Elem, M <: Int2Arr[A]](val typeStr: String) extends IntNSeqLikePersist[A, M]
 {
   override def appendtoBuffer(buf: ArrayBuffer[Int], value: A): Unit =
   { buf += value.int1

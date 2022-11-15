@@ -3,20 +3,20 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** A class that can be constructed from a fixed number of [[Long]]s. It can be stored as an Array[Long] of primitive values. */
-trait ElemLongN extends Any with ElemValueN
+trait LongNElem extends Any with ValueNElem
 
-trait LongNSeqSpec[A <: ElemLongN] extends Any with ValueNSeqSpec[A]
+trait LongNSeqSpec[A <: LongNElem] extends Any with ValueNSeqSpec[A]
 { def unsafeArray: Array[Long]
   final def unsafeLength: Int = unsafeArray.length
 }
 
 /** Base trait for Array[Long] based collections of Products of Longs. */
-trait LongNArr[A <: ElemLongN] extends Any with LongNSeqSpec[A] with ValueNArr[A]
+trait LongNArr[A <: LongNElem] extends Any with LongNSeqSpec[A] with ValueNArr[A]
 {
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */
-trait LongNBuff[A <: ElemLongN] extends Any with ValueNBuff[A]
+trait LongNBuff[A <: LongNElem] extends Any with ValueNBuff[A]
 { def unsafeBuffer: ArrayBuffer[Long]
   def toArray: Array[Long] = unsafeBuffer.toArray[Long]
 //  def unBuff: M
@@ -27,14 +27,14 @@ trait LongNBuff[A <: ElemLongN] extends Any with ValueNBuff[A]
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[LongNArr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. Instances for [[ArrFlatBuilder] should go in the companion
  *  object the ArrT final class. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait LongNSeqDefPersist[B <: ElemLongN, ArrB <: LongNArr[B]] extends ValueNSeqLikePersist[B, ArrB]
+trait LongNSeqDefPersist[B <: LongNElem, ArrB <: LongNArr[B]] extends ValueNSeqLikePersist[B, ArrB]
 { type VT = Long
   override def fromBuffer(buf: ArrayBuffer[Long]): ArrB = fromArray(buf.toArray)
   override def newBuffer: ArrayBuffer[Long] = BufferLong(0)
 }
 
 /** Helper trait for Companion objects of [[LongNArr]] classes. */
-trait LongNSeqDefCompanion[A <: ElemLongN, ArrA <: LongNSeqSpec[A]]// extends SeqLikeCompanion[A, ArrA]
+trait LongNSeqDefCompanion[A <: LongNElem, ArrA <: LongNSeqSpec[A]]// extends SeqLikeCompanion[A, ArrA]
 { def fromBuffer(buff: ArrayBuffer[Long]): ArrA = fromArray(buff.toArray[Long])
   def fromArray(array: Array[Long]): ArrA
 

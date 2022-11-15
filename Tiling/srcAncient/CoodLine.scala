@@ -3,7 +3,7 @@ package ostrat; package pGrid
 import geom._, scala.collection.mutable.ArrayBuffer
 
 /** A 2d line defined by its start and end Tile Cood. */
-case class CoodLine(x1: Int, y1: Int, x2: Int, y2: Int) extends ElemInt4
+case class CoodLine(x1: Int, y1: Int, x2: Int, y2: Int) extends Int4Elem
 {
   def int1 = x1
   def int2 = y1

@@ -3,7 +3,7 @@ package ostrat
 import geom._, pWeb._, collection.mutable.ArrayBuffer, pParse._
 
 /** The argbValue must start with 0xFF if the default full opacity is required. So 0xFFFF0000 gives full opacity Red */
-class Colour(val argbValue: Int) extends AnyVal with FillFacet with ElemInt1
+class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
 { 
   override def toString: String = Colour.persistImplicit.strT(this)
 

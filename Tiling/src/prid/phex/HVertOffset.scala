@@ -1,7 +1,7 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-class HVOffset private (val intValue: Int) extends AnyVal with ElemInt1
+class HVOffset private (val intValue: Int) extends AnyVal with Int1Elem
 { /** bits 2 - 0 */
   def dirn1: HDirnOpt = HDirnOpt.fromInt(intValue % TwoPower3)
 

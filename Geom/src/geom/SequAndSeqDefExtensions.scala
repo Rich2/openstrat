@@ -5,14 +5,14 @@ package ostrat; package geom
 class SeqSpecExtensions[A](val al : SeqSpec[A])
 {
   /** Map this collection of data elements to [[LinePathLike]] class of type BB. */
-  def mapLinePath[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
+  def mapLinePath[B <: ValueNElem, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.uninitialised(al.ssLength)
     al.ssIForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
   /** Map this collection of data elements to [[PolygonLike]] class of type BB. */
-  def mapPolygon[B <: ElemValueN, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
+  def mapPolygon[B <: ValueNElem, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
   { val res = build.uninitialised(al.ssLength)
     al.ssIForeach((i, a) => build.indexSet(res, i, f(a)))
     res
@@ -34,14 +34,14 @@ class SeqSpecExtensions[A](val al : SeqSpec[A])
 class SequExtensions[A](val al : Sequ[A])
 {
   /** Map this collection of data elements to [[LinePathLike]] class of type BB. */
-  def mapLinePath[B <: ElemValueN, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
+  def mapLinePath[B <: ValueNElem, BB <: LinePathLike[B]](f: A => B)(implicit build: LinePathBuilder[B, BB]): BB =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
   /** Map this collection of data elements to [[PolygonLike]] class of type BB. */
-  def mapPolygon[B <: ElemValueN, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
+  def mapPolygon[B <: ValueNElem, BB <: PolygonLike[B]](f: A => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
   { val res = build.uninitialised(al.length)
     al.iForeach((i, a) => build.indexSet(res, i, f(a)))
     res

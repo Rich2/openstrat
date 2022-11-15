@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import collection.mutable.ArrayBuffer
 
 /** Hex centre origin and hex step. */
-class HStepCen(val stepInt: Int, val r2: Int, val c2: Int) extends ElemInt3
+class HStepCen(val stepInt: Int, val r2: Int, val c2: Int) extends Int3Elem
 { def step: HDirn = HDirn.fromInt(stepInt)
 
   /** The Starting hex centre. */

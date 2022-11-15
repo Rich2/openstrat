@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import collection.mutable.ArrayBuffer
 
 /** A hex grid step representing the starting [[HCen]] of the step as well as the [[HDirn]] singleton object itself. */
-class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends ElemInt3
+class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
 { /** The Starting hex centre. */
   def startHC: HCen = HCen(r1, c1)
 

@@ -512,7 +512,7 @@ package object ostrat
   implicit class RangeExtensions(range: Range)
   {
     /** maps to a [[Arr]] rather than a standard Scala collection class. */
-    def mapArr[B <: ElemValueN , M <: Arr[B]](f: Int => B)(implicit build: ArrMapBuilder[B, M]): M =
+    def mapArr[B <: ValueNElem , M <: Arr[B]](f: Int => B)(implicit build: ArrMapBuilder[B, M]): M =
     { val res = build.uninitialised(range.size)
       var count: Int = 0
       range.foreach { orig =>
@@ -532,12 +532,12 @@ package object ostrat
   implicit def AnyTypeToExtensions[T](thisT: T): AnyTypeExtensions[T] = new AnyTypeExtensions[T](thisT)
   implicit def AnyRefTypeToExtensions[T <: AnyRef](thisT: T): AnyRefTypeExtensions[T] = new AnyRefTypeExtensions[T](thisT)
   implicit def arrayToExtensions[A](arr: Array[A]): ArrayExtensions[A] = new ArrayExtensions[A](arr)
-  implicit def arrayValueNElemToExtensions[A <: ElemValueN](arr: Array[A]): ArrayValueNElemExtensions[A] = new ArrayValueNElemExtensions[A](arr)
+  implicit def arrayValueNElemToExtensions[A <: ValueNElem](arr: Array[A]): ArrayValueNElemExtensions[A] = new ArrayValueNElemExtensions[A](arr)
   implicit def booleanToExtensions(b: Boolean): BooleanExtensions = new BooleanExtensions(b)
   implicit def doubleToExtensions(d: Double): DoubleImplicit = new DoubleImplicit(d)
   implicit def intToExtensions(i: Int): IntExtensions = new IntExtensions(i)
   implicit def iterableToExtensions[A](iter: Iterable[A]): IterableExtensions[A] = new IterableExtensions[A](iter)
-  implicit def iterableValueNElemToExtensions[A <: ElemValueN](iter: Iterable[A]): IterableValueNElemExtensions[A] = new IterableValueNElemExtensions[A](iter)
+  implicit def iterableValueNElemToExtensions[A <: ValueNElem](iter: Iterable[A]): IterableValueNElemExtensions[A] = new IterableValueNElemExtensions[A](iter)
   implicit def listToExtensions[A](thisList: List[A]): ListExtensions[A] = new ListExtensions[A](thisList)
 
   implicit def charToExtensions(thisChar: Char): CharExtensions = new CharExtensions(thisChar)

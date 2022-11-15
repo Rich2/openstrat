@@ -20,7 +20,7 @@ object HDirnOpt
 case object HDirnNone extends HDirnOpt
 
 /** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. */
-sealed trait HDirn extends TDirnSided with ElemInt1 with HDirnOpt
+sealed trait HDirn extends TDirnSided with Int1Elem with HDirnOpt
 { /** The delta [[HCen]] of this step inside a hex grid. */
   def hCenDelta: HCen = HCen(tr, tc)
   def intValue: Int

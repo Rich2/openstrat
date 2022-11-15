@@ -2,12 +2,12 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** Pair element where the first element is an [[ElemIntN]]A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length
+/** Pair element where the first element is an [[IntNElem]]A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length
  *  of these elements [[Arr]]s of them can be be stored as and reconstructed from a single Array[Int] of primitive values */
-trait IntNPairElem[A1 <: ElemIntN, A2] extends PairElem[A1, A2]
+trait IntNPairElem[A1 <: IntNElem, A2] extends PairElem[A1, A2]
 
-/** An [[Arr]] of [[PairElem]]s where the first component is an [[ElemIntN]]. */
-trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
+/** An [[Arr]] of [[PairElem]]s where the first component is an [[IntNElem]]. */
+trait IntNPairArr[A1 <: IntNElem, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
 { type ThisT <: IntNPairArr[A1, ArrA1, A2, A]
 
   /** The number of [[Int]]s required to construct the first component of the pairs. */
@@ -44,8 +44,8 @@ trait IntNPairArr[A1 <: ElemIntN, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1
   }
 }
 
-/** Specialised efficient [[Buff]] classes for accumulating pairs where the first component of the pair is and [[ElemIntN]]. */
-trait IntNPairBuff[B1 <: ElemIntN, B2, B <: IntNPairElem[B1, B2]] extends PairBuff[B1, B2, B]
+/** Specialised efficient [[Buff]] classes for accumulating pairs where the first component of the pair is and [[IntNElem]]. */
+trait IntNPairBuff[B1 <: IntNElem, B2, B <: IntNPairElem[B1, B2]] extends PairBuff[B1, B2, B]
 { def b1IntBuffer: ArrayBuffer[Int]
 
   final def growArr(newElems: IntNPairArr[B1, _, B2, B]): Unit =
@@ -56,7 +56,7 @@ trait IntNPairBuff[B1 <: ElemIntN, B2, B <: IntNPairElem[B1, B2]] extends PairBu
   final override def pairGrow(b1: B1, b2: B2): Unit = { b1.intForeach(b1IntBuffer.append(_)); b2Buffer.append(b2) }
 }
 
-trait IntNPAirArrCommonBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, ArrB <: IntNPairArr[B1, ArrB1, B2, _]] extends
+trait IntNPAirArrCommonBuilder[B1 <: IntNElem, ArrB1 <: IntNArr[B1], B2, ArrB <: IntNPairArr[B1, ArrB1, B2, _]] extends
   PairArrCommonBuilder[B1, ArrB1, B2, ArrB]
 { type BuffT <: IntNPairBuff[B1, B2, _]
   type B1BuffT <: IntNBuff[B1]
@@ -75,7 +75,7 @@ trait IntNPAirArrCommonBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, ArrB <:
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = arrFromArrays(a1Buff.toArray, b2s.toArray)
 }
 
-trait IntNPairArrMapBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: IntNPairElem[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
+trait IntNPairArrMapBuilder[B1 <: IntNElem, ArrB1 <: IntNArr[B1], B2, B <: IntNPairElem[B1, B2], ArrB <: IntNPairArr[B1, ArrB1, B2, B]] extends
   IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: IntNPairBuff[B1, B2, B]
 
@@ -90,7 +90,7 @@ trait IntNPairArrMapBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, B <: IntNP
   inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
 }
 
-trait IntNPairArrFlatBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, ArrB <: IntNPairArr[B1, ArrB1, B2, _]] extends
+trait IntNPairArrFlatBuilder[B1 <: IntNElem, ArrB1 <: IntNArr[B1], B2, ArrB <: IntNPairArr[B1, ArrB1, B2, _]] extends
   IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrFlatBuilder[B1, ArrB1, B2, ArrB]
 {
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { arr.a1ArrayInt.foreach(buff.b1IntBuffer.append(_))
@@ -98,7 +98,7 @@ trait IntNPairArrFlatBuilder[B1 <: ElemIntN, ArrB1 <: IntNArr[B1], B2, ArrB <: I
 }
 
 /** Helper trait for Companion objects of [[IntNPairArr]] classes. */
-trait IntNPairArrCompanion[A1 <: ElemIntN, ArrA1 <: IntNArr[A1]]
+trait IntNPairArrCompanion[A1 <: IntNElem, ArrA1 <: IntNArr[A1]]
 {
   /** The number of [[Int]] values that are needed to construct an element of the defining-sequence. */
   def elemNumInts: Int

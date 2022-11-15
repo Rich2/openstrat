@@ -141,7 +141,7 @@ package object geom
     def toPolygon[PT <: PolygonLikeDblN[A]](implicit build: PolygonDblNsBuilder[A, PT]): PT = build.fromDblArray(thisBuff.unsafeBuffer.toArray)
   }
 
-  implicit class BuffIntExtensionsImplicit[A <: ElemIntN](val thisBuff: IntNBuff[A])
+  implicit class BuffIntExtensionsImplicit[A <: IntNElem](val thisBuff: IntNBuff[A])
   { /** Extension method to create Polygons from [[IntNBuff]]. Takes an implicit [[PolygonIntNsBuilder]] parameter to return the [[PolygonLikeIntN]] */
     def toPolygon[PT <: PolygonLikeIntN[A]](implicit build: PolygonIntNsBuilder[A, PT]): PT = build.fromIntArray(thisBuff.unsafeBuffer.toArray)
   }

@@ -9,7 +9,7 @@ trait LineSegLikePairArr[VT, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: L
 {
   /** Maps this to a new [LineSegLikePairArr]] by mapping [[LineSegLike]]s to new [[LineSegLike]]s of type B1 leaving the second parts of the pairs
    * unchanged. */
-  def lineSegMapToPair[B1V <: ElemValueN, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B <: LineSegLikePair[B1V, B1, A2],
+  def lineSegMapToPair[B1V <: ValueNElem, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B <: LineSegLikePair[B1V, B1, A2],
     ArrB <: LineSegLikePairArr[B1V, B1, ArrB1, A2, B]](f: VT => B1V)(implicit build: LineSegLikePairArrBuilder[B1V, B1, ArrB1, A2, B, ArrB]): ArrB =
   { val lineSegs = a1Arr.map(p => p.map[B1V, B1](f)(build.b1Builder))(build.b1ArrBuilder)
     build.arrFromArrAndArray(lineSegs, a2Array)
@@ -28,16 +28,16 @@ trait LineSegLikePairArrBuilder[B1V, B1 <: LineSegLike[B1V], ArrB1 <: Arr[B1], B
   def b1Builder: LineSegLikeMapBuilder[B1V, B1]
 }
 
-trait LineSegLikeIntNPair[VT <: ElemIntN, A1 <: LineSegLikeIntN[VT], A2] extends LineSegLikePair[VT, A1, A2] with IntNPairElem[A1, A2]
+trait LineSegLikeIntNPair[VT <: IntNElem, A1 <: LineSegLikeIntN[VT], A2] extends LineSegLikePair[VT, A1, A2] with IntNPairElem[A1, A2]
 
-trait LineSegLikeIntNPairArr[VT <: ElemIntN, A1 <: LineSegLikeIntN[VT], ArrA1 <: IntNArr[A1], A2, A <: LineSegLikeIntNPair[VT, A1, A2]] extends
+trait LineSegLikeIntNPairArr[VT <: IntNElem, A1 <: LineSegLikeIntN[VT], ArrA1 <: IntNArr[A1], A2, A <: LineSegLikeIntNPair[VT, A1, A2]] extends
   LineSegLikePairArr[VT, A1, ArrA1, A2, A] with IntNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A]
 }
 
-trait LineSegLikeInt4Pair[VT <: ElemInt2, A1 <: LineSegLikeInt4[VT], A2] extends LineSegLikeIntNPair[VT, A1, A2] with Int4PairElem[A1, A2]
+trait LineSegLikeInt4Pair[VT <: Int2Elem, A1 <: LineSegLikeInt4[VT], A2] extends LineSegLikeIntNPair[VT, A1, A2] with Int4PairElem[A1, A2]
 
-trait LineSegLikeInt4PairArr[VT <: ElemInt2, A1 <: LineSegLikeInt4[VT], ArrA1 <: Int4Arr[A1], A2, A <: LineSegLikeInt4Pair[VT, A1, A2]] extends
+trait LineSegLikeInt4PairArr[VT <: Int2Elem, A1 <: LineSegLikeInt4[VT], ArrA1 <: Int4Arr[A1], A2, A <: LineSegLikeInt4Pair[VT, A1, A2]] extends
 LineSegLikeIntNPairArr[VT, A1, ArrA1, A2, A] with Int4PairArr[A1, ArrA1, A2, A]
 { final override def a1NumInt: Int = 4
 }

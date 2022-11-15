@@ -2,12 +2,12 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait Int2PairElem[A1 <: ElemInt2, A2] extends IntNPairElem[A1, A2]
+trait Int2PairElem[A1 <: Int2Elem, A2] extends IntNPairElem[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int
 }
 
-trait Int2PairArr[A1 <: ElemInt2, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
+trait Int2PairArr[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: Int2PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
@@ -26,7 +26,7 @@ trait Int2PairArr[A1 <: ElemInt2, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1
   final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInt(index * 2) = value.int1; a1ArrayInt(index * 2 + 1) = value.int1 }
 }
 
-trait Int2PairBuff[A1 <: ElemInt2, A2, A <: Int2PairElem[A1, A2]] extends IntNPairBuff[A1, A2, A]
+trait Int2PairBuff[A1 <: Int2Elem, A2, A <: Int2PairElem[A1, A2]] extends IntNPairBuff[A1, A2, A]
 { /** Constructs new pair element from 2 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, a2: A2): A
   inline final override def apply(index: Int): A = newElem(b1IntBuffer (index * 2), b1IntBuffer(index * 2 + 1), b2Buffer(index))
@@ -50,7 +50,7 @@ trait Int2PairBuff[A1 <: ElemInt2, A2, A <: Int2PairElem[A1, A2]] extends IntNPa
   }
 }
 
-trait Int2PairArrMapBuilder[B1 <: ElemInt2, ArrB1 <: Int2Arr[B1], B2, B <: Int2PairElem[B1, B2], ArrB <: Int2PairArr[B1, ArrB1, B2, B]] extends
+trait Int2PairArrMapBuilder[B1 <: Int2Elem, ArrB1 <: Int2Arr[B1], B2, B <: Int2PairElem[B1, B2], ArrB <: Int2PairArr[B1, ArrB1, B2, B]] extends
   IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int2PairBuff[B1, B2, B]
   final override def a1IntNum: Int = 2
@@ -62,7 +62,7 @@ trait Int2PairArrMapBuilder[B1 <: ElemInt2, ArrB1 <: Int2Arr[B1], B2, B <: Int2P
   }
 }
 
-trait Int2PairArrCompanion[A1 <: ElemInt2, ArrA1 <: Int2Arr[A1]] extends IntNPairArrCompanion[A1, ArrA1]
+trait Int2PairArrCompanion[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1]] extends IntNPairArrCompanion[A1, ArrA1]
 {
   override def elemNumInts: Int = 2
 

@@ -6,7 +6,7 @@ import collection.mutable.ArrayBuffer
 import scala.reflect.ClassTag
 
 /** A 2d line upon a HexGrid defined by its start and end [[HGrid]] [[HCoord]]s. */
-case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLikeInt4[HCoord] with ElemInt4
+case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLikeInt4[HCoord] with Int4Elem
 { def int1: Int = r1
   def int2: Int = c1
   def int3: Int = r2

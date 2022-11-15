@@ -2,17 +2,17 @@
 package ostrat
 import reflect.ClassTag
 
-/** Pair where the first component is an [[ElemInt4]]. This allows these pair elements to be stored efficently in [[Int4PAirArr]]s, where the first
- * [[ElemInt4]] components are backed bya single [[Array]][Int]. */
-trait Int4PairElem[A1 <: ElemInt4, A2] extends IntNPairElem[A1, A2]
+/** Pair where the first component is an [[Int4Elem]]. This allows these pair elements to be stored efficently in [[Int4PAirArr]]s, where the first
+ * [[Int4Elem]] components are backed bya single [[Array]][Int]. */
+trait Int4PairElem[A1 <: Int4Elem, A2] extends IntNPairElem[A1, A2]
 { def a1Int1: Int
   def a1Int2: Int
   def a1Int3: Int
   def a1Int4: Int
 }
 
-/** An [[Arr]] of [[PairElem]]s where the first component is an [[ElemInt4]]. */
-trait Int4PairArr[A1 <: ElemInt4, ArrA1 <: Int4Arr[A1], A2, A <: Int4PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
+/** An [[Arr]] of [[PairElem]]s where the first component is an [[Int4Elem]]. */
+trait Int4PairArr[A1 <: Int4Elem, ArrA1 <: Int4Arr[A1], A2, A <: Int4PairElem[A1, A2]] extends IntNPairArr[A1, ArrA1, A2, A]
 { type ThisT <: Int4PairArr[A1, ArrA1, A2, A]
 
   /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
@@ -30,7 +30,7 @@ trait Int4PairArr[A1 <: ElemInt4, ArrA1 <: Int4Arr[A1], A2, A <: Int4PairElem[A1
     a1ArrayInt(index * 4 + 2) = value.int3; a1ArrayInt(index * 4 + 2) = value.int3 }
 }
 
-trait Int4PairBuff[B1 <: ElemInt4, B2, B <: Int4PairElem[B1, B2]] extends IntNPairBuff[B1, B2, B]
+trait Int4PairBuff[B1 <: Int4Elem, B2, B <: Int4PairElem[B1, B2]] extends IntNPairBuff[B1, B2, B]
 { /** Constructs new pair element from 3 [[Int]]s and a third parameter of type A2. */
   def newElem(int1: Int, int2: Int, int3: Int, int4: Int, a2: B2): B
 
@@ -54,14 +54,14 @@ trait Int4PairBuff[B1 <: ElemInt4, B2, B <: Int4PairElem[B1, B2]] extends IntNPa
   }
 }
 
-trait Int4PairArrCommonBuilder[B1 <: ElemInt4, ArrB1 <: Int4Arr[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
+trait Int4PairArrCommonBuilder[B1 <: Int4Elem, ArrB1 <: Int4Arr[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
 IntNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB]
 { type BuffT <: Int4PairBuff[B1, B2, _]
   type B1BuffT <: Int4Buff[B1]
 
 }
 
-trait Int4PairArrMapBuilder[B1 <: ElemInt4, ArrB1 <: Int4Arr[B1], B2, B <: Int4PairElem[B1, B2], ArrB <: Int4PairArr[B1, ArrB1, B2, B]] extends
+trait Int4PairArrMapBuilder[B1 <: Int4Elem, ArrB1 <: Int4Arr[B1], B2, B <: Int4PairElem[B1, B2], ArrB <: Int4PairArr[B1, ArrB1, B2, B]] extends
 Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrMapBuilder[B1, ArrB1, B2, B, ArrB]
 { type BuffT <: Int4PairBuff[B1, B2, B]
 
@@ -76,10 +76,10 @@ Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrMapBuilder[B1, Ar
   }
 }
 
-trait Int4PairArrFlatBuilder[B1 <: ElemInt4, ArrB1 <: Int4Arr[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
+trait Int4PairArrFlatBuilder[B1 <: Int4Elem, ArrB1 <: Int4Arr[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
   Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrFlatBuilder[B1, ArrB1, B2, ArrB]
 
-trait Int4PairArrCompanion[A1 <: ElemInt4, ArrA1 <: Int4Arr[A1]] extends IntNPairArrCompanion[A1, ArrA1]
+trait Int4PairArrCompanion[A1 <: Int4Elem, ArrA1 <: Int4Arr[A1]] extends IntNPairArrCompanion[A1, ArrA1]
 {
   override def elemNumInts: Int = 4
 

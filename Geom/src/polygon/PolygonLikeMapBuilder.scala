@@ -13,7 +13,7 @@ trait PolygonBuilderData[B, +BB <: PolygonLike[B]] extends PolygonLikeMapBuilder
 
 /** Trait for creating the line path builder instances for the [[PolygonLikeMapBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait PolygonValueNsBuilder[B <: ElemValueN, BB <: PolygonValueN[B]] extends PolygonBuilderData[B, BB] with ValueNSeqLikeCommonBuilder[BB]
+trait PolygonValueNsBuilder[B <: ValueNElem, BB <: PolygonValueN[B]] extends PolygonBuilderData[B, BB] with ValueNSeqLikeCommonBuilder[BB]
 
 /** Trait for creating the builder type class instances for [[PolygonLikeDblN]] final classes. Instances for the [[PolygonLikeMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
@@ -39,9 +39,9 @@ trait PolygonDbl3sBuilder[B <: Dbl3Elem, BB <: PolygonLikeDbl3[B]] extends Polyg
 /** Trait for creating the builder type class instances for [[PolygonLikeDblN]] final classes. Instances for the [[PolygonLikeMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
  *  ```map(f: A => B): ArrB``` function. */
-trait PolygonIntNsBuilder[B <: ElemIntN, BB <: PolygonLikeIntN[B] ] extends PolygonValueNsBuilder[B, BB] with IntNSeqLikeMapBuilder[B, BB]
+trait PolygonIntNsBuilder[B <: IntNElem, BB <: PolygonLikeIntN[B] ] extends PolygonValueNsBuilder[B, BB] with IntNSeqLikeMapBuilder[B, BB]
 
 /** Trait for creating the line path type class instances for [[PolygonLikeInt2]] final classes. Instances for the [[PolygonInt2sBuilder]] type class,
- *  for classes / traits you control, should go in the companion object of type B, which will extend [[ElemInt2]]. The first type parameter is called
+ *  for classes / traits you control, should go in the companion object of type B, which will extend [[Int2Elem]]. The first type parameter is called
  *  B, because it corresponds to the B in ```map[B](f: A => B)(implicit build: ArrTBuilder[B, ArrB]): ArrB``` function. */
-trait PolygonInt2sBuilder[B <: ElemInt2, BB <: PolygonLikeInt2[B]] extends PolygonIntNsBuilder[B, BB] with Int2SeqLikeMapBuilder[B, BB]
+trait PolygonInt2sBuilder[B <: Int2Elem, BB <: PolygonLikeInt2[B]] extends PolygonIntNsBuilder[B, BB] with Int2SeqLikeMapBuilder[B, BB]

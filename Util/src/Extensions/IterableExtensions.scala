@@ -168,10 +168,10 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
 }
 
 /** Extension methods for [[Iterable]][A <: ValueNElem]. */
-class IterableValueNElemExtensions[A <: ElemValueN](val thisIter: Iterable[A]) extends AnyVal
+class IterableValueNElemExtensions[A <: ValueNElem](val thisIter: Iterable[A]) extends AnyVal
 {
   /** product map method maps from a Traversable to an Array based ProductValues class. */
-  def pMap[B <: ElemValueN , M <: ValueNArr[B]](f: A => B)(implicit factory: Int => M): M =
+  def pMap[B <: ValueNElem , M <: ValueNArr[B]](f: A => B)(implicit factory: Int => M): M =
   { val res = factory(thisIter.size)
     var count: Int = 0
     thisIter.foreach { orig =>
