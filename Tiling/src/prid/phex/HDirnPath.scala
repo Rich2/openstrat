@@ -55,8 +55,15 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
   }
 }
 
-object HDirnPath{
-  def apply(startCen: HCen, steps: HDirn*): HDirnPath = ???
+object HDirnPath
+{
+  def apply(startCen: HCen, steps: HDirn*): HDirnPath = {
+    val array = new Array[Int](steps.length + 2)
+    array(0) = startCen.int1
+    array(1) = startCen.int2
+    steps.iForeach{(i, d) => array(i + 2) = d.intValue }
+    new HDirnPath(array)
+  }
 }
 
 /** An [[Arr]] of paths consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
