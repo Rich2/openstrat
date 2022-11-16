@@ -21,7 +21,7 @@ trait ThreeScen extends HSysTurnScen
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
   def endTurn(orderList: HDirnPathPairArr[Player]): ThreeScen =
   {
-    val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
+    val targets: HCenBuffLayer[HDirnPathPair[Player]] = gridSys.newHCenArrOfBuff
 
     orderList.foreach { pr =>
       val path = pr.path
@@ -29,23 +29,23 @@ trait ThreeScen extends HSysTurnScen
       val hc1: HCen = path.startCen
       val step = path.head
       val optTarget: Option[HCen] = hc1.stepOpt(step)
-       optTarget.foreach{ target => targets.appendAt(target, HCenStep(hc1, step)) }
+       optTarget.foreach{ target => targets.appendAt(target, pr) }// HCenStep(hc1, step)) }
       }
     }
 
-    var newData: HDirnPathPairArr[Player] = orderList
+    var newOrders: HDirnPathPairArr[Player] = orderList
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
-     * isolates mutation to within the method. */
+     * isolates mutation to within this method. */
     val oPlayersNew: HCenOptLayer[Player] = oPlayers.clone
-    targets.foreach{ (hc2, buff) => buff.foreachLen1 { stCenStep => if (oPlayers.tileNone(hc2))
-        { oPlayersNew.unsafeMoveMod(stCenStep.startHC, hc2) { ps => ps }
-         // newData = newData.replaceA1Value(ps) modValue(oPlayers(stCenStep.startHC).get)( _.tail)
+    targets.foreach{ (hc2, buff) => buff.foreachLen1 { pathPlayer => if (oPlayers.tileNone(hc2))
+        { oPlayersNew.unsafeMove(pathPlayer.path.startCen, hc2)
+          newOrders = newOrders.replaceA1Value(pathPlayer.a2, pathPlayer.tail(hc2))
         }
       }
     }
 
-    ThreeScen(turn + 1, gridSys, oPlayersNew, newData)
+    ThreeScen(turn + 1, gridSys, oPlayersNew, newOrders)
   }
 }
 

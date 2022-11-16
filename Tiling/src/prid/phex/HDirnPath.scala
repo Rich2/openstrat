@@ -10,10 +10,10 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
   def startCen = HCen(unsafeArray(0), unsafeArray(1))
   def length: Int = unsafeArray.length - 2
   def head: HDirn = HDirn.fromInt(unsafeArray(2))
-  def tail: HDirnPath = {
-    val newArray = new Array[Int]((length - 1).max0 + 2)
-    newArray(0) = unsafeArray(0)
-    newArray(1) = unsafeArray(1)
+  def tail(newStart: HCen): HDirnPath =
+  { val newArray = new Array[Int]((length - 1).max0 + 2)
+    newArray(0) = newStart.r//unsafeArray(0)
+    newArray(1) = newStart.c//unsafeArray(1)
     iUntilForeach(1, length)(i => newArray(i + 1) = unsafeArray(i + 2))
     new HDirnPath(newArray)
   }
@@ -92,6 +92,7 @@ object HDirnPathArr
 class HDirnPathPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayIntBackedPair[HDirnPath, A2]
 { override def a1: HDirnPath = new HDirnPath(a1ArrayInt)
   def path: HDirnPath = new HDirnPath(a1ArrayInt)
+  def tail(newStart: HCen) = path.tail(newStart)
 }
 
 object HDirnPathPair
