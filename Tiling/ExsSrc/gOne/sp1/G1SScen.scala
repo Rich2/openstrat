@@ -1,13 +1,13 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gTwo
+package ostrat; package gOne; package sp1
 import prid._, psq._, gPlay._
 
 /** Scenario trait for Game Two. */
-trait TwoScen extends SqGridScen
+trait G1SScen extends SqGridScen
 { /** An optional player can occupy each tile. This is the only tile data in the game. this is the same as Game one. */
   def oPlayers: SqCenOptLayer[Player]
 
-  def endTurn(orderList: RArr[(Player, SqDirn)]): TwoScen =
+  def endTurn(orderList: RArr[(Player, SqDirn)]): G1SScen =
   {
     val playersKey: Map[Player, SqCen] = oPlayers.keyMap
 
@@ -30,14 +30,14 @@ trait TwoScen extends SqGridScen
       }
     }
 
-    TwoScen(turn + 1, gSys, oPlayersNew)
+    G1SScen(turn + 1, gSys, oPlayersNew)
   }
 }
 
 /** Companion object for TwoScen trait, contains factory apply method. */
-object TwoScen
+object G1SScen
 { /** Apply factory method for TwoScen game. */
-  def apply(turnIn: Int, gSysIn: SqGridSys, opIn: SqCenOptLayer[Player]): TwoScen = new TwoScen
+  def apply(turnIn: Int, gSysIn: SqGridSys, opIn: SqCenOptLayer[Player]): G1SScen = new G1SScen
   { override val turn = turnIn
     override implicit val gSys: SqGridSys = gSysIn
     override def oPlayers: SqCenOptLayer[Player] = opIn
@@ -45,7 +45,7 @@ object TwoScen
 }
 
 /** This trait just puts the value 0 in for the turn. */
-trait TwoScenStart extends TwoScen
+trait G1SScenStart extends G1SScen
 { override val turn: Int = 0
 }
 

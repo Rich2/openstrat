@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gOne
+package ostrat; package gOne; package hp1
 import prid._, phex._, gPlay._
 
 /** 1st example Turn 0 scenario state for Game One. */
-object OneScen1 extends OneScen
+object G1HScen1 extends H1Scen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(2, 6, 2, 10)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -12,7 +12,7 @@ object OneScen1 extends OneScen
 }
 
 /** 2nd example Turn 0 scenario state for Game One. */
-object OneScen2 extends OneScen
+object G1HScen2 extends H1Scen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(2, 10, 4, 8)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -20,14 +20,14 @@ object OneScen2 extends OneScen
 }
 
 /** 3rd example Turn 0 scenario state for Game One. */
-object OneScen3 extends OneScen
+object G1HScen3 extends H1Scen
 { override def turn: Int = 0
   implicit val gridSys: HGrid = HGridIrr(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
 }
 
-object OneScen4 extends OneScen
+object G1HScen4 extends H1Scen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(2, 12, 2, 60)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -35,7 +35,7 @@ object OneScen4 extends OneScen
   oPlayers.unsafeSetSomes((4, 40, PlayerB), (6, 42, PlayerC))
 }
 
-object OneScen5 extends OneScen
+object G1HScen5 extends H1Scen
 {  override def turn: Int = 0
   implicit val gridSys: HGridSys = HGrids2(2, 8, 2, 6, 100, 104)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -44,7 +44,7 @@ object OneScen5 extends OneScen
   oPlayers.unsafeSetSome(8, 100, PlayerC)
 }
 
-object OneScen6 extends OneScen
+object G1HScen6 extends H1Scen
 {  override def turn: Int = 0
   implicit val gridSys: HGridSys = HGrids2(4, 10, 2, 6, 100, 106)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -54,7 +54,7 @@ object OneScen6 extends OneScen
 }
 
 /** 7th example Turn 0 scenario state for Game One. */
-object OneScen7 extends OneScen
+object G1HScen7 extends H1Scen
 { override def turn: Int = 0
   implicit val gridSys: HGrid = HGridIrr(10, (3, 6), (1, 8), (4, 2), (2, 4), (1, 6))
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -62,21 +62,21 @@ object OneScen7 extends OneScen
 }
 
 /** 8th example Turn 0 scenario state for Game One. An empty regular grid containing no hex tiles. */
-object OneScen8 extends OneScen
+object G1HScen8 extends H1Scen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(4, 2, 4, 2)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
 }
 
 /** 9th example Turn 0 scenario state for Game One. An empty irregular grid containing no hex tiles. */
-object OneScen9 extends OneScen
+object G1HScen9 extends H1Scen
 { override def turn: Int = 0
   implicit val gridSys: HGrid = HGridIrr(2)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
 }
 
 /** 10th example Turn 0 scenario state for Game One. Uses an [[HGridIrr]] */
-object OneScen10 extends OneScen
+object G1HScen10 extends H1Scen
 { override def turn: Int = 0
   implicit val gridSys: HGrid = HGridIrr(12, (12, 4), (4, 6), (1, 8), (4, 2), (2, 4), (1, 6))
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer

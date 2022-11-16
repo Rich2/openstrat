@@ -1,10 +1,10 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gTwo
+package ostrat; package gOne; package sp1
 import pgui._, prid._, psq._, geom._, gPlay._
 
 /** Graphical user interface for Game Two. It differs from the first in that it is on a square grid
  * and adjacent moves take priority over diagonal tile steps. */
-case class GTwoGui(canv: CanvasPlatform, scenStart: TwoScen, viewIn: SqGridView) extends SqSysGui("Game Two Gui")
+case class G1SGui(canv: CanvasPlatform, scenStart: G1SScen, viewIn: SqGridView) extends SqSysGui("Game Two Gui")
 { statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
   implicit def gridSys: SqGridSys = scen.gSys
