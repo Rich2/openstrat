@@ -4,36 +4,35 @@ import ostrat.geom._, reflect.ClassTag
 
 /** A path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
 class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
-{
-  def startR: Int = unsafeArray(0)
+{ def startR: Int = unsafeArray(0)
   def startC: Int = unsafeArray(1)
   def startCen = HCen(unsafeArray(0), unsafeArray(1))
   def length: Int = unsafeArray.length - 2
   def head: HDirn = HDirn.fromInt(unsafeArray(2))
+  def index(index: Int): HDirn = HDirn.fromInt(unsafeArray(index + 2))
+
   def tail(newStart: HCen): HDirnPath =
   { val newArray = new Array[Int]((length - 1).max0 + 2)
-    newArray(0) = newStart.r//unsafeArray(0)
-    newArray(1) = newStart.c//unsafeArray(1)
+    newArray(0) = newStart.r
+    newArray(1) = newStart.c
     iUntilForeach(1, length)(i => newArray(i + 1) = unsafeArray(i + 2))
     new HDirnPath(newArray)
   }
 
   def segHCsForeach(f: LineSegHC => Unit)(implicit gSys: HGridSys): Unit =
-  { var count = 0
-    var r1 = startR
-    var c1 = startC
-    var r2: Int = 0
-    var c2: Int = 0
+  { var i: Int = 0
+    var hc1: HCen = startCen
+    var o2: Option[HCen] = Some(startCen)
 
-    while (count < length)
-    { val step = HDirn.fromInt(unsafeArray(count + 2))
-      r2 = r1 + step.tr
-      c2 = c1 + step.tc
-      val hls = LineSegHC(r1, c1, r2, c2)
-      f(hls)
-      count += 1
-      r1 = r2
-      c1 = c2
+    while (i < length & o2.nonEmpty)
+    {
+      o2 = gSys.findStepEnd(hc1, index(i))
+      o2.foreach { hc2 =>
+        val hls = LineSegHC(hc1, hc2)
+        f(hls)
+        i += 1
+        hc1 = hc2
+      }
     }
   }
 
