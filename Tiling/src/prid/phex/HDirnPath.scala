@@ -18,7 +18,7 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
     new HDirnPath(newArray)
   }
 
-  def segHCsForeach(f: LineSegHC => Unit): Unit =
+  def segHCsForeach(f: LineSegHC => Unit)(implicit gSys: HGridSys): Unit =
   { var count = 0
     var r1 = startR
     var c1 = startC
@@ -37,10 +37,17 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
     }
   }
 
-  def segHCs: LineSegHCArr =
+  def segHCs(implicit gSys: HGridSys): LineSegHCArr =
   { val res = LineSegHCArr.uninitialised(length)
     var i = 0
     segHCsForeach{ s => res.unsafeSetElem(i, s); i += 1 }
+    res
+  }
+
+  def segHCsInit(implicit gSys: HGridSys): LineSegHCArr =
+  { val res = LineSegHCArr.uninitialised((length - 1).max0)
+    var i = 0
+    segHCsForeach { s => if (i != 0) res.unsafeSetElem(i, s); i += 1 }
     res
   }
 
@@ -58,7 +65,7 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
       val ols = proj.transOptLineSeg(lh)
       ols.foreach(res.unsafeSetElem(count, _))
       count += 1
-    }
+    }(proj.parent)
     res
   }
 }
