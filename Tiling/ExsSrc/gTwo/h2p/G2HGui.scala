@@ -1,13 +1,13 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gThree
+package ostrat; package gTwo; package h2p
 import pgui._, geom._, prid._, phex._, gPlay._
 
 /** Graphical user interface for example game 3. A hex based game like game 1, that introduces multi turn directives. */
-case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
+case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
 {
   statusText = "Left click on Player to select. Right click on adjacent Hex to set move."
   var scen = scenStart
-  var history: RArr[ThreeScen] = RArr(scen)
+  var history: RArr[G2HScen] = RArr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptLayer[Player] = scen.oPlayers
   cPScale = viewIn.cPScale

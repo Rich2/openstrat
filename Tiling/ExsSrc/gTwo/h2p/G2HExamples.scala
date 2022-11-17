@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gThree
+package ostrat; package gTwo; package h2p
 import prid._, phex._, gPlay._
 
 /** 1st example Turn 0 scenario state for Game Three. */
-object ThreeScen1 extends ThreeScen
+object G2HScen1 extends G2HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(2, 6, 2, 10)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -15,7 +15,7 @@ object ThreeScen1 extends ThreeScen
 }
 
 /** 2nd example Turn 0 scenario state for Game Three. */
-object ThreeScen2 extends ThreeScen
+object G2HScen2 extends G2HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(2, 10, 4, 8)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -23,14 +23,14 @@ object ThreeScen2 extends ThreeScen
 }
 
 /** 3rd example Turn 0 scenario state for Game Three. */
-object ThreeScen3 extends ThreeScen
+object G2HScen3 extends G2HScen
 { override def turn: Int = 0
   implicit val gridSys: HGrid = HGridIrr(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
 }
 
-object ThreeScen4 extends ThreeScen
+object G2HScen4 extends G2HScen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = HGridReg(2, 12, 2, 60)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -38,7 +38,7 @@ object ThreeScen4 extends ThreeScen
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
 
-object ThreeScen5 extends ThreeScen
+object G2HScen5 extends G2HScen
 {  override def turn: Int = 0
   implicit val gridSys: HGridSys = HGrids2(2, 8, 2, 6, 100, 104)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -47,7 +47,7 @@ object ThreeScen5 extends ThreeScen
   oPlayers.unsafeSetSome(8, 100, PlayerC)
 }
 
-object ThreeScen6 extends ThreeScen
+object G2HScen6 extends G2HScen
 {  override def turn: Int = 0
   implicit val gridSys: HGridSys = HGrids2(4, 10, 2, 6, 100, 106)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
