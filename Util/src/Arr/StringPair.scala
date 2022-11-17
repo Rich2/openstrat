@@ -29,3 +29,14 @@ class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) exte
 
   override def fElemStr: StringPair[A2] => String = _.toString
 }
+
+object StringPairArr
+{
+  def apply[A2](pairs: (String, A2)*)(implicit ct: ClassTag[A2]): StringPairArr[A2] =
+  { val len = pairs.length
+    val a1Array = new Array[String](len)
+    val a2Array = new Array[A2](len)
+    pairs.iForeach{ (i, p) => a1Array(i) = p._1; a2Array(i) = p._2 }
+    new StringPairArr[A2](a1Array, a2Array)
+  }
+}
