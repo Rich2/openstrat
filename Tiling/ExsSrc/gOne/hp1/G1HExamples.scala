@@ -37,7 +37,7 @@ object G1HScen4 extends H1Scen
 
 object G1HScen5 extends H1Scen
 {  override def turn: Int = 0
-  implicit val gridSys: HGridSys = HGrids2(2, 8, 2, 6, 100, 104)
+  override implicit val gridSys: HGrids2 = HGrids2(2, 8, 2, 6, 100, 104)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSome(6, 102, PlayerB)
