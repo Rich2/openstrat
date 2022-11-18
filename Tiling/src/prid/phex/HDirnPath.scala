@@ -8,7 +8,11 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
   def startC: Int = unsafeArray(1)
   def startCen = HCen(unsafeArray(0), unsafeArray(1))
   def length: Int = unsafeArray.length - 2
-  def head: HDirn = HDirn.fromInt(unsafeArray(2))
+
+  /** Gets the first [[HDirn]] wills throw on an empty path. */
+  def getHead: HDirn = HDirn.fromInt(unsafeArray(2))
+
+  /** Gets the [[HDirn]] at the given index, will thorw if the element doesn't exist. */
   def index(index: Int): HDirn = HDirn.fromInt(unsafeArray(index + 2))
 
   def tail(newStart: HCen): HDirnPath =

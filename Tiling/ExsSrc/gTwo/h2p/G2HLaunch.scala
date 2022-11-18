@@ -4,9 +4,9 @@ import pgui._, pParse._, prid._, phex._
 
 object G2HLaunch extends GuiLaunchMore
 {
-  override def settingStr: String = "g2H"
+  override def settingStr: String = "g2Hex"
 
-  override def default: (CanvasPlatform => Any, String) = (G2HGui(_, G2HScen1, G2HScen1.defaultView()), "JavaFx Game Two")
+  override def default: (CanvasPlatform => Any, String) = (G2HGui(_, G2HScen1, G2HScen1.defaultView()), "JavaFx Game Hex")
 
   override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen: EMon[Int] = sts.findSetting[Int]("scen")
@@ -21,6 +21,6 @@ object G2HLaunch extends GuiLaunchMore
       case _ => G2HScen1
     }
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
-    (G2HGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game Three")
+    (G2HGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game Two Hex")
   }
 }

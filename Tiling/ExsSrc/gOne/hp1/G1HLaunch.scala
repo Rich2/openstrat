@@ -4,9 +4,9 @@ import pgui._, pParse._, prid._, phex._
 
 object G1HLaunch extends GuiLaunchMore
 {
-  override def settingStr: String = "gOne"
+  override def settingStr: String = "g1Hex"
 
-  override def default: (CanvasPlatform => Any, String) = (G1HGui(_, G1HScen1, G1HScen1.defaultView()), "JavaFx Game One")
+  override def default: (CanvasPlatform => Any, String) = (G1HGui(_, G1HScen1, G1HScen1.defaultView()), "JavaFx Game One Hex")
 
   override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val oScen: EMon[Int] = sts.findSetting[Int]("scen")

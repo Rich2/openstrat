@@ -4,7 +4,7 @@ import pgui._, pParse._, prid._, psq._
 
 object G1SLaunch extends GuiLaunchMore
 {
-  override def settingStr: String = "gTwo"
+  override def settingStr: String = "g2Sq"
 
   override def default: (CanvasPlatform => Any, String) = (G1SGui(_, S1Scen1, S1Scen1.defaultView()), "JavaFx Game Two")
   override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) = {

@@ -27,7 +27,7 @@ trait G2HScen extends HSysTurnScen
       val path = pr.path
       if (path.length > 0) {
       val hc1: HCen = path.startCen
-      val step = path.head
+      val step = path.getHead
       val optTarget: Option[HCen] = hc1.stepOpt(step)
        optTarget.foreach{ target => targets.appendAt(target, pr) }// HCenStep(hc1, step)) }
       }
