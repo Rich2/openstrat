@@ -52,11 +52,11 @@ object Zug1 extends ZugScenStart
   //sTerrs.setTrues(wall1)
 
   val lunits: HCenArrLayer[Squad] = gridSys.newHCenArrLayer[Squad]
-  setSquadMove(2, 30, Britain, HStepLt, HStepLt)
+  setSquadMove(2, 30, Britain, HexLt, HexLt)
   lunits.set(10, 38, Squad(Britain, Fire(6 hc 18)))
-  setSquadMove(4, 32, Britain, HStepLt, HStepLt)
-  setSquadMove(6, 46, Britain, HStepLt)
-  setSquadMove(14, 46, Britain, HStepLt, HStepLt, HexDL)
+  setSquadMove(4, 32, Britain, HexLt, HexLt)
+  setSquadMove(6, 46, Britain, HexLt)
+  setSquadMove(14, 46, Britain, HexLt, HexLt, HexDL)
   lunits.set(10, 46, Squad(Britain))
   lunits.set(6, 18, Squad(Germany, Fire(4 hc 32)))
   lunits.set(10, 18, Squad(Germany, Fire(4 hc 32)))

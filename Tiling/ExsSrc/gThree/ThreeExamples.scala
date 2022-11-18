@@ -31,7 +31,7 @@ object ThreeScen1 extends ThreeScen(0)
   srp(4, 4, 2, Woods)
   val units: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer
   units.unsafeSetSome(4, 4, Lunit(TeamA, HexDR))
-  units.unsafeSetSomes((4, 8, Lunit(TeamB, HStepLt, HexDL)), (6, 10, Lunit(TeamA)))
+  units.unsafeSetSomes((4, 8, Lunit(TeamB, HexLt, HexDL)), (6, 10, Lunit(TeamA)))
 }
 
 /** 2nd Scenario of Game Four. Has a larger number of hexs. */

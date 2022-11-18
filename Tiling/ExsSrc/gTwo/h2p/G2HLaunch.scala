@@ -18,6 +18,7 @@ object G2HLaunch extends GuiLaunchMore
       case 4 => G2HScen4
       case 5 => G2HScen5
       case 6 => G2HScen6
+      case 7 => G2HScen7
       case _ => G2HScen1
     }
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)

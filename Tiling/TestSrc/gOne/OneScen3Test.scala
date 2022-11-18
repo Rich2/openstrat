@@ -8,9 +8,9 @@ object OneScen3Test  extends TestSuite
   val g1 = os1.gridSys
   val os2 = os1.endTurn(RArr())
   val g2 = os2.gridSys
-  val os3 = os1.endTurn(RArr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HStepLt)))
+  val os3 = os1.endTurn(RArr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HexLt)))
   val g3 = os3.gridSys
-  val os4 = os3.endTurn(RArr((PlayerA, HStepLt)))
+  val os4 = os3.endTurn(RArr((PlayerA, HexLt)))
 
   val tests = Tests {
     test("os1")

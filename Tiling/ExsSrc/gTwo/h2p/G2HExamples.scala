@@ -10,8 +10,8 @@ object G2HScen1 extends G2HScen
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 
-  override def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr[Player](PlayerA.hPath(4, 4, HexDR, HStepLt),
-    PlayerB.hPath(4, 8, HexDL, HexRt), PlayerC.hPath(6, 10, HStepLt, HexDR, HexDL))
+  override def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr[Player](PlayerA.hPath(4, 4, HexDR, HexLt),
+    PlayerB.hPath(4, 8, HexDL, HexRt), PlayerC.hPath(6, 10, HexLt, HexDR, HexDL))
 }
 
 /** 2nd example Turn 0 scenario state for Game Three. */
@@ -54,4 +54,17 @@ object G2HScen6 extends G2HScen
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSome(6, 102, PlayerB)
   oPlayers.unsafeSetSome(10, 102, PlayerC)
+}
+
+object G2HScen7 extends G2HScen
+{  override def turn: Int = 0
+  implicit val gridSys: HGridSys = HGrids2(4, 10, 2, 6, 100, 106)
+  val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
+  oPlayers.unsafeSetSome(4, 4, PlayerA)
+  oPlayers.unsafeSetSome(6, 102, PlayerB)
+  oPlayers.unsafeSetSome(10, 102, PlayerC)
+
+  override def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr[Player](PlayerA.hPath(4, 4, HexDR, HexRt),
+    PlayerB.hPath(6, 102, HexDL, HexRt), PlayerC.hPath(10, 102, HexLt, HexDR, HexDL)
+  )
 }

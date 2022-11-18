@@ -84,15 +84,15 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
     }
 
     override def outSteps(r: Int, c: Int): HStepCenArr = (r, c) match
-    { case (r, c) if r == maxCenR & c == minC2 => HStepCenArr((HStepLt, r, c + grid2OffsetC - 4), (HexDL, r - 2, c + grid2OffsetC - 2))
-      case (r, c) if r == maxCenR & c == minC2 + 2 => HStepCenArr((HStepLt, r, c + grid2OffsetC - 4))
+    { case (r, c) if r == maxCenR & c == minC2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4), (HexDL, r - 2, c + grid2OffsetC - 2))
+      case (r, c) if r == maxCenR & c == minC2 + 2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4))
 
-      case (r, c) if r == minCenR & c == minC2 => HStepCenArr((HStepUL, r + 2, c + grid2OffsetC - 2), (HStepLt, r, c + grid2OffsetC - 4))
-      case (r, c) if r == minCenR & c == minC2 + 2 => HStepCenArr((HStepLt, r, c + grid2OffsetC - 4))
+      case (r, c) if r == minCenR & c == minC2 => HStepCenArr((HStepUL, r + 2, c + grid2OffsetC - 2), (HexLt, r, c + grid2OffsetC - 4))
+      case (r, c) if r == minCenR & c == minC2 + 2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4))
 
       case (r, c) if c == minC2 =>
-        HStepCenArr((HStepUL, r + 2, c + grid2OffsetC - 2), (HStepLt, r, c + grid2OffsetC - 4), (HexDL, r - 2, c + grid2OffsetC - 2))
-      case (r, c) if c == minC2 + 2 => HStepCenArr((HStepLt, r, c + grid2OffsetC - 4))
+        HStepCenArr((HStepUL, r + 2, c + grid2OffsetC - 2), (HexLt, r, c + grid2OffsetC - 4), (HexDL, r - 2, c + grid2OffsetC - 2))
+      case (r, c) if c == minC2 + 2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4))
 
       case _ => HStepCenArr()
     }
