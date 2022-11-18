@@ -11,8 +11,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   var history: RArr[H1Scen] = RArr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptLayer[Player] = scen.oPlayers
-  //cPScale = viewIn.cPScale
-  //focus = viewIn.vec
+
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
 

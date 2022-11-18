@@ -1,5 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gFour
+package ostrat; package gThree
 import prid._, phex._, Colour._
 
 sealed trait Terr extends Coloured
@@ -24,14 +24,14 @@ object Lunit
 }
 
 /** Example Game four scenario trait. */
-abstract class FourScen(val turn: Int) extends HGridScen
+abstract class ThreeScen(val turn: Int) extends HGridScen
 { /** tile terrain. */
   def terrs: HCenLayer[Terr]
   def units: HCenOptLayer[Lunit]
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issuing the command may not know its real location. */
-  def endTurn(orderList: RArr[(Lunit, HDirnArr)]): FourScen =
+  def endTurn(orderList: RArr[(Lunit, HDirnArr)]): ThreeScen =
   {
     val playersKey: Map[Lunit, HCen] = units.SomesKeyMap
 
@@ -50,13 +50,13 @@ abstract class FourScen(val turn: Int) extends HGridScen
     val oPlayersNew: HCenOptLayer[Lunit] = units.clone
     targets.foreach{ (hc2, buff) => buff.foreachLen1(backStep => if (units.tileNone(hc2)) oPlayersNew.unsafeMove(hc2.unsafeStep(backStep), hc2)) }
 
-    FourScen(turn + 1, gridSys, terrs, oPlayersNew)
+    ThreeScen(turn + 1, gridSys, terrs, oPlayersNew)
   }
 }
 
-object FourScen
+object ThreeScen
 {
-  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenLayer[Terr], unitsIn: HCenOptLayer[Lunit]): FourScen = new FourScen(turnNum) {
+  def apply(turnNum: Int, gridIn: HGrid, terrsIn: HCenLayer[Terr], unitsIn: HCenOptLayer[Lunit]): ThreeScen = new ThreeScen(turnNum) {
     /** tile terrain. */
     override def terrs: HCenLayer[Terr] = terrsIn
 

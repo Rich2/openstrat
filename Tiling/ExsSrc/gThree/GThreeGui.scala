@@ -1,12 +1,12 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gFour
+package ostrat; package gThree
 import pgui._, prid._, phex._, geom._, gPlay._
 
-case class GFourGui(canv: CanvasPlatform, scenStart: FourScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
+case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
 { statusText = "Welcome to Game Four."
   val scen = scenStart
   def terrs: HCenLayer[Terr] = scen.terrs
-  var history: RArr[FourScen] = RArr(scen)
+  var history: RArr[ThreeScen] = RArr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   cPScale = viewIn.cPScale
   focus = viewIn.vec
