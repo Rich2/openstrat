@@ -100,3 +100,78 @@ case class SqAndStep(r1: Int, c1: Int, step: SqDirn)
 { def sc1: SqCen = SqCen(r1, c1)
   def sc2: SqCen = SqCen(r1 + step.tr, c1 + step.tc)
 }
+
+/** An Arr of hex step directions. */
+/*
+class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqDirn]
+{ override type ThisT = SqDirnArr
+  override def typeStr: String = "SqSteps"
+  override def newElem(intValue: Int): SqDirn = SqDirn.fromInt(intValue)
+  override def fromArray(array: Array[Int]): SqDirnArr = new SqDirnArr(array)
+  override def fElemStr: SqDirn => String = _.toString
+
+  def segsNum: Int = unsafeArray.length
+
+  def segSqCsForeach(start: SqCen)(f: LineSegSC => Unit): Unit = segSqCsForeach(start.r, start.c)(f)
+
+  def segSqCsForeach(startR: Int, startC: Int)(f: LineSegSC => Unit): Unit =
+  { var count = 0
+    var r1 = startR
+    var c1 = startC
+    var r2: Int = 0
+    var c2: Int = 0
+
+    while (count < segsNum)
+    { val step = SqDirn.fromInt(unsafeArray(count))
+      r2 = r1 + step.tr
+      c2 = c1 + step.tc
+      val hls = LineSegSC(r1, c1, r2, c2)
+      f(hls)
+      count += 1
+      r1 = r2
+      c1 = c2
+    }
+  }
+
+  def segSqCsMap[B, ArrB <: Arr[B]](start: SqCen)(f: LineSegSC => B)(implicit build: ArrMapBuilder[B, ArrB], gridSys: SqGridSys): ArrB =
+    segSqCsMap(start.r, start.c)(f)(build, gridSys)
+
+  def segSqCsMap[B, ArrB <: Arr[B]](startR: Int, startC: Int)(f: LineSegSC => B)(implicit build: ArrMapBuilder[B, ArrB], grider: SqGridSys): ArrB = {
+    val res = build.uninitialised(segsNum)
+    var count = 0
+    segSqCsForeach(startR, startC) { s =>
+      res.unsafeSetElem(count, f(s))
+      count += 1
+    }
+    res
+  }
+
+  def projLineSegs(startCen: SqCen, proj: SqSysProjection): LineSegArr = projLineSegs(startCen. r, startCen.c, proj)
+
+  def projLineSegs(startR: Int, startC: Int, proj: SqSysProjection): LineSegArr =
+  { val res = LineSegArr.uninitialised(segsNum)
+    var count = 0
+    segSqCsForeach(startR, startC) { lh =>
+      val ols = proj.transOptLineSeg(lh)
+      ols.foreach(res.unsafeSetElem(count, _))
+      count += 1
+    }
+    res
+  }
+
+  def pathSqC(startSqC: SqCen)(implicit grider: SqGridSys): LinePathSqC = {
+    val buff: SqCoordBuff = SqCoordBuff(startSqC)
+    var i = 0
+    var continue = true
+    var currSqC: SqCen = startSqC
+    while(i < length & continue == true) {
+      val optSqC: Option[SqCen] = grider.findStepEnd(currSqC, apply(i))
+      optSqC.fold[Unit]{ continue = false}{hc2 =>
+        buff.grow(hc2)
+        currSqC = hc2
+        i += 1
+      }
+    }
+    buff.toLinePath
+  }
+}*/
