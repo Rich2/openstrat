@@ -20,8 +20,8 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   override def fromArray(array: Array[A] @uncheckedVariance): RArr[A] = new RArr(array)
   override def length: Int = unsafeArray.length
 
-  def eqs(other: Any): Boolean = other match {
-    case a: RArr[_] => unsafeArray.sameElements(a.unsafeArray)
+  def eqs(other: Any): Boolean = other match
+  { case a: RArr[_] => unsafeArray.sameElements(a.unsafeArray)
     case _ => false
   }
 

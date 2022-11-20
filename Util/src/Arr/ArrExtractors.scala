@@ -5,13 +5,13 @@ import reflect.ClassTag
 /** Extractor object for empty Arr[A]. Arr[A] is an immutable covariant Array based collection. */
 object Arr0
 { /** Extractor for empty Arr[A]. Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: RArr[A]): Boolean = arr.length == 0
+  def unapply[A](arr: Arr[A]): Boolean = arr.length == 0
 }
 
 /** Extractor object for Arr[A] of length == 1. Arr[A] is an immutable covariant Array based collection. */
 object Arr1
 { /** Extractor for Arr[A] of length == 1. Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: RArr[A]): Option[A] = arr.length match
+  def unapply[A](arr: Arr[A]): Option[A] = arr.length match
   { case 1 => Some(arr(0))
     case _ => None
   }
@@ -20,13 +20,13 @@ object Arr1
 /** Extractor object for Arr[A] of length == 2. Arr[A] is an immutable covariant Array based collection. */
 object Arr2
 { /** Extractor for Arr[A] of length == 2. Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: RArr[A]): Option[(A, A)] = ife(arr.length == 2, Some((arr(0), arr(1))), None)
+  def unapply[A](arr: Arr[A]): Option[(A, A)] = ife(arr.length == 2, Some((arr(0), arr(1))), None)
 }
 
 /** Extractor object for Arr[A] of length == 3. Arr[A] is an immutable covariant Array based collection. */
 object Arr3
 { /** Extractor for Arr[A] of length == 3, Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: RArr[A]): Option[(A, A, A)] = arr.length match
+  def unapply[A](arr: Arr[A]): Option[(A, A, A)] = arr.length match
   { case 3 => Some((arr(0), arr(1), arr(2)))
     case _ => None
   }
@@ -35,7 +35,7 @@ object Arr3
 /** Extractor object for Arr[A] of length == 4. Arr[A] is an immutable covariant Array based collection. */
 object Arr4
 { /** Extractor for Arr[A] of length == 4, Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: RArr[A]): Option[(A, A, A, A)] = arr.length match
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = arr.length match
   { case 4 => Some((arr(0), arr(1), arr(2), arr(3)))
     case _ => None
   }
@@ -44,7 +44,7 @@ object Arr4
 /** Extractor object for Arr[A] of length == 5. Arr[A] is an immutable covariant Array based collection. */
 object Arr5
 { /** Extractor for Arr[A] of length == 5, Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: RArr[A]): Option[(A, A, A, A, A)] = arr.length match
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A, A)] = arr.length match
   { case 5 => Some((arr(0), arr(1), arr(2), arr(3), arr(4)))
     case _ => None
   }
@@ -53,7 +53,7 @@ object Arr5
 /** Extractor object for Arr[A] of length == 6. Arr[A] is an immutable covariant Array based collection. */
 object Arr6
 { /** Extractor for Arr[A] of length == 6, Arr[A] is an immutable covariant Array based collection. */
-  def unapply[A](arr: RArr[A]): Option[(A, A, A, A, A, A)] = arr.length match
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A, A, A)] = arr.length match
   { case 6 => Some((arr(0), arr(1), arr(2), arr(3), arr(4), arr(5)))
     case _ => None
   }
