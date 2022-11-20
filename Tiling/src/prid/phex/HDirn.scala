@@ -44,9 +44,9 @@ object HDirn
   def full: HDirnArr = HDirnArr(HexUR, HexRt, HexDR, HexDL, HexLt, HStepUL)
 
   implicit val buildEv: Int1ArrMapBuilder[HDirn, HDirnArr] = new Int1ArrMapBuilder[HDirn, HDirnArr]
-  { override type BuffT = HStepBuff
+  { override type BuffT = HDirnBuff
     override def fromIntArray(array: Array[Int]): HDirnArr = new HDirnArr(array)
-    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HDirnBuff = new HDirnBuff(buffer)
   }
 }
 
@@ -176,18 +176,18 @@ object HDirnArr extends Int1SeqLikeCompanion[HDirn, HDirnArr]
 { override def fromArray(array: Array[Int]): HDirnArr = new HDirnArr(array)
 
   implicit val flatBuilder: ArrFlatBuilder[HDirnArr] = new Int1ArrFlatBuilder[HDirnArr]
-  { override type BuffT = HStepBuff
+  { override type BuffT = HDirnBuff
     override def fromIntArray(array: Array[Int]): HDirnArr = new HDirnArr(array)
-    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HDirnBuff = new HDirnBuff(buffer)
   }
 }
 
 /** ArrayBuffer based buffer class for Colours. */
-class HStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[HDirn]
+class HDirnBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[HDirn]
 { override def typeStr: String = "HStepBuff"
   def intToT(i1: Int): HDirn = HDirn.fromInt(i1)
 }
 
-object HStepBuff
-{ def apply(initLen: Int = 4): HStepBuff = new HStepBuff(new ArrayBuffer[Int](initLen))
+object HDirnBuff
+{ def apply(initLen: Int = 4): HDirnBuff = new HDirnBuff(new ArrayBuffer[Int](initLen))
 }

@@ -2,6 +2,8 @@
 package ostrat; package prid; package psq
 import geom._
 
+import scala.collection.mutable.ArrayBuffer
+
 /** A square tile direction can take 8 values. This can be used for square grid steps or quantums. */
 sealed trait SqDirn extends TDirn
 { /** The SqCen that this step would point to if it departed from SqCen(0, 0). */
@@ -20,6 +22,28 @@ sealed trait SqDirn extends TDirn
   def angle: Angle
 
   def int1: Int
+}
+
+object SqDirn {
+  def fromInt(int1: Int): SqDirn = int1 match
+  { case 1 => SqUR
+    case 2 => SqRt
+    case 3 => SqDR
+    case 4 => SqDn
+    case 5 => SqDL
+    case 6 => SqLt
+    case 7 => SqUL
+    case 8 => SqUp
+    case _ => SqRt
+  }
+
+  implicit val buildEv: Int1ArrMapBuilder[SqDirn, SqDirnArr] = new Int1ArrMapBuilder[SqDirn, SqDirnArr] {
+    override type BuffT = SqDirnBuff
+
+    override def fromIntArray(array: Array[Int]): SqDirnArr = new SqDirnArr(array)
+
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): SqDirnBuff = new SqDirnBuff(buffer)
+  }
 }
 
 /** A perpendicular or non-diagonal square tile direction or step can take 4 values. */
@@ -112,7 +136,6 @@ case class SqAndStep(r1: Int, c1: Int, step: SqDirn)
 }
 
 /** An Arr of hex step directions. */
-/*
 class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqDirn]
 { override type ThisT = SqDirnArr
   override def typeStr: String = "SqSteps"
@@ -169,7 +192,7 @@ class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqDirn]
     res
   }
 
-  def pathSqC(startSqC: SqCen)(implicit grider: SqGridSys): LinePathSqC = {
+  /*def pathSqC(startSqC: SqCen)(implicit grider: SqGridSys): LinePathSqC = {
     val buff: SqCoordBuff = SqCoordBuff(startSqC)
     var i = 0
     var continue = true
@@ -183,5 +206,16 @@ class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqDirn]
       }
     }
     buff.toLinePath
-  }
-}*/
+  }*/
+}
+
+
+/** ArrayBuffer based buffer class for Colours. */
+class SqDirnBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[SqDirn]
+{ override def typeStr: String = "SqDirnBuff"
+  def intToT(i1: Int): SqDirn = SqDirn.fromInt(i1)
+}
+
+object SqDirnBuff
+{ def apply(initLen: Int = 4): SqDirnBuff = new SqDirnBuff(new ArrayBuffer[Int](initLen))
+}

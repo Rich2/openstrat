@@ -24,8 +24,8 @@ trait G1SScen extends SqGridScen
     val oPlayersNew: SqCenOptLayer[Player] = oPlayers.clone
     targets.foreach{ (sc2, buff) => buff.partition(_.isPerp) match
       { case _ if !(oPlayers.tileNone(sc2)) =>
-        case (Arr1(sc), _) => oPlayersNew.unsafeMove(sc2.stepTo(sc), sc2)
-        case (Arr0(), Arr1(sc)) => oPlayersNew.unsafeMove(sc2.stepTo(sc), sc2)
+        //case (Arr1(sc), _) => oPlayersNew.unsafeMove(sc2.stepTo(sc), sc2)
+        //case (Arr0(), Arr1(sc)) => oPlayersNew.unsafeMove(sc2.stepTo(sc), sc2)
         case _ =>
       }
     }
