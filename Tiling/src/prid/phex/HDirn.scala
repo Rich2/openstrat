@@ -7,7 +7,8 @@ sealed trait HDirnOpt
 object HDirnOpt
 {
   def fromInt(inp: Int): HDirnOpt = inp match
-  { case 1 => HexUR
+  { case 0 => HDirnNone
+    case 1 => HexUR
     case 2 => HexRt
     case 3 => HexDR
     case 4 => HexDL
@@ -23,7 +24,7 @@ case object HDirnNone extends HDirnOpt
 sealed trait HDirn extends TDirnSided with Int1Elem with HDirnOpt
 { /** The delta [[HCen]] of this step inside a hex grid. */
   def hCenDelta: HCen = HCen(tr, tc)
-  def intValue: Int
+  def int1: Int
   def reverse: HDirn
   def canEqual(a: Any): Boolean = a.isInstanceOf[HDirn]
 }
@@ -53,7 +54,7 @@ object HDirn
 case object HexUR extends HDirn
 { def sr: Int = 1
   def sc: Int = 1
-  def intValue = 1
+  def int1 = 1
   override def reverse: HDirn = HexDL
 }
 
@@ -61,7 +62,7 @@ case object HexUR extends HDirn
 case object HexRt extends HDirn
 { def sr: Int = 0
   def sc: Int = 2
-  def intValue = 2
+  def int1 = 2
   override def reverse: HDirn = HexLt
 }
 
@@ -69,7 +70,7 @@ case object HexRt extends HDirn
 case object HexDR extends HDirn
 { def sr: Int = -1
   def sc: Int = 1
-  def intValue = 3
+  def int1 = 3
   override def reverse: HDirn = HStepUL
 }
 
@@ -77,7 +78,7 @@ case object HexDR extends HDirn
 case object HexDL extends HDirn
 { def sr: Int = -1
   def sc: Int = -1
-  def intValue = 4
+  def int1 = 4
   override def reverse: HDirn = HexUR
 }
 
@@ -85,7 +86,7 @@ case object HexDL extends HDirn
 case object HexLt extends HDirn
 { def sr: Int = 0
   def sc: Int = -2
-  def intValue = 5
+  def int1 = 5
   override def reverse: HDirn = HexRt
 }
 
@@ -93,7 +94,7 @@ case object HexLt extends HDirn
 case object HStepUL extends HDirn
 { def sr: Int = 1
   def sc: Int = -1
-  def intValue = 6
+  def int1 = 6
   override def reverse: HDirn = HexDR
 }
 

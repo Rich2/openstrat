@@ -19,8 +19,8 @@ class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
 }
 
 object HCenStep
-{ def apply(hCen: HCen, step: HDirn): HCenStep = new HCenStep(hCen.r, hCen.c, step.intValue)
-  def apply(r: Int, c: Int, step: HDirn): HCenStep = new HCenStep(r, c, step.intValue)
+{ def apply(hCen: HCen, step: HDirn): HCenStep = new HCenStep(hCen.r, hCen.c, step.int1)
+  def apply(r: Int, c: Int, step: HDirn): HCenStep = new HCenStep(r, c, step.int1)
 
   implicit val buildEv: Int3ArrMapBuilder[HCenStep, HCenStepArr] = new Int3ArrMapBuilder[HCenStep, HCenStepArr]{
     override type BuffT = HCenStepBuff

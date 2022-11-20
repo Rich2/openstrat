@@ -20,8 +20,8 @@ class HStepCen(val stepInt: Int, val r2: Int, val c2: Int) extends Int3Elem
 }
 
 object HStepCen
-{ def apply(step: HDirn, hCen: HCen): HStepCen = new HStepCen(step.intValue, hCen.r, hCen.c)
-  def apply(step: HDirn, r: Int, c: Int): HStepCen = new HStepCen(step.intValue, r, c)
+{ def apply(step: HDirn, hCen: HCen): HStepCen = new HStepCen(step.int1, hCen.r, hCen.c)
+  def apply(step: HDirn, r: Int, c: Int): HStepCen = new HStepCen(step.int1, r, c)
 
   implicit val buildEv: Int3ArrMapBuilder[HStepCen, HStepCenArr] = new Int3ArrMapBuilder[HStepCen, HStepCenArr]{
     override type BuffT = HStepCenBuff
@@ -48,7 +48,7 @@ object HStepCenArr extends  Int3SeqLikeCompanion[HStepCen, HStepCenArr]
     var count: Int = 0
 
     while (count < arrLen)
-    { array(count) = elems(count / 3)._1.intValue
+    { array(count) = elems(count / 3)._1.int1
       count += 1
       array(count) = elems(count / 3)._2
       count += 1

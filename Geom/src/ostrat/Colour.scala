@@ -11,7 +11,7 @@ class Colour(val argbValue: Int) extends AnyVal with FillFacet with Int1Elem
   def fillAttrib: FillAttrib = FillAttrib(this)
   
   override def attribs: RArr[XmlAtt] = RArr(fillAttrib)
-  @inline final override def intValue: Int = argbValue 
+  @inline final override def int1: Int = argbValue
   def webStr: String = "#" + rgbHexStr + alpha.hexStr2
   def svgStr: String = Colour.valueToStr.get(this).fold(hexStr)(_.toLowerCase)
   def canEqual(a: Any) = a.isInstanceOf[Colour]

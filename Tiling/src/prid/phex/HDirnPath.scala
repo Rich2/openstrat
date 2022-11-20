@@ -79,7 +79,7 @@ object HDirnPath
   { val array = new Array[Int](steps.length + 2)
     array(0) = startCen.int1
     array(1) = startCen.int2
-    steps.iForeach{(i, d) => array(i + 2) = d.intValue }
+    steps.iForeach{(i, d) => array(i + 2) = d.int1 }
     new HDirnPath(array)
   }
 }
@@ -114,7 +114,7 @@ object HDirnPathPair
   { val array: Array[Int] = new Array[Int](2 + steps.length)
     array(0) = startR
     array(1) = startC
-    steps.iForeach(2){ (i, dn) => array(i) = dn.intValue}
+    steps.iForeach(2){ (i, dn) => array(i) = dn.int1}
     new HDirnPathPair[A2](array, a2)
   }
 }

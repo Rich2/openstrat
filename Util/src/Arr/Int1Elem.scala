@@ -4,8 +4,9 @@ import collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from a single [[Int]]. These are used in [[Int1Arr]] Array[Int] based collections. */
 trait Int1Elem extends Any with IntNElem
-{ def intValue: Int
-  @inline def int1 : Int = intValue
+{ /* The single [[int]] value from which the final class can be contructed. */
+  def int1: Int
+
   override def intForeach(f: Int => Unit): Unit = { f(int1) }
 }
 

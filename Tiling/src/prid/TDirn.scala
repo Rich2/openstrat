@@ -2,7 +2,7 @@
 package ostrat; package prid
 
 /** A tile direction can be used for a tile step. */
-trait TDirn
+trait TDirn extends Any// with Int1Elem
 {/** Tile step r row coordinate delta. */
   def tr: Int
 
