@@ -15,3 +15,9 @@ class HDirnPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) exten
   override def a1Arr: HDirnArr = new HDirnArr(a1ArrayInt)
   override def fElemStr: HDirnPair[A2] => String = _.toString
 }
+
+class HDirnPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends Int1PairBuff[HDirn, A2, HDirnPair[A2]]
+{ override type ThisT = HDirnPairBuff[A2]
+  override def typeStr: String = "HDirnPairBuff"
+  override def newElem(int1: Int, a2: A2): HDirnPair[A2] = new HDirnPair[A2](int1, a2)
+}
