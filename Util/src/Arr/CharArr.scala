@@ -2,7 +2,7 @@
 package ostrat
 
 /** Efficient immutable Array based collection for [[Char]]s. */
-final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrSingle[Char]
+final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNonParam[Char]
 { type ThisT = CharArr
 
   /** Copy's the backing Array[[Char]] to a new Array[char]. End users should rarely have to use this method */
@@ -15,6 +15,12 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrSingle[
   override def unsafeSetElem(i: Int, value: Char): Unit = unsafeArray(i) = value
 
   override def fElemStr: Char => String = _.toString
+
+  override def tail: CharArr =
+  { val newArray = new Array[Char]((length - 1).max0)
+    iUntilForeach(1, length){ i => newArray(i - 1) = unsafeArray(i) }
+    new CharArr(newArray)
+  }
 
   /** Append another Chars collection. */
   def ++ (op: CharArr): CharArr =

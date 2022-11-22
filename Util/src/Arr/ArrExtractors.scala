@@ -62,6 +62,8 @@ object Arr6
 object Arr1Tail
 { /** Extractor method for Arr of length >= 1. Optionally Returns a [[Tuple2]] of the first element and the tail. */
   def unapply[A](arr: RArr[A])(implicit ct: ClassTag[A]): Option[(A, RArr[A])] = ife(arr.nonEmpty, Some((arr.head, arr.drop1)), None)
+
+  def unapply[A, ArrT <: ArrNonParam[A]{type ThisT = ArrT}](arr: ArrT): Option[(A, ArrT)] = ife(arr.nonEmpty, Some((arr.head, arr.tail)), None)
 }
 
 object Arr2Tail

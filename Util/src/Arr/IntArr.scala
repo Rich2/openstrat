@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** Immutable efficient [[Array]][[Int]] backed class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be
  *  widened. */
-final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrSingle[Int]
+final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNonParam[Int]
 { type ThisT = IntArr
 
   /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */
@@ -25,6 +25,12 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrSingle[In
   { val newArray = new Array[Int](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)
+    new IntArr(newArray)
+  }
+
+  override def tail: IntArr = {
+    val newArray = new Array[Int]((length - 1).max0)
+    iUntilForeach(1, length) { i => newArray(i - 1) = unsafeArray(i) }
     new IntArr(newArray)
   }
 

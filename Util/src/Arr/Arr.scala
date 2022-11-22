@@ -85,4 +85,7 @@ trait ArrSingle[+A] extends Any with Arr[A]
   }
 }
 
-trait ArrNonParam[+A] extends Any with ArrSingle[A]
+trait ArrNonParam[A] extends Any with ArrSingle[A]
+{ type ThisT <: ArrNonParam[A]
+  def tail: ThisT
+}
