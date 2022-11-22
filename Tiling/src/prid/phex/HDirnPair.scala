@@ -1,6 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer
+import geom._
+
+import collection.mutable.ArrayBuffer
+import scala.reflect.ClassTag
 
 class HDirnPair[A2](val a1Int1: Int, val a2: A2) extends Int1PairElem[HDirn, A2]
 { override def a1: HDirn = HDirn.fromInt(a1Int1)
@@ -20,4 +23,13 @@ class HDirnPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBu
 { override type ThisT = HDirnPairBuff[A2]
   override def typeStr: String = "HDirnPairBuff"
   override def newElem(int1: Int, a2: A2): HDirnPair[A2] = new HDirnPair[A2](int1, a2)
+}
+
+class HDirnPairArrMapBuilder[B2](implicit val b2ClassTag: ClassTag[B2]) extends Int1PairArrMapBuilder[HDirn, HDirnArr, B2, HDirnPair[B2], HDirnPairArr[B2]]
+{ override type BuffT = HDirnPairBuff[B2]
+  override type B1BuffT = HDirnBuff
+  override def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): HDirnPairBuff[B2] = new HDirnPairBuff[B2](a1Buffer, a2Buffer)
+  override def arrFromArrays(b1ArrayInt: Array[Int], b2Array: Array[B2]): HDirnPairArr[B2] = new HDirnPairArr[B2](b1ArrayInt, b2Array)
+  override def b1ArrBuilder: ArrMapBuilder[HDirn, HDirnArr] = HDirn.arrMapBuildEv
+  override def newB1Buff(): HDirnBuff = HDirnBuff()
 }
