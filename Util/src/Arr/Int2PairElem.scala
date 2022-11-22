@@ -44,8 +44,8 @@ trait Int2PairBuff[A1 <: Int2Elem, A2, A <: Int2PairElem[A1, A2]] extends IntNPa
   }
 
   override final def unsafeSetElem(i: Int, value: A): Unit =
-  { b1IntBuffer(i * 3) = value.a1Int1
-    b1IntBuffer(i * 3 + 1) = value.a1Int2
+  { b1IntBuffer(i * 2) = value.a1Int1
+    b1IntBuffer(i * 2 + 1) = value.a1Int2
     b2Buffer(i) = value.a2
   }
 }
@@ -56,8 +56,8 @@ trait Int2PairArrMapBuilder[B1 <: Int2Elem, ArrB1 <: Int2Arr[B1], B2, B <: Int2P
   final override def a1IntNum: Int = 2
 
   final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = {
-    seqLike.a1ArrayInt(index * 3) = value.a1Int1
-    seqLike.a1ArrayInt(index * 3 + 1) = value.a1Int2
+    seqLike.a1ArrayInt(index * 2) = value.a1Int1
+    seqLike.a1ArrayInt(index * 2 + 1) = value.a1Int2
     seqLike.a2Array(index) = value.a2
   }
 }
