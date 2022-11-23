@@ -69,7 +69,7 @@ class OptionExtensions[A](thisOption: Option[A])
 
   def map2[B, C](ob: Option[B])(f: (A, B) => C): Option[C] = thisOption.fold[Option[C]](None)(a => ob.fold[Option[C]](None)(b => Some(f(a, b))))
 
-  def toEMon(errs: StringArr): EMon[A] = thisOption match
+  def toEMon(errs: StrArr): EMon[A] = thisOption match
   { case Some(a) => Good(a)
     case None => Bad(errs)
   }
@@ -81,6 +81,6 @@ class OptionExtensions[A](thisOption: Option[A])
 
   def toEMon: EMon[A] = thisOption match
   { case Some(a) => Good(a)
-    case None => Bad(StringArr())
+    case None => Bad(StrArr())
   }
 }

@@ -4,7 +4,7 @@ import collection.mutable.ArrayBuffer
 
 /** Immutable efficient [[Array]][[Int]] backed class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be
  *  widened. */
-final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNonParam[Int]
+final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[Int]
 { type ThisT = IntArr
 
   /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */

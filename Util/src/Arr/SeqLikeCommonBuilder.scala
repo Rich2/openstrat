@@ -62,7 +62,7 @@ object ArrMapBuilder extends ArrBuilderPriority2
   implicit val doublesImplicit: ArrMapBuilder[Double, DblArr] = DblArrBuilder
   implicit val longImplicit: ArrMapBuilder[Long, LongArr] = LongArrBuilder
   implicit val floatImplicit: ArrMapBuilder[Float, FloatArr] = FloatArrBuilder
-  implicit val stringImplicit: ArrMapBuilder[String, StringArr] = StringArrBuilder
+  implicit val stringImplicit: ArrMapBuilder[String, StrArr] = StringArrBuilder
   implicit val booleansImplicit: ArrMapBuilder[Boolean, BooleanArr] = BooleanArrBuilder
   implicit val anyImplicit: ArrMapBuilder[Any, AnyArr] = AnyArrBuild
 }

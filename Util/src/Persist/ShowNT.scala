@@ -4,7 +4,7 @@ import pParse._
 
 trait TypeStrN extends Any with TypeStr
 { /** Sequence of the names of parameter constituents of this class. */
-  def paramNames: StringArr// = Strings(name1, name2)
+  def paramNames: StrArr// = Strings(name1, name2)
 
   /** Number of parameter constituents of this class. */
   def numParams: Int
@@ -24,9 +24,9 @@ trait ShowNT[R] extends ShowCompoundT[R] with ShowT[R]
     }
   }
 
-  def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr
+  def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr
 
-  def strs(obj: R, way: ShowStyle): StringArr = strDecs(obj, way, -1)
+  def strs(obj: R, way: ShowStyle): StrArr = strDecs(obj, way, -1)
 
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
   { def semisStr = strDecs(obj, ShowCommas, maxPlaces).mkStr("; ")
@@ -41,7 +41,7 @@ trait ShowNT[R] extends ShowCompoundT[R] with ShowT[R]
 }
 
 trait ShowShowNT[R <: ShowN] extends ShowNT[R] with ShowShowT[R]
-{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr = obj.showElemStrDecs(way, maxPlaces)
+{ override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr = obj.showElemStrDecs(way, maxPlaces)
 }
 
 trait UnshowN[R] extends Unshow[R] with TypeStrN
@@ -57,10 +57,10 @@ trait UnshowN[R] extends Unshow[R] with TypeStrN
 
   /** Tries to construct the type from a sequence of parameters using out of order named parameters and default values. */
   final def fromExprSeq(exprs: RArr[Expr]): EMon[R] =
-    if(exprs.length > numParams) Bad(StringArr(exprs.length.toString + " parameters for 2 parameter constructor."))
+    if(exprs.length > numParams) Bad(StrArr(exprs.length.toString + " parameters for 2 parameter constructor."))
     else
     {
-      def exprsLoop(i: Int, usedNames: StringArr): EMon[R] =
+      def exprsLoop(i: Int, usedNames: StrArr): EMon[R] =
         if (i >= exprs.length)
           if (i >= numParams) fromSortedExprs(exprs, paramNames.map(pn => usedNames.findIndex(_ == pn)))
           else exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
@@ -71,6 +71,6 @@ trait UnshowN[R] extends Unshow[R] with TypeStrN
           case AsignExprName(name) => exprsLoop(i + 1, usedNames +% name)
           case _ => exprsLoop(i + 1, usedNames +% paramNames.find(u => !usedNames.exists(_ == u)).get)
         }
-      exprsLoop(0, StringArr())
+      exprsLoop(0, StrArr())
   }
 }

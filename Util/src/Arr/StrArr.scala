@@ -3,10 +3,10 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[String]]s. */
-class StringArr(val unsafeArray: Array[String]) extends AnyVal with ArrSingle[String]
-{ override type ThisT = StringArr
+final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoParam[String]
+{ override type ThisT = StrArr
   override def typeStr: String = "Strings"
-  override def unsafeSameSize(length: Int): StringArr = new StringArr(new Array[String](length))
+  override def unsafeSameSize(length: Int): StrArr = new StrArr(new Array[String](length))
   override def unsafeSetElem(i: Int, value: String): Unit = unsafeArray(i) = value
   override def fElemStr: String => String = s => s
   override def apply(index: Int): String = unsafeArray(index)
@@ -20,8 +20,18 @@ class StringArr(val unsafeArray: Array[String]) extends AnyVal with ArrSingle[St
     acc
   }
 
+
+  /** Reverses the order of the elements of this sequence. */
+  override def reverse: StrArr = ???
+
+  override def tail: StrArr =
+  { val newArray = new Array[String]((length - 1).max0)
+    iUntilForeach(1, length) { i => newArray(i - 1) = unsafeArray(i) }
+    new StrArr(newArray)
+  }
+
   /** Append. */
-  def ++ (operand: StringArr): StringArr =
+  def ++ (operand: StrArr): StrArr =
   { val newArray: Array[String] = new Array[String](length + operand.length)
     var i = 0
     while (i < length) {
@@ -33,24 +43,24 @@ class StringArr(val unsafeArray: Array[String]) extends AnyVal with ArrSingle[St
       newArray(i + length) = unsafeArray(i)
       i += 1
     }
-    new StringArr(newArray)
+    new StrArr(newArray)
   }
 
   /** Alias for append. Functionally appends the operand [[String]]. */
-  @inline def +%(op: String): StringArr = append(op)
+  @inline def +%(op: String): StrArr = append(op)
   /** Functionally appends the operand [[String]]. This method by the :+ operator, rather than the +- operator alias used for append on [[RArr]] to
    *  avoid confusion with arithmetic operations. */
-  def append(op: String): StringArr =
+  def append(op: String): StrArr =
   { val newArray = new Array[String](length + 1)
     unsafeArray.copyToArray(newArray)
     newArray(length) = op
-    new StringArr(newArray)
+    new StrArr(newArray)
   }
 
-  def appendOption(optElem: Option[String]): StringArr =
+  def appendOption(optElem: Option[String]): StrArr =
     optElem.fld(this, this +% _)
 
-  def appendsOption(optElem: Option[StringArr]): StringArr =
+  def appendsOption(optElem: Option[StrArr]): StrArr =
     optElem.fld(this, ++ _)
 
   /** Finds the index of the first [[String]] element that fulfills the predicate parameter or returns -1. */
@@ -66,11 +76,11 @@ class StringArr(val unsafeArray: Array[String]) extends AnyVal with ArrSingle[St
 }
 
 /** Companion object of ArrStrings class contains repeat parameter apply factor method. */
-object StringArr
+object StrArr
 { /** Repeat parameter apply factor method. */
-  def apply(input: String*): StringArr = new StringArr(input.toArray)
+  def apply(input: String*): StrArr = new StrArr(input.toArray)
 
-  implicit val eqImplicit: EqT[StringArr] = (a1, a2) =>
+  implicit val eqImplicit: EqT[StrArr] = (a1, a2) =>
     if(a1.length != a2.length) false
     else
     { var i = 0
@@ -80,14 +90,14 @@ object StringArr
     }
 }
 
-object StringArrBuilder extends ArrMapBuilder[String, StringArr] with ArrFlatBuilder[StringArr]
+object StringArrBuilder extends ArrMapBuilder[String, StrArr] with ArrFlatBuilder[StrArr]
 { type BuffT = StringBuff
-  override def uninitialised(length: Int): StringArr = new StringArr(new Array[String](length))
-  override def indexSet(seqLike: StringArr, index: Int, value: String): Unit = seqLike.unsafeArray(index) = value
+  override def uninitialised(length: Int): StrArr = new StrArr(new Array[String](length))
+  override def indexSet(seqLike: StrArr, index: Int, value: String): Unit = seqLike.unsafeArray(index) = value
   override def newBuff(length: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](length))
   override def buffGrow(buff: StringBuff, value: String): Unit = buff.unsafeBuffer.append(value)
-  override def buffToSeqLike(buff: StringBuff): StringArr = new StringArr(buff.unsafeBuffer.toArray)
-  override def buffGrowArr(buff: StringBuff, arr: StringArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
+  override def buffToSeqLike(buff: StringBuff): StrArr = new StrArr(buff.unsafeBuffer.toArray)
+  override def buffGrowArr(buff: StringBuff, arr: StrArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
 class StringBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buff[String]

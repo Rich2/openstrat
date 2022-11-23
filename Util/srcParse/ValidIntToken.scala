@@ -93,7 +93,7 @@ trait RawIntDeciToken extends IntStdToken with ValidRawHexaIntToken
 case class NatDeciToken(startPosn: TextPosn, srcStr: String) extends ValidRawHexaNatToken with RawIntDeciToken with NatStdToken with DigitSeqsCode
 { override def exprName: String = "Decimal"
   override def digitsStr: String = srcStr
-  override def digitSeqs: StringArr = StringArr(digitsStr)
+  override def digitSeqs: StrArr = StrArr(digitsStr)
   inline override def getIntStd: Int = getAbsoluteIntStd
 
   override def trail: String = ???

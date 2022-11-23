@@ -4,7 +4,7 @@ package ostrat; package pParse
 /** Sequence of point separated number sequences. Includes fixed point decimal numbers, IPv4 notation nad version nunbers. */
 trait DigitSeqsCode extends ClauseMemExprToken
 { /** The digit sequences of the code. For example "2.13.7" gives Strings("2", "13", "7"). */
-  def digitSeqs: StringArr
+  def digitSeqs: StrArr
 
   /** Lower case trailing letter sequence. */
   def trail: String
@@ -24,7 +24,7 @@ trait DeciFracToken extends ValidFracToken
 /** Positive Decimal fractional fixed point token. */
 final case class DeciFracPosToken(startPosn: TextPosn, dgs1: String, dgs2: String, trail: String) extends DeciFracToken with ValidPosFracToken with DigitSeqsCode
 { override def exprName: String = "DeciFrac"
-  override def digitSeqs: StringArr = StringArr(dgs1, dgs2)
+  override def digitSeqs: StrArr = StrArr(dgs1, dgs2)
   inline override def doubleValue: Double = fixedValue
   override def posDoubleValue: Double = doubleValue
 }

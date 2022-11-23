@@ -85,8 +85,11 @@ trait ArrSingle[+A] extends Any with Arr[A]
   }
 }
 
-trait ArrNonParam[A] extends Any with ArrSingle[A]
-{ type ThisT <: ArrNonParam[A]
+/** This trait is for all the [[ArrSingle]] classes except [[RArr]]. All the final classes of this
+ * trait have no type parameters. The primary motivation of this trait is to allow common
+ * extractors. */
+trait ArrNoParam[A] extends Any with ArrSingle[A]
+{ type ThisT <: ArrNoParam[A]
   def tail: ThisT
 
   /** Reverses the order of the elements of this sequence. */

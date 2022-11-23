@@ -45,7 +45,7 @@ trait ValueNSeqSpec[A <: ValueNElem] extends Any with ValueNSeqLike[A] with SeqS
 
 /** An immutable Arr of homogeneous value products. Currently there is no compelling use case for heterogeneous value products, but the homogeneous
  * name is being used to avoid having to change the name if and when homogeneous value product Arrs are implemented. */
-trait ValueNArr[A <: ValueNElem] extends Any with  ArrNonParam[A] with ValueNSeqLike[A]
+trait ValueNArr[A <: ValueNElem] extends Any with  ArrNoParam[A] with ValueNSeqLike[A]
 { type ThisT <: ValueNArr[A]
 
   /** Checks if 2 values of the specifying sequence are equal. */

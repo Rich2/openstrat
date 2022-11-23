@@ -230,7 +230,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   { val acc = ev.newBuff()
     var continue = true
     var count = 0
-    var errs: StringArr = StringArr()
+    var errs: StrArr = StrArr()
     while(count < length & continue == true)
       f(apply(count)).foldErrs { g => ev.buffGrow(acc, g); count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(ev.buffToSeqLike(acc)), Bad(errs))
@@ -248,7 +248,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
   { var acc: List[B] = Nil
     var continue = true
     var count = 0
-    var errs: StringArr = StringArr()
+    var errs: StrArr = StrArr()
     while(count < length & continue == true)
       f(apply(count)).foldErrs { g => acc ::= g; count += 1 } { e => errs = e; continue = false }
     ife(continue, Good(acc.reverse), Bad(errs))

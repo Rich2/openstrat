@@ -6,7 +6,7 @@ import geom._, pglobe._
 abstract class EArea2(val name: String, val cen: LatLong, val terr: WTile) extends GeographicSymbolKey
 {
   override def toString = name.appendCommas(terr.toString)
-  def aStrs: StringArr = StringArr(name)
+  def aStrs: StrArr = StrArr(name)
   def textScale: Length = 15000.metres
   def colour = terr.colour
 

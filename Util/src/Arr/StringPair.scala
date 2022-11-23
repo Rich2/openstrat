@@ -4,10 +4,10 @@ import reflect.ClassTag
 
 class StringPair[A2](val a1: String, val a2: A2) extends PairElem[String, A2]
 
-class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairArr[String, StringArr, A2, StringPair[A2]]
+class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairArr[String, StrArr, A2, StringPair[A2]]
 { override type ThisT = StringPairArr[A2]
   override def typeStr: String = "StringPairArr"
-  override def a1Arr: StringArr = new StringArr(a1Array)
+  override def a1Arr: StrArr = new StrArr(a1Array)
   override def a1Index(index: Int): String = a1Array(index)
   override def unsafeSetA1(index: Int, value: String): Unit = a1Array(index) = value
 

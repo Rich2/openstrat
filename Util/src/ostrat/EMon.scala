@@ -33,17 +33,17 @@ sealed trait EMon[+A]
    * unnecessary boxing of primitive values. */
   def getElse(elseValue: A @uncheckedVariance): A
 
-  def errs: StringArr
+  def errs: StrArr
 
   /** Will perform action if Good. Does nothing if Bad. */
   def forGood(f: A => Unit): Unit
 
   /** Fold the EMon of type A into a type of B. */
-  @inline def foldErrs[B](fGood: A => B)(fBad: StringArr => B): B
+  @inline def foldErrs[B](fGood: A => B)(fBad: StrArr => B): B
 
   /** This is just a Unit returning fold, but is preferred because the method  is explicit that it is called for effects, rather than to return a
    *  value. This method is implemented in the leaf Good classes to avoid boxing. */
-  def foldDo(fGood: A => Unit)(fBad: StringArr => Unit): Unit
+  def foldDo(fGood: A => Unit)(fBad: StrArr => Unit): Unit
 
   /** Gets the value of Good, throws exception on Bad. */
   def get: A
@@ -52,19 +52,19 @@ sealed trait EMon[+A]
   def fld[B](noneValue: => B, fGood: A => B): B
 
   def toOption: Option[A]
-  def toEither: Either[StringArr, A]
+  def toEither: Either[StrArr, A]
   def isGood: Boolean
   def isBad: Boolean
 
   /** Maps Good to Right[Strings, D] and Bad to Left[Strings, D]. These are implemented in the base traits GoodBase[+A] and BadBase[+A] as
    *  Either[+A, +B] boxes all value classes. */
-  def mapToEither[D](f: A => D): Either[StringArr, D]
+  def mapToEither[D](f: A => D): Either[StrArr, D]
 
   /** These are implemented in the base traits GoodBase[+A] and BadBase[+A] as Either[+A, +B] boxes all value classes. */
-  def flatMapToEither[D](f: A => Either[StringArr, D]): Either[StringArr, D]
+  def flatMapToEither[D](f: A => Either[StrArr, D]): Either[StrArr, D]
 
   /** These are implemented in the base traits GoodBase[+A] and BadBase[+A] as Either[+A, +B] boxes all value classes. */
-  def biMap[L2, R2](fLeft: StringArr => L2, fRight: A => R2): Either[L2, R2]
+  def biMap[L2, R2](fLeft: StrArr => L2, fRight: A => R2): Either[L2, R2]
 
   def mapToOption[B](f: A => B): Option[B]
   def flatMap2ToOption[A2, B](o2: EMon[A2], f: (A, A2) => B): Option[B]
@@ -112,7 +112,7 @@ final case class Good[+A](val value: A) extends EMon[A]
 {
   override def map[B](f: A => B): EMon[B] = Good[B](f(value))
   override def flatMap[B](f: A => EMon[B]): EMon[B] = f(value)
-  @inline override def foldErrs[B](fGood: A => B)(fBad: StringArr => B): B = fGood(value)
+  @inline override def foldErrs[B](fGood: A => B)(fBad: StrArr => B): B = fGood(value)
 
   override def fold[B](noneValue: => B)(fGood: A => B): B = fGood(value)
   override def fld[B](noneValue: => B, fGood: A => B): B = fGood(value)
@@ -129,20 +129,20 @@ final case class Good[+A](val value: A) extends EMon[A]
   override def map6[A2, A3, A4, A5, A6, R](e2: EMon[A2], e3: EMon[A3], e4: EMon[A4], e5: EMon[A5], e6: EMon[A6])(f: (A, A2, A3, A4, A5, A6) => R): EMon[R] =
     e2.map5(e3, e4, e5, e6){ (a2, a3, a4, a5, a6) => f(value, a2, a3, a4, a5, a6) }
 
-  override def foldDo(fGood: A => Unit)(fBad: StringArr => Unit): Unit = fGood(value)
+  override def foldDo(fGood: A => Unit)(fBad: StrArr => Unit): Unit = fGood(value)
   override def toEMon2[B1, B2](f: A => EMon2[B1, B2]): EMon2[B1, B2] = f(value)
   override def forGood(f: A => Unit): Unit = f(value)
   override def get: A = value
   override def getElse(elseValue: A @uncheckedVariance): A = value
   //def value: A
-  override def errs: StringArr = StringArr()
+  override def errs: StrArr = StrArr()
   override def toOption: Option[A] = Some(value)
-  override def toEither: Either[StringArr, A] = Right(value)
+  override def toEither: Either[StrArr, A] = Right(value)
   override def isGood: Boolean = true
   override def isBad: Boolean = false
-  override def mapToEither[D](f: A => D): Either[StringArr, D] = Right(f(value))
-  override def flatMapToEither[D](f: A => Either[StringArr, D]): Either[StringArr, D] = f(value)
-  override def biMap[L2, R2](fLeft: StringArr => L2, fRight: A => R2): Either[L2, R2] = Right(fRight(value))
+  override def mapToEither[D](f: A => D): Either[StrArr, D] = Right(f(value))
+  override def flatMapToEither[D](f: A => Either[StrArr, D]): Either[StrArr, D] = f(value)
+  override def biMap[L2, R2](fLeft: StrArr => L2, fRight: A => R2): Either[L2, R2] = Right(fRight(value))
   override def mapToOption[B](f: A => B): Option[B] = Some[B](f(value))
   override def flatMap2ToOption[A2, B](e2: EMon[A2], f: (A, A2) => B): Option[B] = e2.fld(None, a2 => Some(f(value, a2)))
 
@@ -161,13 +161,13 @@ object Good
 }
 
 /** The errors case of EMon[+A]. This corresponds, but is not functionally equivalent to an Either[List[String], +A] based Left[List[String], +A]. */
-class Bad[+A](val errs: StringArr) extends EMon[A]
+class Bad[+A](val errs: StrArr) extends EMon[A]
 { override def toString: String =  "Bad" + errs.foldLeft("")(_ + _.enquote).enParenth
   override def map[B](f: A => B): EMon[B] = Bad[B](errs)
   override def flatMap[B](f: A => EMon[B]): EMon[B] = Bad[B](errs)
   override def fold[B](noneValue: => B)(fGood: A => B): B = noneValue
   override def fld[B](noneValue: => B, fGood: A => B): B = noneValue
-  @inline override def foldErrs[B](fGood: A => B)(fBad: StringArr => B): B = fBad(errs)
+  @inline override def foldErrs[B](fGood: A => B)(fBad: StrArr => B): B = fBad(errs)
 
   override def map2[A2, R](e2: EMon[A2])(f: (A, A2) => R): EMon[R] = Bad[R](errs ++ e2.errs)
   override def map3[A2, A3, R](e2: EMon[A2], e3: EMon[A3])(f: (A, A2, A3) => R): EMon[R] = Bad[R](errs ++ e2.errs ++ e3.errs)
@@ -185,14 +185,14 @@ class Bad[+A](val errs: StringArr) extends EMon[A]
   override def getElse(elseValue: A @uncheckedVariance): A = elseValue
   override def forGood(f: A => Unit): Unit = {}
   override def toOption: Option[A] = None
-  override def toEither: Either[StringArr, A] = Left(errs)
+  override def toEither: Either[StrArr, A] = Left(errs)
   override def get: A = excep("Called get on Bad.")
-  override def foldDo(fGood: A => Unit)(fBad: StringArr => Unit): Unit = fBad(errs)
+  override def foldDo(fGood: A => Unit)(fBad: StrArr => Unit): Unit = fBad(errs)
   override def isGood: Boolean = false
   override def isBad: Boolean = true
-  override def mapToEither[D](f: A => D): Either[StringArr, D] = Left(errs)
-  override def flatMapToEither[D](f: A => Either[StringArr, D]): Either[StringArr, D] = (Left(errs))
-  override def biMap[L2, R2](fLeft: StringArr => L2, fRight: A => R2): Either[L2, R2] = Left(fLeft(errs))
+  override def mapToEither[D](f: A => D): Either[StrArr, D] = Left(errs)
+  override def flatMapToEither[D](f: A => Either[StrArr, D]): Either[StrArr, D] = (Left(errs))
+  override def biMap[L2, R2](fLeft: StrArr => L2, fRight: A => R2): Either[L2, R2] = Left(fLeft(errs))
   override def mapToOption[B](f: A => B): Option[B] = None
   override def flatMap2ToOption[A2, B](e2: EMon[A2], f: (A, A2) => B): Option[B] = None
   override def goodOrOther[A1 >: A](otherEMon: => EMon[A1] @uncheckedVariance): EMon[A1] = otherEMon
@@ -200,7 +200,7 @@ class Bad[+A](val errs: StringArr) extends EMon[A]
 
 object Bad
 {
-  def apply[A](errs: StringArr): Bad[A] = new Bad[A](errs)
+  def apply[A](errs: StrArr): Bad[A] = new Bad[A](errs)
   def unapplySeq(inp: Any): Option[Seq[String]] = inp match
   { case b: Bad[_] => Some(b.errs.toList)
     case _ => None

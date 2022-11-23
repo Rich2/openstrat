@@ -12,7 +12,7 @@ trait TypeStr6Plus[A1, A2, A3, A4, A5, A6] extends Any with TypeStr5Plus[A1, A2,
 }
 
 trait TypeStr6[A1, A2, A3, A4, A5, A6] extends Any with TypeStr6Plus[A1, A2, A3, A4, A5, A6]
-{ override def paramNames: StringArr = StringArr(name1, name2, name3, name4, name5, name6)
+{ override def paramNames: StrArr = StrArr(name1, name2, name3, name4, name5, name6)
   override def numParams: Int = 6
 }
 
@@ -45,8 +45,8 @@ object Show6T
     final override def syntaxDepthT(obj: R): Int = ev1.syntaxDepthT(fArg1(obj)).max(ev2.syntaxDepthT(fArg2(obj))).max(ev3.syntaxDepthT(fArg3(obj))).
       max(ev4.syntaxDepthT(fArg4(obj))).max(ev5.syntaxDepthT(fArg5(obj))).max(ev6.syntaxDepthT(fArg6(obj))) + 1
 
-    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StringArr =
-      StringArr(ev1.showT(fArg1(obj), way), ev2.showT(fArg2(obj), way), ev3.showT(fArg3(obj), way), ev4.showT(fArg4(obj), way),
+    override def strDecs(obj: R, way: ShowStyle, maxPlaces: Int): StrArr =
+      StrArr(ev1.showT(fArg1(obj), way), ev2.showT(fArg2(obj), way), ev3.showT(fArg3(obj), way), ev4.showT(fArg4(obj), way),
         ev5.showT(fArg5(obj), way), ev6.showT(fArg6(obj), way))
   }
 }
