@@ -52,7 +52,8 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
     val getOrders: RArr[(Player, HDirn)] = players.zipSomesMap(moves)((player, step) => (player, step))
-    scen = scen.endTurn(getOrders)
+    //val getOrders2 = moves.mapTo
+    scen = scen.endTurn(???)//getOrders)
     moves = NoMoves
     repaint()
     thisTop()

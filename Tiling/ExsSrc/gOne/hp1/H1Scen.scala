@@ -9,16 +9,16 @@ trait H1Scen extends HSysTurnScen
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
-  def endTurn(orderList: RArr[(Player, HDirn)]): H1Scen =
+  def endTurn(orderList: HDirnPairArr[Player]): H1Scen =
   {
     val playersKey: Map[Player, HCen] = oPlayers.SomesKeyMap
 
     val targets: HCenBuffLayer[HCenStep] = gridSys.newHCenArrOfBuff
 
-    orderList.foreach { (player: Player, step: HDirn) =>
-      val hc1: HCen = playersKey(player)
-      val optTarget: Option[HCen] = hc1.stepOpt(step)
-      optTarget.foreach { target => targets.appendAt(target, HCenStep(hc1, step)) }
+    orderList.foreach { pair =>
+      val hc1: HCen = playersKey(pair.a2)
+      val optTarget: Option[HCen] = hc1.stepOpt(pair.a1)
+      optTarget.foreach { target => targets.appendAt(target, HCenStep(hc1, pair.a1)) }
     }
 
     /** A new Players grid is created by cloning the old one and then mutating it to the new state. This preserves the old turn state objects and
