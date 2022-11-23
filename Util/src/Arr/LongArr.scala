@@ -23,7 +23,11 @@ class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNoParam[Long]
     new LongArr(newArray)
   }
 
-  override def reverse: LongArr = ???
+  override def reverse: LongArr =
+  { val newArray = new Array[Long](length)
+    iUntilForeach(0, length) { i => newArray(i) = unsafeArray(length - 1 - i) }
+    new LongArr(newArray)
+  }
 
   override def tail: LongArr =
   { val newArray = new Array[Long]((length - 1).max0)

@@ -20,9 +20,11 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     acc
   }
 
-
-  /** Reverses the order of the elements of this sequence. */
-  override def reverse: StrArr = ???
+  override def reverse: StrArr =
+  { val newArray = new Array[String](length)
+    iUntilForeach(0, length) { i => newArray(i) = unsafeArray(length - 1 - i) }
+    new StrArr(newArray)
+  }
 
   override def tail: StrArr =
   { val newArray = new Array[String]((length - 1).max0)

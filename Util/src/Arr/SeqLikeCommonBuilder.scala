@@ -63,7 +63,7 @@ object ArrMapBuilder extends ArrBuilderPriority2
   implicit val longImplicit: ArrMapBuilder[Long, LongArr] = LongArrBuilder
   implicit val floatImplicit: ArrMapBuilder[Float, FloatArr] = FloatArrBuilder
   implicit val stringImplicit: ArrMapBuilder[String, StrArr] = StringArrBuilder
-  implicit val booleansImplicit: ArrMapBuilder[Boolean, BooleanArr] = BooleanArrBuilder
+  implicit val booleansImplicit: ArrMapBuilder[Boolean, BoolArr] = BooleanArrBuilder
   implicit val anyImplicit: ArrMapBuilder[Any, AnyArr] = AnyArrBuild
 }
 
@@ -95,7 +95,7 @@ object ArrFlatBuilder extends ArrFlatBuilderLowPriority
   implicit val dblsImplicit: ArrFlatBuilder[DblArr] = DblArrBuilder
   implicit val longsImplicit: ArrFlatBuilder[LongArr] = LongArrBuilder
   implicit val floatImplicit: ArrFlatBuilder[FloatArr] = FloatArrBuilder
-  implicit val booleansImplicit: ArrFlatBuilder[BooleanArr] = BooleanArrBuilder
+  implicit val booleansImplicit: ArrFlatBuilder[BoolArr] = BooleanArrBuilder
 }
 
 /** if you create your own specialist Arr class for a type T, make sure that type T extends SpecialT. */
