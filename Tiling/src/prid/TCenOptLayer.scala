@@ -1,8 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid
 
-/** An efficient immutable array of optional values mapped to a [[TGrid]] tile grid. */
-trait TCenOptDGrid[A <: AnyRef] extends Any
+/** An efficient immutable array of optional values mapped to a [[TGridSys]] tile grid. */
+trait TCenOptLayer[A <: AnyRef] extends Any with OptRefSeqLike[A]
 { /** The underlying mutable backing [[Array]]. it is designated unsafe because it uses [[null]]s for run time efficiency. End users should rarely need to access this directly.  */
   def unsafeArray: Array[A]
 
@@ -10,7 +10,7 @@ trait TCenOptDGrid[A <: AnyRef] extends Any
   def length: Int = unsafeArray.length
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
-   *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptDGrid]] was created. */
+   *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptLayer]] was created. */
   def mapArr[B, ArrT <: Arr[B]](noneValue: => B)(f: A => B)(implicit build: ArrMapBuilder[B, ArrT]): ArrT =
   { val buff = build.newBuff()
     unsafeArray.foreach{ a => build.buffGrow(buff, if (a == null) noneValue else f(a)) }
@@ -18,7 +18,7 @@ trait TCenOptDGrid[A <: AnyRef] extends Any
   }
 
   /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
-   *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptDGrid]] was created. */
+   *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptLayer]] was created. */
   def mapSomes[B, ArrT <: Arr[B]](f: A => B)(implicit build: ArrMapBuilder[B, ArrT]): ArrT =
   {
     val buff = build.newBuff()

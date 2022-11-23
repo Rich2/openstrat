@@ -4,10 +4,10 @@ import geom._, reflect.ClassTag
 
 /** A [[HGridSys]] data layer of optional tile data. This is specialised for OptRef[A]. The tileGrid can map the [[HCen]] coordinate of the tile to
  *  the index of the Arr. Hence most methods take an implicit [[HGridSys]] hex grid parameter. */
-class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenOptDGrid[A]
+class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenOptLayer[A]
 {
-  def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): HCenOptLayer[B] = {
-    val newArray = new Array[B](length)
+  def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): HCenOptLayer[B] =
+  { val newArray = new Array[B](length)
     var i = 0
     while (i < length) { if (unsafeArray(i) != null) newArray(i) = f(unsafeArray(i)); i += 1 }
     new HCenOptLayer[B](newArray)
