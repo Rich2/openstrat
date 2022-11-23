@@ -2,7 +2,7 @@
 package ostrat
 import utest._
 
-object IntsTest extends TestSuite
+object IntArrTest extends TestSuite
 {
   val irb0 =IntArr(4).removeIndex(0) === IntArr()
   val irb1 =IntArr(-5, 2, 40, -89).removeIndex(2) === IntArr(-5, 2, -89)

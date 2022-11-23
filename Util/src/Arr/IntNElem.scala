@@ -42,13 +42,13 @@ trait IntNArr[A <: IntNElem] extends Any with ValueNArr[A] with IntNSeqLike[A]
 { /** The final type of this Array[Int] backed collection class. */
   type ThisT <: IntNArr[A]
 
-  override final def reverse: ThisT =
+  final override def reverse: ThisT =
   { val res: ThisT = unsafeSameSize(length)
     iForeach({ (i, el) => res.unsafeSetElem(length - 1 - i, el) })
     res
   }
 
-  def tail: ThisT =
+  final override def tail: ThisT =
   { val newArray = new Array[Int](unsafeLength - elemProdSize)
     iUntilForeach(unsafeLength - elemProdSize) { i => newArray(i) = unsafeArray(i + elemProdSize) }
     fromArray(newArray)
@@ -68,6 +68,8 @@ trait IntNArr[A <: IntNElem] extends Any with ValueNArr[A] with IntNSeqLike[A]
     foreach { a => if (f(a)) intBufferAppend(buff, a) }
     fromArray(buff.toArray)
   }
+
+
 }
 
 trait IntNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuilder[BB]

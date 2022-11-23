@@ -14,6 +14,9 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNonPara
   override def apply(index: Int): Char = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Char): Unit = unsafeArray(i) = value
 
+  /** Reverses the order of the elements of this sequence. */
+  override def reverse: CharArr = ???
+
   override def fElemStr: Char => String = _.toString
 
   override def tail: CharArr =

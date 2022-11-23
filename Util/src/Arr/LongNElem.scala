@@ -5,14 +5,29 @@ import collection.mutable.ArrayBuffer
 /** A class that can be constructed from a fixed number of [[Long]]s. It can be stored as an Array[Long] of primitive values. */
 trait LongNElem extends Any with ValueNElem
 
-trait LongNSeqSpec[A <: LongNElem] extends Any with ValueNSeqSpec[A]
-{ def unsafeArray: Array[Long]
-  final def unsafeLength: Int = unsafeArray.length
+trait LongNSeqLike[A <: LongNElem] extends Any with ValueNSeqLike[A] //with ArrayDblBacked
+{ type ThisT <: LongNSeqLike[A]
+  def unsafeArray: Array[Long]
+
+  def fromArray(array: Array[Long]): ThisT
+
+  /** Utility method to append element on to an [[ArrayBuffer]][Long]. End users should rarely need to use this method. */
+  def longBufferAppend(buffer: ArrayBuffer[Long], elem: A): Unit
+
+  def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Long](length * elemProdSize))
+  @inline final def unsafeLength: Int = unsafeArray.length
 }
 
+trait LongNSeqSpec[A <: LongNElem] extends Any with LongNSeqLike[A] with ValueNSeqSpec[A]
+
 /** Base trait for Array[Long] based collections of Products of Longs. */
-trait LongNArr[A <: LongNElem] extends Any with LongNSeqSpec[A] with ValueNArr[A]
+trait LongNArr[A <: LongNElem] extends Any with LongNSeqLike[A] with ValueNArr[A]
 {
+  final override def tail: ThisT =
+  { val newArray = new Array[Long](unsafeLength - elemProdSize)
+    iUntilForeach(unsafeLength - elemProdSize) { i => newArray(i) = unsafeArray(i + elemProdSize) }
+    fromArray(newArray)
+  }
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */

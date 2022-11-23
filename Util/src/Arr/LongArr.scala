@@ -3,7 +3,7 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Long]]s. */
-class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrSingle[Long]
+class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNonParam[Long]
 { type ThisT = LongArr
 
   /** Copy's the backing Array[[Long]] to a new Array[char]. End users should rarely have to use this method. */
@@ -20,6 +20,14 @@ class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrSingle[Long]
   { val newArray = new Array[Long](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)
+    new LongArr(newArray)
+  }
+
+  override def reverse: LongArr = ???
+
+  override def tail: LongArr =
+  { val newArray = new Array[Long]((length - 1).max0)
+    iUntilForeach(1, length) { i => newArray(i - 1) = unsafeArray(i) }
     new LongArr(newArray)
   }
 }

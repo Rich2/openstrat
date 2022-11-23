@@ -88,4 +88,7 @@ trait ArrSingle[+A] extends Any with Arr[A]
 trait ArrNonParam[A] extends Any with ArrSingle[A]
 { type ThisT <: ArrNonParam[A]
   def tail: ThisT
+
+  /** Reverses the order of the elements of this sequence. */
+  def reverse: ThisT
 }
