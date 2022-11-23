@@ -9,9 +9,9 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   override def typeStr: String = "HCenOptLayer"
 
   def map[B <: AnyRef](f: A => B)(implicit ct: ClassTag[B]): HCenOptLayer[B] =
-  { val newArray = new Array[B](length)
+  { val newArray = new Array[B](flatLength)
     var i = 0
-    while (i < length) { if (unsafeArray(i) != null) newArray(i) = f(unsafeArray(i)); i += 1 }
+    while (i < flatLength) { if (unsafeArray(i) != null) newArray(i) = f(unsafeArray(i)); i += 1 }
     new HCenOptLayer[B](newArray)
   }
 
@@ -29,7 +29,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   /** Mutates the value ot the specified location to None. */
   def unsafeSetNone(hc: HCen)(implicit grider: HGridSys): Unit = unsafeArray(grider.arrIndex(hc)) = null.asInstanceOf[A]
 
-  def unsafeSetAll(value: A): Unit = iUntilForeach(length)(unsafeArray(_) = value)
+  def unsafeSetAll(value: A): Unit = iUntilForeach(flatLength)(unsafeArray(_) = value)
 
   /** Creates a new ArrOpt with the specified location set to the specified value. */
   def setSome(hc: HCen, value: A)(implicit grider: HGridSys): HCenOptLayer[A] =
@@ -107,7 +107,7 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 
   /** Drops the [[None]] values. Maps the [[Some]]'s value with the corresponding [[HCen]] to value of type B. Returns a [[Seqimut]] of length between
    * 0 and the length of this [[HCenOptLayer]]. */
-  def someHCMap[B, ArrB <: Arr[B]](f: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrB]): ArrB =
+  def someHCMapArr[B, ArrB <: Arr[B]](f: (A, HCen) => B)(implicit grider: HGridSys, build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
 
     grider.foreach { hc =>

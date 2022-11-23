@@ -2,42 +2,29 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
-trait OptRefSeqLike[A <: AnyRef] extends Any with SeqNoName[Option[A]]
-{
-  def unsafeArray: Array[A]
+/** OptRefs is an array based collection of optional values, that uses nulls for implementation. The collection use should not have to interact with
+ *  the null values directly.  */
+final class OptRefArr[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with Arr[Option[A]]
+{ override type ThisT = OptRefArr[A]
+  override def typeStr: String = "OptRefArr"
+  override def unsafeSetElem(i: Int, value: Option[A]): Unit = ???
+  @inline def length: Int = unsafeArray.length
+  override def fElemStr: Option[A] => String = ???
+  def apply(index: Int): Option[A] = unsafeApply(index)
 
-  def unsafeApply(index: Int): Option[A] =
-  { val unsafe = unsafeArray(index)
+  def unsafeApply(index: Int): Option[A] = {
+    val unsafe = unsafeArray(index)
     ife(unsafe == null, None, Some(unsafe))
   }
+  override def elemsStr: String = ???
 
   override def foreach[U](f: Option[A] => U): Unit =
   { var count = 0
-    while (count <  unsafeArray.length) {
+    while (count < unsafeArray.length) {
       f(unsafeApply(count))
       count += 1
     }
   }
-
-  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
-   * methods. */
-  override def unsafeSetElem(i: Int, value: Option[A]): Unit = ???
-
-  override def fElemStr: Option[A] => String = ???
-
-  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  override def elemsStr: String = ???
-}
-
-/** OptRefs is an array based collection of optional values, that uses nulls for implementation. The collection use should not have to interact with
- *  the null values directly.  */
-final class OptRefArr[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with OptRefSeqLike[A] with Arr[Option[A]]
-{ override type ThisT = OptRefArr[A]
-  override def typeStr: String = "OptRefArr"
-
-  @inline def length: Int = unsafeArray.length
-
-  def apply(index: Int): Option[A] = unsafeApply(index)
 
   /** This produces a completely new immutable collection with the element in the new collection set to the given value. The Old collection remains
    * unchanged. If you are initialising the collection in an encapsulated space before sharing a references to the collection the unsafeSetSome

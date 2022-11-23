@@ -2,12 +2,17 @@
 package ostrat; package prid
 
 /** An efficient immutable array of optional values mapped to a [[TGridSys]] tile grid. */
-trait TCenOptLayer[A <: AnyRef] extends Any with OptRefSeqLike[A]
-{ /** The underlying mutable backing [[Array]]. it is designated unsafe because it uses [[null]]s for run time efficiency. End users should rarely need to access this directly.  */
+trait TCenOptLayer[A <: AnyRef] extends Any
+{ type ThisT <: TCenOptLayer[A]
+
+  def typeStr: String
+  /** The underlying mutable backing [[Array]]. it is designated unsafe because it uses [[null]]s for run time efficiency. End users should rarely need to access this directly.  */
   def unsafeArray: Array[A]
 
   /** The length of this tile grid mapped [[Array]] of optional values. */
-  def length: Int = unsafeArray.length
+  def flatLength: Int = unsafeArray.length
+
+  def foreach[U](noneValue: => U)(f: A => U): Unit = unsafeArray.foreach { a => if (a == null) noneValue else f(a) }
 
   /** Maps the this Arr of Opt values, without their respective Hcen coordinates to an Arr of type B. This method treats the [[HCenArrOpt]] class like
    *  a standard Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptLayer]] was created. */
