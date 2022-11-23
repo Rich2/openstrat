@@ -21,8 +21,8 @@ trait Arr[+A] extends Any with Sequ[A]
 
 /** [[ShowT] type class for showing [[DataGen]][A] objects. */
 class ArrShowT[A, R <: Arr[A]](val evA: ShowT[A]) extends ShowTSeqLike[A, R]
-{
-  override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
+{ override def syntaxDepthT(obj: R): Int = obj.foldLeft(1)((acc, a) => acc.max(evA.syntaxDepthT(a)))
+
   override def showDecT(obj: R, style: ShowStyle, maxPlaces: Int, minPlaces: Int): String =
     typeStr + evA.typeStr.enSquare + obj.map(a => evA.showDecT(a, style, maxPlaces, minPlaces))
 }

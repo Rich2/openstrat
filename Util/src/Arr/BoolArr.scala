@@ -10,7 +10,6 @@ trait BoolSeqLike extends Any with SeqLike[Boolean]
   def fromArray(array: Array[Boolean]): ThisT
 
   override final def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeArray(i) = value
-  def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
 
   def unsafeArrayCopy(operand: Array[Boolean], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Boolean => String = _.toString
@@ -27,6 +26,7 @@ final class BoolArr(val unsafeArray: Array[Boolean]) extends AnyVal with ArrNoPa
   override def typeStr: String = "Booleans"
   override def fromArray(array: Array[Boolean]): BoolArr = new BoolArr(array)
   override def length: Int = unsafeArray.length
+  def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
 
   override def tail: BoolArr =
   { val newArray = new Array[Boolean](length)
