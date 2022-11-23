@@ -2,14 +2,12 @@
 package ostrat
 import scala.collection.mutable.ArrayBuffer
 
-
 trait BoolSeqLike extends Any with SeqLike[Boolean]
 { type ThisT <: BoolSeqLike
   def unsafeArray: Array[Boolean]
 
   /** Constructs a new instance of the final type / class from an [[Array]][Boolean]. */
   def fromArray(array: Array[Boolean]): ThisT
-
 
   override final def unsafeSetElem(i: Int, value: Boolean): Unit = unsafeArray(i) = value
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))

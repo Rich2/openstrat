@@ -3,18 +3,27 @@ package ostrat
 import collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Float]]s. */
-class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with ArrSingle[Float]
+class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with ArrNoParam[Float]
 { type ThisT = FloatArr
-
-  /** Copy's the backing Array[[Int]] to a new Array[Int]. End users should rarely have to use this method. */
+  override def typeStr: String = "FloatArr"
   override def unsafeSameSize(length: Int): FloatArr = new FloatArr(new Array[Float](length))
-
-  override def typeStr: String = "Floats"
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Float = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Float): Unit = unsafeArray(i) = value
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
+
+  override def tail: FloatArr =
+  { val newArray = new Array[Float]((length - 1).max0)
+    iUntilForeach(1, length) { i => newArray(i - 1) = unsafeArray(i) }
+    new FloatArr(newArray)
+  }
+
+  override def reverse: FloatArr =
+  { val newArray = new Array[Float](length)
+    iUntilForeach(0, length) { i => newArray(i) = unsafeArray(length - 1 - i) }
+    new FloatArr(newArray)
+  }
 
   def ++ (op: FloatArr): FloatArr =
   { val newArray = new Array[Float](length + op.length)
@@ -26,7 +35,6 @@ class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with ArrSingle[Floa
 
 object FloatArr
 { def apply(input: Float*): FloatArr = new FloatArr(input.toArray)
-
 
   implicit val eqImplicit: EqT[FloatArr] = (a1, a2) =>
     if(a1.length != a2.length) false
