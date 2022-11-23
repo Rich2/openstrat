@@ -2,7 +2,7 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
-trait OptRefSeqLike[A <: AnyRef] extends Any
+trait OptRefSeqLike[A <: AnyRef] extends Any with SeqNoName[Option[A]]
 {
   def unsafeArray: Array[A]
 
@@ -11,21 +11,33 @@ trait OptRefSeqLike[A <: AnyRef] extends Any
     ife(unsafe == null, None, Some(unsafe))
   }
 
-  def foreach[U](f: Option[A] => U): Unit =
+  override def foreach[U](f: Option[A] => U): Unit =
   { var count = 0
     while (count <  unsafeArray.length) {
       f(unsafeApply(count))
       count += 1
     }
   }
+
+  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+  override def unsafeSetElem(i: Int, value: Option[A]): Unit = ???
+
+  override def fElemStr: Option[A] => String = ???
+
+  /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
+  override def elemsStr: String = ???
 }
 
 /** OptRefs is an array based collection of optional values, that uses nulls for implementation. The collection use should not have to interact with
  *  the null values directly.  */
-class OptRefArr[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with OptRefSeqLike[A]
-{ @inline def elemsLen: Int = unsafeArray.length
+final class OptRefArr[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with OptRefSeqLike[A] with Arr[Option[A]]
+{ override type ThisT = OptRefArr[A]
+  override def typeStr: String = "OptRefArr"
 
-  inline final def apply(index: Int): Option[A] = unsafeApply(index)
+  @inline def length: Int = unsafeArray.length
+
+  def apply(index: Int): Option[A] = unsafeApply(index)
 
   /** This produces a completely new immutable collection with the element in the new collection set to the given value. The Old collection remains
    * unchanged. If you are initialising the collection in an encapsulated space before sharing a references to the collection the unsafeSetSome
@@ -44,33 +56,32 @@ class OptRefArr[A <: AnyRef](val unsafeArray: Array[A] @uncheckedVariance) exten
   def setOtherOptRefs[B <: AnyRef](operand: OptRefArr[B])(f: A => B): Unit =
   { var count = 0
 
-    while (count < elemsLen)
+    while (count < length)
     { val unsafe = unsafeArray(count)
       if (unsafe == null) operand.unsafeSetNone(count) else operand.unsafeSetSome(count, f(unsafe))
       count += 1
     }
   }
 
-
-  def iForeach[U](f: (Option[A], Int) => U): Unit =
-  { var count = 0
-    while (count < elemsLen)
-    { f(apply(count), count)
-      count += 1
+  override def iForeach[U](f: (Int, Option[A]) => U): Unit =
+  { var i = 0
+    while (i < length)
+    { f(i, apply(i))
+      i += 1
     }
   }
 
-  def iForeach[U](startIndex: Int)(f: (Option[A], Int) => U): Unit =
-  { var count = startIndex
-    while (count < elemsLen)
-    { f(apply(count), count)
-      count += 1
+  override def iForeach[U](startIndex: Int)(f: (Int, Option[A]) => U): Unit =
+  { var i = startIndex
+    while (i < length)
+    { f(i, apply(i))
+      i += 1
     }
   }
 
   def foreachSome(f: A => Unit): Unit =
   { var count = 0
-    while (count < elemsLen){ apply(count).foreach(f); count += 1}
+    while (count < length){ apply(count).foreach(f); count += 1}
   }
 
   def mapSomes[B, ArrT <: Arr[B]](f: A => B)(build: ArrMapBuilder[B, ArrT]): ArrT =

@@ -2,11 +2,19 @@
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.immutable._, reflect.ClassTag
 
+/** Will beocme SeqLike if SeLikechanged ot SeqBased */
+trait SeqNoName[+A] extends Any with SeqLike[A @uncheckedVariance]
+{
+  /** Performs a side effecting function on each element of this sequence in order. The function may return Unit. If it does return a non Unit value
+   * it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
+  def foreach[U](f: A => U): Unit
+}
+
 /** This the base trait for all efficient sequence collections based on Array like classes, Arrays, ArrayBuffers etc. The final classes compile time
  *  wrap the platform Array and buffer classes. So currently there are just two classes for each type A, An ArrImut that wraps a standard immutable
  *  Array to produce an immutable array, and a ArrBuff that wraps an ArrayBuffer. Currently this just in a standard ArrayBuffer. Where A is a compound
  *  value types or an AnyVal type. */
-trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
+trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
 { /** The final type of this object. */
   type ThisT <: Sequ[A]
 
@@ -52,7 +60,7 @@ trait Sequ[+A] extends Any with SeqLike[A @uncheckedVariance]
 
   /** Performs a side effecting function on each element of this sequence in order. The function may return Unit. If it does return a non Unit value
    *  it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
-  def foreach[U](f: A => U): Unit =
+  override def foreach[U](f: A => U): Unit =
   { var count = 0
     while(count < length)
     { f(apply(count))
