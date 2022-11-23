@@ -23,7 +23,7 @@ trait SeqLike[+A] extends Any
   def typeStr: String
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
-  def elemsStr: String // = dataMap(fElemStr).mkString("; ").enParenth
+  def elemsStr: String
 
   override def toString: String = typeStr + elemsStr
 }
