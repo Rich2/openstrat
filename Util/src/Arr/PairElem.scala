@@ -155,6 +155,8 @@ trait PairArrCommonBuilder[B1, ArrB1 <: Arr[B1], B2, ArrB <: PairArr[B1, ArrB1, 
   /** Constructs a new empty [[Buff]] for the B1 components of the pairs. */
   def newB1Buff(): B1BuffT
 
+  def newB2Buff(): ArrayBuffer[B2] = new ArrayBuffer[B2]()
+
   /** Expands / appends the B1 [[Buff]] with a songle element of B1. */
   def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit
 

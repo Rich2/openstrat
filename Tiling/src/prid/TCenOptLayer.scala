@@ -22,6 +22,17 @@ trait TCenOptLayer[A <: AnyRef] extends Any
     build.buffToSeqLike(buff)
   }
 
+  def mapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: PairArr[B1,ArrB1, B2, B]](noneB1: => B1, noneB2: => B2)(f1: A => B1)(
+    f2: A => B2)(implicit build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB =
+  { val b1Buff = build.newB1Buff()
+    val b2Buff = build.newB2Buff()
+    unsafeArray.foreach { a =>
+      b1Buff.grow(if (a == null) noneB1 else f1(a))
+      b2Buff.append(if (a == null) noneB2 else f2(a))
+    }
+    build.arrFromBuffs(b1Buff, b2Buff)
+  }
+
   /** Maps the Some values to type B by the parameter function. It ignores the None values. This method treats the [[HCenArr]] class like a standard
    *  Arr or Array. It does not utilise the grid [[TGrid]] from which this [[TCenOptLayer]] was created. */
   def mapSomes[B, ArrT <: Arr[B]](f: A => B)(implicit build: ArrMapBuilder[B, ArrT]): ArrT =
