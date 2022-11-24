@@ -1,6 +1,5 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-//import scala.collection.mutable.ArrayBuffer
 
 /** Extension methods for [[Iterable]][A]. */
 class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
@@ -147,12 +146,12 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     build.arrFromBuffs(buff1, buffer2)
   }
 
-  /** flatMaps to a [[PairArr]] of B1 and B2. */
+  /** FlatMaps to an [[Arr]] of B1, but maps to a single element of B2. The elements of the [[Arr]][B1] are paired with copies of B2. These are
+   *  logically flattened to a [[PairArr]][B1, B2]. */
   def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: PairArr[B1, ArrB1, B2, _]](f1: A => ArrB1, f2: A => B2)(
-    implicit build: PairArrFlatBuilder[B1, ArrB1, B2, BB]): BB =
-  {
-    val buff1 = build.newB1Buff()
-    val buffer2 = build.newB2Buffer()//new ArrayBuffer[B2]()
+  implicit build: PairArrFlatBuilder[B1, ArrB1, B2, BB]): BB =
+  { val buff1 = build.newB1Buff()
+    val buffer2 = build.newB2Buffer()
     thisIter.foreach{ a =>
       val b1 = f1(a)
       b1.foreach(buff1.grow)
