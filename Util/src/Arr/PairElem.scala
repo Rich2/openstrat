@@ -155,7 +155,7 @@ trait PairArrCommonBuilder[B1, ArrB1 <: Arr[B1], B2, ArrB <: PairArr[B1, ArrB1, 
   /** Constructs a new empty [[Buff]] for the B1 components of the pairs. */
   def newB1Buff(): B1BuffT
 
-  def newB2Buff(): ArrayBuffer[B2] = new ArrayBuffer[B2]()
+  def newB2Buffer(): ArrayBuffer[B2] = new ArrayBuffer[B2]()
 
   /** Expands / appends the B1 [[Buff]] with a songle element of B1. */
   def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit
@@ -175,6 +175,8 @@ trait PairArrMapBuilder[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <:
   def b1ArrBuilder: ArrMapBuilder[B1, ArrB1]
 
   final def b1Uninitialised(length: Int): ArrB1 = b1ArrBuilder.uninitialised(length)
+
+  final def b2Uninitialised(length: Int): Array[B2] = new Array[B2](length)
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
   def arrFromArrAndArray(b1Arr: ArrB1, b2s: Array[B2]): ArrB

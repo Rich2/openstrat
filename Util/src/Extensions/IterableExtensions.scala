@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-
-import scala.collection.mutable.ArrayBuffer
+//import scala.collection.mutable.ArrayBuffer
 
 /** Extension methods for [[Iterable]][A]. */
 class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
@@ -136,35 +135,32 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     ev.buffToSeqLike(buff)
   }
 
-  /** flatMaps to a [[PairArr]] of B1 and B2. */
-  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: PairArr[B1, ArrB1, B2, _]](f: A => BB)(
-  implicit build: PairArrFlatBuilder[B1, ArrB1, B2, BB]): BB = ???
-  /*{ val buff1 = build.newB1Buff()
-    val buffer2 = new ArrayBuffer[B2]()
+  /** Maps to a [[PairArr]] of B1 and B2. */
+  def mapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]](f1: A => B1, f2: A => B2)(
+  implicit build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB =
+  { val buff1 = build.newB1Buff()
+    val buffer2 = build.newB2Buffer()
     thisIter.foreach { a =>
-      val b = f(a)
-      b.foreach { p =>
-        buff1.grow(p.a1)
-        buffer2.append(p.a2)
-      }
+      buff1.grow(f1(a))
+      buffer2.append(f2(a))
     }
     build.arrFromBuffs(buff1, buffer2)
-  }*/
+  }
 
   /** flatMaps to a [[PairArr]] of B1 and B2. */
-  /*def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: PairArr[B1, ArrB1, B2, _]](f1: A => ArrB1, f2: A => B2)(
+  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: PairArr[B1, ArrB1, B2, _]](f1: A => ArrB1, f2: A => B2)(
     implicit build: PairArrFlatBuilder[B1, ArrB1, B2, BB]): BB =
   {
-    val buffer1 = build.newB1Buff()
-    val buffer2 = new ArrayBuffer[B2]()
+    val buff1 = build.newB1Buff()
+    val buffer2 = build.newB2Buffer()//new ArrayBuffer[B2]()
     thisIter.foreach{ a =>
       val b1 = f1(a)
-        b1.foreach(buffer1.grow)
+      b1.foreach(buff1.grow)
       val b2 = f2(a)
       iUntilForeach(0, b1.length)(_ => buffer2.append(b2))
     }
-    build.arrFromBuffs(buffer1, buffer2)
-  }*/
+    build.arrFromBuffs(buff1, buffer2)
+  }
 }
 
 /** Extension methods for [[Iterable]][A <: ValueNElem]. */
