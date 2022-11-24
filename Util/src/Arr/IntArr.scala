@@ -17,8 +17,7 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
   def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
   override def reverse: IntArr = ???
-  /** Alias for appendInts. Functionally appends the operand Ints. */
-  @inline def ++ (op: IntArr): IntArr = appendInts(op)
+  override def append(op: IntArr): IntArr = appendInts(op)
 
   /** Functionally appends the operand Ints. Aliased by the ++ operator. */
   def appendInts(op: IntArr): IntArr =

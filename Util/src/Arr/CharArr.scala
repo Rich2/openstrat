@@ -28,8 +28,7 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam
     new CharArr(newArray)
   }
 
-  /** Append another Chars collection. */
-  def ++ (op: CharArr): CharArr =
+  override def append(op: CharArr): CharArr =
   { val newArray = new Array[Char](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)

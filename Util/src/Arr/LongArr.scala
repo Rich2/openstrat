@@ -16,7 +16,7 @@ class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNoParam[Long]
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeArray(i) = value
   override def fElemStr: Long => String = _.toString
 
-  def ++ (op: LongArr): LongArr =
+  def append(op: LongArr): LongArr =
   { val newArray = new Array[Long](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)

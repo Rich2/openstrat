@@ -74,13 +74,11 @@ trait DblNArr[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNArr[A]
     fromArray(newArray)
   }
 
-  /** Appends ProductValue collection with the same type of Elements to a new ValueProduct collection. Note the operand collection can have a different
-   * type, although it shares the same element type. In such a case, the returned collection will have the type of the operand not this collection. */
-  def ++(operand: ThisT)(implicit build: DblNArrMapBuilder[A, ThisT]): ThisT = {
-    val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
+  final override def append(operand: ThisT): ThisT =
+  { val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)
     operand.unsafeArray.copyToArray(newArray, unsafeLength)
-    build.fromDblArray(newArray)
+    fromArray(newArray)
   }
 }
 

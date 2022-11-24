@@ -40,7 +40,7 @@ final class BoolArr(val unsafeArray: Array[Boolean]) extends AnyVal with ArrNoPa
     new BoolArr(newArray)
   }
 
-  def ++ (op: BoolArr): BoolArr =
+  override def append(op: BoolArr): BoolArr =
   { val newArray = new Array[Boolean](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)

@@ -94,4 +94,10 @@ trait ArrNoParam[A] extends Any with ArrSingle[A]
 
   /** Reverses the order of the elements of this sequence. */
   def reverse: ThisT
+
+  /** Operator alias for append. Appends an [[Arr]] of the same final type of this [[Arr]]. */
+  inline final def ++(operand: ThisT): ThisT = append(operand)
+
+  /** Appends an [[Arr]] of the same final type of this [[[Arr]]. */
+  def append(operand: ThisT): ThisT
 }

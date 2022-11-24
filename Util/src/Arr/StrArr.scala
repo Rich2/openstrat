@@ -32,8 +32,7 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     new StrArr(newArray)
   }
 
-  /** Append. */
-  def ++ (operand: StrArr): StrArr =
+  override def append(operand: StrArr): StrArr =
   { val newArray: Array[String] = new Array[String](length + operand.length)
     var i = 0
     while (i < length) {
@@ -63,7 +62,7 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     optElem.fld(this, this +% _)
 
   def appendsOption(optElem: Option[StrArr]): StrArr =
-    optElem.fld(this, ++ _)
+    optElem.fld(this, append(_))
 
   /** Finds the index of the first [[String]] element that fulfills the predicate parameter or returns -1. */
   def findIndex(f: String => Boolean): Int =
