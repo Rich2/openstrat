@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 
 trait ArrBaseOff[A, ArrT <: Arr[A]] extends Any
@@ -11,12 +11,12 @@ trait ArrBaseOff[A, ArrT <: Arr[A]] extends Any
   @inline def offset3: Int = offset0 + 3
   @inline def offset4: Int = offset0 + 4
   def forall(p: A => Boolean)(implicit arr: ArrT): Boolean = ??? //forall(0, length - 1)(p)
+
   def forN(endIndex: Int, p: A => Boolean)(implicit arr: ArrT): Boolean =
   {
     if(endIndex >= length) false
     else
-    {
-      var count = 0
+    { var count = 0
       var acc = true
       while(acc == true & count <= endIndex)
         if (p(apply(count))) count += 1
