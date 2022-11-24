@@ -69,38 +69,45 @@ object Arr1Tail
 object Arr2Tail
 { /** Extractor method for Arr of length >= 2. Optionally Returns a [[Tuple3]] of the first 2 elements and the tail. */
   def unapply[A](arr: RArr[A])(implicit ct: ClassTag[A]): Option[(A, A, RArr[A])] = ife(arr.length >= 2, Some((arr(0), arr(1), arr.drop(2))), None)
+
+  def unapply[A, ArrT <: ArrNoParam[A]{type ThisT = ArrT}](arr: ArrT): Option[(A, A, ArrT)] =
+    ife(arr.length >= 2, Some((arr(0), arr(1), arr.drop(2))), None)
 }
 
 object Arr3Tail
 { /** Extractor method for Arr of length >= 3. Optionally Returns a [[Tuple4]] of the first 3 elements and the tail. */
-  def unapply[A](arr: RArr[A])(implicit ct: ClassTag[A]): Option[(A, A, A, RArr[A])] = ife(arr.length >= 3, Some((arr(0), arr(1), arr(2), arr.drop1)), None)
+  def unapply[A](arr: RArr[A])(implicit ct: ClassTag[A]): Option[(A, A, A, RArr[A])] =
+    ife(arr.length >= 3, Some((arr(0), arr(1), arr(2), arr.drop1)), None)
+
+  def unapply[A, ArrT <: ArrNoParam[A] {type ThisT = ArrT}](arr: ArrT): Option[(A, A, A, ArrT)] =
+    ife(arr.length >= 2, Some((arr(0), arr(1), arr(2), arr.drop(3))), None)
 }
 
 object ArrHead
 { /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A](arr: RArr[A]): Option[A] = ife(arr.nonEmpty, Some(arr(0)), None)
+  def unapply[A](arr: Arr[A]): Option[A] = ife(arr.nonEmpty, Some(arr(0)), None)
 }
 
 /** Extractor object for the head 2 elements of an Arr, immutable covariant Array based collection. The tail can be any length. */
 object ArrHead2
 { /** Extractor for the head 2 elements of an Arr, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A](arr: RArr[A]): Option[(A, A)] = ife(arr.length >= 2, Some((arr(0), arr(1))), None)
+  def unapply[A](arr: Arr[A]): Option[(A, A)] = ife(arr.length >= 2, Some((arr(0), arr(1))), None)
 }
 
 object ArrHead3
 { /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A](arr: RArr[A]): Option[(A, A, A)] = ife(arr.length >= 3, Some((arr(0), arr(1), arr(2))), None)
+  def unapply[A](arr: Arr[A]): Option[(A, A, A)] = ife(arr.length >= 3, Some((arr(0), arr(1), arr(2))), None)
 }
 
 object ArrHead4
 { /** Extractor for the head of an Arr, immutable covariant Array based collection. The tail can be any length. */
-  def unapply[A](arr: RArr[A]): Option[(A, A, A, A)] = ife(arr.length >= 4, Some((arr(0), arr(1), arr(2), arr(3))), None)
+  def unapply[A](arr: Arr[A]): Option[(A, A, A, A)] = ife(arr.length >= 4, Some((arr(0), arr(1), arr(2), arr(3))), None)
 }
 
 /** Extractor function object for a Good Arr Sequence of length 0. */
 case object GoodArr0
 { /** Extractor method for a Good Arr Sequence of length 0. */
-  def unapply(eArr: EMon[RArr[_]]): Boolean = eArr match
+  def unapply(eArr: EMon[Arr[_]]): Boolean = eArr match
   { case Good(Arr0()) => true
     case _ => false
   }
@@ -108,26 +115,26 @@ case object GoodArr0
 
 /** Extractor function object for a Good Arr Sequence of length 1. */
 object GoodArr1
-{ /** Extractor method for a Good Arr Sequence of length 1. */
-  def unapply[A](eArr: EMon[RArr[A]]): Option[A] = eArr match
+{ /** Extractor method for a Good [[Arr]] Sequence of length 1. */
+  def unapply[A](eArr: EMon[Arr[A]]): Option[A] = eArr match
   { case Good(Arr1(head)) => Some(head)
     case _ => None
   }
 }
 
 object GoodArr2
-{ def unapply[A](eArr: EMon[RArr[A]]): Option[(A, A)] = eArr.foldErrs (g => if (g.length == 2) Some((g(0), g(1))) else None)(errs => None)
+{ def unapply[A](eArr: EMon[Arr[A]]): Option[(A, A)] = eArr.foldErrs (g => if (g.length == 2) Some((g(0), g(1))) else None)(errs => None)
 }
 
 object GoodArr3
-{ def unapply[A](eArr: EMon[RArr[A]]): Option[(A, A, A)] = eArr match
+{ def unapply[A](eArr: EMon[Arr[A]]): Option[(A, A, A)] = eArr match
   { case Good(Arr3(a0, a1, a2)) => Some((a0, a1, a2))
     case _ => None
   }
 }
 
 object GoodArr4
-{ def unapply[A](arr: EMon[RArr[A]]): Option[(A, A, A, A)] = arr match
+{ def unapply[A](arr: EMon[Arr[A]]): Option[(A, A, A, A)] = arr match
   { case Good(Arr4(a0, a1, a2, a3)) => Some((a0, a1, a2, a3))
     case _ => None
   }
