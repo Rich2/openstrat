@@ -27,9 +27,10 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
     new IntArr(newArray)
   }
 
-  override def tail: IntArr =
-  { val newArray = new Array[Int]((length - 1).max0)
-    iUntilForeach(1, length) { i => newArray(i - 1) = unsafeArray(i) }
+  override def drop(n: Int): IntArr =
+  { val nn = n.max0
+    val newArray = new Array[Int]((length - nn).max0)
+    iUntilForeach(length - nn) { i => newArray(i) = unsafeArray(i + nn) }
     new IntArr(newArray)
   }
 
@@ -61,16 +62,6 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
     iUntilForeach(index + 1, length){i => newArray(i - 1) = apply(i) }
     new IntArr(newArray)
   }
-
-  /** Drops the given number of elements from the head of this sequence. If n is greater than the length returns an empty [[IntArr] sequence. */
-  def drop(n: Int): IntArr =
-  { val newArray = new Array[Int]((length - n).max0)
-    iUntilForeach(n, length){i => newArray(i - n.min(length)) = apply(i) }
-    new IntArr(newArray)
-  }
-
-  /** Drops the the head of this sequence. If the seqeunce is already empty returns an empty [[IntArr] sequence. */
-  inline def drop1: IntArr = drop(1)
 
   def take(n: Int): IntArr = if (n >= length) this
   else {

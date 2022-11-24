@@ -26,9 +26,10 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     new StrArr(newArray)
   }
 
-  override def tail: StrArr =
-  { val newArray = new Array[String]((length - 1).max0)
-    iUntilForeach(1, length) { i => newArray(i - 1) = unsafeArray(i) }
+  override def drop(n: Int): StrArr =
+  { val nn = n.max0
+    val newArray = new Array[String]((length - nn).max0)
+    iUntilForeach(length - nn) { i => newArray(i) = unsafeArray(i + nn) }
     new StrArr(newArray)
   }
 

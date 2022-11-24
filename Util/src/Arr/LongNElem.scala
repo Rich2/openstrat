@@ -23,9 +23,10 @@ trait LongNSeqSpec[A <: LongNElem] extends Any with LongNSeqLike[A] with ValueNS
 /** Base trait for Array[Long] based collections of Products of Longs. */
 trait LongNArr[A <: LongNElem] extends Any with LongNSeqLike[A] with ValueNArr[A]
 {
-  final override def tail: ThisT =
-  { val newArray = new Array[Long](unsafeLength - elemProdSize)
-    iUntilForeach(unsafeLength - elemProdSize) { i => newArray(i) = unsafeArray(i + elemProdSize) }
+  final override def drop(n: Int): ThisT =
+  { val nn = n.max0
+    val newArray = new Array[Long]((unsafeLength - elemProdSize * nn).max0)
+    iUntilForeach(unsafeLength - elemProdSize * nn) { i => newArray(i) = unsafeArray(i + elemProdSize * nn) }
     fromArray(newArray)
   }
 }

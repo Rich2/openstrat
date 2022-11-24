@@ -22,9 +22,10 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam
 
   override def fElemStr: Char => String = _.toString
 
-  override def tail: CharArr =
-  { val newArray = new Array[Char]((length - 1).max0)
-    iUntilForeach(1, length){ i => newArray(i - 1) = unsafeArray(i) }
+  override def drop(n: Int): CharArr =
+  { val nn = n.max0
+    val newArray = new Array[Char]((length - nn).max0)
+    iUntilForeach(length){ i => newArray(i) = unsafeArray(i + nn) }
     new CharArr(newArray)
   }
 

@@ -48,9 +48,10 @@ trait IntNArr[A <: IntNElem] extends Any with ValueNArr[A] with IntNSeqLike[A]
     res
   }
 
-  final override def tail: ThisT =
-  { val newArray = new Array[Int](unsafeLength - elemProdSize)
-    iUntilForeach(unsafeLength - elemProdSize) { i => newArray(i) = unsafeArray(i + elemProdSize) }
+  final override def drop(n: Int): ThisT =
+  { val nn = n.max0
+    val newArray = new Array[Int]((unsafeLength - elemProdSize * nn).max0)
+    iUntilForeach(unsafeLength - elemProdSize) { i => newArray(i) = unsafeArray(i + elemProdSize * nn) }
     fromArray(newArray)
   }
 

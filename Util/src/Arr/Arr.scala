@@ -90,7 +90,10 @@ trait ArrSingle[+A] extends Any with Arr[A]
  * extractors. */
 trait ArrNoParam[A] extends Any with ArrSingle[A]
 { type ThisT <: ArrNoParam[A]
-  def tail: ThisT
+
+  def drop(n: Int): ThisT
+
+  final def tail: ThisT = drop(1)
 
   /** Reverses the order of the elements of this sequence. */
   def reverse: ThisT

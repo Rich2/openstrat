@@ -28,9 +28,10 @@ final class BoolArr(val unsafeArray: Array[Boolean]) extends AnyVal with ArrNoPa
   override def length: Int = unsafeArray.length
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
 
-  override def tail: BoolArr =
-  { val newArray = new Array[Boolean](length)
-    iUntilForeach(0, length) { i => newArray(i) = unsafeArray(length - 1 - i) }
+  override def drop(n: Int): BoolArr =
+  { val nn = n.max0
+    val newArray = new Array[Boolean]((length - n).max0)
+    iUntilForeach(length - nn) { i => newArray(i) = unsafeArray(i + nn) }
     new BoolArr(newArray)
   }
 

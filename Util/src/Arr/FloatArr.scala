@@ -13,9 +13,10 @@ class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with ArrNoParam[Flo
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
 
-  override def tail: FloatArr =
-  { val newArray = new Array[Float]((length - 1).max0)
-    iUntilForeach(1, length) { i => newArray(i - 1) = unsafeArray(i) }
+  override def drop(n: Int): FloatArr =
+  { val nn = n.max0
+    val newArray = new Array[Float]((length - nn).max0)
+    iUntilForeach(length - nn) { i => newArray(i) = unsafeArray(i + nn) }
     new FloatArr(newArray)
   }
 
