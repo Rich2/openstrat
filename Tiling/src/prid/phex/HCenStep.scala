@@ -76,6 +76,19 @@ class HCenStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) ex
   override def fElemStr: HCenStepPair[A2] => String = _.toString
 }
 
+object HCenStepPairArr extends Int3PairArrCompanion[HCenStep]
+{
+  def pairs[A2](pairs: (HCenStep, A2)*)(implicit ct: ClassTag[A2]): HCenStepPairArr[A2] = {
+    val arrays = tuplesToArrays[A2](pairs)
+    new HCenStepPairArr(arrays._1, arrays._2)
+  }
+
+  def apply[A2](pairs: HCenStepPair[A2]*)(implicit ct: ClassTag[A2]): HCenStepPairArr[A2] = {
+    val arrays = pairsToArrays[A2](pairs)
+    new HCenStepPairArr(arrays._1, arrays._2)
+  }
+}
+
 class HCenStepPairBuff[A2](val b1IntBuffer: ArrayBuffer[Int], val b2Buffer: ArrayBuffer[A2]) extends Int3PairBuff[HCenStep, A2, HCenStepPair[A2]]
 { override type ThisT = HCenStepPairBuff[A2]
   override def typeStr: String = "HCenStep"

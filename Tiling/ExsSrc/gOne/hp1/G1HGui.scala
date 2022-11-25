@@ -18,7 +18,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
   def NoMoves: HCenOptLayer[HDirn] = gridSys.newHCenOptLayer[HDirn]
 
-  def NoMoves2 = players.somePairArr
+  def NoMoves2: HCenStepPairArr[Player] = HCenStepPairArr[Player]()
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */

@@ -55,10 +55,8 @@ trait Dbl2PairArrMapBuilder[B1 <: Dbl2Elem, ArrB1 <: Dbl2Arr[B1], B2, B <: Dbl2P
   }
 }
 
-trait Dbl2PairArrCompanion[A1 <: Dbl2Elem, ArrA1 <: Dbl2Arr[A1]] extends DblNPairArrCompanion[A1, ArrA1]
+trait Dbl2PairArrCompanion[A1 <: Dbl2Elem, ArrA1 <: Dbl2Arr[A1]] //extends DblNPairArrCompanion[A1, ArrA1]
 {
-  override def elemNumDbls: Int = 2
-
   def seqToArrays[A2](pairs: Seq[Dbl2PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Double], Array[A2]) =
   {  val dblsArray = new Array[Double](pairs.length * 2)
     val a2Array = new Array[A2](pairs.length)

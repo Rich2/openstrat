@@ -96,11 +96,3 @@ trait IntNPairArrFlatBuilder[B1 <: IntNElem, ArrB1 <: IntNArr[B1], B2, ArrB <: I
   final override def buffGrowArr(buff: BuffT, arr: ArrB): Unit = { arr.a1ArrayInt.foreach(buff.b1IntBuffer.append(_))
     arr.a2Array.foreach(buff.b2Buffer.append(_)) }
 }
-
-/** Helper trait for Companion objects of [[IntNPairArr]] classes. */
-trait IntNPairArrCompanion[A1 <: IntNElem, ArrA1 <: IntNArr[A1]]
-{
-  /** The number of [[Int]] values that are needed to construct an element of the defining-sequence. */
-  def elemNumInts: Int
-}
-

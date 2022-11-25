@@ -170,6 +170,7 @@ trait DataDblNsPersist[A <: DblNElem, M <: DblNSeqLike[A]] extends ValueNSeqLike
 }
 
 /** Helper trait for [[IntNBuff]] companion objects. Facilitates factory apply methods. */
+/*
 trait DblNBuffCompanion[A <: DblNElem, AA <: DblNBuff[A]]
 { /** apply factory method for [[DblNBuff]] final classes */
   def apply(elems: A*): AA
@@ -178,4 +179,4 @@ trait DblNBuffCompanion[A <: DblNElem, AA <: DblNBuff[A]]
   def elemNumInts: Int
 
   def fromBuffer(buffer: ArrayBuffer[Double]): AA
-}
+}*/

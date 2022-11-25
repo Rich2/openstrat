@@ -66,11 +66,9 @@ trait Int3PairArrMapBuilder[B1 <: Int3Elem, ArrB1 <: Int3Arr[B1], B2, B <: Int3P
   }
 }
 
-trait Int3PairArrCompanion[A1 <: Int3Elem, ArrA1 <: Int3Arr[A1]] extends IntNPairArrCompanion[A1, ArrA1]
+trait Int3PairArrCompanion[A1 <: Int3Elem]
 {
-  override def elemNumInts: Int = 3
-
-  def seqToArrays[A2](pairs: Seq[Int3PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
+  def pairsToArrays[A2](pairs: Seq[Int3PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 3)
     val a2Array = new Array[A2](pairs.length)
     var i = 0
@@ -79,6 +77,20 @@ trait Int3PairArrCompanion[A1 <: Int3Elem, ArrA1 <: Int3Arr[A1]] extends IntNPai
       intsArray(i * 3 + 1) = p.a1Int2
       intsArray(i * 3 + 2) = p.a1Int3
       a2Array(i) = p.a2
+      i += 1
+    }
+    (intsArray, a2Array)
+  }
+
+  def tuplesToArrays[A2](pairs: Seq[(Int3Elem, A2)])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) = {
+    val intsArray = new Array[Int](pairs.length * 3)
+    val a2Array = new Array[A2](pairs.length)
+    var i = 0
+    pairs.foreach { p =>
+      intsArray(i * 3) = p._1.int1
+      intsArray(i * 3 + 1) = p._1.int2
+      intsArray(i * 3 + 2) = p._1.int3
+      a2Array(i) = p._2
       i += 1
     }
     (intsArray, a2Array)

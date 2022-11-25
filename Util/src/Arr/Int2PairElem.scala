@@ -62,10 +62,8 @@ trait Int2PairArrMapBuilder[B1 <: Int2Elem, ArrB1 <: Int2Arr[B1], B2, B <: Int2P
   }
 }
 
-trait Int2PairArrCompanion[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1]] extends IntNPairArrCompanion[A1, ArrA1]
+trait Int2PairArrCompanion[A1 <: Int2Elem]
 {
-  override def elemNumInts: Int = 2
-
   def seqToArrays[A2](pairs: Seq[Int2PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 2)
     val a2Array = new Array[A2](pairs.length)

@@ -79,10 +79,8 @@ Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrMapBuilder[B1, Ar
 trait Int4PairArrFlatBuilder[B1 <: Int4Elem, ArrB1 <: Int4Arr[B1], B2, ArrB <: Int4PairArr[B1, ArrB1, B2, _]] extends
   Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrFlatBuilder[B1, ArrB1, B2, ArrB]
 
-trait Int4PairArrCompanion[A1 <: Int4Elem, ArrA1 <: Int4Arr[A1]] extends IntNPairArrCompanion[A1, ArrA1]
+trait Int4PairArrCompanion[A1 <: Int4Elem]
 {
-  override def elemNumInts: Int = 4
-
   def seqToArrays[A2](pairs: Seq[Int4PairElem[_, A2]])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) =
   {  val intsArray = new Array[Int](pairs.length * 4)
     val a2Array = new Array[A2](pairs.length)
