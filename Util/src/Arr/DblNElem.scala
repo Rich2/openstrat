@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from N [[Double]]s. These are used as elements in [[DblNArr]] Array[Double] based collections. */
 trait DblNElem extends Any with ValueNElem
@@ -75,7 +75,7 @@ trait DblNArr[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNArr[A]
     fromArray(newArray)
   }
 
-  final override def append(operand: ThisT): ThisT =
+  @targetName("appendArr") final override def ++(operand: ThisT): ThisT =
   { val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)
     operand.unsafeArray.copyToArray(newArray, unsafeLength)

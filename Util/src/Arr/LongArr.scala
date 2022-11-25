@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Long]]s. */
 class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNoParam[Long]
@@ -16,7 +16,7 @@ class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNoParam[Long]
   override def unsafeSetElem(i: Int, value: Long): Unit = unsafeArray(i) = value
   override def fElemStr: Long => String = _.toString
 
-  def append(op: LongArr): LongArr =
+  @targetName("appendArr") def ++(op: LongArr): LongArr =
   { val newArray = new Array[Long](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)

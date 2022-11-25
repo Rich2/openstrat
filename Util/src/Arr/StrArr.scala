@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[String]]s. */
 final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoParam[String]
@@ -33,7 +33,7 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     new StrArr(newArray)
   }
 
-  override def append(operand: StrArr): StrArr =
+  @targetName("appendArr") override def ++(operand: StrArr): StrArr =
   { val newArray: Array[String] = new Array[String](length + operand.length)
     var i = 0
     while (i < length) {
@@ -63,7 +63,7 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     optElem.fld(this, this +% _)
 
   def appendsOption(optElem: Option[StrArr]): StrArr =
-    optElem.fld(this, append(_))
+    optElem.fld(this, this ++ _)
 
   /** Finds the index of the first [[String]] element that fulfills the predicate parameter or returns -1. */
   def findIndex(f: String => Boolean): Int =

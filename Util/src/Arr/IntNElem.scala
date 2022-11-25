@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** A class that can be construct from a fixed number of [[Int]]s. Because of the fixed length of these elements they can be be stored as and
  * reconstructed from a single Array[Int] of primitive values. */
@@ -55,7 +55,7 @@ trait IntNArr[A <: IntNElem] extends Any with ValueNArr[A] with IntNSeqLike[A]
     fromArray(newArray)
   }
 
-  final override def append(operand: ThisT): ThisT =
+  @targetName("appendArr") final override def ++(operand: ThisT): ThisT =
   { val newArray: Array[Int] = new Array(unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)
     operand.unsafeArray.copyToArray(newArray, unsafeLength)

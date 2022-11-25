@@ -1,6 +1,6 @@
 /* Copyright 2018-20 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import scala.collection.mutable.ArrayBuffer
+import annotation._, scala.collection.mutable.ArrayBuffer
 
 trait BoolSeqLike extends Any with SeqLike[Boolean]
 { type ThisT <: BoolSeqLike
@@ -41,7 +41,7 @@ final class BoolArr(val unsafeArray: Array[Boolean]) extends AnyVal with ArrNoPa
     new BoolArr(newArray)
   }
 
-  override def append(op: BoolArr): BoolArr =
+  @targetName("appendArr") override def ++(op: BoolArr): BoolArr =
   { val newArray = new Array[Boolean](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)

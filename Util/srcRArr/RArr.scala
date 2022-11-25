@@ -73,10 +73,8 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
 
   /** Alias for appendArr. Functionally appends 2nd [[RArr]] collection to dispatching [[RArr]], allows type widening. This operation allows type
    *  widening.*/
-  @inline def ++ [AA >: A](op: RArr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] = appendArr[AA](op)(ct)
-  /** Functionally concatenates element to dispatching [[RArr]], allows type widening. Aliased by -+ operator. The '-' character in the operator name
-   *  indicates loss of type precision. The ++ appendArr method is preferred when type widening is not required. */
-  def appendArr [AA >: A](op: RArr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
+  @targetName("appendArr") @inline
+  def ++ [AA >: A](op: RArr[AA] @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
   { val newArray = new Array[AA](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)
@@ -84,7 +82,8 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   }
 
   /** append. Functionally concatenates element to dispatching [[RArr]], allows type widening. */
-  @targetName("append") @inline def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
+  @targetName("append") @inline
+  def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
   { val newArray = new Array[AA](length + 1)
     unsafeArray.copyToArray(newArray)
     newArray(length) = op

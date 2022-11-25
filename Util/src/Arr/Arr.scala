@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.unchecked.uncheckedVariance
+import annotation._, unchecked.uncheckedVariance
 
 /** Base trait for specialised immutable sequences. "Arr" is the prescript for all immutable sequence classes backed by underlying Arrays. The final
  *  classes extend AnyVal using standard Java /Javascript Arrays for their underlying storage. A lot of the time this is a compile time wrapper with
@@ -47,8 +47,8 @@ trait ArrSingle[+A] extends Any with Arr[A]
     val newArr = unsafeSameSize(length)
     var count = 0
 
-    while (count < length) {
-      val orig = apply(count)
+    while (count < length)
+    { val orig = apply(count)
       val finalVal = ife(orig == oldValue, newValue, orig)
       newArr.unsafeSetElem(count, finalVal)
       count += 1
@@ -98,9 +98,6 @@ trait ArrNoParam[A] extends Any with ArrSingle[A]
   /** Reverses the order of the elements of this sequence. */
   def reverse: ThisT
 
-  /** Operator alias for append. Appends an [[Arr]] of the same final type of this [[Arr]]. */
-  inline final def ++(operand: ThisT): ThisT = append(operand)
-
-  /** Appends an [[Arr]] of the same final type of this [[[Arr]]. */
-  def append(operand: ThisT): ThisT
+  /** append. Appends an [[Arr]] of the same final type of this [[Arr]]. */
+  @targetName("appendArr") def ++(operand: ThisT): ThisT
 }

@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Float]]s. */
 class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with ArrNoParam[Float]
@@ -26,7 +26,7 @@ class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with ArrNoParam[Flo
     new FloatArr(newArray)
   }
 
-  override def append(op: FloatArr): FloatArr =
+  @targetName("appendArr") override def ++(op: FloatArr): FloatArr =
   { val newArray = new Array[Float](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)

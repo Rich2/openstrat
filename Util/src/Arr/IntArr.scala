@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** Immutable efficient [[Array]][[Int]] backed class for [[Int]]s. There are no concat methods, as Ints has no type parameter and can not be
  *  widened. */
@@ -17,7 +17,7 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
   def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
   override def reverse: IntArr = ???
-  override def append(op: IntArr): IntArr = appendInts(op)
+  @targetName("appendArr") override def ++(op: IntArr): IntArr = appendInts(op)
 
   /** Functionally appends the operand Ints. Aliased by the ++ operator. */
   def appendInts(op: IntArr): IntArr =

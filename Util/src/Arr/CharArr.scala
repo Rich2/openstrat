@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
+import annotation._
 
 /** Efficient immutable Array based collection for [[Char]]s. */
 final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam[Char]
@@ -29,7 +30,7 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam
     new CharArr(newArray)
   }
 
-  override def append(op: CharArr): CharArr =
+  @targetName("appendArr") override def ++(op: CharArr): CharArr =
   { val newArray = new Array[Char](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)
