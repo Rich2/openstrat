@@ -23,6 +23,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
   var moves: HCenOptLayer[HDirn] = NoMoves
+  var moves2 = NoMoves2
 
   val urect = Rect(1.4, 1)
 
@@ -72,9 +73,10 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(HPlayer(hc1, _)), hits) => hits.findHCenForEach{ hc2 =>
+    case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
       newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
+      newM.foreach{ d => moves2.appendPair(hc1.andStep(d), pl) }
       repaint()
     }
 

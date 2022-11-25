@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation._, reflect.ClassTag
 
 trait Int3PairElem[A1 <: Int3Elem, A2] extends IntNPairElem[A1, A2]
 { def a1Int1: Int
@@ -28,7 +28,22 @@ trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: Int3Arr[A1], A2, A <: Int3PairElem[A1
   override def a1Index(index: Int): A1 = newA1(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2))
   override def a1NumInt: Int = 3
 
-  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInt(index * 3) = value.int1; a1ArrayInt(index * 3 + 1) = value.int2; a1ArrayInt(index * 3 + 2) = value.int3 }
+  final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInt(index * 3) = value.int1; a1ArrayInt(index * 3 + 1) = value.int2
+    a1ArrayInt(index * 3 + 2) = value.int3 }
+
+  @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
+
+  final def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
+  { val newA1Array = new Array[Int](length + 3)
+    a1ArrayInt.copyToArray(newA1Array)
+    newA1Array(length) = a1.int1
+    newA1Array(length + 1) = a1.int2
+    newA1Array(length + 2) = a1.int3
+    val newA2Array = new Array[A2](length + 1)
+    a2Array.copyToArray(newA2Array)
+    a2Array(length) = a2
+    this.newFromArrays(newA1Array, a2Array)
+  }
 }
 
 trait Int3PairBuff[A1 <: Int3Elem, A2, A <: Int3PairElem[A1, A2]] extends IntNPairBuff[A1, A2, A]
