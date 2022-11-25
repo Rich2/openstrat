@@ -48,14 +48,11 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
     new StrArr(newArray)
   }
 
-  /** Alias for append. Functionally appends the operand [[String]]. */
-  @inline def +%(op: String): StrArr = append(op)
-  /** Functionally appends the operand [[String]]. This method by the :+ operator, rather than the +- operator alias used for append on [[RArr]] to
-   *  avoid confusion with arithmetic operations. */
-  def append(op: String): StrArr =
+  /** append. Functionally appends the operand [[String]]. */
+  @targetName("append") @inline def +%(operand: String): StrArr =
   { val newArray = new Array[String](length + 1)
     unsafeArray.copyToArray(newArray)
-    newArray(length) = op
+    newArray(length) = operand
     new StrArr(newArray)
   }
 

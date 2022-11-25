@@ -100,4 +100,7 @@ trait ArrNoParam[A] extends Any with ArrSingle[A]
 
   /** append. Appends an [[Arr]] of the same final type of this [[Arr]]. */
   @targetName("appendArr") def ++(operand: ThisT): ThisT
+
+  /** append. appends element to this [[Arr]]. */
+  @targetName("append") def +%(operand: A): ThisT
 }

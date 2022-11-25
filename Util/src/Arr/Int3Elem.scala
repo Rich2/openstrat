@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 3 [[Int]]s. These are used in [[Int3SeqSpec]] based collections. */
 trait Int3Elem extends Any with IntNElem
@@ -47,6 +47,15 @@ trait Int3Arr[A <: Int3Elem] extends Any with IntNArr[A] with Int3SeqLike[A]
 
   override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
   final override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+
+  @targetName("append") inline final override def +%(operand: A): ThisT =
+  { val newArray = new Array[Int](length + 3)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand.int1
+    newArray(length + 1) = operand.int2
+    newArray(length + 2) = operand.int3
+    fromArray(newArray)
+  }
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int3Elem]]s collections. */

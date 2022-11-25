@@ -23,6 +23,15 @@ class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNoParam[Long]
     new LongArr(newArray)
   }
 
+
+  /** append. Appends operand [[Long]] to this [[LongArr]]. */
+  @targetName("append") override def +%(operand: Long): LongArr =
+  { val newArray = new Array[Long](length + 1)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand
+    new LongArr(newArray)
+  }
+
   override def reverse: LongArr =
   { val newArray = new Array[Long](length)
     iUntilForeach(0, length) { i => newArray(i) = unsafeArray(length - 1 - i) }

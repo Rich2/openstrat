@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from a single [[Int]]. These are used in [[Int1Arr]] Array[Int] based collections. */
 trait Int1Elem extends Any with IntNElem
@@ -28,11 +28,10 @@ trait Int1SeqSpec[A <: Int1Elem] extends Any with Int1SeqLike[A] with IntNSeqSpe
 trait Int1Arr[A <: Int1Elem] extends Any with IntNArr[A] with Int1SeqLike[A]
 { final override def length: Int = unsafeArray.length
 
-  /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
-  def append(op: A): ThisT =
+  @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](length + 1)
     unsafeArray.copyToArray(newArray)
-    newArray(length) = op.int1
+    newArray(length) = operand.int1
     fromArray(newArray)
   }
 

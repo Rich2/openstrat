@@ -17,7 +17,17 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
   def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
   override def reverse: IntArr = ???
+
+  /** appendArr. Apends the operand [[IntArr]] to this [[IntArr]]. */
   @targetName("appendArr") override def ++(op: IntArr): IntArr = appendInts(op)
+
+  /** append. Appends operand [[Int]] to this [[IntArr]]. */
+  @targetName("append") override def +%(operand: Int): IntArr =
+  { val newArray = new Array[Int](length + 1)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand
+    new IntArr(newArray)
+  }
 
   /** Functionally appends the operand Ints. Aliased by the ++ operator. */
   def appendInts(op: IntArr): IntArr =
@@ -31,17 +41,6 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
   { val nn = n.max0
     val newArray = new Array[Int]((length - nn).max0)
     iUntilForeach(length - nn) { i => newArray(i) = unsafeArray(i + nn) }
-    new IntArr(newArray)
-  }
-
-  /** Alias for append. Functionally appends the operand Int. */
-  @inline def :+(op: Int): IntArr = append(op)
-  /** Functionally appends the operand Int. This method by the :+ operator, rather than the +- operator alias used for append on Refs to avoid
-   *  confusion with arithmetic operations. */
-  def append(op: Int): IntArr =
-  { val newArray = new Array[Int](length + 1)
-    unsafeArray.copyToArray(newArray)
-    newArray(length) = op
     new IntArr(newArray)
   }
 

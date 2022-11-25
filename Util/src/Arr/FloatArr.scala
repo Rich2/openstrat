@@ -13,6 +13,21 @@ class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with ArrNoParam[Flo
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
 
+  /** append. Appends operand [[Float]] to this [[FloatArr]]. */
+  @targetName("append") override def +%(operand: Float): FloatArr =
+  { val newArray = new Array[Float](length + 1)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand
+    new FloatArr(newArray)
+  }
+
+  @targetName("appendArr") override def ++(op: FloatArr): FloatArr =
+  { val newArray = new Array[Float](length + op.length)
+    unsafeArray.copyToArray(newArray)
+    op.unsafeArray.copyToArray(newArray, length)
+    new FloatArr(newArray)
+  }
+
   override def drop(n: Int): FloatArr =
   { val nn = n.max0
     val newArray = new Array[Float]((length - nn).max0)
@@ -23,13 +38,6 @@ class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with ArrNoParam[Flo
   override def reverse: FloatArr =
   { val newArray = new Array[Float](length)
     iUntilForeach(0, length) { i => newArray(i) = unsafeArray(length - 1 - i) }
-    new FloatArr(newArray)
-  }
-
-  @targetName("appendArr") override def ++(op: FloatArr): FloatArr =
-  { val newArray = new Array[Float](length + op.length)
-    unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, length)
     new FloatArr(newArray)
   }
 }

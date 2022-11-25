@@ -14,6 +14,22 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Char = unsafeArray(index)
   override def unsafeSetElem(i: Int, value: Char): Unit = unsafeArray(i) = value
+  override def fElemStr: Char => String = _.toString
+
+  /** append. Appends operand [[Char]] to this [[CharArr]]. */
+  @targetName("append") override def +%(operand: Char): CharArr = {
+    val newArray = new Array[Char](length + 1)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand
+    new CharArr(newArray)
+  }
+
+  @targetName("appendArr") override def ++(op: CharArr): CharArr = {
+    val newArray = new Array[Char](length + op.length)
+    unsafeArray.copyToArray(newArray)
+    op.unsafeArray.copyToArray(newArray, length)
+    new CharArr(newArray)
+  }
 
   override def reverse: CharArr =
   { val newArray = new Array[Char](length)
@@ -21,19 +37,12 @@ final class CharArr(val unsafeArray: Array[Char]) extends AnyVal with ArrNoParam
     new CharArr(newArray)
   }
 
-  override def fElemStr: Char => String = _.toString
+
 
   override def drop(n: Int): CharArr =
   { val nn = n.max0
     val newArray = new Array[Char]((length - nn).max0)
     iUntilForeach(length){ i => newArray(i) = unsafeArray(i + nn) }
-    new CharArr(newArray)
-  }
-
-  @targetName("appendArr") override def ++(op: CharArr): CharArr =
-  { val newArray = new Array[Char](length + op.length)
-    unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, length)
     new CharArr(newArray)
   }
 

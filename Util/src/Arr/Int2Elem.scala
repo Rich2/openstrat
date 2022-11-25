@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 2 [[Int]]s. These are used in [[Int2Arr]] Array[Int] based collections. */
 trait Int2Elem extends Any with IntNElem
@@ -36,6 +36,13 @@ trait Int2Arr[A <: Int2Elem] extends Any with IntNArr[A] with Int2SeqLike[A]
   final override def apply(index: Int): A = newElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
   override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
 
+  @targetName("append") inline final override def +%(operand: A): ThisT =
+  { val newArray = new Array[Int](length + 2)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand.int1
+    newArray(length + 1) = operand.int2
+    fromArray(newArray)
+  }
 }
 
 trait Int2SeqLikeCommonBuilder[BB <: SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]

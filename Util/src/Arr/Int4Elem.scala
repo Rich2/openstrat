@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 4 [[Int]]s. These are used in [[Int4Arr]] Array[Int] based collections. */
 trait Int4Elem extends Any with IntNElem
@@ -45,6 +45,16 @@ trait Int4Arr[A <: Int4Elem] extends Any with Int4SeqLike[A] with IntNArr[A]
   def head2: Int = unsafeArray(1)
   def head3: Int = unsafeArray(2)
   def head4: Int = unsafeArray(3)
+
+  @targetName("append") inline final override def +%(operand: A): ThisT =
+  { val newArray = new Array[Int](length + 4)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand.int1
+    newArray(length + 1) = operand.int2
+    newArray(length + 2) = operand.int3
+    newArray(length + 3) = operand.int4
+    fromArray(newArray)
+  }
 }
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */

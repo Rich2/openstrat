@@ -24,9 +24,25 @@ trait BoolSeqSpec extends Any with BoolSeqLike with SeqSpec[Boolean]
 final class BoolArr(val unsafeArray: Array[Boolean]) extends AnyVal with ArrNoParam[Boolean] with BoolSeqLike
 { type ThisT = BoolArr
   override def typeStr: String = "Booleans"
+  override def apply(index: Int): Boolean = unsafeArray(index)
   override def fromArray(array: Array[Boolean]): BoolArr = new BoolArr(array)
   override def length: Int = unsafeArray.length
   def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Boolean](length))
+
+  /** append. Appends operand [[Boolean]] to this [[BoolArr]]. */
+  @targetName("append") override def +%(operand: Boolean): BoolArr =
+  { val newArray = new Array[Boolean](length + 1)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand
+    new BoolArr(newArray)
+  }
+
+  @targetName("appendArr") override def ++(op: BoolArr): BoolArr = {
+    val newArray = new Array[Boolean](length + op.length)
+    unsafeArray.copyToArray(newArray)
+    op.unsafeArray.copyToArray(newArray, length)
+    new BoolArr(newArray)
+  }
 
   override def drop(n: Int): BoolArr =
   { val nn = n.max0
@@ -40,15 +56,6 @@ final class BoolArr(val unsafeArray: Array[Boolean]) extends AnyVal with ArrNoPa
     iUntilForeach(0, length) { i => newArray(i) = unsafeArray(length - 1 - i) }
     new BoolArr(newArray)
   }
-
-  @targetName("appendArr") override def ++(op: BoolArr): BoolArr =
-  { val newArray = new Array[Boolean](length + op.length)
-    unsafeArray.copyToArray(newArray)
-    op.unsafeArray.copyToArray(newArray, length)
-    new BoolArr(newArray)
-  }
-
-  override def apply(index: Int): Boolean = unsafeArray(index)
 }
 
 object BoolArr
