@@ -83,10 +83,8 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     new RArr(newArray)
   }
 
-  /** Alias for append. Functionally concatenates element to dispatching [[RArr]], allows type widening. */
-  @inline def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] = append[AA](op)(ct)
-  /** Functionally appends an element to dispatching Refs, allows type widening. Aliased by +- operator. */
-  def append[AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
+  /** append. Functionally concatenates element to dispatching [[RArr]], allows type widening. */
+  @targetName("append") @inline def +% [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA]): RArr[AA] =
   { val newArray = new Array[AA](length + 1)
     unsafeArray.copyToArray(newArray)
     newArray(length) = op

@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A hex grid step representing the starting [[HCen]] of the step as well as the [[HDirn]] singleton object itself. */
 class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
