@@ -4,20 +4,24 @@ import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr320E0 extends Long320Terrs
 {
-  override implicit val grid: EGrid320LongFull = EGrid320.e0(138)
+  override implicit val grid: EGrid320LongFull = EGrid320.e0(130)
 
   override val terrs: HCenLayer[WTile] =
   {
     val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
-    gs(152, 460 + 60, taiga)
-    gs(150, 460 + 58, taiga)
-    gs(148, 460 + 56, taiga * 2)
-    gs(146, 460 + 50, hills, sea * 2, plain)
-    gs(144, 460 + 48, plain, sea * 2, plain)
-    gs(142, 460 + 46, plain, plain, sea, plain * 2)
+    gs(152, 520, taiga)
+    gs(150, 518, taiga)
+    gs(148, 516, taiga * 2)
+    gs(146, 510, hills, sea * 2, plain)
+    gs(144, 508, plain, sea * 2, plain)
+    gs(142, 506, plain, plain, sea, plain * 2)
     gs(140, 516, plain * 3)
     gs(138, 460 + 50, plain * 5)
+    gs(136, 512, plain, hills, mtain, plain)
+    gs(134, 506, hills * 3, sea * 2, hills)
+    gs(132, 504, hills, plain * 2, sea * 3)
+    gs(130, 506, plain, hills, sea * 4)
     res
   }
 

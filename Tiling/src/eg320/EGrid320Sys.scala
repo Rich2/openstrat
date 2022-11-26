@@ -20,7 +20,7 @@ trait EGrid320LongMulti extends EGridLongMulti with EGrid320Sys {
 
 object EGrid320LongMulti
 {
-  def apply(rBottomCen: Int = 138, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid320LongMulti = new EGrid320LongMulti
+  def apply(rBottomCen: Int = 130, rTopCen: Int = 160, startLong: Int, endLong: Int): EGrid320LongMulti = new EGrid320LongMulti
   {
     override def grids: RArr[EGridLongFull] = startLong match {
       case sl if endLong > startLong => iToMap(sl, endLong)(i => EGrid320LongFull(rBottomCen, rTopCen, i))
