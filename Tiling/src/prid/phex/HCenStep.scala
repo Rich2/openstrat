@@ -63,6 +63,7 @@ class HCenStepPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a2
   inline def c1: Int = a1Int2
   inline def stepInt: Int = a1Int3
   override def a1: HCenStep = new HCenStep(a1Int1, a1Int2, a1Int3)
+  def step: HDirn = HDirn.fromInt(a1Int3)
 }
 
 class HCenStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int3PairArr[HCenStep, HCenStepArr, A2, HCenStepPair[A2]]

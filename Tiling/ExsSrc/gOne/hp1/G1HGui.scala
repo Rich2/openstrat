@@ -52,11 +52,13 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
     proj.transOptLineSeg(hc.segStepTo(step)).map(_.draw(players.unSafeApply(hc).colour).arrow)
   }
 
+  def moveGraphics2 = moves2.pairMap{ (hcd, pl) => 4 }
+
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
     val getOrders: RArr[(Player, HDirn)] = players.zipSomesMap(moves)((player, step) => (player, step))
     //val getOrders2 = moves.mapTo
-    scen = scen.endTurn(???)//getOrders)
+    scen = scen.endTurn(moves2)//getOrders)
     moves = NoMoves
     repaint()
     thisTop()
@@ -76,7 +78,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
     case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
       newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
-      newM.foreach{ d => moves2.appendPair(hc1.andStep(d), pl) }
+      newM.foreach{ d => moves2 = moves2.appendPair(hc1.andStep(d), pl) }
       repaint()
     }
 

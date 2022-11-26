@@ -41,8 +41,8 @@ trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: Int3Arr[A1], A2, A <: Int3PairElem[A1
     newA1Array(length + 2) = a1.int3
     val newA2Array = new Array[A2](length + 1)
     a2Array.copyToArray(newA2Array)
-    a2Array(length) = a2
-    this.newFromArrays(newA1Array, a2Array)
+    newA2Array(length) = a2
+    newFromArrays(newA1Array, newA2Array)
   }
 }
 
