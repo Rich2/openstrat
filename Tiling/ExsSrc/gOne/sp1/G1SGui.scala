@@ -4,7 +4,7 @@ import pgui._, prid._, psq._, geom._, gPlay._
 
 /** Graphical user interface for Game Two. It differs from the first in that it is on a square grid
  * and adjacent moves take priority over diagonal tile steps. */
-case class G1SGui(canv: CanvasPlatform, scenStart: G1SScen, viewIn: SqGridView) extends SqSysGui("Game Two Gui")
+case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView) extends SqSysGui("Game Two Gui")
 { statusText = "Let click on Player to select. Right click on adjacent square to set move."
   var scen = scenStart
   implicit def gridSys: SqGridSys = scen.gSys
@@ -38,7 +38,7 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SScen, viewIn: SqGridView) 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
     val getOrders = players.some2sMap(moves)((player, step) => (player, step))//moves.mapSomes(rs => rs)
-    scen = scen.endTurn(getOrders)
+    //scen = scen.endTurn(getOrders)
     moves = NoMoves
     repaint()
     thisTop()

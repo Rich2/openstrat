@@ -4,8 +4,8 @@ import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A hex grid step representing the starting [[SqCen]] of the step as well as the [[SqDirn]] singleton object itself. */
 class SqCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
-{ /** The Starting hex centre. */
-  def startSqC: SqCen = SqCen(r1, c1)
+{ /** The Starting square centre coordinate. */
+  def startSC: SqCen = SqCen(r1, c1)
 
   /** The [[SqDirn]] singleton object. */
   def step: SqDirn = SqDirn.fromInt(stepInt)
@@ -14,7 +14,7 @@ class SqCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
   def endSqC(implicit gridSys: SqGridSys): Option[SqCen] = gridSys.findStepEnd(this)
 
   /** Returns the destination [[SqCen]] if one exists within the [[SqGridSys]]. */
-  def lineSegSqC(implicit gridSys: SqGridSys): Option[LineSegSC] = gridSys.findStepEnd(this).map(LineSegSC(startSqC, _))
+  def lineSegSqC(implicit gridSys: SqGridSys): Option[LineSegSC] = gridSys.findStepEnd(this).map(LineSegSC(startSC, _))
 
   def projLineSeg(implicit proj: SqSysProjection): Option[LineSeg] =
   { val lhc: Option[LineSegSC] = lineSegSqC(proj.gChild)
