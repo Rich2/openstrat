@@ -58,6 +58,8 @@ trait HGridSys extends Any with TGridSys
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   def findStepEnd(startHC: HCen, step: HDirn): Option[HCen]
 
+  def findStepEnd(cenStep: HCenStep): Option[HCen] = findStepEnd(cenStep.startHC, cenStep.step)
+
   /** Gives a flat projection of [[HCoord]]s to [[Pt2]]s. For a simple singular [[HGrid]] system this is all that is required to translate between
    * grid coordinates and standard 2 dimensional space. For multi grids it provides a simple way to display all the tiles in the grid system, but a
    * more complex projection may be required for fully meaningful display representation. For Example world grid systems and multi layer square tile

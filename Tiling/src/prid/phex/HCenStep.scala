@@ -10,8 +10,14 @@ class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
   /** The [[HDirn]] singleton object. */
   def step: HDirn = HDirn.fromInt(stepInt)
 
-  /** The destination hex centre. */
-  def endHC(implicit grider: HGridSys): HCen = HCen(r1 + step.tr, c1 + step.tc)
+  /** To be phased out as does not use the gridSys .The destination hex centre. */
+  def endHCOld(implicit grider: HGridSys): HCen = HCen(r1 + step.tr, c1 + step.tc)
+
+  /** Returns the destination [[HCen]] if one exists within the [[HGridSys]]. */
+  def endHC(implicit grider: HGridSys): Option[HCen] = grider.findStepEnd(this)
+
+  /** Returns the destination [[HCen]] if one exists within the [[HGridSys]]. */
+  def lineSegHC(implicit grider: HGridSys): Option[LineSegHC] = grider.findStepEnd(this).map(LineSegHC(startHC, _))
 
   override def int1: Int = r1
   override def int2: Int = c1

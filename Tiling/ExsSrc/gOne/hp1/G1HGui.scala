@@ -52,7 +52,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
     proj.transOptLineSeg(hc.segStepTo(step)).map(_.draw(players.unSafeApply(hc).colour).arrow)
   }
 
-  def moveGraphics2 = moves2.pairMap{ (hcd, pl) => 4 }
+  def moveGraphics2: LineSegHCPairArr[Player] = moves2.optMapOnA1{ hcd => hcd.lineSegHC  }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
