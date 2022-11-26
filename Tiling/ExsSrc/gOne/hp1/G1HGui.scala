@@ -49,16 +49,19 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: GraphicElems = moves.someHCOptFlatMap { (step, hc) =>
-    proj.transOptLineSeg(hc.segStepTo(step)).map(_.draw(players.unSafeApply(hc).colour).arrow)
+    val r1: Option[LineSeg] = proj.transOptLineSeg(hc.segStepTo(step))
+    val r2: Option[GraphicElems] = r1.map(_.draw(players.unSafeApply(hc).colour).arrow)
+    r2
   }
 
-  def moveGraphics2: LineSegHCPairArr[Player] = moves2.optMapOnA1{ hcd => hcd.lineSegHC  }
+  def moveGraphics2: LineSegPairArr[Player] = moves2.optMapOnA1(_.projLineSeg)
+  def moveGraphics3 = moveGraphics2.pairFlatMap{ (seg, pl) => seg.draw(pl.colour).arrow }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    val getOrders: RArr[(Player, HDirn)] = players.zipSomesMap(moves)((player, step) => (player, step))
-    //val getOrders2 = moves.mapTo
-    scen = scen.endTurn(moves2)//getOrders)
+    //val getOrders: RArr[(Player, HDirn)] = players.zipSomesMap(moves)((player, step) => (player, step))
+
+    scen = scen.endTurn(moves2)
     moves = NoMoves
     repaint()
     thisTop()
@@ -86,7 +89,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   }
   thisTop()
 
-  def frame: GraphicElems = actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs
+  def frame: GraphicElems = actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics3 ++ hexStrs
   proj.getFrame = () => frame
   proj.setStatusText = {str =>
     statusText = str

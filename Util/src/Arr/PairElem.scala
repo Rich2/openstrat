@@ -56,6 +56,16 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     res
   }
 
+  /** Just a flatMap method that avoids unnecessarily constructing the pairs and takes a function from the components to te parameter type ArrB. */
+  def pairFlatMap[ArrB <: Arr[_]](f: (A1, A2) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
+  { val buff = build.newBuff()
+    pairForeach{ (a1, a2) =>
+      val newBs = f(a1, a2)
+      build.buffGrowArr(buff, newBs)
+    }
+    build.buffToSeqLike(buff)
+  }
+
   /** Indexes the first component of the pair. */
   def a1Index(index: Int): A1
 

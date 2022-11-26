@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import collection.mutable.ArrayBuffer, reflect.ClassTag
+import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A hex grid step representing the starting [[HCen]] of the step as well as the [[HDirn]] singleton object itself. */
 class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
@@ -18,6 +18,11 @@ class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
 
   /** Returns the destination [[HCen]] if one exists within the [[HGridSys]]. */
   def lineSegHC(implicit grider: HGridSys): Option[LineSegHC] = grider.findStepEnd(this).map(LineSegHC(startHC, _))
+
+  def projLineSeg(implicit proj: HSysProjection): Option[LineSeg] =
+  { val lhc: Option[LineSegHC] = lineSegHC(proj.gChild)
+    lhc.flatMap(proj.transOptLineSeg(_))
+  }
 
   override def int1: Int = r1
   override def int2: Int = c1

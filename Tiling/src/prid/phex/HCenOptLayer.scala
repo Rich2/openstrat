@@ -234,14 +234,12 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
 
   /** Drops the None values, flatMaps the [[Some]]'s value and the corresponding [[HCen]] to an [[option]] of a [[Arr]], collects only the
    *  [[Some]]'s values returned by the function. */
-  def someHCOptFlatMap[ArrB <: Arr[_]](f: (A, HCen) => Option[ArrB])(implicit grider: HGridSys, build: ArrFlatBuilder[ArrB]): ArrB = {
-    val buff = build.newBuff()
+  def someHCOptFlatMap[ArrB <: Arr[_]](f: (A, HCen) => Option[ArrB])(implicit grider: HGridSys, build: ArrFlatBuilder[ArrB]): ArrB =
+  { val buff = build.newBuff()
 
     grider.foreach { hc =>
       val a: A = unsafeArray(grider.arrIndex(hc))
-      if (a != null) {
-        f(a, hc).foreach(build.buffGrowArr(buff, _))
-      }
+      if (a != null) { f(a, hc).foreach(build.buffGrowArr(buff, _)) }
     }
     build.buffToSeqLike(buff)
   }
