@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from a single [[Double]]. These are used in [[Dbl1Arr]] Array[Int] based collections. */
 trait Dbl1Elem extends Any with DblNElem
@@ -18,4 +18,11 @@ trait Dbl1Arr[A <: Dbl1Elem] extends Any with DblNArr[A]
   final override def unsafeSetElem(index: Int, elem: A): Unit = unsafeArray(index) = elem.dbl1
   override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
   override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A) : Unit = { buffer.append(elem.dbl1) }
+
+  @targetName("append") inline final override def +%(operand: A): ThisT =
+  { val newArray = new Array[Double](length + 1)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand.dbl1
+    fromArray(newArray)
+  }
 }

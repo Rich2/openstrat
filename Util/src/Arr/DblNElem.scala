@@ -81,9 +81,6 @@ trait DblNArr[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNArr[A]
     operand.unsafeArray.copyToArray(newArray, unsafeLength)
     fromArray(newArray)
   }
-
-  /** append. appends element to this [[Arr]]. */
-  @targetName("append") override def +%(operand: A): ThisT = ???
 }
 
 /** Specialised flat ArrayBuffer[Double] based collection class. */

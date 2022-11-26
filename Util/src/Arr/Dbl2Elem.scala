@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 2 [[Double]]s. These are used as elements in [[Dbl2Arr]] Array[Double] based collections. */
 trait Dbl2Elem extends Any with DblNElem
@@ -92,12 +92,11 @@ trait Dbl2Arr[A <: Dbl2Elem] extends Any with DblNArr[A] with Dbl2SeqLike[A]
 
   override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2)
 
-  /** Functionally appends the operand of type A. This alphanumeric method is not aliased by the ++ operator, to avoid confusion with numeric operators. */
-  def append(op: A): ThisT =
-  { val newArray = new Array[Double](length + elemProdSize)
+  @targetName("append") inline final override def +%(operand: A): ThisT =
+  { val newArray = new Array[Double](unsafeLength + 2)
     unsafeArray.copyToArray(newArray)
-    newArray(length) = op.dbl1
-    newArray(length + 1) = op.dbl2
+    newArray(unsafeLength) = operand.dbl1
+    newArray(unsafeLength + 1) = operand.dbl2
     fromArray(newArray)
   }
 
