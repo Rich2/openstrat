@@ -34,11 +34,11 @@ trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: Int3Arr[A1], A2, A <: Int3PairElem[A1
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
 
   final def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
-  { val newA1Array = new Array[Int](length * 3 + 3)
+  { val newA1Array = new Array[Int](a1ArrayLength + 3)
     a1ArrayInt.copyToArray(newA1Array)
-    newA1Array(length) = a1.int1
-    newA1Array(length + 1) = a1.int2
-    newA1Array(length + 2) = a1.int3
+    newA1Array(a1ArrayLength) = a1.int1
+    newA1Array(a1ArrayLength + 1) = a1.int2
+    newA1Array(a1ArrayLength + 2) = a1.int3
     val newA2Array = new Array[A2](length + 1)
     a2Array.copyToArray(newA2Array)
     newA2Array(length) = a2

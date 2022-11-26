@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 4 [[Double]]s. These are used in [[Dbl4Arr]] Array[Double] based collections. */
 trait Dbl4Elem extends Any with DblNElem
@@ -46,6 +46,16 @@ trait Dbl4Arr[A <: Dbl4Elem] extends Any with DblNArr[A] with Dbl4SeqLike[A]
 
   override def apply(index: Int): A =
     newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
+
+  @targetName("append") inline final override def +%(operand: A): ThisT =
+  { val newArray = new Array[Double](unsafeLength + 4)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand.dbl1
+    newArray(length + 1) = operand.dbl2
+    newArray(length + 2) = operand.dbl3
+    newArray(length + 3) = operand.dbl4
+    fromArray(newArray)
+  }
 }
 
 trait Dbl4ArrCommonBuilder[ArrB <: Dbl4Arr[_]] extends DblNArrCommonBuilder[ArrB]

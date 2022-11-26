@@ -16,7 +16,7 @@ trait IntNPairArr[A1 <: IntNElem, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1
   /** The backing Array for the first elements of the pairs. */
   def a1ArrayInt: Array[Int]
 
-  final def a1ArrayLen: Int = a1ArrayInt.length
+  final def a1ArrayLength: Int = a1ArrayInt.length
 
   def newFromArrays(a1Array: Array[Int], a2Array: Array[A2]): ThisT
 

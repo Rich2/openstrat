@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 5 [[Double]]s. These are used in [[Dbl5Arr]] Array[Double] based collections. */
 trait Dbl5Elem extends Any with DblNElem
@@ -50,6 +50,17 @@ trait Dbl5Arr[A <: Dbl5Elem] extends Any with DblNArr[A] with Dbl5SeqLike[A]
   def head5: Double = unsafeArray(4)
 
   def foreachArr(f: DblArr => Unit): Unit = foreach(el => f(DblArr(el.dbl1, el.dbl2, el.dbl3, el.dbl4, el.dbl5)))
+
+  @targetName("append") inline final override def +%(operand: A): ThisT =
+  { val newArray = new Array[Double](unsafeLength + 5)
+    unsafeArray.copyToArray(newArray)
+    newArray(length) = operand.dbl1
+    newArray(length + 1) = operand.dbl2
+    newArray(length + 2) = operand.dbl3
+    newArray(length + 3) = operand.dbl4
+    newArray(length + 4) = operand.dbl5
+    fromArray(newArray)
+  }
 }
 
 trait Dbl5SeqLikeCommonBuilder[BB <: Dbl5SeqLike[_]] extends DblNSeqLikeCommonBuilder[BB]
