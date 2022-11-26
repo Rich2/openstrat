@@ -72,8 +72,8 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match
   {
-    case (LeftButton, _, cl) => {
-      selected = cl
+    case (LeftButton, _, cl) =>
+    { selected = cl
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
     }

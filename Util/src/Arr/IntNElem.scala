@@ -16,9 +16,6 @@ trait IntNSeqLike[A <: IntNElem] extends Any with ValueNSeqLike[A] with ArrayInt
    *  the appropriate builder, but it can be useful to access this from the class itself. */
   def fromArray(array: Array[Int]): ThisT
 
-  /** The length of the Array[Int] backing array. */
-  def unsafeLength: Int = unsafeArray.length
-
   /** Method for creating a new Array[Int] backed collection class of this collection class's final type. */
   final def unsafeSameSize(length: Int): ThisT = fromArray(new Array[Int](length * elemProdSize))
 

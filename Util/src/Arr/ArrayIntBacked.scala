@@ -7,6 +7,9 @@ import collection.mutable.ArrayBuffer, reflect.ClassTag
 trait ArrayIntBacked extends Any
 { /** The backing Array[Int] of this collection class. End users should not normally need to interact with this directly. */
   def unsafeArray: Array[Int]
+
+  /** The length of the backing Array. */
+  final def unsafeLength: Int = unsafeArray.length
 }
 
 /** Base trait for collections of elements that are based on [[array]][Int]s, backed by an underlying Array[Array[Int]]. */

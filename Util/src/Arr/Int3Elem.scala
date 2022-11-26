@@ -17,11 +17,8 @@ trait Int3SeqLike[A <: Int3Elem] extends Any with IntNSeqLike[A]
 
   override def elemProdSize: Int = 3
 
-  final override def unsafeSetElem(index: Int, elem: A): Unit = {
-    unsafeArray(3 * index) = elem.int1;
-    unsafeArray(3 * index + 1) = elem.int2
-    unsafeArray(3 * index + 2) = elem.int3
-  }
+  final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(3 * index) = elem.int1; unsafeArray(3 * index + 1) = elem.int2
+    unsafeArray(3 * index + 2) = elem.int3 }
 
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1); buffer.append(elem.int2)
     buffer.append(elem.int3) }
@@ -49,7 +46,7 @@ trait Int3Arr[A <: Int3Elem] extends Any with IntNArr[A] with Int3SeqLike[A]
   final override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
-  { val newArray = new Array[Int](length + 3)
+  { val newArray = new Array[Int](unsafeLength + 3)
     unsafeArray.copyToArray(newArray)
     newArray(length) = operand.int1
     newArray(length + 1) = operand.int2
