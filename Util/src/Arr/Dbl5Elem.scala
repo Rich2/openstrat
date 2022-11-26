@@ -54,11 +54,8 @@ trait Dbl5Arr[A <: Dbl5Elem] extends Any with DblNArr[A] with Dbl5SeqLike[A]
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Double](unsafeLength + 5)
     unsafeArray.copyToArray(newArray)
-    newArray(length) = operand.dbl1
-    newArray(length + 1) = operand.dbl2
-    newArray(length + 2) = operand.dbl3
-    newArray(length + 3) = operand.dbl4
-    newArray(length + 4) = operand.dbl5
+    newArray(unsafeLength) = operand.dbl1; newArray(unsafeLength + 1) = operand.dbl2; newArray(unsafeLength + 2) = operand.dbl3
+    newArray(unsafeLength + 3) = operand.dbl4; newArray(unsafeLength + 4) = operand.dbl5
     fromArray(newArray)
   }
 }

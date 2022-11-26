@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-
-import scala.collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 6 [[Double]]s. These are used in [[Dbl6Arr]] Array[Double] based collections. */
 trait Dbl6Elem extends Any with DblNElem
@@ -67,6 +66,14 @@ trait Dbl6Arr[A <: Dbl6Elem] extends Any with DblNArr[A] with Dbl6SeqLike[A]
 
   override def elemEq(a1: A, a2: A): Boolean =
     (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3) & (a1.dbl4 == a2.dbl4) & (a1.dbl5 == a2.dbl5) & (a1.dbl6 == a2.dbl6)
+
+  @targetName("append") inline final override def +%(operand: A): ThisT =
+  { val newArray = new Array[Double](unsafeLength + 6)
+    unsafeArray.copyToArray(newArray)
+    newArray(unsafeLength) = operand.dbl1; newArray(unsafeLength + 1) = operand.dbl2; newArray(unsafeLength + 2) = operand.dbl3
+    newArray(unsafeLength + 3) = operand.dbl4; newArray(unsafeLength + 4) = operand.dbl5; newArray(unsafeLength + 5) = operand.dbl6
+    fromArray(newArray)
+  }
 }
 
 /** Helper class for companion objects of final [[Dbl6SeqSpec]] classes. */

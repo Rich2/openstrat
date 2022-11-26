@@ -49,10 +49,10 @@ trait Int4Arr[A <: Int4Elem] extends Any with Int4SeqLike[A] with IntNArr[A]
   @targetName("append") inline final override def +%(operand: A): ThisT =
   { val newArray = new Array[Int](unsafeLength + 4)
     unsafeArray.copyToArray(newArray)
-    newArray(length) = operand.int1
-    newArray(length + 1) = operand.int2
-    newArray(length + 2) = operand.int3
-    newArray(length + 3) = operand.int4
+    newArray(unsafeLength) = operand.int1
+    newArray(unsafeLength + 1) = operand.int2
+    newArray(unsafeLength + 2) = operand.int3
+    newArray(unsafeLength + 3) = operand.int4
     fromArray(newArray)
   }
 }

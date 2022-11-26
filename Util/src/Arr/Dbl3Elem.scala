@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import scala.collection.mutable.ArrayBuffer
+import annotation._, scala.collection.mutable.ArrayBuffer
 
 /** An object that can be constructed from 3 [[Double]]s. These are used in [[Dbl3Arr]] Array[Double] based collections. */
 trait Dbl3Elem extends Any with DblNElem
@@ -48,6 +48,15 @@ trait Dbl3Arr[A <: Dbl3Elem] extends Any with DblNArr[A] with Dbl3SeqLike[A]
 
   final override def elemEq(a1: A, a2: A): Boolean = (a1.dbl1 == a2.dbl1) & (a1.dbl2 == a2.dbl2) & (a1.dbl3 == a2.dbl3)
   final override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+
+  @targetName("append") inline final override def +%(operand: A): ThisT =
+  { val newArray = new Array[Double](unsafeLength + 3)
+    unsafeArray.copyToArray(newArray)
+    newArray(unsafeLength) = operand.dbl1
+    newArray(unsafeLength + 1) = operand.dbl2
+    newArray(unsafeLength + 2) = operand.dbl3
+    fromArray(newArray)
+  }
 }
 
 trait Dbl3SeqLikeCommonBuilder[BB <: Dbl3SeqLike[_]] extends DblNSeqLikeCommonBuilder[BB]

@@ -37,10 +37,10 @@ trait Int2Arr[A <: Int2Elem] extends Any with IntNArr[A] with Int2SeqLike[A]
   override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
 
   @targetName("append") inline final override def +%(operand: A): ThisT =
-  { val newArray = new Array[Int](length + 2)
+  { val newArray = new Array[Int](unsafeLength + 2)
     unsafeArray.copyToArray(newArray)
-    newArray(length) = operand.int1
-    newArray(length + 1) = operand.int2
+    newArray(unsafeLength) = operand.int1
+    newArray(unsafeLength + 1) = operand.int2
     fromArray(newArray)
   }
 }
