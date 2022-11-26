@@ -1,8 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
-import geom._
-
-import scala.collection.mutable.ArrayBuffer
+import geom._, collection.mutable.ArrayBuffer
 
 /** A square tile direction can take 8 values. This can be used for square grid steps or quantums. */
 sealed trait SqDirn extends TDirn
