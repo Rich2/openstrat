@@ -12,6 +12,9 @@ trait DblNPairArr[A1 <: DblNElem, ArrA1 <: DblNArr[A1], A2, A <: DblNPairElem[A1
   /** The backing Array for the first elements of the pairs. */
   def a1ArrayDbl: Array[Double]
 
+  /** The length of the Array[[Double]] backing a1. */
+  final def a1ArrayLength: Int = a1ArrayDbl.length
+
   def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): ThisT
 
   override def replaceA1Value(key: A2, newValue: A1): ThisT =

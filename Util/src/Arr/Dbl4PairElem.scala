@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation._, reflect.ClassTag
 
 trait Dbl4PairElem[A1 <: Dbl4Elem, A2] extends DblNPairElem[A1, A2]
 { def a1Dbl1: Double
@@ -34,7 +34,20 @@ trait Dbl4PairArr[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1], A2, A <: Dbl4PairElem[A1
 
   override def a1NumDbl: Int = 4
 
+  @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
 
+  final def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
+  { val newA1Array = new Array[Double](a1ArrayLength + 4)
+    a1ArrayDbl.copyToArray(newA1Array)
+    newA1Array(a1ArrayLength) = a1.dbl1
+    newA1Array(a1ArrayLength + 1) = a1.dbl2
+    newA1Array(a1ArrayLength + 2) = a1.dbl3
+    newA1Array(a1ArrayLength + 3) = a1.dbl3
+    val newA2Array = new Array[A2](length + 1)
+    a2Array.copyToArray(newA2Array)
+    newA2Array(length) = a2
+    newFromArrays(newA1Array, newA2Array)
+  }
 }
 
 trait Dbl4PairBuff[B1 <: Dbl4Elem, B2, B <: Dbl4PairElem[B1, B2]] extends DblNPairBuff[B1, B2, B]

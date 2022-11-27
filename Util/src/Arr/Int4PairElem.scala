@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import reflect.ClassTag
+import annotation._, reflect.ClassTag
 
 /** Pair where the first component is an [[Int4Elem]]. This allows these pair elements to be stored efficently in [[Int4PAirArr]]s, where the first
  * [[Int4Elem]] components are backed bya single [[Array]][Int]. */
@@ -28,6 +28,21 @@ trait Int4PairArr[A1 <: Int4Elem, ArrA1 <: Int4Arr[A1], A2, A <: Int4PairElem[A1
 
   final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInt(index * 4) = value.int1; a1ArrayInt(index * 4 + 1) = value.int2
     a1ArrayInt(index * 4 + 2) = value.int3; a1ArrayInt(index * 4 + 2) = value.int3 }
+
+  @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
+
+  final def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
+  { val newA1Array = new Array[Int](a1ArrayLength + 4)
+    a1ArrayInt.copyToArray(newA1Array)
+    newA1Array(a1ArrayLength) = a1.int1
+    newA1Array(a1ArrayLength + 1) = a1.int2
+    newA1Array(a1ArrayLength + 2) = a1.int3
+    newA1Array(a1ArrayLength + 3) = a1.int3
+    val newA2Array = new Array[A2](length + 1)
+    a2Array.copyToArray(newA2Array)
+    newA2Array(length) = a2
+    newFromArrays(newA1Array, newA2Array)
+  }
 }
 
 trait Int4PairBuff[B1 <: Int4Elem, B2, B <: Int4PairElem[B1, B2]] extends IntNPairBuff[B1, B2, B]
