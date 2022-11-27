@@ -52,8 +52,8 @@ sealed trait SqDirnPerp extends SqDirn with TDirnSided
 
 /** An upward step / move addition of one square tile in a square tile grid. Increases the row coordinate by 2. */
 case object SqUp extends SqDirnPerp
-{ def sr: Int = 1
-  def sc: Int = 0
+{ override def sr: Int = 1
+  override def sc: Int = 0
   override def reverse: SqDirn = SqDn
   override def angle: Angle = 90.degs
   override def int1: Int = 8

@@ -23,29 +23,19 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
   /** Not sure why this is called css. */
   def css: RArr[TextGraphic] = players.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
 
-  /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: SqCenOptLayer[SqDirn] = gridSys.newSCenOptDGrider[SqDirn]
-
-  def NoMoves2: SqCenStepPairArr[Player] = SqCenStepPairArr[Player]()
+  def NoMoves: SqCenStepPairArr[Player] = SqCenStepPairArr[Player]()
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
-  var moves: SqCenOptLayer[SqDirn] = NoMoves
+  var moves: SqCenStepPairArr[Player] = NoMoves
 
-  var moves2: SqCenStepPairArr[Player] = NoMoves2
+  def moveSegs: LineSegPairArr[Player] = moves.optMapOnA1(_.projLineSeg)
 
-  def moveGraphics: GraphicElems = moves.someSCOptFlatMap { (step, sc) =>
-    proj.transOptLineSeg(sc.segStepToOld(step)).map(_.draw(players.unSafeApply(sc).colour).arrow)
-  }
-
-  /** This is left in as an example for more coplex games with multi step orders. */
-  def mg2: LineSegSCPairArr[Colour] = moves.scSomesMapPair{ (sc, step) => sc.segStepToOld(step)}{ (sc, _) => players.unSafeApply(sc).colour }
-
+  def moveGraphics: GraphicElems = moveSegs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
-    val getOrders = players.some2sMap(moves)((player, step) => (player, step))//moves.mapSomes(rs => rs)
-    //scen = scen.endTurn(getOrders)
+    scen = scen.endTurn(moves)
     moves = NoMoves
     repaint()
     thisTop()
@@ -53,8 +43,6 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
 
   /** Draws the tiles sides (or edges). */
   def sidesDraw: LinesDraw = proj.sidesDraw()
-
-
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>
@@ -65,8 +53,7 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
 
     case (RightButton, AnyArrHead(SPlayer(pl, sc1)), hits) => hits.sqCenForFirst{ sc2 =>
       val newM: Option[SqDirn] = sc1.findStep(sc2)
-      newM.fold{ if (sc1 == sc2) moves = moves.setNone(sc1) }(m => moves = moves.setSome(sc1, m))
-      newM.foreach{d => moves2 = moves2.appendPair(sc1.andStep(d), pl) }
+      newM.foreach{d => moves = moves.appendPair(sc1.andStep(d), pl) }
       repaint()
     }
 
@@ -77,7 +64,6 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
   thisTop()
-
 
   def frame: GraphicElems = actives ++ lunits +% sidesDraw ++ css ++ moveGraphics
 

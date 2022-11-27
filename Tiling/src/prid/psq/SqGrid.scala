@@ -64,6 +64,12 @@ class SqGrid(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val right
 
   /** Boolean. True if the specified hex centre exists in this hex grid. */
   def sqCenExists(r: Int, c:Int): Boolean = r.isEven & c.isEven & r >= bottomCenR & r <= topCenR & c >= leftCenC & c <= rightCenC
+
+  /** Finds step from Start[[SqCen]] to target from[[SqCen]].  */
+  override def findStepEnd(startSC: SqCen, step: SqDirn): Option[SqCen] ={
+    val newCen = SqCen(startSC.r + step.tr, startSC.c + step.tc)
+    Some(newCen)
+  }
 }
 
 /** Companion object for the HGridReg class. Contains an applr method that corrects the r and Y minimum and maximum values. */

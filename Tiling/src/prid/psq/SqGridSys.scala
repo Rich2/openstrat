@@ -10,7 +10,7 @@ trait SqGridSys extends Any with TGridSys
   def arrIndex(r: Int, c: Int): Int
 
   /** Finds step from Start[[SqCen]] to target from[[SqCen]].*/
-  def findStepEnd(startSqC: SqCen, step: SqDirn): Option[SqCen] = ???
+  def findStepEnd(startSC: SqCen, step: SqDirn): Option[SqCen]// = ???
 
   def findStepEnd(cenStep: SqCenStep): Option[SqCen] = findStepEnd(cenStep.startSC, cenStep.step)
   /** Gives a flat projection of [[SqCoord]]s to [[Pt2]]s. For a simple singular [[SqGrid]] system this is all that is required to translate between
