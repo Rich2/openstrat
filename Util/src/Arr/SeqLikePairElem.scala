@@ -99,17 +99,6 @@ trait SeqLikeIntNPairArr[A1E <: IntNElem, A1 <: IntNSeqLike[A1E], ArrA1 <: Arr[A
 { type ThisT <: SeqLikeIntNPairArr[A1E, A1, ArrA1, A2, A]
   //override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = fromArrays(new Array[Array[Int]](length), new Array[A2](length))
 
-  @targetName("append") final override def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
-
-  final override def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
-  { val newA1Array = new Array[Array[Int]](length + 1)
-    a1ArrayInts.copyToArray(newA1Array)
-    newA1Array(length) = a1.unsafeArray
-    val newA2Array = new Array[A2](length + 1)
-    a2Array.copyToArray(newA2Array)
-    newA2Array(length) = a2
-    newFromArrays(newA1Array, newA2Array)
-  }
 }
 
 trait SeqLikeIntNPairBuff[B1E <: IntNElem, B1 <: IntNSeqLike[B1E], B2, B <: SeqLikeIntNPairElem[B1E, B1, B2]] extends SeqLikePairBuff[B1E, B1, B2, B]

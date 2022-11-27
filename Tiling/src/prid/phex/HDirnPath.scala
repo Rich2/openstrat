@@ -128,10 +128,6 @@ class HDirnPathPairArr[A2](val a1ArrayInts: Array[Array[Int]], val a2Array: Arra
   inline override def a1Arr: HDirnPathArr = new HDirnPathArr(a1ArrayInts)
   override def fElemStr: HDirnPathPair[A2] => String = _.toString
   override def elemFromComponents(a1: Array[Int], a2: A2): HDirnPathPair[A2] = new HDirnPathPair(a1, a2)
-
-  @targetName("append") override def +%(operand: HDirnPathPair[A2])(implicit ct: ClassTag[A2]): HDirnPathPairArr[A2] = ???
-
-  override def appendPair(a1: HDirnPath, a2: A2)(implicit ct: ClassTag[A2]): HDirnPathPairArr[A2] = ???
 }
 
 object HDirnPathPairArr extends ArrayIntBackedPairArrCompanion[HDirnPath]

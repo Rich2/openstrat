@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Trait for Array[Int] backed classes. The purpose of this trait is to allow for collections of this class to be stored with their underlying
  * Array[Int]s. */
@@ -91,6 +91,18 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
       i += 1
     }
     res
+  }
+
+  @targetName("append") final override def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
+
+  final override def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT = {
+    val newA1Array = new Array[Array[Int]](length + 1)
+    a1ArrayInts.copyToArray(newA1Array)
+    newA1Array(length) = a1.unsafeArray
+    val newA2Array = new Array[A2](length + 1)
+    a2Array.copyToArray(newA2Array)
+    newA2Array(length) = a2
+    newFromArrays(newA1Array, newA2Array)
   }
 }
 
