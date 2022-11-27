@@ -1,10 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
-import Colour.Black
-
-import collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A Hex tile centre hex grid [[HGrid]] coordinate. */
 class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
@@ -38,11 +34,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def unsafeStep(st: HDirn)(implicit grider: HGridSys): HCen = grider.unsafeStepEnd(this, st)// HCen(r + st.r, c + st.c)
 
   /** Step to adjacent hex tile. */
-  def stepOpt(st: HDirn)(implicit grider: HGridSys): Option[HCen] = {
-
-    /*val target =*/ grider.findStepEnd(this, st)//  HCen(r + st.r, c + st.c)
-    //ife(grider.hCenExists(target), Some(target), None)
-  }
+  def stepOpt(st: HDirn)(implicit grider: HGridSys): Option[HCen] = grider.findStepEnd(this, st)
 
   /** HCenStep for this [[HCen]] and the parameter [[HDirn]]. */
   def andStep(step: HDirn): HCenStep = HCenStep(r, c, step)
@@ -53,7 +45,6 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 
  // def text32(fontSize: Double = 12, colour: Colour = Black) = this.strComma.toTextGraphic(fontSize, toPt2Reg, colour)
-  def oldDecText(fontSize: Double = 12, colour: Colour = Black) = this.rcStr.toTextGraphic(fontSize, toPt2Reg, colour)
 
   def neibs: HCenArr = HCen.neibs00.map(n => HCen(r + n.r, c + n.c))
 }
