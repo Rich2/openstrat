@@ -18,14 +18,21 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
 
   def lunits: RArr[PolygonCompound] = players.projSomeScPtMap { (pl, sc, pt) =>
     val str = ptScale.scaledStr(170, pl.toString + "\n" + sc.strComma, 150, pl.charStr + "\n" + sc.strComma, 60, pl.charStr)
-    Rect(80, 60, pt).fillDrawTextActive(pl.colour, SPlayer(pl, sc), str, 24, 2.0)  }
+    Rect(120, 90, pt).fillDrawTextActive(pl.colour, SPlayer(pl, sc), str, 24, 2.0)  }
 
   /** Not sure why this is called css. */
   def css: RArr[TextGraphic] = players.projNoneScPtMap((sc, pt) => pt.textAt(sc.rcStr, 20))
 
+  /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
+  def NoMoves: SqCenOptLayer[SqDirn] = gridSys.newSCenOptDGrider[SqDirn]
+
+  def NoMoves2: SqCenStepPairArr[Player] = SqCenStepPairArr[Player]()
+
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of
    *  those moves. This data is state for the Gui. */
   var moves: SqCenOptLayer[SqDirn] = NoMoves
+
+  var moves2: SqCenStepPairArr[Player] = NoMoves2
 
   def moveGraphics: GraphicElems = moves.someSCOptFlatMap { (step, sc) =>
     proj.transOptLineSeg(sc.segStepTo(step)).map(_.draw(players.unSafeApply(sc).colour).arrow)
@@ -47,8 +54,7 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
   /** Draws the tiles sides (or edges). */
   def sidesDraw: LinesDraw = proj.sidesDraw()
 
-  /** There are mo moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: SqCenOptLayer[SqDirn] = gridSys.newSCenOptDGrider[SqDirn]
+
 
   mainMouseUp = (b, pointerHits, _) => (b, selected, pointerHits) match
   { case (LeftButton, _, pointerHits) =>
@@ -60,6 +66,7 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
     case (RightButton, AnyArrHead(SPlayer(p, sc1)), hits) => hits.sqCenForFirst{ sc2 =>
       val newM: Option[SqDirn] = sc1.findStep(sc2)
       newM.fold{ if (sc1 == sc2) moves = moves.setNone(sc1) }(m => moves = moves.setSome(sc1, m))
+      //newM.foreach{d => moves2 = moves2.appendPair(sc1.andStep(d), pl) }
       repaint()
     }
 

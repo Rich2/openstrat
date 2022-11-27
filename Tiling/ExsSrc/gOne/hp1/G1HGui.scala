@@ -55,7 +55,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   }
 
   def moveGraphics2: LineSegPairArr[Player] = moves2.optMapOnA1(_.projLineSeg)
-  def moveGraphics3 = moveGraphics2.pairFlatMap{ (seg, pl) => seg.draw(pl.colour).arrow }
+  def moveGraphics3: GraphicElems = moveGraphics2.pairFlatMap{ (seg, pl) => seg.draw(pl.colour).arrow }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
