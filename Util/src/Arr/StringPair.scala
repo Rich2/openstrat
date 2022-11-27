@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import reflect.ClassTag
+import annotation._, reflect.ClassTag
 
 class StringPair[A2](val a1: String, val a2: A2) extends PairElem[String, A2]
 
@@ -28,6 +28,18 @@ class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) exte
   override def unsafeSetElem(i: Int, value: StringPair[A2]): Unit = { a1Array(i) = value.a1; a2Array(i) = value.a2 }
 
   override def fElemStr: StringPair[A2] => String = _.toString
+
+  @targetName("append") final def +%(operand: StringPair[A2])(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
+
+  final def appendPair(a1: String, a2: A2)(implicit ct: ClassTag[A2]): ThisT = {
+    val newA1Array = new Array[String](length + 1)
+    a1Array.copyToArray(newA1Array)
+    newA1Array(length) = a1
+    val newA2Array = new Array[A2](length + 1)
+    a2Array.copyToArray(newA2Array)
+    newA2Array(length) = a2
+    new StringPairArr[A2](newA1Array, newA2Array)
+  }
 }
 
 object StringPairArr

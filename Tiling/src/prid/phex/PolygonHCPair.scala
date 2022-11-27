@@ -21,7 +21,7 @@ final class PolygonHCPairArr[A2](val a1ArrayInts: Array[Array[Int]], val a2Array
   override def fElemStr: PolygonHCPair[A2] => String = _.toString
   override def typeStr: String = "PolygonHCPairArray"
   override def a1Arr: PolygonHCArr = new PolygonHCArr(a1ArrayInts)
-  override def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](array1, array2)
+  override def newFromArrays(array1: Array[Array[Int]], array2: Array[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](array1, array2)
   override def a1FromArrayInt(array: Array[Int]): PolygonHC = new PolygonHC(array)
   override def elemFromComponents(a1: Array[Int], a2: A2): PolygonHCPair[A2] = new PolygonHCPair[A2](a1, a2)
 }

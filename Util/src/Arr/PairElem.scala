@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** These classes are for use in [[PairArr]]s. */
 trait PairElem[A1, A2] extends Any
@@ -137,6 +137,10 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 
   /** Returns a new uninitialised [[PairArr]] of the same final type. */
   def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT
+
+  @targetName("append") def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT// = appendPair(operand.a1, operand.a2)
+
+  def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT
 }
 
 /** An efficient [[Buff]] for [[PairElem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used

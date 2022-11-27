@@ -18,7 +18,7 @@ final class PolygonLLPairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Ar
   override def typeStr: String = "PolygonLLPairArray"
   override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](a1ArrayDbls(index), a2Array(index))
   override def a1Arr: PolygonLLArr = new PolygonLLArr(a1ArrayDbls)
-  override def fromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](array1, array2)
+  override def newFromArrays(array1: Array[Array[Double]], array2: Array[A2]): PolygonLLPairArr[A2] = new PolygonLLPairArr[A2](array1, array2)
   override def a1FromArrayDbl(array: Array[Double]): PolygonLL = new PolygonLL(array)
 }
 

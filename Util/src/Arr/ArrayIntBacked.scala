@@ -67,7 +67,7 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
   def a1FromArrayInt(array: Array[Int]): A1
 
   /** Constructs the final class from an Array of Arrays of Ints and an Array[A2]. */
-  def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): ThisT
+  def newFromArrays(array1: Array[Array[Int]], array2: Array[A2]): ThisT
 
   /** Constructs a [[PairElem]] from an Array[Int and an A2 value. */
   def elemFromComponents(a1: Array[Int], a2: A2): A
@@ -77,14 +77,14 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
   final override def apply(index: Int): A = elemFromComponents(a1ArrayInts(index), a2Array(index))
 
   /** Returns a new uninitialised [[PairArr]] of the same final type. */
-  final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = fromArrays(new Array[Array[Int]](length), new Array[A2](length))
+  final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Array[Int]](length), new Array[A2](length))
 
   final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInts(index) = value.unsafeArray }
 
   override def replaceA1Value(key: A2, newValue: A1): ThisT =
   { val newA1s = new Array[Array[Int]](length)
     a1ArrayInts.copyToArray(newA1s)
-    val res = fromArrays(newA1s, a2Array)
+    val res = newFromArrays(newA1s, a2Array)
     var i = 0
     while (i < length) {
       if (key == a2Index(i)) res.unsafeSetA1(i, newValue);

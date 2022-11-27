@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import ostrat.geom._, reflect.ClassTag
+import annotation._, geom._, reflect.ClassTag
 
 /** A path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
 class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
@@ -124,10 +124,14 @@ class HDirnPathPairArr[A2](val a1ArrayInts: Array[Array[Int]], val a2Array: Arra
 { override type ThisT = HDirnPathPairArr[A2]
   override def typeStr: String = "HDirnPathPairArr"
   inline override def a1FromArrayInt(array: Array[Int]): HDirnPath = new HDirnPath(array)
-  inline override def fromArrays(array1: Array[Array[Int]], array2: Array[A2]): HDirnPathPairArr[A2] = new HDirnPathPairArr(array1, array2)
+  inline override def newFromArrays(array1: Array[Array[Int]], array2: Array[A2]): HDirnPathPairArr[A2] = new HDirnPathPairArr(array1, array2)
   inline override def a1Arr: HDirnPathArr = new HDirnPathArr(a1ArrayInts)
   override def fElemStr: HDirnPathPair[A2] => String = _.toString
   override def elemFromComponents(a1: Array[Int], a2: A2): HDirnPathPair[A2] = new HDirnPathPair(a1, a2)
+
+  @targetName("append") override def +%(operand: HDirnPathPair[A2])(implicit ct: ClassTag[A2]): HDirnPathPairArr[A2] = ???
+
+  override def appendPair(a1: HDirnPath, a2: A2)(implicit ct: ClassTag[A2]): HDirnPathPairArr[A2] = ???
 }
 
 object HDirnPathPairArr extends ArrayIntBackedPairArrCompanion[HDirnPath]
