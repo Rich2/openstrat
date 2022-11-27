@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation._, reflect.ClassTag
 
 trait Dbl3PairElem[A1 <: Dbl3Elem, A2] extends DblNPairElem[A1, A2]
 { def a1Dbl1: Double
@@ -27,6 +27,20 @@ trait Dbl3PairArr[A1 <: Dbl3Elem, ArrA1 <: Dbl3Arr[A1], A2, A <: Dbl3PairElem[A1
   final override def unsafeSetElem(i: Int, value: A): Unit = { a1ArrayDbl(i * 3) = value.a1Dbl1; a1ArrayDbl(i * 3 + 1) = value.a1Dbl2
     a1ArrayDbl(i * 3 + 2) = value.a1Dbl3
     a2Array(i) = value.a2
+  }
+
+  @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
+
+  final def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
+  { val newA1Array = new Array[Double](a1ArrayLength + 3)
+    a1ArrayDbl.copyToArray(newA1Array)
+    newA1Array(a1ArrayLength) = a1.dbl1
+    newA1Array(a1ArrayLength + 1) = a1.dbl2
+    newA1Array(a1ArrayLength + 2) = a1.dbl3
+    val newA2Array = new Array[A2](length + 1)
+    a2Array.copyToArray(newA2Array)
+    newA2Array(length) = a2
+    newFromArrays(newA1Array, newA2Array)
   }
 }
 

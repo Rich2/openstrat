@@ -42,7 +42,7 @@ trait Dbl4PairArr[A1 <: Dbl4Elem, ArrA1 <: Dbl4Arr[A1], A2, A <: Dbl4PairElem[A1
     newA1Array(a1ArrayLength) = a1.dbl1
     newA1Array(a1ArrayLength + 1) = a1.dbl2
     newA1Array(a1ArrayLength + 2) = a1.dbl3
-    newA1Array(a1ArrayLength + 3) = a1.dbl3
+    newA1Array(a1ArrayLength + 3) = a1.dbl4
     val newA2Array = new Array[A2](length + 1)
     a2Array.copyToArray(newA2Array)
     newA2Array(length) = a2

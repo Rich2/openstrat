@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer, reflect.ClassTag
+import annotation._, reflect.ClassTag
 
 trait Int2PairElem[A1 <: Int2Elem, A2] extends IntNPairElem[A1, A2]
 { def a1Int1: Int
@@ -24,6 +24,19 @@ trait Int2PairArr[A1 <: Int2Elem, ArrA1 <: Int2Arr[A1], A2, A <: Int2PairElem[A1
   final override def a1NumInt: Int = 2
 
   final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInt(index * 2) = value.int1; a1ArrayInt(index * 2 + 1) = value.int1 }
+
+  @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
+
+  final def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT =
+  { val newA1Array = new Array[Int](a1ArrayLength + 2)
+    a1ArrayInt.copyToArray(newA1Array)
+    newA1Array(a1ArrayLength) = a1.int1
+    newA1Array(a1ArrayLength + 1) = a1.int2
+    val newA2Array = new Array[A2](length + 1)
+    a2Array.copyToArray(newA2Array)
+    newA2Array(length) = a2
+    newFromArrays(newA1Array, newA2Array)
+  }
 }
 
 trait Int2PairBuff[A1 <: Int2Elem, A2, A <: Int2PairElem[A1, A2]] extends IntNPairBuff[A1, A2, A]
