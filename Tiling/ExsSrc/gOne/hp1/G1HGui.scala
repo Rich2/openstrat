@@ -16,13 +16,10 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   proj.setView(viewIn)
 
   /** There are no moves set. The Gui is reset to this state at the start of every turn. */
-  def NoMoves: HCenOptLayer[HDirn] = gridSys.newHCenOptLayer[HDirn]
-
   def NoMoves2: HCenStepPairArr[Player] = HCenStepPairArr[Player]()
 
   /** This is the planned moves or orders for the next turn. Note this is just a record of the planned moves it is not graphical display of those
    *  moves. This data is state for the Gui. */
-  var moves: HCenOptLayer[HDirn] = NoMoves
   var moves2 = NoMoves2
 
   val urect = Rect(1.4, 1)
@@ -47,22 +44,15 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   /** Draws the tiles sides (or edges). */
   def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
 
-  /** This is the graphical display of the planned move orders. */
-  def moveGraphics: GraphicElems = moves.someHCOptFlatMap { (step, hc) =>
-    val r1: Option[LineSeg] = proj.transOptLineSeg(hc.segStepTo(step))
-    val r2: Option[GraphicElems] = r1.map(_.draw(players.unSafeApply(hc).colour).arrow)
-    r2
-  }
+  def moveSegPairs: LineSegPairArr[Player] = moves2.optMapOnA1(_.projLineSeg)
 
-  def moveGraphics2: LineSegPairArr[Player] = moves2.optMapOnA1(_.projLineSeg)
-  def moveGraphics3: GraphicElems = moveGraphics2.pairFlatMap{ (seg, pl) => seg.draw(pl.colour).arrow }
+  /** This is the graphical display of the planned move orders. */
+  def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap{ (seg, pl) => seg.draw(pl.colour).arrow }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
-    //val getOrders: RArr[(Player, HDirn)] = players.zipSomesMap(moves)((player, step) => (player, step))
-
     scen = scen.endTurn(moves2)
-    moves = NoMoves
+    moves2 = NoMoves2
     repaint()
     thisTop()
   }
@@ -80,8 +70,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
 
     case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach{ hc2 =>
       val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
-      newM.fold{ if (hc1 == hc2) moves = moves.setNone(hc1) }(m => moves = moves.setSome(hc1, m))
-      newM.foreach{ d => moves2 = moves2.appendPair(hc1.andStep(d), pl) }
+      newM.foreach{ d => moves2 = moves2.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()
     }
 
@@ -89,7 +78,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   }
   thisTop()
 
-  def frame: GraphicElems = actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics3 ++ hexStrs
+  def frame: GraphicElems = actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs
   proj.getFrame = () => frame
   proj.setStatusText = {str =>
     statusText = str

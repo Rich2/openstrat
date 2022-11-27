@@ -45,7 +45,7 @@ trait SeqLikeDblNPairArr[A1E <: DblNElem, A1 <: DblNSeqLike[A1E], A1Arr <: Arr[A
   override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Array[Double]](length), new Array[A2](length))
   final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayDbls(index) = value.unsafeArray }
 
-  override def replaceA1Value(key: A2, newValue: A1): ThisT =
+  override def replaceA1byA2(key: A2, newValue: A1): ThisT =
   { val newA1s = new Array[Array[Double]](length)
     a1ArrayDbls.copyToArray(newA1s)
     val res = newFromArrays(newA1s, a2Array)

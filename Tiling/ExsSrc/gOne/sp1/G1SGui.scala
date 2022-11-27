@@ -29,9 +29,9 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
    *  those moves. This data is state for the Gui. */
   var moves: SqCenStepPairArr[Player] = NoMoves
 
-  def moveSegs: LineSegPairArr[Player] = moves.optMapOnA1(_.projLineSeg)
+  def moveSegPairs: LineSegPairArr[Player] = moves.optMapOnA1(_.projLineSeg)
 
-  def moveGraphics: GraphicElems = moveSegs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
+  def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap { (seg, pl) => seg.draw(pl.colour).arrow }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
@@ -53,7 +53,7 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
 
     case (RightButton, AnyArrHead(SPlayer(pl, sc1)), hits) => hits.sqCenForFirst{ sc2 =>
       val newM: Option[SqDirn] = sc1.findStep(sc2)
-      newM.foreach{d => moves = moves.appendPair(sc1.andStep(d), pl) }
+      newM.foreach{ d => moves = moves.replaceA1byA2OrAppend(pl, sc1.andStep(d)) }
       repaint()
     }
 

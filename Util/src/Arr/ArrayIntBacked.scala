@@ -81,7 +81,7 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
 
   final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInts(index) = value.unsafeArray }
 
-  override def replaceA1Value(key: A2, newValue: A1): ThisT =
+  override def replaceA1byA2(key: A2, newValue: A1): ThisT =
   { val newA1s = new Array[Array[Int]](length)
     a1ArrayInts.copyToArray(newA1s)
     val res = newFromArrays(newA1s, a2Array)

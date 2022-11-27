@@ -17,7 +17,7 @@ trait DblNPairArr[A1 <: DblNElem, ArrA1 <: DblNArr[A1], A2, A <: DblNPairElem[A1
 
   def newFromArrays(a1Array: Array[Double], a2Array: Array[A2]): ThisT
 
-  override def replaceA1Value(key: A2, newValue: A1): ThisT =
+  override def replaceA1byA2(key: A2, newValue: A1): ThisT =
   { val newA1s = new Array[Double](length * a1NumDbl)
     a1ArrayDbl.copyToArray(newA1s)
     val res = newFromArrays(newA1s, a2Array)

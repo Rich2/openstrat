@@ -133,14 +133,24 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 
   /** Returns a copy of this [[PairArr]] where the A1 component is replaced for any pairs where the A2 value matches the given parameter. this method
    * treats the [[PairArr]] as a Scala [[Map]] class with the A2s as the keys and the A1s as the values. */
-  def replaceA1Value(key: A2, newValue: A1): ThisT
+  def replaceA1byA2(key: A2, newValue: A1): ThisT
+
+  def a2Exists(key: A2): Boolean =
+  { var res = false
+    var i = 0
+    while(!res & i < length) if (key == a2Array(i)) res = true else i += 1
+    res
+  }
 
   /** Returns a new uninitialised [[PairArr]] of the same final type. */
   def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT
 
-  @targetName("append") def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT// = appendPair(operand.a1, operand.a2)
+  @targetName("append") def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT
 
   def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT
+
+  def replaceA1byA2OrAppend(key: A2, newValue: A1)(implicit classTag: ClassTag[A2]): ThisT =
+    if(a2Exists(key)) replaceA1byA2(key, newValue) else appendPair(newValue, key)
 }
 
 /** An efficient [[Buff]] for [[PairElem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used

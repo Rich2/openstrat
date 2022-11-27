@@ -11,7 +11,7 @@ class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) exte
   override def a1Index(index: Int): String = a1Array(index)
   override def unsafeSetA1(index: Int, value: String): Unit = a1Array(index) = value
 
-  override def replaceA1Value(key: A2, newValue: String): StringPairArr[A2] =
+  override def replaceA1byA2(key: A2, newValue: String): StringPairArr[A2] =
   { val newA1s = new Array[String](length)
     a1Array.copyToArray(newA1s)
     var i = 0

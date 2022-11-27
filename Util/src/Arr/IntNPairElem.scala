@@ -34,7 +34,7 @@ trait IntNPairArr[A1 <: IntNElem, ArrA1 <: IntNArr[A1], A2, A <: IntNPairElem[A1
 
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Int](length *a1NumInt), new Array[A2](length))
 
-  override def replaceA1Value(key: A2, newValue: A1): ThisT =
+  override def replaceA1byA2(key: A2, newValue: A1): ThisT =
   { val newA1s = new Array[Int](length * a1NumInt)
     a1ArrayInt.copyToArray(newA1s)
     val res = newFromArrays(newA1s, a2Array)
