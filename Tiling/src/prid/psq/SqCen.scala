@@ -17,14 +17,11 @@ case class SqCen(r: Int, c: Int) extends SqCenOrSide with TCen
   /** The polygon of this tile, specified in [[SqVert]] coordinates. */
   def sqVertPolygon: PolygonSqC = verts.toPolygon
 
-  /** Step to adjacent hex tile. Will throw exception on illegal value. */
-  def stepTo(st: SqDirn): SqCen = SqCen(r + st.tr, c + st.tc)
+  /** Needs replcing as doesn't take [[SqGridSys]]. Returns the [[LineSegSC]], a line segment specified in [[SqCoord]]s, given by the step. */
+  def segStepToOld(st: SqDirn): LineSegSC = new LineSegSC(r, c, r + st.tr, c + st.tc)
 
-  /** Returns the [[LineSegSC]], a line segment specified in [[SqCoord]]s, given by the step. */
-  def segStepTo(st: SqDirn): LineSegSC = new LineSegSC(r, c, r + st.tr, c + st.tc)
-
-  /** Optionally returns the Step value of the SqCen if it is an adjacent SqCen. */
-  def optStep(operand: SqCen): OptRef[SqDirn] = ??? // hcStepSomes.optFind(_.hCen == operand - this)
+  /** [[SqCenStep]] for this [[HCen]] and the parameter [[SqDirn]]. */
+  def andStep(dirn: SqDirn): SqCenStep = SqCenStep(r, c, dirn)
 
   /** Optionally returns the Step value of the SqCen if it is an adjacent SqCen else returns the safe null value. */
   def findStep(operand: SqCen): Option[SqDirn] = scSteps.optFind(_.sqCen == operand - this)

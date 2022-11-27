@@ -35,11 +35,11 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
   var moves2: SqCenStepPairArr[Player] = NoMoves2
 
   def moveGraphics: GraphicElems = moves.someSCOptFlatMap { (step, sc) =>
-    proj.transOptLineSeg(sc.segStepTo(step)).map(_.draw(players.unSafeApply(sc).colour).arrow)
+    proj.transOptLineSeg(sc.segStepToOld(step)).map(_.draw(players.unSafeApply(sc).colour).arrow)
   }
 
   /** This is left in as an example for more coplex games with multi step orders. */
-  def mg2: LineSegSCPairArr[Colour] = moves.scSomesMapPair{ (sc, step) => sc.segStepTo(step)}{ (sc, _) => players.unSafeApply(sc).colour }
+  def mg2: LineSegSCPairArr[Colour] = moves.scSomesMapPair{ (sc, step) => sc.segStepToOld(step)}{ (sc, _) => players.unSafeApply(sc).colour }
 
 
   /** Creates the turn button and the action to commit on mouse click. */
@@ -63,10 +63,10 @@ case class G1SGui(canv: CanvasPlatform, scenStart: G1SqScen, viewIn: SqGridView)
       thisTop()
     }
 
-    case (RightButton, AnyArrHead(SPlayer(p, sc1)), hits) => hits.sqCenForFirst{ sc2 =>
+    case (RightButton, AnyArrHead(SPlayer(pl, sc1)), hits) => hits.sqCenForFirst{ sc2 =>
       val newM: Option[SqDirn] = sc1.findStep(sc2)
       newM.fold{ if (sc1 == sc2) moves = moves.setNone(sc1) }(m => moves = moves.setSome(sc1, m))
-      //newM.foreach{d => moves2 = moves2.appendPair(sc1.andStep(d), pl) }
+      newM.foreach{d => moves2 = moves2.appendPair(sc1.andStep(d), pl) }
       repaint()
     }
 
