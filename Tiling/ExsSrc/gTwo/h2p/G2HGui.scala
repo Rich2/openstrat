@@ -10,8 +10,6 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
   var history: RArr[G2HScen] = RArr(scen)
   implicit def gridSys: HGridSys = scen.gridSys
   def players: HCenOptLayer[Player] = scen.oPlayers
-  cPScale = viewIn.cPScale
-  //focus = viewIn.vec
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   proj.setView(viewIn)
 
@@ -41,6 +39,8 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
     val lps2 = proj.transLineSegPairs(lps1)
     lps2.pairMap((ls, p) => ls.draw(p.colour))
   }
+
+  //def moves2 = moves.mapOnA1(_.segHCs)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>

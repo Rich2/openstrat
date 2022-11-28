@@ -12,7 +12,7 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
   /** Gets the first [[HDirn]] wills throw on an empty path. */
   def getHead: HDirn = HDirn.fromInt(unsafeArray(2))
 
-  /** Gets the [[HDirn]] at the given index, will thorw if the element doesn't exist. */
+  /** Gets the [[HDirn]] at the given index, will throw if the element doesn't exist. */
   def index(index: Int): HDirn = HDirn.fromInt(unsafeArray(index + 2))
 
   def tail(newStart: HCen): HDirnPath =
@@ -53,6 +53,8 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
     segHCsForeach { s => if (i != 0) res.unsafeSetElem(i, s); i += 1 }
     res
   }
+
+  //def SegHCLast: Option[LineSegHC] = if (length >= 0) Some(index(length - 1)) else None
 
   def segHCsMap[B, ArrB <: Arr[B]](f: LineSegHC => B)(implicit build: ArrMapBuilder[B, ArrB], grider: HGridSys): ArrB =
   { val res = build.uninitialised(length)
