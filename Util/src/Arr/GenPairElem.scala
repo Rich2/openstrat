@@ -6,6 +6,7 @@ final class GenPairElem[A1, A2](val a1: A1, val a2: A2) extends PairElem[A1, A2]
 
 final class GenPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) extends PairArr[A1, RArr[A1], A2, GenPairElem[A1, A2]]
 { override type ThisT = GenPairArr[A1, A2]
+  override def typeStr: String = "GenPairArr"
   override def a1Arr: RArr[A1] = new RArr[A1](a1Array)
   override def a1Index(index: Int): A1 = a1Array(index)
   override def unsafeSetA1(index: Int, value: A1): Unit = a1Array(index) = value
@@ -25,14 +26,22 @@ final class GenPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) e
   def uninitialised(length: Int)(implicit cl1: ClassTag[A1], ct2: ClassTag[A2]): GenPairArr[A1, A2] =
     new GenPairArr[A1, A2](new Array[A1](length), new Array[A2](length))
 
-  @targetName("append") def +%(operand: GenPairElem[A1, A2])(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): GenPairArr[A1, A2] = ???
+  @targetName("append") def +%(operand: GenPairElem[A1, A2])(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): GenPairArr[A1, A2] =
+    appendPair(operand.a1, operand.a2)
 
-  def appendPair(a1: A1, a2: A2)(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): GenPairArr[A1, A2] = ???
+  def appendPair(a1: A1, a2: A2)(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): GenPairArr[A1, A2] =
+  { val newA1Array = new Array[A1](length + 1)
+    a1Array.copyToArray(newA1Array)
+    newA1Array(length) = a1
+    val newA2Array = new Array[A2](length + 1)
+    a2Array.copyToArray(newA2Array)
+    newA2Array(length) = a2
+    new GenPairArr(newA1Array, newA2Array)
+  }
 
   override def unsafeSetElem(i: Int, newValue: GenPairElem[A1, A2]): Unit = { a1Array(i) = newValue.a1; a2Array(i) = newValue.a2 }
 
   override def fElemStr: GenPairElem[A1, A2] => String = ???
 
-  /** String specifying the type of this object. */
-  override def typeStr: String = ???
+
 }
