@@ -119,7 +119,7 @@ trait Dbl3Buff[A <: Dbl3Elem] extends Any with DblNBuff[A]
   def dblsToT(d1: Double, d2: Double, d3: Double): A
   def apply(index: Int): A = dblsToT(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
 
-  override def unsafeSetElem(i: Int, value: A): Unit =
-  { unsafeBuffer(i * 4) = value.dbl1; unsafeBuffer(i * 4 + 1) = value.dbl2; unsafeBuffer(i * 4 + 2) = value.dbl3
+  override def unsafeSetElem(i: Int, newValue: A): Unit =
+  { unsafeBuffer(i * 4) = newValue.dbl1; unsafeBuffer(i * 4 + 1) = newValue.dbl2; unsafeBuffer(i * 4 + 2) = newValue.dbl3
   }
 }

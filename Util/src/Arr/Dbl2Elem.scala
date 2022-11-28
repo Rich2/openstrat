@@ -159,6 +159,6 @@ trait Dbl2Buff[B <: Dbl2Elem] extends Any with DblNBuff[B]
   final override def grow(newElem: B): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2); () }
   def dblsToT(d1: Double, d2: Double): B
   override def apply(index: Int): B = dblsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
-  final override def unsafeSetElem(i: Int, value: B): Unit = { unsafeBuffer(i * 2) = value.dbl1; unsafeBuffer(i * 2 + 1) = value.dbl2 }
+  final override def unsafeSetElem(i: Int, newValue: B): Unit = { unsafeBuffer(i * 2) = newValue.dbl1; unsafeBuffer(i * 2 + 1) = newValue.dbl2 }
   override def fElemStr: B => String = _.toString
 }

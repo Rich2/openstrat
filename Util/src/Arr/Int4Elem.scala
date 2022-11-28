@@ -67,8 +67,8 @@ trait Int4Buff[A <: Int4Elem] extends Any with IntNBuff[A]
   final override def apply(index: Int): A =
     intsToElem(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
 
-  final override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 4) = value.int1; unsafeBuffer(i * 4 + 1) = value.int2
-    unsafeBuffer(i * 4 + 2) = value.int3; unsafeBuffer(i * 4 + 3) = value.int4 }
+  final override def unsafeSetElem(i: Int, newValue: A): Unit = { unsafeBuffer(i * 4) = newValue.int1; unsafeBuffer(i * 4 + 1) = newValue.int2
+    unsafeBuffer(i * 4 + 2) = newValue.int3; unsafeBuffer(i * 4 + 3) = newValue.int4 }
 }
 
 trait Int4SeqLikeCommonBuilder[BB <: Int4SeqLike[_]] extends IntNSeqLikeCommonBuilder[BB]

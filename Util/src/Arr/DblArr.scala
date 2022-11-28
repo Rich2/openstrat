@@ -9,7 +9,7 @@ class DblArr(val unsafeArray: Array[Double]) extends AnyVal with ArrSingle[Doubl
   override def unsafeSameSize(length: Int): DblArr = new DblArr(new Array[Double](length))
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Double = unsafeArray(index)
-  override def unsafeSetElem(i: Int, value: Double): Unit = unsafeArray(i) = value
+  override def unsafeSetElem(i: Int, newValue: Double): Unit = unsafeArray(i) = newValue
   def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
   def ++ (op: DblArr): DblArr =
@@ -50,7 +50,7 @@ class DblBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Buff[Do
   override def typeStr: String = "DblsBuff"
   override def apply(index: Int): Double = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
-  override def unsafeSetElem(i: Int, value: Double): Unit = unsafeBuffer(i) = value
+  override def unsafeSetElem(i: Int, newValue: Double): Unit = unsafeBuffer(i) = newValue
   override def fElemStr: Double => String = _.toString
   override def grow(newElem: Double): Unit = unsafeBuffer.append(newElem)
 }

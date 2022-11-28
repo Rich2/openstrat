@@ -16,11 +16,11 @@ trait Int3PairArr[A1 <: Int3Elem, ArrA1 <: Int3Arr[A1], A2, A <: Int3PairElem[A1
 
   override final def apply(index: Int): A = newPair(a1ArrayInt(index * 3), a1ArrayInt(index * 3 + 1), a1ArrayInt(index * 3 + 2), a2Array(index))
 
-  override final def unsafeSetElem(i: Int, value: A): Unit =
-  { a1ArrayInt(i * 3) = value.a1Int1;
-    a1ArrayInt(i * 3 + 1) = value.a1Int2
-    a1ArrayInt(i * 3 + 2) = value.a1Int3
-    a2Array(i) = value.a2
+  override final def unsafeSetElem(i: Int, newValue: A): Unit =
+  { a1ArrayInt(i * 3) = newValue.a1Int1;
+    a1ArrayInt(i * 3 + 1) = newValue.a1Int2
+    a1ArrayInt(i * 3 + 2) = newValue.a1Int3
+    a2Array(i) = newValue.a2
   }
 
   def newA1(int1: Int, int2: Int, int3: Int): A1
@@ -59,11 +59,11 @@ trait Int3PairBuff[A1 <: Int3Elem, A2, A <: Int3PairElem[A1, A2]] extends IntNPa
     b2Buffer.append(newElem.a2)
   }
 
-  override final def unsafeSetElem(i: Int, value: A): Unit =
-  { b1IntBuffer(i * 3) = value.a1Int1
-    b1IntBuffer(i * 3 + 1) = value.a1Int2
-    b1IntBuffer(i * 3 + 2) = value.a1Int3
-    b2Buffer(i) = value.a2
+  override final def unsafeSetElem(i: Int, newValue: A): Unit =
+  { b1IntBuffer(i * 3) = newValue.a1Int1
+    b1IntBuffer(i * 3 + 1) = newValue.a1Int2
+    b1IntBuffer(i * 3 + 2) = newValue.a1Int3
+    b2Buffer(i) = newValue.a2
   }
 }
 

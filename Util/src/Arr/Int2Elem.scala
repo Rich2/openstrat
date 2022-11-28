@@ -78,7 +78,7 @@ trait Int2Buff[A <: Int2Elem] extends Any with IntNBuff[A]
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2); () }
   def intsToT(i1: Int, i2: Int): A
   override def apply(index: Int): A = intsToT(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
-  override def unsafeSetElem(i: Int, value: A): Unit = { unsafeBuffer(i * 2) = value.int1; unsafeBuffer(i * 2 + 1) = value.int2 }
+  override def unsafeSetElem(i: Int, newValue: A): Unit = { unsafeBuffer(i * 2) = newValue.int1; unsafeBuffer(i * 2 + 1) = newValue.int2 }
 }
 
 /** Helper class for companion objects of final [[Int2SeqSpec]] classes. */

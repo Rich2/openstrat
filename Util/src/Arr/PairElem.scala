@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** These classes are for use in [[PairArr]]s. */
+/** These classes are for use in [[PairArrRestrict]]s. */
 trait PairElem[A1, A2] extends Any
 { /** The first component of this pair. */
   def a1: A1
@@ -10,6 +10,8 @@ trait PairElem[A1, A2] extends Any
   /** The second component of this pair. */
   def a2: A2
 }
+
+
 
 /** An [[Arr]] of pairs [[PairElem]]. These classes allow convenient methods to map and filter on just one component of the pair. They and their
  *  associated [[PairArrMapBuilder]] and [[PairBuff]] classes also allow for efficient storage by using 2 Arrays of the components of the pairs rather
@@ -19,18 +21,24 @@ trait PairElem[A1, A2] extends Any
 trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 { type ThisT <: PairArr[A1, A1Arr, A2, A]
 
-  /** Returns the specialist sequence collection for the A1s. Probably not required most of the time but the method is included for completeness.  */
+  /** Indexes the first component of the pair. */
+  def a1Index(index: Int): A1
+
+  /** Indexes the second component of the pair. */
+  def a2Index(index: Int): A2 = a2Array(index)
+
+  /** Returns the specialist sequence collection for the A1s. Probably not required most of the time but the method is included for completeness. */
   def a1Arr: A1Arr
 
-  /** The Array for the A2 components of the pairs. Should be rarely reuired by end user. The a2Arr and the a2RArr methods are generally preferred.  */
+  /** The Array for the A2 components of the pairs. Should be rarely reuired by end user. The a2Arr and the a2RArr methods are generally preferred. */
   def a2Array: Array[A2]
 
   /** Returns an [[RArr]] of the A2s, even if a better more specialist collection exists for the type. Probably not required most of the time but the
-   *  method is included for completeness.  */
+   * method is included for completeness. */
   def a2RArr: RArr[A2] = new RArr[A2](a2Array)
 
   /** Returns the specialist sequence collection for the A2s, as determined by implicit look up. Probably not required most of the time but the method
-   *  is included for completeness.  */
+   * is included for completeness. */
   def a2Arr[A2Arr <: Arr[A2]](implicit build: ArrMapBuilder[A2, A2Arr]): A2Arr = a2Array.mapArr(a2 => a2)
 
   /** Maps the first component of the pairs, dropping the second. */
@@ -39,17 +47,20 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   /** Maps the second component of the pairs, dropping the first. */
   def a2Map[B, ArrB <: Arr[B]](f: A2 => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = a2Array.mapArr(f)
 
-  def pairForeach(f: (A1, A2) => Unit): Unit =
-  { var i = 0
-    while (i < length){ f(a1Index(i), a2Index(i)); i += 1 }
+  def pairForeach(f: (A1, A2) => Unit): Unit = {
+    var i = 0
+    while (i < length) {
+      f(a1Index(i), a2Index(i)); i += 1
+    }
   }
 
+
   /** Just a map method that avoids unnecessarily constructing the pairs and takes a function from the components to te parameter type B. */
-  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB =
-  { var i = 0
+  def pairMap[B, ArrB <: Arr[B]](f: (A1, A2) => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = {
+    var i = 0
     val res = builder.uninitialised(length)
-    while(i < length)
-    { val newB = f(a1Index(i), a2Index(i))
+    while (i < length) {
+      val newB = f(a1Index(i), a2Index(i))
       res.unsafeSetElem(i, newB)
       i += 1
     }
@@ -57,100 +68,98 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 
   /** Just a flatMap method that avoids unnecessarily constructing the pairs and takes a function from the components to te parameter type ArrB. */
-  def pairFlatMap[ArrB <: Arr[_]](f: (A1, A2) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB =
-  { val buff = build.newBuff()
-    pairForeach{ (a1, a2) =>
+  def pairFlatMap[ArrB <: Arr[_]](f: (A1, A2) => ArrB)(implicit build: ArrFlatBuilder[ArrB]): ArrB = {
+    val buff = build.newBuff()
+    pairForeach { (a1, a2) =>
       val newBs = f(a1, a2)
       build.buffGrowArr(buff, newBs)
     }
     build.buffToSeqLike(buff)
   }
 
-  /** Indexes the first component of the pair. */
-  def a1Index(index: Int): A1
-
-  /** Indexes the second component of the pair. */
-  def a2Index(index: Int): A2 = a2Array(index)
-
   /** Maps the sequence of pairs to a new sequence of pairs, but leaving the second component of the pairs unchanged. */
-  def mapOnA1[B1, ArrB1 <: Arr[B1], B <: PairElem[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => B1)(implicit
-  build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
-  { val b1Arr: ArrB1 = a1Arr.map(f)(build.b1ArrBuilder)
+  def mapOnA1[B1, ArrB1 <: Arr[B1], B <: PairElem[B1, A2], ArrB <: PairArrRestrict[B1, ArrB1, A2, B]](f: A1 => B1)(implicit
+                                                                                                                   build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB = {
+    val b1Arr: ArrB1 = a1Arr.map(f)(build.b1ArrBuilder)
     build.arrFromArrAndArray(b1Arr, a2Array)
   }
 
-  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArr]] of [[PairElem]][B1, A2]. Then flattens
-   * these new [[PairArr]]s to make a single [[PairArr]] */
-  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairArr[B1, ArrB1, A2, _]](f: A1 => ArrB1)(implicit
-  build: PairArrFlatBuilder[B1, ArrB1, A2,  ArrB]): ArrB =
-  { val buff = build.newBuff()
-    pairForeach{ (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
+  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArrRestrict]] of [[PairElem]][B1, A2]. Then flattens
+   * these new [[PairArrRestrict]]s to make a single [[PairArrRestrict]] */
+  def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairArrRestrict[B1, ArrB1, A2, _]](f: A1 => ArrB1)(implicit
+                                                                                                   build: PairArrFlatBuilder[B1, ArrB1, A2, ArrB]): ArrB = {
+    val buff = build.newBuff()
+    pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
     build.buffToSeqLike(buff)
   }
 
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2
-   * values to make the new pairs of type [[PairElem]][B1, A2].  */
-  def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairElem[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
-  build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
-  { val buff = build.newBuff()
-    pairForeach{ (a1, a2) =>  f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
+   * values to make the new pairs of type [[PairElem]][B1, A2]. */
+  def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairElem[B1, A2], ArrB <: PairArrRestrict[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
+                                                                                                                              build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB = {
+    val buff = build.newBuff()
+    pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
     build.buffToSeqLike(buff)
   }
 
   /** filters this sequence using a predicate upon the A1 components of the pairs. */
-  def filterOnA1(f: A1 => Boolean)(implicit build: PairArrMapBuilder[A1, A1Arr, A2, A, ThisT]): ThisT =
-  { val buff = build.newBuff()
+  def filterOnA1(f: A1 => Boolean)(implicit build: PairArrMapBuilder[A1, A1Arr, A2, A, ThisT]): ThisT = {
+    val buff = build.newBuff()
     pairForeach { (a1, a2) => if (f(a1)) buff.pairGrow(a1, a2) }
     build.buffToSeqLike(buff)
   }
 
   final override def length: Int = a2Array.length
 
-  /** Treats this [[PairArr]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. */
-  def a1FromA2Key(key: A2): A1 =
-  { var i = 0
+  /** Treats this [[PairArrRestrict]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. */
+  def a1FromA2Key(key: A2): A1 = {
+    var i = 0
     var res: Option[A1] = None
-    while(i < length & res == None){
+    while (i < length & res == None) {
       if (a2Index(i) == key) res = Some(a1Index(i))
       i += 1
     }
-    res match
-    { case Some(a1) => a1
+    res match {
+      case Some(a1) => a1
       case None => excep(s"The a2: A2 of value $key was not found")
     }
   }
 
   def getA2Index(key: A2): Int = findA2Index(key).get
 
-  def findA2Index(key: A2): Option[Int] =
-  { var i = 0
+  def findA2Index(key: A2): Option[Int] = {
+    var i = 0
     var res: Option[Int] = None
-    while (res == None & i < length ) if (key == a2Array(i)) res = Some(i) else i += 1
+    while (res == None & i < length) if (key == a2Array(i)) res = Some(i) else i += 1
     res
   }
 
   def unsafeSetA1(index: Int, value: A1): Unit
 
-  /** Returns a copy of this [[PairArr]] where the A1 component is replaced for any pairs where the A2 value matches the given parameter. this method
-   * treats the [[PairArr]] as a Scala [[Map]] class with the A2s as the keys and the A1s as the values. */
-  def replaceA1byA2(key: A2, newValue: A1): ThisT
-
-  def a2Exists(key: A2): Boolean =
-  { var res = false
+  def a2Exists(key: A2): Boolean = {
+    var res = false
     var i = 0
-    while(!res & i < length) if (key == a2Array(i)) res = true else i += 1
+    while (!res & i < length) if (key == a2Array(i)) res = true else i += 1
     res
   }
+}
 
-  /** Returns a new uninitialised [[PairArr]] of the same final type. */
+trait PairArrRestrict[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends PairArr[A1, A1Arr, A2, A]
+{ type ThisT <: PairArrRestrict[A1, A1Arr, A2, A]
+
+  /** Returns a copy of this [[PairArrRestrict]] where the A1 component is replaced for any pairs where the A2 value matches the given parameter. this method
+   * treats the [[PairArrRestrict]] as a Scala [[Map]] class with the A2s as the keys and the A1s as the values. */
+  def replaceA1byA2(key: A2, newValue: A1): ThisT
+
+  def replaceA1byA2OrAppend(key: A2, newValue: A1)(implicit classTag: ClassTag[A2]): ThisT =
+    if (a2Exists(key)) replaceA1byA2(key, newValue) else appendPair(newValue, key)
+
+  /** Returns a new uninitialised [[PairArrRestrict]] of the same final type. */
   def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT
 
   @targetName("append") def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT
 
   def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT
-
-  def replaceA1byA2OrAppend(key: A2, newValue: A1)(implicit classTag: ClassTag[A2]): ThisT =
-    if(a2Exists(key)) replaceA1byA2(key, newValue) else appendPair(newValue, key)
 }
 
 /** An efficient [[Buff]] for [[PairElem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used

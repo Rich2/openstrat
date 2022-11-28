@@ -13,7 +13,7 @@ final class IntArr(val unsafeArray: Array[Int]) extends AnyVal with ArrNoParam[I
   override def typeStr: String = "Ints"
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Int = unsafeArray(index)
-  override def unsafeSetElem(i: Int, value: Int): Unit = unsafeArray(i) = value
+  override def unsafeSetElem(i: Int, newValue: Int): Unit = unsafeArray(i) = newValue
   def unsafeArrayCopy(operand: Array[Int], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Int => String = _.toString
   override def reverse: IntArr = ???
@@ -104,7 +104,7 @@ class IntBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Buff[Int]
   override def typeStr: String = "IntBuff"
   override def apply(index: Int): Int = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
-  override def unsafeSetElem(i: Int, value: Int): Unit = unsafeBuffer(i) = value
+  override def unsafeSetElem(i: Int, newValue: Int): Unit = unsafeBuffer(i) = newValue
   override def fElemStr: Int => String = _.toString
   def grow(newElem: Int): Unit = unsafeBuffer.append(newElem)
   def growArray(operand: Array[Int]): Unit = unsafeBuffer.appendAll(operand)

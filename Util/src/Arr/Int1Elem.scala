@@ -51,7 +51,7 @@ trait Int1Buff[A <: Int1Elem] extends Any with IntNBuff[A]
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
-  override def unsafeSetElem(i: Int, value: A): Unit = unsafeBuffer(i) = value.int1
+  override def unsafeSetElem(i: Int, newValue: A): Unit = unsafeBuffer(i) = newValue.int1
 }
 
 trait Int1ArrCommonBuilder[ArrB <: Int1Arr[_]] extends IntNSeqLikeCommonBuilder[ArrB]

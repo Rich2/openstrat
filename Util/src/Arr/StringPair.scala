@@ -4,7 +4,7 @@ import annotation._, reflect.ClassTag
 
 class StringPair[A2](val a1: String, val a2: A2) extends PairElem[String, A2]
 
-class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairArr[String, StrArr, A2, StringPair[A2]]
+class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairArrRestrict[String, StrArr, A2, StringPair[A2]]
 { override type ThisT = StringPairArr[A2]
   override def typeStr: String = "StringPairArr"
   override def a1Arr: StrArr = new StrArr(a1Array)
@@ -25,7 +25,7 @@ class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) exte
     new StringPairArr[A2](new Array[String](length), new Array[A2](length))
 
   override def apply(index: Int): StringPair[A2] = new StringPair[A2](a1Array(index), a2Array(index))
-  override def unsafeSetElem(i: Int, value: StringPair[A2]): Unit = { a1Array(i) = value.a1; a2Array(i) = value.a2 }
+  override def unsafeSetElem(i: Int, newValue: StringPair[A2]): Unit = { a1Array(i) = newValue.a1; a2Array(i) = newValue.a2 }
 
   override def fElemStr: StringPair[A2] => String = _.toString
 

@@ -134,8 +134,8 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
     ev.buffToSeqLike(buff)
   }
 
-  /** Maps to a [[PairArr]] of B1 and B2. */
-  def mapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]](f1: A => B1, f2: A => B2)(
+  /** Maps to a [[PairArrRestrict]] of B1 and B2. */
+  def mapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: PairArrRestrict[B1, ArrB1, B2, B]](f1: A => B1, f2: A => B2)(
   implicit build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB =
   { val buff1 = build.newB1Buff()
     val buffer2 = build.newB2Buffer()
@@ -147,8 +147,8 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** FlatMaps to an [[Arr]] of B1, but maps to a single element of B2. The elements of the [[Arr]][B1] are paired with copies of B2. These are
-   *  logically flattened to a [[PairArr]][B1, B2]. */
-  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: PairArr[B1, ArrB1, B2, _]](f1: A => ArrB1, f2: A => B2)(
+   *  logically flattened to a [[PairArrRestrict]][B1, B2]. */
+  def flatMapPairArr[B1, ArrB1 <: Arr[B1], B2, BB <: PairArrRestrict[B1, ArrB1, B2, _]](f1: A => ArrB1, f2: A => B2)(
   implicit build: PairArrFlatBuilder[B1, ArrB1, B2, BB]): BB =
   { val buff1 = build.newB1Buff()
     val buffer2 = build.newB2Buffer()

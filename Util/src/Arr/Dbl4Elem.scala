@@ -117,7 +117,7 @@ trait Dbl4Buff[A <: Dbl4Elem] extends Any with DblNBuff[A]
   override def apply(index: Int): A =
     dblsToT(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
 
-  override def unsafeSetElem(i: Int, value: A): Unit =
-  { unsafeBuffer(i * 4) = value.dbl1; unsafeBuffer(i * 4 + 1) = value.dbl2; unsafeBuffer(i * 4 + 2) = value.dbl3; unsafeBuffer(i * 4 + 3) = value.dbl4
+  override def unsafeSetElem(i: Int, newValue: A): Unit =
+  { unsafeBuffer(i * 4) = newValue.dbl1; unsafeBuffer(i * 4 + 1) = newValue.dbl2; unsafeBuffer(i * 4 + 2) = newValue.dbl3; unsafeBuffer(i * 4 + 3) = newValue.dbl4
   }
 }

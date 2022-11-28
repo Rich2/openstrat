@@ -133,8 +133,8 @@ trait Dbl6Buff[A <: Dbl6Elem] extends Any with DblNBuff[A]
   override def apply(index: Int): A = dblsToT(unsafeBuffer(index * 6), unsafeBuffer(index * 6 + 1), unsafeBuffer(index * 6 + 2),
     unsafeBuffer(index * 6 + 3), unsafeBuffer(index * 6 + 4), unsafeBuffer(index * 6 + 5))
 
-  override def unsafeSetElem(i: Int, value: A): Unit =
-  { unsafeBuffer(i * 6) = value.dbl1; unsafeBuffer(i * 6 + 1) = value.dbl2; unsafeBuffer(i * 6 + 2) = value.dbl3;
-    unsafeBuffer(i * 6 + 3) = value.dbl4; unsafeBuffer(i * 6 + 3) = value.dbl5;
+  override def unsafeSetElem(i: Int, newValue: A): Unit =
+  { unsafeBuffer(i * 6) = newValue.dbl1; unsafeBuffer(i * 6 + 1) = newValue.dbl2; unsafeBuffer(i * 6 + 2) = newValue.dbl3;
+    unsafeBuffer(i * 6 + 3) = newValue.dbl4; unsafeBuffer(i * 6 + 3) = newValue.dbl5;
   }
 }

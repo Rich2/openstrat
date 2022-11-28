@@ -19,7 +19,7 @@ trait ArrayIntBackedArr[A <: ArrayIntBacked] extends Any with Arr[A]
   override final def length: Int = unsafeArrayOfArrays.length
   def unsafeFromArrayArray(array: Array[Array[Int]]): ThisT
   final def unsafeSameSize(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Int]](length))
-  final def unsafeSetElem(i: Int, value: A): Unit = unsafeArrayOfArrays(i) = value.unsafeArray
+  final def unsafeSetElem(i: Int, newValue: A): Unit = unsafeArrayOfArrays(i) = newValue.unsafeArray
 }
 
 /** This is the builder for Arrays Arrays of Int. It is not the builder for Arrays of Int.  */
@@ -59,7 +59,7 @@ trait ArrayIntBackedPair[A1 <: ArrayIntBacked, A2] extends PairElem[A1, A2]
   def a1ArrayInt: Array[Int]
 }
 
-trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: ArrayIntBackedPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
+trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: ArrayIntBackedPair[A1, A2]] extends PairArrRestrict[A1, ArrA1, A2, A]
 { /** The backing Array for the A1 components. */
   def a1ArrayInts: Array[Array[Int]]
 
@@ -73,10 +73,10 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
   def elemFromComponents(a1: Array[Int], a2: A2): A
 
   final override def a1Index(index: Int): A1 = a1FromArrayInt(a1ArrayInts(index))
-  final override def unsafeSetElem(i: Int, value: A): Unit = { a1ArrayInts(i) = value.a1ArrayInt; a2Array(i) = value.a2 }
+  final override def unsafeSetElem(i: Int, newValue: A): Unit = { a1ArrayInts(i) = newValue.a1ArrayInt; a2Array(i) = newValue.a2 }
   final override def apply(index: Int): A = elemFromComponents(a1ArrayInts(index), a2Array(index))
 
-  /** Returns a new uninitialised [[PairArr]] of the same final type. */
+  /** Returns a new uninitialised [[PairArrRestrict]] of the same final type. */
   final override def uninitialised(length: Int)(implicit classTag: ClassTag[A2]): ThisT = newFromArrays(new Array[Array[Int]](length), new Array[A2](length))
 
   final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayInts(index) = value.unsafeArray }

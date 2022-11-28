@@ -20,7 +20,7 @@ trait PointSeqLike[PT <: Point] extends SeqLike[PT]
 
 trait PointPair[A1 <: Point, A2] extends PairElem[A1, A2]
 
-trait PointPairArr[A1 <: Point, ArrA1 <: Arr[A1], A2, A <: PointPair[A1, A2]] extends PairArr[A1, ArrA1, A2, A]
+trait PointPairArr[A1 <: Point, ArrA1 <: Arr[A1], A2, A <: PointPair[A1, A2]] extends PairArrRestrict[A1, ArrA1, A2, A]
 
 trait PointDblN extends Any with Point with DblNElem
 

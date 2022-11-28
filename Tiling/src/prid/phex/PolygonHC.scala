@@ -105,7 +105,7 @@ class PolygonHCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends ArrayIntBa
 class PolygonHCBuff(val unsafeBuffer: ArrayBuffer[Array[Int]]) extends AnyVal with ArrayIntBuff[PolygonHC]
 { override type ThisT = PolygonHCBuff
   override def typeStr: String = "PolygonHCBuff"
-  override def unsafeSetElem(i: Int, value: PolygonHC): Unit = unsafeBuffer(i) = value.unsafeArray
+  override def unsafeSetElem(i: Int, newValue: PolygonHC): Unit = unsafeBuffer(i) = newValue.unsafeArray
   override def fElemStr: PolygonHC => String = _.toString
   override def fromArrayInt(array: Array[Int]): PolygonHC = new PolygonHC(array)
 }

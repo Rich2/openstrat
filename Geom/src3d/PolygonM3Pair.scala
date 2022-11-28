@@ -15,7 +15,7 @@ object PolygonM3Pair
 final class PolygonM3PairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends
   PolygonLikeDblNPairArr[PtM3, PolygonM3, PolygonM3Arr, A2, PolygonM3Pair[A2]]
 { override type ThisT = PolygonM3PairArr[A2]
-  override def unsafeSetElem(i: Int, value: PolygonM3Pair[A2]): Unit = { a1ArrayDbls(i) = value.a1ArrayDbl; a2Array(i) = value.a2 }
+  override def unsafeSetElem(i: Int, newValue: PolygonM3Pair[A2]): Unit = { a1ArrayDbls(i) = newValue.a1ArrayDbl; a2Array(i) = newValue.a2 }
   override def fElemStr: PolygonM3Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonM3PairArray"
   override def apply(index: Int): PolygonM3Pair[A2] = new PolygonM3Pair[A2](a1ArrayDbls(index), a2Array(index))
@@ -46,7 +46,7 @@ final class PolygonM3PairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
 class PolygonM3PairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
   SeqLikeDblNPairBuff[PtM3, PolygonM3, A2, PolygonM3Pair[A2]]
 { override type ThisT = PolygonM3PairBuff[A2]
-  override def unsafeSetElem(i: Int, value: PolygonM3Pair[A2]): Unit = { b1Buffer(i) = value.a1ArrayDbl; b2Buffer(i) = value.a2 }
+  override def unsafeSetElem(i: Int, newValue: PolygonM3Pair[A2]): Unit = { b1Buffer(i) = newValue.a1ArrayDbl; b2Buffer(i) = newValue.a2 }
   override def fElemStr: PolygonM3Pair[A2] => String = _.toString
   override def typeStr: String = "PolygonM3PairBuff"
   override def apply(index: Int): PolygonM3Pair[A2] = new PolygonM3Pair[A2](b1Buffer(index), b2Buffer(index))
