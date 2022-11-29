@@ -45,6 +45,16 @@ final class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) ext
 
   override def unsafeSetElem(i: Int, newValue: RPairElem[A1, A2]): Unit = { a1Array(i) = newValue.a1; a2Array(i) = newValue.a2 }
   override def fElemStr: RPairElem[A1, A2] => String = _.toString
+
+  def init(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): RPairArr[A1, A2] = dropRight(1)
+
+  def dropRight(n: Int)(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): RPairArr[A1, A2] =
+  { val newLen = (length - n).max0
+    val newA1s = new Array[A1](newLen)
+    val newA2s = new Array[A2](newLen)
+    iUntilForeach(newLen){ i => newA1s(i) = a1Array(i); newA2s(i) = a2Array(i) }
+    new RPairArr[A1, A2](newA1s, newA2s)
+  }
 }
 
 /** R for the first component of the [[PairElem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as reference types
