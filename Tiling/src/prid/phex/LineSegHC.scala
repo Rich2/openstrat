@@ -1,9 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
-
-import collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** A 2d line upon a HexGrid defined by its start and end [[HGrid]] [[HCoord]]s. */
 case class LineSegHC(r1: Int, c1: Int, r2: Int, c2: Int) extends LineSegLikeInt4[HCoord] with Int4Elem
@@ -47,7 +44,6 @@ class LineSegHCArr(val unsafeArray: Array[Int]) extends Int4Arr[LineSegHC]
 /** Companion object for the LineSegHCs class. */
 object LineSegHCArr extends Int4ArrCompanion[LineSegHC, LineSegHCArr]
 {
-  implicit def pairArrMapBuilder[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrMapBuilder[B2] = new LineSegHCPairArrMapBuilder[B2]
   implicit def pairArrFlatBuilder[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrFlatBuilder[B2] = new LineSegHCPairArrFlatBuilder[B2]
 
   /*implicit val persistImplicit: DataInt4sPersist[LineSegHC, LineSegHCs] = new DataDbl4sPersist[LineSegHC, LineSegHCs]("Line2s")

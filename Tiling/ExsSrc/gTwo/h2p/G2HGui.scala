@@ -44,7 +44,7 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
 
   def moves3: RPairArr[LineSegHCArr, Player] = moves2.mapOnA1(_.init)
 
-  def moves4: LineSegHCPairArr[Player] = moves2.optMapOnA1(_.lastOpt)(LineSegHC.pairArrMapBuider)
+  def moves4: LineSegHCPairArr[Player] = moves2.optMapOnA1(_.lastOpt)//(LineSegHC.pairArrMapBuider)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
