@@ -47,7 +47,8 @@ class LineSegHCArr(val unsafeArray: Array[Int]) extends Int4Arr[LineSegHC]
 /** Companion object for the LineSegHCs class. */
 object LineSegHCArr extends Int4ArrCompanion[LineSegHC, LineSegHCArr]
 {
-  implicit def pairArrFlatBuider[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrFlatBuilder[B2] = new LineSegHCPairArrFlatBuilder[B2]
+  implicit def pairArrMapBuilder[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrMapBuilder[B2] = new LineSegHCPairArrMapBuilder[B2]
+  implicit def pairArrFlatBuilder[B2](implicit ct: ClassTag[B2]): LineSegHCPairArrFlatBuilder[B2] = new LineSegHCPairArrFlatBuilder[B2]
 
   /*implicit val persistImplicit: DataInt4sPersist[LineSegHC, LineSegHCs] = new DataDbl4sPersist[LineSegHC, LineSegHCs]("Line2s")
   { override def fromArray(value: Array[Int]): LineSegHCs = new LineSegHCs(value)

@@ -36,6 +36,8 @@ trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
   /** The last element of this sequence. */
   @inline def last: A = apply(length - 1)
 
+  def lastOpt: Option[A] = ife(length > 0, Some(last), None)
+
   /** Is this sequence empty? */
   @inline def empty: Boolean = length <= 0
 

@@ -95,9 +95,9 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
 
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2
    * values to make the new pairs of type [[PairElem]][B1, A2]. */
-  def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairElem[B1, A2], ArrB <: PairArrRestrict[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
-                                                                                                                              build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB = {
-    val buff = build.newBuff()
+  def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairElem[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
+    build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
+  { val buff = build.newBuff()
     pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
     build.buffToSeqLike(buff)
   }
