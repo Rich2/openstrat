@@ -76,7 +76,7 @@ trait ArrBuilderPriority2
   /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBase classes. It is placed in this low priority trait
    * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
    * specialist Arr classes. */
-  implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrMapBuilder[B, RArr[B]] = new ArrTBuild[B]
+  implicit def anyImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrMapBuilder[B, RArr[B]] = new RArrAllBuilder[B]
 }
 
 //trait SeqLikeFlatBuilder[BB] extends  SeqLikeCommonBuilder[BB]// ArrBuilder[BB]
@@ -105,7 +105,7 @@ trait ArrFlatBuilderLowPriority
 { /** This is the fall back builder implicit for Arrs that do not have their own specialist ArrBuildBase classes. It is placed in this low priority trait
  * to gove those specialist Arr classes implicit priority. The notA implicit parameter is to exclude user defined types that have their own
  * specialist Arr classes. */
-  implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ValueNElem]#L[A]): ArrFlatBuilder[RArr[A]] = new ArrTBuild[A]
+  implicit def anyImplicit[A](implicit ct: ClassTag[A], @unused notA: Not[ValueNElem]#L[A]): ArrFlatBuilder[RArr[A]] = new RArrAllBuilder[A]
 }
 
 trait SeqSpecFlatBuilder[ArrB <: Arr[_], BB <: SeqSpec[_]] extends SeqLikeCommonBuilder[BB]

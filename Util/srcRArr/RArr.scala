@@ -157,19 +157,19 @@ object RArr
 }
 
 /** The default Immutable Array based collection builder for the Arr[A] class. */
-class ArrTBuild[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrMapBuilder[B, RArr[B]] with ArrFlatBuilder[RArr[B]]
-{ type BuffT = TBuff[B]
+class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrMapBuilder[B, RArr[B]] with ArrFlatBuilder[RArr[B]]
+{ type BuffT = RBuff[B]
   override def uninitialised(length: Int): RArr[B] = new RArr(new Array[B](length))
   override def indexSet(seqLike: RArr[B], index: Int, value: B): Unit = seqLike.unsafeArray(index) = value
-  override def newBuff(length: Int = 4): TBuff[B] = new TBuff(new ArrayBuffer[B](length))
-  override def buffGrow(buff: TBuff[B], value: B): Unit = buff.unsafeBuffer.append(value)
-  override def buffToSeqLike(buff: TBuff[B]): RArr[B] = new RArr(buff.unsafeBuffer.toArray)
-  override def buffGrowArr(buff: TBuff[B], arr: RArr[B]): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
+  override def newBuff(length: Int = 4): RBuff[B] = new RBuff(new ArrayBuffer[B](length))
+  override def buffGrow(buff: RBuff[B], value: B): Unit = buff.unsafeBuffer.append(value)
+  override def buffToSeqLike(buff: RBuff[B]): RArr[B] = new RArr(buff.unsafeBuffer.toArray)
+  override def buffGrowArr(buff: RBuff[B], arr: RArr[B]): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
 
-/** Not sure if this class is necessary now that Arr takes Any. */
-final class TBuff[A](val unsafeBuffer: ArrayBuffer[A]) extends AnyVal with Buff[A]
-{ override type ThisT = TBuff[A]
+/** R for stored by reference. The default [[Buff]] class for types without their own specialist sequence classes. */
+final class RBuff[A](val unsafeBuffer: ArrayBuffer[A]) extends AnyVal with Buff[A]
+{ override type ThisT = RBuff[A]
   override def typeStr: String = "AnyBuff"
   override def apply(index: Int): A = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length

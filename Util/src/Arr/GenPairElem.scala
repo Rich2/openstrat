@@ -54,7 +54,7 @@ class GenPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuff
 
 class GenPairArrMapBuilder[B1, B2] extends PairArrMapBuilder[B1, RArr[B1], B2, GenPairElem[B1, B2], GenPairArr[B1, B2]]
 { override type BuffT = GenPairBuff[B1, B2]
-  override type B1BuffT = TBuff[B1]
+  override type B1BuffT = RBuff[B1]
 
   /** Builder for an Arr of the first element of the pair. */
   override def b1ArrBuilder: ArrMapBuilder[B1, RArr[B1]] = ???
@@ -75,13 +75,13 @@ class GenPairArrMapBuilder[B1, B2] extends PairArrMapBuilder[B1, RArr[B1], B2, G
   override implicit def b2ClassTag: ClassTag[B2] = ???
 
   /** Constructs a new empty [[Buff]] for the B1 components of the pairs. */
-  override def newB1Buff(): TBuff[B1] = ???
+  override def newB1Buff(): RBuff[B1] = ???
 
   /** Expands / appends the B1 [[Buff]] with a songle element of B1. */
-  override def b1BuffGrow(buff: TBuff[B1], newElem: B1): Unit = ???
+  override def b1BuffGrow(buff: RBuff[B1], newElem: B1): Unit = ???
 
   /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
-  override def arrFromBuffs(a1Buff: TBuff[B1], b2s: ArrayBuffer[B2]): GenPairArr[B1, B2] = ???
+  override def arrFromBuffs(a1Buff: RBuff[B1], b2s: ArrayBuffer[B2]): GenPairArr[B1, B2] = ???
 
   /** Creates a new empty [[Buff]] with a default capacity of 4 elements. */
   override def newBuff(length: Int): GenPairBuff[B1, B2] = ???
