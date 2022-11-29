@@ -40,8 +40,52 @@ final class GenPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) e
   }
 
   override def unsafeSetElem(i: Int, newValue: GenPairElem[A1, A2]): Unit = { a1Array(i) = newValue.a1; a2Array(i) = newValue.a2 }
+  override def fElemStr: GenPairElem[A1, A2] => String = _.toString
+}
 
-  override def fElemStr: GenPairElem[A1, A2] => String = ???
+class GenPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer[B2]) extends PairBuff[B1, B2, GenPairElem[B1, B2]]
+{ override type ThisT = GenPairBuff[B1, B2]
+  override def typeStr: String = "GenPairBuff"
+  override def pairGrow(b1: B1, b2: B2): Unit = { b1Buffer.append(b1); b2Buffer.append(b2) }
+  override def grow(newElem: GenPairElem[B1, B2]): Unit = { b1Buffer.append(newElem.a1); b2Buffer.append(newElem.a2) }
+  override def apply(index: Int): GenPairElem[B1, B2] = new GenPairElem[B1, B2](b1Buffer(index), b2Buffer(index))
+  override def unsafeSetElem(i: Int, newValue: GenPairElem[B1, B2]): Unit = { b1Buffer(i) = newValue.a1; b2Buffer(i) = newValue.a2 }
+}
 
+class GenPairArrMapBuilder[B1, B2] extends PairArrMapBuilder[B1, RArr[B1], B2, GenPairElem[B1, B2], GenPairArr[B1, B2]]
+{ override type BuffT = GenPairBuff[B1, B2]
+  override type B1BuffT = TBuff[B1]
 
+  /** Builder for an Arr of the first element of the pair. */
+  override def b1ArrBuilder: ArrMapBuilder[B1, RArr[B1]] = ???
+
+  /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
+  override def arrFromArrAndArray(b1Arr: RArr[B1], b2s: Array[B2]): GenPairArr[B1, B2] = ???
+
+  /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
+  override def buffGrow(buff: GenPairBuff[B1, B2], value: GenPairElem[B1, B2]): Unit = ???
+
+  /** Creates a new uninitialised [[Arr]] of type ArrB of the given length. */
+  override def uninitialised(length: Int): GenPairArr[B1, B2] = ???
+
+  /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */
+  override def indexSet(seqLike: GenPairArr[B1, B2], index: Int, value: GenPairElem[B1, B2]): Unit = ???
+
+  /** ClassTag for building Arrays and ArrayBuffers of B2s. */
+  override implicit def b2ClassTag: ClassTag[B2] = ???
+
+  /** Constructs a new empty [[Buff]] for the B1 components of the pairs. */
+  override def newB1Buff(): TBuff[B1] = ???
+
+  /** Expands / appends the B1 [[Buff]] with a songle element of B1. */
+  override def b1BuffGrow(buff: TBuff[B1], newElem: B1): Unit = ???
+
+  /** Constructs an [[Arr]] of B from the [[Buff]]s of the B1 and B2 components. */
+  override def arrFromBuffs(a1Buff: TBuff[B1], b2s: ArrayBuffer[B2]): GenPairArr[B1, B2] = ???
+
+  /** Creates a new empty [[Buff]] with a default capacity of 4 elements. */
+  override def newBuff(length: Int): GenPairBuff[B1, B2] = ???
+
+  /** converts a the buffer type to the target compound class. */
+  override def buffToSeqLike(buff: GenPairBuff[B1, B2]): GenPairArr[B1, B2] = ???
 }
