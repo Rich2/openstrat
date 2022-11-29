@@ -56,7 +56,6 @@ final class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) ext
       a1Array.copyToArray(newA1s)
       a2Array.copyToArray(newA2s)
     }
-    //iUntilForeach(newLen){ i => newA1s(i) = a1Array(i); newA2s(i) = a2Array(i) }
     new RPairArr[A1, A2](newA1s, newA2s)
   }
 }

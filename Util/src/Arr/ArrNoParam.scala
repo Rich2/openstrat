@@ -13,6 +13,10 @@ trait ArrNoParam[A] extends Any with ArrSingle[A]
 
   final def tail: ThisT = drop(1)
 
+  def dropRight(n: Int): ThisT = ???
+
+  final def init: ThisT = dropRight(1)
+
   /** Reverses the order of the elements of this sequence. */
   def reverse: ThisT
 
