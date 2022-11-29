@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, reflect.ClassTag
 
-class StringPair[A2](val a1: String, val a2: A2) extends PairElem[String, A2]
+class StringPair[A2](val a1: String, val a2: A2) extends PairElemRestrict[String, A2]
 
 class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairArrRestrict[String, StrArr, A2, StringPair[A2]]
 { override type ThisT = StringPairArr[A2]

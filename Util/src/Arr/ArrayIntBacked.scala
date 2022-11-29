@@ -54,7 +54,7 @@ trait ArrayIntBuff[A <: ArrayIntBacked] extends Any with Buff[A]
 }
 
 
-trait ArrayIntBackedPair[A1 <: ArrayIntBacked, A2] extends PairElem[A1, A2]
+trait ArrayIntBackedPair[A1 <: ArrayIntBacked, A2] extends PairElemRestrict[A1, A2]
 { /** The backing Array of Ints for A1 component. */
   def a1ArrayInt: Array[Int]
 }
@@ -69,7 +69,7 @@ trait ArrayIntBackedPairArr[A1 <: ArrayIntBacked, ArrA1 <: Arr[A1], A2, A <: Arr
   /** Constructs the final class from an Array of Arrays of Ints and an Array[A2]. */
   def newFromArrays(array1: Array[Array[Int]], array2: Array[A2]): ThisT
 
-  /** Constructs a [[PairElem]] from an Array[Int and an A2 value. */
+  /** Constructs a [[PairElemRestrict]] from an Array[Int and an A2 value. */
   def elemFromComponents(a1: Array[Int], a2: A2): A
 
   final override def a1Index(index: Int): A1 = a1FromArrayInt(a1ArrayInts(index))

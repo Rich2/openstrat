@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** These classes are for use in [[PairArrRestrict]]s. */
+/** These classes are for use in [[PairArr]]s. */
 trait PairElem[A1, A2] extends Any
 { /** The first component of this pair. */
   def a1: A1
@@ -11,9 +11,18 @@ trait PairElem[A1, A2] extends Any
   def a2: A2
 }
 
+/** These classes are for use in [[PairArrRestrict]]s. */
+trait PairElemRestrict[A1, A2] extends Any with PairElem[A1, A2]
+/*{ /** The first component of this pair. */
+  def a1: A1
+
+  /** The second component of this pair. */
+  def a2: A2
+}*/
 
 
-/** An [[Arr]] of pairs [[PairElem]]. These classes allow convenient methods to map and filter on just one component of the pair. They and their
+
+/** An [[Arr]] of pairs [[PairElemRestrict]]. These classes allow convenient methods to map and filter on just one component of the pair. They and their
  *  associated [[PairArrMapBuilder]] and [[PairBuff]] classes also allow for efficient storage by using 2 Arrays of the components of the pairs rather
  *  than one array of the pairs. It is particularly designed for efficient maoOnA1 operations, where we want to map over the first part of the pair
  *  while leaving the second component of the pair unchanged. So sub traits and classes specialise on a1 the first component of the pair. There are no
@@ -84,7 +93,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
     build.arrFromArrAndArray(b1Arr, a2Array)
   }
 
-  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArrRestrict]] of [[PairElem]][B1, A2]. Then flattens
+  /** Maps each A1 to an Arr[B1] combines each of those new B1s with the same old A2 to produce a [[PairArrRestrict]] of [[PairElemRestrict]][B1, A2]. Then flattens
    * these new [[PairArrRestrict]]s to make a single [[PairArrRestrict]] */
   def flatMapOnA1[B1, ArrB1 <: Arr[B1], ArrB <: PairArrRestrict[B1, ArrB1, A2, _]](f: A1 => ArrB1)(implicit
                                                                                                    build: PairArrFlatBuilder[B1, ArrB1, A2, ArrB]): ArrB = {
@@ -94,12 +103,19 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 
   /** Takes a function from A1 to Option[B1]. The None results are filtered out the B1 values of the sum are paired with their old corresponding A2
-   * values to make the new pairs of type [[PairElem]][B1, A2]. */
-  def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairElem[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
+   * values to make the new pairs of type [[PairElemRestrict]][B1, A2]. For an [[RPairArr]] return type use the optMapRefOnA1 method. */
+  def optMapOnA1[B1, ArrB1 <: Arr[B1], B <: PairElemRestrict[B1, A2], ArrB <: PairArr[B1, ArrB1, A2, B]](f: A1 => Option[B1])(implicit
     build: PairArrMapBuilder[B1, ArrB1, A2, B, ArrB]): ArrB =
   { val buff = build.newBuff()
     pairForeach { (a1, a2) => f(a1).foreach(b1 => buff.pairGrow(b1, a2)) }
     build.buffToSeqLike(buff)
+  }
+
+  def optMapRefOnA1[B1, B <: PairElemRestrict[B1, A2]](f: A1 => Option[B1])(implicit ct1: ClassTag[B1], ct2: ClassTag[A2]): RPairArr[B1, A2] =
+  { val buffer1 = new ArrayBuffer[B1]()
+    val buffer2 = new ArrayBuffer[A2]()
+    pairForeach { (a1, a2) => f(a1).foreach{b1 => buffer1.append(b1); buffer2.append(a2) } }
+    new RPairArr[B1, A2](buffer1.toArray, buffer2.toArray)
   }
 
   /** filters this sequence using a predicate upon the A1 components of the pairs. */
@@ -144,7 +160,7 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   }
 }
 
-trait PairArrRestrict[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends PairArr[A1, A1Arr, A2, A]
+trait PairArrRestrict[A1, A1Arr <: Arr[A1], A2, A <: PairElemRestrict[A1, A2]] extends PairArr[A1, A1Arr, A2, A]
 { type ThisT <: PairArrRestrict[A1, A1Arr, A2, A]
 
   /** Returns a copy of this [[PairArrRestrict]] where the A1 component is replaced for any pairs where the A2 value matches the given parameter. this method
@@ -162,7 +178,7 @@ trait PairArrRestrict[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends P
   def appendPair(a1: A1, a2: A2)(implicit ct: ClassTag[A2]): ThisT
 }
 
-/** An efficient [[Buff]] for [[PairElem]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
+/** An efficient [[Buff]] for [[PairElemRestrict]]s where the components are stored in separate buffers. The type parameter B, along with B1 and B2 are used
  * because these [[Buff]]s will normally be used with map(f: A => B) and flatMap(f: A => M[B]) type methods. */
 trait PairBuff[B1, B2, B <: PairElem[B1, B2]] extends Any with Buff[B]
 { /** ArrayBuffer for the B2 components of the pairs. */
@@ -197,7 +213,7 @@ trait PairArrCommonBuilder[B1, ArrB1 <: Arr[B1], B2, ArrB <: PairArr[B1, ArrB1, 
   def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB
 }
 
-/** Builder for [[PairElem]]s. As with all builders, we use B as the type parameter, because builders are nearly always used with some kind of map /
+/** Builder for [[PairElemRestrict]]s. As with all builders, we use B as the type parameter, because builders are nearly always used with some kind of map /
  * flatMap methods where B corresponds to the map function f: A => B. */
 trait PairArrMapBuilder[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: PairArr[B1, ArrB1, B2, B]] extends
   PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with ArrMapBuilder[B, ArrB]
@@ -219,6 +235,6 @@ object PairArrMapBuilder{
   implicit def rArrMapImplicit[B1, B2](implicit ct1: ClassTag[B1], ct2: ClassTag[B2]): RPairArrMapBuilder[B1, B2] = new RPairArrMapBuilder[B1, B2]
 }
 
-/** [[ArrFlatbuilder]] for [[PairElem]]s. */
+/** [[ArrFlatbuilder]] for [[PairElemRestrict]]s. */
 trait PairArrFlatBuilder[B1, ArrB1 <: Arr[B1], B2, ArrB <: PairArr[B1, ArrB1, B2, _]] extends PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with
   ArrFlatBuilder[ArrB]

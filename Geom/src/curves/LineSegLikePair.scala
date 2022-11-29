@@ -2,7 +2,7 @@
 package ostrat; package geom
 
 /** A [[LineSegLike]] object paired with an object of type A2.]] */
-trait LineSegLikePair[VT, A1 <: LineSegLike[VT], A2] extends PairElem[A1, A2]
+trait LineSegLikePair[VT, A1 <: LineSegLike[VT], A2] extends PairElemRestrict[A1, A2]
 
 /** An [[Arr]] of [[LineSegLikePair]]s stored efficiently allowing maping between different [[LineSegLike]] types while keeping the A2 values unchanged. */
 trait LineSegLikePairArr[VT, A1 <: LineSegLike[VT], ArrA1 <: Arr[A1], A2, A <: LineSegLikePair[VT, A1, A2]] extends PairArrRestrict[A1, ArrA1, A2, A]

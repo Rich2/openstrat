@@ -2,7 +2,7 @@
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** R for stored by reference. The generalised default [[PairElem]], that can be stored in the default unspecialised. Note although they are named as
+/** R for stored by reference. The generalised default [[PairElemRestrict]], that can be stored in the default unspecialised. Note although they are named as
  * reference types the A1 type parameter does not have to inherit from [[AnyRef]]. */
 final class RPairElem[A1, A2](val a1: A1, val a2: A2) extends PairElem[A1, A2]
 
@@ -60,7 +60,7 @@ final class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) ext
   }
 }
 
-/** R for the first component of the [[PairElem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as reference types
+/** R for the first component of the [[PairElemRestrict]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as reference types
  *  the A1 type parameter does not have to inherit from [[AnyRef]]. */
 class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer[B2]) extends PairBuff[B1, B2, RPairElem[B1, B2]]
 { override type ThisT = RPairBuff[B1, B2]

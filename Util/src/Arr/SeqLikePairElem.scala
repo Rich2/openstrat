@@ -3,7 +3,7 @@ package ostrat
 import annotation._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** An element that pairs a [[SeqSpec]] with a second value. */
-trait SeqLikePairElem[A1E, A1 <: SeqLike[A1E], A2] extends PairElem[A1, A2] with SpecialT
+trait SeqLikePairElem[A1E, A1 <: SeqLike[A1E], A2] extends PairElemRestrict[A1, A2] with SpecialT
 { def a1: A1
   def a2: A2
 }

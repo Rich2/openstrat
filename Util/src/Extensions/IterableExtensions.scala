@@ -135,7 +135,7 @@ class IterableExtensions[A](val thisIter: Iterable[A]) extends AnyVal
   }
 
   /** Maps to a [[PairArrRestrict]] of B1 and B2. */
-  def mapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: PairElem[B1, B2], ArrB <: PairArrRestrict[B1, ArrB1, B2, B]](f1: A => B1, f2: A => B2)(
+  def mapPairArr[B1, ArrB1 <: Arr[B1], B2, B <: PairElemRestrict[B1, B2], ArrB <: PairArrRestrict[B1, ArrB1, B2, B]](f1: A => B1, f2: A => B2)(
   implicit build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB =
   { val buff1 = build.newB1Buff()
     val buffer2 = build.newB2Buffer()
