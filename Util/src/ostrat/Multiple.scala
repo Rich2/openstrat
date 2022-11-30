@@ -46,25 +46,25 @@ object Multiple
   { def numSingles: Int = thisRefs.sumBy(_.num)
   }
 
-  implicit class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
-  {
-    def numSingles: Int = thisSeq.sumBy(_.num)
+  implicit def seqImplicit[A](thisSeq: Seq[Multiple[A]]): MultipleSeqImplicit[A] = new MultipleSeqImplicit[A](thisSeq)
+}
 
-    def toSinglesList: List[A] = thisSeq.toList.flatMap(_.singlesList)
+class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
+{ def numSingles: Int = thisSeq.sumBy (_.num)
+  def toSinglesList: List[A] = thisSeq.toList.flatMap (_.singlesList)
 
-    def singles[ArrA <: Arr[A]](implicit build: ArrMapBuilder[A, ArrA]): ArrA =
-    { val len: Int = thisSeq.sumBy(_.num)
-      val res = build.uninitialised(len)
-      var i = 0
-      thisSeq.foreach{m =>
-        iUntilForeach(m.num){j =>
-          res.unsafeSetElem(i, m.value)
-          i += 1
-        }
+  def singles[ArrA <: Arr[A]] (implicit build: ArrMapBuilder[A, ArrA] ): ArrA =
+  { val len: Int = thisSeq.sumBy (_.num)
+    val res = build.uninitialised (len)
+    var i = 0
+    thisSeq.foreach { m =>
+      iUntilForeach (m.num) { j =>
+        res.unsafeSetElem (i, m.value)
+        i += 1
       }
-      res
     }
-
-    def iForeachSingle(f: (Int, A) => Unit): Unit = toSinglesList.iForeach(f)
+    res
   }
+
+  def iForeachSingle (f: (Int, A) => Unit): Unit = toSinglesList.iForeach (f)
 }
