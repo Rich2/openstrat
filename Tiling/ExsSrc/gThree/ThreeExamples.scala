@@ -6,7 +6,7 @@ object ThreeLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "gThree"
 
-  override def default: (CanvasPlatform => Any, String) = (GThreeGui(_, ThreeScen1, ThreeScen1.defaultView()), "JavaFx Game Four")
+  override def default: (CanvasPlatform => Any, String) = (GThreeGui(_, ThreeScen1, ThreeScen1.defaultView()), "JavaFx Game Three")
 
   override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) = {
     val oScen: EMon[Int] = sts.findSetting[Int]("scen")
@@ -19,7 +19,7 @@ object ThreeLaunch extends GuiLaunchMore
     }
 
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
-    (GThreeGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game Four")
+    (GThreeGui(_, scen, oview.getElse(scen.gridSys.defaultView())), "JavaFx Game Three")
   }
 }
 

@@ -3,7 +3,7 @@ package ostrat; package gThree
 import pgui._, prid._, phex._, geom._, gPlay._
 
 case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView) extends HGridSysGui("Game Three Gui")
-{ statusText = "Welcome to Game Four."
+{ statusText = "Welcome to Game Three."
   val scen = scenStart
   def terrs: HCenLayer[Terr] = scen.terrs
   var history: RArr[ThreeScen] = RArr(scen)
@@ -56,7 +56,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)// navButtons)
-  statusText = s"Game Four. Scenario has ${gridSys.numTiles} tiles."
+  statusText = s"Game Three. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
 
   def frame: GraphicElems = terrPolys/*).slate(-focus).scale(cPScale)*/ ++ actives ++ lines ++ unitGraphics ++ texts
