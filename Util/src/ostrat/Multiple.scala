@@ -49,6 +49,16 @@ object Multiple
   implicit def seqImplicit[A](thisSeq: Seq[Multiple[A]]): MultipleSeqImplicit[A] = new MultipleSeqImplicit[A](thisSeq)
 }
 
+class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends ArrSingle[Multiple[A]]
+{ type ThisT = MultipleArr[A]
+  override def typeStr: String = "MultipleArr"
+  override def length: Int = arrayInt.length
+  override def apply(index: Int): Multiple[A] = new Multiple[A](values(index), arrayInt(index))
+  override def unsafeSetElem(i: Int, newValue: Multiple[A]): Unit = { values(i) = newValue.value; arrayInt(i) =newValue.num }
+  override def fElemStr: Multiple[A] => String = _.toString
+  override def unsafeSameSize(length: Int): ThisT = ???// new MultipleArr[A](new Array[Int](length), new Array[A](length))
+}
+
 class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
 { def numSingles: Int = thisSeq.sumBy (_.num)
   def toSinglesList: List[A] = thisSeq.toList.flatMap (_.singlesList)
