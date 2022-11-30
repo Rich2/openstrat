@@ -113,14 +113,10 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** Sets the given row from the given starting c column value, for the given number of tile centre values. An exception is thrown if the numOfCens
    * overflows the row end. */
   final def setRowPart(row: Int, cStart: Int, numOfCens: Int, tileValue: A)(implicit grid: HGrid): HCen =
-  {
-    val rightC = cStart + numOfCens * 4 - 4
+  { val rightC = cStart + numOfCens * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd < rightC) debexc(s"Row $row last data column ${rightC} > $rowEnd the grid row end.")
-    iToForeach(cStart, rightC, 4) { i =>
-      val c = cStart + i
-      unsafeArray(grid.arrIndex(row, c)) = tileValue
-    }
+    iToForeach(cStart, rightC, 4) { c => unsafeArray(grid.arrIndex(row, c)) = tileValue }
     HCen(row, rightC)
   }
 

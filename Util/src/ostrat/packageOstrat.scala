@@ -177,7 +177,8 @@ package object ostrat
   def iToForeach(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => Unit): Unit =
   { if (iTo != iFrom & iStep == 0) throw excep("Loop step can not be 0.")
     var i: Int = iFrom
-    while(ife(iStep > 0, i <= iTo, i >= iTo)) { f(i); i += iStep }
+    if(iStep > 0) while(i <= iTo) { f(i); i += iStep }
+    else while(i >= iTo) { f(i); i += iStep }
   }
 
   /** Foreachs over a range of integers from 0 to the given parameter in steps of 1. Throws on non termination. Method name over loaded with a range
