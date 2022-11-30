@@ -7,6 +7,7 @@ object ThreeScen1 extends ThreeScen(0)
   override val terrs: HCenLayer[Terr] = gridSys.newHCenLayer[Terr](Plain)
   import terrs.{setRowPart => srp}
   srp(6, 2, 2, Water)
+
   srp(4, 4, 2, Woods)
   val units: HCenOptLayer[Lunit] = gridSys.newHCenOptLayer
   units.unsafeSetSome(4, 4, Lunit(TeamA, HexDR))

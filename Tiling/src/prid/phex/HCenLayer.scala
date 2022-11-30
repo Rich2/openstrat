@@ -98,15 +98,11 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** Completes the given row from the given starting c column value to the end of the row. An exception is
    *  thrown if the tile values don't match with the end of the row. */
   final def completeRow(row: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: HGrid): HCen =
-  {
-    val tiles: List[A] = tileValues.toSinglesList
+  { val tiles: List[A] = tileValues.toSinglesList
     val endValues = cStart + tiles.length * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
-    tiles.iForeach { (i, e) =>
-      val c = cStart + i * 4
-      unsafeArray(grid.arrIndex(row, c)) = e
-    }
+    tiles.iForeach { (i, e) =>  val c = cStart + i * 4; unsafeArray(grid.arrIndex(row, c)) = e }
     HCen(row, cStart + (tiles.length - 1) * 4)
   }
 
@@ -127,8 +123,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   def projRowsCombinePolygonHCs(implicit proj: HSysProjection, ct: ClassTag[A]): PolygonHCPairArr[A] = projRowsCombine.map(_.polygonHCTuple)
 
   def projRowsCombinePolygons(implicit proj: HSysProjection, ct: ClassTag[A]): PolygonPairArr[A] =
-    //projRowsCombine.map(_.polygonHCTuple.polygonPair(proj.transCoord(_)))
-  projRowsCombine. map(_.polygonHCTuple.polygonPair(proj.transCoord(_)))
+    projRowsCombine.map(_.polygonHCTuple.polygonPair(proj.transCoord(_)))
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
