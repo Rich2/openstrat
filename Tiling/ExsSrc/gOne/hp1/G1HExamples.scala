@@ -5,7 +5,7 @@ import prid._, phex._, gPlay._
 /** 1st example Turn 0 scenario state for Game One. */
 object G1HScen1 extends H1Scen
 { override def turn: Int = 0
-  implicit val gridSys: HGridReg = HGridReg(2, 6, 2, 10)
+  implicit val gridSys: HGridReg = GSys.g1
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))

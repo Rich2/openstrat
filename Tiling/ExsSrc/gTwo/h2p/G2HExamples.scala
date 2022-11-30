@@ -1,11 +1,11 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package h2p
-import prid._, phex._, gPlay._
+import prid._, phex._, gPlay._, gOne.hp1.GSys
 
 /** 1st example Turn 0 scenario state for Game Three. */
 object G2HScen1 extends G2HScen
 { override def turn: Int = 0
-  implicit val gridSys: HGridReg = HGridReg(2, 6, 2, 10)
+  implicit val gridSys: HGridReg = GSys.g1
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
