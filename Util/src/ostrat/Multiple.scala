@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.unchecked.uncheckedVariance
+import annotation.unchecked.uncheckedVariance, reflect.ClassTag
 
 /** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. */
 case class Multiple[+A](value: A, num: Int)
@@ -49,14 +49,14 @@ object Multiple
   implicit def seqImplicit[A](thisSeq: Seq[Multiple[A]]): MultipleSeqImplicit[A] = new MultipleSeqImplicit[A](thisSeq)
 }
 
-class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends ArrSingle[Multiple[A]]
+class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multiple[A]]
 { type ThisT = MultipleArr[A]
   override def typeStr: String = "MultipleArr"
   override def length: Int = arrayInt.length
   override def apply(index: Int): Multiple[A] = new Multiple[A](values(index), arrayInt(index))
   override def unsafeSetElem(i: Int, newValue: Multiple[A]): Unit = { values(i) = newValue.value; arrayInt(i) =newValue.num }
   override def fElemStr: Multiple[A] => String = _.toString
-  override def unsafeSameSize(length: Int): ThisT = ???// new MultipleArr[A](new Array[Int](length), new Array[A](length))
+  def unsafeSameSize(length: Int)(implicit ct: ClassTag[A]): ThisT = new MultipleArr[A](new Array[Int](length), new Array[A](length))
 }
 
 class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])

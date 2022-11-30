@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** Immutable Array based class for [[Any]]s. */
-class AnyArr(val unsafeArray: Array[Any]) extends AnyVal with ArrSingle[Any]
+class AnyArr(val unsafeArray: Array[Any]) extends AnyVal with ArrNoParam[Any]
 { type ThisT = AnyArr
 
   /** Copy's the backing Array[[Any]] to a new Array[char]. End users should rarely have to use this method. */
@@ -16,12 +16,20 @@ class AnyArr(val unsafeArray: Array[Any]) extends AnyVal with ArrSingle[Any]
   override def unsafeSetElem(i: Int, newValue: Any): Unit = unsafeArray(i) = newValue
   override def fElemStr: Any => String = _.toString
 
-  def ++ (op: AnyArr): AnyArr =
+  @targetName("appendArr") def ++ (op: AnyArr): AnyArr =
   { val newArray = new Array[Any](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)
     new AnyArr(newArray)
   }
+
+  override def drop(n: Int): AnyArr = ???
+
+  /** Reverses the order of the elements of this sequence. */
+  override def reverse: AnyArr = ???
+
+  /** append. appends element to this [[Arr]]. */
+  @targetName("append") override def +%(operand: Any): AnyArr = ???
 }
 
 object AnyArr

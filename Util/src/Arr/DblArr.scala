@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import scala.collection.mutable.ArrayBuffer
+import annotation._, collection.mutable.ArrayBuffer
 
 /** An immutable Array based class for Doubles. */
-class DblArr(val unsafeArray: Array[Double]) extends AnyVal with ArrSingle[Double]
+class DblArr(val unsafeArray: Array[Double]) extends AnyVal with ArrNoParam[Double]
 { type ThisT = DblArr
   override def typeStr: String = "Doubles"
   override def unsafeSameSize(length: Int): DblArr = new DblArr(new Array[Double](length))
@@ -12,12 +12,21 @@ class DblArr(val unsafeArray: Array[Double]) extends AnyVal with ArrSingle[Doubl
   override def unsafeSetElem(i: Int, newValue: Double): Unit = unsafeArray(i) = newValue
   def unsafeArrayCopy(operand: Array[Double], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Double => String = _.toString
-  def ++ (op: DblArr): DblArr =
+
+  @targetName("appendArr") def ++ (op: DblArr): DblArr =
   { val newArray = new Array[Double](length + op.length)
     unsafeArray.copyToArray(newArray)
     op.unsafeArray.copyToArray(newArray, length)
     new DblArr(newArray)
   }
+
+  override def drop(n: Int): DblArr = ???
+
+  /** Reverses the order of the elements of this sequence. */
+  override def reverse: DblArr = ???
+
+  /** append. appends element to this [[Arr]]. */
+  @targetName("append") override def +%(operand: Double): DblArr = ???
 }
 
 /** Companion object for the Dbls Array based class for Doubles, contains a repeat parameter factory method. */

@@ -14,7 +14,7 @@ trait RefsSeqLike[+A] extends Any with SeqLike[A]
 /** The immutable Array based class for types without there own specialised [[Arr]] collection classes. It inherits the standard foreach, map,
  *  flatMap and fold and their variations' methods from ArrayLike. As it stands in Scala 3.0.2-RC1 the Graphics module will not build for Scala3 for
  *  the Javascript target. */
-final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with ArrSingle[A] with RefsSeqLike[A]
+final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVal with Arr[A] with RefsSeqLike[A]
 { type ThisT = RArr[A] @uncheckedVariance
   override def typeStr: String = "Arr"
   override def fromArray(array: Array[A] @uncheckedVariance): RArr[A] = new RArr(array)
@@ -51,7 +51,7 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
 
   /** Copy's the backing Array[[AnyRef]] to a new Array[AnyRef]. End users should rarely have to use this method. */
-  override def unsafeSameSize(length: Int): ThisT = fromArray(new Array[AnyRef](length).asInstanceOf[Array[A]])
+  def unsafeSameSize(length: Int)(implicit ct: ClassTag[A] @uncheckedVariance): ThisT = fromArray(new Array[A](length))//.asInstanceOf[Array[A]])
 
   /** Returns a new shorter Arr with the head elements removed. */
   def drop(n: Int)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
@@ -99,6 +99,16 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     newArray(0) = op
     unsafeArray.copyToArray(newArray, 1)
     new RArr(newArray)
+  }
+
+  def removeFirst(f: A => Boolean)(implicit ct: ClassTag[A] @uncheckedVariance): ThisT = indexWhere(f) match {
+    case -1 => returnThis
+    case n => {
+      val newArr = unsafeSameSize(length - 1)
+      iUntilForeach(n)(i => newArr.unsafeSetElem(i, apply(i)))
+      iUntilForeach(n + 1, length)(i => newArr.unsafeSetElem(i - 1, apply(i)))
+      newArr
+    }
   }
 
   /** Concatenates the elements of the operand [[RArr]], if the condition is true, else returns the original [[RArr]]. The return type is the super type of
