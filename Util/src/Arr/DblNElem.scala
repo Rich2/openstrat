@@ -75,6 +75,13 @@ trait DblNArr[A <: DblNElem] extends Any with DblNSeqLike[A] with ValueNArr[A]
     fromArray(newArray)
   }
 
+  final override def dropRight(n: Int): ThisT =
+  { val nn = n.max0
+    val newArray = new Array[Double]((unsafeLength - elemProdSize * nn).max0)
+    iUntilForeach(unsafeLength - elemProdSize * nn) { i => newArray(i) = unsafeArray(i) }
+    fromArray(newArray)
+  }
+
   @targetName("appendArr") final override def ++(operand: ThisT): ThisT =
   { val newArray: Array[Double] = new Array(unsafeLength + operand.unsafeLength)
     unsafeArray.copyToArray(newArray)

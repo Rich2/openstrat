@@ -43,8 +43,11 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
   def moves2: RPairArr[LineSegHCArr, Player] = moves.mapOnA1(_.segHCs)
 
   def moves3: RPairArr[LineSegHCArr, Player] = moves2.mapOnA1(_.init)
+  def moves3a: LineSegHCPairArr[Player] = moves3.flatMapOnA1(lsa => lsa)
+  def moveGraphics3 = proj.transLineSegPairs(moves3a).pairMap((ls, p) => ls.draw(p.colour))
 
   def moves4: LineSegHCPairArr[Player] = moves2.optMapOnA1(_.lastOpt)
+  def moveGraphics4 = proj.transLineSegPairs(moves4).pairFlatMap((ls, p) => ls.draw(p.colour).arrow)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString){_ =>
@@ -74,7 +77,7 @@ case class G2HGui(canv: CanvasPlatform, scenStart: G2HScen, viewIn: HGView) exte
   }
   thisTop()
 
-  def frame: GraphicElems = actives ++ units ++ hexStrs +% sidesDraw ++ moveGraphics
+  def frame: GraphicElems = actives ++ units ++ hexStrs +% sidesDraw ++ moveGraphics3 ++ moveGraphics4
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
     statusText = str

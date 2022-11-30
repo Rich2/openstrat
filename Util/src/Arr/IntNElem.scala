@@ -55,7 +55,7 @@ trait IntNArr[A <: IntNElem] extends Any with ValueNArr[A] with IntNSeqLike[A]
   final override def dropRight(n: Int): ThisT =
   { val nn = n.max0
     val newArray = new Array[Int]((unsafeLength - elemProdSize * nn).max0)
-    iUntilForeach(unsafeLength - elemProdSize * nn) { i => newArray(i + elemProdSize * nn) = unsafeArray(i ) }
+    iUntilForeach(unsafeLength - elemProdSize * nn) { i => newArray(i) = unsafeArray(i) }
     fromArray(newArray)
   }
 

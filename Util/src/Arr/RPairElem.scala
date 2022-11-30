@@ -52,9 +52,9 @@ final class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) ext
   { val newLen = (length - n).max0
     val newA1s = new Array[A1](newLen)
     val newA2s = new Array[A2](newLen)
-    if (newLen > 0){
-      a1Array.copyToArray(newA1s)
-      a2Array.copyToArray(newA2s)
+    iUntilForeach(length - n){ i =>
+      newA1s(i) = a1Array(i)
+      newA2s(i) = a2Array(i)
     }
     new RPairArr[A1, A2](newA1s, newA2s)
   }
@@ -77,7 +77,7 @@ class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends PairArrMapBu
   override def b1ArrBuilder: ArrMapBuilder[B1, RArr[B1]] = ArrMapBuilder.rMapImplicit
 
   /** Builder for the sequence of pairs, takes the results of the other two builder methods to produce the end product. */
-  override def arrFromArrAndArray(b1Arr: RArr[B1], b2s: Array[B2]): RPairArr[B1, B2] = ???
+  override def arrFromArrAndArray(b1Arr: RArr[B1], b2s: Array[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Arr.unsafeArray, b2s)
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
   override def buffGrow(buff: RPairBuff[B1, B2], value: RPairElem[B1, B2]): Unit = ???
