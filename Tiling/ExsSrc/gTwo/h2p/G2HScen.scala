@@ -15,7 +15,6 @@ trait G2HScen extends HSysTurnScen
   def oPlayers: HCenOptLayer[Player]
 
   def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr()
-  lazy val playersKey: HCenPairArr[Player] = oPlayers.somePairArr
 
   /** Resolves turn. Takes a list [[RArr]] of commands consisting in this simple case of (Player, HStep) pairs. The command is passed in as a relative
    * move. This is in accordance with the principle in more complex games that the entity issueing the command may not know its real location. */
