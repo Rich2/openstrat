@@ -2,9 +2,9 @@
 package ostrat
 import annotation._, reflect.ClassTag
 
-class StringPair[A2](val a1: String, val a2: A2) extends PairElemRestrict[String, A2]
+class StringPair[A2](val a1: String, val a2: A2) extends PairNoA1ParamElem[String, A2]
 
-class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairArrRestrict[String, StrArr, A2, StringPair[A2]]
+class StringPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends PairNoA1PramArr[String, StrArr, A2, StringPair[A2]]
 { override type ThisT = StringPairArr[A2]
   override def typeStr: String = "StringPairArr"
   override def a1Arr: StrArr = new StrArr(a1Array)

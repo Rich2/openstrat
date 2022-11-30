@@ -100,7 +100,7 @@ object HDirnPathArr
 { def apply[A2](paths: HDirnPath*): HDirnPathArr = ???
 }
 
-/** An [[PairElemRestrict]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
+/** An [[PairNoA1ParamElem]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
 class HDirnPathPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayIntBackedPair[HDirnPath, A2]
 { override def a1: HDirnPath = new HDirnPath(a1ArrayInt)
   def path: HDirnPath = new HDirnPath(a1ArrayInt)
@@ -121,7 +121,7 @@ object HDirnPathPair
   }
 }
 
-/** A [[PairArrRestrict]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
+/** A [[PairNoA1PramArr]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
 class HDirnPathPairArr[A2](val a1ArrayInts: Array[Array[Int]], val a2Array: Array[A2]) extends ArrayIntBackedPairArr[HDirnPath, HDirnPathArr, A2, HDirnPathPair[A2]]
 { override type ThisT = HDirnPathPairArr[A2]
   override def typeStr: String = "HDirnPathPairArr"

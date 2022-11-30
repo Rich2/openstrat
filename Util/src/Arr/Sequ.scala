@@ -118,8 +118,8 @@ trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
     res
   }
 
-  /** Specialised map to an immutable [[PairArrRestrict]] of B. Applies the supplied function to every element of this sequence. */
-  def mapPair[B1, ArrB1 <: Arr[B1], B2, B <: PairElemRestrict[B1, B2], ArrB <: PairArrRestrict[B1, ArrB1, B2, B]](f1: A => B1)(f2: A => B2)(
+  /** Specialised map to an immutable [[PairNoA1PramArr]] of B. Applies the supplied function to every element of this sequence. */
+  def mapPair[B1, ArrB1 <: Arr[B1], B2, B <: PairNoA1ParamElem[B1, B2], ArrB <: PairNoA1PramArr[B1, ArrB1, B2, B]](f1: A => B1)(f2: A => B2)(
   implicit build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB =
   { val b1Res = map(f1)(build.b1ArrBuilder)
     val b2Array = mapArray(f2)(build.b2ClassTag)

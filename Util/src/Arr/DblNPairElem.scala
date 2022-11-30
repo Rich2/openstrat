@@ -2,9 +2,9 @@
 package ostrat
 import collection.mutable.ArrayBuffer, reflect.ClassTag
 
-trait DblNPairElem[A1 <: DblNElem, A2] extends PairElemRestrict[A1, A2]
+trait DblNPairElem[A1 <: DblNElem, A2] extends PairNoA1ParamElem[A1, A2]
 
-trait DblNPairArr[A1 <: DblNElem, ArrA1 <: DblNArr[A1], A2, A <: DblNPairElem[A1, A2]] extends PairArrRestrict[A1, ArrA1, A2, A]
+trait DblNPairArr[A1 <: DblNElem, ArrA1 <: DblNArr[A1], A2, A <: DblNPairElem[A1, A2]] extends PairNoA1PramArr[A1, ArrA1, A2, A]
 { type ThisT <: DblNPairArr[A1, ArrA1, A2, A]
 
   def a1NumDbl: Int
