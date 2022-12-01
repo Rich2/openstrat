@@ -58,9 +58,9 @@ object FloatArr
 object FloatArrBuilder extends ArrMapBuilder[Float, FloatArr] with ArrFlatBuilder[FloatArr]
 { type BuffT = FloatBuff
   override def uninitialised(length: Int): FloatArr = new FloatArr(new Array[Float](length))
-  override def indexSet(seqLike: FloatArr, index: Int, value: Float): Unit = seqLike.unsafeArray(index) = value
+  override def indexSet(seqLike: FloatArr, index: Int, elem: Float): Unit = seqLike.unsafeArray(index) = elem
   override def newBuff(length: Int = 4): FloatBuff = new FloatBuff(new ArrayBuffer[Float](length))
-  override def buffGrow(buff: FloatBuff, value: Float): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrow(buff: FloatBuff, newElem: Float): Unit = buff.unsafeBuffer.append(newElem)
   override def buffToSeqLike(buff: FloatBuff): FloatArr = new FloatArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: FloatBuff, arr: FloatArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }

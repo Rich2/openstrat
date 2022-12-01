@@ -112,7 +112,7 @@ trait Dbl2SeqLikeCommonBuilder[BB <: Dbl2SeqLike[_]] extends DblNSeqLikeCommonBu
 
 trait Dbl2SeqLikeMapBuilder[B <: Dbl2Elem, BB <: Dbl2SeqLike[B]] extends Dbl2SeqLikeCommonBuilder[BB] with DblNSeqLikeMapBuilder[B, BB]
 { type BuffT <: Dbl2Buff[B]
-  final override def indexSet(seqLike: BB, index: Int, value: B): Unit = { seqLike.unsafeArray(index * 2) = value.dbl1; seqLike.unsafeArray(index * 2 + 1) = value.dbl2}
+  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = { seqLike.unsafeArray(index * 2) = elem.dbl1; seqLike.unsafeArray(index * 2 + 1) = elem.dbl2}
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Dbl2Arr]] final classes. Instances for the [[ArrMapBuilder]] type

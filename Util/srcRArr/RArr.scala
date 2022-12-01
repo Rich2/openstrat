@@ -170,9 +170,9 @@ object RArr
 class RArrAllBuilder[B](implicit ct: ClassTag[B], @unused notB: Not[SpecialT]#L[B] ) extends ArrMapBuilder[B, RArr[B]] with ArrFlatBuilder[RArr[B]]
 { type BuffT = RBuff[B]
   override def uninitialised(length: Int): RArr[B] = new RArr(new Array[B](length))
-  override def indexSet(seqLike: RArr[B], index: Int, value: B): Unit = seqLike.unsafeArray(index) = value
+  override def indexSet(seqLike: RArr[B], index: Int, elem: B): Unit = seqLike.unsafeArray(index) = elem
   override def newBuff(length: Int = 4): RBuff[B] = new RBuff(new ArrayBuffer[B](length))
-  override def buffGrow(buff: RBuff[B], value: B): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrow(buff: RBuff[B], newElem: B): Unit = buff.unsafeBuffer.append(newElem)
   override def buffToSeqLike(buff: RBuff[B]): RArr[B] = new RArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: RBuff[B], arr: RArr[B]): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }

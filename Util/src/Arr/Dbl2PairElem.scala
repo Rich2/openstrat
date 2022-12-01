@@ -61,10 +61,10 @@ trait Dbl2PairArrMapBuilder[B1 <: Dbl2Elem, ArrB1 <: Dbl2Arr[B1], B2, B <: Dbl2P
   override type B1BuffT <: Dbl2Buff[B1]
   final override def a1DblNum: Int = 2
 
-  final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = {
-    seqLike.a1ArrayDbl(index * 3) = value.a1Dbl1
-    seqLike.a1ArrayDbl(index * 3 + 1) = value.a1Dbl2
-    seqLike.a2Array(index) = value.a2
+  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = {
+    seqLike.a1ArrayDbl(index * 3) = elem.a1Dbl1
+    seqLike.a1ArrayDbl(index * 3 + 1) = elem.a1Dbl2
+    seqLike.a2Array(index) = elem.a2
   }
 }
 

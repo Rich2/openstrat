@@ -66,7 +66,7 @@ DblNPAirArrCommonBuilder[B1, ArrB1, B2, ArrB] with PairArrMapBuilder[B1, ArrB1, 
   def a1DblNum: Int
 
   final override def uninitialised(length: Int): ArrB = arrFromArrays(new Array[Double](length * a1DblNum), new Array[B2](length))
-  inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
+  inline final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.grow(newElem)
 }
 
 trait DblNPairArrFlatBuilder[B1 <: DblNElem, ArrB1 <: DblNArr[B1], B2, ArrB <: DblNPairArr[B1, ArrB1, B2, _]] extends

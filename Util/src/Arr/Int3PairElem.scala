@@ -73,11 +73,11 @@ trait Int3PairArrMapBuilder[B1 <: Int3Elem, ArrB1 <: Int3Arr[B1], B2, B <: Int3P
 
   final override def a1IntNum: Int = 3
 
-  final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = {
-    seqLike.a1ArrayInt(index * 3) = value.a1Int1
-    seqLike.a1ArrayInt(index * 3 + 1) = value.a1Int2
-    seqLike.a1ArrayInt(index * 3 + 2) = value.a1Int3
-    seqLike.a2Array(index) = value.a2
+  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = {
+    seqLike.a1ArrayInt(index * 3) = elem.a1Int1
+    seqLike.a1ArrayInt(index * 3 + 1) = elem.a1Int2
+    seqLike.a1ArrayInt(index * 3 + 2) = elem.a1Int3
+    seqLike.a2Array(index) = elem.a2
   }
 }
 

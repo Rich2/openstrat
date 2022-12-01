@@ -69,8 +69,8 @@ object PolygonM2 extends Dbl2SeqLikeCompanion[PtM2, PolygonM2]
 
     override def newBuff(length: Int): PolygonM2Buff = PolygonM2Buff(length)
     override def uninitialised(length: Int): PolygonM2Arr = new PolygonM2Arr(new Array[Array[Double]](length))
-    override def indexSet(seqLike: PolygonM2Arr, index: Int, value: PolygonM2): Unit = seqLike.unsafeArrayOfArrays(index) = value.unsafeArray
-    override def buffGrow(buff: PolygonM2Buff, value: PolygonM2): Unit = buff.unsafeBuffer.append(value.unsafeArray)
+    override def indexSet(seqLike: PolygonM2Arr, index: Int, elem: PolygonM2): Unit = seqLike.unsafeArrayOfArrays(index) = elem.unsafeArray
+    override def buffGrow(buff: PolygonM2Buff, newElem: PolygonM2): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
     override def buffToSeqLike(buff: PolygonM2Buff): PolygonM2Arr = new PolygonM2Arr(buff.unsafeBuffer.toArray)
   }
 }

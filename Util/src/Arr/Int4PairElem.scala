@@ -82,12 +82,12 @@ Int4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  IntNPairArrMapBuilder[B1, Ar
 
   final override def a1IntNum: Int = 4
 
-  final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = {
-    seqLike.a1ArrayInt(index * 4) = value.a1Int1
-    seqLike.a1ArrayInt(index * 4 + 1) = value.a1Int2
-    seqLike.a1ArrayInt(index * 4 + 2) = value.a1Int3
-    seqLike.a1ArrayInt(index * 4 + 3) = value.a1Int4
-    seqLike.a2Array(index) = value.a2
+  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = {
+    seqLike.a1ArrayInt(index * 4) = elem.a1Int1
+    seqLike.a1ArrayInt(index * 4 + 1) = elem.a1Int2
+    seqLike.a1ArrayInt(index * 4 + 2) = elem.a1Int3
+    seqLike.a1ArrayInt(index * 4 + 3) = elem.a1Int4
+    seqLike.a2Array(index) = elem.a2
   }
 }
 

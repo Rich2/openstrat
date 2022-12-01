@@ -68,10 +68,10 @@ trait Int2PairArrMapBuilder[B1 <: Int2Elem, ArrB1 <: Int2Arr[B1], B2, B <: Int2P
 { type BuffT <: Int2PairBuff[B1, B2, B]
   final override def a1IntNum: Int = 2
 
-  final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = {
-    seqLike.a1ArrayInt(index * 2) = value.a1Int1
-    seqLike.a1ArrayInt(index * 2 + 1) = value.a1Int2
-    seqLike.a2Array(index) = value.a2
+  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = {
+    seqLike.a1ArrayInt(index * 2) = elem.a1Int1
+    seqLike.a1ArrayInt(index * 2 + 1) = elem.a1Int2
+    seqLike.a2Array(index) = elem.a2
   }
 }
 

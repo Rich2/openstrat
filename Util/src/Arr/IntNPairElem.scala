@@ -89,7 +89,7 @@ trait IntNPairArrMapBuilder[B1 <: IntNElem, ArrB1 <: IntNArr[B1], B2, B <: IntNP
 
   def buffFromBuffers(a1Buffer: ArrayBuffer[Int], a2Buffer: ArrayBuffer[B2]): BuffT
   final override def uninitialised(length: Int): ArrB = arrFromArrays(new Array[Int](length * a1IntNum), new Array[B2](length))
-  inline final override def buffGrow(buff: BuffT, value: B): Unit = buff.grow(value)
+  inline final override def buffGrow(buff: BuffT, newElem: B): Unit = buff.grow(newElem)
 }
 
 trait IntNPairArrFlatBuilder[B1 <: IntNElem, ArrB1 <: IntNArr[B1], B2, ArrB <: IntNPairArr[B1, ArrB1, B2, _]] extends

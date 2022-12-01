@@ -89,7 +89,7 @@ trait SeqLikeDblNPairArrBuilder[B1E <: DblNElem, B1 <: DblNSeqLike[B1E], ArrB1 <
 
   final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = fromArrays(a1Buff.arrayArrayDbl, b2s.toArray)
-  final override def buffGrow(buff: BuffT, value: B): Unit = { buff.b1Buffer.append(value.a1ArrayDbl); buff.b2Buffer.append(value.a2) }
+  final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.b1Buffer.append(newElem.a1ArrayDbl); buff.b2Buffer.append(newElem.a2) }
 }
 
 trait SeqLikeIntNPairElem[A1E <: IntNElem, A1 <: IntNSeqLike[A1E], A2] extends SeqLikePairElem[A1E, A1, A2] with ArrayIntBackedPair[A1, A2]
@@ -121,5 +121,5 @@ trait SeqLikeIntNPairArrBuilder[B1E <: IntNElem, B1 <: IntNSeqLike[B1E], ArrB1 <
 
   final override def b1BuffGrow(buff: B1BuffT, newElem: B1): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
   final override def arrFromBuffs(a1Buff: B1BuffT, b2s: ArrayBuffer[B2]): ArrB = fromArrays(a1Buff.arrayArrayInt, b2s.toArray)
-  final override def buffGrow(buff: BuffT, value: B): Unit = { buff.b1Buffer.append(value.a1ArrayInt); buff.b2Buffer.append(value.a2) }
+  final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.b1Buffer.append(newElem.a1ArrayInt); buff.b2Buffer.append(newElem.a2) }
 }

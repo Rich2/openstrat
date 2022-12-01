@@ -79,7 +79,7 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
   def iForeachSingle (f: (Int, A) => Unit): Unit = toSinglesList.iForeach (f)
 }
 
-class MultipleBuff[A](numBuffer: ArrayBuffer[Int], valuesBuffer: ArrayBuffer[A]) extends Buff[Multiple[A]]
+class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBuffer[A]) extends Buff[Multiple[A]]
 { override type ThisT = MultipleBuff[A]
   override def typeStr: String = "MultipleBuff"
   override def grow(newElem: Multiple[A]): Unit = { numBuffer.append(newElem.num); valuesBuffer.append(newElem.value) }
@@ -87,4 +87,17 @@ class MultipleBuff[A](numBuffer: ArrayBuffer[Int], valuesBuffer: ArrayBuffer[A])
   override def apply(index: Int): Multiple[A] = new Multiple[A](valuesBuffer(index), numBuffer(index))
   override def unsafeSetElem(i: Int, newElem: Multiple[A]): Unit = { numBuffer(i) = newElem.num; valuesBuffer(i) = newElem.value }
   override def fElemStr: Multiple[A] => String = _.toString
+}
+
+object MultipleBuff
+{ def apply[A](initLen: Int = 4): MultipleBuff[A] = new MultipleBuff[A](new ArrayBuffer[Int](initLen), new ArrayBuffer[A](initLen))
+}
+
+class MultipleArrMapBuilder[A](implicit ct: ClassTag[A]) extends ArrMapBuilder[Multiple[A], MultipleArr[A]]
+{ override type BuffT = MultipleBuff[A]
+  override def buffGrow(buff: MultipleBuff[A], newElem: Multiple[A]): Unit = buff.grow(newElem)
+  override def uninitialised(length: Int): MultipleArr[A] = new MultipleArr[A](new Array[Int](length), new Array[A](length))
+  override def indexSet(seqLike: MultipleArr[A], index: Int, elem: Multiple[A]): Unit = { seqLike.unsafeSetElem(index, elem) }
+  override def newBuff(length: Int): MultipleBuff[A] = MultipleBuff(length)
+  override def buffToSeqLike(buff: MultipleBuff[A]): MultipleArr[A] = new MultipleArr[A](buff.numBuffer.toArray, buff.valuesBuffer.toArray)
 }

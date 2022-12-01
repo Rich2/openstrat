@@ -88,8 +88,8 @@ object PolygonHC extends Int2SeqLikeCompanion[HCoord, PolygonHC]
     override type BuffT = PolygonHCBuff
     override def newBuff(length: Int): PolygonHCBuff = PolygonHCBuff(length)
     override def uninitialised(length: Int): PolygonHCArr = new PolygonHCArr(new Array[Array[Int]](length))
-    override def indexSet(seqLike: PolygonHCArr, index: Int, value: PolygonHC): Unit = seqLike.unsafeArrayOfArrays(index) = value.unsafeArray
-    override def buffGrow(buff: PolygonHCBuff, value: PolygonHC): Unit = buff.unsafeBuffer.append(value.unsafeArray)
+    override def indexSet(seqLike: PolygonHCArr, index: Int, elem: PolygonHC): Unit = seqLike.unsafeArrayOfArrays(index) = elem.unsafeArray
+    override def buffGrow(buff: PolygonHCBuff, newElem: PolygonHC): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
     override def buffToSeqLike(buff: PolygonHCBuff): PolygonHCArr = new PolygonHCArr(buff.unsafeBuffer.toArray)
   }
 }

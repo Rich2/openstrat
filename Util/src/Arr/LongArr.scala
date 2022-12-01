@@ -62,9 +62,9 @@ object LongArr
 object LongArrBuilder extends ArrMapBuilder[Long, LongArr] with ArrFlatBuilder[LongArr]
 { type BuffT = LongBuff
   override def uninitialised(length: Int): LongArr = new LongArr(new Array[Long](length))
-  override def indexSet(seqLike: LongArr, index: Int, value: Long): Unit = seqLike.unsafeArray(index) = value
+  override def indexSet(seqLike: LongArr, index: Int, elem: Long): Unit = seqLike.unsafeArray(index) = elem
   override def newBuff(length: Int = 4): LongBuff = new LongBuff(new ArrayBuffer[Long](length))
-  override def buffGrow(buff: LongBuff, value: Long): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrow(buff: LongBuff, newElem: Long): Unit = buff.unsafeBuffer.append(newElem)
   override def buffToSeqLike(buff: LongBuff): LongArr = new LongArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: LongBuff, arr: LongArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }

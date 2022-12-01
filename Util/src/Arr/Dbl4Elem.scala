@@ -69,8 +69,8 @@ trait Dbl4ArrCommonBuilder[ArrB <: Dbl4Arr[_]] extends DblNArrCommonBuilder[ArrB
 trait Dbl4ArrMapBuilder[B <: Dbl4Elem, ArrB <: Dbl4Arr[B]] extends Dbl4ArrCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl4Buff[B]
 
-  final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = { seqLike.unsafeArray(index * 4) = value.dbl1; seqLike.unsafeArray(index * 4 + 1) = value.dbl2
-    seqLike.unsafeArray(index * 4 + 2) = value.dbl3; seqLike.unsafeArray(index * 4 + 3) = value.dbl4 }
+  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = { seqLike.unsafeArray(index * 4) = elem.dbl1; seqLike.unsafeArray(index * 4 + 1) = elem.dbl2
+    seqLike.unsafeArray(index * 4 + 2) = elem.dbl3; seqLike.unsafeArray(index * 4 + 3) = elem.dbl4 }
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl4Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of type B, which will extend [[Dbl4Elem]]. Instances for

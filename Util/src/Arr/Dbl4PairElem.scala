@@ -86,12 +86,12 @@ Dbl4PairArrCommonBuilder[B1, ArrB1, B2, ArrB] with  DblNPairArrMapBuilder[B1, Ar
   override type B1BuffT <: Dbl4Buff[B1]
   final override def a1DblNum: Int = 4
 
-  final override def indexSet(seqLike: ArrB, index: Int, value: B): Unit = {
-    seqLike.a1ArrayDbl(index * 4) = value.a1Dbl1
-    seqLike.a1ArrayDbl(index * 4 + 1) = value.a1Dbl2
-    seqLike.a1ArrayDbl(index * 4 + 2) = value.a1Dbl3
-    seqLike.a1ArrayDbl(index * 4 + 3) = value.a1Dbl4
-    seqLike.a2Array(index) = value.a2
+  final override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit = {
+    seqLike.a1ArrayDbl(index * 4) = elem.a1Dbl1
+    seqLike.a1ArrayDbl(index * 4 + 1) = elem.a1Dbl2
+    seqLike.a1ArrayDbl(index * 4 + 2) = elem.a1Dbl3
+    seqLike.a1ArrayDbl(index * 4 + 3) = elem.a1Dbl4
+    seqLike.a2Array(index) = elem.a2
   }
 }
 

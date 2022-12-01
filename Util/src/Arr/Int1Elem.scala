@@ -64,8 +64,8 @@ trait Int1ArrCommonBuilder[ArrB <: Int1Arr[_]] extends IntNSeqLikeCommonBuilder[
  *  the B in ```map(f: A => B): ArrB``` function. */
 trait Int1ArrMapBuilder[A <: Int1Elem, ArrT <: Int1Arr[A]] extends Int1ArrCommonBuilder[ArrT] with IntNArrMapBuilder[A, ArrT]
 { type BuffT <: Int1Buff[A]
-  final override def indexSet(seqLike: ArrT, index: Int, value: A): Unit =  seqLike.unsafeArray(index) = value.int1
-  final override def buffGrow(buff: BuffT, value: A): Unit = { buff.unsafeBuffer.append(value.int1); () }
+  final override def indexSet(seqLike: ArrT, index: Int, elem: A): Unit =  seqLike.unsafeArray(index) = elem.int1
+  final override def buffGrow(buff: BuffT, newElem: A): Unit = { buff.unsafeBuffer.append(newElem.int1); () }
 }
 
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Int1Arr]] final classes. Instances for the [[ArrMapBuilder]] type

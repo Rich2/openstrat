@@ -80,8 +80,8 @@ object PolygonM3 extends Dbl3SeqLikeCompanion[PtM3, PolygonM3]
     override type BuffT = PolygonM3Buff
     override def newBuff(length: Int): PolygonM3Buff = PolygonM3Buff(length)
     override def uninitialised(length: Int): PolygonM3Arr = new PolygonM3Arr(new Array[Array[Double]](length))
-    override def indexSet(seqLike: PolygonM3Arr, index: Int, value: PolygonM3): Unit = seqLike.unsafeArrayOfArrays(index) = value.unsafeArray
-    override def buffGrow(buff: PolygonM3Buff, value: PolygonM3): Unit = buff.unsafeBuffer.append(value.unsafeArray)
+    override def indexSet(seqLike: PolygonM3Arr, index: Int, elem: PolygonM3): Unit = seqLike.unsafeArrayOfArrays(index) = elem.unsafeArray
+    override def buffGrow(buff: PolygonM3Buff, newElem: PolygonM3): Unit = buff.unsafeBuffer.append(newElem.unsafeArray)
     override def buffToSeqLike(buff: PolygonM3Buff): PolygonM3Arr = new PolygonM3Arr(buff.unsafeBuffer.toArray)
   }
 

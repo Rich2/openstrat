@@ -79,12 +79,12 @@ trait Int4SeqLikeCommonBuilder[BB <: Int4SeqLike[_]] extends IntNSeqLikeCommonBu
 trait Int4SeqLikeMapBuilder[B <: Int4Elem, BB <: Int4SeqLike[B]] extends Int4SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
 { type BuffT <: Int4Buff[B]
 
-  final override def indexSet(seqLike: BB, index: Int, value: B): Unit = { seqLike.unsafeArray(index * 4) = value.int1
-    seqLike.unsafeArray(index * 4 + 1) = value.int2; seqLike.unsafeArray(index * 4 + 2) = value.int3; seqLike.unsafeArray(index * 4 + 3) = value.int4
+  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit = { seqLike.unsafeArray(index * 4) = elem.int1
+    seqLike.unsafeArray(index * 4 + 1) = elem.int2; seqLike.unsafeArray(index * 4 + 2) = elem.int3; seqLike.unsafeArray(index * 4 + 3) = elem.int4
   }
 
-  final override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2)
-    buff.unsafeBuffer.append(value.int3); buff.unsafeBuffer.append(value.int4); () }
+  final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.unsafeBuffer.append(newElem.int1); buff.unsafeBuffer.append(newElem.int2)
+    buff.unsafeBuffer.append(newElem.int3); buff.unsafeBuffer.append(newElem.int4); () }
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int4Arr]] final classes. Instances for the [[ArrMapBuilder]] type

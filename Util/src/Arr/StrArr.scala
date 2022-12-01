@@ -92,9 +92,9 @@ object StrArr
 object StringArrBuilder extends ArrMapBuilder[String, StrArr] with ArrFlatBuilder[StrArr]
 { type BuffT = StringBuff
   override def uninitialised(length: Int): StrArr = new StrArr(new Array[String](length))
-  override def indexSet(seqLike: StrArr, index: Int, value: String): Unit = seqLike.unsafeArray(index) = value
+  override def indexSet(seqLike: StrArr, index: Int, elem: String): Unit = seqLike.unsafeArray(index) = elem
   override def newBuff(length: Int = 4): StringBuff = new StringBuff(new ArrayBuffer[String](length))
-  override def buffGrow(buff: StringBuff, value: String): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrow(buff: StringBuff, newElem: String): Unit = buff.unsafeBuffer.append(newElem)
   override def buffToSeqLike(buff: StringBuff): StrArr = new StrArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: StringBuff, arr: StrArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }

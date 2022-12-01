@@ -51,12 +51,12 @@ trait Int2SeqLikeCommonBuilder[BB <: SeqLike[_]] extends IntNSeqLikeCommonBuilde
 }
 trait Int2SeqLikeMapBuilder[B <: Int2Elem, BB <: Int2SeqLike[B]] extends Int2SeqLikeCommonBuilder[BB] with IntNSeqLikeMapBuilder[B, BB]
 { type BuffT <: Int2Buff[B]
-  final override def indexSet(seqLike: BB, index: Int, value: B): Unit =
-  { seqLike.unsafeArray(index * 2) = value.int1;
-    seqLike.unsafeArray(index * 2 + 1) = value.int2
+  final override def indexSet(seqLike: BB, index: Int, elem: B): Unit =
+  { seqLike.unsafeArray(index * 2) = elem.int1;
+    seqLike.unsafeArray(index * 2 + 1) = elem.int2
   }
 
-  final override def buffGrow(buff: BuffT, value: B): Unit = { buff.unsafeBuffer.append(value.int1); buff.unsafeBuffer.append(value.int2); () }
+  final override def buffGrow(buff: BuffT, newElem: B): Unit = { buff.unsafeBuffer.append(newElem.int1); buff.unsafeBuffer.append(newElem.int2); () }
 }
 
 /** Trait for creating the ArrTBuilder type class instances for [[Int2Arr]] final classes. Instances for the [[ArrMapBuilder]] type

@@ -73,9 +73,9 @@ trait Dbl5SeqLikeCommonBuilder[BB <: Dbl5SeqLike[_]] extends DblNSeqLikeCommonBu
 trait Dbl5ArrMapBuilder[B <: Dbl5Elem, ArrB <: Dbl5Arr[B]] extends Dbl5SeqLikeCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl5Buff[B]
 
-  override def indexSet(seqLike: ArrB, index: Int, value: B): Unit =
-  { seqLike.unsafeArray(index * 5) = value.dbl1; seqLike.unsafeArray(index * 5 + 1) = value.dbl2; seqLike.unsafeArray(index * 5 + 2) = value.dbl3
-    seqLike.unsafeArray(index * 5 + 3) = value.dbl4;  seqLike.unsafeArray(index * 5 + 4) = value.dbl5
+  override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
+  { seqLike.unsafeArray(index * 5) = elem.dbl1; seqLike.unsafeArray(index * 5 + 1) = elem.dbl2; seqLike.unsafeArray(index * 5 + 2) = elem.dbl3
+    seqLike.unsafeArray(index * 5 + 3) = elem.dbl4;  seqLike.unsafeArray(index * 5 + 4) = elem.dbl5
   }
 }
 /** Trait for creating the ArrTBuilder and ArrTFlatBuilder type class instances for [[Dbl5Arr]] final classes. Instances for the [[ArrMapBuilder]] type

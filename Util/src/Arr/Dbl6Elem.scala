@@ -107,9 +107,9 @@ trait Dbl6SeqLikeCommonBuilder[BB <: Dbl6Arr[_]] extends DblNSeqLikeCommonBuilde
 trait Dbl6ArrMapBuilder[B <: Dbl6Elem, ArrB <: Dbl6Arr[B]] extends Dbl6SeqLikeCommonBuilder[ArrB] with DblNArrMapBuilder[B, ArrB]
 { type BuffT <: Dbl6Buff[B]
 
-  override def indexSet(seqLike: ArrB, index: Int, value: B): Unit =
-  { seqLike.unsafeArray(index * 6) = value.dbl1; seqLike.unsafeArray(index * 6 + 1) = value.dbl2; seqLike.unsafeArray(index * 6 + 2) = value.dbl3
-    seqLike.unsafeArray(index * 6 + 3) = value.dbl4; seqLike.unsafeArray(index * 6 + 4) = value.dbl5; seqLike.unsafeArray(index * 6 + 5) = value.dbl6
+  override def indexSet(seqLike: ArrB, index: Int, elem: B): Unit =
+  { seqLike.unsafeArray(index * 6) = elem.dbl1; seqLike.unsafeArray(index * 6 + 1) = elem.dbl2; seqLike.unsafeArray(index * 6 + 2) = elem.dbl3
+    seqLike.unsafeArray(index * 6 + 3) = elem.dbl4; seqLike.unsafeArray(index * 6 + 4) = elem.dbl5; seqLike.unsafeArray(index * 6 + 5) = elem.dbl6
   }
 }
 

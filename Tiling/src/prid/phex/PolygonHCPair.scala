@@ -33,8 +33,8 @@ final class PolygonHCPairBuild[A2](implicit val b2ClassTag: ClassTag[A2], @unuse
   override type B1BuffT = PolygonHCBuff
   override def uninitialised(length: Int): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](new Array[Array[Int]](length), new Array[A2](length))
 
-  override def indexSet(seqLike: PolygonHCPairArr[A2], index: Int, value: PolygonHCPair[A2]): Unit =
-  { seqLike.a1ArrayInts(index) = value.a1ArrayInt ; seqLike.a2Array(index) = value.a2 }
+  override def indexSet(seqLike: PolygonHCPairArr[A2], index: Int, elem: PolygonHCPair[A2]): Unit =
+  { seqLike.a1ArrayInts(index) = elem.a1ArrayInt ; seqLike.a2Array(index) = elem.a2 }
 
   override def newBuff(length: Int): PolygonHCPairBuff[A2] = new PolygonHCPairBuff[A2](new ArrayBuffer[Array[Int]](4), new ArrayBuffer[A2](4))
   override def buffToSeqLike(buff: PolygonHCPairBuff[A2]): PolygonHCPairArr[A2] = new PolygonHCPairArr[A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)

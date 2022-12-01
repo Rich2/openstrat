@@ -80,13 +80,13 @@ class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends PairArrMapBu
   override def arrFromArrAndArray(b1Arr: RArr[B1], b2s: Array[B2]): RPairArr[B1, B2] = new RPairArr[B1, B2](b1Arr.unsafeArray, b2s)
 
   /** A mutable operation that extends the ArrayBuffer by a single element of type B. */
-  override def buffGrow(buff: RPairBuff[B1, B2], value: RPairElem[B1, B2]): Unit = ???
+  override def buffGrow(buff: RPairBuff[B1, B2], newElem: RPairElem[B1, B2]): Unit = ???
 
   /** Creates a new uninitialised [[Arr]] of type ArrB of the given length. */
   override def uninitialised(length: Int): RPairArr[B1, B2] = ???
 
   /** Sets the value in a [[SeqLike]] of type BB. This is usually used in conjunction with uninitialised method. */
-  override def indexSet(seqLike: RPairArr[B1, B2], index: Int, value: RPairElem[B1, B2]): Unit = ???
+  override def indexSet(seqLike: RPairArr[B1, B2], index: Int, elem: RPairElem[B1, B2]): Unit = ???
 
   /** ClassTag for building Arrays and ArrayBuffers of B2s. */
   override implicit def b2ClassTag: ClassTag[B2] = ???

@@ -91,9 +91,9 @@ object IntArr
 object IntArrBuilder extends ArrMapBuilder[Int, IntArr] with ArrFlatBuilder[IntArr]
 { type BuffT = IntBuff
   override def uninitialised(length: Int): IntArr = new IntArr(new Array[Int](length))
-  override def indexSet(seqLike: IntArr, index: Int, value: Int): Unit = seqLike.unsafeArray(index) = value
+  override def indexSet(seqLike: IntArr, index: Int, elem: Int): Unit = seqLike.unsafeArray(index) = elem
   override def newBuff(length: Int = 4): IntBuff = new IntBuff(new ArrayBuffer[Int](length))
-  override def buffGrow(buff: IntBuff, value: Int): Unit = buff.unsafeBuffer.append(value)
+  override def buffGrow(buff: IntBuff, newElem: Int): Unit = buff.unsafeBuffer.append(newElem)
   override def buffToSeqLike(buff: IntBuff): IntArr = new IntArr(buff.unsafeBuffer.toArray)
   override def buffGrowArr(buff: IntBuff, arr: IntArr): Unit = arr.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
 }
