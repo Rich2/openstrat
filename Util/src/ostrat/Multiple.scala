@@ -52,6 +52,16 @@ object Multiple
 class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multiple[A]]
 { type ThisT = MultipleArr[A]
   override def typeStr: String = "MultipleArr"
+
+  def numSingles: Int = this.sumBy(_.num)
+
+  def toSinglesArr[ArrA <: Arr[A]](implicit build: ArrMapBuilder[A, ArrA]): ArrA =
+  { val res = build.uninitialised(numSingles)
+    var i = 0
+    foreach{ m => iUntilForeach(m.num){ _ => res.unsafeSetElem(i, m.value); i += 1 } }
+    res
+  }
+
   override def length: Int = arrayInt.length
   override def apply(index: Int): Multiple[A] = new Multiple[A](values(index), arrayInt(index))
   override def unsafeSetElem(i: Int, newElem: Multiple[A]): Unit = { values(i) = newElem.value; arrayInt(i) =newElem.num }
@@ -63,7 +73,7 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
 { def numSingles: Int = thisSeq.sumBy (_.num)
   def toSinglesList: List[A] = thisSeq.toList.flatMap (_.singlesList)
 
-  def singles[ArrA <: Arr[A]] (implicit build: ArrMapBuilder[A, ArrA] ): ArrA =
+  /*def singles[ArrA <: Arr[A]] (implicit build: ArrMapBuilder[A, ArrA] ): ArrA =
   { val len: Int = thisSeq.sumBy (_.num)
     val res = build.uninitialised (len)
     var i = 0
@@ -74,7 +84,7 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
       }
     }
     res
-  }
+  }*/
 
   def iForeachSingle (f: (Int, A) => Unit): Unit = toSinglesList.iForeach (f)
 }
