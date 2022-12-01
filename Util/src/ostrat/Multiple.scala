@@ -12,15 +12,12 @@ case class Multiple[+A](value: A, num: Int)
   def foreach(f: A => Unit): Unit = num.doTimes(() => f(value))
 
   def singlesList: List[A] =
-  {
-    var acc: List[A] = Nil
+  { var acc: List[A] = Nil
     var count = 0
-    while (count < num)
-    { acc ::= value
-      count += 1
-    }
+    while (count < num) { acc ::= value; count += 1 }
     acc
   }
+
   def map[B](f: A => B): Multiple[B] = Multiple[B](f(value), num)
 
   def flatMap[B](f: A => Multiple[B]) =
@@ -42,7 +39,7 @@ object Multiple
 
   implicit def eqImplicit[A](implicit ev: EqT[A]): EqT[Multiple[A]] = (a1, a2) => (a1.num == a2.num) & ev.eqT(a1.value, a2.value)
 
-  implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
+ implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
 
   implicit class RefsImplicit[A](thisRefs: RArr[Multiple[A]])
   { def numSingles: Int = thisRefs.sumBy(_.num)
@@ -75,20 +72,14 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
 { def numSingles: Int = thisSeq.sumBy (_.num)
   def toSinglesList: List[A] = thisSeq.toList.flatMap (_.singlesList)
 
-  /*def singles[ArrA <: Arr[A]] (implicit build: ArrMapBuilder[A, ArrA] ): ArrA =
-  { val len: Int = thisSeq.sumBy (_.num)
-    val res = build.uninitialised (len)
+  def toSinglesArr[ArrA <: Arr[A]](implicit build: ArrMapBuilder[A, ArrA]): ArrA =
+  { val res = build.uninitialised(numSingles)
     var i = 0
-    thisSeq.foreach { m =>
-      iUntilForeach (m.num) { j =>
-        res.unsafeSetElem (i, m.value)
-        i += 1
-      }
-    }
+    thisSeq.foreach { m => iUntilForeach(m.num) { _ => res.unsafeSetElem(i, m.value); i += 1 } }
     res
-  }*/
+  }
 
-  def iForeachSingle (f: (Int, A) => Unit): Unit = toSinglesList.iForeach (f)
+  def iForeachSingle(f: (Int, A) => Unit): Unit = toSinglesList.iForeach(f)
 }
 
 class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBuffer[A]) extends Buff[Multiple[A]]
