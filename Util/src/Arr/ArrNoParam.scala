@@ -1,7 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation._, unchecked.uncheckedVariance
-
+import annotation._
 
 /** This trait is for all the [[ArrSingle]] classes except [[RArr]]. All the final classes of this
  * trait have no type parameters. The primary motivation of this trait is to allow common
@@ -29,8 +28,8 @@ trait ArrNoParam[A] extends Any with Arr[A]
   /** This method should rarely be needed to be used by end users, but returns a new uninitialised [[SeqSpec]] of the this [[Arr]]'s final type. */
   def unsafeSameSize(length: Int): ThisT
 
-  def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match {
-    case -1 => returnThis
+  def removeFirst(f: A => Boolean): ThisT = indexWhere(f) match
+  { case -1 => returnThis
     case n => {
       val newArr = unsafeSameSize(length - 1)
       iUntilForeach(n)(i => newArr.unsafeSetElem(i, apply(i)))
@@ -40,8 +39,8 @@ trait ArrNoParam[A] extends Any with Arr[A]
   }
 
   /** Replaces all instances of the old value with the new value. */
-  def replace(oldValue: A@uncheckedVariance, newValue: A@uncheckedVariance): ThisT = {
-    val newArr = unsafeSameSize(length)
+  def replace(oldValue: A, newValue: A): ThisT =
+  { val newArr = unsafeSameSize(length)
     var count = 0
 
     while (count < length) {
@@ -54,8 +53,8 @@ trait ArrNoParam[A] extends Any with Arr[A]
   }
 
   /** Replaces all instances of the old value that fulfill predicate with the new value. */
-  def replaceAll(pred: A => Boolean, newValue: A@uncheckedVariance): ThisT = {
-    val newArr = unsafeSameSize(length)
+  def replaceAll(pred: A => Boolean, newValue: A): ThisT =
+  { val newArr = unsafeSameSize(length)
     var count = 0
 
     while (count < length) {
@@ -68,8 +67,8 @@ trait ArrNoParam[A] extends Any with Arr[A]
   }
 
   /** Modifies all instances of the old value that fulfill predicate, with a new value by applying the parameter function. */
-  def modifyAll(pred: A => Boolean, fNewValue: A => A@uncheckedVariance): ThisT = {
-    val newArr = unsafeSameSize(length)
+  def modifyAll(pred: A => Boolean, fNewValue: A => A): ThisT =
+  { val newArr = unsafeSameSize(length)
     var count = 0
 
     while (count < length) {
