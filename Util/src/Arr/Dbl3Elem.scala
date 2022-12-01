@@ -19,8 +19,8 @@ trait Dbl3Elem extends Any with DblNElem
 trait Dbl3SeqLike[A <: Dbl3Elem] extends Any with DblNSeqLike[A]
 { override def elemProdSize = 3
 
-  override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(3 * index) = elem.dbl1; unsafeArray(3 * index + 1) = elem.dbl2
-    unsafeArray(3 * index + 2) = elem.dbl3 }
+  override def unsafeSetElem(index: Int, newElem: A): Unit = { unsafeArray(3 * index) = newElem.dbl1; unsafeArray(3 * index + 1) = newElem.dbl2
+    unsafeArray(3 * index + 2) = newElem.dbl3 }
 
   override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A) : Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2)
     buffer.append(elem.dbl3) }
@@ -119,7 +119,7 @@ trait Dbl3Buff[A <: Dbl3Elem] extends Any with DblNBuff[A]
   def dblsToT(d1: Double, d2: Double, d3: Double): A
   def apply(index: Int): A = dblsToT(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
 
-  override def unsafeSetElem(i: Int, newValue: A): Unit =
-  { unsafeBuffer(i * 4) = newValue.dbl1; unsafeBuffer(i * 4 + 1) = newValue.dbl2; unsafeBuffer(i * 4 + 2) = newValue.dbl3
+  override def unsafeSetElem(i: Int, newElem: A): Unit =
+  { unsafeBuffer(i * 4) = newElem.dbl1; unsafeBuffer(i * 4 + 1) = newElem.dbl2; unsafeBuffer(i * 4 + 2) = newElem.dbl3
   }
 }

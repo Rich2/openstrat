@@ -13,7 +13,7 @@ object PolygonLLPair
 final class PolygonLLPairArr[A2](val a1ArrayDbls: Array[Array[Double]], val a2Array: Array[A2]) extends
   PolygonLikeDblNPairArr[LatLong, PolygonLL, PolygonLLArr, A2, PolygonLLPair[A2]]
 { override type ThisT = PolygonLLPairArr[A2]
-  override def unsafeSetElem(i: Int, newValue: PolygonLLPair[A2]): Unit = { a1ArrayDbls(i) = newValue.a1ArrayDbl; a2Array(i) = newValue.a2 }
+  override def unsafeSetElem(i: Int, newElem: PolygonLLPair[A2]): Unit = { a1ArrayDbls(i) = newElem.a1ArrayDbl; a2Array(i) = newElem.a2 }
   override def fElemStr: PolygonLLPair[A2] => String = _.toString
   override def typeStr: String = "PolygonLLPairArray"
   override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](a1ArrayDbls(index), a2Array(index))
@@ -44,7 +44,7 @@ final class PolygonLLPairBuilder[A2](implicit val b2ClassTag: ClassTag[A2], @unu
 class PolygonLLPairBuff[A2](val b1Buffer: ArrayBuffer[Array[Double]], val b2Buffer: ArrayBuffer[A2]) extends
   SeqLikeDblNPairBuff[LatLong, PolygonLL, A2, PolygonLLPair[A2]]
 { override type ThisT = PolygonLLPairBuff[A2]
-  override def unsafeSetElem(i: Int, newValue: PolygonLLPair[A2]): Unit = { b1Buffer(i) = newValue.a1ArrayDbl; b2Buffer(i) = newValue.a2 }
+  override def unsafeSetElem(i: Int, newElem: PolygonLLPair[A2]): Unit = { b1Buffer(i) = newElem.a1ArrayDbl; b2Buffer(i) = newElem.a2 }
   override def fElemStr: PolygonLLPair[A2] => String = _.toString
   override def typeStr: String = "PolygonLLPairBuff"
   override def apply(index: Int): PolygonLLPair[A2] = new PolygonLLPair[A2](b1Buffer(index), b2Buffer(index))

@@ -19,10 +19,10 @@ trait Dbl7Elem extends Any with DblNElem
 trait Dbl7SeqLike[A <: Dbl7Elem] extends Any with DblNSeqLike[A]
 { def elemProdSize: Int = 7
 
-  override def unsafeSetElem(index: Int, elem: A): Unit =
+  override def unsafeSetElem(index: Int, newElem: A): Unit =
   { val offset = 7 * index;
-    unsafeArray(offset) = elem.dbl1; unsafeArray(offset + 1) = elem.dbl2; unsafeArray(offset + 2) = elem.dbl3; unsafeArray(offset + 3) = elem.dbl4
-    unsafeArray(offset + 4) = elem.dbl5; unsafeArray(offset + 5) = elem.dbl6; unsafeArray(offset + 6) = elem.dbl7
+    unsafeArray(offset) = newElem.dbl1; unsafeArray(offset + 1) = newElem.dbl2; unsafeArray(offset + 2) = newElem.dbl3; unsafeArray(offset + 3) = newElem.dbl4
+    unsafeArray(offset + 4) = newElem.dbl5; unsafeArray(offset + 5) = newElem.dbl6; unsafeArray(offset + 6) = newElem.dbl7
   }
 
   override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A): Unit = { buffer.append(elem.dbl1); buffer.append(elem.dbl2)

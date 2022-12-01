@@ -15,7 +15,7 @@ trait ArrayDblArr[A <: ArrayDblBacked] extends Any with Arr[A]
   override final def length: Int = unsafeArrayOfArrays.length
   def unsafeFromArrayArray(array: Array[Array[Double]]): ThisT
   final def unsafeSameSize(length: Int): ThisT = unsafeFromArrayArray(new Array[Array[Double]](length))
-  final def unsafeSetElem(i: Int, newValue: A): Unit = unsafeArrayOfArrays(i) = newValue.unsafeArray
+  final def unsafeSetElem(i: Int, newElem: A): Unit = unsafeArrayOfArrays(i) = newElem.unsafeArray
 }
 
 /** This is the map builder for Arrays of Arrays of Double. It is not to be confused with the builder for Arrays of Double. It requires 3 memebers to
@@ -47,6 +47,6 @@ trait ArrayDblBuff[A <: ArrayDblBacked] extends Any with Buff[A]
   override final def length: Int = unsafeBuffer.length
   def grow(elem: A): Unit = unsafeBuffer.append(elem.unsafeArray)
   def arrayArrayDbl: Array[Array[Double]] = unsafeBuffer.toArray
-  final override def unsafeSetElem(i: Int, newValue: A): Unit = unsafeBuffer(i) = newValue.unsafeArray
+  final override def unsafeSetElem(i: Int, newElem: A): Unit = unsafeBuffer(i) = newElem.unsafeArray
   inline final override def apply(index: Int): A = fromArrayDbl(unsafeBuffer(index))
 }

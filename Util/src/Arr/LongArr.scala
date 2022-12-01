@@ -13,7 +13,7 @@ class LongArr(val unsafeArray: Array[Long]) extends AnyVal with ArrNoParam[Long]
   override def unsafeSameSize(length: Int): LongArr = new LongArr(new Array[Long](length))
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Long = unsafeArray(index)
-  override def unsafeSetElem(i: Int, newValue: Long): Unit = unsafeArray(i) = newValue
+  override def unsafeSetElem(i: Int, newElem: Long): Unit = unsafeArray(i) = newElem
   override def fElemStr: Long => String = _.toString
 
   @targetName("appendArr") def ++(op: LongArr): LongArr =
@@ -74,7 +74,7 @@ class LongBuff(val unsafeBuffer: ArrayBuffer[Long]) extends AnyVal with Buff[Lon
   override def typeStr: String = "LongsBuff"
   override def apply(index: Int): Long = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
-  override def unsafeSetElem(i: Int, newValue: Long): Unit = unsafeBuffer(i) = newValue
+  override def unsafeSetElem(i: Int, newElem: Long): Unit = unsafeBuffer(i) = newElem
   override def fElemStr: Long => String = _.toString
   override def grow(newElem: Long): Unit = unsafeBuffer.append(newElem)
 }

@@ -15,7 +15,7 @@ trait Dbl1Arr[A <: Dbl1Elem] extends Any with DblNArr[A]
   def newElem(dblValue: Double): A
   final override def length: Int = unsafeArray.length
   final override def apply(index: Int): A = newElem(unsafeArray(index))
-  final override def unsafeSetElem(index: Int, elem: A): Unit = unsafeArray(index) = elem.dbl1
+  final override def unsafeSetElem(index: Int, newElem: A): Unit = unsafeArray(index) = newElem.dbl1
   override def elemEq(a1: A, a2: A): Boolean = a1.dbl1 == a2.dbl1
   override def dblBufferAppend(buffer: ArrayBuffer[Double], elem: A) : Unit = { buffer.append(elem.dbl1) }
 

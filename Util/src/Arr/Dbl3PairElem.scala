@@ -24,9 +24,9 @@ trait Dbl3PairArr[A1 <: Dbl3Elem, ArrA1 <: Dbl3Arr[A1], A2, A <: Dbl3PairElem[A1
   final override def unsafeSetA1(index: Int, value: A1): Unit = { a1ArrayDbl(index * 3) = value.dbl1; a1ArrayDbl(index * 3 + 1) = value.dbl2
     a1ArrayDbl(index * 3 + 2) = value.dbl3 }
 
-  final override def unsafeSetElem(i: Int, newValue: A): Unit = { a1ArrayDbl(i * 3) = newValue.a1Dbl1; a1ArrayDbl(i * 3 + 1) = newValue.a1Dbl2
-    a1ArrayDbl(i * 3 + 2) = newValue.a1Dbl3
-    a2Array(i) = newValue.a2
+  final override def unsafeSetElem(i: Int, newElem: A): Unit = { a1ArrayDbl(i * 3) = newElem.a1Dbl1; a1ArrayDbl(i * 3 + 1) = newElem.a1Dbl2
+    a1ArrayDbl(i * 3 + 2) = newElem.a1Dbl3
+    a2Array(i) = newElem.a2
   }
 
   @targetName("append") final def +%(operand: A)(implicit ct: ClassTag[A2]): ThisT = appendPair(operand.a1, operand.a2)
@@ -57,11 +57,11 @@ trait Dbl3PairBuff[B1 <: Dbl3Elem, B2, B <: Dbl3PairElem[B1, B2]] extends DblNPa
     b2Buffer.append(newElem.a2)
   }
 
-  override final def unsafeSetElem(i: Int, newValue: B): Unit =
-  { b1DblBuffer(i * 3) = newValue.a1Dbl1
-    b1DblBuffer(i * 3 + 1) = newValue.a1Dbl2
-    b1DblBuffer(i * 3 + 2) = newValue.a1Dbl3
-    b2Buffer(i) = newValue.a2
+  override final def unsafeSetElem(i: Int, newElem: B): Unit =
+  { b1DblBuffer(i * 3) = newElem.a1Dbl1
+    b1DblBuffer(i * 3 + 1) = newElem.a1Dbl2
+    b1DblBuffer(i * 3 + 2) = newElem.a1Dbl3
+    b2Buffer(i) = newElem.a2
   }
 }
 

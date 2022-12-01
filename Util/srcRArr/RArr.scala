@@ -8,7 +8,7 @@ trait RefsSeqLike[+A] extends Any with SeqLike[A]
   def unsafeArray: Array[A] @uncheckedVariance
   def fromArray(array: Array[A] @uncheckedVariance): ThisT
   override final def fElemStr: A @uncheckedVariance => String = _.toString
-  override final def unsafeSetElem(i: Int, newValue: A @uncheckedVariance) : Unit = unsafeArray(i) = newValue
+  override final def unsafeSetElem(i: Int, newElem: A @uncheckedVariance) : Unit = unsafeArray(i) = newElem
 }
 
 /** The immutable Array based class for types without there own specialised [[Arr]] collection classes. It inherits the standard foreach, map,
@@ -183,7 +183,7 @@ final class RBuff[A](val unsafeBuffer: ArrayBuffer[A]) extends AnyVal with Buff[
   override def typeStr: String = "AnyBuff"
   override def apply(index: Int): A = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
-  override def unsafeSetElem(i: Int, newValue: A): Unit = unsafeBuffer(i) = newValue
+  override def unsafeSetElem(i: Int, newElem: A): Unit = unsafeBuffer(i) = newElem
   override def fElemStr: A => String = _.toString
   override def grow(newElem: A): Unit = unsafeBuffer.append(newElem)
 }

@@ -9,7 +9,7 @@ class FloatArr(val unsafeArray: Array[Float]) extends AnyVal with ArrNoParam[Flo
   override def unsafeSameSize(length: Int): FloatArr = new FloatArr(new Array[Float](length))
   override def length: Int = unsafeArray.length
   override def apply(index: Int): Float = unsafeArray(index)
-  override def unsafeSetElem(i: Int, newValue: Float): Unit = unsafeArray(i) = newValue
+  override def unsafeSetElem(i: Int, newElem: Float): Unit = unsafeArray(i) = newElem
   def unsafeArrayCopy(operand: Array[Float], offset: Int, copyLength: Int): Unit = { unsafeArray.copyToArray(unsafeArray, offset, copyLength); () }
   override def fElemStr: Float => String = _.toString
 
@@ -70,7 +70,7 @@ class FloatBuff(val unsafeBuffer: ArrayBuffer[Float]) extends AnyVal with Buff[F
   override def typeStr: String = "FloatsBuff"
   override def apply(index: Int): Float = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
-  override def unsafeSetElem(i: Int, newValue: Float): Unit = unsafeBuffer(i) = newValue
+  override def unsafeSetElem(i: Int, newElem: Float): Unit = unsafeBuffer(i) = newElem
   override def fElemStr: Float => String = _.toString
   override def grow(newElem: Float): Unit = unsafeBuffer.append(newElem)
 }

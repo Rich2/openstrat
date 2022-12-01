@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import annotation.unchecked.uncheckedVariance, reflect.ClassTag
+import annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.mutable.ArrayBuffer
 
 /** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. */
 case class Multiple[+A](value: A, num: Int)
@@ -54,7 +54,7 @@ class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multipl
   override def typeStr: String = "MultipleArr"
   override def length: Int = arrayInt.length
   override def apply(index: Int): Multiple[A] = new Multiple[A](values(index), arrayInt(index))
-  override def unsafeSetElem(i: Int, newValue: Multiple[A]): Unit = { values(i) = newValue.value; arrayInt(i) =newValue.num }
+  override def unsafeSetElem(i: Int, newElem: Multiple[A]): Unit = { values(i) = newElem.value; arrayInt(i) =newElem.num }
   override def fElemStr: Multiple[A] => String = _.toString
   def unsafeSameSize(length: Int)(implicit ct: ClassTag[A]): ThisT = new MultipleArr[A](new Array[Int](length), new Array[A](length))
 }
@@ -77,4 +77,14 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
   }
 
   def iForeachSingle (f: (Int, A) => Unit): Unit = toSinglesList.iForeach (f)
+}
+
+class MultipleBuff[A](numBuffer: ArrayBuffer[Int], valuesBuffer: ArrayBuffer[A]) extends Buff[Multiple[A]]
+{ override type ThisT = MultipleBuff[A]
+  override def typeStr: String = "MultipleBuff"
+  override def grow(newElem: Multiple[A]): Unit = { numBuffer.append(newElem.num); valuesBuffer.append(newElem.value) }
+  override def length: Int = numBuffer.length
+  override def apply(index: Int): Multiple[A] = new Multiple[A](valuesBuffer(index), numBuffer(index))
+  override def unsafeSetElem(i: Int, newElem: Multiple[A]): Unit = { numBuffer(i) = newElem.num; valuesBuffer(i) = newElem.value }
+  override def fElemStr: Multiple[A] => String = _.toString
 }

@@ -12,7 +12,7 @@ trait Int1Elem extends Any with IntNElem
 
 trait Int1SeqLike[A <: Int1Elem] extends Any with IntNSeqLike[A]
 { final override def elemProdSize: Int = 1
-  final override def unsafeSetElem(index: Int, elem: A): Unit = { unsafeArray(index) = elem.int1 }
+  final override def unsafeSetElem(index: Int, newElem: A): Unit = { unsafeArray(index) = newElem.int1 }
   override def intBufferAppend(buffer: ArrayBuffer[Int], elem: A) : Unit = { buffer.append(elem.int1) }
 }
 
@@ -51,7 +51,7 @@ trait Int1Buff[A <: Int1Elem] extends Any with IntNBuff[A]
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
-  override def unsafeSetElem(i: Int, newValue: A): Unit = unsafeBuffer(i) = newValue.int1
+  override def unsafeSetElem(i: Int, newElem: A): Unit = unsafeBuffer(i) = newElem.int1
 }
 
 trait Int1ArrCommonBuilder[ArrB <: Int1Arr[_]] extends IntNSeqLikeCommonBuilder[ArrB]

@@ -7,7 +7,7 @@ final class StrArr(val unsafeArray: Array[String]) extends AnyVal with ArrNoPara
 { override type ThisT = StrArr
   override def typeStr: String = "Strings"
   override def unsafeSameSize(length: Int): StrArr = new StrArr(new Array[String](length))
-  override def unsafeSetElem(i: Int, newValue: String): Unit = unsafeArray(i) = newValue
+  override def unsafeSetElem(i: Int, newElem: String): Unit = unsafeArray(i) = newElem
   override def fElemStr: String => String = s => s
   override def apply(index: Int): String = unsafeArray(index)
   override def length: Int = unsafeArray.length
@@ -105,7 +105,7 @@ class StringBuff(val unsafeBuffer: ArrayBuffer[String]) extends AnyVal with Buff
   override def typeStr: String = "Stringsbuff"
   override def apply(index: Int): String = unsafeBuffer(index)
   override def length: Int = unsafeBuffer.length
-  override def unsafeSetElem(i: Int, newValue: String): Unit = unsafeBuffer(i) = newValue
+  override def unsafeSetElem(i: Int, newElem: String): Unit = unsafeBuffer(i) = newElem
   override def fElemStr: String => String = s => s
   override def grow(newElem: String): Unit = unsafeBuffer.append(newElem)
 }
