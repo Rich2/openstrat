@@ -4,23 +4,16 @@ import annotation.unchecked.uncheckedVariance, reflect.ClassTag, collection.muta
 
 /** The Multiple type class allow you to represent multiple values of type A. Implicit conversion in package object. */
 case class Multiple[+A](value: A, num: Int)
-{ /** multiply the [[Multiple]] number with the operand */
+{ /** multiply the [[Multiple]] number with the operand. */
   def * (operand: Int): Multiple[A] = Multiple(value, num * operand)
 
   override def toString = "Multiple" + (value.toString + "; " + num.toString).enParenth
 
   def foreach(f: A => Unit): Unit = num.doTimes(() => f(value))
 
-  def singlesList: List[A] =
-  { var acc: List[A] = Nil
-    var count = 0
-    while (count < num) { acc ::= value; count += 1 }
-    acc
-  }
-
   def map[B](f: A => B): Multiple[B] = Multiple[B](f(value), num)
 
-  def flatMap[B](f: A => Multiple[B]) =
+  def flatMap[B](f: A => Multiple[B]): Multiple[B] =
   { val res: Multiple[B] = f(value)
     Multiple[B](res.value, res.num * num)
   }
@@ -32,7 +25,7 @@ case class Multiple[+A](value: A, num: Int)
   }
 }
 
-/** Companion object for the Multiple[+A] type class. */
+/** Companion object for the [[Multiple]][+A] type class. */
 object Multiple
 {
   implicit def arrMapBuilderEv[A](implicit ct: ClassTag[A]): MultipleArrMapBuilder[A] = new MultipleArrMapBuilder[A]
@@ -69,9 +62,11 @@ class MultipleArr[A](arrayInt: Array[Int], values: Array[A]) extends Arr[Multipl
 }
 
 class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
-{ def numSingles: Int = thisSeq.sumBy (_.num)
-  def toSinglesList: List[A] = thisSeq.toList.flatMap (_.singlesList)
+{ /** Extension method. The number of single values of type A in this [[Seq]] of [[Multiple]]s. */
+  def numSingles: Int = thisSeq.sumBy (_.num)
 
+  /** Extension method. Converts this [[Seq]] of [[Multiple]]s, to an [[Arr]] of the Single values
+   * of type A. The appropriate Arr type is found by implicit look up for type A. */
   def toSinglesArr[ArrA <: Arr[A]](implicit build: ArrMapBuilder[A, ArrA]): ArrA =
   { val res = build.uninitialised(numSingles)
     var i = 0
@@ -79,6 +74,7 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
     res
   }
 
+  /** Foreachs over each single value  of this [[Seq]] of [[Multiple]]s with an index. */
   def iForeachSingle(f: (Int, A) => Unit): Unit =
   { var i = 0
     thisSeq.foreach{m => repeat(m.num){ f(i, m.value); i += 1} }

@@ -208,26 +208,24 @@ trait TileGridAncient[TileT <: TileAncient, SideT <: TileSideAncient]
   
   /** Set tile row from the Cood. */
   final def setRow[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood = setRow(cood.yi, cood.xi, tileValues: _*)(f)
-  /** Note set Row starts with the y (row) parameter. */ 
-  final def setRow[A](yRow: Int, xStart: Int, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
-  {
-    val tiles: List[A] = tileValues.toSinglesList
-    tiles.iForeach{ (i, e) =>
+
+  /** Note set Row starts with the y (row) parameter. */
+  final def setRow[A](yRow: Int, xStart: Int, tileMultis: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
+  { tileMultis.iForeachSingle{ (i, e) =>
       val x = xStart + i * xStep
       fSetTile(x, yRow, e)         
     }
-    Cood(xStart + (tiles.length - 1) * xStep, yRow)   
+    Cood(xStart + (tileMultis.numSingles - 1) * xStep, yRow)
   }
   
   /** Note set RowBack starts with the y (row) parameter */
   final def setRowBack[A](yRow: Int, xStart: Int, tileMakers: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
   {
-    val tiles = tileMakers.toSinglesList
-    tiles.iForeach{ (i, e) =>
+    tileMakers.iForeachSingle{ (i, e) =>
       val x = xStart - i * xStep
       fSetTile(x, yRow, e)
     }
-    Cood(xStart - (tiles.length - 1) * xStep, yRow)
+    Cood(xStart - (tileMakers.numSingles - 1) * xStep, yRow)
   }
    
   final def setRowBack[A](cood: Cood, tileValues: Multiple[A]*)(implicit f: (Int, Int, A) => TileT): Cood =
