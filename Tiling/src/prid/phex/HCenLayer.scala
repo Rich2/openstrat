@@ -97,13 +97,13 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   /** Completes the given row from the given starting c column value to the end of the row. An exception is
    *  thrown if the tile values don't match with the end of the row. */
-  final def completeRow(row: Int, cStart: Int, tileValues: Multiple[A]*)(implicit grid: HGrid): HCen =
-  { val tiles: List[A] = tileValues.toSinglesList
-    val endValues = cStart + tiles.length * 4 - 4
+  final def completeRow(row: Int, cStart: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
+  { val numTiles = tileMultis.numSingles
+    val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
-    tiles.iForeach { (i, e) =>  val c = cStart + i * 4; unsafeArray(grid.arrIndex(row, c)) = e }
-    HCen(row, cStart + (tiles.length - 1) * 4)
+    tileMultis.iForeachSingle { (i, e) =>  val c = cStart + i * 4; unsafeArray(grid.arrIndex(row, c)) = e }
+    HCen(row, cStart + (numTiles - 1) * 4)
   }
 
   /** Sets the given row from the given starting c column value, for the given number of tile centre values. An exception is thrown if the numOfCens

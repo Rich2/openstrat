@@ -39,7 +39,7 @@ object Multiple
 
   implicit def eqImplicit[A](implicit ev: EqT[A]): EqT[Multiple[A]] = (a1, a2) => (a1.num == a2.num) & ev.eqT(a1.value, a2.value)
 
- implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
+  implicit def toMultipleImplicit[A](value: A): Multiple[A] = Multiple(value, 1)
 
   implicit class RefsImplicit[A](thisRefs: RArr[Multiple[A]])
   { def numSingles: Int = thisRefs.sumBy(_.num)
@@ -79,7 +79,10 @@ class MultipleSeqImplicit[A](thisSeq: Seq[Multiple[A]])
     res
   }
 
-  def iForeachSingle(f: (Int, A) => Unit): Unit = toSinglesList.iForeach(f)
+  def iForeachSingle(f: (Int, A) => Unit): Unit =
+  { var i = 0
+    thisSeq.foreach{m => repeat(m.num){ f(i, m.value); i += 1} }
+  }
 }
 
 class MultipleBuff[A](val numBuffer: ArrayBuffer[Int], val valuesBuffer: ArrayBuffer[A]) extends Buff[Multiple[A]]

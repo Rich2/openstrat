@@ -113,6 +113,13 @@ package object ostrat
 
   def eqOf[A](leftValue: A, rightValues: A *): Boolean = rightValues.contains(leftValue)
 
+  /** Repeats the procedure the given number of times. */
+  def repeat(n: Int)(proc: => Unit): Unit =
+  { val nn: Int = n.max0
+    var i: Int = 0
+    while(i < nn){ proc; i += 1}
+  }
+
   /** Not sure what this method does. */
   def readT[T](implicit ev: Persist[T]): T =
   { val artStr = ev.typeStr.prependIndefiniteArticle
