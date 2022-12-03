@@ -170,7 +170,31 @@ trait HGrid extends Any with TGrid with HGridSys
     }
   }
 
-  def outerPolygon: PolygonHC = ???
+  def outerPolygon: PolygonHC =
+  { val buff = HCoordBuff()
+    val tr = topCenR
+    val tlc = rowLeftCenC(tr)
+    val tlCen = HCen(tr, tlc)
+    buff.grow(tlCen.v5)
+    val trc = rowRightCenC(tr)
+    iToForeach(tlc, trc, 4) { c =>
+      val cen = HCen(tr, c)
+      buff.grow(cen.v0)
+      buff.grow(cen.v1)
+    }
+
+    var lastC = trc
+    val br = bottomCenR
+    iToForeach(tr - 2, br, -2){ currR =>
+      val lastR = currR + 2
+      val currC = rowRightCenC(currR)
+      val step = ife(currC > lastC, 2, -2)
+      iToForeach(lastC + 2, currC + 2, step){ c => buff.growInts(currR + 1, c) }
+      lastC = currC
+    }
+    iToForeach(rowRightCenC(bottomCenR) + 2, rowLeftCenC(bottomCenR) - 2, -2){ c => buff.growInts(bottomSideR, c)}
+    PolygonHC.fromBuff(buff)
+  }
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
