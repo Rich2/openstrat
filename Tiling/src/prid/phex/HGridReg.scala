@@ -79,6 +79,15 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     r0s + r2s + thisRow
   }
 
+  override def outerPolygon: PolygonHC = {
+    val buff = HCoordBuff()
+    val r0 = topCenR
+    val c0 = rowLeftCenC(r0)
+    val tlCen = HCen(r0, c0)
+    buff.grow(tlCen.v5)
+    ???
+  }
+
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
@@ -109,20 +118,20 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     case r => iToForeach(leftCenC + 1, rightCenC - 1, 2){ c => f(HSide(r, c)) }
   }
 
-  override def rowNumTiles(row: Int): Int = row %% 4 match {
-    case 0 => row0sTileNum
+  override def rowNumTiles(row: Int): Int = row %% 4 match
+  { case 0 => row0sTileNum
     case 2 => row2sTileNum
     case _ => excep("Invalid row number")
   }
 
-  override def rowLeftCenC(row: Int): Int = row %% 4 match {
-    case 0 => leftRem0CenC
+  override def rowLeftCenC(row: Int): Int = row %% 4 match
+  { case 0 => leftRem0CenC
     case 2 => leftrem2CenC
     case _ => excep("Invalid row number")
   }
 
-  override def rowRightCenC(row: Int): Int = row %% 4 match {
-    case 0 => rightRem0CenC
+  override def rowRightCenC(row: Int): Int = row %% 4 match
+  { case 0 => rightRem0CenC
     case 2 => rightRem2CenC
     case _ => excep("Invalid row number")
   }

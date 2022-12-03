@@ -170,6 +170,8 @@ trait HGrid extends Any with TGrid with HGridSys
     }
   }
 
+  def outerPolygon: PolygonHC = ???
+
   /* Methods that operate on Hex tile sides. ******************************************************/
 
   /** foreach Hex side's coordinate HSide, calls the effectfull function.

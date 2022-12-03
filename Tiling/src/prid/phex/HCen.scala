@@ -10,12 +10,12 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
     case _ => false
     }
 
-  def v1: HVert = HVert(1, 2)
-  def v2: HVert = HVert(-1, 2)
-  def v3: HVert = HVert(-1, 0)
-  def v4: HVert = HVert(-1, -2)
-  def v5: HVert = HVert(1, -2)
-  def v6: HVert = HVert(1, 0)
+  def v0: HVert = HVert(r + 1 , c)
+  def v1: HVert = HVert(r + 1, c + 2)
+  def v2: HVert = HVert(r - 1, c + 2)
+  def v3: HVert = HVert(r - 1, c)
+  def v4: HVert = HVert(r - 1 , c - 2)
+  def v5: HVert = HVert(r + 1 , c - 2)
 
   /** The vertex sequence in [[HVert]] coordinates. This starts with the upper right vertex and proceeds clockwise to the upper vertex. */
   def verts: HVertArr = HCen.vertsOfHex00.map(hv => hv + this)
@@ -63,13 +63,14 @@ object HCen
     case _ => None
   }
 
+  val h00v0: HVert = HVert(1, 0)
   val h00v1: HVert = HVert(1, 2)
   val h00v2: HVert = HVert(-1, 2)
   val h00v3: HVert = HVert(-1, 0)
   val h00v4: HVert = HVert(-1, -2)
   val h00v5: HVert = HVert(1, -2)
-  val h00v6: HVert = HVert(1, 0)
-  val vertsOfHex00: HVertArr = HVertArr(h00v1, h00v2, h00v3, h00v4, h00v5, h00v6)
+
+  val vertsOfHex00: HVertArr = HVertArr(h00v0, h00v1, h00v2, h00v3, h00v4, h00v5)
 
   val neibs00: HCenArr = HCenArr(HCen(2, 2), HCen(0, 4), HCen(-2, 2), HCen(-2, -2), HCen(0, -4), HCen(2, -2))
 

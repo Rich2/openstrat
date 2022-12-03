@@ -98,8 +98,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
    * signature. */
   override def vertsPrevForEach[U](f: (Pt2, Pt2) => U): Unit = ???
 
-  def dropVert(v: Int): Polygon = {
-    val res = PolygonGen.uninitialised(vertsNum - 1)
+  def dropVert(v: Int): Polygon =
+  { val res = PolygonGen.uninitialised(vertsNum - 1)
     iUntilForeach(v){i => res.unsafeSetElem(i, vert(i)) }
     iUntilForeach(v + 1, vertsNum){i => res.unsafeSetElem(i - 1, vert(i)) }
     res
@@ -183,7 +183,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   /** The Y component of vertex v1, will throw on a 0 vertices polygon.  */
   final def v0y: Double = unsafeArray(1)
 
-  /** Vertex v0, will throw on a 0 vertices polygon. */
+  /** Vertex v0, will throw on a 0 vertices polygon. By convention the default position for this vertex is at the top or 12 o'clock position of the
+   * polygon or the vertex immediately anti clockwise if there is no vertex in this position. */
   final def v0: Pt2 = v0x pp v0y
 
   /** Currently throws, not sure if that is the correct behaviour. Creates a bounding rectangle for a collection of 2d points */
