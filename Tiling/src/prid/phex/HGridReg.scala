@@ -79,13 +79,14 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
     r0s + r2s + thisRow
   }
 
-  override def outerPolygon: PolygonHC = {
-    val buff = HCoordBuff()
-    val r0 = topCenR
-    val c0 = rowLeftCenC(r0)
-    val tlCen = HCen(r0, c0)
+  override def outerPolygon: PolygonHC =
+  { val buff = HCoordBuff()
+    val tc = topCenR
+    val tlc = rowLeftCenC(tc)
+    val tlCen = HCen(tc, tlc)
     buff.grow(tlCen.v5)
-    ???
+
+    PolygonHC.fromBuff(buff)
   }
 
 

@@ -122,10 +122,12 @@ trait IntNSeqLikeCompanion[A <: IntNElem, AA <: IntNSeqLike[A]]
   def elemNumInts: Int
 
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an ArrayBuffer[Int]. */
-  def fromBuffer(buff: ArrayBuffer[Int]): AA = fromArray(buff.toArray[Int])
+  def fromBuffer(buffer: ArrayBuffer[Int]): AA = fromArray(buffer.toArray[Int])
 
   /** This method allows a flat Array[Int] based collection class of type M, the final type, to be created from an Array[Int]. */
   def fromArray(array: Array[Int]): AA
+
+  def fromBuff(buff: IntNBuff[A]): AA = fromArray(buff.unsafeBuffer.toArray)
 
   /** returns a collection class of type ArrA, whose backing Array[Int] is uninitialised. */
   def uninitialised(length: Int): AA = fromArray(new Array[Int](length * elemNumInts))
