@@ -44,7 +44,7 @@ trait HGridMulti extends HGridSys with TGridMulti
   }
 
   /** Combine adjacent elements of data in a row. */
-  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys): RArr[HCenRowTuple[A]] = grids.flatMap(_.rowCombine(data, this))
+  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys): RArr[HCenRowPair[A]] = grids.flatMap(_.rowCombine(data, this))
 
   final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
   override def adjTilesOfTile(tile: HCen): HCenArr = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))

@@ -145,25 +145,25 @@ trait HGrid extends Any with TGrid with HGridSys
     }
   }
 
-  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys = this): RArr[HCenRowTuple[A]] =
+  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys = this): RArr[HCenRowPair[A]] =
   {
-    flatMapRows[RArr[HCenRowTuple[A]]]{ r => if (cenRowEmpty(r)) RArr()
+    flatMapRows[RArr[HCenRowPair[A]]]{ r => if (cenRowEmpty(r)) RArr()
     else
     { var currStart: Int = rowLeftCenC(r)
       var currC: Int = currStart
       var currVal: A = data.rc(r, currStart)(indexingGrider)
-      var list: List[HCenRowTuple[A]] = Nil
+      var list: List[HCenRowPair[A]] = Nil
       rowForeach(r){hc =>
         currC = hc.c
         if (data(hc)(indexingGrider) != currVal) {
-          val newHCenRowValue = HCenRowTuple(r, currStart, (currC - currStart + 4) / 4, currVal)
+          val newHCenRowValue = HCenRowPair(r, currStart, (currC - currStart + 4) / 4, currVal)
           list :+= newHCenRowValue
           currVal = data(hc)(indexingGrider)
           currStart = hc.c
         }
 
       }
-      val newHCenRowValue = HCenRowTuple(r, currStart, (currC - currStart + 4) / 4, currVal)
+      val newHCenRowValue = HCenRowPair(r, currStart, (currC - currStart + 4) / 4, currVal)
       list :+= newHCenRowValue
       list.toArr
     }

@@ -1,11 +1,8 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-trait HCenRowLike
+class HCenRow(val r: Int, val c: Int, val num: Int)
 {
-  def r: Int
-  def c: Int
-  def num: Int
   def verts: HVertArr = new HVertArr(setHVertArray)
 
   /** The polygon of this tile, specified in [[HVert]] coordinates. */
@@ -32,10 +29,14 @@ trait HCenRowLike
   }
 }
 
-/** A row or a segment a row of Hex tiles in a grid. The start / left centre HexGrid coordinate and the number of tiles in the row.. */
-case class HCenRow(r: Int, c: Int, num: Int) extends HCenRowLike
-
-case class HCenRowTuple[A](r: Int, c: Int, num: Int, value: A) extends HCenRowLike
+object HCenRow
 {
-  def polygonHCTuple: PolygonHCPair[A] = new PolygonHCPair[A](setHVertArray, value)
+  def apply(r: Int, c: Int, num: Int): HCenRow = new HCenRow(r, c, num)
+}
+
+case class HCenRowPair[A](r: Int, c: Int, num: Int, a2: A) extends PairElem[HCenRow, A]
+{
+  override def a1: HCenRow = HCenRow(r, c, num)
+
+  def polygonHCTuple: PolygonHCPair[A] = new PolygonHCPair[A](a1.setHVertArray, a2)
 }
