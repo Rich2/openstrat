@@ -81,14 +81,19 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
 
   override def outerPolygon: PolygonHC =
   { val buff = HCoordBuff()
-    val tc = topCenR
-    val tlc = rowLeftCenC(tc)
-    val tlCen = HCen(tc, tlc)
+    val tr = topCenR
+    val tlc = rowLeftCenC(tr)
+    val tlCen = HCen(tr, tlc)
     buff.grow(tlCen.v5)
+    val trc = rowRightCenC(tr)
+    iToForeach(tlc, trc, 4){ c =>
+      val cen = HCen(tr, c)
+      buff.grow(cen.v0)
+      buff.grow(cen.v1)
+    }
 
     PolygonHC.fromBuff(buff)
   }
-
 
   /* Methods that operate on Hex tile sides. ******************************************************/
 
