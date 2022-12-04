@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, reflect.ClassTag, pgui._, Colour.Black
+import geom._, reflect.ClassTag, pgui._
 
 /** System of hex tile grids. Can be a single [[HGrid]] or a system of multiple hex tile grids. */
 trait HGridSys extends Any with TGridSys
@@ -73,7 +73,10 @@ trait HGridSys extends Any with TGridSys
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array SeqDef data. */
   def arrIndex(r: Int, c: Int): Int
-  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys): RArr[HCenRowPair[A]]
+
+  /** For each row combine data layer into RArr[HCenRowPair]. May be superceded */
+  def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]]
+
   def adjTilesOfTile(tile: HCen): HCenArr
 
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)

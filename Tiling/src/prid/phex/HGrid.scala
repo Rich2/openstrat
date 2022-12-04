@@ -145,20 +145,20 @@ trait HGrid extends Any with TGrid with HGridSys
     }
   }
 
-  def rowCombine[A <: AnyRef](data: HCenLayer[A], indexingGrider: HGridSys = this): RArr[HCenRowPair[A]] =
+  override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys = this): RArr[HCenRowPair[A]] =
   {
     flatMapRows[RArr[HCenRowPair[A]]]{ r => if (cenRowEmpty(r)) RArr()
     else
     { var currStart: Int = rowLeftCenC(r)
       var currC: Int = currStart
-      var currVal: A = data.rc(r, currStart)(indexingGrider)
+      var currVal: A = layer.rc(r, currStart)(indexingGSys)
       var list: List[HCenRowPair[A]] = Nil
       rowForeach(r){hc =>
         currC = hc.c
-        if (data(hc)(indexingGrider) != currVal) {
+        if (layer(hc)(indexingGSys) != currVal) {
           val newHCenRowValue = HCenRowPair(r, currStart, (currC - currStart + 4) / 4, currVal)
           list :+= newHCenRowValue
-          currVal = data(hc)(indexingGrider)
+          currVal = layer(hc)(indexingGSys)
           currStart = hc.c
         }
 
