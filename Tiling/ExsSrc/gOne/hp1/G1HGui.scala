@@ -46,8 +46,14 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
 
   def moveSegPairs: LineSegPairArr[Player] = moves2.optMapOnA1(_.projLineSeg)
 
-  def outPoly = gridSys.asInstanceOf[HGrid].outerPolygon
-  def outPoly2 = outPoly.map(proj.transCoord(_)).fill(Colour.Red.modAlpha(128))
+  def outPoly: Option[PolygonFill] = gridSys match
+  { case g: HGrid =>
+    { val p1 = g.outerPolygon
+      val p2 = p1.map(proj.transCoord(_)).fill(Colour.Violet.modAlpha(108))
+      Some(p2)
+    }
+    case _ => None
+  }
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap{ (seg, pl) => seg.draw(pl.colour).arrow }
@@ -81,7 +87,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   }
   thisTop()
 
-  def frame: GraphicElems = actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs// +% outPoly2
+  def frame: GraphicElems = (actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs).appendOption(outPoly)
   proj.getFrame = () => frame
   proj.setStatusText = {str =>
     statusText = str

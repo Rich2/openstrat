@@ -76,8 +76,8 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
   override def tileActives: RArr[PolygonActive] =
     gChild.map(hc => hc.hVertPolygon.map(parent.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
 
-  override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = {
-    val buff = new ArrayBuffer[GraphicElem]
+  override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems =
+  { val buff = new ArrayBuffer[GraphicElem]
     gChild.foreach{hc => transOptCoord(hc).foreach(pt => buff.append(f(pt, hc))) }
     new RArr[GraphicElem](buff.toArray)
   }

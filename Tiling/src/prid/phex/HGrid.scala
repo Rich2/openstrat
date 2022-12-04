@@ -193,6 +193,14 @@ trait HGrid extends Any with TGrid with HGridSys
       lastC = currC
     }
     iToForeach(rowRightCenC(bottomCenR) + 2, rowLeftCenC(bottomCenR) - 2, -2){ c => buff.growInts(bottomSideR, c)}
+    lastC = rowLeftCenC(bottomCenR)
+    iToForeach(br + 2, tr, 2) { currR =>
+      val lastR = currR - 2
+      val currC = rowLeftCenC(currR)
+      val step = ife(currC > lastC, 2, -2)
+      iToForeach(lastC - 2, currC - 2, step) { c => buff.growInts(currR - 1, c) }
+      lastC = currC
+    }
     PolygonHC.fromBuff(buff)
   }
 
