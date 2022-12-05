@@ -79,6 +79,9 @@ object RPairArr
     pairs.iForeach { (i, p) => a1s(i) = p.a1; a2s(i) = p.a2 }
     new RPairArr[A1, A2](a1s, a2s)
   }
+
+  def fromBuff[A1, A2](buff: RPairBuff[A1, A2])(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): RPairArr[A1, A2] =
+    new RPairArr[A1, A2](buff.b1Buffer.toArray, buff.b2Buffer.toArray)
 }
 
 /** R for the first component of the [[PairNoA1ParamElem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as
@@ -93,7 +96,7 @@ class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer
 }
 
 object RPairBuff
-{
+{ /** Factory apply method for [[RPairBuff]] class. Creates an empty [[Buff]] class with a default buffer for expansion of 4 elements. */
   def apply[B1, B2](buffLen: Int = 4): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](buffLen), new ArrayBuffer[B2](buffLen))
 }
 

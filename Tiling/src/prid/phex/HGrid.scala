@@ -1,8 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
-
-import scala.reflect.ClassTag
+import geom._, reflect.ClassTag
 
 /** A grid of hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
@@ -124,7 +122,7 @@ trait HGrid extends Any with TGrid with HGridSys
     val endCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
     if (hCenExists(endCen)) endCen else excep("Illegal end hex in unsafeStep method.")
   }
-  def ghj: RBuff[AnyRef] = ???
+
   override def findStepEnd(startHC: HCen, step: HDirn): Option[HCen] =
   { val endHC = HCen(startHC.r + step.tr, startHC.c + step.tc)
     if (hCenExists(startHC) & hCenExists(endHC)) Some(endHC) else None
@@ -147,10 +145,10 @@ trait HGrid extends Any with TGrid with HGridSys
     }
   }
 
+  /** Implementation incomplete. */
   def rowCombine[A <: AnyRef](r: Int, layer: HCenLayer[A], indexingGSys: HGridSys = this)(implicit ct2: ClassTag[A]): RPairArr[HCenRow, A] =
-  {
-    val buff: RPairBuff[HCenRow, A] = RPairBuff[HCenRow, A]()
-    RPairArr[HCenRow, A]()
+  { val buff: RPairBuff[HCenRow, A] = RPairBuff[HCenRow, A]()
+    RPairArr.fromBuff(buff)
   }
 
   override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys = this): RArr[HCenRowPair[A]] =
