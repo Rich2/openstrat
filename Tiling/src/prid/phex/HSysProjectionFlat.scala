@@ -23,11 +23,14 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
     case _ =>
   }
 
+  /** This is child grid the subset of the grid that should actually be sent to the display to be rendered. */
   var gChild: HGridSys = getGChild
+
   def setGChild: Unit = gChild = getGChild
 
-  def getGChild : HGridSys = {
-    def newBottom: Int = (focus.y / Sqrt3 + panel.bottom / pixRScale - 1).round.toInt.roundUpToEven
+  /** This is the method to recreate the grid system subset that should be displayed. */
+  def getGChild : HGridSys =
+  { def newBottom: Int = (focus.y / Sqrt3 + panel.bottom / pixRScale - 1).round.toInt.roundUpToEven
     val newTop: Int = (focus.y / Sqrt3 + panel.top / pixRScale + 1).round.toInt.roundDownToEven
     val newLeft: Int = (focus.x + panel.left / pixCScale - 2).round.toInt.roundUpToEven
     val newRight: Int = (focus.x + panel.right / pixCScale + 2).round.toInt.roundDownToEven

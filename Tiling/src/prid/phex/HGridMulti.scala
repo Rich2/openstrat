@@ -77,7 +77,7 @@ trait HGridMulti extends HGridSys with TGridMulti
 
   override def defaultView(pxScale: Double = 50): HGView = grids(0).defaultView(pxScale)
   override final def sidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.sidesForeach(f))
-  override final def linksForeach(f: HSide => Unit): Unit = gridMans.foreach(_.innerSidesForeach(f))
+  override final def linksForeach(f: HSide => Unit): Unit = gridMans.foreach(_.linksForeach(f))
   override final def edgesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
 
   def sideBoolsFromGrids[A <: AnyRef](sideDataGrids: RArr[HSideBoolLayer]): HSideBoolLayer =

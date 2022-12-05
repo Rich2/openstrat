@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
-import geom._, prid._, phex._, pEarth._
+import prid._, phex._, pEarth._
 
 /** These scenarios require a [[WTile]] layer but not an [[EGridSys]]. */
 trait EScenFlat extends HSysScen
@@ -23,8 +23,8 @@ object EScenBasic
   class EScenWarmImp(val gridSys: EGridSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer, override val title: String = "EScenWarm") extends EScenBasic
 }
 
-trait EScenLongMulti extends EScenBasic{
-  override def gridSys: EGridLongMulti
+trait EScenLongMulti extends EScenBasic
+{ override def gridSys: EGridLongMulti
   def longs: RArr[LongTerrs]
   override final lazy val terrs: HCenLayer[WTile] = longs.tailfold(longs(0).terrs)(_ ++ _.terrs)
   override final lazy val sTerrs: HSideBoolLayer = gridSys.sideBoolsFromGrids(longs.map(_.sTerrs))

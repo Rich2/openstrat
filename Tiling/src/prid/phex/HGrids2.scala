@@ -24,7 +24,7 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
 
     override def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach(f)
 
-    override def innerSidesForeach(f: HSide => Unit): Unit = grid.linksForeach(f)
+    override def linksForeach(f: HSide => Unit): Unit = grid.linksForeach(f)
 
     override def outerSidesForeach(f: HSide => Unit): Unit =
     { grid.bottomRowForeachSide(f)
@@ -64,7 +64,7 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
       case hs => f(hs)
     }
 
-    override def innerSidesForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
+    override def linksForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
 
     def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
     { case r if r >= grid.topSideRow => excep(r.str + " is not an inner row.")
