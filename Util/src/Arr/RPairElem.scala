@@ -60,22 +60,29 @@ final class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) ext
   }
 }
 
+/** Companion object for [[RPairArr]], an un-specialised default [[Arr]] class for [[PairElem]]s contains factory methods for construction. */
 object RPairArr
-{
-  def apply[A1, A2](pairs: (A1, A2)*)(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]) =
+{ /** Factory apply method for constructing an [[RPairArr]] from the components of the pairs. */
+  def apply[A1, A2](pairs: (A1, A2)*)(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): RPairArr[A1, A2] =
   { val len = pairs.length
     val a1s = new Array[A1](len)
     val a2s = new Array[A2](len)
-    pairs.iForeach{(i, p) =>
-      a1s(i) = p._1
-      a2s(i) = p._2
-    }
+    pairs.iForeach{(i, p) => a1s(i) = p._1; a2s(i) = p._2 }
+    new RPairArr[A1, A2](a1s, a2s)
+  }
+
+  /** Factory method for constructing an [[RPairArr]] from [[PairElem]]s. */
+  def pairs[A1, A2](pairs: PairElem[A1, A2]*)(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]): RPairArr[A1, A2] = {
+    val len = pairs.length
+    val a1s = new Array[A1](len)
+    val a2s = new Array[A2](len)
+    pairs.iForeach { (i, p) => a1s(i) = p.a1; a2s(i) = p.a2 }
     new RPairArr[A1, A2](a1s, a2s)
   }
 }
 
-/** R for the first component of the [[PairNoA1ParamElem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as reference types
- *  the A1 type parameter does not have to inherit from [[AnyRef]]. */
+/** R for the first component of the [[PairNoA1ParamElem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as
+ *  reference types the A1 type parameter does not have to inherit from [[AnyRef]]. */
 class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer[B2]) extends PairBuff[B1, B2, RPairElem[B1, B2]]
 { override type ThisT = RPairBuff[B1, B2]
   override def typeStr: String = "GenPairBuff"
