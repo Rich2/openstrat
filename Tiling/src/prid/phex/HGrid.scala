@@ -2,6 +2,8 @@
 package ostrat; package prid; package phex
 import geom._
 
+import scala.reflect.ClassTag
+
 /** A grid of hexs. The grid may be a regular rectangle of hexs or an irregular grid with variable length rows.
  *  @groupdesc SidesGroup Trait members that operate on the sides of the Hex Grid.
  *  @groupname SidesGroup Side Members
@@ -143,6 +145,12 @@ trait HGrid extends Any with TGrid with HGridSys
     case n if n %% 4 == 0 => y - n / 2 //Subtract because n is negative, y being greater than x
     case n => y - n / 2 + 2
     }
+  }
+
+  def rowCombine[A <: AnyRef](r: Int, layer: HCenLayer[A], indexingGSys: HGridSys = this)(implicit ct2: ClassTag[A]): RPairArr[HCenRow, A] =
+  {
+    val buff: RPairBuff[HCenRow, A] = RPairBuff[HCenRow, A]()
+    RPairArr[HCenRow, A]()
   }
 
   override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys = this): RArr[HCenRowPair[A]] =

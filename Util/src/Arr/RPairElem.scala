@@ -60,6 +60,20 @@ final class RPairArr[A1, A2](val a1Array: Array[A1], val a2Array: Array[A2]) ext
   }
 }
 
+object RPairArr
+{
+  def apply[A1, A2](pairs: (A1, A2)*)(implicit ct1: ClassTag[A1], ct2: ClassTag[A2]) =
+  { val len = pairs.length
+    val a1s = new Array[A1](len)
+    val a2s = new Array[A2](len)
+    pairs.iForeach{(i, p) =>
+      a1s(i) = p._1
+      a2s(i) = p._2
+    }
+    new RPairArr[A1, A2](a1s, a2s)
+  }
+}
+
 /** R for the first component of the [[PairNoA1ParamElem]] is stored by reference. [[Buff]] for [[RPairElem]]s. Note although they are named as reference types
  *  the A1 type parameter does not have to inherit from [[AnyRef]]. */
 class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer[B2]) extends PairBuff[B1, B2, RPairElem[B1, B2]]
@@ -69,6 +83,11 @@ class RPairBuff[B1, B2](val b1Buffer: ArrayBuffer[B1], val b2Buffer: ArrayBuffer
   override def grow(newElem: RPairElem[B1, B2]): Unit = { b1Buffer.append(newElem.a1); b2Buffer.append(newElem.a2) }
   override def apply(index: Int): RPairElem[B1, B2] = new RPairElem[B1, B2](b1Buffer(index), b2Buffer(index))
   override def unsafeSetElem(i: Int, newElem: RPairElem[B1, B2]): Unit = { b1Buffer(i) = newElem.a1; b2Buffer(i) = newElem.a2 }
+}
+
+object RPairBuff
+{
+  def apply[B1, B2](buffLen: Int = 4): RPairBuff[B1, B2] = new RPairBuff[B1, B2](new ArrayBuffer[B1](buffLen), new ArrayBuffer[B2](buffLen))
 }
 
 class RPairArrMapBuilder[B1, B2](implicit ct: ClassTag[B1]) extends PairArrMapBuilder[B1, RArr[B1], B2, RPairElem[B1, B2], RPairArr[B1, B2]]
