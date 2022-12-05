@@ -55,11 +55,11 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   }
 
   /** The frame to refresh the top command bar. Note it is a ref so will change with scenario state. */
-  def thisTop(): Unit = reTop(bTurn %: proj.buttons)// navButtons)
+  def thisTop(): Unit = reTop(bTurn %: proj.buttons)
   statusText = s"Game Three. Scenario has ${gridSys.numTiles} tiles."
   thisTop()
 
-  def frame: GraphicElems = terrPolys/*).slate(-focus).scale(cPScale)*/ ++ actives ++ lines ++ unitGraphics ++ texts
+  def frame: GraphicElems = terrPolys ++ actives ++ lines ++ unitGraphics ++ texts
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
