@@ -7,7 +7,7 @@ case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
 {
   final override lazy val grid: EGridLong = sys.grids(thisInd)
 
-  final override def offset: Vec2 = Vec2(0, sys.cGridDelta * thisInd)
+  final override def offset: Vec2 = Vec2(0, (sys.gridsXSpacing - sys.hcDelta) * (thisInd + 0.4))
   final override def indexStart: Int = grid.numTiles * thisInd
 
   override def sidesForeach(f: HSide => Unit): Unit = iToForeach(grid.bottomCenR - 1, grid.topCenR + 1)(rowSidesForeach(_)(f))

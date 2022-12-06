@@ -15,7 +15,12 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   val sTerrs: HSideBoolLayer = scen.sTerrs
 
   def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pt => pt.a1.fill(pt.a2.colour) }
-  debvar(terrPolys.length)
+  //debvar(terrPolys.length)
+  gridSys match {
+    case gs: EGridLongMulti => { deb(s"hcDelta ${gs.hcDelta}")
+      deb(s"cGridDelta ${gs.gridsXSpacing}") }
+    case _ =>
+  }
 
   def tiles: RArr[PolygonCompound] = gridSys.map{ hc => hc.polygonReg.fillActive(terrs(hc).colour.modAlpha(128), hc.polygonReg) }
   def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSegDepr, 0.3).fill(Colour.DarkBlue) }
@@ -25,7 +30,7 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   }
 
   def thisTop(): Unit = reTop(proj.buttons ++ navButtons)
-  def frame: GraphicElems = terrPolys ++
+  def frame: GraphicElems = //terrPolys ++
     (ife(cPScale > 25, tileStrs, tiles) ++ sides).slate(-focus).scale(cPScale)
   repaint()
   proj.getFrame = () => frame

@@ -8,7 +8,9 @@ trait EGridLongMulti extends EGridSys with EGridMulti
   override def grids: RArr[EGridLong]
 
   override val gridMans: RArr[EGridLongMan]
-  def cGridDelta: Double
+
+  /** The spacing between the centres of the grid on the X axis. */
+  def gridsXSpacing: Double
 
   /** The longitude Int for the head grid. */
   def headGridInt: Int

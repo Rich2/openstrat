@@ -53,7 +53,8 @@ trait HGridMan
 
   def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 
-  /** Unfortunately not sure exactly how this works. */
+  /** The offet is used in the implementation of the flatHCoordToPt2(hCoord: HCoord) method in [[HGridMulti]] where it is added to the [[Pt2]] value
+   * given by the [[HGrid]]. */
   def offset: Vec2
 
   /** Default implementation may need removal. */

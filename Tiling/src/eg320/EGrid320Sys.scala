@@ -8,8 +8,8 @@ trait EGrid320Sys extends EGridSys
 }
 
 /** Grid systems for 320km [[EGrid]]s. */
-trait EGrid320LongMulti extends EGridLongMulti with EGrid320Sys {
-  override def adjTilesOfTile(tile: HCen): HCenArr = ???
+trait EGrid320LongMulti extends EGridLongMulti with EGrid320Sys
+{ override def adjTilesOfTile(tile: HCen): HCenArr = ???
 
   //override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = ???
 
@@ -32,7 +32,7 @@ object EGrid320LongMulti
 
     override val gridMans: RArr[EGridLongMan] = ???
 
-    override def cGridDelta: Double = ???
+    override def gridsXSpacing: Double = ???
 
     /** The longitude Int for the head grid. */
     override def headGridInt: Int = ???
