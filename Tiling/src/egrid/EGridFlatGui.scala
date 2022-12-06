@@ -16,22 +16,17 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
 
   def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pt => pt.a1.fill(pt.a2.colour) }
   //debvar(terrPolys.length)
-  gridSys match {
-    case gs: EGridLongMulti => { deb(s"hcDelta ${gs.hcDelta}")
-      deb(s"cGridDelta ${gs.gridsXSpacing}") }
-    case _ =>
-  }
 
-  def tiles: RArr[PolygonCompound] = gridSys.map{ hc => hc.polygonReg.fillActive(terrs(hc).colour.modAlpha(128), hc.polygonReg) }
+  def tiles: RArr[PolygonCompound] = gridSys.map{ hc => hc.hVertPolygon.toPolygon(gridSys.flatHCoordToPt2(_)).fillActive(terrs(hc).colour.modAlpha(128), hc) }
   def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSegDepr, 0.3).fill(Colour.DarkBlue) }
 
   def tileStrs: RArr[PolygonCompound] = gridSys.map{ hc =>
-    hc.polygonReg.fillTextActive(terrs(hc).colour.modAlpha(128), hc.polygonReg, hc.rcStr32 --- hc.rcStr, 12, terrs(hc).contrastBW)
+    hc.hVertPolygon.toPolygon(gridSys.flatHCoordToPt2(_)).fillTextActive(terrs(hc).colour.modAlpha(128), hc, hc.rcStr32 --- hc.rcStr, 12, terrs(hc).contrastBW)
   }
 
   def thisTop(): Unit = reTop(proj.buttons ++ navButtons)
-  def frame: GraphicElems = //terrPolys ++
-    (ife(cPScale > 25, tileStrs, tiles) ++ sides).slate(-focus).scale(cPScale)
+  def frame: GraphicElems = terrPolys ++
+   /* (ife(cPScale > 25, tileStrs, tiles) ++*/( sides).slate(-focus).scale(cPScale)
   repaint()
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

@@ -10,8 +10,7 @@ trait HGridMulti extends HGridSys with TGridMulti
   def gridMans: RArr[ManT]
   def numGrids: Int = gridMans.length
 
-  override def flatHCoordToPt2(hCoord: HCoord): Pt2 = unsafeGetManFunc(hCoord){m => debvar(m.offset)
-    m.grid.flatHCoordToPt2(hCoord) + m.offset}
+  override def flatHCoordToPt2(hCoord: HCoord): Pt2 = unsafeGetManFunc(hCoord){m => m.grid.flatHCoordToPt2(hCoord) + m.offset }
 
   override def coordCen: HCoord = grids(numGrids / 2).coordCen
 
