@@ -1,5 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
+import geom._
 
 class HSideLayer[A <: AnyRef](val unsafeArr: Array[A])
 
@@ -37,12 +38,24 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
 
   def trueHSides(implicit gridSys: HGridSys): HSideArr = truesMap(hs => hs)
 
-  def projTruesMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: HSide => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
-    var i = 0
+  def projTruesMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: HSide => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { var i = 0
     val buff = build.newBuff()
     proj.gChild.sidesForeach { hs =>
       if (unsafeArray(i))
         build.buffGrow(buff, f(hs))
+      i += 1
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  def projTruesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  {
+    var i = 0
+    val buff = build.newBuff()
+    proj.gChild.sidesForeach { hs =>
+      if (unsafeArray(i))
+        proj.transOptLineSeg(hs.lineSegHC).foreach(ls => build.buffGrow(buff, f(ls)))
       i += 1
     }
     build.buffToSeqLike(buff)

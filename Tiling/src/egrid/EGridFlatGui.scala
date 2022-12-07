@@ -17,9 +17,9 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pt => pt.a1.fill(pt.a2.colour) }
   //debvar(terrPolys.length)
 
-  def tiles: RArr[PolygonCompound] = gridSys.map{ hc => hc.hVertPolygon.toPolygon(gridSys.flatHCoordToPt2(_)).fillActive(terrs(hc).colour.modAlpha(128), hc) }
+  //def tiles: RArr[PolygonCompound] = gridSys.map{ hc => hc.hVertPolygon.toPolygon(gridSys.flatHCoordToPt2(_)).fillActive(terrs(hc).colour.modAlpha(128), hc) }
  // def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSegDepr, 0.3).fill(Colour.DarkBlue) }
-  def sides2: GraphicElems = sTerrs.projTruesMap(proj){hs => Rectangle.fromAxisRatio(proj.lineSeg(hs), 0.3).fill(Colour.DarkBlue) }
+  def sides2: GraphicElems = sTerrs.projTruesLineSegMap(proj){ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
 
   def tileStrs: RArr[PolygonCompound] = gridSys.map{ hc =>
     hc.hVertPolygon.toPolygon(gridSys.flatHCoordToPt2(_)).fillTextActive(terrs(hc).colour.modAlpha(128), hc, hc.rcStr32 --- hc.rcStr, 12, terrs(hc).contrastBW)
