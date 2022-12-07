@@ -14,7 +14,7 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
 
-  def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pt => pt.a1.fill(pt.a2.colour) }
+  def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
   //debvar(terrPolys.length)
 
   //def tiles: RArr[PolygonCompound] = gridSys.map{ hc => hc.hVertPolygon.toPolygon(gridSys.flatHCoordToPt2(_)).fillActive(terrs(hc).colour.modAlpha(128), hc) }
