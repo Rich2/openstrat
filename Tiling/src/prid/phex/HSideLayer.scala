@@ -37,6 +37,17 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
 
   def trueHSides(implicit gridSys: HGridSys): HSideArr = truesMap(hs => hs)
 
+  def projTruesMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: HSide => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
+    var i = 0
+    val buff = build.newBuff()
+    proj.gChild.sidesForeach { hs =>
+      if (unsafeArray(i))
+        build.buffGrow(buff, f(hs))
+      i += 1
+    }
+    build.buffToSeqLike(buff)
+  }
+
   def set(hs: HSide, value: Boolean)(implicit grid: HGridSys): Unit = {
     val i = grid.sideArrIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")
