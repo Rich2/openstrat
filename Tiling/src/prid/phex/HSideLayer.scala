@@ -49,9 +49,13 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
 
+  /** Maps across all the trues in this Side Layer that exist in the projection. */
+  def projTruesLineSegMap[B, ArrB <: Arr[B]](f: LineSeg => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
+    projTruesLineSegMap(proj)(f)(build)
+
+  /** Maps across all the trues in this Side Layer that exist in the projection. */
   def projTruesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
-  {
-    var i = 0
+  { var i = 0
     val buff = build.newBuff()
     proj.gChild.sidesForeach { hs =>
       if (unsafeArray(i))
@@ -60,6 +64,8 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
     }
     build.buffToSeqLike(buff)
   }
+
+  //def projFalsesLineSegCensMap
 
   def set(hs: HSide, value: Boolean)(implicit grid: HGridSys): Unit = {
     val i = grid.sideArrIndex(hs)
