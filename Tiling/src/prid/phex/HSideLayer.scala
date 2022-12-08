@@ -55,7 +55,18 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
 
   /** Maps across all the trues in this Side Layer that exist in the projection. */
   def projTruesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
-  { var i = 0
+  { val buff = build.newBuff()
+    proj.gChild.sidesForeach { hs =>
+      if (apply(hs)(proj.parent))
+        proj.transOptLineSeg(hs.lineSegHC).foreach(ls => build.buffGrow(buff, f(ls)))
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  /*def projFalsesLineSegCensMap[A <: AnyRef, B, ArrB <: Arr[B]](layer: HCenLayer[A], proj: HSysProjection)(f: (LineSeg, A, A) => B)(
+    implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  {
+    var i = 0
     val buff = build.newBuff()
     proj.gChild.sidesForeach { hs =>
       if (unsafeArray(i))
@@ -63,15 +74,14 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
       i += 1
     }
     build.buffToSeqLike(buff)
-  }
-
-  //def projFalsesLineSegCensMap
+  }*/
 
   def set(hs: HSide, value: Boolean)(implicit grid: HGridSys): Unit = {
     val i = grid.sideArrIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")
     unsafeArray(i) = value
   }
+
   def set(r: Int, c: Int, value: Boolean)(implicit grid: HGridSys): Unit = { unsafeArray(grid.sideArrIndex(r, c)) = value }
   def setTrues(hSides: HSideArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
   def setTrues(hSides: HSide*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
