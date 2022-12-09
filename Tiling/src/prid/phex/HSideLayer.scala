@@ -68,10 +68,11 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   {
     var i = 0
     val buff = build.newBuff()
-    proj.gChild.sidesForeach { hs =>
+    proj.gChild.linksForeach { hs =>
       if (unsafeArray(i))
-        proj.transOptLineSeg(hs.lineSegHC).foreach(ls => build.buffGrow(buff, f(ls)))
-      i += 1
+        proj.transOptLineSeg(hs.lineSegHC).foreach(ls =>
+          val t1 = layer()
+          build.buffGrow(buff, f(ls, )))
     }
     build.buffToSeqLike(buff)
   }*/
