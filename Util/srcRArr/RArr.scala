@@ -90,6 +90,13 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     new RArr(newArray)
   }
 
+  def appends[AA >: A](elems: AA *)(implicit ct: ClassTag[AA]): RArr[AA] = {
+    val newArray = new Array[AA](length + elems.length)
+    unsafeArray.copyToArray(newArray)
+    elems.iForeach{(i, aa) => newArray(length + i) = aa }
+    new RArr(newArray)
+  }
+
   /** Alias for prepend. Functionally prepends element to array. Allows type widening. There is no precaternateRefs method, as this would serve no
    *  purpose. The ::: method on Lists is required for performance reasons. */
   @inline def %: [AA >: A](op: AA @uncheckedVariance)(implicit ct: ClassTag[AA] @uncheckedVariance): RArr[AA] = prepend(op)(ct)
