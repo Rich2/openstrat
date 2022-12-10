@@ -103,7 +103,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */
   def sideMap[B, BB <: Arr[B]](f1: (HSide, A) => B, f2: (HSide, A, A) => B)(implicit grid: HGrid, build: ArrMapBuilder[B, BB]): BB =
-    grid.sidesMap{ hs => hs.tiles match
+    grid.sidesMap{ hs => hs.tilesOld match
       {
         case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
         case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
@@ -114,7 +114,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** Maps the links or inner sides to an immutable Array, using the data of this HCenArr. It takes a function for the links or inner sides of the
    *  grid that takes the [[HSide]] and the two adjacent hex tile data values. */
   def linksMap[B, BB <: Arr[B]](f: (HSide, A, A) => B)(implicit grid: HGridSys, build: ArrMapBuilder[B, BB]): BB =
-    grid.linksMap{ hs => hs.tiles match
+    grid.linksMap{ hs => hs.tilesOld match
     { case (c1, c2)  => f(hs, apply(c1), apply(c2))
     }
   }
@@ -123,7 +123,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */
   def sideFlatMap[BB <: Arr[_]](f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
-    grid.sidesFlatMap{ hs => hs.tiles match
+    grid.sidesFlatMap{ hs => hs.tilesOld match
     { case (c1, c2) if grid.hCenExists(c1) & grid.hCenExists(c2) =>f2(hs, apply(c1), apply(c2))
       case (c1, _) if grid.hCenExists(c1) => f1(hs, apply(c1))
       case (_, c2) => f1(hs, apply(c2))
@@ -133,14 +133,14 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** FlatMaps the links / inner sides to an immutable Array, using the data of this HCenArr. It takes a function, that takes the [[HSide]] and the
    *  two adjacent hex tile data values. */
   def linksFlatMap[BB <: Arr[_]](f: (HSide, A, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
-    grid.linksFlatMap { hs => f(hs, apply(hs.tile1), apply(hs.tile2)) }
+    grid.linksFlatMap { hs => f(hs, apply(hs.tile1Old), apply(hs.tile2Old)) }
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
   def projSideFlatMap[BB <: Arr[_]](proj: HSysProjection)(f1: (HSide, A) => BB, f2: (HSide, A, A) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
     proj.gChild.sidesFlatMap { hs =>
-      hs.tiles match {
+      hs.tilesOld match {
         case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f2(hs, apply(proj.parent, c1), apply(proj.parent, c2))
         case (c1, _) if proj.gChild.hCenExists(c1) => f1(hs, apply(proj.parent, c1))
         case (_, c2) => f1(hs, apply(proj.parent, c2))
@@ -157,7 +157,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
   def projLinksFlatMap[BB <: Arr[_]](proj: HSysProjection)(f: (HSide, A, A) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
-    proj.gChild.linksFlatMap { hs => f(hs, apply(proj.parent, hs.tile1), apply(proj.parent, hs.tile2)) }
+    proj.gChild.linksFlatMap { hs => f(hs, apply(proj.parent, hs.tile1Old), apply(proj.parent, hs.tile2Old)) }
 
   /** Maps the sides to an immutable Array, using the data of this [[HCenLayer]]. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
@@ -170,7 +170,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    * tile data values. */
   def projLinksLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (LineSeg, A, A) => Option[B])(implicit build: ArrMapBuilder[B, BB]): BB =
     proj.gChild.linksOptMap { hs =>
-      hs.tiles match {
+      hs.tilesOld match {
         case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f(hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))
       }
     }
