@@ -1,9 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package prid; package phex
+package ostrat; package prid; package phex; package pduo
 import geom._
 
 /** This class may be removed. Its for the development of [[HGridSys]]. So just 2 regular grids side by side, to make an easy start on the general problem. */
-final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends HGridMulti
+final class HGridsDuo(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC1: Int, val minC2: Int, maxC2: Int) extends HGridMulti
 { This2 =>
   type ManT = HGridMan
 
@@ -129,12 +129,12 @@ final class HGrids2(val minCenR: Int, val maxCenR: Int, val minC1: Int, val maxC
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object HGrids2
+object HGridsDuo
 {
-  def apply(minR: Int, maxR: Int, minC1: Int, maxC1: Int, minC2: Int, maxC2: Int): HGrids2 = minC2 match
+  def apply(minR: Int, maxR: Int, minC1: Int, maxC1: Int, minC2: Int, maxC2: Int): HGridsDuo = minC2 match
   { case m2 if m2 >= minC1 & m2 <= maxC1 => excep("Overlapping grids")
     case _ if maxC2 >= minC1 & maxC2 <= maxC1 => excep("Overlapping grids")
     case _ if (maxC1 + minC2).div4Rem0 => excep("Grids do not align. (maxC1 + minC2).div4 == 0")
-    case _ => new HGrids2(minR, maxR, minC1, maxC1, minC2, maxC2)
+    case _ => new HGridsDuo(minR, maxR, minC1, maxC1, minC2, maxC2)
   }
 }
