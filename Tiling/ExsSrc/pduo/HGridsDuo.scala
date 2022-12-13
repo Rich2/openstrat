@@ -14,8 +14,8 @@ final class HGridsDuo(val minCenR: Int, val maxCenR: Int, val minC1: Int, val ma
 
   val grid2OffsetC: Int = maxC1 - minC2 + 2
 
-  val gridMan1: HGridMan = new GridMan1(this, grid1)
-  val gridMan2: HGridMan = new GridMan2(this, grid2)
+  val gridMan1: HGridMan = new GridMan1(grid1, grid2OffsetC)
+  val gridMan2: HGridMan = new GridMan2(grid2, grid2OffsetC)
   override val gridMans: RArr[HGridMan] = RArr(gridMan1, gridMan2)
 
   override def unsafeGetMan(r: Int, c: Int): HGridMan = ife(c <= maxC1, gridMan1, gridMan2)

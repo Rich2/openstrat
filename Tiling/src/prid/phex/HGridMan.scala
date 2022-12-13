@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import ostrat.geom._
 
 /** [[HGrid]] manager. The motivation for this class is that a tile grid has no knowledge of the multi tile grid system within which it has been
- *  placed. The idea is to encapsulate the code for managing a grid within an object rather than having it allwithin the [[HGridSys]] Not sure if its
+ *  placed. The idea is to encapsulate the code for managing a grid within an object rather than having it all within the [[HGridSys]] Not sure if its
  *  a good idea or not. */
 trait HGridMan
 { /** The multi grid system that contains the grid that this is managing. */

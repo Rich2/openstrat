@@ -2,13 +2,13 @@
 package ostrat; package prid; package phex; package pduo
 import geom._
 
-class GridMan2(val sys: HGridsDuo, val grid: HGridReg) extends HGridMan
+class GridMan2(val grid: HGridReg, grid2OffsetC: Int) extends HGridMan
 {
   def thisInd: Int = 1
-
+  def sys: HGridsDuo = ???
   override val indexStart: Int = numTiles
 
-  override def offset: Vec2 = Vec2(sys.maxC1 - sys.minC2 + 2, 0)
+  override def offset: Vec2 = Vec2(grid2OffsetC + 2, 0)
 
   def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach {
     case hs if hs.c == grid.leftSideC + 1 & hs.r == grid.topSideR => f(hs)
@@ -37,15 +37,15 @@ class GridMan2(val sys: HGridsDuo, val grid: HGridReg) extends HGridMan
   }
 
   override def outSteps(r: Int, c: Int): HStepCenArr = (r, c) match
-  { case (r, c) if r == grid.topCenR & c == grid.leftCenC => HStepCenArr((HexLt, r, c + sys.grid2OffsetC - 4), (HexDL, r - 2, c + sys.grid2OffsetC - 2))
-    case (r, c) if r == grid.topCenR & c == grid.leftCenC + 2 => HStepCenArr((HexLt, r, c + sys.grid2OffsetC - 4))
+  { case (r, c) if r == grid.topCenR & c == grid.leftCenC => HStepCenArr((HexLt, r, c + grid2OffsetC - 4), (HexDL, r - 2, c + grid2OffsetC - 2))
+    case (r, c) if r == grid.topCenR & c == grid.leftCenC + 2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4))
 
-    case (r, c) if r == grid.bottomCenR & c == grid.leftCenC => HStepCenArr((HStepUL, r + 2, c + sys.grid2OffsetC - 2), (HexLt, r, c + sys.grid2OffsetC - 4))
-    case (r, c) if r == grid.bottomCenR & c == grid.leftCenC + 2 => HStepCenArr((HexLt, r, c + sys.grid2OffsetC - 4))
+    case (r, c) if r == grid.bottomCenR & c == grid.leftCenC => HStepCenArr((HStepUL, r + 2, c + grid2OffsetC - 2), (HexLt, r, c + grid2OffsetC - 4))
+    case (r, c) if r == grid.bottomCenR & c == grid.leftCenC + 2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4))
 
     case (r, c) if c == grid.leftCenC =>
-      HStepCenArr((HStepUL, r + 2, c + sys.grid2OffsetC - 2), (HexLt, r, c + sys.grid2OffsetC - 4), (HexDL, r - 2, c + sys.grid2OffsetC - 2))
-    case (r, c) if c == grid.leftCenC + 2 => HStepCenArr((HexLt, r, c + sys.grid2OffsetC - 4))
+      HStepCenArr((HStepUL, r + 2, c + grid2OffsetC - 2), (HexLt, r, c + grid2OffsetC - 4), (HexDL, r - 2, c + grid2OffsetC - 2))
+    case (r, c) if c == grid.leftCenC + 2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4))
 
     case _ => HStepCenArr()
   }
