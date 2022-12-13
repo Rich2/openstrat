@@ -17,19 +17,28 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
   //debvar(terrPolys.length)
 
-  //def tiles: RArr[PolygonCompound] = gridSys.map{ hc => hc.hVertPolygon.toPolygon(gridSys.flatHCoordToPt2(_)).fillActive(terrs(hc).colour.modAlpha(128), hc) }
  // def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSegDepr, 0.3).fill(Colour.DarkBlue) }
   def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
 
-  def tileStrs: RArr[PolygonCompound] = gridSys.map{ hc =>
-    hc.hVertPolygon.toPolygon(gridSys.flatHCoordToPt2(_)).fillTextActive(terrs(hc).colour.modAlpha(128), hc, hc.rcStr32 --- hc.rcStr, 12, terrs(hc).contrastBW)
-  }
+  def actives: RArr[PolygonActive] = proj.tileActives
 
-  def tileStrs2: GraphicElems = proj.hCenMap{ (pt, hc) => pt.textAt(hc.rcStr --- hc.rcStr32)}
+  def tileStrs2: GraphicElems = proj.hCenMap{ (pt, hc) => pt.textAt(hc.rcStr --- hc.rcStr32, 12, terrs(hc).contrastBW)}
 
   def thisTop(): Unit = reTop(proj.buttons)// ++ navButtons)
-  def frame: GraphicElems = terrPolys ++ sides1 ++ tileStrs2
+  def frame: GraphicElems = terrPolys ++ actives ++ sides1 ++ tileStrs2
  //  /* (ife(cPScale > 25, tileStrs, tiles) ++*/( sides).slate(-focus).scale(cPScale)
+
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
+    case (LeftButton, _, cl) => {
+      selected = cl
+      statusText = selected.headFoldToString("Nothing Selected")
+      thisTop()
+    }
+
+    case (_, _, h) => deb("Other; " + h.toString)
+  }
+
+
   repaint()
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

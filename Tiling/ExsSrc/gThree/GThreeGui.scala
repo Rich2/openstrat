@@ -25,7 +25,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
   def unitGraphics: RArr[PolygonCompound] = units.projSomeHcPtMap { (p, hc, pt) =>
     Rect(160, 120, pt).fillDrawTextActive(p.colour, p, p.team.name + "\n" + hc.rcStr, 24, 2.0) }
 
-  def texts: RArr[TextGraphic] = units.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.rcStr, 14, terrs(hc).contrastBW) }
+  def texts: RArr[TextGraphic] = units.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
 
   def moveGraphics: GraphicElems = units.someHCMapArr{ (u, hc) => LineSegHC(hc, hc.unsafeStep(u.cmds(0))).oldLineSeg.draw(units.unSafeApply(hc).colour)}
 
