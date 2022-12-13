@@ -15,55 +15,7 @@ final class HGridsDuo(val minCenR: Int, val maxCenR: Int, val minC1: Int, val ma
   val grid2OffsetC: Int = maxC1 - minC2 + 2
 
   val gridMan1: HGridMan = new GridMan1(this, grid1)
-
-  val gridMan2: HGridMan = new HGridMan
-  { override val sys = This2
-    override val grid: HGridReg = grid2
-    def thisInd: Int = 1
-    override val indexStart: Int = grid1.numTiles
-    override def offset: Vec2 = Vec2(maxC1 - minC2 + 2, 0)
-
-    def sidesForeach(f: HSide => Unit): Unit = grid.sidesForeach{
-      case hs if hs.c == grid.leftSideC + 1 & hs.r == grid.topSideR => f(hs)
-      case hs if hs.c == grid.leftSideC + 1 & hs.r == grid.bottomSideR => f(hs)
-      case hs if hs.c <= grid.leftCenC =>
-      case hs => f(hs)
-    }
-
-    override def linksForeach(f: HSide => Unit): Unit = grid.innerSideRowsForeach(r => innerRowForeachInnerSide(r)(f))
-
-    def innerRowForeachInnerSide(r: Int)(f: HSide => Unit): Unit = r match
-    { case r if r >= grid.topSideRow => excep(r.str + " is not an inner row.")
-      case r if r <= grid.bottomSideR => excep(r.str + " is not an inner row.")
-      case r if r.div4Rem2 => iToForeach(grid.leftrem2CenC -2, grid.rightRem2CenC - 2, 4){ c => f(HSide(r, c)) }
-      case r if r.div4Rem0 => iToForeach(grid.leftRem0CenC - 2, grid.rightRem0CenC - 2, 4){ c => f(HSide(r, c)) }
-      case r => iToForeach(grid.leftCenC - 1, grid.rightCenC - 1, 2){ c => f(HSide(r, c)) }
-    }
-
-    override def outerSidesForeach(f: HSide => Unit): Unit =
-    { grid.bottomRowForeachSide(f)
-      iToForeach(grid.bottomCenR, grid.topCenR){
-        case r if r.isEven => f(HSide(r, grid.rowRightCenC(r) + 2))
-        case r => f(HSide(r, grid.rightCenC + 1))
-      }
-      grid.topRowForeachSide(f)
-    }
-
-    override def outSteps(r: Int, c: Int): HStepCenArr = (r, c) match
-    { case (r, c) if r == maxCenR & c == minC2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4), (HexDL, r - 2, c + grid2OffsetC - 2))
-      case (r, c) if r == maxCenR & c == minC2 + 2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4))
-
-      case (r, c) if r == minCenR & c == minC2 => HStepCenArr((HStepUL, r + 2, c + grid2OffsetC - 2), (HexLt, r, c + grid2OffsetC - 4))
-      case (r, c) if r == minCenR & c == minC2 + 2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4))
-
-      case (r, c) if c == minC2 =>
-        HStepCenArr((HStepUL, r + 2, c + grid2OffsetC - 2), (HexLt, r, c + grid2OffsetC - 4), (HexDL, r - 2, c + grid2OffsetC - 2))
-      case (r, c) if c == minC2 + 2 => HStepCenArr((HexLt, r, c + grid2OffsetC - 4))
-
-      case _ => HStepCenArr()
-    }
-  }
-
+  val gridMan2: HGridMan = new GridMan2(this, grid2)
   override val gridMans: RArr[HGridMan] = RArr(gridMan1, gridMan2)
 
   override def unsafeGetMan(r: Int, c: Int): HGridMan = ife(c <= maxC1, gridMan1, gridMan2)

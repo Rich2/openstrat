@@ -3,9 +3,7 @@ package ostrat; package prid; package phex; package pduo
 import geom._
 
 class GridMan1(val sys: HGridsDuo, val grid: HGridReg) extends HGridMan
-{ //override  = This2
- // override val grid: HGridReg = grid1
-  override def thisInd: Int = 0
+{ override def thisInd: Int = 0
   override val indexStart: Int = 0
 
   override def offset: Vec2 = Vec2(0, 0)
