@@ -186,7 +186,7 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
     PolygonGen(-r pp r, r pp r, r pp -r, -r pp -r).slateXY(x, y)
   }
 
-  def textAt(str: String, fontSize: Int, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str, fontSize, this, fontColour)
+  def textAt(str: String, fontSize: Int = 12, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str, fontSize, this, fontColour)
   def toText(fontSize: Int = 10, fontColour: Colour = Colour.Black): TextGraphic = TextGraphic(str1, fontSize, this, fontColour)
 
   /*def arcControlPoint(pt2: Pt2, arcCentre: Pt2): Pt2 =

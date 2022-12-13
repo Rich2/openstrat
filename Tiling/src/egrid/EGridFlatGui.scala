@@ -25,8 +25,10 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
     hc.hVertPolygon.toPolygon(gridSys.flatHCoordToPt2(_)).fillTextActive(terrs(hc).colour.modAlpha(128), hc, hc.rcStr32 --- hc.rcStr, 12, terrs(hc).contrastBW)
   }
 
+  def tileStrs2: GraphicElems = proj.hCenMap{ (pt, hc) => pt.textAt(hc.rcStr --- hc.rcStr32)}
+
   def thisTop(): Unit = reTop(proj.buttons)// ++ navButtons)
-  def frame: GraphicElems = terrPolys ++ sides1
+  def frame: GraphicElems = terrPolys ++ sides1 ++ tileStrs2
  //  /* (ife(cPScale > 25, tileStrs, tiles) ++*/( sides).slate(-focus).scale(cPScale)
   repaint()
   proj.getFrame = () => frame

@@ -36,6 +36,8 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     res
   }
 
+
+
   /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
    * [[Arr]] will be between 0 and the lengthof this [[HCenLayer]]. */
   def hcOptMap[B, BB <: Arr[B]](f: (A, HCen) => Option[B])(implicit grid: HGridSys, build: ArrMapBuilder[B, BB]): BB =
