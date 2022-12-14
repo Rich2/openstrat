@@ -74,7 +74,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   }
 
   statusText = "Welcome to ZugFuher"
-  def thisTop(): Unit = reTop(RArr(bTurn) ++ proj.buttons.appends(zoomIn, zoomOut))
+  def thisTop(): Unit = reTop(bTurn %: proj.buttons)
   thisTop()
   def frame: GraphicElems = polyFills ++ sides1 ++ (lines ++ lunits).slate(-focus).scale(cPScale) ++ active ++ text
   proj.getFrame = () => frame

@@ -19,7 +19,7 @@ case class CivGui(canv: CanvasPlatform, scen: CivScen) extends HGridSysGui("Civ 
     Rectangle.curvedCornersCentred(1.2, 0.8, 0.3, hc.toPt2Reg).parentAll(lu, lu.colour, 2, lu.colour.contrast, 16, 4.toString)
   }
 
-  def thisTop(): Unit = reTop(navButtons)
+  def thisTop(): Unit = reTop(proj.buttons)
   thisTop()
   def frame: GraphicElems = (tiles ++ lunits).slate(-focus).scale(cPScale) +% sls
   repaint()

@@ -21,47 +21,4 @@ abstract class TGridSysGui(title: String) extends CmdBarGui(title)
   var focus: Vec2 = Vec2(0, 0)
 
   def tilePScaleStr = s"scale = ${ptScale.str2} pixels per tile"
-
-
-  def zoomIn: PolygonCompound = clickButton("+"){_ =>
-    cPScale *= 1.1
-    repaint()
-    statusText = tilePScaleStr
-    thisTop()
-  }
-
-  def zoomOut: PolygonCompound = clickButton("-"){_ =>
-    cPScale /= 1.1
-    repaint()
-    statusText = tilePScaleStr
-    thisTop()
-  }
-
-  def focusAdj(uniStr: String)(f: (Vec2, Double) => Vec2): PolygonCompound = clickButton(uniStr){butt =>
-    val delta = butt(1, 10, 100, 0)
-    focus = f(focus, cPScale * delta / 40)
-    repaint()
-    statusText = focus.strSemi(2, 2)
-    thisTop()
-  }
-
-  def focusLeft: PolygonCompound = focusAdj("\u2190"){ (v, d) =>
-    val newX: Double = (v.x - d).max(gridSys.left)
-    Vec2(newX, v.y)
-  }
-  def focusRight: PolygonCompound = focusAdj("\u2192"){ (v, d) =>
-    val newX: Double = (v.x + d).min(gridSys.right)
-    Vec2(newX, v.y)
-  }
-  def focusUp: PolygonCompound = focusAdj("\u2191"){ (v, d) =>
-    val newY: Double = (v.y + d).min(gridSys.top)
-    Vec2(v.x, newY)
-  }
-
-  def focusDown: PolygonCompound = focusAdj("\u2193"){ (v, d) =>
-    val newY: Double = (v.y - d).max(gridSys.bottom)
-    Vec2(v.x, newY)
-  }
-
-  def navButtons: RArr[PolygonCompound] = RArr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
 }
