@@ -101,6 +101,11 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   def projRowsCombinePolygons(implicit proj: HSysProjection, ct: ClassTag[A]): PolygonPairArr[A] =
     projRowsCombine.map(_.polygonHCTuple.polygonPair(proj.transCoord(_)))
 
+  def projPtMap(proj: HSysProjection)(f: (Pt2, A) => GraphicElem): GraphicElems = proj.hCenMap{(pt2, hc) => f(pt2, apply(hc)(proj.gChild)) }
+
+  def projHCenPtMap(f: (HCen, Pt2, A) => GraphicElem)(implicit proj: HSysProjection): GraphicElems = projHCenPtMap(proj)(f)
+  def projHCenPtMap(proj: HSysProjection)(f: (HCen, Pt2, A) => GraphicElem): GraphicElems = proj.hCenMap{(pt2, hc) => f(hc, pt2, apply(hc)(proj.gChild)) }
+
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    *  [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    *  tile data values. */

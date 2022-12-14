@@ -15,17 +15,13 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
   val sTerrs: HSideBoolLayer = scen.sTerrs
 
   def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
-  //debvar(terrPolys.length)
-
- // def sides: GraphicElems = sTerrs.truesMap{hs => Rectangle.fromAxisRatio(hs.lineSegDepr, 0.3).fill(Colour.DarkBlue) }
   def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
-
   def actives: RArr[PolygonActive] = proj.tileActives
-
-  def tileStrs2: GraphicElems = proj.hCenMap{ (pt, hc) => pt.textAt(hc.rcStr --- hc.rcStr32, 12, terrs(hc).contrastBW)}
+  def tileStrs: GraphicElems = proj.hCenMap{ (pt, hc) => pt.textAt(hc.rcStr --- hc.rcStr32, 12, terrs(hc).contrastBW) }
+  def frame: GraphicElems = terrPolys ++ actives ++ sides1 ++ tileStrs
 
   def thisTop(): Unit = reTop(proj.buttons)// ++ navButtons)
-  def frame: GraphicElems = terrPolys ++ actives ++ sides1 ++ tileStrs2
+    
  //  /* (ife(cPScale > 25, tileStrs, tiles) ++*/( sides).slate(-focus).scale(cPScale)
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
