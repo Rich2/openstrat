@@ -12,6 +12,7 @@ case class Bc305Gui(canv: CanvasPlatform, scenIn: BcScen, viewIn: HGView) extend
   proj.setView(viewIn)
 
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
+  def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap{ (ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
@@ -24,7 +25,7 @@ case class Bc305Gui(canv: CanvasPlatform, scenIn: BcScen, viewIn: HGView) extend
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-  override def frame: GraphicElems = polyFills
+  override def frame: GraphicElems = polyFills ++ lines
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
