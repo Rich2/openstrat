@@ -6,6 +6,7 @@ displayY = 0;//Some operating systems will not allow a positive y value that pus
 // displayHeight = 1080;
 lessons = A1;
 earth = { scale = 12; latitude = 0; longitude = 0; };
+bc305 = { scen = 2; 2 = HGView(460, 520; 16); };
 ww2 = { scale = 1; latLong = LatLong(51.5; 0); };
 eGrid = { scen = 1; flat = false; };
 g1Hex = { scen = 1; 1 = HGView(4, 6; 80); 2 = HGView(6, 6; 52); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };
@@ -18,6 +19,7 @@ chess = {scen = 1 };
 
 /* Change the  number to change the app on next run.
   ("L", learn.Lessons),
+  ("BC", p305.BcLaunch),
   ("W2", pWW2.WW2Launch),
   ("EA", pEarth.IrrLaunch),
   ("EG", egrid.EGridBasicLaunch),
@@ -37,7 +39,6 @@ chess = {scen = 1 };
  ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
  ("Y4", (pspace.Planets(_), "JavaFx Planets")),
  ("Y8", (ColourGen(_), "JavaFx Some Colours")),
- ("Y9", (p305.BC305Gui(_, p305.Bc1), "BC 305")),
  ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
  ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
  ("Y14", (pReactor.ReactorGUI(_), "reactor")),

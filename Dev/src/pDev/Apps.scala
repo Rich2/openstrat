@@ -8,6 +8,7 @@ object Apps
   val idMap: Map[String, GuiLaunch] = Map(
     ("L", learn.Lessons),
     ("W2", pWW2.WW2Launch),
+    ("BC", p305.BcLaunch),
     ("EA", pEarth.EarthBasicLaunch),
     ("EG", egrid.EGridLaunch),
     ("G1h", gOne.hp1.G1HLaunch),
@@ -26,7 +27,6 @@ object Apps
     ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
     ("Y4", (pspace.PlanetsGui(_), "JavaFx Planets")),
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
-    ("Y9", (p305.BC305Gui(_, p305.Bc1Old), "BC 305")),
     ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
     ("Y11", (pchess.pdraughts.DraughtsGui(_, pchess.pdraughts.DraughtsStart), "Draughts")),
     ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),

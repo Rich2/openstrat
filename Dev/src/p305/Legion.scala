@@ -2,20 +2,6 @@
 package ostrat; package p305
 import pGrid._, pEarth._
 
-case class BcTileAncient(x: Int, y: Int, terr: WTile) extends ETileAncient
-{ type FromT = WTile
-  def fromT = terr
-  var lunits: List[Legion] = Nil
-}
-
-object BcTileAncient
-{  
-  implicit object NTileIsType extends IsType[BcTileAncient]
-  { override def isType(obj: AnyRef): Boolean = obj.isInstanceOf[BcTileAncient]
-    override def asType(obj: AnyRef): BcTileAncient = obj.asInstanceOf[BcTileAncient]
-  }
-}
-
 class Legion(val polity: Polity, var cood: Cood)
 { val colour = polity.colour
   override def toString = "Legions" + (polity.toString).enParenth
