@@ -9,25 +9,17 @@ object BcLaunch extends GuiLaunchMore
 
   override def default: (CanvasPlatform => Any, String) = (Bc305Gui(_, BcScen2, BcScen2.defaultView()), "JavaFx BC305")
 
-  override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) = {
-    val num: Int = sts.findSettingElse("scen", 1)
-    val flat: Boolean = sts.findSettingElse("flat", false)
+  override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
+  { val num: Int = sts.findSettingElse("scen", 1)
+    val isFlat: Boolean = sts.findSettingElse("flat", false)
 
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
 
-    def egg(scen: EScenFlat): (CanvasPlatform => Any, String) =
-      (EGridFlatGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), scen.title + " Flat JavaFx")
-
-    def gwg(scen: EScenBasic): (CanvasPlatform => Any, String) =
-      (GridWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), scen.title + " Globe JavaFx")
-
-    val scen: EScenFlat = num match
+    val scen: BcScen = num match
     { case 2 => BcScen2
       case _ => BcScen2
     }
-    scen match {
-      case s: EScenBasic if !flat => gwg(s)
-      case s => egg(s)
-    }
-}
+
+    (Bc305Gui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title + " Flat JavaFx")
+  }
 }

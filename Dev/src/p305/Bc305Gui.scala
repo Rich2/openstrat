@@ -2,13 +2,13 @@
 package ostrat; package p305
 import geom._, prid._, phex._, pgui._
 
-case class Bc305Gui(canv: CanvasPlatform, scenIn: BcScen, viewIn: HGView) extends HGridSysGui("BC305 Gui")
+case class Bc305Gui(canv: CanvasPlatform, scenIn: BcScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("BC305 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs = scen.terrs
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
-  implicit val proj: HSysProjection = gridSys.projection(mainPanel)
+  implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
