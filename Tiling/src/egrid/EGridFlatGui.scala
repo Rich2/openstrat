@@ -16,9 +16,13 @@ case class EGridFlatGui(canv: CanvasPlatform, scen: EScenFlat, viewIn: HGView) e
 
   def terrPolys: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
   def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
+ // def sides2: GraphicElems = sTerrs.projFalsesScLineSegOptMap(proj){(sc, ls) =>
+   // ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
+  def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap{ (ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
+
   def actives: RArr[PolygonActive] = proj.tileActives
   def tileStrs: GraphicElems = proj.hCenMap{ (pt, hc) => pt.textAt(hc.rcStr --- hc.rcStr32, 12, terrs(hc).contrastBW) }
-  def frame: GraphicElems = terrPolys ++ actives ++ sides1 ++ tileStrs
+  def frame: GraphicElems = terrPolys ++ actives ++ sides1 ++ lines ++ tileStrs
 
   def thisTop(): Unit = reTop(proj.buttons)// ++ navButtons)
     
