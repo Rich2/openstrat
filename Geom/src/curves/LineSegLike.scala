@@ -12,7 +12,9 @@ trait LineSegLike[VT] extends ValueNElem
    * [[PtM2]] for a [[LineSegM2]]. */
   def endPt: VT
 
-  def map[VB, LB <: LineSegLike[VB]](f: VT => VB)(implicit build: LineSegLikeMapBuilder[VB, LB]) = build.newSeg(f(startPt), f(endPt))
+  def map[VB, LB <: LineSegLike[VB]](f: VT => VB)(implicit build: LineSegLikeMapBuilder[VB, LB]): LB = build.newSeg(f(startPt), f(endPt))
+
+  def mapOpt[VB, LB <: LineSegLike[VB]](f: VT => Option[VB])(implicit build: LineSegLikeMapBuilder[VB, LB]): Option[LB] = f(startPt).flatMap{ p1 => f(endPt).map(p2 =>build.newSeg(p1, p2)) }
 }
 
 trait LineSegLikeArr[VT, A <: LineSegLike[VT]] extends Any with Arr[A]

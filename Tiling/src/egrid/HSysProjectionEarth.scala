@@ -99,9 +99,11 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
     transLineSegM3Arr(m3s)
   }
 
-  override def transLineSeg(seg: LineSegHC): LineSeg = ???
+  /** Transforms the line segment from [[HCoord]] space to [[Pt2]] space. */
+  override def transLineSeg(seg: LineSegHC): LineSeg = seg.map(transCoord(_))
 
-  override def transOptLineSeg(seg: LineSegHC): Option[LineSeg] = ???
+  /** Optionally Transforms the line segment from [[HCoord]] space to [[Pt2]] space. */
+  override def transOptLineSeg(seg: LineSegHC): Option[LineSeg] = seg.mapOpt(transOptCoord(_))
 
   def transLineSegM3Arr(inp: LineSegM3Arr): LineSegArr =
   { val rotated = inp.fromLatLongFocus(focus)
@@ -122,8 +124,8 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
     rotated.xy / scale
   }
 
-  override def transTile(hc: HCen): Option[Polygon] = {
-    val p1 = hc.hVertPolygon.map(parent.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
+  override def transTile(hc: HCen): Option[Polygon] =
+  { val p1 = hc.hVertPolygon.map(parent.hCoordLL(_)).toMetres3.fromLatLongFocus(focus)
     val opt = ife(p1.vert(0).zPos, Some(p1.map(_.xy)), None)
     opt.map(_.map(_ / scale))
   }
