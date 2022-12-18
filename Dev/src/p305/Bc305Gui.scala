@@ -15,7 +15,12 @@ case class Bc305Gui(canv: CanvasPlatform, scenIn: BcScen, viewIn: HGView, isFlat
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
   def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
   def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap{ (ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
-  //def lines2 = sTerrs.projFalsesScLineSegOptMap{ (hs, ls) => }
+  def lines2: RArr[LineSegDraw] = sTerrs.projFalseLinksScLineSegOptMap(proj){ (hs, ls) =>
+    val t1 = terrs(hs.tile1Old)
+    val t2 = terrs(hs.tile2Old)
+    ife( t1 == t2, Some(ls.draw(t1.contrastBW)), None)
+  }
+
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
     //scen = scen.endTurn()
@@ -27,7 +32,7 @@ case class Bc305Gui(canv: CanvasPlatform, scenIn: BcScen, viewIn: HGView, isFlat
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-  override def frame: GraphicElems = polyFills ++ sides1 ++ lines
+  override def frame: GraphicElems = polyFills ++ sides1 ++ lines2
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
