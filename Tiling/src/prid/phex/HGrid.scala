@@ -268,6 +268,9 @@ trait HGrid extends Any with TGrid with HGridSys
     case r if r.isEven => rowLeftCenC(r) - 2
     case r => rowLeftCenC(r - 1).min(rowLeftCenC(r + 1)) - 1
   }
+
+  /** Not correct yet. */
+  override def findSideTiles(hs: HSide ): Option[(HCen, HCen)] = Some(hs.tile1Reg, hs.tile2Reg)
 }
 
 /** Hex grid path finding node. */

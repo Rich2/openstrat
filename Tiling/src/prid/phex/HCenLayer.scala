@@ -147,7 +147,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   /** FlatMaps the links / inner sides to an immutable Array, using the data of this HCenArr. It takes a function, that takes the [[HSide]] and the
    *  two adjacent hex tile data values. */
   def linksFlatMap[BB <: Arr[_]](f: (HSide, A, A) => BB)(implicit grid: HGridSys, build: ArrFlatBuilder[BB]): BB =
-    grid.linksFlatMap { hs => f(hs, apply(hs.tile1Old), apply(hs.tile2Old)) }
+    grid.linksFlatMap { hs => f(hs, apply(hs.tile1Reg), apply(hs.tile2Reg)) }
 
   /** Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
@@ -171,7 +171,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
    * tile data values. */
   def projLinksFlatMap[BB <: Arr[_]](proj: HSysProjection)(f: (HSide, A, A) => BB)(implicit build: ArrFlatBuilder[BB]): BB =
-    proj.gChild.linksFlatMap { hs => f(hs, apply(proj.parent, hs.tile1Old), apply(proj.parent, hs.tile2Old)) }
+    proj.gChild.linksFlatMap { hs => f(hs, apply(proj.parent, hs.tile1Reg), apply(proj.parent, hs.tile2Reg)) }
 
   /** Maps the sides to an immutable Array, using the data of this [[HCenLayer]]. It takes two functions, one for the edges of the grid, that takes the
    * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
