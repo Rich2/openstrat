@@ -27,7 +27,7 @@ case class GThreeGui(canv: CanvasPlatform, scenStart: ThreeScen, viewIn: HGView)
 
   def texts: RArr[TextGraphic] = units.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.rcStr, 16, terrs(hc).contrastBW) }
 
-  def moveGraphics: GraphicElems = units.someHCMapArr{ (u, hc) => LineSegHC(hc, hc.unsafeStep(u.cmds(0))).oldLineSeg.draw(units.unSafeApply(hc).colour)}
+  def moveGraphics: GraphicElems = units.someHCMapArr{ (u, hc) => LineSegHC(hc, hc.unsafeStep(u.cmds(0))).lineSeg.draw(units.unSafeApply(hc).colour)}
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = simpleButton("Turn " + (scen.turn + 1).toString){
