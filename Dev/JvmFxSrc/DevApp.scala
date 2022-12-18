@@ -21,19 +21,22 @@ class AppStart extends application.Application
     primaryStage.setY(findDevSettingElse("displayY", 0))//Should set y value but is not working on Linux
     val jScene = new Scene(root, canvWidth, canvHeight)
     val eExpr: EMon[pParse.AssignMemExpr] = findDevSettingExpr("appSet")
-    val pair = eExpr match {
-      case Good(it: IdentifierToken) => if (Apps.idMap.contains(it.srcStr))
-        { val launch: GuiLaunch = Apps.idMap(it.srcStr)
-          val fSett = fileStatementsFromResource( launch.settingStr + ".rson")
-          val eSett = fSett.goodOrOther(findDevSettingExpr(launch.settingStr))
-          eSett.fold(launch.default)(launch(_))
-        }
-        else { deb(s"${it.srcStr} is not a recognised app identifier"); Apps.default }
 
-      case Good(StringToken(_, str)) if Apps.strMap.contains(str) => Apps.strMap(str)
+    val pair = eExpr match
+    {
+      case Good(it: IdentifierToken) if Apps.launchMap.contains(it.srcStr) =>
+      { val launch: GuiLaunch = Apps.launchMap(it.srcStr)
+        val fSett = fileStatementsFromResource( launch.settingStr + ".rson")
+        val eSett = fSett.goodOrOther(findDevSettingExpr(launch.settingStr))
+        eSett.fold(launch.default)(launch(_))
+      }
+
+      case Good(it: IdentifierToken) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr)
+      case Good(it: IdentifierToken) => { deb(it.str + ": Identifier"); Apps.default }
       case Good(expr) => { debvar(expr); Apps.default }
       case _ => { debvar(eExpr); Apps.default }
     }
+
     val newAlt = CanvasFx(canvasCanvas, jScene)
     pair._1(newAlt)
     primaryStage.setTitle(pair._2)

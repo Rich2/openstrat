@@ -5,7 +5,7 @@ import pgui._, pStrat._
 /** Object for selecting various JavaFx apps / examples at run time. */
 object Apps
 {
-  val idMap: Map[String, GuiLaunch] = Map(
+  val launchMap: Map[String, GuiLaunch] = Map(
     ("L", learn.Lessons),
     ("W2", pWW2.WW2Launch),
     ("BC", p305.BcLaunch),
@@ -22,7 +22,7 @@ object Apps
     ("CH", pchess.ChessLaunch),
   )
 
-  val strMap: Map[String, (CanvasPlatform => Any, String)] = Map(
+  val idMap: Map[String, (CanvasPlatform => Any, String)] = Map(
     ("Y1", (pZero.TessGui(_), "Tess")),
     ("Y2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
     ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
@@ -41,5 +41,5 @@ object Apps
   def default: (CanvasPlatform => Any, String) = pWW2.WW2Launch.default
 
   /** Change appNum to change the default loaded application. */
-  def curr(str: String): (CanvasPlatform => Any, String) = strMap.getOrElse(str, strMap("1"))
+  def curr(str: String): (CanvasPlatform => Any, String) = idMap.getOrElse(str, idMap("1"))
 }
