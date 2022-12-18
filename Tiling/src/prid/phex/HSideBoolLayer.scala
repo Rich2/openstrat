@@ -73,20 +73,6 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
     build.buffToSeqLike(buff)
   }
 
-  /*def projFalsesLineSegCensMap[A <: AnyRef, B, ArrB <: Arr[B]](layer: HCenLayer[A], proj: HSysProjection)(f: (LineSeg, A, A) => B)(
-    implicit build: ArrMapBuilder[B, ArrB]): ArrB =
-  {
-    var i = 0
-    val buff = build.newBuff()
-    proj.gChild.linksForeach { hs =>
-      if (unsafeArray(i))
-        proj.transOptLineSeg(hs.lineSegHC).foreach(ls =>
-          val t1 = layer()
-          build.buffGrow(buff, f(ls, )))
-    }
-    build.buffToSeqLike(buff)
-  }*/
-
   def set(hs: HSide, value: Boolean)(implicit grid: HGridSys): Unit = {
     val i = grid.sideArrIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")

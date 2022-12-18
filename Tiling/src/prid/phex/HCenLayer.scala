@@ -189,6 +189,8 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
       }
     }
 
+  //def linkTiles(hs: H)
+
   def ++(operand: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] = {
     val newArray = Array.concat(unsafeArray, operand.unsafeArray)
     new HCenLayer[A](newArray)
