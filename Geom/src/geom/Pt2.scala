@@ -64,7 +64,10 @@ final class Pt2(val x: Double, val y: Double) extends Vec2Like with PointDbl2
   def slate(operand: Vec2Like): Pt2 = Pt2(x + operand.x, y + operand.y)
 
   /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
-  def invSlate(operand: Pt2): Pt2 = Pt2(x - operand.x, y - operand.y)
+  def origin(operand: Vec2Like): Pt2 = Pt2(x - operand.x, y - operand.y)
+
+  /** Changes the origin of the point to the new point. Subtracting the X and Y components of the operand point from this point. */
+  def xyOrigin(deltaX : Double, deltaY: Double): Pt2 = Pt2(x - deltaX, y - deltaY)
 
   def addXY (otherX: Double, otherY: Double): Pt2 = Pt2(x + otherX, y + otherY)
   def subXY (otherX: Double, otherY: Double): Pt2 = Pt2(x - otherX, y - otherY)

@@ -1,11 +1,21 @@
 package ostrat; package pZero
 import geom._, pgui._, Colour._, prid._, phex._
 
-case class TessGui(canv: CanvasPlatform) extends CanvasNoPanels("TessGuis")
+case class TessGui(canv: CanvasPlatform) extends CanvasNoPanels("TessGui")
 {
-  val g1 = HGridReg(-2, 2, -4, 4)
-  val g2 = HGridReg(-4, 6, -8, 10)
-  val s1 = g1.sidesMap(hs => hs.lineSegHC.transLineSeg(80).draw())
-  val s2 = g2.sidesMap(hs => hs.lineSegHC.transLineSeg(40, 0, 2).slateY(0).draw(Red))
-  repaint(s2 ++ s1)
+  val d1 = 80.0
+  val d2 = d1 / 2
+  val br1 = -2
+  val tr1 = 2
+  val lc1 = -4
+  val rc1 = 4
+  val g1 = HGridReg(br1, tr1, lc1, rc1)
+  val f1: HCoord => Pt2 = hc => hc.toPt2Reg.origin(g1.cenVec).scale(d1)
+  val s1 = g1.sidesMap(hs => hs.lineSegHC.map(f1).draw())
+  val g2 = HGridReg(br1 * 2, tr1 * 2 + 2, lc1 * 2, rc1 * 2 + 4)
+
+  val f2: HCoord => Pt2 = hc => hc.toPt2Reg.origin(g1.cenVec).xyOrigin(2, 3.sqrt).scale(d2)
+  val s2 = g2.sidesMap(hs => hs.lineSegHC.map(f2).draw(Red))
+  val t2 = g2.map(hc => f2(hc).textAt(hc.rcStr, 12, Red))
+  repaint(s2 ++ s1 ++ t2)
 }
