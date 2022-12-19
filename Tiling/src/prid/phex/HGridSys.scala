@@ -271,4 +271,6 @@ trait HGridSys extends Any with TGridSys
   /** Gives the index into an Arr / Array of side data from its tile [[HVert]]. Use arrIndex and vertIndex methods to access tile centre and side Arr
    *  / Array data. */
   def vertArrIndex(r: Int, c: Int): Int = 0
+
+  def findSideTiles(hs: HSide ): Option[(HCen, HCen)] = ???
 }
