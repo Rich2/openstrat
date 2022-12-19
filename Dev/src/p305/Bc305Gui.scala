@@ -13,13 +13,17 @@ case class Bc305Gui(canv: CanvasPlatform, scenIn: BcScen, viewIn: HGView, isFlat
   proj.setView(viewIn)
 
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
+  def actives: RArr[PolygonActive] = proj.tileActives
   def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
   def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap{ (ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
+
   def lines2: RArr[LineSegDraw] = sTerrs.projFalseLinksScLineSegOptMap(proj){ (hs, ls) =>
     val t1 = terrs(hs.tile1Reg)
     val t2 = terrs(hs.tile2Reg)
     ife( t1 == t2, Some(ls.draw(t1.contrastBW)), None)
   }
+
+  //def hexStrs: RArr[TextGraphic] = proj. .gChild.map players.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.strComma, 20) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
@@ -29,10 +33,26 @@ case class Bc305Gui(canv: CanvasPlatform, scenIn: BcScen, viewIn: HGView, isFlat
   }
   statusText = "Welcome to BC305"
 
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
+    case (LeftButton, _, cl) => {
+      selected = cl
+      statusText = selected.headFoldToString("Nothing Selected")
+      thisTop()
+    }
+
+    /*case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach { hc2 =>
+      val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
+      newM.foreach { d => moves2 = moves2.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
+      repaint()
+    }*/
+
+    case (_, _, h) => deb("Other; " + h.toString)
+  }
+
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-  override def frame: GraphicElems = polyFills ++ sides1 ++ lines2
+  override def frame: GraphicElems = polyFills ++ actives ++ sides1 ++ lines2
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
