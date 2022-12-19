@@ -1,9 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import Colour.Black
-
-import collection.mutable.ArrayBuffer
-import scala.reflect.ClassTag
+import Colour.Black, collection.mutable.ArrayBuffer, reflect.ClassTag
 
 /** Straight line segment. A straight line in every day terminology. Mathematically: 2 dimensional directed, line segment. The name was chosen to
  *  avoid ambiguity. */
@@ -150,8 +147,6 @@ object LineSegArr extends Dbl4SeqLikeCompanion[LineSeg, LineSegArr]
 
   /** Implicit instance /evidence for [[ArrFlatBuilder]] type class instance. */
   implicit val arrFlatBuildEv: ArrFlatBuilder[LineSegArr] = new LineSegArrFlatBuilder
-
-
 
   implicit val transImplicit: AffineTrans[LineSegArr] = (obj, f) => obj.map(_.ptsTrans(f))
 }

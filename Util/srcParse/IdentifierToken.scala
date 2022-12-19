@@ -6,8 +6,8 @@ trait IdentifierToken extends ClauseMemExprToken
 
 object IdentifierToken
 {
-  def unapply(inp: Any): Option[String] = inp match {
-    case idt: IdentifierToken => Some(idt.srcStr)
+  def unapply(inp: Any): Option[String] = inp match
+  { case idt: IdentifierToken => Some(idt.srcStr)
     case _ => None
   }
 }
