@@ -1,12 +1,12 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package p305
-import geom._, prid._, phex._, pgui._
+import geom._, pEarth._, prid._, phex._, pgui._
 
 case class Bc305Gui(canv: CanvasPlatform, scenIn: BcScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("BC305 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
-  val terrs = scen.terrs
-  val sTerrs = scen.sTerrs
+  val terrs: HCenLayer[WTile] = scen.terrs
+  val sTerrs: HSideBoolLayer = scen.sTerrs
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
