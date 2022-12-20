@@ -23,7 +23,7 @@ case class Bc305Gui(canv: CanvasPlatform, scenIn: BcScen, viewIn: HGView, isFlat
     ife( t1 == t2, Some(ls.draw(t1.contrastBW)), None)
   }
 
-  def hexStrs = proj.hCenMap{ (pt, hc) => pt.textAt(hc.strComma) }
+  def hexStrs: GraphicElems = proj.hCenMap{ (pt, hc) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
