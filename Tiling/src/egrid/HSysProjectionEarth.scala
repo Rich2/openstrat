@@ -87,7 +87,8 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   //def sides: GraphicElems = sides4.map { ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
   override def tilePolygons: PolygonArr = ???
 
-  override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = gChild.map{hc => f(transCoord(hc), hc)}
+  override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = gChild.map{hc => f(transCoord(hc), hc) }
+  override def hCenSizedMap(hexScale: Double = 20)(f: (Pt2, HCen) => GraphicElem): GraphicElems = ifGScale(hexScale, hCenMap(f))
 
   override def tileActives: RArr[PolygonActive] = gChild.map(p => p.hVertPolygon.map(transCoord(_)).active(p))
 

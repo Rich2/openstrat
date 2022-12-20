@@ -66,7 +66,6 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
             i += 1
           }
           val newGrid = new HGridIrr(bottom, newArray)
-          debvar(newGrid.numTiles)
           newGrid
         }
       }
@@ -84,6 +83,9 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
     gChild.foreach{hc => transOptCoord(hc).foreach(pt => buff.append(f(pt, hc))) }
     new RArr[GraphicElem](buff.toArray)
   }
+
+
+  override def hCenSizedMap(hexScale: Double)(f: (Pt2, HCen) => GraphicElem): GraphicElems = ifGScale(hexScale, hCenMap(f))
 
   override def sideLines: LineSegArr = gChild.sideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
   override def innerSideLines: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
