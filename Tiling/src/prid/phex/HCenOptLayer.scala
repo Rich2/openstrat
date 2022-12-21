@@ -124,6 +124,8 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
    *  function. Returns a [[Seqimut]] of length 0 to the length of this [[HCenOptLayer]]. */
   def projSomeHCMap(f: (A, HCen) => GraphicElem)(implicit proj: HSysProjection): GraphicElems = projSomeHCMap(proj)(f)
 
+  /** Uses projection to map the Some data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
+   * most cases B will be a [[GraphicElem]] or a subtype. */
   def projSomeHCMap(proj: HSysProjection)(f: (A, HCen) => GraphicElem): GraphicElems =
   {
     val buff = BuffGraphic()
@@ -136,12 +138,12 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
     buff.toArr
   }
 
-  /** Uses projection to map the Some data value with the corresponing [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
+  /** Uses projection to map the Some data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    *  most cases B will be a [[GraphicElem]] or a subtype. */
   def projSomeHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
     projSomeHcPtMap(proj)(f)
 
-  /** Uses projection to map the Some data value with the corresponing [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
+  /** Uses projection to map the Some data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
    * most cases B will be a [[GraphicElem]] or a subtype. */
   def projSomeHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
   { val buff = build.newBuff()
