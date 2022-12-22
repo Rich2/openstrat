@@ -9,8 +9,14 @@ import geom._, reflect.ClassTag
 class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCenLayer[A]
 { override type ThisT = HCenLayer[A]
   override def typeStr: String = "HCenDGrid"
+
+  /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
+   * There is an alterntive nme overload where the [[HGridSys]] is passed explicitly as the first paremter. */
   def apply(hc: HCen)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.arrIndex(hc))
+
+  /** Apply method returns a data element from this data layer for the given [[HCen]]. */
   def apply(gridSys: HGridSys, hc: HCen): A = unsafeArray(gridSys.arrIndex(hc))
+
   def rc(r: Int, c: Int)(implicit grid: HGridSys): A = unsafeArray(grid.arrIndex(r, c))
   def set(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.arrIndex(hc)) = value }
   def set(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.arrIndex(r, c)) = value }
@@ -35,8 +41,6 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     }
     res
   }
-
-
 
   /** Maps each data element with thw corresponding [[HCen]] to an [[Option]] of type B. Collects the [[Some]]'s values. The length of the returned
    * [[Arr]] will be between 0 and the lengthof this [[HCenLayer]]. */
