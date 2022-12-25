@@ -55,8 +55,8 @@ object EGridLaunch extends GuiLaunchMore
 
       case _ => EGrid80.scen0
     }
-    scen match {
-      case s: EScenBasic if !flat => gwg(s)
+    scen match
+    { case s: EScenBasic if !flat => gwg(s)
       case s => egg(s)
     }
   }
