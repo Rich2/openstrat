@@ -10,7 +10,7 @@ trait WW2Scen extends EScenFlat with HSysTurnScen
 object WW2Scen1 extends WW2Scen
 { override def turn: Int = 0
 
-  override implicit def gridSys: HGridSys = Grids320S0E11// EGrid80.e0(446)
-  override val terrs: HCenLayer[WTile] = ???//Terr80E0.terrs
-  override def sTerrs: HSideBoolLayer = ???//Terr80E0.sTerrs
+  override implicit def gridSys: HGridSys = Grids320S0E11
+  override val terrs: HCenLayer[WTile] = Scen320S0E11.terrs
+  override def sTerrs: HSideBoolLayer = Scen320S0E11.sTerrs
 }
