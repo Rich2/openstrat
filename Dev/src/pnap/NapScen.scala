@@ -11,6 +11,6 @@ object NapScen2 extends NapScen
 { override def turn: Int = 0
 
   override implicit def gridSys: HGridSys = EGrid160.e0(446)
-  override val terrs: HCenLayer[WTile] = ???// Terr80E0.terrs
-  override def sTerrs: HSideBoolLayer = ??? //Terr80E0.sTerrs
+  override val terrs: HCenLayer[WTile] = Terr160E0.terrs
+  override def sTerrs: HSideBoolLayer = Terr160E0.sTerrs
 }
