@@ -9,6 +9,7 @@ object Apps
     ("L", learn.Lessons),
     ("W2", pWW2.WW2Launch),
     ("BC", p305.BcLaunch),
+    ("NA", pnap.NapLaunch),
     ("EA", pEarth.EarthBasicLaunch),
     ("EG", egrid.EGridLaunch),
     ("G1h", gOne.hp1.G1HLaunch),
