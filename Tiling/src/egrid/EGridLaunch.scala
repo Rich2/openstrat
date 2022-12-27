@@ -9,7 +9,7 @@ object EGridLaunch extends GuiLaunchMore
 
   override def default: (CanvasPlatform => Any, String) = (cv => EGridFlatGui(cv, EGrid80.scen0, EGrid80.scen0.gridSys.coordCen.view()), "JavaFx Eath 80KM Grid")
 
-  override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
+  override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val num: Int = sts.findSettingElse("scen",1)
     val flat: Boolean = sts.findSettingElse("flat",false)
 

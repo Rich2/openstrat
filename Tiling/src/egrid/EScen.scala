@@ -6,7 +6,7 @@ import prid._, phex._, pEarth._
 trait EScenFlat extends HSysScen
 { def terrs: HCenLayer[WTile]
   def sTerrs: HSideBoolLayer
-  def title: String = "EScenFlat"
+  def title: String = "Terrain maps"
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */

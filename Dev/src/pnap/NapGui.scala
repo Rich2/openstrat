@@ -2,7 +2,7 @@
 package ostrat; package pnap
 import geom._, pEarth._, prid._, phex._, pgui._
 
-case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("BC305 Gui")
+case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("AD1783 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
@@ -31,7 +31,7 @@ case class NapGui(canv: CanvasPlatform, scenIn: NapScen, viewIn: HGView, isFlat:
     repaint()
     thisTop()
   }
-  statusText = "Welcome to BC305"
+  statusText = "Welcome to AD1783"
 
   mainMouseUp = (b, cl, _) => (b, selected, cl) match {
     case (LeftButton, _, cl) => {

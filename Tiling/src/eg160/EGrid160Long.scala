@@ -13,9 +13,11 @@ object EGrid160Long
 /** object for creating earth grids with 160km hexs, with a c scale of 80km. */
 object EGrid160
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 40Km or hex scale 160km. */
-
   def e0(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160Long = EGrid160Long(rBottomCen, rTopCen, 0)
+
+  /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 40Km or hex scale 160km. */
   def e30(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160Long = EGrid160Long(rBottomCen, rTopCen,  1)
+
   def e60(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160Long = EGrid160Long(rBottomCen, rTopCen, 2)
   def e90(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160Long = EGrid160Long(rBottomCen, rTopCen, 3)
   def e120(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160Long = EGrid160Long(rBottomCen, rTopCen, 4)

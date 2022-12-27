@@ -115,7 +115,7 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
   override def rowRightCenC(row: Int): Int = row match
   { case r if r.isOdd => excep(s"$r is odd number which is illegal for a tile row in tileRowEnd method.")
     case r if r > topCenR => excep(s"Row number $r is greater than top tile row $topCenR in tileRowEnd method.")
-    case r if r < bottomCenR => excep(s"$r Row number less than bottom tile row value in tileRowEnd method.")
+    case r if r < bottomCenR => excep(s"$r Row number less than $bottomCenR, the bottom tile row value in tileRowEnd method.")
     case _ => rowLeftCenC(row) + (rowNumTiles(row) - 1) * 4
   }
 

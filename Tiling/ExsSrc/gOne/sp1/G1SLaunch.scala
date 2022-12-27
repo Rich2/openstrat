@@ -7,7 +7,7 @@ object G1SLaunch extends GuiLaunchMore
   override def settingStr: String = "g2Sq"
 
   override def default: (CanvasPlatform => Any, String) = (G1SGui(_, S1Scen1, S1Scen1.defaultView()), "JavaFx Game Two")
-  override def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String) = {
+  override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) = {
     val oScen: EMon[Int] = sts.findSetting[Int]("scen")
     val num: Int = oScen.getElse(1)
 

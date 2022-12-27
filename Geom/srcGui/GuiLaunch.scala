@@ -17,11 +17,11 @@ case class GuiLaunchSimple(settingStr: String, default: (CanvasPlatform => Any, 
 trait GuiLaunchMore extends GuiLaunch
 {
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) = expr match {
-    case bls: BlockStatements => fromStatments(bls.statements)
-    case _ => fromStatments(RArr())
+    case bls: BlockStatements => fromStatements(bls.statements)
+    case _ => fromStatements(RArr())
   }
 
-  def fromStatments(sts: RArr[Statement]): (CanvasPlatform => Any, String)
+  def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String)
 }
 
 /** A convenience trait for launching Apps that takes an [[Int]] and an Identifier as its settings. */
