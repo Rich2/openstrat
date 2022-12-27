@@ -24,16 +24,18 @@ class AppStart extends application.Application
 
     val pair = eExpr match
     {
-      case Good(it: IdentifierToken) if Apps.launchMap.contains(it.srcStr) =>
-      { val launch: GuiLaunch = Apps.launchMap(it.srcStr)
-        val fSett = fileStatementsFromResource( launch.settingStr + ".rson")
-        val eSett = fSett.goodOrOther(findDevSettingExpr(launch.settingStr))
-        eSett.fold(launch.default)(launch(_))
-      }
-
-      case Good(it: IdentifierToken) => Apps.ids.a1KeyFindA2(it.srcStr) match
-      { case Some(pair) => pair
-        case _ => { deb(it.str + ": Identifier"); Apps.default }
+      case Good(it: IdentifierToken) => Apps.launchs.findChars(it.srcStr) match {
+        case Some(launch) => {
+          val fSett = fileStatementsFromResource(launch.settingStr + ".rson")
+          val eSett = fSett.goodOrOther(findDevSettingExpr(launch.settingStr))
+          eSett.fold(launch.default)(launch(_))
+        }
+        case _ => Apps.ids.a1KeyFindA2(it.srcStr) match {
+          case Some(pair) => pair
+          case _ => {
+            deb(it.str + ": Identifier"); Apps.default
+          }
+        }
       }
       case Good(expr) => { debvar(expr); Apps.default }
       case _ => { debvar(eExpr); Apps.default }

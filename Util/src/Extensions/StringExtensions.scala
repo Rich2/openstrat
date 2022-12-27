@@ -213,4 +213,16 @@ class StringImplicit(val thisString: String) extends AnyVal
     }
     acc
   }
+
+  def compareChars(operand: String): Int =
+  { var res = 0
+    var i = 0
+    val len = thisString.length.min(operand.length)
+    var continue = true
+    while (i < len & res < len) {
+      if (thisString(i) == operand(i)) res += 1 else { continue = false }
+      i += 1
+    }
+    res
+  }
 }

@@ -5,7 +5,7 @@ import pgui._, pStrat._
 /** Object for selecting various JavaFx apps / examples at run time. */
 object Apps
 {
-  val launchMap: Map[String, GuiLaunch] = Map(
+  val launchs: StrPairArr[GuiLaunch] = StrPairArr[GuiLaunch](
     ("L", learn.Lessons),
     ("BC", p305.BcLaunch),
     ("EA", pEarth.EarthBasicLaunch),
@@ -23,25 +23,7 @@ object Apps
     ("CH", pchess.ChessLaunch),
   )
 
-  val launchs: StringPairArr[GuiLaunch] = StringPairArr[GuiLaunch](
-    ("L", learn.Lessons),
-    ("BC", p305.BcLaunch),
-    ("EA", pEarth.EarthBasicLaunch),
-    ("EG", egrid.EGridLaunch),
-    ("G1h", gOne.hp1.G1HLaunch),
-    ("G1s", gOne.sp1.G1SLaunch),
-    ("G2h", gTwo.h2p.G2HLaunch),
-    ("G3", gThree.ThreeLaunch),
-    ("Z", pzug.ZugLaunch),
-    ("DG", pDung.DungLaunch),
-    ("NA", pnap.NapLaunch),
-    ("W2", pWW2.WW2Launch),
-    ("CV", pCiv.CivLaunch),
-    ("Go", pgo.GoLaunch),
-    ("CH", pchess.ChessLaunch),
-  )
-
-  val ids: StringPairArr[(CanvasPlatform => Any, String)] = StringPairArr(
+  val ids: StrPairArr[(CanvasPlatform => Any, String)] = StrPairArr(
     ("Y1", (pZero.TessGui(_), "Tess")),
     ("Y2", (pnap.NapGuiOld(_, pnap.Nap1Old), "1783")),
     ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
