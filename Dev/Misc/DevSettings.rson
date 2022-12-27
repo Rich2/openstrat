@@ -19,37 +19,36 @@ civ = 1;
 chess = {scen = 1 };
 
 /* Change the  number to change the app on next run.
-  ("L", learn.Lessons),
-  ("BC", p305.BcLaunch),
-  ("NA", pnap.NapLaunch),
-  ("W2", pWW2.WW2Launch),
-  ("EA", pEarth.IrrLaunch),
-  ("EG", egrid.EGridBasicLaunch),
-  ("G1h", gOne.hp1.G1HLaunch),
-  ("G1s", gOne.sp1.G1SLaunch),
-  ("G2h", gTwo.h2p.G2HLaunch),
-  ("G3", gThree.ThreeLaunch),
-  ("Go", pgo.GoLaunch),
-  ("Z", pZug.ZugLaunch),
-  ("DG", pDung.DungLaunch),
-  ("CV", pCiv.CivLaunch),
-  ("CH", pchess.ChessLaunch),
-*/
+("L", learn.Lessons),
+("BC", p305.BcLaunch),
+("EA", pEarth.EarthBasicLaunch),
+("EG", egrid.EGridLaunch),
+("G1h", gOne.hp1.G1HLaunch),
+("G1s", gOne.sp1.G1SLaunch),
+("G2h", gTwo.h2p.G2HLaunch),
+("G3", gThree.ThreeLaunch),
+("Z", pzug.ZugLaunch),
+("DG", pDung.DungLaunch),
+("NA", pnap.NapLaunch),
+("W2", pWW2.WW2Launch),
+("CV", pCiv.CivLaunch),
+("Go", pgo.GoLaunch),
+("CH", pchess.ChessLaunch),
 
-/*
- ("Y1", (pZero.TessGui(_), "Tess")),
- ("Y2", (p1783.Y1783GuiOld(_, p1783.Nap1), "1783")),
- ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
- ("Y4", (pspace.Planets(_), "JavaFx Planets")),
- ("Y8", (ColourGen(_), "JavaFx Some Colours")),
- ("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
- ("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
- ("Y14", (pReactor.ReactorGUI(_), "reactor")),
- ("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
- ("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
 
- ("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
- ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
+("Y1", (pZero.TessGui(_), "Tess")),
+("Y2", (pnap.NapGuiOld(_, pnap.Nap1Old), "1783")),
+("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
+("Y4", (pspace.PlanetsGui(_), "JavaFx Planets")),
+("Y8", (ColourGen(_), "JavaFx Some Colours")),
+("Y10", (pCard.BlackJackGui(_), "JavaFx BlackJack")),
+("Y11", (pchess.pdraughts.DraughtsGui(_, pchess.pdraughts.DraughtsStart), "Draughts")),
+("Y13", (pCloseOrder.BattleGui(_, pCloseOrder.Nap1), "JavaFx Formation")),
+("Y14", (pReactor.ReactorGUI(_), "reactor")),
+("Y16", (pFlags.FlagSelectorGUI(_), "Flag Fun")),
+("Y18", (pAltReact.AltReacGui(_, 8, 8), "Alternate Reactor")),
+("AT", (learn.CArcExs(_), "Temporary - Testing Arcs")), //this is a temporary app
+("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
 */
 
 /* lessons

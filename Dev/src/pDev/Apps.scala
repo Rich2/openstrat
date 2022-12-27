@@ -7,19 +7,19 @@ object Apps
 {
   val launchMap: Map[String, GuiLaunch] = Map(
     ("L", learn.Lessons),
-    ("W2", pWW2.WW2Launch),
     ("BC", p305.BcLaunch),
-    ("NA", pnap.NapLaunch),
     ("EA", pEarth.EarthBasicLaunch),
     ("EG", egrid.EGridLaunch),
     ("G1h", gOne.hp1.G1HLaunch),
     ("G1s", gOne.sp1.G1SLaunch),
     ("G2h", gTwo.h2p.G2HLaunch),
     ("G3", gThree.ThreeLaunch),
-    ("Go", pgo.GoLaunch),
     ("Z", pzug.ZugLaunch),
     ("DG", pDung.DungLaunch),
+    ("NA", pnap.NapLaunch),
+    ("W2", pWW2.WW2Launch),
     ("CV", pCiv.CivLaunch),
+    ("Go", pgo.GoLaunch),
     ("CH", pchess.ChessLaunch),
   )
 
