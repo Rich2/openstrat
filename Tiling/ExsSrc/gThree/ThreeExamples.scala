@@ -3,7 +3,7 @@ package ostrat; package gThree
 import prid._, phex._, gOne.hp1.GSys
 
 object ThreeScen1 extends ThreeScen(0)
-{ override implicit val gridSys: HGrid = GSys.g1
+{ override implicit val gridSys: HGridReg = GSys.g1
   override val terrs: HCenLayer[Terr] = gridSys.newHCenLayer[Terr](Plain)
   import terrs.{setRowPart => srp}
   srp(6, 2, 2, Water)

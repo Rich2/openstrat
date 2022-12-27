@@ -116,18 +116,38 @@ trait PairArr[A1, A1Arr <: Arr[A1], A2, A <: PairElem[A1, A2]] extends Arr[A]
   final override def length: Int = a2Array.length
 
   /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A2 values as a the key. Will throw an exception if the given A2 value is not found. */
-  def a1FromA2Key(key: A2): A1 = {
-    var i = 0
+  def a2KeyGetA1(key: A2): A1 = a2KeyFindA1(key) match
+  { case Some(a1) => a1
+    case None => excep(s"The a2: A2 of value $key was not found")
+  }
+
+  def a2KeyFindA1(key: A2): Option[A1] =
+  { var i = 0
     var res: Option[A1] = None
-    while (i < length & res == None) {
-      if (a2Index(i) == key) res = Some(a1Index(i))
+    while (i < length & res == None)
+    { if (a2Index(i) == key) res = Some(a1Index(i))
       i += 1
     }
-    res match {
-      case Some(a1) => a1
-      case None => excep(s"The a2: A2 of value $key was not found")
-    }
+    res
   }
+
+  /** Treats this [[PairNoA1PramArr]] as a [[Map]] with the A1 values as a the key. Will throw an exception if the given A1 value is not found. */
+  def a1KeyGetA2(key: A1): A2 = a1KeyFindA2(key) match
+  { case Some(a1) => a1
+    case None => excep(s"The a2: A2 of value $key was not found")
+  }
+
+  def a1KeyFindA2(key: A1): Option[A2] =
+  { var i = 0
+    var res: Option[A2] = None
+    while (i < length & res == None)
+    { if (a1Index(i) == key) res = Some(a2Index(i))
+      i += 1
+    }
+    res
+  }
+
+
 
   def getA2Index(key: A2): Int = findA2Index(key).get
 

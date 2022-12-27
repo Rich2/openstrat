@@ -31,8 +31,10 @@ class AppStart extends application.Application
         eSett.fold(launch.default)(launch(_))
       }
 
-      case Good(it: IdentifierToken) if Apps.idMap.contains(it.srcStr) => Apps.idMap(it.srcStr)
-      case Good(it: IdentifierToken) => { deb(it.str + ": Identifier"); Apps.default }
+      case Good(it: IdentifierToken) => Apps.ids.a1KeyFindA2(it.srcStr) match
+      { case Some(pair) => pair
+        case _ => { deb(it.str + ": Identifier"); Apps.default }
+      }
       case Good(expr) => { debvar(expr); Apps.default }
       case _ => { debvar(eExpr); Apps.default }
     }

@@ -23,7 +23,25 @@ object Apps
     ("CH", pchess.ChessLaunch),
   )
 
-  val idMap: Map[String, (CanvasPlatform => Any, String)] = Map(
+  val launchs: StringPairArr[GuiLaunch] = StringPairArr[GuiLaunch](
+    ("L", learn.Lessons),
+    ("BC", p305.BcLaunch),
+    ("EA", pEarth.EarthBasicLaunch),
+    ("EG", egrid.EGridLaunch),
+    ("G1h", gOne.hp1.G1HLaunch),
+    ("G1s", gOne.sp1.G1SLaunch),
+    ("G2h", gTwo.h2p.G2HLaunch),
+    ("G3", gThree.ThreeLaunch),
+    ("Z", pzug.ZugLaunch),
+    ("DG", pDung.DungLaunch),
+    ("NA", pnap.NapLaunch),
+    ("W2", pWW2.WW2Launch),
+    ("CV", pCiv.CivLaunch),
+    ("Go", pgo.GoLaunch),
+    ("CH", pchess.ChessLaunch),
+  )
+
+  val ids: StringPairArr[(CanvasPlatform => Any, String)] = StringPairArr(
     ("Y1", (pZero.TessGui(_), "Tess")),
     ("Y2", (pnap.NapGuiOld(_, pnap.Nap1Old), "1783")),
     ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
@@ -40,7 +58,4 @@ object Apps
   )
 
   def default: (CanvasPlatform => Any, String) = pWW2.WW2Launch.default
-
-  /** Change appNum to change the default loaded application. */
-  def curr(str: String): (CanvasPlatform => Any, String) = idMap.getOrElse(str, idMap("1"))
 }
