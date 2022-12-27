@@ -203,24 +203,25 @@ class StringImplicit(val thisString: String) extends AnyVal
   /** Replaces the reserved HTML characters with their corresponding entities, in order to display XML code as text. Eg '>' is replaced by "&gt;". */
   def htmlReservedSubstitute: String = toChars.foldLeft(""){ (acc, el) => acc + el.htmlReservedSubstituion }
 
-  def unsafeDigitsToLong: Long = {
-    var acc: Long = thisString.head - '0'
+  def unsafeDigitsToLong: Long =
+  { var acc: Long = thisString.head - '0'
     var i = 1
-    while (i < thisString.length){
-      acc *= 10
+    while (i < thisString.length)
+    { acc *= 10
       acc += thisString(i) - '0'
       i += 1
     }
     acc
   }
 
+  /** Returns the number of [[Char]]s from the first that match from this [[String]] to the operand [[String]]. */
   def compareChars(operand: String): Int =
   { var res = 0
     var i = 0
     val len = thisString.length.min(operand.length)
     var continue = true
-    while (i < len & res < len) {
-      if (thisString(i) == operand(i)) res += 1 else { continue = false }
+    while (i < len & res < len)
+    { if (thisString(i) == operand(i)) res += 1 else { continue = false }
       i += 1
     }
     res

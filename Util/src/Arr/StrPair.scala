@@ -41,6 +41,8 @@ class StrPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
     new StrPairArr[A2](newA1Array, newA2Array)
   }
 
+  /** Returns the first A2 value whose A1 value matches the key parameter or failing that the first. If none fully match will return the one that
+   *  matches the most [[Char]]s from the beginning as long that satisfies the minium char number. */
   def findChars(key: String, minChars: Int = 2): Option[A2] =
   { var i = 0
     var acc = 0
@@ -51,7 +53,7 @@ class StrPairArr[A2](val a1Array: Array[String], val a2Array: Array[A2]) extends
       if (poss == key) { res = Some(a2Index(i)); continue = false }
       else
       { val charNum = key.compareChars(poss)
-        if (charNum > acc) { res = Some(a2Index(i)); acc = charNum }
+        if (charNum > acc & charNum >= minChars) { res = Some(a2Index(i)); acc = charNum }
       }
       i += 1
     }
