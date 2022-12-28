@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
-import egrid._, geom._
+import egrid._
 
 trait EGrid80Sys extends EGridSys
 { override val cScale: Length = 20.kMetres

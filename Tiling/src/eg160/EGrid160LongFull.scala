@@ -36,8 +36,8 @@ object EGrid160
   def w60(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 10)
   def w30(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,11)
 
-  def british: EGrid160LongPart =
-  { val array = Array[Int](1, 504)
+  def britain: EGrid160LongPart =
+  { val array = Array[Int](1, 504, 3, 506, 3, 504)
     new EGrid160LongPart(280, 320, array)
   }
 

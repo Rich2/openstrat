@@ -6,6 +6,16 @@ trait BcScen extends EScenBasic with HSysTurnScen
 {
 }
 
+object BcScen1 extends BcScen {
+  override def turn: Int = 0
+
+  override implicit def gridSys: EGrid80Long = EGrid80.e0(446)
+
+  override val terrs: HCenLayer[WTile] = Terr80E0.terrs
+
+  override def sTerrs: HSideBoolLayer = Terr80E0.sTerrs
+}
+
 object BcScen2 extends BcScen
 { override def turn: Int = 0
 
