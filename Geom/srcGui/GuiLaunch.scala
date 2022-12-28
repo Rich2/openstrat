@@ -9,15 +9,17 @@ trait GuiLaunch
   def default: (CanvasPlatform => Any, String)
 }
 
+/** The simplest launcher, not usre that this class really serves any purpose. */
 case class GuiLaunchSimple(settingStr: String, default: (CanvasPlatform => Any, String)) extends GuiLaunch
 {
   override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) = default
 }
 
+/** A [[GuiLaunch]] that actually uses the setting to construct the launch." */
 trait GuiLaunchMore extends GuiLaunch
 {
-  override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) = expr match {
-    case bls: BlockStatements => fromStatements(bls.statements)
+  override def apply(expr: AssignMemExpr): (CanvasPlatform => Any, String) = expr match
+  { case bls: BlockStatements => fromStatements(bls.statements)
     case _ => fromStatements(RArr())
   }
 
