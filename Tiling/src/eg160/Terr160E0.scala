@@ -35,12 +35,12 @@ object Terr160E0 extends LongTerrs
     res
   }
 
-  def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
+  //def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
 
-  def regTerrs: HCenLayer[WTile] = regGrid.newHCenSubLayer(EGrid160.e0(138), terrs)
+  def regTerrs: HCenLayer[WTile] = EGrid160.british.newHCenSubLayer(EGrid160.e0(138), terrs)
 
-  def regScen: EScenFlat = new EScenFlat {
-    override implicit val gridSys: HGridSys = regGrid
+  def regScen: EScenBasic = new EScenBasic {
+    override implicit val gridSys: EGrid160LongPart = EGrid160.british
     override val terrs: HCenLayer[WTile] = regTerrs
     override val sTerrs: HSideBoolLayer = gridSys.newSideBools
     sTerrs.setTruesInts((142, 508), (143, 507))
