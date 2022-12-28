@@ -10,7 +10,7 @@ object EGrid160LongFull
 { def apply(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) = new EGrid160LongFull(rBottomCen, rTopCen, cenLongInt)
 }
 
-class EGrid160LongPart(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rArray: Array[Int]) extends
+class EGrid160LongPart(rBottomCen: Int, cenLongInt: Int, rArray: Array[Int]) extends
   EGridLong(rBottomCen, cenLongInt, 40.kMetres, 200, rArray)
 {
   /** The latitude and longitude [[LatLong]] of an [[HCoord]] within the grid. */
@@ -35,6 +35,11 @@ object EGrid160
   def w90(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 9)
   def w60(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 10)
   def w30(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,11)
+
+  def british: EGrid160LongPart =
+  { val array = Array[Int](1, 504)
+    new EGrid160LongPart(280, 320, array)
+  }
 
   def scen0: EScenBasic =
   { val grid: EGridLongFull = e0(276)

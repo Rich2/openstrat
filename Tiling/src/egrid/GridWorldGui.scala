@@ -3,7 +3,7 @@ package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
 /** Displays grids on world as well as land masss outlines. */
-class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView) extends GlobeGui("Grid World")
+class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean) extends GlobeGui("Grid World")
 {
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
   implicit val gridSys: EGridSys = scenIn.gridSys
@@ -13,16 +13,17 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
   //def view: HGridView = HGridView()
 
-  val proj = gridSys.projection(mainPanel)
+  val proj = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))// gridSys.projection(mainPanel)
   proj.setView(viewIn)
 
   val terrs: HCenLayer[WTile] = scenIn.terrs
   val sTerrs: HSideBoolLayer = scenIn.sTerrs
 
-  val g0Str: String = gridSys match {
-    case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
+  val g0Str: String = gridSys match
+  { case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
     case _ => "Single grid"
   }
+
   val sideError = gridSys.numSides - gridSys.numInnerSides - gridSys.numOuterSides
   deb(s"In: ${gridSys.numInnerSides}, out: ${gridSys.numOuterSides}, total: ${gridSys.numSides}, error: $sideError, $g0Str" )
 
@@ -81,5 +82,5 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView)
 }
 
 object GridWorldGui
-{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView): GridWorldGui = new GridWorldGui(canv,grid, view)
+{ def apply(canv: CanvasPlatform, grid: EScenBasic, view: HGView, isFlat: Boolean): GridWorldGui = new GridWorldGui(canv,grid, view, isFlat)
 }

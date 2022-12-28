@@ -73,7 +73,7 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
     }
   }
 
-  override def tilePolygons: PolygonArr = gChild.map(_.hVertPolygon.map(parent.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale))
+  override def tilePolygons: PolygonArr = gChild.map(_.hVertPolygon.map(transCoord(_)))//.slate(-focus).scale(pixCScale))
 
   override def tileActives: RArr[PolygonActive] =
     gChild.map(hc => hc.hVertPolygon.map(parent.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
@@ -84,7 +84,6 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
     new RArr[GraphicElem](buff.toArray)
   }
 
-
   override def hCenSizedMap(hexScale: Double)(f: (Pt2, HCen) => GraphicElem): GraphicElems = ifGScale(hexScale, hCenMap(f))
 
   override def sideLines: LineSegArr = gChild.sideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
@@ -94,12 +93,12 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
   override def transOptCoord(hc: HCoord): Option[Pt2] = Some(parent.flatHCoordToPt2(hc).slate(-focus).scale(pixCScale))
   override def transCoord(hc: HCoord): Pt2 = parent.flatHCoordToPt2(hc).slate(-focus).scale(pixCScale)
 
-  override def transTile(hc: HCen): Option[Polygon] = Some(hc.polygonReg)
+  override def transTile(hc: HCen): Option[Polygon] = Some(hc.hVertPolygon.map(transCoord(_)))
 
   override def transOptLineSeg(seg: LineSegHC): Option[LineSeg] =
     transOptCoord(seg.startPt).map2(transOptCoord(seg.endPt)){ (p1, p2) => LineSeg(p1, p2) }
 
   override def transLineSeg(seg: LineSegHC): LineSeg = seg.map(transCoord)
 
-  override def transHSides(inp: HSideArr): LineSegArr = ???//.slate(-focus).scale(cPScale)
+  override def transHSides(inp: HSideArr): LineSegArr = LineSegArr()// ???//.slate(-focus).scale(cPScale)
 }

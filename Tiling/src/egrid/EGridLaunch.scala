@@ -7,7 +7,8 @@ object EGridLaunch extends GuiLaunchMore
 {
   override def settingStr: String = "eGrid"
 
-  override def default: (CanvasPlatform => Any, String) = (cv => EGridFlatGui(cv, EGrid80.scen0, EGrid80.scen0.gridSys.coordCen.view()), "JavaFx Eath 80KM Grid")
+  override def default: (CanvasPlatform => Any, String) =
+    (cv => GridWorldGui(cv, EGrid80.scen0, EGrid80.scen0.gridSys.coordCen.view(), false), "JavaFx Eath 80KM Grid")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val num: Int = sts.findSettingElse("scen",1)
@@ -15,13 +16,7 @@ object EGridLaunch extends GuiLaunchMore
 
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
 
-    def egg(scen: EScenFlat): (CanvasPlatform => Any, String) =
-      (EGridFlatGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), scen.title + " Flat JavaFx")
-
-    def gwg(scen: EScenBasic): (CanvasPlatform => Any, String) =
-      (GridWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view())), scen.title + " Globe JavaFx")
-
-    val scen: EScenFlat = num match
+    val scen: EScenBasic = num match
     {
       case 0 => EGrid320.scen0
       case 1 => EGrid320.scen1
@@ -55,9 +50,7 @@ object EGridLaunch extends GuiLaunchMore
 
       case _ => EGrid80.scen0
     }
-    scen match
-    { case s: EScenBasic if !flat => gwg(s)
-      case s => egg(s)
-    }
+
+    (GridWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), flat), scen.title + " Globe JavaFx")
   }
 }
