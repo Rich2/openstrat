@@ -7,8 +7,9 @@ abstract class EGrid320Long(rBottomCen: Int, cenLongInt: Int, rowArray: Array[In
   EGridLong(rBottomCen, cenLongInt, 80.kMetres, 100, rowArray)
 
 object EGrid320Long
-{ def reg(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, leftC: Int, rightC: Int): EGrid320Long = {
-    val array = new Array[Int](rTopCen - rBottomCen + 2)
+{
+  def reg(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, leftC: Int, rightC: Int): EGrid320Long =
+  { val array = new Array[Int](rTopCen - rBottomCen + 2)
     val bot = rBottomCen.roundUpToEven
     val top = rTopCen.roundDownToEven
     iToForeach(bot, top, 2){r =>
