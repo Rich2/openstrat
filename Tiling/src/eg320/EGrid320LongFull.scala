@@ -3,8 +3,8 @@ package ostrat; package eg320
 import egrid._
 
 /** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 320Km */
-abstract class EGrid320Long(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
-  EGridLong(rBottomCen, rTopCen, cenLongInt, 80.kMetres, 100, rowArray)
+abstract class EGrid320Long(rBottomCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
+  EGridLong(rBottomCen, cenLongInt, 80.kMetres, 100, rowArray)
 
 object EGrid320Long {
   def reg(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, leftC: Int, rightC: Int): EGrid320Long = {
@@ -22,7 +22,7 @@ object EGrid320Long {
 }
 
 class EGrid320LongPart(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
-  EGrid320Long(rBottomCen, rTopCen, cenLongInt, rowArray) with EGridLongPart
+  EGrid320Long(rBottomCen, cenLongInt, rowArray) with EGridLongPart
 {
   override val fullGrid: EGrid320LongFull = EGrid320LongFull.fullBounds(cenLongInt)
 }
