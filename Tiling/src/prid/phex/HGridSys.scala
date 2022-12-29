@@ -168,11 +168,18 @@ trait HGridSys extends Any with TGridSys
     res
   }
 
-  /** Creates new data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
+  /** Creates new [[HCenLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s [[HCenLayer]] data layer. */
   def newHCenSubLayer[A <: AnyRef](superGrid: HGridSys, superLayer: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] =
-  { val dArray: Array[A] = new Array[A](numTiles)
-    foreach{hc => dArray(arrIndex(hc)) = superLayer(hc)(superGrid)}
-    new HCenLayer(dArray)
+  { val array: Array[A] = new Array[A](numTiles)
+    foreach{hc => array(arrIndex(hc)) = superLayer(hc)(superGrid)}
+    new HCenLayer(array)
+  }
+
+  /** Creates new data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
+  def newHSideBoolSubLayer(superGrid: HGridSys, superLayer: HSideBoolLayer): HSideBoolLayer =
+  { val array: Array[Boolean] = new Array[Boolean](numSides)
+    sidesForeach { hc => array(sideArrIndex(hc)) = superLayer(hc)(superGrid) }
+    new HSideBoolLayer(array)
   }
 
   /** New hex tile data layer of [[RArr]][A]. */

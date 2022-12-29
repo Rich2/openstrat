@@ -34,13 +34,14 @@ object Terr320E0 extends Long320Terrs
   def regGrid: EGrid320Long = EGrid320Long.reg(138, 148, 0, 504, 520)
 
   def regTerrs: HCenLayer[WTile] = regGrid.newHCenSubLayer(grid, terrs)
+  def regSTerrs: HSideBoolLayer = regGrid.newHSideBoolSubLayer(grid, sTerrs)
 
   def regScen: EScenBasic = new EScenBasic
   { override def title: String = "Regular Britain"
     override implicit val gridSys: EGrid320Long = regGrid
     override val terrs: HCenLayer[WTile] = regTerrs
-    override val sTerrs: HSideBoolLayer = gridSys.newSideBools
-    sTerrs.setTruesInts((142, 508), (143, 507))
+    override val sTerrs: HSideBoolLayer = regSTerrs//gridSys.newSideBools
+    //sTerrs.setTruesInts((142, 508), (143, 507))
   }
 
   /*def regScenGlobe: EScenBasic = new EScenBasic  {

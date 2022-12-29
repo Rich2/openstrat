@@ -13,7 +13,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
   //def view: HGridView = HGridView()
 
-  val proj = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))// gridSys.projection(mainPanel)
+  implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))// gridSys.projection(mainPanel)
   proj.setView(viewIn)
 
   val terrs: HCenLayer[WTile] = scenIn.terrs
@@ -44,7 +44,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
     def optTexts2 = ifGScale(5, optTexts)
 
     def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
-
+    def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
     def innerSidesDraw = proj.innerSidesDraw(2, White)
     def innerSidesDraw2 = ifGScale(5, RArr(innerSidesDraw))
 
@@ -67,7 +67,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
       case ep: HSysProjectionEarth => ep.irrNames2
       case _ => RArr()
     }
-    seas ++ irrFills ++ irrNames ++ tiles ++ innerSidesDraw2 +% outerLines ++ rcTexts ++ irrLines ++ straitsDraw
+    seas ++ irrFills ++ irrNames ++ tiles ++ sides1 ++ innerSidesDraw2 +% outerLines ++ rcTexts ++ irrLines ++ straitsDraw
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
