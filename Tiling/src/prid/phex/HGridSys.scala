@@ -241,6 +241,13 @@ trait HGridSys extends Any with TGridSys
     build.buffToSeqLike(buff)
   }
 
+  /** Optionally maps over each Hex Side's coordinate [[HSide]]. */
+  final def sidesOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
+    sidesForeach { hs => f(hs).foreach(b => build.buffGrow(buff, b)) }
+    build.buffToSeqLike(buff)
+  }
+
   /** flatMaps  over each inner hex Side's coordinate [[HSide]].. */
   final def linksFlatMap[ArrT <: Arr[_]](f: HSide => ArrT)(implicit build: ArrFlatBuilder[ArrT]): ArrT =
   { val buff = build.newBuff()
