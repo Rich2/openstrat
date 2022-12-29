@@ -28,7 +28,7 @@ case class SqSysProjectionFlat(parent: SqGridSys, panel: Panel) extends SqSysPro
   override def pixTileScale: Double = pixCScale * 2
   override def pixRScale: Double = pixCScale
   var focus: Vec2 = parent.defaultView(pixCScale).vec
-  override def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ???
+  override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ???
 
   var gChild: SqGridSys = getGChild
   def getGChild: SqGridSys = parent

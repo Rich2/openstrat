@@ -4,4 +4,5 @@ import prid.phex._
 
 object GSys {
   val g1: HGridReg = HGridReg(2, 6, 2, 10)
+  val g2: HGridReg = HGridReg(2, 12, 2, 60)
 }

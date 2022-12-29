@@ -32,11 +32,10 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   /** [[TextGraphic]]s to display the [[HCen]] coordinate in the tiles that have no unit counters. */
   def hexStrs: RArr[TextGraphic] = players.projNoneHcPtMap{ (hc, pt) => pt.textAt(hc.strComma, 20) }
 
+  def hexStrs2: GraphicElems = proj.ifTileScale(60, hexStrs)
+
   /** This makes the tiles active. They respond to mouse clicks. It does not paint or draw the tiles. */
   val actives: RArr[PolygonActive] = proj.tileActives
-
-  /** Draws the tiles sides (or edges). */
-  def sidesDraw: LinesDraw = proj.sidesDraw()
 
   /** Draws the tiles sides (or edges). */
   def innerSidesDraw: LinesDraw = proj.innerSidesDraw()
@@ -45,15 +44,6 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   def outerSidesDraw: LinesDraw = proj.outerSidesDraw(2, Colour.Gold)
 
   def moveSegPairs: LineSegPairArr[Player] = moves2.optMapOnA1(_.projLineSeg)
-
-  def outPoly: Option[PolygonFill] = gridSys match
-  { case g: HGrid =>
-    { val p1 = g.outerPolygon
-      val p2 = p1.map(proj.transCoord(_)).fill(Colour.Violet.modAlpha(108))
-      Some(p2)
-    }
-    case _ => None
-  }
 
   /** This is the graphical display of the planned move orders. */
   def moveGraphics: GraphicElems = moveSegPairs.pairFlatMap{ (seg, pl) => seg.draw(pl.colour).arrow }
@@ -87,7 +77,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
   }
   thisTop()
 
-  def frame: GraphicElems = (actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs).appendOption(outPoly)
+  def frame: GraphicElems = (actives ++ units +% innerSidesDraw +% outerSidesDraw ++ moveGraphics ++ hexStrs2)
   proj.getFrame = () => frame
   proj.setStatusText = {str =>
     statusText = str

@@ -14,10 +14,13 @@ object G1HScen1 extends H1Scen
 /** 2nd example Turn 0 scenario state for Game One. */
 object G1HScen2 extends H1Scen
 { override def turn: Int = 0
-  implicit val gridSys: HGridReg = HGridReg(2, 10, 4, 8)
+  implicit val gridSys: HGridReg = GSys.g2// HGridReg(2, 12, 2, 60)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
-  oPlayers.unsafeSetSomes((4, 4, PlayerA), (8, 4, PlayerB), (6, 6, PlayerC))
+  oPlayers.unsafeSetSome(6, 38, PlayerA)
+  oPlayers.unsafeSetSomes((4, 40, PlayerB), (6, 42, PlayerC))
 }
+
+
 
 /** 3rd example Turn 0 scenario state for Game One. */
 object G1HScen3 extends H1Scen
@@ -27,12 +30,12 @@ object G1HScen3 extends H1Scen
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
 }
 
+/** 2nd example Turn 0 scenario state for Game One. */
 object G1HScen4 extends H1Scen
 { override def turn: Int = 0
-  implicit val gridSys: HGridReg = HGridReg(2, 12, 2, 60)
+  implicit val gridSys: HGridReg = HGridReg(2, 10, 4, 8)
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
-  oPlayers.unsafeSetSome(6, 38, PlayerA)
-  oPlayers.unsafeSetSomes((4, 40, PlayerB), (6, 42, PlayerC))
+  oPlayers.unsafeSetSomes((4, 4, PlayerA), (8, 4, PlayerB), (6, 6, PlayerC))
 }
 
 object G1HScen5 extends H1Scen

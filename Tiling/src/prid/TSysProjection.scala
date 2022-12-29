@@ -16,8 +16,8 @@ trait TSysProjection
   /** Gives the projector access to the scenarios tile graphic creation. */
   var getFrame: () => GraphicElems = () => RArr()
 
-  /** Filters the [[GraphicElem]]s away if the grid scale is too small to display the elements satisfactorily.  */
-  def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems
+  /** Filters the [[GraphicElem]]s away if the tile scale is too small to display the elements satisfactorily.  */
+  def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems
 
   var setStatusText: String => Unit = s => {}
   val buttons: RArr[PolygonCompound]

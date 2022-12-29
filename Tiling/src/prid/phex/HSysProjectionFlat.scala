@@ -10,7 +10,7 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
   override def pixTileScale: Double = pixCScale * 4
 
   var focus: Vec2 = parent.defaultView(pixCScale).vec
-  def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixCScale >= minScale, elems, RArr[GraphicElem]())
+  override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixTileScale >= minScale, elems, RArr[GraphicElem]())
 
   override def setView(view: Any): Unit = view match
   {
@@ -84,7 +84,7 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
     new RArr[GraphicElem](buff.toArray)
   }
 
-  override def hCenSizedMap(hexScale: Double)(f: (Pt2, HCen) => GraphicElem): GraphicElems = ifGScale(hexScale, hCenMap(f))
+  override def hCenSizedMap(hexScale: Double)(f: (Pt2, HCen) => GraphicElem): GraphicElems = ifTileScale(hexScale, hCenMap(f))
 
   override def sideLines: LineSegArr = gChild.sideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
   override def innerSideLines: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
