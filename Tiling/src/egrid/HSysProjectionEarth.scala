@@ -8,10 +8,9 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   var focus: LatLong = 0 ll 0
   var scale: Length = 4.km
   def gScale: Double = parent.cScale / scale
+  def tileScale: Double = gScale * 4
+  override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(tileScale >= minScale, elems, RArr[GraphicElem]())
 
-  //def gScale: Double = gridSys.cScale / scale
-
-  def ifGScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
   override def setView(view: Any): Unit = view match {
     case hv: HGView => {
       scale = parent.cScale / hv.cPScale
@@ -88,7 +87,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   override def tilePolygons: PolygonArr = ???
 
   override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems = gChild.map{hc => f(transCoord(hc), hc) }
-  override def hCenSizedMap(hexScale: Double = 20)(f: (Pt2, HCen) => GraphicElem): GraphicElems = ifGScale(hexScale, hCenMap(f))
+  override def hCenSizedMap(hexScale: Double = 20)(f: (Pt2, HCen) => GraphicElem): GraphicElems = ifTileScale(hexScale, hCenMap(f))
 
   override def tileActives: RArr[PolygonActive] = gChild.map(p => p.hVertPolygon.map(transCoord(_)).active(p))
 
@@ -150,7 +149,7 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
 
   def irrLines: RArr[PolygonDraw] = irr1.map { a => a._2.map(_ / scale).draw(White) }
 
-  def irrLines2: GraphicElems = ifGScale(2, irrLines)
+  def irrLines2: GraphicElems = ifTileScale(8, irrLines)
 
   def irrNames: RArr[TextGraphic] = irr1.map { pair =>
     val (d, _) = pair
@@ -158,7 +157,5 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
     TextGraphic(d.name, 12, posn, d.colour.contrastBW)
   }
 
-  def irrNames2: GraphicElems = ifGScale(4, irrNames)
-
-  //val buttons: Arr[PolygonCompound] = Arr(zoomIn, zoomOut, focusLeft, focusRight, focusUp, focusDown)
+  def irrNames2: GraphicElems = ifTileScale(16, irrNames)
 }

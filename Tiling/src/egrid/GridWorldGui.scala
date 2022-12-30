@@ -32,7 +32,8 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
       case ep: HSysProjectionEarth => ep.irrFills//Lines2
       case _ => RArr()
     }
-    def rcTexts = proj.ifGScale(20.5, optTexts)
+
+    def rcTexts = proj.ifTileScale(82, optTexts)
 
     def optTexts = terrs.hcOptFlatMap{ (hc, terr) =>
       proj.transOptCoord(hc).map{ pt =>
