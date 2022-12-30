@@ -11,7 +11,6 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
   def gScale: Double = gridSys.cScale / scale
   def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
   var focus: LatLong = gridSys.hCoordLL(viewIn.hCoord)
-  //def view: HGridView = HGridView()
 
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))// gridSys.projection(mainPanel)
   proj.setView(viewIn)
@@ -45,13 +44,14 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
 
     def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
     def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
-    def innerSidesDraw = proj.innerSidesDraw(2, White)
-    def innerSidesDraw2 = ifGScale(5, RArr(innerSidesDraw))
 
-    def straits: LineSegArr =  proj.transHSides(sTerrs.trueHSides)
-    def straitsDraw: GraphicElems = straits.map{ ls  => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
+    def innerSidesDraw = sTerrs.projFalsesLineSegMap{ls => ls.draw(White) }
+    def innerSidesDraw2 = ifGScale(5, innerSidesDraw)
 
-    def outerLines = proj.outerSidesDraw(3, Gold)//  ifGScale(4, outers4)
+   // def straits: LineSegArr =  proj.transHSides(sTerrs.trueHSides)
+    //def straitsDraw: GraphicElems = straits.map{ ls  => Rectangle.fromAxisRatio(ls, 0.3).fill(Red) }
+
+    def outerLines = proj.outerSidesDraw(3, Gold)
 
     def seas: GraphicElems = proj match{
       case ep: HSysProjectionEarth => RArr(earth2DEllipse(ep.scale).fill(LightBlue))
@@ -67,7 +67,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
       case ep: HSysProjectionEarth => ep.irrNames2
       case _ => RArr()
     }
-    seas ++ irrFills ++ irrNames ++ tiles ++ sides1 ++ innerSidesDraw2 +% outerLines ++ rcTexts ++ irrLines ++ straitsDraw
+    seas ++ irrFills ++ irrNames ++ tiles ++ sides1 ++ innerSidesDraw2 +% outerLines ++ rcTexts ++ irrLines// ++ straitsDraw
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
