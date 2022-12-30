@@ -51,7 +51,7 @@ trait HGridMan
 
   def sidesFold[A](f: (A, HSide) => A)(implicit ev: DefaultValue[A]): A = sidesFold(ev.default)(f)
 
-  def hCenSteps(hCen: HCen): HDirnArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
+  def hCenSteps(hCen: HCen): HStepArr = grid.hCenSteps(hCen) ++ outSteps(hCen).map(_.step)
 
   /** The offet is used in the implementation of the flatHCoordToPt2(hCoord: HCoord) method in [[HGridMulti]] where it is added to the [[Pt2]] value
    * given by the [[HGrid]]. */
@@ -60,10 +60,10 @@ trait HGridMan
   /** Default implementation may need removal. */
   def adjTilesOfTile(tile: HCen): HCenArr = grid.adjTilesOfTile(tile)
 
-  def findStep(startHC: HCen, endHC: HCen): Option[HDirn] =
+  def findStep(startHC: HCen, endHC: HCen): Option[HStep] =
     if(grid.hCenExists(endHC)) grid.findStep(startHC, endHC) else outSteps(startHC).find(_.endHC == endHC).map(_.step)
 
-  def findStepEnd(startHC: HCen, step: HDirn): Option[HCen] =
+  def findStepEnd(startHC: HCen, step: HStep): Option[HCen] =
   { val r1 = grid.findStepEnd(startHC, step)
     if(r1.nonEmpty) r1 else outSteps(startHC).find(_.step == step).map(_.endHC)
   }

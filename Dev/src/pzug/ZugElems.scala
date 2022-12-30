@@ -25,7 +25,8 @@ trait Polity extends ShowSimple
   def colour: Colour
 }
 
-object Polity{
+object Polity
+{
   implicit val showEv: ShowT[Polity] = new ShowT[Polity] {
     override def strT(obj: Polity): String = obj.str
     override def syntaxDepthT(obj: Polity): Int = 1
@@ -51,7 +52,7 @@ object France extends Polity
   def colour = Colour.fromInts(125, 255, 255)
 }
 
-type Action = HDirnArr | ZugAction
+type Action = HStepArr | ZugAction
 
 trait ZugAction
 
@@ -59,10 +60,10 @@ case class Fire(hCen: HCen) extends ZugAction
 { override def toString: String = "Fire" + hCen.rcStr
 }
 
-case class Move(dirns: HDirnArr) extends ZugAction
+case class Move(dirns: HStepArr) extends ZugAction
 
 object Move
-{ def apply(dirns: HDirn*): ZugAction = new Move(HDirnArr(dirns:_*))
+{ def apply(dirns: HStep*): ZugAction = new Move(HStepArr(dirns:_*))
 }
 
 object NoAction extends ZugAction

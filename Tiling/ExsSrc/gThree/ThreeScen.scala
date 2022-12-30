@@ -15,8 +15,8 @@ abstract class ThreeScen(val turn: Int) extends HGridScen
   {
     val playersKey: Map[Lunit, HCen] = units.SomesKeyMap
 
-    /** A mutable grid of data. The tile data is an Array buffer of [[HDirn]]s, the HStep pointing back to the origin [[HCen]] of the player. */
-    val targets: HCenBuffLayer[HDirn] = gridSys.newHCenArrOfBuff
+    /** A mutable grid of data. The tile data is an Array buffer of [[HStep]]s, the HStep pointing back to the origin [[HCen]] of the player. */
+    val targets: HCenBuffLayer[HStep] = gridSys.newHCenArrOfBuff
 
     /*orderList.foreach { case (player, steps) =>  steps.ifHead { step =>
       val hc1 = playersKey(player)

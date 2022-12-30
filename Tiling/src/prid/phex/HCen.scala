@@ -31,16 +31,16 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   override def typeStr: String = "HCen"
 
   /** Step to adjacent hex tile. Will throw exception on illegal value. */
-  def unsafeStep(st: HDirn)(implicit grider: HGridSys): HCen = grider.unsafeStepEnd(this, st)// HCen(r + st.r, c + st.c)
+  def unsafeStep(st: HStep)(implicit grider: HGridSys): HCen = grider.unsafeStepEnd(this, st)// HCen(r + st.r, c + st.c)
 
   /** Step to adjacent hex tile. */
-  def stepOpt(st: HDirn)(implicit grider: HGridSys): Option[HCen] = grider.findStepEnd(this, st)
+  def stepOpt(st: HStep)(implicit grider: HGridSys): Option[HCen] = grider.findStepEnd(this, st)
 
-  /** HCenStep for this [[HCen]] and the parameter [[HDirn]]. */
-  def andStep(step: HDirn): HCenStep = HCenStep(r, c, step)
+  /** HCenStep for this [[HCen]] and the parameter [[HStep]]. */
+  def andStep(step: HStep): HCenStep = HCenStep(r, c, step)
 
   /** Returns the [[LineSegHC]], a line segment specified in [[HCoord]]s, given by the step. */
-  def segStepTo(st: HDirn): LineSegHC = new LineSegHC(r, c, r + st.tr, c + st.tc)
+  def segStepTo(st: HStep): LineSegHC = new LineSegHC(r, c, r + st.tr, c + st.tc)
 
   def -(operand: HCen): HCen = HCen(r - operand.r, c - operand.c)
 
@@ -96,7 +96,7 @@ class HCenArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCen]
   override def fElemStr: HCen => String = _.toString
 
   /** Converts a sequence of adjacent hex tiles to hex directions. Only call this method if you are certain the tiles are adjacent. */
-  def unsafeToHDirns(implicit grider: HGridSys): HDirnArr = ???
+  def unsafeToHDirns(implicit grider: HGridSys): HStepArr = ???
 }
 
 /** Companion object for [[HCenArr]] trait efficient array[Int] based collection for [[HCen]]s hex grid centre coordinates, contains factory apply and uninitialised methods.. */

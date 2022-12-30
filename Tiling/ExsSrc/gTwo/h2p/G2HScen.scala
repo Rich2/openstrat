@@ -2,11 +2,11 @@
 package ostrat; package gTwo; package h2p
 import prid._, phex._, gPlay._
 
-case class PlayerState(player: Player, steps: HDirnArr)
+case class PlayerState(player: Player, steps: HStepArr)
 
 object PlayerState
 {
-  def apply(player: Player, steps: HDirn*): PlayerState = PlayerState(player, HDirnArr(steps: _*))
+  def apply(player: Player, steps: HStep*): PlayerState = PlayerState(player, HStepArr(steps: _*))
 }
 
 /** A scenario turn or state for Game Three. Adds in multiple turn orders which are now part of the game state. */

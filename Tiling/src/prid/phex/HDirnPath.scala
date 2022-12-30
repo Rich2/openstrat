@@ -2,18 +2,18 @@
 package ostrat; package prid; package phex
 import annotation._, geom._, reflect.ClassTag
 
-/** A path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
+/** A path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
 class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
 { def startR: Int = unsafeArray(0)
   def startC: Int = unsafeArray(1)
   def startCen = HCen(unsafeArray(0), unsafeArray(1))
   def length: Int = unsafeArray.length - 2
 
-  /** Gets the first [[HDirn]] wills throw on an empty path. */
-  def getHead: HDirn = HDirn.fromInt(unsafeArray(2))
+  /** Gets the first [[HStep]] wills throw on an empty path. */
+  def getHead: HStep = HStep.fromInt(unsafeArray(2))
 
-  /** Gets the [[HDirn]] at the given index, will throw if the element doesn't exist. */
-  def index(index: Int): HDirn = HDirn.fromInt(unsafeArray(index + 2))
+  /** Gets the [[HStep]] at the given index, will throw if the element doesn't exist. */
+  def index(index: Int): HStep = HStep.fromInt(unsafeArray(index + 2))
 
   def tail(newStart: HCen): HDirnPath =
   { val newArray = new Array[Int]((length - 1).max0 + 2)
@@ -77,7 +77,7 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
 
 object HDirnPath
 {
-  def apply(startCen: HCen, steps: HDirn*): HDirnPath =
+  def apply(startCen: HCen, steps: HStep*): HDirnPath =
   { val array = new Array[Int](steps.length + 2)
     array(0) = startCen.int1
     array(1) = startCen.int2
@@ -86,7 +86,7 @@ object HDirnPath
   }
 }
 
-/** An [[Arr]] of paths consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
+/** An [[Arr]] of paths consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
 class HDirnPathArr(val unsafeArrayOfArrays: Array[Array[Int]]) extends ArrayIntBackedArr[HDirnPath]
 { override type ThisT = HDirnPathArr
   override def typeStr: String = "HDirnPathArr"
@@ -100,7 +100,7 @@ object HDirnPathArr
 { def apply[A2](paths: HDirnPath*): HDirnPathArr = ???
 }
 
-/** An [[PairNoA1ParamElem]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
+/** An [[PairNoA1ParamElem]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
 class HDirnPathPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayIntBackedPair[HDirnPath, A2]
 { override def a1: HDirnPath = new HDirnPath(a1ArrayInt)
   def path: HDirnPath = new HDirnPath(a1ArrayInt)
@@ -109,10 +109,10 @@ class HDirnPathPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayInt
 
 object HDirnPathPair
 { /** Factory apply method with alternative name overload where start row and colum passed separately. */
-  def apply[A2](a2: A2, startCen: HCen, steps: HDirn*): HDirnPathPair[A2] = apply[A2](a2,startCen.r, startCen.c, steps:_*)
+  def apply[A2](a2: A2, startCen: HCen, steps: HStep*): HDirnPathPair[A2] = apply[A2](a2,startCen.r, startCen.c, steps:_*)
 
   /** Factory apply method with alternative name overload where [[HCen]] passes as single parameter. */
-  def apply[A2](a2: A2, startR: Int, startC: Int, steps: HDirn*): HDirnPathPair[A2] =
+  def apply[A2](a2: A2, startR: Int, startC: Int, steps: HStep*): HDirnPathPair[A2] =
   { val array: Array[Int] = new Array[Int](2 + steps.length)
     array(0) = startR
     array(1) = startC
@@ -121,7 +121,7 @@ object HDirnPathPair
   }
 }
 
-/** A [[PairNoA1PramArr]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HDirn]]s. */
+/** A [[PairNoA1PramArr]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
 class HDirnPathPairArr[A2](val a1ArrayInts: Array[Array[Int]], val a2Array: Array[A2]) extends ArrayIntBackedPairArr[HDirnPath, HDirnPathArr, A2, HDirnPathPair[A2]]
 { override type ThisT = HDirnPathPairArr[A2]
   override def typeStr: String = "HDirnPathPairArr"

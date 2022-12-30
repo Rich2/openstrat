@@ -11,7 +11,7 @@ trait ZugScen extends HSysTurnScen
 
   def sTerrs: HSideBoolLayer
   val lunits: HCenArrLayer[Squad]
-  def setSquadMove(r: Int, c: Int, polity: Polity, steps: HDirn*): Unit = lunits.set(r, c, Squad(polity, Move(HDirnArr(steps:_*))))
+  def setSquadMove(r: Int, c: Int, polity: Polity, steps: HStep*): Unit = lunits.set(r, c, Squad(polity, Move(HStepArr(steps:_*))))
 
   def endTurn(): ZugScen = new ZugScen
   {

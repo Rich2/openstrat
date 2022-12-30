@@ -68,7 +68,7 @@ case class G1HGui(canv: CanvasPlatform, scenStart: H1Scen, viewIn: HGView) exten
     }
 
     case (RightButton, AnyArrHead(HPlayer(hc1, pl)), hits) => hits.findHCenForEach{ hc2 =>
-      val newM: Option[HDirn] = gridSys.findStep(hc1, hc2)
+      val newM: Option[HStep] = gridSys.findStep(hc1, hc2)
       newM.foreach{ d => moves2 = moves2.replaceA1byA2OrAppend(pl, hc1.andStep(d)) }
       repaint()
     }

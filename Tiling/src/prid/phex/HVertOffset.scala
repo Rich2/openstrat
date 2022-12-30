@@ -1,7 +1,32 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-class HVOffset private (val int1: Int) extends AnyVal with Int1Elem
+sealed trait HVDirn
+{
+  def dr: Int
+  def dc: Int
+}
+
+object HVDirn
+{
+  def fromInt(inp: Int): HVDirn = inp match {
+    case 0 => HVUp
+    case n => excep(s"$n is an invalid Int value for an HVDirn.")
+  }
+}
+
+object HVUp extends HVDirn
+{
+  def dr = 1
+  def dc = 0
+}
+
+class HVertOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int)
+{
+  def vert: HVert = HVert(r, c)
+}
+
+/*class HVOffset private (val int1: Int) extends AnyVal with Int1Elem
 { /** bits 2 - 0 */
   def dirn1: HDirnOpt = HDirnOpt.fromInt(int1 % TwoPower3)
 
@@ -11,7 +36,7 @@ class HVOffset private (val int1: Int) extends AnyVal with Int1Elem
   def delta2: Int = int1 % TwoPower14 / TwoPower10
   def dirn3: HDirnOpt = HDirnOpt.fromInt(int1 % TwoPower17 / TwoPower14)
   def delta3: Int = int1 % TwoPower21 / TwoPower17
-}
+}*/
 
 //trait HVOffset0 extends HVOffset
 

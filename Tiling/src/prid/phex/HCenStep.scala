@@ -2,13 +2,13 @@
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** A hex grid step representing the starting [[HCen]] of the step as well as the [[HDirn]] singleton object itself. */
+/** A hex grid step representing the starting [[HCen]] of the step as well as the [[HStep]] singleton object itself. */
 class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
 { /** The Starting hex centre. */
   def startHC: HCen = HCen(r1, c1)
 
-  /** The [[HDirn]] singleton object. */
-  def step: HDirn = HDirn.fromInt(stepInt)
+  /** The [[HStep]] singleton object. */
+  def step: HStep = HStep.fromInt(stepInt)
 
   /** Returns the destination [[HCen]] if one exists within the [[HGridSys]]. */
   def endHC(implicit gridSys: HGridSys): Option[HCen] = gridSys.findStepEnd(this)
@@ -27,8 +27,8 @@ class HCenStep(val r1: Int, val c1: Int, val stepInt: Int) extends Int3Elem
 }
 
 object HCenStep
-{ def apply(hCen: HCen, step: HDirn): HCenStep = new HCenStep(hCen.r, hCen.c, step.int1)
-  def apply(r: Int, c: Int, step: HDirn): HCenStep = new HCenStep(r, c, step.int1)
+{ def apply(hCen: HCen, step: HStep): HCenStep = new HCenStep(hCen.r, hCen.c, step.int1)
+  def apply(r: Int, c: Int, step: HStep): HCenStep = new HCenStep(r, c, step.int1)
 
   implicit val arrMapBuilderEv: Int3ArrMapBuilder[HCenStep, HCenStepArr] = new Int3ArrMapBuilder[HCenStep, HCenStepArr]{
     override type BuffT = HCenStepBuff
@@ -71,7 +71,7 @@ class HCenStepPair[A2](val a1Int1: Int, val a1Int2: Int, val a1Int3: Int, val a2
   inline def c1: Int = a1Int2
   inline def stepInt: Int = a1Int3
   override def a1: HCenStep = new HCenStep(a1Int1, a1Int2, a1Int3)
-  def step: HDirn = HDirn.fromInt(a1Int3)
+  def step: HStep = HStep.fromInt(a1Int3)
 }
 
 class HCenStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) extends Int3PairArr[HCenStep, HCenStepArr, A2, HCenStepPair[A2]]

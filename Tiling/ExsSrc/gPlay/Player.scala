@@ -15,9 +15,9 @@ case class Player(char: Char, colour: Colour) extends Show2[Char, Colour]
   def charStr: String = char.toString
   override def show(style: ShowStyle): String = "Player" + char
   override def syntaxDepth: Int = 1
-  def hSteps(steps: HDirn*): (Player, HDirnArr) = (this, steps.toArr)
-  def hPath(r: Int, c: Int, steps: HDirn*): HDirnPathPair[Player] = HDirnPathPair[Player](this, r, c, steps:_*)
-  def hPath(hCen: HCen, steps: HDirn*): HDirnPathPair[Player] = HDirnPathPair[Player](this, hCen, steps:_*)
+  def hSteps(steps: HStep*): (Player, HStepArr) = (this, steps.toArr)
+  def hPath(r: Int, c: Int, steps: HStep*): HDirnPathPair[Player] = HDirnPathPair[Player](this, r, c, steps:_*)
+  def hPath(hCen: HCen, steps: HStep*): HDirnPathPair[Player] = HDirnPathPair[Player](this, hCen, steps:_*)
 }
 
 /** Companion object for Player case class contains implicit instance for Persist. */
