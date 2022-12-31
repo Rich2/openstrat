@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import annotation._, geom._, reflect.ClassTag
 
 /** A path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
-class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
+class HStepPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
 { def startR: Int = unsafeArray(0)
   def startC: Int = unsafeArray(1)
   def startCen = HCen(unsafeArray(0), unsafeArray(1))
@@ -15,12 +15,12 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
   /** Gets the [[HStep]] at the given index, will throw if the element doesn't exist. */
   def index(index: Int): HStep = HStep.fromInt(unsafeArray(index + 2))
 
-  def tail(newStart: HCen): HDirnPath =
+  def tail(newStart: HCen): HStepPath =
   { val newArray = new Array[Int]((length - 1).max0 + 2)
     newArray(0) = newStart.r
     newArray(1) = newStart.c
     iUntilForeach(1, length)(i => newArray(i + 1) = unsafeArray(i + 2))
-    new HDirnPath(newArray)
+    new HStepPath(newArray)
   }
 
   def segHCsForeach(f: LineSegHC => Unit)(implicit gSys: HGridSys): Unit =
@@ -75,35 +75,35 @@ class HDirnPath(val unsafeArray: Array[Int]) extends ArrayIntBacked
   }
 }
 
-object HDirnPath
+object HStepPath
 {
-  def apply(startCen: HCen, steps: HStep*): HDirnPath =
+  def apply(startCen: HCen, steps: HStep*): HStepPath =
   { val array = new Array[Int](steps.length + 2)
     array(0) = startCen.int1
     array(1) = startCen.int2
     steps.iForeach{(i, d) => array(i + 2) = d.int1 }
-    new HDirnPath(array)
+    new HStepPath(array)
   }
 }
 
 /** An [[Arr]] of paths consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
-class HDirnPathArr(val unsafeArrayOfArrays: Array[Array[Int]]) extends ArrayIntBackedArr[HDirnPath]
+class HDirnPathArr(val unsafeArrayOfArrays: Array[Array[Int]]) extends ArrayIntBackedArr[HStepPath]
 { override type ThisT = HDirnPathArr
   override def typeStr: String = "HDirnPathArr"
   override def unsafeFromArrayArray(array: Array[Array[Int]]): HDirnPathArr = new HDirnPathArr(array)
-  override def apply(index: Int): HDirnPath = new HDirnPath(unsafeArrayOfArrays(index))
-  override def fElemStr: HDirnPath => String = _.toString
+  override def apply(index: Int): HStepPath = new HStepPath(unsafeArrayOfArrays(index))
+  override def fElemStr: HStepPath => String = _.toString
 }
 
 /** Companion object for [[HDirnPathArr]] contains factory apply method. */
 object HDirnPathArr
-{ def apply[A2](paths: HDirnPath*): HDirnPathArr = ???
+{ def apply[A2](paths: HStepPath*): HDirnPathArr = ???
 }
 
-/** An [[PairNoA1ParamElem]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
-class HDirnPathPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayIntBackedPair[HDirnPath, A2]
-{ override def a1: HDirnPath = new HDirnPath(a1ArrayInt)
-  def path: HDirnPath = new HDirnPath(a1ArrayInt)
+/** An [[PairNoA1ParamElem]] where the first element is an [[HStepPath]], a path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
+class HDirnPathPair[A2](val a1ArrayInt: Array[Int], val a2: A2) extends ArrayIntBackedPair[HStepPath, A2]
+{ override def a1: HStepPath = new HStepPath(a1ArrayInt)
+  def path: HStepPath = new HStepPath(a1ArrayInt)
   def tail(newStart: HCen) = path.tail(newStart)
 }
 
@@ -121,17 +121,17 @@ object HDirnPathPair
   }
 }
 
-/** A [[PairNoA1PramArr]] where the first element is an [[HDirnPath]], a path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
-class HDirnPathPairArr[A2](val a1ArrayInts: Array[Array[Int]], val a2Array: Array[A2]) extends ArrayIntBackedPairArr[HDirnPath, HDirnPathArr, A2, HDirnPathPair[A2]]
+/** A [[PairNoA1PramArr]] where the first element is an [[HStepPath]], a path consisting of a starting [[HCen]] and a sequence of [[HStep]]s. */
+class HDirnPathPairArr[A2](val a1ArrayInts: Array[Array[Int]], val a2Array: Array[A2]) extends ArrayIntBackedPairArr[HStepPath, HDirnPathArr, A2, HDirnPathPair[A2]]
 { override type ThisT = HDirnPathPairArr[A2]
   override def typeStr: String = "HDirnPathPairArr"
-  inline override def a1FromArrayInt(array: Array[Int]): HDirnPath = new HDirnPath(array)
+  inline override def a1FromArrayInt(array: Array[Int]): HStepPath = new HStepPath(array)
   inline override def newFromArrays(array1: Array[Array[Int]], array2: Array[A2]): HDirnPathPairArr[A2] = new HDirnPathPairArr(array1, array2)
   inline override def a1Arr: HDirnPathArr = new HDirnPathArr(a1ArrayInts)
   override def fElemStr: HDirnPathPair[A2] => String = _.toString
   override def elemFromComponents(a1: Array[Int], a2: A2): HDirnPathPair[A2] = new HDirnPathPair(a1, a2)
 }
 
-object HDirnPathPairArr extends ArrayIntBackedPairArrCompanion[HDirnPath]
+object HDirnPathPairArr extends ArrayIntBackedPairArrCompanion[HStepPath]
 { def apply[A2](elems: HDirnPathPair[A2]*)(implicit ct: ClassTag[A2]): HDirnPathPairArr[A2] = elemsToArrays(elems, new HDirnPathPairArr[A2](_, _))
 }
