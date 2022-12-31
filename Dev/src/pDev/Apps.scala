@@ -7,6 +7,7 @@ object Apps
 {
   val launchs: StrPairArr[GuiLaunch] = StrPairArr[GuiLaunch](
     ("L", learn.Lessons),
+    ("W1", pww1.WW1Launch),
     ("BC", p305.BcLaunch),
     ("EA", pEarth.EarthBasicLaunch),
     ("EG", egrid.EGridLaunch),
