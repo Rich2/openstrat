@@ -15,7 +15,7 @@ flat = false;
 
 20 = HGView(286, 512; 25);//0E 160km
 31 = HGView(309, 11776; 23.5);//30W 160km
-32 = HGView(284, 508; 28);//Britain 160km
+32 = HGView(288, 508; 28);//Britain 160km
 
 40 = HGView(472, 520; 25);//0E 80km
 41 = HGView(494, 1538; 25);//30E 80km

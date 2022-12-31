@@ -2,16 +2,25 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
-object OuterHebrides extends EArea2("OuterHebrides", 57.83 ll -6.09, plain)
+object Orkneys extends EArea2("Orkneys", 59.06 ll -3.15, plain)
 {
-   val nLewis = 58.51 ll -6.26
+   val north = 59.38 ll -2.88
+   val stronsayE = 59.09 ll -2.53
+   val south = 58.73 ll -2.96
+   val hoyS = 58.77 ll -3.29
+   val marwick = 59.10 ll -3.36
+   override val polygonLL = PolygonLL(north, stronsayE, south, hoyS, marwick)
+}
+
+object OuterHebrides extends EArea2("OuterHebrides", 57.83 ll -6.09, plain)
+{  val nLewis = 58.51 ll -6.26
    val swLewis = 57.94 ll -6.47
    val sHarris = 57.73 ll -6.97
    val sandray = 56.88 ll -7.50
    val wUist = 57.60 ll -7.53
    val wLewis = 58.12 ll -7.13
    
-   val polygonLL = PolygonLL(nLewis, swLewis, sHarris, sandray, wUist, wLewis)
+   override val polygonLL = PolygonLL(nLewis, swLewis, sHarris, sandray, wUist, wLewis)
 }
 
 object Ireland extends EArea2("Ireland", 53.36 ll -7.63, plain)

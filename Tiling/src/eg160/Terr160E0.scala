@@ -16,7 +16,7 @@ object Terr160E0 extends LongTerrs
 //    gs(146, 460 + 50, hills, sea * 2, plain)
 //    gs(144, 460 + 48, plain, sea * 2, plain)
 //    gs(142, 460 + 46, plain, plain, sea, plain * 2)
-    gs(294, 522, hills, sea, taiga)
+    gs(294, 506, hills, sea * 3, hills, sea, taiga)
     gs(292, 504, hills * 2, sea * 5, plain)
     gs(290, 506, hills, sea * 4, plain, sea, plain)
     gs(288, 500, plain, hills, plain, sea * 4, plain, sea)
