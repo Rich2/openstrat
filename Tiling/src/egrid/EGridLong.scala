@@ -3,13 +3,13 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
 /** An Earth grid covering all or part of a 30 degree range of longitude for the non polar regions. */
-abstract class EGridLong(rBottomCen: Int, val cenLongInt: Int, cScale: Length, val rOffset: Int, rowArray: Array[Int]) extends
+abstract class EGridLong(rBottomCen: Int, val longGridIndex: Int, cScale: Length, val rOffset: Int, rowArray: Array[Int]) extends
   EGrid(rBottomCen, rowArray, cScale)
 { /** The C column coordinate of the middle of the full grid. */
-  def cOffset: Int = (cenLongInt %% 12) * 1024 + 512
+  def cOffset: Int = (longGridIndex %% 12) * 1024 + 512
 
   /** The central line of longitude of the full grid. This is a multiple of 30 degrees. 0E, 30E ... 180E, 150W ... 30W. */
-  def cenLong: Longitude = Longitude.degs(cenLongInt * 30)
+  def cenLong: Longitude = Longitude.degs(longGridIndex * 30)
 
   /** The latitude and longitude [[LatLong]] of an [[HCoord]] excluding the distorted east and west extrems of the grid. */
   def hCoordMiddleLL(hc: HCoord): LatLong = EGridLong.hCoordToLatLong0(hc.r - rOffset, hc.c - cOffset, cScale).addLong(cenLong)

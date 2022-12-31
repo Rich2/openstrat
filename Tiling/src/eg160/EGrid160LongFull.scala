@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
-import egrid._, geom._, pglobe._, prid.phex._
+import egrid._, geom._, pglobe._, prid.phex._, pEarth._
 
 /** A main non-polar grid with a hex span of 160Km */
 class EGrid160LongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
@@ -36,9 +36,9 @@ object EGrid160
   def w60(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 10)
   def w30(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,11)
 
-  def britain: EGrid160LongPart =
+  def britGrid: EGrid160LongPart =
   { val array = Array[Int](1, 504, 3, 506, 3, 504)
-    new EGrid160LongPart(280, 320, array)
+    new EGrid160LongPart(280, 0, array)
   }
 
   def scen0: EScenBasic =
@@ -99,5 +99,14 @@ object EGrid160
   def scen11: EScenBasic =
   { val grid: EGridLongFull = w30(276)
     EScenBasic(grid, Terr160W30.terrs,Terr160W30.sTerrs)
+  }
+
+  def ScenBrit: EScenBasic = new EScenBasic
+  {  override def title: String = "160KM Britain"
+
+    override implicit val gridSys: EGrid160LongPart = britGrid
+    override val terrs: HCenLayer[WTile] = ??? //regTerrs
+    override val sTerrs: HSideBoolLayer = ??? //regSTerrs //gridSys.newSideBools
+    //sTerrs.setTruesInts((142, 508), (143, 507))
   }
 }

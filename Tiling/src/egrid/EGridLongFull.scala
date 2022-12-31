@@ -3,9 +3,9 @@ package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
 /** An earth grid covering a full 30 degree longitude range for the non polar regions. */
-abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, cScale: Length, rOffset: Int) extends
-  EGridLong(rBottomCen, cenLongInt, cScale, rOffset,
-    EGridLongFull.getBounds(rBottomCen, rTopCen, rOffset, (cenLongInt %% 12) * 1024 + 512, cScale))
+abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, cScale: Length, rOffset: Int) extends
+  EGridLong(rBottomCen, longGridIndex, cScale, rOffset,
+    EGridLongFull.getBounds(rBottomCen, rTopCen, rOffset, (longGridIndex %% 12) * 1024 + 512, cScale))
 {
   override def hCoordLL(hc: HCoord): LatLong = hc.c match {
     case _ if hc.isCen => hCoordMiddleLL(hc)
