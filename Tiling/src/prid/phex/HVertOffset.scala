@@ -12,22 +12,31 @@ sealed trait HVDirn
 
 object HVDirn
 {
-  def fromInt(inp: Int): HVDirn = inp match {
-    case 0 => HVUp
+  def fromInt(inp: Int): HVDirn = inp match
+  { case 0 => HVExact
     case 1 => HVUR
     case 2 => HVDR
     case 3 => HVDn
     case 4 => HVDL
     case 5 => HVUL
+    case 6 => HVUp
     case n => excep(s"$n is an invalid Int value for an HVDirn.")
   }
 }
 
+/** Hex Vert offset of none. */
+object HVExact extends HVDirn
+{ def deltaR: Int = 0
+  def deltaC: Int = 0
+}
+
+/** Hex Vert Up offset. */
 object HVUp extends HVDirn
 { def deltaR: Int = 1
   def deltaC: Int = 0
 }
 
+/** Hex Vert Up Right offset. */
 object HVUR extends HVDirn
 { def deltaR: Int = 1
   def deltaC: Int = 1
@@ -47,6 +56,7 @@ object HVDL extends HVDirn
 { def deltaR: Int = -1
   def deltaC: Int = -1
 }
+
 object HVUL extends HVDirn
 { def deltaR: Int = 1
   def deltaC: Int = -1
