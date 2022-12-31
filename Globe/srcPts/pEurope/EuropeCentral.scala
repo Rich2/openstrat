@@ -2,6 +2,7 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
+/** Displays Netherlands depends on [[BelgLux]]. */
 object Netherlands extends EArea2("Netherlands", 52.31 ll 5.91, plain)
 {val wMiddleburg = 51.53 ll 3.43
    val eemshaven = 53.46 ll 6.82
@@ -10,21 +11,20 @@ object Netherlands extends EArea2("Netherlands", 52.31 ll 5.91, plain)
    override val polygonLL = PolygonLL(BelgLux.coastEast, wMiddleburg, eemshaven, westerwodenseeMouth, neNetherlands, BelgLux.aachen, BelgLux.north)
 }
 
-/** Displays roughly Germany on map. */
+/** Displays roughly Germany on map. Depends on [[Alsace]], [[Frankia]] and [[BelgLux]]. */
 object Germania extends EArea2("Germania", 50.50 ll 11.11, plain)
-{
-   
-   val cuxhaven = 53.88 ll 8.66   
+{  val cuxhaven = 53.88 ll 8.66
    val swinoujscie = 53.92 ll 14.24
       
-   override val polygonLL = PolygonLL(Netherlands.neNetherlands, cuxhaven,
-         Jutland.swJutland, Jutland.lubeck, swinoujscie, Alpsland.vienna, Alpsland.steyr, Frankia.basel, BelgLux.luxSE, BelgLux.aachen)
+   override val polygonLL = PolygonLL(Netherlands.neNetherlands, cuxhaven, Jutland.swJutland, Jutland.lubeck, swinoujscie, Alpsland.vienna,
+      Alpsland.steyr, Alsace.basel, Alsace.east, Alsace.luxSE, BelgLux.aachen)
 
    val berlin: LocationLL = LocationLL("Berlin", 52.52, 13.41, 1)
 
    override val places: LocationLLArr = LocationLLArr(berlin)
 }
 
+/** Displays the Alps, depends on [[Alsace]], [[Frankia]] and [[Italy]]. */
 object Alpsland extends EArea2("Alpsland", 45.93 ll 10.49, mtain)
 {
    val steyr = 48.04 ll 14.14
@@ -38,7 +38,7 @@ object Alpsland extends EArea2("Alpsland", 45.93 ll 10.49, mtain)
    val imperia = 43.89 ll 8.06  
       
    val polygonLL = PolygonLL(FranceSouth.stRaphael, FranceSouth.orangeCrossing, FranceSouth.montelimar, Frankia.southEast, Frankia.bourgeEnBresse,
-      Frankia.basel, steyr, vienna, zagreb, monfalcone, portoDiFalconera, Italy.venice, Italy.voltri, petraLigure, imperia
+      Alsace.southWest, Alsace.basel, steyr, vienna, zagreb, monfalcone, portoDiFalconera, Italy.venice, Italy.voltri, petraLigure, imperia
    )
 }
 

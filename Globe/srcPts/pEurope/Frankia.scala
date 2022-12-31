@@ -2,6 +2,33 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
+/** Alsace Lorraine, no map dependencies. */
+object Alsace extends EArea2("Alsace", 48.75 ll 7.42, hills)
+{
+  val northWest = 49.50 ll 5.89
+  val luxSE = 49.46 ll 6.37
+  val east = 48.97 ll 8.23
+  val basel = 47.56 ll 7.58
+  val southWest = 47.50 ll 7.13
+  val hautRhinNW = 48.31 ll 7.19
+  val moselleSW = 48.54 ll 7.07
+
+  val p10 = 49.258 ll 6.03
+  override val polygonLL = PolygonLL(northWest, luxSE, east, basel, southWest, hautRhinNW, moselleSW, p10)
+}
+
+/** Blegium andLuxembourg. Depends on Alsace. */
+object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, plain)
+{ val northWest = 51.09 ll 2.54
+  val coastEast = 51.36 ll 3.37
+  val north = 51.49 ll 5.04
+  val aachen = 50.78 ll 6.08
+  val p10 = 49.50 ll 5.47
+
+  override val polygonLL = PolygonLL(northWest, coastEast, north, aachen, Alsace.luxSE, Alsace.northWest, p10)
+}
+
+/** Displays most of France. Depends on [[Alsace]] and [[BelgLux]]. */
 object Frankia extends EArea2("Frankia", 47.28 ll 1.93, plain)
 {
   val southWest = divN45 ll -1.29
@@ -36,26 +63,14 @@ object Frankia extends EArea2("Frankia", 47.28 ll 1.93, plain)
   val capGrisNez = 50.87 ll 1.58
   val calais = 50.93 ll 1.74
 
-
-  val basel = 47.56 ll 7.58
   val bourgeEnBresse = 46.20 ll 5.22
 
   override val polygonLL = PolygonLL(southEast, southWest, sLAmelie, royan, laCoubre, laRochelle, niortaise, sablesdOlonne, vilaineMouth, penmarch,
     brest, landunvez, pleubian, yffiniac, capFrehel, pointeDuGrouin, vildeLaMarine, avranches,  cabaneVauban, auderville, gatteville, carentan,
-    cabourg,villierville, seineMouth, wLeHavre, capAntifer, cayeux, capGrisNez, calais, BelgLux.northWest, BelgLux.luxSE,
-    basel, bourgeEnBresse)
+    cabourg,villierville, seineMouth, wLeHavre, capAntifer, cayeux, capGrisNez, calais, BelgLux.northWest, BelgLux.p10, Alsace.northWest, Alsace.p10,
+    Alsace.moselleSW, Alsace.hautRhinNW, Alsace.southWest, bourgeEnBresse)
 
   val paris: LocationLL = LocationLL("Paris", 48.86, 2.35, 1)
 
   override val places: LocationLLArr = LocationLLArr(paris)
-}
-
-object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, plain)
-{
-  val northWest = 51.09 ll 2.54
-  val coastEast = 51.36 ll 3.37
-  val north = 51.49 ll 5.04
-  val aachen = 50.78 ll 6.08
-  val luxSE = 49.46 ll 6.37
-  override val polygonLL = PolygonLL(northWest, coastEast, north, aachen, luxSE)
 }
