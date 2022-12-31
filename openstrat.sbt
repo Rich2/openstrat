@@ -133,7 +133,7 @@ lazy val EarthAppJs = jsApp("EarthApp").settings(
 )
 
 lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, GlobeExs, TilingExs).settings(
-  Compile/unmanagedSourceDirectories := List("src", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
+  Compile/unmanagedSourceDirectories := List("src", "srcGrand", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
     List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
   Test/unmanagedSourceDirectories := List((Test/scalaSource).value),
@@ -149,7 +149,7 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, GlobeExs, TilingExs).settin
 lazy val DevNat = natProj("Dev").dependsOn(TilingNat)
 
 def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs).settings(
-  Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src") :::
+  Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src", (ThisBuild/baseDirectory).value / "Dev/srcGrand") :::
     List("Geom", "Globe", "Tiling").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
   libraryDependencies ++= Seq(
     "io.github.cquiroz" %%% "scala-java-time" % "2.4.0-M1",
