@@ -37,7 +37,7 @@ object EGrid160
   def w30(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,11)
 
   def britGrid: EGrid160LongPart =
-  { val array = Array[Int](1, 504, 3, 506, 3, 504)
+  { val array = Array[Int](1, 504, 3, 506, 3, 504, 1, 510, 2, 504, 1, 506, 2, 504)
     new EGrid160LongPart(280, 0, array)
   }
 

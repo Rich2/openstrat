@@ -29,8 +29,8 @@ object EGrid80
   def l0b446: EGrid80Long = new EGrid80Long(446, 540, 0)
   def l30b446: EGrid80Long = new EGrid80Long(446, 540, 1)
 
-  def westernFront: EGrid80LongPart = {
-    val array = Array[Int](1, 504, 3, 506, 3, 504)
+  def westernFront: EGrid80LongPart =
+  { val array = Array[Int](1, 504, 3, 506, 3, 504)
     new EGrid80LongPart(446, 320, array)
   }
 
