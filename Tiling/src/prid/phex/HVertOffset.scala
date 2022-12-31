@@ -1,29 +1,63 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
+/** [[HVert]] direction of offset towards [[HCen]]. */
 sealed trait HVDirn
-{
-  def dr: Int
-  def dc: Int
+{ /** The delta in R to the [[HCen]] from an [[HCoord]]. */
+  def deltaR: Int
+
+  /** The delta in C to the [[HCen]] from an [[HCoord]]. */
+  def deltaC: Int
 }
 
 object HVDirn
 {
   def fromInt(inp: Int): HVDirn = inp match {
     case 0 => HVUp
+    case 1 => HVUR
+    case 2 => HVDR
+    case 3 => HVDn
+    case 4 => HVDL
+    case 5 => HVUL
     case n => excep(s"$n is an invalid Int value for an HVDirn.")
   }
 }
 
 object HVUp extends HVDirn
-{
-  def dr = 1
-  def dc = 0
+{ def deltaR: Int = 1
+  def deltaC: Int = 0
 }
 
+object HVUR extends HVDirn
+{ def deltaR: Int = 1
+  def deltaC: Int = 1
+}
+
+object HVDR extends HVDirn
+{ def deltaR: Int = -1
+  def deltaC: Int = 1
+}
+
+object HVDn extends HVDirn
+{ def deltaR: Int = -1
+  def deltaC: Int = 0
+}
+
+object HVDL extends HVDirn
+{ def deltaR: Int = -1
+  def deltaC: Int = -1
+}
+object HVUL extends HVDirn
+{ def deltaR: Int = 1
+  def deltaC: Int = -1
+}
+
+/** Offset of an [[HVert]] measured in an offset towards a neighbouring [[HCen]]. */
 class HVertOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int)
-{
+{ /** The [[HVert]]. */
   def vert: HVert = HVert(r, c)
+
+  def hvDirn: HVDirn = HVDirn.fromInt(hvDirnInt)
 }
 
 /*class HVOffset private (val int1: Int) extends AnyVal with Int1Elem
