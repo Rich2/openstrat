@@ -62,8 +62,18 @@ object HVUL extends HVDirn
   def deltaC: Int = -1
 }
 
+class HVertOffset(val int1: Int) extends AnyVal with Int1Elem
+{ def hvDirn: HVDirn = HVDirn.fromInt(int1 %% 8)
+  def offset: Int = int1 / 8
+}
+
+class HVertOffsetSys(val unsafeArray: Array[Int])
+{
+  //def apply(hCen: HCen, vertNum: Int)
+}
+
 /** Offset of an [[HVert]] measured in an offset towards a neighbouring [[HCen]]. */
-class HVertOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int)
+class HVertAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int)
 { /** The [[HVert]]. */
   def vert: HVert = HVert(r, c)
 
