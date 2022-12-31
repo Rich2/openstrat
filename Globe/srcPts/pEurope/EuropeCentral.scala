@@ -4,7 +4,7 @@ import geom._, pglobe._, WTile._
 
 object Germania extends EArea2("Germania", 50.50 ll 11.11, plain)
 {
-   val eBelgianCoast = 51.36 ll 3.37
+
    val wMiddleburg = 51.53 ll 3.43
    val eemshaven = 53.44 ll 6.82      
    val neNetherlands = 53.24 ll 7.2
@@ -12,8 +12,8 @@ object Germania extends EArea2("Germania", 50.50 ll 11.11, plain)
    val cuxhaven = 53.88 ll 8.66   
    val swinoujscie = 53.92 ll 14.24
       
-   val polygonLL = PolygonLL(Frankia.belgianCoast, eBelgianCoast, wMiddleburg, eemshaven, neNetherlands, cuxhaven,
-         Jutland.swJutland, Jutland.lubeck, swinoujscie, Alpsland.vienna, Alpsland.steyr, Frankia.basel)
+   val polygonLL = PolygonLL(BelgLux.northEast, wMiddleburg, eemshaven, neNetherlands, cuxhaven,
+         Jutland.swJutland, Jutland.lubeck, swinoujscie, Alpsland.vienna, Alpsland.steyr, Frankia.basel, BelgLux.luxSE, BelgLux.north)
 
    val berlin: LocationLL = LocationLL("Berlin", 52.52, 13.41, 1)
 
