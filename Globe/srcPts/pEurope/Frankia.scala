@@ -53,8 +53,9 @@ object Frankia extends EArea2("Frankia", 47.28 ll 1.93, plain)
 object BelgLux extends EArea2("BelgLux", 50.6 ll 4.78, plain)
 {
   val northWest = 51.09 ll 2.54
-  val northEast = 51.36 ll 3.37
+  val coastEast = 51.36 ll 3.37
   val north = 51.49 ll 5.04
+  val aachen = 50.78 ll 6.08
   val luxSE = 49.46 ll 6.37
-  override val polygonLL = PolygonLL(northWest, northEast, north, luxSE)
+  override val polygonLL = PolygonLL(northWest, coastEast, north, aachen, luxSE)
 }

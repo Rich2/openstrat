@@ -2,11 +2,13 @@
 package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
-/** Displays grids on world as well as land masss outlines. */
+/** Displays grids on world as well as land mass outlines. */
 class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean) extends GlobeGui("Grid World")
 {
+  val scen: EScenBasic = scenIn
+  deb(scen.title)
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
-  implicit val gridSys: EGridSys = scenIn.gridSys
+  implicit val gridSys: EGridSys = scen.gridSys
   var scale: Length = gridSys.cScale / viewIn.cPScale
   def gScale: Double = gridSys.cScale / scale
   def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
@@ -15,8 +17,8 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
   proj.setView(viewIn)
 
-  val terrs: HCenLayer[WTile] = scenIn.terrs
-  val sTerrs: HSideBoolLayer = scenIn.sTerrs
+  val terrs: HCenLayer[WTile] = scen.terrs
+  val sTerrs: HSideBoolLayer = scen.sTerrs
 
   val g0Str: String = gridSys match
   { case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
