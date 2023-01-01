@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
@@ -85,14 +85,15 @@ class HCenStepPairArr[A2](val a1ArrayInt: Array[Int], val a2Array: Array[A2]) ex
 }
 
 object HCenStepPairArr extends Int3PairArrCompanion[HCenStep]
-{
-  def pairs[A2](pairs: (HCenStep, A2)*)(implicit ct: ClassTag[A2]): HCenStepPairArr[A2] = {
-    val arrays = tuplesToArrays[A2](pairs)
+{ /** Factory apply method for constructing an [[HCenStepPairArr]] from [[Tuple2]][HCenStep, A2]s. */
+  def pairs[A2](pairs: (HCenStep, A2)*)(implicit ct: ClassTag[A2]): HCenStepPairArr[A2] =
+  { val arrays = tuplesToArrays[A2](pairs)
     new HCenStepPairArr(arrays._1, arrays._2)
   }
 
-  def apply[A2](pairs: HCenStepPair[A2]*)(implicit ct: ClassTag[A2]): HCenStepPairArr[A2] = {
-    val arrays = pairsToArrays[A2](pairs)
+  /** Factory apply method for constructing an [[HCenStepPairArr]] from [[HCEnStepPair]][A2]s. */
+  def apply[A2](pairs: HCenStepPair[A2]*)(implicit ct: ClassTag[A2]): HCenStepPairArr[A2] =
+  { val arrays = pairsToArrays[A2](pairs)
     new HCenStepPairArr(arrays._1, arrays._2)
   }
 }
