@@ -101,12 +101,12 @@ object EGrid160
     EScenBasic(grid, Terr160W30.terrs,Terr160W30.sTerrs)
   }
 
-  def ScenBrit: EScenBasic = new EScenBasic
+  /*def ScenBrit: EScenBasic = new EScenBasic
   {  override def title: String = "160KM Britain"
 
     override implicit val gridSys: EGrid160LongPart = britGrid
     override val terrs: HCenLayer[WTile] = ??? //regTerrs
     override val sTerrs: HSideBoolLayer = ??? //regSTerrs //gridSys.newSideBools
     //sTerrs.setTruesInts((142, 508), (143, 507))
-  }
+  }*/
 }

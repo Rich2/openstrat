@@ -58,4 +58,7 @@ object Terr80E0 extends LongTerrs
     res.setTruesInts((477, 493), (463, 517), (476, 546))//, (145, 521), (146, 520))
     res
   }
+
+  def frontTerrs: HCenLayer[WTile] = EGrid80.westernFront.newHCenSubLayer(grid, terrs)
+  def frontSTerrs: HSideBoolLayer = EGrid80.westernFront.newHSideBoolSubLayer(grid, sTerrs)
 }

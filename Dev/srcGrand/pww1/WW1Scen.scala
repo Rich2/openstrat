@@ -6,14 +6,14 @@ trait WW1Scen extends EScenBasic with HSysTurnScen
 {
 }
 
-object WW1Scen1 extends WW1Scen {
-  override def turn: Int = 0
+object WW1Scen1 extends WW1Scen
+{ override def turn: Int = 0
 
-  override implicit def gridSys: EGrid80Long = EGrid80.e0(446)
+  override implicit def gridSys: EGrid80LongPart = EGrid80.westernFront
 
-  override val terrs: HCenLayer[WTile] = Terr80E0.terrs
+  override val terrs: HCenLayer[WTile] = Terr80E0.frontTerrs
 
-  override def sTerrs: HSideBoolLayer = Terr80E0.sTerrs
+  override def sTerrs: HSideBoolLayer = Terr80E0.frontSTerrs
 }
 
 object WW1Scen2 extends WW1Scen

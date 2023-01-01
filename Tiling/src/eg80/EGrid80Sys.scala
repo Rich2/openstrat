@@ -11,7 +11,7 @@ class EGrid80Long(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
   EGridLongFull(rBottomCen, rTopCen, cenLongInt, 20000.metres, 300) with EGrid80Sys
 
 class EGrid80LongPart(rBottomCen: Int, cenLongInt: Int, rArray: Array[Int]) extends
-  EGridLong(rBottomCen, cenLongInt, 20.kMetres, 200, rArray)
+  EGridLong(rBottomCen, cenLongInt, 20.kMetres, 300, rArray)
 {
   /** The latitude and longitude [[LatLong]] of an [[HCoord]] within the grid. */
   override def hCoordLL(hc: HCoord): LatLong = hCoordMiddleLL(hc)
@@ -30,8 +30,8 @@ object EGrid80
   def l30b446: EGrid80Long = new EGrid80Long(446, 540, 1)
 
   def westernFront: EGrid80LongPart =
-  { val array = Array[Int](1, 504, 3, 506, 3, 504)
-    new EGrid80LongPart(446, 320, array)
+  { val array = Array[Int](10, 494, 10, 496, 11, 494, 11, 496, 15, 494, 15, 496, 15, 494, 15, 496, 12, 506, 3, 520)
+    new EGrid80LongPart(446, 0, array)
   }
 
   def scen0: EScenBasic =
@@ -43,6 +43,8 @@ object EGrid80
   { val grid: EGrid80Long = e30(446)
     EScenBasic(grid, Terr80E30.terrs, Terr80E30.sTerrs)
   }
+
+  def wFrontScen : EScenBasic = EScenBasic(westernFront, Terr80E0.frontTerrs, Terr80E0.sTerrs, "Western Front")
 }
 
 trait EGrid80LongMulti extends EGridLongMulti with EGrid80Sys

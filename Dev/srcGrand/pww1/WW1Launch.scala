@@ -7,7 +7,7 @@ object WW1Launch extends GuiLaunchMore
 {
   override def settingStr: String = "ww1"
 
-  override def default: (CanvasPlatform => Any, String) = (WW1Gui(_, WW1Scen2, WW1Scen2.defaultView()), "JavaFx WW1")
+  override def default: (CanvasPlatform => Any, String) = (WW1Gui(_, WW1Scen1, WW1Scen1.defaultView()), "JavaFx WW1")
 
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val num: Int = sts.findSettingElse("scen", 1)
@@ -16,8 +16,9 @@ object WW1Launch extends GuiLaunchMore
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](num)
 
     val scen: WW1Scen = num match
-    { case 2 => WW1Scen2
-      case _ => WW1Scen2
+    { case 1 => WW1Scen1
+      case 2 => WW1Scen2
+      case _ => WW1Scen1
     }
 
     (WW1Gui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title +  " WW1 " + ife(isFlat, "Flat", "Globe") + " JavaFx")
