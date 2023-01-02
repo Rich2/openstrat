@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import egrid._
+import prid.phex._, egrid._, pEarth._
 
 /** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 320Km */
 abstract class EGrid320Long(rBottomCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
@@ -51,7 +51,7 @@ trait Long320Terrs extends LongTerrs
 object EGrid320
 { /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 20Km or hex scale 80km. */
 
-  def e0(rBottomCen: Int = 130, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 0)
+  def e0(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 0)
   def e30(rBottomCen: Int = 130, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen,  1)
   def e60(rBottomCen: Int = 130, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 2)
   def e90(rBottomCen: Int = 130, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen, 3)
@@ -66,7 +66,9 @@ object EGrid320
 
   def scen0: EScenBasic =
   { val grid: EGridLongFull = e0(130)
-    EScenBasic(grid, Terr320E0.terrs, Terr320E0.sTerrs, "320km 0E")
+    val terrs: HCenLayer[WTile] = grid.newHCenSubLayer(Terr320E0.grid, Terr320E0.terrs)
+    val sTerrs = grid.newHSideBoolSubLayer(Terr320E0.grid, Terr320E0.sTerrs)
+    EScenBasic(grid, terrs, sTerrs, "320km 0E")
 
   }
 

@@ -5,7 +5,7 @@ import prid._, phex._, egrid._
 /** 2 Grid system for 0E and 30E */
 object Grids320S0E1 extends EGrid320LongMulti
 { ThisSys =>
-  override val grids: RArr[EGridLongFull] = RArr(EGrid320.e0(), EGrid320.e30())
+  override val grids: RArr[EGridLongFull] = RArr(EGrid320.e0(130), EGrid320.e30())
   override def headGridInt: Int = 0
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
@@ -21,7 +21,7 @@ object Scen320s0e1 extends EScenLongMulti
 
 /** 3 Grid system for 0E, 30E and 60E. */
 object Grids320S0E2 extends EGrid320LongMulti
-{ override val grids: RArr[EGridLongFull] = RArr(EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
+{ override val grids: RArr[EGridLongFull] = RArr(EGrid320.e0(130), EGrid320.e30(), EGrid320.e60())
   override def headGridInt: Int = 0
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(2)(EGridLongMan(_, this))
@@ -39,7 +39,7 @@ object Scen320S0E2 extends EScenLongMulti
 object Grids320S11E2 extends EGrid320LongMulti
 { ThisSys =>
   override def gridsXSpacing: Double = 40
-  override val grids: RArr[EGridLongFull] = RArr(EGrid320.w30(), EGrid320.e0(), EGrid320.e30(), EGrid320.e60())
+  override val grids: RArr[EGridLongFull] = RArr(EGrid320.w30(), EGrid320.e0(130), EGrid320.e30(), EGrid320.e60())
   override val gridMans: RArr[EGridLongMan] = iToMap(3)(EGridLongMan(_, ThisSys))
   override def headGridInt: Int = 11
 }
@@ -57,7 +57,10 @@ object Grids320S10E5 extends EGrid320LongMulti
 { ThisSys =>
 
   override def gridsXSpacing: Double = 40
-  override val grids: RArr[EGridLongFull] = RArr(EGrid320.w60(), EGrid320.w30(), EGrid320.e0(), EGrid320.e30(), EGrid320.e60(), EGrid320.e90(), EGrid320.e120(), EGrid320.e150())
+
+  override val grids: RArr[EGridLongFull] = RArr(EGrid320.w60(), EGrid320.w30(), EGrid320.e0(130), EGrid320.e30(), EGrid320.e60(),
+    EGrid320.e90(), EGrid320.e120(), EGrid320.e150())
+
   override val gridMans: RArr[EGridLongMan] = iToMap(7)(EGridLongMan(_, ThisSys))
 
   override def headGridInt: Int = 10
