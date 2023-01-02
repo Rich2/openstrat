@@ -1,8 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gOne; package hp1
 import prid._, phex._, gPlay._
 
-/** 1st example Turn 0 scenario state for Game One. */
+/** 1st example Turn 0 scenario state for Game One hex. */
 object G1HScen1 extends H1Scen
 { override def turn: Int = 0
   implicit val gridSys: HGridReg = GSys.g1
@@ -11,19 +11,19 @@ object G1HScen1 extends H1Scen
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
 }
 
-/** 2nd example Turn 0 scenario state for Game One. */
+/** 2nd example Turn 0 scenario state for Game One hex. */
 object G1HScen2 extends H1Scen
 { override def turn: Int = 0
-  implicit val gridSys: HGridReg = GSys.g2// HGridReg(2, 12, 2, 60)
+  implicit val gridSys: HGridReg = GSys.g2
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
   oPlayers.unsafeSetSome(6, 38, PlayerA)
   oPlayers.unsafeSetSomes((4, 40, PlayerB), (6, 42, PlayerC))
 }
 
-/** 7th example Turn 0 scenario state for Game One. */
+/** 3rd example Turn 0 scenario state for Game One hex. */
 object G1HScen3 extends H1Scen
 { override def turn: Int = 0
-  implicit val gridSys: HGridIrr = GSys.g3// HGridIrr(10, (3, 6), (1, 8), (4, 2), (2, 4), (1, 6))
+  implicit val gridSys: HGridIrr = GSys.g3
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
 }
