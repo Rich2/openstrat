@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import utest._, gOne.hp1._
+import utest._, gOne.hp1._, gPlay._
 
 object G1HScen1Test  extends TestSuite
 {
@@ -8,7 +8,7 @@ object G1HScen1Test  extends TestSuite
   val g1: HGridReg = os1.gridSys
   val os2: H1Scen = os1.endTurn(HCenStepPairArr())
   val g2: HGridSys = os2.gridSys
-//  val os3: OneScen = os1.endTurn(RArr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HexLt)))
+//  val os3 = os1.endTurn(HCenStepPairArr.reverse((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HexLt)))
 //  val g3: HGridSys = os3.gridSys
 //  val os4: OneScen = os1.endTurn(RArr((PlayerA, HexLt)))
 

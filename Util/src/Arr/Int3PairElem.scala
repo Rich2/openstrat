@@ -110,4 +110,18 @@ trait Int3PairArrCompanion[A1 <: Int3Elem]
     }
     (intsArray, a2Array)
   }
+
+  def reverseTuplesToArrays[A2](pairs: Seq[(A2, Int3Elem)])(implicit ct: ClassTag[A2]): (Array[Int], Array[A2]) = {
+    val intsArray = new Array[Int](pairs.length * 3)
+    val a2Array = new Array[A2](pairs.length)
+    var i = 0
+    pairs.foreach { p =>
+      intsArray(i * 3) = p._2.int1
+      intsArray(i * 3 + 1) = p._2.int2
+      intsArray(i * 3 + 2) = p._2.int3
+      a2Array(i) = p._1
+      i += 1
+    }
+    (intsArray, a2Array)
+  }
 }
