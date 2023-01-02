@@ -1,11 +1,11 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gOne
-import utest._, prid._, phex._, gPlay._
+package ostrat; package prid; package phex
+import utest._, gOne.hp1._
 
-object OneScen3Test  extends TestSuite
+object G1HScen2Test  extends TestSuite
 {
-//  val os1 = OneScen3
-//  val g1 = os1.gridSys
+  val os1 = G1HScen2
+  val g1 = os1.gridSys
 //  val os2 = os1.endTurn(RArr())
 //  val g2 = os2.gridSys
 //  val os3 = os1.endTurn(RArr((PlayerA, HStepUL), (PlayerB, HStepUL), (PlayerC, HexLt)))
@@ -15,12 +15,12 @@ object OneScen3Test  extends TestSuite
   val tests = Tests {
     test("os1")
     {
-//      g1.numTileRows ==> 5
-//      g1.bottomCenR ==> 2
-//      g1.topCenR ==> 10
-//      g1.leftCenC ==> 2
-//      g1.rightCenC ==> 10
-//      g1.numTiles ==> 9
+      g1.numTileRows ==> 6
+      g1.bottomCenR ==> 2
+      g1.topCenR ==> 12
+      g1.leftCenC ==> 2
+      g1.rightCenC ==> 60
+      g1.numTiles ==> 90
 //      implicit val grid = os1.gridSys
 //      os1.oPlayers.numSomes ==> 3
 //      os1.oPlayers(4, 4) ==> Some(PlayerA)

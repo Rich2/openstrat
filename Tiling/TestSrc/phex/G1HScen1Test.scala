@@ -1,8 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gOne
-import utest._, prid._, phex._, gPlay._, gOne.hp1._
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package prid; package phex
+import utest._, gOne.hp1._
 
-object OneScen1Test  extends TestSuite
+object G1HScen1Test  extends TestSuite
 {
   val os1: G1HScen1.type = G1HScen1
   val g1: HGridReg = os1.gridSys

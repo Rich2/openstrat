@@ -1,19 +1,14 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package gOne; package sp1
-import utest._
+package ostrat; package prid; package psq
+import utest._, gOne.sp1._
 
-object OneScen2Test  extends TestSuite
+object G1S1Scen1Test  extends TestSuite
 {
-  //val g = OneScen2.gridSys
+  val g: SqGrid = G1S1Scen1.gSys
   val tests = Tests {
     "test1" -
     {
-//      g.bottomCenR ==> 2
-//      g.topCenR ==> 10
-//      g.leftCenC ==> 4
-//      g.rightCenC ==> 8
-//      g.numRow0s ==> 2
-//      g.bottomRem2R ==> 2
+      g.bottomCenR ==> 2
 //      g.topRem2R ==> 10
 //      g.numRow2s ==> 3
 //      g.numTileRows ==> 5

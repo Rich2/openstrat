@@ -20,10 +20,16 @@ object G1HScen2 extends H1Scen
   oPlayers.unsafeSetSomes((4, 40, PlayerB), (6, 42, PlayerC))
 }
 
-
+/** 7th example Turn 0 scenario state for Game One. */
+object G1HScen3 extends H1Scen
+{ override def turn: Int = 0
+  implicit val gridSys: HGridIrr = GSys.g3// HGridIrr(10, (3, 6), (1, 8), (4, 2), (2, 4), (1, 6))
+  val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
+  oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
+}
 
 /** 3rd example Turn 0 scenario state for Game One. */
-object G1HScen3 extends H1Scen
+object G1HScen7 extends H1Scen
 { override def turn: Int = 0
   implicit val gridSys: HGrid = HGridIrr(10, (1, 6), (2, 4), (3, 2), (2, 4), (1, 6))
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
@@ -58,13 +64,6 @@ object G1HScen6 extends H1Scen
   oPlayers.unsafeSetSome(10, 102, PlayerC)
 }
 
-/** 7th example Turn 0 scenario state for Game One. */
-object G1HScen7 extends H1Scen
-{ override def turn: Int = 0
-  implicit val gridSys: HGrid = HGridIrr(10, (3, 6), (1, 8), (4, 2), (2, 4), (1, 6))
-  val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
-  oPlayers.unsafeSetSomes((4, 4, PlayerA), (10, 6, PlayerB), (8, 8, PlayerC))
-}
 
 /** 8th example Turn 0 scenario state for Game One. An empty regular grid containing no hex tiles. */
 object G1HScen8 extends H1Scen
