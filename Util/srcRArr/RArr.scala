@@ -155,6 +155,18 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
     System.arraycopy(unsafeArray, start, newArray, 0, newLen)
     new RArr[A](newArray)
   }
+
+  /** Takes the first n elements, starting from the second [[Int]] parameter that takes the default value of 0, looping back to the head when it
+   *  reaches the end of this sequence. */
+  def takeLoop(n: Int, start: Int = 0)(implicit ct: ClassTag[A]@uncheckedVariance): RArr[A] =
+  { val newArray = new Array[A](n)
+    var i = 0
+    while (i < n)
+    { newArray(i) = unsafeArray((start + i) %% length)
+      i += 1
+    }
+    new RArr[A](newArray)
+  }
 }
 
 /** Companion object for the [[RArr]] class contains factory apply method, EqT implicit type class instance and Extension method for Arr[A] where A
