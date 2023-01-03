@@ -147,6 +147,14 @@ final class RArr[+A](val unsafeArray: Array[A] @uncheckedVariance) extends AnyVa
   }
 
   def mapToCurlySyntax: String = ???
+
+  /** Takes the first n elements, starting from the second Int parameter that takes default value of 0. */
+  def take(n: Int, start: Int = 0)(implicit ct: ClassTag[A] @uncheckedVariance): RArr[A] =
+  { val newLen: Int = n - (n + start - length).min0
+    val newArray = new Array[A](newLen)
+    System.arraycopy(unsafeArray, start, newArray, 0, newLen)
+    new RArr[A](newArray)
+  }
 }
 
 /** Companion object for the [[RArr]] class contains factory apply method, EqT implicit type class instance and Extension method for Arr[A] where A

@@ -22,7 +22,7 @@ object Scen320s0e1 extends EScenLongMulti
 
 /** 3 Grid system for 0E, 30E and 60E. */
 object Grids320S0E2 extends EGrid320LongMulti
-{ override val grids: RArr[EGridLongFull] = RArr(EGrid320.e0(130), EGrid320.e30(130), EGrid320.e60())
+{ override val grids: RArr[EGridLongFull] = EGrid320.grids(3, 0,130)//RArr(EGrid320.e0(130), EGrid320.e30(130), EGrid320.e60())
   override def headGridInt: Int = 0
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(2)(EGridLongMan(_, this))
