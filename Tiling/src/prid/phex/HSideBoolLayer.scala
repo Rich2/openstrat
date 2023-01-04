@@ -98,7 +98,15 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   def set(r: Int, c: Int, value: Boolean)(implicit grid: HGridSys): Unit = { unsafeArray(grid.sideArrIndex(r, c)) = value }
   def setTrues(hSides: HSideArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
   def setTrues(hSides: HSide*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
-  def setTruesInts(hSides: (Int, Int)*)(implicit grid: HGridSys): Unit = hSides.foreach(p => unsafeArray(grid.sideArrIndex(p._1, p._2)) = true)
+  def setTruesPairs(hSidePairs: (Int, Int)*)(implicit grid: HGridSys): Unit = hSidePairs.foreach(p => unsafeArray(grid.sideArrIndex(p._1, p._2)) = true)
+
+  def setTruesInts(hSideInts: Int*)(implicit grid: HGridSys): Unit ={
+    val len = hSideInts.length / 2
+    iUntilForeach(0, len * 2, 2){ i =>
+      val index = grid.sideArrIndex(hSideInts(i), hSideInts(i + 1))
+      unsafeArray(index) = true
+    }
+  }
 }
 
 object HSideBoolLayer

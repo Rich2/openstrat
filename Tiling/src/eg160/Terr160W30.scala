@@ -39,6 +39,6 @@ object Terr160W30 extends LongTerrs
     override implicit val gridSys: EGrid160LongPart = EGrid160.britGrid// regGrid
     override val terrs: HCenLayer[WTile] = regTerrs
     override val sTerrs: HSideBoolLayer = gridSys.newSideBools
-    sTerrs.setTruesInts((142, 508), (143, 507))(gridSys)
+    sTerrs.setTruesPairs((142, 508), (143, 507))(gridSys)
   }
 }
