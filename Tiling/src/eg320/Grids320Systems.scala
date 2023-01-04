@@ -47,7 +47,7 @@ object Scen320S0E2 extends EScenLongMulti
 object Grids320S11E2 extends EGrid320LongMulti
 { ThisSys =>
   override def gridsXSpacing: Double = 40
-  override val grids: RArr[EGridLongFull] = EGrid320.grids(4, 11,130) // RArr(EGrid320.w30(), EGrid320.e0(130), EGrid320.e30(130), EGrid320.e60())
+  override val grids: RArr[EGridLongFull] = EGrid320.grids(4, 11,130)
   override val gridMans: RArr[EGridLongMan] = iToMap(3)(EGridLongMan(_, ThisSys))
   override def headGridInt: Int = 11
 }
@@ -55,30 +55,21 @@ object Grids320S11E2 extends EGrid320LongMulti
 object Scen320S11E2 extends EScenLongMulti
 { override val gridSys: EGridLongMulti = Grids320S11E2
   override def longs: RArr[LongTerrs] = RArr(Terr320W30,Terr320E0, Terr320E30, Terr320E60)
-  //override val terrs: HCenDGrid[WTile] = Terr320W30.terrs ++ Terr320E0.terrs ++ Terr320E30.terrs ++ Terr320E60.terrs
   //override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
   override val title: String = "320km 30W - 60E"
 
-  override lazy val terrs: HCenLayer[WTile] =
-  {
-    iUntilMap(4) { i =>
-      val ft = fullTerrs((i + gridSys.headGridInt) %% 12)
-      gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)
-    }.combine
-  }
+  override lazy val terrs: HCenLayer[WTile] = iUntilMap(4) { i =>
+    val ft = fullTerrs((i + gridSys.headGridInt) %% 12)
+    gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)
+  }.combine
 }
 
 
 object Grids320S10E5 extends EGrid320LongMulti
 { ThisSys =>
-
   override def gridsXSpacing: Double = 40
-
-  override val grids: RArr[EGridLongFull] = RArr(EGrid320.w60(), EGrid320.w30(), EGrid320.e0(130), EGrid320.e30(130), EGrid320.e60(),
-    EGrid320.e90(), EGrid320.e120(), EGrid320.e150())
-
+  override val grids: RArr[EGridLongFull] =EGrid320.grids(8, 10,130)
   override val gridMans: RArr[EGridLongMan] = iToMap(7)(EGridLongMan(_, ThisSys))
-
   override def headGridInt: Int = 10
 }
 
@@ -87,6 +78,10 @@ object Scen320S10E5 extends EScenLongMulti
   override val longs: RArr[LongTerrs]= RArr(Terr320W60, Terr320W30, Terr320E0, Terr320E30, Terr320E60, Terr320E90, Terr320E120, Terr320E150)
   override val title: String = "320km 60W - 150E"
   //  override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
+  override lazy val terrs: HCenLayer[WTile] = iUntilMap(8) { i =>
+    val ft = fullTerrs((i + gridSys.headGridInt) %% 12)
+    gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)
+  }.combine
 }
 
 object Grids320S0E11 extends EGrid320LongMulti
