@@ -77,8 +77,9 @@ object EGrid320
   }
 
   def scen1: EScenBasic =
-  { val grid: EGridLongFull = e30(130)
-    EScenBasic(grid, Terr320E30.terrs, Terr320E30.sTerrs, "320km 30E")
+  { val grid: EGridLongFull = e30(128)
+    val terrs = grid.newHCenSubLayer(Terr320E30.grid, Terr320E30.terrs)
+    EScenBasic(grid, terrs, Terr320E30.sTerrs, "320km 30E")
   }
 
   def scen2: EScenBasic =

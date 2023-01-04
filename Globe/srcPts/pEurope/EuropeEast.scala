@@ -3,5 +3,5 @@ package ostrat; package pEarth; package pEurope
 import geom._, pglobe._
 
 object EuropeEast extends EArea1("EuropeEast", 60 ll 60)
-{ override val a2Arr: RArr[EArea2] = RArr(Balkans, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
+{ override val a2Arr: RArr[EArea2] = RArr(Balkans, Crete, Finlandia, Gotland, Saaremaa, Hiiumaa, Crimea, Anatolia, Caucasus)
 }

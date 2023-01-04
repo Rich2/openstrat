@@ -29,9 +29,21 @@ object Balkans extends EArea2("Balkans", 43.9 ll 22.1, plain)
   val basanija = 45.48 ll 13.48
   val trieste = 45.70 ll 13.73
    
-  val polygonLL: PolygonLL = PolygonLL(Alpsland.monfalcone, Alpsland.zagreb, odessa, burgas, istanbul, seddElBahr, thessalonika, nEuboea, sEuboea,
-     sAttica, Peloponnese.ePeninsular, Peloponnese.nPeninsular, monstrika, oxia,seLefkada, wCorfu, vlore, shengjin, dubrovnik, paleniOtoci,
+  override val polygonLL: PolygonLL = PolygonLL(Alpsland.monfalcone, Alpsland.zagreb, odessa, burgas, istanbul, seddElBahr, thessalonika, nEuboea,
+    sEuboea, sAttica, Peloponnese.ePeninsular, Peloponnese.nPeninsular, monstrika, oxia,seLefkada, wCorfu, vlore, shengjin, dubrovnik, paleniOtoci,
      puntaPlanka, b1, zadar, matulji, pula, basanija, trieste)
+}
+
+object Crete extends EArea2("Crete", 35.23 ll 24.92, hills)
+{
+  val northEast = 35.32 ll 26.31
+  val southEast = 35.02 ll 26.19
+  val p10 = 34.92 ll 24.73
+  val p15 = 35.09 ll 24.72
+  val p20 = 35.23 ll 23.59
+  val p30 = 35.29 ll 23.52
+  val capeGramvousa = 35.62 ll 23.60
+  override val polygonLL: PolygonLL = PolygonLL(northEast, southEast, p10, p15, p20, p30, capeGramvousa)
 }
 
 object Crimea extends EArea2("Crimea", 45.33 ll 34.15, plain)
