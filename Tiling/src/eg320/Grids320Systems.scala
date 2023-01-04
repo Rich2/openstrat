@@ -16,8 +16,12 @@ object Grids320S0E1 extends EGrid320LongMulti
 object Scen320s0e1 extends EScenLongMulti
 { override val gridSys: EGrid320LongMulti = Grids320S0E1
   val origTerrs = RArr(Terr320E0, Terr320E30)
-  override val longs: RArr[Long320Terrs] = /*iToMap(1){i => gridSys.grids(i) }*/ RArr(Terr320E0, Terr320E30)
+  override val longs: RArr[Long320Terrs] = RArr(Terr320E0, Terr320E30)
   override val title: String = "320km 0E - 30E"
+  override lazy val terrs: HCenLayer[WTile] = iUntilMap(2) { i =>
+    val ft = fullTerrs(i)
+    gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)
+  }.combine
 }
 
 /** 3 Grid system for 0E, 30E and 60E. */
@@ -34,16 +38,16 @@ object Scen320S0E2 extends EScenLongMulti
 { override val gridSys: EGrid320LongMulti = Grids320S0E2
   override def longs: RArr[LongTerrs] = RArr(Terr320E0, Terr320E30, Terr320E60)
   override val title: String = "320km 0E - 60E"
-  /*override lazy val terrs: HCenLayer[WTile] = iUntilMap(3){ i =>
+  override lazy val terrs: HCenLayer[WTile] = iUntilMap(3){ i =>
     val ft = fullTerrs(i)
-    gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs) }*/
+    gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs) }.combine
 }
 
 /** Scenario for 4 320km grid system for 30W 0E, 30E and 60E. */
 object Grids320S11E2 extends EGrid320LongMulti
 { ThisSys =>
   override def gridsXSpacing: Double = 40
-  override val grids: RArr[EGridLongFull] = RArr(EGrid320.w30(), EGrid320.e0(130), EGrid320.e30(130), EGrid320.e60())
+  override val grids: RArr[EGridLongFull] = EGrid320.grids(4, 11,130) // RArr(EGrid320.w30(), EGrid320.e0(130), EGrid320.e30(130), EGrid320.e60())
   override val gridMans: RArr[EGridLongMan] = iToMap(3)(EGridLongMan(_, ThisSys))
   override def headGridInt: Int = 11
 }
@@ -54,6 +58,14 @@ object Scen320S11E2 extends EScenLongMulti
   //override val terrs: HCenDGrid[WTile] = Terr320W30.terrs ++ Terr320E0.terrs ++ Terr320E30.terrs ++ Terr320E60.terrs
   //override val sTerrs: HSideBoolDGrid = gridSys.newSideBools
   override val title: String = "320km 30W - 60E"
+
+  override lazy val terrs: HCenLayer[WTile] =
+  {
+    iUntilMap(4) { i =>
+      val ft = fullTerrs((i + gridSys.headGridInt) %% 12)
+      gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)
+    }.combine
+  }
 }
 
 

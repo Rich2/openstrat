@@ -213,6 +213,14 @@ package object ostrat
     while(i < iUntil) { f(i); i += 1 }
   }
 
+  /** Foreachs over a range of integers from parameter 1 to parameter 2 in steps of parameter 3. Throws on non termination. Method name over loaded
+   * with a first parameter list of a single iTo parameter, where iFrom is 0 and iStep is 1. */
+  /*def iLoopToForeach(loopInt: Int, iFrom: Int, iTo: Int, forwardDirn: Boolean = true)(f: Int => Unit): Unit =
+  { var i: Int = iFrom
+    if(forwardDirn) while (i != iTo) { f(i); i = ife(i + 1 == loopInt, 0, i + 1) }
+    else while (i != iTo) { f(i); i = ife(i - 1 == 0, loopInt - 1, i - 1) }
+  }*/
+
   /** Maps over a range of Ints returning a [[Arr]][A]. From the iFrom parameter value to the iTo parameter value in integer steps. Default step
    *  value is 1.Throws on non termination. Method name over loaded with a first parameter list of a single iUntil parameter, where iFrom is 0 and
    *  iStep is 1.  */
@@ -315,6 +323,15 @@ package object ostrat
       if (i < loopStart) i = loopEnd + i - loopStart
     }
   }
+
+  def iLoopToMap[A, AA <: Arr[A]](loopEnd: Int, loopStart: Int = 0)(iFrom: Int, iTo: Int, iStep: Int = 1)(f: Int => A)(implicit ev: ArrMapBuilder[A, AA]): AA = {
+    val iLen = (iTo + 1).max(0)
+    val res: AA = ev.uninitialised(iLen)
+    var index = 0
+    iLoopToForeach(loopEnd, loopStart)(iFrom, iTo, iStep) { count => ev.indexSet(res, index, f(count)); index += 1 }
+    res
+  }
+
 
   /** Folds over a range of Ints to an Int adding the return [[Int]] value to the accumulator. From the start value until (while index is less than)
    *  the end value in integer steps. Default step value is 1. */
