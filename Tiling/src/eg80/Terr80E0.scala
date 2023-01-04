@@ -11,7 +11,7 @@ object Terr80E0 extends LongTerrs
   override val terrs: HCenLayer[WTile] =
   {
     val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
+    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
 
     gs(518, 542, taiga)
     gs(516, 544, taiga)

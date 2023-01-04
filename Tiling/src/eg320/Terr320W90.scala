@@ -7,20 +7,21 @@ object Terr320W90 extends Long320Terrs
   override implicit val grid: EGrid320LongFull = EGrid320.w90(130)
 
   override val terrs: HCenLayer[WTile] =
-  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](taiga)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, cStart, tileValues :_*); () }
+  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
+    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     gs(160, 9728, sea * 2)
-    gs(158, 9726, taiga * 3)
-    gs(156, 9728, taiga * 2)
-    gs(154, 9734, sea)
-//    gs(152, 10760, ice)
-    gs(150, 9730, sea * 2)
-    gs(148, 9728, sea * 2, taiga)
-    gs(146, 9730, sea * 2, taiga)
-//    gs(144, 10744, taiga * 3, sea * 2)
-//    gs(142, 10742, taiga * 4, sea * 2)
-//    gs(140, 10744, taiga, sea * 2, taiga, sea * 2)
-//    gs(138, 10742, taiga * 2, sea, taiga * 2, sea * 2)
+    gs(158, 9726, tundra * 3)
+    gs(156, 9728, tundra * 2)
+    wr(154, tundra * 3, sea)
+    wr(152, tundra * 4)
+    wr(150, taiga, tundra, sea * 2)
+    wr(148, taiga, tundra, sea * 2, tundra)
+    wr(146, taiga * 2, sea * 2, taiga)
+    wr(144, taiga * 5)//3, sea * 2)
+    wr(142, taiga * 6)
+    wr(140, plain * 6)
+    wr(138, plain * 3, lake, plain * 3)
     res
   }
 

@@ -18,6 +18,7 @@ object Scen320s0e1 extends EScenLongMulti
   val origTerrs = RArr(Terr320E0, Terr320E30)
   override val longs: RArr[Long320Terrs] = RArr(Terr320E0, Terr320E30)
   override val title: String = "320km 0E - 30E"
+
   override lazy val terrs: HCenLayer[WTile] = iUntilMap(2) { i =>
     val ft = fullTerrs(i)
     gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)

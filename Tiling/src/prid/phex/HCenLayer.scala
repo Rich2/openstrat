@@ -77,12 +77,24 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   /** Completes the given row from the given starting c column value to the end of the row. An exception is
    *  thrown if the tile values don't match with the end of the row. */
-  final def completeRow(row: Int, cStart: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
+  final def toEndRow(row: Int, cStart: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
   { val numTiles = tileMultis.numSingles
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
     tileMultis.iForeachSingle { (i, e) =>  val c = cStart + i * 4; unsafeArray(grid.arrIndex(row, c)) = e }
+    HCen(row, cStart + (numTiles - 1) * 4)
+  }
+
+  /** Fills in the whole given row. An exception is thrown if the tile values don't match with the
+   *  end of the row. */
+  final def completeRow(row: Int, tileMultis: Multiple[A]*)(implicit grid: HGrid): HCen =
+  { val numTiles = tileMultis.numSingles
+    val cStart: Int = grid.rowLeftCenC(row)
+    val endValues = cStart + numTiles * 4 - 4
+    val rowEnd = grid.rowRightCenC(row)
+    if (rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
+    tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; unsafeArray(grid.arrIndex(row, c)) = e }
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
@@ -206,9 +218,10 @@ object HCenLayer
 { /** Apply factory method for [[HCenLayer]]s. */
   def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenLayer[A] = new HCenLayer[A](new Array[A](length))
 
-  implicit class RArrHCenLayerExtension[A <: AnyRef](val thisArr: RArr[HCenLayer[A]]){
-    def combine(implicit ct: ClassTag[A]): HCenLayer[A] ={
-      val newLen = thisArr.sumBy(_.length)
+  implicit class RArrHCenLayerExtension[A <: AnyRef](val thisArr: RArr[HCenLayer[A]])
+  { /** Combines by appending the data grids to produce a single layer. */
+    def combine(implicit ct: ClassTag[A]): HCenLayer[A] =
+    { val newLen = thisArr.sumBy(_.length)
       val newArray = new Array[A](newLen)
       var i = 0
       thisArr.foreach{ar => ar.unsafeArray.copyToArray(newArray, i); i += ar.length}
