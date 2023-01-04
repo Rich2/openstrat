@@ -1,6 +1,6 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import prid._, phex._, egrid._
+import prid._, phex._, egrid._, pEarth._
 
 /** 2 Grid system for 0E and 30E */
 object Grids320S0E1 extends EGrid320LongMulti
@@ -22,7 +22,7 @@ object Scen320s0e1 extends EScenLongMulti
 
 /** 3 Grid system for 0E, 30E and 60E. */
 object Grids320S0E2 extends EGrid320LongMulti
-{ override val grids: RArr[EGridLongFull] = EGrid320.grids(3, 0,130)//RArr(EGrid320.e0(130), EGrid320.e30(130), EGrid320.e60())
+{ override val grids: RArr[EGridLongFull] = EGrid320.grids(3, 0,130)
   override def headGridInt: Int = 0
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(2)(EGridLongMan(_, this))
@@ -34,6 +34,9 @@ object Scen320S0E2 extends EScenLongMulti
 { override val gridSys: EGrid320LongMulti = Grids320S0E2
   override def longs: RArr[LongTerrs] = RArr(Terr320E0, Terr320E30, Terr320E60)
   override val title: String = "320km 0E - 60E"
+  /*override lazy val terrs: HCenLayer[WTile] = iUntilMap(3){ i =>
+    val ft = fullTerrs(i)
+    gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs) }*/
 }
 
 /** Scenario for 4 320km grid system for 30W 0E, 30E and 60E. */
