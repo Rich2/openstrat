@@ -205,4 +205,14 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 object HCenLayer
 { /** Apply factory method for [[HCenLayer]]s. */
   def apply[A <: AnyRef](length: Int)(implicit ct: ClassTag[A]): HCenLayer[A] = new HCenLayer[A](new Array[A](length))
+
+  implicit class RArrHCenLayerExtension[A <: AnyRef](val thisArr: RArr[HCenLayer[A]]){
+    def combine(implicit ct: ClassTag[A]): HCenLayer[A] ={
+      val newLen = thisArr.sumBy(_.length)
+      val newArray = new Array[A](newLen)
+      var i = 0
+      thisArr.foreach{ar => ar.unsafeArray.copyToArray(newArray, i); i += ar.length}
+      new HCenLayer[A](newArray)
+    }
+  }
 }
