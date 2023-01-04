@@ -64,7 +64,6 @@ object Scen320S11E2 extends EScenLongMulti
   }.combine
 }
 
-
 object Grids320S10E5 extends EGrid320LongMulti
 { ThisSys =>
   override def gridsXSpacing: Double = 40
@@ -87,7 +86,7 @@ object Scen320S10E5 extends EScenLongMulti
 object Grids320S0E11 extends EGrid320LongMulti
 { ThisSys =>
   override def gridsXSpacing: Double = 40
-  override val grids: RArr[EGridLongFull] = iUntilMap(12)(EGrid320LongFull(130, 160, _))
+  override val grids: RArr[EGridLongFull] =EGrid320.grids(12, 0,130)
   override val gridMans: RArr[EGridLongMan] = iUntilMap(12)(EGridLongMan(_, ThisSys))
   override def headGridInt: Int = 0
 }
@@ -97,4 +96,9 @@ object Scen320S0E11 extends EScenLongMulti
 
   override val longs: RArr[LongTerrs] = RArr(Terr320E0, Terr320E30, Terr320E60, Terr320E90, Terr320E120, Terr320E150, Terr320E180, Terr320W150,
     Terr320W120, Terr320W90, Terr320W60, Terr320W30)
+
+  override lazy val terrs: HCenLayer[WTile] = iUntilMap(12) { i =>
+    val ft = fullTerrs(i)
+    gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)
+  }.combine
 }

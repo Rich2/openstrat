@@ -69,7 +69,7 @@ object EGrid320
   def w30(rBottomCen: Int = 130, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen,11)
 
   def scen0: EScenBasic =
-  { val grid: EGridLongFull = e0(130)
+  { val grid: EGridLongFull = e0(128)
     val terrs: HCenLayer[WTile] = grid.newHCenSubLayer(Terr320E0.grid, Terr320E0.terrs)
     val sTerrs = grid.newHSideBoolSubLayer(Terr320E0.grid, Terr320E0.sTerrs)
     EScenBasic(grid, terrs, sTerrs, "320km 0E")
