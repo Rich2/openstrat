@@ -9,6 +9,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
   deb(scen.title)
   val eas: RArr[EArea2] = earthAllAreas.flatMap(_.a2Arr)
   implicit val gridSys: EGridSys = scen.gridSys
+
   var scale: Length = gridSys.cScale / viewIn.cPScale
   def gScale: Double = gridSys.cScale / scale
   def ifGScale(minScale: Double, elems : => GraphicElems): GraphicElems = ife(gScale >= minScale, elems, RArr[GraphicElem]())
@@ -19,7 +20,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
 
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
-
+  sTerrs.truesHsForeach(println)
   val g0Str: String = gridSys match
   { case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
     case _ => "Single grid"
