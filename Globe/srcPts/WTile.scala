@@ -24,13 +24,14 @@ object WTile
   }
 
   val plain: WTile = Land(Plains)
-  val hills : WTile = Land(Hilly)
-  val forr : WTile = Land(Plains, Forrest)
-  val desert : WTile = Land(Plains, Desert)
-  val jungle : WTile = Land(Plains, Jungle)
-  val taiga : WTile = Land(Plains, Taiga)
-  val tundra : WTile = Land(Plains, Tundra)
-  val ice : WTile = Land(Plains, IceCap)
+  val hills: WTile = Land(Hilly)
+  val forr: WTile = Land(Plains, Forrest)
+  val desert: WTile = Land(Plains, Desert)
+  val hillsert: WTile = Land(Hilly, Desert)
+  val jungle: WTile = Land(Plains, Jungle)
+  val taiga: WTile = Land(Plains, Taiga)
+  val tundra: WTile = Land(Plains, Tundra)
+  val ice: WTile = Land(Plains, IceCap)
   val sice: WTile = SeaIce
   val sea: WTile = Ocean
   val lake: WTile = Lake
@@ -68,6 +69,7 @@ class Land(val terr: Terrain, val biome: Biome) extends WTile
 
     case Hilly => biome match
     { case Forrest => Olive
+      case Desert => DarkKhaki
       case _ => Chocolate
     }
     case Mountains => Gray
