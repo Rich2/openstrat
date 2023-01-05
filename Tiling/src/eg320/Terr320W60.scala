@@ -9,6 +9,7 @@ object Terr320W60 extends Long320Terrs
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
+    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     gs(160, 10756, ice)
     gs(158, 10754, ice * 2)
     gs(156, 10748, tundra, sea, ice)
@@ -21,6 +22,9 @@ object Terr320W60 extends Long320Terrs
     gs(142, 10742, taiga * 4, sea * 2)
     gs(140, 10744, taiga, sea * 2, taiga, sea * 2)
     gs(138, 10742, taiga * 2, sea, taiga * 2, sea * 2)
+    wr(136, taiga * 3, sea * 4)
+    wr(134, forr, sea * 6)
+    wr(132, forr, sea * 6)
     res
   }
 
