@@ -23,7 +23,7 @@ object Terr320E30 extends Long320Terrs
     gs(136, 1524, hills, plain * 2, sea, plain * 3)
     gs(134, 1526, hills * 2, sea * 4, mtain)
     gs(132, 1524, hills * 7)
-    gs(130, 1526, hills, sea, hills * 5)
+    wr(130, hills * 2, sea, hills * 5)
     gs(128, 1544, hills, desert * 2)
     wr(126, sea, desert, sea * 3, desert * 3)
     wr(124, desert * 4, plain, desert * 4)
@@ -32,7 +32,7 @@ object Terr320E30 extends Long320Terrs
 
   val sTerrs: HSideBoolLayer =
   { val res = grid.newSideBools
-    //res.setTruesInts((142, 508), (143, 507))
+    res.setTruesInts(130,1524,  131,1525,  132,1526,  133,1525)
     res
   }
 }
