@@ -142,5 +142,9 @@ object ScenNCanada extends EScenLongMulti
     val ft = fullTerrs((i + gridSys.headGridInt) %% 12)
     gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs) }.combine
 
-  override lazy val sTerrs: HSideBoolLayer = gridSys.sideBoolsFromGrids(longs.map(_.sTerrs))
+  override lazy val sTerrs: HSideBoolLayer = {
+    val arr: RArr[(HGrid, HSideBoolLayer)] = RArr((Terr320W120.grid, Terr320W120.sTerrs), (Terr320W90.grid, Terr320W90.sTerrs))
+    gridSys.sideBoolsFromPairs(arr)
+  }
+  //gridSys.sideBoolsFromGrids(longs.map(_.sTerrs))
 }
