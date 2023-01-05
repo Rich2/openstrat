@@ -1,7 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
 import pEarth._, prid._, phex._, WTile._
 
+/** Terrain for 90 degrees west includes grid, tile terrain and straits [[Boolean]]s. */
 object Terr320W90 extends Long320Terrs
 {
   override implicit val grid: EGrid320LongFull = EGrid320.w90(130)
@@ -20,8 +21,12 @@ object Terr320W90 extends Long320Terrs
     wr(146, taiga * 2, sea * 2, taiga)
     wr(144, taiga * 5)//3, sea * 2)
     wr(142, taiga * 6)
-    wr(140, plain * 6)
-    wr(138, plain * 3, lake, plain * 3)
+    wr(140, plain * 2, forr * 4)
+    wr(138, plain * 3, lake, forr * 3)
+    wr(136, plain * 5, lake, forr)
+    wr(134, plain * 6, forr)
+    wr(132, plain * 7)
+    wr(130, plain * 8)
     res
   }
 
