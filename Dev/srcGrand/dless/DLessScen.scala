@@ -32,5 +32,5 @@ object DLessScen1 extends DLessScen
     gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)
   }.combine
 
-  override val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer(2, 0)
+  override val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer//(2, 0)
 }

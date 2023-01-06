@@ -13,10 +13,12 @@ package object eg320
     subSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)
   }.combine
 
-  def fullTerrsSubSideLayer(fromGrid: Int, toGrid: Int)(implicit subGrid: EGrid320LongMulti): HSideBoolLayer =
-  { val arr = fullTerrs.indexMapTo[(HGrid, HSideBoolLayer), RArr[(HGrid, HSideBoolLayer)]](fromGrid, toGrid) { ft =>
+  def fullTerrsSubSideLayer(implicit subGrid: EGrid320LongMulti): HSideBoolLayer =
+  {
+    val arr = iToMap(0, subGrid.numGrids - 1) { i =>
+      val ft = fullTerrs((i + subGrid.headGridInt) %% 12)
       (ft.grid, ft.sTerrs)
-    }(new RArrAllBuilder[(HGrid, HSideBoolLayer)]())
+    }
     subGrid.sideBoolsFromPairs(arr)
   }
 }

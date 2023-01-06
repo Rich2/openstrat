@@ -17,7 +17,7 @@ flat = false;
 16 = HGView(150, 6650; 21);//320km All longitudes
 17 = HGView(143, 512; 42);//320Km British Iles and surrounding.
 18 = HGView(142, 9730; 21);//320km 120W - 60W North America
-19 = HGView(157, 8709; 30);//320km North Canada only 2 rows, 120W - 90W
+19 = HGView(157, 8711; 32);//320km North Canada only 2 rows, 120W - 90W
 
 20 = HGView(286, 512; 25);//0E 160km
 31 = HGView(309, 11776; 23.5);//30W 160km
