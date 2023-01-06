@@ -22,7 +22,12 @@ object EScenBasic
 }
 
 trait EScenLongMulti extends EScenBasic
-{ override def gridSys: EGridLongMulti
+{
+  override def gridSys: EGridLongMulti
+}
+
+trait EScenLongMultiDepr extends EScenLongMulti
+{
   def longs: RArr[LongTerrs]
   override lazy val terrs: HCenLayer[WTile] = longs.map(_.terrs).combine// longs.tailfold(longs(0).terrs)(_ ++ _.terrs)
   override lazy val sTerrs: HSideBoolLayer = gridSys.sideBoolsFromGrids(longs.map(_.sTerrs))

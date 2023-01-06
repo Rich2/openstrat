@@ -14,9 +14,8 @@ object Grids320S0E1 extends EGrid320LongMulti
 
 /** Scenario for 2 Grid system for 0E and 30E */
 object Scen320s0e1 extends EScenLongMulti
-{  override val title: String = "320km 0E - 30E"
+{ override val title: String = "320km 0E - 30E"
   override implicit val gridSys: EGrid320LongMulti = Grids320S0E1
-  override val longs: RArr[Long320Terrs] = RArr(Terr320E0, Terr320E30)
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }
@@ -34,7 +33,6 @@ object Grids320S0E2 extends EGrid320LongMulti
 object Scen320S0E2 extends EScenLongMulti
 { override val title: String = "320km 0E - 60E"
   implicit override val gridSys: EGrid320LongMulti = Grids320S0E2
-  override def longs: RArr[LongTerrs] = RArr(Terr320E0, Terr320E30, Terr320E60)
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }
@@ -52,7 +50,6 @@ object Grids320S11E2 extends EGrid320LongMulti
 object Scen320S11E2 extends EScenLongMulti
 { override val title: String = "320km 30W - 60E"
   override implicit val gridSys: EGrid320LongMulti = Grids320S11E2
-  override def longs: RArr[LongTerrs] = RArr(Terr320W30,Terr320E0, Terr320E30, Terr320E60)
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }
@@ -70,7 +67,6 @@ object Grids320S10E5 extends EGrid320LongMulti
 object Scen320S10E5 extends EScenLongMulti
 { override val title: String = "320km 60W - 150E"
   override implicit val gridSys: EGrid320LongMulti = Grids320S10E5
-  override val longs: RArr[LongTerrs]= RArr(Terr320W60, Terr320W30, Terr320E0, Terr320E30, Terr320E60, Terr320E90, Terr320E120, Terr320E150)
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }
@@ -88,10 +84,6 @@ object Grids320S0E11 extends EGrid320LongMulti
 object Scen320S0E11 extends EScenLongMulti
 { override val title: String = "All longitude terrain only scenario."
   override implicit val gridSys: EGrid320LongMulti = Grids320S0E11
-
-  override val longs: RArr[LongTerrs] = RArr(Terr320E0, Terr320E30, Terr320E60, Terr320E90, Terr320E120, Terr320E150, Terr320E180, Terr320W150,
-    Terr320W120, Terr320W90, Terr320W60, Terr320W30)
-
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }
@@ -105,13 +97,10 @@ object Grids320S8E10 extends EGrid320LongMulti
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
-/** Scenario for 3 320km grid system for 120W, 90W and 60W */
+/** Terrain only scenario for North America. 3 320km grid system for 120W, 90W and 60W */
 object Scen320S8E10 extends EScenLongMulti
 { override val title: String = "320km 120W - 90W"
   override implicit val gridSys: EGrid320LongMulti = Grids320S8E10
-
-  override def longs: RArr[LongTerrs] = RArr(Terr320W120, Terr320W90, Terr320W60)
-
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }
@@ -128,9 +117,6 @@ object GridsNCanada extends EGrid320LongMulti
 object ScenNCanada extends EScenLongMulti
 { override val title: String = "320km Far North Canada"
   implicit override val gridSys: EGrid320LongMulti = GridsNCanada
-
-  override def longs: RArr[LongTerrs] = RArr(Terr320W120, Terr320W90)
-
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }

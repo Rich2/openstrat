@@ -19,7 +19,7 @@ object Grids80s0e1 extends EGrid80LongMulti
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-object Scen80s0s1 extends EScenLongMulti
+object Scen80s0s1 extends EScenLongMultiDepr
 { override val gridSys: EGrid80LongMulti = Grids80s0e1
   override val longs: RArr[LongTerrs] = RArr(Terr80E0, Terr80E30)
 }
