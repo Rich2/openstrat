@@ -118,6 +118,27 @@ trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
     res
   }
 
+  /** Performs a side effecting function on each element of the range of index values for this sequence in order. The function may return Unit. If it does return a non Unit value
+   * it is discarded. The [U] type parameter is there just to avoid warnings about discarded values and can be ignored by method users. */
+  def indexToForeach[U](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => U): Unit = {
+    if (iTo != iFrom & iStep == 0) throw excep("Loop step can not be 0.")
+    var i: Int = iFrom
+    if (iStep > 0) while (i <= iTo) {
+      f(apply(i)); i += iStep
+    }
+    else while (i >= iTo) {
+      f(apply(i)); i += iStep
+    }
+  }
+
+  /** A map operation on the range of indexed values, where the return type of the [[SeqLike]] is explicitly given by the the first parameter. */
+  def indexMapTo[B, BB <: SeqLike[B]](iFrom: Int, iTo: Int, iStep: Int = 1)(f: A => B)(implicit build: SeqLikeMapBuilder[B, BB]): BB =
+  { val res = build.uninitialised(length)
+    var ti = 0
+    indexToForeach(iFrom, iTo, iStep) { el => res.unsafeSetElem(ti, f(el)); ti += 1 }
+    res
+  }
+
   /** Specialised map to an immutable [[PairNoA1PramArr]] of B. Applies the supplied function to every element of this sequence. */
   def mapPair[B1, ArrB1 <: Arr[B1], B2, B <: PairNoA1ParamElem[B1, B2], ArrB <: PairNoA1PramArr[B1, ArrB1, B2, B]](f1: A => B1)(f2: A => B2)(
   implicit build: PairArrMapBuilder[B1, ArrB1, B2, B, ArrB]): ArrB =

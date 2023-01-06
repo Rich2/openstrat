@@ -38,12 +38,15 @@ object Grids320S0E2 extends EGrid320LongMulti
 
 /** Scenario for 3 320km grid system for 0E, 30E and 60E */
 object Scen320S0E2 extends EScenLongMulti
-{ override val gridSys: EGrid320LongMulti = Grids320S0E2
+{ implicit override val gridSys: EGrid320LongMulti = Grids320S0E2
   override def longs: RArr[LongTerrs] = RArr(Terr320E0, Terr320E30, Terr320E60)
   override val title: String = "320km 0E - 60E"
   override lazy val terrs: HCenLayer[WTile] = iUntilMap(3){ i =>
     val ft = fullTerrs(i)
     gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs) }.combine
+
+  override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer(0, 2)
+    // RArr((Terr320W120.grid, Terr320W120.sTerrs), (Terr320W90.grid, Terr320W90.sTerrs))
 }
 
 /** Scenario for 4 320km grid system for 30W 0E, 30E and 60E. */
@@ -135,16 +138,17 @@ object GridsNCanada extends EGrid320LongMulti
 
 /** Scenario for 3 320km grid system for Northern Canada 120W and 90W. */
 object ScenNCanada extends EScenLongMulti
-{ override val gridSys: EGrid320LongMulti = GridsNCanada
+{ implicit override val gridSys: EGrid320LongMulti = GridsNCanada
   override def longs: RArr[LongTerrs] = RArr(Terr320W120, Terr320W90)
   override val title: String = "320km Far North Canada"
   override lazy val terrs: HCenLayer[WTile] = iUntilMap(2){ i =>
     val ft = fullTerrs((i + gridSys.headGridInt) %% 12)
     gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs) }.combine
 
-  override lazy val sTerrs: HSideBoolLayer = {
-    val arr: RArr[(HGrid, HSideBoolLayer)] = RArr((Terr320W120.grid, Terr320W120.sTerrs), (Terr320W90.grid, Terr320W90.sTerrs))
+  override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer(8, 10)
+  /*{
+    val arr: RArr[(HGrid, HSideBoolLayer)] = fullTerrs.indexMapTo[(HGrid, HSideBoolLayer), RArr[(HGrid, HSideBoolLayer)]](8, 10){ft => (ft.grid, ft.sTerrs)}(new RArrAllBuilder[(HGrid, HSideBoolLayer)]())// RArr((Terr320W120.grid, Terr320W120.sTerrs), (Terr320W90.grid, Terr320W90.sTerrs))
     gridSys.sideBoolsFromPairs(arr)
-  }
+  }*/
   //gridSys.sideBoolsFromGrids(longs.map(_.sTerrs))
 }
