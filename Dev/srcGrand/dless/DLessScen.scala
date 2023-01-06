@@ -27,10 +27,6 @@ object DLessScen1 extends DLessScen
     override def adjTilesOfTile(tile: HCen): HCenArr = ???
   }
 
-  override val terrs: HCenLayer[WTile] = iUntilMap(2) { i =>
-    val ft = fullTerrs(i)
-    gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)
-  }.combine
-
-  override val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer//(2, 0)
+  override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
+  override val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }

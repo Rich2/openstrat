@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._, prid._, phex._, WTile._, egrid._
+import pEarth._, prid._, phex._, WTile._
 
 object Terr320E180 extends Long320Terrs
 {
@@ -18,7 +18,7 @@ object Terr320E180 extends Long320Terrs
 
   override val sTerrs: HSideBoolLayer =
   { val res = grid.newSideBools
-    //res.setTruesInts((142, 508), (143, 507))
+    res.setTruesInts(152,6662)
     res
   }
 }
