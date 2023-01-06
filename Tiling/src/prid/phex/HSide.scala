@@ -16,8 +16,8 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
     case 1 => LineSegHC(r, c + 1, r, c - 1)
   }
 
-  /** Needs replacing or modifying. Returns the 2 adjacent [[HCen]]s of this hex Side.  */
-  def tilesOld: (HCen, HCen) = r %% 4 match
+  /** Returns the 2 adjacent [[HCen]] coordinates of this hex Side. Both tiles may not exist in the [[HGridSysy]].  */
+  def unsafeTiles: (HCen, HCen) = r %% 4 match
   { case 0 | 2 => (HCen(r, c - 2), HCen(r, c + 2))
     case 1 if c.div4Rem3 => (HCen(r - 1, c + 1), HCen(r + 1, c - 1))
     case 3 if c %% 4 == 1 => (HCen(r - 1, c + 1), HCen(r + 1, c - 1))
