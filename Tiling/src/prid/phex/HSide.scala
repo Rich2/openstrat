@@ -45,14 +45,6 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
     case 3 if c %% 4 == 3 => HCen(r + 1, c + 1)
     case _ => excep("Invalid hex side.")
   }
-
-  /** May want to remove this method because it doesn't use projection. Will have to think about it. Returns a [[LineSeg]] for a regular Hex tile
-   *  grid. */
-  def lineSegDepr(implicit grider: HGridSys): LineSeg = lineSegHC.lineSeg
-
-  /** May want to remove this method because it doesn't use projection. Will have to think about it. Draws a [[LineSeg]], returning a [[LineSegDraw]]
-   *  for a regular Hex tile grid. */
-  def drawDepr(colour: Colour= Black, lineWidth: Double = 2)(implicit grider: HGridSys) : LineSegDraw = lineSegDepr.draw(colour, lineWidth)
 }
 
 /** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */

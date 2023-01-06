@@ -205,7 +205,21 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
       }
     }
 
-  //def linkTiles(hs: H)
+  /** Comment no correct, Maps the sides to an immutable Array, using the data of this [[HCenLayer]]. It takes two functions, one for the edges of the grid, that takes the
+   * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
+   * tile data values. */
+  def projLinksHsLineOptMap[B, BB <: Arr[B]](f: (HSide, LineSeg, A, A) => Option[B])(implicit proj: HSysProjection, build: ArrMapBuilder[B, BB]): BB =
+    projLinksHsLineOptMap(proj)(f)
+
+  /** Comment not correct, Maps the sides to an immutable Array, using the data of this HCenArr. It takes two functions, one for the edges of the grid, that takes the
+   * [[HSide]] and the single adjacent hex tile data value and one for the inner sides of the grid that takes the [[HSide]] and the two adjacent hex
+   * tile data values. */
+  def projLinksHsLineOptMap[B, BB <: Arr[B]](proj: HSysProjection)(f: (HSide, LineSeg, A, A) => Option[B])(implicit build: ArrMapBuilder[B, BB]): BB =
+    proj.gChild.linksOptMap { hs =>
+      hs.tilesOld match {
+        case (c1, c2) if proj.gChild.hCenExists(c1) & proj.gChild.hCenExists(c2) => f(hs, hs.lineSegHC.map(proj.transCoord), apply(proj.parent, c1), apply(proj.parent, c2))
+      }
+    }
 
   def ++(operand: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] = {
     val newArray = Array.concat(unsafeArray, operand.unsafeArray)
