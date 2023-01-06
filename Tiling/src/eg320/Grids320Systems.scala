@@ -141,14 +141,11 @@ object ScenNCanada extends EScenLongMulti
 { implicit override val gridSys: EGrid320LongMulti = GridsNCanada
   override def longs: RArr[LongTerrs] = RArr(Terr320W120, Terr320W90)
   override val title: String = "320km Far North Canada"
-  override lazy val terrs: HCenLayer[WTile] = iUntilMap(2){ i =>
-    val ft = fullTerrs((i + gridSys.headGridInt) %% 12)
-    gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs) }.combine
+  override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
+
+//    iUntilMap(2){ i =>
+//    val ft = fullTerrs((i + gridSys.headGridInt) %% 12)
+//    gridSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs) }.combine
 
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer(8, 10)
-  /*{
-    val arr: RArr[(HGrid, HSideBoolLayer)] = fullTerrs.indexMapTo[(HGrid, HSideBoolLayer), RArr[(HGrid, HSideBoolLayer)]](8, 10){ft => (ft.grid, ft.sTerrs)}(new RArrAllBuilder[(HGrid, HSideBoolLayer)]())// RArr((Terr320W120.grid, Terr320W120.sTerrs), (Terr320W90.grid, Terr320W90.sTerrs))
-    gridSys.sideBoolsFromPairs(arr)
-  }*/
-  //gridSys.sideBoolsFromGrids(longs.map(_.sTerrs))
 }
