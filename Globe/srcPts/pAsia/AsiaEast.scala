@@ -6,7 +6,25 @@ import geom._, pglobe._, LatLong._, WTile._, pPts.RusNorth, pPts.AsiaWestPts
 object AsiaEast extends EArea1("Asia", 60 ll 100)
 { import AsiaEastPts._
   //override val gridMaker = E80Empty
-  override val a2Arr = RArr(seAsia, ceAsia, neAsia, feAsia, sakhalin, Hokkaido, japan, Taiwan)
+  override val a2Arr = RArr(seAsia, Korea, ceAsia, neAsia, feAsia, sakhalin, Hokkaido, japan, Taiwan)
+}
+
+/** Polygon display for Korea. */
+object Korea extends EArea2("Korea", 37.77 ll 127.55, hills)
+{ val northEast = 41.49 ll 129.65
+  val kaima = 40.84 ll 129.71
+  val chongpyong = 39.74 ll 127.46
+  val koreaE = 37.06 ll 129.40
+  val busan = degs(35.19, 129.19)
+  val jindo = degs(34.39, 126.14)
+  val ryongyon = degs(38.12, 124.78)
+  val taeryongMouth = 39.49 ll 125.31
+  val dalianSouth = 38.76 ll 121.16
+  val p10 = 39.53 ll 121.23
+  val xianshuiMouth = 40.48 ll 122.28
+  val liaoheMouth = 40.95 ll 121.82
+
+  override val polygonLL = PolygonLL(northEast, kaima, chongpyong, koreaE, busan, jindo, ryongyon, taeryongMouth, dalianSouth, p10, xianshuiMouth, liaoheMouth)
 }
 
 object AsiaEastPts
@@ -49,15 +67,14 @@ object AsiaEastPts
   val primorsky10 = 45.82 ll 137.68
   val nakhodka = 42.69 ll 133.14
   val vladivostok = 43.17 ll 132.00
-  val kaima = 40.84 ll 129.71
-  val chongpyong = degs(39.74, 127.46)
-  val busan = degs(35.19, 129.19)
-  val jindo = degs(34.39, 126.14)
-  val ryongyon = degs(38.12, 124.78)
-  val jinzhou = degs(40.93, 121.22)
 
-  val ceAsia: EArea2 = EArea2("CEAsia", degs(47, 115), plain, khabarovsk, udaMouth, khab10, khab15, khab20, khab30, primorsky10, nakhodka, vladivostok, kaima,
-    chongpyong, busan, jindo, ryongyon, jinzhou, binhai, AsiaWestPts.cAsiaSE,  RusNorth.cAsiaNE)
+  val jinzhou = degs(40.93, 121.22)
+  val qinhuangdao = 39.92 ll 119.61
+  val luanheMouth = 39.43 ll 119.30
+  val huituo = 39.19 ll 118.98
+
+  val ceAsia: EArea2 = EArea2("CEAsia", degs(47, 115), plain, khabarovsk, udaMouth, khab10, khab15, khab20, khab30, primorsky10, nakhodka,
+    vladivostok, Korea.northEast,  Korea.liaoheMouth, jinzhou, qinhuangdao, luanheMouth, huituo, binhai, AsiaWestPts.cAsiaSE,  RusNorth.cAsiaNE)
    
   val krasnoyarsk = 77.43 ll 103.99
   val kras10 = 76.62 ll 112.46

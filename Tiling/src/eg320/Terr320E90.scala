@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import pEarth._, prid._, phex._, WTile._, egrid._
+import pEarth._, prid._, phex._, WTile._
 
 object Terr320E90 extends Long320Terrs
 {
@@ -8,13 +8,18 @@ object Terr320E90 extends Long320Terrs
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](taiga)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
-    gs(160, 3584, tundra * 2)
+    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
+
+    wr(160, tundra * 2)
 //    gs(158, 2308 + 254, sea, taiga)
 //    gs(156, 2308 + 248, sea * 2, taiga)
 //    gs(142, 2308 + 242, plain * 6)
 //    gs(140, 2308 + 244, plain * 6)
-    gs(138, 3574, forr * 7)
+    wr(138, forr * 7)
+    wr(136, mtain * 2, desert * 5)
+    wr(134, mtain * 3, desert * 4)
+    wr(132, desert * 7)
+    wr(130, desert * 3, hillsert * 5)
     res
   }
 

@@ -55,8 +55,10 @@ object AsiaWestPts
   val iraq: EArea2 = EArea2("Iraq", 34.0 ll 44.5, desert, Anatolia.damascus, Anatolia.cizre, Caucasus.caspianSW, mahshahr, alFaw)
    
   val mianiLat: Latitude = 25.39.north
-   
+
+  /** 38.86N */
   val persiaN = 38.86.north
+
   val caspianSE = degs(36.92, 54.03)
   val persiaCaspianN = persiaN ll 53.99
   val persiaNE = persiaN * RusNorth.wAsiaE
