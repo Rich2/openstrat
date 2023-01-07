@@ -14,10 +14,9 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
   def actives: RArr[PolygonActive] = proj.tileActives
-  def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
-  def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap{ (ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
+  def straits: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
 
-  def lines2: RArr[LineSegDraw] = sTerrs.projFalseLinksScLineSegOptMap(proj){ (hs, ls) =>
+  def lines: RArr[LineSegDraw] = sTerrs.projFalseLinksHsLineSegOptMap{ (hs, ls) =>
     val t1 = terrs(hs.tile1Reg)
     val t2 = terrs(hs.tile2Reg)
     ife( t1 == t2, Some(ls.draw(t1.contrastBW)), None)
@@ -52,7 +51,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-  override def frame: GraphicElems = polyFills ++ actives ++ sides1 ++ lines2 ++ hexStrs
+  override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines ++ hexStrs
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

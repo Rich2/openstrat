@@ -20,7 +20,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
 
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
-  //sTerrs.truesHsForeach(println)
+
   val g0Str: String = gridSys match
   { case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
     case _ => "Single grid"
@@ -49,6 +49,11 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
     def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
     def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
 
+    def lines: RArr[LineSegDraw] = sTerrs.projFalseLinksHsLineSegOptMap { (hs, ls) =>
+      val t1 = terrs(hs.tile1Reg)
+      val t2 = terrs(hs.tile2Reg)
+      ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
+    }
     def linkLines1 = sTerrs.projFalsesLineSegMap{ls => ls.draw(White) }
     def linkLines2 = ifGScale(5, linkLines1)
     def linkLines3: RArr[LineSegDraw] = terrs.projLinksHsLineOptMap((hs, line, t1, t2) => ife(t1 == t2 & !sTerrs(hs), Some(line.draw(t1.contrastBW)), None))

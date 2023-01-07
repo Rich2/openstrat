@@ -17,7 +17,7 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
   def lines: RArr[LineSegDraw] = terrs.projLinksLineOptMap{ (ls, t1, t2 ) => ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None) }
 
-  def lines2: RArr[LineSegDraw] = sTerrs.projFalseLinksScLineSegOptMap(proj){ (hs, ls) =>
+  def lines2: RArr[LineSegDraw] = sTerrs.projFalseLinksHsLineSegOptMap(proj){ (hs, ls) =>
     val t1 = terrs(hs.tile1Reg)
     val t2 = terrs(hs.tile2Reg)
     ife( t1 == t2, Some(ls.draw(t1.contrastBW)), None)
