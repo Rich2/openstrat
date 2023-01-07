@@ -22,7 +22,7 @@ object DLessScen1 extends DLessScen
 
     override def gridsXSpacing: Double = 40
 
-    override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
+    override val gridMans: RArr[EGridLongMiddleMan] = iToMap(1)(EGridLongMiddleMan(_, ThisSys))
 
     override def adjTilesOfTile(tile: HCen): HCenArr = ???
   }

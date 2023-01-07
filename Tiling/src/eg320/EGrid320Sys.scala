@@ -30,7 +30,7 @@ object EGrid320LongMulti
       }
     }
 
-    override val gridMans: RArr[EGridLongMan] = ???
+    override val gridMans: RArr[EGridLongMiddleMan] = ???
 
     override def gridsXSpacing: Double = ???
 
