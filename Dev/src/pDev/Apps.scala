@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pDev
 import pgui._, pStrat._
 
@@ -6,6 +6,7 @@ import pgui._, pStrat._
 object Apps
 {
   val launchs: StrPairArr[GuiLaunch] = StrPairArr[GuiLaunch](
+    ("DL", dless.DLessLaunch),
     ("L", learn.Lessons),
     ("W1", pww1.WW1Launch),
     ("BC", p305.BcLaunch),

@@ -5,6 +5,7 @@ displayY = 0;//Some operating systems will not allow a positive y value that pus
 // displayWidth = 1920;
 // displayHeight = 1080;
 lessons = A1;
+dless = { scen = 1; flat = false; 1 = HGView(138, 526; 20); };
 bc305 = { scen = 2; flat = false; 2 = HGView(460, 520; 16); };
 earth = { scale = 12; latitude = 0; longitude = 0; };
 ad1783 = { scen = 2; flat = false; 2 = HGView(286, 512; 22); };
