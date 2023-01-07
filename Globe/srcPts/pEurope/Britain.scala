@@ -36,7 +36,7 @@ object Scotland extends EArea2("Scotland", 56.82 ll -4.07, hills)
    val tantallion = 56.05 ll -2.65
    val stAbbs = 55.91 ll -2.14
    val bamburgh = 55.60 ll -1.68
-   val polygonLL = PolygonLL(England.solwayMouth, eggerness, sWhithorn, dunragit, cairngaan, northCairn, ayr, sKintyre, portahaven,
+   override val polygonLL = PolygonLL(England.solwayMouth, eggerness, sWhithorn, dunragit, cairngaan, northCairn, ayr, sKintyre, portahaven,
          snaigmore, wScarba, kerrera, wMull, canna, wRum,
          wSkye, nSkye, nRona, nwScotland, johnOGroats, girnigoe,
          inverness, lossieMouth, aberdeenshire, firthForth, archerfield, tantallion, stAbbs, bamburgh, England.tyneMouth)

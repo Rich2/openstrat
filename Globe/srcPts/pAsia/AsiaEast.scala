@@ -1,4 +1,4 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import geom._, pglobe._, LatLong._, WTile._, pPts.RusNorth, pPts.AsiaWestPts
 
@@ -6,7 +6,7 @@ import geom._, pglobe._, LatLong._, WTile._, pPts.RusNorth, pPts.AsiaWestPts
 object AsiaEast extends EArea1("Asia", 60 ll 100)
 { import AsiaEastPts._
   //override val gridMaker = E80Empty
-  override val a2Arr = RArr(seAsia, ceAsia, neAsia, feAsia, sakhalin, japan)
+  override val a2Arr = RArr(seAsia, ceAsia, neAsia, feAsia, sakhalin, Hokkaido, japan, Taiwan)
 }
 
 object AsiaEastPts
@@ -136,13 +136,4 @@ object AsiaEastPts
   val sakhalinNE = 53.39 ll 141.70
 
   val sakhalin: EArea2 = EArea2("Sakhalin", 50.94 ll 142.90, taiga, sakhalinN, sakhalinW, poronayask, sakhalinS, pogibi, sakhalinNE)
-
-  val sKyshu = degs(31.08, 130.75)
-  val neKyushu = degs(33.34, 129.45)
-  val kashiwazaki = degs(37.37, 138.55)
-  val nHokaido = degs(45.5, 141.93)
-  val eHokaido = degs(43.36, 145.74)
-  val choshi = degs(35.71, 140.85)
-
-  val japan: EArea2 = EArea2("Japan", degs(36.28, 138.71), plain, sKyshu, neKyushu, kashiwazaki, nHokaido, eHokaido, choshi)
 }
