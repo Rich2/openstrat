@@ -16,7 +16,7 @@ object Terr320E0 extends Long320Terrs
     wr(152,  sea * 3, hillTaiga)
     wr(150, sea * 3, hillTaiga)
     wr(148, sea * 3, hillTaiga, taiga)
-    gs(146, 510, hills, sea * 2, plain)
+    wr(146, sea, hillForest, sea * 2, plain)
     gs(144, 508, plain, sea * 2, plain)
     gs(142, 506, plain, plain, sea, plain * 2)
     gs(140, 516, plain * 3)
@@ -25,8 +25,8 @@ object Terr320E0 extends Long320Terrs
     gs(134, 506, hills * 3, sea * 2, hills)
     gs(132, 504, hills, plain * 2, sea * 3)
     gs(130, 506, plain, hills, sea * 3, hills)
-    gs(128, 508, hills *5, sea)
-    wr(126, sea * 2, mtain, desert * 5)
+    wr(128, sea * 2, hills * 5, sea)
+    wr(126, sea * 2, mtain, hillDesert, desert * 4)
     wr(124, sea * 2, hills, desert * 6)
     res
   }

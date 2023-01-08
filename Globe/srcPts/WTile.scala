@@ -26,6 +26,7 @@ object WTile
   val plain: WTile = Land(Plains)
   val hills: WTile = Land(Hilly)
   val forest: WTile = Land(Plains, Forest)
+  val hillForest = Land(Hilly, Forest)
   val desert: WTile = Land(Plains, Desert)
   val hillDesert: WTile = Land(Hilly, Desert)
   val jungle: WTile = Land(Plains, Jungle)
