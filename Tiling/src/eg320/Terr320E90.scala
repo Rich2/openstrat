@@ -1,4 +1,4 @@
-/* Copyright 2018-23Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
 import pEarth._, prid._, phex._, WTile._
 
@@ -19,7 +19,7 @@ object Terr320E90 extends Long320Terrs
     wr(136, mtain * 2, desert * 5)
     wr(134, mtain * 3, desert * 4)
     wr(132, desert * 7)
-    wr(130, desert * 3, hillsert * 5)
+    wr(130, desert * 3, hillDesert * 5)
     res
   }
 

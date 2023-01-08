@@ -27,10 +27,13 @@ object WTile
   val hills: WTile = Land(Hilly)
   val forr: WTile = Land(Plains, Forrest)
   val desert: WTile = Land(Plains, Desert)
-  val hillsert: WTile = Land(Hilly, Desert)
+  val hillDesert: WTile = Land(Hilly, Desert)
   val jungle: WTile = Land(Plains, Jungle)
+  val hillJungle: WTile = Land(Plains, Jungle)
   val taiga: WTile = Land(Plains, Taiga)
+  val hillTaiga = Land(Hilly, Taiga)
   val tundra: WTile = Land(Plains, Tundra)
+  val hillTundra = Land(Hilly, Tundra)
   val ice: WTile = Land(Plains, IceCap)
   val sice: WTile = SeaIce
   val sea: WTile = Ocean

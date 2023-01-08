@@ -22,7 +22,7 @@ object Terr320W120 extends Long320Terrs
     gs(142, 8694, sea ,mtain * 2, plain * 3)
     gs(140, 8696, sea, mtain * 2, plain * 3)
     gs(138, 8694, sea * 2, mtain * 2, plain * 3)
-    wr(136, sea * 2, hills * 2, mtain * 2, hillsert)
+    wr(136, sea * 2, hills * 2, mtain * 2, hillDesert)
     wr(134, sea * 2, hills, desert * 4)
     wr(132, sea * 2, hills * 2, desert * 3)
     wr(130, sea * 4, hills, desert * 3)
