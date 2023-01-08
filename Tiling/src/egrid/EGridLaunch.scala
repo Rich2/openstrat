@@ -32,7 +32,7 @@ object EGridLaunch extends GuiLaunchMore
       case 11 => EGrid320.scen11
 
       case 12 => Scen320s0e1
-      case 13 => Scen320S0E2
+      case 13 => Scen320ChinaJapan
       case 14 => Scen320S11E2
       case 15 => Scen320S10E5
       case 16 => Scen320S0E11

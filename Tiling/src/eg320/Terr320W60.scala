@@ -23,8 +23,8 @@ object Terr320W60 extends Long320Terrs
     gs(140, 10744, taiga, sea * 2, taiga, sea * 2)
     gs(138, 10742, taiga * 2, sea, taiga * 2, sea * 2)
     wr(136, taiga * 3, sea * 4)
-    wr(134, forr, sea * 6)
-    wr(132, forr, sea * 6)
+    wr(134, forest, sea * 6)
+    wr(132, forest, sea * 6)
     res
   }
 

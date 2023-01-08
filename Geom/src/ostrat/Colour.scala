@@ -76,10 +76,12 @@ def contrast2(other: Colour): Colour =
   }
 
   /** Modifies the alpha value of the rgba Int */
-  def modAlpha(newAlpha: Int) = Colour.fromInts(red, green, blue, newAlpha)
+  def modAlpha(newAlpha: Int): Colour = Colour.fromInts(red, green, blue, newAlpha)
   //def glCommaed(alpha: Double = 1.0): String = Seq(redGl, greenGl, blueGl, alpha.toString).commaParenth
   //def glVec4(alpha: Double = 1.0): String = "vec4" - glCommaed(alpha)
   def hasName: Boolean = Colour.valueToStr.contains(this)
+
+  def average(operand: Colour): Colour = Colour.fromInts((red + operand.red)/2, (green + operand.green)/2, (blue + operand.blue)/2, (alpha + operand.alpha)/2)
 }
 
 /** This trait provides a few handy methods for classes with the colour member */

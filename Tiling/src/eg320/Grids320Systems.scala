@@ -30,8 +30,8 @@ object Grids320ChinaJapan extends EGrid320LongMulti
 }
 
 /** Scenario for 3 320km grid system for 0E, 30E and 60E */
-object Scen320S0E2 extends EScenLongMulti
-{ override val title: String = "320km 0E - 60E"
+object Scen320ChinaJapan extends EScenLongMulti
+{ override val title: String = "320km 90E - 150E"
   implicit override val gridSys: EGrid320LongMulti = Grids320ChinaJapan
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer

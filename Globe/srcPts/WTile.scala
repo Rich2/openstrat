@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
 import Colour._
 
@@ -25,7 +25,7 @@ object WTile
 
   val plain: WTile = Land(Plains)
   val hills: WTile = Land(Hilly)
-  val forr: WTile = Land(Plains, Forrest)
+  val forest: WTile = Land(Plains, Forest)
   val desert: WTile = Land(Plains, Desert)
   val hillDesert: WTile = Land(Hilly, Desert)
   val jungle: WTile = Land(Plains, Jungle)
@@ -71,8 +71,10 @@ class Land(val terr: Terrain, val biome: Biome) extends WTile
   { case Plains => biome.colour
 
     case Hilly => biome match
-    { case Forrest => Olive
-      case Desert => DarkKhaki
+    { case Tundra => Chocolate.average(Tundra.colour)
+      case Taiga => Chocolate.average(Taiga.colour)
+      case Forest => Chocolate.average(Forest.colour)
+      case Desert => Chocolate.average(Desert.colour)//DarkKhaki
       case _ => Chocolate
     }
     case Mountains => Gray
@@ -80,10 +82,8 @@ class Land(val terr: Terrain, val biome: Biome) extends WTile
 }
 
 object Land
-{
-  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain/*, up: TVert = HVertReg, upRt: BVert = HVertReg, dnRt: TVert = HVertReg,
-            down: BVert = HVertReg, dnLt: TVert = HVertReg, upLt: BVert = HVertReg, sideUR: Option[Unit] = None, sideRt: Option[Unit] = None,
-            sideDR: Option[Unit] = None*/): Land = new Land(terr, biome/*, HVertOffs(up, upRt, dnRt, down, dnLt, upLt), sideUR, sideRt, sideDR*/)
+{ /** Factory apply method for land. */
+  def apply(terr: Terrain = Plains, biome: Biome = OpenTerrain): Land = new Land(terr, biome)
 }
 
 trait Terrain
@@ -117,9 +117,9 @@ case object OpenTerrain extends Biome
   def str = "Open Ground"
 }
 
-case object Forrest extends Biome
-{ override def str = "Forrest"
-  override def colour = Green
+case object Forest extends Biome
+{ override def str = "Forest"
+  override def colour = ForestGreen
 }
 
 case object Desert extends Biome

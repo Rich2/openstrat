@@ -17,7 +17,6 @@ flat = false;
 
 12 = HGView(149, 520; 21);//320km 0E - 30E
 13 = HGView(135, 4608; 24);//320km China - Japan 90E - 150E
-
 14 = HGView(150, 520; 21);//320km 30W - 60E
 15 = HGView(148, 2558; 8);//320km 60W - 150E
 16 = HGView(150, 6650; 21);//320km All longitudes
