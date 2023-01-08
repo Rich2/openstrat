@@ -20,10 +20,10 @@ object Scen320s0e1 extends EScenLongMulti
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }
 
-/** 3 Grid system for 0E, 30E and 60E. */
-object Grids320S0E2 extends EGrid320LongMulti
-{ override val grids: RArr[EGridLongFull] = EGrid320.grids(3, 0,130)
-  override def headGridInt: Int = 0
+/** China - Japan. 3 Grid system for 90E, 120E and 150E. */
+object Grids320ChinaJapan extends EGrid320LongMulti
+{ override val grids: RArr[EGridLongFull] = EGrid320.grids(3, 3,126)
+  override def headGridInt: Int = 3
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMiddleMan] = iToMap(2)(EGridLongMiddleMan(_, this))
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
@@ -32,7 +32,7 @@ object Grids320S0E2 extends EGrid320LongMulti
 /** Scenario for 3 320km grid system for 0E, 30E and 60E */
 object Scen320S0E2 extends EScenLongMulti
 { override val title: String = "320km 0E - 60E"
-  implicit override val gridSys: EGrid320LongMulti = Grids320S0E2
+  implicit override val gridSys: EGrid320LongMulti = Grids320ChinaJapan
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }
