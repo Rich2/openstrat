@@ -8,7 +8,7 @@ object Grids320S0E1 extends EGrid320LongMulti
   override val grids: RArr[EGridLongFull] =  EGrid320.grids(2, 0,124)
   override def headGridInt: Int = 0
   override def gridsXSpacing: Double = 40
-  override val gridMans: RArr[EGridLongMiddleMan] = iToMap(1)(EGridLongMiddleMan(_, ThisSys))
+  override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
@@ -25,7 +25,7 @@ object Grids320ChinaJapan extends EGrid320LongMulti
 { override val grids: RArr[EGridLongFull] = EGrid320.grids(3, 3,126)
   override def headGridInt: Int = 3
   override def gridsXSpacing: Double = 40
-  override val gridMans: RArr[EGridLongMiddleMan] = iToMap(2)(EGridLongMiddleMan(_, this))
+  override val gridMans: RArr[EGridLongMan] = iToMap(2)(EGridLongMan(_, this))
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
@@ -42,7 +42,7 @@ object Grids320S11E2 extends EGrid320LongMulti
 { ThisSys =>
   override def gridsXSpacing: Double = 40
   override val grids: RArr[EGridLongFull] = EGrid320.grids(4, 11,130)
-  override val gridMans: RArr[EGridLongMiddleMan] = iToMap(3)(EGridLongMiddleMan(_, ThisSys))
+  override val gridMans: RArr[EGridLongMan] = iToMap(3)(EGridLongMan(_, ThisSys))
   override def headGridInt: Int = 11
 }
 
@@ -59,7 +59,7 @@ object Grids320S10E5 extends EGrid320LongMulti
 { ThisSys =>
   override def gridsXSpacing: Double = 40
   override val grids: RArr[EGridLongFull] =EGrid320.grids(8, 10,130)
-  override val gridMans: RArr[EGridLongMiddleMan] = iToMap(7)(EGridLongMiddleMan(_, ThisSys))
+  override val gridMans: RArr[EGridLongMan] = iToMap(7)(EGridLongMan(_, ThisSys))
   override def headGridInt: Int = 10
 }
 
@@ -76,7 +76,7 @@ object Grids320S0E11 extends EGrid320LongMulti
 { ThisSys =>
   override def gridsXSpacing: Double = 40
   override val grids: RArr[EGridLongFull] = EGrid320.grids(12, 0,130)
-  override val gridMans: RArr[EGridLongMiddleMan] = iUntilMap(12)(EGridLongMiddleMan(_, ThisSys))
+  override val gridMans: RArr[EGridLongMan] = iUntilMap(12)(EGridLongMan(_, ThisSys))
   override def headGridInt: Int = 0
 }
 
@@ -93,7 +93,7 @@ object Grids320S8E10 extends EGrid320LongMulti
 { override val grids: RArr[EGridLongFull] = EGrid320.grids(3, 8,130)
   override def headGridInt: Int = 8
   override def gridsXSpacing: Double = 40
-  override val gridMans: RArr[EGridLongMiddleMan] = iToMap(2)(EGridLongMiddleMan(_, this))
+  override val gridMans: RArr[EGridLongMan] = iToMap(2)(EGridLongMan(_, this))
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
@@ -109,7 +109,7 @@ object GridsNCanada extends EGrid320LongMulti
 { override val grids: RArr[EGridLongFull] = EGrid320.grids(2, 8,156,158)
   override def headGridInt: Int = 8
   override def gridsXSpacing: Double = 40
-  override val gridMans: RArr[EGridLongMiddleMan] = iToMap(1)(EGridLongMiddleMan(_, this))
+  override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, this))
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
@@ -119,4 +119,6 @@ object ScenNCanada extends EScenLongMulti
   implicit override val gridSys: EGrid320LongMulti = GridsNCanada
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
+  val hc = gridSys.sideTile1(HSide(158, 9724))
+  debvar(hc)
 }

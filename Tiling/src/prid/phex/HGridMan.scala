@@ -67,4 +67,10 @@ trait HGridMan
   { val r1 = grid.findStepEnd(startHC, step)
     if(r1.nonEmpty) r1 else outSteps(startHC).find(_.step == step).map(_.endHC)
   }
+
+  def sideTiles(hSide: HSide): (HCen, HCen) = (sideTile1(hSide), sideTile2(hSide))
+
+  def sideTile1(hSide: HSide): HCen = grid.sideTile1(hSide)
+
+  def sideTile2(hSide: HSide): HCen = grid.sideTile2(hSide)
 }
