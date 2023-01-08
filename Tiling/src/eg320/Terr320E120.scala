@@ -2,13 +2,13 @@
 package ostrat; package eg320
 import pEarth._, prid._, phex._, WTile._
 
+/** Terrain for 30km 129 degrees east. */
 object Terr320E120 extends Long320Terrs
 {
   override implicit val grid: EGrid320LongFull = EGrid320.e120(126)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](taiga)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
 
     wr(160, sea * 2)

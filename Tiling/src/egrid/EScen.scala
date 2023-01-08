@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import prid._, phex._, pEarth._
 
@@ -35,7 +35,12 @@ trait EScenLongMultiDepr extends EScenLongMulti
 
 /** Contains Earth longitude range grid, [[WTile]] layer and a [[Boolean]] tile side data layer. */
 trait LongTerrs
-{ implicit val grid: EGridLongFull
+{ /** The grid used. */
+  implicit val grid: EGridLongFull
+
+  /** The tile terrain, */
   def terrs: HCenLayer[WTile]
+
+  /** The straits. */
   def sTerrs: HSideBoolLayer
 }
