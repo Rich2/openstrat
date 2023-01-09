@@ -1,11 +1,17 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._
 
 object Alaska extends EArea2("Alaska", 66.33 ll -151.16, taiga)
 {  val northEast = 69.45 ll -141
   val yakut10: LatLong = 59.93 ll -141.03
-  val southWest: LatLong = 60.50 ll -164.55
+  val susitnaMouth = 61.25 ll -150.61
+  val p20 = 57.18 ll -156.35
+  val nikolski = 52.88 ll -168.94
+  val portHeiden = 57.63 ll -157.69
+  val kvichakMouth = 58.87 ll -157.05
+  val capeNewenham = 58.57 ll -161.73
+  val p30: LatLong = 60.50 ll -164.55
   val p33 = 61.60 ll -166.18
   val koyuk = 64.93 ll -161.19
   val p40 = 64.65 ll -166.39
@@ -17,7 +23,7 @@ object Alaska extends EArea2("Alaska", 66.33 ll -151.16, taiga)
   val northWest: LatLong = 70.11 ll -161.87
   val p10 = 70.11 ll -143.20
 
-  override def polygonLL: PolygonLL = PolygonLL(northEast, yakut10, southWest, p33, koyuk, p40, capeDouglas, teller, imurukMouth, brevig, west, northWest, p10)
+  override def polygonLL: PolygonLL = PolygonLL(northEast, yakut10, susitnaMouth, p20, nikolski, portHeiden, kvichakMouth, capeNewenham, p30, p33, koyuk, p40, capeDouglas, teller, imurukMouth, brevig, west, northWest, p10)
 }
 
 object NorthWestCanada extends EArea2("NorthWest Canada", 64.051 ll-129.98, taiga)

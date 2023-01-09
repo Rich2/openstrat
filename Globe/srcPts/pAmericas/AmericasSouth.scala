@@ -30,7 +30,7 @@ object AmericasSouth extends EArea1("SAmericas", -6.52 ll -62.28)
   val nwSAmericaEN = 6.77.north * nwAmericaE
 
   val SouthAmericaWest: EArea2 = EArea2("South America\nwest", degs(-5.0, -70.0), jungle,
-     sSAmericaNW, nChile, nPeru, bahiaSolano10, AmericasNorth.sePanama, AmericasNorth.nePanama, nColumbia, caracas, nwSAmericaEN, nwSAmericaES)
+     sSAmericaNW, nChile, nPeru, bahiaSolano10, CentralAmerica.sePanama, CentralAmerica.nePanama, nColumbia, caracas, nwSAmericaEN, nwSAmericaES)
 
   val nAmapa = 4.39 ll -51.51
   val amazonMouthS = -0.18 ll -49.3

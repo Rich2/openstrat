@@ -17,21 +17,29 @@ object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
 }
 
 object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
-{ import AmericasNorth._
-  val chatham = 41.67 ll -69.95
+{ val chatham = 41.67 ll -69.95
   val stattenS = 40.50 ll -74.25
   val stumpyPoint = 35.69 ll -75.73
 
-  override def polygonLL: PolygonLL = LinePathLL(galveston, SouthWestCanada.wUsaNE) ++ LakeSuperior.usCoast ++ LakeHuron.pineMouth ++ LakeMichigan.coast ++
+  /** Camden County Georgia USA */
+  val NAtlanticSW = 31 ll  -81.47
+
+  val seFlorida = 25.34 ll -80.39
+  val swFlorida = 25.19 ll -81.13
+  val nwFlorida = 30.14 ll -84.06
+
+  override def polygonLL: PolygonLL = LinePathLL(UsaWest.galveston, SouthWestCanada.wUsaNE) ++ LakeSuperior.usCoast ++ LakeHuron.pineMouth ++ LakeMichigan.coast ++
     LakeHuron.usCoastSouth  ++ LakeErie.usCoast ++ LakeOntario.usCoast ++!
-    (EastCanada.maineE, chatham, stattenS, stumpyPoint, NAtlanticSW, seFlorida, swFlorida, nwFlorida, galveston, rockyPoint)
+    (EastCanada.maineE, chatham, stattenS, stumpyPoint, NAtlanticSW, seFlorida, swFlorida, nwFlorida, UsaWest.galveston, UsaWest.rockyPoint)
 }
 
 object UsaWest extends EArea2 ("United States\nwest", 40.0 ll - 108.0, desert)
-{ import AmericasNorth._
-
-  val sanDiego = 32.57 ll -117.11
+{ val sanDiego = 32.57 ll -117.11
   val humboldt = 40.44 ll -124.40
+  val galveston = 29.31 ll -94.77
+  val rockyPoint = 31.16 ll -113.02
+  val montague = 31.70 ll -114.71
+
   override def polygonLL: PolygonLL = PolygonLL(sanDiego, humboldt, SouthWestCanada.w49th, SouthWestCanada.wUsaNE, galveston, rockyPoint, montague)
 
   val lasVegas = LocationLL("Las Vegas", 36.17, -115.14, 2)
@@ -42,62 +50,11 @@ object UsaWest extends EArea2 ("United States\nwest", 40.0 ll - 108.0, desert)
 }
 
 object AmericasNorth extends EArea1("North America", 49 ll -100)
-{ /** Camden County Georgia USA */
-  val NAtlanticSW = 31 ll  -81.47
-
-  val cAmericaN =  22.8.north
-  val cAmericaNW= cAmericaN ll -105.97
-
-
+{
   val ensenada = 31.74 ll -116.73
-  val seFlorida = degs(25.34, -80.39)
-  val swFlorida = degs(25.19, -81.13)
-  val nwFlorida = degs(30.14, -84.06)
-  val galveston = 29.31 ll -94.77
-  val rockyPoint = 31.16 ll -113.02
-
-  val montague = 31.70 ll -114.71
-
-  val cabotPulmo = 23.37 ll -109.44
-  val sanLucas = 22.87 ll -109.91
-  val wBaja = 27.84 ll -115.07
-  val baja = EArea2("Baja", 27.80 ll -113.31, plain, UsaWest.sanDiego, montague, cabotPulmo, sanLucas, wBaja)
-
-  val mariato = degs(7.22, -80.88)
-  val quebrada = degs(8.04, -82.88)
-  val swGuatemala = degs(14.55, -92.21)
-  val pochutala = degs(15.76, -96.50)
-  val manzanillo = degs(19.15, -104)
-
-  val brownsville = degs(25.98, -97.26)
-  // val cAmericaNE= cAmericaN ll -97.79
-
-  val sePanama = degs(7.26, -77.9)
-  val coatz = degs(18.13, -94.5)
-  val champeton = degs(19.36, -90.71)
-  val nwYucatan =degs(21.01, -90.3)
-  val neYucatan = degs(21.48, -86.97)
-  val seBelize = degs(15.88, -88.91)
-  val eHonduras = degs(15.0, -83.17)
-  val kusapin = degs(8.79, -81.38)
-  val stIsabel = degs(9.53, -79.25)
-  val stIgnacio = degs(9.26, -78.12)
-  val nePanama = degs(8.43, -77.26)
-
-  val cAmerica: EArea2 = EArea2("CAmerica", degs(17.31, -94.16), jungle, sePanama, mariato, quebrada, swGuatemala, pochutala,
-    manzanillo, cAmericaNW, rockyPoint, galveston, brownsville, coatz, champeton, nwYucatan, neYucatan, seBelize, eHonduras, kusapin, stIsabel,
-    stIgnacio, nePanama)
-
-  val wCuba = 21.86 ll -84.95
-  val havana = 23.14 ll -82.39
-  val eCuba = 20.22 ll -74.13
-  val cabotCruz = 19.84 ll -77.73
-  val yara = 20.45 ll -77.07
-  val surgidero = 22.68 ll -82.29
-  val cuba = EArea2("Cuba", 21.97 ll -78.96, jungle, wCuba, havana, eCuba, cabotCruz, yara, surgidero)
 
   val lakes = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
   override val a2Arr: RArr[EArea2] = lakes ++
     RArr(UsaWest, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
-    NewFoundland, baja, cAmerica, cuba)
+    NewFoundland, Baja, CentralAmerica, Cuba)
 }

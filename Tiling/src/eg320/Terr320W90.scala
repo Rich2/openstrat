@@ -9,11 +9,11 @@ object Terr320W90 extends Long320Terrs
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
-    gs(160, 9728, sea * 2)
-    gs(158, 9726, tundra * 3)
-    gs(156, 9728, tundra * 2)
+
+    wr(160, sea * 2)
+    wr(158, tundra * 3)
+    wr(156, sea, tundra * 2)
     wr(154, tundra * 3, sea)
     wr(152, tundra * 4)
     wr(150, taiga, tundra, sea * 2)
@@ -32,7 +32,7 @@ object Terr320W90 extends Long320Terrs
 
   override val sTerrs: HSideBoolLayer =
   { val res = grid.newSideBools
-    res.setTruesInts(152,9730,  152,9734,  153,9731,  155, 9731,  156,9730,  157,9729,  158,9724,  158,9728,  159,9725)
+    res.setTruesInts(142,9736,  143,9735,  144,9734,  152,9730,  152,9734,  153,9731,  155, 9731,  156,9730,  157,9729,  158,9724,  158,9728,  159,9725)
     res
   }
 }
