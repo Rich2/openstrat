@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
 import prid._, phex._, egrid._, pEarth._
 
@@ -105,6 +105,7 @@ object Scen320S8E10 extends EScenLongMulti
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }
 
+/** 2 320km grid system for Northern Canada 120W and 90W. */
 object GridsNCanada extends EGrid320LongMulti
 { override val grids: RArr[EGridLongFull] = EGrid320.grids(2, 8,156,158)
   override def headGridInt: Int = 8
@@ -113,16 +114,10 @@ object GridsNCanada extends EGrid320LongMulti
   override def adjTilesOfTile(tile: HCen): HCenArr = ???
 }
 
-/** Scenario for 3 320km grid system for Northern Canada 120W and 90W. */
+/** Scenario for 2 320km grid system for Northern Canada 120W and 90W. */
 object ScenNCanada extends EScenLongMulti
 { override val title: String = "320km Far North Canada"
   implicit override val gridSys: EGrid320LongMulti = GridsNCanada
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
-  val hc1 = gridSys.sideTile1(HSide(158, 9724))
-  debvar(hc1)
-  val hc2 = gridSys.sideTile1(HSide(159, 9725))
-  debvar(hc2)
-  val hc3 = gridSys.sideTile1(HSide(157, 9725))
-  debvar(hc3)
 }

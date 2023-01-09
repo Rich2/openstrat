@@ -21,8 +21,11 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     val t2 = terrs(hs.tile2Reg)
     ife( t1 == t2, Some(ls.draw(t1.contrastBW)), None)
   }
+  def lines2: GraphicElems = proj.ifTileScale(50, lines)
 
   def hexStrs: GraphicElems = proj.hCenSizedMap(15){ (pt, hc) => pt.textAt(hc.rcStr32, 12, terrs(hc).contrastBW) }
+
+  def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs)
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
@@ -51,7 +54,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-  override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines ++ hexStrs
+  override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines2 ++ hexStrs2
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
