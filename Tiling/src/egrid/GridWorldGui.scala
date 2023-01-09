@@ -36,24 +36,25 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
       case _ => RArr()
     }
 
-    def rcTexts = proj.ifTileScale(82, optTexts)
-
-    def optTexts = terrs.hcOptFlatMap{ (hc, terr) =>
+    def rcTexts1 = terrs.hcOptFlatMap{ (hc, terr) =>
       proj.transOptCoord(hc).map{ pt =>
         val strs: StrArr = StrArr(hc.rcStr32).appendOption(proj.hCoordOptStr(hc)) +% hc.strComma
         TextGraphic.lines(strs, 12, pt, terr.contrastBW)
       }
     }
-    def optTexts2 = ifGScale(5, optTexts)
+
+    def rcTexts2 = proj.ifTileScale(82, rcTexts1)
 
     def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
     def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
 
-    def lines: RArr[LineSegDraw] = sTerrs.projFalseLinksHsLineSegOptMap { (hs, ls) =>
+    def lines1: RArr[LineSegDraw] = sTerrs.projFalseLinksHsLineSegOptMap { (hs, ls) =>
       val t1 = terrs(hs.tile1Reg)
       val t2 = terrs(hs.tile2Reg)
       ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
     }
+
+    def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
     def outerLines = proj.outerSidesDraw(3, Gold)
 
@@ -66,7 +67,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles ++ sides1 ++ lines +% outerLines ++ rcTexts ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tiles ++ sides1 ++ lines2 +% outerLines ++ rcTexts2 ++ irrLines
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
