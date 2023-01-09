@@ -79,12 +79,12 @@ object EGrid320
   def scen1: EScenBasic = EScenBasic(Terr320E30.grid, Terr320E30.terrs, Terr320E30.sTerrs, "320km 30E")
 
   def scen2: EScenBasic =
-  { val grid: EGridLongFull = e60(130)
+  { val grid: EGridLongFull = Terr320E60.grid
     EScenBasic(grid, Terr320E60.terrs, Terr320E60.sTerrs, "320km 60E")
   }
 
   def scen3: EScenBasic =
-  { val grid: EGridLongFull = e90(130)
+  { val grid: EGridLongFull = Terr320E90.grid
     EScenBasic(grid, Terr320E90.terrs, Terr320E90.sTerrs, "320km 90E")
   }
 
@@ -94,37 +94,37 @@ object EGrid320
   }
 
   def scen5: EScenBasic =
-  { val grid: EGridLongFull = e150(130)
+  { val grid: EGridLongFull = Terr320E150.grid
     EScenBasic(grid, Terr320E150.terrs, Terr320E150.sTerrs, "320km 150E")
   }
 
   def scen6: EScenBasic =
-  { val grid: EGridLongFull = e180(130)
+  { val grid: EGridLongFull = Terr320E180.grid
     EScenBasic(grid, Terr320E180.terrs, Terr320E180.sTerrs, "320km 180E")
   }
 
   def scen7: EScenBasic =
-  { val grid: EGridLongFull = w150(130)
+  { val grid: EGridLongFull = Terr320W150.grid
     EScenBasic(grid, Terr320W150.terrs, Terr320W150.sTerrs, "320km 150W")
   }
 
   def scen8: EScenBasic =
-  { val grid: EGridLongFull = w120(130)
+  { val grid: EGridLongFull = Terr320W120.grid
     EScenBasic(grid, Terr320W120.terrs, Terr320W120.sTerrs, "320km 120W")
   }
 
   def scen9: EScenBasic =
-  { val grid: EGridLongFull = w90(130)
+  { val grid: EGridLongFull = Terr320W90.grid
     EScenBasic(grid, Terr320W90.terrs, Terr320W90.sTerrs, "320km 90W")
   }
 
   def scen10: EScenBasic =
-  { val grid: EGridLongFull = w60(130)
+  { val grid: EGridLongFull = Terr320W60.grid
     EScenBasic(grid, Terr320W60.terrs, Terr320W60.sTerrs, "320km 60W")
   }
 
   def scen11: EScenBasic =
-  { val grid: EGridLongFull = w30(130)
+  { val grid: EGridLongFull = Terr320W30.grid
     EScenBasic(grid, Terr320W30.terrs, Terr320W30.sTerrs, "320km 30W")
   }
 }

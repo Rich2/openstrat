@@ -4,15 +4,16 @@ import pEarth._, prid._, phex._, WTile._
 
 object Terr320E180 extends Long320Terrs
 {
-  override implicit val grid: EGrid320LongFull = EGrid320.e180(130)
+  override implicit val grid: EGrid320LongFull = EGrid320.e180(128)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
-    def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
-    gs(154, 6650, tundra * 3, sea)
-    gs (152, 6652, tundra, sea, tundra, taiga)
-    gs(150, 6650, tundra * 2, sea * 2)
-    gs(148, 6648, tundra, sea * 4)
+    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
+
+    wr(154, tundra * 3, sea)
+    wr(152, tundra, sea, tundra, taiga)
+    wr(150, tundra * 2, sea * 2)
+    wr(148, tundra, sea * 4)
     res
   }
 
