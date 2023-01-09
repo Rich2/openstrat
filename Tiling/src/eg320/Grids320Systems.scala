@@ -88,9 +88,9 @@ object Scen320S0E11 extends EScenLongMulti
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
 }
 
-/** 3 Grid system for 0E, 30E and 60E. */
+/** North America 4 Grid system for 150W, 120W, 90W, 60W. */
 object Grids320S8E10 extends EGrid320LongMulti
-{ override val grids: RArr[EGridLongFull] = EGrid320.grids(4, 7,130)
+{ override val grids: RArr[EGridLongFull] = EGrid320.grids(4, 7,128)
   override def headGridInt: Int = 7
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(3)(EGridLongMan(_, this))

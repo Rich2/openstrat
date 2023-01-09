@@ -2,6 +2,16 @@
 package ostrat; package pEarth; package pPts
 import geom._, pglobe._, LatLong._, WTile._
 
+object AmericasNorth extends EArea1("North America", 49 ll -100)
+{
+  val ensenada = 31.74 ll -116.73
+
+  val lakes = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
+  override val a2Arr: RArr[EArea2] = lakes ++
+    RArr(UsaWest, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
+      NewFoundland, Baja, CentralAmerica, Cuba)
+}
+
 object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
 { val mouthNorth: LatLong = 45.84 ll -84.75
   val north: LatLong = 46.10 ll -85.42
@@ -36,25 +46,17 @@ object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
 object UsaWest extends EArea2 ("United States\nwest", 40.0 ll - 108.0, desert)
 { val sanDiego = 32.57 ll -117.11
   val humboldt = 40.44 ll -124.40
+  val capeBlanco = 42.84 ll -124.56
+  val neahBay = 48.37 ll -124.67
   val galveston = 29.31 ll -94.77
   val rockyPoint = 31.16 ll -113.02
   val montague = 31.70 ll -114.71
 
-  override def polygonLL: PolygonLL = PolygonLL(sanDiego, humboldt, SouthWestCanada.w49th, SouthWestCanada.wUsaNE, galveston, rockyPoint, montague)
+  override def polygonLL: PolygonLL = PolygonLL(sanDiego, humboldt, capeBlanco, neahBay, SouthWestCanada.w49th, SouthWestCanada.wUsaNE, galveston, rockyPoint, montague)
 
   val lasVegas = LocationLL("Las Vegas", 36.17, -115.14, 2)
   val denver = LocationLL("Denver", 39.74, -105, 2)
   val losAngeles = LocationLL("Los Angeles", 34.05, -118.24, 1)
 
   override val places: LocationLLArr = LocationLLArr(lasVegas, denver, losAngeles)
-}
-
-object AmericasNorth extends EArea1("North America", 49 ll -100)
-{
-  val ensenada = 31.74 ll -116.73
-
-  val lakes = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
-  override val a2Arr: RArr[EArea2] = lakes ++
-    RArr(UsaWest, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
-    NewFoundland, Baja, CentralAmerica, Cuba)
 }

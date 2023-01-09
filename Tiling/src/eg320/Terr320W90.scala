@@ -5,7 +5,7 @@ import pEarth._, prid._, phex._, WTile._
 /** Terrain for 90 degrees west includes grid, tile terrain and straits [[Boolean]]s. */
 object Terr320W90 extends Long320Terrs
 {
-  override implicit val grid: EGrid320LongFull = EGrid320.w90(130)
+  override implicit val grid: EGrid320LongFull = EGrid320.w90(128)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
@@ -25,8 +25,9 @@ object Terr320W90 extends Long320Terrs
     wr(138, plain * 3, lake, forest * 3)
     wr(136, plain * 5, lake, forest)
     wr(134, plain * 6, forest)
-    wr(132, plain * 7)
-    wr(130, plain * 8)
+    wr(132, desert, plain * 6)
+    wr(130, desert, plain * 7)
+    wr(128, desert, plain * 7)
     res
   }
 
