@@ -54,10 +54,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
       val t2 = terrs(hs.tile2Reg)
       ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
     }
-    def linkLines1 = sTerrs.projFalsesLineSegMap{ls => ls.draw(White) }
-    def linkLines2 = ifGScale(5, linkLines1)
-    def linkLines3: RArr[LineSegDraw] = terrs.projLinksHsLineOptMap((hs, line, t1, t2) => ife(t1 == t2 & !sTerrs(hs), Some(line.draw(t1.contrastBW)), None))
-    def linkLines4 = ifGScale(5, linkLines3)
+
     def outerLines = proj.outerSidesDraw(3, Gold)
 
     def ifGlobe(f: HSysProjectionEarth => GraphicElems): GraphicElems = proj match
@@ -69,14 +66,14 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles ++ sides1 ++ lines  /*linkLines4 linkLines2*/ +% outerLines ++ rcTexts ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tiles ++ sides1 ++ lines +% outerLines ++ rcTexts ++ irrLines
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
-   // statusText = str
+    statusText = str
     thisTop()
   }
   thisTop()

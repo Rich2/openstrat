@@ -6,8 +6,8 @@ import pgui._, pStrat._
 object Apps
 {
   val launchs: StrPairArr[GuiLaunch] = StrPairArr[GuiLaunch](
-    ("DL", dless.DLessLaunch),
     ("L", learn.Lessons),
+    ("DL", dless.DLessLaunch),
     ("W1", pww1.WW1Launch),
     ("BC", p305.BcLaunch),
     ("EA", pEarth.EarthBasicLaunch),
