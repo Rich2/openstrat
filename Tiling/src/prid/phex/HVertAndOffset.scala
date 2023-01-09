@@ -2,13 +2,15 @@
 package ostrat; package prid; package phex
 import geom._
 
-/** [[HVert]] direction of offset towards [[HCen]]. */
+/** [[HVert]] direction of offset towards [[HCen]]. These objects should not be confused with [[HStep]]s */
 sealed trait HVDirn
 { /** The delta in R to the [[HCen]] from an [[HCoord]]. */
   def deltaR: Int
 
   /** The delta in C to the [[HCen]] from an [[HCoord]]. */
   def deltaC: Int
+
+  def intValue: Int
 }
 
 object HVDirn
@@ -29,38 +31,45 @@ object HVDirn
 object HVExact extends HVDirn
 { def deltaR: Int = 0
   def deltaC: Int = 0
+  override def intValue: Int = 0
 }
 
 /** Hex Vert Up offset. */
 object HVUp extends HVDirn
 { def deltaR: Int = 1
   def deltaC: Int = 0
+  override def intValue: Int = 1
 }
 
 /** Hex Vert Up Right offset. */
 object HVUR extends HVDirn
 { def deltaR: Int = 1
   def deltaC: Int = 1
+  override def intValue: Int = 2
 }
 
 object HVDR extends HVDirn
 { def deltaR: Int = -1
   def deltaC: Int = 1
+  override def intValue: Int = 3
 }
 
 object HVDn extends HVDirn
 { def deltaR: Int = -1
   def deltaC: Int = 0
+  override def intValue: Int = 4
 }
 
 object HVDL extends HVDirn
 { def deltaR: Int = -1
   def deltaC: Int = -1
+  override def intValue: Int = 5
 }
 
 object HVUL extends HVDirn
 { def deltaR: Int = 1
   def deltaC: Int = -1
+  override def intValue: Int = 6
 }
 
 class HVertOffset(val int1: Int) extends AnyVal with Int1Elem
@@ -83,7 +92,7 @@ class HVertAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int
 
 object HVertAndOffset
 {
-  def apply(r: Int, c: Int, hvDirn: HVDirn): HVertAndOffset = ???
+  def apply(r: Int, c: Int, hvDirn: HVDirn, offset: Int): HVertAndOffset = ???//new HVertAndOffset(r, c, hvDirn.)
 }
 
 class HVertOffsetLayer(val unsafeArray: Array[Int])

@@ -20,7 +20,8 @@ object HStepOpt
 
 case object HStepNone extends HStepOpt
 
-/** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. */
+/** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. These should not be confused with
+ * [[HVDirn]]s which fo from an [[HVert]] to an [[HCen]]. */
 sealed trait HStep extends TDirnSided with Int1Elem with HStepOpt
 { /** The delta [[HCen]] of this step inside a hex grid. */
   def hCenDelta: HCen = HCen(tr, tc)
@@ -44,9 +45,9 @@ object HStep
   def full: HStepArr = HStepArr(HexUR, HexRt, HexDR, HexDL, HexLt, HStepUL)
 
   implicit val arrMapBuildEv: Int1ArrMapBuilder[HStep, HStepArr] = new Int1ArrMapBuilder[HStep, HStepArr]
-  { override type BuffT = HDirnBuff
+  { override type BuffT = HStepBuff
     override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
-    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HDirnBuff = new HDirnBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
   }
 }
 
@@ -176,18 +177,18 @@ object HStepArr extends Int1SeqLikeCompanion[HStep, HStepArr]
 { override def fromArray(array: Array[Int]): HStepArr = new HStepArr(array)
 
   implicit val flatBuilder: ArrFlatBuilder[HStepArr] = new Int1ArrFlatBuilder[HStepArr]
-  { override type BuffT = HDirnBuff
+  { override type BuffT = HStepBuff
     override def fromIntArray(array: Array[Int]): HStepArr = new HStepArr(array)
-    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HDirnBuff = new HDirnBuff(buffer)
+    override def fromIntBuffer(buffer: ArrayBuffer[Int]): HStepBuff = new HStepBuff(buffer)
   }
 }
 
 /** ArrayBuffer based buffer class for Colours. */
-class HDirnBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[HStep]
+class HStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[HStep]
 { override def typeStr: String = "HStepBuff"
   def intToT(i1: Int): HStep = HStep.fromInt(i1)
 }
 
-object HDirnBuff
-{ def apply(initLen: Int = 4): HDirnBuff = new HDirnBuff(new ArrayBuffer[Int](initLen))
+object HStepBuff
+{ def apply(initLen: Int = 4): HStepBuff = new HStepBuff(new ArrayBuffer[Int](initLen))
 }
