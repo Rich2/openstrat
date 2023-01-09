@@ -1,5 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
+import geom._
 
 /** [[HVert]] direction of offset towards [[HCen]]. */
 sealed trait HVDirn
@@ -80,91 +81,72 @@ class HVertAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int
   def hvDirn: HVDirn = HVDirn.fromInt(hvDirnInt)
 }
 
-/*class HVOffset private (val int1: Int) extends AnyVal with Int1Elem
-{ /** bits 2 - 0 */
-  def dirn1: HDirnOpt = HDirnOpt.fromInt(int1 % TwoPower3)
+class HVertOffsetLayer(val unsafeArray: Array[Int])
+{
 
-  /** bits 6 to 3 values 0 t0 15 => -6 to 9  */
-  def delta1: Int = int1 % TwoPower7 / TwoPower3 - 6
-  def dirn2: HDirnOpt = HDirnOpt.fromInt(int1 % TwoPower10 / TwoPower7)
-  def delta2: Int = int1 % TwoPower14 / TwoPower10
-  def dirn3: HDirnOpt = HDirnOpt.fromInt(int1 % TwoPower17 / TwoPower14)
-  def delta3: Int = int1 % TwoPower21 / TwoPower17
-}*/
-
-//trait HVOffset0 extends HVOffset
-
-/*
-object HVNoOffset extends HVOptOffset
-{ override def intValue: Int = 0
-  override def delta: Int = 0
 }
 
-sealed abstract class HVSomeOffset(deltaIn: Int) extends HVOptOffset
-{ def fullR: Int
-  def fullC: Int
-  def dInt: Int
-  val delta: Int = deltaIn match {
-    case i if i >= 4 => 4
-    case i if i <= -2 => -2
-    case i => i
-  }
-  override def intValue: Int = dInt + delta + 2
+class  LineSegHVertAndOffset extends LineSegLike[HVertAndOffset]
+{
+  /** The start point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
+   * [[PtM2]] for a [[LineSegM2]]. */
+  override def startPt: HVertAndOffset = ???
+
+  /** The end point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
+   * [[PtM2]] for a [[LineSegM2]]. */
+  override def endPt: HVertAndOffset = ???
 }
 
-class HVOffsetUp(delta: Int) extends HVSomeOffset(delta)
-{ def fullR: Int = 1
-  def fullC: Int = 0
-  override def dInt: Int = 8
+class HVertAndOffsetPolygon extends PolygonLike[HVertAndOffset]
+{
+  override type ThisT = HVertAndOffsetPolygon
+  override type SideT = LineSegHVertAndOffset
+
+  /** The number of vertices and also the number of sides in this Polygon. */
+  override def vertsNum: Int = ???
+
+  /** Performs the side effecting function on the value of each vertex. */
+  override def vertsForeach[U](f: HVertAndOffset => U): Unit = ???
+
+  /** Index with foreach on each vertx. Applies the side effecting function on the index with the value of each vertex. Note the function signature
+   * follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
+   * => B signature. */
+  override def vertsIForeach[U](f: (Int, HVertAndOffset) => Any): Unit = ???
+
+  /** Maps the vertices of this polygon to an immutable Array like sequence of type B.
+   *
+   * @tparam B    The element type of the returned sequence.
+   * @tparam ArrB The type of the immutable Array like sequence of B.
+   * @return the immutable sequence collection by applying the supplied function to each vertex. */
+  override def vertsMap[B, ArrB <: Arr[B]](f: HVertAndOffset => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = ???
+
+  /** Folds over the vertices.
+   *
+   * @tparam B type of the accumulator return value of this method. */
+override def vertsFold[B](init: B)(f: (B, HVertAndOffset) => B): B = ???
+
+  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
+override def vert(index: Int): HVertAndOffset = ???
+
+  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
+   * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
+   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
+   * signature. */
+override def vertsPrevForEach[U](f: (HVertAndOffset, HVertAndOffset) => U): Unit = ???
+override def sidesForeach[U](f: LineSegHVertAndOffset => U): Unit = ???
+
+  /** Accesses the specifying sequence element by a 0 based index. */
+override def ssIndex(index: Int): HVertAndOffset = ???
+
+  /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
+   * underlying Array will be a multiple of this number. */
+override def ssLength: Int = ???
+
+  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
+   * methods. */
+override def unsafeSetElem(i: Int, newElem: HVertAndOffset): Unit = ???
+override def fElemStr: HVertAndOffset => String = ???
+
+  /** String specifying the type of this object. */
+override def typeStr: String = ???
 }
-
-class HVOffsetUR(delta: Int) extends HVSomeOffset(delta)
-{ def fullR: Int = 1
-  def fullC: Int = 2
-  override def dInt: Int = 16
-}
-
-class HVOffsetDR(delta: Int) extends HVSomeOffset(delta)
-{ def fullR: Int = -1
-  def fullC: Int = 2
-  override def dInt: Int = 24
-}
-
-class HVOffsetDn(delta: Int) extends HVSomeOffset(delta)
-{ def fullR: Int = -1
-  def fullC: Int = 0
-  override def dInt: Int = 32
-}
-
-class HVOffsetDL(delta: Int) extends HVSomeOffset(delta)
-{ def fullR: Int = -1
-  def fullC: Int = -2
-  override def dInt: Int = 40
-}
-
-class HVOffsetUL(delta: Int) extends HVSomeOffset(delta)
-{ def fullR: Int = 1
-  def fullC: Int = -2
-  override def dInt: Int = 48
-}
-
-class HOptOffsetArr(val unsafeArray: Array[Int]) extends Int1Arr[HVOptOffset]
-{ override type ThisT = HOptOffsetArr
-  override def typeStr: String = "OptOffsetArr"
-  override def fromArray(array: Array[Int]): HOptOffsetArr = new HOptOffsetArr(array)
-  override def fElemStr: HVOptOffset => String = el => "HVOpt" + el.delta
-
-  override def dataElem(intValue: Int): HVOptOffset =
-  { val t = intValue / 8
-    val d = (intValue % 8) - 2
-    t match {
-      case 1 => new HVOffsetUp(d)
-      case 2 => new HVOffsetUR(d)
-      case 3 => new HVOffsetDR(d)
-      case 4 => new HVOffsetDn(d)
-      case 5 => new HVOffsetDL(d)
-      case 6 => new HVOffsetUL(d)
-      case _ => HVNoOffset
-    }
-  }
-}*/
