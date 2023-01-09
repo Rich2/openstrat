@@ -73,7 +73,14 @@ trait HGridMulti extends HGridSys with TGridMulti
     res
   }*/
 
-  override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.indexStart + man.grid.arrIndex(r, c) }
+  override def arrIndex(r: Int, c: Int): Int ={
+    val ind = unsafeGetManFunc(r, c){ man => man.indexStart + man.grid.arrIndex(r, c) }
+    if (ind < 0) {
+      deb(s"r = $r, c = $c gives an array index of $ind, substiuting 0.")
+      0
+    }
+    else ind
+  }
 
   /** Temporary implementation. */
   final override def sideArrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.sideIndexStart + man.sideArrIndex(r, c) }

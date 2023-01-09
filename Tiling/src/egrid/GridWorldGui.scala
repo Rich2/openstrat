@@ -69,7 +69,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles ++ sides1 ++ /*linkLines4*/linkLines2 +% outerLines ++ rcTexts ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tiles ++ sides1 ++ lines  /*linkLines4 linkLines2*/ +% outerLines ++ rcTexts ++ irrLines
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)

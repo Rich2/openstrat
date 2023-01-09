@@ -73,18 +73,19 @@ case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
     }
   }
 
-  override def innerRowInnerSidesForeach(r: Int)(f: HSide => Unit): Unit = if (thisInd == 0 & sys.grids.length != 12) grid.innerRowForeachInnerSide(r)(f)
-  else r match
-  {
-    case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) -2, 4){ c => f(HSide(r, c)) }
-    case r if r == grid.bottomSideR =>
-    case r if r == grid.topSideR =>
+  override def innerRowInnerSidesForeach(r: Int)(f: HSide => Unit): Unit =
+    if (thisInd == 0 & sys.grids.length != 12) grid.innerRowForeachInnerSide(r)(f)
+    else r match
+    {
+      case r if r.isEven => iToForeach(grid.rowLeftCenC(r) - 2, grid.rowRightCenC(r) - 2, 4){ c => f(HSide(r, c)) }
+      case r if r == grid.bottomSideR =>
+      case r if r == grid.topSideR =>
 
-    case r =>
-    { val start = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
-      val end = grid.rowRightCenC(r - 1).min(grid.rowRightCenC(r + 1)) + 1
-      iToForeach(start, end, 2){ c => f(HSide(r, c)) }
-    }
+      case r =>
+      { val start = grid.rowLeftCenC(r - 1).min(grid.rowLeftCenC(r + 1)) - 1
+        val end = grid.rowRightCenC(r - 1).min(grid.rowRightCenC(r + 1)) + 1
+        iToForeach(start, end, 2){ c => f(HSide(r, c)) }
+      }
   }
 
   override def sideArrIndex(r: Int, c : Int): Int = sideRowIndexArray(r - grid.bottomSideR) + ife(r.isEven, (c - grid.rowLeftSideC(r)) / 4,(c - grid.rowLeftSideC(r)) / 2)
@@ -105,7 +106,21 @@ case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
     array
   }
 
-  override def sideTile1(hSide: HSide): HCen = grid.sideTile1(hSide)
+  override def sideTile1(hSide: HSide): HCen = {
+    val hCen1 = hSide.tile1Reg
+    if (grid.hCenExists(hCen1)) hCen1
+    else {
+      val gi = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
+      val r = hSide.r match{
+        case r if r.isEven => r
+        case r if hSide.c.div4Rem1 => r - 1
+        case r => r + 1
+      }
+
+      val c = sys.grids(gi).rowRightCenC(r)
+      HCen(r, c)
+    }
+  }
 
   override def sideTile2(hSide: HSide): HCen = grid.sideTile2(hSide)
 }

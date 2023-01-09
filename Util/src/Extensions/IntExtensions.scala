@@ -176,6 +176,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   /** Dividing by 4 gives remainder of 0. */
   def div4Rem0: Boolean = thisInt % 4 == 0
 
+  /** Dividing this [[Int]] by 4 == 1 */
   def div4Rem1: Boolean = thisInt %% 4 == 1
 
   /** Dividing by 4 gives remainder of 2. */

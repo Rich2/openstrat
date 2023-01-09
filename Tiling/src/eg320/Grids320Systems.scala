@@ -119,6 +119,10 @@ object ScenNCanada extends EScenLongMulti
   implicit override val gridSys: EGrid320LongMulti = GridsNCanada
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
-  val hc = gridSys.sideTile1(HSide(158, 9724))
-  debvar(hc)
+  val hc1 = gridSys.sideTile1(HSide(158, 9724))
+  debvar(hc1)
+  val hc2 = gridSys.sideTile1(HSide(159, 9725))
+  debvar(hc2)
+  val hc3 = gridSys.sideTile1(HSide(157, 9725))
+  debvar(hc3)
 }
