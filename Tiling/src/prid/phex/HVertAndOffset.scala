@@ -81,6 +81,11 @@ class HVertAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int
   def hvDirn: HVDirn = HVDirn.fromInt(hvDirnInt)
 }
 
+object HVertAndOffset
+{
+  def apply(r: Int, c: Int, hvDirn: HVDirn): HVertAndOffset = ???
+}
+
 class HVertOffsetLayer(val unsafeArray: Array[Int])
 {
 
