@@ -23,9 +23,22 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   }
   def lines2: GraphicElems = proj.ifTileScale(50, lines)
 
-  def hexStrs: GraphicElems = proj.hCenSizedMap(15){ (pt, hc) => pt.textAt(hc.rcStr32, 12, terrs(hc).contrastBW) }
+  //def hexStrs: GraphicElems = proj.hCenSizedMap(15){ (pt, hc) => pt.textAt(hc.rcStr32, 12, terrs(hc).contrastBW) }
+
+  def hexStrs = terrs.hcOptFlatMap { (hc, terr) =>
+    proj.transOptCoord(hc).map { pt =>
+      val strs: StrArr = StrArr(hc.rcStr32).appendOption(proj.hCoordOptStr(hc)) +% hc.strComma
+      TextGraphic.lines(strs, 12, pt, terr.contrastBW)
+    }
+  }
 
   def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs)
+
+  def sd = HVertAndOffset(139, 518, HVUR, 4)
+  def pt = sd.toPt2Reg(proj.transCoord(_))
+  def sdg: GraphicElems = pt.textArrow("HVert")
+
+  override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines2 ++ hexStrs2 ++ sdg
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
@@ -54,7 +67,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-  override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines2 ++ hexStrs2
+
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

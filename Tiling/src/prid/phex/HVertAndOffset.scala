@@ -38,38 +38,38 @@ object HVExact extends HVDirn
 object HVUp extends HVDirn
 { def deltaR: Int = 1
   def deltaC: Int = 0
-  override def intValue: Int = 1
+  override def intValue: Int = 6
 }
 
 /** Hex Vert Up Right offset. */
 object HVUR extends HVDirn
 { def deltaR: Int = 1
-  def deltaC: Int = 1
-  override def intValue: Int = 2
+  def deltaC: Int = 2
+  override def intValue: Int = 1
 }
 
 object HVDR extends HVDirn
 { def deltaR: Int = -1
-  def deltaC: Int = 1
-  override def intValue: Int = 3
+  def deltaC: Int = 2
+  override def intValue: Int = 2
 }
 
 object HVDn extends HVDirn
 { def deltaR: Int = -1
   def deltaC: Int = 0
-  override def intValue: Int = 4
+  override def intValue: Int = 3
 }
 
 object HVDL extends HVDirn
 { def deltaR: Int = -1
-  def deltaC: Int = -1
-  override def intValue: Int = 5
+  def deltaC: Int = -2
+  override def intValue: Int = 4
 }
 
 object HVUL extends HVDirn
 { def deltaR: Int = 1
-  def deltaC: Int = -1
-  override def intValue: Int = 6
+  def deltaC: Int = -2
+  override def intValue: Int = 5
 }
 
 class HVertOffset(val int1: Int) extends AnyVal with Int1Elem
@@ -88,11 +88,22 @@ class HVertAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int
   def vert: HVert = HVert(r, c)
 
   def hvDirn: HVDirn = HVDirn.fromInt(hvDirnInt)
+
+  def hCen = HCen(r + hvDirn.deltaR, c + hvDirn.deltaC)
+
+
+  def toPt2Reg(f: HCoord => Pt2): Pt2 ={
+    val p1 = f(vert)
+    val p2 = f(hCen)
+    val x = ((8 - offset) * p1.x + offset * p2.x) / 8
+    val y = ((8 - offset) * p1.y + offset * p2.y) / 8
+    Pt2(x, y)
+  }
 }
 
 object HVertAndOffset
 {
-  def apply(r: Int, c: Int, hvDirn: HVDirn, offset: Int): HVertAndOffset = ???//new HVertAndOffset(r, c, hvDirn.)
+  def apply(r: Int, c: Int, hvDirn: HVDirn, offset: Int): HVertAndOffset = new HVertAndOffset(r, c, hvDirn.intValue, offset)
 }
 
 class HVertOffsetLayer(val unsafeArray: Array[Int])

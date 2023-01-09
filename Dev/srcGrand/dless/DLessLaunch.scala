@@ -17,6 +17,7 @@ object DLessLaunch extends GuiLaunchMore
 
     val scen: DLessScen = num match
     { case 1 => DLessScen1
+      case 2 => DLessScen2
       case _ => DLessScen1
     }
 

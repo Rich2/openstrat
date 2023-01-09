@@ -1,11 +1,12 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-appSet = W2;
+appSet = DL;
 displayX = 0;
 displayY = 0;//Some operating systems will not allow a positive y value that pushes the window bottom below the bottom of the display viewport.
 // displayWidth = 1920;
 // displayHeight = 1080;
 lessons = A1;
 dless = { scen = 1; flat = false; 1 = HGView(138, 526; 20); };
+ww1 = { scen = 1; 1 = HGView(455, 522; 26); };
 bc305 = { scen = 2; flat = false; 2 = HGView(460, 520; 16); };
 earth = { scale = 12; latitude = 0; longitude = 0; };
 ad1783 = { scen = 2; flat = false; 2 = HGView(286, 512; 22); };
