@@ -27,7 +27,8 @@ object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
 }
 
 object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
-{ val chatham = 41.67 ll -69.95
+{ val p10 = 42.41 ll -71.00
+  val chatham = 41.67 ll -69.95
   val stattenS = 40.50 ll -74.25
   val stumpyPoint = 35.69 ll -75.73
 
@@ -40,7 +41,7 @@ object UsaEast extends EArea2("United States\neast", degs(39.8, -85.0), plain)
 
   override def polygonLL: PolygonLL = LinePathLL(UsaWest.galveston, SouthWestCanada.wUsaNE) ++ LakeSuperior.usCoast ++ LakeHuron.pineMouth ++ LakeMichigan.coast ++
     LakeHuron.usCoastSouth  ++ LakeErie.usCoast ++ LakeOntario.usCoast ++!
-    (EastCanada.maineE, chatham, stattenS, stumpyPoint, NAtlanticSW, seFlorida, swFlorida, nwFlorida, UsaWest.galveston, UsaWest.rockyPoint)
+    (EastCanada.maineE, p10, chatham, stattenS, stumpyPoint, NAtlanticSW, seFlorida, swFlorida, nwFlorida, UsaWest.galveston, UsaWest.rockyPoint)
 }
 
 object UsaWest extends EArea2 ("United States\nwest", 40.0 ll - 108.0, desert)

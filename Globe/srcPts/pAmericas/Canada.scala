@@ -174,8 +174,8 @@ object EastCanada extends EArea2("East Canada", 53.71 ll-70, taiga)
   val eNovaScotia: LatLong = 46.16 ll -59.86
   val novaScotiaS = 43.43 ll -65.61
 
-  //val e49th = deg(49, -64.41) Removed as Newfoundland is the close
-  val maineE = degs(44.87, -66.93)
+  /** 44.87 ll -66.93 */
+  val maineE: LatLong = 44.87 ll -66.93
 
   val eCanadaCoast = LinePathLL(ungavaE, labrador50, labrador60, labradorE, labrador70, septlles, pointeMonts, madeleine, capRosiers, gasconsEst,
     scoudoucMouth, eNovaScotia, novaScotiaS)
