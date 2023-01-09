@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import math.Pi
 
@@ -49,8 +49,7 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   /** Divides rounding up. 11.divRoundUp(10) == 2; */
   def divRoundUp(operand: Int): Int = (thisInt / operand).ifMod(thisInt % operand > 0, _ + 1)
 
-  def ifSumEven[A](evenVal: => A, oddVal: => A, operand: Int): A = if((thisInt + operand).isEven) evenVal else oddVal
-  def ifSumOdd[A](oddVal: => A, evenVal: => A, operand: Int): A = if((thisInt + operand).isOdd) oddVal else evenVal
+  /** The absolute difference between this [[Int]] and the operand [[Int]]. */
   def diff(operand: Int): Int = (thisInt - operand).abs
 
   /** Divides this [[Int]] by 2. */
@@ -58,8 +57,6 @@ class IntExtensions(val thisInt: Int) extends AnyVal
 
   /** Divides this [[Int]] by 4. */
   def div4: Int = thisInt / 4
-  def div2RoundUp: Int = thisInt / 2 + thisInt % 2
-  def div2RoundDown: Int = thisInt / 2 - thisInt % 2
 
   /** multiplies this Int by a million and returns the result as [[Int]]. */
   def million: Int = thisInt * 1000000
@@ -86,7 +83,9 @@ class IntExtensions(val thisInt: Int) extends AnyVal
   def scaledStr(i1: Int, s1: String, i2:Int, s2: String, i3: Int, s3: String, pairs: (Int, String)*): String =
     scaledStr(List((i1, s1), (i2, s2), (i3, s3)) ++: pairs :_*)
 
+  /** Returns a [[String]] in which a [[Char]] is repeated the given parameter number of times. */
   def repeatChar(c: Char): String = (1 to thisInt).foldLeft("")((a, b) => a + c)
+
   def commaInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + ", " + _.toString)
   def semicolonInts(otherInts: Int *): String = otherInts.foldLeft(thisInt.toString)(_ + "; " + _.toString)
 

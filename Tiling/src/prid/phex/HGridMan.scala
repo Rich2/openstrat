@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import ostrat.geom._
 
@@ -27,7 +27,8 @@ trait HGridMan
   /** Tile steps from a hex within this managers grid to other grids. */
   def outSteps(r: Int, c: Int): HStepCenArr
 
-  def sideArrIndex(r: Int, c : Int): Int = grid.sideArrIndex(r, c)
+  /** Gives the index into an [[HSide]] data layer's backing [[Array]]. */
+  def sideArrIndex(r: Int, c : Int): Int
 
   lazy val sideIndexStart: Int =
     ife(thisInd == 0, 0, sys.gridMans(thisInd - 1).sideIndexStart + sys.gridMans(thisInd - 1).numSides)
