@@ -26,7 +26,7 @@ trait Int4SeqLike[A <: Int4Elem] extends Any with IntNSeqLike[A]
 
 trait Int4SeqSpec[A <: Int4Elem] extends Any with Int4SeqLike[A] with IntNSeqSpec[A]
 {
-  final def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
+  final def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4)
 
   override def ssIndex(index: Int): A =
     newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
@@ -39,7 +39,7 @@ trait Int4Arr[A <: Int4Elem] extends Any with Int4SeqLike[A] with IntNArr[A]
   override def apply(index: Int): A =
     newElem(unsafeArray(4 * index), unsafeArray(4 * index + 1), unsafeArray(4 * index + 2), unsafeArray(4 * index + 3))
 
-  def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
+  def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3) & (a1.int4 == a2.int4)
 
   def head1: Int = unsafeArray(0)
   def head2: Int = unsafeArray(1)
@@ -106,13 +106,13 @@ abstract class Int4ArrCompanion[A <: Int4Elem, M <: Int4Arr[A]] extends IntNSeqL
     var count: Int = 0
     while (count < arrLen)
     {
-      res.unsafeArray(count) = elems(count / 2).int1
+      res.unsafeArray(count) = elems(count / 4).int1
       count += 1
-      res.unsafeArray(count) = elems(count / 2).int2
+      res.unsafeArray(count) = elems(count / 4).int2
       count += 1
-      res.unsafeArray(count) = elems(count / 2).int3
+      res.unsafeArray(count) = elems(count / 4).int3
       count += 1
-      res.unsafeArray(count) = elems(count / 2).int4
+      res.unsafeArray(count) = elems(count / 4).int4
       count += 1
     }
     res

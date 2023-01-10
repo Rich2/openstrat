@@ -61,6 +61,8 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
   }
 }
 
+/** Companion object for [[HVAndOffset]] class contains factory apply and none methods. End users should rarely need to use the class constructor
+ * directly. */
 object HVAndOffset
 {
   def apply(hVert: HVert, hvDirn: HVDirn, offset: Int): HVAndOffset = apply(hVert.r, hVert.c, hvDirn, offset)
@@ -88,15 +90,14 @@ object HVAndOffset
 }
 
 /** A Line segment where the vertices of specified in [[HVAndOffset]]s. */
-class LineSegHVAndOffset extends LineSegLike[HVAndOffset]
-{
-  /** The start point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
-   * [[PtM2]] for a [[LineSegM2]]. */
-  override def startPt: HVAndOffset = ???
+class LineSegHVAndOffset(val int1: Int, val int2: Int, val int3: Int, val int4: Int, val int5: Int, val int6: Int) extends
+  LineSegLikeInt6[HVAndOffset]
+{ override def startPt: HVAndOffset = new HVAndOffset(int1, int2, int3)
+  override def endPt: HVAndOffset = new HVAndOffset(int4, int5, int6)
+}
 
-  /** The end point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
-   * [[PtM2]] for a [[LineSegM2]]. */
-  override def endPt: HVAndOffset = ???
+object LineSegHVAndOffset{
+  def apply(v1: HVAndOffset, v2: HVAndOffset): LineSegHVAndOffset = new LineSegHVAndOffset(v1.int1, v1.int2, v1.int3, v2.int1, v2.int2, v2.int3)
 }
 
 /** A polygon where the vertices are specified in [[HVAndOffset]]s. */
@@ -104,26 +105,15 @@ class HVAndOffsetPolygon(val unsafeArray: Array[Int]) extends PolygonLikeInt3[HV
 { override type ThisT = HVAndOffsetPolygon
   override type SideT = LineSegHVAndOffset
   override def typeStr: String = "HVAndOffsetPolygon"
-  override def ssElem(int1: Int, int2: Int, int3: Int): HVAndOffset = new HVAndOffset(int1, int2, int3)
+  override def newElem(int1: Int, int2: Int, int3: Int): HVAndOffset = new HVAndOffset(int1, int2, int3)
   override def fromArray(array: Array[Int]): HVAndOffsetPolygon = new HVAndOffsetPolygon(array)
+  override def fElemStr: HVAndOffset => String = _.toString
+  @inline def side(index: Int): LineSegHVAndOffset = LineSegHVAndOffset(vert(index), ife(index == vertsNum - 1, vert(0), vert(index + 1)))
 
-  /** Index with foreach on each vertx. Applies the side effecting function on the index with the value of each vertex. Note the function signature
-   * follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
-   * => B signature. */
-  override def vertsIForeach[U](f: (Int, HVAndOffset) => Any): Unit = ???
-
-  override def vertsMap[B, ArrB <: Arr[B]](f: HVAndOffset => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = ???
-
-  override def vertsFold[B](init: B)(f: (B, HVAndOffset) => B): B = ???
-
-  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  override def vert(index: Int): HVAndOffset = ???
-
-  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
-   * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
-   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
-   * signature. */
-override def vertsPrevForEach[U](f: (HVAndOffset, HVAndOffset) => U): Unit = ???
-override def sidesForeach[U](f: LineSegHVAndOffset => U): Unit = ???
-override def fElemStr: HVAndOffset => String = ???
+  override def sidesForeach[U](f: LineSegHVAndOffset => U): Unit =
+  { var i = 0
+    while (i < vertsNum) {
+      f(side(i)); i += 1
+    }
+  }
 }

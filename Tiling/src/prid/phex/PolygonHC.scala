@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
@@ -9,7 +9,6 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
   override def typeStr: String = "PolygonHC"
   override def fromArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
   def vertNum: Int = unsafeArray.length / 2
-  override def vert(index: Int): HCoord = ssIndex(index)
 
   /** Performs the side effecting function on the [[HCoord]] value of each vertex. */
   override def vertsForeach[U](f: HCoord => U): Unit =
@@ -20,7 +19,7 @@ class PolygonHC(val unsafeArray: Array[Int]) extends AnyVal with HCoordSeqSpec w
     }
   }
 
-  override def vertsIForeach[U](f: (Int, HCoord) => Any): Unit =
+  override def vertsIForeach[U](f: (Int, HCoord) => U): Unit =
   { var i = 0
     vertsForeach{ vert =>
       f(i, vert)

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -11,9 +11,6 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
   override def ssElem(d1: Double, d2: Double): PtM2 = new PtM2(d1, d2)
   override def fElemStr: PtM2 => String = _.str
 
-  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  @inline override def vert(index: Int): PtM2 = ssIndex(index)
-
   /** Performs the side effecting function on the [[PtM2]] value of each vertex. */
   override def vertsForeach[U](f: PtM2 => U): Unit =
   { var count = 0
@@ -23,7 +20,7 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
     }
   }
 
-  override def vertsIForeach[U](f: (Int, PtM2) => Any): Unit =
+  override def vertsIForeach[U](f: (Int, PtM2) => U): Unit =
   { var count = 0
     vertsForeach{ v =>
       f(count, v)
@@ -51,7 +48,7 @@ final class PolygonM2(val unsafeArray: Array[Double]) extends AnyVal with Polygo
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
    * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
    * signature. */
-  override def vertsPrevForEach[U](f: (PtM2, PtM2) => U): Unit = ???
+  //override def vertsPrevForEach[U](f: (PtM2, PtM2) => U): Unit = ???
 
   override def sidesForeach[U](f: LineSegM2 => U): Unit = ???
 }

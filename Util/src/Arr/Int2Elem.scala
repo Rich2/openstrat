@@ -19,10 +19,8 @@ trait Int2SeqLike[A <: Int2Elem] extends Any with IntNSeqLike[A]
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[Int2Elem]]s. */
 trait Int2SeqSpec[A <: Int2Elem] extends Any with Int2SeqLike[A] with IntNSeqSpec[A]
-{
-  override def ssIndex(index: Int): A = newElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
-
-  override def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
+{ final override def ssIndex(index: Int): A = newElem(unsafeArray(2 * index), unsafeArray(2 * index + 1))
+  final override def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2)
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int2Elem]]s. */

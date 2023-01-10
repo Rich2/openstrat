@@ -48,3 +48,5 @@ trait LineSegLikeDbl6Arr[VT <: Dbl3Elem, A <: LineSegLikeDbl6[VT]] extends Any w
 trait LineSegLikeIntN[VT <: IntNElem] extends LineSegLike[VT] with IntNElem
 
 trait LineSegLikeInt4[VT <: Int2Elem] extends LineSegLikeIntN[VT] with Int4Elem
+
+trait LineSegLikeInt6[VT <: Int3Elem] extends LineSegLikeIntN[VT] with Int6Elem

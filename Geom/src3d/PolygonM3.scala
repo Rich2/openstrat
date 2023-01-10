@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -19,8 +19,6 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
 
   def zAllNeg: Boolean = vertsForAll(_.zMetres < 0)
 
-  override def vert(index: Int): PtM3 = ssIndex(index)
-
   /** Performs the side effecting function on the [[PtM3]] value of each vertex.  */
   override def vertsForeach[U](f: PtM3 => U): Unit =
   { var count = 0
@@ -30,7 +28,7 @@ final class PolygonM3(val unsafeArray: Array[Double]) extends AnyVal with Polygo
     }
   }
 
-  override def vertsIForeach[U](f: (Int, PtM3) => Any): Unit =
+  override def vertsIForeach[U](f: (Int, PtM3) => U): Unit =
   { var count = 0
     vertsForeach{ v =>
       f(count, v)

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import pWeb._, Colour.Black
 
@@ -43,7 +43,7 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
    * new transformed Polygon */
   def vertsTrans(f: Pt2 => Pt2): Polygon = vertsMap(f).toPolygon
 
-  override def vertsIForeach[U](f: (Int, Pt2) => Any): Unit =
+  override def vertsIForeach[U](f: (Int, Pt2) => U): Unit =
   { var count = 0
     vertsForeach{ v =>
       f(count, v)
@@ -85,18 +85,8 @@ trait Polygon extends Shape with BoundedElem with Approx[Double] with Pt2SeqSpec
   def unsafeNegX: Array[Double] = unsafeD1Map(d => -d)
   def unsafeNegY: Array[Double] = unsafeD2Map(d => -d)
 
-  /** Returns the vertex of the given index. If the index is out of range, it will just circle round the vertices, so for a triangle -1 gives v2, -2
-   * gives v1, 3 gives v0, 4 gives v1 etc. It will not throw unlike the unsafeVert method. */
-  final def vert(index: Int): Pt2 = unsafeVert(index %% vertsNum)
-
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
   final def unsafeVert(index: Int): Pt2 = ssIndex(index)
-
-  /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
-   * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
-   * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
-   * signature. */
-  override def vertsPrevForEach[U](f: (Pt2, Pt2) => U): Unit = ???
 
   def dropVert(v: Int): Polygon =
   { val res = PolygonGen.uninitialised(vertsNum - 1)

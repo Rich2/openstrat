@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package psq
 import geom._, collection.mutable.ArrayBuffer
 
@@ -10,9 +10,6 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
   override def fromArray(array: Array[Int]): PolygonSqC = new PolygonSqC(array)
   def vertNum: Int = unsafeArray.length / 2
 
-  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  override def vert(index: Int): SqCoord = ssIndex(index)
-
   /** Performs the side effecting function on the [[SqCoord]] value of each vertex. */
   override def vertsForeach[U](f: SqCoord => U): Unit =
   { var count = 0
@@ -22,7 +19,7 @@ class PolygonSqC(val unsafeArray: Array[Int]) extends AnyVal with SqCoordSeqSpec
     }
   }
 
-  override def vertsIForeach[U](f: (Int, SqCoord) => Any): Unit =
+  override def vertsIForeach[U](f: (Int, SqCoord) => U): Unit =
   { var i = 0
     vertsForeach{ vert =>
       f(i, vert)

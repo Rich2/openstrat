@@ -14,11 +14,6 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
   /** maps the vertices of this [[PolygonLike]] from [[LatLong]]s to [[PtM3]]s. */
   def toMetres3: PolygonM3 = map(_.toMetres3)
 
-  //override def toString: String = PolygonLL.persistImplicit.showT(this, Show.Standard, 2, 2)
-
-  /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-  @inline override def vert(index: Int): LatLong = ssIndex(index)
-
   /** Performs the side effecting function on the [[LatLong]] value of each vertex. */
   override def vertsForeach[U](f: LatLong => U): Unit =
   { var count = 0
@@ -29,7 +24,7 @@ class PolygonLL(val unsafeArray: Array[Double]) extends AnyVal with LatLongSeqSp
   }
 
   /** Index with foreach on the vertices .Performs the side effecting function on the index with the [[LatLong]] value of each vertex. */
-  override def vertsIForeach[U](f: (Int, LatLong) => Any): Unit =
+  override def vertsIForeach[U](f: (Int, LatLong) => U): Unit =
   { var count = 0
     vertsForeach{ v =>
       f(count, v)

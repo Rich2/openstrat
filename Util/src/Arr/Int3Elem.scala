@@ -13,7 +13,7 @@ trait Int3Elem extends Any with IntNElem
 
 trait Int3SeqLike[A <: Int3Elem] extends Any with IntNSeqLike[A]
 {
-
+  def newElem(i1: Int, i2: Int, i3: Int): A
 
   override def elemProdSize: Int = 3
 
@@ -26,13 +26,8 @@ trait Int3SeqLike[A <: Int3Elem] extends Any with IntNSeqLike[A]
 
 /** A specialised immutable, flat Array[Double] based trait defined by a data sequence of a type of [[Int3Elem]]s. */
 trait Int3SeqSpec[A <: Int3Elem] extends Any with Int3SeqLike[A] with IntNSeqSpec[A]
-{
-  final override def ssIndex(index: Int): A = ssElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
-
-  /** Creates a sequence-defined element from 3 [[Int]]s. */
-  def ssElem(int1: Int, int2: Int, int3: Int): A
-
-  override def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
+{ final override def ssIndex(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
+  final override def ssElemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
 }
 
 /** A specialised immutable, flat Array[Int] based collection of a type of [[Int3Elem]]s. */
@@ -41,7 +36,7 @@ trait Int3Arr[A <: Int3Elem] extends Any with IntNArr[A] with Int3SeqLike[A]
   def head2: Int = unsafeArray(1)
   def head3: Int = unsafeArray(2)
   final override def length: Int = unsafeArray.length / 3
-  def newElem(i1: Int, i2: Int, i3: Int): A
+
   override def elemEq(a1: A, a2: A): Boolean = (a1.int1 == a2.int1) & (a1.int2 == a2.int2) & (a1.int3 == a2.int3)
   final override def apply(index: Int): A = newElem(unsafeArray(3 * index), unsafeArray(3 * index + 1), unsafeArray(3 * index + 2))
 
