@@ -5,10 +5,13 @@ import geom._
 /** [[HVert]] direction of offset towards [[HCen]]. These objects should not be confused with [[HStep]]s */
 sealed trait HVDirn
 { /** The delta in R to the [[HCen]] from an [[HCoord]]. */
-  def deltaR: Int
+  def dCenR: Int
 
   /** The delta in C to the [[HCen]] from an [[HCoord]]. */
-  def deltaC: Int
+  def dCenC: Int
+
+  def dVertR: Int
+  def dVertC: Int
 
   def intValue: Int
 
@@ -31,54 +34,68 @@ object HVDirn
 
 /** Hex Vert offset of none. */
 object HVExact extends HVDirn
-{ def deltaR: Int = 0
-  def deltaC: Int = 0
+{ def dCenR: Int = 0
+  def dCenC: Int = 0
   override def intValue: Int = 0
   override def opposite: HVDirn = HVExact
+  override def dVertR: Int = 0
+  override def dVertC: Int = 0
 }
 
 /** Hex Vert Up offset. */
 object HVUp extends HVDirn
-{ def deltaR: Int = 1
-  def deltaC: Int = 0
+{ def dCenR: Int = 1
+  def dCenC: Int = 0
   override def intValue: Int = 6
   override def opposite: HVDirn = HVDn
+  override def dVertR: Int = 2
+  override def dVertC: Int = 0
 }
 
 /** Hex Vert Up Right offset. */
 object HVUR extends HVDirn
-{ def deltaR: Int = 1
-  def deltaC: Int = 2
+{ def dCenR: Int = 1
+  def dCenC: Int = 2
   override def intValue: Int = 1
   override def opposite: HVDirn = HVDL
+  override def dVertR: Int = 0
+  override def dVertC: Int = 2
 }
 
 object HVDR extends HVDirn
-{ def deltaR: Int = -1
-  def deltaC: Int = 2
+{ def dCenR: Int = -1
+  def dCenC: Int = 2
   override def intValue: Int = 2
   override def opposite: HVDirn = HVUL
+  override def dVertR: Int = 0
+  override def dVertC: Int = 2
 }
 
 object HVDn extends HVDirn
-{ def deltaR: Int = -1
-  def deltaC: Int = 0
+{ def dCenR: Int = -1
+  def dCenC: Int = 0
   override def intValue: Int = 3
   override def opposite: HVDirn = HVUp
+  override def dVertR: Int = -2
+  override def dVertC: Int = 0
 }
 
 object HVDL extends HVDirn
-{ def deltaR: Int = -1
-  def deltaC: Int = -2
+{ def dCenR: Int = -1
+  def dCenC: Int = -2
   override def intValue: Int = 4
   override def opposite: HVDirn = HVUR
+  override def dVertR: Int = 0
+  override def dVertC: Int = -2
 }
 
 object HVUL extends HVDirn
-{ def deltaR: Int = 1
-  def deltaC: Int = -2
+{ def dCenR: Int = 1
+  def dCenC: Int = -2
   override def intValue: Int = 5
   override def opposite: HVDirn = HVDR
+  override def dVertR: Int = 0
+  override def dVertC: Int = -2
 }
 
 class HVertOffset(val int1: Int) extends AnyVal with Int1Elem
@@ -98,13 +115,15 @@ class HVertAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int
 
   def hvDirn: HVDirn = HVDirn.fromInt(hvDirnInt)
 
-  def hCen = HCen(r + hvDirn.deltaR, c + hvDirn.deltaC)
+  def hCen2 = HCen(r + hvDirn.dCenR, c + hvDirn.dCenC)
+  def hVert2 = HVert(r + hvDirn.dVertR, c + hvDirn.dVertC)
+  def hVert3 = HVert(r - hvDirn.dVertR, c - hvDirn.dVertC)
 
   def isCenDirn: Boolean = hvDirn match {
     case HVUp | HVDR | HVDL if r.div4Rem3 & c.div4Rem0 => true
-    case HVUp | HVDR | HVDL if r.div4Rem1 & c.div4Rem2 => true
+    case HVUp | HVDR | HVDL if r.div4Rem1 & c.div4Rem2  => true
     case HVUR | HVDn | HVUL if r.div4Rem1 & c.div4Rem0 => true
-    case HVUR | HVDn | HVUL if r.div4Rem3 & c.div4Rem0 => true
+    case HVUR | HVDn | HVUL if r.div4Rem3 & c.div4Rem2 => true
     case _ => false
   }
 
@@ -112,23 +131,49 @@ class HVertAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int
   def toPt2Reg(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 =
   {
     val p1 = f(vert)
-    val p2 = f(hCen)
-    val x = ((8 - offset) * p1.x + offset * p2.x) / 8
-    val y = ((8 - offset) * p1.y + offset * p2.y) / 8
-    Pt2(x, y)
+    isCenDirn match
+    { case _ if hvDirn == HVExact => p1
+
+      case true if hSys.hCenExists(hCen2) =>
+      { val p2 = f(hCen2)
+        val x = ((8 - offset) * p1.x + offset * p2.x) / 8
+        val y = ((8 - offset) * p1.y + offset * p2.y) / 8
+        Pt2(x, y)
+      }
+
+      case true =>
+      { val p2 = f(hVert3)
+        val x = ((8 - offset) * p1.x + offset * p2.x) / 8
+        val y = ((8 - offset) * p1.y + offset * p2.y) / 8
+        Pt2(x, y)
+      }
+
+      case _ =>
+      { val p2 = f(hVert2)
+        val x = ((8 - offset) * p1.x + offset * p2.x) / 8
+        val y = ((8 - offset) * p1.y + offset * p2.y) / 8
+        Pt2(x, y)
+      }
+    }
+
   }
 }
 
 object HVertAndOffset
 {
   def apply(r: Int, c: Int, hvDirn: HVDirn, offset: Int): HVertAndOffset =
-  { val oofset2 = ife(offset < 0, -offset, offset)
+  { val offset2 = ife(offset < 0, -offset, offset)
     val dirn2 = ife(offset < 0, hvDirn.opposite, hvDirn)
-    val offset3 = offset match {
-      case os if os >= 7 => 7
-      case os if os <= -3 => -3
-      case os => os
+
+    val isCenDirn: Boolean = hvDirn match {
+      case HVUp | HVDR | HVDL if r.div4Rem3 & c.div4Rem0 => true
+      case HVUp | HVDR | HVDL if r.div4Rem1 & c.div4Rem2 => true
+      case HVUR | HVDn | HVUL if r.div4Rem1 & c.div4Rem0 => true
+      case HVUR | HVDn | HVUL if r.div4Rem3 & c.div4Rem0 => true
+      case _ => false
     }
+
+    val offset3 = ife(isCenDirn, offset2.min(7), offset2.min(3))
     new HVertAndOffset(r, c, hvDirn.intValue, offset3)
   }
 }

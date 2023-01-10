@@ -34,9 +34,9 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs)
 
-  def sd = HVertAndOffset(139, 518, HVUR, 4)
+  def sd = HVertAndOffset(139, 518, HVDR, 2)
   def pt = sd.toPt2Reg(proj.transCoord(_))
-  def sdg: GraphicElems = pt.textArrow("HVert")
+  def sdg: GraphicElems = pt.textArrow("off", colour = Colour.Red)
 
   override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines2 ++ hexStrs2 ++ sdg
 
