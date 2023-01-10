@@ -100,35 +100,24 @@ class LineSegHVAndOffset extends LineSegLike[HVAndOffset]
 }
 
 /** A polygon where the vertices are specified in [[HVAndOffset]]s. */
-class HVAndOffsetPolygon extends PolygonLike[HVAndOffset]
+class HVAndOffsetPolygon(val unsafeArray: Array[Int]) extends PolygonLikeInt3[HVAndOffset]
 { override type ThisT = HVAndOffsetPolygon
   override type SideT = LineSegHVAndOffset
-
-  /** The number of vertices and also the number of sides in this Polygon. */
-  override def vertsNum: Int = ???
-
-  /** Performs the side effecting function on the value of each vertex. */
-  override def vertsForeach[U](f: HVAndOffset => U): Unit = ???
+  override def typeStr: String = "HVAndOffsetPolygon"
+  override def ssElem(int1: Int, int2: Int, int3: Int): HVAndOffset = new HVAndOffset(int1, int2, int3)
+  override def fromArray(array: Array[Int]): HVAndOffsetPolygon = new HVAndOffsetPolygon(array)
 
   /** Index with foreach on each vertx. Applies the side effecting function on the index with the value of each vertex. Note the function signature
    * follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
    * => B signature. */
   override def vertsIForeach[U](f: (Int, HVAndOffset) => Any): Unit = ???
 
-  /** Maps the vertices of this polygon to an immutable Array like sequence of type B.
-   *
-   * @tparam B    The element type of the returned sequence.
-   * @tparam ArrB The type of the immutable Array like sequence of B.
-   * @return the immutable sequence collection by applying the supplied function to each vertex. */
   override def vertsMap[B, ArrB <: Arr[B]](f: HVAndOffset => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = ???
 
-  /** Folds over the vertices.
-   *
-   * @tparam B type of the accumulator return value of this method. */
-override def vertsFold[B](init: B)(f: (B, HVAndOffset) => B): B = ???
+  override def vertsFold[B](init: B)(f: (B, HVAndOffset) => B): B = ???
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-override def vert(index: Int): HVAndOffset = ???
+  override def vert(index: Int): HVAndOffset = ???
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
@@ -136,19 +125,5 @@ override def vert(index: Int): HVAndOffset = ???
    * signature. */
 override def vertsPrevForEach[U](f: (HVAndOffset, HVAndOffset) => U): Unit = ???
 override def sidesForeach[U](f: LineSegHVAndOffset => U): Unit = ???
-
-  /** Accesses the specifying sequence element by a 0 based index. */
-override def ssIndex(index: Int): HVAndOffset = ???
-
-  /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
-   * underlying Array will be a multiple of this number. */
-override def ssLength: Int = ???
-
-  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
-   * methods. */
-override def unsafeSetElem(i: Int, newElem: HVAndOffset): Unit = ???
 override def fElemStr: HVAndOffset => String = ???
-
-  /** String specifying the type of this object. */
-override def typeStr: String = ???
 }
