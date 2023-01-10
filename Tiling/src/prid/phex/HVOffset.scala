@@ -14,15 +14,16 @@ object HVOffset{
 }
 
 /** This class encodes a single or two [[HVertoffset]]s. */
-class HVOffsetNode(val unsafeInt: Int) extends AnyVal{
-  def v1(hVert: HVert): HVAndOffset ={
-    val dirn = HVDirn.fromInt((unsafeInt %% 32) / 4)
+class HVOffsetNode(val unsafeInt: Int) extends AnyVal
+{
+  def v1(hVert: HVert): HVAndOffset =
+  { val dirn = HVDirn.fromInt((unsafeInt %% 32) / 4)
     val magnitude = (unsafeInt %% 256) / 32
     HVAndOffset(hVert, dirn, magnitude)
   }
 
-  def v2(hVert: HVert): HVAndOffset = {
-    val dirn = HVDirn.fromInt((unsafeInt %% 1024) / 256)
+  def v2(hVert: HVert): HVAndOffset =
+  { val dirn = HVDirn.fromInt((unsafeInt %% 1024) / 256)
     val magnitude = (unsafeInt %% 8192) / 1024
     HVAndOffset(hVert, dirn, magnitude)
   }

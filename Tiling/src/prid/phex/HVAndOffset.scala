@@ -2,6 +2,8 @@
 package ostrat; package prid; package phex
 import geom._
 
+import scala.collection.mutable.ArrayBuffer
+
 /** An [[HVert]] and an offset. The Offset of from the [[HVert]] measured in an offset towards a neighbouring [[HCen]] or [[HVert]]. */
 class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
 {
@@ -100,14 +102,35 @@ object LineSegHVAndOffset{
   def apply(v1: HVAndOffset, v2: HVAndOffset): LineSegHVAndOffset = new LineSegHVAndOffset(v1.int1, v1.int2, v1.int3, v2.int1, v2.int2, v2.int3)
 }
 
+trait HVAndOffsetSeqLike extends Int3SeqLike[HVAndOffset]
+{
+  final override def newElem(int1: Int, int2: Int, int3: Int): HVAndOffset = new HVAndOffset(int1, int2, int3)
+  final override def fElemStr: HVAndOffset => String = _.toString
+}
+
+class HVAndOffsetArr(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike with Int3Arr[HVAndOffset]
+{ override type ThisT = HVAndOffsetArr
+  override def typeStr: String = "HVAndOffsetArr"
+  override def fromArray(array: Array[Int]): HVAndOffsetArr = new HVAndOffsetArr(array)
+}
+
+class HVAndOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends Int3Buff[HVAndOffset]
+{ override type ThisT = HVAndOffsetBuff
+  override type ArrT = HVAndOffsetArr
+  override def typeStr: String = "HVAndoffsetBuff"
+
+  override def sdElem(i1: Int, i2: Int, i3: Int): HVAndOffset = ???
+
+}
+
 /** A polygon where the vertices are specified in [[HVAndOffset]]s. */
-class HVAndOffsetPolygon(val unsafeArray: Array[Int]) extends PolygonLikeInt3[HVAndOffset]
+class HVAndOffsetPolygon(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike with PolygonLikeInt3[HVAndOffset]
 { override type ThisT = HVAndOffsetPolygon
   override type SideT = LineSegHVAndOffset
   override def typeStr: String = "HVAndOffsetPolygon"
-  override def newElem(int1: Int, int2: Int, int3: Int): HVAndOffset = new HVAndOffset(int1, int2, int3)
+
   override def fromArray(array: Array[Int]): HVAndOffsetPolygon = new HVAndOffsetPolygon(array)
-  override def fElemStr: HVAndOffset => String = _.toString
+
   @inline def side(index: Int): LineSegHVAndOffset = LineSegHVAndOffset(vert(index), ife(index == vertsNum - 1, vert(0), vert(index + 1)))
 
   override def sidesForeach[U](f: LineSegHVAndOffset => U): Unit =

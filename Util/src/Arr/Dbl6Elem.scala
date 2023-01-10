@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -124,13 +124,12 @@ trait Dbl6Buff[A <: Dbl6Elem] extends Any with DblNBuff[A]
 { type ArrT <: Dbl6Arr[A]
   override def elemProdSize: Int = 6
   final override def length: Int = unsafeBuffer.length / 6
+  def newElem(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
 
-  /** Grows the buffer by a single element. */
   override def grow(newElem: A): Unit =
   { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3).append(newElem.dbl4).append(newElem.dbl5).append(newElem.dbl6); () }
 
-  def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double, d5: Double, d6: Double): A
-  override def apply(index: Int): A = dblsToT(unsafeBuffer(index * 6), unsafeBuffer(index * 6 + 1), unsafeBuffer(index * 6 + 2),
+  override def apply(index: Int): A = newElem(unsafeBuffer(index * 6), unsafeBuffer(index * 6 + 1), unsafeBuffer(index * 6 + 2),
     unsafeBuffer(index * 6 + 3), unsafeBuffer(index * 6 + 4), unsafeBuffer(index * 6 + 5))
 
   override def unsafeSetElem(i: Int, newElem: A): Unit =

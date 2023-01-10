@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -59,6 +59,7 @@ trait Int3Buff[A <: Int3Elem] extends Any with IntNBuff[A]
 
   /** Constructs a sequence-defined element from 3 [[Int]]s.  */
   def sdElem(i1: Int, i2: Int, i3: Int): A
+
   override def apply(index: Int): A = sdElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
   override def unsafeSetElem(i: Int, newElem: A): Unit = { unsafeBuffer(i * 3) = newElem.int1; unsafeBuffer(i * 3 + 1) = newElem.int2; unsafeBuffer(i * 3 + 2) = newElem.int3 }
 }

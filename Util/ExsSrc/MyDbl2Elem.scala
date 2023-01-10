@@ -47,5 +47,5 @@ object MyDbl2s extends Dbl2SeqLikeCompanion[MyDbl2Elem, MyDbl2s]
 
 class MinesBuff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl2Buff[MyDbl2Elem]
 { override def typeStr: String = "MinesBuff"
-  def dblsToT(d1: Double, d2: Double): MyDbl2Elem = MyDbl2Elem(d1, d2)
+  def newElem(d1: Double, d2: Double): MyDbl2Elem = MyDbl2Elem(d1, d2)
 }

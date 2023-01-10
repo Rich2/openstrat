@@ -47,7 +47,7 @@ class SqCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[SqCoor
 class SqCoordBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[SqCoord]
 { type ArrT = SqCoordArr
   override def typeStr: String = "SqCoordBuff"
-  override def intsToT(i1: Int, i2: Int): SqCoord = SqCoord(i1, i2)
+  override def newElem(i1: Int, i2: Int): SqCoord = SqCoord(i1, i2)
 }
 
 object SqCoordBuff extends Int2BuffCompanion[SqCoord, SqCoordBuff]

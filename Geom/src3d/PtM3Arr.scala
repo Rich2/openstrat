@@ -65,7 +65,7 @@ object PtM3Arr extends Dbl3SeqLikeCompanion[PtM3, PtM3Arr]
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt3]]s collections. */
 final class PtM3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl3Buff[PtM3]
 { override def typeStr: String = "BuffPtMetre3"
-  def dblsToT(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
+  def newElem(d1: Double, d2: Double, d3: Double): PtM3 = new PtM3(d1, d2, d3)
 }
 
 object PtM3Buff

@@ -14,5 +14,5 @@ final class Pt3Arr(val unsafeArray: Array[Double]) extends AnyVal with Dbl3Arr[P
 /** A specialised flat ArrayBuffer[Double] based class for [[Pt3]]s collections. */
 final class Pt3Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl3Buff[Pt3]
 { override def typeStr: String = "Pt3Buff"
-  def dblsToT(d1: Double, d2: Double, d3: Double): Pt3 = Pt3(d1, d2, d3)
+  def newElem(d1: Double, d2: Double, d3: Double): Pt3 = Pt3(d1, d2, d3)
 }

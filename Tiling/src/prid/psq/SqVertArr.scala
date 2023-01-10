@@ -65,5 +65,5 @@ object SqVertArr extends Int2SeqLikeCompanion[SqVert, SqVertArr]
 class SqVertBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[SqVert]
 { type ArrT = SqVertArr
   override def typeStr: String = "SqVertBuff"
-  override def intsToT(i1: Int, i2: Int): SqVert = SqVert(i1, i2)
+  override def newElem(i1: Int, i2: Int): SqVert = SqVert(i1, i2)
 }

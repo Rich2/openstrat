@@ -73,5 +73,5 @@ object LineSegM2Arr extends Dbl4SeqLikeCompanion[LineSegM2, LineSegM2Arr]
 /** Efficient expandable buffer for [[LineSegM2]]s. */
 class LineSegM2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with Dbl4Buff[LineSegM2]
 { override def typeStr: String = "Line2sBuff"
-  override def dblsToT(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = new LineSegM2(d1, d2, d3, d4)
+  override def newElem(d1: Double, d2: Double, d3: Double, d4: Double): LineSegM2 = new LineSegM2(d1, d2, d3, d4)
 }

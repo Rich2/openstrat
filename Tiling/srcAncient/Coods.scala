@@ -61,5 +61,5 @@ object Coods extends Int2SeqLikeCompanion[Cood, Coods]
 class CoodBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int2Buff[Cood]
 { type ArrT = Coods
   override def typeStr: String = "CoodBuff"
-  override def intsToT(i1: Int, i2: Int): Cood = Cood(i1, i2)
+  override def newElem(i1: Int, i2: Int): Cood = Cood(i1, i2)
 }
