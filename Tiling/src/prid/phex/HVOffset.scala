@@ -1,10 +1,16 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 
-/** The direction and magnitude of an [[HVAndOffset]]. These values are stored in an [[HVertOffsetLayer]]. The value of the [[HVert]] can be determined by its position in [[HVertOffsetLayer]]. */
-class HVertOffset(val int1: Int) extends AnyVal with Int1Elem
+/** [[HVert]] offset. The direction and magnitude of an [[HVAndOffset]]. These values are stored in an [[HVertOffsetLayer]]. The value of the
+ *  [[HVert]] can be determined by its position in [[HVertOffsetLayer]]. */
+class HVOffset(val int1: Int) extends AnyVal with Int1Elem
 { def hvDirn: HVDirn = HVDirn.fromInt(int1 %% 8)
-  def offset: Int = int1 / 8
+  def magnitude: Int = int1 / 8
+}
+
+object HVOffset{
+  def apply(dirn: HVDirn, magnitude: Int) = dirn.intValue + magnitude * 8
+  def fromInt(inp: Int): HVOffset = new HVOffset(inp)
 }
 
 /** This class encodes a single or two [[HVertoffset]]s. */

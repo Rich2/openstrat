@@ -15,7 +15,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
   def actives: RArr[PolygonActive] = proj.tileActives
 
-  def polyOffs = proj.hCensMap(_.hVertPolygon)
+  def polyOffs: PolygonHCArr = proj.hCensMap(_.hVertPolygon)
 
   /** Note we only represent links, no outer sides, so as the side terrain can use data from both of its adjacent tiles. */
   def straits: GraphicElems = sTerrs.projLinkTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
@@ -29,7 +29,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   //def hexStrs: GraphicElems = proj.hCenSizedMap(15){ (pt, hc) => pt.textAt(hc.rcStr32, 12, terrs(hc).contrastBW) }
 
-  def hexStrs = terrs.hcOptFlatMap { (hc, terr) =>
+  def hexStrs: RArr[TextGraphic] = terrs.hcOptFlatMap { (hc, terr) =>
     proj.transOptCoord(hc).map { pt =>
       val strs: StrArr = StrArr(hc.rcStr32).appendOption(proj.hCoordOptStr(hc)) +% hc.strComma
       TextGraphic.lines(strs, 12, pt, terr.contrastBW)
@@ -39,7 +39,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs)
 
   def sd = HVAndOffset(139, 518, HVDR, 2)
-  def pt = sd.toPt2Reg(proj.transCoord(_))
+  def pt: Pt2 = sd.toPt2Reg(proj.transCoord(_))
   def sdg: GraphicElems = pt.textArrow("off", colour = Colour.Red)
 
   override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines2 ++ hexStrs2 ++ sdg

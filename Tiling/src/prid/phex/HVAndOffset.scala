@@ -3,11 +3,20 @@ package ostrat; package prid; package phex
 import geom._
 
 /** An [[HVert]] and an offset. The Offset of from the [[HVert]] measured in an offset towards a neighbouring [[HCen]] or [[HVert]]. */
-class HVAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int)
-{ /** The [[HVert]]. */
+class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
+{
+  inline def r: Int = int1
+
+  inline def c: Int = int2
+
+  /** The [[HVert]]. */
   def vert: HVert = HVert(r, c)
 
-  def hvDirn: HVDirn = HVDirn.fromInt(hvDirnInt)
+  def hvOffset: HVOffset = HVOffset.fromInt(int3)
+
+  def magnitude: Int = hvOffset.magnitude
+
+  def hvDirn: HVDirn = hvOffset.hvDirn
 
   def hCen2 = HCen(r + hvDirn.dCenR, c + hvDirn.dCenC)
   def hVert2 = HVert(r + hvDirn.dVertR, c + hvDirn.dVertC)
@@ -30,22 +39,22 @@ class HVAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int)
 
       case true if hSys.hCenExists(hCen2) =>
       { val p2 = f(hCen2)
-        val x = ((8 - offset) * p1.x + offset * p2.x) / 8
-        val y = ((8 - offset) * p1.y + offset * p2.y) / 8
+        val x = ((8 - magnitude) * p1.x + magnitude * p2.x) / 8
+        val y = ((8 - magnitude) * p1.y + magnitude * p2.y) / 8
         Pt2(x, y)
       }
 
       case true =>
       { val p2 = f(hVert3)
-        val x = ((8 - offset) * p1.x + offset * p2.x) / 8
-        val y = ((8 - offset) * p1.y + offset * p2.y) / 8
+        val x = ((8 - magnitude) * p1.x + magnitude * p2.x) / 8
+        val y = ((8 - magnitude) * p1.y + magnitude * p2.y) / 8
         Pt2(x, y)
       }
 
       case _ =>
       { val p2 = f(hVert2)
-        val x = ((8 - offset) * p1.x + offset * p2.x) / 8
-        val y = ((8 - offset) * p1.y + offset * p2.y) / 8
+        val x = ((8 - magnitude) * p1.x + magnitude * p2.x) / 8
+        val y = ((8 - magnitude) * p1.y + magnitude * p2.y) / 8
         Pt2(x, y)
       }
     }
@@ -56,9 +65,9 @@ object HVAndOffset
 {
   def apply(hVert: HVert, hvDirn: HVDirn, offset: Int): HVAndOffset = apply(hVert.r, hVert.c, hvDirn, offset)
 
-  def apply(r: Int, c: Int, hvDirn: HVDirn, offset: Int): HVAndOffset =
-  { val offset2 = ife(offset < 0, -offset, offset)
-    val dirn2 = ife(offset < 0, hvDirn.opposite, hvDirn)
+  def apply(r: Int, c: Int, hvDirn: HVDirn, magnitude: Int): HVAndOffset =
+  { val magnitude2 = ife(magnitude < 0, -magnitude, magnitude)
+    val dirn2 = ife(magnitude < 0, hvDirn.opposite, hvDirn)
 
     val isCenDirn: Boolean = hvDirn match {
       case HVUp | HVDR | HVDL if r.div4Rem3 & c.div4Rem0 => true
@@ -68,14 +77,15 @@ object HVAndOffset
       case _ => false
     }
 
-    val offset3 = ife(isCenDirn, offset2.min(7), offset2.min(3))
-    new HVAndOffset(r, c, hvDirn.intValue, offset3)
+    val magnitude3 = ife(isCenDirn, magnitude2.min(7), magnitude2.min(3))
+
+    val hVertOffset = HVOffset(dirn2, magnitude3)
+    new HVAndOffset(r, c, hVertOffset)
   }
 
-  def none(r: Int, c: Int) = new HVAndOffset(r, c, 0, 0)
-  def none(hVert: HVert) = new HVAndOffset(hVert.r, hVert.c, 0, 0)
+  def none(r: Int, c: Int) = new HVAndOffset(r, c, 0)
+  def none(hVert: HVert) = new HVAndOffset(hVert.r, hVert.c, 0)
 }
-
 
 /** A Line segment where the vertices of specified in [[HVAndOffset]]s. */
 class LineSegHVAndOffset extends LineSegLike[HVAndOffset]
