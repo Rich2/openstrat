@@ -110,7 +110,10 @@ abstract class Dbl3SeqLikeCompanion[A <: Dbl3Elem, ArrA <: Dbl3SeqLike[A]] exten
 /** A specialised flat ArrayBuffer[Double] based trait for [[Dbl3Elem]]s collections. */
 trait Dbl3Buff[A <: Dbl3Elem] extends Any with DblNBuff[A]
 { type ArrT <: Dbl3Arr[A]
+
+  /** Constructs a new element of this buffer from 3 [[Double]]s. */
   def newElem(d1: Double, d2: Double, d3: Double): A
+
   override def elemProdSize: Int = 3
   final override def length: Int = unsafeBuffer.length / 3
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2).append(newElem.dbl3); () }

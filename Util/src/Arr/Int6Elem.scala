@@ -68,15 +68,18 @@ trait Int6Arr[A <: Int6Elem] extends Any with Int6SeqLike[A] with IntNArr[A]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int5Elem]]s collections. */
 trait Int6Buff[A <: Int6Elem] extends Any with IntNBuff[A]
-{ override def elemProdSize: Int = 6
+{ type ThisT <: Int6Buff[A]
+
+  /** Constructs a new element of this [[Buff]] from 6 [[Int]]s. */
+  def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
+
+  final override def elemProdSize: Int = 6
   final override def length: Int = unsafeBuffer.length / 6
 
   final override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4).
     append(newElem.int5).append(newElem.int6); () }
 
-  def intsToElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int, i6: Int): A
-
-  final override def apply(index: Int): A = intsToElem(unsafeBuffer(index * 6), unsafeBuffer(index * 6 + 1), unsafeBuffer(index * 6 + 2),
+  final override def apply(index: Int): A = newElem(unsafeBuffer(index * 6), unsafeBuffer(index * 6 + 1), unsafeBuffer(index * 6 + 2),
     unsafeBuffer(index * 6 + 3), unsafeBuffer(index * 6 + 4), unsafeBuffer(index * 6 + 5))
 
   final override def unsafeSetElem(i: Int, newElem: A): Unit = { unsafeBuffer(i * 6) = newElem.int1; unsafeBuffer(i * 6 + 1) = newElem.int2

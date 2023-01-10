@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -59,13 +59,17 @@ trait Int4Arr[A <: Int4Elem] extends Any with Int4SeqLike[A] with IntNArr[A]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int4Elem]]s collections. */
 trait Int4Buff[A <: Int4Elem] extends Any with IntNBuff[A]
-{ override def elemProdSize: Int = 4
+{ type ThisT <: Int4Buff[A]
+
+  /** Constructs a new element of this [[Buff]] form 4 [[Int]]s. */
+  def newElem(i1: Int, i2: Int, i3: Int, i4: Int): A
+
+  override def elemProdSize: Int = 4
   final override def length: Int = unsafeBuffer.length / 4
   final override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4); ()}
-  def intsToElem(i1: Int, i2: Int, i3: Int, i4: Int): A
 
-  final override def apply(index: Int): A =
-    intsToElem(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2), unsafeBuffer(index * 4 + 3))
+  final override def apply(index: Int): A = newElem(unsafeBuffer(index * 4), unsafeBuffer(index * 4 + 1), unsafeBuffer(index * 4 + 2),
+    unsafeBuffer(index * 4 + 3))
 
   final override def unsafeSetElem(i: Int, newElem: A): Unit = { unsafeBuffer(i * 4) = newElem.int1; unsafeBuffer(i * 4 + 1) = newElem.int2
     unsafeBuffer(i * 4 + 2) = newElem.int3; unsafeBuffer(i * 4 + 3) = newElem.int4 }

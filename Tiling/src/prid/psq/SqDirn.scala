@@ -211,7 +211,7 @@ class SqDirnArr(val unsafeArray: Array[Int]) extends AnyVal with Int1Arr[SqDirn]
 /** ArrayBuffer based buffer class for Colours. */
 class SqDirnBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[SqDirn]
 { override def typeStr: String = "SqDirnBuff"
-  def intToT(i1: Int): SqDirn = SqDirn.fromInt(i1)
+  def newElem(i1: Int): SqDirn = SqDirn.fromInt(i1)
 }
 
 object SqDirnBuff

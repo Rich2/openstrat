@@ -52,15 +52,15 @@ trait Int3Arr[A <: Int3Elem] extends Any with IntNArr[A] with Int3SeqLike[A]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int3Elem]]s collections. */
 trait Int3Buff[A <: Int3Elem] extends Any with IntNBuff[A]
-{ type ArrT <: Int3Arr[A]
+{ type ThisT <: Int3Buff[A]
+
+  /** Constructs a new element of this [[Buff]] from 3 [[Int]]s. */
+  def newElem(i1: Int, i2: Int, i3: Int): A
+
   override def elemProdSize: Int = 3
   final override def length: Int = unsafeBuffer.length / 3
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3); () }
-
-  /** Constructs a sequence-defined element from 3 [[Int]]s.  */
-  def sdElem(i1: Int, i2: Int, i3: Int): A
-
-  override def apply(index: Int): A = sdElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
+  override def apply(index: Int): A = newElem(unsafeBuffer(index * 3), unsafeBuffer(index * 3 + 1), unsafeBuffer(index * 3 + 2))
   override def unsafeSetElem(i: Int, newElem: A): Unit = { unsafeBuffer(i * 3) = newElem.int1; unsafeBuffer(i * 3 + 1) = newElem.int2; unsafeBuffer(i * 3 + 2) = newElem.int3 }
 }
 

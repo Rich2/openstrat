@@ -186,7 +186,7 @@ object HStepArr extends Int1SeqLikeCompanion[HStep, HStepArr]
 /** ArrayBuffer based buffer class for Colours. */
 class HStepBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int1Buff[HStep]
 { override def typeStr: String = "HStepBuff"
-  def intToT(i1: Int): HStep = HStep.fromInt(i1)
+  def newElem(i1: Int): HStep = HStep.fromInt(i1)
 }
 
 object HStepBuff

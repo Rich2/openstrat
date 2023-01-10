@@ -63,16 +63,19 @@ trait Int5Arr[A <: Int5Elem] extends Any with Int5SeqLike[A] with IntNArr[A]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int5Elem]]s collections. */
 trait Int5Buff[A <: Int5Elem] extends Any with IntNBuff[A]
-{ override def elemProdSize: Int = 5
+{ type ThisT <: Int5Buff[A]
+
+  /** Constructs a new element of this [[Buff]] from 5 [[Int]]s. */
+  def newElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
+
+  override def elemProdSize: Int = 5
   final override def length: Int = unsafeBuffer.length / 5
 
   final override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2).append(newElem.int3).append(newElem.int4).
     append(newElem.int5); () }
 
-  def intsToElem(i1: Int, i2: Int, i3: Int, i4: Int, i5: Int): A
-
   final override def apply(index: Int): A =
-    intsToElem(unsafeBuffer(index * 5), unsafeBuffer(index * 5 + 1), unsafeBuffer(index * 5 + 2), unsafeBuffer(index * 5 + 3), unsafeBuffer(index * 5 + 4))
+    newElem(unsafeBuffer(index * 5), unsafeBuffer(index * 5 + 1), unsafeBuffer(index * 5 + 2), unsafeBuffer(index * 5 + 3), unsafeBuffer(index * 5 + 4))
 
   final override def unsafeSetElem(i: Int, newElem: A): Unit = { unsafeBuffer(i * 5) = newElem.int1; unsafeBuffer(i * 5 + 1) = newElem.int2
     unsafeBuffer(i * 5 + 2) = newElem.int3; unsafeBuffer(i * 5 + 3) = newElem.int4; unsafeBuffer(i * 5 + 4) = newElem.int5 }

@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -154,10 +154,14 @@ abstract class Dbl2SeqDefPersist[A <: Dbl2Elem, M <: Dbl2SeqLike[A]](val typeStr
 /** [[Buff]] class for building [[Dbl2Elem]]s collections. */
 trait Dbl2Buff[B <: Dbl2Elem] extends Any with DblNBuff[B]
 { type ArrT <: Dbl2Arr[B]
+
+  /** Constructs a new element of this [[Buff]] from 2 [[Double]]s. */
+  def newElem(d1: Double, d2: Double): B
+
   final override def length: Int = unsafeBuffer.length / 2
   final override def elemProdSize: Int = 2
   final override def grow(newElem: B): Unit = { unsafeBuffer.append(newElem.dbl1).append(newElem.dbl2); () }
-  def newElem(d1: Double, d2: Double): B
+
   override def apply(index: Int): B = newElem(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
   final override def unsafeSetElem(i: Int, newElem: B): Unit = { unsafeBuffer(i * 2) = newElem.dbl1; unsafeBuffer(i * 2 + 1) = newElem.dbl2 }
   override def fElemStr: B => String = _.toString

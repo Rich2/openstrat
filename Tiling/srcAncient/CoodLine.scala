@@ -34,7 +34,7 @@ class CoodLines(val unsafeArray: Array[Int]) extends AnyVal with Int4Arr[CoodLin
 class CoodLinesBuff(val unsafeBuffer: ArrayBuffer[Int] = BuffInt()) extends AnyVal with Int4Buff[CoodLine]
 {// override def unBuff: CoodLines = new CoodLines(toArray)
   override def typeStr: String = "CoodLinesBuff"
-  override def intsToElem(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = new CoodLine(i1, i2, i3, i4)
+  override def newElem(i1: Int, i2: Int, i3: Int, i4: Int): CoodLine = new CoodLine(i1, i2, i3, i4)
 }
 
 object CoodLines extends Int4ArrCompanion[CoodLine, CoodLines]

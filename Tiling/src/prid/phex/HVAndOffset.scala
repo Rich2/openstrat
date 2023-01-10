@@ -1,8 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
-
-import scala.collection.mutable.ArrayBuffer
+import geom._, collection.mutable.ArrayBuffer
 
 /** An [[HVert]] and an offset. The Offset of from the [[HVert]] measured in an offset towards a neighbouring [[HCen]] or [[HVert]]. */
 class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
@@ -114,13 +112,12 @@ class HVAndOffsetArr(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike wit
   override def fromArray(array: Array[Int]): HVAndOffsetArr = new HVAndOffsetArr(array)
 }
 
+/** Specialised [[Buff]] class for [[HVAndOffset]]s. The [[HVert]] with offset class. */
 class HVAndOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends Int3Buff[HVAndOffset]
 { override type ThisT = HVAndOffsetBuff
   override type ArrT = HVAndOffsetArr
   override def typeStr: String = "HVAndoffsetBuff"
-
-  override def sdElem(i1: Int, i2: Int, i3: Int): HVAndOffset = ???
-
+  override def newElem(int1: Int, int2: Int, int3: Int): HVAndOffset = new HVAndOffset(int1, int2, int3)
 }
 
 /** A polygon where the vertices are specified in [[HVAndOffset]]s. */

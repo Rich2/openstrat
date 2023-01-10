@@ -72,7 +72,7 @@ object LineSegHCArr extends Int4ArrCompanion[LineSegHC, LineSegHCArr]
 /** Efficient expandable buffer for Line2s. */
 class LineSegHCBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int4Buff[LineSegHC]
 { override def typeStr: String = "Line2sBuff"
-  override def intsToElem(d1: Int, d2: Int, d3: Int, d4: Int): LineSegHC = new LineSegHC(d1, d2, d3, d4)
+  override def newElem(d1: Int, d2: Int, d3: Int, d4: Int): LineSegHC = new LineSegHC(d1, d2, d3, d4)
 }
 
 object LineSegHCBuff

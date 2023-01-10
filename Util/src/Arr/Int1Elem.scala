@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -42,15 +42,15 @@ trait Int1Arr[A <: Int1Elem] extends Any with IntNArr[A] with Int1SeqLike[A]
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int1Elem]]s collections. */
 trait Int1Buff[A <: Int1Elem] extends Any with IntNBuff[A]
-{ type ArrT <: Int1Arr[A]
+{ type ThisT <: Int1Buff[A]
+
+  /** Constructs a new element of this [[Buff]] from a single [[Int]]. */
+  def newElem(value: Int): A
+
   final override def length: Int = unsafeBuffer.length
-  def intToT(value: Int): A
-  def apply(i1: Int): A = intToT(unsafeBuffer(i1))
+  def apply(i1: Int): A = newElem(unsafeBuffer(i1))
   override def elemProdSize: Int = 1
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1); () }
-
-  /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
-   * methods. */
   override def unsafeSetElem(i: Int, newElem: A): Unit = unsafeBuffer(i) = newElem.int1
 }
 

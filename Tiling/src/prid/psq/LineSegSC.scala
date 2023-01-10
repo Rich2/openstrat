@@ -67,7 +67,7 @@ object LineSegSCArr extends Int4ArrCompanion[LineSegSC, LineSegSCArr]
 /** Efficient expandable buffer for Line2s. */
 class LineSegSCBuff(val unsafeBuffer: ArrayBuffer[Int]) extends AnyVal with Int4Buff[LineSegSC]
 { override def typeStr: String = "Line2sBuff"
-  override def intsToElem(d1: Int, d2: Int, d3: Int, d4: Int): LineSegSC = new LineSegSC(d1, d2, d3, d4)
+  override def newElem(d1: Int, d2: Int, d3: Int, d4: Int): LineSegSC = new LineSegSC(d1, d2, d3, d4)
 }
 
 object LineSegSCBuff

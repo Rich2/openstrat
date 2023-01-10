@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -6,7 +6,6 @@ import annotation._, collection.mutable.ArrayBuffer
 trait Int2Elem extends Any with IntNElem
 { def int1: Int
   def int2: Int
-
   override def intForeach(f: Int => Unit): Unit = { f(int1); f(int2) }
 }
 
@@ -67,12 +66,15 @@ trait Int2ArrFlatBuilder[ArrB <: Int2Arr[_]] extends Int2SeqLikeCommonBuilder[Ar
 
 /** A specialised flat ArrayBuffer[Int] based trait for [[Int2Elem]]s collections. */
 trait Int2Buff[A <: Int2Elem] extends Any with IntNBuff[A]
-{ type ArrT <: Int2Arr[A]
+{ type ThisT <: Int2Buff[A]
+
+  /** Constructs a new element of this [[Buff]] from 2 [[Int]]s. */
+  def newElem(i1: Int, i2: Int): A
+
   override def elemProdSize: Int = 2
   final override def length: Int = unsafeBuffer.length / 2
   override def grow(newElem: A): Unit = { unsafeBuffer.append(newElem.int1).append(newElem.int2); () }
   def growInts(int1: Int, int2: Int): Unit = { unsafeBuffer.append(int1).append(int2); () }
-  def newElem(i1: Int, i2: Int): A
   override def apply(index: Int): A = newElem(unsafeBuffer(index * 2), unsafeBuffer(index * 2 + 1))
   override def unsafeSetElem(i: Int, newElem: A): Unit = { unsafeBuffer(i * 2) = newElem.int1; unsafeBuffer(i * 2 + 1) = newElem.int2 }
 }
