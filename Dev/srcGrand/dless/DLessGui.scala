@@ -15,7 +15,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
   def actives: RArr[PolygonActive] = proj.tileActives
 
-  //def polyOffs = proj.hCenPtMap(_.)
+  def polyOffs = proj.hCensMap(_.hVertPolygon)
 
   /** Note we only represent links, no outer sides, so as the side terrain can use data from both of its adjacent tiles. */
   def straits: GraphicElems = sTerrs.projLinkTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
@@ -38,7 +38,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs)
 
-  def sd = HVertAndOffset(139, 518, HVDR, 2)
+  def sd = HVAndOffset(139, 518, HVDR, 2)
   def pt = sd.toPt2Reg(proj.transCoord(_))
   def sdg: GraphicElems = pt.textArrow("off", colour = Colour.Red)
 

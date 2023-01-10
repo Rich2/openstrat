@@ -2,8 +2,8 @@
 package ostrat; package prid; package phex
 import geom._
 
-/** Offset of an [[HVert]] measured in an offset towards a neighbouring [[HCen]]. */
-class HVertAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int)
+/** An [[HVert]] and an offset. The Offset of from the [[HVert]] measured in an offset towards a neighbouring [[HCen]] or [[HVert]]. */
+class HVAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int)
 { /** The [[HVert]]. */
   def vert: HVert = HVert(r, c)
 
@@ -49,15 +49,14 @@ class HVertAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int
         Pt2(x, y)
       }
     }
-
   }
 }
 
-object HVertAndOffset
+object HVAndOffset
 {
-  def apply(hVert: HVert, hvDirn: HVDirn, offset: Int): HVertAndOffset = apply(hVert.r, hVert.c, hvDirn, offset)
+  def apply(hVert: HVert, hvDirn: HVDirn, offset: Int): HVAndOffset = apply(hVert.r, hVert.c, hvDirn, offset)
 
-  def apply(r: Int, c: Int, hvDirn: HVDirn, offset: Int): HVertAndOffset =
+  def apply(r: Int, c: Int, hvDirn: HVDirn, offset: Int): HVAndOffset =
   { val offset2 = ife(offset < 0, -offset, offset)
     val dirn2 = ife(offset < 0, hvDirn.opposite, hvDirn)
 
@@ -70,66 +69,66 @@ object HVertAndOffset
     }
 
     val offset3 = ife(isCenDirn, offset2.min(7), offset2.min(3))
-    new HVertAndOffset(r, c, hvDirn.intValue, offset3)
+    new HVAndOffset(r, c, hvDirn.intValue, offset3)
   }
 
-  def none(r: Int, c: Int) = new HVertAndOffset(r, c, 0, 0)
-  def none(hVert: HVert) = new HVertAndOffset(hVert.r, hVert.c, 0, 0)
+  def none(r: Int, c: Int) = new HVAndOffset(r, c, 0, 0)
+  def none(hVert: HVert) = new HVAndOffset(hVert.r, hVert.c, 0, 0)
 }
 
 
-
-class  LineSegHVertAndOffset extends LineSegLike[HVertAndOffset]
+/** A Line segment where the vertices of specified in [[HVAndOffset]]s. */
+class LineSegHVAndOffset extends LineSegLike[HVAndOffset]
 {
   /** The start point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
    * [[PtM2]] for a [[LineSegM2]]. */
-  override def startPt: HVertAndOffset = ???
+  override def startPt: HVAndOffset = ???
 
   /** The end point of the [[LineSeglike]]. The type of start point will depend on the VT vertex type. For example a [[Pt2]] for a [[LineSeg]] a
    * [[PtM2]] for a [[LineSegM2]]. */
-  override def endPt: HVertAndOffset = ???
+  override def endPt: HVAndOffset = ???
 }
 
-class HVertAndOffsetPolygon extends PolygonLike[HVertAndOffset]
-{
-  override type ThisT = HVertAndOffsetPolygon
-  override type SideT = LineSegHVertAndOffset
+/** A polygon where the vertices are specified in [[HVAndOffset]]s. */
+class HVAndOffsetPolygon extends PolygonLike[HVAndOffset]
+{ override type ThisT = HVAndOffsetPolygon
+  override type SideT = LineSegHVAndOffset
 
   /** The number of vertices and also the number of sides in this Polygon. */
   override def vertsNum: Int = ???
 
   /** Performs the side effecting function on the value of each vertex. */
-  override def vertsForeach[U](f: HVertAndOffset => U): Unit = ???
+  override def vertsForeach[U](f: HVAndOffset => U): Unit = ???
 
   /** Index with foreach on each vertx. Applies the side effecting function on the index with the value of each vertex. Note the function signature
    * follows the foreach based convention of putting the collection element 2nd or last as seen for example in fold methods' (accumulator, element)
    * => B signature. */
-  override def vertsIForeach[U](f: (Int, HVertAndOffset) => Any): Unit = ???
+  override def vertsIForeach[U](f: (Int, HVAndOffset) => Any): Unit = ???
 
   /** Maps the vertices of this polygon to an immutable Array like sequence of type B.
    *
    * @tparam B    The element type of the returned sequence.
    * @tparam ArrB The type of the immutable Array like sequence of B.
    * @return the immutable sequence collection by applying the supplied function to each vertex. */
-  override def vertsMap[B, ArrB <: Arr[B]](f: HVertAndOffset => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = ???
+  override def vertsMap[B, ArrB <: Arr[B]](f: HVAndOffset => B)(implicit builder: ArrMapBuilder[B, ArrB]): ArrB = ???
 
   /** Folds over the vertices.
    *
    * @tparam B type of the accumulator return value of this method. */
-override def vertsFold[B](init: B)(f: (B, HVertAndOffset) => B): B = ???
+override def vertsFold[B](init: B)(f: (B, HVAndOffset) => B): B = ???
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */
-override def vert(index: Int): HVertAndOffset = ???
+override def vert(index: Int): HVAndOffset = ???
 
   /** This method does nothing if the vertNum < 2. Foreach vertex applies the side effecting function to the previous vertex with each vertex. The
    * previous vertex to the first vertex is the last vertex of the [[PolygonLike]]. Note the function signature (previous, vertex) => U follows the
    * foreach based convention of putting the collection element 2nd or last as seen for example in fold methods'(accumulator, element) => B
    * signature. */
-override def vertsPrevForEach[U](f: (HVertAndOffset, HVertAndOffset) => U): Unit = ???
-override def sidesForeach[U](f: LineSegHVertAndOffset => U): Unit = ???
+override def vertsPrevForEach[U](f: (HVAndOffset, HVAndOffset) => U): Unit = ???
+override def sidesForeach[U](f: LineSegHVAndOffset => U): Unit = ???
 
   /** Accesses the specifying sequence element by a 0 based index. */
-override def ssIndex(index: Int): HVertAndOffset = ???
+override def ssIndex(index: Int): HVAndOffset = ???
 
   /** The number of data elements in the defining sequence. These collections use underlying mutable Arrays and ArrayBuffers. The length of the
    * underlying Array will be a multiple of this number. */
@@ -137,8 +136,8 @@ override def ssLength: Int = ???
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
-override def unsafeSetElem(i: Int, newElem: HVertAndOffset): Unit = ???
-override def fElemStr: HVertAndOffset => String = ???
+override def unsafeSetElem(i: Int, newElem: HVAndOffset): Unit = ???
+override def fElemStr: HVAndOffset => String = ???
 
   /** String specifying the type of this object. */
 override def typeStr: String = ???
