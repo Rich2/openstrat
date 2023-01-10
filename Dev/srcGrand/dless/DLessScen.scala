@@ -8,6 +8,8 @@ trait DLessScen extends HSysTurnScen
 
   def sTerrs: HSideBoolLayer
 
+  def offsets: HVertOffsetLayer
+
   def title: String = "EScenWarm"
 }
 
@@ -29,6 +31,8 @@ object DLessScen1 extends DLessScen
 
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
+
+  override def offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
 }
 
 object DLessScen2 extends DLessScen
@@ -39,4 +43,5 @@ object DLessScen2 extends DLessScen
 
   override lazy val terrs: HCenLayer[WTile] = Terr320E0.regTerrs
   override val sTerrs: HSideBoolLayer = Terr320E0.regSTerrs
+  override def offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
 }

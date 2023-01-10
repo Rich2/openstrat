@@ -78,13 +78,13 @@ final case class HSysProjectionFlat(parent: HGridSys, panel: Panel) extends HSys
   override def tileActives: RArr[PolygonActive] =
     gChild.map(hc => hc.hVertPolygon.map(parent.flatHCoordToPt2(_)).slate(-focus).scale(pixCScale).active(hc))
 
-  override def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems =
+  override def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems =
   { val buff = new ArrayBuffer[GraphicElem]
-    gChild.foreach{hc => transOptCoord(hc).foreach(pt => buff.append(f(pt, hc))) }
+    gChild.foreach{hc => transOptCoord(hc).foreach(pt => buff.append(f(hc, pt))) }
     new RArr[GraphicElem](buff.toArray)
   }
 
-  override def hCenSizedMap(hexScale: Double)(f: (Pt2, HCen) => GraphicElem): GraphicElems = ifTileScale(hexScale, hCenMap(f))
+  override def hCenSizedMap(hexScale: Double)(f: (HCen, Pt2) => GraphicElem): GraphicElems = ifTileScale(hexScale, hCenPtMap(f))
 
   override def sideLines: LineSegArr = gChild.sideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)
   override def innerSideLines: LineSegArr = gChild.innerSideLineSegHCs.map(_.map(parent.flatHCoordToPt2(_))).slate(-focus).scale(pixCScale)

@@ -1,8 +1,10 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer, reflect.ClassTag
 
-/** A Hex tile centre hex grid [[HGrid]] coordinate. */
+/** A Hex tile centre hex grid [[HGrid]] coordinate. This is the tile coordinate and is all that's needed for simple grids, but is usually referred to
+ *  as an [[HCen]] to destingush it form [[HSide]]s, [[HVert]]s and [[HCoordOther]]s In Function parameters, the convention is to place the [[HCen]]s
+ *  as the first parameter for example  f: (HCen, Pt2) => B. */
 class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
 {
   override def equals(that: Any): Boolean = that match {

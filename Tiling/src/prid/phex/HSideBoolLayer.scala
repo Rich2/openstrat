@@ -60,6 +60,17 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
       else None
     }
 
+  /** Maps across all the link trues in this Side Layer that exist in the projection. */
+  def projLinkTruesLineSegMap[B, ArrB <: Arr[B]](f: LineSeg => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
+    projLinkTruesLineSegMap(proj)(f)(build)
+
+  /** Maps across all the link trues in this Side Layer that exist in the projection. */
+  def projLinkTruesLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+    proj.gChild.linksOptMap { hs =>
+      if (apply(hs)(proj.parent)) proj.transOptLineSeg(hs.lineSegHC).map(f)
+      else None
+    }
+
   /** Maps across all the falses in this Side Layer that exist in the projection. */
   def projFalsesLineSegMap[B, ArrB <: Arr[B]](f: LineSeg => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
     projFalsesLineSegMap(proj)(f)

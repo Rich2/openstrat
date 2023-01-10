@@ -7,8 +7,8 @@ trait HSysProjection extends TSysProjection
 { type GridT <: HGridSys
 
   var gChild: HGridSys
-  def hCenMap(f: (Pt2, HCen) => GraphicElem): GraphicElems
-  def hCenSizedMap(hexScale: Double = 20)(f: (Pt2, HCen) => GraphicElem): GraphicElems
+  def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems
+  def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems
 
   //def hcPolyArrTrans(inp: PolygonHCArr)
 
