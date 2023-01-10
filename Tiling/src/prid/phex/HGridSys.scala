@@ -179,6 +179,8 @@ trait HGridSys extends Any with TGridSys
     new HCenLayer(array)
   }
 
+  def newHVertOffsetLayer: HVertOffsetLayer = new HVertOffsetLayer(new Array[Int](numTiles * 6))
+
   /** Creates new data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
   def newHSideBoolSubLayer(superGrid: HGridSys, superLayer: HSideBoolLayer): HSideBoolLayer =
   { val array: Array[Boolean] = new Array[Boolean](numSides)
