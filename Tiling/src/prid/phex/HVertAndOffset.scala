@@ -161,6 +161,8 @@ class HVertAndOffset(val r: Int, val c: Int, val hvDirnInt: Int, val offset: Int
 
 object HVertAndOffset
 {
+  def apply(hVert: HVert, hvDirn: HVDirn, offset: Int): HVertAndOffset = apply(hVert.r, hVert.c, hvDirn, offset)
+
   def apply(r: Int, c: Int, hvDirn: HVDirn, offset: Int): HVertAndOffset =
   { val offset2 = ife(offset < 0, -offset, offset)
     val dirn2 = ife(offset < 0, hvDirn.opposite, hvDirn)
@@ -175,6 +177,30 @@ object HVertAndOffset
 
     val offset3 = ife(isCenDirn, offset2.min(7), offset2.min(3))
     new HVertAndOffset(r, c, hvDirn.intValue, offset3)
+  }
+
+  def none(r: Int, c: Int) = new HVertAndOffset(r, c, 0, 0)
+  def none(hVert: HVert) = new HVertAndOffset(hVert.r, hVert.c, 0, 0)
+}
+
+class HVOffsets(val int1: Int) extends AnyVal{
+  def v1(hVert: HVert): HVertAndOffset ={
+    val dirn = HVDirn.fromInt((int1 %% 32) / 4)
+    val magnitude = (int1 %% 256) / 32
+    HVertAndOffset(hVert, dirn, magnitude)
+  }
+
+  def v2(hVert: HVert): HVertAndOffset = {
+    val dirn = HVDirn.fromInt((int1 %% 1024) / 256)
+    val magnitude = (int1 %% 8192) / 1024
+    HVertAndOffset(hVert, dirn, magnitude)
+  }
+
+  def verts(hVert: HVert) = int1 %% 4 match {
+    case 0 => RArr(HVertAndOffset.none(hVert))
+    case 1 => RArr(v1(hVert))
+    case 2 => RArr(v1(hVert), v2(hVert))
+    case n  => excep(s"$n is an invalid value for offsets.")
   }
 }
 
