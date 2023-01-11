@@ -79,6 +79,11 @@ trait Int3SeqLikeMapBuilder[B <: Int3Elem, BB <: Int3SeqLike[B]] extends Int3Seq
     buff.unsafeBuffer.append(newElem.int3); () }
 }
 
+trait Int3SeqLikeFlatBuilder[BB <: Int3SeqLike[_]] extends Int3SeqLikeCommonBuilder[BB] with IntNSeqLikeFlatBuilder[BB]
+{ type BuffT <: Int3Buff[_]
+  //def buffGrowArr(buff: BuffT, seqLike: Int3SeqLike[_]): Unit = seqLike.unsafeArray.foreach(el => buff.unsafeBuffer.append(el))
+}
+
 /** Trait for creating the ArrTBuilder type class instances for [[Int3Arr]] final classes. Instances for the [[ArrMapBuilder]] type
  *  class, for classes / traits you control, should go in the companion object of B. The first type parameter is called B a sub class of Int3Elem,
  *  because to corresponds to the B in the ```map(f: A => B): ArrB``` function. */

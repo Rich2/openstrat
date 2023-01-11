@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation._, collection.mutable.ArrayBuffer
 
@@ -85,6 +85,8 @@ trait IntNSeqLikeMapBuilder[B <: IntNElem, BB <: IntNSeqLike[B]] extends IntNSeq
   final override def uninitialised(length: Int): BB = fromIntArray(new Array[Int](length * elemProdSize))
   final override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
 }
+
+trait IntNSeqLikeFlatBuilder[BB <: IntNSeqLike[_]] extends IntNSeqLikeCommonBuilder[BB] with ValueNSeqLikeFlatBuilder[BB]
 
 /** Trait for creating the ArrTBuilder type class instances for [[IntNArr]] final classes. Instances for the [[ArrMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in

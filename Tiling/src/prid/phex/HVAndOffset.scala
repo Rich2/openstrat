@@ -1,6 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, collection.mutable.ArrayBuffer
+import geom._
+
+import collection.mutable.ArrayBuffer
 
 /** An [[HVert]] and an offset. The Offset of from the [[HVert]] measured in an offset towards a neighbouring [[HCen]] or [[HVert]]. */
 class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
@@ -89,11 +91,7 @@ object HVAndOffset
   def none(hVert: HVert) = new HVAndOffset(hVert.r, hVert.c, 0)
 
   /** Implicit type class instance / evidence for the [[HVAndOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
-  implicit val polygonBuildEv: PolygonInt3Builder[HVAndOffset, PolygonHVAndOffset] = new PolygonInt3Builder[HVAndOffset, PolygonHVAndOffset]
-  { override type BuffT = HVAndOffsetBuff
-    override def fromIntArray(array: Array[Int]): PolygonHVAndOffset = new PolygonHVAndOffset(array)
-    override def fromIntBuffer(inp: ArrayBuffer[Int]): HVAndOffsetBuff = new HVAndOffsetBuff(inp)
-  }
+  implicit val polygonBuildEv: PolygonHVAndOffsetMapBuilder = new PolygonHVAndOffsetMapBuilder
 }
 
 /** A Line segment where the vertices of specified in [[HVAndOffset]]s. */
@@ -121,6 +119,9 @@ class HVAndOffsetArr(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike wit
 
 object HVAndOffsetArr extends Int3SeqLikeCompanion [HVAndOffset, HVAndOffsetArr]
 { override def fromArray(array: Array[Int]): HVAndOffsetArr = new HVAndOffsetArr(array)
+
+  /** Implicit type class instance / evidence for the [[HVAndOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
+  implicit val polygonFlatBuildEv: PolygonHVAndOffsetFlatBuilder = new PolygonHVAndOffsetFlatBuilder
 }
 
 /** Specialised [[Buff]] class for [[HVAndOffset]]s. The [[HVert]] with offset class. */
@@ -147,4 +148,17 @@ class PolygonHVAndOffset(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike
       f(side(i)); i += 1
     }
   }
+}
+
+trait PolgonHVAndOffsetCommonBuilder extends Int3SeqLikeCommonBuilder[PolygonHVAndOffset]
+{ override type BuffT = HVAndOffsetBuff
+  override def fromIntArray(array: Array[Int]): PolygonHVAndOffset = new PolygonHVAndOffset(array)
+  override def fromIntBuffer(inp: ArrayBuffer[Int]): HVAndOffsetBuff = new HVAndOffsetBuff(inp)
+}
+
+class PolygonHVAndOffsetMapBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3MapBuilder[HVAndOffset, PolygonHVAndOffset]
+
+class PolygonHVAndOffsetFlatBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3FlatBuilder[PolygonHVAndOffset]
+{ /** converts a the buffer type to the target compound class. */
+  override def buffToSeqLike(buff: HVAndOffsetBuff): PolygonHVAndOffset = ???
 }

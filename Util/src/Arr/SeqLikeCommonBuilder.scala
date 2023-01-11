@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import reflect.ClassTag, annotation.unused
 
@@ -79,10 +79,13 @@ trait ArrBuilderPriority2
   implicit def rMapImplicit[B](implicit ct: ClassTag[B], @unused notA: Not[SpecialT]#L[B]): ArrMapBuilder[B, RArr[B]] = new RArrAllBuilder[B]
 }
 
+trait SeqLikeFlatBuilder[BB <: SeqLike[_]] extends SeqLikeCommonBuilder[BB]
+
+
 /** A type class for the building of efficient compact Immutable Arrays through a flatMap method. Instances for this type class for classes / traits
  *  you control should go in the companion object of BB. This is different from the related [[ArrMapBuilder]][BB] type class where the instance
  *  should go into the B companion object. */
-trait ArrFlatBuilder[ArrB <: Arr[_]] extends SeqLikeCommonBuilder[ArrB] //with ArrBuilder[ArrB]
+trait ArrFlatBuilder[ArrB <: Arr[_]] extends SeqLikeFlatBuilder[ArrB] with SeqLikeCommonBuilder[ArrB]
 { /** A mutable operation that extends the ArrayBuffer with the elements of the Immutable Array operand. */
   def buffGrowArr(buff: BuffT, arr: ArrB): Unit
 }

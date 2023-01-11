@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import collection.mutable.ArrayBuffer
 
@@ -98,6 +98,8 @@ trait ValueNSeqLikeCommonBuilder[BB <: SeqLike[_]] extends SeqLikeCommonBuilder[
 
 /** Map builder for [[ValueNSeqLike]] classes. */
 trait ValueNSeqLikeMapBuilder[B, BB <: SeqLike[B]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeMapBuilder[B, BB]
+
+trait ValueNSeqLikeFlatBuilder[BB <: SeqLike[_]] extends ValueNSeqLikeCommonBuilder[BB] with SeqLikeFlatBuilder[BB]
 
 /** Trait for creating the ArrTBuilder. Instances for the [[ArrMapBuilder]] type class, for classes / traits you control, should go in the companion
  *  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */

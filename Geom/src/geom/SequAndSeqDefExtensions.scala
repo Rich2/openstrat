@@ -47,6 +47,13 @@ class SequExtensions[A](val al : Sequ[A])
     res
   }
 
+  /** FlatMap this collection of data elements to [[PolygonLike]] class of type BB. */
+  /*def flatMapPolygon[BB <: PolygonLike[_]](f: A => BB)(implicit build: PolygonLikeFlatBuilder[BB]): BB = {
+    val res = build.newBuff()// uninitialised(al.length)
+    al.iForeach((i, a) => build. buff indexSet(res, i, f(a)))
+    res
+  }*/
+
   /** Converts this collection of data elements to [[LinePathLike]] class of type BB. */
   def toLinePath[AA <: LinePathLike[A]](implicit build: LinePathBuilder[A, AA]): AA =
   { val res = build.uninitialised(al.length)

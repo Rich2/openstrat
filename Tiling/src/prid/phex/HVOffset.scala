@@ -1,5 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
+import geom._
 
 /** [[HVert]] offset. The direction and magnitude of an [[HVAndOffset]]. These values are stored in an [[HVertOffsetLayer]]. The value of the
  *  [[HVert]] can be determined by its position in [[HVertOffsetLayer]]. */
@@ -58,5 +59,5 @@ class HVertOffsetLayer(val unsafeArray: Array[Int])
   def apply(hCenR: Int, hCenC: Int, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetNode = new HVOffsetNode(unsafeArray(gridSys.arrIndex(hCenR, hCenC) * 6 + vertNum))
 
   def hVertOffsetsPolygon(hCen: HCen)(implicit gridSys: HGridSys): Arr[HVOffsetNode] = iUntilMap(6){ i => apply(hCen, i) }
-  //def hVertAndOffsetPolygon(hCen: HCen)/*: HVertAndOffsetPolygon*/ = iUntilMap(6){ i => apply(hCen, i)}
+  //def hVertAndOffsetPolygon(hCen: HCen)(implicit gridSys: HGridSys)/*: HVertAndOffsetPolygon*/ =  hVertOffsetsPolygon(hCen).mapPolygon()     // iUntilMap(6){ i => apply(hCen, i)}
 }
