@@ -11,7 +11,7 @@ class HVOffset(val int1: Int) extends AnyVal with Int1Elem
 
 /** Companion object for [[HVOffset]] class, contains factory apply and fromInt methods. */
 object HVOffset
-{ def apply(dirn: HVDirn, magnitude: Int): Int = dirn.intValue + magnitude * 8
+{ def apply(dirn: HVDirn, magnitude: Int): Int = dirn.int1 + magnitude * 8
   def fromInt(inp: Int): HVOffset = new HVOffset(inp)
 }
 
@@ -44,11 +44,11 @@ class HCorner(val unsafeInt: Int) extends AnyVal
 object HCorner
 { def noOffset: HCorner = new HCorner(0)
 
-  def single(dirn: HVDirn, magnitude : Int): HCorner = new HCorner(1 + 4 * dirn.intValue + magnitude * 32)
+  def single(dirn: HVDirn, magnitude : Int): HCorner = new HCorner(1 + 4 * dirn.int1 + magnitude * 32)
 
   def double(dirn1: HVDirn, magnitude1 : Int, dirn2: HVDirn, magnitude2 : Int): HCorner =
-  { val v1 = dirn1.intValue * 4 + magnitude1 * 32
-    val v2 = dirn2.intValue * 4 + magnitude2 * 32
+  { val v1 = dirn1.int1 * 4 + magnitude1 * 32
+    val v2 = dirn2.int1 * 4 + magnitude2 * 32
     new HCorner(1 + v1 + v2 * 256)
   }
 }

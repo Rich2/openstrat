@@ -20,6 +20,14 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with TCoord
   }
 
   def + (hCen: HCen): HVert = HVert(r + hCen.r, c + hCen.c)
+
+  def hexIsUp: Boolean = r %% 4 match
+  { case 1 if c %% 4 == 0 => true
+    case 3 if c %% 4 == 2 => true
+    case _ => false
+  }
+
+  def adjHCens: HVDirnArr = ife(hexIsUp, HVDirnArr(HVUp, HVDR, HVDL), HVDirnArr(HVUR, HVDn, HVUL))
 }
 
 object HVert

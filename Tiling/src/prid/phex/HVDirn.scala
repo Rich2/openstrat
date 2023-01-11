@@ -3,7 +3,7 @@ package ostrat; package prid; package phex
 import geom._
 
 /** [[HVert]] direction of offset towards [[HCen]]. These objects should not be confused with [[HStep]]s */
-sealed trait HVDirn
+sealed trait HVDirn extends Int1Elem
 { /** The delta in R to the [[HCen]] from an [[HCoord]]. */
   def dCenR: Int
 
@@ -13,7 +13,7 @@ sealed trait HVDirn
   def dVertR: Int
   def dVertC: Int
 
-  def intValue: Int
+  def int1: Int
 
   def opposite: HVDirn
 }
@@ -36,7 +36,7 @@ object HVDirn
 object HVExact extends HVDirn
 { def dCenR: Int = 0
   def dCenC: Int = 0
-  override def intValue: Int = 0
+  override def int1: Int = 0
   override def opposite: HVDirn = HVExact
   override def dVertR: Int = 0
   override def dVertC: Int = 0
@@ -46,7 +46,7 @@ object HVExact extends HVDirn
 object HVUp extends HVDirn
 { def dCenR: Int = 1
   def dCenC: Int = 0
-  override def intValue: Int = 6
+  override def int1: Int = 6
   override def opposite: HVDirn = HVDn
   override def dVertR: Int = 2
   override def dVertC: Int = 0
@@ -56,7 +56,7 @@ object HVUp extends HVDirn
 object HVUR extends HVDirn
 { def dCenR: Int = 1
   def dCenC: Int = 2
-  override def intValue: Int = 1
+  override def int1: Int = 1
   override def opposite: HVDirn = HVDL
   override def dVertR: Int = 0
   override def dVertC: Int = 2
@@ -65,7 +65,7 @@ object HVUR extends HVDirn
 object HVDR extends HVDirn
 { def dCenR: Int = -1
   def dCenC: Int = 2
-  override def intValue: Int = 2
+  override def int1: Int = 2
   override def opposite: HVDirn = HVUL
   override def dVertR: Int = 0
   override def dVertC: Int = 2
@@ -74,7 +74,7 @@ object HVDR extends HVDirn
 object HVDn extends HVDirn
 { def dCenR: Int = -1
   def dCenC: Int = 0
-  override def intValue: Int = 3
+  override def int1: Int = 3
   override def opposite: HVDirn = HVUp
   override def dVertR: Int = -2
   override def dVertC: Int = 0
@@ -83,7 +83,7 @@ object HVDn extends HVDirn
 object HVDL extends HVDirn
 { def dCenR: Int = -1
   def dCenC: Int = -2
-  override def intValue: Int = 4
+  override def int1: Int = 4
   override def opposite: HVDirn = HVUR
   override def dVertR: Int = 0
   override def dVertC: Int = -2
@@ -92,8 +92,20 @@ object HVDL extends HVDirn
 object HVUL extends HVDirn
 { def dCenR: Int = 1
   def dCenC: Int = -2
-  override def intValue: Int = 5
+  override def int1: Int = 5
   override def opposite: HVDirn = HVDR
   override def dVertR: Int = 0
   override def dVertC: Int = -2
+}
+
+class HVDirnArr(val unsafeArray: Array[Int]) extends Int1Arr[HVDirn]
+{ override type ThisT = HVDirnArr
+  override def typeStr: String = "HDirnArr"
+  override def newElem(intValue: Int): HVDirn = HVDirn.fromInt(intValue)
+  override def fromArray(array: Array[Int]): HVDirnArr = new HVDirnArr(array)
+  override def fElemStr: HVDirn => String = _.toString
+}
+
+object HVDirnArr extends Int1SeqLikeCompanion[HVDirn, HVDirnArr]
+{ override def fromArray(array: Array[Int]): HVDirnArr = new HVDirnArr(array)
 }
