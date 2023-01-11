@@ -64,7 +64,9 @@ class HVertOffsetLayer(val unsafeArray: Array[Int])
     new HCorner(unsafeArray(gridSys.arrIndex(hCenR, hCenC) * 6 + vertNum))
 
   def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): Arr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
+  def tileCorners(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): Arr[HCorner] = iUntilMap(6){ i => corner(cenR, cenC, i) }
   def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHVAndOffset = tileCorners(hCen).iFlatMapPolygon{ (i, corn) => corn.verts(hCen.verts(i)) }
+  def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHVAndOffset = tilePoly(HCen(cenR, cenC))
 
   def setSingle(hCen: HCen, vertNum: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
   { val corner = HCorner.single(dirn, magnitude)
