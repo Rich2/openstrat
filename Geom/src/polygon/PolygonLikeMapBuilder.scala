@@ -59,6 +59,7 @@ trait PolygonValueNFlatBuilder[VT <: ValueNElem, BB <: PolygonValueN[VT]] extend
 trait PolygonIntNFlatBuilder[VT <: IntNElem, BB <: PolygonLikeIntN[VT]] extends PolygonValueNFlatBuilder[VT, BB] with IntNSeqLikeFlatBuilder[BB]
 {
   override def buffGrowSeqLike(buff: BuffT, seqLike: SeqLike[VT]): Unit = seqLike.ssForeach{_.intForeach(int => buff.unsafeBuffer.append(int)) }
+  override def buffToSeqLike(buff: BuffT): BB = fromIntArray(buff.unsafeBuffer.toArray)
 }
 
 trait PolygonInt3FlatBuilder[VT <: Int3Elem, BB <: PolygonLikeInt3[VT]] extends PolygonIntNFlatBuilder[VT, BB] with Int3SeqLikeFlatBuilder[BB]

@@ -161,6 +161,3 @@ trait PolgonHVAndOffsetCommonBuilder extends Int3SeqLikeCommonBuilder[PolygonHVA
 class PolygonHVAndOffsetMapBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3MapBuilder[HVAndOffset, PolygonHVAndOffset]
 
 class PolygonHVAndOffsetFlatBuilder extends PolgonHVAndOffsetCommonBuilder with PolygonInt3FlatBuilder[HVAndOffset, PolygonHVAndOffset]
-{ /** converts a the buffer type to the target compound class. */
-  override def buffToSeqLike(buff: HVAndOffsetBuff): PolygonHVAndOffset = ???
-}
