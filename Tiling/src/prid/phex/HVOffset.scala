@@ -9,8 +9,9 @@ class HVOffset(val int1: Int) extends AnyVal with Int1Elem
   def magnitude: Int = int1 / 8
 }
 
-object HVOffset{
-  def apply(dirn: HVDirn, magnitude: Int) = dirn.intValue + magnitude * 8
+/** Companion object for [[HVOffset]] class, contains factory apply and fromInt methods. */
+object HVOffset
+{ def apply(dirn: HVDirn, magnitude: Int): Int = dirn.intValue + magnitude * 8
   def fromInt(inp: Int): HVOffset = new HVOffset(inp)
 }
 
@@ -54,10 +55,11 @@ object HVOffsetNode
  * entries. */
 class HVertOffsetLayer(val unsafeArray: Array[Int])
 {
-  def apply(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetNode = new HVOffsetNode(unsafeArray(gridSys.arrIndex(hCen) * 6 + vertNum))
+  def node(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetNode = new HVOffsetNode(unsafeArray(gridSys.arrIndex(hCen) * 6 + vertNum))
 
-  def apply(hCenR: Int, hCenC: Int, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetNode = new HVOffsetNode(unsafeArray(gridSys.arrIndex(hCenR, hCenC) * 6 + vertNum))
+  def node(hCenR: Int, hCenC: Int, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetNode =
+    new HVOffsetNode(unsafeArray(gridSys.arrIndex(hCenR, hCenC) * 6 + vertNum))
 
-  def hVertOffsetsPolygon(hCen: HCen)(implicit gridSys: HGridSys): Arr[HVOffsetNode] = iUntilMap(6){ i => apply(hCen, i) }
+  def tileNodes(hCen: HCen)(implicit gridSys: HGridSys): Arr[HVOffsetNode] = iUntilMap(6){ i => node(hCen, i) }
   //def hVertAndOffsetPolygon(hCen: HCen)(implicit gridSys: HGridSys)/*: HVertAndOffsetPolygon*/ =  hVertOffsetsPolygon(hCen).mapPolygon()     // iUntilMap(6){ i => apply(hCen, i)}
 }

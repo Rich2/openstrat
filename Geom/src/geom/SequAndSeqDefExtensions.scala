@@ -50,7 +50,7 @@ class SequExtensions[A](val al : Sequ[A])
   /** FlatMap this collection of data elements to [[PolygonLike]] class of type BB. */
   def flatMapPolygon[B, BB <: PolygonLike[B]](f: A => BB)(implicit build: PolygonLikeFlatBuilder[B, BB]): BB = {
     val buff = build.newBuff()
-    al.foreach(a => build.buffGrowArr(buff, f(a)))
+    al.foreach(a => build.buffGrowSeqLike(buff, f(a)))
     build.buffToSeqLike(buff)
   }
 

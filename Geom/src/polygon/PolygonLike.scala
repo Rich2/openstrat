@@ -50,12 +50,18 @@ trait PolygonLike[VT] extends Any with SeqSpec[VT]
     }
   }
 
-  /** Map this collection of data elements to PolygonLike class of type BB. */
+  /** Maps the vertices of this [[PolygonLike]] to a new to PolygonLike class of type BB. */
   def map[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => B)(implicit build: PolygonLikeMapBuilder[B, BB]): BB =
-  {
-    val res = build.uninitialised(vertsNum)
+  { val res = build.uninitialised(vertsNum)
     vertsIForeach((i, a) => build.indexSet(res, i, f(a)))
     res
+  }
+
+  /** FlatMaps the vertices of this [[PolygonLike]] to a new to PolygonLike class of type BB. */
+  def flatMap[B <: ValueNElem, BB <: PolygonLike[B]](f: VT => SeqLike[B])(implicit build: PolygonLikeFlatBuilder[B, BB]): BB =
+  { val buff = build.newBuff()
+    vertsForeach(a => build.buffGrowSeqLike(buff, f(a)))
+    build.buffToSeqLike(buff)
   }
 
   /** Returns the vertex of the given index. Throws if the index is out of range, if it less than 1 or greater than the number of vertices. */

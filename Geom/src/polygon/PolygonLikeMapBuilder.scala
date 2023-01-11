@@ -51,14 +51,14 @@ trait PolygonInt3MapBuilder[B <: Int3Elem, BB <: PolygonLikeInt3[B]] extends Pol
 
 trait PolygonLikeFlatBuilder[VT, +BB <: PolygonLike[VT]] extends SeqLikeFlatBuilder[BB @uncheckedVariance]
 { override type BuffT <: Buff[VT]
-  def buffGrowArr(buff: BuffT, seqLike: SeqLike[VT]): Unit
+  def buffGrowSeqLike(buff: BuffT, seqLike: SeqLike[VT]): Unit
 }
 
 trait PolygonValueNFlatBuilder[VT <: ValueNElem, BB <: PolygonValueN[VT]] extends PolygonLikeFlatBuilder[VT, BB] with ValueNSeqLikeCommonBuilder[BB]
 
 trait PolygonIntNFlatBuilder[VT <: IntNElem, BB <: PolygonLikeIntN[VT]] extends PolygonValueNFlatBuilder[VT, BB] with IntNSeqLikeFlatBuilder[BB]
 {
-  override def buffGrowArr(buff: BuffT, seqLike: SeqLike[VT]): Unit = seqLike.ssForeach{_.intForeach(int => buff.unsafeBuffer.append(int)) }
+  override def buffGrowSeqLike(buff: BuffT, seqLike: SeqLike[VT]): Unit = seqLike.ssForeach{_.intForeach(int => buff.unsafeBuffer.append(int)) }
 }
 
 trait PolygonInt3FlatBuilder[VT <: Int3Elem, BB <: PolygonLikeInt3[VT]] extends PolygonIntNFlatBuilder[VT, BB] with Int3SeqLikeFlatBuilder[BB]

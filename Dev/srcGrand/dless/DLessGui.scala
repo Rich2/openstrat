@@ -7,6 +7,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
+  val offsets: HVertOffsetLayer = scen.offsets
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
@@ -15,7 +16,8 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
   def actives: RArr[PolygonActive] = proj.tileActives
 
-  def polyOffs = proj .hCensMap(_.hVertPolygon)//.flatMap{ hv => scen.offsets}
+  def polyOffs = proj.hCensMap(hc => hc)
+  //def polyOffs2 = polyOffs.map{ poly => poly.flatMap(hv => offsets.apply(hv))}
 
   /** Note we only represent links, no outer sides, so as the side terrain can use data from both of its adjacent tiles. */
   def straits: GraphicElems = sTerrs.projLinkTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
