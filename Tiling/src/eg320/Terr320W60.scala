@@ -33,4 +33,6 @@ object Terr320W60 extends Long320Terrs
     res.setTruesInts(141,10755,  148,10746)
     res
   }
+
+  override val offsets: HVertOffsetLayer = grid.newHVertOffsetLayer
 }

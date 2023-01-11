@@ -13,6 +13,7 @@ object EGridLaunch extends GuiLaunchMore
   override def fromStatements(sts: RArr[Statement]): (CanvasPlatform => Any, String) =
   { val scenNum: Int = sts.findSettingElse("scen",1)
     val isFlat: Boolean = sts.findSettingElse("flat",false)
+    val isExp: Boolean = sts.findSettingElse("exp",false)
 
     val oview: EMon[HGView] = sts.findKeySetting[Int, HGView](scenNum)
 
@@ -52,7 +53,7 @@ object EGridLaunch extends GuiLaunchMore
 
       case _ => EGrid80.scen0
     }
-
-    (GridWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
+    if (isExp) (ExpWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
+    else (GridWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
   }
 }

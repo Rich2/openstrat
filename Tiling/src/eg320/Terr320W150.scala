@@ -24,4 +24,6 @@ object Terr320W150 extends Long320Terrs
   { val res = grid.newSideBools
     res
   }
+
+  override val offsets: HVertOffsetLayer = grid.newHVertOffsetLayer
 }

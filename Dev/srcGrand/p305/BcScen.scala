@@ -14,6 +14,8 @@ object BcScen1 extends BcScen {
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
 
   override def sTerrs: HSideBoolLayer = Terr80E0.sTerrs
+
+  override val offsets: HVertOffsetLayer = Terr80E0.offsets
 }
 
 object BcScen2 extends BcScen
@@ -22,4 +24,6 @@ object BcScen2 extends BcScen
   override implicit def gridSys: EGrid80Long = EGrid80.e0(446)
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
   override def sTerrs: HSideBoolLayer = Terr80E0.sTerrs
+
+  override val offsets: HVertOffsetLayer = Terr80E0.offsets
 }

@@ -7,7 +7,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
-  val offsets: HVertOffsetLayer = scen.offsets
+
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
@@ -16,11 +16,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
   def actives: RArr[PolygonActive] = proj.tileActives
 
-  def polyOffs = proj.hCensMap(hc => hc)
-  //def polyOffs2 = polyOffs.map{ poly => poly.flatMap(hv => offsets.apply(hv))}
-  val t1: PolygonHVAndOffset = offsets.tilePoly(HCen(140, 516))
-  def t2: Polygon = t1.map(_.toPt2Reg(proj.transCoord(_)))
-  def t3: PolygonFill = t2.fill(Colour.Red)
+
 
   /** Note we only represent links, no outer sides, so as the side terrain can use data from both of its adjacent tiles. */
   def straits: GraphicElems = sTerrs.projLinkTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
@@ -47,7 +43,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def pt: Pt2 = sd.toPt2Reg(proj.transCoord(_))
   def sdg: GraphicElems = pt.textArrow("off", colour = Colour.Red)
 
-  override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines2 +% t3 ++ hexStrs2 ++ sdg
+  override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines2 ++ hexStrs2 ++ sdg
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>

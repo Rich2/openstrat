@@ -36,15 +36,15 @@ object EGrid80
 
   def scen0: EScenBasic =
   { val grid: EGrid80Long = e0(446)
-    EScenBasic(grid, Terr80E0.terrs, Terr80E0.sTerrs, "80km 0E")
+    EScenBasic(grid, Terr80E0.terrs, Terr80E0.sTerrs, Terr80E0.offsets, "80km 0E")
   }
 
   def scen1: EScenBasic =
   { val grid: EGrid80Long = e30(446)
-    EScenBasic(grid, Terr80E30.terrs, Terr80E30.sTerrs)
+    EScenBasic(grid, Terr80E30.terrs, Terr80E30.sTerrs, Terr80E0.offsets)
   }
 
-  def wFrontScen : EScenBasic = EScenBasic(westernFront, Terr80E0.frontTerrs, Terr80E0.sTerrs, "Western Front")
+  def wFrontScen : EScenBasic = EScenBasic(westernFront, Terr80E0.frontTerrs, Terr80E0.sTerrs, Terr80E0.offsets, "Western Front")
 }
 
 trait EGrid80LongMulti extends EGridLongMulti with EGrid80Sys

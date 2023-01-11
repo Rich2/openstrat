@@ -60,4 +60,6 @@ object Terr80E30  extends LongTerrs
     res.setTruesPairs((505, 1553))//, (463, 517), (476, 546))//, (145, 521), (146, 520))
     res
   }
+
+  override val offsets: HVertOffsetLayer = grid.newHVertOffsetLayer
 }

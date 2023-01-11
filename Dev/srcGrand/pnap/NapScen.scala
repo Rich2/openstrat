@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pnap
 import prid._, phex._, egrid._, eg160._, pEarth._
 
@@ -13,4 +13,6 @@ object NapScen2 extends NapScen
   override implicit def gridSys: EGrid160LongFull = EGrid160.e0(276)
   override val terrs: HCenLayer[WTile] = Terr160E0.terrs
   override def sTerrs: HSideBoolLayer = Terr160E0.sTerrs
+
+  override val offsets: HVertOffsetLayer = ???
 }

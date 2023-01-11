@@ -8,16 +8,17 @@ trait EScenBasic extends HSysScen
 
   def terrs: HCenLayer[WTile]
   def sTerrs: HSideBoolLayer
+  val offsets: HVertOffsetLayer
   def title: String = "EScenWarm"
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
 object EScenBasic
 {
-  def apply(gridSys: EGridSys, terrs: HCenLayer[WTile], sTerrs: HSideBoolLayer, title: String = "EScenBasic"): EScenBasic =
-    new EScenWarmImp(gridSys, terrs, sTerrs, title)
+  def apply(gridSys: EGridSys, terrs: HCenLayer[WTile], sTerrs: HSideBoolLayer, offsets: HVertOffsetLayer, title: String = "EScenBasic"): EScenBasic =
+    new EScenWarmImp(gridSys, terrs, sTerrs, offsets, title)
 
-  class EScenWarmImp(val gridSys: EGridSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer,
+  class EScenWarmImp(val gridSys: EGridSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer, override val offsets: HVertOffsetLayer,
     override val title: String = "EScenWarm") extends EScenBasic
 }
 
@@ -43,4 +44,6 @@ trait LongTerrs
 
   /** The straits. */
   def sTerrs: HSideBoolLayer
+
+  def offsets: HVertOffsetLayer
 }

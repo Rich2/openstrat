@@ -37,6 +37,8 @@ object Terr320E0 extends Long320Terrs
     res
   }
 
+  override val offsets: HVertOffsetLayer = grid.newHVertOffsetLayer
+
   def regGrid: EGrid320Long = EGrid320Long.reg(138, 148, 0, 504, 520)
 
   def regTerrs: HCenLayer[WTile] = regGrid.newHCenSubLayer(grid, terrs)
@@ -47,5 +49,7 @@ object Terr320E0 extends Long320Terrs
     override implicit val gridSys: EGrid320Long = regGrid
     override val terrs: HCenLayer[WTile] = regTerrs
     override val sTerrs: HSideBoolLayer = regSTerrs
+    override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
+    offsets.setSingle(HCen(140, 516), 4, HVUL, 2)
   }
 }
