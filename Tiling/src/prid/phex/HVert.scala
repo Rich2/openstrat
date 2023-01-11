@@ -28,7 +28,10 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with TCoord
   }
 
   def adjHCenDirns: HVDirnArr = ife(hexIsUp, HVDirnArr(HVUp, HVDR, HVDL), HVDirnArr(HVUR, HVDn, HVUL))
-  //def adjHCenCorners(implicit sys: HGridSys): RArr[(HCen, Int)] = adjHCenDirns.map
+  def adjHCenCorners(implicit sys: HGridSys): RArr[(HCen, Int)] = adjHCenDirns.optMap{dirn =>
+    val hCen = HCen(r + dirn.dCenR, c + dirn.dCenC)
+    ife(sys.hCenExists(hCen), Some((hCen, dirn.corner(this))), None)
+  }
 }
 
 object HVert
@@ -60,34 +63,6 @@ class HVertArr(val unsafeArray: Array[Int]) extends AnyVal with HVertSeqLike wit
   override def typeStr: String = "HVerts" + foldLeft("")(_ + "; " + _.rcStr)
 
   def toPolygon: PolygonHC = new PolygonHC(unsafeArray)
-  /*def filter(f: HVert => Boolean): HVerts =
-  { val tempArr = new Array[Int](array.length)
-    var count = 0
-    var lengthCounter = 0
-    while (count < length)
-    {
-      if (f(this.apply(count)))
-      { tempArr(lengthCounter * 2) = array(count * 2)
-        tempArr(lengthCounter * 2 + 1) = array(count * 2 + 1)
-        lengthCounter += 1
-      }
-      count += 1
-    }
-    val finalArr = new Array[Int](lengthCounter * 2)
-    count = 0
-    while (count < lengthCounter * 2){ finalArr(count) = tempArr(count); count += 1 }
-    new HVerts(finalArr)
-  }
-
-  def flatMapNoDuplicates(f: HVert => HVerts): HVerts =
-  {
-    val buff = new HVertBuff()
-    foreach{ el =>
-      val newVals = f(el)
-      newVals.foreach{ newVal => if( ! buff.contains(newVal)) buff.grow(newVal) }
-    }
-    new HVerts(buff.toArray)
-  }*/
 }
 
 object HVertArr extends Int2SeqLikeCompanion[HVert, HVertArr]

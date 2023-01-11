@@ -51,6 +51,8 @@ object HCorner
     val v2 = dirn2.int1 * 4 + magnitude2 * 32
     new HCorner(1 + v1 + v2 * 256)
   }
+
+  //def vertSingle(r: Int, c: Int)
 }
 
 /** [[HGridSys]] data layer class that allows the hex tile vertices to be shifted by a small amount to create more pleasing terrain and to feature islands, straits and other tile side features. Every [[HCen]] hex tile in the [[HGridSys]] has 6 vertex

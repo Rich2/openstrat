@@ -106,21 +106,19 @@ trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
     }
   }
 
-  /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every
-   *  element of this sequence. */
-  def map[B, ArrB <: Arr[B]](f: A => B)(implicit ev: ArrMapBuilder[B, ArrB]): ArrB =
-  { val res = ev.uninitialised(length)
-    iForeach((i, a) => ev.indexSet(res, i, f(a)))
+  /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every element of this sequence. */
+  def map[B, ArrB <: Arr[B]](f: A => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val res = build.uninitialised(length)
+    iForeach((i, a) => build.indexSet(res, i, f(a)))
     res
   }
 
-  /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every
-   * element of this sequence. */
-  /*def optMap[B, ArrB <: Arr[B]](f: A => Option[B])(implicit ev: ArrMapBuilder[B, ArrB]): ArrB = {
-    val res = ev.newBuff()// ev.uninitialised(length)
-    foreach(a => f(a).foreach(b => res.grow(b))// ev.indexSet(res, i, f(a)))
-    ev.  res
-  }*/
+  /** Specialised opt map to an immutable [[Arr]] of B. Applies the supplied function to every element of this sequence. */
+  def optMap[B, ArrB <: Arr[B]](f: A => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+  { val buff = build.newBuff()
+    foreach(a => f(a).foreach(b => buff.grow(b)))
+    build.buffToSeqLike(buff)
+  }
 
   /** A map operation where the return type of the [[SeqLike]] is explicitly given by the the first parameter. */
   def mapTo[B, BB <: SeqLike[B]](build: SeqLikeMapBuilder[B, BB])(f: A => B): BB =
