@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance, collection.immutable._, reflect.ClassTag
 
@@ -69,6 +69,10 @@ trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
       count = count + 1
     }
   }
+
+
+  /** Performs a side effecting function on each element of the specifying sequence in order. */
+  inline final override def ssForeach[U](f: A => U): Unit = foreach(f)
 
   /** Index with foreach. Performs a side effecting function on the index and each element of this sequence. It takes a function as a parameter. The
    *  function may return Unit. If it does return a non Unit value it is discarded. The [U] type parameter is there just to avoid warnings about

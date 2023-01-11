@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import annotation.unchecked.uncheckedVariance
 
@@ -9,6 +9,9 @@ import annotation.unchecked.uncheckedVariance
 trait SeqLike[+A] extends Any
 { /** Gives the final type of this class. */
   type ThisT <: SeqLike[A]
+
+  /** Performs a side effecting function on each element of the specifying sequence in order. */
+  def ssForeach[U](f: A => U): Unit
 
   /** Sets / mutates an element in the Arr. This method should rarely be needed by end users, but is used by the initialisation and factory
    * methods. */
