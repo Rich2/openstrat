@@ -93,6 +93,7 @@ object PolygonHC extends Int2SeqLikeCompanion[HCoord, PolygonHC]
   }
 }
 
+/** Speialised [[Arr]] class for [[PolygonHC]]s. */
 class PolygonHCArr(val unsafeArrayOfArrays:Array[Array[Int]]) extends ArrayIntBackedArr[PolygonHC]
 { override type ThisT = PolygonHCArr
   override def typeStr: String = "PolygonHCArr"

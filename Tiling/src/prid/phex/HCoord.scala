@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, collection.mutable.ArrayBuffer
 
@@ -73,7 +73,7 @@ object HCoord
   implicit val persistImplicit: Persist[HCoord] = PersistShowInt2[HCoord]("HCoord", "r", "c", HCoord(_, _))
 
   /** Implicit type class instance / evidence for the [[HCoord]] type class instance of [[PolygonLikeMapBuilder]]. */
-  implicit val polygonBuildEv: PolygonInt2sBuilder[HCoord, PolygonHC] = new PolygonInt2sBuilder[HCoord, PolygonHC]
+  implicit val polygonBuildEv: PolygonInt2Builder[HCoord, PolygonHC] = new PolygonInt2Builder[HCoord, PolygonHC]
   { override type BuffT = HCoordBuff
     override def fromIntArray(array: Array[Int]): PolygonHC = new PolygonHC(array)
     override def fromIntBuffer(inp: ArrayBuffer[Int]): HCoordBuff = new HCoordBuff(inp)
@@ -93,14 +93,11 @@ trait HCoordSeqLike extends Any with Int2SeqLike[HCoord]
 }
 
 trait HCoordSeqSpec extends Any with HCoordSeqLike with Int2SeqSpec[HCoord]
-{ //override def ssElem(int1: Int, int2: Int): HCoord = HCoord(int1, int2)
-}
-
 
 /** Specialised sequence class for [[HCoord]]. */
 class HCoordArr(val unsafeArray: Array[Int]) extends AnyVal with Int2Arr[HCoord] with HCoordSeqLike
 { type ThisT = HCoordArr
-  override def typeStr: String = "HCoords"
+  override def typeStr: String = "HCoordArr"
   override def fromArray(array: Array[Int]): HCoordArr = new HCoordArr(array)
 }
 

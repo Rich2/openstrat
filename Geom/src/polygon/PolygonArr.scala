@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -55,6 +55,6 @@ class PolygonBuff(val unsafeBuffer: ArrayBuffer[Array[Double]]) extends AnyVal w
   override def fromArrayDbl(array: Array[Double]): PolygonGen = new PolygonGen(array)
 }
 
-object PolygonBuff{
-  def apply(initLen: Int = 4): PolygonBuff = new PolygonBuff(new ArrayBuffer[Array[Double]](initLen))
+object PolygonBuff
+{ def apply(initLen: Int = 4): PolygonBuff = new PolygonBuff(new ArrayBuffer[Array[Double]](initLen))
 }

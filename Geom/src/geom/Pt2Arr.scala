@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
 import collection.mutable.ArrayBuffer
 
@@ -85,6 +85,6 @@ final class Pt2Buff(val unsafeBuffer: ArrayBuffer[Double]) extends AnyVal with D
 }
 
 object Pt2Buff
-{ def apply(n: Int = 4): Pt2Buff = new Pt2Buff(new ArrayBuffer[Double](n * 2))
-  def empty: Pt2Buff = new Pt2Buff(new ArrayBuffer[Double](4))
+{ /** Factory apply method for [[Pt2Buff]]. */
+  def apply(n: Int = 4): Pt2Buff = new Pt2Buff(new ArrayBuffer[Double](n * 2))
 }

@@ -87,6 +87,13 @@ object HVAndOffset
 
   def none(r: Int, c: Int) = new HVAndOffset(r, c, 0)
   def none(hVert: HVert) = new HVAndOffset(hVert.r, hVert.c, 0)
+
+  /** Implicit type class instance / evidence for the [[HVAndOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
+  implicit val polygonBuildEv: PolygonInt3Builder[HVAndOffset, PolygonHVAndOffset] = new PolygonInt3Builder[HVAndOffset, PolygonHVAndOffset]
+  { override type BuffT = HVAndOffsetBuff
+    override def fromIntArray(array: Array[Int]): PolygonHVAndOffset = new PolygonHVAndOffset(array)
+    override def fromIntBuffer(inp: ArrayBuffer[Int]): HVAndOffsetBuff = new HVAndOffsetBuff(inp)
+  }
 }
 
 /** A Line segment where the vertices of specified in [[HVAndOffset]]s. */
@@ -125,12 +132,12 @@ class HVAndOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends Int3Buff[HVAnd
 }
 
 /** A polygon where the vertices are specified in [[HVAndOffset]]s. */
-class HVAndOffsetPolygon(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike with PolygonLikeInt3[HVAndOffset]
-{ override type ThisT = HVAndOffsetPolygon
+class PolygonHVAndOffset(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike with PolygonLikeInt3[HVAndOffset]
+{ override type ThisT = PolygonHVAndOffset
   override type SideT = LineSegHVAndOffset
   override def typeStr: String = "HVAndOffsetPolygon"
 
-  override def fromArray(array: Array[Int]): HVAndOffsetPolygon = new HVAndOffsetPolygon(array)
+  override def fromArray(array: Array[Int]): PolygonHVAndOffset = new PolygonHVAndOffset(array)
 
   @inline def side(index: Int): LineSegHVAndOffset = LineSegHVAndOffset(vert(index), ife(index == vertsNum - 1, vert(0), vert(index + 1)))
 
