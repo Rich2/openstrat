@@ -162,7 +162,7 @@ package object geom
     }
 
     /** Converts to a [[PolygonLike]] with points of type A. */
-    def toPolygon[AA <: PolygonLike[A]](implicit builder: PolygonBuilderData[A, AA]): AA =
+    def toPolygon[AA <: PolygonLike[A]](implicit builder: PolygonLikeMapBuilder[A, AA]): AA =
     { val len = thisIter.size
       val res = builder.uninitialised(len)
       thisIter.iForeach((i, a) => res.unsafeSetElem(i, a))

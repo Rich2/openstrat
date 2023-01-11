@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package geom
-import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
+import annotation.unchecked.uncheckedVariance
 
 /** A type class for the building of efficient compact Immutable Arrays. Instances for this type class for classes / traits you control should go in
  * the companion object of B not the companion object of BB. This is different from the related ArrBinder[BB] type class where instance should go into
@@ -9,11 +9,9 @@ import collection.mutable.ArrayBuffer, annotation.unchecked.uncheckedVariance
  * used directly by end users. */
 trait PolygonLikeMapBuilder[B, +BB <: PolygonLike[B]] extends SeqLikeMapBuilder[B, BB @uncheckedVariance]
 
-trait PolygonBuilderData[B, +BB <: PolygonLike[B]] extends PolygonLikeMapBuilder[B, BB]
-
 /** Trait for creating the line path builder instances for the [[PolygonLikeMapBuilder]] type class, for classes / traits you control, should go in the
  *  companion  object of B. The first type parameter is called B, because to corresponds to the B in ```map(f: A => B): ArrB``` function. */
-trait PolygonValueNsBuilder[B <: ValueNElem, BB <: PolygonValueN[B]] extends PolygonBuilderData[B, BB] with ValueNSeqLikeCommonBuilder[BB]
+trait PolygonValueNsBuilder[B <: ValueNElem, BB <: PolygonValueN[B]] extends PolygonLikeMapBuilder[B, BB] with ValueNSeqLikeCommonBuilder[BB]
 
 /** Trait for creating the builder type class instances for [[PolygonLikeDblN]] final classes. Instances for the [[PolygonLikeMapBuilder]] type class, for classes
  *  / traits you control, should go in the companion object of B. The first type parameter is called B, because to corresponds to the B in
