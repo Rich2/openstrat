@@ -114,6 +114,14 @@ trait Sequ[+A] extends Any with SeqNoName[A @uncheckedVariance]
     res
   }
 
+  /** Specialised map to an immutable [[Arr]] of B. Applies the supplied function to every
+   * element of this sequence. */
+  /*def optMap[B, ArrB <: Arr[B]](f: A => Option[B])(implicit ev: ArrMapBuilder[B, ArrB]): ArrB = {
+    val res = ev.newBuff()// ev.uninitialised(length)
+    foreach(a => f(a).foreach(b => res.grow(b))// ev.indexSet(res, i, f(a)))
+    ev.  res
+  }*/
+
   /** A map operation where the return type of the [[SeqLike]] is explicitly given by the the first parameter. */
   def mapTo[B, BB <: SeqLike[B]](build: SeqLikeMapBuilder[B, BB])(f: A => B): BB =
   { val res = build.uninitialised(length)

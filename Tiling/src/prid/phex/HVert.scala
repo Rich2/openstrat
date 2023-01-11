@@ -27,7 +27,8 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with TCoord
     case _ => false
   }
 
-  def adjHCens: HVDirnArr = ife(hexIsUp, HVDirnArr(HVUp, HVDR, HVDL), HVDirnArr(HVUR, HVDn, HVUL))
+  def adjHCenDirns: HVDirnArr = ife(hexIsUp, HVDirnArr(HVUp, HVDR, HVDL), HVDirnArr(HVUR, HVDn, HVUL))
+  //def adjHCenCorners(implicit sys: HGridSys): RArr[(HCen, Int)] = adjHCenDirns.map
 }
 
 object HVert

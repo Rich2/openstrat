@@ -16,6 +16,8 @@ sealed trait HVDirn extends Int1Elem
   def int1: Int
 
   def opposite: HVDirn
+
+  def corner(hv: HVert): Int
 }
 
 object HVDirn
@@ -40,6 +42,8 @@ object HVExact extends HVDirn
   override def opposite: HVDirn = HVExact
   override def dVertR: Int = 0
   override def dVertC: Int = 0
+
+  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 3)
 }
 
 /** Hex Vert Up offset. */
@@ -50,6 +54,7 @@ object HVUp extends HVDirn
   override def opposite: HVDirn = HVDn
   override def dVertR: Int = 2
   override def dVertC: Int = 0
+  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 0)
 }
 
 /** Hex Vert Up Right offset. */
@@ -60,6 +65,7 @@ object HVUR extends HVDirn
   override def opposite: HVDirn = HVDL
   override def dVertR: Int = 0
   override def dVertC: Int = 2
+  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 4, 1)
 }
 
 object HVDR extends HVDirn
@@ -69,6 +75,7 @@ object HVDR extends HVDirn
   override def opposite: HVDirn = HVUL
   override def dVertR: Int = 0
   override def dVertC: Int = 2
+  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 2, 5)
 }
 
 object HVDn extends HVDirn
@@ -78,6 +85,7 @@ object HVDn extends HVDirn
   override def opposite: HVDirn = HVUp
   override def dVertR: Int = -2
   override def dVertC: Int = 0
+  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 0)
 }
 
 object HVDL extends HVDirn
@@ -87,6 +95,7 @@ object HVDL extends HVDirn
   override def opposite: HVDirn = HVUR
   override def dVertR: Int = 0
   override def dVertC: Int = -2
+  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 4, 1)
 }
 
 object HVUL extends HVDirn
@@ -96,6 +105,7 @@ object HVUL extends HVDirn
   override def opposite: HVDirn = HVDR
   override def dVertR: Int = 0
   override def dVertC: Int = -2
+  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 3)
 }
 
 class HVDirnArr(val unsafeArray: Array[Int]) extends Int1Arr[HVDirn]
