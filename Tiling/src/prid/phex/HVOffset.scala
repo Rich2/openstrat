@@ -28,10 +28,10 @@ class HVOffsetNode(val unsafeInt: Int) extends AnyVal
     HVAndOffset(hVert, dirn, magnitude)
   }
 
-  def verts(hVert: HVert) = unsafeInt %% 4 match {
-    case 0 => RArr(HVAndOffset.none(hVert))
-    case 1 => RArr(v1(hVert))
-    case 2 => RArr(v1(hVert), v2(hVert))
+  def verts(hVert: HVert): HVAndOffsetArr = unsafeInt %% 4 match
+  { case 0 => HVAndOffsetArr(HVAndOffset.none(hVert))
+    case 1 => HVAndOffsetArr(v1(hVert))
+    case 2 => HVAndOffsetArr(v1(hVert), v2(hVert))
     case n  => excep(s"$n is an invalid value for offsets.")
   }
 }

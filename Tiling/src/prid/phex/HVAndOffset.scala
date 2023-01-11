@@ -112,6 +112,10 @@ class HVAndOffsetArr(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike wit
   override def fromArray(array: Array[Int]): HVAndOffsetArr = new HVAndOffsetArr(array)
 }
 
+object HVAndOffsetArr extends Int3SeqLikeCompanion [HVAndOffset, HVAndOffsetArr]
+{ override def fromArray(array: Array[Int]): HVAndOffsetArr = new HVAndOffsetArr(array)
+}
+
 /** Specialised [[Buff]] class for [[HVAndOffset]]s. The [[HVert]] with offset class. */
 class HVAndOffsetBuff(val unsafeBuffer: ArrayBuffer[Int]) extends Int3Buff[HVAndOffset]
 { override type ThisT = HVAndOffsetBuff
