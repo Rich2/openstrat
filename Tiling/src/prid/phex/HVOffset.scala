@@ -57,11 +57,22 @@ object HCorner
  * entries. */
 class HVertOffsetLayer(val unsafeArray: Array[Int])
 {
-  def corner(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HCorner = new HCorner(unsafeArray(gridSys.arrIndex(hCen) * 6 + vertNum))
+  def unsafeIndex(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.arrIndex(hCen) * 6 + vertNum
+  def corner(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HCorner = new HCorner(unsafeArray(unsafeIndex(hCen, vertNum)))
 
   def corner(hCenR: Int, hCenC: Int, vertNum: Int)(implicit gridSys: HGridSys): HCorner =
     new HCorner(unsafeArray(gridSys.arrIndex(hCenR, hCenC) * 6 + vertNum))
 
   def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): Arr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
-  def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHVAndOffset = tileCorners(hCen).iFlatMapPolygon{ (i, hv) => hv.verts(hCen.verts(i)) }
+  def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHVAndOffset = {
+    tileCorners(hCen).foreach(c => deb(c.unsafeInt.toString))
+    tileCorners(hCen).iFlatMapPolygon{ (i, corn) => corn.verts(hCen.verts(i)) }
+  }
+
+  def setSingle(hCen: HCen, vertNum: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
+  { val corner = HCorner.single(dirn, magnitude)
+    deb(s"set ${corner.unsafeInt}")
+    unsafeArray(unsafeIndex(hCen, vertNum)) = corner.unsafeInt
+    deb(unsafeArray(unsafeIndex(hCen, vertNum)).toString)
+  }
 }

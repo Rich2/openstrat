@@ -20,7 +20,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   //def polyOffs2 = polyOffs.map{ poly => poly.flatMap(hv => offsets.apply(hv))}
   val t1: PolygonHVAndOffset = offsets.tilePoly(HCen(140, 516))
   def t2: Polygon = t1.map(_.toPt2Reg(proj.transCoord(_)))
-  def t3 = t2.fill(Colour.Red)
+  def t3: PolygonFill = t2.fill(Colour.Red)
 
   /** Note we only represent links, no outer sides, so as the side terrain can use data from both of its adjacent tiles. */
   def straits: GraphicElems = sTerrs.projLinkTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
@@ -47,7 +47,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def pt: Pt2 = sd.toPt2Reg(proj.transCoord(_))
   def sdg: GraphicElems = pt.textArrow("off", colour = Colour.Red)
 
-  override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines2 ++ hexStrs2 ++ sdg +% t3
+  override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines2 +% t3 ++ hexStrs2 ++ sdg
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>

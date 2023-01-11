@@ -37,6 +37,7 @@ object DLessScen1 extends DLessScen
 
 object DLessScen2 extends DLessScen
 {
+  deb("Scen 2")
   override def turn: Int = 0
 
   override implicit val gridSys = Terr320E0.regGrid
@@ -44,4 +45,5 @@ object DLessScen2 extends DLessScen
   override lazy val terrs: HCenLayer[WTile] = Terr320E0.regTerrs
   override val sTerrs: HSideBoolLayer = Terr320E0.regSTerrs
   override def offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
+  offsets.setSingle(HCen(140, 516), 4, HVUL, 2)
 }
