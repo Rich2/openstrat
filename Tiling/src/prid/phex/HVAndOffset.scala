@@ -92,6 +92,9 @@ object HVAndOffset
 
   /** Implicit type class instance / evidence for the [[HVAndOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
   implicit val polygonBuildEv: PolygonHVAndOffsetMapBuilder = new PolygonHVAndOffsetMapBuilder
+
+  /** Implicit type class instance / evidence for the [[HVAndOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
+  implicit val polygonFlatBuildEv: PolygonHVAndOffsetFlatBuilder = new PolygonHVAndOffsetFlatBuilder
 }
 
 /** A Line segment where the vertices of specified in [[HVAndOffset]]s. */
@@ -120,8 +123,7 @@ class HVAndOffsetArr(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike wit
 object HVAndOffsetArr extends Int3SeqLikeCompanion [HVAndOffset, HVAndOffsetArr]
 { override def fromArray(array: Array[Int]): HVAndOffsetArr = new HVAndOffsetArr(array)
 
-  /** Implicit type class instance / evidence for the [[HVAndOffset]] type class instance of [[PolygonLikeMapBuilder]]. */
-  implicit val polygonFlatBuildEv: PolygonHVAndOffsetFlatBuilder = new PolygonHVAndOffsetFlatBuilder
+
 }
 
 /** Specialised [[Buff]] class for [[HVAndOffset]]s. The [[HVert]] with offset class. */

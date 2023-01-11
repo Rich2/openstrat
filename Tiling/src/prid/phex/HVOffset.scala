@@ -15,8 +15,10 @@ object HVOffset
   def fromInt(inp: Int): HVOffset = new HVOffset(inp)
 }
 
-/** This class encodes a single or two [[HVertoffset]]s. */
-class HVOffsetNode(val unsafeInt: Int) extends AnyVal
+/** Hex tile corner. An [[HVert]] is shared between 3 hex tiles and 3 [[HSide]]s. An [[HCoroner]] only applies to a single hex tile. Hence unless it
+ * is on the edge of the [[HGridSys]] there will be 3 [[HCorner]]s associated with each [[HVert]]. This class encodes a single or two
+ * [[HVertoffset]]s. */
+class HCorner(val unsafeInt: Int) extends AnyVal
 {
   def v1(hVert: HVert): HVAndOffset =
   { val dirn = HVDirn.fromInt((unsafeInt %% 32) / 4)
@@ -38,16 +40,16 @@ class HVOffsetNode(val unsafeInt: Int) extends AnyVal
   }
 }
 
-/** Companion object for [[HVOffsetNode]], contains factory apply methods for creating no offset, single and double [[HVoffsets]]. */
-object HVOffsetNode
-{ def noOffset: HVOffsetNode = new HVOffsetNode(0)
+/** Companion object for [[HCorner]], contains factory apply methods for creating no offset, single and double [[HVoffsets]]. */
+object HCorner
+{ def noOffset: HCorner = new HCorner(0)
 
-  def single(dirn: HVDirn, magnitude : Int): HVOffsetNode = new HVOffsetNode(1 + 4 * dirn.intValue + magnitude * 32)
+  def single(dirn: HVDirn, magnitude : Int): HCorner = new HCorner(1 + 4 * dirn.intValue + magnitude * 32)
 
-  def double(dirn1: HVDirn, magnitude1 : Int, dirn2: HVDirn, magnitude2 : Int): HVOffsetNode =
+  def double(dirn1: HVDirn, magnitude1 : Int, dirn2: HVDirn, magnitude2 : Int): HCorner =
   { val v1 = dirn1.intValue * 4 + magnitude1 * 32
     val v2 = dirn2.intValue * 4 + magnitude2 * 32
-    new HVOffsetNode(1 + v1 + v2 * 256)
+    new HCorner(1 + v1 + v2 * 256)
   }
 }
 
@@ -55,11 +57,11 @@ object HVOffsetNode
  * entries. */
 class HVertOffsetLayer(val unsafeArray: Array[Int])
 {
-  def node(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetNode = new HVOffsetNode(unsafeArray(gridSys.arrIndex(hCen) * 6 + vertNum))
+  def corner(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HCorner = new HCorner(unsafeArray(gridSys.arrIndex(hCen) * 6 + vertNum))
 
-  def node(hCenR: Int, hCenC: Int, vertNum: Int)(implicit gridSys: HGridSys): HVOffsetNode =
-    new HVOffsetNode(unsafeArray(gridSys.arrIndex(hCenR, hCenC) * 6 + vertNum))
+  def corner(hCenR: Int, hCenC: Int, vertNum: Int)(implicit gridSys: HGridSys): HCorner =
+    new HCorner(unsafeArray(gridSys.arrIndex(hCenR, hCenC) * 6 + vertNum))
 
-  def tileNodes(hCen: HCen)(implicit gridSys: HGridSys): Arr[HVOffsetNode] = iUntilMap(6){ i => node(hCen, i) }
-  //def hVertAndOffsetPolygon(hCen: HCen)(implicit gridSys: HGridSys)/*: HVertAndOffsetPolygon*/ =  hVertOffsetsPolygon(hCen).mapPolygon()     // iUntilMap(6){ i => apply(hCen, i)}
+  def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): Arr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
+  def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHVAndOffset = tileCorners(hCen).iFlatMapPolygon{ (i, hv) => hv.verts(hCen.verts(i)) }
 }
