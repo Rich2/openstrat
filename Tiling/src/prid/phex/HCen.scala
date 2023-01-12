@@ -20,7 +20,7 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def v5: HVert = HVert(r + 1 , c - 2)
 
   /** The vertex sequence in [[HVert]] coordinates. This starts with the upper right vertex and proceeds clockwise to the upper vertex. */
-  def verts: HVertArr = HCen.vertsOfHex00.map(hv => hv + this)
+  def verts: HVertArr = HCen.vertsOfHex00.map(hv => hv.addHCen(this))
 
   /** The polygon of this tile, specified in [[HVert]] coordinates. */
   def hVertPolygon: PolygonHC = verts.toPolygon
