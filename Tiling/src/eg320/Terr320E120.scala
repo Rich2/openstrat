@@ -38,5 +38,5 @@ object Terr320E120 extends Long320Terrs
     res
   }
 
-  override val offsets: CornerLayer = grid.newHVertOffsetLayer
+  override val corners: CornerLayer = grid.newHVertOffsetLayer
 }

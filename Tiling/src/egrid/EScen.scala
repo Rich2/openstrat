@@ -8,7 +8,7 @@ trait EScenBasic extends HSysScen
 
   def terrs: HCenLayer[WTile]
   def sTerrs: HSideBoolLayer
-  val offsets: CornerLayer
+  val corners: CornerLayer
   def title: String = "EScenWarm"
 }
 
@@ -18,7 +18,7 @@ object EScenBasic
   def apply(gridSys: EGridSys, terrs: HCenLayer[WTile], sTerrs: HSideBoolLayer, offsets: CornerLayer, title: String = "EScenBasic"): EScenBasic =
     new EScenWarmImp(gridSys, terrs, sTerrs, offsets, title)
 
-  class EScenWarmImp(val gridSys: EGridSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer, override val offsets: CornerLayer,
+  class EScenWarmImp(val gridSys: EGridSys, override val terrs: HCenLayer[WTile], val sTerrs: HSideBoolLayer, override val corners: CornerLayer,
                      override val title: String = "EScenWarm") extends EScenBasic
 }
 
@@ -45,5 +45,5 @@ trait LongTerrs
   /** The straits. */
   def sTerrs: HSideBoolLayer
 
-  def offsets: CornerLayer
+  def corners: CornerLayer
 }

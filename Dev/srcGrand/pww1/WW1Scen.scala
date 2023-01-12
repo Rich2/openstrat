@@ -15,7 +15,7 @@ object WW1Scen1 extends WW1Scen
 
   override def sTerrs: HSideBoolLayer = Terr80E0.frontSTerrs
 
-  override val offsets: CornerLayer = ???
+  override val corners: CornerLayer = ???
 }
 
 object WW1Scen2 extends WW1Scen
@@ -25,5 +25,5 @@ object WW1Scen2 extends WW1Scen
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
   override def sTerrs: HSideBoolLayer = Terr80E0.sTerrs
 
-  override val offsets: CornerLayer = ???
+  override val corners: CornerLayer = ???
 }

@@ -73,7 +73,7 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */
-  override def sideArrIndex(r: Int, c: Int): Int =
+  override def sideLayerArrayIndex(r: Int, c: Int): Int =
   { val cDelta = r match
     { case r if r == topSideR => c - rowLeftCenC(r - 1) + 1
       case r if r == bottomSideR => c - rowLeftCenC(r + 1) + 1

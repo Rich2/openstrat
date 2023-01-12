@@ -83,7 +83,7 @@ trait HGridMulti extends HGridSys with TGridMulti
   }
 
   /** Temporary implementation. */
-  final override def sideArrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.sideIndexStart + man.sideArrIndex(r, c) }
+  final override def sideLayerArrayIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.sideIndexStart + man.sideArrIndex(r, c) }
 
   /** Finds step from Start [[HCen]] to target from [[HCen]]. */
   override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))

@@ -128,7 +128,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    * Array data. */
-  override def sideArrIndex(r: Int, c: Int): Int =
+  override def sideLayerArrayIndex(r: Int, c: Int): Int =
   { val cDelta = r match
     { case r if r == topSideR  & (r - 1).div4Rem0 => c - leftCenC.roundUpTo(_.div4Rem0) + 1
       case r if r == topSideR => c - leftCenC.roundUpTo(_.div4Rem2) + 1

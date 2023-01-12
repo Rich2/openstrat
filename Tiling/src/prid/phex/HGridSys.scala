@@ -215,11 +215,11 @@ trait HGridSys extends Any with TGridSys
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
    *  Arr / Array data. */
-  @inline final def sideArrIndex(hc: HSide): Int = sideArrIndex(hc.r, hc.c)
+  @inline final def sideArrIndex(hc: HSide): Int = sideLayerArrayIndex(hc.r, hc.c)
 
   /** Gives the index into an Arr / Array of side data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array data. */
-  def sideArrIndex(r: Int, c: Int): Int
+  def sideLayerArrayIndex(r: Int, c: Int): Int
 
   /** foreach Hex side's coordinate HSide, calls the effectual function. */
   def sidesForeach(f: HSide => Unit): Unit
