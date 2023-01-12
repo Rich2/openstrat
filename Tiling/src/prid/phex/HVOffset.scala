@@ -77,11 +77,8 @@ class HVertOffsetLayer(val unsafeArray: Array[Int])
   }
 
   def setVertSingle(r: Int, c: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit = setVertSingle(HVert(r, c), dirn, magnitude)
-  def setVertSingle(hVert: HVert, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit = {
-    val dns = hVert.adjHCenDirns
-    debvar(dns)
-    val corn = hVert.adjHCenCorners
-    debvar(corn)
-    corn.foreach{pair => setSingle(pair._1, pair._2, dirn, magnitude)}
-  }
+
+  /** Sets the same vertex offset for all three adjacent hexs. */
+  def setVertSingle(hVert: HVert, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
+    hVert.adjHCenCorners.foreach{pair => setSingle(pair._1, pair._2, dirn, magnitude)}
 }
