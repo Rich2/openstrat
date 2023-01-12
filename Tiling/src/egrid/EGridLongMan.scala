@@ -106,19 +106,20 @@ case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
     array
   }
 
-  override def sideTile1(hSide: HSide): HCen = {
-    val hCen1 = hSide.tile1Reg
+  override def sideTile1(hSide: HSide): HCen =
+  { val hCen1 = hSide.tile1Reg
     if (grid.hCenExists(hCen1)) hCen1
     else {
       val gi = ife(thisInd == 0, sys.numGrids - 2, thisInd - 1)
-      val r = hSide.r match{
-        case r if r.isEven => r
-        case r if hSide.c.div4Rem1 => r - 1
-        case r => r + 1
+      val sc = hSide.c
+      val cenR = hSide.r match
+      { case sr if sr.isEven => sr
+        case sr if (sr.div4Rem3 & sc.div4Rem1) | (sr.div4Rem1 & sc.div4Rem3) => sr + 1//These are up and to the left
+        case sr => sr - 1//These are down and to the left.
       }
 
-      val c = sys.grids(gi).rowRightCenC(r)
-      HCen(r, c)
+      val c = sys.grids(gi).rowRightCenC(cenR)
+      HCen(cenR, c)
     }
   }
 
