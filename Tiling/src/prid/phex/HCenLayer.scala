@@ -18,6 +18,8 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   def apply(gridSys: HGridSys, hc: HCen): A = unsafeArray(gridSys.arrIndex(hc))
 
   def rc(r: Int, c: Int)(implicit grid: HGridSys): A = unsafeArray(grid.arrIndex(r, c))
+  def rc(grid: HGridSys, r: Int, c: Int): A = unsafeArray(grid.arrIndex(r, c))
+
   def set(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.arrIndex(hc)) = value }
   def set(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.arrIndex(r, c)) = value }
   override def fromArray(array: Array[A]): HCenLayer[A] = new HCenLayer[A](array)
