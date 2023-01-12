@@ -7,11 +7,9 @@ trait HSysProjection extends TSysProjection
 { type GridT <: HGridSys
 
   var gChild: HGridSys
-  def hCensMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB= gChild.map(f)
+  def hCensMap[B, ArrB <: Arr[B]](f: HCen => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.map(f)
   def hCenPtMap(f: (HCen, Pt2) => GraphicElem): GraphicElems
   def hCenSizedMap(hexScale: Double = 20)(f: (HCen, Pt2) => GraphicElem): GraphicElems
-
-  //def hcPolyArrTrans(inp: PolygonHCArr)
 
   /** transforms and filters out non visible [[HSide]]s. */
   def transHSides(inp: HSideArr): LineSegArr
@@ -34,4 +32,6 @@ trait HSysProjection extends TSysProjection
   def setView(view: Any): Unit
 
   def transLineSegPairs[A2](inp: LineSegHCPairArr[A2])(implicit ct: ClassTag[A2]): LineSegPairArr[A2] = inp.optMapOnA1(transOptLineSeg(_))
+
+  def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.linksOptMap(f)
 }

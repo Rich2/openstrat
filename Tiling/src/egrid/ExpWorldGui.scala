@@ -61,6 +61,20 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
+    def lines3: GraphicElems = proj.linksOptMap{hs =>
+      val hc1 = hs.tile1Reg
+      val t1 = terrs(hc1)
+      def t2 = terrs(hs.tile2Reg)
+      sTerrs(hs) match{
+        case true => None
+        case _ if t1 != t2 => None
+        case _ => {
+          val ls: LineSeg = ???
+          Some(ls.draw(t1.contrastBW))
+        }
+      }
+    }
+
     def outerLines = proj.outerSidesDraw(3, Gold)
 
     def ifGlobe(f: HSysProjectionEarth => GraphicElems): GraphicElems = proj match
