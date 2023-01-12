@@ -35,9 +35,9 @@ object DLessScen2 extends DLessScen
   deb("Scen 2")
   override def turn: Int = 0
 
-  override implicit val gridSys = Terr320E0.regGrid
+  override implicit val gridSys: EGrid320Long = BritReg.grid
 
-  override val terrs: HCenLayer[WTile] = Terr320E0.regTerrs
-  override val sTerrs: HSideBoolLayer = Terr320E0.regSTerrs
+  override val terrs: HCenLayer[WTile] = BritReg.britTerrs
+  override val sTerrs: HSideBoolLayer = BritReg.britSTerrs
   override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
 }

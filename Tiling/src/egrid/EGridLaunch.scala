@@ -37,7 +37,7 @@ object EGridLaunch extends GuiLaunchMore
       case 14 => Scen320S11E2
       case 15 => Scen320S10E5
       case 16 => Scen320S0E11
-      case 17 => Terr320E0.regScen
+      case 17 => BritReg.regScen
       case 18 => Scen320S8E10
       case 19 => ScenNCanada
 
