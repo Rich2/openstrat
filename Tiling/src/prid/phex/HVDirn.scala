@@ -43,7 +43,7 @@ object HVExact extends HVDirn
   override def dVertR: Int = 0
   override def dVertC: Int = 0
 
-  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 3)
+  override def corner(hv: HVert): Int = 3
   override def toString: String = "HVExact"
 }
 
@@ -55,7 +55,7 @@ object HVUp extends HVDirn
   override def opposite: HVDirn = HVDn
   override def dVertR: Int = 2
   override def dVertC: Int = 0
-  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 0)
+  override def corner(hv: HVert): Int = 3
   override def toString: String = "HVUp"
 }
 
@@ -67,7 +67,7 @@ object HVUR extends HVDirn
   override def opposite: HVDirn = HVDL
   override def dVertR: Int = 0
   override def dVertC: Int = 2
-  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 4, 1)
+  override def corner(hv: HVert): Int = 4
   override def toString: String = "HVUR"
 }
 
@@ -78,7 +78,7 @@ object HVDR extends HVDirn
   override def opposite: HVDirn = HVUL
   override def dVertR: Int = 0
   override def dVertC: Int = 2
-  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 2, 5)
+  override def corner(hv: HVert): Int = 5
   override def toString: String = "HVDR"
 }
 
@@ -89,7 +89,7 @@ object HVDn extends HVDirn
   override def opposite: HVDirn = HVUp
   override def dVertR: Int = -2
   override def dVertC: Int = 0
-  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 0)
+  override def corner(hv: HVert): Int = 0
   override def toString: String = "HVDn"
 }
 
@@ -100,7 +100,7 @@ object HVDL extends HVDirn
   override def opposite: HVDirn = HVUR
   override def dVertR: Int = 0
   override def dVertC: Int = -2
-  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 4, 1)
+  override def corner(hv: HVert): Int = 1
   override def toString: String = "HVDL"
 }
 
@@ -111,7 +111,7 @@ object HVUL extends HVDirn
   override def opposite: HVDirn = HVDR
   override def dVertR: Int = 0
   override def dVertC: Int = -2
-  override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 3)
+  override def corner(hv: HVert): Int = 2
   override def toString: String = "HVUL"
 }
 
