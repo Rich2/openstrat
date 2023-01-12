@@ -69,7 +69,7 @@ class HGridReg(val bottomCenR: Int, val topCenR: Int, val leftCenC: Int, val rig
 
   /** Gives the index into an Arr / Array of Tile data from its [[HCen]] hex tile centre coordinate. Use sideIndex and vertIndex methods to access
    *  Side and Vertex Arr / Array data. */
-  @inline def arrIndex(r: Int, c: Int): Int =
+  @inline def layerArrayIndex(r: Int, c: Int): Int =
   { val thisRow: Int = r %% 4 match
     { case 2 => (c - leftrem2CenC) / 4
       case 0 => (c - leftRem0CenC) / 4

@@ -92,7 +92,7 @@ class HGridIrr(val bottomCenR: Int, val unsafeRowsArray: Array[Int]) extends HGr
 
   @inline protected def unsafeRowArrayindex(row: Int): Int = row - bottomCenR
 
-  override def arrIndex(r: Int, c: Int): Int =
+  override def layerArrayIndex(r: Int, c: Int): Int =
   { val wholeRows = iUntilIntSum(bottomCenR, r, 2){ r => rowNumTiles(r) }
     wholeRows + (c - rowLeftCenC(r)) / 4
   }

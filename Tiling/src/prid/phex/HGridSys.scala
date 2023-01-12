@@ -13,6 +13,8 @@ trait HGridSys extends Any with TGridSys
     i
   }
 
+  def numCorners: Int = numTiles * 6
+
   /** The number of sides in the hex grid system. */
   final lazy val numSides: Int =
   { var i = 0
@@ -68,11 +70,14 @@ trait HGridSys extends Any with TGridSys
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr / Array
    *  data. */
-  @inline final def arrIndex(hc: HCen): Int = arrIndex(hc.r, hc.c)
+  @inline final def layerArrayIndex(hc: HCen): Int = layerArrayIndex(hc.r, hc.c)
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HCen]]. Use sideIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array SeqDef data. */
-  def arrIndex(r: Int, c: Int): Int
+  def layerArrayIndex(r: Int, c: Int): Int
+
+  /** Gives the index into the unsafe backing [[Array]] of a [[CornerLayer]]. */
+  def cornerLayerArrayIndex(hc: HCen, vertIndex: Int): Int = layerArrayIndex(hc) * 6 + vertIndex
 
   /** For each row combine data layer into RArr[HCenRowPair]. May be superceded */
   def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]]
@@ -172,20 +177,29 @@ trait HGridSys extends Any with TGridSys
     res
   }
 
-  /** Creates new [[HCenLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s [[HCenLayer]] data layer. */
-  def newHCenSubLayer[A <: AnyRef](superGrid: HGridSys, superLayer: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] =
+  /** Spawns a new [[HCenLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s [[HCenLayer]] data layer. */
+  def hCenLayerSpawn[A <: AnyRef](superGrid: HGridSys, superLayer: HCenLayer[A])(implicit ct: ClassTag[A]): HCenLayer[A] =
   { val array: Array[A] = new Array[A](numTiles)
-    foreach{hc => array(arrIndex(hc)) = superLayer(hc)(superGrid)}
+    foreach{hc => array(layerArrayIndex(hc)) = superLayer(hc)(superGrid)}
     new HCenLayer(array)
   }
 
-  def newHVertOffsetLayer: HVertOffsetLayer = new HVertOffsetLayer(new Array[Int](numTiles * 6))
+  def newHVertOffsetLayer: CornerLayer = new CornerLayer(new Array[Int](numCorners))
 
-  /** Creates new data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
-  def newHSideBoolSubLayer(superGrid: HGridSys, superLayer: HSideBoolLayer): HSideBoolLayer =
+  /** Spawns a new [[HSideBoolLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
+  def sideBoolLayerSpawn(superGrid: HGridSys, superLayer: HSideBoolLayer): HSideBoolLayer =
   { val array: Array[Boolean] = new Array[Boolean](numSides)
-    sidesForeach { hc => array(sideArrIndex(hc)) = superLayer(hc)(superGrid) }
+    sidesForeach { sc => array(sideArrIndex(sc)) = superLayer(sc)(superGrid) }
     new HSideBoolLayer(array)
+  }
+
+  /** Spawns a new [[CornerLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
+  def cornerLayerSpawn(superGrid: HGridSys, superLayer:  CornerLayer):  CornerLayer = {
+    val array: Array[Int] = new Array[Int](numCorners)
+    foreach { hc =>
+      iUntilForeach(6){ i => array(cornerLayerArrayIndex(hc, i)) = superLayer.unsafeArray(superGrid.cornerLayerArrayIndex(hc, i)) }
+    }
+    new CornerLayer(array)
   }
 
   /** New hex tile data layer of [[RArr]][A]. */

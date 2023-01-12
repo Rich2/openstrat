@@ -59,8 +59,8 @@ object Terr80E0 extends LongTerrs
     res
   }
 
-  override val offsets: HVertOffsetLayer = grid.newHVertOffsetLayer
+  override val offsets: CornerLayer = grid.newHVertOffsetLayer
 
-  def frontTerrs: HCenLayer[WTile] = EGrid80.westernFront.newHCenSubLayer(grid, terrs)
-  def frontSTerrs: HSideBoolLayer = EGrid80.westernFront.newHSideBoolSubLayer(grid, sTerrs)
+  def frontTerrs: HCenLayer[WTile] = EGrid80.westernFront.hCenLayerSpawn(grid, terrs)
+  def frontSTerrs: HSideBoolLayer = EGrid80.westernFront.sideBoolLayerSpawn(grid, sTerrs)
 }

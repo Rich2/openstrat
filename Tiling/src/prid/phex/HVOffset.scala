@@ -2,8 +2,8 @@
 package ostrat; package prid; package phex
 import geom._
 
-/** [[HVert]] offset. The direction and magnitude of an [[HVAndOffset]]. These values are stored in an [[HVertOffsetLayer]]. The value of the
- *  [[HVert]] can be determined by its position in [[HVertOffsetLayer]]. */
+/** [[HVert]] offset. The direction and magnitude of an [[HVAndOffset]]. These values are stored in an [[CornerLayer]]. The value of the
+ *  [[HVert]] can be determined by its position in [[CornerLayer]]. */
 class HVOffset(val int1: Int) extends AnyVal with Int1Elem
 { def hvDirn: HVDirn = HVDirn.fromInt(int1 %% 8)
   def magnitude: Int = int1 / 8
@@ -55,13 +55,13 @@ object HCorner
 
 /** [[HGridSys]] data layer class that allows the hex tile vertices to be shifted by a small amount to create more pleasing terrain and to feature
  *  islands, straits and other tile side features. Every [[HCen]] hex tile in the [[HGridSys]] has 6 vertex entries. */
-class HVertOffsetLayer(val unsafeArray: Array[Int])
+class CornerLayer(val unsafeArray: Array[Int])
 {
-  def unsafeIndex(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.arrIndex(hCen) * 6 + vertNum
+  def unsafeIndex(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.layerArrayIndex(hCen) * 6 + vertNum
   def corner(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HCorner = new HCorner(unsafeArray(unsafeIndex(hCen, vertNum)))
 
   def corner(hCenR: Int, hCenC: Int, vertNum: Int)(implicit gridSys: HGridSys): HCorner =
-    new HCorner(unsafeArray(gridSys.arrIndex(hCenR, hCenC) * 6 + vertNum))
+    new HCorner(unsafeArray(gridSys.layerArrayIndex(hCenR, hCenC) * 6 + vertNum))
 
   def tileCorners(hCen: HCen)(implicit gridSys: HGridSys): Arr[HCorner] = iUntilMap(6){ i => corner(hCen, i) }
   def tileCorners(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): Arr[HCorner] = iUntilMap(6){ i => corner(cenR, cenC, i) }

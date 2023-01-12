@@ -70,8 +70,8 @@ object EGrid320
 
   def scen0: EScenBasic =
   { val grid: EGridLongFull = Terr320E0.grid// e0(124)
-    val terrs: HCenLayer[WTile] = grid.newHCenSubLayer(Terr320E0.grid, Terr320E0.terrs)
-    val sTerrs = grid.newHSideBoolSubLayer(Terr320E0.grid, Terr320E0.sTerrs)
+    val terrs: HCenLayer[WTile] = grid.hCenLayerSpawn(Terr320E0.grid, Terr320E0.terrs)
+    val sTerrs = grid.sideBoolLayerSpawn(Terr320E0.grid, Terr320E0.sTerrs)
     val offsets = grid.newHVertOffsetLayer
     EScenBasic(grid, terrs, sTerrs, offsets, "320km 0E")
 

@@ -20,7 +20,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
-  val offsets: HVertOffsetLayer = scen.offsets
+  val offsets: CornerLayer = scen.offsets
   def polyOffs: HCenArr = proj.hCensMap(hc => hc)
 
   def tileOff(r: Int, c: Int): PolygonFill = offsets.tilePoly(r, c).map(_.toPt2Reg(proj.transCoord(_))).fill(terrs.rc(r, c).colour)

@@ -9,10 +9,10 @@ class HCenBuffLayer[A <: AnyRef](val unsafeArr: Array[ArrayBuffer[A]])
   def appendAt(y: Int, c: Int, value: A)(implicit grider: HGridSys): Unit = appendAt(HCen(y, c), value)
 
   /** Appends value to the array buffer at the given [[HCen]] location. */
-  def appendAt(hCen: HCen, value: A)(implicit grider: HGridSys): Unit = unsafeArr(grider.arrIndex(hCen)).append(value)
+  def appendAt(hCen: HCen, value: A)(implicit grider: HGridSys): Unit = unsafeArr(grider.layerArrayIndex(hCen)).append(value)
 
   /** Foreach's over the [[HCen]] and the corresponding [[ArrayBuffer]] value. */
-  def foreach(f: (HCen, ArrayBuffer[A]) => Unit)(implicit grider: HGridSys): Unit = grider.foreach{ r => f(r, unsafeArr(grider.arrIndex(r))) }
+  def foreach(f: (HCen, ArrayBuffer[A]) => Unit)(implicit grider: HGridSys): Unit = grider.foreach{ r => f(r, unsafeArr(grider.layerArrayIndex(r))) }
 }
 
 /** Companion object for the hex (centres) grid Array of [[ArrayBuffer]] classes. */

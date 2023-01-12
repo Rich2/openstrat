@@ -5,15 +5,15 @@ import reflect.ClassTag
 /** A [[HGridSys]] [[HCen]] data layer of [[RArr]]s. */
 class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
 {
-  def apply(hc: HCen)(implicit grider: HGridSys): RArr[A] = new RArr(unsafeArray(grider.arrIndex(hc)))
-  def apply(r: Int, c: Int)(implicit grider: HGridSys): RArr[A] = new RArr(unsafeArray(grider.arrIndex(r, c)))
+  def apply(hc: HCen)(implicit grider: HGridSys): RArr[A] = new RArr(unsafeArray(grider.layerArrayIndex(hc)))
+  def apply(r: Int, c: Int)(implicit grider: HGridSys): RArr[A] = new RArr(unsafeArray(grider.layerArrayIndex(r, c)))
 
   def set(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = set(HCen(r, c), value)
 
   def set(hc: HCen, values: A*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit =
   { val newElem: Array[A] = new Array[A](values.length)
     values.iForeach((i, v) => newElem(i) = v)
-    unsafeArray(grider.arrIndex(hc)) = newElem
+    unsafeArray(grider.layerArrayIndex(hc)) = newElem
   }
 
   def setSame(value: A, hcs: HCen*)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = hcs.foreach{ hc => set(hc, value) }
@@ -21,11 +21,11 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
   def prepend(r: Int, c: Int, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit = prepend(HCen(r, c), value)
 
   def prepend(hc: HCen, value: A)(implicit grider: HGridSys, ct: ClassTag[A]): Unit =
-  { val oldElem =  unsafeArray(grider.arrIndex(hc))
+  { val oldElem =  unsafeArray(grider.layerArrayIndex(hc))
     val newElem: Array[A] = new Array[A](oldElem.length + 1)
     newElem(0) = value
     oldElem.copyToArray(newElem, 1)
-    unsafeArray(grider.arrIndex(hc)) = newElem
+    unsafeArray(grider.layerArrayIndex(hc)) = newElem
   }
   //    def prepends(value : A, roords: Roord*)(implicit grid: TileGridOld): Unit = roords.foreach{ r =>  thisRefs.unsafeArr(grid.arrIndex(r)) ::= value }
 

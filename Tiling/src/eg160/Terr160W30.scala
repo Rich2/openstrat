@@ -31,17 +31,17 @@ object Terr160W30 extends LongTerrs
     res
   }
 
-  override val offsets: HVertOffsetLayer = grid.newHVertOffsetLayer
+  override val offsets: CornerLayer = grid.newHVertOffsetLayer
 
   //def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
 
-  def regTerrs: HCenLayer[WTile] = EGrid160.britGrid.newHCenSubLayer(EGrid160.e0(138), terrs)
+  def regTerrs: HCenLayer[WTile] = EGrid160.britGrid.hCenLayerSpawn(EGrid160.e0(138), terrs)
 
   def regScen: EScenBasic = new EScenBasic {
     override implicit val gridSys: EGrid160LongPart = EGrid160.britGrid// regGrid
     override val terrs: HCenLayer[WTile] = regTerrs
     override val sTerrs: HSideBoolLayer = gridSys.newSideBools
-    override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
+    override val offsets: CornerLayer = gridSys.newHVertOffsetLayer
     sTerrs.setTruesPairs((142, 508), (143, 507))(gridSys)
   }
 }

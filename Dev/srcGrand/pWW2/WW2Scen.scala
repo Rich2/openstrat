@@ -13,5 +13,5 @@ object WW2Scen1 extends WW2Scen
   override val terrs: HCenLayer[WTile] = Scen320S0E11.terrs
   override def sTerrs: HSideBoolLayer = Scen320S0E11.sTerrs
 
-  override val offsets: HVertOffsetLayer = ???
+  override val offsets: CornerLayer = ???
 }

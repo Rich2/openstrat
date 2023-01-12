@@ -61,5 +61,5 @@ object Terr80E30  extends LongTerrs
     res
   }
 
-  override val offsets: HVertOffsetLayer = grid.newHVertOffsetLayer
+  override val offsets: CornerLayer = grid.newHVertOffsetLayer
 }

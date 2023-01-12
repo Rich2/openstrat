@@ -14,5 +14,5 @@ object NapScen2 extends NapScen
   override val terrs: HCenLayer[WTile] = Terr160E0.terrs
   override def sTerrs: HSideBoolLayer = Terr160E0.sTerrs
 
-  override val offsets: HVertOffsetLayer = ???
+  override val offsets: CornerLayer = ???
 }

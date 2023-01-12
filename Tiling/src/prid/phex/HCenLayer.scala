@@ -12,16 +12,16 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. The appropriate index is found from the implicit [[HGridSys]].
    * There is an alterntive nme overload where the [[HGridSys]] is passed explicitly as the first paremter. */
-  def apply(hc: HCen)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.arrIndex(hc))
+  def apply(hc: HCen)(implicit gridSys: HGridSys): A = unsafeArray(gridSys.layerArrayIndex(hc))
 
   /** Apply method returns a data element from this data layer for the given [[HCen]]. */
-  def apply(gridSys: HGridSys, hc: HCen): A = unsafeArray(gridSys.arrIndex(hc))
+  def apply(gridSys: HGridSys, hc: HCen): A = unsafeArray(gridSys.layerArrayIndex(hc))
 
-  def rc(r: Int, c: Int)(implicit grid: HGridSys): A = unsafeArray(grid.arrIndex(r, c))
-  def rc(grid: HGridSys, r: Int, c: Int): A = unsafeArray(grid.arrIndex(r, c))
+  def rc(r: Int, c: Int)(implicit grid: HGridSys): A = unsafeArray(grid.layerArrayIndex(r, c))
+  def rc(grid: HGridSys, r: Int, c: Int): A = unsafeArray(grid.layerArrayIndex(r, c))
 
-  def set(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.arrIndex(hc)) = value }
-  def set(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.arrIndex(r, c)) = value }
+  def set(hc: HCen, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.layerArrayIndex(hc)) = value }
+  def set(r: Int, c: Int, value: A)(implicit gridSys: HGridSys): Unit = { unsafeArray(gridSys.layerArrayIndex(r, c)) = value }
   override def fromArray(array: Array[A]): HCenLayer[A] = new HCenLayer[A](array)
 
   /** The element String allows the composition of toString for the whole collection. The syntax of the output will be reworked. */
@@ -84,7 +84,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
-    tileMultis.iForeachSingle { (i, e) =>  val c = cStart + i * 4; unsafeArray(grid.arrIndex(row, c)) = e }
+    tileMultis.iForeachSingle { (i, e) =>  val c = cStart + i * 4; unsafeArray(grid.layerArrayIndex(row, c)) = e }
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
@@ -96,7 +96,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
     val endValues = cStart + numTiles * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if (rowEnd != endValues) debexc(s"Row $row last data column ${endValues} != $rowEnd the grid row end.")
-    tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; unsafeArray(grid.arrIndex(row, c)) = e }
+    tileMultis.iForeachSingle { (i, e) => val c = cStart + i * 4; unsafeArray(grid.layerArrayIndex(row, c)) = e }
     HCen(row, cStart + (numTiles - 1) * 4)
   }
 
@@ -106,7 +106,7 @@ class HCenLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with TCen
   { val rightC = cStart + numOfCens * 4 - 4
     val rowEnd = grid.rowRightCenC(row)
     if( rowEnd < rightC) debexc(s"Row $row last data column ${rightC} > $rowEnd the grid row end.")
-    iToForeach(cStart, rightC, 4) { c => unsafeArray(grid.arrIndex(row, c)) = tileValue }
+    iToForeach(cStart, rightC, 4) { c => unsafeArray(grid.layerArrayIndex(row, c)) = tileValue }
     HCen(row, rightC)
   }
 

@@ -18,7 +18,7 @@ object Scen320s0e1 extends EScenLongMulti
   override implicit val gridSys: EGrid320LongMulti = Grids320S0E1
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
-  override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
+  override val offsets: CornerLayer = gridSys.newHVertOffsetLayer
 }
 
 /** China - Japan. 3 Grid system for 90E, 120E and 150E. */
@@ -36,7 +36,7 @@ object Scen320ChinaJapan extends EScenLongMulti
   implicit override val gridSys: EGrid320LongMulti = Grids320ChinaJapan
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
-  override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
+  override val offsets: CornerLayer = gridSys.newHVertOffsetLayer
 }
 
 /** 4 320km grid system for 30W 0E, 30E and 60E. */
@@ -54,7 +54,7 @@ object Scen320S11E2 extends EScenLongMulti
   override implicit val gridSys: EGrid320LongMulti = Grids320S11E2
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
-  override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
+  override val offsets: CornerLayer = gridSys.newHVertOffsetLayer
 }
 
 /** 8 Grid system from 60W to 150E. */
@@ -72,7 +72,7 @@ object Scen320S10E5 extends EScenLongMulti
   override implicit val gridSys: EGrid320LongMulti = Grids320S10E5
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
-  override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
+  override val offsets: CornerLayer = gridSys.newHVertOffsetLayer
 }
 
 /** All longitudes grid system. */
@@ -90,7 +90,7 @@ object Scen320S0E11 extends EScenLongMulti
   override implicit val gridSys: EGrid320LongMulti = Grids320S0E11
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
-  override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
+  override val offsets: CornerLayer = gridSys.newHVertOffsetLayer
 }
 
 /** North America 4 Grid system for 150W, 120W, 90W, 60W. */
@@ -108,7 +108,7 @@ object Scen320S8E10 extends EScenLongMulti
   override implicit val gridSys: EGrid320LongMulti = Grids320S8E10
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
-  override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
+  override val offsets: CornerLayer = gridSys.newHVertOffsetLayer
 }
 
 /** 2 320km grid system for Northern Canada 120W and 90W. */
@@ -126,5 +126,5 @@ object ScenNCanada extends EScenLongMulti
   implicit override val gridSys: EGrid320LongMulti = GridsNCanada
   override lazy val terrs: HCenLayer[WTile] = fullTerrsSubHCenLayer
   override lazy val sTerrs: HSideBoolLayer = fullTerrsSubSideLayer
-  override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
+  override val offsets: CornerLayer = gridSys.newHVertOffsetLayer
 }

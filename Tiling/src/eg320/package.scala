@@ -10,7 +10,7 @@ package object eg320
 
   def fullTerrsSubHCenLayer(implicit subSys: EGrid320LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
-    subSys.grids(i).newHCenSubLayer(ft.grid, ft.terrs)
+    subSys.grids(i).hCenLayerSpawn(ft.grid, ft.terrs)
   }.combine
 
   def fullTerrsSubSideLayer(implicit subGrid: EGrid320LongMulti): HSideBoolLayer =
