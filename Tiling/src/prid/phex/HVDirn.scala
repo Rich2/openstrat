@@ -44,6 +44,7 @@ object HVExact extends HVDirn
   override def dVertC: Int = 0
 
   override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 3)
+  override def toString: String = "HVExact"
 }
 
 /** Hex Vert Up offset. */
@@ -55,6 +56,7 @@ object HVUp extends HVDirn
   override def dVertR: Int = 2
   override def dVertC: Int = 0
   override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 0)
+  override def toString: String = "HVUp"
 }
 
 /** Hex Vert Up Right offset. */
@@ -66,6 +68,7 @@ object HVUR extends HVDirn
   override def dVertR: Int = 0
   override def dVertC: Int = 2
   override def corner(hv: HVert): Int = ife(hv.hexIsUp, 4, 1)
+  override def toString: String = "HVUR"
 }
 
 object HVDR extends HVDirn
@@ -76,6 +79,7 @@ object HVDR extends HVDirn
   override def dVertR: Int = 0
   override def dVertC: Int = 2
   override def corner(hv: HVert): Int = ife(hv.hexIsUp, 2, 5)
+  override def toString: String = "HVDR"
 }
 
 object HVDn extends HVDirn
@@ -86,6 +90,7 @@ object HVDn extends HVDirn
   override def dVertR: Int = -2
   override def dVertC: Int = 0
   override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 0)
+  override def toString: String = "HVDn"
 }
 
 object HVDL extends HVDirn
@@ -96,6 +101,7 @@ object HVDL extends HVDirn
   override def dVertR: Int = 0
   override def dVertC: Int = -2
   override def corner(hv: HVert): Int = ife(hv.hexIsUp, 4, 1)
+  override def toString: String = "HVDL"
 }
 
 object HVUL extends HVDirn
@@ -106,6 +112,7 @@ object HVUL extends HVDirn
   override def dVertR: Int = 0
   override def dVertC: Int = -2
   override def corner(hv: HVert): Int = ife(hv.hexIsUp, 3, 3)
+  override def toString: String = "HVUL"
 }
 
 class HVDirnArr(val unsafeArray: Array[Int]) extends Int1Arr[HVDirn]

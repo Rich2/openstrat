@@ -50,6 +50,9 @@ object Terr320E0 extends Long320Terrs
     override val terrs: HCenLayer[WTile] = regTerrs
     override val sTerrs: HSideBoolLayer = regSTerrs
     override val offsets: HVertOffsetLayer = gridSys.newHVertOffsetLayer
-    offsets.setSingle(HCen(140, 516), 4, HVUL, 2)
+    offsets.setSingle(HCen(140, 512), 1, HVUp, 3)
+    offsets.setSingle(HCen(140, 516), 5, HVUp, 3)
+    offsets.setSingle(HCen(142, 514), 3, HVUp, 3)
+    offsets.setVertSingle(141, 514, HVUp, 3)
   }
 }

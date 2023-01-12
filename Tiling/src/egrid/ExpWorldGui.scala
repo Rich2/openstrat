@@ -26,8 +26,8 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   //def polyOffs2 = polyOffs.map{ poly => poly.flatMap(hv => offsets.apply(hv))}
   def t1 = offsets.tilePoly(140, 512).map(_.toPt2Reg(proj.transCoord(_))).fill(Colour.LightBlue)
   def t2 = offsets.tilePoly(140, 516).map(_.toPt2Reg(proj.transCoord(_))).fill(Colour.Red)
-
-  def ts = RArr(t1, t2)
+  def t3 = offsets.tilePoly(142, 514).map(_.toPt2Reg(proj.transCoord(_))).fill(Colour.Pink)
+  def ts = RArr(t1, t2, t3)
 
   val g0Str: String = gridSys match
   { case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
