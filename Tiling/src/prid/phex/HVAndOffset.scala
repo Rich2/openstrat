@@ -30,7 +30,7 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
     case _ => false
   }
 
-
+  /** Not sure why this is called regular. */
   def toPt2Reg(f: HCoord => Pt2)(implicit hSys: HGridSys): Pt2 =
   {
     val p1 = f(vert)

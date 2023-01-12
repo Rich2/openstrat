@@ -20,20 +20,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
-  val offsets: CornerLayer = scen.corners
-  def polyOffs: HCenArr = proj.hCensMap(hc => hc)
-
-  def tileOff(r: Int, c: Int): PolygonFill = offsets.tilePoly(r, c).map(_.toPt2Reg(proj.transCoord(_))).fill(terrs.rc(r, c).colour)
-
-  def t1: PolygonFill = tileOff(146, 514)
-  def t2: PolygonFill = tileOff(144, 512)
-  def t3: PolygonFill = tileOff(146, 510)
-  def t4: PolygonFill = tileOff(148, 512)
-  //  def t2 = tileOff(140, 516)
-  //  def t3 = tileOff(140, 512)
-
-
-  def ts = RArr(t1, t2, t3, t4)
+  val corners: CornerLayer = scen.corners
 
   val g0Str: String = gridSys match
   { case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"
@@ -60,7 +47,9 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def rcTexts2: GraphicElems = proj.ifTileScale(82, rcTexts1)
 
     def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
-    //def tiles2 = gridSys.optMap{hc => offsets.tilePoly(hc)}
+    def tiles2 = gridSys.map{hc =>
+      corners.tilePoly(hc).map{ hvo => hvo.toPt2Reg(proj.transCoord(_)) }.fill(terrs(hc).colour)
+    }
 
     def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
 
@@ -83,7 +72,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles ++ sides1 ++ lines2  ++ ts +% outerLines ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tiles2 ++ sides1 ++ lines2 +% outerLines ++ rcTexts2 ++ irrLines
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)

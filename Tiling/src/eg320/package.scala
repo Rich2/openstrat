@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
-import ostrat.pEarth._, prid.phex._
+import pEarth._, prid.phex._
 
 /** Hex tile grids for Earth with a hex scale of 320km, a C scale of 80km. */
 package object eg320
@@ -13,12 +13,11 @@ package object eg320
     subSys.grids(i).hCenLayerSpawn(ft.grid, ft.terrs)
   }.combine
 
-  def fullTerrsSubSideLayer(implicit subGrid: EGrid320LongMulti): HSideBoolLayer =
-  {
-    val arr = iToMap(0, subGrid.numGrids - 1) { i =>
-      val ft = fullTerrs((i + subGrid.headGridInt) %% 12)
+  def fullTerrsSubSideLayer(implicit subSys: EGrid320LongMulti): HSideBoolLayer =
+  { val arr = iToMap(0, subSys.numGrids - 1) { i =>
+      val ft = fullTerrs((i + subSys.headGridInt) %% 12)
       (ft.grid, ft.sTerrs)
     }
-    subGrid.sideBoolsFromPairs(arr)
+    subSys.sideBoolsFromPairs(arr)
   }
 }
