@@ -20,7 +20,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideBoolLayer = scen.sTerrs
-  val corners: CornerLayer = scen.corners
+  val corners: HCornerLayer = scen.corners
 
   val g0Str: String = gridSys match
   { case hgm: HGridMulti => s"grid0: ${hgm.grids(0).numSides}"

@@ -37,7 +37,7 @@ object Terr320E0 extends Long320Terrs
     res
   }
 
-  override val corners: CornerLayer =
+  override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
     res.setVertSingle(147, 512, HVDL, 3)
     res.setVertSingle(145, 512, HVDL, 3)
@@ -49,7 +49,7 @@ object BritReg
 { def britGrid: EGrid320Long = EGrid320Long.reg(138, 148, 0, 504, 520)
   def britTerrs: HCenLayer[WTile] = britGrid.hCenLayerSpawn(Terr320E0.grid, Terr320E0.terrs)
   def britSTerrs: HSideBoolLayer = britGrid.sideBoolLayerSpawn(Terr320E0.grid, Terr320E0.sTerrs)
-  def britCorners: CornerLayer = britGrid.cornerLayerSpawn(Terr320E0.grid, Terr320E0.corners)
+  def britCorners: HCornerLayer = britGrid.cornerLayerSpawn(Terr320E0.grid, Terr320E0.corners)
 
   def regScen: EScenBasic = new EScenBasic
   {  override def title: String = "Regular Britain"
@@ -57,6 +57,6 @@ object BritReg
 
     override val terrs: HCenLayer[WTile] = britTerrs
     override val sTerrs: HSideBoolLayer = britSTerrs
-    override val corners: CornerLayer = britCorners
+    override val corners: HCornerLayer = britCorners
   }
 }

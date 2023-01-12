@@ -22,5 +22,5 @@ object Grids80s0e1 extends EGrid80LongMulti
 object Scen80s0s1 extends EScenLongMultiDepr
 { override val gridSys: EGrid80LongMulti = Grids80s0e1
   override val longs: RArr[LongTerrs] = RArr(Terr80E0, Terr80E30)
-  override val corners: CornerLayer = gridSys.newHVertOffsetLayer
+  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
 }

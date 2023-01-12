@@ -76,7 +76,7 @@ trait HGridSys extends Any with TGridSys
    *  Array SeqDef data. */
   def layerArrayIndex(r: Int, c: Int): Int
 
-  /** Gives the index into the unsafe backing [[Array]] of a [[CornerLayer]]. */
+  /** Gives the index into the unsafe backing [[Array]] of a [[HCornerLayer]]. */
   def cornerLayerArrayIndex(hc: HCen, vertIndex: Int): Int = layerArrayIndex(hc) * 6 + vertIndex
 
   /** For each row combine data layer into RArr[HCenRowPair]. May be superceded */
@@ -184,7 +184,7 @@ trait HGridSys extends Any with TGridSys
     new HCenLayer(array)
   }
 
-  def newHVertOffsetLayer: CornerLayer = new CornerLayer(new Array[Int](numCorners))
+  def newHVertOffsetLayer: HCornerLayer = new HCornerLayer(new Array[Int](numCorners))
 
   /** Spawns a new [[HSideBoolLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
   def sideBoolLayerSpawn(superGrid: HGridSys, superLayer: HSideBoolLayer): HSideBoolLayer =
@@ -193,13 +193,13 @@ trait HGridSys extends Any with TGridSys
     new HSideBoolLayer(array)
   }
 
-  /** Spawns a new [[CornerLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
-  def cornerLayerSpawn(superGrid: HGridSys, superLayer:  CornerLayer):  CornerLayer = {
+  /** Spawns a new [[HCornerLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
+  def cornerLayerSpawn(superGrid: HGridSys, superLayer:  HCornerLayer):  HCornerLayer = {
     val array: Array[Int] = new Array[Int](numCorners)
     foreach { hc =>
       iUntilForeach(6){ i => array(cornerLayerArrayIndex(hc, i)) = superLayer.unsafeArray(superGrid.cornerLayerArrayIndex(hc, i)) }
     }
-    new CornerLayer(array)
+    new HCornerLayer(array)
   }
 
   /** New hex tile data layer of [[RArr]][A]. */

@@ -105,12 +105,12 @@ trait HGridMulti extends HGridSys with TGridMulti
     res
   }
 
-  def sideBoolsFromPairs[A <: AnyRef](sidePairs: RArr[(HGrid, HSideBoolLayer)]): HSideBoolLayer = {
+  def sideBoolsFromPairsSpawn[A <: AnyRef](sidePairs: RArr[(HGrid, HSideBoolLayer)]): HSideBoolLayer = {
     val res = newSideBools
     gridMansForeach { m =>
       val pair = sidePairs(m.thisInd)
       val origGrid = pair._1
-      val lay: HSideBoolLayer = pair._2// sideLayers(m.thisInd)
+      val lay: HSideBoolLayer = pair._2
       m.sidesForeach { hs =>
         val value: Boolean = lay(hs)(origGrid)
         res.set(hs, value)(ThisMulti)

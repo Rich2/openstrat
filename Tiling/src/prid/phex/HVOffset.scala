@@ -2,8 +2,8 @@
 package ostrat; package prid; package phex
 import geom._
 
-/** [[HVert]] offset. The direction and magnitude of an [[HVAndOffset]]. These values are stored in an [[CornerLayer]]. The value of the
- *  [[HVert]] can be determined by its position in [[CornerLayer]]. */
+/** [[HVert]] offset. The direction and magnitude of an [[HVAndOffset]]. These values are stored in an [[HCornerLayer]]. The value of the [[HVert]]
+ *  can be determined by its position in [[HCornerLayer]]. */
 class HVOffset(val int1: Int) extends AnyVal with Int1Elem
 { def hvDirn: HVDirn = HVDirn.fromInt(int1 %% 8)
   def magnitude: Int = int1 / 8
@@ -55,8 +55,9 @@ object HCorner
 
 /** [[HGridSys]] data layer class that allows the hex tile vertices to be shifted by a small amount to create more pleasing terrain and to feature
  *  islands, straits and other tile side features. Every [[HCen]] hex tile in the [[HGridSys]] has 6 vertex entries. */
-class CornerLayer(val unsafeArray: Array[Int])
-{
+class HCornerLayer(val unsafeArray: Array[Int])
+{ def numCorners: Int = unsafeArray.length
+  def numTiles: Int = unsafeArray.length / 6
   def unsafeIndex(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.layerArrayIndex(hCen) * 6 + vertNum
   def corner(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HCorner = new HCorner(unsafeArray(unsafeIndex(hCen, vertNum)))
 
@@ -79,4 +80,20 @@ class CornerLayer(val unsafeArray: Array[Int])
   /** Sets the same vertex offset for all three adjacent hexs. */
   def setVertSingle(hVert: HVert, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
     hVert.adjHCenCorners.foreach{pair => setSingle(pair._1, pair._2, dirn, magnitude)}
+}
+
+object HCornerLayer
+{
+  implicit class RArrHCornerLayerExtension(val thisArr: RArr[HCornerLayer])
+  {
+    /** Combines by appending the data grids to produce a single layer. */
+    def combine: HCornerLayer =
+    {
+      val newLen = thisArr.sumBy(_.numCorners)
+      val newArray = new Array[Int](newLen)
+      var i = 0
+      thisArr.foreach { ar => ar.unsafeArray.copyToArray(newArray, i); i += ar.numCorners }
+      new HCornerLayer(newArray)
+    }
+  }
 }

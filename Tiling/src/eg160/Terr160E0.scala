@@ -35,7 +35,7 @@ object Terr160E0 extends LongTerrs
     res
   }
 
-  override val corners: CornerLayer = grid.newHVertOffsetLayer
+  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
   def britTerrs: HCenLayer[WTile] = EGrid160.britGrid.hCenLayerSpawn(grid, terrs)
   def britSTerrs: HSideBoolLayer = EGrid160.britGrid.sideBoolLayerSpawn(grid, sTerrs)
@@ -44,6 +44,6 @@ object Terr160E0 extends LongTerrs
   { override implicit val gridSys: EGrid160LongPart = EGrid160.britGrid
     override val terrs: HCenLayer[WTile] = britTerrs
     override val sTerrs: HSideBoolLayer = britSTerrs
-    override val corners: CornerLayer = gridSys.newHVertOffsetLayer
+    override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
   }
 }
