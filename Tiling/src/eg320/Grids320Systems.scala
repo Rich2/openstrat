@@ -113,7 +113,7 @@ object Scen320S8E10 extends EScenLongMulti
 
 /** 2 320km grid system for Northern Canada 120W and 90W. */
 object GridsNCanada extends EGrid320LongMulti
-{ override val grids: RArr[EGridLongFull] = EGrid320.grids(2, 8,156,158)
+{ override val grids: RArr[EGridLongFull] = EGrid320.grids(2, 8,154,158)
   override def headGridInt: Int = 8
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, this))

@@ -26,6 +26,9 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
     case _ => excep("Invalid hex side.")
   }
 
+  def tile1(implicit sys: HGridSys): HCen = sys.sideTile1(this)
+  def tile2(implicit sys: HGridSys): HCen = sys.sideTile2(this)
+
   /** Tile 1 if the side is a link / inner side of an [[HGrid]]. */
   def tile1Reg: HCen = r %% 4 match
   { case 0 | 2 => HCen(r, c - 2)
