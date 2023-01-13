@@ -2,8 +2,8 @@
 package ostrat; package prid; package phex
 import geom._
 
-/** [[HVert]] offset. The direction and magnitude of an [[HVAndOffset]]. These values are stored in an [[HCornerLayer]]. The value of the [[HVert]]
- *  can be determined by its position in [[HCornerLayer]]. */
+/** [[HVert]] offset. The direction and magnitude of an [[HVAndOffset]]. An [[HCorner]] consists of 1 or 2 of these [[HVOffset]]. The [[HCorner]]
+ * values are stored in an [[HCornerLayer]]. The value of the [[HVert]] can be determined by its position in [[HCornerLayer]]. */
 class HVOffset(val int1: Int) extends AnyVal with Int1Elem
 { def hvDirn: HVDirn = HVDirn.fromInt(int1 %% 8)
   def magnitude: Int = int1 / 8
@@ -15,9 +15,9 @@ object HVOffset
   def fromInt(inp: Int): HVOffset = new HVOffset(inp)
 }
 
-/** Hex tile corner. An [[HVert]] is shared between 3 hex tiles and 3 [[HSide]]s. An [[HCoroner]] only applies to a single hex tile. Hence unless it
- * is on the edge of the [[HGridSys]] there will be 3 [[HCorner]]s associated with each [[HVert]]. This class encodes a single or two
- * [[HVertoffset]]s. */
+/** Hex tile corner. A corner encodes 1 or 2 [[HVOffset]]s. An [[HVert]] is shared between 3 hex tiles and 3 [[HSide]]s. An [[HCoroner]] only applies
+ *  to a single hex tile. Hence unless it is on the edge of the [[HGridSys]] there will be 3 [[HCorner]]s associated with each [[HVert]]. This class
+ *  encodes a single or two [[HVertoffset]]s. */
 class HCorner(val unsafeInt: Int) extends AnyVal
 {
   def v1(hVert: HVert): HVAndOffset =
