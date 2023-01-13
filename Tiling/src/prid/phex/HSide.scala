@@ -9,12 +9,18 @@ import collection.mutable.ArrayBuffer
 class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
 { override def typeStr: String = "HSide"
 
-  /** Returns the Hex coordinate Line segment for this Hex Side.  */
-  def lineSegHC: LineSegHC = r %% 4 match
-  { case 3 => LineSegHC(r, c - 1, r, c + 1)
-    case 0 | 2 => LineSegHC(r + 1, c, r - 1, c)
-    case 1 => LineSegHC(r, c + 1, r, c - 1)
+  def fHSide[B](fUR: (Int, Int) => B)(fRt: (Int, Int) => B)(fDR: (Int, Int) => B): B = r %% 4 match {
+    case 1 if c.div4Rem1 => fUR(r, c)
+    case 3 if c.div4Rem3 => fUR(r, c)
+    case 0 if c.div4Rem2 => fRt(r, c)
+    case 2 if c.div4Rem0 => fRt(r, c)
+    case 1 if c.div4Rem3 => fDR(r, c)
+    case 3 if c.div4Rem1 => fDR(r, c)
+    case _ => excep(s"$r, $c is an invalid HSide coordinate.")
   }
+
+  /** Returns the Hex coordinate Line segment for this Hex Side.  */
+  def lineSegHC: LineSegHC = fHSide((r, c) => LineSegHC(r, c - 1, r, c + 1))((r, c) => LineSegHC(r + 1, c, r - 1, c))((r, c) => LineSegHC(r, c + 1, r, c - 1))
 
   /** Returns the 2 adjacent [[HCen]] coordinates of this hex Side. Both tiles may not exist in the [[HGridSysy]].  */
   def unsafeTiles: (HCen, HCen) = r %% 4 match
