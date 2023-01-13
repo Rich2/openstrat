@@ -79,7 +79,11 @@ object HVAndOffset
       case _ => false
     }
 
-    val magnitude3 = ife(isCenDirn, magnitude2.min(7), magnitude2.min(3))
+    val magnitude3 = magnitude match
+    { case m if isCenDirn & m > 7 => { deb(s"$m > 7 ofr HCen dirn"); m.min(7) }
+      case m if !isCenDirn & m > 3 => { deb(s"$m > 3 for HVert dirn"); m.min(3) }
+      case m => m
+    }
 
     val hVertOffset = HVOffset(dirn2, magnitude3)
     new HVAndOffset(r, c, hVertOffset)

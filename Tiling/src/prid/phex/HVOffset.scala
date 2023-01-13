@@ -11,7 +11,15 @@ class HVOffset(val int1: Int) extends AnyVal with Int1Elem
 
 /** Companion object for [[HVOffset]] class, contains factory apply and fromInt methods. */
 object HVOffset
-{ def apply(dirn: HVDirn, magnitude: Int): Int = dirn.int1 + magnitude * 8
+{
+  def apply(dirn: HVDirn, magnitude: Int): Int =
+  { val m2 = magnitude match {
+    case m if m >= 8 => { deb("> 8"); 7}
+    case m if m < 0 => { deb("< 0"); 0}
+    case m => m
+  }
+    dirn.int1 + m2 * 8
+  }
   def fromInt(inp: Int): HVOffset = new HVOffset(inp)
 }
 
