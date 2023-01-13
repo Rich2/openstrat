@@ -19,41 +19,20 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
     case _ => excep(s"$r, $c is an invalid HSide coordinate.")
   }
 
-  /** Returns the Hex coordinate Line segment for this Hex Side.  */
+  /** Returns the hex coordinate Line segment for this Hex Side. */
   def lineSegHC: LineSegHC = fHSide((r, c) => LineSegHC(r, c - 1, r, c + 1))((r, c) => LineSegHC(r + 1, c, r - 1, c))((r, c) => LineSegHC(r, c + 1, r, c - 1))
 
   /** Returns the 2 adjacent [[HCen]] coordinates of this hex Side. Both tiles may not exist in the [[HGridSysy]].  */
-  def unsafeTiles: (HCen, HCen) = r %% 4 match
-  { case 0 | 2 => (HCen(r, c - 2), HCen(r, c + 2))
-    case 1 if c.div4Rem3 => (HCen(r - 1, c + 1), HCen(r + 1, c - 1))
-    case 3 if c %% 4 == 1 => (HCen(r - 1, c + 1), HCen(r + 1, c - 1))
-    case 1 if c %% 4 == 1 => (HCen(r - 1, c - 1), HCen(r + 1, c + 1))
-    case 3 if c %% 4 == 3 => (HCen(r - 1, c - 1), HCen(r + 1, c + 1))
-    case _ => excep("Invalid hex side.")
-  }
+  def unsafeTiles: (HCen, HCen) = fHSide{ (r, c) => (HCen(r - 1, c - 1), HCen(r + 1, c + 1)) }{ (r, c) => (HCen(r, c - 2), HCen(r, c + 2)) }{ (r, c) => (HCen(r + 1, c - 1), HCen(r - 1, c + 1)) }
 
   def tile1(implicit sys: HGridSys): HCen = sys.sideTile1(this)
   def tile2(implicit sys: HGridSys): HCen = sys.sideTile2(this)
 
   /** Tile 1 if the side is a link / inner side of an [[HGrid]]. */
-  def tile1Reg: HCen = r %% 4 match
-  { case 0 | 2 => HCen(r, c - 2)
-    case 1 if c.div4Rem3 => HCen(r + 1, c - 1)
-    case 3 if c %% 4 == 1 => HCen(r + 1, c - 1)
-    case 1 if c %% 4 == 1 => HCen(r - 1, c - 1)
-    case 3 if c %% 4 == 3 => HCen(r - 1, c - 1)
-    case _ => excep("Invalid hex side.")
-  }
+  def tile1Reg: HCen = fHSide{ (r, c) => HCen(r - 1, c - 1) }{ (r, c) => HCen(r, c - 2) }{ (r, c) => HCen(r + 1, c - 1) }
 
   /** Tile 2 if the side is a link  / inner side of an [[HGrid]]. */
-  def tile2Reg: HCen = r %% 4 match
-  { case 0 | 2 => HCen(r, c + 2)
-    case 1 if c.div4Rem3 => HCen(r - 1, c + 1)
-    case 3 if c %% 4 == 1 => HCen(r - 1, c + 1)
-    case 1 if c %% 4 == 1 => HCen(r + 1, c + 1)
-    case 3 if c %% 4 == 3 => HCen(r + 1, c + 1)
-    case _ => excep("Invalid hex side.")
-  }
+  def tile2Reg: HCen = fHSide{ (r, c) => HCen(r + 1, c + 1) }{ (r, c) => HCen(r, c + 2) }{ (r, c) => HCen(r - 1, c + 1) }
 }
 
 /** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
