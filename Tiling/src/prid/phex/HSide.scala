@@ -9,6 +9,16 @@ import collection.mutable.ArrayBuffer
 class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
 { override def typeStr: String = "HSide"
 
+  def vSide[B](vUR: => B)(vRt: => B)(vDR: => B): B = r %% 4 match {
+    case 1 if c.div4Rem1 => vUR
+    case 3 if c.div4Rem3 => vUR
+    case 0 if c.div4Rem2 => vRt
+    case 2 if c.div4Rem0 => vRt
+    case 1 if c.div4Rem3 => vDR
+    case 3 if c.div4Rem1 => vDR
+    case _ => excep(s"$r, $c is an invalid HSide coordinate.")
+  }
+
   def fHSide[B](fUR: (Int, Int) => B)(fRt: (Int, Int) => B)(fDR: (Int, Int) => B): B = r %% 4 match {
     case 1 if c.div4Rem1 => fUR(r, c)
     case 3 if c.div4Rem3 => fUR(r, c)
@@ -34,9 +44,9 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
   /** Tile 2 if the side is a link  / inner side of an [[HGrid]]. */
   def tile2Reg: HCen = fHSide{ (r, c) => HCen(r + 1, c + 1) }{ (r, c) => HCen(r, c + 2) }{ (r, c) => HCen(r - 1, c + 1) }
 
-  /*def corners(implicit sys: HGridSys): (HCen, Int) = if (sys.hCenExists(tile1))
-    fHSide(0)(0)(0)
-  else fHSide()  */
+  def corners(implicit sys: HGridSys): (HCen, Int) = if (sys.hCenExists(tile1))
+    (tile1, vSide(0)(0)(0))
+  else (tile2, vSide(0)(0)(0))
 }
 
 /** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
