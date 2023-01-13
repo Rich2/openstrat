@@ -14,8 +14,8 @@ object HVOffset
 {
   def apply(dirn: HVDirn, magnitude: Int): Int =
   { val m2 = magnitude match {
-    case m if m >= 8 => { deb("> 8"); 7}
-    case m if m < 0 => { deb("< 0"); 0}
+    case m if m >= 8 => { deb("> 8"); 7 }
+    case m if m < 0 => { deb("< 0"); 0 }
     case m => m
   }
     dirn.int1 + m2 * 8
@@ -89,7 +89,14 @@ class HCornerLayer(val unsafeArray: Array[Int])
   def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHVAndOffset = tilePoly(HCen(cenR, cenC))
 
   def setSingle(hCen: HCen, vertNum: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
-  { val corner = HCorner.single(dirn, magnitude)
+  { val mag2 = magnitude.abs
+    val dirn2 = ife(magnitude < 0, dirn.opposite, dirn)
+    val mag3 = mag2 match {
+      //case m if hCen.dirnToCen(vertNum) & m > 7 => { deb("> 6"); m.min(6) }
+     // case m if !hCen.dirnToCen(vertNum) & m > 3 => { deb("> 3"); m.min(3) }
+      case m => m
+    }
+    val corner = HCorner.single(dirn, magnitude)
     val index = unsafeIndex(hCen, vertNum)
     unsafeArray(index) = corner.unsafeInt
   }

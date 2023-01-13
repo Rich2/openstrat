@@ -19,6 +19,12 @@ class HCen(val r: Int, val c: Int) extends HCenOrSide with TCen
   def v4: HVert = HVert(r - 1 , c - 2)
   def v5: HVert = HVert(r + 1 , c - 2)
 
+  def dirnToCen(vertNum: Int): Boolean = vertNum match {
+    case 0 | 2 | 4 if (r.div4Rem3 & c.div4Rem0) | (r.div4Rem1 & c.div4Rem2) => true
+    case 1 | 3 | 5 if (r.div4Rem3 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem0) => true
+    case _ => false
+  }
+
   /** The vertex sequence in [[HVert]] coordinates. This starts with the upper right vertex and proceeds clockwise to the upper vertex. */
   def verts: HVertArr = HCen.vertsOfHex00.map(hv => hv.addHCen(this))
 
