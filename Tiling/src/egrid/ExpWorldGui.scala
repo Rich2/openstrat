@@ -71,9 +71,9 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
         case _ => {
           val cs = hs.corners
           val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
-          //val ls2 = ls1.map(hva => hva.)
-          val ls: LineSeg = ???
-          Some(ls.draw(t1.contrastBW))
+          val ls2 = ls1.map(hva => hva.toPt2Reg(proj.transCoord(_)))
+          //val ls: LineSeg = ???
+          Some(ls2.draw(t1.contrastBW))
         }
       }
     }
@@ -89,7 +89,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles2 ++ sides1 ++ lines2 +% outerLines ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tiles2 ++ sides1 ++ lines3 +% outerLines ++ rcTexts2 ++ irrLines
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
