@@ -69,6 +69,9 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
         case true => None
         case _ if t1 != t2 => None
         case _ => {
+          val cs = hs.corners
+          val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
+          //val ls2 = ls1.map(hva => hva.)
           val ls: LineSeg = ???
           Some(ls.draw(t1.contrastBW))
         }

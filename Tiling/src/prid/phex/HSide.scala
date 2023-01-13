@@ -44,9 +44,12 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
   /** Tile 2 if the side is a link  / inner side of an [[HGrid]]. */
   def tile2Reg: HCen = fHSide{ (r, c) => HCen(r + 1, c + 1) }{ (r, c) => HCen(r, c + 2) }{ (r, c) => HCen(r - 1, c + 1) }
 
-  def corners(implicit sys: HGridSys): (HCen, Int) = if (sys.hCenExists(tile1))
-    (tile1, vSide(0)(0)(0))
-  else (tile2, vSide(0)(0)(0))
+  def corners(implicit sys: HGridSys): (HCen, Int, Int) =
+  { val t1 = tile1
+    val t2 = tile2
+    if (sys.hCenExists(t1)) vSide((t1, 0, 1))((t1, 1, 2))((t1, 2, 3))
+    else vSide((t2, 3, 4))((t2, 4, 5))((t2, 5, 0))
+  }
 }
 
 /** Companion object for the HSide class, provides an apply factory method that throws an exception for an invalid Hex side coordinate. */
