@@ -128,11 +128,24 @@ object SwedenNorth extends EArea2("SwedenNorth", 62.75 ll 14.30, taiga)
   val nordkapp = 71.16 ll 25.78
   val lakselv = 70.05 ll 25.00
    
-  val polygonLL = PolygonLL(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand, junibosand,
+  override val polygonLL = PolygonLL(haparanda, ranea, hertsonEast, ostanbackSouth, eLappviken, skeppsMalen, skeppshamnSouth, spikarna, bredsand, junibosand,
     holick, SwedenSouth.gavie,
     /* South Coast */SwedenSouth.oslo, hvasser, nevlunghavn, flekkeroy, lindesnes, borhag,
     /* West Coast */bryne, rennesoy, swKarmoy, ytreSula, bremangerlandet, wRunde, svelllingen, uthaug, bodo, nordskot, baroya,
     /* North Coast */sorvagen, andenes, gapoyholman, sandsvika, torsvag, nordkapp, lakselv)
+}
+
+object Oland extends EArea2("Faroe", 56.77 ll 16.67, plain)
+{
+  val north = 57.37 ll 17.08
+  val p10 = 57.31 ll 17.15
+  val p20 = 56.85 ll 16.87
+  val south = 56.19 ll 16.39
+  val p30 = 56.22 ll 16.37
+  val p40 = 56.88 ll 16.65
+  val p50 = 57.29 ll 16.96
+
+  override val polygonLL = PolygonLL(north, p10, p20, south, p30, p40, p50)
 }
 
 object Faroe extends EArea2("Faroe", 62.14 ll -6.91, taiga)

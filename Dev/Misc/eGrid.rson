@@ -33,7 +33,8 @@ exp = false;
 
 37 = HGView(288, 508; 28);//Britain 160km
 
-40 = HGView(472, 520; 25);//0E 80km
-41 = HGView(494, 1538; 25);//30E 80km
-42 = HGView(460, 1536; 20);
-52 = HGView(477, 560; 22.5);
+60 = HGView(458, 524; 22);//80km 0E
+61 = HGView(480, 1538; 25);//80km 30E
+
+72 = HGView(477, 560; 22.5);//80km 0E - 30E
+73 = HGView(454, 522; 26.5);//80km Western Front

@@ -1,18 +1,22 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
 object Polandia extends EArea2("Polandia", 50.07 ll 20.13, plain)
-{ val mielno = 54.26 ll 16.06
-  val jaroslawiec = 54.54 ll 16.53
-  val jastrzebia = 54.83 ll 18.33
-  val wladyslawowo = 54.79 ll 18.42
-  val danzig = 54.39 ll 18.65
-  val kaliningrad = 54.93 ll 21.26
+{ val mielno: LatLong = 54.26 ll 16.06
+  val jaroslawiec: LatLong = 54.54 ll 16.53
+  val jastrzebia: LatLong = 54.83 ll 18.33
+  val wladyslawowo: LatLong = 54.79 ll 18.42
+  val danzig: LatLong = 54.39 ll 18.65
+  val capeTaran = 54.96 ll 19.98
+
+  /** 54.93 ll 21.26 */
+  val kaliningrad: LatLong = 54.93 ll 21.26
+
   val cenEast = 52 ll 24
 
-  val polygonLL = PolygonLL(Germania.swinoujscie, mielno, jaroslawiec, jastrzebia, wladyslawowo, danzig, kaliningrad, cenEast, Balkans.odessa,
-     Alpsland.zagreb, Alpsland.vienna)
+  val polygonLL = PolygonLL(Germania.swinoujscie, mielno, jaroslawiec, jastrzebia, wladyslawowo, danzig, capeTaran, kaliningrad, cenEast,
+    Balkans.odessa, Alpsland.zagreb, Alpsland.vienna)
 }
 
 object Baltland extends EArea2("BaltLand", 56.46 ll 27.83, plain)
