@@ -43,7 +43,12 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   def verts(hVert: HVert): HVAndOffsetArr = unsafeInt %% 4 match
   { case 0 => HVAndOffsetArr(HVAndOffset.none(hVert))
     case 1 => HVAndOffsetArr(v1(hVert))
-    case 2 => HVAndOffsetArr(v1(hVert), v2(hVert))
+    case 2 => {
+      val r1 = v1(hVert)
+      val r2 = v2(hVert)
+      deb(s"Double verts $r1, $r2.")
+      HVAndOffsetArr(r1, r2)
+    }
     case n  => excep(s"$n is an invalid value for offsets.")
   }
 }
@@ -56,8 +61,8 @@ object HCorner
 
   def double(dirn1: HVDirn, magnitude1 : Int, dirn2: HVDirn, magnitude2 : Int): HCorner =
   { val v1 = dirn1.int1 * 4 + magnitude1 * 32
-    val v2 = dirn2.int1 * 4 + magnitude2 * 32
-    new HCorner(1 + v1 + v2 * 256)
+    val v2 = dirn2.int1 + magnitude2 * 32
+    new HCorner(2 + v1 + v2 * 256)
   }
 }
 
@@ -99,6 +104,15 @@ class HCornerLayer(val unsafeArray: Array[Int])
   /** Sets the vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
   def setSingle(hCen: HCen, vertNum: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
   { val corner = HCorner.single(dirn, magnitude)
+    val index = unsafeIndex(hCen, vertNum)
+    unsafeArray(index) = corner.unsafeInt
+  }
+
+  def setDouble(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int)(implicit gridSys: HGridSys): Unit =
+    setDouble(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)
+
+  def setDouble(hCen: HCen, vertNum: Int, dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int)(implicit gridSys: HGridSys): Unit = {
+    val corner = HCorner.double(dirn1, magnitude1, dirn2, magnitude2)
     val index = unsafeIndex(hCen, vertNum)
     unsafeArray(index) = corner.unsafeInt
   }
