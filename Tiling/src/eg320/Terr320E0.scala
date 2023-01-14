@@ -2,6 +2,10 @@
 package ostrat; package eg320
 import pEarth._, prid._, phex._, WTile._, egrid._
 
+/** [[WTile]] terrain for 15 West to 15 East. So one of the principles of these terrain grids is that tiles and tile sides should be specified
+ *  according to objective geographical criteria, not political considerations. So hex 4CG0 140, 512 should not be a sea hex as the majority of the
+ *  hex is covered by land and we do not want the narrowest gap from England to France to be a whole hex. Given that it is a land hex by geoprhical
+ *  area it must be assigned to France  */
 object Terr320E0 extends Long320Terrs
 {
   override implicit val grid: EGrid320LongFull = EGrid320.e0(124)
@@ -19,7 +23,7 @@ object Terr320E0 extends Long320Terrs
     wr(146, sea, hillForest, sea * 2, plain)
     gs(144, 508, plain, sea * 2, plain)
     gs(142, 506, plain, plain, sea, plain * 2)
-    wr(140, sea, hills, sea, plain * 3)
+    wr(140, sea, hills, plain * 4)
     gs(138, 460 + 50, plain * 5)
     gs(136, 512, plain, hills, mtain, plain)
     gs(134, 506, hills * 3, sea * 2, hills)
@@ -33,7 +37,8 @@ object Terr320E0 extends Long320Terrs
 
   override val sTerrs: HSideBoolLayer =
   { val res = grid.newSideBools
-    res.setTruesInts(129,507,  129,509,  129,511,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526,  139,509,  142,508,  143,507,  144,522,  145,521)
+    res.setTruesInts(139,509,  140,510, 141, 507,  141,511, 142,508,  143,507,  144,522,  145,521)
+    res.setTruesInts(129,507,  129,509,  129,511,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526)
     res
   }
 
@@ -41,12 +46,12 @@ object Terr320E0 extends Long320Terrs
   {
     val res: HCornerLayer = grid.newHVertOffsetLayer
     import res.{setVertSingle => svs }
-    svs(147, 512, HVDL, 3)
-    svs(145, 508, HVUL, 3); svs(145, 512, HVDL, 3)
+//    svs(147, 512, HVDL, 3)
+//    svs(145, 508, HVUL, 3); svs(145, 512, HVDL, 3)
 
-    svs(143, 510, HVUR, 3)
-    svs(141, 510, HVDn, 2); svs(141, 512, HVDR, 3); svs(141, 514, HVUL, 3)
-    svs(139, 512, HVUp, 3); svs(139, 514, HVUL, 3)
+//    svs(143, 510, HVUR, 3)
+//    svs(141, 510, HVDn, 2); svs(141, 512, HVDR, 3); svs(141, 514, HVUL, 3)
+//    svs(139, 512, HVUp, 3); svs(139, 514, HVUL, 3)
 
     res.setSingle(144, 508, 4, HVUp, 3)
     res.setSingle(144, 508, 3, HVUR, 3)
