@@ -15,11 +15,11 @@ object Terr160E0 extends Long160Terrs
     wr(300, sea * 6, mtain, hillTaiga * 2)
     wr(298, sea * 6, mtain * 2, hillTaiga * 2)
     wr(296, sea * 6, hillTaiga * 2, taiga * 2)
-    gs(294, 506, hills, sea * 3, hills, sea, taiga)
-    gs(292, 504, hills * 2, sea * 5, plain)
-    gs(290, 506, hills, sea * 4, plain, sea, plain)
-    gs(288, 500, plain, hills, plain, sea * 4, plain, sea)
-    wr(286, sea * 2, plain, sea * 2, plain, sea * 3, plain * 3)
+    wr(294, sea * 3, hills, sea * 3, hills, sea, taiga)
+    wr(292, sea * 3, hills * 2, sea * 5, plain)
+    wr(290, sea * 2, hills * 2, sea * 4, plain, sea, plain)
+    wr(288, sea * 2, plain, hills, plain, sea * 4, plain, sea)
+    wr(286, sea * 2, plain, sea , plain* 2, sea * 3, plain * 3)
     gs(284, 496, plain * 2, hills, plain * 2, sea * 2, plain * 4)
     gs(282, 506, hills, plain * 8)
     gs(280, 504, hills, sea * 2, plain * 6)
@@ -30,7 +30,7 @@ object Terr160E0 extends Long160Terrs
 
   override val sTerrs: HSideBoolLayer =
   { val res = grid.newSideBools
-    res.setTruesInts(279,505,  281,515,  282,516,  284,502,  288,502)
+    res.setTruesInts(279,505,  281,515,  282,516,  284,502,  288,502,  289,501)
     res
   }
 

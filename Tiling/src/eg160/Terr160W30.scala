@@ -1,8 +1,8 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
 import pEarth._, prid._, phex._, WTile._, egrid._
 
-object Terr160W30 extends LongTerrs
+object Terr160W30 extends Long160Terrs
 {
   override implicit val grid: EGrid160LongFull = EGrid160.w30(276)
 
