@@ -78,6 +78,8 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       }
     }
 
+    def lines4: GraphicElems = proj.ifTileScale(50, lines3)
+
     def outerLines = proj.outerSidesDraw(3, Gold)
 
     def ifGlobe(f: HSysProjectionEarth => GraphicElems): GraphicElems = proj match
@@ -89,7 +91,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles2 ++ sides1 ++ lines3 +% outerLines ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tiles2 ++ sides1 ++ lines4 +% outerLines ++ rcTexts2 ++ irrLines
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
