@@ -55,7 +55,7 @@ object Terr320E0 extends Long320Terrs
 
     res.setSingle(144, 508, 4, HVUp, 3)
     res.setSingle(142, 506, 0, HVDL, 3)
-    res.setDouble(144, 504, 1, HVUp, 3, HVDL, 3)
+    res.setDouble(144, 504, 2, HVUp, 3, HVDL, 3)
 
     res.setSingle(144, 508, 3, HVUR, 3)
     res.setSingle(142, 506, 1, HVDL, 3)
