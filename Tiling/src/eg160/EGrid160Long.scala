@@ -1,6 +1,26 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
-import egrid._, geom._, pglobe._, prid.phex._, pEarth._
+import egrid._, geom._, pglobe._, prid.phex._
+
+/** An Earth grid covering a full 30 degree range of longitude for non-polar regions with a hex span of 320Km */
+abstract class EGrid160Long(rBottomCen: Int, cenLongInt: Int, rowArray: Array[Int]) extends
+  EGridLong(rBottomCen, cenLongInt, 40.kMetres, 200, rowArray)
+
+object EGrid160Long
+{
+  def reg(rBottomCen: Int, rTopCen: Int, cenLongInt: Int, leftC: Int, rightC: Int): EGrid160Long =
+  { val array = new Array[Int](rTopCen - rBottomCen + 2)
+    val bot = rBottomCen.roundUpToEven
+    val top = rTopCen.roundDownToEven
+    iToForeach(bot, top, 2){r =>
+      val (lc, rc) = ife(r.div4Rem0, (leftC.roundUpTo(_.div4Rem0), rightC.roundDownTo(_.div4Rem0)),
+        (leftC.roundUpTo(_.div4Rem2), rightC.roundDownTo(_.div4Rem2)))
+      array(r - rBottomCen) = (rc - lc + 4) / 4
+      array(r - rBottomCen + 1) = lc
+    }
+    new EGrid160LongPart(rBottomCen/*, rTopCen*/, cenLongInt, array)
+  }
+}
 
 /** A main non-polar grid with a hex span of 160Km */
 class EGrid160LongFull(rBottomCen: Int, rTopCen: Int, cenLongInt: Int) extends
@@ -11,7 +31,7 @@ object EGrid160LongFull
 }
 
 class EGrid160LongPart(rBottomCen: Int, cenLongInt: Int, rArray: Array[Int]) extends
-  EGridLong(rBottomCen, cenLongInt, 40.kMetres, 200, rArray)
+  EGrid160Long(rBottomCen, cenLongInt, /*40.kMetres,*/ rArray)
 {
   /** The latitude and longitude [[LatLong]] of an [[HCoord]] within the grid. */
   override def hCoordLL(hc: HCoord): LatLong = hCoordMiddleLL(hc)
@@ -46,10 +66,10 @@ object EGrid160
     EScenBasic(grid, Terr160E0.terrs, Terr160E0.sTerrs, Terr160E0.corners, "!60km 0E")
   }
 
-//  def scen1: EScenWarm =
-//  { val grid: EGridWarm = e30(276)
-//    EScenWarm(grid, Terr160E30.terrs, )
-//  }
+  def scen1: EScenBasic =
+  { val grid: EGridLongFull = e30(276)
+    EScenBasic(grid, Terr160E30.terrs, Terr160E30.sTerrs, Terr160E30.corners, "!60km 0E")
+  }
 //
 //  def scen2: EScenWarm =
 //  { val grid: EGridWarm = e60(276)
