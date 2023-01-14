@@ -10,8 +10,8 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with TCoord
   override def canEqual(that: Any): Boolean = ???
 
   /** is there a hex directly above this [[HVert]]. If false there is a hex directly below. */
-  def hexIsUp: Boolean = (r %% 4 == 1 & c %% 4 == 2) | (r %% 4 == 3 & c %% 4 == 0)
-
+  def hexIsUp: Boolean = (r.div4Rem1 & c.div4Rem2) | (r.div4Rem3 & c.div4Rem0)
+  def hexIsDown: Boolean = (r.div4Rem1 & c.div4Rem0) | (r.div4Rem3 & c.div4Rem2)
   override def toVecReg: Vec2 = ife(hexIsUp, Vec2(c, r * Sqrt3 - 1.0/Sqrt3), Vec2(c, r  * Sqrt3 + 1.0/Sqrt3))
   override def toPt2Reg: Pt2 = ife(hexIsUp, Pt2(c, r * Sqrt3 - 1.0/Sqrt3), Pt2(c, r  * Sqrt3 + 1.0/Sqrt3))
 
@@ -21,6 +21,12 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with TCoord
   def adjHCenCorners(implicit sys: HGridSys): RArr[(HCen, Int)] = adjHCenDirns.optMap{dirn =>
     val hCen = HCen(r + dirn.dCenR, c + dirn.dCenC)
     ife(sys.hCenExists(hCen), Some((hCen, dirn.corner(this))), None)
+  }
+
+  def dirnToCen(dirn: HVDirn): Boolean = dirn match {
+    case HVUp | HVDL | HVDR if hexIsUp => true
+    case HVUR | HVDn | HVUL if hexIsDown => true
+    case _ => false
   }
 }
 

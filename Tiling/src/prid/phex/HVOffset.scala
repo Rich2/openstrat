@@ -69,6 +69,7 @@ class HCornerLayer(val unsafeArray: Array[Int])
 
   def numTiles: Int = unsafeArray.length / 6
   def unsafeIndex(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.layerArrayIndex(hCen) * 6 + vertNum
+  def unsafeIndex(cenR: Int, cenC: Int, vertNum: Int)(implicit gridSys: HGridSys): Int = gridSys.layerArrayIndex(cenR, cenC) * 6 + vertNum
 
   /** Returns the specified [[HCorner]] object which specifies, 1 or 2 [[HVAndOffset]]s. */
   def corner(hCen: HCen, vertNum: Int)(implicit gridSys: HGridSys): HCorner = new HCorner(unsafeArray(unsafeIndex(hCen, vertNum)))
@@ -88,24 +89,34 @@ class HCornerLayer(val unsafeArray: Array[Int])
   def tilePoly(hCen: HCen)(implicit gridSys: HGridSys): PolygonHVAndOffset = tileCorners(hCen).iFlatMapPolygon{ (i, corn) => corn.verts(hCen.verts(i)) }
   def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHVAndOffset = tilePoly(HCen(cenR, cenC))
 
+  /** Sets the vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
+  def setSingle(cenR: Int, cenC: Int, vertNum: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
+  { val corner = HCorner.single(dirn, magnitude)
+    val index = unsafeIndex(cenR, cenC, vertNum)
+    unsafeArray(index) = corner.unsafeInt
+  }
+
+  /** Sets the vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
   def setSingle(hCen: HCen, vertNum: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
-  { val mag2 = magnitude.abs
-    val dirn2 = ife(magnitude < 0, dirn.opposite, dirn)
-    val mag3 = mag2 match {
-      //case m if hCen.dirnToCen(vertNum) & m > 7 => { deb("> 6"); m.min(6) }
-     // case m if !hCen.dirnToCen(vertNum) & m > 3 => { deb("> 3"); m.min(3) }
-      case m => m
-    }
-    val corner = HCorner.single(dirn, magnitude)
+  { val corner = HCorner.single(dirn, magnitude)
     val index = unsafeIndex(hCen, vertNum)
     unsafeArray(index) = corner.unsafeInt
   }
 
+  /** Sets the same vertex offset for all three adjacent hexs. This leaves no gap for side terrain such as straits. */
   def setVertSingle(r: Int, c: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit = setVertSingle(HVert(r, c), dirn, magnitude)
 
-  /** Sets the same vertex offset for all three adjacent hexs. */
-  def setVertSingle(hVert: HVert, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
-    hVert.adjHCenCorners.foreach{pair => setSingle(pair._1, pair._2, dirn, magnitude)}
+  /** Sets the same vertex offset for all three adjacent hexs. This leaves no gap for side terrain such as straits. */
+  def setVertSingle(hVert: HVert, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit = {
+    val mag2 = magnitude.abs
+    val dirn2 = ife(magnitude < 0, dirn.opposite, dirn)
+    val mag3 = mag2 match {
+      case m if hVert.dirnToCen(dirn) & m > 6 => { deb("> 6"); m.min(6) }
+      case m if !hVert.dirnToCen(dirn) & m > 3 => { deb("> 3"); m.min(3) }
+      case m => m
+    }
+    hVert.adjHCenCorners.foreach{pair => setSingle(pair._1, pair._2, dirn2, mag3)}
+  }
 }
 
 object HCornerLayer

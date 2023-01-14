@@ -19,7 +19,7 @@ object Terr320E0 extends Long320Terrs
     wr(146, sea, hillForest, sea * 2, plain)
     gs(144, 508, plain, sea * 2, plain)
     gs(142, 506, plain, plain, sea, plain * 2)
-    gs(140, 516, plain * 3)
+    wr(140, sea, hills, sea, plain * 3)
     gs(138, 460 + 50, plain * 5)
     gs(136, 512, plain, hills, mtain, plain)
     gs(134, 506, hills * 3, sea * 2, hills)
@@ -33,15 +33,24 @@ object Terr320E0 extends Long320Terrs
 
   override val sTerrs: HSideBoolLayer =
   { val res = grid.newSideBools
-    res.setTruesInts(129,507,  129,509,  129,511,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526,  142,508,  143,507,  144,522,  145,521)
+    res.setTruesInts(129,507,  129,509,  129,511,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526,  139,509,  142,508,  143,507,  144,522,  145,521)
     res
   }
 
   override val corners: HCornerLayer =
-  { val res = grid.newHVertOffsetLayer
-    res.setVertSingle(147, 512, HVDL, 6)
-    res.setVertSingle(145, 512, HVDL, 3)
-    res.setVertSingle(145, 508, HVUL, 6)
+  {
+    val res: HCornerLayer = grid.newHVertOffsetLayer
+    import res.{setVertSingle => svs }
+    svs(147, 512, HVDL, 3)
+    svs(145, 508, HVUL, 3); svs(145, 512, HVDL, 3)
+
+    svs(143, 510, HVUR, 3)
+    svs(141, 510, HVDn, 2); svs(141, 512, HVDR, 3); svs(141, 514, HVUL, 3)
+    svs(139, 512, HVUp, 3); svs(139, 514, HVUL, 3)
+
+    res.setSingle(144, 508, 4, HVUp, 3)
+    res.setSingle(144, 508, 3, HVUR, 3)
+
     res
   }
 }
