@@ -86,6 +86,16 @@ trait HGridSys extends Any with TGridSys
 
   def sideTiles(hSide: HSide): (HCen, HCen) = (sideTile1(hSide), sideTile2(hSide))
 
+  def sideTile1Opt(hSide: HSide): Option[HCen] ={
+    val ot = sideTile1(hSide)
+    ife(hCenExists(ot), Some(ot), None)
+  }
+
+  def sideTile2Opt(hSide: HSide): Option[HCen] =
+  { val ot = sideTile2(hSide)
+    ife(hCenExists(ot), Some(ot), None)
+  }
+
   def sideTile1(hSide: HSide): HCen
   def sideTile2(hSide: HSide): HCen
   //def findPathHC(startCen: HCen, endCen: HCen)(fTerrCost: (HCen, HCen) => OptInt): Option[LinePathHC] = findPathList(startCen, endCen)(fTerrCost).map(_.toLinePath)

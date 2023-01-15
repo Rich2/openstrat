@@ -38,6 +38,10 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
   def tile1(implicit sys: HGridSys): HCen = sys.sideTile1(this)
   def tile2(implicit sys: HGridSys): HCen = sys.sideTile2(this)
 
+  def tile1Opt(implicit sys: HGridSys): Option[HCen] = sys.sideTile1Opt(this)
+
+  def tile2Opt(implicit sys: HGridSys): Option[HCen] = sys.sideTile2Opt(this)
+
   /** Tile 1 if the side is a link / inner side of an [[HGrid]]. */
   def tile1Reg: HCen = fHSide{ (r, c) => HCen(r - 1, c - 1) }{ (r, c) => HCen(r, c - 2) }{ (r, c) => HCen(r + 1, c - 1) }
 
