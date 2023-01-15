@@ -2,7 +2,7 @@
 package ostrat; package egrid
 import pgui._, geom._, prid._, phex._, pEarth._, pglobe._, Colour._
 
-/** Expwrimental Gui. Displays grids on world as well as land mass outlines. */
+/** Experimental Gui. Displays grids on world as well as land mass outlines. */
 class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, isFlat: Boolean) extends GlobeGui("Grid World")
 {
   val scen: EScenBasic = scenIn
@@ -54,9 +54,19 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Brown) }
 
     def sides2 = proj.linksOptMap{ (hs: HSide) =>
-      val h1 = hs.tile1Opt
-
-      Some(4)
+      hs.tile1Opt match {
+        case None => None
+        case _ if sTerrs(hs) == false => None
+        case Some(h1) => {
+          val (h2, vi) = hs.tile2AndVert
+          val p1 = corners.cornerV1(h2, vi)
+          val p2 = corners.cornerV1(h2, (vi - 1) %% 6)
+          val p3 = corners.cornerV1(h1, (vi - 3) %% 6)
+          val p4 = corners.cornerV1(h1, (vi + 2) %% 6)
+          val res: PolygonFill = PolygonHVAndOffset(p1, p2 ,p3 , p4).project(proj).fill(Colour.Violet)
+          Some(res)
+        }
+      }
     }
 
     val hs = HSide(143, 507)
@@ -64,6 +74,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def strait1 = {
       //val hs =
       val t1 = hs.tile1
+      debvar(t1)
       val t2 = hs.tile2
 
       val p1 = corners.cornerV1(t2, 4)
@@ -101,10 +112,6 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def lines4: GraphicElems = proj.ifTileScale(50, lines3)
 
-
-
-
-
     def outerLines = proj.outerSidesDraw(3, Gold)
 
     def ifGlobe(f: HSysProjectionEarth => GraphicElems): GraphicElems = proj match
@@ -116,7 +123,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles2 ++ sides1 ++ lines4 +% outerLines ++ rcTexts2 ++ irrLines ++ strait2
+    seas ++ irrFills ++ irrNames ++ tiles2++ sides1 ++ lines4 ++ sides2 +% outerLines ++ rcTexts2 ++ irrLines //++ strait2
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
