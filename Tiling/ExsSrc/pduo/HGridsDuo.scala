@@ -12,6 +12,9 @@ final class HGridsDuo(val minCenR: Int, val maxCenR: Int, val minC1: Int, val ma
   val grid2 = HGridReg(minCenR, maxCenR, minC2, maxC2)
   override def grids: RArr[HGrid] = RArr(grid1, grid2)
 
+  /** Gets the appropriate [[HGridMan]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
+  override def getMan(r: Int, c: Int): Option[HGridMan] = ???
+
   val grid2OffsetC: Int = maxC1 - minC2 + 2
 
   val gridMan1: HGridMan = new GridMan1(grid1, grid2OffsetC)

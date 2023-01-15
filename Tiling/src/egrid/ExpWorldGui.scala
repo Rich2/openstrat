@@ -79,9 +79,11 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def lines4: GraphicElems = proj.ifTileScale(50, lines3)
 
+    val hs = HSide(143, 507)
+
     def strait1 =
     {
-      val hs = HSide(143, 507)
+      //val hs =
       val t1 = hs.tile1
       val t2 = hs.tile2
 
@@ -92,7 +94,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       PolygonHVAndOffset(p1, p2, p3, p4).project(proj).fill(Violet)
     }
 
-    def strait2: GraphicElems = ife(gridSys.hCenExists(142, 506), RArr(strait1), RArr())
+    def strait2: GraphicElems = ife(gridSys.ifSideExists(hs), RArr(strait1), RArr())
 
     def outerLines = proj.outerSidesDraw(3, Gold)
 

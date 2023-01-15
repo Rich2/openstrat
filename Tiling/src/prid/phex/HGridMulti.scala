@@ -14,6 +14,12 @@ trait HGridMulti extends HGridSys with TGridMulti
 
   override def coordCen: HCoord = grids(numGrids / 2).coordCen
 
+  /** Finds the most appropriate [[HGridMan]] for the [[HCoord]] or returns [[None]]. */
+  def getMan(hc: HCoord): Option[ManT] = getMan(hc.r, hc.c)
+
+  /** Finds the most appropriate [[HGridMan]] for the [[HCoord]] or returns [[None]]. */
+  def getMan(r: Int, c: Int): Option[ManT]
+
   /** Gets the appropriate [[HGridMan]] for the [[HCoord]]. Throws if [[HCoord]] doesn't exist. */
   final def unsafeGetMan(hc: HCoord): ManT = unsafeGetMan(hc.r, hc.c)
 
@@ -45,8 +51,7 @@ trait HGridMulti extends HGridSys with TGridMulti
 
   override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]] = grids.flatMap(_.rowsCombine(layer, this))
 
-  final override def hCenExists(r: Int, c: Int): Boolean = unsafeGetManFunc(r, c)(_.grid.hCenExists(r, c))
-
+  final override def hCenExists(r: Int, c: Int): Boolean = getMan(r, c).fold(false)(_.grid.hCenExists(r, c))
 
   override def sideTile1(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTile1(hSide))
 

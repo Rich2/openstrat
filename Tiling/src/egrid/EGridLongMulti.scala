@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
@@ -25,5 +25,8 @@ trait EGridLongMulti extends EGridSys with EGridMulti
   def right: Double = grids.last.right
   override def unsafeGetMan(r: Int, c: Int): EGridMan = gridMans((c  / hcDelta - headGridInt) %% 12)
 
-  //override def arrIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.s
+  def getMan(r: Int, c: Int): Option[EGridLongMan] = {
+    val i = (c  / hcDelta - headGridInt) %% 12
+    ife(i < 0 | i >= gridMans.length, None, Some(gridMans(i)))
+  }
 }

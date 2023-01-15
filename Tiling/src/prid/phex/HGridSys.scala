@@ -285,6 +285,8 @@ trait HGridSys extends Any with TGridSys
   /** The [[HSide]] hex side coordinates. */
   final def sides: HSideArr = sidesMap(hs => hs)
 
+  def ifSideExists(hs: HSide): Boolean = hCenExists(hs.tile1Reg) | hCenExists(hs.tile2Reg)
+
   /** The line segments of the sides defined in [[HCoord]] vertices. */
   def sideLineSegHCs: LineSegHCArr = sidesMap(_.lineSegHC)
 
