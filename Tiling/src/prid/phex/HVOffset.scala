@@ -45,11 +45,10 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   def verts(hVert: HVert): HVAndOffsetArr = unsafeInt %% 4 match
   { case 0 => HVAndOffsetArr(HVAndOffset.none(hVert))
     case 1 => HVAndOffsetArr(v1(hVert))
-    case 2 => {
-      val r1: HVAndOffset = v1(hVert)
+
+    case 2 =>
+    { val r1: HVAndOffset = v1(hVert)
       val r2: HVAndOffset = v2(hVert)
-      debvar(r2.hvDirn)
-      debvar(r2.magnitude)
       HVAndOffsetArr(r1, r2)
     }
     case n  => excep(s"$n is an invalid value for offsets.")
@@ -114,9 +113,8 @@ class HCornerLayer(val unsafeArray: Array[Int])
   def setDouble(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int)(implicit gridSys: HGridSys): Unit =
     setDouble(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)
 
-  def setDouble(hCen: HCen, vertNum: Int, dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int)(implicit gridSys: HGridSys): Unit = {
-    deb(s"setDouble dirn2: $dirn2")
-    val corner = HCorner.double(dirn1, magnitude1, dirn2, magnitude2)
+  def setDouble(hCen: HCen, vertNum: Int, dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int)(implicit gridSys: HGridSys): Unit =
+  { val corner = HCorner.double(dirn1, magnitude1, dirn2, magnitude2)
     val index = unsafeIndex(hCen, vertNum)
     unsafeArray(index) = corner.unsafeInt
   }

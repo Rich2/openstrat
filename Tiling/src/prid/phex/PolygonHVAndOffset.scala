@@ -9,8 +9,8 @@ class LineSegHVAndOffset(val int1: Int, val int2: Int, val int3: Int, val int4: 
   override def endPt: HVAndOffset = new HVAndOffset(int4, int5, int6)
 }
 
-object LineSegHVAndOffset{
-  def apply(v1: HVAndOffset, v2: HVAndOffset): LineSegHVAndOffset = new LineSegHVAndOffset(v1.int1, v1.int2, v1.int3, v2.int1, v2.int2, v2.int3)
+object LineSegHVAndOffset
+{ def apply(v1: HVAndOffset, v2: HVAndOffset): LineSegHVAndOffset = new LineSegHVAndOffset(v1.int1, v1.int2, v1.int3, v2.int1, v2.int2, v2.int3)
 }
 
 /** A polygon where the vertices are specified in [[HVAndOffset]]s. */
@@ -29,6 +29,14 @@ class PolygonHVAndOffset(val unsafeArray: Array[Int]) extends HVAndOffsetSeqLike
       f(side(i)); i += 1
     }
   }
+
+  def toPolygon(f: HCoord => Pt2)(implicit sys: HGridSys): Polygon = map(_.toPt2Reg(f))
+  def project(proj: HSysProjection): Polygon = map{ _.toPt2Reg(proj.transCoord(_))(proj.parent) }
+}
+
+object PolygonHVAndOffset extends Int3SeqLikeCompanion[HVAndOffset, PolygonHVAndOffset]
+{
+  override def fromArray(array: Array[Int]): PolygonHVAndOffset = new PolygonHVAndOffset(array)
 }
 
 trait PolgonHVAndOffsetCommonBuilder extends Int3SeqLikeCommonBuilder[PolygonHVAndOffset]
