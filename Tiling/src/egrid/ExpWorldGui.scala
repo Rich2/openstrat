@@ -72,13 +72,24 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
           val cs = hs.corners
           val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
           val ls2 = ls1.map(hva => hva.toPt2Reg(proj.transCoord(_)))
-          //val ls: LineSeg = ???
           Some(ls2.draw(t1.contrastBW))
         }
       }
     }
 
     def lines4: GraphicElems = proj.ifTileScale(50, lines3)
+
+    def red = {
+      val hs = HSide(143, 507)
+      val t1 = hs.tile1
+      val t2 = hs.tile2
+      deb(hs.lineSegHC.startPt.toString)
+      val p1 = corners.corner(t1, 4)
+      val p2 = corners.corner(t1, 3)
+      val p3 = corners.corner(t2, 1)
+      val p4 = corners.corner(t2, 0)
+      deb("Hi")
+    }
 
     def outerLines = proj.outerSidesDraw(3, Gold)
 
