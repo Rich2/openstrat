@@ -57,13 +57,15 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       hs.tile1Opt match {
         case None => None
         case _ if sTerrs(hs) == false => None
-        case Some(h1) => {
+        case Some(h1) =>
+        { deb("Some")
           val (h2, vi) = hs.tile2AndVert
           val p1 = corners.cornerV1(h2, vi)
+          debvar(p1.hvDirn)
           val p2 = corners.cornerV1(h2, (vi - 1) %% 6)
           val p3 = corners.cornerV1(h1, (vi - 3) %% 6)
           val p4 = corners.cornerV1(h1, (vi + 2) %% 6)
-          val res: PolygonFill = PolygonHVAndOffset(p1, p2 ,p3 , p4).project(proj).fill(Colour.Violet)
+          val res: PolygonFill = PolygonHVAndOffset(p1, p2 ,p3 , p4).project(proj).fill(DarkBlue)
           Some(res)
         }
       }
@@ -123,7 +125,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles2++ sides1 ++ lines4 ++ sides2 +% outerLines ++ rcTexts2 ++ irrLines //++ strait2
+    seas ++ irrFills ++ irrNames ++ tiles2 /*++ sides1*/ ++ lines4 ++ sides2 +% outerLines ++ rcTexts2 ++ irrLines //++ strait2
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)

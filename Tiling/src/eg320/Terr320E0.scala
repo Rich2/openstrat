@@ -41,7 +41,7 @@ object Terr320E0 extends Long320Terrs
       //142,508,
     res.setTruesInts(  143,507)//,  144,522,  145,521)
 
-   // res.setTruesInts(129,507,  129,509,  129,511,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526)
+    res.setTruesInts(129,507)//,  129,509,  129,511,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526)
     res
   }
 
@@ -62,6 +62,13 @@ object Terr320E0 extends Long320Terrs
 
     res.setSingle(144, 508, 3, HVUR, 3)
     res.setSingle(142, 506, 1, HVDL, 3)
+
+    res.setSingle(130, 506, 3, HVUp, 1)
+    res.setSingle(128, 508, 5, HVDR, 1)
+    res.setDouble(128, 504, 1, HVUp, 1, HVDR, 1)
+
+    res.setSingle(130, 506, 2, HVUp, 3)
+    res.setSingle(128, 508, 0, HVDn, 3)
 
     res
   }

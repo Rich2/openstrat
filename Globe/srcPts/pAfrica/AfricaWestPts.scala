@@ -54,14 +54,15 @@ object SaharaWest extends EArea2("Sahara\nwest", 25 ll 1, desert)
   val tangierW = 35.79 ll -5.92
   val ceuta = 35.88 ll -5.31
   val alHoceima = 35.15 ll -4.38
+  val biharaPlage = 35.07 ll -2.01
   val tunis = 37.08 ll 10.20
   val neTunis = 37.07 ll 11.04
   val sTunis = 33.30 ll 10.08
   val misrata = 32.37 ll 15.03
   val southEast = southLine * eastLine
    
-  val polygonLL: PolygonLL = PolygonLL(southWest, nouakchott,nouadhibouBay, nouadhibou, nou2, boujdour, agadir, rabat, tangierW, ceuta, alHoceima, tunis,
-     neTunis, sTunis, misrata, northEast, southEast)
+  val polygonLL: PolygonLL = PolygonLL(southWest, nouakchott,nouadhibouBay, nouadhibou, nou2, boujdour, agadir, rabat, tangierW, ceuta, alHoceima,
+    biharaPlage, tunis, neTunis, sTunis, misrata, northEast, southEast)
 }
 
 object AfricaWestPts

@@ -46,17 +46,20 @@ object Iberia extends EArea2("Iberia", 41 ll -3.5, hills)
   val barcelona = 41.31 ll 2.12
   val southEast = 40 ll 0.03
 
-  val gibralter = 36 ll -5.28
+  val malaga = 36.72 ll -4.41
+  val p10 = 36.38 ll -5.22
+  val bistroPoint = 36.11 ll -5.34
+  val tarifa = 36.01 ll -5.61
   val chipiona = 36.3 ll -6.19
   val heulva = 37 ll -7
   val swPortugal = 37.06 ll -8.34
   val estoril = 38.71 ll -9.48
-   
+
   val valencia = 39.45 ll -0.32
   val xabia = 38.74 ll 0.22
   val almeriaEast = 36.28 ll -2.06
-   
-      
-  val polygonLL = PolygonLL(gibralter, chipiona, heulva, swPortugal, estoril, espinho, escaselas, malipica, carino, santander, FranceSouth.swFrance,
+
+
+  val polygonLL = PolygonLL(malaga, p10, bistroPoint, tarifa, chipiona, heulva, swPortugal, estoril, espinho, escaselas, malipica, carino, santander, FranceSouth.swFrance,
      FranceSouth.seFrance, neSpain, begur, barcelona, valencia, xabia, almeriaEast)
 }

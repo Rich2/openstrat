@@ -24,12 +24,11 @@ object EGrid320
   def w30(rBottomCen: Int, rTopCen: Int = 160): EGrid320LongFull = EGrid320LongFull(rBottomCen, rTopCen,11)
 
   def scen0: EScenBasic =
-  { val grid: EGridLongFull = Terr320E0.grid// e0(124)
-    val terrs: HCenLayer[WTile] = grid.hCenLayerSpawn(Terr320E0.grid, Terr320E0.terrs)
-    val sTerrs = grid.sideBoolLayerSpawn(Terr320E0.grid, Terr320E0.sTerrs)
-    val offsets = grid.newHVertOffsetLayer
-    EScenBasic(grid, terrs, sTerrs, offsets, "320km 0E")
-
+  { val grid: EGridLongFull = Terr320E0.grid
+    val terrs: HCenLayer[WTile] = Terr320E0.terrs
+    val sTerrs = Terr320E0.sTerrs
+    val corners =  Terr320E0.corners
+    EScenBasic(grid, terrs, sTerrs, corners, "320km 0E")
   }
 
   def scen1: EScenBasic = EScenBasic(Terr320E30.grid, Terr320E30.terrs, Terr320E30.sTerrs, Terr320E30.corners, "320km 30E")
