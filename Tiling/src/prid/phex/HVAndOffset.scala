@@ -39,22 +39,22 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
 
       case true if hSys.hCenExists(hCen2) =>
       { val p2 = f(hCen2)
-        val x = ((8 - magnitude) * p1.x + magnitude * p2.x) / 8
-        val y = ((8 - magnitude) * p1.y + magnitude * p2.y) / 8
+        val x = ((16 - magnitude) * p1.x + magnitude * p2.x) / 16
+        val y = ((16 - magnitude) * p1.y + magnitude * p2.y) / 16
         Pt2(x, y)
       }
 
       case true =>
       { val p2 = f(hVert3)
-        val x = ((8 - magnitude) * p1.x + magnitude * p2.x) / 8
-        val y = ((8 - magnitude) * p1.y + magnitude * p2.y) / 8
+        val x = ((16 - magnitude) * p1.x + magnitude * p2.x) / 16
+        val y = ((16 - magnitude) * p1.y + magnitude * p2.y) / 16
         Pt2(x, y)
       }
 
       case _ =>
       { val p2 = f(hVert2)
-        val x = ((8 - magnitude) * p1.x + magnitude * p2.x) / 8
-        val y = ((8 - magnitude) * p1.y + magnitude * p2.y) / 8
+        val x = ((16 - magnitude) * p1.x + magnitude * p2.x) / 16
+        val y = ((16 - magnitude) * p1.y + magnitude * p2.y) / 16
         Pt2(x, y)
       }
     }
@@ -80,8 +80,8 @@ object HVAndOffset
     }
 
     val magnitude3 = magnitude match
-    { case m if isCenDirn & m > 7 => { deb(s"$m > 7 ofr HCen dirn"); m.min(7) }
-      case m if !isCenDirn & m > 3 => { deb(s"$m > 3 for HVert dirn"); m.min(3) }
+    { case m if /*isCenDirn & */ m > 7 => { deb(s"$m > 7 ofr HCen dirn"); m.min(7) }
+     // case m if !isCenDirn & m > 3 => { deb(s"$m > 3 for HVert dirn"); m.min(3) }
       case m => m
     }
 

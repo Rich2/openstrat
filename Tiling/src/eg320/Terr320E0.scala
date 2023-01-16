@@ -37,9 +37,9 @@ object Terr320E0 extends Long320Terrs
 
   override val sTerrs: HSideBoolLayer =
   { val res = grid.newSideBools
-    res.setTruesInts()//139,509,  140,510, 141, 507,  141,511,
-      //142,508,
+
     res.setTruesInts(  143,507)//,  144,522,  145,521)
+    res.setTruesInts(139,509,  140, 510, 141, 511) //, 141, 507,//142,508,        
 
     res.setTruesInts(129,507)//,  129,509,  129,511,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526)
     res
@@ -56,19 +56,30 @@ object Terr320E0 extends Long320Terrs
 //    svs(141, 510, HVDn, 2); svs(141, 512, HVDR, 3); svs(141, 514, HVUL, 3)
 //    svs(139, 512, HVUp, 3); svs(139, 514, HVUL, 3)
 
-    res.setSingle(144, 508, 4, HVUp, 3)
-    res.setSingle(142, 506, 0, HVDL, 3)
+    res.setCorner(144, 508, 4, HVUp, 3)
+    res.setCorner(142, 506, 0, HVDL, 3)
     res.setDouble(144, 504, 2, HVUp, 3, HVDL, 3)
 
-    res.setSingle(144, 508, 3, HVUR, 3)
-    res.setSingle(142, 506, 1, HVDL, 3)
+    /** English Channel */
+    res.setCorner(142, 510, 2, HVUL, 1)
+    res.setCorner(140, 512, 0, HVDn, 1)
+    res.setCorner(142, 510, 3, HVUL, 3)
+    /** Southampton - Le Mont St Michelle */
+    res.setCorner(140, 508, 1, HVUL, 3)
+    res.setCorner(140, 512, 5, HVDR, 3)
+    res.setCorner(140, 508, 2, HVUL, 3)
+    res.setCorner(140, 512, 4, HVDR, 3)
 
-    res.setSingle(130, 506, 3, HVUp, 1)
-    res.setSingle(128, 508, 5, HVDR, 1)
+    res.setCorner(144, 508, 3, HVUR, 3)
+    res.setCorner(142, 506, 1, HVDL, 3)
+
+    /** Gibraltar */
+    res.setCorner(130, 506, 3, HVUp, 1)
+    res.setCorner(128, 508, 5, HVDR, 1)
     res.setDouble(128, 504, 1, HVUp, 1, HVDR, 1)
 
-    res.setSingle(130, 506, 2, HVUp, 3)
-    res.setSingle(128, 508, 0, HVDn, 3)
+    res.setCorner(130, 506, 2, HVUp, 4)
+    res.setCorner(128, 508, 0, HVDn, 4)
 
     res
   }

@@ -58,10 +58,8 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
         case None => None
         case _ if sTerrs(hs) == false => None
         case Some(h1) =>
-        { deb("Some")
-          val (h2, vi) = hs.tile2AndVert
+        { val (h2, vi) = hs.tile2AndVert
           val p1 = corners.cornerV1(h2, vi)
-          debvar(p1.hvDirn)
           val p2 = corners.cornerV1(h2, (vi - 1) %% 6)
           val p3 = corners.cornerV1(h1, (vi - 3) %% 6)
           val p4 = corners.cornerV1(h1, (vi + 2) %% 6)
