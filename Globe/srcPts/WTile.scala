@@ -2,6 +2,8 @@
 package ostrat; package pEarth
 import Colour._
 
+trait WSide extends Coloured with ShowSimple
+
 /** World Tile, consider changing to ETile. */
 trait WTile extends Coloured with ShowSimple
 { override def typeStr: String = "WTile"
@@ -37,7 +39,7 @@ object WTile
   val hillTundra = Land(Hilly, Tundra)
   val ice: WTile = Land(Plains, IceCap)
   val sice: WTile = SeaIce
-  val sea: WTile = Ocean
+  val sea: WTile = Sea
   val lake: WTile = Lake
   val mtain: WTile = Land(Mountains)
 }
@@ -45,12 +47,12 @@ object WTile
 /** Currently a common trait for Ocean and Lake. */
 trait Water extends WTile
 
-case object Ocean extends Water
+case object Sea extends Water with WSide
 { override def str = "Ocean"
   def colour = DarkBlue
 }
 
-case object Lake extends Water
+case object Lake extends Water with WSide
 { override def str = "Lake"
   def colour = Blue
 }

@@ -308,6 +308,8 @@ trait HGridSys extends Any with TGridSys
 
   def newSideBools: HSideBoolLayer = new HSideBoolLayer(new Array[Boolean](numSides))
 
+  def newSideOpts[A <: AnyRef](implicit ct: ClassTag[A]): HSideOptLayer[A] = new HSideOptLayer[A](new Array[A](numSides))
+
   def defaultView(pxScale: Double = 50): HGView
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HVert]]. Use arrIndex and sideArrIndex methods to access tile centre and side

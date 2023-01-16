@@ -23,7 +23,7 @@ object WW1Scen2 extends WW1Scen
 
   override implicit def gridSys: EGrid80Long = EGrid80.e0(446)
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
-  override def sTerrs: HSideBoolLayer = Terr80E0.sTerrs
+  override def sTerrs: HSideBoolLayer = Terr80E0.sTerrsDepr
 
   override val corners: HCornerLayer = ???
 }

@@ -53,7 +53,7 @@ object Terr80E0 extends LongTerrs
     res
   }
 
-  override val sTerrs: HSideBoolLayer =
+  override val sTerrsDepr: HSideBoolLayer =
   { val res = grid.newSideBools
     res.setTruesInts(463,517,  475,547, 476,546, 477,493,  477,545,  478,544,  478,552,  479,545,  479,551)
     res
@@ -62,5 +62,5 @@ object Terr80E0 extends LongTerrs
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
   def frontTerrs: HCenLayer[WTile] = EGrid80.westernFront.hCenLayerSpawn(grid, terrs)
-  def frontSTerrs: HSideBoolLayer = EGrid80.westernFront.sideBoolLayerSpawn(grid, sTerrs)
+  def frontSTerrs: HSideBoolLayer = EGrid80.westernFront.sideBoolLayerSpawn(grid, sTerrsDepr)
 }

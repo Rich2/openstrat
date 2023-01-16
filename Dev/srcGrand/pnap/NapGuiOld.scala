@@ -35,7 +35,7 @@ case class NapGuiOld(canv: CanvasPlatform, scen: NapScenld) extends EarthAllGuiO
      } 
       
   def ls: GraphicElems =
-  { val seas = earth2DEllipse(scale).fill(Ocean.colour)
+  { val seas = earth2DEllipse(scale).fill(Sea.colour)
     val as: GraphicElems = scen.tops.flatMap(a => a.disp2(this))
     val gs: GraphicElems = scen.grids.flatMap(_.eGraphicElems(this, fHex, fSide))
     seas %: as ++ gs

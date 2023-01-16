@@ -8,7 +8,7 @@ object EuropeNWGridAncient extends EGridMaker
     evTile: ClassTag[TileT], evSide: ClassTag[SideT]): EGrid80KmAncient[TileT, SideT] =
   {
     val grid: EGFarNorth[TileT, SideT] = new EGFarNorth[TileT, SideT]("WEurope", 0.east, xOffset = 200, xTileMin = 114, xTileMax = 286)
-    grid.setTilesAll(Ocean)(fTile)
+    grid.setTilesAll(Sea)(fTile)
     grid.setSidesAll(SideNone)(fSide)
     grid.fSetSide(181, 477, Straitsold)(fSide)
     grid.fSetSide(205, 463, Straitsold)(fSide)

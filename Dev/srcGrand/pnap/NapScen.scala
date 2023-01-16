@@ -12,7 +12,7 @@ object NapScen2 extends NapScen
 
   override implicit def gridSys: EGrid160LongFull = EGrid160.e0(276)
   override val terrs: HCenLayer[WTile] = Terr160E0.terrs
-  override def sTerrs: HSideBoolLayer = Terr160E0.sTerrs
+  override def sTerrs: HSideBoolLayer = Terr160E0.sTerrsDepr
 
   override val corners: HCornerLayer = ???
 }

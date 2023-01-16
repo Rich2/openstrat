@@ -16,7 +16,7 @@ package object eg160
   def fullTerrsSideBoolLayerSpawn(implicit subSys: EGrid160LongMulti): HSideBoolLayer =
   { val arr = iToMap(0, subSys.numGrids - 1) { i =>
       val ft = fullTerrs((i + subSys.headGridInt) %% 12)
-      (ft.grid, ft.sTerrs)
+      (ft.grid, ft.sTerrsDepr)
     }
     subSys.sideBoolsFromPairsSpawn(arr)
   }
