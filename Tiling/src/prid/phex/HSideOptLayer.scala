@@ -27,4 +27,15 @@ class HSideOptLayer[A <: AnyRef](val unsafeArray: Array[A])
       unsafeArray(index) = value
     }
   }
+
+  /** Maps across all the trues in this Side Layer that exist in the projection. */
+  def projOptsLineSegMap[B, ArrB <: Arr[B]](f: LineSeg => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
+    projOptsLineSegMap(proj)(f)(build)
+
+  /** Maps across all the trues in this Side Layer that exist in the projection. */
+  def projOptsLineSegMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: LineSeg => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+    proj.gChild.sidesOptMap { hs =>
+      if (unsafeApply(hs)(proj.parent) != null) proj.transOptLineSeg(hs.lineSegHC).map(f)
+      else None
+    }
 }
