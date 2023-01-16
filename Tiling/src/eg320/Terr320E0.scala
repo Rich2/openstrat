@@ -37,7 +37,11 @@ object Terr320E0 extends Long320Terrs
 
   val STerrs: HSideOptLayer[WSide] =
   {
-    val res = grid.newSideOpts[WSide]
+    val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+    res.setTruesInts(Sea, 143, 507) //,  144,522,  145,521)
+    res.setTruesInts(Sea, 139, 509, 140, 510, 141, 511) //, 141, 507,//142,508,
+
+    res.setTruesInts(Sea, 129, 507) //,
     res
   }
 
