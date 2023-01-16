@@ -1,5 +1,4 @@
 project/project/
-project/metals.sbt
 target/
 DocProj/
 DevData/
@@ -8,3 +7,4 @@ out/
 SbtDir/
 Dev/User/
 .*/
+project/metals.sbt
