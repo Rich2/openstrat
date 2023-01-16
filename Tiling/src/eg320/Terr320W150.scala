@@ -19,7 +19,10 @@ object Terr320W150 extends Long320Terrs
     wr(144, hillTaiga, sea * 4)
     res
   }
-
+  override val sTerrs: HSideOptLayer[WSide] = {
+    val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+    res
+  }
   override val sTerrsDepr: HSideBoolLayer =
   { val res = grid.newSideBools
     res

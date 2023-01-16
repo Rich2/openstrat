@@ -21,7 +21,10 @@ object Scen160s0e1 extends EScenLongMulti
 { override val title: String = "160km 0E - 30E"
   override implicit val gridSys: EGrid160LongMulti = Grids160S0E1
   override lazy val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override lazy val sTerrs: HSideBoolLayer = fullTerrsSideBoolLayerSpawn
+
+  override def sTerrs: HSideOptLayer[WSide] = ???
+
+  override lazy val sTerrsDepr: HSideBoolLayer = fullTerrsSideBoolLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }
 
@@ -45,6 +48,7 @@ object Scen160s11e1 extends EScenLongMulti
 { override val title: String = "160km 0E - 30E"
   override implicit val gridSys: EGrid160LongMulti = Grids160S11E1
   override lazy val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override lazy val sTerrs: HSideBoolLayer = fullTerrsSideBoolLayerSpawn
+  override def sTerrs: HSideOptLayer[WSide] = ???
+  override lazy val sTerrsDepr: HSideBoolLayer = fullTerrsSideBoolLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }

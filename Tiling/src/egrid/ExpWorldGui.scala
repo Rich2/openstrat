@@ -19,7 +19,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   proj.setView(viewIn)
 
   val terrs: HCenLayer[WTile] = scen.terrs
-  val sTerrs: HSideBoolLayer = scen.sTerrs
+  val sTerrs: HSideBoolLayer = scen.sTerrsDepr
   val corners: HCornerLayer = scen.corners
 
   val g0Str: String = gridSys match

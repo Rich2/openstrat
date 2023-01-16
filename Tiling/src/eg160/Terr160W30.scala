@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
-import pEarth._, prid._, phex._, WTile._, egrid._
+import pEarth._, prid._, phex._, WTile._
 
 object Terr160W30 extends Long160Terrs
 {
@@ -24,7 +24,10 @@ object Terr160W30 extends Long160Terrs
     gs(298, 11758, tundra, sea * 9)
     res
   }
-
+  override val sTerrs: HSideOptLayer[WSide] = {
+    val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+    res
+  }
   override val sTerrsDepr: HSideBoolLayer =
   { val res = grid.newSideBools
     //res.setTruesInts((142, 508), (143, 507), (144, 522), (145, 521))
@@ -32,16 +35,4 @@ object Terr160W30 extends Long160Terrs
   }
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
-
-  //def regGrid: HGridReg = HGridReg(138, 148, 504, 520)
-
-  def regTerrs: HCenLayer[WTile] = EGrid160.britGrid.hCenLayerSpawn(EGrid160.e0(138), terrs)
-
-  def regScen: EScenBasic = new EScenBasic {
-    override implicit val gridSys: EGrid160LongPart = EGrid160.britGrid// regGrid
-    override val terrs: HCenLayer[WTile] = regTerrs
-    override val sTerrs: HSideBoolLayer = gridSys.newSideBools
-    override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
-    sTerrs.setTruesPairs((142, 508), (143, 507))(gridSys)
-  }
 }

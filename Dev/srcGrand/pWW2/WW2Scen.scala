@@ -11,7 +11,8 @@ object WW2Scen1 extends WW2Scen
 
   override implicit def gridSys: EGrid320Sys = Grids320S0E11
   override val terrs: HCenLayer[WTile] = Scen320S0E11.terrs
-  override def sTerrs: HSideBoolLayer = Scen320S0E11.sTerrs
+  override def sTerrs: HSideOptLayer[WSide] = Scen320S0E11.sTerrs
+  override def sTerrsDepr: HSideBoolLayer = Scen320S0E11.sTerrsDepr
 
-  override val corners: HCornerLayer = ???
+  override val corners: HCornerLayer = Scen320S0E11.corners
 }

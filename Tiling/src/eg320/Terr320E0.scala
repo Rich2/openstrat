@@ -35,7 +35,7 @@ object Terr320E0 extends Long320Terrs
     res
   }
 
-  val STerrs: HSideOptLayer[WSide] =
+  override val sTerrs: HSideOptLayer[WSide] =
   {
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res.setTruesInts(Sea, 143, 507) //,  144,522,  145,521)
@@ -106,7 +106,10 @@ object BritReg
     override implicit val gridSys: EGrid320Long = britGrid
 
     override val terrs: HCenLayer[WTile] = britTerrs
-    override val sTerrs: HSideBoolLayer = britSTerrs
+
+    override def sTerrs: HSideOptLayer[WSide] = ???
+
+    override val sTerrsDepr: HSideBoolLayer = britSTerrs
     override val corners: HCornerLayer = britCorners
   }
 }

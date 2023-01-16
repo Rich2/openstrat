@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg160
-import pEarth._, prid._, phex._, WTile._, egrid._
+import pEarth._, prid._, phex._, WTile._
 
 object Terr160E30 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.e30(276)
@@ -29,6 +29,10 @@ object Terr160E30 extends Long160Terrs
     res
   }
 
+  override val sTerrs: HSideOptLayer[WSide] = {
+    val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+    res
+  }
   override val sTerrsDepr: HSideBoolLayer = {
     val res = grid.newSideBools
     //res.setTruesInts(279, 505, 281, 515, 282, 516, 284, 502, 288, 502)

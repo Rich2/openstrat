@@ -13,6 +13,14 @@ package object eg320
     subSys.grids(i).hCenLayerSpawn(ft.grid, ft.terrs)
   }.combine
 
+  def fullTerrsSideOptLayerSpawn(implicit subSys: EGrid320LongMulti): HSideOptLayer[WSide] =
+  { val arr = iToMap(0, subSys.numGrids - 1) { i =>
+      val ft = fullTerrs((i + subSys.headGridInt) %% 12)
+      (ft.grid, ft.sTerrs)
+    }
+    subSys.sideOptsFromPairsSpawn(arr)
+  }
+
   def fullTerrsSideBoolLayerSpawn(implicit subSys: EGrid320LongMulti): HSideBoolLayer =
   { val arr = iToMap(0, subSys.numGrids - 1) { i =>
       val ft = fullTerrs((i + subSys.headGridInt) %% 12)
