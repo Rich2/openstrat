@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, pEarth._
 /** 2 Grid system for 0E and 30E */
 object Grids320S0E1 extends EGrid320LongMulti
 { ThisSys =>
-  override val grids: RArr[EGridLongFull] =  EGrid320.grids(2, 0,124)
+  override val grids: RArr[EGridLongFull] =  EGrid320.grids(2, 0, 124)
   override def headGridInt: Int = 0
   override def gridsXSpacing: Double = 40
   override val gridMans: RArr[EGridLongMan] = iToMap(1)(EGridLongMan(_, ThisSys))

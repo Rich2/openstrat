@@ -38,6 +38,6 @@ object DLessScen2 extends DLessScen
   override implicit val gridSys: EGrid320Long = BritReg.britGrid
 
   override val terrs: HCenLayer[WTile] = BritReg.britTerrs
-  override val sTerrs: HSideBoolLayer = BritReg.britSTerrs
+  override val sTerrs: HSideBoolLayer = BritReg.britSTerrsDepr
   override val offsets: HCornerLayer = gridSys.newHVertOffsetLayer
 }

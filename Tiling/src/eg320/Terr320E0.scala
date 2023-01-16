@@ -98,7 +98,8 @@ object Terr320E0 extends Long320Terrs
 object BritReg
 { def britGrid: EGrid320Long = EGrid320Long.reg(138, 148, 0, 504, 520)
   def britTerrs: HCenLayer[WTile] = britGrid.hCenLayerSpawn(Terr320E0.grid, Terr320E0.terrs)
-  def britSTerrs: HSideBoolLayer = britGrid.sideBoolLayerSpawn(Terr320E0.grid, Terr320E0.sTerrsDepr)
+  def britSTerrs: HSideOptLayer[WSide] = britGrid.sideOptLayerSpawn(Terr320E0.grid, Terr320E0.sTerrs)
+  def britSTerrsDepr: HSideBoolLayer = britGrid.sideBoolLayerSpawn(Terr320E0.grid, Terr320E0.sTerrsDepr)
   def britCorners: HCornerLayer = britGrid.cornerLayerSpawn(Terr320E0.grid, Terr320E0.corners)
 
   def regScen: EScenBasic = new EScenBasic
@@ -107,9 +108,9 @@ object BritReg
 
     override val terrs: HCenLayer[WTile] = britTerrs
 
-    override def sTerrs: HSideOptLayer[WSide] = ???
+    override val sTerrs: HSideOptLayer[WSide] = britSTerrs
 
-    override val sTerrsDepr: HSideBoolLayer = britSTerrs
+    override val sTerrsDepr: HSideBoolLayer = britSTerrsDepr
     override val corners: HCornerLayer = britCorners
   }
 }
