@@ -4,7 +4,9 @@ import Colour._
 
 trait WSide extends Coloured with ShowSimple
 
-/** World Tile, consider changing to ETile. */
+/** World Tile, consider changing to ETile. When assigning terrain land and land terrain should take precedence over water. So in the case of world
+ * 320km hex 4CG0, or 140, 512 should be a land hex belonging to continental Europe. An island must be a whole hec, except for the straits between it
+ * and other land hexs.  */
 trait WTile extends Coloured with ShowSimple
 { override def typeStr: String = "WTile"
 }
