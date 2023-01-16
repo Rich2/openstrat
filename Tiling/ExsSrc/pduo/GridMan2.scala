@@ -49,4 +49,7 @@ class GridMan2(val grid: HGridReg, grid2OffsetC: Int) extends HGridMan
 
     case _ => HStepCenArr()
   }
+
+  /** Gives the index into an [[HSide]] data layer's backing [[Array]]. */
+  override def sideArrIndex(r: Int, c: Int): Int = ???
 }

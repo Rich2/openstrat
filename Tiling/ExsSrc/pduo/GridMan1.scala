@@ -35,4 +35,7 @@ class GridMan1(val grid: HGridReg, grid2OffsetC: Int) extends HGridMan
   case (r, c) if c == grid.rightCenC - 2 => HStepCenArr((HexRt, r, c - grid2OffsetC + 4))
   case _ => HStepCenArr()
   }
+
+  /** Gives the index into an [[HSide]] data layer's backing [[Array]]. */
+  override def sideArrIndex(r: Int, c: Int): Int = ???
 }
