@@ -18,6 +18,14 @@ sealed trait HVDirn extends Int1Elem
   def opposite: HVDirn
 
   def corner(hv: HVert): Int
+
+  def clock(steps: Int): HVDirn = if (int1 == 0) HVExact
+    else{
+    val r1 = int1 - 1
+    val r2 = (r1 + steps)  %% 6
+    val r3 = r2 + 1
+    HVDirn.fromInt(r3)
+  }
 }
 
 object HVDirn

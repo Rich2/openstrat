@@ -68,7 +68,7 @@ object Terr320E0 extends Long320Terrs
 
     res.setCorner(144, 508, 4, HVUp, 3)
     res.setCorner(142, 506, 0, HVDL, 3)
-    res.setDouble(144, 504, 2, HVUp, 3, HVDL, 3)
+    res.setCorner2(144, 504, 2, HVUp, 3, HVDL, 3)
 
     res.setCorner(144, 508, 3, HVUR, 3)
 
@@ -81,12 +81,12 @@ object Terr320E0 extends Long320Terrs
     res.setCorner(140, 508, 0, HVDR, 3)
 
     /** St Georges Chanel */
-    res.setDouble(140, 504, 1, HVUL, 3, HVDn, 3)
+    res.setCorner2(140, 504, 1, HVUL, 3, HVDn, 3)
     res.setCorner(142, 506, 3, HVUL, 3)
     res.setCorner(140, 508, 5, HVDn, 3)
 
     /** English Channel Dover */
-    res.setDouble(142, 514, 4, HVDn, 3, HVUL, 3)
+    res.setCorner2(142, 514, 4, HVDn, 3, HVUL, 3)
     res.setCorner(142, 510, 2, HVUL, 3)
     res.setCorner(140, 512, 0, HVDn, 3)
     res.setCorner(142, 510, 3, HVUL, 3)
@@ -99,14 +99,14 @@ object Terr320E0 extends Long320Terrs
     res.setCorner(138, 510, 0, HVDR, 3)
 
     /** English Channel Atlantic end */
-    res.setDouble(138, 506, 1, HVUL, 3, HVDn, 3)
+    res.setCorner2(138, 506, 1, HVUL, 3, HVDn, 3)
     res.setCorner(140, 508, 3, HVUL, 3)
     res.setCorner(138, 510, 5, HVDn, 3)
 
     /** Gibraltar */
     res.setCorner(130, 506, 3, HVUp, 3)
     res.setCorner(128, 508, 5, HVDR, 3)
-    res.setDouble(128, 504, 1, HVUp, 3, HVDR, 3)
+    res.setCorner2(128, 504, 1, HVUp, 3, HVDR, 3)
 
     res.setCorner(130, 506, 2, HVUp, 3)
     res.setCorner(128, 508, 0, HVDn, 3)
