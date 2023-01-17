@@ -1,6 +1,9 @@
 /* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, reflect.ClassTag
+import geom._
+import ostrat.prid.phex.HSide.unapply
+
+import reflect.ClassTag
 
 /** Hex grid system graphics projection. */
 trait HSysProjection extends TSysProjection
@@ -34,4 +37,7 @@ trait HSysProjection extends TSysProjection
   def transLineSegPairs[A2](inp: LineSegHCPairArr[A2])(implicit ct: ClassTag[A2]): LineSegPairArr[A2] = inp.optMapOnA1(transOptLineSeg(_))
 
   def linksOptMap[B, ArrB <: Arr[B]](f: HSide => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB = gChild.linksOptMap(f)
+
+  def linkLineSegsOptMap[B, ArrB <: Arr[B]](f: (HSide, LineSeg) => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
+    gChild.linksOptMap{hs => f(hs, lineSeg(hs)) }
 }
