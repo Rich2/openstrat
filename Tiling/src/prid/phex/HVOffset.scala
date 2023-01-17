@@ -110,6 +110,20 @@ class HCornerLayer(val unsafeArray: Array[Int])
     unsafeArray(index) = corner.unsafeInt
   }
 
+  /** Sets the corner intowards the [[HCen]] with a single [[HVOffset]]. */
+  def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
+  { val i = vertNum %% 6
+    val dirn = i match
+    { case 0 => HVDn
+      case 1 => HVDL
+      case 2 => HVUL
+      case 3 => HVUp
+      case 4 => HVUR
+      case 5 => HVDR
+    }
+    setCorner(cenR, cenC, vertNum, dirn, magnitude)
+  }
+
   /** Sets a single [[HCorner]] corner with 2 [[HVOffset]]s. */
   def setCorner2(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirn, dirn2: HVDirn, magnitude1: Int = 3, magnitude2: Int = 3)(
     implicit gridSys: HGridSys): Unit = setCorner2(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)

@@ -20,7 +20,7 @@ object Terr320E0 extends Long320Terrs
     wr(152,  sea * 3, taiga)
     wr(150, sea * 3, taiga)
     wr(148, sea * 3, hillTaiga, taiga)
-    wr(146, sea, hillForest, sea * 2, plain)
+    wr(146, sea, hillForest, sea, plain * 2)
     gs(144, 508, plain, sea * 2, plain)
     gs(142, 506, plain, plain, sea, plain * 2)
     wr(140, sea, hills, plain * 4)
@@ -38,10 +38,10 @@ object Terr320E0 extends Long320Terrs
   override val sTerrs: HSideOptLayer[WSide] =
   {
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setTruesInts(Sea, 143, 507) //,  144,522,  145,521)
-    res.setTruesInts(Sea, 139, 509, 140, 510, 141, 511) //, 141, 507,//142,508,
+    res.setTruesInts(Sea, 143,507,  144,522,  145,521,  146,520,  147,517,  147,519)
+    res.setTruesInts(Sea, 139,509,  140,510,  141,507,  141,511,  142,508)
 
-    res.setTruesInts(Sea, 129, 507) //,
+    res.setTruesInts(Sea, 129, 507)
     res
   }
 
@@ -104,8 +104,8 @@ object Terr320E0 extends Long320Terrs
     res.setCorner(138, 510, 5, HVDn)
 
     //Gibraltar
-    res.setCorner(130, 506, 3, HVUp)
-    res.setCorner(128, 508, 5, HVDR)
+    res.setCornerIn(130, 506, 3)
+    res.setCornerIn(128, 508, 5)
     res.setCorner2(128, 504, 1, HVUp, HVDR)
     //res.setStraitMouth(128, 504, 1)
 
@@ -113,11 +113,12 @@ object Terr320E0 extends Long320Terrs
     res.setCorner(128, 508, 0, HVDn)
 
     res.setCorner(130, 510, 4, HVUp)
-    res.setCorner(130, 510, 3, HVUp)
+    res.setCornerIn(130, 510, 3)
     res.setCorner(128, 508, 1, HVDn)
     res.setCorner(128, 512, 5, HVDn)
-    res.setCorner(130, 510, 2, HVUL)
-    res.setCorner(128, 512, 0, HVDn)
+    res.setCornerIn(130, 510, 2)
+    res.setCornerIn(128, 512, 0)
+    res.setCorner2(130, 514, 4, HVDn, HVUL)
     res
   }
 }
