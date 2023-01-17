@@ -7,7 +7,6 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
-  val sTerrsDepr: HSideBoolLayer = scen.sTerrsDepr
 
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
@@ -18,15 +17,19 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def actives: RArr[PolygonActive] = proj.tileActives
 
   /** Note we only represent links, no outer sides, so as the side terrain can use data from both of its adjacent tiles. */
-  //def straits: GraphicElems = sTerrsDepr.projLinkTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
 
   def straits2: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
 
-  def lines: RArr[LineSegDraw] = sTerrsDepr.projFalseLinksHsLineSegOptMap{ (hs, ls) =>
-    val t1 = terrs(hs.tile1)
-    val t2 = terrs(hs.tile2)
-    ife( t1 == t2, Some(ls.draw(t1.contrastBW)), None)
+
+  def lines = proj.linkLineSegsOptMap { (hs, ls) =>
+    if (sTerrs(hs).nonEmpty) None
+    else {
+      val t1 = terrs(hs.tile1)
+      val t2 = terrs(hs.tile2)
+      ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
+    }
   }
+
   def lines2: GraphicElems = proj.ifTileScale(50, lines)
 
   //def hexStrs: GraphicElems = proj.hCenSizedMap(15){ (pt, hc) => pt.textAt(hc.rcStr32, 12, terrs(hc).contrastBW) }
@@ -38,7 +41,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
     }
   }
 
-  def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs)
+  def hexStrs2: GraphicElems = proj.ifTileScale(72, hexStrs)
 
   override def frame: GraphicElems = polyFills ++ actives ++ straits2 ++ lines2 ++ hexStrs2
 

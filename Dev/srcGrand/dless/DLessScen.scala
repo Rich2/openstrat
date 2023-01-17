@@ -6,7 +6,7 @@ trait DLessScen extends HSysTurnScen
 { def title: String = "DLessScen"
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideOptLayer[WSide]
-  val sTerrsDepr: HSideBoolLayer
+  //val sTerrsDepr: HSideBoolLayer
   val offsets: HCornerLayer
 }
 
@@ -28,7 +28,7 @@ object DLessScen1 extends DLessScen
 
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
-  override val sTerrsDepr: HSideBoolLayer = fullTerrsSideBoolLayerSpawn
+  //override val sTerrsDepr: HSideBoolLayer = fullTerrsSideBoolLayerSpawn
   override val offsets: HCornerLayer = gridSys.newHVertOffsetLayer
 }
 
@@ -41,6 +41,6 @@ object DLessScen2 extends DLessScen
 
   override val terrs: HCenLayer[WTile] = BritReg.britTerrs
   override val sTerrs: HSideOptLayer[WSide] = BritReg.britSTerrs
-  override val sTerrsDepr: HSideBoolLayer = BritReg.britSTerrsDepr
+  //override val sTerrsDepr: HSideBoolLayer = BritReg.britSTerrsDepr
   override val offsets: HCornerLayer = gridSys.newHVertOffsetLayer
 }
