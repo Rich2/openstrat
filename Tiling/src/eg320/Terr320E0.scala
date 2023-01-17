@@ -27,7 +27,7 @@ object Terr320E0 extends Long320Terrs
     gs(138, 460 + 50, plain * 5)
     gs(136, 512, plain, hills, mtain, plain)
     gs(134, 506, hills * 3, sea * 2, hills)
-    gs(132, 504, hills, plain * 2, sea * 3)
+    gs(132, 504, hills, plain * 2, sea, hills, sea)
     gs(130, 506, plain, hills, sea * 3, hills)
     wr(128, sea * 2, hills * 5, sea)
     wr(126, sea * 2, mtain, hillDesert, desert * 4)
@@ -104,12 +104,14 @@ object Terr320E0 extends Long320Terrs
     res.setCorner(138, 510, 5, HVDn, 3)
 
     /** Gibraltar */
-    res.setCorner(130, 506, 3, HVUp, 1)
-    res.setCorner(128, 508, 5, HVDR, 1)
-    res.setDouble(128, 504, 1, HVUp, 1, HVDR, 1)
+    res.setCorner(130, 506, 3, HVUp, 3)
+    res.setCorner(128, 508, 5, HVDR, 3)
+    res.setDouble(128, 504, 1, HVUp, 3, HVDR, 3)
 
-    res.setCorner(130, 506, 2, HVUp, 4)
-    res.setCorner(128, 508, 0, HVDn, 4)
+    res.setCorner(130, 506, 2, HVUp, 3)
+    res.setCorner(128, 508, 0, HVDn, 3)
+
+    res.setCorner(130, 510, 4, HVUp, 3)
 
     res
   }
