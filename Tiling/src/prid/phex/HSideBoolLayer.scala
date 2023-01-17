@@ -9,7 +9,7 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   override def typeStr: String = "HSideBoolDGrid"
   override def fromArray(array: Array[Boolean]): HSideBoolLayer = new HSideBoolLayer(array)
 
-  def apply(hs: HSide)(implicit gridSys: HGridSys): Boolean = unsafeArray(gridSys.sideArrIndex(hs))
+  def apply(hs: HSide)(implicit gridSys: HGridSys): Boolean = unsafeArray(gridSys.sideLayerArrayIndex(hs))
 
   /** Foreach true value applies the side effecting function to the corresponding [[HSide]]
    *  value.  */
@@ -106,14 +106,14 @@ final class HSideBoolLayer(val unsafeArray: Array[Boolean]) extends AnyVal with 
   }
 
   def set(hs: HSide, value: Boolean)(implicit grid: HGridSys): Unit = {
-    val i = grid.sideArrIndex(hs)
+    val i = grid.sideLayerArrayIndex(hs)
     if (i >= unsafeArray.length) deb(s"$hs")
     unsafeArray(i) = value
   }
 
   def set(r: Int, c: Int, value: Boolean)(implicit grid: HGridSys): Unit = { unsafeArray(grid.sideLayerArrayIndex(r, c)) = value }
-  def setTrues(hSides: HSideArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
-  def setTrues(hSides: HSide*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideArrIndex(r)) = true)
+  def setTrues(hSides: HSideArr)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideLayerArrayIndex(r)) = true)
+  def setTrues(hSides: HSide*)(implicit grid: HGridSys): Unit = hSides.foreach(r => unsafeArray(grid.sideLayerArrayIndex(r)) = true)
   def setTruesPairs(hSidePairs: (Int, Int)*)(implicit grid: HGridSys): Unit = hSidePairs.foreach(p => unsafeArray(grid.sideLayerArrayIndex(p._1, p._2)) = true)
 
   def setTruesInts(hSideInts: Int*)(implicit grid: HGridSys): Unit ={

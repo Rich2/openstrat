@@ -199,14 +199,14 @@ trait HGridSys extends Any with TGridSys
   /** Spawns a new [[HSideOptlLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
   def sideOptLayerSpawn[A <: AnyRef](superGrid: HGridSys, superLayer: HSideOptLayer[A])(implicit ct: ClassTag[A]): HSideOptLayer[A] =
   { val array: Array[A] = new Array[A](numSides)
-    sidesForeach { sc => array(sideArrIndex(sc)) = superLayer.unsafeApply(sc)(superGrid) }
+    sidesForeach { sc => array(sideLayerArrayIndex(sc)) = superLayer.unsafeApply(sc)(superGrid) }
     new HSideOptLayer[A](array)
   }
 
   /** Spawns a new [[HSideBoolLayer]] data layer for this [[HGridSys]] from the master [[HGridSys]]'s data layer. */
   def sideBoolLayerSpawn(superGrid: HGridSys, superLayer: HSideBoolLayer): HSideBoolLayer =
   { val array: Array[Boolean] = new Array[Boolean](numSides)
-    sidesForeach { sc => array(sideArrIndex(sc)) = superLayer(sc)(superGrid) }
+    sidesForeach { sc => array(sideLayerArrayIndex(sc)) = superLayer(sc)(superGrid) }
     new HSideBoolLayer(array)
   }
 
@@ -232,7 +232,7 @@ trait HGridSys extends Any with TGridSys
 
   /** Gives the index into an Arr / Array of Tile data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access tile centre and Vertex
    *  Arr / Array data. */
-  @inline final def sideArrIndex(hc: HSide): Int = sideLayerArrayIndex(hc.r, hc.c)
+  @inline final def sideLayerArrayIndex(hc: HSide): Int = sideLayerArrayIndex(hc.r, hc.c)
 
   /** Gives the index into an Arr / Array of side data from its tile [[HSide]]. Use arrIndex and vertIndex methods to access Side and Vertex Arr /
    *  Array data. */

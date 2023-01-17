@@ -19,7 +19,8 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
   proj.setView(viewIn)
 
   val terrs: HCenLayer[WTile] = scen.terrs
-  val sTerrs: HSideBoolLayer = scen.sTerrsDepr
+  val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
+  val sTerrsDepr: HSideBoolLayer = scen.sTerrsDepr
   val corners: HCornerLayer = scen.corners
 
   val g0Str: String = gridSys match
@@ -51,42 +52,24 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       corners.tilePoly(hc).map{ hvo => hvo.toPt2Reg(proj.transCoord(_)) }.fill(terrs(hc).colour)
     }
 
-    def sides1: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Brown) }
-
-    def sides2 = proj.linksOptMap{ (hs: HSide) =>
-      hs.tile1Opt match {
-        case None => None
-        case _ if sTerrs(hs) == false => None
-        case Some(h1) =>
-        { val (h2, vi) = hs.tile2AndVert
-          val p1 = corners.cornerV1(h2, vi)
-          val p2 = corners.cornerV1(h2, (vi - 1) %% 6)
-          val p3 = corners.cornerV1(h1, (vi - 3) %% 6)
-          val p4 = corners.cornerV1(h1, (vi + 2) %% 6)
-          val res: PolygonFill = PolygonHVAndOffset(p1, p2 ,p3 , p4).project(proj).fill(DarkBlue)
-          Some(res)
+    def sides2: GraphicElems = proj.linksOptMap { (hs: HSide) =>
+      sTerrs(hs).flatMap { st =>
+        hs.tile1Opt match
+        { case None => None
+          case Some(h1) =>
+          { val (h2, vi) = hs.tile2AndVert
+            val p1 = corners.cornerV1(h2, vi)
+            val p2 = corners.cornerV1(h2, (vi - 1) %% 6)
+            val p3 = corners.cornerV1(h1, (vi - 3) %% 6)
+            val p4 = corners.cornerV1(h1, (vi + 2) %% 6)
+            val res: PolygonFill = PolygonHVAndOffset(p1, p2, p3, p4).project(proj).fill(DarkBlue)
+            Some(res)
+          }
         }
       }
     }
 
-    val hs = HSide(143, 507)
-
-    def strait1 = {
-      //val hs =
-      val t1 = hs.tile1
-      debvar(t1)
-      val t2 = hs.tile2
-
-      val p1 = corners.cornerV1(t2, 4)
-      val p2 = corners.cornerV1(t2, 3)
-      val p3 = corners.cornerV1(t1, 1)
-      val p4 = corners.cornerV1(t1, 0)
-      PolygonHVAndOffset(p1, p2, p3, p4).project(proj).fill(Violet)
-    }
-
-    def strait2: GraphicElems = ife(gridSys.ifSideExists(hs), RArr(strait1), RArr())
-
-    def lines1: RArr[LineSegDraw] = sTerrs.projFalseLinksHsLineSegOptMap { (hs, ls) =>
+    def lines1: RArr[LineSegDraw] = sTerrsDepr.projFalseLinksHsLineSegOptMap { (hs, ls) =>
       val t1 = terrs(hs.tile1)
       val t2 = terrs(hs.tile2)
       ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
@@ -98,7 +81,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       val hc1 = hs.tile1Reg
       val t1 = terrs(hc1)
       def t2 = terrs(hs.tile2Reg)
-      sTerrs(hs) match{
+      sTerrsDepr(hs) match{
         case true => None
         case _ if t1 != t2 => None
         case _ => {
@@ -123,7 +106,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles2 /*++ sides1*/ ++ lines4 ++ sides2 +% outerLines ++ rcTexts2 ++ irrLines //++ strait2
+    seas ++ irrFills ++ irrNames ++ tiles2  ++ sides2 ++ lines4 +% outerLines ++ rcTexts2 ++ irrLines
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)

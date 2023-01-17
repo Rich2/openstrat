@@ -47,7 +47,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
     def rcTexts2: GraphicElems = proj.ifTileScale(82, rcTexts1)
 
     def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
-    def sides1: GraphicElems = sTerrsDepr.projTruesLineSegMap{ ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
+   // def sides1: GraphicElems = sTerrsDepr.projTruesLineSegMap{ ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
 
     def sides2: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
 
