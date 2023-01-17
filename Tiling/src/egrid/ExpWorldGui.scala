@@ -20,7 +20,6 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
-  val sTerrsDepr: HSideBoolLayer = scen.sTerrsDepr
   val corners: HCornerLayer = scen.corners
 
   val g0Str: String = gridSys match
@@ -52,7 +51,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       corners.tilePoly(hc).map{ hvo => hvo.toPt2Reg(proj.transCoord(_)) }.fill(terrs(hc).colour)
     }
 
-    def sides2: GraphicElems = proj.linksOptMap { (hs: HSide) =>
+    def sides1: GraphicElems = proj.linksOptMap { (hs: HSide) =>
       sTerrs(hs).flatMap { st =>
         hs.tile1Opt match
         { case None => None
@@ -69,31 +68,20 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       }
     }
 
-    def lines1: RArr[LineSegDraw] = sTerrsDepr.projFalseLinksHsLineSegOptMap { (hs, ls) =>
-      val t1 = terrs(hs.tile1)
-      val t2 = terrs(hs.tile2)
-      ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
-    }
-
-    def lines2: GraphicElems = proj.ifTileScale(50, lines1)
-
-    def lines3: GraphicElems = proj.linksOptMap{hs =>
-      val hc1 = hs.tile1Reg
+    def lines1: GraphicElems = proj.linksOptMap{hs =>
+      val hc1 = hs.tile1
       val t1 = terrs(hc1)
-      def t2 = terrs(hs.tile2Reg)
-      sTerrsDepr(hs) match{
-        case true => None
-        case _ if t1 != t2 => None
-        case _ => {
-          val cs = hs.corners
-          val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
-          val ls2 = ls1.map(hva => hva.toPt2Reg(proj.transCoord(_)))
-          Some(ls2.draw(t1.contrastBW))
-        }
+      def t2 = terrs(hs.tile2)
+      if (sTerrs(hs).nonEmpty | t1 != t2) None
+      else
+      { val cs = hs.corners
+        val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
+        val ls2 = ls1.map(hva => hva.toPt2Reg(proj.transCoord(_)))
+        Some(ls2.draw(t1.contrastBW))
       }
     }
 
-    def lines4: GraphicElems = proj.ifTileScale(50, lines3)
+    def lines2: GraphicElems = proj.ifTileScale(50, lines1)
 
     def outerLines = proj.outerSidesDraw(3, Gold)
 
@@ -106,7 +94,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles2  ++ sides2 ++ lines4 +% outerLines ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tiles2  ++ sides1 ++ lines2 +% outerLines ++ rcTexts2 ++ irrLines
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
