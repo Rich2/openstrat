@@ -11,8 +11,7 @@ object Terr320E0 extends Long320Terrs
   override implicit val grid: EGrid320LongFull = EGrid320.e0(124)
 
   override val terrs: HCenLayer[WTile] =
-  {
-    val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+  { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     wr(156, sea * 3)
@@ -41,17 +40,12 @@ object Terr320E0 extends Long320Terrs
     res.setTruesInts(Sea, 143,507,  144,522,  145,521,  146,520,  147,517,  147,519)
     res.setTruesInts(Sea, 139,509,  140,510,  141,507,  141,511,  142,508)
 
-    res.setTruesInts(Sea, 129,507,  129,509,  129,511)
+    res.setTruesInts(Sea, 129,507,  129,509,  129,511,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526)
     res
   }
 
   override val sTerrsDepr: HSideBoolLayer =
   { val res = grid.newSideBools
-
-//    res.setTruesInts(  143,507)//,  144,522,  145,521)
-//    res.setTruesInts(139,509,  140,510, 141,507,  141,511,  142,508)
-//
-//    res.setTruesInts(129,507,  129,509,  129,511)//,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526)
     res
   }
 
@@ -59,12 +53,6 @@ object Terr320E0 extends Long320Terrs
   {
     val res: HCornerLayer = grid.newHVertOffsetLayer
     import res.{setVertSingle => svs }
-   // svs(147, 512, HVDL, 7)
-    //svs(145, 508, HVUL, 7); svs(145, 512, HVDL, 3)
-    //svs(142, 50)
-//    svs(143, 510, HVUR, 3)
-//    svs(141, 510, HVDn, 2); svs(141, 512, HVDR, 3); svs(141, 514, HVUL, 3)
-//    svs(139, 512, HVUp, 3); svs(139, 514, HVUL, 3)
 
     res.setCorner(144, 508, 4, HVUp)
     res.setCorner(142, 506, 0, HVDL)
