@@ -6,7 +6,8 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
-  val sTerrs: HSideBoolLayer = scen.sTerrs
+  val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
+  val sTerrsDepr: HSideBoolLayer = scen.sTerrsDepr
 
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
@@ -16,14 +17,14 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
   def actives: RArr[PolygonActive] = proj.tileActives
 
-
-
   /** Note we only represent links, no outer sides, so as the side terrain can use data from both of its adjacent tiles. */
-  def straits: GraphicElems = sTerrs.projLinkTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
+  //def straits: GraphicElems = sTerrsDepr.projLinkTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.DarkBlue) }
 
-  def lines: RArr[LineSegDraw] = sTerrs.projFalseLinksHsLineSegOptMap{ (hs, ls) =>
-    val t1 = terrs(hs.tile1Reg)
-    val t2 = terrs(hs.tile2Reg)
+  def straits2: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
+
+  def lines: RArr[LineSegDraw] = sTerrsDepr.projFalseLinksHsLineSegOptMap{ (hs, ls) =>
+    val t1 = terrs(hs.tile1)
+    val t2 = terrs(hs.tile2)
     ife( t1 == t2, Some(ls.draw(t1.contrastBW)), None)
   }
   def lines2: GraphicElems = proj.ifTileScale(50, lines)
@@ -39,11 +40,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   def hexStrs2: GraphicElems = proj.ifTileScale(50, hexStrs)
 
-  def sd = HVAndOffset(139, 518, HVDR, 2)
-  def pt: Pt2 = sd.toPt2Reg(proj.transCoord(_))
-  def sdg: GraphicElems = pt.textArrow("off", colour = Colour.Red)
-
-  override def frame: GraphicElems = polyFills ++ actives ++ straits ++ lines2 ++ hexStrs2 ++ sdg
+  override def frame: GraphicElems = polyFills ++ actives ++ straits2 ++ lines2 ++ hexStrs2
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>

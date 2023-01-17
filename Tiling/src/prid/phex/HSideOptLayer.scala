@@ -32,9 +32,9 @@ class HSideOptLayer[A <: AnyRef](val unsafeArray: Array[A])
     unsafeArray(i) = value
   }
 
-  def setTruesInts(value: A, hSideInts: Int*)(implicit grid: HGridSys): Unit =
-  {
-    val len = hSideInts.length / 2
+  /** Swts the [[HSide]]s specified by their Int parameters to rhe given value. */
+  def setSomeInts(value: A, hSideInts: Int*)(implicit grid: HGridSys): Unit =
+  { val len = hSideInts.length / 2
     iUntilForeach(0, len * 2, 2) { i =>
       val index = grid.sideLayerArrayIndex(hSideInts(i), hSideInts(i + 1))
       unsafeArray(index) = value

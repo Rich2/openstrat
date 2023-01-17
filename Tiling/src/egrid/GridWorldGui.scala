@@ -52,8 +52,8 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
     def sides2: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
 
     def lines1: RArr[LineSegDraw] = sTerrsDepr.projFalseLinksHsLineSegOptMap { (hs, ls) =>
-      val t1 = terrs(hs.tile1Reg)
-      val t2 = terrs(hs.tile2Reg)
+      val t1 = terrs(hs.tile1)
+      val t2 = terrs(hs.tile2)
       ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
     }
 
