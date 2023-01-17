@@ -97,7 +97,7 @@ class HCornerLayer(val unsafeArray: Array[Int])
   def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHVAndOffset = tilePoly(HCen(cenR, cenC))
 
   /** Sets a single [[HCorner]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
-  def setCorner(cenR: Int, cenC: Int, vertNum: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
+  def setCorner(cenR: Int, cenC: Int, vertNum: Int, dirn: HVDirn, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
   { val corner = HCorner.single(dirn, magnitude)
     val index = unsafeIndex(cenR, cenC, vertNum)
     unsafeArray(index) = corner.unsafeInt
@@ -111,8 +111,8 @@ class HCornerLayer(val unsafeArray: Array[Int])
   }
 
   /** Sets a single [[HCorner]] corner with 2 [[HVOffset]]s. */
-  def setCorner2(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int)(implicit gridSys: HGridSys): Unit =
-    setCorner2(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)
+  def setCorner2(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirn, dirn2: HVDirn, magnitude1: Int = 3, magnitude2: Int = 3)(
+    implicit gridSys: HGridSys): Unit = setCorner2(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)
 
   /** Sets a single [[HCorner]] corner with 2 [[HVOffset]]s. */
   def setCorner2(hCen: HCen, vertNum: Int, dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int)(implicit gridSys: HGridSys): Unit =
@@ -121,9 +121,9 @@ class HCornerLayer(val unsafeArray: Array[Int])
     unsafeArray(index) = corner.unsafeInt
   }
 
-  def setStraitMouth(r: Int, c: Int, vertNum: Int, magnitude: Int = 3): Unit = {
-    def dirn1: HVDirn = vertNum match{
-      case 0 => HVDL
+  def setStraitMouth(r: Int, c: Int, vertNum: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit = {
+    def dirn1: HVDirn = vertNum match
+    { case 0 => HVDL
       case 1 => HVUL
       case 2 => HVUp
       case 3 => HVUR
@@ -131,6 +131,9 @@ class HCornerLayer(val unsafeArray: Array[Int])
       case 5 => HVDn
       case n => excep(s"$n is invalid vert number.")
     }
+
+    def dirn2: HVDirn = dirn1.clock(4)
+    setCorner2(r, c, vertNum, dirn1, dirn2, magnitude, magnitude)
   }
 
   /** Sets the same vertex offset for all three adjacent hexs. This leaves no gap for side terrain such as straits. */
