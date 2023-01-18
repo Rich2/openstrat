@@ -32,10 +32,10 @@ object Terr320E60 extends Long320Terrs
     res
   }
 
-  override val sTerrsDepr: HSideBoolLayer =
+  /*override val sTerrsDepr: HSideBoolLayer =
   { val res = grid.newSideBools
     res
-  }
+  }*/
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }

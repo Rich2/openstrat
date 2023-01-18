@@ -59,11 +59,11 @@ object Terr80E30  extends LongTerrs
     res.setSomeInts(Sea, 505,1553)
       res
   }
-  override val sTerrsDepr: HSideBoolLayer =
+  /*override val sTerrsDepr: HSideBoolLayer =
   { val res = grid.newSideBools
     res.setTruesInts(505,1553)
     res
-  }
+  }*/
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }

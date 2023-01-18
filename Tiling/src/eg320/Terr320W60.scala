@@ -32,11 +32,11 @@ object Terr320W60 extends Long320Terrs
     res.setSomeInts(Sea, 141,10755,  148,10746)
     res
   }
-  override val sTerrsDepr: HSideBoolLayer =
+  /*override val sTerrsDepr: HSideBoolLayer =
   { val res = grid.newSideBools
 
     res
-  }
+  }*/
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }

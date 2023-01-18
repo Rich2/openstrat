@@ -35,11 +35,11 @@ object Terr320E120 extends Long320Terrs
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
     res
   }
-  override val sTerrsDepr: HSideBoolLayer =
+  /*override val sTerrsDepr: HSideBoolLayer =
   { val res = grid.newSideBools
     res.setTruesInts(130,4612,  131,4611)
     res
-  }
+  }*/
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }

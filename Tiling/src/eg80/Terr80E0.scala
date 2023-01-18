@@ -57,11 +57,11 @@ object Terr80E0 extends LongTerrs
     res.setSomeInts(Sea, 463,517,  475,547, 476,546, 477,493,  477,545,  478,544,  478,552,  479,545,  479,551)
     res
   }
-  override val sTerrsDepr: HSideBoolLayer =
+  /*override val sTerrsDepr: HSideBoolLayer =
   { val res = grid.newSideBools
     res.setTruesInts(463,517,  475,547, 476,546, 477,493,  477,545,  478,544,  478,552,  479,545,  479,551)
     res
-  }
+  }*/
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 
@@ -80,9 +80,9 @@ object WesternFront
 
   def wfSTerrs = wfGrid.sideOptLayerSpawn(Terr80E0.grid, Terr80E0.sTerrs)
 
-  def wfSTerrsDepr: HSideBoolLayer = wfGrid.sideBoolLayerSpawn(Terr80E0.grid, Terr80E0.sTerrsDepr)
+  //def wfSTerrsDepr: HSideBoolLayer = wfGrid.sideBoolLayerSpawn(Terr80E0.grid, Terr80E0.sTerrsDepr)
 
   def wfCorners: HCornerLayer = wfGrid.cornerLayerSpawn(Terr80E0.grid, Terr80E0.corners)
 
-  def wFrontScen : EScenBasic = EScenBasic(wfGrid, wfTerrs, wfSTerrs, wfSTerrsDepr, wfCorners, "Western Front")
+  def wFrontScen : EScenBasic = EScenBasic(wfGrid, wfTerrs, wfSTerrs, wfCorners, "Western Front")
 }
