@@ -47,7 +47,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
 
     def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
 
-    def sides2: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
+    def sides: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
 
     def lines = proj.linkLineSegsOptMap{ (hs, ls) =>
       if (sTerrs(hs).nonEmpty) None
@@ -70,7 +70,7 @@ class GridWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView,
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles ++ sides2 ++ lines2 +% outerLines ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tiles ++ sides ++ lines2 +% outerLines ++ rcTexts2 ++ irrLines
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)

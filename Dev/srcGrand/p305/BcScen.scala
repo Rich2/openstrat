@@ -28,7 +28,7 @@ object BcScen2 extends BcScen
 
   override def sTerrs: HSideOptLayer[WSide] = Terr80E0.sTerrs
 
-  override def sTerrsDepr: HSideBoolLayer = Terr80E0.sTerrsDepr
+ override def sTerrsDepr: HSideBoolLayer = Terr80E0.sTerrsDepr
 
   override val corners: HCornerLayer = Terr80E0.corners
 }
