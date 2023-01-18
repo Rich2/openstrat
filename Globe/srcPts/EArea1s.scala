@@ -39,3 +39,14 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
     RArr(UsaWest, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
       NewFoundland, Baja, CentralAmerica, Cuba)
 }
+
+object PolarNorth extends EArea1("NPole", 89.5 ll 0)
+{ import pOceans._
+  override val a2Arr: RArr[EArea2] = RArr(Greenland, Artic, Svalbard, Nordauslandet)
+}
+
+
+object PacificTop extends EArea1("Pacific", 0 ll 175)
+{ import pOceans._
+  override val a2Arr: RArr[EArea2] = RArr(Hawaii)
+}

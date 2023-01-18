@@ -16,8 +16,6 @@ package object pEarth
    /** The North-South divide between Area1s and Grids at 45 degrees north approx. */
    val divN45 = 45.27369792435918.north
 
-   import pPts._
-
    /** Europe, Asia and North-and central Africa. */
    val oldWorldAreas: RArr[EArea1] = RArr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, pAsia.AsiaEast, NorthAtantic)
 
