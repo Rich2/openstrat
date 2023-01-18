@@ -9,9 +9,8 @@ class HSideOptLayer[A <: AnyRef](val unsafeArray: Array[A])
     ife(res1 == null, None, Some(res1))
   }
 
-
-  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): Option[A] = {
-    val res1 = unsafeApply(r, c)
+  def apply(r: Int, c: Int)(implicit gridSys: HGridSys): Option[A] =
+  { val res1 = unsafeApply(r, c)
     ife(res1 == null, None, Some(res1))
   }
 
