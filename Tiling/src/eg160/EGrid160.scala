@@ -10,21 +10,21 @@ object EGrid160
     iUntilMap(startIndex, startIndex + num) { i => EGrid160LongFull(rBottomCen, rTopCen, i %% 12) }
 
   /** Factory method for creating a main Earth grid centred on 0 degrees east of scale cScale 40Km or hex scale 160km. */
-  def e0(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 0)
+  def e0(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 0)
 
   /** Factory method for creating a main Earth grid centred on 30 degrees east of scale cScale 40Km or hex scale 160km. */
-  def e30(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,  1)
+  def e30(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,  1)
 
-  def e60(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 2)
-  def e90(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 3)
-  def e120(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 4)
-  def e150(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 5)
-  def e180(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 6)
-  def w150(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 7)
-  def w120(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 8)
-  def w90(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 9)
+  def e60(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 2)
+  def e90(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 3)
+  def e120(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 4)
+  def e150(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 5)
+  def e180(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 6)
+  def w150(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 7)
+  def w120(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 8)
+  def w90(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 9)
   def w60(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 10)
-  def w30(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,11)
+  def w30(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,11)
 
   def britGrid: EGrid160LongPart =
   { val array = Array[Int](1, 504, 3, 506, 3, 504, 1, 510, 2, 504, 1, 506, 2, 504)
@@ -70,12 +70,7 @@ object EGrid160
   //    EScenWarm(grid, Terr160W120.terrs, )
   //  }
   //
-  //  def scen9: EScenWarm =
-  //  { val grid: EGridWarm = w90(276)
-  //    EScenWarm(grid, Terr160W90.terrs, )
-  //  }
-
+  def scen9:EScenBasic = EScenBasic(Terr160W90.grid, Terr160W90.terrs, Terr160W90.sTerrs, Terr160W90.corners)
   def scen10:EScenBasic = EScenBasic(Terr160W60.grid, Terr160W60.terrs, Terr160W60.sTerrs, Terr160W60.corners)
-
   def scen11: EScenBasic = EScenBasic(Terr160W30.grid, Terr160W30.terrs, Terr160W30.sTerrs, Terr160W30.corners)
 }

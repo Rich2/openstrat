@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat
 import geom._, pglobe._
 
@@ -22,7 +22,7 @@ package object pEarth
    val oldWorldAreas: RArr[EArea1] = RArr(EuropeNW, EuropeSW, EuropeEast, AsiaWest, PolarNorth, AfricaWest, AfricaEast, AsiaEast, NorthAtantic)
 
    /** The areas discovered from the late 14th century. */
-   val newWorldAreas: RArr[EArea1] = RArr(PolarSouth, AmericasNorth, AmericasSouth, Australasia, PacificTop, AfricanTrangle)
+   val newWorldAreas: RArr[EArea1] = RArr(PolarSouth, AmericasNorth, pAmericas.AmericasSouth, pOceans.Australasia, PacificTop, AfricanTrangle)
 
    def earthAllAreas: RArr[EArea1] = oldWorldAreas ++ newWorldAreas
 }

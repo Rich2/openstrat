@@ -1,16 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pPts
+package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, LatLong._, WTile._
 
-object AmericasNorth extends EArea1("North America", 49 ll -100)
-{
-  val ensenada = 31.74 ll -116.73
 
-  val lakes = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
-  override val a2Arr: RArr[EArea2] = lakes ++
-    RArr(UsaWest, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
-      NewFoundland, Baja, CentralAmerica, Cuba)
-}
 
 object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
 { val mouthNorth: LatLong = 45.84 ll -84.75

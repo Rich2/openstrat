@@ -2,13 +2,6 @@
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
-object EuropeSW extends EArea1("EuropeSw", 20 ll 0)
-{//top = 45.59N * 2 - 46.21 = 44.97
-  //override def fill = false
-  override val a2Arr: RArr[EArea2] = RArr(FranceSouth, Iberia, Sardina, Italy, Corsica)
-  //override def iTiles: Seq[ITile] = Seq()//,CBritain, NBritain ,SBritain, Denmark, NSea, BalticSea)
-  //override def iSides: Seq[ISide] = iTiles.flatMap(_.ownISides)
-}
 
 object FranceSouth extends EArea2("FranceSouth", 44.54 ll 2.53, plain)
 {
