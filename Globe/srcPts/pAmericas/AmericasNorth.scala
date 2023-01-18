@@ -2,8 +2,6 @@
 package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, LatLong._, WTile._
 
-
-
 object LakeMichigan extends EArea2("Lake Michigan", 43.82 ll -87.1, lake)
 { val mouthNorth: LatLong = 45.84 ll -84.75
   val north: LatLong = 46.10 ll -85.42

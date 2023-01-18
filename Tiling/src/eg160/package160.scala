@@ -2,7 +2,7 @@
 package ostrat
 import pEarth._, prid.phex._
 
-/** Hex tile grids for Earth with a hex scale of 320km, a C scale of 80km. */
+/** Hex tile grids for Earth with a hex scale of 100km, a C scale of 40km. */
 package object eg160
 {
   val fullTerrs: RArr[Long160Terrs] = RArr(Terr160E0, Terr160E30, null, null, null, null, null, null, null, null, Terr160W60, Terr160W30)

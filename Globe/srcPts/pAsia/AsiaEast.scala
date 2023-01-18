@@ -28,7 +28,7 @@ object Korea extends EArea2("Korea", 37.77 ll 127.55, hills)
 }
 
 object AsiaEastPts
-{ val binhai = AsiaWestPts.persiaN ll 117.66
+{ val binhai = Persia.persiaN ll 117.66
   val rongcheng = degs(37.39, 122.69)
   val haitzhou = degs(34.95, 119.20)
   val putuo = degs(29.9, 122.34)
@@ -52,11 +52,11 @@ object AsiaEastPts
   val pathein = degs(16.17, 94.31)
     
   val chittagong = degs(22.74, 91.54)
-  val seAsiaNE = AsiaWestPts.mianiLat * neVietnamLong
+  val seAsiaNE = India.mianiLat * neVietnamLong
 
   val seAsia: EArea2 = EArea2("SEAsia", 26.0 ll 104.0, plain, binhai, rongcheng, haitzhou, putuo, longhai, hongKong, xuwen, yingzaiMouth, neVietnam,
     dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth, pathein, chittagong, India.magdhara,
-    India.indiaNE,  AsiaWestPts.cAsiaSE)
+    India.indiaNE,  CentralAsia.southEast)
      
   val khabarovsk = 55 ll 134.73
   val udaMouth = 54.72 ll 135.28
@@ -74,7 +74,7 @@ object AsiaEastPts
   val huituo = 39.19 ll 118.98
 
   val ceAsia: EArea2 = EArea2("CEAsia", degs(47, 115), plain, khabarovsk, udaMouth, khab10, khab15, khab20, khab30, primorsky10, nakhodka,
-    vladivostok, Korea.northEast,  Korea.liaoheMouth, jinzhou, qinhuangdao, luanheMouth, huituo, binhai, AsiaWestPts.cAsiaSE,  RusNorth.cAsiaNE)
+    vladivostok, Korea.northEast,  Korea.liaoheMouth, jinzhou, qinhuangdao, luanheMouth, huituo, binhai, CentralAsia.southEast,  RusNorth.cAsiaNE)
    
   val krasnoyarsk = 77.43 ll 103.99
   val kras10 = 76.62 ll 112.46

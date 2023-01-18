@@ -101,7 +101,7 @@ object Caucasus extends EArea2("Caucasus", 42.0 ll 45.0, hills)
   val baku = 40.44 ll 50.21
   val sangachal = 40.18 ll 49.47
   val asiaMinorE = 50.03.east
-  val caspianSW = 37.41.north * asiaMinorE
-  val polygonLL: PolygonLL = PolygonLL(Anatolia.surmene, blackSeaE, Ukraine.asiaMinorNM, Ukraine.caspianW, sumqayit, baku, sangachal, caspianSW,
+
+  val polygonLL: PolygonLL = PolygonLL(Anatolia.surmene, blackSeaE, Ukraine.asiaMinorNM, Ukraine.caspianW, sumqayit, baku, sangachal, pAsia.Caspian.southWest,
      Anatolia.cizre)
 }

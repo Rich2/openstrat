@@ -62,6 +62,7 @@ object Terr80E0 extends Long80Terrs
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }
 
+/** Object for scenarios covering the western front at 80km. */
 object WesternFront
 {
   def wfGrid: EGrid80LongPart =
