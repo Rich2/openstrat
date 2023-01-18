@@ -38,7 +38,7 @@ object EGrid80
 
   def scen1: EScenBasic =
   { val grid: EGrid80Long = e30(446)
-    EScenBasic(grid, Terr80E30.terrs, Terr80E0.sTerrs, Terr80E0.corners)
+    EScenBasic(grid, Terr80E30.terrs, Terr80E30.sTerrs, Terr80E30.corners)
   }
 }
 

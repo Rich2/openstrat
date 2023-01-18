@@ -11,6 +11,7 @@ object Terr80E0 extends LongTerrs
   override val terrs: HCenLayer[WTile] =
   {
     val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
 
     gs(518, 542, taiga)
@@ -18,7 +19,7 @@ object Terr80E0 extends LongTerrs
     gs(514, 542, taiga)
     gs(512, 544, taiga)
     gs(510, 542, taiga * 2)
-    gs(508, 540, taiga * 2)//3)
+    gs(508, 540, taiga * 2)
     gs(506, 538, taiga * 3)
     gs(504, 536, taiga * 4)
     gs(502, 530, taiga * 5)
@@ -28,8 +29,8 @@ object Terr80E0 extends LongTerrs
     gs(494, 510, taiga, sea * 3, taiga * 7)
     gs(492, 528, taiga * 7)
     gs(490, 530, taiga * 3, sea, taiga * 3)
-    gs(488, 532, taiga * 2, sea * 2, taiga * 2)
-    gs(486, 498, hills * 2, sea * 10, plain * 3)
+    wr(488, sea * 8, hills, sea * 6, taiga * 2, sea * 2, taiga * 2)
+    wr(486, sea * 7, hills * 2, sea * 7, taiga, sea * 2, plain * 3)
     gs(484, 492, hills * 4, sea * 10, plain * 3)
     gs(482, 494, hills * 3, sea * 8, plain * 2, sea, plain * 2)//Seems like there's an extra plain
     gs(480, 496, hills * 2, sea * 9, plain * 2, sea, plain * 2)
@@ -54,18 +55,11 @@ object Terr80E0 extends LongTerrs
   }
   override val sTerrs: HSideOptLayer[WSide] = {
     val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 463,517,  475,547, 476,546, 477,493,  477,545,  478,544,  478,552,  479,545,  479,551)
+    res.setSomeInts(Sea, 463,517,  475,547, 476,546, 477,493,  477,545,  478,544,  478,552,  479,545,  479,551,  487,503)
     res
   }
-  /*override val sTerrsDepr: HSideBoolLayer =
-  { val res = grid.newSideBools
-    res.setTruesInts(463,517,  475,547, 476,546, 477,493,  477,545,  478,544,  478,552,  479,545,  479,551)
-    res
-  }*/
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
-
-
 }
 
 object WesternFront

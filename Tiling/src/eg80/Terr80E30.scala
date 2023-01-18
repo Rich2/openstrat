@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg80
 import pEarth._, prid._, phex._, WTile._, egrid._
 
@@ -10,8 +10,10 @@ object Terr80E30  extends LongTerrs
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
+    def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
-    gs(526, 1136 + 386, taiga * 4, sea * 7)
+
+    wr(526, sea * 2, taiga * 4, sea * 7)
     gs(524, 1136 + 376, sea, taiga * 5, sea * 8)
     gs(522, 1136 + 374, sea, taiga * 8, sea * 5)
     gs(520, 1136 + 372, taiga * 11, sea * 4)
@@ -59,11 +61,6 @@ object Terr80E30  extends LongTerrs
     res.setSomeInts(Sea, 505,1553)
       res
   }
-  /*override val sTerrsDepr: HSideBoolLayer =
-  { val res = grid.newSideBools
-    res.setTruesInts(505,1553)
-    res
-  }*/
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }
