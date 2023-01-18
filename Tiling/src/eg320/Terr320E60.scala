@@ -4,7 +4,7 @@ import pEarth._, prid._, phex._, WTile._
 
 object Terr320E60 extends Long320Terrs
 {
-  override implicit val grid: EGrid320LongFull = EGrid320.e60(124)
+  override implicit val grid: EGrid320LongFull = EGrid320.e60(120)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
@@ -25,17 +25,19 @@ object Terr320E60 extends Long320Terrs
     wr(134, sea, desert * 5, mtain)
     wr(132, mtain, sea, desert * 3, mtain * 2)
     wr(130, mtain, sea, desert * 4, mtain * 2)
-    res
-  }
-  override val sTerrs: HSideOptLayer[WSide] = {
-    val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+    wr(128, hillDesert, desert * 5, mtain * 2)
+    wr(126, desert, mtain, desert * 5, plain)
+    wr(124, desert, plain, mtain, desert * 4, plain * 2)
+    wr(122, desert, sea, mtain, desert * 3, plain, desert * 2)
+    wr(120, desert * 2, sea, desert, sea * 3, plain, desert)
     res
   }
 
-  /*override val sTerrsDepr: HSideBoolLayer =
-  { val res = grid.newSideBools
+  override val sTerrs: HSideOptLayer[WSide] = {
+    val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+    res.setSomeInts(Sea,  121,2555,  121,2557,  123,2547)
     res
-  }*/
+  }
 
   override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }
