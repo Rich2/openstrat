@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pglobe._, pPts._
+import geom._, pglobe._
 
 /** 20North, 0 East */
 object EuropeNW extends EArea1("EuropeNW", 20 ll 0)
@@ -48,6 +48,11 @@ object PolarNorth extends EArea1("NPole", 89.5 ll 0)
 object AmericasSouth extends EArea1("SAmericas", -6.52 ll -62.28)
 { import pAmericas._
   override val a2Arr: RArr[EArea2] = RArr(SouthAmericaSouth, SouthAmericaWest, SouthAmericaEast)
+}
+
+object Australasia extends EArea1("Australasia", -23 ll 130)
+{ import pOceans._
+  override val a2Arr: RArr[EArea2] = RArr(Ssumatra, Borneo, Sulawesi, javaIsland, NewGuinea, Australia, NewZealandNIsland, NewZealandSIsland)
 }
 
 object PacificTop extends EArea1("Pacific", 0 ll 175)

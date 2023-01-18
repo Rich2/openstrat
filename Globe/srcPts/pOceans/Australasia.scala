@@ -2,16 +2,18 @@
 package ostrat; package pEarth; package pOceans
 import geom._, pglobe._, LatLong._, WTile._
 
-object Australasia extends EArea1("Australasia", -23 ll 130)
-{ val nSumatra = 5.65 ll 95.43
+object Ssumatra extends EArea2("Sumatra", -0.02 ll 101.63, jungle)
+{  val nSumatra = 5.65 ll 95.43
   val neSumatra = 5.24 ll 97.49
   val eSumatra = -3.22 ll 106.09
   val seSumatra = -5.90 ll 105.71
   val hutan = -5.94 ll 104.58
 
-  val sumatra: EArea2 = EArea2("Sumatra", -0.02 ll 101.63, jungle, nSumatra, neSumatra, eSumatra, seSumatra, hutan)
-   
-  val capeLeeuwin = degs(-34.36, 115.13)
+  override val polygonLL = PolygonLL(nSumatra, neSumatra, eSumatra, seSumatra, hutan)
+}
+
+object Australia extends EArea2("Australia", -24.45 ll 134.47, desert)
+{ val capeLeeuwin = degs(-34.36, 115.13)
   val wAustralia = degs(-22.58, 113.95)
   val eightyMile = degs(-19.41, 121.24)
   val couloumbPoint = degs(-17.30, 122.12)
@@ -24,15 +26,15 @@ object Australasia extends EArea1("Australasia", -23 ll 130)
   val limmen = degs(-14.73, 135.36)
   val karumba = degs(-17.52, 140.8)
   val nQueensland = degs(-11, 142.43)
-   
+
   val nKennedy = degs(-14.49, 143.95)
   val capeMelville = degs(-14.17, 144.51)
-  val coolbie =degs(-18.86, 146.27)
+  val coolbie = degs(-18.86, 146.27)
   val harveyBay = degs(-25.29, 152.89)
   val brisbane = degs(-27.05, 153.03)
   val byronBay = degs(-28.64, 153.62)
   val seAustralia = degs(-37.4, 149.58)
-   
+
   val wilsonsProm = degs(-39.12, 146.38)
   val barwonHeads = degs(-38.27, 144.53)
   val capeOtway = degs(-38.85, 143.51)
@@ -47,13 +49,15 @@ object Australasia extends EArea1("Australasia", -23 ll 130)
   val nuytsland1 = degs(-32.96, 124.33)
   val nuytsland2 = degs(-33.86, 123.63)
   val windyHarbour = degs(-34.84, 116)
-   
-  val australia: EArea2 = EArea2("Australia", degs(-24.45, 134.47), desert, capeLeeuwin, wAustralia, eightyMile, couloumbPoint,
-     drysdaleRiver, victoriaMouth, thamarrurr, coxPeninsular, nAustralia, eastArnhem, limmen, karumba, nQueensland, nKennedy, capeMelville, coolbie,
-     harveyBay, brisbane, byronBay, seAustralia, wilsonsProm, barwonHeads, capeOtway, portMacdonnell, carpenterRocks, carpenterRocks, hardwicke,
-     portAugusta, sleaford, smokyBay, yalata, nuytsland1, nuytsland2, windyHarbour)
-   
-  val capeReinga = -34.42 ll 172.68
+
+  override val polygonLL = PolygonLL(capeLeeuwin, wAustralia, eightyMile, couloumbPoint, drysdaleRiver, victoriaMouth, thamarrurr, coxPeninsular,
+    nAustralia, eastArnhem, limmen, karumba, nQueensland, nKennedy, capeMelville, coolbie, harveyBay, brisbane, byronBay, seAustralia, wilsonsProm,
+    barwonHeads, capeOtway, portMacdonnell, carpenterRocks, carpenterRocks, hardwicke, portAugusta, sleaford, smokyBay, yalata, nuytsland1,
+    nuytsland2, windyHarbour)
+}
+
+object NewZealandNIsland extends EArea2 ("NewZealandNIsland", - 38.66 ll 176, plain)
+{ val capeReinga = -34.42 ll 172.68
   val teHapua = -34.41 ll 173.05
   val aukland = -36.83 ll 174.81
   val eCape = -37.69 ll 178.54
@@ -62,23 +66,29 @@ object Australasia extends EArea1("Australasia", -23 ll 130)
   val himtangi = -40.36 ll 175.22
   val capeEgmont = -39.28 ll 173.75
 
-  val newZealandNIsland: EArea2 = EArea2("NewZealandNIsland", -38.66 ll 176, plain, capeReinga, teHapua, aukland, eCape, capePalliser, makara,
-     himtangi, capeEgmont)
-         
-  val swNewZealand = -45.98 ll 166.47
+  override val polygonLL = PolygonLL(capeReinga, teHapua, aukland, eCape, capePalliser, makara, himtangi, capeEgmont)
+}
+
+object NewZealandSIsland extends EArea2("NewZealandSIsland", -43.68 ll 171.00, plain)
+{ val swNewZealand = -45.98 ll 166.47
   val puponga = -40.51 ll 172.72
   val capeCambell = -41.73 ll 174.27
   val slopePoint = -46.67 ll 169.00
-   
-  val newZealandSIsland: EArea2 = EArea2("NewZealandSIsland", -43.68 ll 171.00, plain, swNewZealand, puponga, capeCambell, slopePoint)
-         
-  val nBorneo = 6.99 ll 117.12
+
+  override val polygonLL = PolygonLL(swNewZealand, puponga, capeCambell, slopePoint)
+}
+
+object Borneo extends EArea2("Borneo", 0.63 ll 114.132, jungle)
+{ val nBorneo = 6.99 ll 117.12
   val seBorneo = -4.03 ll 116.09
   val swBorneo = -2.96 ll 110.29
   val nwSarawak = 2.08 ll 109.64
 
-  val borneo: EArea2 = EArea2("Borneo", 0.63 ll 114.132, jungle, nBorneo,seBorneo, swBorneo, nwSarawak)
-   
+  override val polygonLL = PolygonLL(nBorneo,seBorneo, swBorneo, nwSarawak)
+}
+
+object Sulawesi extends EArea2 ("Sulawesi", - 2.16 ll 120.58, jungle)
+{
   val seSulawesi = -5.41 ll 119.38
   val nwSulawesi = 0.72 ll 120.06
   val neSulawesi = 1.67 ll 125.15
@@ -88,16 +98,19 @@ object Australasia extends EArea1("Australasia", -23 ll 130)
   val swSulawesi = -5.66 ll 122.78
   val nGulfBoni = -2.61 ll 120.81
 
-  val sulawesi: EArea2 = EArea2("Sulawesi", -2.16 ll 120.58, jungle, seSulawesi, nwSulawesi, neSulawesi,ambesia, poso, teku, swSulawesi,
-    nGulfBoni)
-   
-  val swJava = -6.83 ll 105.24
+  override val polygonLL = PolygonLL(seSulawesi, nwSulawesi, neSulawesi, ambesia, poso, teku, swSulawesi, nGulfBoni)
+}
+
+object javaIsland extends EArea2("Java", -7.39 ll 110.03, jungle)
+{ val swJava = -6.83 ll 105.24
   val nwJava = -5.88 ll 106.04
   val ePulauMadura = -6.96 ll 114.11
   val seJava = -8.75 ll 114.58
-  val javaIsland = EArea2("Java", -7.39 ll 110.03, jungle, swJava, nwJava, ePulauMadura, seJava)
-   
-  val wNewGuinea = -0.82 ll 130.45
+  override val polygonLL = PolygonLL(swJava, nwJava, ePulauMadura, seJava)
+}
+
+object NewGuinea extends EArea2 ("NewGuinea", - 5.19 ll 141.03, jungle)
+{ val wNewGuinea = -0.82 ll 130.45
   val manokwari = -0.73 ll 133.98
   val sCenderawasih = -3.39 ll 135.33
   val tebe = -1.46 ll 137.93
@@ -107,37 +120,5 @@ object Australasia extends EArea1("Australasia", -23 ll 130)
   val saibai = -9.32 ll 142.63
   val aindua = -4.46 ll 135.21
 
-  val newGuinea: EArea2 = EArea2("NewGuinea", -5.19 ll 141.03, jungle, wNewGuinea, manokwari, sCenderawasih, tebe, madang, eNewGuinea,
-    morigo, saibai, aindua)
-   
-//   import HexE._
-//   val hexsa: Seq[HexE] =
-//      terrFrom(26, 26, Plain, 3) ++ rowFrom(46, 26, Plain) ++
-//      terrFrom(20, 24, Plain, 5) ++ rowFrom(48, 24, Plain) ++
-//      terrFrom(14, 22, Plain, 10) ++ 
-//      terrFrom(12, 20, desert, 4) ++ terrFrom(28, 20, Plain, 7) ++ 
-//      rowFrom(6, 18, Plain, Plain) ++ terrFrom(14, 18, desert, 6) ++ terrFrom(38, 18, Plain, 5) ++
-//      rowFrom(4, 16, Plain, Plain) ++ terrFrom(12, 16, desert, 9) ++ rowFrom(48, 16, Plain, Plain, Plain) ++
-//      rowFrom(2, 14, Plain, Plain, Plain) ++ terrFrom(14, 14, desert, 9) ++ rowFrom(50, 14, Plain, Plain, Plain) ++
-//      rowFrom(4, 12, Plain, Plain, Plain) ++ terrFrom(16, 12, desert, 8) ++ rowFrom(48, 12, Plain, Plain, Plain, Plain) ++//Checked
-//      rowFrom(6, 10, Plain, Plain, Plain) ++ terrFrom(18, 10, desert, 7) ++ rowFrom(46, 10, Plain, Plain, Plain, Plain) ++ 
-//      rowFrom(8, 8, Plain, Plain, Plain, Plain) ++ rowFrom(32, 8, Plain, Plain, Plain, Plain, Plain, Plain, Plain) ++ 
-//      rowFrom(6, 6, Plain, Plain, Plain) ++ rowFrom(34, 6, Plain, Plain, Plain, Plain, Plain, Plain) ++ 
-//      rowFrom(40, 4, Plain, Plain, Plain, Plain)
-     
-//      HexE.rowFrom(12, 4, Plain, desert) ++ HexE.rowFrom(24, 4, desert, desert, desert, Plain) ++      
-//      HexE.rowFrom(10, 6, Plain, desert, desert, desert, desert, desert, Plain, Plain) ++      
-//      HexE.rowFrom(12, 8, Plain, desert, desert, desert, desert, Plain, Plain) ++      
-//      HexE.rowFrom(14, 10, Plain, desert, Plain, Plain, Plain, Plain) ++      
-//      HexE.rowFrom(20, 12, Plain, Plain) ++ HexE.newSeq((32, 12, Plain)) ++      
-      
-
-//   object australiaGrid extends EGridV("Australia", deg(-24, 134), 32, 16)//, hexs)
-//   {
-//      val hexs = hexsa
-//   }
-  // override val grids = Seq()//AustraliaGrid) 
-  // override val gridMaker = E80Empty
-   
-  override val a2Arr: RArr[EArea2] = RArr(sumatra, borneo, sulawesi, javaIsland, newGuinea, australia, newZealandNIsland, newZealandSIsland)
+  override val polygonLL = PolygonLL(wNewGuinea, manokwari, sCenderawasih, tebe, madang, eNewGuinea, morigo, saibai, aindua)
 }

@@ -1,5 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pPts
+package ostrat; package pEarth; package pAmericas
 import geom._, pglobe._, WTile._
 
 object BanksIsland extends EArea2("Banks Island", 73.12 ll -121.13, tundra)
