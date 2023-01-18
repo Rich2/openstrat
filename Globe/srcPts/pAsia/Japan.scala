@@ -2,6 +2,17 @@
 package ostrat; package pEarth
 import geom._, pglobe._, LatLong._, WTile._
 
+object sakhalin extends EArea2("Sakhalin", 50.94 ll 142.90, taiga)
+{ val sakhalinN = 54.38 ll 142.73
+  val sakhalinW = 49.07 ll 144.37
+  val poronayask = 49.21 ll 143.09
+  val sakhalinS = 45.89 ll 142.08
+  val pogibi = 52.22 ll 141.64
+  val sakhalinNE = 53.39 ll 141.70
+
+  override val polygonLL = PolygonLL(sakhalinN, sakhalinW, poronayask, sakhalinS, pogibi, sakhalinNE)
+}
+
 object Hokkaido extends EArea2("Hokkaido", 43.50 ll 142.95, hills)
 { val north = 45.5 ll 141.93
   val east = 43.36 ll 145.74
@@ -22,14 +33,4 @@ object japan extends EArea2("Japan", degs(36.28, 138.71), hills)
   val choshi = 35.71 ll 140.85
 
   override val polygonLL = PolygonLL(capeTappi, choshi, capeKute, p10, sKyshu, neKyushu, kashiwazaki)
-}
-
-object Taiwan extends EArea2("Taiwan", 23.85 ll 120.99, hills)
-{ val north = 25.29 ll 121.57
-  val northEast = 25.01 ll 122.01
-  val south = 21.90 ll 120.86
-  val west = 23.10 ll 120.04
-  val p10 = 25.05 ll 121.06
-
-  override val polygonLL = PolygonLL(north, northEast, south, west, p10)
 }

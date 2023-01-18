@@ -37,8 +37,7 @@ object India extends EArea2 ("India", 20.85 ll 78.68, jungle)
 }
 
 object SriLanka extends EArea2("SriLanka", 7.47 ll 80.78, jungle)
-{
-  val dodanduwa = 6.10 ll 80.12
+{ val dodanduwa = 6.10 ll 80.12
   val wSriLanka = 8.2 ll 79.69
   val nwSrilanka = 9.75 ll 79.86
   val neSrilanka = 9.83 ll 80.24
@@ -47,4 +46,3 @@ object SriLanka extends EArea2("SriLanka", 7.47 ll 80.78, jungle)
 
   override val polygonLL: PolygonLL = PolygonLL(dodanduwa, wSriLanka, nwSrilanka, neSrilanka, oiluvil, dondra)
 }
-

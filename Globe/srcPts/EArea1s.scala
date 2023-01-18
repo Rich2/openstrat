@@ -16,11 +16,7 @@ object EuropeEast extends EArea1("EuropeEast", 60 ll 60)
 
 object EuropeSW extends EArea1("EuropeSw", 20 ll 0)
 { import pEurope._
-  //top = 45.59N * 2 - 46.21 = 44.97
-  //override def fill = false
   override val a2Arr: RArr[EArea2] = RArr(FranceSouth, Iberia, Sardina, Italy, Corsica)
-  //override def iTiles: Seq[ITile] = Seq()//,CBritain, NBritain ,SBritain, Denmark, NSea, BalticSea)
-  //override def iSides: Seq[ISide] = iTiles.flatMap(_.ownISides)
 }
 
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
@@ -40,6 +36,11 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
       NewFoundland, Baja, CentralAmerica, Cuba)
 }
 
+/** Asia East. North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
+object AsiaEast extends EArea1("Asia", 60 ll 100)
+{ import pAsia._
+  override val a2Arr = RArr(seAsia, Korea, CEAsia, NeAsia, FeAsia, sakhalin, Hokkaido, japan, Taiwan)
+}
 object PolarNorth extends EArea1("NPole", 89.5 ll 0)
 { import pOceans._
   override val a2Arr: RArr[EArea2] = RArr(Greenland, Artic, Svalbard, Nordauslandet)
