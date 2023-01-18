@@ -24,17 +24,7 @@ object EScenBasic
 }
 
 trait EScenLongMulti extends EScenBasic
-{
-  override def gridSys: EGridLongMulti
-}
-
-trait EScenLongMultiDepr extends EScenLongMulti
-{
-  def longs: RArr[LongTerrs]
-  override lazy val terrs: HCenLayer[WTile] = longs.map(_.terrs).combine// longs.tailfold(longs(0).terrs)(_ ++ _.terrs)
-  //override lazy val sTerrsDepr: HSideBoolLayer = gridSys.sideBoolsFromGrids(longs.map(_.sTerrsDepr))
-
-  override def sTerrs: HSideOptLayer[WSide] = ???
+{ override def gridSys: EGridLongMulti
 }
 
 /** Contains Earth longitude range grid, [[WTile]] layer and a [[Boolean]] tile side data layer. */
@@ -46,9 +36,6 @@ trait LongTerrs
   def terrs: HCenLayer[WTile]
 
   def sTerrs: HSideOptLayer[WSide]
-
-  /** The straits. */
-  //def sTerrsDepr: HSideBoolLayer
 
   def corners: HCornerLayer
 }

@@ -4,9 +4,9 @@ import pEarth._,prid._, phex._, WTile._, egrid._
 
 /** 80 Km tile width grid ventred on the Greenwich meridian, 0E form 15W to 15E. Covers North West Europe. The c or column offset is 512 which is G0
  *  in base 32. The c offset for North East Europe will be 1536 or 1G0 in base 32. Current y offset is 300 for the equator. The Old c offset was 200 so a diff of 312 */
-object Terr80E0 extends LongTerrs
+object Terr80E0 extends Long80Terrs
 {
-  implicit val grid: EGrid80Long = EGrid80.e0(446)
+  implicit val grid: EGrid80LongFull = EGrid80.e0(446)
 
   override val terrs: HCenLayer[WTile] =
   {
@@ -64,18 +64,13 @@ object Terr80E0 extends LongTerrs
 
 object WesternFront
 {
-
   def wfGrid: EGrid80LongPart =
   { val array = Array[Int](10, 494, 10, 496, 11, 494, 11, 496, 15, 494, 15, 496, 15, 494, 15, 496, 12, 506, 3, 520)
     new EGrid80LongPart(446, 0, array)
   }
 
   def wfTerrs: HCenLayer[WTile] = wfGrid.hCenLayerSpawn(Terr80E0.grid, Terr80E0.terrs)
-
   def wfSTerrs = wfGrid.sideOptLayerSpawn(Terr80E0.grid, Terr80E0.sTerrs)
-
-  //def wfSTerrsDepr: HSideBoolLayer = wfGrid.sideBoolLayerSpawn(Terr80E0.grid, Terr80E0.sTerrsDepr)
-
   def wfCorners: HCornerLayer = wfGrid.cornerLayerSpawn(Terr80E0.grid, Terr80E0.corners)
 
   def wFrontScen : EScenBasic = EScenBasic(wfGrid, wfTerrs, wfSTerrs, wfCorners, "Western Front")

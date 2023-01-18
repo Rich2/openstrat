@@ -37,7 +37,7 @@ class EGrid160LongPart(rBottomCen: Int, cenLongInt: Int, rArray: Array[Int]) ext
   override def hCoordLL(hc: HCoord): LatLong = hCoordMiddleLL(hc)
 }
 
-/** Terrain data grid for [[EGrid320LongFull]]s. */
+/** Terrain data grid for [[EGrid160LongFull]]s. */
 trait Long160Terrs extends LongTerrs
 { override implicit val grid: EGrid160LongFull
 }

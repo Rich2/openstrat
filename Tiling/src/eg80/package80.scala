@@ -3,16 +3,16 @@ package ostrat
 import pEarth._, prid.phex._
 
 /** Hex tile grids for Earth with a hex scale of 320km, a C scale of 80km. */
-package object eg160
+package object eg80
 {
-  val fullTerrs: RArr[Long160Terrs] = RArr(Terr160E0, Terr160E30, null, null, null, null, null, null, null, null, Terr160W60, Terr160W30)
+  val fullTerrs: RArr[Long80Terrs] = RArr(Terr80E0, Terr80E30, null, null, null, null, null, null, null, null, null, null)
 
-  def fullTerrsHCenLayerSpawn(implicit subSys: EGrid160LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
+  def fullTerrsHCenLayerSpawn(implicit subSys: EGrid80LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
     subSys.grids(i).hCenLayerSpawn(ft.grid, ft.terrs)
   }.combine
 
-  def fullTerrsSideOptLayerSpawn(implicit subSys: EGrid160LongMulti): HSideOptLayer[WSide] = {
+  def fullTerrsSideOptLayerSpawn(implicit subSys: EGrid80LongMulti): HSideOptLayer[WSide] = {
     val arr = iToMap(0, subSys.numGrids - 1) { i =>
       val ft = fullTerrs((i + subSys.headGridInt) %% 12)
       (ft.grid, ft.sTerrs)
@@ -20,7 +20,7 @@ package object eg160
     subSys.sideOptsFromPairsSpawn(arr)
   }
 
-  def fullTerrsCornerLayerSpawn(implicit subSys: EGrid160LongMulti): HCornerLayer = iToMap(0, subSys.numGrids - 1) { i =>
+  def fullTerrsCornerLayerSpawn(implicit subSys: EGrid80LongMulti): HCornerLayer = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
     subSys.grids(i).cornerLayerSpawn(ft.grid, ft.corners)
   }.combine

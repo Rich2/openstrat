@@ -6,29 +6,18 @@ trait BcScen extends EScenBasic with HSysTurnScen
 {
 }
 
-object BcScen1 extends BcScen {
-  override def turn: Int = 0
-
-  override implicit def gridSys: EGrid80Long = EGrid80.e0(446)
-
+object BcScen1 extends BcScen
+{ override def turn: Int = 0
+  override implicit def gridSys: EGrid80LongFull = EGrid80.e0(446)
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
-
   override def sTerrs: HSideOptLayer[WSide] = Terr80E0.sTerrs
-
-  //override def sTerrsDepr: HSideBoolLayer = Terr80E0.sTerrsDepr
-
   override val corners: HCornerLayer = Terr80E0.corners
 }
 
 object BcScen2 extends BcScen
 { override def turn: Int = 0
-
-  override implicit def gridSys: EGrid80Long = EGrid80.e0(446)
+  override implicit def gridSys: EGrid80LongFull = EGrid80.e0(446)
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
-
   override def sTerrs: HSideOptLayer[WSide] = Terr80E0.sTerrs
-
- //override def sTerrsDepr: HSideBoolLayer = Terr80E0.sTerrsDepr
-
   override val corners: HCornerLayer = Terr80E0.corners
 }
