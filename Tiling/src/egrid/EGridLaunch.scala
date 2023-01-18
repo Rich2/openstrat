@@ -52,7 +52,7 @@ object EGridLaunch extends GuiLaunchMore
       case 60 => EGrid80.scen0
       case 61 => EGrid80.scen1
       case 72 => Scen80s0s1
-      case 73 => EGrid80.wFrontScen
+      case 73 => WesternFront.wFrontScen
 
       case _ => EGrid80.scen0
     }

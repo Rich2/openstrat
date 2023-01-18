@@ -29,10 +29,7 @@ object EGrid80
   def l0b446: EGrid80Long = new EGrid80Long(446, 540, 0)
   def l30b446: EGrid80Long = new EGrid80Long(446, 540, 1)
 
-  def westernFront: EGrid80LongPart =
-  { val array = Array[Int](10, 494, 10, 496, 11, 494, 11, 496, 15, 494, 15, 496, 15, 494, 15, 496, 12, 506, 3, 520)
-    new EGrid80LongPart(446, 0, array)
-  }
+
 
   def scen0: EScenBasic =
   { val grid: EGrid80Long = e0(446)
@@ -44,7 +41,7 @@ object EGrid80
     EScenBasic(grid, Terr80E30.terrs, ???, Terr80E30.sTerrsDepr, Terr80E0.corners)
   }
 
-  def wFrontScen : EScenBasic = EScenBasic(westernFront, Terr80E0.frontTerrs, ???, Terr80E0.sTerrsDepr, Terr80E0.corners, "Western Front")
+
 }
 
 trait EGrid80LongMulti extends EGridLongMulti with EGrid80Sys
