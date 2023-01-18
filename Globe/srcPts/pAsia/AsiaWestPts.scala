@@ -1,5 +1,5 @@
-/* Copyright 2018-21 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth; package pPts
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
+package ostrat; package pEarth; package pAsia
 import geom._, pglobe._, LatLong._, WTile._, pEurope.{Anatolia, Baltland, Caucasus, Ukraine}
 
 object RusNorth extends EArea2("NRus", 61 ll 54, taiga)
@@ -86,30 +86,8 @@ object AsiaWestPts
   val caspianSea: EArea2 = EArea2("CaspianSea", degs(42.10, 50.64), sea, caspianN, caspianNE, persiaCaspianN, caspianSE,
      Caucasus.caspianSW)
     
-  val magdhara = 22.41.north * RusNorth.indiaE
-       
-  //val chinaSW = AsiaWestPts.mianiLat * indiaE
-  val indiaNE = AsiaWestPts.mianiLat * RusNorth.indiaE
-  val himilayasE = 83.75.east
-  //val himilayasSE = AsiaWestPts.mianiLat * himilayasE
-  val balasore = degs(21.41, 86.97)
-  val ongale = 15.46 ll 80.18
-  val kattupali = 13.29 ll 80.34
-  val manapad = 8.37 ll 78.06
-  val sIndia = degs(8.11, 77.50)
-  val kovalam = 8.39 ll 76.97
-  val karnataka1 = 14.75 ll 74.23
-  val karnataka2 = 14.80 ll 74.09
-  val tarapur = 19.83 ll 72.65
-  val khambat = 22.26 ll 72.48
-  val girSomnath = 20.69 ll 70.83
-  val varvala = 22.30 ll 68.93
-  val kutchMouth = 22.92 ll 70.37
-  val bhada = 22.83 ll 69.19
-  val karachi = degs(25.38, 66.70)
 
-  val india: EArea2 = EArea2("India", degs(20.85, 78.68), jungle, mianiHor, indiaNE, indiaNE, magdhara, balasore, ongale, kattupali,
-     manapad, sIndia, kovalam, karnataka1, karnataka2, tarapur, khambat, girSomnath, varvala, kutchMouth, bhada, karachi)
+
                
   val dodanduwa = 6.10 ll 80.12
   val wSriLanka = 8.2 ll 79.69
@@ -123,7 +101,7 @@ object AsiaWestPts
   val cAsiaSE = AsiaWestPts.persiaN * RusNorth.indiaE
 
    val himalayas: EArea2 = EArea2("Himalayas", degs(32, 75), mtain, cAsiaSE, AsiaWestPts.persiaNE, AsiaWestPts.mianiHor,
-      AsiaWestPts.indiaNE)
+      India.indiaNE)
        
    val centralAsia = EArea2("CAsia", degs(47, 76), plain, RusNorth.cAsiaNE, RusNorth.kazakNE, persiaNE, cAsiaSE)
         

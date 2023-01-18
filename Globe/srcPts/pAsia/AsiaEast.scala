@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
-package ostrat; package pEarth
-import geom._, pglobe._, LatLong._, WTile._, pPts.RusNorth, pPts.AsiaWestPts
+package ostrat; package pEarth; package pAsia
+import geom._, pglobe._, LatLong._, WTile._//, pPts.RusNorth, pPts.AsiaWestPts
 
 /** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
 object AsiaEast extends EArea1("Asia", 60 ll 100)
@@ -55,8 +55,8 @@ object AsiaEastPts
   val seAsiaNE = AsiaWestPts.mianiLat * neVietnamLong
 
   val seAsia: EArea2 = EArea2("SEAsia", 26.0 ll 104.0, plain, binhai, rongcheng, haitzhou, putuo, longhai, hongKong, xuwen, yingzaiMouth, neVietnam,
-    dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth, pathein, chittagong, AsiaWestPts.magdhara,
-    AsiaWestPts.indiaNE,  AsiaWestPts.cAsiaSE)
+    dienChau, eVietnam, sVietnam, bankok, seMalaysia, swMalaysia, selekoh, neMalayPen, sittangMouth, pathein, chittagong, India.magdhara,
+    India.indiaNE,  AsiaWestPts.cAsiaSE)
      
   val khabarovsk = 55 ll 134.73
   val udaMouth = 54.72 ll 135.28

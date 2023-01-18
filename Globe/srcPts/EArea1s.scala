@@ -23,6 +23,11 @@ object EuropeSW extends EArea1("EuropeSw", 20 ll 0)
   //override def iSides: Seq[ISide] = iTiles.flatMap(_.ownISides)
 }
 
+/** North of 25.4N degs East of 66.3E west of 141.6E 33.3N */
+object AsiaWest  extends EArea1("AsiaWest", 20.18 ll -0.65)
+{ import pAsia._, AsiaWestPts._
+  override val a2Arr = RArr(arabia, persia, iraq, kazak, RusNorth, India, sriLanka, himalayas, centralAsia, severny)
+}
 
 object AmericasNorth extends EArea1("North America", 49 ll -100)
 {
