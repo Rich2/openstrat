@@ -21,14 +21,6 @@ package object eg320
     subSys.sideOptsFromPairsSpawn(arr)
   }
 
-  /*def fullTerrsSideBoolLayerSpawn(implicit subSys: EGrid320LongMulti): HSideBoolLayer =
-  { val arr = iToMap(0, subSys.numGrids - 1) { i =>
-      val ft = fullTerrs((i + subSys.headGridInt) %% 12)
-      (ft.grid, ft.sTerrsDepr)
-    }
-    subSys.sideBoolsFromPairsSpawn(arr)
-  }*/
-
   def fullTerrsCornerLayerSpawn(implicit subSys: EGrid320LongMulti): HCornerLayer = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
     subSys.grids(i).cornerLayerSpawn(ft.grid, ft.corners)

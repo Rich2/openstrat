@@ -23,7 +23,7 @@ object EGrid160
   def w150(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 7)
   def w120(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 8)
   def w90(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 9)
-  def w60(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 10)
+  def w60(rBottomCen: Int, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen, 10)
   def w30(rBottomCen: Int = 276, rTopCen: Int = 320): EGrid160LongFull = EGrid160LongFull(rBottomCen, rTopCen,11)
 
   def britGrid: EGrid160LongPart =
@@ -31,15 +31,9 @@ object EGrid160
     new EGrid160LongPart(280, 0, array)
   }
 
-  def scen0: EScenBasic =
-  { val grid: EGridLongFull = e0(276)
-    EScenBasic(grid, Terr160E0.terrs, Terr160E0.sTerrs, Terr160E0.corners, "!60km 0E")
-  }
+  def scen0: EScenBasic = EScenBasic(Terr160E0.grid, Terr160E0.terrs, Terr160E0.sTerrs, Terr160E0.corners, "!60km 0E")
+  def scen1: EScenBasic = EScenBasic(Terr160E30.grid, Terr160E30.terrs, Terr160E30.sTerrs, Terr160E30.corners, "!60km 30E")
 
-  def scen1: EScenBasic =
-  { val grid: EGridLongFull = e30(276)
-    EScenBasic(grid, Terr160E30.terrs, Terr160E30.sTerrs, Terr160E30.corners, "!60km 30E")
-  }
   //
   //  def scen2: EScenWarm =
   //  { val grid: EGridWarm = e60(276)
@@ -80,23 +74,8 @@ object EGrid160
   //  { val grid: EGridWarm = w90(276)
   //    EScenWarm(grid, Terr160W90.terrs, )
   //  }
-  //
-  //  def scen10: EScenWarm =
-  //  { val grid: EGridWarm = w60(276)
-  //    EScenWarm(grid, Terr160W60.terrs, )
-  //  }
 
-  def scen11: EScenBasic =
-  { val grid: EGridLongFull = w30(276)
-    EScenBasic(grid, Terr160W30.terrs, Terr160W30.sTerrs, Terr160W30.corners)
-  }
+  def scen10:EScenBasic = EScenBasic(Terr160W60.grid, Terr160W60.terrs, Terr160W60.sTerrs, Terr160W60.corners)
 
-  /*def ScenBrit: EScenBasic = new EScenBasic
-  {  override def title: String = "160KM Britain"
-
-    override implicit val gridSys: EGrid160LongPart = britGrid
-    override val terrs: HCenLayer[WTile] = ??? //regTerrs
-    override val sTerrs: HSideBoolLayer = ??? //regSTerrs //gridSys.newSideBools
-    //sTerrs.setTruesInts((142, 508), (143, 507))
-  }*/
+  def scen11: EScenBasic = EScenBasic(Terr160W30.grid, Terr160W30.terrs, Terr160W30.sTerrs, Terr160W30.corners)
 }

@@ -31,7 +31,7 @@ object EGrid160LongFull
 }
 
 class EGrid160LongPart(rBottomCen: Int, cenLongInt: Int, rArray: Array[Int]) extends
-  EGrid160Long(rBottomCen, cenLongInt, /*40.kMetres,*/ rArray)
+  EGrid160Long(rBottomCen, cenLongInt, rArray)
 {
   /** The latitude and longitude [[LatLong]] of an [[HCoord]] within the grid. */
   override def hCoordLL(hc: HCoord): LatLong = hCoordMiddleLL(hc)
