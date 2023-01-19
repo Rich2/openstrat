@@ -70,6 +70,7 @@ object EGrid160
   //    EScenWarm(grid, Terr160W120.terrs, )
   //  }
   //
+  def scen8:EScenBasic = EScenBasic(Terr160W120.grid, Terr160W120.terrs, Terr160W120.sTerrs, Terr160W120.corners)
   def scen9:EScenBasic = EScenBasic(Terr160W90.grid, Terr160W90.terrs, Terr160W90.sTerrs, Terr160W90.corners)
   def scen10:EScenBasic = EScenBasic(Terr160W60.grid, Terr160W60.terrs, Terr160W60.sTerrs, Terr160W60.corners)
   def scen11: EScenBasic = EScenBasic(Terr160W30.grid, Terr160W30.terrs, Terr160W30.sTerrs, Terr160W30.corners)
