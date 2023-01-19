@@ -7,6 +7,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
+  def armies: HCenOptLayer[Army] = scen.oArmies
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
@@ -26,6 +27,11 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   }
 
   def lines2: GraphicElems = proj.ifTileScale(50, lines)
+  val urect = Rect(1.4, 1)
+  def units: GraphicElems = armies.projSomeHcPtMap { (p, hc, pt) =>
+    val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, p.toString)
+    pStrat.UnitCounters.infantry(80, p, p.colour, p.contrastBW).slate(pt)//.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+  }
 
   def hexStrs: GraphicElems = proj.hCenSizedMap(15){ (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
 
@@ -56,7 +62,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-  override def frame: GraphicElems = polyFills ++ actives ++ sides1 ++ lines2 ++ hexStrs
+  override def frame: GraphicElems = polyFills ++ actives ++ sides1 ++ lines2 ++ hexStrs ++ units
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
