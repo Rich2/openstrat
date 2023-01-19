@@ -2,6 +2,7 @@
 package ostrat; package eg160
 import pEarth._, prid._, phex._, WTile._
 
+/** Terrain for 160km 90 west. */
 object Terr160W90 extends Long160Terrs
 {
   override implicit val grid: EGrid160LongFull = EGrid160.w90(314)
@@ -11,10 +12,10 @@ object Terr160W90 extends Long160Terrs
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
 
-//    wr(320, sea * 3, ice * 2)
-//    wr(318, sea * 3, ice * 2)
-//    wr(316, sea * 3, ice * 3)
-//    wr(314, mtain, sea * 3, ice * 2)
+    wr(320, sea * 2, hillTundra * 2, sea)
+    wr(318, hillTundra * 4, sea)
+    wr(316, hillTundra * 2, sea, hillTundra * 3)
+    wr(314, sea, hillTundra, sea, hillTundra, tundra, hillTundra)
 //    gs(312, 11764, ice * 5, sea * 2)
 //    gs(310, 11766, ice * 4, sea * 3)
 //    gs(308, 11764, ice * 3, sea * 5)
@@ -28,6 +29,7 @@ object Terr160W90 extends Long160Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+    res.setSomeInts(Sea, 315,9721,  316,9722, 318,9724,  318,9728,  318,9732,  319,9727,  319,9729,  319,9731,  319,9733)
     res
   }
 

@@ -32,8 +32,8 @@ object AmericasNorth extends EArea1("North America", 49 ll -100)
 
   val lakes: RArr[EArea2] = RArr(LakeSuperior, LakeHuron, LakeMichigan, LakeErie, LakeOntario)
   override val a2Arr: RArr[EArea2] = lakes ++
-    RArr(UsaWest, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, SouthamptonIsland, EastCanada, BaffinIsland,
-      NewFoundland, Baja, CentralAmerica, Cuba)
+    RArr(UsaWest, UsaEast, Alaska, NorthWestCanada, SouthWestCanada, CentralCanada, BanksIsland, VictoriaIsland, PrinceWalesIsland, SouthamptonIsland,
+      EastCanada, DevonIsland, BaffinIsland, NewFoundland, Baja, CentralAmerica, Cuba)
 }
 
 /** Asia East. North of 25.4N degs East of 66.3E west of 141.6E 33.3N */

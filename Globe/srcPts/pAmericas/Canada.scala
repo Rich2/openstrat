@@ -94,20 +94,6 @@ object CentralCanada extends EArea2("Central Canada", 52.37 ll -86.94, taiga)
     LakeHuron.centralCanadaCoast ++! LakeSuperior.canadaCoast
 }
 
-object BaffinIsland extends EArea2("Baffin Island", 69.55 ll -72.64, tundra)
-{
-  val bylotNE = 73.67 ll -78.13
-  val p20 = 70.54 ll -68.31
-  val east = 66.67 ll -61.29
-  val southEast = 61.88 ll -65.96
-  val p35 = 64.37 ll -74.67
-  val p40 = 64.43 ll -78.02
-  val p47 = 66.17 ll -74.43
-  val p60 = 69.76 ll -77.61
-  val p70 = 70.50 ll -88.72
-  val p80 = 73.58 ll -88.21
-  override def polygonLL: PolygonLL = PolygonLL(bylotNE, p20, east, southEast, p35, p40, p47, p60, p70, p80)
-}
 
 object EastCanada extends EArea2("East Canada", 53.71 ll-70, taiga)
 { val eastMainMouth = 52.24 ll -78.56
