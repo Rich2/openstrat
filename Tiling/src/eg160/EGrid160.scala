@@ -34,44 +34,11 @@ object EGrid160
   def scen0: EScenBasic = EScenBasic(Terr160E0.grid, Terr160E0.terrs, Terr160E0.sTerrs, Terr160E0.corners, "!60km 0E")
   def scen1: EScenBasic = EScenBasic(Terr160E30.grid, Terr160E30.terrs, Terr160E30.sTerrs, Terr160E30.corners, "!60km 30E")
 
-  //
-  //  def scen2: EScenWarm =
-  //  { val grid: EGridWarm = e60(276)
-  //    EScenWarm(grid, Terr160E60.terrs, )
-  //  }
-  //
-  //  def scen3: EScenWarm =
-  //  { val grid: EGridWarm = e90(276)
-  //    EScenWarm(grid, Terr160E90.terrs, )
-  //  }
-  //
-  //  def scen4: EScenWarm =
-  //  { val grid: EGridWarm = e120(276)
-  //    EScenWarm(grid, Terr160E120.terrs, )
-  //  }
-  //
-  //  def scen5: EScenWarm =
-  //  { val grid: EGridWarm = e150(276)
-  //    EScenWarm(grid, Terr160E150.terrs, )
-  //  }
-  //
-  //  def scen6: EScenWarm =
-  //  { val grid: EGridWarm = e180(276)
-  //    EScenWarm(grid, Terr160E180.terrs, )
-  //  }
-  //
-  //  def scen7: EScenWarm =
-  //  { val grid: EGridWarm = w150(276)
-  //    EScenWarm(grid, Terr160W150.terrs, )
-  //  }
-  //
-  //  def scen8: EScenWarm =
-  //  { val grid: EGridWarm = w120(276)
-  //    EScenWarm(grid, Terr160W120.terrs, )
-  //  }
-  //
-  def scen8:EScenBasic = EScenBasic(Terr160W120.grid, Terr160W120.terrs, Terr160W120.sTerrs, Terr160W120.corners)
-  def scen9:EScenBasic = EScenBasic(Terr160W90.grid, Terr160W90.terrs, Terr160W90.sTerrs, Terr160W90.corners)
-  def scen10:EScenBasic = EScenBasic(Terr160W60.grid, Terr160W60.terrs, Terr160W60.sTerrs, Terr160W60.corners)
+  def scen4: EScenBasic = EScenBasic(Terr160E120.grid, Terr160E120.terrs, Terr160E120.sTerrs, Terr160E120.corners)
+  def scen5: EScenBasic = EScenBasic(Terr160E150.grid, Terr160E150.terrs, Terr160E150.sTerrs, Terr160E150.corners)
+
+  def scen8: EScenBasic = EScenBasic(Terr160W120.grid, Terr160W120.terrs, Terr160W120.sTerrs, Terr160W120.corners)
+  def scen9: EScenBasic = EScenBasic(Terr160W90.grid, Terr160W90.terrs, Terr160W90.sTerrs, Terr160W90.corners)
+  def scen10: EScenBasic = EScenBasic(Terr160W60.grid, Terr160W60.terrs, Terr160W60.sTerrs, Terr160W60.corners)
   def scen11: EScenBasic = EScenBasic(Terr160W30.grid, Terr160W30.terrs, Terr160W30.sTerrs, Terr160W30.corners)
 }
