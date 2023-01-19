@@ -1,14 +1,18 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth; package pEurope
 import geom._, pglobe._, WTile._
 
 /** Displays Netherlands depends on [[BelgLux]]. */
 object Netherlands extends EArea2("Netherlands", 52.31 ll 5.91, plain)
-{val wMiddleburg = 51.53 ll 3.43
+{  val wMiddleburg = 51.53 ll 3.43
+   val denHeider = 52.95 ll 4.72
+   val p10 = 53.39 ll 5.20
    val eemshaven = 53.46 ll 6.82
    val westerwodenseeMouth = 53.24 ll 7.21
    val neNetherlands = 53.24 ll 7.2
-   override val polygonLL = PolygonLL(BelgLux.coastEast, wMiddleburg, eemshaven, westerwodenseeMouth, neNetherlands, BelgLux.aachen, BelgLux.north)
+
+   override val polygonLL = PolygonLL(BelgLux.coastEast, wMiddleburg, denHeider, p10, eemshaven, westerwodenseeMouth, neNetherlands, BelgLux.aachen,
+      BelgLux.north)
 }
 
 /** Displays roughly Germany on map. Depends on [[Alsace]], [[Frankia]] and [[BelgLux]]. */

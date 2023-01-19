@@ -4,7 +4,7 @@ import pEarth._, prid._, phex._, WTile._, egrid._
 
 object Terr160E0 extends Long160Terrs
 {
-  override implicit val grid: EGrid160LongFull = EGrid160.e0(276)
+  override implicit val grid: EGrid160LongFull = EGrid160.e0(274)
 
   /** Terrain for 160km 30East. Zealand has been moved north. 94GG has been left as Sea. */
   override val terrs: HCenLayer[WTile] =
@@ -19,11 +19,12 @@ object Terr160E0 extends Long160Terrs
     wr(290, sea * 2, hills * 2, sea * 4, plain * 3)
     wr(288, sea * 2, plain, hills, plain, sea * 4, plain, sea)
     wr(286, sea * 2, plain, sea , plain* 2, sea * 3, plain * 3)
-    wr(284, sea, plain * 2, hills, plain * 2, sea * 2, plain * 4)
+    wr(284, sea, plain * 2, hills, plain * 2, sea, plain * 5)
     wr(282, sea * 4, hills, plain * 8)
     wr(280, sea * 4, hills, sea * 2, plain * 6)
     wr(278, sea * 4, plain * 5, hills, plain * 2, hills)
     wr(276, sea * 5, plain * 4, hills * 2, mtain * 3)
+    wr(274, sea * 6, plain * 3, hills, mtain * 4)
     res
   }
 

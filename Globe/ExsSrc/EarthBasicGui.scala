@@ -1,10 +1,10 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pEarth
-import geom._, pPts._, pglobe._, pgui._, Colour._
+import geom._, pglobe._, pgui._, Colour._
 
 /** Basic map of the Earth using irregular areas / tiles. */
 case class EarthBasicGui(canv: CanvasPlatform, viewIn: EarthView = EarthView(40, 0, 10)) extends GlobeGui("The Earth in irregular tiles")
-{  statusText = "Welcome to world map, constructed from irregular areas."
+{ statusText = "Welcome to world map, constructed from irregular areas."
   debvar(viewIn)
   /** Scale in km / pixel */
   var scale: Length = viewIn.scale
