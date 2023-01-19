@@ -19,7 +19,7 @@ object Apps
     ("Z", pzug.ZugLaunch),
     ("DG", pDung.DungLaunch),
     ("NA", pnap.NapLaunch),
-    ("W2", pWW2.WW2Launch),
+    ("W2", pww2.WW2Launch),
     ("CV", pCiv.CivLaunch),
     ("Go", pgo.GoLaunch),
     ("CH", pchess.ChessLaunch),
@@ -41,5 +41,5 @@ object Apps
     ("HW", (learn.HelloWorld(_), "JavaFx Demonstration Canvas Hello World")), //Static Graphics
   )
 
-  def default: (CanvasPlatform => Any, String) = pWW2.WW2Launch.default
+  def default: (CanvasPlatform => Any, String) = pww2.WW2Launch.default
 }

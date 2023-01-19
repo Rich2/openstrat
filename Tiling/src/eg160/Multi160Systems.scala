@@ -37,7 +37,6 @@ object Grids160S11E1 extends EGrid160LongMulti
   override def getHCost(startCen: HCen, endCen: HCen): Int = ???
 }
 
-
 /** 160km scenario for 3 Grid system for 30W, 0E and 30E */
 object Scen160s11e1 extends EScenLongMulti
 { override val title: String = "160km 0E - 30E"
