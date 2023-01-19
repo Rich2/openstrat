@@ -2,7 +2,7 @@
 package ostrat; package eg160
 import pEarth._, prid._, phex._, WTile._
 
-/** Terrain for 160km 120 west. */
+/** Terrain for 160km 120 west. The terrain here is only very rough firsrt approximation. */
 object Terr160E120 extends Long160Terrs
 {
   override implicit val grid: EGrid160LongFull = EGrid160.e120(252, 272)
@@ -12,18 +12,17 @@ object Terr160E120 extends Long160Terrs
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
 
-//    wr(320, sea * 3, hillTundra * 2)
-//    wr(318, sea, tundra * 2, sea * 2)
-//    wr(316, sea, tundra * 2, hillTundra * 3)
-//    wr(314, sea * 2, tundra * 4)
-//    gs(312, 11764, ice * 5, sea * 2)
-//    gs(310, 11766, ice * 4, sea * 3)
-//    gs(308, 11764, ice * 3, sea * 5)
-//    gs(306, 11762, ice * 2, sea * 4, hills * 2)
-//    gs(304, 11764, ice, sea * 4, tundra * 3)
-//    gs(302, 11762, ice, sea * 5, tundra * 3)
-//    gs(300, 11760, tundra, sea * 8)
-//    gs(298, 11758, tundra, sea * 9)
+    wr(272, plain * 14)
+    wr(270, plain * 14, sea)
+    wr(268, plain * 13, sea * 2)
+    wr(266, plain * 12, sea * 3)
+    wr(264, plain * 12, sea * 3)
+    wr(262, plain * 7, sea * 4, hills * 2, sea * 3)
+    wr(260, plain * 9, sea, hills * 3, sea * 3)
+    wr(258, plain * 9, sea * 2, hills * 2, sea * 3)
+    wr(256, plain * 8, sea * 4, hills * 2, sea, hills * 2)
+    wr(254, plain * 8, sea * 6, hills * 3)
+    wr(252, plain * 9, sea * 5, hills * 2, sea)
     res
   }
 
