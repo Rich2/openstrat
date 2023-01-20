@@ -27,7 +27,8 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   }
 
   def lines2: GraphicElems = proj.ifTileScale(50, lines)
-  val urect = Rect(1.4, 1)
+  val urect: Rect = Rect(1.4, 1)
+
   def units: GraphicElems = armies.projSomeHcPtMap { (p, hc, pt) =>
     val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, p.toString)
     pStrat.UnitCounters.infantry(80, p, p.colour, p.contrastBW).slate(pt)//.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
