@@ -22,7 +22,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   def walls: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.Gray) }
   val lines: RArr[LineSegDraw] = terrs.projLinksHsLineOptMap((hs, line, t1, t2) => ife(t1 == t2 & !sTerrs(hs), Some(line.draw(t1.contrastBW)), None))
   def lunits: GraphicElems = scen.lunits.gridHeadsFlatMap{ (hc, squad) =>
-    val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour, terrs(hc).colour).slate(hc.toPt2Reg)
+    val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour).slate(hc.toPt2Reg)
 
     val actions: GraphicElems = squad.action match
     { case mv: Move => mv.dirns.segHCsMap(hc)(_.lineSeg.draw())

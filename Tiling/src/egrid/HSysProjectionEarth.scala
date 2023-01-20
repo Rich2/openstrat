@@ -8,8 +8,8 @@ case class HSysProjectionEarth(parent: EGridSys, panel: Panel) extends HSysProje
   var focus: LatLong = 0 ll 0
   var scale: Length = 4.km
   def gScale: Double = parent.cScale / scale
-  def tileScale: Double = gScale * 4
-  override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(tileScale >= minScale, elems, RArr[GraphicElem]())
+  override def pixTileScale: Double = gScale * 4
+  override def ifTileScale(minScale: Double, elems: => GraphicElems): GraphicElems = ife(pixTileScale >= minScale, elems, RArr[GraphicElem]())
 
   override def setView(view: Any): Unit = view match {
     case hv: HGView => {

@@ -40,4 +40,6 @@ trait HSysProjection extends TSysProjection
 
   def linkLineSegsOptMap[B, ArrB <: Arr[B]](f: (HSide, LineSeg) => Option[B])(implicit build: ArrMapBuilder[B, ArrB]): ArrB =
     gChild.linksOptMap{hs => f(hs, lineSeg(hs)) }
+
+  def pixTileScale: Double
 }

@@ -27,11 +27,10 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   }
 
   def lines2: GraphicElems = proj.ifTileScale(50, lines)
-  val urect: Rect = Rect(1.4, 1)
 
-  def units: GraphicElems = armies.projSomeHcPtMap { (p, hc, pt) =>
-    val str = ptScale.scaledStr(170, p.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, p.toString)
-    pStrat.UnitCounters.infantry(80, p, p.colour, p.contrastBW).slate(pt)//.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+  def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
+    val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
+    pStrat.UnitCounters.infantry(proj.pixTileScale * 0.6, army, army.colour).slate(pt)//.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
   }
 
   def hexStrs: GraphicElems = proj.hCenSizedMap(15){ (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }

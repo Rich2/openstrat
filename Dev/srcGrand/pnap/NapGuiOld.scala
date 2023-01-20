@@ -16,7 +16,7 @@ case class NapGuiOld(canv: CanvasPlatform, scen: NapScenld) extends EarthAllGuiO
       val poly = vertDispVecs.fillActive(colour, tile)
 
       val textU: GraphicElems = etog.ifScaleCObjs(110, tile.lunits match
-        { case ArrHead(head) if tScale > 68 => RArr(UnitCounters.infantry(30, head, head.colour,tile.colour).slate(cen))
+        { case ArrHead(head) if tScale > 68 => RArr(UnitCounters.infantry(30, head, head.colour).slate(cen))
           case _ =>
           { val strs: StrArr = StrArr(yxStr, cenLL.degStr)
             TextGraphic.lines(strs, 10, cen, colour.contrastBW)

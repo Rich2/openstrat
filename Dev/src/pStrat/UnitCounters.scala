@@ -4,16 +4,17 @@ import geom._
 
 object UnitCounters
 {
-  def infantry(scale: Double, evObj: AnyRef, fillColour: Colour, backgroundColour: Colour): PolygonCompound =
-  { val rect: Rect = Rect(1.5 * scale, scale)
-    val linesColour = fillColour.contrast2(backgroundColour)
+  def heightRatio = 0.7
+  def infantry(scale: Double, evObj: AnyRef, fillColour: Colour): PolygonCompound =
+  { val rect: Rect = Rect(scale, scale * heightRatio)
+    val linesColour = fillColour.contrastBW//2(backgroundColour)
     val subj = rect.fillDrawActive(fillColour, evObj, 1, linesColour)
     subj.addChildren(RArr(rect.diags.draw(1, linesColour)))
   }
 
-  def cavalry(scale: Double, evObj: AnyRef, fillColour: Colour, backgroundColour: Colour): PolygonCompound =
-  { val rect: Rect = Rect(1.5 * scale, scale)
-    val linesColour = fillColour.contrast2(backgroundColour)
+  def cavalry(scale: Double, evObj: AnyRef, fillColour: Colour): PolygonCompound =
+  { val rect: Rect = Rect(scale, scale * heightRatio)
+    val linesColour = fillColour.contrastBW//2(backgroundColour)
     val subj = rect.fillDrawActive(fillColour, evObj, 1, linesColour)
     subj.addChildren(RArr(rect.diag1.draw(linesColour, 1)))
   }
