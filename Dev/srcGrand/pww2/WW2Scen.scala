@@ -8,6 +8,15 @@ trait WW2Scen extends EScenBasic with HSysTurnScen
   def oArmies: HCenOptLayer[Army]
 }
 
+object WW2Scen
+{
+  def sa0(layer: HCenOptLayer[Army])(implicit sys: HGridSys): Unit =
+  { layer.unsafeSetSames(Germany.ar, 140, 520, 142, 518)
+    layer.unsafeSetSames(France.ar, 138, 514, 138, 518)
+    layer.unsafeSetSome(140, 512, Britain.ar)
+  }
+}
+
 object WW2Scen1 extends WW2Scen
 { override def turn: Int = 0
 
@@ -17,19 +26,17 @@ object WW2Scen1 extends WW2Scen
   override val corners: HCornerLayer = Terr320E0.corners
 
   val oArmies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
-  oArmies.unsafeSetSome(140, 520, Army(Germany))
-  oArmies.unsafeSetSomes((138, 518, Army(France)))
+  WW2Scen.sa0(oArmies)
 }
 
 object WW2Scen2 extends WW2Scen
 { override def turn: Int = 0
 
   override implicit def gridSys: Grids320S0E11.type = Grids320S0E11
-  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn// Terr320E0.terrs
-  override def sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn//Terr320E0.sTerrs
-  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn//Terr320E0.corners
+  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
+  override def sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 
   val oArmies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
-  // oArmies.unsafeSetSome(280, 524, Army(Germany))
-  //oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
+  WW2Scen.sa0(oArmies)
 }

@@ -23,7 +23,7 @@ object Terr320E0 extends Long320Terrs
     gs(144, 508, plain, sea * 2, plain)
     gs(142, 506, plain, plain, sea, plain * 2)
     wr(140, sea, hills, plain * 4)
-    gs(138, 460 + 50, plain * 5)
+    gs(138, 460 + 50, plain * 2, hills, mtain * 2)
     gs(136, 512, plain, hills, mtain, plain)
     gs(134, 506, hills * 3, sea * 2, hills)
     gs(132, 504, hills, plain * 2, sea, hills, sea)

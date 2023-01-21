@@ -26,6 +26,8 @@ class HCenOptLayer[A <: AnyRef](val unsafeArray: Array[A]) extends AnyVal with T
   /** Sets the Some values of the hex tile data at the specified row and column coordinate values. This is an imperative mutating operation. */
   def unsafeSetSomes(triples: (Int, Int, A)*)(implicit grider: HGridSys): Unit = triples.foreach(t => unsafeArray(grider.layerArrayIndex(t._1, t._2)) = t._3)
 
+  def unsafeSetSames(value: A, hCens: Int*)(implicit grider: HGridSys): Unit = iUntilForeach(hCens.length / 2){ i => unsafeSetSome(hCens(i * 2), hCens(i * 2 + 1), value) }
+
   /** Mutates the value ot the specified location to None. */
   def unsafeSetNone(hc: HCen)(implicit grider: HGridSys): Unit = unsafeArray(grider.layerArrayIndex(hc)) = null.asInstanceOf[A]
 
