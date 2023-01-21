@@ -27,7 +27,7 @@ object Apps
 
   val ids: StrPairArr[(CanvasPlatform => Any, String)] = StrPairArr(
     ("Y1", (pZero.TessGui(_), "Tess")),
-    ("Y2", (pnap.NapGuiOld(_, pnap.Nap1Old), "1783")),
+//    ("Y2", (pnap.NapGuiOld(_, pnap.Nap1Old), "1783")),
     ("Y3", (pFlags.FlagsGui(_), "JavaFx Flags")),
     ("Y4", (pspace.PlanetsGui(_), "JavaFx Planets")),
     ("Y8", (ColourGen(_), "JavaFx Some Colours")),
