@@ -51,7 +51,7 @@ case class NapGuiOld(canv: CanvasPlatform, scen: NapScenld) extends EarthAllGuiO
         
     case RightButton => (selected, clickList) match
     {
-      case (AnyArrHead(c: Corps), AnyArrHead(newTile: NapTileOld)) =>
+      case (AnyArrHead(c: CorpsOld), AnyArrHead(newTile: NapTileOld)) =>
       { c.tile.lunits = c.tile.lunits.removeFirst (_ == c)
         val newCorps = c.copy (newTile)
         newTile.lunits %:= newCorps
@@ -59,7 +59,7 @@ case class NapGuiOld(canv: CanvasPlatform, scen: NapScenld) extends EarthAllGuiO
         repaintMap()
       }
 
-      case (AnyArrHead(c: Corps), clickList) => //deb(clickList.map(_.getClass.toString).toString)
+      case (AnyArrHead(c: CorpsOld), clickList) => //deb(clickList.map(_.getClass.toString).toString)
       case _ =>
     }
     case _ =>

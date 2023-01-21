@@ -4,7 +4,7 @@ import pGrid._
 
 class NapScenld extends EarthAllMap[NapTileOld, ESideOnyAncient](NapTileOld.apply, ESideOnyAncient.apply)
 {
-  val fCorp: (NapTileOld, Polity) => Unit = (tile, p: Polity) => tile.lunits = Corps(tile, p) %: tile.lunits
+  val fCorp: (NapTileOld, Polity) => Unit = (tile, p: Polity) => tile.lunits = CorpsOld(tile, p) %: tile.lunits
 }
 
 object Nap1Old extends NapScenld

@@ -5,7 +5,7 @@ import pEarth._, pGrid._
 case class NapTileOld(x: Int, y: Int, terr: WTile) extends ETileAncient
 { type FromT = WTile
   def fromT = terr
-  var lunits: RArr[Corps] = RArr()
+  var lunits: RArr[CorpsOld] = RArr()
 }
 
 object NapTileOld
@@ -16,7 +16,7 @@ object NapTileOld
   }
 }
 
-case class Corps(tile: NapTileOld, polity: Polity)
+case class CorpsOld(tile: NapTileOld, polity: Polity)
 { val colour = polity.colour
   override def toString = "Corps" + (polity.toString).enParenth
 }
