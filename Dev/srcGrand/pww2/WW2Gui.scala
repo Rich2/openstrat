@@ -5,8 +5,8 @@ import geom._, pEarth._, prid._, phex._, pgui._
 case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat: Boolean = false) extends HGridSysGui("WW1 Gui")
 { var scen = scenIn
   override implicit val gridSys: HGridSys = scenIn.gridSys
-  val terrs: HCenLayer[WTile] = scen.terrs
-  val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
+  def terrs: HCenLayer[WTile] = scen.terrs
+  def sTerrs: HSideOptLayer[WSide] = scen.sTerrs
   def armies: HCenOptLayer[Army] = scen.oArmies
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
