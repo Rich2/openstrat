@@ -2,11 +2,11 @@
 package ostrat; package p305
 import prid._, phex._, egrid._, eg80._, pEarth._
 
-trait BcScen extends EScenBasic with HSysTurnScen
+trait BCScen extends EScenBasic with HSysTurnScen
 {
 }
 
-object BcScen1 extends BcScen
+object BCScen1 extends BCScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid80LongFull = EGrid80.e0(446)
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
@@ -14,7 +14,7 @@ object BcScen1 extends BcScen
   override val corners: HCornerLayer = Terr80E0.corners
 }
 
-object BcScen2 extends BcScen
+object BCScen2 extends BCScen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid80LongFull = EGrid80.e0(446)
   override val terrs: HCenLayer[WTile] = Terr80E0.terrs
