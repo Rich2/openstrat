@@ -31,16 +31,28 @@ object japan extends EArea2("Japan", degs(36.28, 138.71), hills)
 
   val p15 = 38.28 ll 141.52
   val naruseMouth = 38.38 ll 141.18
+  val takaseMouth = 37.49 ll 141.04
+  val p16 = 37.00 ll 140.97
+  val choshi = 35.71 ll 140.85
+  val p18 = 34.92 ll 139.93
+  val p22 = 34.61 ll 138.84
+  val p24 = 34.28 ll 136.90
+  val p25 = 34.18 ll 136.33
   val sKyshu = 31.08 ll 130.75
   val capeKute = 33.44 ll 135.76
-  val p25 = 32.80 ll 131.97
+  val p30 = 32.80 ll 131.97
 
   val neKyushu = 33.34 ll 129.45
   val p60 = 35.42 ll 132.63
+  val p65 = 35.78 ll 135.22
+  val p68 = 35.60 ll 135.46
+  val p70 = 37.33 ll 136.73
+  val p72 = 37.51 ll 137.34
   val kashiwazaki = 37.37 ll 138.55
-  val choshi = 35.71 ll 140.85
+  val p85 = 37.79 ll 138.82
   val p90 = 40.62 ll 139.89
   val capeTappi = 41.26 ll 140.34
 
-  override val polygonLL = PolygonLL(oma, p5, p10, p15, naruseMouth, choshi, capeKute, p25, sKyshu, neKyushu, p60, kashiwazaki, p90, capeTappi)
+  override val polygonLL = PolygonLL(oma, p5, p10, p15, naruseMouth, takaseMouth, p16, choshi, p18, p22, p24, p25, capeKute, p30,
+    sKyshu, neKyushu, p60, p65, p68, p70, p72, kashiwazaki, p85, p90, capeTappi)
 }

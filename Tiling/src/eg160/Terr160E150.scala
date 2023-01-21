@@ -2,7 +2,7 @@
 package ostrat; package eg160
 import pEarth._, prid._, phex._, WTile._
 
-/** Terrain for 160km 120 west. Only just started filling in terrain. */
+/** Terrain for 160km 120 west. Created elevations, but may need forests. */
 object Terr160E150 extends Long160Terrs
 {
   override implicit val grid: EGrid160LongFull = EGrid160.e150(252, 272)
@@ -18,12 +18,9 @@ object Terr160E150 extends Long160Terrs
     wr(266, sea * 2, hills, sea * 12)
     wr(264, sea * 2, hills, sea * 12)
     wr(262, sea * 2, hills * 2, sea * 12)
-//    gs(308, 11764, ice * 3, sea * 5)
-//    gs(306, 11762, ice * 2, sea * 4, hills * 2)
-//    gs(304, 11764, ice, sea * 4, tundra * 3)
-//    gs(302, 11762, ice, sea * 5, tundra * 3)
-//    gs(300, 11760, tundra, sea * 8)
-//    gs(298, 11758, tundra, sea * 9)
+    wr(260, hills * 3, sea * 13)
+    wr(258, hills * 3, sea * 13)
+    wr(256, hills * 3, sea * 14)
     res
   }
 
