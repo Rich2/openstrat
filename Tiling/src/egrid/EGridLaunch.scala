@@ -62,7 +62,7 @@ object EGridLaunch extends GuiLaunchMore
       case 72 => Scen80s0s1
       case 73 => WesternFront.wFrontScen
 
-      case _ => EGrid80.scen0
+      case _ => Scen320S0E11
     }
     if (isExp) (ExpWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title --"Experimental" -- ife(isFlat, "Flat", "Globe") -- "JavaFx")
     else (GridWorldGui(_, scen, oview.getElse(scen.gridSys.coordCen.view()), isFlat), scen.title -- ife(isFlat, "Flat", "Globe") -- "JavaFx")

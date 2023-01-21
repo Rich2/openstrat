@@ -10,7 +10,7 @@ trait EScenBasic extends HSysScen
   def sTerrs: HSideOptLayer[WSide]
   //def sTerrsDepr: HSideBoolLayer
   val corners: HCornerLayer
-  def title: String = "EScenWarm"
+  def title: String = "EScenBasic"
 }
 
 /** A basic EGrid scenario, containing grid and basic terrain data. */
