@@ -41,10 +41,10 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
     repaint()
     thisTop()
   }
-  statusText = "Welcome to WW1"
+  statusText = "Welcome to WW2"
 
-  mainMouseUp = (b, cl, _) => (b, selected, cl) match {
-    case (LeftButton, _, cl) => {
+  mainMouseUp = (b, cl, _) => (b, selected, cl) match
+  { case (LeftButton, _, cl) => {
       selected = cl
       statusText = selected.headFoldToString("Nothing Selected")
       thisTop()
