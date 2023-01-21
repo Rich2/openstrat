@@ -9,7 +9,7 @@ dless = { scen = 1; flat = false; 1 = HGView(138, 526; 20); };
 ww1 = { scen = 2; flat = false; 1 = HGView(280, 520; 24); 2 = HGView(300, 1536; 20); };
 bc305 = { scen = 2; flat = false; 2 = HGView(460, 520; 16); };
 earth = { scale = 12; latitude = 0; longitude = 0; };
-//ad1783 = { scen = 2; flat = false; 2 = HGView(286, 512; 22); };
+ad1783 = { scen = 1; flat = false; 1 = HGView(464, 512; 22); 2 = HGView(464, 512; 22); };
 eGrid = { scen = 1; flat = false; };
 g1Hex = { scen = 1; 1 = HGView(4, 6; 80); 2 = HGView(6, 6; 52); 3 = HGView(6, 6; 50); 4 = HGView(7, 20; 40) };
 g1Sq = { scen = 1; 1 = SqGridView(4, 5; 80); 2 = SqGridView(9, 11; 40); };

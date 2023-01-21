@@ -14,5 +14,5 @@ object Britain extends Polity
 
  object France extends Polity
 { def str: String = "France"
-  def colour = Blue
+  def colour = Colour.fromInts(0, 38, 84)
 }
