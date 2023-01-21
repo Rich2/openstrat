@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 
 val versionStr = "0.3.1snap"
 ThisBuild/version := versionStr
@@ -113,18 +113,18 @@ lazy val GlobeNat = natProj("Globe").dependsOn(GeomNat).settings(
 )
 
 lazy val Tiling = mainJvmProj("Tiling").dependsOn(Globe).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",  
+ // Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",  
 )
 
 lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling)
 
 lazy val TilingJs = jsProj("Tiling").dependsOn(GlobeJs).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
+ // Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
 )
 
 lazy val TilingNat = natProj("Tiling").dependsOn(GlobeNat).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
+ // Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
 )
 
 lazy val EarthAppJs = jsApp("EarthApp").settings(
