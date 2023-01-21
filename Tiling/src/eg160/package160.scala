@@ -5,7 +5,7 @@ import pEarth._, prid.phex._
 /** Hex tile grids for Earth with a hex scale of 100km, a C scale of 40km. */
 package object eg160
 {
-  val fullTerrs: RArr[Long160Terrs] = RArr(Terr160E0, Terr160E30, null, null, null, null, null, null, null, null, Terr160W60, Terr160W30)
+  val fullTerrs: RArr[Long160Terrs] = RArr(Terr160E0, Terr160E30, null, null, Terr160E120, Terr160E150, null, null, null, null, Terr160W60, Terr160W30)
 
   def fullTerrsHCenLayerSpawn(implicit subSys: EGrid160LongMulti): HCenLayer[WTile] = iToMap(0, subSys.numGrids - 1) { i =>
     val ft = fullTerrs((i + subSys.headGridInt) %% 12)
