@@ -89,15 +89,10 @@ object Terr320E0 extends Long320Terrs
     res.setCornerIn(130, 506, 3)
     res.setCornerIn(128, 508, 5)
     res.setCorner2(128, 504, 1, HVUp, HVDR)
-    //res.setStraitMouth(128, 504, 1)
 
-    res.setCorner(130, 506, 2, HVUp)
-    res.setCorner(128, 508, 0, HVDn)
+    res.setVert2Up1Dn(130, 506)
+    res.setVert2Dn1Up(128, 508)
 
-    res.setCorner(130, 510, 4, HVUp)
-    res.setCornerIn(130, 510, 3)
-    res.setCorner(128, 508, 1, HVDn)
-    res.setCorner(128, 512, 5, HVDn)
     res.setCornerIn(130, 510, 2)
     res.setCornerIn(128, 512, 0)
     res.setCorner2(130, 514, 4, HVDn, HVUL)
