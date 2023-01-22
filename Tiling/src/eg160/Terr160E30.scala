@@ -4,7 +4,7 @@ import pEarth._, prid._, phex._, WTile._
 
 /** Terrain at 160km for 30E. LAnd sea should be correct, but elevation has not been checked. */
 object Terr160E30 extends Long160Terrs
-{ override implicit val grid: EGrid160LongFull = EGrid160.e30(280)
+{ override implicit val grid: EGrid160LongFull = EGrid160.e30(276)
 
   override val terrs: HCenLayer[WTile] =
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
@@ -28,9 +28,11 @@ object Terr160E30 extends Long160Terrs
     wr(290, sea, plain * 10)
     wr(288, sea * 2, plain * 9)
     wr(286, plain * 12)
-    wr(284, plain * 12)
-    wr(282, plain * 13)
-    wr(280, plain * 13)
+    wr(284, plain * 3, forest * 2, plain * 7)
+    wr(282, plain * 4, forest * 2, plain * 7)
+    wr(280, hills, plain * 12)
+    wr(278, hills * 3, plain * 10)
+    wr(276, plain, hills, plain * 12)
     res
   }
 
