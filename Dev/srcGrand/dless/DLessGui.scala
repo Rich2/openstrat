@@ -7,7 +7,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
-
+  def armies: HCenOptLayer[Nation] = scen.armies
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
@@ -41,7 +41,12 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   def hexStrs2: GraphicElems = proj.ifTileScale(72, hexStrs)
 
-  override def frame: GraphicElems = polyFills ++ actives ++ straits2 ++ lines2 ++ hexStrs2
+  def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
+    val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
+    pStrat.UnitCounters.infantry(proj.pixTileScale * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+  }
+
+  override def frame: GraphicElems = polyFills ++ actives ++ straits2 ++ lines2 ++ hexStrs2 ++ units
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>

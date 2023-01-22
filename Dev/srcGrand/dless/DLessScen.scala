@@ -8,6 +8,7 @@ trait DLessScen extends HSysTurnScen
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideOptLayer[WSide]
   val offsets: HCornerLayer
+  val armies: HCenOptLayer[Nation]
 }
 
 /** The main scenario for Diceless. */
@@ -26,6 +27,11 @@ object DLessScen1 extends DLessScen
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
   override val offsets: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val armies: HCenOptLayer[Nation] = gridSys.newHCenOptLayer
+  armies.unsafeSetSome(142, 510, Britain)
+  armies.unsafeSetSames(Germany, 142,518)
+  armies.unsafeSetSames(France, 138,514)
+  armies.unsafeSetSames(Russia, 142, 1534)
 }
 
 /** 2nd scenario for Diceless. Might have some use. */
@@ -38,4 +44,5 @@ object DLessScen2 extends DLessScen
   override val terrs: HCenLayer[WTile] = BritReg.britTerrs
   override val sTerrs: HSideOptLayer[WSide] = BritReg.britSTerrs
   override val offsets: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val armies: HCenOptLayer[Nation] = gridSys.newHCenOptLayer
 }
