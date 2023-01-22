@@ -45,37 +45,24 @@ object Terr320E0 extends Long320Terrs
 
   override val corners: HCornerLayer =
   { val res: HCornerLayer = grid.newHVertOffsetLayer
-    import res.{setVertSingle => svs }
 
-    res.setCorner(144, 508, 4, HVUp)
-    res.setCorner(142, 506, 0, HVDL)
-    res.setCorner2(144, 504, 2, HVUp, HVDL)
-
-    res.setVert2UR1DL(144, 508)//Anglesea
-
+    res.setMouth1(140, 504)// St Georges Chanel
     res.setVert2DR1UL(140, 508)//Bristol
-
-    /** St Georges Chanel */
-    res.setCorner2(140, 504, 1, HVUL, HVDn)
-    res.setCorner(142, 506, 3, HVUL)
-    res.setCorner(140, 508, 5, HVDn)
-
-    /** English Channel Dover */
-    res.setCorner2(142, 514, 4, HVDn, HVUL)
-    res.setCorner(142, 510, 2, HVUL)
-    res.setCorner(140, 512, 0, HVDn)
+    res.setVert2UR1DL(144, 508)//Anglesea
+    res.setMouth2(144, 504)//Scotland Northern Ireland
 
     res.setMouth1(138, 506)// English Channel Atlantic end
     res.setVert2DR1UL(138, 510)//Le Mont St Michelle
     res.setVert2UL1DR(140, 508)// Southampton Le Havre
+    res.setMouth4(142, 514)// English Channel Dover
 
     res.setMouth1(128, 504)//Gibraltar
     res.setVert2Up1Dn(130, 506)//South Spain
     res.setVert2Dn1Up(128, 508)//South Spain
+    res.setMouth4(130, 514)//East end of Gibralter Straits
 
-    res.setCornerIn(130, 510, 2)
-    res.setCornerIn(128, 512, 0)
-    res.setCorner2(130, 514, 4, HVDn, HVUL)
+    res.setMouth2(130, 522)
+
     res
   }
 }
