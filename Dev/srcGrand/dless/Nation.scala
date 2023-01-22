@@ -25,3 +25,23 @@ object Russia extends Nation
 { override val name: String = "Russia"
   override val colour: Colour = White
 }
+
+object Italy extends Nation
+{ override val name: String = "Italy"
+  override val colour: Colour = DarkRed
+}
+
+object Austria extends Nation
+{ override val name: String = "Austro-Hungry"
+  override val colour: Colour = Yellow
+}
+
+object Ottoman extends Nation
+{ override val name: String = "Ottoman"
+  override val colour: Colour = Red
+}
+
+object Spain extends Nation
+{ override val name: String = "Spain"
+  override val colour: Colour = Orange
+}
