@@ -7,6 +7,8 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   override implicit val gridSys: HGridSys = scenIn.gridSys
   val terrs: HCenLayer[WTile] = scen.terrs
   val sTerrs: HSideOptLayer[WSide] = scen.sTerrs
+  def armies: HCenOptLayer[Army] = scen.armies
+
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))
@@ -28,6 +30,11 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   def lines2: GraphicElems = proj.ifTileScale(50, lines)
 
   def hexStrs: GraphicElems = proj.hCenSizedMap(15){ (hc, pt) => pt.textAt(hc.strComma, 12, terrs(hc).contrastBW) }
+
+  def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
+    val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
+    pStrat.UnitCounters.infantry(proj.pixTileScale * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+  }
 
   /** Creates the turn button and the action to commit on mouse click. */
   def bTurn: PolygonCompound = clickButton("Turn " + (scen.turn + 1).toString) { _ =>
@@ -56,7 +63,7 @@ case class WW1Gui(canv: CanvasPlatform, scenIn: WW1Scen, viewIn: HGView, isFlat:
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
 
   thisTop()
-  override def frame: GraphicElems = polyFills ++ actives ++ sides1 ++ lines2 ++ hexStrs
+  override def frame: GraphicElems = polyFills ++ actives ++ sides1 ++ lines2 ++ hexStrs ++ units
 
   proj.getFrame = () => frame
   proj.setStatusText = { str =>

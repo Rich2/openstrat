@@ -7,7 +7,7 @@ case class WW2Gui(canv: CanvasPlatform, scenIn: WW2Scen, viewIn: HGView, isFlat:
   override implicit val gridSys: HGridSys = scenIn.gridSys
   def terrs: HCenLayer[WTile] = scen.terrs
   def sTerrs: HSideOptLayer[WSide] = scen.sTerrs
-  def armies: HCenOptLayer[Army] = scen.oArmies
+  def armies: HCenOptLayer[Army] = scen.armies
   focus = gridSys.cenVec
   cPScale = gridSys.fullDisplayScale(mainWidth, mainHeight)
   implicit val proj: HSysProjection = ife(isFlat, HSysProjectionFlat(gridSys, mainPanel), gridSys.projection(mainPanel))

@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, eg160._, pEarth._
 trait WW1Scen extends EScenBasic with HSysTurnScen
 {
   override def title: String = "WWI scenario."
-  def oArmies: HCenOptLayer[Army]
+  val armies: HCenOptLayer[Army]
 }
 
 object WW1Scen1 extends WW1Scen
@@ -14,7 +14,10 @@ object WW1Scen1 extends WW1Scen
   override val terrs: HCenLayer[WTile] = Terr160E0.terrs
   override def sTerrs: HSideOptLayer[WSide] = Terr160E0.sTerrs
   override val corners: HCornerLayer = Terr160E0.corners
-  override val oArmies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
+  override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
+  armies.unsafeSetSome(280, 516, Army(Britain))
+  armies.unsafeSetSome(280, 524, Army(Germany))
+
 }
 object WW1Scen2 extends WW1Scen
 { override def turn: Int = 0
@@ -22,5 +25,5 @@ object WW1Scen2 extends WW1Scen
   override val terrs: HCenLayer[WTile] = Terr160E30.terrs
   override def sTerrs: HSideOptLayer[WSide] = Terr160E30.sTerrs
   override val corners: HCornerLayer = Terr160E30.corners
-  override val oArmies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
+  override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
 }

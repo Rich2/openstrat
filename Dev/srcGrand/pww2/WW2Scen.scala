@@ -5,7 +5,7 @@ import prid._, phex._, egrid._, eg320._, pEarth._
 trait WW2Scen extends EScenBasic with HSysTurnScen
 {
   //override def gridSys: EGrid320Sys
-  def oArmies: HCenOptLayer[Army]
+  def armies: HCenOptLayer[Army]
 }
 
 object WW2Scen
@@ -25,8 +25,8 @@ object WW2Scen1 extends WW2Scen
   override def sTerrs: HSideOptLayer[WSide] = Terr320E0.sTerrs
   override val corners: HCornerLayer = Terr320E0.corners
 
-  val oArmies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
-  WW2Scen.sa0(oArmies)
+  val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
+  WW2Scen.sa0(armies)
 }
 
 object WW2Scen2 extends WW2Scen
@@ -37,6 +37,6 @@ object WW2Scen2 extends WW2Scen
   override def sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 
-  val oArmies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
-  WW2Scen.sa0(oArmies)
+  val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer
+  WW2Scen.sa0(armies)
 }
