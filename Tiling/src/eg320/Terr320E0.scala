@@ -59,9 +59,10 @@ object Terr320E0 extends Long320Terrs
     res.setMouth1(128, 504)//Gibraltar
     res.setVert2Up1Dn(130, 506)//South Spain
     res.setVert2Dn1Up(128, 508)//South Spain
-    res.setMouth4(130, 514)//East end of Gibralter Straits
+    res.setMouth4(130, 514)//East end of Gibraltar Straits
 
-    res.setMouth2(130, 522)
+    res.setMouth2(130, 522)//Tunis Sicily west
+    res.setMouth5(128, 528)//Tunis Sicily east
 
     res
   }

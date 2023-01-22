@@ -174,6 +174,13 @@ class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r, c - 4, 2, HVUL, magnitude)
   }
 
+  /** Sets vertex 5 for all 3 tiles as mouth of Straits. Sa hex is given [[HCen]] hex tile. */
+  def setMouth5(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
+  { setCorner2(r, c, 5, HVDL, HVUp, magnitude, magnitude)
+    setCorner(r, c - 4, 1, HVDL, magnitude)
+    setCorner(r + 2, c - 2, 3, HVUp, magnitude)
+  }
+
   /** Sets the corner in towards the [[HCen]] with a single [[HVOffset]]. */
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
   { val i = vertNum %% 6
