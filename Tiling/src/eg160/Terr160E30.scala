@@ -15,8 +15,8 @@ object Terr160E30 extends Long160Terrs
     wr(316, sea * 6)
     wr(314, sea * 6)
     wr(312, sea, hillTundra * 3, sea * 3)
-    wr(310, taiga * 5, sea * 2)
-    wr(308, taiga * 8)
+    wr(310, hillTaiga * 2, taiga * 3, sea, taiga)
+    wr(308, hillTaiga, taiga * 7)
     wr(306, taiga * 5, sea, taiga * 2)
     wr(304, taiga, sea, taiga * 6)
     wr(302, taiga, sea, taiga * 7)
@@ -36,7 +36,7 @@ object Terr160E30 extends Long160Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 293,1525,  293,1527,  303,1543,  304,1544,  304,1546,  305,1545,  305,1547,  306,1548,  307,1549,  308,1550)
+    res.setSomeInts(Sea, 293,1525,  293,1527,  303,1543,  304,1544,  304,1546,  305,1545,  305,1547,  306,1548,  307,1549,  308,1550,  309,1549)
     res
   }
 

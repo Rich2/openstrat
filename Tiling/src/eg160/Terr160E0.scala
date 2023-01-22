@@ -11,6 +11,11 @@ object Terr160E0 extends Long160Terrs
   { val res: HCenLayer[WTile] = grid.newHCenLayer[WTile](sea)
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
 
+    wr(310, sea * 6, mtain)
+    wr(308, sea * 7, mtain)
+    wr(306, sea * 7, mtain)
+    wr(304, sea * 7, mtain)
+    wr(302, sea * 7, hillTaiga, taiga)
     wr(300, sea * 6, mtain, hillTaiga * 2)
     wr(298, sea * 6, mtain * 2, hillTaiga * 2)
     wr(296, sea * 6, hillTaiga * 2, taiga * 2)
