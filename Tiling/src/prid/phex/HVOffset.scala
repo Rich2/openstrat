@@ -145,6 +145,21 @@ class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r, c + 4, 5, HVDR, magnitude)
   }
 
+  /** Sets the vertex for 3 tiles. The specified [[HCen]] is the top of the three [[HCen]]s sharing the vertex. Sets the given tile's vert 3 [[HVUR]].
+   *  Sets the tile to the lower right HCen(r - 2,  c + 2) vert 5 [[HVUR]] and sets the tile to the lower left HCen(r - 2, C -2) vert 1 [[HVDL]]. */
+  def setVert2UR1DL(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
+  { setCorner(r, c, 3, HVUR, magnitude)
+    setCorner(r - 2, c + 2, 5, HVUR, magnitude)
+    setCorner(r -2, c - 2, 1, HVDL, magnitude)
+  }
+
+  /** Sets vertex 1 for all 3 tiles as mouth of Straits. Sa hex is given [[HCen]] hex tile. */
+  def setMouth1(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
+  { setCorner2(r, c, 1, HVUp, HVDR, magnitude, magnitude)
+    setCorner(r + 2, c + 2, 3, HVUp, magnitude)
+    setCorner(r, c + 4, 5, HVDR, magnitude)
+  }
+
   /** Sets the corner in towards the [[HCen]] with a single [[HVOffset]]. */
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
   { val i = vertNum %% 6
