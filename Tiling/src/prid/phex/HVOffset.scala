@@ -128,6 +128,23 @@ class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r + 2, c + 2, 3, HVUp, magnitude)
   }
 
+  /** Sets the vertex for 3 tiles. The specified [[HCen]] is the bottom of the three [[HCen]]s sharing the vertex. Sets the given tile's vert 0
+   * [[HVDR]]. Sets the tile to the upper right HCen(r + 2,  c + 2) vert 4 [[HVDR]] and sets the tile to the upper left HCen(r + 2, C - 2) vert 2
+   * [[HVUR]]. */
+  def setVert2DR1UL(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit = {
+    setCorner(r, c, 0, HVDR, magnitude)
+    setCorner(r + 2, c + 2, 4, HVDR, magnitude)
+    setCorner(r + 2, c - 2, 2, HVUL, magnitude)
+  }
+
+  /** Sets the vertex for 3 tiles. The specified [[HCen]] is the bottom left of the three [[HCen]]s sharing the vertex. Sets the given tile's vert 1
+   * [[HVUL]]. Sets the tile to the upper right HCen(r + 2,  c + 2) vert 3 [[HVUL]] and sets the tile to the right HCen(r, C + 4) vert 5 [[HVDR]]. */
+  def setVert2UL1DR(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
+  { setCorner(r, c, 1, HVUL, magnitude)
+    setCorner(r + 2, c + 2, 3, HVUL, magnitude)
+    setCorner(r, c + 4, 5, HVDR, magnitude)
+  }
+
   /** Sets the corner in towards the [[HCen]] with a single [[HVOffset]]. */
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
   { val i = vertNum %% 6

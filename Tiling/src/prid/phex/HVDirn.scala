@@ -42,7 +42,7 @@ object HVDirn
   }
 }
 
-/** Hex Vert offset of none. */
+/** An offset of 0 / none to [[HVert]] hex tile vertex. */
 object HVExact extends HVDirn
 { def dCenR: Int = 0
   def dCenC: Int = 0
@@ -55,7 +55,7 @@ object HVExact extends HVDirn
   override def toString: String = "HVExact"
 }
 
-/** Hex Vert Up offset. */
+/** Up offset to [[HVert]] hex tile vertex. */
 object HVUp extends HVDirn
 { def dCenR: Int = 1
   def dCenC: Int = 0
@@ -67,7 +67,7 @@ object HVUp extends HVDirn
   override def toString: String = "HVUp"
 }
 
-/** Hex Vert Up Right offset. */
+/** Up Right offset to [[HVert]] hex tile vertex. */
 object HVUR extends HVDirn
 { def dCenR: Int = 1
   def dCenC: Int = 2
@@ -79,6 +79,7 @@ object HVUR extends HVDirn
   override def toString: String = "HVUR"
 }
 
+/** Down right offset to [[HVert]] hex tile vertex. */
 object HVDR extends HVDirn
 { def dCenR: Int = -1
   def dCenC: Int = 2
@@ -90,6 +91,7 @@ object HVDR extends HVDirn
   override def toString: String = "HVDR"
 }
 
+/** Down offset to [[HVert]] hex tile vertex. */
 object HVDn extends HVDirn
 { def dCenR: Int = -1
   def dCenC: Int = 0
@@ -101,6 +103,7 @@ object HVDn extends HVDirn
   override def toString: String = "HVDn"
 }
 
+/** Down left offset to [[HVert]] hex tile vertex. */
 object HVDL extends HVDirn
 { def dCenR: Int = -1
   def dCenC: Int = -2
@@ -112,6 +115,7 @@ object HVDL extends HVDirn
   override def toString: String = "HVDL"
 }
 
+/** Up left offset to [[HVert]] hex tile vertex. */
 object HVUL extends HVDirn
 { def dCenR: Int = 1
   def dCenC: Int = -2

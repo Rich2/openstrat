@@ -56,11 +56,7 @@ object Terr320E0 extends Long320Terrs
 
     res.setCorner(142, 510, 5, HVUR)
     res.setCorner(142, 506, 1, HVDL)
-
-    res.setCorner(142, 506, 2, HVUL)
-    res.setCorner(142, 510, 4, HVDR)
-
-    res.setCorner(140, 508, 0, HVDR)
+    res.setVert2DR1UL(140, 508)
 
     /** St Georges Chanel */
     res.setCorner2(140, 504, 1, HVUL, HVDn)
@@ -71,19 +67,14 @@ object Terr320E0 extends Long320Terrs
     res.setCorner2(142, 514, 4, HVDn, HVUL)
     res.setCorner(142, 510, 2, HVUL)
     res.setCorner(140, 512, 0, HVDn)
-    res.setCorner(142, 510, 3, HVUL)
-    /** Southampton - Le Mont St Michelle */
-    res.setCorner(140, 508, 1, HVUL)
-    res.setCorner(140, 512, 5, HVDR)
-    res.setCorner(140, 508, 2, HVUL)
-    res.setCorner(140, 512, 4, HVDR)
-
-    res.setCorner(138, 510, 0, HVDR)
 
     /** English Channel Atlantic end */
     res.setCorner2(138, 506, 1, HVUL, HVDn)
     res.setCorner(140, 508, 3, HVUL)
     res.setCorner(138, 510, 5, HVDn)
+
+    res.setVert2DR1UL(138, 510)//Le Mont St Michelle
+    res.setVert2UL1DR(140, 508)// Southampton Le Halvre
 
     //Gibraltar
     res.setCornerIn(130, 506, 3)
