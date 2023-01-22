@@ -2,6 +2,7 @@
 package ostrat; package eg160
 import pEarth._, prid._, phex._, WTile._
 
+/** Terrain at 160km for 30E. LAnd sea should be correct, but elevation has not been checked. */
 object Terr160E30 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.e30(280)
 
@@ -14,7 +15,11 @@ object Terr160E30 extends Long160Terrs
     wr(316, sea * 6)
     wr(314, sea * 6)
     wr(312, sea, hillTundra * 3, sea * 3)
-
+    wr(310, taiga * 5, sea * 2)
+    wr(308, taiga * 8)
+    wr(306, taiga * 5, sea, taiga * 2)
+    wr(304, taiga, sea, taiga * 6)
+    wr(302, taiga, sea, taiga * 7)
     wr(300, taiga, sea, taiga * 7)
     wr(298, taiga, sea, taiga * 3, lake, taiga * 4)
     wr(296, taiga, sea * 3, taiga * 6)
@@ -31,7 +36,7 @@ object Terr160E30 extends Long160Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 293,1525,  293,1527)
+    res.setSomeInts(Sea, 293,1525,  293,1527,  303,1543,  304,1544,  304,1546,  305,1545,  305,1547,  306,1548,  307,1549,  308,1550)
     res
   }
 

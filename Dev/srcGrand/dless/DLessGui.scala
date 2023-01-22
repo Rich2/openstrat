@@ -34,7 +34,7 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   def hexStrs: RArr[TextGraphic] = terrs.hcOptFlatMap { (hc, terr) =>
     proj.transOptCoord(hc).map { pt =>
-      val strs: StrArr = StrArr(hc.rcStr32).appendOption(proj.hCoordOptStr(hc)) +% hc.strComma
+      val strs: StrArr = StrArr(hc.rcStr32)/*.appendOption(proj.hCoordOptStr(hc))*/ +% hc.strComma
       TextGraphic.lines(strs, 12, pt, terr.contrastBW)
     }
   }
