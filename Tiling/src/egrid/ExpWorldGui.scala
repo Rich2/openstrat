@@ -46,29 +46,43 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def rcTexts2: GraphicElems = proj.ifTileScale(82, rcTexts1)
 
-    def tiles = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
-    def tiles2 = gridSys.map{hc =>
-      corners.tilePoly(hc).map{ hvo => hvo.toPt2Reg(proj.transCoord(_)) }.fill(terrs(hc).colour)
+    def tiles: RArr[PolygonFill] = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
+
+    def tiles2: RArr[PolygonFill] = gridSys.map { hc =>
+      corners.tilePoly(hc).map { hvo => hvo.toPt2Reg(proj.transCoord(_)) }.fill(terrs(hc).colour)
     }
 
     def sides1: GraphicElems = proj.linksOptMap { (hs: HSide) =>
       sTerrs(hs).flatMap { st =>
         hs.tile1Opt match
-        { case None => None
+        {
+          case None =>
+          { val (h2, vi) = hs.tile2AndVert
+            val p1 = corners.cornerV1(h2, vi)
+            val p2 = corners.cornerV1(h2, (vi - 1) %% 6)
+            //val ls = hs.lineSegHC
+            val p3 = hs.vert2.noOffset// corners.cornerV1(h1, (vi - 3) %% 6)
+            val p4 = hs.vert1.noOffset// corners.cornerV1(h1, (vi + 2) %% 6)
+            val res1: PolygonHVAndOffset = PolygonHVAndOffset(p1, p2, p3, p4)
+            val res2: PolygonFill = res1.project(proj).fill(DarkBlue)
+            Some(res2)
+          }
+
           case Some(h1) =>
           { val (h2, vi) = hs.tile2AndVert
             val p1 = corners.cornerV1(h2, vi)
             val p2 = corners.cornerV1(h2, (vi - 1) %% 6)
             val p3 = corners.cornerV1(h1, (vi - 3) %% 6)
             val p4 = corners.cornerV1(h1, (vi + 2) %% 6)
-            val res: PolygonFill = PolygonHVAndOffset(p1, p2, p3, p4).project(proj).fill(DarkBlue)
-            Some(res)
+            val res1: PolygonHVAndOffset = PolygonHVAndOffset(p1, p2, p3, p4)
+            val res2: PolygonFill = res1.project(proj).fill(DarkBlue)
+            Some(res2)
           }
         }
       }
     }
 
-    def lines1: GraphicElems = proj.linksOptMap{hs =>
+    def lines1: GraphicElems = proj.linksOptMap{ hs =>
       val hc1 = hs.tile1
       val t1 = terrs(hc1)
       def t2 = terrs(hs.tile2)

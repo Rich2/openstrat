@@ -28,6 +28,8 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with TCoord
     case HVUR | HVDn | HVUL if hexIsDown => true
     case _ => false
   }
+
+  def noOffset: HVAndOffset = HVAndOffset.none(this)
 }
 
 object HVert

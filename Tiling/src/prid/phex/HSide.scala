@@ -32,6 +32,9 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
   /** Returns the hex coordinate Line segment for this Hex Side. */
   def lineSegHC: LineSegHC = fHSide((r, c) => LineSegHC(r, c - 1, r, c + 1))((r, c) => LineSegHC(r + 1, c, r - 1, c))((r, c) => LineSegHC(r, c + 1, r, c - 1))
 
+  def vert1 = HVert(r + 1, c)
+  def vert2 = HVert(r - 1, c)
+
   /** Returns the 2 adjacent [[HCen]] coordinates of this hex Side. Both tiles may not exist in the [[HGridSysy]].  */
   def unsafeTiles: (HCen, HCen) = fHSide{ (r, c) => (HCen(r - 1, c - 1), HCen(r + 1, c + 1)) }{ (r, c) => (HCen(r, c - 2), HCen(r, c + 2)) }{ (r, c) => (HCen(r + 1, c - 1), HCen(r - 1, c + 1)) }
 

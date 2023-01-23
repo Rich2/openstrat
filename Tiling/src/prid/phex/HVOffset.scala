@@ -46,7 +46,7 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   }
 
   /** Returns the second, going clockwise [[HVOffset]] of this corner if there is a second [[HVOffset]] on this [[HCorner]] else returns first. */
-  def vLast(hVert: HVert): HVAndOffset = ife(numVerts > 1, v2(hVert), v1(hVert))
+  def vLast(hVert: HVert): HVAndOffset = ife(numVerts == 2, v2(hVert), v1(hVert))
 
   def verts(hVert: HVert): HVAndOffsetArr = unsafeInt %% 4 match
   { case 0 => HVAndOffsetArr(HVAndOffset.none(hVert))
