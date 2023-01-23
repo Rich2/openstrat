@@ -148,6 +148,10 @@ class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r + 2, c - 2, 3, HVUp, magnitude)
   }
 
+  /** Sets the end of a side terrain at vertex for one tile. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
+   * it would be the hex tile looking at the end of the wall. The vertex for this tile would be 3. */
+  def setMouth3Corner(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit = setCorner2(r, c, 3, HVDR, HVDL, magnitude, magnitude)
+
   /** Sets the corner in towards the [[HCen]] with a single [[HVOffset]]. */
   def setCornerIn(cenR: Int, cenC: Int, vertNum: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
   { val i = vertNum %% 6
@@ -173,22 +177,8 @@ class HCornerLayer(val unsafeArray: Array[Int])
     unsafeArray(index) = corner.unsafeInt
   }
 
-  /** Sets a single corner with 2 [[HVOffset]]s on the sea hex of a straits mouth. */
-  def setMouthCorner(r: Int, c: Int, vertNum: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
-  {
-    def dirn1: HVDirn = vertNum match
-    { case 0 => HVDL
-      case 1 => HVUL
-      case 2 => HVUp
-      case 3 => HVUR
-      case 4 => HVDR
-      case 5 => HVDn
-      case n => excep(s"$n is invalid vert number.")
-    }
 
-    def dirn2: HVDirn = dirn1.clock(4)
-    setCorner2(r, c, vertNum, dirn1, dirn2, magnitude, magnitude)
-  }
+
 
   /** Sets the same vertex offset for all three adjacent hexs. This leaves no gap for side terrain such as straits. */
   def setVertSingle(r: Int, c: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit = setVertSingle(HVert(r, c), dirn, magnitude)
