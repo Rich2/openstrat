@@ -40,6 +40,8 @@ object Terr320E30 extends Long320Terrs
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
 
+    res.setMouth5Corner(144, 1528)
+
     res.setMouth0(134, 1542)//Kerch straits
     res.setCornerIn(136, 1540, 1)
     res.setCornerIn(138, 1542, 3)
@@ -47,11 +49,19 @@ object Terr320E30 extends Long320Terrs
     res.setMouth4(138, 1546)//Rostov north west Azov sea
     res.setMouth2(138, 1538)
 
-    res.setMouth0(128, 1524)
+    res.setMouth0(128, 1524)//Greece Italy
     res.setVert2UL1DR(130, 1522)
     res.setVert2DR1UL(130, 1526)
+    res.setVert2UR1DL(134, 1526)//Adriatic
+    res.setCornerIn(134, 1526, 4)
+    res.setCorner(134, 1526, 5, HVUR)
+    res.setCorner(136, 1524, 3, HVUR)
+    res.setCornerIn(136, 1524, 4)
+    res.setCornerIn(136, 1524, 5)//Adriatic head
 
-    res.setMouth0(130, 1530)
+    res.setMouth3(134, 1530)
+    res.setMouth0(130, 1530)//Aegean north
+
 
     res.setMouth1(130, 1530)//Gallipoli
     res.setVert2DR1UL(130, 1534)//Dardanelles

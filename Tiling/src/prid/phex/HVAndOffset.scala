@@ -46,8 +46,8 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
 
       case true =>
       { val p2 = f(hVert3)
-        val x = ((16 - magnitude) * p1.x + magnitude * p2.x) / 16
-        val y = ((16 - magnitude) * p1.y + magnitude * p2.y) / 16
+        val x = ((16 + magnitude) * p1.x - magnitude * p2.x) / 16
+        val y = ((16 + magnitude) * p1.y - magnitude * p2.y) / 16
         Pt2(x, y)
       }
 
