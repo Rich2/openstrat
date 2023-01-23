@@ -32,10 +32,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
   def frame: RArr[GraphicElem] =
   {
-    def irrFills: GraphicElems = proj match {
-      case ep: HSysProjectionEarth => ep.irrFills
-      case _ => RArr()
-    }
+    def irrFills: GraphicElems = proj match { case ep: HSysProjectionEarth => ep.irrFills; case _ => RArr() }
 
     def rcTexts1 = terrs.hcOptFlatMap{ (hc, terr) =>
       proj.transOptCoord(hc).map{ pt =>
@@ -60,9 +57,8 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
           { val (h2, vi) = hs.tile2AndVert
             val p1 = corners.cornerV1(h2, vi)
             val p2 = corners.cornerV1(h2, (vi - 1) %% 6)
-            //val ls = hs.lineSegHC
-            val p3 = hs.vert2.noOffset// corners.cornerV1(h1, (vi - 3) %% 6)
-            val p4 = hs.vert1.noOffset// corners.cornerV1(h1, (vi + 2) %% 6)
+            val p3 = hs.vert2.noOffset
+            val p4 = hs.vert1.noOffset
             val res1: PolygonHVAndOffset = PolygonHVAndOffset(p1, p2, p3, p4)
             val res2: PolygonFill = res1.project(proj).fill(DarkBlue)
             Some(res2)
@@ -76,6 +72,13 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
             val p4 = corners.cornerV1(h1, (vi + 2) %% 6)
             val res1: PolygonHVAndOffset = PolygonHVAndOffset(p1, p2, p3, p4)
             val res2: PolygonFill = res1.project(proj).fill(DarkBlue)
+            val ps1 = corners.cornerForSide(h2, vi)
+            val ps2 = corners.cornerForSide(h2, (vi - 1) %% 6)
+            val ps3 = corners.cornerForSide(h1, (vi - 3) %% 6)
+            val ps4 = corners.cornerForSide(h1, (vi + 2) %% 6)
+            val ps = ps1 ++ ps2 ++ ps3 ++ ps4
+            val res3 = ps.toPolygon
+            val res4 = res3.project(proj).fill(DarkBlue)
             Some(res2)
           }
         }

@@ -50,7 +50,7 @@ class HCorner(val unsafeInt: Int) extends AnyVal
 
   def verts(hVert: HVert): HVAndOffsetArr = unsafeInt %% 4 match
   { case 0 => HVAndOffsetArr(HVAndOffset.none(hVert))
-    case 1 => HVAndOffsetArr(v1(hVert))
+    case 1 | 3 => HVAndOffsetArr(v1(hVert))
 
     case 2 =>
     { val r1: HVAndOffset = v1(hVert)
@@ -58,6 +58,19 @@ class HCorner(val unsafeInt: Int) extends AnyVal
       HVAndOffsetArr(r1, r2)
     }
     case n  => excep(s"$n is an invalid value for offsets.")
+  }
+
+  def sideVerts(hVert: HVert): HVAndOffsetArr = unsafeInt %% 4 match {
+    case 0 => HVAndOffsetArr(HVAndOffset.none(hVert))
+    case 1 | 2 => HVAndOffsetArr(v1(hVert))
+
+    case 3 => {
+      val r1: HVAndOffset = v1(hVert)
+      val r2: HVAndOffset = v2(hVert)
+      deb("Its 3")
+      HVAndOffsetArr(r2, r1)
+    }
+    case n => excep(s"$n is an invalid value for offsets.")
   }
 }
 
@@ -71,5 +84,11 @@ object HCorner
   { val v1 = dirn1.int1 * 4 + magnitude1 * 32
     val v2 = dirn2.int1 + magnitude2 * 8
     new HCorner(2 + v1 + v2 * 1024)
+  }
+
+  def sideDouble(dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int): HCorner =
+  { val v1 = dirn1.int1 * 4 + magnitude1 * 32
+    val v2 = dirn2.int1 + magnitude2 * 8
+    new HCorner(3 + v1 + v2 * 1024)
   }
 }

@@ -43,7 +43,7 @@ object Terr320E30 extends Long320Terrs
     res.setMouth5Corner(144, 1528)
 
     res.setMouth0(134, 1542)//Kerch straits
-    res.setCornerIn(136, 1540, 1)
+    res.setSideCorner2(136, 1540, 1, HVDL, HVUp)
     res.setCornerIn(138, 1542, 3)
     res.setCornerIn(136, 1544, 5)
     res.setMouth4(138, 1546)//Rostov north west Azov sea
