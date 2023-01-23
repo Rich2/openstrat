@@ -9,8 +9,8 @@ import collection.mutable.ArrayBuffer
 class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
 { override def typeStr: String = "HSide"
 
-  def vSide[B](vUR: => B)(vRt: => B)(vDR: => B): B = r %% 4 match {
-    case 1 if c.div4Rem1 => vUR
+  def vSide[B](vUR: => B, vRt: => B, vDR: => B): B = r %% 4 match
+  { case 1 if c.div4Rem1 => vUR
     case 3 if c.div4Rem3 => vUR
     case 0 if c.div4Rem2 => vRt
     case 2 if c.div4Rem0 => vRt
@@ -32,8 +32,11 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
   /** Returns the hex coordinate Line segment for this Hex Side. */
   def lineSegHC: LineSegHC = fHSide((r, c) => LineSegHC(r, c - 1, r, c + 1))((r, c) => LineSegHC(r + 1, c, r - 1, c))((r, c) => LineSegHC(r, c + 1, r, c - 1))
 
-  def vert1 = HVert(r + 1, c)
-  def vert2 = HVert(r - 1, c)
+  /** Returns the upper vertex of this hex side. */
+  def vert1: HVert = vSide(HVert(r, c - 1), HVert(r + 1, c), HVert(r, c + 1))
+
+  /** Returns the lower vertex of this hex side. */
+  def vert2: HVert = vSide(HVert(r, c + 1), HVert(r - 1, c), HVert(r, c - 1))
 
   /** Returns the 2 adjacent [[HCen]] coordinates of this hex Side. Both tiles may not exist in the [[HGridSysy]].  */
   def unsafeTiles: (HCen, HCen) = fHSide{ (r, c) => (HCen(r - 1, c - 1), HCen(r + 1, c + 1)) }{ (r, c) => (HCen(r, c - 2), HCen(r, c + 2)) }{ (r, c) => (HCen(r + 1, c - 1), HCen(r - 1, c + 1)) }
@@ -41,7 +44,7 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
   def tile1(implicit sys: HGridSys): HCen = sys.sideTile1(this)
   def tile2(implicit sys: HGridSys): HCen = sys.sideTile2(this)
 
-  def tile2AndVert: (HCen, Int) = vSide((HCen(r + 1, c + 1), 4))((HCen(r, c + 2), 5))((HCen(r - 1, c + 1), 0))
+  def tile2AndVert: (HCen, Int) = vSide((HCen(r + 1, c + 1), 4), (HCen(r, c + 2), 5), (HCen(r - 1, c + 1), 0))
 
   def tile1Opt(implicit sys: HGridSys): Option[HCen] = sys.sideTile1Opt(this)
 
@@ -56,8 +59,8 @@ class HSide(val r: Int, val c: Int) extends HCenOrSide with TSide
   def corners(implicit sys: HGridSys): (HCen, Int, Int) =
   { val t1 = tile1
     val t2 = tile2
-    if (sys.hCenExists(t1)) vSide((t1, 0, 1))((t1, 1, 2))((t1, 2, 3))
-    else vSide((t2, 3, 4))((t2, 4, 5))((t2, 5, 0))
+    if (sys.hCenExists(t1)) vSide((t1, 0, 1), (t1, 1, 2), (t1, 2, 3))
+    else vSide((t2, 3, 4), (t2, 4, 5), (t2, 5, 0))
   }
 }
 
