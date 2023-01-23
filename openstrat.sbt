@@ -112,27 +112,21 @@ lazy val GlobeNat = natProj("Globe").dependsOn(GeomNat).settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
-lazy val Tiling = mainJvmProj("Tiling").dependsOn(Globe).settings(
- // Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",  
-)
-
+lazy val Tiling = mainJvmProj("Tiling").dependsOn(Geom)
 lazy val TilingExs = exsJvmProj("Tiling").dependsOn(Tiling)
+lazy val TilingJs = jsProj("Tiling").dependsOn(GeomJs)
+lazy val TilingNat = natProj("Tiling").dependsOn(GeomNat)
 
-lazy val TilingJs = jsProj("Tiling").dependsOn(GlobeJs).settings(
-  Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
- // Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
-)
-
-lazy val TilingNat = natProj("Tiling").dependsOn(GlobeNat).settings(
- // Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcAncient",
-)
+lazy val EGrid = mainJvmProj("EGrid").dependsOn(Globe, Tiling)
+lazy val EGridJs = jsProj("EGrid").dependsOn(GlobeJs, TilingJs)
+lazy val EGridNat = natProj("EGrid").dependsOn(GlobeNat, TilingNat)
 
 lazy val EarthAppJs = jsApp("EarthApp").settings(
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/JsSrcApp",
   Compile/unmanagedSourceDirectories += (ThisBuild/baseDirectory).value / "Tiling/srcPts",
 )
 
-lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, GlobeExs, TilingExs).settings(
+lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, GlobeExs, TilingExs, EGrid).settings(
   Compile/unmanagedSourceDirectories := List("src", "srcGrand", "JvmSrc", "JvmFxSrc").map(moduleDir.value / _) :::
     List("Geom", "Tiling").map((ThisBuild/baseDirectory).value / _ / "Test/src"),
 
@@ -146,9 +140,9 @@ lazy val Dev = mainJvmProj("Dev").dependsOn(GeomExs, GlobeExs, TilingExs).settin
     ),
 )
 
-lazy val DevNat = natProj("Dev").dependsOn(TilingNat)
+lazy val DevNat = natProj("Dev").dependsOn(EGridNat)
 
-def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(TilingJs).settings(
+def jsApp(name: String) = mainProj(name, name + "Js").enablePlugins(ScalaJSPlugin).dependsOn(EGridJs).settings(
   Compile/unmanagedSourceDirectories := List((ThisBuild/baseDirectory).value / "Dev/src", (ThisBuild/baseDirectory).value / "Dev/srcGrand") :::
     List("Geom", "Globe", "Tiling").map((ThisBuild/baseDirectory).value / _ / "ExsSrc"),
   libraryDependencies ++= Seq(
