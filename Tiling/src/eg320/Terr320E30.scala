@@ -21,7 +21,7 @@ object Terr320E30 extends Long320Terrs
     gs(140, 1528, plain * 6)
     gs(138, 1526, mtain * 2, hills, plain * 4)
     gs(136, 1524, hills, plain * 2, sea, plain * 3)
-    gs(134, 1526, hills * 2, sea * 4, mtain)
+    gs(134, 1526, hills * 3, sea * 3, mtain)
     gs(132, 1524, hills * 7)
     wr(130, hills * 2, sea, hills * 5)
     gs(128, 1544, hills, desert * 2)
@@ -32,7 +32,7 @@ object Terr320E30 extends Long320Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 133,1525,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
+    res.setSomeInts(Sea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
     res.setSomeInts(Sea, 130, 1520,  130,1524,  131,1521,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
     res
   }
@@ -43,9 +43,16 @@ object Terr320E30 extends Long320Terrs
     res.setMouth0(134, 1542)
     //res.setVert2UL1DR(136, 1540)
 
+    res.setMouth0(128, 1524)
+    res.setVert2UL1DR(130, 1522)
+    res.setVert2DR1UL(130, 1526)
+
+    res.setMouth0(130, 1530)
+
     res.setMouth1(130, 1530)//Gallipoli
     res.setVert2DR1UL(130, 1534)//Dardanelles
-    res.setMouth3(134, 1534)//Constantinople
+    res.setVert2UL1DR(132, 1532)
+    res.setMouth4(134, 1538)//Constantinople
 
     res
   }
