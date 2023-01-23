@@ -153,6 +153,13 @@ class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r -2, c - 2, 1, HVDL, magnitude)
   }
 
+  /** Sets vertex 0 for all 3 tiles as mouth of Straits. Sa hex is given [[HCen]] hex tile. */
+  def setMouth0(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
+  { setCorner2(r, c, 0, HVUL, HVUR, magnitude, magnitude)
+    setCorner(r + 2, c - 2, 2, HVUL, magnitude)
+    setCorner(r + 2, c + 2, 4, HVUR, magnitude)
+  }
+
   /** Sets vertex 1 for all 3 tiles as mouth of Straits. Sa hex is given [[HCen]] hex tile. */
   def setMouth1(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
   { setCorner2(r, c, 1, HVUp, HVDR, magnitude, magnitude)
@@ -165,6 +172,13 @@ class HCornerLayer(val unsafeArray: Array[Int])
   { setCorner2(r, c, 2, HVUR, HVDn, magnitude, magnitude)
     setCorner(r, c + 4, 4, HVUR, magnitude)
     setCorner(r - 2, c + 2, 0, HVDn, magnitude)
+  }
+
+  /** Sets vertex 3 for all 3 tiles as mouth of Straits. Sa hex is given [[HCen]] hex tile. */
+  def setMouth3(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
+  { setCorner2(r, c, 3, HVDR, HVDL, magnitude, magnitude)
+    setCorner(r - 2, c + 2, 5, HVDR, magnitude)
+    setCorner(r - 2, c - 2, 1, HVDL, magnitude)
   }
 
   /** Sets vertex 4 for all 3 tiles as mouth of Straits. Sa hex is given [[HCen]] hex tile. */

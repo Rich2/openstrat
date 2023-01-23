@@ -32,15 +32,21 @@ object Terr320E30 extends Long320Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 130, 1520,  130,1524,  131,1521,  131,1525,  131,1533,  132,1534,  132,1526,  133,1525,  134,1524,  135,1523,  136,1522,   136,1542)
+    res.setSomeInts(Sea, 133,1525,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
+    res.setSomeInts(Sea, 130, 1520,  130,1524,  131,1521,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
     res
   }
 
-  val sTerrsDepr: HSideBoolLayer =
-  { val res = grid.newSideBools
-    res.setTruesInts(130,1520,  130,1524,  131,1521,  131,1525,  131,1533,  132,1534,  132,1526,  133,1525,  134,1524,  135,1523,  136,1522,   136,1542)
+  override val corners: HCornerLayer =
+  { val res = grid.newHVertOffsetLayer
+
+    res.setMouth0(134, 1542)
+    //res.setVert2UL1DR(136, 1540)
+
+    res.setMouth1(130, 1530)//Gallipoli
+    res.setVert2DR1UL(130, 1534)//Dardanelles
+    res.setMouth3(134, 1534)//Constantinople
+
     res
   }
-
-  override val corners: HCornerLayer = grid.newHVertOffsetLayer
 }
