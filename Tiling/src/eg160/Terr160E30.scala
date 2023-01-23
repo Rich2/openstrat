@@ -2,7 +2,7 @@
 package ostrat; package eg160
 import pEarth._, prid._, phex._, WTile._
 
-/** Terrain at 160km for 30E. LAnd sea should be correct, but elevation has not been checked. */
+/** Terrain at 160km for 30E. Land and sea should be correct, but elevation has not been checked. */
 object Terr160E30 extends Long160Terrs
 { override implicit val grid: EGrid160LongFull = EGrid160.e30(276)
 

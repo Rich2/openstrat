@@ -74,7 +74,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
       def t2 = terrs(hs.tile2)
       if (sTerrs(hs).nonEmpty | t1 != t2) None
       else
-      { val cs = hs.corners
+      { val cs: (HCen, Int, Int) = hs.corners
         val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
         val ls2 = ls1.map(hva => hva.toPt2Reg(proj.transCoord(_)))
         Some(ls2.draw(t1.contrastBW))
