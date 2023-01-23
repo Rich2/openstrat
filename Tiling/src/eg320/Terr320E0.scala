@@ -46,6 +46,13 @@ object Terr320E0 extends Long320Terrs
   override val corners: HCornerLayer =
   { val res: HCornerLayer = grid.newHVertOffsetLayer
 
+    res.setMouth1(146, 514)//Skagerrack west
+    res.setVert2Up1Dn(148, 516)//Oslo
+    res.setVert2UR1DL(148, 520)//Gothenberg
+    res.setVert2DL1UR(146, 518)//Copenhagen
+    res.setCornerIn(146, 522, 3)//Ystad
+    res.setCornerIn(144, 520, 1)//Stralsund
+
     res.setMouth1(140, 504)// St Georges Chanel
     res.setVert2DR1UL(140, 508)//Bristol
     res.setVert2UR1DL(144, 508)//Anglesea
