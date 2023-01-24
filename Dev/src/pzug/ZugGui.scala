@@ -27,6 +27,11 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
 
   def walls: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.Gray) }
 
+  def walls2: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
+    val sTerr: Boolean = sTerrs(hs)
+    if (sTerr) Some(corners.sideVerts(hs).project(proj).fill(Colour.Gray)) else None
+  }
+
   def lines1: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
     if (sTerrs(hs)) None
     else {
@@ -98,7 +103,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   statusText = "Welcome to ZugFuher"
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
   thisTop()
-  def frame: GraphicElems = tiles2 ++ walls ++ lines2 ++ lunits2 ++ active ++ text
+  def frame: GraphicElems = tiles2 ++ walls2 ++ lines2 ++ lunits2 ++ active ++ text
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
     statusText = str

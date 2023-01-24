@@ -5,14 +5,14 @@ import geom._
 /** [[HVert]] offset. The direction and magnitude of an [[HVAndOffset]]. An [[HCorner]] consists of 1 or 2 of these [[HVOffset]]. The [[HCorner]]
  * values are stored in an [[HCornerLayer]]. The value of the [[HVert]] can be determined by its position in [[HCornerLayer]]. */
 class HVOffset(val int1: Int) extends AnyVal with Int1Elem
-{ def hvDirn: HVDirn = HVDirn.fromInt(int1 %% 8)
+{ def hvDirn: HVDirnOpt = HVDirnOpt.fromInt(int1 %% 8)
   def magnitude: Int = int1 / 8
 }
 
 /** Companion object for [[HVOffset]] class, contains factory apply and fromInt methods. */
 object HVOffset
 {
-  def apply(dirn: HVDirn, magnitude: Int): Int =
+  def apply(dirn: HVDirnOpt, magnitude: Int): Int =
   { val m2 = magnitude match {
     case m if m >= 8 => { deb("> 8"); 7 }
     case m if m < 0 => { deb("< 0"); 0 }
@@ -34,7 +34,7 @@ class HCorner(val unsafeInt: Int) extends AnyVal
 
   /** Returns the first, going clockwise and possibly only [[HVOffset]] of this corner */
   def v1(hVert: HVert): HVAndOffset =
-  { val dirn = HVDirn.fromInt((unsafeInt %% 32) / 4)
+  { val dirn = HVDirnOpt.fromInt((unsafeInt %% 32) / 4)
     val magnitude = (unsafeInt %% 256) / 32
     HVAndOffset(hVert, dirn, magnitude)
   }
@@ -42,7 +42,7 @@ class HCorner(val unsafeInt: Int) extends AnyVal
   /** Returns the second, going clockwise [[HVOffset]] of this corner. throws an exception if there is only 1. */
   def v2(hVert: HVert): HVAndOffset =
   { if(numVerts < 2) excep(s"Trying to access the second HVOffset for a Corner that has only $numVerts.")
-    val dirn = HVDirn.fromInt((unsafeInt %% 8192) / 1024)
+    val dirn = HVDirnOpt.fromInt((unsafeInt %% 8192) / 1024)
     val magnitude = (unsafeInt %% 65536) / 8192
     HVAndOffset(hVert, dirn, magnitude)
   }
@@ -75,15 +75,15 @@ class HCorner(val unsafeInt: Int) extends AnyVal
 object HCorner
 { def noOffset: HCorner = new HCorner(0)
 
-  def single(dirn: HVDirn, magnitude : Int): HCorner = new HCorner(1 + 4 * dirn.int1 + magnitude * 32)
+  def single(dirn: HVDirnOpt, magnitude : Int): HCorner = new HCorner(1 + 4 * dirn.int1 + magnitude * 32)
 
-  def double(dirn1: HVDirn, magnitude1 : Int, dirn2: HVDirn, magnitude2 : Int): HCorner =
+  def double(dirn1: HVDirnOpt, magnitude1 : Int, dirn2: HVDirnOpt, magnitude2 : Int): HCorner =
   { val v1 = dirn1.int1 * 4 + magnitude1 * 32
     val v2 = dirn2.int1 + magnitude2 * 8
     new HCorner(2 + v1 + v2 * 1024)
   }
 
-  def sideDouble(dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int): HCorner =
+  def sideDouble(dirn1: HVDirnOpt, magnitude1: Int, dirn2: HVDirnOpt, magnitude2: Int): HCorner =
   { val v1 = dirn1.int1 * 4 + magnitude1 * 32
     val v2 = dirn2.int1 + magnitude2 * 8
     new HCorner(3 + v1 + v2 * 1024)

@@ -18,7 +18,7 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
 
   def magnitude: Int = hvOffset.magnitude
 
-  def hvDirn: HVDirn = hvOffset.hvDirn
+  def hvDirn: HVDirnOpt = hvOffset.hvDirn
 
   def hCen2 = HCen(r + hvDirn.dCenR, c + hvDirn.dCenC)
   def hVert2 = HVert(r + hvDirn.dVertR, c + hvDirn.dVertC)
@@ -67,9 +67,9 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
  * directly. */
 object HVAndOffset
 {
-  def apply(hVert: HVert, hvDirn: HVDirn, offset: Int): HVAndOffset = apply(hVert.r, hVert.c, hvDirn, offset)
+  def apply(hVert: HVert, hvDirn: HVDirnOpt, offset: Int): HVAndOffset = apply(hVert.r, hVert.c, hvDirn, offset)
 
-  def apply(r: Int, c: Int, hvDirn: HVDirn, magnitude: Int): HVAndOffset =
+  def apply(r: Int, c: Int, hvDirn: HVDirnOpt, magnitude: Int): HVAndOffset =
   { val magnitude2 = ife(magnitude < 0, -magnitude, magnitude)
     val dirn2 = ife(magnitude < 0, hvDirn.opposite, hvDirn)
 

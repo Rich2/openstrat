@@ -21,7 +21,7 @@ object HStepOpt
 case object HStepNone extends HStepOpt
 
 /** A step on a hex tile grid [[HGrid]] can take 6 values: upright right, downright, downleft, left and upleft. These should not be confused with
- * [[HVDirn]]s which fo from an [[HVert]] to an [[HCen]]. */
+ * [[HVDirnOpt]]s which fo from an [[HVert]] to an [[HCen]]. */
 sealed trait HStep extends TDirnSided with Int1Elem with HStepOpt
 { /** The delta [[HCen]] of this step inside a hex grid. */
   def hCenDelta: HCen = HCen(tr, tc)

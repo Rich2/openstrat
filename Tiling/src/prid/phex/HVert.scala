@@ -23,7 +23,7 @@ class HVert private(val bLong: Long) extends AnyVal with HCoord with TCoord
     ife(sys.hCenExists(hCen), Some((hCen, dirn.corner(this))), None)
   }
 
-  def dirnToCen(dirn: HVDirn): Boolean = dirn match {
+  def dirnToCen(dirn: HVDirnOpt): Boolean = dirn match {
     case HVUp | HVDL | HVDR if hexIsUp => true
     case HVUR | HVDn | HVUL if hexIsDown => true
     case _ => false

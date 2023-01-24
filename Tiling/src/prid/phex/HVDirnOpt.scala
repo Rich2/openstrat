@@ -1,9 +1,8 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._
 
 /** [[HVert]] direction of offset towards [[HCen]]. These objects should not be confused with [[HStep]]s */
-sealed trait HVDirn extends Int1Elem
+sealed trait HVDirnOpt extends Int1Elem
 { /** The delta in R to the [[HCen]] from an [[HCoord]]. */
   def dCenR: Int
 
@@ -15,22 +14,22 @@ sealed trait HVDirn extends Int1Elem
 
   def int1: Int
 
-  def opposite: HVDirn
+  def opposite: HVDirnOpt
 
   def corner(hv: HVert): Int
 
-  def clock(steps: Int): HVDirn = if (int1 == 0) HVExact
+  def clock(steps: Int): HVDirnOpt = if (int1 == 0) HVExact
     else{
     val r1 = int1 - 1
     val r2 = (r1 + steps)  %% 6
     val r3 = r2 + 1
-    HVDirn.fromInt(r3)
+    HVDirnOpt.fromInt(r3)
   }
 }
 
-object HVDirn
+object HVDirnOpt
 {
-  def fromInt(inp: Int): HVDirn = inp match
+  def fromInt(inp: Int): HVDirnOpt = inp match
   { case 0 => HVExact
     case 1 => HVUR
     case 2 => HVDR
@@ -38,21 +37,45 @@ object HVDirn
     case 4 => HVDL
     case 5 => HVUL
     case 6 => HVUp
-    case n => excep(s"$n is an invalid Int value for an HVDirn.")
+    case n => excep(s"$n is an invalid Int value for an HVDirnOpt.")
   }
 }
 
 /** An offset of 0 / none to [[HVert]] hex tile vertex. */
-object HVExact extends HVDirn
+object HVExact extends HVDirnOpt
 { def dCenR: Int = 0
   def dCenC: Int = 0
   override def int1: Int = 0
-  override def opposite: HVDirn = HVExact
+  override def opposite: HVDirnOpt = HVExact
   override def dVertR: Int = 0
   override def dVertC: Int = 0
 
   override def corner(hv: HVert): Int = 3
   override def toString: String = "HVExact"
+}
+
+trait HVDirn extends HVDirnOpt
+{ override def opposite: HVDirn
+
+  override def clock(steps: Int): HVDirn =
+  {
+    val r1 = int1 - 1
+    val r2 = (r1 + steps) %% 6
+    val r3 = r2 + 1
+    HVDirn.fromInt(r3)
+  }
+}
+
+object HVDirn{
+  def fromInt(inp: Int): HVDirn = inp match
+  { case 1 => HVUR
+    case 2 => HVDR
+    case 3 => HVDn
+    case 4 => HVDL
+    case 5 => HVUL
+    case 6 => HVUp
+    case n => excep(s"$n is an invalid Int value for an HVDirn.")
+  }
 }
 
 /** Up offset to [[HVert]] hex tile vertex. */
@@ -127,14 +150,14 @@ object HVUL extends HVDirn
   override def toString: String = "HVUL"
 }
 
-class HVDirnArr(val unsafeArray: Array[Int]) extends Int1Arr[HVDirn]
+class HVDirnArr(val unsafeArray: Array[Int]) extends Int1Arr[HVDirnOpt]
 { override type ThisT = HVDirnArr
   override def typeStr: String = "HDirnArr"
-  override def newElem(intValue: Int): HVDirn = HVDirn.fromInt(intValue)
+  override def newElem(intValue: Int): HVDirnOpt = HVDirnOpt.fromInt(intValue)
   override def fromArray(array: Array[Int]): HVDirnArr = new HVDirnArr(array)
-  override def fElemStr: HVDirn => String = _.toString
+  override def fElemStr: HVDirnOpt => String = _.toString
 }
 
-object HVDirnArr extends Int1SeqLikeCompanion[HVDirn, HVDirnArr]
+object HVDirnArr extends Int1SeqLikeCompanion[HVDirnOpt, HVDirnArr]
 { override def fromArray(array: Array[Int]): HVDirnArr = new HVDirnArr(array)
 }

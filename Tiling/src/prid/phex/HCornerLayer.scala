@@ -38,14 +38,14 @@ class HCornerLayer(val unsafeArray: Array[Int])
   def tilePoly(cenR: Int, cenC: Int)(implicit gridSys: HGridSys): PolygonHVAndOffset = tilePoly(HCen(cenR, cenC))
 
   /** Sets a single [[HCorner]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
-  def setCorner(cenR: Int, cenC: Int, vertNum: Int, dirn: HVDirn, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
+  def setCorner(cenR: Int, cenC: Int, vertNum: Int, dirn: HVDirnOpt, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
   { val corner = HCorner.single(dirn, magnitude)
     val index = unsafeIndex(cenR, cenC, vertNum)
     unsafeArray(index) = corner.unsafeInt
   }
 
   /** Sets a single [[HCorner]] with 1 [[HVOffset]]. Sets one vertex offset for one adjacent hex. This could leave a gap for side terrain such as straits. */
-  def setCorner(hCen: HCen, vertNum: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
+  def setCorner(hCen: HCen, vertNum: Int, dirn: HVDirnOpt, magnitude: Int)(implicit gridSys: HGridSys): Unit =
   { val corner = HCorner.single(dirn, magnitude)
     val index = unsafeIndex(hCen, vertNum)
     unsafeArray(index) = corner.unsafeInt
@@ -101,6 +101,10 @@ class HCornerLayer(val unsafeArray: Array[Int])
   { setCorner(r, c, 3, HVUR, magnitude)
     setCorner(r - 2, c + 2, 5, HVUR, magnitude)
     setCorner(r -2, c - 2, 1, HVDL, magnitude)
+  }
+
+  def setVertIn(r: Int, c: Int, vert: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit ={
+
   }
 
   /** Sets the end of a side terrain at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the sea tile, for a wall
@@ -174,22 +178,22 @@ class HCornerLayer(val unsafeArray: Array[Int])
   }
 
   /** Sets a single [[HCorner]] corner with 2 [[HVOffset]]s. */
-  def setCorner2(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirn, dirn2: HVDirn, magnitude1: Int = 3, magnitude2: Int = 3)(
+  def setCorner2(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirnOpt, dirn2: HVDirnOpt, magnitude1: Int = 3, magnitude2: Int = 3)(
     implicit gridSys: HGridSys): Unit = setCorner2(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)
 
   /** Sets a single [[HCorner]] corner with 2 [[HVOffset]]s. */
-  def setCorner2(hCen: HCen, vertNum: Int, dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int)(implicit gridSys: HGridSys): Unit =
+  def setCorner2(hCen: HCen, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int, dirn2: HVDirnOpt, magnitude2: Int)(implicit gridSys: HGridSys): Unit =
   { val corner = HCorner.double(dirn1, magnitude1, dirn2, magnitude2)
     val index = unsafeIndex(hCen, vertNum)
     unsafeArray(index) = corner.unsafeInt
   }
 
   /** Sets a single [[HCorner]] corner with 1 [[HVOffset]] for the tile 2 for the [[hSide]]. */
-  def setSideCorner2(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirn, dirn2: HVDirn, magnitude1: Int = 3, magnitude2: Int = 3)(
+  def setSideCorner2(cenR: Int, cenC: Int, vertNum: Int, dirn1: HVDirnOpt, dirn2: HVDirnOpt, magnitude1: Int = 3, magnitude2: Int = 3)(
     implicit gridSys: HGridSys): Unit = setSideCorner2(HCen(cenR, cenC), vertNum, dirn1, magnitude1, dirn2, magnitude2)
 
   /** Sets a single [[HCorner]] corner with [[HVOffset]] for the tile 2 for the HSide. */
-  def setSideCorner2(hCen: HCen, vertNum: Int, dirn1: HVDirn, magnitude1: Int, dirn2: HVDirn, magnitude2: Int)(implicit gridSys: HGridSys): Unit =
+  def setSideCorner2(hCen: HCen, vertNum: Int, dirn1: HVDirnOpt, magnitude1: Int, dirn2: HVDirnOpt, magnitude2: Int)(implicit gridSys: HGridSys): Unit =
   { val corner = HCorner.sideDouble(dirn1, magnitude1, dirn2, magnitude2)
     val index = unsafeIndex(hCen, vertNum)
     unsafeArray(index) = corner.unsafeInt
@@ -197,10 +201,10 @@ class HCornerLayer(val unsafeArray: Array[Int])
 
 
   /** Sets the same vertex offset for all three adjacent hexs. This leaves no gap for side terrain such as straits. */
-  def setVertSingle(r: Int, c: Int, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit = setVertSingle(HVert(r, c), dirn, magnitude)
+  def setVertSingle(r: Int, c: Int, dirn: HVDirnOpt, magnitude: Int)(implicit gridSys: HGridSys): Unit = setVertSingle(HVert(r, c), dirn, magnitude)
 
   /** Sets the same vertex offset for all three adjacent hexs. This leaves no gap for side terrain such as straits. */
-  def setVertSingle(hVert: HVert, dirn: HVDirn, magnitude: Int)(implicit gridSys: HGridSys): Unit =
+  def setVertSingle(hVert: HVert, dirn: HVDirnOpt, magnitude: Int)(implicit gridSys: HGridSys): Unit =
   { val mag2 = magnitude.abs
     val dirn2 = ife(magnitude < 0, dirn.opposite, dirn)
     val mag3 = mag2 match {
