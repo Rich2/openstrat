@@ -18,7 +18,6 @@ case class DLessGui(canv: CanvasPlatform, scenIn: DLessScen, viewIn: HGView, isF
 
   def straits2: GraphicElems = sTerrs.projOptsHsLineSegMap{(st, ls) => Rectangle.fromAxisRatio(ls, 0.3).fill(st.colour) }
 
-
   def lines: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
     if (sTerrs(hs).nonEmpty) None
     else {

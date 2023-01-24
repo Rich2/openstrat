@@ -1,6 +1,6 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import reflect.ClassTag
+import geom._, reflect.ClassTag
 
 /** A [[HGridSys]] [[HCen]] data layer of [[RArr]]s. */
 class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
@@ -47,6 +47,25 @@ class HCenArrLayer[A](val unsafeArray: Array[Array[A]])
     grider.foreach { r =>
       val el:RArr[A] = apply(r)
       if (el.length >= 1) build.buffGrowArr(buff, f(r, el(0)))
+    }
+    build.buffToSeqLike(buff)
+  }
+
+  /** Uses projection to map the head data value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
+   * most cases B will be a [[GraphicElem]] or a subtype. */
+  def projSomeHcPtMap[B, ArrB <: Arr[B]](f: (A, HCen, Pt2) => B)(implicit proj: HSysProjection, build: ArrMapBuilder[B, ArrB]): ArrB =
+    projSomeHcPtMap(proj)(f)
+
+  /** Uses projection to map the Some head value with the corresponding [[HCen]] and the projections corresponding [[Pt2]] to an element of type B. In
+   * most cases B will be a [[GraphicElem]] or a subtype. */
+  def projSomeHcPtMap[B, ArrB <: Arr[B]](proj: HSysProjection)(f: (A, HCen, Pt2) => B)(implicit build: ArrMapBuilder[B, ArrB]): ArrB = {
+    val buff = build.newBuff()
+    proj.gChild.foreach { hc =>
+      val array = unsafeArray(proj.parent.layerArrayIndex(hc))
+      if (array.length > 0) {
+        val res = f(array(0), hc, proj.transCoord(hc))
+        build.buffGrow(buff, res)
+      }
     }
     build.buffToSeqLike(buff)
   }
