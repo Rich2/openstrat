@@ -50,7 +50,8 @@ object Zug1 extends ZugScenStart
   override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
 
   sTerrs.setTruesInts(14,36,  13,35,  12,34,  11,35,  10,36)
-  corners.setVert2UR1DL(12, 36)
+  //corners.setVert2UR1DL(12, 36)
+  corners.setVert1In(10, 34, 1)
 
 
   val lunits: HCenArrLayer[Squad] = gridSys.newHCenArrLayer[Squad]
