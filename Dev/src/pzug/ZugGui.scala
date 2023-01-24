@@ -32,12 +32,18 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
     if (sTerr) Some(corners.sideVerts(hs).project(proj).fill(Colour.Gray)) else None
   }
 
-  def lines1: RArr[LineSegDraw] = proj.linkLineSegsOptMap { (hs, ls) =>
-    if (sTerrs(hs)) None
+  def lines1: GraphicElems = proj.linksOptMap { hs =>
+    val hc1 = hs.tile1
+    val t1 = terrs(hc1)
+
+    def t2 = terrs(hs.tile2)
+
+    if (sTerrs(hs) | t1 != t2) None
     else {
-      val t1 = terrs(hs.tile1)
-      val t2 = terrs(hs.tile2)
-      ife(t1 == t2, Some(ls.draw(t1.contrastBW)), None)
+      val cs: (HCen, Int, Int) = hs.corners
+      val ls1 = corners.sideLine(cs._1, cs._2, cs._3)
+      val ls2 = ls1.map(hva => hva.toPt2Reg(proj.transCoord(_)))
+      Some(ls2.draw(t1.contrastBW))
     }
   }
 
