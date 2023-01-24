@@ -199,8 +199,22 @@ class HCornerLayer(val unsafeArray: Array[Int])
     setCorner(r + 2, c - 2, 3, HVUp, magnitude)
   }
 
-  /** Sets the end of a side terrain from off the [[HGrid]] at vertex for all 3 tiles. For example the the mouth of Straits the given [[HCen]] is the
-   *  sea tile, for a wall it would be the hex tile looking at the end of the wall. The vertex for this tile would be 5. */
+  /** Sets the end of a side terrain from off the [[HGrid]] at what would have been vertex 3 for the other 2 tiles. For example the the mouth of
+   *  Straits the given [[HCen]] is the sea tile, for a wall it would be the hex tile looking at the end of the wall. */
+  def setMouth3OffGrid(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
+  { setCorner(r - 2, c + 2, 5, HVDR, magnitude)
+    setCorner(r - 2, c - 2, 1, HVDL, magnitude)
+  }
+
+  /** Sets the end of a side terrain from off the [[HGrid]] at what would have been vertex 4 for the other 2 tiles. For example the the mouth of
+   *  Straits the given [[HCen]] is the sea tile, for a wall it would be the hex tile looking at the end of the wall. */
+  def setMouth4OffGrid(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
+  { setCorner(r - 2, c - 2, 0, HVDn, magnitude)
+    setCorner(r, c - 4, 2, HVUL, magnitude)
+  }
+
+  /** Sets the end of a side terrain  from off the [[HGrid]] at what would have been vertex 5 for the other 2 tiles. For example the the mouth of
+   * Straits the given [[HCen]] is the sea tile, for a wall it would be the hex tile looking at the end of the wall. The vertex for this tile would be 5. */
   def setMouth5OffGrid(r: Int, c: Int, magnitude: Int = 3)(implicit gridSys: HGridSys): Unit =
   { setCorner(r, c - 4, 1, HVDL, magnitude)
     setCorner(r + 2, c - 2, 3, HVUp, magnitude)
