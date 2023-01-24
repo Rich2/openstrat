@@ -14,11 +14,16 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
 
   def terrs: HCenLayer[ZugTerr] = scen.terrs
   def sTerrs: HSideBoolLayer = scen.sTerrs
+  def corners = scen.corners
   def active: RArr[PolygonActive] = proj.tileActives
   def squads: HCenArrLayer[Squad] = scen.lunits
   def text: RArr[TextGraphic] = terrs.hcOptMap((t, hc) => proj.transOptCoord(hc).map(_.textAt(hc.rcStr, 14, t.contrastBW)))
 
-  def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
+  //def tiles: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
+
+  def tiles2: RArr[PolygonFill] = gridSys.map { hc =>
+    corners.tilePoly(hc).map { hvo => hvo.toPt2Reg(proj.transCoord(_)) }.fill(terrs(hc).colour)
+  }
 
   def walls: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.Gray) }
 
@@ -93,7 +98,7 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   statusText = "Welcome to ZugFuher"
   def thisTop(): Unit = reTop(bTurn %: proj.buttons)
   thisTop()
-  def frame: GraphicElems = polyFills ++ walls ++ lines2 ++ lunits2 ++ active ++ text
+  def frame: GraphicElems = tiles2 ++ walls ++ lines2 ++ lunits2 ++ active ++ text
   proj.getFrame = () => frame
   proj.setStatusText = { str =>
     statusText = str

@@ -43,7 +43,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def rcTexts2: GraphicElems = proj.ifTileScale(82, rcTexts1)
 
-    def tiles: RArr[PolygonFill] = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
+    //def tiles: RArr[PolygonFill] = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
 
     def tiles2: RArr[PolygonFill] = gridSys.map { hc =>
       corners.tilePoly(hc).map { hvo => hvo.toPt2Reg(proj.transCoord(_)) }.fill(terrs(hc).colour)
