@@ -8,7 +8,6 @@ trait EScenBasic extends HSysScen
 
   def terrs: HCenLayer[WTile]
   def sTerrs: HSideOptLayer[WSide]
-  //def sTerrsDepr: HSideBoolLayer
   val corners: HCornerLayer
   def title: String = "EScenBasic"
 }
