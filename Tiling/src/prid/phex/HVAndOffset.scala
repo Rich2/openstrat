@@ -9,6 +9,8 @@ class HVAndOffset(val int1: Int, val int2: Int, val int3: Int) extends Int3Elem
 
   inline def c: Int = int2
 
+  override def toString: String = "HVAndOffset".appendParenthSemis(int1.str, int2.str, hvDirn.toString, magnitude.toString)
+
   /** The [[HVert]]. */
   def vert: HVert = HVert(r, c)
 

@@ -30,6 +30,8 @@ class HCorner(val unsafeInt: Int) extends AnyVal
 {
   def numVerts: Int = unsafeInt %% 4
 
+  override def toString: String = "HCorner " + numVerts
+
   /** Returns the first, going clockwise and possibly only [[HVOffset]] of this corner */
   def v1(hVert: HVert): HVAndOffset =
   { val dirn = HVDirn.fromInt((unsafeInt %% 32) / 4)
@@ -60,16 +62,11 @@ class HCorner(val unsafeInt: Int) extends AnyVal
     case n  => excep(s"$n is an invalid value for offsets.")
   }
 
-  def sideVerts(hVert: HVert): HVAndOffsetArr = unsafeInt %% 4 match {
-    case 0 => HVAndOffsetArr(HVAndOffset.none(hVert))
-    case 1 | 2 => HVAndOffsetArr(v1(hVert))
+  def sideVerts(hVert: HVert): HVAndOffsetArr = HVAndOffsetArr(v1(hVert))
 
-    case 3 => {
-      val r1: HVAndOffset = v1(hVert)
-      val r2: HVAndOffset = v2(hVert)
-      deb("Its 3")
-      HVAndOffsetArr(r2, r1)
-    }
+  def sideVertsSpecial(hVert: HVert): HVAndOffsetArr = numVerts match
+  { case 0 | 1 | 2 => HVAndOffsetArr(v1(hVert))
+    case 3 => HVAndOffsetArr(v1(hVert), v2(hVert))
     case n => excep(s"$n is an invalid value for offsets.")
   }
 }
