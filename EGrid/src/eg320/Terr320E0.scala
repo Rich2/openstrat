@@ -36,7 +36,7 @@ object Terr320E0 extends Long320Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea, 143,507,  144,522,  145,521,  146,520,  147,517,  147,519)
+    res.setSomeInts(Sea, 143,507,  145,521,  146,520,  147,517,  147,519)
     res.setSomeInts(Sea, 139,509,  140,510,  141,507,  141,511,  142,508)
 
     res.setSomeInts(Sea, 129,507,  129,509,  129,511,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526)
@@ -50,17 +50,16 @@ object Terr320E0 extends Long320Terrs
     res.setVert0In(146, 518)//Oslo    /
     res.setVert1In(146, 518)//Gothenberg
     res.setVert4In(146, 522)//Copenhagen
-    res.setCornerIn(146, 522, 3)//Ystad
-    res.setCornerIn(144, 520, 1)//Stralsund
+    res.setMouth5OffGrid(144, 524)//Stralsund - Ystad
 
     res.setMouth1(140, 504)// St Georges Chanel
-    res.setVert2DR1UL(140, 508)//Bristol
-    res.setVert2UR1DL(144, 508)//Anglesea
+    res.setVert2In(142, 506)//Bristol
+    res.setVert1In(142, 506)//Anglesey
     res.setMouth2(144, 504)//Scotland Northern Ireland
 
     res.setMouth1(138, 506)// English Channel Atlantic end
-    res.setVert2DR1UL(138, 510)//Le Mont St Michelle
-    res.setVert2UL1DR(140, 508)// Southampton Le Havre
+    res.setVert2In(140, 508)//Le Mont St Michelle
+    res.setVert5In(140, 512)// Southampton Le Havre
     res.setMouth4(142, 514)// English Channel Dover
 
     res.setMouth3Corner(138, 526, 3)//Adriatic head
