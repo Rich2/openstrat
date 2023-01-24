@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package pzug
 import pgui._, prid._, phex._, geom._, Colour._, pStrat._
 
@@ -12,16 +12,18 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
   implicit val proj: HSysProjection = gridSys.projection(mainPanel)
   //proj.setView(viewIn)
 
-  val terrs: HCenLayer[ZugTerr] = scen.terrs
-  val sTerrs: HSideBoolLayer = scen.sTerrs
-  val active: RArr[PolygonActive] = proj.tileActives
-  val text: RArr[TextGraphic] = terrs.hcOptMap((t, hc) => proj.transOptCoord(hc).map(_.textAt(hc.rcStr, 14, t.contrastBW)))
+  def terrs: HCenLayer[ZugTerr] = scen.terrs
+  def sTerrs: HSideBoolLayer = scen.sTerrs
+  def active: RArr[PolygonActive] = proj.tileActives
+  def squads = scen.lunits
+  def text: RArr[TextGraphic] = terrs.hcOptMap((t, hc) => proj.transOptCoord(hc).map(_.textAt(hc.rcStr, 14, t.contrastBW)))
 
   def polyFills: RArr[PolygonFill] = terrs.projRowsCombinePolygons.map { pp => pp.a1.fill(pp.a2.colour) }
 
   def walls: GraphicElems = sTerrs.projTruesLineSegMap{ls => Rectangle.fromAxisRatio(ls, 0.3).fill(Colour.Gray) }
   val lines: RArr[LineSegDraw] = terrs.projLinksHsLineOptMap((hs, line, t1, t2) => ife(t1 == t2 & !sTerrs(hs), Some(line.draw(t1.contrastBW)), None))
-  def lunits: GraphicElems = scen.lunits.gridHeadsFlatMap{ (hc, squad) =>
+
+  def lunits: GraphicElems = squads.gridHeadsFlatMap{ (hc, squad) =>
     val uc = UnitCounters.infantry(1.2, HSquad(hc, squad), squad.colour).slate(hc.toPt2Reg)
 
     val actions: GraphicElems = squad.action match
@@ -31,6 +33,11 @@ case class ZugGui(canv: CanvasPlatform, scenIn: ZugScen) extends HGridSysGui("Zu
     }
     actions +% uc
   }
+
+  /*def units: GraphicElems = armies.projSomeHcPtMap { (army, hc, pt) =>
+    val str = ptScale.scaledStr(170, army.toString + "\n" + hc.strComma, 150, "A" + "\n" + hc.strComma, 60, army.toString)
+    pStrat.UnitCounters.infantry(proj.pixTileScale * 0.6, army, army.colour).slate(pt) //.fillDrawTextActive(p.colour, p.polity, str, 24, 2.0)
+  }*/
 
   mainMouseUp = (but: MouseButton, clickList, _) => (but, selected, clickList) match
   {
