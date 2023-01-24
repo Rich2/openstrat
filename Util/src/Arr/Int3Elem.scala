@@ -99,7 +99,7 @@ trait Int3ArrFlatBuilder[ArrB <: Int3Arr[_]] extends Int3SeqLikeCommonBuilder[Ar
 abstract class Int3SeqLikeCompanion[A <: Int3Elem, ArrA <: Int3SeqLike[A]] extends IntNSeqLikeCompanion[A, ArrA]
 { override def elemNumInts: Int = 3
 
-  /** Apply factory method. */
+  /** Apply factory method for constructing [[SeqLike]] objects from [[Int3Elem]]s. */
   final def apply(elems: A*): ArrA =
   { val arrLen: Int = elems.length * 3
     val res = uninitialised(elems.length)

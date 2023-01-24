@@ -50,44 +50,8 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     }
 
     def sides1: GraphicElems = proj.sidesOptMap { (hs: HSide) =>
-      sTerrs(hs).flatMap { st =>
-        hs.tile1Opt match
-        {
-          case None =>
-          { val (h2, vi) = hs.tile2AndVert
-            val p1 = corners.cornerV1(h2, vi)
-            val p2 = corners.cornerV1(h2, (vi - 1) %% 6)
-            val p3 = hs.vert2.noOffset
-            val p4 = hs.vert1.noOffset
-            val res1: PolygonHVAndOffset = PolygonHVAndOffset(p1, p2, p3, p4)
-            val res2: PolygonFill = res1.project(proj).fill(DarkBlue)
-            Some(res2)
-          }
-
-          case Some(h1) if hs.isVertical => {
-            val (h2, vi) = hs.tile2AndVert
-            val ps1 = corners.cornerForSideSpecial(h2, vi)
-            val ps2 = corners.cornerForSideSpecial(h2, (vi - 1) %% 6)
-            val ps3 = corners.cornerForSideSpecial(h1, (vi - 3) %% 6)
-            val ps4 = corners.cornerForSideSpecial(h1, (vi + 2) %% 6)
-            val ps = ps1 ++ ps2 ++ ps3 ++ ps4
-            val res3 = ps.toPolygon
-            val res4 = res3.project(proj).fill(DarkBlue)
-            Some(res4)
-          }
-
-          case Some(h1) =>
-          { val (h2, vi) = hs.tile2AndVert
-            val p1 = corners.cornerV1(h2, vi)
-            val p2 = corners.cornerV1(h2, (vi - 1) %% 6)
-            val p3 = corners.cornerV1(h1, (vi - 3) %% 6)
-            val p4 = corners.cornerV1(h1, (vi + 2) %% 6)
-            val res1: PolygonHVAndOffset = PolygonHVAndOffset(p1, p2, p3, p4)
-            val res2: PolygonFill = res1.project(proj).fill(DarkBlue)
-            Some(res2)
-          }
-        }
-      }
+      val sTerr: Option[WSide] = sTerrs(hs)
+      sTerr.map { st => corners.sideVerts(hs).project(proj).fill(st.colour) }
     }
 
     def lines1: GraphicElems = proj.linksOptMap{ hs =>
