@@ -7,7 +7,7 @@ trait DLessScen extends HSysTurnScen
 { def title: String = "DLessScen"
   val terrs: HCenLayer[WTile]
   val sTerrs: HSideOptLayer[WSide]
-  val offsets: HCornerLayer
+  val corners: HCornerLayer
   val armies: HCenOptLayer[Nation]
 }
 
@@ -26,7 +26,7 @@ object DLessScen1 extends DLessScen
 
   override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
   override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
-  override val offsets: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
   override val armies: HCenOptLayer[Nation] = gridSys.newHCenOptLayer
   armies.unsafeSetSames(Britain, 142,510,  144,508)
   armies.unsafeSetSames(Germany, 142,518)
@@ -47,6 +47,6 @@ object DLessScen2 extends DLessScen
 
   override val terrs: HCenLayer[WTile] = BritReg.britTerrs
   override val sTerrs: HSideOptLayer[WSide] = BritReg.britSTerrs
-  override val offsets: HCornerLayer = gridSys.newHVertOffsetLayer
+  override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
   override val armies: HCenOptLayer[Nation] = gridSys.newHCenOptLayer
 }

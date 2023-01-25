@@ -55,8 +55,6 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def lines1: GraphicElems = proj.linksOptMap{ hs =>
       val hc1 = hs.tile1
       val hc2 = hs.tile2
-      if (!gridSys.hCenExists(hc1)) excep(hc1.str + "Doesn't exist")
-      if (!gridSys.hCenExists(hc2)) excep(hc1.str + "Doesn't exist")
       val t1 = terrs(hc1)
       def t2 = terrs(hs.tile2)
       if (sTerrs(hs).nonEmpty | t1 != t2) None
