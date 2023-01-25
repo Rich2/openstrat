@@ -19,9 +19,9 @@ object Terr320E60 extends Long320Terrs
     wr(146, forest * 2, taiga * 3)
     wr(144, forest * 5)
     wr(142, plain * 6)
-    wr(140, plain * 6)
-    wr(138, plain * 7)
-    wr(136, sea * 2, desert * 5)
+    wr(140, plain * 2, desert * 3, plain)
+    wr(138, plain, desert * 6)
+    wr(136, sea, desert * 6)
     wr(134, sea, desert * 5, mtain)
     wr(132, mtain, sea, desert * 3, mtain * 2)
     wr(130, mtain, sea, desert * 4, mtain * 2)
@@ -33,11 +33,23 @@ object Terr320E60 extends Long320Terrs
     res
   }
 
-  override val sTerrs: HSideOptLayer[WSide] = {
-    val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
-    res.setSomeInts(Sea,  121,2555,  121,2557,  123,2547)
+  override val sTerrs: HSideOptLayer[WSide] =
+  { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+    res.setSomeInts(Sea, 137, 2551)
+    res.setSomeInts(Sea, 154,2552, 155,2553)
+    res.setSomeInts(Sea, 121,2555,  121,2557,  123,2547)
     res
   }
 
-  override val corners: HCornerLayer = grid.newHVertOffsetLayer
+  override val corners: HCornerLayer =
+  { val res: HCornerLayer = grid.newHVertOffsetLayer
+
+    res.setCorner(154, 2554, 5, HVDR)//White Sea mouth
+    res.setCorner(154, 2554, 4, HVDR)//White Sea mouth
+
+    res.setMouth1(136, 2548)//Caspian Sea north east
+    res.setMouth4(138, 2554)//Caspian Sea north east
+    res
+  }
+
 }

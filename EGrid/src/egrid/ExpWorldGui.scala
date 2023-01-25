@@ -43,9 +43,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
 
     def rcTexts2: GraphicElems = proj.ifTileScale(82, rcTexts1)
 
-    //def tiles: RArr[PolygonFill] = gridSys.optMap{ hc => proj.transTile(hc).map(poly => poly.fill(terrs(hc).colour)) }
-
-    def tiles2: RArr[PolygonFill] = gridSys.map { hc =>
+    def tiles: RArr[PolygonFill] = gridSys.map { hc =>
       corners.tilePoly(hc).map { hvo => hvo.toPt2Reg(proj.transCoord(_)) }.fill(terrs(hc).colour)
     }
 
@@ -83,7 +81,7 @@ class ExpWorldGui(val canv: CanvasPlatform, scenIn: EScenBasic, viewIn: HGView, 
     def irrLines: GraphicElems = ifGlobe{ ep => ep.irrLines2 }
     def irrNames: GraphicElems = ifGlobe{ ep => ep.irrNames2 }
 
-    seas ++ irrFills ++ irrNames ++ tiles2  ++ sides1 ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
+    seas ++ irrFills ++ irrNames ++ tiles  ++ sides1 ++ lines2/* +% outerLines&*/ ++ rcTexts2 ++ irrLines
   }
   def repaint(): Unit = mainRepaint(frame)
   def thisTop(): Unit = reTop(proj.buttons)
