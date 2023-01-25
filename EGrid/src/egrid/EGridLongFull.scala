@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package egrid
 import geom._, pglobe._, prid._, phex._
 
@@ -7,11 +7,12 @@ abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, 
   EGridLong(rBottomCen, longGridIndex, cScale, rOffset,
     EGridLongFull.getBounds(rBottomCen, rTopCen, rOffset, (longGridIndex %% 12) * 1024 + 512, cScale))
 {
-  override def hCoordLL(hc: HCoord): LatLong = hc.c match {
+  override def hCoordLL(hc: HCoord): LatLong = hc.c match
+  {
     case _ if hc.isCen => hCoordMiddleLL(hc)
 
-    case c if c == rowRightCoordC(hc.r, c) => {
-      val rt = hCoordMiddleLL(hc)
+    case c if c == rowRightCoordC(hc.r, c) =>
+    { val rt = hCoordMiddleLL(hc)
       val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, c)))
       val rtLong = rt.longMilliSecs
       val ltLong = (lt.long + 30.east).milliSecs
@@ -19,8 +20,8 @@ abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, 
       LatLong.milliSecs(rt.latMilliSecs, longMilliSecs)
     }
 
-    case c if c == rowLeftCoordC(hc.r, c) => {
-      val lt = hCoordMiddleLL(hc)
+    case c if c == rowLeftCoordC(hc.r, c) =>
+    { val lt = hCoordMiddleLL(hc)
       val rt = hCoordMiddleLL(HCoord(hc.r, rowRightCoordC(hc.r, c)))
       val ltLong = lt.longMilliSecs
       val rtLong = (rt.long - 30.east).milliSecs
@@ -43,8 +44,7 @@ object EGridLongFull
     val margin = 15 - hexDelta
 
     def loop(cAcc: Int): (Int, Int) =
-    {
-      val longDegsAcc: Double = EGridLong.cDelta(r - rOffset, cAcc, cScale)
+    { val longDegsAcc: Double = EGridLong.cDelta(r - rOffset, cAcc, cScale)
       val overlapRatio = (longDegsAcc - margin) / hexDelta
       val res: (Int, Int) = longDegsAcc match {
         case lds if (lds < margin) => loop(cAcc + 4)
