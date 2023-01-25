@@ -49,23 +49,23 @@ object Terr320E30 extends Long320Terrs
     res.setMouth4(138, 1546)//Rostov north west Azov sea
     res.setMouth2(138, 1538)
 
-    res.setMouth0(128, 1524)//Greece Italy
-    res.setVert2UL1DR(130, 1522)
-    res.setVert2DR1UL(130, 1526)
-    res.setVert2UR1DL(134, 1526)//Adriatic
-    res.setCornerIn(134, 1526, 4)
-    res.setCorner(134, 1526, 5, HVUR)
-    res.setCorner(136, 1524, 3, HVUR)
-    res.setCornerIn(136, 1524, 4)
     res.setCornerIn(136, 1524, 5)//Adriatic head
+    res.setCornerIn(136, 1524, 4)//Adriatic San Marino
+    res.setCorner(136, 1524, 3, HVUR)//Adriatic
+    res.setCorner(134, 1526, 5, HVUR)//Adriatic
+    res.setCornerIn(134, 1526, 4)//Adriatic
+    res.setCorner(132, 1524, 0, HVDL)//Adriatic
+    res.setVert1In(132, 1524)//Adriatic
+    res.setVert2In(132, 1524)//Adriatic
+    res.setVert5In(130, 1526)//Adriatic
+    res.setMouth0(128, 1524)//Greece Italy
 
-    res.setMouth3(134, 1530)
+    res.setMouth3(134, 1530)//Aegean north head
     res.setMouth0(130, 1530)//Aegean north
 
-
     res.setMouth1(130, 1530)//Gallipoli
-    res.setVert2DR1UL(130, 1534)//Dardanelles
-    res.setVert2UL1DR(132, 1532)
+    res.setVert2In(132, 1532)//Dardanelles
+    res.setVert5In(132, 1536)//Sea of Marmara
     res.setMouth4(134, 1538)//Constantinople
 
     res

@@ -62,15 +62,16 @@ object Terr320E0 extends Long320Terrs
     res.setVert5In(140, 512)// Southampton Le Havre
     res.setMouth4(142, 514)// English Channel Dover
 
-    res.setMouth3Corner(138, 526, 3)//Adriatic head
-    res.setCornerIn(136, 524, 1)
-    res.setCorner(136, 524, 2, HVDL)//Adriatic
-    res.setCorner(134, 526, 0, HVDL)//Adriatic
+    res.setMouth3Corner(138, 526)//Adriatic head
+    res.setCornerIn(136, 524, 1)//Adriatic head
+    res.setCorner(136, 524, 2, HVDL)//Adriatic San Marino
+    res.setCorner(134, 526, 0, HVDL)//Adriatic San Marino
     res.setCornerIn(134, 526, 1)//Adriatic
+    res.setCorner(134, 526, 2, HVDL)//Adriatic
 
     res.setMouth1(128, 504)//Gibraltar
-    res.setVert2Up1Dn(130, 506)//South Spain
-    res.setVert2Dn1Up(128, 508)//South Spain
+    res.setVert0In(128, 508)//South Spain
+    res.setVert3In(130, 510)//South Spain
     res.setMouth4(130, 514)//East end of Gibraltar Straits
 
     res.setMouth2(130, 522)//Tunis Sicily west
