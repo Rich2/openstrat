@@ -35,7 +35,8 @@ object Terr320E30 extends Long320Terrs
     res.setSomeInts(Sea, 153,1537,  153,1543,  154,1544,  155,1543)
     res.setSomeInts(Lake, 149, 1537)
     res.setSomeInts(Sea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
-    res.setSomeInts(Sea, 130, 1520,  130,1524,  131,1521,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
+    res.setSomeInts(Sea, 130,1520,  130,1524,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
+    //res.setSomeInts(Lake,  131,1521)
     res
   }
 

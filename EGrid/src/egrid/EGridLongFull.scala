@@ -11,6 +11,8 @@ abstract class EGridLongFull(rBottomCen: Int, rTopCen: Int, longGridIndex: Int, 
   {
     case _ if hc.isCen => hCoordMiddleLL(hc)
 
+    //case c if hc.r.div4Rem3 & c.div4Rem2 => hCoordMiddleLL(hc)
+
     case c if c == rowRightCoordC(hc.r, c) =>
     { val rt = hCoordMiddleLL(hc)
       val lt = hCoordMiddleLL(HCoord(hc.r, rowLeftCoordC(hc.r, c)))

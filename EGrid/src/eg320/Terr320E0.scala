@@ -41,7 +41,9 @@ object Terr320E0 extends Long320Terrs
 
     res.setSomeInts(Sea, 133,521,  134,524,  135,521,  135,523)
 
-    res.setSomeInts(Sea, 129,507,  129,509,  129,511,  129,525,  130,528,  131,527,  134,528,  135,527,  136,526)
+    res.setSomeInts(Lake, 130,528)
+
+    res.setSomeInts(Sea, 129,507,  129,509,  129,511,  129,525,  131,527,  134,528,  135,527,  136,526)
     res
   }
 
@@ -69,7 +71,7 @@ object Terr320E0 extends Long320Terrs
     res.setVert1In(134, 522)
     res.setMouth0(132, 524)
     res.setMouth2(134, 518)//Corsica
-    res.setMouth5(132, 524)//Corsica
+   res.setMouth5(132, 524)//Corsica
 
     res.setMouth3Corner(138, 526)//Adriatic head
     res.setCornerIn(136, 524, 1)//Adriatic head
@@ -78,16 +80,18 @@ object Terr320E0 extends Long320Terrs
     res.setCornerIn(134, 526, 1)//Adriatic
     res.setCorner(134, 526, 2, HVDL)//Adriatic
 
+    //res.setCorner(132, 524, 2, HVUL)
     res.setCornerIn(130, 526, 2)
     res.setCorner2(128, 528, 0, HVUL, HVUR)
+
 
     res.setMouth1(128, 504)//Gibraltar
     res.setVert0In(128, 508)//South Spain
     res.setVert3In(130, 510)//South Spain
     res.setMouth4(130, 514)//East end of Gibraltar Straits
 
-    res.setMouth2(130, 522)//Tunis Sicily west
-    res.setMouth5(128, 528)//Tunis Sicily east
+    res.setMouth2(130, 522) //Tunis Sicily west
+    res.setMouth5(128, 528) //Tunis Sicily east
 
     res
   }

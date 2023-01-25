@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
 import geom._, reflect.ClassTag
 
@@ -62,8 +62,8 @@ trait HGrid extends Any with TGrid with HGridSys
   /** The end (or by default right) column number of the tile centre of the given row. */
   def rowRightCenC(row: Int): Int
 
-  /** The end (or by default right) column number of the hex coordinate row. So note that for the pruposes of this method 2, 2 is not considered to be
-   * in the smae row as 2, 1 and 2, 3, although they have the same c number. Similarly Cen 2, 2 is not condsidered to be in the same row as sides 2, 0
+  /** The end (or by default right) column number of the hex coordinate row. So note that for the purposes of this method 2, 2 is not considered to be
+   * in the smae row as 2, 1 and 2, 3, although they have the same c number. Similarly Cen 2, 2 is not considered to be in the same row as sides 2, 0
    * and 2, 6. */
   def rowRightCoordC(row: Int, c: Int): Int = (row %% 4, c %% 4) match
   { //sides
