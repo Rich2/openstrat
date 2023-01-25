@@ -249,23 +249,34 @@ class HCornerLayer(val unsafeArray: Array[Int])
       PolygonHVAndOffset(p1, p2, p3, p4)
     }
 
-    case Some(h1) if hs.isVertical =>
-    { val (h2, vi) = hs.tile2AndVert
-      val ps1 = cornerForSideSpecial(h2, vi)
-      val ps2 = cornerForSideSpecial(h2, (vi - 1) %% 6)
-      val ps3 = cornerForSideSpecial(h1, (vi - 3) %% 6)
-      val ps4 = cornerForSideSpecial(h1, (vi + 2) %% 6)
-      val ps = ps1 ++ ps2 ++ ps3 ++ ps4
-      ps.toPolygon
-    }
+    case Some(h1) => hs.tile2Opt match {
+      case None => {
+        val (h1, vi) = hs.tile1AndVert
+        val p1 = hs.vert1.noOffset
+        val p2 = hs.vert2.noOffset
+        val p3 = cornerV1(h1, (vi + 1) %% 6)
+        val p4 = cornerV1(h1, vi)
+        PolygonHVAndOffset(p1, p2, p3, p4)
+      }
 
-    case Some(h1) =>
-    { val (h2, vi) = hs.tile2AndVert
-      val p1 = cornerV1(h2, vi)
-      val p2 = cornerV1(h2, (vi - 1) %% 6)
-      val p3 = cornerV1(h1, (vi - 3) %% 6)
-      val p4 = cornerV1(h1, (vi + 2) %% 6)
-      PolygonHVAndOffset(p1, p2, p3, p4)
+      case Some(h2) if hs.isVertical => {
+        val (h2, vi) = hs.tile2AndVert
+        val ps1 = cornerForSideSpecial(h2, vi)
+        val ps2 = cornerForSideSpecial(h2, (vi - 1) %% 6)
+        val ps3 = cornerForSideSpecial(h1, (vi - 3) %% 6)
+        val ps4 = cornerForSideSpecial(h1, (vi + 2) %% 6)
+        val ps = ps1 ++ ps2 ++ ps3 ++ ps4
+        ps.toPolygon
+      }
+
+      case Some(h2) => {
+        val (h2, vi) = hs.tile2AndVert
+        val p1 = cornerV1(h2, vi)
+        val p2 = cornerV1(h2, (vi - 1) %% 6)
+        val p3 = cornerV1(h1, (vi - 3) %% 6)
+        val p4 = cornerV1(h1, (vi + 2) %% 6)
+        PolygonHVAndOffset(p1, p2, p3, p4)
+      }
     }
   }
 }

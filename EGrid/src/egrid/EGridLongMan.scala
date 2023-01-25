@@ -106,6 +106,7 @@ case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
     array
   }
 
+  /** Returns a c of 0, if the row doesn't exist. */
   override def sideTile1(hSide: HSide): HCen =
   { val hCen1 = hSide.tile1Reg
     if (grid.hCenExists(hCen1)) hCen1
@@ -118,7 +119,7 @@ case class EGridLongMan(thisInd: Int, sys: EGridLongMulti) extends EGridMan
         case sr => sr - 1//These are down and to the left.
       }
 
-      val c = sys.grids(gi).rowRightCenC(cenR)
+      val c = ife(cenR > grid.topCenR | cenR < grid.bottomCenR, 0, sys.grids(gi).rowRightCenC(cenR))
       HCen(cenR, c)
     }
   }
