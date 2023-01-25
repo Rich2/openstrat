@@ -6,8 +6,8 @@ import prid._, phex._, pEarth._
 trait EScenBasic extends HSysScen
 { override def gridSys: EGridSys
 
-  def terrs: HCenLayer[WTile]
-  def sTerrs: HSideOptLayer[WSide]
+  val terrs: HCenLayer[WTile]
+  val sTerrs: HSideOptLayer[WSide]
   val corners: HCornerLayer
   def title: String = "EScenBasic"
 }

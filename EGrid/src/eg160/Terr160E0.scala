@@ -51,7 +51,7 @@ object Brit160
   def britScen: EScenBasic = new EScenBasic {
     override implicit val gridSys: EGrid160LongPart = EGrid160.britGrid
     override val terrs: HCenLayer[WTile] = britTerrs
-    override def sTerrs: HSideOptLayer[WSide] = britSTerrs
+    override val sTerrs: HSideOptLayer[WSide] = britSTerrs
     override val corners: HCornerLayer = gridSys.newHVertOffsetLayer
   }
 }

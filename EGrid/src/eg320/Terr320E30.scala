@@ -11,7 +11,7 @@ object Terr320E30 extends Long320Terrs
     def gs(r: Int, cStart: Int, tileValues: Multiple[WTile]*): Unit = { res.toEndRow(r, cStart, tileValues :_*); () }
     def wr(r: Int, tileValues: Multiple[WTile]*): Unit = { res.completeRow(r, tileValues :_*); () }
     gs(156, 1532, taiga * 2, sea)
-    gs(154, 1530, taiga * 3, sea)
+    gs(154, 1530, taiga * 4)
     gs(152, 1536, taiga, sea, taiga)
     gs(150, 1534, taiga * 3)
     gs(148, 1528, taiga, sea, taiga * 3)
@@ -32,6 +32,7 @@ object Terr320E30 extends Long320Terrs
 
   override val sTerrs: HSideOptLayer[WSide] =
   { val res: HSideOptLayer[WSide] = grid.newSideOpts[WSide]
+    res.setSomeInts(Lake, 149, 1537)
     res.setSomeInts(Sea, 133,1525,  133,1535,  134,1524,  135,1523,  136,1522,  136,1542,  137,1541,  137,1543)
     res.setSomeInts(Sea, 130, 1520,  130,1524,  131,1521,  131,1525,  131,1533,  132,1534,  132,1526,  132,1530)
     res
@@ -39,6 +40,9 @@ object Terr320E30 extends Long320Terrs
 
   override val corners: HCornerLayer =
   { val res = grid.newHVertOffsetLayer
+
+    res.setMouth2(150, 1534)
+    res.setMouth5(148, 1540)
 
     res.setMouth5Corner(144, 1528)
 

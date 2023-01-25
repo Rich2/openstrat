@@ -12,7 +12,7 @@ object WW1Scen1 extends WW1Scen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid160LongFull = Terr160E0.grid
   override val terrs: HCenLayer[WTile] = Terr160E0.terrs
-  override def sTerrs: HSideOptLayer[WSide] = Terr160E0.sTerrs
+  override val sTerrs: HSideOptLayer[WSide] = Terr160E0.sTerrs
   override val corners: HCornerLayer = Terr160E0.corners
   override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
   armies.unsafeSetSome(280, 516, Army(Britain))
@@ -23,7 +23,7 @@ object WW1Scen2 extends WW1Scen
 { override def turn: Int = 0
   override implicit def gridSys: EGrid160LongFull = Terr160E30.grid
   override val terrs: HCenLayer[WTile] = Terr160E30.terrs
-  override def sTerrs: HSideOptLayer[WSide] = Terr160E30.sTerrs
+  override val sTerrs: HSideOptLayer[WSide] = Terr160E30.sTerrs
   override val corners: HCornerLayer = Terr160E30.corners
   override val armies: HCenOptLayer[Army] = gridSys.newHCenOptLayer[Army]
 }

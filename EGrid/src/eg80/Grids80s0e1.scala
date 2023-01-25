@@ -20,7 +20,7 @@ object Grids80s0e1 extends EGrid80LongMulti
 
 object Scen80s0s1 extends EScenLongMulti//Depr
 { override implicit val gridSys: EGrid80LongMulti = Grids80s0e1
-  override def terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
-  override def sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
+  override val terrs: HCenLayer[WTile] = fullTerrsHCenLayerSpawn
+  override val sTerrs: HSideOptLayer[WSide] = fullTerrsSideOptLayerSpawn
   override val corners: HCornerLayer = fullTerrsCornerLayerSpawn
 }

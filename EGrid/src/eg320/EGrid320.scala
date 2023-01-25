@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package eg320
-import prid.phex._, egrid._, pEarth._
+import egrid._
 
 /** object for creating earth grids with 320km hexs, with a c scale of 80km. */
 object EGrid320
