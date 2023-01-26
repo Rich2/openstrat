@@ -30,8 +30,6 @@ trait HGridMan
   /** Gives the index into an [[HSide]] data layer's backing [[Array]]. */
   def sideArrIndex(r: Int, c : Int): Int
 
-  lazy val sideIndexStart: Int =
-    ife(thisInd == 0, 0, sys.gridMans(thisInd - 1).sideIndexStart + sys.gridMans(thisInd - 1).numSides)
 
   /** Foreach's over sides of the [[HGrid]] that are links ar inner sides within the [[HGridSys]]. Note this wil include all the links of the
    * [[HGrid]] plus outer sides of the [[HGrid]] that link to hexs in other [[HGrid]]s within the system. */
