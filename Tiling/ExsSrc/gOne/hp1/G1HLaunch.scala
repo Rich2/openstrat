@@ -17,8 +17,8 @@ object G1HLaunch extends GuiLaunchMore
       case 2 => G1HScen2
       case 3 => G1HScen3
       case 4 => G1HScen4
-      case 5 => G1HScen5
-      case 6 => G1HScen6
+     // case 5 => G1HScen5
+    //  case 6 => G1HScen6
       case 7 => G1HScen7
       case 8 => G1HScen8
       case 9 => G1HScen9

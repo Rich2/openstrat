@@ -44,27 +44,6 @@ object G1HScen4 extends H1Scen
   oPlayers.unsafeSetSomes((4, 4, PlayerA), (8, 4, PlayerB), (6, 6, PlayerC))
 }
 
-object G1HScen5 extends H1Scen
-{ import pduo._
-  override def turn: Int = 0
-  override implicit val gridSys: HGridsDuo = HGridsDuo(2, 8, 2, 6, 100, 104)
-  val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
-  oPlayers.unsafeSetSome(4, 4, PlayerA)
-  oPlayers.unsafeSetSome(6, 102, PlayerB)
-  oPlayers.unsafeSetSome(8, 100, PlayerC)
-}
-
-object G1HScen6 extends H1Scen
-{ import pduo._
-  override def turn: Int = 0
-  implicit val gridSys: HGridSys = HGridsDuo(4, 10, 2, 6, 100, 106)
-  val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
-  oPlayers.unsafeSetSome(4, 4, PlayerA)
-  oPlayers.unsafeSetSome(6, 102, PlayerB)
-  oPlayers.unsafeSetSome(10, 102, PlayerC)
-}
-
-
 /** 8th example Turn 0 scenario state for Game One. An empty regular grid containing no hex tiles. */
 object G1HScen8 extends H1Scen
 { override def turn: Int = 0

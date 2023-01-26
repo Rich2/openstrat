@@ -1,4 +1,4 @@
-/* Copyright 2018-22 Richard Oliver. Licensed under Apache Licence version 2.0. */
+/* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package gTwo; package h2p
 import prid._, phex._, gPlay._, gOne.hp1.GSys
 
@@ -36,38 +36,4 @@ object G2HScen4 extends G2HScen
   val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
   oPlayers.unsafeSetSome(4, 4, PlayerA)
   oPlayers.unsafeSetSomes((4, 8, PlayerB), (6, 10, PlayerC))
-}
-
-object G2HScen5 extends G2HScen
-{ import pduo._
-  override def turn: Int = 0
-  implicit val gridSys: HGridSys = HGridsDuo(2, 8, 2, 6, 100, 104)
-  val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
-  oPlayers.unsafeSetSome(4, 4, PlayerA)
-  oPlayers.unsafeSetSome(6, 102, PlayerB)
-  oPlayers.unsafeSetSome(8, 100, PlayerC)
-}
-
-object G2HScen6 extends G2HScen
-{ import pduo._
-  override def turn: Int = 0
-  implicit val gridSys: HGridSys = HGridsDuo(4, 10, 2, 6, 100, 106)
-  val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
-  oPlayers.unsafeSetSome(4, 4, PlayerA)
-  oPlayers.unsafeSetSome(6, 102, PlayerB)
-  oPlayers.unsafeSetSome(10, 102, PlayerC)
-}
-
-object G2HScen7 extends G2HScen
-{ import pduo._
-  override def turn: Int = 0
-  implicit val gridSys: HGridSys = HGridsDuo(4, 10, 2, 6, 100, 106)
-  val oPlayers: HCenOptLayer[Player] = gridSys.newHCenOptLayer
-  oPlayers.unsafeSetSome(4, 4, PlayerA)
-  oPlayers.unsafeSetSome(6, 102, PlayerB)
-  oPlayers.unsafeSetSome(10, 102, PlayerC)
-
-  override def playerOrders: HDirnPathPairArr[Player] = HDirnPathPairArr[Player](PlayerA.hPath(4, 4, HexDR, HexRt),
-    PlayerB.hPath(6, 102, HexDL, HexRt), PlayerC.hPath(10, 102, HexLt, HexDR, HexDL)
-  )
 }
