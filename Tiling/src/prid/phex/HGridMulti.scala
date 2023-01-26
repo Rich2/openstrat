@@ -1,6 +1,6 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import geom._, reflect.ClassTag
+import reflect.ClassTag
 
 /** A system of multiple [[HGrid]]s. */
 trait HGridMulti extends HGridSys with TGridMulti
@@ -9,10 +9,6 @@ trait HGridMulti extends HGridSys with TGridMulti
   type ManT <: HGridMan
   def gridMans: RArr[ManT]
   def numGrids: Int = gridMans.length
-
-  override def flatHCoordToPt2(hCoord: HCoord): Pt2 = unsafeGetManFunc(hCoord){m => m.grid.flatHCoordToPt2(hCoord) + m.offset }
-
-  override def coordCen: HCoord = grids(numGrids / 2).coordCen
 
   /** Finds the most appropriate [[HGridMan]] for the [[HCoord]] or returns [[None]]. */
   def getMan(hc: HCoord): Option[ManT] = getMan(hc.r, hc.c)
@@ -49,8 +45,6 @@ trait HGridMulti extends HGridSys with TGridMulti
     acc
   }
 
-  override def rowsCombine[A <: AnyRef](layer: HCenLayer[A], indexingGSys: HGridSys): RArr[HCenRowPair[A]] = grids.flatMap(_.rowsCombine(layer, this))
-
   final override def hCenExists(r: Int, c: Int): Boolean = getMan(r, c).fold(false)(_.grid.hCenExists(r, c))
 
   override def sideTile1(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTile1(hSide))
@@ -70,13 +64,6 @@ trait HGridMulti extends HGridSys with TGridMulti
   override def unsafeStepEnd(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
   def hCenSteps(hCen: HCen): HStepArr = unsafeGetManFunc(hCen)(_.hCenSteps(hCen))
   final override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
-
-  /*lazy val gridIndexArray: Array[Int] =
-  { val res = new Array[Int](numGrids)
-    var acc = 0
-    grids.iForeach{(i, g) => res(i) = acc; acc += g.numTiles }
-    res
-  }*/
 
   override def layerArrayIndex(r: Int, c: Int): Int ={
     val ind = unsafeGetManFunc(r, c){ man => man.indexStart + man.grid.layerArrayIndex(r, c) }
