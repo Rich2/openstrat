@@ -2,6 +2,7 @@
 package ostrat; package eg320
 import pEarth._, prid._, phex._, WTile._
 
+/** 320km hex terrain centred on 30 west. */
 object Terr320W30 extends Long320Terrs
 {
   override implicit val grid: EGrid320LongFull = EGrid320.w30(124)
