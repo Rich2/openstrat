@@ -1,6 +1,5 @@
 /* Copyright 2018-23 Richard Oliver. Licensed under Apache Licence version 2.0. */
 package ostrat; package prid; package phex
-import reflect.ClassTag
 
 /** A system of multiple [[HGrid]]s. */
 trait HGridMulti extends HGridSys with TGridMulti
@@ -35,24 +34,7 @@ trait HGridMulti extends HGridSys with TGridMulti
   def gridMansMap[A, AA <: Arr[A]](f: ManT => A)(implicit build: ArrMapBuilder[A, AA]): AA = gridMans.map(f)
   def gridMansFlatMap[AA <: Arr[_]](f: ManT => AA)(implicit build: ArrFlatBuilder[AA]): AA = gridMans.flatMap(f)
 
-  def gridMansFold[B](initValue: B)(f: (B, ManT) => B): B = gridMans.foldLeft(initValue)(f)
-  inline def gridMansFold[B](f: (B, ManT) => B)(implicit ev: DefaultValue[B]): B = gridMansFold(ev.default)(f)
-  def gridMansSum(f: ManT => Int): Int = gridMansFold(0)((acc, el) => acc + f(el))
 
-  def gridNumsFold[B](initValue: B)(f: (B, Int) => B): B =
-  { var acc: B = initValue
-    gridNumForeach{ el => acc = f(acc, el) }
-    acc
-  }
-
-  final override def hCenExists(r: Int, c: Int): Boolean = getMan(r, c).fold(false)(_.grid.hCenExists(r, c))
-
-  override def sideTile1(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTile1(hSide))
-
-  override def sideTile2(hSide: HSide): HCen = unsafeGetManFunc(hSide.r, hSide.c)(_.sideTile2(hSide))
-
-  override def adjTilesOfTile(tile: HCen): HCenArr = unsafeGetManFunc(tile)(_.adjTilesOfTile(tile))
-  //override def numTiles: Int = grids.sumBy(_.numTiles)
   override def foreach(f: HCen => Unit): Unit = grids.foreach(_.foreach(f))
   override def iForeach(f: (HCen, Int) => Unit): Unit = iForeach(0)(f)
 
@@ -64,66 +46,4 @@ trait HGridMulti extends HGridSys with TGridMulti
   override def unsafeStepEnd(startCen: HCen, step: HStep): HCen = HCen(startCen.r + step.tr, startCen.c + step.tc)
   def hCenSteps(hCen: HCen): HStepArr = unsafeGetManFunc(hCen)(_.hCenSteps(hCen))
   final override def findStep(startHC: HCen, endHC: HCen): Option[HStep] = unsafeGetManFunc(startHC)(_.findStep(startHC, endHC))
-
-  override def layerArrayIndex(r: Int, c: Int): Int ={
-    val ind = unsafeGetManFunc(r, c){ man => man.indexStart + man.grid.layerArrayIndex(r, c) }
-    if (ind < 0) {
-      deb(s"r = $r, c = $c gives an array index of $ind, substiuting 0.")
-      0
-    }
-    else ind
-  }
-
-  /** Temporary implementation. */
-  final override def sideLayerArrayIndex(r: Int, c: Int): Int = unsafeGetManFunc(r, c){ man => man.sideIndexStart + man.sideArrIndex(r, c) }
-
-  /** Finds step from Start [[HCen]] to target from [[HCen]]. */
-  override def findStepEnd(startHC: HCen, step: HStep): Option[HCen] = unsafeGetManFunc(startHC)(_.findStepEnd(startHC, step))
-
-  override def defaultView(pxScale: Double = 30): HGView = grids(grids.length / 2).defaultView(pxScale)
-  override final def sidesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.sidesForeach(f))
-  override final def linksForeach(f: HSide => Unit): Unit = gridMans.foreach(_.linksForeach(f))
-  override final def edgesForeach(f: HSide => Unit): Unit = gridMans.foreach(_.outerSidesForeach(f))
-
-  def sideBoolsFromGrids[A <: AnyRef](sideLayers: RArr[HSideBoolLayer]): HSideBoolLayer =
-  { val res = newSideBools
-    gridMansForeach{ m =>
-      m.sidesForeach{ hs =>
-        val dGrid: HSideBoolLayer = sideLayers(m.thisInd)
-        val value: Boolean = dGrid.apply(hs)(m.grid)
-        res.set(hs, value)(ThisMulti)
-      }
-    }
-    res
-  }
-
-  def sideOptsFromPairsSpawn[A <: AnyRef](sidePairs: RArr[(HGrid, HSideOptLayer[A])])(implicit ct: ClassTag[A]): HSideOptLayer[A] =
-  {
-    val res = newSideOpts[A]
-    gridMansForeach { m =>
-      val pair = sidePairs(m.thisInd)
-      val origGrid = pair._1
-      val lay: HSideOptLayer[A] = pair._2
-      m.sidesForeach { hs =>
-        val value: A = lay.unsafeApply(hs)(origGrid)
-        res.set(ThisMulti, hs, value)
-      }
-    }
-    res
-  }
-
-
-  def sideBoolsFromPairsSpawn(sidePairs: RArr[(HGrid, HSideBoolLayer)]): HSideBoolLayer =
-  { val res = newSideBools
-    gridMansForeach { m =>
-      val pair = sidePairs(m.thisInd)
-      val origGrid = pair._1
-      val lay: HSideBoolLayer = pair._2
-      m.sidesForeach { hs =>
-        val value: Boolean = lay(hs)(origGrid)
-        res.set(hs, value)(ThisMulti)
-      }
-    }
-    res
-  }
 }
